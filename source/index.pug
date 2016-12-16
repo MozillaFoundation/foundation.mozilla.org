@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='TODO')
+
+    meta(property='og:type', content='website')
+    meta(property='og:site_name', content='TODO')
+    meta(property='og:locale', content='en_US')
+    meta(property='og:url', content='TODO')
+    meta(property='og:image', content='TODO')
+    meta(property='og:title', content='TODO')
+    meta(property='og:description', content='TODO')
+
+    link(rel='stylesheet', href='css/main.compiled.css')
+    link(rel='stylesheet', href='//code.cdn.mozilla.net/fonts/fira.css')
+    link(rel='icon', href='images/favicon.png')
+
+    title Mozilla Leadership Network
+  body
+    header.container
+      img(src='/images/mozilla-wordmark.svg', style='background: #ccc;')
+      h1 Mozilla Leadership Network
+      include:markdown markdown/example-partial.md
+
+    .container
+      .row
+        .col-xs-4 Column 1
+        .col-xs-4 Column 2
+        .col-xs-4 Column 3
+
+  footer

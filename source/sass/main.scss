@@ -1,0 +1,30 @@
+@import '../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap';
+@import '../../node_modules/mofo-bootstrap/src/scss/custom/_colors';
+@import '../../node_modules/bootstrap/scss/_variables.scss';
+
+// Breakpoints (imported from Bootstrap)
+
+$bp-xs: #{map-get($grid-breakpoints, xs)}; // < 544px
+$bp-sm: #{map-get($grid-breakpoints, sm)}; // >= 544px
+$bp-md: #{map-get($grid-breakpoints, md)}; // >= 768px
+$bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
+$bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
+
+// Resets & Primitives
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+// Utility Classes
+
+// Custom Components

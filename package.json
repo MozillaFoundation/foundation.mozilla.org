@@ -1,0 +1,50 @@
+{
+  "name": "Mozilla Leadership Network",
+  "version": "1.0.0",
+  "description": "Mozilla Leadership Network",
+  "scripts": {
+    "autoprefix": "node scripts/autoprefix.js",
+    "build:folders": "shx mkdir -p dest/css",
+    "build:pug": "node scripts/build-pug.js",
+    "build:sass": "node-sass source/sass/main.scss dest/css/main.compiled.css && npm run autoprefix",
+    "build": "shx rm -rf dest && npm run build:folders && npm run build:pug && npm run build:sass && npm run copy:images",
+    "copy:images": "shx rm -rf dest/images && shx cp -r source/images dest/images",
+    "deploy": "node scripts/deploy.js",
+    "server": "live-server ./dest --port=2017",
+    "stage": "npm i && node scripts/stage.js",
+    "start": "npm i && npm run build && npm-run-all --parallel server watch:**",
+    "test:pug": "pug-lint source/index.pug",
+    "test": "npm-run-all test:**",
+    "watch:images": "chokidar 'source/images/*' -c 'npm run copy:images'",
+    "watch:markdown": "chokidar 'source/markdown/**/*.md' -c 'npm run build:pug'",
+    "watch:pug": "chokidar 'source/index.pug' -c 'npm run build:pug'",
+    "watch:sass": "chokidar 'source/sass/main.scss' -c 'npm run build:sass'"
+  },
+  "author": "Mozilla",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "autoprefixer": "^6.2.3",
+    "chokidar-cli": "^1.2.0",
+    "jstransformer-markdown": "^1.1.0",
+    "live-server": "^1.1.0",
+    "node-sass": "^3.4.2",
+    "npm-run-all": "^3.1.1",
+    "postcss": "^5.1.2",
+    "postcss-cli": "^2.3.3",
+    "pug": "^2.0.0-beta5",
+    "pug-lint": "^2.3.0",
+    "shelljs": "^0.7.3",
+    "shx": "^0.1.2"
+  },
+  "dependencies": {
+    "mofo-bootstrap": "1.0.1"
+  },
+  "pugLintConfig": {
+    "disallowHtmlText": true,
+    "disallowIdAttributeWithStaticValue": true,
+    "disallowMultipleLineBreaks": true,
+    "requireClassLiteralsBeforeAttributes": true,
+    "validateIndentation": 2,
+    "validateLineBreaks": "LF"
+  }
+}
