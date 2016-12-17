@@ -16,8 +16,7 @@
     "test:pug": "pug-lint source/index.pug",
     "test": "npm-run-all test:**",
     "watch:images": "chokidar 'source/images/*' -c 'npm run copy:images'",
-    "watch:markdown": "chokidar 'source/markdown/**/*.md' -c 'npm run build:pug'",
-    "watch:pug": "chokidar 'source/index.pug' -c 'npm run build:pug'",
+    "watch:pug": "chokidar 'source/index.pug' 'locales/**/*.properties' -c 'npm run build:pug'",
     "watch:sass": "chokidar 'source/sass/main.scss' -c 'npm run build:sass'"
   },
   "author": "Mozilla",
