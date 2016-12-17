@@ -25,7 +25,7 @@
   "devDependencies": {
     "autoprefixer": "^6.2.3",
     "chokidar-cli": "^1.2.0",
-    "jstransformer-markdown": "^1.1.0",
+    "java.properties.js": "^1.0.2",
     "live-server": "^1.1.0",
     "node-sass": "^3.4.2",
     "npm-run-all": "^3.1.1",

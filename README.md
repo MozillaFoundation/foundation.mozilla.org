@@ -20,7 +20,9 @@ This will install all dependencies, build the code, start a server at [http://12
 
 #### HTML
 
-HTML is generated from [Pug](https://pugjs.org) templates (formerly known as Jade). Text content is pulled in from Markdown partials.
+HTML is generated from [Pug](https://pugjs.org) templates (formerly known as Jade).
+
+Localized strings are pulled from Java .properties files located in `/locales`.
 
 #### CSS
 
@@ -31,6 +33,7 @@ CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https:
 ```
 .
 ├── dest <- Compiled code generated from source. Don't edit!
+├── locales <- Localized strings (Java .properties syntax)
 ├── scripts <- Scripts run by npm tasks
 └── source <- Source code
     ├── images <- Image assets
