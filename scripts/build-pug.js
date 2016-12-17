@@ -1,10 +1,17 @@
 'use strict';
 
+let propertiesToObject = require(`java.properties.js`).default;
 let pug = require(`pug`);
 let shelljs = require(`shelljs`);
 
-let compiled = pug.renderFile(`source/index.pug`, {
+let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
+
+let localizedStrings = propertiesToObject(rawStrings.toString());
+
+let fn = pug.compileFile(`source/index.pug`, {
   pretty: true
 });
 
-shelljs.ShellString(compiled).to(`dest/index.html`);
+let html = fn(localizedStrings);
+
+shelljs.ShellString(html).to(`dest/index.html`);
