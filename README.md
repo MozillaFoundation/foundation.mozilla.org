@@ -22,7 +22,7 @@ This will install all dependencies, build the code, start a server at [http://12
 
 HTML is generated from [Pug](https://pugjs.org) templates (formerly known as Jade).
 
-Localized strings are pulled from Java .properties files located in `/locales`.
+Localized strings are pulled from [Java .properties](https://en.wikipedia.org/wiki/.properties) files located in `/locales`.
 
 #### CSS
 

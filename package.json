@@ -1,5 +1,7 @@
 {
   "name": "mozilla-leadership-network",
+  "repository": "https://github.com/mozilla/network",
+  "issues": "https://github.com/mozilla/network/issues",
   "version": "1.0.0",
   "description": "Mozilla Leadership Network",
   "scripts": {
