@@ -15,6 +15,7 @@
     "server": "live-server ./dest --port=2017",
     "stage": "npm i && node scripts/stage.js",
     "start": "npm i && npm run build && npm-run-all --parallel server watch:**",
+    "test:eslint": "eslint --config ./.eslintrc.yaml scripts/*.js",
     "test:pug": "pug-lint source/index.pug",
     "test": "npm-run-all test:**",
     "watch:images": "chokidar 'source/images/*' -c 'npm run copy:images'",
@@ -26,8 +27,10 @@
   "devDependencies": {
     "autoprefixer": "^6.2.3",
     "chokidar-cli": "^1.2.0",
+    "eslint": "^3.12.2",
     "java.properties.js": "^1.0.2",
     "live-server": "^1.1.0",
+    "mofo-style": "^2.4.0",
     "node-sass": "^4.1.1",
     "npm-run-all": "^3.1.1",
     "postcss": "^5.1.2",

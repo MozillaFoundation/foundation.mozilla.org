@@ -1,3 +1,5 @@
+'use strict';
+
 let NodeGit = require(`nodegit`);
 let shell = require(`shelljs`);
 let pathToRepo = require(`path`).resolve(`.`);
@@ -41,13 +43,10 @@ NodeGit.Repository.open(pathToRepo)
     if (status.length) {
       shell.echo(`Repo is dirty. Aborting deploy!`);
       shell.exit(1);
+    } else if (process.argv[2]) { // Check for remote argument
+      runDeploy(process.argv[2]);
     } else {
-      // Check for remote argument
-      if (process.argv[2]) {
-        runDeploy(process.argv[2]);
-      } else {
-        shell.echo(`Missing target remote!`);
-        shell.exit(2);
-      }
+      shell.echo(`Missing target remote!`);
+      shell.exit(2);
     }
   });

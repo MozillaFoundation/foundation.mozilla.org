@@ -1,7 +1,8 @@
-let shell = require(`shelljs`);
-let pathToRepo = require(`path`).resolve(`.`);
+'use strict';
 
-if(process.env.TRAVIS_PULL_REQUEST !== "false") {
+let shell = require(`shelljs`);
+
+if(process.env.TRAVIS_PULL_REQUEST !== `false`) {
   shell.echo(`Skipping deployment for pull request!`);
   process.exit(0);
 }
@@ -9,10 +10,10 @@ if(process.env.TRAVIS_PULL_REQUEST !== "false") {
 shell.echo(`Running deployment now...`);
 
 shell.exec(`git config user.name "Travis CI"`);
-shell.exec(`git config user.email "gideon@mozillafoundation.org"`)
+shell.exec(`git config user.email "gideon@mozillafoundation.org"`);
 
 shell.exec(`git stash`);
-shell.exec(`git fetch origin master:master`)
+shell.exec(`git fetch origin master:master`);
 shell.exec(`git checkout --orphan gh-pages master`);
 
 shell.exec(`npm run build`);
