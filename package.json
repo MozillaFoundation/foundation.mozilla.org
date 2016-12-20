@@ -28,17 +28,17 @@
     "chokidar-cli": "^1.2.0",
     "java.properties.js": "^1.0.2",
     "live-server": "^1.1.0",
-    "node-sass": "^3.4.2",
+    "node-sass": "^4.1.1",
     "npm-run-all": "^3.1.1",
     "postcss": "^5.1.2",
     "postcss-cli": "^2.3.3",
     "pug": "^2.0.0-beta5",
     "pug-lint": "^2.3.0",
     "shelljs": "^0.7.3",
-    "shx": "^0.1.2"
+    "shx": "^0.2.1"
   },
   "dependencies": {
-    "mofo-bootstrap": "1.0.1"
+    "mofo-bootstrap": "2.0.1"
   },
   "pugLintConfig": {
     "disallowHtmlText": true,
