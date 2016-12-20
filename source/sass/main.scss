@@ -12,7 +12,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Resets & Primitives
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }

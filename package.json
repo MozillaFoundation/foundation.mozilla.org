@@ -17,6 +17,7 @@
     "start": "npm i && npm run build && npm-run-all --parallel server watch:**",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/*.js",
     "test:pug": "pug-lint source/index.pug",
+    "test:scss": "stylelint 'source/sass/main.scss' --syntax scss",
     "test": "npm-run-all test:**",
     "watch:images": "chokidar 'source/images/*' -c 'npm run copy:images'",
     "watch:pug": "chokidar 'source/index.pug' 'locales/**/*.properties' -c 'npm run build:pug'",
@@ -38,7 +39,9 @@
     "pug": "^2.0.0-beta5",
     "pug-lint": "^2.3.0",
     "shelljs": "^0.7.3",
-    "shx": "^0.2.1"
+    "shx": "^0.2.1",
+    "stylelint": "^7.7.0",
+    "stylelint-config-standard": "^15.0.1"
   },
   "dependencies": {
     "mofo-bootstrap": "2.0.1"
