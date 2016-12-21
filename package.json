@@ -16,7 +16,7 @@
     "stage": "npm i && node scripts/stage.js",
     "start": "npm i && npm run build && npm-run-all --parallel server watch:**",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/*.js",
-    "test:pug": "pug-lint source/index.pug",
+    "test:pug": "pug-lint source/pug/**/*.pug",
     "test:scss": "stylelint 'source/sass/main.scss' --syntax scss",
     "test": "npm-run-all test:**",
     "watch:images": "chokidar 'source/images/*' -c 'npm run copy:images'",
