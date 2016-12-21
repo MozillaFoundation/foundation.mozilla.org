@@ -14,20 +14,16 @@ html
     meta(property='og:title', content='TODO')
     meta(property='og:description', content='TODO')
 
-    link(rel='stylesheet', href='css/main.compiled.css')
+    link(rel='stylesheet', href='/_css/main.compiled.css')
     link(rel='stylesheet', href='//code.cdn.mozilla.net/fonts/fira.css')
-    link(rel='icon', href='images/favicon.png')
+    link(rel='icon', href='/_images/favicon.png')
 
     title=MLN
   body
     header.container
-      img(src='/images/mozilla-wordmark.svg', style='background: #ccc;')
-      h1=MLN
+      a(href='/'): img(src='/_images/mozilla-wordmark.svg', style='background: #ccc;')
+      h1=strings.MLN
 
-    .container
-      .row
-        .col-xs-4 Column 1
-        .col-xs-4 Column 2
-        .col-xs-4 Column 3
-
-  footer
+      ul
+        li: a(href='/subpage1') Subpage 1
+        li: a(href='/subpage2') Subpage 2

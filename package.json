@@ -6,11 +6,11 @@
   "description": "Mozilla Leadership Network",
   "scripts": {
     "autoprefix": "node scripts/autoprefix.js",
-    "build:folders": "shx mkdir -p dest/css",
+    "build:folders": "shx mkdir -p dest/_css",
     "build:pug": "node scripts/build-pug.js",
-    "build:sass": "node-sass source/sass/main.scss dest/css/main.compiled.css && npm run autoprefix",
+    "build:sass": "node-sass source/sass/main.scss dest/_css/main.compiled.css && npm run autoprefix",
     "build": "shx rm -rf dest && npm run build:folders && npm run build:pug && npm run build:sass && npm run copy:images",
-    "copy:images": "shx rm -rf dest/images && shx cp -r source/images dest/images",
+    "copy:images": "shx rm -rf dest/_images && shx cp -r source/images dest/_images",
     "deploy": "node scripts/deploy.js",
     "server": "live-server ./dest --port=2017",
     "stage": "npm i && node scripts/stage.js",
@@ -20,7 +20,7 @@
     "test:scss": "stylelint 'source/sass/main.scss' --syntax scss",
     "test": "npm-run-all test:**",
     "watch:images": "chokidar 'source/images/*' -c 'npm run copy:images'",
-    "watch:pug": "chokidar 'source/index.pug' 'locales/**/*.properties' -c 'npm run build:pug'",
+    "watch:pug": "chokidar 'source/pug/*/**.pug' 'locales/**/*.properties' -c 'npm run build:pug'",
     "watch:sass": "chokidar 'source/sass/main.scss' -c 'npm run build:sass'"
   },
   "author": "Mozilla",

@@ -6,12 +6,22 @@ let shelljs = require(`shelljs`);
 
 let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 
-let localizedStrings = propertiesToObject(rawStrings.toString());
+let localizedStrings = {
+  strings: propertiesToObject(rawStrings.toString())
+};
 
-let fn = pug.compileFile(`source/index.pug`, {
-  pretty: true
-});
+function buildPage(template, target) {
+  let fn = pug.compileFile(`source/pug/views/${template}.pug`, {
+    pretty: true
+  });
 
-let html = fn(localizedStrings);
+  let html = fn(localizedStrings);
+  let path = `dest/${target}`;
 
-shelljs.ShellString(html).to(`dest/index.html`);
+  shelljs.mkdir(`-p`, path);
+  shelljs.ShellString(html).to(`${path}/index.html`);
+}
+
+buildPage(`home`, ``);
+buildPage(`subpage1`, `subpage1`);
+buildPage(`subpage2`, `subpage2`);
