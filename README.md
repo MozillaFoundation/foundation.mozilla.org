@@ -38,8 +38,7 @@ CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https:
 ├── scripts <- Scripts run by npm tasks
 └── source <- Source code
     ├── images <- Image assets
-    ├── index.pug <- Pug/Jade template for index page
-    ├── markdown <- Markdown partials
+    ├── pug <- Pug/Jade templates
     └── sass <- Sass code
 ```
 
