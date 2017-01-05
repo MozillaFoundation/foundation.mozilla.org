@@ -25,5 +25,14 @@ html
       h1=strings.MLN
 
       ul
-        li: a(href='/subpage1') Subpage 1
-        li: a(href='/subpage2') Subpage 2
+        li
+          a(href='/people') People
+          ul: li: a(href='/people/partners') Partners
+        li
+          a(href='/programs') Programs
+          ul: li: a(href='/programs/calendar') Calendar
+        li: a(href='/projects') Projects
+        li: a(href='/campaigns') Campaigns
+        li
+          a(href='/about') About
+          ul: li: a(href='/about/join') Join

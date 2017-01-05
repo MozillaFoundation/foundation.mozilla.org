@@ -24,5 +24,11 @@ function buildPage(template, target) {
 }
 
 buildPage(`home`, `/`);
-buildPage(`subpage1`, `/subpage1`);
-buildPage(`subpage2`, `/subpage2`);
+buildPage(`people`, `/people`);
+buildPage(`partners`, `/people/partners`);
+buildPage(`programs`, `/programs`);
+buildPage(`calendar`, `/programs/calendar`);
+buildPage(`projects`, `/projects`);
+buildPage(`campaigns`, `/campaigns`);
+buildPage(`about`, `/about`);
+buildPage(`join`, `/about/join`);
