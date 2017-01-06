@@ -2,7 +2,7 @@ let autoprefixer = require(`autoprefixer`);
 let postcss = require(`postcss`);
 let shelljs = require(`shelljs`);
 
-let cssPath = `dest/css/main.compiled.css`;
+let cssPath = `dest/_css/main.compiled.css`;
 let css = shelljs.cat(cssPath).toString();
 
 postcss([ autoprefixer ]).process(css).then((result) => {
