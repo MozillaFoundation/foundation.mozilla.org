@@ -1,5 +1,3 @@
-'use strict';
-
 let shell = require(`shelljs`);
 
 if(process.env.TRAVIS_PULL_REQUEST !== `false`) {

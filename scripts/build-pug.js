@@ -1,5 +1,3 @@
-'use strict';
-
 let propertiesToObject = require(`java.properties.js`).default;
 let pug = require(`pug`);
 let shelljs = require(`shelljs`);

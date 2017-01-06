@@ -1,6 +1,15 @@
+plugins: ["react"]
 extends: "./node_modules/mofo-style/.eslintrc.yaml"
 
 env:
   es6: true
   node: true
   browser: true
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  sourceType: "module"
+
+rules:
+  react/jsx-uses-vars: [2]

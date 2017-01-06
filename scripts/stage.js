@@ -1,5 +1,3 @@
-'use strict';
-
 let NodeGit = require(`nodegit`);
 let shell = require(`shelljs`);
 let pathToRepo = require(`path`).resolve(`.`);
