@@ -11,7 +11,6 @@
     "build:pug": "node scripts/build-pug.js",
     "build:sass": "shx mkdir -p dest/_css && node-sass source/sass/main.scss dest/_css/main.compiled.css && npm run autoprefix",
     "build": "shx rm -rf dest && run-p build:**",
-    "deploy": "node scripts/deploy.js",
     "server": "live-server ./dest --port=2017",
     "stage": "npm i && node scripts/stage.js",
     "start": "npm i && npm run build && run-p server watch:**",
