@@ -1,38 +1,38 @@
 doctype html
 html
   head
-    meta(charset='utf-8')
+    meta(charset=`utf-8`)
 
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    meta(name='description', content='TODO')
+    meta(name=`viewport`, content=`width=device-width, initial-scale=1`)
+    meta(name=`description`, content=`TODO`)
 
-    meta(property='og:type', content='website')
-    meta(property='og:site_name', content='TODO')
-    meta(property='og:locale', content='en_US')
-    meta(property='og:url', content='TODO')
-    meta(property='og:image', content='TODO')
-    meta(property='og:title', content='TODO')
-    meta(property='og:description', content='TODO')
+    meta(property=`og:type`, content=`website`)
+    meta(property=`og:site_name`, content=`TODO`)
+    meta(property=`og:locale`, content=`en_US`)
+    meta(property=`og:url`, content=`TODO`)
+    meta(property=`og:image`, content=`TODO`)
+    meta(property=`og:title`, content=`TODO`)
+    meta(property=`og:description`, content=`TODO`)
 
-    link(rel='stylesheet', href='/_css/main.compiled.css')
-    link(rel='stylesheet', href='//code.cdn.mozilla.net/fonts/fira.css')
-    link(rel='icon', href='/_images/favicon.png')
+    link(rel=`stylesheet`, href=`${env.virtualRoot}_css/main.compiled.css`)
+    link(rel=`stylesheet`, href=`//code.cdn.mozilla.net/fonts/fira.css`)
+    link(rel=`icon`, href=`${env.virtualRoot}_images/favicon.png`)
 
     title=strings.MLN
   body(id=templateID)
     header.container
-      a(href='/'): img(src='/_images/mozilla-wordmark.svg', style='background: #ccc;')
+      a(href=`${env.virtualRoot}`): img(src=`${env.virtualRoot}_images/mozilla-wordmark.svg`, style=`background: #ccc;`)
       h1=strings.MLN
 
       ul
         li
-          a(href='/people') People
-          ul: li: a(href='/people/partners') Partners
+          a(href=`${env.virtualRoot}people`) People
+          ul: li: a(href=`${env.virtualRoot}people/partners`) Partners
         li
-          a(href='/programs') Programs
-          ul: li: a(href='/programs/calendar') Calendar
-        li: a(href='/projects') Projects
-        li: a(href='/campaigns') Campaigns
+          a(href=`${env.virtualRoot}programs`) Programs
+          ul: li: a(href=`${env.virtualRoot}programs/calendar`) Calendar
+        li: a(href=`${env.virtualRoot}projects`) Projects
+        li: a(href=`${env.virtualRoot}campaigns`) Campaigns
         li
-          a(href='/about') About
-          ul: li: a(href='/about/join') Join
+          a(href=`${env.virtualRoot}about`) About
+          ul: li: a(href=`${env.virtualRoot}about/join`) Join
