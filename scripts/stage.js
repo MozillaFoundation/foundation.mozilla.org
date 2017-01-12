@@ -3,8 +3,6 @@ let shell = require(`shelljs`);
 let runDeploy = (remote) => {
   shell.echo(`Running deployment now...`);
 
-  shell.exec(`npm run build`);
-
   shell.echo(`${new Date}\n\n\n`).to(`last-built.txt`);
   shell.exec(`git log -n 1 >> last-built.txt`);
 
@@ -30,7 +28,7 @@ let runDeploy = (remote) => {
   shell.exec(`git commit -m 'Deployed via stage.js script'`);
   shell.exec(`git push ${remote} gh-pages -f`);
 
-  shell.echo(`Finished deploying!`);
+  shell.echo(`Finished deploying! → https://mozilla.github.io/network/`);
 };
 
 // Check for remote argument
