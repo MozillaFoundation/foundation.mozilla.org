@@ -6,6 +6,9 @@ let runDeploy = (remote) => {
   shell.echo(`${new Date}\n\n\n`).to(`last-built.txt`);
   shell.exec(`git log -n 1 >> last-built.txt`);
 
+  // Allow inclusion of underscore prefixed directories in gh-pages deploy
+  shell.exec(`touch .nojekyll`);
+
   shell.exec(`git branch -D gh-pages`);
   shell.exec(`git checkout --orphan gh-pages`);
 
@@ -19,7 +22,7 @@ let runDeploy = (remote) => {
     shell.echo(`!${item}\n`).toEnd(`.gitignore`);
   });
 
-  shell.echo(`!last-built.txt\n`).toEnd(`.gitignore`);
+  shell.echo(`!last-built.txt\n!.nojekyll\n`).toEnd(`.gitignore`);
 
   shell.mv(`dest/*`, `./`);
 
