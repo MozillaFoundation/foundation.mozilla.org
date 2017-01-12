@@ -33,6 +33,7 @@ CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https:
 
 ```
 .
+├── env <- Environment variables
 ├── dest <- Compiled code generated from source. Don't edit!
 ├── locales <- Localized strings (Java .properties syntax)
 ├── scripts <- Scripts run by npm tasks
@@ -45,4 +46,12 @@ CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https:
 
 ### Deployment
 
-TODO: Add the specifics for deployment.
+#### Staging
+
+Currently staged builds are hosted via GitHub Pages. A staged build can be deployed to any repo by running:
+
+`npm run stage REMOTE` (Change `REMOTE` to match your desired target)
+
+#### Production
+
+*TBD*
