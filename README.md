@@ -29,6 +29,12 @@ Localized strings are pulled from [Java .properties](https://en.wikipedia.org/wi
 
 CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https://github.com/mozilla/mofo-bootstrap) theme is pulled in by default.
 
+#### React
+
+React is used *à la carte* for isolated component instances (eg: a tab switcher) since this is not a single page application, but rather a static generated website. This precludes the need for Flux architecture, or such libraries as React Router.
+
+To add a React component, you can target a container element from `/source/js/main.js` and inject it.
+
 ### File Structure
 
 ```
