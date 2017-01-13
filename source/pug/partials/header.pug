@@ -19,7 +19,7 @@ html
     link(rel=`icon`, href=`${env.virtualRoot}_images/favicon.png`)
 
     title=strings.MLN
-  body(id=templateID)
+  body(id=`view-${templateID}`)
     header.container
       a(href=`${env.virtualRoot}`): img(src=`${env.virtualRoot}_images/mozilla-wordmark.svg`, style=`background: #ccc;`)
       h1=strings.MLN
