@@ -22,7 +22,7 @@ let runDeploy = (remote) => {
     shell.echo(`!${item}\n`).toEnd(`.gitignore`);
   });
 
-  shell.echo(`!last-built.txt\n!.nojekyll\n`).toEnd(`.gitignore`);
+  shell.echo(`!last-built.txt\n!.nojekyll\n!static.json\n`).toEnd(`.gitignore`);
 
   shell.mv(`dest/*`, `./`);
 
