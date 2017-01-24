@@ -20,10 +20,13 @@ html
 
     title=strings.MLN
   body(id=`view-${templateID}`)
-    header.container
-      a(href=`${env.virtualRoot}`): img(src=`${env.virtualRoot}_images/mozilla-wordmark.svg`, style=`background: #ccc;`)
+    header.container.py-2.mb-1
+      p.text-center: a(href=`${env.virtualRoot}`): img(src=`${env.virtualRoot}_images/mozilla-wordmark.svg`, style=`background: #ccc;width:150px;`)
 
-      ul
+      ul.py-3
+        li
+          a(href=`${env.virtualRoot}about`) About
+          ul: li: a(href=`${env.virtualRoot}about/join`) Join
         li
           a(href=`${env.virtualRoot}people`) People
           ul: li: a(href=`${env.virtualRoot}people/partners`) Partners
@@ -32,6 +35,3 @@ html
           ul: li: a(href=`${env.virtualRoot}programs/calendar`) Calendar
         li: a(href=`${env.virtualRoot}projects`) Projects
         li: a(href=`${env.virtualRoot}campaigns`) Campaigns
-        li
-          a(href=`${env.virtualRoot}about`) About
-          ul: li: a(href=`${env.virtualRoot}about/join`) Join
