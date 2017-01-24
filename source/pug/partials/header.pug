@@ -20,8 +20,8 @@ html
 
     title=strings.MLN
   body(id=`view-${templateID}`)
-    header.container.py-2.mb-1
-      p.text-center: a(href=`${env.virtualRoot}`): img(src=`${env.virtualRoot}_images/mozilla-wordmark.svg`, style=`background: #ccc;width:150px;`)
+    header.container.py-2.mb-1(style=`background:#ccc`)
+      p.text-center: a(href=`${env.virtualRoot}`): img(src=`${env.virtualRoot}_images/mozilla-wordmark.svg`, style=`width:150px;`)
 
       ul.py-3
         li
@@ -35,3 +35,4 @@ html
           ul: li: a(href=`${env.virtualRoot}programs/calendar`) Calendar
         li: a(href=`${env.virtualRoot}projects`) Projects
         li: a(href=`${env.virtualRoot}campaigns`) Campaigns
+        li: a(href=`${env.virtualRoot}highlights`) Highlights
