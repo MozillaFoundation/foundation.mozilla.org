@@ -1,17 +1,21 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "array",
+  "minItems": 30,
   "items": {
     "type": "object",
     "properties": {
       "name": {
-        "type": "string"
+        "type": "string",
+        "chance": "name"
       },
       "role": {
-        "type": "string"
+        "type": "string",
+        "faker": "name.jobTitle"
       },
       "location": {
-        "type": "string"
+        "type": "string",
+        "faker": "address.country"
       },
       "teams": {
         "type": "array",
@@ -28,11 +32,7 @@
           "linkedIn": {
             "type": "string"
           }
-        },
-        "required": [
-          "twitter",
-          "linkedIn"
-        ]
+        }
       },
       "image": {
         "type": "string"

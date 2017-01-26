@@ -2,17 +2,18 @@ mixin person(meta)
   .col-3.person(style=`border:1px solid pink;`)
     h4=meta.name
     p=meta.role
+    p=meta.location
 
 include ../partials/header.pug
 
 .container
-  .row.py-5
+  .row.p-5
     .col-6
       h1 People
     .col-6
       p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-  .row
+  .row.p-5
     each person, index in data
       +person(data[index])
 
