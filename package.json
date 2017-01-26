@@ -15,6 +15,7 @@
     "stage": "npm i && shx rm -rf dest && npm run build:pug -- --staging && npm run build:images && npm run build:js && npm run build:sass && node scripts/stage.js",
     "start": "npm i && npm run build && run-p server watch:**",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/*.js source/js/*.js",
+    "test:json": "ajv validate -s source/json/people.schema.json -d source/json/people.json",
     "test:pug": "pug-lint source/pug/**/*.pug",
     "test:scss": "stylelint 'source/sass/main.scss' --syntax scss",
     "test": "run-s test:**",
@@ -26,6 +27,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "devDependencies": {
+    "ajv-cli": "^1.1.1",
     "autoprefixer": "^6.7.0",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
