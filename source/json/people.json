@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Brigid Barron",
+    "role": "Advisor",
+    "location": "San Francisco, US",
+    "teams": ["Web Literacy", "Digital Inclusion"],
+    "links": {
+      "twitter": "handle",
+      "linkedIn": "URL"
+    },
+    "image": "",
+    "featured": false
+  }
+]

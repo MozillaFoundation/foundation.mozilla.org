@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "location": {
+        "type": "string"
+      },
+      "teams": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "links": {
+        "type": "object",
+        "properties": {
+          "twitter": {
+            "type": "string"
+          },
+          "linkedIn": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "twitter",
+          "linkedIn"
+        ]
+      },
+      "image": {
+        "type": "string"
+      },
+      "featured": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "name",
+      "role",
+      "location",
+      "teams",
+      "links",
+      "image",
+      "featured"
+    ]
+  }
+}

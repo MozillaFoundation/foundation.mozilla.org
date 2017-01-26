@@ -13,11 +13,12 @@ if (envFlag && envFlag === `--staging`) {
 
 let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 
-function buildPage(template, target) {
+function buildPage(template, target, extraData) {
   let viewData = {
     env: environmentVariables,
     strings: propertiesToObject(rawStrings.toString()),
-    templateID: template
+    templateID: template,
+    data: extraData
   };
 
   let fn = pug.compileFile(`source/pug/views/${template}.pug`, {
@@ -32,7 +33,7 @@ function buildPage(template, target) {
 }
 
 buildPage(`home`, `/`);
-buildPage(`people`, `/people`);
+buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/people.json`).toString())));
 buildPage(`partners`, `/people/partners`);
 buildPage(`programs`, `/programs`);
 buildPage(`calendar`, `/programs/calendar`);

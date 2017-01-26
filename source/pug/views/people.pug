@@ -1,5 +1,20 @@
+mixin person(meta)
+  .col-3.person(style=`border:1px solid pink;`)
+    h4=meta.name
+    p=meta.role
+
+
 include ../partials/header.pug
 
-.container: h2 People
+.container
+  .row.py-5
+    .col-6
+      h1 People
+    .col-6
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  .row
+    each person, index in data
+      +person(data[index])
 
 include ../partials/footer.pug
