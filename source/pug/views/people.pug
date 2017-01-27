@@ -1,8 +1,11 @@
 mixin person(meta)
-  .col-3.person(style=`border:1px solid pink;`)
+  .col-3.p-3.person(style=`border:1px solid grey;`)
     h4=meta.name
-    p=meta.role
-    p=meta.location
+    p 👤 #{meta.role}
+    p ▼ #{meta.location}
+    p &hearts;&nbsp;
+      each team in meta.teams
+        small #{team},&nbsp;
 
 include ../partials/header.pug
 
