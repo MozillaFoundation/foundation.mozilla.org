@@ -25,7 +25,10 @@ html
 
       ul.py-3
         li: a(href=`${env.virtualRoot}people`) People
-        li: a(href=`${env.virtualRoot}programs`) Programs
+        li
+          a(href=`${env.virtualRoot}programs`) Programs
+          ul
+            li: a(href=`${env.virtualRoot}programs/upcoming`) Upcoming
         li: a(href=`${env.virtualRoot}projects`) Projects
         li: a(href=`${env.virtualRoot}campaigns`) Campaigns
         li: a(href=`${env.virtualRoot}highlights`) Highlights
