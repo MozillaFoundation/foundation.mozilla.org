@@ -42,3 +42,4 @@ buildPage(`campaigns`, `/campaigns`);
 buildPage(`about`, `/about`);
 buildPage(`join`, `/about/join`);
 buildPage(`highlights`, `/highlights`);
+buildPage(`news`, `/news`);
