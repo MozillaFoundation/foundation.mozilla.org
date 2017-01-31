@@ -1,3 +1,5 @@
+extends ../templates/master.pug
+
 mixin person(meta)
   .col-lg-3.p-3.person(style=`border:1px solid grey;`)
     h4=meta.name
@@ -7,17 +9,14 @@ mixin person(meta)
       each team in meta.teams
         small #{team},&nbsp;
 
-include ../partials/header.pug
+block content
+  .container
+    .row.p-5
+      .col-sm-6
+        h1 People
+      .col-sm-6
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-.container
-  .row.p-5
-    .col-sm-6
-      h1 People
-    .col-sm-6
-      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-  .row.p-5
-    each person, index in data
-      +person(data[index])
-
-include ../partials/footer.pug
+    .row.p-5
+      each person, index in data
+        +person(data[index])

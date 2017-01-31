@@ -1,49 +1,48 @@
-include ../partials/header.pug
+extends ../templates/master.pug
 
-.container
-  .row
-    .col.p-5
-      h1 Let's Protect and Build a Healthy Internet Together
-      p We are a global network connecting people and creating transformative experiences to build & protect a #[a(href=`#TODO`) healthy internet].
+block content
+  .container
+    .row
+      .col.p-5
+        h1 Let's Protect and Build a Healthy Internet Together
+        p We are a global network connecting people and creating transformative experiences to build & protect a #[a(href=`#TODO`) healthy internet].
 
-  .row.p-5
-    .col-4
-      h3 Short Text
-    .col-4
-      h3 Short Text
-    .col-4
-      h3 Short Text
+    .row.p-5
+      .col-4
+        h3 Short Text
+      .col-4
+        h3 Short Text
+      .col-4
+        h3 Short Text
 
-  .row.my-5
-    .col-8
-      h3 Join the Movement Now
-      p Catapult your initiatives. Join your peers in the network. Be the first to hear about new opportunities.
-    .col-4
-      input(placeholder=`enter your email address`)
-      button Join Us
+    .row.my-5
+      .col-8
+        h3 Join the Movement Now
+        p Catapult your initiatives. Join your peers in the network. Be the first to hear about new opportunities.
+      .col-4
+        input(placeholder=`enter your email address`)
+        button Join Us
 
-  .row
-    .col
-      h4.text-center Latest News
-  .row.mb-5
-    .col-6
-      p Medium
-      h5 Title
-      p Summary
-      a(href=`#TODO`) Read More
-    .col-6
-      p Medium
-      h5 Title
-      p Summary
-      a(href=`#TODO`) Read More
+    .row
+      .col
+        h4.text-center Latest News
+    .row.mb-5
+      .col-6
+        p Medium
+        h5 Title
+        p Summary
+        a(href=`#TODO`) Read More
+      .col-6
+        p Medium
+        h5 Title
+        p Summary
+        a(href=`#TODO`) Read More
 
-  .row.mb-5
-    .col.text-center
-      a.btn.btn-outline-primary(href=`${env.virtualRoot}news`) View more news
+    .row.mb-5
+      .col.text-center
+        a.btn.btn-outline-primary(href=`${env.virtualRoot}news`) View more news
 
-  .row
-    .col
-      h4.text-center Network Activity
-      p.text-center Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-include ../partials/footer.pug
+    .row
+      .col
+        h4.text-center Network Activity
+        p.text-center Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
