@@ -34,12 +34,10 @@ function buildPage(template, target, extraData) {
 
 buildPage(`home`, `/`);
 buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/people.json`).toString())));
-buildPage(`partners`, `/people/partners`);
 buildPage(`programs`, `/programs`);
 buildPage(`upcoming`, `/programs/upcoming`);
 buildPage(`projects`, `/projects`);
 buildPage(`campaigns`, `/campaigns`);
 buildPage(`about`, `/about`);
 buildPage(`join`, `/about/join`);
-buildPage(`highlights`, `/highlights`);
 buildPage(`news`, `/news`);
