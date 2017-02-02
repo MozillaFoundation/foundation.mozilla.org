@@ -4,38 +4,42 @@ block content
   .container
     .row
       .col.p-5
-        h1 Let's Protect and Build a Healthy Internet Together
-        p We are a global network connecting people and creating transformative experiences to build & protect a #[a(href=`#TODO`) healthy internet].
+        h1 We Are Champions of a Healthy Internet
+        p The Mozilla Networks brings together diverse leaders of all types. Join its ranks.
 
     .row.p-5
       .col-4
         h3
-          a(href=`${env.virtualRoot}programs/internet-health-report`) Internet Health Report
+          a(href=`${env.virtualRoot}programs/fellowships`) Fellowships
       .col-4
         h3
           a(href=`${env.virtualRoot}programs/free-leadership-training`) Free Leadership Training
       .col-4
         h3
-          a(href=`${env.virtualRoot}programs/fellowships`) Fellowships
+          a(href=`${env.virtualRoot}programs/internet-health-report`) Internet Health Report
 
     .row.my-5
-      .col-8
-        h3 Join the Movement Now
-        p Catapult your initiatives. Join your peers in the network. Be the first to hear about new opportunities.
-      .col-4
-        input(placeholder=`enter your email address`)
-        button Join Us
+      .col-6.p-5
+        h3 Join Our Ranks
+        p Access to bright minds, passionate community, and invaluable resources.
+      .col-6.p-5
+        form
+          input(placeholder=`Email Address`)
+          button Submit
+          label
+            input(type=`checkbox`)
+            span I'm okay with Mozilla handling my info as explained in this #[a(href=`#TODO`) Privacy Notice]
 
     .row
-      .col
-        h4.text-center Latest News
+      .col.px-5
+        h4 Latest News
     .row.mb-5
-      .col-6
+      .col-6.p-5
         p Medium
         h5 Title
         p Summary
         a(href=`#TODO`) Read More
-      .col-6
+      .col-6.p-5
         p Medium
         h5 Title
         p Summary
@@ -46,6 +50,6 @@ block content
         a.btn.btn-outline-primary(href=`${env.virtualRoot}news`) View more news
 
     .row
-      .col
-        h4.text-center Network Activity
-        p.text-center Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      .col.p-5
+        h4 Network Creations
+        p.text-center The latest tools, apps, and ideas from our network
