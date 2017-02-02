@@ -42,5 +42,4 @@ buildPage(`internet-health-report`, `/programs/internet-health-report`);
 buildPage(`projects`, `/projects`);
 buildPage(`campaigns`, `/campaigns`);
 buildPage(`about`, `/about`);
-buildPage(`join`, `/about/join`);
 buildPage(`news`, `/news`);
