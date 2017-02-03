@@ -43,3 +43,4 @@ buildPage(`projects`, `/projects`);
 buildPage(`campaigns`, `/campaigns`);
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`);
+buildPage(`style-guide`, `/style-guide`);
