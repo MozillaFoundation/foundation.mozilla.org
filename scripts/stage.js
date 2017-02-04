@@ -32,6 +32,7 @@ let runDeploy = (remote) => {
   shell.exec(`git push ${remote} gh-pages -f`);
 
   shell.echo(`Finished deploying! → https://mozilla.github.io/network/`);
+  shell.echo(`WARNING: This URL may take a few minutes to fully reflect your changes!`);
 };
 
 // Check for remote argument
