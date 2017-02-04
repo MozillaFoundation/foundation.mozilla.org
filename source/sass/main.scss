@@ -45,13 +45,14 @@ a {
 @mixin black-box-white-text {
   background: $black;
   color: $white;
-  display: table;
-  padding: 0 75px 0 15px;
+  display: inline;
+  padding: 0 30px 0 0;
+  line-height: 1.5em;
+  box-shadow: 15px 0 0 $black, -15px 0 0 $black;
 }
 
 .h1-home-white {
   font-size: 64px;
-  line-height: 80px;
 
   @include black-box-white-text;
 }
@@ -59,7 +60,6 @@ a {
 .h1-white {
   font-size: 48px;
   letter-spacing: 0;
-  line-height: 64px;
 
   @include black-box-white-text;
 }
@@ -67,7 +67,6 @@ a {
 .h2-headings-white {
   font-size: 24px;
   letter-spacing: 1px;
-  line-height: 32px;
   text-transform: uppercase;
 
   @include black-box-white-text;
@@ -100,7 +99,6 @@ a {
 .h4-medium-white {
   font-size: 28px;
   letter-spacing: 0.5px;
-  line-height: 32px;
 
   @include black-box-white-text;
 }
@@ -137,7 +135,6 @@ a {
 .h6-white {
   font-size: 12px;
   letter-spacing: 0.5px;
-  line-height: 16px;
   text-transform: uppercase;
 
   @include black-box-white-text;
@@ -164,7 +161,6 @@ a {
 
 .body-white {
   font-size: 16px;
-  line-height: 24px;
 
   @include black-box-white-text;
 }
@@ -186,7 +182,6 @@ a {
 .small-white {
   font-size: 12px;
   letter-spacing: 0;
-  line-height: 16px;
 
   @include black-box-white-text;
 }
