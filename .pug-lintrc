@@ -1,0 +1,8 @@
+{
+  "disallowHtmlText": true,
+  "disallowIdAttributeWithStaticValue": true,
+  "disallowMultipleLineBreaks": true,
+  "requireClassLiteralsBeforeAttributes": true,
+  "validateIndentation": 2,
+  "validateLineBreaks": "LF"
+}
