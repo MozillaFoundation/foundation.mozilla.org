@@ -16,6 +16,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  font-family: Nunito, Helvetica, Arial, sans-serif;
 }
 
 img {
@@ -42,22 +43,35 @@ a {
   color: #3bb7ef;
 }
 
+.btn {
+  font-family: Nunito;
+  font-weight: 900;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 @mixin black-box-white-text {
   background: $black;
   color: $white;
   display: inline;
-  padding: 0 30px 0 0;
-  line-height: 1.5em;
+  padding: 0.1em 30px 0.1em 0;
+  line-height: 1.6em;
   box-shadow: 15px 0 0 $black, -15px 0 0 $black;
 }
 
 .h1-home-white {
+  font-family: Arvo;
+  font-weight: 900;
   font-size: 64px;
 
   @include black-box-white-text;
 }
 
 .h1-white {
+  font-family: Arvo;
+  font-weight: 100;
   font-size: 48px;
   letter-spacing: 0;
 
@@ -73,12 +87,16 @@ a {
 }
 
 .h2-typeaccents-gray {
+  font-family: Arvo;
+  font-weight: 400;
   font-size: 72px;
   color: #ccc;
   line-height: 80px;
 }
 
 .h3-black {
+  font-family: Arvo;
+  font-weight: 100;
   font-size: 40px;
   letter-spacing: 0;
   line-height: 48px;
@@ -88,15 +106,19 @@ a {
   font-size: 32px;
   letter-spacing: 0;
   line-height: 40px;
+  font-weight: 900;
 }
 
 .h4-medium-black {
+  font-family: Arvo;
   font-size: 28px;
   letter-spacing: 0.5px;
   line-height: 32px;
 }
 
 .h4-medium-white {
+  font-family: Arvo;
+  font-weight: 400;
   font-size: 28px;
   letter-spacing: 0.5px;
 
@@ -104,6 +126,8 @@ a {
 }
 
 .h4-light-black {
+  font-family: Arvo;
+  font-weight: 100;
   font-size: 28px;
   color: #231f20;
   letter-spacing: 0;
@@ -112,12 +136,15 @@ a {
 
 .h4-headingcontract-black {
   font-size: 28px;
+  font-weight: 400;
   color: #231f20;
   letter-spacing: 0;
   line-height: 32px;
 }
 
 .h5-black {
+  font-family: Arvo;
+  font-weight: 400;
   font-size: 20px;
   color: #231f20;
   letter-spacing: 0.25px;
@@ -126,6 +153,7 @@ a {
 
 .h6-gray {
   font-size: 12px;
+  font-weight: 400;
   color: #909090;
   letter-spacing: 0.5px;
   line-height: 16px;
@@ -142,12 +170,15 @@ a {
 
 .lead-black {
   font-size: 20px;
+  font-weight: 100;
   letter-spacing: 0;
   line-height: 32px;
 }
 
 .blockquote-gray {
   font-size: 24px;
+  font-weight: 100;
+  font-style: italic;
   color: #909090;
   line-height: 32px;
 }
@@ -161,6 +192,7 @@ a {
 
 .body-white {
   font-size: 16px;
+  font-weight: 100;
 
   @include black-box-white-text;
 }
@@ -228,5 +260,13 @@ a {
 // Utility Classes
 
 // Custom Components
+
+.mofo-footer {
+  font-family: "Fira Sans";
+
+  p {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
 
 // Pages
