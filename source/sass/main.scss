@@ -16,7 +16,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: Nunito, Helvetica, Arial, sans-serif;
+  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 }
 
 img {
@@ -43,15 +43,6 @@ a {
   color: #3bb7ef;
 }
 
-.btn {
-  font-family: Nunito;
-  font-weight: 900;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 @mixin black-box-white-text {
   background: $black;
   color: $white;
@@ -59,6 +50,8 @@ a {
   padding: 0.1em 30px 0.1em 0;
   line-height: 1.6em;
   box-shadow: 15px 0 0 $black, -15px 0 0 $black;
+  position: relative;
+  left: 15px;
 }
 
 .h1-home-white {
@@ -243,18 +236,36 @@ a {
   }
 }
 
-.btn-outline-primary {
-  color: $black;
+// Buttons
+
+.btn {
+  font-family: "Nunito Sans";
+  font-weight: 900;
   text-transform: uppercase;
-  border: 1px solid #3bb7ef;
 
   &::after {
     content: " →";
   }
 
   &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn-ghost {
+  color: $black;
+  background: $white;
+  border: 1px solid #3bb7ef;
+
+  &:hover {
+    color: $black;
     background-color: #3bb7ef;
   }
+}
+
+.btn-normal {
+  color: $black;
+  background: #ffed00;
 }
 
 // Utility Classes
