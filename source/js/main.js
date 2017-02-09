@@ -3,9 +3,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-if (document.getElementById(`footer`)) {
+import JoinUs from './components/join.jsx';
+
+if (document.getElementById(`join-us`)) {
+  let reactJoinUs;
+
   ReactDOM.render(
-    <h6>Footer (via React)</h6>,
-    document.getElementById(`footer`)
+    <JoinUs ref={(joinUs) => { reactJoinUs = joinUs; }}/>,
+    document.getElementById(`join-us`)
   );
+
+  if (document.getElementById(`join-trigger`)) {
+    document.getElementById(`join-trigger`).addEventListener(`click`, () => {
+      reactJoinUs.show();
+    });
+  }
 }
