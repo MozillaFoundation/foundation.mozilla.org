@@ -23,27 +23,8 @@ html
     title=strings.MLN
   body(id=`view-${templateID}`)
     .container: #join-us
-    header.container.py-2.mb-1(style=`background:#ccc`)
-      p.text-center: a(href=`${env.virtualRoot}`): img(src=`${env.virtualRoot}_images/mozilla-wordmark.svg`, style=`width:150px;`)
 
-      ul.py-3
-        li: a(href=`${env.virtualRoot}people`) People
-        li
-          a(href=`${env.virtualRoot}programs`) Programs
-          ul
-            li: a(href=`${env.virtualRoot}programs/upcoming`) Upcoming
-        li: a(href=`${env.virtualRoot}projects`) Projects
-        li: a(href=`${env.virtualRoot}campaigns`) Campaigns
-        li: a(href=`${env.virtualRoot}about`) About
-
-      ul.pb-2
-        li: a(href=`#TODO`) Twitter
-        li: a(href=`#TODO`) Internet Health
-        li: a(href=`#TODO`) Email Us
-        li: a(href=`#TODO`) Donate
-
-      ul.pb-2
-        li: em: a(href=`${env.virtualRoot}style-guide`) Style Guide
+    #primary-nav
 
     block content
 
