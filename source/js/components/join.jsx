@@ -2,16 +2,12 @@ import React from 'react';
 
 export default class JoinUs extends React.Component {
   show () {
-    console.log(`show`);
-
     this.setState({
       isHidden: false
     });
   }
 
   hide () {
-    console.log(`hide`);
-
     this.setState({
       isHidden: true
     });
@@ -20,14 +16,22 @@ export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
 
+    this.show = this.show.bind(this);
+    this.hide = this.hide.bind(this);
+
     this.state = {
-      isHidden: true
+      isHidden: typeof this.props.isHidden === `boolean` ? this.props.isHidden : true
     };
   }
 
   render() {
     return (
-      <div style={{background: `#eee`}} hidden={this.state.isHidden} className="row py-5">
+      <div style={{background: `#eee`}} hidden={this.state.isHidden} className="row p-4">
+        <div className="col-12">
+          <div className="row d-flex justify-content-end">
+            <button className="close-button" onClick={this.hide}>X</button>
+          </div>
+        </div>
         <div className="col-6">
           <h3 className="h3-cta-black">Join Our Ranks</h3>
           <p className="body-black">Access to bright minds, passionate community, and invaluable resources.</p>
