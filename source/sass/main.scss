@@ -272,6 +272,21 @@ a {
 
 // Custom Components
 
+#hero {
+  .row:first-child {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .center-nav-title p {
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    color: #91ac04;
+    letter-spacing: 1px;
+    line-height: 24px;
+  }
+}
+
 .mofo-footer {
   font-family: "Fira Sans";
 

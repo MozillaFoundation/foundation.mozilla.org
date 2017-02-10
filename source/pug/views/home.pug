@@ -6,14 +6,13 @@ mixin newsItem(source, title, author, date)
   p.italic-black by #{author}
   p.small-gray=date
 
-block content
-  .container(style=`background: #B6D806`)
-    include ../partials/burger.pug
-    .row
-      .col.p-4
-        .mb-4: h1.h1-home-white We Are Champions#[br] of a Healthy Internet
-        p.lead-black The Mozilla Networks brings together diverse leaders of all types. Join its ranks.
+block heroGuts
+  .row
+    .col.p-4
+      .mb-4: h1.h1-home-white We Are Champions#[br] of a Healthy Internet
+      p.lead-black The Mozilla Networks brings together diverse leaders of all types. Join its ranks.
 
+block content
   .container
     .row.py-5
       .col-4
