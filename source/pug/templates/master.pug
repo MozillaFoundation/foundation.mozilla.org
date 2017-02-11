@@ -22,11 +22,11 @@ html
 
     title=strings.MLN
   body(id=`view-${templateID}`)
-    .container: #join-us
 
-    #primary-nav
 
-    .container#hero
+    .container.sticky-top(style=`background:#ccc`)
+      #join-us
+      #primary-nav
       .row
         .col.p-4
           .d-flex.flex-row.justify-content-between.align-items-center
@@ -34,6 +34,8 @@ html
             .center-nav-title
               block centerNav
             button#join-trigger.btn.btn-normal Join Us
+
+    .container#hero
       block heroGuts
 
     block content
