@@ -1,0 +1,5 @@
+.join-us {
+  &:not(#join-us) .close-button {
+    display: none;
+  }
+}

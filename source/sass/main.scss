@@ -2,6 +2,11 @@
 @import '../../node_modules/mofo-bootstrap/src/scss/custom/_colors';
 @import '../../node_modules/bootstrap/scss/_variables.scss';
 
+// React Components
+@import '../js/components/people/people.scss';
+@import '../js/components/nav/nav.scss';
+@import '../js/components/join/join.scss';
+
 // Breakpoints (imported from Bootstrap)
 
 $bp-xs: #{map-get($grid-breakpoints, xs)}; // < 544px
@@ -294,12 +299,6 @@ a {
 
   p {
     color: rgba(255, 255, 255, 0.5);
-  }
-}
-
-.join-us {
-  .close-button {
-    display: none;
   }
 }
 

@@ -33,7 +33,7 @@ export default class PrimaryNav extends React.Component {
 
   render() {
     return (
-      <header hidden={this.state.isHidden} className="container py-2 mb-1" style={{background:`#ccc`}}>
+      <header hidden={this.state.isHidden} className="container py-2 mb-1">
         <p className="text-center"><a href="/"><img src="/_images/mozilla-wordmark.svg" style={{width:`150px`}}/></a></p>
         <ul className="py-3">
           <li><a href="/people">People</a></li>

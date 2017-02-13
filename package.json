@@ -22,8 +22,8 @@
     "test": "run-s test:**",
     "watch:images": "chokidar 'source/images/*' -c 'npm run build:images'",
     "watch:js": "chokidar 'source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js'",
-    "watch:pug": "chokidar 'source/pug/*/**.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
-    "watch:sass": "chokidar 'source/sass/main.scss' -c 'npm run build:sass'"
+    "watch:pug": "chokidar 'source/pug/**/*.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
+    "watch:sass": "chokidar 'source/**/*.scss' -c 'npm run build:sass'"
   },
   "author": "Mozilla",
   "license": "MPL-2.0",
