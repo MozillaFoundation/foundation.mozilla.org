@@ -2,16 +2,12 @@ import React from 'react';
 
 export default class PrimaryNav extends React.Component {
   show () {
-    console.log(`show`);
-
     this.setState({
       isHidden: false
     });
   }
 
   hide () {
-    console.log(`hide`);
-
     this.setState({
       isHidden: true
     });
@@ -21,6 +17,12 @@ export default class PrimaryNav extends React.Component {
     this.setState({
       isHidden: !this.state.isHidden
     });
+  }
+
+  componentDidUpdate () {
+    if(this.props.onStateChange) {
+      this.props.onStateChange.call(this, this.state);
+    }
   }
 
   constructor(props) {
