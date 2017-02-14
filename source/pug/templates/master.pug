@@ -25,9 +25,9 @@ html
   body(id=`view-${templateID}`)
     #primary-nav
     .wrapper
-      .container.sticky-top(style=`background:#ccc`)
+      .container.sticky-top
         #join-us.join-us
-        .row
+        .row.burger-wrapper
           .col.p-4
             .d-flex.flex-row.justify-content-between.align-items-center
               button#burger 🍔
@@ -64,4 +64,4 @@ html
               a.logo(href="https://mozilla.org")
             p Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at #[a(href="https://mozilla.org") mozilla.org].
 
-    script(src=`${env.virtualRoot}_js/main.compiled.js`)
+script(src=`${env.virtualRoot}_js/main.compiled.js`)
