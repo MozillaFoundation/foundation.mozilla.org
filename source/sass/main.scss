@@ -291,7 +291,8 @@ a {
 }
 
 .mofo-footer {
-  font-family: "Fira Sans";
+  background: $black;
+  letter-spacing: 0.02rem;
 
   p {
     color: rgba(255, 255, 255, 0.5);
