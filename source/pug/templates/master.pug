@@ -25,18 +25,22 @@ html
   body(id=`view-${templateID}`)
     #primary-nav
     .wrapper
-      .container.sticky-top
-        #join-us.join-us
-        .row.burger-wrapper
-          .col.p-4
-            .d-flex.flex-row.justify-content-between.align-items-center
-              button#burger 🍔
-              .center-nav-title
-                block centerNav
-              button#join-trigger.btn.btn-normal Join Us
-
-      .container#hero
-        block heroGuts
+      .sticky-top
+        .wrapper-join-us
+          .container
+            #join-us.join-us
+        .wrapper-burger
+          .container
+            .row
+              .col.p-4
+                .d-flex.flex-row.justify-content-between.align-items-center
+                  button#burger 🍔
+                  .center-nav-title
+                    block centerNav
+                  button#join-trigger.btn.btn-normal Join Us
+      #hero
+        .container
+          block heroGuts
 
       block content
 

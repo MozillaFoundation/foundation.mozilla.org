@@ -26,7 +26,7 @@ export default class JoinUs extends React.Component {
 
   render() {
     return (
-      <div style={{background: `#eee`}} hidden={this.state.isHidden} className="row p-4">
+      <div hidden={this.state.isHidden} className="row p-4">
         <div className="col-12">
           <div className="row d-flex justify-content-end">
             <button className="close-button" onClick={this.hide}>X</button>
