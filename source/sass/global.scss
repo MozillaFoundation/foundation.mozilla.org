@@ -1,0 +1,25 @@
+body > .wrapper {
+  background: $white;
+}
+
+#hero {
+  background: #b6d806;
+
+  .center-nav-title p {
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    color: #91ac04;
+    letter-spacing: 1px;
+    line-height: 24px;
+  }
+}
+
+.mofo-footer {
+  background: $black;
+  letter-spacing: 0.02rem;
+
+  p {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}

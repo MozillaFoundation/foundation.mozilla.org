@@ -1,0 +1,29 @@
+.btn {
+  font-family: "Nunito Sans";
+  font-weight: 900;
+  text-transform: uppercase;
+
+  &::after {
+    content: " →";
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn-ghost {
+  color: $black;
+  background: $white;
+  border: 1px solid #3bb7ef;
+
+  &:hover {
+    color: $black;
+    background-color: #3bb7ef;
+  }
+}
+
+.btn-normal {
+  color: $black;
+  background: #ffed00;
+}
