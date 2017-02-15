@@ -17,6 +17,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Resets & Primitives
 
+html {
+  background: $black;
+}
+
 html,
 body {
   margin: 0;
@@ -276,6 +280,10 @@ a {
 // Utility Classes
 
 // Custom Components
+
+body > .wrapper {
+  background: $white;
+}
 
 #hero {
   background: #b6d806;
