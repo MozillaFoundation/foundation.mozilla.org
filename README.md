@@ -38,7 +38,7 @@ To add a React component, you can target a container element from `/source/js/ma
 ### File Structure
 
 ```
-.
+/
 ├── env <- Environment variables
 ├── dest <- Compiled code generated from source. Don't edit!
 ├── locales <- Localized strings (Java .properties syntax)
@@ -46,7 +46,9 @@ To add a React component, you can target a container element from `/source/js/ma
 └── source <- Source code
     ├── images <- Image assets
     ├── js <- JS code
-    ├── pug <- Pug/Jade templates
+    │   └── components <- React components
+    ├── json <- JSON for static data sets
+    ├── pug <- Pug templates
     └── sass <- Sass code
 ```
 
@@ -54,10 +56,20 @@ To add a React component, you can target a container element from `/source/js/ma
 
 #### Staging
 
-Currently staged builds are hosted via GitHub Pages. A staged build can be deployed to any repo by running:
+Builds to staging are triggered by commits to `master`. A [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(staging)/) deploys to the "network-staging" S3 bucket in us-east-1, which is served using a CloudFront CDN.
+
+Staging URL is [network.mofostaging.net](https://network.mofostaging.net)
+
+##### gh-pages "personal" staged builds
+
+A build can be deployed to GitHub Pages on any fork by running:
 
 `npm run stage REMOTE` (Change `REMOTE` to match your desired target)
 
+This is typically useful for creating staged builds of unmerged features for design review.
+
 #### Production
 
-*TBD*
+Production deployments are triggered manually via a [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(production)/). Deployments are made to "network-production" in us-east-1, served using a CloudFront CDN.
+
+Temporary production URL is [network.mofoprod.net](https://network.mofoprod.net)
