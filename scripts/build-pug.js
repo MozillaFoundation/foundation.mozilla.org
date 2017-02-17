@@ -39,7 +39,7 @@ buildPage(`upcoming`, `/programs/upcoming`);
 buildPage(`fellowships`, `/programs/fellowships`);
 buildPage(`free-leadership-training`, `/programs/free-leadership-training`);
 buildPage(`internet-health-report`, `/programs/internet-health-report`);
-buildPage(`projects`, `/projects`);
+buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
 buildPage(`campaigns`, `/campaigns`);
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`);

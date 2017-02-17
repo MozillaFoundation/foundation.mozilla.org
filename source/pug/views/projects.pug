@@ -1,7 +1,14 @@
 extends ../templates/master.pug
 
+include ../partials/pulse-projects.pug
+
 block centerNav
   p Projects
 
 block content
-  .container: h2 Projects
+  .container
+    .row
+      .col
+        h2 Network Projects
+
+    +projects(data.pulse.results.slice(0,12), true)
