@@ -48,6 +48,7 @@ To add a React component, you can target a container element from `/source/js/ma
     ├── js <- JS code
     │   └── components <- React components
     ├── json <- JSON for static data sets
+    │   └── temp <- JSON pulled from web services. Don't commit!
     ├── pug <- Pug templates
     └── sass <- Sass code
 ```
