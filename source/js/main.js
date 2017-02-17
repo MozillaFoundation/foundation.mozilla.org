@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import JoinUs from './components/join/join.jsx';
 import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
+import PulseProjects from './components/pulse-projects/pulse-projects.jsx';
 
 let main = {
   init () {
@@ -66,6 +67,12 @@ let main = {
 
     if (document.getElementById(`people`)) {
       ReactDOM.render(<People/>, document.getElementById(`people`));
+    }
+
+    let elPulseWrapper = document.querySelector(`.pulse-projects`);
+
+    if (elPulseWrapper) {
+      ReactDOM.render(<PulseProjects projects={JSON.parse(elPulseWrapper.dataset.json)}/>, elPulseWrapper);
     }
   }
 };

@@ -54,7 +54,8 @@ block content
         .mb-5: h4.h2-headings-white Network Creations
         p.h4-light-black.text-center The latest tools, apps, and ideas from our network
 
-    +projects(data.pulse.results.slice(0,6), false)
+    // This will be replaced by a React component, but is rendered for indexing
+    +projects(data.pulse.results.slice(0,6), true)
 
     .row.mb-5
       .col.text-center

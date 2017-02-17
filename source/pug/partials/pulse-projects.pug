@@ -7,8 +7,7 @@ mixin projects(projectData, includeJSON)
 
 mixin project(meta)
   .col-sm-4.mb-3.p-3
-    img.mb-3(src=meta.thumbnail_url)
-    p.h4-medium-black=meta.title
-    p.small-gray=`By ${meta.creators.join(`, `)}`
-    p.body-black=meta.description
-    a.cta-link(href=meta.content_url) Read More
+    p=meta.title
+    p=`By ${meta.creators.join(`, `)}`
+    p=meta.description
+    a(href=meta.content_url) Read More
