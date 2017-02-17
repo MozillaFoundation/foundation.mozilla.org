@@ -32,7 +32,7 @@ function buildPage(template, target, extraData) {
   shelljs.ShellString(html).to(`${path}/index.html`);
 }
 
-buildPage(`home`, `/`);
+buildPage(`home`, `/`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
 buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/people.json`).toString())));
 buildPage(`programs`, `/programs`);
 buildPage(`upcoming`, `/programs/upcoming`);
