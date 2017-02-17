@@ -1,18 +1,12 @@
 extends ../templates/master.pug
 
+include ../partials/pulse-projects.pug
+
 mixin newsItem(source, title, author, date)
   p.h6-gray=source
   h5.h4-medium-black=title
   p.italic-black by #{author}
   p.small-gray=date
-
-mixin project(meta)
-  .col-sm-4.mb-3.p-3
-    img.mb-3(src=meta.thumbnail_url)
-    p.h4-medium-black=meta.title
-    p.small-gray=`By ${meta.creators.join(`, `)}`
-    p.body-black=meta.description
-    a.cta-link(href=meta.content_url) Read More
 
 block heroGuts
   .row
@@ -60,9 +54,7 @@ block content
         .mb-5: h4.h2-headings-white Network Creations
         p.h4-light-black.text-center The latest tools, apps, and ideas from our network
 
-    .row.mb-5
-      each project, index in data.pulse.results.slice(0,6)
-        +project(data.pulse.results[index])
+    +projects(data.pulse.results.slice(0,6), false)
 
     .row.mb-5
       .col.text-center
