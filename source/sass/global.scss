@@ -3,16 +3,38 @@ body > .wrapper {
 }
 
 #hero {
-  background: #b6d806;
+  background: rgba(182, 216, 6, 1);
+}
 
-  .center-nav-title p {
-    text-transform: uppercase;
+.center-nav-title p {
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  color: #7f9704;
+  letter-spacing: 1px;
+  line-height: 24px;
+}
+
+.wrapper-burger {
+  background: rgba(182, 216, 6, 1);
+
+  .logo {
+    width: 97px;
+    height: 47px;
+    background: url(../_images/logo.svg) no-repeat;
     margin: 0;
     padding: 0;
-    color: #91ac04;
-    letter-spacing: 1px;
-    line-height: 24px;
+    line-height: 0;
   }
+}
+
+#burger {
+  cursor: pointer;
+  margin-right: 50px;
+  border: 0;
+  background: url(../_images/hamburger.svg) no-repeat;
+  width: 31px;
+  height: 39px;
 }
 
 .mofo-footer {

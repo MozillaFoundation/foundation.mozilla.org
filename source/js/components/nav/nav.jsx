@@ -40,7 +40,7 @@ export default class PrimaryNav extends React.Component {
       <header hidden={this.state.isHidden}>
         <div className="container p-4">
           <button onClick={this.hide}>X</button>
-          <p className="text-center"><a href="/"><img src="/_images/mozilla-wordmark.svg" style={{width:`150px`}}/></a></p>
+          <p className="text-center"><a href="/"><img src="/_images/logo.svg" style={{width:`150px`}}/></a></p>
           <ul className="py-3 menu-nav">
             <li><a href="/people">People</a></li>
             <li><a href="/programs">Programs</a></li>

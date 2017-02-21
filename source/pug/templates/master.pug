@@ -34,7 +34,9 @@ html
             .row
               .col.p-4
                 .d-flex.flex-row.justify-content-between.align-items-center
-                  button#burger 🍔
+                  div.d-flex.align-items-center
+                    button#burger
+                    a(href=`${env.virtualRoot}`).logo.text-hide Mozilla Network
                   .center-nav-title
                     block centerNav
                   button#join-trigger.btn.btn-normal Join Us
