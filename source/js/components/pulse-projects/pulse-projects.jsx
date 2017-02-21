@@ -8,7 +8,7 @@ export default class PulseProjects extends React.Component {
   render() {
     let projects = this.props.projects.map((project, index) => {
       return (
-        <div key={index} className="col-sm-4 mb-3 p-3">
+        <div key={index} className="col-md-4 mb-3 p-3">
           <img className="mb-3" src={project.thumbnail_url} />
           <p className="h4-medium-black">{project.title}</p>
           <p className="small-gray">{`By ${project.creators.join(`, `)}`}</p>
