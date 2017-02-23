@@ -6,13 +6,89 @@
   z-index: 99999;
 
   a {
-    color: $white;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .btn-close {
+    background: url(../_images/x.svg) no-repeat;
+    background-size: contain;
+    width: 24px;
+    height: 23px;
+    opacity: 0.75;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      outline: 0;
+      opacity: 1;
+    }
   }
 
   .menu-nav {
-    font-size: 56px;
-    font-family: "Nunito Sans";
+    font-size: 48px;
+    font-family: "Arvo";
     line-height: 64px;
+
+    li {
+      margin-bottom: 0;
+    }
+
+    a:hover,
+    a:focus {
+      color: $white;
+      outline: 0;
+      text-decoration: none;
+    }
+  }
+
+  .menu-nav-side {
+    font-family: "Nunito Sans";
+    font-size: 16px;
+    line-height: 32px;
+    font-weight: 100;
+
+    @mixin glyph($id, $width: 20px, $height: 20px) {
+      content: "";
+      display: inline-block;
+      width: $width;
+      height: $height;
+      margin-right: 10px;
+      background: url(../_images/glyphs/#{$id}.svg) no-repeat;
+      background-size: contain;
+    }
+
+    .twitter::before {
+      @include glyph("twitter");
+    }
+
+    .chat::before {
+      @include glyph("chat");
+    }
+
+    .email::before {
+      @include glyph("email");
+    }
+
+    .donate::before {
+      @include glyph("donate");
+    }
+  }
+
+  .logo {
+    width: 94px;
+    height: 30px;
+    opacity: 0.75;
+    display: inline-block;
+    background: url(../_images/mozilla.svg) no-repeat;
+    background-size: contain;
+    margin: 0;
+    padding: 0;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+      outline: 0;
+    }
   }
 }
 

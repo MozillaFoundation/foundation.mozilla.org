@@ -36,6 +36,11 @@ body > .wrapper {
   background: url(../_images/hamburger.svg) no-repeat;
   width: 31px;
   height: 39px;
+
+  &:hover,
+  &:active {
+    outline: 0;
+  }
 }
 
 .mofo-footer {
