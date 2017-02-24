@@ -47,6 +47,20 @@
     }
   }
 
+  // Set highlighted primary pages based on unique ID emitted on body
+  @at-root {
+    #view-home .home,
+    #view-people .people,
+    #view-programs .programs,
+    #view-projects .projects,
+    #view-campaigns .campaigns,
+    #view-upcoming .upcoming,
+    #view-about .about {
+      color: $white;
+      font-weight: 900;
+    }
+  }
+
   .menu-nav-side {
     font-family: "Nunito Sans";
     font-size: 16px;

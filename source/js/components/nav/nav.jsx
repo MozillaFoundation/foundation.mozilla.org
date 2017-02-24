@@ -42,27 +42,29 @@ export default class PrimaryNav extends React.Component {
           <div className="row p-4">
             <button className="btn-close text-hide" onClick={this.hide}>X</button>
           </div>
-          <div className="row d-flex justify-content-between">
+          <div className="row d-md-flex justify-content-between">
             <div className="col align-self-end">
               <ul className="px-5 menu-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/people">People</a></li>
-                <li><a href="/programs">Programs</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/campaigns">Campaigns</a></li>
-                <li><a href="/programs/upcoming">Upcoming</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a className="home" href="/">Home</a></li>
+                <li><a className="people" href="/people">People</a></li>
+                <li><a className="programs" href="/programs">Programs</a></li>
+                <li><a className="projects" href="/projects">Projects</a></li>
+                <li><a className="campaigns" href="/campaigns">Campaigns</a></li>
+                <li><a className="upcoming" href="/programs/upcoming">Upcoming</a></li>
+                <li><a className="about" href="/about">About</a></li>
               </ul>
             </div>
-            <div className="col pb-3 px-3 align-self-end flex-grow-0">
-              <ul className="pb-2 menu-nav menu-nav-side">
+            <div className="col align-self-end flex-grow-0">
+              <ul className="px-5 py-2 menu-nav menu-nav-side">
                 <li><a className="d-flex align-items-center twitter" href="https://twitter.com/mozilla">Twitter</a></li>
                 <li><a className="d-flex align-items-center chat" href="#TODO">Chat</a></li>
                 <li><a className="d-flex align-items-center email" href="#TODO">Email</a></li>
                 <li><a className="d-flex align-items-center donate" href="https://donate.mozilla.org">Donate</a></li>
-                <li><em><a style={{color:`yellow`}} href="/style-guide">Style Guide</a></em></li>
+                <li><em><a style={{color:`fuchsia`}} href="/style-guide">Style Guide</a></em></li>
               </ul>
-              <a href="https://mozilla.org" className="text-hide logo">Mozilla</a>
+              <div className="px-5">
+                <a href="https://mozilla.org" className="text-hide logo">Mozilla</a>
+              </div>
             </div>
           </div>
         </div>
