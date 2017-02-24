@@ -33,11 +33,17 @@
       margin-bottom: 0;
     }
 
-    a:hover,
-    a:focus {
-      color: $white;
-      outline: 0;
-      text-decoration: none;
+    a {
+      display: inline-block;
+      height: 3.8rem;
+
+      &:hover,
+      &:focus {
+        color: rgba(255, 237, 0, 100);
+        outline: 0;
+        text-decoration: none;
+        border-bottom: 5px solid $black;
+      }
     }
   }
 
@@ -47,30 +53,53 @@
     line-height: 32px;
     font-weight: 100;
 
+    a {
+      height: auto;
+
+      &:hover,
+      &:focus {
+        border: none;
+      }
+    }
+
     @mixin glyph($id, $width: 20px, $height: 20px) {
       content: "";
       display: inline-block;
       width: $width;
       height: $height;
       margin-right: 10px;
-      background: url(../_images/glyphs/#{$id}.svg) no-repeat;
-      background-size: contain;
+      background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0/contain;
     }
 
-    .twitter::before {
-      @include glyph("twitter");
+    @mixin hoverGlyph($id) {
+      background: url(../_images/glyphs/#{$id}-active.svg) no-repeat 0 0/contain;
     }
 
-    .chat::before {
-      @include glyph("chat");
+    @mixin compositeGlyph($id) {
+      &::before {
+        @include glyph($id);
+      }
+
+      &:hover::before,
+      &:focus::before {
+        @include hoverGlyph($id);
+      }
     }
 
-    .email::before {
-      @include glyph("email");
+    .twitter {
+      @include compositeGlyph("twitter");
     }
 
-    .donate::before {
-      @include glyph("donate");
+    .chat {
+      @include compositeGlyph("chat");
+    }
+
+    .email {
+      @include compositeGlyph("email");
+    }
+
+    .donate {
+      @include compositeGlyph("donate");
     }
   }
 
