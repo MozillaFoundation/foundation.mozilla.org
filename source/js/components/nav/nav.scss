@@ -25,9 +25,12 @@
   }
 
   .menu-nav {
-    font-size: 48px;
+    font-size: 32px;
     font-family: "Arvo";
-    line-height: 64px;
+
+    @media (min-width: $bp-md) {
+      font-size: 64px;
+    }
 
     li {
       margin-bottom: 0;
@@ -35,7 +38,12 @@
 
     a {
       display: inline-block;
-      height: 3.8rem;
+
+      @media (min-width: $bp-md) {
+        height: 3.8rem;
+      }
+
+      height: 1.8rem;
 
       &:hover,
       &:focus {
