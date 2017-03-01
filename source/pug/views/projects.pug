@@ -5,11 +5,10 @@ include ../partials/pulse-projects.pug
 block centerNav
   p Projects
 
+block heroGuts
+  +subpageHero(`Network Projects`, `Open-source apps. Web literacy curriculum. Guides for fostering gender equality. These are the projects by and for our network.`)
+
 block content
   .container
-    .row
-      .col
-        h2 Network Projects
-
     // This will be replaced by a React component, but is rendered for indexing
     +projects(data.pulse.results.slice(0,12), true)

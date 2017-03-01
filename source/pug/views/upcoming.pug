@@ -3,12 +3,11 @@ extends ../templates/master.pug
 block centerNav
   p Upcoming
 
+block heroGuts
+  +subpageHero(`Upcoming`, `A snapshot of key milestones on the horizon. Get involved.`)
+
 block content
   .container
-    .row
-      .col
-        h1 Upcoming
-
     .row.my-5
       .col-4
       .col-8

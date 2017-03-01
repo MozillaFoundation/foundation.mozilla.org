@@ -130,11 +130,21 @@ a {
   @include black-box-white-text;
 }
 
-.lead-black {
+@mixin p-lead {
   font-size: 20px;
   font-weight: 100;
   letter-spacing: 0;
   line-height: 32px;
+}
+
+.lead-black {
+  @include p-lead;
+}
+
+.lead-white {
+  color: $white;
+
+  @include p-lead;
 }
 
 .blockquote-gray {
