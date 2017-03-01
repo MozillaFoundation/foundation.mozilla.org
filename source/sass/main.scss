@@ -25,3 +25,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './buttons';
 @import './global';
 @import './utilities';
+
+// View specific
+
+@import './views/home';
