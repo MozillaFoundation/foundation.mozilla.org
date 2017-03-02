@@ -1,0 +1,14 @@
+.feature-square {
+  img {
+    width: 100%;
+  }
+
+  h4 {
+    position: absolute;
+    width: calc(100% - 8px);
+    text-align: center;
+    color: $white;
+    bottom: 0.25rem;
+    padding: 0 15px;
+  }
+}
