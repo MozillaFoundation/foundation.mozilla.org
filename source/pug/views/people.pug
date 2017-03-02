@@ -1,11 +1,11 @@
 extends ../templates/master.pug
 
 mixin person(meta)
-  .col-lg-3.p-3.person
+  div
     h4=meta.name
-    p 👤 #{meta.role}
-    p ▼ #{meta.location}
-    p &hearts;&nbsp;
+    p=meta.role
+    p=meta.location
+    p
       each team in meta.teams
         small #{team},&nbsp;
 
@@ -16,7 +16,7 @@ block heroGuts
   +subpageHero(`Diverse Members, One Mission`, `Network members speak many languages and span many disciplines. But we all believe in a healthy Internet.`)
 
 block content
-  .container
+  .container.py-5
     // This will be replaced by a React component, but this content is left available for indexing (SEO)
     #people
       each person, index in data

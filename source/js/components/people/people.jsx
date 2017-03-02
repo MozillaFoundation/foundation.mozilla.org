@@ -15,7 +15,7 @@ export default class People extends React.Component {
     });
 
     return (
-      <div className="row p-5">
+      <div className="row">
         {people}
       </div>
     );
