@@ -12,6 +12,15 @@ a {
   color: #3bb7ef;
 }
 
+@mixin scaleText($small) {
+  font-size: $small;
+
+  @media screen and (min-width: $bp-md) {
+    // "Mobile" is 75% the size of "Desktop"
+    font-size: $small * 1.333;
+  }
+}
+
 @mixin black-box-white-text {
   background: $black;
   color: $white;
@@ -26,115 +35,124 @@ a {
 .h1-home-white {
   font-family: Arvo;
   font-weight: 900;
-  font-size: 64px;
 
+  @include scaleText(48px);
   @include black-box-white-text;
 }
 
 .h1-white {
   font-family: Arvo;
   font-weight: 100;
-  font-size: 48px;
   letter-spacing: 0;
 
+  @include scaleText(36px);
   @include black-box-white-text;
 }
 
 .h2-headings-white {
-  font-size: 24px;
   letter-spacing: 1px;
   text-transform: uppercase;
 
+  @include scaleText(18px);
   @include black-box-white-text;
 }
 
 .h2-typeaccents-gray {
   font-family: Arvo;
   font-weight: 400;
-  font-size: 72px;
   color: #ccc;
   line-height: 80px;
+
+  @include scaleText(54px);
 }
 
 .h3-black {
   font-family: Arvo;
   font-weight: 100;
-  font-size: 40px;
   letter-spacing: 0;
   line-height: 48px;
+
+  @include scaleText(30px);
 }
 
 .h3-cta-black {
-  font-size: 32px;
   letter-spacing: 0;
   line-height: 40px;
   font-weight: 900;
+
+  @include scaleText(24px);
 }
 
 .h4-medium-black {
   font-family: Arvo;
-  font-size: 28px;
   letter-spacing: 0.5px;
   line-height: 32px;
+
+  @include scaleText(21px);
 }
 
 .h4-medium-white {
   font-family: Arvo;
   font-weight: 400;
-  font-size: 28px;
   letter-spacing: 0.5px;
 
+  @include scaleText(21px);
   @include black-box-white-text;
 }
 
 .h4-light-black {
   font-family: Arvo;
   font-weight: 100;
-  font-size: 28px;
   color: #231f20;
   letter-spacing: 0;
   line-height: 32px;
+
+  @include scaleText(21px);
 }
 
 .h4-headingcontract-black {
-  font-size: 28px;
   font-weight: 400;
   color: #231f20;
   letter-spacing: 0;
   line-height: 32px;
+
+  @include scaleText(21px);
 }
 
 .h5-black {
   font-family: Arvo;
   font-weight: 400;
-  font-size: 20px;
   color: #231f20;
   letter-spacing: 0.25px;
   line-height: 32px;
+
+  @include scaleText(15px);
 }
 
 .h6-gray {
-  font-size: 12px;
   font-weight: 400;
   color: #909090;
   letter-spacing: 0.5px;
   line-height: 16px;
   text-transform: uppercase;
+
+  @include scaleText(9px);
 }
 
 .h6-white {
-  font-size: 12px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 
+  @include scaleText(9px);
   @include black-box-white-text;
 }
 
 @mixin p-lead {
-  font-size: 20px;
   font-weight: 100;
   letter-spacing: 0;
   line-height: 32px;
+
+  @include scaleText(15px);
 }
 
 .lead-black {
@@ -148,62 +166,67 @@ a {
 }
 
 .blockquote-gray {
-  font-size: 24px;
   font-weight: 100;
   font-style: italic;
   color: #909090;
   line-height: 32px;
+
+  @include scaleText(18px);
 }
 
 .body-black {
-  font-size: 16px;
   color: $black;
   letter-spacing: 0;
   line-height: 24px;
+
+  @include scaleText(12px);
 }
 
 .body-white {
-  font-size: 16px;
   font-weight: 100;
 
+  @include scaleText(12px);
   @include black-box-white-text;
 }
 
 .italic-black {
-  font-size: 16px;
   letter-spacing: 0;
   line-height: 24px;
   font-style: italic;
+
+  @include scaleText(12px);
 }
 
 .small-gray {
-  font-size: 12px;
   color: #909090;
   letter-spacing: 0;
   line-height: 16px;
+
+  @include scaleText(9px);
 }
 
 .small-white {
-  font-size: 12px;
   letter-spacing: 0;
 
+  @include scaleText(9px);
   @include black-box-white-text;
 }
 
 .body-link {
-  font-size: 16px;
   letter-spacing: 0;
   line-height: 24px;
+
+  @include scaleText(12px);
 }
 
 .link-small {
-  font-size: 12px;
   letter-spacing: 0;
   line-height: 16px;
+
+  @include scaleText(9px);
 }
 
 .cta-link {
-  font-size: 16px;
   display: inline-block;
   letter-spacing: 0.5px;
   line-height: 24px;
@@ -213,4 +236,6 @@ a {
   &::after {
     content: " →";
   }
+
+  @include scaleText(12px);
 }
