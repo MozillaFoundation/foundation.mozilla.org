@@ -30,3 +30,4 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 @import './views/home';
 @import './views/programs';
+@import './views/landing';
