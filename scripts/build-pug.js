@@ -38,9 +38,11 @@ buildPage(`programs`, `/programs`);
 buildPage(`upcoming`, `/programs/upcoming`);
 buildPage(`fellowships`, `/programs/fellowships`);
 buildPage(`free-leadership-training`, `/programs/free-leadership-training`);
-buildPage(`internet-health-report`, `/programs/internet-health-report`);
 buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
 buildPage(`campaigns`, `/campaigns`);
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`);
 buildPage(`style-guide`, `/style-guide`);
+
+// Landing Pages:
+buildPage(`internet-health-report`, `/landing/internet-health-report`);
