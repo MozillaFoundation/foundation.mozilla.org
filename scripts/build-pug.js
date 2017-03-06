@@ -44,5 +44,5 @@ buildPage(`about`, `/about`);
 buildPage(`news`, `/news`);
 buildPage(`style-guide`, `/style-guide`);
 
-// Landing Pages:
-buildPage(`internet-health-report`, `/landing/internet-health-report`);
+// Opportunities
+buildPage(`internet-health-report`, `/opportunity/internet-health-report`);
