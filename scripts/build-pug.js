@@ -40,7 +40,7 @@ buildPage(`fellowships`, `/programs/fellowships`);
 buildPage(`free-leadership-training`, `/programs/free-leadership-training`);
 buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
 buildPage(`about`, `/about`);
-buildPage(`news`, `/news`);
+buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/news.json`).toString()))});
 buildPage(`style-guide`, `/style-guide`);
 
 // Landing Pages:
