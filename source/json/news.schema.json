@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "headline": {
+        "type": "string"
+      },
+      "outlet": {
+        "type": "string"
+      },
+      "topic": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "link": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "headline",
+      "outlet",
+      "topic",
+      "date",
+      "link"
+    ]
+  }
+}
