@@ -9,16 +9,18 @@ mixin blurb(newsItem)
 
 mixin newsForYear(year)
   .row.mb-5
-    .col-4
+    .col-md-4.d-md-flex.justify-content-end
       h2.h2-typeaccents-gray=year
-    .col-8
+    .col-md-8
       -
         let newsItems = data.news.filter((item) => {
           return item.date.match(year);
         });
 
-      each item in newsItems
+      each item, index in newsItems
         +blurb(item)
+        - if (index !== newsItems.length - 1)
+          hr
 
 block centerNav
   p News
