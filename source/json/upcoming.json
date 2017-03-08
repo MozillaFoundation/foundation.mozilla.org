@@ -6,7 +6,7 @@
     "headline": "Digital Skills Observatory (DSO) research published",
     "description": "DSO is a 12-month research project carried out by Mozilla and partners, and supported by the Bill & Melinda Gates Foundation. Research explores how low-income, first-time Internet users in Kenya experience online life.",
     "link": {
-      "url": "#TODO",
+      "url": "http://mozillafoundation.github.io/digital-skills-observatory/",
       "label": "View the research"
     }
   },
@@ -17,7 +17,7 @@
     "headline": "MozFest call for proposals",
     "description": "Propose a session at MozFest, Mozilla’s annual open Internet festival. Sessions range from hands-on workshops to lightning talks, and should relate to Internet health.",
     "link": {
-      "url": "#TODO",
+      "url": "https://mozillafestival.org/",
       "label": "Visit the Festival Website"
     }
   },
@@ -28,7 +28,7 @@
     "headline": "SRCCON",
     "description": "An annual conference for the journalists and technologists bringing open source into newsrooms. Hosted by Network member organization OpenNews.",
     "link": {
-      "url": "#TODO",
+      "url": "https://srccon.org/",
       "label": "Go to conference site"
     }
   },
@@ -39,7 +39,7 @@
     "headline": "Open Web Fellows announced",
     "description": "Meet some of the Network’s brightest minds: promising technologists and activists working toward a better web (and society).",
     "link": {
-      "url": "#TODO",
+      "url": "https://advocacy.mozilla.org/en-US/open-web-fellows/fellows2016",
       "label": "Learn about the fellows"
     }
   },
@@ -50,7 +50,7 @@
     "headline": "Internet Health Report",
     "description": "Our annual publication documenting the health of the web. An open source project drawing on data and storytelling.",
     "link": {
-      "url": "#TODO",
+      "url": "https://internethealthreport.org/v01/",
       "label": "Read & contribute to the report"
     }
   },
@@ -61,7 +61,7 @@
     "headline": "MozFest",
     "description": "The world's leading festival for the open Internet movement. Held annually, MozFest features hands-on workshops, keynotes, hackathons and science fairs.",
     "link": {
-      "url": "#TODO",
+      "url": "https://mozillafestival.org/",
       "label": "Visit the festival website"
     }
   },
@@ -72,7 +72,7 @@
     "headline": "Open Web Fellows applications open",
     "description": "Technologists and activists: apply to embed at leading nonprofits fighting for social change. Fellows announced in August.",
     "link": {
-      "url": "#TODO",
+      "url": "https://advocacy.mozilla.org/en-US/open-web-fellows/fellows2016",
       "label": "Learn about the fellows"
     }
   },
