@@ -12,6 +12,9 @@ $bp-md: #{map-get($grid-breakpoints, md)}; // >= 768px
 $bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
 $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
+//Site-wide
+@import './glyphs';
+
 // React Components
 
 @import '../js/components/people/people';

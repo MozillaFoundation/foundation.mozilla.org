@@ -11,13 +11,13 @@
       },
       "role": {
         "type": "string",
-        "faker": "name.jobTitle"
+        "pattern": "Staff|OWF Host|Partner|Hive NYC Partner|Advisor|Member, MLN Advisory Group"
       },
       "location": {
         "type": "string",
         "faker": "address.country"
       },
-      "teams": {
+      "affiliations": {
         "type": "array",
         "items": {
           "type": "string",
@@ -36,7 +36,41 @@
         }
       },
       "image": {
-        "type": "string"
+        "type": "string",
+        "faker": "internet.avatar"
+      },
+      "partnership_logo": {
+        "type": "string",
+        "faker": "image.abstract"
+      },
+      "quote": {
+        "type": "string",
+        "faker": "lorem.sentence"
+      },
+      "bio": {
+        "type": "array",
+        "maxLength": 3,
+        "items": {
+          "type": "string",
+          "faker": "lorem.sentence"
+        }
+      },
+      "internet_health_issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "chance": {
+            "pickset": [
+              [
+                "Web Literacy",
+                "Online Privacy & Security",
+                "Digital Inclusion",
+                "Decentralization",
+                "Open Innovation"
+              ]
+            ]
+          }
+        }
       },
       "featured": {
         "type": "boolean"
@@ -46,10 +80,14 @@
       "name",
       "role",
       "location",
-      "teams",
+      "affiliations",
       "links",
       "image",
-      "featured"
+      "featured",
+      "internet_health_issues",
+      "bio",
+      "quote",
+      "partnership_logo"
     ]
   }
 }

@@ -55,9 +55,9 @@ export default class PrimaryNav extends React.Component {
             </div>
             <div className="col align-self-end flex-grow-0">
               <ul className="px-5 py-2 menu-nav menu-nav-side">
-                <li><a className="d-flex align-items-center twitter" href="https://twitter.com/mozilla">Twitter</a></li>
-                <li><a className="d-flex align-items-center chat" href="#TODO">Chat</a></li>
-                <li><a className="d-flex align-items-center email" href="#TODO">Email</a></li>
+                <li><a className="d-flex align-items-center twitter-circle" href="https://twitter.com/mozilla">Twitter</a></li>
+                <li><a className="d-flex align-items-center chat-circle" href="#TODO">Chat</a></li>
+                <li><a className="d-flex align-items-center email-circle" href="#TODO">Email</a></li>
                 <li><a className="d-flex align-items-center donate" href="https://donate.mozilla.org">Donate</a></li>
                 <li><em><a style={{color:`fuchsia`}} href="/style-guide">Style Guide</a></em></li>
               </ul>

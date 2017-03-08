@@ -1,0 +1,45 @@
+@mixin glyph($id, $width: 20px, $height: 20px) {
+  content: "";
+  display: inline-block;
+  width: $width;
+  height: $height;
+  margin-right: 10px;
+  background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0/contain;
+}
+
+@mixin hoverGlyph($id) {
+  &:hover::before,
+  &:focus::before {
+    background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0/contain;
+  }
+}
+
+@mixin compositeGlyph($id) {
+  &::before {
+    @include glyph($id);
+  }
+}
+
+.twitter-circle {
+  @include compositeGlyph("twitter-circle");
+}
+
+.chat-circle {
+  @include compositeGlyph("chat-circle");
+}
+
+.email-circle {
+  @include compositeGlyph("email-circle");
+}
+
+.donate {
+  @include compositeGlyph("donate");
+}
+
+.twitter {
+  @include compositeGlyph("twitter");
+}
+
+.linkedIn {
+  @include compositeGlyph("linkedIn");
+}
