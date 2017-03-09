@@ -3,3 +3,4 @@ TODO.txt
 node_modules/
 dest/
 source/json/temp/
+/.env
