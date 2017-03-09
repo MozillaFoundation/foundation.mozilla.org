@@ -17,7 +17,7 @@
     "stage": "npm i && shx rm -rf dest && npm run build:pug -- --staging && npm run build:images && npm run build:js && npm run build:sass && node scripts/stage.js",
     "start": "npm i && npm run build && run-p server watch:**",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/**/*.js source/js/**/*.js source/js/components/**/*.jsx",
-    "test:json": "ajv validate -s source/json/people.schema.json -d source/json/people.json",
+    "test:json": "ajv validate -s source/json/people.schema.json -d source/json/people.json && ajv validate -s source/json/news.schema.json -d source/json/news.json",
     "test:pug": "pug-lint source/pug/**/*.pug",
     "test:scss": "stylelint 'source/sass/main.scss' --syntax scss",
     "test": "run-s test:**",
