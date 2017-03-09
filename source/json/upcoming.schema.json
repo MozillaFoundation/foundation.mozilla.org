@@ -5,7 +5,7 @@
     "type": "object",
     "properties": {
       "photo": {
-        "type": "string"
+        "type": ["string", "null"]
       },
       "startDate": {
         "type": ["string", "null"]
@@ -25,13 +25,13 @@
           "url": {
             "type": "string"
           },
-          "description": {
+          "label": {
             "type": "string"
           }
         },
         "required": [
           "url",
-          "description"
+          "label"
         ]
       }
     },

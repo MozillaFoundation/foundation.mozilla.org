@@ -1,11 +1,123 @@
-[{
-  "photo": "/_images/dso.jpg",
-  "startDate": "2017-03-01T08:00:00.000Z",
-  "endDate": null,
-  "headline": "Digital Skills Observatory (DSO) research published",
-  "description": "DSO is a 12-month research project carried out by Mozilla and partners, and supported by the Bill & Melinda Gates Foundation. Research explores how low-income, first-time Internet users in Kenya experience online life.",
-  "link": {
-    "url": "#TODO",
-    "description": "View the research"
+[
+  {
+    "photo": "/_images/upcoming/dso.jpg",
+    "startDate": "2017-03-21T00:00:00.000Z",
+    "endDate": null,
+    "headline": "Digital Skills Observatory (DSO) research published",
+    "description": "DSO is a 12-month research project carried out by Mozilla and partners, and supported by the Bill & Melinda Gates Foundation. Research explores how low-income, first-time Internet users in Kenya experience online life.",
+    "link": {
+      "url": "#TODO",
+      "label": "View the research"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/mozfest-call-for-proposal.jpg",
+    "startDate": "2017-06-01T07:00:00.000Z",
+    "endDate": null,
+    "headline": "MozFest call for proposals",
+    "description": "Propose a session at MozFest, Mozilla’s annual open Internet festival. Sessions range from hands-on workshops to lightning talks, and should relate to Internet health.",
+    "link": {
+      "url": "#TODO",
+      "label": "Visit the Festival Website"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/srccon.jpg",
+    "startDate": "2017-08-03T07:00:00.000Z",
+    "endDate": "2017-08-04T07:00:00.000Z",
+    "headline": "SRCCON",
+    "description": "An annual conference for the journalists and technologists bringing open source into newsrooms. Hosted by Network member organization OpenNews.",
+    "link": {
+      "url": "#TODO",
+      "label": "Go to conference site"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/fellows-announced.jpg",
+    "startDate": "2017-08-01T07:00:00.000Z",
+    "endDate": null,
+    "headline": "Open Web Fellows announced",
+    "description": "Meet some of the Network’s brightest minds: promising technologists and activists working toward a better web (and society).",
+    "link": {
+      "url": "#TODO",
+      "label": "Learn about the fellows"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/internet-health-report.jpg",
+    "startDate": "2017-10-01T07:00:00.000Z",
+    "endDate": null,
+    "headline": "Internet Health Report",
+    "description": "Our annual publication documenting the health of the web. An open source project drawing on data and storytelling.",
+    "link": {
+      "url": "#TODO",
+      "label": "Read & contribute to the report"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/mozfest.jpg",
+    "startDate": "2017-11-01T07:00:00.000Z",
+    "endDate": null,
+    "headline": "MozFest",
+    "description": "The world's leading festival for the open Internet movement. Held annually, MozFest features hands-on workshops, keynotes, hackathons and science fairs.",
+    "link": {
+      "url": "#TODO",
+      "label": "Visit the festival website"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/fellows-application.jpg",
+    "startDate": "2017-11-01T07:00:00.000Z",
+    "endDate": null,
+    "headline": "Open Web Fellows applications open",
+    "description": "Technologists and activists: apply to embed at leading nonprofits fighting for social change. Fellows announced in August.",
+    "link": {
+      "url": "#TODO",
+      "label": "Learn about the fellows"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/gigabit-application.jpg",
+    "startDate": null,
+    "endDate": null,
+    "headline": "Gigabit grant applications open",
+    "description": "Innovators in the gigabit cities of Austin, Chattanooga and Kansas City can seek support for projects that leverage next-generation Internet.",
+    "link": {
+      "url": "#TODO",
+      "label": "Learn more about Gigabit"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/gigabit-announced.jpg",
+    "startDate": null,
+    "endDate": null,
+    "headline": "Gigabit grants announced",
+    "description": "Meet the people and organizations using gigabit Internet to revolutionize learning.",
+    "link": {
+      "url": "#TODO",
+      "label": "Learn more about Gigabit"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/the-glass-room.jpg",
+    "startDate": null,
+    "endDate": null,
+    "headline": "The Glass Room 2.0",
+    "description": "In December 2016, Mozilla and Tactical Tech set up The Glass Room, a Manhattan-based exhibit exploring life online. Stay tuned for the next iteration.",
+    "link": {
+      "url": "#TODO",
+      "label": "Browse the exhibit"
+    }
+  },
+  {
+    "photo": "/_images/upcoming/edtech-austin.jpg",
+    "startDate": "2017-02-22T08:00:00.000Z",
+    "endDate": null,
+    "headline": "Education Innovation Showcase",
+    "description": "EdTech Austin and Mozilla Hive Austin are bringing together -- and celebrating -- a range of education organizations in Austin, TX.",
+    "link": {
+      "url": "#TODO",
+      "label": "See event details"
+    }
   }
-}]
+]
