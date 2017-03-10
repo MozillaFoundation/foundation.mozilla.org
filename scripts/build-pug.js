@@ -1,6 +1,7 @@
 let propertiesToObject = require(`java.properties.js`).default;
 let pug = require(`pug`);
 let shelljs = require(`shelljs`);
+let moment = require(`moment`);
 
 let envFlag = process.argv[2];
 let environmentVariables;
@@ -18,7 +19,8 @@ function buildPage(template, target, extraData) {
     env: environmentVariables,
     strings: propertiesToObject(rawStrings.toString()),
     templateID: template,
-    data: extraData
+    data: extraData,
+    moment: moment
   };
 
   let fn = pug.compileFile(`source/pug/views/${template}.pug`, {
@@ -35,7 +37,7 @@ function buildPage(template, target, extraData) {
 buildPage(`home`, `/`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
 buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/people.json`).toString())));
 buildPage(`programs`, `/programs`);
-buildPage(`upcoming`, `/programs/upcoming`);
+buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
 buildPage(`fellowships`, `/programs/fellowships`);
 buildPage(`free-leadership-training`, `/programs/free-leadership-training`);
 buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});

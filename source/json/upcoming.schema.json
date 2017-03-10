@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "photo": {
+        "type": ["string", "null"]
+      },
+      "startDate": {
+        "type": ["string", "null"]
+      },
+      "endDate": {
+        "type": ["string", "null"]
+      },
+      "headline": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "link": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "label"
+        ]
+      }
+    },
+    "required": [
+      "photo",
+      "startDate",
+      "endDate",
+      "headline",
+      "description",
+      "link"
+    ]
+  }
+}

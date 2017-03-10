@@ -1,5 +1,21 @@
 extends ../templates/master.pug
 
+mixin event(meta)
+  .row.my-5
+    .col-4
+      - if(meta.photo)
+        img(src=meta.photo)
+    .col-8
+      - if(meta.startDate && meta.endDate)
+        p.h6-gray=`${moment(meta.startDate).format(`MMMM D`)}-${moment(meta.endDate).format(`D, YYYY`)}`
+      - else if(meta.startDate)
+        p.h6-gray=moment(meta.startDate).format(`MMMM YYYY`)
+      - else
+        p.h6-gray TBD
+      h2.h4-light-black=meta.headline
+      p.body-black=meta.description
+      a.cta-link(href=meta.link.url)=meta.link.label
+
 block centerNav
   p Upcoming
 
@@ -8,38 +24,18 @@ block heroGuts
 
 block content
   .container
-    .row.my-5
-      .col-4
-      .col-8
-        h2 MozFest
-        p The world's leading festival for the open Internet movement.
-        p MozFest convenes technologists, educators and activists around the theme of Internet health. Held annually in London and featuring hands-on workshops, keynotes, hackathons, science fairs and more.
-        p Fall 2017. Call for sessions open in summer 2017.
-        a(href=`#TODO`) Go to website
+    -
+      let futureEvents = data.filter((event) => {
+        return moment(event.startDate).isAfter(Date.now());
+      });
 
-    .row.my-5
-      .col-4
-      .col-8
-        h2 Internet Health Report
-        p Mozilla Network’s annual publication exploring the health of the web
-        p An open-source publication using data and original reporting to unpack the state of the web. For and by Network members.
-        p Winter 2017
-        a(href=`#TODO`) Go to website
+      let pastEvents = data.filter((event) => {
+        return moment(event.startDate).isBefore(Date.now());
+      });
 
-    .row.my-5
-      .col-4
-      .col-8
-        h2 MozFest
-        p The world's leading festival for the open Internet movement.
-        p MozFest convenes technologists, educators and activists around the theme of Internet health. Held annually in London and featuring hands-on workshops, keynotes, hackathons, science fairs and more.
-        p Fall 2017. Call for sessions open in summer 2017.
-        a(href=`#TODO`) Go to website
-
-    .row.my-5
-      .col-4
-      .col-8
-        h2 Internet Health Report
-        p Mozilla Network’s annual publication exploring the health of the web
-        p An open-source publication using data and original reporting to unpack the state of the web. For and by Network members.
-        p Winter 2017
-        a(href=`#TODO`) Go to website
+    each event in futureEvents
+      +event(event)
+    .row
+      h3.h2-headings-white Recent
+    each event in pastEvents
+      +event(event)
