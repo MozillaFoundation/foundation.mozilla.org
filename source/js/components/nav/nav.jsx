@@ -59,7 +59,6 @@ export default class PrimaryNav extends React.Component {
                 <li><a className="d-flex align-items-center chat-circle" href="#TODO">Chat</a></li>
                 <li><a className="d-flex align-items-center email-circle" href="#TODO">Email</a></li>
                 <li><a className="d-flex align-items-center donate" href="https://donate.mozilla.org">Donate</a></li>
-                <li><em><a style={{color:`fuchsia`}} href="/style-guide">Style Guide</a></em></li>
               </ul>
               <div className="px-5">
                 <a href="https://mozilla.org" className="text-hide logo">Mozilla</a>
