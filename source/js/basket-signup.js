@@ -1,22 +1,17 @@
-var url = process.env.SIGNUP;
-url = `https://basket-dev.allizom.org/news/subscribe/`;
+var url = `https://www.mozilla.org/en-US/newsletter/`;
 
 var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
-  console.log(url);
   var payload = {
-    format: `html`,
+    format: `H`, // HTML emails
     newsletter: `mozilla-leadership-network`,
     triggerWelcome: `N`,
-    email: `success@example.com`,
-    privacy: true || false
+    email: transaction.email,
+    privacy: transaction.privacy || false
   };
-
-  console.log(payload);
 
   var errorArray = [];
   var newsletterErrors = [];
 
-  errorArray = [];
   while (newsletterErrors.firstChild) { newsletterErrors.removeChild(newsletterErrors.firstChild); }
 
   var params = `email=` + encodeURIComponent(payload.email) +
@@ -24,13 +19,10 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
                    `&privacy=`+ payload.privacy +
                   `&fmt=` + payload.format +
                   `&source_url=` + encodeURIComponent(document.location.href);
-  console.log(params);
 
   var xhr = new XMLHttpRequest();
 
   xhr.onload = function(r) {
-    console.log(`onload`);
-    console.log(r);
     if (r.target.status >= 200 && r.target.status < 300) {
       var response = r.target.response;
 
@@ -47,7 +39,7 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
             errorArray.push(response.errors[i]);
           }
         }
-        onFailCallback(new Error());
+        onFailCallback(new Error(errorArray));
       }
     } else {
       onFailCallback(new Error());
@@ -55,7 +47,6 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
   };
 
   xhr.onerror = function(e) {
-    console.log(`onerror`);
     onFailCallback(e);
   };
 

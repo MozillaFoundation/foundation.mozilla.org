@@ -58,7 +58,7 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "hatchet": "^0.3.2",
+    "classnames": "^2.2.5",
     "mofo-bootstrap": "3.2.0",
     "react": "15.4.2",
     "react-dom": "15.4.2"

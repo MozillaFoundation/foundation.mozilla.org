@@ -1,3 +1,4 @@
 {
-  "virtualRoot": "/network/"
+  "virtualRoot": "/network/",
+  "basketUrl": "https://www.allizom.org/en-US/newsletter/"
 }

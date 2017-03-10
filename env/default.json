@@ -1,3 +1,4 @@
 {
-  "virtualRoot": "/"
+  "virtualRoot": "/",
+  "basketUrl": "https://www.mozilla.org/en-US/newsletter/"
 }
