@@ -20,7 +20,7 @@ export default class Person extends React.Component {
 
     let issues = this.props.metadata.internet_health_issues.map((issue, index) => {
       return (
-        <a href="#" key={index} className="link-small issue-link d-inline-block mr-1">{issue}</a>
+        <span key={index} className="issue-link small d-inline-block mr-1">{issue}</span>
       );
     });
 
@@ -57,7 +57,7 @@ export default class Person extends React.Component {
               <div className={`row flex-1 flippable-card flip-${this.state.flipped}`}>
                 <div className="col-12 bio-content">
                   <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
-                  <div className="small">{this.props.metadata.role} / {this.props.metadata.location}</div>
+                  <div className="person-role-location small">{this.props.metadata.role} / {this.props.metadata.location}</div>
                   <div className="person-issues">{issues}</div>
                   <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations}</div>
                   <div className="person-bio body-black">
@@ -94,7 +94,7 @@ export default class Person extends React.Component {
             </div>
             <div className="col bio-content">
               <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
-              <div className="small">{this.props.metadata.role} / {this.props.metadata.location}</div>
+              <div className="small person-role-location">{this.props.metadata.role} / {this.props.metadata.location}</div>
               <div className="person-issues">{issues}</div>
               <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations}</div>
               <div className="person-social-links mt-3">

@@ -18,6 +18,15 @@
     line-height: 1;
   }
 
+  .person-role-location {
+    font-weight: 600;
+    color: black;
+  }
+
+  .issue-link {
+    font-style: italic;
+  }
+
   .issue-link:not(:last-child)::after {
     content: ', ';
   }
