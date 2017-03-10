@@ -36,10 +36,10 @@ export default class Person extends React.Component {
       return (
         <div className="col-12 p-3 mb-4">
           <div className="person-card person-card-featured row no-gutters">
-            <div className="col-12 col-sm-4 mr-3">
+            <div className="col-4 mr-3">
               <div className="row">
                 <div className="col">
-                  <img src={this.props.metadata.image} alt="Headshot" />
+                  <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
                 </div>
               </div>
               <div className="row">
@@ -50,8 +50,8 @@ export default class Person extends React.Component {
             </div>
             <div className="col d-flex flex-column">
               <div className="justify-content-end row no-gutters">
-                <div className="col col-auto" tabIndex="1" onClick={this.flip} >
-                  <div className="background-left-slant more-details">{this.state.flipped?`MORE DETAILS +`:`SEE QUOTE +`}</div>
+                <div className="col col-auto">
+                  <button className="more-details btn" onClick={this.flip} >{this.state.flipped?`MORE DETAILS`:`SEE QUOTE`}</button>
                 </div>
               </div>
               <div className={`row flex-1 flippable-card flip-${this.state.flipped}`}>
@@ -63,7 +63,6 @@ export default class Person extends React.Component {
                   <div className="person-bio body-black">
                     <ul>
                       {this.props.metadata.bio.map((item, index)=>{
-                        console.log(item);
                         return (<li key={index}>{item}</li>);
                       })}
                     </ul>
@@ -95,7 +94,7 @@ export default class Person extends React.Component {
         <div className="col-md-6 col-12 p-3 mb-4">
           <div className="person-card row no-gutters">
             <div className="col col-sm-4 mr-3">
-              <img src={this.props.metadata.image} style={{"width":`100%`}} alt="Headshot" />
+              <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
             </div>
             <div className="col bio-content">
               <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
