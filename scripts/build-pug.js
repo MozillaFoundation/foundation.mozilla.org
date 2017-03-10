@@ -38,7 +38,6 @@ buildPage(`home`, `/`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.j
 buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/people.json`).toString())));
 buildPage(`programs`, `/programs`);
 buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
-buildPage(`fellowships`, `/programs/fellowships`);
 buildPage(`free-leadership-training`, `/programs/free-leadership-training`);
 buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
 buildPage(`about`, `/about`);
@@ -47,3 +46,5 @@ buildPage(`style-guide`, `/style-guide`);
 
 // Opportunities
 buildPage(`internet-health-report`, `/opportunity/internet-health-report`);
+buildPage(`fellowships`, `/opportunity/fellowships`);
+buildPage(`training`, `/opportunity/training`);
