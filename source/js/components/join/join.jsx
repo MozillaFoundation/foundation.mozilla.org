@@ -50,12 +50,12 @@ export default class JoinUs extends React.Component {
   render() {
 
     let inputGroupClass = classNames({
-      'has-danger': this.state.userSubmitted && !this.refs.email.value || this.state.signupFailed
+      'has-danger': !this.state.signupSuccess && this.state.userSubmitted && !this.refs.email.value || this.state.signupFailed
     });
 
     let privacyClass = classNames({
       'form-check': true,
-      'has-danger': this.state.userSubmitted && !this.refs.privacy.checked
+      'has-danger': !this.state.signupSuccess && this.state.userSubmitted && !this.refs.privacy.checked
     });
 
     return (
