@@ -84,44 +84,12 @@
       }
     }
 
-    @mixin glyph($id, $width: 20px, $height: 20px) {
-      content: "";
-      display: inline-block;
-      width: $width;
-      height: $height;
-      margin-right: 10px;
-      background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0/contain;
+    .twitter-circle {
+      @include hoverGlyph("twitter-circle-active");
     }
 
-    @mixin hoverGlyph($id) {
-      background: url(../_images/glyphs/#{$id}-active.svg) no-repeat 0 0/contain;
-    }
-
-    @mixin compositeGlyph($id) {
-      &::before {
-        @include glyph($id);
-      }
-
-      &:hover::before,
-      &:focus::before {
-        @include hoverGlyph($id);
-      }
-    }
-
-    .twitter {
-      @include compositeGlyph("twitter");
-    }
-
-    .chat {
-      @include compositeGlyph("chat");
-    }
-
-    .email {
-      @include compositeGlyph("email");
-    }
-
-    .donate {
-      @include compositeGlyph("donate");
+    .chat-circle {
+      @include hoverGlyph("chat-circle-active");
     }
   }
 

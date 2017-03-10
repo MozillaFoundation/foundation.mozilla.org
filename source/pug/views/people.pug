@@ -6,8 +6,8 @@ mixin person(meta)
     p=meta.role
     p=meta.location
     p
-      each team in meta.teams
-        small #{team},&nbsp;
+      each affiliation in meta.affiliations
+        small #{affiliation},&nbsp;
 
 block centerNav
   p People
