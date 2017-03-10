@@ -1,5 +1,7 @@
 extends ../templates/master.pug
 
+include ../partials/sign-up-box.pug
+
 block centerNav
   p Internet Health Report
 
@@ -17,9 +19,4 @@ block content
         p.body-black Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.
         p.body-black Version 0.1 identifies five key Internet health markers and offers a brief prognosis for each in 2017.
         a.btn.btn-ghost(href=`https://internethealthreport.org/v01/`) Internet Health Report
-      .col-md-6.sign-up-box
-        .p-4
-          h2.h3-cta-black Keep me updated
-          p.body-black What's next? Read the and send us your feedback. Stay tuned for the next version. Let’s get the world talking about Internet health.
-          .d-flex
-            a.btn.btn-normal.flex-1(href=`#TODO`) Sign Up
+      +sign-up-box(`Keep me updated`, `What's next? Read the report and send us your feedback. Stay tuned for the next version. Let’s get the world talking about Internet health.`)
