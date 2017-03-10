@@ -61,11 +61,7 @@ export default class Person extends React.Component {
                   <div className="person-issues">{issues}</div>
                   <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations}</div>
                   <div className="person-bio body-black">
-                    <ul>
-                      {this.props.metadata.bio.map((item, index)=>{
-                        return (<li key={index}>{item}</li>);
-                      })}
-                    </ul>
+                    {this.props.metadata.bio}
                   </div>
                   <div className="person-social-links mt-3">
                     {socialLinks}

@@ -48,12 +48,8 @@
         "faker": "lorem.sentence"
       },
       "bio": {
-        "type": "array",
-        "maxLength": 3,
-        "items": {
-          "type": "string",
-          "faker": "lorem.sentence"
-        }
+        "type": "string",
+        "faker": "lorem.sentence"
       },
       "internet_health_issues": {
         "type": "array",
