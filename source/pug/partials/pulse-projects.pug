@@ -1,7 +1,7 @@
 mixin projects(projectData, includeJSON)
   - let json = includeJSON ? projectData : false
 
-  .row.mb-5.pulse-projects(data-json=json)
+  .mb-5.pulse-projects(data-json=json)
     each project, index in projectData
       +project(projectData[index])
 
