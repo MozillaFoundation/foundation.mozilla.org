@@ -3,10 +3,6 @@
   font-weight: 900;
   text-transform: uppercase;
 
-  &::after {
-    content: " →";
-  }
-
   &:hover {
     cursor: pointer;
   }
