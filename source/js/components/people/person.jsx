@@ -89,8 +89,17 @@ export default class Person extends React.Component {
       return (
         <div className="col-md-6 col-12 p-3 mb-4">
           <div className="person-card row no-gutters">
-            <div className="col col-sm-4 mr-3">
-              <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
+            <div className="col-4 mr-3">
+              <div className="row">
+                <div className="col">
+                  <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+                </div>
+              </div>
             </div>
             <div className="col bio-content">
               <h2 className="h5-black my-2">{this.props.metadata.name}</h2>

@@ -16,3 +16,14 @@ request(`https://network-pulse-api-production.herokuapp.com/entries/?ordering=-c
     shell.exit(1);
   }
 });
+
+// Pulse
+request(`https://network-api.mofoprod.net/people/?format=json&featured=True&page=1`, (error, response, body) => {
+  if (!error && response.statusCode === 200) {
+    console.log(chalk.green(`Pulled People JSON`));
+    shell.ShellString(body).to(`source/json/temp/people.json`);
+  } else {
+    console.log(chalk.red(`Failed to pull People JSON!`));
+    shell.exit(1);
+  }
+});
