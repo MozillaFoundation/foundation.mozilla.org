@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classNames';
+import classNames from 'classnames';
 import basketSignup from '../../basket-signup.js';
 
 export default class JoinUs extends React.Component {
