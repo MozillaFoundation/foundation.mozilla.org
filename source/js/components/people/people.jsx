@@ -1,6 +1,6 @@
 import React from 'react';
 import Person from './person.jsx';
-import peopleData from '../../../json/people.json';
+import peopleData from '../../../json/temp/people.json';
 
 export default class People extends React.Component {
   constructor(props) {
