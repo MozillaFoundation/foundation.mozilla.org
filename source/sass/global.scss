@@ -30,7 +30,12 @@ body > .wrapper {
 
 #burger {
   cursor: pointer;
-  margin-right: 50px;
+  margin-right: 1em;
+
+  @media (min-width: $bp-sm) {
+    margin-right: 50px;
+  }
+
   border: 0;
   background: url(../_images/hamburger.svg) no-repeat;
   width: 31px;
