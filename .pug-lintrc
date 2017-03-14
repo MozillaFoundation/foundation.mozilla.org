@@ -1,5 +1,4 @@
 {
-  "disallowHtmlText": true,
   "disallowIdAttributeWithStaticValue": true,
   "disallowMultipleLineBreaks": true,
   "requireClassLiteralsBeforeAttributes": true,
