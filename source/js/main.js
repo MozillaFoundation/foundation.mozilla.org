@@ -43,21 +43,6 @@ let main = {
       }
     }
 
-    if (document.getElementById(`join-us`)) {
-      let reactJoinUs;
-
-      ReactDOM.render(
-        <JoinUs ref={(joinUs) => { reactJoinUs = joinUs; }}/>,
-        document.getElementById(`join-us`)
-      );
-
-      if (document.getElementById(`join-trigger`)) {
-        document.getElementById(`join-trigger`).addEventListener(`click`, () => {
-          reactJoinUs.show();
-        });
-      }
-    }
-
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
     if (document.querySelectorAll(`.join-us:not(#join-us)`)) {
       [].forEach.call(document.querySelectorAll(`.join-us:not(#join-us)`), (wrapper) => {
