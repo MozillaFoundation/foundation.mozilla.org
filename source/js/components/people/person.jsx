@@ -59,7 +59,7 @@ export default class Person extends React.Component {
                   <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
                   <div className="person-role-location small">{this.props.metadata.role} / {this.props.metadata.location}</div>
                   <div className="person-issues">{issues}</div>
-                  <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations}</div>
+                  <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
                   <div className="person-bio body-black">
                     {this.props.metadata.bio}
                   </div>
@@ -105,7 +105,7 @@ export default class Person extends React.Component {
               <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
               <div className="small person-role-location">{this.props.metadata.role} / {this.props.metadata.location}</div>
               <div className="person-issues">{issues}</div>
-              <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations}</div>
+              <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
               <div className="person-social-links mt-3">
                 {socialLinks}
               </div>
