@@ -42,11 +42,13 @@ export default class Person extends React.Component {
                   <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
                 </div>
               </div>
-              <div className="row">
-                <div className="col">
-                  <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+              {this.props.metadata.partnership_logo ?
+                <div className="row">
+                  <div className="col">
+                    <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+                  </div>
                 </div>
-              </div>
+              : null }
             </div>
             <div className="col d-flex flex-column">
               <div className="justify-content-end row no-gutters">
@@ -95,11 +97,13 @@ export default class Person extends React.Component {
                   <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
                 </div>
               </div>
-              <div className="row">
-                <div className="col">
-                  <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+              {this.props.metadata.partnership_logo ?
+                <div className="row">
+                  <div className="col">
+                    <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+                  </div>
                 </div>
-              </div>
+              : null }
             </div>
             <div className="col bio-content">
               <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
