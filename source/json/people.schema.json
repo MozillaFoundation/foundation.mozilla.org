@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "array",
-  "minItems": 30,
   "items": {
     "type": "object",
     "properties": {
