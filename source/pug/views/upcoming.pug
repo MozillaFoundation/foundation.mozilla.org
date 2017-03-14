@@ -26,7 +26,7 @@ block content
   .container
     -
       let futureEvents = data.filter((event) => {
-        return moment(event.startDate).isAfter(Date.now());
+        return event.startDate === null || moment(event.startDate).isAfter(Date.now());
       });
 
       let pastEvents = data.filter((event) => {
