@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 export default class Person extends React.Component {
   constructor(props) {
@@ -74,7 +75,7 @@ export default class Person extends React.Component {
                   <div className="person-issues">{issues}</div>
                   <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
                   <div className="person-bio body-black">
-                    {this.props.metadata.bio}
+                    <ReactMarkdown source={this.props.metadata.bio} />
                   </div>
                   <div className="person-social-links mt-3">
                     {socialLinks}

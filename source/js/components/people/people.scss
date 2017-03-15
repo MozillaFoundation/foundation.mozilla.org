@@ -75,6 +75,12 @@
 
   .person-bio {
     margin-top: 1em;
+
+    ul {
+      list-style-type: disc;
+      list-style-position: outside;
+      padding: 0 30px;
+    }
   }
 
   .partnership_logo {
