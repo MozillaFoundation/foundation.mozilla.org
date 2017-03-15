@@ -42,7 +42,7 @@ a {
   font-family: Arvo;
   font-weight: 900;
 
-  @include scaleText(48px);
+  @include scaleText(32px);
   @include black-box-white-text;
 }
 
