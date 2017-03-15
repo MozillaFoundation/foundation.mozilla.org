@@ -10,5 +10,16 @@ block heroGuts
 
 block content
   .container
+    .row.pt-5.pb-4
+      .col
+        ul.jump-bar
+          li.no-link Featured
+          li
+            a(href=`https://www.mozillapulse.org/issues/online-privacy-and-security`) Privacy & Security
+          li
+            a(href=`https://www.mozillapulse.org/search?keyword=mozfest`) Mozfest
+          li
+            a(href=`https://www.mozillapulse.org/issues/open-innovation`) Open Innovation
+
     // This will be replaced by a React component, but is rendered for indexing
     +projects(data.pulse.results.slice(0,12), true)

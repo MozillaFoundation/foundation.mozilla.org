@@ -1,0 +1,32 @@
+.jump-bar {
+  li {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 16px;
+    color: #909090;
+    letter-spacing: 0.5px;
+    line-height: 16px;
+    text-transform: uppercase;
+    padding: 5px;
+
+    &.no-link {
+      background: #ffed00;
+      color: $black;
+      font-weight: 900;
+    }
+
+    a {
+      color: inherit;
+      display: flex;
+
+      &::after {
+        content: " ";
+        display: block;
+        width: 16px;
+        height: 14px;
+        background: url(../_images/glyphs/external.svg) no-repeat;
+        margin-left: 5px;
+      }
+    }
+  }
+}
