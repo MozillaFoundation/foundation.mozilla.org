@@ -21,19 +21,17 @@ block heroGuts
 
 block content
   .container
-    .row.py-5
-      .col-4
-        p.h6-gray Fellowships
-        h3.h4-light-black
-          a(href=`${env.virtualRoot}opportunity/fellowships`) Fellowships That Empower People
-      .col-4
-        p.h6-gray Training
-        h3.h4-light-black
-          a(href=`${env.virtualRoot}opportunity/training`) Leadership Training for Open Source
-      .col-4
-        p.h6-gray Internet Health Report
-        h3.h4-light-black
-          a(href=`${env.virtualRoot}opportunity/internet-health-report`) Read and Expand the Internet Health Report
+    .row.mx-2.mb-5.cta.cta-network
+      .col-xs-12.col-md-5.px-4.py-5.cta-box
+        h3.h4-light-black Diverse Members, One Mission
+        p.body-black Meet and connect with Network members.
+        a.btn.btn-ghost(href=`${env.virtualRoot}people`) See Network Members
+
+    .row.mx-2.mb-5.cta.cta-projects
+      .col-xs-12.col-md-5.px-4.py-5.cta-box
+        h3.h4-light-black Network Projects
+        p.body-black Discover and contribute to exciting projects made by and for our Network.
+        a.btn.btn-ghost(href=`${env.virtualRoot}projects`) See Projects
 
     .row
       .col.my-5
@@ -53,17 +51,32 @@ block content
           +newsItem(`Read, Write, Participate`, `Teaching the Web, with Art as Curriculum`, `https://medium.com/read-write-participate/teaching-the-web-with-art-as-curriculum-c1d1c86fb12a#.mkjyfv8w0`, `December 2016`, `medium.svg`)
 
     .row
-      .col.text-center
+      .col.text-center.mb-5
         a.btn.btn-ghost(href=`${env.virtualRoot}news`) View more news
 
     .row
-      .col.my-5
-        .mb-5: h4.h2-headings-white Network Creations
-        p.h4-light-black.text-center The latest tools, apps, and ideas from our network
+      .mb-5: h4.h2-headings-white Get Involved
 
-    // This will be replaced by a React component, but is rendered for indexing
-    +projects(data.pulse.results.slice(0,6), true)
+    .row.py-5
+      .col-xs-12.col-md-6.mb-5
+        .home-ihp
+          .wrapper.p-4
+            h5.h4-light-black The Internet Health Report
+            p.body-black Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.
+            a.cta-link(href=`${env.virtualRoot}opportunity/internet-health-report`) Read and contribute
+      .col-md-6
+        h4.h4-light-black Other Opportunities
+        h5.h5-black Fellowships that Empower Leaders
+        p.body-black We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.
+        a.cta-link(href=`${env.virtualRoot}opportunity/fellowships`) Be a fellow
+        hr
+        h5.h5-black Leadership Training for Collaboration
+        p.body-black Learn the basics of participation, collaboration, and sharing on community-driven projects. Discover what working open can do for your project.
+        a.cta-link(href=`${env.virtualRoot}opportunity/training`) Be a leader
 
-    .row.mb-5
-      .col.text-center
-        a.btn.btn-ghost(href=`${env.virtualRoot}projects`) View more projects
+    .row.py-5.mb-5.stay-connected
+      .col-md-6.px-5
+        h5.h3-cta-black Stay Connected
+        p.body-black Sign up to receive updates with action opportunities and news from across the network.
+      .col-md-6.px-5.d-flex.justify-content-center.align-items-center
+        a.btn.btn-normal(href=`${env.virtualRoot}join`) Sign Up
