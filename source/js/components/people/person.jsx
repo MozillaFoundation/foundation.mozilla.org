@@ -7,7 +7,7 @@ export default class Person extends React.Component {
     this.flip = this.flip.bind(this);
 
     this.state = {
-      flipped: false
+      flipped: true
     };
 
   }
