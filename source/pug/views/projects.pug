@@ -22,4 +22,8 @@ block content
             a(href=`https://www.mozillapulse.org/issues/open-innovation`) Open Innovation
 
     // This will be replaced by a React component, but is rendered for indexing
-    +projects(data.pulse.results.slice(0,12), true)
+    +projects(data.pulse.results.slice(0,9), true)
+
+    .row.pt-3.pb-5
+      .col.text-center
+        a.btn.btn-ghost(href=`https://www.mozillapulse.org/`) Discover more and collaborate
