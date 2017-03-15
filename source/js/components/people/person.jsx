@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 export default class Person extends React.Component {
   constructor(props) {
@@ -24,7 +25,18 @@ export default class Person extends React.Component {
       );
     });
 
-    let socialLinks = Object.keys(this.props.metadata.links).map((linkKey, index) => {
+    let filteredLinks = {};
+
+    // Django returns empty strings instead of null for empty links, so let's filter empty links out:
+    for(let key in this.props.metadata.links) {
+      if (Object.prototype.hasOwnProperty.call(this.props.metadata.links, key)) {
+        if (this.props.metadata.links[key] !== ``) {
+          filteredLinks[key] = this.props.metadata.links[key];
+        }
+      }
+    }
+
+    let socialLinks = Object.keys(filteredLinks).map((linkKey, index) => {
       let classes = linkKey + ` mr-3`;
 
       return (
@@ -43,7 +55,7 @@ export default class Person extends React.Component {
                 </div>
               </div>
               {this.props.metadata.partnership_logo ?
-                <div className="row">
+                <div className="row mt-3">
                   <div className="col">
                     <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
                   </div>
@@ -63,7 +75,7 @@ export default class Person extends React.Component {
                   <div className="person-issues">{issues}</div>
                   <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
                   <div className="person-bio body-black">
-                    {this.props.metadata.bio}
+                    <ReactMarkdown source={this.props.metadata.bio} />
                   </div>
                   <div className="person-social-links mt-3">
                     {socialLinks}
@@ -98,7 +110,7 @@ export default class Person extends React.Component {
                 </div>
               </div>
               {this.props.metadata.partnership_logo ?
-                <div className="row">
+                <div className="row mt-3">
                   <div className="col">
                     <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
                   </div>
