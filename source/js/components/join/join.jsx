@@ -72,7 +72,7 @@ export default class JoinUs extends React.Component {
           </div>
         </div>
         <div className="col-12 my-3">
-          <h1 className="h1-white">Stay Connected</h1>
+          <h1 className="h1-white">{!this.state.signupSuccess ? `Stay Connected` : `Thank You`}</h1>
         </div>
         <div className="col-6">
           {!this.state.signupSuccess ?
@@ -96,10 +96,12 @@ export default class JoinUs extends React.Component {
               </div>
             </form>
           </div>
-          : `Thank you!`}
+          :
+          <p className="py-5">Thanks for joining. The Internet already feels a bit more vibrant (^_^). We will e-mail you soon to confirm.</p>
+          }
         </div>
         <div className="col-6 text-center">
-          <img src="/_images/burst1.svg"/>
+          <img src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
         </div>
       </div>
     );
