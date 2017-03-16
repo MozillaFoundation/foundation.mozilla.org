@@ -88,8 +88,12 @@
       @include hoverGlyph("twitter-circle-active");
     }
 
-    .chat-circle {
-      @include hoverGlyph("chat-circle-active");
+    .facebook-circle {
+      @include hoverGlyph("facebook-circle-active");
+    }
+
+    .donate {
+      @include hoverGlyph("donate-active");
     }
   }
 

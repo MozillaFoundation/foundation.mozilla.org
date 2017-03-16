@@ -24,6 +24,10 @@
   @include compositeGlyph("twitter-circle");
 }
 
+.facebook-circle {
+  @include compositeGlyph("facebook-circle");
+}
+
 .chat-circle {
   @include compositeGlyph("chat-circle");
 }
