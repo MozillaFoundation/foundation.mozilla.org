@@ -71,12 +71,15 @@ export default class JoinUs extends React.Component {
             <button className="close-button" onClick={this.hide}>X</button>
           </div>
         </div>
+        <div className="col-12 hidden-md-up text-center mb-2 mt-4">
+          <img width="33%" src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
+        </div>
         <div className="col-12 my-3">
           <h1 className="h1-white">{!this.state.signupSuccess ? `Stay Connected` : `Thank You`}</h1>
         </div>
-        <div className="col-6">
+        <div className="col-md-6 mb-3">
           {!this.state.signupSuccess ?
-          <div className="py-4">
+          <div className="py-md-4">
             <p className="body-black">Sign up for opportunities and news related to a healthy internet.</p>
             <form onSubmit={this.submitForm}>
               <div className={inputGroupClass}>
@@ -92,15 +95,17 @@ export default class JoinUs extends React.Component {
                   <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="#TODO">Privacy Notice</a></span>
                   {this.state.userSubmitted && !this.refs.privacy.checked ? <small className="has-danger">Please check this box if you want to proceed</small> : null }
                 </label>
-                <button className="btn btn-normal">Sign Up</button>
+                <div>
+                  <button className="btn btn-normal">Sign Up</button>
+                </div>
               </div>
             </form>
           </div>
           :
-          <p className="py-5">Thanks for joining. The Internet already feels a bit more vibrant (^_^). We will e-mail you soon to confirm.</p>
+          <p className="py-md-5">Thanks for joining. The Internet already feels a bit more vibrant (^_^). We will e-mail you soon to confirm.</p>
           }
         </div>
-        <div className="col-6 text-center">
+        <div className="col-md-6 mb-5 text-center hidden-sm-down">
           <img src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
         </div>
       </div>
