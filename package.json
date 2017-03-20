@@ -1,9 +1,9 @@
 {
-  "name": "mozilla-leadership-network",
+  "name": "network",
   "repository": "https://github.com/mozilla/network",
   "issues": "https://github.com/mozilla/network/issues",
   "version": "1.0.0",
-  "description": "Mozilla Leadership Network",
+  "description": "Mozilla Network",
   "scripts": {
     "autoprefix": "node scripts/autoprefix.js",
     "build:images": "shx rm -rf dest/_images && shx cp -r source/images dest/_images",
