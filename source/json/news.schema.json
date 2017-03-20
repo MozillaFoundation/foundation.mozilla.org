@@ -24,6 +24,9 @@
       },
       "glyph": {
         "type": ["string", "null"]
+      },
+      "featured": {
+        "type": "boolean"
       }
     },
     "required": [
@@ -31,7 +34,8 @@
       "outlet",
       "topic",
       "date",
-      "link"
+      "link",
+      "featured"
     ]
   }
 }
