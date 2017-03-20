@@ -20,7 +20,10 @@
         "type": "string"
       },
       "author": {
-        "type": "string"
+        "type": ["string", "null"]
+      },
+      "glyph": {
+        "type": ["string", "null"]
       }
     },
     "required": [
