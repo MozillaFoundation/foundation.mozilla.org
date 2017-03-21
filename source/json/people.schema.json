@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "array",
-  "minItems": 30,
   "items": {
     "type": "object",
     "properties": {
@@ -10,8 +9,7 @@
         "chance": "name"
       },
       "role": {
-        "type": "string",
-        "pattern": "Staff|OWF Host|Partner|Hive NYC Partner|Advisor|Member, MLN Advisory Group"
+        "type": "string"
       },
       "location": {
         "type": "string",
@@ -40,7 +38,7 @@
         "faker": "internet.avatar"
       },
       "partnership_logo": {
-        "type": "string",
+        "type": ["string", "null"],
         "faker": "image.abstract"
       },
       "quote": {
