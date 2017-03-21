@@ -14,10 +14,20 @@
         "type": "string"
       },
       "date": {
-        "type": "string"
+        "type": "string",
+        "format": "date-time"
       },
       "link": {
         "type": "string"
+      },
+      "author": {
+        "type": ["string", "null"]
+      },
+      "glyph": {
+        "type": ["string", "null"]
+      },
+      "featured": {
+        "type": "boolean"
       }
     },
     "required": [
@@ -25,7 +35,8 @@
       "outlet",
       "topic",
       "date",
-      "link"
+      "link",
+      "featured"
     ]
   }
 }

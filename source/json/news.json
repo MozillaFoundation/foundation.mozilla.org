@@ -3,245 +3,280 @@
     "headline": "The Internet Is Sick",
     "outlet": "MIT Technology Review",
     "topic": "Internet Health Report",
-    "date": "Jan. 2016",
-    "link": "https://www.technologyreview.com/s/603392/mozilla/"
+    "date": "2016-01-01T08:00:00.000Z",
+    "link": "https://www.technologyreview.com/s/603392/mozilla/",
+    "featured": false
   },
   {
     "headline": "Finding Inspiration for Art in the Betrayal of Privacy",
     "outlet": "New York Times",
     "topic": "The Glass Room",
-    "date": "Dec. 2016",
-    "link": "http://nyti.ms/2jS1lZv"
+    "date": "2016-12-01T08:00:00.000Z",
+    "link": "http://nyti.ms/2jS1lZv",
+    "featured": false
   },
   {
     "headline": "Mozilla's art installation warns about how companies are using your data",
     "outlet": "CNBC",
     "topic": "The Glass Room",
-    "date": "Dec. 2016",
-    "link": "http://www.cnbc.com/2016/12/13/mozillas-the-glass-room-warns-about-how-companies-are-using-your-data.html"
+    "date": "2016-12-01T08:00:00.000Z",
+    "link": "http://www.cnbc.com/2016/12/13/mozillas-the-glass-room-warns-about-how-companies-are-using-your-data.html",
+    "featured": true
   },
   {
     "headline": "Visit the internet's dark side at this demented apple store",
     "outlet": "Fast Company",
     "topic": "The Glass Room",
-    "date": "Dec. 2016",
-    "link": "https://www.fastcodesign.com/3066104/visit-the-internets-dark-side-at-this-demented-apple-store"
+    "date": "2016-12-01T08:00:00.000Z",
+    "link": "https://www.fastcodesign.com/3066104/visit-the-internets-dark-side-at-this-demented-apple-store",
+    "featured": false
   },
   {
     "headline": "There's No Escaping Big Data in 'The Glass Room'",
     "outlet": "NPR",
     "topic": "The Glass Room",
-    "date": "Dec. 2016",
-    "link": "http://www.wnyc.org/story/theres-no-escaping-big-data-glass-room/"
+    "date": "2016-12-01T08:00:00.000Z",
+    "link": "http://www.wnyc.org/story/theres-no-escaping-big-data-glass-room/",
+    "featured": false
   },
   {
     "headline": "What About the Health of the Internet?",
     "outlet": "t3n",
     "topic": "MozFest",
-    "date": "Nov. 2016",
-    "link": "http://bit.ly/2kjrpw3"
+    "date": "2016-11-01T07:00:00.000Z",
+    "link": "http://bit.ly/2kjrpw3",
+    "featured": false
   },
   {
     "headline": "Mozilla Stands Up to the Trolls",
     "outlet": "El Pais",
     "topic": "MozFest",
-    "date": "Nov. 2016",
-    "link": "http://bit.ly/2eruhpR"
+    "date": "2016-11-01T07:00:00.000Z",
+    "link": "http://bit.ly/2eruhpR",
+    "featured": false
   },
   {
     "headline": "The Rise of Digital Empires",
     "outlet": "The New Statesman",
     "topic": "Decentralization",
-    "date": "Sept. 2016",
-    "link": "http://bit.ly/2bGMj65"
+    "date": "2016-09-01T07:00:00.000Z",
+    "link": "http://bit.ly/2bGMj65",
+    "featured": true
   },
   {
     "headline": "10-Minute Digital Privacy Tuneup",
     "outlet": "Consumer Reports",
     "topic": "Privacy and Security",
-    "date": "Sept. 2016",
-    "link": "http://bit.ly/2d53TiQ"
+    "date": "2016-09-01T07:00:00.000Z",
+    "link": "http://bit.ly/2d53TiQ",
+    "featured": false
   },
   {
     "headline": "Take a selfie as a form of political protest? Yes you can",
     "outlet": "CNET",
     "topic": "Copyright",
-    "date": "Sept. 2016",
-    "link": "https://www.cnet.com/news/mozilla-post-crimes-app-european-union-protest-selfie/"
+    "date": "2016-09-01T07:00:00.000Z",
+    "link": "https://www.cnet.com/news/mozilla-post-crimes-app-european-union-protest-selfie/",
+    "featured": false
   },
   {
     "headline": "Let's fix EU copyright law, for innovation and creativity online",
     "outlet": "EU Observer",
     "topic": "Copyright",
-    "date": "August 2016",
-    "link": "http://bit.ly/2bC6D6c"
+    "date": "2016-08-01T07:00:00.000Z",
+    "link": "http://bit.ly/2bC6D6c",
+    "featured": false
   },
   {
     "headline": "Mozilla breathes petition-of-fire at EU copyright laws",
     "outlet": "The Register",
     "topic": "Copyright",
-    "date": "August 2016",
-    "link": "http://bit.ly/2bugCvM"
+    "date": "2016-08-01T07:00:00.000Z",
+    "link": "http://bit.ly/2bugCvM",
+    "featured": false
   },
   {
     "headline": "Mozilla's new game uses emoji to teach you about encryption",
     "outlet": "Mashable",
     "topic": "Codemoji",
-    "date": "June 2016",
-    "link": "http://goo.gl/7rfayW"
+    "date": "2016-06-01T07:00:00.000Z",
+    "link": "http://goo.gl/7rfayW",
+    "featured": false
   },
   {
     "headline": "Mozilla made a game to teach you the basics of encryption",
     "outlet": "Engadget",
     "topic": "Codemoji",
-    "date": "June 2016",
-    "link": "https://goo.gl/qIcI0v"
+    "date": "2016-06-01T07:00:00.000Z",
+    "link": "https://goo.gl/qIcI0v",
+    "featured": false
   },
   {
     "headline": "This encryption tool can make you smile",
     "outlet": "WIRED Germany",
     "topic": "Codemoji",
-    "date": "June 2016",
-    "link": "https://goo.gl/G11LLf"
+    "date": "2016-06-01T07:00:00.000Z",
+    "link": "https://goo.gl/G11LLf",
+    "featured": false
   },
   {
     "headline": "Web literacy among the underprivileged in Kolkata ",
     "outlet": "Times of India",
     "topic": "Mozilla Clubs",
-    "date": "June 2016",
-    "link": "http://timesofindia.indiatimes.com/city/kolkata/Web-literacy-among-the-underprivileged-in-Kolkata/articleshow/52933377.cms"
+    "date": "2016-06-01T07:00:00.000Z",
+    "link": "http://timesofindia.indiatimes.com/city/kolkata/Web-literacy-among-the-underprivileged-in-Kolkata/articleshow/52933377.cms",
+    "featured": false
   },
   {
     "headline": "Mozilla expands its National Gigabit Project to Austin",
     "outlet": "Austin-American Statesman",
     "topic": "Gigabit",
-    "date": "May 2016",
-    "link": "http://www.512tech.com/technology/mozilla-expands-its-national-gigabit-project-austin/0wo6pcOmcpRqDKrPypDfbP/"
+    "date": "2016-05-01T07:00:00.000Z",
+    "link": "http://www.512tech.com/technology/mozilla-expands-its-national-gigabit-project-austin/0wo6pcOmcpRqDKrPypDfbP/",
+    "featured": false
   },
   {
     "headline": "Mozilla's Web Literacy Map Teaches the Essential Web Skills Everyone Should Know",
     "outlet": "Lifehacker",
     "topic": "Web Literacy",
-    "date": "April 2016",
-    "link": "http://lifehacker.com/mozillas-web-literacy-map-teaches-the-essential-web-ski-1772260465?utm_campaign=socialflow_lifehacker_twitter&utm_source=lifehacker_twitter&utm_medium=socialflow"
+    "date": "2016-04-01T07:00:00.000Z",
+    "link": "http://lifehacker.com/mozillas-web-literacy-map-teaches-the-essential-web-ski-1772260465?utm_campaign=socialflow_lifehacker_twitter&utm_source=lifehacker_twitter&utm_medium=socialflow",
+    "featured": false
   },
   {
     "headline": "Mozilla Foundation Backs Apple In Encryption Case With Federal Government",
     "outlet": "NPR",
     "topic": "Encryption",
-    "date": "Feb. 2016",
-    "link": "http://www.npr.org/2016/02/19/467318811/mozilla-foundation-backs-apple-in-encryption-case-with-federal-government"
+    "date": "2016-02-01T08:00:00.000Z",
+    "link": "http://www.npr.org/2016/02/19/467318811/mozilla-foundation-backs-apple-in-encryption-case-with-federal-government",
+    "featured": false
   },
   {
     "headline": "Mozilla campaign encourages people to understand encryption",
     "outlet": "CBC",
     "topic": "Encryption",
-    "date": "February 2016",
-    "link": "http://bit.ly/1TGM0Zs"
+    "date": "2016-02-01T08:00:00.000Z",
+    "link": "http://bit.ly/1TGM0Zs",
+    "featured": false
   },
   {
     "headline": "Mozilla chief: FBI snooping at Apple 'back door' makes you less safe",
     "outlet": "CNN",
     "topic": "Encryption",
-    "date": "February 2016",
-    "link": "http://cnn.it/1Vqvs5E"
+    "date": "2016-02-01T08:00:00.000Z",
+    "link": "http://cnn.it/1Vqvs5E",
+    "featured": false
   },
   {
     "headline": "Digital Citizens, Let’s Talk About Internet Health",
     "outlet": "Mozilla Internet Citizen",
     "topic": "Internet Health Report",
-    "date": "Jan. 2017",
-    "link": "https://medium.com/mozilla-internet-citizen/digital-citizens-lets-talk-about-internet-health-767860769e7f#.izabiv6qq"
+    "date": "2017-01-01T08:00:00.000Z",
+    "link": "https://medium.com/mozilla-internet-citizen/digital-citizens-lets-talk-about-internet-health-767860769e7f#.izabiv6qq",
+    "featured": false
   },
   {
     "headline": "Living Inside the Computer: Building Responsible IoT",
     "outlet": "Mozilla Internet Citizen",
     "topic": "IoT / NetGain",
-    "date": "Jan. 2017",
-    "link": "https://medium.com/mozilla-internet-citizen/living-inside-the-computer-mozilla-is-calling-for-responsible-iot-6cd57b146705#.kn8oxu4dc"
+    "date": "2017-01-01T08:00:00.000Z",
+    "link": "https://medium.com/mozilla-internet-citizen/living-inside-the-computer-mozilla-is-calling-for-responsible-iot-6cd57b146705#.kn8oxu4dc",
+    "featured": true
   },
   {
     "headline": "Learning and the future of IoT",
     "outlet": "Read, Write, Participate",
     "topic": "IoT",
-    "date": "Jan. 2017",
-    "link": "https://medium.com/read-write-participate/learning-and-the-future-of-iot-d5a338fc33a5#.c5h7c7iab"
+    "date": "2017-01-01T08:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/learning-and-the-future-of-iot-d5a338fc33a5#.c5h7c7iab",
+    "featured": false
   },
   {
     "headline": "Welcome to The Glass Room",
     "outlet": "Mozilla Internet Citizen",
     "topic": "The Glass Room",
-    "date": "Dec. 2016",
-    "link": "https://medium.com/mozilla-internet-citizen/welcome-to-the-glass-room-667c4a933784#.2j01sr6dl"
+    "date": "2016-12-01T08:00:00.000Z",
+    "link": "https://medium.com/mozilla-internet-citizen/welcome-to-the-glass-room-667c4a933784#.2j01sr6dl",
+    "featured": false
   },
   {
     "headline": "Teaching the Web, with Art as Curriculum",
     "outlet": "Read, Write, Participate",
     "topic": "Partner org. spotlight",
-    "date": "Dec. 2016",
-    "link": "https://medium.com/read-write-participate/teaching-the-web-with-art-as-curriculum-c1d1c86fb12a#.mkjyfv8w0"
+    "date": "2016-12-01T08:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/teaching-the-web-with-art-as-curriculum-c1d1c86fb12a#.mkjyfv8w0",
+    "featured": true
   },
   {
     "headline": "Women + Web = <STRONG>",
     "outlet": "Read, Write, Participate",
     "topic": "Web Lit",
-    "date": "Nov. 2016",
-    "link": "https://medium.com/read-write-participate/women-web-strong-7e50f123311e#.q5bgyeo9s"
+    "date": "2016-11-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/women-web-strong-7e50f123311e#.q5bgyeo9s",
+    "featured": false
   },
   {
     "headline": "Designing for MozFest",
     "outlet": "Mozilla Festival",
     "topic": "MozFest",
-    "date": "Nov. 2016",
-    "link": "https://medium.com/mozilla-festival/designing-for-mozilla-festival-e398d65ec249#.qypb15ik6"
+    "date": "2016-11-01T07:00:00.000Z",
+    "link": "https://medium.com/mozilla-festival/designing-for-mozilla-festival-e398d65ec249#.qypb15ik6",
+    "featured": false
   },
   {
     "headline": "Wisdom from an Open-Source Scientist",
     "outlet": "Read, Write, Participate",
     "topic": "Network member spotlight",
-    "date": "Oct. 2016",
-    "link": "https://medium.com/read-write-participate/wisdom-from-an-open-source-scientist-10909786ac86#.i52e25l8j"
+    "date": "2016-10-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/wisdom-from-an-open-source-scientist-10909786ac86#.i52e25l8j",
+    "featured": false
   },
   {
     "headline": "10 small steps that cover a lot of ground in teaching and learning",
     "outlet": "Read, Write, Participate",
     "topic": "Web Lit",
-    "date": "August 2016",
-    "link": "https://medium.com/read-write-participate/teach-small-94ccf239eac#.3csrv9xj4"
+    "date": "2016-08-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/teach-small-94ccf239eac#.3csrv9xj4",
+    "featured": false
   },
   {
     "headline": "Dispatches from Kansas City’s first-ever virtual reality hackathon",
     "outlet": "Read, Write, Participate",
     "topic": "Gigabit",
-    "date": "July 2016",
-    "link": "https://medium.com/read-write-participate/vr-education-a-learning-adventure-for-all-4dab5cb90587#.326deu7hj"
+    "date": "2016-07-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/vr-education-a-learning-adventure-for-all-4dab5cb90587#.326deu7hj",
+    "featured": false
   },
   {
     "headline": "How We’re Training Women in Africa to Teach the Web",
     "outlet": "Read, Write, Participate",
     "topic": "Web Lit",
-    "date": "July 2016",
-    "link": "https://medium.com/read-write-participate/mozilla-club-leadership-training-in-nairobi-and-cape-town-cbb9ad2a3f38#.cu0qub8rf"
+    "date": "2016-07-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/mozilla-club-leadership-training-in-nairobi-and-cape-town-cbb9ad2a3f38#.cu0qub8rf",
+    "featured": false
   },
   {
     "headline": "Why Developing Open Science Software Matters",
     "outlet": "Read, Write, Participate",
     "topic": "Open Science",
-    "date": "July 2016",
-    "link": "https://medium.com/read-write-participate/mozilla-fellows-for-science-why-developing-open-science-software-matters-d7bbbd55da80#.7ofrqqcqo"
+    "date": "2016-07-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/mozilla-fellows-for-science-why-developing-open-science-software-matters-d7bbbd55da80#.7ofrqqcqo",
+    "featured": false
   },
   {
     "headline": "Translating the Web into Xhosa (and Zulu)",
     "outlet": "Read, Write, Participate",
     "topic": "Network member spotlight",
-    "date": "July 2016",
-    "link": "https://medium.com/read-write-participate/translating-the-web-into-xhosa-and-zulu-d061348c50b4#.3ndduna5k"
+    "date": "2016-07-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/translating-the-web-into-xhosa-and-zulu-d061348c50b4#.3ndduna5k",
+    "featured": false
   },
   {
     "headline": "Teaching the Web in Kenya’s High Schools",
     "outlet": "Read, Write, Participate",
     "topic": "Network member spotlight",
-    "date": "July 2016",
-    "link": "https://medium.com/read-write-participate/teaching-the-web-in-kenyas-high-schools-4a4ed519485f#.we7p0es0y"
+    "date": "2016-07-01T07:00:00.000Z",
+    "link": "https://medium.com/read-write-participate/teaching-the-web-in-kenyas-high-schools-4a4ed519485f#.we7p0es0y",
+    "featured": false
   }
 ]

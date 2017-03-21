@@ -5,7 +5,7 @@ mixin blurb(newsItem)
     p.h6-gray=newsItem.outlet
     h3.h4-medium-black
       a(href=newsItem.link)=newsItem.headline
-    p.small-gray=newsItem.date
+    p.small-gray=moment(newsItem.date).format(`MMM YYYY`)
 
 mixin newsForYear(year)
   .row.mb-5

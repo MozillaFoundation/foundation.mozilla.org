@@ -8,10 +8,12 @@
         "type": ["string", "null"]
       },
       "startDate": {
-        "type": ["string", "null"]
+        "type": ["string", "null"],
+        "format": "date-time"
       },
       "endDate": {
-        "type": ["string", "null"]
+        "type": ["string", "null"],
+        "format": "date-time"
       },
       "headline": {
         "type": "string"
