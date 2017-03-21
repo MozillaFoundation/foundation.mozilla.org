@@ -61,7 +61,7 @@
     "topic": "Decentralization",
     "date": "2016-09-01T07:00:00.000Z",
     "link": "http://bit.ly/2bGMj65",
-    "featured": false
+    "featured": true
   },
   {
     "headline": "10-Minute Digital Privacy Tuneup",
@@ -181,7 +181,7 @@
     "topic": "IoT / NetGain",
     "date": "2017-01-01T08:00:00.000Z",
     "link": "https://medium.com/mozilla-internet-citizen/living-inside-the-computer-mozilla-is-calling-for-responsible-iot-6cd57b146705#.kn8oxu4dc",
-    "featured": false
+    "featured": true
   },
   {
     "headline": "Learning and the future of IoT",
@@ -205,7 +205,7 @@
     "topic": "Partner org. spotlight",
     "date": "2016-12-01T08:00:00.000Z",
     "link": "https://medium.com/read-write-participate/teaching-the-web-with-art-as-curriculum-c1d1c86fb12a#.mkjyfv8w0",
-    "featured": false
+    "featured": true
   },
   {
     "headline": "Women + Web = <STRONG>",
