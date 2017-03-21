@@ -11,7 +11,9 @@ export default class PulseProjects extends React.Component {
         <div key={index} className="col-md-4 mb-3 p-3">
           <img className="mb-3" src={project.thumbnail_url} />
           <p className="h4-medium-black">{project.title}</p>
-          <p className="small-gray">{`By ${project.creators.join(`, `)}`}</p>
+          {project.creators.length > 0 &&
+            <p className="small-gray">{`By ${project.creators.join(`, `)}`}</p>
+          }
           <p className="body-black">{project.description}</p>
           <a className="cta-link" href={project.content_url}>Read More</a>
         </div>
