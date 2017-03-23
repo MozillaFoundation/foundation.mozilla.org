@@ -11,7 +11,7 @@ block content
       .col
         h1.h1-white Introducing the Internet Health Report
     .row.py-5
-      .col-md-6
+      .col-md-6.mb-3
         p.body-black.mb-5 The Internet is an ecosystem that billions of people depend on. A living entity, shaped by our actions. We’re connected, and we can each make a difference.
         img.mb-5(src=`${env.virtualRoot}_images/ihr-infographic.png`)
         h2.h4-medium-black Is the Internet getting healthier?
@@ -19,4 +19,6 @@ block content
         p.body-black Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.
         p.body-black Version 0.1 identifies five key Internet health markers and offers a brief prognosis for each in 2017.
         a.btn.btn-ghost(href=`https://internethealthreport.org/v01/`) Internet Health Report
-      +sign-up-box(`Keep me updated`, `What's next? Read the <a href="https://internethealthreport.org/v01/">report</a> and send us your feedback. Stay tuned for the next version. Let’s get the world talking about Internet health.`)
+      .col-md-5.push-md-1
+        .row
+          .join-us.half-width.col(data-cta-header=`Keep me updated`, data-cta-description=`What's next? Read the <a href="https://internethealthreport.org/v01/">report</a> and send us your feedback. Stay tuned for the next version. Let’s get the world talking about Internet health.`)

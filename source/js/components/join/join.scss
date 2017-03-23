@@ -3,7 +3,121 @@
 }
 
 .join-us {
-  &:not(#join-us) .close-button {
+  .join-page-title {
     display: none;
   }
+
+  .join-graphic {
+    display: none;
+  }
+
+  .signup-success .join-graphic {
+    display: block;
+  }
+
+  .join-btn {
+    width: 100%;
+  }
+
+  &.half-width {
+    background: $off-white;
+
+    .join-graphic {
+      @include make-col(12);
+
+      margin-bottom: 3em;
+
+      img {
+        max-width: 5em;
+      }
+    }
+  }
+
+  &.full-width {
+    background: $off-white;
+
+    .join-graphic {
+      @include make-col(12);
+
+      img {
+        max-width: 5em;
+      }
+    }
+
+    @media (min-width: $bp-md) {
+      padding-top: 2em;
+      padding-bottom: 2em;
+
+      .join-btn {
+        width: auto;
+      }
+
+      .join-graphic {
+        @include make-col(2);
+
+        display: flex;
+        justify-content: center;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      .join-content {
+        @include make-col(6);
+      }
+
+      .signup-success .join-content {
+        @include make-col(7);
+      }
+
+      .join-form {
+        @include make-col(6);
+      }
+    }
+  }
+
+  &.full-page {
+    .join-graphic {
+      display: block;
+
+      @include make-col(12);
+
+      img {
+        max-width: 5em;
+      }
+    }
+
+    .join-page-title {
+      display: block;
+    }
+
+    .join-heading { display: none; }
+
+    @media (min-width: $bp-md) {
+      .join-btn {
+        width: auto;
+      }
+
+      .join-graphic {
+        @include make-col(4);
+        @include make-col-push(8);
+
+        display: flex;
+        justify-content: center;
+
+        img {
+          max-width: unset;
+        }
+      }
+
+      .join-content,
+      .join-form {
+        @include make-col-pull(6);
+      }
+    }
+  }
 }
+
+
+
