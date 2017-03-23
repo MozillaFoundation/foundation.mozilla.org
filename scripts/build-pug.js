@@ -3,6 +3,13 @@ let pug = require(`pug`);
 let shelljs = require(`shelljs`);
 let moment = require(`moment`);
 
+// JSON includes
+
+let pulseData = require(`../source/json/temp/pulse.json`);
+let peopleData = require(`../source/json/temp/people.json`);
+let upcomingData = require(`../source/json/upcoming.json`);
+let newsData = require(`../source/json/news.json`);
+
 let envFlag = process.argv[2];
 let environmentVariables;
 
@@ -34,13 +41,13 @@ function buildPage(template, target, extraData) {
   shelljs.ShellString(html).to(`${path}/index.html`);
 }
 
-buildPage(`home`, `/`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
-buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/temp/people.json`).toString())));
+buildPage(`home`, `/`, {pulse: pulseData});
+buildPage(`people`, `/people`, peopleData);
 buildPage(`support`, `/support`);
-buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
-buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
+buildPage(`upcoming`, `/programs/upcoming`, upcomingData);
+buildPage(`projects`, `/projects`, {pulse: pulseData});
 buildPage(`about`, `/about`);
-buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/news.json`).toString()))});
+buildPage(`news`, `/news`, {news: newsData});
 buildPage(`style-guide`, `/style-guide`);
 buildPage(`join`, `/join`);
 
