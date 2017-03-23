@@ -11,7 +11,9 @@
       "description",
       "link",
       "featured",
-      "page"
+      "header",
+      "content",
+      "sign-up"
     ],
     "properties": {
       "name": {
@@ -35,44 +37,31 @@
           "label"
         ]
       },
-      "image": {
+      "featured-image": {
         "type": "string"
       },
       "featured": {
         "type": "boolean"
       },
-      "page": {
+      "header": {
+        "type": "string"
+      },
+      "content": {
+        "type": "string"
+      },
+      "sign-up": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "string"
-          },
           "header": {
             "type": "string"
           },
-          "content": {
+          "description": {
             "type": "string"
-          },
-          "sign-up": {
-            "type": "object",
-            "properties": {
-              "header": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "header",
-              "description"
-            ]
           }
         },
         "required": [
-          "title",
           "header",
-          "content"
+          "description"
         ]
       }
     }
