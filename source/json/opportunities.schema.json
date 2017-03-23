@@ -10,7 +10,8 @@
       "name",
       "description",
       "link",
-      "featured"
+      "featured",
+      "page"
     ],
     "properties": {
       "name": {
@@ -22,7 +23,7 @@
       "link": {
         "type": "object",
         "properties": {
-          "url": {
+          "slug": {
             "type": "string"
           },
           "label": {
@@ -30,15 +31,49 @@
           }
         },
         "required": [
-          "url",
+          "slug",
           "label"
         ]
       },
       "image": {
-        "type": ["string", "null"]
+        "type": "string"
       },
       "featured": {
         "type": "boolean"
+      },
+      "page": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "header": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "sign-up": {
+            "type": "object",
+            "properties": {
+              "header": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "header",
+              "description"
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "header",
+          "content"
+        ]
       }
     }
   }

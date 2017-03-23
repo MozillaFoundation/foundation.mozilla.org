@@ -1,0 +1,21 @@
+[
+  {
+    "name": "The Internet Health Report",
+    "description": "Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.",
+    "link": {
+      "slug": "internet-health-report",
+      "label": "Read and contribute"
+    },
+    "image": "IMAGE URL - UPLOADED VIA DJANGO",
+    "featured": true,
+    "page": {
+      "title": "Internet Health Report",
+      "header": "Introducing the Internet Health Report",
+      "content": "HTML - TINYMCE",
+      "sign-up": {
+        "header": "Keep me updated",
+        "description": "What's next? Read the report and send us your feedback. Stay tuned for the next version. Let’s get the world talking about Internet health."
+      }
+    }
+  }
+]
