@@ -32,7 +32,7 @@ body > .wrapper {
   cursor: pointer;
   margin-right: 1em;
 
-  @media (min-width: $bp-sm) {
+  @media (min-width: $bp-md) {
     margin-right: 50px;
   }
 
