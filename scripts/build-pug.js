@@ -9,6 +9,7 @@ let pulseData = require(`../source/json/temp/pulse.json`);
 let peopleData = require(`../source/json/temp/people.json`);
 let upcomingData = require(`../source/json/upcoming.json`);
 let newsData = require(`../source/json/news.json`);
+let opportunityData = require(`../source/json/opportunities.json`);
 
 let envFlag = process.argv[2];
 let environmentVariables;
@@ -52,6 +53,10 @@ buildPage(`style-guide`, `/style-guide`);
 buildPage(`join`, `/join`);
 
 // Opportunities
-buildPage(`internet-health-report`, `/opportunity/internet-health-report`);
-buildPage(`fellowships`, `/opportunity/fellowships`);
-buildPage(`training`, `/opportunity/training`);
+// buildPage(`internet-health-report`, `/opportunity/internet-health-report`);
+// buildPage(`fellowships`, `/opportunity/fellowships`);
+// buildPage(`training`, `/opportunity/training`);
+
+opportunityData.forEach((opportunity) => {
+  buildPage(`opportunity`, `/opportunity/${opportunity.link.slug}`, opportunity);
+});
