@@ -1,11 +1,16 @@
 extends ../templates/master.pug
 
 mixin blurb(newsItem)
-  .mb-3
-    p.h6-gray=newsItem.outlet
-    h3.h4-medium-black
+  .mb-3.news-item
+    //- p.h6-gray=newsItem.outlet
+    .d-flex.align-items-center.mb-3
+      img.mr-2.glyph(src=newsItem.glyph)
+      p.h6-gray.mb-0=newsItem.outlet
+    h3.h4-medium-black.mb-2
       a(href=newsItem.link)=newsItem.headline
-    p.small-gray=moment(newsItem.date).format(`MMM YYYY`)
+    if newsItem.author
+      p.italic-black by #{newsItem.author}
+    p.small-gray=moment(newsItem.date).format(`MMMM YYYY`)
 
 mixin newsForYear(year)
   .row.mb-5
