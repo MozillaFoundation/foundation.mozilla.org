@@ -40,7 +40,7 @@ buildPage(`support`, `/support`);
 buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
 buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString()))});
 buildPage(`about`, `/about`);
-buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/news.json`).toString()))});
+buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});
 buildPage(`style-guide`, `/style-guide`);
 buildPage(`join`, `/join`);
 
