@@ -10,9 +10,6 @@
       "outlet": {
         "type": "string"
       },
-      "topic": {
-        "type": "string"
-      },
       "date": {
         "type": "string",
         "format": "date-time"
@@ -33,7 +30,6 @@
     "required": [
       "headline",
       "outlet",
-      "topic",
       "date",
       "link",
       "featured"
