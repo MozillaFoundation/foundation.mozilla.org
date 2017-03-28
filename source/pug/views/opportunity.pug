@@ -1,0 +1,15 @@
+extends ../templates/master.pug
+
+include ../partials/sign-up-box.pug
+
+block centerNav
+  p=data.name
+
+block content
+  .container
+    .row.py-5
+      .col
+        h1.h1-white=data.header
+    .row.py-5
+      .col-md-6 !{data.content}
+      +sign-up-box(data[`sign-up`].header, data[`sign-up`].description)

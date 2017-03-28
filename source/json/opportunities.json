@@ -1,0 +1,18 @@
+[
+  {
+    "name": "The Internet Health Report",
+    "description": "Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.",
+    "link": {
+      "slug": "internet-health-report",
+      "label": "Read and contribute"
+    },
+    "featured-image": "IMAGE URL - UPLOADED VIA DJANGO",
+    "featured": true,
+    "header": "Introducing the Internet Health Report",
+    "content": "<p>The Internet is an ecosystem that billions of people depend on. A living entity, shaped by our actions. We’re connected, and we can each make a difference.</p><img src=\"/_images/ihr-infographic.png\"/><h2>Is the Internet getting healthier?</h2><p>Is the web thriving? Under threat? We believe these are timely and essential questions.</p><p>Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.</p><p>Version 0.1 identifies five key Internet health markers and offers a brief prognosis for each in 2017.</p><a href=\"https://internethealthreport.org/v01/\">Internet Health Report</a>",
+    "sign-up": {
+      "header": "Keep me updated",
+      "description": "What's next? <a href=\"https://internethealthreport.org/v01/\">Read the report</a> and send us your feedback. Stay tuned for the next version. Let’s get the world talking about Internet health."
+    }
+  }
+]
