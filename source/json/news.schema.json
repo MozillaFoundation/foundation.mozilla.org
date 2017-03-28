@@ -8,7 +8,7 @@
         "type": "string"
       },
       "excerpt": {
-        "type": "string"
+        "type": ["string", "null"]
       },
       "outlet": {
         "type": "string"
