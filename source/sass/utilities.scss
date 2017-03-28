@@ -5,3 +5,35 @@
 .flex-1 {
   flex: 1;
 }
+
+$slantPadding: 0.75em;
+
+[class*="background-slant"] {
+  display: inline-block;
+}
+
+//The numbers in the next line don't matter, just need to check if the browser recognizes clip-path.
+@supports (-webkit-clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%)) or (clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%)){
+  .background-slant {
+    clip-path: margin-box polygon($slantPadding 0%, 0% 100%, calc(100% - #{$slantPadding}) 100%, 100% 0%);
+    padding: 0 $slantPadding;
+  }
+
+  .slant-wrapper {
+    background-image: url("/_images/slanting-lines-pttn.svg");
+    width: 100%;
+    display: block;
+    background-repeat: repeat;
+    background-clip: padding-box;
+  }
+
+  .background-slant-right {
+    clip-path: margin-box polygon(0% 0%, 0% 100%, calc(100% - #{$slantPadding}) 100%, 100% 0%);
+    padding-right: $slantPadding;
+  }
+
+  .background-slant-left {
+    clip-path: margin-box polygon($slantPadding 0%, 0% 100%, 100% 100%, 100% 0%);
+    padding-left: $slantPadding;
+  }
+}
