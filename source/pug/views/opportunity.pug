@@ -1,0 +1,16 @@
+extends ../templates/master.pug
+
+include ../partials/sign-up-box.pug
+
+block centerNav
+  p {{ page.meta_title }}
+
+block content
+  .container
+    .row.py-5
+      .col
+        h1.h1-white {{ page.pagewithcallout.header }}
+        div {{ page.pagewithcallout.content | safe }}
+    .row.py-5
+      .col-md-6
+      +sign-up-box(`{{ page.pagewithcallout.signup.header }}`, `{{ page.pagewithcallout.signup.description | safe }}`)
