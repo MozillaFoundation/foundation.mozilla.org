@@ -7,12 +7,15 @@
       "headline": {
         "type": "string"
       },
+      "excerpt": {
+        "type": "string"
+      },
       "outlet": {
         "type": "string"
       },
       "date": {
         "type": "string",
-        "format": "date-time"
+        "format": "date"
       },
       "link": {
         "type": "string"

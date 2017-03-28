@@ -2,16 +2,16 @@ extends ../templates/master.pug
 
 include ../partials/pulse-projects.pug
 
-mixin newsItem(source, title, url, date, glyph, author)
+mixin newsItem(data)
   .news-item
     .d-flex.align-items-center.mb-3
-      img.mr-2(src=`${env.virtualRoot}_images/news-icons/${glyph}`)
-      p.h6-gray.mb-0=source
+      img.mr-2.glyph(src=data.glyph)
+      p.h6-gray.mb-0=data.outlet
     h5
-      a.h4-medium-black(href=`${url}`)=title
-    if author
-      p.italic-black by #{author}
-    p.small-gray=date
+      a.h4-medium-black(href=`${data.link}`)=data.headline
+    if data.author
+      p.italic-black by #{data.author}
+    p.small-gray=moment(data.date).format(`MMMM YYYY`)
 
 block heroGuts
   .row
@@ -36,19 +36,23 @@ block content
     .row
       .col.my-5
         h4.h2-headings-white Latest News
-
+    -
+      data.news = data.news.filter((item) => {
+        return item.featured;
+      });
     .row.mb-5
       .col-md-6.mb-3.d-flex
         .p-5.news-item-featured
-          +newsItem(`CNBC`, `Mozilla's art installation warns about how companies are using your data`, `http://www.cnbc.com/2016/12/13/mozillas-the-glass-room-warns-about-how-companies-are-using-your-data.html`, `December 2016`, `cnbc.svg`)
-          p.body-black Most of us assume no one cares about what we look at on our devices, but the data is being used to create a picture of who we are and where we went — and, for the most part, it's completely legal.
+          +newsItem(data.news[0])
+          - if (data.news[0].excerpt)
+            p.body-black=data.news[0].excerpt
       .col-md-6
         .pb-4
-          +newsItem(`The New Statesman`, `The Rise of Digital Empires`, `http://bit.ly/2bGMj65`, `September 2016`, `ns.png`)
+          +newsItem(data.news[1])
           hr
-          +newsItem(`Mozilla Internet Citizen`, `Living Inside the Computer: Building Responsible IoT`, `https://medium.com/mozilla-internet-citizen/living-inside-the-computer-mozilla-is-calling-for-responsible-iot-6cd57b146705#.kn8oxu4dc`, `January 2017`, `medium.svg`)
+          +newsItem(data.news[2])
           hr
-          +newsItem(`Read, Write, Participate`, `Teaching the Web, with Art as Curriculum`, `https://medium.com/read-write-participate/teaching-the-web-with-art-as-curriculum-c1d1c86fb12a#.mkjyfv8w0`, `December 2016`, `medium.svg`)
+          +newsItem(data.news[3])
 
     .row
       .col.text-center.mb-5
