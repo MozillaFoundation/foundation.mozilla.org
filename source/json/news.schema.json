@@ -15,7 +15,7 @@
       },
       "date": {
         "type": "string",
-        "format": "date-time"
+        "format": "date"
       },
       "link": {
         "type": "string"
