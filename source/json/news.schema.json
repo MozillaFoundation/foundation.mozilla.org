@@ -7,6 +7,9 @@
       "headline": {
         "type": "string"
       },
+      "excerpt": {
+        "type": "string"
+      },
       "outlet": {
         "type": "string"
       },

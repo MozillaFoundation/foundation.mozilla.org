@@ -44,6 +44,8 @@ block content
       .col-md-6.mb-3.d-flex
         .p-5.news-item-featured
           +newsItem(data.news[0])
+          - if (data.news[0].excerpt)
+            p.body-black=data.news[0].excerpt
       .col-md-6
         .pb-4
           +newsItem(data.news[1])
