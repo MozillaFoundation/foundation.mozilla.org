@@ -6,7 +6,7 @@ let chalk = require(`chalk`);
 
 shell.mkdir(`-p`, `source/json/temp/`);
 
-let fetch = (shortName, source) => {
+let fetchJSON = (shortName, source) => {
   request(source, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       console.log(chalk.green(`Pulled ${shortName} JSON`));
@@ -18,6 +18,6 @@ let fetch = (shortName, source) => {
   });
 };
 
-fetch(`pulse`, `https://network-pulse-api-production.herokuapp.com/entries/?ordering=-created&page_size=996&format=json&featured=True&page=1`);
-fetch(`people`, `https://network-api.mofoprod.net/people/?format=json&featured=True&page=1`);
-fetch(`news`, `https://network-api.mofoprod.net/news/?format=json&featured=True&page=1`);
+fetchJSON(`pulse`, `https://network-pulse-api-production.herokuapp.com/entries/?ordering=-created&page_size=996&format=json&featured=True&page=1`);
+fetchJSON(`people`, `https://network-api.mofoprod.net/people/?format=json&featured=True&page=1`);
+fetchJSON(`news`, `https://network-api.mofoprod.net/news/?format=json&featured=True&page=1`);
