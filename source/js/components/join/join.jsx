@@ -92,7 +92,7 @@ export default class JoinUs extends React.Component {
               <div className={privacyClass}>
                 <label className="form-check-label mb-3">
                   <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
-                  <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="#TODO">Privacy Notice</a></span>
+                  <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/en-US/privacy/websites/">Privacy Notice</a></span>
                   {this.state.userSubmitted && !this.refs.privacy.checked ? <small className="has-danger">Please check this box if you want to proceed</small> : null }
                 </label>
                 <div>
