@@ -48,7 +48,7 @@ export default class Person extends React.Component {
       return (
         <div className="col-12 p-3 mb-4">
           <div className="person-card person-card-featured row no-gutters">
-            <div className="col-4 mr-3">
+            <div className="col-md-4 col-12 mr-3">
               <div className="row">
                 <div className="col">
                   <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
@@ -83,7 +83,7 @@ export default class Person extends React.Component {
                 </div>
                 <div className="col-12 quote-content d-flex">
                   <div className="col d-flex flex-column flex-1">
-                      <div className="row my-auto">
+                      <div className="row my-5">
                         <div className="person-quote quote-small">{this.props.metadata.quote}</div>
                       </div>
                       <div className="row justify-content-end">
