@@ -109,7 +109,6 @@ export default class JoinUs extends React.Component {
 
 JoinUs.defaultProps = {
   ctaDescription: `Sign up for opportunities and news related to a healthy internet.`,
-  ctaHeader: `Stay Connected`,
+  ctaHeader: `Get Connected`,
   thankYouMessage: `Thanks for joining. The Internet already feels a bit more vibrant (^_^). We will e-mail you soon to confirm.`
 };
-
