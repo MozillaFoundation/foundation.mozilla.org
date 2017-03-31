@@ -13,7 +13,20 @@ export default class Person extends React.Component {
   }
 
   flip() {
-    this.setState({'flipped': !this.state.flipped});
+    this.setState({
+      'flippableStyle': {
+        height: this.state.flipped ? this.refs.bioContent.clientHeight : this.refs.quoteContent.clientHeight
+      },
+      'flipped': !this.state.flipped
+    });
+  }
+
+  componentDidMount() {
+    if (this.refs.quoteContent) {
+      this.setState({'flippableStyle': {
+        height: this.refs.quoteContent.clientHeight
+      }});
+    }
   }
 
   render() {
@@ -48,19 +61,19 @@ export default class Person extends React.Component {
       return (
         <div className="col-12 p-3 mb-4">
           <div className="person-card person-card-featured row no-gutters">
-            <div className="col-4 mr-3">
+            <div className="col-md-4 col-12 mr-3">
               <div className="row">
                 <div className="col">
                   <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
                 </div>
               </div>
-              {this.props.metadata.partnership_logo ?
+              {this.props.metadata.partnership_logo &&
                 <div className="row mt-3">
                   <div className="col">
                     <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
                   </div>
                 </div>
-              : null }
+              }
             </div>
             <div className="col d-flex flex-column">
               <div className="justify-content-end row no-gutters">
@@ -68,8 +81,8 @@ export default class Person extends React.Component {
                   <button className="more-details btn" onClick={this.flip} >{this.state.flipped?`MORE DETAILS`:`SEE QUOTE`}</button>
                 </div>
               </div>
-              <div className={`row flex-1 flippable-card flip-${this.state.flipped}`}>
-                <div className="col-12 bio-content">
+              <div className={`row flippable-card flip-${this.state.flipped}`} style={this.state.flippableStyle}>
+                <div ref="bioContent" style={this.state.bioStyle} className="col-12 bio-content">
                   <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
                   <div className="person-role-location small">{this.props.metadata.role} / {this.props.metadata.location}</div>
                   <div className="person-issues">{issues}</div>
@@ -81,9 +94,9 @@ export default class Person extends React.Component {
                     {socialLinks}
                   </div>
                 </div>
-                <div className="col-12 quote-content d-flex">
+                <div ref="quoteContent" style={this.state.quoteStyle} className="col-12 quote-content d-flex">
                   <div className="col d-flex flex-column flex-1">
-                      <div className="row my-auto">
+                      <div className="row my-5">
                         <div className="person-quote quote-small">{this.props.metadata.quote}</div>
                       </div>
                       <div className="row justify-content-end">
@@ -109,13 +122,13 @@ export default class Person extends React.Component {
                   <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
                 </div>
               </div>
-              {this.props.metadata.partnership_logo ?
+              {this.props.metadata.partnership_logo &&
                 <div className="row mt-3">
                   <div className="col">
                     <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
                   </div>
                 </div>
-              : null }
+              }
             </div>
             <div className="col bio-content">
               <h2 className="h5-black my-2">{this.props.metadata.name}</h2>

@@ -32,23 +32,23 @@
   }
 
   .flippable-card {
-    transition: transform 1s ease;
+    transition: transform 1s ease, height 1s ease;
     transform-style: preserve-3d;
     position: relative;
 
     .bio-content {
-      backface-visibility: hidden;
-      width: 100%;
       transform: rotateY(0deg);
     }
 
     .quote-content {
       transform: rotateY(180deg);
+    }
+
+    .bio-content,
+    .quote-content {
       backface-visibility: hidden;
-      position: absolute;
-      top: 0;
-      height: 100%;
       width: 100%;
+      position: absolute;
     }
   }
 
