@@ -13,24 +13,20 @@ export default class Person extends React.Component {
   }
 
   flip() {
-    if(this.state.flipped) {
-      this.setState({
-        'flippableStyle': {
-          height: this.refs.bioContent.clientHeight
-        }});
-    } else {
-      this.setState({
-        'flippableStyle': {
-          height: this.refs.quoteContent.clientHeight
-        }});
-    }
-    this.setState({'flipped': !this.state.flipped});
+    this.setState({
+      'flippableStyle': {
+        height: this.state.flipped ? this.refs.bioContent.clientHeight : this.refs.quoteContent.clientHeight
+      },
+      'flipped': !this.state.flipped
+    });
   }
 
   componentDidMount() {
-    this.refs.quoteContent && this.setState({'flippableStyle': {
-      height: this.refs.quoteContent.clientHeight
-    }});
+    if (this.refs.quoteContent) {
+      this.setState({'flippableStyle': {
+        height: this.refs.quoteContent.clientHeight
+      }});
+    }
   }
 
   render() {
