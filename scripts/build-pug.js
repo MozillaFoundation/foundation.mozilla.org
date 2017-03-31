@@ -42,7 +42,7 @@ buildPage(`projects`, `/projects`, {pulse: JSON.parse((shelljs.cat(`source/json/
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});
 buildPage(`style-guide`, `/style-guide`);
-buildPage(`join`, `/join`);
+buildPage(`sign-up`, `/sign-up`);
 
 // Opportunities
 buildPage(`internet-health-report`, `/opportunity/internet-health-report`);
