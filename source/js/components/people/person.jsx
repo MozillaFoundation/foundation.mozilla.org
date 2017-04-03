@@ -50,7 +50,7 @@ export default class Person extends React.Component {
     }
 
     let socialLinks = Object.keys(filteredLinks).map((linkKey, index) => {
-      let classes = linkKey + ` mr-4`;
+      let classes = `${linkKey} mr-4`;
 
       return (
         <a href={this.props.metadata.links[linkKey]} className={classes} key={index}></a>
