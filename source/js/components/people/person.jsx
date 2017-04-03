@@ -50,7 +50,7 @@ export default class Person extends React.Component {
     }
 
     let socialLinks = Object.keys(filteredLinks).map((linkKey, index) => {
-      let classes = linkKey + ` mr-3`;
+      let classes = `${linkKey} mr-4`;
 
       return (
         <a href={this.props.metadata.links[linkKey]} className={classes} key={index}></a>
@@ -67,16 +67,9 @@ export default class Person extends React.Component {
                   <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
                 </div>
               </div>
-              {this.props.metadata.partnership_logo &&
-                <div className="row mt-3">
-                  <div className="col">
-                    <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
-                  </div>
-                </div>
-              }
             </div>
             <div className="col d-flex flex-column">
-              <div className="justify-content-end row no-gutters">
+              <div className="justify-content-end row no-gutters slanty-background">
                 <div className="col col-auto">
                   <button className="more-details btn" onClick={this.flip} >{this.state.flipped?`MORE DETAILS`:`SEE QUOTE`}</button>
                 </div>
@@ -87,6 +80,11 @@ export default class Person extends React.Component {
                   <div className="person-role-location small">{this.props.metadata.role} / {this.props.metadata.location}</div>
                   <div className="person-issues">{issues}</div>
                   <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
+                  {this.props.metadata.partnership_logo &&
+                    <div className="my-1">
+                      <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+                    </div>
+                  }
                   <div className="person-bio body-black">
                     <ReactMarkdown source={this.props.metadata.bio} />
                   </div>
@@ -94,7 +92,7 @@ export default class Person extends React.Component {
                     {socialLinks}
                   </div>
                 </div>
-                <div ref="quoteContent" style={this.state.quoteStyle} className="col-12 quote-content d-flex">
+                <div ref="quoteContent" style={this.state.quoteStyle} className="col-12 quote-content d-flex pt-3">
                   <div className="col d-flex flex-column flex-1">
                       <div className="row my-5">
                         <div className="person-quote quote-small">{this.props.metadata.quote}</div>
@@ -102,7 +100,12 @@ export default class Person extends React.Component {
                       <div className="row justify-content-end">
                         <div className="quote-attribution text-right">
                           <div className="h5-black"> – {this.props.metadata.name}</div>
-                          <div className="small">{this.props.metadata.role} / {this.props.metadata.location}</div>
+                          <div className="small-gray">{this.props.metadata.affiliations[0]}</div>
+                          {this.props.metadata.partnership_logo &&
+                            <div className="my-1">
+                              <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+                            </div>
+                          }
                         </div>
                       </div>
                   </div>
@@ -122,6 +125,12 @@ export default class Person extends React.Component {
                   <img src={this.props.metadata.image} className="headshot" alt="Headshot" />
                 </div>
               </div>
+            </div>
+            <div className="col bio-content">
+              <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
+              <div className="small person-role-location">{this.props.metadata.role} / {this.props.metadata.location}</div>
+              <div className="person-issues">{issues}</div>
+              <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
               {this.props.metadata.partnership_logo &&
                 <div className="row mt-3">
                   <div className="col">
@@ -129,12 +138,6 @@ export default class Person extends React.Component {
                   </div>
                 </div>
               }
-            </div>
-            <div className="col bio-content">
-              <h2 className="h5-black my-2">{this.props.metadata.name}</h2>
-              <div className="small person-role-location">{this.props.metadata.role} / {this.props.metadata.location}</div>
-              <div className="person-issues">{issues}</div>
-              <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
               <div className="person-social-links mt-3">
                 {socialLinks}
               </div>
