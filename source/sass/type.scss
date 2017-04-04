@@ -33,7 +33,7 @@ a {
   color: $white;
   display: inline;
   padding: 0.1em;
-  line-height: 1.6;
+  line-height: 1.333;
 }
 
 .h1-home-white {
@@ -65,7 +65,7 @@ a {
   font-family: Arvo;
   font-weight: 400;
   color: #ccc;
-  line-height: 1.5;
+  line-height: 1.2;
 
   @include scaleText(56px, 72px);
 }
@@ -74,14 +74,14 @@ a {
   font-family: Arvo;
   font-weight: 100;
   letter-spacing: 0;
-  line-height: 1.7;
+  line-height: 1.2;
 
   @include scaleText(28px, 40px);
 }
 
 .h3-cta-black {
   letter-spacing: 0;
-  line-height: 1.8;
+  line-height: 1.25;
   font-weight: 900;
 
   @include scaleText(22px, 32px);
@@ -90,7 +90,7 @@ a {
 .h4-medium-black {
   font-family: Arvo;
   letter-spacing: 0.5px;
-  line-height: 1.5;
+  line-height: 1.2;
 
   @include scaleText(28px, 32px);
 }
@@ -109,7 +109,7 @@ a {
   font-weight: 100;
   color: #231f20;
   letter-spacing: 0;
-  line-height: 1.5;
+  line-height: 1.2;
 
   @include scaleText(20px, 28px);
 }
@@ -118,7 +118,7 @@ a {
   font-weight: 400;
   color: #231f20;
   letter-spacing: 0;
-  line-height: 1.33;
+  line-height: 1.2;
 
   @include scaleText(22px, 28px);
 }
@@ -128,7 +128,7 @@ a {
   font-weight: 400;
   color: #231f20;
   letter-spacing: 0.25px;
-  line-height: 1.33;
+  line-height: 1.2;
 
   @include scaleText(18px, 20px);
 }
@@ -155,7 +155,7 @@ a {
 @mixin p-lead {
   font-weight: 100;
   letter-spacing: 0;
-  line-height: 1.66;
+  line-height: 1.6;
 
   @include scaleText(14px, 20px);
 }
@@ -174,7 +174,7 @@ a {
   font-weight: 100;
   font-style: italic;
   color: #909090;
-  line-height: 1.66;
+  line-height: 1.33;
 
   @include scaleText(18px, 24px);
 }
@@ -183,7 +183,7 @@ a {
   font-weight: 100;
   font-style: italic;
   color: $black;
-  line-height: 1.66;
+  line-height: 1.45;
 
   @include scaleText(18px, 22px);
 }
@@ -191,7 +191,7 @@ a {
 .body-black {
   color: $black;
   letter-spacing: 0;
-  line-height: 1.66;
+  line-height: 1.5;
 
   @include scaleText(14px, 16px);
 }
@@ -205,7 +205,7 @@ a {
 
 .italic-black {
   letter-spacing: 0;
-  line-height: 1.66;
+  line-height: 1.5;
   font-style: italic;
 
   @include scaleText(14px, 16px);
@@ -214,7 +214,7 @@ a {
 .small-gray {
   color: #909090;
   letter-spacing: 0;
-  line-height: 1.5;
+  line-height: 1.33;
 
   @include scaleText(12px);
 }
@@ -228,7 +228,7 @@ a {
 
 .small-error {
   color: #ff4043;
-  line-height: 1.6;
+  line-height: 1.33;
   font-style: italic;
   letter-spacing: 0;
 
@@ -237,14 +237,14 @@ a {
 
 .body-link {
   letter-spacing: 0;
-  line-height: 1.6;
+  line-height: 1.5;
 
   @include scaleText(14px, 16px);
 }
 
 .link-small {
   letter-spacing: 0;
-  line-height: 1.66;
+  line-height: 1.33;
   font-weight: 900;
 
   @include scaleText(10px, 12px);
@@ -252,7 +252,7 @@ a {
 
 .link-small-tags {
   letter-spacing: 0;
-  line-height: 1.66;
+  line-height: 1.33;
 
   @include scaleText(10px, 12px);
 }
@@ -260,7 +260,7 @@ a {
 .cta-link {
   display: inline-block;
   letter-spacing: 0.5px;
-  line-height: 1.66;
+  line-height: 1.5;
   text-transform: uppercase;
   text-decoration: underline;
 
