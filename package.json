@@ -7,7 +7,7 @@
   "scripts": {
     "autoprefix": "node scripts/autoprefix.js",
     "build:images": "shx rm -rf dest/_images && shx cp -r source/images dest/_images",
-    "build:js": "shx mkdir -p dest/_js && webpack",
+    "build:js": "shx mkdir -p dest/_js && webpack -p",
     "build:pug": "node scripts/build-pug.js",
     "build:sass": "shx mkdir -p dest/_css && node-sass source/sass/main.scss dest/_css/main.compiled.css && npm run autoprefix",
     "build": "shx rm -rf dest && npm run fetch && run-p build:**",
