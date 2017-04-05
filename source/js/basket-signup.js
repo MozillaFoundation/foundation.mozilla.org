@@ -4,7 +4,7 @@ var url = `https://www.mozilla.org/en-US/newsletter/`;
 var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
   var payload = {
     format: `H`, // HTML emails
-    newsletter: `mozilla-leadership-network`,
+    newsletter: transaction.newsletter,
     triggerWelcome: `N`,
     email: transaction.email,
     privacy: transaction.privacy || false
