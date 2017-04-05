@@ -19,5 +19,5 @@ let fetchJSON = (shortName, source) => {
 };
 
 fetchJSON(`pulse`, `https://network-pulse-api-production.herokuapp.com/entries/?ordering=-created&page_size=996&format=json&featured=True&page=1`);
-fetchJSON(`people`, `https://network-api.mofoprod.net/people/?format=json&featured=True&page=1`);
-fetchJSON(`news`, `https://network-api.mofoprod.net/news/?format=json&featured=True&page=1`);
+fetchJSON(`people`, `https://network-api.mofoprod.net/api/people/?format=json&featured=True&page=1`);
+fetchJSON(`news`, `https://network-api.mofoprod.net/api/news/?format=json&featured=True&page=1`);
