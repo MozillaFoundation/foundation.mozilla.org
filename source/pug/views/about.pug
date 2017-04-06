@@ -1,12 +1,16 @@
 extends ../templates/master.pug
 
+mixin funderLogo(uri, width=75)
+  .col-6.col-md-3.mb-5.px-3.d-flex.align-items-center.justify-content-center
+    img(class=`w-${width}`, src=`${env.virtualRoot}${uri}`)
+
 block centerNav
   p About
 
 block content
-  .container
-    .row.justify-content-around
-      .col-12.col-md-10.col-lg-8.mt-5
+  .container.py-5
+    .row.big-section.justify-content-around
+      .col-12.col-md-10.col-lg-8
         .mb-5: h1.h1-white About Us
         p.blockquote-gray We’re building a movement. Its mission: keep the web decentralized, open and free. In short, protect the health of the Internet.
         p.body-black A movement is only as powerful as the people behind it. The “we” behind this movement isn't just Mozilla -- it’s a far larger network. There are technologists, yes. But also educators, artists and activists, hailing from Cape Town, Chicago, Shenzhen, Berlin and beyond.
@@ -30,5 +34,48 @@ block content
         h3.h3-black.mb-1 Web Literacy
         p.body-black.mb-5 We need everyone to have the skills to read, write and participate in the digital world, so more people can move beyond consuming to actually creating, shaping and defending the Web.
       .hidden-sm-down.col-md-2.mt-5.about-graphic
+
+    .row.big-section.justify-content-around
+      .col-12.col-md-11.col-md-offset-1
+        .row.mb-5
+          .col-12
+            .slanty-background
+              h3.h2-headings-white Network Supporters
+        .row
+          .col-12
+            .row
+              +funderLogo(`_images/about/alfred-p-sloan-foundation.jpg`)
+              +funderLogo(`_images/about/altman-foundation.jpg`)
+              +funderLogo(`_images/about/bill-and-melinda-gates-foundation.jpg`)
+              +funderLogo(`_images/about/canadian-internet-registration-authority.jpg`)
+
+            .row
+              +funderLogo(`_images/about/chicago-community-trust.jpg`)
+              +funderLogo(`_images/about/cs-mott-foundation.jpg`)
+              +funderLogo(`_images/about/ford-foundation.jpg`)
+              +funderLogo(`_images/about/helmsley-charitable-trust.jpg`)
+
+            .row
+              +funderLogo(`_images/about/illinois-science-_-energy-foundation.jpg`)
+              +funderLogo(`_images/about/institute-for-museum-and-library-services.jpg`)
+              +funderLogo(`_images/about/irvine-foundation.jpg`)
+              +funderLogo(`_images/about/knight-foundation.jpg`)
+
+            .row
+              +funderLogo(`_images/about/macarthur-foundation.jpg`)
+              +funderLogo(`_images/about/national-science-foundation.jpg`)
+              +funderLogo(`_images/about/new-york-community-trust.jpg`)
+              +funderLogo(`_images/about/ontario-trillium-foundation.jpg`)
+
+            .row
+              +funderLogo(`_images/about/open-society-foundations.jpg`)
+              +funderLogo(`_images/about/open-tech-fund.jpg`)
+              +funderLogo(`_images/about/robert-r-mccormick-foundation.jpg`)
+              +funderLogo(`_images/about/rockefeller-foundation.jpg`)
+
+            .row
+              +funderLogo(`_images/about/siegel-family-endowment.jpg`)
+              +funderLogo(`_images/about/susan-crowne-exchange.jpg`, 50)
+              +funderLogo(`_images/about/un-women.jpg`)
 
     include ../partials/contact.pug
