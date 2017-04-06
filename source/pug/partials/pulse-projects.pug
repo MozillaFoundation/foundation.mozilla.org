@@ -1,13 +1,19 @@
-mixin projects(projectData, includeJSON)
-  - let json = includeJSON ? projectData : false
+mixin projects(name, description, url, projectData)
 
-  .mb-5.pulse-projects(data-json=json)
-    each project, index in projectData
-      +project(projectData[index])
+  .row.projects-row.py-5
+    .col-12.col-md-6
+      h2.h3-black=name
+      p.mb-4=description
+      a.mb-3.mb-md-0.cta-link(href=url)=`Explore ${name}`
+    .col-12.col-md-6
+      .row
+        each project, index in projectData
+          +project(projectData[index])
 
 mixin project(meta)
-  .col-sm-4.mb-3.p-3
-    p=meta.title
-    p=`By ${meta.creators.join(`, `)}`
-    p=meta.description
-    a(href=meta.content_url) Read More
+  .col-sm-12.col-md-6.mb-4.mb-md-0
+    img.project-image(src=meta.thumbnail_url)
+    h4.medium-black.my-2=meta.title
+    if meta.creators.length
+      p.small-gray.my-1=`By ${meta.creators.join(`, `)}`
+    p.small-gray=`Added ${moment(meta.created).format('MMM DD, YYYY')}`

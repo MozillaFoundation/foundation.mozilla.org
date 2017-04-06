@@ -10,19 +10,10 @@ block heroGuts
 
 block content
   .container
-    .row.pt-5.pb-4
-      .col
-        ul.jump-bar
-          li.no-link Featured
-          li
-            a(href=`https://www.mozillapulse.org/issues/online-privacy-and-security`) Privacy & Security
-          li
-            a(href=`https://www.mozillapulse.org/search?keyword=mozfest`) Mozfest
-          li
-            a(href=`https://www.mozillapulse.org/issues/open-innovation`) Open Innovation
-
-    // This will be replaced by a React component, but is rendered for indexing
-    +projects(data.pulse.results.slice(0,9), true)
+    +projects("Privacy & Security", "Tools, tips, apps and more for staying safe online.", "https://www.mozillapulse.org/issues/online-privacy-and-security", data.pulsePrivacy.results)
+    +projects("Mozfest", "Keynotes, teacahing kits and other creations from the Network's annual Internet Health festival", "https://www.mozillapulse.org/search?keyword=mozfest", data.pulseMozfest.results)
+    +projects("Open Innovation", "Code and ideas for a more innovative web. All open source.", "https://www.mozillapulse.org/issues/open-innovation", data.pulseInnovation.results)
+    +projects("Games", "Building a healthy Internet isn't just about white papers. These games teach privacy best-practices, HTML, CSS and other digital skills.", "https://www.mozillapulse.org/search?keyword=game", data.pulseGames.results)
 
     .row.pt-3.pb-5
       .col.text-center

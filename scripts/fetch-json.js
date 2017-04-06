@@ -18,6 +18,9 @@ let fetchJSON = (shortName, source) => {
   });
 };
 
-fetchJSON(`pulse`, `https://network-pulse-api-production.herokuapp.com/entries/?ordering=-created&page_size=996&format=json&featured=True&page=1`);
+fetchJSON(`pulse-privacy`, `https://network-pulse-api-production.herokuapp.com/entries/?issue=Online%20Privacy%20%26%20Security&featured=True&page_size=2`);
+fetchJSON(`pulse-mozfest`, `https://network-pulse-api-production.herokuapp.com/entries/?tag=mozfest&featured=True&page_size=2`);
+fetchJSON(`pulse-innovation`, `https://network-pulse-api-production.herokuapp.com/entries/?issue=Open%20Innovation&featured=True&page_size=2`);
+fetchJSON(`pulse-games`, `https://network-pulse-api-production.herokuapp.com/entries/?tag=game&featured=True&page_size=2`);
 fetchJSON(`people`, `https://network-api.mofoprod.net/api/people/?format=json&featured=True&page=1`);
 fetchJSON(`news`, `https://network-api.mofoprod.net/api/news/?format=json&featured=True&page=1`);
