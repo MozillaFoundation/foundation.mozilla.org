@@ -45,6 +45,11 @@ buildPage(`style-guide`, `/style-guide`);
 buildPage(`sign-up`, `/sign-up`);
 
 // Opportunities
+
+// For Mezzanine (with tokens)
+buildPage(`opportunity`, `/opportunity/template`);
+
+// Static
 buildPage(`internet-health-report`, `/opportunity/internet-health-report`);
 buildPage(`fellowships`, `/opportunity/fellowships`);
 buildPage(`training`, `/opportunity/training`);
