@@ -1,3 +1,5 @@
+block masterParams
+
 mixin subpageHero(header, subhead)
   .row.py-5.d-flex.align-items-center.subpageHero
     .col-md-6.pr-5
@@ -21,13 +23,13 @@ html
     meta(property=`og:title`, content=`TODO`)
     meta(property=`og:description`, content=`TODO`)
 
-    link(rel=`stylesheet`, href=`${env.virtualRoot}_css/main.compiled.css`)
+    link(rel=`stylesheet`, href=`${baseURL || env.virtualRoot}_css/main.compiled.css`)
     link(rel=`stylesheet`, href=`//code.cdn.mozilla.net/fonts/fira.css`)
     link(rel=`stylesheet`, href=`//fonts.googleapis.com/css?family=Nunito+Sans`)
     link(rel=`stylesheet`, href=`//fonts.googleapis.com/css?family=Arvo`)
-    link(rel=`apple-touch-icon` type=`image/png` sizes=`180x180` href=`${env.virtualRoot}_images/favicons/apple-touch-icon-180x180.png`)
-    link(rel=`icon` type=`image/png` sizes=`196x196` href=`${env.virtualRoot}_images/favicons/favicon-196x196.png`)
-    link(rel=`shortcut icon` href=`${env.virtualRoot}_images/favicons/favicon.ico`)
+    link(rel=`apple-touch-icon` type=`image/png` sizes=`180x180` href=`${baseURL || env.virtualRoot}_images/favicons/apple-touch-icon-180x180.png`)
+    link(rel=`icon` type=`image/png` sizes=`196x196` href=`${baseURL || env.virtualRoot}_images/favicons/favicon-196x196.png`)
+    link(rel=`shortcut icon` href=`${baseURL || env.virtualRoot}_images/favicons/favicon.ico`)
 
     title=strings.MLN
 
@@ -79,7 +81,7 @@ html
               a.logo(href="https://mozilla.org")
             p Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at #[a(href="https://mozilla.org") mozilla.org].
 
-script(src=`${env.virtualRoot}_js/main.compiled.js`)
+script(src=`${baseURL || env.virtualRoot}_js/main.compiled.js`)
 script(src=`https://cdn.optimizely.com/js/206878104.js`)
 script.
   (function () {
