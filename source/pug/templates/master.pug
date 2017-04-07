@@ -9,6 +9,8 @@ mixin subpageHero(header, subhead)
 
 doctype html
 html
+  - if (isMezzanine)
+    | {% load settings_value %}
   head
     meta(charset=`utf-8`)
 
