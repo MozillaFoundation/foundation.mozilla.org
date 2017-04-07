@@ -57,7 +57,7 @@ a {
   letter-spacing: 1px;
   text-transform: uppercase;
 
-  @include scaleText(16px, 24px);
+  @include scaleText(18px, 24px);
   @include black-box-white-text;
 }
 
@@ -128,7 +128,7 @@ a {
   font-weight: 400;
   color: #231f20;
   letter-spacing: 0.25px;
-  line-height: 1.2;
+  line-height: 1.3;
 
   @include scaleText(18px, 20px);
 }
@@ -140,7 +140,7 @@ a {
   line-height: 1.33;
   text-transform: uppercase;
 
-  @include scaleText(10px, 12px);
+  @include scaleText(12px);
 }
 
 .h6-white {
@@ -148,16 +148,16 @@ a {
   text-transform: uppercase;
   line-height: 1.33;
 
-  @include scaleText(10px, 12px);
+  @include scaleText(12px);
   @include black-box-white-text;
 }
 
 @mixin p-lead {
   font-weight: 100;
   letter-spacing: 0;
-  line-height: 1.6;
+  line-height: 1.3;
 
-  @include scaleText(14px, 20px);
+  @include scaleText(18px, 20px);
 }
 
 .lead-black {
@@ -193,13 +193,13 @@ a {
   letter-spacing: 0;
   line-height: 1.5;
 
-  @include scaleText(14px, 16px);
+  @include scaleText(16px);
 }
 
 .body-white {
   font-weight: 100;
 
-  @include scaleText(14px, 16px);
+  @include scaleText(16px);
   @include black-box-white-text;
 }
 
@@ -208,7 +208,7 @@ a {
   line-height: 1.5;
   font-style: italic;
 
-  @include scaleText(14px, 16px);
+  @include scaleText(16px);
 }
 
 .small-gray {
@@ -232,14 +232,14 @@ a {
   font-style: italic;
   letter-spacing: 0;
 
-  @include scaleText(10px, 12px);
+  @include scaleText(12px);
 }
 
 .body-link {
   letter-spacing: 0;
   line-height: 1.5;
 
-  @include scaleText(14px, 16px);
+  @include scaleText(16px);
 }
 
 .link-small {
@@ -247,14 +247,14 @@ a {
   line-height: 1.33;
   font-weight: 900;
 
-  @include scaleText(10px, 12px);
+  @include scaleText(12px);
 }
 
 .link-small-tags {
   letter-spacing: 0;
   line-height: 1.33;
 
-  @include scaleText(10px, 12px);
+  @include scaleText(12px);
 }
 
 .cta-link {
@@ -268,5 +268,5 @@ a {
     content: " →";
   }
 
-  @include scaleText(14px, 16px);
+  @include scaleText(16px);
 }
