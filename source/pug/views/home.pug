@@ -28,7 +28,9 @@ block content
         a.btn.btn-ghost(href=`${env.virtualRoot}people`) Member Spotlight
 
     .row
-      .mb-5: h4.h2-headings-white Get Involved
+      .col
+        .mb-5.slanty-background
+          h4.h2-headings-white Get Involved
     .row.py-5
       .col-xs-12.col-md-6.mb-5
         .home-ihp
@@ -53,8 +55,8 @@ block content
         a.btn.btn-ghost(href=`${env.virtualRoot}projects`) See Projects
 
     .row
-      .col.my-5
-        .slanty-background
+      .col
+        .my-5.slanty-background
           h4.h2-headings-white Latest News
     -
       data.news = data.news.filter((item) => {
