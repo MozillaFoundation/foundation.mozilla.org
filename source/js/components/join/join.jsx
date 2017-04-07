@@ -27,7 +27,8 @@ export default class JoinUs extends React.Component {
     if(this.refs.email.value && this.refs.privacy.checked){
       basketSignup({
         email: this.refs.email.value,
-        privacy: this.refs.privacy.checked
+        privacy: this.refs.privacy.checked,
+        newsletter: this.props.newsletter
       }, this.formSubmissionSuccessful, this.formSubmissionFailure);
     }
   }
@@ -110,5 +111,6 @@ export default class JoinUs extends React.Component {
 JoinUs.defaultProps = {
   ctaDescription: `Sign up for opportunities and news related to a healthy internet.`,
   ctaHeader: `Get Connected`,
-  thankYouMessage: `Thanks for joining. The Internet already feels a bit more vibrant (^_^). We will e-mail you soon to confirm.`
+  thankYouMessage: `Thanks for joining. The Internet already feels a bit more vibrant (^_^). We will e-mail you soon to confirm.`,
+  newsletter: `mozilla-leadership-network`
 };
