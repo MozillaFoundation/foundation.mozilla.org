@@ -19,7 +19,8 @@ block content
     .row.py-5
       .col
         h1.h1-white {{ page.landingpage.header }}
-        div {{ page.landingpage.content | safe }}
     .row.py-5
-      .col-md-6
-      +sign-up-box(`{{ page.landingpage.signup.header }}`, `{{ page.landingpage.signup.description | safe }}`)
+      .col-md-6.mb-3 {{ page.landingpage.content | safe }}
+      .col-md-5.push-md-1
+        .row
+          .join-us.half-width.col(data-cta-header=`{{ page.landingpage.signup.header }}`, data-cta-description=`{{ page.landingpage.signup.description | safe }}`)
