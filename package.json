@@ -7,10 +7,12 @@
   "scripts": {
     "autoprefix": "node scripts/autoprefix.js",
     "build:images": "shx rm -rf dest/_images && shx cp -r source/images dest/_images",
-    "build:js": "shx mkdir -p dest/_js && webpack",
+    "build:js-uncompressed": "shx mkdir -p dest/_js && webpack",
+    "build:js": "shx mkdir -p dest/_js && webpack -p",
     "build:pug": "node scripts/build-pug.js",
     "build:sass": "shx mkdir -p dest/_css && node-sass source/sass/main.scss dest/_css/main.compiled.css && npm run autoprefix",
-    "build": "shx rm -rf dest && npm run fetch && run-p build:**",
+    "build": "shx rm -rf dest && npm run fetch && run-p build:images build:js build:pug build:sass",
+    "build-uncompressed": "shx rm -rf dest && npm run fetch && run-p build:images build:js-uncompressed build:pug build:sass",
     "fetch": "node scripts/fetch-json.js",
     "server": "live-server ./dest --port=2017",
     "stage": "npm i && shx rm -rf dest && npm run build:pug -- --staging && npm run build:images && npm run build:js && npm run build:sass && node scripts/stage.js",
@@ -22,7 +24,7 @@
     "test:scss": "stylelint 'source/sass/main.scss' --syntax scss",
     "test": "npm run build && run-s test:**",
     "watch:images": "chokidar 'source/images/**/*' -c 'npm run build:images'",
-    "watch:js": "chokidar 'source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js'",
+    "watch:js": "chokidar 'source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js-uncompressed'",
     "watch:pug": "chokidar 'source/pug/**/*.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
     "watch:sass": "chokidar 'source/**/*.scss' -c 'npm run build:sass'"
   },
