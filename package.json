@@ -16,7 +16,7 @@
     "fetch": "node scripts/fetch-json.js",
     "server": "live-server ./dest --port=2017",
     "stage": "npm i && shx rm -rf dest && npm run build:pug -- --staging && npm run build:images && npm run build:js && npm run build:sass && node scripts/stage.js",
-    "start": "npm i && npm run build && run-p server watch:**",
+    "start": "npm i && npm run build-uncompressed && run-p server watch:**",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/**/*.js source/js/**/*.js source/js/components/**/*.jsx",
     "test:json": "ajv validate -s source/json/upcoming.schema.json -d source/json/upcoming.json",
     "test:pulled-json": "ajv validate -s source/json/people.schema.json -d source/json/temp/people.json && ajv validate -s source/json/news.schema.json -d source/json/temp/news.json",
