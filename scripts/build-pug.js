@@ -3,6 +3,12 @@ let pug = require(`pug`);
 let shelljs = require(`shelljs`);
 let moment = require(`moment`);
 
+let pulseJSON = require(`../source/json/temp/pulse.json`);
+let pulsePrivacyJSON = require(`../source/json/temp/pulse-privacy.json`);
+let pulseInnovationJSON = require(`../source/json/temp/pulse-innovation.json`);
+let pulseMozfestJSON = require(`../source/json/temp/pulse-mozfest.json`);
+let pulseGamesJSON = require(`../source/json/temp/pulse-games.json`);
+
 let envFlag = process.argv[2];
 let environmentVariables;
 
@@ -39,11 +45,11 @@ buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/temp/people.
 buildPage(`support`, `/support`);
 buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
 buildPage(`projects`, `/projects`, {
-  pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString())),
-  pulsePrivacy: JSON.parse((shelljs.cat(`source/json/temp/pulse-privacy.json`).toString())),
-  pulseInnovation: JSON.parse((shelljs.cat(`source/json/temp/pulse-innovation.json`).toString())),
-  pulseMozfest: JSON.parse((shelljs.cat(`source/json/temp/pulse-mozfest.json`).toString())),
-  pulseGames: JSON.parse((shelljs.cat(`source/json/temp/pulse-games.json`).toString()))
+  pulse: pulseJSON,
+  pulsePrivacy: pulsePrivacyJSON,
+  pulseInnovation: pulseInnovationJSON,
+  pulseMozfest: pulseMozfestJSON,
+  pulseGames: pulseGamesJSON
 });
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});
