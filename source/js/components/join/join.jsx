@@ -54,7 +54,6 @@ export default class JoinUs extends React.Component {
 
     let signupState = classNames({
       'row': true,
-      'py-3': true,
       'signup-success': this.state.signupSuccess && this.state.userSubmitted,
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
@@ -67,7 +66,7 @@ export default class JoinUs extends React.Component {
         <div className="col">
           <div className="row">
             <div className="col-12 join-content">
-              <div className="my-3 join-page-title">
+              <div className="mb-5 join-page-title">
                 <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
               </div>
               <div className="join-heading">
