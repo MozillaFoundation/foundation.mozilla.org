@@ -10,6 +10,10 @@
   background-image: url(../_images/slanting-lines-pttn.svg);
   background-size: 150px;
   width: 100%;
+
+  &.gray {
+    background-image: url(../_images/slanting-lines-pttn-opt-gray.svg);
+  }
 }
 
 .big-section {
