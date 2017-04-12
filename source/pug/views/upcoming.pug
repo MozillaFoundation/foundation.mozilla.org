@@ -2,14 +2,14 @@ extends ../templates/master.pug
 
 mixin event(meta)
   .row.my-5
-    .col-4
+    .col-sm-4
       - if(meta.photo)
         img(src=meta.photo)
-    .col-8
+    .col-sm-8
       - if(meta.startDate && meta.endDate)
         p.h6-gray=`${moment(meta.startDate).format(`MMMM D`)}-${moment(meta.endDate).format(`D, YYYY`)}`
       - else if(meta.startDate)
-        p.h6-gray=moment(meta.startDate).format(`MMMM YYYY`)
+        p.h6-gray.mt-3.mt-sm-0=moment(meta.startDate).format(`MMMM YYYY`)
       - else
         p.h6-gray TBD
       h2.h4-light-black=meta.headline
@@ -20,7 +20,7 @@ block centerNav
   p Upcoming
 
 block heroGuts
-  +subpageHero(`Upcoming`, `A snapshot of key milestones on the horizon. Get involved.`)
+  +subpageHero(`Upcoming`, `A snapshot of key milestones on the horizon. Many ways to get involved.`)
 
 block content
   .container
