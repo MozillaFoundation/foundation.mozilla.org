@@ -39,7 +39,6 @@ buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/temp/people.
 buildPage(`support`, `/support`);
 buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
 buildPage(`projects`, `/projects`, {
-  pulse: JSON.parse((shelljs.cat(`source/json/temp/pulse.json`).toString())),
   pulsePrivacy: JSON.parse((shelljs.cat(`source/json/temp/pulse-privacy.json`).toString())),
   pulseInnovation: JSON.parse((shelljs.cat(`source/json/temp/pulse-innovation.json`).toString())),
   pulseMozfest: JSON.parse((shelljs.cat(`source/json/temp/pulse-mozfest.json`).toString())),
