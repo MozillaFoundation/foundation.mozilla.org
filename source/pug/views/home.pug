@@ -34,12 +34,12 @@ block content
     .row
       .col-xs-12.col-md-6.mb-5
         .item-featured.pb-5.px-3.px-sm-4.mt-4
-          img.mb-4(src="https://assets.mofoprod.net/network-pulse/images/entries/2017-04-12_164148.6437050000.jpg")
-          h5.h4-light-black The Internet Health Report
-          p.body-black Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.
-          a.cta-link(href=`${env.virtualRoot}opportunity/internet-health-report`) Join this Project
+          img.mb-4(src=`${data.project.thumbnail}`)
+          h5.h4-light-black=`${data.project.title}`
+          p.body-black=`${data.project.description}`
+          a.cta-link(href=`${data.project.get_involved_url}`) Join this Project
           .mt-5
-            a.btn.btn-ghost(href=`#`) See More Projects
+            a.btn.btn-ghost(href=`${env.virtualRoot}projects`) See More Projects
       .col-md-6
         h5.h4-light-black Fellowships that Empower Leaders
         p.body-black We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.
@@ -49,15 +49,9 @@ block content
         p.body-black Learn the basics of participation, collaboration, and sharing on community-driven projects. Discover what working open can do for your project.
         a.cta-link(href=`${env.virtualRoot}opportunity/training`) Be a leader
 
-    .row.mx-2.mb-5.cta.cta-projects
-      .col-xs-12.col-md-5.px-4.py-5.cta-box
-        h3.h4-light-black Network Projects
-        p.body-black Discover and contribute to exciting projects made by and for our Network.
-        a.btn.btn-ghost(href=`${env.virtualRoot}projects`) See Projects
-
     .row
       .col
-        .my-5.slanty-background
+        .mb-5.slanty-background
           h4.h2-headings-white Latest News
     -
       data.news = data.news.filter((item) => {
