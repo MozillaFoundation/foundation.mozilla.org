@@ -31,20 +31,21 @@ block content
       .col
         .mb-5.slanty-background
           h4.h2-headings-white Get Involved
-    .row.py-5
+    .row
       .col-xs-12.col-md-6.mb-5
-        .home-ihp
-          .wrapper.p-4
-            h5.h4-light-black The Internet Health Report
-            p.body-black Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.
-            a.cta-link(href=`${env.virtualRoot}opportunity/internet-health-report`) Read and contribute
+        .item-featured.pb-5.px-3.px-sm-4.mt-4
+          img.mb-4(src="https://assets.mofoprod.net/network-pulse/images/entries/2017-04-12_164148.6437050000.jpg")
+          h5.h4-light-black The Internet Health Report
+          p.body-black Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.
+          a.cta-link(href=`${env.virtualRoot}opportunity/internet-health-report`) Join this Project
+          .mt-5
+            a.btn.btn-ghost(href=`#`) See More Projects
       .col-md-6
-        h4.h4-light-black Other Opportunities
-        h5.h5-black Fellowships that Empower Leaders
+        h5.h4-light-black Fellowships that Empower Leaders
         p.body-black We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.
         a.cta-link(href=`${env.virtualRoot}opportunity/fellowships`) Be a fellow
         hr
-        h5.h5-black Leadership Training for Collaboration
+        h5.h4-light-black Leadership Training for Collaboration
         p.body-black Learn the basics of participation, collaboration, and sharing on community-driven projects. Discover what working open can do for your project.
         a.cta-link(href=`${env.virtualRoot}opportunity/training`) Be a leader
 
@@ -64,7 +65,7 @@ block content
       });
     .row.mb-5
       .col-md-6.mb-3.d-flex
-        .p-5.news-item-featured
+        .p-5.item-featured
           +newsItem(data.news[0])
           - if (data.news[0].excerpt)
             p.body-black=data.news[0].excerpt
