@@ -11,6 +11,11 @@
     .more-details {
       background-color: $mobile-blue;
       color: white;
+      font-size: 12px;
+
+      &:hover {
+        background-color: #0081ad;
+      }
     }
   }
 

@@ -16,6 +16,11 @@ h6 {
 
 a {
   color: #3bb7ef;
+  font-weight: 900;
+
+  &:hover {
+    color: #0081ad;
+  }
 }
 
 @mixin scaleText($small, $large: null) {
