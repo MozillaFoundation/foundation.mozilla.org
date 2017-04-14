@@ -18,6 +18,7 @@ let fetchJSON = (shortName, source) => {
   });
 };
 
+fetchJSON(`pulse-homepage`, `https://network-pulse-api-production.herokuapp.com/entries/216`);
 fetchJSON(`pulse-privacy`, `https://network-pulse-api-production.herokuapp.com/entries/?issue=Online%20Privacy%20%26%20Security&featured=True&page_size=2`);
 fetchJSON(`pulse-mozfest`, `https://network-pulse-api-production.herokuapp.com/entries/?tag=mozfest&featured=True&page_size=2`);
 fetchJSON(`pulse-innovation`, `https://network-pulse-api-production.herokuapp.com/entries/?issue=Open%20Innovation&featured=True&page_size=2`);
