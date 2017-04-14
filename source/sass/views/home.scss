@@ -8,8 +8,13 @@
   }
 }
 
-.news-item-featured {
+.item-featured {
   background: $off-white;
+
+  & > img:first-child {
+    margin-top: -1.5em;
+    box-shadow: 0 4px 0 0 $gray-lighter;
+  }
 }
 
 .cta {
@@ -43,18 +48,6 @@
 
   @media screen and (min-width: $bp-md) {
     margin: 30px 0 0 50%;
-  }
-}
-
-.home-ihp {
-  background: url(../_images/ihp.png) no-repeat;
-  background-position-x: 50%;
-  background-size: auto 270px;
-  padding: 160px 15px 0;
-
-  .wrapper {
-    background: $white;
-    box-shadow: 0 4px 0 0 #f2f2f2;
   }
 }
 
