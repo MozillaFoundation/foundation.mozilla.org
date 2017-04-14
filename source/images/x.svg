@@ -1,9 +1,1 @@
-<svg width="24px" height="23px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="lines" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Rectangle-15-Copy-2" fill="#FFFFFF" transform="translate(11.650846, 11.500000) rotate(-45.000000) translate(-11.650846, -11.500000) " points="-3 10 26.3016914 10.0024653 26.3016914 12.9993639 -3 13"></polygon>
-        <polygon id="Rectangle-15-Copy-2" fill="#FFFFFF" transform="translate(11.650846, 11.500000) scale(-1, 1) rotate(-45.000000) translate(-11.650846, -11.500000) " points="-3 10 26.3016914 10.0024653 26.3016914 12.9993639 -3 13"></polygon>
-    </g>
-</svg>
+<svg width="24" height="23" viewBox="0 0 24 23" xmlns="http://www.w3.org/2000/svg"><g fill="#FFF" fill-rule="evenodd"><path d="M.23 20.8L20.952.08l2.119 2.12L2.35 22.92z"/><path d="M23.071 20.8L2.351.08.23 2.201 20.95 22.92z"/></g></svg>

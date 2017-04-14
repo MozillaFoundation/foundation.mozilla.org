@@ -64,12 +64,12 @@
     &::before {
       content: '\201C';
       font-size: 15em;
-      color: $gray-lightest;
+      color: $off-white;
       z-index: -1;
       position: absolute;
       font-weight: bold;
       font-style: initial;
-      top: 0.3em;
+      top: -0.3em;
     }
   }
 
