@@ -3,7 +3,8 @@ extends ../templates/master.pug
 mixin blurb(newsItem)
   .mb-3.news-item
     .d-flex.align-items-center.mb-3
-      img.mr-2.glyph(src=newsItem.glyph)
+      - if (newsItem.glyph)
+        img.mr-2.glyph(src=newsItem.glyph)
       p.h6-gray.mb-0=newsItem.outlet
     h3.h4-medium-black.mb-2
       a(href=newsItem.link)=newsItem.headline
