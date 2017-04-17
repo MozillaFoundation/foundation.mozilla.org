@@ -12,7 +12,7 @@ mixin projects(name, description, url, projectData)
 
 mixin project(meta)
   .col-sm-12.col-md-6.mb-4.mb-md-0
-    img.project-image(src=meta.thumbnail_url)
+    img.project-image(src=meta.thumbnail)
     h4.medium-black.my-2=meta.title
     if meta.creators.length
       p.small-gray.my-1=`By ${meta.creators.join(`, `)}`
