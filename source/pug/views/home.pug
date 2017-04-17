@@ -33,7 +33,7 @@ block content
           h4.h2-headings-white Get Involved
     .row
       .col-xs-12.col-md-6.mb-5
-        .item-featured.pb-5.px-3.px-sm-4.mt-4
+        .item-featured.pb-5.px-4.mt-4
           img.mb-4(src=`${data.project.thumbnail}`)
           h5.h4-light-black=`${data.project.title}`
           p.body-black=`${data.project.description}`
@@ -59,7 +59,7 @@ block content
       });
     .row.mb-5
       .col-md-6.mb-3.d-flex
-        .p-5.item-featured
+        .py-5.px-4.item-featured
           +newsItem(data.news[0])
           - if (data.news[0].excerpt)
             p.body-black=data.news[0].excerpt
