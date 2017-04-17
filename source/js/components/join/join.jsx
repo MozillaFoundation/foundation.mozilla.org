@@ -71,7 +71,7 @@ export default class JoinUs extends React.Component {
                 <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
               </div>
               <div className="join-heading">
-                <h2 className="h3-black">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
+                <h2>{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
               </div>
               {!this.state.signupSuccess ?
                 <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
@@ -89,7 +89,7 @@ export default class JoinUs extends React.Component {
                 {this.state.signupFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
               </div>
               <div className={privacyClass}>
-                <label className="form-check-label mb-2">
+                <label className="form-check-label mb-4">
                   <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
                   <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
                   {this.state.userSubmitted && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}

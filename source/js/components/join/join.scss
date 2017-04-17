@@ -19,6 +19,22 @@
     width: 100%;
   }
 
+  .join-heading h2 {
+    font-family: "Nunito Sans";
+    font-weight: 900;
+    font-size: 22px;
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 32px;
+    }
+  }
+
+  .form-control,
+  .form-text {
+    font-family: "Nunito Sans";
+    font-weight: 900;
+  }
+
   &.half-width {
     background: $off-white;
 
@@ -121,6 +137,3 @@
     }
   }
 }
-
-
-
