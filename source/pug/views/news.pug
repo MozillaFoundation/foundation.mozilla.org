@@ -16,7 +16,7 @@ mixin newsForYear(year)
   .row.mb-5
     .col-md-4.d-md-flex.justify-content-end
       h2.h2-typeaccents-gray=year
-    .col-md-8
+    .col-md-8.col-lg-7
       -
         let newsItems = data.news.filter((item) => {
           return item.date.match(year);

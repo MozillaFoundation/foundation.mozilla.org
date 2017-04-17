@@ -61,8 +61,8 @@
     }
 
     @media (min-width: $bp-md) {
-      padding-top: 2em;
-      padding-bottom: 2em;
+      padding-top: 1em;
+      padding-bottom: 1em;
 
       .join-btn {
         width: auto;
@@ -133,6 +133,18 @@
       .join-content,
       .join-form {
         @include make-col-pull(6);
+      }
+    }
+
+    @media (min-width: $bp-lg) {
+      .join-content,
+      .join-form {
+        @include make-col-pull(5);
+        @include make-col(10);
+      }
+
+      .join-graphic {
+        @include make-col-push(7);
       }
     }
   }
