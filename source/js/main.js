@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Cookies from 'js-cookie';
 
 import JoinUs from './components/join/join.jsx';
 import PrimaryNav from './components/nav/nav.jsx';
@@ -43,8 +44,9 @@ let main = {
       }
     }
 
-    if (document.querySelector(`#view-home .takeover`)) {
+    if (!Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
       ReactDOM.render(<Takeover/>, document.querySelector(`#view-home .takeover`));
+      Cookies.set(`seen-takeover`, `true`, { expires: 365 });
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
