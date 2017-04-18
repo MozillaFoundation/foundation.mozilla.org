@@ -8,6 +8,8 @@ export default class Takeover extends React.Component {
   }
 
   hide () {
+    window.scrollTo(0, 0);
+
     this.setState({
       isHidden: true
     });
@@ -39,8 +41,8 @@ export default class Takeover extends React.Component {
         </header>
         <div className="container">
           <div className="row">
-            <div className="col-9 py-5">
-              <div className="my-5">
+            <div className="col-xs-12 col-md-9 py-3 py-md-5">
+              <div className="my-3 my-md-5">
                 <h1 className="h1-white">This is a Barn Raising</h1>
               </div>
 
@@ -54,8 +56,8 @@ export default class Takeover extends React.Component {
               <p>Mozilla</p>
 
               <div className="my-5">
-                <button className="btn btn-normal mr-4" onClick={this.hide}>Preview Site</button>
-                <a className="btn btn-ghost" href="/sign-up/">Join The Network</a>
+                <button className="btn btn-normal mr-4 mb-3" onClick={this.hide}>Preview Site</button>
+                <a className="btn btn-ghost mb-3" href="/sign-up/">Join The Network</a>
               </div>
             </div>
           </div>
