@@ -1,0 +1,66 @@
+import React from 'react';
+
+export default class Takeover extends React.Component {
+  show () {
+    this.setState({
+      isHidden: false
+    });
+  }
+
+  hide () {
+    this.setState({
+      isHidden: true
+    });
+  }
+
+  toggle () {
+    this.setState({
+      isHidden: !this.state.isHidden
+    });
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.hide = this.hide.bind(this);
+
+    this.state = {
+      isHidden: false
+    };
+  }
+
+  render() {
+    return (
+      <div hidden={this.state.isHidden}>
+        <header className="bar">
+          <div className="container py-3">
+            <img src="/_images/mozilla-on-black.svg" width="100"/>
+          </div>
+        </header>
+        <div className="container">
+          <div className="row">
+            <div className="col-9 py-5">
+              <div className="my-5">
+                <h1 className="h1-white">This is a Barn Raising</h1>
+              </div>
+
+              <p>There is a movement to keep the Internet healthy taking root around the world. Mozilla is a part of this movement – and wants to help it grow.</p>
+              <p>This site is part of our effort to do just that: a gathering place for people who care about the health of the Internet. A place to connect, tell stories, and find resources that will help us along the way.</p>
+              <p>As of April 2017, this site is in "barn raising" mode. Building from the community that emerged around events like MozFest, we've done a napkin sketch that shows what a home for people working on Internet health might look like.</p>
+              <p>If you see yourself as part of this movement – or a part of Mozilla's community – we invite you to <a href="#TODO">name the network</a> and <a href="#TODO">help us build this site</a>. This is a barn raising.</p>
+              <p>We plan to fully launch this site – and a network to support the movement – in mid-2017.</p>
+              <p className="h5-black mb-0">Mark Surman</p>
+              <p className="mb-0">Executive Director</p>
+              <p>Mozilla</p>
+
+              <div className="my-5">
+                <button className="btn btn-normal mr-4" onClick={this.hide}>Preview Site</button>
+                <a className="btn btn-ghost" href="/sign-up/">Join The Network</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}

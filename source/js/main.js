@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import JoinUs from './components/join/join.jsx';
 import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
+import Takeover from './components/takeover/takeover.jsx';
 
 let main = {
   init () {
@@ -40,6 +41,10 @@ let main = {
           reactPrimaryNav.toggle();
         });
       }
+    }
+
+    if (document.querySelector(`#view-home .takeover`)) {
+      ReactDOM.render(<Takeover/>, document.querySelector(`#view-home .takeover`));
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
