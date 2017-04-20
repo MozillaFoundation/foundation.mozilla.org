@@ -44,8 +44,21 @@ let main = {
       }
     }
 
+    // Show Takeover for new visitors
     if (!Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
-      ReactDOM.render(<Takeover/>, document.querySelector(`#view-home .takeover`));
+      let elWrapper = document.querySelector(`#view-home > .wrapper`);
+
+      // Don't allow the content block to scroll
+      elWrapper.style.overflow = `hidden`;
+      elWrapper.style.height = `100vh`;
+
+      let onTakeoverHide = () => {
+        // Allow scrolling again when the takeover is dismissed
+        elWrapper.style.overflow = null;
+        elWrapper.style.height = null;
+      };
+
+      ReactDOM.render(<Takeover onHide={onTakeoverHide}/>, document.querySelector(`#view-home .takeover`));
       Cookies.set(`seen-takeover`, `true`, { expires: 365 });
     }
 

@@ -1,24 +1,14 @@
 import React from 'react';
 
 export default class Takeover extends React.Component {
-  show () {
-    this.setState({
-      isHidden: false
-    });
-  }
-
   hide () {
     window.scrollTo(0, 0);
 
     this.setState({
       isHidden: true
     });
-  }
 
-  toggle () {
-    this.setState({
-      isHidden: !this.state.isHidden
-    });
+    this.props.onHide.call();
   }
 
   constructor(props) {
