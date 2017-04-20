@@ -10,7 +10,7 @@ mixin newsItem(data, featured=false)
     h5.mb-2
       if featured
         a.h4-medium-black(href=`${data.link}`)=data.headline
-      if !featured
+      else
         a.h5-black(href=`${data.link}`)=data.headline
     if data.author
       p.italic-black.mb-1 by #{data.author}
@@ -50,7 +50,7 @@ block content
             glyph: `${env.virtualRoot}_images/news-icons/youtube.svg`
           }
         .play-button-wrapper
-          img(src='https://assets.mofoprod.net/network-pulse/images/entries/153.jpg')
+          img(src=`${env.virtualRoot}_images/news/algorithmic-spiral.jpg`)
           a.play-button-overlay(href=featured.link)
         .row
           .col-12
