@@ -58,6 +58,13 @@ body > .wrapper {
   }
 }
 
+.sticky-top .btn-pop {
+  @media (max-width: $bp-sm) {
+    padding: 0.25em;
+    margin-right: -0.25em;
+  }
+}
+
 .mofo-footer {
   background: $black;
   letter-spacing: 0.02rem;

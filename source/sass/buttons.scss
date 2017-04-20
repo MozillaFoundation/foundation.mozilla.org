@@ -6,6 +6,29 @@
   &:hover {
     cursor: pointer;
   }
+
+  &.btn-pop {
+    background: #ffed00;
+    color: black;
+    box-shadow: 4px 4px black;
+    transition: all 0.25s ease;
+    border: 2px solid black;
+    position: relative;
+
+    &:hover {
+      box-shadow: 8px 8px black;
+      transform: translate(-4px, -4px);
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: -10px;
+        left: 0;
+        right: -10px;
+      }
+    }
+  }
 }
 
 .btn-ghost {
