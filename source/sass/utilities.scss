@@ -21,3 +21,24 @@
 .big-section {
   margin-bottom: 5rem;
 }
+
+.key-item {
+  box-shadow: 0 4px 0 0 $gray-lighter;
+  margin-top: -1.5em;
+  background: white;
+}
+
+.play-button-wrapper {
+  position: relative;
+}
+
+.play-button-overlay {
+  background-image: url(../_images/line-art/play-icon.svg);
+  position: absolute;
+  top: calc(50% - 3em);
+  left: calc(50% - 3em);
+  width: 6em;
+  height: 6em;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

@@ -2,15 +2,18 @@ extends ../templates/master.pug
 
 include ../partials/pulse-projects.pug
 
-mixin newsItem(data)
+mixin newsItem(data, featured=false)
   .news-item
     .d-flex.align-items-center.mb-3
       img.mr-2.glyph(src=data.glyph)
       p.h6-gray.mb-0=data.outlet
-    h5
-      a.h4-medium-black(href=`${data.link}`)=data.headline
+    h5.mb-2
+      if featured
+        a.h4-medium-black(href=`${data.link}`)=data.headline
+      if !featured
+        a.h5-black(href=`${data.link}`)=data.headline
     if data.author
-      p.italic-black by #{data.author}
+      p.italic-black.mb-1 by #{data.author}
     p.small-gray=moment(data.date).format(`MMMM YYYY`)
 
 block heroGuts
@@ -26,6 +29,44 @@ block content
         h3.h4-light-black Diverse Members, One Mission
         p.body-black Meet and connect with Network members.
         a.btn.btn-ghost(href=`${env.virtualRoot}people`) Member Spotlight
+    .row
+      .col
+        .mb-5.slanty-background
+          h4.h2-headings-white News & Opinions
+    -
+      data.news = data.news.filter((item) => {
+        return item.featured;
+      });
+    .row.mb-3
+      .col-md-6.mb-3.pb-5
+        //- Hardcoding this next bit because the api doesn't have a thumbnail key yet, and this will always be a video (at least for now)
+        -
+          featured = {
+            headline: "The Algorithmic Spiral of Science",
+            link: "https://www.youtube.com/watch?v=pO-brBVRyN8&index=12&list=PLYiaJo7rYNXLQSEAa2RdyyiS28Ke2Rl60",
+            outlet: "Youtube",
+            author: "Mozilla",
+            date: "February 2017",
+            glyph: `${env.virtualRoot}_images/news-icons/youtube.svg`
+          }
+        .play-button-wrapper
+          img(src='https://assets.mofoprod.net/network-pulse/images/entries/153.jpg')
+          a.play-button-overlay(href=featured.link)
+        .row
+          .col-12
+            .key-item.mx-2.mx-md-4.p-3
+              +newsItem(featured, true)
+      .col-md-6
+        .pb-4
+          +newsItem(data.news[0])
+          hr
+          +newsItem(data.news[1])
+          hr
+          +newsItem(data.news[2])
+
+    .row
+      .col.text-center.mb-5
+        a.btn.btn-ghost(href=`${env.virtualRoot}news`) View more news
 
     .row
       .col
@@ -34,13 +75,13 @@ block content
     .row
       .col-xs-12.col-md-6.mb-5
         .item-featured.pb-5.px-4.mt-4
-          img.mb-4(src=`${data.project.thumbnail}`)
+          img.key-item.mb-4(src=`${data.project.thumbnail}`)
           h5.h4-light-black=`${data.project.title}`
           p.body-black=`${data.project.description}`
           a.cta-link(href=`${data.project.get_involved_url}`) Join this Project
           .mt-5
             a.btn.btn-ghost(href=`${env.virtualRoot}projects`) See More Projects
-      .col-md-6
+      .col-md-6.mb-5
         h5.h4-light-black Fellowships that Empower Leaders
         p.body-black We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.
         a.cta-link(href=`${env.virtualRoot}opportunity/fellowships`) Be a fellow
@@ -48,31 +89,5 @@ block content
         h5.h4-light-black Leadership Training for Collaboration
         p.body-black Learn the basics of participation, collaboration, and sharing on community-driven projects. Discover what working open can do for your project.
         a.cta-link(href=`${env.virtualRoot}opportunity/training`) Be a leader
-
-    .row
-      .col
-        .mb-5.slanty-background
-          h4.h2-headings-white Latest News
-    -
-      data.news = data.news.filter((item) => {
-        return item.featured;
-      });
-    .row.mb-5
-      .col-md-6.mb-3.d-flex
-        .py-5.px-4.item-featured
-          +newsItem(data.news[0])
-          - if (data.news[0].excerpt)
-            p.body-black=data.news[0].excerpt
-      .col-md-6
-        .pb-4
-          +newsItem(data.news[1])
-          hr
-          +newsItem(data.news[2])
-          hr
-          +newsItem(data.news[3])
-
-    .row
-      .col.text-center.mb-5
-        a.btn.btn-ghost(href=`${env.virtualRoot}news`) View more news
 
     .join-us.full-width.col.mb-5
