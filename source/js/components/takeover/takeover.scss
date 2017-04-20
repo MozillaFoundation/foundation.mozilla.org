@@ -1,0 +1,16 @@
+.takeover {
+  & > div {
+    position: fixed;
+    z-index: 999999;
+    background: $white;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+  }
+
+  .bar {
+    background: #b6d806;
+  }
+}
