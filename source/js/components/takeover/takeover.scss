@@ -13,4 +13,33 @@
   .bar {
     background: #b6d806;
   }
+
+  .button-group {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: $white;
+    width: 100vw;
+    border-top: 1px solid #ccc;
+
+    .container {
+      align-items: stretch;
+      display: flex;
+
+      @media (min-width: $bp-md) {
+        display: block;
+      }
+    }
+
+    .btn {
+      white-space: normal;
+      width: 45%;
+      margin: 2.5%;
+
+      @media (min-width: $bp-md) {
+        width: auto;
+        margin-left: 0;
+      }
+    }
+  }
 }
