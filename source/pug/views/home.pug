@@ -50,7 +50,8 @@ block content
             data.people = data.people.filter(person => person.featured).slice(0,4);
           each person, index in data.people
             +person(data.people[index])
-        div.text-center.mb-5
+    .row
+      .col.text-center.mb-5
           a.btn.btn-ghost(href=`${env.virtualRoot}people`) Meet More Leaders
     .row
       .col
