@@ -30,7 +30,7 @@ export default class People extends React.Component {
       });
 
       return (
-        <div className="col-sm-6 col-md-3" key={index}>
+        <div className="col-6 col-md-3 mb-4 mb-sm-0" key={index}>
           <img src={person.image} className="img-fluid d-block" alt="Headshot" />
           <h2 className="h5-black my-2">{person.name}</h2>
           <p className="small-gray">{person.affiliations.join(`, `)}</p>
