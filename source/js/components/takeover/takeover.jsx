@@ -31,7 +31,7 @@ export default class Takeover extends React.Component {
         </header>
         <div className="container">
           <div className="row">
-            <div className="col-xs-12 col-md-9 py-3 py-md-5">
+            <div className="col-xs-12 col-md-9 py-3 py-md-5 mb-5">
               <div className="my-3 my-md-5">
                 <h1 className="h1-white">This is a Barn Raising</h1>
               </div>
@@ -44,12 +44,13 @@ export default class Takeover extends React.Component {
               <p className="h5-black mb-0">Mark Surman</p>
               <p className="mb-0">Executive Director</p>
               <p>Mozilla</p>
-
-              <div className="my-5">
-                <button className="btn btn-normal mr-4 mb-3" onClick={this.hide}>Preview Site</button>
-                <a className="btn btn-ghost mb-3" href="/sign-up/">Join The Network</a>
-              </div>
             </div>
+          </div>
+        </div>
+        <div className="button-group">
+          <div className="container p-2">
+            <button className="btn btn-normal" onClick={this.hide}>Preview Site</button>
+            <a className="btn btn-ghost" href="/sign-up/">Join The Network</a>
           </div>
         </div>
       </div>
