@@ -2,6 +2,18 @@ extends ../templates/master.pug
 
 include ../partials/pulse-projects.pug
 
+mixin person(meta)
+  div.featured-person.col-6.col-sm-4.col-md-3.mb-4.mb-sm-0
+    img.img-fluid.d-block(src=meta.image, alt=`Headshot`)
+    h2.h5-black.my-2=meta.name
+    p.small-gray #{meta.affiliations.join(`, `)}
+    if meta.links.twitter || meta.links.linkedIn
+      div.person-social-links.mt-3
+      if meta.links.twitter
+        a.twitter.gray.small.mr-4(href=meta.links.twitter)
+      if meta.links.linkedIn
+        a.linkedIn.gray.small.mr-4(href=meta.links.linkedIn)
+
 mixin newsItem(data, featured=false)
   .news-item
     .d-flex.align-items-center.mb-3
@@ -24,11 +36,21 @@ block heroGuts
 
 block content
   .container
-    .row.mx-2.mb-5.cta.cta-network
-      .col-xs-12.col-md-5.px-4.py-5.cta-box
-        h3.h4-light-black Diverse Members, One Mission
-        p.body-black Meet and connect with Network members.
-        a.btn.btn-ghost(href=`${env.virtualRoot}people`) Member Spotlight
+    .row.mt-5
+      .col
+        .mb-5.slanty-background
+          h4.h2-headings-white Network Leaders
+    .row
+      .col
+        #featured-people-box.row.mb-5
+          -
+            data.people = data.people.filter(person => person.featured).slice(0,4);
+          each person, index in data.people
+            +person(data.people[index])
+    .row
+      .col.text-center.mb-5
+        a.btn.btn-ghost(href=`${env.virtualRoot}people`) Meet More Leaders
+
     .row
       .col
         .mb-5.slanty-background

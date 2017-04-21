@@ -78,7 +78,6 @@ let main = {
     if (document.getElementById(`people`)) {
       ReactDOM.render(<People/>, document.getElementById(`people`));
     }
-
   }
 };
 

@@ -37,6 +37,7 @@ function buildPage(template, target, extraData) {
 buildPage(`home`, `/`, {
   news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString())),
   project: JSON.parse((shelljs.cat(`source/json/temp/pulse-homepage.json`).toString())),
+  people: JSON.parse((shelljs.cat(`source/json/temp/people.json`).toString()))
 });
 buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/temp/people.json`).toString())));
 buildPage(`support`, `/support`);

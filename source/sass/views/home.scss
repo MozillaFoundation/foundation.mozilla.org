@@ -1,3 +1,24 @@
+#featured-people-box {
+  .featured-person {
+    &:nth-child(3),
+    &:nth-child(4) {
+      display: none;
+    }
+
+    @media screen and (min-width: $bp-sm) {
+      &:nth-child(3) {
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: $bp-md) {
+      &:nth-child(4) {
+        display: block;
+      }
+    }
+  }
+}
+
 .news-item {
   a {
     color: $black;
@@ -18,36 +39,6 @@
 
 .cta {
   min-height: 350px;
-}
-
-.cta-network {
-  background: url(../_images/home1.jpg) no-repeat;
-  background-position-x: 50%;
-  background-size: auto 330px;
-}
-
-.cta-projects {
-  background: url(../_images/home2.jpg) no-repeat;
-  background-position-x: 50%;
-  background-size: auto 330px;
-
-  .cta-box {
-    margin: 180px 30px 0;
-
-    @media screen and (min-width: $bp-md) {
-      margin: 30px 0 0 45px;
-    }
-  }
-}
-
-.cta-box {
-  background: $white;
-  box-shadow: 0 4px 0 0 #f2f2f2;
-  margin: 180px 30px 0;
-
-  @media screen and (min-width: $bp-md) {
-    margin: 30px 0 0 50%;
-  }
 }
 
 .stay-connected {

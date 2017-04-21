@@ -18,6 +18,19 @@
   &::before {
     @include glyph($id);
   }
+
+  &.gray {
+    &::before {
+      filter: opacity(40%);
+    }
+  }
+
+  &.small {
+    &::before {
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 .twitter-circle {
