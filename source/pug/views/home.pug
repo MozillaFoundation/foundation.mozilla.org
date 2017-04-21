@@ -3,18 +3,16 @@ extends ../templates/master.pug
 include ../partials/pulse-projects.pug
 
 mixin person(meta)
-  div
-    h4=meta.name
-    p=meta.role
-    p=meta.location
-    p
-      small #{meta.affiliations.join(`, `)}
-    if meta.links.twitter
-      p
-        a(href=meta.links.twitter) Twitter
-    if meta.links.linkedIn
-      p
-        a(href=meta.links.linkedIn) LinkedIn
+  div.featured-person.col-6.col-sm-4.col-md-3.mb-4.mb-sm-0
+    img.img-fluid.d-block(src=meta.image, alt=`Headshot`)
+    h2.h5-black.my-2=meta.name
+    p.small-gray #{meta.affiliations.join(`, `)}
+    if meta.links.twitter || meta.links.linkedIn
+      div.person-social-links.mt-3
+      if meta.links.twitter
+        a.twitter.gray.small.mr-4(href=meta.links.twitter)
+      if meta.links.linkedIn
+        a.linkedIn.gray.small.mr-4(href=meta.links.linkedIn)
 
 mixin newsItem(data, featured=false)
   .news-item
@@ -44,8 +42,7 @@ block content
           h4.h2-headings-white Network Leaders
     .row
       .col
-        // This will be replaced by a React component, but this content is left available for indexing (SEO)
-        #people-box
+        #featured-people-box.row.mb-5
           -
             data.people = data.people.filter(person => person.featured).slice(0,4);
           each person, index in data.people

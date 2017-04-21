@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 import JoinUs from './components/join/join.jsx';
 import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
-import PeopleBox from './components/people-box/people-box.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 
 let main = {
@@ -79,11 +78,6 @@ let main = {
     if (document.getElementById(`people`)) {
       ReactDOM.render(<People/>, document.getElementById(`people`));
     }
-
-    if (document.getElementById(`people-box`)) {
-      ReactDOM.render(<PeopleBox/>, document.getElementById(`people-box`));
-    }
-
   }
 };
 

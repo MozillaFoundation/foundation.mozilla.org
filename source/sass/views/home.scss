@@ -1,3 +1,24 @@
+#featured-people-box {
+  .featured-person {
+    &:nth-child(3),
+    &:nth-child(4) {
+      display: none;
+    }
+
+    @media screen and (min-width: $bp-sm) {
+      &:nth-child(3) {
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: $bp-md) {
+      &:nth-child(4) {
+        display: block;
+      }
+    }
+  }
+}
+
 .news-item {
   a {
     color: $black;
