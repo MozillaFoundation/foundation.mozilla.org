@@ -6,8 +6,7 @@ mixin person(meta)
     p=meta.role
     p=meta.location
     p
-      each affiliation in meta.affiliations
-        small #{affiliation},&nbsp;
+      small #{meta.affiliations.join(`, `)}
 
 block centerNav
   p People
