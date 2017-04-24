@@ -42,7 +42,7 @@ block content
           h4.h2-headings-white Network Leaders
     .row
       .col
-        #featured-people-box.row.mb-5
+        #featured-people-box.row.mb-sm-5
           -
             data.people = data.people.filter(person => person.featured).slice(0,4);
           each person, index in data.people
