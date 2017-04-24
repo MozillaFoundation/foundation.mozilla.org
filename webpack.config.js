@@ -1,3 +1,4 @@
+
 module.exports = {
   entry: `./source/js/main.js`,
   output: {
@@ -14,4 +15,5 @@ module.exports = {
         }
       }
     ]
-  }};
+  }
+};
