@@ -14,6 +14,7 @@
     "build": "shx rm -rf dest && npm run fetch && run-p build:images build:js build:pug build:sass",
     "build-uncompressed": "shx rm -rf dest && npm run fetch && run-p build:images build:js-uncompressed build:pug build:sass",
     "fetch": "node scripts/fetch-json.js",
+    "optimize:svg": "find source/images -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
     "server": "live-server ./dest --port=2017",
     "stage": "npm i && shx rm -rf dest && npm run build:pug -- --staging && npm run build:images && npm run build:js && npm run build:sass && node scripts/stage.js",
     "start": "npm i && npm run build-uncompressed && run-p server watch:**",
@@ -57,6 +58,7 @@
     "shx": "^0.2.2",
     "stylelint": "^7.7.1",
     "stylelint-config-standard": "^16.0.0",
+    "svgo": "^0.7.2",
     "webpack": "^2.2.1"
   },
   "dependencies": {
