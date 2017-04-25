@@ -31,7 +31,7 @@ export default class Takeover extends React.Component {
         </header>
         <div className="container">
           <div className="row">
-            <div className="col-xs-12 col-md-9 py-3 py-md-5 mb-5">
+            <div className="col-xs-12 col-md-9 py-3 py-md-5">
               <div className="my-3 my-md-5">
                 <h1 className="h1-white">This is a Barn Raising</h1>
               </div>
