@@ -74,3 +74,7 @@ This is typically useful for creating staged builds of unmerged features for des
 Production deployments are triggered manually via a [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(production)/). Deployments are made to "network-production" in us-east-1, served using a CloudFront CDN.
 
 Temporary production URL is [network.mofoprod.net](https://network.mofoprod.net)
+
+#### Environment Variables
+
+The domains used to fetch static content from Network Pulse and the Network API can be customized by specifying `PULSE_API_DOMAIN` and `NETWORK_API_DOMAIN`, respectively. By default it uses `network-pulse-api-production.herokuapp.com` and `network.mofoprod.net`.
