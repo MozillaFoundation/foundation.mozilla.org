@@ -75,7 +75,11 @@ Production deployments are triggered manually via a [Jenkins job](https://jenkin
 
 Temporary production URL is [network.mofoprod.net](https://network.mofoprod.net)
 
-#### Environment Variables
+##### Healthcheck
+
+A healthcheck route that indicates the most recent commit is accessible on `/healthcheck.txt`.
+
+### Environment Variables
 
 Default environment variables are declared in `defaults.env`. If you wish to override any of the values, you can create a local `.env` file in the root of the project. This file should not be committed.
 
