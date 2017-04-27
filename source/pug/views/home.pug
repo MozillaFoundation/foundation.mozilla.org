@@ -49,7 +49,7 @@ block content
             +person(data.people[index])
     .row
       .col.text-center.mb-5
-        a.btn.btn-ghost(href=`${env.virtualRoot}people`) Meet More Leaders
+        a.btn.btn-ghost(href=`${env[`VIRTUAL_ROOT`]}people`) Meet More Leaders
 
     .row
       .col
@@ -69,10 +69,10 @@ block content
             outlet: "Youtube",
             author: "Mozilla",
             date: "February 2017",
-            glyph: `${env.virtualRoot}_images/news-icons/youtube.svg`
+            glyph: `${env[`VIRTUAL_ROOT`]}_images/news-icons/youtube.svg`
           }
         .play-button-wrapper
-          img(src=`${env.virtualRoot}_images/news/algorithmic-spiral.jpg`)
+          img(src=`${env[`VIRTUAL_ROOT`]}_images/news/algorithmic-spiral.jpg`)
           a.play-button-overlay(href=featured.link)
         .row
           .col-12
@@ -88,7 +88,7 @@ block content
 
     .row
       .col.text-center.mb-5
-        a.btn.btn-ghost(href=`${env.virtualRoot}news`) View more news
+        a.btn.btn-ghost(href=`${env[`VIRTUAL_ROOT`]}news`) View more news
 
     .row
       .col
@@ -102,14 +102,14 @@ block content
           p.body-black=`${data.project.description}`
           a.cta-link(href=`${data.project.get_involved_url}`) Join this Project
           .mt-5
-            a.btn.btn-ghost(href=`${env.virtualRoot}projects`) See More Projects
+            a.btn.btn-ghost(href=`${env[`VIRTUAL_ROOT`]}projects`) See More Projects
       .col-md-6.mb-5
         h5.h4-light-black Fellowships that Empower Leaders
         p.body-black We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.
-        a.cta-link(href=`${env.virtualRoot}opportunity/fellowships`) Be a fellow
+        a.cta-link(href=`${env[`VIRTUAL_ROOT`]}opportunity/fellowships`) Be a fellow
         hr
         h5.h4-light-black Leadership Training for Collaboration
         p.body-black Learn the basics of participation, collaboration, and sharing on community-driven projects. Discover what working open can do for your project.
-        a.cta-link(href=`${env.virtualRoot}opportunity/training`) Be a leader
+        a.cta-link(href=`${env[`VIRTUAL_ROOT`]}opportunity/training`) Be a leader
 
     .join-us.full-width.col.mb-5
