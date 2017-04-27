@@ -77,4 +77,10 @@ Temporary production URL is [network.mofoprod.net](https://network.mofoprod.net)
 
 #### Environment Variables
 
+Default environment variables are declared in `defaults.env`. If you wish to override any of the values, you can create a local `.env` file in the root of the project. This file should not be committed.
+
 The domains used to fetch static content from Network Pulse and the Network API can be customized by specifying `PULSE_API_DOMAIN` and `NETWORK_API_DOMAIN`, respectively. By default it uses `network-pulse-api-production.herokuapp.com` and `network.mofoprod.net`.
+
+When the build runs, a file `env.json` is created in the root, which is the result of merging `.env` and `defaults.env` and converting the result to JSON. Values declared in `.env` take precedence.
+
+If you wish to use environment variables in either Node or client-side code, you can simply require `env.json`.
