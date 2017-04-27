@@ -11,4 +11,4 @@ let localEnv = shelljs.test(`-f`, `.env`) ? dotenv.parse(shelljs.cat(`.env`)) : 
 let finalEnv = Object.assign(defaultEnv, localEnv);
 
 // Write JSON based env
-shelljs.echo(JSON.stringify(finalEnv)).to(`env.json`);
+shelljs.echo(JSON.stringify(finalEnv, null, 2)).to(`env.json`);
