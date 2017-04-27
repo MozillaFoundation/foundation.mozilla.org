@@ -3,14 +3,8 @@ let pug = require(`pug`);
 let shelljs = require(`shelljs`);
 let moment = require(`moment`);
 
-let envFlag = process.argv[2];
-let environmentVariables;
-
-if (envFlag && envFlag === `--staging`) {
-  environmentVariables = JSON.parse((shelljs.cat(`env/staging.json`).toString()));
-} else {
-  environmentVariables = JSON.parse((shelljs.cat(`env/default.json`).toString()));
-}
+// let environmentVariables = JSON.parse((shelljs.cat(`env.json`).toString()));
+let environmentVariables = require(`../env.json`);
 
 let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 
