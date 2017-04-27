@@ -3,14 +3,13 @@ let pug = require(`pug`);
 let shelljs = require(`shelljs`);
 let moment = require(`moment`);
 
-// let environmentVariables = JSON.parse((shelljs.cat(`env.json`).toString()));
-let environmentVariables = require(`../env.json`);
+let environment = require(`../env.json`);
 
 let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 
 function buildPage(template, target, extraData) {
   let viewData = {
-    env: environmentVariables,
+    env: environment,
     strings: propertiesToObject(rawStrings.toString()),
     templateID: template,
     data: extraData,
