@@ -8,6 +8,7 @@ extends ../templates/master.pug
 block masterParams
   - let baseURL = `https://{% settings_value "ASSET_DOMAIN" %}/`
   - let isMezzanine = true
+  - let pageTitle = `{{ page.meta_title }}`;
 
 include ../partials/sign-up-box.pug
 

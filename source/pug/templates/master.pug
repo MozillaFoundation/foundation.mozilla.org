@@ -15,15 +15,13 @@ html
     meta(charset=`utf-8`)
 
     meta(name=`viewport`, content=`width=device-width, initial-scale=1`)
-    meta(name=`description`, content=`TODO`)
+    meta(name=`description`, content=`Mozilla Network is a global network keeping the internet open and accessible to all.`)
 
     meta(property=`og:type`, content=`website`)
-    meta(property=`og:site_name`, content=`TODO`)
+    meta(property=`og:site_name`, content=`${strings.MLN}`)
     meta(property=`og:locale`, content=`en_US`)
-    meta(property=`og:url`, content=`TODO`)
-    meta(property=`og:image`, content=`TODO`)
-    meta(property=`og:title`, content=`TODO`)
-    meta(property=`og:description`, content=`TODO`)
+    meta(property=`og:url`, content=`https://${env.TARGET_DOMAIN}${target}`)
+    meta(property=`og:title`, content=`${strings.MLN} – ${pageTitle}`)
 
     link(rel=`stylesheet`, href!=`${baseURL || env[`VIRTUAL_ROOT`]}_css/main.compiled.css`)
     link(rel=`stylesheet`, href=`//code.cdn.mozilla.net/fonts/fira.css`)
@@ -33,7 +31,7 @@ html
     link(rel=`icon` type=`image/png` sizes=`196x196` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/favicon-196x196.png`)
     link(rel=`shortcut icon` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/favicon.ico`)
 
-    title=strings.MLN
+    title=`${strings.MLN} – ${pageTitle}`
 
   body(id=`view-${templateID}`)
     .takeover
