@@ -61,14 +61,6 @@ Builds to staging are triggered by commits to `master`. A [Jenkins job](https://
 
 Staging URL is [network.mofostaging.net](https://network.mofostaging.net)
 
-##### gh-pages "personal" staged builds
-
-A build can be deployed to GitHub Pages on any fork by running:
-
-`npm run stage REMOTE` (Change `REMOTE` to match your desired target)
-
-This is typically useful for creating staged builds of unmerged features for design review.
-
 #### Production
 
 Production deployments are triggered manually via a [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(production)/). Deployments are made to "network-production" in us-east-1, served using a CloudFront CDN.
