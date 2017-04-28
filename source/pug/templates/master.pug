@@ -52,7 +52,8 @@ html
                     a.logo.text-hide(href=`${env[`VIRTUAL_ROOT`]}`) Mozilla Network
                   .center-nav-title.hidden-xs-down
                     block centerNav
-                  a.btn.btn-pop(href="/sign-up") Get Involved
+                  - if (hideGetInvolved !== true)
+                    a.btn.btn-pop(href="/sign-up") Get Involved
       #hero
         .container
           block heroGuts
