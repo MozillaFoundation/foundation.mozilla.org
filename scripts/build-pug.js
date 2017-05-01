@@ -12,6 +12,7 @@ function buildPage(template, target, extraData) {
     env: environment,
     strings: propertiesToObject(rawStrings.toString()),
     templateID: template,
+    target: target,
     data: extraData,
     moment: moment
   };

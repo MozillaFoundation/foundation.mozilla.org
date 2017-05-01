@@ -1,5 +1,8 @@
 extends ../templates/master.pug
 
+block masterParams
+  - let pageTitle = `News`;
+
 mixin blurb(newsItem)
   .mb-3.news-item
     .d-flex.align-items-center.mb-3
