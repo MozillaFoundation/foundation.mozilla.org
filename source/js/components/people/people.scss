@@ -40,35 +40,6 @@
     content: ', ';
   }
 
-  .flippable-card {
-    transition: transform 1s ease, height 1s ease;
-    transform-style: preserve-3d;
-    position: relative;
-
-    .bio-content {
-      transform: rotateY(0deg);
-    }
-
-    .quote-content {
-      transform: rotateY(180deg);
-    }
-
-    .bio-content,
-    .quote-content {
-      backface-visibility: hidden;
-      width: 100%;
-      position: absolute;
-    }
-  }
-
-  .flip-true {
-    transform: rotateY(180deg);
-  }
-
-  .flip-false {
-    transform: rotateY(0deg);
-  }
-
   .person-quote {
     &::before {
       content: '\201C';

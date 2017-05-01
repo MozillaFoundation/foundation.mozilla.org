@@ -3,29 +3,6 @@ import React from 'react';
 export default class Person extends React.Component {
   constructor(props) {
     super(props);
-    this.flip = this.flip.bind(this);
-
-    this.state = {
-      flipped: true
-    };
-
-  }
-
-  flip() {
-    this.setState({
-      'flippableStyle': {
-        height: this.state.flipped ? this.refs.bioContent.clientHeight : this.refs.quoteContent.clientHeight
-      },
-      'flipped': !this.state.flipped
-    });
-  }
-
-  componentDidMount() {
-    if (this.refs.quoteContent) {
-      this.setState({'flippableStyle': {
-        height: this.refs.quoteContent.clientHeight
-      }});
-    }
   }
 
   render() {
@@ -66,8 +43,8 @@ export default class Person extends React.Component {
               </div>
             </div>
             <div className="col">
-              <div className={`row flippable-card flip-${this.state.flipped}`} style={this.state.flippableStyle}>
-                <div ref="quoteContent" style={this.state.quoteStyle} className="col-12 quote-content d-flex pt-3">
+              <div className="row">
+                <div ref="quoteContent" className="col-12 quote-content d-flex pt-3">
                   <div className="col">
                       <div className="row my-5">
                         <div className="person-quote quote-small">{this.props.metadata.quote}</div>
