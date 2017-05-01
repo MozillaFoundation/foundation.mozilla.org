@@ -13,11 +13,14 @@ block heroGuts
 
 block content
   .container
-    +projects("Privacy & Security", "Tools, tips, apps and more for staying safe online.", "https://www.mozillapulse.org/issues/online-privacy-and-security", data.pulsePrivacy.results)
-    +projects("Mozfest", "Keynotes, teacahing kits and other creations from the Network's annual Internet Health festival", "https://www.mozillapulse.org/search?keyword=mozfest", data.pulseMozfest.results)
     +projects("Open Innovation", "Code and ideas for a more innovative web. All open source.", "https://www.mozillapulse.org/issues/open-innovation", data.pulseInnovation.results)
-    +projects("Games", "Building a healthy Internet isn't just about white papers. These games teach privacy best-practices, HTML, CSS and other digital skills.", "https://www.mozillapulse.org/search?keyword=game", data.pulseGames.results)
+    +projects("Digital Inclusion", "Projects, articles and tools that promote an open and inclusive internet.", "https://www.mozillapulse.org/issues/digital-inclusion", data.pulseInclusion.results)
+    +projects("Decentralization", "Projects that help ensure that the internet is controlled by many, rather than just a handful of global technology giants.", "https://www.mozillapulse.org/issues/decentralization", data.pulseDecentralization.results)
+    +projects("Privacy & Security", "Tools, tips, apps and more for staying safe online.", "https://www.mozillapulse.org/issues/online-privacy-and-security", data.pulsePrivacy.results)
+    +projects("Web Literacy", "Projects that empower people to shape their own internet experience.", "https://www.mozillapulse.org/issues/web-literacy", data.pulseLiteracy.results)
 
-    .row.pt-3.pb-5
-      .col.text-center
+    .row.my-5.pt-3.pb-5.d-flex.align-items-center
+      .col-6
+        h4.h4-light-black Discover much more in Mozilla Pulse. Collaborate with the network on these projects or something new.
+      .col-6
         a.btn.btn-ghost(href=`https://www.mozillapulse.org/`) Discover more and collaborate
