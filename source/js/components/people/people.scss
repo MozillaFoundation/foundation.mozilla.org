@@ -41,6 +41,8 @@
   }
 
   .person-quote {
+    z-index: 1;
+
     &::before {
       content: '\201C';
       font-size: 15em;
