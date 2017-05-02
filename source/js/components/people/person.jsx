@@ -62,7 +62,7 @@ export default class Person extends React.Component {
                           }
                         </div>
                       </div>
-                      <div className="row d-flex person-social-links mt-3 justify-content-between">
+                      <div className="row person-social-links mt-3 justify-content-between">
                         <div>{socialLinks}</div>
                         {this.props.metadata.links.interview &&
                         <div>
