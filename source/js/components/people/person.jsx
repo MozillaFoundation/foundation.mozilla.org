@@ -17,7 +17,7 @@ export default class Person extends React.Component {
     // Django returns empty strings instead of null for empty links, so let's filter empty links out:
     for(let key in this.props.metadata.links) {
       if (Object.prototype.hasOwnProperty.call(this.props.metadata.links, key)) {
-        if (this.props.metadata.links[key] !== ``) {
+        if (this.props.metadata.links[key] !== `` && key !== `interview`) {
           filteredLinks[key] = this.props.metadata.links[key];
         }
       }
