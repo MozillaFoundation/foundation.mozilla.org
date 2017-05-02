@@ -21,7 +21,11 @@ block content
       .col-lg-11
         h1.h1-white {{ page.landingpage.header }}
     .row.mt-5.justify-content-around
+      | {% if page.landingpage.signup %}
       .col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}
       .col-md-5.col-lg-5
         .row
           .join-us.half-width.col(data-cta-header=`{{ page.landingpage.signup.header }}`, data-cta-description=`{{ page.landingpage.signup.description | safe }}`)
+      | {% else %}
+      .col-12.col-md-8.mb-5 {{ page.landingpage.content | safe }}
+      | {% endif %}
