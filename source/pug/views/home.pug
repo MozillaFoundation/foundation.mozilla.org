@@ -20,7 +20,8 @@ mixin person(meta)
 mixin newsItem(data, featured=false)
   .news-item
     .d-flex.align-items-center.mb-3
-      img.mr-2.glyph(src=data.glyph)
+      - if (data.glyph)
+        img.mr-2.glyph(src=data.glyph)
       p.h6-gray.mb-0=data.outlet
     h5.mb-2
       if featured
@@ -62,6 +63,9 @@ block content
       data.news = data.news.filter((item) => {
         return item.featured;
       });
+
+      // Limit to 3 items max
+      data.news = data.news.slice(0,3);
     .row.mb-3
       .col-md-6.mb-3.pb-5
         //- Hardcoding this next bit because the api doesn't have a thumbnail key yet, and this will always be a video (at least for now)
@@ -83,11 +87,10 @@ block content
               +newsItem(featured, true)
       .col-md-6
         .pb-4
-          +newsItem(data.news[0])
-          hr
-          +newsItem(data.news[1])
-          hr
-          +newsItem(data.news[2])
+          - for (let i = 0; i < data.news.length; i++)
+            +newsItem(data.news[i])
+            - if (i !== data.news.length - 1)
+              hr
 
     .row
       .col.text-center.mb-5
