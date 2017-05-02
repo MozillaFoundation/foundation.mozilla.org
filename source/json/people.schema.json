@@ -30,6 +30,9 @@
           },
           "linkedIn": {
             "type": "string"
+          },
+          "interview": {
+            "type": "string"
           }
         }
       },
