@@ -61,11 +61,23 @@ Builds to staging are triggered by commits to `master`. A [Jenkins job](https://
 
 Staging URL is [network.mofostaging.net](https://network.mofostaging.net)
 
+Managed content comes from: `network.mofoprod.net`, and `network-pulse-api-production.herokuapp.com`.
+
 #### Production
 
 Production deployments are triggered manually via a [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(production)/). Deployments are made to "network-production" in us-east-1, served using a CloudFront CDN.
 
 Temporary production URL is [network.mofoprod.net](https://network.mofoprod.net)
+
+Managed content comes from: `network.mofoprod.net`, and `network-pulse-api-production.herokuapp.com`.
+
+#### Dev
+
+Dev deployments for smoke testing API code changes are triggered manually via a [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(dev)/). Deployments are made to "network-smoketest" in us-east-1, served using a CloudFront CDN.
+
+Dev URL is [network-dev.mofostaging.net](https://network-dev.mofostaging.net)
+
+Managed content comes from: `network-api.mofostaging.net`, and `network-pulse-api-production.herokuapp.com`.
 
 ##### Healthcheck
 
