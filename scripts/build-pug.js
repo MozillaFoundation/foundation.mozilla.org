@@ -39,8 +39,9 @@ buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json
 buildPage(`projects`, `/projects`, {
   pulsePrivacy: JSON.parse((shelljs.cat(`source/json/temp/pulse-privacy.json`).toString())),
   pulseInnovation: JSON.parse((shelljs.cat(`source/json/temp/pulse-innovation.json`).toString())),
-  pulseMozfest: JSON.parse((shelljs.cat(`source/json/temp/pulse-mozfest.json`).toString())),
-  pulseGames: JSON.parse((shelljs.cat(`source/json/temp/pulse-games.json`).toString()))
+  pulseInclusion: JSON.parse((shelljs.cat(`source/json/temp/pulse-inclusion.json`).toString())),
+  pulseDecentralization: JSON.parse((shelljs.cat(`source/json/temp/pulse-decentralization.json`).toString())),
+  pulseLiteracy: JSON.parse((shelljs.cat(`source/json/temp/pulse-literacy.json`).toString()))
 });
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});
