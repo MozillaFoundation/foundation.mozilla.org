@@ -45,7 +45,7 @@ a {
   font-family: Arvo;
   font-weight: 900;
 
-  @include scaleText(36px, 64px);
+  @include scaleText(36px, 48px);
   @include black-box-white-text;
 }
 
