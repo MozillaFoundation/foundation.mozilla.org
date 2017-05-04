@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "description": "Mozilla Network",
   "scripts": {
-    "autoprefix": "node scripts/autoprefix.js",
+    "autoprefix": "postcss --use autoprefixer -o dest/_css/main.compiled.css dest/_css/main.compiled.css",
     "build:common": "shx rm -rf dest && npm run build:env && npm run fetch && run-p build:images build:pug build:sass && npm run build:healthcheck",
     "build:healthcheck": "git log -1 > dest/healthcheck.txt",
     "build:images": "shx rm -rf dest/_images && shx cp -r source/images dest/_images",
@@ -34,6 +34,10 @@
     "watch:pug": "chokidar 'source/pug/**/*.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
     "watch:sass": "chokidar 'source/**/*.scss' -c 'npm run build:sass'"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
   "author": "Mozilla",
   "license": "MPL-2.0",
   "devDependencies": {
@@ -43,6 +47,7 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
+    "browserslist": "^2.1.1",
     "chalk": "^1.1.3",
     "chokidar-cli": "^1.2.0",
     "dotenv": "^4.0.0",
