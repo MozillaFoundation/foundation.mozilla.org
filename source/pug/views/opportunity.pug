@@ -19,13 +19,17 @@ block content
   .container
     .row.py-5.justify-content-center
       .col-lg-11
+        | {% editable page.landingpage.header %}
         h1.h1-white {{ page.landingpage.header }}
+        | {% endeditable %}
     .row.mt-5.justify-content-around
       | {% if page.landingpage.signup %}
-      .col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}
+      .col-md-6.col-lg-5.mb-5 {% editable page.landingpage.content %}{{ page.landingpage.content | safe }}{% endeditable %}
       .col-md-5.col-lg-5
         .row
+          | {% editable page.landingpage.signup %}
           .join-us.half-width.col(data-cta-header=`{{ page.landingpage.signup.header }}`, data-cta-description=`{{ page.landingpage.signup.description | safe }}`)
+          | {% endeditable %}
       | {% else %}
-      .col-12.col-md-8.mb-5 {{ page.landingpage.content | safe }}
+      .col-12.col-md-8.mb-5 {% editable page.landingpage.content %} {{ page.landingpage.content | safe }} {% endeditable %}
       | {% endif %}
