@@ -28,6 +28,8 @@
   }
 
   .person-social-links {
+    position: relative;
+    z-index: 1;
     border-top: 1px solid $gray-lightest;
     padding-top: 0.75em;
   }
