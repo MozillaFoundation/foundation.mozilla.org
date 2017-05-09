@@ -35,11 +35,11 @@ let getPool = (currentCategory) => {
 
 Object.keys(massaged).forEach((key) => {
   let pool = getPool(key);
-  let projects = unfiltered[key];
+  let unfilteredProjects = unfiltered[key];
   let filtered = [];
 
   // Remove any duplicates from current project list
-  projects.forEach((project) => {
+  unfilteredProjects.forEach((project) => {
     let isDuplicate = false;
 
     pool.forEach((item) => {
@@ -53,13 +53,10 @@ Object.keys(massaged).forEach((key) => {
     }
   });
 
-  // Trim
+  // Trim projects list to maximum length
   filtered = filtered.slice(0, maxProjectsPerCategory);
 
-  // Assign
   massaged[key] = filtered;
 });
-
-// console.log(massaged);
 
 module.exports = massaged;
