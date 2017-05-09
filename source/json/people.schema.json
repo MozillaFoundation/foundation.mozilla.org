@@ -26,13 +26,13 @@
         "type": "object",
         "properties": {
           "twitter": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "linkedIn": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "interview": {
-            "type": "string"
+            "type": ["string", "null"]
           }
         }
       },
