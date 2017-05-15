@@ -10,7 +10,7 @@ mixin subpageHero(header, subhead)
 doctype html
 html
   - if (isMezzanine)
-    | {% load settings_value mezzanine_tags %}
+    | {% load settings_value %}
   head
     meta(charset=`utf-8`)
 
@@ -30,11 +30,7 @@ html
     link(rel=`apple-touch-icon` type=`image/png` sizes=`180x180` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/apple-touch-icon-180x180.png`)
     link(rel=`icon` type=`image/png` sizes=`196x196` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/favicon-196x196.png`)
     link(rel=`shortcut icon` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/favicon.ico`)
-    | {% if user.is_staff %}
-    <script src="{{ STATIC_URL }}mezzanine/js/jquery-1.8.3.min.js">
-      | jQuery.noConflict();
-    </script>
-    | {% endif %}
+
     title=`${strings.MLN} – ${pageTitle}`
 
   body(id=`view-${templateID}`)
@@ -87,31 +83,31 @@ html
             div.logo-container
               a.logo(href="https://mozilla.org")
             p Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at #[a(href="https://mozilla.org") mozilla.org].
-  | {% include "includes/footer_scripts.html" %}
-  script(src!=`${baseURL || env[`VIRTUAL_ROOT`]}_js/main.compiled.js`)
-  script(src=`https://cdn.optimizely.com/js/206878104.js`)
-  script.
-    (function () {
-      var _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack;
-      var fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/);
-      var ie10Match = navigator.userAgent.match(/MSIE 10/i);
-      var w8Match = navigator.appVersion.match(/Windows NT 6.2/);
 
-      if (fxMatch && Number(fxMatch[1]) < 32) {
-        _dntStatus = 'Unspecified';
-      } else if (ie10Match && w8Match) {
-        _dntStatus = 'Unspecified';
-      } else {
-        _dntStatus = { '0': 'Disabled', '1': 'Enabled' }[_dntStatus] || 'Unspecified';
-      }
+script(src!=`${baseURL || env[`VIRTUAL_ROOT`]}_js/main.compiled.js`)
+script(src=`https://cdn.optimizely.com/js/206878104.js`)
+script.
+  (function () {
+    var _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack;
+    var fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/);
+    var ie10Match = navigator.userAgent.match(/MSIE 10/i);
+    var w8Match = navigator.appVersion.match(/Windows NT 6.2/);
 
-      if (_dntStatus !== 'Enabled'){
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    if (fxMatch && Number(fxMatch[1]) < 32) {
+      _dntStatus = 'Unspecified';
+    } else if (ie10Match && w8Match) {
+      _dntStatus = 'Unspecified';
+    } else {
+      _dntStatus = { '0': 'Disabled', '1': 'Enabled' }[_dntStatus] || 'Unspecified';
+    }
 
-        ga('create', 'UA-87658599-6', 'auto');
-        ga('send', 'pageview');
-      }
-    })();
+    if (_dntStatus !== 'Enabled'){
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-87658599-6', 'auto');
+      ga('send', 'pageview');
+    }
+  })();
