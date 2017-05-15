@@ -36,13 +36,7 @@ buildPage(`home`, `/`, {
 buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/temp/people.json`).toString())));
 buildPage(`support`, `/support`);
 buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
-buildPage(`projects`, `/projects`, {
-  pulsePrivacy: JSON.parse((shelljs.cat(`source/json/temp/pulse-privacy.json`).toString())),
-  pulseInnovation: JSON.parse((shelljs.cat(`source/json/temp/pulse-innovation.json`).toString())),
-  pulseInclusion: JSON.parse((shelljs.cat(`source/json/temp/pulse-inclusion.json`).toString())),
-  pulseDecentralization: JSON.parse((shelljs.cat(`source/json/temp/pulse-decentralization.json`).toString())),
-  pulseLiteracy: JSON.parse((shelljs.cat(`source/json/temp/pulse-literacy.json`).toString()))
-});
+buildPage(`projects`, `/projects`, require(`./massage-projects.js`));
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});
 buildPage(`style-guide`, `/style-guide`);
