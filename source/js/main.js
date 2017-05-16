@@ -82,3 +82,6 @@ let main = {
 };
 
 main.init();
+
+// Append Google Analytics code
+import './analytics.js';
