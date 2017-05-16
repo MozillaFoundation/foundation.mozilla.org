@@ -23,7 +23,7 @@ html
     meta(property=`og:url`, content=`https://${env.TARGET_DOMAIN}${target}`)
     meta(property=`og:title`, content=`${strings.MLN} – ${pageTitle}`)
 
-    meta(http-equiv=`Content-Security-Policy`, content=`default-src 'self'; script-src 'self' cdn.optimizely.com; style-src 'self' code.cdn.mozilla.net fonts.googleapis.com; img-src * data:; font-src 'self' fonts.gstatic.com fonts.googleapis.com code.cdn.mozilla.net; connect-src 'self' mozilla.org; media-src 'self'; object-src 'self'; child-src 'self'; frame-src 'self';`)
+    meta(http-equiv=`Content-Security-Policy`, content=`${env[`CSP`]}`)
 
     link(rel=`stylesheet`, href!=`${baseURL || env[`VIRTUAL_ROOT`]}_css/main.compiled.css`)
     link(rel=`stylesheet`, href=`//code.cdn.mozilla.net/fonts/fira.css`)
@@ -87,4 +87,6 @@ html
             p Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at #[a(href="https://mozilla.org") mozilla.org].
 
 script(src!=`${baseURL || env[`VIRTUAL_ROOT`]}_js/main.compiled.js`)
-script(src=`https://cdn.optimizely.com/js/206878104.js`)
+
+//- Leaving this disabled for now to enable a stricter CSP
+//- script(src=`https://cdn.optimizely.com/js/206878104.js`)

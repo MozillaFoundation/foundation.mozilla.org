@@ -17,6 +17,12 @@ Run the following terminal commands to get started:
 
 This will install all dependencies, build the code, start a server at [http://127.0.0.1:2017](http://127.0.0.1:2017), and launch it in your default browser.
 
+#### Disabling CSP
+
+For local development, you'll probably want to turn CSP off because it prevents Live Reload from running and will throw a console error.
+
+To do this, just set `CSP=` in your local `.env` file.
+
 ### Stack
 
 #### HTML
