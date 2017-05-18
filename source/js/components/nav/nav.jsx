@@ -45,12 +45,12 @@ export default class PrimaryNav extends React.Component {
           <div className="row d-md-flex justify-content-between">
             <div className="col-sm-auto align-self-end">
               <ul className="px-5 menu-nav">
-                <li><a className="home" href="/">Home</a></li>
-                <li><a className="people" href="/people">People</a></li>
-                <li><a className="support" href="/support">Support</a></li>
-                <li><a className="projects" href="/projects">Projects</a></li>
-                <li><a className="upcoming" href="/programs/upcoming">Upcoming</a></li>
-                <li><a className="about" href="/about">About</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/people">People</a></li>
+                <li><a href="/get-involved">Get Involved</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/programs/upcoming">Upcoming</a></li>
+                <li><a href="/about">About</a></li>
               </ul>
             </div>
             <div className="col-sm-auto align-self-end flex-grow-0">

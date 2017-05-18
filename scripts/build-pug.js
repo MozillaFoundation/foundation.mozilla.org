@@ -34,7 +34,7 @@ buildPage(`home`, `/`, {
   people: JSON.parse((shelljs.cat(`source/json/temp/people.json`).toString()))
 });
 buildPage(`people`, `/people`, JSON.parse((shelljs.cat(`source/json/temp/people.json`).toString())));
-buildPage(`support`, `/support`);
+buildPage(`get-involved`, `/get-involved`);
 buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/upcoming.json`).toString())));
 buildPage(`projects`, `/projects`, require(`./massage-projects.js`));
 buildPage(`about`, `/about`);
