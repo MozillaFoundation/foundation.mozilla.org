@@ -53,7 +53,7 @@ export default class JoinUs extends React.Component {
     });
 
     let signupState = classNames({
-      'row py-3 py-md-4 px-md-2': true,
+      'row py-5 px-md-2': true,
       'signup-success': this.state.signupSuccess && this.state.userSubmitted,
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
