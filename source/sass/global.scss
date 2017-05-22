@@ -15,6 +15,13 @@ body > .wrapper {
 
 #hero {
   background: rgba(182, 216, 6, 1);
+  p a {
+    color: white;
+    &:hover, &:focus {
+      color: white;
+      text-decoration: underline;
+    }
+  }
 }
 
 .center-nav-title p {
