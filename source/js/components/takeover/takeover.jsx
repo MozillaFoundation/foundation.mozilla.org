@@ -39,8 +39,8 @@ export default class Takeover extends React.Component {
               <p>There is a movement to keep the Internet healthy taking root around the world. Mozilla is a part of this movement – and wants to help it grow.</p>
               <p>This site is part of our effort to do just that: a gathering place for people who care about the health of the Internet. A place to connect, tell stories, and find resources that will help us along the way.</p>
               <p>As of April 2017, this site is in "barn raising" mode. Building from the community that emerged around events like MozFest, we've done a napkin sketch that shows what a home for people working on Internet health might look like.</p>
-              <p>If you see yourself as part of this movement – or a part of Mozilla's community – we invite you to <a href="#TODO">name the network</a> and <a href="#TODO">help us build this site</a>. This is a barn raising.</p>
-              <p>We plan to fully launch this site – and a network to support the movement – in mid-2017.</p>
+              <p>If you see yourself as part of this movement – or a part of Mozilla's community – we want your feedback, your ideas, and your help building this site. This is a barn raising.</p>
+              <p>We plan to fully launch this site – and a network to support the movement – in the coming months.</p>
               <p className="h5-black mb-0">Mark Surman</p>
               <p className="mb-0">Executive Director</p>
               <p>Mozilla</p>
