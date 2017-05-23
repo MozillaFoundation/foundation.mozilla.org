@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 
 export default class Takeover extends React.Component {
   hide () {
@@ -8,6 +9,12 @@ export default class Takeover extends React.Component {
       isHidden: true
     });
 
+    ReactGA.event({
+      category:`splash`,
+      action: `splash exit`,
+      label: `preview from splash `
+    });
+
     this.props.onHide.call();
   }
 
@@ -15,10 +22,19 @@ export default class Takeover extends React.Component {
     super(props);
 
     this.hide = this.hide.bind(this);
+    this.logJoinBtn = this.logJoinBtn.bind(this);
 
     this.state = {
       isHidden: false
     };
+  }
+
+  logJoinBtn () {
+    ReactGA.event({
+      category:`splash`,
+      action: `splash exit`,
+      label: `join from splash`
+    });
   }
 
   render() {
@@ -50,7 +66,8 @@ export default class Takeover extends React.Component {
         <div className="button-group">
           <div className="container p-2">
             <button className="btn btn-normal" onClick={this.hide}>Preview Site</button>
-            <a className="btn btn-ghost" href="/sign-up/">Join The Network</a>
+            <a className="btn btn-ghost" onClick={this.logJoinBtn}
+              href="/sign-up/">Join The Network</a>
           </div>
         </div>
       </div>
