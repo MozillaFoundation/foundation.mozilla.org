@@ -12,7 +12,7 @@ export default class Takeover extends React.Component {
     ReactGA.event({
       category:`splash`,
       action: `splash exit`,
-      label: `preview from splash `
+      label: `Preview from splash`
     });
 
     this.props.onHide.call();
@@ -33,7 +33,7 @@ export default class Takeover extends React.Component {
     ReactGA.event({
       category:`splash`,
       action: `splash exit`,
-      label: `join from splash`
+      label: `Join from splash`
     });
   }
 
