@@ -1,0 +1,16 @@
+extends ../templates/master.pug
+
+block masterParams
+  - let pageTitle = `Page not found!`;
+
+block content
+  .container
+    .row.py-md-5.d-flex.align-items-center
+      .col-md-5.offset-md-1.py-5
+        div.mb-4
+          h1.h1-white Uh oh!
+        p.h5-black Sorry, the page does not exist.
+        p #[a(href=`mailto:network@mozillafoundation.org`) Contact us] or...
+        a.btn.btn-ghost(href=`${env[`VIRTUAL_ROOT`]}`) Go to home page
+      .col-md-5.pt-5.p-md-5.flex-first.flex-md-last
+        img(class=`w-100`, src=`${env[`VIRTUAL_ROOT`]}_images/404.svg`)
