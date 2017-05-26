@@ -12,6 +12,16 @@ import Takeover from './components/takeover/takeover.jsx';
 let main = {
   init () {
     this.injectReactComponents();
+    this.bindGlobalHandlers();
+  },
+
+  bindGlobalHandlers () {
+    // Close primary nav when escape is pressed
+    document.addEventListener(`keyup`, (e) => {
+      if (e.keyCode === 27 && !this.reactPrimaryNav.state.isHidden) {
+        this.reactPrimaryNav.hide();
+      }
+    });
   },
 
   // Trigger blurring of page contents when primary nav is toggled
@@ -28,18 +38,16 @@ let main = {
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents () {
     if (document.getElementById(`primary-nav`)) {
-      let reactPrimaryNav;
-
       ReactDOM.render(
         <PrimaryNav
-          ref={(primaryNav) => { reactPrimaryNav = primaryNav; }}
+          ref={(primaryNav) => { this.reactPrimaryNav = primaryNav; }}
           onStateChange={this.onPrimaryNavStateChange}/>,
         document.getElementById(`primary-nav`)
       );
 
       if (document.getElementById(`burger`)) {
         document.getElementById(`burger`).addEventListener(`click`, () => {
-          reactPrimaryNav.toggle();
+          this.reactPrimaryNav.toggle();
         });
       }
     }
