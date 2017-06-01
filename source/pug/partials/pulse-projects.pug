@@ -3,7 +3,7 @@ mixin projects(name, description, url, projectData)
     .col-12.col-md-6.mb-5
       h2.h3-black=name
       p.mb-4=description
-      a.mb-3.mb-md-0.cta-link(href=url)=`Explore ${name}`
+      a.mb-3.mb-md-0.cta-link(href=`${url}?utm_source=mozillaNetwork&utm_medium=referral`)=`Explore ${name}`
     .col-12.col-md-6
       .row
         each project, index in projectData
@@ -11,7 +11,7 @@ mixin projects(name, description, url, projectData)
 
 mixin project(meta)
   .col-sm-12.col-md-6.mb-4.mb-md-0
-    a.pulse-project(href=`https://${env.PULSE_DOMAIN}/entry/${meta.id}`)
+    a.pulse-project(href=`https://${env.PULSE_DOMAIN}/entry/${meta.id}?utm_source=mozillaNetwork&utm_medium=referral`)
       img.project-image(src=meta.thumbnail)
       h5.h5-black.my-2=meta.title
     if meta.creators.length
