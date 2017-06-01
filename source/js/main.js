@@ -1,6 +1,7 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
 
 import React from 'react';
+import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
 import Cookies from 'js-cookie';
 
@@ -68,6 +69,7 @@ let main = {
 
       ReactDOM.render(<Takeover onHide={onTakeoverHide}/>, document.querySelector(`#view-home .takeover`));
       Cookies.set(`seen-takeover`, `true`, { expires: 365 });
+      ReactGA.pageview(`/welcome-splash`);
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
