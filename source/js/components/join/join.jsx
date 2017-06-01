@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import classNames from 'classnames';
 import basketSignup from '../../basket-signup.js';
 
@@ -18,7 +19,6 @@ export default class JoinUs extends React.Component {
     };
   }
 
-
   submitForm(event) {
     this.setState({userSubmitted: true});
 
@@ -31,6 +31,20 @@ export default class JoinUs extends React.Component {
         newsletter: this.props.newsletter
       }, this.formSubmissionSuccessful, this.formSubmissionFailure);
     }
+
+    ReactGA.event({
+      category: `signup`,
+      action: `form submit tap`,
+      label: `Signup form submitted`
+    });
+  }
+
+  onInputFocus() {
+    ReactGA.event({
+      category: `signup`,
+      action: `form focus`,
+      label: `Signup form input focused`
+    });
   }
 
   formSubmissionSuccessful() {
@@ -82,7 +96,7 @@ export default class JoinUs extends React.Component {
             <form onSubmit={this.submitForm}>
               <div className={inputGroupClass}>
                 <div className="mb-2">
-                  <input type="email" className="form-control" placeholder="EMAIL ADDRESS" ref="email"/>
+                  <input type="email" className="form-control" placeholder="EMAIL ADDRESS" ref="email" onFocus={this.onInputFocus}/>
                 </div>
                 {this.state.userSubmitted && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
                 {this.state.signupFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
