@@ -1,9 +1,16 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 
 export default class PrimaryNav extends React.Component {
   show () {
     this.setState({
       isHidden: false
+    });
+
+    ReactGA.event({
+      category: `navigation`,
+      action: `show menu`,
+      label: `Show navigation menu`
     });
   }
 
@@ -11,12 +18,20 @@ export default class PrimaryNav extends React.Component {
     this.setState({
       isHidden: true
     });
+
+    ReactGA.event({
+      category: `navigation`,
+      action: `hide menu`,
+      label: `Hide navigation menu`
+    });
   }
 
   toggle () {
-    this.setState({
-      isHidden: !this.state.isHidden
-    });
+    if (this.state.isHidden) {
+      this.show();
+    } else {
+      this.hide();
+    }
   }
 
   componentDidUpdate () {
