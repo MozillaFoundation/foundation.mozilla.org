@@ -41,6 +41,7 @@ buildPage(`about`, `/about`);
 buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});
 buildPage(`style-guide`, `/style-guide`);
 buildPage(`sign-up`, `/sign-up`);
+buildPage(`404`, `/errors/404`);
 
 // Opportunities
 
