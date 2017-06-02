@@ -6,7 +6,8 @@
   "description": "Mozilla Network",
   "scripts": {
     "autoprefix": "postcss --use autoprefixer -o dest/_css/main.compiled.css dest/_css/main.compiled.css",
-    "build:common": "shx rm -rf dest && npm run build:env && npm run fetch && run-p build:images build:pug build:sass && npm run build:healthcheck",
+    "build:common": "shx rm -rf dest && npm run build:env && npm run fetch && run-p build:images build:pug build:sass && npm run build:healthcheck && npm run build:contribute",
+    "build:contribute": "shx cp contribute.json dest/",
     "build:healthcheck": "git log -1 --no-color > dest/healthcheck.txt && node scripts/echo-safe-env.js >> dest/healthcheck.txt",
     "build:images": "shx rm -rf dest/_images && shx cp -r source/images dest/_images",
     "build:js-uncompressed": "shx mkdir -p dest/_js && webpack",

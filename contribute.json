@@ -1,0 +1,17 @@
+{
+  "name": "Mozilla Network",
+  "description": "Website for the Mozilla Network",
+  "repository": {
+    "url": "https://github.com/mozilla/network",
+    "license": "MPL2"
+  },
+  "keywords": [
+    "JavaScript",
+    "HTML",
+    "NodeJS",
+    "CSS",
+    "Sass",
+    "Pug",
+    "ReactJS"
+  ]
+}
