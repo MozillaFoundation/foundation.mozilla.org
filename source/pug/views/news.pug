@@ -13,7 +13,7 @@ mixin blurb(newsItem)
       a(href=newsItem.link)=newsItem.headline
     if newsItem.author
       p.italic-black by #{newsItem.author}
-    p.small-gray=moment(newsItem.date).format(`MMMM YYYY`)
+    p.small-gray=moment(newsItem.date, `YYYY-MM-DD`).format(`MMMM YYYY`)
 
 mixin newsForYear(year)
   .row.mb-5
