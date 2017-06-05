@@ -35,13 +35,13 @@ request(env.JENKINS_API, (error, response, body) => {
   if (!error && response.statusCode === 200) {
     data = JSON.parse(body);
 
-    let latestDeployedCommmitHash = data.changeSet.items[0].commitId;
+    let lastDeployedCommitHash = data.changeSet.items[0].commitId;
     let latestLocalCommitHash = shell.exec(`git rev-parse HEAD`, {silent: true}).toString().trim();
 
     console.log(`<h2>Change Sets</h2>`);
 
     console.log(`<ul>`);
-    console.log(`<li><a href="https://github.com/mozilla/network/compare/${latestDeployedCommmitHash}...${latestLocalCommitHash}">New commits since last deploy</a></li>`);
+    console.log(`<li><a href="https://github.com/mozilla/network/compare/${lastDeployedCommitHash}...${latestLocalCommitHash}">New commits since last deploy</a></li>`);
     console.log(`<li><a href="https://github.com/mozilla/network/compare/${latestLocalCommitHash}...master">Commits to master since this deploy (upcoming changes)</a></li>`);
     console.log(`</ul>`);
   } else {
