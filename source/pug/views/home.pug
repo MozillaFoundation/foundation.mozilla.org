@@ -30,7 +30,7 @@ mixin newsItem(data, featured=false)
         a.h5-black(href=`${data.link}`)=data.headline
     if data.author
       p.italic-black.mb-1 by #{data.author}
-    p.small-gray=moment(data.date).format(`MMMM YYYY`)
+    p.small-gray=moment(data.date, `YYYY-MM-DD`).format(`MMMM YYYY`)
 
 block heroGuts
   .row
