@@ -81,7 +81,7 @@ Managed content comes from: `network-api.mofostaging.net`, and `network-pulse-ap
 
 ##### Healthcheck
 
-A healthcheck route that indicates the most recent commit is accessible on `/healthcheck.txt`.
+A healthcheck route that indicates the most recent commit is accessible on `/healthcheck.html`.
 
 ### Environment Variables
 
