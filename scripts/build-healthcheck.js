@@ -13,8 +13,31 @@ console.log(`</pre>`);
 
 // Echo out env that is deemed safe as public information (for use in healthcheck)
 
+//              _,.-------.,_
+//          ,;~'             '~;,
+//        ,;                     ;,
+//       ;                         ;
+//      ,'                         ',
+//    ,;                           ;,
+//    ; ;      .           .      ; ;
+//    | ;   ______       ______   ; |
+//    |  `/~"     ~" . "~     "~\'  |
+//    |  ~  ,-~~~^~, | ,~^~~~-,  ~  |
+//     |   |        }:{        |   |
+//     |   l       / | \       !   |
+//     .~  (__,.--" .^. "--.,__)  ~.
+//     |     ---;' / | \ `;---     |
+//      \__.       \/^\/       .__/
+//       V| \                 / |V
+//        | |T~\___!___!___/~T| |
+//        | |`IIII_I_I_I_IIII'| |
+//        |  \,III I I I III,/  |
+//         \   `~~~~~~~~~~'    /
+//           \   .       .   /
+//             \.    ^    ./
+//               ^~~~^~~~^
 //
-// NEVER EMIT PRIVATE KEYS OR OTHER SENSITIVE DATA!
+//     NEVER EMIT PRIVATE KEYS OR OTHER SENSITIVE DATA!
 //
 
 console.log(`<h2>Environmental Variables</h2>`);
