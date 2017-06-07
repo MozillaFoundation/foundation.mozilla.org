@@ -1,5 +1,5 @@
 let env = require(`../env.json`);
-let request = require(`request`);
+// let request = require(`request`);
 let shell = require(`shelljs`);
 
 
