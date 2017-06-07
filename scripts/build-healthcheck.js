@@ -1,5 +1,5 @@
 let env = require(`../env.json`);
-// let request = require(`request`);
+let request = require(`request`);
 let shell = require(`shelljs`);
 
 
@@ -27,27 +27,25 @@ console.log(`VIRTUAL_ROOT: ${env.VIRTUAL_ROOT}`);
 console.log(`TARGET_DOMAIN: ${env.TARGET_DOMAIN}`);
 console.log(`</pre>`);
 
-// Disabled: https://github.com/mozilla/network/issues/496
-
 // Add links to changelog and upcoming commit list
 
-// let data;
+let data;
 
-// request(env.JENKINS_API, (error, response, body) => {
-//   if (!error && response.statusCode === 200) {
-//     data = JSON.parse(body);
+request(env.JENKINS_API, (error, response, body) => {
+  if (!error && response.statusCode === 200) {
+    data = JSON.parse(body);
 
-//     let lastDeployedCommitHash = data.changeSet.items[0].commitId;
-//     let latestLocalCommitHash = shell.exec(`git rev-parse HEAD`, {silent: true}).toString().trim();
+    let lastDeployedCommitHash = data.commitId;
+    let latestLocalCommitHash = shell.exec(`git rev-parse HEAD`, {silent: true}).toString().trim();
 
-//     console.log(`<h2>Change Sets</h2>`);
+    console.log(`<h2>Change Sets</h2>`);
 
-//     console.log(`<ul>`);
-//     console.log(`<li><a href="https://github.com/mozilla/network/compare/${lastDeployedCommitHash}...${latestLocalCommitHash}">New commits since last deploy</a></li>`);
-//     console.log(`<li><a href="https://github.com/mozilla/network/compare/${latestLocalCommitHash}...master">Commits to master since this deploy (upcoming changes)</a></li>`);
-//     console.log(`</ul>`);
-//   } else {
-//     console.log(`Failed to pull Jenkins JSON`);
-//     shell.exit(1);
-//   }
-// });
+    console.log(`<ul>`);
+    console.log(`<li><a href="https://github.com/mozilla/network/compare/${lastDeployedCommitHash}...${latestLocalCommitHash}">New commits since last deploy</a></li>`);
+    console.log(`<li><a href="https://github.com/mozilla/network/compare/${latestLocalCommitHash}...master">Commits to master since this deploy (upcoming changes)</a></li>`);
+    console.log(`</ul>`);
+  } else {
+    console.log(`Failed to pull Jenkins JSON`);
+    shell.exit(1);
+  }
+});
