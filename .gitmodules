@@ -1,3 +1,4 @@
 [submodule "network-api"]
 	path = network-api
 	url = https://github.com/mozilla/network-api.git
+  ignore = dirty
