@@ -2,7 +2,7 @@ let dotenv = require(`dotenv`);
 let shelljs = require(`shelljs`);
 
 // Pull in env defaults
-let defaultEnv = dotenv.parse(shelljs.cat(`defaults.env`));
+let defaultEnv = dotenv.parse(shelljs.cat(`env.default`));
 
 // Check for process env variables and override defaults where found
 Object.keys(defaultEnv).forEach((key) => {
