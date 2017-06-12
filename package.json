@@ -25,7 +25,7 @@
     "server": "live-server ./dest --port=2017 --entry-file=errors/404/index.html",
     "start": "npm i && npm run build-uncompressed && run-p server watch:**",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/**/*.js source/js/**/*.js source/js/components/**/*.jsx",
-    "test:json": "ajv validate -s source/json/upcoming.schema.json -d source/json/upcoming.json",
+    "test:json": "ajv validate -s source/json/upcoming.schema.json -d source/json/upcoming.json && ajv validate -s source/json/highlights.schema.json -d source/json/highlights.json",
     "test:pulled-json": "ajv validate -s source/json/people.schema.json -d source/json/temp/people.json && ajv validate -s source/json/news.schema.json -d source/json/temp/news.json",
     "test:pug": "pug-lint source/pug/**/*.pug",
     "test:scss": "stylelint 'source/sass/main.scss' --syntax scss",
