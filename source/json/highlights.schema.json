@@ -11,7 +11,10 @@
       },
       "footer": {
         "id": "/items/properties/footer",
-        "type": "string"
+        "type": [
+          "string",
+          "null"
+        ]
       },
       "image": {
         "id": "/items/properties/image",
