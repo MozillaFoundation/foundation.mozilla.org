@@ -32,6 +32,11 @@ mixin newsItem(data, featured=false)
       p.italic-black.mb-1 by #{data.author}
     p.small-gray=moment(data.date, `YYYY-MM-DD`).format(`MMMM YYYY`)
 
+mixin highlight(item)
+  h5.h4-light-black=item.title
+  p.body-black=item.description
+  a.cta-link(href=item.link)=item.linkLabel
+
 block heroGuts
   .row
     .col-md-12.col-lg-9.col-xl-8.py-5.px-4
@@ -103,19 +108,16 @@ block content
     .row
       .col-xs-12.col-md-6.mb-5
         .item-featured.pb-5.px-4.mt-4
-          img.key-item.mb-4(src=`${data.project.thumbnail}`)
-          h5.h4-light-black=`${data.project.title}`
-          p.body-black=`${data.project.description}`
-          a.cta-link(href=`${data.project.get_involved_url}`) Join this Project
-          .mt-5
-            a.btn.btn-ghost(href=`${env[`VIRTUAL_ROOT`]}projects`) See More Projects
+          img.key-item.mb-4(src=`${data.highlights[0].image}`)
+          h5.h4-light-black=`${data.highlights[0].title}`
+          p.body-black=`${data.highlights[0].description}`
+          a.cta-link(href=`${data.highlights[0].link}`)=data.highlights[0].linkLabel
+          .mt-5!=data.highlights[0].footer
+
       .col-md-6.mb-5
-        h5.h4-light-black Internet Health Report
-        p.body-black Is the Internet getting healthier? Is it under threat? Do we all have a voice on the web? Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.
-        a.cta-link(href=`${env[`VIRTUAL_ROOT`]}opportunity/internet-health-report`) Read the report
-        hr
-        h5.h4-light-black Fellowships that Empower Leaders
-        p.body-black We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.
-        a.cta-link(href=`${env[`VIRTUAL_ROOT`]}opportunity/fellowships`) Be a fellow
+        - for (let i = 1; i < data.highlights.length; i++)
+          +highlight(data.highlights[i])
+          - if (i !== data.highlights.length - 1)
+            hr
 
     .join-us.full-width.col.mb-5

@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "items": {
+    "id": "/items",
+    "properties": {
+      "description": {
+        "id": "/items/properties/description",
+        "type": "string"
+      },
+      "footer": {
+        "description": "Text or HTML",
+        "id": "/items/properties/footer",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "image": {
+        "id": "/items/properties/image",
+        "type": "string"
+      },
+      "link": {
+        "id": "/items/properties/link",
+        "type": "string"
+      },
+      "linkLabel": {
+        "id": "/items/properties/linkLabel",
+        "type": "string"
+      },
+      "title": {
+        "id": "/items/properties/title",
+        "type": "string"
+      }
+    },
+    "required": [
+      "description",
+      "image",
+      "title",
+      "linkLabel",
+      "link"
+    ],
+    "type": "object"
+  },
+  "type": "array"
+}

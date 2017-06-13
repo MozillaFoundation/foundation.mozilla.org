@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Mozilla Global Sprint",
+    "image": "https://assets.mofoprod.net/network-pulse/images/entries/2017-04-17_195731.4603530000.png",
+    "description": "Mozilla’s Global Sprint is a fun, fast-paced and two-day collaborative event to hack and build projects for a healthy Internet. A diverse network of scientists, educators, artists, engineers and others come together in person and online to innovate in the open.",
+    "link": "https://mozilla.github.io/global-sprint/",
+    "linkLabel": "Join This Project",
+    "footer": "<a class=\"btn btn-ghost\" href=\"/projects\">See More Projects</a>"
+  },
+  {
+    "title": "Internet Health Report",
+    "image": "http://via.placeholder.com/600x300",
+    "description": "Is the Internet getting healthier? Is it under threat? Do we all have a voice on the web? Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.",
+    "link": "/opportunity/internet-health-report",
+    "linkLabel": "Read The Report",
+    "footer": null
+  },
+  {
+    "title": "Fellowships that Empower Leaders",
+    "image": "http://via.placeholder.com/600x300",
+    "description": "We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.",
+    "link": "http://127.0.0.1:2017/opportunity/fellowships",
+    "linkLabel": "Be A Fellow",
+    "footer": null
+  }
+]

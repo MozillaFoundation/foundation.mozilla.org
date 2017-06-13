@@ -20,7 +20,6 @@ let fetchJSON = (shortName, source) => {
   });
 };
 
-fetchJSON(`pulse-homepage`, `https://${environment[`PULSE_API_DOMAIN`]}/entries/217`);
 fetchJSON(`pulse-privacy`, `https://${environment[`PULSE_API_DOMAIN`]}/entries/?issue=Online%20Privacy%20%26%20Security&featured=True&ordering=-created`);
 fetchJSON(`pulse-innovation`, `https://${environment[`PULSE_API_DOMAIN`]}/entries/?issue=Open%20Innovation&featured=True&ordering=-created`);
 fetchJSON(`pulse-inclusion`, `https://${environment[`PULSE_API_DOMAIN`]}/entries/?issue=Digital%20Inclusion&featured=True&ordering=-created`);
