@@ -10,6 +10,7 @@
         "type": "string"
       },
       "footer": {
+        "description": "Text or HTML",
         "id": "/items/properties/footer",
         "type": [
           "string",
