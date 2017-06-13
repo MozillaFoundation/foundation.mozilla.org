@@ -18,8 +18,13 @@ block centerNav
 block content
   .container
     .row.py-5.justify-content-center
+      | {% if page.landingpage.signup %}
       .col-lg-11
         h1.h1-white {{ page.landingpage.header }}
+      | {% else %}
+      .col-12.col-md-8.mb-5
+        h1.h1-white {{ page.landingpage.header }}
+      | {% endif %}
     .row.justify-content-around
       | {% if page.landingpage.signup %}
       .cms.col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}
