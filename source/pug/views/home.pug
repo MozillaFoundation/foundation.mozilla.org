@@ -58,7 +58,7 @@ block content
             +person(data.people[index])
     .row
       .col.text-center.mb-5
-        a.btn.btn-ghost(href=`${env[`VIRTUAL_ROOT`]}people`) Meet More Leaders
+        a.btn.btn-ghost(href=`/people`) Meet More Leaders
 
     .row
       .col
@@ -81,10 +81,10 @@ block content
             outlet: "YouTube",
             author: "Mozilla",
             date: "2017-06-01",
-            glyph: `${env[`VIRTUAL_ROOT`]}_images/news-icons/youtube.svg`
+            glyph: `/_images/news-icons/youtube.svg`
           }
         .play-button-wrapper
-          img(src=`${env[`VIRTUAL_ROOT`]}_images/news/ihc.jpg`)
+          img(src=`/_images/news/ihc.jpg`)
           a.play-button-overlay(href=featured.link)
         .row
           .col-12
@@ -99,7 +99,7 @@ block content
 
     .row
       .col.text-center.mb-5
-        a.btn.btn-ghost(href=`${env[`VIRTUAL_ROOT`]}news`) View more news
+        a.btn.btn-ghost(href=`/news`) View more news
 
     .row
       .col

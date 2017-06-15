@@ -5,7 +5,7 @@ block masterParams
 
 mixin funderLogo(uri, width=75)
   .col-6.col-md-3.mb-5.px-3.d-flex.align-items-center.justify-content-center
-    img(class=`w-${width}`, src=`${env[`VIRTUAL_ROOT`]}${uri}`)
+    img(class=`w-${width}`, src=`/${uri}`)
 
 block centerNav
   p About

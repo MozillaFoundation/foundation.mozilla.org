@@ -46,7 +46,6 @@ console.log(`<pre>`);
 console.log(`PULSE_API_DOMAIN: ${env.PULSE_API_DOMAIN}`);
 console.log(`PULSE_DOMAIN: ${env.PULSE_DOMAIN}`);
 console.log(`NETWORK_API_DOMAIN: ${env.NETWORK_API_DOMAIN}`);
-console.log(`VIRTUAL_ROOT: ${env.VIRTUAL_ROOT}`);
 console.log(`TARGET_DOMAIN: ${env.TARGET_DOMAIN}`);
 console.log(`</pre>`);
 

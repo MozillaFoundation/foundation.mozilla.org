@@ -25,13 +25,13 @@ html
 
     meta(http-equiv=`Content-Security-Policy`, content=`${env[`CSP`]}`)
 
-    link(rel=`stylesheet`, href!=`${baseURL || env[`VIRTUAL_ROOT`]}_css/main.compiled.css`)
+    link(rel=`stylesheet`, href!=`${baseURL || `/`}_css/main.compiled.css`)
     link(rel=`stylesheet`, href=`//code.cdn.mozilla.net/fonts/fira.css`)
     link(rel=`stylesheet`, href=`//fonts.googleapis.com/css?family=Nunito+Sans:400,600,300i`)
     link(rel=`stylesheet`, href=`//fonts.googleapis.com/css?family=Arvo`)
-    link(rel=`apple-touch-icon` type=`image/png` sizes=`180x180` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/apple-touch-icon-180x180.png`)
-    link(rel=`icon` type=`image/png` sizes=`196x196` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/favicon-196x196.png`)
-    link(rel=`shortcut icon` href!=`${baseURL || env[`VIRTUAL_ROOT`]}_images/favicons/favicon.ico`)
+    link(rel=`apple-touch-icon` type=`image/png` sizes=`180x180` href!=`${baseURL || `/`}_images/favicons/apple-touch-icon-180x180.png`)
+    link(rel=`icon` type=`image/png` sizes=`196x196` href!=`${baseURL || `/`}_images/favicons/favicon-196x196.png`)
+    link(rel=`shortcut icon` href!=`${baseURL || `/`}_images/favicons/favicon.ico`)
 
     title=`${strings.MLN} – ${pageTitle}`
 
@@ -51,7 +51,7 @@ html
                 .d-flex.flex-row.justify-content-between.align-items-center
                   div.d-flex.align-items-center
                     button#burger
-                    a.logo.text-hide(href=`${env[`VIRTUAL_ROOT`]}`) Mozilla Network
+                    a.logo.text-hide(href=`/`) Mozilla Network
                   .center-nav-title.hidden-xs-down
                     block centerNav
                   - if (hideGetInvolved !== true)
@@ -86,7 +86,7 @@ html
               a.logo(href="https://mozilla.org")
             p Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at #[a(href="https://mozilla.org") mozilla.org].
 
-script(src!=`${baseURL || env[`VIRTUAL_ROOT`]}_js/main.compiled.js`)
+script(src!=`${baseURL || `/`}_js/main.compiled.js`)
 
 //- Leaving this disabled for now to enable a stricter CSP
 //- script(src=`https://cdn.optimizely.com/js/206878104.js`)
