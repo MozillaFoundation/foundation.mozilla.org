@@ -21,12 +21,12 @@
         "id": "/items/properties/image",
         "type": "string"
       },
-      "link": {
-        "id": "/items/properties/link",
+      "link_url": {
+        "id": "/items/properties/link_url",
         "type": "string"
       },
-      "linkLabel": {
-        "id": "/items/properties/linkLabel",
+      "link_label": {
+        "id": "/items/properties/link_label",
         "type": "string"
       },
       "title": {
@@ -38,8 +38,8 @@
       "description",
       "image",
       "title",
-      "linkLabel",
-      "link"
+      "link_label",
+      "link_url"
     ],
     "type": "object"
   },
