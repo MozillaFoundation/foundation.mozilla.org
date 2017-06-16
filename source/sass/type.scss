@@ -44,6 +44,7 @@ a {
 .h1-home-white {
   font-family: Arvo;
   font-weight: 900;
+  mix-blend-mode: multiply;
 
   @include scaleText(36px, 48px);
   @include black-box-white-text;

@@ -1,20 +1,26 @@
 body {
   color: $black;
-}
 
-body > .wrapper {
-  background: $white;
+  & > .wrapper {
+    background: $white;
+  }
+
+  .wrapper-2 {
+    background:
+      linear-gradient(to right, rgba(41, 254, 254, 1) 0%, rgba(181, 216, 6, 1) 100%),
+      url(../_images/hero-image-crop@2x.jpg) center top / auto 100% no-repeat,
+      url(../_images/bg-repeat-crop@2x.jpg) center top / auto 100% repeat-x;
+    background-blend-mode: overlay, normal, normal;
+  }
 }
 
 #hero {
-  background: rgba(182, 216, 6, 1);
-
   p a {
-    color: white;
+    color: $black;
+    font-weight: 400;
 
     &:hover,
     &:focus {
-      color: white;
       text-decoration: underline;
     }
   }
@@ -30,8 +36,6 @@ body > .wrapper {
 }
 
 .wrapper-burger {
-  background: rgba(182, 216, 6, 1);
-
   .logo {
     width: 28px;
     height: 28px;
