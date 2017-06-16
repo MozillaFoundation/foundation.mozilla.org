@@ -35,7 +35,7 @@ mixin newsItem(data, featured=false)
 mixin highlight(item)
   h5.h4-light-black=item.title
   p.body-black=item.description
-  a.cta-link(href=item.link)=item.linkLabel
+  a.cta-link(href=item[`link_url`])=item[`link_label`]
 
 block heroGuts
   .row
@@ -111,7 +111,7 @@ block content
           img.key-item.mb-4(src=`${data.highlights[0].image}`)
           h5.h4-light-black=`${data.highlights[0].title}`
           p.body-black=`${data.highlights[0].description}`
-          a.cta-link(href=`${data.highlights[0].link}`)=data.highlights[0].linkLabel
+          a.cta-link(href=`${data.highlights[0][`link_url`]}`)=data.highlights[0][`link_label`]
           .mt-5!=data.highlights[0].footer
 
       .col-md-6.mb-5
