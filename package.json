@@ -57,7 +57,7 @@
     "guetzli": "^1.0.1",
     "java.properties.js": "^1.0.2",
     "json-schema-faker-cli": "^2.0.0",
-    "live-server": "^1.2.0",
+    "live-server": "1.1.0",
     "mofo-style": "^2.4.0",
     "moment": "^2.17.1",
     "node-sass": "^4.4.0",
