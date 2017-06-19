@@ -54,6 +54,7 @@
     "dotenv": "^4.0.0",
     "eslint": "^3.14.1",
     "eslint-plugin-react": "^6.9.0",
+    "fsevents": "^1.1.2",
     "guetzli": "^1.0.1",
     "java.properties.js": "^1.0.2",
     "json-schema-faker-cli": "^2.0.0",
