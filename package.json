@@ -71,7 +71,7 @@
     "request": "^2.79.0",
     "shelljs": "^0.7.6",
     "shx": "^0.2.2",
-    "stylelint": "^7.11.1",
+    "stylelint": "^7.7.1",
     "stylelint-config-standard": "^16.0.0",
     "svgo": "^0.7.2",
     "webpack": "^2.2.1"
