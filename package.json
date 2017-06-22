@@ -9,7 +9,7 @@
     "build:common": "shx rm -rf dest && npm run build:env && npm run fetch && run-p build:images build:pug build:sass && npm run build:healthcheck && npm run build:contribute",
     "build:contribute": "shx cp contribute.json dest/",
     "build:healthcheck": "node scripts/build-healthcheck.js > dest/healthcheck.html",
-    "build:images": "shx rm -rf dest/_images && shx cp -r source/images dest/_images",
+    "build:images": "shx rm -rf dest/_images && shx mkdir dest/ && shx cp -r source/images dest/_images",
     "build:js-uncompressed": "shx mkdir -p dest/_js && webpack",
     "build:js": "shx mkdir -p dest/_js && webpack -p",
     "build:pug": "node scripts/build-pug.js",
