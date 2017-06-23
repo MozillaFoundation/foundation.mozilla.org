@@ -26,6 +26,33 @@ let main = {
         this.reactPrimaryNav.hide();
       }
     });
+
+    // Track window scroll position
+
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+    let elBurgerWrapper = document.querySelector(`.wrapper-burger`);
+
+    let adjustNavbar = (scrollPosition) => {
+      if (scrollPosition > 100) {
+        elBurgerWrapper.classList.add(`scrolled`);
+      } else {
+        elBurgerWrapper.classList.remove(`scrolled`);
+      }
+    };
+
+    window.addEventListener(`scroll`, () => {
+      lastKnownScrollPosition = window.scrollY;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          adjustNavbar(lastKnownScrollPosition);
+          ticking = false;
+        });
+      }
+
+      ticking = true;
+    });
   },
 
   // Trigger blurring of page contents when primary nav is toggled

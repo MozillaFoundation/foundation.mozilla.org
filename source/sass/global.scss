@@ -26,16 +26,32 @@ body {
   }
 }
 
-.center-nav-title p {
-  text-transform: uppercase;
-  margin: 0;
-  padding: 0;
-  color: #7f9704;
-  letter-spacing: 1px;
-  line-height: 24px;
-}
-
 .wrapper-burger {
+  background: rgba(0, 0, 0, 0);
+  transition: background 200ms ease-in-out;
+
+  &.scrolled {
+    background: rgba(0, 0, 0, 0.9);
+
+    #burger,
+    .logo {
+      filter: invert(100%);
+    }
+
+    .center-nav-title p {
+      color: #fff;
+    }
+  }
+
+  .center-nav-title p {
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    letter-spacing: 1px;
+    line-height: 24px;
+  }
+
   .logo {
     width: 28px;
     height: 28px;
