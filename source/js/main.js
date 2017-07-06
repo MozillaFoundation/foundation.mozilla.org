@@ -27,7 +27,7 @@ let main = {
       }
     });
 
-    // Track window scroll position
+    // Track window scroll position and add/remove class to change sticky header appearance
 
     let lastKnownScrollPosition = 0;
     let ticking = false;
@@ -52,6 +52,22 @@ let main = {
       }
 
       ticking = true;
+    });
+
+    // Adjust #hero offset on load and window resize to accomodate the sticky header
+
+    let elHero = document.querySelector(`#hero`);
+    let elStickyTop = document.querySelector(`.sticky-top`);
+
+    let adjustHero = () => {
+      elHero.style.paddingTop = `${elStickyTop.clientHeight}px`;
+      elHero.style.marginTop = `-${elStickyTop.clientHeight}px`;
+    };
+
+    adjustHero();
+
+    window.addEventListener(`resize`, () => {
+      adjustHero();
     });
   },
 
