@@ -19,7 +19,7 @@
     "title": "Fellowships that Empower Leaders",
     "image": "http://via.placeholder.com/600x300",
     "description": "We provide funding and exciting project-based opportunities to professionals doing game-changing work at the intersection of media, science, security, advocacy, and technology.",
-    "link_url": "http://127.0.0.1:2017/opportunity/fellowships",
+    "link_url": "/opportunity/fellowships",
     "link_label": "Be A Fellow",
     "footer": null
   }
