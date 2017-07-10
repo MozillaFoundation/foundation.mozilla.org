@@ -1,0 +1,28 @@
+#member-notice {
+  background: rgba(255, 255, 224, 1);
+
+  & > div {
+    padding: 0.75em 1.5rem;
+    line-height: 1.2;
+  }
+
+  .btn {
+    background: none;
+    font-size: 35px;
+    font-weight: 900;
+    color: #999;
+    padding: 0;
+    line-height: 1;
+
+    &:active,
+    &:focus,
+    &:hover {
+      box-shadow: none;
+      color: #000;
+    }
+
+    &.btn-expanded {
+      transform: rotate(45deg);
+    }
+  }
+}
