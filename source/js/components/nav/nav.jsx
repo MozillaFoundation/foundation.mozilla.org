@@ -70,6 +70,7 @@ export default class PrimaryNav extends React.Component {
             </div>
             <div className="col-sm-auto align-self-end flex-grow-0">
               <ul className="px-5 py-2 menu-nav menu-nav-side">
+                <li><a className="d-flex align-items-center email-circle" href="mailto:network@mozillafoundation.org">Email</a></li>
                 <li><a className="d-flex align-items-center twitter-circle" href="https://twitter.com/mozilla">Twitter</a></li>
                 <li><a className="d-flex align-items-center facebook-circle" href="https://www.facebook.com/mozilla">Facebook</a></li>
                 <li><a className="d-flex align-items-center donate" href="https://donate.mozilla.org">Donate</a></li>
