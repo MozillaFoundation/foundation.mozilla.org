@@ -10,6 +10,8 @@ import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 
+import env from '../../env.json';
+
 let main = {
   init () {
     this.injectReactComponents();
@@ -54,7 +56,7 @@ let main = {
     }
 
     // Show Takeover for new visitors
-    if (!Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
+    if (env.SHOW_TAKEOVER !== `false` && !Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
       let elWrapper = document.querySelector(`#view-home > .wrapper`);
 
       // Don't allow the content block to scroll
