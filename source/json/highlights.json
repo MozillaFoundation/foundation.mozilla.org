@@ -1,11 +1,11 @@
 [
   {
-    "title": "Mozilla Global Sprint",
-    "image": "https://assets.mofoprod.net/network-pulse/images/entries/2017-04-17_195731.4603530000.png",
-    "description": "Mozilla’s Global Sprint is a fun, fast-paced and two-day collaborative event to hack and build projects for a healthy Internet. A diverse network of scientists, educators, artists, engineers and others come together in person and online to innovate in the open.",
-    "link_url": "https://mozilla.github.io/global-sprint/",
-    "link_label": "Join This Project",
-    "footer": "<a class=\"btn btn-ghost\" href=\"/projects\">See More Projects</a>"
+    "title": "MozFest 2017 Call for Proposals",
+    "image": "/_images/upcoming/mozfest-call-for-proposal.jpg",
+    "description": "MozFest is the world's leading festival for the open Internet movement. It will be held October 27-29, 2017 at Ravensbourne College, London. Anyone may submit a proposal for MozFest 2017. MozFest sessions cover a wide range of topics, but share two important qualities: they are interactive and inclusive.",
+    "link_url": "https://mozillafestival.org/",
+    "link_label": "Submit a proposal",
+    "footer": null
   },
   {
     "title": "Internet Health Report",
