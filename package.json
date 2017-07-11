@@ -29,7 +29,7 @@
     "test:json": "ajv validate -s source/json/upcoming.schema.json -d source/json/upcoming.json && ajv validate -s source/json/highlights.schema.json -d source/json/highlights.json",
     "test:pulled-json": "ajv validate -s source/json/people.schema.json -d source/json/temp/people.json && ajv validate -s source/json/news.schema.json -d source/json/temp/news.json",
     "test:pug": "pug-lint source/pug/partials/ source/pug/templates/ source/pug/partials/",
-    "test:scss": "stylelint source/sass/main.scss --syntax scss",
+    "test:scss": "stylelint 'source/sass/**/*.scss' --syntax scss",
     "test": "npm run build && run-s test:**",
     "watch:images": "chokidar 'source/images/**/*' -c 'npm run build:images'",
     "watch:js": "chokidar 'source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js-uncompressed'",
