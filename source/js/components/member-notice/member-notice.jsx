@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Takeover extends React.Component {
+export default class MemberNotice extends React.Component {
   constructor(props) {
     super(props);
 
