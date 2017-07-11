@@ -21,10 +21,10 @@ export default class Takeover extends React.Component {
     return (
       <div className="container d-flex py-3 justify-content-between align-items-top">
         <div className="align-self-center pr-3">
-          <div hidden={this.state.isExpanded} className="intro">
+          <div className={`pane${this.state.isExpanded ? ` pane-hidden` : ``}`}>
             <p className="body-black mb-0">Welcome to our member preview. It’s a work in progress and we invite your <a href="https://mzl.la/2ohCL8O">feedback</a>.</p>
           </div>
-          <div hidden={!this.state.isExpanded} className="expanded">
+          <div className={`pane${!this.state.isExpanded ? ` pane-hidden` : ``}`}>
             <h3 className="h5-black">This is a Barn Raising</h3>
             <p className="body-black">There is a movement to keep the Internet healthy taking root around the world. Mozilla is a part of this movement and wants to help it grow.</p>
             <p className="body-black">We're building a home for people who care about the health of the Internet, hand in hand with the community that emerged from MozFest and events around the world. It’s a space for us to learn, find resources, and connect to new people and ideas.</p>
