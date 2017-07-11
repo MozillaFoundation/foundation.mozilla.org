@@ -6,15 +6,19 @@
     line-height: 1.2;
   }
 
+  .wrapper {
+    transition: height 400ms ease-in-out;
+    flex-grow: 1;
+  }
+
   .pane {
     opacity: 1;
-    transition: opacity 800ms ease-in-out;
+    transition: opacity 300ms ease-in;
 
     &.pane-hidden {
       opacity: 0;
       position: absolute;
       z-index: -999999;
-      border: 1px solid red;
     }
   }
 
