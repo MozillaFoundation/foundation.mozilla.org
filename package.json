@@ -84,5 +84,8 @@
     "react-dom": "15.4.2",
     "react-ga": "2.2.0",
     "react-markdown": "2.4.6"
+  },
+  "engines": {
+    "node": "^6.11.1"
   }
 }
