@@ -84,6 +84,10 @@
       }
     }
 
+    .email-circle {
+      @include hoverGlyph("email-circle-active");
+    }
+
     .twitter-circle {
       @include hoverGlyph("twitter-circle-active");
     }
