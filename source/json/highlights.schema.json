@@ -19,7 +19,10 @@
       },
       "image": {
         "id": "/items/properties/image",
-        "type": "string"
+        "type": [
+          "string",
+          "null"
+        ]
       },
       "link_url": {
         "id": "/items/properties/link_url",
