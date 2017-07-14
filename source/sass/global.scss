@@ -5,7 +5,16 @@ body {
     background: $white;
   }
 
+  // Subpages
   .wrapper-2 {
+    background:
+      url(../_images/bg-white-lines.png) center top / auto 100% repeat-x,
+      linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%);
+    background-blend-mode: normal, normal;
+  }
+
+  // Homepage
+  &#view-home .wrapper-2 {
     background:
       linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%),
       url(../_images/hero-image-crop@2x.jpg) center top / auto 100% no-repeat,
