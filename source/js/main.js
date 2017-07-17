@@ -26,6 +26,50 @@ let main = {
         this.reactPrimaryNav.hide();
       }
     });
+
+    // Track window scroll position and add/remove class to change sticky header appearance
+
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+    let elBurgerWrapper = document.querySelector(`.wrapper-burger`);
+
+    let adjustNavbar = (scrollPosition) => {
+      // 100px down is the point that the navbar starts to transition to black
+      if (scrollPosition > 100) {
+        elBurgerWrapper.classList.add(`scrolled`);
+      } else {
+        elBurgerWrapper.classList.remove(`scrolled`);
+      }
+    };
+
+    window.addEventListener(`scroll`, () => {
+      lastKnownScrollPosition = window.scrollY;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          adjustNavbar(lastKnownScrollPosition);
+          ticking = false;
+        });
+      }
+
+      ticking = true;
+    });
+
+    // Adjust #hero offset on load and window resize to accomodate the sticky header
+
+    let elHero = document.querySelector(`#hero`);
+    let elStickyTop = document.querySelector(`.sticky-top`);
+
+    let adjustHero = () => {
+      elHero.style.paddingTop = `${elStickyTop.clientHeight}px`;
+      elHero.style.marginTop = `-${elStickyTop.clientHeight}px`;
+    };
+
+    adjustHero();
+
+    window.addEventListener(`resize`, () => {
+      adjustHero();
+    });
   },
 
   // Trigger blurring of page contents when primary nav is toggled

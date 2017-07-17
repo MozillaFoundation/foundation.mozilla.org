@@ -1,36 +1,65 @@
 body {
   color: $black;
-}
 
-body > .wrapper {
-  background: $white;
+  & > .wrapper {
+    background: $white;
+  }
+
+  // Subpages
+  .wrapper-2 {
+    background:
+      url(../_images/bg-white-lines.png) center top / auto 100% repeat-x,
+      linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%);
+    background-blend-mode: normal, normal;
+  }
+
+  // Homepage
+  &#view-home .wrapper-2 {
+    background:
+      linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%),
+      url(../_images/hero-image-crop@2x.jpg) center top / auto 100% no-repeat,
+      url(../_images/bg-repeat-crop@2x.jpg) center top / auto 100% repeat-x;
+    background-blend-mode: overlay, normal, normal;
+  }
 }
 
 #hero {
-  background: rgba(182, 216, 6, 1);
-
   p a {
-    color: white;
+    color: $black;
+    font-weight: 400;
 
     &:hover,
     &:focus {
-      color: white;
       text-decoration: underline;
     }
   }
 }
 
-.center-nav-title p {
-  text-transform: uppercase;
-  margin: 0;
-  padding: 0;
-  color: #7f9704;
-  letter-spacing: 1px;
-  line-height: 24px;
-}
-
 .wrapper-burger {
-  background: rgba(182, 216, 6, 1);
+  background: rgba(0, 0, 0, 0);
+  transition: background 200ms ease-in-out;
+
+  &.scrolled {
+    background: rgba(0, 0, 0, 0.9);
+
+    #burger,
+    .logo {
+      filter: invert(100%);
+    }
+
+    .center-nav-title p {
+      color: #fff;
+    }
+  }
+
+  .center-nav-title p {
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    letter-spacing: 1px;
+    line-height: 24px;
+  }
 
   .logo {
     width: 28px;

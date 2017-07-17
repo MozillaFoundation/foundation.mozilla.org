@@ -2,10 +2,10 @@ block masterParams
 
 mixin subpageHero(header, subhead)
   .row.py-5.d-flex.align-items-center.subpageHero
-    .col-md-6
+    .col-md-6.mb-3
       h1.h1-white=header
     .col-md-6
-      p.lead-white=subhead
+      p.lead-black=subhead
 
 doctype html
 html
@@ -56,9 +56,10 @@ html
                     block centerNav
                   - if (hideGetInvolved !== true)
                     a.btn.btn-pop(href="/sign-up") Sign Up
-      #hero
-        .container
-          block heroGuts
+      .wrapper-2
+        #hero
+          .container
+            block heroGuts
 
       block content
 
