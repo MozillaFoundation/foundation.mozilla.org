@@ -56,6 +56,7 @@
     "eslint": "^3.14.1",
     "eslint-plugin-react": "^6.9.0",
     "guetzli": "^1.0.1",
+    "html-entities": "^1.2.1",
     "java.properties.js": "^1.0.2",
     "json-schema-faker-cli": "^2.0.0",
     "live-server": "^1.2.0",
