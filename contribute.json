@@ -5,6 +5,26 @@
     "url": "https://github.com/mozilla/network",
     "license": "MPL2"
   },
+  "participate": {
+    "home": "https://github.com/mozilla/network/",
+    "docs": "https://github.com/mozilla/network/#mozilla-network",
+    "irc": "irc://irc.mozilla.org/#foundation",
+    "irc-contacts": [
+      "cade",
+      "alanmoo",
+      "mattheww",
+      "Pomax"
+    ]
+  },
+  "bugs": {
+    "list": "https://github.com/mozilla/network/issues",
+    "report": "https://github.com/mozilla/network/issues/new"
+  },
+  "urls": {
+    "prod": "network.mofoprod.net",
+    "staging": "network.mofostaging.net",
+    "dev": "network-dev.mofostaging.net"
+  },
   "keywords": [
     "JavaScript",
     "HTML",
