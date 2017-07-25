@@ -24,7 +24,7 @@ function buildPage(template, target, extraData, hasExternalTarget = false) {
   let html = fn(viewData);
 
   if (!hasExternalTarget) {
-    let path = `dest${target}`;
+    let path = `network-api/app/networkapi/frontend${target}`;
 
     shelljs.mkdir(`-p`, path);
     shelljs.ShellString(html).to(`${path}/index.html`);
