@@ -27,11 +27,12 @@ body {
   p a {
     color: $black;
     font-weight: 400;
-    text-decoration: underline solid #4283bf;
+    text-decoration: underline solid #3bb7ef;
 
     &:hover,
     &:focus {
-      color: #4283bf;
+      text-decoration: underline solid #4383bf;
+      color: #4383bf;
     }
   }
 }
