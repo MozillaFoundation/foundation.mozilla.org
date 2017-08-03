@@ -31,6 +31,14 @@ export default class Person extends React.Component {
       );
     });
 
+    let metaBlock = (
+      <div className="meta-block mb-2">
+        <div className="h5-black mb-1">{this.props.metadata.name}</div>
+        <div className="meta-block-item meta-block-item-role">{this.props.metadata.role}</div>
+        <div className="meta-block-item meta-block-item-location">{this.props.metadata.location}</div>
+      </div>
+    );
+
     if (this.props.metadata.featured) {
       return (
         <div className="col-12 p-3 mb-4">
@@ -51,8 +59,7 @@ export default class Person extends React.Component {
                       </div>
                       <div className="row">
                         <div className="quote-attribution">
-                          <div className="h5-black mb-2">{this.props.metadata.name}</div>
-                          <div className="person-role-location small">{this.props.metadata.role} / {this.props.metadata.location}</div>
+                          {metaBlock}
                           <div className="person-issues mb-2">{issues}</div>
                           <div className="small-gray">{this.props.metadata.affiliations[0]}</div>
                           {this.props.metadata.partnership_logo &&
@@ -89,8 +96,7 @@ export default class Person extends React.Component {
               </div>
             </div>
             <div className="col bio-content pt-3">
-              <h2 className="h5-black mb-2">{this.props.metadata.name}</h2>
-              <div className="small person-role-location">{this.props.metadata.role} / {this.props.metadata.location}</div>
+              {metaBlock}
               <div className="person-issues">{issues}</div>
               <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
               {this.props.metadata.partnership_logo &&
