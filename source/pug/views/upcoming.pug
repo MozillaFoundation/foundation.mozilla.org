@@ -9,11 +9,17 @@ mixin event(meta)
       - if(meta.photo)
         img(src=meta.photo)
     .col-sm-8
-      - if(meta.start_date && meta.end_date && meta.start_date !== meta.end_date)
+      - if(moment(meta.start_date).date() === 1 && moment(meta.end_date).date() === moment(meta.end_date).endOf(`month`).date())
+        // Only show Month for events that span entire month
+        p.h6-gray.mt-3.mt-sm-0=moment(meta.start_date).format(`MMMM, YYYY`)
+      - else if(meta.start_date && meta.end_date && meta.start_date !== meta.end_date)
+        // Events that span a few days, but not a whole month
         p.h6-gray=`${moment(meta.start_date).format(`MMMM D`)}-${moment(meta.end_date).format(`D, YYYY`)}`
       - else if(meta.start_date)
+        // Single day events
         p.h6-gray.mt-3.mt-sm-0=moment(meta.start_date).format(`MMMM D, YYYY`)
       - else
+        // Events missing dates
         p.h6-gray TBD
       h2.h4-light-black=meta.headline
       p.body-black=meta.description
