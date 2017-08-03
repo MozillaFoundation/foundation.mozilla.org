@@ -9,15 +9,15 @@ mixin event(meta)
       - if(meta.photo)
         img(src=meta.photo)
     .col-sm-8
-      - if(meta.startDate && meta.endDate)
-        p.h6-gray=`${moment(meta.startDate).format(`MMMM D`)}-${moment(meta.endDate).format(`D, YYYY`)}`
-      - else if(meta.startDate)
-        p.h6-gray.mt-3.mt-sm-0=moment(meta.startDate).format(`MMMM YYYY`)
+      - if(meta.start_date && meta.end_date)
+        p.h6-gray=`${moment(meta.start_date).format(`MMMM D`)}-${moment(meta.end_date).format(`D, YYYY`)}`
+      - else if(meta.start_date)
+        p.h6-gray.mt-3.mt-sm-0=moment(meta.start_date).format(`MMMM YYYY`)
       - else
         p.h6-gray TBD
       h2.h4-light-black=meta.headline
       p.body-black=meta.description
-      a.cta-link(href=meta.link.url)=meta.link.label
+      a.cta-link(href=meta.link_url)=meta.link_label
 
 block centerNav
   p Upcoming
@@ -29,11 +29,11 @@ block content
   .container
     -
       let futureEvents = data.filter((event) => {
-        return event.startDate === null || moment(event.startDate).isAfter(Date.now());
+        return event.start_date === null || moment(event.start_date).isAfter(Date.now());
       });
 
       let pastEvents = data.filter((event) => {
-        return moment(event.startDate).isBefore(Date.now());
+        return moment(event.start_date).isBefore(Date.now());
       });
 
     each event in futureEvents
