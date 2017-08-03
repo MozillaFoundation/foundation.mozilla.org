@@ -18,6 +18,7 @@
     "build": "npm run build:common && npm run build:js",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
     "fetch": "node scripts/fetch-json.js",
+    "heroku-postbuild": "npm run build",
     "optimize:svg": "find source/images -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
     "optimize:jpg": "find source/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
