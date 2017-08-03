@@ -9,10 +9,10 @@ mixin event(meta)
       - if(meta.photo)
         img(src=meta.photo)
     .col-sm-8
-      - if(meta.start_date && meta.end_date)
+      - if(meta.start_date && meta.end_date && meta.start_date !== meta.end_date)
         p.h6-gray=`${moment(meta.start_date).format(`MMMM D`)}-${moment(meta.end_date).format(`D, YYYY`)}`
       - else if(meta.start_date)
-        p.h6-gray.mt-3.mt-sm-0=moment(meta.start_date).format(`MMMM YYYY`)
+        p.h6-gray.mt-3.mt-sm-0=moment(meta.start_date).format(`MMMM D, YYYY`)
       - else
         p.h6-gray TBD
       h2.h4-light-black=meta.headline
