@@ -22,9 +22,35 @@
     line-height: 1;
   }
 
-  .person-role-location {
-    font-weight: 600;
-    color: black;
+  .meta-block {
+    .meta-block-item {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 900;
+
+      &::before {
+        width: 12px;
+        height: 12px;
+        display: block;
+        content: '';
+        margin-right: 5px;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+
+    .meta-block-item-role {
+      &::before {
+        background-image: url('/_images/glyphs/mozilla-icon.svg');
+      }
+    }
+
+    .meta-block-item-location {
+      &::before {
+        background-image: url('/_images/glyphs/map-marker-icon.svg');
+      }
+    }
   }
 
   .person-social-links {
