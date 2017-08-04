@@ -7,13 +7,13 @@
       "photo": {
         "type": ["string", "null"]
       },
-      "startDate": {
+      "start_date": {
         "type": ["string", "null"],
-        "format": "date-time"
+        "format": "date"
       },
-      "endDate": {
+      "end_date": {
         "type": ["string", "null"],
-        "format": "date-time"
+        "format": "date"
       },
       "headline": {
         "type": "string"
@@ -21,29 +21,21 @@
       "description": {
         "type": "string"
       },
-      "link": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string"
-          },
-          "label": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "url",
-          "label"
-        ]
+      "link_url": {
+        "type": "string"
+      },
+      "link_label": {
+        "type": "string"
       }
     },
     "required": [
       "photo",
-      "startDate",
-      "endDate",
+      "start_date",
+      "end_date",
       "headline",
       "description",
-      "link"
+      "link_url",
+      "link_label"
     ]
   }
 }
