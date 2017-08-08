@@ -1,0 +1,93 @@
+{% extends "admin/base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/login.css" %}">
+{{ block.super }}
+<link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
+<link rel="stylesheet" href="{% static "css/template-overrides.css" %}">
+<script src="{% static "mezzanine/chosen/chosen-0.9.12.jquery.js" %}"></script>
+<script> jQuery(function($) {$('select').chosen();}); </script>
+{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+{% block content_title %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">{{ error }}</p>
+{% endfor %}
+{% endif %}
+{% if no_site_permission %}
+<p class="errornote">{% trans "You don't have permission to access the admin for this site." %}</p>
+{% endif %}
+
+
+<form action="{{ app_path }}" method="post" id="login-form">
+    {% if backends %}
+    <div class="social-login">
+        <a class="google-login-button" href="{% url "social:begin" "google-oauth2" %}?next=/admin">Log in with Google</a>
+        <p>
+        Or log in as <button type="button" class="admin-login admin-login-blue">Admin</button>
+        </p>
+    </div>
+    {% endif %}
+    {% csrf_token %}
+    <div class="admin-access hidden">
+        <h2>Admin Access</h2>
+
+        <div id="content-main">
+
+            <div class="form-row">
+                <label for="id_username" class="required">{% trans 'Username or email:' %}</label>
+                <input type="text" required name="username" id="id_username" value="{{ request.POST.username }}">
+            </div>
+            <div class="form-row">
+                <label for="id_password" class="required">{% trans 'Password:' %}</label>
+                <input type="password" required  name="password" id="id_password">
+                <input type="hidden" name="this_is_the_login_form" value="1" />
+            </div>
+            {% if settings.USE_L10N and LANGUAGES|length > 1 %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            <div class="form-row">
+                <label for="id_language" class="required">{% trans "Language" %}:</label>
+                <select id="id_language" onchange="window.location.href=this.value;">
+                    {% for lang in languages %}
+                    {% language lang.code %}
+                    <option {% if LANGUAGE_CODE == lang.code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang.name_local }}</option>
+                    {% endlanguage %}
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+            <div class="form-row" id="extra-login-fields">
+                <label class="required">{% trans "Interface:" %}</label>
+                <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
+                    value="admin"{% if request.POST.mezzanine_login_interface != "site" %} checked{% endif %} />
+                <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
+                <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
+                    value="site"{% if request.POST.mezzanine_login_interface == "site" %} checked{% endif %} />
+                <label class="interface" for="interface_site">{% trans "Site" %}</label>
+            </div>
+        </div>
+
+        <div class="login-addenda">
+            <div class="submit-row">
+                <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
+            </div>
+            <p id="forgot-password">
+                <a href="{% url "password_reset" %}">{% trans "Forgot password?" %}</a>
+            </p>
+            <p class="return-to-google">
+                Or log in with <a class="admin-login-blue" href="{% url "social:begin" "google-oauth2" %}?next=/admin">Google</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="{% static "js/admin/login-show-hide.js" %}"></script>
+
+</form>
+{% endblock %}
