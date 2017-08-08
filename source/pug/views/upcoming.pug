@@ -38,8 +38,18 @@ block content
         return event.start_date === null || moment(event.start_date).isAfter(Date.now());
       });
 
+      // Sort chronologically
+      futureEvents.sort((a, b) => {
+        return a.start_date > b.start_date;
+      });
+
       let pastEvents = data.filter((event) => {
         return moment(event.start_date).isBefore(Date.now());
+      });
+
+      // Sort reverse-chronologically
+      pastEvents.sort((a, b) => {
+        return a.start_date < b.start_date;
       });
 
     each event in futureEvents
