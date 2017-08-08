@@ -1,5 +1,0 @@
-[submodule "network-api"]
-  path = network-api
-  branch = unity
-  url = https://github.com/mozilla/network-api.git
-  ignore = dirty
