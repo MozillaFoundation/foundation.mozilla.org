@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
+
+    {% load pages_tags mezzanine_tags i18n staticfiles %}
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+        <meta name="description" content="{% block meta_description %}{% endblock %}">
+
+        <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+        <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
+
+        {% ifinstalled mezzanine.blog %}
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "blog_post_feed" "rss" %}">
+        <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url "blog_post_feed" "atom" %}">
+        {% endifinstalled %}
+
+        {% compress css %}
+        <link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
+        <link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
+        {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
+        {% endif %}
+        {% ifinstalled cartridge.shop %}
+        <link rel="stylesheet" href="{% static "css/cartridge.css" %}">
+        {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet" href="{% static "css/cartridge.rtl.css" %}">
+        {% endif %}
+        {% endifinstalled %}
+        {% block extra_css %}{% endblock %}
+        {% endcompress %}
+
+        {% compress js %}
+        <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
+        <script src="{% static "js/bootstrap.js" %}"></script>
+        <script src="{% static "js/bootstrap-extras.js" %}"></script>
+        {% block extra_js %}{% endblock %}
+        {% endcompress %}
+
+        {% block extra_head %}{% endblock %}
+    </head>
+
+    <body id="{% block body_id %}body{% endblock %}">
+
+        {% block header %}{% endblock %}
+
+        <div class="main container">
+            {% nevercache %}
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endnevercache %}
+
+
+            {% block title %}{% endblock %}
+
+            {% block main %}{% endblock %}
+        </div>
+
+        {% block footer %}{% endblock %}
+
+        {% block footer_js %}
+        {% include "includes/footer_scripts.html" %}
+        {% endblock %}
+
+    </body>
+</html>

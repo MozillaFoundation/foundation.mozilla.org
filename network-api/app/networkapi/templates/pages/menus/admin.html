@@ -1,0 +1,50 @@
+{% load pages_tags i18n staticfiles %}
+
+<link rel="stylesheet" href="{% static "css/content_typed_change_list.css" %}">
+
+<ol>
+    {% for page in page_branch %}
+    <li id="ordering_{{ page.id }}">
+
+        <div class="{% cycle 'row1' 'row2' %}">
+
+            {% set_page_permissions page %}
+
+            {% if page.perms.change %}
+
+                {% if page.is_primary %}
+                    <h3>
+                        {% if page.perms.change and user.is_superuser %}
+                        <span><a href="{% url "admin:pages_page_change" page.id %}{% if not page.is_primary %}?parent={{ page.parent_id }}{% endif %}" class="changelink">{{ page.title.strip }}</a></span>
+                        {% else %}
+                        <span class="uneditable">{{ page.title }}</span>
+                        {% endif %}
+
+                        <a class="button" href="/admin/landingpage/landingpage/add/?parent={{ page.id }}">Add a new page</a>
+                    </h3>
+                {% else %}
+                    {% if page.perms.delete %}
+                    <a href="{% url "admin:pages_page_delete" page.id %}?fromtree" class="delete"></a>
+                    {% else %}
+                    <span class="delete" style="background:none;"></span>
+                    {% endif %}
+
+                    <a href="{% url "admin:pages_page_change" page.id %}?parent={{ page.parent_id }}" class="changelink">{{ page.title.strip|default:"&nbsp;" }}</a>
+
+                    <span class="ordering"{% if not page.perms.change %}
+                        style="visibility:hidden;"{% endif %}>
+                        <img src="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/admin/arrow-up.gif" %}">
+                        <img src="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/admin/arrow-down.gif" %}">
+                    </span>
+                {% endif %}
+            {% else %}
+            <span class="uneditable">{{ page.title.strip }}</span>
+            {% endif %}
+        </div>
+
+        <br style="clear:both;">
+
+        {% if page.has_children %}{% page_menu page %}{% endif %}
+    </li>
+    {% endfor %}
+</ol>

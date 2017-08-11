@@ -1,0 +1,55 @@
+version: "{build}"
+
+branches:
+
+  only:
+
+  - master
+
+clone_depth: 1
+
+build: false
+
+environment:
+  DEBUG: True
+  DJANGO_SECRET_KEY: secret
+  DATABASE_URL: postgres://postgres:Password12!@localhost:5432/networkapi
+  USE_S3: False
+  CORS_WHITELIST: "*"
+  XSS_PROTECTION: True
+  CONTENT_TYPE_NO_SNIFF: True
+  SET_HSTS: False
+  SSL_REDIRECT: False
+  X_FRAME_OPTIONS: DENY
+  ALLOWED_HOSTS: localhost
+
+  matrix:
+
+    - PYTHON: "C:\\Python36"
+      PYTHON_VERSION: "3.6.1"
+      PYTHON_ARCH: "32"
+
+init:
+  - "ECHO %PYTHON% %PYTHON_VERSION% %%PYTHON_ARCH"
+
+install:
+  - "virtualenv networkapi -p %PYTHON%/python.exe"
+  - "./networkapi/Scripts/activate"
+  - "pip install -r requirements.txt"
+
+services:
+  - postgresql
+
+before_test:
+  - "./networkapi/Scripts/activate"
+  - SET PGUSER=postgres
+  - SET PGPASSWORD=Password12!
+  - PATH=C:\Program Files\PostgreSQL\9.6\bin\;%PATH%
+  - createdb networkapi
+  - python app/manage.py migrate
+
+test_script:
+  - "./networkapi/Scripts/activate"
+  - "flake8 app --config=./app/tox.ini"
+  - "python app/manage.py test"
+
