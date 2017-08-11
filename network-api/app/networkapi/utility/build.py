@@ -48,7 +48,7 @@ def build_static_site(sender, instance, **kwargs):
     try:
         responseJSON = build_request.json()
         logger.info('Build started. output stream at: {}'.format(
-            responseJSON.output_stream_url
+            responseJSON['output_stream_url']
         ))
     except Exception as e:
         logger.error('Error parsing response JSON from Heroku: {}'.format(e))
