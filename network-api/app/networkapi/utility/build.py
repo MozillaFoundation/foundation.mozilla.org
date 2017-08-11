@@ -38,12 +38,12 @@ def build_static_site(sender, instance, **kwargs):
 
     build_request = requests.post(
         settings.HEROKU_APP_BUILD_URL,
-        data=data,
+        json=data,
         headers=headers
     )
 
     if build_request.status_code != 201:
-        logger.error('The Build was not started: {}'.format(build_request.text))  # noqa
+        return logger.error('The Build was not started: {}'.format(build_request.text))  # noqa
 
     try:
         responseJSON = build_request.json()
