@@ -18,8 +18,8 @@ def getJSON(req):
     settings.BUILD_THROTTLE_SECONDS
 )
 def build_static_site(sender, instance, **kwargs):
-    if not settings.HEROKU_APP_BUILD_URL:
-        return logger.warn('settings.HEROKU_APP_BUILD_URL '
+    if not settings.HEROKU_APP_NAME:
+        return logger.warn('settings.HEROKU_APP_NAME '
                            'must be set to trigger builds')
 
     if not settings.GITHUB_PROJECT_MASTER_TAR_URL:
