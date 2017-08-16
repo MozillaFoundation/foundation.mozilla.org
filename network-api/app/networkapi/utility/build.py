@@ -59,7 +59,7 @@ def build_static_site(sender, instance, **kwargs):
         return logger.error('did not receive valid JSON from the Heroku build and release API')  # noqa
 
     # return early if there's already a build in process for this app
-    if responseJSON[0].status == 'pending':
+    if responseJSON[0]['status'] == 'pending':
         return logger.info('A Build is already in progress')
 
     build_request = requests.post(
