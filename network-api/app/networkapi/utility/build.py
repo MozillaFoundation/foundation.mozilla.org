@@ -74,7 +74,7 @@ def build_static_site(sender, instance, **kwargs):
     responseJSON = getJSON(build_request)
 
     if not responseJSON:
-        return logger.error('Error parsing response JSON from Heroku: {}'.format(e))  # noqa
+        return logger.error('Error parsing response JSON from Heroku')
 
     logger.info('Build started. output stream at: {}'.format(
         responseJSON['output_stream_url']
