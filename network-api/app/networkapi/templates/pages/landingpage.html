@@ -54,7 +54,7 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-10 offset-2">
+          <div class="col-8 offset-3">
             <div class="row py-5 justify-content-center">{% if page.landingpage.signup %}
               <div class="col-lg-11">
                 <h1 class="h1-white">{{ page.landingpage.header }}</h1>
@@ -66,11 +66,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-2">
+          <div class="col-3">
             {% load pages_tags %}
             {% page_menu "pages/menus/side-menu.html" %}
           </div>
-          <div class="col-10">
+          <div class="col-8">
             <div class="row">{% if page.landingpage.signup %}
               <div class="cms col-md-6 col-lg-5 mb-5">{{ page.landingpage.content | safe }}</div>
               <div class="col-md-5 col-lg-5">

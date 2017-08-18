@@ -278,3 +278,17 @@ a {
 
   @include scaleText(16px);
 }
+
+.opp-link {
+  font-family: Arvo;
+  font-size: 20px;
+  color: #231f20;
+  letter-spacing: 0.25px;
+
+  &:hover,
+  &.opp-link-active {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 5px solid #ffed00;
+  }
+}

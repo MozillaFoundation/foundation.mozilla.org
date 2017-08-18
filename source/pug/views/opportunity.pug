@@ -17,7 +17,7 @@ block centerNav
 block content
   .container
     .row
-      .col-10.offset-2
+      .col-8.offset-3
         .row.py-5.justify-content-center
           | {% if page.landingpage.signup %}
           .col-lg-11
@@ -27,10 +27,10 @@ block content
             h1.h1-white {{ page.landingpage.header }}
           | {% endif %}
     .row
-      .col-2
+      .col-3
         | {% load pages_tags %}
         | {% page_menu "pages/menus/side-menu.html" %}
-      .col-10
+      .col-8
         .row
           | {% if page.landingpage.signup %}
           .cms.col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}
