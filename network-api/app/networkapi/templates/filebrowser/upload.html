@@ -1,0 +1,119 @@
+{% extends "admin/base_site.html" %}
+
+<!-- LOADING -->
+{% load i18n l10n static fb_tags mezzanine_tags %}
+
+<!-- STYLESHEETS -->
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'grappelli/css/forms.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/filebrowser.css" />
+{% endblock %}
+
+{% block rtl_styles %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/rtl.css" />
+{% endblock %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="../../jsi18n/"></script>
+
+    <!-- override: start #160 -->
+    <!-- <script type="text/javascript" src="{{ settings_var.URL_FILEBROWSER_MEDIA }}js/upload.js"></script> -->
+    <script type="text/javascript" src="{% static 'js/filebrowser/upload.js' %}"></script>
+    <!-- override: end #160 -->
+
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS -->
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}change-form filebrowser{% if query.pop %} popup{% endif %}{% endblock %}
+
+{% block content_title %}<h1>{% include "filebrowser/include/breadcrumbs.html" %}</h1>{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"></div>{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+<div id="content-main">
+    <form
+        action="{% url 'fb_do_upload' %}"
+        method="post"
+        enctype="multipart/form-data"
+        id="upload-form"
+        data-check-url="{% url 'fb_check' %}"
+        data-replace-message="{% trans 'Do you want to replace the file' %}"
+        data-redirect-when-done="{% url 'fb_browse' %}{% query_string '' 'p' %}"
+        data-allowed-extensions="{% allowed_extensions_list %}"
+        data-size-limit="{{ settings_var.MAX_UPLOAD_SIZE|unlocalize }}"
+        data-server-error="{% trans 'There was a server error when uploading the file.' %}"
+        data-size-error="{% trans 'The file size is larger than the limit.' %}"
+        data-extension-error="{% trans 'The file extension is not allowed.' %}">
+
+    <div>
+        <fieldset class="module aligned">
+        <div class="form-row">
+            <div class="file-input-wrapper">
+                <div class="file-input-result">
+                    <div class="progress hide show-in-progress show-done">
+                        <div class="progress-inner"></div>
+                    </div>
+                    <div class="button button-error cancel-button hide show-selected">
+                        {% trans 'Remove' %}
+                    </div>
+                    <span class="status hide show-selected show-in-progress show-done"></span>
+                </div>
+                <label class="button hide-in-progress hide-done">
+                    {% trans 'Browse' %}
+                    <input name="Filedata" type="file" multiple />
+                </label>
+            </div>
+
+            {% csrf_token %}
+            <input name="session_key" type="hidden" id="session_key" value="{{ session_key }}" />
+            <input name="folder" type="hidden" id="folder" value="{{ query.dir }}" />
+            <input name="get_params" type="hidden" id="get_params" value="{% query_string '' 'p' %}" />
+        </div>
+        </fieldset>
+
+        <fieldset class="module aligned collapse-closed">
+        <h2>{% trans "Help" %}</h2>
+        <div class="form-row" >
+            {% for extension in settings_var.EXTENSIONS.items %}
+            {% if extension.1 and extension.0 != 'Folder' %}
+            <label class="required">{% if forloop.first %}{% trans "Allowed" %}:{% else %}&nbsp;{% endif %}</label>
+            <p>{{ extension.0|safe }} ({{ extension.1|join:", "|safe }})</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-row" >
+            <label class="required">{% trans "Max. Filesize" %}:</label>
+            <p>{{ settings_var.MAX_UPLOAD_SIZE|filesizeformat }}</p>
+        </div>
+        {% if settings_var.CONVERT_FILENAME %}
+        <div class="form-row" >
+            <label class="required">&nbsp;</label>
+            <p>
+                {% trans "The Name will be converted to lowercase. Spaces will be replaced with underscores." %}
+            </p>
+        </div>
+        {% endif %}
+        </fieldset>
+        <p>{% trans "Once you've selected all the files you want to upload, click the upload button in the bottom right corner to begin the upload process." %}</p>
+
+        <div class="submit-row">
+            <p class="deletelink-box">
+                <a class="deletelink" href="javascript://">{% trans "Clear Queue" %}</a>
+            </p>
+
+            <!-- override: start #160 -->
+            <input class="default" type="submit" name="_save" value='{% trans "Upload" %}' id="upload-button"/>
+            <!-- override: end #160 -->
+
+        </div>
+
+    </div>
+    </form>
+</div>
+{% endblock %}

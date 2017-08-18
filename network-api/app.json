@@ -1,0 +1,60 @@
+{
+  "name": "network-api",
+  "description": "API and CMS for The Mozilla Network site",
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "scripts": {
+    "postdeploy": "python app/manage.py migrate"
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "env": {
+    "DEBUG": {
+        "required": true
+    },
+    "DJANGO_SECRET_KEY": {
+        "required": true
+    },
+    "ALLOWED_HOSTS": {
+        "required": true
+    },
+    "CORS_WHITELIST": {
+        "required": true
+    },
+    "XSS_PROTECTION": {
+        "required": true
+    },
+    "CONTENT_TYPE_NO_SNIFF": {
+        "required": true
+    },
+    "SET_HSTS": {
+        "required": true
+    },
+    "SSL_REDIRECT": {
+        "required": true
+    },
+    "X_FRAME_OPTIONS": {
+        "required": true
+    },
+    "USE_S3": {
+        "required": true
+    },
+    "AWS_ACCESS_KEY_ID": {
+        "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+        "required": true
+    },
+    "AWS_STORAGE_ROOT": {
+        "required": true
+    },
+    "AWS_STORAGE_BUCKET_NAME": {
+        "required": true
+    },
+    "AWS_S3_CUSTOM_DOMAIN": {
+        "required": true
+    }
+  }
+}

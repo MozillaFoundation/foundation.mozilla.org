@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>{% load settings_value %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Mozilla Network is a global network keeping the internet open and accessible to all.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Mozilla Network">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://network.mofostaging.net/opportunity/template">
+    <meta property="og:title" content="Mozilla Network – {{ page.meta_title }}">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-iN7wpJdxHlpujRppkOA8N0+Mzp0ZqZr3lCtxM00Y63c=' https://www.google-analytics.com/analytics.js network.mozilla.org; style-src 'self' code.cdn.mozilla.net fonts.googleapis.com network.mozilla.org; img-src * data:; font-src 'self' fonts.gstatic.com fonts.googleapis.com code.cdn.mozilla.net; connect-src 'self' ws: *.mozilla.org; media-src 'self'; object-src 'self'; frame-src 'self';">
+    <link rel="stylesheet" href="https://{% settings_value "ASSET_DOMAIN" %}/_css/main.compiled.css">
+    <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,600,300i">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arvo">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://{% settings_value "ASSET_DOMAIN" %}/_images/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="196x196" href="https://{% settings_value "ASSET_DOMAIN" %}/_images/favicons/favicon-196x196.png">
+    <link rel="shortcut icon" href="https://{% settings_value "ASSET_DOMAIN" %}/_images/favicons/favicon.ico">
+    <title>Mozilla Network – {{ page.meta_title }}</title>
+  </head>
+  <body id="view-opportunity">
+    <div class="takeover"></div>
+    <div id="primary-nav"></div>
+    <div class="wrapper">
+      <div id="member-notice"></div>
+      <div class="sticky-top">
+        <div class="wrapper-join-us">
+          <div class="container">
+            <div class="join-us" id="join-us"></div>
+          </div>
+        </div>
+        <div class="wrapper-burger">
+          <div class="container">
+            <div class="row">
+              <div class="col p-4">
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
+                    <button id="burger"></button><a class="logo text-hide" href="/">Mozilla Network</a>
+                  </div>
+                  <div class="center-nav-title hidden-xs-down">
+                    <p>{{ page.meta_title }}</p>
+                  </div><a class="btn btn-pop" href="/sign-up">Sign Up</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-2">
+        <div id="hero">
+          <div class="container">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row py-5 justify-content-center">{% if page.landingpage.signup %}
+          <div class="col-lg-11">
+            <h1 class="h1-white">{{ page.landingpage.header }}</h1>
+          </div>{% else %}
+          <div class="col-12 col-md-8 mb-5">
+            <h1 class="h1-white">{{ page.landingpage.header }}</h1>
+          </div>{% endif %}
+        </div>
+        <div class="row justify-content-around">{% if page.landingpage.signup %}
+          <div class="cms col-md-6 col-lg-5 mb-5">{{ page.landingpage.content | safe }}</div>
+          <div class="col-md-5 col-lg-5">
+            <div class="row">
+              <div class="join-us half-width col" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}"></div>
+            </div>
+          </div>{% else %}
+          <div class="cms col-12 col-md-8 mb-5">{{ page.landingpage.content | safe }}</div>{% endif %}
+        </div>
+      </div>
+      <footer class="mofo-footer">
+        <div class="container">
+          <ul class="list-unstyled footer-links row justify-content-center">
+            <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
+            <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
+            <li class="col-auto"><a class="footer-link-facebook" href="https://www.facebook.com/mozilla">Facebook</a></li>
+            <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
+            <li class="col-auto"><a class="footer-link-legal" href="https://mozilla.org/en-US/about/legal/">Legal</a></li>
+            <li class="col-auto"><a class="footer-link-privacy" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a></li>
+            <li class="col-auto"><a class="footer-link-donate" href="https://donate.mozilla.org">Donate</a></li>
+          </ul>
+          <div class="org-info mozilla">
+            <div class="logo-container"><a class="logo" href="https://mozilla.org"></a></div>
+            <p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+<script src="https://{% settings_value "ASSET_DOMAIN" %}/_js/main.compiled.js"></script>
