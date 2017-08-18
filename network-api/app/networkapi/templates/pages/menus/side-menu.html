@@ -1,0 +1,13 @@
+{% load pages_tags %}
+<ul>
+{% for page in page_branch %}
+{% if page.in_menu %}
+{% if page.is_current_or_ascendant or not page.is_primary %}
+<li>
+  <a class="h5-black" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+  {% page_menu page %}
+</li>
+{% endif %}
+{% endif %}
+{% endfor %}
+</ul>
