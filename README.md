@@ -19,6 +19,8 @@ Run the following terminal commands to get started:
 
 This will install all dependencies, build the code, start a server at [http://127.0.0.1:2017](http://127.0.0.1:2017), and launch it in your default browser.
 
+---
+
 ### Stack
 
 #### HTML
@@ -37,6 +39,8 @@ React is used *à la carte* for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
+---
+
 ### File Structure
 
 ```
@@ -54,6 +58,8 @@ To add a React component, you can target a container element from `/source/js/ma
     ├── pug <- Pug templates
     └── sass <- Sass code
 ```
+
+---
 
 ### Deployment
 
@@ -85,6 +91,8 @@ Managed content comes from: `network-api.mofostaging.net`, and `network-pulse-ap
 
 A healthcheck route that indicates the most recent commit and other useful information is accessible on `/healthcheck.html`.
 
+---
+
 ### Environment Variables
 
 Default environment variables are declared in `env.default`. If you wish to override any of the values, you can create a local `.env` file in the root of the project. This file should not be committed.
@@ -94,3 +102,5 @@ The domains used to fetch static content from Network Pulse and the Network API 
 When the build runs, a file `env.json` is created in the root, which is the result of merging `.env` and `env.default` and converting the result to JSON. Values declared in `.env` take precedence.
 
 If you wish to use environment variables in either Node or client-side code, you can simply require `env.json`.
+
+---
