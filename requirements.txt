@@ -33,6 +33,9 @@ Pillow==4.0.0
 # CORS
 django-cors-headers==2.0.2
 
+# CSP
+django-csp==3.3
+
 # Admin sort models
 django-admin-sortable==2.1.0
 
