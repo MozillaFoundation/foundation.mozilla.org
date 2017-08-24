@@ -102,11 +102,11 @@ jQuery(function($) {
     // The `connectWith` option needs to be set separately to get
     // around a performance bug with `sortable`.
 
-// ANOTHER CHANGE IS THAT WE'RE USING SORTABLE, NOT NESTEDSORTABLE,
-// BECAUSE WE DON'T WANT TO NEST PAGES INSIDE OF PAGES. THAT'S MADNESS
-//
-//    var $tree = $('#tree > ol').nestedSortable({
-    var $tree = $('#tree > ol').sortable({
+    var $tree = $('#tree > ol').nestedSortable({
+        // override: start #623
+        protectRoot: true,
+        maxLevels: 3,
+        // override: stop #623
         handle: '.ordering',
         opacity: 0.5,
         stop: updateOrdering,
