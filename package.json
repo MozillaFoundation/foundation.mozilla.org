@@ -31,10 +31,10 @@
     "test:pug": "pug-lint source/pug/partials/ source/pug/templates/ source/pug/partials/",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/components/**/*.scss\" --syntax scss",
     "test": "npm run build && run-s test:**",
-    "watch:images": "chokidar './source/images/**/*' -c 'npm run build:images'",
-    "watch:js": "chokidar './source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js-uncompressed'",
-    "watch:pug": "chokidar './source/pug/**/*.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
-    "watch:sass": "chokidar './source/**/*.scss' -c 'npm run build:sass'"
+    "watch:images": "chokidar 'source/images/**/*' -c 'npm run build:images'",
+    "watch:js": "chokidar 'source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js-uncompressed'",
+    "watch:pug": "chokidar 'source/pug/**/*.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
+    "watch:sass": "chokidar 'source/**/*.scss' -c 'npm run build:sass'"
   },
   "browserslist": [
     "> 1%",
