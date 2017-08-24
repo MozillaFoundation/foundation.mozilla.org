@@ -67,9 +67,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-3">
-            {% load pages_tags %}
-            {% page_menu "pages/menus/side-menu.html" %}
+          <div class="col-3">{% load pages_tags %}
+            <ul>{% page_menu "pages/menus/side-menu.html" %}</ul>
           </div>
           <div class="col-8">
             <div class="row">{% if page.landingpage.signup %}

@@ -30,7 +30,8 @@ block content
     .row
       .col-3
         | {% load pages_tags %}
-        | {% page_menu "pages/menus/side-menu.html" %}
+        ul
+          | {% page_menu "pages/menus/side-menu.html" %}
       .col-8
         .row
           | {% if page.landingpage.signup %}

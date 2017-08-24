@@ -1,14 +1,13 @@
 {% load pages_tags %}
-<ul>
 {% for page in page_branch %}
-{% if page.in_menu and page.branch_level != 0 %}
-{% if page.is_current_or_ascendant or not page.is_primary %}
-<li>
-
-  <a class="opp-link {% if page.is_current %}opp-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }} {{ page.branch_level }}</a>
+  {% if page.in_menu %}
+  {% if page.is_current_or_ascendant or page.is_current_child or page.is_current_sibling and page.branch_level > 1 %}
+  {% if page.branch_level > 0 %}
+  <li>
+    <a class="opp-link {% if page.is_current %}opp-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }} {{ page.branch_level }}</a>
+  </li>
+  {% endif %}
   {% page_menu page %}
-</li>
-{% endif %}
-{% endif %}
+  {% endif %}
+  {% endif %}
 {% endfor %}
-</ul>
