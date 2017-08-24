@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
 
 import mezzanine
 from mezzanine.conf import settings
@@ -29,14 +30,14 @@ urlpatterns = list(filter(None, [
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
     url(r'^api/news/', include('networkapi.news.urls')),
+    url(r'^api/milestones/', include('networkapi.milestones.urls')),
     url(r'^api/highlights/', include('networkapi.highlights.urls')),
     url(r'^$', mezzanine.pages.views.page, {'slug': '/'}, name='home'),
     url(r'^', include('mezzanine.urls')),
 ]))
 
 
-# handler404 = RedirectView.as_view(url='/errors/404')
-handler404 = 'mezzanine.core.views.page_not_found'
+handler404 = RedirectView.as_view(url='/errors/404')
 handler500 = 'mezzanine.core.views.server_error'
 
 if settings.USE_S3 is not True:
