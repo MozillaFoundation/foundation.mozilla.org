@@ -1,11 +1,11 @@
 {% load pages_tags %}
 <ul>
 {% for page in page_branch %}
-{% if page.in_menu %}
+{% if page.in_menu and page.branch_level != 0 %}
 {% if page.is_current_or_ascendant or not page.is_primary %}
 <li>
 
-  <a class="opp-link {% if page.is_current %}opp-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+  <a class="opp-link {% if page.is_current %}opp-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }} {{ page.branch_level }}</a>
   {% page_menu page %}
 </li>
 {% endif %}
