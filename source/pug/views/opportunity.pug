@@ -15,6 +15,7 @@ block centerNav
   p {{ page.meta_title }}
 
 block content
+  .container {{ page.children.all.count }}
   .container
     .row
       .col-8.offset-3
