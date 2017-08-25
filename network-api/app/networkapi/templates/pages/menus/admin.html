@@ -36,7 +36,14 @@
                         <img src="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/admin/arrow-up.gif" %}">
                         <img src="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/admin/arrow-down.gif" %}">
                     </span>
+
+                    <!-- override: start #623 -->
+                    {% if page.branch_level == 1 %}
+                        <a href="/admin/landingpage/landingpage/add/?parent={{ page.id }}">Add sub-page</a>
+                    {% endif %}
+                    <!-- override: stop #623 -->
                 {% endif %}
+
             {% else %}
             <span class="uneditable">{{ page.title.strip }}</span>
             {% endif %}
