@@ -1,15 +1,15 @@
 {% load pages_tags %}
-{% for page2 in page_branch %}
-  {% if page2.in_menu %}
-    {% if page2.is_current_or_ascendant or page2.is_current_child or page2.is_current_sibling and page2.branch_level > 1 %}
-      {% if page2.branch_level > 0 %}
-        {% if page2.has_children or page2.branch_level > 1 %}
+{% for page in page_branch %}
+  {% if page.in_menu %}
+    {% if page.is_current_or_ascendant or page.is_current_child or page.is_current_sibling and page.branch_level > 1 %}
+      {% if page.branch_level > 0 %}
+        {% if page.has_children or page.branch_level > 1 %}
           <li>
-            <a class="opp-link {% if page2.is_current %}opp-link-active{% endif %}" href="{{ page2.get_absolute_url }}">{{ page2.title }} {{ page2.branch_level }}</a>
+            <a class="opp-link {% if page.is_current %}opp-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
           </li>
         {% endif %}
       {% endif %}
-      {% page_menu page2 %}
+      {% page_menu page %}
     {% endif %}
   {% endif %}
 {% endfor %}

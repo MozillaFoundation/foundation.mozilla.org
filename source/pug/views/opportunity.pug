@@ -15,12 +15,6 @@ block centerNav
   p {{ page.meta_title }}
 
 block content
-  //- .container page.children.all.count: {{ page.children.all.count }}
-  //- .container page.branch_level: {{ page.branch_level }}
-  //- .container page.html_id: {{ page.html_id|join:""  }}
-  //- | {% comment "page.parent is not a string" %}{% endcomment %}
-  //- .container page.parent: {{ page.parent}}
-  //- .container page.parent.title: {{ page.parent.title }}
   .container
     .row
       div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-8 offset-3{% else %}col-12{% endif %}`)
@@ -32,7 +26,7 @@ block content
           .col-12.mb-2
             h1.h1-white {{ page.landingpage.header }}
           | {% endif %}
-    .row
+    .row.mb-5
       //- Root page must be called "Opportunity" for this all to work properly
       //- This is required because page.branch_level always resolves to 0, which is probably a bug
       | {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
