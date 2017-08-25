@@ -1,7 +1,6 @@
 {% load pages_tags %}
 {% for page2 in page_branch %}
   {% if page2.in_menu %}
-  x
     {% if page2.is_current_or_ascendant or page2.is_current_child or page2.is_current_sibling and page2.branch_level > 1 %}
       {% if page2.branch_level > 0 %}
         {% if page2.has_children or page2.branch_level > 1 %}
@@ -9,8 +8,8 @@
             <a class="opp-link {% if page2.is_current %}opp-link-active{% endif %}" href="{{ page2.get_absolute_url }}">{{ page2.title }} {{ page2.branch_level }}</a>
           </li>
         {% endif %}
-      {% page_menu page2 %}
       {% endif %}
+      {% page_menu page2 %}
     {% endif %}
   {% endif %}
 {% endfor %}
