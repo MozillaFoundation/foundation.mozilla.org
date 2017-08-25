@@ -53,6 +53,7 @@
         </div>
       </div>
       <div class="container">{{ page.children.all.count }}</div>
+      <div class="container">{{ branch_level }}</div>
       <div class="container">
         <div class="row">
           <div class="col-8 offset-3">
@@ -70,7 +71,7 @@
           <div class="col-3">{% load pages_tags %}
             <ul>{% page_menu "pages/menus/side-menu.html" %}</ul>
           </div>
-          <div class="col-8">
+          <div class="col-auto">
             <div class="row">{% if page.landingpage.signup %}
               <div class="cms col-md-6 col-lg-5 mb-5">{{ page.landingpage.content | safe }}</div>
               <div class="col-md-5 col-lg-5">

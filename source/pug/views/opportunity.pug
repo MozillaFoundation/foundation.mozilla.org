@@ -16,6 +16,7 @@ block centerNav
 
 block content
   .container {{ page.children.all.count }}
+  .container {{ branch_level }}
   .container
     .row
       .col-8.offset-3
@@ -32,7 +33,7 @@ block content
         | {% load pages_tags %}
         ul
           | {% page_menu "pages/menus/side-menu.html" %}
-      .col-8
+      .col-auto
         .row
           | {% if page.landingpage.signup %}
           .cms.col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}
