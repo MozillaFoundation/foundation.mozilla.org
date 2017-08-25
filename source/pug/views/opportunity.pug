@@ -15,15 +15,15 @@ block centerNav
   p {{ page.meta_title }}
 
 block content
-  .container page.children.all.count: {{ page.children.all.count }}
-  .container page.branch_level: {{ page.branch_level }}
-  .container page.html_id: {{ page.html_id|join:""  }}
-  | {% comment "page.parent is not a string" %}{% endcomment %}
-  .container page.parent: {{ page.parent}}
-  .container page.parent.title: {{ page.parent.title }}
+  //- .container page.children.all.count: {{ page.children.all.count }}
+  //- .container page.branch_level: {{ page.branch_level }}
+  //- .container page.html_id: {{ page.html_id|join:""  }}
+  //- | {% comment "page.parent is not a string" %}{% endcomment %}
+  //- .container page.parent: {{ page.parent}}
+  //- .container page.parent.title: {{ page.parent.title }}
   .container
     .row
-      .col-8.offset-3
+      div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-8 offset-3{% else %}col-12{% endif %}`)
         .row.py-5.justify-content-center
           | {% if page.landingpage.signup %}
           .col-lg-11
@@ -33,13 +33,15 @@ block content
             h1.h1-white {{ page.landingpage.header }}
           | {% endif %}
     .row
-      | {% if page.parent.title != "Opportunities" or page.children.all.count > 0 %}
+      //- Root page must be called "Opportunity" for this all to work properly
+      //- This is required because page.branch_level always resolves to 0, which is probably a bug
+      | {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
       .col-3
         ul
           | {% load pages_tags %}
           | {% page_menu "pages/menus/side-menu-items.html" %}
       | {% endif %}
-      .col-9
+      div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-9{% else %}col-12{% endif %}`)
         .row
           | {% if page.landingpage.signup %}
           .cms.col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}

@@ -52,14 +52,9 @@
           </div>
         </div>
       </div>
-      <div class="container">page.children.all.count: {{ page.children.all.count }}</div>
-      <div class="container">page.branch_level: {{ page.branch_level }}</div>
-      <div class="container">page.html_id: {{ page.html_id|join:""  }}</div>{% comment "page.parent is not a string" %}{% endcomment %}
-      <div class="container">page.parent: {{ page.parent}}</div>
-      <div class="container">page.parent.title: {{ page.parent.title }}</div>
       <div class="container">
         <div class="row">
-          <div class="col-8 offset-3">
+          <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-8 offset-3{% else %}col-12{% endif %}">
             <div class="row py-5 justify-content-center">{% if page.landingpage.signup %}
               <div class="col-lg-11">
                 <h1 class="h1-white">{{ page.landingpage.header }}</h1>
@@ -70,14 +65,14 @@
             </div>
           </div>
         </div>
-        <div class="row">{% if page.parent.title != "Opportunities" or page.children.all.count > 0 %}
+        <div class="row">{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
           <div class="col-3">
             <ul>
               {% load pages_tags %}
               {% page_menu "pages/menus/side-menu-items.html" %}
             </ul>
           </div>{% endif %}
-          <div class="col-9">
+          <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-9{% else %}col-12{% endif %}">
             <div class="row">{% if page.landingpage.signup %}
               <div class="cms col-md-6 col-lg-5 mb-5">{{ page.landingpage.content | safe }}</div>
               <div class="col-md-5 col-lg-5">
