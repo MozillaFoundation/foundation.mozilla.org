@@ -16,7 +16,8 @@ block centerNav
 
 block content
   .container {{ page.children.all.count }}
-  .container {{ branch_level }}
+  .container {{ page.branch_level }}
+  .container {{ page.is_current }}
   .container
     .row
       .col-8.offset-3
@@ -29,10 +30,8 @@ block content
             h1.h1-white {{ page.landingpage.header }}
           | {% endif %}
     .row
-      .col-3
-        | {% load pages_tags %}
-        ul
-          | {% page_menu "pages/menus/side-menu.html" %}
+      | {% load pages_tags %}
+      | {% page_menu "pages/menus/side-menu.html" %}
       .col-auto
         .row
           | {% if page.landingpage.signup %}
