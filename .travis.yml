@@ -1,3 +1,37 @@
-language: node_js
-node_js:
-  - "node"
+language: python
+
+services:
+  - postgresql: 9.6
+
+python:
+  - "3.6"
+
+before_install:
+  - nvm install 6.11.2
+  - nvm use 6.11.2
+
+install:
+  - pip install -r requirements.txt
+  - npm install
+
+before_script:
+  - psql -c 'create database network;' -U postgres
+
+script:
+  - npm test
+  - flake8 network-api/app
+  - python network-api/app/manage.py test
+
+env:
+  global:
+    - DEBUG=True
+    - DJANGO_SECRET_KEY=secret
+    - DATABASE_URL=postgres://postgres@localhost:5432/network
+    - USE_S3=False
+    - CORS_WHITELIST="*"
+    - XSS_PROTECTION=True
+    - CONTENT_TYPE_NO_SNIFF=True
+    - SET_HSTS=False
+    - SSL_REDIRECT=False
+    - X_FRAME_OPTIONS=DENY
+    - ALLOWED_HOSTS=localhost

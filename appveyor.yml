@@ -1,23 +1,52 @@
 version: "{build}"
 
-environment:
-  nodejs_version: "6"
-
-install:
-  - ps: Install-Product node $env:nodejs_version
-  - npm install
-
-test_script:
-  - node --version
-  - npm --version
-  - npm test
-
-build: off
-
 branches:
 
   only:
 
   - master
+
+services:
+  - postgresql
+
+build: false
+
+environment:
+  nodejs_version: "6"
+  DEBUG: True
+  DJANGO_SECRET_KEY: secret
+  DATABASE_URL: postgres://postgres:Password12!@localhost:5432/networkapi
+  USE_S3: False
+  CORS_WHITELIST: "*"
+  XSS_PROTECTION: True
+  CONTENT_TYPE_NO_SNIFF: True
+  SET_HSTS: False
+  SSL_REDIRECT: False
+  X_FRAME_OPTIONS: DENY
+  ALLOWED_HOSTS: localhost
+
+  matrix:
+    - PYTHON: "C:\\Python36"
+      PYTHON_VERSION: "3.6.1"
+      PYTHON_ARCH: "32"
+
+init:
+  - "ECHO %PYTHON% %PYTHON_VERSION% %%PYTHON_ARCH"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+  - "virtualenv network -p %PYTHON%/python.exe"
+  - "./network/Scripts/activate"
+  - "pip install -r requirements.txt"
+
+test_script:
+  - node --version
+  - npm --version
+  - npm test
+  - "./network/Scripts/activate"
+  - "flake8 network-api/app"
+  - "python network-api/app/manage.py test"
+
 
 clone_depth: 1
