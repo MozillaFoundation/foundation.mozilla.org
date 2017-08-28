@@ -17,15 +17,8 @@ block centerNav
 block content
   .container
     .row
-      div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-8 offset-3{% else %}col-12{% endif %}`)
-        .row.py-5.justify-content-center
-          | {% if page.landingpage.signup %}
-          .col-lg-11
-            h1.h1-white {{ page.landingpage.header }}
-          | {% else %}
-          .col-12.mb-2
-            h1.h1-white {{ page.landingpage.header }}
-          | {% endif %}
+      div(class!=`py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-8 offset-3{% else %}col-12{% endif %}`)
+        h1.h1-white {{ page.landingpage.header }}
     .row.mb-5
       //- Root page must be called "Opportunity" for this all to work properly
       //- This is required because page.branch_level always resolves to 0, which is probably a bug
@@ -38,10 +31,9 @@ block content
       div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-9{% else %}col-12{% endif %}`)
         .row
           | {% if page.landingpage.signup %}
-          .cms.col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}
-          .col-md-5.col-lg-5
-            .row
-              .join-us.half-width.col(data-cta-header=`{{ page.landingpage.signup.header | escape }}`, data-cta-description=`{{ page.landingpage.signup.description | escape }}`)
+          .cms.col-md-6 {{ page.landingpage.content | safe }}
+          .col-md-5.offset-md-1
+            .join-us.half-width.col(data-cta-header=`{{ page.landingpage.signup.header | escape }}`, data-cta-description=`{{ page.landingpage.signup.description | escape }}`)
           | {% else %}
-          .cms.col-10.mb-5 {{ page.landingpage.content | safe }}
+          .cms.col-12 {{ page.landingpage.content | safe }}
           | {% endif %}
