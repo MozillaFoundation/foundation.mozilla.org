@@ -281,7 +281,6 @@ a {
 
 .opp-link {
   font-family: Arvo;
-  font-size: 20px;
   color: #231f20;
   letter-spacing: 0.25px;
 
@@ -291,4 +290,6 @@ a {
     text-decoration: none;
     border-bottom: 5px solid #ffed00;
   }
+
+  @include scaleText(18px, 20px);
 }
