@@ -116,7 +116,7 @@ block content
           .mt-5!=data.highlights[0].footer
 
       .col-md-6.mb-5
-        - for (let i = 1; i < data.highlights.length; i++)
+        - for (let i = 1; i < (data.highlights.length > 3 ? 3 : data.highlights.length); i++)
           +highlight(data.highlights[i])
           - if (i !== data.highlights.length - 1)
             hr
