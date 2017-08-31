@@ -4,6 +4,7 @@ from django.db.models import Q
 from adminsortable.models import SortableMixin
 
 from networkapi.utility.images import get_image_upload_path
+from networkapi.homepage.models import Homepage
 
 
 def get_people_image_upload_path(instance, filename):
@@ -131,6 +132,13 @@ class Person(SortableMixin):
         default=0,
         editable=False,
         db_index=True,
+    )
+    homepage = models.ForeignKey(
+        Homepage,
+        related_name='leaders',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
     )
 
     objects = PeopleQuerySet.as_manager()

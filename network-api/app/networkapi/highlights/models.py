@@ -4,6 +4,7 @@ from django.db.models import Q
 from adminsortable.models import SortableMixin
 from mezzanine.core.fields import RichTextField
 from networkapi.utility.images import get_image_upload_path
+from networkapi.homepage.models import Homepage
 
 
 def get_highlights_image_upload_path(instance, filename):
@@ -77,6 +78,13 @@ class Highlight(SortableMixin):
         default=0,
         editable=False,
         db_index=True,
+    )
+    homepage = models.ForeignKey(
+        Homepage,
+        related_name='highlights',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
     )
 
     objects = HighlightQuerySet.as_manager()
