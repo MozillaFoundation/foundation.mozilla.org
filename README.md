@@ -11,13 +11,13 @@
 
 **Requirements**: Node, npm, git.
 
-Run the following terminal commands to get started:
+In order to get the current software package to run, please type the following terminal commands to get started:
 
 - `git clone https://github.com/mozilla/network.git`
 - `cd network`
 - `npm start`
 
-This will install all dependencies, build the code, start a server at [http://127.0.0.1:2017](http://127.0.0.1:2017), and launch it in your default browser.
+This will basically install all dependencies, build the code, start a server at [http://127.0.0.1:2017](http://127.0.0.1:2017), and launch it in your default browser.
 
 ---
 
@@ -25,7 +25,7 @@ This will install all dependencies, build the code, start a server at [http://12
 
 #### HTML
 
-HTML is generated from [Pug](https://pugjs.org) templates (formerly known as Jade).
+HTML is generated using [Pug](https://pugjs.org) templates (formerly known as Jade).
 
 Localized strings are pulled from [Java .properties](https://en.wikipedia.org/wiki/.properties) files located in `/locales`.
 
