@@ -1,10 +1,62 @@
 from django.db import models
+from mezzanine.core.models import Orderable
+
+from networkapi.people.models import Person
+from networkapi.news.models import News
+from networkapi.highlights.models import Highlight
 
 
-# Create your models here.
 class Homepage(models.Model):
-    # All the fields are created as Foreign Keys in the related models so
-    # that we have a 1:Many relationship between the homepage and related model
-    # i.e., one (the only) Homepage model has many instances of the related
-    # model(s).
-    pass
+    class Meta:
+        verbose_name_plural = 'homepage'
+
+
+class HomepageLeaders(Orderable):
+    leader = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        related_name='leaders_related_homepage',
+    )
+    homepage = models.ForeignKey(
+        Homepage,
+        on_delete=models.CASCADE,
+        related_name='homepage_related_leaders',
+    )
+
+    class Meta:
+        verbose_name = 'featured network leader'
+        verbose_name_plural = 'network leaders'
+
+
+class HomepageNews(Orderable):
+    news = models.ForeignKey(
+        News,
+        on_delete=models.CASCADE,
+        related_name='news_related_homepage',
+    )
+    homepage = models.ForeignKey(
+        Homepage,
+        on_delete=models.CASCADE,
+        related_name='homepage_related_news',
+    )
+
+    class Meta:
+        verbose_name = 'featured news item'
+        verbose_name_plural = 'latest from the network'
+
+
+class HomepageHighlights(Orderable):
+    highlights = models.ForeignKey(
+        Highlight,
+        on_delete=models.CASCADE,
+        related_name='highlights_related_homepage',
+    )
+    homepage = models.ForeignKey(
+        Homepage,
+        on_delete=models.CASCADE,
+        related_name='homepage_related_highlights',
+    )
+
+    class Meta:
+        verbose_name = 'featured highlight'
+        verbose_name_plural = 'get involved'
