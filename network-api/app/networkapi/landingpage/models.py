@@ -19,6 +19,12 @@ class Signup(models.Model):
         help_text="Body of signup component"
     )
 
+    newsletter = models.CharField(
+        max_length=100,
+        help_text="The (pre-existing) SalesForce newsletter to sign up for",
+        default="mozilla-leadership-network"
+    )
+
     def __str__(self):
         return str(self.title)
 
