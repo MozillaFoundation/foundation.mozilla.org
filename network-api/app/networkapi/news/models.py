@@ -4,7 +4,6 @@ from django.db.models import Q
 
 from networkapi.utility.images import get_image_upload_path
 from filebrowser_safe.fields import FileBrowseField
-from networkapi.homepage.models import Homepage
 
 
 def get_news_glyph_upload_path(instance, filename):
@@ -105,13 +104,6 @@ class News(models.Model):
         upload_to=get_thumbnail_upload_path,
         null=True,
         blank=True,
-    )
-    homepage = models.ForeignKey(
-        Homepage,
-        related_name='news',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
     )
 
     objects = NewsQuerySet.as_manager()
