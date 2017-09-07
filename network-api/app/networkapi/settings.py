@@ -48,8 +48,8 @@ env = environ.Env(
 )
 
 # Read in the environment
-if os.path.exists('.env') is True:
-    environ.Env.read_env('.env')
+if os.path.exists('../.env') is True:
+    environ.Env.read_env('../.env')
 else:
     environ.Env.read_env()
 
