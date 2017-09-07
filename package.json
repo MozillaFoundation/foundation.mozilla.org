@@ -29,7 +29,7 @@
     "test:pug": "pug-lint source/pug/partials/ source/pug/templates/ source/pug/partials/",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/components/**/*.scss\" --syntax scss",
     "test:security": "snyk test --file=package.json && snyk test --file=requirements.txt",
-    "test": "npm run test:security && npm run build && run-s test:**",
+    "test": "npm run build && run-s test:**",
     "watch:images": "chokidar 'source/images/**/*' -c 'npm run build:images'",
     "watch:js": "chokidar 'source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js-uncompressed'",
     "watch:pug": "chokidar 'source/pug/**/*.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
