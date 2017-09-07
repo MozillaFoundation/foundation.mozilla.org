@@ -24,6 +24,8 @@ environment:
   SSL_REDIRECT: False
   X_FRAME_OPTIONS: DENY
   ALLOWED_HOSTS: localhost
+  SNYK_TOKEN:
+    secure: 2HH1+J++C/e7GSlklkVgJJhL+2EMiqq73aDu/PyU7O5EECduDRxm9qFfrZFf9HmH
 
   matrix:
     - PYTHON: "C:\\Python36"
