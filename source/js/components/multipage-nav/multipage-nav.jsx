@@ -4,7 +4,17 @@ export default class MultipageNav extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   }
 
   render() {
@@ -14,12 +24,15 @@ export default class MultipageNav extends React.Component {
       return (
         <div key={`link-${index}`}>
           <a href={link.href} className={className}>{link.label}</a>
+          {index === 0 &&
+            <button onClick={this.toggle}>+</button>
+          }
         </div>
       );
     });
 
     return (
-      <div className="multipage-nav">
+      <div className={`multipage-nav${this.state.isOpen ? ` multipage-nav-open` : ``}`}>
         {links}
       </div>
     );

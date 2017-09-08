@@ -1,5 +1,23 @@
 #multipage-nav-mobile {
   background: #f2f2f2;
+
+  .multipage-nav {
+    div:first-child {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    div:not(:first-child) {
+      display: none;
+    }
+
+    &.multipage-nav-open {
+      div:not(:first-child) {
+        display: block;
+      }
+    }
+  }
 }
 
 .multipage-nav {
