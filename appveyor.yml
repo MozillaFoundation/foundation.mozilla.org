@@ -12,21 +12,22 @@ services:
 build: false
 
 environment:
+  SNYK_TOKEN:
+    secure: 2HH1+J++C/e7GSlklkVgJJhL+2EMiqq73aDu/PyU7O5EECduDRxm9qFfrZFf9HmH
+  nodejs_version: "6"
+  DEBUG: True
+  DJANGO_SECRET_KEY: secret
+  DATABASE_URL: postgres://postgres:Password12!@localhost:5432/networkapi
+  USE_S3: False
+  CORS_WHITELIST: "*"
+  XSS_PROTECTION: True
+  CONTENT_TYPE_NO_SNIFF: True
+  SET_HSTS: False
+  SSL_REDIRECT: False
+  X_FRAME_OPTIONS: DENY
+  ALLOWED_HOSTS: localhost
+
   matrix:
-    SNYK_TOKEN:
-      secure: 2HH1+J++C/e7GSlklkVgJJhL+2EMiqq73aDu/PyU7O5EECduDRxm9qFfrZFf9HmH
-    nodejs_version: "6"
-    DEBUG: True
-    DJANGO_SECRET_KEY: secret
-    DATABASE_URL: postgres://postgres:Password12!@localhost:5432/networkapi
-    USE_S3: False
-    CORS_WHITELIST: "*"
-    XSS_PROTECTION: True
-    CONTENT_TYPE_NO_SNIFF: True
-    SET_HSTS: False
-    SSL_REDIRECT: False
-    X_FRAME_OPTIONS: DENY
-    ALLOWED_HOSTS: localhost
     - PYTHON: "C:\\Python36"
       PYTHON_VERSION: "3.6.1"
       PYTHON_ARCH: "32"
