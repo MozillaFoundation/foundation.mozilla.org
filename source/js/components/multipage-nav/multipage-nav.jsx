@@ -25,7 +25,7 @@ export default class MultipageNav extends React.Component {
         <div key={`link-${index}`}>
           <a href={link.href} className={className}>{link.label}</a>
           {index === 0 &&
-            <button onClick={this.toggle}>+</button>
+            <button className="expander" onClick={this.toggle}></button>
           }
         </div>
       );
