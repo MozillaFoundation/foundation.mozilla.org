@@ -1,5 +1,5 @@
 # Core
-Django==1.10.6
+Django==1.10.8
 gunicorn==19.6.0
 djangorestframework==3.5.4
 django-filter==1.0.2
