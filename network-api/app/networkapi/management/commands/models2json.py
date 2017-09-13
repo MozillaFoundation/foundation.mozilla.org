@@ -29,18 +29,14 @@ class Command(BaseCommand):
             try:
                 instance = next(iterator)
                 while True:
-                    try:
-                        serializedInstance = Serializer(instance)
-                        jsonFile.write(
-                            renderer.render(
-                                serializedInstance.data
-                            ).decode('utf-8')
-                        )
-                        instance = next(iterator)
-                        jsonFile.write(',')
-                    except StopIteration:
-                        break
-
+                    serializedInstance = Serializer(instance)
+                    jsonFile.write(
+                        renderer.render(
+                            serializedInstance.data
+                        ).decode('utf-8')
+                    )
+                    instance = next(iterator)
+                    jsonFile.write(',')
             except StopIteration:
                 pass
 
