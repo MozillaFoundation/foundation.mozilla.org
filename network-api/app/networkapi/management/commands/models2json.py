@@ -46,7 +46,7 @@ class Command(BaseCommand):
         # People
         peopleListView = PeopleListView()
         self.writeToFile(
-            'people.json',
+            '../source/json/temp/people.json',
             peopleListView.get_queryset(),
             PersonSerializer
         )
@@ -54,7 +54,7 @@ class Command(BaseCommand):
         # news
         newsListView = NewsListView()
         self.writeToFile(
-            'news.json',
+            '../source/json/temp/news.json',
             newsListView.get_queryset(),
             NewsSerializer
         )
@@ -62,7 +62,7 @@ class Command(BaseCommand):
         # highlights
         highlightListView = HighlightListView()
         self.writeToFile(
-            'highlights.json',
+            '../source/json/temp/highlights.json',
             highlightListView.get_queryset(),
             HighlightSerializer
         )
@@ -70,7 +70,7 @@ class Command(BaseCommand):
         # milestones
         milestoneListView = MilestoneListView()
         self.writeToFile(
-            'milestones.json',
+            '../source/json/temp/upcoming.json',
             milestoneListView.get_queryset(),
             MilestoneSerializer
         )
