@@ -54,18 +54,27 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-8 offset-3{% else %}col-12{% endif %}">
+          <div class="py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12{% endif %}">
             <h1 class="h1-white">{{ page.landingpage.header }}</h1>
           </div>
         </div>
+      </div>
+      <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
+        <div class="container">
+          <div class="row">
+            <div class="col-12"></div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
         <div class="row mb-5">{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
-          <div class="col-3">
-            <ul>
+          <div class="col-12 col-md-3 mb-3 hidden-sm-down">
+            <div class="multipage-nav" id="multipage-nav">
               {% load pages_tags %}
               {% page_menu "pages/menus/side-menu-items.html" %}
-            </ul>
+            </div>
           </div>{% endif %}
-          <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-9{% else %}col-12{% endif %}">
+          <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12{% endif %}">
             <div class="row">{% if page.landingpage.signup %}
               <div class="cms col-md-6">{{ page.landingpage.content | safe }}</div>
               <div class="col-md-5 offset-md-1">

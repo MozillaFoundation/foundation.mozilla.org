@@ -17,18 +17,25 @@ block centerNav
 block content
   .container
     .row
-      div(class!=`py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-8 offset-3{% else %}col-12{% endif %}`)
+      div(class!=`py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12{% endif %}`)
         h1.h1-white {{ page.landingpage.header }}
+
+  #multipage-nav-mobile.hidden-md-up.mb-5
+    .container
+      .row
+        .col-12
+
+  .container
     .row.mb-5
       //- Root page must be called "Opportunity" for this all to work properly
       //- This is required because page.branch_level always resolves to 0, which is probably a bug
       | {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
-      .col-3
-        ul
+      .col-12.col-md-3.mb-3.hidden-sm-down
+        div#multipage-nav.multipage-nav
           | {% load pages_tags %}
           | {% page_menu "pages/menus/side-menu-items.html" %}
       | {% endif %}
-      div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-9{% else %}col-12{% endif %}`)
+      div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12{% endif %}`)
         .row
           | {% if page.landingpage.signup %}
           .cms.col-md-6 {{ page.landingpage.content | safe }}
