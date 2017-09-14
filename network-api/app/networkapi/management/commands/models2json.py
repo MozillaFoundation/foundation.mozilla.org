@@ -50,6 +50,7 @@ class Command(BaseCommand):
             peopleListView.get_queryset(),
             PersonSerializer
         )
+        self.stdout.write("Wrote /source/json/temp/people.json")
 
         # news
         newsListView = NewsListView()
@@ -58,6 +59,7 @@ class Command(BaseCommand):
             newsListView.get_queryset(),
             NewsSerializer
         )
+        self.stdout.write("Wrote /source/json/temp/news.json")
 
         # highlights
         highlightListView = HighlightListView()
@@ -66,6 +68,7 @@ class Command(BaseCommand):
             highlightListView.get_queryset(),
             HighlightSerializer
         )
+        self.stdout.write("Wrote /source/json/temp/highlights.json")
 
         # milestones
         milestoneListView = MilestoneListView()
@@ -74,3 +77,4 @@ class Command(BaseCommand):
             milestoneListView.get_queryset(),
             MilestoneSerializer
         )
+        self.stdout.write("Wrote /source/json/temp/upcoming.json")
