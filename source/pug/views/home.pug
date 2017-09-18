@@ -107,13 +107,14 @@ block content
           h4.h2-headings-white Get Involved
     .row
       .col-xs-12.col-md-6.mb-5
-        div(class=`item-featured px-4 ${data.highlights[0].image ? `mt-4 pb-5` : `py-5`}`)
-          if (data.highlights[0].image)
-            img.key-item.mb-4(src=`${data.highlights[0].image}`)
-          h5.h4-light-black=`${data.highlights[0].title}`
-          p.body-black=`${data.highlights[0].description}`
-          a.cta-link(href=`${data.highlights[0][`link_url`]}`)=data.highlights[0][`link_label`]
-          .mt-5!=data.highlights[0].footer
+        if(data.highlights.length)
+          div(class=`item-featured px-4 ${data.highlights[0].image ? `mt-4 pb-5` : `py-5`}`)
+            if (data.highlights[0].image)
+              img.key-item.mb-4(src=`${data.highlights[0].image}`)
+            h5.h4-light-black=`${data.highlights[0].title}`
+            p.body-black=`${data.highlights[0].description}`
+            a.cta-link(href=`${data.highlights[0][`link_url`]}`)=data.highlights[0][`link_label`]
+            .mt-5!=data.highlights[0].footer
 
       .col-md-6.mb-5
         - for (let i = 1; i < (data.highlights.length > 3 ? 3 : data.highlights.length); i++)
