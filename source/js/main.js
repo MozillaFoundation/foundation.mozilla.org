@@ -26,15 +26,20 @@ let main = {
   },
 
   fetchData (callback) {
-    let homepageReq = new XMLHttpRequest();
+    // Only fetch data if you're on the homepage
+    if (document.querySelector(`#view-home`)) {
+      let homepageReq = new XMLHttpRequest();
 
-    homepageReq.addEventListener(`load`, () => {
-      callback.call(this, JSON.parse(homepageReq.response));
-    });
+      homepageReq.addEventListener(`load`, () => {
+        callback.call(this, JSON.parse(homepageReq.response));
+      });
 
-    // TODO: Change to env based URL
-    homepageReq.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/homepage`);
-    homepageReq.send();
+      // TODO: Change to env based URL
+      homepageReq.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/homepage`);
+      homepageReq.send();
+    } else {
+      callback.call(this, {});
+    }
   },
 
   bindGlobalHandlers () {
