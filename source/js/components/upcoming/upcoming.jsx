@@ -8,7 +8,7 @@ export default class Upcoming extends React.Component {
     super(props);
 
     this.state = {
-      highlights: []
+      events: []
     };
   }
 
@@ -17,7 +17,7 @@ export default class Upcoming extends React.Component {
 
     xhr.addEventListener(`load`, () => {
       this.setState({
-        highlights: JSON.parse(xhr.response)
+        events: JSON.parse(xhr.response)
       });
     });
 
@@ -26,7 +26,7 @@ export default class Upcoming extends React.Component {
   }
 
   render() {
-    let data = this.state.highlights;
+    let data = this.state.events;
 
     let futureEvents = data.filter((event) => {
       return event.start_date === null || moment(event.start_date).isAfter(Date.now());
