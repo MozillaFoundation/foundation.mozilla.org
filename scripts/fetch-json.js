@@ -27,5 +27,4 @@ fetchJSON(`pulse-decentralization`, `https://${environment[`PULSE_API_DOMAIN`]}/
 fetchJSON(`pulse-literacy`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Web%20Literacy&featured=True&ordering=-created`);
 fetchJSON(`people`, `https://${environment[`NETWORK_API_DOMAIN`]}/api/people/?format=json&featured=True&page=1`);
 fetchJSON(`news`, `https://${environment[`NETWORK_API_DOMAIN`]}/api/news/?format=json&featured=True&page=1`);
-fetchJSON(`highlights`, `https://${environment[`NETWORK_API_DOMAIN`]}/api/highlights`);
 fetchJSON(`upcoming`, `https://${environment[`NETWORK_API_DOMAIN`]}/api/milestones`);
