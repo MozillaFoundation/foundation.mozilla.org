@@ -179,19 +179,21 @@ let main = {
 
     // Homepage
 
-    // Leaders
-    if (document.querySelector(`#featured-people-box`)) {
-      ReactDOM.render(<Leaders data={data.leaders}/>, document.querySelector(`#featured-people-box`));
-    }
+    if (data) {
+      // Leaders
+      if (document.querySelector(`#featured-people-box`)) {
+        ReactDOM.render(<Leaders data={data.leaders}/>, document.querySelector(`#featured-people-box`));
+      }
 
-    // Home News
-    if (document.querySelector(`#home-news`)) {
-      ReactDOM.render(<HomeNews data={data.news}/>, document.querySelector(`#home-news`));
-    }
+      // Home News
+      if (document.querySelector(`#home-news`)) {
+        ReactDOM.render(<HomeNews data={data.news}/>, document.querySelector(`#home-news`));
+      }
 
-    // Highlights
-    if (document.querySelector(`#home-highlights`)) {
-      ReactDOM.render(<Highlights data={data.highlights}/>, document.querySelector(`#home-highlights`));
+      // Highlights
+      if (document.querySelector(`#home-highlights`)) {
+        ReactDOM.render(<Highlights data={data.highlights}/>, document.querySelector(`#home-highlights`));
+      }
     }
   }
 };
