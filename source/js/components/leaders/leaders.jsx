@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Leaders extends React.Component {
   constructor(props) {
@@ -30,3 +31,11 @@ export default class Leaders extends React.Component {
     );
   }
 }
+
+Leaders.propTypes = {
+  data: PropTypes.array
+};
+
+Leaders.defaultProps = {
+  data: []
+};

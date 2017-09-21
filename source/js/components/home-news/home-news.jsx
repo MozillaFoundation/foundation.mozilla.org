@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 export default class HomeNews extends React.Component {
@@ -31,17 +32,19 @@ export default class HomeNews extends React.Component {
       return newsItem(item, false, index, index < array.length);
     });
 
+    let featuredNews = this.props.data[0];
+
     return (
       <div className="row mb-3">
         <div className="col-md-6 mb-3 pb-5">
           <div className="play-button-wrapper">
-            <img src={this.props.data[0].thumbnail}/>
-            <a href={this.props.data[0].link} className="play-button-overlay"></a>
+            <img src={featuredNews.thumbnail}/>
+            <a href={featuredNews.link} className="play-button-overlay"></a>
           </div>
           <div className="row">
             <div className="col-12">
               <div className="key-item mx-2 mx-md-4 p-3">
-                { newsItem(this.props.data[0], true) }
+                { newsItem(featuredNews, true) }
               </div>
             </div>
           </div>
@@ -51,3 +54,11 @@ export default class HomeNews extends React.Component {
     );
   }
 }
+
+HomeNews.propTypes = {
+  data: PropTypes.array
+};
+
+HomeNews.defaultProps = {
+  data: []
+};

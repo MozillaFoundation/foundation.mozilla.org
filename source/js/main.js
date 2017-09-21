@@ -34,7 +34,6 @@ let main = {
         callback.call(this, JSON.parse(homepageReq.response));
       });
 
-      // TODO: Change to env based URL
       homepageReq.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/homepage`);
       homepageReq.send();
     } else {
