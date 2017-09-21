@@ -1,0 +1,33 @@
+language: python
+cache: pip
+
+python:
+  - "3.6"
+
+services: postgresql
+
+# command to install dependencies
+install: "pip install -r requirements.txt"
+
+before_script:
+  - psql -c "CREATE DATABASE networkapi;" -U postgres
+  - python app/manage.py migrate
+
+# command to run tests
+script:
+  - flake8 . --config=./app/tox.ini
+  - python app/manage.py test
+
+env:
+  global:
+    - DEBUG=True
+    - DJANGO_SECRET_KEY=secret
+    - DATABASE_URL=postgres://postgres:5432@localhost:5432/networkapi
+    - USE_S3=False
+    - CORS_WHITELIST=*
+    - XSS_PROTECTION=True
+    - CONTENT_TYPE_NO_SNIFF=True
+    - SET_HSTS=False
+    - SSL_REDIRECT=False
+    - X_FRAME_OPTIONS=DENY
+    - ALLOWED_HOSTS=localhost

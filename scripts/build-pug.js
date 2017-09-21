@@ -7,7 +7,7 @@ let environment = require(`../env.json`);
 
 let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 
-function buildPage(template, target, extraData) {
+function buildPage(template, target, extraData, hasExternalTarget = false) {
   let viewData = {
     env: environment,
     strings: propertiesToObject(rawStrings.toString()),
@@ -22,10 +22,15 @@ function buildPage(template, target, extraData) {
   });
 
   let html = fn(viewData);
-  let path = `dest${target}`;
 
-  shelljs.mkdir(`-p`, path);
-  shelljs.ShellString(html).to(`${path}/index.html`);
+  if (!hasExternalTarget) {
+    let path = `network-api/app/networkapi/frontend${target}`;
+
+    shelljs.mkdir(`-p`, path);
+    shelljs.ShellString(html).to(`${path}/index.html`);
+  } else {
+    shelljs.ShellString(html).to(target);
+  }
 }
 
 buildPage(`home`, `/`, {
@@ -43,7 +48,5 @@ buildPage(`style-guide`, `/style-guide`);
 buildPage(`sign-up`, `/sign-up`);
 buildPage(`404`, `/errors/404`);
 
-// Opportunities
-
-// For Mezzanine (with tokens)
-buildPage(`opportunity`, `/opportunity/template`);
+// Opportunities Template – For Mezzanine (with tokens)
+buildPage(`opportunity`, `network-api/app/networkapi/templates/pages/landingpage.html`, null, true);

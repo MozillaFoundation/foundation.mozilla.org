@@ -6,7 +6,6 @@
 extends ../templates/master.pug
 
 block masterParams
-  - let baseURL = `https://{% settings_value "ASSET_DOMAIN" %}/`
   - let isMezzanine = true
   - let pageTitle = `{{ page.meta_title }}`;
 
@@ -17,20 +16,31 @@ block centerNav
 
 block content
   .container
-    .row.py-5.justify-content-center
-      | {% if page.landingpage.signup %}
-      .col-lg-11
+    .row
+      div(class!=`py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12{% endif %}`)
         h1.h1-white {{ page.landingpage.header }}
-      | {% else %}
-      .col-12.col-md-8.mb-5
-        h1.h1-white {{ page.landingpage.header }}
+
+  #multipage-nav-mobile.hidden-md-up.mb-5
+    .container
+      .row
+        .col-12
+
+  .container
+    .row.mb-5
+      //- Root page must be called "Opportunity" for this all to work properly
+      //- This is required because page.branch_level always resolves to 0, which is probably a bug
+      | {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
+      .col-12.col-md-3.mb-3.hidden-sm-down
+        div#multipage-nav.multipage-nav
+          | {% load pages_tags %}
+          | {% page_menu "pages/menus/side-menu-items.html" %}
       | {% endif %}
-    .row.justify-content-around
-      | {% if page.landingpage.signup %}
-      .cms.col-md-6.col-lg-5.mb-5 {{ page.landingpage.content | safe }}
-      .col-md-5.col-lg-5
+      div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12{% endif %}`)
         .row
-          .join-us.half-width.col(data-cta-header=`{{ page.landingpage.signup.header | escape }}`, data-cta-description=`{{ page.landingpage.signup.description | escape }}`)
-      | {% else %}
-      .cms.col-12.col-md-8.mb-5 {{ page.landingpage.content | safe }}
-      | {% endif %}
+          | {% if page.landingpage.signup %}
+          .cms.col-md-6 {{ page.landingpage.content | safe }}
+          .col-md-5.offset-md-1
+            .join-us.half-width.col(data-cta-header=`{{ page.landingpage.signup.header | escape }}`, data-cta-description=`{{ page.landingpage.signup.description | escape }}`, data-newsletter=`{{ page.landingpage.signup.newsletter }}`)
+          | {% else %}
+          .cms.col-12 {{ page.landingpage.content | safe }}
+          | {% endif %}

@@ -1,0 +1,48 @@
+# Core
+Django==1.10.6
+gunicorn==19.6.0
+djangorestframework==3.5.4
+django-filter==1.0.2
+
+# Mezzanine CMS
+Mezzanine==4.2.3
+filebrowser_s3==1.0.0
+
+# social auth is useful
+social-auth-core==1.1.0
+social-auth-app-django==1.1.0
+
+# Database Adapter
+dj-database-url==0.4.1
+psycopg2==2.7.1
+
+# Environment
+django-environ==0.4.1
+
+# Static Files
+whitenoise==4.0b2
+
+# User Uploaded Files
+django-storages==1.5.2
+boto3==1.4.4
+python-slugify==1.2.1
+
+# Required for ImageField
+Pillow==4.0.0
+
+# CORS
+django-cors-headers==2.0.2
+
+# CSP
+django-csp==3.3
+
+# Admin sort models
+django-admin-sortable==2.1.0
+
+# HTTP requests
+requests==2.13.0
+
+# Testing
+flake8==2.5.4
+factory_boy==2.8.1
+fake-factory==0.5.7

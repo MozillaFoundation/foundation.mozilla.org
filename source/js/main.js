@@ -10,6 +10,7 @@ import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
+import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
 
 import env from '../../env.json';
 
@@ -138,6 +139,21 @@ let main = {
 
     if (document.getElementById(`people`)) {
       ReactDOM.render(<People/>, document.getElementById(`people`));
+    }
+
+    // Multipage nav used in landing pages
+    if (document.querySelector(`#multipage-nav`)) {
+      let links = [];
+
+      links = [].map.call(document.querySelectorAll(`#multipage-nav div a`), (child) => {
+        return {
+          label: child.textContent.trim(),
+          href: child.getAttribute(`href`),
+          isActive: !!child.getAttribute(`class`).match(/active/)
+        };
+      });
+
+      ReactDOM.render(<MultipageNav links={links} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
     }
   }
 };

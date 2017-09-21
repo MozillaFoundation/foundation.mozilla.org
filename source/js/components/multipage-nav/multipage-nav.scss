@@ -1,0 +1,42 @@
+#multipage-nav-mobile {
+  background: #f2f2f2;
+
+  .multipage-nav {
+    div:first-child {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .expander {
+      background: url('../_images/chevron.svg') no-repeat;
+      background-size: contain;
+      border: 0;
+      width: 15px;
+      height: 10px;
+      transform: rotate(180deg);
+      transition: transform 100ms linear;
+      outline: 0;
+    }
+
+    div:not(:first-child) {
+      display: none;
+    }
+
+    &.multipage-nav-open {
+      .expander {
+        transform: rotate(0);
+      }
+
+      div:not(:first-child) {
+        display: block;
+      }
+    }
+  }
+}
+
+.multipage-nav {
+  > div {
+    margin: 24px 0;
+  }
+}

@@ -19,6 +19,8 @@ Run the following terminal commands to get started:
 
 This will install all dependencies, build the code, start a server at [http://127.0.0.1:2017](http://127.0.0.1:2017), and launch it in your default browser.
 
+---
+
 ### Stack
 
 #### HTML
@@ -36,6 +38,8 @@ CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https:
 React is used *à la carte* for isolated component instances (eg: a tab switcher) since this is not a single page application, but rather a static generated website. This precludes the need for Flux architecture, or such libraries as React Router.
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
+
+---
 
 ### File Structure
 
@@ -55,35 +59,27 @@ To add a React component, you can target a container element from `/source/js/ma
     └── sass <- Sass code
 ```
 
+---
+
 ### Deployment
 
 #### Staging
 
-Builds to staging are triggered by commits to `master`. A [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(staging)/) deploys to the "network-staging" S3 bucket in us-east-1, which is served using a CloudFront CDN.
+Builds to staging are triggered by commits to `master`.
 
 Staging URL is [network.mofostaging.net](https://network.mofostaging.net)
 
-Managed content comes from: `network.mofoprod.net`, and `network-pulse-api-production.herokuapp.com`.
-
 #### Production
 
-Production deployments are triggered manually via a [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(production)/). Deployments are made to "network-production" in us-east-1, served using a CloudFront CDN.
+Production deployments are triggered by commits to `production`. Pull Requests to production must recieve approval from one of the core development team, and must pass all tests.
 
-Temporary production URL is [network.mofoprod.net](https://network.mofoprod.net)
-
-Managed content comes from: `network.mofoprod.net`, and `network-pulse-api-production.herokuapp.com`.
-
-#### Dev
-
-Dev deployments for smoke testing API code changes are triggered manually via a [Jenkins job](https://jenkins.mofoprod.net/view/STAGING/job/Network%20(dev)/). Deployments are made to "network-smoketest" in us-east-1, served using a CloudFront CDN.
-
-Dev URL is [network-dev.mofostaging.net](https://network-dev.mofostaging.net)
-
-Managed content comes from: `network-api.mofostaging.net`, and `network-pulse-api-production.herokuapp.com`.
+Production URL is [network.mozilla.org](https://network.mozilla.org)
 
 ##### Healthcheck
 
 A healthcheck route that indicates the most recent commit and other useful information is accessible on `/healthcheck.html`.
+
+---
 
 ### Environment Variables
 
@@ -94,3 +90,5 @@ The domains used to fetch static content from Network Pulse and the Network API 
 When the build runs, a file `env.json` is created in the root, which is the result of merging `.env` and `env.default` and converting the result to JSON. Values declared in `.env` take precedence.
 
 If you wish to use environment variables in either Node or client-side code, you can simply require `env.json`.
+
+---

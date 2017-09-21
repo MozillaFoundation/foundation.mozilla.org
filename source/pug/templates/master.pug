@@ -23,8 +23,6 @@ html
     meta(property=`og:url`, content=`https://${env.TARGET_DOMAIN}${target}`)
     meta(property=`og:title`, content=`${strings.MLN} – ${pageTitle}`)
 
-    meta(http-equiv=`Content-Security-Policy`, content=`${env[`CSP`]}`)
-
     link(rel=`stylesheet`, href!=`${baseURL || `/`}_css/main.compiled.css`)
     link(rel=`stylesheet`, href=`//code.cdn.mozilla.net/fonts/fira.css`)
     link(rel=`stylesheet`, href=`//fonts.googleapis.com/css?family=Nunito+Sans:400,600,300i`)
