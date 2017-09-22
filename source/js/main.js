@@ -14,6 +14,7 @@ import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
 import Highlights from './components/highlights/highlights.jsx';
 import Leaders from './components/leaders/leaders.jsx';
 import HomeNews from './components/home-news/home-news.jsx';
+import News from './components/news/news.jsx';
 import Upcoming from './components/upcoming/upcoming.jsx';
 
 import env from '../../env.json';
@@ -200,6 +201,11 @@ let main = {
     // Upcoming
     if (document.querySelector(`#upcoming`)) {
       ReactDOM.render(<Upcoming/>, document.querySelector(`#upcoming`));
+    }
+
+    // News
+    if (document.querySelector(`#news`)) {
+      ReactDOM.render(<News/>, document.querySelector(`#news`));
     }
   }
 };

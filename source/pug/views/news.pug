@@ -3,33 +3,6 @@ extends ../templates/master.pug
 block masterParams
   - let pageTitle = `News`;
 
-mixin blurb(newsItem)
-  .mb-3.news-item
-    .d-flex.align-items-center.mb-3
-      - if (newsItem.glyph)
-        img.mr-2.glyph(src=newsItem.glyph)
-      p.h6-gray.mb-0=newsItem.outlet
-    h3.h4-medium-black.mb-2
-      a(href=newsItem.link)=newsItem.headline
-    if newsItem.author
-      p.italic-black by #{newsItem.author}
-    p.small-gray=moment(newsItem.date, `YYYY-MM-DD`).format(`MMMM YYYY`)
-
-mixin newsForYear(year)
-  .row.mb-5
-    .col-md-4.d-md-flex.justify-content-end
-      h2.h2-typeaccents-gray=year
-    .col-md-8.col-lg-7
-      -
-        let newsItems = data.news.filter((item) => {
-          return item.date.match(year);
-        });
-
-      each item, index in newsItems
-        +blurb(item)
-        - if (index !== newsItems.length - 1)
-          hr
-
 block centerNav
   p News
 
@@ -37,6 +10,4 @@ block heroGuts
   +subpageHero(`Latest from the Network`, `Browse articles, blog posts, interviews and op-eds covering the efforts of Mozilla Network members.`)
 
 block content
-  .container.py-5
-    +newsForYear(2017)
-    +newsForYear(2016)
+  #news
