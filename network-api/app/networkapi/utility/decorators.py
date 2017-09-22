@@ -14,6 +14,10 @@ def debounce_and_throttle(debounce_seconds, throttle_seconds):
     """
     def decorator(fn):
         def debounced_and_throttled(*args, **kwargs):
+            # disable the handler during fixture loading
+            if kwargs['raw']:
+                return
+
             def call_fn():
                 now = timezone.now()
                 if hasattr(debounced_and_throttled, 'last_called'):
