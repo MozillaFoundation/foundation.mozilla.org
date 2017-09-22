@@ -1,15 +1,15 @@
 from rest_framework import serializers
+from urllib.parse import quote
 
 from mezzanine.conf import settings
 from networkapi.news.models import News
+
 
 class NewsSerializer(serializers.ModelSerializer):
 
     glyph = serializers.SerializerMethodField()
 
     def get_glyph(self, instance):
-        print (settings.USE_S3)
-
         # Remote hosted? Return the remote URL
         if settings.USE_S3:
             return "{host}{glyph}".format(
@@ -24,9 +24,8 @@ class NewsSerializer(serializers.ModelSerializer):
             protocol='https' if request.is_secure() else 'http',
             root=request.META['HTTP_HOST'],
             url=settings.MEDIA_URL,
-            glyph=str(instance.glyph).replace(' ','%20')
+            glyph=quote(str(instance.glyph))
         )
-
 
     """
     Serializes a News object
