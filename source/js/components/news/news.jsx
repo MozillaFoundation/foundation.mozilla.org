@@ -28,8 +28,8 @@ export default class News extends React.Component {
   render() {
     let blurb = (newsItem, hasHR=true) => {
       return (
-        <div>
-          <div className="mb-3 news-item" key={newsItem.headline}>
+        <div key={newsItem.headline}>
+          <div className="mb-3 news-item">
             <div className="d-flex align-items-center mb-3">
               { newsItem.glyph && <img src={newsItem.glyph} className="mr-2 glyph"/> }
               <p className="h6-gray mb-0">{newsItem.outlet}</p>
@@ -51,7 +51,7 @@ export default class News extends React.Component {
       });
 
       return (
-        <div className="row mb-5">
+        <div className="row mb-5" key={year}>
           <div className="col-md-4 d-md-flex justify-content-end">
             <h2 className="h2-typeaccents-gray">{year}</h2>
           </div>
