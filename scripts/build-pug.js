@@ -36,7 +36,7 @@ function buildPage(template, target, extraData, hasExternalTarget = false) {
 buildPage(`home`, `/`);
 buildPage(`people`, `/people`);
 buildPage(`get-involved`, `/get-involved`);
-buildPage(`upcoming`, `/programs/upcoming`, JSON.parse((shelljs.cat(`source/json/temp/upcoming.json`).toString())));
+buildPage(`upcoming`, `/programs/upcoming`);
 buildPage(`projects`, `/projects`, require(`./massage-projects.js`));
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});

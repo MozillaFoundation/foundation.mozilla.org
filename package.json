@@ -26,7 +26,6 @@
     "server": "cd network-api && source venv/bin/activate && python app/manage.py runserver",
     "start": "npm i && npm run build-uncompressed && run-p server watch:**",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/**/*.js source/js/**/*.js source/js/components/**/*.jsx",
-    "test:json": "ajv validate -s source/json/news.schema.json -d source/json/temp/news.json && ajv validate -s source/json/upcoming.schema.json -d source/json/temp/upcoming.json",
     "test:pug": "pug-lint source/pug/partials/ source/pug/templates/ source/pug/partials/",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/components/**/*.scss\" --syntax scss",
     "test": "npm run build && run-s test:**",
