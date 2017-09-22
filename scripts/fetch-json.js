@@ -25,6 +25,5 @@ fetchJSON(`pulse-innovation`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pu
 fetchJSON(`pulse-inclusion`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Digital%20Inclusion&featured=True&ordering=-created`);
 fetchJSON(`pulse-decentralization`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Decentralization&featured=True&ordering=-created`);
 fetchJSON(`pulse-literacy`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Web%20Literacy&featured=True&ordering=-created`);
-fetchJSON(`people`, `https://${environment[`NETWORK_API_DOMAIN`]}/api/people/?format=json&featured=True&page=1`);
 fetchJSON(`news`, `https://${environment[`NETWORK_API_DOMAIN`]}/api/news/?format=json&featured=True&page=1`);
 fetchJSON(`upcoming`, `https://${environment[`NETWORK_API_DOMAIN`]}/api/milestones`);
