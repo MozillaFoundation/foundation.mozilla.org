@@ -1,10 +1,12 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.contrib.sites.models import Site
 from mezzanine.conf import settings
 
+
 class Command(BaseCommand):
-    help = 'migrate the database if needed, and optionally seed the database using app/networkapi/fixtures/test_data.json'
+    help = 'migrate the database if needed, and optionally seed' \
+        'the database using app/networkapi/fixtures/test_data.json'
 
     def handle(self, *args, **options):
 
