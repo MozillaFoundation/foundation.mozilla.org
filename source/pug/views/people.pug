@@ -3,14 +3,6 @@ extends ../templates/master.pug
 block masterParams
   - let pageTitle = `People`;
 
-mixin person(meta)
-  div
-    h4=meta.name
-    p=meta.role
-    p=meta.location
-    p
-      small #{meta.affiliations.join(`, `)}
-
 block centerNav
   p People
 
@@ -20,7 +12,4 @@ block heroGuts
 block content
   .container.py-5
     h2.h3-black Member Spotlight
-    // This will be replaced by a React component, but this content is left available for indexing (SEO)
     #people
-      each person, index in data
-        +person(data[index])

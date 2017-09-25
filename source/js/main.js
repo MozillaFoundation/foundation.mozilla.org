@@ -10,13 +10,36 @@ import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
+import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
+import Highlights from './components/highlights/highlights.jsx';
+import Leaders from './components/leaders/leaders.jsx';
+import HomeNews from './components/home-news/home-news.jsx';
+import Upcoming from './components/upcoming/upcoming.jsx';
 
 import env from '../../env.json';
 
 let main = {
   init () {
-    this.injectReactComponents();
-    this.bindGlobalHandlers();
+    this.fetchData((data) => {
+      this.injectReactComponents(data);
+      this.bindGlobalHandlers();
+    });
+  },
+
+  fetchData (callback) {
+    // Only fetch data if you're on the homepage
+    if (document.querySelector(`#view-home`)) {
+      let homepageReq = new XMLHttpRequest();
+
+      homepageReq.addEventListener(`load`, () => {
+        callback.call(this, JSON.parse(homepageReq.response));
+      });
+
+      homepageReq.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/homepage`);
+      homepageReq.send();
+    } else {
+      callback.call(this, {});
+    }
   },
 
   bindGlobalHandlers () {
@@ -84,7 +107,7 @@ let main = {
   },
 
   // Embed various React components based on the existence of containers within the current page
-  injectReactComponents () {
+  injectReactComponents (data) {
     if (document.getElementById(`primary-nav`)) {
       ReactDOM.render(
         <PrimaryNav
@@ -138,6 +161,45 @@ let main = {
 
     if (document.getElementById(`people`)) {
       ReactDOM.render(<People/>, document.getElementById(`people`));
+    }
+
+    // Multipage nav used in landing pages
+    if (document.querySelector(`#multipage-nav`)) {
+      let links = [];
+
+      links = [].map.call(document.querySelectorAll(`#multipage-nav div a`), (child) => {
+        return {
+          label: child.textContent.trim(),
+          href: child.getAttribute(`href`),
+          isActive: !!child.getAttribute(`class`).match(/active/)
+        };
+      });
+
+      ReactDOM.render(<MultipageNav links={links} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
+    }
+
+    // Homepage
+
+    if (data) {
+      // Leaders
+      if (document.querySelector(`#featured-people-box`)) {
+        ReactDOM.render(<Leaders data={data.leaders}/>, document.querySelector(`#featured-people-box`));
+      }
+
+      // Home News
+      if (document.querySelector(`#home-news`)) {
+        ReactDOM.render(<HomeNews data={data.news}/>, document.querySelector(`#home-news`));
+      }
+
+      // Highlights
+      if (document.querySelector(`#home-highlights`)) {
+        ReactDOM.render(<Highlights data={data.highlights}/>, document.querySelector(`#home-highlights`));
+      }
+    }
+
+    // Upcoming
+    if (document.querySelector(`#upcoming`)) {
+      ReactDOM.render(<Upcoming/>, document.querySelector(`#upcoming`));
     }
   }
 };

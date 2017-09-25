@@ -4,9 +4,9 @@
     {% if page.is_current_or_ascendant or page.is_current_child or page.is_current_sibling and page.branch_level > 1 %}
       {% if page.branch_level > 0 %}
         {% if page.has_children or page.branch_level > 1 %}
-          <li>
+          <div>
             <a class="opp-link {% if page.is_current %}opp-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-          </li>
+          </div>
         {% endif %}
       {% endif %}
       {% page_menu page %}

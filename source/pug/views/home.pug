@@ -5,38 +5,6 @@ block masterParams
 
 include ../partials/pulse-projects.pug
 
-mixin person(meta)
-  div.featured-person.col-6.col-sm-4.col-md-3.mb-4.mb-sm-0
-    img.img-fluid.d-block(src=meta.image, alt=`Headshot`)
-    h2.h5-black.my-2=meta.name
-    p.small-gray #{meta.affiliations.join(`, `)}
-    if meta.links.twitter || meta.links.linkedIn
-      div.person-social-links.mt-3
-      if meta.links.twitter
-        a.twitter.gray.small.mr-4(href=meta.links.twitter)
-      if meta.links.linkedIn
-        a.linkedIn.gray.small.mr-4(href=meta.links.linkedIn)
-
-mixin newsItem(data, featured=false)
-  .news-item
-    .d-flex.align-items-center.mb-3
-      - if (data.glyph)
-        img.mr-2.glyph(src=data.glyph)
-      p.h6-gray.mb-0=data.outlet
-    h5.mb-2
-      if featured
-        a.h4-medium-black(href=`${data.link}`)=data.headline
-      else
-        a.h5-black(href=`${data.link}`)=data.headline
-    if data.author
-      p.italic-black.mb-1 by #{data.author}
-    p.small-gray=moment(data.date, `YYYY-MM-DD`).format(`MMMM YYYY`)
-
-mixin highlight(item)
-  h5.h4-light-black=item.title
-  p.body-black=item.description
-  a.cta-link(href=item[`link_url`])=item[`link_label`]
-
 block heroGuts
   .row
     .col-md-12.col-lg-6.py-5.px-4
@@ -49,13 +17,7 @@ block content
       .col
         .mb-5.slanty-background
           h4.h2-headings-white Network Leaders
-    .row
-      .col
-        #featured-people-box.row.mb-sm-5
-          -
-            data.people = data.people.filter(person => person.featured).slice(0,4);
-          each person, index in data.people
-            +person(data.people[index])
+    #featured-people-box.mb-sm-5
     .row
       .col.text-center.mb-5
         a.btn.btn-ghost(href=`/people`) Meet More Leaders
@@ -64,38 +26,8 @@ block content
       .col
         .mb-5.slanty-background
           h4.h2-headings-white Latest from the Network
-    -
-      data.news = data.news.filter((item) => {
-        return item.featured;
-      });
 
-      // Limit to 3 items max
-      data.news = data.news.slice(0,3);
-    .row.mb-3
-      .col-md-6.mb-3.pb-5
-        //- Hardcoding this next bit because the api doesn't have a thumbnail key yet, and this will always be a video (at least for now)
-        -
-          featured = {
-            headline: "Visit the Internet Health Clinic",
-            link: "https://www.youtube.com/watch?v=dRDz_1a8vqQ",
-            outlet: "YouTube",
-            author: "Mozilla",
-            date: "2017-06-01",
-            glyph: `/_images/news-icons/youtube.svg`
-          }
-        .play-button-wrapper
-          img(src=`/_images/news/ihc.jpg`)
-          a.play-button-overlay(href=featured.link)
-        .row
-          .col-12
-            .key-item.mx-2.mx-md-4.p-3
-              +newsItem(featured, true)
-      .col-md-6
-        .pb-4
-          - for (let i = 0; i < data.news.length; i++)
-            +newsItem(data.news[i])
-            - if (i !== data.news.length - 1)
-              hr
+    #home-news
 
     .row
       .col.text-center.mb-5
@@ -105,20 +37,7 @@ block content
       .col
         .mb-5.slanty-background
           h4.h2-headings-white Get Involved
-    .row
-      .col-xs-12.col-md-6.mb-5
-        div(class=`item-featured px-4 ${data.highlights[0].image ? `mt-4 pb-5` : `py-5`}`)
-          if (data.highlights[0].image)
-            img.key-item.mb-4(src=`${data.highlights[0].image}`)
-          h5.h4-light-black=`${data.highlights[0].title}`
-          p.body-black=`${data.highlights[0].description}`
-          a.cta-link(href=`${data.highlights[0][`link_url`]}`)=data.highlights[0][`link_label`]
-          .mt-5!=data.highlights[0].footer
 
-      .col-md-6.mb-5
-        - for (let i = 1; i < (data.highlights.length > 3 ? 3 : data.highlights.length); i++)
-          +highlight(data.highlights[i])
-          - if (i !== data.highlights.length - 1)
-            hr
+    #home-highlights
 
     .join-us.full-width.col.mb-5
