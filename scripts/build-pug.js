@@ -39,7 +39,7 @@ buildPage(`get-involved`, `/get-involved`);
 buildPage(`upcoming`, `/programs/upcoming`);
 buildPage(`projects`, `/projects`, require(`./massage-projects.js`));
 buildPage(`about`, `/about`);
-buildPage(`news`, `/news`, {news: JSON.parse((shelljs.cat(`source/json/temp/news.json`).toString()))});
+buildPage(`news`, `/news`);
 buildPage(`style-guide`, `/style-guide`);
 buildPage(`sign-up`, `/sign-up`);
 buildPage(`404`, `/errors/404`);
