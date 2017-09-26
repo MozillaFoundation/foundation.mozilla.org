@@ -25,7 +25,7 @@ class HomepageLeaders(Orderable):
 
     class Meta:
         verbose_name = 'featured network leader'
-        verbose_name_plural = 'network leaders'
+        verbose_name_plural = 'network leaders (People)'
 
 
 class HomepageNews(Orderable):
@@ -42,7 +42,7 @@ class HomepageNews(Orderable):
 
     class Meta:
         verbose_name = 'featured news item'
-        verbose_name_plural = 'latest from the network'
+        verbose_name_plural = 'latest from the network (News)'
 
 
 class HomepageHighlights(Orderable):
@@ -59,4 +59,4 @@ class HomepageHighlights(Orderable):
 
     class Meta:
         verbose_name = 'featured highlight'
-        verbose_name_plural = 'get involved'
+        verbose_name_plural = 'get involved (Highlights)'
