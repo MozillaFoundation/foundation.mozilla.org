@@ -10,12 +10,17 @@ class NewsSerializer(serializers.ModelSerializer):
     glyph = serializers.SerializerMethodField()
 
     def get_glyph(self, instance):
+        glyph = instance.glyph
+        
+        if not glyph:
+            return ''
+        
         # Remote hosted? Return the remote URL
         if settings.USE_S3:
             return "{host}{bin}{glyph}".format(
                 host=settings.MEDIA_URL,
                 bin=settings.AWS_LOCATION + '/',
-                glyph=instance.glyph
+                glyph=glyph
             )
 
         # Stored on the local filesystem: return as an absolute URL
@@ -25,7 +30,7 @@ class NewsSerializer(serializers.ModelSerializer):
             protocol='https' if request.is_secure() else 'http',
             root=request.META['HTTP_HOST'],
             url=settings.MEDIA_URL,
-            glyph=quote(str(instance.glyph))
+            glyph=quote(str(glyph))
         )
 
     """
