@@ -20,6 +20,12 @@ import Upcoming from './components/upcoming/upcoming.jsx';
 import env from '../../env.json';
 
 const SHOW_MEMBER_NOTICE = false;
+let networkApiDomain = env.NETWORK_API_DOMAIN
+
+// HEROKU_APP_DOMAIN is used by review apps
+if (!networkApiDomain && env.HEROKU_APP_NAME) {
+  networkApiDomain = `${env.HEROKU_APP_NAME}.herokuapp.com`
+}
 
 let main = {
   init () {
@@ -30,8 +36,6 @@ let main = {
   },
 
   fetchData (callback) {
-    // HEROKU_APP_DOMAIN is used by review apps
-    let networkApiDomain = env.NETWORK_API_DOMAIN || env.HEROKU_APP_DOMAIN
     // Only fetch data if you're on the homepage
     if (document.querySelector(`#view-home`)) {
       let homepageReq = new XMLHttpRequest();

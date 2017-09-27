@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import env from '../../../../env.json';
 import moment from 'moment';
 
-let networkApiDomain = env.NETWORK_API_DOMAIN || env.HEROKU_APP_NAME
+let networkApiDomain = env.NETWORK_API_DOMAIN
+
+// HEROKU_APP_DOMAIN is used by review apps
+if (!networkApiDomain && env.HEROKU_APP_NAME) {
+  networkApiDomain = `${env.HEROKU_APP_NAME}.herokuapp.com`
+}
 
 export default class Upcoming extends React.Component {
   constructor(props) {
