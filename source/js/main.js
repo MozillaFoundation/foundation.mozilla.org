@@ -30,6 +30,8 @@ let main = {
   },
 
   fetchData (callback) {
+    // HEROKU_APP_DOMAIN is used by review apps
+    let networkApiDomain = env.NETWORK_API_DOMAIN || env.HEROKU_APP_DOMAIN
     // Only fetch data if you're on the homepage
     if (document.querySelector(`#view-home`)) {
       let homepageReq = new XMLHttpRequest();
@@ -38,7 +40,7 @@ let main = {
         callback.call(this, JSON.parse(homepageReq.response));
       });
 
-      homepageReq.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/homepage`);
+      homepageReq.open(`GET`, `https://${networkApiDomain}/api/homepage`);
       homepageReq.send();
     } else {
       callback.call(this, {});

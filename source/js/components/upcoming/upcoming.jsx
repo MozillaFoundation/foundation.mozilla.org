@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import env from '../../../../env.json';
 import moment from 'moment';
 
+let networkApiDomain = env.NETWORK_API_DOMAIN || env.HEROKU_APP_NAME
+
 export default class Upcoming extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ export default class Upcoming extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/milestones`);
+    xhr.open(`GET`, `https://${networkApiDomain}/api/milestones`);
     xhr.send();
   }
 

@@ -9,15 +9,77 @@
 
 ### Setup
 
-**Requirements**: Node, npm, git.
+**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3](https://www.python.org/), [pip](https://pypi.python.org/pypi), optionally [virtualenv](https://virtualenv.pypa.io/en/stable/)
 
 Run the following terminal commands to get started:
 
 - `git clone https://github.com/mozilla/network.git`
 - `cd network`
-- `npm start`
+- `cp env.default .env`
 
-This will install all dependencies, build the code, start a server at [http://127.0.0.1:2017](http://127.0.0.1:2017), and launch it in your default browser.
+Install npm dependencies and build the static parts of the site by running the following commands:
+
+- `npm install`
+- `npm run build`
+
+Next, create a virtual environment using either `virtualenv` or `python3`'s virtual environment invocation. For the purposes of this README.md it is assumed you called this virtual environment `venv`.
+
+#### Important note for systems with python *and* python3
+
+In order to make sure your virtual environment will be using python 3.x you will have to explicitly tell the system it should use point to `python3` whenever it invokes python:
+
+```
+$ virtualenv -p python3 venv
+```
+
+#### Bootstrap the virtual enviroment
+
+Activate the virtual environment:
+
+- Unix/Linux/OSX: `source venv/bin/activate`
+- Windows: `venv\Scripts\Activate`
+
+(for both, the virtual environment can be deactivated by running the corresponding "deactivate" command)
+
+Install all dependencies into the virtual environment:
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Load Fixtures
+
+Mock data can be loaded into your dev site with the following command
+
+- `python manage.py loaddata network-api/app/networkapi/fixtures/test_data.json`
+
+By default, Django sets the site domain to `example.com`, but the mock data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
+
+- `python manage.py update_site_domain`
+
+This will set up a default superuser account for you to use:
+
+- username: `testuser`
+- pass: `networktest`
+
+#### From scratch database
+
+If you'd prefer not to load in the fixture data, you can use the following commands to get started:
+
+```bash
+python app/manage.py migrate
+python app/manage.py createsuperuser
+```
+
+#### Running the server
+
+You can run the development server using the following command
+
+- `python manage.py network-api/app/manage.py runserver`
+
+The site should now be accessible at `https://localhost:8000`
+
+To log in to the admin UI, visit: http://localhost:8000/admin
 
 ---
 
@@ -39,14 +101,21 @@ React is used *à la carte* for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
+#### Django and Mezzanine
+
+Django powers the backend of the site, and we use Mezzanine with Django to provide CMS features and functionality.
+
 ---
 
 ### File Structure
 
 ```
 /
-├── env <- Environment variables
 ├── dest <- Compiled code generated from source. Don't edit!
+├── network-api <- Django site code
+│	└── app 
+│       ├── networkapi <- Django apps live within this directory
+│       └── templates <- page templates and overrides
 ├── locales <- Localized strings (Java .properties syntax)
 ├── scripts <- Scripts run by npm tasks
 └── source <- Source code
@@ -60,6 +129,39 @@ To add a React component, you can target a container element from `/source/js/ma
 ```
 
 ---
+
+## Development
+
+This project is based on Mezzanine, which is itself based on Django, so the documentation for both projects applies. As far as Django is concerned, there is "good documentation" on the Django site but it's primarily considered good by people who already know Django, which is kind of bad. If this is your first foray into Django, you will want to read through https://djangobook.com/ instead.
+
+### Overriding templates and static content
+
+Sometimes it is necessary to override templates or static js/css/etc assets. In order to track *what* we changed in these files please surround your changes with:
+
+```
+# override: start #123
+... override code here...
+# override: end #123
+```
+
+Where `#...` is an issue number pointing to the issue that these changes are being made for.
+
+### Gotchas
+
+As this is REST API and CMS built on top of Django, there are some "gotcha!"s to keep in mind due to the high level of magic in the Django code base (where things will happen automatically without the code explicitly telling you).
+
+#### **DEBUG=True**
+
+The `DEBUG` flag does all sorts of magical things, to the point where testing with debugging turned on effectively runs a completely different setup compared to testing with debugging turned off. When debugging is on, the following things happen:
+
+- Django uses its own built-in static content server, in which template tags may behave *differently* from the Mezzanine static server, which can lead to `400 Bad Request` errors in `DEBUG=False` setting.
+- Django bypasses the `ALLOWED_HOST` restrictions, which again can lead to `400 Bad Request` errors in `DEBUG=False` setting.
+- Rather than HTTP error pages, Django will generate stack traces pages that expose pretty much all enviroment variables except any that match certain substrings such as `KEY`, `PASS`, etc. for obvious security reasons.
+- ...there are probably more gotchas just for `DEBUG` so if you find any please add them to this list.
+
+#### Use of `{ static "...." }` in templates
+
+Using the `static` tag in templates is supposed both in Django and Mezzanine, but they work differently: in Django, `{static "/..." }` works fine, but in Mezzanine this is a breaking pattern and there **should not** be a leading slash: `{ static "..." }`.
 
 ### Deployment
 

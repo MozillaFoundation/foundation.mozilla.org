@@ -2,6 +2,8 @@ import React from 'react';
 import Person from './person.jsx';
 import env from '../../../../env.json';
 
+let networkApiDomain = env.NETWORK_API_DOMAIN || env.HEROKU_APP_NAME
+
 export default class People extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ export default class People extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/people/?format=json&featured=True&page=1`);
+    xhr.open(`GET`, `https://${env.networkApiDomain}/api/people/?format=json&featured=True&page=1`);
     xhr.send();
   }
 

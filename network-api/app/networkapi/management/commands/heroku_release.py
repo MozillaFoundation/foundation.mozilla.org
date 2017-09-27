@@ -14,6 +14,4 @@ class Command(BaseCommand):
 
         if settings.LOAD_FIXTURE:
             call_command('loaddata', 'app/networkapi/fixtures/test_data.json')
-            site = Site.objects.get(id=1)
-            site.domain = 'localhost:8000'
-            site.save()
+            call_command('update_site_domain')

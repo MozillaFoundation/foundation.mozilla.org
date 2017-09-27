@@ -1,0 +1,36 @@
+{
+  "name": "network",
+  "description": "The Mozilla Network site",
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "DJANGO_SECRET_KEY": {
+        "generator": "secret"
+    },
+    "DEBUG": "False",
+    "ALLOWED_HOSTS": ,
+    "CORS_WHITELIST": "*",
+    "XSS_PROTECTION": "True",
+    "CONTENT_TYPE_NO_SNIFF": "True",
+    "SET_HSTS": "True",
+    "SSL_REDIRECT": "True",
+    "X_FRAME_OPTIONS": "DENY",
+    "USE_S3": "False",
+    "PULSE_API_DOMAIN": "network-pulse-api-production.herokuapp.com",
+    "PULSE_DOMAIN": "www.mozillapulse.org",
+    "CSP_DEFAULT_SRC": "'none'",
+    "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' cdn.optimizely.com https://www.google-analytics.com/analytics.js",
+    "CSP_STYLE_SRC": "'self' 'unsafe-inline' code.cdn.mozilla.net fonts.googleapis.com",
+    "CSP_IMG_SRC": "* data:",
+    "CSP_FONT_SRC": "'self' fonts.gstatic.com fonts.googleapis.com code.cdn.mozilla.net",
+    "CSP_CONNECT_SRC": "*",
+    "CSP_MEDIA_SRC": "'self'",
+    "CSP_CHILD_SRC": "'self'",
+    "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
+    "LOAD_FIXTURE": "True" 
+  }
+}

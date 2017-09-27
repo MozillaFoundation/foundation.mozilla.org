@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import env from '../../../../env.json';
 
+let networkApiDomain = env.NETWORK_API_DOMAIN || env.HEROKU_APP_NAME
+
 export default class News extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ export default class News extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/news/?format=json&featured=True&page=1`);
+    xhr.open(`GET`, `https://${networkApiDomain}/api/news/?format=json&featured=True&page=1`);
     xhr.send();
   }
 
