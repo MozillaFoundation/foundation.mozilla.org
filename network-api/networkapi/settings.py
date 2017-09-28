@@ -53,6 +53,7 @@ env = environ.Env(
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
+    REFERRER_HEADER_VALUE=(str, ''),
 )
 
 # Read in the environment
@@ -202,6 +203,8 @@ MIDDLEWARE = list(filter(None, [
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+    'networkapi.middleware.ReferrerMiddleware',
 ]))
 
 if SOCIAL_SIGNIN:
@@ -458,6 +461,7 @@ if env('SSL_REDIRECT') is True:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 X_FRAME_OPTIONS = env('X_FRAME_OPTIONS')
+REFERRER_HEADER_VALUE = env('REFERRER_HEADER_VALUE')
 
 DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
 
