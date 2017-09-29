@@ -19,6 +19,8 @@ import Upcoming from './components/upcoming/upcoming.jsx';
 
 import env from '../../env.json';
 
+const SHOW_MEMBER_NOTICE = false;
+
 let main = {
   init () {
     this.fetchData((data) => {
@@ -124,7 +126,7 @@ let main = {
       }
     }
 
-    if (document.getElementById(`member-notice`)) {
+    if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
       ReactDOM.render(<MemberNotice/>, document.getElementById(`member-notice`));
     }
 
