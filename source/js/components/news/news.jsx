@@ -28,7 +28,7 @@ export default class News extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `https://${networkApiDomain}/api/news/?format=json&featured=True&page=1`);
+    xhr.open(`GET`, `//${networkApiDomain}/api/news/?format=json&featured=True&page=1`);
     xhr.send();
   }
 

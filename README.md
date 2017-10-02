@@ -47,15 +47,19 @@ Install all dependencies into the virtual environment:
 pip install -r requirements.txt
 ```
 
-#### Load Fixtures
+#### Run migrate and load fixtures
+
+Migrate the database to the latest schema:
+
+- `python app/manage.py migrate`
 
 Mock data can be loaded into your dev site with the following command
 
-- `python manage.py loaddata network-api/app/networkapi/fixtures/test_data.json`
+- `python app/manage.py loaddata network-api/app/networkapi/fixtures/test_data.json`
 
 By default, Django sets the site domain to `example.com`, but the mock data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
 
-- `python manage.py update_site_domain`
+- `python app/manage.py update_site_domain`
 
 This will set up a default superuser account for you to use:
 

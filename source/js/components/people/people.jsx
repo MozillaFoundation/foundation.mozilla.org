@@ -27,7 +27,7 @@ export default class People extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `https://${env.networkApiDomain}/api/people/?format=json&featured=True&page=1`);
+    xhr.open(`GET`, `//${networkApiDomain}/api/people/?format=json&featured=True&page=1`);
     xhr.send();
   }
 
