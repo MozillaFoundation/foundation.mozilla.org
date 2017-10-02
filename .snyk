@@ -1,0 +1,17 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:shelljs:20140723':
+    - '*':
+        reason: 'No fix available, we do not depend on passing exec user input'
+        expires: 2017-12-31T00:00:00.000Z
+  'npm:tunnel-agent:20170305':
+    - '*':
+        reason: 'No fix available, our code does not use http tunnelling'
+        expires: 2017-12-31T00:00:00.000Z
+  SNYK-PYTHON-BOTO3-40617:
+    - '*':
+        reason: No fix available
+        expires: 2017-12-31T00:00:00.000Z
+patch: {}
