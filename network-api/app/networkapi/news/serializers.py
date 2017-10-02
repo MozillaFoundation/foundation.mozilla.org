@@ -11,10 +11,10 @@ class NewsSerializer(serializers.ModelSerializer):
 
     def get_glyph(self, instance):
         glyph = instance.glyph
-        
+
         if not glyph:
             return ''
-        
+
         # Remote hosted? Return the remote URL
         if settings.USE_S3:
             return "{host}{bin}{glyph}".format(
