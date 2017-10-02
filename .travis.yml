@@ -1,37 +1,31 @@
 language: python
-
 services:
-  - postgresql: 9.6
-
+- postgresql: 9.6
 python:
-  - "3.6"
-
+- '3.6'
 before_install:
-  - nvm install 6.11.2
-  - nvm use 6.11.2
-
+- nvm install 6.11.2
+- nvm use 6.11.2
 install:
-  - pip install -r requirements.txt
-  - npm install
-
+- pip install -r requirements.txt
+- npm install
 before_script:
-  - psql -c 'create database network;' -U postgres
-
+- psql -c 'create database network;' -U postgres
 script:
-  - npm test
-  - flake8 network-api/app
-  - python network-api/app/manage.py test
-
+- npm test
+- flake8 network-api/app
+- python network-api/app/manage.py test
 env:
   global:
-    - DEBUG=True
-    - DJANGO_SECRET_KEY=secret
-    - DATABASE_URL=postgres://postgres@localhost:5432/network
-    - USE_S3=False
-    - CORS_WHITELIST="*"
-    - XSS_PROTECTION=True
-    - CONTENT_TYPE_NO_SNIFF=True
-    - SET_HSTS=False
-    - SSL_REDIRECT=False
-    - X_FRAME_OPTIONS=DENY
-    - ALLOWED_HOSTS=localhost
+  - DEBUG=True
+  - DJANGO_SECRET_KEY=secret
+  - DATABASE_URL=postgres://postgres@localhost:5432/network
+  - USE_S3=False
+  - CORS_WHITELIST="*"
+  - XSS_PROTECTION=True
+  - CONTENT_TYPE_NO_SNIFF=True
+  - SET_HSTS=False
+  - SSL_REDIRECT=False
+  - X_FRAME_OPTIONS=DENY
+  - ALLOWED_HOSTS=localhost
+  - secure: 61FiWTuYBYgmiizqAH2MTeMJrfIcReoeDV2jz8umhMiXkvyA6LQQM5tjEtNfbHMx2SGqi5YyVlVeuTV71FCmS/V8wxVd652SNUK3UXW43rzmOEMYvOvB9rQ8IZVO5U9mIeXSnVJi8vYiZbIv4udrxka6O1PoUvsvE+R6Yl2FPQwe7HbEDF/I8VxNCbPPoj/KvUuCzGpI7p3Y6KSsDEiqMa/fJO3syOENIwaWhzvZzCXto+jYUJbtMenMadft506NYrYD+o5egpmJ8sKoxK1xzbR7iMUzgmAwGynY2dPF2M6nl44V6VutprrRfLNMCRRnamiJiZVfj/8+L/MCmS2uSgir8GSIY8DPivULwUlpvz67tYv3RgZbSVemev5I77VXK8MJ+vOAmtinI48ZZHhQ+LPHz2tiqxVhtCpYfDmSSmIqhvMJzDv0yVvEzz8c5B9Ui2ozrFB3kSrR1Gsiwl1VDsP1ymJSpWMLRgcHbMszZh6T5htgwJ9Lzz1mxZDzxTBfo2hn4SQ1Gdbu09SY/he5NYvcQEZ2jiFCE9rF4OR9UGIC9wHGrJ/BxW2mLPMwaXa9bL8+feNz52TR/GiVRy3hbgokGadVv0iZYLvEKty/RvO7KytFkusp516/qzT+2Cyw1cA6uAvwJL2vrl1PXQa8qAcN560QF6KnxIAY5mtP0rk=
