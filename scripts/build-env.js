@@ -1,6 +1,14 @@
 let dotenv = require(`dotenv`);
 let shelljs = require(`shelljs`);
 
+const ENV_WHITELIST = [
+  `PULSE_API_DOMAIN`,
+  `PULSE_DOMAIN`,
+  `NETWORK_API_DOMAIN`,
+  `TARGET_DOMAIN`,
+  `SHOW_TAKEOVER`
+];
+
 // Pull in env defaults
 let defaultEnv = dotenv.parse(shelljs.cat(`env.default`));
 
@@ -15,7 +23,16 @@ Object.keys(defaultEnv).forEach((key) => {
 let localEnv = shelljs.test(`-f`, `.env`) ? dotenv.parse(shelljs.cat(`.env`)) : {};
 
 // Merge overrides into defaults
-let finalEnv = Object.assign(defaultEnv, localEnv);
+let mergedEnv = Object.assign(defaultEnv, localEnv);
+
+// Filter env variables using a whitelist (ENV_WHITELIST)
+let finalEnv = {};
+
+Object.keys(mergedEnv).forEach((key) => {
+  if (ENV_WHITELIST.includes(key)) {
+    finalEnv[key] = mergedEnv[key];
+  }
+});
 
 // Write JSON based env
 shelljs.echo(JSON.stringify(finalEnv, null, 2)).to(`env.json`);
