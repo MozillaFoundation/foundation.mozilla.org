@@ -31,7 +31,6 @@ let finalEnv = {};
 Object.keys(mergedEnv).forEach((key) => {
   if (ENV_WHITELIST.includes(key)) {
     finalEnv[key] = mergedEnv[key];
-    console.log(finalEnv);
   }
 });
 
