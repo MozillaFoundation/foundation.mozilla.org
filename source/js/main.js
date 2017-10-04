@@ -44,7 +44,7 @@ let main = {
         callback.call(this, JSON.parse(homepageReq.response));
       });
 
-      homepageReq.open(`GET`, `//${networkApiDomain}/api/homepage`);
+      homepageReq.open(`GET`, `//${networkApiDomain}/api/homepage/`);
       homepageReq.send();
     } else {
       callback.call(this, {});
