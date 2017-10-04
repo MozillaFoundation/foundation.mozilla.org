@@ -1,7 +1,13 @@
 let dotenv = require(`dotenv`);
 let shelljs = require(`shelljs`);
 
-const ENV_WHITELIST = [`PULSE_API_DOMAIN`, `PULSE_DOMAIN`, `NETWORK_API_DOMAIN`, `TARGET_DOMAIN`, `SHOW_TAKEOVER`];
+const ENV_WHITELIST = [
+  `PULSE_API_DOMAIN`,
+  `PULSE_DOMAIN`,
+  `NETWORK_API_DOMAIN`,
+  `TARGET_DOMAIN`,
+  `SHOW_TAKEOVER`
+];
 
 // Pull in env defaults
 let defaultEnv = dotenv.parse(shelljs.cat(`env.default`));
