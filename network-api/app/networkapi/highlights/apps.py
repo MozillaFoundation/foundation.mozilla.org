@@ -6,5 +6,4 @@ class HighlightsConfig(AppConfig):
     verbose_name = 'highlights'
 
     def ready(self):
-        from networkapi.highlights.signals import setup_signals
-        setup_signals()
+        pass

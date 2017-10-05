@@ -6,5 +6,4 @@ class NewsConfig(AppConfig):
     verbose_name = 'news'
 
     def ready(self):
-        from networkapi.news.signals import setup_signals
-        setup_signals()
+        pass
