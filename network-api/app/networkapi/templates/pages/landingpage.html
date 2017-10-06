@@ -54,7 +54,7 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12{% endif %}">
+          <div class="py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
             <h1 class="h1-white">{{ page.landingpage.header }}</h1>
           </div>
         </div>
@@ -74,14 +74,16 @@
               {% page_menu "pages/menus/side-menu-items.html" %}
             </div>
           </div>{% endif %}
-          <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12{% endif %}">
+          <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
             <div class="row">
               <div class="cms col-12">{{ page.landingpage.content | safe }}</div>
             </div>
           </div>
         </div>{% if page.landingpage.signup %}
         <div class="row">
-          <div class="join-us full-width col mb-5" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}" data-newsletter="{{ page.landingpage.signup.newsletter }}"></div>
+          <div class="col-12">
+            <div class="join-us p-2 full-width mb-5" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}" data-newsletter="{{ page.landingpage.signup.newsletter }}"></div>
+          </div>
         </div>{% endif %}
         <div class="row mb-5">
           <div class="col-12">
