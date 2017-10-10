@@ -26,14 +26,15 @@ export default class Highlights extends React.Component {
     return (
       <div className="row">
         <div className="col-xs-12 col-md-6 mb-5">
-          <div className={`item-featured px-4 ${data.image ? `mt-4 pb-5` : `py-5`}`}>
+          <div className={`${data.image ? `pb-5` : `py-5`}`}>
             { data.image &&
-              <img className="key-item mb-4" src={data.image} />
+              <img src={data.image} />
             }
-            <h5 className="h4-light-black">{data.title}</h5>
-            <p className="body-black">{data.description}</p>
-            <a className="cta-link" href={data.link_url}>{data.link_label}</a>
-            <div className="mt-5"></div>
+            <div className="key-item mx-2 mx-md-4 p-3">
+              <h5 className="h4-light-black">{data.title}</h5>
+              <p className="body-black">{data.description}</p>
+              <a className="cta-link mb-2" href={data.link_url}>{data.link_label}</a>
+            </div>
           </div>
         </div>
         <div className="col-md-6 mb-5">
