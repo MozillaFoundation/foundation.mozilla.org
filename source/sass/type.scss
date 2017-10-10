@@ -61,7 +61,6 @@ a {
 
 .h2-headings-white {
   letter-spacing: 1px;
-  padding-left: 40px;
 
   @include scaleText(18px, 24px);
   @include black-box-white-text(0 0 0 40px);
