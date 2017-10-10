@@ -33,11 +33,11 @@ a {
   }
 }
 
-@mixin black-box-white-text {
+@mixin black-box-white-text($padding:0.1em) {
   background: $black;
   color: $white;
   display: inline;
-  padding: 0.1em;
+  padding: $padding;
   line-height: 1.5;
 }
 
@@ -61,10 +61,10 @@ a {
 
 .h2-headings-white {
   letter-spacing: 1px;
-  text-transform: uppercase;
+  padding-left: 40px;
 
   @include scaleText(18px, 24px);
-  @include black-box-white-text;
+  @include black-box-white-text(0 0 0 40px);
 }
 
 .h2-typeaccents-gray {
