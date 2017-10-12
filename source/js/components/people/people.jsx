@@ -2,11 +2,11 @@ import React from 'react';
 import Person from './person.jsx';
 import env from '../../../../env.json';
 
-let networkApiDomain = env.NETWORK_API_DOMAIN;
+let networkSiteUrl = env.NETWORK_SITE_URL;
 
 // HEROKU_APP_DOMAIN is used by review apps
-if (!networkApiDomain && env.HEROKU_APP_NAME) {
-  networkApiDomain = `${env.HEROKU_APP_NAME}.herokuapp.com`;
+if (!networkSiteUrl && env.HEROKU_APP_NAME) {
+  networkSiteUrl = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
 }
 
 export default class People extends React.Component {
@@ -27,7 +27,7 @@ export default class People extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `//${networkApiDomain}/api/people/?format=json&featured=True&page=1`);
+    xhr.open(`GET`, `${networkSiteUrl}/api/people/?format=json&featured=True&page=1`);
     xhr.send();
   }
 

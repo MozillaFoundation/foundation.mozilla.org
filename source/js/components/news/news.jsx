@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import env from '../../../../env.json';
 
-let networkApiDomain = env.NETWORK_API_DOMAIN;
+let networkSiteUrl = env.NETWORK_SITE_URL;
 
 // HEROKU_APP_DOMAIN is used by review apps
-if (!networkApiDomain && env.HEROKU_APP_NAME) {
-  networkApiDomain = `${env.HEROKU_APP_NAME}.herokuapp.com`;
+if (!networkSiteUrl && env.HEROKU_APP_NAME) {
+  networkSiteUrl = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
 }
 
 export default class News extends React.Component {
@@ -28,7 +28,7 @@ export default class News extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `//${networkApiDomain}/api/news/?format=json&featured=True&page=1`);
+    xhr.open(`GET`, `${networkSiteUrl}/api/news/?format=json&featured=True&page=1`);
     xhr.send();
   }
 

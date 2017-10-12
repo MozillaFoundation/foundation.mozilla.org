@@ -20,11 +20,11 @@ import Upcoming from './components/upcoming/upcoming.jsx';
 import env from '../../env.json';
 
 const SHOW_MEMBER_NOTICE = false;
-let networkApiDomain = env.NETWORK_API_DOMAIN;
+let networkSiteURL = env.NETWORK_SITE_URL;
 
 // HEROKU_APP_DOMAIN is used by review apps
-if (!networkApiDomain && env.HEROKU_APP_NAME) {
-  networkApiDomain = `${env.HEROKU_APP_NAME}.herokuapp.com`;
+if (!networkSiteURL && env.HEROKU_APP_NAME) {
+  networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
 }
 
 let main = {
@@ -44,7 +44,7 @@ let main = {
         callback.call(this, JSON.parse(homepageReq.response));
       });
 
-      homepageReq.open(`GET`, `//${networkApiDomain}/api/homepage/`);
+      homepageReq.open(`GET`, `${networkSiteURL}/api/homepage/`);
       homepageReq.send();
     } else {
       callback.call(this, {});
