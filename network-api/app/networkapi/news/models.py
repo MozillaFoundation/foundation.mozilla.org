@@ -57,8 +57,8 @@ class News(models.Model):
         help_text='URL link to the article/media clip',
     )
     excerpt = models.TextField(
-        max_length=1000,
-        help_text='A small extract from the article',
+        max_length=200,
+        help_text='A short summary of the article (around 146 characters)',
         blank=True,
         null=True,
     )
