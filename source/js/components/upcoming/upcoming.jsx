@@ -91,9 +91,8 @@ export default class Upcoming extends React.Component {
         { futureEvents }
         <div className="row">
           <div className="col">
-            <div className="slanty-background">
-              <h3 className="h2-headings-white">Recent</h3>
-            </div>
+            <hr className="hr-gradient"/>
+            <h3 className="h2-headings-white">Recent</h3>
           </div>
         </div>
         { pastEvents }
