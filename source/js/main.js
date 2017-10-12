@@ -20,6 +20,12 @@ import Upcoming from './components/upcoming/upcoming.jsx';
 import env from '../../env.json';
 
 const SHOW_MEMBER_NOTICE = false;
+let networkSiteURL = env.NETWORK_SITE_URL;
+
+// HEROKU_APP_DOMAIN is used by review apps
+if (!networkSiteURL && env.HEROKU_APP_NAME) {
+  networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
+}
 
 let main = {
   init () {
@@ -38,7 +44,7 @@ let main = {
         callback.call(this, JSON.parse(homepageReq.response));
       });
 
-      homepageReq.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/homepage`);
+      homepageReq.open(`GET`, `${networkSiteURL}/api/homepage/`);
       homepageReq.send();
     } else {
       callback.call(this, {});

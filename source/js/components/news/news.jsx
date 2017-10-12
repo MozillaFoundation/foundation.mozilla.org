@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import env from '../../../../env.json';
 
+let networkSiteUrl = env.NETWORK_SITE_URL;
+
+// HEROKU_APP_DOMAIN is used by review apps
+if (!networkSiteUrl && env.HEROKU_APP_NAME) {
+  networkSiteUrl = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
+}
+
 export default class News extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +28,7 @@ export default class News extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `https://${env.NETWORK_API_DOMAIN}/api/news/?format=json&featured=True&page=1`);
+    xhr.open(`GET`, `${networkSiteUrl}/api/news/?format=json&featured=True&page=1`);
     xhr.send();
   }
 

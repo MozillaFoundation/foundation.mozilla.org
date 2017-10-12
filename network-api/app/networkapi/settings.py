@@ -38,6 +38,7 @@ env = environ.Env(
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    LOAD_FIXTURE=(bool, False),
     SET_HSTS=bool,
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
@@ -63,6 +64,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+
+# This should only be needed in Heroku review apps
+LOAD_FIXTURE = env('LOAD_FIXTURE')
 
 if env('FILEBROWSER_DEBUG') or DEBUG != env('FILEBROWSER_DEBUG'):
     FILEBROWSER_DEBUG = env('FILEBROWSER_DEBUG')
@@ -113,6 +117,7 @@ INSTALLED_APPS = list(filter(None, [
     'adminsortable',
 
     # the network site
+    'networkapi',
     'networkapi.homepage',
     'networkapi.people',
     'networkapi.news',
