@@ -19,5 +19,5 @@ class HomepageView(APIView):
         if homepage is None:
             raise Http404('Homepage has not been created yet')
 
-        serializer = HomepageSerializer(homepage)
+        serializer = HomepageSerializer(homepage, context={'request': request})
         return Response(serializer.data)

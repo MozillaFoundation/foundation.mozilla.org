@@ -16,6 +16,7 @@ def serialize_relation(
     through_model,
     related_field_name,
     related_serializer,
+    context
 ):
     """
     Returns a list of serialized related objects that are related to the
@@ -29,9 +30,9 @@ def serialize_relation(
     is a foreign key pointing to the model related to the homepage
     :param related_serializer: is the serializer class to use to serialize the
     related model instance
+    :param context: the context passed to the HomepageSerializer
     :returns: list of serialized related model instances
     """
-
     related_objs = []
     relation = (
         through_model.objects
@@ -43,7 +44,7 @@ def serialize_relation(
     for related_field in relation:
         related_objs.append(getattr(related_field, related_field_name))
 
-    return related_serializer(related_objs, many=True).data
+    return related_serializer(related_objs, many=True, context=context).data
 
 
 class HomepageSerializer(serializers.ModelSerializer):
@@ -58,7 +59,8 @@ class HomepageSerializer(serializers.ModelSerializer):
             instance,
             HomepageLeaders,
             'leader',
-            PersonSerializer
+            PersonSerializer,
+            self.context
         )
 
     highlights = serializers.SerializerMethodField()
@@ -68,7 +70,8 @@ class HomepageSerializer(serializers.ModelSerializer):
             instance,
             HomepageHighlights,
             'highlights',
-            HighlightSerializer
+            HighlightSerializer,
+            self.context
         )
 
     news = serializers.SerializerMethodField()
@@ -78,7 +81,8 @@ class HomepageSerializer(serializers.ModelSerializer):
             instance,
             HomepageNews,
             'news',
-            NewsSerializer
+            NewsSerializer,
+            self.context
         )
 
     class Meta:
