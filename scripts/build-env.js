@@ -4,7 +4,7 @@ let shelljs = require(`shelljs`);
 const ENV_WHITELIST = [
   `PULSE_API_DOMAIN`,
   `PULSE_DOMAIN`,
-  `NETWORK_API_DOMAIN`,
+  `NETWORK_SITE_URL`,
   `TARGET_DOMAIN`,
   `SHOW_TAKEOVER`
 ];
