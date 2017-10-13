@@ -42,8 +42,8 @@ a {
 }
 
 .h1-home-white {
-  font-family: Arvo;
-  font-weight: 900;
+  font-family: "Zilla Slab";
+  font-weight: 700;
   mix-blend-mode: multiply;
 
   @include scaleText(36px, 48px);
@@ -51,7 +51,7 @@ a {
 }
 
 .h1-white {
-  font-family: Arvo;
+  font-family: "Zilla Slab";
   font-weight: 100;
   letter-spacing: 0;
 
@@ -67,7 +67,7 @@ a {
 }
 
 .h2-typeaccents-gray {
-  font-family: Arvo;
+  font-family: "Zilla Slab";
   font-weight: 400;
   color: #ccc;
   line-height: 1.2;
@@ -76,7 +76,7 @@ a {
 }
 
 .h3-black {
-  font-family: Arvo;
+  font-family: "Zilla Slab";
   font-weight: 100;
   letter-spacing: 0;
   line-height: 1.2;
@@ -93,7 +93,7 @@ a {
 }
 
 .h4-medium-black {
-  font-family: Arvo;
+  font-family: "Zilla Slab";
   letter-spacing: 0.5px;
   line-height: 1.2;
 
@@ -101,7 +101,7 @@ a {
 }
 
 .h4-medium-white {
-  font-family: Arvo;
+  font-family: "Zilla Slab";
   font-weight: 400;
   letter-spacing: 0.5px;
 
@@ -110,7 +110,7 @@ a {
 }
 
 .h4-light-black {
-  font-family: Arvo;
+  font-family: "Zilla Slab";
   font-weight: 100;
   letter-spacing: 0;
   line-height: 1.2;
@@ -127,7 +127,7 @@ a {
 }
 
 .h5-black {
-  font-family: Arvo;
+  font-family: "Zilla Slab";
   font-weight: 400;
   letter-spacing: 0.25px;
   line-height: 1.333;
