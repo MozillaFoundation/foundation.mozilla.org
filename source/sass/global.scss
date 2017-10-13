@@ -53,8 +53,8 @@ button:hover {
       filter: invert(100%);
     }
 
-    .center-nav-title p {
-      color: #fff;
+    .nav-links a {
+      color: $white;
     }
   }
 
@@ -86,12 +86,7 @@ button:hover {
 
 #burger {
   cursor: pointer;
-  margin-right: 1em;
-
-  @media (min-width: $bp-md) {
-    margin-right: 50px;
-  }
-
+  margin-left: 2em;
   border: 0;
   background: url(../_images/hamburger.svg) no-repeat;
   width: 31px;
@@ -103,10 +98,18 @@ button:hover {
   }
 }
 
+.nav-links a {
+  color: $black;
+  margin-right: 1em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+}
+
 .sticky-top .btn-pop {
   @media (max-width: $bp-sm) {
     padding: 0.25em;
     margin-right: -0.25em;
+    top: -2px;
   }
 }
 

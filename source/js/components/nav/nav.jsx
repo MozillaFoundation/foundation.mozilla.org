@@ -54,7 +54,7 @@ export default class PrimaryNav extends React.Component {
     return (
       <header hidden={this.state.isHidden}>
         <div className="container">
-          <div className="row p-4">
+          <div className="row p-4 d-flex justify-content-end">
             <button className="btn-close text-hide" onClick={this.hide}>X</button>
           </div>
           <div className="row d-md-flex justify-content-between">
