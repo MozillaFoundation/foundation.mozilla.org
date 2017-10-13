@@ -76,6 +76,10 @@ CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
 USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST')
 
+if env('HEROKU_APP_NAME'):
+    herokuAppHost = 'https://' + env('HEROKU_APP_NAME') + '.herokuapp.com'
+    ALLOWED_HOSTS.append(herokuAppHost)
+
 SITE_ID = 1
 
 # Use social authentication if there are key/secret values defined
