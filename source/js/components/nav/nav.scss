@@ -27,7 +27,7 @@
 
   .menu-nav {
     font-size: 32px;
-    font-family: "Arvo";
+    font-family: 'Open Sans', sans-serif;
 
     @media (min-width: $bp-md) {
       font-size: 64px;
@@ -39,6 +39,8 @@
 
     a {
       display: inline-block;
+      font-weight: 500;
+      margin-bottom: 0.333em;
 
       @media (min-width: $bp-md) {
         height: 5.3rem;
