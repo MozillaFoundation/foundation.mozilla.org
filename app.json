@@ -12,7 +12,6 @@
         "generator": "secret"
     },
     "DEBUG": "False",
-    "ALLOWED_HOSTS": ,
     "CORS_WHITELIST": "*",
     "XSS_PROTECTION": "True",
     "CONTENT_TYPE_NO_SNIFF": "True",
