@@ -31,5 +31,13 @@
     "CSP_CHILD_SRC": "'self'",
     "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
     "LOAD_FIXTURE": "True" 
-  }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
 }
