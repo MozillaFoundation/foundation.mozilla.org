@@ -13,7 +13,6 @@ class TargetDomainRedirectMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # print('in middleware')
         if settings.DOMAIN_REDIRECT_MIDDLWARE_ENABLED:
             request_host = request.META['HTTP_HOST']
 
