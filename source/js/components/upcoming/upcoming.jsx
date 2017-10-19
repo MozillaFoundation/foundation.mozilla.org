@@ -27,7 +27,7 @@ export default class Upcoming extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `${networkSiteUrl}/api/milestones`);
+    xhr.open(`GET`, `${networkSiteUrl}/api/milestones/`);
     xhr.send();
   }
 
