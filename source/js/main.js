@@ -17,25 +17,42 @@ import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import Upcoming from './components/upcoming/upcoming.jsx';
 
-import env from '../../env.json';
-
 const SHOW_MEMBER_NOTICE = false;
-let networkSiteURL = env.NETWORK_SITE_URL;
 
-// HEROKU_APP_DOMAIN is used by review apps
-if (!networkSiteURL && env.HEROKU_APP_NAME) {
-  networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
-}
+// To be populated via XHR...
+let env, networkSiteURL;
 
 let main = {
   init () {
-    this.fetchData((data) => {
-      this.injectReactComponents(data);
-      this.bindGlobalHandlers();
+    this.fetchEnv((envData) => {
+      console.log(envData);
+      env = envData;
+      networkSiteURL = env.NETWORK_SITE_URL;
+
+      // HEROKU_APP_DOMAIN is used by review apps
+      if (!networkSiteURL && env.HEROKU_APP_NAME) {
+        networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
+      }
+
+      this.fetchHomeDataIfNeeded((data) => {
+        this.injectReactComponents(data);
+        this.bindGlobalHandlers();
+      });
     });
   },
 
-  fetchData (callback) {
+  fetchEnv (callback) {
+    let envReq = new XMLHttpRequest();
+
+    envReq.addEventListener(`load`, () => {
+      callback.call(this, JSON.parse(envReq.response));
+    });
+
+    envReq.open(`GET`, `/environment.json`);
+    envReq.send();
+  },
+
+  fetchHomeDataIfNeeded (callback) {
     // Only fetch data if you're on the homepage
     if (document.querySelector(`#view-home`)) {
       let homepageReq = new XMLHttpRequest();
@@ -137,7 +154,7 @@ let main = {
     }
 
     // Show Takeover for new visitors
-    if (env.SHOW_TAKEOVER !== `false` && !Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
+    if (env.SHOW_TAKEOVER && !Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
       let elWrapper = document.querySelector(`#view-home > .wrapper`);
 
       // Don't allow the content block to scroll
