@@ -9,5 +9,5 @@ class EnvVariablesView(View):
     variables in JSON.
     """
 
-    def get(self):
+    def get(self, request):
         return JsonResponse(settings.FRONTEND)
