@@ -341,7 +341,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Opportunity",
       "slug": "opportunity",
@@ -369,7 +369,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Fellowships + Research",
       "slug": "opportunity/fellowships",
@@ -397,7 +397,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Leadership Training",
       "slug": "opportunity/training",
@@ -425,7 +425,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Internet Health Report",
       "slug": "opportunity/internet-health-report",
@@ -453,7 +453,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Network Feedback",
       "slug": "opportunity/network-feedback",
@@ -481,7 +481,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Network 50",
       "slug": "opportunity/network-50",
@@ -509,7 +509,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Tech Policy Fellowship",
       "slug": "opportunity/2017-tech-policy-fellows",
@@ -537,7 +537,7 @@
     "fields": {
       "keywords_string": "",
       "site": [
-        "example.com"
+        "localhost:8000"
       ],
       "title": "Mozilla Information Trust Initiative",
       "slug": "opportunity/miti",
@@ -3381,7 +3381,7 @@
     "pk": 6,
     "fields": {
       "header": "Introducing the Internet Health Report",
-      "content": "<p class=\"body-black mb-5\"><span>Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.</span></p>\n<p><img class=\"mb-5\" src=\"https://example.com/_images/ihr-infographic.png\"></p>\n<h2 class=\"h4-medium-black\">Is the Internet getting healthier?</h2>\n<p class=\"italic-black\">The Internet is an ecosystem that billions of people depend on. A living entity, shaped by our actions. We’re connected, and we can each make a difference.</p>\n<p class=\"italic-black\">Is the web thriving? Under threat? We believe these are timely and essential questions.</p>\n<p class=\"body-black\">Version 0.1 of Mozilla's Internet Health Report identifies five key Internet health markers and offers a brief prognosis for each in 2017.</p>\n<p class=\"body-black\"></p>\n<p class=\"body-black\"><a class=\"btn btn-ghost\" href=\"https://internethealthreport.org/v01/\">Internet Health Report</a></p>",
+      "content": "<p class=\"body-black mb-5\"><span>Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.</span></p>\n<p><img class=\"mb-5\" src=\"https://localhost:8000/_images/ihr-infographic.png\"></p>\n<h2 class=\"h4-medium-black\">Is the Internet getting healthier?</h2>\n<p class=\"italic-black\">The Internet is an ecosystem that billions of people depend on. A living entity, shaped by our actions. We’re connected, and we can each make a difference.</p>\n<p class=\"italic-black\">Is the web thriving? Under threat? We believe these are timely and essential questions.</p>\n<p class=\"body-black\">Version 0.1 of Mozilla's Internet Health Report identifies five key Internet health markers and offers a brief prognosis for each in 2017.</p>\n<p class=\"body-black\"></p>\n<p class=\"body-black\"><a class=\"btn btn-ghost\" href=\"https://internethealthreport.org/v01/\">Internet Health Report</a></p>",
       "signup": 1
     }
   },

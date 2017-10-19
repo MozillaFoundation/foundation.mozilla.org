@@ -12,5 +12,5 @@ class Command(BaseCommand):
         call_command('migrate')
 
         if settings.LOAD_FIXTURE:
-            call_command('loaddata', 'app/networkapi/fixtures/test_data.json')
             call_command('update_site_domain')
+            call_command('loaddata', 'app/networkapi/fixtures/test_data.json')
