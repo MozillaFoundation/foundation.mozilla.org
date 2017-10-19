@@ -77,7 +77,7 @@ ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
 USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST')
 
 if env('HEROKU_APP_NAME'):
-    herokuAppHost = 'https://' + env('HEROKU_APP_NAME') + '.herokuapp.com'
+    herokuAppHost = env('HEROKU_APP_NAME') + '.herokuapp.com'
     ALLOWED_HOSTS.append(herokuAppHost)
 
 SITE_ID = 1
