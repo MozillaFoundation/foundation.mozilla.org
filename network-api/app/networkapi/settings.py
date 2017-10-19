@@ -39,10 +39,15 @@ env = environ.Env(
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
     LOAD_FIXTURE=(bool, False),
+    NETWORK_SITE_URL=(str, ''),
+    PULSE_API_DOMAIN=(str, ''),
+    PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
+    SHOW_TAKEOVER=(bool, False),
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
+    TARGET_DOMAIN=(str, ''),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
@@ -435,6 +440,15 @@ LOGGING = {
             'propagate': True,
         }
     },
+}
+
+# Frontend
+FRONTEND = {
+    'PULSE_API_DOMAIN': env('PULSE_API_DOMAIN'),
+    'PULSE_DOMAIN': env('PULSE_DOMAIN'),
+    'NETWORK_SITE_URL': env('NETWORK_SITE_URL'),
+    'TARGET_DOMAIN': env('TARGET_DOMAIN'),
+    'SHOW_TAKEOVER': env('SHOW_TAKEOVER'),
 }
 
 try:
