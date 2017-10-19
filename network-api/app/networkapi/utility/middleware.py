@@ -1,7 +1,7 @@
 from django.http.response import HttpResponseRedirectBase
 from mezzanine.conf import settings
 
-target_domain = settings.TARGET_DOMAIN
+hostname = settings.TARGET_DOMAIN
 
 
 class HttpResponseTemporaryRedirect(HttpResponseRedirectBase):
@@ -16,13 +16,13 @@ class TargetDomainRedirectMiddleware:
         if settings.DOMAIN_REDIRECT_MIDDLWARE_ENABLED:
             request_host = request.META['HTTP_HOST']
 
-            if request_host != target_domain:
+            if request_host != hostname:
                 protocol = 'https' if request.is_secure() else 'http'
 
-                redirect_url = '{}://{}{}'.format(
-                    protocol,
-                    target_domain,
-                    request.get_full_path()
+                redirect_url = '{protocol}://{hostname}{path}'.format(
+                    protocol=protocol,
+                    hostname=hostname,
+                    path=request.get_full_path()
                 )
 
                 return HttpResponseTemporaryRedirect(redirect_url)
