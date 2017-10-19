@@ -21,6 +21,8 @@ from django.views.generic.base import RedirectView
 import mezzanine
 from mezzanine.conf import settings
 
+from networkapi.views import EnvVariablesView
+
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [
@@ -33,6 +35,7 @@ urlpatterns = list(filter(None, [
     url(r'^api/milestones/', include('networkapi.milestones.urls')),
     url(r'^api/highlights/', include('networkapi.highlights.urls')),
     url(r'^api/homepage/', include('networkapi.homepage.urls')),
+    url(r'^environment.json', EnvVariablesView.as_view()),
     url(r'^$', mezzanine.pages.views.page, {'slug': '/'}, name='home'),
     url(r'^', include('mezzanine.urls')),
 ]))
