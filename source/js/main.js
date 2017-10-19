@@ -25,7 +25,6 @@ let env, networkSiteURL;
 let main = {
   init () {
     this.fetchEnv((envData) => {
-      console.log(envData);
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
 
@@ -186,7 +185,7 @@ let main = {
     }
 
     if (document.getElementById(`people`)) {
-      ReactDOM.render(<People/>, document.getElementById(`people`));
+      ReactDOM.render(<People env={env}/>, document.getElementById(`people`));
     }
 
     // Multipage nav used in landing pages
@@ -225,12 +224,12 @@ let main = {
 
     // Upcoming
     if (document.querySelector(`#upcoming`)) {
-      ReactDOM.render(<Upcoming/>, document.querySelector(`#upcoming`));
+      ReactDOM.render(<Upcoming env={env}/>, document.querySelector(`#upcoming`));
     }
 
     // News
     if (document.querySelector(`#news`)) {
-      ReactDOM.render(<News/>, document.querySelector(`#news`));
+      ReactDOM.render(<News env={env}/>, document.querySelector(`#news`));
     }
   }
 };
