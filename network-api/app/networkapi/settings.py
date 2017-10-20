@@ -27,6 +27,7 @@ env = environ.Env(
     AWS_LOCATION=(str, ''),
     BUILD_DEBOUNCE_SECONDS=(int, 300),
     BUILD_THROTTLE_SECONDS=(int, 900),
+    DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     HEROKU_APP_NAME=(str, ''),
     GITHUB_PROJECT_MASTER_TAR_URL=(str, ''),
     HEROKU_API_TOKEN=(str, ''),
@@ -47,7 +48,7 @@ env = environ.Env(
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
-    TARGET_DOMAIN=(str, ''),
+    TARGET_DOMAIN=(str, None),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
@@ -72,6 +73,10 @@ DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
 
 # This should only be needed in Heroku review apps
 LOAD_FIXTURE = env('LOAD_FIXTURE')
+
+# Force permanent redirects to the domain specified in TARGET_DOMAIN
+DOMAIN_REDIRECT_MIDDLWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLWARE_ENABLED')
+TARGET_DOMAIN = env('TARGET_DOMAIN')
 
 if env('FILEBROWSER_DEBUG') or DEBUG != env('FILEBROWSER_DEBUG'):
     FILEBROWSER_DEBUG = env('FILEBROWSER_DEBUG')
@@ -136,7 +141,9 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.milestones',
 ]))
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
+    'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
+
     'mezzanine.core.middleware.UpdateCacheMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
