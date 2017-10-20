@@ -185,6 +185,10 @@ Production URL is [network.mozilla.org](https://network.mozilla.org)
 
 A healthcheck route that indicates the most recent commit and other useful information is accessible on `/healthcheck.html`.
 
+##### Domain Redirect
+
+Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLWARE_ENABLED` to `True`. This will enable a middleware function that checks every request, and return a 307 redirect to `TARGET_DOMAIN` if the host header does not match it.
+
 ---
 
 ### Environment Variables
