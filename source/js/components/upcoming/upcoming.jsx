@@ -1,14 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import env from '../../../../env.json';
 import moment from 'moment';
-
-let networkSiteUrl = env.NETWORK_SITE_URL;
-
-// HEROKU_APP_DOMAIN is used by review apps
-if (!networkSiteUrl && env.HEROKU_APP_NAME) {
-  networkSiteUrl = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
-}
 
 export default class Upcoming extends React.Component {
   constructor(props) {
@@ -20,6 +12,13 @@ export default class Upcoming extends React.Component {
   }
 
   componentDidMount() {
+    let networkSiteUrl = this.props.env.NETWORK_SITE_URL;
+
+    // HEROKU_APP_DOMAIN is used by review apps
+    if (!networkSiteUrl && this.props.env.HEROKU_APP_NAME) {
+      networkSiteUrl = `https://${this.props.env.HEROKU_APP_NAME}.herokuapp.com`;
+    }
+
     let xhr = new XMLHttpRequest();
 
     xhr.addEventListener(`load`, () => {
@@ -28,7 +27,7 @@ export default class Upcoming extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `${networkSiteUrl}/api/milestones`);
+    xhr.open(`GET`, `${networkSiteUrl}/api/milestones/`);
     xhr.send();
   }
 
