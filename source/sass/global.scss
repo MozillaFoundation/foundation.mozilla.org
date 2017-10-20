@@ -100,9 +100,19 @@ button:hover {
 
 .nav-links a {
   color: $black;
-  margin-right: 1em;
+  margin-right: 26px;
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
+}
+
+@at-root {
+  #view-people .nav-link-people,
+  #view-get-involved .nav-link-get-involved,
+  #view-projects .nav-link-projects,
+  #view-upcoming .nav-link-upcoming,
+  #view-about .nav-link-about {
+    text-decoration: underline;
+  }
 }
 
 .sticky-top .btn-pop {
