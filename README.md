@@ -117,9 +117,8 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
 /
 ├── dest <- Compiled code generated from source. Don't edit!
 ├── network-api <- Django site code
-│	└── app 
-│       ├── networkapi <- Django apps live within this directory
-│       └── templates <- page templates and overrides
+│   ├── networkapi <- Django apps live within this directory
+│   └── templates <- page templates and overrides
 ├── locales <- Localized strings (Java .properties syntax)
 ├── scripts <- Scripts run by npm tasks
 └── source <- Source code
