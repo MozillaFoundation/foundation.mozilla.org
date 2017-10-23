@@ -51,15 +51,15 @@ pip install -r requirements.txt
 
 Migrate the database to the latest schema:
 
-- `python app/manage.py migrate`
+- `python ./manage.py migrate`
 
 Mock data can be loaded into your dev site with the following command
 
-- `python app/manage.py loaddata network-api/app/networkapi/fixtures/test_data.json`
+- `python ./manage.py loaddata network-api/networkapi/fixtures/test_data.json`
 
 By default, Django sets the site domain to `example.com`, but the mock data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
 
-- `python app/manage.py update_site_domain`
+- `python ./manage.py update_site_domain`
 
 This will set up a default superuser account for you to use:
 
@@ -71,15 +71,15 @@ This will set up a default superuser account for you to use:
 If you'd prefer not to load in the fixture data, you can use the following commands to get started:
 
 ```bash
-python app/manage.py migrate
-python app/manage.py createsuperuser
+python ./manage.py migrate
+python ./manage.py createsuperuser
 ```
 
 #### Running the server
 
 You can run the development server using the following command
 
-- `python manage.py network-api/app/manage.py runserver`
+- `python manage.py network-api/manage.py runserver`
 
 The site should now be accessible at `https://localhost:8000`
 

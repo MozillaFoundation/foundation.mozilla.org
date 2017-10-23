@@ -45,8 +45,8 @@ test_script:
   - npm --version
   - npm test
   - "./network/Scripts/activate"
-  - "flake8 network-api/app"
-  - "python network-api/app/manage.py test"
+  - "flake8 network-api/"
+  - "python network-api/manage.py test"
 
 
 clone_depth: 1
