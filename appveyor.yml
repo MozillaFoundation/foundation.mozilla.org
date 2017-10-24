@@ -39,6 +39,7 @@ install:
   - "virtualenv network -p %PYTHON%/python.exe"
   - "./network/Scripts/activate"
   - "pip install -r requirements.txt"
+  - "python network-api/manage.py collectstatic --no-input"
 
 test_script:
   - node --version
