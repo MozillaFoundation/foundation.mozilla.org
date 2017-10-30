@@ -20,6 +20,7 @@
     box-shadow: 8px 8px black;
     transform: translate(-4px, -4px);
     color: black;
+    background: #e7c121;
 
     &::after {
       content: '';
@@ -49,7 +50,7 @@
 
   &:hover {
     color: $black;
-    background: #ffe800;
+    background: #e7c121;
   }
 }
 
