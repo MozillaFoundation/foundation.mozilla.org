@@ -14,6 +14,10 @@ mixin project(meta)
     a.pulse-project(href=`https://${env.PULSE_DOMAIN}/entry/${meta.id}?utm_source=mozillaNetwork&utm_medium=referral`)
       img.project-image(src=meta.thumbnail)
       h5.h5-black.my-2=meta.title
-    if meta.creators.length
-      p.small-gray.my-1=`By ${meta.creators.join(`, `)}`
+    if meta.related_creators.length
+      - let creators = []
+      each creator in meta.related_creators
+        - creators.push(creator.name)
+      p.small-gray.my-1=`By ${creators.join(`, `)}`
+
     p.small-gray=`Added ${moment(meta.created).format('MMM DD, YYYY')}`
