@@ -32,7 +32,7 @@ In order to make sure your virtual environment will be using python 3.x you will
 $ virtualenv -p python3 venv
 ```
 
-#### Bootstrap the virtual enviroment
+#### Bootstrap the virtual environment
 
 Activate the virtual environment:
 
