@@ -706,16 +706,16 @@
       "role": "Open Web Fellow Host",
       "location": "Brussels, Belgium",
       "quote": "The biggest challenge we face in Europe is the role that internet companies play in achieving public policy goals.",
-      "bio": "- Executive Director of European Digital Rights (EDRi), an association of civil and human rights organisations that defends citizens’ rights and freedoms in the digital environment \r\n - Focuses on data protection, surveillance, copyright, and network neutrality \r\n - Expert in public affairs, intellectual property, cybercrime, and telecoms policy",
+      "bio": "- Executive Director of European Digital Rights (EDRi), an association of civil and human rights organisations that defends citizens\u2019 rights and freedoms in the digital environment \r\n - Focuses on data protection, surveillance, copyright, and network neutrality \r\n - Expert in public affairs, intellectual property, cybercrime, and telecoms policy",
       "image": "images/people/joe-mcnamee_1493154070.jpg",
       "partnership_logo": "images/people/joe-mcnamee_partnership_1489437254.png",
       "twitter_url": "https://twitter.com/edri",
       "linkedin_url": "https://www.linkedin.com/in/joemcnamee",
-      "interview_url": "https://storyengine.io/stories/decentralization/joe-mcnamee/",
+      "interview_url": null,
       "featured": true,
       "publish_after": "2017-04-05T21:29:58Z",
       "expires": null,
-      "order": 35,
+      "order": 8,
       "internet_health_issues": [
         1,
         2,
@@ -728,7 +728,7 @@
     "pk": 4,
     "fields": {
       "name": "Solana Larsen",
-      "role": "Mozilla Staff",
+      "role": "Staff",
       "location": "Berlin, Germany",
       "quote": "",
       "bio": "- Danish-Puerto Rican writer and editor based in Berlin, Germany\r\n - Believer and practitioner in use of the Internet for good\r\n - Former Managing Editor of GlobalVoices.org",
@@ -736,11 +736,11 @@
       "partnership_logo": "",
       "twitter_url": "https://www.twitter.com/Solanasaurus",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 34,
+      "order": 29,
       "internet_health_issues": [
         1,
         2,
@@ -754,20 +754,20 @@
     "model": "people.person",
     "pk": 5,
     "fields": {
-      "name": "Théo Chevalier",
-      "role": "Mozilla Staff",
+      "name": "Th\u00e9o Chevalier",
+      "role": "Staff",
       "location": "London, UK",
       "quote": "",
-      "bio": "- Supporting our global community for translating Mozilla Foundation projects\r\n - Advancing Mozilla’s localization QA tool, Transvision\r\n - Localizing Mozilla projects into French",
+      "bio": "- Supporting our global community for translating Mozilla Foundation projects\r\n - Advancing Mozilla\u2019s localization QA tool, Transvision\r\n - Localizing Mozilla projects into French",
       "image": "images/people/theo-chevalier_1489446935.jpg",
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/t_chevalier",
       "linkedin_url": "https://www.linkedin.com/in/theochevalier",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 33,
+      "order": 31,
       "internet_health_issues": [
         5
       ]
@@ -778,7 +778,7 @@
     "pk": 6,
     "fields": {
       "name": "Brenda Hernandez",
-      "role": "Mozilla Staff",
+      "role": "Staff",
       "location": "Chicago, IL, USA",
       "quote": "I am fascinated with the complexities the internet brings to our understanding of culture, humor, and aesthetics.",
       "bio": "- I am a Chicago-born, Mexican-raised experiential learning enthusiast, and practitioner.\r\n- Before my current role as Portfolio Strategist, I was a program manager at Yollocalli Arts Reach of the National Museum of Mexican Art - a place dear to my heart as I was a student there during my youth!\r\n- I am fascinated with the complexities the internet brings to our understanding of culture, humor, and aesthetics. I miss the days of custom cursors and crude myspace hacks.",
@@ -786,11 +786,11 @@
       "partnership_logo": "",
       "twitter_url": "https://www.twitter.com/tactilenotes",
       "linkedin_url": "",
-      "interview_url": "",
-      "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "interview_url": null,
+      "featured": false,
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 22,
+      "order": 18,
       "internet_health_issues": [
         3,
         4,
@@ -803,9 +803,9 @@
     "pk": 8,
     "fields": {
       "name": "Kylee Durant",
-      "role": "Internet Health Collaborator",
+      "role": "Web Literacy Partner",
       "location": "Lakewood, WA, USA",
-      "quote": "It was really powerful to see somebody from Mozilla who didn't just think about a great idea—but how to actually turn that idea into action.",
+      "quote": "It was really powerful to see somebody from Mozilla who didn't just think about a great idea \u2014 but how to actually turn that idea into action.",
       "bio": "- Chief Operating Officer, RallyPoint/6 \r\n - Provides career resources and peer assistance for service members, veterans, and military families",
       "image": "images/people/kylee-durant_1489447643.jpg",
       "partnership_logo": "",
@@ -815,7 +815,7 @@
       "featured": true,
       "publish_after": "2017-04-05T21:29:58Z",
       "expires": null,
-      "order": 15,
+      "order": 11,
       "internet_health_issues": [
         4,
         5
@@ -839,7 +839,7 @@
       "featured": false,
       "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 28,
+      "order": 25,
       "internet_health_issues": [
         1,
         3
@@ -851,19 +851,19 @@
     "pk": 10,
     "fields": {
       "name": "Karolina Andersdotter",
-      "role": "Advocacy Campaigns Partner",
+      "role": "Copyright Partner",
       "location": "The Hague, Netherlands",
-      "quote": "The Internet is the collective intelligence of humankind—much like a library.",
-      "bio": "- Librarian and digital asset and media manager.\r\n- Believes Internet is the collective intelligence of humankind—much like a library.\r\n- Enjoys talking copyright, digital privacy, and how to make data less scary.",
+      "quote": "The Internet is the collective intelligence of humankind - much like a library.",
+      "bio": "- Librarian and digital asset and media manager.\r\n- Believes Internet is the collective intelligence of humankind - much like a library.\r\n- Enjoys talking copyright, digital privacy, and how to make data less scary.",
       "image": "images/people/karolina-andersdotter_1489534552.jpg",
       "partnership_logo": "images/people/karolina-andersdotter_partnership_1489451198.png",
       "twitter_url": "https://twitter.com/Karolingva",
       "linkedin_url": "",
-      "interview_url": "",
-      "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "interview_url": null,
+      "featured": true,
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 1,
+      "order": 5,
       "internet_health_issues": [
         1,
         4
@@ -875,7 +875,7 @@
     "pk": 11,
     "fields": {
       "name": "Georgia Bullen",
-      "role": "Advocacy Campaigns Partner",
+      "role": "Copyright Partner",
       "location": "Washington, DC, USA",
       "quote": "",
       "bio": "- Human Centered Designer with a focus on data, technology and policy\r\n- Passionate about visualization, spreadsheets, usability, maps, access, cities and open source\r\n- Lives by a philosophy of organized chaos",
@@ -883,11 +883,11 @@
       "partnership_logo": "images/people/georgia-bullen_partnership_1489534111.png",
       "twitter_url": "https://www.twitter.com/georgiamoon",
       "linkedin_url": "https://www.linkedin.com/in/georgiabullen/",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 17,
+      "order": 13,
       "internet_health_issues": [
         1,
         2,
@@ -901,20 +901,20 @@
     "model": "people.person",
     "pk": 12,
     "fields": {
-      "name": "Éireann Leverett",
+      "name": "\u00c9ireann Leverett",
       "role": "Open Web Fellow",
       "location": "London, UK",
       "quote": "",
-      "bio": "- As an Open Web Fellow, Eireann is working with Privacy International’s Tech Team to analyze surveillance documentation and data, identify and analyze new technologies, and help develop briefings and educational programming with a technical understanding.\r\n - Éireann is fascinated by malware, vulnerabilities, cryptography, networks, information theory, and economics — and he believes hacking can win victories for humanity.",
+      "bio": "- As an Open Web Fellow, Eireann is working with Privacy International\u2019s Tech Team to analyze surveillance documentation and data, identify and analyze new technologies, and help develop briefings and educational programming with a technical understanding.\r\n - \u00c9ireann is fascinated by malware, vulnerabilities, cryptography, networks, information theory, and economics \u2014 and he believes hacking can win victories for humanity.",
       "image": "images/people/eireann-leverett_1489534657.jpg",
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/blackswanburst",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 16,
+      "order": 12,
       "internet_health_issues": [
         1
       ]
@@ -933,11 +933,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/redshiftzero",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 20,
+      "order": 16,
       "internet_health_issues": [
         1
       ]
@@ -948,7 +948,7 @@
     "pk": 14,
     "fields": {
       "name": "Kirstie Whitaker",
-      "role": "Science Fellow",
+      "role": "Mozilla Science Fellow",
       "location": "Cambridge, UK",
       "quote": "",
       "bio": "- Postdoctoral researcher in the Brain Mapping Unit at the University of Cambridge\r\n - She studies adolescent brain development and is particularly interested in the emergence of mental health disorders during the teenage years. \r\n - She's the founder and lead developer of the STEMM Role Models project which provides a database of experts from traditionally under-represented groups to ensure conference organizers are able to invite the most diverse and exciting speakers to their events.",
@@ -956,11 +956,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/kirstie_j",
       "linkedin_url": "http://www.linkedin.com/in/kirstiewhitaker",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 3,
+      "order": 0,
       "internet_health_issues": [
         3,
         5
@@ -972,7 +972,7 @@
     "pk": 15,
     "fields": {
       "name": "Bruno Miguel Pereira Vieira",
-      "role": "Science Fellow",
+      "role": "Mozilla Science Fellow",
       "location": "London, UK",
       "quote": "",
       "bio": "- Bioinformatics and population genomics PhD student at WurmLab (Queen Mary University of London) researching how genetic diversity is affected by sociality in insects.\r\n - Founded the open source community Bionode.io with the goal of improving modularity and reusability of tools and code in bioinformatics by leveraging innovation coming from the Node.js and Web communities.",
@@ -980,11 +980,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/bmpvieira",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 24,
+      "order": 21,
       "internet_health_issues": [
         2,
         4
@@ -996,7 +996,7 @@
     "pk": 16,
     "fields": {
       "name": "Danielle Robinson",
-      "role": "Science Fellow",
+      "role": "Mozilla Science Fellow",
       "location": "Portland, OR, USA",
       "quote": "",
       "bio": "- Passionate about improving reproducibility and digital literacy in the sciences\r\n - Co-organizes Open Insight PDX, which seeks to build skills that enhance research reproducibility and facilitate discussion of issues surrounding publishing, data sharing, and copyright. \r\n - She is a founding member of Women in Science Portland and an organizer for Science Hack Day Portland.",
@@ -1004,11 +1004,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/daniellecrobins",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 25,
+      "order": 22,
       "internet_health_issues": [
         1,
         4,
@@ -1021,7 +1021,7 @@
     "pk": 17,
     "fields": {
       "name": "Teon Brooks",
-      "role": "Science Fellow",
+      "role": "Mozilla Science Fellow",
       "location": "San Francisco, CA, USA",
       "quote": "",
       "bio": "- He studies the cognitive processes and temporal dynamics of the brain during reading.\r\n - Core developer for MNE, a community-driven project for analyzing time-series brain data in Python; and OpenEXP, an open science platform founded to be a \"GitHub for Experiments\" and a tool for running both behavioral and physiological experiments using open-source web-based tools.\r\n - Develops curriculum, DIYCogSci, for teaching experimental research methods and coding using low-cost electronics and open-source hardware.",
@@ -1033,11 +1033,12 @@
       "featured": false,
       "publish_after": "2017-04-05T21:29:58Z",
       "expires": null,
-      "order": 0,
+      "order": 1,
       "internet_health_issues": [
         2,
         3,
-        5
+        5,
+        4
       ]
     }
   },
@@ -1046,19 +1047,19 @@
     "pk": 18,
     "fields": {
       "name": "Alex Wafula",
-      "role": "Mozilla Representative",
+      "role": "Mozilla Rep",
       "location": "Nairobi, Kenya",
-      "quote": "The people are a big part of why I joined Mozilla—and the reason I continue to contribute.",
+      "quote": "The people are a big part of why I joined Mozilla \u2014 and the reason I continue to contribute.",
       "bio": "- Software professional and community activist \r\n - Leader in the Kenya + East Africa Mozilla community \r\n - Digital Skills Observatory contributor",
       "image": "images/people/alex-wafula_1489452645.jpg",
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/xelawafs",
       "linkedin_url": "",
-      "interview_url": "https://storyengine.io/stories/digital-inclusion/alex-wafula/",
+      "interview_url": null,
       "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 21,
+      "order": 17,
       "internet_health_issues": [
         4,
         5
@@ -1070,19 +1071,19 @@
     "pk": 19,
     "fields": {
       "name": "Mmaki Jantjies",
-      "role": "Mozilla Programs Partner",
+      "role": "Regional Coordinator, Mozilla Women & Girls Clubs",
       "location": "Cape Town, South Africa",
-      "quote": "The Mozilla Women & Girls clubs have become a space of trust—people open up about challenges they face on a daily basis.",
+      "quote": "The Mozilla Women & Girls clubs have become a space of trust \u2014 people open up about challenges they face on a daily basis.",
       "bio": "- Head of Department of Information Systems at the University of the Western Cape and Regional Coordinator for the Mozilla Women & Girls Clubs \r\n - Lectures on IT security, IT project management, and other IT-related modules \r\n - Recruits women who want to give back to the community",
       "image": "images/people/mmaki-jantjies_1489452793.jpg",
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/mmakij",
       "linkedin_url": "https://www.linkedin.com/in/mmaki-jantjies-2b389b116",
-      "interview_url": "https://storyengine.io/stories/digital-inclusion/mmaki-jantjies/",
+      "interview_url": null,
       "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 26,
+      "order": 23,
       "internet_health_issues": [
         4,
         5
@@ -1094,7 +1095,7 @@
     "pk": 20,
     "fields": {
       "name": "Anthony Negron",
-      "role": "Mozilla Programs Partner",
+      "role": "HiveNYC",
       "location": "New York, NY, USA",
       "quote": "You have an experience with an organization where you gel so perfectly that you start thinking about other ways to collaborate.",
       "bio": "- Manager of Digital Programming, NYSCI\r\n- Longtime member of HiveNYC\r\n- Values parternships formed via Hive",
@@ -1102,11 +1103,11 @@
       "partnership_logo": "",
       "twitter_url": "",
       "linkedin_url": "https://www.linkedin.com/in/anthony-negron-439a736/",
-      "interview_url": "https://storyengine.io/stories/digital-inclusion/anthony-negron/",
-      "featured": false,
+      "interview_url": null,
+      "featured": true,
       "publish_after": "2017-04-05T21:29:58Z",
       "expires": null,
-      "order": 4,
+      "order": 2,
       "internet_health_issues": [
         4,
         5
@@ -1118,19 +1119,19 @@
     "pk": 21,
     "fields": {
       "name": "Egle Marija Ramanauskaite",
-      "role": "Internet Health Collaborator",
+      "role": "Open Science, MozFest",
       "location": "Vilnius, Lithuania",
-      "quote": "Finally, we’re bringing this awesome research to the public.",
-      "bio": "- Citizen science coordinator for the Human Computation Institute, focused on crowdsourcing Alzheimer’s research  \r\n - Met Janet Chapman at MozFest last year and worked with her to create Crowd2Map",
+      "quote": "Finally, we\u2019re bringing this awesome research to the public.",
+      "bio": "- Citizen science coordinator for the Human Computation Institute, focused on crowdsourcing Alzheimer\u2019s research  \r\n - Met Janet Chapman at MozFest last year and worked with her to create Crowd2Map",
       "image": "images/people/egle-marija-ramanauskaite_1489453206.jpg",
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/seplute",
       "linkedin_url": "https://www.linkedin.com/in/eglemarija",
-      "interview_url": "https://storyengine.io/stories/open-innovation/egle-marija-ramanauskaite/",
+      "interview_url": null,
       "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 23,
+      "order": 20,
       "internet_health_issues": [
         3,
         5
@@ -1142,7 +1143,7 @@
     "pk": 22,
     "fields": {
       "name": "Jen Caltrider",
-      "role": "Mozilla Staff",
+      "role": "Staff",
       "location": "Shawnee, Colorado, USA",
       "quote": "I love the internet and all it has to offer and want everyone in the world to be able to access it and feel safe to be themselves online. This is what gets me fired up every day.",
       "bio": "- I studied to get my master's degree in Artificial Intelligence but hated writing code (OK, I was terrible at it). So I ended up combining my love of storytelling and all things nerdy and went to work at CNN as their first ever technology producer. \r\n- I moved to Colorado and fell in love with the mountains and with the camping mantra, \"Leave it Better Than You Found It.\" That's what motivated me to move from journalism to advocacy work. I still get to tell stories, I'm just telling them for good now.\r\n- I have many long conversations with my two pups, Husker and Beulah, and my kitty Stumpy about how it's a real shame Neal Stephenson's classic cyberpunk novel Snow Crash hasn't yet been made into an Oscar-worthy film.",
@@ -1150,11 +1151,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/caltrider",
       "linkedin_url": "",
-      "interview_url": "",
-      "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "interview_url": null,
+      "featured": false,
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 12,
+      "order": 9,
       "internet_health_issues": [
         5
       ]
@@ -1165,7 +1166,7 @@
     "pk": 23,
     "fields": {
       "name": "Gideon Thomas",
-      "role": "Mozilla Staff",
+      "role": "Staff",
       "location": "Toronto, Canada",
       "quote": "",
       "bio": "- Worked at Seneca College's CDOT as a developer on Mozilla's Thimble which opened the pathway for me to work for Mozilla.\r\n - Enjoy developing open-source technology solutions that make it easy for people to learn about and participate in creating the open web.\r\n - Occasionally like to co-facilitate events that address social issues.",
@@ -1173,11 +1174,11 @@
       "partnership_logo": "",
       "twitter_url": "",
       "linkedin_url": "https://www.linkedin.com/in/r-gideon-thomas-26362865/",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 14,
+      "order": 19,
       "internet_health_issues": [
         4,
         5
@@ -1189,19 +1190,19 @@
     "pk": 24,
     "fields": {
       "name": "David Humphrey",
-      "role": "Open Source Contributor",
+      "role": "Software Development and Education Partner",
       "location": "Toronto, Canada",
-      "quote": "I teach how to participate in collaborative projects. I set up a bike lane, so we’re on the same road as Mozilla, but we’re off to the side.",
-      "bio": "- Developer and open source expert\r\n - Professor at Seneca College’s School of Information and Communications Technology\r\n - Since 2004, David and Mozilla have involved hundreds of students in research projects — developing new technologies and standards for the web",
+      "quote": "I teach how to participate in collaborative projects. I set up a bike lane, so we\u2019re on the same road as Mozilla, but we\u2019re off to the side.",
+      "bio": "- Developer and open source expert\r\n - Professor at Seneca College\u2019s School of Information and Communications Technology\r\n - Since 2004, David and Mozilla have involved hundreds of students in research projects \u2014 developing new technologies and standards for the web",
       "image": "images/people/david-humphrey_1489530355.jpg",
       "partnership_logo": "images/people/david-humphrey_partnership_1489603424.svg",
       "twitter_url": "https://twitter.com/humphd",
       "linkedin_url": "",
-      "interview_url": "https://storyengine.io/stories/open-innovation/david-humphrey/",
+      "interview_url": null,
       "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 32,
+      "order": 30,
       "internet_health_issues": [
         3
       ]
@@ -1212,19 +1213,19 @@
     "pk": 25,
     "fields": {
       "name": "Achintya Rao",
-      "role": "Mozilla Programs Partner",
+      "role": "Mozilla Science Lab Contributor",
       "location": "Geneva, Switzerland",
-      "quote": "I now have a virtual support structure—people I can ping and ask, “Hey, what do I do here?” Or, “Have you faced this?",
+      "quote": "I now have a virtual support structure \u2014 people I can ping and ask, \u201cHey, what do I do here?\u201d Or, \u201cHave you faced this?",
       "bio": "- Communications Officer, CMS Experiment at CERN \r\n - ChD Student, UWE Science Communication Unit \r\n - Mentors two Mozilla Open Science Lab projects",
       "image": "images/people/achintya-rao_1489524959.jpg",
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/RaoOfPhysics",
       "linkedin_url": "",
-      "interview_url": "https://storyengine.io/stories/open-innovation/achintya-rao/",
+      "interview_url": null,
       "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 29,
+      "order": 26,
       "internet_health_issues": [
         3
       ]
@@ -1235,7 +1236,7 @@
     "pk": 26,
     "fields": {
       "name": "Hera Hussain",
-      "role": "Internet Health Collaborator",
+      "role": "MozFest volunteer, then Keynote Speaker",
       "location": "London, United Kingdom",
       "quote": "No matter how dangerous it is for young women to be online, they still want to get online. Their social activities are there. Now there are so many things you can only do online.",
       "bio": "- Community & Partnerships Manager, OpenCorporates \r\n - Founder of Chayn, a global volunteer-led digital network empowering women against violence and oppression \r\n - Works with investigative journalists and NGOs running investigations using open company data",
@@ -1243,11 +1244,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/herahussain",
       "linkedin_url": "https://www.linkedin.com/in/herahussain",
-      "interview_url": "https://storyengine.io/stories/digital-inclusion/hera-hussain/",
+      "interview_url": null,
       "featured": true,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 18,
+      "order": 14,
       "internet_health_issues": [
         1,
         5
@@ -1259,7 +1260,7 @@
     "pk": 27,
     "fields": {
       "name": "Chrystian Rodriguez",
-      "role": "Mozilla Staff",
+      "role": "Staff",
       "location": "New York, NY, USA",
       "quote": "",
       "bio": "",
@@ -1267,11 +1268,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/xtianberrisoup",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 13,
+      "order": 10,
       "internet_health_issues": [
         1,
         2,
@@ -1285,7 +1286,7 @@
     "pk": 28,
     "fields": {
       "name": "Roy Lamond",
-      "role": "Internet Health Collaborator",
+      "role": "Web Literacy and Digital Inclusion Partner",
       "location": "Ottawa, Canada",
       "quote": "",
       "bio": "",
@@ -1293,11 +1294,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/roylamond",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 30,
+      "order": 27,
       "internet_health_issues": [
         3,
         4,
@@ -1310,7 +1311,7 @@
     "pk": 29,
     "fields": {
       "name": "Melissa Mark-Viverito",
-      "role": "Mozilla Programs Partner",
+      "role": "Hive NYC Partner",
       "location": "New York, NY, USA",
       "quote": "Technology has the power to transform lives, and we must work to bring that opportunity to people of all backgrounds.",
       "bio": "",
@@ -1318,11 +1319,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/MMViverito",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 31,
+      "order": 28,
       "internet_health_issues": [
         5
       ]
@@ -1333,19 +1334,19 @@
     "pk": 30,
     "fields": {
       "name": "Christie Bahlai",
-      "role": "Science Fellow",
+      "role": "Mozilla Science Fellow",
       "location": "East Lansing, Michigan, USA",
-      "quote": "During my fellowship I developed an open science and reproducible research course — my students' work was then highlighted in Science Magazine.",
+      "quote": "During my fellowship I developed an open science and reproducible research course \u2014 my students' work was then highlighted in Science Magazine.",
       "bio": "",
       "image": "images/people/christie-bahlai_1489534389.jpg",
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/cbahlai",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 27,
+      "order": 24,
       "internet_health_issues": [
         3
       ]
@@ -1356,7 +1357,7 @@
     "pk": 31,
     "fields": {
       "name": "Emily Long",
-      "role": "Mozilla Programs Partner",
+      "role": "HiveNYC",
       "location": "New York, NY, USA",
       "quote": "Working with others is what really helps us grow as an organization. It gives us more projects and more room to experiment.",
       "bio": "",
@@ -1364,11 +1365,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/emlong",
       "linkedin_url": "https://www.linkedin.com/in/emilymlong",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 6,
+      "order": 3,
       "internet_health_issues": [
         4,
         5
@@ -1380,7 +1381,7 @@
     "pk": 32,
     "fields": {
       "name": "Duncan Washington",
-      "role": "Open Source Contributor",
+      "role": "Digital Skills Observatory contributor",
       "location": "Nairobi, Kenya",
       "quote": "Mozilla Clubs use local solutions on the ground to make an impact in society.",
       "bio": "",
@@ -1388,11 +1389,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/danthepoet",
       "linkedin_url": "https://www.linkedin.com/in/duncan-washington-abbba717/",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 7,
+      "order": 4,
       "internet_health_issues": [
         5
       ]
@@ -1403,7 +1404,7 @@
     "pk": 33,
     "fields": {
       "name": "Ariam Mogos",
-      "role": "Mozilla Programs Partner",
+      "role": "HiveNYC",
       "location": "Brooklyn, NY, USA",
       "quote": "Mozilla has facilitated fantastic partnerships. Instead of running siloed programs we're really collaborating.",
       "bio": "",
@@ -1411,11 +1412,11 @@
       "partnership_logo": "",
       "twitter_url": "https://twitter.com/aamogos",
       "linkedin_url": "https://www.linkedin.com/in/ariammogos/",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 9,
+      "order": 6,
       "internet_health_issues": [
         4,
         5
@@ -1427,7 +1428,7 @@
     "pk": 34,
     "fields": {
       "name": "Hillary Kolos",
-      "role": "Mozilla Programs Partner",
+      "role": "HiveNYC",
       "location": "Bronx, NY, USA",
       "quote": "I really trust the people I work with in the Hive. That means that I can be more critical and more supportive.",
       "bio": "",
@@ -1435,11 +1436,11 @@
       "partnership_logo": "",
       "twitter_url": "",
       "linkedin_url": "https://www.linkedin.com/in/hillary-kolos-71b67a11/",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 10,
+      "order": 7,
       "internet_health_issues": [
         4,
         5
@@ -1451,7 +1452,7 @@
     "pk": 35,
     "fields": {
       "name": "Daniel Lucio",
-      "role": "Mozilla Programs Partner",
+      "role": "Gigabit Cities Partner",
       "location": "Austin, TX, USA",
       "quote": "",
       "bio": "",
@@ -1459,11 +1460,11 @@
       "partnership_logo": "images/people/daniel-lucio_partnership_1489596585.png",
       "twitter_url": "https://twitter.com/danielrynelucio",
       "linkedin_url": "",
-      "interview_url": "",
+      "interview_url": null,
       "featured": false,
-      "publish_after": "2017-04-05T21:29:58Z",
+      "publish_after": "2017-04-05T21:29:58.985Z",
       "expires": null,
-      "order": 19,
+      "order": 15,
       "internet_health_issues": [
         4,
         5
@@ -1472,98 +1473,47 @@
   },
   {
     "model": "people.person",
-    "pk": 36,
-    "fields": {
-      "name": "Cori Zarek",
-      "role": "Senior Tech Policy Fellow",
-      "location": "Washington, DC, USA",
-      "quote": "Continuing to advance important tech policy issues is key to Internet Health. The Mozilla Tech Policy Fellows will be working to increase momentum on issues like net neutrality, privacy, and the digital economy.",
-      "bio": "- Senior Fellow leading the Mozilla Tech Policy Fellows team\r\n- Former Deputy U.S. Chief Technology Officer at the White House\r\n- Coordinated U.S. involvement with the global Open Government Partnership",
-      "image": "images/people/cori-zarek_1496798451.jpg",
-      "partnership_logo": "",
-      "twitter_url": "https://twitter.com/corizarek",
-      "linkedin_url": "https://www.linkedin.com/in/corinna-zarek-5abb201/",
-      "interview_url": "",
-      "featured": true,
-      "publish_after": "2017-06-06T19:00:00Z",
-      "expires": null,
-      "order": 2,
-      "internet_health_issues": [
-        3
-      ]
-    }
-  },
-  {
-    "model": "people.person",
-    "pk": 37,
-    "fields": {
-      "name": "Alan Davidson",
-      "role": "Tech Policy Fellow",
-      "location": "Washington, DC, USA",
-      "quote": "At a time of great challenge and opportunity, this new Mozilla program will add much-needed resources to the continued fight for a free, open, and inclusive broader digital economy.",
-      "bio": "- Fellow at New America in Washington, D.C.\r\n- Former Director of Digital Economy at the U.S. Department of Commerce and a Senior Advisor to the Secretary of Commerce",
-      "image": "images/people/alan-davidson_1496876644.jpg",
-      "partnership_logo": "",
-      "twitter_url": "https://twitter.com/abdavidson",
-      "linkedin_url": "https://www.linkedin.com/in/alan-davidson-0801335/",
-      "interview_url": "",
-      "featured": true,
-      "publish_after": "2017-06-06T22:58:05Z",
-      "expires": null,
-      "order": 8,
-      "internet_health_issues": [
-        1,
-        2,
-        3
-      ]
-    }
-  },
-  {
-    "model": "people.person",
     "pk": 38,
     "fields": {
-      "name": "Linet Kwamboka",
-      "role": "Tech Policy Fellow",
-      "location": "Kenya",
-      "quote": "For a healthier Internet, the players in this space need to feel comfortable and confident that the information they provide will not be used for maliciously targeted or even criminal activities.",
-      "bio": "- CEO at DataScience LTD\r\n- Director - World Data Lab, Africa",
-      "image": "images/people/linet-kwamboka_1496879807.jpg",
+      "name": "Alan",
+      "role": "Staff",
+      "location": "Portland, ME",
+      "quote": "",
+      "bio": "",
+      "image": "images/people/alan_1498141017.jpg",
       "partnership_logo": "",
-      "twitter_url": "https://twitter.com/LinetData",
-      "linkedin_url": "https://www.linkedin.com/in/linet-kwamboka-7a783b1b/",
+      "twitter_url": "",
+      "linkedin_url": "",
       "interview_url": "",
-      "featured": true,
-      "publish_after": "2017-06-05T12:00:00Z",
+      "featured": false,
+      "publish_after": "2017-06-23T21:09:01Z",
       "expires": null,
-      "order": 5,
+      "order": 32,
       "internet_health_issues": [
-        1
+        3
       ]
     }
   },
   {
     "model": "people.person",
-    "pk": 39,
+    "pk": 46,
     "fields": {
-      "name": "Gigi Sohn",
-      "role": "Tech Policy Fellow",
-      "location": "Washington, DC, USA",
-      "quote": "The Mozilla Tech Policy Fellowship provides me the resources and the community I need to advocate on behalf of open, affordable and democratic communications networks.",
-      "bio": "- Distinguished Fellow at the Georgetown Law Institute for Technology Law & Policy\r\n- Open Society Foundations Leadership in Government Fellow\r\n- Former Counselor to the Chairman of the U.S. Federal Communications Commission, Tom Wheeler",
-      "image": "images/people/gigi-sohn_1496880383.jpg",
+      "name": "pomax",
+      "role": "pomax",
+      "location": "poamx",
+      "quote": "",
+      "bio": "",
+      "image": "images/people/pomax_1498251741.jpg",
       "partnership_logo": "",
-      "twitter_url": "https://twitter.com/gigibsohn",
-      "linkedin_url": "https://www.linkedin.com/in/gigisohn/",
+      "twitter_url": "",
+      "linkedin_url": "",
       "interview_url": "",
-      "featured": true,
-      "publish_after": "2017-06-05T00:01:01Z",
+      "featured": false,
+      "publish_after": "2017-06-23T21:02:07Z",
       "expires": null,
-      "order": 11,
+      "order": 33,
       "internet_health_issues": [
-        1,
-        2,
-        3,
-        5
+        3
       ]
     }
   },
@@ -1675,7 +1625,7 @@
     "model": "people.affiliation",
     "pk": 71,
     "fields": {
-      "name": "Science communicator for the CMS Collaboration at CERN’s Large Hadron Collider",
+      "name": "Science communicator for the CMS Collaboration at CERN\u2019s Large Hadron Collider",
       "person": 25
     }
   },
@@ -1920,54 +1870,6 @@
     }
   },
   {
-    "model": "people.affiliation",
-    "pk": 104,
-    "fields": {
-      "name": "Mozilla Senior Tech Policy Fellow focused on tech policy and transparency.",
-      "person": 36
-    }
-  },
-  {
-    "model": "people.affiliation",
-    "pk": 105,
-    "fields": {
-      "name": "Mozilla Tech Policy Fellow working on a census of healthy Internet policy and strategy.",
-      "person": 37
-    }
-  },
-  {
-    "model": "people.affiliation",
-    "pk": 106,
-    "fields": {
-      "name": "Mozilla Tech Policy Fellow",
-      "person": 38
-    }
-  },
-  {
-    "model": "people.affiliation",
-    "pk": 107,
-    "fields": {
-      "name": "CEO at DataScience LTD",
-      "person": 38
-    }
-  },
-  {
-    "model": "people.affiliation",
-    "pk": 108,
-    "fields": {
-      "name": "Director - World Data Lab, Africa",
-      "person": 38
-    }
-  },
-  {
-    "model": "people.affiliation",
-    "pk": 109,
-    "fields": {
-      "name": "Mozilla Tech Policy Fellow fighting for an open, affordable and democratic Internet.",
-      "person": 39
-    }
-  },
-  {
     "model": "news.news",
     "pk": 1,
     "fields": {
@@ -2079,12 +1981,12 @@
     "model": "news.news",
     "pk": 7,
     "fields": {
-      "headline": "Mozilla planta cara a los ‘trolls’",
-      "outlet": "El País",
+      "headline": "Mozilla planta cara a los \u2018trolls\u2019",
+      "outlet": "El Pa\u00eds",
       "date": "2016-11-03",
       "link": "http://tecnologia.elpais.com/tecnologia/2016/10/31/actualidad/1477905484_625075.html",
       "excerpt": "",
-      "author": "José Mendiola Zuriarrain",
+      "author": "Jos\u00e9 Mendiola Zuriarrain",
       "glyph": "images/news/mozilla-stands-up-to-the-trolls_1490309367.svg",
       "featured": false,
       "publish_after": "2017-04-21T13:39:12Z",
@@ -2223,7 +2125,7 @@
     "model": "news.news",
     "pk": 15,
     "fields": {
-      "headline": "Dieses Verschlüsselungs-Tool lässt eure Texte lächeln",
+      "headline": "This encryption tool can make you smile",
       "outlet": "WIRED Germany",
       "date": "2016-06-29",
       "link": "https://www.wired.de/collection/tech/dieses-verschluesselungs-tool-laesst-eure-texte-laecheln",
@@ -2349,7 +2251,7 @@
     "model": "news.news",
     "pk": 23,
     "fields": {
-      "headline": "Digital Citizens, Let’s Talk About Internet Health",
+      "headline": "Digital Citizens, Let\u2019s Talk About Internet Health",
       "outlet": "Mozilla Internet Citizen",
       "date": "2017-01-19",
       "link": "https://medium.com/mozilla-internet-citizen/digital-citizens-lets-talk-about-internet-health-767860769e7f#.y2fdf3oc7",
@@ -2457,7 +2359,7 @@
     "model": "news.news",
     "pk": 33,
     "fields": {
-      "headline": "How We’re Training Women in Africa to Teach the Web",
+      "headline": "How We\u2019re Training Women in Africa to Teach the Web",
       "outlet": "Read, Write, Participate",
       "date": "2016-07-25",
       "link": "https://medium.com/read-write-participate/mozilla-club-leadership-training-in-nairobi-and-cape-town-cbb9ad2a3f38#.8632npaeu",
@@ -2511,7 +2413,7 @@
     "model": "news.news",
     "pk": 36,
     "fields": {
-      "headline": "Teaching the Web in Kenya’s High Schools",
+      "headline": "Teaching the Web in Kenya\u2019s High Schools",
       "outlet": "Read, Write, Participate",
       "date": "2016-07-25",
       "link": "https://medium.com/read-write-participate/teaching-the-web-in-kenyas-high-schools-4a4ed519485f#.rmikbftq7",
@@ -2583,7 +2485,7 @@
     "model": "news.news",
     "pk": 40,
     "fields": {
-      "headline": "Mozilla: ‘IoT will be the first big battle of 2017,’ calls for responsible IoT",
+      "headline": "Mozilla: \u2018IoT will be the first big battle of 2017,\u2019 calls for responsible IoT",
       "outlet": "Network World",
       "date": "2017-01-05",
       "link": "http://www.networkworld.com/article/3154938/security/mozilla-iot-will-be-the-first-big-battle-of-2017-calls-for-responsible-iot.html",
@@ -2619,7 +2521,7 @@
     "model": "news.news",
     "pk": 42,
     "fields": {
-      "headline": "Worried About Your Online Privacy? Mozilla’s Executive Director Has Tips for You",
+      "headline": "Worried About Your Online Privacy? Mozilla\u2019s Executive Director Has Tips for You",
       "outlet": "Slate",
       "date": "2017-04-03",
       "link": "http://www.slate.com/blogs/future_tense/2017/04/03/worried_about_your_digital_privacy_mozilla_s_executive_director_has_tips.html",
@@ -2697,7 +2599,7 @@
       "link": "https://www.theatlantic.com/education/archive/2016/05/why-south-africas-tech-industry-still-needs-room-to-grow/481335/",
       "excerpt": "",
       "author": "Rebecca Gibian and Diana Crandall",
-      "glyph": "images/news/how-can-south-africa-kickstart-its-tech-industry_1497918754.svg",
+      "glyph": "",
       "featured": false,
       "publish_after": "2017-04-20T13:37:57Z",
       "expires": null,
@@ -2731,587 +2633,29 @@
       "outlet": "BBC",
       "date": "2017-04-17",
       "link": "http://www.bbc.com/news/technology-39371100",
-      "excerpt": "",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis  HSDHJasgdha SHDHjasgdhga SHBHashdgahsd",
       "author": "Jane Wakefield",
       "glyph": "images/news/the-woman-whose-phone-misdiagnosed-hiv_1492475903.svg",
       "featured": false,
       "publish_after": "2017-04-21T13:35:50Z",
       "expires": null,
       "is_video": false,
-      "thumbnail": ""
+      "thumbnail": "images/news/the-woman-whose-phone-misdiagnosed-hiv_thumbnail_1507152335.jpg"
     }
   },
   {
     "model": "news.news",
     "pk": 49,
     "fields": {
-      "headline": "Unlocking the potential of technology",
+      "headline": "Unlocking the potential of technologies",
       "outlet": "BBC",
       "date": "2017-04-27",
       "link": "http://www.bbc.com/news/in-pictures-39630389",
       "excerpt": "",
       "author": "BBC",
-      "glyph": "images/news/unlocking-the-potential-of-technology_1494019095.svg",
+      "glyph": "",
       "featured": false,
       "publish_after": "2017-05-01T16:45:57Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 50,
-    "fields": {
-      "headline": "Internet access is an essential part of life, but the quality of that access can vary wildly",
-      "outlet": "Quartz",
-      "date": "2017-05-05",
-      "link": "https://qz.com/976013/internet-access-is-an-essential-part-of-life-but-the-quality-of-that-access-can-vary-wildly/",
-      "excerpt": "",
-      "author": "Mark Surman",
-      "glyph": "images/news/internet-access-is-an-essential-part-of-life-but-the-quality-of-that-access-can-vary-wildly_1495658339.svg",
-      "featured": false,
-      "publish_after": "2017-05-05T12:49:10Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 51,
-    "fields": {
-      "headline": "Can Cities Protect the Free, Open Internet for Everyone?",
-      "outlet": "New York Magazine",
-      "date": "2017-05-09",
-      "link": "http://nymag.com/selectall/2017/05/mozillas-mark-surman-new-york-is-decentralizing-the-web.html?mid=twitter_nymag",
-      "excerpt": "",
-      "author": "Mark Surman",
-      "glyph": "images/news/can-cities-protect-the-free-open-internet-for-everyone_1495658356.svg",
-      "featured": true,
-      "publish_after": "2017-05-09T16:49:58Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 52,
-    "fields": {
-      "headline": "Mozilla-Chef Mark Surman fordert ethische Standards im Internet",
-      "outlet": "Horizont",
-      "date": "2017-05-09",
-      "link": "http://www.horizont.net/tech/nachrichten/republica-Mozilla-Chef-Mark-Surman-fordert-ethische-Standards-im-Internet-157931",
-      "excerpt": "",
-      "author": "Giuseppe Rondinella",
-      "glyph": "images/news/mozilla-chef-mark-surman-fordert-ethische-standards-im-internet_1495658369.svg",
-      "featured": false,
-      "publish_after": "2017-05-10T15:47:42Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 53,
-    "fields": {
-      "headline": "Maschinen müssen Ethik und Gutmütigkeit lernen",
-      "outlet": "WIRED Germany",
-      "date": "2017-05-11",
-      "link": "https://www.wired.de/video/tech/rp17-maschinen-muessen-ethik-und-gutmuetigkeit-lernen",
-      "excerpt": "",
-      "author": "WIRED Germany",
-      "glyph": "images/news/maschinen-mussen-ethik-und-gutmutigkeit-lernen_1495656468.svg",
-      "featured": false,
-      "publish_after": "2017-05-12T13:17:19Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 54,
-    "fields": {
-      "headline": "Net neutrality is a pivotal moment in a broader movement for a healthy internet",
-      "outlet": "Mashable",
-      "date": "2017-05-18",
-      "link": "http://mashable.com/2017/05/18/net-neutrality-pivotal-moment-broader-movement-mozilla/#apjj4OnPRkq8",
-      "excerpt": "",
-      "author": "Mark Surman",
-      "glyph": "images/news/net-neutrality-is-a-pivotal-moment-in-a-broader-movement-for-a-healthy-internet_1495656401.svg",
-      "featured": true,
-      "publish_after": "2017-05-18T17:16:25Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 55,
-    "fields": {
-      "headline": "Aadhaar isn't progress — it's dystopian",
-      "outlet": "Business Standard",
-      "date": "2017-05-24",
-      "link": "http://www.business-standard.com/article/opinion/aadhaar-isn-t-progress-it-s-dystopian-117052401709_1.html",
-      "excerpt": "",
-      "author": "Mitchell Baker and Ankit Gadgil",
-      "glyph": "images/news/aadhaar-isn-t-progress-it-s-dystopian_1496778254.svg",
-      "featured": false,
-      "publish_after": "2017-05-24T18:57:14Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 56,
-    "fields": {
-      "headline": "A case for taking online protection as seriously as physical defense",
-      "outlet": "The Verge",
-      "date": "2017-06-05",
-      "link": "https://www.theverge.com/2017/6/5/15720882/mozilla-firefox-online-protection-class-physical-defense",
-      "excerpt": "",
-      "author": "Megan Farokhmanesh",
-      "glyph": "images/news/a-case-for-taking-online-protection-as-seriously-as-physical-defense_1496779727.svg",
-      "featured": true,
-      "publish_after": "2017-06-05T19:25:19Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 57,
-    "fields": {
-      "headline": "Increasing Momentum Around Tech Policy",
-      "outlet": "Mozilla Blog",
-      "date": "2017-06-08",
-      "link": "https://blog.mozilla.org/blog/2017/06/08/increasing-momentum-around-tech-policy/",
-      "excerpt": "",
-      "author": "Mark Surman",
-      "glyph": "images/news/increasing-momentum-around-tech-policy_1497914758.svg",
-      "featured": true,
-      "publish_after": "2017-06-09T20:17:57Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 58,
-    "fields": {
-      "headline": "Amazon, Kickstarter, Reddit and Mozilla are staging a net neutrality online protest",
-      "outlet": "The Washington Post",
-      "date": "2017-06-06",
-      "link": "https://www.washingtonpost.com/news/the-switch/wp/2017/06/06/amazon-kickstarter-reddit-and-mozilla-are-staging-a-net-neutrality-online-protest/?utm_term=.cc8093389d67",
-      "excerpt": "",
-      "author": "Brian Fung",
-      "glyph": "images/news/amazon-kickstarter-reddit-and-mozilla-are-staging-a-net-neutrality-online-protest_1497918717.svg",
-      "featured": false,
-      "publish_after": "2017-06-12T16:40:05Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 59,
-    "fields": {
-      "headline": "Matt Mitchell of CryptoHarlem is building an open source tool to help organizations prepare for data breaches",
-      "outlet": "TechCrunch",
-      "date": "2017-06-06",
-      "link": "https://techcrunch.com/2017/06/06/prepare-for-data-breaches/",
-      "excerpt": "",
-      "author": "John Mannes",
-      "glyph": "images/news/matt-mitchell-of-cryptoharlem-is-building-an-open-source-tool-to-help-organizations-prepare-for-data-breaches_1497918701.svg",
-      "featured": false,
-      "publish_after": "2017-06-12T16:41:21Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 60,
-    "fields": {
-      "headline": "Survey Suggests Americans Are Big Fans of Net Neutrality, Which Is Currently Under Threat",
-      "outlet": "Slate",
-      "date": "2017-06-08",
-      "link": "http://www.slate.com/blogs/future_tense/2017/06/08/survey_suggests_americans_are_big_fans_of_net_neutrality.html",
-      "excerpt": "",
-      "author": "Angelica Cabral",
-      "glyph": "images/news/survey-suggests-americans-are-big-fans-of-net-neutrality-which-is-currently-under-threat_1497285827.svg",
-      "featured": false,
-      "publish_after": "2017-06-12T16:42:54Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 61,
-    "fields": {
-      "headline": "Introducing Mozilla’s Web Literacy Leaders",
-      "outlet": "Read, Write, Participate",
-      "date": "2017-06-15",
-      "link": "https://medium.com/read-write-participate/introducing-mozillas-web-literacy-leaders-c7f230d0e4dd",
-      "excerpt": "Mozilla’s Web Literacy Leaders Program is a six-month, cohort-based program designed to build a cadre of learners, teachers, and leaders who become advocates of an open and healthy internet by teaching others core web literacy skills. The cohort will participate in Mozilla-led web literacy trainings and train-the-trainer sessions, deliver training to others, learn to work in the open, participate in the larger Mozilla community, and become web literacy leaders in their professional fields and communities.",
-      "author": "An-Me Chung",
-      "glyph": "images/news/introducing-mozillas-web-literacy-leaders_1497914796.svg",
-      "featured": false,
-      "publish_after": "2017-06-15T09:11:47Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 62,
-    "fields": {
-      "headline": "Futuro da internet será baseado na voz",
-      "outlet": "Folha de S. Paulo",
-      "date": "2017-06-19",
-      "link": "http://www1.folha.uol.com.br/colunas/ronaldolemos/2017/06/1893920-futuro-da-internet-estara-baseado-na-voz.shtml",
-      "excerpt": "",
-      "author": "Ronaldo Lemos",
-      "glyph": "",
-      "featured": false,
-      "publish_after": "2017-06-22T15:41:48Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 63,
-    "fields": {
-      "headline": "Mozilla offering $2M to anyone who can decentralize the web",
-      "outlet": "CNET",
-      "date": "2017-06-23",
-      "link": "https://www.cnet.com/news/mozilla-offering-2m-to-anyone-who-can-decentralize-the-web/#ftag=CAD590a51e",
-      "excerpt": "",
-      "author": "Alfred Ng",
-      "glyph": "images/news/mozilla-offering-2m-to-anyone-who-can-decentralize-the-web_1498234484.svg",
-      "featured": true,
-      "publish_after": "2017-06-23T16:13:47Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 64,
-    "fields": {
-      "headline": "Inside the Mozilla Foundation’s $2 million challenge for wireless tech",
-      "outlet": "Technical.ly Brooklyn",
-      "date": "2017-06-23",
-      "link": "https://technical.ly/brooklyn/2017/06/23/inside-mozilla-foundations-2-million-challenge-wireless-tech/",
-      "excerpt": "",
-      "author": "Tyler Woods",
-      "glyph": "",
-      "featured": false,
-      "publish_after": "2017-06-23T16:34:06Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 65,
-    "fields": {
-      "headline": "Why it’s time for Texas to show support for net neutrality",
-      "outlet": "Austin-American Statesman",
-      "date": "2017-06-29",
-      "link": "http://www.mystatesman.com/news/opinion/commentary-why-time-for-texas-show-support-for-net-neutrality/tQ56AiclwhQgOSFboZZR7M/",
-      "excerpt": "",
-      "author": "Mark Surman and Ron Yokubaitis",
-      "glyph": "",
-      "featured": false,
-      "publish_after": "2017-07-03T12:33:26Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 66,
-    "fields": {
-      "headline": "Mozilla’s first-ever podcast will delve into ransomeware, hacking, net neutrality, and everyday life on the internet",
-      "outlet": "Fast Company",
-      "date": "2017-07-05",
-      "link": "https://news.fastcompany.com/mozillas-first-ever-podcast-will-delve-into-ransomeware-hacking-net-neutrality-and-everyday-life-on-the-internet-4042472",
-      "excerpt": "",
-      "author": "Melissa Locker",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-07-10T13:17:02Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 67,
-    "fields": {
-      "headline": "Chattanoogan makes Mozilla list of 50 people who made Internet better last year",
-      "outlet": "Chattanooga Times Free Press",
-      "date": "2017-07-01",
-      "link": "http://www.timesfreepress.com/news/edge/story/2017/jul/01/young-guns-gemillener/435788/",
-      "excerpt": "",
-      "author": "Tim Omarzu",
-      "glyph": "",
-      "featured": false,
-      "publish_after": "2017-07-10T13:18:29Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 68,
-    "fields": {
-      "headline": "Net neutrality backers fight back",
-      "outlet": "CNET",
-      "date": "2017-07-12",
-      "link": "https://www.cnet.com/news/net-neutrality-backers-fight-back/",
-      "excerpt": "",
-      "author": "Marguerite Reardon",
-      "glyph": "images/news/net-neutrality-backers-fight-back_1500297429.svg",
-      "featured": false,
-      "publish_after": "2017-07-17T13:14:29Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 69,
-    "fields": {
-      "headline": "This Video Features 9 Hours of Pro-Net Neutrality Comments Read in a Soothing Voice",
-      "outlet": "VICE",
-      "date": "2017-07-11",
-      "link": "https://motherboard.vice.com/en_us/article/mba9gp/this-video-features-9-hours-of-pro-net-neutrality-comments-read-in-a-soothing-voice",
-      "excerpt": "",
-      "author": "Louise Matsakis",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-07-17T13:17:15Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 70,
-    "fields": {
-      "headline": "Mozilla is crowdsourcing a massive speech-recognition system",
-      "outlet": "Fast Company",
-      "date": "2017-07-17",
-      "link": "https://news.fastcompany.com/mozilla-is-crowdsourcing-a-massive-speech-recognition-system-4043612",
-      "excerpt": "",
-      "author": "Sean Captain",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-07-24T12:30:37Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 71,
-    "fields": {
-      "headline": "An ad-supported internet isn’t going to be sustainable in emerging markets",
-      "outlet": "Quartz",
-      "date": "2017-08-01",
-      "link": "https://qz.com/1042994/an-ad-supported-internet-isnt-going-to-be-sustainable-in-emerging-markets/",
-      "excerpt": "",
-      "author": "Mark Surman and Bryan Pon",
-      "glyph": "images/news/an-ad-supported-internet-isnt-going-to-be-sustainable-in-emerging-markets_1501596602.svg",
-      "featured": false,
-      "publish_after": "2017-08-01T14:08:43Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 72,
-    "fields": {
-      "headline": "We’re not teaching the web correctly",
-      "outlet": "Brookings Institution",
-      "date": "2017-08-03",
-      "link": "https://www.brookings.edu/opinions/were-not-teaching-the-web-correctly/",
-      "excerpt": "",
-      "author": "Mark Surman and Meghan McDermott",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-08-04T18:51:30Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 73,
-    "fields": {
-      "headline": "Mozilla’s EU Policy Manager: EU’s Copyright Reform is ‘a dysfunctional proposal’",
-      "outlet": "The Next Web",
-      "date": "2017-08-03",
-      "link": "https://thenextweb.com/eu/2017/08/03/mozilla-exec-eus-copyright-reform-is-a-dysfunctional-proposal/#.tnw_vnlASTuu",
-      "excerpt": "",
-      "author": "Már Másson Maack",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-08-04T18:53:39Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 74,
-    "fields": {
-      "headline": "Mozilla rolls out new initiative to fight 'fake news'",
-      "outlet": "Washington Examiner",
-      "date": "2017-08-09",
-      "link": "http://www.washingtonexaminer.com/mozilla-rolls-out-new-initiative-to-fight-fake-news/article/2631056",
-      "excerpt": "",
-      "author": "Melissa Quinn",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-08-10T13:20:24Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 75,
-    "fields": {
-      "headline": "Here's how we'll measure Internet health",
-      "outlet": "Internet Health Report",
-      "date": "2017-08-18",
-      "link": "https://internethealthreport.org/2017/08/09/here-is-how-well-measure-internet-health/",
-      "excerpt": "",
-      "author": "Solana Larsen",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-08-18T19:10:25Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 76,
-    "fields": {
-      "headline": "The Coral Project talked to more than 150 global newsrooms about building better communities. Here’s what it found.",
-      "outlet": "Poynter",
-      "date": "2017-08-11",
-      "link": "http://www.poynter.org/2017/the-coral-project-talked-to-more-than-150-global-newsrooms-about-building-better-communities-heres-what-it-found/470091/",
-      "excerpt": "",
-      "author": "Daniel Funke",
-      "glyph": "",
-      "featured": false,
-      "publish_after": "2017-08-28T14:20:13Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 77,
-    "fields": {
-      "headline": "10 Black innovators Making Waves in Kansas City",
-      "outlet": "Huffington Post",
-      "date": "2017-08-18",
-      "link": "http://www.huffingtonpost.com/entry/10-black-innovators-making-waves-in-kansas-city_us_59973fefe4b03b5e472cef5e",
-      "excerpt": "",
-      "author": "Felecia Hatcher",
-      "glyph": "",
-      "featured": true,
-      "publish_after": "2017-09-01T17:26:07Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 78,
-    "fields": {
-      "headline": "From civil to cesspool: Local news battles offensive comments",
-      "outlet": "Columbia Journalism Review",
-      "date": "2017-08-31",
-      "link": "https://www.cjr.org/united_states_project/comments-trolling-post-and-courier.php",
-      "excerpt": "",
-      "author": "Corey Hutchins",
-      "glyph": "images/glyphs/favicon-152.png",
-      "featured": true,
-      "publish_after": "2017-09-01T17:28:49Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 79,
-    "fields": {
-      "headline": "The Washington Post starts using Talk, an open-source tool for improving online comments",
-      "outlet": "journalism.co.uk",
-      "date": "2017-09-06",
-      "link": "https://www.journalism.co.uk/news/the-washington-post-starts-using-talk-an-open-source-tool-for-improving-online-comments/s2/a709821/",
-      "excerpt": "",
-      "author": "Mădălina Ciobanu",
-      "glyph": "",
-      "featured": false,
-      "publish_after": "2017-09-08T20:24:52Z",
-      "expires": null,
-      "is_video": false,
-      "thumbnail": ""
-    }
-  },
-  {
-    "model": "news.news",
-    "pk": 80,
-    "fields": {
-      "headline": "22x20 Campaign teaches teens to spot fake news ahead of 2020 election",
-      "outlet": "Metro",
-      "date": "2017-09-15",
-      "link": "https://www.metro.us/news/local-news/new-york/22x20-teaches-teens-to-spot-fake-news-2020-election",
-      "excerpt": "",
-      "author": "Nikki M. Mascali",
-      "glyph": "",
-      "featured": false,
-      "publish_after": "2017-09-18T17:06:56Z",
       "expires": null,
       "is_video": false,
       "thumbnail": ""
