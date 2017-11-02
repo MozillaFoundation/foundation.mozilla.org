@@ -20,8 +20,9 @@ html
     meta(property=`og:type`, content=`website`)
     meta(property=`og:site_name`, content=`${strings.MLN}`)
     meta(property=`og:locale`, content=`en_US`)
-    meta(property=`og:url`, content=`https://${env.TARGET_DOMAIN}${target}`)
+    meta(property=`og:url`, content=`https://foundation.mozilla.org${target}`)
     meta(property=`og:title`, content=`${strings.MLN} – ${pageTitle}`)
+    meta(property=`og:image`, content=`https://foundation.mozilla.org/_images/og.jpg`)
 
     link(rel=`stylesheet`, href!=`${baseURL || `/`}_css/main.compiled.css`)
     link(rel=`stylesheet`, href=`//code.cdn.mozilla.net/fonts/fira.css`)
