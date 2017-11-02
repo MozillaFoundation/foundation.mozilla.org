@@ -7,12 +7,12 @@ let environment = require(`../env.json`);
 
 let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 
-function buildPage(template, target, extraData, hasExternalTarget = false) {
+function buildPage(template, target, extraData, isDjangoTemplate = false) {
   let viewData = {
     env: environment,
     strings: propertiesToObject(rawStrings.toString()),
     templateID: template,
-    target: target,
+    target: isDjangoTemplate ? `{{ page.get_absolute_url }}` : target,
     data: extraData,
     moment: moment
   };
@@ -23,7 +23,7 @@ function buildPage(template, target, extraData, hasExternalTarget = false) {
 
   let html = fn(viewData);
 
-  if (!hasExternalTarget) {
+  if (!isDjangoTemplate) {
     let path = `network-api/app/networkapi/frontend${target}`;
 
     shelljs.mkdir(`-p`, path);
