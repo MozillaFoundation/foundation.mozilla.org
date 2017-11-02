@@ -11,7 +11,7 @@ mixin projects(name, description, url, projectData)
 
 mixin project(meta)
   .col-sm-12.col-md-6.mb-4.mb-md-0
-    a.pulse-project(href=`https://${env.PULSE_DOMAIN}/entry/${meta.id}?utm_source=mozillaNetwork&utm_medium=referral`)
+    a.pulse-project(href=`https://www.mozillapulse.org/entry/${meta.id}?utm_source=mozillaNetwork&utm_medium=referral`)
       img.project-image(src=meta.thumbnail)
       h5.h5-black.my-2=meta.title
     if meta.related_creators.length

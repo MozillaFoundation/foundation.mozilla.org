@@ -3,13 +3,10 @@ let pug = require(`pug`);
 let shelljs = require(`shelljs`);
 let moment = require(`moment`);
 
-let environment = require(`../env.json`);
-
 let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 
 function buildPage(template, target, extraData, isDjangoTemplate = false) {
   let viewData = {
-    env: environment,
     strings: propertiesToObject(rawStrings.toString()),
     templateID: template,
     target: isDjangoTemplate ? `{{ page.get_absolute_url }}` : target,
