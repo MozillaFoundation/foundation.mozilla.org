@@ -54,29 +54,29 @@ export default class Person extends React.Component {
               <div className="row">
                 <div ref="quoteContent" className="col-12 quote-content d-flex pt-3">
                   <div className="col">
-                      <div className="row my-5">
-                        <div className="person-quote quote-small">{this.props.metadata.quote}</div>
-                      </div>
-                      <div className="row">
-                        <div className="quote-attribution">
-                          {metaBlock}
-                          <div className="person-issues mb-2">{issues}</div>
-                          <div className="small-gray">{this.props.metadata.affiliations[0]}</div>
-                          {this.props.metadata.partnership_logo &&
-                            <div className="my-1">
-                              <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
-                            </div>
-                          }
-                        </div>
-                      </div>
-                      <div className="row person-social-links mt-3 justify-content-between">
-                        <div>{socialLinks}</div>
-                        {this.props.metadata.links.interview &&
-                        <div>
-                          <a className="cta-link" href={this.props.metadata.links.interview}>Read Interview</a>
-                        </div>
+                    <div className="row my-5">
+                      <div className="person-quote quote-small">{this.props.metadata.quote}</div>
+                    </div>
+                    <div className="row">
+                      <div className="quote-attribution">
+                        {metaBlock}
+                        <div className="person-issues mb-2">{issues}</div>
+                        <div className="small-gray">{this.props.metadata.affiliations[0]}</div>
+                        {this.props.metadata.partnership_logo &&
+                          <div className="my-1">
+                            <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
+                          </div>
                         }
                       </div>
+                    </div>
+                    <div className="row person-social-links mt-3 justify-content-between">
+                      <div>{socialLinks}</div>
+                      {this.props.metadata.links.interview &&
+                      <div>
+                        <a className="cta-link" href={this.props.metadata.links.interview}>Read Interview</a>
+                      </div>
+                      }
+                    </div>
                   </div>
                 </div>
               </div>

@@ -20,8 +20,8 @@ let fetchJSON = (shortName, source) => {
   });
 };
 
-fetchJSON(`pulse-privacy`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Online%20Privacy%20%26%20Security&featured=True&ordering=-created`);
-fetchJSON(`pulse-innovation`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Open%20Innovation&featured=True&ordering=-created`);
-fetchJSON(`pulse-inclusion`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Digital%20Inclusion&featured=True&ordering=-created`);
-fetchJSON(`pulse-decentralization`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Decentralization&featured=True&ordering=-created`);
-fetchJSON(`pulse-literacy`, `https://${environment[`PULSE_API_DOMAIN`]}/api/pulse/entries/?issue=Web%20Literacy&featured=True&ordering=-created`);
+fetchJSON(`pulse-privacy`, `https://${environment.PULSE_API_DOMAIN}/api/pulse/entries/?issue=Online%20Privacy%20%26%20Security&featured=True&ordering=-created`);
+fetchJSON(`pulse-innovation`, `https://${environment.PULSE_API_DOMAIN}/api/pulse/entries/?issue=Open%20Innovation&featured=True&ordering=-created`);
+fetchJSON(`pulse-inclusion`, `https://${environment.PULSE_API_DOMAIN}/api/pulse/entries/?issue=Digital%20Inclusion&featured=True&ordering=-created`);
+fetchJSON(`pulse-decentralization`, `https://${environment.PULSE_API_DOMAIN}/api/pulse/entries/?issue=Decentralization&featured=True&ordering=-created`);
+fetchJSON(`pulse-literacy`, `https://${environment.PULSE_API_DOMAIN}/api/pulse/entries/?issue=Web%20Literacy&featured=True&ordering=-created`);
