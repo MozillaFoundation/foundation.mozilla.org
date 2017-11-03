@@ -91,30 +91,30 @@ export default class JoinUs extends React.Component {
                 : <p>{this.props.thankYouMessage}</p>
               }
             </div>
-          { !this.state.signupSuccess &&
-          <div className="col join-form">
-            <form onSubmit={this.submitForm}>
-              <div className={inputGroupClass}>
-                <div className="mb-2">
-                  <input type="email" className="form-control" placeholder="EMAIL ADDRESS" ref="email" onFocus={this.onInputFocus}/>
+            { !this.state.signupSuccess &&
+            <div className="col join-form">
+              <form onSubmit={this.submitForm}>
+                <div className={inputGroupClass}>
+                  <div className="mb-2">
+                    <input type="email" className="form-control" placeholder="EMAIL ADDRESS" ref="email" onFocus={this.onInputFocus}/>
+                  </div>
+                  {this.state.userSubmitted && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
+                  {this.state.signupFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
                 </div>
-                {this.state.userSubmitted && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
-                {this.state.signupFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
-              </div>
-              <div className={privacyClass}>
-                <label className="form-check-label mb-4">
-                  <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
-                  <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
-                  {this.state.userSubmitted && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
-                </label>
-                <div>
-                  <button className="btn btn-normal join-btn">Sign Up</button>
+                <div className={privacyClass}>
+                  <label className="form-check-label mb-4">
+                    <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
+                    <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
+                    {this.state.userSubmitted && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
+                  </label>
+                  <div>
+                    <button className="btn btn-normal join-btn">Sign Up</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
+            }
           </div>
-          }
-        </div>
         </div>
       </div>
     );
