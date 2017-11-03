@@ -29,7 +29,7 @@
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/**/*.js source/js/**/*.js source/js/components/**/*.jsx",
     "test:pug": "pug-lint source/pug/partials/ source/pug/templates/ source/pug/partials/",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/components/**/*.scss\" --syntax scss",
-    "test": "npm run build && run-s test:**",
+    "test": "run-s test:**",
     "watch:images": "chokidar 'source/images/**/*' -c 'npm run build:images'",
     "watch:js": "chokidar 'source/js/**/*.js' 'source/js/**/*.jsx' -c 'npm run build:js-uncompressed'",
     "watch:pug": "chokidar 'source/pug/**/*.pug' 'locales/**/*.properties' 'source/json/**/*.json' -c 'npm run build:pug'",
