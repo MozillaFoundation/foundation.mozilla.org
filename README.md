@@ -198,10 +198,6 @@ The domain used to fetch static content from Network Pulse can be customized by 
 
 The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://network.mofoprod.net`. NOTE: this variable must include a protocol (such as `https://`)
 
-When the build runs, a file `env.json` is created in the root, which is the result of merging `.env` and `env.default` and converting the result to JSON. Values declared in `.env` take precedence.
-
-If you wish to use environment variables in either Node or client-side code, you can simply require `env.json`.
-
 ---
 ### Security
 
