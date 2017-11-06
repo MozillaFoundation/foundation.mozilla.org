@@ -1,4 +1,5 @@
-let env = require(`../env.json`);
+require(`dotenv`).config();
+
 let request = require(`request`);
 let shell = require(`shelljs`);
 
@@ -51,17 +52,17 @@ console.log(`</pre>`);
 console.log(`<h2 class="mb-3">Environmental Variables</h2>`);
 
 console.log(`<pre class="mb-4">`);
-console.log(`PULSE_API_DOMAIN: ${env.PULSE_API_DOMAIN}`);
-console.log(`PULSE_DOMAIN: ${env.PULSE_DOMAIN}`);
-console.log(`NETWORK_API_DOMAIN: ${env.NETWORK_API_DOMAIN}`);
-console.log(`TARGET_DOMAIN: ${env.TARGET_DOMAIN}`);
+console.log(`PULSE_API_DOMAIN: ${process.env.PULSE_API_DOMAIN}`);
+console.log(`PULSE_DOMAIN: ${process.env.PULSE_DOMAIN}`);
+console.log(`NETWORK_API_DOMAIN: ${process.env.NETWORK_API_DOMAIN}`);
+console.log(`TARGET_DOMAIN: ${process.env.TARGET_DOMAIN}`);
 console.log(`</pre>`);
 
 // Add links to changelog and upcoming commit list
 
 let data;
 
-request(env.JENKINS_API, (error, response, body) => {
+request(process.env.JENKINS_API, (error, response, body) => {
   if (!error && response.statusCode === 200) {
     data = JSON.parse(body);
 

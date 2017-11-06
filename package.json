@@ -6,7 +6,7 @@
   "description": "Mozilla Network",
   "scripts": {
     "autoprefix": "postcss --use autoprefixer -o network-api/networkapi/frontend/_css/main.compiled.css network-api/networkapi/frontend/_css/main.compiled.css",
-    "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && npm run build:env && npm run fetch && run-p build:images build:pug build:sass && npm run build:contribute",
+    "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && npm run fetch && run-p build:images build:pug build:sass && npm run build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
     "build:healthcheck": "node scripts/build-healthcheck.js > network-api/networkapi/frontend/healthcheck.html",
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
@@ -14,7 +14,6 @@
     "build:js": "webpack -p",
     "build:pug": "node scripts/build-pug.js",
     "build:sass": "shx mkdir -p network-api/networkapi/frontend/_css && node-sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && npm run autoprefix",
-    "build:env": "node scripts/build-env.js",
     "build": "npm run build:common && npm run build:js",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
     "fetch": "node scripts/fetch-json.js",
