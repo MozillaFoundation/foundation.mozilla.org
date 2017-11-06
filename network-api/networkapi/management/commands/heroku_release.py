@@ -5,7 +5,7 @@ from mezzanine.conf import settings
 
 class Command(BaseCommand):
     help = 'migrate the database if needed, and optionally seed' \
-        'the database using app/networkapi/fixtures/test_data.json'
+        'the database using networkapi/fixtures/test_data.json'
 
     def handle(self, *args, **options):
 
@@ -13,4 +13,4 @@ class Command(BaseCommand):
 
         if settings.LOAD_FIXTURE:
             call_command('update_site_domain')
-            call_command('loaddata', 'app/networkapi/fixtures/test_data.json')
+            call_command('loaddata', './networkapi/fixtures/test_data.json')

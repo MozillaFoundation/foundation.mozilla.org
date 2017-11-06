@@ -1,7 +1,7 @@
 module.exports = {
   entry: `./source/js/main.js`,
   output: {
-    filename: `./network-api/app/networkapi/frontend/_js/main.compiled.js`
+    filename: `./network-api/networkapi/frontend/_js/main.compiled.js`
   },
   module: {
     loaders: [

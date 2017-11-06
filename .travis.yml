@@ -9,12 +9,13 @@ before_install:
 install:
 - pip install -r requirements.txt
 - npm install
+- python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
 script:
 - npm test
-- flake8 network-api/app
-- python network-api/app/manage.py test
+- flake8 network-api/
+- python network-api/manage.py test
 env:
   global:
   - DEBUG=True

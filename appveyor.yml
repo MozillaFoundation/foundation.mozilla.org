@@ -39,14 +39,15 @@ install:
   - "virtualenv network -p %PYTHON%/python.exe"
   - "./network/Scripts/activate"
   - "pip install -r requirements.txt"
+  - "python network-api/manage.py collectstatic --no-input"
 
 test_script:
   - node --version
   - npm --version
   - npm test
   - "./network/Scripts/activate"
-  - "flake8 network-api/app"
-  - "python network-api/app/manage.py test"
+  - "flake8 network-api/"
+  - "python network-api/manage.py test"
 
 
 clone_depth: 1

@@ -101,13 +101,13 @@ ENV/
 **/.DS_Store
 
 # Static files from python manage.py collectstatic
-network-api/app/staticfiles/
+network-api/staticfiles/
 
 # Storage for user generated files
-network-api/app/media/
+network-api/media/
 
 # SQLite3 databases for local development
 **/*.sqlite3
 
 # Compiled Frontend
-network-api/app/networkapi/frontend/*
+network-api/networkapi/frontend/*
