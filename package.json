@@ -14,7 +14,7 @@
     "build:js": "webpack -p",
     "build:pug": "node scripts/build-pug.js",
     "build:sass": "shx mkdir -p network-api/networkapi/frontend/_css && node-sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && npm run autoprefix",
-    "build": "npm run build:common && npm run build:js",
+    "build": "npm run build:common && npm run build:js && npm run build:healthcheck",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
     "fetch": "node scripts/fetch-json.js",
     "heroku-postbuild": "npm run build",

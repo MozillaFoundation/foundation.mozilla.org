@@ -1,6 +1,5 @@
 require(`dotenv`).config();
 
-let request = require(`request`);
 let shell = require(`shelljs`);
 
 const Entities = require(`html-entities`).AllHtmlEntities;
@@ -54,29 +53,16 @@ console.log(`<h2 class="mb-3">Environmental Variables</h2>`);
 console.log(`<pre class="mb-4">`);
 console.log(`PULSE_API_DOMAIN: ${process.env.PULSE_API_DOMAIN}`);
 console.log(`PULSE_DOMAIN: ${process.env.PULSE_DOMAIN}`);
-console.log(`NETWORK_API_DOMAIN: ${process.env.NETWORK_API_DOMAIN}`);
+console.log(`NETWORK_SITE_URL: ${process.env.NETWORK_SITE_URL}`);
 console.log(`TARGET_DOMAIN: ${process.env.TARGET_DOMAIN}`);
 console.log(`</pre>`);
 
-// Add links to changelog and upcoming commit list
+// Add links to upcoming commit list
 
-let data;
+let latestLocalCommitHash = shell.exec(`git rev-parse HEAD`, {silent: true}).toString().trim();
 
-request(process.env.JENKINS_API, (error, response, body) => {
-  if (!error && response.statusCode === 200) {
-    data = JSON.parse(body);
+console.log(`<h2 class="mb-3">Change Sets</h2>`);
 
-    let lastDeployedCommitHash = data.commitId;
-    let latestLocalCommitHash = shell.exec(`git rev-parse HEAD`, {silent: true}).toString().trim();
-
-    console.log(`<h2 class="mb-3">Change Sets</h2>`);
-
-    console.log(`<ul>`);
-    console.log(`<li><a href="https://github.com/mozilla/network/compare/${lastDeployedCommitHash}...${latestLocalCommitHash}"><strong>Changelog</strong></a></li>`);
-    console.log(`<li><a href="https://github.com/mozilla/network/compare/${latestLocalCommitHash}...master"><strong>Upcoming Changes</strong></a></li>`);
-    console.log(`</ul>`);
-  } else {
-    console.log(`Failed to pull Jenkins JSON`);
-    shell.exit(1);
-  }
-});
+console.log(`<ul>`);
+console.log(`<li><a href="https://github.com/mozilla/network/compare/${latestLocalCommitHash}...master"><strong>Upcoming Changes</strong></a></li>`);
+console.log(`</ul>`);
