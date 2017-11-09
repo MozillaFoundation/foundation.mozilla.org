@@ -1,4 +1,4 @@
-# Mozilla Network
+# foundation.mozilla.org
 
 [![Build Status](https://travis-ci.org/mozilla/network.svg?branch=master)](https://travis-ci.org/mozilla/network)
 [![Dependency Status](https://david-dm.org/mozilla/network.svg)](https://david-dm.org/mozilla/network)
@@ -172,13 +172,13 @@ Using the `static` tag in templates is supposed both in Django and Mezzanine, bu
 
 Builds to staging are triggered by commits to `master`.
 
-Staging URL is [network.mofostaging.net](https://network.mofostaging.net)
+Staging URL is [foundation.mofostaging.net](https://foundation.mofostaging.net)
 
 #### Production
 
-Production deployments are triggered by commits to `production`. Pull Requests to production must recieve approval from one of the core development team, and must pass all tests.
+Production deployments are done by promoting Staging in the Heroku pipeline.
 
-Production URL is [network.mozilla.org](https://network.mozilla.org)
+Production URL is [foundation.mozilla.org](https://foundation.mozilla.org)
 
 ##### Healthcheck
 
