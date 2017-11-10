@@ -180,10 +180,6 @@ Production deployments are done by promoting Staging in the Heroku pipeline.
 
 Production URL is [foundation.mozilla.org](https://foundation.mozilla.org)
 
-##### Healthcheck
-
-A healthcheck route that indicates the most recent commit and other useful information is accessible on `/healthcheck.html`.
-
 ##### Domain Redirect
 
 Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLWARE_ENABLED` to `True`. This will enable a middleware function that checks every request, and return a 307 redirect to `TARGET_DOMAIN` if the host header does not match it.
