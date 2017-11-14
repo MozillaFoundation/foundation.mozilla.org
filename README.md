@@ -13,7 +13,7 @@
 
 Run the following terminal commands to get started:
 
-- `git clone https://github.com/mozilla/network.git`
+- `git clone https://github.com/mozilla/foundation.mozilla.org.git`
 - `cd network`
 - `cp env.default .env`
 
