@@ -22,15 +22,17 @@ Install npm dependencies and build the static parts of the site by running the f
 - `npm install`
 - `npm run build`
 
+Switch into the `network-api` sub-directory:
+
+- `cd network-api`
+
 Next, create a virtual environment using either `virtualenv` or `python3`'s virtual environment invocation. For the purposes of this README.md it is assumed you called this virtual environment `venv`.
 
 #### Important note for systems with python *and* python3
 
 In order to make sure your virtual environment will be using python 3.x you will have to explicitly tell the system it should use point to `python3` whenever it invokes python:
 
-```
-$ virtualenv -p python3 venv
-```
+- `virtualenv -p python3 venv`
 
 #### Bootstrap the virtual environment
 
@@ -43,23 +45,22 @@ Activate the virtual environment:
 
 Install all dependencies into the virtual environment:
 
-```bash
-pip install -r requirements.txt
-```
+- `pip install -r ../requirements.txt`
 
 #### Run migrate and load fixtures
 
+
 Migrate the database to the latest schema:
 
-- `python ./manage.py migrate`
-
-Mock data can be loaded into your dev site with the following command
-
-- `python ./manage.py loaddata network-api/networkapi/fixtures/test_data.json`
+- `python manage.py migrate`
 
 By default, Django sets the site domain to `example.com`, but the mock data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
 
-- `python ./manage.py update_site_domain`
+- `python manage.py update_site_domain`
+
+Mock data can be loaded into your dev site with the following command
+
+- `python manage.py loaddata networkapi/fixtures/test_data.json`
 
 This will set up a default superuser account for you to use:
 
@@ -71,19 +72,23 @@ This will set up a default superuser account for you to use:
 If you'd prefer not to load in the fixture data, you can use the following commands to get started:
 
 ```bash
-python ./manage.py migrate
-python ./manage.py createsuperuser
+python manage.py migrate
+python manage.py createsuperuser
 ```
 
 #### Running the server
 
 You can run the development server using the following command
 
-- `python manage.py network-api/manage.py runserver`
+- `python manage.py runserver`
 
 The site should now be accessible at `https://localhost:8000`
 
 To log in to the admin UI, visit: http://localhost:8000/admin
+
+#### Running the project for front-end development
+
+- At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to Pug, JS, and Sass files.
 
 ---
 
