@@ -13,8 +13,8 @@
 
 Run the following terminal commands to get started:
 
-- `git clone https://github.com/mozilla/network.git`
-- `cd network`
+- `git clone https://github.com/mozilla/foundation.mozilla.org.git`
+- `cd foundation.mozilla.org`
 - `cp env.default .env`
 
 Install npm dependencies and build the static parts of the site by running the following commands:
