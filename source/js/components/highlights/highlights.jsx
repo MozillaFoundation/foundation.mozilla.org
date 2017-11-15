@@ -16,7 +16,7 @@ export default class Highlights extends React.Component {
           <h5 className="h4-light-black">{item.title}</h5>
           <p className="body-black">{item.description}</p>
           <a className="cta-link" href={item.link_url}>{item.link_label}</a>
-          { index < array.length && <hr/> }
+          { index < array.length - 1 && <hr/> }
         </div>
       );
     });
