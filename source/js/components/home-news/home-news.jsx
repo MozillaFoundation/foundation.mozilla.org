@@ -30,7 +30,7 @@ export default class HomeNews extends React.Component {
     };
 
     let unfeaturedNews = this.props.data.slice(1).map((item, index, array) => {
-      return newsItem(item, false, index, index < array.length);
+      return newsItem(item, false, index, index < array.length - 1);
     });
 
     let featuredNews = this.props.data[0];
