@@ -35,21 +35,21 @@ export default class Upcoming extends React.Component {
     let data = this.state.events;
 
     let futureEvents = data.filter((event) => {
-      return event.start_date === null || moment(event.start_date).isAfter(Date.now());
+      return event.start_date === null || moment(event.start_date).isSameOrAfter(Date.now(), `month`);
     });
 
     // Sort chronologically
     futureEvents.sort((a, b) => {
-      return a.start_date > b.start_date;
+      return new Date(a.start_date) - new Date(b.start_date);
     });
 
     let pastEvents = data.filter((event) => {
-      return moment(event.start_date).isBefore(Date.now());
+      return moment(event.start_date).isBefore(Date.now(), `month`);
     });
 
     // Sort reverse-chronologically
     pastEvents.sort((a, b) => {
-      return a.start_date < b.start_date;
+      return new Date(b.start_date) - new Date(a.start_date);
     });
 
     let buildEvent = (meta, key) => {
