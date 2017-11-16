@@ -197,7 +197,7 @@ Default environment variables are declared in `env.default`. If you wish to over
 
 The domain used to fetch static content from Network Pulse can be customized by specifying `PULSE_API_DOMAIN`. By default it uses `network-pulse-api-production.herokuapp.com`.
 
-The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://network.mofoprod.net`. NOTE: this variable must include a protocol (such as `https://`)
+The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. NOTE: this variable must include a protocol (such as `https://`)
 
 ---
 ### Security
