@@ -28,6 +28,7 @@ env = environ.Env(
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_REGEX_WHITELIST=(tuple, ()),
+    HEROKU_APP_NAME=(str, ''),
     CORS_WHITELIST=(tuple, ()),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
