@@ -41,25 +41,18 @@ a {
   line-height: 1.5;
 }
 
-.h1-home-white {
-  font-family: "Zilla Slab";
-  font-weight: 900;
-  mix-blend-mode: multiply;
-
-  @include scaleText(36px, 48px);
-  @include black-box-white-text;
-}
-
 .h1-white {
   font-family: "Zilla Slab";
-  font-weight: 100;
+  font-weight: 600;
   letter-spacing: 0;
+  line-height: 1.2;
 
-  @include scaleText(36px, 48px);
-  @include black-box-white-text;
+  @include scaleText(36px, 56px);
 }
 
 .h2-headings-white {
+  font-family: "Zilla Slab";
+  font-weight: 300;
   letter-spacing: 1px;
 
   @include scaleText(18px, 24px);
@@ -128,11 +121,11 @@ a {
 
 .h5-black {
   font-family: "Zilla Slab";
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.25px;
   line-height: 1.333;
 
-  @include scaleText(18px, 20px);
+  @include scaleText(20px, 22px);
 }
 
 .h6-gray {
