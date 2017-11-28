@@ -23,6 +23,10 @@
     &::before {
       filter: opacity(40%);
     }
+
+    &:hover::before {
+      filter: opacity(60%);
+    }
   }
 
   &.small {
