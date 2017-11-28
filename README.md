@@ -5,6 +5,26 @@
 [![Dev Dependency Status](https://david-dm.org/mozilla/network/dev-status.svg)](https://david-dm.org/mozilla/network/?type=dev)
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
 
+ToC - (TABLE OF CONTENTS)
+=========================
+
+* [Development](#development)
+* [Setup](#setup)
+* [Stack](#stack)
+* [HTML](#html)
+* [CSS](#css)
+* [React](#react)
+* [File Structure](#file-structure)
+* [Deployment](#deployment)
+* [Staging](#staging)
+* [Production](#production)
+* [Healthcheck](#healthcheck)
+* [Environment Variables](#environment-variables)
+* [Security](#security)
+* [Resolving an Issue](#resolving-an-issue)
+* [Unpatched Vulnerabilities](#unpatched-vulnerabilities)
+
+
 ## Development
 
 ### Setup
