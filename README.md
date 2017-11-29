@@ -49,7 +49,6 @@ Install all dependencies into the virtual environment:
 
 #### Run migrate and load fixtures
 
-
 Migrate the database to the latest schema:
 
 - `python manage.py migrate`
