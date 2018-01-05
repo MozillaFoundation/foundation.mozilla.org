@@ -1,30 +1,7 @@
-from django.test import TestCase
-import factory
-import datetime
 import json
-from faker import Factory as FakerFactory
-from networkapi.highlights.models import Highlight
 
-
-faker = FakerFactory.create()
-
-
-class HighlightFactory(factory.DjangoModelFactory):
-
-    title = factory.LazyAttribute(
-        lambda o: 'title '+' '.join(faker.words(nb=1))
-    )
-    description = factory.LazyAttribute(
-        lambda o: 'description '+''.join(faker.sentence(nb_words=20))
-    )
-    link_url = 'http://example.org/image.png'
-    link_label = factory.LazyAttribute(
-        lambda o: faker.words(nb=2)
-    )
-    publish_after = datetime.datetime.now()
-
-    class Meta:
-        model = Highlight
+from django.test import TestCase
+from networkapi.highlights.factory import HighlightFactory
 
 
 def setup_highlights(test):
