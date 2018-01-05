@@ -2,6 +2,7 @@ import factory
 
 from networkapi.news.models import News
 
+
 class NewsFactory(factory.django.DjangoModelFactory):
 
     class Meta:
@@ -9,5 +10,5 @@ class NewsFactory(factory.django.DjangoModelFactory):
 
     headline = factory.Faker('sentence')
     outlet = factory.Faker('sentence', nb_words=4)
-    date = factory.Faker('date_time_this_century')
+    date = factory.Faker('past_date')
     link = factory.Faker('url')
