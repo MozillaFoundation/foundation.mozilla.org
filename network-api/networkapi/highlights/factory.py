@@ -1,4 +1,5 @@
 import factory
+from factory.django import DjangoModelFactory
 
 from networkapi.utility.utc import UTC
 from networkapi.highlights.models import Highlight
@@ -6,7 +7,7 @@ from networkapi.highlights.models import Highlight
 utc = UTC()
 
 
-class HighlightFactory(factory.django.DjangoModelFactory):
+class HighlightFactory(DjangoModelFactory):
     title = factory.Faker('sentence', nb_words=4)
     description = factory.Faker('paragraphs', nb=2)
     link_label = factory.Faker('words', nb=3)
@@ -19,7 +20,6 @@ class HighlightFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Highlight
-
 
     class Params:
         unpublished = factory.Trait(
