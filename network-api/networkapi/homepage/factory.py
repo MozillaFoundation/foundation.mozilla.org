@@ -3,6 +3,7 @@ from factory.django import DjangoModelFactory
 
 from networkapi.homepage.models import Homepage, HomepageLeaders, HomepageNews, HomepageHighlights
 from networkapi.highlights.factory import HighlightFactory
+from networkapi.news.factory import NewsFactory
 
 
 class HomepageFactory(DjangoModelFactory):
@@ -15,7 +16,11 @@ class HomepageLeadersFactory(DjangoModelFactory):
 
 
 class HomepageNewsFactory(DjangoModelFactory):
-    pass
+    news = factory.SubFactory(NewsFactory)
+    homepage = factory.SubFactory(HomepageFactory)
+
+    class Meta:
+        model = HomepageNews
 
 
 class HomepageHighlightsFactory(DjangoModelFactory):
