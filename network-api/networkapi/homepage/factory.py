@@ -9,6 +9,7 @@ from networkapi.homepage.models import (
 )
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.news.factory import NewsFactory
+from networkapi.people.factory import PersonFactory
 
 
 class HomepageFactory(DjangoModelFactory):
@@ -17,6 +18,9 @@ class HomepageFactory(DjangoModelFactory):
 
 
 class HomepageLeadersFactory(DjangoModelFactory):
+    leader = factory.SubFactory(PersonFactory)
+    homepage = factory.SubFactory(HomepageFactory)
+
     class Meta:
         model = HomepageLeaders
 

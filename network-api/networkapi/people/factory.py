@@ -52,7 +52,7 @@ class PersonFactory(DjangoModelFactory):
             if isinstance(extracted, int):
                 for issue in range(extracted):
                     issue_set.append(InternetHealthIssueFactory())
-            elif isinstance(extracted, list):
+            elif isinstance(extracted, tuple):
                 for issue in extracted:
                     issue_set.append(InternetHealthIssueFactory(name=issue))
 

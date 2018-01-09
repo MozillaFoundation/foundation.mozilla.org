@@ -22,12 +22,7 @@ class TestHomepageFactory(TestCase):
         Creating a homepage with the Factory should not raise an exception
         """
 
-        try:
-            HomepageFactory()
-        except Exception as e:
-            self.fail(
-                'HomepageFactory() should not raise an exception: {}'.format(e)
-            )
+        HomepageFactory()
 
 
 class TestHomepageLeadersFactory(TestCase):
@@ -40,16 +35,66 @@ class TestHomepageLeadersFactory(TestCase):
         Creating a HomepageLeader with the Factory should not raise and exception
         """
 
-        pass # TODO: implement this
-        # try:
-        #     HomepageLeadersFactory()
-        # except Exception as e:
-        #     self.fail(
-        #         'HomepageLeadersFactory() should not raise an exception: {}'.format(
-        #             sys.exc_info()[0]
-        #         )
-        #     )
+        HomepageLeadersFactory()
 
+    def test_homepage_leaders_args(self):
+        """
+        HomepageLeadersFactory() should accept kwargs that pass
+        through to the PersonFactory SubFactory
+        """
+
+        homepage_leader = HomepageLeadersFactory(
+            leader__is_featured=True
+        )
+        self.assertEqual(
+            homepage_leader.leader.featured,
+            True
+        )
+
+        homepage_leader = HomepageLeadersFactory(
+            leader__unpublished=True
+        )
+        self.assertGreater(
+            homepage_leader.leader.publish_after,
+            datetime.now(tz=utc)
+        )
+
+        homepage_leader = HomepageLeadersFactory(
+            leader__has_expiry=True
+        )
+        self.assertIsNotNone(
+            homepage_leader.leader.expires
+        )
+
+        homepage_leader = HomepageLeadersFactory(
+            leader__expired=True
+        )
+        self.assertLess(
+            homepage_leader.leader.expires,
+            datetime.now(tz=utc)
+        )
+
+        homepage_leader = HomepageLeadersFactory(
+            leader__internet_health_issues=3
+        )
+        self.assertEqual(
+            homepage_leader.leader.internet_health_issues.count(),
+            3
+        )
+
+        custom_issue_names = ('issue 1', 'issue 2', 'issue 3',)
+        homepage_leader = HomepageLeadersFactory(
+            leader__internet_health_issues=custom_issue_names
+        )
+        self.assertEqual(
+            homepage_leader.leader.internet_health_issues.count(),
+            3
+        )
+        for idx in range(3):
+            self.assertEqual(
+                homepage_leader.leader.internet_health_issues.all()[idx].name,
+                custom_issue_names[idx]
+            )
 
 
 class TestHomepageNewsFactory(TestCase):
@@ -64,12 +109,6 @@ class TestHomepageNewsFactory(TestCase):
         """
 
         pass # TODO: implement this
-        # try:
-        #     HomepageLeadersFactory()
-        # except Exception as e:
-        #     self.fail(
-        #         'HomepageLeadersFactory() should not raise an exception: {}'.format(e)
-        #     )
 
 
 class TestHomepageHightlightsFactory(TestCase):
@@ -91,7 +130,7 @@ class TestHomepageHightlightsFactory(TestCase):
     def test_homepage_highlights_args(self):
         """
         HomepageHighlightsFactory() should accept kwargs that pass
-        through to the hightlights sub factory
+        through to the HighlightFactory SubFactory
         """
 
         homepage_highlight = homepage_highlight = HomepageHighlightsFactory(
