@@ -32,7 +32,7 @@ class TestHomepageLeadersFactory(TestCase):
 
     def test_homepage_leaders_creation(self):
         """
-        Creating a HomepageLeader with the Factoryshould not raise an exception
+        Creating a HomepageLeader with the Factory should not raise an exception
         """
 
         HomepageLeadersFactory()

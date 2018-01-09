@@ -18,7 +18,7 @@ class TestPersonFactory(TestCase):
 
     def test_person_creation(self):
         """
-        Creating a person with the PersonFactory contructor should not raise
+        Creating a person with the PersonFactory constructor should not raise
         an exception
         """
 
