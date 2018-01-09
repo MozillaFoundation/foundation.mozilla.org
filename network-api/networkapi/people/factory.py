@@ -58,7 +58,6 @@ class PersonFactory(DjangoModelFactory):
 
             self.internet_health_issues.set(issue_set)
 
-
     class Meta:
         model = Person
 

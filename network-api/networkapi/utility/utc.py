@@ -1,4 +1,4 @@
-from datetime import tzinfo, timedelta, datetime
+from datetime import tzinfo, timedelta
 
 ZERO = timedelta(0)
 

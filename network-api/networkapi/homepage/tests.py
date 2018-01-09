@@ -32,7 +32,7 @@ class TestHomepageLeadersFactory(TestCase):
 
     def test_homepage_leaders_creation(self):
         """
-        Creating a HomepageLeader with the Factory should not raise and exception
+        Creating a HomepageLeader with the Factoryshould not raise an exception
         """
 
         HomepageLeadersFactory()
@@ -108,7 +108,7 @@ class TestHomepageNewsFactory(TestCase):
         Factory should not raise and exception
         """
 
-        pass # TODO: implement this
+        pass  # TODO: implement this
 
 
 class TestHomepageHightlightsFactory(TestCase):
@@ -125,7 +125,6 @@ class TestHomepageHightlightsFactory(TestCase):
         homepage_highlight = HomepageHighlightsFactory()
         self.assertIsNotNone(homepage_highlight.highlights)
         self.assertIsNotNone(homepage_highlight.homepage)
-
 
     def test_homepage_highlights_args(self):
         """
