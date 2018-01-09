@@ -6,6 +6,7 @@ from networkapi.people.models import InternetHealthIssue, Person, Affiliation
 
 utc = UTC()
 
+
 class InternetHealthIssueFactory(DjangoModelFactory):
     name = factory.Faker('sentence', nb_words=5, variable_nb_words=True)
 
@@ -19,52 +20,72 @@ class PersonFactory(DjangoModelFactory):
     location = factory.Faker('country')
     quote = factory.Faker('paragraph', nb_sentences=5)
     bio = factory.Faker('paragraph', nb_sentences=5)
-    image = factory.LazyAttribute(
-        lambda o: '{}{}.png'.format(o.url, o.image_filename)
-    )
-    partnership_logo = factory.LazyAttribute(
-        lambda o: '{}{}.png'.format(o.url, o.partnership_logo_filename)
-    )
+    image = factory.Faker('image_url')
+    partnership_logo = factory.Faker('image_url')
     twitter_url = factory.Faker('url')
     linkedin_url = factory.Faker('url')
     interview_url = factory.Faker('url')
-    publish_after = factory.Faker('past_datetime', start_date='-30d', tzinfo=utc)
+    publish_after = factory.Faker(
+        'past_datetime',
+        start_date='-30d',
+        tzinfo=utc,
+    )
     featured = False
 
     @factory.post_generation
     def internet_health_issues(self, create, extracted, **kwargs):
+        """
+        After model generation, create internet health issues from the
+        internet_health_issues kwarg and relate them to this model.
+
+        If the extracted value of the kwarg is an int, that many
+        issues will be randomly created. If the extracted value is
+        a list of issue names, they'll be created from the list.
+        """
+
         if not create:
             return
 
         if extracted:
-            for issue in extracted:
-                self.internet_health_issues.add(issue)
+            issue_set = []
 
-    # These are excluded from the Django model, but are used in the lazy generators
-    url = factory.Faker('url')
-    image_filename = factory.Faker('word')
-    partnership_logo_filename = factory.Faker('word')
+            if isinstance(extracted, int):
+                for issue in range(extracted):
+                    issue_set.append(InternetHealthIssueFactory())
+            elif isinstance(extracted, list):
+                for issue in extracted:
+                    issue_set.append(InternetHealthIssueFactory(name=issue))
+
+            self.internet_health_issues.set(issue_set)
+
 
     class Meta:
         model = Person
-        exclude =(
-            'url',
-            'image_filename',
-            'partnership_logo_filename',
-        )
 
     class Params:
         is_featured = factory.Trait(
-            featured = True
+            featured=True
         )
         unpublished = factory.Trait(
-            publish_after=factory.Faker('future_datetime', end_date='+30d', tzinfo=utc)
+            publish_after=factory.Faker(
+                'future_datetime',
+                end_date='+30d',
+                tzinfo=utc,
+            )
         )
         has_expiry = factory.Trait(
-            expires=factory.Faker('future_datetime', end_date='+30d', tzinfo=utc)
+            expires=factory.Faker(
+                'future_datetime',
+                end_date='+30d',
+                tzinfo=utc,
+            )
         )
         expired = factory.Trait(
-            expires=factory.Faker('past_datetime', start_date='-30d', tzinfo=utc)
+            expires=factory.Faker(
+                'past_datetime',
+                start_date='-30d',
+                tzinfo=utc,
+            )
         )
 
 

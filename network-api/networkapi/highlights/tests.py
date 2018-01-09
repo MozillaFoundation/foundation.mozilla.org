@@ -30,7 +30,8 @@ class TestHighlightView(TestCase):
 
     def test_view_highlights(self):
         """
-        Make sure highlights view works, and excludes the unpublished and expired highlights
+        Make sure highlights view works,
+        and excludes the unpublished and expired highlights
         """
         setup_highlights(self)
         highlights = self.client.get('/api/highlights/')

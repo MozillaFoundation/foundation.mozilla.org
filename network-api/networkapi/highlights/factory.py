@@ -12,9 +12,13 @@ class HighlightFactory(DjangoModelFactory):
     description = factory.Faker('paragraphs', nb=2)
     link_label = factory.Faker('words', nb=3)
     link_url = factory.Faker('uri')
-    image = factory.LazyAttribute(lambda a: '{}image.png'.format(a.link_url))
+    image = factory.Faker('image_url')
     footer = factory.Faker('sentence', nb_words=5)
-    publish_after = factory.Faker('past_datetime', start_date='-30d', tzinfo=utc)
+    publish_after = factory.Faker(
+        'past_datetime',
+        start_date='-30d',
+        tzinfo=utc
+    )
     expires = None
     order = 0
 
@@ -23,11 +27,23 @@ class HighlightFactory(DjangoModelFactory):
 
     class Params:
         unpublished = factory.Trait(
-            publish_after=factory.Faker('future_datetime', end_date='+30d', tzinfo=utc)
+            publish_after=factory.Faker(
+                'future_datetime',
+                end_date='+30d',
+                tzinfo=utc
+            )
         )
         has_expiry = factory.Trait(
-            expires=factory.Faker('future_datetime', end_date='+30d', tzinfo=utc)
+            expires=factory.Faker(
+                'future_datetime',
+                end_date='+30d',
+                tzinfo=utc
+            )
         )
         expired = factory.Trait(
-            expires=factory.Faker('past_datetime', start_date='-30d', tzinfo=utc)
+            expires=factory.Faker(
+                'past_datetime',
+                start_date='-30d',
+                tzinfo=utc
+            )
         )
