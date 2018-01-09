@@ -1,5 +1,5 @@
-from django.test import TestCase
 from datetime import datetime
+from django.test import TestCase
 
 from networkapi.news.factory import NewsFactory
 from networkapi.utility.utc import UTC
@@ -43,7 +43,7 @@ class TestNewsFactory(TestCase):
 
     def test_news_is_featured_param(self):
         """
-        The on_homepage kwargs should set featured to True
+        The is_featured kwargs should set featured to True
         """
 
         news = NewsFactory(is_featured=True)

@@ -132,7 +132,7 @@ class TestHomepageHightlightsFactory(TestCase):
         through to the HighlightFactory SubFactory
         """
 
-        homepage_highlight = homepage_highlight = HomepageHighlightsFactory(
+        homepage_highlight = HomepageHighlightsFactory(
             highlights__unpublished=True
         )
         self.assertGreater(
