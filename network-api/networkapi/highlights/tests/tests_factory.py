@@ -17,7 +17,15 @@ class TestHighlightFactory(TestCase):
 
         highlight = HighlightFactory()
 
-        self.assertIsNotNone(highlight)
+    def test_highlight_default_publish_date(self):
+        """
+        By Default, a highlight should have been published
+        """
+
+        highlight = HighlightFactory()
+        now = datetime.now(tz=timezone.utc)
+
+        self.assertLess(highlight.publish_after, now)
 
     def test_highlight_unpublished_param(self):
         """
@@ -26,11 +34,20 @@ class TestHighlightFactory(TestCase):
         """
 
         highlight = HighlightFactory(unpublished=True)
+        now = datetime.now(tz=timezone.utc)
 
-        self.assertGreater(
-            highlight.publish_after,
-            datetime.now(tz=timezone.utc)
-        )
+        self.assertGreater(highlight.publish_after, now)
+
+    def test_highlight_default_expiry(self):
+        """
+        By Default, a highlight should not have an expiry date
+        """
+
+        highlight = HighlightFactory()
+        now = datetime.now(tz=timezone.utc)
+
+        self.assertLess(highlight.publish_after, now)
+
 
     def test_highlight_has_expiry_param(self):
         """
@@ -39,8 +56,9 @@ class TestHighlightFactory(TestCase):
         """
 
         highlight = HighlightFactory(has_expiry=True)
+        now = datetime.now(tz=timezone.utc)
 
-        self.assertGreater(highlight.expires, datetime.now(tz=timezone.utc))
+        self.assertGreater(highlight.expires, now)
 
     def test_highlight_expired_param(self):
         """
@@ -48,5 +66,6 @@ class TestHighlightFactory(TestCase):
         """
 
         highlight = HighlightFactory(expired=True)
+        now = datetime.now(tz=timezone.utc)
 
-        self.assertLess(highlight.expires, datetime.now(tz=timezone.utc))
+        self.assertLess(highlight.expires, now)
