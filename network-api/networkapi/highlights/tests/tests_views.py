@@ -8,7 +8,7 @@ from networkapi.highlights.views import HighlightListView, HighlightView
 
 class TestHighlightView(TestCase):
     """
-    Test Highlights endpoints
+    Test HighlightView class
     """
 
     def setUp(self):
@@ -53,7 +53,7 @@ class TestHighlightView(TestCase):
 
 class TestHighlightListView(TestCase):
     """
-    Test HighlightListView
+    Test HighlightListView class
     """
 
     def setUp(self):
