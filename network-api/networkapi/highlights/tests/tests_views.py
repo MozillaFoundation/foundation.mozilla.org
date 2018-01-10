@@ -1,7 +1,9 @@
 import json
 
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory
 from networkapi.highlights.factory import HighlightFactory
+from networkapi.highlights.views import HighlightListView, HighlightView
 
 
 class TestHighlightView(TestCase):
@@ -10,9 +12,56 @@ class TestHighlightView(TestCase):
     """
 
     def setUp(self):
+        self.factory = APIRequestFactory()
+
+    def test_view_highlight(self):
+        """
+        Make sure single highlight view returns a 200 status code
+        """
+
+        pk = HighlightFactory().id
+
+        request = self.factory.get('/api/highlights/{}/'.format(pk))
+        response = HighlightView.as_view()(request, pk=1)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_unpublished_hightlight(self):
+        """
+        Make sure that an unpublished highlight isn't accessible
+        """
+
+        pk = HighlightFactory(unpublished=True).id
+
+        request = self.factory.get('/api/highlights/{}/'.format(pk))
+        response = HighlightView.as_view()(request, pk=pk)
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_view_expired_hightlight(self):
+        """
+        Make sure that an expired highlight isn't accessible
+        """
+
+        pk = HighlightFactory(expired=True)
+
+        request = self.factory.get('/api/highlights/{}/'.format(pk))
+        response = HighlightView.as_view()(request, pk=pk)
+
+        self.assertEqual(response.status_code, 404)
+
+
+class TestHighlightListView(TestCase):
+    """
+    Test HighlightListView
+    """
+
+    def setUp(self):
         """
         Generate some highlights
         """
+
+        self.factory = APIRequestFactory()
 
         # Generate two default hightlights
         self.highlights = [HighlightFactory() for i in range(2)]
@@ -23,21 +72,24 @@ class TestHighlightView(TestCase):
         self.highlights.append(HighlightFactory(unpublished=True))
         self.highlights.append(HighlightFactory(expired=True))
 
-    def test_view_highlights(self):
+    def test_view_highlights_list_view(self):
         """
-        Make sure highlights view works,
-        and excludes the unpublished and expired highlights
-        """
-
-        highlights = self.client.get('/api/highlights/')
-        highlights_json = json.loads(str(highlights.content, 'utf-8'))
-        self.assertEqual(highlights.status_code, 200)
-        self.assertEqual(len(highlights_json), 3)
-
-    def test_view_highlight(self):
-        """
-        Make sure single highlight route works
+        Make sure highlights view returns a 200 status code
         """
 
-        highlight = self.client.get('/api/highlights/1/')
-        self.assertEqual(highlight.status_code, 200)
+        request = self.factory.get('/api/highlights/')
+        response = HighlightListView.as_view()(request)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_highlights_list_view_length(self):
+        """
+        Make sure highlights view returns only the three published records
+        """
+
+        request = self.factory.get('/api/highlights/')
+        response = HighlightListView.as_view()(request)
+        response.render()
+        response_json = json.loads(response.content)
+
+        self.assertEqual(len(response_json), 3)
