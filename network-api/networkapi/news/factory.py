@@ -1,39 +1,37 @@
-import factory
+from datetime import timezone
+
+from factory import DjangoModelFactory, Faker, Trait
 
 from networkapi.news.models import News
-from networkapi.utility.utc import UTC
-
-utc = UTC()
 
 
-class NewsFactory(factory.django.DjangoModelFactory):
+class NewsFactory(DjangoModelFactory):
 
     class Meta:
         model = News
 
     class Params:
-        is_featured = factory.Trait(
+        is_featured = Trait(
             featured=True
         )
-        unpublished = factory.Trait(
-            publish_after=factory.Faker('future_datetime', end_date='+30d', tzinfo=utc)
+        unpublished = Trait(
+            publish_after=Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
         )
-        has_expiry = factory.Trait(
-            expires=factory.Faker('future_datetime', end_date='+30d', tzinfo=utc)
+        has_expiry = Trait(
+            expires=Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
         )
-        expired = factory.Trait(
-            expires=factory.Faker('past_datetime', start_date='-30d', tzinfo=utc)
+        expired = Trait(
+            expires=Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
         )
-        video = factory.Trait(
+        video = Trait(
             is_video=True
         )
 
-    headline = factory.Faker('sentence', nb_words=4)
-    outlet = factory.Faker('sentence', nb_words=3)
-    date = factory.Faker('past_date', start_date='-30d')
-    link = factory.Faker('url')
-    excerpt = factory.Faker('paragraphs', nb=2)
-    author = factory.Faker('name')
-    publish_after = factory.Faker('past_datetime', start_date='-30d', tzinfo=utc)
-    thumbnail = factory.Faker('image_url')
-    # glyph = ?
+    headline = Faker('sentence', nb_words=4)
+    outlet = Faker('sentence', nb_words=3)
+    date = Faker('past_date', start_date='-30d')
+    link = Faker('url')
+    excerpt = Faker('paragraphs', nb=2)
+    author = Faker('name')
+    publish_after = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
+    thumbnail = Faker('image_url')

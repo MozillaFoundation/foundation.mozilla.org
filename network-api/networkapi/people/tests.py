@@ -1,14 +1,11 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from django.test import TestCase
 
-from networkapi.utility.utc import UTC
 from networkapi.people.factory import (
     InternetHealthIssueFactory,
     PersonFactory,
     AffiliationFactory,
 )
-
-utc = UTC()
 
 
 class TestPersonFactory(TestCase):
@@ -45,7 +42,7 @@ class TestPersonFactory(TestCase):
         self.assertIsNotNone(person.linkedin_url)
         self.assertIsNotNone(person.interview_url)
         self.assertIsNotNone(person.publish_after)
-        self.assertLess(person.publish_after, datetime.now(tz=utc))
+        self.assertLess(person.publish_after, datetime.now(tz=timezone.utc))
         self.assertEqual(person.featured, False)
         self.assertEqual(person.internet_health_issues.count(), 0)
 
@@ -66,7 +63,7 @@ class TestPersonFactory(TestCase):
 
         person = PersonFactory(unpublished=True)
 
-        self.assertGreater(person.publish_after, datetime.now(tz=utc))
+        self.assertGreater(person.publish_after, datetime.now(tz=timezone.utc))
 
     def test_person_has_expiry_param(self):
         """
@@ -76,7 +73,7 @@ class TestPersonFactory(TestCase):
 
         person = PersonFactory(has_expiry=True)
 
-        self.assertGreater(person.expires, datetime.now(tz=utc))
+        self.assertGreater(person.expires, datetime.now(tz=timezone.utc))
 
     def test_person_expired_param(self):
         """
@@ -86,7 +83,7 @@ class TestPersonFactory(TestCase):
 
         person = PersonFactory(expired=True)
 
-        self.assertLess(person.expires, datetime.now(tz=utc))
+        self.assertLess(person.expires, datetime.now(tz=timezone.utc))
 
 
 class TestInternetHealthIssueFactory(TestCase):

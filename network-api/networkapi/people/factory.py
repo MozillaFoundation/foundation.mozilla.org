@@ -1,38 +1,36 @@
-import factory
-from factory.django import DjangoModelFactory
+from factory import DjangoModelFactory, Faker, post_generation, SubFactory, Trait
 
-from networkapi.utility.utc import UTC
+from datetime import timezone
+
 from networkapi.people.models import InternetHealthIssue, Person, Affiliation
-
-utc = UTC()
 
 
 class InternetHealthIssueFactory(DjangoModelFactory):
-    name = factory.Faker('sentence', nb_words=5, variable_nb_words=True)
+    name = Faker('sentence', nb_words=5, variable_nb_words=True)
 
     class Meta:
         model = InternetHealthIssue
 
 
 class PersonFactory(DjangoModelFactory):
-    name = factory.Faker('name')
-    role = factory.Faker('job')
-    location = factory.Faker('country')
-    quote = factory.Faker('paragraph', nb_sentences=5)
-    bio = factory.Faker('paragraph', nb_sentences=5)
-    image = factory.Faker('image_url')
-    partnership_logo = factory.Faker('image_url')
-    twitter_url = factory.Faker('url')
-    linkedin_url = factory.Faker('url')
-    interview_url = factory.Faker('url')
-    publish_after = factory.Faker(
+    name = Faker('name')
+    role = Faker('job')
+    location = Faker('country')
+    quote = Faker('paragraph', nb_sentences=5)
+    bio = Faker('paragraph', nb_sentences=5)
+    image = Faker('image_url')
+    partnership_logo = Faker('image_url')
+    twitter_url = Faker('url')
+    linkedin_url = Faker('url')
+    interview_url = Faker('url')
+    publish_after = Faker(
         'past_datetime',
         start_date='-30d',
-        tzinfo=utc,
+        tzinfo=timezone.utc,
     )
     featured = False
 
-    @factory.post_generation
+    @post_generation
     def internet_health_issues(self, create, extracted, **kwargs):
         """
         After model generation, create internet health issues from the
@@ -62,35 +60,35 @@ class PersonFactory(DjangoModelFactory):
         model = Person
 
     class Params:
-        is_featured = factory.Trait(
+        is_featured = Trait(
             featured=True
         )
-        unpublished = factory.Trait(
-            publish_after=factory.Faker(
+        unpublished = Trait(
+            publish_after=Faker(
                 'future_datetime',
                 end_date='+30d',
-                tzinfo=utc,
+                tzinfo=timezone.utc,
             )
         )
-        has_expiry = factory.Trait(
-            expires=factory.Faker(
+        has_expiry = Trait(
+            expires=Faker(
                 'future_datetime',
                 end_date='+30d',
-                tzinfo=utc,
+                tzinfo=timezone.utc,
             )
         )
-        expired = factory.Trait(
-            expires=factory.Faker(
+        expired = Trait(
+            expires=Faker(
                 'past_datetime',
                 start_date='-30d',
-                tzinfo=utc,
+                tzinfo=timezone.utc,
             )
         )
 
 
 class AffiliationFactory(DjangoModelFactory):
-    name = factory.Faker('company')
-    person = factory.SubFactory(PersonFactory)
+    name = Faker('company')
+    person = SubFactory(PersonFactory)
 
     class Meta:
         model = Affiliation

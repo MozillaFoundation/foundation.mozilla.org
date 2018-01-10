@@ -1,10 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from django.test import TestCase
 
 from networkapi.news.factory import NewsFactory
-from networkapi.utility.utc import UTC
-
-utc = UTC()
 
 
 class TestNewsFactory(TestCase):
@@ -20,26 +17,6 @@ class TestNewsFactory(TestCase):
         news = NewsFactory()
 
         self.assertIsNotNone(news)
-
-    def test_news_creation_default(self):
-        """
-        Verify the default values applied to a News generated with the NewsFactory
-        """
-
-        news = NewsFactory()
-
-        self.assertIsNotNone(news.headline)
-        self.assertIsNotNone(news.outlet)
-        self.assertIsNotNone(news.date)
-        self.assertIsNotNone(news.link)
-        self.assertIsNotNone(news.excerpt)
-        self.assertIsNotNone(news.author)
-        self.assertIsNotNone(news.glyph)
-        self.assertEqual(news.featured, False)
-        self.assertLess(news.publish_after, datetime.now(tz=utc))
-        self.assertIsNone(news.expires)
-        self.assertEqual(news.is_video, False)
-        self.assertIsNotNone(news.thumbnail)
 
     def test_news_is_featured_param(self):
         """
@@ -57,7 +34,7 @@ class TestNewsFactory(TestCase):
 
         news = NewsFactory(unpublished=True)
 
-        self.assertGreater(news.publish_after, datetime.now(tz=utc))
+        self.assertGreater(news.publish_after, datetime.now(tz=timezone.utc))
 
     def test_news_has_expiry_param(self):
         """
@@ -66,7 +43,7 @@ class TestNewsFactory(TestCase):
 
         news = NewsFactory(has_expiry=True)
 
-        self.assertGreater(news.expires, datetime.now(tz=utc))
+        self.assertGreater(news.expires, datetime.now(tz=timezone.utc))
 
     def test_news_expired_param(self):
         """
@@ -75,7 +52,7 @@ class TestNewsFactory(TestCase):
 
         news = NewsFactory(expired=True)
 
-        self.assertLess(news.expires, datetime.now(tz=utc))
+        self.assertLess(news.expires, datetime.now(tz=timezone.utc))
 
     def test_news_video_param(self):
         """

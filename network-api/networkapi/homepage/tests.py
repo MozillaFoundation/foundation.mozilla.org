@@ -1,15 +1,12 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from django.test import TestCase
 
-from networkapi.utility.utc import UTC
 from networkapi.homepage.factory import (
     HomepageFactory,
     HomepageLeadersFactory,
     HomepageNewsFactory,
     HomepageHighlightsFactory,
 )
-
-utc = UTC()
 
 
 class TestHomepageFactory(TestCase):
@@ -56,7 +53,7 @@ class TestHomepageLeadersFactory(TestCase):
         )
         self.assertGreater(
             homepage_leader.leader.publish_after,
-            datetime.now(tz=utc)
+            datetime.now(tz=timezone.utc)
         )
 
         homepage_leader = HomepageLeadersFactory(
@@ -71,7 +68,7 @@ class TestHomepageLeadersFactory(TestCase):
         )
         self.assertLess(
             homepage_leader.leader.expires,
-            datetime.now(tz=utc)
+            datetime.now(tz=timezone.utc)
         )
 
         homepage_leader = HomepageLeadersFactory(
@@ -137,7 +134,7 @@ class TestHomepageHightlightsFactory(TestCase):
         )
         self.assertGreater(
             homepage_highlight.highlights.publish_after,
-            datetime.now(tz=utc)
+            datetime.now(tz=timezone.utc)
         )
 
         homepage_highlight = HomepageHighlightsFactory(
@@ -152,7 +149,7 @@ class TestHomepageHightlightsFactory(TestCase):
         )
         self.assertLess(
             homepage_highlight.highlights.expires,
-            datetime.now(tz=utc)
+            datetime.now(tz=timezone.utc)
         )
 
         title = 'A very important project'

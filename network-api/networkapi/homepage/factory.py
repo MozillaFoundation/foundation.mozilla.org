@@ -1,5 +1,4 @@
-import factory
-from factory.django import DjangoModelFactory
+from factory import DjangoModelFactory, SubFactory
 
 from networkapi.homepage.models import (
     Homepage,
@@ -18,24 +17,24 @@ class HomepageFactory(DjangoModelFactory):
 
 
 class HomepageLeadersFactory(DjangoModelFactory):
-    leader = factory.SubFactory(PersonFactory)
-    homepage = factory.SubFactory(HomepageFactory)
+    leader = SubFactory(PersonFactory)
+    homepage = SubFactory(HomepageFactory)
 
     class Meta:
         model = HomepageLeaders
 
 
 class HomepageNewsFactory(DjangoModelFactory):
-    news = factory.SubFactory(NewsFactory)
-    homepage = factory.SubFactory(HomepageFactory)
+    news = SubFactory(NewsFactory)
+    homepage = SubFactory(HomepageFactory)
 
     class Meta:
         model = HomepageNews
 
 
 class HomepageHighlightsFactory(DjangoModelFactory):
-    highlights = factory.SubFactory(HighlightFactory)
-    homepage = factory.SubFactory(HomepageFactory)
+    highlights = SubFactory(HighlightFactory)
+    homepage = SubFactory(HomepageFactory)
 
     class Meta:
         model = HomepageHighlights

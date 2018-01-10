@@ -1,46 +1,38 @@
-import json
-
 from django.test import TestCase
 from networkapi.news.factory import NewsFactory
 
 
 class TestNewsView(TestCase):
-    """
-    Test news endpoints
-    """
 
-    def setUp(self):
+    def test_news_view(self):
         """
-        Generate some news
+        Create one Milestone and check that the headlines match
         """
 
-        # Generate two default news
-        self.news = [NewsFactory() for i in range(2)]
+        news = NewsFactory.create()
 
-        # Generate different news with specific traits
-        self.news.append(NewsFactory(has_expiry=True))
-        self.news.append(NewsFactory(has_expiry=True, is_featured=True))
-        self.news.append(NewsFactory(has_expiry=True, unpublished=True))
-        self.news.append(NewsFactory(unpublished=True))
-        self.news.append(NewsFactory(expired=True))
-        self.news.append(NewsFactory(video=True))
-        self.news.append(NewsFactory(is_featured=True))
-        self.news.append(NewsFactory(video=True, is_featured=True))
+        response = self.client.get('/api/news/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['headline'], news.headline)
 
-    def test_view_news(self):
+    def test_news_list_view(self):
         """
-        Make sure news view works, and excludes the unpublished and expired news
+        Create multiple Milestones and check they are there
         """
 
-        news = self.client.get('/api/news/')
-        news_json = json.loads(str(news.content, 'utf-8'))
-        self.assertEqual(news.status_code, 200)
-        self.assertEqual(len(news_json), 7)
+        [NewsFactory.create() for i in range(4)]
 
-    def test_view_one_news(self):
-        """
-        Test route to a single news
-        """
+        response = self.client.get('/api/news/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 4)
 
-        news = self.client.get('/api/news/1/')
-        self.assertEqual(news.status_code, 200)
+
+# TODO: Test specific traits
+# NewsFactory(has_expiry=True)
+# NewsFactory(has_expiry=True, is_featured=True)
+# NewsFactory(has_expiry=True, unpublished=True)
+# NewsFactory(unpublished=True)
+# NewsFactory(expired=True)
+# NewsFactory(video=True)
+# NewsFactory(is_featured=True)
+# NewsFactory(video=True, is_featured=True)
