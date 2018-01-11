@@ -1,28 +1,56 @@
+import json
+
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory
 
 from networkapi.milestones.factory import MilestoneFactory
+from networkapi.milestones.views import MilestoneView, MilestoneListView
 
 
-class TestMilestoneViews(TestCase):
+class TestSingleMilestoneViews(TestCase):
+
+    def setUp(self):
+        self.factory = APIRequestFactory()
 
     def test_milestone_view(self):
         """
-        Create one Milestone and check that the headlines match
+        Make sure single milestone view returns a 200 status code
         """
 
-        milestone = MilestoneFactory.create()
+        pk = MilestoneFactory.create().id
 
-        response = self.client.get('/api/milestones/1/')
+        request = self.factory.get('/api/milestones/{}/'.format(pk))
+        response = MilestoneView.as_view()(request, pk=1)
+
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['headline'], milestone.headline)
+
+
+class TestMultipleMilestonesView(TestCase):
+
+    def setUp(self):
+        self.factory = APIRequestFactory()
+
+        # Create multiple milestones
+        [MilestoneFactory.create() for i in range(4)]
 
     def test_milestone_list_view(self):
         """
-        Create multiple Milestones and check they are there
+        Make sure milestone list view returns a 200 status code
         """
 
-        [MilestoneFactory.create() for i in range(4)]
+        request = self.factory.get('/api/milestones/')
+        response = MilestoneListView.as_view()(request)
 
-        response = self.client.get('/api/milestones/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 4)
+
+    def test_milestone_list_view_length(self):
+        """
+        Make sure milestone list view return the right amount of milestones
+        """
+
+        request = self.factory.get('/api/milestones/')
+        response = MilestoneListView.as_view()(request)
+        response.render()
+        response_json = json.loads(response.content)
+
+        self.assertEqual(len(response_json), 4)

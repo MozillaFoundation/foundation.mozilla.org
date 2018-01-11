@@ -26,7 +26,7 @@ class TestHighlightView(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_view_unpublished_hightlight(self):
+    def test_view_unpublished_highlight(self):
         """
         Make sure that an unpublished highlight isn't accessible
         """
@@ -38,7 +38,7 @@ class TestHighlightView(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
-    def test_view_expired_hightlight(self):
+    def test_view_expired_highlight(self):
         """
         Make sure that an expired highlight isn't accessible
         """
@@ -63,7 +63,7 @@ class TestHighlightListView(TestCase):
 
         self.factory = APIRequestFactory()
 
-        # Generate two default hightlights
+        # Generate two default highlights
         self.highlights = [HighlightFactory() for i in range(2)]
 
         # Generate some highlights with specific traits

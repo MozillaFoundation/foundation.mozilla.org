@@ -15,7 +15,7 @@ class TestHighlightFactory(TestCase):
         exception
         """
 
-        highlight = HighlightFactory()
+        HighlightFactory()
 
     def test_highlight_default_publish_date(self):
         """
@@ -47,7 +47,6 @@ class TestHighlightFactory(TestCase):
         now = datetime.now(tz=timezone.utc)
 
         self.assertLess(highlight.publish_after, now)
-
 
     def test_highlight_has_expiry_param(self):
         """
