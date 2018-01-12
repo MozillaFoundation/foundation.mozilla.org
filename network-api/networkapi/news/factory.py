@@ -1,9 +1,19 @@
 from datetime import timezone
+from slugify import slugify
+from os.path import abspath
 
-from factory import DjangoModelFactory, Faker, Trait
+from factory import (
+    django,
+    DjangoModelFactory,
+    Faker,
+    post_generation,
+    Trait,
+)
 
+from networkapi.utility.faker_providers import ImageProvider
 from networkapi.news.models import News
 
+Faker.add_provider(ImageProvider)
 
 class NewsFactory(DjangoModelFactory):
 
@@ -34,4 +44,7 @@ class NewsFactory(DjangoModelFactory):
     excerpt = Faker('paragraphs', nb=2)
     author = Faker('name')
     publish_after = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
-    thumbnail = Faker('image_url')
+
+    @post_generation
+    def set_thumbnail(self, create, extracted, **kwargs):
+        self.thumbnail.name = Faker('generic_image').generate({})

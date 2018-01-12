@@ -2,7 +2,10 @@ from factory import DjangoModelFactory, Faker, post_generation, SubFactory, Trai
 
 from datetime import timezone
 
+from networkapi.utility.faker_providers import ImageProvider
 from networkapi.people.models import InternetHealthIssue, Person, Affiliation
+
+Faker.add_provider(ImageProvider)
 
 
 class InternetHealthIssueFactory(DjangoModelFactory):
@@ -13,49 +16,6 @@ class InternetHealthIssueFactory(DjangoModelFactory):
 
 
 class PersonFactory(DjangoModelFactory):
-    name = Faker('name')
-    role = Faker('job')
-    location = Faker('country')
-    quote = Faker('paragraph', nb_sentences=5)
-    bio = Faker('paragraph', nb_sentences=5)
-    image = Faker('image_url')
-    partnership_logo = Faker('image_url')
-    twitter_url = Faker('url')
-    linkedin_url = Faker('url')
-    interview_url = Faker('url')
-    publish_after = Faker(
-        'past_datetime',
-        start_date='-30d',
-        tzinfo=timezone.utc,
-    )
-    featured = False
-
-    @post_generation
-    def internet_health_issues(self, create, extracted, **kwargs):
-        """
-        After model generation, create internet health issues from the
-        internet_health_issues kwarg and relate them to this model.
-
-        If the extracted value of the kwarg is an int, that many
-        issues will be randomly created. If the extracted value is
-        a list of issue names, they'll be created from the list.
-        """
-
-        if not create:
-            return
-
-        if extracted:
-            issue_set = []
-
-            if isinstance(extracted, int):
-                for issue in range(extracted):
-                    issue_set.append(InternetHealthIssueFactory())
-            elif isinstance(extracted, tuple):
-                for issue in extracted:
-                    issue_set.append(InternetHealthIssueFactory(name=issue))
-
-            self.internet_health_issues.set(issue_set)
-
     class Meta:
         model = Person
 
@@ -84,6 +44,52 @@ class PersonFactory(DjangoModelFactory):
                 tzinfo=timezone.utc,
             )
         )
+
+    name = Faker('name')
+    role = Faker('job')
+    location = Faker('country')
+    quote = Faker('paragraph', nb_sentences=5)
+    bio = Faker('paragraph', nb_sentences=5)
+    twitter_url = Faker('url')
+    linkedin_url = Faker('url')
+    interview_url = Faker('url')
+    publish_after = Faker(
+        'past_datetime',
+        start_date='-30d',
+        tzinfo=timezone.utc,
+    )
+    featured = False
+
+    @post_generation
+    def set_images(self, create, extracted, **kwargs):
+        self.image.name = Faker('people_image').generate({})
+        self.partnership_logo.name = Faker('generic_image').generate({})
+
+    @post_generation
+    def internet_health_issues(self, create, extracted, **kwargs):
+        """
+        After model generation, create internet health issues from the
+        internet_health_issues kwarg and relate them to this model.
+
+        If the extracted value of the kwarg is an int, that many
+        issues will be randomly created. If the extracted value is
+        a list of issue names, they'll be created from the list.
+        """
+
+        if not create:
+            return
+
+        if extracted:
+            issue_set = []
+
+            if isinstance(extracted, int):
+                for issue in range(extracted):
+                    issue_set.append(InternetHealthIssueFactory())
+            elif isinstance(extracted, tuple):
+                for issue in extracted:
+                    issue_set.append(InternetHealthIssueFactory(name=issue))
+
+            self.internet_health_issues.set(issue_set)
 
 
 class AffiliationFactory(DjangoModelFactory):
