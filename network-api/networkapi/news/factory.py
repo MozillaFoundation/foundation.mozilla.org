@@ -41,7 +41,7 @@ class NewsFactory(DjangoModelFactory):
     outlet = Faker('sentence', nb_words=3)
     date = Faker('past_date', start_date='-30d')
     link = Faker('url')
-    excerpt = Faker('paragraphs', nb=2)
+    excerpt = Faker('paragraph', nb_sentences=4, variable_nb_sentences=True)
     author = Faker('name')
     publish_after = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
 

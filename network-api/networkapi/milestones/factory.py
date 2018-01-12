@@ -19,7 +19,7 @@ class MilestoneFactory(DjangoModelFactory):
     headline = Faker('sentence', nb_words=4)
     start_date = Faker('future_datetime', end_date='+30d')
     end_date = LazyAttribute(lambda o: o.start_date + timedelta(days=o.milestone_length))
-    description = Faker('paragraphs', nb=2)
+    description = Faker('paragraph', nb_sentences=4, variable_nb_sentences=True)
     link_url = Faker('url')
     link_label = Faker('sentence', nb_words=4)
 
