@@ -68,10 +68,20 @@ export default class News extends React.Component {
       );
     };
 
+    const startYear = 2016;
+    const currentYear = moment().year();
+
+    let year = startYear;
+    let newsByYear = [];
+
+    while (year <= currentYear) {
+      newsByYear.push(newsForYear(year));
+      year++;
+    }
+
     return (
       <div className="container py-5">
-        { newsForYear(2017) }
-        { newsForYear(2016) }
+        { newsByYear }
       </div>
     );
   }
