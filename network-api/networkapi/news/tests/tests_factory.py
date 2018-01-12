@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from django.test import TestCase
 
 from networkapi.news.factory import NewsFactory
+from networkapi.news.models import News
 
 
 class TestNewsFactory(TestCase):
@@ -11,19 +12,26 @@ class TestNewsFactory(TestCase):
 
     def test_news_creation(self):
         """
-        Creating a news with the NewsFactory should not raise an exception
+        NewsFactory should not raise an exception
         """
 
-        news = NewsFactory()
+        NewsFactory.create()
 
-        self.assertIsNotNone(news)
+    def test_news_return_value(self):
+        """
+        NewsFactory should return an instance of News
+        """
+
+        news = NewsFactory.create()
+
+        self.assertIsInstance(news, News)
 
     def test_news_is_featured_param(self):
         """
         The is_featured kwargs should set featured to True
         """
 
-        news = NewsFactory(is_featured=True)
+        news = NewsFactory.create(is_featured=True)
 
         self.assertEqual(news.featured, True)
 
@@ -32,7 +40,7 @@ class TestNewsFactory(TestCase):
         The unpublished kwargs should set publish_after date to sometime in the future
         """
 
-        news = NewsFactory(unpublished=True)
+        news = NewsFactory.create(unpublished=True)
 
         self.assertGreater(news.publish_after, datetime.now(tz=timezone.utc))
 
@@ -41,7 +49,7 @@ class TestNewsFactory(TestCase):
         The has_expiry kwarg should set the expires date to sometime in the future
         """
 
-        news = NewsFactory(has_expiry=True)
+        news = NewsFactory.create(has_expiry=True)
 
         self.assertGreater(news.expires, datetime.now(tz=timezone.utc))
 
@@ -50,7 +58,7 @@ class TestNewsFactory(TestCase):
         The expired kwarg should set the expires date to sometime in the past
         """
 
-        news = NewsFactory(expired=True)
+        news = NewsFactory.create(expired=True)
 
         self.assertLess(news.expires, datetime.now(tz=timezone.utc))
 
@@ -59,6 +67,6 @@ class TestNewsFactory(TestCase):
         The video kwargs should set is_video to True
         """
 
-        news = NewsFactory(video=True)
+        news = NewsFactory.create(video=True)
 
         self.assertEqual(news.is_video, True)

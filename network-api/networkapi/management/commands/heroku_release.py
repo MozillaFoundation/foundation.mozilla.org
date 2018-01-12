@@ -4,13 +4,13 @@ from mezzanine.conf import settings
 
 
 class Command(BaseCommand):
-    help = 'migrate the database if needed, and optionally seed' \
-        'the database using networkapi/fixtures/test_data.json'
+    help = 'migrate the database if needed, and optionally' \
+        'generate a full set of fake model data'
 
     def handle(self, *args, **options):
 
         call_command('migrate')
 
-        if settings.LOAD_FIXTURE:
+        if settings.EXECUTE_FAKE_DATA:
             call_command('update_site_domain')
-            call_command('loaddata', './networkapi/fixtures/test_data.json')
+            call_command('load_fake_data')

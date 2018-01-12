@@ -1,13 +1,11 @@
 from datetime import timezone
-from slugify import slugify
-from os.path import abspath
 
 from factory import (
-    django,
     DjangoModelFactory,
     Faker,
     post_generation,
     Trait,
+    LazyAttribute,
 )
 
 from networkapi.utility.faker_providers import ImageProvider
@@ -15,10 +13,15 @@ from networkapi.news.models import News
 
 Faker.add_provider(ImageProvider)
 
+
 class NewsFactory(DjangoModelFactory):
 
     class Meta:
         model = News
+        exclude = (
+            'headline_sentence',
+            'excerpt_paragraph',
+        )
 
     class Params:
         is_featured = Trait(
@@ -37,13 +40,16 @@ class NewsFactory(DjangoModelFactory):
             is_video=True
         )
 
-    headline = Faker('sentence', nb_words=4)
-    outlet = Faker('sentence', nb_words=3)
+    headline = LazyAttribute(lambda o: o.headline_sentence.rstrip('.'))
+    outlet = Faker('company')
     date = Faker('past_date', start_date='-30d')
     link = Faker('url')
-    excerpt = Faker('paragraph', nb_sentences=4, variable_nb_sentences=True)
+    excerpt = LazyAttribute(lambda o: ' '.join(o.excerpt_paragraph))
     author = Faker('name')
     publish_after = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
+
+    headline_sentence = Faker('sentence', nb_words=4)
+    excerpt_paragraph = Faker('paragraph', nb_sentences=4, variable_nb_sentences=True)
 
     @post_generation
     def set_thumbnail(self, create, extracted, **kwargs):

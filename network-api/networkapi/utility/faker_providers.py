@@ -1,5 +1,6 @@
 from faker.providers import BaseProvider
 
+
 class ImageProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy

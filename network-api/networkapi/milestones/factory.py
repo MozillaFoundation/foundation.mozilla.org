@@ -13,17 +13,25 @@ class MilestoneFactory(DjangoModelFactory):
 
     class Meta:
         model = Milestone
-        exclude = ('milestone_length',)
+        exclude = (
+            'headline_sentence',
+            'link_label_sentence',
+            'description_paragraphs',
+            'milestone_length',
+        )
 
     # Model Attributes
-    headline = Faker('sentence', nb_words=4)
+    headline = LazyAttribute(lambda o: o.headline_sentence.rstrip('.'))
+    description = LazyAttribute(lambda o: ' '.join(o.description_paragraphs))
+    link_label = LazyAttribute(lambda o: o.link_label_sentence.rstrip('.'))
+    link_url = Faker('url')
     start_date = Faker('future_datetime', end_date='+30d')
     end_date = LazyAttribute(lambda o: o.start_date + timedelta(days=o.milestone_length))
-    description = Faker('paragraph', nb_sentences=4, variable_nb_sentences=True)
-    link_url = Faker('url')
-    link_label = Faker('sentence', nb_words=4)
 
     # LazyAttribute helper values
+    headline_sentence = Faker('sentence', nb_words=4)
+    link_label_sentence = Faker('sentence', nb_words=4)
+    description_paragraphs = Faker('paragraph', nb_sentences=4, variable_nb_sentences=True)
     milestone_length = LazyAttribute(lambda o: randrange(30))
 
     @post_generation

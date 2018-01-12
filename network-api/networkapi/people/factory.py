@@ -1,6 +1,13 @@
-from factory import DjangoModelFactory, Faker, post_generation, SubFactory, Trait
-
 from datetime import timezone
+
+from factory import (
+    DjangoModelFactory,
+    Faker,
+    post_generation,
+    SubFactory,
+    Trait,
+    LazyAttribute,
+)
 
 from networkapi.utility.faker_providers import ImageProvider
 from networkapi.people.models import InternetHealthIssue, Person, Affiliation
@@ -9,15 +16,19 @@ Faker.add_provider(ImageProvider)
 
 
 class InternetHealthIssueFactory(DjangoModelFactory):
-    name = Faker('sentence', nb_words=5, variable_nb_words=True)
-
     class Meta:
         model = InternetHealthIssue
+
+    name = Faker('sentence', nb_words=5, variable_nb_words=True)
 
 
 class PersonFactory(DjangoModelFactory):
     class Meta:
         model = Person
+        exclude = (
+            'quote_paragraph',
+            'bio_paragraph',
+        )
 
     class Params:
         is_featured = Trait(
@@ -48,8 +59,8 @@ class PersonFactory(DjangoModelFactory):
     name = Faker('name')
     role = Faker('job')
     location = Faker('country')
-    quote = Faker('paragraph', nb_sentences=5)
-    bio = Faker('paragraph', nb_sentences=5)
+    quote = LazyAttribute(lambda o: ' '.join(o.quote_paragraph))
+    bio = LazyAttribute(lambda o: ' '.join(o.bio_paragraph))
     twitter_url = Faker('url')
     linkedin_url = Faker('url')
     interview_url = Faker('url')
@@ -60,6 +71,11 @@ class PersonFactory(DjangoModelFactory):
     )
     featured = False
 
+    # These are excluded from the model and used for lazy attributes
+    quote_paragraph = Faker('paragraph', nb_sentences=5)
+    bio_paragraph = Faker('paragraph', nb_sentences=5)
+
+    # Methods to run after the model has been generated
     @post_generation
     def set_images(self, create, extracted, **kwargs):
         self.image.name = Faker('people_image').generate({})
@@ -93,8 +109,8 @@ class PersonFactory(DjangoModelFactory):
 
 
 class AffiliationFactory(DjangoModelFactory):
-    name = Faker('company')
-    person = SubFactory(PersonFactory)
-
     class Meta:
         model = Affiliation
+
+    name = Faker('company')
+    person = SubFactory(PersonFactory)

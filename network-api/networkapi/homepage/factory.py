@@ -17,24 +17,24 @@ class HomepageFactory(DjangoModelFactory):
 
 
 class HomepageLeadersFactory(DjangoModelFactory):
-    leader = SubFactory(PersonFactory)
-    homepage = SubFactory(HomepageFactory)
-
     class Meta:
         model = HomepageLeaders
 
-
-class HomepageNewsFactory(DjangoModelFactory):
-    news = SubFactory(NewsFactory)
+    leader = SubFactory(PersonFactory)
     homepage = SubFactory(HomepageFactory)
 
+
+class HomepageNewsFactory(DjangoModelFactory):
     class Meta:
         model = HomepageNews
 
-
-class HomepageHighlightsFactory(DjangoModelFactory):
-    highlights = SubFactory(HighlightFactory)
+    news = SubFactory(NewsFactory)
     homepage = SubFactory(HomepageFactory)
 
+
+class HomepageHighlightsFactory(DjangoModelFactory):
     class Meta:
         model = HomepageHighlights
+
+    highlights = SubFactory(HighlightFactory)
+    homepage = SubFactory(HomepageFactory)
