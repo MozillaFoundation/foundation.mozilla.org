@@ -45,7 +45,6 @@ requests==2.13.0
 # Testing
 flake8==2.5.4
 factory_boy==2.9.2
-fake-factory==0.5.7
 faker==0.8.8
 coverage==4.4.2
 python-coveralls==2.9.1
