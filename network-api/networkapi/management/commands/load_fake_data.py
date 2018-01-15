@@ -1,22 +1,20 @@
-from django.core.management.base import BaseCommand
+from random import randrange
 
+from django.core.management.base import BaseCommand
+from django.core.management import call_command
+
+# Factories
 from networkapi.highlights.factory import HighlightFactory
-from networkapi.highlights.models import Highlight
+from networkapi.landingpage.factory import LandingPageFactory, SignupFactory
+from networkapi.milestones.factory import MilestoneFactory
+from networkapi.news.factory import NewsFactory
+from networkapi.people.factory import PersonFactory, AffiliationFactory
 from networkapi.homepage.factory import (
     HomepageFactory,
     HomepageNewsFactory,
     HomepageLeadersFactory,
     HomepageHighlightsFactory
 )
-from networkapi.homepage.models import Homepage
-from networkapi.landingpage.factory import LandingPageFactory, SignupFactory
-from networkapi.landingpage.models import LandingPage, Signup
-from networkapi.milestones.factory import MilestoneFactory
-from networkapi.milestones.models import Milestone
-from networkapi.news.factory import NewsFactory
-from networkapi.news.models import News
-from networkapi.people.factory import PersonFactory, AffiliationFactory
-from networkapi.people.models import Person, Affiliation
 
 
 class Command(BaseCommand):
@@ -34,46 +32,52 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         if options['delete']:
-            Homepage.objects.all().delete()
-            LandingPage.objects.all().delete()
-            Signup.objects.all().delete()
-            Highlight.objects.all().delete()
-            News.objects.all().delete()
-            Milestone.objects.all().delete()
-            Person.objects.all().delete()
-            Affiliation.objects.all().delete()
+            call_command('flush_models')
 
-        # Create the landing page
-        LandingPageFactory.create()
+        self.stdout.write('Generating LandingPage objects')
+        opportunity = LandingPageFactory.create(title='opportunity', content='This is placeholder')
+        [LandingPageFactory.create(parent=opportunity) for i in range(5)]
         SignupFactory.create()
 
-        # Create 4 elements for each categories on homepage
+        self.stdout.write('Generating Homepage')
         homepage = HomepageFactory.create()
+
+        self.stdout.write('Generating HomepageNews, HomepageHighlights, and HomepageLeaders objects')
         [HomepageNewsFactory.create(homepage=homepage) for i in range(4)]
         [HomepageHighlightsFactory.create(homepage=homepage) for i in range(4)]
         [HomepageLeadersFactory.create(homepage=homepage) for i in range(4)]
 
-        # Create more content default content
+        self.stdout.write('Generating Highlight objects')
         [HighlightFactory.create() for i in range(10)]
-        [MilestoneFactory.create() for i in range(10)]
-        [NewsFactory.create() for i in range(10)]
-        [PersonFactory.create() for i in range(10)]
-        # TODO AFFILIATION NEEDS TO BE ASSOCIATED TO PEOPLE
-        [AffiliationFactory.create() for i in range(10)]
 
-        # Create Highlights with specific traits
+        self.stdout.write('Generating Milestone objects')
+        [MilestoneFactory.create() for i in range(10)]
+
+        self.stdout.write('Generating News objects')
+        [NewsFactory.create() for i in range(10)]
+
+        self.stdout.write('Generating Person and Affiliation objects')
+        for i in range(10):
+            person = PersonFactory.create()
+
+            for j in range(3):
+                AffiliationFactory.create(person=person)
+
+        self.stdout.write('Generating unpublished, expired, and expiring highlights')
         [HighlightFactory.create(unpublished=True) for i in range(4)]
         [HighlightFactory.create(expired=True) for i in range(4)]
         [HighlightFactory.create(has_expiry=True) for i in range(4)]
 
-        # Create News with specific traits
+        self.stdout.write('Generating unpublished, expired, and expiring News')
         [NewsFactory.create(unpublished=True) for i in range(4)]
         [NewsFactory.create(expired=True) for i in range(4)]
         [NewsFactory.create(has_expiry=True) for i in range(4)]
         [NewsFactory.create(is_video=True) for i in range(4)]
 
-        # Create People with specific traits
+        self.stdout.write('Generating featured, unpublished, expired, and expiring People')
         [PersonFactory.create(is_featured=True) for i in range(4)]
         [PersonFactory.create(unpublished=True) for i in range(4)]
         [PersonFactory.create(has_expiry=True) for i in range(4)]
         [PersonFactory.create(expired=True) for i in range(4)]
+
+        self.stdout.write(self.style.SUCCESS('Done!'))
