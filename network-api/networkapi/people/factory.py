@@ -6,7 +6,6 @@ from factory import (
     post_generation,
     SubFactory,
     Trait,
-    LazyAttribute,
 )
 
 from networkapi.utility.faker_providers import ImageProvider
@@ -25,10 +24,6 @@ class InternetHealthIssueFactory(DjangoModelFactory):
 class PersonFactory(DjangoModelFactory):
     class Meta:
         model = Person
-        exclude = (
-            'quote_paragraph',
-            'bio_paragraph',
-        )
 
     class Params:
         is_featured = Trait(
@@ -59,8 +54,8 @@ class PersonFactory(DjangoModelFactory):
     name = Faker('name')
     role = Faker('job')
     location = Faker('country')
-    quote = LazyAttribute(lambda o: ' '.join(o.quote_paragraph))
-    bio = LazyAttribute(lambda o: ' '.join(o.bio_paragraph))
+    quote = Faker('paragraph', nb_sentences=3, variable_nb_sentences=True)
+    bio = Faker('paragraph', nb_sentences=2, variable_nb_sentences=True)
     twitter_url = Faker('url')
     linkedin_url = Faker('url')
     interview_url = Faker('url')
@@ -70,10 +65,6 @@ class PersonFactory(DjangoModelFactory):
         tzinfo=timezone.utc,
     )
     featured = False
-
-    # These are excluded from the model and used for lazy attributes
-    quote_paragraph = Faker('paragraph', nb_sentences=5)
-    bio_paragraph = Faker('paragraph', nb_sentences=5)
 
     # Methods to run after the model has been generated
     @post_generation

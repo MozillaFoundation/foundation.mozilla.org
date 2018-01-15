@@ -20,7 +20,6 @@ class NewsFactory(DjangoModelFactory):
         model = News
         exclude = (
             'headline_sentence',
-            'excerpt_paragraph',
         )
 
     class Params:
@@ -44,12 +43,11 @@ class NewsFactory(DjangoModelFactory):
     outlet = Faker('company')
     date = Faker('past_date', start_date='-30d')
     link = Faker('url')
-    excerpt = LazyAttribute(lambda o: ' '.join(o.excerpt_paragraph))
+    excerpt = Faker('paragraph', nb_sentences=3, variable_nb_sentences=True)
     author = Faker('name')
     publish_after = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
 
     headline_sentence = Faker('sentence', nb_words=4)
-    excerpt_paragraph = Faker('paragraph', nb_sentences=4, variable_nb_sentences=True)
 
     @post_generation
     def set_thumbnail(self, create, extracted, **kwargs):

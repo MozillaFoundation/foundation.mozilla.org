@@ -19,7 +19,6 @@ class HighlightFactory(DjangoModelFactory):
         model = Highlight
         exclude = (
             'title_sentence',
-            'description_paragraphs',
             'link_label_words',
             'footer_sentence',
         )
@@ -48,7 +47,7 @@ class HighlightFactory(DjangoModelFactory):
         )
 
     title = LazyAttribute(lambda o: o.title_sentence.rstrip('.'))
-    description = LazyAttribute(lambda o: ' '.join(o.description_paragraphs))
+    description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
     link_label = LazyAttribute(lambda o: ' '.join(o.link_label_words))
     footer = LazyAttribute(lambda o: o.footer_sentence.rstrip('.'))
     link_url = Faker('uri')
@@ -61,7 +60,6 @@ class HighlightFactory(DjangoModelFactory):
     order = 0
 
     title_sentence = Faker('sentence', nb_words=4)
-    description_paragraphs = Faker('paragraphs', nb=2)
     link_label_words = Faker('words', nb=3)
     footer_sentence = Faker('sentence', nb_words=5)
 

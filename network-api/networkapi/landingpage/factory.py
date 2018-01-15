@@ -18,7 +18,6 @@ class SignupFactory(DjangoModelFactory):
     class Meta:
         model = Signup
         exclude = (
-            'description_paragraphs',
             'title_text',
             'header_text',
             'newsletter_text',
@@ -27,9 +26,8 @@ class SignupFactory(DjangoModelFactory):
     title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
     header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
     newsletter = LazyAttribute(lambda o: o.newsletter_text.rstrip('.'))
-    description = LazyAttribute(lambda o: ' '.join(o.description_paragraphs))
+    description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
 
-    description_paragraphs = Faker('paragraphs', nb=5)
     title_text = Faker('sentence', **sentence_kwargs)
     header_text = Faker('sentence', **sentence_kwargs)
     newsletter_text = Faker('sentence', **sentence_kwargs)
@@ -41,7 +39,6 @@ class LandingPageFactory(DjangoModelFactory):
         exclude = (
             'title_text',
             'header_text',
-            'content_paragraphs',
         )
 
     class Params:
@@ -50,7 +47,7 @@ class LandingPageFactory(DjangoModelFactory):
         )
 
     header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
-    content = LazyAttribute(lambda o: ' '.join(o.content_paragraphs))
+    content = Faker('paragraph', nb_sentences=15, variable_nb_sentences=True)
     signup = None
 
     # Attributes inherited from Mezzanine models
@@ -61,4 +58,3 @@ class LandingPageFactory(DjangoModelFactory):
 
     title_text = Faker('sentence', **sentence_kwargs)
     header_text = Faker('sentence', **sentence_kwargs)
-    content_paragraphs = Faker('paragraphs', nb=15)
