@@ -6,6 +6,7 @@ from factory import (
     post_generation,
     SubFactory,
     Trait,
+    LazyAttribute,
 )
 
 from networkapi.utility.faker_providers import ImageProvider
@@ -17,8 +18,11 @@ Faker.add_provider(ImageProvider)
 class InternetHealthIssueFactory(DjangoModelFactory):
     class Meta:
         model = InternetHealthIssue
+        exclude = ('name_sentence',)
 
-    name = Faker('sentence', nb_words=5, variable_nb_words=True)
+    name = LazyAttribute(lambda o: o.name_sentence.rstrip('.'))
+
+    name_sentence = Faker('sentence', nb_words=5, variable_nb_words=True)
 
 
 class PersonFactory(DjangoModelFactory):
@@ -75,12 +79,8 @@ class PersonFactory(DjangoModelFactory):
     @post_generation
     def internet_health_issues(self, create, extracted, **kwargs):
         """
-        After model generation, create internet health issues from the
-        internet_health_issues kwarg and relate them to this model.
-
-        If the extracted value of the kwarg is an int, that many
-        issues will be randomly created. If the extracted value is
-        a list of issue names, they'll be created from the list.
+        After model generation, Relate any internet health issues from the
+        internet_health_issues kwarg to the new instance.
         """
 
         if not create:
@@ -89,12 +89,9 @@ class PersonFactory(DjangoModelFactory):
         if extracted:
             issue_set = []
 
-            if isinstance(extracted, int):
-                for issue in range(extracted):
-                    issue_set.append(InternetHealthIssueFactory())
-            elif isinstance(extracted, tuple):
-                for issue in extracted:
-                    issue_set.append(InternetHealthIssueFactory(name=issue))
+            for issue in extracted:
+                if isinstance(issue, InternetHealthIssue):
+                    issue_set.append(issue)
 
             self.internet_health_issues.set(issue_set)
 

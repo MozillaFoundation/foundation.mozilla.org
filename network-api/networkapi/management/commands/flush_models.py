@@ -5,7 +5,7 @@ from networkapi.highlights.models import Highlight
 from networkapi.landingpage.models import LandingPage, Signup
 from networkapi.milestones.models import Milestone
 from networkapi.news.models import News
-from networkapi.people.models import Person, Affiliation
+from networkapi.people.models import Person, Affiliation, InternetHealthIssue
 from networkapi.homepage.models import Homepage
 
 
@@ -36,6 +36,9 @@ class Command(BaseCommand):
 
         self.stdout.write('Dropping Person objects...')
         Person.objects.all().delete()
+
+        self.stdout.write('Dropping InternetHealthIssue objects...')
+        InternetHealthIssue.objects.all().delete()
 
         self.stdout.write('Dropping Affiliation objects...')
         Affiliation.objects.all().delete()

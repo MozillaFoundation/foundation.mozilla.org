@@ -8,13 +8,25 @@ from networkapi.highlights.factory import HighlightFactory
 from networkapi.landingpage.factory import LandingPageFactory, SignupFactory
 from networkapi.milestones.factory import MilestoneFactory
 from networkapi.news.factory import NewsFactory
-from networkapi.people.factory import PersonFactory, AffiliationFactory
+from networkapi.people.factory import (
+    PersonFactory,
+    AffiliationFactory,
+    InternetHealthIssueFactory,
+)
 from networkapi.homepage.factory import (
     HomepageFactory,
     HomepageNewsFactory,
     HomepageLeadersFactory,
-    HomepageHighlightsFactory
+    HomepageHighlightsFactory,
 )
+
+internet_health_issues = [
+    'Digital Inclusion',
+    'Web Literacy',
+    'Open Innovation',
+    'Decentralization',
+    'Online Privacy and Security',
+]
 
 
 class Command(BaseCommand):
@@ -56,9 +68,14 @@ class Command(BaseCommand):
         self.stdout.write('Generating News objects')
         [NewsFactory.create() for i in range(10)]
 
+        self.stdout.write('Generating five InternetHealthIssue objects')
+        issue_objects = []
+        for issue in internet_health_issues:
+            issue_objects.append(InternetHealthIssueFactory(name=issue))
+
         self.stdout.write('Generating Person and Affiliation objects')
         for i in range(10):
-            person = PersonFactory.create()
+            person = PersonFactory.create(internet_health_issues=issue_objects)
 
             for j in range(3):
                 AffiliationFactory.create(person=person)
