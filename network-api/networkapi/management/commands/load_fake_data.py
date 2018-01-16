@@ -57,7 +57,6 @@ class Command(BaseCommand):
             faker = factory.faker.Faker._get_faker(locale='en-US')
             faker.random.seed(options['seed'])
 
-
         self.stdout.write('Generating LandingPage objects')
         opportunity = LandingPageFactory.create(title='opportunity', content='This is placeholder')
         [LandingPageFactory.create(parent=opportunity) for i in range(5)]
