@@ -47,6 +47,7 @@ class NewsFactory(DjangoModelFactory):
     author = Faker('name')
     publish_after = Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
 
+    # LazyAttribute helper value
     headline_sentence = Faker('sentence', nb_words=4)
 
     @post_generation

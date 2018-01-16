@@ -13,6 +13,7 @@ class TestMilestoneFactory(TestCase):
         """
         MilestoneFactory should not throw when creating a Milestone model
         """
+
         MilestoneFactory.create()
 
     def test_milestone_return_value(self):

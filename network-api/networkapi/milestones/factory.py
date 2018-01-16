@@ -1,7 +1,12 @@
 from datetime import timedelta
 from random import randrange
 
-from factory import Faker, DjangoModelFactory, LazyAttribute, post_generation
+from factory import (
+    Faker,
+    DjangoModelFactory,
+    LazyAttribute,
+    post_generation
+)
 
 from networkapi.utility.faker_providers import ImageProvider
 from networkapi.milestones.models import Milestone

@@ -44,9 +44,8 @@ class TestHighlightFactory(TestCase):
         """
 
         highlight = HighlightFactory()
-        now = datetime.now(tz=timezone.utc)
 
-        self.assertLess(highlight.publish_after, now)
+        self.assertIsNone(highlight.expires)
 
     def test_highlight_has_expiry_param(self):
         """

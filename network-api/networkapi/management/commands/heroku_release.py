@@ -4,7 +4,7 @@ from mezzanine.conf import settings
 
 
 class Command(BaseCommand):
-    help = 'migrate the database if needed, and optionally' \
+    help = 'migrate the database if needed, and' \
         'generate a full set of fake model data'
 
     def handle(self, *args, **options):

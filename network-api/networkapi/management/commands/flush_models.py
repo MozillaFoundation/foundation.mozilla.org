@@ -5,7 +5,11 @@ from networkapi.highlights.models import Highlight
 from networkapi.landingpage.models import LandingPage, Signup
 from networkapi.milestones.models import Milestone
 from networkapi.news.models import News
-from networkapi.people.models import Person, Affiliation, InternetHealthIssue
+from networkapi.people.models import (
+    Person,
+    Affiliation,
+    InternetHealthIssue,
+)
 from networkapi.homepage.models import Homepage
 
 

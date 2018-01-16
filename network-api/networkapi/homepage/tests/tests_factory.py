@@ -120,7 +120,7 @@ class TestHomepageNewsFactory(TestCase):
         self.assertIsInstance(homepage_news.news, News)
 
 
-class TestHomepageHightlightsFactory(TestCase):
+class TestHomepageHighlightsFactory(TestCase):
     """
     Test HomepageHighlightsFactory
     """
@@ -151,7 +151,7 @@ class TestHomepageHightlightsFactory(TestCase):
 
         self.assertIsInstance(homepage_highlight.homepage, Homepage)
 
-    def test_homepage_highlights_has_person(self):
+    def test_homepage_highlights_has_highlight(self):
         """
         HomepageHighlightsFactory.create() should have a related Highlight model
         """

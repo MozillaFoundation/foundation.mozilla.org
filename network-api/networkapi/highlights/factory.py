@@ -59,6 +59,7 @@ class HighlightFactory(DjangoModelFactory):
     expires = None
     order = 0
 
+    # LazyAttribute helper values
     title_sentence = Faker('sentence', nb_words=4)
     link_label_words = Faker('words', nb=3)
     footer_sentence = Faker('sentence', nb_words=5)
