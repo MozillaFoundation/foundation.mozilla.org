@@ -21,7 +21,7 @@ class TestHighlightView(TestCase):
 
         pk = HighlightFactory().id
 
-        request = self.factory.get('/api/highlights/{}/'.format(pk))
+        request = self.factory.get('/api/highlights/{}'.format(pk))
         response = HighlightView.as_view()(request, pk=1)
 
         self.assertEqual(response.status_code, 200)
@@ -33,7 +33,7 @@ class TestHighlightView(TestCase):
 
         pk = HighlightFactory(unpublished=True).id
 
-        request = self.factory.get('/api/highlights/{}/'.format(pk))
+        request = self.factory.get('/api/highlights/{}'.format(pk))
         response = HighlightView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)
@@ -45,7 +45,7 @@ class TestHighlightView(TestCase):
 
         pk = HighlightFactory(expired=True)
 
-        request = self.factory.get('/api/highlights/{}/'.format(pk))
+        request = self.factory.get('/api/highlights/{}'.format(pk))
         response = HighlightView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)
