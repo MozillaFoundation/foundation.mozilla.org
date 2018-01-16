@@ -28,10 +28,7 @@ admin.autodiscover()
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^soc/', include('social_django.urls', namespace='social')),
-    # Don't remove this redirect until Fellowships pages are live
-    url(r'^fellowships/$', RedirectView.as_view(
-            url='https://advocacy.mozilla.org/open-web-fellows'
-        ))
+    url(r'^fellowships/', include('networkapi.fellows.urls'))
     if settings.SOCIAL_SIGNIN else '',
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
