@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/mozilla/network.svg)](https://david-dm.org/mozilla/network)
 [![Dev Dependency Status](https://david-dm.org/mozilla/network/dev-status.svg)](https://david-dm.org/mozilla/network/?type=dev)
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
-[![Code Coverage](src="https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master")](https://coveralls.io/github/mozilla/foundation.mozilla.org)
+[![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
 ## Development
 
