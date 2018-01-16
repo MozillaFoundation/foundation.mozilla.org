@@ -1,4 +1,5 @@
 import factory
+from random import randint
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
@@ -53,9 +54,15 @@ class Command(BaseCommand):
         if options['delete']:
             call_command('flush_models')
 
+        # Seed Faker with the provided seed value or a pseudorandom int between 0 and five million
         if options['seed']:
-            faker = factory.faker.Faker._get_faker(locale='en-US')
-            faker.random.seed(options['seed'])
+            seed = options['seed']
+        else:
+            seed = randint(0, 5000000)
+
+        self.stdout.write('Seeding Faker with: {}'.format(seed))
+        faker = factory.faker.Faker._get_faker(locale='en-US')
+        faker.random.seed(seed)
 
         self.stdout.write('Generating LandingPage objects')
         opportunity = LandingPageFactory.create(title='opportunity', content='This is placeholder')
