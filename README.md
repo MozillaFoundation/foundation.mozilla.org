@@ -86,7 +86,7 @@ The site should now be accessible at `https://localhost:8000`
 
 To log in to the admin UI, visit: http://localhost:8000/admin
 
-#### Generating a new set fake model data
+#### Generating a new set of fake model data
 
 You can empty your database and create a full new set of fake model data using the following command
 
