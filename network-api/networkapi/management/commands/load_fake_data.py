@@ -1,3 +1,5 @@
+import factory
+
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 
@@ -39,15 +41,29 @@ class Command(BaseCommand):
             help='Delete previous highlights, homepage, landing page, milestones, news and people from the database',
         )
 
+        parser.add_argument(
+            '--seed',
+            action='store',
+            dest='seed',
+            help='A seed value to pass to Faker before generating data',
+        )
+
     def handle(self, *args, **options):
 
         if options['delete']:
             call_command('flush_models')
 
+        if options['seed']:
+            faker = factory.faker.Faker._get_faker(locale='en-US')
+            faker.random.seed(options['seed'])
+
+
         self.stdout.write('Generating LandingPage objects')
         opportunity = LandingPageFactory.create(title='opportunity', content='This is placeholder')
         [LandingPageFactory.create(parent=opportunity) for i in range(5)]
-        SignupFactory.create()
+
+        self.stdout.write('Generating LandingPage objects with Signup CTAs')
+        [LandingPageFactory.create(parent=opportunity, signup=SignupFactory.create()) for i in range(5)]
 
         self.stdout.write('Generating Homepage')
         homepage = HomepageFactory.create()
