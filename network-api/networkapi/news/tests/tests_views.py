@@ -19,8 +19,8 @@ class TestNewsView(TestCase):
 
         pk = NewsFactory.create().id
 
-        request = self.factory.get('/api/news/{}/'.format(pk))
-        response = NewsView.as_view()(request, pk=1)
+        request = self.factory.get('/api/news/{}'.format(pk))
+        response = NewsView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 200)
 
@@ -31,7 +31,7 @@ class TestNewsView(TestCase):
 
         pk = NewsFactory.create(unpublished=True).id
 
-        request = self.factory.get('/api/news/{}/'.format(pk))
+        request = self.factory.get('/api/news/{}'.format(pk))
         response = NewsView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)
@@ -43,7 +43,7 @@ class TestNewsView(TestCase):
 
         pk = NewsFactory.create(expired=True).id
 
-        request = self.factory.get('/api/news/{}/'.format(pk))
+        request = self.factory.get('/api/news/{}'.format(pk))
         response = NewsView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 404)

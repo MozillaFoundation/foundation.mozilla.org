@@ -19,8 +19,8 @@ class TestSingleMilestoneViews(TestCase):
 
         pk = MilestoneFactory.create().id
 
-        request = self.factory.get('/api/milestones/{}/'.format(pk))
-        response = MilestoneView.as_view()(request, pk=1)
+        request = self.factory.get('/api/milestones/{}'.format(pk))
+        response = MilestoneView.as_view()(request, pk=pk)
 
         self.assertEqual(response.status_code, 200)
 
@@ -38,7 +38,7 @@ class TestMultipleMilestonesView(TestCase):
         Make sure milestone list view returns a 200 status code
         """
 
-        request = self.factory.get('/api/milestones/')
+        request = self.factory.get('/api/milestones')
         response = MilestoneListView.as_view()(request)
 
         self.assertEqual(response.status_code, 200)
@@ -48,7 +48,7 @@ class TestMultipleMilestonesView(TestCase):
         Make sure milestone list view return the right amount of milestones
         """
 
-        request = self.factory.get('/api/milestones/')
+        request = self.factory.get('/api/milestones')
         response = MilestoneListView.as_view()(request)
         response.render()
         response_json = json.loads(response.content)
