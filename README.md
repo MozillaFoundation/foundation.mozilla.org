@@ -55,7 +55,7 @@ Migrate the database to the latest schema:
 
 - `python manage.py migrate`
 
-By default, Django sets the site domain to `example.com`, but the mock data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
+By default, Django sets the site domain to `example.com`, but the fake data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
 
 - `python manage.py update_site_domain`
 
@@ -63,10 +63,9 @@ Fake model data can be loaded into your dev site with the following command
 
 - `python manage.py load_fake_data`
 
-This will set up a default superuser account for you to use:
+Create an admin user using the following command
 
-- username: `testuser`
-- pass: `networktest`
+- `python manage.py createsuperuser`
 
 #### From scratch database
 
@@ -95,7 +94,9 @@ You can empty your database and create a full new set of fake model data using t
 
 You can generate a specific set of fake model data by entering a seed value
 
-- `python manage.py load_fake_data --seed VALUE`
+- `python manage.py load_fake_data --delete --seed VALUE`
+
+If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
 #### Running the project for front-end development
 
