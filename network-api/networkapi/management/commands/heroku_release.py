@@ -13,4 +13,4 @@ class Command(BaseCommand):
 
         if settings.EXECUTE_FAKE_DATA:
             call_command('update_site_domain')
-            call_command('load_fake_data')
+            call_command('load_fake_data', '--delete')
