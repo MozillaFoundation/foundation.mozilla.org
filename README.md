@@ -4,6 +4,7 @@
 [![Dependency Status](https://david-dm.org/mozilla/network.svg)](https://david-dm.org/mozilla/network)
 [![Dev Dependency Status](https://david-dm.org/mozilla/network/dev-status.svg)](https://david-dm.org/mozilla/network/?type=dev)
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
+[![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
 ## Development
 
@@ -47,29 +48,28 @@ Install all dependencies into the virtual environment:
 
 - `pip install -r ../requirements.txt`
 
-#### Run migrate and load fixtures
+#### Run migrate and load fake model data
 
 
 Migrate the database to the latest schema:
 
 - `python manage.py migrate`
 
-By default, Django sets the site domain to `example.com`, but the mock data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
+By default, Django sets the site domain to `example.com`, but the fake data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
 
 - `python manage.py update_site_domain`
 
-Mock data can be loaded into your dev site with the following command
+Fake model data can be loaded into your dev site with the following command
 
-- `python manage.py loaddata networkapi/fixtures/test_data.json`
+- `python manage.py load_fake_data`
 
-This will set up a default superuser account for you to use:
+Create an admin user using the following command
 
-- username: `testuser`
-- pass: `networktest`
+- `python manage.py createsuperuser`
 
 #### From scratch database
 
-If you'd prefer not to load in the fixture data, you can use the following commands to get started:
+If you'd prefer not to load in fake model data, you can use the following commands to get started:
 
 ```bash
 python manage.py migrate
@@ -86,9 +86,28 @@ The site should now be accessible at `https://localhost:8000`
 
 To log in to the admin UI, visit: http://localhost:8000/admin
 
+#### Generating a new set of fake model data
+
+You can empty your database and create a full new set of fake model data using the following command
+
+- `python manage.py load_fake_data --delete`
+
+You can generate a specific set of fake model data by entering a seed value
+
+- `python manage.py load_fake_data --delete --seed VALUE`
+
+If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
+
 #### Running the project for front-end development
 
 - At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to Pug, JS, and Sass files.
+
+#### Tests
+
+When relevant, we encourage you to write tests.
+You can run the tests using the following command
+
+- `python manage.py test`
 
 ---
 
@@ -164,7 +183,7 @@ The `DEBUG` flag does all sorts of magical things, to the point where testing wi
 
 - Django uses its own built-in static content server, in which template tags may behave *differently* from the Mezzanine static server, which can lead to `400 Bad Request` errors in `DEBUG=False` setting.
 - Django bypasses the `ALLOWED_HOST` restrictions, which again can lead to `400 Bad Request` errors in `DEBUG=False` setting.
-- Rather than HTTP error pages, Django will generate stack traces pages that expose pretty much all enviroment variables except any that match certain substrings such as `KEY`, `PASS`, etc. for obvious security reasons.
+- Rather than HTTP error pages, Django will generate stack traces pages that expose pretty much all environment variables except any that match certain substrings such as `KEY`, `PASS`, etc. for obvious security reasons.
 - ...there are probably more gotchas just for `DEBUG` so if you find any please add them to this list.
 
 #### Use of `{ static "...." }` in templates
@@ -197,7 +216,7 @@ Default environment variables are declared in `env.default`. If you wish to over
 
 The domain used to fetch static content from Network Pulse can be customized by specifying `PULSE_API_DOMAIN`. By default it uses `network-pulse-api-production.herokuapp.com`.
 
-The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. NOTE: this variable must include a protocol (such as `https://`)
+The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. **NOTE: this variable must include a protocol (such as `https://`)**
 
 ---
 ### Security

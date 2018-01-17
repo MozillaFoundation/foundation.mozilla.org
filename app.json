@@ -48,7 +48,7 @@
     "CSP_MEDIA_SRC": "'self'",
     "CSP_CHILD_SRC": "'self'",
     "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
-    "LOAD_FIXTURE": "True" 
+    "EXECUTE_FAKE_DATA": "True"
   },
   "buildpacks": [
     {
