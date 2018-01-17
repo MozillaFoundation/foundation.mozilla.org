@@ -35,6 +35,9 @@ block content
       div(class!=`{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}`)
         .row
           .cms.col-12 {{ page.landingpage.content | safe }}
+        .row
+          .cms.col-12
+            iframe(width=`100%`, height=580 src=`https://survey.mofoprod.net/{{ page.landingpage.survey_id }}.html`)
     | {% if page.landingpage.signup %}
     .row
       .col-12
