@@ -46,7 +46,7 @@
     "CSP_FONT_SRC": "'self' fonts.gstatic.com fonts.googleapis.com code.cdn.mozilla.net",
     "CSP_CONNECT_SRC": "*",
     "CSP_MEDIA_SRC": "'self'",
-    "CSP_CHILD_SRC": "'self'",
+    "CSP_CHILD_SRC": "'self' https://survey.mofoprod.net",
     "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
     "EXECUTE_FAKE_DATA": "True"
   },
