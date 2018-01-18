@@ -6,6 +6,7 @@ django-filter==1.0.2
 
 # Mezzanine CMS - Use version with Django 1.11 LTS support
 git+https://github.com/stephenmcd/mezzanine@521a98c39bb6351c4b46067069f33caf95fe0a5e#egg=Mezzanine
+git+https://github.com/stephenmcd/filebrowser-safe@cfb0e948e0aaaafd25f5440b51ca3296093dface#egg=filebrowser_safe
 filebrowser_s3==1.0.0
 
 # social auth is useful
