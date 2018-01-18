@@ -10,11 +10,9 @@ def render_sortable_objects(
     objects,
     sortable_objects_template='adminsortable/shared/objects.html'
 ):
+    context.update({'objects': objects})
     tmpl = template.loader.get_template(sortable_objects_template)
-    return tmpl.render({
-        'objects': objects,
-        'opts': context.get('opts'),
-    })
+    return tmpl.render(context)
 
 
 @register.simple_tag(takes_context=True)
@@ -24,12 +22,9 @@ def render_nested_sortable_objects(
     group_expression,
     sortable_nested_objects_template='adminsortable/shared/nested_objects.html'
 ):
+    context.update({'objects': objects, 'group_expression': group_expression})
     tmpl = template.loader.get_template(sortable_nested_objects_template)
-    return tmpl.render({
-        'objects': objects,
-        'group_expression': group_expression,
-        'opts': context.get('opts'),
-    })
+    return tmpl.render(context)
 
 
 @register.simple_tag(takes_context=True)
@@ -38,11 +33,9 @@ def render_list_items(
     list_objects,
     sortable_list_items_template='adminsortable/shared/list_items.html'
 ):
+    context.update({'list_objects': list_objects})
     tmpl = template.loader.get_template(sortable_list_items_template)
-    return tmpl.render({
-        'list_objects': list_objects,
-        'opts': context.get('opts'),
-    })
+    return tmpl.render(context)
 
 
 @register.simple_tag(takes_context=True, name='render_object_rep')
@@ -51,13 +44,10 @@ def render_object_rep(
     obj,
     forloop
 ):
+    context.update({'object': obj, 'forloop': forloop})
     tmpl = template.loader.get_template(
         '{app_name}/adminsortable_objects_custom.html'.format(
             app_name=context.get('opts').app_label
         )
     )
-    return tmpl.render({
-        'object': obj,
-        'forloop': forloop,
-        'opts': context.get('opts'),
-    })
+    return tmpl.render(context)

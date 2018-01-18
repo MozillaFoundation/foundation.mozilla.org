@@ -1,11 +1,11 @@
 # Core
-Django==1.11
+Django==1.10.8
 gunicorn==19.6.0
 djangorestframework==3.5.4
 django-filter==1.0.2
 
-# Mezzanine CMS - Use version with Django 1.11 LTS support
-git+https://github.com/stephenmcd/mezzanine@521a98c39bb6351c4b46067069f33caf95fe0a5e#egg=Mezzanine
+# Mezzanine CMS
+Mezzanine==4.2.3
 filebrowser_s3==1.0.0
 
 # social auth is useful
@@ -37,7 +37,7 @@ django-cors-headers==2.0.2
 django-csp==3.3
 
 # Admin sort models
-django-admin-sortable==2.1.2
+django-admin-sortable==2.1.0
 
 # HTTP requests
 requests==2.13.0
