@@ -10,7 +10,6 @@ def render_sortable_objects(
     objects,
     sortable_objects_template='adminsortable/shared/objects.html'
 ):
-    context.update({'objects': objects})
     tmpl = template.loader.get_template(sortable_objects_template)
     return tmpl.render({
         'objects': objects,
@@ -25,7 +24,6 @@ def render_nested_sortable_objects(
     group_expression,
     sortable_nested_objects_template='adminsortable/shared/nested_objects.html'
 ):
-    context.update({'objects': objects, 'group_expression': group_expression})
     tmpl = template.loader.get_template(sortable_nested_objects_template)
     return tmpl.render({
         'objects': objects,
