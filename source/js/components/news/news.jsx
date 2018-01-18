@@ -75,7 +75,7 @@ export default class News extends React.Component {
     let newsByYear = [];
 
     while (year <= currentYear) {
-      newsByYear.push(newsForYear(year));
+      newsByYear.unshift(newsForYear(year));
       year++;
     }
 
