@@ -35,7 +35,7 @@ env = environ.Env(
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
-    LOAD_FIXTURE=(bool, False),
+    EXECUTE_FAKE_DATA=(bool, False),
     NETWORK_SITE_URL=(str, ''),
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
@@ -67,8 +67,8 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
 
-# This should only be needed in Heroku review apps
-LOAD_FIXTURE = env('LOAD_FIXTURE')
+# This should only be set to True in Heroku review apps
+EXECUTE_FAKE_DATA = env('EXECUTE_FAKE_DATA')
 
 # Force permanent redirects to the domain specified in TARGET_DOMAIN
 DOMAIN_REDIRECT_MIDDLWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLWARE_ENABLED')
@@ -158,8 +158,6 @@ MIDDLEWARE = [
 
     'mezzanine.core.request.CurrentRequestMiddleware',
     'mezzanine.core.middleware.RedirectFallbackMiddleware',
-    'mezzanine.core.middleware.TemplateForDeviceMiddleware',
-    'mezzanine.core.middleware.TemplateForHostMiddleware',
     'mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware',
     'mezzanine.core.middleware.SitePermissionMiddleware',
     'mezzanine.pages.middleware.PageMiddleware',
