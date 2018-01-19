@@ -51,7 +51,6 @@ class LandingPageFactory(DjangoModelFactory):
     content = Faker('paragraph', nb_sentences=15, variable_nb_sentences=True)
     signup = None
     title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
-    slug = LazyAttribute(lambda o: slugify(o.title_text))
     publish_date = past_datetime_faker
 
     # LazyAttribute helper values

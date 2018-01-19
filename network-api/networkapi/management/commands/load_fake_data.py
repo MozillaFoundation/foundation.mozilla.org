@@ -65,7 +65,11 @@ class Command(BaseCommand):
         faker.random.seed(seed)
 
         self.stdout.write('Generating LandingPage objects')
-        opportunity = LandingPageFactory.create(title='opportunity', content='This is placeholder')
+        opportunity = LandingPageFactory.create(
+            title='opportunity',
+            content='This is a placeholder',
+            slug='opportunity',
+        )
         [LandingPageFactory.create(parent=opportunity) for i in range(5)]
 
         self.stdout.write('Generating LandingPage objects with Signup CTAs')
