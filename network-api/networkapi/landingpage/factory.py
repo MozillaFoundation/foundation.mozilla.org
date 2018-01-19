@@ -1,6 +1,5 @@
 from datetime import timezone
 
-from slugify import slugify
 from factory import (
     DjangoModelFactory,
     LazyAttribute,
