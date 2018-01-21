@@ -17,6 +17,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
+from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.wagtailcore import urls as wagtail_urls
 
 import mezzanine
 from mezzanine.conf import settings
@@ -27,6 +29,9 @@ admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^cms/', include(wagtailadmin_urls)),
+    url(r'^documents/', include(wagtaildocs_urls)),
+    url(r'^wagtail/', include(wagtail_urls)),
     url(r'^soc/', include('social_django.urls', namespace='social')),
     # Don't remove this redirect until Fellowships pages are live
     url(r'^fellowships/$', RedirectView.as_view(

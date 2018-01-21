@@ -123,6 +123,20 @@ INSTALLED_APPS = list(filter(None, [
     'mezzanine.generic',
     'mezzanine.pages',
     'mezzanine.forms',
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
+
+    'modelcluster',
+    'taggit',
 
     'whitenoise.runserver_nostatic',
     'rest_framework',
@@ -162,12 +176,15 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'csp.middleware.CSPMiddleware',
 
+
     'mezzanine.core.request.CurrentRequestMiddleware',
     'mezzanine.core.middleware.RedirectFallbackMiddleware',
     'mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware',
     'mezzanine.core.middleware.SitePermissionMiddleware',
     'mezzanine.pages.middleware.PageMiddleware',
     'mezzanine.core.middleware.FetchFromCacheMiddleware',
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 ]
 
 if SOCIAL_SIGNIN:
@@ -342,7 +359,7 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = root('staticfiles')
-
+WAGTAIL_SITE_NAME = 'Test wagtail site'
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
