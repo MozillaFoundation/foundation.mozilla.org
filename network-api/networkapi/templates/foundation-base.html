@@ -72,6 +72,34 @@
         </div>
       </div>
     </div>
+    {% if showHeroBanner %}
+    <div id="hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-6 py-5">
+            <div class="mb-4">
+              <h1 class="h1-white">Fellowships</h1>
+            </div>
+            <p class="lead-black">Our Fellowships empower bright minds in the fields of public policy, science and journalism.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div id="fellowships-nav" class="mb-5">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="d-flex flex-row align-items-center py-4">
+              <a href="" class="mr-4">Overview</a>
+              <a href="" class="mr-4">Types of Fellowships</a>
+              <a href="" class="mr-4">Fellows Directory</a>
+              <a href="" class="mr-4">Apply Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       {% block body %}
       {% endblock %}
