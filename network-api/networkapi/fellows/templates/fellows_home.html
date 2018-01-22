@@ -28,26 +28,13 @@
       </div>
     </div>
   </div>
+{% for area in focus_areas %}
   <div class="col-md-6 mb-4">
-    <h3 class="h5-black my-2">Science</h3>
-    <p>Brief description of the theme of the Fellowship and defining characteristics of it.</p>
-    <a href="" class="cta-link">Learn More</a>
+    <h3 class="h5-black my-2">{{ area.type }}</h3>
+    <p>{{ area.description }}</p>
+    <a href={{ area.learn_more_link }} class="cta-link">{{ area.learn_more_text }}</a>
   </div>
-  <div class="col-md-6 mb-4">
-    <h3 class="h5-black my-2">Open Web</h3>
-    <p>Brief description of the theme of the Fellowship and defining characteristics of it.</p>
-    <a href="" class="cta-link">Learn More</a>
-  </div>
-  <div class="col-md-6 mb-4">
-    <h3 class="h5-black my-2">Tech Policy</h3>
-    <p>Brief description of the theme of the Fellowship and defining characteristics of it.</p>
-    <a href="" class="cta-link">Learn More</a>
-  </div>
-  <div class="col-md-6 mb-4">
-    <h3 class="h5-black my-2">Media</h3>
-    <p>Brief description of the theme of the Fellowship and defining characteristics of it.</p>
-    <a href="" class="cta-link">Learn More</a>
-  </div>
+{% endfor %}
 </div>
 
 <div class="row mb-5">
@@ -55,42 +42,17 @@
     <hr class="hr-gradient mt-0">
     <h4 class="h2-headings-white">Meet Some of the Mozilla Fellows</h4>
   </div>
+{% for fellow in fellows %}
   <div class="featured-person col-6 col-sm-4 col-md-3 mb-4 mb-sm-0">
-    <img class="img-fluid d-block" src={item.image} alt="Headshot"/>
-    <h2 class="h5-black my-2">Firstname Lastname</h2>
-    <p class="small-gray">description description description description description description description description description</p>
-    <div class="person-social-links mt-3">
-      <a href="" class="twitter gray small mr-4"></a>
-      <a href="" class="linkedIn gray small mr-4"></a>
-    </div>
+  <img class="img-fluid d-block" src={item.image} alt="Headshot"/>
+  <h2 class="h5-black my-2">{{ fellow.firstname }} {{ fellow.lastname }}</h2>
+  <p class="small-gray">{{ fellow.description }}</p>
+  <div class="person-social-links mt-3">
+    <a href="" class="twitter gray small mr-4"></a>
+    <a href="" class="linkedIn gray small mr-4"></a>
   </div>
-  <div class="featured-person col-6 col-sm-4 col-md-3 mb-4 mb-sm-0">
-    <img class="img-fluid d-block" src={item.image} alt="Headshot"/>
-    <h2 class="h5-black my-2">Firstname Lastname</h2>
-    <p class="small-gray">description description description description description description description description description</p>
-    <div class="person-social-links mt-3">
-      <a href="" class="twitter gray small mr-4"></a>
-      <a href="" class="linkedIn gray small mr-4"></a>
-    </div>
   </div>
-  <div class="featured-person col-6 col-sm-4 col-md-3 mb-4 mb-sm-0">
-    <img class="img-fluid d-block" src={item.image} alt="Headshot"/>
-    <h2 class="h5-black my-2">Firstname Lastname</h2>
-    <p class="small-gray">description description description description description description description description description</p>
-    <div class="person-social-links mt-3">
-      <a href="" class="twitter gray small mr-4"></a>
-      <a href="" class="linkedIn gray small mr-4"></a>
-    </div>
-  </div>
-  <div class="featured-person col-6 col-sm-4 col-md-3 mb-4 mb-sm-0">
-    <img class="img-fluid d-block" src={item.image} alt="Headshot"/>
-    <h2 class="h5-black my-2">Firstname Lastname</h2>
-    <p class="small-gray">description description description description description description description description description</p>
-    <div class="person-social-links mt-3">
-      <a href="" class="twitter gray small mr-4"></a>
-      <a href="" class="linkedIn gray small mr-4"></a>
-    </div>
-  </div>
+{% endfor %}
   <div class="col-md-12 text-center my-5">
     <button class="btn btn-ghost">See Fellows Directory</button>
   </div>
