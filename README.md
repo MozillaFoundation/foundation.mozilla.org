@@ -6,6 +6,22 @@
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
 [![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
+* [Development][#development]
+* [Setup][#setup]
+* [Stack][#stack]
+* [HTML][#html]
+* [CSS][#css]
+* [React][#react]
+* [File Structure][#file-structure]
+* [Deployment][#deployment]
+* [Staging][#staging]
+* [Production][#production]
+* [Healthcheck][#healthcheck]
+* [Environment Variables][#environment-variables]
+* [Security][#security]
+* [Resolving an Issue][#resolving-an-issue]
+* [Unpatched Vulnerabilities][#unpatched-vulnerabilities]
+
 ## Development
 
 ### Setup
