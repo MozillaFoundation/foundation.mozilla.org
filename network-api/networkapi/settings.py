@@ -332,7 +332,7 @@ STATICFILES_DIRS = [
     app('static'),
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = root('staticfiles')
 
@@ -432,7 +432,12 @@ LOGGING = {
             'handlers': ['console'],
             'level': DJANGO_LOG_LEVEL,
             'propagate': True,
-        }
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': DJANGO_LOG_LEVEL,
+            'propagate': True,
+        },
     },
 }
 
