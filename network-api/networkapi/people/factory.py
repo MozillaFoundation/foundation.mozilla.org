@@ -23,7 +23,7 @@ class InternetHealthIssueFactory(DjangoModelFactory):
     name = LazyAttribute(lambda o: o.name_sentence.rstrip('.'))
 
     # LazyAttribute helper value
-    name_sentence = Faker('sentence', nb_words=5, variable_nb_words=True)
+    name_sentence = Faker('text', max_nb_chars=50)
 
 
 class PersonFactory(DjangoModelFactory):
