@@ -80,8 +80,8 @@
           <div class="col">
             <div class="d-flex flex-row align-items-center">
               <a href="{% url 'fellowships-home' %}" class="{% active_nav request 'fellowships-home' %} mr-4">Fellowships</a>
-              <a href="{% url 'fellowships-directory' %}" class="mr-4">Directory</a>
-              <a href="{% url 'fellowships-support' %}" class="mr-4">Support the Program</a>
+              <a href="{% url 'fellowships-directory' %}" class="{% active_nav request 'fellowships-directory' %} mr-4">Directory</a>
+              <a href="{% url 'fellowships-support' %}" class="{% active_nav request 'fellowships-support' %} mr-4">Support the Program</a>
               <a href="" class="mr-4">Apply to be a Fellow</a>
             </div>
           </div>
