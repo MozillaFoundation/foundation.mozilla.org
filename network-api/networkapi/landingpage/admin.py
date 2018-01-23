@@ -19,17 +19,22 @@ class LandingPageAdmin(PageAdmin):
         ('Publishing', {
             'fields': [
                 'status',
-                ("publish_date", "expiry_date"),
+                ('publish_date', 'expiry_date'),
 
             ]
         }),
-        ("Meta data", {
-            "fields": ["_meta_title", "slug",
-                       ("description", "gen_description")],
-            "classes": ("collapse-closed",)
+        ('Ask Survey', {
+            'fields': [
+                'survey_id'
+            ],
+            'classes': ('collapse-closed',)
+        }),
+        ('Meta data', {
+            'fields': ['_meta_title', 'slug',
+                       ('description', 'gen_description')],
+            'classes': ('collapse-closed',)
         }),
     )
-
 
 admin.site.register(LandingPage, LandingPageAdmin)
 admin.site.register(Signup)
