@@ -2,6 +2,7 @@ from django import template
 
 register = template.Library()
 
+
 @register.simple_tag(name='active_nav')
 def active_nav(request, view_name):
 
