@@ -133,6 +133,7 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.news',
     'networkapi.utility',
     'networkapi.landingpage',
+    'networkapi.campaign',
     'networkapi.highlights',
     'networkapi.milestones',
 ]))
@@ -301,7 +302,7 @@ ADMIN_MENU_ORDER = (
         'highlights.Highlight',
         'milestones.Milestone'
         )),
-    ('Components', ('landingpage.Signup',)),
+    ('Components', ('landingpage.Signup', 'campaign.Petition')),
     ('Site', ('sites.Site', 'redirects.Redirect', 'conf.Setting')),
     ('Users', ('auth.User', 'auth.Group')),
 )
