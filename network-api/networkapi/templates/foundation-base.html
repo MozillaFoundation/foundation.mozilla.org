@@ -1,6 +1,6 @@
 <!-- This is a copy/paste of landing-page.html, modified to be useful for fellowships to start. Ideally the entire site will extend this template eventually -->
 <!DOCTYPE html>
-<html>{% load settings_value %}
+<html>{% load settings_value %}{% load active_nav %}
 
 <head>
   <meta charset="utf-8">
@@ -62,6 +62,8 @@
     <div class="wrapper-2">
       <div id="hero">
         <div class="container">
+          {% block hero_banner %}
+          {% endblock %}
         </div>
       </div>
     </div>
@@ -69,6 +71,20 @@
       <div class="container">
         <div class="row">
           <div class="col-12"></div>
+        </div>
+      </div>
+    </div>
+    <div id="fellowships-nav" class="nav-links mt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="d-flex flex-row align-items-center">
+              <a href="{% url 'fellowships-home' %}" class="{% active_nav request 'fellowships-home' %} mr-4">Fellowships</a>
+              <a href="{% url 'fellowships-directory' %}" class="{% active_nav request 'fellowships-directory' %} mr-4">Directory</a>
+              <a href="{% url 'fellowships-support' %}" class="{% active_nav request 'fellowships-support' %} mr-4">Support the Program</a>
+              <a href="" class="mr-4">Apply to be a Fellow</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
