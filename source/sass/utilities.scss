@@ -31,3 +31,28 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.breadcrumb {
+  background: 0;
+  padding: 0;
+
+  a {
+    font-weight: 500;
+  }
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  padding-left: 5px;
+  padding-right: 2px;
+  content: ">";
+}
+
+.breadcrumb-item {
+  &.active {
+    @extend .small-gray;
+  }
+
+  &:not(.active) {
+    text-decoration: underline;
+  }
+}

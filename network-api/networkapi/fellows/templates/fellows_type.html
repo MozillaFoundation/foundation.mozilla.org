@@ -3,7 +3,14 @@
 {% block body %}
 
 <div id="fellowship-breadcrumb">
-  <a href="">breadcrumb</a>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item small-gray">
+      <a href="#" class="small-gray">Fellowships</a>
+    </li>
+    <li class="breadcrumb-item small-gray active">
+      {% block breadcrumb_fellowship_type %}{% endblock %} Fellowship
+    </li>
+  </ol>
 </div>
 
 <div class="row mb-5">
