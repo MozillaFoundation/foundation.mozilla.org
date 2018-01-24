@@ -58,7 +58,7 @@
       <div class="container">
         <div class="row">
           <div class="py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
-            <h1 class="h1-white">{{ page.landingpage.header }}</h1>
+            <h1 class="h1-white">{{ page.campaign.header }}</h1>
           </div>
         </div>
       </div>
@@ -79,19 +79,20 @@
           </div>{% endif %}
           <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
             <div class="row">
-              <div class="cms col-12">{{ page.landingpage.content | safe }}</div>
+              <div class="cms col-12">{{ page.campaign.content | safe }}</div>
             </div>
           </div>
 
         </div>{% if page.campaign.petition %}
         <div class="row">
           <div class="col-12">
-            <div class="sign-petition p-2 full-width mb-5" data-cta-header="{{ page.campaign.petition.header | escape }}" data-cta-description="{{ page.campaign.petition.description | escape }}" data-newsletter="{{ page.campaign.petition.newsletter }}">
-              <p>Just to confirm:</p>
-              <h2>{{ page.campaign.petition.header | escape }}</h2>
-              <div>{{ page.campaign.petition.description | safe }}</div>
-              <input type="text" value={{ page.campaign.petition.newsletter }}>
-            </div>
+            <div
+              class="sign-petition p-2 full-width mb-5"
+              data-cta-title="{{ page.campaign.petition.title | escape }}"
+              data-cta-header="{{ page.campaign.petition.header | escape }}"
+              data-cta-description="{{ page.campaign.petition.description | escape }}"
+              data-newsletter="{{ page.campaign.petition.newsletter }}"
+            ></div>
           </div>
         </div>{% endif %}
 

@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import Cookies from 'js-cookie';
 
 import JoinUs from './components/join/join.jsx';
+import Petition from './components/petition/petition.jsx';
 import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
@@ -183,6 +184,13 @@ let main = {
         });
       }
     }
+
+    // petition elements
+    var petitionElements = Array.from(document.querySelectorAll(`.sign-petition`));
+    petitionElements.forEach(element => {
+      var props = element.dataset;
+      ReactDOM.render(<Petition {...props} isHidden={false} />, element);
+    });
 
     if (document.getElementById(`people`)) {
       ReactDOM.render(<People env={env}/>, document.getElementById(`people`));
