@@ -1,0 +1,19 @@
+#fellowships-nav {
+  a {
+    @include yellow-underline-nav-link(".active", "Nunito Sans");
+  }
+}
+
+.fellowships-list {
+  list-style: outside;
+
+  &.two-column {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+
+  li {
+    margin-left: 1.1rem;
+    padding-left: 1.5rem;
+  }
+}
