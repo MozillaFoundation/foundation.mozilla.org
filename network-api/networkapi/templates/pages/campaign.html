@@ -70,31 +70,30 @@
         </div>
       </div>
       <div class="container">
-        <div class="row mb-5">{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
+        <div class="row mb-5">{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}
           <div class="col-12 col-md-3 mb-3 hidden-sm-down">
             <div class="multipage-nav" id="multipage-nav">
               {% load pages_tags %}
               {% page_menu "pages/menus/side-menu-items.html" %}
             </div>
           </div>{% endif %}
-          <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
+          <div class="{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
             <div class="row">
               <div class="cms col-12">{{ page.campaign.content | safe }}</div>
+            </div>{% if page.campaign.petition %}
+            <div class="row">
+              <div class="col-12">
+                <div
+                  class="sign-petition full-width mb-5"
+                  data-cta-title="{{ page.campaign.petition.title | escape }}"
+                  data-cta-header="{{ page.campaign.petition.header | escape }}"
+                  data-cta-description="{{ page.campaign.petition.description | escape }}"
+                  data-newsletter="{{ page.campaign.petition.newsletter }}"
+                ></div>
+              </div>
+            </div>{% endif %}
             </div>
-          </div>
-
-        </div>{% if page.campaign.petition %}
-        <div class="row">
-          <div class="col-12">
-            <div
-              class="sign-petition p-2 full-width mb-5"
-              data-cta-title="{{ page.campaign.petition.title | escape }}"
-              data-cta-header="{{ page.campaign.petition.header | escape }}"
-              data-cta-description="{{ page.campaign.petition.description | escape }}"
-              data-newsletter="{{ page.campaign.petition.newsletter }}"
-            ></div>
-          </div>
-        </div>{% endif %}
+        </div>
 
         <div class="row mb-5">
           <div class="col-12">
