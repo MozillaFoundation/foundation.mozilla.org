@@ -83,10 +83,15 @@
             </div>
           </div>
 
-        </div>{% if page.landingpage.signup %}
+        </div>{% if page.campaign.petition %}
         <div class="row">
           <div class="col-12">
-            <div class="join-us p-2 full-width mb-5" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}" data-newsletter="{{ page.landingpage.signup.newsletter }}"></div>
+            <div class="sign-petition p-2 full-width mb-5" data-cta-header="{{ page.campaign.petition.header | escape }}" data-cta-description="{{ page.campaign.petition.description | escape }}" data-newsletter="{{ page.campaign.petition.newsletter }}">
+              <p>Just to confirm:</p>
+              <h2>{{ page.campaign.petition.header | escape }}</h2>
+              <div>{{ page.campaign.petition.description | safe }}</div>
+              <input type="text" value={{ page.campaign.petition.newsletter }}>
+            </div>
           </div>
         </div>{% endif %}
 
