@@ -125,6 +125,7 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
+    'debug_toolbar',
 
     # the network site
     'networkapi',
@@ -154,6 +155,7 @@ MIDDLEWARE = [
 
     'corsheaders.middleware.CorsMiddleware',
     'csp.middleware.CSPMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 
     'mezzanine.core.request.CurrentRequestMiddleware',
     'mezzanine.core.middleware.RedirectFallbackMiddleware',
@@ -231,6 +233,23 @@ TEMPLATES = [
             }
         },
     },
+]
+
+
+#specifies the full Python path to each panel that you want included in the toolbar
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
 # network asset domain used in templates
