@@ -81,6 +81,7 @@ export default class Petition extends React.Component {
     });
 
     let checkboxes;
+
     if (this.checkboxes.length > 0) {
       checkboxes = <div>{ this.checkboxes.map(s => <label key={s}><input type="checkbox"/> <span dangerouslySetInnerHTML={{__html: s}}/></label>)}</div>;
     }
