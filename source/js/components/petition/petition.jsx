@@ -34,13 +34,22 @@ export default class Petition extends React.Component {
 
   // helper function for initial component state
   getInitialState() {
+    // Values that match the various use cases described in render():
+    //
+    //  1. all false
+    //  2. all false, click "submit" on the page
+    //  3. all filled in, click "submit" on the page
+    //  4. true, true, false, true, true, false, true
+    //  5. true, true, false, true, false, true, true
+    //  6. true, false, true, false, false, false, true
+    //
     return {
-      apiSubmitted: true,
-      apiSuccess: true,
+      apiSubmitted: false,
+      apiSuccess: false,
       apiFailed: false,
-      basketSubmitted: true,
+      basketSubmitted: false,
       basketSuccess: false,
-      basketFailed: true,
+      basketFailed: false,
       userTriedSubmitting: false
     }
   }
