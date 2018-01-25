@@ -22,7 +22,7 @@ class Signup(models.Model):
     newsletter = models.CharField(
         max_length=100,
         help_text="The (pre-existing) SalesForce newsletter to sign up for",
-        default="mozilla-leadership-network"
+        default="mozilla-foundation"
     )
 
     def __str__(self):
