@@ -43,18 +43,6 @@ class Petition(models.Model):
         blank=True
     )
 
-    checkbox_3 = models.CharField(
-        max_length=1024,
-        help_text="label for the third checkbox option (may contain HTML)",
-        blank=True
-    )
-
-    checkbox_4 = models.CharField(
-        max_length=1024,
-        help_text="label for the fourth checkbox option (may contain HTML)",
-        blank=True
-    )
-
     def __str__(self):
         return str(self.title)
 

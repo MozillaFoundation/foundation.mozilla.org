@@ -8,6 +8,7 @@ export default class Petition extends React.Component {
     super(props);
     // Default props defined at end of file
 
+    this.submitDataToApi = this.submitDataToApi.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.formSubmissionSuccessful = this.formSubmissionSuccessful.bind(this);
     this.formSubmissionFailure = this.formSubmissionFailure.bind(this);
@@ -19,12 +20,24 @@ export default class Petition extends React.Component {
     };
 
     // there may be up to four checkboxes per petition
-    this.checkboxes = [
-      this.props.checkbox1,
-      this.props.checkbox2,
-      this.props.checkbox3,
-      this.props.checkbox4
-    ].filter(v => v);
+    this.checkbox1 = this.props.checkbox1;
+    this.checkbox2 = this.props.checkbox2;
+  }
+
+  submitDataToApi() {
+    return new Promise((resolve, reject) => {
+      let payload = {
+        givenNames: this.refs.givenNames.value,
+        surname: this.refs.surname.value,
+        email: this.refs.email.value
+        checkbox_1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
+        checkbox_2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
+      };
+
+      let xhr = new XMLHttpRequest();
+
+      xhr.open("POST", this.props.apiUrl, true);
+    });
   }
 
   submitForm(event) {
@@ -32,13 +45,25 @@ export default class Petition extends React.Component {
 
     event.preventDefault();
 
-    if(this.refs.email.value && this.refs.privacy.checked){
-      basketSignup({
-        email: this.refs.email.value,
-        privacy: this.refs.privacy.checked,
-        newsletter: this.props.newsletter
-      }, this.formSubmissionSuccessful, this.formSubmissionFailure);
-    }
+    let basketSignupPromise = new Promise((resolve, reject) => {
+      if(this.refs.email.value && this.refs.privacy.checked){
+        if(this.refs.newsletterSignup.checked) {
+          basketSignup({
+            email: this.refs.email.value,
+            privacy: this.refs.privacy.checked,
+            newsletter: this.props.newsletter
+          }, resolve, reject);
+        } else {
+          resolve();
+        }
+      } else {
+        reject(new Error());
+      }
+    });
+
+    Promise.all([basketSignupPromise, this.submitDataToApi])
+      .then(formSubmissionSuccessful)
+      .catch(formSubmissionFailure);
 
     ReactGA.event({
       category: `signup`,
@@ -81,9 +106,13 @@ export default class Petition extends React.Component {
     });
 
     let checkboxes;
+    let generateCheckbox = (key, ref) => <label key={s}><input type="checkbox" ref={ref} /> <span dangerouslySetInnerHTML={{__html: s}}/></label>;
 
-    if (this.checkboxes.length > 0) {
-      checkboxes = <div>{ this.checkboxes.map(s => <label key={s}><input type="checkbox"/> <span dangerouslySetInnerHTML={{__html: s}}/></label>)}</div>;
+    if(this.checkbox1) {
+      checkboxes.push(generateCheckbox(this.checkbox1, "checkbox1"));
+    }
+    if(this.checkbox2) {
+      checkboxes.push(generateCheckbox(this.checkbox2, "checkbox2"));
     }
 
     return (
@@ -101,13 +130,21 @@ export default class Petition extends React.Component {
               <form onSubmit={this.submitForm}>
                 <div className={inputGroupClass}>
                   <div className="mb-2">
+                    <input type="text" className="form-control" placeholder="Given Name(s)" ref="givenNames" onFocus={this.onInputFocus}/>
+                    {this.state.userSubmitted && !this.refs.givenNames.value && <small className="form-check form-control-feedback">Please enter your given name(s)</small>}
+                    <input type="text" className="form-control" placeholder="Surname" ref="surname" onFocus={this.onInputFocus}/>
+                    {this.state.userSubmitted && !this.refs.surname.value && <small className="form-check form-control-feedback">Please enter your surname</small>}
                     <input type="email" className="form-control" placeholder="EMAIL ADDRESS" ref="email" onFocus={this.onInputFocus}/>
+                    {this.state.userSubmitted && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
                   </div>
-                  {this.state.userSubmitted && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
                   {this.state.signupFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
                 </div>
-                { checkboxes }
+                { checkboxes ? (<div>{checkboxes}</div>) : null }
                 <div className={privacyClass}>
+                  <label className="form-check-label mb-4">
+                    <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
+                    <span className="small-gray form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
+                  </label>
                   <label className="form-check-label mb-4">
                     <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
                     <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
