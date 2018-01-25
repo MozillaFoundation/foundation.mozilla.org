@@ -35,13 +35,13 @@ export default class Petition extends React.Component {
   // helper function for initial component state
   getInitialState() {
     return {
-      apiSubmitted: false,
+      apiSubmitted: true,
       apiSuccess: false,
-      apiFailed: false,
+      apiFailed: true,
       basketSubmitted: false,
       basketSuccess: false,
       basketFailed: false,
-      userTriedSubmitting: false
+      userTriedSubmitting: true
     }
   }
 
@@ -241,10 +241,12 @@ export default class Petition extends React.Component {
       'sign-failure': signingIsDone && (this.state.apiFailed || this.state.basketFailed)
     });
 
+    let unrecoverableError = this.state.apiSubmitted && !this.state.apiSuccess && this.state.apiFailed;
+
     let petitionContent;
     if (success) {
       petitionContent = <p>{this.props.thankYouMessage}</p>;
-    } else if (this.state.apiSubmitted && !this.state.apiSuccess && this.state.apiFailed) {
+    } else if (unrecoverableError) {
       petitionContent = <p>Something went wrong while trying to sign the petition. Please try again later and we'll get this fixed ASAP</p>;
     } else {
       petitionContent = <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>;
@@ -255,7 +257,7 @@ export default class Petition extends React.Component {
         <div className="col">
           <div className="row">
             <div className="col-12 petition-content">{ petitionContent }</div>
-            { !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone) }
+            { !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone) }
           </div>
         </div>
       </div>
