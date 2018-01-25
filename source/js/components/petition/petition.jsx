@@ -278,7 +278,10 @@ export default class Petition extends React.Component {
    * What users see when their petition sign up succeeded.
    */
   renderThankYou() {
-    return <p>{this.props.thankYouMessage}</p>;
+    return <div>
+      <p>{this.props.thankYouMessage}</p>
+      <a href={this.props.shareLink} class="btn btn-info">{this.props.shareButtonText}</a>
+    </div>
   }
 
   /**
@@ -345,6 +348,8 @@ export default class Petition extends React.Component {
 Petition.defaultProps = {
   ctaDescription: `Sign the petition to do a thing`,
   ctaHeader: `Sign the Petition!`,
-  thankYouMessage: `You're a great human being.`,
+  thankYouMessage: `Thanks for signing the petition, now let's spread the word to more people!`,
+  shareLink: 'http://share.mozilla.org/',
+  shareButtonText: `Spread the word`,
   newsletter: `mozilla-leadership-network`
 };
