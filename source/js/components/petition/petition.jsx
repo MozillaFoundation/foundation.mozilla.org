@@ -26,17 +26,42 @@ export default class Petition extends React.Component {
 
   submitDataToApi() {
     return new Promise((resolve, reject) => {
+      let givenNames = this.refs.givenNames.value;
+      let surname = this.refs.surname.value;
+
+      if(!givenNames || !surname) {
+        return reject();
+      }
+
       let payload = {
-        givenNames: this.refs.givenNames.value,
-        surname: this.refs.surname.value,
-        email: this.refs.email.value
+        givenNames,
+        surname,
+        email: this.refs.email.value,
         checkbox_1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
         checkbox_2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
       };
 
       let xhr = new XMLHttpRequest();
 
+      xhr.onreadystatechange = () => {
+        if(xhr.readyState !== XMLHttpRequest.DONE) {
+          return;
+        }
+
+        if(xhr.status !== 201) {
+          reject(new Error(xhr.responseText));
+        }
+
+        resolve();
+      };
+
       xhr.open("POST", this.props.apiUrl, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+      xhr.timeout = 5000;
+      xhr.ontimeout = reject;
+
+      xhr.send(JSON.stringify(payload));
     });
   }
 
@@ -46,24 +71,20 @@ export default class Petition extends React.Component {
     event.preventDefault();
 
     let basketSignupPromise = new Promise((resolve, reject) => {
-      if(this.refs.email.value && this.refs.privacy.checked){
-        if(this.refs.newsletterSignup.checked) {
-          basketSignup({
-            email: this.refs.email.value,
-            privacy: this.refs.privacy.checked,
-            newsletter: this.props.newsletter
-          }, resolve, reject);
-        } else {
-          resolve();
-        }
+      if(this.refs.email.value && this.refs.privacy.checked && this.refs.newsletterSignup.checked){
+        basketSignup({
+          email: this.refs.email.value,
+          privacy: this.refs.privacy.checked,
+          newsletter: this.props.newsletter
+        }, resolve, reject);
       } else {
-        reject(new Error());
+        reject();
       }
     });
 
-    Promise.all([basketSignupPromise, this.submitDataToApi])
-      .then(formSubmissionSuccessful)
-      .catch(formSubmissionFailure);
+    Promise.all([this.submitDataToApi, basketSignupPromise])
+      .then(this.formSubmissionSuccessful)
+      .catch(this.formSubmissionFailure);
 
     ReactGA.event({
       category: `signup`,
@@ -86,7 +107,9 @@ export default class Petition extends React.Component {
 
   formSubmissionFailure(e) {
     console.error(e);
-    this.setState({signupFailed: true});
+    if(e instanceof Error) {
+      this.setState({signupFailed: true});
+    }
   }
 
   render() {
@@ -105,8 +128,8 @@ export default class Petition extends React.Component {
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
 
-    let checkboxes;
-    let generateCheckbox = (key, ref) => <label key={s}><input type="checkbox" ref={ref} /> <span dangerouslySetInnerHTML={{__html: s}}/></label>;
+    let checkboxes = [];
+    let generateCheckbox = (s, ref) => <label key={s}><input type="checkbox" ref={ref} /> <span dangerouslySetInnerHTML={{__html: s}}/></label>;
 
     if(this.checkbox1) {
       checkboxes.push(generateCheckbox(this.checkbox1, "checkbox1"));
@@ -139,7 +162,7 @@ export default class Petition extends React.Component {
                   </div>
                   {this.state.signupFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
                 </div>
-                { checkboxes ? (<div>{checkboxes}</div>) : null }
+                { checkboxes.length > 0 ? (<div>{checkboxes}</div>) : null }
                 <div className={privacyClass}>
                   <label className="form-check-label mb-4">
                     <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
