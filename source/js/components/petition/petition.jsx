@@ -254,9 +254,9 @@ export default class Petition extends React.Component {
 
     let petitionContent, formContent;
     if (success) {
-      petitionContent = <p>{this.props.thankYouMessage}</p>;
+      petitionContent = this.renderThankYou();
     } else if (unrecoverableError) {
-      petitionContent = <p>Something went wrong while trying to sign the petition. Please try again later and we'll get this fixed ASAP</p>;
+      petitionContent = this.renderUnrecoverableError();
     } else {
       petitionContent = <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>;
       formContent = !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone);
@@ -272,6 +272,20 @@ export default class Petition extends React.Component {
         </div>
       </div>
     );
+  }
+
+  /**
+   * What users see when their petition sign up succeeded.
+   */
+  renderThankYou() {
+    return <p>{this.props.thankYouMessage}</p>;
+  }
+
+  /**
+   * What users see when an unrecoverable error occurs.
+   */
+  renderUnrecoverableError() {
+    return <p>Something went wrong while trying to sign the petition. Please try again later and we'll get this fixed ASAP</p>;;
   }
 
   /**
