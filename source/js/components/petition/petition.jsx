@@ -75,7 +75,7 @@ export default class Petition extends React.Component {
     });
 
     let signupState = classNames({
-      'row py-5 px-md-2': true,
+      'row': true,
       'signup-success': this.state.signupSuccess && this.state.userSubmitted,
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
@@ -87,18 +87,9 @@ export default class Petition extends React.Component {
 
     return (
       <div className={signupState}>
-        <div className="col text-center mb-2 petition-graphic">
-          <img src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
-        </div>
         <div className="col">
           <div className="row">
             <div className="col-12 petition-content">
-              <div className="mb-5 petition-page-title">
-                <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaTitle}` : `Thank You`}</h2>
-              </div>
-              <div className="petition-heading">
-                <h2>{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
-              </div>
               {!this.state.signupSuccess ?
                 <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
                 : <p>{this.props.thankYouMessage}</p>
@@ -139,5 +130,5 @@ Petition.defaultProps = {
   ctaDescription: `Sign the petition to do a thing`,
   ctaHeader: `Sign the Petition!`,
   thankYouMessage: `You're a great human being.`,
-  newsletter: `aadhaar-petition`
+  newsletter: `mozilla-leadership-network`
 };
