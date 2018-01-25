@@ -3,6 +3,9 @@ extends ../templates/master.pug
 block masterParams
   - let pageTitle = `About`;
 
+block heroGuts
+  +subpageHero(`About Us`,`We’re building a movement. Its mission: keep the web decentralized, open and free. In short, protect the health of the Internet.`)
+
 mixin funderLogo(uri, width=75)
   .col-6.col-md-3.mb-5.px-3.d-flex.align-items-center.justify-content-center
     img(class=`w-${width}`, src=`/${uri}`)
@@ -11,8 +14,6 @@ block content
   .container.py-5
     .row.big-section.justify-content-around
       .col-12.col-md-10.col-lg-8.col-xl-7
-        .mb-5: h1.h1-white About Us
-        p.blockquote-gray We’re building a movement. Its mission: keep the web decentralized, open and free. In short, protect the health of the Internet.
         p.body-black A movement is only as powerful as the people behind it. The “we” behind this movement isn't just Mozilla -- it’s a far larger network. There are technologists, yes. But also educators, artists and activists, hailing from Cape Town, Chicago, Shenzhen, Berlin and beyond.
         p.body-black Members of the Mozilla Network understand that three-and-a-half billion people -- and counting -- now live their lives on the Internet. We understand the opportunity the Internet unlocks -- and, conversely, the dangers of mass surveillance, insecurity and centralization. We understand that a positive future depends on a healthy Internet.
         p.body-black These fights will be fought across borders, in legislatures, at protests, online and in person. And they will influence everything from public policy to free expression and consumer technology. Now more than ever, we need a network.
