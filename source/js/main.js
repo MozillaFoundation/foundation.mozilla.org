@@ -191,7 +191,7 @@ let main = {
     petitionElements.forEach(element => {
       console.log(element.getAttribute(`data-checkboxes`));
       var props = element.dataset;
-      props.apiUrl = `${networkSiteURL}/api/campaign/${props.petitionId}`;
+      props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}`;
 
       console.log(typeof props.checkboxes);
       ReactDOM.render(<Petition {...props} isHidden={false} />, element);
