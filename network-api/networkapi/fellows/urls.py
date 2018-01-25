@@ -9,16 +9,16 @@ from networkapi.fellows.views import (
 
 urlpatterns = [
     url('^$', FellowHomeView.as_view(), name='fellowships-home'),
-    url('^directory/$',
+    url(r'^directory/$',
         FellowDirectoryView.as_view(),
         name='fellowships-directory'),
-    url('^support/$',
+    url(r'^support/$',
         FellowSupportView.as_view(),
         name='fellowships-support'),
-    url('^science/$',
+    url(r'^science/$',
         FellowScienceView.as_view(),
         name='fellowships-science'),
-    url('^open-web/$',
+    url(r'^open-web/$',
         FellowOpenWebView.as_view(),
         name='fellowships-open-web'),
 ]
