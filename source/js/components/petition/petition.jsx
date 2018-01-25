@@ -71,12 +71,16 @@ export default class Petition extends React.Component {
     event.preventDefault();
 
     let basketSignupPromise = new Promise((resolve, reject) => {
-      if(this.refs.email.value && this.refs.privacy.checked && this.refs.newsletterSignup.checked){
-        basketSignup({
-          email: this.refs.email.value,
-          privacy: this.refs.privacy.checked,
-          newsletter: this.props.newsletter
-        }, resolve, reject);
+      if(this.refs.email.value && this.refs.privacy.checked){
+        if(this.refs.newsletterSignup.checked) {
+          basketSignup({
+            email: this.refs.email.value,
+            privacy: this.refs.privacy.checked,
+            newsletter: this.props.newsletter
+          }, resolve, reject);
+        } else {
+          resolve();
+        }
       } else {
         reject();
       }
