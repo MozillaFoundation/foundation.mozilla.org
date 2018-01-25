@@ -11,7 +11,7 @@
     display: none;
   }
 
-  .signup-success .petition-graphic {
+  .sign-success .petition-graphic {
     display: block;
   }
 
@@ -83,7 +83,7 @@
         @include make-col(6);
       }
 
-      .signup-success .petition-content {
+      .sign-success .petition-content {
         @include make-col(7);
       }
 
