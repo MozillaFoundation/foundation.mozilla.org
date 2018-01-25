@@ -48,6 +48,7 @@ env = environ.Env(
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
+    PETITION_SQS_QUEUE_URL=(str, None),
 )
 
 # Read in the environment
@@ -82,7 +83,9 @@ CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
 USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST')
 
-if env('HEROKU_APP_NAME'):
+HEROKU_APP_NAME = env('HEROKU_APP_NAME')
+
+if HEROKU_APP_NAME:
     herokuAppHost = env('HEROKU_APP_NAME') + '.herokuapp.com'
     ALLOWED_HOSTS.append(herokuAppHost)
 
@@ -450,6 +453,9 @@ FRONTEND = {
     'TARGET_DOMAIN': env('TARGET_DOMAIN'),
     'SHOW_TAKEOVER': env('SHOW_TAKEOVER'),
 }
+
+# The SQS endpoint where we will send petition signups to
+PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
 
 try:
     from mezzanine.utils.conf import set_dynamic_settings
