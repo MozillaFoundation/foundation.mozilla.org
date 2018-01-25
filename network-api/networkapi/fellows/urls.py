@@ -8,17 +8,17 @@ from networkapi.fellows.views import (
 )
 
 urlpatterns = [
-    url(r'^$', FellowHomeView.as_view(), name='fellowships-home'),
-    url(r'^directory/$',
+    url('^$', FellowHomeView.as_view(), name='fellowships-home'),
+    url('^directory/$',
         FellowDirectoryView.as_view(),
         name='fellowships-directory'),
-    url(r'^support/$',
+    url('^support/$',
         FellowSupportView.as_view(),
         name='fellowships-support'),
-    url(r'^science/$',
+    url('^science/$',
         FellowScienceView.as_view(),
         name='fellowships-science'),
-    url(r'^open-web/$',
+    url('^open-web/$',
         FellowOpenWebView.as_view(),
         name='fellowships-open-web'),
 ]
