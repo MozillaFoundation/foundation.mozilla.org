@@ -188,7 +188,9 @@ let main = {
     // petition elements
     var petitionElements = Array.from(document.querySelectorAll(`.sign-petition`));
     petitionElements.forEach(element => {
+      console.log(element.getAttribute('data-checkboxes'));
       var props = element.dataset;
+      console.log(typeof props.checkboxes);
       ReactDOM.render(<Petition {...props} isHidden={false} />, element);
     });
 

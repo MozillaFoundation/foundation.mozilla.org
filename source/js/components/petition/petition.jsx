@@ -17,6 +17,14 @@ export default class Petition extends React.Component {
       signupFailed: false,
       userSubmitted: false
     };
+
+    // there may be up to four checkboxes per petition
+    this.checkboxes = [
+      this.props.checkbox1,
+      this.props.checkbox2,
+      this.props.checkbox3,
+      this.props.checkbox4
+    ].filter(v => v);
   }
 
   submitForm(event) {
@@ -72,18 +80,23 @@ export default class Petition extends React.Component {
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
 
+    let checkboxes;
+    if (this.checkboxes.length > 0) {
+      checkboxes = <div>{ this.checkboxes.map(s => <label key={s}><input type="checkbox"/> <span dangerouslySetInnerHTML={{__html: s}}/></label>)}</div>;
+    }
+
     return (
       <div className={signupState}>
-        <div className="col text-center mb-2 join-graphic">
+        <div className="col text-center mb-2 petition-graphic">
           <img src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
         </div>
         <div className="col">
           <div className="row">
-            <div className="col-12 join-content">
-              <div className="mb-5 join-page-title">
+            <div className="col-12 petition-content">
+              <div className="mb-5 petition-page-title">
                 <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaTitle}` : `Thank You`}</h2>
               </div>
-              <div className="join-heading">
+              <div className="petition-heading">
                 <h2>{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
               </div>
               {!this.state.signupSuccess ?
@@ -92,7 +105,7 @@ export default class Petition extends React.Component {
               }
             </div>
             { !this.state.signupSuccess &&
-            <div className="col join-form">
+            <div className="col petition-form">
               <form onSubmit={this.submitForm}>
                 <div className={inputGroupClass}>
                   <div className="mb-2">
@@ -101,6 +114,7 @@ export default class Petition extends React.Component {
                   {this.state.userSubmitted && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
                   {this.state.signupFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
                 </div>
+                { checkboxes }
                 <div className={privacyClass}>
                   <label className="form-check-label mb-4">
                     <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
@@ -108,7 +122,7 @@ export default class Petition extends React.Component {
                     {this.state.userSubmitted && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
                   </label>
                   <div>
-                    <button className="btn btn-normal join-btn">Sign Up</button>
+                    <button className="btn btn-normal petition-btn">Sign Up</button>
                   </div>
                 </div>
               </form>

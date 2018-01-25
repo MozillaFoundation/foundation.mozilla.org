@@ -1,25 +1,25 @@
-.wrapper-join-us {
+.wrapper-sign-petition {
   background: #f1eee9;
 }
 
-.join-us {
-  .join-page-title {
+.sign-petition {
+  .petition-page-title {
     display: none;
   }
 
-  .join-graphic {
+  .petition-graphic {
     display: none;
   }
 
-  .signup-success .join-graphic {
+  .signup-success .petition-graphic {
     display: block;
   }
 
-  .join-btn {
+  .petition-btn {
     width: 100%;
   }
 
-  .join-heading h2 {
+  .petition-heading h2 {
     font-family: "Nunito Sans";
     font-weight: 900;
     font-size: 22px;
@@ -38,7 +38,7 @@
   &.half-width {
     background: $off-white;
 
-    .join-graphic {
+    .petition-graphic {
       @include make-col(12);
 
       margin-bottom: 3em;
@@ -52,7 +52,7 @@
   &.full-width {
     background: $off-white;
 
-    .join-graphic {
+    .petition-graphic {
       @include make-col(12);
 
       img {
@@ -64,11 +64,11 @@
       padding-top: 1em;
       padding-bottom: 1em;
 
-      .join-btn {
+      .petition-btn {
         width: auto;
       }
 
-      .join-graphic {
+      .petition-graphic {
         @include make-col(2);
 
         display: flex;
@@ -79,15 +79,15 @@
         }
       }
 
-      .join-content {
+      .petition-content {
         @include make-col(6);
       }
 
-      .signup-success .join-content {
+      .signup-success .petition-content {
         @include make-col(7);
       }
 
-      .join-form {
+      .petition-form {
         @include make-col(6);
       }
     }
@@ -97,7 +97,7 @@
     margin-top: 2rem;
     margin-bottom: 3rem;
 
-    .join-graphic {
+    .petition-graphic {
       display: block;
 
       @include make-col(12);
@@ -107,18 +107,18 @@
       }
     }
 
-    .join-page-title {
+    .petition-page-title {
       display: block;
     }
 
-    .join-heading { display: none; }
+    .petition-heading { display: none; }
 
     @media (min-width: $bp-md) {
-      .join-btn {
+      .petition-btn {
         width: auto;
       }
 
-      .join-graphic {
+      .petition-graphic {
         @include make-col(4);
         @include make-col-push(8);
 
@@ -130,20 +130,20 @@
         }
       }
 
-      .join-content,
-      .join-form {
+      .petition-content,
+      .petition-form {
         @include make-col-pull(6);
       }
     }
 
     @media (min-width: $bp-lg) {
-      .join-content,
-      .join-form {
+      .petition-content,
+      .petition-form {
         @include make-col-pull(5);
         @include make-col(10);
       }
 
-      .join-graphic {
+      .petition-graphic {
         @include make-col-push(7);
       }
     }

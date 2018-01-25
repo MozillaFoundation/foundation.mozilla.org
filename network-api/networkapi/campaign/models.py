@@ -25,6 +25,36 @@ class Petition(models.Model):
         default="mozilla-leadership-network"
     )
 
+    google_forms_url = models.URLField(
+        help_text="Google form to post petition data to",
+        max_length=2048,
+        null=True
+    )
+
+    checkbox_1 = models.CharField(
+        max_length=1024,
+        help_text="label for the first checkbox option (may contain HTML)",
+        blank=True
+    )
+
+    checkbox_2 = models.CharField(
+        max_length=1024,
+        help_text="label for the second checkbox option (may contain HTML)",
+        blank=True
+    )
+
+    checkbox_3 = models.CharField(
+        max_length=1024,
+        help_text="label for the third checkbox option (may contain HTML)",
+        blank=True
+    )
+
+    checkbox_4 = models.CharField(
+        max_length=1024,
+        help_text="label for the fourth checkbox option (may contain HTML)",
+        blank=True
+    )
+
     def __str__(self):
         return str(self.title)
 

@@ -83,16 +83,20 @@
             </div>{% if page.campaign.petition %}
             <div class="row">
               <div class="col-12">
-                <div
+                {% with page.campaign.petition as petition %}<div
                   class="sign-petition full-width mb-5"
                   data-cta-title="{{ page.campaign.petition.title | escape }}"
                   data-cta-header="{{ page.campaign.petition.header | escape }}"
                   data-cta-description="{{ page.campaign.petition.description | escape }}"
                   data-newsletter="{{ page.campaign.petition.newsletter }}"
-                ></div>
+                  data-checkbox1="{{ page.campaign.petition.checkbox_1 | escape }}"
+                  data-checkbox2="{{ page.campaign.petition.checkbox_2 | escape }}"
+                  data-checkbox3="{{ page.campaign.petition.checkbox_3 | escape }}"
+                  data-checkbox4="{{ page.campaign.petition.checkbox_4 | escape }}"
+                ></div>{% endwith %}
               </div>
             </div>{% endif %}
-            </div>
+          </div>
         </div>
 
         <div class="row mb-5">
