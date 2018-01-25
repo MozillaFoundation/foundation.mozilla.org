@@ -67,25 +67,16 @@ export default class Petition extends React.Component {
     });
 
     let signupState = classNames({
-      'row py-5 px-md-2': true,
+      'row': true,
       'signup-success': this.state.signupSuccess && this.state.userSubmitted,
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
 
     return (
       <div className={signupState}>
-        <div className="col text-center mb-2 join-graphic">
-          <img src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
-        </div>
         <div className="col">
           <div className="row">
             <div className="col-12 join-content">
-              <div className="mb-5 join-page-title">
-                <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaTitle}` : `Thank You`}</h2>
-              </div>
-              <div className="join-heading">
-                <h2>{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
-              </div>
               {!this.state.signupSuccess ?
                 <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
                 : <p>{this.props.thankYouMessage}</p>
@@ -108,7 +99,7 @@ export default class Petition extends React.Component {
                     {this.state.userSubmitted && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
                   </label>
                   <div>
-                    <button className="btn btn-normal join-btn">Sign Up</button>
+                    <button className="btn btn-normal join-btn">Take Action</button>
                   </div>
                 </div>
               </form>
@@ -125,5 +116,5 @@ Petition.defaultProps = {
   ctaDescription: `Sign the petition to do a thing`,
   ctaHeader: `Sign the Petition!`,
   thankYouMessage: `You're a great human being.`,
-  newsletter: `aadhaar-petition`
+  newsletter: `mozilla-leadership-network`
 };
