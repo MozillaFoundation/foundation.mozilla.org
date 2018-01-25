@@ -36,12 +36,12 @@ export default class Petition extends React.Component {
   getInitialState() {
     return {
       apiSubmitted: true,
-      apiSuccess: false,
-      apiFailed: true,
-      basketSubmitted: false,
+      apiSuccess: true,
+      apiFailed: false,
+      basketSubmitted: true,
       basketSuccess: false,
-      basketFailed: false,
-      userTriedSubmitting: true
+      basketFailed: true,
+      userTriedSubmitting: false
     }
   }
 
@@ -233,7 +233,7 @@ export default class Petition extends React.Component {
     //  6. notify that something went wrong and ask them to try again later
 
     let signingIsDone = this.submissionsAreDone();
-    let success = signingIsDone && this.state.apiSuccess && this.state.basketSuccess;
+    let success = signingIsDone && this.state.apiSuccess; // we don't actually care about basket succeeding, see (5)
 
     let signupState = classNames({
       'row': true,
@@ -243,13 +243,14 @@ export default class Petition extends React.Component {
 
     let unrecoverableError = this.state.apiSubmitted && !this.state.apiSuccess && this.state.apiFailed;
 
-    let petitionContent;
+    let petitionContent, formContent;
     if (success) {
       petitionContent = <p>{this.props.thankYouMessage}</p>;
     } else if (unrecoverableError) {
       petitionContent = <p>Something went wrong while trying to sign the petition. Please try again later and we'll get this fixed ASAP</p>;
     } else {
       petitionContent = <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>;
+      formContent = !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone);
     }
 
     return (
@@ -257,7 +258,7 @@ export default class Petition extends React.Component {
         <div className="col">
           <div className="row">
             <div className="col-12 petition-content">{ petitionContent }</div>
-            { !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone) }
+            { formContent }
           </div>
         </div>
       </div>
