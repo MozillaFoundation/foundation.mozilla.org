@@ -15,7 +15,7 @@ past_datetime_faker = Faker('past_datetime', start_date='-30d', tzinfo=timezone.
 
 class PetitionFactory(DjangoModelFactory):
     class Meta:
-        model = Signup
+        model = Petition
         exclude = (
             'title_text',
             'header_text',
