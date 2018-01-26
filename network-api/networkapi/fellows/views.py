@@ -3,7 +3,6 @@ from django.shortcuts import render
 
 # Create your views here.
 def fellows_home(request):
-    print('Rendering Fellows Home')
     return render(request, 'fellows_home.html')
 
 
