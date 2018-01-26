@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(help_text='Identify this component for other editors', max_length=100)),
                 ('header', models.CharField(blank=True, help_text='Signup heading that will display on page', max_length=500)),
                 ('description', mezzanine.core.fields.RichTextField(help_text='Body of signup component', verbose_name='description')),
-                ('newsletter', models.CharField(default='mozilla-leadership-network', help_text='The (pre-existing) SalesForce newsletter to sign up for', max_length=100)),
+                ('newsletter', models.CharField(default='mozilla-foundation', help_text='The (pre-existing) SalesForce newsletter to sign up for', max_length=100)),
                 ('google_forms_url', models.URLField(help_text='Google form to post petition data to', max_length=2048, null=True)),
                 ('checkbox_1', models.CharField(blank=True, help_text='label for the first checkbox option (may contain HTML)', max_length=1024)),
                 ('checkbox_2', models.CharField(blank=True, help_text='label for the second checkbox option (may contain HTML)', max_length=1024)),
