@@ -234,6 +234,7 @@ let main = {
       ReactDOM.render(<News env={env}/>, document.querySelector(`#news`));
     }
 
+    // Fellowships pages related components
     fellowships.injectReactComponents();
   }
 };
