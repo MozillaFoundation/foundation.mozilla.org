@@ -200,7 +200,7 @@ export default class Petition extends React.Component {
    *
    * @returns {void}
    */
-  processFormData() {
+  processFormData(event) {
     this.setState({ userTriedSubmitting: true });
     event.preventDefault();
 
