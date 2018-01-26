@@ -258,12 +258,7 @@ export default class Petition extends React.Component {
     } else if (unrecoverableError) {
       petitionContent = this.renderUnrecoverableError();
     } else {
-      petitionContent = (
-        <div>
-          <h2>{this.props.ctaHeader}</h2>
-          <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
-        </div>
-      );
+      petitionContent = this.renderStandardHeading();
       formContent = !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone);
     }
 
@@ -283,17 +278,36 @@ export default class Petition extends React.Component {
    * What users see when their petition sign up succeeded.
    */
   renderThankYou() {
-    return <div>
-      <p>{this.props.thankYouMessage}</p>
-      <a href={this.props.shareLink} class="btn btn-info">{this.props.shareButtonText}</a>
-    </div>
+    return (
+      <div>
+        <p>{this.props.thankYouMessage}</p>
+        <a href={this.props.shareLink} class="btn btn-info">{this.props.shareButtonText}</a>
+      </div>
+    );
   }
 
   /**
    * What users see when an unrecoverable error occurs.
    */
   renderUnrecoverableError() {
-    return <p>Something went wrong while trying to sign the petition. Please try again later and we'll get this fixed ASAP</p>;;
+    return (
+      <div>
+        <p>Something went wrong while trying to sign the petition. Please try again later.</p>
+      </div>
+    );
+  }
+
+  /**
+   * What users see when they initially open the page,
+   * above the actual petition form.
+   */
+  renderStandardHeading() {
+    return (
+      <div>
+        <h2>{this.props.ctaHeader}</h2>
+        <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
+      </div>
+    );
   }
 
   /**
