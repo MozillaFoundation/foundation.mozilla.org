@@ -118,6 +118,7 @@ INSTALLED_APPS = list(filter(None, [
     'mezzanine.pages',
     'mezzanine.forms',
 
+    'django_extensions',
     'whitenoise.runserver_nostatic',
     'rest_framework',
     'django_filters',

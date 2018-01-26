@@ -49,3 +49,5 @@ factory_boy==2.9.2
 faker==0.8.10
 coverage==4.4.2
 python-coveralls==2.9.1
+
+django-extensions==1.9.9
