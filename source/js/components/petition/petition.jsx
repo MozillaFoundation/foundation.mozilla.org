@@ -57,9 +57,9 @@ export default class Petition extends React.Component {
   // helper function to set up GA input events
   onInputFocus() {
     ReactGA.event({
-      category: `signup`,
+      category: `petition`,
       action: `form focus`,
-      label: `Signup form input focused`
+      label: `Petition form input focused`
     });
   }
 
@@ -221,9 +221,9 @@ export default class Petition extends React.Component {
     }
 
     ReactGA.event({
-      category: `signup`,
+      category: `petition`,
       action: `form submit tap`,
-      label: `Signup form submitted`
+      label: `Petition form submitted`
     });
   }
 
