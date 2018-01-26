@@ -92,5 +92,4 @@ class TestHighlightListView(TestCase):
         response.render()
         response_json = json.loads(str(response.content, 'utf-8'))
 
-
         self.assertEqual(len(response_json), 3)
