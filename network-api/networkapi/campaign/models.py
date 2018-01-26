@@ -11,7 +11,8 @@ class Petition(models.Model):
 
     header = models.CharField(
         max_length=500,
-        help_text="Signup heading that will display on page"
+        help_text="Signup heading that will display on page",
+        blank=True
     )
 
     description = RichTextField(
