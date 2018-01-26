@@ -258,7 +258,12 @@ export default class Petition extends React.Component {
     } else if (unrecoverableError) {
       petitionContent = this.renderUnrecoverableError();
     } else {
-      petitionContent = <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>;
+      petitionContent = (
+        <div>
+          <h2>{this.props.ctaHeader}</h2>
+          <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
+        </div>
+      );
       formContent = !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone);
     }
 
@@ -346,10 +351,10 @@ export default class Petition extends React.Component {
 }
 
 Petition.defaultProps = {
-  ctaDescription: `Sign the petition to do a thing`,
-  ctaHeader: `Sign the Petition!`,
-  thankYouMessage: `Thanks for signing the petition, now let's spread the word to more people!`,
-  shareLink: 'http://share.mozilla.org/',
-  shareButtonText: `Spread the word`,
-  newsletter: `mozilla-leadership-network`
+  ctaDescription: `Add my name`,
+  ctaHeader: ``,
+  thankYouMessage: `Thank you for signing too!`,
+  shareLink: 'http://share.mozilla.org/TBD',
+  shareButtonText: `Share the letter`,
+  newsletter: `mozilla-foundation`
 };
