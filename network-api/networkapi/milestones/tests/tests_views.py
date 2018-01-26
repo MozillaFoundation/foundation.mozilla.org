@@ -51,7 +51,6 @@ class TestMultipleMilestonesView(TestCase):
         request = self.factory.get('/api/milestones')
         response = MilestoneListView.as_view()(request)
         response.render()
-
         response_json = json.loads(str(response.content, 'utf-8'))
 
         self.assertEqual(len(response_json), 4)
