@@ -122,7 +122,9 @@ export default class Petition extends React.Component {
   }
 
   /**
-   * submit the user's data to the API server.
+   * Submit the user's data to the API server.
+   *
+   * @returns {promise} the result the XHR post attempt.
    */
   submitDataToApi() {
     this.setState({ apiSubmitted: true });
@@ -139,8 +141,8 @@ export default class Petition extends React.Component {
         givenNames,
         surname,
         email: this.refs.email.value,
-        checkbox_1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
-        checkbox_2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
+        checkbox1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
+        checkbox2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
       };
 
       let xhr = new XMLHttpRequest();
@@ -157,7 +159,7 @@ export default class Petition extends React.Component {
         resolve();
       };
 
-      xhr.open("POST", this.props.apiUrl, true);
+      xhr.open(`POST`, this.props.apiUrl, true);
       xhr.setRequestHeader(`Content-Type`, `application/json`);
       xhr.setRequestHeader(`X-Requested-With`,`XMLHttpRequest`);
       xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
@@ -170,6 +172,8 @@ export default class Petition extends React.Component {
 
   /**
    * sign the user up for the mozilla newsletter.
+   *
+   * @returns {promise} the result the XHR post attempt.
    */
   signUpToBasket() {
     this.setState({ basketSubmitted: true });
@@ -193,8 +197,10 @@ export default class Petition extends React.Component {
 
   /**
    * kick off the form processing when the user hits "submit".
+   *
+   * @returns {void}
    */
-  processFormData(event) {
+  processFormData() {
     this.setState({ userTriedSubmitting: true });
     event.preventDefault();
 
@@ -209,9 +215,9 @@ export default class Petition extends React.Component {
           this.apiSubmissionSuccessful();
           this.signUpToBasket()
             .then(this.basketSubmissionSuccessful)
-            .catch(this.basketSubmissionFailure)
+            .catch(this.basketSubmissionFailure);
         })
-        .catch(this.apiSubmissionFailure)
+        .catch(this.apiSubmissionFailure);
     }
 
     ReactGA.event({
@@ -225,6 +231,8 @@ export default class Petition extends React.Component {
    * master render entry point - this will branch out
    * to different render functions depending on the
    * state of the user's data and xhr call results.
+   *
+   * @returns {jsx} the main render output.
    */
   render() {
     // There are six possible render paths:
@@ -264,7 +272,7 @@ export default class Petition extends React.Component {
       petitionContent = this.renderUnrecoverableError();
     } else {
       petitionContent = this.renderStandardHeading();
-      formContent = !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm(signingIsDone);
+      formContent = !unrecoverableError && !this.state.basketSuccess && this.renderSubmissionForm();
     }
 
     return (
@@ -280,7 +288,7 @@ export default class Petition extends React.Component {
   }
 
   /**
-   * What users see when their petition sign up succeeded.
+   * @returns {jsx} What users see when their petition sign up succeeded.
    */
   renderThankYou() {
     return (
@@ -292,7 +300,7 @@ export default class Petition extends React.Component {
   }
 
   /**
-   * What users see when an unrecoverable error occurs.
+   * @returns {jsx} What users see when an unrecoverable error occurs.
    */
   renderUnrecoverableError() {
     return (
@@ -303,8 +311,7 @@ export default class Petition extends React.Component {
   }
 
   /**
-   * What users see when they initially open the page,
-   * above the actual petition form.
+   * @returns {jsx} What users see when they initially open the page, above the actual petition form.
    */
   renderStandardHeading() {
     return (
@@ -319,17 +326,19 @@ export default class Petition extends React.Component {
    * Render the submission form, either interactive, with fields
    * marked as not valid yet, or with fields disabled if the
    * user submitted the form data for processing.
+   *
+   * @returns {jsx} the petition form
    */
-  renderSubmissionForm(signingIsDone) {
-    let disableFields = (this.state.userTriedSubmitting && this.state.apiSubmitted) ? "disabled" : null;
+  renderSubmissionForm() {
+    let disableFields = (this.state.userTriedSubmitting && this.state.apiSubmitted) ? `disabled` : null;
 
     let inputGroupClass = classNames({
-      'has-danger': !signingIsDone && this.state.userTriedSubmitting && !this.refs.email.value
+      'has-danger': this.state.userTriedSubmitting && !this.refs.email.value
     });
 
     let privacyClass = classNames({
       'form-check': true,
-      'has-danger': !signingIsDone && this.state.userTriedSubmitting && !this.refs.privacy.checked
+      'has-danger': this.state.userTriedSubmitting && !this.refs.privacy.checked
     });
 
     let checkboxes = this.generateCheckboxes(disableFields);
@@ -369,7 +378,7 @@ export default class Petition extends React.Component {
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 
