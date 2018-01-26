@@ -85,9 +85,3 @@ def petition_submission_view(request, pk):
             {'error': 'Something went wrong with petition signup'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
-
-
-
-
-
