@@ -356,6 +356,9 @@ AWS_SQS_ACCESS_KEY_ID = env('AWS_SQS_ACCESS_KEY_ID')
 AWS_SQS_SECRET_ACCESS_KEY = env('AWS_SQS_SECRET_ACCESS_KEY')
 AWS_SQS_REGION = env('AWS_SQS_REGION')
 
+# The SQS endpoint where we will send petition signups to
+PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
+
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
@@ -459,9 +462,6 @@ FRONTEND = {
     'TARGET_DOMAIN': env('TARGET_DOMAIN'),
     'SHOW_TAKEOVER': env('SHOW_TAKEOVER'),
 }
-
-# The SQS endpoint where we will send petition signups to
-PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
 
 try:
     from mezzanine.utils.conf import set_dynamic_settings
