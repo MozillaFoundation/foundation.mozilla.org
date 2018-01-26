@@ -113,7 +113,7 @@ export default class Petition extends React.Component {
 
   // state check function
   basketIsDone() {
-    return this.state.apiSubmitted && (this.state.apiSuccess || this.state.apiFailed);
+    return this.state.basketSubmitted && (this.state.basketSuccess || this.state.basketFailed);
   }
 
   // state check function
@@ -294,7 +294,7 @@ export default class Petition extends React.Component {
     return (
       <div>
         <p>{this.props.thankYouMessage}</p>
-        <a href={this.props.shareLink} class="btn btn-info">{this.props.shareButtonText}</a>
+        <a href={this.props.shareLink} className="btn btn-info">{this.props.shareButtonText}</a>
       </div>
     );
   }
