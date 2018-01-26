@@ -51,7 +51,7 @@ export default class Petition extends React.Component {
       basketSuccess: false,
       basketFailed: false,
       userTriedSubmitting: false
-    }
+    };
   }
 
   // helper function to set up GA input events
@@ -65,13 +65,15 @@ export default class Petition extends React.Component {
 
   // helper function for auto-generating checkboxes off of the passed props.
   generateCheckboxes(disabled) {
-    return ['checkbox1', 'checkbox2'].map(name => {
+    return [`checkbox1`, `checkbox2`].map(name => {
       let label = this[name];
-      if (!label) return null;
+
+      if (!label) { return null; }
       return (
         <div key={name}>
-          <label>
-            <input disabled={disabled} type="checkbox" ref={name} /> <span dangerouslySetInnerHTML={{__html: label}}/>
+          <label className="form-check-label mb-2">
+            <input className="form-check-input" disabled={disabled} type="checkbox" ref={name} />
+            <span className="small-gray form-text" dangerouslySetInnerHTML={{__html: label}}/>
           </label>
         </div>
       );
@@ -156,8 +158,9 @@ export default class Petition extends React.Component {
       };
 
       xhr.open("POST", this.props.apiUrl, true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+      xhr.setRequestHeader(`Content-Type`, `application/json`);
+      xhr.setRequestHeader(`X-Requested-With`,`XMLHttpRequest`);
+      xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
       xhr.timeout = 5000;
       xhr.ontimeout = reject;
 
@@ -199,6 +202,7 @@ export default class Petition extends React.Component {
     let hasName = this.refs.givenNames.value && this.refs.surname.value;
     let email = this.refs.email.value;
     let consent = this.refs.privacy.checked;
+
     if (hasName && email && consent) {
       this.submitDataToApi()
         .then(() => {
@@ -253,6 +257,7 @@ export default class Petition extends React.Component {
     let unrecoverableError = this.state.apiSubmitted && !this.state.apiSuccess && this.state.apiFailed;
 
     let petitionContent, formContent;
+
     if (success) {
       petitionContent = this.renderThankYou();
     } else if (unrecoverableError) {
@@ -334,26 +339,30 @@ export default class Petition extends React.Component {
         <form onSubmit={this.processFormData}>
           <div className={inputGroupClass}>
             <div className="mb-2">
-              <input disabled={disableFields} type="text" className="form-control" placeholder="Given Name(s)" ref="givenNames" onFocus={this.onInputFocus}/>
+              <input disabled={disableFields} type="text" className="form-control mb-1 col-md-6" placeholder="First name" ref="givenNames" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.givenNames.value && <small className="form-check form-control-feedback">Please enter your given name(s)</small>}
-              <input disabled={disableFields} type="text" className="form-control" placeholder="Surname" ref="surname" onFocus={this.onInputFocus}/>
+              <input disabled={disableFields} type="text" className="form-control mb-1 col-md-6" placeholder="Surname" ref="surname" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.surname.value && <small className="form-check form-control-feedback">Please enter your surname</small>}
-              <input disabled={disableFields} type="email" className="form-control" placeholder="EMAIL ADDRESS" ref="email" onFocus={this.onInputFocus}/>
+              <input disabled={disableFields} type="email" className="form-control col-md-6" placeholder="Email address" ref="email" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
             </div>
             {this.state.basketFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
           </div>
-          { checkboxes.length > 0 ? (<div>{checkboxes}</div>) : null }
           <div className={privacyClass}>
-            <label className="form-check-label mb-4">
-              <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
-              <span className="small-gray form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
-            </label>
-            <label className="form-check-label mb-4">
-              <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
-              <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
-              {this.state.userTriedSubmitting && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
-            </label>
+            <div>
+              <label className="form-check-label mb-2">
+                <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
+                <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
+                {this.state.userTriedSubmitting && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
+              </label>
+            </div>
+            <div>
+              <label className="form-check-label mb-2">
+                <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
+                <span className="small-gray form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
+              </label>
+            </div>
+            { checkboxes.length > 0 ? (<div>{checkboxes}</div>) : null }
             <div>
               <button disabled={disableFields} className="btn btn-normal petition-btn">Sign Up</button>
             </div>
@@ -368,7 +377,7 @@ Petition.defaultProps = {
   ctaDescription: `Add my name`,
   ctaHeader: ``,
   thankYouMessage: `Thank you for signing too!`,
-  shareLink: 'http://share.mozilla.org/TBD',
+  shareLink: `http://share.mozilla.org/TBD`,
   shareButtonText: `Share the letter`,
   newsletter: `mozilla-foundation`
 };

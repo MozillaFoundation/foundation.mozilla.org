@@ -25,6 +25,9 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
+    AWS_ACCESS_KEY_ID=(str, None),
+    AWS_SECRET_ACCESS_KEY=(str, None),
+    AWS_REGION=(str, None),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_REGEX_WHITELIST=(tuple, ()),
@@ -48,6 +51,7 @@ env = environ.Env(
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
+    PETITION_SQS_QUEUE_URL=(str, None),
 )
 
 # Read in the environment
@@ -82,7 +86,9 @@ CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
 USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST')
 
-if env('HEROKU_APP_NAME'):
+HEROKU_APP_NAME = env('HEROKU_APP_NAME')
+
+if HEROKU_APP_NAME:
     herokuAppHost = env('HEROKU_APP_NAME') + '.herokuapp.com'
     ALLOWED_HOSTS.append(herokuAppHost)
 
@@ -345,14 +351,16 @@ REST_FRAMEWORK = {
     ],
 }
 
+# AWS Credentials (if any)
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_REGION = env('AWS_REGION')
 
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
     DEFAULT_FILE_STORAGE = 'filebrowser_s3.storage.S3MediaStorage'
 
-    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
     AWS_LOCATION = env('AWS_LOCATION')
@@ -450,6 +458,9 @@ FRONTEND = {
     'TARGET_DOMAIN': env('TARGET_DOMAIN'),
     'SHOW_TAKEOVER': env('SHOW_TAKEOVER'),
 }
+
+# The SQS endpoint where we will send petition signups to
+PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
 
 try:
     from mezzanine.utils.conf import set_dynamic_settings
