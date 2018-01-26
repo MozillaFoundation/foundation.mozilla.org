@@ -16,7 +16,8 @@ import Leaders from './components/leaders/leaders.jsx';
 import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import Upcoming from './components/upcoming/upcoming.jsx';
-import Person from './components/people/person.jsx';
+
+import fellowships from './fellowships';
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -233,41 +234,7 @@ let main = {
       ReactDOM.render(<News env={env}/>, document.querySelector(`#news`));
     }
 
-    // Science Fellowship
-    if (document.getElementById(`featured-science-fellow`)) {
-      let metadata = {
-        featured: true,
-        'internet_health_issues': [ `Decentralization`, `Open Innovation` ],
-        links: [],
-        name: `Firstname Surname`,
-        role: `[Area Fellowship] Fellow, [Year]`,
-        location: `City, Country`,
-        image: `https://images.pexels.com/photos/264206/pexels-photo-264206.jpeg?w=500`,
-        quote: `Quote quote quote quote quote quote quote quote quote quote quote quote.`,
-        affiliations: [ `Stanford University Professor; YouthLAB founder`],
-        'fellow_directory_link': { type: `science`, link: `/fellowships/directory` }
-      };
-
-      ReactDOM.render(<Person metadata={metadata} />, document.getElementById(`featured-science-fellow`));
-    }
-
-    // Open Web Fellowship
-    if (document.getElementById(`featured-open-web-fellow`)) {
-      let metadata = {
-        featured: true,
-        'internet_health_issues': [ `Decentralization`, `Open Innovation` ],
-        links: [],
-        name: `Firstname Surname`,
-        role: `[Area Fellowship] Fellow, [Year]`,
-        location: `City, Country`,
-        image: `https://images.pexels.com/photos/264206/pexels-photo-264206.jpeg?w=500`,
-        quote: `Quote quote quote quote quote quote quote quote quote quote quote quote.`,
-        affiliations: [ `Stanford University Professor; YouthLAB founder`],
-        'fellow_directory_link': { type: `science`, link: `/fellowships/directory` }
-      };
-
-      ReactDOM.render(<Person metadata={metadata} />, document.getElementById(`featured-open-web-fellow`));
-    }
+    fellowships.injectReactComponents();
   }
 };
 
