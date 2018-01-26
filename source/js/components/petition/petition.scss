@@ -1,0 +1,151 @@
+.wrapper-sign-petition {
+  background: #f1eee9;
+}
+
+.sign-petition {
+  .petition-page-title {
+    display: none;
+  }
+
+  .petition-graphic {
+    display: none;
+  }
+
+  .sign-success .petition-graphic {
+    display: block;
+  }
+
+  .petition-btn {
+    width: 100%;
+  }
+
+  .petition-heading h2 {
+    font-family: "Nunito Sans";
+    font-weight: 900;
+    font-size: 22px;
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 32px;
+    }
+  }
+
+  .form-control,
+  .form-text {
+    font-family: "Nunito Sans";
+    font-weight: 900;
+  }
+
+  &.half-width {
+    background: $off-white;
+
+    .petition-graphic {
+      @include make-col(12);
+
+      margin-bottom: 3em;
+
+      img {
+        max-width: 5em;
+      }
+    }
+  }
+
+  &.full-width {
+    background: $off-white;
+
+    .petition-graphic {
+      @include make-col(12);
+
+      img {
+        max-width: 5em;
+      }
+    }
+
+    @media (min-width: $bp-md) {
+      padding-top: 1em;
+      padding-bottom: 1em;
+
+      .petition-btn {
+        width: auto;
+      }
+
+      .petition-graphic {
+        @include make-col(2);
+
+        display: flex;
+        justify-content: center;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      .petition-content {
+        @include make-col(6);
+      }
+
+      .sign-success .petition-content {
+        @include make-col(7);
+      }
+
+      .petition-form {
+        @include make-col(6);
+      }
+    }
+  }
+
+  &.full-page {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+
+    .petition-graphic {
+      display: block;
+
+      @include make-col(12);
+
+      img {
+        max-width: 5em;
+      }
+    }
+
+    .petition-page-title {
+      display: block;
+    }
+
+    .petition-heading { display: none; }
+
+    @media (min-width: $bp-md) {
+      .petition-btn {
+        width: auto;
+      }
+
+      .petition-graphic {
+        @include make-col(4);
+        @include make-col-push(8);
+
+        display: flex;
+        justify-content: center;
+
+        img {
+          max-width: unset;
+        }
+      }
+
+      .petition-content,
+      .petition-form {
+        @include make-col-pull(6);
+      }
+    }
+
+    @media (min-width: $bp-lg) {
+      .petition-content,
+      .petition-form {
+        @include make-col-pull(5);
+        @include make-col(10);
+      }
+
+      .petition-graphic {
+        @include make-col-push(7);
+      }
+    }
+  }
+}
