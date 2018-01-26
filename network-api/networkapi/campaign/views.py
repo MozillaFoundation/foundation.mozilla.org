@@ -4,7 +4,6 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status, permissions
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
-from django.utils.html import escape
 from datetime import datetime
 import boto3
 import logging
@@ -37,16 +36,16 @@ def petition_submission_view(request, pk):
         )
 
     data = {
-        'given_names': request.data['givenNames'],
-        'surname': request.data['surname'],
-        'email': request.data['email'],
+        'entry.1017670790': request.data['givenNames'],
+        'entry.623318390': request.data['surname'],
+        'entry.474888454': request.data['email'],
     }
 
     if petition.checkbox_1:
-        data[escape(petition.checkbox_1)] = request.data['checkbox_1']
+        data['entry.1822781637'] = 'Yes' if request.data['checkbox1'] is True else ''
 
     if petition.checkbox_2:
-        data[escape(petition.checkbox_2)] = request.data['checkbox_2']
+        data['entry.381347338'] = 'Yes' if request.data['checkbox2'] is True else ''
 
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
