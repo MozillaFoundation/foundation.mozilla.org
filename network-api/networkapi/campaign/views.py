@@ -42,10 +42,10 @@ def petition_submission_view(request, pk):
     }
 
     if petition.checkbox_1:
-        data['entry.1822781637'] = 'Yes' if request.data['checkbox1'] is True else ''
+        data['entry.1822781637'] = 'Yes' if request.data['checkbox1'] is True else 'No'
 
     if petition.checkbox_2:
-        data['entry.381347338'] = 'Yes' if request.data['checkbox2'] is True else ''
+        data['entry.381347338'] = 'Yes' if request.data['checkbox2'] is True else 'No'
 
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
