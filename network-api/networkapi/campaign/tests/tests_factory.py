@@ -1,28 +1,28 @@
 from datetime import datetime, timezone
 from django.test import TestCase
 
-from networkapi.campaign.factory import SignupFactory, CampaignFactory
-from networkapi.campaign.models import Signup, Campaign
+from networkapi.campaign.factory import PetitionFactory, CampaignFactory
+from networkapi.campaign.models import Petition, Campaign
 
 
-class TestSignupFactory(TestCase):
+class TestPetitionFactory(TestCase):
     """
-    Test SignupFactory
+    Test PetitionFactory
     """
 
-    def test_signup_creation(self):
+    def test_petition_creation(self):
         """
-        SignupFactory.create() should not raise an exception
-        """
-
-        SignupFactory.create()
-
-    def test_signup_return_value(self):
-        """
-        SignupFactory.create() should return an instance of a Signup
+        PetitionFactory.create() should not raise an exception
         """
 
-        self.assertIsInstance(SignupFactory.create(), Signup)
+        PetitionFactory.create()
+
+    def test_petition_return_value(self):
+        """
+        PetitionFactory.create() should return an instance of a Petition
+        """
+
+        self.assertIsInstance(PetitionFactory.create(), Petition)
 
 
 class TestCampaignFactory(TestCase):
