@@ -85,6 +85,7 @@ class TestNewsListView(TestCase):
         request = self.factory.get('/api/news/')
         response = NewsListView.as_view()(request)
         response.render()
-        response_json = json.loads(response.content.decode('utf-8'))
+        response_json = json.loads(str(response.content, 'utf-8'))
+
 
         self.assertEqual(len(response_json), 5)

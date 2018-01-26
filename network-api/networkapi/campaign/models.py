@@ -3,7 +3,7 @@ from mezzanine.pages.models import Page
 from mezzanine.core.fields import RichTextField
 
 
-class Signup(models.Model):
+class Petition(models.Model):
     title = models.CharField(
         max_length=100,
         help_text="Identify this component for other editors",
@@ -11,7 +11,8 @@ class Signup(models.Model):
 
     header = models.CharField(
         max_length=500,
-        help_text="Signup heading that will display on page"
+        help_text="Signup heading that will display on page",
+        blank=True
     )
 
     description = RichTextField(
@@ -25,19 +26,33 @@ class Signup(models.Model):
         default="mozilla-foundation"
     )
 
+    google_forms_url = models.URLField(
+        help_text="Google form to post petition data to",
+        max_length=2048,
+        null=True
+    )
+
+    checkbox_1 = models.CharField(
+        max_length=1024,
+        help_text="label for the first checkbox option (may contain HTML)",
+        blank=True
+    )
+
+    checkbox_2 = models.CharField(
+        max_length=1024,
+        help_text="label for the second checkbox option (may contain HTML)",
+        blank=True
+    )
+
     def __str__(self):
         return str(self.title)
 
     class Meta:
-        verbose_name_plural = 'signup widgets'
-        verbose_name = 'signup widget'
+        verbose_name_plural = 'petition widgets'
+        verbose_name = 'petition widget'
 
 
-class LandingPage(Page):
-
-    # featured-image = s3boto3 stuffs
-
-    # featured = models.BooleanField(default=False)
+class Campaign(Page):
 
     header = models.CharField(
         max_length=500,
@@ -46,18 +61,18 @@ class LandingPage(Page):
 
     content = RichTextField("Main body content")
 
-    signup = models.ForeignKey(
-        Signup,
+    petition = models.ForeignKey(
+        Petition,
         related_name='page',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text="Choose existing or create new mailing list signup form",
+        help_text="Choose existing or create new petition form",
     )
 
     def __str__(self):
         return str(self.title)
 
     class Meta:
-        verbose_name = 'Custom Page'
-        verbose_name_plural = 'Custom Pages'
+        verbose_name = 'Custom Campaign Page'
+        verbose_name_plural = 'Custom Campaign Pages'
