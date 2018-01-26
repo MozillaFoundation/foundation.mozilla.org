@@ -14,7 +14,6 @@ from networkapi.campaign.models import Petition
 if settings.AWS_SQS_ACCESS_KEY_ID:
     sqs = boto3.client(
         'sqs',
-        use_ssl=False,
         region_name=settings.AWS_SQS_REGION,
         aws_access_key_id=settings.AWS_SQS_ACCESS_KEY_ID,
         aws_secret_access_key=settings.AWS_SQS_SECRET_ACCESS_KEY,
