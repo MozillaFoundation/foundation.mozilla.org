@@ -113,7 +113,7 @@ export default class Petition extends React.Component {
 
   // state check function
   basketIsDone() {
-    return this.state.apiSubmitted && (this.state.apiSuccess || this.state.apiFailed);
+    return this.state.basketSubmitted && (this.state.basketSuccess || this.state.basketFailed);
   }
 
   // state check function
@@ -294,7 +294,7 @@ export default class Petition extends React.Component {
     return (
       <div>
         <p>{this.props.thankYouMessage}</p>
-        <a href={this.props.shareLink} class="btn btn-info">{this.props.shareButtonText}</a>
+        <a href={this.props.shareLink} className="btn btn-info">{this.props.shareButtonText}</a>
       </div>
     );
   }
@@ -344,13 +344,13 @@ export default class Petition extends React.Component {
     let checkboxes = this.generateCheckboxes(disableFields);
 
     return (
-      <div className="col petition-form">
+      <div className="col petition-form" id="petition-form">
         <form onSubmit={this.processFormData}>
           <div className={inputGroupClass}>
             <div className="mb-2">
               <input disabled={disableFields} type="text" className="form-control mb-1 col-md-6" placeholder="First name" ref="givenNames" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.givenNames.value && <small className="form-check form-control-feedback">Please enter your given name(s)</small>}
-              <input disabled={disableFields} type="text" className="form-control mb-1 col-md-6" placeholder="Surname" ref="surname" onFocus={this.onInputFocus}/>
+              <input disabled={disableFields} type="text" className="form-control mb-1 col-md-6" placeholder="Last name" ref="surname" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.surname.value && <small className="form-check form-control-feedback">Please enter your surname</small>}
               <input disabled={disableFields} type="email" className="form-control col-md-6" placeholder="Email address" ref="email" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
@@ -373,7 +373,7 @@ export default class Petition extends React.Component {
             </div>
             { checkboxes.length > 0 ? (<div>{checkboxes}</div>) : null }
             <div>
-              <button disabled={disableFields} className="btn btn-normal petition-btn">Sign Up</button>
+              <button disabled={disableFields} className="btn btn-normal petition-btn">Add my name</button>
             </div>
           </div>
         </form>
@@ -386,7 +386,7 @@ Petition.defaultProps = {
   ctaDescription: `Add my name`,
   ctaHeader: ``,
   thankYouMessage: `Thank you for signing too!`,
-  shareLink: `http://share.mozilla.org/TBD`,
+  shareLink: `https://share.mozilla.org/352/185606`,
   shareButtonText: `Share the letter`,
   newsletter: `mozilla-foundation`
 };
