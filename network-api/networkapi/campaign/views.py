@@ -38,6 +38,7 @@ def petition_submission_view(request, pk):
         'entry.1017670790': request.data['givenNames'],
         'entry.623318390': request.data['surname'],
         'entry.474888454': request.data['email'],
+        'entry.645784103': request.data['newsletterSignup']
     }
 
     if petition.checkbox_1:

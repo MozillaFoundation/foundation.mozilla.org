@@ -143,6 +143,7 @@ export default class Petition extends React.Component {
         email: this.refs.email.value,
         checkbox1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
         checkbox2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
+        newsletterSignup: !!(this.refs.newsletterSignup.checked)
       };
 
       let xhr = new XMLHttpRequest();
