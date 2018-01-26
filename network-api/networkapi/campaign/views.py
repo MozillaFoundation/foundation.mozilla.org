@@ -1,7 +1,7 @@
-from rest_framework.decorators import api_view, parser_classes
+from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-from rest_framework import status
+from rest_framework import status, permissions
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from django.utils.html import escape
@@ -12,13 +12,21 @@ import json
 
 from networkapi.campaign.models import Petition
 
-sqs = boto3.client('sqs')
+if settings.AWS_ACCESS_KEY_ID:
+    sqs = boto3.client(
+        'sqs',
+        use_ssl=False,
+        region_name=settings.AWS_REGION,
+        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+    )
 queue_url = settings.PETITION_SQS_QUEUE_URL
 logger = logging.getLogger(__name__)
 
 
 @api_view(['POST'])
 @parser_classes((JSONParser,))
+@permission_classes((permissions.AllowAny,))
 def petition_submission_view(request, pk):
     try:
         petition = Petition.objects.get(id=pk)
@@ -64,7 +72,7 @@ def petition_submission_view(request, pk):
             MessageBody=message
         )
     except Exception as error:
-        logger.error('Failed to send petition with: {}'.format(error.message))
+        logger.error('Failed to send petition with: {}'.format(error))
         return Response(
             {'error': 'Failed to queue up petition signup'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR

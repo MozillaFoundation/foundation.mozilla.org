@@ -190,7 +190,8 @@ let main = {
 
     petitionElements.forEach(element => {
       var props = element.dataset;
-      props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}`;
+      props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}/`;
+
       ReactDOM.render(<Petition {...props} isHidden={false} />, element);
     });
 

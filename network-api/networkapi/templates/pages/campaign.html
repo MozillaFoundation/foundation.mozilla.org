@@ -80,6 +80,7 @@
               <div class="col-12">
                 {% with page.campaign.petition as petition %}<div
                   class="sign-petition full-width mb-5"
+                  data-csrf-token="{{ csrf_token }}"
                   data-petition-id="{{ page.campaign.petition.id }}"
                   data-cta-header="{{ page.campaign.petition.header | escape }}"
                   data-cta-description="{{ page.campaign.petition.description | escape }}"
