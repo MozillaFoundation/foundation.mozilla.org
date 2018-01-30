@@ -19,8 +19,6 @@ import Upcoming from './components/upcoming/upcoming.jsx';
 
 import fellowships from './fellowships';
 
-import fellowships from './fellowships';
-
 const SHOW_MEMBER_NOTICE = false;
 
 // To be populated via XHR...
