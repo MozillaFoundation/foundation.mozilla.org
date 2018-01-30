@@ -4,7 +4,7 @@ from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 
 from networkapi.people.factory import PersonFactory
-from networkapi.people.views import PeopleListView,PersonView
+from networkapi.people.views import PeopleListView, PersonView
 
 
 class TestPersonView(TestCase):
