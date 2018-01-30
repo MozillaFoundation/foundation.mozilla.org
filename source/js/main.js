@@ -16,6 +16,7 @@ import Leaders from './components/leaders/leaders.jsx';
 import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import Upcoming from './components/upcoming/upcoming.jsx';
+import Person from './components/people/person.jsx';
 
 import fellowships from './fellowships';
 
