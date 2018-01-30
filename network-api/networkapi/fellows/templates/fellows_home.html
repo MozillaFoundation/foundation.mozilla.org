@@ -1,4 +1,4 @@
-{% extends "foundation-base.html" %}
+{% extends "fellowships-base.html" %}
 
 {% block hero_banner %}
 <div class="row">
@@ -31,12 +31,12 @@
   <div class="col-md-6 mb-4">
     <h3 class="h5-black my-2">Science</h3>
     <p>Brief description of the theme of the Fellowship and defining characteristics of it.</p>
-    <a href="" class="cta-link">Learn More</a>
+    <a href="{% url 'fellowships-science' %}" class="cta-link">Learn More</a>
   </div>
   <div class="col-md-6 mb-4">
     <h3 class="h5-black my-2">Open Web</h3>
     <p>Brief description of the theme of the Fellowship and defining characteristics of it.</p>
-    <a href="" class="cta-link">Learn More</a>
+    <a href="{% url 'fellowships-open-web' %}" class="cta-link">Learn More</a>
   </div>
   <div class="col-md-6 mb-4">
     <h3 class="h5-black my-2">Tech Policy</h3>
