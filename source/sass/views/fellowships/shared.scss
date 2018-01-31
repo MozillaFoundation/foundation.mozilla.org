@@ -1,23 +1,6 @@
 #fellowships-nav {
-  background: #f2f2f2;
-
-  @media screen and (min-width: $bp-md) {
-    background: none;
-  }
-
-  .nav-item {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-
-    @media screen and (min-width: $bp-md) {
-      margin-right: 2rem;
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    a {
-      @include yellow-underline-nav-link(".active");
-    }
+  a {
+    @include yellow-underline-nav-link(".active");
   }
 }
 
