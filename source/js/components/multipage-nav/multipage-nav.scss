@@ -9,15 +9,23 @@
     }
 
     .expander {
-      background: url('../_images/chevron.svg') no-repeat;
-      background-size: contain;
-      font-size: 0;
+      background: none;
+      text-align: left;
+      width: 100%;
       border: 0;
-      width: 15px;
-      height: 10px;
-      transform: rotate(180deg);
-      transition: transform 100ms linear;
       outline: 0;
+      padding: 0;
+
+      .control {
+        display: inline-block;
+        background: url('../_images/chevron.svg') no-repeat;
+        background-size: contain;
+        background-position: center right;
+        width: 15px;
+        height: 10px;
+        transform: rotate(180deg);
+        transition: transform 100ms linear;
+      }
     }
 
     div:not(:first-child) {
@@ -26,7 +34,13 @@
 
     &.multipage-nav-open {
       .expander {
-        transform: rotate(0);
+        .active-link-label {
+          visibility: hidden;
+        }
+
+        .control {
+          transform: rotate(0);
+        }
       }
 
       div:not(:first-child) {

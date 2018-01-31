@@ -78,11 +78,11 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="d-flex flex-row align-items-center">
-              <a href="{% url 'fellowships-home' %}" class="{% fellowship_active_nav request 'fellowships-home fellowships-science fellowships-open-web' %} mr-4">Fellowships</a>
-              <a href="{% url 'fellowships-directory' %}" class="{% fellowship_active_nav request 'fellowships-directory' %} mr-4">Directory</a>
-              <a href="{% url 'fellowships-support' %}" class="{% fellowship_active_nav request 'fellowships-support' %} mr-4">Support the Program</a>
-              <a href="{% url 'fellowships-apply' %}" class="{% fellowship_active_nav request 'fellowships-apply' %} mr-4">Apply to be a Fellow</a>
+            <div id="multipage-nav" class="d-flex flex-row align-items-center">
+              <div class="nav-item"><a href="{% url 'fellowships-home' %}" class="{% fellowship_active_nav request 'fellowships-home fellowships-science fellowships-open-web' %}">Fellowships</a></div>
+              <div class="nav-item"><a href="{% url 'fellowships-directory' %}" class="{% fellowship_active_nav request 'fellowships-directory' %}">Directory</a></div>
+              <div class="nav-item"><a href="{% url 'fellowships-support' %}" class="{% fellowship_active_nav request 'fellowships-support' %}">Support the Program</a></div>
+              <div class="nav-item"><a href="" class="">Apply to be a Fellow</a></div>
             </div>
           </div>
         </div>

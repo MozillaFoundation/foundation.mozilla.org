@@ -41,7 +41,7 @@ a {
   line-height: 1.5;
 }
 
-@mixin yellow-underline-nav-link($active-class-name, $font-family: "Zilla Slab") {
+@mixin yellow-underline-nav-link($active-class-name, $font-family: "Nunito Sans") {
   font-family: $font-family;
   color: #231f20;
   position: relative;
