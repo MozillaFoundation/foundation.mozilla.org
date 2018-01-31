@@ -33,8 +33,6 @@ export default class MultipageNav extends React.Component {
       );
     });
 
-    console.log(activeLinkLabel);
-
     links.unshift(<div key="current-active-link">
       <button className="expander" onClick={this.toggle}>
         <div className="d-flex justify-content-between">
