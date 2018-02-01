@@ -1,6 +1,6 @@
 #fellowships-nav {
   a {
-    @include yellow-underline-nav-link(".active", "Nunito Sans");
+    @include yellow-underline-nav-link(".active");
   }
 }
 

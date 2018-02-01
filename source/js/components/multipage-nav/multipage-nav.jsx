@@ -26,6 +26,10 @@ export default class MultipageNav extends React.Component {
         activeLinkLabel = <a className={`active-link-label d-inline-block ${className}`}>{link.label}</a>;
       }
 
+      if (link.isActive) {
+        activeLinkLabel = <a className={`active-link-label d-inline-block ${className}`}>{link.label}</a>;
+      }
+
       return (
         <div key={`link-${index}`}>
           <a href={link.href} className={className}>{link.label}</a>
