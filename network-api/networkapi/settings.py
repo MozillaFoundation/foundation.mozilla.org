@@ -25,6 +25,9 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
+    AWS_SQS_ACCESS_KEY_ID=(str, None),
+    AWS_SQS_SECRET_ACCESS_KEY=(str, None),
+    AWS_SQS_REGION=(str, None),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_REGEX_WHITELIST=(tuple, ()),
@@ -48,6 +51,7 @@ env = environ.Env(
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
+    PETITION_SQS_QUEUE_URL=(str, None),
 )
 
 # Read in the environment
@@ -82,7 +86,9 @@ CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
 USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST')
 
-if env('HEROKU_APP_NAME'):
+HEROKU_APP_NAME = env('HEROKU_APP_NAME')
+
+if HEROKU_APP_NAME:
     herokuAppHost = env('HEROKU_APP_NAME') + '.herokuapp.com'
     ALLOWED_HOSTS.append(herokuAppHost)
 
@@ -134,6 +140,7 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.fellows',
     'networkapi.utility',
     'networkapi.landingpage',
+    'networkapi.campaign',
     'networkapi.highlights',
     'networkapi.milestones',
 ]))
@@ -302,7 +309,7 @@ ADMIN_MENU_ORDER = (
         'highlights.Highlight',
         'milestones.Milestone'
         )),
-    ('Components', ('landingpage.Signup',)),
+    ('Components', ('landingpage.Signup', 'campaign.Petition')),
     ('Site', ('sites.Site', 'redirects.Redirect', 'conf.Setting')),
     ('Users', ('auth.User', 'auth.Group')),
 )
@@ -345,12 +352,18 @@ REST_FRAMEWORK = {
     ],
 }
 
+# AWS Credentials (if any)
+AWS_SQS_ACCESS_KEY_ID = env('AWS_SQS_ACCESS_KEY_ID')
+AWS_SQS_SECRET_ACCESS_KEY = env('AWS_SQS_SECRET_ACCESS_KEY')
+AWS_SQS_REGION = env('AWS_SQS_REGION')
+
+# The SQS endpoint where we will send petition signups to
+PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
 
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
     DEFAULT_FILE_STORAGE = 'filebrowser_s3.storage.S3MediaStorage'
-
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
