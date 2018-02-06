@@ -75,27 +75,25 @@
           <div class="{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
             <div class="row">
               <div class="cms col-12">{{ page.campaign.content | safe }}</div>
-            </div>{% if page.campaign.petition %}
-            <div class="row">
-              <div class="col-12">
-                {% with page.campaign.petition as petition %}<div
-                  class="sign-petition full-width mb-5"
-                  data-csrf-token="{{ csrf_token }}"
-                  data-petition-id="{{ page.campaign.petition.id }}"
-                  data-cta-header="{{ page.campaign.petition.header | escape }}"
-                  data-cta-description="{{ page.campaign.petition.description | escape }}"
-                  data-newsletter="{{ page.campaign.petition.newsletter }}"
-                  data-checkbox1="{{ page.campaign.petition.checkbox_1 | escape }}"
-                  data-checkbox2="{{ page.campaign.petition.checkbox_2 | escape }}"
-                  data-share-link="{{ page.campaign.petition.share_link }}"
-                  data-share-text="{{ page.campaign.petition.share_link_text }}"
-                  data-thank-you="{{ page.campaign.petition.thank_you }}"
-                ></div>{% endwith %}
-              </div>
-            </div>{% endif %}
+            </div>
+            {% comment %}
+
+            If this page has no children, the petition is part of the main content:
+
+            {% endcomment %}
+            {% if page.children.all.count == 0 %}
+            {% include "./petition-block.html" %}
+            {% endif %}
           </div>
         </div>
+        {% comment %}
 
+        If this page has children, the petition should be at the end of the page:
+
+        {% endcomment %}
+        {% if page.children.all.count > 0 %}
+        {% include "./petition-block.html" %}
+        {% endif %}
         <div class="row mb-5">
           <div class="col-12">
             <hr class="my-2">
