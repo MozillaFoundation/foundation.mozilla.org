@@ -52,7 +52,7 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
+          <div class="py-5 {% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
             <h1 class="h1-white">{{ page.campaign.header }}</h1>
           </div>
         </div>
@@ -87,6 +87,9 @@
                   data-newsletter="{{ page.campaign.petition.newsletter }}"
                   data-checkbox1="{{ page.campaign.petition.checkbox_1 | escape }}"
                   data-checkbox2="{{ page.campaign.petition.checkbox_2 | escape }}"
+                  data-share-link="{{ page.campaign.petition.share_link }}"
+                  data-share-text="{{ page.campaign.petition.share_link_text }}"
+                  data-thank-you="{{ page.campaign.petition.thank_you }}"
                 ></div>{% endwith %}
               </div>
             </div>{% endif %}
