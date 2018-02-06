@@ -73,7 +73,7 @@ class Command(BaseCommand):
         [LandingPageFactory.create(parent=opportunity, signup=SignupFactory.create()) for i in range(5)]
 
         self.stdout.write('Generating CampaignPage objects')
-        campaigns = LandingPageFactory.create(title='Campaigns', content='Holds place in the absence of meaning, this content does.')
+        campaigns = LandingPageFactory.create(title='Campaigns', content='Placeholder page')
         [CampaignFactory.create(parent=campaigns) for i in range(3)]
 
         self.stdout.write('Generating Homepage')
