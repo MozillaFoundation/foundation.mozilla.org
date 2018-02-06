@@ -81,7 +81,7 @@
             If this page has no children, the petition is part of the main content:
 
             {% endcomment %}
-            {% if page.children.all.count == 0 %}
+            {% if page.campaign.petition and page.children.all.count == 0 %}
             {% include "./petition-block.html" %}
             {% endif %}
           </div>
@@ -91,7 +91,7 @@
         If this page has children, the petition should be at the end of the page:
 
         {% endcomment %}
-        {% if page.children.all.count > 0 %}
+        {% if page.campaign.petition and page.children.all.count > 0 %}
         {% include "./petition-block.html" %}
         {% endif %}
         <div class="row mb-5">
