@@ -82,6 +82,25 @@ class Petition(models.Model):
         verbose_name="Mozilla Newsletter signup checkbox Google Form field",
     )
 
+    share_link = models.URLField(
+        max_length=1024,
+        help_text="Link that will be put in share button",
+        blank=True
+    )
+
+    share_link_text = models.CharField(
+        max_length=20,
+        help_text="Text content of the share button",
+        default="Share this",
+        blank=True
+    )
+
+    thank_you = models.CharField(
+        max_length=140,
+        help_text="Message to show after thanking people for signing",
+        default="Thank you for signing too!",
+    )
+
     def __str__(self):
         return str(self.title)
 
