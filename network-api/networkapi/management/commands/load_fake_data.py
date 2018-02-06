@@ -7,6 +7,7 @@ from django.core.management import call_command
 # Factories
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.landingpage.factory import LandingPageFactory, SignupFactory
+from networkapi.campaign.factory import CampaignFactory
 from networkapi.milestones.factory import MilestoneFactory
 from networkapi.news.factory import NewsFactory
 from networkapi.people.factory import (
@@ -65,11 +66,15 @@ class Command(BaseCommand):
         faker.random.seed(seed)
 
         self.stdout.write('Generating LandingPage objects')
-        opportunity = LandingPageFactory.create(title='opportunity', content='This is placeholder')
+        opportunity = LandingPageFactory.create(title='Opportunity', content='A placeholder, this is.')
         [LandingPageFactory.create(parent=opportunity) for i in range(5)]
 
         self.stdout.write('Generating LandingPage objects with Signup CTAs')
         [LandingPageFactory.create(parent=opportunity, signup=SignupFactory.create()) for i in range(5)]
+
+        self.stdout.write('Generating CampaignPage objects')
+        campaigns = LandingPageFactory.create(title='Campaigns', content='Placeholder page')
+        [CampaignFactory.create(parent=campaigns) for i in range(3)]
 
         self.stdout.write('Generating Homepage')
         homepage = HomepageFactory.create()
