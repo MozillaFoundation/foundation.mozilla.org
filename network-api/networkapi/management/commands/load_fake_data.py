@@ -66,14 +66,14 @@ class Command(BaseCommand):
         faker.random.seed(seed)
 
         self.stdout.write('Generating LandingPage objects')
-        opportunity = LandingPageFactory.create(title='Opportunity', content='This is placeholder')
+        opportunity = LandingPageFactory.create(title='Opportunity', content='A placeholder, this is.')
         [LandingPageFactory.create(parent=opportunity) for i in range(5)]
 
         self.stdout.write('Generating LandingPage objects with Signup CTAs')
         [LandingPageFactory.create(parent=opportunity, signup=SignupFactory.create()) for i in range(5)]
 
         self.stdout.write('Generating CampaignPage objects')
-        campaigns = LandingPageFactory.create(title='Campaigns', content='This is placeholder')
+        campaigns = LandingPageFactory.create(title='Campaigns', content='Holds place in the absence of meaning, this content does.')
         [CampaignFactory.create(parent=campaigns) for i in range(3)]
 
         self.stdout.write('Generating Homepage')
