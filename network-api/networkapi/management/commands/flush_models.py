@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 # Models
 from networkapi.highlights.models import Highlight
 from networkapi.landingpage.models import LandingPage, Signup
+from networkapi.campaign.models import Campaign
 from networkapi.milestones.models import Milestone
 from networkapi.news.models import News
 from networkapi.people.models import (
@@ -28,6 +29,9 @@ class Command(BaseCommand):
 
         self.stdout.write('Dropping Signup objects...')
         Signup.objects.all().delete()
+
+        self.stdout.write('Dropping CampaignPage objects...')
+        Campaign.objects.all().delete()
 
         self.stdout.write('Dropping Highlight objects...')
         Highlight.objects.all().delete()
