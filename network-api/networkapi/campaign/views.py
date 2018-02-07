@@ -35,17 +35,17 @@ def petition_submission_view(request, pk):
         )
 
     data = {
-        'entry.1017670790': request.data['givenNames'],
-        'entry.623318390': request.data['surname'],
-        'entry.474888454': request.data['email'],
-        'entry.645784103': request.data['newsletterSignup']
+        petition.given_name_form_field: request.data['givenNames'],
+        petition.surname_form_field: request.data['surname'],
+        petition.email_form_field: request.data['email'],
+        petition.newsletter_signup_form_field: request.data['newsletterSignup']
     }
 
     if petition.checkbox_1:
-        data['entry.1822781637'] = 'Yes' if request.data['checkbox1'] is True else 'No'
+        data[petition.checkbox_1_form_field] = 'Yes' if request.data['checkbox1'] is True else 'No'
 
     if petition.checkbox_2:
-        data['entry.381347338'] = 'Yes' if request.data['checkbox2'] is True else 'No'
+        data[petition.checkbox_2_form_field] = 'Yes' if request.data['checkbox2'] is True else 'No'
 
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
