@@ -38,7 +38,7 @@ def petition_submission_view(request, pk):
         petition.given_name_form_field: request.data['givenNames'],
         petition.surname_form_field: request.data['surname'],
         petition.email_form_field: request.data['email'],
-        petition.newsletter_signup_form_field: request.data['newsletterSignup']
+        petition.newsletter_signup_form_field: 'Yes' if request.data['newsletterSignup'] is True else 'No'
     }
 
     if petition.checkbox_1:
