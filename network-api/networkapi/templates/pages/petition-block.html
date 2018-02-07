@@ -1,0 +1,17 @@
+            <div class="row">
+              <div class="col-12">
+                {% with page.campaign.petition as petition %}<div
+                  class="sign-petition full-width mb-5"
+                  data-csrf-token="{{ csrf_token }}"
+                  data-petition-id="{{ page.campaign.petition.id }}"
+                  data-cta-header="{{ page.campaign.petition.header | escape }}"
+                  data-cta-description="{{ page.campaign.petition.description | escape }}"
+                  data-newsletter="{{ page.campaign.petition.newsletter }}"
+                  data-checkbox1="{{ page.campaign.petition.checkbox_1 | escape }}"
+                  data-checkbox2="{{ page.campaign.petition.checkbox_2 | escape }}"
+                  data-share-link="{{ page.campaign.petition.share_link }}"
+                  data-share-text="{{ page.campaign.petition.share_link_text }}"
+                  data-thank-you="{{ page.campaign.petition.thank_you }}"
+                ></div>{% endwith %}
+              </div>
+            </div>
