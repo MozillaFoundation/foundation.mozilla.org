@@ -293,7 +293,7 @@ a {
   @include scaleText(16px);
 }
 
-.opp-link {
-  @include yellow-underline-nav-link(".opp-link-active");
+.multipage-link {
+  @include yellow-underline-nav-link(".multipage-link-active");
   @include scaleText(18px, 20px);
 }
