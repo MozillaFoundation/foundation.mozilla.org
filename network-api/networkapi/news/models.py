@@ -4,6 +4,7 @@ from django.db.models import Q
 
 from networkapi.utility.images import get_image_upload_path
 from filebrowser_safe.fields import FileBrowseField
+from wagtail.wagtailsnippets.models import register_snippet
 
 
 def get_news_glyph_upload_path(instance, filename):
@@ -37,6 +38,7 @@ class NewsQuerySet(models.query.QuerySet):
         )
 
 
+@register_snippet
 class News(models.Model):
     """
     Medium blog posts, articles and other media

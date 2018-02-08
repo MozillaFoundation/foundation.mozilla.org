@@ -134,6 +134,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
+    'wagtail.contrib.modeladmin',
 
     'modelcluster',
     'taggit',
@@ -359,7 +360,7 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = root('staticfiles')
-WAGTAIL_SITE_NAME = 'Test wagtail site'
+WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
@@ -426,6 +427,7 @@ CSP_FRAME_ANCESTORS = env('CSP_FRAME_ANCESTORS', default=None)
 CSP_FORM_ACTION = env('CSP_FORM_ACTION', default=None)
 CSP_SANDBOX = env('CSP_SANDBOX', default=None)
 CSP_REPORT_URI = env('CSP_REPORT_URI', default=None)
+CSP_WORKER_SRC = env('CSP_WORKER_SRC', default=CSP_DEFAULT)
 
 # Security
 SECURE_BROWSER_XSS_FILTER = env('XSS_PROTECTION')

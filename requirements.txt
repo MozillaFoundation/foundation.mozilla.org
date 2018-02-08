@@ -9,6 +9,9 @@ git+https://github.com/stephenmcd/mezzanine@521a98c39bb6351c4b46067069f33caf95fe
 git+https://github.com/stephenmcd/filebrowser-safe@cfb0e948e0aaaafd25f5440b51ca3296093dface#egg=filebrowser_safe
 filebrowser_s3==1.0.0
 
+# Wagtail CMS
+wagtail==1.13.1
+
 # social auth is useful
 social-auth-core==1.1.0
 social-auth-app-django==1.1.0
