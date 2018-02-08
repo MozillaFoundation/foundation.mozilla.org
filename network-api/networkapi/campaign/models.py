@@ -44,6 +44,63 @@ class Petition(models.Model):
         blank=True
     )
 
+    checkbox_1_form_field = models.CharField(
+        max_length=1024,
+        help_text="Google form field name for Checkbox 1",
+        verbose_name="First checkbox Google Form field",
+        blank=True
+    )
+
+    checkbox_2_form_field = models.CharField(
+        max_length=1024,
+        help_text="Google form field name for Checkbox 1",
+        verbose_name="Second checkbox Google Form field",
+        blank=True
+    )
+
+    given_name_form_field = models.CharField(
+        max_length=1024,
+        help_text="Google form field name for Given Name(s)",
+        verbose_name="Given Name(s) Google Form field",
+    )
+
+    surname_form_field = models.CharField(
+        max_length=1024,
+        help_text="Google form field name for Surname",
+        verbose_name="Surname Google Form field",
+    )
+
+    email_form_field = models.CharField(
+        max_length=1024,
+        help_text="Google form field name for Email",
+        verbose_name="Email Google Form field",
+    )
+
+    newsletter_signup_form_field = models.CharField(
+        max_length=1024,
+        help_text="Google form field name for Mozilla Newsletter checkbox",
+        verbose_name="Mozilla Newsletter signup checkbox Google Form field",
+    )
+
+    share_link = models.URLField(
+        max_length=1024,
+        help_text="Link that will be put in share button",
+        blank=True
+    )
+
+    share_link_text = models.CharField(
+        max_length=20,
+        help_text="Text content of the share button",
+        default="Share this",
+        blank=True
+    )
+
+    thank_you = models.CharField(
+        max_length=140,
+        help_text="Message to show after thanking people for signing",
+        default="Thank you for signing too!",
+    )
+
     def __str__(self):
         return str(self.title)
 
