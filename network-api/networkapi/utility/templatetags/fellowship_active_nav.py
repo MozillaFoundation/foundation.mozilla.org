@@ -3,14 +3,17 @@ from django import template
 register = template.Library()
 
 
-@register.simple_tag(name='active_nav')
-def active_nav(request, view_name):
+@register.simple_tag(name='fellowship_active_nav')
+def fellowship_active_nav(request, view_name):
 
     from django.core.urlresolvers import resolve, Resolver404
     path = resolve(request.path_info)
     if not request:
         return ""
     try:
-        return "active" if path.url_name == view_name else ""
+        matched = [vn for vn in view_name.split() if path.url_name == vn]
+
+        return "active" if matched else ""
+
     except Resolver404:
         return ""
