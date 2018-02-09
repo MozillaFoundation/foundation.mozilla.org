@@ -51,15 +51,7 @@ a {
   &#{$active-class-name} {
     color: inherit;
     text-decoration: none;
-
-    &::before {
-      content: '';
-      display: inline-block;
-      border-bottom: 5px solid #ffed00;
-      width: 100%;
-      position: absolute;
-      bottom: -5px;
-    }
+    box-shadow: 0 5px #ffed00;
   }
 }
 
