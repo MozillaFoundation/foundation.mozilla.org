@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^support/$', views.fellows_support, name='fellowships-support'),
     url(r'^science/$', views.fellows_science, name='fellowships-science'),
     url(r'^open-web/$', views.fellows_openweb, name='fellowships-open-web'),
+    url(r'^apply/$', views.fellows_apply, name='fellowships-apply'),
 ]

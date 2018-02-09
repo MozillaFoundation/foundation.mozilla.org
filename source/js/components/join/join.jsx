@@ -67,7 +67,7 @@ export default class JoinUs extends React.Component {
     });
 
     let signupState = classNames({
-      'row py-5 px-md-2': true,
+      'row py-5': true,
       'signup-success': this.state.signupSuccess && this.state.userSubmitted,
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
@@ -77,7 +77,7 @@ export default class JoinUs extends React.Component {
         <div className="col text-center mb-2 join-graphic">
           <img src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
         </div>
-        <div className="col">
+        <div className="col join-main-content">
           <div className="row">
             <div className="col-12 join-content">
               <div className="mb-5 join-page-title">

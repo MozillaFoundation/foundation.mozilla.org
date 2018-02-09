@@ -20,3 +20,7 @@ def fellows_science(request):
 
 def fellows_openweb(request):
     return render(request, 'fellows_openweb.html')
+
+
+def fellows_apply(request):
+    return render(request, 'fellows_apply.html')
