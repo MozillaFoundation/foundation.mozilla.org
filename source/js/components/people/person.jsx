@@ -78,9 +78,9 @@ export default class Person extends React.Component {
                         <a className="cta-link" href={this.props.metadata.links.interview}>Read Interview</a>
                       </div>
                       }
-                      {this.props.metadata.fellow_directory_link &&
+                      {this.props.metadata.custom_link &&
                       <div>
-                        <a href={this.props.metadata.fellow_directory_link.link} className="cta-link">See all {this.props.metadata.fellow_directory_link.type} fellows</a>
+                        <a href={this.props.metadata.custom_link.link} className="cta-link">{this.props.metadata.custom_link.text}</a>
                       </div>
                       }
                     </div>
@@ -114,7 +114,21 @@ export default class Person extends React.Component {
                 </div>
               }
               <div className="person-social-links mt-3">
-                {socialLinks}
+                <div className="row flex-column-reverse flex-md-row justify-content-between">
+                  {socialLinks.length > 0 &&
+                  <div className="col-12 col-md my-1 my-0">{socialLinks}</div>
+                  }
+                  {this.props.metadata.links.interview &&
+                  <div className="col-12 col-md my-1 my-0">
+                    <a className="cta-link" href={this.props.metadata.links.interview}>Read Interview</a>
+                  </div>
+                  }
+                  {this.props.metadata.custom_link &&
+                  <div className="col-12 col-md my-1 my-0 text-md-right">
+                    <a href={this.props.metadata.custom_link.link} className="cta-link">{this.props.metadata.custom_link.text}</a>
+                  </div>
+                  }
+                </div>
               </div>
             </div>
           </div>
