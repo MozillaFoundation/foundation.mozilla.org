@@ -47,3 +47,4 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './views/about';
 @import './views/contact';
 @import './views/projects';
+@import './views/fellowships/shared';
