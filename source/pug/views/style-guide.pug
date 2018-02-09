@@ -65,3 +65,23 @@ block content
         h4 hr-gradient
 
         hr.hr-gradient
+
+        h4 multipage-nav (used as secondary nav )
+
+        div#multipage-nav-mobile.hidden-md-up
+          div.container
+            div.row
+              div.col-12
+
+        div.container
+          div.row
+            div.col-12.hidden-sm-down
+              div#multipage-nav.multipage-nav
+                div
+                  a.multipage-link(href=`/`) Home
+                div
+                  a.multipage-link(href=`/about`) About
+                div
+                  a.multipage-link.multipage-link-active(href=`/style-guide`) Style Guide
+                div
+                  a.multipage-link(href=`/sign-up`) Sign Up
