@@ -44,8 +44,6 @@ a {
 @mixin yellow-underline-nav-link($active-class-name) {
   font-family: "Nunito Sans";
   color: #231f20;
-  position: relative;
-  top: 0;
 
   &:hover,
   &#{$active-class-name} {
