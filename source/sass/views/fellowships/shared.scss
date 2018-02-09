@@ -17,3 +17,19 @@
     padding-left: 1.5rem;
   }
 }
+
+.in-page-cta {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  .content::before {
+    font-family: "FontAwesome";
+    content: "\f06a";
+    font-size: 1.375em;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+}
