@@ -80,7 +80,7 @@
           <div class="col">
             <div id="multipage-nav" class="d-flex flex-row align-items-center">
               <div><a href="{% url 'fellowships-home' %}" class="{% fellowship_active_nav request 'fellowships-home fellowships-science fellowships-open-web' %}">Fellowships</a></div>
-              <div><a href="{% url 'fellowships-directory' %}" class="{% fellowship_active_nav request 'fellowships-directory' %}">Directory</a></div>
+              <div><a href="{% url 'fellowships-directory' %}" class="{% fellowship_active_nav request 'fellowships-directory fellowships-directory-senior fellowships-directory-science fellowships-directory-open-web fellowships-directory-tech-policy fellowships-directory-media' %}">Directory</a></div>
               <div><a href="{% url 'fellowships-support' %}" class="{% fellowship_active_nav request 'fellowships-support' %}">Support the Program</a></div>
               <div><a href="{% url 'fellowships-apply' %}" class="{% fellowship_active_nav request 'fellowships-apply' %}">Apply to be a Fellow</a></div>
             </div>
