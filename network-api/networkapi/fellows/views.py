@@ -18,32 +18,8 @@ def fellows_directory(request):
     return render(request, 'fellows_directory.html')
 
 
-def fellows_directory_senior(request):
-    context = {'type': 'senior'}
-
-    return render(request, 'fellows_directory_type.html', context)
-
-
-def fellows_directory_science(request):
-    context = {'type': 'science'}
-
-    return render(request, 'fellows_directory_type.html', context)
-
-
-def fellows_directory_open_web(request):
-    context = {'type': 'open web'}
-
-    return render(request, 'fellows_directory_type.html', context)
-
-
-def fellows_directory_tech_policy(request):
-    context = {'type': 'tech policy'}
-
-    return render(request, 'fellows_directory_type.html', context)
-
-
-def fellows_directory_media(request):
-    context = {'type': 'media'}
+def fellows_directoy_type(request, program_type_slug):
+    context = {'type': program_type_slug.replace('-', ' ')}
 
     return render(request, 'fellows_directory_type.html', context)
 
