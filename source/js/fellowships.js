@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 import Person from './components/people/person.jsx';
 
 let pulseApiDomain = ``;
+const DIRECOTRY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
+const DIRECTORY_PAGE_TYPE_ORDER = [ `senior`, `science`, `open web`, `tech policy`, `media`];
 
 function getFellows(params, callback) {
   Object.assign(params, {'profile_type': `fellow`});
@@ -22,6 +24,8 @@ function getFellows(params, callback) {
 }
 
 function renderFellowCard(fellow) {
+  // massage fellow's Pulse profile data and pass it to <Person> to render
+
   let links = {};
 
   if ( fellow.twitter ) {
@@ -85,23 +89,25 @@ function renderFellowsOnDirectoryPage() {
     </button>;
   };
 
-  getFellows({'program_year': `2017`}, fellows => {
+  getFellows(DIRECOTRY_PAGE_FILTER_OPTIONS, fellows => {
     let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
-    const ORDER = [ `senior`, `science`, `open web`, `tech policy`, `media`];
 
     // render filter bar
     let filterBar = <div className="row">
       <div className="col-12">
         <div id="fellowships-directory-filter" className="d-flex flex-wrap p-2">
           <div className="d-inline-block mr-2"><strong>Areas:</strong></div>
-          { ORDER.map(renderFilterOption) }
+          { DIRECTORY_PAGE_TYPE_ORDER.map(renderFilterOption) }
         </div>
       </div>
     </div>;
 
     // render program type sections
     let sections = Object.keys(fellowsByType).sort((a, b) => {
-      return ORDER.indexOf(a.replace(`fellow`,``).trim()) - ORDER.indexOf(b.replace(`fellow`,``).trim());
+      let aIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(a.replace(`fellow`,``).trim());
+      let bIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(b.replace(`fellow`,``).trim());
+
+      return aIndex - bIndex;
     }).map(type => {
       return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
         <div className="col-12">
