@@ -23,7 +23,7 @@ export default class MultipageNav extends React.Component {
       let className = `multipage-link${ link.isActive ? ` multipage-link-active` : `` }`;
 
       if (link.isActive) {
-        activeLinkLabel = <a className={`active-link-label d-inline-block ${className}`}>{link.label}</a>;
+        activeLinkLabel = <a className={`active-link-label ${className}`}>{link.label}</a>;
       }
 
       if (link.isActive) {
@@ -40,8 +40,8 @@ export default class MultipageNav extends React.Component {
     links.unshift(<div key="current-active-link">
       <button className="expander" onClick={this.toggle}>
         <div className="d-flex justify-content-between">
-          {activeLinkLabel}
-          <div className="d-inline-block control"></div>
+          <div>{activeLinkLabel}</div>
+          <div className="d-inline-block align-self-center control"></div>
         </div>
       </button>
     </div>);
