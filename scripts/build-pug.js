@@ -8,13 +8,13 @@ let rawStrings = shelljs.cat(`locales/en-US/general.properties`);
 function buildPage(template, target, extraData, isDjangoTemplate = false) {
   let viewData = {
     strings: propertiesToObject(rawStrings.toString()),
-    templateID: template,
+    templateID: isDjangoTemplate ? `{% block bodyID %}{% endblock %}` : template,
     target: isDjangoTemplate ? `{{ page.get_absolute_url }}` : target,
     data: extraData,
     moment: moment
   };
 
-  let fn = pug.compileFile(`source/pug/views/${template}.pug`, {
+  let fn = pug.compileFile(`source/pug/${ isDjangoTemplate ? `templates` : `views` }/${template}.pug`, {
     pretty: true
   });
 
@@ -41,5 +41,5 @@ buildPage(`style-guide`, `/style-guide`);
 buildPage(`sign-up`, `/sign-up`);
 buildPage(`404`, `/errors/404`);
 
-// Opportunities Template – For Mezzanine (with tokens)
-buildPage(`opportunity`, `network-api/networkapi/templates/pages/landingpage.html`, null, true);
+// Base Template – For Mezzanine
+buildPage(`base-for-django`, `network-api/networkapi/templates/pages/base-compiled.html`, null, true);

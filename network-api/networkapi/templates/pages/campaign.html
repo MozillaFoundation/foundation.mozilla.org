@@ -1,134 +1,65 @@
-<!DOCTYPE html>
-<html>{% load settings_value %}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Mozilla is fueling a movement for a healthy Internet. See how a network of dedicated leaders and activists are working for a better Internet for all, connecting us to each other and to a better future.">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Mozilla Foundation">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:url" content="https://foundation.mozilla.org{{ page.get_absolute_url }}">
-    <meta property="og:title" content="Mozilla Foundation – {{ page.meta_title }}">
-    <meta property="og:image" content="https://foundation.mozilla.org/_images/og.jpg">
-    <link rel="stylesheet" href="/_css/main.compiled.css">
-    <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,600,300,700">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
-    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
-    <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
-    <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
-    <title>Mozilla Foundation – {{ page.meta_title }}</title>
-  </head>
-  <body id="view-campaign">
-    <div class="takeover"></div>
-    <div id="primary-nav"></div>
-    <div class="wrapper">
-      <div id="member-notice"></div>
-      <div class="sticky-top">
-        <!-- deviation from the landingpage template: no sticky element for signing the petition -->
-        <div class="wrapper-burger">
-          <div class="container">
-            <div class="row">
-              <div class="col p-4">
-                <div class="d-flex flex-row justify-content-between align-items-center">
-                  <div class="d-flex align-items-center"><a class="logo text-hide" href="/">Mozilla Network</a>
-                    <div class="nav-links hidden-sm-down"><a class="nav-link-people" href="/people">People</a><a class="nav-link-get-involved" href="/get-involved">Get&nbsp;Involved</a><a class="nav-link-projects" href="/projects">Projects</a><a class="nav-link-upcoming" href="/programs/upcoming">Upcoming</a><a class="nav-link-about" href="/about">About</a></div>
-                  </div>
-                  <div class="d-flex align-items-center"><a class="btn btn-pop" href="/sign-up">Sign Up</a>
-                    <button class="hidden-md-up" id="burger"></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="wrapper-2">
-        <div id="hero">
-          <div class="container">
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="py-5 {% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
-            <h1 class="h1-white">{{ page.campaign.header }}</h1>
-          </div>
-        </div>
-      </div>
-      <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
-        <div class="container">
-          <div class="row">
-            <div class="col-12"></div>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row mb-5">{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}
-          <div class="col-12 col-md-3 mb-3 hidden-sm-down">
-            <div class="multipage-nav" id="multipage-nav">
-              {% load pages_tags %}
-              {% page_menu "pages/menus/side-menu-items.html" %}
-            </div>
-          </div>{% endif %}
-          <div class="{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
-            <div class="row">
-              <div class="cms {% if page.campaign.petition and page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12{% else %}col-md-6{% endif %}">{{ page.campaign.content | safe }}</div>
-              {% if page.campaign.petition and page.parent.title != "Campaigns" or page.children.all.count > 0 %}
-              </div>
-              <div class="row">
-                <div class="col-12">
-              {% else %}
-              <div class="col-md-6">
-            {% endif %}
-                {% with page.campaign.petition as petition %}<div
-                  class="sign-petition full-width mb-5"
-                  data-csrf-token="{{ csrf_token }}"
-                  data-petition-id="{{ page.campaign.petition.id }}"
-                  data-cta-header="{{ page.campaign.petition.header | escape }}"
-                  data-cta-description="{{ page.campaign.petition.description | escape }}"
-                  data-newsletter="{{ page.campaign.petition.newsletter }}"
-                  data-checkbox1="{{ page.campaign.petition.checkbox_1 | escape }}"
-                  data-checkbox2="{{ page.campaign.petition.checkbox_2 | escape }}"
-                  data-share-link="{{ page.campaign.petition.share_link }}"
-                  data-share-text="{{ page.campaign.petition.share_link_text }}"
-                  data-thank-you="{{ page.campaign.petition.thank_you }}"
-                ></div>{% endwith %}
-              </div>
-            </div>
-          </div>
-        </div>
+{% extends "./base-compiled.html" %}
 
-        <div class="row mb-5">
-          <div class="col-12">
-            <hr class="my-2">
-            <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
-              <p class="body-black mb-0">This is part of a broader movement for a healthy internet. <a href="/">See more</a>.</p>
-            </div>
-            <hr class="my-2">
+{% block bodyID %}campaign{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="py-5 {% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+        <h1 class="h1-white">{{ page.campaign.header }}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
+    <div class="container">
+      <div class="row">
+        <div class="col-12"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mb-5">{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}
+      <div class="col-12 col-md-3 mb-3 hidden-sm-down">
+        <div class="multipage-nav" id="multipage-nav">
+          {% load pages_tags %}
+          {% page_menu "pages/menus/side-menu-items.html" %}
+        </div>
+      </div>{% endif %}
+      <div class="{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+        <div class="row">
+          <div class="cms {% if page.campaign.petition and page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12{% else %}col-md-6{% endif %}">{{ page.campaign.content | safe }}</div>
+          {% if page.campaign.petition and page.parent.title != "Campaigns" or page.children.all.count > 0 %}
+          </div>
+          <div class="row">
+            <div class="col-12">
+          {% else %}
+          <div class="col-md-6">
+        {% endif %}
+            {% with page.campaign.petition as petition %}<div
+              class="sign-petition full-width mb-5"
+              data-csrf-token="{{ csrf_token }}"
+              data-petition-id="{{ page.campaign.petition.id }}"
+              data-cta-header="{{ page.campaign.petition.header | escape }}"
+              data-cta-description="{{ page.campaign.petition.description | escape }}"
+              data-newsletter="{{ page.campaign.petition.newsletter }}"
+              data-checkbox1="{{ page.campaign.petition.checkbox_1 | escape }}"
+              data-checkbox2="{{ page.campaign.petition.checkbox_2 | escape }}"
+              data-share-link="{{ page.campaign.petition.share_link }}"
+              data-share-text="{{ page.campaign.petition.share_link_text }}"
+              data-thank-you="{{ page.campaign.petition.thank_you }}"
+            ></div>{% endwith %}
           </div>
         </div>
       </div>
-      <footer class="mofo-footer">
-        <div class="container">
-          <ul class="list-unstyled footer-links row justify-content-center">
-            <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
-            <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
-            <li class="col-auto"><a class="footer-link-facebook" href="https://www.facebook.com/mozilla">Facebook</a></li>
-            <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
-            <li class="col-auto"><a class="footer-link-code-of-conduct" href="https://www.mozilla.org/about/governance/policies/participation/">Participation Guidelines</a></li>
-            <li class="col-auto"><a class="footer-link-legal" href="https://mozilla.org/en-US/about/legal/">Legal</a></li>
-            <li class="col-auto"><a class="footer-link-privacy" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a></li>
-            <li class="col-auto"><a class="footer-link-donate" href="https://donate.mozilla.org">Donate</a></li>
-          </ul>
-          <div class="org-info mozilla">
-            <div class="logo-container"><a class="logo" href="https://mozilla.org"></a></div>
-            <p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>
-          </div>
-        </div>
-      </footer>
     </div>
-  </body>
-</html>
-<script src="/_js/main.compiled.js"></script>
+
+    <div class="row mb-5">
+      <div class="col-12">
+        <hr class="my-2">
+        <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
+          <p class="body-black mb-0">This is part of a broader movement for a healthy internet. <a href="/">See more</a>.</p>
+        </div>
+        <hr class="my-2">
+      </div>
+    </div>
+  </div>
+{% endblock %}
