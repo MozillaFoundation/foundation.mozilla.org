@@ -1,0 +1,18 @@
+//-
+  This template is used to generate HTML for usage in Mezzanine.
+  There are {{ TOKENS }} in place for Mezzanine to target with CMS data.
+  `npm build` will compile this to `/dest/opportunity/template/index.html`
+
+extends ../templates/master.pug
+
+block masterParams
+  - let isMezzanine = true
+  - let pageTitle = `{{ page.meta_title }}`;
+
+include ../partials/sign-up-box.pug
+
+block heroGuts
+  | {% block heroGuts %}{% endblock %}
+
+block content
+  | {% block content %}{% endblock %}
