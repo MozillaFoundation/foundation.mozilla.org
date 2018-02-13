@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html>{% load settings_value %}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Mozilla is fueling a movement for a healthy Internet. See how a network of dedicated leaders and activists are working for a better Internet for all, connecting us to each other and to a better future.">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Mozilla Foundation">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:url" content="https://foundation.mozilla.org{{ page.get_absolute_url }}">
-    <meta property="og:title" content="Mozilla Foundation – {{ page.meta_title }}">
-    <meta property="og:image" content="https://foundation.mozilla.org/_images/og.jpg">
-    <link rel="stylesheet" href="/_css/main.compiled.css">
-    <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,600,300,700">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
-    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
-    <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
-    <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
-    <title>Mozilla Foundation – {{ page.meta_title }}</title>
-  </head>
+{% extends "./base.html" %}
+
+{% block body %}
   <body id="view-campaign">
     <div class="takeover"></div>
     <div id="primary-nav"></div>
@@ -130,5 +111,4 @@
       </footer>
     </div>
   </body>
-</html>
-<script src="/_js/main.compiled.js"></script>
+{% endblock %}
