@@ -4,6 +4,11 @@
   }
 }
 
+#fellowship-breadcrumb {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 .fellowships-list {
   list-style: outside;
 
@@ -31,5 +36,24 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
+  }
+}
+
+#fellowships-directory-filter {
+  background: $off-white;
+
+  .btn.btn-link {
+    display: inline-block;
+    text-align: left;
+    padding: 0;
+    border: 0;
+    font-weight: 500;
+    color: inherit;
+
+    &:not(:last-child)::after {
+      content: "|";
+      margin-left: 5px;
+      margin-right: 5px;
+    }
   }
 }
