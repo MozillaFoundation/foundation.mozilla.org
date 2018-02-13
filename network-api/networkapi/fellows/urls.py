@@ -10,7 +10,7 @@ urlpatterns = [
         name='fellowships-directory'),
     url(r'^directory/(?P<program_type_slug>[-\w]+)/$',
         views.fellows_directoy_type,
-        name='fellowships-directory-senior'),
+        name='fellowships-directory-type'),
     url(r'^support/$', views.fellows_support, name='fellowships-support'),
     url(r'^apply/$', views.fellows_apply, name='fellowships-apply'),
 ]
