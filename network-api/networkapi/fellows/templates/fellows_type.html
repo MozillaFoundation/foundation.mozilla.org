@@ -7,15 +7,15 @@
     <li class="breadcrumb-item small-gray">
       <a href="{% url 'fellowships-home' %}" class="small-gray">Fellowships</a>
     </li>
-    <li class="breadcrumb-item small-gray active">
-      {% block breadcrumb_fellowship_type %}{% endblock %} Fellowship
+    <li class="breadcrumb-item small-gray text-capitalize active">
+      {{ type }} Fellowship
     </li>
   </ol>
 </div>
 
 <div class="row mb-5">
   <div class="col-md-12 my-b">
-    <h1 class="h1-white">{% block fellowship_type %}{% endblock %} Fellowship</h1>
+    <h1 class="h1-white text-capitalize">{{ type }} Fellowship</h1>
   </div>
   <div class="col-md-9">
    {% block fellowship_description %}{% endblock %}
