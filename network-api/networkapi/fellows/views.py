@@ -14,6 +14,14 @@ def fellows_openweb(request):
     return render(request, 'fellows_openweb.html')
 
 
+def fellows_tech_policy(request):
+    return render(request, 'fellows_tech_policy.html')
+
+
+def fellows_media(request):
+    return render(request, 'fellows_media.html')
+
+
 def fellows_directory(request):
     return render(request, 'fellows_directory.html')
 

@@ -41,7 +41,7 @@
     <h3 class="h4-light-black">Fellows Impact</h3>
   </div>
   <div class="col-md-9">
-    <p>Our fellows have a huge impact in the world. And here we should have more text explaining the impact they have Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fellows that focused on <a href="{% url 'fellowships-science' %}">Science</a> had this impact: suspendisse iaculis pulvinar porttitor. Fellows focused on <a href="{% url 'fellowships-open-web' %}">Open Web</a> will have this impact: Pellentesque a lacus at, facilisis fermentum leo. <a href="">Tech Policy</a> fellows impact the world in many ways such as pellentesque habitant morbi tristique senectus et netus. Finally, fellows with focus on <a href="">Media</a> will have impact on these important areas: consectetur adipiscing elit.</p>
+    <p>Our fellows have a huge impact in the world. And here we should have more text explaining the impact they have Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fellows that focused on <a href="{% url 'fellowships-science' %}">Science</a> had this impact: suspendisse iaculis pulvinar porttitor. Fellows focused on <a href="{% url 'fellowships-open-web' %}">Open Web</a> will have this impact: Pellentesque a lacus at, facilisis fermentum leo. <a href="{% url 'fellowships-tech-policy' %}">Tech Policy</a> fellows impact the world in many ways such as pellentesque habitant morbi tristique senectus et netus. Finally, fellows with focus on <a href="{% url 'fellowships-media' %}">Media</a> will have impact on these important areas: consectetur adipiscing elit.</p>
   </div>
   <div class="col-md-3"><div style="width:100px; height:100px; background: grey;">img</div></div>
 </div>
@@ -52,7 +52,7 @@
   </div>
   <div class="col-md-9">
     <p>In addition, our Senior Fellowships program supports leaders at the top of the field who are fundamental to advance the Internet Health movement. They bring expertise in new subject areas of internet health that are a part of our issue priorities, and connect our networks.</p>
-    <p><a href="">See all the Senior Fellows</a> and learn more about the amazing work they are doing.</p>
+    <p><a href="/fellowships/directory/senior">See all the Senior Fellows</a> and learn more about the amazing work they are doing.</p>
   </div>
   <div class="col-md-3"><div style="width:100px; height:100px; background: grey;">img</div></div>
 </div>
@@ -136,18 +136,9 @@
   <div class="col-md-6"><div style="width:100px; height:100px; background: grey;">img</div></div>
 </div>
 
-<div class="row py-5 px-md-2">
-  <div class="col-md-2"><div style="width:100px; height:100px; background: grey;">img</div></div>
-  <div class="col-md-10">
-    <div class="d-flex flex-column flex-md-row justify-content-around">
-      <div>
-        <h2 class="h3-cta-black">Application are open</h2>
-        <p>short copy short copy short copy short copy short copy short copy short copy short copy short copy</p>
-      </div>
-      <div class="ml-md-5 align-self-center">
-        <button class="btn btn-normal">I want to be a Fellow</button>
-      </div>
-    </div>
+<div class="row mb-5">
+  <div class="col-12">
+  {% include 'application_cta_banner.html' %}
   </div>
 </div>
 
