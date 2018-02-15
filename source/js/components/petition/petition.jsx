@@ -349,11 +349,11 @@ export default class Petition extends React.Component {
         <form onSubmit={this.processFormData}>
           <div className={inputGroupClass}>
             <div className="mb-2">
-              <input disabled={disableFields} type="text" className="form-control mb-1 col-md-10" placeholder="First name" ref="givenNames" onFocus={this.onInputFocus}/>
+              <input disabled={disableFields} type="text" className="form-control mb-1 w-100" placeholder="First name" ref="givenNames" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.givenNames.value && <small className="form-check form-control-feedback">Please enter your given name(s)</small>}
-              <input disabled={disableFields} type="text" className="form-control mb-1 col-md-10" placeholder="Last name" ref="surname" onFocus={this.onInputFocus}/>
+              <input disabled={disableFields} type="text" className="form-control mb-1 w-100" placeholder="Last name" ref="surname" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.surname.value && <small className="form-check form-control-feedback">Please enter your surname</small>}
-              <input disabled={disableFields} type="email" className="form-control col-md-10" placeholder="Email address" ref="email" onFocus={this.onInputFocus}/>
+              <input disabled={disableFields} type="email" className="form-control w-100" placeholder="Email address" ref="email" onFocus={this.onInputFocus}/>
               {this.state.userTriedSubmitting && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
             </div>
             {this.state.basketFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
