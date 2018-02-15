@@ -7,15 +7,15 @@
     <li class="breadcrumb-item small-gray">
       <a href="{% url 'fellowships-home' %}" class="small-gray">Fellowships</a>
     </li>
-    <li class="breadcrumb-item small-gray active">
-      {% block breadcrumb_fellowship_type %}{% endblock %} Fellowship
+    <li class="breadcrumb-item small-gray text-capitalize active">
+      {{ type }} Fellowship
     </li>
   </ol>
 </div>
 
 <div class="row mb-5">
   <div class="col-md-12 my-b">
-    <h1 class="h1-white">{% block fellowship_type %}{% endblock %} Fellowship</h1>
+    <h1 class="h1-white text-capitalize">{{ type }} Fellowship</h1>
   </div>
   <div class="col-md-9">
    {% block fellowship_description %}{% endblock %}
@@ -33,8 +33,8 @@
     {% block benefit_description %}{% endblock %}
   </div>
   <div class="col-md-12">
-    <p>Fellows will receive:</p>
-    <ul class="fellowships-list two-column">
+    <p><strong>Fellows will receive:</strong></p>
+    <ul class="fellowships-list">
       {% block benefit_list %}
       {% endblock %}
     </ul>
@@ -47,7 +47,7 @@
     <h4 class="h2-headings-white">Eligibility Criteria</h4>
   </div>
   <div class="col-md-8">
-    <p>Fellows must be:</p>
+    <p><strong>Fellows must be:</strong></p>
     <ul class="fellowships-list">
       {% block eligibility_list %}
       {% endblock %}
@@ -59,32 +59,28 @@
 {% block featured_fellow %}
 {% endblock %}
 
-<div class="row py-5 px-md-2">
-  <div class="col-md-2">img</div>
-  <div class="col-md-10">
-    <div class="d-flex flex-column flex-md-row justify-content-around">
-      <div>
-        <h2 class="h3-cta-black">Application are open</h2>
-        <p>short copy short copy short copy short copy short copy short copy short copy short copy short copy</p>
-      </div>
-      <div class="ml-md-5 align-self-center">
-        <button class="btn btn-normal">I want to be a Fellow</button>
-      </div>
-    </div>
+<div class="row mb-5">
+  <div class="col-12 my-5">
+    <hr class="hr-gradient mt-0">
+    <h4 class="h2-headings-white">Host organizations</h4>
+  </div>
+  {% block host_orgs %}
+  {% endblock %}
+</div>
+
+<div class="row mb-5">
+  <div class="col-12">
+  {% include 'application_cta_banner.html' %}
   </div>
 </div>
 
-<div class="row py-5 px-md-2">
-  <div class="col-md-1">img</div>
-  <div class="col-md-11">
-    <div class="d-flex flex-column flex-md-row justify-content-around">
-      <div>
-        <p>Want to support the incredible work Fellows are doing? Either as a host organization or a funder, you can join us to keep the Internet healthy.</p>
-      </div>
-      <div class="ml-md-5 align-self-center">
-        <button class="btn btn-ghost">Ways to Support</button>
-      </div>
+<div class="row mb-5">
+  <div class="col-12">
+    <hr class="my-2">
+    <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
+      <p class="body-black mb-0">Do you have any questions about this program? <a href="">Contact us</a>.</p>
     </div>
+    <hr class="my-2">
   </div>
 </div>
 
