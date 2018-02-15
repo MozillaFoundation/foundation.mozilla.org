@@ -1,11 +1,7 @@
 {% extends "./campaign-opportunity-base.html" %}
 
-{% block bodyID %}{% with "opportunity" as suffix %}{{ block.super }}{% endwith %}{% endblock %}
+{% block bodyID %}{% with suffix="opportunity" %}{{ block.super }}{% endwith %}{% endblock %}
 
-{% block content %}
-  {% with parentTitle="Opportunity" %}
-  {{ block.super }}
-  {% endwith %}
-{% endblock %}
+{% block content %}{% with parentTitle="Opportunity" %}{{ block.super }}{% endwith %}{% endblock %}
 
 {% block h1 %}{{ page.landingpage.header }}{{ block.super }}{% endblock %}

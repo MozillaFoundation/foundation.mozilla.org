@@ -1,12 +1,10 @@
 {% extends "./campaign-opportunity-base.html" %}
 
-{% block bodyID %}{% with "campaign" as suffix %}{{ block.super }}{% endwith %}{% endblock %}
+{% block bodyID %}{% with suffix="campaign" %}{{ block.super }}{% endwith %}{% endblock %}
 
-{% block content %}
-  {% with parentTitle="Campaigns" %}
-  {{ block.super }}
-  {% endwith %}
-{% endblock %}
+{% block content %}{% with parentTitle="Campaigns" %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block h1 %}{{ page.campaign.header }}{{ block.super }}{% endblock %}
 
 {% block subcontent %}
   <div class="{% if page.parent.title != "Campaigns" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
