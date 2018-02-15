@@ -206,7 +206,7 @@ function injectReactComponents(pulseApiURL) {
   }
 
   // Fellows on Fellows Directory page
-  if (document.querySelectorAll(`#fellows-directory-featured-fellows`)) {
+  if (document.getElementById(`fellows-directory-featured-fellows`)) {
     renderFellowsOnDirectoryPage();
   }
 

@@ -1,8 +1,8 @@
-{% extends "fellowships-base.html" %}
+{% extends "./pages/fellowships.html" %}
 
-{% block template_id %}fellows-directory-{{type|slugify}}{% endblock %}
+{% block bodyID %}fellows-directory-{{type|slugify}}{% endblock %}
 
-{% block body %}
+{% block mainContent %}
 <div id="fellowship-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item small-gray">
