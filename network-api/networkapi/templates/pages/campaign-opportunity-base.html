@@ -7,7 +7,7 @@
     <div class="row">
       <div class="py-5 {% if page.parent.title != "{{ parentTitle }}" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
         <p class="h5-black">{{ page.parent.title }}</p>
-        <h1 class="h1-white">{% block h1 %}{% endblock %}</h1>
+        <h1 class="h1-white hidden-sm-down">{% block h1 %}{% endblock %}</h1>
       </div>
     </div>
   </div>
