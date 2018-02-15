@@ -12,7 +12,7 @@
 .fellowships-list {
   list-style: outside;
 
-  &.two-column {
+  @media (min-width: $bp-md) {
     column-count: 2;
     column-gap: 2rem;
   }
@@ -56,4 +56,8 @@
       margin-right: 5px;
     }
   }
+}
+
+#fellowships-application-cta-banner {
+  background: $off-white;
 }

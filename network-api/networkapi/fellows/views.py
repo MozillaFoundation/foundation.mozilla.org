@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 
 # Create your views here.
@@ -6,12 +7,14 @@ def fellows_home(request):
     return render(request, 'fellows_home.html')
 
 
-def fellows_science(request):
-    return render(request, 'fellows_science.html')
+def fellows_type(request, program_type_slug):
+    if program_type_slug not in ['science', 'open-web', 'tech-policy', 'media']:
+        raise Http404
 
+    template = 'fellows_' + program_type_slug.replace('-', '_') + '.html'
+    context = {'type': program_type_slug.replace('-', ' ')}
 
-def fellows_openweb(request):
-    return render(request, 'fellows_openweb.html')
+    return render(request, template, context)
 
 
 def fellows_directory(request):
