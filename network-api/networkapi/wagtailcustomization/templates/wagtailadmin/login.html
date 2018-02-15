@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/login.html" %}
+{% load i18n staticfiles %}
+
+
+{% block submit_buttons %}
+    {{ block.super }}
+
+    <span>Or</span>
+    
+    <a href="{% url "social:begin" "google-oauth2" %}?next=/cms"><button type="button" class="button" tabindex="4">{% trans 'Log in with Google' %}</button></a>
+{% endblock %}
