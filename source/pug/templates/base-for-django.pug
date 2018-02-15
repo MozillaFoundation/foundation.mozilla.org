@@ -1,0 +1,15 @@
+//-
+  This template is used to generate a base template for usage with Django templates
+  `npm build` will compile this to `/network-api/networkapi/templates/pages/base-compiled.html`
+
+extends ../templates/master.pug
+
+block masterParams
+  - let isMezzanine = true
+  - let pageTitle = `{{ page.meta_title }}`;
+
+block heroGuts
+  | {% block heroGuts %}{% endblock %}
+
+block content
+  | {% block content %}{% endblock %}
