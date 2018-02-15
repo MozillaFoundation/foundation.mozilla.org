@@ -117,7 +117,7 @@ You can run the tests using the following command
 
 HTML for the majority of the site is generated from [Pug](https://pugjs.org) templates.
 
-Some templates used by Mezzanine (at the time of writing: Opportunity and Campaign pages) are written as Django templates but extend blocks from a common base template (`network-api/networkapi/templates/pages/base-compiled.html`) that is generated from Pug (see `source/pug/templates/base-for-django.pug`). This allows code sharing for the overall HTML "shell" of the site between Pug and Django templates as we migrate away from Pug.
+Some templates used by Mezzanine (at the time of writing: Opportunity, Campaign, and Fellowships pages) are written as Django templates but extend blocks from a common base template (`network-api/networkapi/templates/pages/base-compiled.html`) that is generated from Pug (see `source/pug/templates/base-for-django.pug`). This allows code sharing for the overall HTML "shell" of the site between Pug and Django templates as we migrate away from Pug.
 
 Localized strings are pulled from [Java .properties](https://en.wikipedia.org/wiki/.properties) files located in `/locales`.
 
