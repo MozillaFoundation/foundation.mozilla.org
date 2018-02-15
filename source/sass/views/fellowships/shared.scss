@@ -60,4 +60,12 @@
 
 #fellowships-application-cta-banner {
   background: $off-white;
+
+  .btn {
+    width: 100%;
+
+    @media (min-width: $bp-md) {
+      width: auto;
+    }
+  }
 }
