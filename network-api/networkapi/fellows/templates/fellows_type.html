@@ -20,7 +20,9 @@
   <div class="col-md-9">
    {% block fellowship_description %}{% endblock %}
   </div>
-  <div class="col-md-3">{% block fellowship_illustration %}{% endblock %}</div>
+  <div class="col-md-3 d-flex justify-content-center align-items-center">
+    {% block fellowship_illustration %}{% endblock %}
+  </div>
 </div>
 
 <div class="row mb-5">
@@ -53,20 +55,16 @@
       {% endblock %}
     </ul>
   </div>
-  <div class="col-md-4">img</div>
+  <div class="col-md-4 d-flex justify-content-center align-items-center">
+    <img src="/_images/fellowships/eligibility-criteria-fellows-optim.svg">
+  </div>
 </div>
 
 {% block featured_fellow %}
 {% endblock %}
 
-<div class="row mb-5">
-  <div class="col-12 my-5">
-    <hr class="hr-gradient mt-0">
-    <h4 class="h2-headings-white">Host organizations</h4>
-  </div>
-  {% block host_orgs %}
-  {% endblock %}
-</div>
+{% block host_orgs %}
+{% endblock %}
 
 <div class="row mb-5">
   <div class="col-12">
