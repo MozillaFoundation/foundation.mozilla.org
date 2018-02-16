@@ -20,6 +20,7 @@
   </div>
   <div class="container">
     <div class="row mb-5">
+      {{ page.siblings }}
       {% if page.parent.title != "{{ parentTitle }}" or page.children.all.count > 0 %}
       <div class="col-12 col-md-3 mb-3 hidden-sm-down">
         <div class="multipage-nav" id="multipage-nav">
@@ -38,13 +39,7 @@
       {% endblock %}
     </div>
 
-    {% if page.landingpage.signup %}
-    <div class="row">
-      <div class="col-12">
-        <div class="join-us p-2 full-width mb-5" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}" data-newsletter="{{ page.landingpage.signup.newsletter }}"></div>
-      </div>
-    </div>
-    {% endif %}
+    {% block signup %}{% endblock %}
 
     <div class="row mb-5">
       <div class="col-12">

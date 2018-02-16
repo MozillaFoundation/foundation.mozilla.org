@@ -5,3 +5,13 @@
 {% block content %}{% with parentTitle="Opportunity" %}{{ block.super }}{% endwith %}{% endblock %}
 
 {% block h1 %}{{ page.landingpage.header }}{{ block.super }}{% endblock %}
+
+{% block signup %}
+{% if page.landingpage.signup %}
+  <div class="row">
+    <div class="col-12">
+      <div class="join-us p-2 full-width mb-5" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}" data-newsletter="{{ page.landingpage.signup.newsletter }}"></div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
