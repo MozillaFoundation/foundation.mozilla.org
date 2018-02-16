@@ -5,7 +5,7 @@
       {% if page.branch_level > 0 %}
         {% if page.has_children or page.branch_level > 1 %}
           <div>
-            <a class="opp-link {% if page.is_current %}opp-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+            <a class="multipage-link {% if page.is_current %}multipage-link-active{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
           </div>
         {% endif %}
       {% endif %}
