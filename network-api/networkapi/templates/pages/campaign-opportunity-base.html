@@ -5,7 +5,7 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
+      <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
         {% if page.parent.title != parentTitle %}
         <p class="h5-black">{{ page.parent.title }}</p>
         {% endif %}
@@ -32,7 +32,7 @@
       {% endif %}
 
       {% block subcontent %}
-      <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
+      <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
         <div class="row">
           <div class="cms col-12">{{ page.landingpage.content | safe }}</div>
         </div>
@@ -42,7 +42,7 @@
 
 
     <div class="row mb-5">
-      <div class="{% if page.parent.title != parentTitle %}col-md-12{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
+      <div class="{% if page.parent.title != parentTitle %}col-md-12{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
         {% block signup %}{% endblock %}
         <hr class="my-2">
         <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
