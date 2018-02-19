@@ -1,48 +1,13 @@
-{% extends "./base-compiled.html" %}
+{% extends "./campaign-opportunity-base.html" %}
 
-{% block bodyID %}opportunity{% endblock %}
-{% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="py-5 {% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
-        <h1 class="h1-white">{{ page.landingpage.header }}</h1>
-      </div>
-    </div>
-  </div>
-  <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
-    <div class="container">
-      <div class="row">
-        <div class="col-12"></div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row mb-5">{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}
-      <div class="col-12 col-md-3 mb-3 hidden-sm-down">
-        <div class="multipage-nav" id="multipage-nav">
-          {% load pages_tags %}
-          {% page_menu "pages/menus/side-menu-items.html" %}
-        </div>
-      </div>{% endif %}
-      <div class="{% if page.parent.title != "Opportunity" or page.children.all.count > 0 %}col-12 col-md-9{% else %}col-12 col-lg-8 offset-lg-2{% endif %}">
-        <div class="row">
-          <div class="cms col-12">{{ page.landingpage.content | safe }}</div>
-        </div>
-      </div>
-    </div>{% if page.landingpage.signup %}
-    <div class="row">
-      <div class="col-12">
-        <div class="join-us p-2 full-width mb-5" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}" data-newsletter="{{ page.landingpage.signup.newsletter }}"></div>
-      </div>
-    </div>{% endif %}
-    <div class="row mb-5">
-      <div class="col-12">
-        <hr class="my-2">
-        <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
-          <p class="body-black mb-0">This is part of a broader movement for a healthy internet. <a href="/">See more</a>.</p>
-        </div>
-        <hr class="my-2">
-      </div>
-    </div>
-  </div>
+{% block bodyID %}{% with suffix="opportunity" %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block content %}{% with parentTitle="Opportunity" %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block h1 %}{{ page.landingpage.header }}{{ block.super }}{% endblock %}
+
+{% block signup %}
+{% if page.landingpage.signup %}
+  <div class="join-us p-2 full-width mb-5" data-cta-header="{{ page.landingpage.signup.header | escape }}" data-cta-description="{{ page.landingpage.signup.description | escape }}" data-newsletter="{{ page.landingpage.signup.newsletter }}"></div>
+{% endif %}
 {% endblock %}
