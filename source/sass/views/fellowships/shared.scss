@@ -9,6 +9,10 @@
   margin-bottom: 1rem;
 }
 
+.eligibility-section {
+  background: $off-white;
+}
+
 .fellowships-list {
   list-style: outside;
 
@@ -67,5 +71,22 @@
     @media (min-width: $bp-md) {
       width: auto;
     }
+  }
+}
+
+#view-fellows-support .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-md) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  img {
+    max-width: 75%;
   }
 }
