@@ -16,9 +16,11 @@
 .fellowships-list {
   list-style: outside;
 
-  @media (min-width: $bp-md) {
-    column-count: 2;
-    column-gap: 2rem;
+  &:not(.eligibility-list) {
+    @media (min-width: $bp-md) {
+      column-count: 2;
+      column-gap: 2rem;
+    }
   }
 
   li {
@@ -74,7 +76,8 @@
   }
 }
 
-#view-fellows-support .logo {
+#view-fellows-support .logo,
+#view-fellows-open-web .logo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,4 +92,8 @@
   img {
     max-width: 75%;
   }
+}
+
+#view-fellows-support .person-social-links {
+  border: none;
 }

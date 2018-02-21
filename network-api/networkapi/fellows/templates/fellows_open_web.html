@@ -1,5 +1,7 @@
 {% extends "fellows_type.html" %}
 
+{% block bodyID %}fellows-open-web{% endblock %}
+
 {% block fellowship_description %}
 {% lorem 2 p %}
 {% endblock %}
@@ -34,7 +36,7 @@
 {% endblock %}
 
 {% block featured_fellow %}
-<div id="featured-open-web-fellow" class="featured-fellow mb-5"></div>
+<div id="featured-open-web-fellow" class="featured-fellow"></div>
 {% endblock %}
 
 {% block host_orgs %}
@@ -50,16 +52,7 @@
         the open internet. Mozilla recruits hosts who have a track record of advocating for internet health, public interest technology, and digital rights; these organizations partner with a fellow for 10-months. Current host organizations include:</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-6 col-md-3">org logo</div>
-      <div class="col-6 col-md-3">org logo</div>
-      <div class="col-6 col-md-3">org logo</div>
-      <div class="col-6 col-md-3">org logo</div>
-      <div class="col-6 col-md-3">org logo</div>
-      <div class="col-6 col-md-3">org logo</div>
-      <div class="col-6 col-md-3">org logo</div>
-      <div class="col-6 col-md-3">org logo</div>
-    </div>
+    {% include 'fellows_host_org.html' %}
   </div>
 </div>
 {% endblock %}

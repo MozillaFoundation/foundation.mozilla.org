@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-md-12 col-lg-6 py-5">
     <div class="mb-4">
-      <h1 class="h1-white">Fellowships</h1>
+      <h1 class="h1-white">Fellowship</h1>
     </div>
     <p class="lead-black">Our Fellowships empower bright minds in the fields of public policy, science and journalism.</p>
   </div>
@@ -37,7 +37,7 @@
           <div class="content d-flex">
             <div class="d-flex flex-column flex-md-row w-100 justify-content-between align-items-start align-items-md-center">
               <p class="body-black mb-0">Applications for Fellowship are <strong>open until [dd/mm/yyyy]</strong>.</p>
-              <button class="btn btn-ghost mt-2 mt-md-0">Apply here</button>
+              <a href="{% url 'fellowships-apply' %}" class="btn btn-ghost mt-2 mt-md-0">Apply here</a>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
   <div class="col-md-9">
     <p>Our fellows have a huge impact in the world. And here we should have more text explaining the impact they have Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fellows that focused on <a href="{% url 'fellowships-type' program_type_slug='science' %}">Science</a> had this impact: suspendisse iaculis pulvinar porttitor. Fellows focused on <a href="{% url 'fellowships-type' program_type_slug='open-web' %}">Open Web</a> will have this impact: Pellentesque a lacus at, facilisis fermentum leo. <a href="{% url 'fellowships-type' program_type_slug='tech-policy' %}">Tech Policy</a> fellows impact the world in many ways such as pellentesque habitant morbi tristique senectus et netus. Finally, fellows with focus on <a href="{% url 'fellowships-type' program_type_slug='media' %}">Media</a> will have impact on these important areas: consectetur adipiscing elit.</p>
   </div>
-  <div class="col-md-3"><img src="/_images/fellowships/svg/fellows-impact-optim.svg"></div>
+  <div class="col-md-3 d-flex justify-content-center align-items-center"><img src="/_images/fellowships/svg/fellows-impact-optim.svg"></div>
 </div>
 
 <div class="row mb-5">
@@ -64,7 +64,7 @@
     <p>In addition, our Senior Fellowships program supports leaders at the top of the field who are fundamental to advance the Internet Health movement. They bring expertise in new subject areas of internet health that are a part of our issue priorities, and connect our networks.</p>
     <p><a href="/fellowships/directory/senior">See all the Senior Fellows</a> and learn more about the amazing work they are doing.</p>
   </div>
-  <div class="col-md-3"><img src="/_images/fellowships/svg/senior-fellows-optim.svg"></div>
+  <div class="col-md-3 d-flex justify-content-center align-items-center"><img src="/_images/fellowships/svg/senior-fellows-optim.svg"></div>
 </div>
 
 <div class="row mb-5">
@@ -114,7 +114,7 @@
 </div>
 
 <div class="row mb-5">
-  <div class="col-md-12 my-5">
+  <div class="col-md-12 mb-5">
     <hr class="hr-gradient mt-0">
     <h2 class="h2-headings-white">Why Become a Fellow?</h2>
   </div>
@@ -158,7 +158,7 @@
   <div class="col-12">
     <hr class="my-2">
     <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/fellowships/svg/mini_support_hand-fellows-with-gradient.svg">
-      <p class="body-black mb-0">Want to support the incredible work Fellows are doing? Either as a host organization or a funder, you can join us to keep the Internet healthy. <a href="">Find out how to support</a>.</p>
+      <p class="body-black mb-0">Want to support the incredible work Fellows are doing? Either as a host organization or a funder, you can join us to keep the Internet healthy. <a href="{% url 'fellowships-support' %}">Find out how to support</a>.</p>
     </div>
     <hr class="my-2">
   </div>
