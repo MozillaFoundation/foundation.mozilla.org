@@ -12,11 +12,13 @@
   height: 55px;
   background: #3bb7ef;
   border: solid #3bb7ef;
-  &:focus, 
+
+  &:focus,
   &:hover {
     background: #014c8c;
     border: solid #014c8c;
   }
+
   &::before {
     position: absolute;
     content: ' ';
