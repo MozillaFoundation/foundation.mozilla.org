@@ -41,7 +41,7 @@ export default class Person extends React.Component {
 
     if (this.props.metadata.featured) {
       return (
-        <div className="col-12 p-3 mb-4">
+        <div className="col-12 mb-5">
           <div className="person-card person-card-featured row no-gutters">
             <div className="col-md-4 col-12 mr-3">
               <div className="row">
@@ -93,7 +93,7 @@ export default class Person extends React.Component {
       );
     } else {
       return (
-        <div className="col-md-6 col-12 p-3 mb-4">
+        <div className="col-md-6 col-12 mb-5">
           <div className="person-card row no-gutters">
             <div className="col-4 mr-3">
               <div className="row">
