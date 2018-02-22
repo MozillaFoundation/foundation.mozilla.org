@@ -16,7 +16,11 @@ class LinkButtonBlock(blocks.StructBlock):
         icon = 'link'
         template = 'opportunities/blocks/link_button_block.html'
 
-
+"""
+We'll need to figure out which components are truly "base" and
+which are bits that should be used in subclassing template-based
+page types.
+"""
 base_fields = [
     ('heading', blocks.CharBlock(classname="full title")),
 
@@ -46,6 +50,10 @@ base_fields = [
 ]
 
 class ModularPage(Page):
+    """
+    The base class offers universal component picking
+    """
+
     body = StreamField(base_fields)
 
     content_panels = Page.content_panels + [
@@ -54,4 +62,10 @@ class ModularPage(Page):
 
 
 class OpportunityPage(ModularPage):
+    """
+    For now, the opportunity pages are just a form of
+    modular page type, with CSS classes defined in the
+    opportunities/templates/opportunities/opportunity_page.html
+    template file.
+    """
     pass
