@@ -7,6 +7,16 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 
+
+class LinkButtonBlock(blocks.StructBlock):
+    label = blocks.CharBlock()
+    URL = blocks.URLBlock()
+
+    class Meta:
+        icon = 'link'
+        template = 'opportunities/blocks/link_button_block.html'
+
+
 base_fields = [
     ('heading', blocks.CharBlock(classname="full title")),
 
