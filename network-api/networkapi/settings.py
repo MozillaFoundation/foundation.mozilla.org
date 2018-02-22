@@ -133,7 +133,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.wagtailredirects' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailembeds' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailsites' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailusers' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',
     'wagtail.wagtaildocs',
     'wagtail.wagtailimages' if ENABLE_WAGTAIL else None,
@@ -165,7 +165,7 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.milestones',
 ]))
 
-MIDDLEWARE = [
+MIDDLEWARE = list(filter(None, [
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
 
     'mezzanine.core.middleware.UpdateCacheMiddleware',
@@ -195,7 +195,7 @@ MIDDLEWARE = [
     if ENABLE_WAGTAIL else None,
     'wagtail.wagtailredirects.middleware.RedirectMiddleware'
     if ENABLE_WAGTAIL else None,
-]
+]))
 
 if SOCIAL_SIGNIN:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = env(
