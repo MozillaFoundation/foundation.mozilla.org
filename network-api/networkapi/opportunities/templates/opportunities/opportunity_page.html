@@ -1,17 +1,24 @@
+{% extends "./modular_page.html" %}
+
 {% load wagtailcore_tags %}
 
-{% block content %}
-    <h1>modular page, opportunities version</h1>
+{% block subcontent %}
+      <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+        <div class="row">
+          <div class="cms col-12">
 
-	<article>
-	    {% for block in page.body %}
+			<p class="h5-black">{{ page.slug }}</p>
+			<h1 class="h1-white hidden-sm-down">{{ page.header }}</h1>
 
-		{% if block.block_type == 'heading' %}
-            <h1>{{ block.value }}</h1>
-        {% else %}
-            {% include_block block %}
-        {% endif %}
+		    {% for block in page.body %}
+			{% if block.block_type == 'heading' %}
+	            <h1>{{ block.value }}</h1>
+	        {% else %}
+	            {% include_block block %}
+	        {% endif %}
+		    {% endfor %}
 
-	    {% endfor %}
-	</article>
+          </div>
+        </div>
+      </div>
 {% endblock %}

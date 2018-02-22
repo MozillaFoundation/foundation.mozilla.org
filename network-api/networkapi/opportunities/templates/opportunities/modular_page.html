@@ -1,5 +1,55 @@
+{% extends "pages/base-compiled.html" %}
+
 {% load wagtailcore_tags %}
 
 {% block content %}
-    <h1>modular page</h1>
+  <div class="container">
+    <div class="row">
+      <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+        {% if page.parent.title != parentTitle %}
+        <p class="h5-black">{{ page.parent.title }}</p>
+        {% endif %}
+        <h1 class="h1-white {% if page.parent.title != parentTitle %}hidden-sm-down{% endif %}">{% block h1 %}{% endblock %}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
+    <div class="container">
+      <div class="row">
+        <div class="col-12"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mb-5">
+      {% if page.parent.title != parentTitle %}
+      <div class="col-12 col-md-3 mb-3 hidden-sm-down">
+        <div class="multipage-nav" id="multipage-nav">
+          {% load pages_tags %}
+          {% page_menu "pages/menus/side-menu-items.html" %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% block subcontent %}
+      <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+        <div class="row">
+          <div class="cms col-12">{{ page.landingpage.content | safe }}</div>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+
+
+    <div class="row mb-5">
+      <div class="{% if page.parent.title != parentTitle %}col-md-12{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+        {% block signup %}{% endblock %}
+        <hr class="my-2">
+        <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
+          <p class="body-black mb-0">This is part of a broader movement for a healthy internet. <a href="/">See more</a>.</p>
+        </div>
+        <hr class="my-2">
+      </div>
+    </div>
+  </div>
 {% endblock %}

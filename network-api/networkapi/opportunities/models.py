@@ -22,7 +22,7 @@ which are bits that should be used in subclassing template-based
 page types.
 """
 base_fields = [
-    ('heading', blocks.CharBlock(classname="full title")),
+    ('heading', blocks.CharBlock()),
 
     ('paragraph', blocks.RichTextBlock()),
 
@@ -54,9 +54,15 @@ class ModularPage(Page):
     The base class offers universal component picking
     """
 
+    header = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
     body = StreamField(base_fields)
 
     content_panels = Page.content_panels + [
+        FieldPanel('header'),
         StreamFieldPanel('body'),
     ]
 
