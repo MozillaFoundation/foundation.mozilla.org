@@ -95,7 +95,7 @@ if HEROKU_APP_NAME:
 
 SITE_ID = 1
 
-ENABLE_WAGTAIL = env.ENABLE_WAGTAIL
+ENABLE_WAGTAIL = env('ENABLE_WAGTAIL')
 
 # Use social authentication if there are key/secret values defined
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
