@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <h1>modular page, opportunities version</h1>
+
+	<article>
+	    {% for block in page.body %}
+
+		{% if block.block_type == 'heading' %}
+            <h1>{{ block.value }}</h1>
+        {% else %}
+            {% include_block block %}
+        {% endif %}
+
+	    {% endfor %}
+	</article>
+{% endblock %}

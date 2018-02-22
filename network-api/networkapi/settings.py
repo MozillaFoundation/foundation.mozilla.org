@@ -138,6 +138,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.wagtailstyleguide',
 
     'modelcluster',
     'taggit',
@@ -160,6 +161,9 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.campaign',
     'networkapi.highlights',
     'networkapi.milestones',
+
+    # wagtail-specific "networkapi" data
+    'networkapi.opportunities',
 ]))
 
 MIDDLEWARE = [
