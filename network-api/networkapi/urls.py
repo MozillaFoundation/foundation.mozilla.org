@@ -30,15 +30,22 @@ admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^cms/', include(wagtailadmin_urls)),
+
+    url(r'^cms/', include(wagtailadmin_urls))
+    if settings.ENABLE_WAGTAIL else None,
     url(r'^documents/', include(wagtaildocs_urls)),
+    if settings.ENABLE_WAGTAIL else None,
     url(r'^wagtail/', include(wagtail_urls)),
+    if settings.ENABLE_WAGTAIL else None,
+
     url(r'^soc/', include('social_django.urls', namespace='social')),
+
     # Don't remove this redirect until Fellowships pages are live
     url(r'^fellowships/$', RedirectView.as_view(
             url='https://advocacy.mozilla.org/open-web-fellows'
         ))
-    if settings.SOCIAL_SIGNIN else '',
+    if settings.SOCIAL_SIGNIN else None,
+
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
     url(r'^api/news/', include('networkapi.news.urls')),
