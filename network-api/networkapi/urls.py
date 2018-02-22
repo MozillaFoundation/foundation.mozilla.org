@@ -33,9 +33,9 @@ urlpatterns = list(filter(None, [
 
     url(r'^cms/', include(wagtailadmin_urls))
     if settings.ENABLE_WAGTAIL else None,
-    url(r'^documents/', include(wagtaildocs_urls)),
+    url(r'^documents/', include(wagtaildocs_urls))
     if settings.ENABLE_WAGTAIL else None,
-    url(r'^wagtail/', include(wagtail_urls)),
+    url(r'^wagtail/', include(wagtail_urls))
     if settings.ENABLE_WAGTAIL else None,
 
     url(r'^soc/', include('social_django.urls', namespace='social')),
