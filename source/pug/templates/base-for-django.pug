@@ -8,6 +8,9 @@ block masterParams
   - let isMezzanine = true
   - let pageTitle = `{{ page.meta_title }}`;
 
+block memberNotice
+  | {% if not page.published %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
+
 block heroGuts
   | {% block heroGuts %}{% endblock %}
 
