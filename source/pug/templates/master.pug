@@ -47,7 +47,7 @@ html
         .wrapper-burger
           .container
             .row
-              .col.p-4
+              .col.py-4
                 .d-flex.flex-row.justify-content-between.align-items-center
                   div.d-flex.align-items-center
                     a.logo.text-hide(href=`/`) Mozilla Network
@@ -58,7 +58,8 @@ html
                       a(class=`nav-link-upcoming`, href=`/programs/upcoming`) Upcoming
                       a(class=`nav-link-about`, href=`/about`) About
                   div.d-flex.align-items-center
-                    a.btn.btn-pop(href="/sign-up") Sign Up
+                    - if (!isMezzanine)
+                      a.btn.btn-pop(href="/sign-up") Sign Up
                     button#burger.hidden-md-up
       .wrapper-2
         #hero
