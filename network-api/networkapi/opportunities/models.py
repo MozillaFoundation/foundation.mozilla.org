@@ -49,6 +49,7 @@ base_fields = [
     ('linkbutton', LinkButtonBlock())
 ]
 
+
 class ModularPage(Page):
     """
     The base class offers universal component picking
