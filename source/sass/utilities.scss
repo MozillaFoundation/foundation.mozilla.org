@@ -57,3 +57,51 @@
     text-decoration: underline;
   }
 }
+
+.loading-icon {
+  $circle-radius: 30px;
+  $dot-radius: 5px;
+  $dot-count: 3;
+  $icon-color: rgba(183, 212, 63, 1);
+
+  @keyframes rotate-circle {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  position: relative;
+  width: $circle-radius * 2;
+  height: $circle-radius * 2;
+  margin: $dot-radius * 2;
+  border-radius: 50%;
+  border: solid 1px $icon-color;
+  animation: rotate-circle 2s infinite linear;
+
+  .dot {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $dot-radius * 2;
+    height: $dot-radius * 2;
+    margin: -$dot-radius;
+    border-radius: 50%;
+    background: $icon-color;
+
+    $angle: (360 / $dot-count);
+    $base-rotation: -90;
+
+    @for $i from 1 through $dot-count {
+      &:nth-of-type(#{$i}) {
+        transform: rotate($base-rotation * 1deg) translate($circle-radius);
+      }
+
+      $base-rotation: $base-rotation + $angle;
+    }
+  }
+}
