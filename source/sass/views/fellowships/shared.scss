@@ -16,9 +16,11 @@
 .fellowships-list {
   list-style: outside;
 
-  @media (min-width: $bp-md) {
-    column-count: 2;
-    column-gap: 2rem;
+  &:not(.eligibility-list) {
+    @media (min-width: $bp-md) {
+      column-count: 2;
+      column-gap: 2rem;
+    }
   }
 
   li {
@@ -74,7 +76,7 @@
   }
 }
 
-#view-fellows-support .logo {
+[class*="col-"].logo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,4 +91,18 @@
   img {
     max-width: 75%;
   }
+}
+
+#view-fellows-support .person-social-links {
+  border: none;
+}
+
+.hear-from-funder-line-art {
+  background: url(../_images/fellowships/svg/funders-fellowship-optim.svg) no-repeat center 0;
+  min-height: 9rem;
+}
+
+.hear-from-host-org-line-art {
+  background: url(../_images/fellowships/svg/host-orgs-fellowship-optim.svg) no-repeat center 0;
+  min-height: 9rem;
 }
