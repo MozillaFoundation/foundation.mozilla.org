@@ -1,0 +1,6 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div>
+	<div style="float:{{ value.ordering }}">{% image value.image height-100 %}</div>
+	<p>{{ value.text }}</p>
+</div>

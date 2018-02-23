@@ -16,6 +16,32 @@ class LinkButtonBlock(blocks.StructBlock):
         icon = 'link'
         template = 'opportunities/blocks/link_button_block.html'
 
+
+class ImageTextBlock(blocks.StructBlock):
+    text = blocks.CharBlock()
+    image = ImageChooserBlock()
+    ordering = blocks.ChoiceBlock(
+        choices=[
+            ('left', 'Image on the left'),
+            ('right', 'Image on the right'),
+        ],
+        default='left',
+    )
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'opportunities/blocks/image_text_block.html'
+
+
+class VerticalSpacerBlock(blocks.StructBlock):
+    rem = blocks.IntegerBlock()
+
+    class Meta:
+        icon = 'arrows-up-down'
+        template = 'opportunities/blocks/vertical_spacer_block.html'
+        help_text = 'the number of "rem" worth of vertical spacing'
+
+
 """
 We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
@@ -26,15 +52,7 @@ base_fields = [
 
     ('paragraph', blocks.RichTextBlock()),
 
-    ('image+text', blocks.StructBlock([
-        ('text', blocks.CharBlock()),
-        ('image', ImageChooserBlock()),
-    ], icon='doc-full')),
-
-    ('text+image', blocks.StructBlock([
-        ('picture', ImageChooserBlock()),
-        ('text', blocks.CharBlock()),
-    ], icon='doc-full')),
+    ('image_text', ImageTextBlock()),
 
     ('image', ImageChooserBlock()),
 
@@ -46,7 +64,9 @@ base_fields = [
 
     ('video', EmbedBlock()),
 
-    ('linkbutton', LinkButtonBlock())
+    ('linkbutton', LinkButtonBlock()),
+
+    ('spacer', VerticalSpacerBlock()),
 ]
 
 
