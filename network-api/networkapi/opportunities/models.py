@@ -33,6 +33,14 @@ class ImageTextBlock(blocks.StructBlock):
         template = 'opportunities/blocks/image_text_block.html'
 
 
+class BiographyBlock(ImageTextBlock):
+    name = blocks.CharBlock()
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'opportunities/blocks/biography_block.html'
+
+
 class VerticalSpacerBlock(blocks.StructBlock):
     rem = blocks.IntegerBlock()
 
@@ -56,11 +64,7 @@ base_fields = [
 
     ('image', ImageChooserBlock()),
 
-    ('bio', blocks.StructBlock([
-        ('name', blocks.CharBlock()),
-        ('bio', blocks.TextBlock()),
-        ('picture', ImageChooserBlock()),
-    ])),
+    ('bio', BiographyBlock()),
 
     ('video', EmbedBlock()),
 
