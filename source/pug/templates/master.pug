@@ -40,6 +40,7 @@ html
     #primary-nav
     .wrapper
       #member-notice
+        block memberNotice
       .sticky-top
         .wrapper-join-us
           .container
@@ -58,7 +59,8 @@ html
                       a(class=`nav-link-upcoming`, href=`/programs/upcoming`) Upcoming
                       a(class=`nav-link-about`, href=`/about`) About
                   div.d-flex.align-items-center
-                    a.btn.btn-pop(href="/sign-up") Sign Up
+                    - if (!isMezzanine)
+                      a.btn.btn-pop(href="/sign-up") Sign Up
                     button#burger.hidden-md-up
       .wrapper-2
         #hero
