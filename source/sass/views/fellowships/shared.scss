@@ -76,8 +76,7 @@
   }
 }
 
-#view-fellows-support .logo,
-#view-fellows-open-web .logo {
+[class*="col-"].logo {
   display: flex;
   justify-content: center;
   align-items: center;
