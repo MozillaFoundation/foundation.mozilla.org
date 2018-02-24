@@ -1,6 +1,6 @@
 {% extends "pages/base-compiled.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags opportunity_tags %}
 
 {% block content %}
   <div class="container">
@@ -22,11 +22,11 @@
   </div>
   <div class="container">
     <div class="row mb-5">
-      {% if page.parent.title != parentTitle %}
+
+      {% if singleton == False %}
       <div class="col-12 col-md-3 mb-3 hidden-sm-down">
         <div class="multipage-nav" id="multipage-nav">
-          {% load pages_tags %}
-          {% page_menu "pages/menus/side-menu-items.html" %}
+          X{% child_listing calling_page=self %}X
         </div>
       </div>
       {% endif %}
@@ -39,7 +39,6 @@
       </div>
       {% endblock %}
     </div>
-
 
     <div class="row mb-5">
       <div class="{% if page.parent.title != parentTitle %}col-md-12{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">

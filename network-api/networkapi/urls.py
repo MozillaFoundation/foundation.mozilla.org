@@ -30,9 +30,11 @@ admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^wagtail/', include(wagtail_urls)),
+
     url(r'^soc/', include('social_django.urls', namespace='social')),
     # Don't remove this redirect until Fellowships pages are live
     url(r'^fellowships/$', RedirectView.as_view(

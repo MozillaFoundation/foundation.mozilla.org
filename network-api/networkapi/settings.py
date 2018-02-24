@@ -259,7 +259,8 @@ TEMPLATES = [
                 'adminsortable_tags': 'networkapi.utility.templatetags'
                                       '.adminsortable_tags_custom',
                 'settings_value': 'networkapi.utility.templatetags'
-                                  '.settings_value'
+                                  '.settings_value',
+                'opportunity_tags': 'networkapi.opportunities.templatetags.opportunity_tags',
             }
         },
     },
