@@ -28,18 +28,20 @@ env = environ.Env(
     AWS_SQS_ACCESS_KEY_ID=(str, None),
     AWS_SQS_SECRET_ACCESS_KEY=(str, None),
     AWS_SQS_REGION=(str, None),
-    DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_REGEX_WHITELIST=(tuple, ()),
-    HEROKU_APP_NAME=(str, ''),
     CORS_WHITELIST=(tuple, ()),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
+    DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
+    ENABLE_WAGTAIL=(bool, False),
+    EXECUTE_FAKE_DATA=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
-    EXECUTE_FAKE_DATA=(bool, False),
+    HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
+    PETITION_SQS_QUEUE_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
@@ -51,7 +53,6 @@ env = environ.Env(
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
-    PETITION_SQS_QUEUE_URL=(str, None),
 )
 
 # Read in the environment
@@ -94,6 +95,8 @@ if HEROKU_APP_NAME:
 
 SITE_ID = 1
 
+ENABLE_WAGTAIL = env('ENABLE_WAGTAIL')
+
 # Use social authentication if there are key/secret values defined
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
@@ -124,6 +127,24 @@ INSTALLED_APPS = list(filter(None, [
     'mezzanine.pages',
     'mezzanine.forms',
 
+    'networkapi.wagtailcustomization' if ENABLE_WAGTAIL else None,
+
+    'wagtail.wagtailforms' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailredirects' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailembeds' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailsites' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailsearch' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailadmin' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailcore',
+    'wagtail.contrib.modeladmin',
+
+    'modelcluster',
+    'taggit',
+
     'whitenoise.runserver_nostatic',
     'rest_framework',
     'django_filters',
@@ -145,7 +166,7 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.milestones',
 ]))
 
-MIDDLEWARE = [
+MIDDLEWARE = list(filter(None, [
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
 
     'mezzanine.core.middleware.UpdateCacheMiddleware',
@@ -163,13 +184,19 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'csp.middleware.CSPMiddleware',
 
+
     'mezzanine.core.request.CurrentRequestMiddleware',
     'mezzanine.core.middleware.RedirectFallbackMiddleware',
     'mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware',
     'mezzanine.core.middleware.SitePermissionMiddleware',
     'mezzanine.pages.middleware.PageMiddleware',
     'mezzanine.core.middleware.FetchFromCacheMiddleware',
-]
+
+    'wagtail.wagtailcore.middleware.SiteMiddleware'
+    if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware'
+    if ENABLE_WAGTAIL else None,
+]))
 
 if SOCIAL_SIGNIN:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = env(
@@ -343,7 +370,7 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = root('staticfiles')
-
+WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
@@ -410,6 +437,7 @@ CSP_FRAME_ANCESTORS = env('CSP_FRAME_ANCESTORS', default=None)
 CSP_FORM_ACTION = env('CSP_FORM_ACTION', default=None)
 CSP_SANDBOX = env('CSP_SANDBOX', default=None)
 CSP_REPORT_URI = env('CSP_REPORT_URI', default=None)
+CSP_WORKER_SRC = env('CSP_WORKER_SRC', default=CSP_DEFAULT)
 
 # Security
 SECURE_BROWSER_XSS_FILTER = env('XSS_PROTECTION')

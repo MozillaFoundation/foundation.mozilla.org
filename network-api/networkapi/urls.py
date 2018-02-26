@@ -17,6 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
+from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.wagtaildocs import urls as wagtaildocs_urls
+from wagtail.wagtailcore import urls as wagtail_urls
 
 import mezzanine
 from mezzanine.conf import settings
@@ -30,6 +33,22 @@ urlpatterns = list(filter(None, [
     url(r'^soc/', include('social_django.urls', namespace='social'))
     if settings.SOCIAL_SIGNIN else '',
     url(r'^fellowships/', include('networkapi.fellows.urls')),
+
+    url(r'^cms/', include(wagtailadmin_urls))
+    if settings.ENABLE_WAGTAIL else None,
+    url(r'^documents/', include(wagtaildocs_urls))
+    if settings.ENABLE_WAGTAIL else None,
+    url(r'^wagtail/', include(wagtail_urls))
+    if settings.ENABLE_WAGTAIL else None,
+
+    url(r'^soc/', include('social_django.urls', namespace='social')),
+
+    # Don't remove this redirect until Fellowships pages are live
+    url(r'^fellowships/$', RedirectView.as_view(
+            url='https://advocacy.mozilla.org/open-web-fellows'
+        ))
+    if settings.SOCIAL_SIGNIN else None,
+
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
     url(r'^api/news/', include('networkapi.news.urls')),
