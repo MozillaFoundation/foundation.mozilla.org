@@ -131,7 +131,7 @@ INSTALLED_APPS = list(filter(None, [
 
     'wagtail.wagtailforms' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailredirects' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailembeds' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailembeds',
     'wagtail.wagtailsites' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',
