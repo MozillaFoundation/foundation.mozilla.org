@@ -42,6 +42,7 @@ function renderFellowCard(fellow) {
     name: fellow.custom_name,
     role: `${fellow.program_type}${fellow.program_year ? `, ${fellow.program_year}` : ``}`,
     image: fellow.thumbnail,
+    location: fellow.location,
     affiliations: [], // don't show affiliations meta for now
     'custom_link': { text: `See work`, link: `/fellowships/directory` }
   };
