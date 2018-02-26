@@ -136,7 +136,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',
     'wagtail.wagtaildocs',
-    'wagtail.wagtailimages' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailimages',
     'wagtail.wagtailsearch' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailadmin' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailcore',
