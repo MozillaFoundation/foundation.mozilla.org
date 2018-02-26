@@ -5,10 +5,7 @@
   <div class="multipage-nav" id="multipage-nav">
     {% for page in menu_pages %}
     <div>
-      <a
-        class="multipage-link {% if page.title == current.title %}multipage-link-active{% endif %}"
-        href="{% pageurl page %}"
-      >{{ page.title }}</a>
+      <a class="multipage-link {% if page.title == current.title %}multipage-link-active{% endif %}" href="{% pageurl page %}">{{ page.title }}</a>
     </div>
     {% endfor %}
   </div>

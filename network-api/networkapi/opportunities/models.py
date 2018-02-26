@@ -86,4 +86,13 @@ class ModularPage(Page):
 
 
 class OpportunityPage(ModularPage):
-    pass
+    def get_context(self, request):
+        """
+        Extend the context so that mini-site pages know what the title of
+        the mini site is, in addition to knowledge of the current page.
+        """
+        context = super(OpportunityPage, self).get_context(request)
+        ancestors = self.get_ancestors()
+        root = next((root for root in ancestors if root.specific_class == self.specific_class), self)
+        context['mini_site_title'] = root.title
+        return context

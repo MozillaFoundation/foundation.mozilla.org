@@ -1,15 +1,19 @@
 {% extends "./modular_page.html" %}
-
 {% load wagtailcore_tags %}
 
+{% block mini_site_title %}
+  {{ mini_site_title }}
+{% endblock %}
+
+{% block h1 %}
+  {{ page.header }}
+{% endblock %}
+
 {% block subcontent %}
-  <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+  <!-- THIS HAD ITS CLASS LOGIC MANGLED AND NEEDS REVISITING -->
+  <div class="col-12 col-md-9">
     <div class="row">
       <div class="cms col-12">
-
-        <p class="h5-black">{{ page.title }}</p>
-        <h1 class="h1-white hidden-sm-down">{{ page.header }}</h1>
-
         {% for block in page.body %}
         {% if block.block_type == 'heading' %}
             <h1>{{ block.value }}</h1>
@@ -17,7 +21,6 @@
             {% include_block block %}
         {% endif %}
         {% endfor %}
-
       </div>
     </div>
   </div>

@@ -5,14 +5,13 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
-        {% if page.parent.title != parentTitle %}
-        <p class="h5-black">{{ page.parent.title }}</p>
-        {% endif %}
+      <div class="py-5 col-12 col-md-8 offset-md-3">
+        <p class="h5-black">{% block mini_site_title %}{% endblock %}</p>
         <h1 class="h1-white {% if page.parent.title != parentTitle %}hidden-sm-down{% endif %}">{% block h1 %}{% endblock %}</h1>
       </div>
     </div>
   </div>
+
   <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
     <div class="container">
       <div class="row">
@@ -20,6 +19,7 @@
       </div>
     </div>
   </div>
+
   <div class="container">
     <div class="row mb-5">
 
