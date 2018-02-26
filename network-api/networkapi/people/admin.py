@@ -7,6 +7,8 @@ from networkapi.people.models import (
     Affiliation,
 )
 from networkapi.people.forms import PersonAdminForm
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin, modeladmin_register)
 
 
 class AffiliationAdmin(admin.TabularInline):
@@ -31,3 +33,17 @@ class PersonAdmin(SortableAdmin):
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(InternetHealthIssue)
+
+
+# Wagtail admin
+class WagtailPersonAdmin(ModelAdmin):
+    model = Person
+    menu_icon = 'user'  # change as required
+    menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
+    add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
+    exclude_from_explorer = True  # or True to exclude pages of this type from Wagtail's explorer view
+    list_display = ('name', 'role', 'location')
+    list_filter = ('internet_health_issues',)
+    search_fields = ('name')
+
+modeladmin_register(WagtailPersonAdmin)
