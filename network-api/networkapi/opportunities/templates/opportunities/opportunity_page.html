@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block h1 %}
-  {{ page.header }}
+  {% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
 {% endblock %}
 
 {% block html_content %}
