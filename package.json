@@ -70,7 +70,7 @@
     "pug-lint": "^2.5.0",
     "pug": "^2.0.0-rc.4",
     "react-dom": "16.0.0",
-    "react-ga": "2.3.5",
+    "react-ga": "2.4.1",
     "react-markdown": "2.5.0",
     "react": "16.0.0",
     "request": "^2.83.0",
