@@ -12,7 +12,6 @@ def mini_site_sidebar(context, page):
     has_children = len(children) > 0
 
     # Do we have a parent of the same type that we are?
-    #
     # If we do, one of two scenarios is the case: either the parent is
     # the same kind of page and we're a child-page in a mini-site, or
     # it's not and we're possibly the root of a mini-site

@@ -3,22 +3,22 @@
 {% load wagtailcore_tags %}
 
 {% block subcontent %}
-      <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
-        <div class="row">
-          <div class="cms col-12">
+  <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+    <div class="row">
+      <div class="cms col-12">
 
-			<p class="h5-black">{{ page.title }}</p>
-			<h1 class="h1-white hidden-sm-down">{{ page.header }}</h1>
+        <p class="h5-black">{{ page.title }}</p>
+        <h1 class="h1-white hidden-sm-down">{{ page.header }}</h1>
 
-		    {% for block in page.body %}
-			{% if block.block_type == 'heading' %}
-	            <h1>{{ block.value }}</h1>
-	        {% else %}
-	            {% include_block block %}
-	        {% endif %}
-		    {% endfor %}
+        {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+            <h1>{{ block.value }}</h1>
+        {% else %}
+            {% include_block block %}
+        {% endif %}
+        {% endfor %}
 
-          </div>
-        </div>
       </div>
+    </div>
+  </div>
 {% endblock %}
