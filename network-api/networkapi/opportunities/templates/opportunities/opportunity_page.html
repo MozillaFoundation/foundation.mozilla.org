@@ -9,19 +9,12 @@
   {{ page.header }}
 {% endblock %}
 
-{% block subcontent %}
-  <!-- THIS HAD ITS CLASS LOGIC MANGLED AND NEEDS REVISITING -->
-  <div class="col-12 col-md-9">
-    <div class="row">
-      <div class="cms col-12">
-        {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-            <h1>{{ block.value }}</h1>
-        {% else %}
-            {% include_block block %}
-        {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
+{% block html_content %}
+    {% for block in page.body %}
+    {% if block.block_type == 'heading' %}
+        <h1>{{ block.value }}</h1>
+    {% else %}
+        {% include_block block %}
+    {% endif %}
+    {% endfor %}
 {% endblock %}
