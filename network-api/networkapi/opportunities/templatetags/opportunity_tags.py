@@ -7,7 +7,7 @@ register = template.Library()
 @register.inclusion_tag('opportunities/tags/mini_site_sidebar.html', takes_context=True)
 def mini_site_sidebar(context, page):
 
-    # do we have children? If so, we're the root page of a mini-site
+    # do we have children? If so, we're involved in a mini-site
     children = page.get_children().live()
     has_children = len(children) > 0
 
