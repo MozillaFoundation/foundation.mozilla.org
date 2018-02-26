@@ -23,13 +23,7 @@
   <div class="container">
     <div class="row mb-5">
 
-      {% if singleton == False %}
-      <div class="col-12 col-md-3 mb-3 hidden-sm-down">
-        <div class="multipage-nav" id="multipage-nav">
-          X{% child_listing calling_page=self %}X
-        </div>
-      </div>
-      {% endif %}
+      {% mini_site_sidebar page=self %}
 
       {% block subcontent %}
       <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">

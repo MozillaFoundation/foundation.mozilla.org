@@ -57,19 +57,12 @@ page types.
 """
 base_fields = [
     ('heading', blocks.CharBlock()),
-
     ('paragraph', blocks.RichTextBlock()),
-
     ('image_text', ImageTextBlock()),
-
     ('image', ImageChooserBlock()),
-
     ('bio', BiographyBlock()),
-
     ('video', EmbedBlock()),
-
     ('linkbutton', LinkButtonBlock()),
-
     ('spacer', VerticalSpacerBlock()),
 ]
 
@@ -93,29 +86,4 @@ class ModularPage(Page):
 
 
 class OpportunityPage(ModularPage):
-    """
-    For now, the opportunity pages are just a form of
-    modular page type, with CSS classes defined in the
-    opportunities/templates/opportunities/opportunity_page.html
-    template file.
-    """
-
-    def get_context(self, request):
-        """
-        We use this "enriched" context so that we can easily
-        build a menu in the opportunities template based on
-        whether this is a singleton opportunity or a mini-site.
-        """
-        context = super(OpportunityPage, self).get_context(request)
-        children = self.get_children()
-        has_children = len(children) > 0
-        parent = self.get_parent()
-        is_top_opportunity = (parent.specific_class != OpportunityPage)
-        singleton = is_top_opportunity and not has_children
-
-        context['singleton'] = singleton
-        if singleton is False:
-            context['top_level'] = is_top_opportunity
-            context['child_pages'] = children
-
-        return context
+    pass

@@ -1,0 +1,16 @@
+{% load wagtailcore_tags opportunity_tags %}
+
+{% if singleton == False %}
+<div class="col-12 col-md-3 mb-3 hidden-sm-down">
+	<div class="multipage-nav" id="multipage-nav">
+		{% for page in menu_pages %}
+	    <div>
+	      <a
+	        class="multipage-link {% if page.title == current.title %}multipage-link-active{% endif %}"
+	        href="{% pageurl page %}"
+	      >{{ page.title }}</a>
+	    </div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}
