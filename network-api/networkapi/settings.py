@@ -141,7 +141,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.wagtailadmin' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailcore',
     'wagtail.contrib.modeladmin',
-    'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.wagtailstyleguide' if ENABLE_WAGTAIL and DEBUG else None,
 
     'modelcluster',
     'taggit',
