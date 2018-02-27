@@ -24,6 +24,10 @@ export default class Petition extends React.Component {
     this.basketIsDone = this.basketIsDone.bind(this);
     this.submissionsAreDone = this.submissionsAreDone.bind(this);
 
+    this.twButtonClicked = this.twButtonClicked.bind(this);
+    this.fbButtonClicked = this.fbButtonClicked.bind(this);
+    this.emButtonClicked = this.emButtonClicked.bind(this);
+
     this.state = this.getInitialState();
 
     // There may be up to four checkboxes per petition, but
@@ -119,6 +123,22 @@ export default class Petition extends React.Component {
   // state check function
   submissionsAreDone() {
     return this.apiIsDone() && this.basketIsDone();
+  }
+
+  fbButtonClicked() {
+    this.shareButtonClicked(`#share-progress-fb`);
+  }
+
+  twButtonClicked() {
+    this.shareButtonClicked(`#share-progress-tw`);
+  }
+
+  emButtonClicked() {
+    this.shareButtonClicked(`#share-progress-em`);
+  }
+
+  shareButtonClicked(id) {
+    document.querySelector(id + ` a`).click();
   }
 
   /**
@@ -292,12 +312,23 @@ export default class Petition extends React.Component {
    * @returns {jsx} What users see when their petition sign up succeeded.
    */
   renderThankYou() {
-    return (
-      <div>
-        <p>{this.props.thankYou}</p>
-        <a href={this.props.shareLink} className="btn btn-info">{this.props.shareText}</a>
-      </div>
-    );
+    if (this.props.shareLink) {
+      return (
+        <div>
+          <p>{this.props.thankYou}</p>
+          <a href={this.props.shareLink} className="btn btn-info">{this.props.shareText}</a>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p>{this.props.thankYou}</p>
+          <button className="share-progress-btn share-progress-tw" onClick={this.twButtonClicked}></button>
+          <button className="share-progress-btn share-progress-fb" onClick={this.fbButtonClicked}></button>
+          <button className="share-progress-btn share-progress-em" onClick={this.emButtonClicked}></button>
+        </div>
+      );
+    }
   }
 
   /**

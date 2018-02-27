@@ -17,20 +17,32 @@
       {% else %}
       <div class="col-md-6">
       {% endif %}
-        {% with page.campaign.petition as petition %}<div
-          class="sign-petition full-width mb-5"
-          data-csrf-token="{{ csrf_token }}"
-          data-petition-id="{{ page.campaign.petition.id }}"
-          data-cta-header="{{ page.campaign.petition.header | escape }}"
-          data-cta-description="{{ page.campaign.petition.description | escape }}"
-          data-newsletter="{{ page.campaign.petition.newsletter }}"
-          data-checkbox1="{{ page.campaign.petition.checkbox_1 | escape }}"
-          data-checkbox2="{{ page.campaign.petition.checkbox_2 | escape }}"
-          data-share-link="{{ page.campaign.petition.share_link }}"
-          data-share-text="{{ page.campaign.petition.share_link_text }}"
-          data-thank-you="{{ page.campaign.petition.thank_you }}"
-        ></div>{% endwith %}
+        {% with page.campaign.petition as petition %}
+          {% if petition.share_twitter %}
+            <div id="share-progress-tw" class='{{petition.share_twitter}} share-progress-button sp_tw_small'></div>
+          {% endif %}
+          {% if petition.share_facebook %}
+            <div id="share-progress-fb" class='{{petition.share_facebook}} share-progress-button sp_fb_small'></div>
+          {% endif %}
+          {% if petition.share_email %}
+            <div id="share-progress-em" class='{{petition.share_email}} share-progress-button sp_em_small'></div>
+          {% endif %}
+          <div
+            class="sign-petition full-width mb-5"
+            data-csrf-token="{{ csrf_token }}"
+            data-petition-id="{{ petition.id }}"
+            data-cta-header="{{ petition.header | escape }}"
+            data-cta-description="{{ petition.description | escape }}"
+            data-newsletter="{{ petition.newsletter }}"
+            data-checkbox1="{{ petition.checkbox_1 | escape }}"
+            data-checkbox2="{{ petition.checkbox_2 | escape }}"
+            data-share-link="{{ petition.share_link }}"
+            data-share-text="{{ petition.share_link_text }}"
+            data-thank-you="{{ petition.thank_you }}"
+          ></div>
+       {% endwith %}
       </div>
     </div>
+    <script src="https://c.shpg.org/352/sp.js"></script>
   </div>
 {% endblock %}
