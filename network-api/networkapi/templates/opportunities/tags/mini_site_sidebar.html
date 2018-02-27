@@ -6,7 +6,7 @@
     {% for page in menu_pages %}
     <div>
       <a class="multipage-link {% if page.title == current.title %}multipage-link-active{% endif %}" href="{% pageurl page %}">
-        {% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+        {% if page.specific.header %}{{ page.specific.header }}{% else %}{{ page.title }}{% endif %}
       </a>
     </div>
     {% endfor %}

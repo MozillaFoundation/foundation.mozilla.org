@@ -4,8 +4,8 @@ register = template.Library()
 
 
 # Instantiate a mini-site sidebar menu based on the current page's relation to other pages
-@register.inclusion_tag('opportunities/tags/mini_site_sidebar.html', takes_context=True)
-def mini_site_sidebar(context, page):
+@register.inclusion_tag('opportunities/tags/mini_site_sidebar.html')
+def mini_site_sidebar(page):
 
     # Do we have children? If so, we're involved in a mini-site
     children = page.get_children().live()
