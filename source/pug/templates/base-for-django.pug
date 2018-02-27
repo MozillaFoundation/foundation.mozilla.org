@@ -9,7 +9,8 @@ block masterParams
   - let pageTitle = `{{ page.meta_title }}`;
 
 block memberNotice
-  | {% if not page.published %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
+  //- Show warning if pages are a Mezzanine draft.
+  | {% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
 
 block heroGuts
   | {% block heroGuts %}{% endblock %}
