@@ -22,6 +22,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../js/components/nav/nav';
 @import '../js/components/join/join';
 @import '../js/components/takeover/takeover';
+@import '../js/components/loading-indicator/loading-indicator';
 @import '../js/components/member-notice/member-notice';
 @import '../js/components/multipage-nav/multipage-nav';
 

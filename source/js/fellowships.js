@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Person from './components/people/person.jsx';
+import LoadingIndicator from './components/loading-indicator/loading-indicator.jsx';
 
 let pulseApiDomain = ``;
 const DIRECOTRY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
@@ -75,6 +76,8 @@ function groupFellowsByAttr(attribute, fellows) {
 }
 
 function renderFellowsOnDirectoryPage() {
+  const CONTAINER = document.getElementById(`fellows-directory-featured-fellows`);
+
   let getTypeSlug = function(type) {
     return type.toLowerCase().replace(`fellow`,``).trim().replace(/\s/g, `-`);
   };
@@ -90,6 +93,10 @@ function renderFellowsOnDirectoryPage() {
     </button>;
   };
 
+  // show loading indicator
+  ReactDOM.render(<div class="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
+
+  // get fellow info from Pulse
   getFellows(DIRECOTRY_PAGE_FILTER_OPTIONS, fellows => {
     let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
 
@@ -123,14 +130,18 @@ function renderFellowsOnDirectoryPage() {
       </div>;
     });
 
-    ReactDOM.render(<div>{filterBar}<div className="featured-fellow">{sections}</div></div>, document.getElementById(`fellows-directory-featured-fellows`));
+    ReactDOM.render(<div>{filterBar}<div className="featured-fellow">{sections}</div></div>, CONTAINER);
   });
 }
 
 function renderFellowsOnDirectoryByTypePage() {
-  let type = document.getElementById(`fellows-directory-fellows-by-type`).dataset.type;
+  const CONTAINER = document.getElementById(`fellows-directory-fellows-by-type`);
 
-  getFellows({'program_type': `${type} fellow`}, fellows => {
+  // show loading indicator
+  ReactDOM.render(<div class="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
+
+  // get fellow info from Pulse
+  getFellows({'program_type': `${CONTAINER.dataset.type} fellow`}, fellows => {
     let fellowsByYear = groupFellowsByAttr(`program_year`, fellows);
 
     let sections = Object.keys(fellowsByYear).sort().reverse().map(year => {
@@ -144,7 +155,7 @@ function renderFellowsOnDirectoryByTypePage() {
       </div>;
     });
 
-    ReactDOM.render(<div className="featured-fellow">{sections}</div>, document.getElementById(`fellows-directory-fellows-by-type`));
+    ReactDOM.render(<div className="featured-fellow">{sections}</div>, CONTAINER);
   });
 }
 
