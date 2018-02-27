@@ -1,0 +1,20 @@
+{% extends "./modular_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block mini_site_title %}
+  {{ mini_site_title }}
+{% endblock %}
+
+{% block h1 %}
+  {% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+{% endblock %}
+
+{% block html_content %}
+    {% for block in page.body %}
+    {% if block.block_type == 'heading' %}
+        <h1>{{ block.value }}</h1>
+    {% else %}
+        {% include_block block %}
+    {% endif %}
+    {% endfor %}
+{% endblock %}

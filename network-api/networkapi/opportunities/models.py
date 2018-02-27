@@ -1,0 +1,98 @@
+from django.db import models
+
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock
+
+
+class LinkButtonBlock(blocks.StructBlock):
+    label = blocks.CharBlock()
+    URL = blocks.URLBlock()
+
+    class Meta:
+        icon = 'link'
+        template = 'opportunities/blocks/link_button_block.html'
+
+
+class ImageTextBlock(blocks.StructBlock):
+    text = blocks.CharBlock()
+    image = ImageChooserBlock()
+    ordering = blocks.ChoiceBlock(
+        choices=[
+            ('left', 'Image on the left'),
+            ('right', 'Image on the right'),
+        ],
+        default='left',
+    )
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'opportunities/blocks/image_text_block.html'
+
+
+class BiographyBlock(ImageTextBlock):
+    name = blocks.CharBlock()
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'opportunities/blocks/biography_block.html'
+
+
+class VerticalSpacerBlock(blocks.StructBlock):
+    rem = blocks.IntegerBlock()
+
+    class Meta:
+        icon = 'arrows-up-down'
+        template = 'opportunities/blocks/vertical_spacer_block.html'
+        help_text = 'the number of "rem" worth of vertical spacing'
+
+
+"""
+We'll need to figure out which components are truly "base" and
+which are bits that should be used in subclassing template-based
+page types.
+"""
+base_fields = [
+    ('heading', blocks.CharBlock()),
+    ('paragraph', blocks.RichTextBlock()),
+    ('image_text', ImageTextBlock()),
+    ('image', ImageChooserBlock()),
+    ('bio', BiographyBlock()),
+    ('video', EmbedBlock()),
+    ('linkbutton', LinkButtonBlock()),
+    ('spacer', VerticalSpacerBlock()),
+]
+
+
+class ModularPage(Page):
+    """
+    The base class offers universal component picking
+    """
+
+    header = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    body = StreamField(base_fields)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('header'),
+        StreamFieldPanel('body'),
+    ]
+
+
+class OpportunityPage(ModularPage):
+    def get_context(self, request):
+        """
+        Extend the context so that mini-site pages know what the title of
+        the mini site is, in addition to knowledge of the current page.
+        """
+        context = super(OpportunityPage, self).get_context(request)
+        ancestors = self.get_ancestors()
+        root = next((root for root in ancestors if root.specific_class == self.specific_class), self)
+        context['mini_site_title'] = root.title
+        return context

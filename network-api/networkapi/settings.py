@@ -131,16 +131,17 @@ INSTALLED_APPS = list(filter(None, [
 
     'wagtail.wagtailforms' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailredirects' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailembeds' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailembeds',
     'wagtail.wagtailsites' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailusers',
     'wagtail.wagtailsnippets',
     'wagtail.wagtaildocs',
-    'wagtail.wagtailimages' if ENABLE_WAGTAIL else None,
+    'wagtail.wagtailimages',
     'wagtail.wagtailsearch' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailadmin' if ENABLE_WAGTAIL else None,
     'wagtail.wagtailcore',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.wagtailstyleguide' if ENABLE_WAGTAIL and DEBUG else None,
 
     'modelcluster',
     'taggit',
@@ -163,6 +164,9 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.campaign',
     'networkapi.highlights',
     'networkapi.milestones',
+
+    # wagtail-specific "networkapi" data
+    'networkapi.opportunities',
 ]))
 
 MIDDLEWARE = list(filter(None, [
@@ -261,7 +265,8 @@ TEMPLATES = [
                 'adminsortable_tags': 'networkapi.utility.templatetags'
                                       '.adminsortable_tags_custom',
                 'settings_value': 'networkapi.utility.templatetags'
-                                  '.settings_value'
+                                  '.settings_value',
+                'opportunity_tags': 'networkapi.opportunities.templatetags.opportunity_tags',
             }
         },
     },
