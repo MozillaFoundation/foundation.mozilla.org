@@ -138,6 +138,12 @@ export default class Petition extends React.Component {
   }
 
   shareButtonClicked(id) {
+    ReactGA.event({
+      category: `petition`,
+      action: `share tap`,
+      label: `${document.title} - share tap`
+    });
+
     document.querySelector(id + ` a`).click();
   }
 
