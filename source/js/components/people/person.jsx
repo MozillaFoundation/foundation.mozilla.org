@@ -5,7 +5,7 @@ class Person extends React.Component {
   constructor(props) {
     super(props);
 
-    // setting default value for props.metata.image here
+    // setting default value for props.metadata.image here
     // because PropTypes.defaultProps does not support setting default value
     // for object properties
     if (!props.metadata.image) {
