@@ -94,7 +94,7 @@ function renderFellowsOnDirectoryPage() {
   };
 
   // show loading indicator
-  ReactDOM.render(<div class="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
+  ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
   // get fellow info from Pulse
   getFellows(DIRECOTRY_PAGE_FILTER_OPTIONS, fellows => {
@@ -138,7 +138,7 @@ function renderFellowsOnDirectoryByTypePage() {
   const CONTAINER = document.getElementById(`fellows-directory-fellows-by-type`);
 
   // show loading indicator
-  ReactDOM.render(<div class="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
+  ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
   // get fellow info from Pulse
   getFellows({'program_type': `${CONTAINER.dataset.type} fellow`}, fellows => {
