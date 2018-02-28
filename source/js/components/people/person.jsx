@@ -1,8 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Person extends React.Component {
+class Person extends React.Component {
   constructor(props) {
     super(props);
+
+    // setting default value for props.metadata.image here
+    // because PropTypes.defaultProps does not support setting default value
+    // for object properties
+    if (!props.metadata.image) {
+      this.props.metadata.image = `/_images/fellowships/headshot/placeholder.jpg`;
+    }
   }
 
   render() {
@@ -137,3 +145,22 @@ export default class Person extends React.Component {
     }
   }
 }
+
+Person.propTypes = {
+  metadata: PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.string,
+    role: PropTypes.string,
+    bio: PropTypes.string,
+    quote: PropTypes.string,
+    featured: PropTypes.bool,
+    affiliations: PropTypes.array,
+    'internet_health_issues': PropTypes.array,
+    image: PropTypes.string,
+    'partnership_logo': PropTypes.string,
+    link: PropTypes.object,
+    'custom_link': PropTypes.object,
+  }).isRequired,
+};
+
+export default Person;
