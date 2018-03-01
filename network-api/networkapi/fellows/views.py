@@ -1,10 +1,11 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.http import Http404
 
 
 # Create your views here.
 def fellows_home(request):
-    return render(request, 'fellows_home.html')
+    return render(request, 'fellows_home.html', {'pulse_domain': settings.FRONTEND['PULSE_DOMAIN']})
 
 
 def fellows_type(request, program_type_slug):
