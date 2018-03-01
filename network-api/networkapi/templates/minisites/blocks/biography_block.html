@@ -1,0 +1,7 @@
+{% extends "./image_text_block.html" %}
+
+{% load wagtailimages_tags %}
+
+{% block prefix %}
+	<h1 class="person">{{ value.name }}</h1>
+{% endblock %}

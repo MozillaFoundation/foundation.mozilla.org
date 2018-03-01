@@ -1,0 +1,61 @@
+{% extends "./modular_page.html" %}
+
+{% load wagtailcore_tags mini_site_tags %}
+
+
+{% block heading_classes %}
+  {% if singleton_page %}
+    py-5 col-12 col-lg-10 offset-lg-1
+  {% else %}
+    py-5 col-12 col-md-8 offset-md-3
+  {% endif %}
+{% endblock %}
+
+
+{% block mini_site_title %}
+  {% if singleton_page == False %}
+    {{ mini_site_title }}
+  {% endif %}
+{% endblock %}
+
+
+{% block h1 %}
+  {% if page.header %}
+    {{ page.header }}
+  {% else %}
+    {{ page.title }}
+  {% endif %}
+{% endblock %}
+
+
+{% block html_content_classes %}
+  {% if singleton_page %}
+    col-12 col-lg-10 offset-lg-1
+  {% else %}
+    col-12 col-md-9
+  {% endif %}
+{% endblock %}
+
+
+{% block html_content %}
+  {% for block in page.body %}
+    {% if block.block_type == 'heading' %}
+      <h1>{{ block.value }}</h1>
+    {% else %}
+      {% include_block block %}
+    {% endif %}
+  {% endfor %}
+
+  {% if page.cta != None %}
+    {% cta page %}
+  {% endif %}
+{% endblock %}
+
+
+{% block pre_footer_classes %}
+  {% if singleton_page %}
+    col-12 col-lg-10 offset-lg-1
+  {% else %}
+    col-md-12
+  {% endif %}
+{% endblock %}

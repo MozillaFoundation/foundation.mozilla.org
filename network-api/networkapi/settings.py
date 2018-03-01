@@ -141,6 +141,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.admin' if ENABLE_WAGTAIL else None,
     'wagtail.core',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.styleguide' if ENABLE_WAGTAIL and DEBUG else None,
 
     'modelcluster',
     'taggit',
@@ -164,6 +165,9 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.campaign',
     'networkapi.highlights',
     'networkapi.milestones',
+
+    # wagtail-specific "networkapi" data
+    'networkapi.minisites',
 ]))
 
 MIDDLEWARE = list(filter(None, [
@@ -262,7 +266,8 @@ TEMPLATES = [
                 'adminsortable_tags': 'networkapi.utility.templatetags'
                                       '.adminsortable_tags_custom',
                 'settings_value': 'networkapi.utility.templatetags'
-                                  '.settings_value'
+                                  '.settings_value',
+                'mini_site_tags': 'networkapi.minisites.templatetags.mini_site_tags',
             }
         },
     },

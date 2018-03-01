@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+
+<iframe
+    width="{{ block.value.width }}"
+    height="{{ block.value.height }}"
+    src="{{ block.value.url }}"
+    frameborder="0"
+    {% block embed_specifics %}{% endblock %}
+></iframe>

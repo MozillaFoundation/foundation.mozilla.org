@@ -1,0 +1,30 @@
+<div>
+
+	{% if cta.share_twitter %}
+	<div id="share-progress-tw" class='{{cta.share_twitter}} share-progress-button sp_tw_small'></div>
+	{% endif %}
+
+	{% if cta.share_facebook %}
+	<div id="share-progress-fb" class='{{cta.share_facebook}} share-progress-button sp_fb_small'></div>
+	{% endif %}
+
+	{% if cta.share_email %}
+	<div id="share-progress-em" class='{{cta.share_email}} share-progress-button sp_em_small'></div>
+	{% endif %}
+
+	<div
+		class="sign-petition full-width mb-5"
+        data-csrf-token="{{ csrf_token }}"
+        data-petition-id="{{ cta.id }}"
+        data-cta-header="{{ cta.header | escape }}"
+        data-cta-description="{{ cta.description | escape }}"
+        data-newsletter="{{ cta.newsletter }}"
+        data-checkbox1="{{ cta.checkbox_1 | escape }}"
+        data-checkbox2="{{ cta.checkbox_2 | escape }}"
+        data-share-link="{{ cta.share_link }}"
+        data-share-text="{{ cta.share_link_text }}"
+        data-thank-you="{{ cta.thank_you }}"
+	>loading CTA</div>
+
+    <script src="https://c.shpg.org/352/sp.js"></script>
+</div>

@@ -1,0 +1,49 @@
+{% extends "pages/base-compiled.html" %}
+
+{% load wagtailcore_tags mini_site_tags %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="{% block heading_classes %}py-5 col-12 col-lg-10 offset-lg-1{% endblock %}">
+        <p class="h5-black">{% block mini_site_title %}{% endblock %}</p>
+        <h1 class="h1-white">{% block h1 %}{% endblock %}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
+    <div class="container">
+      <div class="row">
+        <div class="col-12"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row mb-5">
+      {% mini_site_sidebar page %}
+
+      {% block subcontent %}
+      <div class="{% block html_content_classes %}col-12 col-lg-10 offset-lg-1{% endblock %}">
+        <div class="row">
+          <div class="cms col-12">
+            {% block html_content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+
+    <div class="row mb-5">
+      <div class="{% block pre_footer_classes %}col-12 col-lg-10 offset-lg-1{% endblock %}">
+        {% block signup %}{% endblock %}
+        <hr class="my-2">
+        <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
+          <p class="body-black mb-0">This is part of a broader movement for a healthy internet. <a href="/">See more</a>.</p>
+        </div>
+        <hr class="my-2">
+      </div>
+    </div>
+  </div>
+{% endblock %}
