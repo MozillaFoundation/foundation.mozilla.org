@@ -16,7 +16,7 @@
 .fellowships-list {
   list-style: outside;
 
-  &:not(.eligibility-list) {
+  &.benefit-list {
     @media (min-width: $bp-md) {
       column-count: 2;
       column-gap: 2rem;
@@ -24,7 +24,7 @@
   }
 
   li {
-    margin-left: 1.1rem;
+    margin-left: 1rem;
     padding-left: 1.5rem;
   }
 }
