@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.wagtailcore.fields
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):
@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='highlight',
             name='footer',
-            field=wagtail.wagtailcore.fields.RichTextField(help_text='Content to appear after description (view more projects link or something similar)', null=True, verbose_name='footer'),
+            field=wagtail.core.fields.RichTextField(help_text='Content to appear after description (view more projects link or something similar)', null=True, verbose_name='footer'),
         ),
     ]

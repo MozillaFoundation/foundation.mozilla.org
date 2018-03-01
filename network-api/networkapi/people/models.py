@@ -4,7 +4,7 @@ from django.db.models import Q
 from adminsortable.models import SortableMixin
 
 from networkapi.utility.images import get_image_upload_path
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.snippets.models import register_snippet
 
 
 def get_people_image_upload_path(instance, filename):
