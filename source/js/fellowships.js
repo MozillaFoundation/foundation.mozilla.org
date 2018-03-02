@@ -161,9 +161,9 @@ function renderFellowsOnDirectoryByTypePage() {
 }
 
 // Embed various Fellowships pages related React components
-function injectReactComponents(pulseApiURL, pulseDomainURL) {
-  pulseApiDomain = pulseApiURL;
-  pulseDomain = pulseDomainURL;
+function injectReactComponents(env) {
+  pulseApiDomain = env.PULSE_API_DOMAIN;
+  pulseDomain = env.PULSE_DOMAIN;
 
   // Fellows on Fellows Directory page
   if (document.getElementById(`fellows-directory-featured-fellows`)) {
