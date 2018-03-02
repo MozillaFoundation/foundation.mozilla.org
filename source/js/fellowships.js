@@ -7,6 +7,7 @@ import Person from './components/people/person.jsx';
 import LoadingIndicator from './components/loading-indicator/loading-indicator.jsx';
 
 let pulseApiDomain = ``;
+let pulseDomain = ``;
 const DIRECOTRY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
 const DIRECTORY_PAGE_TYPE_ORDER = [ `senior`, `science`, `open web`, `tech policy`, `media`];
 
@@ -45,7 +46,7 @@ function renderFellowCard(fellow) {
     image: fellow.thumbnail,
     location: fellow.location,
     affiliations: [], // don't show affiliations meta for now
-    'custom_link': { text: `See work`, link: `/fellowships/directory` }
+    'custom_link': { text: `See work`, link: `https://${pulseDomain}/profile/${fellow.profile_id}` }
   };
 
   return <Person metadata={metadata} key={fellow.custom_name} />;
@@ -160,8 +161,9 @@ function renderFellowsOnDirectoryByTypePage() {
 }
 
 // Embed various Fellowships pages related React components
-function injectReactComponents(pulseApiURL) {
+function injectReactComponents(pulseApiURL, pulseDomainURL) {
   pulseApiDomain = pulseApiURL;
+  pulseDomain = pulseDomainURL;
 
   // Fellows on Fellows Directory page
   if (document.getElementById(`fellows-directory-featured-fellows`)) {

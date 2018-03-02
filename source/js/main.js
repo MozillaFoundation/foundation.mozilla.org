@@ -23,7 +23,7 @@ import fellowships from './fellowships';
 const SHOW_MEMBER_NOTICE = false;
 
 // To be populated via XHR...
-let env, networkSiteURL, pulseApiURL;
+let env, networkSiteURL, pulseApiURL, pulseDomain;
 
 let main = {
   init () {
@@ -31,6 +31,7 @@ let main = {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
       pulseApiURL = env.PULSE_API_DOMAIN;
+      pulseDomain = env.PULSE_DOMAIN;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
@@ -248,7 +249,7 @@ let main = {
     }
 
     // Fellowships pages related components
-    fellowships.injectReactComponents(pulseApiURL);
+    fellowships.injectReactComponents(pulseApiURL, pulseDomain);
   }
 };
 
