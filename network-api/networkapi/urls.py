@@ -41,13 +41,11 @@ urlpatterns = list(filter(None, [
     url(r'^wagtail/', include(wagtail_urls))
     if settings.ENABLE_WAGTAIL else None,
 
+    url(r'^fellowship/(?P<path>.*)', RedirectView.as_view(
+        url='/fellowships/%(path)s',
+        query_string=True
+    )),
     url(r'^soc/', include('social_django.urls', namespace='social')),
-
-    # Don't remove this redirect until Fellowships pages are live
-    url(r'^fellowships/$', RedirectView.as_view(
-            url='https://advocacy.mozilla.org/open-web-fellows'
-        ))
-    if settings.SOCIAL_SIGNIN else None,
 
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
