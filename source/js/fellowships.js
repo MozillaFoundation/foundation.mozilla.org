@@ -9,7 +9,7 @@ import LoadingIndicator from './components/loading-indicator/loading-indicator.j
 let pulseApiDomain = ``;
 let pulseDomain = ``;
 const DIRECOTRY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
-const DIRECTORY_PAGE_TYPE_ORDER = [ `senior`, `science`, `open web`, `tech policy`, `media`];
+const DIRECTORY_PAGE_TYPE_ORDER = [ `science`, `open web`, `tech policy`, `media`];
 
 function getFellows(params, callback) {
   Object.assign(params, {'profile_type': `fellow`});
@@ -60,7 +60,7 @@ function groupFellowsByAttr(attribute, fellows) {
   let fellowsGroup = {};
 
   fellows.forEach(fellow => {
-    let attr = fellow[attribute];
+    let attr = fellow[attribute].toLowerCase();
 
     if (!attr) {
       return;
@@ -90,7 +90,7 @@ function renderFellowsOnDirectoryPage() {
       onClick={(event) => { window.scrollTo(0, document.getElementById(event.target.dataset.targetId).offsetTop); }}
       data-target-id={`fellowships-directory-${getTypeSlug(option)}`}
     >
-      {`${option}${option === `senior` ? ` Fellow` :``}`}
+      {option}
     </button>;
   };
 
@@ -99,8 +99,6 @@ function renderFellowsOnDirectoryPage() {
 
   // get fellow info from Pulse
   getFellows(DIRECOTRY_PAGE_FILTER_OPTIONS, fellows => {
-    let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
-
     // render filter bar
     let filterBar = <div className="row">
       <div className="col-12">
@@ -112,21 +110,27 @@ function renderFellowsOnDirectoryPage() {
     </div>;
 
     // render program type sections
+    let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
     let sections = Object.keys(fellowsByType).sort((a, b) => {
-      let aIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(a.replace(`fellow`,``).trim());
-      let bIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(b.replace(`fellow`,``).trim());
+      let aIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(a);
+      let bIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(b);
 
       return aIndex - bIndex;
     }).map(type => {
+      // don't render any fellow profiles that we don't intend to show
+      if (DIRECTORY_PAGE_TYPE_ORDER.indexOf(type) < 0) {
+        return null;
+      }
+
       return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
         <div className="col-12">
-          <h3 className="h3-black text-capitalize">{type}s</h3>
+          <h3 className="h3-black text-capitalize">{type} Fellows</h3>
           <div className="row">
             {fellowsByType[type].map(renderFellowCard)}
           </div>
         </div>
         <div className="col-12 text-center mt-3 mb-5">
-          <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {type}s</a>
+          <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {type} Fellows</a>
         </div>
       </div>;
     });
@@ -142,7 +146,7 @@ function renderFellowsOnDirectoryByTypePage() {
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
   // get fellow info from Pulse
-  getFellows({'program_type': `${CONTAINER.dataset.type} fellow`}, fellows => {
+  getFellows({'program_type': `${CONTAINER.dataset.type}`}, fellows => {
     let fellowsByYear = groupFellowsByAttr(`program_year`, fellows);
 
     let sections = Object.keys(fellowsByYear).sort().reverse().map(year => {
