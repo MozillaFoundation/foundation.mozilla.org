@@ -46,6 +46,12 @@
   }
 }
 
+[id^="view-fellows-directory"] {
+  .meta-block-item-role {
+    text-transform: capitalize;
+  }
+}
+
 #fellowships-directory-filter {
   background: $off-white;
 
