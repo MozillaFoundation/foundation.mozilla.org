@@ -40,7 +40,7 @@ function renderFellowCard(fellow) {
     'internet_health_issues': fellow.issues,
     links: links,
     name: fellow.custom_name,
-    role: `${fellow.program_type}${fellow.program_year ? `, ${fellow.program_year}` : ``}`,
+    role: `${fellow.profile_type}, ${fellow.program_type} ${fellow.program_year}`,
     image: fellow.thumbnail,
     location: fellow.location,
     affiliations: [], // don't show affiliations meta for now
