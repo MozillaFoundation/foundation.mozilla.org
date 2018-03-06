@@ -1,6 +1,4 @@
 #multipage-nav-mobile {
-  background: $off-white;
-
   .multipage-nav {
     .expander {
       background: none;
@@ -42,6 +40,10 @@
         display: block;
       }
     }
+  }
+
+  .container {
+    background: #f2f2f2;
   }
 }
 
