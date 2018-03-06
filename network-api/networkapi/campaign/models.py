@@ -85,13 +85,33 @@ class Petition(models.Model):
     share_link = models.URLField(
         max_length=1024,
         help_text="Link that will be put in share button",
-        blank=True
+        blank=True,
+        editable=False
     )
 
     share_link_text = models.CharField(
         max_length=20,
         help_text="Text content of the share button",
         default="Share this",
+        blank=True,
+        editable=False
+    )
+
+    share_twitter = models.CharField(
+        max_length=20,
+        help_text="Share Progress id for twitter button",
+        blank=True
+    )
+
+    share_facebook = models.CharField(
+        max_length=20,
+        help_text="Share Progress id for facebook button",
+        blank=True
+    )
+
+    share_email = models.CharField(
+        max_length=20,
+        help_text="Share Progress id for email button",
         blank=True
     )
 
