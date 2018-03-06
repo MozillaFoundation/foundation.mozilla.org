@@ -8,7 +8,7 @@ import LoadingIndicator from './components/loading-indicator/loading-indicator.j
 
 let pulseApiDomain = ``;
 let pulseDomain = ``;
-const DIRECOTRY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
+const DIRECTORY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
 const DIRECTORY_PAGE_TYPE_ORDER = [ `science`, `open web`, `tech policy`, `media`];
 
 function getFellows(params, callback) {
@@ -17,9 +17,7 @@ function getFellows(params, callback) {
   let queryString = Object.entries(params).map(pair => pair.map(encodeURIComponent).join(`=`)).join(`&`);
   let req = new XMLHttpRequest();
 
-  req.addEventListener(`load`, () => {
-    callback.call(this, JSON.parse(req.response));
-  });
+  req.addEventListener(`load`, () => callback(JSON.parse(req.response)));
 
   req.open(`GET`, `https://${pulseApiDomain}/api/pulse/profiles/?${queryString}`);
   req.send();
@@ -60,11 +58,13 @@ function groupFellowsByAttr(attribute, fellows) {
   let fellowsGroup = {};
 
   fellows.forEach(fellow => {
-    let attr = fellow[attribute].toLowerCase();
+    let attr = fellow[attribute];
 
     if (!attr) {
       return;
     }
+
+    attr = attr.toLowerCase();
 
     if (!fellowsGroup[attr]) {
       fellowsGroup[attr] = [fellow];
@@ -98,7 +98,7 @@ function renderFellowsOnDirectoryPage() {
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
   // get fellow info from Pulse
-  getFellows(DIRECOTRY_PAGE_FILTER_OPTIONS, fellows => {
+  getFellows(DIRECTORY_PAGE_FILTER_OPTIONS, fellows => {
     // render filter bar
     let filterBar = <div className="row">
       <div className="col-12">
