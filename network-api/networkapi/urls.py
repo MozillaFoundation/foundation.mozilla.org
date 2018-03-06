@@ -45,7 +45,6 @@ urlpatterns = list(filter(None, [
         url='/fellowships/%(path)s',
         query_string=True
     )),
-    url(r'^soc/', include('social_django.urls', namespace='social')),
 
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
