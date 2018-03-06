@@ -1,0 +1,105 @@
+#fellowships-nav {
+  a {
+    @include yellow-underline-nav-link(".active");
+  }
+}
+
+#fellowship-breadcrumb {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.eligibility-section {
+  background: $off-white;
+}
+
+.fellowships-list {
+  list-style: outside;
+
+  &.benefit-list {
+    @media (min-width: $bp-md) {
+      column-count: 2;
+      column-gap: 2rem;
+    }
+  }
+
+  li {
+    margin-left: 1rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.in-page-cta {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  .content::before {
+    content: '';
+    display: flex;
+    align-self: center;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    background: url('../_images/fellowships/svg/info-icon.svg') no-repeat 0 0/contain;
+  }
+}
+
+#fellowships-directory-filter {
+  background: $off-white;
+
+  .btn.btn-link {
+    display: inline-block;
+    text-align: left;
+    padding: 0;
+    border: 0;
+    font-weight: 500;
+    color: inherit;
+
+    &:not(:last-child)::after {
+      content: "|";
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+}
+
+#fellowships-application-cta-banner {
+  background: $off-white;
+
+  .btn {
+    width: 100%;
+
+    @media (min-width: $bp-md) {
+      width: auto;
+    }
+  }
+}
+
+[class*="col-"].logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-md) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  img {
+    max-width: 75%;
+  }
+}
+
+.hear-from-funder-line-art {
+  background: url(../_images/fellowships/svg/funders-fellowship-optim.svg) no-repeat center 0;
+  min-height: 9rem;
+}
+
+.hear-from-host-org-line-art {
+  background: url(../_images/fellowships/svg/host-orgs-fellowship-optim.svg) no-repeat center 0;
+  min-height: 9rem;
+}

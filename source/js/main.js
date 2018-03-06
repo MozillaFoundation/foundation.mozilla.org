@@ -18,6 +18,8 @@ import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import Upcoming from './components/upcoming/upcoming.jsx';
 
+import fellowships from './fellowships';
+
 const SHOW_MEMBER_NOTICE = false;
 
 // To be populated via XHR...
@@ -243,6 +245,9 @@ let main = {
     if (document.querySelector(`#news`)) {
       ReactDOM.render(<News env={env}/>, document.querySelector(`#news`));
     }
+
+    // Fellowships pages related components
+    fellowships.injectReactComponents(env);
   }
 };
 

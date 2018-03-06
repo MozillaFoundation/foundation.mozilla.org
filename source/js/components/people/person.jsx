@@ -1,8 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Person extends React.Component {
+class Person extends React.Component {
   constructor(props) {
     super(props);
+
+    // setting default value for props.metadata.image here
+    // because PropTypes.defaultProps does not support setting default value
+    // for object properties
+    if (!props.metadata.image) {
+      this.props.metadata.image = `/_images/fellowships/headshot/placeholder.jpg`;
+    }
   }
 
   render() {
@@ -70,10 +78,17 @@ export default class Person extends React.Component {
                       </div>
                     </div>
                     <div className="row person-social-links mt-3 justify-content-between">
-                      <div>{socialLinks}</div>
+                      {socialLinks.length > 0 &&
+                        <div>{socialLinks}</div>
+                      }
                       {this.props.metadata.links.interview &&
                       <div>
                         <a className="cta-link" href={this.props.metadata.links.interview}>Read Interview</a>
+                      </div>
+                      }
+                      {this.props.metadata.custom_link &&
+                      <div>
+                        <a href={this.props.metadata.custom_link.link} className="cta-link">{this.props.metadata.custom_link.text}</a>
                       </div>
                       }
                     </div>
@@ -107,7 +122,21 @@ export default class Person extends React.Component {
                 </div>
               }
               <div className="person-social-links mt-3">
-                {socialLinks}
+                <div className="row flex-column-reverse flex-md-row justify-content-between">
+                  {socialLinks.length > 0 &&
+                  <div className="col-12 col-md my-1 my-0">{socialLinks}</div>
+                  }
+                  {this.props.metadata.links.interview &&
+                  <div className="col-12 col-md my-1 my-0">
+                    <a className="cta-link" href={this.props.metadata.links.interview}>Read Interview</a>
+                  </div>
+                  }
+                  {this.props.metadata.custom_link &&
+                  <div className="col-12 col-md my-1 my-0 text-md-right">
+                    <a href={this.props.metadata.custom_link.link} className="cta-link">{this.props.metadata.custom_link.text}</a>
+                  </div>
+                  }
+                </div>
               </div>
             </div>
           </div>
@@ -116,3 +145,22 @@ export default class Person extends React.Component {
     }
   }
 }
+
+Person.propTypes = {
+  metadata: PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.string,
+    role: PropTypes.string,
+    bio: PropTypes.string,
+    quote: PropTypes.string,
+    featured: PropTypes.bool,
+    affiliations: PropTypes.array,
+    'internet_health_issues': PropTypes.array,
+    image: PropTypes.string,
+    'partnership_logo': PropTypes.string,
+    link: PropTypes.object,
+    'custom_link': PropTypes.object,
+  }).isRequired,
+};
+
+export default Person;
