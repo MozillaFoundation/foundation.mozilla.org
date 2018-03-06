@@ -3,17 +3,16 @@
 {% block bodyID %}{{ suffix }}{% endblock %}
 
 {% block content %}
+  {% if page.parent.title != parentTitle %}
   <div class="container">
     <div class="row">
-      <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-8 offset-md-3{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
-        {% if page.parent.title != parentTitle %}
-        <p class="h5-black">{{ page.parent.title }}</p>
-        {% endif %}
-        <h1 class="h1-white {% if page.parent.title != parentTitle %}hidden-sm-down{% endif %}">{% block h1 %}{% endblock %}</h1>
+      <div class="col-12 mt-3">
+        <p class="h5-black hidden-md-up">{{ page.parent.title }}</p>
       </div>
     </div>
   </div>
-  <div class="hidden-md-up mb-5" id="multipage-nav-mobile">
+  {% endif %}
+  <div class="hidden-md-up" id="multipage-nav-mobile">
     <div class="container">
       <div class="row">
         <div class="col-12"></div>
@@ -21,23 +20,29 @@
     </div>
   </div>
   <div class="container">
-    <div class="row mb-5">
+    <div class="row">
       {% if page.parent.title != parentTitle %}
-      <div class="col-12 col-md-3 mb-3 hidden-sm-down">
+      <div class="py-5 col-md-3 mb-3 hidden-sm-down">
         <div class="multipage-nav" id="multipage-nav">
           {% load pages_tags %}
           {% page_menu "pages/menus/side-menu-items.html" %}
         </div>
       </div>
       {% endif %}
-
-      {% block subcontent %}
-      <div class="{% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
-        <div class="row">
-          <div class="cms col-12">{{ page.landingpage.content | safe }}</div>
-        </div>
+      <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
+        {% if page.parent.title != parentTitle %}
+        <p class="h5-black hidden-sm-down">{{ page.parent.title }}</p>
+        {% endif %}
+        <h1 class="h1-white {% if page.parent.title != parentTitle %}hidden-sm-down{% endif %}">{% block h1 %}{% endblock %}</h1>
+        {% block subcontent %}
+        <div class="cms">{{ page.landingpage.content | safe }}</div>
+        {% endblock %}
       </div>
-      {% endblock %}
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mb-5">
+
     </div>
 
 
