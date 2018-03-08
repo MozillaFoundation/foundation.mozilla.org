@@ -30,8 +30,7 @@ admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^soc/', include('social_django.urls', namespace='social'))
-    if settings.SOCIAL_SIGNIN else '',
+    url(r'^soc/', include('social_django.urls', namespace='social')),
     url(r'^fellowships/', include('networkapi.fellows.urls')),
 
     url(r'^cms/', include(wagtailadmin_urls))
