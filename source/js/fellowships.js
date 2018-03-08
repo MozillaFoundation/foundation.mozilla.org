@@ -15,7 +15,7 @@ let capitalize = function(str) {
   return str.split(` `)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(` `);
-}
+};
 
 function getFellows(params, callback) {
   Object.assign(params, {'profile_type': `fellow`});
@@ -128,7 +128,7 @@ function renderFellowsOnDirectoryPage(directoryPageTypes = []) {
         return null;
       }
 
-      let sectionTitle = type == `in residence` ? `Fellows in Residence` : `${capitalize(type)} Fellows`;
+      let sectionTitle = type === `in residence` ? `Fellows in Residence` : `${capitalize(type)} Fellows`;
 
       return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
         <div className="col-12">
