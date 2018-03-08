@@ -1,6 +1,4 @@
 #multipage-nav-mobile {
-  background: $off-white;
-
   .multipage-nav {
     .expander {
       background: none;
@@ -43,6 +41,10 @@
       }
     }
   }
+
+  .container {
+    background: #f2f2f2;
+  }
 }
 
 .multipage-nav {
@@ -60,4 +62,8 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+}
+
+#multipage-nav > div:first-child {
+  margin-top: 0;
 }
