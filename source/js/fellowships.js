@@ -121,20 +121,20 @@ function renderFellowsOnDirectoryPage(directoryPageTypes = []) {
     // render program type sections
     let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
     let sections = directoryPageTypes.map(type => {
-        let sectionTitle = type === `in residence` ? `Fellows in Residence` : `${capitalize(type)} Fellows`;
+      let sectionTitle = type === `in residence` ? `Fellows in Residence` : `${capitalize(type)} Fellows`;
 
-        return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
-          <div className="col-12">
-            <h3 className="h3-black">{sectionTitle}</h3>
-            <div className="row">
-              {fellowsByType[type].map(renderFellowCard)}
-            </div>
+      return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
+        <div className="col-12">
+          <h3 className="h3-black">{sectionTitle}</h3>
+          <div className="row">
+            {fellowsByType[type].map(renderFellowCard)}
           </div>
-          <div className="col-12 text-center mt-3 mb-5">
-            <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {sectionTitle}</a>
-          </div>
-        </div>;
-      });
+        </div>
+        <div className="col-12 text-center mt-3 mb-5">
+          <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {sectionTitle}</a>
+        </div>
+      </div>;
+    });
 
     ReactDOM.render(<div>{filterBar}<div className="featured-fellow">{sections}</div></div>, CONTAINER);
   });
