@@ -30,7 +30,6 @@ admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^soc/', include('social_django.urls', namespace='social')),
     url(r'^fellowships/', include('networkapi.fellows.urls')),
 
     url(r'^cms/', include(wagtailadmin_urls))
@@ -44,6 +43,8 @@ urlpatterns = list(filter(None, [
         url='/fellowships/%(path)s',
         query_string=True
     )),
+
+    url(r'^soc/', include('social_django.urls', namespace='social')),
 
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
