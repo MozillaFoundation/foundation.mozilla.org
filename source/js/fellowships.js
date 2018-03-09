@@ -11,7 +11,7 @@ const DIRECTORY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
 let pulseApiDomain = ``;
 let pulseDomain = ``;
 
-let capitalize = function(str) {
+let capitalize = (str) => {
   return str.split(` `)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(` `);
@@ -46,7 +46,7 @@ function renderFellowCard(fellow) {
     'internet_health_issues': fellow.issues,
     links: links,
     name: fellow.custom_name,
-    role: `${fellow.profile_type}, ${fellow.program_type} ${fellow.program_year}`,
+    role: `${fellow.profile_type}, ${fellow.program_type}, ${fellow.program_year}`,
     image: fellow.thumbnail,
     location: fellow.location,
     affiliations: [], // don't show affiliations meta for now
