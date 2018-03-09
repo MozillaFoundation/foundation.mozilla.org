@@ -98,6 +98,21 @@ You can generate a specific set of fake model data by entering a seed value
 
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
+##### Landing Page and Campaign links
+
+The `load_fake_data` command will output the following URLs every time:
+
+- `/opportunity/page/`
+- `/opportunity/page-with-signup/`
+- `/opportunity/page-side-nav/`
+- `/opportunity/page-side-nav/sub-page/`
+- `/opportunity/page-side-nav/sub-page-2/`
+- `/opportunity/page-side-nav/sub-page-with-signup/`
+- `/campaigns/important-issue/`
+- `/campaigns/important-issue/overview`
+- `/campaigns/important-issue/press`
+- `/campaigns/important-issue/take-action` (Petition page)
+
 #### Running the project for front-end development
 
 - At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to Pug, JS, and Sass files.
