@@ -89,7 +89,7 @@ class Command(BaseCommand):
         self.stdout.write('Generating LandingPage objects with known titles, and side-nav')
         side_nav = LandingPageFactory.create(parent=opportunity, title='page-side-nav')
         LandingPageFactory.create(parent=side_nav, title='sub-page')
-        LandingPageFactory.create(parent=side_nav, title='sub-pag-2')
+        LandingPageFactory.create(parent=side_nav, title='sub-page-2')
         LandingPageFactory.create(parent=side_nav, title='sub-page-with-signup', signup=SignupFactory.create())
 
         self.stdout.write('Generating Homepage')
