@@ -85,9 +85,6 @@ function groupFellowsByAttr(attribute, fellows) {
 function renderFellowsOnDirectoryPage(directoryPageTypes = []) {
   const CONTAINER = document.getElementById(`fellows-directory-featured-fellows`);
 
-  // sort them so we can show them alphabetically
-  directoryPageTypes.sort();
-
   let getTypeSlug = function(type) {
     return type.toLowerCase().replace(`fellow`,``).trim().replace(/\s/g, `-`);
   };
@@ -106,6 +103,9 @@ function renderFellowsOnDirectoryPage(directoryPageTypes = []) {
   // show loading indicator
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
+  // sort types so they are in alphabetical order
+  directoryPageTypes.sort();
+
   // get fellow info from Pulse
   getFellows(DIRECTORY_PAGE_FILTER_OPTIONS, fellows => {
     // render filter bar
@@ -120,28 +120,21 @@ function renderFellowsOnDirectoryPage(directoryPageTypes = []) {
 
     // render program type sections
     let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
-    let sections = Object.keys(fellowsByType).sort((a, b) => {
-      return directoryPageTypes.indexOf(a) - directoryPageTypes.indexOf(b);
-    }).map(type => {
-      // don't render any fellow profiles that we don't intend to show
-      if (directoryPageTypes.indexOf(type) < 0) {
-        return null;
-      }
+    let sections = directoryPageTypes.map(type => {
+        let sectionTitle = type === `in residence` ? `Fellows in Residence` : `${capitalize(type)} Fellows`;
 
-      let sectionTitle = type === `in residence` ? `Fellows in Residence` : `${capitalize(type)} Fellows`;
-
-      return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
-        <div className="col-12">
-          <h3 className="h3-black">{sectionTitle}</h3>
-          <div className="row">
-            {fellowsByType[type].map(renderFellowCard)}
+        return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
+          <div className="col-12">
+            <h3 className="h3-black">{sectionTitle}</h3>
+            <div className="row">
+              {fellowsByType[type].map(renderFellowCard)}
+            </div>
           </div>
-        </div>
-        <div className="col-12 text-center mt-3 mb-5">
-          <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {sectionTitle}</a>
-        </div>
-      </div>;
-    });
+          <div className="col-12 text-center mt-3 mb-5">
+            <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {sectionTitle}</a>
+          </div>
+        </div>;
+      });
 
     ReactDOM.render(<div>{filterBar}<div className="featured-fellow">{sections}</div></div>, CONTAINER);
   });
