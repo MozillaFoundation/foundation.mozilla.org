@@ -105,9 +105,9 @@ function renderFellowsOnDirectoryPage() {
       onClick={(event) => {
         let targetElem = document.getElementById(event.target.dataset.targetId);
         let targetElemTopMargin = parseInt(window.getComputedStyle(targetElem).marginTop.replace(`px`,``), 10);
-        let stikcyNavHeight = document.querySelector(`.sticky-top`).offsetHeight;
+        let stickyNavHeight = document.querySelector(`.sticky-top`).offsetHeight;
 
-        window.scrollTo(0, getOffsetFromTop(targetElem) - targetElemTopMargin - stikcyNavHeight);
+        window.scrollTo(0, getOffsetFromTop(targetElem) - targetElemTopMargin - stickyNavHeight);
       }}
       data-target-id={`fellowships-directory-${getTypeSlug(option)}`}
     >
