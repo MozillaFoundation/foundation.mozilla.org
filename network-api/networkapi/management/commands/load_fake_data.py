@@ -7,7 +7,7 @@ from django.core.management import call_command
 # Factories
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.landingpage.factory import LandingPageFactory, SignupFactory
-from networkapi.campaign.factory import CampaignFactory
+from networkapi.campaign.factory import CampaignFactory, PetitionFactory
 from networkapi.milestones.factory import MilestoneFactory
 from networkapi.news.factory import NewsFactory
 from networkapi.people.factory import (
@@ -75,6 +75,22 @@ class Command(BaseCommand):
         self.stdout.write('Generating CampaignPage objects')
         campaigns = LandingPageFactory.create(title='Campaigns', content='Placeholder page')
         [CampaignFactory.create(parent=campaigns) for i in range(3)]
+
+        self.stdout.write('Generating CampaignPage objects with known titles')
+        important_issue = LandingPageFactory.create(parent=campaigns, title='important-issue')
+        LandingPageFactory.create(parent=important_issue, title='overview')
+        LandingPageFactory.create(parent=important_issue, title='press')
+        CampaignFactory.create(parent=important_issue, title='take-action', petition=PetitionFactory.create())
+
+        self.stdout.write('Generating LandingPage objects with known titles')
+        LandingPageFactory.create(parent=opportunity, title='page')
+        LandingPageFactory.create(parent=opportunity, title='page-with-signup', signup=SignupFactory.create())
+
+        self.stdout.write('Generating LandingPage objects with known titles, and side-nav')
+        side_nav = LandingPageFactory.create(parent=opportunity, title='page-side-nav')
+        LandingPageFactory.create(parent=side_nav, title='sub-page')
+        LandingPageFactory.create(parent=side_nav, title='sub-page-2')
+        LandingPageFactory.create(parent=side_nav, title='sub-page-with-signup', signup=SignupFactory.create())
 
         self.stdout.write('Generating Homepage')
         homepage = HomepageFactory.create()
