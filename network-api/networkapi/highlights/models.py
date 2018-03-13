@@ -2,9 +2,9 @@ from django.utils import timezone
 from django.db import models
 from django.db.models import Q
 from adminsortable.models import SortableMixin
-from wagtail.wagtailcore.fields import RichTextField
+from wagtail.core.fields import RichTextField
 from networkapi.utility.images import get_image_upload_path
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.snippets.models import register_snippet
 
 
 def get_highlights_image_upload_path(instance, filename):

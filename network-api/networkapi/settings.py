@@ -129,17 +129,17 @@ INSTALLED_APPS = list(filter(None, [
 
     'networkapi.wagtailcustomization' if ENABLE_WAGTAIL else None,
 
-    'wagtail.wagtailforms' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailredirects' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailembeds' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailsites' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailsearch' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailadmin' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailcore',
+    'wagtail.contrib.forms' if ENABLE_WAGTAIL else None,
+    'wagtail.contrib.redirects' if ENABLE_WAGTAIL else None,
+    'wagtail.embeds' if ENABLE_WAGTAIL else None,
+    'wagtail.sites' if ENABLE_WAGTAIL else None,
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images' if ENABLE_WAGTAIL else None,
+    'wagtail.search' if ENABLE_WAGTAIL else None,
+    'wagtail.admin' if ENABLE_WAGTAIL else None,
+    'wagtail.core',
     'wagtail.contrib.modeladmin',
 
     'modelcluster',
@@ -192,9 +192,9 @@ MIDDLEWARE = list(filter(None, [
     'mezzanine.pages.middleware.PageMiddleware',
     'mezzanine.core.middleware.FetchFromCacheMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware'
+    'wagtail.core.middleware.SiteMiddleware'
     if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware'
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware'
     if ENABLE_WAGTAIL else None,
 ]))
 
