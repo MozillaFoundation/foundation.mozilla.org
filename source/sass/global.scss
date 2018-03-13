@@ -21,6 +21,23 @@ body {
       url(../_images/bg-repeat-crop@2x.jpg) center top / auto 100% repeat-x;
     background-blend-mode: overlay, normal, normal;
   }
+
+  // Fellowships homepage
+  &#view-fellows-home .wrapper-2 {
+    @media (min-width: $bp-lg) {
+      background-blend-mode: hard-light;
+      background-image:
+        url(../_images/fellowships/hero-image@2x.png),
+        linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%);
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+      background-position: 50% top;
+    }
+
+    @media (min-width: $bp-xl) {
+      background-position: center top;
+    }
+  }
 }
 
 button:hover {

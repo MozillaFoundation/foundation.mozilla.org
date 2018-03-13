@@ -98,6 +98,21 @@ You can generate a specific set of fake model data by entering a seed value
 
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
+##### Landing Page and Campaign links
+
+The `load_fake_data` command will output the following URLs every time:
+
+- `/opportunity/page/`
+- `/opportunity/page-with-signup/`
+- `/opportunity/page-side-nav/`
+- `/opportunity/page-side-nav/sub-page/`
+- `/opportunity/page-side-nav/sub-page-2/`
+- `/opportunity/page-side-nav/sub-page-with-signup/`
+- `/campaigns/important-issue/`
+- `/campaigns/important-issue/overview`
+- `/campaigns/important-issue/press`
+- `/campaigns/important-issue/take-action` (Petition page)
+
 #### Running the project for front-end development
 
 - At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to Pug, JS, and Sass files.
@@ -117,7 +132,7 @@ You can run the tests using the following command
 
 HTML for the majority of the site is generated from [Pug](https://pugjs.org) templates.
 
-Some templates used by Mezzanine (at the time of writing: Opportunity and Campaign pages) are written as Django templates but extend blocks from a common base template (`network-api/networkapi/templates/pages/base-compiled.html`) that is generated from Pug (see `source/pug/templates/base-for-django.pug`). This allows code sharing for the overall HTML "shell" of the site between Pug and Django templates as we migrate away from Pug.
+Some templates used by Mezzanine (at the time of writing: Opportunity, Campaign, and Fellowships pages) are written as Django templates but extend blocks from a common base template (`network-api/networkapi/templates/pages/base-compiled.html`) that is generated from Pug (see `source/pug/templates/base-for-django.pug`). This allows code sharing for the overall HTML "shell" of the site between Pug and Django templates as we migrate away from Pug.
 
 Localized strings are pulled from [Java .properties](https://en.wikipedia.org/wiki/.properties) files located in `/locales`.
 

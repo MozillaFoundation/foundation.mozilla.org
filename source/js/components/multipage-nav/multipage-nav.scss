@@ -1,6 +1,4 @@
 #multipage-nav-mobile {
-  background: #f2f2f2;
-
   .multipage-nav {
     .expander {
       background: none;
@@ -8,7 +6,8 @@
       width: 100%;
       border: 0;
       outline: 0;
-      padding: 0;
+      padding: 0 0 5px;  // so the 5px yellow underline will show on both mobile and desktop
+      margin-bottom: -5px; // negative bottom margin to offet the bottom padding we are adding
 
       .control {
         display: inline-block;
@@ -42,6 +41,10 @@
       }
     }
   }
+
+  .col-12 {
+    background: #f2f2f2;
+  }
 }
 
 .multipage-nav {
@@ -59,4 +62,8 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+}
+
+#multipage-nav > div:first-child {
+  margin-top: 0;
 }

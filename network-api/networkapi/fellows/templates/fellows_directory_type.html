@@ -1,0 +1,27 @@
+{% extends "./pages/fellowships.html" %}
+
+{% block bodyID %}fellows-directory-{{type|slugify}}{% endblock %}
+
+{% block mainContent %}
+<div id="fellowship-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item small-gray">
+      <a href="{% url 'fellowships-directory' %}" class="small-gray">Directory</a>
+    </li>
+    <li class="breadcrumb-item small-gray active text-capitalize">
+      {{ type }} Fellows
+    </li>
+  </ol>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="mb-4">
+      <h1 class="h1-white text-capitalize">{{ type }} Fellows</h1>
+    </div>
+  </div>
+</div>
+
+<div id="fellows-directory-fellows-by-type" data-type="{{type}}">
+</div>
+{% endblock %}
