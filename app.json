@@ -48,7 +48,9 @@
     "CSP_MEDIA_SRC": "'self'",
     "CSP_CHILD_SRC": "'self'",
     "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
-    "EXECUTE_FAKE_DATA": "True"
+    "EXECUTE_FAKE_DATA": "True",
+    "FELLOWSHIPS_PROGRAM_INFO_TYPES": "science,open web,tech policy,media",
+    "FELLOWSHIPS_DIRECTORY_TYPES": "science,open web,tech policy,media,in residence"
   },
   "buildpacks": [
     {

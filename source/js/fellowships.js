@@ -6,10 +6,16 @@ import ReactDOM from 'react-dom';
 import Person from './components/people/person.jsx';
 import LoadingIndicator from './components/loading-indicator/loading-indicator.jsx';
 
+const DIRECTORY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
+
 let pulseApiDomain = ``;
 let pulseDomain = ``;
-const DIRECTORY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
-const DIRECTORY_PAGE_TYPE_ORDER = [ `science`, `open web`, `tech policy`, `media`];
+
+let capitalize = (str) => {
+  return str.split(` `)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(` `);
+};
 
 function getFellows(params, callback) {
   Object.assign(params, {'profile_type': `fellow`});
@@ -40,7 +46,7 @@ function renderFellowCard(fellow) {
     'internet_health_issues': fellow.issues,
     links: links,
     name: fellow.custom_name,
-    role: `${fellow.profile_type}, ${fellow.program_type} ${fellow.program_year}`,
+    role: `${fellow.profile_type}, ${fellow.program_type}, ${fellow.program_year}`,
     image: fellow.thumbnail,
     location: fellow.location,
     affiliations: [], // don't show affiliations meta for now
@@ -76,7 +82,7 @@ function groupFellowsByAttr(attribute, fellows) {
   return fellowsGroup;
 }
 
-function renderFellowsOnDirectoryPage() {
+function renderFellowsOnDirectoryPage(directoryPageTypes = []) {
   const CONTAINER = document.getElementById(`fellows-directory-featured-fellows`);
 
   let getTypeSlug = function(type) {
@@ -97,6 +103,9 @@ function renderFellowsOnDirectoryPage() {
   // show loading indicator
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
+  // sort types so they are in alphabetical order
+  directoryPageTypes.sort();
+
   // get fellow info from Pulse
   getFellows(DIRECTORY_PAGE_FILTER_OPTIONS, fellows => {
     // render filter bar
@@ -104,33 +113,25 @@ function renderFellowsOnDirectoryPage() {
       <div className="col-12">
         <div id="fellowships-directory-filter" className="d-flex flex-wrap p-2">
           <div className="d-inline-block mr-2"><strong>Areas:</strong></div>
-          { DIRECTORY_PAGE_TYPE_ORDER.map(renderFilterOption) }
+          { directoryPageTypes.map(renderFilterOption) }
         </div>
       </div>
     </div>;
 
     // render program type sections
     let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
-    let sections = Object.keys(fellowsByType).sort((a, b) => {
-      let aIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(a);
-      let bIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(b);
-
-      return aIndex - bIndex;
-    }).map(type => {
-      // don't render any fellow profiles that we don't intend to show
-      if (DIRECTORY_PAGE_TYPE_ORDER.indexOf(type) < 0) {
-        return null;
-      }
+    let sections = directoryPageTypes.map(type => {
+      let sectionTitle = type === `in residence` ? `Fellows in Residence` : `${capitalize(type)} Fellows`;
 
       return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
         <div className="col-12">
-          <h3 className="h3-black text-capitalize">{type} Fellows</h3>
+          <h3 className="h3-black">{sectionTitle}</h3>
           <div className="row">
             {fellowsByType[type].map(renderFellowCard)}
           </div>
         </div>
         <div className="col-12 text-center mt-3 mb-5">
-          <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {type} Fellows</a>
+          <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {sectionTitle}</a>
         </div>
       </div>;
     });
@@ -171,7 +172,7 @@ function injectReactComponents(env) {
 
   // Fellows on Fellows Directory page
   if (document.getElementById(`fellows-directory-featured-fellows`)) {
-    renderFellowsOnDirectoryPage();
+    renderFellowsOnDirectoryPage(env.FELLOWSHIPS_DIRECTORY_TYPES.slice(0));
   }
 
   // Fellows on individual Directory page (e.g., science directory, open web directory)

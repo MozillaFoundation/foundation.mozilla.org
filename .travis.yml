@@ -36,3 +36,5 @@ env:
   - NETWORK_SITE_URL=https://foundation.mozilla.org
   - TARGET_DOMAIN=foundation.mozilla.org
   - SHOW_TAKEOVER=false
+  - FELLOWSHIPS_PROGRAM_INFO_TYPES=science,open web,tech policy,media
+  - FELLOWSHIPS_DIRECTORY_TYPES=science,open web,tech policy,media,in residence
