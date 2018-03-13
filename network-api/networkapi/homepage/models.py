@@ -4,11 +4,11 @@ from mezzanine.core.models import Orderable
 from networkapi.people.models import Person
 from networkapi.news.models import News
 from networkapi.highlights.models import Highlight
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.models import Orderable as WagtailOrderable
-from wagtail.wagtailadmin.edit_handlers import InlinePanel
+from wagtail.core.models import Page
+from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.admin.edit_handlers import InlinePanel
 from modelcluster.fields import ParentalKey
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 
 # The old homepage

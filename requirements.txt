@@ -10,7 +10,7 @@ git+https://github.com/stephenmcd/filebrowser-safe@cfb0e948e0aaaafd25f5440b51ca3
 filebrowser_s3==1.0.0
 
 # Wagtail CMS
-wagtail==1.13.1
+wagtail==2.0
 
 # social auth is useful
 social-auth-core==1.1.0
