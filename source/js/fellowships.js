@@ -15,9 +15,8 @@ let pulseDomain = ``;
 // to return alphabetically sorted list
 let sortByName = (a, b) => {
   // sort fellows alphabetically by their name
-  // use their custom_name if exists
-  let nameA = a.custom_name ? a.custom_name.toLowerCase() : a.name.toLowerCase();
-  let nameB = b.custom_name ? b.custom_name.toLowerCase() : b.name.toLowerCase();
+  let nameA = a.name.toLowerCase();
+  let nameB = b.name.toLowerCase();
 
   if(nameA < nameB) {
     return -1;
@@ -62,7 +61,7 @@ function renderFellowCard(fellow) {
   let metadata = {
     'internet_health_issues': issues,
     links: links,
-    name: fellow.custom_name || fellow.name,
+    name: fellow.name,
     role: `${fellow.profile_type}, ${fellow.program_year}`,
     image: fellow.thumbnail,
     location: fellow.location,
@@ -70,7 +69,7 @@ function renderFellowCard(fellow) {
     'custom_link': { text: `See work`, link: `https://${pulseDomain}/profile/${fellow.profile_id}` }
   };
 
-  return <Person metadata={metadata} key={fellow.custom_name} />;
+  return <Person metadata={metadata} key={fellow.name} />;
 }
 
 function groupFellowsByAttr(attribute, fellows) {
