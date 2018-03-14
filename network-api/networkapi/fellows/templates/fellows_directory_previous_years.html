@@ -1,6 +1,6 @@
 {% extends "./pages/fellowships.html" %}
 
-{% block bodyID %}fellows-directory-{{type|slugify}}{% endblock %}
+{% block bodyID %}fellows-directory-past-years{% endblock %}
 
 {% block mainContent %}
 <div id="fellowship-breadcrumb">
@@ -9,7 +9,7 @@
       <a href="{% url 'fellowships-directory' %}" class="small-gray">Directory</a>
     </li>
     <li class="breadcrumb-item small-gray active text-capitalize">
-      {{ type }} Fellows
+      Fellows from Previous Years
     </li>
   </ol>
 </div>
@@ -17,11 +17,11 @@
 <div class="row">
   <div class="col-12">
     <div class="mb-4">
-      <h1 class="h1-white text-capitalize">{{ type }} Fellows</h1>
+      <h1 class="h1-white text-capitalize">Fellows from Previous Years</h1>
     </div>
   </div>
 </div>
 
-<div id="fellows-directory-fellows-by-type" data-type="{{type}}">
+<div id="fellows-directory-previous-years" data-type="{{type}}">
 </div>
 {% endblock %}

@@ -22,10 +22,8 @@ def fellows_directory(request):
     return render(request, 'fellows_directory.html')
 
 
-def fellows_directoy_type(request, program_type_slug):
-    context = {'type': program_type_slug.replace('-', ' ')}
-
-    return render(request, 'fellows_directory_type.html', context)
+def fellows_directory_previous_years(request):
+    return render(request, 'fellows_directory_previous_years.html')
 
 
 def fellows_support(request):
