@@ -145,7 +145,7 @@ function renderFellowsOnDirectoryByTypePage() {
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
   // get fellow info from Pulse
-  getFellows({'program_type': `${CONTAINER.dataset.type}`}, fellows => {
+  getFellows({}, fellows => {
     let fellowsByYear = groupFellowsByAttr(`program_year`, fellows);
 
     let sections = Object.keys(fellowsByYear).sort().reverse().map(year => {
