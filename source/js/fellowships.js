@@ -11,6 +11,8 @@ const DIRECTORY_PROGRAM_YEARS = [`2017`, `2018`];
 let pulseApiDomain = ``;
 let pulseDomain = ``;
 
+// NOTE: sort on client side for now since API doesn't have the ability
+// to return alphabetically sorted list
 let sortByName = (a, b) => {
   // sort fellows alphabetically by their name
   // use their custom_name if exists
@@ -106,7 +108,9 @@ function renderFellowsOnDirectoryPage() {
   // get fellow info from Pulse
   getFellows({}, fellows => {
     fellows = fellows.filter(fellow => {
-      // only keep fellows who belong to program year specified in DIRECTORY_PROGRAM_YEARS
+      // NOTE: we don't have that many fellows yet
+      // so it's faster to do client side filtering than making multiple API calls
+      // just to get fellows from years specified in DIRECTORY_PROGRAM_YEARS
       let matched = false;
 
       for (let i = 0; i < DIRECTORY_PROGRAM_YEARS.length; i++) {
