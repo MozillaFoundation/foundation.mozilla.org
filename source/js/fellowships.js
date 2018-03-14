@@ -83,11 +83,32 @@ function renderFellowsOnDirectoryPage() {
     return type.toLowerCase().replace(`fellow`,``).trim().replace(/\s/g, `-`);
   };
 
+  let getOffsetFromTop = (elem) => {
+  // snippet taken from
+  // https://gomakethings.com/how-to-get-an-elements-distance-from-the-top-of-the-page-with-vanilla-javascript/
+    let distance = 0;
+
+    if (elem.offsetParent) {
+      do {
+        distance += elem.offsetTop;
+        elem = elem.offsetParent;
+      } while (elem);
+    }
+
+    return distance < 0 ? 0 : distance;
+  };
+
   let renderFilterOption = function(option) {
     return <button
       className="btn btn-link text-capitalize"
       key={option}
-      onClick={(event) => { window.scrollTo(0, document.getElementById(event.target.dataset.targetId).offsetTop); }}
+      onClick={(event) => {
+        let targetElem = document.getElementById(event.target.dataset.targetId);
+        let targetElemTopMargin = parseInt(window.getComputedStyle(targetElem).marginTop.replace(`px`,``), 10);
+        let stickyNavHeight = document.querySelector(`.sticky-top`).offsetHeight;
+
+        window.scrollTo(0, getOffsetFromTop(targetElem) - targetElemTopMargin - stickyNavHeight);
+      }}
       data-target-id={`fellowships-directory-${getTypeSlug(option)}`}
     >
       {option}
