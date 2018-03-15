@@ -6,7 +6,9 @@ import ReactDOM from 'react-dom';
 import Person from './components/people/person.jsx';
 import LoadingIndicator from './components/loading-indicator/loading-indicator.jsx';
 
-const DIRECTORY_PROGRAM_YEARS = [`2017`, `2018`];
+// Currently just showing fellows for current year,
+//  but can be modified to an array of years (Numbers and/or Strings)
+const DIRECTORY_PROGRAM_YEARS = [(new Date()).getFullYear()];
 
 let pulseApiDomain = ``;
 let pulseDomain = ``;
@@ -100,7 +102,7 @@ function renderFellowsOnDirectoryPage() {
       let matched = false;
 
       for (let i = 0; i < DIRECTORY_PROGRAM_YEARS.length; i++) {
-        if (fellow.program_year && fellow.program_year === DIRECTORY_PROGRAM_YEARS[i]) {
+        if (fellow.program_year && fellow.program_year === DIRECTORY_PROGRAM_YEARS[i].toString()) {
           matched = true;
           break;
         }
