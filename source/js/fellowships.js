@@ -6,28 +6,17 @@ import ReactDOM from 'react-dom';
 import Person from './components/people/person.jsx';
 import LoadingIndicator from './components/loading-indicator/loading-indicator.jsx';
 
-const DIRECTORY_PROGRAM_YEARS = [`2017`, `2018`];
+// Currently just showing fellows for current year,
+//  but can be modified to an array of years (Numbers and/or Strings)
+const DIRECTORY_PROGRAM_YEARS = [(new Date()).getFullYear()];
 
 let pulseApiDomain = ``;
 let pulseDomain = ``;
 
 // NOTE: sort on client side for now since API doesn't have the ability
 // to return alphabetically sorted list
-let sortByName = (a, b) => {
-  // sort fellows alphabetically by their name
-  let nameA = a.name.toLowerCase();
-  let nameB = b.name.toLowerCase();
-
-  if(nameA < nameB) {
-    return -1;
-  }
-
-  if(nameA > nameB) {
-    return 1;
-  }
-
-  return 0;
-};
+const sortByName = (a, b) =>
+  a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
 
 function getFellows(params, callback) {
   Object.assign(params, {'profile_type': `fellow`});
@@ -113,7 +102,7 @@ function renderFellowsOnDirectoryPage() {
       let matched = false;
 
       for (let i = 0; i < DIRECTORY_PROGRAM_YEARS.length; i++) {
-        if (fellow.program_year && fellow.program_year === DIRECTORY_PROGRAM_YEARS[i]) {
+        if (fellow.program_year && fellow.program_year === DIRECTORY_PROGRAM_YEARS[i].toString()) {
           matched = true;
           break;
         }
@@ -129,7 +118,7 @@ function renderFellowsOnDirectoryPage() {
         </div>
       </div>
       <div className="col-12 text-center mt-3 mb-5">
-        <a href="/fellowships/directory/previous-years" className="btn btn-ghost">See Fellows from Previous Years</a>
+        <a href="/fellowships/directory/archive" className="btn btn-ghost">See Fellows from Previous Years</a>
       </div>
     </div>;
 
@@ -138,7 +127,7 @@ function renderFellowsOnDirectoryPage() {
 }
 
 function renderFellowsOnDirectoryByTypePage() {
-  const CONTAINER = document.getElementById(`fellows-directory-previous-years`);
+  const CONTAINER = document.getElementById(`fellows-directory-archive`);
 
   // show loading indicator
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
@@ -173,7 +162,7 @@ function injectReactComponents(env) {
   }
 
   // Fellows on individual Directory page (e.g., science directory, open web directory)
-  if (document.getElementById(`fellows-directory-previous-years`)) {
+  if (document.getElementById(`fellows-directory-archive`)) {
     renderFellowsOnDirectoryByTypePage();
   }
 }
