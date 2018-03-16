@@ -138,7 +138,7 @@ function renderFellowsOnDirectoryByTypePage() {
   getFellows({}, fellows => {
     let fellowsByYear = groupFellowsByAttr(`program_year`, fellows);
 
-    let sections = Object.keys(fellowsByYear).filter((year) => parseInt(year, 10) !== CURRENT_YEAR).sort().reverse().map(year => {
+    let sections = Object.keys(fellowsByYear).filter((year) => parseInt(year, 10) < CURRENT_YEAR).sort().reverse().map(year => {
       return <div className="row mb-5" key={year}>
         <div className="col-12">
           <div className="mb-4">
