@@ -10,7 +10,7 @@ const CURRENT_YEAR = new Date().getFullYear();
 
 // Currently just showing fellows for current year,
 //  but can be modified to an array of years (Numbers and/or Strings)
-const DIRECTORY_PROGRAM_YEARS = [CURRENT_YEAR];
+const DIRECTORY_PROGRAM_YEARS = [CURRENT_YEAR, CURRENT_YEAR + 1];
 
 let pulseApiDomain = ``;
 let pulseDomain = ``;
