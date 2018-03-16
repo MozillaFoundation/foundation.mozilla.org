@@ -6,9 +6,11 @@ import ReactDOM from 'react-dom';
 import Person from './components/people/person.jsx';
 import LoadingIndicator from './components/loading-indicator/loading-indicator.jsx';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 // Currently just showing fellows for current year,
 //  but can be modified to an array of years (Numbers and/or Strings)
-const DIRECTORY_PROGRAM_YEARS = [(new Date()).getFullYear()];
+const DIRECTORY_PROGRAM_YEARS = [CURRENT_YEAR];
 
 let pulseApiDomain = ``;
 let pulseDomain = ``;
@@ -136,7 +138,7 @@ function renderFellowsOnDirectoryByTypePage() {
   getFellows({}, fellows => {
     let fellowsByYear = groupFellowsByAttr(`program_year`, fellows);
 
-    let sections = Object.keys(fellowsByYear).sort().reverse().map(year => {
+    let sections = Object.keys(fellowsByYear).filter((year) => parseInt(year, 10) !== CURRENT_YEAR).sort().reverse().map(year => {
       return <div className="row mb-5" key={year}>
         <div className="col-12">
           <div className="mb-4">
