@@ -19,6 +19,17 @@ class LinkButtonBlock(blocks.StructBlock):
     # allow for relative linking.
     URL = blocks.CharBlock()
 
+    # Buttons can have different looks, so we
+    # offer the choice to decide which styling
+    # should be used.
+    styling = blocks.ChoiceBlock(
+        choices=[
+            ('btn-info', 'Solid button'),
+            ('btn-ghost', 'Outline button'),
+        ],
+        default='btn-info',
+    )
+
     class Meta:
         icon = 'link'
         template = 'minisites/blocks/link_button_block.html'
