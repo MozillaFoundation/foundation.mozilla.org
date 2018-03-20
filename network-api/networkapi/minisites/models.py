@@ -8,8 +8,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 
-from wagtail.embeds.blocks import EmbedBlock
 from adminsortable.models import SortableMixin
+
 
 class LinkButtonValue(blocks.StructValue):
     # and https://stackoverflow.com/questions/49374083
@@ -23,6 +23,7 @@ class LinkButtonValue(blocks.StructValue):
         if self['outline'] is True:
             btn_class = btn_class.replace('btn-', 'btn-outline-')
         return btn_class
+
 
 class LinkButtonBlock(blocks.StructBlock):
     label = blocks.CharBlock()
@@ -90,7 +91,7 @@ class VideoBlock(blocks.StructBlock):
         template = 'minisites/blocks/video_block.html'
 
 
-class  iFrameBlock(blocks.StructBlock):
+class iFrameBlock(blocks.StructBlock):
     url = blocks.CharBlock(
         help_text='Please note that only URLs from white-listed domains will work.'
     )
