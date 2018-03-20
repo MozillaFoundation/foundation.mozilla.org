@@ -11,6 +11,18 @@ from wagtail.snippets.models import register_snippet
 from wagtail.embeds.blocks import EmbedBlock
 from adminsortable.models import SortableMixin
 
+class LinkButtonValue(blocks.StructValue):
+    # and https://stackoverflow.com/questions/49374083
+    # see http://docs.wagtail.io/en/v2.0/topics/streamfield.html#custom-value-class-for-structblock
+
+    @property
+    def css(self):
+        # Note that StructValue is a dict-like object, so `styling` and `outline`
+        # need to be accessed as dictionary keys
+        btn_class = self['styling']
+        if self['outline'] is True:
+            btn_class = btn_class.replace('btn-', 'btn-outline-')
+        return btn_class
 
 class LinkButtonBlock(blocks.StructBlock):
     label = blocks.CharBlock()
@@ -24,15 +36,22 @@ class LinkButtonBlock(blocks.StructBlock):
     # should be used.
     styling = blocks.ChoiceBlock(
         choices=[
-            ('btn-info', 'Solid button'),
-            ('btn-ghost', 'Outline button'),
+            ('btn-primary', 'Primary button'),
+            ('btn-secondary', 'Secondary button'),
+            ('btn-success', 'Success button'),
+            ('btn-info', 'Info button'),
+            ('btn-warning', 'Warning button'),
+            ('btn-error', 'Error button'),
         ],
         default='btn-info',
     )
 
+    outline = blocks.BooleanBlock(default=False)
+
     class Meta:
         icon = 'link'
         template = 'minisites/blocks/link_button_block.html'
+        value_class = LinkButtonValue
 
 
 class ImageTextBlock(blocks.StructBlock):
@@ -49,14 +68,6 @@ class ImageTextBlock(blocks.StructBlock):
     class Meta:
         icon = 'doc-full'
         template = 'minisites/blocks/image_text_block.html'
-
-
-class BiographyBlock(ImageTextBlock):
-    name = blocks.CharBlock()
-
-    class Meta:
-        icon = 'doc-full'
-        template = 'minisites/blocks/biography_block.html'
 
 
 class VerticalSpacerBlock(blocks.StructBlock):
@@ -100,7 +111,6 @@ base_fields = [
     ('paragraph', blocks.RichTextBlock()),
     ('image_text', ImageTextBlock()),
     ('image', ImageChooserBlock()),
-    ('bio', BiographyBlock()),
     ('video', VideoBlock()),
     ('iframe', iFrameBlock()),
     ('linkbutton', LinkButtonBlock()),

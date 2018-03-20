@@ -10,27 +10,19 @@ The base app has the following directory structure:
   |
   |- templates
   |  `- minisites
+  |     |- blocks
+  |     |  `- block template .html files
+  |     |- tags
+  |     |  |- cta
+  |     |  |  `- dir with some cta-tag related html fragments 
+  |     |  `- template-tag-related html fragments 
   |     `- page template .html files
   |
   |- templatetags
   |  `- mini_site_tags.py
   |
-  |- models.py
+  `- models.py
 ``` 
-
-In addition to this local filestructure, there are also (for now) some minisite files in the `networkapi/templates` directory:
-
-```
-- networkapi
-  `- templates
-     `- minisites
-        |- blocks
-        |  `- block template .html files
-        `- tags
-           |- cta
-           |  `- dir with some cta-tag related html fragments 
-           `- template-tag-related html fragments 
-```
 
 # The basic minisite app architecture
 
