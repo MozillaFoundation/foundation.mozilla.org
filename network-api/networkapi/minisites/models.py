@@ -43,11 +43,15 @@ class LinkButtonBlock(blocks.StructBlock):
             ('btn-info', 'Info button'),
             ('btn-warning', 'Warning button'),
             ('btn-error', 'Error button'),
+            ('btn-ghost', 'Ghost button'),
         ],
         default='btn-info',
     )
 
-    outline = blocks.BooleanBlock(default=False)
+    outline = blocks.BooleanBlock(
+        default=False,
+        required=False
+    )
 
     class Meta:
         icon = 'link'
