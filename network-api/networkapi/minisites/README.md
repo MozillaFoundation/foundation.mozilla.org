@@ -88,20 +88,15 @@ This block sets up a button that links out to a URL, using `networkapi/templates
 
 This block sets up a text-with-image (image can be placed either right or left of the text), using `networkapi/templates/minisites/blocks/image_text_block.html` as its rendering template.
 
-#### 3. BiographyBlock
-
-This block is a subclass of `ImageTextBlock` and adds a person's name as third field. It uses `networkapi/templates/minisites/blocks/biography_block.html` as its rendering template.
-
-
-#### 4. VerticalSpacerBlock
+#### 3. VerticalSpacerBlock
 
 This is a purely cosmetic block, effecting vertical whitespace as specified in `rem` units. It uses `networkapi/templates/minisites/blocks/vertical_spacer_block.html` as its rendering template.
 
-#### 5 .VideoBlock
+#### 4 .VideoBlock
 
 This is an embed block that yields an iframe to an online video, with explicit width/heigh dimensions in pixels. It uses `networkapi/templates/minisites/blocks/video_block.html` as its rendering template.
 
-#### 6. iFrameBlock
+#### 5. iFrameBlock
 
 This is identical to the `VideoBlock`, but effects a straight-up iframe element, using `networkapi/templates/minisites/blocks/iframe_block.html` as its rendering template.
 
