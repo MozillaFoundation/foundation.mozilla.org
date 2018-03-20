@@ -43,7 +43,6 @@ install:
   - npm install
   - "virtualenv network -p %PYTHON%/python.exe"
   - "./network/Scripts/activate"
-  - "copy env.default .env"
   - "pip install -r requirements.txt"
   - "python network-api/manage.py collectstatic --no-input"
 

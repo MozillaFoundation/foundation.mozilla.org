@@ -7,7 +7,6 @@ before_install:
 - nvm install 6.11.2
 - nvm use 6.11.2
 install:
-- cp env.default .env
 - pip install -r requirements.txt
 - npm install
 - python network-api/manage.py collectstatic --no-input
