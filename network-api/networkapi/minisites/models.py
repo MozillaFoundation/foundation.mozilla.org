@@ -161,17 +161,14 @@ class MiniSiteNameSpace(ModularPage):
         context = super(MiniSiteNameSpace, self).get_context(request)
         ancestors = self.get_ancestors()
         root = next((n for n in ancestors if n.specific_class == self.specific_class), self)
+        context['root'] = root
         context['mini_site_title'] = root.title
 
         children = self.get_children().live()
         has_children = len(children) > 0
-        ancestors = self.get_ancestors()
-        root = next((root for root in ancestors if root.specific_class == self.specific_class), self)
-        context['root'] = root
 
         is_top_page = (root == self)
         context['is_top_page'] = is_top_page
-
         context['singleton_page'] = (is_top_page and not has_children)
 
         return context
