@@ -164,11 +164,11 @@ class MiniSiteNameSpace(ModularPage):
         context['root'] = root
         context['mini_site_title'] = root.title
 
-        children = self.get_children().live()
-        has_children = len(children) > 0
-
         is_top_page = (root == self)
         context['is_top_page'] = is_top_page
+
+        children = self.get_children().live()
+        has_children = len(children) > 0
         context['singleton_page'] = (is_top_page and not has_children)
 
         return context
