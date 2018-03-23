@@ -1,5 +1,6 @@
 from django.db import models
 
+from . import customblocks
 from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
@@ -7,103 +8,6 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
-
-from adminsortable.models import SortableMixin
-
-
-class LinkButtonValue(blocks.StructValue):
-    # and https://stackoverflow.com/questions/49374083
-    # see http://docs.wagtail.io/en/v2.0/topics/streamfield.html#custom-value-class-for-structblock
-
-    @property
-    def css(self):
-        # Note that StructValue is a dict-like object, so `styling` and `outline`
-        # need to be accessed as dictionary keys
-        btn_class = self['styling']
-        if self['outline'] is True:
-            btn_class = btn_class.replace('btn-', 'btn-outline-')
-        return btn_class
-
-
-class LinkButtonBlock(blocks.StructBlock):
-    label = blocks.CharBlock()
-
-    # We use a char block because UrlBlock does not
-    # allow for relative linking.
-    URL = blocks.CharBlock()
-
-    # Buttons can have different looks, so we
-    # offer the choice to decide which styling
-    # should be used.
-    styling = blocks.ChoiceBlock(
-        choices=[
-            ('btn-primary', 'Primary button'),
-            ('btn-secondary', 'Secondary button'),
-            ('btn-success', 'Success button'),
-            ('btn-info', 'Info button'),
-            ('btn-warning', 'Warning button'),
-            ('btn-error', 'Error button'),
-            ('btn-ghost', 'Ghost button'),
-        ],
-        default='btn-info',
-    )
-
-    outline = blocks.BooleanBlock(
-        default=False,
-        required=False
-    )
-
-    class Meta:
-        icon = 'link'
-        template = 'minisites/blocks/link_button_block.html'
-        value_class = LinkButtonValue
-
-
-class ImageTextBlock(blocks.StructBlock):
-    text = blocks.CharBlock()
-    image = ImageChooserBlock()
-    ordering = blocks.ChoiceBlock(
-        choices=[
-            ('left', 'Image on the left'),
-            ('right', 'Image on the right'),
-        ],
-        default='left',
-    )
-
-    class Meta:
-        icon = 'doc-full'
-        template = 'minisites/blocks/image_text_block.html'
-
-
-class VerticalSpacerBlock(blocks.StructBlock):
-    rem = blocks.IntegerBlock()
-
-    class Meta:
-        icon = 'arrows-up-down'
-        template = 'minisites/blocks/vertical_spacer_block.html'
-        help_text = 'the number of "rem" worth of vertical spacing'
-
-
-class VideoBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
-        help_text='Please make sure this is a proper embed URL, or your video will not show up on the page.'
-    )
-    width = blocks.IntegerBlock(default=800)
-    height = blocks.IntegerBlock(default=450)
-
-    class Meta:
-        template = 'minisites/blocks/video_block.html'
-
-
-class iFrameBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
-        help_text='Please note that only URLs from white-listed domains will work.'
-    )
-    width = blocks.IntegerBlock(default=800)
-    height = blocks.IntegerBlock(default=450)
-
-    class Meta:
-        template = 'minisites/blocks/iframe_block.html'
 
 
 """
@@ -113,13 +17,20 @@ page types.
 """
 base_fields = [
     ('heading', blocks.CharBlock()),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image_text', ImageTextBlock()),
+    ('paragraph', blocks.RichTextBlock(
+        features=[
+            'bold','italic',
+            'h2','h3','h4','h5',
+            'ol', 'ul',
+            'link', 'image',
+        ]
+    )),
+    ('image_text', customblocks.ImageTextBlock()),
     ('image', ImageChooserBlock()),
-    ('video', VideoBlock()),
-    ('iframe', iFrameBlock()),
-    ('linkbutton', LinkButtonBlock()),
-    ('spacer', VerticalSpacerBlock()),
+    ('video', customblocks.VideoBlock()),
+    ('iframe', customblocks.iFrameBlock()),
+    ('linkbutton', customblocks.LinkButtonBlock()),
+    ('spacer', customblocks.VerticalSpacerBlock()),
 ]
 
 
@@ -174,20 +85,12 @@ class MiniSiteNameSpace(ModularPage):
         return context
 
 
-class CTA(SortableMixin):
-    title = models.CharField(
+class CTA(models.Model):
+    name = models.CharField(
         default='',
         max_length=100,
         help_text='Identify this component for other editors',
     )
-
-    @property
-    def name(self):
-        return self.title
-
-    @name.setter
-    def name(self, value):
-        self.title = value
 
     header = models.CharField(
         max_length=500,
@@ -206,18 +109,11 @@ class CTA(SortableMixin):
         default='mozilla-foundation'
     )
 
-    order = models.PositiveIntegerField(
-        default=0,
-        editable=False,
-        db_index=True,
-    )
-
     def __str__(self):
-        return str(self.name)
+        return self.name
 
     class Meta:
-        verbose_name_plural = 'cta'
-        ordering = ('order',)
+        verbose_name_plural = 'CTA'
 
 
 @register_snippet

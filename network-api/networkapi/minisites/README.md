@@ -14,15 +14,17 @@ The base app has the following directory structure:
   |     |  `- block template .html files
   |     |- tags
   |     |  |- cta
-  |     |  |  `- dir with some cta-tag related html fragments 
-  |     |  `- template-tag-related html fragments 
+  |     |  |  `- dir with some cta-tag related html fragments
+  |     |  `- template-tag-related html fragments
   |     `- page template .html files
   |
   |- templatetags
   |  `- mini_site_tags.py
   |
-  `- models.py
-``` 
+  |- customblocks.py
+  |- models.py
+  `- README.md
+```
 
 # The basic minisite app architecture
 
@@ -33,7 +35,7 @@ The minisites app defines four page models in the following hierarchy:
 ```
 - ModularPage
   `- MiniSiteNameSpace
-     |- OpportunityPage 
+     |- OpportunityPage
      `- CampaignPage
 ```
 
@@ -41,13 +43,13 @@ The minisites app defines four page models in the following hierarchy:
 
 Houses all basic functionality, and is not intended for actual page creation. This class determines all the various StreamField blocks that can be used in subclassing pages.
 
-Its template in `minisites/templates/minisites/modular_page.html` defines the full HTML page for any minisite page, with placeholder blocks for actual content. 
+Its template in `minisites/templates/minisites/modular_page.html` defines the full HTML page for any minisite page, with placeholder blocks for actual content.
 
 #### 1.1 MiniSiteNameSpace
 
 Adds minisite specific context variables for templating purposes, and is used as namespace 'root'. This page type can only have `OpportunityPage` and `CampaignPage` as children.
 
-Its template in `minisites/templates/minisites/mini_site_page.html` has concrete definitions for all the mini-site-relevant blocks that pages may need.   
+Its template in `minisites/templates/minisites/mini_site_page.html` has concrete definitions for all the mini-site-relevant blocks that pages may need.
 
 #### 1.1.1 OpportunityPage
 
@@ -74,7 +76,7 @@ This is an empty subclass of CTA, as the base fields already cover the signup CT
 #### 2. Petition
 
 This is a subclass of CTA that adds checkbox labels and google form identifiers for ensuring that petition form data can be captured in a specific google form. See its definition in `models.py` for the full list of fields this CTA makes use of.
- 
+
 
 ## Stream blocks
 
