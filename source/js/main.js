@@ -255,7 +255,7 @@ let main = {
       let targets = document.querySelectorAll(`.pulse-project-list`);
 
       Array.prototype.forEach.call(targets, (target) => {
-        ReactDOM.render(<PulseProjectList env={env} tags={target.getAttribute(`for`)}/>, target);
+        ReactDOM.render(<PulseProjectList env={env} query={target.getAttribute(`for`)}/>, target);
       });
     }
   }
