@@ -80,7 +80,7 @@ This is a subclass of CTA that adds checkbox labels and google form identifiers 
 
 ## Stream blocks
 
-In addition to the standard Wagtail-supplied blocks, `models.py` defines the following custom blocks that can be used to build out content on pages:
+In addition to the standard Wagtail-supplied blocks, the `customblocks.py` files defines the following custom blocks that can be used to build out content on pages:
 
 #### 1. LinkButtonBlock
 
@@ -94,13 +94,13 @@ This block sets up a text-with-image (image can be placed either right or left o
 
 This is a purely cosmetic block, effecting vertical whitespace as specified in `rem` units. It uses `networkapi/templates/minisites/blocks/vertical_spacer_block.html` as its rendering template.
 
-#### 4 .VideoBlock
-
-This is an embed block that yields an iframe to an online video, with explicit width/heigh dimensions in pixels. It uses `networkapi/templates/minisites/blocks/video_block.html` as its rendering template.
-
-#### 5. iFrameBlock
+#### 4. iFrameBlock
 
 This is identical to the `VideoBlock`, but effects a straight-up iframe element, using `networkapi/templates/minisites/blocks/iframe_block.html` as its rendering template.
+
+#### 5 .VideoBlock
+
+This is an embed block that yields an iframe to an online video, with explicit width/heigh dimensions in pixels. It uses `networkapi/templates/minisites/blocks/video_block.html` as its rendering template.
 
 ## Template tags
 
