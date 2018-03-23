@@ -31,13 +31,20 @@ export default class PulseProjectList extends React.Component {
 
   render() {
     let projectList = this.state.projects.map((project, index) => {
+
+      let byline = null;
+
+      if (project.related_creators.length) {
+        byline = `By ${project.related_creators.map(rc => rc.name).join(`, `)}`;
+      }
+
       return (
         <div className="col-sm-12 col-md-4 mb-4 mb-md-0" key={`pulse-project-${index}`}>
           <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`}>
-            <img className="project-image" src={project.thumbnail} />
+            { project.thumbnail && <img className="project-image" src={project.thumbnail} /> }
             <h5 className="h5-black my-2">{project.title}</h5>
           </a>
-          <p className="small-gray my-1">By Zannah Marsh, Abigail Cabunoc Mayes, Rizwan Tufail, Chad Sansing</p>
+          { byline && <p className="small-gray my-1">{byline}</p> }
         </div>
       );
     });
