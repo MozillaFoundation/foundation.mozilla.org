@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class PulseProjectList extends React.Component {
   constructor(props) {
@@ -46,3 +47,9 @@ export default class PulseProjectList extends React.Component {
     );
   }
 }
+
+PulseProjectList.propTypes = {
+  env: PropTypes.object.isRequired,
+  query: PropTypes.string.isRequired,
+  max: PropTypes.number
+};
