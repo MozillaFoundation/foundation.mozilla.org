@@ -19,8 +19,8 @@ base_fields = [
     ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
-            'bold','italic',
-            'h2','h3','h4','h5',
+            'bold', 'italic',
+            'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
             'link', 'image',
         ]
