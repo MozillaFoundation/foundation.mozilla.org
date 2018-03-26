@@ -17,7 +17,7 @@ export default class PulseProjectList extends React.Component {
       let projects = JSON.parse(projectXHR.response);
 
       this.setState({
-        projects: projects.results.slice(0, this.props.max || 6)
+        projects: this.props.max ? projects.results.slice(0, this.props.max) : projects.results
       });
     });
 
