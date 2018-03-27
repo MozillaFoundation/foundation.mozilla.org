@@ -16,6 +16,14 @@ export default class PulseProjectList extends React.Component {
     projectXHR.addEventListener(`load`, () => {
       let projects = JSON.parse(projectXHR.response);
 
+      projects.results = projects.results.sort((a,b) => {
+        if (this.props.reverseChronological) {
+          return Date.parse(a.created) < Date.parse(b.created) ? 1 : -1;
+        } else {
+          return Date.parse(a.created) > Date.parse(b.created) ? 1 : -1;
+        }
+      });
+
       this.setState({
         projects: this.props.max ? projects.results.slice(0, this.props.max) : projects.results
       });
@@ -58,5 +66,11 @@ export default class PulseProjectList extends React.Component {
 PulseProjectList.propTypes = {
   env: PropTypes.object.isRequired,
   query: PropTypes.string.isRequired,
-  max: PropTypes.number
+  max: PropTypes.number,
+  reverseChronological: PropTypes.bool
+};
+
+PulseProjectList.defaultProps = {
+  max: null,
+  reverseChronological: true
 };

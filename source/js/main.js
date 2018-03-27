@@ -255,7 +255,14 @@ let main = {
       let targets = document.querySelectorAll(`.pulse-project-list`);
 
       Array.prototype.forEach.call(targets, (target) => {
-        ReactDOM.render(<PulseProjectList env={env} query={target.getAttribute(`for`)}/>, target);
+        return ReactDOM.render(
+          <PulseProjectList
+            env={env}
+            query={target.getAttribute(`for`)}
+            reverseChronological={target.getAttribute(`rev`) === null || target.getAttribute(`rev`) === `true`}
+            max={parseInt(target.getAttribute(`size`), 10) || null} />,
+          target
+        );
       });
     }
   }
