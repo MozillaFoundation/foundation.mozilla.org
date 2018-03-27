@@ -39,10 +39,10 @@ export default class PulseProjectList extends React.Component {
       }
 
       return (
-        <div className="col-sm-12 col-md-4 mb-4 mb-md-0" key={`pulse-project-${index}`}>
+        <div className="col-sm-12 col-md-4 my-4" key={`pulse-project-${index}`}>
           <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`}>
-            { project.thumbnail && <img className="project-image" src={project.thumbnail} /> }
-            <h5 className="h5-black my-2">{project.title}</h5>
+            <img className={`project-image${ project.thumbnail ? `` : ` placeholder` }`} src={ project.thumbnail ? project.thumbnail : `/_images/proportional-spacer.png` }/>
+            <h5 className="project-title h5-black my-2">{project.title}</h5>
           </a>
           { byline && <p className="small-gray my-1">{byline}</p> }
         </div>
