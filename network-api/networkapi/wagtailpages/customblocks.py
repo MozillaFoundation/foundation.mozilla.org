@@ -46,7 +46,7 @@ class LinkButtonBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'link'
-        template = 'minisites/blocks/link_button_block.html'
+        template = 'wagtailpages/blocks/link_button_block.html'
         value_class = LinkButtonValue
 
 
@@ -63,7 +63,7 @@ class ImageTextBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'doc-full'
-        template = 'minisites/blocks/image_text_block.html'
+        template = 'wagtailpages/blocks/image_text_block.html'
 
 
 class VerticalSpacerBlock(blocks.StructBlock):
@@ -71,7 +71,7 @@ class VerticalSpacerBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'arrows-up-down'
-        template = 'minisites/blocks/vertical_spacer_block.html'
+        template = 'wagtailpages/blocks/vertical_spacer_block.html'
         help_text = 'the number of "rem" worth of vertical spacing'
 
 
@@ -82,7 +82,7 @@ class iFrameBlock(blocks.StructBlock):
     height = blocks.IntegerBlock(default=450)
 
     class Meta:
-        template = 'minisites/blocks/iframe_block.html'
+        template = 'wagtailpages/blocks/iframe_block.html'
 
 
 class VideoBlock(blocks.StructBlock):
@@ -92,4 +92,4 @@ class VideoBlock(blocks.StructBlock):
     height = blocks.IntegerBlock(default=450)
 
     class Meta:
-        template = 'minisites/blocks/video_block.html'
+        template = 'wagtailpages/blocks/video_block.html'

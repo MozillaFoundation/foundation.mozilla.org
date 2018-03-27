@@ -166,8 +166,8 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.highlights',
     'networkapi.milestones',
 
-    # wagtail-specific "networkapi" data
-    'networkapi.minisites',
+    # wagtail-specific app
+    'networkapi.wagtailpages',
 ]))
 
 MIDDLEWARE = list(filter(None, [
@@ -267,7 +267,7 @@ TEMPLATES = [
                                       '.adminsortable_tags_custom',
                 'settings_value': 'networkapi.utility.templatetags'
                                   '.settings_value',
-                'mini_site_tags': 'networkapi.minisites.templatetags.mini_site_tags',
+                'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
             }
         },
     },

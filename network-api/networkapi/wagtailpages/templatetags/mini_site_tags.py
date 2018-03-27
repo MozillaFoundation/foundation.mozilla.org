@@ -4,7 +4,7 @@ register = template.Library()
 
 
 # Instantiate a mini-site sidebar menu based on the current page's relation to other pages
-@register.inclusion_tag('minisites/tags/mini_site_sidebar.html', takes_context=True)
+@register.inclusion_tag('wagtailpages/tags/mini_site_sidebar.html', takes_context=True)
 def mini_site_sidebar(context, page):
     children = page.get_children().live()
 
@@ -24,7 +24,7 @@ def mini_site_sidebar(context, page):
 
 
 # Render a page's CTA (petition, signup, etc.)
-@register.inclusion_tag('minisites/tags/cta.html', takes_context=True)
+@register.inclusion_tag('wagtailpages/tags/cta.html', takes_context=True)
 def cta(context, page):
     cta = page.cta
     return {
