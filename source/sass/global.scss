@@ -18,7 +18,7 @@ body {
     background:
       linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%),
       url(../_images/hero-image-crop@2x.jpg) center top / auto 100% no-repeat,
-      url(../_images/bg-repeat-crop@2x.jpg) center top / auto 100% repeat-x;
+      url(../_images/bg-repeat-crop@2x.jpg) center top / 1px 100% repeat-x;
     background-blend-mode: overlay, normal, normal;
   }
 
