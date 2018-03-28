@@ -22,7 +22,7 @@ base_fields = [
             'bold', 'italic',
             'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
-            'link', 'image',
+            'link', 'image', 'hr',
         ]
     )),
     ('image_text', customblocks.ImageTextBlock()),
