@@ -520,5 +520,5 @@ if DEBUG and not DISABLE_DEBUG_TOOLBAR:
         return True
 
     DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
     }

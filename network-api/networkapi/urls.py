@@ -23,7 +23,6 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 
 import mezzanine
-from mezzanine.conf import settings
 
 from networkapi.views import EnvVariablesView
 
