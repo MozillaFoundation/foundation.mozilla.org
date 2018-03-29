@@ -12,6 +12,7 @@
     </div>
   </div>
   {% endif %}
+
   <div class="hidden-md-up" id="multipage-nav-mobile">
     <div class="container">
       <div class="row px-3">
@@ -19,6 +20,7 @@
       </div>
     </div>
   </div>
+
   <div class="container">
     <div class="row">
       {% if page.parent.title != parentTitle %}
@@ -29,6 +31,7 @@
         </div>
       </div>
       {% endif %}
+
       <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
         {% if page.parent.title != parentTitle %}
         <p class="h5-black hidden-sm-down">{{ page.parent.title }}</p>
@@ -38,13 +41,13 @@
         <div class="cms">{{ page.landingpage.content | safe }}</div>
         {% endblock %}
       </div>
+
     </div>
   </div>
+
   <div class="container">
     <div class="row mb-5">
-
     </div>
-
 
     <div class="row mb-5">
       <div class="{% if page.parent.title != parentTitle %}col-md-12{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
@@ -57,4 +60,5 @@
       </div>
     </div>
   </div>
+
 {% endblock %}

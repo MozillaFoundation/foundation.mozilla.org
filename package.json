@@ -22,7 +22,7 @@
     "optimize:jpg": "find source/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "optimize": "run-p optimize:**",
-    "server": "cd network-api && source venv/bin/activate && python ./manage.py runserver",
+    "server": "cd network-api && python ./manage.py runserver",
     "start": "npm i && npm run build-uncompressed && run-p server watch:**",
     "snyk": "snyk test --file=package.json && snyk test --file=requirements.txt",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/**/*.js source/js/**/*.js source/js/components/**/*.jsx",
