@@ -25,6 +25,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../js/components/loading-indicator/loading-indicator';
 @import '../js/components/member-notice/member-notice';
 @import '../js/components/multipage-nav/multipage-nav';
+@import '../js/components/pulse-project-list/pulse-project-list';
 
 // Non-React Components
 

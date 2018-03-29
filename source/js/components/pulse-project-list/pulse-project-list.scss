@@ -1,0 +1,14 @@
+.pulse-project-list {
+  .project-image {
+    width: 100%;
+    max-height: none;
+  }
+
+  .placeholder {
+    background: linear-gradient(to right, #ff506f 0%, #a66efd 100%);
+  }
+
+  .project-title {
+    line-height: 1.15;
+  }
+}
