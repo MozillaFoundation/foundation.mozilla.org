@@ -153,6 +153,7 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
+    'debug_toolbar' if DEBUG is True else None,
 
     # the network site
     'networkapi',
@@ -187,6 +188,7 @@ MIDDLEWARE = list(filter(None, [
 
     'corsheaders.middleware.CorsMiddleware',
     'csp.middleware.CSPMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware' if DEBUG is True else None,
 
 
     'mezzanine.core.request.CurrentRequestMiddleware',

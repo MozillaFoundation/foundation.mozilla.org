@@ -52,3 +52,6 @@ factory_boy==2.9.2
 faker==0.8.10
 coverage==4.4.2
 python-coveralls==2.9.1
+
+# Debugging 
+django-debug-toolbar==1.9.1
