@@ -30,7 +30,7 @@ base_fields = [
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
-    ('spacer', customblocks.VerticalSpacerBlock()),
+    ('spacer', customblocks.BootstrapSpacerBlock()),
 ]
 
 
