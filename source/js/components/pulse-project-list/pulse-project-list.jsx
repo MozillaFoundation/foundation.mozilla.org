@@ -29,7 +29,7 @@ export default class PulseProjectList extends React.Component {
       });
     });
 
-    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/entries/?format=json&search=${query}`);
+    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?format=json&search=${query}`);
     projectXHR.send();
   }
 

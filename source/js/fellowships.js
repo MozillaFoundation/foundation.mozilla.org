@@ -28,7 +28,7 @@ function getFellows(params, callback) {
 
   req.addEventListener(`load`, () => callback(JSON.parse(req.response)));
 
-  req.open(`GET`, `https://${pulseApiDomain}/api/pulse/profiles/?${queryString}`);
+  req.open(`GET`, `https://${pulseApiDomain}/api/pulse/v2/profiles/?${queryString}`);
   req.send();
 }
 
