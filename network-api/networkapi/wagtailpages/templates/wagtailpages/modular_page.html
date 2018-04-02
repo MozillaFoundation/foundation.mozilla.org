@@ -1,0 +1,46 @@
+{% extends "pages/base-compiled.html" %}
+
+{% load wagtailcore_tags mini_site_tags %}
+
+{% block content %}
+
+  {% block minisite_title_mb %}{% endblock %}
+
+  <div class="hidden-md-up" id="multipage-nav-mobile">
+    <div class="container">
+      <div class="row px-3">
+        <div class="col-12"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      {% mini_site_sidebar page %}
+
+      <div class="{% block heading_classes %}py-5 col-12 col-lg-10 offset-lg-1{% endblock %}">
+        {% block mini_site_title %}{% endblock %}
+
+        {% block h1 %}{% endblock %}
+
+        {% block subcontent %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row mb-5">
+    </div>
+
+    <div class="row mb-5">
+      <div class="{% block pre_footer_classes %}col-12 col-lg-10 offset-lg-1{% endblock %}">
+        {% block signup %}{% endblock %}
+        <hr class="my-2">
+        <div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
+          <p class="body-black mb-0">This is part of a broader movement for a healthy internet. <a href="/">See more</a>.</p>
+        </div>
+        <hr class="my-2">
+      </div>
+    </div>
+  </div>
+{% endblock %}

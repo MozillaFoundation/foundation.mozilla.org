@@ -33,6 +33,7 @@ env = environ.Env(
     CORS_WHITELIST=(tuple, ()),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
+    DISABLE_DEBUG_TOOLBAR=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     ENABLE_WAGTAIL=(bool, False),
@@ -71,6 +72,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+DISABLE_DEBUG_TOOLBAR = env('DISABLE_DEBUG_TOOLBAR')
 
 # This should only be set to True in Heroku review apps
 EXECUTE_FAKE_DATA = env('EXECUTE_FAKE_DATA')
@@ -120,6 +122,9 @@ INSTALLED_APPS = list(filter(None, [
     'django.contrib.staticfiles',
     'django.contrib.redirects',
 
+    'debug_toolbar'
+    if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
+
     'mezzanine.boot',
     'mezzanine.conf',
     'mezzanine.core',
@@ -127,20 +132,21 @@ INSTALLED_APPS = list(filter(None, [
     'mezzanine.pages',
     'mezzanine.forms',
 
-    'networkapi.wagtailcustomization' if ENABLE_WAGTAIL else None,
+    'networkapi.wagtailcustomization',
 
-    'wagtail.wagtailforms' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailredirects' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailembeds' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailsites' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailsearch' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailadmin' if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailcore',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites' if ENABLE_WAGTAIL else None,
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search' if ENABLE_WAGTAIL else None,
+    'wagtail.admin' if ENABLE_WAGTAIL else None,
+    'wagtail.core',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.styleguide' if ENABLE_WAGTAIL and DEBUG else None,
 
     'modelcluster',
     'taggit',
@@ -164,6 +170,9 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.campaign',
     'networkapi.highlights',
     'networkapi.milestones',
+
+    # wagtail-specific app
+    'networkapi.wagtailpages',
 ]))
 
 MIDDLEWARE = list(filter(None, [
@@ -181,9 +190,11 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
+
     'corsheaders.middleware.CorsMiddleware',
     'csp.middleware.CSPMiddleware',
-
 
     'mezzanine.core.request.CurrentRequestMiddleware',
     'mezzanine.core.middleware.RedirectFallbackMiddleware',
@@ -192,9 +203,9 @@ MIDDLEWARE = list(filter(None, [
     'mezzanine.pages.middleware.PageMiddleware',
     'mezzanine.core.middleware.FetchFromCacheMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware'
+    'wagtail.core.middleware.SiteMiddleware'
     if ENABLE_WAGTAIL else None,
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware'
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware'
     if ENABLE_WAGTAIL else None,
 ]))
 
@@ -262,7 +273,8 @@ TEMPLATES = [
                 'adminsortable_tags': 'networkapi.utility.templatetags'
                                       '.adminsortable_tags_custom',
                 'settings_value': 'networkapi.utility.templatetags'
-                                  '.settings_value'
+                                  '.settings_value',
+                'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
             }
         },
     },
@@ -498,3 +510,15 @@ except ImportError:
     pass
 else:
     set_dynamic_settings(globals())
+
+
+# DEBUG toolbar
+if DEBUG and not DISABLE_DEBUG_TOOLBAR:
+    INTERNAL_IPS = ('127.0.0.1',)
+
+    def show_toolbar(request):
+        return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+    }

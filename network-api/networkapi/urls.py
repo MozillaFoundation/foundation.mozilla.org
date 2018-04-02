@@ -15,14 +15,14 @@ Including another URLconf
 '''
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
-from wagtail.wagtailadmin import urls as wagtailadmin_urls
-from wagtail.wagtaildocs import urls as wagtaildocs_urls
-from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.core import urls as wagtail_urls
 
 import mezzanine
-from mezzanine.conf import settings
 
 from networkapi.views import EnvVariablesView
 
@@ -67,3 +67,9 @@ if settings.USE_S3 is not True:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

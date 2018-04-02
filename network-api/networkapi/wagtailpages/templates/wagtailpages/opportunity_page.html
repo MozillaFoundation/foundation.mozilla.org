@@ -1,0 +1,8 @@
+{% extends "./mini_site_page.html" %}
+{% load wagtailcore_tags mini_site_tags %}
+
+{% block signup %}
+	{% if page.cta %}
+        {% cta page %}
+	{% endif %}
+{% endblock %}

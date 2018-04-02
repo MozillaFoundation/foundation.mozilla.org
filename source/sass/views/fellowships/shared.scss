@@ -52,26 +52,6 @@
   }
 }
 
-#fellowships-directory-filter {
-  background: $off-white;
-
-  .btn.btn-link {
-    display: inline-block;
-    text-align: left;
-    padding: 0;
-    border: 0;
-    font-weight: 500;
-    color: inherit;
-
-    &:not(:last-child)::after {
-      content: "|";
-      display: inline-block;
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-  }
-}
-
 #fellowships-application-cta-banner {
   background: $off-white;
 

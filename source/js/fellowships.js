@@ -6,10 +6,19 @@ import ReactDOM from 'react-dom';
 import Person from './components/people/person.jsx';
 import LoadingIndicator from './components/loading-indicator/loading-indicator.jsx';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
+// Currently just showing fellows for current year,
+//  but can be modified to an array of years (Numbers and/or Strings)
+const DIRECTORY_PROGRAM_YEARS = [CURRENT_YEAR, CURRENT_YEAR + 1];
+
 let pulseApiDomain = ``;
 let pulseDomain = ``;
-const DIRECTORY_PAGE_FILTER_OPTIONS = {'program_year': `2017`};
-const DIRECTORY_PAGE_TYPE_ORDER = [ `science`, `open web`, `tech policy`, `media`];
+
+// NOTE: sort on client side for now since API doesn't have the ability
+// to return alphabetically sorted list
+const sortByName = (a, b) =>
+  a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
 
 function getFellows(params, callback) {
   Object.assign(params, {'profile_type': `fellow`});
@@ -19,7 +28,7 @@ function getFellows(params, callback) {
 
   req.addEventListener(`load`, () => callback(JSON.parse(req.response)));
 
-  req.open(`GET`, `https://${pulseApiDomain}/api/pulse/profiles/?${queryString}`);
+  req.open(`GET`, `https://${pulseApiDomain}/api/pulse/v2/profiles/?${queryString}`);
   req.send();
 }
 
@@ -27,6 +36,10 @@ function renderFellowCard(fellow) {
   // massage fellow's Pulse profile data and pass it to <Person> to render
 
   let links = {};
+  let programType = fellow.program_type && fellow.program_type.toLowerCase() === `in residence` ? `Fellow in Residence` : fellow.program_type;
+  let issues = fellow.issues;
+
+  issues.unshift(programType);
 
   if ( fellow.twitter ) {
     links.twitter = fellow.twitter;
@@ -37,17 +50,17 @@ function renderFellowCard(fellow) {
   }
 
   let metadata = {
-    'internet_health_issues': fellow.issues,
+    'internet_health_issues': issues,
     links: links,
-    name: fellow.custom_name,
-    role: `${fellow.profile_type}, ${fellow.program_type} ${fellow.program_year}`,
+    name: fellow.name,
+    role: `${fellow.profile_type}, ${fellow.program_year}`,
     image: fellow.thumbnail,
     location: fellow.location,
     affiliations: [], // don't show affiliations meta for now
     'custom_link': { text: `See work`, link: `https://${pulseDomain}/profile/${fellow.profile_id}` }
   };
 
-  return <Person metadata={metadata} key={fellow.custom_name} />;
+  return <Person metadata={metadata} key={fellow.name} />;
 }
 
 function groupFellowsByAttr(attribute, fellows) {
@@ -77,86 +90,62 @@ function groupFellowsByAttr(attribute, fellows) {
 }
 
 function renderFellowsOnDirectoryPage() {
-  const CONTAINER = document.getElementById(`fellows-directory-featured-fellows`);
-
-  let getTypeSlug = function(type) {
-    return type.toLowerCase().replace(`fellow`,``).trim().replace(/\s/g, `-`);
-  };
-
-  let renderFilterOption = function(option) {
-    return <button
-      className="btn btn-link text-capitalize"
-      key={option}
-      onClick={(event) => { window.scrollTo(0, document.getElementById(event.target.dataset.targetId).offsetTop); }}
-      data-target-id={`fellowships-directory-${getTypeSlug(option)}`}
-    >
-      {option}
-    </button>;
-  };
+  const CONTAINER = document.getElementById(`fellows-directory-current`);
 
   // show loading indicator
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
   // get fellow info from Pulse
-  getFellows(DIRECTORY_PAGE_FILTER_OPTIONS, fellows => {
-    // render filter bar
-    let filterBar = <div className="row">
+  getFellows({}, fellows => {
+    fellows = fellows.filter(fellow => {
+      // NOTE: we don't have that many fellows yet
+      // so it's faster to do client side filtering than making multiple API calls
+      // just to get fellows from years specified in DIRECTORY_PROGRAM_YEARS
+      let matched = false;
+
+      for (let i = 0; i < DIRECTORY_PROGRAM_YEARS.length; i++) {
+        if (fellow.program_year && fellow.program_year === DIRECTORY_PROGRAM_YEARS[i].toString()) {
+          matched = true;
+          break;
+        }
+      }
+
+      return matched;
+    }).sort(sortByName);
+
+    let section = <div className="row my-4" id={`fellowships-directory-`}>
       <div className="col-12">
-        <div id="fellowships-directory-filter" className="d-flex flex-wrap p-2">
-          <div className="d-inline-block mr-2"><strong>Areas:</strong></div>
-          { DIRECTORY_PAGE_TYPE_ORDER.map(renderFilterOption) }
+        <div className="row">
+          {fellows.map(renderFellowCard)}
         </div>
+      </div>
+      <div className="col-12 text-center mt-3 mb-5">
+        <a href="/fellowships/directory/archive" className="btn btn-ghost">See Fellows from Previous Years</a>
       </div>
     </div>;
 
-    // render program type sections
-    let fellowsByType = groupFellowsByAttr(`program_type`, fellows);
-    let sections = Object.keys(fellowsByType).sort((a, b) => {
-      let aIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(a);
-      let bIndex = DIRECTORY_PAGE_TYPE_ORDER.indexOf(b);
-
-      return aIndex - bIndex;
-    }).map(type => {
-      // don't render any fellow profiles that we don't intend to show
-      if (DIRECTORY_PAGE_TYPE_ORDER.indexOf(type) < 0) {
-        return null;
-      }
-
-      return <div className="row my-4" key={type} id={`fellowships-directory-${getTypeSlug(type)}`}>
-        <div className="col-12">
-          <h3 className="h3-black text-capitalize">{type} Fellows</h3>
-          <div className="row">
-            {fellowsByType[type].map(renderFellowCard)}
-          </div>
-        </div>
-        <div className="col-12 text-center mt-3 mb-5">
-          <a href={`/fellowships/directory/${getTypeSlug(type)}`} className="btn btn-ghost">See all {type} Fellows</a>
-        </div>
-      </div>;
-    });
-
-    ReactDOM.render(<div>{filterBar}<div className="featured-fellow">{sections}</div></div>, CONTAINER);
+    ReactDOM.render(<div className="featured-fellow">{section}</div>, CONTAINER);
   });
 }
 
 function renderFellowsOnDirectoryByTypePage() {
-  const CONTAINER = document.getElementById(`fellows-directory-fellows-by-type`);
+  const CONTAINER = document.getElementById(`fellows-directory-archive`);
 
   // show loading indicator
   ReactDOM.render(<div className="mx-auto my-5 text-center"><LoadingIndicator /></div>, CONTAINER);
 
   // get fellow info from Pulse
-  getFellows({'program_type': `${CONTAINER.dataset.type}`}, fellows => {
+  getFellows({}, fellows => {
     let fellowsByYear = groupFellowsByAttr(`program_year`, fellows);
 
-    let sections = Object.keys(fellowsByYear).sort().reverse().map(year => {
+    let sections = Object.keys(fellowsByYear).filter((year) => parseInt(year, 10) < CURRENT_YEAR).sort().reverse().map(year => {
       return <div className="row mb-5" key={year}>
         <div className="col-12">
           <div className="mb-4">
             <h2 className="h2-typeaccents-gray">{year}</h2>
           </div>
         </div>
-        {fellowsByYear[year].map(renderFellowCard)}
+        {fellowsByYear[year].sort(sortByName).map(renderFellowCard)}
       </div>;
     });
 
@@ -170,12 +159,12 @@ function injectReactComponents(env) {
   pulseDomain = env.PULSE_DOMAIN;
 
   // Fellows on Fellows Directory page
-  if (document.getElementById(`fellows-directory-featured-fellows`)) {
+  if (document.getElementById(`fellows-directory-current`)) {
     renderFellowsOnDirectoryPage();
   }
 
   // Fellows on individual Directory page (e.g., science directory, open web directory)
-  if (document.getElementById(`fellows-directory-fellows-by-type`)) {
+  if (document.getElementById(`fellows-directory-archive`)) {
     renderFellowsOnDirectoryByTypePage();
   }
 }

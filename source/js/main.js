@@ -17,6 +17,7 @@ import Leaders from './components/leaders/leaders.jsx';
 import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import Upcoming from './components/upcoming/upcoming.jsx';
+import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
 
 import fellowships from './fellowships';
 
@@ -248,6 +249,22 @@ let main = {
 
     // Fellowships pages related components
     fellowships.injectReactComponents(env);
+
+    // Pulse project lists
+    if (document.querySelectorAll(`.pulse-project-list`).length) {
+      let targets = document.querySelectorAll(`.pulse-project-list`);
+
+      Array.prototype.forEach.call(targets, (target) => {
+        return ReactDOM.render(
+          <PulseProjectList
+            env={env}
+            query={target.getAttribute(`for`)}
+            reverseChronological={target.getAttribute(`rev`) === null || target.getAttribute(`rev`) === `true`}
+            max={parseInt(target.getAttribute(`size`), 10) || null} />,
+          target
+        );
+      });
+    }
   }
 };
 
