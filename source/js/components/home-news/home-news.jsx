@@ -20,8 +20,7 @@ export default class HomeNews extends React.Component {
           <h5 className="mb-2">
             <a href={item.link} className={featured ? `h4-medium-black` : `h5-black`}>{item.headline}</a>
           </h5>
-          { item.author && <p className="italic-black mb-1">by {item.author}</p> }
-          <p className="small-gray">{moment(item.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}</p>
+          <p className="small-gray">by { item.author } on {moment(item.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}</p>
           { item.excerpt && <p className="body-black">{item.excerpt}</p> }
           { hr && <hr/> }
         </div>
