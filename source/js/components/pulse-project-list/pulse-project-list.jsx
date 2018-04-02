@@ -29,7 +29,8 @@ export default class PulseProjectList extends React.Component {
       });
     });
 
-    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?format=json&search=${query}`);
+
+    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?format=json&search=${query}${this.props.featured ? `&featured=True` : ``}`);
     projectXHR.send();
   }
 
@@ -67,10 +68,12 @@ PulseProjectList.propTypes = {
   env: PropTypes.object.isRequired,
   query: PropTypes.string.isRequired,
   max: PropTypes.number,
-  reverseChronological: PropTypes.bool
+  reverseChronological: PropTypes.bool,
+  featured: PropTypes.bool
 };
 
 PulseProjectList.defaultProps = {
   max: null,
-  reverseChronological: true
+  reverseChronological: true,
+  featured: false
 };
