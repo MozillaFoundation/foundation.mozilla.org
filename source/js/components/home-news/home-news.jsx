@@ -13,14 +13,14 @@ export default class HomeNews extends React.Component {
     let newsItem = (item, featured=false, index=null, hr=false) => {
       return (
         <div className="news-item" key={index}>
-          <div className="d-flex align-items-center mb-3">
+          <div className="d-flex align-items-center mb-2">
             { item.glyph && <img src={item.glyph} className="mr-2 glyph"/> }
             <p className="h6-gray mb-0">{item.outlet}</p>
           </div>
           <h5 className="mb-2">
             <a href={item.link} className={featured ? `h4-medium-black` : `h5-black`}>{item.headline}</a>
           </h5>
-          <p className="small-gray">by { item.author } on {moment(item.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}</p>
+          <p className="small-gray mb-2">by { item.author } on {moment(item.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}</p>
           { item.excerpt && <p className="body-black">{item.excerpt}</p> }
           { hr && <hr/> }
         </div>
@@ -36,7 +36,7 @@ export default class HomeNews extends React.Component {
 
     return (
       <div className="row mb-3">
-        <div className="col-md-6 mb-3 pb-5">
+        <div className="col-md-6 mb-0 pb-4">
           <div className="play-button-wrapper">
             <img src={featuredNews.thumbnail}/>
             { featuredNews.is_video && <a href={featuredNews.link} className="play-button-overlay"></a> }
@@ -49,7 +49,7 @@ export default class HomeNews extends React.Component {
             </div>
           </div>
         </div>
-        <div className="col-md-6 pb-4">{ unfeaturedNews }</div>
+        <div className="col-md-6 mb-0 pb-4">{ unfeaturedNews }</div>
       </div>
     );
   }
