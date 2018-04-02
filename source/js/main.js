@@ -254,7 +254,6 @@ let main = {
     if (document.querySelectorAll(`.pulse-project-list`).length) {
       let targets = document.querySelectorAll(`.pulse-project-list`);
 
-
       Array.prototype.forEach.call(targets, (target) => {
         return ReactDOM.render(
           <PulseProjectList
