@@ -10,7 +10,7 @@
 
 ### Setup
 
-**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3](https://www.python.org/), [pip](https://pypi.python.org/pypi), optionally [virtualenv](https://virtualenv.pypa.io/en/stable/)
+**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), optionally [virtualenv](https://virtualenv.pypa.io/en/stable/)
 
 Run the following terminal commands to get started:
 
@@ -27,13 +27,15 @@ Switch into the `network-api` sub-directory:
 
 - `cd network-api`
 
-Next, create a virtual environment using either `virtualenv` or `python3`'s virtual environment invocation. For the purposes of this README.md it is assumed you called this virtual environment `venv`.
+Next, create a virtual environment called `venv`
 
-#### Important note for systems with python *and* python3
+MacOS:
+- `python3 -m venv venv`
 
-In order to make sure your virtual environment will be using python 3.x you will have to explicitly tell the system it should use point to `python3` whenever it invokes python:
+Windows:
+- `virtualenv venv`
 
-- `virtualenv -p python3 venv`
+(If you're on a Mac, you might need to run `brew upgrade python` to make sure you're using 3.6. You might also have to chage some PATHs but that's beyond the scope of this document)
 
 #### Bootstrap the virtual environment
 
@@ -47,6 +49,11 @@ Activate the virtual environment:
 Install all dependencies into the virtual environment:
 
 - `pip install -r ../requirements.txt`
+
+#### Check Python version
+
+- `python --version`
+If that doesn't return 3.6 or greater, you probably need to start Googling to figure out why.
 
 #### Run migrate and load fake model data
 
