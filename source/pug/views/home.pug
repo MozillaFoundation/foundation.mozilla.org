@@ -5,32 +5,46 @@ block masterParams
 
 include ../partials/pulse-projects.pug
 
-//- block heroGuts
-
 block content
   .container
+    .row.mt-5
+      .col-md-6
+        h1.h1-white India's National Registration System
+        p.lead-black Join Mozilla's Executive Chairwoman, Mitchell Baker in signing an open letter to the Justice Srikrishna Committee highlighting our main concerns.
+        a.btn.btn-pop Take Action
+      .col-md-6
+        img(src=`/_images/homepage/phone-bar.jpg`)
     .row
       .col.my-5
         hr.hr-gradient.mt-0
-        h4.h2-headings-white Latest from the Network
+        h4.h2-headings-white Latest news
     #home-news
     .row
       .col.text-center.mb-5
         a.btn.btn-ghost(href=`/news`) View more news
 
     .row
-      .col.my-5
-        hr.hr-gradient
-        h4.h2-headings-white Network Leaders
-    #featured-people-box.mb-sm-5
-    .row
-      .col.text-center.mb-5
-        a.btn.btn-ghost(href=`/people`) Meet More Leaders
-
-    .row
       .col.mb-5
         hr.hr-gradient
-        h4.h2-headings-white Get Involved
+        h4.h2-headings-white Happening now
     #home-highlights
+
+    .row
+      .col.mb-3
+        hr.hr-gradient
+    .row
+      .col-md-6
+        h4.h2-headings-white Trending projects
+      .col-md-6.d-flex.justify-content-end
+        a.cta-link(href=`https://www.mozillapulse.org/add`) Add your project
+    .row
+      .col
+        .pulse-project-list(for="", size="6")
+    .row
+      .col.text-center.mb-5
+        a.btn.btn-ghost(href=`https://www.mozillapulse.org`) More from our network
+    .row
+      .col.mb-3
+        hr.hr-gradient
 
     .join-us.full-width.col.mb-5
