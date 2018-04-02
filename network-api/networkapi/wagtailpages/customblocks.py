@@ -52,7 +52,7 @@ class LinkButtonBlock(blocks.StructBlock):
 
 class ImageTextBlock(blocks.StructBlock):
     text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'link',]
+        features=['bold', 'italic', 'link', ]
     )
     image = ImageChooserBlock()
     ordering = blocks.ChoiceBlock(
