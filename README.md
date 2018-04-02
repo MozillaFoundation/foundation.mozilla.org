@@ -29,7 +29,11 @@ Switch into the `network-api` sub-directory:
 
 Next, create a virtual environment called `venv`
 
+MacOS:
 - `python3 -m venv venv`
+
+Windows:
+- `virtualenv venv`
 
 (If you're on a Mac, you might need to run `brew upgrade python` to make sure you're using 3.6. You might also have to chage some PATHs but that's beyond the scope of this document)
 
@@ -45,6 +49,11 @@ Activate the virtual environment:
 Install all dependencies into the virtual environment:
 
 - `pip install -r ../requirements.txt`
+
+#### Check Python version
+
+- `python --version`
+If that doesn't return 3.6 or greater, you probably need to start Googling to figure out why.
 
 #### Run migrate and load fake model data
 
