@@ -1,0 +1,6 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<figure>
+	{% image value.image max-320x200 %}
+	<figcaption>{{ value.caption }}</figcaption>
+</figure>

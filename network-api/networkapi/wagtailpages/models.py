@@ -27,6 +27,8 @@ base_fields = [
     )),
     ('image_text', customblocks.ImageTextBlock()),
     ('image', ImageChooserBlock()),
+    ('figure', customblocks.FigureBlock()),
+    ('figuregrid', customblocks.FigureGridBlock()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
