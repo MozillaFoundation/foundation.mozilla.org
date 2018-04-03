@@ -21,11 +21,11 @@ let fetchJSON = (shortName, source) => {
 };
 
 if (process.env.PULSE_API_DOMAIN) {
-  fetchJSON(`pulse-privacy`, `http://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Online%20Privacy%20%26%20Security&featured=True&ordering=-created`);
-  fetchJSON(`pulse-innovation`, `http://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Open%20Innovation&featured=True&ordering=-created`);
-  fetchJSON(`pulse-inclusion`, `http://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Digital%20Inclusion&featured=True&ordering=-created`);
-  fetchJSON(`pulse-decentralization`, `http://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Decentralization&featured=True&ordering=-created`);
-  fetchJSON(`pulse-literacy`, `http://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Web%20Literacy&featured=True&ordering=-created`);
+  fetchJSON(`pulse-privacy`, `https://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Online%20Privacy%20%26%20Security&featured=True&ordering=-created`);
+  fetchJSON(`pulse-innovation`, `https://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Open%20Innovation&featured=True&ordering=-created`);
+  fetchJSON(`pulse-inclusion`, `https://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Digital%20Inclusion&featured=True&ordering=-created`);
+  fetchJSON(`pulse-decentralization`, `https://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Decentralization&featured=True&ordering=-created`);
+  fetchJSON(`pulse-literacy`, `https://${process.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?issue=Web%20Literacy&featured=True&ordering=-created`);
 } else {
   console.error(chalk.red(`PULSE_API_DOMAIN is undefined!`));
   shell.exit(2);

@@ -12,9 +12,12 @@ filebrowser_s3==1.0.0
 # Wagtail CMS
 wagtail==2.0
 
-# social auth is useful
+# Social auth is useful
 social-auth-core==1.1.0
 social-auth-app-django==1.1.0
+
+# As is debugging
+django-debug-toolbar==1.9.1
 
 # Database Adapter
 dj-database-url==0.4.1

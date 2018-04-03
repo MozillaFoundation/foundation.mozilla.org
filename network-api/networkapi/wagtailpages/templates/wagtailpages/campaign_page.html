@@ -1,2 +1,25 @@
 {% extends "./mini_site_page.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags mini_site_tags %}
+
+{% block subcontent %}
+<div class="row">
+    <div class="cms {% if page.cta and singleton_page == True %}col-md-6{% else %}col-12{% endif %}">
+    {% block html_content %}
+        {% for block in page.body %}
+	        {% if block.block_type == 'heading' %}
+	            <h1>{{ block.value }}</h1>
+	        {% else %}
+	            {% include_block block %}
+	        {% endif %}
+        {% endfor %}
+    {% endblock %}
+    </div>
+
+    {% if page.cta != None %}
+    <div class="col-md-6">
+        {% cta page %}
+        <script src="https://c.shpg.org/352/sp.js"></script>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -15,6 +15,7 @@ Including another URLconf
 '''
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from wagtail.admin import urls as wagtailadmin_urls
@@ -22,7 +23,6 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 
 import mezzanine
-from mezzanine.conf import settings
 
 from networkapi.views import EnvVariablesView
 
@@ -30,8 +30,6 @@ admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^soc/', include('social_django.urls', namespace='social'))
-    if settings.SOCIAL_SIGNIN else '',
     url(r'^fellowships/', include('networkapi.fellows.urls')),
 
     url(r'^cms/', include(wagtailadmin_urls))
@@ -50,6 +48,8 @@ urlpatterns = list(filter(None, [
         url='/fellowships/directory',
         query_string=True
     )),
+
+    url(r'^soc/', include('social_django.urls', namespace='social')),
 
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
@@ -72,3 +72,9 @@ if settings.USE_S3 is not True:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

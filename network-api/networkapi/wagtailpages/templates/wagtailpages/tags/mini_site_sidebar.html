@@ -1,12 +1,12 @@
 {% load wagtailcore_tags mini_site_tags %}
 
 {% if singleton_page == False %}
-<div class="col-12 col-md-3 mb-3 hidden-sm-down">
+<div class="py-5 col-md-3 mb-3 hidden-sm-down">
   <div class="multipage-nav" id="multipage-nav">
-    {% for page in menu_pages %}
+    {% for entry in menu_pages %}
     <div>
-      <a class="multipage-link {% if page.title == current.title %}multipage-link-active{% endif %}" href="{% pageurl page %}">
-        {% if page.specific.header %}{{ page.specific.header }}{% else %}{{ page.title }}{% endif %}
+      <a class="multipage-link {% if page.title == current.title %}multipage-link-active{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}
+        {% if entry.page.specific.header %}{{ entry.page.specific.header }}{% else %}{{ entry.page.title }}{% endif %}
       </a>
     </div>
     {% endfor %}
