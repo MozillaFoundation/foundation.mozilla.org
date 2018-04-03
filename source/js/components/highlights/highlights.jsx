@@ -29,10 +29,10 @@ export default class Highlights extends React.Component {
     let highlights = this.props.data.slice(2).map((item, index) => {
       return (
         <div className="row my-3" key={`highlight-${index}`}>
-          <div className="col-md-4 pt-3">
-            { item.image ? <img className="hidden-md-down" src={item.image}/> : <div className="hidden-md-down placeholder"></div> }
+          <div className="col-sm-12 col-md-4 pt-3 hidden-sm-down">
+            { item.image ? <img src={item.image}/> : <div className="placeholder"></div> }
           </div>
-          <div className="col-md-8 pt-3">
+          <div className="col-sm-12 col-md-8 pt-3">
             { index !== 0 && <hr className="mt-0 mb-4" /> }
             <h5 className="h5-black mb-3"><a href={item.link_url}>{item.title}</a></h5>
             <p className="body-black">{item.description}</p>
