@@ -1,8 +1,18 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div>
-	{% block prefix %}{% endblock %}
-	<div style="float:{{ value.ordering }}">{% image value.image height-100 %}</div>
-	<p>{{ value.text }}</p>
-	{% block affix %}{% endblock %}
+{% with small='col-6 col-md-3 mb-3' %}
+{% with large='col-12 col-md-9' %}
+
+<div class="row">
+    {% if value.ordering == 'left'%}
+	<div class="{{small}}">{% image value.image width-300 %}</div>
+    {% endif %}
+
+	<div class="{{large}}">{{value.text|richtext }}</div>
+
+    {% if value.ordering == 'right'%}
+	<div class="{{small}}">{% image value.image width-300 %}</div>
+    {% endif %}
 </div>
+{% endwith %}
+{% endwith %}
