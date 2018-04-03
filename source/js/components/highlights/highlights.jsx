@@ -9,37 +9,44 @@ export default class Highlights extends React.Component {
   }
 
   render() {
-    // Limit to 2 additional highlights
-    let highlights = this.props.data.slice(1, 3).map((item, index, array) => {
+    let superHighlights = this.props.data.slice(0, 2).map((item, index) => {
       return (
-        <div key={index}>
-          <h5 className="h4-light-black">{item.title}</h5>
-          <p className="body-black">{item.description}</p>
-          <a className="cta-link" href={item.link_url}>{item.link_label}</a>
-          { index < array.length - 1 && <hr/> }
+        <div className="col-xs-12 col-md-6" key={`super-highlight-${index}`}>
+          <div className={`${item.image ? `pb-5` : `py-5`}`}>
+            { item.image &&
+              <img src={item.image} />
+            }
+            <div className="key-item mx-2 mx-md-4 p-3">
+              <h5 className="h4-light-black">{item.title}</h5>
+              <p className="body-black">{item.description}</p>
+              <a className="cta-link mb-2" href={item.link_url}>{item.link_label}</a>
+            </div>
+          </div>
         </div>
       );
     });
 
-    let data = this.props.data[0];
-
-    return (
-      <div className="row">
-        <div className="col-xs-12 col-md-6 mb-5">
-          <div className={`${data.image ? `pb-5` : `py-5`}`}>
-            { data.image &&
-              <img src={data.image} />
-            }
-            <div className="key-item mx-2 mx-md-4 p-3">
-              <h5 className="h4-light-black">{data.title}</h5>
-              <p className="body-black">{data.description}</p>
-              <a className="cta-link mb-2" href={data.link_url}>{data.link_label}</a>
-            </div>
+    let highlights = this.props.data.slice(2).map((item, index) => {
+      return (
+        <div className="row my-3 highlight" key={`highlight-${index}`}>
+          <div className="col-md-4 pt-3">
+            { item.image ? <img src={item.image}/> : <div className="placeholder"></div> }
+          </div>
+          <div className="col-md-8 pt-3">
+            { index !== 0 && <hr className="mt-0 mb-4" /> }
+            <h5 className="h5-black"><a href={item.link_url}>{item.title}</a></h5>
+            <p className="body-black">{item.description}</p>
           </div>
         </div>
-        <div className="col-md-6 mb-5">
-          {highlights}
+      );
+    });
+
+    return (
+      <div className="mb-3">
+        <div className="row">
+          {superHighlights}
         </div>
+        {highlights}
       </div>
     );
   }

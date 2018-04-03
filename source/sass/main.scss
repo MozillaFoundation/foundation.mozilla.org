@@ -18,6 +18,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // React Components
 
+@import '../js/components/highlights/highlights';
 @import '../js/components/people/people';
 @import '../js/components/nav/nav';
 @import '../js/components/join/join';
