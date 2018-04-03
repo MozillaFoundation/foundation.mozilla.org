@@ -17,9 +17,8 @@ import Leaders from './components/leaders/leaders.jsx';
 import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import Upcoming from './components/upcoming/upcoming.jsx';
+import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
-
-import fellowships from './fellowships';
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -247,8 +246,21 @@ let main = {
       ReactDOM.render(<News env={env}/>, document.querySelector(`#news`));
     }
 
-    // Fellowships pages related components
-    fellowships.injectReactComponents(env);
+    // Fellowships single filter fellow list
+    if (document.querySelectorAll(`.single-filter-fellow-list`).length) {
+      let targets = document.querySelectorAll(`.single-filter-fellow-list`);
+
+      Array.prototype.forEach.call(targets, (target) => {
+        return ReactDOM.render(
+          <SingleFilterFellowList
+            env={env}
+            filterType={target.dataset.filterType}
+            filterOptions={target.dataset.filterOptions.split(`,`)}
+            selectedOption={target.dataset.selectedOption}
+          />, target
+        );
+      });
+    }
 
     // Pulse project lists
     if (document.querySelectorAll(`.pulse-project-list`).length) {

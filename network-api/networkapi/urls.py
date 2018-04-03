@@ -46,6 +46,11 @@ urlpatterns = list(filter(None, [
         query_string=True
     )),
 
+    url(r'^fellowships/directory/archive', RedirectView.as_view(
+        url='/fellowships/directory',
+        query_string=True
+    )),
+
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
     url(r'^api/news/', include('networkapi.news.urls')),
