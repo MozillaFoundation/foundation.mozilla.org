@@ -272,6 +272,7 @@ let main = {
             env={env}
             query={target.getAttribute(`for`)}
             reverseChronological={target.getAttribute(`rev`) === null || target.getAttribute(`rev`) === `true`}
+            featured={target.getAttribute(`checked`) !== null && target.getAttribute(`checked`) !== `false`}
             max={parseInt(target.getAttribute(`size`), 10) || null} />,
           target
         );
