@@ -131,3 +131,28 @@ class VideoBlock(blocks.StructBlock):
 
     class Meta:
         template = 'wagtailpages/blocks/video_block.html'
+
+
+class FigureBlock(blocks.StructBlock):
+    image = ImageChooserBlock()
+    caption = blocks.CharBlock(
+        required=False,
+        help_text='Please remember to properly attribute any images we use.'
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this figure should link out to.',
+    )
+
+    class Meta:
+        icon = 'picture'
+        template = 'wagtailpages/blocks/figure_block.html'
+
+
+class FigureGridBlock(blocks.StructBlock):
+    grid_items = blocks.ListBlock(FigureBlock())
+
+    class Meta:
+        # this is probably the wrong icon but let's run with it for now
+        icon = 'grip'
+        template = 'wagtailpages/blocks/figure_grid_block.html'
