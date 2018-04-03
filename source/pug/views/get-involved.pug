@@ -9,6 +9,24 @@ block heroGuts
 block content
   .container.py-5
     .row.mb-5
+      .col-6.col-md-3.mb-3.mb-md-0.feature-square
+        a(href=`/fellowships`)
+          img(src=`/_images/programs/image-fellowships@2x.jpg`)
+          h4.h4-medium-black Fellowships
+      .col-6.col-md-3.mb-3.mb-md-0.feature-square
+        a(href=`https://mozillafestival.org/`)
+          img(src=`/_images/programs/image-mozfest@2x.jpg`)
+          h4.h4-medium-black MozFest
+      .col-6.col-md-3.mb-3.mb-md-0.feature-square
+        a(href=`https://advocacy.mozilla.org/`)
+          img(src=`/_images/programs/image-advocacy@2x.jpg`)
+          h4.h4-medium-black Advocacy
+      .col-6.col-md-3.mb-3.mb-md-0.feature-square
+        a(href=`https://internethealthreport.org/`)
+          img(src=`/_images/programs/image-internet-health-report@2x.jpg`)
+          h4.h4-medium-black Internet Health Report
+
+    .row.mb-5
       .col-md-6
         img.mb-3(src=`/_images/programs/event.jpg`)
       .col-md-6
@@ -41,25 +59,12 @@ block content
 
     .row.mb-5
       .col-md-6
-        img.mb-3(src=`/_images/programs/grant.jpg`)
-      .col-md-6
-        h2.h3-black Grants
-        p We provide funding to promising people and big ideas. Our grants support gigabit technology laboratories, critical studies in emerging markets and more.
-        ul
-          li.mb-3: a.cta-link(href=`https://learning.mozilla.org/gigabit/apply`) Apply for Gigabit grant 2017
-          li.mb-3: a.cta-link(href=`http://hivenyc.org/portfolio/#/*`) See Hive NYC funded projects
-          li.mb-3: a.cta-link(href=`http://hivechicago.org/portfolio/#/*`) See Hive Chicago funded projects
-          li.mb-3: a.cta-link(href=`http://hivetoronto.org/portfolio/#/*`) See Hive Toronto funded projects
-
-    .row.mb-5
-      .col-md-6
         img.mb-3(src=`/_images/programs/local-organizing.jpg`)
       .col-md-6
         h2.h3-black Local Organizing
         p We connect passionate people in cities across five continents, from technologists in Chattanooga to educators in Cape Town. Our Network provides organizing best-practices and mutual support. In certain cities, our Network can also deploy on-the-ground staff.
         ul
           li.mb-3: a.cta-link(href=`https://learning.mozilla.org/gigabit`) Mozilla Gigabit cities
-          li.mb-3: a.cta-link(href=`https://learning.mozilla.org/clubs`) Mozilla clubs
           li.mb-3: a.cta-link(href=`https://science.mozilla.org/programs/studygroups`) Mozilla Science Study Groups
 
     .row.mb-5
@@ -72,30 +77,5 @@ block content
           li.mb-3: a.cta-link(href=`https://mozilla-foundation-research.herokuapp.com/globalweb/`) Global research reports
           li.mb-3: a.cta-link(href=`https://internethealthreport.org/`) See the Internet Health Report
           li.mb-3: a.cta-link(href=`http://mozillafoundation.github.io/digital-skills-observatory/`) Digital Skills Observatory
-
-    .row.mb-5
-      .col-12
-        hr.hr-gradient
-        h3.h2-headings-white Themes
-      .col-12.col-md-10.offset-md-1
-        h4.mt-5.h4-light-black Working toward a healthy internet, many in our network have gathered around 4 themes. Connect directly with these topics and the communities behind them.
-
-    .row.mb-5
-      .col-6.col-sm-6.col-md-3.px-1.feature-square
-        a(href=`https://science.mozilla.org/`)
-          img.mb-2(src=`/_images/programs/science.jpg`)
-          h4.h4-medium-black Science
-      .col-6.col-sm-6.col-md-3.px-1.feature-square
-        a(href=`https://mozilla.github.io/womenandweb/`)
-          img.mb-2(src=`/_images/programs/women-and-web-lit.jpg`)
-          h4.h4-medium-black Women & Web Literacy
-      .col-6.col-sm-6.col-md-3.px-1.feature-square
-        a(href=`https://github.com/openiotstudio/general`)
-          img.mb-2(src=`/_images/programs/internet-of-things.jpg`)
-          h4.h4-medium-black Internet of Things
-      .col-6.col-sm-6.col-md-3.px-1.feature-square
-        a(href=`https://learning.mozilla.org/`)
-          img.mb-2(src=`/_images/programs/learning.jpg`)
-          h4.h4-medium-black Learning
 
     include ../partials/contact.pug
