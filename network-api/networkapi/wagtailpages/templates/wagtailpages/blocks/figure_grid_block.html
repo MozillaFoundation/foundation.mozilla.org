@@ -1,0 +1,9 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="figure-grid d-md-flex">
+{% for block in self.grid_items %}
+	{% with value=block %}
+	{% include "./figure_block.html" %}
+	{% endwith %}
+{% endfor %}
+</div>
