@@ -1,4 +1,23 @@
 .pulse-project-list {
+  .thumbnail {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      content: "";
+      padding-top: 52.5%;
+    }
+  }
+
+  .img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   .project-image {
     width: 100%;
     max-height: none;
