@@ -9,7 +9,7 @@
 
   .filter-option {
     &:not(:last-child) {
-      &:after {
+      &::after {
         content: "|";
         display: inline-block;
         color: $gray-light;
@@ -28,8 +28,12 @@
 
     + label {
       cursor: pointer;
-      padding: 0 0.5rem;
+      padding: 0.5rem;
       margin: 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

@@ -28,7 +28,7 @@ export default class SingleFilterFellowList extends React.Component {
   }
 
   renderFilters() {
-    return <div className="fellowships-directory-filter p-2">
+    return <div className="fellowships-directory-filter px-2">
       { this.props.filterOptions.map(option => {
         let id = `fellow-list-${this.props.filterType}-${option.replace(` `, `-`)}`;
 
