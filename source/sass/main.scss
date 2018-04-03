@@ -41,6 +41,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './utilities';
 @import './cms';
 @import './share-progress';
+@import './wagtail';
 
 // View specific
 

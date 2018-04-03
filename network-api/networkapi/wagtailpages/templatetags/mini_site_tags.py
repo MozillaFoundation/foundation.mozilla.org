@@ -3,16 +3,22 @@ from django import template
 register = template.Library()
 
 
+def get_descendants(node, list, depth=0, max_depth=2):
+    if (depth <= max_depth):
+        list.append({
+            'page': node,
+            'depth': depth,
+        })
+        for child in node.get_children().live().in_menu():
+            get_descendants(child, list, depth + 1)
+
+
 # Instantiate a mini-site sidebar menu based on the current page's relation to other pages
 @register.inclusion_tag('wagtailpages/tags/mini_site_sidebar.html', takes_context=True)
 def mini_site_sidebar(context, page):
-    children = page.get_children().live()
-
+    menu_pages = list()
     root = context['root']
-    if page is not root:
-        children = root.get_children().live()
-
-    menu_pages = [root] + list(children.in_menu())
+    get_descendants(root, menu_pages)
 
     # Return the list of values we need to have our template
     # generate the appropriate sidebar HTML.
