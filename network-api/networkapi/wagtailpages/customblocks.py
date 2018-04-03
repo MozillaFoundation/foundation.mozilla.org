@@ -135,7 +135,14 @@ class VideoBlock(blocks.StructBlock):
 
 class FigureBlock(blocks.StructBlock):
     image = ImageChooserBlock()
-    caption = blocks.CharBlock(required=False)
+    caption = blocks.CharBlock(
+        required=False,
+        help_text='Please remember to properly attribute any images we use.'
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this figure should link out to.',
+    )
 
     class Meta:
         icon = 'picture'

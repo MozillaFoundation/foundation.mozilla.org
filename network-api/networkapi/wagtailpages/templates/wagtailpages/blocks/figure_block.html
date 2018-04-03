@@ -1,6 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-
+{% with url=value.url %}
 <figure>
-	{% image value.image max-320x200 %}
-	<figcaption>{{ value.caption }}</figcaption>
+	{% if url %}<a href="{{ url }}">{% endif %}{% image value.image max-320x200 %}{% if url %}</a>{% endif %}
+	<figcaption>{% if url %}<a href="{{ url }}">{% endif %}{{ value.caption }}{% if url %}</a>{% endif %}</figcaption>
 </figure>
+{% endwith %}
