@@ -27,7 +27,7 @@ export default class FellowList extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `http://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/profiles/?${queryString}`);
+    xhr.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/profiles/?${queryString}`);
     xhr.send();
   }
 
