@@ -1,8 +1,18 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div style="overflow: auto" class="my-2">
-	{% block prefix %}{% endblock %}
-	<div class="m{% if value.ordering == 'left'%}r{% else %}l{% endif %}-3" style="float:{{ value.ordering }}">{% image value.image width-100 %}</div>
-	{{ value.text|richtext }}
-	{% block affix %}{% endblock %}
+{% with small='col-6 col-md-3' %}
+{% with large='col-12 col-md-9' %}
+
+<div class="row">
+    {% if value.ordering == 'left'%}
+	<div class="{{small}}">{% image value.image width-300 %}</div>
+    {% endif %}
+
+	<div class="{{large}}">{{value.text|richtext }}</div>
+
+    {% if value.ordering == 'right'%}
+	<div class="{{small}}">{% image value.image width-300 %}</div>
+    {% endif %}
 </div>
+{% endwith %}
+{% endwith %}
