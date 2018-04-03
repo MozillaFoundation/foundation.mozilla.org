@@ -1,0 +1,45 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+Django = "==1.11"
+gunicorn = "==19.6.0"
+djangorestframework = "==3.5.4"
+django-filter = "==1.0.2"
+Mezzanine = {git = "https://github.com/stephenmcd/mezzanine", ref = "521a98c39bb6351c4b46067069f33caf95fe0a5e"}
+filebrowser-safe = {git = "https://github.com/stephenmcd/filebrowser-safe", ref = "cfb0e948e0aaaafd25f5440b51ca3296093dface"}
+"filebrowser-s3" = "==1.0.0"
+wagtail = "==2.0"
+social-auth-core = "*"
+social-auth-app-django = "*"
+dj-database-url = "==0.4.1"
+"psycopg2" = "==2.7.1"
+django-environ = "==0.4.1"
+whitenoise = "==4.0b2"
+django-storages = "==1.5.2"
+"boto3" = "==1.4.4"
+python-slugify = "==1.2.1"
+Pillow = "==4.0.0"
+django-cors-headers = "==2.0.2"
+django_csp = "==3.3"
+django-admin-sortable = "==2.1.2"
+requests = "==2.13.0"
+
+
+
+[dev-packages]
+
+coverage = "*"
+python-coveralls = "*"
+"flake8" = "==2.5.4"
+factory_boy = "==2.9.2"
+Faker = "==0.8.10"
+
+[requires]
+
+python_version = "3.6"
