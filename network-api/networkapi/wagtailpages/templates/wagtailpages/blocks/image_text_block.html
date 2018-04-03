@@ -2,7 +2,7 @@
 
 <div style="overflow: auto" class="my-2">
 	{% block prefix %}{% endblock %}
-	<div class="image-text-img my-1 m{% if value.ordering == 'left'%}r{% else %}l{% endif %}-1" style="float:{{ value.ordering }}">{% image value.image height-400 %}</div>
-	<p >{{ value.text|richtext }}</p>
+	<div class="m{% if value.ordering == 'left'%}r{% else %}l{% endif %}-3" style="float:{{ value.ordering }}">{% image value.image width-100 %}</div>
+	{{ value.text|richtext }}
 	{% block affix %}{% endblock %}
 </div>
