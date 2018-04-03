@@ -17,7 +17,7 @@ export default class Highlights extends React.Component {
               <img src={item.image} />
             }
             <div className="key-item mx-2 mx-md-4 p-3">
-              <h5 className="h4-light-black">{item.title}</h5>
+              <h5 className="h4-light-black mb-2">{item.title}</h5>
               <p className="body-black">{item.description}</p>
               <a className="cta-link mb-2" href={item.link_url}>{item.link_label}</a>
             </div>
@@ -28,13 +28,13 @@ export default class Highlights extends React.Component {
 
     let highlights = this.props.data.slice(2).map((item, index) => {
       return (
-        <div className="row my-3 highlight" key={`highlight-${index}`}>
+        <div className="row my-3" key={`highlight-${index}`}>
           <div className="col-md-4 pt-3">
-            { item.image ? <img src={item.image}/> : <div className="placeholder"></div> }
+            { item.image ? <img className="hidden-md-down" src={item.image}/> : <div className="hidden-md-down placeholder"></div> }
           </div>
           <div className="col-md-8 pt-3">
             { index !== 0 && <hr className="mt-0 mb-4" /> }
-            <h5 className="h5-black"><a href={item.link_url}>{item.title}</a></h5>
+            <h5 className="h5-black mb-3"><a href={item.link_url}>{item.title}</a></h5>
             <p className="body-black">{item.description}</p>
           </div>
         </div>
@@ -42,7 +42,7 @@ export default class Highlights extends React.Component {
     });
 
     return (
-      <div className="mb-3">
+      <div className="highlights mb-5">
         <div className="row">
           {superHighlights}
         </div>
