@@ -105,15 +105,6 @@ a {
   @include scaleText(22px, 28px);
 }
 
-.h4-medium-white {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  letter-spacing: 0.5px;
-
-  @include scaleText(22px, 28px);
-  @include black-box-white-text;
-}
-
 .h4-light-black {
   font-family: "Zilla Slab";
   font-weight: 100;
@@ -150,15 +141,6 @@ a {
   @include scaleText(12px);
 }
 
-.h6-white {
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  line-height: 1.333;
-
-  @include scaleText(12px);
-  @include black-box-white-text;
-}
-
 @mixin p-lead {
   font-weight: 100;
   letter-spacing: 0;
@@ -175,15 +157,6 @@ a {
   color: $white;
 
   @include p-lead;
-}
-
-.blockquote-gray {
-  font-weight: 100;
-  font-style: italic;
-  color: #909090;
-  line-height: 1.333;
-
-  @include scaleText(18px, 24px);
 }
 
 .quote-small {
@@ -203,13 +176,6 @@ a {
   @include scaleText(16px);
 }
 
-.body-white {
-  font-weight: 100;
-
-  @include scaleText(16px);
-  @include black-box-white-text;
-}
-
 .italic-black {
   letter-spacing: 0;
   line-height: 1.5;
@@ -226,42 +192,11 @@ a {
   @include scaleText(12px);
 }
 
-.small-white {
-  letter-spacing: 0;
-
-  @include scaleText(12px);
-  @include black-box-white-text;
-}
-
-.small-error {
-  color: #ff4043;
-  line-height: 1.333;
-  font-style: italic;
-  letter-spacing: 0;
-
-  @include scaleText(12px);
-}
-
 .body-link {
   letter-spacing: 0;
   line-height: 1.5;
 
   @include scaleText(16px);
-}
-
-.link-small {
-  letter-spacing: 0;
-  line-height: 1.333;
-  font-weight: 700;
-
-  @include scaleText(12px);
-}
-
-.link-small-tags {
-  letter-spacing: 0;
-  line-height: 1.333;
-
-  @include scaleText(12px);
 }
 
 .cta-link {
