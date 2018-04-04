@@ -10,6 +10,6 @@ $blue: rgb(59, 183, 239);
 $dark-blue: rgb(67, 131, 191);
 $neon-blue: rgb(61, 254, 253);
 $green: rgb(183, 212, 63);
-$neon-blue-green-gradient: linear-gradient(to right, #3dfefd, #b7d43f);
+$neon-blue-green-gradient: linear-gradient(to right, $neon-blue, $green);
 $bright-green: rgb(182, 216, 6);
 
