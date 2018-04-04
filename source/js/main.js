@@ -120,6 +120,24 @@ let main = {
     window.addEventListener(`resize`, () => {
       adjustHero();
     });
+
+    // Extra tracking
+
+    document.getElementById(`donate-header-btn`).addEventListener(`click`, () => {
+      ReactGA.event({
+        category: `donate`,
+        action: `donate button tap`,
+        label: `${document.title} header`
+      });
+    });
+
+    document.getElementById(`donate-footer-btn`).addEventListener(`click`, () => {
+      ReactGA.event({
+        category: `donate`,
+        action: `donate button tap`,
+        label: `${document.title} footer`
+      });
+    });
   },
 
   // Trigger blurring of page contents when primary nav is toggled
