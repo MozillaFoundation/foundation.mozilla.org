@@ -44,6 +44,11 @@ urlpatterns = list(filter(None, [
         query_string=True
     )),
 
+    url(r'^fellowships/directory/archive', RedirectView.as_view(
+        url='/fellowships/directory',
+        query_string=True
+    )),
+
     url(r'^soc/', include('social_django.urls', namespace='social')),
 
     # network-api routes:
