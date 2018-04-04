@@ -5,36 +5,43 @@ block masterParams
 
 include ../partials/pulse-projects.pug
 
-block heroGuts
-  .row
-    .col-md-12.col-lg-6.py-5
-      .mb-4: h1.h1-white Be a champion of a healthy internet
-      p.lead-black Billions of people depend on a <a href="/about">healthy internet</a>. Our network helps keep this ecosystem open, secure, and accessible to all.
-
 block content
   .container
+    .row.my-5.d-flex.align-items-center
+      .col-md-6
+        h1.h1-white India's National Registration System
+        p.lead-black.mb-4 Join Mozilla's Executive Chairwoman, Mitchell Baker in signing an open letter to the Justice Srikrishna Committee highlighting our main concerns.
+        a.btn.btn-normal(href=`https://foundation.mozilla.org/campaigns/aadhaar/`) Take Action
+      .col-md-6.hidden-sm-down
+        img(src=`/_images/homepage/phone-bar.jpg`)
     .row
-      .col.my-5
-        hr.hr-gradient.mt-0
-        h4.h2-headings-white Latest from the Network
+      .col.mb-4
+        hr.mb-4.hr-gradient.mt-0
+        h4.h2-headings-white Latest news
     #home-news
     .row
       .col.text-center.mb-5
         a.btn.btn-ghost(href=`/news`) View more news
 
     .row
-      .col.my-5
-        hr.hr-gradient
-        h4.h2-headings-white Network Leaders
-    #featured-people-box.mb-sm-5
-    .row
-      .col.text-center.mb-5
-        a.btn.btn-ghost(href=`/people`) Meet More Leaders
+      .col.mb-4
+        hr.hr-gradient.mb-4
+        h4.h2-headings-white Happening now
+    #home-highlights
 
     .row
-      .col.mb-5
-        hr.hr-gradient
-        h4.h2-headings-white Get Involved
-    #home-highlights
+      .col
+        hr.hr-gradient.mb-4
+    .row
+      .col-md-6
+        h4.h2-headings-white Trending projects
+      .col-md-6.d-flex.justify-content-end
+        a.cta-link(href=`https://www.mozillapulse.org/add`) Add your project
+    .row
+      .col
+        .pulse-project-list(for="", size="6", checked="true")
+    .row
+      .col.text-center.mb-5
+        a.btn.btn-ghost(href=`https://www.mozillapulse.org`) More from our network
 
     .join-us.full-width.col.mb-5

@@ -30,8 +30,6 @@ admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^soc/', include('social_django.urls', namespace='social'))
-    if settings.SOCIAL_SIGNIN else '',
     url(r'^fellowships/', include('networkapi.fellows.urls')),
 
     url(r'^cms/', include(wagtailadmin_urls))
@@ -45,6 +43,13 @@ urlpatterns = list(filter(None, [
         url='/fellowships/%(path)s',
         query_string=True
     )),
+
+    url(r'^fellowships/directory/archive', RedirectView.as_view(
+        url='/fellowships/directory',
+        query_string=True
+    )),
+
+    url(r'^soc/', include('social_django.urls', namespace='social')),
 
     # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
