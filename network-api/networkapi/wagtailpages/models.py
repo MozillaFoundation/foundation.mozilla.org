@@ -53,6 +53,15 @@ class ModularPage(Page):
         StreamFieldPanel('body'),
     ]
 
+    # Legacy field for now, necessary to make sure that the
+    # actualy <title> element has the correct value in it.
+    # This uses page.meta_title in the base-compiled.html
+    # master template, which is still based on Mezzanine
+    # page models, rather than Wagtail pages models.
+    @property
+    def meta_title(self):
+        return self.title
+
     show_in_menus_default = True
 
 
