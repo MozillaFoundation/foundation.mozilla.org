@@ -1,0 +1,29 @@
+.feature-quote {
+  text-align: center;
+  padding: 0;
+
+  @media screen and (min-width: $bp-md) {
+    padding: 0 10%;
+  }
+
+  &::before {
+    width: 50px;
+    height: 40px;
+    background: url("/_images/double-quote-glyph.svg");
+    content: "";
+    display: block;
+    margin: 0 auto 10px;
+  }
+
+  h3 {
+    font-family: "Zilla Slab";
+    font-size: 24px;
+    color: $black;
+    line-height: 1.333333;
+    font-style: italic;
+
+    @media screen and (min-width: $bp-md) {
+      font-size: 30px;
+    }
+  }
+}
