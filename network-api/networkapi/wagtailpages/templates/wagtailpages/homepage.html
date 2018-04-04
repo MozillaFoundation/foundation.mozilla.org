@@ -1,5 +1,203 @@
-{% for highlight in page.featured_highlights.all %}
-    <p>
-    	{{ highlight }}
-    </p>
-{% endfor %}
+{% extends "pages/base-compiled.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row my-5 d-flex align-items-center">
+      <div class="col-md-6">
+	<h1 class="h1-white">{{ page.hero_headline }}</h1>
+	<div class="lead-black mb-4">{{ page.hero_story_description | richtext }}</div>
+	<a class="btn btn-normal" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
+      </div>
+      <div class="col-md-6 hidden-sm-down">
+	  {% image page.hero_image width-540 %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mb-4">
+	<hr class="mb-4 hr-gradient mt-0">
+	<h4 class="h2-headings-white">Latest news</h4>
+      </div>
+    </div>
+    <div id="home-newssss">
+      <div class="row mb-3">
+	{% for article in page.featured_news.all %}
+	{% comment %} There's a better way to do this, right? {% endcomment %}
+	{% if forloop.counter is 1 %}
+	<div class="col-md-6 mb-0 pb-4">
+	  <div class="play-button-wrapper">
+	    <img src="{{article.news.thumbnail}}">
+	  </div>
+	  <div class="row">
+	    <div class="col-12">
+	      <div class="key-item mx-2 mx-md-4 p-3">
+		<div class="news-item">
+		  <div class="d-flex align-items-center mb-2">
+		    <img src="{{article.news.glyph}}" class="mr-2 glyph">
+		    <p class="h6-gray mb-0">{{article.news.outlet}}</p>
+		  </div>
+		  <h5 class="mb-2">
+		    <a href="{{article.news.headline}}"
+		      class="h4-medium-black">{{article.news.headline}}</a>
+		  </h5>
+		  <p class="small-gray mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+		  <p class="body-black">{{article.news.excerpt}}</p>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	{% endif %}
+	{% endfor %}
+	<div class="col-md-6 mb-0 pb-4">
+	  {% for article in page.featured_news.all %}
+	  {% if forloop.counter > 1 %}
+	  <div class="news-item">
+	    {{article.news.glyph}}
+	    <div class="d-flex align-items-center mb-2">
+	      <img src="{{article.news.glyph}}" class="mr-2 glyph">
+	      <p class="h6-gray mb-0">{{article.news.outlet}}</p>
+	    </div>
+	    <h5 class="mb-2">
+	      <a href="{{article.news.link}}"
+		class="h5-black">{{article.news.headline}}</a>
+	    </h5>
+	    <p class="small-gray mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+	    <p class="body-black">{{article.news.excerpt}}</p>
+	    <hr>
+	  </div>
+	  {% endif %}
+	  {% endfor %}
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center mb-5">
+	<a class="btn btn-ghost" href="/news">View more news</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mb-4">
+	<hr class="hr-gradient mb-4">
+	<h4 class="h2-headings-white">Happening now</h4>
+      </div>
+    </div>
+    <div id="home-highlights">
+      <div class="highlights mb-5">
+	<div class="row">
+	  {% for highlight in page.featured_highlights.all %}
+	  {% if forloop.counter <= 2 %}
+	  <div class="col-md-6">
+	    <div class="pb-5">
+	      <img src="{{highlight.highlight.image}}">
+	      <div class="key-item mx-2 mx-md-4 p-3">
+		<h5 class="h4-light-black mb-2">{{highlight.highlight.title}}</h5>
+		<p class="body-black">{{highlight.highlight.description}}</p>
+		<a class="cta-link mb-2" href="{{highlight.highlight.link_url}}">{{highlight.highlight.link_label}}t</a>
+	      </div>
+	    </div>
+	  </div>
+	  {% endif %}
+	  {% endfor %}
+	</div>
+	{% for highlight in page.featured_highlights.all %}
+	{% if forloop.counter > 2 %}
+	  <div class="row my-3">
+	    <div class="col-sm-12 col-md-4 pt-3 hidden-sm-down">
+	      <img src="{{highlight.highlight.image}}">
+	    </div>
+	    <div class="col-sm-12 col-md-8 pt-3">
+	      <h5 class="h5-black mb-3">
+		<a href="{{highlight.highlight.link_url}}">{{highlight.highlight.title}}</a>
+	      </h5>
+	      <p class="body-black">{{highlight.highlight.description}}</p>
+	    </div>
+	  </div>
+	{% endif %}
+	{% endfor %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+	<hr class="hr-gradient mb-4">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+	<h4 class="h2-headings-white">Trending projects</h4>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end">
+	<a class="cta-link" href="https://www.mozillapulse.org/add">Add your project</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+	<div class="pulse-project-list" for="" size="6" checked="true">
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center mb-5">
+	<a class="btn btn-ghost" href="https://www.mozillapulse.org">More from our network</a>
+      </div>
+    </div>
+    <div class="join-us full-width col mb-5">
+      <div class="row py-5">
+	<div class="col text-center mb-2 join-graphic">
+	  <img src="/_images/burst1.svg">
+	</div>
+	<div class="col join-main-content">
+	  <div class="row">
+	    <div class="col-12 join-content">
+	      <div class="mb-5 join-page-title">
+		<h2 class="h1-white">Get Connected</h2>
+	      </div>
+	      <div class="join-heading">
+		<h2>Get Connected</h2>
+	      </div>
+	      <p class="body-black">Sign up for opportunities and news related to a healthy internet.</p>
+	    </div>
+	    <div class="col join-form">
+	      <form>
+		<div class="">
+		  <div class="mb-2">
+		    <input class="form-control" placeholder="EMAIL ADDRESS" type="email">
+		  </div>
+		</div>
+		<div class="form-check">
+		  <label class="form-check-label mb-4">
+		    <input class="form-check-input" id="PrivacyCheckbox" value="on" type="checkbox">
+		    <span class="small-gray form-text">I'm okay with Mozilla handling my info as explained in this
+		      <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a>
+		    </span>
+		  </label>
+		  <div>
+		    <button class="btn btn-normal join-btn">Sign Up</button>
+		  </div>
+		</div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row mb-5">
+    </div>
+
+    <div class="row mb-5">
+      <div class="{% block pre_footer_classes %}col-12 col-lg-10 offset-lg-1{% endblock %}">
+	{% block signup %}{% endblock %}
+	<hr class="my-2">
+	<div class="opp-foot d-flex align-items-center"><img class="mr-3" src="/_images/green-20.svg" width="51" height="45">
+	  <p class="body-black mb-0">This is part of a broader movement for a healthy internet. <a href="/">See more</a>.</p>
+	</div>
+	<hr class="my-2">
+      </div>
+    </div>
+  </div>
+{% endblock %}
