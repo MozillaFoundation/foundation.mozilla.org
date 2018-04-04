@@ -18,6 +18,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // React Components
 
+@import '../js/components/highlights/highlights';
 @import '../js/components/people/people';
 @import '../js/components/nav/nav';
 @import '../js/components/join/join';
@@ -26,6 +27,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../js/components/member-notice/member-notice';
 @import '../js/components/multipage-nav/multipage-nav';
 @import '../js/components/pulse-project-list/pulse-project-list';
+@import '../js/components/fellow-list/fellow-list';
 
 // Non-React Components
 

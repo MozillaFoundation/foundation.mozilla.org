@@ -1,0 +1,39 @@
+.fellowships-directory-filter {
+  display: flex;
+  flex-wrap: wrap;
+  background: $off-white;
+
+  @media (min-width: $bp-md) {
+    flex-wrap: nowrap;
+  }
+
+  .filter-option {
+    &:not(:last-child) {
+      &::after {
+        content: "|";
+        display: inline-block;
+        color: $gray-light;
+      }
+    }
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked {
+      + label {
+        font-weight: 700;
+      }
+    }
+
+    + label {
+      cursor: pointer;
+      padding: 0.5rem;
+      margin: 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
