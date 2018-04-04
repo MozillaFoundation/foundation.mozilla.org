@@ -36,7 +36,6 @@ env = environ.Env(
     DISABLE_DEBUG_TOOLBAR=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
-    ENABLE_WAGTAIL=(bool, False),
     EXECUTE_FAKE_DATA=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
@@ -97,8 +96,6 @@ if HEROKU_APP_NAME:
 
 SITE_ID = 1
 
-ENABLE_WAGTAIL = env('ENABLE_WAGTAIL')
-
 # Use social authentication if there are key/secret values defined
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
@@ -137,16 +134,16 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
-    'wagtail.sites' if ENABLE_WAGTAIL else None,
+    'wagtail.sites',
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
     'wagtail.images',
-    'wagtail.search' if ENABLE_WAGTAIL else None,
-    'wagtail.admin' if ENABLE_WAGTAIL else None,
+    'wagtail.search',
+    'wagtail.admin',
     'wagtail.core',
     'wagtail.contrib.modeladmin',
-    'wagtail.contrib.styleguide' if ENABLE_WAGTAIL and DEBUG else None,
+    'wagtail.contrib.styleguide' if DEBUG else None,
 
     'modelcluster',
     'taggit',
@@ -203,10 +200,8 @@ MIDDLEWARE = list(filter(None, [
     'mezzanine.pages.middleware.PageMiddleware',
     'mezzanine.core.middleware.FetchFromCacheMiddleware',
 
-    'wagtail.core.middleware.SiteMiddleware'
-    if ENABLE_WAGTAIL else None,
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware'
-    if ENABLE_WAGTAIL else None,
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]))
 
 if SOCIAL_SIGNIN:
