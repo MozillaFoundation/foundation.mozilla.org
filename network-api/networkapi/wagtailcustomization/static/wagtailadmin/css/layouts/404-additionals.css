@@ -1,0 +1,39 @@
+.wagtail-logo-container__desktop {
+    float: none!important;
+    width: auto!important;
+    height: auto!important;
+}
+
+@media screen and (max-width: $breakpoint-desktop-small) { // 900px
+    .wagtail-logo-container__desktop {
+        display: none;
+    }
+}
+
+.page404__text-container {
+    float: none;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-size: 90%;
+    margin-left: 3rem;
+}
+
+.page404__text-container .page404__header {
+    text-transform: none;
+}
+
+.page404__text-container p {
+	white-space: nowrap;
+}
+
+
+@media screen and (max-width: $breakpoint-mobile) { // 800px
+    .page404__text-container {
+        width: 400px;
+    }
+
+    .page404__header {
+        font-size: 5em;
+    }
+}
