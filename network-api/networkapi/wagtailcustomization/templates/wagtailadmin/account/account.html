@@ -26,7 +26,7 @@
                     <strong>{% trans "You are part of the following user groups:" %}</strong>
                 </div>
                 <div class="col6">
-                    {% for group in request.user.groups.all %}{{ group.name }}{% endfor %}
+                    {% for group in request.user.groups.all %}{{ group.name }} {% endfor %}
                 </div>
             </li>
             {% endif %}
