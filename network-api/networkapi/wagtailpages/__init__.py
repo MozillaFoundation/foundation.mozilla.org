@@ -12,6 +12,6 @@ class HowToWagtailMenuItem(MenuItem):
 @hooks.register('register_admin_menu_item')
 def register_howto_menu_item():
     return HowToWagtailMenuItem(
-        _('How To Wagtail'), reverse('how-to-wagtail'),
-        name='howtowagtail', classnames='icon icon-help', order=900
+        _('How Do I Wagtail'), reverse('how-do-i-wagtail'),
+        name='howdoIwagtail', classnames='icon icon-help', order=900
     )
