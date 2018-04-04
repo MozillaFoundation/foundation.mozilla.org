@@ -36,6 +36,13 @@ urlpatterns = list(filter(None, [
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^wagtail/', include(wagtail_urls)),
 
+    # super special url for documentation purposes
+    url(
+        r'^how-do-i-wagtail/',
+        RedirectView.as_view(url='/wagtail/docs/how-do-i-wagtail/'),
+        name='how-do-i-wagtail'
+    ),
+
     url(r'^fellowship/(?P<path>.*)', RedirectView.as_view(
         url='/fellowships/%(path)s',
         query_string=True
