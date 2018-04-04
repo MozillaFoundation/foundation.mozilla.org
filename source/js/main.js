@@ -16,7 +16,6 @@ import Highlights from './components/highlights/highlights.jsx';
 import Leaders from './components/leaders/leaders.jsx';
 import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
-import Upcoming from './components/upcoming/upcoming.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
 
@@ -234,11 +233,6 @@ let main = {
       if (document.querySelector(`#home-highlights`)) {
         ReactDOM.render(<Highlights data={data.highlights}/>, document.querySelector(`#home-highlights`));
       }
-    }
-
-    // Upcoming
-    if (document.querySelector(`#upcoming`)) {
-      ReactDOM.render(<Upcoming env={env}/>, document.querySelector(`#upcoming`));
     }
 
     // News
