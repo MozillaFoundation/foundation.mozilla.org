@@ -15,6 +15,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 //Site-wide
 @import './glyphs';
+@import './colors';
 
 // React Components
 
@@ -55,3 +56,4 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './views/contact';
 @import './views/projects';
 @import './views/fellowships/shared';
+@import './views/style-guide';

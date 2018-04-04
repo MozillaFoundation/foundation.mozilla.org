@@ -1,0 +1,67 @@
+.color-display {
+  border: 1px solid $light-gray;
+}
+
+.color-block {
+  border-bottom: 1px solid $light-gray;
+
+  &.black {
+    background: $black;
+  }
+
+  &.white {
+    background: $white;
+  }
+
+  &.dark-gray {
+    background: $dark-gray;
+  }
+
+  &.medium-gray {
+    background: $medium-gray;
+  }
+
+  &.light-gray {
+    background: $light-gray;
+  }
+
+  &.subtle-gray {
+    background: $subtle-gray;
+  }
+
+  &.yellow {
+    background: $yellow;
+  }
+
+  &.dark-yellow {
+    background: $dark-yellow;
+  }
+
+  &.blue {
+    background: $blue;
+  }
+
+  &.dark-blue {
+    background: $dark-blue;
+  }
+
+  &.neon-blue {
+    background: $neon-blue;
+  }
+
+  &.green {
+    background: $green;
+  }
+
+  &.neon-blue-green-gradient {
+    background: $neon-blue-green-gradient;
+  }
+
+  &.bright-green {
+    background: $bright-green;
+  }
+}
+
+.color-code {
+  color: $dark-gray;
+}
