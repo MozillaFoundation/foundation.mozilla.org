@@ -11,7 +11,7 @@ export default class Highlights extends React.Component {
   render() {
     let superHighlights = this.props.data.slice(0, 2).map((item, index) => {
       return (
-        <div className="col-xs-12 col-md-6" key={`super-highlight-${index}`}>
+        <div className="col-md-6" key={`super-highlight-${index}`}>
           <div className={`${item.image ? `pb-5` : `py-5`}`}>
             { item.image &&
               <img src={item.image} />
