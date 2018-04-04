@@ -3,6 +3,7 @@ from wagtail.admin.menu import MenuItem
 from wagtail.core import hooks
 from django.urls import reverse
 
+
 class HowToWagtailMenuItem(MenuItem):
     def is_shown(self, request):
         return True

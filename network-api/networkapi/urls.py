@@ -32,13 +32,13 @@ urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^fellowships/', include('networkapi.fellows.urls')),
 
-
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^wagtail/', include(wagtail_urls)),
 
     # super special url for documentation purposes
-    url(r'^/how-to-wagtail',
+    url(
+        r'^/how-to-wagtail',
         RedirectView.as_view(url='/wagtail/docs/how-do-i-wagtail/'),
         name='how-to-wagtail'
     ),
