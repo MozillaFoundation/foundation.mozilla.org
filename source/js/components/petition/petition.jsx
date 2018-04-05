@@ -371,7 +371,7 @@ export default class Petition extends React.Component {
   renderStandardHeading() {
     return (
       <div>
-        <h2 className="h2-headings-white">{this.props.ctaHeader}</h2>
+        <h2 className="h2-heading">{this.props.ctaHeader}</h2>
         <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
       </div>
     );

@@ -72,12 +72,13 @@ a {
   @include scaleLineHeight(40px, 64px);
 }
 
-.h2-headings-white {
+.h2-heading {
   font-family: "Zilla Slab";
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1px;
 
-  @include scaleText(18px, 24px);
+  @include scaleText(22px, 24px);
+  @include scaleLineHeight(32px, 36px);
   @include black-box-white-text(0 0 0 40px);
 }
 
