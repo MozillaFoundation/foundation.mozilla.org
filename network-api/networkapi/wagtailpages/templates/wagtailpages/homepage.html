@@ -21,14 +21,14 @@
 	<h4 class="h2-headings-white">Latest news</h4>
       </div>
     </div>
-    <div id="home-newssss">
+    <div id="home-news-wagtail">
       <div class="row mb-3">
 	{% for article in page.featured_news.all %}
 	{% comment %} There's a better way to do this, right? {% endcomment %}
 	{% if forloop.counter is 1 %}
 	<div class="col-md-6 mb-0 pb-4">
 	  <div class="play-button-wrapper">
-	    <img src="{{article.news.thumbnail}}">
+	    <img src="{{settings.MEDIA_URL}}{{article.news.thumbnail}}">
 	  </div>
 	  <div class="row">
 	    <div class="col-12">
@@ -84,14 +84,14 @@
 	<h4 class="h2-headings-white">Happening now</h4>
       </div>
     </div>
-    <div id="home-highlights">
+    <div id="home-highlights-wagtail">
       <div class="highlights mb-5">
 	<div class="row">
 	  {% for highlight in page.featured_highlights.all %}
 	  {% if forloop.counter <= 2 %}
 	  <div class="col-md-6">
 	    <div class="pb-5">
-	      <img src="{{highlight.highlight.image}}">
+	      <img src="{{settings.MEDIA_URL}}{{highlight.highlight.image}}">
 	      <div class="key-item mx-2 mx-md-4 p-3">
 		<h5 class="h4-light-black mb-2">{{highlight.highlight.title}}</h5>
 		<p class="body-black">{{highlight.highlight.description}}</p>
@@ -106,7 +106,7 @@
 	{% if forloop.counter > 2 %}
 	  <div class="row my-3">
 	    <div class="col-sm-12 col-md-4 pt-3 hidden-sm-down">
-	      <img src="{{highlight.highlight.image}}">
+	      <img src="{{settings.MEDIA_URL}}{{highlight.highlight.image}}">
 	    </div>
 	    <div class="col-sm-12 col-md-8 pt-3">
 	      <h5 class="h5-black mb-3">
