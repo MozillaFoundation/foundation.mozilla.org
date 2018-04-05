@@ -1,8 +1,18 @@
-.wrapper-join-us {
-  background: $subtle-gray;
-}
-
 .join-us {
+  background:
+    linear-gradient(to right, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%),
+    url(../_images/hero-image-crop@2x.jpg) center -60px / auto 666px no-repeat,
+    url(../_images/bg-repeat-crop@2x.jpg) center -60px / 2px 666px repeat-x;
+  background-blend-mode: overlay, normal, normal;
+
+  .has-danger {
+    color: #d9534f;
+
+    a {
+      color: #d9534f !important;
+    }
+  }
+
   .join-page-title {
     display: none;
   }
@@ -32,12 +42,17 @@
   .form-control,
   .form-text {
     font-family: "Nunito Sans";
-    font-weight: 900;
+    font-weight: 400;
+    font-size: 12px;
+
+    a {
+      text-decoration: underline;
+      color: $black;
+      font-weight: 400;
+    }
   }
 
   &.half-width {
-    background: $subtle-gray;
-
     .join-graphic {
       @include make-col(12);
 
@@ -50,8 +65,6 @@
   }
 
   &.full-width {
-    background: $subtle-gray;
-
     .join-graphic {
       @include make-col(12);
 
