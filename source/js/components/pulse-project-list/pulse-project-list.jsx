@@ -56,7 +56,7 @@ export default class PulseProjectList extends React.Component {
             </div>
             <h5 className="project-title h5-heading my-2">{project.title}</h5>
           </a>
-          { byline && <p className="small-gray my-1">{byline}</p> }
+          { byline && <p className="h6-heading my-1">{byline}</p> }
         </div>
       );
     });

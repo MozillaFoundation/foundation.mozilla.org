@@ -69,7 +69,7 @@ class Person extends React.Component {
                       <div className="quote-attribution">
                         {metaBlock}
                         <div className="person-issues mb-2">{issues}</div>
-                        <div className="small-gray">{this.props.metadata.affiliations[0]}</div>
+                        <div className="h6-heading">{this.props.metadata.affiliations[0]}</div>
                         {this.props.metadata.partnership_logo &&
                           <div className="my-1">
                             <img className="partnership_logo" src={this.props.metadata.partnership_logo} alt="Logo of partnered organization"/>
@@ -113,7 +113,7 @@ class Person extends React.Component {
             <div className="col bio-content pt-3">
               {metaBlock}
               <div className="person-issues">{issues}</div>
-              <div className="person-affiliations small-gray mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
+              <div className="person-affiliations h6-heading mt-2">{this.props.metadata.affiliations.join(`; `)}</div>
               {this.props.metadata.partnership_logo &&
                 <div className="row mt-3">
                   <div className="col">

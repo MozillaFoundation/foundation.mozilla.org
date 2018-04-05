@@ -18,6 +18,6 @@ mixin project(meta)
       - let creators = []
       each creator in meta.related_creators
         - creators.push(creator.name)
-      p.small-gray.my-1=`By ${creators.join(`, `)}`
+      p.h6-heading.my-1=`By ${creators.join(`, `)}`
 
-    p.small-gray=`Added ${moment(meta.created).format('MMM DD, YYYY')}`
+    p.h6-heading=`Added ${moment(meta.created).format('MMM DD, YYYY')}`

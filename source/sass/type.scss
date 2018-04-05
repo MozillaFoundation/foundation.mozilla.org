@@ -150,6 +150,15 @@ a {
   @include scaleLineHeight(16px);
 }
 
+.h6-heading {
+  font-weight: 400;
+  color: $medium-gray;
+  letter-spacing: 0;
+
+  @include scaleText(12px);
+  @include scaleLineHeight(16px);
+}
+
 @mixin p-lead {
   font-weight: 100;
   letter-spacing: 0;
@@ -191,14 +200,6 @@ a {
   font-style: italic;
 
   @include scaleText(16px);
-}
-
-.small-gray {
-  color: $medium-gray;
-  letter-spacing: 0;
-  line-height: 1.5;
-
-  @include scaleText(12px);
 }
 
 .body-link {

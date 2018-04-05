@@ -77,7 +77,7 @@ export default class Petition extends React.Component {
         <div key={name}>
           <label className="form-check-label mb-2">
             <input className="form-check-input" disabled={disabled} type="checkbox" ref={name} />
-            <span className="small-gray form-text" dangerouslySetInnerHTML={{__html: label}}/>
+            <span className="h6-heading form-text" dangerouslySetInnerHTML={{__html: label}}/>
           </label>
         </div>
       );
@@ -416,14 +416,14 @@ export default class Petition extends React.Component {
             <div>
               <label className="form-check-label mb-2">
                 <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
-                <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
+                <span className="h6-heading form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
                 {this.state.userTriedSubmitting && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
               </label>
             </div>
             <div>
               <label className="form-check-label mb-2">
                 <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
-                <span className="small-gray form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
+                <span className="h6-heading form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
               </label>
             </div>
             { checkboxes.length > 0 ? (<div>{checkboxes}</div>) : null }
