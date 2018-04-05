@@ -13,6 +13,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable as WagtailOrderable
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import InlinePanel
+from wagtailmetadata.models import MetadataPageMixin
 
 """
 We'll need to figure out which components are truly "base" and
@@ -40,7 +41,7 @@ base_fields = [
 ]
 
 
-class ModularPage(Page):
+class ModularPage(MetadataPageMixin, Page):
     """
     The base class offers universal component picking
     """

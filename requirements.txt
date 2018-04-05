@@ -37,6 +37,9 @@ python-slugify==1.2.1
 # Required for ImageField
 Pillow==4.0.0
 
+# OpenGraph mixin
+wagtail-metadata==2.0.0
+
 # CORS
 django-cors-headers==2.0.2
 
