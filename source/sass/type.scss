@@ -69,7 +69,7 @@ a {
   letter-spacing: 0;
 
   @include scaleText(36px, 56px);
-  @include scaleLineHeight(40px, 64px);
+  @include scaleLineHeight(40px/36px, 64px/56px);
 }
 
 .h2-heading {
@@ -78,7 +78,7 @@ a {
   letter-spacing: 1px;
 
   @include scaleText(22px, 24px);
-  @include scaleLineHeight(32px, 36px);
+  @include scaleLineHeight(32px/22px, 36px/24px);
   @include black-box-white-text(0 0 0 40px);
 }
 
@@ -88,7 +88,7 @@ a {
   color: $light-gray;
 
   @include scaleText(56px, 72px);
-  @include scaleLineHeight(64px, 88px);
+  @include scaleLineHeight(64px/56px, 88px/72px);
 }
 
 .h3-heading {
@@ -97,7 +97,7 @@ a {
   letter-spacing: 0;
 
   @include scaleText(28px, 40px);
-  @include scaleLineHeight(32px, 48px);
+  @include scaleLineHeight(32px/28px, 48px/40px);
 }
 
 .h3-cta-black {
@@ -112,7 +112,7 @@ a {
   font-family: "Zilla Slab";
 
   @include scaleText(24px, 28px);
-  @include scaleLineHeight(28px, 36px);
+  @include scaleLineHeight(28px/24px, 36px/28px);
 }
 
 .h4-light-black {
@@ -137,7 +137,7 @@ a {
   font-weight: 600;
 
   @include scaleText(20px, 22px);
-  @include scaleLineHeight(24px, 28px);
+  @include scaleLineHeight(24px/20px, 28px/22px);
 }
 
 .h6-heading-uppercase {
@@ -148,7 +148,7 @@ a {
   text-transform: uppercase;
 
   @include scaleText(12px);
-  @include scaleLineHeight(16px);
+  @include scaleLineHeight(16px/12px);
 }
 
 .h6-heading {
@@ -158,7 +158,7 @@ a {
   letter-spacing: 0;
 
   @include scaleText(12px);
-  @include scaleLineHeight(16px);
+  @include scaleLineHeight(16px/12px);
 }
 
 @mixin p-lead {
