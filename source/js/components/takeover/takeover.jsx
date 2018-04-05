@@ -49,7 +49,7 @@ export default class Takeover extends React.Component {
           <div className="row">
             <div className="col-xs-12 col-md-9 py-3 py-md-5">
               <div className="my-3 my-md-5">
-                <h1 className="h1-white">This is a Barn Raising</h1>
+                <h1 className="h1-heading">This is a Barn Raising</h1>
               </div>
 
               <p>There is a movement to keep the Internet healthy taking root around the world. Mozilla is a part of this movement – and wants to help it grow.</p>

@@ -33,6 +33,16 @@ a {
   }
 }
 
+@mixin scaleLineHeight($small, $large: null) {
+  line-height: $small;
+
+  @if ($large) {
+    @media screen and (min-width: $bp-md) {
+      line-height: $large;
+    }
+  }
+}
+
 @mixin black-box-white-text($padding:0.1em) {
   background: $black;
   color: $white;
@@ -53,13 +63,13 @@ a {
   }
 }
 
-.h1-white {
+.h1-heading {
   font-family: "Zilla Slab";
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 1.2;
 
   @include scaleText(36px, 56px);
+  @include scaleLineHeight(40px, 64px);
 }
 
 .h2-headings-white {

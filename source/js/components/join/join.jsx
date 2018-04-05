@@ -78,7 +78,7 @@ export default class JoinUs extends React.Component {
           <div className="row">
             <div className="col-12 col-md-6 d-flex justify-content-center flex-column join-content">
               <div className="mb-5 join-page-title">
-                <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thanks!`}</h2>
+                <h2 className="h1-heading">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thanks!`}</h2>
               </div>
               <div className="join-heading">
                 { this.state.signupSuccess && <h3 className="h3-black">Thanks!</h3> }
