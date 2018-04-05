@@ -33,6 +33,7 @@ a {
   @if ($desktop-font-size) {
     @media screen and (min-width: $bp-md) {
       font-size: $desktop-font-size;
+
       @if ($desktop-line-height-px) {
         line-height: $desktop-line-height-px/$desktop-font-size;
       }
