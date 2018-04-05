@@ -132,13 +132,12 @@ a {
   @include scaleText(22px, 28px);
 }
 
-.h5-black {
+.h5-heading {
   font-family: "Zilla Slab";
   font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 1.333;
 
   @include scaleText(20px, 22px);
+  @include scaleLineHeight(24px, 28px);
 }
 
 .h6-gray {

@@ -13,7 +13,7 @@ mixin project(meta)
   .col-sm-12.col-md-6.mb-4.mb-md-0
     a.pulse-project(href=`https://www.mozillapulse.org/entry/${meta.id}?utm_source=mozillaNetwork&utm_medium=referral`)
       img.project-image(src=meta.thumbnail)
-      h5.h5-black.my-2=meta.title
+      h5.h5-heading.my-2=meta.title
     if meta.related_creators.length
       - let creators = []
       each creator in meta.related_creators

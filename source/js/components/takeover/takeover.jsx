@@ -57,7 +57,7 @@ export default class Takeover extends React.Component {
               <p>As of April 2017, this site is in "barn raising" mode. Building from the community that emerged around events like MozFest, we've started building a home for people working on Internet health might look like. This is our first pass and like any good open project we'll be iterating early and often.</p>
               <p>If you see yourself as part of this movement – or a part of Mozilla's community – we want your feedback, your ideas, and your help building this site. This is a barn raising.</p>
               <p>We plan to fully launch this site – and a network to support the movement – in the coming months.</p>
-              <p className="h5-black mb-0">Mark Surman</p>
+              <p className="h5-heading mb-0">Mark Surman</p>
               <p className="mb-0">Executive Director</p>
               <p>Mozilla</p>
             </div>

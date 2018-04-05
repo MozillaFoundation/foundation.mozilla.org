@@ -34,7 +34,7 @@ export default class Highlights extends React.Component {
           </div>
           <div className="col-sm-12 col-md-8 pt-3">
             { index !== 0 && <hr className="mt-0 mb-4" /> }
-            <h5 className="h5-black mb-3"><a href={item.link_url}>{item.title}</a></h5>
+            <h5 className="h5-heading mb-3"><a href={item.link_url}>{item.title}</a></h5>
             <p className="body-black">{item.description}</p>
           </div>
         </div>

@@ -41,7 +41,7 @@ class Person extends React.Component {
 
     let metaBlock = (
       <div className="meta-block mb-2">
-        <div className="h5-black mb-1">{this.props.metadata.name}</div>
+        <div className="h5-heading mb-1">{this.props.metadata.name}</div>
         <div className="meta-block-item meta-block-item-role">{this.props.metadata.role}</div>
         <div className="meta-block-item meta-block-item-location">{this.props.metadata.location}</div>
       </div>

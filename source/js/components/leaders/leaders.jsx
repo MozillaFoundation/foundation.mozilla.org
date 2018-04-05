@@ -14,7 +14,7 @@ export default class Leaders extends React.Component {
       return (
         <div className="featured-person col-6 col-sm-4 col-md-3 mb-4 mb-sm-0" key={index}>
           <img className="img-fluid d-block" src={item.image} alt="Headshot"/>
-          <h2 className="h5-black my-2">{item.name}</h2>
+          <h2 className="h5-heading my-2">{item.name}</h2>
           <p className="small-gray">{item.affiliations.join(`, `)}</p>
           <div className="person-social-links mt-3">
             { item.links.twitter && <a href={item.links.twitter} className="twitter gray small mr-4"></a> }
