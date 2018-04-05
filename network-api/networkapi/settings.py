@@ -243,8 +243,6 @@ OPTIONAL_APPS = (
 
 ROOT_URLCONF = 'networkapi.urls'
 
-# Should I be appending this to something rather than resetting it?
-TEMPLATE_ACCESSIBLE_SETTINGS = ['MEDIA_URL']
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

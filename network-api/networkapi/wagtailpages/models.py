@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from . import customblocks
 from wagtail.core import blocks
@@ -355,3 +356,10 @@ class Homepage(Page):
 	InlinePanel('featured_highlights', label="Highlights", max_num=5),
 	InlinePanel('featured_news', label="News", max_num=4),
     ]
+
+    def get_context(self, request):
+	# We need to expose MEDIA_URL so that the s3 images will show up properly due to our custom image upload approach pre-wagtail
+	context = super(Homepage, self).get_context(request)
+	print(settings.MEDIA_URL)
+	context['MEDIA_URL'] = settings.MEDIA_URL
+	return context
