@@ -140,14 +140,14 @@ a {
   @include scaleLineHeight(24px, 28px);
 }
 
-.h6-gray {
+.h6-heading-uppercase {
   font-weight: 400;
   color: $medium-gray;
   letter-spacing: 0.5px;
-  line-height: 1.333;
   text-transform: uppercase;
 
   @include scaleText(12px);
+  @include scaleLineHeight(16px);
 }
 
 @mixin p-lead {

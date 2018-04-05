@@ -75,7 +75,7 @@ export default class Upcoming extends React.Component {
             { meta.photo && <img src={meta.photo}/> }
           </div>
           <div className="col-sm-8">
-            <p className="h6-gray mt-3 mt-sm-0">{displayDate}</p>
+            <p className="h6-heading-uppercase mt-3 mt-sm-0">{displayDate}</p>
             <h2 className="h4-light-black">{meta.headline}</h2>
             <p className="body-black">{meta.description}</p>
             <a className="cta-link" href={meta.link_url}>{meta.link_label}</a>
