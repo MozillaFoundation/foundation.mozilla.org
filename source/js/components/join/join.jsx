@@ -73,26 +73,23 @@ export default class JoinUs extends React.Component {
     });
 
     return (
-      <div className={signupState}>
-        <div className="col text-center mb-2 join-graphic">
-          <img src={`/_images/burst${this.state.signupSuccess ? `2` : `1`}.svg`}/>
-        </div>
+      <div className={ `container ${signupState}` }>
         <div className="col join-main-content">
           <div className="row">
-            <div className="col-12 join-content">
+            <div className="col-12 col-md-6 d-flex justify-content-center flex-column join-content">
               <div className="mb-5 join-page-title">
                 <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
               </div>
               <div className="join-heading">
-                <h2>{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
+                { this.state.signupSuccess && <h2>Thank You</h2> }
               </div>
               {!this.state.signupSuccess ?
-                <p className="body-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
+                <p className="lead-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
                 : <p>{this.props.thankYouMessage}</p>
               }
             </div>
             { !this.state.signupSuccess &&
-            <div className="col join-form">
+            <div className="col-12 col-md-6 join-form">
               <form onSubmit={this.submitForm}>
                 <div className={inputGroupClass}>
                   <div className="mb-2">
@@ -104,7 +101,7 @@ export default class JoinUs extends React.Component {
                 <div className={privacyClass}>
                   <label className="form-check-label mb-4">
                     <input type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
-                    <span className="small-gray form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
+                    <span className="form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
                     {this.state.userSubmitted && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
                   </label>
                   <div>
