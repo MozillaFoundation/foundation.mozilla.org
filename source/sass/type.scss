@@ -15,11 +15,11 @@ h6 {
 }
 
 a {
-  color: #3bb7ef;
+  color: $blue;
   font-weight: 700;
 
   &:hover {
-    color: #0081ad;
+    color: $dark-blue;
   }
 }
 
@@ -43,13 +43,13 @@ a {
 
 @mixin yellow-underline-nav-link($active-class-name) {
   font-family: "Nunito Sans";
-  color: #231f20;
+  color: $black;
 
   &:hover,
   &#{$active-class-name} {
     color: inherit;
     text-decoration: none;
-    box-shadow: 0 5px #ffed00;
+    box-shadow: 0 5px $yellow;
   }
 }
 
@@ -74,7 +74,7 @@ a {
 .h2-typeaccents-gray {
   font-family: "Zilla Slab";
   font-weight: 400;
-  color: #ccc;
+  color: $light-gray;
   line-height: 1.2;
 
   @include scaleText(56px, 72px);
@@ -133,7 +133,7 @@ a {
 
 .h6-gray {
   font-weight: 400;
-  color: #909090;
+  color: $medium-gray;
   letter-spacing: 0.5px;
   line-height: 1.333;
   text-transform: uppercase;
@@ -185,7 +185,7 @@ a {
 }
 
 .small-gray {
-  color: #909090;
+  color: $medium-gray;
   letter-spacing: 0;
   line-height: 1.5;
 

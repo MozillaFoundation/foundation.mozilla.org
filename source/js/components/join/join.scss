@@ -1,5 +1,5 @@
 .wrapper-join-us {
-  background: #f1eee9;
+  background: $subtle-gray;
 }
 
 .join-us {
@@ -36,7 +36,7 @@
   }
 
   &.half-width {
-    background: $off-white;
+    background: $subtle-gray;
 
     .join-graphic {
       @include make-col(12);
@@ -50,7 +50,7 @@
   }
 
   &.full-width {
-    background: $off-white;
+    background: $subtle-gray;
 
     .join-graphic {
       @include make-col(12);

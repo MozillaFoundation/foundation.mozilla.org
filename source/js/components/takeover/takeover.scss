@@ -11,7 +11,7 @@
   }
 
   .bar {
-    background: #b6d806;
+    background: $bright-green;
   }
 
   .button-group {
@@ -20,7 +20,7 @@
     left: 0;
     background: $white;
     width: 100vw;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $light-gray;
 
     .container {
       align-items: stretch;

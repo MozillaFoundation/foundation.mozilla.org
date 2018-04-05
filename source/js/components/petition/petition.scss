@@ -1,5 +1,5 @@
 .wrapper-sign-petition {
-  background: #f1eee9;
+  background: $subtle-gray;
 }
 
 .sign-petition {
@@ -36,7 +36,7 @@
   }
 
   &.half-width {
-    background: $off-white;
+    background: $subtle-gray;
 
     .petition-graphic {
       @include make-col(12);
@@ -50,7 +50,7 @@
   }
 
   &.full-width {
-    background: $off-white;
+    background: $subtle-gray;
 
     .petition-graphic {
       @include make-col(12);

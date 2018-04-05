@@ -9,7 +9,7 @@
 }
 
 .btn-pop {
-  background: #ffed00;
+  background: $yellow;
   color: black;
   box-shadow: 4px 4px black;
   transition: all 0.25s ease;
@@ -20,7 +20,7 @@
     box-shadow: 8px 8px black;
     transform: translate(-4px, -4px);
     color: black;
-    background: #e7c121;
+    background: $dark-yellow;
 
     &::after {
       content: '';
@@ -36,21 +36,21 @@
 .btn-ghost {
   color: $black;
   background: transparent;
-  border: 2px solid #3bb7ef;
+  border: 2px solid $blue;
 
   &:hover {
     color: $white;
-    background-color: #3bb7ef;
+    background-color: $blue;
   }
 }
 
 .btn-normal {
   color: $black;
-  background: #ffed00;
+  background: $yellow;
 
   &:hover {
     color: $black;
-    background: #e7c121;
+    background: $dark-yellow;
   }
 }
 

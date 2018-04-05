@@ -10,11 +10,11 @@
 
   .person-card-featured {
     .more-details {
-      background-color: $mobile-blue;
+      background-color: $blue;
       color: white;
 
       &:hover {
-        background-color: #0081ad;
+        background-color: $dark-blue;
       }
     }
   }
@@ -75,7 +75,7 @@
     &::before {
       content: '\201C';
       font-size: 15em;
-      color: $off-white;
+      color: $subtle-gray;
       z-index: -1;
       position: absolute;
       font-weight: bold;

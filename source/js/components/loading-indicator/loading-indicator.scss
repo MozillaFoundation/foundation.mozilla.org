@@ -2,7 +2,7 @@
   $circle-radius: 30px;
   $dot-radius: 5px;
   $dot-count: 3;
-  $icon-color: rgba(183, 212, 63, 1);
+  $icon-color: $green;
 
   @keyframes rotate-circle {
     0% {

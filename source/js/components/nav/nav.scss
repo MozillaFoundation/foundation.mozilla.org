@@ -1,5 +1,5 @@
 #primary-nav header {
-  background: rgba(0, 0, 0, 0.9);
+  background: transparentize($black, 0.1);
   position: fixed;
   height: 100%;
   width: 100%;
@@ -7,7 +7,7 @@
   overflow: auto;
 
   a {
-    color: rgba(255, 255, 255, 0.75);
+    color: transparentize($white, 0.25);
   }
 
   .btn-close {
@@ -50,10 +50,8 @@
 
       &:hover,
       &:focus {
-        color: rgba(255, 237, 0, 100);
+        color: $white;
         outline: 0;
-        text-decoration: none;
-        border-bottom: 5px solid $black;
       }
     }
   }
@@ -68,7 +66,7 @@
     #view-about .about {
       color: $white;
       font-weight: 900;
-      border-bottom: 2px solid $white;
+      text-decoration: underline;
     }
   }
 
