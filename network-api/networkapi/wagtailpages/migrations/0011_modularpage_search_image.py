@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailimages', '0019_delete_filter'),
-        ('wagtailpages', '0008_primarypage'),
+        ('wagtailpages', '0010_primarypage'),
     ]
 
     operations = [

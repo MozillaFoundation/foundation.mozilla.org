@@ -1,0 +1,5 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="img-wrapper {{ value.alignment }}">
+	{% include "./image_block.html" with alignment=value.alignment %}
+</div>
