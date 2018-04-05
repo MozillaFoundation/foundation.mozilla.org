@@ -23,12 +23,19 @@ a {
   }
 }
 
-@mixin scaleText($small, $large: null) {
-  font-size: $small;
+@mixin scaleText($font-size, $line-height-px: null, $desktop-font-size: null, $desktop-line-height-px: null) {
+  font-size: $font-size;
 
-  @if ($large) {
+  @if ($line-height-px) {
+    line-height: $line-height-px/$font-size;
+  }
+
+  @if ($desktop-font-size) {
     @media screen and (min-width: $bp-md) {
-      font-size: $large;
+      font-size: $desktop-font-size;
+      @if ($desktop-line-height-px) {
+        line-height: $desktop-line-height-px/$desktop-font-size;
+      }
     }
   }
 }
@@ -68,8 +75,7 @@ a {
   font-weight: 600;
   letter-spacing: 0;
 
-  @include scaleText(36px, 56px);
-  @include scaleLineHeight(40px/36px, 64px/56px);
+  @include scaleText(36px, 40px, 56px, 64px);
 }
 
 .h2-heading {
@@ -77,8 +83,7 @@ a {
   font-weight: 400;
   letter-spacing: 1px;
 
-  @include scaleText(22px, 24px);
-  @include scaleLineHeight(32px/22px, 36px/24px);
+  @include scaleText(22px, 32px, 24px, 36px);
   @include black-box-white-text(0 0 0 40px);
 }
 
@@ -87,8 +92,7 @@ a {
   font-weight: 400;
   color: $light-gray;
 
-  @include scaleText(56px, 72px);
-  @include scaleLineHeight(64px/56px, 88px/72px);
+  @include scaleText(56px, 64px, 72px, 88px);
 }
 
 .h3-heading {
@@ -96,8 +100,7 @@ a {
   font-weight: 300;
   letter-spacing: 0;
 
-  @include scaleText(28px, 40px);
-  @include scaleLineHeight(32px/28px, 48px/40px);
+  @include scaleText(28px, 32px, 40px, 48px);
 }
 
 .h3-cta-black {
@@ -105,14 +108,13 @@ a {
   line-height: 1.25;
   font-weight: 900;
 
-  @include scaleText(22px, 32px);
+  @include scaleText(22px, null, 32px, null);
 }
 
 .h4-heading {
   font-family: "Zilla Slab";
 
-  @include scaleText(24px, 28px);
-  @include scaleLineHeight(28px/24px, 36px/28px);
+  @include scaleText(24px, 28px, 28px, 36px);
 }
 
 .h4-light-black {
@@ -121,7 +123,7 @@ a {
   letter-spacing: 0;
   line-height: 1.2;
 
-  @include scaleText(20px, 28px);
+  @include scaleText(20px, null, 28px, null);
 }
 
 .h4-headingcontract-black {
@@ -129,15 +131,14 @@ a {
   letter-spacing: 0;
   line-height: 1.2;
 
-  @include scaleText(22px, 28px);
+  @include scaleText(22px, null, 28px, null);
 }
 
 .h5-heading {
   font-family: "Zilla Slab";
   font-weight: 600;
 
-  @include scaleText(20px, 22px);
-  @include scaleLineHeight(24px/20px, 28px/22px);
+  @include scaleText(20px, 24px, 22px, 28px);
 }
 
 .h6-heading-uppercase {
@@ -147,8 +148,7 @@ a {
   letter-spacing: 0.5px;
   text-transform: uppercase;
 
-  @include scaleText(12px);
-  @include scaleLineHeight(16px/12px);
+  @include scaleText(12px, null, 16px, null);
 }
 
 .h6-heading {
@@ -157,8 +157,7 @@ a {
   color: $medium-gray;
   letter-spacing: 0;
 
-  @include scaleText(12px);
-  @include scaleLineHeight(16px/12px);
+  @include scaleText(12px, null, 16px, null);
 }
 
 @mixin p-lead {
@@ -166,7 +165,7 @@ a {
   letter-spacing: 0;
   line-height: 1.333;
 
-  @include scaleText(18px, 20px);
+  @include scaleText(18px, null, 20px, null);
 }
 
 .lead-black {
@@ -232,5 +231,5 @@ a {
 
 .multipage-link {
   @include yellow-underline-nav-link(".multipage-link-active");
-  @include scaleText(18px, 20px);
+  @include scaleText(18px, null, 20px, null);
 }
