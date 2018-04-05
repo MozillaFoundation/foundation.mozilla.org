@@ -16,7 +16,6 @@ import Highlights from './components/highlights/highlights.jsx';
 import Leaders from './components/leaders/leaders.jsx';
 import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
-import Upcoming from './components/upcoming/upcoming.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
 
@@ -121,6 +120,24 @@ let main = {
     window.addEventListener(`resize`, () => {
       adjustHero();
     });
+
+    // Extra tracking
+
+    document.getElementById(`donate-header-btn`).addEventListener(`click`, () => {
+      ReactGA.event({
+	category: `donate`,
+	action: `donate button tap`,
+	label: `${document.title} header`
+      });
+    });
+
+    document.getElementById(`donate-footer-btn`).addEventListener(`click`, () => {
+      ReactGA.event({
+	category: `donate`,
+	action: `donate button tap`,
+	label: `${document.title} footer`
+      });
+    });
   },
 
   // Trigger blurring of page contents when primary nav is toggled
@@ -217,9 +234,23 @@ let main = {
       ReactDOM.render(<MultipageNav links={links} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
     }
 
-    // Upcoming
-    if (document.querySelector(`#upcoming`)) {
-      ReactDOM.render(<Upcoming env={env}/>, document.querySelector(`#upcoming`));
+    // Homepage
+
+    if (data) {
+      // Leaders
+      if (document.querySelector(`#featured-people-box`)) {
+	ReactDOM.render(<Leaders data={data.leaders}/>, document.querySelector(`#featured-people-box`));
+      }
+
+      // Home News
+      if (document.querySelector(`#home-news`)) {
+	ReactDOM.render(<HomeNews data={data.news}/>, document.querySelector(`#home-news`));
+      }
+
+      // Highlights
+      if (document.querySelector(`#home-highlights`)) {
+	ReactDOM.render(<Highlights data={data.highlights}/>, document.querySelector(`#home-highlights`));
+      }
     }
 
     // News
