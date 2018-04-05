@@ -40,7 +40,7 @@ export default class News extends React.Component {
               { newsItem.glyph && <img src={newsItem.glyph} className="mr-2 glyph"/> }
               <p className="h6-gray mb-0">{newsItem.outlet}</p>
             </div>
-            <h3 className="h4-medium-black mb-2">
+            <h3 className="h4-heading mb-2">
               <a href={newsItem.link} className="newsItem headline">{newsItem.headline}</a>
             </h3>
             { newsItem.author && <p className="italic-black">by {newsItem.author}</p> }

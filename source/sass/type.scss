@@ -108,12 +108,11 @@ a {
   @include scaleText(22px, 32px);
 }
 
-.h4-medium-black {
+.h4-heading {
   font-family: "Zilla Slab";
-  letter-spacing: 0.5px;
-  line-height: 1.2;
 
-  @include scaleText(22px, 28px);
+  @include scaleText(24px, 28px);
+  @include scaleLineHeight(28px, 36px);
 }
 
 .h4-light-black {
