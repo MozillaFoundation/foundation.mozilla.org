@@ -86,19 +86,18 @@ a {
   font-family: "Zilla Slab";
   font-weight: 400;
   color: $light-gray;
-  line-height: 1.2;
 
   @include scaleText(56px, 72px);
   @include scaleLineHeight(64px, 88px);
 }
 
-.h3-black {
+.h3-heading {
   font-family: "Zilla Slab";
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: 0;
-  line-height: 1.2;
 
   @include scaleText(28px, 40px);
+  @include scaleLineHeight(32px, 48px);
 }
 
 .h3-cta-black {
