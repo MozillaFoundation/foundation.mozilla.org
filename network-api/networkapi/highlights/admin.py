@@ -14,6 +14,7 @@ class HighlightAdmin(SortableAdmin):
         'shared/adminsortable_change_list_custom.html',
     )
 
+
 admin.site.register(Highlight, HighlightAdmin)
 
 
@@ -26,5 +27,6 @@ class WagtailHighlightAdmin(ModelAdmin):
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
     list_display = ('title', 'description', 'link_url',)
     search_fields = ('title', 'description')
+
 
 modeladmin_register(WagtailHighlightAdmin)

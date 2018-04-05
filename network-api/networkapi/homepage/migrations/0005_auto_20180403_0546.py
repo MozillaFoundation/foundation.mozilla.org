@@ -8,24 +8,24 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-	('wagtailredirects', '0005_capitalizeverbose'),
-	('people', '0025_remove_person_homepage'),
-	('wagtailforms', '0003_capitalizeverbose'),
-	('wagtailcore', '0040_page_draft_title'),
-	('homepage', '0004_auto_20180208_2205'),
+        ('wagtailredirects', '0005_capitalizeverbose'),
+        ('people', '0025_remove_person_homepage'),
+        ('wagtailforms', '0003_capitalizeverbose'),
+        ('wagtailcore', '0040_page_draft_title'),
+        ('homepage', '0004_auto_20180208_2205'),
     ]
 
     operations = [
-	migrations.DeleteModel(
-	    name='HomepageRelatedHighlights',
-	),
-	migrations.DeleteModel(
-	    name='HomepageRelatedNews',
-	),
-	migrations.DeleteModel(
-	    name='HomepageRelatedPeople',
-	),
-	migrations.DeleteModel(
-	    name='WagtailHomepage',
-	),
+        migrations.DeleteModel(
+            name='HomepageRelatedHighlights',
+        ),
+        migrations.DeleteModel(
+            name='HomepageRelatedNews',
+        ),
+        migrations.DeleteModel(
+            name='HomepageRelatedPeople',
+        ),
+        migrations.DeleteModel(
+            name='WagtailHomepage',
+        ),
     ]

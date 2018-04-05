@@ -79,6 +79,7 @@ class MiniSiteNameSpace(ModularPage):
     This is basically an abstract page type for setting up
     minisite namespaces such as "campaign", "opportunity", etc.
     """
+
     def get_context(self, request):
         """
         Extend the context so that mini-site pages know what kind of tree
@@ -275,91 +276,92 @@ class CampaignPage(MiniSiteNameSpace):
 
 class HomepageFeaturedNews(WagtailOrderable, models.Model):
     page = ParentalKey(
-	'wagtailpages.Homepage',
-	related_name='featured_news',
+        'wagtailpages.Homepage',
+        related_name='featured_news',
     )
     news = models.ForeignKey('news.News', related_name='+')
     panels = [
-	SnippetChooserPanel('news'),
+        SnippetChooserPanel('news'),
     ]
 
     class Meta:
-	verbose_name = "news"
-	verbose_name_plural = "news"
+        verbose_name = "news"
+        verbose_name_plural = "news"
 
     def __str__(self):
-	return self.page.title + "->" + self.news.headline
+        return self.page.title + "->" + self.news.headline
 
 
 class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
-	'wagtailpages.Homepage',
-	related_name='featured_highlights',
+        'wagtailpages.Homepage',
+        related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', related_name='+')
     panels = [
-	SnippetChooserPanel('highlight'),
+        SnippetChooserPanel('highlight'),
     ]
 
     class Meta:
-	verbose_name = "highlight"
-	verbose_name_plural = "highlights"
+        verbose_name = "highlight"
+        verbose_name_plural = "highlights"
 
     def __str__(self):
-	return self.page.title + "->" + self.highlight.title
+        return self.page.title + "->" + self.highlight.title
 
 
 class Homepage(Page):
 
     hero_headline = models.CharField(
-	max_length=140,
-	help_text='Hero story headline',
-	blank=True,
+        max_length=140,
+        help_text='Hero story headline',
+        blank=True,
     )
 
     hero_story_description = RichTextField(
-	features=[
-	    'bold', 'italic', 'link',
-	]
+        features=[
+            'bold', 'italic', 'link',
+        ]
     )
 
     hero_image = models.ForeignKey(
-	'wagtailimages.Image',
-	null=True,
-	blank=True,
-	on_delete=models.SET_NULL,
-	related_name='hero_image'
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='hero_image'
     )
 
     hero_button_text = models.CharField(
-	max_length=50,
-	blank=True
+        max_length=50,
+        blank=True
     )
 
     hero_button_url = models.URLField(
-	blank=True
+        blank=True
     )
 
     content_panels = Page.content_panels + [
-	MultiFieldPanel([
-	    FieldPanel('hero_headline'),
-	    FieldPanel('hero_story_description'),
-	    FieldRowPanel([
-		FieldPanel('hero_button_text'),
-		FieldPanel('hero_button_url'),
-	    ]),
-	    ImageChooserPanel('hero_image'),
-	],
-	    heading="hero",
-	    classname="collapsible"
-	),
-	InlinePanel('featured_highlights', label="Highlights", max_num=5),
-	InlinePanel('featured_news', label="News", max_num=4),
+        MultiFieldPanel([
+            FieldPanel('hero_headline'),
+            FieldPanel('hero_story_description'),
+            FieldRowPanel([
+                FieldPanel('hero_button_text'),
+                FieldPanel('hero_button_url'),
+            ]),
+            ImageChooserPanel('hero_image'),
+        ],
+            heading="hero",
+            classname="collapsible"
+        ),
+        InlinePanel('featured_highlights', label="Highlights", max_num=5),
+        InlinePanel('featured_news', label="News", max_num=4),
     ]
 
     def get_context(self, request):
-	# We need to expose MEDIA_URL so that the s3 images will show up properly due to our custom image upload approach pre-wagtail
-	context = super(Homepage, self).get_context(request)
-	print(settings.MEDIA_URL)
-	context['MEDIA_URL'] = settings.MEDIA_URL
-	return context
+        # We need to expose MEDIA_URL so that the s3 images will show up properly
+        # due to our custom image upload approach pre-wagtail
+        context = super(Homepage, self).get_context(request)
+        print(settings.MEDIA_URL)
+        context['MEDIA_URL'] = settings.MEDIA_URL
+        return context

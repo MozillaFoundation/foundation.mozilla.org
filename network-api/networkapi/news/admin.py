@@ -22,4 +22,5 @@ class WagtailNewsAdmin(ModelAdmin):
     list_display = ('headline', 'thumbnail', 'date', 'link',)
     search_fields = ('headline',)
 
+
 modeladmin_register(WagtailNewsAdmin)

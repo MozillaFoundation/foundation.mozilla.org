@@ -46,4 +46,5 @@ class WagtailPersonAdmin(ModelAdmin):
     list_filter = ('internet_health_issues',)
     search_fields = ('name')
 
+
 modeladmin_register(WagtailPersonAdmin)
