@@ -5,6 +5,14 @@
     url(../_images/bg-repeat-crop@2x.jpg) center -60px / 2px 666px repeat-x;
   background-blend-mode: overlay, normal, normal;
 
+  .has-danger {
+    color: #d9534f;
+
+    a {
+      color: #d9534f !important;
+    }
+  }
+
   .join-page-title {
     display: none;
   }
