@@ -11,7 +11,7 @@
 .share-progress-em {
   height: 38px;
   border: none;
-  color: #fff;
+  color: $white;
   width: 100%;
   max-width: 142px;
   display: flex;
@@ -21,7 +21,7 @@
   font-size: 0.9rem;
 
   svg {
-    color: #fff;
+    color: $white;
     height: 15px;
     margin-right: 4px;
   }

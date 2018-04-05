@@ -10,7 +10,7 @@
 }
 
 .eligibility-section {
-  background: $off-white;
+  background: $subtle-gray;
 }
 
 .fellowships-list {
@@ -32,8 +32,8 @@
 .in-page-cta {
   padding-top: 10px;
   padding-bottom: 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid transparentize($black, 0.9);
+  border-bottom: 1px solid transparentize($black, 0.9);
 
   .content::before {
     content: '';
@@ -53,7 +53,7 @@
 }
 
 #fellowships-application-cta-banner {
-  background: $off-white;
+  background: $subtle-gray;
 
   .btn {
     width: 100%;

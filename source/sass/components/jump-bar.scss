@@ -3,14 +3,14 @@
     display: inline-block;
     margin-right: 15px;
     font-size: 16px;
-    color: #909090;
+    color: $medium-gray;
     letter-spacing: 0.5px;
     line-height: 16px;
     text-transform: uppercase;
     padding: 5px;
 
     &.no-link {
-      background: #ffed00;
+      background: $yellow;
       color: $black;
       font-weight: 700;
     }

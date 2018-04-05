@@ -9,14 +9,14 @@ body {
   .wrapper-2 {
     background:
       url(../_images/bg-white-lines.png) center top / auto 335px repeat,
-      linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%);
+      linear-gradient(to right, $neon-blue, $green);
     background-blend-mode: normal, normal;
   }
 
   // Homepage
   // &#view-home .wrapper-2 {
   //   background:
-  //     linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%),
+  //     linear-gradient(to right, $neon-blue, $green),
   //     url(../_images/hero-image-crop@2x.jpg) center top / auto 100% no-repeat,
   //     url(../_images/bg-repeat-crop@2x.jpg) center top / 2px 100% repeat-x;
   //   background-blend-mode: overlay, normal, normal;
@@ -28,7 +28,7 @@ body {
       background-blend-mode: hard-light;
       background-image:
         url(../_images/fellowships/hero-image@2x.png),
-        linear-gradient(to left, rgba(61, 254, 253, 1) 0%, rgba(183, 212, 63, 1) 100%);
+        linear-gradient(to right, $neon-blue, $green);
       background-repeat: repeat-x;
       background-size: auto 100%;
       background-position: 50% top;
@@ -48,22 +48,22 @@ button:hover {
   p a {
     color: $black;
     font-weight: 400;
-    text-decoration: underline solid #3bb7ef;
+    text-decoration: underline solid $blue;
 
     &:hover,
     &:focus {
-      text-decoration: underline solid #4383bf;
-      color: #4383bf;
+      text-decoration: underline solid $dark-blue;
+      color: $dark-blue;
     }
   }
 }
 
 .wrapper-burger {
-  background: rgba(0, 0, 0, 0);
+  background: none;
   transition: background 200ms ease-in-out;
 
   &.scrolled {
-    background: rgba(0, 0, 0, 0.9);
+    background: transparentize($black, 0.1);
 
     #burger,
     .logo {
@@ -79,7 +79,7 @@ button:hover {
     text-transform: uppercase;
     margin: 0;
     padding: 0;
-    color: #000;
+    color: $black;
     letter-spacing: 1px;
     line-height: 24px;
   }
@@ -145,7 +145,7 @@ button:hover {
   letter-spacing: 0.02rem;
 
   p {
-    color: rgba(255, 255, 255, 0.5);
+    color: transparentize($white, 0.5);
   }
 }
 
