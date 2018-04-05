@@ -13,15 +13,6 @@ body {
     background-blend-mode: normal, normal;
   }
 
-  // Homepage
-  // &#view-home .wrapper-2 {
-  //   background:
-  //     linear-gradient(to right, $neon-blue, $green),
-  //     url(../_images/hero-image-crop@2x.jpg) center top / auto 100% no-repeat,
-  //     url(../_images/bg-repeat-crop@2x.jpg) center top / 2px 100% repeat-x;
-  //   background-blend-mode: overlay, normal, normal;
-  // }
-
   // Fellowships homepage
   &#view-fellows-home .wrapper-2 {
     @media (min-width: $bp-lg) {
