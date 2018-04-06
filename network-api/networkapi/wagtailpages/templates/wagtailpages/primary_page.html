@@ -19,23 +19,27 @@
   </div>
 </div>
 
+{% if children.count > 0 %}
 <div id="horizontal-secondary-nav" class="hidden-sm-down my-4">
   <div class="container">
     <div class="row">
       <div class="col">
         <div id="multipage-nav" class="d-flex flex-row align-items-center">
           <div><a href="{% pageurl page %}" class="active">{{page.title}}</a></div>
-          {% if children.count > 0 %}
             {% for child_page in children %}
               <div><a href="{% pageurl child_page %}" class="{% if child_page.title == current.title %}active{% endif %}">{{child_page}}</a></div>
             {% endfor %}
-            <hr class="hr-gradient">
-          {% endif %}
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <hr class="hr-gradient">
       </div>
     </div>
   </div>
 </div>
+{% endif %}
 
 <div class="container">
   <div class="row my-5 d-flex align-items-center">
