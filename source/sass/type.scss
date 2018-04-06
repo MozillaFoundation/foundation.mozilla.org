@@ -147,6 +147,16 @@ a {
   @include scaleText(18px, 24px, 22px, 32px);
 }
 
+.quote-feature {
+  font-family: "Zilla Slab";
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+
+  @include scaleText(24px, 32px, 30px, 40px);
+}
+
+
 .body-black {
   color: $black;
   letter-spacing: 0;
