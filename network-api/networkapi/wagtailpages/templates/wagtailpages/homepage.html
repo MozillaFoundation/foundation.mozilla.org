@@ -36,9 +36,9 @@
               <div class="news-item">
                 <div class="d-flex align-items-center mb-2">
                   {% if article.news.glyph %}
-                  {% homepage_image_with_class article.news.glyph "mr-2 glyph" %}
+                    {% homepage_image_with_class article.news.glyph "mr-2 glyph" %}
                   {% endif %}
-                  <p class="h6-gray mb-0">{{article.news.outlet}}</p>
+                  <p class="h6-heading-uppercase mb-0">{{article.news.outlet}}</p>
                 </div>
                 <h5 class="mb-2">
                   <a href="{{article.news.headline}}" class="h4-heading">{{article.news.headline}}</a>
@@ -62,7 +62,7 @@
             {% if article.news.glyph %}
             {% homepage_image_with_class article.news.glyph "mr-2 glyph" %}
             {% endif %}
-            <p class="h6-gray mb-0">{{article.news.outlet}}</p>
+            <p class="h6-heading-uppercase mb-0">{{article.news.outlet}}</p>
           </div>
           <h5 class="mb-2">
             <a href="{{article.news.link}}" class="h5-heading">{{article.news.headline}}</a>
@@ -150,7 +150,7 @@
       <div class="col">
         <div class="feature-quote">
           <h3>We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices.</h3>
-          <p class="h6-gray">Rishab Nithyanand, Mozilla Fellow</p>
+          <p class="h6-heading-uppercase">Rishab Nithyanand, Mozilla Fellow</p>
         </div>
       </div>
     </div>
