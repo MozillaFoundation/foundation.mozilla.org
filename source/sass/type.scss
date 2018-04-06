@@ -183,7 +183,6 @@ a {
 .cta-link {
   display: inline-block;
   letter-spacing: 0.5px;
-  line-height: 1.5;
   text-transform: uppercase;
   text-decoration: underline;
 
@@ -196,7 +195,7 @@ a {
     top: -1px;
   }
 
-  @include scaleText(16px);
+  @include scaleText(16px, 24px);
 }
 
 .multipage-link {
