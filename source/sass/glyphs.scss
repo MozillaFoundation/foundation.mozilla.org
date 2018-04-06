@@ -37,22 +37,6 @@
   }
 }
 
-.twitter-circle {
-  @include compositeGlyph("twitter-circle");
-}
-
-.facebook-circle {
-  @include compositeGlyph("facebook-circle");
-}
-
-.chat-circle {
-  @include compositeGlyph("chat-circle");
-}
-
-.email-circle {
-  @include compositeGlyph("email-circle");
-}
-
 .donate {
   @include compositeGlyph("donate");
 }
