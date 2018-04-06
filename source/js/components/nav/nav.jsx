@@ -63,7 +63,7 @@ export default class PrimaryNav extends React.Component {
                 <li><a className="home" href="/">Home</a></li>
                 <li><a className="get-involved" href="/get-involved">Initiatives</a></li>
                 <li><a className="upcoming" href="/programs/upcoming">Participate</a></li>
-                <li><a className="upcoming" href="https://internethealthreport.org" target="_blank" rel="noopener noreferrer">Internet&nbsp;Health</a></li>
+                <li><a href="https://internethealthreport.org" target="_blank" rel="noopener noreferrer">Internet&nbsp;Health</a></li>
                 <li><a className="people" href="/people">People</a></li>
                 <li><a className="about" href="/about">About&nbsp;Us</a></li>
               </ul>
