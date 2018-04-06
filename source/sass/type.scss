@@ -142,12 +142,6 @@ a {
   @include p-lead;
 }
 
-.lead-white {
-  color: $white;
-
-  @include p-lead;
-}
-
 .quote-small {
   font-weight: 100;
   font-style: italic;
