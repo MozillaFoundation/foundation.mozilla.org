@@ -6,7 +6,7 @@ extends ../templates/master.pug
 
 block masterParams
   - let isMezzanine = true
-  - let pageTitle = `{{ page.meta_title }}`;
+  - let pageTitle = `{% block pageTitle %}Mozilla Foundation - {{ page.meta_title }}{% endblock %}`;
 
 block socialMetadata
   | {% block socialMetadata %}{% endblock %}

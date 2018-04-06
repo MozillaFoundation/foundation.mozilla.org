@@ -33,7 +33,10 @@ html
     link(rel=`icon` type=`image/png` sizes=`196x196` href!=`${baseURL || `/`}_images/favicons/favicon-196x196@2x.png`)
     link(rel=`shortcut icon` href!=`${baseURL || `/`}_images/favicons/favicon.ico`)
 
-    title=`${strings.MLN} – ${pageTitle}`
+    - if (isMezzanine)
+      title=`${pageTitle}`
+    - else
+      title=`${strings.MLN} – ${pageTitle}`
 
   body(id=`view-${templateID}`)
     .takeover
