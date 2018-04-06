@@ -1,0 +1,143 @@
+{% extends "./primary_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block bodyID %}initiatives{% endblock%}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-6 col-md-3 mb-3 mb-md-0 feature-square">
+      <a href="/fellowships">
+        <img src="/_images/programs/image-fellowships@2x.jpg">
+        <h4 class="h4-medium-black">Fellowships</h4>
+      </a>
+    </div>
+    <div class="col-6 col-md-3 mb-3 mb-md-0 feature-square">
+      <a href="https://mozillafestival.org/">
+        <img src="/_images/programs/image-mozfest@2x.jpg">
+        <h4 class="h4-medium-black">MozFest</h4>
+      </a>
+    </div>
+    <div class="col-6 col-md-3 mb-3 mb-md-0 feature-square">
+      <a href="https://advocacy.mozilla.org/">
+        <img src="/_images/programs/image-advocacy@2x.jpg">
+        <h4 class="h4-medium-black">Advocacy</h4>
+      </a>
+    </div>
+    <div class="col-6 col-md-3 mb-3 mb-md-0 feature-square">
+      <a href="https://internethealthreport.org/">
+        <img src="/_images/programs/image-internet-health-report@2x.jpg">
+        <h4 class="h4-medium-black">Internet Health Report</h4>
+      </a>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img class="mb-3" src="/_images/programs/event.jpg">
+    </div>
+    <div class="col-md-6">
+      <h2 class="h3-black">Events</h2>
+      <p>Network events include hackathons, global sprints, Twitter chats and the annual MozFest in London.</p>
+      <ul>
+        <li class="mb-3">
+          <a class="cta-link" href="https://mozillafestival.org/">Mozilla Festival</a>
+        </li>
+        <li class="mb-3">
+          <a class="cta-link" href="/opportunity/global-sprint/">Global Sprints</a>
+        </li>
+        <li class="mb-3">
+          <a class="cta-link" href="/programs/upcoming/">Upcoming events</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img class="mb-3" src="/_images/programs/training.jpg">
+    </div>
+    <div class="col-md-6">
+      <h2 class="h3-black">Training</h2>
+      <p>Our trainings help members work open, hone leadership skills and level up careers.</p>
+      <ul>
+        <li class="mb-3">
+          <a class="cta-link" href="https://mozilla.github.io/leadership-training/">Open leadership training</a>
+        </li>
+        <li class="mb-3">
+          <a class="cta-link" href="https://mozilla.teachable.com/p/open-leadership-101">Open Leadership 101</a>
+        </li>
+        <li class="mb-3">
+          <a class="cta-link" href="https://learning.mozilla.org/activities">Web literacy activities</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img class="mb-3" src="/_images/programs/fellowship.jpg">
+    </div>
+    <div class="col-md-6">
+      <h2 class="h3-black">Fellowships</h2>
+      <p>Our Fellowships empower bright minds in the fields of public policy, science and journalism. We partner with the world’s
+        leading NGOs. Among them: Citizen Lab, Privacy International, EDRi, Freedom of the Press Foundation, Data &amp; Society
+        and Derechos Digitales.</p>
+      <ul>
+        <li class="mb-3">
+          <a class="cta-link" href="/fellowships">Fellowships</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img class="mb-3" src="/_images/programs/local-organizing.jpg">
+    </div>
+    <div class="col-md-6">
+      <h2 class="h3-black">Local Organizing</h2>
+      <p>We connect passionate people in cities across five continents, from technologists in Chattanooga to educators in Cape
+        Town. Our Network provides organizing best-practices and mutual support. In certain cities, our Network can also
+        deploy on-the-ground staff.</p>
+      <ul>
+        <li class="mb-3">
+          <a class="cta-link" href="https://learning.mozilla.org/gigabit">Mozilla Gigabit cities</a>
+        </li>
+        <li class="mb-3">
+          <a class="cta-link" href="https://science.mozilla.org/programs/studygroups">Mozilla Science Study Groups</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img class="mb-3" src="/_images/programs/research.jpg">
+    </div>
+    <div class="col-md-6">
+      <h2 class="h3-black">Research</h2>
+      <p>Building a healthy Internet requires data and insight: We need to know what deserves our attention. Network research
+        investigating issues like the global app economy, digital skills in classrooms and smartphone use in emerging markets</p>
+      <ul>
+        <li class="mb-3">
+          <a class="cta-link" href="https://mozilla-foundation-research.herokuapp.com/globalweb/">Global research reports</a>
+        </li>
+        <li class="mb-3">
+          <a class="cta-link" href="https://internethealthreport.org/">See the Internet Health Report</a>
+        </li>
+        <li class="mb-3">
+          <a class="cta-link" href="http://mozillafoundation.github.io/digital-skills-observatory/">Digital Skills Observatory</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mb-4 justify-content-center">
+    <div class="col-12 col-md-2 hear-from-you-line-art"></div>
+    <div class="col-12 col-md-8 col-lg-6">
+      <h4 class="h4-headingcontract-black">We’d Love to Hear From You</h4>
+      <p class="body-black">Curious about other opportunities or have a specific question in mind? Feel free to reach out and let us know how we
+        can help!</p>
+      <a class="cta-link mr-4" href="mailto:network@mozillafoundation.org">Email</a>
+      <a class="cta-link" href="https://twitter.com/mozilla">Twitter</a>
+    </div>
+  </div>
+</div>
+
+<div class="join-us full-width d-flex justify-content-center"></div>
+{% endblock %}

@@ -321,6 +321,18 @@ class PrimaryPage(Page):
     parent_page_types = ['Homepage']
 
 
+class PeoplePage(PrimaryPage):
+    parent_page_types = ['Homepage']
+
+
+class InitiativesPage(PrimaryPage):
+    parent_page_types = ['Homepage']
+
+
+class ParticipatePage(PrimaryPage):
+    parent_page_types = ['Homepage']
+
+
 class Homepage(Page):
 
     hero_headline = models.CharField(
