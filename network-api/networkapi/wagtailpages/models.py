@@ -310,6 +310,14 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + "->" + self.highlight.title
 
 
+class PrimaryPage(Page):
+    body = StreamField(base_fields)
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+
 class Homepage(Page):
 
     hero_headline = models.CharField(
