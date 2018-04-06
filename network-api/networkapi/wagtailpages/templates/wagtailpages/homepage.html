@@ -65,7 +65,7 @@
             <p class="h6-gray mb-0">{{article.news.outlet}}</p>
           </div>
           <h5 class="mb-2">
-            <a href="{{article.news.link}}" class="h5-black">{{article.news.headline}}</a>
+            <a href="{{article.news.link}}" class="h5-heading">{{article.news.headline}}</a>
           </h5>
           <p class="small-gray mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
           <p class="body-black">{{article.news.excerpt}}</p>
@@ -111,7 +111,7 @@
         {% homepage_image highlight.highlight.image %}
       </div>
       <div class="col-sm-12 col-md-8 pt-3">
-        <h5 class="h5-black mb-3">
+        <h5 class="h5-heading mb-3">
           <a href="{{highlight.highlight.link_url}}">{{highlight.highlight.title}}</a>
         </h5>
         <p class="body-black">{{highlight.highlight.description}}</p>

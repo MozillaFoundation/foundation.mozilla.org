@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 mt-3">
-        <p class="h5-black hidden-md-up">{{ page.parent.title }}</p>
+        <p class="h5-heading hidden-md-up">{{ page.parent.title }}</p>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
       {% endif %}
       <div class="py-5 {% if page.parent.title != parentTitle %}col-12 col-md-9{% else %}col-12 col-lg-10 offset-lg-1{% endif %}">
         {% if page.parent.title != parentTitle %}
-        <p class="h5-black hidden-sm-down">{{ page.parent.title }}</p>
+        <p class="h5-heading hidden-sm-down">{{ page.parent.title }}</p>
         {% endif %}
         <h1 class="h1-heading {% if page.parent.title != parentTitle %}hidden-sm-down{% endif %}">{% block h1 %}{% endblock %}</h1>
         {% block subcontent %}
