@@ -139,12 +139,12 @@ a {
 }
 
 .quote-small {
-  font-weight: 100;
+  font-weight: 300;
   font-style: italic;
   color: $black;
   line-height: 1.45;
 
-  @include scaleText(18px, 22px);
+  @include scaleText(18px, 24px, 22px, 32px);
 }
 
 .body-black {
