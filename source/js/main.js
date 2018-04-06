@@ -25,7 +25,7 @@ const SHOW_MEMBER_NOTICE = false;
 let env, networkSiteURL;
 
 let main = {
-  init () {
+  init() {
     this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
@@ -42,7 +42,7 @@ let main = {
     });
   },
 
-  fetchEnv (callback) {
+  fetchEnv(callback) {
     let envReq = new XMLHttpRequest();
 
     envReq.addEventListener(`load`, () => {
@@ -53,7 +53,7 @@ let main = {
     envReq.send();
   },
 
-  fetchHomeDataIfNeeded (callback) {
+  fetchHomeDataIfNeeded(callback) {
     // Only fetch data if you're on the homepage
     if (document.querySelector(`#view-home`)) {
       let homepageReq = new XMLHttpRequest();
@@ -69,7 +69,7 @@ let main = {
     }
   },
 
-  bindGlobalHandlers () {
+  bindGlobalHandlers() {
     // Close primary nav when escape is pressed
     document.addEventListener(`keyup`, (e) => {
       if (e.keyCode === 27 && !this.reactPrimaryNav.state.isHidden) {
@@ -141,7 +141,7 @@ let main = {
   },
 
   // Trigger blurring of page contents when primary nav is toggled
-  onPrimaryNavStateChange (event) {
+  onPrimaryNavStateChange(event) {
     let elWrapper = document.querySelector(`body > .wrapper`);
 
     if (event.isHidden) {
@@ -152,12 +152,12 @@ let main = {
   },
 
   // Embed various React components based on the existence of containers within the current page
-  injectReactComponents (data) {
+  injectReactComponents(data) {
     if (document.getElementById(`primary-nav`)) {
       ReactDOM.render(
         <PrimaryNav
           ref={(primaryNav) => { this.reactPrimaryNav = primaryNav; }}
-          onStateChange={this.onPrimaryNavStateChange}/>,
+          onStateChange={this.onPrimaryNavStateChange} />,
         document.getElementById(`primary-nav`)
       );
 
@@ -169,7 +169,7 @@ let main = {
     }
 
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
-      ReactDOM.render(<MemberNotice/>, document.getElementById(`member-notice`));
+      ReactDOM.render(<MemberNotice />, document.getElementById(`member-notice`));
     }
 
     // Show Takeover for new visitors
@@ -186,7 +186,7 @@ let main = {
         elWrapper.style.height = null;
       };
 
-      ReactDOM.render(<Takeover onHide={onTakeoverHide}/>, document.querySelector(`#view-home .takeover`));
+      ReactDOM.render(<Takeover onHide={onTakeoverHide} />, document.querySelector(`#view-home .takeover`));
       Cookies.set(`seen-takeover`, `true`, { expires: 365 });
       ReactGA.pageview(`/welcome-splash`);
     }
@@ -195,7 +195,7 @@ let main = {
     if (document.querySelectorAll(`.join-us:not(#join-us)`)) {
       var elements = Array.from(document.querySelectorAll(`.join-us:not(#join-us)`));
 
-      if(elements.length) {
+      if (elements.length) {
         elements.forEach(element => {
           var props = element.dataset;
 
@@ -216,7 +216,7 @@ let main = {
     });
 
     if (document.getElementById(`people`)) {
-      ReactDOM.render(<People env={env}/>, document.getElementById(`people`));
+      ReactDOM.render(<People env={env} />, document.getElementById(`people`));
     }
 
     // Multipage nav used in landing pages
@@ -239,23 +239,23 @@ let main = {
     if (data) {
       // Leaders
       if (document.querySelector(`#featured-people-box`)) {
-        ReactDOM.render(<Leaders data={data.leaders}/>, document.querySelector(`#featured-people-box`));
+        ReactDOM.render(<Leaders data={data.leaders} />, document.querySelector(`#featured-people-box`));
       }
 
       // Home News
       if (document.querySelector(`#home-news`)) {
-        ReactDOM.render(<HomeNews data={data.news}/>, document.querySelector(`#home-news`));
+        ReactDOM.render(<HomeNews data={data.news} />, document.querySelector(`#home-news`));
       }
 
       // Highlights
       if (document.querySelector(`#home-highlights`)) {
-        ReactDOM.render(<Highlights data={data.highlights}/>, document.querySelector(`#home-highlights`));
+        ReactDOM.render(<Highlights data={data.highlights} />, document.querySelector(`#home-highlights`));
       }
     }
 
     // News
     if (document.querySelector(`#news`)) {
-      ReactDOM.render(<News env={env}/>, document.querySelector(`#news`));
+      ReactDOM.render(<News env={env} />, document.querySelector(`#news`));
     }
 
     // Fellowships single filter fellow list

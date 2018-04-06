@@ -1,5 +1,149 @@
-{% for highlight in page.featured_highlights.all %}
-    <p>
-    	{{ highlight }}
-    </p>
-{% endfor %}
+{% extends "pages/base-compiled.html" %} {% load wagtailcore_tags wagtailimages_tags %} {% block content %}
+
+<div class="container">
+  <div class="row my-5 d-flex align-items-center">
+    <div class="col-md-6">
+      <h1 class="h1-white">{{ page.hero_headline }}</h1>
+      <div class="lead-black mb-4">{{ page.hero_story_description | richtext }}</div>
+      <a class="btn btn-normal" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
+    </div>
+    <div class="col-md-6 hidden-sm-down">
+      {% image page.hero_image width-540 %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-4">
+      <hr class="mb-4 hr-gradient mt-0">
+      <h4 class="h2-headings-white">Latest news</h4>
+    </div>
+  </div>
+  <div id="home-news-wagtail">
+    <div class="row mb-3">
+      {% for article in page.featured_news.all %}
+      {% if forloop.counter is 1 %}
+      <div class="col-md-6 mb-0 pb-4">
+        <div class="play-button-wrapper">
+          <img src="{{MEDIA_URL}}{{article.news.thumbnail}}">
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="key-item mx-2 mx-md-4 p-3">
+              <div class="news-item">
+                <div class="d-flex align-items-center mb-2">
+                  {% if article.news.glyph %}
+                  <img src="{{MEDIA_URL}}{{article.news.glyph}}" class="mr-2 glyph">{% endif %}
+                  <p class="h6-gray mb-0">{{article.news.outlet}}</p>
+                </div>
+                <h5 class="mb-2">
+                  <a href="{{article.news.headline}}" class="h4-medium-black">{{article.news.headline}}</a>
+                </h5>
+                <p class="small-gray mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+                <p class="body-black">{{article.news.excerpt}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% endfor %}
+      <div class="col-md-6 mb-0 pb-4">
+        {% for article in page.featured_news.all %} {% if forloop.counter > 1 %}
+        <div class="news-item">
+          <div class="d-flex align-items-center mb-2">
+            {% if article.news.glyph %}
+            <img src="{{MEDIA_URL}}{{article.news.glyph}}" class="mr-2 glyph">{% endif %}
+            <p class="h6-gray mb-0">{{article.news.outlet}}</p>
+          </div>
+          <h5 class="mb-2">
+            <a href="{{article.news.link}}" class="h5-black">{{article.news.headline}}</a>
+          </h5>
+          <p class="small-gray mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+          <p class="body-black">{{article.news.excerpt}}</p>
+          <hr>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center mb-5">
+      <a class="btn btn-ghost" href="/news">View more news</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-4">
+      <hr class="hr-gradient mb-4">
+      <h4 class="h2-headings-white">Happening now</h4>
+    </div>
+  </div>
+  <div id="home-highlights-wagtail">
+    <div class="highlights mb-5">
+      <div class="row">
+        {% for highlight in page.featured_highlights.all %}
+        {% if forloop.counter <= 2 %} 
+        <div class="col-md-6">
+          <div class="pb-5">
+            <img src="{{MEDIA_URL}}{{highlight.highlight.image}}">
+            <div class="key-item mx-2 mx-md-4 p-3">
+              <h5 class="h4-light-black mb-2">{{highlight.highlight.title}}</h5>
+              <p class="body-black">{{highlight.highlight.description}}</p>
+              <a class="cta-link mb-2" href="{{highlight.highlight.link_url}}">{{highlight.highlight.link_label}}t</a>
+            </div>
+          </div>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+    {% for highlight in page.featured_highlights.all %} {% if forloop.counter > 2 %}
+    <div class="row my-3">
+      <div class="col-sm-12 col-md-4 pt-3 hidden-sm-down">
+        <img src="{{MEDIA_URL}}{{highlight.highlight.image}}">
+      </div>
+      <div class="col-sm-12 col-md-8 pt-3">
+        <h5 class="h5-black mb-3">
+          <a href="{{highlight.highlight.link_url}}">{{highlight.highlight.title}}</a>
+        </h5>
+        <p class="body-black">{{highlight.highlight.description}}</p>
+      </div>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <hr class="hr-gradient mb-4">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="h2-headings-white">Trending projects</h4>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end">
+    <a class="cta-link" href="https://www.mozillapulse.org/add">Add your project</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="pulse-project-list" for="" size="6" checked="true"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col text-center mb-5">
+    <a class="btn btn-ghost" href="https://www.mozillapulse.org">More from our network</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <hr class="hr-gradient mb-5">
+    <div class="row mb-5">
+      <div class="col">
+        <div class="feature-quote">
+          <h3>We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices.</h3>
+          <p class="h6-gray">Rishab Nithyanand, Mozilla Fellow</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="join-us full-width d-flex justify-content-center"></div>
+{% endblock %}
