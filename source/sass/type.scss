@@ -45,16 +45,6 @@ a {
   }
 }
 
-@mixin scaleLineHeight($small, $large: null) {
-  line-height: $small;
-
-  @if ($large) {
-    @media screen and (min-width: $bp-md) {
-      line-height: $large;
-    }
-  }
-}
-
 @mixin black-box-white-text($padding:0.1em) {
   background: $black;
   color: $white;
