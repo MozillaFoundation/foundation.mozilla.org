@@ -118,7 +118,7 @@ a {
   letter-spacing: 0.5px;
   text-transform: uppercase;
 
-  @include scaleText(12px, null, 16px, null);
+  @include scaleText(12px, 16px);
 }
 
 .h6-heading {
@@ -127,7 +127,7 @@ a {
   color: $medium-gray;
   letter-spacing: 0;
 
-  @include scaleText(12px, null, 16px, null);
+  @include scaleText(12px, 16px);
 }
 
 .body-large {
@@ -190,5 +190,5 @@ p,
 
 .multipage-link {
   @include yellow-underline-nav-link(".multipage-link-active");
-  @include scaleText(18px, null, 20px, null);
+  @include scaleText(18px, 27px, 20px, 30px);
 }
