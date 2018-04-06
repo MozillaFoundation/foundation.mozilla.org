@@ -43,7 +43,7 @@ export default class News extends React.Component {
             <h3 className="h4-heading mb-2">
               <a href={newsItem.link} className="newsItem headline">{newsItem.headline}</a>
             </h3>
-            { newsItem.author && <p className="italic-black">by {newsItem.author}</p> }
+            { newsItem.author && <p className="h6-heading">by {newsItem.author}</p> }
             <p className="h6-heading">{moment(newsItem.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}</p>
           </div>
           { hasHR && <hr/> }

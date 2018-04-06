@@ -165,14 +165,6 @@ a {
   @include scaleText(16px);
 }
 
-.italic-black {
-  letter-spacing: 0;
-  line-height: 1.5;
-  font-style: italic;
-
-  @include scaleText(16px);
-}
-
 .body-link {
   letter-spacing: 0;
   font-weight: 700;
