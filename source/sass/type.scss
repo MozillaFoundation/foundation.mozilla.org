@@ -21,6 +21,10 @@ a {
   &:hover {
     color: $dark-blue;
   }
+
+  &.h4-heading {
+    font-weight: inherit;
+  }
 }
 
 @mixin scaleText($font-size, $line-height-px: null, $desktop-font-size: null, $desktop-line-height-px: null) {
