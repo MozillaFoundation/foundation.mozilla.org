@@ -27,19 +27,19 @@ a {
   }
 }
 
-@mixin scaleText($font-size, $line-height-px: null, $desktop-font-size: null, $desktop-line-height-px: null) {
-  font-size: $font-size;
+@mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
+  font-size: $base-font-size;
 
-  @if ($line-height-px) {
-    line-height: $line-height-px/$font-size;
+  @if ($base-line-height) {
+    line-height: $base-line-height/$base-font-size;
   }
 
-  @if ($desktop-font-size) {
+  @if ($large-font-size) {
     @media screen and (min-width: $bp-md) {
-      font-size: $desktop-font-size;
+      font-size: $large-font-size;
 
-      @if ($desktop-line-height-px) {
-        line-height: $desktop-line-height-px/$desktop-font-size;
+      @if ($large-line-height) {
+        line-height: $large-line-height/$large-font-size;
       }
     }
   }
