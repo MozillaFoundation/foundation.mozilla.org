@@ -130,16 +130,12 @@ a {
   @include scaleText(12px, null, 16px, null);
 }
 
-@mixin p-lead {
-  font-weight: 100;
+.body-large {
+  font-weight: 300;
   letter-spacing: 0;
   line-height: 1.333;
 
-  @include scaleText(18px, null, 20px, null);
-}
-
-.lead-black {
-  @include p-lead;
+  @include scaleText(18px, 24px, 20px, 28px);
 }
 
 .quote-small {
