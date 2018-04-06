@@ -1,9 +1,3 @@
-#fellowships-nav {
-  a {
-    @include yellow-underline-nav-link(".active");
-  }
-}
-
 #fellowship-breadcrumb {
   margin-top: 1.5rem;
   margin-bottom: 1rem;

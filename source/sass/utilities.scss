@@ -57,3 +57,9 @@
     text-decoration: underline;
   }
 }
+
+#horizontal-secondary-nav {
+  a {
+    @include yellow-underline-nav-link(".active");
+  }
+}
