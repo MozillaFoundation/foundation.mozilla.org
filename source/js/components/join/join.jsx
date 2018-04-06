@@ -81,7 +81,7 @@ export default class JoinUs extends React.Component {
                 <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thanks!`}</h2>
               </div>
               <div className="join-heading">
-                { this.state.signupSuccess && <h2>Thanks!</h2> }
+                { this.state.signupSuccess && <h3 className="h3-black">Thanks!</h3> }
               </div>
               {!this.state.signupSuccess ?
                 <p className="lead-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
