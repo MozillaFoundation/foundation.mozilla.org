@@ -98,27 +98,10 @@ a {
   @include scaleText(28px, 32px, 40px, 48px);
 }
 
-.h3-heading {
-  letter-spacing: 0;
-  line-height: 1.25;
-  font-weight: 900;
-
-  @include scaleText(22px, null, 32px, null);
-}
-
 .h4-heading {
   font-family: "Zilla Slab";
 
   @include scaleText(24px, 28px, 28px, 36px);
-}
-
-.h4-light-black {
-  font-family: "Zilla Slab";
-  font-weight: 100;
-  letter-spacing: 0;
-  line-height: 1.2;
-
-  @include scaleText(20px, null, 28px, null);
 }
 
 .h4-headingcontract-black {
