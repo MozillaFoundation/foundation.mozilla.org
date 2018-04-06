@@ -132,6 +132,8 @@ INSTALLED_APPS = list(filter(None, [
 
     'networkapi.wagtailcustomization',
 
+    'wagtailmetadata',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
