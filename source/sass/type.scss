@@ -175,9 +175,9 @@ a {
 
 .body-link {
   letter-spacing: 0;
-  line-height: 1.5;
+  font-weight: 700;
 
-  @include scaleText(16px);
+  @include scaleText(16px, 24px);
 }
 
 .cta-link {
