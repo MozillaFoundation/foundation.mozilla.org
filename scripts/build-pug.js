@@ -32,8 +32,8 @@ function buildPage(template, target, extraData, isDjangoTemplate = false) {
 
 buildPage(`home`, `/`);
 buildPage(`people`, `/people`);
-buildPage(`get-involved`, `/get-involved`);
-buildPage(`upcoming`, `/programs/upcoming`);
+buildPage(`initiatives`, `/initiatives`);
+buildPage(`participate`, `/participate`);
 buildPage(`projects`, `/projects`, require(`./massage-projects.js`));
 buildPage(`about`, `/about`);
 buildPage(`news`, `/news`);
