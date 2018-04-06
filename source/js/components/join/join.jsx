@@ -78,14 +78,14 @@ export default class JoinUs extends React.Component {
           <div className="row">
             <div className="col-12 col-md-6 d-flex justify-content-center flex-column join-content">
               <div className="mb-5 join-page-title">
-                <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thank You`}</h2>
+                <h2 className="h1-white">{!this.state.signupSuccess ? `${this.props.ctaHeader}` : `Thanks!`}</h2>
               </div>
               <div className="join-heading">
-                { this.state.signupSuccess && <h2>Thank You</h2> }
+                { this.state.signupSuccess && <h3 className="h3-black">Thanks!</h3> }
               </div>
               {!this.state.signupSuccess ?
                 <p className="lead-black" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
-                : <p>{this.props.thankYouMessage}</p>
+                : <p dangerouslySetInnerHTML={{__html:this.props.thankYouMessage}}></p>
               }
             </div>
             { !this.state.signupSuccess &&
@@ -121,6 +121,6 @@ export default class JoinUs extends React.Component {
 JoinUs.defaultProps = {
   ctaDescription: `Sign up for opportunities and news related to a healthy internet.`,
   ctaHeader: `Get Connected`,
-  thankYouMessage: `Thanks for joining. The Internet already feels a bit more vibrant (^_^). We will email you soon to confirm.`,
+  thankYouMessage: `Please check your inbox to confirm your subscription.<br/><br/>If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. Please check your inbox or your spam filter for an email from us.`,
   newsletter: `mozilla-foundation`
 };
