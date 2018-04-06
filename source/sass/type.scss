@@ -104,14 +104,6 @@ a {
   @include scaleText(24px, 28px, 28px, 36px);
 }
 
-.h4-headingcontract-black {
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.2;
-
-  @include scaleText(22px, null, 28px, null);
-}
-
 .h5-heading {
   font-family: "Zilla Slab";
   font-weight: 600;
