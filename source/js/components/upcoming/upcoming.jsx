@@ -77,7 +77,7 @@ export default class Upcoming extends React.Component {
           <div className="col-sm-8">
             <p className="h6-heading-uppercase mt-3 mt-sm-0">{displayDate}</p>
             <h2 className="h4-heading">{meta.headline}</h2>
-            <p className="body-black">{meta.description}</p>
+            <p>{meta.description}</p>
             <a className="cta-link" href={meta.link_url}>{meta.link_label}</a>
           </div>
         </div>

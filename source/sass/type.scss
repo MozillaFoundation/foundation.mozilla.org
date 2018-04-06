@@ -156,13 +156,12 @@ a {
   @include scaleText(24px, 32px, 30px, 40px);
 }
 
-
-.body-black {
+p,
+.normal {
   color: $black;
   letter-spacing: 0;
-  line-height: 1.5;
 
-  @include scaleText(16px);
+  @include scaleText(16px, 24px);
 }
 
 .body-link {
