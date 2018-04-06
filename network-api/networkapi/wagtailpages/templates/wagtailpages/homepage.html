@@ -44,7 +44,7 @@
                   <a href="{{article.news.headline}}" class="h4-heading">{{article.news.headline}}</a>
                 </h5>
                 <p class="h6-heading mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
-                <p class="body-black">{{article.news.excerpt}}</p>
+                <p>{{article.news.excerpt}}</p>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@
             <a href="{{article.news.link}}" class="h5-heading">{{article.news.headline}}</a>
           </h5>
           <p class="h6-heading mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
-          <p class="body-black">{{article.news.excerpt}}</p>
+          <p>{{article.news.excerpt}}</p>
           <hr>
         </div>
         {% endif %}
@@ -98,7 +98,7 @@
             {% homepage_image highlight.highlight.image %}
             <div class="key-item mx-2 mx-md-4 p-3">
               <h5 class="h4-heading mb-2">{{highlight.highlight.title}}</h5>
-              <p class="body-black">{{highlight.highlight.description}}</p>
+              <p>{{highlight.highlight.description}}</p>
               <a class="cta-link mb-2" href="{{highlight.highlight.link_url}}">{{highlight.highlight.link_label}}t</a>
             </div>
           </div>
@@ -114,7 +114,7 @@
         <h5 class="h5-heading mb-3">
           <a href="{{highlight.highlight.link_url}}">{{highlight.highlight.title}}</a>
         </h5>
-        <p class="body-black">{{highlight.highlight.description}}</p>
+        <p>{{highlight.highlight.description}}</p>
       </div>
     </div>
     {% endif %} {% endfor %}
