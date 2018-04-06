@@ -151,7 +151,6 @@ a {
   font-family: "Zilla Slab";
   font-weight: 300;
   font-style: italic;
-  text-align: center;
 
   @include scaleText(24px, 32px, 30px, 40px);
 }
