@@ -1,5 +1,9 @@
-{% extends "pages/base-compiled.html" %} {% load wagtailcore_tags wagtailimages_tags %} {% block content %}
+{% extends "pages/base-compiled.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
+{% block bodyID %}home{% endblock %}
+
+{% block content %}
 <div class="container">
   <div class="row my-5 d-flex align-items-center">
     <div class="col-md-6">
@@ -79,7 +83,7 @@
     <div class="highlights mb-5">
       <div class="row">
         {% for highlight in page.featured_highlights.all %}
-        {% if forloop.counter <= 2 %} 
+        {% if forloop.counter <= 2 %}
         <div class="col-md-6">
           <div class="pb-5">
             <img src="{{MEDIA_URL}}{{highlight.highlight.image}}">
