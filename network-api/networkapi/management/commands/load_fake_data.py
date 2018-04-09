@@ -81,6 +81,7 @@ class Command(BaseCommand):
         LandingPageFactory.create(parent=important_issue, title='overview')
         LandingPageFactory.create(parent=important_issue, title='press')
         CampaignFactory.create(parent=important_issue, title='take-action', petition=PetitionFactory.create())
+        CampaignFactory.create(parent=campaigns, title='single-petition', petition=PetitionFactory.create())
 
         self.stdout.write('Generating LandingPage objects with known titles')
         LandingPageFactory.create(parent=opportunity, title='page')

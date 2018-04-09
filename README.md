@@ -120,6 +120,7 @@ The `load_fake_data` command will output the following URLs every time:
 - `/campaigns/important-issue/overview`
 - `/campaigns/important-issue/press`
 - `/campaigns/important-issue/take-action` (Petition page)
+- `/campaigns/single-petition` (Petition page)
 
 #### Running the project for front-end development
 
