@@ -50,7 +50,7 @@
 
 .breadcrumb-item {
   &.active {
-    @extend .small-gray;
+    @extend .h6-heading;
   }
 
   &:not(.active) {

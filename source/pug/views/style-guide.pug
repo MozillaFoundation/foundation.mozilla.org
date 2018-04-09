@@ -4,7 +4,7 @@ block masterParams
   - let pageTitle = `Style Guide`;
 
 block content
-  .container
+  .container.mt-4
     .row
       .col-12.pb-5
         h1 Style Guide
@@ -120,24 +120,21 @@ block content
 
         h3.my-5 Headers
 
-        .py-2: h1.h1-white .h1-white
-        .py-2: h2.h2-headings-white .h2-headings-white
-        .py-2: h2.h2-typeaccents-gray .h2-typeaccents-gray
-        .py-2: h3.h3-black .h3-black
-        .py-2: h3.h3-cta-black .h3-cta-black
-        .py-2: h4.h4-medium-black .h4-medium-black
-        .py-2: h4.h4-light-black .h4-light-black
-        .py-2: h4.h4-headingcontract-black .h4-headingcontract-black
-        .py-2: h5.h5-black .h5-black
-        .py-2: h6.h6-gray .h6-gray
+        .py-2: h1.h1-heading .h1-heading
+        .py-2: h2.h2-heading .h2-heading
+        .py-2: h2.h2-typeaccent .h2-typeaccent
+        .py-2: h3.h3-heading .h3-heading
+        .py-2: h4.h4-heading .h4-heading
+        .py-2: h5.h5-heading .h5-heading
+        .py-2: h6.h6-heading-uppercase .h6-heading-uppercase
+        .py-2: h6.h6-heading .h6-heading
 
         h3.my-5 Paragraphs
 
-        .py-2: p.lead-black .lead-black
+        .py-2: p.body-large .body-large
         .py-2: p.quote-small .quote-small
-        .py-2: p.body-black .body-black
-        .py-2: p.italic-black .italic-black
-        .py-2: p.small-gray .small-gray
+        .py-2: p.quote-feature .quote-feature
+        .py-2: p.normal .normal
 
         h3.my-5 Anchors
 
@@ -176,7 +173,7 @@ block content
         h4 .feature-quote
           .feature-quote
             h3 We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices.
-            p.h6-gray Rishab Nithyanand, Mozilla Fellow
+            p.h6-heading-uppercase Rishab Nithyanand, Mozilla Fellow
 
         h4 multipage-nav (used as secondary nav )
 

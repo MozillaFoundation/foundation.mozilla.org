@@ -49,7 +49,7 @@ export default class Takeover extends React.Component {
           <div className="row">
             <div className="col-xs-12 col-md-9 py-3 py-md-5">
               <div className="my-3 my-md-5">
-                <h1 className="h1-white">This is a Barn Raising</h1>
+                <h1 className="h1-heading">This is a Barn Raising</h1>
               </div>
 
               <p>There is a movement to keep the Internet healthy taking root around the world. Mozilla is a part of this movement – and wants to help it grow.</p>
@@ -57,7 +57,7 @@ export default class Takeover extends React.Component {
               <p>As of April 2017, this site is in "barn raising" mode. Building from the community that emerged around events like MozFest, we've started building a home for people working on Internet health might look like. This is our first pass and like any good open project we'll be iterating early and often.</p>
               <p>If you see yourself as part of this movement – or a part of Mozilla's community – we want your feedback, your ideas, and your help building this site. This is a barn raising.</p>
               <p>We plan to fully launch this site – and a network to support the movement – in the coming months.</p>
-              <p className="h5-black mb-0">Mark Surman</p>
+              <p className="h5-heading mb-0">Mark Surman</p>
               <p className="mb-0">Executive Director</p>
               <p>Mozilla</p>
             </div>

@@ -14,6 +14,21 @@ h6 {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin-bottom: 1rem;
+}
+
 a {
   color: $blue;
   font-weight: 700;
@@ -21,14 +36,26 @@ a {
   &:hover {
     color: $dark-blue;
   }
+
+  &.h4-heading {
+    font-weight: inherit;
+  }
 }
 
-@mixin scaleText($small, $large: null) {
-  font-size: $small;
+@mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
+  font-size: $base-font-size;
 
-  @if ($large) {
+  @if ($base-line-height) {
+    line-height: $base-line-height/$base-font-size;
+  }
+
+  @if ($large-font-size) {
     @media screen and (min-width: $bp-md) {
-      font-size: $large;
+      font-size: $large-font-size;
+
+      @if ($large-line-height) {
+        line-height: $large-line-height/$large-font-size;
+      }
     }
   }
 }
@@ -53,156 +80,114 @@ a {
   }
 }
 
-.h1-white {
+.h1-heading {
   font-family: "Zilla Slab";
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0;
-  line-height: 1.2;
 
-  @include scaleText(36px, 56px);
+  @include scaleText(36px, 40px, 56px, 64px);
 }
 
-.h2-headings-white {
+.h2-heading {
   font-family: "Zilla Slab";
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1px;
 
-  @include scaleText(18px, 24px);
+  @include scaleText(22px, 32px, 24px, 36px);
   @include black-box-white-text(0 0 0 40px);
 }
 
-.h2-typeaccents-gray {
+.h2-typeaccent {
   font-family: "Zilla Slab";
   font-weight: 400;
   color: $light-gray;
-  line-height: 1.2;
 
-  @include scaleText(56px, 72px);
+  @include scaleText(56px, 64px, 72px, 88px);
 }
 
-.h3-black {
+.h3-heading {
   font-family: "Zilla Slab";
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: 0;
-  line-height: 1.2;
 
-  @include scaleText(28px, 40px);
+  @include scaleText(28px, 32px, 40px, 48px);
 }
 
-.h3-cta-black {
-  letter-spacing: 0;
-  line-height: 1.25;
-  font-weight: 900;
-
-  @include scaleText(22px, 32px);
-}
-
-.h4-medium-black {
+.h4-heading {
   font-family: "Zilla Slab";
-  letter-spacing: 0.5px;
-  line-height: 1.2;
 
-  @include scaleText(22px, 28px);
+  @include scaleText(24px, 28px, 28px, 36px);
 }
 
-.h4-light-black {
-  font-family: "Zilla Slab";
-  font-weight: 100;
-  letter-spacing: 0;
-  line-height: 1.2;
-
-  @include scaleText(20px, 28px);
-}
-
-.h4-headingcontract-black {
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.2;
-
-  @include scaleText(22px, 28px);
-}
-
-.h5-black {
+.h5-heading {
   font-family: "Zilla Slab";
   font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 1.333;
 
-  @include scaleText(20px, 22px);
+  @include scaleText(20px, 24px, 22px, 28px);
 }
 
-.h6-gray {
+.h6-heading-uppercase {
+  font-family: "Nunito Sans";
   font-weight: 400;
   color: $medium-gray;
   letter-spacing: 0.5px;
-  line-height: 1.333;
   text-transform: uppercase;
 
-  @include scaleText(12px);
+  @include scaleText(12px, 16px);
 }
 
-@mixin p-lead {
-  font-weight: 100;
+.h6-heading {
+  font-family: "Nunito Sans";
+  font-weight: 400;
+  color: $medium-gray;
+  letter-spacing: 0;
+
+  @include scaleText(12px, 16px);
+}
+
+.body-large {
+  font-weight: 300;
   letter-spacing: 0;
   line-height: 1.333;
 
-  @include scaleText(18px, 20px);
-}
-
-.lead-black {
-  @include p-lead;
-}
-
-.lead-white {
-  color: $white;
-
-  @include p-lead;
+  @include scaleText(18px, 24px, 20px, 28px);
 }
 
 .quote-small {
-  font-weight: 100;
+  font-weight: 300;
   font-style: italic;
   color: $black;
   line-height: 1.45;
 
-  @include scaleText(18px, 22px);
+  @include scaleText(18px, 24px, 22px, 32px);
 }
 
-.body-black {
-  color: $black;
-  letter-spacing: 0;
-  line-height: 1.5;
-
-  @include scaleText(16px);
-}
-
-.italic-black {
-  letter-spacing: 0;
-  line-height: 1.5;
+.quote-feature {
+  font-family: "Zilla Slab";
+  font-weight: 300;
   font-style: italic;
 
-  @include scaleText(16px);
+  @include scaleText(24px, 32px, 30px, 40px);
 }
 
-.small-gray {
-  color: $medium-gray;
+p,
+.normal {
+  color: $black;
   letter-spacing: 0;
-  line-height: 1.5;
 
-  @include scaleText(12px);
+  @include scaleText(16px, 24px);
 }
 
 .body-link {
   letter-spacing: 0;
-  line-height: 1.5;
+  font-weight: 700;
 
-  @include scaleText(16px);
+  @include scaleText(16px, 24px);
 }
 
 .cta-link {
   display: inline-block;
   letter-spacing: 0.5px;
-  line-height: 1.5;
   text-transform: uppercase;
   text-decoration: underline;
 
@@ -215,10 +200,10 @@ a {
     top: -1px;
   }
 
-  @include scaleText(16px);
+  @include scaleText(16px, 24px);
 }
 
 .multipage-link {
   @include yellow-underline-nav-link(".multipage-link-active");
-  @include scaleText(18px, 20px);
+  @include scaleText(18px, 27px, 20px, 30px);
 }

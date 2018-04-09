@@ -139,11 +139,3 @@ button:hover {
     color: transparentize($white, 0.5);
   }
 }
-
-.subpageHero .lead-white {
-  margin-top: 1em;
-
-  @media (min-width: $bp-md) {
-    margin-top: 0;
-  }
-}

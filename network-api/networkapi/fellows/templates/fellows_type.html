@@ -4,10 +4,10 @@
 
 <div id="fellowship-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item small-gray">
-      <a href="{% url 'fellowships-home' %}" class="small-gray">Fellowships</a>
+    <li class="breadcrumb-item h6-heading">
+      <a href="{% url 'fellowships-home' %}" class="h6-heading">Fellowships</a>
     </li>
-    <li class="breadcrumb-item small-gray text-capitalize active">
+    <li class="breadcrumb-item h6-heading text-capitalize active">
       {{ type }} Fellowship
     </li>
   </ol>
@@ -15,7 +15,7 @@
 
 <div class="row mb-5">
   <div class="col-md-12 my-b">
-    <h1 class="h1-white text-capitalize">{{ type }} Fellowship</h1>
+    <h1 class="h1-heading text-capitalize">{{ type }} Fellowship</h1>
   </div>
   <div class="col-md-9">
    {% block fellowship_description %}{% endblock %}
@@ -28,7 +28,7 @@
 <div class="row mb-5">
   <div class="col-md-12 my-5">
     <hr class="hr-gradient mt-0">
-    <h4 class="h2-headings-white">Stipend and Financial Benefits</h4>
+    <h4 class="h2-heading">Stipend and Financial Benefits</h4>
   </div>
   <div class="col-md-6 mb-3 mb-md-0">{% block benefit_illustration %}{% endblock %}</div>
   <div class="col-md-6">
@@ -48,7 +48,7 @@
 <div class="row mb-5">
   <div class="col-12 my-5">
     <hr class="hr-gradient mt-0">
-    <h4 class="h2-headings-white">Eligibility Criteria</h4>
+    <h4 class="h2-heading">Eligibility Criteria</h4>
   </div>
   <div class="col-12">
     <div class="row flex-column-reverse flex-md-row">
