@@ -329,12 +329,19 @@ class InitiativesPage(PrimaryPage):
     parent_page_types = ['Homepage']
 
 
+class Styleguide(PrimaryPage):
+    parent_page_types = ['Homepage']
+
+
+class NewsPage(PrimaryPage):
+    parent_page_types = ['Homepage']
+
+
 class ParticipatePage(PrimaryPage):
     parent_page_types = ['Homepage']
 
 
 class Homepage(Page):
-
     hero_headline = models.CharField(
         max_length=140,
         help_text='Hero story headline',
