@@ -50,11 +50,47 @@ class LinkButtonBlock(blocks.StructBlock):
         value_class = LinkButtonValue
 
 
+class ImageBlock(blocks.StructBlock):
+    image = ImageChooserBlock()
+    size = blocks.ChoiceBlock(
+        choices=[
+            ('icon', 'Constrain to 100x100'),
+            ('small', 'Constrain to 200x200'),
+            ('medium', 'Constrain to 400x400'),
+            ('large', 'Constrain to 800x800'),
+            ('original', 'Use original dimensions'),
+        ],
+        default='medium'
+    )
+
+    class Meta:
+        icon = 'image'
+        template = 'wagtailpages/blocks/image_block.html'
+
+
+class AlignedImageBlock(ImageBlock):
+    alignment = blocks.ChoiceBlock(
+        choices=[
+            ('', 'Do not apply any explicit alignment classes.'),
+            ('left-align', 'Left-align this image with the page content.'),
+            ('right-align', 'Right-align this image with the page content.'),
+            ('center', 'Center this image with the page content.'),
+            ('full-width', 'Make this image full-width.'),
+        ],
+        default='',
+        required=False
+    )
+
+    class Meta:
+        icon = 'image'
+        template = 'wagtailpages/blocks/aligned_image_block.html'
+
+
 class ImageTextBlock(blocks.StructBlock):
     text = blocks.RichTextBlock(
         features=['bold', 'italic', 'link', ]
     )
-    image = ImageChooserBlock()
+    image = ImageBlock()
     ordering = blocks.ChoiceBlock(
         choices=[
             ('left', 'Image on the left'),
@@ -66,6 +102,31 @@ class ImageTextBlock(blocks.StructBlock):
     class Meta:
         icon = 'doc-full'
         template = 'wagtailpages/blocks/image_text_block.html'
+
+
+class FigureBlock(blocks.StructBlock):
+    figure = AlignedImageBlock()
+    caption = blocks.CharBlock(
+        required=False,
+        help_text='Please remember to properly attribute any images we use.'
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this figure should link out to.',
+    )
+
+    class Meta:
+        icon = 'picture'
+        template = 'wagtailpages/blocks/figure_block.html'
+
+
+class FigureGridBlock(blocks.StructBlock):
+    grid_items = blocks.ListBlock(FigureBlock())
+
+    class Meta:
+        # this is probably the wrong icon but let's run with it for now
+        icon = 'grip'
+        template = 'wagtailpages/blocks/figure_grid_block.html'
 
 
 class BootstrapSpacerBlock(blocks.StructBlock):
@@ -131,28 +192,3 @@ class VideoBlock(blocks.StructBlock):
 
     class Meta:
         template = 'wagtailpages/blocks/video_block.html'
-
-
-class FigureBlock(blocks.StructBlock):
-    image = ImageChooserBlock()
-    caption = blocks.CharBlock(
-        required=False,
-        help_text='Please remember to properly attribute any images we use.'
-    )
-    url = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this figure should link out to.',
-    )
-
-    class Meta:
-        icon = 'picture'
-        template = 'wagtailpages/blocks/figure_block.html'
-
-
-class FigureGridBlock(blocks.StructBlock):
-    grid_items = blocks.ListBlock(FigureBlock())
-
-    class Meta:
-        # this is probably the wrong icon but let's run with it for now
-        icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block.html'

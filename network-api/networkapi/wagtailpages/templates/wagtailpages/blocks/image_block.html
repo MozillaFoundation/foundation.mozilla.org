@@ -1,0 +1,4 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% image value.image original as img %}
+<img src="{{ img.url }}" alt="{{ img.alt }}" class="{{ value.size }}">

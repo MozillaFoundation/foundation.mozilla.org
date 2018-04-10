@@ -7,7 +7,6 @@ from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable as WagtailOrderable
@@ -27,11 +26,11 @@ base_fields = [
             'bold', 'italic',
             'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
-            'link', 'image', 'hr',
+            'link', 'hr',
         ]
     )),
+    ('image', customblocks.AlignedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
-    ('image', ImageChooserBlock()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
     ('video', customblocks.VideoBlock()),

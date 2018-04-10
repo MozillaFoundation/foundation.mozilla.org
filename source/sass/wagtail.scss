@@ -2,4 +2,53 @@
   p:empty {
     height: 1em;
   }
+
+  .img-wrapper {
+    width: 100%;
+
+    &.left-align {
+      text-align: left;
+    }
+
+    &.right-align {
+      text-align: right;
+    }
+
+    &.full-width {
+      width: 100%;
+      height: audo;
+
+      & img {
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    &.center {
+      text-align: center;
+    }
+  }
+
+  img {
+    &.icon {
+      max-width: 100px;
+      max-height: 100px;
+    }
+
+    &.small {
+      max-width: 200px;
+      max-height: 200px;
+    }
+
+    &.medium {
+      max-width: 400px;
+      max-height: 400px;
+    }
+
+    &.large {
+      max-width: 800px;
+      max-height: 800px;
+    }
+  }
 }

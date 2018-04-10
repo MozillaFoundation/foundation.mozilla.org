@@ -4,15 +4,15 @@
 {% with large='col-12 col-md-9' %}
 
 <div class="row">
-    {% if value.ordering == 'left'%}
-	<div class="{{small}}">{% image value.image width-300 %}</div>
-    {% endif %}
+  {% if value.ordering == 'left'%}
+    <div class="{{small}}">{% include_block value.image %}</div>
+  {% endif %}
 
 	<div class="{{large}}">{{value.text|richtext }}</div>
 
-    {% if value.ordering == 'right'%}
-	<div class="{{small}}">{% image value.image width-300 %}</div>
-    {% endif %}
+  {% if value.ordering == 'right'%}
+	  <div class="{{small}}">{% include_block value.image %}</div>
+  {% endif %}
 </div>
 {% endwith %}
 {% endwith %}
