@@ -180,6 +180,7 @@ MIDDLEWARE = list(filter(None, [
 
     'mezzanine.core.middleware.UpdateCacheMiddleware',
 
+    'csp.middleware.CSPMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -194,7 +195,6 @@ MIDDLEWARE = list(filter(None, [
     if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
 
     'corsheaders.middleware.CorsMiddleware',
-    'csp.middleware.CSPMiddleware',
 
     'mezzanine.core.request.CurrentRequestMiddleware',
     'mezzanine.core.middleware.RedirectFallbackMiddleware',
