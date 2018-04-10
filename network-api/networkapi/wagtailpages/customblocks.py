@@ -90,7 +90,7 @@ class ImageTextBlock(blocks.StructBlock):
     text = blocks.RichTextBlock(
         features=['bold', 'italic', 'link', ]
     )
-    image = ImageChooserBlock()
+    image = ImageBlock()
     ordering = blocks.ChoiceBlock(
         choices=[
             ('left', 'Image on the left'),
