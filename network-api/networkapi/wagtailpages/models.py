@@ -317,7 +317,7 @@ class PrimaryPage(Page):
         StreamFieldPanel('body'),
     ]
 
-    parent_page_types = ['Homepage']
+    parent_page_types = ['Homepage', 'PrimaryPage']
 
 
 class Homepage(Page):
