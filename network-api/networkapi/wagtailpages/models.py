@@ -323,7 +323,6 @@ class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
 
-
 # Code for the new wagtail based homepage
 
 

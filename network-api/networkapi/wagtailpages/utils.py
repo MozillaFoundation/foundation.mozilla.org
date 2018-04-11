@@ -22,6 +22,7 @@ def get_page_tree_information(page, context):
 
     return context
 
+
 def get_descendants(node, list, depth=0, max_depth=2):
     '''
     helper function to get_menu_pages for performing a depth-first
@@ -37,6 +38,7 @@ def get_descendants(node, list, depth=0, max_depth=2):
         })
         for child in node.get_children().live().in_menu():
             get_descendants(child, list, depth + 1)
+
 
 def get_menu_pages(root):
     '''
