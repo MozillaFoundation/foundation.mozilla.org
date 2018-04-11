@@ -1,22 +1,13 @@
 {% extends "./modular_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-{% block bodyID %}{{ page.title }}{% endblock%}
+{% block bodyID %}page-primary{% endblock%}
 
 {% block heroGuts %}
   <h1 class="h1-heading pb-5">{% if root_title %}{{ root_title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
 {% endblock %}
 
 {% block content %}
-  {% if singleton_page == False %}
-  <div class="container">
-    <div class="row">
-      <div class="col-12 mt-3">
-        <p class="h5-heading hidden-md-up">{{ root_title }}</p>
-      </div>
-    </div>
-  </div>
-  {% endif %}
 
   <div class="hidden-md-up" id="multipage-nav-mobile">
     <div class="container">
