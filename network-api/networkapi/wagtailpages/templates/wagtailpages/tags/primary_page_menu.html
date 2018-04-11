@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+
+{% if singleton_page == False %}
+<div class="hidden-sm-down d-flex flex-row mt-5 multipage-nav" id="multipage-nav">
+	{% for entry in menu_pages %}
+	<div class="mx-3">
+	  <a class="multipage-link {% if current.title == entry.page.title %}multipage-link-active{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
+	  </a>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}

@@ -14,6 +14,8 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
+from .utils import get_page_tree_information
+
 """
 We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
@@ -86,19 +88,9 @@ class MiniSiteNameSpace(ModularPage):
         they live in, and what some of their local aspects are:
         """
         context = super(MiniSiteNameSpace, self).get_context(request)
-        ancestors = self.get_ancestors()
-        root = next((n for n in ancestors if n.specific_class == self.specific_class), self)
-        context['root'] = root
-        context['mini_site_title'] = root.title
-
-        is_top_page = (root == self)
-        context['is_top_page'] = is_top_page
-
-        children = self.get_children().live()
-        has_children = len(children) > 0
-        context['singleton_page'] = (is_top_page and not has_children)
-
-        return context
+        updated = get_page_tree_information(self, context)
+        updated['mini_site_title'] = updated['root_title']
+        return updated
 
 
 class CTA(models.Model):
@@ -271,6 +263,65 @@ class CampaignPage(MiniSiteNameSpace):
         'CampaignPage',
     ]
 
+
+# Code for the new wagtail primary pages (under homepage)
+
+
+class PrimaryPage(MetadataPageMixin, Page):
+    '''
+    Basically a straight copy of modular page, but with
+    restrictions on what can live "under it".
+
+    Ideally this is just PrimaryPage(ModularPage) but
+    setting that up as a migration seems to be causing
+    problems.
+    '''
+    header = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    body = StreamField(base_fields)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('header'),
+        StreamFieldPanel('body'),
+    ]
+
+    parent_page_types = ['Homepage', 'PrimaryPage']
+    subpage_types = ['PrimaryPage']
+    show_in_menus_default = True
+
+    def get_context(self, request):
+        context = super(PrimaryPage, self).get_context(request)
+        return get_page_tree_information(self, context)
+
+
+class NewsPage(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/news_page.html'
+
+
+class InitiativesPage(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/initiatives_page.html'
+
+
+class ParticipatePage(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/participate_page.html'
+
+
+class PeoplePage(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/people_page.html'
+
+
+class Styleguide(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/styleguide.html'
+
+
 # Code for the new wagtail based homepage
 
 
@@ -310,18 +361,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + "->" + self.highlight.title
 
 
-class PrimaryPage(Page):
-    body = StreamField(base_fields)
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-    ]
-
-    parent_page_types = ['Homepage']
-
-
 class Homepage(Page):
-
     hero_headline = models.CharField(
         max_length=140,
         help_text='Hero story headline',
@@ -366,6 +406,16 @@ class Homepage(Page):
         ),
         InlinePanel('featured_highlights', label="Highlights", max_num=5),
         InlinePanel('featured_news', label="News", max_num=4),
+    ]
+
+    subpage_types = [
+        'PrimaryPage',
+        'PeoplePage',
+        'InitiativesPage',
+        'Styleguide',
+        'NewsPage',
+        'ParticipatePage',
+        'MiniSiteNameSpace',
     ]
 
     def get_context(self, request):
