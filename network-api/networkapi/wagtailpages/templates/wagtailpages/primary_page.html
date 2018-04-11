@@ -1,13 +1,48 @@
-{% extends "pages/base-compiled.html" %} {% load wagtailcore_tags wagtailimages_tags %}
+{% extends "pages/base-compiled.html" %} {% load wagtailcore_tags wagtailimages_tags %}{% load fellowship_active_nav %}
 
 {% block bodyID %}primary{% endblock%}
 
-{% block content %}
-<div class="container">
-  <div class="row my-5 d-flex align-items-center">
-    <div class="col-md-6">
+{% block heroGuts %}
+  <div class="row">
+    <div class="col">
       <h1 class="h1-white">{{ page.title }}</h1>
     </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="hidden-md-up mb-4 mb-md-5" id="multipage-nav-mobile">
+  <div class="container">
+    <div class="row">
+      <div class="col-12"></div>
+    </div>
+  </div>
+</div>
+
+{% if children.count > 0 %}
+<div id="horizontal-secondary-nav" class="hidden-sm-down my-4">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div id="multipage-nav" class="d-flex flex-row align-items-center">
+          <div><a href="{% pageurl page %}" class="active">{{page.title}}</a></div>
+            {% for child_page in children %}
+              <div><a href="{% pageurl child_page %}" class="{% if child_page.title == current.title %}active{% endif %}">{{child_page}}</a></div>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <hr class="hr-gradient">
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="container">
+  <div class="row my-5 d-flex align-items-center">
     <div class="col-12">
       {% for block in page.body %}
         {% if block.block_type == 'heading' %}

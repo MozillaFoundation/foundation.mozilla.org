@@ -317,7 +317,13 @@ class PrimaryPage(Page):
         StreamFieldPanel('body'),
     ]
 
-    parent_page_types = ['Homepage']
+    parent_page_types = ['Homepage','PrimaryPage']
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['children'] = self.get_children().live()
+
+        return context
 
 
 class Homepage(Page):
