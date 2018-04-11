@@ -1,13 +1,19 @@
-{% extends "pages/base-compiled.html" %} {% load wagtailcore_tags wagtailimages_tags %}
+{% extends "./modular_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-{% block bodyID %}primary{% endblock%}
+{% block bodyID %}{{ page.title }}{% endblock%}
+
+{% block extendedHeader %}
+<div class="row">
+  <h1 class="my-3">{% if root_title %}{{ root_title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+</div>
+{% endblock %}
 
 {% block content %}
+{% primary_page_menu page %}
+
 <div class="container cms">
   <div class="row my-5 d-flex align-items-center">
-    <div class="col-md-6">
-      <h1 class="h1-white">{{ page.title }}</h1>
-    </div>
     <div class="col-12">
       {% for block in page.body %}
         {% if block.block_type == 'heading' %}
@@ -19,8 +25,8 @@
     </div>
   </div>
 </div>
-
 {% endblock %}
+
 {% block postContent %}
 <div class="join-us full-width d-flex justify-content-center"></div>
 {% endblock %}
