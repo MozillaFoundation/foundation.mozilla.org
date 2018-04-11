@@ -15,9 +15,6 @@ block memberNotice
   //- Show warning if pages are a Mezzanine draft.
   | {% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
 
-block extendedHeader
-  | {% block extendedHeader %}{% endblock %}
-
 block heroGuts
   | {% block heroGuts %}{% endblock %}
 

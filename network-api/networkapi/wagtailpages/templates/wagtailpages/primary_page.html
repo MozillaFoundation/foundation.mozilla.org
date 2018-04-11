@@ -3,30 +3,50 @@
 
 {% block bodyID %}{{ page.title }}{% endblock%}
 
-{% block extendedHeader %}
-<div class="row">
-  <h1 class="my-3">{% if root_title %}{{ root_title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-</div>
+{% block heroGuts %}
+  <h1 class="h1-heading pb-5">{% if root_title %}{{ root_title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
 {% endblock %}
 
 {% block content %}
-{% primary_page_menu page %}
-
-<div class="container cms">
-  <div class="row my-5 d-flex align-items-center">
-    <div class="col-12">
-      {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-          <h1>{{ block.value }}</h1>
-        {% else %}
-          {% include_block block %}
-        {% endif %}
-      {% endfor %}
+  {% if singleton_page == False %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mt-3">
+        <p class="h5-heading hidden-md-up">{{ root_title }}</p>
+      </div>
     </div>
   </div>
-</div>
+  {% endif %}
+
+  <div class="hidden-md-up" id="multipage-nav-mobile">
+    <div class="container">
+      <div class="row px-3">
+        <div class="col-12"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      {% primary_page_menu page %}
+    </div>
+  </div>
+
+  <div class="container cms">
+    <div class="row my-5 d-flex align-items-center">
+      <div class="col-12">
+        {% for block in page.body %}
+          {% if block.block_type == 'heading' %}
+            <h1>{{ block.value }}</h1>
+          {% else %}
+            {% include_block block %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block postContent %}
-<div class="join-us full-width d-flex justify-content-center"></div>
+  <div class="join-us full-width d-flex justify-content-center"></div>
 {% endblock %}
