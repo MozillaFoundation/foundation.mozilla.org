@@ -31,22 +31,26 @@
   }
 
   img {
-    &.icon {
+    &.icon,
+    &.icon + figcaption {
       max-width: 100px;
       max-height: 100px;
     }
 
-    &.small {
+    &.small,
+    &.small + figcaption {
       max-width: 200px;
       max-height: 200px;
     }
 
-    &.medium {
+    &.medium,
+    &.medium + figcaption {
       max-width: 400px;
       max-height: 400px;
     }
 
-    &.large {
+    &.large,
+    &.large + figcaption {
       max-width: 800px;
       max-height: 800px;
     }
