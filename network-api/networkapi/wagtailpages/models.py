@@ -39,6 +39,7 @@ base_fields = [
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
+    ('quote', customblocks.QuoteBlock()),
 ]
 
 

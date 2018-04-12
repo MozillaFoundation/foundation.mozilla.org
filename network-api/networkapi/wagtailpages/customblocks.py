@@ -192,3 +192,12 @@ class VideoBlock(blocks.StructBlock):
 
     class Meta:
         template = 'wagtailpages/blocks/video_block.html'
+
+
+class QuoteBlock(blocks.StructBlock):
+    quote = blocks.CharBlock()
+    attribution = blocks.CharBlock()
+
+    class Meta:
+        template = 'wagtailpages/blocks/quote_block.html'
+        icon = 'quote'
