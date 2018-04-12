@@ -56,3 +56,15 @@
     }
   }
 }
+
+.primary-menu {
+  a.multipage-link {
+    &.multipage-link-active {
+      box-shadow: 0 2px black;
+    }
+
+    &:hover {
+      box-shadow: 0 2px black;
+    }
+  }
+}
