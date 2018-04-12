@@ -13,7 +13,7 @@ filebrowser_s3==1.0.0
 wagtail==2.0
 
 # Social auth is useful
-social-auth-core
+social-auth-core==1.1.0
 social-auth-app-django==1.1.0
 
 # As is debugging
@@ -56,5 +56,5 @@ requests==2.13.0
 flake8==2.5.4
 factory_boy==2.9.2
 faker==0.8.10
-coverage
+coverage==4.4.2
 python-coveralls==2.9.1
