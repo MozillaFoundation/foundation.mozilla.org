@@ -1,8 +1,3 @@
-#view-home .cms div.rich-text p {
-  @extend .body-large;
-  @extend .mb-4;
-}
-
 .cms {
   p:empty {
     height: 1em;
