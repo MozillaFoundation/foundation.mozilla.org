@@ -44,7 +44,7 @@ wagtail-metadata==2.0.0
 django-cors-headers==2.0.2
 
 # CSP
-django-csp==3.3
+django-csp==3.4
 
 # Admin sort models
 django-admin-sortable==2.1.2
