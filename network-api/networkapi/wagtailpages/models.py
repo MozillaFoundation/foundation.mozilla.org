@@ -282,7 +282,16 @@ class PrimaryPage(MetadataPageMixin, Page):
         blank=True
     )
 
+    narrowed_page_content = models.BooleanField(
+        default=False,
+        help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
+    )
+
     body = StreamField(base_fields)
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('narrowed_page_content'),
+    ]
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
