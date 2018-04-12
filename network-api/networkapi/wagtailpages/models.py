@@ -60,6 +60,10 @@ class ModularPage(MetadataPageMixin, Page):
 
     body = StreamField(base_fields)
 
+    settings_panels = Page.settings_panels + [
+        FieldPanel('narrowed_page_content'),
+    ]
+
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         StreamFieldPanel('body'),
