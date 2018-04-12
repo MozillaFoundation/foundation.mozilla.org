@@ -11,7 +11,7 @@ class LinkButtonValue(blocks.StructValue):
         # Note that StructValue is a dict-like object, so `styling` and `outline`
         # need to be accessed as dictionary keys
         btn_class = self['styling']
-        if self['outline'] is True:
+        if self['outline'] is True and 'ghost' not in btn_class:
             btn_class = btn_class.replace('btn-', 'btn-outline-')
         return btn_class
 
@@ -33,7 +33,7 @@ class LinkButtonBlock(blocks.StructBlock):
             ('btn-success', 'Success button'),
             ('btn-info', 'Info button'),
             ('btn-warning', 'Warning button'),
-            ('btn-error', 'Error button'),
+            ('btn-danger', 'Danger button'),
             ('btn-ghost', 'Ghost button'),
         ],
         default='btn-info',
