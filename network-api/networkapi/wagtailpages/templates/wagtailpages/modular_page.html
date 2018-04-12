@@ -23,7 +23,7 @@
     <div class="row">
       {% mini_site_sidebar page %}
 
-      <div class="{% block heading_classes %}py-5 col-12 col-lg-10 offset-lg-1{% endblock %}">
+      <div class="{% block heading_classes %}py-5 col-{% if page.specific.narrowed_page_content %}8{% else %}12{% endif %} col-lg-10 offset-lg-1{% endblock %}">
         {% block mini_site_title %}{% endblock %}
 
         {% block h1 %}{% endblock %}

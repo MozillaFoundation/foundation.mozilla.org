@@ -52,6 +52,11 @@ class ModularPage(MetadataPageMixin, Page):
         blank=True
     )
 
+    narrowed_page_content = models.BooleanField(
+        default=False,
+        help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
+    )
+
     body = StreamField(base_fields)
 
     content_panels = Page.content_panels + [
