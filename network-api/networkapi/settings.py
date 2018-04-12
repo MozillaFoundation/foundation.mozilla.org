@@ -181,7 +181,11 @@ MIDDLEWARE = list(filter(None, [
     'mezzanine.core.middleware.UpdateCacheMiddleware',
 
     'csp.middleware.CSPMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'networkapi.middleware.ReferrerMiddleware',
+
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -189,12 +193,10 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware'
     if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
 
-    'corsheaders.middleware.CorsMiddleware',
 
     'mezzanine.core.request.CurrentRequestMiddleware',
     'mezzanine.core.middleware.RedirectFallbackMiddleware',
@@ -205,8 +207,6 @@ MIDDLEWARE = list(filter(None, [
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-
-    'networkapi.middleware.ReferrerMiddleware',
 ]))
 
 if SOCIAL_SIGNIN:
