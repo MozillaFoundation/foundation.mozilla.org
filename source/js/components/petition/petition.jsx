@@ -5,12 +5,13 @@ import basketSignup from '../../basket-signup.js';
 
 class FloatingLabelInput extends React.Component {
   render() {
-    let className = classNames("form-label-group", this.props.className);
+    let className = classNames(`form-label-group`, this.props.className);
+
     return (
       <div className={className}>
         <input className="form-control"
           disabled={this.props.disabled}
-          ref={(element) => {this.element = element}}
+          ref={(element) => { this.element = element; }}
           id={this.props.id}
           type={this.props.type}
           placeholder={this.props.label}
@@ -177,6 +178,7 @@ export default class Petition extends React.Component {
     return new Promise((resolve, reject) => {
       let givenNames = this.givenNames.element.value;
       let surname = this.surname.element.value;
+
       if(!givenNames || !surname) {
         return reject();
       }
