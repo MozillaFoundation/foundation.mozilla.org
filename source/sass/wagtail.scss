@@ -3,6 +3,20 @@
     height: 1em;
   }
 
+  * + p {
+    /*
+      A paragraph following some other content
+      should have a top margin instead of "glueing"
+      itself onto the preceding content.
+
+      This rule prevents the bootstrap-reboot.css
+      rule for "top:0, bottom: 1rem" from kicking
+      in for every single paragraph irrespective
+      or preceding content.
+    */
+    margin-top: 1rem;
+  }
+
   .img-wrapper {
     width: 100%;
 
@@ -55,4 +69,21 @@
       max-height: 800px;
     }
   }
+}
+
+.primary-menu {
+  a.multipage-link {
+    &.multipage-link-active {
+      box-shadow: 0 2px black;
+    }
+
+    &:hover {
+      box-shadow: 0 2px black;
+    }
+  }
+}
+
+.homepage-feature p {
+  font-size: inherit;
+  line-height: inherit;
 }

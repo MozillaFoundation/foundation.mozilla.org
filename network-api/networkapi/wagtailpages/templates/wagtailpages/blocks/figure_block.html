@@ -3,7 +3,7 @@
 {% if value.figure.alignment %}
 <div class="img-wrapper {{ value.figure.alignment }}">
 {% endif %}
-<figure class="mx-1">
+<figure class="mx-3">
 	{% if url %}<a href="{{ url }}">{% endif %}{% include "./image_block.html" with value=value.figure %}{% if url %}</a>{% endif %}
 	<figcaption>{% if url %}<a href="{{ url }}">{% endif %}{{ value.caption }}{% if url %}</a>{% endif %}</figcaption>
 </figure>
