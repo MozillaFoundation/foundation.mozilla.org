@@ -16,7 +16,7 @@
 {% endblock %}
 
 
-{% block heading_classes %}{% if singleton_page %}py-5 col-{% if page.specific.narrowed_page_content %}8{% else %}12{% endif %} col-lg-10 offset-lg-1{% else %}py-5 col-{% if page.specific.narrowed_page_content %}8{% else %}12{% endif %} col-md-9{% endif %}{% endblock %}
+{% block heading_classes %}{% if singleton_page %}py-5 col-{% if page.specific.narrowed_page_content %}md-8 offset-md-2{% else %}12{% endif %} col-lg-10 offset-lg-1{% else %}py-5 col-{% if page.specific.narrowed_page_content %}md-8 offset-md-2{% else %}12{% endif %} col-md-9{% endif %}{% endblock %}
 
 
 {% block mini_site_title %}
