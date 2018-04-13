@@ -31,7 +31,7 @@
     opacity: 0.3;
     pointer-events: none;
     border: 1px solid transparent;
-    transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
     display: flex;
     align-items: center;
   }
@@ -47,6 +47,7 @@
     padding-bottom: 0.4rem;
     padding-top: 1.6rem;
   }
+
   input:not(:placeholder-shown) ~ label {
     font-size: 0.8rem;
     padding-top: 0.5rem;
