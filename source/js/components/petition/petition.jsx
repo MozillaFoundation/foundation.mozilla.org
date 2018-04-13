@@ -3,6 +3,25 @@ import ReactGA from 'react-ga';
 import classNames from 'classnames';
 import basketSignup from '../../basket-signup.js';
 
+class FloatingLabelInput extends React.Component {
+  render() {
+    let className = classNames("form-label-group", this.props.className);
+    return (
+      <div className={className}>
+        <input className="form-control"
+          disabled={this.props.disabled}
+          ref={(element) => {this.element = element}}
+          id={this.props.id}
+          type={this.props.type}
+          placeholder={this.props.label}
+          onFocus={this.props.onFocus}
+        />
+        <label htmlFor={this.props.id}>{this.props.label}</label>
+      </div>
+    );
+  }
+}
+
 export default class Petition extends React.Component {
   constructor(props) {
     super(props);
@@ -156,9 +175,8 @@ export default class Petition extends React.Component {
     this.setState({ apiSubmitted: true });
 
     return new Promise((resolve, reject) => {
-      let givenNames = this.refs.givenNames.value;
-      let surname = this.refs.surname.value;
-
+      let givenNames = this.givenNames.element.value;
+      let surname = this.surname.element.value;
       if(!givenNames || !surname) {
         return reject();
       }
@@ -166,7 +184,7 @@ export default class Petition extends React.Component {
       let payload = {
         givenNames,
         surname,
-        email: this.refs.email.value,
+        email: this.email.element.value,
         checkbox1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
         checkbox2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
         newsletterSignup: !!(this.refs.newsletterSignup.checked)
@@ -206,10 +224,10 @@ export default class Petition extends React.Component {
     this.setState({ basketSubmitted: true });
 
     return new Promise((resolve, reject) => {
-      if(this.refs.email.value && this.refs.privacy.checked){
+      if(this.email.element.value && this.refs.privacy.checked){
         if(this.refs.newsletterSignup.checked) {
           basketSignup({
-            email: this.refs.email.value,
+            email: this.email.element.value,
             privacy: this.refs.privacy.checked,
             newsletter: this.props.newsletter
           }, resolve, reject);
@@ -232,8 +250,8 @@ export default class Petition extends React.Component {
     event.preventDefault();
 
     // validate data here. Do not continue unless we're cool.
-    let hasName = this.refs.givenNames.value && this.refs.surname.value;
-    let email = this.refs.email.value;
+    let hasName = this.givenNames.element.value && this.surname.element.value;
+    let email = this.email.element.value;
     let consent = this.refs.privacy.checked;
 
     if (hasName && email && consent) {
@@ -388,7 +406,7 @@ export default class Petition extends React.Component {
     let disableFields = (this.state.userTriedSubmitting && this.state.apiSubmitted) ? `disabled` : null;
 
     let inputGroupClass = classNames({
-      'has-danger': this.state.userTriedSubmitting && !this.refs.email.value
+      'has-danger': this.state.userTriedSubmitting && !this.email.element.value
     });
 
     let privacyClass = classNames({
@@ -403,12 +421,33 @@ export default class Petition extends React.Component {
         <form onSubmit={this.processFormData}>
           <div className={inputGroupClass}>
             <div className="mb-2">
-              <input disabled={disableFields} type="text" className="form-control mb-1 w-100" placeholder="First name" ref="givenNames" onFocus={this.onInputFocus}/>
-              {this.state.userTriedSubmitting && !this.refs.givenNames.value && <small className="form-check form-control-feedback">Please enter your given name(s)</small>}
-              <input disabled={disableFields} type="text" className="form-control mb-1 w-100" placeholder="Last name" ref="surname" onFocus={this.onInputFocus}/>
-              {this.state.userTriedSubmitting && !this.refs.surname.value && <small className="form-check form-control-feedback">Please enter your surname</small>}
-              <input disabled={disableFields} type="email" className="form-control w-100" placeholder="Email address" ref="email" onFocus={this.onInputFocus}/>
-              {this.state.userTriedSubmitting && !this.refs.email.value && <small className="form-check form-control-feedback">Please enter your email</small>}
+              <FloatingLabelInput
+                className="mb-1 w-100"
+                ref={(element) => {this.givenNames = element}} id="givenNames"
+                type="text" label="First name"
+                disabled={disableFields}
+                onFocus={this.onInputFocus}
+              />
+              {this.state.userTriedSubmitting && !this.givenNames.element.value && <small className="form-check form-control-feedback">Please enter your given name(s)</small>}
+
+              <FloatingLabelInput
+                className="mb-1 w-100"
+                ref={(element) => {this.surname = element}} id="surname"
+                type="text" label="Last name"
+                disabled={disableFields}
+                onFocus={this.onInputFocus}
+              />
+              {this.state.userTriedSubmitting && !this.surname.element.value && <small className="form-check form-control-feedback">Please enter your surname</small>}
+
+              <FloatingLabelInput
+                className="mb-1 w-100"
+                ref={(element) => {this.email = element}} id="emailInput"
+                type="email" label="Email address"
+                disabled={disableFields}
+                onFocus={this.onInputFocus}
+              />
+              {this.state.userTriedSubmitting && !this.email.element.value && <small className="form-check form-control-feedback">Please enter your email</small>}
+
             </div>
             {this.state.basketFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
           </div>

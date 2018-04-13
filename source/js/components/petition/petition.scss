@@ -1,151 +1,54 @@
-.wrapper-sign-petition {
-  background: $subtle-gray;
+
+.cta {
+  .sticky-cta {
+    position: sticky;
+    top: 117px;
+  }
 }
 
-.sign-petition {
-  .petition-page-title {
+.form-label-group {
+  position: relative;
+  cursor: text;
+
+  input,
+  label {
+    font-size: 1.4rem;
+    padding: 1rem 0.75rem;
+    margin: 0;
+  }
+
+  input ~ label {
     display: none;
   }
 
-  .petition-graphic {
-    display: none;
-  }
-
-  .sign-success .petition-graphic {
-    display: block;
-  }
-
-  .petition-btn {
+  input:placeholder-shown ~ label,
+  input:not(:placeholder-shown) ~ label {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    max-height: 100%;
+    opacity: 0.3;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transition: all .1s ease-in-out;
+    display: flex;
+    align-items: center;
   }
 
-  .petition-heading h2 {
-    font-family: "Nunito Sans";
-    font-weight: 900;
-    font-size: 22px;
-
-    @media screen and (min-width: $bp-md) {
-      font-size: 32px;
-    }
-  }
-
-  .form-control,
-  .form-text {
-    font-family: "Nunito Sans";
-    font-weight: 900;
-  }
-
-  &.half-width {
-    background: $subtle-gray;
-
-    .petition-graphic {
-      @include make-col(12);
-
-      margin-bottom: 3em;
-
-      img {
-        max-width: 5em;
-      }
+  input:placeholder-shown,
+  input:not(:placeholder-shown) {
+    &::placeholder {
+      color: transparent;
     }
   }
 
-  &.full-width {
-    background: $subtle-gray;
-
-    .petition-graphic {
-      @include make-col(12);
-
-      img {
-        max-width: 5em;
-      }
-    }
-
-    @media (min-width: $bp-md) {
-      padding-top: 1em;
-      padding-bottom: 1em;
-
-      .petition-btn {
-        width: auto;
-      }
-
-      .petition-graphic {
-        @include make-col(2);
-
-        display: flex;
-        justify-content: center;
-
-        img {
-          max-width: 100%;
-        }
-      }
-
-      .petition-content {
-        @include make-col(6);
-      }
-
-      .sign-success .petition-content {
-        @include make-col(7);
-      }
-
-      .petition-form {
-        @include make-col(6);
-      }
-    }
+  input:not(:placeholder-shown) {
+    padding-bottom: 0.4rem;
+    padding-top: 1.6rem;
   }
-
-  &.full-page {
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-
-    .petition-graphic {
-      display: block;
-
-      @include make-col(12);
-
-      img {
-        max-width: 5em;
-      }
-    }
-
-    .petition-page-title {
-      display: block;
-    }
-
-    .petition-heading { display: none; }
-
-    @media (min-width: $bp-md) {
-      .petition-btn {
-        width: auto;
-      }
-
-      .petition-graphic {
-        @include make-col(4);
-        @include make-col-push(8);
-
-        display: flex;
-        justify-content: center;
-
-        img {
-          max-width: unset;
-        }
-      }
-
-      .petition-content,
-      .petition-form {
-        @include make-col-pull(6);
-      }
-    }
-
-    @media (min-width: $bp-lg) {
-      .petition-content,
-      .petition-form {
-        @include make-col-pull(5);
-        @include make-col(10);
-      }
-
-      .petition-graphic {
-        @include make-col-push(7);
-      }
-    }
+  input:not(:placeholder-shown) ~ label {
+    font-size: 0.8rem;
+    padding-top: 0.5rem;
   }
 }
