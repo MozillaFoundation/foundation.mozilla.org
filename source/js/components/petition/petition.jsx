@@ -425,7 +425,7 @@ export default class Petition extends React.Component {
             <div className="mb-2">
               <FloatingLabelInput
                 className="mb-1 w-100"
-                ref={(element) => {this.givenNames = element}} id="givenNames"
+                ref={(element) => { this.givenNames = element; }} id="givenNames"
                 type="text" label="First name"
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
@@ -434,7 +434,7 @@ export default class Petition extends React.Component {
 
               <FloatingLabelInput
                 className="mb-1 w-100"
-                ref={(element) => {this.surname = element}} id="surname"
+                ref={(element) => { this.surname = element; }} id="surname"
                 type="text" label="Last name"
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
@@ -443,7 +443,7 @@ export default class Petition extends React.Component {
 
               <FloatingLabelInput
                 className="mb-1 w-100"
-                ref={(element) => {this.email = element}} id="emailInput"
+                ref={(element) => { this.email = element; }} id="emailInput"
                 type="email" label="Email address"
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
