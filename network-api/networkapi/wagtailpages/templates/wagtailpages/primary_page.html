@@ -1,7 +1,6 @@
 {% extends "./modular_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-
 {% block bodyID %}primary{% endblock%}
 
 {% block heroGuts %}
@@ -31,7 +30,7 @@
 
   <div class="container cms">
     <div class="row my-1 d-flex align-items-center">
-      <div class="{% if page.specific.narrowed_page_content %}col-md-8 offset-md-2{% else %}col-12{% endif %}">
+      <div class="col-12">
         {% for block in page.body %}
           {% if block.block_type == 'heading' %}
             <h1>{{ block.value }}</h1>
