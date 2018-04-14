@@ -36,7 +36,7 @@ MacOS:
 Windows:
 - `virtualenv venv`
 
-(If you're on a Mac, you might need to run `brew upgrade python` to make sure you're using 3.6. You might also have to chage some PATHs but that's beyond the scope of this document)
+(If you're on a Mac, you might need to run `brew upgrade python` to make sure you're using 3.6. You might also have to change some PATHs but that's beyond the scope of this document)
 
 #### Bootstrap the virtual environment
 
