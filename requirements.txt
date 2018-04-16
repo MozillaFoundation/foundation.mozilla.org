@@ -53,7 +53,7 @@ django-admin-sortable==2.1.2
 requests==2.13.0
 
 # Testing
-flake8==2.5.4
+flake8
 factory_boy==2.9.2
 faker==0.8.10
 coverage==4.4.2
