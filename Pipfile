@@ -12,6 +12,7 @@ Mezzanine = {git = "https://github.com/stephenmcd/mezzanine", ref = "521a98c39bb
 filebrowser_safe = {git = "https://github.com/stephenmcd/filebrowser-safe", ref = "cfb0e948e0aaaafd25f5440b51ca3296093dface"}
 filebrowser-s3 = "*"
 wagtail = "*"
+wagtail-metadata = "*"
 social-auth-app-django = "*"
 dj-database-url = "*"
 psycopg2 = "==2.7.3.2"

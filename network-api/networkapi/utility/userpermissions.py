@@ -41,7 +41,7 @@ def add_user_to_main_site(user):
     try:
         siteperms = SitePermission.objects.filter(user=user)
         permissions = siteperms[0]
-    except:
+    except Exception:
         permissions = SitePermission.objects.create(user=user)
 
     permissions.sites.add(main_site)
@@ -55,7 +55,7 @@ def assign_group_policy(user, name):
         group = Group.objects.get(name=name)
         user.groups.add(group)
         user.save()
-    except:
+    except NameError:
         print("group", name, "not found")
         pass
 
