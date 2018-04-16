@@ -32,8 +32,15 @@ urlpatterns = list(filter(None, [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^fellowships/', include('networkapi.fellows.urls')),
 
+    # Wagtail CMS routes for admin
     url(r'^cms/', include(wagtailadmin_urls)),
-    url(r'^documents/', include(wagtaildocs_urls)),
+
+    # We don't use Wagtail documents at the moment.
+    # url(r'^documents/', include(wagtaildocs_urls)),
+
+    # Wagtail CMS 'live' namespace, used for pages that are
+    # at present still served using mezzanine (opportunities
+    # and campaigns as of this change).
     url(r'^wagtail/', include(wagtail_urls)),
 
     # super special url for documentation purposes
@@ -63,7 +70,18 @@ urlpatterns = list(filter(None, [
     url(r'^api/homepage/', include('networkapi.homepage.urls')),
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
     url(r'^environment.json', EnvVariablesView.as_view()),
-    url(r'^$', mezzanine.pages.views.page, {'slug': '/'}, name='home'),
+
+    # Wagtail CMS live routes
+    url(r'^(?!opportunity|campaigns)', include(wagtail_urls)),
+
+    # Wagtail homepage
+    url(r'^$', RedirectView.as_view(
+        url='/wagtail',
+        query_string=True
+    ), {'slug': '/'}, name='home'),
+
+    # Fallback Mezzanine routes, only still used for
+    # opportunities and campaigns as of this change.
     url(r'^', include('mezzanine.urls')),
 ]))
 
