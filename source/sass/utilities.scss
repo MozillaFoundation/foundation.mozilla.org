@@ -57,3 +57,13 @@
     text-decoration: underline;
   }
 }
+
+.full-width {
+  width: 100vw;
+  max-width: none;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
