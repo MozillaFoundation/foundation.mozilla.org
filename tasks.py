@@ -49,7 +49,7 @@ def setup(ctx, fakedata=False):
         stdout.write("Installing npm dependencies and build.\n")
         ctx.run("npm install && npm run build")
         stdout.write("Installing Python dependencies.\n")
-        ctx.run("pipenv install")
+        ctx.run("pipenv install --dev")
         stdout.write("Applying database migrations.\n")
         ctx.run("inv migrate")
         stdout.write("Updating the site domain.\n")
