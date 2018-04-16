@@ -57,8 +57,8 @@ env = environ.Env(
 )
 
 # Read in the environment
-if os.path.exists('../.env') is True:
-    environ.Env.read_env('../.env')
+if os.path.exists(f'{root - 1}/.env') is True:
+    environ.Env.read_env(f'{root - 1}/.env')
 else:
     environ.Env.read_env()
 

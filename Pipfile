@@ -34,7 +34,5 @@ django-debug-toolbar = "*"
 flake8 = "*"
 python-coveralls = "*"
 
-
-
 [requires]
 python_version = "3.6"
