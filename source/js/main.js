@@ -70,13 +70,6 @@ let main = {
   },
 
   bindGlobalHandlers() {
-    // Close primary nav when escape is pressed
-    document.addEventListener(`keyup`, (e) => {
-      if (e.keyCode === 27 && !this.reactPrimaryNav.state.isHidden) {
-        this.reactPrimaryNav.hide();
-      }
-    });
-
     // Track window scroll position and add/remove class to change sticky header appearance
 
     let lastKnownScrollPosition = 0;
@@ -139,32 +132,16 @@ let main = {
     });
   },
 
-  // Trigger blurring of page contents when primary nav is toggled
-  onPrimaryNavStateChange(event) {
-    let elWrapper = document.querySelector(`body > .wrapper`);
-
-    if (event.isHidden) {
-      elWrapper.classList.remove(`blurred`);
-    } else {
-      elWrapper.classList.add(`blurred`);
-    }
-  },
-
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents(data) {
-    if (document.getElementById(`primary-nav`)) {
-      ReactDOM.render(
-        <PrimaryNav
-          ref={(primaryNav) => { this.reactPrimaryNav = primaryNav; }}
-          onStateChange={this.onPrimaryNavStateChange} />,
-        document.getElementById(`primary-nav`)
-      );
+    let primaryNavElement = document.getElementById(`primary-nav`);
 
-      if (document.getElementById(`burger`)) {
-        document.getElementById(`burger`).addEventListener(`click`, () => {
-          this.reactPrimaryNav.toggle();
-        });
-      }
+    if (primaryNavElement) {
+      // Need to check for zen mode data att
+      ReactDOM.render(
+        <PrimaryNav {...primaryNavElement.dataset}/>,
+        primaryNavElement
+      );
     }
 
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {

@@ -49,63 +49,6 @@ button:hover {
   }
 }
 
-.wrapper-burger {
-  background: none;
-  transition: background 200ms ease-in-out;
-
-  &.scrolled {
-    background: transparentize($black, 0.1);
-
-    #burger,
-    .logo {
-      filter: invert(100%);
-    }
-
-    .nav-links a {
-      color: $white;
-    }
-  }
-
-  .center-nav-title p {
-    text-transform: uppercase;
-    margin: 0;
-    padding: 0;
-    color: $black;
-    letter-spacing: 1px;
-    line-height: 24px;
-  }
-
-  .logo {
-    width: 28px;
-    height: 28px;
-    background: url(../_images/mozilla-m.svg) no-repeat;
-    background-size: contain;
-
-    @media (min-width: $bp-sm) {
-      width: 97px;
-      background: url(../_images/mozilla-on-black.svg) no-repeat;
-    }
-
-    margin: 0 26px 0 0;
-    padding: 0;
-    line-height: 0;
-  }
-}
-
-#burger {
-  cursor: pointer;
-  margin-left: 2em;
-  border: 0;
-  background: url(../_images/hamburger.svg) no-repeat;
-  width: 31px;
-  height: 39px;
-
-  &:hover,
-  &:active {
-    outline: 0;
-  }
-}
-
 .nav-links a {
   color: $black;
   margin-right: 26px;
