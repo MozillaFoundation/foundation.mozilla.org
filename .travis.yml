@@ -7,15 +7,17 @@ before_install:
 - nvm install 6.11.2
 - nvm use 6.11.2
 install:
-- pip install -r requirements.txt
+- pip install --upgrade pip
+- pip install pipenv
+- pipenv install --dev
 - npm install
-- python network-api/manage.py collectstatic --no-input
+- pipenv run python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
 script:
 - npm test
-- flake8 network-api/
-- coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+- pipenv run flake8 network-api/
+- pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
 after_success:
 - coveralls
 env:
