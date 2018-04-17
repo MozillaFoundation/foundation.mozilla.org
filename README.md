@@ -11,84 +11,39 @@
 
 ### Setup
 
-**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), optionally [virtualenv](https://virtualenv.pypa.io/en/stable/)
+**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), [pipenv](https://docs.pipenv.org/), [invoke](http://www.pyinvoke.org/installing.html).
+
+#### Check your environment
+
+- `python --version` should return 3.6 or higher,
+- `pipenv --version` should return 11.10 or higher,
+- `invoke --version` should return 0.22.1 or higher.
+
+#### setup steps
 
 Run the following terminal commands to get started:
 
 - `git clone https://github.com/mozilla/foundation.mozilla.org.git`
 - `cd foundation.mozilla.org`
-- `cp env.default .env`
+- `inv setup`
 
-Install npm dependencies and build the static parts of the site by running the following commands:
+If you're on windows, you need an extra step. Run `inv manage createsuperuser` to create an admin user.
 
-- `npm install`
-- `npm run build`
+You're done :tada:
 
-Switch into the `network-api` sub-directory:
+#### Load fake model data
 
-- `cd network-api`
+By default, your dev site will use production data (read only!). Fake model data can be loaded into your dev site with the following command
 
-Next, create a virtual environment called `venv`
+- `inv manage load_fake_data`
 
-MacOS:
-- `python3 -m venv venv`
-
-Windows:
-- `virtualenv venv`
-
-(If you're on a Mac, you might need to run `brew upgrade python` to make sure you're using 3.6. You might also have to change some PATHs but that's beyond the scope of this document)
-
-#### Bootstrap the virtual environment
-
-Activate the virtual environment:
-
-- Unix/Linux/OSX: `source venv/bin/activate`
-- Windows: `venv\Scripts\Activate`
-
-(for both, the virtual environment can be deactivated by running the corresponding "deactivate" command)
-
-Install all dependencies into the virtual environment:
-
-- `pip install -r ../requirements.txt`
-
-#### Check Python version
-
-- `python --version`
-If that doesn't return 3.6 or greater, you probably need to start Googling to figure out why.
-
-#### Run migrate and load fake model data
-
-
-Migrate the database to the latest schema:
-
-- `python manage.py migrate`
-
-By default, Django sets the site domain to `example.com`, but the fake data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
-
-- `python manage.py update_site_domain`
-
-Fake model data can be loaded into your dev site with the following command
-
-- `python manage.py load_fake_data`
-
-Create an admin user using the following command
-
-- `python manage.py createsuperuser`
-
-#### From scratch database
-
-If you'd prefer not to load in fake model data, you can use the following commands to get started:
-
-```bash
-python manage.py migrate
-python manage.py createsuperuser
-```
+Replace `NETWORK_SITE_URL` value by `http://localhost:8000` in your `.env` file.
 
 #### Running the server
 
 You can run the development server using the following command
 
-- `python manage.py runserver`
+- `inv runserver`
 
 The site should now be accessible at `https://localhost:8000`
 
@@ -98,11 +53,11 @@ To log in to the admin UI, visit: http://localhost:8000/admin
 
 You can empty your database and create a full new set of fake model data using the following command
 
-- `python manage.py load_fake_data --delete`
+- `pipenv run python network-api/manage.py load_fake_data --delete`
 
 You can generate a specific set of fake model data by entering a seed value
 
-- `python manage.py load_fake_data --delete --seed VALUE`
+- `pipenv run python network-api/manage.py --delete --seed VALUE`
 
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
@@ -131,7 +86,8 @@ The `load_fake_data` command will output the following URLs every time:
 When relevant, we encourage you to write tests.
 You can run the tests using the following command
 
-- `python manage.py test`
+- `inv manage test`
+- `pipenv check`
 
 ---
 
@@ -186,6 +142,10 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
 ## Development
 
 This project is based on Mezzanine, which is itself based on Django, so the documentation for both projects applies. As far as Django is concerned, there is "good documentation" on the Django site but it's primarily considered good by people who already know Django, which is kind of bad. If this is your first foray into Django, you will want to read through https://djangobook.com/ instead.
+
+### Pipenv and Invoke commands
+
+TODO
 
 ### Overriding templates and static content
 
