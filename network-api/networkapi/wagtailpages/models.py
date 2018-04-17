@@ -101,7 +101,7 @@ class MiniSiteNameSpace(ModularPage):
         """
         context = super(MiniSiteNameSpace, self).get_context(request)
         updated = get_page_tree_information(self, context)
-        updated['mini_site_title'] = updated['root_title']
+        updated['mini_site_title'] = updated['root'].title
         return updated
 
 
