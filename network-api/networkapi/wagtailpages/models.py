@@ -16,11 +16,11 @@ from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import get_page_tree_information
 
-'''
+"""
 We'll need to figure out which components are truly 'base' and
 which are bits that should be used in subclassing template-based
 page types.
-'''
+"""
 base_fields = [
     ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
@@ -44,9 +44,9 @@ base_fields = [
 
 
 class ModularPage(MetadataPageMixin, Page):
-    '''
+    """
     The base class offers universal component picking
-    '''
+    """
 
     header = models.CharField(
         max_length=250,
@@ -89,16 +89,16 @@ class MiniSiteNameSpace(ModularPage):
         'OpportunityPage',
     ]
 
-    '''
+    """
     This is basically an abstract page type for setting up
     minisite namespaces such as 'campaign', 'opportunity', etc.
-    '''
+    """
 
     def get_context(self, request):
-        '''
+        """
         Extend the context so that mini-site pages know what kind of tree
         they live in, and what some of their local aspects are:
-        '''
+        """
         context = super(MiniSiteNameSpace, self).get_context(request)
         updated = get_page_tree_information(self, context)
         updated['mini_site_title'] = updated['root_title']
@@ -144,9 +144,9 @@ class Signup(CTA):
 
 
 class OpportunityPage(MiniSiteNameSpace):
-    '''
+    """
     these pages come with sign-up-for-xyz CTAs
-    '''
+    """
     cta = models.ForeignKey(
         'Signup',
         related_name='page',
@@ -269,9 +269,9 @@ class Petition(CTA):
 
 
 class CampaignPage(MiniSiteNameSpace):
-    '''
+    """
     these pages come with sign-a-petition CTAs
-    '''
+    """
     cta = models.ForeignKey(
         'Petition',
         related_name='page',
@@ -296,14 +296,14 @@ class CampaignPage(MiniSiteNameSpace):
 
 
 class PrimaryPage(MetadataPageMixin, Page):
-    '''
+    """
     Basically a straight copy of modular page, but with
     restrictions on what can live 'under it'.
 
     Ideally this is just PrimaryPage(ModularPage) but
     setting that up as a migration seems to be causing
     problems.
-    '''
+    """
     header = models.CharField(
         max_length=250,
         blank=True
