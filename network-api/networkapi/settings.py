@@ -180,6 +180,7 @@ MIDDLEWARE = list(filter(None, [
 
     'csp.middleware.CSPMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'networkapi.middleware.ReferrerMiddleware',
