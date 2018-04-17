@@ -4,7 +4,7 @@
 
 
 {% block minisite_title_mb %}
-  {% if singleton_page == False %}
+  {% if uses_menu %}
   <div class="container">
     <div class="row">
       <div class="col-12 mt-3">
@@ -20,7 +20,7 @@
 
 
 {% block mini_site_title %}
-  {% if singleton_page == False %}
+  {% if uses_menu %}
     <p class="h5-heading hidden-sm-down">{{ mini_site_title }}</p>
   {% endif %}
 {% endblock %}
