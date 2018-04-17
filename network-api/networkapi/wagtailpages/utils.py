@@ -12,6 +12,7 @@ def get_page_tree_information(page, context):
     root = next((n for n in ancestors if n.specific_class == page.specific_class), page)
     context['root'] = root
     context['root_title'] = root.specific.header if root.specific.header else root.title
+    context['root_slug'] = root.slug if root.slug else False
 
     is_top_page = (root == page)
     context['is_top_page'] = is_top_page
