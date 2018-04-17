@@ -1,0 +1,13 @@
+<hr class="my-3">
+<div class="d-flex flex-row align-items-center">
+  <div class="mr-3">
+    <img src="/_images/fellowships/svg/info-icon.svg" width="22" height="22" />
+  </div>
+  <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between w-100">
+    <p class="m-0">Applications are due by 5 pm Eastern Time on April 20th, 2018.<br> <strong> Make sure to register by April 18th</strong>.</p>
+    {% if version == "with-btn" %}
+    <a href="{% url 'fellowships-apply' %}" class="btn btn-ghost mt-3 mt-md-0">Apply Here</a>
+    {% endif %}
+  </div>
+</div>
+<hr class="my-3">
