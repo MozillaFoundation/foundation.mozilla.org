@@ -1,4 +1,5 @@
-from sys import stdout
+from sys import platform
+from shutil import copy
 
 from invoke import task
 
@@ -35,31 +36,40 @@ def makemigrations(ctx):
 
 
 @task
+def loadfakedata(ctx):
+    """Generates fake data for testing and local development"""
+    manage(ctx, "load_fake_data")
+
+
+@task
 def test(ctx):
     """Run tests"""
     manage(ctx, "test")
 
 
-@task(optional=['fakedata'], help={'fakedata': 'Generate fake data for testing and local development'})
-def setup(ctx, fakedata=False):
+@task
+def setup(ctx):
     """Prepare your dev environment"""
     with ctx.cd(ROOT):
-        stdout.write("Copying default environment variables.\n")
-        ctx.run("cp env.default .env")
-        stdout.write("Installing npm dependencies and build.\n")
+        print("Copying default environment variables.")
+        copy("env.default", ".env")
+        print("Installing npm dependencies and build.")
         ctx.run("npm install && npm run build")
-        stdout.write("Installing Python dependencies.\n")
+        print("Installing Python dependencies.")
         ctx.run("pipenv install --dev")
-        stdout.write("Applying database migrations.\n")
+        print("Applying database migrations.")
         ctx.run("inv migrate")
-        stdout.write("Updating the site domain.\n")
+        print("Updating the site domain.")
         ctx.run("inv manage update_site_domain")
-        if fakedata:
-            stdout.write("Generating fake data.\n")
-            ctx.run("inv manage load_fake_data")
-        stdout.write("Creating superuser.\n")
-        ctx.run("pipenv run python network-api/manage.py createsuperuser", pty=True)
-        stdout.write("All done! To start your dev server, run the following:\n inv runserver\n")
+        print("Creating superuser.")
+        # Windows doesn't support pty, skipping this step
+        if platform == 'win32':
+            print("All done!\n"
+                  "To create an admin user: pipenv run python network-api/manage.py createsuperuser\n"
+                  "To start your dev server: inv runserver")
+        else:
+            ctx.run("pipenv run python network-api/manage.py createsuperuser", pty=True)
+            print("All done! To start your dev server, run the following:\n inv runserver")
 
 
 @task

@@ -8,8 +8,7 @@ Django = "==1.11.12"
 gunicorn = "*"
 djangorestframework = "*"
 django-filter = "*"
-Mezzanine = {git = "https://github.com/stephenmcd/mezzanine", ref = "521a98c39bb6351c4b46067069f33caf95fe0a5e"}
-filebrowser_safe = {git = "https://github.com/stephenmcd/filebrowser-safe", ref = "cfb0e948e0aaaafd25f5440b51ca3296093dface"}
+Mezzanine = {git = "https://github.com/stephenmcd/mezzanine@521a98c39bb6351c4b46067069f33caf95fe0a5e", editable=true}
 filebrowser-s3 = "*"
 wagtail = "*"
 wagtail-metadata = "*"

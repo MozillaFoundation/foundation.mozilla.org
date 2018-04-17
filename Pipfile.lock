@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4bc0f16a0299876b3e1e44549078ffc5fc1866d1cd25f46f730a2e029aa23d54"
+            "sha256": "62d6f089c51382e2da438775022dd7721e6927d7b1216fc762708d795ef3a32f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,13 @@
                 "sha256:808b6ac932dccb0a4126558f7dfdcf41710dd44a4ef497a0bb59a77f9f078e89"
             ],
             "version": "==4.6.0"
+        },
+        "bleach": {
+            "hashes": [
+                "sha256:b8fa79e91f96c2c2cd9fd1f9eda906efb1b88b483048978ba62fef680e962b34",
+                "sha256:eb7386f632349d10d9ce9d4a838b134d4731571851149f9cc2c05a9a837a9a44"
+            ],
+            "version": "==2.1.3"
         },
         "boto3": {
             "hashes": [
@@ -83,6 +90,13 @@
             ],
             "index": "pypi",
             "version": "==2.1.4"
+        },
+        "django-contrib-comments": {
+            "hashes": [
+                "sha256:7d966bb5bda3ded47a652ae9b0b0b2d3234ea2d3d37ca04b360fce2c117fba2f",
+                "sha256:9c666f162ab7b57ed6a77a29d01d92d6ea95d850c1e0c1cd2e50d81bc7e66f5e"
+            ],
+            "version": "==1.8.0"
         },
         "django-cors-headers": {
             "hashes": [
@@ -189,8 +203,24 @@
             "version": "==1.0.0"
         },
         "filebrowser-safe": {
-            "git": "https://github.com/stephenmcd/filebrowser-safe",
-            "ref": "cfb0e948e0aaaafd25f5440b51ca3296093dface"
+            "hashes": [
+                "sha256:3d3f17407eaf0d819e1e313622e59bfe2192586ca6915021c9c831e4a466d9fd",
+                "sha256:ff23a218c3de564d0be9765d82f7b9b54392102d2eb17186bf14dc531f59adb2"
+            ],
+            "version": "==0.4.7"
+        },
+        "future": {
+            "hashes": [
+                "sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb"
+            ],
+            "version": "==0.16.0"
+        },
+        "grappelli-safe": {
+            "hashes": [
+                "sha256:2049d13e20872e91182f907798bb5e1d85304162bffb47512a1f5d9ec2d5587e",
+                "sha256:86b58e18d3306c69461a06e2d02f3bc352803754599d2b6e67450fdf6496b79c"
+            ],
+            "version": "==0.4.7"
         },
         "gunicorn": {
             "hashes": [
@@ -222,6 +252,7 @@
             "version": "==0.9.3"
         },
         "mezzanine": {
+            "editable": true,
             "git": "https://github.com/stephenmcd/mezzanine",
             "ref": "521a98c39bb6351c4b46067069f33caf95fe0a5e"
         },
@@ -406,6 +437,12 @@
                 "sha256:801e38bd550b943563660a91de8d4b6fa5df60a542be9093f7abf819f86050cc"
             ],
             "version": "==1.2"
+        },
+        "tzlocal": {
+            "hashes": [
+                "sha256:4ebeb848845ac898da6519b9b31879cf13b6626f7184c496037b818e238f2c4e"
+            ],
+            "version": "==1.5.1"
         },
         "unidecode": {
             "hashes": [
