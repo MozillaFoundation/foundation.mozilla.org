@@ -19,6 +19,9 @@ def get_page_tree_information(page, context):
     has_children = len(children) > 0
     context['singleton_page'] = (is_top_page and not has_children)
 
+    mchildren = root.get_children().live().in_menu()
+    context['uses_menu'] = len(mchildren) > 0
+
     return context
 
 
