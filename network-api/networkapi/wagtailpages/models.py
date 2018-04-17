@@ -17,7 +17,7 @@ from wagtailmetadata.models import MetadataPageMixin
 from .utils import get_page_tree_information
 
 """
-We'll need to figure out which components are truly 'base' and
+We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
 page types.
 """
@@ -91,7 +91,7 @@ class MiniSiteNameSpace(ModularPage):
 
     """
     This is basically an abstract page type for setting up
-    minisite namespaces such as 'campaign', 'opportunity', etc.
+    minisite namespaces such as "campaign", "opportunity", etc.
     """
 
     def get_context(self, request):
