@@ -2,6 +2,16 @@ from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 
+class AnchorBlock(blocks.StructBlock):
+    fragmentid = blocks.CharBlock(
+        help_text='Use this to place an explicit fragmentid on the page for linking purposes.'
+    )
+
+    class Meta:
+        icon = 'link'
+        template = 'wagtailpages/blocks/anchor_block.html'
+
+
 class LinkButtonValue(blocks.StructValue):
     # and https://stackoverflow.com/questions/49374083
     # see http://docs.wagtail.io/en/v2.0/topics/streamfield.html#custom-value-class-for-structblock

@@ -1,4 +1,14 @@
 .cms {
+  a.anchor-block {
+    /*
+      special purpose element for fragmentid anchoring,
+      something wagtail does not support natively.
+    */
+    display: inline-block;
+    width: 0;
+    height: 0;
+  }
+
   p:empty {
     height: 1em;
   }
