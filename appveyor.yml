@@ -32,27 +32,28 @@ environment:
 
   matrix:
     - PYTHON: "C:\\Python36"
-      PYTHON_VERSION: "3.6.1"
+      PYTHON_VERSION: "3.6.x"
       PYTHON_ARCH: "32"
 
 init:
-  - "ECHO %PYTHON% %PYTHON_VERSION% %%PYTHON_ARCH"
+  - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "SET PYTHONPATH=%APPVEYOR_BUILD_FOLDER%"
 
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
-  - "virtualenv network -p %PYTHON%/python.exe"
-  - "./network/Scripts/activate"
-  - "pip install -r requirements.txt"
-  - "python network-api/manage.py collectstatic --no-input"
+  - "%PYTHON%\\python.exe -m pip install --upgrade pip"
+  - "%PYTHON%\\python.exe -m pip install pipenv"
+  - "%PYTHON%\\python.exe -m pipenv install --dev"
+  - "%PYTHON%\\python.exe -m pipenv run python network-api/manage.py collectstatic --no-input"
 
 test_script:
   - node --version
   - npm --version
   - npm test
-  - "./network/Scripts/activate"
-  - "flake8 network-api/"
-  - "python network-api/manage.py test"
+  - "%PYTHON%\\python.exe -m pipenv run flake8 network-api/"
+  - "%PYTHON%\\python.exe -m pipenv run python network-api/manage.py test"
 
 
 clone_depth: 1
