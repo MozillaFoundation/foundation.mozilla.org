@@ -377,7 +377,7 @@ class HomepageFeaturedNews(WagtailOrderable, models.Model):
     class Meta:
         verbose_name = 'news'
         verbose_name_plural = 'news'
-        ordering = ['sort_order'] # not automatically inherited!
+        ordering = ['sort_order']  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + '->' + self.news.headline
@@ -396,7 +396,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
     class Meta:
         verbose_name = 'highlight'
         verbose_name_plural = 'highlights'
-        ordering = ['sort_order'] # not automatically inherited!
+        ordering = ['sort_order']  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
