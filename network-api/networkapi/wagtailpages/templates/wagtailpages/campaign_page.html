@@ -3,12 +3,13 @@
 
 {% block subcontent %}
 <div class="row">
-    <div class="cms{% if page.cta and singleton_page == True %}
+    <div class="cms{% if page.cta and uses_menu == False %}
         col-md-6
     {% else %}
         col-12
-    {% endif %}{% if singleton_page == False and page.narrowed_page_content %} col-md-9{% endif %}">
-    {% block html_content %}
+    {% endif %}{% if uses_menu and page.narrowed_page_content %} col-md-9{% endif %}">
+
+      {% block html_content %}
         {% for block in page.body %}
 	        {% if block.block_type == 'heading' %}
 	            <h1>{{ block.value }}</h1>
