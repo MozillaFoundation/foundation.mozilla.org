@@ -84,8 +84,7 @@ let main = {
     let elBurgerWrapper = document.querySelector(`.wrapper-burger`);
 
     let adjustNavbar = (scrollPosition) => {
-      // 100px down is the point that the navbar starts to transition to black
-      if (scrollPosition > 100) {
+      if (scrollPosition > 0) {
         elBurgerWrapper.classList.add(`scrolled`);
       } else {
         elBurgerWrapper.classList.remove(`scrolled`);
