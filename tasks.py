@@ -36,12 +36,6 @@ def makemigrations(ctx):
 
 
 @task
-def loadfakedata(ctx):
-    """Generates fake data for testing and local development"""
-    manage(ctx, "load_fake_data")
-
-
-@task
 def test(ctx):
     """Run tests"""
     manage(ctx, "test")
@@ -49,7 +43,7 @@ def test(ctx):
 
 @task
 def setup(ctx):
-    """Prepare your dev environment"""
+    """Prepare your dev environment after a fresh git clone"""
     with ctx.cd(ROOT):
         print("Copying default environment variables.")
         copy("env.default", ".env")
@@ -70,9 +64,3 @@ def setup(ctx):
         else:
             ctx.run("pipenv run python network-api/manage.py createsuperuser", pty=True)
             print("All done! To start your dev server, run the following:\n inv runserver")
-
-
-@task
-def update(ctx):
-    """Update project's dependencies"""
-    ctx.run("pipenv update")

@@ -7,19 +7,17 @@
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
 [![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
-## Development
-
-### Setup
+## Setup
 
 **Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), [pipenv](https://docs.pipenv.org/), [invoke](http://www.pyinvoke.org/installing.html).
 
-#### Check your environment
+### Check your environment
 
 - `python --version` should return 3.6 or higher,
 - `pipenv --version` should return 11.10 or higher,
 - `invoke --version` should return 0.22.1 or higher.
 
-#### setup steps
+### Setup steps
 
 Run the following terminal commands to get started:
 
@@ -27,29 +25,45 @@ Run the following terminal commands to get started:
 - `cd foundation.mozilla.org`
 - `inv setup`
 
-If you're on windows, you need an extra step. Run `inv manage createsuperuser` to create an admin user.
+If you're on windows, you need an extra step: run `inv manage createsuperuser` to create an admin user.
 
 You're done :tada:
 
-#### Load fake model data
+## Development
 
-By default, your dev site will use production data (read only!). Fake model data can be loaded into your dev site with the following command
+### Pipenv and Invoke commands
 
-- `inv manage load_fake_data`
+Pipenv pattern to run Django management commands is:
 
-Replace `NETWORK_SITE_URL` value by `http://localhost:8000` in your `.env` file.
+- `pipenv run python [path to manage.py] [manage.py command] [options]`
 
-#### Running the server
+For example, you can run your development server that way:
 
-You can run the development server using the following command
+- `pipenv run python network-api/manage.py runserver`
+
+But it's a bit long. So instead, you can use invoke:
 
 - `inv runserver`
 
-The site should now be accessible at `https://localhost:8000`
+#### Invoke tasks available:
 
-To log in to the admin UI, visit: http://localhost:8000/admin
+- `inv -l`: list available invoke tasks
+- `inv makemigrations`: Creates new migration(s) for apps
+- `inv migrate`: Updates database schema
+- `inv runserver`: Start a web server
+- `inv setup`: Prepare your dev environment after a fresh git clone
+- `inv test`: Run tests
 
-#### Generating a new set of fake model data
+For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`).
+
+Invoke tasks don't take options: use `pipenv run` instead (example: `pipenv run python network-api/manage.py runserver 3000`)
+
+### Generating a new set of fake model data
+
+By default, your dev site will use production data (read only!). To load fake model data into your dev site:
+
+- Run `inv manage load_fake_data`
+- Replace `NETWORK_SITE_URL` value by `http://localhost:8000` in your `.env` file.
 
 You can empty your database and create a full new set of fake model data using the following command
 
@@ -61,7 +75,7 @@ You can generate a specific set of fake model data by entering a seed value
 
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
-##### Landing Page and Campaign links
+#### Landing Page and Campaign links
 
 The `load_fake_data` command will output the following URLs every time:
 
@@ -77,17 +91,16 @@ The `load_fake_data` command will output the following URLs every time:
 - `/campaigns/important-issue/take-action` (Petition page)
 - `/campaigns/single-petition` (Petition page)
 
-#### Running the project for front-end development
+### Running the project for front-end development
 
 - At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to Pug, JS, and Sass files.
 
-#### Tests
+### Tests
 
 When relevant, we encourage you to write tests.
 You can run the tests using the following command
 
-- `inv manage test`
-- `pipenv check`
+- `inv test`
 
 ---
 
@@ -141,11 +154,34 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
 
 ## Development
 
-This project is based on Mezzanine, which is itself based on Django, so the documentation for both projects applies. As far as Django is concerned, there is "good documentation" on the Django site but it's primarily considered good by people who already know Django, which is kind of bad. If this is your first foray into Django, you will want to read through https://djangobook.com/ instead.
+This project is based on Mezzanine, which is itself based on Django, so the documentation for both projects applies.
+ If you're new to Django, Django official documentation provide a [tutorial](https://docs.djangoproject.com/en/2.0/intro/) and a handful of [topics](https://docs.djangoproject.com/en/2.0/topics/) and [how-to](https://docs.djangoproject.com/en/2.0/howto/) guides to help you get started. If you're completely new to programming, check 
+ [Django Girls](https://tutorial.djangogirls.org/en/) tutorial.
+ 
+### Pipenv workflow
 
-### Pipenv and Invoke commands
+Checking [Pipenv documentation](https://docs.pipenv.org/) is highly recommended if you're new to it.
 
-TODO
+#### Virtual environment
+
+- `pipenv shell` activates your virtual environment and automatically loads your `.env`. Run `exit` to leave it. You don't need to be in your virtual environment to run python commands: Use `pipenv run python [...]` instead.
+
+#### Installing dependencies
+
+- `pipenv install [package name]`
+
+After installing a package, pipenv automatically runs a `pipenv lock` that updates the `pipfile.lock`. You need to add both `pipfile` and `pipfile.lock` to your commit.
+
+#### Updating dependencies
+
+- `pipenv update --outdated` to list dependencies that need to be updated,
+- `pipenv update` to update dependencies
+
+If a dependency is updated, pipenv automatically runs a `pipenv lock` that updates the `pipfile.lock`. You need to add both `pipfile` and `pipfile.lock` to your commit.
+
+#### Listing installed dependencies
+
+- `pipenv graph`
 
 ### Overriding templates and static content
 
