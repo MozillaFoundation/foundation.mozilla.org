@@ -22,6 +22,7 @@ which are bits that should be used in subclassing template-based
 page types.
 """
 base_fields = [
+    ('anchor', customblocks.AnchorBlock()),
     ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
