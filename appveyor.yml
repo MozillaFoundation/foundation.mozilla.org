@@ -37,23 +37,22 @@ environment:
 
 init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  - "SET PYTHONPATH=%APPVEYOR_BUILD_FOLDER%"
 
 install:
+  - "SET PYTHONPATH=%APPVEYOR_BUILD_FOLDER%"
   - ps: Install-Product node $env:nodejs_version
   - npm install
-  - "%PYTHON%\\python.exe -m pip install --upgrade pip"
-  - "%PYTHON%\\python.exe -m pip install pipenv"
-  - "%PYTHON%\\python.exe -m pipenv install --dev"
-  - "%PYTHON%\\python.exe -m pipenv run python network-api/manage.py collectstatic --no-input"
+  - "python -m pip install --upgrade pip"
+  - "python -m pip install pipenv"
+  - "python -m pipenv install --dev"
+  - "python -m pipenv run python network-api/manage.py collectstatic --no-input"
 
 test_script:
   - node --version
   - npm --version
   - npm test
-  - "%PYTHON%\\python.exe -m pipenv run flake8 network-api/"
-  - "%PYTHON%\\python.exe -m pipenv run python network-api/manage.py test"
+  - "python -m pipenv run flake8 network-api/"
+  - "python -m pipenv run python network-api/manage.py test"
 
 
 clone_depth: 1
