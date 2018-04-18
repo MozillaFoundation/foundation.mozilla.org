@@ -4,11 +4,11 @@ services:
 python:
 - '3.6'
 before_install:
-- nvm install 6.11.2
-- nvm use 6.11.2
+- npm install -g npm@latest
+- pip install --upgrade pip
 install:
 - pip install -r requirements.txt
-- npm install
+- npm ci
 - python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
@@ -36,3 +36,7 @@ env:
   - NETWORK_SITE_URL=https://foundation.mozilla.org
   - TARGET_DOMAIN=foundation.mozilla.org
   - SHOW_TAKEOVER=false
+cache:
+  pip: true
+  directorie:
+  - "$HOME/.npm"
