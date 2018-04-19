@@ -258,37 +258,39 @@ let main = {
     }
 
     // Fellowships single filter fellow list
-    if (document.querySelectorAll(`.single-filter-fellow-list`).length) {
-      let targets = document.querySelectorAll(`.single-filter-fellow-list`);
+    let singleFilterFellowList = Array.from(
+      document.querySelectorAll(`.single-filter-fellow-list`)
+    );
 
-      Array.prototype.forEach.call(targets, (target) => {
-        return ReactDOM.render(
-          <SingleFilterFellowList
-            env={env}
-            filterType={target.dataset.filterType}
-            filterOptions={target.dataset.filterOptions.split(`,`)}
-            selectedOption={target.dataset.selectedOption}
-          />, target
-        );
-      });
-    }
+    singleFilterFellowList.forEach(target => {
+      return ReactDOM.render(
+        <SingleFilterFellowList
+          env={env}
+          filterType={target.dataset.filterType}
+          filterOptions={target.dataset.filterOptions.split(`,`)}
+          selectedOption={target.dataset.selectedOption}
+        />, target
+      );
+    });
 
     // Pulse project lists
-    if (document.querySelectorAll(`.pulse-project-list`).length) {
-      let targets = document.querySelectorAll(`.pulse-project-list`);
+    let pulseProjectList = Array.from(
+      document.querySelectorAll(`.pulse-project-list`)
+    );
 
-      Array.prototype.forEach.call(targets, (target) => {
-        return ReactDOM.render(
-          <PulseProjectList
-            env={env}
-            query={target.getAttribute(`for`)}
-            reverseChronological={target.getAttribute(`rev`) === null || target.getAttribute(`rev`) === `true`}
-            featured={target.getAttribute(`checked`) !== null && target.getAttribute(`checked`) !== `false`}
-            max={parseInt(target.getAttribute(`size`), 10) || null} />,
-          target
-        );
-      });
-    }
+    // TODO: once we switch off Mezzanine, we can remove the mezzanine-template
+    //       attribute checks here (the !! checks in the code below).
+    pulseProjectList.forEach(target => {
+      return ReactDOM.render(
+        <PulseProjectList
+          env={env}
+          query={target.getAttribute(`for`) || target.getAttribute(`query`)}
+          reverseChronological={ !!target.getAttribute(`rev`) && target.getAttribute(`rev`) !== `False` }
+          featured={ !!target.getAttribute(`featured`) && target.getAttribute(`featured`) !== `False` }
+          max={parseInt(target.getAttribute(`max`), 10) || null} />,
+        target
+      );
+    });
   }
 };
 
