@@ -224,7 +224,7 @@ class PulseProjectQueryValue(blocks.StructValue):
         return query
 
     @property
-    def max(self):
+    def size(self):
         max_number_of_results = self['max_number_of_results']
         return '' if max_number_of_results <= 0 else max_number_of_results
 
