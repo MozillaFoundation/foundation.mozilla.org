@@ -40,6 +40,7 @@ base_fields = [
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('quote', customblocks.QuoteBlock()),
+    ('pulse_listing', customblocks.PulseProjectList()),
 ]
 
 
