@@ -284,10 +284,10 @@ let main = {
       return ReactDOM.render(
         <PulseProjectList
           env={env}
-          query={target.getAttribute(`for`) || target.getAttribute(`query`)}
+          query={ target.getAttribute(`for`) || `` }
           reverseChronological={ !!target.getAttribute(`rev`) && target.getAttribute(`rev`) !== `False` }
-          featured={ !!target.getAttribute(`featured`) && target.getAttribute(`featured`) !== `False` }
-          max={parseInt(target.getAttribute(`max`), 10) || null} />,
+          featured={ !!target.getAttribute(`checked`) && target.getAttribute(`checked`) !== `False` }
+          max={parseInt(target.getAttribute(`size`), 10) || null} />,
         target
       );
     });
