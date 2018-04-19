@@ -27,26 +27,12 @@ from networkapi.views import EnvVariablesView
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [
-    url(r'^admin/', include(admin.site.urls)),
+    # social-sign-on routes so that Google auth works
+    url(r'^soc/', include('social_django.urls', namespace='social')),
+
+    # fellowship routes
+
     url(r'^fellowships/', include('networkapi.fellows.urls')),
-
-    # Wagtail CMS routes for admin
-    url(r'^cms/', include(wagtailadmin_urls)),
-
-    # We don't use Wagtail documents at the moment.
-    # url(r'^documents/', include(wagtaildocs_urls)),
-
-    # Wagtail CMS 'live' namespace, used for pages that are
-    # at present still served using mezzanine (opportunities
-    # and campaigns as of this change).
-    url(r'^wagtail/', include(wagtail_urls)),
-
-    # super special url for documentation purposes
-    url(
-        r'^how-do-i-wagtail/',
-        RedirectView.as_view(url='/wagtail/docs/how-do-i-wagtail/'),
-        name='how-do-i-wagtail'
-    ),
 
     url(r'^fellowship/(?P<path>.*)', RedirectView.as_view(
         url='/fellowships/%(path)s',
@@ -58,9 +44,8 @@ urlpatterns = list(filter(None, [
         query_string=True
     )),
 
-    url(r'^soc/', include('social_django.urls', namespace='social')),
+    # network API routes:
 
-    # network-api routes:
     url(r'^api/people/', include('networkapi.people.urls')),
     url(r'^api/news/', include('networkapi.news.urls')),
     url(r'^api/milestones/', include('networkapi.milestones.urls')),
@@ -69,18 +54,26 @@ urlpatterns = list(filter(None, [
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
     url(r'^environment.json', EnvVariablesView.as_view()),
 
-    # Wagtail CMS live routes
-    url(r'^(?!opportunity|campaigns)', include(wagtail_urls)),
+    # Wagtail CMS routes
 
-    # Wagtail homepage
-    url(r'^$', RedirectView.as_view(
-        url='/wagtail',
-        query_string=True
-    ), {'slug': '/'}, name='home'),
+    url(
+        r'^how-do-i-wagtail/',
+        RedirectView.as_view(url='/wagtail/docs/how-do-i-wagtail/'),
+        name='how-do-i-wagtail'
+    ),
 
-    # Fallback Mezzanine routes, only still used for
-    # opportunities and campaigns as of this change.
-    url(r'^', include('mezzanine.urls')),
+    url(r'^cms/', include(wagtailadmin_urls)),
+    url(r'', include(wagtail_urls)),
+
+    # Mezzanine left-overs
+
+    url(
+        # An explicit entry for "a route called 'home'", which we cannot
+        # remove until we fully extricate Mezzanine from our codebase:
+        r'^this/cannot/be/reached/because/of/the/patterns/above$',
+        RedirectView.as_view(url='/its/purely/to/appease/mezzanine'),
+        name='home'
+    ),
 ]))
 
 
