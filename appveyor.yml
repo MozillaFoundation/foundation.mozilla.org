@@ -12,7 +12,7 @@ services:
 build: false
 
 environment:
-  nodejs_version: "6"
+  nodejs_version: "8"
   DEBUG: True
   DJANGO_SECRET_KEY: secret
   DATABASE_URL: postgres://postgres:Password12!@localhost:5432/networkapi
@@ -40,7 +40,8 @@ init:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install
+  - "npm install -g npm@latest"
+  - "npm ci"
   - "virtualenv network -p %PYTHON%/python.exe"
   - "./network/Scripts/activate"
   - "pip install -r requirements.txt"
@@ -54,5 +55,8 @@ test_script:
   - "flake8 network-api/"
   - "python network-api/manage.py test"
 
+cache:
+  - "%APPDATA%\\npm-cache"
+  - "%LOCALAPPDATA%\\pip\\Cache"
 
 clone_depth: 1
