@@ -1,14 +1,13 @@
 language: python
-services:
-- postgresql: 9.6
 python:
 - '3.6'
-before_install:
-- npm install -g npm@latest
-- pip install --upgrade pip
+services:
+- postgresql
 install:
+- npm install -g npm@latest # Needed to use npm ci
+- pip install --upgrade pip
 - pip install -r requirements.txt
-- npm ci
+- npm ci # use package-lock.json
 - python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
@@ -38,5 +37,5 @@ env:
   - SHOW_TAKEOVER=false
 cache:
   pip: true
-  directorie:
+  directories:
   - "$HOME/.npm"
