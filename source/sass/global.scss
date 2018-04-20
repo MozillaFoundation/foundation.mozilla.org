@@ -111,6 +111,7 @@ button:hover {
   margin-right: 26px;
   font-family: "Nunito Sans";
   font-weight: 700;
+
   @include scaleText(17px, 24px);
 }
 
