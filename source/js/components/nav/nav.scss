@@ -39,8 +39,11 @@
 
     a {
       display: inline-block;
+      font-family: "Nunito Sans";
       font-weight: 500;
       margin-bottom: 0.333em;
+
+      @include scaleText(32px, 48px);
 
       @media (min-width: $bp-md) {
         height: 5.3rem;
