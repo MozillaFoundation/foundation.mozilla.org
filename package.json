@@ -24,7 +24,7 @@
     "optimize": "run-p optimize:**",
     "server": "pipenv run python network-api/manage.py runserver",
     "start": "npm i && npm run build-uncompressed && run-p server watch:**",
-    "snyk": "snyk test --file=package.json && snyk test --file=requirements.txt",
+    "snyk": "snyk test --file=package.json",
     "test:eslint": "eslint --config ./.eslintrc.yaml scripts/**/*.js source/js/**/*.js source/js/components/**/*.jsx",
     "test:pug": "pug-lint source/pug/partials/ source/pug/templates/ source/pug/partials/",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/components/**/*.scss\" --syntax scss",
