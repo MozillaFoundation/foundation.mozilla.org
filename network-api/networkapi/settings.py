@@ -197,14 +197,6 @@ MIDDLEWARE = list(filter(None, [
     'debug_toolbar.middleware.DebugToolbarMiddleware'
     if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
 
-
-    'mezzanine.core.request.CurrentRequestMiddleware',
-    'mezzanine.core.middleware.RedirectFallbackMiddleware',
-    'mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware',
-    'mezzanine.core.middleware.SitePermissionMiddleware',
-    'mezzanine.pages.middleware.PageMiddleware',
-    'mezzanine.core.middleware.FetchFromCacheMiddleware',
-
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]))
