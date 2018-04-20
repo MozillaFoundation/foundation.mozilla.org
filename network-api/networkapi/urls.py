@@ -77,8 +77,6 @@ urlpatterns = list(filter(None, [
 ]))
 
 
-handler500 = 'mezzanine.core.views.server_error'
-
 if settings.USE_S3 is not True:
     urlpatterns += static(
         settings.MEDIA_URL,
