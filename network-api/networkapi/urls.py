@@ -77,9 +77,6 @@ urlpatterns = list(filter(None, [
 ]))
 
 
-handler404 = RedirectView.as_view(url='/errors/404')
-handler500 = 'mezzanine.core.views.server_error'
-
 if settings.USE_S3 is not True:
     urlpatterns += static(
         settings.MEDIA_URL,

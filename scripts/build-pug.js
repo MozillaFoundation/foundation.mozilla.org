@@ -30,7 +30,5 @@ function buildPage(template, target, extraData, isDjangoTemplate = false) {
   }
 }
 
-buildPage(`404`, `/errors/404`);
-
 // Base Template For Mezzanine And Wagtail
 buildPage(`base-for-django`, `network-api/networkapi/templates/pages/base-compiled.html`, null, true);

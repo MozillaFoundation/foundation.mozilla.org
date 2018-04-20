@@ -178,8 +178,6 @@ INSTALLED_APPS = list(filter(None, [
 MIDDLEWARE = list(filter(None, [
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
 
-    'mezzanine.core.middleware.UpdateCacheMiddleware',
-
     'csp.middleware.CSPMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
