@@ -2,7 +2,7 @@
 
 <div class="row my-3">
 {% for block in self.grid_items %}
-	{% with value=block %}
+	{% with value=block count=self.grid_items|length %}
 	{% include "./figure_block2.html" %}
 	{% endwith %}
 {% endfor %}

@@ -34,7 +34,6 @@ base_fields = [
     ('image', customblocks.AlignedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
     ('figure', customblocks.FigureBlock()),
-    ('figure2', customblocks.FigureBlock2()),
     ('figuregrid', customblocks.FigureGridBlock()),
     ('figuregrid2', customblocks.FigureGridBlock2()),
     ('video', customblocks.VideoBlock()),
