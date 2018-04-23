@@ -33,7 +33,7 @@
         <p>The internet today is pervasive: It shapes economies, influences governments, and is layered into billions of lives.</p>
         <p>A pervasive internet has the potential to uplift society — it can promote democracy, open markets, and free expression. But it can also promote polarization, mass surveillance, and misinformation.</p>
         <div class="my-4">
-          {% include 'application_deadline.html' with show_btn=True show_hr=True %}
+          {% comment %} {% include 'application_deadline.html' with show_btn=True show_hr=True %} {% endcomment %}
         </div>
         <p>More than ever, we need a movement to ensure the internet remains a force for good. Mozilla Fellows are web activists, open-source researchers and scientists, and technology policy experts who work on the front lines of that movement. Fellows develop new thinking on how to address emerging threats and challenges facing a healthy internet. Here’s how:</p>
       </div>
@@ -160,11 +160,11 @@
   </div>
 </div>
 
-<div class="row mb-5">
+{% comment %} <div class="row mb-5">
   <div class="col-12">
   {% include 'application_cta_banner.html' %}
   </div>
-</div>
+</div> {% endcomment %}
 
 <div class="row mb-5">
   <div class="col-12">
