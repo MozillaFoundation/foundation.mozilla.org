@@ -107,7 +107,7 @@ class ImageTextBlock(blocks.StructBlock):
 
 
 class FigureBlock(blocks.StructBlock):
-    figure = AlignedImageBlock()
+    image = ImageChooserBlock()
     caption = blocks.CharBlock(
         required=False,
         help_text='Please remember to properly attribute any images we use.'

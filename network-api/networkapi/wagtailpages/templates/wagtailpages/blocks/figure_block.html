@@ -1,13 +1,17 @@
 {% load wagtailcore_tags wagtailimages_tags %}
+
 {% with url=value.url %}
-{% if value.figure.alignment %}
-<div class="img-wrapper {{ value.figure.alignment }}">
-{% endif %}
-<figure class="mx-3">
-	{% if url %}<a href="{{ url }}">{% endif %}{% include "./image_block.html" with value=value.figure %}{% if url %}</a>{% endif %}
-	<figcaption>{% if url %}<a href="{{ url }}">{% endif %}{{ value.caption }}{% if url %}</a>{% endif %}</figcaption>
-</figure>
-{% endwith %}
-{% if value.figure.alignment %}
+
+<div class="col-12 col-sm-3">
+	{% if url %}<a href="{{ url }}">{% endif %}
+    {% image value.image fill-570x570-c100 format-jpeg class="w-100" %}
+  {% if url %}</a>{% endif %}
+
+	<p>
+    {% if url %}<a href="{{ url }}">{% endif %}
+      {{ value.caption }}
+    {% if url %}</a>{% endif %}
+  </p>
 </div>
-{% endif %}
+
+{% endwith %}
