@@ -1,3 +1,5 @@
+import re
+
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -209,3 +211,56 @@ class QuoteBlock(blocks.StructBlock):
         template = 'wagtailpages/blocks/quote_block.html'
         icon = 'openquote'
         help_text = 'Multiple quotes can be entered, but for now we are only using the first'
+
+
+class PulseProjectQueryValue(blocks.StructValue):
+    @property
+    def query(self):
+        # Replace any combination of spaces and commas with a single +
+        # because despite instructions to use spaces, someone, at some
+        # point, will accidentally use a comma, and that should be fine.
+        search_terms = self['search_terms'].strip()
+        query = re.sub(r'[\s,]+', '+', search_terms)
+        return query
+
+    @property
+    def size(self):
+        max_number_of_results = self['max_number_of_results']
+        return '' if max_number_of_results <= 0 else max_number_of_results
+
+    @property
+    def rev(self):
+        # The default API behaviour is newest-first, so the "rev" attribute
+        # should only have an attribute value when oldest-first is needed.
+        newest_first = self['newest_first']
+        return True if newest_first else ''
+
+
+class PulseProjectList(blocks.StructBlock):
+    search_terms = blocks.CharBlock(
+        help_text='Fill in any number of pulse entry search terms (separated by spaces).',
+    )
+
+    max_number_of_results = blocks.IntegerBlock(
+        min_value=0,
+        default=0,
+        required=False,
+        help_text='The maximum number of results to fetch (use 0 for "no maximum")',
+    )
+
+    newest_first = blocks.BooleanBlock(
+        default=True,
+        help_text='Check this box to list entries "newest first".',
+        required=False,
+    )
+
+    only_featured_entries = blocks.BooleanBlock(
+        default=False,
+        help_text='Check this box to only get results from the featured entry list.',
+        required=False,
+    )
+
+    class Meta:
+        template = 'wagtailpages/blocks/pulse_project_list.html'
+        icon = 'site'
+        value_class = PulseProjectQueryValue

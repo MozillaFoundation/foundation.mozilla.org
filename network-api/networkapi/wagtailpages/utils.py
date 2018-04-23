@@ -11,7 +11,6 @@ def get_page_tree_information(page, context):
     ancestors = page.get_ancestors()
     root = next((n for n in ancestors if n.specific_class == page.specific_class), page)
     context['root'] = root
-    context['root_title'] = root.specific.header if root.specific.header else root.title
 
     is_top_page = (root == page)
     context['is_top_page'] = is_top_page
@@ -19,6 +18,9 @@ def get_page_tree_information(page, context):
     children = page.get_children().live()
     has_children = len(children) > 0
     context['singleton_page'] = (is_top_page and not has_children)
+
+    mchildren = root.get_children().live().in_menu()
+    context['uses_menu'] = len(mchildren) > 0
 
     return context
 

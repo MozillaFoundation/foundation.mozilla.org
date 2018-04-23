@@ -5,13 +5,16 @@
 
 {% block content %}
 <div class="container">
-  <div class="row my-5 d-flex align-items-center homepage-feature">
-    <div class="col-md-6">
+  <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center homepage-feature">
+    <div class="col-md-6 mb-3 d-sm-none">
+      {% image page.hero_image fill-1152x770-c100 format-jpeg class="full-bleed-xs" %}
+    </div>
+    <div class="col-sm-6">
       <h1 class="h1-heading">{{ page.hero_headline }}</h1>
       <div class="body-large mb-4">{{ page.hero_story_description | richtext }}</div>
-      <a class="btn btn-normal" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
+      <a class="btn btn-normal d-block d-sm-inline" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
     </div>
-    <div class="col-md-6 hidden-sm-down">
+    <div class="col-sm-6 d-none d-sm-block">
       {% image page.hero_image max-1080x800 %}
     </div>
   </div>
@@ -28,10 +31,10 @@
       {% if forloop.counter is 1 %}
       <div class="col-md-6 mb-0 pb-4">
         <div class="play-button-wrapper">
-          {% homepage_image article.news.thumbnail %}
+          {% homepage_image_with_class article.news.thumbnail "full-bleed-xs" %}
         </div>
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 full-bleed-xs">
             <div class="key-item mx-2 mx-md-4 p-3">
               <div class="news-item">
                 <div class="d-flex align-items-center mb-2">
@@ -41,7 +44,7 @@
                   <p class="h6-heading-uppercase mb-0">{{article.news.outlet}}</p>
                 </div>
                 <h5 class="mb-2">
-                  <a href="{{article.news.headline}}" class="h4-heading">{{article.news.headline}}</a>
+                  <a href="{{article.news.link}}" class="h4-heading">{{article.news.headline}}</a>
                 </h5>
                 <p class="h6-heading mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
                 <p>{{article.news.excerpt}}</p>
@@ -95,11 +98,13 @@
         {% if forloop.counter <= 2 %}
         <div class="col-md-6">
           <div class="pb-5">
-            {% homepage_image highlight.highlight.image %}
-            <div class="key-item mx-2 mx-md-4 p-3">
-              <h5 class="h4-heading mb-2">{{highlight.highlight.title}}</h5>
-              <p>{{highlight.highlight.description}}</p>
-              <a class="cta-link mb-2" href="{{highlight.highlight.link_url}}">{{highlight.highlight.link_label}}t</a>
+            {% homepage_image_with_class highlight.highlight.image "full-bleed-xs" %}
+            <div class="full-bleed-xs">
+              <div class="key-item mx-2 mx-md-4 p-3">
+                <h5 class="h4-heading mb-2">{{highlight.highlight.title}}</h5>
+                <p>{{highlight.highlight.description}}</p>
+                <a class="cta-link mb-2" href="{{highlight.highlight.link_url}}">{{highlight.highlight.link_label}}</a>
+              </div>
             </div>
           </div>
       </div>
@@ -130,7 +135,7 @@
   <div class="col-md-6">
     <h4 class="h2-heading">Trending projects</h4>
   </div>
-  <div class="col-md-6 d-flex justify-content-end">
+  <div class="col-md-6 d-none d-md-flex justify-content-end">
     <a class="cta-link" href="https://www.mozillapulse.org/add">Add your project</a>
   </div>
 </div>
@@ -141,7 +146,8 @@
 </div>
 <div class="row">
   <div class="col text-center mb-5">
-    <a class="btn btn-ghost" href="https://www.mozillapulse.org">More from our network</a>
+    <a class="btn btn-ghost mb-4" href="https://www.mozillapulse.org">More from our network</a>
+    <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">Add your project</a>
   </div>
 </div>
 <div class="row">

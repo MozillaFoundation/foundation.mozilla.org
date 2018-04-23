@@ -30,16 +30,5 @@ function buildPage(template, target, extraData, isDjangoTemplate = false) {
   }
 }
 
-buildPage(`home`, `/`);
-buildPage(`people`, `/people`);
-buildPage(`initiatives`, `/initiatives`);
-buildPage(`participate`, `/participate`);
-buildPage(`projects`, `/projects`, require(`./massage-projects.js`));
-buildPage(`about`, `/about`);
-buildPage(`news`, `/news`);
-buildPage(`style-guide`, `/style-guide`);
-buildPage(`sign-up`, `/sign-up`);
-buildPage(`404`, `/errors/404`);
-
-// Base Template – For Mezzanine
+// Base Template For Mezzanine And Wagtail
 buildPage(`base-for-django`, `network-api/networkapi/templates/pages/base-compiled.html`, null, true);

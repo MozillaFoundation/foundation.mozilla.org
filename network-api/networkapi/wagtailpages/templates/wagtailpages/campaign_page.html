@@ -3,8 +3,13 @@
 
 {% block subcontent %}
 <div class="row">
-    <div class="cms {% if page.cta and singleton_page == True %}col-md-6{% else %}col-12{% endif %}">
-    {% block html_content %}
+    <div class="cms{% if page.cta and uses_menu == False %}
+        col-md-6
+    {% else %}
+        col-12
+    {% endif %}{% if uses_menu and page.narrowed_page_content %} col-md-9{% endif %}">
+
+      {% block html_content %}
         {% for block in page.body %}
 	        {% if block.block_type == 'heading' %}
 	            <h1>{{ block.value }}</h1>
@@ -16,10 +21,13 @@
     </div>
 
     {% if page.cta != None %}
-    <div class="col-md-6">
+    <div class="{% if page.narrowed_page_content %}col-md-6{% else %}col-md-12{% endif %}">
         {% cta page %}
         <script src="https://c.shpg.org/352/sp.js"></script>
     </div>
     {% endif %}
 </div>
 {% endblock %}
+
+
+

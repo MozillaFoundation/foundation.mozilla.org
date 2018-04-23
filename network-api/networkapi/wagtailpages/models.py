@@ -40,6 +40,7 @@ base_fields = [
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('quote', customblocks.QuoteBlock()),
+    ('pulse_listing', customblocks.PulseProjectList()),
 ]
 
 
@@ -53,7 +54,18 @@ class ModularPage(MetadataPageMixin, Page):
         blank=True
     )
 
+    narrowed_page_content = models.BooleanField(
+        default=False,
+        help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
+    )
+
     body = StreamField(base_fields)
+
+    settings_panels = Page.settings_panels + [
+        MultiFieldPanel([
+            FieldPanel('narrowed_page_content'),
+        ])
+    ]
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
@@ -90,7 +102,7 @@ class MiniSiteNameSpace(ModularPage):
         """
         context = super(MiniSiteNameSpace, self).get_context(request)
         updated = get_page_tree_information(self, context)
-        updated['mini_site_title'] = updated['root_title']
+        updated['mini_site_title'] = updated['root'].title
         return updated
 
 
@@ -142,7 +154,7 @@ class OpportunityPage(MiniSiteNameSpace):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text="Choose existing or create new petition form"
+        help_text='Choose existing or create new petition form'
     )
 
     content_panels = Page.content_panels + [
@@ -170,16 +182,16 @@ class Petition(CTA):
         blank=True
     )
 
+    checkbox_2 = models.CharField(
+        max_length=1024,
+        help_text='label for the second checkbox option (may contain HTML)',
+        blank=True
+    )
+
     checkbox_1_form_field = models.CharField(
         max_length=1024,
         help_text='Google form field name for Checkbox 1',
         verbose_name='First checkbox Google Form field',
-        blank=True
-    )
-
-    checkbox_2 = models.CharField(
-        max_length=1024,
-        help_text='label for the second checkbox option (may contain HTML)',
         blank=True
     )
 
@@ -194,40 +206,56 @@ class Petition(CTA):
         max_length=1024,
         help_text='Google form field name for Given Name(s)',
         verbose_name='Given Name(s) Google Form field',
-        blank=True,
     )
 
     surname_form_field = models.CharField(
         max_length=1024,
         help_text='Google form field name for Surname',
         verbose_name='Surname Google Form field',
-        blank=True,
     )
 
     email_form_field = models.CharField(
         max_length=1024,
         help_text='Google form field name for Email',
         verbose_name='Email Google Form field',
-        blank=True,
     )
 
     newsletter_signup_form_field = models.CharField(
         max_length=1024,
         help_text='Google form field name for Mozilla Newsletter checkbox',
         verbose_name='Mozilla Newsletter signup checkbox Google Form field',
-        blank=True,
     )
 
     share_link = models.URLField(
         max_length=1024,
         help_text='Link that will be put in share button',
-        blank=True
+        blank=True,
+        editable=False
     )
 
     share_link_text = models.CharField(
         max_length=20,
         help_text='Text content of the share button',
         default='Share this',
+        blank=True,
+        editable=False
+    )
+
+    share_twitter = models.CharField(
+        max_length=20,
+        help_text='Share Progress id for twitter button',
+        blank=True
+    )
+
+    share_facebook = models.CharField(
+        max_length=20,
+        help_text='Share Progress id for facebook button',
+        blank=True
+    )
+
+    share_email = models.CharField(
+        max_length=20,
+        help_text='Share Progress id for email button',
         blank=True
     )
 
@@ -251,7 +279,7 @@ class CampaignPage(MiniSiteNameSpace):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text="Choose existing or create new sign-up form"
+        help_text='Choose existing or create new sign-up form'
     )
 
     content_panels = Page.content_panels + [
@@ -269,20 +297,31 @@ class CampaignPage(MiniSiteNameSpace):
 
 
 class PrimaryPage(MetadataPageMixin, Page):
-    '''
+    """
     Basically a straight copy of modular page, but with
-    restrictions on what can live "under it".
+    restrictions on what can live 'under it'.
 
     Ideally this is just PrimaryPage(ModularPage) but
     setting that up as a migration seems to be causing
     problems.
-    '''
+    """
     header = models.CharField(
         max_length=250,
         blank=True
     )
 
+    narrowed_page_content = models.BooleanField(
+        default=False,
+        help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
+    )
+
     body = StreamField(base_fields)
+
+    settings_panels = Page.settings_panels + [
+        MultiFieldPanel([
+            FieldPanel('narrowed_page_content'),
+        ])
+    ]
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
@@ -337,11 +376,12 @@ class HomepageFeaturedNews(WagtailOrderable, models.Model):
     ]
 
     class Meta:
-        verbose_name = "news"
-        verbose_name_plural = "news"
+        verbose_name = 'news'
+        verbose_name_plural = 'news'
+        ordering = ['sort_order']  # not automatically inherited!
 
     def __str__(self):
-        return self.page.title + "->" + self.news.headline
+        return self.page.title + '->' + self.news.headline
 
 
 class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
@@ -355,11 +395,12 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
     ]
 
     class Meta:
-        verbose_name = "highlight"
-        verbose_name_plural = "highlights"
+        verbose_name = 'highlight'
+        verbose_name_plural = 'highlights'
+        ordering = ['sort_order']  # not automatically inherited!
 
     def __str__(self):
-        return self.page.title + "->" + self.highlight.title
+        return self.page.title + '->' + self.highlight.title
 
 
 class Homepage(Page):
@@ -402,11 +443,11 @@ class Homepage(Page):
             ]),
             ImageChooserPanel('hero_image'),
         ],
-            heading="hero",
-            classname="collapsible"
+            heading='hero',
+            classname='collapsible'
         ),
-        InlinePanel('featured_highlights', label="Highlights", max_num=5),
-        InlinePanel('featured_news', label="News", max_num=4),
+        InlinePanel('featured_highlights', label='Highlights', max_num=5),
+        InlinePanel('featured_news', label='News', max_num=4),
     ]
 
     subpage_types = [

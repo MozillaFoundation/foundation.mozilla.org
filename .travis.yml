@@ -1,16 +1,14 @@
 language: python
-services:
-- postgresql: 9.6
 python:
 - '3.6'
-before_install:
-- nvm install 6.11.2
-- nvm use 6.11.2
+services:
+- postgresql
 install:
 - pip install --upgrade pip
 - pip install pipenv
 - pipenv install --dev
-- npm install
+- npm install -g npm@latest # Needed to use npm ci
+- npm ci # use package-lock.json
 - pipenv run python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
@@ -38,3 +36,7 @@ env:
   - NETWORK_SITE_URL=https://foundation.mozilla.org
   - TARGET_DOMAIN=foundation.mozilla.org
   - SHOW_TAKEOVER=false
+cache:
+  pip: true
+  directories:
+  - "$HOME/.npm"

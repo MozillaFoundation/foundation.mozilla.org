@@ -1,10 +1,11 @@
 {% extends "./modular_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-{% block bodyID %}primary{% endblock%}
+
+{% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
 {% block heroGuts %}
-  <h1 class="h1-heading pb-5">{% if root_title %}{{ root_title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+  <h1 class="h1-heading pb-5">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -30,7 +31,7 @@
 
   <div class="container cms">
     <div class="row my-1 d-flex align-items-center">
-      <div class="col-12">
+      <div class="{% if page.specific.narrowed_page_content %}col-md-8 offset-md-2{% else %}col-12{% endif %}">
         {% for block in page.body %}
           {% if block.block_type == 'heading' %}
             <h1>{{ block.value }}</h1>

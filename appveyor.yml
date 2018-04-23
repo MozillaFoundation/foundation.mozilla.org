@@ -12,7 +12,7 @@ services:
 build: false
 
 environment:
-  nodejs_version: "6"
+  nodejs_version: "8"
   DEBUG: True
   DJANGO_SECRET_KEY: secret
   DATABASE_URL: postgres://postgres:Password12!@localhost:5432/networkapi
@@ -41,7 +41,8 @@ init:
 install:
   - "SET PYTHONPATH=%APPVEYOR_BUILD_FOLDER%"
   - ps: Install-Product node $env:nodejs_version
-  - npm install
+  - "npm install -g npm@latest"
+  - "npm ci"
   - "python -m pip install --upgrade pip"
   - "python -m pip install pipenv"
   - "python -m pipenv install --dev"
@@ -54,5 +55,8 @@ test_script:
   - "python -m pipenv run flake8 network-api/"
   - "python -m pipenv run python network-api/manage.py test"
 
+cache:
+  - "%APPDATA%\\npm-cache"
+  - "%LOCALAPPDATA%\\pip\\Cache"
 
 clone_depth: 1

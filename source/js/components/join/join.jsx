@@ -67,7 +67,7 @@ export default class JoinUs extends React.Component {
     });
 
     let signupState = classNames({
-      'row py-5': true,
+      'py-5': true,
       'signup-success': this.state.signupSuccess && this.state.userSubmitted,
       'signup-fail': !this.state.signupSuccess && this.state.userSubmitted
     });
@@ -85,7 +85,7 @@ export default class JoinUs extends React.Component {
               </div>
               {!this.state.signupSuccess ?
                 <p className="body-large" dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
-                : <p>{this.props.thankYouMessage}</p>
+                : <p dangerouslySetInnerHTML={{__html:this.props.thankYouMessage}}></p>
               }
             </div>
             { !this.state.signupSuccess &&

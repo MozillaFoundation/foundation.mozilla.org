@@ -47,7 +47,7 @@ export default class PulseProjectList extends React.Component {
       }
 
       return (
-        <div className="col-sm-12 col-md-4 my-4" key={`pulse-project-${index}`}>
+        <div className="col-6 col-md-4 my-4" key={`pulse-project-${index}`}>
           <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`}>
             <div className="thumbnail">
               <div className="img-container">
