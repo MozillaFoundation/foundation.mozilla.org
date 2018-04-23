@@ -130,10 +130,6 @@ class FigureBlock2(blocks.StructBlock):
         required=False,
         help_text='Optional URL that this figure should link out to.',
     )
-    class Meta:
-        icon = 'picture'
-        template = 'wagtailpages/blocks/figure_block2.html'
-
 
 class FigureGridBlock(blocks.StructBlock):
     grid_items = blocks.ListBlock(FigureBlock())
