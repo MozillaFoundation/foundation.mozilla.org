@@ -116,20 +116,38 @@ class FigureBlock(blocks.StructBlock):
         required=False,
         help_text='Optional URL that this figure should link out to.',
     )
-
     class Meta:
         icon = 'picture'
         template = 'wagtailpages/blocks/figure_block.html'
 
+class FigureBlock2(blocks.StructBlock):
+    image = ImageChooserBlock()
+    caption = blocks.CharBlock(
+        required=False,
+        help_text='Please remember to properly attribute any images we use.'
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this figure should link out to.',
+    )
+    class Meta:
+        icon = 'picture'
+        template = 'wagtailpages/blocks/figure_block2.html'
+
 
 class FigureGridBlock(blocks.StructBlock):
     grid_items = blocks.ListBlock(FigureBlock())
-
     class Meta:
         # this is probably the wrong icon but let's run with it for now
         icon = 'grip'
         template = 'wagtailpages/blocks/figure_grid_block.html'
 
+class FigureGridBlock2(blocks.StructBlock):
+    grid_items = blocks.ListBlock(FigureBlock2())
+    class Meta:
+        # this is probably the wrong icon but let's run with it for now
+        icon = 'grip'
+        template = 'wagtailpages/blocks/figure_grid_block2.html'
 
 class BootstrapSpacerBlock(blocks.StructBlock):
     """
