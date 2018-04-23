@@ -133,6 +133,7 @@ class FigureBlock2(blocks.StructBlock):
         help_text='Optional URL that this figure should link out to.',
     )
 
+
 class FigureGridBlock(blocks.StructBlock):
     grid_items = blocks.ListBlock(FigureBlock())
 
@@ -144,10 +145,12 @@ class FigureGridBlock(blocks.StructBlock):
 
 class FigureGridBlock2(blocks.StructBlock):
     grid_items = blocks.ListBlock(FigureBlock2())
+
     class Meta:
         # this is probably the wrong icon but let's run with it for now
         icon = 'grip'
         template = 'wagtailpages/blocks/figure_grid_block2.html'
+
 
 class BootstrapSpacerBlock(blocks.StructBlock):
     """
