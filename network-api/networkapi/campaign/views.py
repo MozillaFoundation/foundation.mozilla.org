@@ -9,7 +9,7 @@ import boto3
 import logging
 import json
 
-from networkapi.campaign.models import Petition
+from networkapi.wagtailpages.models import Petition
 
 if settings.AWS_SQS_ACCESS_KEY_ID:
     sqs = boto3.client(
