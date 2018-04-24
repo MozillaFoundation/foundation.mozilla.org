@@ -285,7 +285,7 @@ let main = {
         <PulseProjectList
           env={env}
           query={ target.getAttribute(`for`) || `` }
-          reverseChronological={ !!target.getAttribute(`rev`) && target.getAttribute(`rev`) !== `False` }
+          reverseChronological={ target.getAttribute(`rev`) === null || target.getAttribute(`rev`) !== `False` }
           featured={ !!target.getAttribute(`checked`) && target.getAttribute(`checked`) !== `False` }
           max={parseInt(target.getAttribute(`size`), 10) || null} />,
         target
