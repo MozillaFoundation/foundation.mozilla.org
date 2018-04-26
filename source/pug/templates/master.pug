@@ -40,7 +40,6 @@ html
 
   body(id=`view-${templateID}`)
     .takeover
-    #primary-nav
     .wrapper
       #member-notice
         block memberNotice
@@ -48,22 +47,7 @@ html
         .wrapper-join-us
           .container
             #join-us.join-us
-        .wrapper-burger
-          .container
-            .row
-              .col.py-4
-                .d-flex.flex-row.justify-content-between.align-items-center
-                  div.d-flex.align-items-center.flex-wrap
-                    a.logo.text-hide(href=`/`) Mozilla Network
-                    .nav-links.hidden-sm-down
-                      a(class=`nav-link-initiatives`, href=`/initiatives`) Initiatives
-                      a(class=`nav-link-participate`, href=`/participate`) Participate
-                      a(href=`https://internethealthreport.org`, target=`_blank`, rel=`noopener noreferrer`) Internet&nbsp;Health
-                      a(class=`nav-link-people`, href=`/people`) People
-                      a(class=`nav-link-about`, href=`/about`) About&nbsp;Us
-                  div.d-flex.align-items-center
-                    a#donate-header-btn.btn.btn-pop(href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header", target="_blank", rel="noopener noreferrer") Donate
-                    button#burger.hidden-md-up
+        block primaryNav
       .wrapper-2
         #hero
           .container

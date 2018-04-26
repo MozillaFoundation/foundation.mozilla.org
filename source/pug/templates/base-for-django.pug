@@ -15,6 +15,9 @@ block memberNotice
   //- Show warning if pages are a Mezzanine draft.
   | {% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
 
+block primaryNav 
+  | {% if page.zen_nav == True %}<div id="primary-nav" data-nav-mode="zen"></div>{% else %}<div id="primary-nav"></div>{% endif %}
+
 block heroGuts
   | {% block heroGuts %}{% endblock %}
 
