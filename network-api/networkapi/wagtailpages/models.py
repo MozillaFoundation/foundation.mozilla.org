@@ -419,7 +419,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
-class Homepage(Page):
+class Homepage(MetadataPageMixin, Page):
     hero_headline = models.CharField(
         max_length=140,
         help_text='Hero story headline',
