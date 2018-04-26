@@ -4,7 +4,6 @@ TODO.txt
 node_modules/
 dest/
 source/json/temp/
-network-api/networkapi/templates/pages/base-compiled.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
