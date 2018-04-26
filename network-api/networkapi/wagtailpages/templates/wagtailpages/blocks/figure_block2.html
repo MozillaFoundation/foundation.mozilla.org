@@ -7,11 +7,13 @@
     {% image value.image fill-890x890-c100 format-jpeg class="w-100" %}
   {% if url %}</a>{% endif %}
 
+  {% if value.caption %}
 	<p>
     {% if url %}<a href="{{ url }}">{% endif %}
       {{ value.caption }}
     {% if url %}</a>{% endif %}
   </p>
+  {% endif %}
 </div>
 
 {% endwith %}

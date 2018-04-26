@@ -141,6 +141,7 @@ class FigureGridBlock(blocks.StructBlock):
         # this is probably the wrong icon but let's run with it for now
         icon = 'grip'
         template = 'wagtailpages/blocks/figure_grid_block.html'
+        group = 'Deprecated'
 
 
 class FigureGridBlock2(blocks.StructBlock):
