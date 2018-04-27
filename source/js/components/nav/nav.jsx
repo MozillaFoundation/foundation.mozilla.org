@@ -119,34 +119,13 @@ export default class PrimaryNav extends React.Component {
 
   render() {
     return (
-      <div className="wrapper-burger">
+      <div className="py-sm-3 py-3 py-md-2 d-flex align-items-center flex-wrap">
+        {this.renderBurger()}
+        <a className="logo text-hide" href="/">
+          Mozilla Foundation
+        </a>
+        {this.renderWideMenu()}
         {this.renderNarrowMenu()}
-        <div className="wide-screen-menu">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col">
-                <div className="d-flex flex-row justify-content-between">
-                  <div className="py-sm-3 py-3 py-md-2 d-flex align-items-center flex-wrap">
-                    {this.renderBurger()}
-                    <a className="logo text-hide" href="/">
-                      Mozilla Foundation
-                    </a>
-                    {this.renderWideMenu()}
-                  </div>
-                  <div>
-                    <a id="donate-header-btn"
-                      className="my-md-0 my-3 btn btn-pop"
-                      href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header"
-                      target="_blank" rel="noopener noreferrer"
-                    >
-                      Donate
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     );
   }

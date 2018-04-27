@@ -28,6 +28,7 @@
     height: 28px;
     padding: 0;
     position: relative;
+    z-index: 1;
 
     .burger-bar {
       position: absolute;
@@ -96,6 +97,8 @@
     height: 28px;
     background: url(../_images/mozilla-m.svg) no-repeat;
     background-size: contain;
+    position: relative;
+    z-index: 1;
 
     @media (min-width: $bp-sm) {
       width: 97px;
@@ -107,7 +110,7 @@
     line-height: 0;
   }
 
-  .wide-screen-menu {
+  .menu-container {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
@@ -132,6 +135,7 @@
 
     height: 100vh;
     top: 0;
+    left: 0;
     width: 100vw;
     background: white;
     transition: opacity 0.2s, height 0s;

@@ -23,7 +23,33 @@
           <div class="container">
             <div class="join-us" id="join-us"></div>
           </div>
-        </div>{% if page.zen_nav == True %}<div id="primary-nav" data-nav-mode="zen"></div>{% else %}<div id="primary-nav"></div>{% endif %}
+        </div>
+      {% if page.zen_nav == True %}
+        <div id="primary-nav-container" data-nav-mode="zen">
+      {% else %}
+        <div id="primary-nav-container">
+      {% endif %}
+          <div class="wrapper-burger">
+            <div class="menu-container">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col">
+                    <div class="d-flex flex-row justify-content-between">
+                      <div id="primary-nav-links">
+                        <div class="py-sm-3 py-3 py-md-2 d-flex align-items-center flex-wrap">
+                          <a class="logo text-hide" href="/">Mozilla Foundation</a>
+                        </div>
+                      </div>
+                      <div>
+                        <a id="donate-header-btn" class="my-md-0 my-3 btn btn-pop" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="wrapper-2">
         <div id="hero">
