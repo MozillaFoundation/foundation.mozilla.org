@@ -151,7 +151,7 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
 
 ## Development
 
-This project is based on Mezzanine, which is itself based on Django, so the documentation for both projects applies.
+This project is based on [Wagtail](https://wagtail.io/), which is itself based on Django, so the documentation for both projects applies.
  If you're new to Django, Django official documentation provide a [tutorial](https://docs.djangoproject.com/en/2.0/intro/) and a handful of [topics](https://docs.djangoproject.com/en/2.0/topics/) and [how-to](https://docs.djangoproject.com/en/2.0/howto/) guides to help you get started. If you're completely new to programming, check
  [Django Girls](https://tutorial.djangogirls.org/en/) tutorial.
 
