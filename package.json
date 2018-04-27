@@ -6,7 +6,7 @@
   "description": "Mozilla Network",
   "scripts": {
     "autoprefix": "postcss --use autoprefixer -o network-api/networkapi/frontend/_css/main.compiled.css network-api/networkapi/frontend/_css/main.compiled.css",
-    "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && npm run fetch && run-p build:images build:sass && npm run build:contribute",
+    "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && run-p build:images build:sass && npm run build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
     "build:js-uncompressed": "webpack",
@@ -14,7 +14,6 @@
     "build:sass": "shx mkdir -p network-api/networkapi/frontend/_css && node-sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && npm run autoprefix",
     "build": "npm run build:common && npm run build:js",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
-    "fetch": "node scripts/fetch-json.js",
     "heroku-postbuild": "npm run build",
     "migrate": "pipenv run python network-api/manage.py migrate",
     "optimize:svg": "find source/images -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
