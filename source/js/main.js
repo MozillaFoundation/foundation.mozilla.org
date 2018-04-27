@@ -134,13 +134,14 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents(data) {
-    let primaryNavElement = document.getElementById(`primary-nav`);
+    let primaryNavContainer = document.getElementById(`primary-nav-container`);
+    let primaryNavLinks = document.getElementById(`primary-nav-links`);
 
-    if (primaryNavElement) {
+    if (primaryNavContainer && primaryNavLinks) {
       // Need to check for zen mode data att
       ReactDOM.render(
-        <PrimaryNav {...primaryNavElement.dataset}/>,
-        primaryNavElement
+        <PrimaryNav {...primaryNavContainer.dataset}/>,
+        primaryNavLinks
       );
     }
 

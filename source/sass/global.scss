@@ -7,6 +7,11 @@ body {
 
   // Subpages
   .wrapper-2 {
+    #hero {
+      padding-top: 76px;
+      margin-top: -76px;
+    }
+
     background:
       url(../_images/bg-white-lines.png) center top / auto 335px repeat,
       linear-gradient(to right, $neon-blue, $green);
