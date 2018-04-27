@@ -95,7 +95,7 @@ The `load_fake_data` command will output the following URLs every time:
 
 ### Running the project for front-end development
 
-- At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to Pug, JS, and Sass files.
+- At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to JS(X) and Sass files.
 
 ### Tests
 
@@ -110,11 +110,7 @@ You can run the tests using the following command
 
 #### HTML
 
-HTML for the majority of the site is generated from [Pug](https://pugjs.org) templates.
-
-Some templates used by Mezzanine (at the time of writing: Opportunity, Campaign, and Fellowships pages) are written as Django templates but extend blocks from a common base template (`network-api/networkapi/templates/pages/base-compiled.html`) that is generated from Pug (see `source/pug/templates/base-for-django.pug`). This allows code sharing for the overall HTML "shell" of the site between Pug and Django templates as we migrate away from Pug.
-
-Localized strings are pulled from [Java .properties](https://en.wikipedia.org/wiki/.properties) files located in `/locales`.
+HTML for the majority of the site is generated from Django/Wagtail templates and components.
 
 #### CSS
 
@@ -148,7 +144,6 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
     │   └── components <- React components
     ├── json <- JSON for static data sets
     │   └── temp <- JSON pulled from web services. Don't commit!
-    ├── pug <- Pug templates
     └── sass <- Sass code
 ```
 
@@ -157,9 +152,9 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
 ## Development
 
 This project is based on Mezzanine, which is itself based on Django, so the documentation for both projects applies.
- If you're new to Django, Django official documentation provide a [tutorial](https://docs.djangoproject.com/en/2.0/intro/) and a handful of [topics](https://docs.djangoproject.com/en/2.0/topics/) and [how-to](https://docs.djangoproject.com/en/2.0/howto/) guides to help you get started. If you're completely new to programming, check 
+ If you're new to Django, Django official documentation provide a [tutorial](https://docs.djangoproject.com/en/2.0/intro/) and a handful of [topics](https://docs.djangoproject.com/en/2.0/topics/) and [how-to](https://docs.djangoproject.com/en/2.0/howto/) guides to help you get started. If you're completely new to programming, check
  [Django Girls](https://tutorial.djangogirls.org/en/) tutorial.
- 
+
 ### Pipenv workflow
 
 Checking [Pipenv documentation](https://docs.pipenv.org/) is highly recommended if you're new to it.
