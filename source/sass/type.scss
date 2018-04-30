@@ -42,24 +42,6 @@ a {
   }
 }
 
-@mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
-  font-size: $base-font-size;
-
-  @if ($base-line-height) {
-    line-height: $base-line-height/$base-font-size;
-  }
-
-  @if ($large-font-size) {
-    @media screen and (min-width: $bp-md) {
-      font-size: $large-font-size;
-
-      @if ($large-line-height) {
-        line-height: $large-line-height/$large-font-size;
-      }
-    }
-  }
-}
-
 @mixin black-box-white-text($padding:0.1em) {
   background: $black;
   color: $white;
@@ -118,6 +100,7 @@ h3,
 h4,
 .h4-heading {
   font-family: "Zilla Slab";
+  font-weight: 400;
 
   @include scaleText(24px, 28px, 28px, 36px);
 }
@@ -159,10 +142,10 @@ h6,
 }
 
 .quote-small {
+  font-family: "Nunito Sans";
   font-weight: 300;
   font-style: italic;
   color: $black;
-  line-height: 1.45;
 
   @include scaleText(18px, 24px, 22px, 32px);
 }

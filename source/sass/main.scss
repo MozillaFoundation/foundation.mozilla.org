@@ -16,6 +16,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 //Site-wide
 @import './glyphs';
 @import './colors';
+@import './mixins';
 
 // React Components
 
