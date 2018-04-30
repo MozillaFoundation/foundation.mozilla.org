@@ -57,8 +57,10 @@ button:hover {
 .nav-links a {
   color: $black;
   margin-right: 26px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Nunito Sans";
   font-weight: 700;
+
+  @include scaleText(17px, 24px);
 }
 
 @at-root {
