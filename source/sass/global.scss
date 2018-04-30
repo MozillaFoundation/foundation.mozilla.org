@@ -60,7 +60,7 @@ button:hover {
   font-family: "Nunito Sans";
   font-weight: 700;
 
-  @include scaleText(17px, 24px);
+  @include scaleText(17px, 30px, 17px, 24px);
 }
 
 @at-root {
