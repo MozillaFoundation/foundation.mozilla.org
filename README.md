@@ -7,106 +7,77 @@
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
 [![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
-## Development
+## Setup
 
-### Setup
+**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), [pipenv](https://docs.pipenv.org/), [invoke](http://www.pyinvoke.org/installing.html).
 
-**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), optionally [virtualenv](https://virtualenv.pypa.io/en/stable/)
+If you installed [Python with Homebrew](https://docs.brew.sh/Homebrew-and-Python), use `pip3 install` instead of `pip install` when installing the relevant requirements.
+
+### Check your environment
+
+- `python --version` should return 3.6 or higher,
+- `pipenv --version` should return 11.10 or higher,
+- `invoke --version` should return 0.22.1 or higher.
+
+### Setup steps
 
 Run the following terminal commands to get started:
 
 - `git clone https://github.com/mozilla/foundation.mozilla.org.git`
 - `cd foundation.mozilla.org`
-- `cp env.default .env`
+- `inv setup`
 
-Install npm dependencies and build the static parts of the site by running the following commands:
+If you're on windows, you need an extra step: run `inv manage createsuperuser` to create an admin user.
 
-- `npm install`
-- `npm run build`
+You're done :tada:
 
-Switch into the `network-api` sub-directory:
+## Development
 
-- `cd network-api`
+### Pipenv and Invoke commands
 
-Next, create a virtual environment called `venv`
+Pipenv pattern to run Django management commands is:
 
-MacOS:
-- `python3 -m venv venv`
+- `pipenv run python [path to manage.py] [manage.py command] [options]`
 
-Windows:
-- `virtualenv venv`
+For example, you can run your development server that way:
 
-(If you're on a Mac, you might need to run `brew upgrade python` to make sure you're using 3.6. You might also have to change some PATHs but that's beyond the scope of this document)
+- `pipenv run python network-api/manage.py runserver`
 
-#### Bootstrap the virtual environment
+But it's a bit long. So instead, you can use invoke:
 
-Activate the virtual environment:
+- `inv runserver`
 
-- Unix/Linux/OSX: `source venv/bin/activate`
-- Windows: `venv\Scripts\Activate`
+#### Invoke tasks available:
 
-(for both, the virtual environment can be deactivated by running the corresponding "deactivate" command)
+- `inv -l`: list available invoke tasks
+- `inv makemigrations`: Creates new migration(s) for apps
+- `inv migrate`: Updates database schema
+- `inv runserver`: Start a web server
+- `inv setup`: Prepare your dev environment after a fresh git clone
+- `inv test`: Run tests
 
-Install all dependencies into the virtual environment:
+For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`).
 
-- `pip install -r ../requirements.txt`
+Invoke tasks don't take options: use `pipenv run` instead (example: `pipenv run python network-api/manage.py runserver 3000`)
 
-#### Check Python version
+### Generating a new set of fake model data
 
-- `python --version`
-If that doesn't return 3.6 or greater, you probably need to start Googling to figure out why.
+By default, your dev site will use production data (read only!). To load fake model data into your dev site:
 
-#### Run migrate and load fake model data
-
-
-Migrate the database to the latest schema:
-
-- `python manage.py migrate`
-
-By default, Django sets the site domain to `example.com`, but the fake data needs the domain to be `localhost:8000`. Run the following command to update the site domain automatically
-
-- `python manage.py update_site_domain`
-
-Fake model data can be loaded into your dev site with the following command
-
-- `python manage.py load_fake_data`
-
-Create an admin user using the following command
-
-- `python manage.py createsuperuser`
-
-#### From scratch database
-
-If you'd prefer not to load in fake model data, you can use the following commands to get started:
-
-```bash
-python manage.py migrate
-python manage.py createsuperuser
-```
-
-#### Running the server
-
-You can run the development server using the following command
-
-- `python manage.py runserver`
-
-The site should now be accessible at `https://localhost:8000`
-
-To log in to the admin UI, visit: http://localhost:8000/admin
-
-#### Generating a new set of fake model data
+- Run `inv manage load_fake_data`
+- Replace `NETWORK_SITE_URL` value by `http://localhost:8000` in your `.env` file.
 
 You can empty your database and create a full new set of fake model data using the following command
 
-- `python manage.py load_fake_data --delete`
+- `pipenv run python network-api/manage.py load_fake_data --delete`
 
 You can generate a specific set of fake model data by entering a seed value
 
-- `python manage.py load_fake_data --delete --seed VALUE`
+- `pipenv run python network-api/manage.py --delete --seed VALUE`
 
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
-##### Landing Page and Campaign links
+#### Landing Page and Campaign links
 
 The `load_fake_data` command will output the following URLs every time:
 
@@ -122,16 +93,16 @@ The `load_fake_data` command will output the following URLs every time:
 - `/campaigns/important-issue/take-action` (Petition page)
 - `/campaigns/single-petition` (Petition page)
 
-#### Running the project for front-end development
+### Running the project for front-end development
 
-- At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to Pug, JS, and Sass files.
+- At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to JS(X) and Sass files.
 
-#### Tests
+### Tests
 
 When relevant, we encourage you to write tests.
 You can run the tests using the following command
 
-- `python manage.py test`
+- `inv test`
 
 ---
 
@@ -139,11 +110,7 @@ You can run the tests using the following command
 
 #### HTML
 
-HTML for the majority of the site is generated from [Pug](https://pugjs.org) templates.
-
-Some templates used by Mezzanine (at the time of writing: Opportunity, Campaign, and Fellowships pages) are written as Django templates but extend blocks from a common base template (`network-api/networkapi/templates/pages/base-compiled.html`) that is generated from Pug (see `source/pug/templates/base-for-django.pug`). This allows code sharing for the overall HTML "shell" of the site between Pug and Django templates as we migrate away from Pug.
-
-Localized strings are pulled from [Java .properties](https://en.wikipedia.org/wiki/.properties) files located in `/locales`.
+HTML for the majority of the site is generated from Django/Wagtail templates and components.
 
 #### CSS
 
@@ -177,7 +144,6 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
     │   └── components <- React components
     ├── json <- JSON for static data sets
     │   └── temp <- JSON pulled from web services. Don't commit!
-    ├── pug <- Pug templates
     └── sass <- Sass code
 ```
 
@@ -185,7 +151,34 @@ Django powers the backend of the site, and we use Mezzanine with Django to provi
 
 ## Development
 
-This project is based on Mezzanine, which is itself based on Django, so the documentation for both projects applies. As far as Django is concerned, there is "good documentation" on the Django site but it's primarily considered good by people who already know Django, which is kind of bad. If this is your first foray into Django, you will want to read through https://djangobook.com/ instead.
+This project is based on [Wagtail](https://wagtail.io/), which is itself based on Django, so the documentation for both projects applies.
+ If you're new to Django, Django official documentation provide a [tutorial](https://docs.djangoproject.com/en/2.0/intro/) and a handful of [topics](https://docs.djangoproject.com/en/2.0/topics/) and [how-to](https://docs.djangoproject.com/en/2.0/howto/) guides to help you get started. If you're completely new to programming, check
+ [Django Girls](https://tutorial.djangogirls.org/en/) tutorial.
+
+### Pipenv workflow
+
+Checking [Pipenv documentation](https://docs.pipenv.org/) is highly recommended if you're new to it.
+
+#### Virtual environment
+
+- `pipenv shell` activates your virtual environment and automatically loads your `.env`. Run `exit` to leave it. You don't need to be in your virtual environment to run python commands: Use `pipenv run python [...]` instead.
+
+#### Installing dependencies
+
+- `pipenv install [package name]`
+
+After installing a package, pipenv automatically runs a `pipenv lock` that updates the `pipfile.lock`. You need to add both `pipfile` and `pipfile.lock` to your commit.
+
+#### Updating dependencies
+
+- `pipenv update --outdated` to list dependencies that need to be updated,
+- `pipenv update` to update dependencies
+
+If a dependency is updated, pipenv automatically runs a `pipenv lock` that updates the `pipfile.lock`. You need to add both `pipfile` and `pipfile.lock` to your commit.
+
+#### Listing installed dependencies
+
+- `pipenv graph`
 
 ### Overriding templates and static content
 

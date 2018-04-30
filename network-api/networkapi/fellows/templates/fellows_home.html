@@ -33,7 +33,7 @@
         <p>The internet today is pervasive: It shapes economies, influences governments, and is layered into billions of lives.</p>
         <p>A pervasive internet has the potential to uplift society — it can promote democracy, open markets, and free expression. But it can also promote polarization, mass surveillance, and misinformation.</p>
         <div class="my-4">
-          {% include 'application_deadline.html' with show_btn=True show_hr=True %}
+          {% comment %} {% include 'application_deadline.html' with show_btn=True show_hr=True %} {% endcomment %}
         </div>
         <p>More than ever, we need a movement to ensure the internet remains a force for good. Mozilla Fellows are web activists, open-source researchers and scientists, and technology policy experts who work on the front lines of that movement. Fellows develop new thinking on how to address emerging threats and challenges facing a healthy internet. Here’s how:</p>
       </div>
@@ -80,7 +80,7 @@
       <div class="col-md-9">
         <p>Mozilla Fellowships provide resources, tools, community and amplification to those building a more ​humane​ ​digital​ ​world. During their tenure, Fellows use their skill sets — in technology, in advocacy, in law — to design products, run campaigns, influence policy and ultimately lay the groundwork for a more open and inclusive internet.</p>
         <p>Mozilla Fellows hail from a range of disciplines and geographies: They are policymakers in Kenya, journalists in Brazil, engineers in Germany, privacy activists in the United States, and data scientists in the Netherlands. Fellows work on individual projects, but also collaborate on cross-disciplinary solutions to the internet’s biggest challenges. Fellows are awarded competitive compensation and benefits.</p>
-        <p><strong>For additional details about Mozilla Fellowships, visit our <a href="/opportunity/fellowships">Fellowship FAQ</a></strong>.</p>
+        <p><strong>For additional details about Mozilla Fellowships, visit our <a href="/opportunity/fellowships-faq">Fellowship FAQ</a></strong>.</p>
       </div>
     </div>
   </div>
@@ -151,7 +151,7 @@
           <li>Design impactful projects with the potential to reach millions. <a href="https://{{pulse_domain}}/featured">See what Fellows and their collaborators are working on</a>.</li>
           <li>Learn from and collaborate with a global community of Mozillians. <a href="https://www.mozilla.org/contribute/">Meet more than 10,000 Mozilla contributors around the world</a>.</li>
         </ul>
-        <p class="mt-4">Any further questions about Fellowships at Mozilla? Please check out our <a href="/opportunity/fellowships">FAQ page</a> or <a href="mailto:fellowships@mozillafoundation.org">contact us</a>.</p>
+        <p class="mt-4">Any further questions about Fellowships at Mozilla? Please check out our <a href="/opportunity/fellowships-faq">FAQ page</a> or <a href="mailto:fellowships@mozillafoundation.org">contact us</a>.</p>
       </div>
       <div class="col-md-6 mb-4 mb-md-0">
         <img src="/_images/fellowships/group-fellows-overview-page-cropped@2x.jpg">
@@ -160,11 +160,11 @@
   </div>
 </div>
 
-<div class="row mb-5">
+{% comment %} <div class="row mb-5">
   <div class="col-12">
   {% include 'application_cta_banner.html' %}
   </div>
-</div>
+</div> {% endcomment %}
 
 <div class="row mb-5">
   <div class="col-12">

@@ -35,6 +35,7 @@ base_fields = [
     ('image_text', customblocks.ImageTextBlock()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
+    ('figuregrid2', customblocks.FigureGridBlock2()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
@@ -59,11 +60,19 @@ class ModularPage(MetadataPageMixin, Page):
         help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
     )
 
+    zen_nav = models.BooleanField(
+        default=False,
+        help_text='For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.'
+    )
+
     body = StreamField(base_fields)
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel([
             FieldPanel('narrowed_page_content'),
+        ]),
+        MultiFieldPanel([
+            FieldPanel('zen_nav'),
         ])
     ]
 
@@ -315,11 +324,19 @@ class PrimaryPage(MetadataPageMixin, Page):
         help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
     )
 
+    zen_nav = models.BooleanField(
+        default=False,
+        help_text='For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.'
+    )
+
     body = StreamField(base_fields)
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel([
             FieldPanel('narrowed_page_content'),
+        ]),
+        MultiFieldPanel([
+            FieldPanel('zen_nav'),
         ])
     ]
 
@@ -403,7 +420,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
-class Homepage(Page):
+class Homepage(MetadataPageMixin, Page):
     hero_headline = models.CharField(
         max_length=140,
         help_text='Hero story headline',
