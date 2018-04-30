@@ -73,7 +73,7 @@ export default class JoinUs extends React.Component {
     });
 
     return (
-      <div className={ `container ${signupState}` }>
+      <div className={ `container my-default ${signupState}` }>
         <div className="col join-main-content">
           <div className="row">
             <div className="col-12 col-md-6 d-flex justify-content-center flex-column join-content">

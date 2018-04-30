@@ -1,3 +1,11 @@
+@import '../../node_modules/bootstrap/scss/_variables';
+
+// default for vertical margins ($spacer = 1rem = 16px)
+.my-default {
+  margin-top: $spacer;
+  margin-bottom: $spacer;
+}
+
 .flex-grow-0 {
   flex-grow: 0;
 }

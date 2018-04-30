@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% with url=value.url %}
 {% if value.figure.alignment %}
-<div class="img-wrapper {{ value.figure.alignment }}">
+<div class="img-wrapper {{ value.figure.alignment }} my-default">
 {% endif %}
 <figure class="mx-3">
 	{% if url %}<a href="{{ url }}">{% endif %}{% include "./image_block.html" with value=value.figure %}{% if url %}</a>{% endif %}
