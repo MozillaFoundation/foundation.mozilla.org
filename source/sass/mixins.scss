@@ -1,4 +1,4 @@
-  @mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
+@mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
   font-size: $base-font-size;
 
   @if ($base-line-height) {
