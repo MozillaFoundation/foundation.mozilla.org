@@ -115,6 +115,10 @@ h5,
   font-weight: 600;
 
   @include scaleText(20px, 24px, 22px, 28px);
+
+  a {
+    font-weight: inherit;
+  }
 }
 
 .h6-heading-uppercase {
