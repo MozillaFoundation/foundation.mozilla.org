@@ -43,6 +43,6 @@
 
 #view-home {
   .h1-heading {
-    font-size: 48px;
+    @include scaleText(36px, 40px, 48px, 56px);
   }
 }
