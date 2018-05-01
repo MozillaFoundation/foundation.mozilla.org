@@ -1,8 +1,8 @@
-@mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
+  @mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
   font-size: $base-font-size;
 
   @if ($base-line-height) {
-    line-height: $base-line-height/$base-font-size;
+    line-height: $base-line-height;
   }
 
   @if ($large-font-size) {
@@ -10,7 +10,7 @@
       font-size: $large-font-size;
 
       @if ($large-line-height) {
-        line-height: $large-line-height/$large-font-size;
+        line-height: $large-line-height;
       }
     }
   }
