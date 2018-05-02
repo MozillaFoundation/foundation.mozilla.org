@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from networkapi.fellows import views
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     url(r'^$', views.fellows_home, name='fellowships-home'),
@@ -7,7 +8,8 @@ urlpatterns = [
         views.fellows_directory,
         name='fellowships-directory'),
     url(r'^support/$', views.fellows_support, name='fellowships-support'),
-    url(r'^apply/$', views.fellows_apply, name='fellowships-apply'),
+    url(r'^get-involved/$', views.fellows_get_involved, name='fellowships-get-involved'),
+    url(r'^apply/$', RedirectView.as_view(url='/fellowships/get-involved', permanent=True), name='fellowships-apply'),
     url(r'^(?P<program_type_slug>[-\w]+)/$',
         views.fellows_type,
         name='fellowships-type'),
