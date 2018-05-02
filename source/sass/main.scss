@@ -22,7 +22,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 @import '../js/components/highlights/highlights';
 @import '../js/components/people/people';
-@import '../js/components/nav/nav';
 @import '../js/components/join/join';
 @import '../js/components/takeover/takeover';
 @import '../js/components/loading-indicator/loading-indicator';
@@ -36,6 +35,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './components/jump-bar';
 @import './components/hr-gradient';
 @import './components/feature-quote';
+@import './components/nav';
 
 // Misc
 

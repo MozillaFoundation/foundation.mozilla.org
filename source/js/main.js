@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 
 import JoinUs from './components/join/join.jsx';
 import Petition from './components/petition/petition.jsx';
-import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
@@ -97,6 +96,73 @@ let main = {
       ticking = true;
     });
 
+    let elBurger = document.querySelector(`.burger`);
+    let elWideMenu = document.querySelector(`.wide-screen-menu`);
+    let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
+    let primaryNavContainer = document.getElementById(`primary-nav-container`);
+    let navMode = primaryNavContainer.dataset.navMode;
+    let menuOpen = false;
+
+    function setWideMenuState(openMenu) {
+      if (navMode === `zen`) {
+        if (openMenu) {
+          elWideMenu.classList.remove(`hidden`);
+        } else {
+          elWideMenu.classList.add(`hidden`);
+        }
+      }
+    }
+
+    function setNarrowMenuState(openMenu) {
+      if (openMenu) {
+        elNarrowMenu.classList.remove(`hidden`);
+      } else {
+        elNarrowMenu.classList.add(`hidden`);
+      }
+    }
+
+    function setBurgerState(openMenu) {
+      if (openMenu) {
+        elBurger.classList.add(`menu-open`);
+      } else {
+        elBurger.classList.remove(`menu-open`);
+      }
+    }
+
+    function trackMenuState(openMenu) {
+      if (openMenu) {
+        ReactGA.event({
+          category: `navigation`,
+          action: `show menu`,
+          label: `Show navigation menu`
+        });
+      } else {
+        ReactGA.event({
+          category: `navigation`,
+          action: `hide menu`,
+          label: `Hide navigation menu`
+        });
+      }
+    }
+
+    function setMenuState(openMenu) {
+      setWideMenuState(openMenu);
+      setNarrowMenuState(openMenu);
+      setBurgerState(openMenu);
+      trackMenuState(openMenu);
+    }
+
+    document.addEventListener(`keyup`, (e) => {
+      if (e.keyCode === 27) {
+        menuOpen = false;
+        setMenuState(menuOpen);
+      }
+    });
+    elBurger.addEventListener(`click`, () => {
+      menuOpen = !menuOpen;
+      setMenuState(menuOpen);
+    });
+
     // Adjust #hero offset on load and window resize to accomodate the sticky header
 
     let elHero = document.querySelector(`#hero`);
@@ -134,17 +200,6 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents(data) {
-    let primaryNavContainer = document.getElementById(`primary-nav-container`);
-    let primaryNavLinks = document.getElementById(`primary-nav-links`);
-
-    if (primaryNavContainer && primaryNavLinks) {
-      // Need to check for zen mode data att
-      ReactDOM.render(
-        <PrimaryNav {...primaryNavContainer.dataset}/>,
-        primaryNavLinks
-      );
-    }
-
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
       ReactDOM.render(<MemberNotice />, document.getElementById(`member-notice`));
     }
