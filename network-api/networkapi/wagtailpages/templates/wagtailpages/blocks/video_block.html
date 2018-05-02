@@ -2,7 +2,16 @@
 
 {% load wagtailcore_tags %}
 
+{% block wrapper_opening_tag %}
+<div class="embed-responsive embed-responsive-16by9">
+{% endblock %}
+
+{% block wrapper_closing_tag %}
+</div>
+{% endblock %}
+
 {% block embed_specifics %}
+    class="embed-responsive-item"
     allow="autoplay; encrypted-media"
     allowfullscreen
 {% endblock %}

@@ -1,5 +1,6 @@
 {% load wagtailcore_tags %}
 
+{% block wrapper_open_tag %}{% endblock %}
 <iframe
     width="100%"
     height="{{ value.height }}"
@@ -7,3 +8,4 @@
     frameborder="0"
     {% block embed_specifics %}{% endblock %}
 ></iframe>
+{% block wrapper_close_tag %}{% endblock %}
