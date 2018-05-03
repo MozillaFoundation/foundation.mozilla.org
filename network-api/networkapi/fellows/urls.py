@@ -9,7 +9,6 @@ urlpatterns = [
         name='fellowships-directory'),
     url(r'^support/$', views.fellows_support, name='fellowships-support'),
     url(r'^get-involved/$', views.fellows_get_involved, name='fellowships-get-involved'),
-    url(r'^apply/$', RedirectView.as_view(url='/fellowships/get-involved', permanent=True), name='fellowships-apply'),
     url(r'^(?P<program_type_slug>[-\w]+)/$',
         views.fellows_type,
         name='fellowships-type'),
