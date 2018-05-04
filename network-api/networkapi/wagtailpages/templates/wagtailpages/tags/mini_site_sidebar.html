@@ -2,7 +2,7 @@
 
 {% if menu_pages %}
 <div class="py-5 col-md-3 mb-3 hidden-sm-down">
-  <div class="multipage-nav" id="multipage-nav">
+  <div class="multipage-nav side-nav" id="multipage-nav">
     {% for entry in menu_pages %}
     <div>
       <a class="multipage-link {% if current.title == entry.page.title %}multipage-link-active{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
