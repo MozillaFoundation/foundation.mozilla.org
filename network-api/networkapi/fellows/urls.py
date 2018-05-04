@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from networkapi.fellows import views
-from django.views.generic.base import RedirectView
 
 urlpatterns = [
     url(r'^$', views.fellows_home, name='fellowships-home'),
