@@ -40,7 +40,22 @@ let main = {
       this.fetchHomeDataIfNeeded((data) => {
         this.injectReactComponents(data);
         this.bindGlobalHandlers();
+        this.decorateExternalLinks();
       });
+    });
+  },
+
+  decorateExternalLinks() {
+    Array.from( document.querySelectorAll(`a`) ).forEach((link) => {
+      let href = link.getAttribute(`href`);
+
+      // Define an external link as any URL with `//` in it
+      if (href && href.match(/\/\//)) {
+        link.setAttribute(`target`, `_blank`);
+
+        // https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/
+        link.setAttribute(`rel`, `noopener noreferrer`);
+      }
     });
   },
 
