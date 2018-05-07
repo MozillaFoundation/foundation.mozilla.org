@@ -21,8 +21,10 @@
     </div>
 
     {% if page.cta != None %}
-    <div class="{% if page.narrowed_page_content %}col-md-6{% else %}col-md-12{% endif %}">
-        {% cta page %}
+    <div class="cta col-md-6">
+        <div class="sticky-cta">
+            {% cta page %}
+        </div>
         <script src="https://c.shpg.org/352/sp.js"></script>
     </div>
     {% endif %}
