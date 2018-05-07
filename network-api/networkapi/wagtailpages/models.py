@@ -61,7 +61,7 @@ class ModularPage(MetadataPageMixin, Page):
     )
 
     zen_nav = models.BooleanField(
-        default=False,
+        default=True,
         help_text='For secondary nav pages, use this to collapse the primary nav under a toggle hamburger.'
     )
 
