@@ -10,11 +10,16 @@ os.environ.pop('__PYVENV_LAUNCHER__', None)
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
-@task
-def manage(ctx, command):
+@task(optional=['option', 'flag'])
+def manage(ctx, command, option=None, flag=None):
     """Shorthand to manage.py"""
     with ctx.cd(ROOT):
-        ctx.run(f"pipenv run python network-api/manage.py {command}")
+        if option:
+            ctx.run(f"pipenv run python network-api/manage.py {command} {option}")
+        elif flag:
+            ctx.run(f"pipenv run python network-api/manage.py {command} --{flag}")
+        else:
+            ctx.run(f"pipenv run python network-api/manage.py {command}")
 
 
 @task

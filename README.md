@@ -56,9 +56,10 @@ But it's a bit long. So instead, you can use invoke:
 - `inv setup`: Prepare your dev environment after a fresh git clone
 - `inv test`: Run tests
 
-For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`).
-
-Invoke tasks don't take options: use `pipenv run` instead (example: `pipenv run python network-api/manage.py runserver 3000`)
+For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`). You can pass flag and options to management commands using `inv manage [command] -o [positional argument] -f [optional argument]`. For example:
+- `inv manage runserver -o 3000`
+- `inv manage load_fake_data -f seed=VALUE`
+- `inv manage migrate -o news`
 
 ### Generating a new set of fake model data
 
