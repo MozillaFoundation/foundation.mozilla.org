@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 
 import JoinUs from './components/join/join.jsx';
 import Petition from './components/petition/petition.jsx';
-import PrimaryNav from './components/nav/nav.jsx';
 import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
@@ -18,6 +17,9 @@ import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
+
+
+import primaryNav from './primary-nav.js';
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -97,6 +99,8 @@ let main = {
       ticking = true;
     });
 
+    primaryNav.init();
+
     // Adjust #hero offset on load and window resize to accomodate the sticky header
 
     let elHero = document.querySelector(`#hero`);
@@ -134,17 +138,6 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents(data) {
-    let primaryNavContainer = document.getElementById(`primary-nav-container`);
-    let primaryNavLinks = document.getElementById(`primary-nav-links`);
-
-    if (primaryNavContainer && primaryNavLinks) {
-      // Need to check for zen mode data att
-      ReactDOM.render(
-        <PrimaryNav {...primaryNavContainer.dataset}/>,
-        primaryNavLinks
-      );
-    }
-
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
       ReactDOM.render(<MemberNotice />, document.getElementById(`member-notice`));
     }
