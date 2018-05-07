@@ -58,6 +58,11 @@
     background: none;
     transition: background 200ms ease-in-out;
 
+    &.simple-background {
+      background: white;
+      border-bottom: 1px solid #ccc;
+    }
+
     .wide-screen-menu {
       &.hidden {
         opacity: 0;
@@ -141,7 +146,7 @@
 
     &.scrolled {
       background: white;
-      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     }
 
     .center-nav-title p {

@@ -24,74 +24,9 @@
             <div class="join-us" id="join-us"></div>
           </div>
         </div>
-      {% if page.zen_nav == True %}
-        <div id="primary-nav-container" data-nav-mode="zen" class="zen-mode">
-      {% else %}
-        <div id="primary-nav-container">
-      {% endif %}
-          <div class="wrapper-burger">
-            <div class="menu-container">
-              <div class="narrow-screen-menu hidden">
-                <div class="narrow-screen-menu-background">
-                  <div class="narrow-screen-menu-container">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col">
-                          <div class="nav-links">
-                            <a class="nav-link-home" href="/">Home</a>
-                            <a class="nav-link-initiatives" href="/initiatives">Initiatives</a>
-                            <a class="nav-link-participate" href="/participate">Participate</a>
-                            <a class="nav-link-internet-health" href="/internet-health">Internet&nbsp;Health</a>
-                            <a class="nav-link-people" href="/people">People</a>
-                            <a class="nav-link-about" href="/about">About&nbsp;Us</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="container">
-                <div class="row">
-                  <div class="col">
-                    <div class="d-flex flex-row justify-content-between">
-                      <div id="primary-nav-links">
-                        <div class="d-flex align-items-center flex-wrap">
-                        {% if page.zen_nav == True %}
-                          <button class="burger">
-                        {% else %}
-                          <button class="burger hidden-md-up">
-                        {% endif %}
-                            <div class="burger-bar burger-bar-top"></div>
-                            <div class="burger-bar burger-bar-middle"></div>
-                            <div class="burger-bar burger-bar-bottom"></div>
-                          </button>
-                          <a class="logo text-hide" href="/">Mozilla Foundation</a>
-                        {% if page.zen_nav == True %}
-                          <div class="wide-screen-menu hidden">
-                        {% else %}
-                          <div class="wide-screen-menu">
-                        {% endif %}
-                            <div class="nav-links hidden-sm-down">
-                              <a class="nav-link-initiatives" href="/initiatives">Initiatives</a>
-                              <a class="nav-link-participate" href="/participate">Participate</a>
-                              <a class="nav-link-internet-health" href="/internet-health">Internet&nbsp;Health</a>
-                              <a class="nav-link-people" href="/people">People</a>
-                              <a class="nav-link-about" href="/about">About&nbsp;Us</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <a id="donate-header-btn" class="btn btn-pop" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% block primaryNav %}
+          {% include "./primary_nav.html" with background="simple-background" %}
+        {% endblock %}
       </div>
       <div class="wrapper-2">
         <div id="hero">
