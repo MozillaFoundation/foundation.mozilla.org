@@ -10,7 +10,7 @@
 
 {% block content %}
 
-  <div class="hidden-md-up" id="multipage-nav-mobile">
+  <div class="hidden-md-up mb-4 mb-md-5" id="multipage-nav-mobile">
     <div class="container">
       <div class="row px-3">
         <div class="col-12"></div>
@@ -18,16 +18,7 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      {% primary_page_menu page %}
-    </div>
-    {% if singleton_page == False %}
-    <div class="pt-3">
-      <hr class="hr-gradient mt-0">
-    </div>
-    {% endif %}
-  </div>
+  {% primary_page_menu page %}
 
   <div class="container cms">
     <div class="row my-1 d-flex align-items-center">

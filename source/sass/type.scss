@@ -50,7 +50,7 @@ a {
   line-height: 1.5;
 }
 
-@mixin yellow-underline-nav-link($active-class-name) {
+@mixin secondary-nav-link($active-class-name) {
   font-family: "Nunito Sans";
   color: $black;
 
@@ -200,6 +200,9 @@ p,
 }
 
 .multipage-link {
-  @include yellow-underline-nav-link(".multipage-link-active");
-  @include scaleText(18px, 27px, 20px, 30px);
+  @include secondary-nav-link(".multipage-link-active");
+
+  @at-root .side-nav #{&} {
+    @include scaleText(17px, 17px*1.6);
+  }
 }

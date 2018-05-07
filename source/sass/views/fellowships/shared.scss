@@ -1,6 +1,6 @@
 #fellowships-nav {
   a {
-    @include yellow-underline-nav-link(".active");
+    @include secondary-nav-link(".active");
   }
 }
 
