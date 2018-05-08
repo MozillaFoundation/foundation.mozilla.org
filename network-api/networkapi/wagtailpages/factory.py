@@ -1,59 +1,129 @@
+from factory.django import DjangoModelFactory
 from wagtail_factories import (
     PageFactory,
-    StreamFieldFactory,
-)
-from wagtail_factories.blocks import(
-    BlockFactory,
-    CharBlockFactory,
+    ImageFactory
 )
 from factory import (
     Faker,
-    Factory,
-)
-from wagtail.core import blocks
-from networkapi.wagtailpages.models import OpportunityPage
-from . import customblocks
+    SubFactory,
+    LazyAttribute,
+    Trait)
+import networkapi.wagtailpages.models
 
-class RichTextBlockFactory(BlockFactory):
+sentence_faker: Faker = Faker('sentence', nb_words=3, variable_nb_words=False)
+header_faker: Faker = Faker('sentence', nb_words=6, variable_nb_words=True)
+description_faker: Faker = Faker('paragraphs', nb=10)
+
+
+class CTAFactory(DjangoModelFactory):
     class Meta:
-        model = blocks.RichTextBlock
+        abstract = True
+        exclude = (
+            'header_text',
+            'description_text',
+        )
 
-class AlignedImageBlockFactory(BlockFactory):
+    name = Faker('text', max_nb_chars=80)
+    header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
+    description = LazyAttribute(lambda o: ''.join(o.description_text))
+    newsletter = Faker('word')
+
+    # Lazy Values
+    description_text = description_faker
+    header_text = header_faker
+
+
+class PetitionFactory(CTAFactory):
     class Meta:
-        model = customblocks.AlignedImageBlock
+        model = networkapi.wagtailpages.models.Petition
 
-class FigureBlockFactory(BlockFactory):
+
+class SignupFactory(CTAFactory):
     class Meta:
-        model = customblocks.FigureBlock
+        model = networkapi.wagtailpages.models.Signup
 
-class FigureGridBlockFactory(BlockFactory):
+
+class WagtailHomepageFactory(PageFactory):
     class Meta:
-        model = customblocks.FigureGridBlock
+        model = networkapi.wagtailpages.models.Homepage
 
-class VideoBlockFactory(BlockFactory):
+    hero_headline = Faker('text', max_nb_chars=140)
+    hero_story_description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
+    hero_button_text = Faker('text', max_nb_chars=50)
+    hero_button_url = Faker('url')
+    hero_image = SubFactory(ImageFactory)
+
+
+class CMSPageFactory(PageFactory):
     class Meta:
-        model = customblocks.VideoBlock
+        abstract = True
+        exclude = (
+            'title_text',
+            'header_text',
+        )
 
-class iFrameBlockFactory(BlockFactory):
+    header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
+    title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
+    narrowed_page_content = Faker('boolean', chance_of_getting_true=50)
+
+    # Lazy Values
+    title_text = sentence_faker
+    header_text = header_faker
+
+
+class PrimaryPageFactory(CMSPageFactory):
     class Meta:
-        model = customblocks.iFrameBlock
+        model = networkapi.wagtailpages.models.PrimaryPage
 
-class LinkButtonBlockFactory(BlockFactory):
+
+class CampaignPageFactory(CMSPageFactory):
     class Meta:
-        model = customblocks.LinkButtonBlock
+        model = networkapi.wagtailpages.models.CampaignPage
 
-class BootstrapSpacerBlockFactory(BlockFactory):
+    class Params:
+        no_cta = Trait(cta=None)
+
+    cta = SubFactory(PetitionFactory)
+
+
+class MiniSiteNameSpaceFactory(PageFactory):
     class Meta:
-        model = customblocks.BootstrapSpacerBlock
+        model = networkapi.wagtailpages.models.MiniSiteNameSpace
 
-class OpportunityPageFactory(PageFactory):
+
+class PeoplePageFactory(PageFactory):
     class Meta:
-        model = OpportunityPage
+        model = networkapi.wagtailpages.models.PeoplePage
 
-    body = StreamFieldFactory({
-        'heading': CharBlockFactory,
-        'paragraph': RichTextBlockFactory,
-        'image': AlignedImageBlockFactory,
-    })
+    title = 'people'
 
-    header = Faker('text', max_nb_chars=50)
+
+class NewsPageFactory(PageFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.NewsPage
+
+    title = 'news'
+
+
+class StyleguideFactory(PageFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.Styleguide
+
+    title = 'styleguide'
+
+
+class InitiativesPageFactory(PageFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.InitiativesPage
+
+    title = 'initiatives'
+
+
+class OpportunityPageFactory(CMSPageFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.OpportunityPage
+
+    class Params:
+        no_cta = Trait(cta=None)
+
+    cta = SubFactory(SignupFactory)

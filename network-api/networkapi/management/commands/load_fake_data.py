@@ -1,8 +1,11 @@
 import factory
 from random import randint
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
+
+from wagtail.core.models import Site, Page
 
 # Factories
 from networkapi.highlights.factory import HighlightFactory
@@ -21,6 +24,13 @@ from networkapi.homepage.factory import (
     HomepageLeadersFactory,
     HomepageHighlightsFactory,
 )
+from networkapi.wagtailpages.factory import (
+    WagtailHomepageFactory,
+    PrimaryPageFactory,
+    OpportunityPageFactory,
+    StyleguideFactory, PeoplePageFactory, NewsPageFactory, InitiativesPageFactory, MiniSiteNameSpaceFactory,
+    CampaignPageFactory)
+from networkapi.wagtailpages.models import Homepage
 
 internet_health_issues = [
     'Digital Inclusion',
@@ -138,5 +148,102 @@ class Command(BaseCommand):
         [PersonFactory.create(unpublished=True) for i in range(4)]
         [PersonFactory.create(has_expiry=True) for i in range(4)]
         [PersonFactory.create(expired=True) for i in range(4)]
+
+        try:
+            home_page = Homepage.objects.get(title='Homepage')
+            self.stdout.write('Homepage already exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a Homepage')
+            site_root = Page.objects.get(title='Root')
+            home_page = WagtailHomepageFactory.create(
+                parent=site_root,
+                title='Homepage',
+                slug=None,
+                hero_image__file__width=1080,
+                hero_image__file__height=720
+            )
+
+        try:
+            default_site = Site.objects.get(is_default_site=True)
+            default_site.root_page = home_page
+            default_site.save()
+            self.stdout.write('Updated the default Site')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a default Site')
+            Site.objects.create(
+                hostname='localhost',
+                port=8000,
+                root_page=home_page,
+                site_name='Foundation Home Page',
+                is_default_site=True
+            )
+
+        try:
+            about_page = Page.objects.get(title='about')
+            self.stdout.write('about page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an about Page (PrimaryPage)')
+            about_page = PrimaryPageFactory.create(parent=home_page, title='about')
+
+        self.stdout.write('Generating child pages for about page')
+        [PrimaryPageFactory.create(parent=about_page) for i in range(5)]
+
+        try:
+            Page.objects.get(title='styleguide')
+            self.stdout.write('styleguide page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a Styleguide Page')
+            StyleguideFactory.create(parent=home_page)
+
+        try:
+            Page.objects.get(title='people')
+            self.stdout.write('people page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty People Page')
+            PeoplePageFactory.create(parent=home_page)
+
+        try:
+            Page.objects.get(title='news')
+            self.stdout.write('news page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty News Page')
+            NewsPageFactory.create(parent=home_page)
+
+        try:
+            Page.objects.get(title='initiatives')
+            self.stdout.write('initiatives page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty Initiatives Page')
+            InitiativesPageFactory.create(parent=home_page)
+
+        try:
+            campaign_namespace = Page.objects.get(title='campaigns')
+            self.stdout.write('campaigns namespace exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a campaigns namespace')
+            campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
+
+        self.stdout.write('Generating Campaign Pages under namespace')
+        [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+
+        self.stdout.write('Generating Campaigns with child pages')
+        for i in range(2):
+            campaign = CampaignPageFactory(parent=campaign_namespace)
+            [CampaignPageFactory(parent=campaign, no_cta=True) for k in range(3)]
+
+        try:
+            opportunity_namespace = Page.objects.get(title='opportunity')
+            self.stdout.write('opportunity namespace exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an opportunity namespace')
+            opportunity_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='opportunity', live=False)
+
+        self.stdout.write('Generating Opportunity Pages under namespace')
+        [OpportunityPageFactory.create(parent=opportunity_namespace) for i in range(5)]
+
+        self.stdout.write('Generating Opportunities with child pages')
+        for i in range(2):
+            opportunity = OpportunityPageFactory(parent=campaign_namespace)
+            [OpportunityPageFactory(parent=opportunity, no_cta=True) for k in range(3)]
 
         self.stdout.write(self.style.SUCCESS('Done!'))

@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 
 # Models
+from wagtail.core.models import Page
+
 from networkapi.highlights.models import Highlight
 from networkapi.landingpage.models import LandingPage, Signup
 from networkapi.campaign.models import Campaign
@@ -50,5 +52,12 @@ class Command(BaseCommand):
 
         self.stdout.write('Dropping Affiliation objects...')
         Affiliation.objects.all().delete()
+
+        pages = Page.objects.exclude(title='Root')
+        if pages.count() == 0:
+            self.stdout.write('No pages to drop')
+        else:
+            self.stdout.write('Dropping all Pages')
+            pages.delete()
 
         self.stdout.write(self.style.SUCCESS('Done!'))
