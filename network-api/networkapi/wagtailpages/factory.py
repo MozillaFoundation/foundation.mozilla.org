@@ -12,7 +12,7 @@ import networkapi.wagtailpages.models
 
 sentence_faker: Faker = Faker('sentence', nb_words=3, variable_nb_words=False)
 header_faker: Faker = Faker('sentence', nb_words=6, variable_nb_words=True)
-description_faker: Faker = Faker('paragraphs', nb=10)
+description_faker: Faker = Faker('paragraphs', nb=6)
 
 
 class CTAFactory(DjangoModelFactory):

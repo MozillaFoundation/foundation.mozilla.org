@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 
 # Models
@@ -14,6 +15,7 @@ from networkapi.people.models import (
     InternetHealthIssue,
 )
 from networkapi.homepage.models import Homepage
+from networkapi.wagtailpages.models import CTA
 
 
 class Command(BaseCommand):
@@ -53,11 +55,13 @@ class Command(BaseCommand):
         self.stdout.write('Dropping Affiliation objects...')
         Affiliation.objects.all().delete()
 
-        pages = Page.objects.exclude(title='Root')
-        if pages.count() == 0:
-            self.stdout.write('No pages to drop')
-        else:
+        self.stdout.write('Dropping Wagtail CTAs...')
+        CTA.objects.all().delete()
+
+        try:
+            pages = Page.objects.exclude(title='Root').delete()
             self.stdout.write('Dropping all Pages')
-            pages.delete()
+        except ObjectDoesNotExist:
+            self.stdout.write('No pages to drop')
 
         self.stdout.write(self.style.SUCCESS('Done!'))
