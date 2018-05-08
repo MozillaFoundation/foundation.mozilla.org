@@ -36,7 +36,6 @@ env = environ.Env(
     DISABLE_DEBUG_TOOLBAR=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
-    EXECUTE_FAKE_DATA=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
     HEROKU_APP_NAME=(str, ''),
@@ -73,9 +72,6 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
 DISABLE_DEBUG_TOOLBAR = env('DISABLE_DEBUG_TOOLBAR')
-
-# This should only be set to True in Heroku review apps
-EXECUTE_FAKE_DATA = env('EXECUTE_FAKE_DATA')
 
 # Force permanent redirects to the domain specified in TARGET_DOMAIN
 DOMAIN_REDIRECT_MIDDLWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLWARE_ENABLED')
