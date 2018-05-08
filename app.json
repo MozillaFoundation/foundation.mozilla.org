@@ -58,6 +58,6 @@
     }
   ],
   "scripts": {
-    "postdeploy": "python manage.py load_fake_data && python manage.py review_app_admin"
+    "postdeploy": "python network-api/manage.py load_fake_data && python network-api/manage.py review_app_admin"
   }
 }
