@@ -267,7 +267,7 @@ class PulseProjectList(blocks.StructBlock):
         min_value=0,
         default=0,
         required=False,
-        help_text='The maximum number of results to fetch (use 0 for "no maximum")',
+        help_text='The maximum number of results to fetch (use 0 for default maximum of 48)',
     )
 
     newest_first = blocks.BooleanBlock(
