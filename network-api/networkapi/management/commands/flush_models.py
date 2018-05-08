@@ -59,7 +59,7 @@ class Command(BaseCommand):
         CTA.objects.all().delete()
 
         try:
-            pages = Page.objects.exclude(title='Root').delete()
+            Page.objects.exclude(title='Root').delete()
             self.stdout.write('Dropping all Pages')
         except ObjectDoesNotExist:
             self.stdout.write('No pages to drop')
