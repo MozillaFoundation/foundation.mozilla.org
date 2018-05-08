@@ -4,9 +4,6 @@ from django.core.management.base import BaseCommand
 # Models
 from wagtail.core.models import Page
 
-from networkapi.highlights.models import Highlight
-from networkapi.landingpage.models import LandingPage, Signup
-from networkapi.campaign.models import Campaign
 from networkapi.milestones.models import Milestone
 from networkapi.news.models import News
 from networkapi.people.models import (
@@ -14,7 +11,6 @@ from networkapi.people.models import (
     Affiliation,
     InternetHealthIssue,
 )
-from networkapi.homepage.models import Homepage
 from networkapi.wagtailpages.models import CTA
 
 
@@ -24,21 +20,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         self.stdout.write('Flushing models from the database...')
-
-        self.stdout.write('Dropping Homepage objects..')
-        Homepage.objects.all().delete()
-
-        self.stdout.write('Dropping LandingPage objects...')
-        LandingPage.objects.all().delete()
-
-        self.stdout.write('Dropping Signup objects...')
-        Signup.objects.all().delete()
-
-        self.stdout.write('Dropping CampaignPage objects...')
-        Campaign.objects.all().delete()
-
-        self.stdout.write('Dropping Highlight objects...')
-        Highlight.objects.all().delete()
 
         self.stdout.write('Dropping News objects...')
         News.objects.all().delete()
