@@ -1,4 +1,3 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 
 # Models
@@ -39,10 +38,7 @@ class Command(BaseCommand):
         self.stdout.write('Dropping Wagtail CTAs...')
         CTA.objects.all().delete()
 
-        try:
-            Page.objects.exclude(title='Root').delete()
-            self.stdout.write('Dropping all Pages')
-        except ObjectDoesNotExist:
-            self.stdout.write('No pages to drop')
+        self.stdout.write('Dropping all Pages')
+        Page.objects.exclude(title='Root').delete()
 
         self.stdout.write(self.style.SUCCESS('Done!'))
