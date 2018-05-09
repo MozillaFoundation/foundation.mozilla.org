@@ -90,8 +90,8 @@ The `load_fake_data` command will output pages with the following slugs:
 - `/initiatives/`
 - `/campaigns/single-page/`
 - `/campaigns/multi-page/`
-- `/campaigns/single-page/`
-- `/campaigns/multi-page/`
+- `/opportunity/single-page/`
+- `/opportunity/multi-page/`
 
 ### Running the project for front-end development
 
