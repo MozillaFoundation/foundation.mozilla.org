@@ -80,7 +80,7 @@ If a seed is not provided, a pseudorandom one will be generated and logged to th
 
 #### Landing Page and Campaign links
 
-The `load_fake_data` command will output pages the following slugs:
+The `load_fake_data` command will output pages with the following slugs:
 
 - `/`
 - `/about/`
