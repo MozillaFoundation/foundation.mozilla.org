@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-Django = "==1.11.12"
+Django = "==1.11.13"
 gunicorn = "*"
 djangorestframework = "*"
 django-filter = "*"
