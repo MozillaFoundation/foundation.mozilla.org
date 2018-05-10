@@ -132,9 +132,11 @@ class Command(BaseCommand):
         self.stdout.write('Generating Homepage Highlights and News')
         featured_news = [NewsFactory.create() for i in range(6)]
         featured_highlights = [HighlightFactory.create() for i in range(6)]
-        home_page.featured_news = [HomepageFeaturedNewsFactory.create(news=featured_news[i]) for i in range(6)]
+        home_page.featured_news = [
+            HomepageFeaturedNewsFactory.build(news=featured_news[i]) for i in range(6)
+        ]
         home_page.featured_highlights = [
-            HomepageFeaturedHighlightsFactory.create(highlight=featured_highlights[i]) for i in range(6)
+            HomepageFeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(6)
         ]
         home_page.save()
 
