@@ -9,6 +9,8 @@ from factory import (
     LazyAttribute,
     Trait)
 import networkapi.wagtailpages.models
+from networkapi.highlights.factory import HighlightFactory
+from networkapi.news.factory import NewsFactory
 
 sentence_faker: Faker = Faker('sentence', nb_words=3, variable_nb_words=False)
 header_faker: Faker = Faker('sentence', nb_words=6, variable_nb_words=True)
@@ -119,6 +121,13 @@ class InitiativesPageFactory(PageFactory):
     title = 'initiatives'
 
 
+class ParticipatePageFactory(PageFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.ParticipatePage
+
+    title = 'participate'
+
+
 class OpportunityPageFactory(CMSPageFactory):
     class Meta:
         model = networkapi.wagtailpages.models.OpportunityPage
@@ -127,3 +136,24 @@ class OpportunityPageFactory(CMSPageFactory):
         no_cta = Trait(cta=None)
 
     cta = SubFactory(SignupFactory)
+
+
+class FeaturedFactory(DjangoModelFactory):
+    class Meta:
+        abstract = True
+
+    page = SubFactory(WagtailHomepageFactory)
+
+
+class HomepageFeaturedNewsFactory(FeaturedFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.HomepageFeaturedNews
+
+    news = SubFactory(NewsFactory)
+
+
+class HomepageFeaturedHighlightsFactory(FeaturedFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.HomepageFeaturedHighlights
+
+    highlight = SubFactory(HighlightFactory)

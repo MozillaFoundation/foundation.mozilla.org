@@ -20,8 +20,16 @@ from networkapi.wagtailpages.factory import (
     WagtailHomepageFactory,
     PrimaryPageFactory,
     OpportunityPageFactory,
-    StyleguideFactory, PeoplePageFactory, NewsPageFactory, InitiativesPageFactory, MiniSiteNameSpaceFactory,
-    CampaignPageFactory)
+    StyleguideFactory,
+    PeoplePageFactory,
+    NewsPageFactory,
+    InitiativesPageFactory,
+    MiniSiteNameSpaceFactory,
+    CampaignPageFactory,
+    HomepageFeaturedNewsFactory,
+    HomepageFeaturedHighlightsFactory,
+    ParticipatePageFactory
+)
 from networkapi.wagtailpages.models import Homepage
 
 internet_health_issues = [
@@ -67,9 +75,6 @@ class Command(BaseCommand):
         faker = factory.faker.Faker._get_faker(locale='en-US')
         faker.random.seed(seed)
 
-        self.stdout.write('Generating Highlight objects')
-        [HighlightFactory.create() for i in range(10)]
-
         self.stdout.write('Generating Milestone objects')
         [MilestoneFactory.create() for i in range(10)]
 
@@ -88,7 +93,7 @@ class Command(BaseCommand):
             for j in range(3):
                 AffiliationFactory.create(person=person)
 
-        self.stdout.write('Generating unpublished, expired, and expiring highlights')
+        # self.stdout.write('Generating unpublished, expired, and expiring highlights')
         [HighlightFactory.create(unpublished=True) for i in range(4)]
         [HighlightFactory.create(expired=True) for i in range(4)]
         [HighlightFactory.create(has_expiry=True) for i in range(4)]
@@ -118,6 +123,13 @@ class Command(BaseCommand):
                 hero_image__file__width=1080,
                 hero_image__file__height=720
             )
+
+        self.stdout.write('Generating Homepage Highlights and News')
+        featured_news = [NewsFactory.create() for i in range(6)]
+        featured_highlights = [HighlightFactory.create() for i in range(6)]
+        home_page.featured_news = [HomepageFeaturedNewsFactory.create(news=featured_news[i]) for i in range(6)]
+        home_page.featured_highlights = [HomepageFeaturedHighlightsFactory.create(highlight=featured_highlights[i]) for i in range(6)]
+        home_page.save()
 
         try:
             default_site = Site.objects.get(is_default_site=True)
@@ -173,6 +185,13 @@ class Command(BaseCommand):
             InitiativesPageFactory.create(parent=home_page)
 
         try:
+            Page.objects.get(title='participate')
+            self.stdout.write('participate page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty Participate Page')
+            ParticipatePageFactory.create(parent=home_page)
+
+        try:
             campaign_namespace = Page.objects.get(title='campaigns')
             self.stdout.write('campaigns namespace exists')
         except ObjectDoesNotExist:
@@ -194,6 +213,7 @@ class Command(BaseCommand):
 
         self.stdout.write('Generating Opportunity Pages under namespace')
         [OpportunityPageFactory.create(parent=opportunity_namespace) for i in range(5)]
+        OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint', no_cta=True)
         OpportunityPageFactory.create(parent=opportunity_namespace, title='single-page')
         multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
         [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
