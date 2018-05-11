@@ -407,7 +407,15 @@ export default class Petition extends React.Component {
   renderSubmissionForm() {
     let disableFields = (this.state.userTriedSubmitting && this.state.apiSubmitted) ? `disabled` : null;
 
-    let inputGroupClass = classNames({
+    let givenGroupClass = classNames({
+      'has-danger': this.state.userTriedSubmitting && !this.givenNames.element.value
+    });
+
+    let surGroupClass = classNames({
+      'has-danger': this.state.userTriedSubmitting && !this.surname.element.value
+    });
+
+    let emailGroupClass = classNames({
       'has-danger': this.state.userTriedSubmitting && !this.email.element.value
     });
 
@@ -420,9 +428,9 @@ export default class Petition extends React.Component {
 
     return (
       <div className="col petition-form" id="petition-form">
-        <form onSubmit={this.processFormData}>
-          <div className={inputGroupClass}>
-            <div className="mb-2">
+        <form onSubmit={this.processFormData} noValidate={true}>
+          <div className="mb-2">
+            <div className={givenGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
                 ref={(element) => { this.givenNames = element; }} id="givenNames"
@@ -431,7 +439,9 @@ export default class Petition extends React.Component {
                 onFocus={this.onInputFocus}
               />
               {this.state.userTriedSubmitting && !this.givenNames.element.value && <small className="form-check form-control-feedback">Please enter your given name(s)</small>}
+            </div>
 
+            <div className={surGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
                 ref={(element) => { this.surname = element; }} id="surname"
@@ -440,7 +450,9 @@ export default class Petition extends React.Component {
                 onFocus={this.onInputFocus}
               />
               {this.state.userTriedSubmitting && !this.surname.element.value && <small className="form-check form-control-feedback">Please enter your surname</small>}
+            </div>
 
+            <div className={emailGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
                 ref={(element) => { this.email = element; }} id="emailInput"
@@ -449,10 +461,10 @@ export default class Petition extends React.Component {
                 onFocus={this.onInputFocus}
               />
               {this.state.userTriedSubmitting && !this.email.element.value && <small className="form-check form-control-feedback">Please enter your email</small>}
-
             </div>
-            {this.state.basketFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
+
           </div>
+          {this.state.basketFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
           <div className={privacyClass}>
             <div>
               <label className="form-check-label mb-2">
