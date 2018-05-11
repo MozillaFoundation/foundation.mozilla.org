@@ -1,12 +1,14 @@
 {% load wagtailcore_tags %}
 
-{% block wrapper_opening_tag %}{% endblock %}
-<iframe
-    width="100%"
-    height="{{ value.height }}"
-    src="{{ value.url }}"
-    class="my-default"
-    frameborder="0"
-    {% block embed_specifics %}{% endblock %}
-></iframe>
-{% block wrapper_closing_tag %}{% endblock %}
+<div class="my-default">
+  <div class="embed-responsive embed-responsive-4by3">
+    <iframe src="{{ value.url }}" class="embed-responsive-item"></iframe>
+  </div>
+  {% if value.caption %}
+  <p class="h6-heading">
+    {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+    {{ value.caption }}
+    {% if value.captionURL %}</a>{% endif %}
+  </p>
+  {% endif %}
+</div>
