@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.http import HttpResponseRedirect
 
 from . import customblocks
 from wagtail.core import blocks
@@ -174,6 +175,7 @@ class OpportunityPage(MiniSiteNameSpace):
 
     subpage_types = [
         'OpportunityPage',
+        'RedirectingPage',
     ]
 
 
@@ -299,6 +301,7 @@ class CampaignPage(MiniSiteNameSpace):
 
     subpage_types = [
         'CampaignPage',
+        'RedirectingPage',
     ]
 
 
@@ -345,8 +348,16 @@ class PrimaryPage(MetadataPageMixin, Page):
         StreamFieldPanel('body'),
     ]
 
-    parent_page_types = ['Homepage', 'PrimaryPage']
-    subpage_types = ['PrimaryPage']
+    parent_page_types = [
+        'Homepage',
+        'PrimaryPage',
+    ]
+
+    subpage_types = [
+        'PrimaryPage',
+        'RedirectingPage'
+    ]
+
     show_in_menus_default = True
 
     def get_context(self, request):
@@ -475,6 +486,7 @@ class Homepage(MetadataPageMixin, Page):
         'NewsPage',
         'ParticipatePage',
         'MiniSiteNameSpace',
+        'RedirectingPage',
     ]
 
     def get_context(self, request):
@@ -484,3 +496,19 @@ class Homepage(MetadataPageMixin, Page):
         print(settings.MEDIA_URL)
         context['MEDIA_URL'] = settings.MEDIA_URL
         return context
+
+
+class RedirectingPage(Page):
+    URL = models.URLField(
+        help_text = 'The fully qualified URL that this page should map to.'
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('URL'),
+    ]
+
+    def serve(self, request):
+        # Note that due to how this page type works, there is no
+        # associated template file in the wagtailpages directory.
+        return HttpResponseRedirect(self.URL)
+
