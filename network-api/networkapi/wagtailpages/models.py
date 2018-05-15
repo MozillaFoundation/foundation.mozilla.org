@@ -507,6 +507,8 @@ class RedirectingPage(Page):
         FieldPanel('URL'),
     ]
 
+    show_in_menus_default = True
+
     def serve(self, request):
         # Note that due to how this page type works, there is no
         # associated template file in the wagtailpages directory.

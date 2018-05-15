@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='RedirectingPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('URL', models.URLField()),
+                ('URL', models.URLField(help_text='The fully qualified URL that this page should map to.')),
             ],
             options={
                 'abstract': False,
