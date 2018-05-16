@@ -43,6 +43,9 @@ def makemigrations(ctx):
 @task
 def test(ctx):
     """Run tests"""
+    print("Running flake8")
+    ctx.run(f"pipenv run flake8 network-api")
+    print("Running tests")
     manage(ctx, "test")
 
 
@@ -58,8 +61,6 @@ def setup(ctx):
         ctx.run("pipenv install --dev")
         print("Applying database migrations.")
         ctx.run("inv migrate")
-        print("Updating the site domain.")
-        ctx.run("inv manage update_site_domain")
         print("Creating superuser.")
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
