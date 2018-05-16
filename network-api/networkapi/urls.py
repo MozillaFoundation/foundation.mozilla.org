@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from wagtail.admin import urls as wagtailadmin_urls
-# from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 
 from networkapi.views import EnvVariablesView
@@ -63,6 +63,7 @@ urlpatterns = list(filter(None, [
     ),
 
     url(r'^cms/', include(wagtailadmin_urls)),
+    url(r'^documents/', include(wagtaildocs_urls)),
     url(r'', include(wagtail_urls)),
 
     # Mezzanine left-overs
