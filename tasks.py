@@ -43,6 +43,9 @@ def makemigrations(ctx):
 @task
 def test(ctx):
     """Run tests"""
+    print("Running flake8")
+    ctx.run(f"pipenv run flake8 network-api")
+    print("Running tests")
     manage(ctx, "test")
 
 
