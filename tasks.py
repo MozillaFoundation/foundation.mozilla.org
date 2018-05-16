@@ -58,8 +58,6 @@ def setup(ctx):
         ctx.run("pipenv install --dev")
         print("Applying database migrations.")
         ctx.run("inv migrate")
-        print("Updating the site domain.")
-        ctx.run("inv manage update_site_domain")
         print("Creating superuser.")
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
