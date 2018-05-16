@@ -500,7 +500,7 @@ class Homepage(MetadataPageMixin, Page):
 
 class RedirectingPage(Page):
     URL = models.URLField(
-        help_text = 'The fully qualified URL that this page should map to.'
+        help_text='The fully qualified URL that this page should map to.'
     )
 
     content_panels = Page.content_panels + [
@@ -513,4 +513,3 @@ class RedirectingPage(Page):
         # Note that due to how this page type works, there is no
         # associated template file in the wagtailpages directory.
         return HttpResponseRedirect(self.URL)
-
