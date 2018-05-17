@@ -32,8 +32,9 @@ def get_descendants(node, list, depth=0, max_depth=2):
     '''
     if (depth <= max_depth):
         title = node.title
-        if hasattr(node.specific, 'heading') and node.specific.heading:
-            title = node.specific.heading
+        header = getattr(node.specific, 'header', None)
+        if header:
+            title = header
         menu_title = title if depth > 0 else 'Overview'
         list.append({
             'page': node,
