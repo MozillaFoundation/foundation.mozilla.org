@@ -22,8 +22,13 @@
 
     {% if page.cta != None %}
     <div class="cta col-md-6">
+        <div class="narrow-sticky-button-container hidden">
+          <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
+        </div>
         <div class="sticky-cta">
+          <div id="cta-anchor">
             {% cta page %}
+          </div>
         </div>
         <script src="https://c.shpg.org/352/sp.js"></script>
     </div>

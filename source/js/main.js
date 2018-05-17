@@ -101,18 +101,58 @@ let main = {
       }
     };
 
-    window.addEventListener(`scroll`, () => {
+
+    let elCtaAnchor = document.querySelector(`#cta-anchor`);
+    let elStickyButton = document.querySelector(`.narrow-sticky-button-container`);
+    let noopCtaButton = () => {};
+    let adjustCtaButton = noopCtaButton;
+
+    if (elCtaAnchor && elStickyButton) {
+      let getAnchorPosition = () => {
+        return elCtaAnchor.getBoundingClientRect().top + window.scrollY - window.innerHeight;
+      };
+
+      let ctaAnchorPosition = getAnchorPosition();
+
+      window.addEventListener(`resize`, () => {
+        ctaAnchorPosition = getAnchorPosition();
+      });
+
+      let scrollCtaButton = (scrollPosition) => {
+        if (scrollPosition > ctaAnchorPosition) {
+          elStickyButton.classList.add(`hidden`);
+          adjustCtaButton = noopCtaButton;
+        }
+      };
+
+      let initCtaButton = (scrollPosition) => {
+        if (scrollPosition <= ctaAnchorPosition) {
+          elStickyButton.classList.remove(`hidden`);
+          adjustCtaButton = scrollCtaButton;
+        }
+      };
+
+      adjustCtaButton = initCtaButton;
+    }
+
+    let onScroll = () => {
       lastKnownScrollPosition = window.scrollY;
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
           adjustNavbar(lastKnownScrollPosition);
+          adjustCtaButton(lastKnownScrollPosition);
           ticking = false;
         });
       }
 
       ticking = true;
-    });
+    };
+
+    window.addEventListener(`scroll`, onScroll);
+
+    // Call once to get scroll position on initial page load.
+    onScroll();
 
     primaryNav.init();
 
