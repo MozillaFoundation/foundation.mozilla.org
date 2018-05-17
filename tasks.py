@@ -12,7 +12,7 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 
 @task(optional=['option', 'flag'])
 def manage(ctx, command, option=None, flag=None):
-    """Shorthand to manage.py"""
+    """Shorthand to manage.py. inv manage [COMMAND] [-o OPTION] [-f FLAG]. ex: inv manage runserver -o 3000"""
     with ctx.cd(ROOT):
         if option:
             ctx.run(f"pipenv run python network-api/manage.py {command} {option}", pty=True)
@@ -61,6 +61,8 @@ def setup(ctx):
         ctx.run("pipenv install --dev", pty=True)
         print("Applying database migrations.")
         ctx.run("inv migrate")
+        print("Creating fake data")
+        ctx.run("inv manage load_fake_data")
         print("Creating superuser.")
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
