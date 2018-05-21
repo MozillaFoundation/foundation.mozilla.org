@@ -202,7 +202,13 @@ class iFrameBlock(blocks.StructBlock):
     url = blocks.CharBlock(
         help_text='Please note that only URLs from white-listed domains will work.'
     )
-    height = blocks.IntegerBlock(default=450)
+    caption = blocks.CharBlock(
+        required=False
+    )
+    captionURL = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this caption should link out to.'
+    )
 
     class Meta:
         template = 'wagtailpages/blocks/iframe_block.html'
@@ -212,7 +218,13 @@ class VideoBlock(blocks.StructBlock):
     url = blocks.CharBlock(
         help_text='Please make sure this is a proper embed URL, or your video will not show up on the page.'
     )
-    height = blocks.IntegerBlock(default=450)
+    caption = blocks.CharBlock(
+        required=False,
+    )
+    captionURL = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL for caption to link to.'
+    )
 
     class Meta:
         template = 'wagtailpages/blocks/video_block.html'
@@ -267,7 +279,7 @@ class PulseProjectList(blocks.StructBlock):
         min_value=0,
         default=0,
         required=False,
-        help_text='The maximum number of results to fetch (use 0 for "no maximum")',
+        help_text='The maximum number of results to fetch (use 0 for default maximum of 48)',
     )
 
     newest_first = blocks.BooleanBlock(

@@ -56,9 +56,10 @@ But it's a bit long. So instead, you can use invoke:
 - `inv setup`: Prepare your dev environment after a fresh git clone
 - `inv test`: Run tests
 
-For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`).
-
-Invoke tasks don't take options: use `pipenv run` instead (example: `pipenv run python network-api/manage.py runserver 3000`)
+For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`). You can pass flag and options to management commands using `inv manage [command] -o [positional argument] -f [optional argument]`. For example:
+- `inv manage runserver -o 3000`
+- `inv manage load_fake_data -f seed=VALUE`
+- `inv manage migrate -o news`
 
 ### Generating a new set of fake model data
 
@@ -79,19 +80,18 @@ If a seed is not provided, a pseudorandom one will be generated and logged to th
 
 #### Landing Page and Campaign links
 
-The `load_fake_data` command will output the following URLs every time:
+The `load_fake_data` command will output pages with the following slugs:
 
-- `/opportunity/page/`
-- `/opportunity/page-with-signup/`
-- `/opportunity/page-side-nav/`
-- `/opportunity/page-side-nav/sub-page/`
-- `/opportunity/page-side-nav/sub-page-2/`
-- `/opportunity/page-side-nav/sub-page-with-signup/`
-- `/campaigns/important-issue/`
-- `/campaigns/important-issue/overview`
-- `/campaigns/important-issue/press`
-- `/campaigns/important-issue/take-action` (Petition page)
-- `/campaigns/single-petition` (Petition page)
+- `/`
+- `/about/`
+- `/styleguide/`
+- `/people/`
+- `/news/`
+- `/initiatives/`
+- `/campaigns/single-page/`
+- `/campaigns/multi-page/`
+- `/opportunity/single-page/`
+- `/opportunity/multi-page/`
 
 ### Running the project for front-end development
 
@@ -210,6 +210,10 @@ The `DEBUG` flag does all sorts of magical things, to the point where testing wi
 Using the `static` tag in templates is supposed both in Django and Mezzanine, but they work differently: in Django, `{static "/..." }` works fine, but in Mezzanine this is a breaking pattern and there **should not** be a leading slash: `{ static "..." }`.
 
 ### Deployment
+
+### Review Apps
+
+Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. To get the password, you need to go to the Heroku dashboard, click on the menu button next to your Review App and select `View initial app setup...`. The password is in the `Run scripts & scale dynos` log.
 
 #### Staging
 

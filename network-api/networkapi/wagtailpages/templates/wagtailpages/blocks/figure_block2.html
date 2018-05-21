@@ -2,13 +2,13 @@
 
 {% with url=value.url %}
 
-<div class="col-12 {% if count > 3 %}col-sm-3{% elif count == 3 %}col-sm-4{% elif count == 2 %}col-sm-6{% endif %}">
+<div class="col-12 {% if count > 3 %}col-sm-3{% elif count == 3 %}col-sm-4{% elif count == 2 %}col-sm-6{% endif %} mb-4">
 	{% if url %}<a href="{{ url }}">{% endif %}
     {% image value.image fill-890x890-c100 format-jpeg class="w-100" %}
   {% if url %}</a>{% endif %}
 
   {% if value.caption %}
-	<p>
+	<p class="my-2">
     {% if url %}<a href="{{ url }}">{% endif %}
       {{ value.caption }}
     {% if url %}</a>{% endif %}

@@ -10,11 +10,16 @@ os.environ.pop('__PYVENV_LAUNCHER__', None)
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
-@task
-def manage(ctx, command):
+@task(optional=['option', 'flag'])
+def manage(ctx, command, option=None, flag=None):
     """Shorthand to manage.py"""
     with ctx.cd(ROOT):
-        ctx.run(f"pipenv run python network-api/manage.py {command}")
+        if option:
+            ctx.run(f"pipenv run python network-api/manage.py {command} {option}")
+        elif flag:
+            ctx.run(f"pipenv run python network-api/manage.py {command} --{flag}")
+        else:
+            ctx.run(f"pipenv run python network-api/manage.py {command}")
 
 
 @task
@@ -38,6 +43,9 @@ def makemigrations(ctx):
 @task
 def test(ctx):
     """Run tests"""
+    print("Running flake8")
+    ctx.run(f"pipenv run flake8 network-api")
+    print("Running tests")
     manage(ctx, "test")
 
 
@@ -53,8 +61,6 @@ def setup(ctx):
         ctx.run("pipenv install --dev")
         print("Applying database migrations.")
         ctx.run("inv migrate")
-        print("Updating the site domain.")
-        ctx.run("inv manage update_site_domain")
         print("Creating superuser.")
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':

@@ -1,9 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% with small='col-6 col-md-3 mb-3' %}
+{% with small='col-6 col-md-3' %}
 {% with large='col-12 col-md-9' %}
 
-<div class="row">
+<div class="row my-default">
   {% if value.ordering == 'left'%}
     <div class="{{small}}">{% include_block value.image %}</div>
   {% endif %}

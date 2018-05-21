@@ -11,7 +11,9 @@
       <div class="col-12">
         <h1 class="h1-heading text-capitalize">Be a fellow</h1>
         <p>Mozilla Fellowships provide resources, tools, community and amplification to those building a more ​humane​ ​digital​ ​world. During their tenure, Fellows use their skill sets — in technology, in activism, in science, in policy — to design products, run campaigns, influence policy and ultimately lay the groundwork for a more open and inclusive internet.</p>
-        {% comment %} {% include 'application_deadline.html' with show_hr=True %} {% endcomment %}
+        <div class="my-5">
+          {% include 'application_deadline.html' with show_hr=True show_btn=True %}
+        </div>
         <p>Who are Mozilla Fellows? They are working to stop the spread of misinformation, to put individuals in control of their data, and to keep artificial intelligence accountable. They are leaders who ensure smart cities and next-generation voice technology are diverse and equitable, and who conduct open research.</p>
         <p>Mozilla Fellowships are a transformative experience for emerging leaders concerned with making the internet a safer, more accessible resource for everyone. Fellows expand their network and sphere of influence; design impactful projects with the potential to reach millions; and learn from and collaborate with a global community of thousands of Mozillians. Mozilla Fellows are also awarded competitive compensation and benefits.</p>
         <h4 class="h4-heading">Mozilla Fellows fit three particular profiles:</h4>
@@ -42,16 +44,8 @@
           <p class="mb-4">Fellows who examine the interplay of technology and public policy, and craft legal, academic, and governmental solutions. These tech policy professionals are independent researchers and are not necessarily matched with a host organization or
           an institution.</p>
         </div>
-
-        <div class="col-12 offset-md-3 mt-2 mb-5">
-          <button class="btn btn-normal" disabled>Applications are closed</button>
-          {% comment %} <a class="btn btn-normal" href="https://mozilla.fluxx.io/user_sessions/new">Apply to be a fellow today</a> {% endcomment %}
-          {% comment %} <div class="mt-3">
-            {% include 'application_deadline.html' %}
-          </div> {% endcomment %}
-        </div>
     </div>
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-12">
         {% include 'contact_banner.html' %}
       </div>

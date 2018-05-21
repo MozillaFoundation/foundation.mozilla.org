@@ -1,8 +1,20 @@
-{% extends './iframe_block.html' %}
-
 {% load wagtailcore_tags %}
 
-{% block embed_specifics %}
-    allow="autoplay; encrypted-media"
-    allowfullscreen
-{% endblock %}
+<div class="my-default">
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe
+      src="{{ value.url }}"
+      frameborder="0"
+      class="embed-responsive-item"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+  {% if value.caption %}
+  <p class="h6-heading">
+    {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+    {{ value.caption }}
+    {% if value.captionURL %}</a>{% endif %}
+  </p>
+  {% endif %}
+</div>

@@ -47,8 +47,7 @@
     "CSP_CONNECT_SRC": "*",
     "CSP_MEDIA_SRC": "'self'",
     "CSP_CHILD_SRC": "'self'",
-    "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
-    "EXECUTE_FAKE_DATA": "True"
+    "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/"
   },
   "buildpacks": [
     {
@@ -57,5 +56,8 @@
     {
       "url": "heroku/python"
     }
-  ]
+  ],
+  "scripts": {
+    "postdeploy": "python network-api/manage.py load_fake_data && python network-api/manage.py review_app_admin"
+  }
 }

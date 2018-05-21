@@ -26,5 +26,5 @@ def fellows_support(request):
     return render(request, 'fellows_support.html')
 
 
-def fellows_apply(request):
+def fellows_get_involved(request):
     return render(request, 'fellows_apply.html')

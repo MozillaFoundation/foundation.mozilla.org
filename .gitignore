@@ -109,3 +109,6 @@ network-api/media/
 # Compiled Frontend
 network-api/networkapi/frontend/*
 /.vscode
+
+# PyCharm
+.idea/

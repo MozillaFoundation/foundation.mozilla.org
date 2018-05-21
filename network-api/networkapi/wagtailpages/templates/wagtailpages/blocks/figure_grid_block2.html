@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="row my-3">
+<div class="row my-default">
 {% for block in self.grid_items %}
 	{% with value=block count=self.grid_items|length %}
 	{% include "./figure_block2.html" %}

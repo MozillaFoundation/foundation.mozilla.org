@@ -1,13 +1,17 @@
 import factory
 from random import randint
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 
+from wagtail.core.models import (
+    Site as WagtailSite,
+    Page as WagtailPage
+)
+
 # Factories
 from networkapi.highlights.factory import HighlightFactory
-from networkapi.landingpage.factory import LandingPageFactory, SignupFactory
-from networkapi.campaign.factory import CampaignFactory, PetitionFactory
 from networkapi.milestones.factory import MilestoneFactory
 from networkapi.news.factory import NewsFactory
 from networkapi.people.factory import (
@@ -15,12 +19,23 @@ from networkapi.people.factory import (
     AffiliationFactory,
     InternetHealthIssueFactory,
 )
-from networkapi.homepage.factory import (
-    HomepageFactory,
-    HomepageNewsFactory,
-    HomepageLeadersFactory,
-    HomepageHighlightsFactory,
+from networkapi.wagtailpages.factory import (
+    WagtailHomepageFactory,
+    PrimaryPageFactory,
+    OpportunityPageFactory,
+    StyleguideFactory,
+    PeoplePageFactory,
+    NewsPageFactory,
+    InitiativesPageFactory,
+    MiniSiteNameSpaceFactory,
+    CampaignPageFactory,
+    HomepageFeaturedNewsFactory,
+    HomepageFeaturedHighlightsFactory,
+    ParticipatePageFactory
 )
+
+# Wagtail Page Models
+import networkapi.wagtailpages.models as wagtailpages_models
 
 internet_health_issues = [
     'Digital Inclusion',
@@ -65,45 +80,6 @@ class Command(BaseCommand):
         faker = factory.faker.Faker._get_faker(locale='en-US')
         faker.random.seed(seed)
 
-        self.stdout.write('Generating LandingPage objects')
-        opportunity = LandingPageFactory.create(title='Opportunity', content='A placeholder, this is.')
-        [LandingPageFactory.create(parent=opportunity) for i in range(5)]
-
-        self.stdout.write('Generating LandingPage objects with Signup CTAs')
-        [LandingPageFactory.create(parent=opportunity, signup=SignupFactory.create()) for i in range(5)]
-
-        self.stdout.write('Generating CampaignPage objects')
-        campaigns = LandingPageFactory.create(title='Campaigns', content='Placeholder page')
-        [CampaignFactory.create(parent=campaigns) for i in range(3)]
-
-        self.stdout.write('Generating CampaignPage objects with known titles')
-        important_issue = LandingPageFactory.create(parent=campaigns, title='important-issue')
-        LandingPageFactory.create(parent=important_issue, title='overview')
-        LandingPageFactory.create(parent=important_issue, title='press')
-        CampaignFactory.create(parent=important_issue, title='take-action', petition=PetitionFactory.create())
-        CampaignFactory.create(parent=campaigns, title='single-petition', petition=PetitionFactory.create())
-
-        self.stdout.write('Generating LandingPage objects with known titles')
-        LandingPageFactory.create(parent=opportunity, title='page')
-        LandingPageFactory.create(parent=opportunity, title='page-with-signup', signup=SignupFactory.create())
-
-        self.stdout.write('Generating LandingPage objects with known titles, and side-nav')
-        side_nav = LandingPageFactory.create(parent=opportunity, title='page-side-nav')
-        LandingPageFactory.create(parent=side_nav, title='sub-page')
-        LandingPageFactory.create(parent=side_nav, title='sub-page-2')
-        LandingPageFactory.create(parent=side_nav, title='sub-page-with-signup', signup=SignupFactory.create())
-
-        self.stdout.write('Generating Homepage')
-        homepage = HomepageFactory.create()
-
-        self.stdout.write('Generating HomepageNews, HomepageHighlights, and HomepageLeaders objects')
-        [HomepageNewsFactory.create(homepage=homepage) for i in range(4)]
-        [HomepageHighlightsFactory.create(homepage=homepage) for i in range(4)]
-        [HomepageLeadersFactory.create(homepage=homepage) for i in range(4)]
-
-        self.stdout.write('Generating Highlight objects')
-        [HighlightFactory.create() for i in range(10)]
-
         self.stdout.write('Generating Milestone objects')
         [MilestoneFactory.create() for i in range(10)]
 
@@ -122,7 +98,7 @@ class Command(BaseCommand):
             for j in range(3):
                 AffiliationFactory.create(person=person)
 
-        self.stdout.write('Generating unpublished, expired, and expiring highlights')
+        # self.stdout.write('Generating unpublished, expired, and expiring highlights')
         [HighlightFactory.create(unpublished=True) for i in range(4)]
         [HighlightFactory.create(expired=True) for i in range(4)]
         [HighlightFactory.create(has_expiry=True) for i in range(4)]
@@ -138,5 +114,147 @@ class Command(BaseCommand):
         [PersonFactory.create(unpublished=True) for i in range(4)]
         [PersonFactory.create(has_expiry=True) for i in range(4)]
         [PersonFactory.create(expired=True) for i in range(4)]
+
+        try:
+            home_page = wagtailpages_models.Homepage.objects.get(title='Homepage')
+            self.stdout.write('Homepage already exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a Homepage')
+            site_root = WagtailPage.objects.get(title='Root')
+            home_page = WagtailHomepageFactory.create(
+                parent=site_root,
+                title='Homepage',
+                slug=None,
+                hero_image__file__width=1080,
+                hero_image__file__height=720
+            )
+
+        self.stdout.write('Generating Homepage Highlights and News')
+        featured_news = [NewsFactory.create() for i in range(6)]
+        featured_highlights = [HighlightFactory.create() for i in range(6)]
+        home_page.featured_news = [
+            HomepageFeaturedNewsFactory.build(news=featured_news[i]) for i in range(6)
+        ]
+        home_page.featured_highlights = [
+            HomepageFeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(6)
+        ]
+        home_page.save()
+
+        try:
+            default_site = WagtailSite.objects.get(is_default_site=True)
+            default_site.root_page = home_page
+            default_site.save()
+            self.stdout.write('Updated the default Site')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a default Site')
+            WagtailSite.objects.create(
+                hostname='localhost',
+                port=8000,
+                root_page=home_page,
+                site_name='Foundation Home Page',
+                is_default_site=True
+            )
+
+        try:
+            about_page = WagtailPage.objects.get(title='about')
+            self.stdout.write('about page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an about Page (PrimaryPage)')
+            about_page = PrimaryPageFactory.create(parent=home_page, title='about')
+
+        self.stdout.write('Generating child pages for about page')
+        [PrimaryPageFactory.create(parent=about_page) for i in range(5)]
+
+        try:
+            WagtailPage.objects.get(title='styleguide')
+            self.stdout.write('styleguide page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a Styleguide Page')
+            StyleguideFactory.create(parent=home_page)
+
+        try:
+            WagtailPage.objects.get(title='people')
+            self.stdout.write('people page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty People Page')
+            PeoplePageFactory.create(parent=home_page)
+
+        try:
+            WagtailPage.objects.get(title='news')
+            self.stdout.write('news page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty News Page')
+            NewsPageFactory.create(parent=home_page)
+
+        try:
+            WagtailPage.objects.get(title='initiatives')
+            self.stdout.write('initiatives page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty Initiatives Page')
+            InitiativesPageFactory.create(parent=home_page)
+
+        try:
+            WagtailPage.objects.get(title='participate')
+            self.stdout.write('participate page exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an empty Participate Page')
+            ParticipatePageFactory.create(parent=home_page)
+
+        try:
+            campaign_namespace = WagtailPage.objects.get(title='campaigns')
+            self.stdout.write('campaigns namespace exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating a campaigns namespace')
+            campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
+
+        self.stdout.write('Generating Campaign Pages under namespace')
+        [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+
+        try:
+            wagtailpages_models.CampaignPage.objects.get(title='single-page')
+            self.stdout.write('single-page CampaignPage already exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating single-page CampaignPage')
+            CampaignPageFactory.create(parent=campaign_namespace, title='single-page')
+
+        try:
+            wagtailpages_models.CampaignPage.objects.get(title='multi-page')
+            self.stdout.write('multi-page CampaignPage already exists.')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating multi-page CampaignPage')
+            multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
+            [CampaignPageFactory(parent=multi_page_campaign, no_cta=True) for k in range(3)]
+
+        try:
+            opportunity_namespace = WagtailPage.objects.get(title='opportunity')
+            self.stdout.write('opportunity namespace exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating an opportunity namespace')
+            opportunity_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='opportunity', live=False)
+
+        self.stdout.write('Generating Opportunity Pages under namespace')
+        [OpportunityPageFactory.create(parent=opportunity_namespace) for i in range(5)]
+
+        try:
+            wagtailpages_models.OpportunityPage.objects.get(title='Global Sprint')
+            self.stdout.write('Global Sprint OpportunityPage exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating Global Sprint OpportunityPage')
+            OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint', no_cta=True)
+
+        try:
+            wagtailpages_models.OpportunityPage.objects.get(title='single-page')
+            self.stdout.write('single-page OpportunityPage exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating single-page OpportunityPage')
+            OpportunityPageFactory.create(parent=opportunity_namespace, title='single-page')
+
+        try:
+            wagtailpages_models.OpportunityPage.objects.get(title='multi-page')
+            self.stdout.write('multi-page OpportunityPage exists')
+        except ObjectDoesNotExist:
+            self.stdout.write('Generating multi-page OpportunityPage')
+            multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
+            [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
 
         self.stdout.write(self.style.SUCCESS('Done!'))

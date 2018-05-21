@@ -31,7 +31,10 @@ def get_descendants(node, list, depth=0, max_depth=2):
     discovery pass of all menu-listable children to some root node.
     '''
     if (depth <= max_depth):
-        title = node.specific.header if node.specific.header else node.title
+        title = node.title
+        header = getattr(node.specific, 'header', None)
+        if header:
+            title = header
         menu_title = title if depth > 0 else 'Overview'
         list.append({
             'page': node,
