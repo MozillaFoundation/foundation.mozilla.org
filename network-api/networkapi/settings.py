@@ -41,6 +41,7 @@ env = environ.Env(
     HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
     PETITION_SQS_QUEUE_URL=(str, None),
+    CRM_PETITION_SQS_QUEUE_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
@@ -385,8 +386,11 @@ AWS_SQS_ACCESS_KEY_ID = env('AWS_SQS_ACCESS_KEY_ID')
 AWS_SQS_SECRET_ACCESS_KEY = env('AWS_SQS_SECRET_ACCESS_KEY')
 AWS_SQS_REGION = env('AWS_SQS_REGION')
 
-# The SQS endpoint where we will send petition signups to
+# The SQS endpoint for google sheet petition data
 PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
+
+# The SQS endpoint for CRM petition data
+CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
 
 # Storage for user generated files
 if USE_S3:

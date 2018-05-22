@@ -2,6 +2,7 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import classNames from 'classnames';
 import basketSignup from '../../basket-signup.js';
+import SALESFORCE_COUNTRY_LIST from './salesforce-country-list.js';
 
 class FloatingLabelInput extends React.Component {
   render() {
@@ -18,6 +19,30 @@ class FloatingLabelInput extends React.Component {
           onFocus={this.props.onFocus}
         />
         <label htmlFor={this.props.id}>{this.props.label}</label>
+      </div>
+    );
+  }
+}
+
+class CountrySelect extends React.Component {
+  render() {
+    let className = classNames(`form-label-group`, `country-picker`, this.props.className);
+    let codes = Object.keys(SALESFORCE_COUNTRY_LIST);
+    let options = codes.map( code => {
+      return <option key={code} value={code}>{SALESFORCE_COUNTRY_LIST[code]}</option>;
+    });
+
+    return (
+      <div className={className}>
+        <select className="form-control"
+          disabled={this.props.disabled}
+          ref={(element) => { this.element = element; }}
+          onFocus={this.props.onFocus}
+          defaultValue={``}
+        >
+          <option value="">{this.props.label}</option>
+          { options }
+        </select>
       </div>
     );
   }
@@ -178,9 +203,21 @@ export default class Petition extends React.Component {
     return new Promise((resolve, reject) => {
       let givenNames = this.givenNames.element.value;
       let surname = this.surname.element.value;
+      let country = this.country && this.country.element.value;
+      let postalCode = this.postalCode && this.postalCode.element.value;
 
+      // These should not be possible due to the fact that we validate
+      // their content prior to submission. TODO: remove these rejections?
       if(!givenNames || !surname) {
-        return reject();
+        return reject(new Error(`missing name/surname`));
+      }
+
+      if(this.props.requiresCountryCode === `True` && !country) {
+        return reject(new Error(`missing country`));
+      }
+
+      if(this.props.requiresPostalCode === `True` && !postalCode) {
+        return reject(new Error(`missing postal code`));
       }
 
       let payload = {
@@ -189,7 +226,10 @@ export default class Petition extends React.Component {
         email: this.email.element.value,
         checkbox1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
         checkbox2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
-        newsletterSignup: !!(this.refs.newsletterSignup.checked)
+        newsletterSignup: !!(this.refs.newsletterSignup.checked),
+        country,
+        postalCode,
+        source: window.location.toString(),
       };
 
       let xhr = new XMLHttpRequest();
@@ -211,7 +251,7 @@ export default class Petition extends React.Component {
       xhr.setRequestHeader(`X-Requested-With`,`XMLHttpRequest`);
       xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
       xhr.timeout = 5000;
-      xhr.ontimeout = reject;
+      xhr.ontimeout = () => reject(new Error(`xhr timed out`));
 
       xhr.send(JSON.stringify(payload));
     });
@@ -254,9 +294,19 @@ export default class Petition extends React.Component {
     // validate data here. Do not continue unless we're cool.
     let hasName = this.givenNames.element.value && this.surname.element.value;
     let email = this.email.element.value;
+    let country = true;
+    let postalCode = true;
     let consent = this.refs.privacy.checked;
 
-    if (hasName && email && consent) {
+    if (this.props.requiresCountryCode === `True`) {
+      country = !!this.country.element.value;
+    }
+
+    if (this.props.requiresPostalCode === `True`) {
+      postalCode = !!this.postalCode.element.value;
+    }
+
+    if (hasName && email && consent && country && postalCode) {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
@@ -434,6 +484,14 @@ export default class Petition extends React.Component {
       'has-danger': this.state.userTriedSubmitting && !this.email.element.value
     });
 
+    let countryGroupClass = classNames({
+      'has-danger': this.props.requiresCountryCode === `True` && this.state.userTriedSubmitting && !this.country.element.value
+    });
+
+    let postalCodeGroupClass = classNames({
+      'has-danger': this.props.requiresPostalCode === `True` && this.state.userTriedSubmitting && !this.postalCode.element.value
+    });
+
     let privacyClass = classNames({
       'form-check': true,
       'has-danger': this.state.userTriedSubmitting && !this.refs.privacy.checked
@@ -477,6 +535,31 @@ export default class Petition extends React.Component {
               />
               {this.state.userTriedSubmitting && !this.email.element.value && <small className="form-check form-control-feedback">Please enter your email</small>}
             </div>
+
+            <div className={countryGroupClass}>
+              <CountrySelect
+                className="mb-1 w-100"
+                ref={(element) => { this.country = element; }}
+                label="Your country"
+                disabled={disableFields}
+                onFocus={this.onInputFocus}
+              />
+              { this.props.requiresCountryCode === `True` && this.state.userTriedSubmitting && !this.country.element.value && <small className="form-check form-control-feedback">Please enter your country</small>}
+            </div>
+
+
+            { this.props.requiresPostalCode === `False` ? null :
+              <div className={postalCodeGroupClass}>
+                <FloatingLabelInput
+                  className="mb-1 w-100"
+                  ref={(element) => { this.postalCode = element; }} id="postalCodeInput"
+                  type="text" label="Postal code"
+                  disabled={disableFields}
+                  onFocus={this.onInputFocus}
+                />
+                {this.state.userTriedSubmitting && !this.postalCode.element.value && <small className="form-check form-control-feedback">Please enter your postal code</small>}
+              </div>
+            }
 
           </div>
           {this.state.basketFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
