@@ -12,14 +12,14 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 
 @task(optional=['option', 'flag'])
 def manage(ctx, command, option=None, flag=None):
-    """Shorthand to manage.py"""
+    """Shorthand to manage.py. inv manage [COMMAND] [-o OPTION] [-f FLAG]. ex: inv manage runserver -o 3000"""
     with ctx.cd(ROOT):
         if option:
-            ctx.run(f"pipenv run python network-api/manage.py {command} {option}")
+            ctx.run(f"pipenv run python network-api/manage.py {command} {option}", pty=True)
         elif flag:
-            ctx.run(f"pipenv run python network-api/manage.py {command} --{flag}")
+            ctx.run(f"pipenv run python network-api/manage.py {command} --{flag}", pty=True)
         else:
-            ctx.run(f"pipenv run python network-api/manage.py {command}")
+            ctx.run(f"pipenv run python network-api/manage.py {command}", pty=True)
 
 
 @task
@@ -44,7 +44,7 @@ def makemigrations(ctx):
 def test(ctx):
     """Run tests"""
     print("Running flake8")
-    ctx.run(f"pipenv run flake8 network-api")
+    ctx.run(f"pipenv run flake8 network-api", pty=True)
     print("Running tests")
     manage(ctx, "test")
 
@@ -56,11 +56,13 @@ def setup(ctx):
         print("Copying default environment variables.")
         copy("env.default", ".env")
         print("Installing npm dependencies and build.")
-        ctx.run("npm install && npm run build")
+        ctx.run("npm install && npm run build", pty=True)
         print("Installing Python dependencies.")
-        ctx.run("pipenv install --dev")
+        ctx.run("pipenv install --dev", pty=True)
         print("Applying database migrations.")
         ctx.run("inv migrate")
+        print("Creating fake data")
+        ctx.run("inv manage load_fake_data")
         print("Creating superuser.")
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
