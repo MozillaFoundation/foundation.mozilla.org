@@ -30,7 +30,7 @@
       transition: margin-bottom 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
     }
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $bp-lg) {
       display: none;
     }
 
