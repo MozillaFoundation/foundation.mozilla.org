@@ -4,7 +4,7 @@
 {% block subcontent %}
 <div class="row">
     <div class="cms{% if page.cta and uses_menu == False %}
-        col-md-6
+        col-lg-7
     {% else %}
         col-12
     {% endif %}{% if uses_menu and page.narrowed_page_content %} col-md-9{% endif %}">
@@ -21,7 +21,7 @@
     </div>
 
     {% if page.cta != None %}
-    <div class="cta col-md-6">
+    <div class="cta col-lg-{% if uses_menu == False %}4 offset-lg-1{% else %}12{% endif %}">
         <div class="narrow-sticky-button-container hidden">
           <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
         </div>
