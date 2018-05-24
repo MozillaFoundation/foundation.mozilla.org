@@ -54,20 +54,29 @@ class LinkButtonBlock(blocks.StructBlock):
 
 class ImageBlock(blocks.StructBlock):
     image = ImageChooserBlock()
-    size = blocks.ChoiceBlock(
-        choices=[
-            ('icon', 'Constrain to 100x100'),
-            ('small', 'Constrain to 200x200'),
-            ('medium', 'Constrain to 400x400'),
-            ('large', 'Constrain to 800x800'),
-            ('original', 'Use original dimensions'),
-        ],
-        default='medium'
+    altText = blocks.CharBlock(
+        required=True,
+        help_text='Image description (for screen readers).'
     )
 
     class Meta:
         icon = 'image'
         template = 'wagtailpages/blocks/image_block.html'
+
+
+class AnnotatedImageBlock(ImageBlock):
+    caption = blocks.CharBlock(
+        required=False
+    )
+    captionURL = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this caption should link out to.'
+    )
+
+    class Meta:
+        icon = 'image'
+        template = 'wagtailpages/blocks/image_block.html'
+        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio.'
 
 
 class AlignedImageBlock(ImageBlock):
@@ -120,6 +129,7 @@ class FigureBlock(blocks.StructBlock):
     class Meta:
         icon = 'picture'
         template = 'wagtailpages/blocks/figure_block.html'
+        group = 'Deprecated'
 
 
 class FigureBlock2(blocks.StructBlock):
