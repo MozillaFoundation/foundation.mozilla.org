@@ -2,7 +2,7 @@
 
 {% image value.image original as img %}
 <div class="my-default">
-  <img src="{{ img.url }}" alt="{{ img.altText }}" />
+  <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
   {% if value.caption %}
   <p class="h6-heading">
     {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
