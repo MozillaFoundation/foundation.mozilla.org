@@ -76,7 +76,7 @@ class AnnotatedImageBlock(ImageBlock):
     class Meta:
         icon = 'image'
         template = 'wagtailpages/blocks/annotated_image_block.html'
-        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio.'
+        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
 
 
 class AlignedImageBlock(ImageBlock):
