@@ -3,10 +3,8 @@
 
 {% block subcontent %}
 <div class="row">
-    <div class="cms{% if page.cta and uses_menu == False and page.narrowed_page_content == False %}
+    <div class="cms{% if page.cta and uses_menu == False %}
         col-lg-7
-      {% elif page.narrowed_page_content == True %}
-        col-lg-8
       {% else %}
         col-lg-12
       {% endif %}{% if uses_menu and page.narrowed_page_content %} col-md-9{% endif %}"
@@ -25,10 +23,8 @@
 
     {% if page.cta != None %}
     <div class="cta
-      {% if uses_menu == False and page.narrowed_page_content == False %}
+      {% if uses_menu == False %}
         col-lg-4 offset-lg-1
-      {% elif page.narrowed_page_content == True %}
-        col-lg-8
       {% else %}
         col-lg-12
       {% endif %}"
