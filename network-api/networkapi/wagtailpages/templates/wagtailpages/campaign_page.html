@@ -3,11 +3,13 @@
 
 {% block subcontent %}
 <div class="row">
-    <div class="cms{% if page.cta and uses_menu == False %}
+    <div class="cms
+      {% if page.cta and uses_menu == False and page.specific.narrowed_page_content == False %}
         col-lg-7
-    {% else %}
+      {% else %}
         col-12
-    {% endif %}{% if uses_menu and page.narrowed_page_content %} col-md-9{% endif %}">
+      {% endif %}"
+    >
 
       {% block html_content %}
         {% for block in page.body %}
@@ -21,16 +23,22 @@
     </div>
 
     {% if page.cta != None %}
-    <div class="cta col-lg-{% if uses_menu == False %}4 offset-lg-1{% else %}12{% endif %}">
-        <div class="narrow-sticky-button-container hidden">
-          <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
+    <div class="cta
+      {% if uses_menu == False and page.specific.narrowed_page_content == False %}
+        col-lg-4 offset-lg-1
+      {% else %}
+        col-lg-12
+      {% endif %}"
+    >
+      <div class="narrow-sticky-button-container hidden">
+        <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
+      </div>
+      <div class="sticky-cta">
+        <div id="cta-anchor">
+          {% cta page %}
         </div>
-        <div class="sticky-cta">
-          <div id="cta-anchor">
-            {% cta page %}
-          </div>
-        </div>
-        <script src="https://c.shpg.org/352/sp.js"></script>
+      </div>
+      <script src="https://c.shpg.org/352/sp.js"></script>
     </div>
     {% endif %}
 </div>
