@@ -391,10 +391,25 @@ export default class Petition extends React.Component {
   renderStandardHeading() {
     return (
       <div>
-        <h5 className="h5-heading">{this.props.ctaHeader}</h5>
-        <p dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
+        <div className="algin-header-height">
+          <h5 className="h5-heading">{this.props.ctaHeader}</h5>
+        </div>
+        {this.renderCtaDescription()}
       </div>
     );
+  }
+
+
+  /**
+   * @returns {jsx} Petition cta description if one exists.
+   */
+  renderCtaDescription() {
+    if (this.props.ctaDescription) {
+      return (
+        <p dangerouslySetInnerHTML={{__html:this.props.ctaDescription}}></p>
+      );
+    }
+    return null;
   }
 
   /**
