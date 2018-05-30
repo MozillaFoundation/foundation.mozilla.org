@@ -75,3 +75,10 @@
   font-size: inherit;
   line-height: inherit;
 }
+
+body div.wagtail-draft-warning {
+  background: #faf2cc;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
