@@ -8,9 +8,15 @@
     {% meta_tags %}
 {% endblock %}
 
-{% block content %}
-  {% block minisite_title_mb %}{% endblock %}
+{% block page_top_content %}
+  {% if page.live == False %}
+  <div class="wagtail-draft-warning">
+    This is a draft page, and is only visible to users who are logged in to the CMS admin.
+  </div>
+  {% endif %}
+{% endblock %}
 
+{% block content %}
   <div class="hidden-md-up" id="multipage-nav-mobile">
     <div class="container">
       <div class="row px-3">
