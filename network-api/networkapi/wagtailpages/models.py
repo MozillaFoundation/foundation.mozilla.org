@@ -46,7 +46,24 @@ base_fields = [
 ]
 
 
-class ModularPage(MetadataPageMixin, Page):
+class MetadataParentMixin(MetadataPageMixin):
+    """
+    """
+
+    @property
+    def get_meta_description():
+        search_description = self.search_description
+        if not search_description:
+            parent = self.get_parent()
+            if parent:
+                search_description = parent.get_meta_description
+            else:
+                search_description = ""
+
+        return search_description
+
+
+class ModularPage(MetadataParentMixin, Page):
     """
     The base class offers universal component picking
     """
@@ -308,7 +325,7 @@ class CampaignPage(MiniSiteNameSpace):
 # Code for the new wagtail primary pages (under homepage)
 
 
-class PrimaryPage(MetadataPageMixin, Page):
+class PrimaryPage(MetadataParentMixin, Page):
     """
     Basically a straight copy of modular page, but with
     restrictions on what can live 'under it'.
@@ -431,7 +448,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
-class Homepage(MetadataPageMixin, Page):
+class Homepage(MetadataParentMixin, Page):
     hero_headline = models.CharField(
         max_length=140,
         help_text='Hero story headline',
