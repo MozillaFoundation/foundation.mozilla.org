@@ -43,13 +43,7 @@
 
 {% block subcontent %}
   <div class="cms">
-    <h1 class="h1-heading {% if uses_menu %}hidden-sm-down{% endif %}">
-    {% if page.header %}
-      {{ page.header }}
-    {% else %}
-      {{ page.title }}
-    {% endif %}
-    </h1>
+    {% include "./h1-heading.html" %}
     {% for block in page.body %}
       {% if block.block_type == 'heading' %}
         <h1>{{ block.value }}</h1>
