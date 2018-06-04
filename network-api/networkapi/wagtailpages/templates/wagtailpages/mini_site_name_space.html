@@ -16,43 +16,7 @@
 {% endblock %}
 
 
-{% block heading_classes %}
-  py-5
-  {% if page.specific.narrowed_page_content and uses_menu %}
-    col-md-7
-  {% elif page.specific.narrowed_page_content %}
-    offset-md-2
-    col-md-8
-  {% elif uses_menu %}
-    col-md-9
-  {% else %}
-    col-md-12
-  {% endif %}
-{% endblock %}
-
-
-{% block mini_site_title %}
-  {% if uses_menu %}
-    <p class="h5-heading hidden-sm-down">{{ mini_site_title }}</p>
-  {% endif %}
-{% endblock %}
-
-
 {% block html_content_classes %}{% if singleton_page %}col-12 col-lg-10 offset-lg-1{% else %}col-12 col-md-9{% endif %}{% endblock %}
-
-
-{% block subcontent %}
-  <div class="cms">
-    {% include "./h1-heading.html" %}
-    {% for block in page.body %}
-      {% if block.block_type == 'heading' %}
-        <h1>{{ block.value }}</h1>
-      {% else %}
-        {% include_block block %}
-      {% endif %}
-    {% endfor %}
-  </div>
-{% endblock %}
 
 
 {% block pre_footer_classes %}{% if singleton_page %}col-12 col-lg-10 offset-lg-1{% else %}col-md-12{% endif %}{% endblock %}

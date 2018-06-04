@@ -2,46 +2,55 @@
 {% load wagtailcore_tags mini_site_tags %}
 
 {% block subcontent %}
-<div class="row">
-    <div class="cms
-      {% if page.cta and uses_menu == False and page.specific.narrowed_page_content == False %}
-        col-lg-7
-      {% else %}
-        col-12
-      {% endif %}"
-    >
-
-      {% include "./h1-heading.html" %}
-      {% block html_content %}
-        {% for block in page.body %}
-	        {% if block.block_type == 'heading' %}
-	            <h1>{{ block.value }}</h1>
-	        {% else %}
-	            {% include_block block %}
-	        {% endif %}
-        {% endfor %}
-      {% endblock %}
-    </div>
-
-    {% if page.cta != None %}
-    <div class="cta
-      {% if uses_menu == False and page.specific.narrowed_page_content == False %}
-        col-lg-4 offset-lg-1
-      {% else %}
-        col-lg-12
-      {% endif %}"
-    >
-      <div class="narrow-sticky-button-container hidden">
-        <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
+<div class="py-5
+  {% if page.specific.narrowed_page_content %}
+    offset-md-2
+    col-md-8
+  {% else %}
+    col-md-12
+  {% endif %}"
+>
+  <div class="row">
+      <div class="cms
+        {% if page.cta and page.specific.narrowed_page_content == False %}
+          col-lg-7
+        {% else %}
+          col-12
+        {% endif %}"
+      >
+        {% include "./mini_site_header.html" %}
+        {% mini_site_horizontal_nav page %}
+        {% block html_content %}
+          {% for block in page.body %}
+            {% if block.block_type == 'heading' %}
+                <h1>{{ block.value }}</h1>
+            {% else %}
+                {% include_block block %}
+            {% endif %}
+          {% endfor %}
+        {% endblock %}
       </div>
-      <div class="sticky-cta">
-        <div id="cta-anchor">
-          {% cta page %}
+
+      {% if page.cta != None %}
+      <div class="cta
+        {% if page.specific.narrowed_page_content == False %}
+          col-lg-4 offset-lg-1
+        {% else %}
+          col-lg-12
+        {% endif %}"
+      >
+        <div class="narrow-sticky-button-container hidden">
+          <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
         </div>
+        <div class="sticky-cta">
+          <div id="cta-anchor">
+            {% cta page %}
+          </div>
+        </div>
+        <script src="https://c.shpg.org/352/sp.js"></script>
       </div>
-      <script src="https://c.shpg.org/352/sp.js"></script>
-    </div>
-    {% endif %}
+      {% endif %}
+  </div>
 </div>
 {% endblock %}
 

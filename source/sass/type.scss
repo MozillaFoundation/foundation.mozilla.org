@@ -60,6 +60,13 @@ a {
     text-decoration: none;
     box-shadow: 0 5px $yellow;
   }
+
+  &.colourless-link {
+    &:hover,
+    &#{$active-class-name} {
+      box-shadow: 0 5px $black;
+    }
+  }
 }
 
 h1,
