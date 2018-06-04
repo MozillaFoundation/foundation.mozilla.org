@@ -97,17 +97,17 @@ class AlignedImageBlock(ImageBlock):
         template = 'wagtailpages/blocks/aligned_image_block.html'
 
 
-class ImageTextBlock(blocks.StructBlock):
+class ImageTextBlock(ImageBlock):
     text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'link', ]
+        features=['link', 'h2', 'h3', 'h4', 'h5', 'h6']
     )
-    image = ImageBlock()
-    ordering = blocks.ChoiceBlock(
-        choices=[
-            ('left', 'Image on the left'),
-            ('right', 'Image on the right'),
-        ],
-        default='left',
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this image should link out to.',
+    )
+    small = blocks.BooleanBlock(
+        required=False,
+        help_text='Use smaller, fixed image size (eg: icon)',
     )
 
     class Meta:
