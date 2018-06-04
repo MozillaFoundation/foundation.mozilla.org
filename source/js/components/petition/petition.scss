@@ -6,8 +6,14 @@
 .cta {
   .sticky-cta {
     position: sticky;
-    top: 117px;
+    top: 57px;
     overflow: hidden;
+  }
+
+  .algin-header-height {
+    height: 80px;
+    display: flex;
+    align-items: end;
   }
 
   .narrow-sticky-button-container {

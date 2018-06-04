@@ -38,22 +38,12 @@
 {% endblock %}
 
 
-{% block h1 %}
-  <h1 class="h1-heading {% if uses_menu %}hidden-sm-down{% endif %}">
-  {% if page.header %}
-    {{ page.header }}
-  {% else %}
-    {{ page.title }}
-  {% endif %}
-  </h1>
-{% endblock %}
-
-
 {% block html_content_classes %}{% if singleton_page %}col-12 col-lg-10 offset-lg-1{% else %}col-12 col-md-9{% endif %}{% endblock %}
 
 
 {% block subcontent %}
   <div class="cms">
+    {% include "./h1-heading.html" %}
     {% for block in page.body %}
       {% if block.block_type == 'heading' %}
         <h1>{{ block.value }}</h1>
