@@ -1,18 +1,25 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% with small='col-6 col-md-3' %}
-{% with large='col-12 col-md-9' %}
-
 <div class="row my-default">
-  {% if value.ordering == 'left'%}
-    <div class="{{small}}">{% include_block value.image %}</div>
-  {% endif %}
-
-	<div class="{{large}}">{{value.text|richtext }}</div>
-
-  {% if value.ordering == 'right'%}
-	  <div class="{{small}}">{% include_block value.image %}</div>
+  {% if value.small %}
+    <div class="col-12 d-flex flex-nowrap">
+      <div class="mr-3" style="width:50px; flex-shrink:0;">
+        {% if value.url %}<a href="{{ value.url }}">{% endif %}
+          {% image value.image fill-100x100-c100 format-jpeg class="w-100" %}
+        {% if value.url %}</a>{% endif %}
+      </div>
+      <div>
+        {{ value.text|richtext }}
+      </div>
+    </div>
+  {% else %}
+    <div class="col-12 col-md-3 mb-3 mb-md-0">
+      {% if value.url %}<a href="{{ value.url }}">{% endif %}
+        {% image value.image fill-760x760-c100 format-jpeg class="w-100" %}
+      {% if value.url %}</a>{% endif %}
+    </div>
+    <div class="col-12 col-md-9">
+      {{ value.text|richtext }}
+    </div>
   {% endif %}
 </div>
-{% endwith %}
-{% endwith %}
