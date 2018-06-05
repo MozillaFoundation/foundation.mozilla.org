@@ -98,5 +98,17 @@
     font-size: 0.8rem;
     padding-top: 0.5rem;
   }
-}
 
+  select.form-control:not([size]):not([multiple]) {
+    height: calc(2.25rem + 26px);
+    font-size: 1.4rem;
+    padding: 1rem 0.75rem;
+    margin: 0;
+
+    & option {
+      font-size: 1.4rem;
+      padding: 1rem 0.75rem;
+      margin: 0;
+    }
+  }
+}
