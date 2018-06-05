@@ -4,7 +4,7 @@
 <div class="mb-3 hidden-sm-down">
   <div class="multipage-nav horizontal-nav" id="multipage-nav">
     {% for entry in menu_pages %}
-    <a class="multipage-link colourless-link mr-3 {% if current.title == entry.page.title %}multipage-link-active{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
+    <a class="multipage-link horizontal-link mr-4 {% if current.title == entry.page.title %}multipage-link-active{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
     </a>
     {% endfor %}
   </div>
