@@ -22,7 +22,16 @@
       col-md-12
     {% endif %}"
   >
-    {% include "./mini_site_header.html" %}
+    {% if uses_menu %}
+    <p class="h5-heading hidden-sm-down">{{ mini_site_title }}</p>
+    {% endif %}
+    <h1 class="h1-heading {% if uses_menu %}hidden-sm-down{% endif %}">
+      {% if page.header %}
+        {{ page.header }}
+      {% else %}
+        {{ page.title }}
+      {% endif %}
+    </h1>
     <div class="cms">
       {% for block in page.body %}
         {% if block.block_type == 'heading' %}
