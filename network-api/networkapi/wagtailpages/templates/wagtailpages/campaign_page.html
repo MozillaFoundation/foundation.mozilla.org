@@ -18,7 +18,15 @@
           col-12
         {% endif %}"
       >
-        {% include "./mini_site_header.html" %}
+        <h1 class="h1-heading {% if uses_menu %}hidden-sm-down{% endif %}">
+          {% if uses_menu %}
+            {{ mini_site_title }}
+          {% elif page.header %}
+            {{ page.header }}
+          {% else %}
+            {{ page.title }}
+          {% endif %}
+        </h1>
         {% mini_site_horizontal_nav page %}
         {% block html_content %}
           {% for block in page.body %}
