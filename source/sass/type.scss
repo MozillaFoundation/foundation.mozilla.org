@@ -53,12 +53,13 @@ a {
 @mixin secondary-nav-link($active-class-name) {
   font-family: "Nunito Sans";
   color: $black;
+  font-size: 15px;
 
   &:hover,
   &#{$active-class-name} {
     color: inherit;
     text-decoration: none;
-    box-shadow: 0 5px $yellow;
+    box-shadow: 0 3px $yellow;
   }
 }
 

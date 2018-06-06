@@ -3,6 +3,34 @@
 
 {% block signup %}
 	{% if page.cta %}
-        {% cta page %}
+    {% cta page %}
 	{% endif %}
+{% endblock %}
+
+{% block subcontent %}
+  {% mini_site_sidebar page %}
+
+  <div class="py-5
+    {% if page.specific.narrowed_page_content and uses_menu %}
+      col-md-7
+    {% elif page.specific.narrowed_page_content %}
+      offset-md-2
+      col-md-8
+    {% elif uses_menu %}
+      col-md-9
+    {% else %}
+      col-md-12
+    {% endif %}"
+  >
+    {% include "./mini_site_header.html" %}
+    <div class="cms">
+      {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+          <h1>{{ block.value }}</h1>
+        {% else %}
+          {% include_block block %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

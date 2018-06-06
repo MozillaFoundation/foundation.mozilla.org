@@ -232,3 +232,18 @@
     }
   }
 }
+
+#multipage-nav {
+  &.horizontal-nav {
+    border-bottom: 1px $light-gray solid;
+
+    .multipage-link {
+      &.horizontal-link {
+        &:hover,
+        &.multipage-link-active {
+          box-shadow: 0 3px $black;
+        }
+      }
+    }
+  }
+}

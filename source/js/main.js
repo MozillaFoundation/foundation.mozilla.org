@@ -248,7 +248,7 @@ let main = {
     if (document.querySelector(`#multipage-nav`)) {
       let links = [];
 
-      links = [].map.call(document.querySelectorAll(`#multipage-nav div a`), (child) => {
+      links = [].map.call(document.querySelectorAll(`#multipage-nav a`), (child) => {
         return {
           label: child.textContent.trim(),
           href: child.getAttribute(`href`),
