@@ -12,12 +12,21 @@ import json
 from networkapi.wagtailpages.models import Petition
 
 if settings.AWS_SQS_ACCESS_KEY_ID:
-    sqs = boto3.client(
+    gs_sqs = boto3.client(
         'sqs',
         region_name=settings.AWS_SQS_REGION,
         aws_access_key_id=settings.AWS_SQS_ACCESS_KEY_ID,
         aws_secret_access_key=settings.AWS_SQS_SECRET_ACCESS_KEY,
     )
+
+if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
+    crm_sqs = boto3.client(
+        'sqs',
+        region_name=settings.CRM_AWS_SQS_REGION,
+        aws_access_key_id=settings.CRM_AWS_SQS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.CRM_AWS_SQS_SECRET_ACCESS_KEY,
+    )
+
 
 # sqs destination for salesforce
 crm_queue_url = settings.CRM_PETITION_SQS_QUEUE_URL
@@ -72,7 +81,7 @@ def legacy_petition_submission(request, petition):
         }
     })
 
-    return send_to_sqs(gs_queue_url, message)
+    return send_to_sqs(gs_sqs, gs_queue_url, message)
 
 
 # handle Salesforce petition data
@@ -126,10 +135,10 @@ def petition_submission(request, petition):
         }
     })
 
-    return send_to_sqs(crm_queue_url, message)
+    return send_to_sqs(crm_sqs, crm_queue_url, message)
 
 
-def send_to_sqs(queue_url, message):
+def send_to_sqs(sqs, queue_url, message):
     if settings.DEBUG is True:
         logger.info('Sending petition message: {}'.format(message))
 
