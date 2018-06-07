@@ -25,7 +25,7 @@ def get_page_tree_information(page, context):
     return context
 
 
-def get_descendants(node, list, depth=0, max_depth=2):
+def get_descendants(node, list, authenticated=False, depth=0, max_depth=2):
     '''
     helper function to get_menu_pages for performing a depth-first
     discovery pass of all menu-listable children to some root node.
@@ -41,15 +41,41 @@ def get_descendants(node, list, depth=0, max_depth=2):
             'menu_title': menu_title,
             'depth': depth,
         })
-        for child in node.get_children().live().in_menu():
-            get_descendants(child, list, depth + 1)
+
+        nextset = node.get_children().in_menu()
+
+        # Do not show draft pages to users who are
+        # not logged into the CMS itself.
+        if authenticated is False:
+            nextset = nextset.live()
+
+        for child in nextset:
+            get_descendants(child, list, authenticated, depth + 1)
 
 
-def get_menu_pages(root):
+def get_menu_pages(root, authenticated=False):
     '''
     convenience function for getting all (menu listable) child
     pages for some root node.
     '''
     menu_pages = list()
-    get_descendants(root, menu_pages)
+    get_descendants(root, menu_pages, authenticated)
     return menu_pages
+
+
+def get_mini_side_nav_data(context, page, no_minimum_page_count=False):
+    user = context['user']
+    authenticated = user.is_authenticated() if user else False
+    menu_pages = get_menu_pages(context['root'], authenticated)
+
+    # We need at least 2 pages, or a nav menu is meaningless.
+    if no_minimum_page_count is False and len(menu_pages) < 2:
+        menu_pages = False
+
+    # Return the list of values we need to have our template
+    # generate the appropriate sidebar HTML.
+    return {
+        'singleton_page': context['singleton_page'],
+        'current': page,
+        'menu_pages': menu_pages,
+    }
