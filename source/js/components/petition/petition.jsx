@@ -79,6 +79,10 @@ export default class Petition extends React.Component {
     // the first two are hardcoded in the render() pipeline.
     this.checkbox1 = this.props.checkbox1;
     this.checkbox2 = this.props.checkbox2;
+
+    // If this is a legacy petition, some fields should not
+    // be presented to the user.
+    this.legacy = this.props.legacyPetition;
   }
 
   // helper function for initial component state
@@ -536,16 +540,18 @@ export default class Petition extends React.Component {
               {this.state.userTriedSubmitting && !this.email.element.value && <small className="form-check form-control-feedback">Please enter your email</small>}
             </div>
 
-            <div className={countryGroupClass}>
-              <CountrySelect
-                className="mb-1 w-100"
-                ref={(element) => { this.country = element; }}
-                label="Your country"
-                disabled={disableFields}
-                onFocus={this.onInputFocus}
-              />
-              { this.props.requiresCountryCode === `True` && this.state.userTriedSubmitting && !this.country.element.value && <small className="form-check form-control-feedback">Please enter your country</small>}
-            </div>
+            { this.legacy === `True` ? null :
+              <div className={countryGroupClass}>
+                <CountrySelect
+                  className="mb-1 w-100"
+                  ref={(element) => { this.country = element; }}
+                  label="Your country"
+                  disabled={disableFields}
+                  onFocus={this.onInputFocus}
+                />
+                { this.props.requiresCountryCode === `True` && this.state.userTriedSubmitting && !this.country.element.value && <small className="form-check form-control-feedback">Please enter your country</small>}
+              </div>
+            }
 
 
             { this.props.requiresPostalCode === `False` ? null :
