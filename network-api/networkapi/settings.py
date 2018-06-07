@@ -31,9 +31,9 @@ env = environ.Env(
     AWS_SQS_REGION=(str, None),
     PETITION_SQS_QUEUE_URL=(str, None),
     # new SQS information (x4)
-    CRM_AWS_SQS_ACCESS_KEY_ID=(str,None),
-    CRM_AWS_SQS_SECRET_ACCESS_KEY=(str,None),
-    CRM_AWS_SQS_REGION=(str,None),
+    CRM_AWS_SQS_ACCESS_KEY_ID=(str, None),
+    CRM_AWS_SQS_SECRET_ACCESS_KEY=(str, None),
+    CRM_AWS_SQS_REGION=(str, None),
     CRM_PETITION_SQS_QUEUE_URL=(str, None),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_REGEX_WHITELIST=(tuple, ()),
