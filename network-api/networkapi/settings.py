@@ -25,9 +25,16 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
+    # old SQS information (x4)
     AWS_SQS_ACCESS_KEY_ID=(str, None),
     AWS_SQS_SECRET_ACCESS_KEY=(str, None),
     AWS_SQS_REGION=(str, None),
+    PETITION_SQS_QUEUE_URL=(str, None),
+    # new SQS information (x4)
+    CRM_AWS_SQS_ACCESS_KEY_ID=(str,None),
+    CRM_AWS_SQS_SECRET_ACCESS_KEY=(str,None),
+    CRM_AWS_SQS_REGION=(str,None),
+    CRM_PETITION_SQS_QUEUE_URL=(str, None),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_REGEX_WHITELIST=(tuple, ()),
     CORS_WHITELIST=(tuple, ()),
@@ -40,8 +47,6 @@ env = environ.Env(
     FILEBROWSER_DIRECTORY=(str, ''),
     HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
-    PETITION_SQS_QUEUE_URL=(str, None),
-    CRM_PETITION_SQS_QUEUE_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
@@ -381,15 +386,16 @@ REST_FRAMEWORK = {
     ],
 }
 
-# AWS Credentials (if any)
+# SQS information (if any) for google sheet petition data
 AWS_SQS_ACCESS_KEY_ID = env('AWS_SQS_ACCESS_KEY_ID')
 AWS_SQS_SECRET_ACCESS_KEY = env('AWS_SQS_SECRET_ACCESS_KEY')
 AWS_SQS_REGION = env('AWS_SQS_REGION')
-
-# The SQS endpoint for google sheet petition data
 PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
 
-# The SQS endpoint for CRM petition data
+# SQS information (if any) for CRM petition data
+CRM_AWS_SQS_ACCESS_KEY_ID = env('CRM_AWS_SQS_ACCESS_KEY_ID')
+CRM_AWS_SQS_SECRET_ACCESS_KEY = env('CRM_AWS_SQS_SECRET_ACCESS_KEY')
+CRM_AWS_SQS_REGION = env('CRM_AWS_SQS_REGION')
 CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
 
 # Storage for user generated files
