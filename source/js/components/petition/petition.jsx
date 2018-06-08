@@ -445,9 +445,7 @@ export default class Petition extends React.Component {
   renderStandardHeading() {
     return (
       <div>
-        <div className="algin-header-height">
-          <h5 className="h5-heading">{this.props.ctaHeader}</h5>
-        </div>
+        <h5 className="h5-heading">{this.props.ctaHeader}</h5>
         {this.renderCtaDescription()}
       </div>
     );
