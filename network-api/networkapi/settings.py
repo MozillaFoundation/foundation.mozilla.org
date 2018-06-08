@@ -175,6 +175,7 @@ INSTALLED_APPS = list(filter(None, [
 
     # wagtail-specific app
     'networkapi.wagtailpages',
+    'wagtailinventory',
 ]))
 
 MIDDLEWARE = list(filter(None, [
