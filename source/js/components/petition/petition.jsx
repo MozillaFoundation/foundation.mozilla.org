@@ -494,7 +494,7 @@ export default class Petition extends React.Component {
       'has-danger': this.props.requiresPostalCode === `True` && this.state.userTriedSubmitting && !this.postalCode.element.value
     });
 
-    let privacyClass = classNames("my-3", {
+    let privacyClass = classNames(`my-3`, {
       'form-check': true,
       'has-danger': this.state.userTriedSubmitting && !this.refs.privacy.checked
     });
