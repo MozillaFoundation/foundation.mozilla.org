@@ -52,9 +52,13 @@
 
   input,
   label {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     padding: 1rem 0.75rem;
     margin: 0;
+  }
+
+  .form-control {
+    color: #000;
   }
 
   input ~ label {
@@ -68,7 +72,8 @@
     left: 0;
     width: 100%;
     max-height: 100%;
-    opacity: 0.3;
+    opacity: 0.43;
+    font-weight: 300;
     pointer-events: none;
     border: 1px solid transparent;
     transition: all 0.1s ease-in-out;
@@ -89,18 +94,19 @@
   }
 
   input:not(:placeholder-shown) ~ label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     padding-top: 0.5rem;
+    font-weight: 400;
   }
 
   select.form-control:not([size]):not([multiple]) {
     height: calc(2.25rem + 26px);
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     padding: 1rem 0.75rem;
     margin: 0;
 
     & option {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       padding: 1rem 0.75rem;
       margin: 0;
     }

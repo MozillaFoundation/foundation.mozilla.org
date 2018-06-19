@@ -124,7 +124,7 @@ export default class Petition extends React.Component {
       if (!label) { return null; }
       return (
         <div key={name}>
-          <label className="form-check-label mb-2">
+          <label className="form-check-label">
             <input className="form-check-input" disabled={disabled} type="checkbox" ref={name} />
             <span className="h6-heading form-text" dangerouslySetInnerHTML={{__html: label}}/>
           </label>
@@ -494,7 +494,7 @@ export default class Petition extends React.Component {
       'has-danger': this.props.requiresPostalCode === `True` && this.state.userTriedSubmitting && !this.postalCode.element.value
     });
 
-    let privacyClass = classNames({
+    let privacyClass = classNames(`my-3`, {
       'form-check': true,
       'has-danger': this.state.userTriedSubmitting && !this.refs.privacy.checked
     });
@@ -568,22 +568,22 @@ export default class Petition extends React.Component {
           </div>
           {this.state.basketFailed && <small className="form-check form-control-feedback">Something went wrong. Please check your email address and try again</small>}
           <div className={privacyClass}>
-            <div>
-              <label className="form-check-label mb-2">
+            <div className="my-2">
+              <label className="form-check-label">
                 <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="privacy" />
                 <span className="h6-heading form-text">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>
                 {this.state.userTriedSubmitting && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
               </label>
             </div>
-            <div>
-              <label className="form-check-label mb-2">
+            <div className="my-2">
+              <label className="form-check-label">
                 <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
                 <span className="h6-heading form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
               </label>
             </div>
-            { checkboxes.length > 0 ? (<div>{checkboxes}</div>) : null }
-            <div>
-              <button disabled={disableFields} className="btn btn-normal petition-btn">Add my name</button>
+            { checkboxes.length > 0 ? (<div className="my-2">{checkboxes}</div>) : null }
+            <div className="mt-3">
+              <button disabled={disableFields} className="col-12 btn btn-normal petition-btn">Add my name</button>
             </div>
           </div>
         </form>
