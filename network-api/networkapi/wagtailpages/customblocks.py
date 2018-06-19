@@ -113,6 +113,25 @@ class ImageTextBlock(blocks.StructBlock):
     class Meta:
         icon = 'doc-full'
         template = 'wagtailpages/blocks/image_text_block.html'
+        group = 'Deprecated'
+
+
+class ImageTextBlock2(ImageBlock):
+    text = blocks.RichTextBlock(
+        features=['link', 'h2', 'h3', 'h4', 'h5', 'h6']
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this image should link out to.',
+    )
+    small = blocks.BooleanBlock(
+        required=False,
+        help_text='Use smaller, fixed image size (eg: icon)',
+    )
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'wagtailpages/blocks/image_text_block2.html'
 
 
 class FigureBlock(blocks.StructBlock):

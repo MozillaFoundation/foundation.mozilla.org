@@ -34,6 +34,7 @@ base_fields = [
     )),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
+    ('image_text2', customblocks.ImageTextBlock2()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
     ('figuregrid2', customblocks.FigureGridBlock2()),
