@@ -2,13 +2,11 @@ from datetime import datetime, timezone
 from django.test import TestCase
 
 from networkapi.people.factory import (
-    InternetHealthIssueFactory,
     PersonFactory,
     AffiliationFactory,
 )
 
 from networkapi.people.models import (
-    InternetHealthIssue,
     Person,
     Affiliation
 )
@@ -73,28 +71,6 @@ class TestPersonFactory(TestCase):
         person = PersonFactory.create(expired=True)
 
         self.assertLess(person.expires, datetime.now(tz=timezone.utc))
-
-
-class TestInternetHealthIssueFactory(TestCase):
-    """
-    Test InternetHealthIssueFactory
-    """
-
-    def test_internet_health_issue_creation(self):
-        """
-        InternetHealthIssueFactory should not raise an exception
-        """
-
-        InternetHealthIssueFactory.create()
-
-    def test_internet_health_issue_return_value(self):
-        """
-        InternetHealthIssueFactory should return an instance of InternetHealthIssue
-        """
-
-        issue = InternetHealthIssueFactory.create()
-
-        self.assertIsInstance(issue, InternetHealthIssue)
 
 
 class TestAffiliationFactory(TestCase):

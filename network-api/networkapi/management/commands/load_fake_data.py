@@ -1,9 +1,13 @@
+from itertools import chain, combinations
+
 import factory
 from random import randint
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
+
+from networkapi.people.models import InternetHealthIssue
 
 from wagtail.core.models import (
     Site as WagtailSite,
@@ -17,7 +21,6 @@ from networkapi.news.factory import NewsFactory
 from networkapi.people.factory import (
     PersonFactory,
     AffiliationFactory,
-    InternetHealthIssueFactory,
 )
 from networkapi.wagtailpages.factory import (
     WagtailHomepageFactory,
@@ -44,6 +47,26 @@ internet_health_issues = [
     'Decentralization',
     'Online Privacy and Security',
 ]
+
+
+def powerset(iterable):
+    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
+
+
+# Create a list of dictionaries containing every factory params permutation possible. ex: [{'group': True},
+# {'group': True, 'active': True}, ...]
+def generate_variations(factory_model):
+    for variation in powerset(factory_model._meta.parameters.keys()):
+        yield {k: True for k in variation}
+
+
+# Create fake data for every permutation possible
+def generate_fake_data(factory_model, count):
+    for kwargs in generate_variations(factory_model):
+        for i in range(count):
+            factory_model.create(**kwargs)
 
 
 class Command(BaseCommand):
@@ -76,50 +99,34 @@ class Command(BaseCommand):
         else:
             seed = randint(0, 5000000)
 
-        self.stdout.write('Seeding Faker with: {}'.format(seed))
+        print('Seeding Faker with: {}'.format(seed))
         faker = factory.faker.Faker._get_faker(locale='en-US')
         faker.random.seed(seed)
 
-        self.stdout.write('Generating Milestone objects')
+        print('Generating Milestones')
         [MilestoneFactory.create() for i in range(10)]
 
-        self.stdout.write('Generating News objects')
-        [NewsFactory.create() for i in range(10)]
+        print('Generating five InternetHealthIssue')
+        [InternetHealthIssue.objects.get_or_create(name=e) for e in internet_health_issues]
 
-        self.stdout.write('Generating five InternetHealthIssue objects')
-        issue_objects = []
-        for issue in internet_health_issues:
-            issue_objects.append(InternetHealthIssueFactory(name=issue))
+        print('Generating News')
+        generate_fake_data(NewsFactory, 10)
 
-        self.stdout.write('Generating Person and Affiliation objects')
-        for i in range(10):
-            person = PersonFactory.create(internet_health_issues=issue_objects)
+        print('Generating highlights')
+        generate_fake_data(HighlightFactory, 4)
 
-            for j in range(3):
-                AffiliationFactory.create(person=person)
+        print('Generating People')
+        generate_fake_data(PersonFactory, 10)
 
-        # self.stdout.write('Generating unpublished, expired, and expiring highlights')
-        [HighlightFactory.create(unpublished=True) for i in range(4)]
-        [HighlightFactory.create(expired=True) for i in range(4)]
-        [HighlightFactory.create(has_expiry=True) for i in range(4)]
+        print('Generating People with affiliation')
+        generate_fake_data(AffiliationFactory, 10)
 
-        self.stdout.write('Generating unpublished, expired, and expiring News')
-        [NewsFactory.create(unpublished=True) for i in range(4)]
-        [NewsFactory.create(expired=True) for i in range(4)]
-        [NewsFactory.create(has_expiry=True) for i in range(4)]
-        [NewsFactory.create(is_video=True) for i in range(4)]
-
-        self.stdout.write('Generating featured, unpublished, expired, and expiring People')
-        [PersonFactory.create(is_featured=True) for i in range(4)]
-        [PersonFactory.create(unpublished=True) for i in range(4)]
-        [PersonFactory.create(has_expiry=True) for i in range(4)]
-        [PersonFactory.create(expired=True) for i in range(4)]
-
+        print('Generating blank Homepage')
         try:
             home_page = wagtailpages_models.Homepage.objects.get(title='Homepage')
-            self.stdout.write('Homepage already exists')
+            print('Homepage already exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating a Homepage')
+            print('Generating a Homepage')
             site_root = WagtailPage.objects.get(title='Root')
             home_page = WagtailHomepageFactory.create(
                 parent=site_root,
@@ -129,7 +136,7 @@ class Command(BaseCommand):
                 hero_image__file__height=720
             )
 
-        self.stdout.write('Generating Homepage Highlights and News')
+        print('Generating Homepage Highlights and News')
         featured_news = [NewsFactory.create() for i in range(6)]
         featured_highlights = [HighlightFactory.create() for i in range(6)]
         home_page.featured_news = [
@@ -144,9 +151,9 @@ class Command(BaseCommand):
             default_site = WagtailSite.objects.get(is_default_site=True)
             default_site.root_page = home_page
             default_site.save()
-            self.stdout.write('Updated the default Site')
+            print('Updated the default Site')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating a default Site')
+            print('Generating a default Site')
             WagtailSite.objects.create(
                 hostname='localhost',
                 port=8000,
@@ -157,104 +164,104 @@ class Command(BaseCommand):
 
         try:
             about_page = WagtailPage.objects.get(title='about')
-            self.stdout.write('about page exists')
+            print('about page exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating an about Page (PrimaryPage)')
+            print('Generating an about Page (PrimaryPage)')
             about_page = PrimaryPageFactory.create(parent=home_page, title='about')
 
-        self.stdout.write('Generating child pages for about page')
+        print('Generating child pages for about page')
         [PrimaryPageFactory.create(parent=about_page) for i in range(5)]
 
         try:
             WagtailPage.objects.get(title='styleguide')
-            self.stdout.write('styleguide page exists')
+            print('styleguide page exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating a Styleguide Page')
+            print('Generating a Styleguide Page')
             StyleguideFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='people')
-            self.stdout.write('people page exists')
+            print('people page exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating an empty People Page')
+            print('Generating an empty People Page')
             PeoplePageFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='news')
-            self.stdout.write('news page exists')
+            print('news page exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating an empty News Page')
+            print('Generating an empty News Page')
             NewsPageFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='initiatives')
-            self.stdout.write('initiatives page exists')
+            print('initiatives page exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating an empty Initiatives Page')
+            print('Generating an empty Initiatives Page')
             InitiativesPageFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='participate')
-            self.stdout.write('participate page exists')
+            print('participate page exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating an empty Participate Page')
+            print('Generating an empty Participate Page')
             ParticipatePageFactory.create(parent=home_page)
 
         try:
             campaign_namespace = WagtailPage.objects.get(title='campaigns')
-            self.stdout.write('campaigns namespace exists')
+            print('campaigns namespace exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating a campaigns namespace')
+            print('Generating a campaigns namespace')
             campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
 
-        self.stdout.write('Generating Campaign Pages under namespace')
+        print('Generating Campaign Pages under namespace')
         [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
 
         try:
             wagtailpages_models.CampaignPage.objects.get(title='single-page')
-            self.stdout.write('single-page CampaignPage already exists')
+            print('single-page CampaignPage already exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating single-page CampaignPage')
+            print('Generating single-page CampaignPage')
             CampaignPageFactory.create(parent=campaign_namespace, title='single-page')
 
         try:
             wagtailpages_models.CampaignPage.objects.get(title='multi-page')
-            self.stdout.write('multi-page CampaignPage already exists.')
+            print('multi-page CampaignPage already exists.')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating multi-page CampaignPage')
+            print('Generating multi-page CampaignPage')
             multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
             [CampaignPageFactory(parent=multi_page_campaign, no_cta=True) for k in range(3)]
 
         try:
             opportunity_namespace = WagtailPage.objects.get(title='opportunity')
-            self.stdout.write('opportunity namespace exists')
+            print('opportunity namespace exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating an opportunity namespace')
+            print('Generating an opportunity namespace')
             opportunity_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='opportunity', live=False)
 
-        self.stdout.write('Generating Opportunity Pages under namespace')
+        print('Generating Opportunity Pages under namespace')
         [OpportunityPageFactory.create(parent=opportunity_namespace) for i in range(5)]
 
         try:
             wagtailpages_models.OpportunityPage.objects.get(title='Global Sprint')
-            self.stdout.write('Global Sprint OpportunityPage exists')
+            print('Global Sprint OpportunityPage exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating Global Sprint OpportunityPage')
+            print('Generating Global Sprint OpportunityPage')
             OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint', no_cta=True)
 
         try:
             wagtailpages_models.OpportunityPage.objects.get(title='single-page')
-            self.stdout.write('single-page OpportunityPage exists')
+            print('single-page OpportunityPage exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating single-page OpportunityPage')
+            print('Generating single-page OpportunityPage')
             OpportunityPageFactory.create(parent=opportunity_namespace, title='single-page')
 
         try:
             wagtailpages_models.OpportunityPage.objects.get(title='multi-page')
-            self.stdout.write('multi-page OpportunityPage exists')
+            print('multi-page OpportunityPage exists')
         except ObjectDoesNotExist:
-            self.stdout.write('Generating multi-page OpportunityPage')
+            print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
             [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
 
-        self.stdout.write(self.style.SUCCESS('Done!'))
+        print(self.style.SUCCESS('Done!'))
