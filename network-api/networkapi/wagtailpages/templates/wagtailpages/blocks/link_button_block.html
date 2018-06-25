@@ -1,3 +1,5 @@
 {% load wagtailcore_tags %}
 
-<a class="btn my-default {{ block.value.css }}" href="{{ block.value.URL }}">{{ block.value.label }}</a>
+<div class="my-default">
+  <a class="btn {{ block.value.styling }}" href="{{ block.value.URL }}">{{ block.value.label }}</a>
+</div>
