@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.test import TestCase
 from unittest.mock import MagicMock
 
+from delete_non_staff import delete_non_staff
 from networkapi.middleware import ReferrerMiddleware
 
 
@@ -28,3 +30,24 @@ class MissingMigrationsTests(TestCase):
         Ensure we didn't forget a migration
         """
         call_command('makemigrations', interactive=False, dry_run=True, check_changes=True)
+
+
+class DeleteNonStaffTests(TestCase):
+
+    def setUp(self):
+        group = Group.objects.create(name='TestGroup')
+        group.user_set.create(username='Sam')
+        User.objects.bulk_create([
+            User(username='Alex'),
+            User(username='Bob', email='bob@mozillafoundation.org'),
+            User(username='Alice', is_staff=True)
+        ])
+
+    def test_non_staff_is_deleted(self):
+        """
+        Test that only non_staff users are deleted
+        """
+
+        delete_non_staff()
+
+        self.assertEqual(User.objects.count(), 3)
