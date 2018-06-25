@@ -16,6 +16,7 @@
 		class="sign-petition full-width mb-5"
         data-csrf-token="{{ csrf_token }}"
         data-petition-id="{{ cta.id }}"
+        data-legacy-petition="{{ cta.legacy_petition }}"
         data-cta-header="{{ cta.header | escape }}"
         data-cta-description="{{ cta.description | escape }}"
         data-requires-country-code="{{ cta.requires_country_code }}"

@@ -72,7 +72,26 @@ class AlignedImageBlock(ImageBlock):
         template = 'wagtailpages/blocks/aligned_image_block.html'
 
 
-class ImageTextBlock(ImageBlock):
+class ImageTextBlock(blocks.StructBlock):
+    text = blocks.RichTextBlock(
+        features=['bold', 'italic', 'link', ]
+    )
+    image = ImageBlock()
+    ordering = blocks.ChoiceBlock(
+        choices=[
+            ('left', 'Image on the left'),
+            ('right', 'Image on the right'),
+        ],
+        default='left',
+    )
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'wagtailpages/blocks/image_text_block.html'
+        group = 'Deprecated'
+
+
+class ImageTextBlock2(ImageBlock):
     text = blocks.RichTextBlock(
         features=['link', 'h2', 'h3', 'h4', 'h5', 'h6']
     )
@@ -87,7 +106,7 @@ class ImageTextBlock(ImageBlock):
 
     class Meta:
         icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_block.html'
+        template = 'wagtailpages/blocks/image_text_block2.html'
 
 
 class FigureBlock(blocks.StructBlock):
