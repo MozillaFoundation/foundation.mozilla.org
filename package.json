@@ -28,7 +28,9 @@
     "test": "npm run build && run-s test:**",
     "watch:images": "chokidar 'source/images/**/*' -c 'npm run build:images'",
     "watch:js": "chokidar \"source/js/**/*.js\" \"source/js/**/*.jsx\" -c \"npm run build:js-uncompressed\"",
-    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\""
+    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\"",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "browserslist": [
     "> 1%",
@@ -66,7 +68,7 @@
     "react-ga": "2.4.1",
     "shelljs": "^0.7.8",
     "shx": "^0.2.2",
-    "snyk": "^1.78.1",
+    "snyk": "^1.85.0",
     "stylelint": "^8.4.0",
     "stylelint-config-standard": "^17.0.0",
     "svgo": "^1.0.5",
@@ -74,5 +76,6 @@
   },
   "engines": {
     "node": "^8.9.0"
-  }
+  },
+  "snyk": true
 }
