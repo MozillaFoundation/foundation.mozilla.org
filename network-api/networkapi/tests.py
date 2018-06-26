@@ -82,7 +82,7 @@ class MozillaFoundationUsersNotDeletedTest(TestCase):
     def setUp(self):
         User.objects.create(username='Alex', email='alex@mozillafoundation.org')
 
-    def test_mozilla_Foundation_users_not_deleted(self):
+    def test_mozilla_foundation_users_not_deleted(self):
         """
         Mozilla Foundation Users are not deleted
         """
