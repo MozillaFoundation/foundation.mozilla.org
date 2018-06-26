@@ -276,7 +276,7 @@ class PulseProjectQueryValue(blocks.StructValue):
 
 class PulseProjectList(blocks.StructBlock):
     search_terms = blocks.CharBlock(
-        help_text='Fill in any number of pulse entry search terms (separated by spaces).',
+        help_text='Test your search at mozillapulse.org/search',
     )
 
     max_number_of_results = blocks.IntegerBlock(
@@ -286,16 +286,54 @@ class PulseProjectList(blocks.StructBlock):
         help_text='The maximum number of results to fetch (use 0 for default maximum of 48)',
     )
 
-    newest_first = blocks.BooleanBlock(
-        default=True,
-        help_text='Check this box to list entries "newest first".',
+    only_featured_entries = blocks.BooleanBlock(
+        default=False,
+        label='Featured',
+        help_text='Display only featured entries. (Featured items are selected by Pulse moderators.)',
         required=False,
     )
 
-    only_featured_entries = blocks.BooleanBlock(
-        default=False,
-        help_text='Check this box to only get results from the featured entry list.',
+    advanced_filter_header = blocks.StaticBlock(
+        label='ADVANCED FILTERS',
+        admin_text='Options to display fewer, more targeted results.',
+    )
+
+    issues = blocks.ChoiceBlock(
+        choices=[
+            ('decentralization', 'Decentralization'),
+            ('digital_inclusion', 'Digital Inclusion'),
+            ('online_privacy', 'Online Privacy & Security'),
+            ('open_innovation', 'Open Innovation'),
+            ('web_lit', 'Web Literacy'),
+        ],
+        required=False
+    )
+
+    help = blocks.ChoiceBlock(
+        choices=[
+            ('attend', 'Attend'),
+            ('create_content', 'Create content'),
+            ('code', 'Code'),
+            ('design', 'Design'),
+            ('fundraise', 'Fundraise'),
+            ('join_community', 'Join community'),
+            ('localize_and_translate', 'Localize & translate'),
+            ('mentor', 'Mentor'),
+            ('plan_and_organize', 'Plan & organize'),
+            ('promote', 'Promote'),
+            ('take_action', 'Take action'),
+            ('test_and_feedback', 'Test & feedback'),
+            ('write_documentation', 'Write documentation'),
+        ],
         required=False,
+        label='Type of help needed',
+    )
+
+    newest_first = blocks.BooleanBlock(
+        default=True,
+        help_text='Check this box to list most recent entries first.',
+        required=False,
+        label='Sort',
     )
 
     class Meta:
