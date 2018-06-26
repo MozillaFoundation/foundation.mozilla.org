@@ -28,6 +28,7 @@ requests = "*"
 factory_boy = "*"
 Faker = "*"
 wagtail-factories = {git = "https://github.com/mvantellingen/wagtail-factories@1ead51cadaad3b4530ba2197ccf45d2dca87dbdf", editable=true}
+wagtailinventory = {git = "git@github.com:alanmoo/wagtail-inventory.git", editable = true, ref = "wagtail-2"}
 
 [dev-packages]
 coverage = "*"
