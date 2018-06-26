@@ -11,9 +11,6 @@ import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
 import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
-import Highlights from './components/highlights/highlights.jsx';
-import Leaders from './components/leaders/leaders.jsx';
-import HomeNews from './components/home-news/home-news.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
@@ -37,11 +34,9 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      this.fetchHomeDataIfNeeded((data) => {
-        this.injectReactComponents(data);
-        this.bindGlobalHandlers();
-        this.decorateExternalLinks();
-      });
+      this.injectReactComponents();
+      this.bindGlobalHandlers();
+      this.decorateExternalLinks();
     });
   },
 
@@ -192,7 +187,7 @@ let main = {
   },
 
   // Embed various React components based on the existence of containers within the current page
-  injectReactComponents(data) {
+  injectReactComponents() {
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
       ReactDOM.render(<MemberNotice />, document.getElementById(`member-notice`));
     }
@@ -257,25 +252,6 @@ let main = {
       });
 
       ReactDOM.render(<MultipageNav links={links} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
-    }
-
-    // Homepage
-
-    if (data) {
-      // Leaders
-      if (document.querySelector(`#featured-people-box`)) {
-        ReactDOM.render(<Leaders data={data.leaders} />, document.querySelector(`#featured-people-box`));
-      }
-
-      // Home News
-      if (document.querySelector(`#home-news`)) {
-        ReactDOM.render(<HomeNews data={data.news} />, document.querySelector(`#home-news`));
-      }
-
-      // Highlights
-      if (document.querySelector(`#home-highlights`)) {
-        ReactDOM.render(<Highlights data={data.highlights} />, document.querySelector(`#home-highlights`));
-      }
     }
 
     // News
