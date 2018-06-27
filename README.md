@@ -66,7 +66,7 @@ For management commands not covered by an invoke tasks, use `inv manage [command
 By default, your dev site will use production data (read only!). To load fake model data into your dev site:
 
 - Run `inv manage load_fake_data`
-- Replace `NETWORK_SITE_URL` value by `http://localhost:8000` in your `.env` file.
+- Replace `NETWORK_SITE_URL` value by `http://127.0.0.1:8000/` in your `.env` file.
 
 You can empty your database and create a full new set of fake model data using the following command
 
