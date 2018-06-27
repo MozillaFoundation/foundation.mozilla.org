@@ -329,6 +329,16 @@ export default class Petition extends React.Component {
   }
 
   /**
+   * Performs very simple validation for emails.
+   *
+   * @returns {boolean} true if the input is a legal-enough email address, else false
+   */
+  validatesAsEmail(input) {
+    if (!input) return false;
+    return input.match(/[^@]+@[^@]+/) !== null;
+  }
+
+  /**
    * master render entry point - this will branch out
    * to different render functions depending on the
    * state of the user's data and xhr call results.
@@ -483,7 +493,7 @@ export default class Petition extends React.Component {
     });
 
     let emailGroupClass = classNames({
-      'has-danger': this.state.userTriedSubmitting && !this.email.element.value
+      'has-danger': this.state.userTriedSubmitting && (!this.email.element.value || !this.validatesAsEmail(this.email.element.value))
     });
 
     let countryGroupClass = classNames({
@@ -535,7 +545,7 @@ export default class Petition extends React.Component {
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
               />
-              {this.state.userTriedSubmitting && !this.email.element.value && <small className="form-check form-control-feedback">Please enter your email</small>}
+              {this.state.userTriedSubmitting && (!this.email.element.value || !this.validatesAsEmail(this.email.element.value)) && <small className="form-check form-control-feedback">Please enter your email</small>}
             </div>
 
             { this.legacy === `True` ? null :
