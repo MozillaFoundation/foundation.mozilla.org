@@ -1,0 +1,27 @@
+{% extends "pages/base-compiled.html" %} {% load wagtailcore_tags wagtailimages_tags %}
+
+{% block bodyID %}reviewapp-help{% endblock%}
+
+{% block content %}
+  <div class="container">
+    <div class="row py-md-5 d-flex align-items-center">
+      <div class="col-md-12 offset-md-1 py-5">
+        <div class="mb-4">
+          <h1 class="h1-heading">Review app help page</h1>
+        </div>
+        <p>Quick link to test pages:</p>
+        <ul>
+          <li><a href="/about/">"About" page</a></li>
+          <li><a href="/style-guide/">"Style guide" page</a></li>
+          <li><a href="/people/">"People" page</a></li>
+          <li><a href="/news/">"News" page</a></li>
+          <li><a href="/initiatives/">"Initiatives" page</a></li>
+          <li><a href="/campaigns/single-page/">"Single page" campaign page</a></li>
+          <li><a href="/campaigns/multi-page/">"Mutli page" campaign page</a></li>
+          <li><a href="/opportunity/single/">"Single page" opportunity page</a></li>
+          <li><a href="/opportunity/multi-page/">"Mutli page" opportunity page</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
