@@ -8,7 +8,7 @@ Django = "==1.11.13"
 gunicorn = "*"
 djangorestframework = "*"
 django-filter = "*"
-Mezzanine = {git = "https://github.com/stephenmcd/mezzanine@521a98c39bb6351c4b46067069f33caf95fe0a5e", editable=true}
+Mezzanine = {git = "https://github.com/stephenmcd/mezzanine@521a98c39bb6351c4b46067069f33caf95fe0a5e"}
 "filebrowser-s3" = "*"
 wagtail = "*"
 wagtail-metadata = "*"
@@ -27,7 +27,7 @@ django-admin-sortable = "*"
 requests = "*"
 factory_boy = "*"
 Faker = "*"
-wagtail-factories = {git = "https://github.com/mvantellingen/wagtail-factories@1ead51cadaad3b4530ba2197ccf45d2dca87dbdf", editable=true}
+wagtail-factories = {git = "https://github.com/mvantellingen/wagtail-factories@1ead51cadaad3b4530ba2197ccf45d2dca87dbdf"}
 
 [dev-packages]
 coverage = "*"
