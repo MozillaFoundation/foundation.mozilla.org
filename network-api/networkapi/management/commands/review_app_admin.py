@@ -34,16 +34,20 @@ class Command(BaseCommand):
             m = re.search(r'\d+', reviewapp_name)
             pr_number = m.group()
 
+            # Get PR's title from Github
+            r = requests.get(f"https://api.github.com/repos/mozilla/foundation.mozilla.org/pulls/{pr_number}")
+            pr_title = r.json()['title']
+
             slack_payload = {
                 "attachments": [
                     {
                         "fallback": "New review app deployed :rocket:\n"
-                                    f"PR: {pr_number}\n"
+                                    f"PR {pr_number}: {pr_title}\n"
                                     f"Login: test@mozillafoundation.org\n"
                                     f"Password: {password}\n"
                                     f"URL: https://{reviewapp_name}.herokuapp.com",
-                        "pretext":  "New review app deployed",
-                        "title":    f"PR: {pr_number}\n",
+                        "pretext":  "New review app deployed :rocket:",
+                        "title":    f"PR {pr_number}: {pr_title}\n",
                         "text":     "Login: test@mozillafoundation.org\n"
                                     f"Password: {password}\n",
                         "color":    "#7CD197",

@@ -29,6 +29,9 @@
     "AWS_STORAGE_BUCKET_NAME": {
       "required": true
     },
+    "GITHUB_TOKEN_RA_BOT": {
+      "required": true
+    },
     "DEBUG": "False",
     "CORS_WHITELIST": "*",
     "XSS_PROTECTION": "True",
