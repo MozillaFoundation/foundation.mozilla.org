@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            User.objects.get(username='Admin')
+            User.objects.get(username='admin')
             print('super user already exists')
         except ObjectDoesNotExist:
             password = Faker(
@@ -28,7 +28,7 @@ class Command(BaseCommand):
                 upper_case=True,
                 lower_case=True
             ).generate({})
-            User.objects.create_superuser('Admin', 'admin@example.com', password)
+            User.objects.create_superuser('admin', 'admin@example.com', password)
 
             reviewapp_name = settings.HEROKU_APP_NAME
             m = re.search(r'\d+', reviewapp_name)
@@ -43,12 +43,12 @@ class Command(BaseCommand):
                     {
                         "fallback": "New review app deployed :rocket:\n"
                                     f"PR {pr_number}: {pr_title}\n"
-                                    f"Login: test@mozillafoundation.org\n"
+                                    f"Login: admin\n"
                                     f"Password: {password}\n"
                                     f"URL: https://{reviewapp_name}.herokuapp.com",
                         "pretext":  "New review app deployed :rocket:",
                         "title":    f"PR {pr_number}: {pr_title}\n",
-                        "text":     "Login: test@mozillafoundation.org\n"
+                        "text":     "Login: admin\n"
                                     f"Password: {password}\n",
                         "color":    "#7CD197",
                         "actions": [

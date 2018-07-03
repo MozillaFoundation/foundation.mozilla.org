@@ -59,7 +59,7 @@ env = environ.Env(
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
     REFERRER_HEADER_VALUE=(str, ''),
-    GITHUB_TOKEN_RA_BOT=(str,''),
+    GITHUB_TOKEN_RA_BOT=(str, ''),
 )
 
 # Read in the environment
