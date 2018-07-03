@@ -6,6 +6,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from factory import Faker
 from django.contrib.auth.models import User
+from django.conf import settings
+import re
 
 import requests
 
@@ -15,7 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            User.objects.get(username='NewTest')
+            User.objects.get(username='Admin')
             print('super user already exists')
         except ObjectDoesNotExist:
             password = Faker(
@@ -26,10 +28,44 @@ class Command(BaseCommand):
                 upper_case=True,
                 lower_case=True
             ).generate({})
-            User.objects.create_superuser('NewTest', 'admin@example.com', password)
+            User.objects.create_superuser('Admin', 'admin@example.com', password)
 
-            slack_payload = {"text": f"New review app with {password}"}
-            print(password)
+            reviewapp_name = settings.HEROKU_APP_NAME
+            m = re.search(r'\d+', reviewapp_name)
+            pr_number = m.group()
+
+            slack_payload = {
+                "attachments": [
+                    {
+                        "fallback": "New review app deployed :rocket:\n"
+                                    f"PR: {pr_number}\n"
+                                    f"Login: test@mozillafoundation.org\n"
+                                    f"Password: {password}\n"
+                                    f"URL: https://{reviewapp_name}.herokuapp.com",
+                        "pretext":  "New review app deployed",
+                        "title":    f"PR: {pr_number}\n",
+                        "text":     "Login: test@mozillafoundation.org\n"
+                                    f"Password: {password}\n",
+                        "color":    "#7CD197",
+                        "actions": [
+                            {
+                                "type": "button",
+                                "text": "Open review app",
+                                "url": f"https://{reviewapp_name}.herokuapp.com"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Open PR on Github",
+                                "url": f"https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}"
+                            }
+                        ]
+                    }
+                ]
+            }
 
             requests.post('https://hooks.slack.com/services/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',
-                              json=slack_payload, headers={'Content-Type': 'application/json'})
+                          json=slack_payload,
+                          headers={'Content-Type': 'application/json'}
+                          )
+
+            print("Done!")
