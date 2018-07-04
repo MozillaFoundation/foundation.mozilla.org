@@ -93,6 +93,8 @@ The `load_fake_data` command will output pages with the following slugs:
 - `/opportunity/single-page/`
 - `/opportunity/multi-page/`
 
+This list is available on review apps by clicking on `DEV HELP` in the menu or going to `[review app url]/help`.
+
 ### Running the project for front-end development
 
 - At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to JS(X) and Sass files.
