@@ -231,13 +231,17 @@ let main = {
 
     // petition elements
     var petitionElements = Array.from(document.querySelectorAll(`.sign-petition`));
+    var subscribed = false;
+    if (window.location.search.indexOf("subscribed=1") !== -1) {
+      subscribed = true;
+    }
 
     petitionElements.forEach(element => {
       var props = element.dataset;
 
       props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}/`;
 
-      ReactDOM.render(<Petition {...props} isHidden={false} />, element);
+      ReactDOM.render(<Petition {...props} isHidden={false} subscribed={subscribed}/>, element);
     });
 
     if (document.getElementById(`people`)) {

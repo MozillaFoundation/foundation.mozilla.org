@@ -575,12 +575,14 @@ export default class Petition extends React.Component {
                 {this.state.userTriedSubmitting && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
               </label>
             </div>
-            <div className="my-2">
-              <label className="form-check-label">
-                <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
-                <span className="h6-heading form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
-              </label>
-            </div>
+            { this.props.subscribed ? null :
+              <div className="my-2">
+                <label className="form-check-label">
+                  <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
+                  <span className="h6-heading form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
+                </label>
+              </div>
+            }
             { checkboxes.length > 0 ? (<div className="my-2">{checkboxes}</div>) : null }
             <div className="mt-3">
               <button disabled={disableFields} className="col-12 btn btn-normal petition-btn">Add my name</button>
