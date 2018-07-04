@@ -165,7 +165,6 @@ INSTALLED_APPS = list(filter(None, [
 
     # the network site
     'networkapi',
-    'networkapi.homepage',
     'networkapi.people',  # relies on networkapi.homepage
     'networkapi.news',
     'networkapi.fellows',
