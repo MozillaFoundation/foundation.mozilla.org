@@ -232,7 +232,8 @@ let main = {
     // petition elements
     var petitionElements = Array.from(document.querySelectorAll(`.sign-petition`));
     var subscribed = false;
-    if (window.location.search.indexOf("subscribed=1") !== -1) {
+
+    if (window.location.search.indexOf(`subscribed=1`) !== -1) {
       subscribed = true;
     }
 
