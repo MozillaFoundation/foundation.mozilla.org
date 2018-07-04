@@ -211,9 +211,14 @@ Using the `static` tag in templates is supposed both in Django and Mezzanine, bu
 
 ### Deployment
 
-### Review Apps
+#### Review Apps
 
-Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. To get the password, you need to go to the Heroku dashboard, click on the menu button next to your Review App and select `View initial app setup...`. The password is in the `Run scripts & scale dynos` log.
+Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. Login are published in the `mofo-review-apps` Slack channel when the review app is ready.
+
+##### Environment Variables
+
+- `GITHUB_TOKEN`: GITHUB API authentication,
+- `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
 
 #### Staging
 

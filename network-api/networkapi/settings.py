@@ -59,7 +59,8 @@ env = environ.Env(
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
     REFERRER_HEADER_VALUE=(str, ''),
-    GITHUB_TOKEN_RA_BOT=(str, ''),
+    GITHUB_TOKEN=(str, ''),
+    SLACK_WEBHOOK_RA=(str, ''),
 )
 
 # Read in the environment
@@ -525,4 +526,5 @@ if DEBUG and not DISABLE_DEBUG_TOOLBAR:
     }
 
 # Review apps' slack bot
-GITHUB_TOKEN_RA_BOT = env('GITHUB_TOKEN_RA_BOT')
+GITHUB_TOKEN = env('GITHUB_TOKEN')
+SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')

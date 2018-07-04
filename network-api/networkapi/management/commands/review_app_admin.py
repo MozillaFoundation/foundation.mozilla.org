@@ -35,46 +35,50 @@ class Command(BaseCommand):
             pr_number = m.group()
 
             # Get PR's title from Github
-            r = requests.get(f"https://api.github.com/repos/mozilla/foundation.mozilla.org/pulls/{pr_number}")
+            token = settings.GITHUB_TOKEN
+            org = 'mozilla'
+            repo = 'foundation.mozilla.org'
+            r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}&access_token={token}')
             try:
                 pr_title = ': ' + r.json()['title']
             except KeyError:
-                pr_title = ""
+                pr_title = ''
 
             slack_payload = {
-                "attachments": [
+                'attachments': [
                     {
-                        "fallback": "New review app deployed :rocket:\n"
-                                    f"PR {pr_number}{pr_title}\n"
-                                    f"Login: admin\n"
-                                    f"Password: {password}\n"
-                                    f"URL: https://{reviewapp_name}.herokuapp.com",
-                        "pretext":  "New review app deployed :rocket:",
-                        "title":    f"PR {pr_number}{pr_title}\n",
-                        "text":     "Login: admin\n"
-                                    f"Password: {password}\n",
-                        "color":    "#7CD197",
-                        "actions": [
+                        'fallback': 'New review app deployed: It will be ready in a minute!\n'
+                                    f'PR {pr_number}{pr_title}\n'
+                                    f'Login: admin\n'
+                                    f'Password: {password}\n'
+                                    f'URL: https://{reviewapp_name}.herokuapp.com',
+                        'pretext':  'New review app deployed. It will be ready in a minute!',
+                        'title':    f'PR {pr_number}{pr_title}\n',
+                        'text':     'Login: admin\n'
+                                    f'Password: {password}\n',
+                        'color':    '#7CD197',
+                        'actions': [
                             {
-                                "type": "button",
-                                "text": "Open review app",
-                                "url": f"https://{reviewapp_name}.herokuapp.com"
+                                'type': 'button',
+                                'text': 'View review app',
+                                'url': f'https://{reviewapp_name}.herokuapp.com'
                             },
                             {
-                                "type": "button",
-                                "text": "Open PR on Github",
-                                "url": f"https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}"
+                                'type': 'button',
+                                'text': 'View PR on Github',
+                                'url': f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
                             }
                         ]
                     }
                 ]
             }
 
-            r = requests.post('https://hooks.slack.com/services/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',
+            slack_webhook = settings.SLACK_WEBHOOK_RA
+            r = requests.post(f'{slack_webhook}',
                               json=slack_payload,
                               headers={'Content-Type': 'application/json'}
                               )
 
             # Raise if post request was a 4xx or 5xx
             r.raise_for_status()
-            print("Done!")
+            print('Done!')
