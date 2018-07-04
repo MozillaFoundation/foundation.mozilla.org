@@ -22,7 +22,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 
-from networkapi.views import EnvVariablesView
+from networkapi.views import EnvVariablesView, review_app_help_view
 
 admin.autodiscover()
 
@@ -53,6 +53,7 @@ urlpatterns = list(filter(None, [
     url(r'^api/homepage/', include('networkapi.homepage.urls')),
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
     url(r'^environment.json', EnvVariablesView.as_view()),
+    url(r'^help/', review_app_help_view, name='Review app help'),
 
     # Wagtail CMS routes
 
