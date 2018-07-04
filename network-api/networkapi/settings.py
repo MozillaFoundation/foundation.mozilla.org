@@ -260,6 +260,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'mezzanine.conf.context_processors.settings',
                 'mezzanine.pages.context_processors.page',
+                'networkapi.context_processor.review_app',
             ])),
             'builtins': [
                 'mezzanine.template.loader_tags',
