@@ -59,6 +59,8 @@ env = environ.Env(
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
     REFERRER_HEADER_VALUE=(str, ''),
+    GITHUB_TOKEN=(str, ''),
+    SLACK_WEBHOOK_RA=(str, ''),
 )
 
 # Read in the environment
@@ -258,6 +260,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'mezzanine.conf.context_processors.settings',
                 'mezzanine.pages.context_processors.page',
+                'networkapi.context_processor.review_app',
             ])),
             'builtins': [
                 'mezzanine.template.loader_tags',
@@ -522,3 +525,7 @@ if DEBUG and not DISABLE_DEBUG_TOOLBAR:
     DEBUG_TOOLBAR_CONFIG = {
         "SHOW_TOOLBAR_CALLBACK": show_toolbar,
     }
+
+# Review apps' slack bot
+GITHUB_TOKEN = env('GITHUB_TOKEN')
+SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')

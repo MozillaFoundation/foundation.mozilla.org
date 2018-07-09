@@ -34,6 +34,7 @@ base_fields = [
     )),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
+    ('image_text2', customblocks.ImageTextBlock2()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
     ('figuregrid2', customblocks.FigureGridBlock2()),
@@ -84,7 +85,7 @@ class ModularPage(MetadataPageMixin, Page):
 
     # Legacy field for now, necessary to make sure that the
     # actualy <title> element has the correct value in it.
-    # This uses page.meta_title in the base-compiled.html
+    # This uses page.meta_title in the base.html
     # master template, which is still based on Mezzanine
     # page models, rather than Wagtail pages models.
     @property

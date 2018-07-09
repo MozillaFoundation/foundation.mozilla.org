@@ -55,6 +55,7 @@ But it's a bit long. So instead, you can use invoke:
 - `inv runserver`: Start a web server
 - `inv setup`: Prepare your dev environment after a fresh git clone
 - `inv test`: Run tests
+- `inv catch-up`: Install dependencies and apply migrations
 
 For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`). You can pass flag and options to management commands using `inv manage [command] -o [positional argument] -f [optional argument]`. For example:
 - `inv manage runserver -o 3000`
@@ -92,6 +93,8 @@ The `load_fake_data` command will output pages with the following slugs:
 - `/campaigns/multi-page/`
 - `/opportunity/single-page/`
 - `/opportunity/multi-page/`
+
+This list is available on review apps by clicking on `DEV HELP` in the menu or going to `[review app url]/help`.
 
 ### Running the project for front-end development
 
@@ -211,9 +214,14 @@ Using the `static` tag in templates is supposed both in Django and Mezzanine, bu
 
 ### Deployment
 
-### Review Apps
+#### Review Apps
 
-Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. To get the password, you need to go to the Heroku dashboard, click on the menu button next to your Review App and select `View initial app setup...`. The password is in the `Run scripts & scale dynos` log.
+Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. Login are published in the `mofo-review-apps` Slack channel when the review app is ready.
+
+##### Environment Variables
+
+- `GITHUB_TOKEN`: GITHUB API authentication,
+- `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
 
 #### Staging
 

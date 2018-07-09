@@ -6,24 +6,12 @@ from factory import (
     post_generation,
     SubFactory,
     Trait,
-    LazyAttribute,
 )
 
-from networkapi.utility.faker_providers import ImageProvider
+from networkapi.utility.faker_providers import ImageProvider, get_random_items
 from networkapi.people.models import InternetHealthIssue, Person, Affiliation
 
 Faker.add_provider(ImageProvider)
-
-
-class InternetHealthIssueFactory(DjangoModelFactory):
-    class Meta:
-        model = InternetHealthIssue
-        exclude = ('name_sentence',)
-
-    name = LazyAttribute(lambda o: o.name_sentence.rstrip('.'))
-
-    # LazyAttribute helper value
-    name_sentence = Faker('text', max_nb_chars=50)
 
 
 class PersonFactory(DjangoModelFactory):
@@ -84,17 +72,7 @@ class PersonFactory(DjangoModelFactory):
         internet_health_issues kwarg to the new instance.
         """
 
-        if not create:
-            return
-
-        if extracted:
-            issue_set = []
-
-            for issue in extracted:
-                if isinstance(issue, InternetHealthIssue):
-                    issue_set.append(issue)
-
-            self.internet_health_issues.set(issue_set)
+        self.internet_health_issues.add(*get_random_items(InternetHealthIssue))
 
 
 class AffiliationFactory(DjangoModelFactory):
