@@ -1,4 +1,4 @@
-from mezzanine.conf import settings
+from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 
 referrer_value = 'same-origin'
