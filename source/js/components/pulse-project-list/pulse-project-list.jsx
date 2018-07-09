@@ -10,7 +10,7 @@ export default class PulseProjectList extends React.Component {
     };
   }
 
-  fetchProjects(query) {
+  fetchProjects() {
     let projectXHR = new XMLHttpRequest();
 
     projectXHR.addEventListener(`load`, () => {
@@ -29,13 +29,30 @@ export default class PulseProjectList extends React.Component {
       });
     });
 
-    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?format=json${this.props.help && this.props.help !== `all` ? `&help_type=${encodeURIComponent(this.props.help)}` : ``}${this.props.issues && this.props.issues !== `all` ? `&issue=${encodeURIComponent(this.props.issues)}`: ``}&page_size=${this.props.max ? this.props.max : 12}&search=${query}${this.props.featured ? `&featured=True` : ``}`);
+    const apiURL = `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/`;
+
+    const params = {
+      "format": `json`,
+      "help_type": this.props.help && this.props.help !== `all` ? this.props.help : null,
+      "issue": this.props.issues && this.props.issues !== `all` ? this.props.issues : null,
+      "page_size": this.props.max ? this.props.max : 12,
+      "search": this.props.query,
+      "featured": this.props.featured && `True`
+    };
+
+    // Serialize parameters into a query string
+    const serializedParams = Object.keys(params).filter((key) => params[key]).map((key) => {
+      return params[key] && `${key}=${encodeURIComponent(params[key])}`;
+    });
+
+    const apiURLwithQuery = `${apiURL}?${serializedParams.join(`&`)}`;
+
+    projectXHR.open(`GET`, apiURLwithQuery);
     projectXHR.send();
   }
 
   componentDidMount() {
-    this.fetchProjects(this.props.query);
-    console.log(this.props);
+    this.fetchProjects();
   }
 
   render() {

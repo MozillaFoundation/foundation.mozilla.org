@@ -338,12 +338,12 @@ class PulseProjectList(blocks.StructBlock):
 
     newest_first = blocks.ChoiceBlock(
         choices=[
-            ('False', 'Show newest entries first'),
-            ('True', 'Show oldest entries first'),
+            ('True', 'Show newer entries first'),
+            ('False', 'Show older entries first'),
         ],
         required=True,
         label='Sort',
-        default='False',
+        default='True',
     )
 
     class Meta:
