@@ -209,6 +209,7 @@ export default class Petition extends React.Component {
       let surname = this.surname.element.value;
       let country = this.country && this.country.element.value;
       let postalCode = this.postalCode && this.postalCode.element.value;
+      let newsletterSignup = false;
 
       // These should not be possible due to the fact that we validate
       // their content prior to submission. TODO: remove these rejections?
@@ -224,13 +225,17 @@ export default class Petition extends React.Component {
         return reject(new Error(`missing postal code`));
       }
 
+      if (this.refs.newsletterSignup) {
+        newsletterSignup = !!(this.refs.newsletterSignup.checked);
+      }
+
       let payload = {
         givenNames,
         surname,
         email: this.email.element.value,
         checkbox1: this.props.checkbox1 ? !!(this.refs.checkbox1.checked) : null,
         checkbox2: this.props.checkbox2 ? !!(this.refs.checkbox2.checked) : null,
-        newsletterSignup: !!(this.refs.newsletterSignup.checked),
+        newsletterSignup,
         country,
         postalCode,
         source: window.location.toString(),
@@ -587,12 +592,14 @@ export default class Petition extends React.Component {
                 {this.state.userTriedSubmitting && !this.refs.privacy.checked && <small className="has-danger">Please check this box if you want to proceed</small>}
               </label>
             </div>
-            <div className="my-2">
-              <label className="form-check-label">
-                <input disabled={disableFields} type="checkbox" className="form-check-input" id="PrivacyCheckbox" ref="newsletterSignup" />
-                <span className="h6-heading form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
-              </label>
-            </div>
+            { this.props.subscribed ? null :
+              <div className="my-2">
+                <label className="form-check-label">
+                  <input disabled={disableFields} type="checkbox" className="form-check-input" id="NewsletterSignup" ref="newsletterSignup" />
+                  <span className="h6-heading form-text">Yes, I want to receive email updates about Mozilla’s campaigns.</span>
+                </label>
+              </div>
+            }
             { checkboxes.length > 0 ? (<div className="my-2">{checkboxes}</div>) : null }
             <div className="mt-3">
               <button disabled={disableFields} className="col-12 btn btn-normal petition-btn">Add my name</button>

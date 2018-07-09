@@ -65,17 +65,27 @@ def setup(ctx):
         print("Installing npm dependencies and build.")
         ctx.run("npm install && npm run build")
         print("Installing Python dependencies.")
-        ctx.run("pipenv install --dev", **PLATFORM_ARG)
+        ctx.run("pipenv install --dev")
         print("Applying database migrations.")
         ctx.run("inv migrate")
         print("Creating fake data")
         ctx.run("inv manage load_fake_data")
-        print("Creating superuser.")
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
             print("All done!\n"
                   "To create an admin user: pipenv run python network-api/manage.py createsuperuser\n"
                   "To start your dev server: inv runserver")
         else:
+            print("Creating superuser.")
             ctx.run("pipenv run python network-api/manage.py createsuperuser", pty=True)
             print("All done! To start your dev server, run the following:\n inv runserver")
+
+@task
+def catch_up(ctx):
+    """Install dependencies and apply migrations"""
+    print("Installing npm dependencies and build.")
+    ctx.run("npm install && npm run build")
+    print("Installing Python dependencies.")
+    ctx.run("pipenv install --dev")
+    print("Applying database migrations.")
+    ctx.run("inv migrate")
