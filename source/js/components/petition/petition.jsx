@@ -303,6 +303,9 @@ export default class Petition extends React.Component {
     // validate data here. Do not continue unless we're cool.
     let hasName = this.givenNames.element.value && this.surname.element.value;
     let email = this.email.element.value;
+
+    email = email && this.validatesAsEmail(email);
+
     let country = true;
     let postalCode = true;
     let consent = this.refs.privacy.checked;
