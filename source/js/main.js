@@ -285,16 +285,14 @@ let main = {
       document.querySelectorAll(`.pulse-project-list`)
     );
 
-    // TODO: once we switch off Mezzanine, we can remove the mezzanine-template
-    //       attribute checks here (the !! checks in the code below).
     pulseProjectList.forEach(target => {
-      return ReactDOM.render(
+      ReactDOM.render(
         <PulseProjectList
-          env={env}
-          query={ target.getAttribute(`for`) || `` }
-          reverseChronological={ target.getAttribute(`rev`) === null || target.getAttribute(`rev`) !== `False` }
-          featured={ !!target.getAttribute(`checked`) && target.getAttribute(`checked`) !== `False` }
-          max={parseInt(target.getAttribute(`size`), 10) || null} />,
+          env={ env }
+          featured={ target.dataset.featured === `True` }
+          max={ parseInt(target.dataset.max, 10) }
+          query={ target.dataset.query || `` }
+          reverseChronological={ target.dataset.reversed === `True` } />,
         target
       );
     });

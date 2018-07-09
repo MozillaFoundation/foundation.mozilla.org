@@ -277,13 +277,16 @@ class PulseProjectQueryValue(blocks.StructValue):
 class PulseProjectList(blocks.StructBlock):
     search_terms = blocks.CharBlock(
         help_text='Test your search at mozillapulse.org/search',
+        label='Search',
+        required=False,
     )
 
     max_number_of_results = blocks.IntegerBlock(
         min_value=0,
-        default=0,
+        max_value=12,
+        default=6,
         required=False,
-        help_text='The maximum number of results to fetch (use 0 for default maximum of 48)',
+        help_text='Choose 1-12. If you want visitors to see more, link to a search or tag on Pulse.',
     )
 
     only_featured_entries = blocks.BooleanBlock(
@@ -300,17 +303,20 @@ class PulseProjectList(blocks.StructBlock):
 
     issues = blocks.ChoiceBlock(
         choices=[
+            ('all', 'All'),
             ('decentralization', 'Decentralization'),
             ('digital_inclusion', 'Digital Inclusion'),
             ('online_privacy', 'Online Privacy & Security'),
             ('open_innovation', 'Open Innovation'),
             ('web_lit', 'Web Literacy'),
         ],
-        required=False
+        required=True,
+        default='all'
     )
 
     help = blocks.ChoiceBlock(
         choices=[
+            ('all', 'All'),
             ('attend', 'Attend'),
             ('create_content', 'Create content'),
             ('code', 'Code'),
@@ -325,15 +331,19 @@ class PulseProjectList(blocks.StructBlock):
             ('test_and_feedback', 'Test & feedback'),
             ('write_documentation', 'Write documentation'),
         ],
-        required=False,
+        required=True,
+        default='all',
         label='Type of help needed',
     )
 
-    newest_first = blocks.BooleanBlock(
-        default=True,
-        help_text='Check this box to list most recent entries first.',
-        required=False,
+    newest_first = blocks.ChoiceBlock(
+        choices=[
+            ('False', 'Show newest entries first'),
+            ('True', 'Show oldest entries first'),
+        ],
+        required=True,
         label='Sort',
+        default='False',
     )
 
     class Meta:
