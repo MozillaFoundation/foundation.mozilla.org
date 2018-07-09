@@ -290,6 +290,8 @@ let main = {
         <PulseProjectList
           env={ env }
           featured={ target.dataset.featured === `True` }
+          help={ target.dataset.help }
+          issues={ target.dataset.issues }
           max={ parseInt(target.dataset.max, 10) }
           query={ target.dataset.query || `` }
           reverseChronological={ target.dataset.reversed === `True` } />,

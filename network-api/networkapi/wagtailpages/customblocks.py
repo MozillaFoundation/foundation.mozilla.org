@@ -304,11 +304,11 @@ class PulseProjectList(blocks.StructBlock):
     issues = blocks.ChoiceBlock(
         choices=[
             ('all', 'All'),
-            ('decentralization', 'Decentralization'),
-            ('digital_inclusion', 'Digital Inclusion'),
-            ('online_privacy', 'Online Privacy & Security'),
-            ('open_innovation', 'Open Innovation'),
-            ('web_lit', 'Web Literacy'),
+            ('Decentralization', 'Decentralization'),
+            ('Digital Inclusion', 'Digital Inclusion'),
+            ('Online Privacy & Security', 'Online Privacy & Security'),
+            ('Open Innovation', 'Open Innovation'),
+            ('Web Literacy', 'Web Literacy'),
         ],
         required=True,
         default='all'
