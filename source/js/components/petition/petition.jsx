@@ -334,7 +334,9 @@ export default class Petition extends React.Component {
    * @returns {boolean} true if the input is a legal-enough email address, else false
    */
   validatesAsEmail(input) {
-    if (!input) return false;
+    if (!input) {
+      return false;
+    }
     return input.match(/[^@]+@[^@]+/) !== null;
   }
 
