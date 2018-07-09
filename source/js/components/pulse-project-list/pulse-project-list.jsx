@@ -29,12 +29,13 @@ export default class PulseProjectList extends React.Component {
       });
     });
 
-    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?format=json&page_size=${this.props.max ? this.props.max : 48}&search=${query}${this.props.featured ? `&featured=True` : ``}`);
+    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?format=json${this.props.issues && this.props.issues !== `all` ? `&issue=${encodeURIComponent(this.props.issues)}`: ``}&page_size=${this.props.max ? this.props.max : 12}&search=${query}${this.props.featured ? `&featured=True` : ``}`);
     projectXHR.send();
   }
 
   componentDidMount() {
     this.fetchProjects(this.props.query);
+    console.log(this.props);
   }
 
   render() {
@@ -48,7 +49,7 @@ export default class PulseProjectList extends React.Component {
 
       return (
         <div className="col-6 col-md-4 my-4" key={`pulse-project-${index}`}>
-          <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`}>
+          <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`} target="_blank" rel="noopener noreferrer">
             <div className="thumbnail">
               <div className="img-container">
                 <img className={`project-image${ project.thumbnail ? `` : ` placeholder` }`} src={ project.thumbnail ? project.thumbnail : `/_images/proportional-spacer.png` }/>
@@ -69,14 +70,10 @@ export default class PulseProjectList extends React.Component {
 
 PulseProjectList.propTypes = {
   env: PropTypes.object.isRequired,
-  query: PropTypes.string.isRequired,
+  featured: PropTypes.bool,
+  help: PropTypes.string,
+  issues: PropTypes.string,
   max: PropTypes.number,
-  reverseChronological: PropTypes.bool,
-  featured: PropTypes.bool
-};
-
-PulseProjectList.defaultProps = {
-  max: null,
-  reverseChronological: true,
-  featured: false
+  query: PropTypes.string.isRequired,
+  reverseChronological: PropTypes.bool
 };
