@@ -10,7 +10,7 @@ export default class PulseProjectList extends React.Component {
     };
   }
 
-  fetchProjects(query) {
+  fetchProjects() {
     let projectXHR = new XMLHttpRequest();
 
     projectXHR.addEventListener(`load`, () => {
@@ -29,12 +29,30 @@ export default class PulseProjectList extends React.Component {
       });
     });
 
-    projectXHR.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/?format=json&page_size=${this.props.max ? this.props.max : 48}&search=${query}${this.props.featured ? `&featured=True` : ``}`);
+    const apiURL = `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/`;
+
+    const params = {
+      "format": `json`,
+      "help_type": this.props.help && this.props.help !== `all` ? this.props.help : null,
+      "issue": this.props.issues && this.props.issues !== `all` ? this.props.issues : null,
+      "page_size": this.props.max ? this.props.max : 12,
+      "search": this.props.query,
+      "featured": this.props.featured && `True`
+    };
+
+    // Serialize parameters into a query string
+    const serializedParams = Object.keys(params).filter((key) => params[key]).map((key) => {
+      return `${key}=${encodeURIComponent(params[key])}`;
+    });
+
+    const apiURLwithQuery = `${apiURL}?${serializedParams.join(`&`)}`;
+
+    projectXHR.open(`GET`, apiURLwithQuery);
     projectXHR.send();
   }
 
   componentDidMount() {
-    this.fetchProjects(this.props.query);
+    this.fetchProjects();
   }
 
   render() {
@@ -48,7 +66,7 @@ export default class PulseProjectList extends React.Component {
 
       return (
         <div className="col-6 col-md-4 my-4" key={`pulse-project-${index}`}>
-          <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`}>
+          <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`} target="_blank" rel="noopener noreferrer">
             <div className="thumbnail">
               <div className="img-container">
                 <img className={`project-image${ project.thumbnail ? `` : ` placeholder` }`} src={ project.thumbnail ? project.thumbnail : `/_images/proportional-spacer.png` }/>
@@ -69,14 +87,10 @@ export default class PulseProjectList extends React.Component {
 
 PulseProjectList.propTypes = {
   env: PropTypes.object.isRequired,
-  query: PropTypes.string.isRequired,
+  featured: PropTypes.bool,
+  help: PropTypes.string,
+  issues: PropTypes.string,
   max: PropTypes.number,
-  reverseChronological: PropTypes.bool,
-  featured: PropTypes.bool
-};
-
-PulseProjectList.defaultProps = {
-  max: null,
-  reverseChronological: true,
-  featured: false
+  query: PropTypes.string.isRequired,
+  reverseChronological: PropTypes.bool
 };
