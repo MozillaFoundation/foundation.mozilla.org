@@ -345,7 +345,7 @@ export default class Petition extends React.Component {
     if (!input) {
       return false;
     }
-    return input.match(/[^@]+@[^@]+/) !== null;
+    return input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
   }
 
   /**
