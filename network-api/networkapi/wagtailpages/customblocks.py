@@ -285,20 +285,30 @@ class PulseProjectList(blocks.StructBlock):
         min_value=0,
         max_value=12,
         default=6,
-        required=False,
+        required=True,
         help_text='Choose 1-12. If you want visitors to see more, link to a search or tag on Pulse.',
     )
 
     only_featured_entries = blocks.BooleanBlock(
         default=False,
-        label='Featured',
-        help_text='Display only featured entries. (Featured items are selected by Pulse moderators.)',
+        label='Display only featured entries',
+        help_text='Featured items are selected by Pulse moderators.',
         required=False,
     )
 
+    newest_first = blocks.ChoiceBlock(
+        choices=[
+            ('True', 'Show newer entries first'),
+            ('False', 'Show older entries first'),
+        ],
+        required=True,
+        label='Sort',
+        default='True',
+    )
+
     advanced_filter_header = blocks.StaticBlock(
-        label='ADVANCED FILTERS',
-        admin_text='Options to display fewer, more targeted results.',
+        label=' ',
+        admin_text='-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------',
     )
 
     issues = blocks.ChoiceBlock(
@@ -334,16 +344,6 @@ class PulseProjectList(blocks.StructBlock):
         required=True,
         default='all',
         label='Type of help needed',
-    )
-
-    newest_first = blocks.ChoiceBlock(
-        choices=[
-            ('True', 'Show newer entries first'),
-            ('False', 'Show older entries first'),
-        ],
-        required=True,
-        label='Sort',
-        default='True',
     )
 
     class Meta:
