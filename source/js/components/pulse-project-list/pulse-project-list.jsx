@@ -42,7 +42,7 @@ export default class PulseProjectList extends React.Component {
 
     // Serialize parameters into a query string
     const serializedParams = Object.keys(params).filter((key) => params[key]).map((key) => {
-      return params[key] && `${key}=${encodeURIComponent(params[key])}`;
+      return `${key}=${encodeURIComponent(params[key])}`;
     });
 
     const apiURLwithQuery = `${apiURL}?${serializedParams.join(`&`)}`;
