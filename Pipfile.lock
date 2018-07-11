@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "17073ab23547d5c290634773353762f0433a8d8bd35510b1ba9958c39d476b8d"
+            "sha256": "c51650f54b902e579b50a6b92c45c47a500390dd1f65a97403b9a6819d87fee9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -58,7 +58,6 @@
                 "sha256:24d7f2f94f7f3cb6061acb215685e5125fbcdc40a857eff9de22518820b0a4f4",
                 "sha256:702a91ade2968a82beb0db1e0766a6a273f33d4616a6ce8cde475d8e09853b20"
             ],
-            "markers": "python_version >= '3.0'",
             "version": "==0.5.0"
         },
         "dj-database-url": {
@@ -267,7 +266,6 @@
                 "sha256:f8b3d413c5a8f84b12cd4c5df1d8e211777c9852c6be3ee9c094b626644d3eab"
             ],
             "index": "pypi",
-            "markers": "python_version != '3.2.*' and python_version != '3.3.*' and python_version != '3.1.*' and python_version >= '2.7' and python_version != '3.0.*'",
             "version": "==5.2.0"
         },
         "psycopg2": {
@@ -397,6 +395,13 @@
             ],
             "version": "==1.2"
         },
+        "tqdm": {
+            "hashes": [
+                "sha256:6ec1dc74efacf2cda936b4a6cf4082ce224c76763bdec9f17e437c8cfcaa9953",
+                "sha256:9f019dcbec25b5b4cb1bbf43e5c346e0d6a001fe4f598d70283d379e5314e202"
+            ],
+            "version": "==4.15.0"
+        },
         "unidecode": {
             "hashes": [
                 "sha256:280a6ab88e1f2eb5af79edff450021a0d3f0448952847cd79677e55e58bad051",
@@ -422,6 +427,14 @@
         "wagtail-factories": {
             "git": "https://github.com/mvantellingen/wagtail-factories",
             "ref": "1ead51cadaad3b4530ba2197ccf45d2dca87dbdf"
+        },
+        "wagtail-inventory": {
+            "hashes": [
+                "sha256:d4194fb7b2bfcab71b6f96284900f376699c0b7c10ab3d611fb085a3902bdca5",
+                "sha256:d7f40641591a8db0529abcc17b3c75cd57b821dd5dbc9e609a5050421da01170"
+            ],
+            "index": "pypi",
+            "version": "==0.5"
         },
         "wagtail-metadata": {
             "hashes": [
