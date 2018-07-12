@@ -258,6 +258,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'networkapi.context_processor.review_app',
             ])),
             'libraries': {
                 'settings_value': 'networkapi.utility.templatetags.settings_value',
@@ -329,18 +330,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
 
 WHITENOISE_ROOT = app('frontend')
 WHITENOISE_INDEX_FILE = True
 
-STATICFILES_DIRS = [
-    app('static'),
-]
-
+STATIC_URL = '/static/'
+STATIC_ROOT = root('staticfiles')
 STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
 
-STATIC_ROOT = root('staticfiles')
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 
 # Rest Framework Settings
