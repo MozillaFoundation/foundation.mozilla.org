@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('news', '0009_news_homepage'),
+        ('people', '0025_remove_person_homepage'),
     ]
 
     operations = [
