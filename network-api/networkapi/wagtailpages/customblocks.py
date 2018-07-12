@@ -276,26 +276,74 @@ class PulseProjectQueryValue(blocks.StructValue):
 
 class PulseProjectList(blocks.StructBlock):
     search_terms = blocks.CharBlock(
-        help_text='Fill in any number of pulse entry search terms (separated by spaces).',
+        help_text='Test your search at mozillapulse.org/search',
+        label='Search',
+        required=False,
     )
 
     max_number_of_results = blocks.IntegerBlock(
         min_value=0,
-        default=0,
-        required=False,
-        help_text='The maximum number of results to fetch (use 0 for default maximum of 48)',
-    )
-
-    newest_first = blocks.BooleanBlock(
-        default=True,
-        help_text='Check this box to list entries "newest first".',
-        required=False,
+        max_value=12,
+        default=6,
+        required=True,
+        help_text='Choose 1-12. If you want visitors to see more, link to a search or tag on Pulse.',
     )
 
     only_featured_entries = blocks.BooleanBlock(
         default=False,
-        help_text='Check this box to only get results from the featured entry list.',
+        label='Display only featured entries',
+        help_text='Featured items are selected by Pulse moderators.',
         required=False,
+    )
+
+    newest_first = blocks.ChoiceBlock(
+        choices=[
+            ('True', 'Show newer entries first'),
+            ('False', 'Show older entries first'),
+        ],
+        required=True,
+        label='Sort',
+        default='True',
+    )
+
+    advanced_filter_header = blocks.StaticBlock(
+        label=' ',
+        admin_text='-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------',
+    )
+
+    issues = blocks.ChoiceBlock(
+        choices=[
+            ('all', 'All'),
+            ('Decentralization', 'Decentralization'),
+            ('Digital Inclusion', 'Digital Inclusion'),
+            ('Online Privacy & Security', 'Online Privacy & Security'),
+            ('Open Innovation', 'Open Innovation'),
+            ('Web Literacy', 'Web Literacy'),
+        ],
+        required=True,
+        default='all'
+    )
+
+    help = blocks.ChoiceBlock(
+        choices=[
+            ('all', 'All'),
+            ('Attend', 'Attend'),
+            ('Create content', 'Create content'),
+            ('Code', 'Code'),
+            ('Design', 'Design'),
+            ('Fundraise', 'Fundraise'),
+            ('Join community', 'Join community'),
+            ('Localize & translate', 'Localize & translate'),
+            ('Mentor', 'Mentor'),
+            ('Plan & organize', 'Plan & organize'),
+            ('Promote', 'Promote'),
+            ('Take action', 'Take action'),
+            ('Test & feedback', 'Test & feedback'),
+            ('Write documentation', 'Write documentation'),
+        ],
+        required=True,
+        default='all',
+        label='Type of help needed',
     )
 
     class Meta:

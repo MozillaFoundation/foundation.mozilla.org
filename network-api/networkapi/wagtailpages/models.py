@@ -515,6 +515,7 @@ class Homepage(MetadataPageMixin, Page):
         'ParticipatePage',
         'MiniSiteNameSpace',
         'RedirectingPage',
+        'OpportunityPage',
     ]
 
     def get_context(self, request):
