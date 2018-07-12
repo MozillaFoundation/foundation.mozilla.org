@@ -1,5 +1,5 @@
 from django import template
-from mezzanine.conf import settings
+from django.conf import settings
 
 register = template.Library()
 

@@ -9,14 +9,8 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('homepage', '0001_initial'),
         ('news', '0008_auto_20170723_0853'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='news',
-            name='homepage',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='news', to='homepage.Homepage'),
-        ),
     ]

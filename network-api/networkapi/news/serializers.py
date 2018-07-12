@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from urllib.parse import quote
 
-from mezzanine.conf import settings
+from django.conf import settings
 from networkapi.news.models import News
 
 

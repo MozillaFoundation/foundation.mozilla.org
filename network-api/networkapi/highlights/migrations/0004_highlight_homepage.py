@@ -9,14 +9,9 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('homepage', '0001_initial'),
         ('highlights', '0003_remove_highlight_featured'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='highlight',
-            name='homepage',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='highlights', to='homepage.Homepage'),
-        ),
+        # originally added a homepage dependency that the next migration removed again
     ]
