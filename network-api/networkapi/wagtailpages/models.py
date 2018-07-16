@@ -420,6 +420,37 @@ class InitiativesPage(PrimaryPage):
         'OpportunityPage',
     ]
 
+    sectionHeader = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    sectionCopy = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    sectionButtonTitle = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    sectionButtonURL = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('header'),
+        MultiFieldPanel([
+            FieldPanel('sectionHeader'),
+            FieldPanel('sectionCopy'),
+            FieldPanel('sectionButtonTitle'),
+            FieldPanel('sectionButtonURL'),
+        ]),
+        StreamFieldPanel('body'),
+    ]
+
 
 class ParticipatePage(PrimaryPage):
     parent_page_types = ['Homepage']
