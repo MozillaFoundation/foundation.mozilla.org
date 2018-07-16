@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirectBase
-from mezzanine.conf import settings
+from django.conf import settings
 
 hostname = settings.TARGET_DOMAIN
 

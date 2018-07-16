@@ -12,8 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='highlight',
-            name='homepage',
-        ),
+        # originally removed a homepage dependency that was introduced in the previous migration
     ]

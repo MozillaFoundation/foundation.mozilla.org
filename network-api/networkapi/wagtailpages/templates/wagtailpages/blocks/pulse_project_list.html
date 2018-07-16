@@ -1,7 +1,8 @@
 <div
   class="pulse-project-list my-default"
-  for="{{ value.query }}"
-  size="{{ value.size }}"
-  rev="{{ value.newest_first }}"
-  checked="{{ value.only_featured_entries}}"
-></div>
+  data-featured="{{ value.only_featured_entries}}"
+  data-help="{{ value.help }}"
+  data-issues="{{ value.issues }}"
+  data-max="{{ value.size }}"
+  data-query="{{ value.query }}"
+  data-reversed="{{ value.newest_first }}" />

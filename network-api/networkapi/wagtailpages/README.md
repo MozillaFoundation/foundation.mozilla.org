@@ -1,6 +1,6 @@
 # Minisites in Wagtail
 
-This document explains how the wagtail `wagtailpages` app works with respect to the "networkapi" Django/Mezzanine instance.
+This document explains how the wagtail `wagtailpages` app works with respect to the "networkapi" Django instance.
 
 The base app has the following directory structure:
 ```
