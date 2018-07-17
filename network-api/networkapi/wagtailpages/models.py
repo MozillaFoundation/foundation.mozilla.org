@@ -446,8 +446,11 @@ class InitiativesPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/initiatives_page.html'
 
+    subheader = models.TextField(),
+
     content_panels = Page.content_panels + [
         FieldPanel('header'),
+        FieldPanel('subheader'),
         InlinePanel('initiative_sections', label="Initiatives"),
     ]
 
