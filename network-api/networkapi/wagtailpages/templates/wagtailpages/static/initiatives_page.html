@@ -16,22 +16,27 @@
   </div>
 </div>
 
-<div>TODO : MENU</div>
+<div>TODO : MENU?</div>
 
 {% for section in page.initiative_sections.all %}
-
-  <div class="row align-items-center">
-    <div class="col-12 col-md-6">
-      {% image section.sectionImage fill-800x800-c100 format-jpeg %}
-    </div>
-    <div class="col-12 col-md-6">
-      <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
-      <p class="body-large">{{ section.sectionCopy }}</p>
-      <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
-    </div>
+<div class="row align-items-center">
+  <div class="col-12 col-md-6">
+    {% image section.sectionImage fill-800x800-c100 format-jpeg %}
   </div>
-
+  <div class="col-12 col-md-6">
+    <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
+    <p class="body-large">{{ section.sectionCopy }}</p>
+    <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
+  </div>
+</div>
 {% endfor %}
 
+<div class="container">
+  <div class="hr-gradient"></div>
+
+  <h3 class="h2-heading">TODO</h3>
+  <p class="body-large">TODO</p>
+
+</div>
 
 {% endblock %}
