@@ -253,15 +253,6 @@ class QuoteBlock(blocks.StructBlock):
 
 class PulseProjectQueryValue(blocks.StructValue):
     @property
-    def query(self):
-        # Replace any combination of spaces and commas with a single +
-        # because despite instructions to use spaces, someone, at some
-        # point, will accidentally use a comma, and that should be fine.
-        search_terms = self['search_terms'].strip()
-        query = re.sub(r'[\s,]+', '+', search_terms)
-        return query
-
-    @property
     def size(self):
         max_number_of_results = self['max_number_of_results']
         return '' if max_number_of_results <= 0 else max_number_of_results
