@@ -8,7 +8,7 @@
 <div class="container">
   <div class="row align-items-center">
     <div class="col-12 col-md-4 text-right">
-      <h1 class="h1-heading">It all goes back to the internet</h1>
+      <h1 class="h1-heading">{{ page.header }}</h1>
     </div>
     <div class="col-12 col-md-8">
       <p class="body-large">The Mozilla Manifesto, guides Mozilla’s diverse initiatives that impact the world. These core principles shape our mission: ensuring the internet always remains a global public resource that is healthy, open, and accessible to all. Mozilla’s programs operate at different scales and locations around the world, fueling the movement for a healthy internet.</p>
@@ -16,22 +16,22 @@
   </div>
 </div>
 
-<div>MENU</div>
+<div>TODO : MENU</div>
 
-<div>{{ page.sectionHeader }}</div>
-<div>{{ page.sectionCopy }}</div>
-<div>{{ page.sectionButtonTitle }}</div>
-<div>{{ page.sectionButtonURL }}</div>
+{% for section in page.initiative_sections.all %}
 
-<div class="row align-items-center">
-  <div class="col-12 col-md-6">
-    <img src="https://placekitten.com/g/1000/1000"/>
+  <div class="row align-items-center">
+    <div class="col-12 col-md-6">
+      <img src="https://placekitten.com/g/1000/1000"/>
+    </div>
+    <div class="col-12 col-md-6">
+      <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
+      <p class="body-large">{{ section.sectionCopy }}</p>
+      <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
+    </div>
   </div>
-  <div class="col-12 col-md-6">
-    <h2 class="h3-heading">Advocacy</h2>
-    <p class="body-large">We believe a healthy internet requires an active, global community. Mozilla’s advocacy work brings together individuals from around the world to educate on and fight for privacy, inclusion, literacy, and all principles of a healthy internet. Add your voice to the movement.</p>
-    <a class="btn btn-ghost">Make a Difference</a>
-  </div>
-</div>
+
+{% endfor %}
+
 
 {% endblock %}

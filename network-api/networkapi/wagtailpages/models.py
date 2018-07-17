@@ -410,15 +410,11 @@ class NewsPage(PrimaryPage):
     template = 'wagtailpages/static/news_page.html'
 
 
-class InitiativesPage(PrimaryPage):
-    parent_page_types = ['Homepage']
-    template = 'wagtailpages/static/initiatives_page.html'
-
-    subpage_types = [
-        'MiniSiteNameSpace',
-        'RedirectingPage',
-        'OpportunityPage',
-    ]
+class InitiativeSection(models.Model):
+    page = ParentalKey(
+        'wagtailpages.InitiativesPage',
+        related_name='initiative_sections',
+    )
 
     sectionHeader = models.CharField(
         max_length=250,
@@ -440,15 +436,21 @@ class InitiativesPage(PrimaryPage):
         blank=True
     )
 
+    panels = [
+        FieldPanel('sectionHeader'),
+        FieldPanel('sectionCopy'),
+        FieldPanel('sectionButtonTitle'),
+        FieldPanel('sectionButtonURL'),
+    ]
+
+
+class InitiativesPage(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/initiatives_page.html'
+
     content_panels = Page.content_panels + [
         FieldPanel('header'),
-        MultiFieldPanel([
-            FieldPanel('sectionHeader'),
-            FieldPanel('sectionCopy'),
-            FieldPanel('sectionButtonTitle'),
-            FieldPanel('sectionButtonURL'),
-        ]),
-        StreamFieldPanel('body'),
+        InlinePanel('initiative_sections', label="Initiatives"),
     ]
 
 
