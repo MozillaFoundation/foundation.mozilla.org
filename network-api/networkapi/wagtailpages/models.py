@@ -416,6 +416,15 @@ class InitiativeSection(models.Model):
         related_name='initiative_sections',
     )
 
+    sectionImage = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='section_image',
+        verbose_name='Hero Image',
+    )
+
     sectionHeader = models.CharField(
         verbose_name = 'Header',
         max_length=250,
@@ -435,6 +444,7 @@ class InitiativeSection(models.Model):
     )
 
     panels = [
+        ImageChooserPanel('sectionImage'),
         FieldPanel('sectionHeader'),
         FieldPanel('sectionCopy'),
         FieldPanel('sectionButtonTitle'),
@@ -446,7 +456,9 @@ class InitiativesPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/initiatives_page.html'
 
-    subheader = models.TextField(),
+    subheader = models.TextField(
+        blank=True,
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
