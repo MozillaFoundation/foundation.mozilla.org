@@ -11,7 +11,7 @@
       <h1 class="h1-heading">{{ page.header }}</h1>
     </div>
     <div class="col-12 col-md-8">
-      <p class="body-large">The Mozilla Manifesto, guides Mozilla’s diverse initiatives that impact the world. These core principles shape our mission: ensuring the internet always remains a global public resource that is healthy, open, and accessible to all. Mozilla’s programs operate at different scales and locations around the world, fueling the movement for a healthy internet.</p>
+      <p class="body-large">{{ page.subheader }}</p>
     </div>
   </div>
 </div>
@@ -22,7 +22,7 @@
 
   <div class="row align-items-center">
     <div class="col-12 col-md-6">
-      <img src="https://placekitten.com/g/1000/1000"/>
+      {% image section.sectionImage fill-800x800-c100 format-jpeg %}
     </div>
     <div class="col-12 col-md-6">
       <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
