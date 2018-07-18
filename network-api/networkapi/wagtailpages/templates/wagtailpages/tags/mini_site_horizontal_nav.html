@@ -4,7 +4,7 @@
 <div class="mb-4 hidden-sm-down">
   <div class="pb-2 multipage-nav horizontal-nav" id="multipage-nav">
     {% for entry in menu_pages %}
-    <a class="pb-2 multipage-link horizontal-link mr-4 {% if current.title == entry.page.title %}multipage-link-active{% endif %} {% if entry.restriction != None %}multipage-link-restricted{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
+    <a class="pb-2 multipage-link horizontal-link mr-4 {% if current.title == entry.page.title %}multipage-link-active{% endif %} {% if entry.restriction != None %}multipage-{{entry.restriction}}-restricted{% endif %} {% if not entry.page.live %}multipage-draft{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
     </a>
     {% endfor %}
   </div>

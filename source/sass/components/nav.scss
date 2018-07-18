@@ -234,8 +234,20 @@
 }
 
 #multipage-nav {
-  .multipage-link-restricted::after {
+  .multipage-login-restricted::after {
     content: '🙈';
+  }
+
+  .multipage-groups-restricted::after {
+    content: '👥';
+  }
+
+  .multipage-password-restricted::after {
+    content: '🔒';
+  }
+
+  .multipage-draft::after {
+    content: '🐣';
   }
 
   &.horizontal-nav {
