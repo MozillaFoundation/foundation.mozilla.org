@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import classNames from 'classnames';
-import DonationModal from './donation-modal.jsx'
+import DonationModal from './donation-modal.jsx';
 import basketSignup from '../../basket-signup.js';
 import SALESFORCE_COUNTRY_LIST from './salesforce-country-list.js';
 
@@ -76,9 +76,11 @@ export default class Petition extends React.Component {
     let update = {
       apiSuccess: true
     };
+
     if (this.props.modalName) {
       update.showDonationModal = true;
     }
+
     this.setState(update);
   }
 
@@ -379,9 +381,9 @@ export default class Petition extends React.Component {
       bodyText={this.props.modalBody}
       donateText={this.props.modalDonateText}
       shareText={this.props.modalDismissText}
-      onDonate={e=> this.userElectedToDonate()}
-      onShare={e=> this.userElectedToShare()}
-      onClose={e => this.setState({ showDonationModal: false })}
+      onDonate={() => this.userElectedToDonate()}
+      onShare={() => this.userElectedToShare()}
+      onClose={() => this.setState({ showDonationModal: false })}
     />;
   }
 

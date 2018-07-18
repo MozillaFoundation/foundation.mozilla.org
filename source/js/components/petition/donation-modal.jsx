@@ -5,7 +5,7 @@ class DonationModal extends React.Component {
 
   render() {
     return (
-      <div className="modal-underlay" ref={e => this.node=e}>
+      <div className="modal-underlay">
         <div className="modal show" role="dialog">
           <div className="modal-dialog modal-lg" role="document">
             {this.getModalContent()}
@@ -25,10 +25,10 @@ class DonationModal extends React.Component {
         </div>
 
         <div className="modal-body">
-          <h3 className={ classNames('h3-heading', 'text-center') }>
+          <h3 className={ classNames(`h3-heading`, `text-center`) }>
             { this.props.heading }
           </h3>
-          <p className={ classNames('body-large', 'text-center') }>
+          <p className={ classNames(`body-large`, `text-center`) }>
             {this.props.bodyText}
           </p>
         </div>
@@ -50,14 +50,16 @@ class DonationModal extends React.Component {
 
   userElectedToDonate() {
     // Open the donate site in a new tab.
-    let a = document.createElement('a');
+    let a = document.createElement(`a`);
     let query = [
       `ctn=${this.props.ctn}`,
       `dmi=${this.props.dmi}`
     ].join(`&`);
+
     a.setAttribute(`href`, `https://donate.mozilla.org/en-US/?${query}`);
     a.setAttribute(`style`, `display: none`);
     a.setAttribute(`target`, `blank`);
+
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
