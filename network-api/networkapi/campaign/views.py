@@ -11,6 +11,8 @@ import json
 
 from networkapi.wagtailpages.models import Petition
 
+gs_sqs = False
+
 if settings.AWS_SQS_ACCESS_KEY_ID:
     gs_sqs = boto3.client(
         'sqs',
@@ -18,6 +20,8 @@ if settings.AWS_SQS_ACCESS_KEY_ID:
         aws_access_key_id=settings.AWS_SQS_ACCESS_KEY_ID,
         aws_secret_access_key=settings.AWS_SQS_SECRET_ACCESS_KEY,
     )
+
+crm_sqs = False
 
 if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
     crm_sqs = boto3.client(
@@ -141,6 +145,10 @@ def petition_submission(request, petition):
 def send_to_sqs(sqs, queue_url, message):
     if settings.DEBUG is True:
         logger.info('Sending petition message: {}'.format(message))
+
+        if not sqs:
+            logger.info('Faking a success message (debug=true, sqs=nonexistent).')
+            return Response({'message': 'success (faked)'}, 201)
 
     if queue_url is None:
         logger.warning('Petition was not submitted: No petition SQS url was specified')

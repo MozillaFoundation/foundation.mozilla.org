@@ -51,6 +51,7 @@ env = environ.Env(
     PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
     SHOW_TAKEOVER=(bool, False),
+    SIMPLE_HASHING_SALT=(str, ''),
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
@@ -483,3 +484,6 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # REQUIRED FOR AS LONG AS MEZZANINE HAS NOT BEEN FULLY PURGED
 TESTING = False
+
+# Used for campaign id hashing
+SIMPLE_HASHING_SALT = env('SIMPLE_HASHING_SALT')
