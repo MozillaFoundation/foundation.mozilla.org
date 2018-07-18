@@ -7,7 +7,7 @@ class DonationModal extends React.Component {
     return (
       <div className="modal-underlay" ref={e => this.node=e}>
         <div className="modal show" role="dialog">
-          <div className="modal-dialog" role="document">
+          <div className="modal-dialog modal-lg" role="document">
             {this.getModalContent()}
           </div>
         </div>
