@@ -234,6 +234,10 @@
 }
 
 #multipage-nav {
+  .multipage-link-restricted::after {
+    content: '🙈';
+  }
+
   &.horizontal-nav {
     border-bottom: 1px $light-gray solid;
 

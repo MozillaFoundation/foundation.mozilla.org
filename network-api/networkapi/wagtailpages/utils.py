@@ -36,10 +36,17 @@ def get_descendants(node, list, authenticated=False, depth=0, max_depth=2):
         if header:
             title = header
         menu_title = title if depth > 0 else 'Overview'
+        restriction = node.get_view_restrictions().first()
+        try:
+            restriction_type = restriction.restriction_type
+        except AttributeError:
+            restriction_type = None
+
         list.append({
             'page': node,
             'menu_title': menu_title,
             'depth': depth,
+            'restriction': restriction_type,
         })
 
         nextset = node.get_children().in_menu()
