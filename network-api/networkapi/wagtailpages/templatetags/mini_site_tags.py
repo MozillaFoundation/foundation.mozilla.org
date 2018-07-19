@@ -20,9 +20,8 @@ def mini_site_horizontal_nav(context, page):
 @register.inclusion_tag('wagtailpages/tags/cta.html', takes_context=True)
 def cta(context, page):
     cta = page.cta
-    modal = page.donation_modal
     return {
         'cta': cta,
-        'modal': modal,
+        'modals_json': page.get_donation_modal_json(),
         'cta_type': cta.__class__.__name__,
     }

@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -16,6 +17,8 @@ from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import get_page_tree_information
+
+from .donation_modal import DonationModals
 
 """
 We'll need to figure out which components are truly "base" and
@@ -181,48 +184,6 @@ class OpportunityPage(MiniSiteNameSpace):
 
 
 @register_snippet
-class DonationModal(models.Model):
-    name = models.CharField(
-        default='',
-        max_length=100,
-        help_text='Identify this component for other editors',
-    )
-
-    header = models.CharField(
-        max_length=500,
-        help_text='Donation header',
-        default="Thanks for signing! While you're here, we need your help.",
-    )
-
-    body = models.TextField(
-        help_text='Donation text',
-        default='Mozilla is a nonprofit organization fighting for '
-                'a healthy internet, where privacy is included by '
-                'design and you have more control over your personal '
-                'information. We depend on contributions from people '
-                'like you to carry out this work. Can you donate today?'
-    )
-
-    donate_text = models.CharField(
-        max_length=150,
-        help_text='Donate button label',
-        default="Yes, I'll chip in",
-    )
-
-    dismiss_text = models.CharField(
-        max_length=150,
-        help_text='Dismiss button label',
-        default="No, I'll share instead",
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Donation CTA'
-
-
-@register_snippet
 class Petition(CTA):
     legacy_petition = models.BooleanField(
         help_text='Mark this petition as a legacy petition in terms of where the data gets sent.',
@@ -363,19 +324,16 @@ class CampaignPage(MiniSiteNameSpace):
         help_text='Choose existing or create new sign-up form'
     )
 
-    donation_modal = models.ForeignKey(
-        'DonationModal',
-        related_name='campaign',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text='Choose existing or create new donation modal'
-    )
+    def get_donation_modal_json(self):
+        modals = self.donation_modals.all()
+        modals_json = [m.toJSON() for m in modals]
+        print(modals_json)
+        return json.dumps('')
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         SnippetChooserPanel('cta'),
-        SnippetChooserPanel('donation_modal'),
+        InlinePanel('donation_modals', label='Donation Modal', max_num=4),
         StreamFieldPanel('body'),
     ]
 

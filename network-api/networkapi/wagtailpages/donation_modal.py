@@ -1,0 +1,83 @@
+import json
+from django.db import models
+
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
+from modelcluster.fields import ParentalKey
+
+
+@register_snippet
+class DonationModal(models.Model):
+    name = models.CharField(
+        default='',
+        max_length=100,
+        help_text='Identify this component for other editors',
+    )
+
+    header = models.CharField(
+        max_length=500,
+        help_text='Donation header',
+        default="Thanks for signing! While you're here, we need your help.",
+    )
+
+    body = models.TextField(
+        help_text='Donation text',
+        default='Mozilla is a nonprofit organization fighting for '
+                'a healthy internet, where privacy is included by '
+                'design and you have more control over your personal '
+                'information. We depend on contributions from people '
+                'like you to carry out this work. Can you donate today?'
+    )
+
+    donate_text = models.CharField(
+        max_length=150,
+        help_text='Donate button label',
+        default="Yes, I'll chip in",
+    )
+
+    dismiss_text = models.CharField(
+        max_length=150,
+        help_text='Dismiss button label',
+        default="No, I'll share instead",
+    )
+
+    def __str__(self):
+        return self.name
+
+    def toJSON(self):
+        keys = ['name', 'header', 'body', 'donate_text', 'dismiss_text']
+        values = map(lambda k: self[k], keys)
+        obj = dict(zip(keys, values))
+        return json.dumps(obj)
+
+    class Meta:
+        verbose_name_plural = 'Donation CTA'
+
+
+class DonationModals(models.Model):
+    page = ParentalKey(
+        'wagtailpages.CampaignPage',
+        related_name='donation_modals',
+    )
+
+    donation_modal = models.ForeignKey(
+        'DonationModal',
+        related_name='campaign',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose existing or create new donation modal'
+    )
+
+    def toJSON(self):
+        d = DonationModal.objects.get(campaign=self)
+        print( 'f', type(d) )
+        return json.dumps('')
+
+    panels = [
+        SnippetChooserPanel('donation_modal'),
+    ]
+
+    class Meta:
+        verbose_name = 'Donation Modals'
+        verbose_name_plural = 'Donation Modals'
