@@ -1,4 +1,3 @@
-import json
 from django.db import models
 
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -43,7 +42,7 @@ class DonationModal(models.Model):
 
     def to_simple_dict(self):
         keys = ['name', 'header', 'body', 'donate_text', 'dismiss_text']
-        values = map(lambda k: getattr(self,k), keys)
+        values = map(lambda k: getattr(self, k), keys)
         return dict(zip(keys, values))
 
     def __str__(self):

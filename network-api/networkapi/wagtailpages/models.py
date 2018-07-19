@@ -17,8 +17,7 @@ from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import get_page_tree_information
-
-from .donation_modal import DonationModals
+from .donation_modal import DonationModals  # noqa: F401
 
 """
 We'll need to figure out which components are truly "base" and
