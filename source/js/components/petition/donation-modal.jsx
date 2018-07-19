@@ -16,6 +16,13 @@ class DonationModal extends React.Component {
   }
 
   getModalContent() {
+    if (!this.donateURL) {
+      let query = [
+        `ctn=${this.props.ctn}`,
+        `dmi=${this.props.dmi}`
+      ].join(`&`);
+      this.donateURL = `https://donate.mozilla.org/en-US/?${query}`;
+    }
     return (
       <div className="modal-content" tabIndex="0">
         <div className="modal-header text-right">
@@ -34,9 +41,9 @@ class DonationModal extends React.Component {
         </div>
 
         <div className="text-center">
-          <button className="btn btn-normal" onClick={e => this.userElectedToDonate(e)}>
+          <a className="btn btn-normal" href={this.donateURL} target="_blank" onClick={e => this.userElectedToDonate(e)}>
             {this.props.donateText}
-          </button>
+          </a>
         </div>
 
         <div className="text-center">
@@ -49,21 +56,6 @@ class DonationModal extends React.Component {
   }
 
   userElectedToDonate() {
-    // Open the donate site in a new tab.
-    let a = document.createElement(`a`);
-    let query = [
-      `ctn=${this.props.ctn}`,
-      `dmi=${this.props.dmi}`
-    ].join(`&`);
-
-    a.setAttribute(`href`, `https://donate.mozilla.org/en-US/?${query}`);
-    a.setAttribute(`style`, `display: none`);
-    a.setAttribute(`target`, `blank`);
-
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
     // Inform the owning component that the user opted to donate
     this.props.onDonate();
   }

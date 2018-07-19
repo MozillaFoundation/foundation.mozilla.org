@@ -20,6 +20,18 @@ export default class Petition extends React.Component {
     // If this is a legacy petition, some fields should not
     // be presented to the user.
     this.legacy = this.props.legacyPetition;
+
+    // Do we have modal data?
+    this.modals = false;
+    if (!!this.props.modals) {
+      this.modals = this.props.modals;
+      try {
+        this.modals = JSON.parse(this.modals);
+      } catch (e) {
+        this.modals = false;
+        console.error("Could not parse modal data from petition markup.");
+      }
+    }
   }
 
   // helper function for initial component state
@@ -77,7 +89,7 @@ export default class Petition extends React.Component {
       apiSuccess: true
     };
 
-    if (this.props.modalName) {
+    if (this.props.modals && this.props.modals.length>0) {
       update.showDonationModal = true;
     }
 
@@ -117,7 +129,7 @@ export default class Petition extends React.Component {
 
   // state check function
   submissionsAreDone() {
-    return this.apiIsDone() && this.basketIsDone();
+    return this.apiIsDone() && (this.legacy ? this.basketIsDone() : true);
   }
 
   fbButtonClicked() {
@@ -218,10 +230,19 @@ export default class Petition extends React.Component {
    * @returns {promise} the result the XHR post attempt.
    */
   signUpToBasket() {
-    this.setState({ basketSubmitted: true });
+    this.setState({
+      basketSubmitted: true,
+      basketSuccess: this.legacy ? this.state.basketSuccess : true
+    });
+
+    if (!this.legacy) {
+      // Don't even touch basket for new petitions,
+      // it gets handled automatically.
+      return;
+    }
 
     return new Promise((resolve, reject) => {
-      if(this.email.element.value && this.refs.privacy.checked){
+      if(this.email.element.value && this.refs.privacy.checked) {
         if(this.refs.newsletterSignup.checked) {
           basketSignup({
             email: this.email.element.value,
@@ -272,11 +293,9 @@ export default class Petition extends React.Component {
           // For legacy petitions we perform a manual basket
           // signup to our newsletter, but new petitions handle
           // this as part of the petition data submission already.
-          if (this.props.legacy) {
-            this.signUpToBasket()
-              .then(() => this.basketSubmissionSuccessful())
-              .catch(() => this.basketSubmissionFailure());
-          }
+          this.signUpToBasket()
+            .then(() => this.basketSubmissionSuccessful())
+            .catch(() => this.basketSubmissionFailure());
         })
         .catch(this.apiSubmissionFailure);
     }
@@ -374,13 +393,17 @@ export default class Petition extends React.Component {
    * provided the petition HTML specifies that as a thing that should happen.
    */
   renderDonationModal() {
+    // This is where can do client-side A/B testing
+    let modals = this.modals,
+        modal = modals[0];
+
     return <DonationModal
       ctn={this.props.ctaName}
-      dmi={this.props.modalName}
-      heading={this.props.modalHeader}
-      bodyText={this.props.modalBody}
-      donateText={this.props.modalDonateText}
-      shareText={this.props.modalDismissText}
+      dmi={modal.name}
+      heading={modal.header}
+      bodyText={modal.body}
+      donateText={modal.donate_text}
+      shareText={modal.dismiss_text}
       onDonate={() => this.userElectedToDonate()}
       onShare={() => this.userElectedToShare()}
       onClose={() => this.setState({ showDonationModal: false })}

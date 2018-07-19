@@ -8,8 +8,8 @@
 .cta {
   .sticky-cta {
     position: sticky;
-    top: 57px;
-    z-index: 1030; /* match bootstrap here */
+    top: 5rem;
+    z-index: 1029; /* we need a z-index due to the header also being sticky, our header is 1030 (bootstrap) */
     overflow: hidden;
   }
 

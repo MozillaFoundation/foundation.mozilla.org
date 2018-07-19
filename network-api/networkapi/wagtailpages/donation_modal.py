@@ -41,14 +41,13 @@ class DonationModal(models.Model):
         default="No, I'll share instead",
     )
 
+    def to_simple_dict(self):
+        keys = ['name', 'header', 'body', 'donate_text', 'dismiss_text']
+        values = map(lambda k: getattr(self,k), keys)
+        return dict(zip(keys, values))
+
     def __str__(self):
         return self.name
-
-    def toJSON(self):
-        keys = ['name', 'header', 'body', 'donate_text', 'dismiss_text']
-        values = map(lambda k: self[k], keys)
-        obj = dict(zip(keys, values))
-        return json.dumps(obj)
 
     class Meta:
         verbose_name_plural = 'Donation CTA'
@@ -69,10 +68,9 @@ class DonationModals(models.Model):
         help_text='Choose existing or create new donation modal'
     )
 
-    def toJSON(self):
-        d = DonationModal.objects.get(campaign=self)
-        print( 'f', type(d) )
-        return json.dumps('')
+    def to_simple_dict(self):
+        modal = DonationModal.objects.get(campaign=self)
+        return modal.to_simple_dict()
 
     panels = [
         SnippetChooserPanel('donation_modal'),

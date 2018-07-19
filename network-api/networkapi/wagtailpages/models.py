@@ -326,9 +326,12 @@ class CampaignPage(MiniSiteNameSpace):
 
     def get_donation_modal_json(self):
         modals = self.donation_modals.all()
-        modals_json = [m.toJSON() for m in modals]
-        print(modals_json)
-        return json.dumps('')
+        # This is where we can do server-side A/B testing,
+        # by either sending all modals down the pipe, or
+        # selectively only sending a single one based on
+        # things like geolocation, time of day, etc.
+        modals_json = [m.to_simple_dict() for m in modals]
+        return json.dumps(modals_json)
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
