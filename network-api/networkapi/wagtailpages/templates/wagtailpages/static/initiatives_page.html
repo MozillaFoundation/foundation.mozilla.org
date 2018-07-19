@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags %}
 
 {% block bodyID %}initiatives{% endblock %}
 
@@ -36,6 +36,18 @@
 
   <h3 class="h2-heading">TODO</h3>
   <p class="body-large">TODO</p>
+
+  <div class="highlights mb-5">
+    <div class="row">
+      {% for highlight in page.featured_highlights.all %}
+      {% if forloop.counter <= 3 %}
+      <div class="col-md-4">
+        {% card "md_width" highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
 
 </div>
 

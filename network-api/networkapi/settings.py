@@ -267,6 +267,7 @@ TEMPLATES = [
                 'settings_value': 'networkapi.utility.templatetags.settings_value',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
+                'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'primary_page_tags': 'networkapi.wagtailpages.templatetags.primary_page_tags',
             }
         },
