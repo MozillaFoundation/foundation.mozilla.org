@@ -36,18 +36,25 @@ def get_descendants(node, list, authenticated=False, depth=0, max_depth=2):
         if header:
             title = header
         menu_title = title if depth > 0 else 'Overview'
+        restriction = node.get_view_restrictions().first()
+        try:
+            restriction_type = restriction.restriction_type
+        except AttributeError:
+            restriction_type = None
+
         list.append({
             'page': node,
             'menu_title': menu_title,
             'depth': depth,
+            'restriction': restriction_type,
         })
 
         nextset = node.get_children().in_menu()
 
-        # Do not show draft pages to users who are
+        # Do not show draft/private pages to users who are
         # not logged into the CMS itself.
         if authenticated is False:
-            nextset = nextset.live()
+            nextset = nextset.live().public()
 
         for child in nextset:
             get_descendants(child, list, authenticated, depth + 1)
