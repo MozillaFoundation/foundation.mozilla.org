@@ -2,14 +2,13 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import classNames from 'classnames';
 import DonationModal from './donation-modal.jsx';
+import FloatingLabelInput from './floating-label-input.jsx';
+import CountrySelect from './country-select.jsx';
 import basketSignup from '../../basket-signup.js';
-import SALESFORCE_COUNTRY_LIST from './salesforce-country-list.js';
 
 export default class Petition extends React.Component {
   constructor(props) {
     super(props);
-    // Default props defined at end of file
-
     this.state = this.getInitialState();
 
     // There may be up to four checkboxes per petition, but
@@ -23,13 +22,13 @@ export default class Petition extends React.Component {
 
     // Do we have modal data?
     this.modals = false;
-    if (!!this.props.modals) {
+    if (this.props.modals) {
       this.modals = this.props.modals;
       try {
         this.modals = JSON.parse(this.modals);
       } catch (e) {
         this.modals = false;
-        console.error("Could not parse modal data from petition markup.");
+        console.error(`Could not parse modal data from petition markup.`);
       }
     }
   }
@@ -621,49 +620,3 @@ Petition.defaultProps = {
   ctaHeader: ``,
   newsletter: `mozilla-foundation`
 };
-
-
-
-class FloatingLabelInput extends React.Component {
-  render() {
-    let className = classNames(`form-label-group`, this.props.className);
-
-    return (
-      <div className={className}>
-        <input className="form-control"
-          disabled={this.props.disabled}
-          ref={(element) => { this.element = element; }}
-          id={this.props.id}
-          type={this.props.type}
-          placeholder={this.props.label}
-          onFocus={this.props.onFocus}
-        />
-        <label htmlFor={this.props.id}>{this.props.label}</label>
-      </div>
-    );
-  }
-}
-
-class CountrySelect extends React.Component {
-  render() {
-    let className = classNames(`form-label-group`, `country-picker`, this.props.className);
-    let codes = Object.keys(SALESFORCE_COUNTRY_LIST);
-    let options = codes.map( code => {
-      return <option key={code} value={code}>{SALESFORCE_COUNTRY_LIST[code]}</option>;
-    });
-
-    return (
-      <div className={className}>
-        <select className="form-control"
-          disabled={this.props.disabled}
-          ref={(element) => { this.element = element; }}
-          onFocus={this.props.onFocus}
-          defaultValue={``}
-        >
-          <option value="">{this.props.label}</option>
-          { options }
-        </select>
-      </div>
-    );
-  }
-}

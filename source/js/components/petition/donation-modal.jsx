@@ -21,6 +21,7 @@ class DonationModal extends React.Component {
         `ctn=${this.props.ctn}`,
         `dmi=${this.props.dmi}`
       ].join(`&`);
+
       this.donateURL = `https://donate.mozilla.org/en-US/?${query}`;
     }
     return (
