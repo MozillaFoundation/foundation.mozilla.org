@@ -452,6 +452,7 @@ class InitiativesPage(PrimaryPage):
         FieldPanel('header'),
         FieldPanel('subheader'),
         InlinePanel('initiative_sections', label="Initiatives"),
+        InlinePanel('featured_highlights', label='Highlights', max_num=9),
     ]
 
 
@@ -510,6 +511,23 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
+class InitiativesHighlights(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.InitiativesPage',
+        related_name='featured_highlights',
+    )
+    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    panels = [
+        SnippetChooserPanel('highlight'),
+    ]
+
+    class Meta:
+        verbose_name = 'highlight'
+        verbose_name_plural = 'highlights'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.highlight.title
 
 class Homepage(MetadataPageMixin, Page):
     hero_headline = models.CharField(
