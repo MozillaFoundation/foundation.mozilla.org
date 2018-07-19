@@ -44,10 +44,10 @@ def get_descendants(node, list, authenticated=False, depth=0, max_depth=2):
 
         nextset = node.get_children().in_menu()
 
-        # Do not show draft/private pages to users who are
+        # Do not show draft pages to users who are
         # not logged into the CMS itself.
         if authenticated is False:
-            nextset = nextset.live().public()
+            nextset = nextset.live()
 
         for child in nextset:
             get_descendants(child, list, authenticated, depth + 1)
