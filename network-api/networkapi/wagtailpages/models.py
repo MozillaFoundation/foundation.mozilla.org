@@ -456,6 +456,15 @@ class InitiativesPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/initiatives_page.html'
 
+    primaryHero = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_hero',
+        verbose_name='Primary Hero Image',
+    )
+
     subheader = models.TextField(
         blank=True,
     )
@@ -469,10 +478,11 @@ class InitiativesPage(PrimaryPage):
     )
 
     content_panels = Page.content_panels + [
+        ImageChooserPanel('primaryHero'),
         FieldPanel('header'),
+        FieldPanel('subheader'),
         FieldPanel('h3'),
         FieldPanel('sub_h3'),
-        FieldPanel('subheader'),
         InlinePanel('initiative_sections', label="Initiatives"),
         InlinePanel('featured_highlights', label='Highlights', max_num=9),
     ]
