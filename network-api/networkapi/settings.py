@@ -152,7 +152,6 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.admin',
     'wagtail.core',
     'wagtail.contrib.modeladmin',
-    'wagtailinventory',
     'wagtail.contrib.styleguide' if DEBUG else None,
 
     'modelcluster',
