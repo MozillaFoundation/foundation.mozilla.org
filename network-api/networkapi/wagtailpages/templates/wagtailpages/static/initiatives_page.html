@@ -17,12 +17,27 @@
       <p class="body-large">{{ page.subheader }}</p>
     </div>
   </div>
+</div>
 
-  <ul>
-    {% for section in page.initiative_sections.all %}
-      <li><a href="#initiative-{{ forloop.counter }}">{{ section.sectionHeader }}</a></li>
-    {% endfor %}
-  </ul>
+<div class="pb-3 bottom-line">
+  <div class="hidden-md-up" id="multipage-nav-mobile">
+    <div class="container">
+      <div class="row">
+        <div class="col-12"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 hidden-sm-down">
+        <div class="d-flex flex-row align-items-center" id="multipage-nav">
+          {% for section in page.initiative_sections.all %}
+            <div><a class="multipage-link" href="#initiative-{{ forloop.counter }}">{{ section.sectionHeader }}</a></div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% for section in page.initiative_sections.all %}
