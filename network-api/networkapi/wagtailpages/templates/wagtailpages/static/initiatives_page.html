@@ -4,8 +4,11 @@
 {% block bodyID %}initiatives{% endblock %}
 
 {% block content %}
+<div>
+  {% image page.primaryHero fill-1200x350-c100 format-jpeg class="w-100" %}
+</div>
 
-<div class="container">
+<div class="container py-5 pull-up">
   <div class="row align-items-center">
     <div class="col-12 col-md-4 text-right">
       <h1 class="h1-heading">{{ page.header }}</h1>
@@ -14,12 +17,12 @@
       <p class="body-large">{{ page.subheader }}</p>
     </div>
   </div>
-</div>
 
-<div>
-  {% for section in page.initiative_sections.all %}
-    <a href="#initiative-{{ forloop.counter }}">{{ section.sectionHeader }}</a>
-  {% endfor %}
+  <ul>
+    {% for section in page.initiative_sections.all %}
+      <li><a href="#initiative-{{ forloop.counter }}">{{ section.sectionHeader }}</a></li>
+    {% endfor %}
+  </ul>
 </div>
 
 {% for section in page.initiative_sections.all %}
