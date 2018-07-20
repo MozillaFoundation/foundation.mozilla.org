@@ -426,21 +426,21 @@ class InitiativeSection(models.Model):
     )
 
     sectionHeader = models.CharField(
-        verbose_name = 'Header',
+        verbose_name='Header',
         max_length=250,
     )
 
     sectionCopy = models.TextField(
-        verbose_name = 'Subheader',
+        verbose_name='Subheader',
     )
 
     sectionButtonTitle = models.CharField(
-        verbose_name = 'Button Text',
+        verbose_name='Button Text',
         max_length=250,
     )
 
     sectionButtonURL = models.URLField(
-        verbose_name = 'Button URL',
+        verbose_name='Button URL',
     )
 
     panels = [
@@ -543,6 +543,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
+
 class InitiativesHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
@@ -560,6 +561,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
 
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
+
 
 class Homepage(MetadataPageMixin, Page):
     hero_headline = models.CharField(
