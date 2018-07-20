@@ -16,14 +16,18 @@
   </div>
 </div>
 
-<div>TODO : MENU?</div>
+<div>
+  {% for section in page.initiative_sections.all %}
+    <a href="#initiative-{{ forloop.counter }}">{{ section.sectionHeader }}</a>
+  {% endfor %}
+</div>
 
 {% for section in page.initiative_sections.all %}
-<div class="row align-items-center">
+<div class="row align-items-center" id="initiative-{{ forloop.counter }}">
   <div class="col-12 col-md-6">
-    {% image section.sectionImage fill-800x800-c100 format-jpeg %}
+    {% image section.sectionImage fill-800x800-c100 format-jpeg class="w-100" %}
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 p-5">
     <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
     <p class="body-large">{{ section.sectionCopy }}</p>
     <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
@@ -34,8 +38,8 @@
 <div class="container">
   <div class="hr-gradient"></div>
 
-  <h3 class="h2-heading">TODO</h3>
-  <p class="body-large">TODO</p>
+  <h3 class="h2-heading">{{ page.h3 }}</h3>
+  <p class="body-large my-4">{{ page.sub_h3 }}</p>
 
   <div class="highlights mb-5">
     <div class="row">

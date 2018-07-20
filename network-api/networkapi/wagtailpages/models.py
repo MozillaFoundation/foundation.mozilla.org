@@ -460,8 +460,18 @@ class InitiativesPage(PrimaryPage):
         blank=True,
     )
 
+    h3 = models.TextField(
+        blank=True,
+    )
+
+    sub_h3 = models.TextField(
+        blank=True,
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('header'),
+        FieldPanel('h3'),
+        FieldPanel('sub_h3'),
         FieldPanel('subheader'),
         InlinePanel('initiative_sections', label="Initiatives"),
         InlinePanel('featured_highlights', label='Highlights', max_num=9),
