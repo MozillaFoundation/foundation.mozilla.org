@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import classNames from 'classnames';
-import basketSignup from '../../basket-signup.js';
 import SALESFORCE_COUNTRY_LIST from './salesforce-country-list.js';
 
 class FloatingLabelInput extends React.Component {
@@ -57,7 +56,6 @@ export default class Petition extends React.Component {
     //       ten+ functions is kind of silly. The code should already
     //       guarantee the correct `this` will be used.
     this.submitDataToApi = this.submitDataToApi.bind(this);
-    this.signUpToBasket = this.signUpToBasket.bind(this);
     this.processFormData = this.processFormData.bind(this);
 
     this.apiSubmissionSuccessful = this.apiSubmissionSuccessful.bind(this);
@@ -267,31 +265,6 @@ export default class Petition extends React.Component {
   }
 
   /**
-   * sign the user up for the mozilla newsletter.
-   *
-   * @returns {promise} the result the XHR post attempt.
-   */
-  signUpToBasket() {
-    this.setState({ basketSubmitted: true });
-
-    return new Promise((resolve, reject) => {
-      if(this.email.element.value && this.refs.privacy.checked){
-        if(this.refs.newsletterSignup.checked) {
-          basketSignup({
-            email: this.email.element.value,
-            privacy: this.refs.privacy.checked,
-            newsletter: this.props.newsletter
-          }, resolve, reject);
-        } else {
-          resolve();
-        }
-      } else {
-        reject();
-      }
-    });
-  }
-
-  /**
    * kick off the form processing when the user hits "submit".
    *
    * @returns {void}
@@ -322,9 +295,6 @@ export default class Petition extends React.Component {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
-          this.signUpToBasket()
-            .then(this.basketSubmissionSuccessful)
-            .catch(this.basketSubmissionFailure);
         })
         .catch(this.apiSubmissionFailure);
     }
