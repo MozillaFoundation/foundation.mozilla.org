@@ -1,3 +1,6 @@
+# TODO: this file needs to become a utility of some sort,
+#       associated with the Petition class in the wagtailpages
+#       app, rather than continuing to be its own app.
 from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
