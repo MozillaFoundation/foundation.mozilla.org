@@ -402,6 +402,12 @@ class InitiativesPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/initiatives_page.html'
 
+    subpage_types = [
+        'MiniSiteNameSpace',
+        'RedirectingPage',
+        'OpportunityPage',
+    ]
+
 
 class ParticipatePage(PrimaryPage):
     parent_page_types = ['Homepage']
