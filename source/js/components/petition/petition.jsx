@@ -393,8 +393,13 @@ export default class Petition extends React.Component {
    */
   renderDonationModal() {
     // This is where can do client-side A/B testing
-    let modals = this.modals,
-        modal = modals[0];
+    let modals = this.modals;
+  
+    if (modals.length===0) {
+      return null;
+    }
+    
+    let modal = modals[0];
 
     return <DonationModal
       ctn={this.props.ctaName}
