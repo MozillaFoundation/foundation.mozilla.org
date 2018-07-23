@@ -11,6 +11,7 @@ import json
 
 from networkapi.wagtailpages.models import Petition
 
+# Google sheet SQS client
 gs_sqs = False
 
 if settings.AWS_SQS_ACCESS_KEY_ID:
@@ -21,6 +22,7 @@ if settings.AWS_SQS_ACCESS_KEY_ID:
         aws_secret_access_key=settings.AWS_SQS_SECRET_ACCESS_KEY,
     )
 
+# Basket/Salesforce SQS client
 crm_sqs = False
 
 if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
