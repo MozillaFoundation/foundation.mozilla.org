@@ -40,18 +40,19 @@
   </div>
 </div>
 
-{% for section in page.initiative_sections.all %}
-<div class="row align-items-center">
-  <div class="col-12 col-md-6">
-    {% image section.sectionImage fill-800x800-c100 format-jpeg class="w-100" %}
+<div class="container-fluid p-0">
+  {% for section in page.initiative_sections.all %}
+  {% image section.sectionImage fill-800x800-c100 format-jpeg as container_img %}
+  <div class="row no-gutters d-flex align-items-stretch">
+    <div class="col-12 col-md-6" style="padding-top:50%; background: url({{ container_img.url }}); background-repeat: no-repeat; background-size: cover;"></div>
+    <div class="col-12 col-md-6 p-5 align-self-center">
+      <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
+      <p class="body-large">{{ section.sectionCopy }}</p>
+      <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
+    </div>
   </div>
-  <div class="col-12 col-md-6 p-5">
-    <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
-    <p class="body-large">{{ section.sectionCopy }}</p>
-    <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
-  </div>
+  {% endfor %}
 </div>
-{% endfor %}
 
 <div class="container">
   <div class="hr-gradient"></div>
