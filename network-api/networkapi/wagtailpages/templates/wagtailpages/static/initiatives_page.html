@@ -32,7 +32,7 @@
       <div class="col-12 hidden-sm-down">
         <div class="d-flex flex-row align-items-center" id="multipage-nav">
           {% for section in page.initiative_sections.all %}
-            <div><a class="multipage-link" href="#initiative-{{ forloop.counter }}">{{ section.sectionHeader }}</a></div>
+            <div><a class="multipage-link" href="{{ section.sectionButtonURL }}">{{ section.sectionHeader }}</a></div>
           {% endfor %}
         </div>
       </div>
@@ -41,7 +41,7 @@
 </div>
 
 {% for section in page.initiative_sections.all %}
-<div class="row align-items-center" id="initiative-{{ forloop.counter }}">
+<div class="row align-items-center">
   <div class="col-12 col-md-6">
     {% image section.sectionImage fill-800x800-c100 format-jpeg class="w-100" %}
   </div>

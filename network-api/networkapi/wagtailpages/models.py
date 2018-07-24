@@ -439,7 +439,7 @@ class InitiativeSection(models.Model):
         max_length=250,
     )
 
-    sectionButtonURL = models.URLField(
+    sectionButtonURL = models.TextField(
         verbose_name='Button URL',
     )
 
