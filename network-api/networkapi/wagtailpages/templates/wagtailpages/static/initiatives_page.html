@@ -44,8 +44,11 @@
   {% for section in page.initiative_sections.all %}
   {% image section.sectionImage fill-800x800-c100 format-jpeg as container_img %}
   <div class="row no-gutters d-flex align-items-stretch">
-    <div class="col-12 col-md-6" style="padding-top:50%; background: url({{ container_img.url }}); background-repeat: no-repeat; background-size: cover;"></div>
-    <div class="col-12 col-md-6 p-5 align-self-center">
+    <div class="col-12 col-sm-6" style="background: url({{ container_img.url }}); background-repeat: no-repeat; background-size: cover;">
+      {# square spacer #}
+      <div style="padding-top:100%"></div>
+    </div>
+    <div class="col-12 col-sm-6 p-5 align-self-center">
       <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
       <p class="body-large">{{ section.sectionCopy }}</p>
       <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
