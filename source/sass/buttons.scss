@@ -71,6 +71,10 @@
     position: relative;
     bottom: 1px;
   }
+
+  &:hover::after {
+    filter: brightness(100);
+  }
 }
 
 .form-control {
