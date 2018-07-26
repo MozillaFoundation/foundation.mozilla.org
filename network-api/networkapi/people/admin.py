@@ -44,7 +44,7 @@ class WagtailPersonAdmin(ModelAdmin):
     exclude_from_explorer = True  # or True to exclude pages of this type from Wagtail's explorer view
     list_display = ('name', 'role', 'location')
     list_filter = ('internet_health_issues',)
-    search_fields = ('name')
+    search_fields = ('name',)
 
 
 modeladmin_register(WagtailPersonAdmin)
