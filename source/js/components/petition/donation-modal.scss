@@ -12,7 +12,7 @@
     overflow: scroll;
 
     //50rem is out of thin air but seems to be a reasonable point to move the modal down.
-    @media(min-width: 50rem){
+    @media (min-width: 50rem) {
       top: 5rem;
     }
 
