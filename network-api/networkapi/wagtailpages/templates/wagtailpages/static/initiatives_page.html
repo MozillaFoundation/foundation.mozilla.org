@@ -8,9 +8,9 @@
   {% image page.primaryHero fill-1200x350-c100 format-jpeg class="w-100" %}
 </div>
 
-<div class="container p-5 mb-4 pull-up">
+<div class="container p-3 p-sm-5 mx-4 mx-sm-auto mb-4 pull-up">
   <div class="row align-items-center">
-    <div class="col-12 col-md-4 pr-md-0 text-right">
+    <div class="col-12 col-md-4 pr-md-0 text-md-right">
       <h1 class="h1-heading">{{ page.header }}</h1>
     </div>
     <div class="col-12 col-md-8 pl-md-5">
@@ -44,14 +44,16 @@
   {% for section in page.initiative_sections.all %}
   {% image section.sectionImage fill-800x800-c100 format-jpeg as container_img %}
   <div class="row no-gutters d-flex align-items-stretch">
-    <div class="col-12 col-sm-6" style="background: url({{ container_img.url }}); background-repeat: no-repeat; background-size: cover;">
+    <div class="col-12 col-md-6" style="background: url({{ container_img.url }}); background-repeat: no-repeat; background-size: cover;">
       {# square spacer #}
       <div style="padding-top:100%"></div>
     </div>
-    <div class="col-12 col-sm-6 p-5 align-self-center">
-      <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
-      <p class="body-large mb-4">{{ section.sectionCopy }}</p>
-      <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
+    <div class="col-12 col-md-4 offset-md-1 p-3 px-md-0 align-self-center">
+      <div class="container">
+        <h2 class="h3-heading">{{ section.sectionHeader }}</h2>
+        <p class="body-large mb-4">{{ section.sectionCopy }}</p>
+        <a href="{{ section.sectionButtonURL }}" class="btn btn-ghost">{{ section.sectionButtonTitle }}</a>
+      </div>
     </div>
   </div>
   {% endfor %}
