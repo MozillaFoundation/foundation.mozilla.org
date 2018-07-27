@@ -1,78 +1,14 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import classNames from 'classnames';
+import DonationModal from './donation-modal.jsx';
+import FloatingLabelInput from './floating-label-input.jsx';
+import CountrySelect from './country-select.jsx';
 import basketSignup from '../../basket-signup.js';
-import SALESFORCE_COUNTRY_LIST from './salesforce-country-list.js';
-
-class FloatingLabelInput extends React.Component {
-  render() {
-    let className = classNames(`form-label-group`, this.props.className);
-
-    return (
-      <div className={className}>
-        <input className="form-control"
-          disabled={this.props.disabled}
-          ref={(element) => { this.element = element; }}
-          id={this.props.id}
-          type={this.props.type}
-          placeholder={this.props.label}
-          onFocus={this.props.onFocus}
-        />
-        <label htmlFor={this.props.id}>{this.props.label}</label>
-      </div>
-    );
-  }
-}
-
-class CountrySelect extends React.Component {
-  render() {
-    let className = classNames(`form-label-group`, `country-picker`, this.props.className);
-    let codes = Object.keys(SALESFORCE_COUNTRY_LIST);
-    let options = codes.map( code => {
-      return <option key={code} value={code}>{SALESFORCE_COUNTRY_LIST[code]}</option>;
-    });
-
-    return (
-      <div className={className}>
-        <select className="form-control"
-          disabled={this.props.disabled}
-          ref={(element) => { this.element = element; }}
-          onFocus={this.props.onFocus}
-          defaultValue={``}
-        >
-          <option value="">{this.props.label}</option>
-          { options }
-        </select>
-      </div>
-    );
-  }
-}
 
 export default class Petition extends React.Component {
   constructor(props) {
     super(props);
-    // Default props defined at end of file
-
-    // TODO: this needs a better solution, because explicitly binding
-    //       ten+ functions is kind of silly. The code should already
-    //       guarantee the correct `this` will be used.
-    this.submitDataToApi = this.submitDataToApi.bind(this);
-    this.signUpToBasket = this.signUpToBasket.bind(this);
-    this.processFormData = this.processFormData.bind(this);
-
-    this.apiSubmissionSuccessful = this.apiSubmissionSuccessful.bind(this);
-    this.apiSubmissionFailure = this.apiSubmissionFailure.bind(this);
-    this.basketSubmissionSuccessful = this.basketSubmissionSuccessful.bind(this);
-    this.basketSubmissionFailure = this.basketSubmissionFailure.bind(this);
-
-    this.apiIsDone = this.apiIsDone.bind(this);
-    this.basketIsDone = this.basketIsDone.bind(this);
-    this.submissionsAreDone = this.submissionsAreDone.bind(this);
-
-    this.twButtonClicked = this.twButtonClicked.bind(this);
-    this.fbButtonClicked = this.fbButtonClicked.bind(this);
-    this.emButtonClicked = this.emButtonClicked.bind(this);
-
     this.state = this.getInitialState();
 
     // There may be up to four checkboxes per petition, but
@@ -83,6 +19,18 @@ export default class Petition extends React.Component {
     // If this is a legacy petition, some fields should not
     // be presented to the user.
     this.legacy = this.props.legacyPetition;
+
+    // Do we have modal data?
+    this.modals = false;
+    if (this.props.modals) {
+      this.modals = this.props.modals;
+      try {
+        this.modals = JSON.parse(this.modals);
+      } catch (e) {
+        this.modals = false;
+        console.error(`Could not parse modal data from petition markup.`);
+      }
+    }
   }
 
   // helper function for initial component state
@@ -103,7 +51,8 @@ export default class Petition extends React.Component {
       basketSubmitted: false,
       basketSuccess: false,
       basketFailed: false,
-      userTriedSubmitting: false
+      userTriedSubmitting: false,
+      showDonationModal: false,
     };
   }
 
@@ -135,7 +84,15 @@ export default class Petition extends React.Component {
 
   // state update function
   apiSubmissionSuccessful() {
-    this.setState({ apiSuccess: true });
+    let update = {
+      apiSuccess: true
+    };
+
+    if (this.props.modals && this.props.modals.length>0) {
+      update.showDonationModal = true;
+    }
+
+    this.setState(update);
   }
 
   // state update function
@@ -171,7 +128,7 @@ export default class Petition extends React.Component {
 
   // state check function
   submissionsAreDone() {
-    return this.apiIsDone() && this.basketIsDone();
+    return this.apiIsDone() && (this.legacy ? this.basketIsDone() : true);
   }
 
   fbButtonClicked() {
@@ -272,10 +229,19 @@ export default class Petition extends React.Component {
    * @returns {promise} the result the XHR post attempt.
    */
   signUpToBasket() {
-    this.setState({ basketSubmitted: true });
+    this.setState({
+      basketSubmitted: true,
+      basketSuccess: this.legacy ? this.state.basketSuccess : true
+    });
+
+    if (!this.legacy) {
+      // Don't even touch basket for new petitions,
+      // it gets handled automatically.
+      return;
+    }
 
     return new Promise((resolve, reject) => {
-      if(this.email.element.value && this.refs.privacy.checked){
+      if(this.email.element.value && this.refs.privacy.checked) {
         if(this.refs.newsletterSignup.checked) {
           basketSignup({
             email: this.email.element.value,
@@ -322,11 +288,15 @@ export default class Petition extends React.Component {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
+
+          // For legacy petitions we perform a manual basket
+          // signup to our newsletter, but new petitions handle
+          // this as part of the petition data submission already.
           this.signUpToBasket()
-            .then(this.basketSubmissionSuccessful)
-            .catch(this.basketSubmissionFailure);
+            .then(() => this.basketSubmissionSuccessful())
+            .catch(() => this.basketSubmissionFailure());
         })
-        .catch(this.apiSubmissionFailure);
+        .catch(() => this.apiSubmissionFailure());
     }
 
     ReactGA.event({
@@ -346,6 +316,14 @@ export default class Petition extends React.Component {
       return false;
     }
     return input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
+  }
+
+  userElectedToDonate() {
+    this.setState({ showDonationModal: false });
+  }
+
+  userElectedToShare() {
+    this.setState({ showDonationModal: false });
   }
 
   /**
@@ -404,8 +382,36 @@ export default class Petition extends React.Component {
             { formContent }
           </div>
         </div>
+        { this.state.showDonationModal ? this.renderDonationModal() : null }
       </div>
     );
+  }
+
+  /**
+   * This renders a donation modal on the page as full-page-overlay,
+   * provided the petition HTML specifies that as a thing that should happen.
+   */
+  renderDonationModal() {
+    // This is where can do client-side A/B testing
+    let modals = this.modals;
+
+    if (modals.length===0) {
+      return null;
+    }
+
+    let modal = modals[0];
+
+    return <DonationModal
+      ctn={this.props.ctaName}
+      dmi={modal.name}
+      heading={modal.header}
+      bodyText={modal.body}
+      donateText={modal.donate_text}
+      shareText={modal.dismiss_text}
+      onDonate={() => this.userElectedToDonate()}
+      onShare={() => this.userElectedToShare()}
+      onClose={() => this.setState({ showDonationModal: false })}
+    />;
   }
 
   /**
@@ -424,19 +430,19 @@ export default class Petition extends React.Component {
         <div>
           <p>{this.props.thankYou}</p>
           <div className="share-btn-container">
-            <button className="share-progress-btn share-progress-fb" onClick={this.fbButtonClicked}>
+            <button className="share-progress-btn share-progress-fb" onClick={e => this.fbButtonClicked(e)}>
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512">
                 <path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path>
               </svg>
               SHARE
             </button>
-            <button className="share-progress-btn share-progress-tw" onClick={this.twButtonClicked}>
+            <button className="share-progress-btn share-progress-tw" onClick={e => this.twButtonClicked(e)}>
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
               </svg>
               TWEET
             </button>
-            <button className="share-progress-btn share-progress-em" onClick={this.emButtonClicked}>
+            <button className="share-progress-btn share-progress-em" onClick={e => this.emButtonClicked(e)}>
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path fill="currentColor" d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
               </svg>
@@ -523,7 +529,7 @@ export default class Petition extends React.Component {
 
     return (
       <div className="col petition-form" id="petition-form">
-        <form onSubmit={this.processFormData} noValidate={true}>
+        <form onSubmit={e => this.processFormData(e)} noValidate={true}>
           <div className="mb-2">
             <div className={givenGroupClass}>
               <FloatingLabelInput
