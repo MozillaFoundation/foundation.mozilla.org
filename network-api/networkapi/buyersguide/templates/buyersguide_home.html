@@ -1,0 +1,5 @@
+Buyer's guide homepage!
+
+{% for product in products %}
+<div><a href="{{product.name | urlencode}}">{{product.name}}</a></div>
+{% endfor %}
