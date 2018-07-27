@@ -10,10 +10,10 @@
 
 <div class="container p-3 p-sm-5 mx-4 mx-sm-auto mb-4 pull-up">
   <div class="row align-items-center">
-    <div class="col-12 col-md-4 pr-md-0 text-md-right">
+    <div class="col-12 col-lg-4 pr-lg-0 text-lg-right">
       <h1 class="h1-heading">{{ page.header }}</h1>
     </div>
-    <div class="col-12 col-md-8 pl-md-5">
+    <div class="col-12 col-lg-8 pl-lg-5">
       <p class="body-large">{{ page.subheader }}</p>
     </div>
   </div>
@@ -69,7 +69,7 @@
     <div class="row">
       {% for highlight in page.featured_highlights.all %}
       {% if forloop.counter <= 3 %}
-      <div class="col-md-4">
+      <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
         {% card "md_width" highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
       </div>
       {% endif %}
