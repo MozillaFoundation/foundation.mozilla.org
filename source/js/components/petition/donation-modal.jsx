@@ -32,6 +32,10 @@ class DonationModal extends React.Component {
     } else {
       body.insertBefore(n, c1);
     }
+
+    if (this.donateButton) {
+      this.donateButton.focus();
+    }
   }
 
   componentWillUnmount() {
@@ -66,7 +70,7 @@ class DonationModal extends React.Component {
     return (
       <div className="modal-content" tabIndex="0">
         <div className="modal-header text-right">
-          <button className="close" data-dismiss="modal" aria-label="Close" onClick={e => this.props.onClose(e)}>
+          <button className="close" data-dismiss="modal" aria-label="Close" onClick={e => this.props.onClose(e)} tabIndex="0">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -81,13 +85,13 @@ class DonationModal extends React.Component {
         </div>
 
         <div className="text-center">
-          <a className="btn btn-normal" href={this.donateURL} target="_blank" onClick={e => this.userElectedToDonate(e)}>
+          <a className="btn btn-normal" ref={ e => (this.donateButton = e) }href={this.donateURL} target="_blank" onClick={e => this.userElectedToDonate(e)} tabIndex="0">
             {this.props.donateText}
           </a>
         </div>
 
         <div className="text-center">
-          <button className="text dismiss" data-dismiss="modal" onClick={e => this.userElectedToShare(e)}>
+          <button className="text dismiss" data-dismiss="modal" onClick={e => this.userElectedToShare(e)} tabIndex="0">
             {this.props.shareText}
           </button>
         </div>
