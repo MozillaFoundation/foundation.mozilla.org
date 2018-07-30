@@ -1,3 +1,5 @@
+@import 'donation-modal.scss';
+
 #cta-anchor {
   margin-top: -80px;
   padding-top: 80px;
@@ -6,7 +8,8 @@
 .cta {
   .sticky-cta {
     position: sticky;
-    top: 57px;
+    top: 5rem;
+    z-index: 1029; /* we need a z-index due to the header also being sticky, our header is 1030 (bootstrap) */
     overflow: hidden;
   }
 
