@@ -55,6 +55,28 @@
   }
 }
 
+// append external link glyph
+.btn-ghost[href*="//"]:not([href*="foundation.mozilla.org"]) {
+  display: inline-flex;
+  align-items: center;
+
+  &::after {
+    filter: brightness(0.1);
+    content: " ";
+    display: block;
+    width: 16px;
+    height: 14px;
+    background: url(../_images/glyphs/external.svg) no-repeat;
+    margin-left: 10px;
+    position: relative;
+    bottom: 1px;
+  }
+
+  &:hover::after {
+    filter: brightness(100);
+  }
+}
+
 .form-control {
   border-radius: 0;
 }
