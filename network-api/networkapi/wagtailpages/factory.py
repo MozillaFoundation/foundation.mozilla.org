@@ -39,7 +39,7 @@ class CTAFactory(DjangoModelFactory):
 class PetitionFactory(CTAFactory):
     class Meta:
         model = networkapi.wagtailpages.models.Petition
-    
+
     campaign_id = settings.PETITION_TEST_CAMPAIGN_ID
 
 
