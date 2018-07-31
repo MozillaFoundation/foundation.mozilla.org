@@ -1,3 +1,4 @@
+from django.conf import settings
 from factory.django import DjangoModelFactory
 from wagtail_factories import (
     PageFactory,
@@ -38,6 +39,23 @@ class CTAFactory(DjangoModelFactory):
 class PetitionFactory(CTAFactory):
     class Meta:
         model = networkapi.wagtailpages.models.Petition
+    
+    campaign_id = settings.PETITION_TEST_CAMPAIGN_ID
+
+
+class DonationModalFactory(DjangoModelFactory):
+    class Meta:
+        model = networkapi.wagtailpages.donation_modal.DonationModal
+
+    name = Faker('text', max_nb_chars=20)
+
+
+class DonationModalsFactory(DjangoModelFactory):
+    # note: plural!
+    class Meta:
+        model = networkapi.wagtailpages.donation_modal.DonationModals
+
+    donation_modal = SubFactory(DonationModalFactory)
 
 
 class SignupFactory(CTAFactory):
