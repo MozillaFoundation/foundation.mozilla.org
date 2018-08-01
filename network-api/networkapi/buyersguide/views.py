@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from networkapi.buyersguide.models import Product
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 
 # Login required so we can continue to develop this and merge into master without the public seeing it.
@@ -14,4 +15,4 @@ def buyersguide_home(request):
 @login_required
 def product_view(request, productname):
     product = Product.objects.get(name__iexact=productname)
-    return render(request, 'product_page.html', {'product': product})
+    return render(request, 'product_page.html', {'product': product, 'mediaUrl': settings.MEDIA_URL})
