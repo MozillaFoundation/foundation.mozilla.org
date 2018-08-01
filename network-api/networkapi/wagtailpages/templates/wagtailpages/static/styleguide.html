@@ -1,5 +1,5 @@
 {% extends "../primary_page.html" %}
-{% load wagtailcore_tags wagtailimages_tags card_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block bodyID %}style-guide{% endblock%}
 
@@ -205,8 +205,6 @@
       </ul>
       <h4>.hr-gradient</h4>
       <hr class="hr-gradient">
-      <h4>card (Django template custom tag: `card_tags`)</h4>
-      {% card "md_width" "https://placekitten.com/g/600/400" "title" "description" "http://example.org" "Link" %}
       <h4>.join-us</h4>
       <div class="join-us mb-5"></div>
       <h4 class="h5">.pulse-project-list(for="SEARCH_QUERY", size="MAX_TO_DISPLAY", rev="BOOLEAN_TO_INDICATE_ORDERING")</h4>
