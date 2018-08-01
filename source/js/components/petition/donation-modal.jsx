@@ -32,10 +32,6 @@ class DonationModal extends React.Component {
     } else {
       body.insertBefore(n, c1);
     }
-
-    if (this.donateButton) {
-      this.donateButton.focus();
-    }
   }
 
   componentWillUnmount() {
@@ -85,7 +81,7 @@ class DonationModal extends React.Component {
         </div>
 
         <div className="text-center">
-          <a className="btn btn-normal" ref={ e => (this.donateButton = e) }href={this.donateURL} target="_blank" onClick={e => this.userElectedToDonate(e)} tabIndex="0">
+          <a className="btn btn-normal" href={this.donateURL} target="_blank" onClick={e => this.userElectedToDonate(e)} tabIndex="0">
             {this.props.donateText}
           </a>
         </div>
