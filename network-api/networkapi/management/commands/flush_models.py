@@ -12,6 +12,7 @@ from networkapi.people.models import (
     InternetHealthIssue,
 )
 from networkapi.wagtailpages.models import CTA
+from networkapi.buyersguide.models import Product
 
 
 class Command(BaseCommand):
@@ -44,5 +45,8 @@ class Command(BaseCommand):
 
         self.stdout.write('Dropping all Pages')
         Page.objects.exclude(title='Root').delete()
+
+        self.stdout.write('Dropping all Products')
+        Product.objects.all().delete()
 
         self.stdout.write(self.style.SUCCESS('Done!'))

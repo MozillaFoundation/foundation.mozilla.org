@@ -37,6 +37,7 @@ from networkapi.wagtailpages.factory import (
     ParticipatePageFactory,
     DonationModalsFactory,
 )
+from networkapi.buyersguide.factory import ProductFactory
 
 # Wagtail Page Models
 import networkapi.wagtailpages.models as wagtailpages_models
@@ -79,7 +80,8 @@ class Command(BaseCommand):
             '--delete',
             action='store_true',
             dest='delete',
-            help='Delete previous highlights, homepage, landing page, milestones, news and people from the database',
+            help="""Delete previous highlights, homepage, landing page,
+                milestones, news, people, and products from the database""",
         )
 
         parser.add_argument(
@@ -267,5 +269,8 @@ class Command(BaseCommand):
             print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
             [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
+
+        print('Generating Buyer\'s Guide Products')
+        generate_fake_data(ProductFactory, 4)
 
         print(self.style.SUCCESS('Done!'))
