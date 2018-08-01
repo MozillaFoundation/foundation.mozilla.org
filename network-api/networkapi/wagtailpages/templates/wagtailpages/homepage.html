@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags wagtailmetadata_tags %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags %}
 
 {% block bodyID %}home{% endblock %}
 
@@ -103,18 +103,10 @@
         {% for highlight in page.featured_highlights.all %}
         {% if forloop.counter <= 2 %}
         <div class="col-md-6">
-          <div class="pb-5">
-            {% homepage_image_with_class highlight.highlight.image "full-bleed-xs" %}
-            <div class="full-bleed-xs">
-              <div class="key-item mx-2 mx-md-4 p-3">
-                <h5 class="h4-heading mb-2">{{highlight.highlight.title}}</h5>
-                <p>{{highlight.highlight.description}}</p>
-                <a class="cta-link mb-2" href="{{highlight.highlight.link_url}}">{{highlight.highlight.link_label}}</a>
-              </div>
-            </div>
-          </div>
-      </div>
+          {% card "md_width" highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
+        </div>
       {% endif %} {% endfor %}
+      </div>
     </div>
     {% for highlight in page.featured_highlights.all %} {% if forloop.counter > 2 %}
     <div class="row my-3">
