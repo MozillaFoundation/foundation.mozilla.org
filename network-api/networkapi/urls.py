@@ -47,6 +47,9 @@ urlpatterns = list(filter(None, [
         query_string=True
     )),
 
+    # Buyer's Guide / Privacy Not Included
+    url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
+
     # network API routes:
 
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
