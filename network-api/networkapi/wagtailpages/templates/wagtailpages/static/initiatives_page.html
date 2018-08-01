@@ -4,7 +4,7 @@
 {% block bodyID %}initiatives{% endblock %}
 
 {% block content %}
-{% image page.primaryHero fill-2400x700-c100 format-jpeg as big_hero %}
+{% image page.primaryHero fill-1200x350-c100 format-jpeg as big_hero %}
 <div style="background-image: url({{ big_hero.url }}); background-repeat:no-repeat; background-position: top center; background-size: cover; padding-top: 100px;">
 
   <div class="container p-3 p-sm-5 mx-4 mx-sm-auto mb-4 bg-white">
@@ -43,7 +43,7 @@
 
 <div class="container-fluid p-0">
   {% for section in page.initiative_sections.all %}
-  {% image section.sectionImage fill-1600x1600-c100 format-jpeg as container_img %}
+  {% image section.sectionImage fill-800x800-c100 format-jpeg as container_img %}
   <div class="row no-gutters d-flex align-items-stretch">
     <div class="col-12 col-md-6" style="background: url({{ container_img.url }}); background-repeat: no-repeat; background-size: contain; background-position: center;">
       {# square spacer #}
