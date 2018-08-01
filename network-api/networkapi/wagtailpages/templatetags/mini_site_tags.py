@@ -22,5 +22,6 @@ def cta(context, page):
     cta = page.cta
     return {
         'cta': cta,
+        'modals_json': page.get_donation_modal_json(),
         'cta_type': cta.__class__.__name__,
     }

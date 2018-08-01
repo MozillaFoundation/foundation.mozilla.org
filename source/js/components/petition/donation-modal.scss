@@ -1,0 +1,62 @@
+.modal-underlay {
+  position: fixed;
+  z-index: 1050;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.9);
+
+  .modal.show {
+    display: block;
+    overflow: scroll;
+
+    //50rem is out of thin air but seems to be a reasonable point to move the modal down.
+    @media (min-width: 50rem) {
+      top: 5rem;
+    }
+
+    .modal-content {
+      border: 2px solid black;
+      border-radius: 0;
+      box-shadow: 4px 4px 0 0 black;
+      padding: 0 2em 2em;
+    }
+
+    .modal-header {
+      display: block;
+      border: none;
+      margin: 0;
+      padding: 0.5rem 0.5rem 0 0;
+
+      .close {
+        float: right;
+        font-size: 2.5rem;
+        font-weight: normal;
+        line-height: 1;
+        color: black;
+        text-shadow: 0 1px 0 #fff;
+        opacity: 1;
+      }
+    }
+
+    .modal-body {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .modal-footer {
+      border: none;
+    }
+
+    .text.dismiss {
+      border: none;
+      background: inherit;
+      font-family: "Nunito Bold", inherit;
+      font-size: 16px;
+      color: #909090;
+      text-decoration: underline;
+      margin: 1rem 0 0;
+    }
+  }
+}

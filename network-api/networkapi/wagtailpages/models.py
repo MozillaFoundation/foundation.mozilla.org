@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -16,6 +17,7 @@ from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import get_page_tree_information
+from .donation_modal import DonationModals  # noqa: F401
 
 """
 We'll need to figure out which components are truly "base" and
@@ -321,9 +323,19 @@ class CampaignPage(MiniSiteNameSpace):
         help_text='Choose existing or create new sign-up form'
     )
 
+    def get_donation_modal_json(self):
+        modals = self.donation_modals.all()
+        # This is where we can do server-side A/B testing,
+        # by either sending all modals down the pipe, or
+        # selectively only sending a single one based on
+        # things like geolocation, time of day, etc.
+        modals_json = [m.to_simple_dict() for m in modals]
+        return json.dumps(modals_json)
+
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         SnippetChooserPanel('cta'),
+        InlinePanel('donation_modals', label='Donation Modal', max_num=4),
         StreamFieldPanel('body'),
     ]
 
@@ -398,6 +410,48 @@ class NewsPage(PrimaryPage):
     template = 'wagtailpages/static/news_page.html'
 
 
+class InitiativeSection(models.Model):
+    page = ParentalKey(
+        'wagtailpages.InitiativesPage',
+        related_name='initiative_sections',
+    )
+
+    sectionImage = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='section_image',
+        verbose_name='Hero Image',
+    )
+
+    sectionHeader = models.CharField(
+        verbose_name='Header',
+        max_length=250,
+    )
+
+    sectionCopy = models.TextField(
+        verbose_name='Subheader',
+    )
+
+    sectionButtonTitle = models.CharField(
+        verbose_name='Button Text',
+        max_length=250,
+    )
+
+    sectionButtonURL = models.TextField(
+        verbose_name='Button URL',
+    )
+
+    panels = [
+        ImageChooserPanel('sectionImage'),
+        FieldPanel('sectionHeader'),
+        FieldPanel('sectionCopy'),
+        FieldPanel('sectionButtonTitle'),
+        FieldPanel('sectionButtonURL'),
+    ]
+
+
 class InitiativesPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/initiatives_page.html'
@@ -406,6 +460,37 @@ class InitiativesPage(PrimaryPage):
         'MiniSiteNameSpace',
         'RedirectingPage',
         'OpportunityPage',
+    ]
+
+    primaryHero = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_hero',
+        verbose_name='Primary Hero Image',
+    )
+
+    subheader = models.TextField(
+        blank=True,
+    )
+
+    h3 = models.TextField(
+        blank=True,
+    )
+
+    sub_h3 = models.TextField(
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('primaryHero'),
+        FieldPanel('header'),
+        FieldPanel('subheader'),
+        FieldPanel('h3'),
+        FieldPanel('sub_h3'),
+        InlinePanel('initiative_sections', label="Initiatives"),
+        InlinePanel('featured_highlights', label='Highlights', max_num=9),
     ]
 
 
@@ -449,6 +534,25 @@ class HomepageFeaturedNews(WagtailOrderable, models.Model):
 class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.Homepage',
+        related_name='featured_highlights',
+    )
+    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    panels = [
+        SnippetChooserPanel('highlight'),
+    ]
+
+    class Meta:
+        verbose_name = 'highlight'
+        verbose_name_plural = 'highlights'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.highlight.title
+
+
+class InitiativesHighlights(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.InitiativesPage',
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', related_name='+')
