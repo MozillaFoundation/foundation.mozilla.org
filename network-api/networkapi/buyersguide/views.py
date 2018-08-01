@@ -3,7 +3,8 @@ from networkapi.buyersguide.models import Product
 from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
+# Login required so we can continue to develop this and merge into master without the public seeing it.
+# Remove this when we're ready to launch.
 @login_required
 def buyersguide_home(request):
     products = Product.objects.all()
