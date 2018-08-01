@@ -47,6 +47,7 @@ env = environ.Env(
     FILEBROWSER_DIRECTORY=(str, ''),
     HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
+    PETITION_TEST_CAMPAIGN_ID=(str, ''),
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
@@ -485,3 +486,6 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # REQUIRED FOR AS LONG AS MEZZANINE HAS NOT BEEN FULLY PURGED
 TESTING = False
+
+# Used by load_fake_data to ensure we have petitions that actually work
+PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')

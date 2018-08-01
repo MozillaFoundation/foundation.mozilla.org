@@ -34,7 +34,8 @@ from networkapi.wagtailpages.factory import (
     CampaignPageFactory,
     HomepageFeaturedNewsFactory,
     HomepageFeaturedHighlightsFactory,
-    ParticipatePageFactory
+    ParticipatePageFactory,
+    DonationModalsFactory,
 )
 from networkapi.buyersguide.factory import ProductFactory
 
@@ -111,7 +112,7 @@ class Command(BaseCommand):
         print('Generating five InternetHealthIssue')
         [InternetHealthIssue.objects.get_or_create(name=e) for e in internet_health_issues]
 
-        print('Generating News')
+        print('Generating Fake News')
         generate_fake_data(NewsFactory, 10)
 
         print('Generating highlights')
@@ -217,7 +218,10 @@ class Command(BaseCommand):
             campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
 
         print('Generating Campaign Pages under namespace')
-        [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+        campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+
+        print('Generating Donation Modals for Campaign Pages')
+        [DonationModalsFactory.create(page=campaign) for campaign in campaigns]
 
         try:
             wagtailpages_models.CampaignPage.objects.get(title='single-page')
