@@ -70,6 +70,8 @@ def setup(ctx):
         ctx.run("inv migrate")
         print("Creating fake data")
         ctx.run("inv manage load_fake_data")
+        print("Updating block information")
+        ctx.run("inv manage block_inventory")
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
             print("All done!\n"
@@ -89,3 +91,5 @@ def catch_up(ctx):
     ctx.run("pipenv install --dev")
     print("Applying database migrations.")
     ctx.run("inv migrate")
+    print("Updating block information")
+    ctx.run("inv manage block_inventory")
