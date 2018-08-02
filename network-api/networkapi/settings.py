@@ -110,10 +110,9 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
 
 USE_S3 = env('USE_S3')
 
-# Application definition
 INSTALLED_APPS = list(filter(None, [
 
-    'filebrowser_s3' if USE_S3 else None,
+    'networkapi.filebrowser_s3' if USE_S3 else None,
     'social_django' if SOCIAL_SIGNIN else None,
 
     'django.contrib.admin',
@@ -126,16 +125,8 @@ INSTALLED_APPS = list(filter(None, [
     'django.contrib.redirects',
     'django.contrib.sitemaps',
 
-    'django_comments',  # became necessary due to removing mezzanine's set_dynamic_settings
-
     'debug_toolbar'
     if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
-
-    'mezzanine.boot',
-    'mezzanine.conf',
-    'mezzanine.core',
-    'mezzanine.generic',
-    'mezzanine.pages',
 
     'networkapi.wagtailcustomization',
 
@@ -174,6 +165,10 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.news',
     'networkapi.people',
     'networkapi.utility',
+
+    # included so their squashed migration can get applied
+    'networkapi.homepage',
+    'networkapi.landingpage',
 
     # possibly still used?
     'networkapi.highlights',
@@ -232,14 +227,6 @@ if SOCIAL_SIGNIN:
         'social_core.pipeline.social_auth.load_extra_data',
         'social_core.pipeline.user.user_details',
     )
-
-PACKAGE_NAME_FILEBROWSER = 'filebrowser_safe'
-PACKAGE_NAME_GRAPPELLI = 'grappelli_safe'
-
-OPTIONAL_APPS = (
-    PACKAGE_NAME_FILEBROWSER,
-    PACKAGE_NAME_GRAPPELLI,
-)
 
 ROOT_URLCONF = 'networkapi.urls'
 
@@ -365,7 +352,7 @@ CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
-    DEFAULT_FILE_STORAGE = 'filebrowser_s3.storage.S3MediaStorage'
+    DEFAULT_FILE_STORAGE = 'networkapi.filebrowser_s3.storage.S3MediaStorage'
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
@@ -483,9 +470,6 @@ if DEBUG and not DISABLE_DEBUG_TOOLBAR:
 # Review apps' slack bot
 GITHUB_TOKEN = env('GITHUB_TOKEN')
 SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
-
-# REQUIRED FOR AS LONG AS MEZZANINE HAS NOT BEEN FULLY PURGED
-TESTING = False
 
 # Used by load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
