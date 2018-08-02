@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.1
+version: v1.12.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:shelljs:20140723':
@@ -14,4 +14,8 @@ ignore:
     - '*':
         reason: No fix available
         expires: 2017-12-31T00:00:00.000Z
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:lodash:20180130':
+    - chokidar-cli > lodash:
+        patched: '2018-07-03T00:08:17.697Z'
