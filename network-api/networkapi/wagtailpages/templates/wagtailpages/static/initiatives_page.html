@@ -32,8 +32,9 @@
     <div class="row">
       <div class="col-12 hidden-sm-down">
         <div class="d-flex flex-row align-items-center" id="multipage-nav">
+          <div><a class="multipage-link multipage-link-active" href="./">Overview</a></div>
           {% for section in page.initiative_sections.all %}
-            <div><a class="multipage-link {% if forloop.counter == 1 %}multipage-link-active-no-highlight{% endif %}" href="{{ section.sectionButtonURL }}">{{ section.sectionHeader }}</a></div>
+            <div><a class="multipage-link" href="{{ section.sectionButtonURL }}">{{ section.sectionHeader }}</a></div>
           {% endfor %}
         </div>
       </div>
