@@ -34,8 +34,10 @@ from networkapi.wagtailpages.factory import (
     CampaignPageFactory,
     HomepageFeaturedNewsFactory,
     HomepageFeaturedHighlightsFactory,
-    ParticipatePageFactory
+    ParticipatePageFactory,
+    DonationModalsFactory,
 )
+from networkapi.buyersguide.factory import ProductFactory
 
 # Wagtail Page Models
 import networkapi.wagtailpages.models as wagtailpages_models
@@ -78,7 +80,8 @@ class Command(BaseCommand):
             '--delete',
             action='store_true',
             dest='delete',
-            help='Delete previous highlights, homepage, landing page, milestones, news and people from the database',
+            help="""Delete previous highlights, homepage, landing page,
+                milestones, news, people, and products from the database""",
         )
 
         parser.add_argument(
@@ -109,7 +112,7 @@ class Command(BaseCommand):
         print('Generating five InternetHealthIssue')
         [InternetHealthIssue.objects.get_or_create(name=e) for e in internet_health_issues]
 
-        print('Generating News')
+        print('Generating Fake News')
         generate_fake_data(NewsFactory, 10)
 
         print('Generating highlights')
@@ -215,7 +218,10 @@ class Command(BaseCommand):
             campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
 
         print('Generating Campaign Pages under namespace')
-        [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+        campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+
+        print('Generating Donation Modals for Campaign Pages')
+        [DonationModalsFactory.create(page=campaign) for campaign in campaigns]
 
         try:
             wagtailpages_models.CampaignPage.objects.get(title='single-page')
@@ -263,5 +269,8 @@ class Command(BaseCommand):
             print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
             [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
+
+        print('Generating Buyer\'s Guide Products')
+        generate_fake_data(ProductFactory, 4)
 
         print(self.style.SUCCESS('Done!'))

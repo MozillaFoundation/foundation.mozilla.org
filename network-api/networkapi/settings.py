@@ -47,6 +47,7 @@ env = environ.Env(
     FILEBROWSER_DIRECTORY=(str, ''),
     HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
+    PETITION_TEST_CAMPAIGN_ID=(str, ''),
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
@@ -152,6 +153,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.admin',
     'wagtail.core',
     'wagtail.contrib.modeladmin',
+    'wagtailinventory',
     'wagtail.contrib.styleguide' if DEBUG else None,
 
     'modelcluster',
@@ -179,6 +181,7 @@ INSTALLED_APPS = list(filter(None, [
 
     # wagtail-specific app
     'networkapi.wagtailpages',
+    'networkapi.buyersguide',
 ]))
 
 MIDDLEWARE = list(filter(None, [
@@ -264,7 +267,6 @@ TEMPLATES = [
                 'settings_value': 'networkapi.utility.templatetags.settings_value',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
-                'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'primary_page_tags': 'networkapi.wagtailpages.templatetags.primary_page_tags',
             }
         },
@@ -484,3 +486,6 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # REQUIRED FOR AS LONG AS MEZZANINE HAS NOT BEEN FULLY PURGED
 TESTING = False
+
+# Used by load_fake_data to ensure we have petitions that actually work
+PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')

@@ -30,7 +30,11 @@
       padding: 0.5rem 0.5rem 0 0;
 
       .close {
-        float: right;
+        position: absolute;
+        right: 0.5rem;
+        width: 44px;
+        height: 44px;
+        text-align: center;
         font-size: 2.5rem;
         font-weight: normal;
         line-height: 1;
@@ -42,7 +46,7 @@
 
     .modal-body {
       margin-top: 0;
-      padding-top: 0;
+      padding-top: 1rem;
     }
 
     .modal-footer {
