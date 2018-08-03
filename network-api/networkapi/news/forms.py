@@ -32,7 +32,6 @@ class NewsAdminForm(forms.ModelForm):
             'link',
             'excerpt',
             'author',
-            'glyph',
             'thumbnail',
             'is_video',
             'featured',

@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models import Q
 
 from networkapi.utility.images import get_image_upload_path
-from filebrowser_safe.fields import FileBrowseField
 from wagtail.snippets.models import register_snippet
 
 
@@ -69,14 +68,6 @@ class News(models.Model):
         help_text='Name of the author of this news clip',
         blank=True,
         null=True,
-    )
-    glyph = FileBrowseField(
-        directory="images/glyphs",
-        max_length=2048,
-        help_text='Image associated with the article source. ' +
-        'Unsure of what to use? Leave blank and ask a designer',
-        null=True,
-        blank=True,
     )
     featured = models.BooleanField(
         help_text='Do you want to feature this news piece on the homepage?',
