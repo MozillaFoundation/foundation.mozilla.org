@@ -252,7 +252,8 @@ let main = {
         return {
           label: child.textContent.trim(),
           href: child.getAttribute(`href`),
-          isActive: !!child.getAttribute(`class`).match(/active/)
+          isActive: !!child.getAttribute(`class`).match(/multipage-link-active/),
+          isHighlighted: !child.getAttribute(`class`).match(/multipage-link-active-no-highlight/)
         };
       });
 
