@@ -498,6 +498,45 @@ class ParticipatePage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page.html'
 
+    primaryHero = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_hero_participate',
+        verbose_name='Primary Hero Image',
+    )
+
+    heroHeader = models.TextField(
+        blank=True,
+    )
+
+    heroSubhead = RichTextField(
+        features=[
+            'bold', 'italic', 'link',
+        ],
+        blank=True,
+    )
+
+    ctaButtonTitle = models.CharField(
+        verbose_name='Button Text',
+        max_length=250,
+        blank=True,
+    )
+
+    ctaButtonURL = models.TextField(
+        verbose_name='Button URL',
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('primaryHero'),
+        FieldPanel('heroHeader'),
+        FieldPanel('heroSubhead'),
+        FieldPanel('ctaButtonTitle'),
+        FieldPanel('ctaButtonURL'),
+    ]
+
 
 class PeoplePage(PrimaryPage):
     parent_page_types = ['Homepage']
