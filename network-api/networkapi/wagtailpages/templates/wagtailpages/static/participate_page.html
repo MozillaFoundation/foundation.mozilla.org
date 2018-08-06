@@ -12,10 +12,32 @@
       <div class="col-12 col-md-5">
         <h1 class="h1-heading">{{ page.heroHeader }}</h1>
         <p class="body-large">{{ page.heroSubhead | richtext }}</p>
-        <p class="commitment">30 min commitment</p>
+        <p class="commitment">{{ page.commitment }}</p>
         <a class="btn btn-normal" href={{ page.ctaButtonURL }}>{{ page.ctaButtonTitle }}</a>
       </div>
     </div>
   </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-8 mb-4">
+      <h2 class="h3-heading">{{ page.h2 }}</h2>
+      <p class="body-large">{{ page.h2Subheader }}</p>
+    </div>
+  </div>
+
+  <div class="mb-5">
+    <div class="row">
+      {% for highlight in page.featured_highlights.all %}
+      {% if forloop.counter <= 3 %}
+      <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
+        {% card "md_width" highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
 </div>
 {% endblock %}

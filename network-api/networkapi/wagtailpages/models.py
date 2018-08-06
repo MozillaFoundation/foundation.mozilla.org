@@ -518,6 +518,10 @@ class ParticipatePage(PrimaryPage):
         blank=True,
     )
 
+    commitment = models.TextField(
+        blank=True,
+    )
+
     ctaButtonTitle = models.CharField(
         verbose_name='Button Text',
         max_length=250,
@@ -529,12 +533,24 @@ class ParticipatePage(PrimaryPage):
         blank=True,
     )
 
+    h2 = models.TextField(
+        blank=True,
+    )
+
+    h2Subheader = models.TextField(
+        blank=True,
+    )
+
     content_panels = Page.content_panels + [
         ImageChooserPanel('primaryHero'),
         FieldPanel('heroHeader'),
         FieldPanel('heroSubhead'),
+        FieldPanel('commitment'),
         FieldPanel('ctaButtonTitle'),
         FieldPanel('ctaButtonURL'),
+        FieldPanel('h2'),
+        FieldPanel('h2Subheader'),
+        InlinePanel('featured_highlights', label='Highlights', max_num=3),
     ]
 
 
@@ -592,6 +608,24 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
 class InitiativesHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
+        related_name='featured_highlights',
+    )
+    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    panels = [
+        SnippetChooserPanel('highlight'),
+    ]
+
+    class Meta:
+        verbose_name = 'highlight'
+        verbose_name_plural = 'highlights'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.highlight.title
+
+class ParticipateHighlights(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.ParticipatePage',
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', related_name='+')
