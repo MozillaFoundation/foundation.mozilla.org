@@ -629,8 +629,14 @@ class ParticipateHighlights(WagtailOrderable, models.Model):
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    commitment = models.CharField(
+        blank=True,
+        max_length=256,
+        help_text='Amount of time required (eg: "30 min commitment")',
+    )
     panels = [
         SnippetChooserPanel('highlight'),
+        FieldPanel('commitment'),
     ]
 
     class Meta:

@@ -58,11 +58,6 @@ class Highlight(SortableMixin):
         upload_to=get_highlights_image_upload_path,
         blank=True,
     )
-    commitment = models.CharField(
-        blank=True,
-        max_length=256,
-        help_text='Amount of time required (eg: "30 min commitment")',
-    )
     footer = RichTextField(
         "footer",
         help_text="Content to appear after description (view more projects "
