@@ -6,15 +6,6 @@ from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
 
 
-def get_news_glyph_upload_path(instance, filename):
-    return get_image_upload_path(
-        app_name='news',
-        prop_name='headline',
-        instance=instance,
-        current_filename=filename
-    )
-
-
 def get_thumbnail_upload_path(instance, filename):
     return get_image_upload_path(
         app_name='news',
