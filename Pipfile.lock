@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d92c609b6d8017b0f9ec190d7f6c17de00e1ea137f1dd40a01ff01094df314fb"
+            "sha256": "a3477cdef2ce7197daa58f5f01ddf538929b8d6570fc560f1b9507b4a35a3373"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,26 +18,26 @@
     "default": {
         "beautifulsoup4": {
             "hashes": [
-                "sha256:272081ad78c5495ba67083a0e50920163701fa6fe67fbb5eefeb21b5dd88c40b",
-                "sha256:5a3d659840960a4107047b6328d6d4cdaaee69939bf11adc07466a1856c99a80",
-                "sha256:bd43a3b26d2886acd63070c43da821b60dea603eb6d45bab0294aac6129adbfa"
+                "sha256:11a9a27b7d3bddc6d86f59fb76afb70e921a25ac2d6cc55b40d072bd68435a76",
+                "sha256:7015e76bf32f1f574636c4288399a6de66ce08fb7b2457f628a8d70c0fbabb11",
+                "sha256:808b6ac932dccb0a4126558f7dfdcf41710dd44a4ef497a0bb59a77f9f078e89"
             ],
-            "version": "==4.6.1"
+            "version": "==4.6.0"
         },
         "boto3": {
             "hashes": [
-                "sha256:7d9de4269451fd4cb99cbd2c18075bf9d3a70f7fbc3bd3cc350c954403ad4ebd",
-                "sha256:f2477903f28577a6fba79d098921e6b3c6af14e47fb1b528c70558c127763c17"
+                "sha256:1fb25a1d8455b97276ef5f1e14255c04f59a985a14ddb69804ddf6c8a3449e08",
+                "sha256:71ee5169b6957298fb178b294452592cd7c734e5c0d1a67487b56f993085f254"
             ],
             "index": "pypi",
-            "version": "==1.7.64"
+            "version": "==1.7.71"
         },
         "botocore": {
             "hashes": [
-                "sha256:977e8ab657747b3e60f4b597b9f732cbe467b12ecc52a9c5b2121c0006d41a63",
-                "sha256:af8b347f3df3fc9a7ba8c6f7bd35c18ba1dff12ca80036ed260eec07dc6f44be"
+                "sha256:9302ad235db66efa9d11c664b1cb0b259826d82a206446460ea05bcfcc431a4a",
+                "sha256:ffa673c9a53f3ab4eba4ce8cf9d736177ca67509827e716cb5070f0b621fb0a7"
             ],
-            "version": "==1.10.64"
+            "version": "==1.10.71"
         },
         "certifi": {
             "hashes": [
@@ -178,6 +178,21 @@
             ],
             "index": "pypi",
             "version": "==0.8.17"
+        },
+        "filebrowser-safe": {
+            "hashes": [
+                "sha256:479e17dc6ea36c291ddaac207f6cab4bcc6a104c92d0f032057c8b0ce21862d0",
+                "sha256:5dcd31dd79684025139b43841f6515af1da5a4bb0de15bc4d88003db1970648e"
+            ],
+            "index": "pypi",
+            "version": "==0.5.0"
+        },
+        "future": {
+            "hashes": [
+                "sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb"
+            ],
+            "index": "pypi",
+            "version": "==0.16.0"
         },
         "gunicorn": {
             "hashes": [
@@ -407,11 +422,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:342218f1c48e24b02580afc635cd25be5d9a13b81f7b708f4bbe8a77706ff748",
-                "sha256:540f20d4b2696ef816c71b7c364f7e1987efe4c66b8589a1657e61e00b2fe755"
+                "sha256:185fc87a34219ea5eed88aa424b476d4cd15ce55d2222c5d7889a0a9041bacc9",
+                "sha256:280f522302cb6fdfb57a4414c5a015cbe4ebcc93d6ca27c0d41fe3c2460fb822"
             ],
             "index": "pypi",
-            "version": "==2.1.1"
+            "version": "==2.1.2"
         },
         "wagtail-factories": {
             "git": "https://github.com/mvantellingen/wagtail-factories",
