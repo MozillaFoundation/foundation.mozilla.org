@@ -166,10 +166,6 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.people',
     'networkapi.utility',
 
-    # included so their squashed migration can get applied
-    'networkapi.homepage',
-    'networkapi.landingpage',
-
     # possibly still used?
     'networkapi.highlights',
     'networkapi.milestones',
