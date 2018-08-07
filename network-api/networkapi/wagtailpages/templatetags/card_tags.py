@@ -4,9 +4,19 @@ register = template.Library()
 
 
 @register.inclusion_tag('wagtailpages/tags/card.html')
-def card(md_width, image, title, description, link_url, link_label, commitment=None):
+def card(image, title, description, link_url, link_label, commitment=None):
     return {
-        'md_width': md_width,
+        'image': image,
+        'title': title,
+        'description': description,
+        'link_url': link_url,
+        'link_label': link_label,
+        'commitment': commitment,
+    }
+
+@register.inclusion_tag('wagtailpages/tags/card-cta.html')
+def cardCTA(image, title, description, link_url, link_label, commitment=None):
+    return {
         'image': image,
         'title': title,
         'description': description,

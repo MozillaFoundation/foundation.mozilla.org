@@ -103,7 +103,7 @@
         {% for highlight in page.featured_highlights.all %}
         {% if forloop.counter <= 2 %}
         <div class="col-md-6">
-          {% card "md_width" highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
+          {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
         </div>
       {% endif %} {% endfor %}
       </div>

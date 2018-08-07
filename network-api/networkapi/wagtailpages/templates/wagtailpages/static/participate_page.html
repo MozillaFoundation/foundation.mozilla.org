@@ -27,17 +27,19 @@
     </div>
   </div>
 
-  <div class="mb-5">
+  <div class="my-4">
     <div class="row">
       {% for highlight in page.featured_highlights.all %}
       {% if forloop.counter <= 3 %}
       <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
-        {% card "md_width" highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label highlight.commitment %}
+        {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label highlight.commitment %}
       </div>
       {% endif %}
       {% endfor %}
     </div>
   </div>
+
+  {% cardCTA None "Give" "lorem" "http://x.com" "Donate Now" "5 min" %}
 
 </div>
 {% endblock %}
