@@ -1,45 +1,29 @@
-{% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags %}
-
-{% block bodyID %}participate{% endblock %}
+{% extends "../primary_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-
-{% image page.primaryHero format-jpeg as big_hero %}
-<div class="bottom-line mb-3">
-  <div class="container" style="background-image: url({{ big_hero.url }}); background-repeat:no-repeat; background-position: top center; background-size: cover;">
-    <div class="row py-5">
-      <div class="col-12 col-md-5">
-        <h1 class="h1-heading">{{ page.heroHeader }}</h1>
-        <p class="body-large">{{ page.heroSubhead | richtext }}</p>
-        <p class="commitment">{{ page.commitment }}</p>
-        <a class="btn btn-normal" href={{ page.ctaButtonURL }}>{{ page.ctaButtonTitle }}</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="container">
-  <div class="row">
-    <div class="col-12 col-md-8 mb-4">
-      <h2 class="h3-heading">{{ page.h2 }}</h2>
-      <p class="body-large">{{ page.h2Subheader }}</p>
-    </div>
-  </div>
-
-  <div class="my-4">
-    <div class="row">
-      {% for highlight in page.featured_highlights.all %}
-      {% if forloop.counter <= 3 %}
-      <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
-        {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label highlight.commitment %}
+    <div class="row my-5">
+      <div class="col-sm-4">
+        <img class="mb-3 mb-md-0" src="/_images/upcoming/mozfest-banner.jpg"></div>
+      <div class="col-sm-8">
+        <h4 class="h4-heading">Mozfest 2018 is open for proposals!</h4>
+        <p>This years theme "Data and You" takes the large concepts of data: collection, surveillance, policy, it’s currency and its future and center it around the most important of all its parts: people. How does and will data affect people’s lives? How can we share best practices, innovative tools and grow connections that allow data to serve people instead of people serving data. The deadline for proposals is August 31st.</p><a class="cta-link" href="https://mozillafestival.org/proposals">Apply now</a>
       </div>
-      {% endif %}
-      {% endfor %}
+    </div>
+    <div class="row my-5">
+      <div class="col-sm-4"><img class="mb-3 mb-md-0" src="/_images/upcoming/images-upcoming-fellowships@2x.jpg"></div>
+      <div class="col-sm-8">
+        <h4 class="h4-heading">Fellowships that Empower Leaders</h4>
+        <p>Mozilla Fellowships provide resources, tools, community and amplification to those building a more ​humane​ ​digital​ ​world. Mozilla Fellowships are a transformative experience for emerging leaders concerned with making the internet a safer, more accessible resource for everyone.</p><a class="cta-link" href="https://foundation.mozilla.org/fellowships">Learn more and apply</a>
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-sm-4"><img class="mb-3 mb-md-0" src="/_images/upcoming/images-upcoming-internet-health-report@2x.jpg"></div>
+      <div class="col-sm-8">
+        <h4 class="h4-heading">Internet Health Report</h4>
+        <p>Is the Internet getting healthier? Is it under threat? Do we all have a voice on the web? Mozilla’s Internet Health Report is an open source initiative that combines research from multiple sources to document what’s healthy and unhealthy.</p><a class="cta-link" href="https://internethealthreport.org/">Read the report</a>
+      </div>
     </div>
   </div>
-
-  {% cardCTA None "Give" "lorem" "http://x.com" "Donate Now" "5 min" %}
-
-</div>
 {% endblock %}

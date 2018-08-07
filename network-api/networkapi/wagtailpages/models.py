@@ -498,6 +498,11 @@ class ParticipatePage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page.html'
 
+
+class ParticipatePage2(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/participate_page2.html'
+
     primaryHero = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -625,7 +630,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
 
 class ParticipateHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage',
+        'wagtailpages.ParticipatePage2',
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', related_name='+')
@@ -702,6 +707,7 @@ class Homepage(MetadataPageMixin, Page):
         'Styleguide',
         'NewsPage',
         'ParticipatePage',
+        'ParticipatePage2',
         'MiniSiteNameSpace',
         'RedirectingPage',
         'OpportunityPage',
