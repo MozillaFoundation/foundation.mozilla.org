@@ -8,7 +8,7 @@ from factory import (
     Trait,
 )
 
-from networkapi.utility.faker_providers import ImageProvider, get_random_items
+from networkapi.utility.faker import ImageProvider, get_random_items
 from networkapi.people.models import InternetHealthIssue, Person, Affiliation
 
 Faker.add_provider(ImageProvider)

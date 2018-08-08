@@ -7,7 +7,7 @@ from factory import (
     LazyAttribute,
 )
 
-from networkapi.utility.faker_providers import ImageProvider
+from networkapi.utility.faker import ImageProvider
 from networkapi.buyersguide.models import Product
 
 Faker.add_provider(ImageProvider)
