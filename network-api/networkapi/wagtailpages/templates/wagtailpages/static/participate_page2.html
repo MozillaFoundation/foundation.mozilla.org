@@ -5,14 +5,14 @@
 
 {% block content %}
 
-{% image page.primaryHero format-jpeg as big_hero %}
+{% image page.ctaHero format-jpeg as big_hero %}
 <div class="bottom-line mb-3">
   <div class="container" style="background-image: url({{ big_hero.url }}); background-repeat:no-repeat; background-position: top center; background-size: cover;">
     <div class="row py-5">
       <div class="col-12 col-md-5">
-        <h1 class="h1-heading">{{ page.heroHeader }}</h1>
-        <p class="body-large">{{ page.heroSubhead | richtext }}</p>
-        <p class="commitment">{{ page.commitment }}</p>
+        <h1 class="h1-heading">{{ page.ctaHeroHeader }}</h1>
+        <p class="body-large">{{ page.ctaHeroSubhead | richtext }}</p>
+        <p class="commitment">{{ page.ctaCommitment }}</p>
         <a class="btn btn-normal" href={{ page.ctaButtonURL }}>{{ page.ctaButtonTitle }}</a>
       </div>
     </div>
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  {% cardCTA None "Give" "lorem" "http://x.com" "Donate Now" "5 min" %}
+  {% cardCTA None page.ctaHeroHeader2 page.ctaHeroSubhead2 page.ctaButtonURL2 page.ctaButtonTitle2 page.ctaCommitment2 %}
 
 </div>
 {% endblock %}
