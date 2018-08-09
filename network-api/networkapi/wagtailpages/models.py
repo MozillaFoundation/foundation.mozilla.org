@@ -499,6 +499,111 @@ class ParticipatePage(PrimaryPage):
     template = 'wagtailpages/static/participate_page.html'
 
 
+class ParticipatePage2(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/participate_page2.html'
+
+    ctaHero = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_hero_participate',
+        verbose_name='Primary Hero Image',
+    )
+
+    ctaHeroHeader = models.TextField(
+        blank=True,
+    )
+
+    ctaHeroSubhead = RichTextField(
+        features=[
+            'bold', 'italic', 'link',
+        ],
+        blank=True,
+    )
+
+    ctaCommitment = models.TextField(
+        blank=True,
+    )
+
+    ctaButtonTitle = models.CharField(
+        verbose_name='Button Text',
+        max_length=250,
+        blank=True,
+    )
+
+    ctaButtonURL = models.TextField(
+        verbose_name='Button URL',
+        blank=True,
+    )
+
+    ctaHero2 = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_hero_participate2',
+        verbose_name='Primary Hero Image',
+    )
+
+    ctaHeroHeader2 = models.TextField(
+        blank=True,
+    )
+
+    ctaHeroSubhead2 = RichTextField(
+        features=[
+            'bold', 'italic', 'link',
+        ],
+        blank=True,
+    )
+
+    ctaCommitment2 = models.TextField(
+        blank=True,
+    )
+
+    ctaButtonTitle2 = models.CharField(
+        verbose_name='Button Text',
+        max_length=250,
+        blank=True,
+    )
+
+    ctaButtonURL2 = models.TextField(
+        verbose_name='Button URL',
+        blank=True,
+    )
+
+    h2 = models.TextField(
+        blank=True,
+    )
+
+    h2Subheader = models.TextField(
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            ImageChooserPanel('ctaHero'),
+            FieldPanel('ctaHeroHeader'),
+            FieldPanel('ctaHeroSubhead'),
+            FieldPanel('ctaCommitment'),
+            FieldPanel('ctaButtonTitle'),
+            FieldPanel('ctaButtonURL'),
+        ], heading="Primary CTA"),
+        FieldPanel('h2'),
+        FieldPanel('h2Subheader'),
+        InlinePanel('featured_highlights', label='Highlights', max_num=3),
+        MultiFieldPanel([
+            ImageChooserPanel('ctaHero2'),
+            FieldPanel('ctaHeroHeader2'),
+            FieldPanel('ctaHeroSubhead2'),
+            FieldPanel('ctaCommitment2'),
+            FieldPanel('ctaButtonTitle2'),
+            FieldPanel('ctaButtonURL2'),
+        ], heading="CTA 2"),
+    ]
+
+
 class PeoplePage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/people_page.html'
@@ -568,6 +673,30 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
+class ParticipateHighlights(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.ParticipatePage2',
+        related_name='featured_highlights',
+    )
+    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    commitment = models.CharField(
+        blank=True,
+        max_length=256,
+        help_text='Amount of time required (eg: "30 min commitment")',
+    )
+    panels = [
+        SnippetChooserPanel('highlight'),
+        FieldPanel('commitment'),
+    ]
+
+    class Meta:
+        verbose_name = 'highlight'
+        verbose_name_plural = 'highlights'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.highlight.title
+
 
 class Homepage(MetadataPageMixin, Page):
     hero_headline = models.CharField(
@@ -623,6 +752,7 @@ class Homepage(MetadataPageMixin, Page):
         'Styleguide',
         'NewsPage',
         'ParticipatePage',
+        'ParticipatePage2',
         'MiniSiteNameSpace',
         'RedirectingPage',
         'OpportunityPage',

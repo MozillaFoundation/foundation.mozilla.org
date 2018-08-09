@@ -1,0 +1,45 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags %}
+
+{% block bodyID %}participate{% endblock %}
+
+{% block content %}
+
+{% image page.primaryHero format-jpeg as big_hero %}
+<div class="bottom-line mb-3">
+  <div class="container" style="background-image: url({{ big_hero.url }}); background-repeat:no-repeat; background-position: top center; background-size: cover;">
+    <div class="row py-5">
+      <div class="col-12 col-md-5">
+        <h1 class="h1-heading">{{ page.heroHeader }}</h1>
+        <p class="body-large">{{ page.heroSubhead | richtext }}</p>
+        <p class="commitment">{{ page.commitment }}</p>
+        <a class="btn btn-normal" href={{ page.ctaButtonURL }}>{{ page.ctaButtonTitle }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-8 mb-4">
+      <h2 class="h3-heading">{{ page.h2 }}</h2>
+      <p class="body-large">{{ page.h2Subheader }}</p>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <div class="row">
+      {% for highlight in page.featured_highlights.all %}
+      {% if forloop.counter <= 3 %}
+      <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
+        {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label highlight.commitment %}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% cardCTA None "Give" "lorem" "http://x.com" "Donate Now" "5 min" %}
+
+</div>
+{% endblock %}
