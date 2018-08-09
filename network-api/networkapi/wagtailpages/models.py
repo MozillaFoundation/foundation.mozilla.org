@@ -503,7 +503,7 @@ class ParticipatePage2(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page2.html'
 
-    primaryHero = models.ForeignKey(
+    ctaHero = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
@@ -512,18 +512,18 @@ class ParticipatePage2(PrimaryPage):
         verbose_name='Primary Hero Image',
     )
 
-    heroHeader = models.TextField(
+    ctaHeroHeader = models.TextField(
         blank=True,
     )
 
-    heroSubhead = RichTextField(
+    ctaHeroSubhead = RichTextField(
         features=[
             'bold', 'italic', 'link',
         ],
         blank=True,
     )
 
-    commitment = models.TextField(
+    ctaCommitment = models.TextField(
         blank=True,
     )
 
@@ -538,6 +538,41 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
+    ctaHero2 = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_hero_participate2',
+        verbose_name='Primary Hero Image',
+    )
+
+    ctaHeroHeader2 = models.TextField(
+        blank=True,
+    )
+
+    ctaHeroSubhead2 = RichTextField(
+        features=[
+            'bold', 'italic', 'link',
+        ],
+        blank=True,
+    )
+
+    ctaCommitment2 = models.TextField(
+        blank=True,
+    )
+
+    ctaButtonTitle2 = models.CharField(
+        verbose_name='Button Text',
+        max_length=250,
+        blank=True,
+    )
+
+    ctaButtonURL2 = models.TextField(
+        verbose_name='Button URL',
+        blank=True,
+    )
+
     h2 = models.TextField(
         blank=True,
     )
@@ -547,15 +582,25 @@ class ParticipatePage2(PrimaryPage):
     )
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel('primaryHero'),
-        FieldPanel('heroHeader'),
-        FieldPanel('heroSubhead'),
-        FieldPanel('commitment'),
-        FieldPanel('ctaButtonTitle'),
-        FieldPanel('ctaButtonURL'),
+        MultiFieldPanel([
+            ImageChooserPanel('ctaHero'),
+            FieldPanel('ctaHeroHeader'),
+            FieldPanel('ctaHeroSubhead'),
+            FieldPanel('ctaCommitment'),
+            FieldPanel('ctaButtonTitle'),
+            FieldPanel('ctaButtonURL'),
+        ], heading="Primary CTA"),
         FieldPanel('h2'),
         FieldPanel('h2Subheader'),
         InlinePanel('featured_highlights', label='Highlights', max_num=3),
+        MultiFieldPanel([
+            ImageChooserPanel('ctaHero2'),
+            FieldPanel('ctaHeroHeader2'),
+            FieldPanel('ctaHeroSubhead2'),
+            FieldPanel('ctaCommitment2'),
+            FieldPanel('ctaButtonTitle2'),
+            FieldPanel('ctaButtonURL2'),
+        ], heading="CTA 2"),
     ]
 
 
