@@ -21,7 +21,8 @@ def mini_site_horizontal_nav(context, page):
 def cta(context, page):
     cta = page.cta
     return {
+        'page': page,
         'cta': cta,
-        'modals_json': page.get_donation_modal_json(),
         'cta_type': cta.__class__.__name__,
+        'modals_json': page.get_donation_modal_json(),
     }
