@@ -6,6 +6,7 @@ from random import randint
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
+from django.conf import settings
 
 from networkapi.people.models import InternetHealthIssue
 
@@ -157,9 +158,17 @@ class Command(BaseCommand):
             print('Updated the default Site')
         except ObjectDoesNotExist:
             print('Generating a default Site')
+            if settings.HEROKU_APP_NAME:
+                review_app_name = settings.HEROKU_APP_NAME
+                hostname = f'{review_app_name}.herokuapp.com'
+                port = 80
+            else:
+                hostname = 'localhost'
+                port = 8000
+
             WagtailSite.objects.create(
-                hostname='localhost',
-                port=8000,
+                hostname=hostname,
+                port=port,
                 root_page=home_page,
                 site_name='Foundation Home Page',
                 is_default_site=True
