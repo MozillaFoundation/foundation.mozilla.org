@@ -19,10 +19,16 @@ def mini_site_horizontal_nav(context, page):
 # Render a page's CTA (petition, signup, etc.)
 @register.inclusion_tag('wagtailpages/tags/cta.html', takes_context=True)
 def cta(context, page):
-    cta = page.cta
-    return {
+    cta = {
         'page': page,
-        'cta': cta,
-        'cta_type': cta.__class__.__name__,
-        'modals_json': page.get_donation_modal_json(),
+        'cta': page.cta,
+        'cta_type': page.cta.__class__.__name__,
     }
+
+    # Only campaign pages currently have donation modal CTA data
+    # associated with them, so only add this if the accessor
+    # for it exists for the page type we're rendering.
+    if hasattr(page, 'get_donation_modal_json'):
+        cta['modals_json'] = page.get_donation_modal_json()
+
+    return cta
