@@ -51,6 +51,10 @@ internet_health_issues = [
     'Online Privacy and Security',
 ]
 
+if settings.HEROKU_APP_NAME:
+    REVIEW_APP_NAME = settings.HEROKU_APP_NAME
+    REVIEW_APP_HOSTNAME = f'{REVIEW_APP_NAME}.herokuapp.com'
+
 
 def powerset(iterable):
     "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
@@ -153,14 +157,15 @@ class Command(BaseCommand):
 
         try:
             default_site = WagtailSite.objects.get(is_default_site=True)
+            if settings.HEROKU_APP_NAME:
+                default_site.hostname = REVIEW_APP_HOSTNAME
             default_site.root_page = home_page
             default_site.save()
             print('Updated the default Site')
         except ObjectDoesNotExist:
             print('Generating a default Site')
             if settings.HEROKU_APP_NAME:
-                review_app_name = settings.HEROKU_APP_NAME
-                hostname = f'{review_app_name}.herokuapp.com'
+                hostname = REVIEW_APP_HOSTNAME
                 port = 80
             else:
                 hostname = 'localhost'
