@@ -21,13 +21,13 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-8 mb-4">
+    <div class="col-12 col-md-8 mb-1">
       <h2 class="h3-heading">{{ page.h2 }}</h2>
       <p class="body-large">{{ page.h2Subheader }}</p>
     </div>
   </div>
 
-  <div class="my-4">
+  <div class="my-2">
     <div class="row">
       {% for highlight in page.featured_highlights.all %}
       {% if forloop.counter <= 3 %}
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  {% cardCTA None page.ctaHeroHeader2 page.ctaHeroSubhead2 page.ctaButtonURL2 page.ctaButtonTitle2 page.ctaCommitment2 %}
+  {% cardCTA page.ctaHero2 page.ctaHeroHeader2 page.ctaHeroSubhead2 page.ctaButtonURL2 page.ctaButtonTitle2 page.ctaCommitment2 %}
 
 </div>
 {% endblock %}

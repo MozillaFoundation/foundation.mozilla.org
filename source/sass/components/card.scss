@@ -10,3 +10,15 @@
     padding: 4px 8px;
   }
 }
+
+.card-cta {
+  .wrapper {
+    display: flex;
+    margin: -24px 0;
+    height: calc(100% + 48px);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 300px;
+  }
+}
