@@ -39,5 +39,15 @@
 
   {% cardCTA page.ctaHero2 page.ctaHeroHeader2 page.ctaHeroSubhead2 page.ctaButtonURL2 page.ctaButtonTitle2 page.ctaCommitment2 %}
 
+  <div class="my-5">
+    <div class="row">
+      {% for highlight in page.featured_highlights2.all %}
+      <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
+        {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label highlight.commitment %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
 </div>
 {% endblock %}

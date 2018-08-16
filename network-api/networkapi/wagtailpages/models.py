@@ -494,6 +494,7 @@ class InitiativesPage(PrimaryPage):
     ]
 
 
+# TODO: Remove this model after ParticipatePage2 is in use
 class ParticipatePage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page.html'
@@ -601,6 +602,7 @@ class ParticipatePage2(PrimaryPage):
             FieldPanel('ctaButtonTitle2'),
             FieldPanel('ctaButtonURL2'),
         ], heading="CTA 2"),
+        InlinePanel('featured_highlights2', label='Highlights2', max_num=6),
     ]
 
 
@@ -673,7 +675,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
-class ParticipateHighlights(WagtailOrderable, models.Model):
+class ParticipateHighlightsBase(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights',
@@ -690,6 +692,7 @@ class ParticipateHighlights(WagtailOrderable, models.Model):
     ]
 
     class Meta:
+        abstract = True
         verbose_name = 'highlight'
         verbose_name_plural = 'highlights'
         ordering = ['sort_order']  # not automatically inherited!
@@ -697,6 +700,17 @@ class ParticipateHighlights(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
+class ParticipateHighlights(ParticipateHighlightsBase):
+    page = ParentalKey(
+        'wagtailpages.ParticipatePage2',
+        related_name='featured_highlights',
+    )
+
+class ParticipateHighlights2(ParticipateHighlightsBase):
+    page = ParentalKey(
+        'wagtailpages.ParticipatePage2',
+        related_name='featured_highlights2',
+    )
 
 class Homepage(MetadataPageMixin, Page):
     hero_headline = models.CharField(
