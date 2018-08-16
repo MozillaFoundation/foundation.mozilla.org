@@ -1,0 +1,51 @@
+form .l10n-hidden {
+    display: none;
+}
+
+div.locale-picker {
+  display: block;
+  text-align: right;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+form > div.locale-picker {
+  /* calc, to highlight what we're doing here:
+     wagtail's header has a 2em margin-bottom,
+     and so we correct that for the 1.5em
+     margin-bottom used in the normal definition
+     for the div.locale-picker, above */;
+  margin-top: calc(1.5em - 2em);
+  margin-bottom: 1em;
+}
+
+div.locale-picker h2 {
+  display: inline;
+}
+
+div.locale-picker ul.locales {
+  display: inline-block;
+  margin: auto 1em;
+}
+
+div.locale-picker ul.locales li.locale {
+  display: inline;
+  margin: auto 0.5em;
+}
+
+div.locale-picker ul.locales li.locale button.locale-toggle {
+  background-color: rgba(57, 151, 150, 0.3);
+  text-transform: uppercase;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: #fff;
+  padding: .25em;
+  max-height: 2em;
+}
+
+div.locale-picker ul.locales li.locale button.locale-toggle.showing-locale {
+  background-color: #43b1b0;
+}
