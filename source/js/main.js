@@ -193,10 +193,10 @@ let main = {
   bindGAEventTrackers() {
     document.querySelector(`#see-more-modular-page`).addEventListener(`click`, () => {
       let label = ``;
-      let pageHeader = document.querySelectorAll(`.cms h1`)[0];
+      let pageHeader = document.querySelector(`.cms h1`);
 
       if (pageHeader) {
-        label = pageHeader.innerText + ` - footer cta`;
+        label = `${pageHeader.innerText} - footer cta`;
       }
 
       Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
