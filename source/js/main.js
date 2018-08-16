@@ -191,16 +191,18 @@ let main = {
   },
 
   bindGAEventTrackers() {
-    document.querySelector(`#see-more-modular-page`).addEventListener(`click`, () => {
-      let label = ``;
-      let pageHeader = document.querySelector(`.cms h1`);
+    if (document.querySelector(`#see-more-modular-page`)) {
+      document.querySelector(`#see-more-modular-page`).addEventListener(`click`, () => {
+        let label = ``;
+        let pageHeader = document.querySelector(`.cms h1`);
 
-      if (pageHeader) {
-        label = `${pageHeader.innerText} - footer cta`;
-      }
+        if (pageHeader) {
+          label = `${pageHeader.innerText} - footer cta`;
+        }
 
-      Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
-    });
+        Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
+      });
+    }
   },
 
   // Embed various React components based on the existence of containers within the current page
