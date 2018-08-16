@@ -9,7 +9,9 @@
     <div class="commitment mb-3">{{ commitment }}</div>
     {% endif %}
 
+    {% if link_url %}
     <a class="btn btn-ghost" href="{{ link_url }}">{{ link_label }}</a>
+    {% endif %}
   </div>
   <div class="col-12 col-md-6 pr-md-5">
     {% image image format-png as hero %}
