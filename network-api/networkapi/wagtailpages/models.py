@@ -707,6 +707,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
+
 class CTABase(WagtailOrderable, models.Model):
     hero = models.ForeignKey(
         'wagtailimages.Image',
@@ -763,11 +764,13 @@ class CTABase(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
+
 class CTA4(CTABase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='cta4',
     )
+
 
 class ParticipateHighlightsBase(WagtailOrderable, models.Model):
     page = ParentalKey(
@@ -794,17 +797,20 @@ class ParticipateHighlightsBase(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
+
 class ParticipateHighlights(ParticipateHighlightsBase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights',
     )
 
+
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights2',
     )
+
 
 class Homepage(MetadataPageMixin, Page):
     hero_headline = models.CharField(
