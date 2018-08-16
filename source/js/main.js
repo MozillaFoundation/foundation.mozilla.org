@@ -4,6 +4,7 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
 import Cookies from 'js-cookie';
+import Analytics from './analytics.js';
 
 import JoinUs from './components/join/join.jsx';
 import Petition from './components/petition/petition.jsx';
@@ -37,6 +38,9 @@ let main = {
       this.injectReactComponents();
       this.bindGlobalHandlers();
       this.decorateExternalLinks();
+
+      Analytics.initialize();
+      this.bindGAEventTrackers();
     });
   },
 
@@ -186,6 +190,21 @@ let main = {
     });
   },
 
+  bindGAEventTrackers() {
+    if (document.querySelector(`#see-more-modular-page`)) {
+      document.querySelector(`#see-more-modular-page`).addEventListener(`click`, () => {
+        let label = ``;
+        let pageHeader = document.querySelector(`.cms h1`);
+
+        if (pageHeader) {
+          label = `${pageHeader.innerText} - footer cta`;
+        }
+
+        Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
+      });
+    }
+  },
+
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
@@ -304,5 +323,3 @@ let main = {
 
 main.init();
 
-// Append Google Analytics code
-import './analytics.js';
