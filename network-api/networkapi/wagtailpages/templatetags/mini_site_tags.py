@@ -20,6 +20,7 @@ def mini_site_horizontal_nav(context, page):
 @register.inclusion_tag('wagtailpages/tags/cta.html', takes_context=True)
 def cta(context, page):
     cta = {
+        'page': page,
         'cta': page.cta,
         'cta_type': page.cta.__class__.__name__,
     }

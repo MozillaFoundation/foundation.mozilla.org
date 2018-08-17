@@ -6,6 +6,7 @@ from random import randint
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
+from django.conf import settings
 
 from networkapi.people.models import InternetHealthIssue
 
@@ -49,6 +50,10 @@ internet_health_issues = [
     'Decentralization',
     'Online Privacy and Security',
 ]
+
+if settings.HEROKU_APP_NAME:
+    REVIEW_APP_NAME = settings.HEROKU_APP_NAME
+    REVIEW_APP_HOSTNAME = f'{REVIEW_APP_NAME}.herokuapp.com'
 
 
 def powerset(iterable):
@@ -152,14 +157,23 @@ class Command(BaseCommand):
 
         try:
             default_site = WagtailSite.objects.get(is_default_site=True)
+            if settings.HEROKU_APP_NAME:
+                default_site.hostname = REVIEW_APP_HOSTNAME
             default_site.root_page = home_page
             default_site.save()
             print('Updated the default Site')
         except ObjectDoesNotExist:
             print('Generating a default Site')
+            if settings.HEROKU_APP_NAME:
+                hostname = REVIEW_APP_HOSTNAME
+                port = 80
+            else:
+                hostname = 'localhost'
+                port = 8000
+
             WagtailSite.objects.create(
-                hostname='localhost',
-                port=8000,
+                hostname=hostname,
+                port=port,
                 root_page=home_page,
                 site_name='Foundation Home Page',
                 is_default_site=True
