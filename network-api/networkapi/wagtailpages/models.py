@@ -598,6 +598,22 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
+    ctaFacebook3 = models.TextField(
+        blank=True,
+    )
+
+    ctaTwitter3 = models.TextField(
+        blank=True,
+    )
+
+    ctaEmailShareBody3 = models.TextField(
+        blank=True,
+    )
+
+    ctaEmailShareSubject3 = models.TextField(
+        blank=True,
+    )
+
     h2 = models.TextField(
         blank=True,
     )
@@ -633,6 +649,10 @@ class ParticipatePage2(PrimaryPage):
             FieldPanel('ctaHeroHeader3'),
             FieldPanel('ctaHeroSubhead3'),
             FieldPanel('ctaCommitment3'),
+            FieldPanel('ctaFacebook3'),
+            FieldPanel('ctaTwitter3'),
+            FieldPanel('ctaEmailShareSubject3'),
+            FieldPanel('ctaEmailShareBody3'),
         ], heading="CTA 3"),
         InlinePanel('cta4', label='CTA Group 4', max_num=3),
     ]
