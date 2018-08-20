@@ -402,8 +402,8 @@ export default class Petition extends React.Component {
     let modal = modals[0];
 
     return <DonationModal
-      ctn={this.props.ctaName}
-      dmi={modal.name}
+      slug={this.props.ctaSlug}
+      name={modal.name}
       heading={modal.header}
       bodyText={modal.body}
       donateText={modal.donate_text}

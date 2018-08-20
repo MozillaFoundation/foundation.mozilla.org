@@ -1,5 +1,5 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from "react";
+import classNames from "classnames";
 
 /**
  * Supported event handlers:
@@ -10,15 +10,14 @@ import classNames from 'classnames';
  *
  * Supported plain props:
  *
- *   - ctn, the campaign tracing number
- *   - dmi, the donate modal id
+ *   - slug, the petition slug on foundation.mozilla.org
+ *   - name, the donate modal id
  *   - heading, the modal header
  *   - bodyText, the main text
  *   - donateText, the "donate" button label
  *   - shareText, the "no donate, just share" button label
  */
 class DonationModal extends React.Component {
-
   componentDidMount() {
     // Thanks to Safari's poor support of the "sticky"
     // CSS position property, we need to relocate the DOM
@@ -56,38 +55,58 @@ class DonationModal extends React.Component {
 
   getModalContent() {
     if (!this.donateURL) {
-      let query = [
-        `ctn=${this.props.ctn}`,
-        `dmi=${this.props.dmi}`
-      ].join(`&`);
+      let base = `https://donate.mozilla.org/?`,
+          query = [
+            `utm_source=foundation.mozilla.org`,
+            `utm_medium=petitionmodal`,
+            `utm_campaign=${this.props.slug}`,
+            `utm_content=${this.props.name}`
+          ].join(`&`);
 
-      this.donateURL = `https://donate.mozilla.org/en-US/?${query}`;
+      this.donateURL = `${base}${query}`;
     }
     return (
       <div className="modal-content" tabIndex="0">
         <div className="modal-header text-right">
-          <button className="close" data-dismiss="modal" aria-label="Close" onClick={e => this.props.onClose(e)} tabIndex="0">
+          <button
+            className="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            onClick={e => this.props.onClose(e)}
+            tabIndex="0"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
 
         <div className="modal-body">
-          <h3 className={ classNames(`h3-heading`, `text-center`) }>
-            { this.props.heading }
+          <h3 className={classNames(`h3-heading`, `text-center`)}>
+            {this.props.heading}
           </h3>
-          <p className={ classNames(`body-large`, `text-center`) }>
+          <p className={classNames(`body-large`, `text-center`)}>
             {this.props.bodyText}
           </p>
         </div>
 
         <div className="text-center">
-          <a className="btn btn-normal" href={this.donateURL} target="_blank" onClick={e => this.userElectedToDonate(e)} tabIndex="0">
+          <a
+            className="btn btn-normal"
+            href={this.donateURL}
+            target="_blank"
+            onClick={e => this.userElectedToDonate(e)}
+            tabIndex="0"
+          >
             {this.props.donateText}
           </a>
         </div>
 
         <div className="text-center">
-          <button className="text dismiss" data-dismiss="modal" onClick={e => this.userElectedToShare(e)} tabIndex="0">
+          <button
+            className="text dismiss"
+            data-dismiss="modal"
+            onClick={e => this.userElectedToShare(e)}
+            tabIndex="0"
+          >
             {this.props.shareText}
           </button>
         </div>
