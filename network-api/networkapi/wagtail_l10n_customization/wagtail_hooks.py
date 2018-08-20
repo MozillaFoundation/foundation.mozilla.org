@@ -1,19 +1,8 @@
-# coding: utf-8
-
-import json
-
 from django.conf import settings
-from django.conf.urls import url
-from django.http import HttpResponse
-from django.http import QueryDict
-from django.utils.html import format_html, format_html_join, escape
+from django.utils.html import format_html_join
 from django.utils.translation import gettext as _
-from django.views.decorators.csrf import csrf_exempt
-from six import iteritems
 
 from wagtail.core import hooks
-from wagtail.core.models import Page
-from wagtail.core.rich_text.pages import PageLinkHandler
 
 
 @hooks.register('insert_global_admin_js')
