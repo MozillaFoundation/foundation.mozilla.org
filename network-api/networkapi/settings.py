@@ -130,7 +130,6 @@ INSTALLED_APPS = list(filter(None, [
     if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
 
     'networkapi.wagtailcustomization',
-    'networkapi.wagtail-l10n-customization',
 
     'wagtailmetadata',
 
@@ -173,6 +172,7 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.milestones',
 
     # wagtail localisation app
+    'networkapi.wagtail_l10n_customization',
     'wagtail_modeltranslation',
     'wagtail_modeltranslation.makemigrations',
     'wagtail_modeltranslation.migrate',
