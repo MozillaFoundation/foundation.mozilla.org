@@ -3,6 +3,7 @@ import ReactGA from 'react-ga';
 import classNames from 'classnames';
 import DonationModal from './donation-modal.jsx';
 import FloatingLabelInput from './floating-label-input.jsx';
+import FloatingLabelTextarea from './floating-label-textarea.jsx';
 import CountrySelect from './country-select.jsx';
 import basketSignup from '../../basket-signup.js';
 
@@ -166,6 +167,7 @@ export default class Petition extends React.Component {
       let surname = this.surname.element.value;
       let country = this.country && this.country.element.value;
       let postalCode = this.postalCode && this.postalCode.element.value;
+      let comment = this.comment && this.comment.element.value;
       let newsletterSignup = false;
 
       // These should not be possible due to the fact that we validate
@@ -182,6 +184,10 @@ export default class Petition extends React.Component {
         return reject(new Error(`missing postal code`));
       }
 
+      if(this.props.commentRequirements === `required` && !comment) {
+        return reject(new Error(`missing required comment`));
+      }
+
       if (this.refs.newsletterSignup) {
         newsletterSignup = !!(this.refs.newsletterSignup.checked);
       }
@@ -195,6 +201,7 @@ export default class Petition extends React.Component {
         newsletterSignup,
         country,
         postalCode,
+        comment,
         source: window.location.toString(),
       };
 
@@ -272,9 +279,10 @@ export default class Petition extends React.Component {
 
     email = email && this.validatesAsEmail(email);
 
+    let consent = this.refs.privacy.checked;
     let country = true;
     let postalCode = true;
-    let consent = this.refs.privacy.checked;
+    let comment = true;
 
     if (this.props.requiresCountryCode === `True`) {
       country = !!this.country.element.value;
@@ -284,7 +292,12 @@ export default class Petition extends React.Component {
       postalCode = !!this.postalCode.element.value;
     }
 
-    if (hasName && email && consent && country && postalCode) {
+
+    if (this.props.commentRequirements === `required`) {
+      comment = !!this.comment.element.value;
+    }
+
+    if (hasName && email && consent && country && postalCode && comment) {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
@@ -520,6 +533,10 @@ export default class Petition extends React.Component {
       'has-danger': this.props.requiresPostalCode === `True` && this.state.userTriedSubmitting && !this.postalCode.element.value
     });
 
+    let commentGroupClass = classNames({
+      'has-danger': this.props.commentRequirements === `required` && this.state.userTriedSubmitting && !this.comment.element.value
+    });
+
     let privacyClass = classNames(`my-3`, {
       'form-check': true,
       'has-danger': this.state.userTriedSubmitting && !this.refs.privacy.checked
@@ -588,6 +605,19 @@ export default class Petition extends React.Component {
                   onFocus={this.onInputFocus}
                 />
                 {this.state.userTriedSubmitting && !this.postalCode.element.value && <small className="form-check form-control-feedback">Please enter your postal code</small>}
+              </div>
+            }
+
+            { this.props.commentRequirements === `none` ? null :
+              <div className={commentGroupClass}>
+                <FloatingLabelTextarea
+                  className="mb-1 w-100"
+                  ref={(element) => { this.comment = element; }} id="commentInput"
+                  type="text" label="Comment"
+                  disabled={disableFields}
+                  onFocus={this.onInputFocus}
+                />
+                {this.props.commentRequirements === `required` && this.state.userTriedSubmitting && !this.comment.element.value && <small className="form-check form-control-feedback">Please include a comment</small>}
               </div>
             }
 
