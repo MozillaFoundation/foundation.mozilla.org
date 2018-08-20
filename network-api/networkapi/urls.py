@@ -61,24 +61,22 @@ urlpatterns = list(filter(None, [
     url(r'^help/', review_app_help_view, name='Review app help'),
 
     # Wagtail CMS routes
-
     url(
         r'^how-do-i-wagtail/',
         RedirectView.as_view(url='/docs/how-do-i-wagtail/'),
         name='how-do-i-wagtail'
     ),
-
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url('^sitemap\.xml$', sitemap) if settings.DEBUG else None,
-    url(r'', include(wagtail_urls)),
 ]))
 
+# Anything that needs to respect the localised
+# url format with /<language_code>/ infixed needs
+# to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
-    # These URLs will have /<language_code>/ appended to the beginning
     url(r'', include(wagtail_urls)),
 )
-
 
 if settings.USE_S3 is not True:
     urlpatterns += static(

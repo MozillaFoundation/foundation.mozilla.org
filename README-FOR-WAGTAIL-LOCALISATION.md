@@ -20,7 +20,13 @@ with "en" as locale, becomes:
 
     https://foundation.mozilla.org/en/campaigns/aadhaar
 
-Additionally, there is now a `translations.py` file in the `wagtailpages` app that describes which models should have which fields automatically added to the set of localizable fields. This is, quite wisely, tracked in separate tables, so that removing wagtail-modeltranslations does not lead to a complete loss of all pages ever made, or massive migrations beyond "drop the translation wrapper tables". 
+This functionality is enabled in the main `urls.py` file, where any (subset of) routes that need this kind of infix locale must be wrapped by the Django `i18npatterns` call.
+
+    urlpatterns += i18n_patterns(
+        url(r'', include(wagtail_urls)),
+    )
+
+Additionally, there is now a `translations.py` file in the `wagtailpages` app that describes which models should have which fields automatically added to the set of localizable fields. This is, quite wisely, tracked in separate tables, so that removing wagtail-modeltranslations does not lead to a complete loss of all pages ever made, or massive migrations beyond "drop the translation wrapper tables".
 
 The [wagtail-modeltranslation](https://github.com/infoportugal/wagtail-modeltranslation) README.md covers all the steps taken to enable this on our end in, so please give that a read-over as well.
 
