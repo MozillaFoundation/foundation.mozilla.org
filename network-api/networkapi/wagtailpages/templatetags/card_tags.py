@@ -16,7 +16,18 @@ def card(image, title, description, link_url, link_label, commitment=None):
 
 
 @register.inclusion_tag('wagtailpages/tags/card-cta.html')
-def cardCTA(image, title, description, link_url, link_label, commitment=None, facebook=None, twitter=None, email_subject=None, email_body=None):
+def cardCTA(
+    image,
+    title,
+    description,
+    link_url,
+    link_label,
+    commitment=None,
+    facebook=None,
+    twitter=None,
+    email_subject=None,
+    email_body=None
+):
     return {
         'image': image,
         'title': title,
