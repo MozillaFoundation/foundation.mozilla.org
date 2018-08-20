@@ -13,17 +13,17 @@
     <a class="btn btn-ghost" href="{{ link_url }}">{{ link_label }}</a>
     {% endif %}
 
-    <div class="social">
+    <div class="social-links d-flex">
       {% if facebook %}
-      <a href="{{ facebook }}">FACEBOOK</a>
+      <a class="social-link social-link-facebook" href="{{ facebook }}"></a>
       {% endif %}
 
       {% if twitter %}
-      <a href="{{ twitter }}">twitter</a>
+      <a class="social-link social-link-twitter" href="{{ twitter }}"></a>
       {% endif %}
 
       {% if email_body %}
-      <a href="mailto:?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}">generic</a>
+      <a class="social-link social-link-email" href="mailto:?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}"></a>
       {% endif %}
     </div>
   </div>

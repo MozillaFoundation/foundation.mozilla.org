@@ -23,4 +23,23 @@
     background-position: center;
     min-height: 300px;
   }
+
+  .social-link {
+    width: 37px;
+    height: 37px;
+    margin-right: 20px;
+    background-size: contain;
+  }
+
+  .social-link-facebook {
+    background-image: url(/_images/glyphs/share/fb.svg);
+  }
+
+  .social-link-twitter {
+    background-image: url(/_images/glyphs/share/twitter.svg);
+  }
+
+  .social-link-email {
+    background-image: url(/_images/glyphs/share/email.svg);
+  }
 }
