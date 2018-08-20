@@ -6,10 +6,10 @@
 {% block content %}
 
 {% image page.ctaHero format-jpeg as big_hero %}
-<div class="bottom-line mb-3">
-  <div class="container" style="background-image: url({{ big_hero.url }}); background-repeat:no-repeat; background-position: top center; background-size: cover;">
+<div class="bottom-line mb-4" style="background-image: url({{ big_hero.url }}); background-repeat:no-repeat; background-position: top center; background-size: cover;">
+  <div class="container">
     <div class="row py-5">
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-md-10 col-xl-5 mb-2">
         <h1 class="h1-heading">{{ page.ctaHeroHeader }}</h1>
         <p class="body-large">{{ page.ctaHeroSubhead | richtext }}</p>
         <p class="commitment">{{ page.ctaCommitment }}</p>
