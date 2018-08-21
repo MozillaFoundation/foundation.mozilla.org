@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import environ
 import dj_database_url
+from django.utils.translation import gettext_lazy as _
 
 app = environ.Path(__file__) - 1
 root = app - 1
@@ -170,7 +171,13 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.highlights',
     'networkapi.milestones',
 
-    # wagtail-specific app
+    # wagtail localisation app
+    'networkapi.wagtail_l10n_customization',
+    'wagtail_modeltranslation',
+    'wagtail_modeltranslation.makemigrations',
+    'wagtail_modeltranslation.migrate',
+
+    # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
     'networkapi.buyersguide',
 ]))
@@ -187,6 +194,7 @@ MIDDLEWARE = list(filter(None, [
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -307,7 +315,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', _('English')),
+    ('de', _('German')),
+    ('pt', _('Portuguese')),
+    ('es', _('Spanish')),
+    ('fr', _('French')),
+    ('pl', _('Polish')),
+)
+
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
