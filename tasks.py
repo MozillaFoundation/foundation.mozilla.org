@@ -38,13 +38,26 @@ def runserver(ctx):
 @task
 def migrate(ctx):
     """Updates database schema"""
-    manage(ctx, "migrate")
+    manage(ctx, "migrate", flag="noinput")
 
 
 @task
 def makemigrations(ctx):
     """Creates new migration(s) for apps"""
     manage(ctx, "makemigrations")
+
+
+@task
+def l10n_sync(ctx):
+    """Sync localizable fields in the database"""
+    manage(ctx, "sync_page_translation_fields")
+
+
+@task
+def l10n_update(ctx):
+    """Update localizable field data (copies from
+    original unlocalized to default localized field)"""
+    manage(ctx, "update_translation_fields")
 
 
 @task
@@ -68,10 +81,14 @@ def setup(ctx):
         ctx.run("pipenv install --dev")
         print("Applying database migrations.")
         ctx.run("inv migrate")
+        print("Updating localizable fields");
+        ctx.run("inv l10n-sync")
+        ctx.run("inv l10n-update")
         print("Creating fake data")
         ctx.run("inv manage load_fake_data")
         print("Updating block information")
         ctx.run("inv manage block_inventory")
+
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
             print("All done!\n"
@@ -91,5 +108,8 @@ def catch_up(ctx):
     ctx.run("pipenv install --dev")
     print("Applying database migrations.")
     ctx.run("inv migrate")
+    print("Updating localizable fields");
+    ctx.run("inv l10n-sync")
+    ctx.run("inv l10n-update")
     print("Updating block information")
     ctx.run("inv manage block_inventory")
