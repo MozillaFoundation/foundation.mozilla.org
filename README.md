@@ -102,7 +102,7 @@ Some development work requires testing changes against "whatever the current pro
 
 The steps involved in cloning the production database for local use are as follows:
 
-1) grab a copy of the production database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and you will want to replace it the value associated with the `DATABASE_URL` environment variable that is used on heroku, for the production instance.
+1) grab a copy of the production database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and you will want to replace it with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the production instance.
 
 This will take a little while, but once the operations  finishes, open `foundation.psql` in your favourite text/code editor and take note of who the owner is by looking for the following statements:
 
