@@ -1,0 +1,45 @@
+.card-regular {
+  position: relative;
+
+  .commitment {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: $white;
+    border: 1px solid #cecece;
+    padding: 4px 8px;
+  }
+}
+
+.card-cta {
+  margin: 48px 0;
+
+  .wrapper {
+    display: flex;
+    margin: -24px 0;
+    height: calc(100% + 48px);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 300px;
+  }
+
+  .social-link {
+    width: 37px;
+    height: 37px;
+    margin-right: 20px;
+    background-size: contain;
+  }
+
+  .social-link-facebook {
+    background-image: url(/_images/glyphs/share/fb.svg);
+  }
+
+  .social-link-twitter {
+    background-image: url(/_images/glyphs/share/twitter.svg);
+  }
+
+  .social-link-email {
+    background-image: url(/_images/glyphs/share/email.svg);
+  }
+}
