@@ -38,7 +38,7 @@ def runserver(ctx):
 @task
 def migrate(ctx):
     """Updates database schema"""
-    manage(ctx, "migrate")
+    manage(ctx, "migrate", flag="noinput")
 
 
 @task
@@ -50,7 +50,7 @@ def makemigrations(ctx):
 @task
 def l10n_sync(ctx):
     """Sync localizable fields in the database"""
-    manage(ctx, "sync_page_translation_fields", flag="noinput")
+    manage(ctx, "sync_page_translation_fields")
 
 
 @task
