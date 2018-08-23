@@ -68,8 +68,14 @@
     display: none;
   }
 
+  textarea ~ label {
+    display: none;
+  }
+
   input:placeholder-shown ~ label,
-  input:not(:placeholder-shown) ~ label {
+  input:not(:placeholder-shown) ~ label,
+  textarea:placeholder-shown ~ label,
+  textarea:not(:placeholder-shown) ~ label {
     position: absolute;
     top: 0;
     left: 0;
@@ -85,18 +91,22 @@
   }
 
   input:placeholder-shown,
-  input:not(:placeholder-shown) {
+  input:not(:placeholder-shown),
+  textarea:placeholder-shown,
+  textarea:not(:placeholder-shown) {
     &::placeholder {
       color: transparent;
     }
   }
 
-  input:not(:placeholder-shown) {
+  input:not(:placeholder-shown),
+  textarea:not(:placeholder-shown) {
     padding-bottom: 0.4rem;
     padding-top: 1.6rem;
   }
 
-  input:not(:placeholder-shown) ~ label {
+  input:not(:placeholder-shown) ~ label,
+  textarea:not(:placeholder-shown) ~ label {
     font-size: 0.75rem;
     padding-top: 0.5rem;
     font-weight: 400;
