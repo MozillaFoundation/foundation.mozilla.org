@@ -161,7 +161,8 @@ let main = {
     let elStickyTop = document.querySelector(`.sticky-top`);
 
     let adjustHero = () => {
-      elHero.style.paddingTop = `${elStickyTop.clientHeight}px`;
+      // (temporarily?) commented off for gh#1727:
+      // elHero.style.paddingTop = `${elStickyTop.clientHeight}px`;
       elHero.style.marginTop = `-${elStickyTop.clientHeight}px`;
     };
 
