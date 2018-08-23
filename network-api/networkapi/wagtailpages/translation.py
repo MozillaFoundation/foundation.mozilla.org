@@ -5,6 +5,7 @@ from .models import (
     NewsPage,
     InitiativesPage,
     ParticipatePage,
+    ParticipatePage2,
     PeoplePage,
     Styleguide,
     Homepage,
@@ -94,6 +95,11 @@ class InitiativesPageTR(TranslationOptions):
 
 @register(ParticipatePage)
 class ParticipatePageTR(TranslationOptions):
+    fields = ()
+
+
+@register(ParticipatePage2)
+class ParticipatePage2TR(TranslationOptions):
     fields = ()
 
 
