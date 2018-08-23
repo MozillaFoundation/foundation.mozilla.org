@@ -126,6 +126,19 @@ You will now also need to update your `.env` file to make sure you're using this
 
 If you need to reset this database, rerun step 2 (with `dropdb foundation` as first command) through 5 to get back to a clean copy of the production database.
 
+
+### Resolving conflicting Django migrations
+
+**AKA: What to do when a migration lands before yours**
+
+- Create a new, separate local instance of `foundation` per "Setup steps" above.
+- Check out your new PR branch locally.
+- Delete *all* your PR's migrations and commit the deletion.
+- Run `inv makemigrations`
+- Commit the newly generated migration.
+- Run `inv migrate` to verify and run new migration.
+- Push changes to your PR branch.
+
 ### Running the project for front-end development
 
 - At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to JS(X) and Sass files.
