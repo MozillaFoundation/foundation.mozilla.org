@@ -98,13 +98,13 @@ This list is available on review apps by clicking on `DEV HELP` in the menu or g
 
 ### Using a copy of the production database for critical testing
 
-Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locallaly (`brew install postgresql` on mac; download and run the official installer for windowsl; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql).
+Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windowsl; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql).
 
 The steps involved in cloning the production database for local use are as follows:
 
 1) grab a copy of the production database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and you will want to replace it with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the production instance.
 
-This will take a little while, but once the operations  finishes, open `foundation.psql` in your favourite text/code editor and take note of who the owner is by looking for the following statements:
+This will take a little while, but once the operation  finishes, open `foundation.psql` in your favourite text/code editor and take note of who the owner is by looking for the following statements:
 
 ```
 SET search_path = public, pg_catalog;
@@ -114,7 +114,7 @@ SET search_path = public, pg_catalog;
 --
 ```
 
-2) Run `createdb foundation` on the command line so that you have a postgresql database to work with. If you get an error that you already have a database called `foundation`, either create a new database with a new name (and then use that name in the next steps) or delete the old database using `dropdb foundation` before issueing `createdb foundation`.
+2) Run `createdb foundation` on the command line so that you have a postgresql database to work with. If you get an error that you already have a database called `foundation`, either create a new database with a new name (and then use that name in the next steps) or delete the old database using `dropdb foundation` before issuing `createdb foundation`.
 
 3) Run `psql foundation` on the command line to connect to that database.
 
