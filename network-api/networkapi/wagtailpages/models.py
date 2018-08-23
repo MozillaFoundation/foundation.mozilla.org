@@ -206,6 +206,19 @@ class Petition(CTA):
         help_text='Will this petition require users to specify their postal code?',
     )
 
+    COMMENT_CHOICES = (
+        ('none', 'No comments'),
+        ('optional', 'Optional comments'),
+        ('required', 'Required comments'),
+    )
+
+    comment_requirements = models.CharField(
+        choices=COMMENT_CHOICES,
+        default='none',
+        help_text='What is the comments policy for this petition?',
+        max_length=8,
+    )
+
     google_forms_url = models.URLField(
         help_text='Google form to post petition data to',
         max_length=2048,
