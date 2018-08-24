@@ -8,11 +8,6 @@ body {
 
   // Subpages
   .wrapper-2 {
-    #hero {
-      padding-top: 76px;
-      margin-top: -76px;
-    }
-
     background:
       url(../_images/bg-white-lines.png) center top / auto 335px repeat,
       linear-gradient(to right, $neon-blue, $green);
@@ -52,34 +47,6 @@ button:hover {
       text-decoration: underline solid $dark-blue;
       color: $dark-blue;
     }
-  }
-}
-
-.nav-links a {
-  color: $black;
-  margin-right: 26px;
-  font-family: "Nunito Sans";
-  font-weight: 700;
-
-  @include scaleText(17px, 30px, 17px, 24px);
-}
-
-@at-root {
-  #view-people .nav-link-people,
-  #view-initiatives .nav-link-initiatives,
-  #view-projects .nav-link-projects,
-  #view-participate .nav-link-participate,
-  #view-internet-health .nav-link-internet-health,
-  #view-about .nav-link-about {
-    text-decoration: underline;
-  }
-}
-
-.sticky-top .btn-pop {
-  @media (max-width: $bp-sm) {
-    padding: 0.25em;
-    margin-right: -0.25em;
-    top: -2px;
   }
 }
 
