@@ -3,7 +3,7 @@
 <div class="row card-cta" style="background: #F5F5F5;">
   <div class="col-12 col-md-6 p-5">
     <h3 class="">{{ title }}</h3>
-    <p>{{ description | richtext }}</p>
+    <div class="body-large">{{ description | richtext }}</div>
 
     {% if commitment %}
     <div class="commitment mb-3">{{ commitment }}</div>
