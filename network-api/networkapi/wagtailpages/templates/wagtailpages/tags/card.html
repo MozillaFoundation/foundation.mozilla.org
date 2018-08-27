@@ -1,3 +1,5 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
 <div class="card-regular">
 
   {% if commitment %}
@@ -9,7 +11,7 @@
   <div class="full-bleed-xs">
     <div class="key-item mx-2 mx-md-3 p-3">
       <h5 class="h4-heading mb-2">{{ title }}</h5>
-      <p>{{ description }}</p>
+      <p>{{ description | richtext }}</p>
       <a class="cta-link mb-2" href="{{ link_url }}">{{ link_label }}</a>
     </div>
   </div>
