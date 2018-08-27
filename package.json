@@ -60,7 +60,7 @@
     "optipng-bin": "^4.0.0",
     "postcss": "^6.0.22",
     "postcss-cli": "^4.1.1",
-    "prop-types": "^15.6.1",
+    "prop-types": "^15.6.2",
     "react": "16.0.0",
     "react-dom": "16.0.0",
     "react-ga": "2.4.1",
