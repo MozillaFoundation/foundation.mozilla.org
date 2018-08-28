@@ -31,8 +31,15 @@ function getCurrentLocale() {
  * @return {string} the localised key (with fall-back to the default localized string, and the key itself)
  */
 function get(key, locale) {
-  locale = locale || getCurrentLocale();
-  return data[locale][key] || data[DEFAULT_LOCALE][key] || key;
+  if (!locale) {
+    locale = getCurrentLocale();
+  }
+
+  if (!data[locale]) {
+    locale = DEFAULT_LOCALE;
+  }
+
+  return data[locale][key] || key;
 }
 
 export default get;
