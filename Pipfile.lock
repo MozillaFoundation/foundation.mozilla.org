@@ -469,11 +469,11 @@
         },
         "whitenoise": {
             "hashes": [
-                "sha256:9a8ef48d2a2b4a101d84a0e5edbb20759affbc832cd74f3194e803cca7f28f6a",
-                "sha256:c42d640b8db482924b36ddadcc7087cf49f796fa1faa1583b3d07118f55a4265"
+                "sha256:1e206c5adfb849942ddd057e599ac472ec1a85d56ae78a5ba24f243ea46a89c5",
+                "sha256:a6f86b011675b9730f69fd69d4f54c5697d6c7a90ab06f83f784d243d9fccc02"
             ],
             "index": "pypi",
-            "version": "==4.0b4"
+            "version": "==4.0"
         },
         "willow": {
             "hashes": [
