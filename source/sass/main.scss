@@ -37,6 +37,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './components/hr-gradient';
 @import './components/feature-quote';
 @import './components/nav';
+@import './components/commitment';
+@import './components/card';
 
 // Misc
 
@@ -58,5 +60,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './views/contact';
 @import './views/projects';
 @import './views/initiatives';
+@import './views/participate';
 @import './views/fellowships/shared';
 @import './views/style-guide';

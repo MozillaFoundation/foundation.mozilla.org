@@ -1,0 +1,34 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="row flex-column-reverse flex-md-row card-cta" style="background: #F5F5F5;">
+  <div class="col-12 col-md-6 px-5 pt-4 pb-5 p-sm-5">
+    <h3 class="">{{ title }}</h3>
+    <div class="body-large">{{ description | richtext }}</div>
+
+    {% if commitment %}
+    <div class="commitment mb-3">{{ commitment }}</div>
+    {% endif %}
+
+    {% if link_url %}
+    <a class="btn btn-ghost" href="{{ link_url }}">{{ link_label }}</a>
+    {% endif %}
+
+    <div class="social-links d-flex">
+      {% if facebook %}
+      <a class="social-link social-link-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ facebook }}"></a>
+      {% endif %}
+
+      {% if twitter %}
+      <a class="social-link social-link-twitter" href="https://twitter.com/home?status={{ twitter }}"></a>
+      {% endif %}
+
+      {% if email_body and email_subject %}
+      <a class="social-link social-link-email" href="mailto:?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}"></a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-12 col-md-6 pr-md-5">
+    {% image image format-png as hero %}
+    <div class="wrapper" style="background-image: url({{ hero.url }})"></div>
+  </div>
+</div>

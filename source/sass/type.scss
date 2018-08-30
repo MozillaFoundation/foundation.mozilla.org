@@ -152,7 +152,8 @@ h6,
   @include scaleText(12px, 16px);
 }
 
-.body-large {
+.body-large,
+.body-large p {
   font-weight: 300;
   letter-spacing: 0;
   line-height: 1.333;
