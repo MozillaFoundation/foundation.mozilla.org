@@ -131,6 +131,19 @@ def petition_submission(request, petition):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+    policy = petition.comment_requirements
+    if policy != 'none':
+        if policy == 'optional' and 'comment' in request.data:
+            data["comments"] = request.data['comment']
+        elif policy == 'required':
+            if 'comment' in request.data:
+                data["comments"] = request.data['comment']
+            else:
+                return Response(
+                    {'error': 'Required field "comment" is missing'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
         'timestamp': datetime.now().isoformat(),
