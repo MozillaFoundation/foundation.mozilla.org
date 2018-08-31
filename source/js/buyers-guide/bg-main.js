@@ -11,13 +11,9 @@ let main = {
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
     if (document.querySelectorAll(`.creepometer`)) {
-      var elements = Array.from(document.querySelectorAll(`.creepometer`));
-
-      if (elements.length) {
-        elements.forEach(element => {
-          ReactDOM.render(<Creepometer/>, element);
-        });
-      }
+      Array.from(document.querySelectorAll(`.creepometer`)).forEach(element => {
+        ReactDOM.render(<Creepometer/>, element);
+      });
     }
   }
 };

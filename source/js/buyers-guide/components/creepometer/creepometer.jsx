@@ -9,7 +9,7 @@ export default class Creepometer extends React.Component {
 
   render() {
     return (
-      <div>Creepometer!</div>
+      <div>Creepometer 😬</div>
     );
   }
 }
