@@ -11,7 +11,7 @@
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
     "build:js-uncompressed": "webpack",
     "build:js": "webpack -p",
-    "build:sass": "shx mkdir -p network-api/networkapi/frontend/_css && node-sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && npm run autoprefix",
+    "build:sass": "shx mkdir -p network-api/networkapi/frontend/_css && node-sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && node-sass source/sass/buyers-guide/bg-main.scss network-api/networkapi/frontend/_css/buyers-guide.compiled.css && npm run autoprefix",
     "build": "npm run build:common && npm run build:js",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
     "heroku-postbuild": "npm run build",
