@@ -46,6 +46,13 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Header
 
+.moz-logo {
+  width: 97px;
+  height: 28px;
+  background-image: url("../_images/mozilla-on-black.svg");
+  flex-shrink: 0;
+}
+
 .primary-nav {
   overflow-x: scroll;
   white-space: nowrap;
@@ -59,6 +66,28 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
     font-weight: 900;
     margin-right: 20px;
   }
+}
+
+.social-button {
+  display: block;
+  width: 25px;
+  height: 25px;
+  margin: 0 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.social-button-fb {
+  background-image: url("/_images/glyphs/fb.svg");
+}
+
+.social-button-twitter {
+  background-image: url("/_images/glyphs/twitter.svg");
+}
+
+.social-button-email {
+  background-image: url("/_images/glyphs/email.svg");
 }
 
 // View specific

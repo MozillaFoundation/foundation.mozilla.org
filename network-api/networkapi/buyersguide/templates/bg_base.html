@@ -17,14 +17,14 @@
     <header class="container">
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center py-3">
-          <p class="mb-0 mr-3">Mozilla</p>
-          <p class="mb-0 h4-heading">*privacy not included</p>
+          <p class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></p>
+          <p class="mb-0 h4-heading">*privacy not&nbsp;included</p>
         </div>
-        <div class="social">
-          <a href="#TODO">F</a>
-          <a href="#TODO">T</a>
-          <a href="#TODO">E</a>
-          <a class="btn btn-blue" href="#TODO">Donate</a>
+        <div class="social d-flex align-items-center">
+          <a class="social-button social-button-fb" href="#TODO"><span class="sr-only">Facebook</a></a>
+          <a class="social-button social-button-twitter" href="#TODO"><span class="sr-only">Twitter</a></a>
+          <a class="social-button social-button-email" href="#TODO"><span class="sr-only">Email</a></a>
+          <a class="btn btn-blue ml-3" href="#TODO">Donate</a>
         </div>
       </div>
     </header>
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    {% block guts %}{% endblock %}
+    <div class="pb-5">{% block guts %}{% endblock %}</div>
 
     <footer class="mofo-footer">
       <div class="container">
