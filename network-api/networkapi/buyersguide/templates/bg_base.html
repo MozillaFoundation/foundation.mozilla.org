@@ -13,11 +13,11 @@
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
     <title>Privacy Not Included</title>
   </head>
-  <body>
+  <body id="pni-{% block body-id %}{% endblock %}">
     <header class="container">
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center py-3">
-          <p class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></p>
+          <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
           <p class="mb-0 h4-heading">*privacy not&nbsp;included</p>
         </div>
         <div class="social d-flex align-items-center">
@@ -29,15 +29,15 @@
       </div>
     </header>
     <div class="primary-nav mb-3">
-      <div class="container py-3">
-        <a href="/privacynotincluded">Home</a>
-        <a href="#TODO">Toys & Games</a>
-        <a href="#TODO">Smart Home</a>
-        <a href="#TODO">Entertainment</a>
-        <a href="#TODO">Wearables</a>
-        <a href="#TODO">Health & Exercise</a>
-        <a href="#TODO">Pets</a>
-        <a href="#TODO">About the Guide</a>
+      <div class="container">
+        <a class="nav-home" href="/privacynotincluded">Home</a>
+        <a class="nav-TODO" href="#TODO">Toys & Games</a>
+        <a class="nav-TODO" href="#TODO">Smart Home</a>
+        <a class="nav-TODO" href="#TODO">Entertainment</a>
+        <a class="nav-TODO" href="#TODO">Wearables</a>
+        <a class="nav-TODO" href="#TODO">Health & Exercise</a>
+        <a class="nav-TODO" href="#TODO">Pets</a>
+        <a class="nav-about" href="#TODO">About the Guide</a>
       </div>
     </div>
 

@@ -60,12 +60,24 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
   border-bottom: 1px solid #ccc;
 
   a {
+    display: inline-block;
     font-family: "Nunito Sans";
     font-size: 17px;
     color: #909090;
     font-weight: 900;
     margin-right: 20px;
+    padding: 10px 0 6px;
+    text-decoration: none;
+
+    &:hover {
+      color: $black;
+    }
   }
+}
+
+#pni-home .nav-home {
+  border-bottom: 4px solid $black;
+  color: $black;
 }
 
 .social-button {
