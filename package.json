@@ -61,7 +61,7 @@
     "postcss": "^6.0.22",
     "postcss-cli": "^4.1.1",
     "prop-types": "^15.6.2",
-    "react": "16.0.0",
+    "react": "16.4.2",
     "react-dom": "16.4.2",
     "react-ga": "2.5.3",
     "shelljs": "^0.8.2",
