@@ -46,6 +46,7 @@ base_fields = [
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('quote', customblocks.QuoteBlock()),
     ('pulse_listing', customblocks.PulseProjectList()),
+    ('profile_by_id', customblocks.ProfileById()),
 ]
 
 

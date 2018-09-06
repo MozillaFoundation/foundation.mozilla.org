@@ -1,3 +1,5 @@
+from urllib import request
+import json
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -339,3 +341,30 @@ class PulseProjectList(blocks.StructBlock):
         template = 'wagtailpages/blocks/pulse_project_list.html'
         icon = 'site'
         value_class = PulseProjectQueryValue
+
+
+class ProfileById(blocks.StructBlock):
+
+    ids = blocks.CharBlock(label='Profile by ID')
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        data = 'cake'
+
+        try:
+            url = "https://api.mozillapulse.org/api/pulse/profiles/439/?format=json"
+            response = request.urlopen(url)
+            response_data = response.read()
+            data = json.loads(response_data);
+        except:
+            # what would we do here?
+            pass
+
+        context['profiles'] = data;
+        print(context)
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_by_id.html'
+        icon = 'user'
+
