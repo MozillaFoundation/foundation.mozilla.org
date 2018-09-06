@@ -26,11 +26,39 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 @import './components/future-non-react-component';
 
+.btn-blue {
+  color: $white;
+  background: #3302ff;
+
+  &:hover {
+    color: $white;
+    background: #4a90e2;
+  }
+}
+
 // Misc
 
 @import '../resets';
 @import '../type';
+@import '../buttons';
 @import '../global';
 @import '../utilities';
+
+// Header
+
+.primary-nav {
+  overflow-x: scroll;
+  white-space: nowrap;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+
+  a {
+    font-family: "Nunito Sans";
+    font-size: 17px;
+    color: #909090;
+    font-weight: 900;
+    margin-right: 20px;
+  }
+}
 
 // View specific
