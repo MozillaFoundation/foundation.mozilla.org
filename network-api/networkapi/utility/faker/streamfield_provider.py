@@ -98,7 +98,8 @@ class StreamfieldProvider(BaseProvider):
 
     def streamfield(self, fields=None):
         """
-        Generate a streamfield string containing the fields optionally defined in field_list
+        Generate a streamfield string containing the fields optionally defined in fields.
+        Defaults to ['header', 'paragraph']
         """
 
         valid_fields = {
