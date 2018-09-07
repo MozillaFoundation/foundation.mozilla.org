@@ -47,10 +47,15 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 // Header
 
 .moz-logo {
-  width: 97px;
-  height: 28px;
-  background-image: url("../_images/mozilla-on-black.svg");
+  background-image: url("../_images/mozilla-m.svg");
   flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+
+  @include media-breakpoint-up(md) {
+    width: 97px;
+    background-image: url("../_images/mozilla-on-black.svg");
+  }
 }
 
 .primary-nav {
