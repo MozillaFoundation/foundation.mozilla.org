@@ -1,3 +1,18 @@
-<div>
-  {{ profiles.custom_name }}
+<div class="network-pulse profile">
+    <ul class="profiles">
+      {% for profile in profiles %}
+      <li>
+        <img class="profile-picture" src="{{ profile.thumbnail }}">
+        <p class="name">{{ profile.name }}</p>
+        <p class="program-type">{{ profile.program_type }}</p>
+        {% if profile.issues|length > 0 %}
+        <ul class="issues">
+          {% for issue in profile.issues %}
+          <li>{{ issue }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
 </div>

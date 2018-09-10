@@ -349,19 +349,19 @@ class ProfileById(blocks.StructBlock):
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
+        ids = context['block'].value['ids'];
         data = 'cake'
 
         try:
-            url = "https://api.mozillapulse.org/api/pulse/profiles/439/?format=json"
+            url = "http://127.0.0.1:8000/api/pulse/profiles/?ids={ids}".format(ids=ids)
             response = request.urlopen(url)
             response_data = response.read()
-            data = json.loads(response_data);
+            data = json.loads(response_data)
         except:
             # what would we do here?
             pass
 
         context['profiles'] = data;
-        print(context)
         return context
 
     class Meta:
