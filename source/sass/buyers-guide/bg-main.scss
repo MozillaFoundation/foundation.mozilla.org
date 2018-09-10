@@ -80,7 +80,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
   }
 }
 
-#pni-home .nav-home {
+#pni-home .nav-home,
+#pni-about .nav-about {
   border-bottom: 4px solid $black;
   color: $black;
 }
