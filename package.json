@@ -45,7 +45,7 @@
     "babel-preset-react": "^6.24.1",
     "browserslist": "^2.11.3",
     "chokidar-cli": "^1.2.0",
-    "classnames": "2.2.5",
+    "classnames": "2.2.6",
     "dotenv": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
