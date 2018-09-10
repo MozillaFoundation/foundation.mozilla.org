@@ -66,7 +66,7 @@
     "react-ga": "2.5.3",
     "shelljs": "^0.8.2",
     "shx": "^0.2.2",
-    "snyk": "^1.78.1",
+    "snyk": "^1.94.0",
     "stylelint": "^8.4.0",
     "stylelint-config-standard": "^17.0.0",
     "svgo": "^1.0.5",
