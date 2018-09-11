@@ -59,7 +59,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 }
 
 .primary-nav {
-  overflow-x: scroll;
+  overflow-x: auto;
   white-space: nowrap;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
