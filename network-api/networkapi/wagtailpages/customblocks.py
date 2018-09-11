@@ -357,6 +357,13 @@ class ProfileById(blocks.StructBlock):
             response = request.urlopen(url)
             response_data = response.read()
             data = json.loads(response_data)
+
+            for profile in data:
+                profile['created_entries'] = False
+                profile['published_entries'] = False
+                profile['entry_count'] = False
+                profile['user_bio_long'] = False
+
         except:
             # what would we do here?
             pass

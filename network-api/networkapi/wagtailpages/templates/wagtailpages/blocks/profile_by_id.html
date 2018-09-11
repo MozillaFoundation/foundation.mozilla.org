@@ -14,8 +14,9 @@
 
             <div class="meta-block mb-2">
               <div class="h5-heading mb-1">{{profile.name }}</div>
-              <div class="meta-block-item meta-block-item-role">{{profile.role }}</div>
-              <div class="meta-block-item meta-block-item-location">{{profile.location }}</div>
+              {% if profile.program_type %}
+              <div class="meta-block-item meta-block-item-role">{{ profile.program_type }}{% if profile.program_year %}, {{ profile.program_year }}{% endif %}</div>
+              {% endif %}
             </div>
 
             {% if profile.issues|length > 0 %}
@@ -26,15 +27,17 @@
             </div>
             {% endif %}
 
-            {% if profile.affiliations|length > 0 %}
+            {% if profile.affiliation %}
             <div class="person-affiliations h6-heading mt-2">
-              {{ profile.affiliations|join:"; " }}
+              {{ profile.affiliation }}
             </div>
             {% endif %}
 
             <hr>
 
-            <a href="https://www.mozillapulse.org/profile/{{ profile.id }}">SEE FULL PROFILE →</a>
+            <div class="full-profile">
+              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">SEE FULL PROFILE →</a>
+            </div>
 
           </div>
         </div>
