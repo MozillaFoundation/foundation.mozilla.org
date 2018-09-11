@@ -52,7 +52,7 @@ test_script:
   - node --version
   - npm --version
   - npm test
-  - "python -m pipenv run flake8 network-api/"
+  - "python -m pipenv run flake8 tasks.py network-api/"
   - "python -m pipenv run python network-api/manage.py test"
 
 cache:
