@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 '''
+import sys
 
 import os
 import environ
@@ -63,6 +64,7 @@ env = environ.Env(
     REFERRER_HEADER_VALUE=(str, ''),
     GITHUB_TOKEN=(str, ''),
     SLACK_WEBHOOK_RA=(str, ''),
+    BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
 )
 
 # Read in the environment
@@ -348,7 +350,7 @@ WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ],
+    ]
 }
 
 # SQS information (if any) for google sheet petition data
@@ -487,3 +489,9 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # Used by load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
+
+# Buyers Guide Rate Limit Setting
+BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
+
+# Detect if we're testing
+TESTING = sys.argv[1:2] == ['test']

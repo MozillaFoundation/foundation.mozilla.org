@@ -1,6 +1,13 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
-# from wagtail.snippets.models import register_snippet
+
+VALID_VOTE_ATTRIBUTES = [
+    'creepiness',
+    'confidence'
+]
 
 
 def get_product_image_upload_path(instance, filename):
@@ -76,7 +83,7 @@ class Product(models.Model):
 
     image = models.FileField(
         max_length=2048,
-        help_text='Image representing this prodct',
+        help_text='Image representing this product',
         upload_to=get_product_image_upload_path,
         blank=True,
     )
@@ -261,3 +268,125 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class ProductVote(models.Model):
+    votes = models.IntegerField(
+        null=False,
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class RangeProductVote(ProductVote):
+    attribute = models.CharField(
+        max_length=100,
+        null=False,
+        validators=[
+            ValueListValidator(valid_values=['creepiness'])
+        ]
+    )
+    average = models.IntegerField(
+        null=False,
+        validators=(
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        )
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='range_product_votes',
+    )
+
+
+class BooleanProductVote(ProductVote):
+    attribute = models.CharField(
+        max_length=100,
+        null=False,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='boolean_product_votes'
+    )
+
+
+class VoteBreakdown(models.Model):
+    count = models.IntegerField(
+        null=False,
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class BooleanVoteBreakdown(VoteBreakdown):
+    product_vote = models.ForeignKey(
+        BooleanProductVote,
+        on_delete=models.CASCADE
+    )
+    bucket = models.IntegerField(
+        null=False,
+        validators=[
+            ValueListValidator(
+                valid_values=[0, 1]
+            )
+        ]
+    )
+
+
+class RangeVoteBreakdown(VoteBreakdown):
+    product_vote = models.ForeignKey(
+        RangeProductVote,
+        on_delete=models.CASCADE
+    )
+    bucket = models.IntegerField(
+        null=False,
+        validators=[
+            ValueListValidator(
+                valid_values=[0, 1, 2, 3, 4]
+            )
+        ]
+    )
+
+
+class Vote(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class BooleanVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        null=False,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    value = models.BooleanField(null=False)
+
+
+class RangeVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        null=False,
+        validators=[
+            ValueListValidator(valid_values=['creepiness'])
+        ]
+    )
+    value = models.IntegerField(
+        null=False,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        ]
+    )
