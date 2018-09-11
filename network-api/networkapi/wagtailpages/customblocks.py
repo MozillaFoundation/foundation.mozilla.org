@@ -353,7 +353,7 @@ class ProfileById(blocks.StructBlock):
         data = 'cake'
 
         try:
-            url = "http://127.0.0.1:8000/api/pulse/profiles/?ids={ids}".format(ids=ids)
+            url = "http://127.0.0.1:8090/api/pulse/profiles/?ids={ids}".format(ids=ids)
             response = request.urlopen(url)
             response_data = response.read()
             data = json.loads(response_data)

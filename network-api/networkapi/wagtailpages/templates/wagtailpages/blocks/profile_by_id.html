@@ -1,18 +1,44 @@
-<div class="network-pulse profile">
-    <ul class="profiles">
-      {% for profile in profiles %}
-      <li>
-        <img class="profile-picture" src="{{ profile.thumbnail }}">
-        <p class="name">{{ profile.name }}</p>
-        <p class="program-type">{{ profile.program_type }}</p>
-        {% if profile.issues|length > 0 %}
-        <ul class="issues">
-          {% for issue in profile.issues %}
-          <li>{{ issue }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
+<div class="profiles">
+  <div class="row">
+    {% for profile in profiles %}
+      <div class="col-md-6 col-12 mb-5">
+        <div class="person-card row no-gutters">
+          <div class="col-4 mr-3">
+            <div class="row">
+              <div class="col">
+                <img src={{ profile.thumbnail }} class="headshot" alt="Headshot" />
+              </div>
+            </div>
+          </div>
+          <div class="col bio-content pt-3">
+
+            <div class="meta-block mb-2">
+              <div class="h5-heading mb-1">{{profile.name }}</div>
+              <div class="meta-block-item meta-block-item-role">{{profile.role }}</div>
+              <div class="meta-block-item meta-block-item-location">{{profile.location }}</div>
+            </div>
+
+            {% if profile.issues|length > 0 %}
+            <div class="person-issues">
+              {% for issue in profile.issues %}
+              <span class="issue-link small d-inline-block mr-1">{{ issue }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if profile.affiliations|length > 0 %}
+            <div class="person-affiliations h6-heading mt-2">
+              {{ profile.affiliations|join:"; " }}
+            </div>
+            {% endif %}
+
+            <hr>
+
+            <a href="https://www.mozillapulse.org/profile/{{ profile.id }}">SEE FULL PROFILE →</a>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
