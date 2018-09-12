@@ -350,14 +350,95 @@ class ProfileById(blocks.StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         ids = context['block'].value['ids'];
-        data = 'cake'
+        data = list()
 
         try:
-            url = "http://127.0.0.1:8090/api/pulse/profiles/?ids={ids}".format(ids=ids)
+            url = "http://127.0.0.1:8090/api/pulse/profiles/?format=json&basic=true&ids={ids}".format(ids=ids)
             response = request.urlopen(url)
             response_data = response.read()
             data = json.loads(response_data)
 
+        except:
+            # what would we do here?
+            pass
+
+        context['profiles'] = data;
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_by_id.html'
+        icon = 'user'
+
+class LatestProfileQueryValue(blocks.StructValue):
+    @property
+    def size(self):
+        max_number_of_results = self['max_number_of_results']
+        return '' if max_number_of_results <= 0 else max_number_of_results
+
+    @property
+    def rev(self):
+        # The default API behaviour is newest-first, so the "rev" attribute
+        # should only have an attribute value when oldest-first is needed.
+        newest_first = self['newest_first']
+        return True if newest_first else ''
+
+
+class LatestProfileList(blocks.StructBlock):
+    max_number_of_results = blocks.IntegerBlock(
+        min_value=0,
+        max_value=12,
+        default=12,
+        required=True,
+        help_text='Choose 1-12. If you want visitors to see more, link to a search or tag on Pulse.',
+    )
+
+    advanced_filter_header = blocks.StaticBlock(
+        label=' ',
+        admin_text='-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------',
+    )
+
+    profile_type = blocks.CharBlock(
+        required=False,
+        default=''
+    )
+
+    program_type = blocks.CharBlock(
+        required=False,
+        default=''
+    )
+
+    year = blocks.CharBlock(
+        required=False,
+        default=''
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        query_args = {
+            'limit': context['block'].value['max_number_of_results'],
+            'profile_type': context['block'].value['profile_type'],
+            'program_type': context['block'].value['program_type'],
+            'program_year': context['block'].value['year'],
+        }
+        url_query = list()
+        for key, value in query_args.items():
+            if not value:
+                continue
+
+            url_query.append(
+                "{}={}".format(key, value)
+            )
+        data = list()
+
+        try:
+            url = "http://127.0.0.1:8090/api/pulse/profiles/?format=json&is_active=true&{}".format("&".join(url_query))
+            print(url)
+            response = request.urlopen(url)
+            response_data = response.read()
+            data = json.loads(response_data)
+
+            # FIXME: this should be pre-pruned as part of the network API request,
+            #        using somethinglike &short-form=true on the endpoint URL.
             for profile in data:
                 profile['created_entries'] = False
                 profile['published_entries'] = False
@@ -373,5 +454,5 @@ class ProfileById(blocks.StructBlock):
 
     class Meta:
         template = 'wagtailpages/blocks/profile_by_id.html'
-        icon = 'user'
-
+        icon = 'group'
+        value_class = LatestProfileQueryValue
