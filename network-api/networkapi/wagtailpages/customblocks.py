@@ -1,5 +1,7 @@
-from urllib import request
 import json
+
+from urllib import request
+from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -349,25 +351,33 @@ class ProfileById(blocks.StructBlock):
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
-        ids = context['block'].value['ids'];
+        ids = context['block'].value['ids']
         data = list()
 
+        # FIXME: the protocol should be part of the pulse api variable.
+        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
+
+        url = "https://{pulse_api}/api/pulse/v2/profiles/?format=json&ids={ids}".format(
+            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
+            ids=ids
+        )
+
         try:
-            url = "http://127.0.0.1:8090/api/pulse/profiles/?format=json&basic=true&ids={ids}".format(ids=ids)
             response = request.urlopen(url)
             response_data = response.read()
             data = json.loads(response_data)
 
-        except:
-            # what would we do here?
+        except (IOError, ValueError) as exception:
+            print(str(exception))
             pass
 
-        context['profiles'] = data;
+        context['profiles'] = data
         return context
 
     class Meta:
-        template = 'wagtailpages/blocks/profile_by_id.html'
+        template = 'wagtailpages/blocks/profile_blocks.html'
         icon = 'user'
+
 
 class LatestProfileQueryValue(blocks.StructValue):
     @property
@@ -419,6 +429,9 @@ class LatestProfileList(blocks.StructBlock):
             'profile_type': context['block'].value['profile_type'],
             'program_type': context['block'].value['program_type'],
             'program_year': context['block'].value['year'],
+            'ordering': '-id',
+            'is_active': 'true',
+            'format': 'json',
         }
         url_query = list()
         for key, value in query_args.items():
@@ -430,9 +443,15 @@ class LatestProfileList(blocks.StructBlock):
             )
         data = list()
 
+        # FIXME: the protocol should be part of the pulse api variable.
+        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
+
+        url = "https://{pulse_api}/api/pulse/v2/profiles/?{query}".format(
+            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
+            query="&".join(url_query)
+        )
+
         try:
-            url = "http://127.0.0.1:8090/api/pulse/profiles/?format=json&is_active=true&{}".format("&".join(url_query))
-            print(url)
             response = request.urlopen(url)
             response_data = response.read()
             data = json.loads(response_data)
@@ -445,14 +464,14 @@ class LatestProfileList(blocks.StructBlock):
                 profile['entry_count'] = False
                 profile['user_bio_long'] = False
 
-        except:
-            # what would we do here?
+        except (IOError, ValueError) as exception:
+            print(str(exception))
             pass
 
-        context['profiles'] = data;
+        context['profiles'] = data
         return context
 
     class Meta:
-        template = 'wagtailpages/blocks/profile_by_id.html'
+        template = 'wagtailpages/blocks/profile_blocks.html'
         icon = 'group'
         value_class = LatestProfileQueryValue

@@ -6,7 +6,11 @@
           <div class="col-4 mr-3">
             <div class="row">
               <div class="col">
-                <img src={{ profile.thumbnail }} class="headshot" alt="Headshot" />
+                <img
+                  src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
+                  class="headshot"
+                  alt="Headshot"
+                >
               </div>
             </div>
           </div>
