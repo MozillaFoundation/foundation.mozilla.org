@@ -3,29 +3,38 @@
 {% block body-id %}TODO-CATEGORY{% endblock %}
 
 {% block guts %}
+<div class="container-fluid text-center bg-gray">
 
+  <img class="mb-5" src="{{mediaUrl}}{{product.image}}" width="500"/>
+</div>
 <div class="container">
-  <h2>{{product.name}}</h2>
 
-  <div class="creepometer mb-5"></div>
+  <div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+      <div>{{product.company}} ${{product.price}}</div>
 
-  <img src="{{mediaUrl}}{{product.image}}" width="500"/>
-  <div>
-    {{product.company}}
+      <h2 class="h1-heading">{{product.name}}</h2>
+      <div class="body-large mb-5">{{product.blurb}}</div>
+
+      <div class="creepometer mb-5"></div>
+
+      <div>
+      </div>
+      <div>{{product.url}}</div>
+      <div>Camera: {{product.camera}}</div>
+      <div>Microphone: {{product.microphone}}</div>
+      <div>Location: {{product.location}}</div>
+      <div>Need account: {{product.need_account}}</div>
+      <div>Privacy Controls: {{product.privacy_controls}}</div>
+      <div>Delete Data: {{product.delete_data}}</div>
+      <div>Share Data: {{product.share_data}}</div>
+      <div>Child rules: {{product.child_rules}}</div>
+      <div>Privacy Policy: {{product.privacy_policy}}</div>
+      <div>Worst case scenario: {{product.worst_case}}</div>
+    </div>
+
   </div>
-  <div>{{product.blurb}}</div>
-  <div>{{product.url}}</div>
-  <div>{{product.price}}</div>
-  <div>Camera: {{product.camera}}</div>
-  <div>Microphone: {{product.microphone}}</div>
-  <div>Location: {{product.location}}</div>
-  <div>Need account: {{product.need_account}}</div>
-  <div>Privacy Controls: {{product.privacy_controls}}</div>
-  <div>Delete Data: {{product.delete_data}}</div>
-  <div>Share Data: {{product.share_data}}</div>
-  <div>Child rules: {{product.child_rules}}</div>
-  <div>Privacy Policy: {{product.privacy_policy}}</div>
-  <div>Worst case scenario: {{product.worst_case}}</div>
+
 </div>
 
 {% endblock %}
