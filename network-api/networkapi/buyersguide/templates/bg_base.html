@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/_css/buyers-guide.compiled.css">
+    <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
+    <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
+    <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
+    <title>Mozilla - *privacy not included</title>
+  </head>
+  <body id="pni-{% block body-id %}{% endblock %}">
+    <header class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center py-3">
+          <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
+          <p class="mb-0 h4-heading">*privacy not&nbsp;included</p>
+        </div>
+        <div class="social d-flex align-items-center">
+          <a class="social-button social-button-fb" href="#TODO"><span class="sr-only">Facebook</a></a>
+          <a class="social-button social-button-twitter" href="#TODO"><span class="sr-only">Twitter</a></a>
+          <a class="social-button social-button-email" href="#TODO"><span class="sr-only">Email</a></a>
+          <a class="d-none d-sm-block btn btn-blue ml-3" href="https://donate.mozilla.org">Donate</a>
+        </div>
+      </div>
+    </header>
+    <div class="primary-nav mb-3">
+      <div class="container">
+        <a class="nav-home" href="/privacynotincluded">Home</a>
+        <a class="nav-TODO" href="#TODO">Toys & Games</a>
+        <a class="nav-TODO" href="#TODO">Smart Home</a>
+        <a class="nav-TODO" href="#TODO">Entertainment</a>
+        <a class="nav-TODO" href="#TODO">Wearables</a>
+        <a class="nav-TODO" href="#TODO">Health & Exercise</a>
+        <a class="nav-TODO" href="#TODO">Pets</a>
+        <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
+      </div>
+    </div>
+
+    <div class="pb-5">{% block guts %}{% endblock %}</div>
+
+    <footer class="mofo-footer">
+      <div class="container">
+        <ul class="list-unstyled footer-links row justify-content-center">
+          <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
+          <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
+          <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
+          <li class="col-auto"><a class="footer-link-participation-guidelines" href="https://www.mozilla.org/about/governance/policies/participation/">Participation Guidelines</a></li>
+          <li class="col-auto"><a class="footer-link-legal" href="https://mozilla.org/en-US/about/legal/">Legal</a></li>
+          <li class="col-auto"><a class="footer-link-privacy" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a></li>
+          <li class="col-auto"><a class="footer-link-donate" id="donate-footer-btn" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer" target="_blank" rel="noopener noreferrer">Donate</a></li>
+        </ul>
+        <div class="org-info mozilla">
+          <div class="logo-container"><a class="logo" href="https://mozilla.org"></a></div>
+          <p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="/_js/bg-main.compiled.js" defer="defer"></script>
+  </body>
+</html>
