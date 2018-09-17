@@ -64,7 +64,7 @@ def l10n_update(ctx):
 def test(ctx):
     """Run tests"""
     print("Running flake8")
-    ctx.run(f"pipenv run flake8 network-api", **PLATFORM_ARG)
+    ctx.run(f"pipenv run flake8 tasks.py network-api", **PLATFORM_ARG)
     print("Running tests")
     manage(ctx, "test")
 
@@ -81,7 +81,7 @@ def setup(ctx):
         ctx.run("pipenv install --dev")
         print("Applying database migrations.")
         ctx.run("inv migrate")
-        print("Updating localizable fields");
+        print("Updating localizable fields")
         ctx.run("inv l10n-sync")
         ctx.run("inv l10n-update")
         print("Creating fake data")
@@ -99,6 +99,7 @@ def setup(ctx):
             ctx.run("pipenv run python network-api/manage.py createsuperuser", pty=True)
             print("All done! To start your dev server, run the following:\n inv runserver")
 
+
 @task
 def catch_up(ctx):
     """Install dependencies and apply migrations"""
@@ -108,7 +109,7 @@ def catch_up(ctx):
     ctx.run("pipenv install --dev")
     print("Applying database migrations.")
     ctx.run("inv migrate")
-    print("Updating localizable fields");
+    print("Updating localizable fields")
     ctx.run("inv l10n-sync")
     ctx.run("inv l10n-update")
     print("Updating block information")

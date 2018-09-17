@@ -16,3 +16,8 @@ def buyersguide_home(request):
 def product_view(request, productname):
     product = Product.objects.get(name__iexact=productname)
     return render(request, 'product_page.html', {'product': product, 'mediaUrl': settings.MEDIA_URL})
+
+
+@login_required
+def about_view(request):
+    return render(request, 'about.html')
