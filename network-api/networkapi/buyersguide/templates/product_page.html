@@ -1,5 +1,7 @@
 {% extends "./bg_base.html" %}
 
+{% load criterion %}
+
 {% block body-id %}TODO-CATEGORY{% endblock %}
 
 {% block guts %}
@@ -39,6 +41,10 @@
       </div>
 
       <h3 class="h3-heading">What does it know about me?</h3>
+
+      <div>
+        {% criterion "Product uses encryption" "No" %}
+      </div>
 
       <div>Privacy Policy: {{product.privacy_policy}}</div>
 
