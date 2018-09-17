@@ -46,66 +46,27 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Header
 
-.moz-logo {
-  background-image: url("../_images/mozilla-m.svg");
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+@import './components/header.scss';
 
-  @include media-breakpoint-up(md) {
-    width: 97px;
-    background-image: url("../_images/mozilla-on-black.svg");
-  }
+// Utilities
+
+.bg-gray {
+  background: #f4f4f4;
 }
 
-.primary-nav {
-  overflow-x: auto;
-  white-space: nowrap;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-
-  a {
-    display: inline-block;
-    font-family: "Nunito Sans";
-    font-size: 17px;
-    color: #909090;
-    font-weight: 900;
-    margin-right: 20px;
-    padding: 10px 0 6px;
-    text-decoration: none;
-
-    &:hover {
-      color: $black;
-    }
-  }
+.bg-white {
+  background: $white;
 }
 
-#pni-home .nav-home,
-#pni-about .nav-about {
-  border-bottom: 4px solid $black;
+// Type specific to PNI
+
+.links-btn {
+  font-family: "Nunito Sans";
+  font-size: 16px;
   color: $black;
-}
-
-.social-button {
-  display: block;
-  width: 25px;
-  height: 25px;
-  margin: 0 12px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.social-button-fb {
-  background-image: url("/_images/glyphs/fb.svg");
-}
-
-.social-button-twitter {
-  background-image: url("/_images/glyphs/twitter.svg");
-}
-
-.social-button-email {
-  background-image: url("/_images/glyphs/email.svg");
+  text-transform: uppercase;
+  text-decoration: underline;
+  line-height: 20px;
 }
 
 // View specific

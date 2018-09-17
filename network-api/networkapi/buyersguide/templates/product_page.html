@@ -3,34 +3,58 @@
 {% block body-id %}TODO-CATEGORY{% endblock %}
 
 {% block guts %}
-<div class="container-fluid text-center bg-gray">
+<div class="container-fluid text-center product-header bg-gray">
 
-  <img class="mb-5" src="{{mediaUrl}}{{product.image}}" width="500"/>
+  <img class="mb-0" src="{{mediaUrl}}{{product.image}}" width="500"/>
 </div>
 <div class="container">
 
   <div class="row">
-    <div class="col-12 col-md-8 offset-md-2">
+    <div class="product-detail bg-white p-5 col-12 col-md-8 offset-md-2">
       <div>{{product.company}} ${{product.price}}</div>
 
-      <h2 class="h1-heading">{{product.name}}</h2>
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="h1-heading">{{product.name}}</h2>
+        <a class="links-btn" href="#TODO">Copy link</a>
+      </div>
       <div class="body-large mb-5">{{product.blurb}}</div>
 
       <div class="creepometer mb-5"></div>
 
-      <div>
+      <h3 class="h3-heading">Can it spy on me?</h3>
+
+      <div class="row mb-3">
+        <div class="col-12 col-md-4">
+          <strong class="d-block">Camera</strong>
+          Device: {{product.camera}} | App: TODO
+        </div>
+        <div class="col-12 col-md-4">
+          <strong class="d-block">Microphone</strong>
+          Device: {{product.microphone}} | App: TODO
+        </div>
+        <div class="col-12 col-md-4">
+          <strong class="d-block">Location Tracking</strong>
+          Device: {{product.location}} | App: TODO
+        </div>
       </div>
-      <div>{{product.url}}</div>
-      <div>Camera: {{product.camera}}</div>
-      <div>Microphone: {{product.microphone}}</div>
-      <div>Location: {{product.location}}</div>
+
+      <h3 class="h3-heading">What does it know about me?</h3>
+
+      <div>Privacy Policy: {{product.privacy_policy}}</div>
+
+      <h3 class="h3-heading">Can I control it?</h3>
+
       <div>Need account: {{product.need_account}}</div>
       <div>Privacy Controls: {{product.privacy_controls}}</div>
       <div>Delete Data: {{product.delete_data}}</div>
       <div>Share Data: {{product.share_data}}</div>
       <div>Child rules: {{product.child_rules}}</div>
-      <div>Privacy Policy: {{product.privacy_policy}}</div>
-      <div>Worst case scenario: {{product.worst_case}}</div>
+
+      <h3 class="h3-heading">Company shows it cares about its customers?</h3>
+
+      <h3 class="h3-heading">What could happen if something went wrong?</h3>
+      <p>{{product.worst_case}}</p>
+
     </div>
 
   </div>
