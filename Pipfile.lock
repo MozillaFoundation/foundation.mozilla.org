@@ -176,6 +176,7 @@
                 "sha256:6f25cc4761ac109efd503f096e2ad99421b1159f01a29dbb917359dcd68e08ca",
                 "sha256:d552cb872b310ae78bd7429bf318e42e1e903b1a109e899a523293dfa762ea4f"
             ],
+            "markers": "python_version != '3.0.*' and python_version != '3.1.*' and python_version >= '2.7' and python_version != '3.2.*'",
             "version": "==2.11.1"
         },
         "faker": {
@@ -184,6 +185,7 @@
                 "sha256:f6d67f04abfb2b4bea7afc7fa6c18cf4c523a67956e455668be9ae42bccc21ad"
             ],
             "index": "pypi",
+            "markers": "python_version != '3.0.*' and python_version != '3.1.*' and python_version >= '2.7' and python_version != '3.2.*'",
             "version": "==0.9.0"
         },
         "filebrowser-safe": {
@@ -271,7 +273,7 @@
                 "sha256:f8b3d413c5a8f84b12cd4c5df1d8e211777c9852c6be3ee9c094b626644d3eab"
             ],
             "index": "pypi",
-            "markers": "python_version != '3.0.*' and python_version != '3.1.*' and python_version != '3.2.*' and python_version >= '2.7' and python_version != '3.3.*'",
+            "markers": "python_version != '3.0.*' and python_version != '3.1.*' and python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.3.*'",
             "version": "==5.2.0"
         },
         "psycopg2-binary": {
@@ -360,6 +362,7 @@
                 "sha256:8886bfec5ad7afb391ed5443b1f697c6f4ae98d0e5620839d8b4499c032ada3f",
                 "sha256:e21232e2465808c0e892e0e4dbb8c2faafec16ac6dc067dd546e9b466f3deac8"
             ],
+            "markers": "python_version != '3.0.*' and python_version >= '2.6' and python_version != '3.1.*' and python_version != '3.2.*' and python_version < '4' and python_version != '3.3.*'",
             "version": "==1.0.0"
         },
         "s3transfer": {
@@ -391,6 +394,7 @@
                 "sha256:7b393754ab75f6e5176568554f4f7b5cd9e4cb6dab23d9614e5c9e1425f3fcf9",
                 "sha256:eb0d0e29d0cfa729cd52437314d4aeb83806c4d6e7824cbe988195b6a4b85163"
             ],
+            "markers": "python_version != '3.0.*' and python_version >= '2.6' and python_version != '3.1.*' and python_version != '3.2.*' and python_version < '4' and python_version != '3.3.*'",
             "version": "==1.7.0"
         },
         "text-unidecode": {
@@ -419,7 +423,7 @@
                 "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
                 "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
             ],
-            "markers": "python_version < '4' and python_version >= '2.6' and python_version != '3.3.*' and python_version != '3.0.*' and python_version != '3.1.*' and python_version != '3.2.*'",
+            "markers": "python_version != '3.0.*' and python_version != '3.1.*' and python_version != '3.2.*' and python_version < '4' and python_version >= '2.6' and python_version != '3.3.*'",
             "version": "==1.23"
         },
         "wagtail": {
@@ -528,11 +532,11 @@
         },
         "django-debug-toolbar": {
             "hashes": [
-                "sha256:136e23d8e01d4d94992478f54b330de8cce0276545d970478c10a115db6b38e3",
-                "sha256:b1cfaf65bd6f48bf1e790d25685190073e8035b4bf3d80741b4beb5efd5a992c"
+                "sha256:08e0e43f6c1fd9820af4cbdcd54b5fb80bf83a2e08b2cc952547a671174999b8",
+                "sha256:1dcae28d430522debafde2602b3450eb784410b78e16c29a00448032df2a4c90"
             ],
             "index": "pypi",
-            "version": "==1.10"
+            "version": "==1.10.1"
         },
         "flake8": {
             "hashes": [
@@ -628,7 +632,7 @@
                 "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
                 "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
             ],
-            "markers": "python_version < '4' and python_version >= '2.6' and python_version != '3.3.*' and python_version != '3.0.*' and python_version != '3.1.*' and python_version != '3.2.*'",
+            "markers": "python_version != '3.0.*' and python_version != '3.1.*' and python_version != '3.2.*' and python_version < '4' and python_version >= '2.6' and python_version != '3.3.*'",
             "version": "==1.23"
         }
     }
