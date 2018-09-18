@@ -1,6 +1,6 @@
 import json
 
-from urllib import request
+from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
@@ -347,7 +347,10 @@ class PulseProjectList(blocks.StructBlock):
 
 class ProfileById(blocks.StructBlock):
 
-    ids = blocks.CharBlock(label='Profile by ID')
+    ids = blocks.CharBlock(
+        label='Profile by ID',
+        help_text='Show profiles for pulse users with specific profile ids (mozillapulse.org/profile/[##]). For multiple profiles, specify a comma separated list (e.g. 85,105,332).'
+    )
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -395,11 +398,11 @@ class LatestProfileQueryValue(blocks.StructValue):
 
 class LatestProfileList(blocks.StructBlock):
     max_number_of_results = blocks.IntegerBlock(
-        min_value=0,
-        max_value=12,
+        min_value=1,
+        max_value=48,
         default=12,
         required=True,
-        help_text='Choose 1-12. If you want visitors to see more, link to a search or tag on Pulse.',
+        help_text='Pick up to 48 profiles.',
     )
 
     advanced_filter_header = blocks.StaticBlock(
@@ -433,22 +436,16 @@ class LatestProfileList(blocks.StructBlock):
             'is_active': 'true',
             'format': 'json',
         }
-        url_query = list()
-        for key, value in query_args.items():
-            if not value:
-                continue
 
-            url_query.append(
-                "{}={}".format(key, value)
-            )
-        data = list()
+        # filter out emptish values
+        query_args = {k: v for k, v in query_args.items() if v}
 
         # FIXME: the protocol should be part of the pulse api variable.
         #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
 
         url = "https://{pulse_api}/api/pulse/v2/profiles/?{query}".format(
             pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
-            query="&".join(url_query)
+            query=parse.urlencode(query_args)
         )
 
         try:
@@ -456,8 +453,6 @@ class LatestProfileList(blocks.StructBlock):
             response_data = response.read()
             data = json.loads(response_data)
 
-            # FIXME: this should be pre-pruned as part of the network API request,
-            #        using somethinglike &short-form=true on the endpoint URL.
             for profile in data:
                 profile['created_entries'] = False
                 profile['published_entries'] = False

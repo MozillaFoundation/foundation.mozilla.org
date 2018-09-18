@@ -100,6 +100,10 @@
   }
 
   .full-profile {
-    text-align: right;
+    text-align: left;
+
+    @media (min-width: $bp-md) {
+      text-align: right;
+    }
   }
 }
