@@ -349,7 +349,9 @@ class ProfileById(blocks.StructBlock):
 
     ids = blocks.CharBlock(
         label='Profile by ID',
-        help_text='Show profiles for pulse users with specific profile ids (mozillapulse.org/profile/[##]). For multiple profiles, specify a comma separated list (e.g. 85,105,332).'
+        help_text='Show profiles for pulse users with specific profile ids'
+                  ' (mozillapulse.org/profile/[##]). For multiple profiles'
+                  ', specify a comma separated list (e.g. 85,105,332).'
     )
 
     def get_context(self, value, parent_context=None):
