@@ -9,20 +9,43 @@
 .criterion {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #c8c8ca;
+  border-bottom: 1px solid #c8c8ca;
+  margin-top: -1px;
 
   p {
     margin-bottom: 0;
   }
 }
 
-// Smiley Cases
-.criterion-uses_encryption.criterion-yes {
-  // border: 1px solid green;
+// Smiley Cases (default)
+.criterion {
+  .rating { color: purple; } // TEMP
+
+  z-index: 1;
+  position: relative;
 }
 
 // Sad Cases
-.criterion-uses_encryption.criterion-no {
+.criterion-uses_encryption.criterion-false,
+.criterion-share_data.criterion-true,
+.criterion-must_change_default_password.criterion-false,
+.criterion-security_updates.criterion-false,
+.criterion-need_account.criterion-false,
+.criterion-delete_data.criterion-false,
+.criterion-child_rules.criterion-false,
+.criterion-manage_security.criterion-false {
+  .rating { color: red; } // TEMP
+
   background: rgba(237, 53, 71, 0.06);
   border: 1px solid #ed3547;
+  margin: -1px -10px -1px -10px;
+  padding: 10px;
+  z-index: 2;
+}
+
+// Ambivalent Case
+.criterion.criterion-null {
+  .rating { color: green; } // TEMP
 }

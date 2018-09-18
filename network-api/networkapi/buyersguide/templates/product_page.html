@@ -21,11 +21,11 @@
       </div>
       <div class="body-large mb-5">{{product.blurb}}</div>
 
-      <div class="creepometer mb-5"></div>
+      <div class="creepometer p-5 mb-5"></div>
 
       <h3 class="h3-heading">Can it spy on me?</h3>
 
-      <div class="row mb-3">
+      <div class="row mb-5">
         <div class="col-12 col-md-4">
           <strong class="d-block">Camera</strong>
           Device: {{product.camera}} | App: TODO
@@ -42,23 +42,30 @@
 
       <h3 class="h3-heading">What does it know about me?</h3>
 
-      <div>
+      <div class="mb-5">
         {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption %}
+        {% criterion "privacy_policy" "<a href='{{product.privacy_policy}}'>Privacy policy</a> reading level" True %}
+        {% criterion "share_data" "Shares your information with third parties" product.share_data %}
       </div>
-
-      <div>Privacy Policy: {{product.privacy_policy}}</div>
 
       <h3 class="h3-heading">Can I control it?</h3>
 
-      <div>Need account: {{product.need_account}}</div>
-      <div>Privacy Controls: {{product.privacy_controls}}</div>
-      <div>Delete Data: {{product.delete_data}}</div>
-      <div>Share Data: {{product.share_data}}</div>
-      <div>Child rules: {{product.child_rules}}</div>
+      <div class="mb-5">
+        {% criterion "must_change_default_password" "Must change the default password" product.must_change_default_password %}
+        {% criterion "security_updates" "Automatic security updates" product.security_updates %}
+        {% criterion "need_account" "Requires an account" product.need_account %}
+        {% criterion "delete_data" "Deletes data it stores on you" product.delete_data %}
+        {% criterion "child_rules" "Has parental controls" product.child_rules %}
+      </div>
 
       <h3 class="h3-heading">Company shows it cares about its customers?</h3>
 
+      <div class="mb-5">
+        {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security %}
+      </div>
+
       <h3 class="h3-heading">What could happen if something went wrong?</h3>
+
       <p>{{product.worst_case}}</p>
 
     </div>

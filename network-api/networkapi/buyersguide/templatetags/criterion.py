@@ -5,9 +5,17 @@ register = template.Library()
 
 @register.inclusion_tag('tags/criterion.html')
 def criterion(id, question, answer):
+    cssClassSuffix = "null"
+
+    if answer is None:
+        formattedAnswer = "Can't determine"
+    else:
+        cssClassSuffix = ("false", "true")[answer]
+        formattedAnswer = ("No", "Yes")[answer]
+
     return {
         'id': id,
         'question': question,
-        'answer': ("No", "Yes")[answer],
-        'class': ("no", "yes")[answer],
+        'answer': formattedAnswer,
+        'class': cssClassSuffix,
     }
