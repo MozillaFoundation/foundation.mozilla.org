@@ -4,8 +4,10 @@ register = template.Library()
 
 
 @register.inclusion_tag('tags/criterion.html')
-def criterion(question, answer):
+def criterion(id, question, answer):
     return {
+        'id': id,
         'question': question,
-        'answer': answer,
+        'answer': ("No", "Yes")[answer],
+        'class': ("no", "yes")[answer],
     }

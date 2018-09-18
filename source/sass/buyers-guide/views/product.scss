@@ -9,4 +9,20 @@
 .criterion {
   display: flex;
   justify-content: space-between;
+  padding: 10px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// Smiley Cases
+.criterion-uses_encryption.criterion-yes {
+  // border: 1px solid green;
+}
+
+// Sad Cases
+.criterion-uses_encryption.criterion-no {
+  background: rgba(237, 53, 71, 0.06);
+  border: 1px solid #ed3547;
 }
