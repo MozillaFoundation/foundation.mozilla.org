@@ -1,5 +1,15 @@
-Buyer's guide homepage!
+{% extends "./bg_base.html" %}
 
-{% for product in products %}
-<div><a href="{{product.name | urlencode}}">{{product.name}}</a></div>
-{% endfor %}
+{% block body-id %}home{% endblock %}
+
+{% block guts %}
+
+<div class="container">
+  <h1>Buyer's guide homepage!</h1>
+
+  {% for product in products %}
+  <div><a href="./product/{{product.name | urlencode}}">{{product.name}}</a></div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -20,7 +20,6 @@ filebrowser-safe = "*"
 future = "*"
 gunicorn = "*"
 Pillow = "*"
-"psycopg2" = "==2.7.3.2"
 python-slugify = "*"
 requests = "*"
 social-auth-app-django = "*"
@@ -28,8 +27,9 @@ wagtail = "==2.1.2"
 wagtail-factories = {ref = "1ead51cadaad3b4530ba2197ccf45d2dca87dbdf", git = "https://github.com/mvantellingen/wagtail-factories"}
 wagtail-inventory = "*"
 wagtail-metadata = "*"
-whitenoise = "==4.0b4"
+whitenoise = "==4.0"
 wagtail-modeltranslation = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
