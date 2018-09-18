@@ -44,6 +44,16 @@ class Command(BaseCommand):
             except KeyError:
                 pr_title = ''
 
+            if r.json()['labels']:
+                for l in r.json()['labels']:
+                    if l['name'] == 'dependencies':
+                        color = '#BA55D3'
+                        break
+                    else:
+                        color = '#7CD197'
+            else:
+                color = '#7CD197'
+
             slack_payload = {
                 'attachments': [
                     {
@@ -56,7 +66,7 @@ class Command(BaseCommand):
                         'title':    f'PR {pr_number}{pr_title}\n',
                         'text':     'Login: admin\n'
                                     f'Password: {password}\n',
-                        'color':    '#7CD197',
+                        'color':    f'{color}',
                         'actions': [
                             {
                                 'type': 'button',
