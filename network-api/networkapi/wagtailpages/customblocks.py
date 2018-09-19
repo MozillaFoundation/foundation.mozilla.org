@@ -414,12 +414,14 @@ class LatestProfileList(blocks.StructBlock):
 
     profile_type = blocks.CharBlock(
         required=False,
-        default=''
+        default='',
+        help_text='Example: Fellow.'
     )
 
     program_type = blocks.CharBlock(
         required=False,
-        default=''
+        default='',
+        help_text='Example: Tech Policy.'
     )
 
     year = blocks.CharBlock(
