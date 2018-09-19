@@ -60,7 +60,16 @@ a {
     color: inherit;
     color: $black;
     text-decoration: none;
-    box-shadow: 0 3px $yellow;
+
+    /* (temporarily?) commented off for gh#1727
+    box-shadow: 0 3px yellow;
+    padding-bottom: 30px;
+    */
+
+    box-shadow: 0 4px black;
+    padding-bottom: calc(2em + 1px);
+    position: relative;
+    z-index: 1;
   }
 }
 

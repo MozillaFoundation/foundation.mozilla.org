@@ -6,16 +6,42 @@ body {
     background: $white;
   }
 
+  .sticky-top {
+    background: white;
+
+    .btn-pop {
+      @media (max-width: $bp-sm) {
+        padding: 0.25em;
+        margin-right: -0.25em;
+        top: -2px;
+      }
+    }
+  }
+
   // Subpages
   .wrapper-2 {
     #hero {
-      padding-top: 76px;
+      /*
+        Note that these values are recomputed when the react app loads.
+        See adjustHero() in main.jsx for more details on how that happens.
+      */
+      padding-top: 116px;
       margin-top: -76px;
+
+      .container .h1-heading {
+        color: white;
+        text-transform: capitalize;
+      }
     }
 
+    /* (temporarily?) commented off for gh#1727
     background:
       url(../_images/bg-white-lines.png) center top / auto 335px repeat,
       linear-gradient(to right, $neon-blue, $green);
+    background-blend-mode: normal, normal;
+    */
+
+    background: url(/_images/bg-marble-03.jpg) center top / auto 335px repeat;
     background-blend-mode: normal, normal;
   }
 
@@ -72,14 +98,6 @@ button:hover {
   #view-internet-health .nav-link-internet-health,
   #view-about .nav-link-about {
     text-decoration: underline;
-  }
-}
-
-.sticky-top .btn-pop {
-  @media (max-width: $bp-sm) {
-    padding: 0.25em;
-    margin-right: -0.25em;
-    top: -2px;
   }
 }
 
