@@ -7,6 +7,8 @@ install:
 - pip install --upgrade pip
 - pip install pipenv
 - pipenv install --dev --deploy
+- nvm install --lts=carbon
+- nvm use --lts=carbon
 - npm install -g npm@latest # Needed to use npm ci
 - npm ci # use package-lock.json
 - pipenv run python network-api/manage.py collectstatic --no-input
