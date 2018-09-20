@@ -7,12 +7,19 @@
 }
 
 .criterion {
-  display: flex;
-  justify-content: space-between;
   padding: 10px 0;
   border-top: 1px solid #c8c8ca;
   border-bottom: 1px solid #c8c8ca;
   margin-top: -1px;
+
+  .primary-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .helptext {
+    display: none;
+  }
 
   p {
     margin-bottom: 0;

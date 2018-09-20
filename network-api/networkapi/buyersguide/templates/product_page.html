@@ -18,7 +18,7 @@
 
       <div class="d-flex justify-content-between align-items-center">
         <h2 class="h1-heading">{{product.name}}</h2>
-        <a class="links-btn" href="#TODO">Copy link</a>
+        <a class="links-btn copy-link" href={{product.url}}>Copy link</a>
       </div>
       <div class="body-large mb-5">{{product.blurb}}</div>
 
@@ -44,25 +44,25 @@
       <h3 class="h3-heading">What does it know about me?</h3>
 
       <div class="mb-5">
-        {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption %}
-        {% criterion "privacy_policy" "<a href='{{product.privacy_policy}}'>Privacy policy</a> reading level" True %}
-        {% criterion "share_data" "Shares your information with third parties" product.share_data %}
+        {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption product.uses_encryption_helptext %}
+        {% criterion "privacy_policy" "<a href='{{product.privacy_policy}}'>Privacy policy</a> reading level" True product.privacy_policy_helptext %}
+        {% criterion "share_data" "Shares your information with third parties" product.share_data product.share_data_helptext %}
       </div>
 
       <h3 class="h3-heading">Can I control it?</h3>
 
       <div class="mb-5">
-        {% criterion "must_change_default_password" "Must change the default password" product.must_change_default_password %}
-        {% criterion "security_updates" "Automatic security updates" product.security_updates %}
-        {% criterion "need_account" "Requires an account" product.need_account %}
-        {% criterion "delete_data" "Deletes data it stores on you" product.delete_data %}
-        {% criterion "child_rules" "Has parental controls" product.child_rules %}
+        {% criterion "must_change_default_password" "Must change the default password" product.must_change_default_password product.must_change_default_password_helptext %}
+        {% criterion "security_updates" "Automatic security updates" product.security_updates product.security_updates_helptext %}
+        {% criterion "need_account" "Requires an account" product.need_account product.need_account_helptext %}
+        {% criterion "delete_data" "Deletes data it stores on you" product.delete_data product.delete_data_helptext %}
+        {% criterion "child_rules" "Has parental controls" product.child_rules product.child_rules_helptext %}
       </div>
 
       <h3 class="h3-heading">Company shows it cares about its customers?</h3>
 
       <div class="mb-5">
-        {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security %}
+        {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
       </div>
 
       <h3 class="h3-heading">What could happen if something went wrong?</h3>

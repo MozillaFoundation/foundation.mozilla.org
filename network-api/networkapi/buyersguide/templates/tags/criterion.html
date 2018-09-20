@@ -1,4 +1,11 @@
 <div class="criterion criterion-{{ class }} criterion-{{ id }}">
-  <p>{{ question }}</p>
-  <p class="rating">{{ answer }}</p>
+  <div class="primary-info">
+    <p>{{ question }} {% if helptext %}<button>+</button>{% endif %}</p>
+    <p class="rating">{{ answer }}</p>
+  </div>
+  {% if helptext %}
+  <div class="helptext">
+    {{ helptext }}
+  </div>
+  {% endif %}
 </div>

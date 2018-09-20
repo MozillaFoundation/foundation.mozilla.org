@@ -88,14 +88,29 @@ class Product(models.Model):
         help_text='Does the product use encryption?',
     )
 
+    uses_encryption_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     privacy_policy = models.URLField(
         help_text='Link to privacy policy for this product',
         max_length=2048,
         blank="True",
     )
 
+    privacy_policy_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     share_data = models.NullBooleanField(
         help_text='Does the maker share data with other companies?',
+    )
+
+    share_data_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     # Can I control it?
@@ -104,20 +119,45 @@ class Product(models.Model):
         help_text='Must change a default password?',
     )
 
+    must_change_default_password_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     security_updates = models.NullBooleanField(
         help_text='Security updates?',
+    )
+
+    security_updates_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     need_account = models.NullBooleanField(
         help_text='Do you need an account to use this product?',
     )
 
+    need_account_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     delete_data = models.NullBooleanField(
         help_text='Can you request data be deleted?',
     )
 
+    delete_data_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     child_rules = models.NullBooleanField(
         help_text='Are there rules for children?',
+    )
+
+    child_rules_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     # Company shows it cares about its customers?
@@ -126,8 +166,18 @@ class Product(models.Model):
         help_text='Manages security vulnerabilities?',
     )
 
+    manage_security_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     customer_support_easy = models.NullBooleanField(
         help_text='Makes it easy to contact customer support?',
+    )
+
+    customer_support_easy_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     phone_number = models.CharField(
