@@ -58,16 +58,28 @@ class Product(models.Model):
 
     # Can it spy on me?
 
-    camera = models.NullBooleanField(
-        help_text='Does this product have or access a camera?',
+    camera_device = models.NullBooleanField(
+        help_text='Does this device have or access a camera?',
     )
 
-    microphone = models.NullBooleanField(
-        help_text='Does this product have or access a microphone?',
+    camera_app = models.NullBooleanField(
+        help_text='Does the app have or access a camera?',
     )
 
-    location = models.NullBooleanField(
+    microphone_device = models.NullBooleanField(
+        help_text='Does this Device have or access a microphone?',
+    )
+
+    microphone_app = models.NullBooleanField(
+        help_text='Does this app have or access a microphone?',
+    )
+
+    location_device = models.NullBooleanField(
         help_text='Does this product access your location?',
+    )
+
+    location_app = models.NullBooleanField(
+        help_text='Does this app access your location?',
     )
 
     # What does it know about me?
