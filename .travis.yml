@@ -7,16 +7,12 @@ install:
 - pip install --upgrade pip
 - pip install pipenv
 - pipenv install --dev --deploy
-- nvm install 8.12
-- nvm use 8.12
+- nvm install --lts=Carbon
+- nvm use --lts=Carbon
 - npm install -g npm@latest # Needed to use npm ci
 - npm ci # use package-lock.json
 - pipenv run python network-api/manage.py collectstatic --no-input
 before_script:
-- python --version
-- pip --version
-- node  --version
-- npm --version
 - psql -c 'create database network;' -U postgres
 script:
 - npm test
