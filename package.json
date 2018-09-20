@@ -68,7 +68,7 @@
     "shx": "^0.2.2",
     "snyk": "^1.94.0",
     "stylelint": "^8.4.0",
-    "stylelint-config-standard": "^17.0.0",
+    "stylelint-config-standard": "^18.2.0",
     "svgo": "^1.0.5",
     "webpack": "^3.11.0"
   },
