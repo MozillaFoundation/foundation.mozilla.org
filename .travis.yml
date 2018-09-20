@@ -14,7 +14,6 @@ install:
 - pipenv run python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
-- pipenv run python network-api/manage.py migrate --no-input
 script:
 - npm test
 - pipenv run flake8 tasks.py network-api/
