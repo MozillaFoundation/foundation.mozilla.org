@@ -1,3 +1,5 @@
+let path = require('path');
+
 let rules = [
   {
     test: /\.js(x?)$/,
@@ -9,20 +11,26 @@ let rules = [
   }
 ];
 
-module.exports = [{
+let main = {
   entry: `./source/js/main.js`,
   output: {
-    filename: `./network-api/networkapi/frontend/_js/main.compiled.js`
+    path: path.resolve(__dirname, 'network-api','networkapi','frontend','_js'),
+    filename: `main.compiled.js`
   },
   module: {
     rules
   }
-}, {
+};
+
+let bgMain = {
   entry: `./source/js/buyers-guide/bg-main.js`,
   output: {
-    filename: `./network-api/networkapi/frontend/_js/bg-main.compiled.js`
+    path: path.resolve(__dirname, 'network-api','networkapi','frontend','_js'),
+    filename: `bg-main.compiled.js`
   },
   module: {
     rules
   }
-}];
+};
+
+module.exports = [main, bgMain];
