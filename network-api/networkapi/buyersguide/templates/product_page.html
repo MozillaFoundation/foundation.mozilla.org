@@ -1,6 +1,7 @@
 {% extends "./bg_base.html" %}
 
 {% load criterion %}
+{% load yes_no %}
 
 {% block body-id %}TODO-CATEGORY{% endblock %}
 
@@ -28,15 +29,15 @@
       <div class="row mb-5">
         <div class="col-12 col-md-4">
           <strong class="d-block">Camera</strong>
-          Device: {{product.camera_device}} | App: {{product.camera_app}}
+          Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
         </div>
         <div class="col-12 col-md-4">
           <strong class="d-block">Microphone</strong>
-          Device: {{product.microphone_device}} | App: {{product.microphone_app}}
+          Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
         </div>
         <div class="col-12 col-md-4">
           <strong class="d-block">Location Tracking</strong>
-          Device: {{product.location_device}} | App: {{product.location_app}}
+          Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
         </div>
       </div>
 
