@@ -70,7 +70,7 @@
     "stylelint": "^8.4.0",
     "stylelint-config-standard": "^17.0.0",
     "svgo": "^1.0.5",
-    "webpack": "^3.11.0"
+    "webpack": "^4.19.1"
   },
   "engines": {
     "node": "^8.9.0"
