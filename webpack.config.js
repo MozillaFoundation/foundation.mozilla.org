@@ -1,4 +1,5 @@
-let path = require('path');
+let path = require(`path`);
+let frontendPath = path.resolve(__dirname, `network-api`,`networkapi`,`frontend`,`_js`);
 
 let rules = [
   {
@@ -14,7 +15,7 @@ let rules = [
 let main = {
   entry: `./source/js/main.js`,
   output: {
-    path: path.resolve(__dirname, 'network-api','networkapi','frontend','_js'),
+    path: frontendPath,
     filename: `main.compiled.js`
   },
   module: {
@@ -25,7 +26,7 @@ let main = {
 let bgMain = {
   entry: `./source/js/buyers-guide/bg-main.js`,
   output: {
-    path: path.resolve(__dirname, 'network-api','networkapi','frontend','_js'),
+    path: frontendPath,
     filename: `bg-main.compiled.js`
   },
   module: {
