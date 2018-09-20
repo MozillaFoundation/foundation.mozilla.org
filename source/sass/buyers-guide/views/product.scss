@@ -17,12 +17,23 @@
     justify-content: space-between;
   }
 
-  .helptext {
-    display: none;
-  }
-
   p {
     margin-bottom: 0;
+  }
+
+  button {
+    margin: 0 10px;
+    background: url(/_images/buyers-guide/plus.svg) no-repeat;
+    background-size: contain;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    outline: 0;
+    transition: transform 100ms ease-in-out;
+
+    &.open {
+      transform: rotate(45deg);
+    }
   }
 }
 
