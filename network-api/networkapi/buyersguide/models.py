@@ -93,10 +93,15 @@ class Product(models.Model):
         blank="True"
     )
 
-    privacy_policy = models.URLField(
-        help_text='Link to privacy policy for this product',
-        max_length=2048,
-        blank="True",
+    PP_CHOICES = (
+        ('0', 'Grade 8-12'),
+        ('1', 'Grade 13+'),
+    )
+
+    privacy_policy = models.CharField(
+        choices=PP_CHOICES,
+        default=0,
+        max_length=1,
     )
 
     privacy_policy_helptext = models.TextField(
