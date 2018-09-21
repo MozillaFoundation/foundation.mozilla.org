@@ -25,6 +25,12 @@
   img {
     margin-right: 15px;
   }
+
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
 }
 
 .criterion {

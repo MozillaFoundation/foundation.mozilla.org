@@ -80,6 +80,48 @@
         {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
       </div>
 
+      <div class="row mb-5">
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-phone.svg" width="28" height="28" />
+            <div>
+              <strong class="d-block">Phone Number</strong>
+              {% if product.phone_number %}
+              {{ product.phone_number }}
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-chat.svg" width="31" height="26" />
+            <div>
+              <strong class="d-block">Live Chat</strong>
+              {% if product.live_chat %}
+              <a target="_blank" href={{ product.live_chat }}>Yes</a>
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-mail.svg" width="31" height="23" />
+            <div>
+              <strong class="d-block">Email</strong>
+              {% if product.email %}
+              <a href="mailto:{{ product.email }}">Yes</a>
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h3 class="h3-heading h3-heading-small">What could happen if something went wrong?</h3>
 
       <p>{{product.worst_case}}</p>

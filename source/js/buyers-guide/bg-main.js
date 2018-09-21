@@ -16,7 +16,7 @@ let main = {
         element.addEventListener(`click`, (event) => {
           event.preventDefault();
 
-          var textArea = document.createElement(`textarea`);
+          let textArea = document.createElement(`textarea`);
 
           //
           // *** This styling is an extra step which is likely not required. ***
