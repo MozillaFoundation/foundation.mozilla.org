@@ -1,0 +1,109 @@
+.profiles {
+  .headshot {
+    width: 100%;
+  }
+
+  .person-card {
+    border-top: 0.25rem solid black;
+  }
+
+  .person-card-featured {
+    .more-details {
+      background-color: $blue;
+      color: white;
+
+      &:hover {
+        background-color: $dark-blue;
+      }
+    }
+  }
+
+  .person-issues {
+    line-height: 1;
+  }
+
+  .meta-block {
+    .meta-block-item {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 900;
+
+      &::before {
+        width: 12px;
+        height: 12px;
+        display: block;
+        content: '';
+        margin-right: 5px;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+
+    .meta-block-item-role {
+      &::before {
+        background-image: url('/_images/glyphs/mozilla-icon.svg');
+      }
+    }
+
+    .meta-block-item-location {
+      &::before {
+        background-image: url('/_images/glyphs/map-marker-icon.svg');
+      }
+    }
+  }
+
+  .person-social-links {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid $gray-lightest;
+    padding-top: 0.75em;
+  }
+
+  .issue-link {
+    font-style: italic;
+  }
+
+  .issue-link:not(:last-child)::after {
+    content: ', ';
+  }
+
+  .person-quote {
+    z-index: 1;
+
+    &::before {
+      content: '\201C';
+      font-size: 15em;
+      color: $subtle-gray;
+      z-index: -1;
+      position: absolute;
+      font-weight: bold;
+      font-style: initial;
+      top: -0.3em;
+    }
+  }
+
+  .person-bio {
+    margin-top: 1em;
+
+    ul {
+      list-style-type: disc;
+      list-style-position: outside;
+      padding: 0 30px;
+    }
+  }
+
+  .partnership_logo {
+    max-width: 8rem;
+    max-height: 3rem;
+    filter: grayscale(100%) opacity(50%);
+  }
+
+  .full-profile {
+    text-align: left;
+
+    @media (min-width: $bp-md) {
+      text-align: right;
+    }
+  }
+}
