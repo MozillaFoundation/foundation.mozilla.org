@@ -6,6 +6,27 @@
   margin-top: -88px;
 }
 
+.product-price {
+  font-family: "Nunito Sans";
+  font-size: 18px;
+  color: #909090;
+}
+
+.copy-link {
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  color: $black;
+}
+
+.spy {
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 15px;
+  }
+}
+
 .criterion {
   padding: 10px 0;
   border-top: 1px solid #c8c8ca;

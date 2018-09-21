@@ -14,7 +14,7 @@
 
   <div class="row">
     <div class="product-detail bg-white p-5 col-12 col-md-8 offset-md-2">
-      <div>{{product.company}} ${{product.price}}</div>
+      <div class="product-price mb-3">{{product.company}} ${{product.price}}</div>
 
       <div class="d-flex justify-content-between align-items-center">
         <h2 class="h1-heading">{{product.name}}</h2>
@@ -24,24 +24,39 @@
 
       <div class="creepometer p-5 mb-5"></div>
 
-      <h3 class="h3-heading">Can it spy on me?</h3>
+      <h3 class="h3-heading h3-heading-small">Can it spy on me?</h3>
 
       <div class="row mb-5">
         <div class="col-12 col-md-4">
-          <strong class="d-block">Camera</strong>
-          Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-camera.svg" width="31" height="24" />
+            <div>
+              <strong class="d-block">Camera</strong>
+              Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
+            </div>
+          </div>
         </div>
         <div class="col-12 col-md-4">
-          <strong class="d-block">Microphone</strong>
-          Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-mic.svg" width="17" height="29" />
+            <div>
+              <strong class="d-block">Microphone</strong>
+              Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
+            </div>
+          </div>
         </div>
         <div class="col-12 col-md-4">
-          <strong class="d-block">Location Tracking</strong>
-          Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-location.svg" width="24" height="29" />
+            <div>
+              <strong class="d-block">Location Tracking</strong>
+              Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
+            </div>
+          </div>
         </div>
       </div>
 
-      <h3 class="h3-heading">What does it know about me?</h3>
+      <h3 class="h3-heading h3-heading-small">What does it know about me?</h3>
 
       <div class="mb-5">
         {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption product.uses_encryption_helptext %}
@@ -49,7 +64,7 @@
         {% criterion "share_data" "Shares your information with third parties" product.share_data product.share_data_helptext %}
       </div>
 
-      <h3 class="h3-heading">Can I control it?</h3>
+      <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
 
       <div class="mb-5">
         {% criterion "must_change_default_password" "Must change the default password" product.must_change_default_password product.must_change_default_password_helptext %}
@@ -59,13 +74,13 @@
         {% criterion "child_rules" "Has parental controls" product.child_rules product.child_rules_helptext %}
       </div>
 
-      <h3 class="h3-heading">Company shows it cares about its customers?</h3>
+      <h3 class="h3-heading h3-heading-small">Company shows it cares about its customers?</h3>
 
       <div class="mb-5">
         {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
       </div>
 
-      <h3 class="h3-heading">What could happen if something went wrong?</h3>
+      <h3 class="h3-heading h3-heading-small">What could happen if something went wrong?</h3>
 
       <p>{{product.worst_case}}</p>
 

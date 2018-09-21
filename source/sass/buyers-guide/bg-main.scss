@@ -44,6 +44,12 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../global';
 @import '../utilities';
 
+// Type overrides
+
+.h3-heading.h3-heading-small {
+  font-size: 28px;
+}
+
 // Header
 
 @import './components/header.scss';
