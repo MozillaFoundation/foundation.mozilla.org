@@ -30,7 +30,7 @@ export default class Criterion extends React.Component {
               <button onClick={this.toggle} className={this.state.helptextVisible ? `open` : `closed`}></button>
             }
           </p>
-          <p className="rating">{ this.props.meta.answer }</p>
+          <p className="rating">{ this.props.meta.answer } <span class="emoji"></span></p>
         </div>
         {this.state.helptextVisible &&
         <div className="helptext mt-3">

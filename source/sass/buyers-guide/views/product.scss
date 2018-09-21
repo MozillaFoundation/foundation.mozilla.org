@@ -39,7 +39,18 @@
 
 // Smiley Cases (default)
 .criterion {
-  .rating { color: purple; } // TEMP
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-happy.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 10px;
+  }
 
   z-index: 1;
   position: relative;
@@ -54,7 +65,9 @@
 .criterion-delete_data.criterion-false,
 .criterion-child_rules.criterion-false,
 .criterion-manage_security.criterion-false {
-  .rating { color: red; } // TEMP
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
+  }
 
   background: rgba(237, 53, 71, 0.06);
   border: 1px solid #ed3547;
@@ -65,5 +78,7 @@
 
 // Ambivalent Case
 .criterion.criterion-null {
-  .rating { color: green; } // TEMP
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
+  }
 }
