@@ -55,7 +55,7 @@
     "mofo-bootstrap": "4.1.0",
     "mofo-style": "^2.4.0",
     "moment": "^2.22.1",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.3",
     "npm-run-all": "^4.1.2",
     "optipng-bin": "^4.0.0",
     "postcss": "^7.0.2",
