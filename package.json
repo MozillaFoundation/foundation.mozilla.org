@@ -37,7 +37,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "ajv-cli": "^2.1.0",
+    "ajv-cli": "^3.0.0",
     "autoprefixer": "^9.1.5",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
