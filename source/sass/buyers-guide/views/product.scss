@@ -110,3 +110,29 @@
     background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
   }
 }
+
+.product-update {
+  .h6-heading {
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-family: "Zilla Slab";
+    font-size: 22px;
+    color: $black;
+  }
+
+  .author {
+    font-family: "Nunito Sans";
+    font-size: 12px;
+    color: #909090;
+  }
+
+  .snippet {
+    font-family: "Nunito Sans";
+    font-size: 16px;
+    color: $black;
+    letter-spacing: 0;
+    line-height: 24px;
+  }
+}

@@ -14,6 +14,28 @@ def get_product_image_upload_path(instance, filename):
 
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
 
+class Update(models.Model):
+    source = models.CharField(
+        max_length=256,
+        blank="True",
+    )
+
+    title = models.CharField(
+        max_length=256,
+        blank="True",
+    )
+
+    author = models.CharField(
+        max_length=256,
+        blank="True",
+    )
+
+    snippet = models.TextField(
+        max_length=5000,
+        blank="True",
+    )
+
+
 class Product(models.Model):
     """
     A thing you can buy in stores and our review of it
@@ -210,6 +232,42 @@ class Product(models.Model):
         help_text="What's the worst thing that could happen by using this product?",
         blank="True",
     )
+
+    update1 = models.ForeignKey(
+        'Update',
+        related_name='update1',
+        blank=True,
+        null=True
+    )
+
+    update2 = models.ForeignKey(
+        'Update',
+        related_name='update2',
+        blank=True,
+        null=True
+    )
+
+    update3 = models.ForeignKey(
+        'Update',
+        related_name='update3',
+        blank=True,
+        null=True
+    )
+
+    update4 = models.ForeignKey(
+        'Update',
+        related_name='update4',
+        blank=True,
+        null=True
+    )
+
+    update5 = models.ForeignKey(
+        'Update',
+        related_name='update5',
+        blank=True,
+        null=True
+    )
+
 
     # objects = HighlightQuerySet.as_manager()
 
