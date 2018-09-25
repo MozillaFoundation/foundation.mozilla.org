@@ -26,18 +26,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:8cf861abc8ac7c7db6d4c4cb3f300b64bdc9490482ebdffd6f6cd46a730dd524",
-                "sha256:afabd27d49b74ae0d5e5f20c9ec7b4b5d26bd1f7bb5b01e670a7d4c35f535a4e"
+                "sha256:675970103ca5eef49689bea0f8c2dcbc6d70da4fa1ceec2533f5f02c31089b04",
+                "sha256:e747068c52316891e600c523a29e407e14e223fd570d146fdd318236120bbca4"
             ],
             "index": "pypi",
-            "version": "==1.9.7"
+            "version": "==1.9.9"
         },
         "botocore": {
             "hashes": [
-                "sha256:22c1460e0ff40a4d25198b8d807a24fc7ecd95162d72d3e1496a7a571ae7468d",
-                "sha256:5fca20d37627823d50a101ad9acb5a0b1f6d7f82b6d84cb7a33afe8d68a03f75"
+                "sha256:b79f1e5b6fe80cdfe951912bf1a08343013d021cf67d973825634ff47248cdb0",
+                "sha256:d631911bf02bb0db07a9e04031135d88c76ccc97cfa7ac5644f40ad412b455d3"
             ],
-            "version": "==1.12.7"
+            "version": "==1.12.9"
         },
         "certifi": {
             "hashes": [
@@ -176,7 +176,6 @@
                 "sha256:6f25cc4761ac109efd503f096e2ad99421b1159f01a29dbb917359dcd68e08ca",
                 "sha256:d552cb872b310ae78bd7429bf318e42e1e903b1a109e899a523293dfa762ea4f"
             ],
-            "markers": "python_version != '3.0.*' and python_version != '3.2.*' and python_version != '3.1.*' and python_version >= '2.7'",
             "version": "==2.11.1"
         },
         "faker": {
@@ -185,7 +184,6 @@
                 "sha256:c2ce42dd8361e6d392276006d757532562463c8642b1086709584200b7fd7758"
             ],
             "index": "pypi",
-            "markers": "python_version != '3.0.*' and python_version != '3.2.*' and python_version != '3.1.*' and python_version >= '2.7'",
             "version": "==0.9.1"
         },
         "filebrowser-safe": {
@@ -273,7 +271,7 @@
                 "sha256:f8b3d413c5a8f84b12cd4c5df1d8e211777c9852c6be3ee9c094b626644d3eab"
             ],
             "index": "pypi",
-            "markers": "python_version != '3.1.*' and python_version != '3.0.*' and python_version != '3.2.*' and python_version != '3.3.*' and python_version >= '2.7'",
+            "markers": "python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.1.*' and python_version != '3.0.*' and python_version != '3.3.*'",
             "version": "==5.2.0"
         },
         "psycopg2-binary": {
@@ -421,7 +419,7 @@
                 "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
                 "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
             ],
-            "markers": "python_version != '3.3.*' and python_version < '4' and python_version != '3.2.*' and python_version != '3.0.*' and python_version >= '2.6' and python_version != '3.1.*'",
+            "markers": "python_version != '3.2.*' and python_version >= '2.6' and python_version != '3.3.*' and python_version < '4' and python_version != '3.1.*' and python_version != '3.0.*'",
             "version": "==1.23"
         },
         "wagtail": {
@@ -630,7 +628,7 @@
                 "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
                 "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
             ],
-            "markers": "python_version != '3.3.*' and python_version < '4' and python_version != '3.2.*' and python_version != '3.0.*' and python_version >= '2.6' and python_version != '3.1.*'",
+            "markers": "python_version != '3.2.*' and python_version >= '2.6' and python_version != '3.3.*' and python_version < '4' and python_version != '3.1.*' and python_version != '3.0.*'",
             "version": "==1.23"
         }
     }
