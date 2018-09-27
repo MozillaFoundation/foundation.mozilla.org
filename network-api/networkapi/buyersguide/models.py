@@ -35,6 +35,9 @@ class Update(models.Model):
         blank="True",
     )
 
+    def __str__(self):
+        return self.title
+
 
 class Product(models.Model):
     """
@@ -233,41 +236,7 @@ class Product(models.Model):
         blank="True",
     )
 
-    update1 = models.ForeignKey(
-        'Update',
-        related_name='update1',
-        blank=True,
-        null=True
-    )
-
-    update2 = models.ForeignKey(
-        'Update',
-        related_name='update2',
-        blank=True,
-        null=True
-    )
-
-    update3 = models.ForeignKey(
-        'Update',
-        related_name='update3',
-        blank=True,
-        null=True
-    )
-
-    update4 = models.ForeignKey(
-        'Update',
-        related_name='update4',
-        blank=True,
-        null=True
-    )
-
-    update5 = models.ForeignKey(
-        'Update',
-        related_name='update5',
-        blank=True,
-        null=True
-    )
-
+    updates = models.ManyToManyField(Update, related_name='products', null=True)
 
     # objects = HighlightQuerySet.as_manager()
 

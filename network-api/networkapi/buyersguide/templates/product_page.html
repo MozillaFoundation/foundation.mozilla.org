@@ -139,25 +139,9 @@
 
       <h3 class="h3-heading my-5">Updates</h3>
 
-      {% if product.update1 %}
-        {% productUpdate product.update1.source product.update1.title product.update1.author product.update1.snippet %}
-      {% endif %}
-
-      {% if product.update2 %}
-        {% productUpdate product.update2.source product.update2.title product.update2.author product.update2.snippet %}
-      {% endif %}
-
-      {% if product.update3 %}
-        {% productUpdate product.update3.source product.update3.title product.update3.author product.update3.snippet %}
-      {% endif %}
-
-      {% if product.update4 %}
-        {% productUpdate product.update4.source product.update4.title product.update4.author product.update4.snippet %}
-      {% endif %}
-
-      {% if product.update5 %}
-        {% productUpdate product.update5.source product.update5.title product.update5.author product.update5.snippet %}
-      {% endif %}
+      {% for product in product.updates.all %}
+        {% productUpdate product.source product.title product.author product.snippet %}
+      {% endfor %}
 
       <h3 class="h3-heading my-5">Related Products</h3>
 

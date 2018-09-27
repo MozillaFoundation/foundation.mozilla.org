@@ -15,6 +15,7 @@ class WagtailBuyersGuideAdmin(ModelAdmin):
     list_display = ('name', 'company', 'url',)
     search_fields = ('name', 'company')
 
+
 class WagtailBuyersGuideUpdateAdmin(ModelAdmin):
     model = Update
     menu_label = 'Updates'
