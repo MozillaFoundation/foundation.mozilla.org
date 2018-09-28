@@ -1,0 +1,138 @@
+.product-header {
+  padding-bottom: 88px;
+}
+
+.product-detail {
+  margin-top: -88px;
+}
+
+.product-price {
+  font-family: "Nunito Sans";
+  font-size: 18px;
+  color: #909090;
+}
+
+.copy-link {
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  color: $black;
+}
+
+.spy {
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 15px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+}
+
+.criterion {
+  padding: 10px 0;
+  border-top: 1px solid #c8c8ca;
+  border-bottom: 1px solid #c8c8ca;
+  margin-top: -1px;
+
+  .primary-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  button {
+    margin: 0 10px;
+    background: url(/_images/buyers-guide/plus.svg) no-repeat;
+    background-size: contain;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    outline: 0;
+    transition: transform 100ms ease-in-out;
+
+    &.open {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// Smiley Cases (default)
+.criterion {
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-happy.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  z-index: 1;
+  position: relative;
+}
+
+// Sad Cases
+.criterion-uses_encryption.criterion-false,
+.criterion-privacy_policy.criterion-13,
+.criterion-share_data.criterion-true,
+.criterion-must_change_default_password.criterion-false,
+.criterion-security_updates.criterion-false,
+.criterion-need_account.criterion-false,
+.criterion-delete_data.criterion-false,
+.criterion-child_rules.criterion-false,
+.criterion-manage_security.criterion-false {
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
+  }
+
+  background: rgba(237, 53, 71, 0.06);
+  border: 1px solid #ed3547;
+  margin: -1px -10px -1px -10px;
+  padding: 10px;
+  z-index: 2;
+}
+
+// Ambivalent Case
+.criterion.criterion-null {
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
+  }
+}
+
+.product-update {
+  .h6-heading {
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-family: "Zilla Slab";
+    font-size: 22px;
+    color: $black;
+  }
+
+  .author {
+    font-family: "Nunito Sans";
+    font-size: 12px;
+    color: #909090;
+  }
+
+  .snippet {
+    font-family: "Nunito Sans";
+    font-size: 16px;
+    color: $black;
+    letter-spacing: 0;
+    line-height: 24px;
+  }
+}

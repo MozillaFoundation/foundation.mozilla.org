@@ -1,31 +1,155 @@
 {% extends "./bg_base.html" %}
 
+{% load criterion %}
+{% load product-update %}
+{% load yes_no %}
+
 {% block body-id %}TODO-CATEGORY{% endblock %}
 
 {% block guts %}
+<div class="container-fluid text-center product-header bg-gray">
+
+  <img class="mb-0" src="{{mediaUrl}}{{product.image}}" width="500"/>
+</div>
+<div class="container">
+
+  <div class="row">
+    <div class="product-detail bg-white p-5 col-12 col-md-10 offset-md-1">
+      <div class="product-price mb-3">{{product.company}} ${{product.price}}</div>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="h1-heading">{{product.name}}</h2>
+        <a class="links-btn copy-link" href="#" data-url={{product.url}}>Copy link</a>
+      </div>
+      <div class="body-large mb-5">{{product.blurb}}</div>
+
+      <div class="creepometer p-5 mb-5"></div>
+
+      <h3 class="h3-heading h3-heading-small">Can it spy on me?</h3>
+
+      <div class="row mb-5">
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-camera.svg" width="31" height="24" />
+            <div>
+              <strong class="d-block">Camera</strong>
+              Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-mic.svg" width="17" height="29" />
+            <div>
+              <strong class="d-block">Microphone</strong>
+              Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-location.svg" width="24" height="29" />
+            <div>
+              <strong class="d-block">Location Tracking</strong>
+              Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">What does it know about me?</h3>
+
+      <div class="mb-5">
+        {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption product.uses_encryption_helptext %}
+        {% criterion "privacy_policy" "Privacy policy reading level" product.privacy_policy product.privacy_policy_helptext %}
+        {% criterion "share_data" "Shares your information with third parties" product.share_data product.share_data_helptext %}
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
+
+      <div class="mb-5">
+        {% criterion "must_change_default_password" "Must change the default password" product.must_change_default_password product.must_change_default_password_helptext %}
+        {% criterion "security_updates" "Automatic security updates" product.security_updates product.security_updates_helptext %}
+        {% criterion "need_account" "Requires an account" product.need_account product.need_account_helptext %}
+        {% criterion "delete_data" "Deletes data it stores on you" product.delete_data product.delete_data_helptext %}
+        {% criterion "child_rules" "Has parental controls" product.child_rules product.child_rules_helptext %}
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">Company shows it cares about its customers?</h3>
+
+      <div class="mb-5">
+        {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-phone.svg" width="28" height="28" />
+            <div>
+              <strong class="d-block">Phone Number</strong>
+              {% if product.phone_number %}
+              {{ product.phone_number }}
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-chat.svg" width="31" height="26" />
+            <div>
+              <strong class="d-block">Live Chat</strong>
+              {% if product.live_chat %}
+              <a target="_blank" href={{ product.live_chat }}>Yes</a>
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-mail.svg" width="31" height="23" />
+            <div>
+              <strong class="d-block">Email</strong>
+              {% if product.email %}
+              <a href="mailto:{{ product.email }}">Yes</a>
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">What could happen if something went wrong?</h3>
+
+      <p>{{product.worst_case}}</p>
+
+    </div>
+
+  </div>
+
+</div>
 
 <div class="container">
-  <h2>{{product.name}}</h2>
+  <div class="row">
+    <div class="p-5 col-12 col-md-10 offset-md-1">
 
-  <div class="creepometer mb-5"></div>
+      <h3 class="h3-heading my-5">Updates</h3>
 
-  <img src="{{mediaUrl}}{{product.image}}" width="500"/>
-  <div>
-    {{product.company}}
+      {% for product in product.updates.all %}
+        {% productUpdate product.source product.title product.author product.snippet %}
+      {% endfor %}
+
+      <h3 class="h3-heading my-5">Related Products</h3>
+
+      <!-- TODO -->
+
+    </div>
   </div>
-  <div>{{product.blurb}}</div>
-  <div>{{product.url}}</div>
-  <div>{{product.price}}</div>
-  <div>Camera: {{product.camera}}</div>
-  <div>Microphone: {{product.microphone}}</div>
-  <div>Location: {{product.location}}</div>
-  <div>Need account: {{product.need_account}}</div>
-  <div>Privacy Controls: {{product.privacy_controls}}</div>
-  <div>Delete Data: {{product.delete_data}}</div>
-  <div>Share Data: {{product.share_data}}</div>
-  <div>Child rules: {{product.child_rules}}</div>
-  <div>Privacy Policy: {{product.privacy_policy}}</div>
-  <div>Worst case scenario: {{product.worst_case}}</div>
+
 </div>
 
 {% endblock %}
