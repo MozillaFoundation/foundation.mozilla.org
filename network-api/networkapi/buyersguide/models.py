@@ -254,9 +254,9 @@ class Product(models.Model):
         blank="True",
     )
 
-    updates = models.ManyToManyField(Update, related_name='products', null=True)
+    updates = models.ManyToManyField(Update, related_name='products', null=True, blank=True)
 
-    related_products = models.ManyToManyField('self', related_name='rps', null=True)
+    related_products = models.ManyToManyField('self', related_name='rps', null=True, blank=True)
 
     # objects = HighlightQuerySet.as_manager()
 
