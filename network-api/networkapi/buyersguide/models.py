@@ -283,13 +283,11 @@ class ProductVote(models.Model):
 class RangeProductVote(ProductVote):
     attribute = models.CharField(
         max_length=100,
-        null=False,
         validators=[
             ValueListValidator(valid_values=['creepiness'])
         ]
     )
     average = models.IntegerField(
-        null=False,
         validators=(
             MinValueValidator(1),
             MaxValueValidator(100)
@@ -305,7 +303,6 @@ class RangeProductVote(ProductVote):
 class BooleanProductVote(ProductVote):
     attribute = models.CharField(
         max_length=100,
-        null=False,
         validators=[
             ValueListValidator(valid_values=['confidence'])
         ]
@@ -319,7 +316,6 @@ class BooleanProductVote(ProductVote):
 
 class VoteBreakdown(models.Model):
     count = models.IntegerField(
-        null=False,
         default=0
     )
 
@@ -348,7 +344,6 @@ class RangeVoteBreakdown(VoteBreakdown):
         on_delete=models.CASCADE
     )
     bucket = models.IntegerField(
-        null=False,
         validators=[
             ValueListValidator(
                 valid_values=[0, 1, 2, 3, 4]
@@ -367,7 +362,6 @@ class Vote(models.Model):
 class BooleanVote(Vote):
     attribute = models.CharField(
         max_length=100,
-        null=False,
         validators=[
             ValueListValidator(valid_values=['confidence'])
         ]
@@ -378,13 +372,11 @@ class BooleanVote(Vote):
 class RangeVote(Vote):
     attribute = models.CharField(
         max_length=100,
-        null=False,
         validators=[
             ValueListValidator(valid_values=['creepiness'])
         ]
     )
     value = models.IntegerField(
-        null=False,
         validators=[
             MinValueValidator(1),
             MaxValueValidator(100)
