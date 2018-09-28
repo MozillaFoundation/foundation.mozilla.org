@@ -238,6 +238,8 @@ class Product(models.Model):
 
     updates = models.ManyToManyField(Update, related_name='products', null=True)
 
+    related_products = models.ManyToManyField('self', related_name='rps', null=True)
+
     # objects = HighlightQuerySet.as_manager()
 
     def __str__(self):
