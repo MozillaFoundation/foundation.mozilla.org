@@ -119,8 +119,20 @@ class Product(models.Model):
     )
 
     PP_CHOICES = (
-        ('0', 'Grade 8-12'),
-        ('1', 'Grade 13+'),
+        ('0', 'Can\'t Determine'),
+        ('7', 'Grade 7'),
+        ('8', 'Grade 8'),
+        ('9', 'Grade 9'),
+        ('10', 'Grade 10'),
+        ('11', 'Grade 11'),
+        ('12', 'Grade 12'),
+        ('13', 'Grade 13'),
+        ('14', 'Grade 14'),
+        ('15', 'Grade 15'),
+        ('16', 'Grade 16'),
+        ('17', 'Grade 17'),
+        ('18', 'Grade 18'),
+        ('19', 'Grade 19'),
     )
 
     privacy_policy_url = models.URLField(
@@ -129,8 +141,8 @@ class Product(models.Model):
 
     privacy_policy_reading_level = models.CharField(
         choices=PP_CHOICES,
-        default=0,
-        max_length=1,
+        default='0',
+        max_length=2,
     )
 
     privacy_policy_helptext = models.TextField(

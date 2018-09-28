@@ -61,7 +61,11 @@
 
       <div class="mb-5">
         {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption product.uses_encryption_helptext %}
-        {% criterion "privacy_policy" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_url|add:"\\\">Privacy policy</a> reading level" product.privacy_policy product.privacy_policy_helptext %}
+        {% if product.privacy_policy_url %}
+          {% criterion "privacy_policy_reading_level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_url|add:"\\\">Privacy policy</a> reading level" product.privacy_policy_reading_level product.privacy_policy_helptext %}
+        {% else %}
+          {% criterion "privacy_policy_reading_level" "Privacy policy reading level" product.privacy_policy_reading_level product.privacy_policy_helptext %}
+        {% endif %}
         {% criterion "share_data" "Shares your information with third parties" product.share_data product.share_data_helptext %}
       </div>
 

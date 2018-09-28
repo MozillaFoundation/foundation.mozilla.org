@@ -91,7 +91,13 @@
 
 // Sad Cases
 .criterion-uses_encryption.criterion-false,
-.criterion-privacy_policy.criterion-13,
+.criterion-privacy_policy_reading_level.criterion-13,
+.criterion-privacy_policy_reading_level.criterion-14,
+.criterion-privacy_policy_reading_level.criterion-15,
+.criterion-privacy_policy_reading_level.criterion-16,
+.criterion-privacy_policy_reading_level.criterion-17,
+.criterion-privacy_policy_reading_level.criterion-18,
+.criterion-privacy_policy_reading_level.criterion-19,
 .criterion-share_data.criterion-true,
 .criterion-must_change_default_password.criterion-false,
 .criterion-security_updates.criterion-false,
@@ -111,6 +117,7 @@
 }
 
 // Ambivalent Case
+.criterion-privacy_policy_reading_level.criterion-0,
 .criterion.criterion-null {
   .emoji {
     background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
