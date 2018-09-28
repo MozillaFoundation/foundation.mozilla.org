@@ -25,7 +25,7 @@ export default class Criterion extends React.Component {
       <div className={fullClass}>
         <div className="primary-info">
           <p className="d-flex align-items-center">
-            {this.props.meta.question}
+            <span dangerouslySetInnerHTML={{__html:this.props.meta.question}}></span>
             {this.state.hasHelptext &&
               <button onClick={this.toggle} className={this.state.helptextVisible ? `open` : `closed`}></button>
             }

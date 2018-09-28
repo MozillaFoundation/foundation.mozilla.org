@@ -123,7 +123,11 @@ class Product(models.Model):
         ('1', 'Grade 13+'),
     )
 
-    privacy_policy = models.CharField(
+    privacy_policy_url = models.URLField(
+        blank="True"
+    )
+
+    privacy_policy_reading_level = models.CharField(
         choices=PP_CHOICES,
         default=0,
         max_length=1,

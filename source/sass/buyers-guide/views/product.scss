@@ -44,6 +44,12 @@
     justify-content: space-between;
   }
 
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+
   p {
     margin-bottom: 0;
   }
