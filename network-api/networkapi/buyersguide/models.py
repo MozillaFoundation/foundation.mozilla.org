@@ -272,7 +272,6 @@ class Product(models.Model):
 
 class ProductVote(models.Model):
     votes = models.IntegerField(
-        null=False,
         default=0
     )
 
@@ -329,7 +328,6 @@ class BooleanVoteBreakdown(VoteBreakdown):
         on_delete=models.CASCADE
     )
     bucket = models.IntegerField(
-        null=False,
         validators=[
             ValueListValidator(
                 valid_values=[0, 1]
@@ -366,7 +364,7 @@ class BooleanVote(Vote):
             ValueListValidator(valid_values=['confidence'])
         ]
     )
-    value = models.BooleanField(null=False)
+    value = models.BooleanField()
 
 
 class RangeVote(Vote):
