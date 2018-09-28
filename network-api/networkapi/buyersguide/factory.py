@@ -35,7 +35,7 @@ class ProductFactory(DjangoModelFactory):
     location_app = Faker('boolean')
     location_device = Faker('boolean')
     uses_encryption = Faker('boolean')
-    privacy_policy = str(random.randint(7, 19))
+    privacy_policy_reading_level = str(random.randint(7, 19))
     share_data = Faker('boolean')
     must_change_default_password = Faker('boolean')
     security_updates = Faker('boolean')
