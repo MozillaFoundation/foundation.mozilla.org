@@ -41,7 +41,7 @@ class DeleteNonStaffTest(TestCase):
         Simple users are deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 0)
 
@@ -56,7 +56,7 @@ class IsStaffNotDeletedTest(TestCase):
         Users with 'is_staff' flag at True are not deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 1)
 
@@ -72,7 +72,7 @@ class InGroupNotDeletedTest(TestCase):
         Users in a group are not deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 1)
 
@@ -87,6 +87,6 @@ class MozillaFoundationUsersNotDeletedTest(TestCase):
         Mozilla Foundation Users are not deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 1)
