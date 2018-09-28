@@ -43,7 +43,6 @@ class ProductFactory(DjangoModelFactory):
     delete_data = Faker('boolean')
     child_rules = Faker('boolean')
     manage_security = Faker('boolean')
-    customer_support_easy = Faker('boolean')
     phone_number = Faker('phone_number')
     live_chat = Faker('url')
     email = Faker('email')

@@ -217,10 +217,6 @@ class Product(models.Model):
         blank="True"
     )
 
-    customer_support_easy = models.NullBooleanField(
-        help_text='Makes it easy to contact customer support?',
-    )
-
     customer_support_easy_helptext = models.TextField(
         max_length=5000,
         blank="True"
@@ -241,6 +237,12 @@ class Product(models.Model):
     email = models.CharField(
         max_length=100,
         help_text='Email',
+        blank="True",
+    )
+
+    twitter = models.CharField(
+        max_length=100,
+        help_text='Twitter username',
         blank="True",
     )
 
