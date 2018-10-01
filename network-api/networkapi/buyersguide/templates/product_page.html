@@ -9,7 +9,7 @@
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
-  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}{{product.image}}" width="500"/>
+  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="500"/>
 </div>
 <div class="container">
 
@@ -166,7 +166,7 @@
       {% for product in product.related_products.all %}
       <div class="col-12 col-md-3">
         <a href="/privacynotincluded/product/{{ product.name }}">
-          <img src="{{ mediaUrl }}{{ product.image }}"/>
+          <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
         </a>
       </div>
       {% endfor %}
