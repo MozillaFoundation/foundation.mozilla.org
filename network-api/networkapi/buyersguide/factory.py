@@ -29,6 +29,7 @@ class ProductFactory(DjangoModelFactory):
     url = Faker('url')
     price = random.randint(49, 1500)
     camera_app = Faker('boolean')
+    meets_minimum_security_standards = Faker('boolean')
     camera_device = Faker('boolean')
     microphone_app = Faker('boolean')
     microphone_device = Faker('boolean')

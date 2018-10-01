@@ -72,7 +72,7 @@
       <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
 
       <div class="mb-5">
-        {% criterion "must_change_default_password" "Must change the default password" product.must_change_default_password product.must_change_default_password_helptext %}
+        {% criterion "must_change_default_password" "If a password is required, you must change the default password" product.must_change_default_password product.must_change_default_password_helptext "Not required" %}
         {% criterion "security_updates" "Automatic security updates" product.security_updates product.security_updates_helptext %}
         {% criterion "need_account" "Requires an account" product.need_account product.need_account_helptext %}
         {% criterion "delete_data" "Deletes data it stores on you" product.delete_data product.delete_data_helptext %}

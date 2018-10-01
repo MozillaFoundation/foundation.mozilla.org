@@ -81,6 +81,10 @@ class Product(models.Model):
         blank=True,
     )
 
+    meets_minimum_security_standards = models.NullBooleanField(
+        help_text='Does this product meet minimum security standards?',
+    )
+
     # Can it spy on me?
 
     camera_device = models.NullBooleanField(
@@ -213,11 +217,6 @@ class Product(models.Model):
     )
 
     manage_security_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    customer_support_easy_helptext = models.TextField(
         max_length=5000,
         blank="True"
     )
