@@ -3,13 +3,13 @@
 {% load criterion %}
 {% load product-update %}
 {% load yes_no %}
+{% load env %}
 
 {% block body-id %}TODO-CATEGORY{% endblock %}
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
-
-  <img class="mb-0" src="{{mediaUrl}}{{AWS_LOCATION}}{{product.image}}" width="500"/>
+  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}{{product.image}}" width="500"/>
 </div>
 <div class="container">
 
