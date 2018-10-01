@@ -1,4 +1,4 @@
-let loaders = [
+let rules = [
   {
     test: /\.js(x?)$/,
     exclude: /node_modules/,
@@ -15,7 +15,7 @@ module.exports = [{
     filename: `./network-api/networkapi/frontend/_js/main.compiled.js`
   },
   module: {
-    loaders: loaders
+    rules
   }
 }, {
   entry: `./source/js/buyers-guide/bg-main.js`,
@@ -23,6 +23,6 @@ module.exports = [{
     filename: `./network-api/networkapi/frontend/_js/bg-main.compiled.js`
   },
   module: {
-    loaders: loaders
+    rules
   }
 }];
