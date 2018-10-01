@@ -21,8 +21,8 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 @login_required
 def buyersguide_home(request):
     products = Product.objects.all()
-    serialized_products = [ProductSerializer(product) for product in products]
-    return render(request, 'buyersguide_home.html', {'products': serialized_products})
+    serialized_products = ProductSerializer(products, Many=True)
+    return render(request, 'buyersguide_home.html', {'products': serialized_products.data})
 
 
 @login_required
@@ -80,5 +80,6 @@ def product_vote(request):
         return Response('Invalid product', status=400, content_type='text/plain')
     except ValidationError as ex:
         return Response(f'Payload validation failed: {ex}', status=400, content_type='text/plain')
-    except Error:
+    except Error as ex:
+        print(f'{ex.message} ({type(ex)})')
         return Response('Internal Server Error', status=500, content_type='text/plain')
