@@ -38,6 +38,8 @@
   border-top: 1px solid #c8c8ca;
   border-bottom: 1px solid #c8c8ca;
   margin-top: -1px;
+  z-index: 1;
+  position: relative;
 
   .primary-info {
     display: flex;
@@ -62,10 +64,9 @@
       transform: rotate(45deg);
     }
   }
-}
 
-// Smiley Cases (default)
-.criterion {
+  // Smiley Cases (default)
+
   .rating {
     display: flex;
     align-items: center;
@@ -78,9 +79,6 @@
     display: inline-block;
     margin-left: 10px;
   }
-
-  z-index: 1;
-  position: relative;
 }
 
 // Sad Cases
