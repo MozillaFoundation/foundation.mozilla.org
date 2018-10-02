@@ -4,18 +4,18 @@ register = template.Library()
 
 
 @register.inclusion_tag('tags/criterion.html')
-def criterion(id, question, answer, helptext=None):
+def criterion(id, question, answer, helptext=None, indeterminate_copy="Can't determine"):
     cssClassSuffix = "null"
 
     if answer is None:
-        formattedAnswer = "Can't determine"
+        formattedAnswer = indeterminate_copy
     elif isinstance(answer, str):
         if answer is "0":
-            cssClassSuffix = "8"
-            formattedAnswer = "Grade 8-12"
+            cssClassSuffix = "0"
+            formattedAnswer = indeterminate_copy
         else:
-            cssClassSuffix = "13"
-            formattedAnswer = "Grade 13+"
+            cssClassSuffix = answer
+            formattedAnswer = ("Grade {answer}".format(answer=answer))
     else:
         cssClassSuffix = ("false", "true")[answer]
         formattedAnswer = ("No", "Yes")[answer]

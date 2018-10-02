@@ -81,6 +81,10 @@ class Product(models.Model):
         blank=True,
     )
 
+    meets_minimum_security_standards = models.NullBooleanField(
+        help_text='Does this product meet minimum security standards?',
+    )
+
     # Can it spy on me?
 
     camera_device = models.NullBooleanField(
@@ -119,14 +123,30 @@ class Product(models.Model):
     )
 
     PP_CHOICES = (
-        ('0', 'Grade 8-12'),
-        ('1', 'Grade 13+'),
+        ('0', 'Can\'t Determine'),
+        ('7', 'Grade 7'),
+        ('8', 'Grade 8'),
+        ('9', 'Grade 9'),
+        ('10', 'Grade 10'),
+        ('11', 'Grade 11'),
+        ('12', 'Grade 12'),
+        ('13', 'Grade 13'),
+        ('14', 'Grade 14'),
+        ('15', 'Grade 15'),
+        ('16', 'Grade 16'),
+        ('17', 'Grade 17'),
+        ('18', 'Grade 18'),
+        ('19', 'Grade 19'),
     )
 
-    privacy_policy = models.CharField(
+    privacy_policy_url = models.URLField(
+        blank="True"
+    )
+
+    privacy_policy_reading_level = models.CharField(
         choices=PP_CHOICES,
-        default=0,
-        max_length=1,
+        default='0',
+        max_length=2,
     )
 
     privacy_policy_helptext = models.TextField(
@@ -201,15 +221,6 @@ class Product(models.Model):
         blank="True"
     )
 
-    customer_support_easy = models.NullBooleanField(
-        help_text='Makes it easy to contact customer support?',
-    )
-
-    customer_support_easy_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
     phone_number = models.CharField(
         max_length=100,
         help_text='Phone Number',
@@ -228,6 +239,12 @@ class Product(models.Model):
         blank="True",
     )
 
+    twitter = models.CharField(
+        max_length=100,
+        help_text='Twitter username',
+        blank="True",
+    )
+
     # What could happen if something went wrong?
 
     worst_case = models.CharField(
@@ -236,7 +253,9 @@ class Product(models.Model):
         blank="True",
     )
 
-    updates = models.ManyToManyField(Update, related_name='products', null=True)
+    updates = models.ManyToManyField(Update, related_name='products', null=True, blank=True)
+
+    related_products = models.ManyToManyField('self', related_name='rps', null=True, blank=True)
 
     # objects = HighlightQuerySet.as_manager()
 
