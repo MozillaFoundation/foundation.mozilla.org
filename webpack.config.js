@@ -7,10 +7,14 @@ let rules = [
     exclude: /node_modules/,
     loader: `babel-loader`,
     query: {
-      presets: [`es2015`, `react`]
+      presets: [
+        [`@babel/preset-env`, { targets: `> 1%, last 2 versions` }],
+        [`@babel/preset-react`]
+      ]
     }
   }
 ];
+
 
 let main = {
   entry: `./source/js/main.js`,
