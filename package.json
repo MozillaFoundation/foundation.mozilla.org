@@ -54,7 +54,7 @@
     "js-cookie": "2.2.0",
     "mofo-bootstrap": "4.1.0",
     "mofo-style": "^2.4.0",
-    "moment": "^2.22.1",
+    "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "npm-run-all": "^4.1.3",
     "optipng-bin": "^4.0.0",
