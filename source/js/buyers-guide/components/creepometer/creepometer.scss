@@ -1,3 +1,18 @@
 .creepometer {
   border: 1px solid papayawhip;
+
+  .slider {
+    border: 1px solid grey;
+    position: relative;
+    height: 72px;
+  }
+
+  .handle {
+    cursor: grab;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: yellowgreen;
+    border-radius: 50%;
+  }
 }
