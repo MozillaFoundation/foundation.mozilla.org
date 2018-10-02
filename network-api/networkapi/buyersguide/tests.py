@@ -1,5 +1,4 @@
 from django.urls import reverse
-from django.test import TestCase
 from rest_framework.test import APITestCase
 
 from networkapi.buyersguide.factory import ProductFactory
@@ -17,19 +16,47 @@ class ManagementCommandTest(APITestCase):
         Test that aggregate_product_votes properly aggregates range votes
         """
 
-        test_product_id = ProductFactory.create().id
+        product = ProductFactory.create()
+        test_product_id = product.id
         request_data = {
             'attribute': 'creepiness',
             'productID': test_product_id
         }
 
-        # Make 10 votes
+        self.assertListEqual(product.votes, [])
+
+        # Make 10 creepiness votes
         for i in (1, 10, 20, 30, 40, 50, 60, 70, 80, 90):
             request_data['value'] = i
             response = self.client.post(self.vote_url, request_data, format='json')
             self.assertEqual(response.status_code, 201)
 
+        request_data['attribute'] = 'confidence'
+        for value in (True, False):
+            request_data['value'] = value
+            for _ in range(5):
+                response = self.client.post(self.vote_url, request_data, format='json')
+                self.assertEqual(response.status_code, 201)
+
         call_command('aggregate_product_votes')
+
+        self.assertListEqual(product.votes, [{
+            'attribute': 'creepiness',
+            'average': 45,
+            'vote_breakdown': {
+                '0': 3,
+                '1': 2,
+                '2': 2,
+                '3': 2,
+                '4': 1
+            }
+        }, {
+            'attribute': 'confidence',
+            'vote_breakdown': {
+                '0': 5,
+                '1': 5
+            }
+        }])
 
 
 class BuyersGuideVoteTest(APITestCase):

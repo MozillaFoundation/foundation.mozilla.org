@@ -11,7 +11,6 @@ from rest_framework.permissions import AllowAny
 
 from networkapi.buyersguide.models import Product, BooleanVote, RangeVote
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
-from networkapi.buyersguide.serializers import ProductSerializer
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
@@ -21,14 +20,14 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 @login_required
 def buyersguide_home(request):
     products = Product.objects.all()
-    serialized_products = ProductSerializer(products, Many=True)
-    return render(request, 'buyersguide_home.html', {'products': serialized_products.data})
+    products = [p.to_dict() for p in products]
+    return render(request, 'buyersguide_home.html', {'products': products})
 
 
 @login_required
 def product_view(request, productname):
     product = Product.objects.get(name__iexact=productname)
-    return render(request, 'product_page.html', {'product': ProductSerializer(product).data})
+    return render(request, 'product_page.html', {'product': product.to_dict()})
 
 
 @login_required

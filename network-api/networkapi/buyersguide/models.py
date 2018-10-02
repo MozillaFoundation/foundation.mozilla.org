@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.forms import model_to_dict
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
@@ -264,7 +265,38 @@ class Product(models.Model):
 
     related_products = models.ManyToManyField('self', related_name='rps', null=True, blank=True)
 
-    # objects = HighlightQuerySet.as_manager()
+    @property
+    def votes(self):
+        votes = []
+        for range_product_vote in self.range_product_votes.all():
+            breakdown = {
+                'attribute': 'creepiness',
+                'average': range_product_vote.average,
+                'vote_breakdown': {}
+            }
+
+            for vote_breakdown in range_product_vote.rangevotebreakdown_set.all():
+                breakdown['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+
+            votes.append(breakdown)
+
+        for boolean_product_vote in self.boolean_product_votes.all():
+            breakdown = {
+                'attribute': 'confidence',
+                'vote_breakdown': {}
+            }
+
+            for vote_breakdown in boolean_product_vote.booleanvotebreakdown_set.all():
+                breakdown['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+
+            votes.append(breakdown)
+
+        return votes
+
+    def to_dict(self):
+        model_dict = model_to_dict(self)
+        model_dict['votes'] = self.votes
+        return model_dict
 
     def __str__(self):
         return str(self.name)
