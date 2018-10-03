@@ -306,9 +306,9 @@ export default class Petition extends React.Component {
           // this as part of the petition data submission already.
           this.signUpToBasket()
             .then(() => this.basketSubmissionSuccessful())
-            .catch(() => this.basketSubmissionFailure());
+            .catch(e => this.basketSubmissionFailure(e));
         })
-        .catch(() => this.apiSubmissionFailure());
+        .catch(e => this.apiSubmissionFailure(e));
     }
 
     ReactGA.event({
