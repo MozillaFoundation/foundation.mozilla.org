@@ -51,6 +51,27 @@ export default {
     "Add my name": `Meinen Namen hinzufügen`
   },
 
+  // French
+  "fr": {
+    "First name": `Prénom`,
+    "Please enter your given name(s)": `Veuillez saisir votre prénom`,
+    "Last name": `Nom`,
+    "Please enter your surname": `Veuillez saisir votre nom de famille`,
+    "Email address": `Adresse électronique`,
+    "Please enter your email": `Veuillez saisir votre adresse électronique`,
+    "Your country": `Votre pays`,
+    "Please enter your country": `Veuillez sélectionner votre pays`,
+    "Postal code": `Code postal`,
+    "Please enter your postal code": `Veuillez saisir votre code postal`,
+    "Comment": `Commentaire`,
+    "Please include a comment": `Veuillez ajouter un commentaire`,
+    "Something went wrong. Please check your email address and try again": `Une erreur s’est produite. Veuillez vérifier votre adresse électronique et réessayer`,
+    "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>J’accepte que Mozilla utilise mes informations conformément à <a href="https://www.mozilla.org/privacy/websites/">cette politique de confidentialité</a></span>,
+    "Please check this box if you want to proceed": `Veuillez cocher cette case si vous désirez poursuivre`,
+    "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla.`,
+    "Add my name": `Ajouter mon nom`
+  },
+
   // Polish
   "pl": {
     "First name": `Imię`,
