@@ -99,8 +99,7 @@ export default class Petition extends React.Component {
 
   // state update function
   apiSubmissionFailure(e) {
-    console.error(e);
-    if(e instanceof Error) {
+    if(e && e instanceof Error) {
       this.setState({ apiFailed: true });
     }
   }
@@ -112,8 +111,7 @@ export default class Petition extends React.Component {
 
   // state update function
   basketSubmissionFailure(e) {
-    console.error(e);
-    if(e instanceof Error) {
+    if(e && e instanceof Error) {
       this.setState({ basketFailed: true });
     }
   }
