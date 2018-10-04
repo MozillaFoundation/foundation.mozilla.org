@@ -5,11 +5,6 @@ from django.forms import model_to_dict
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
 
-VALID_VOTE_ATTRIBUTES = [
-    'creepiness',
-    'confidence'
-]
-
 
 def get_product_image_upload_path(instance, filename):
     return get_image_upload_path(

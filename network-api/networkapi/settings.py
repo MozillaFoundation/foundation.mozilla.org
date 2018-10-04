@@ -494,4 +494,4 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
 
 # Detect if we're testing
-TESTING = sys.argv[1:2] == ['test']
+TESTING = 'test' in sys.argv
