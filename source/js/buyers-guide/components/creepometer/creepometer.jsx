@@ -22,17 +22,22 @@ export default class Creepometer extends React.Component {
 
   }
 
-  slideStart() {
-    console.log(`slideStart`);
-    this.setState({
-      isHandleGrabbed: true
-    });
+  slideStart(e) {
+    if (e.nativeEvent.target.className === `handle`) {
+      this.setState({
+        isHandleGrabbed: true
+      });
+    }
   }
 
   slideMove(e) {
-    if (this.state.isHandleGrabbed && e.nativeEvent.target.className === `slider`) {
+    if (this.state.isHandleGrabbed) {
+      let clientX = e.nativeEvent.clientX;
+      let sliderLeftEdgeX = this.sliderElement.getBoundingClientRect().left;
+      let offset = Math.floor(clientX - sliderLeftEdgeX);
+
       this.setState({
-        handleOffset: e.nativeEvent.offsetX
+        handleOffset: offset
       });
     }
   }
@@ -57,10 +62,8 @@ export default class Creepometer extends React.Component {
       }
 
       frameChoice = Math.floor(handleX / this.sliderElement.scrollWidth * this.faceCount) + 1;
-      console.log(frameChoice);
     }
 
-    // let frameChoice = this.state.handleOffset /
     let faceImgSrc = `/_images/buyers-guide/faces/${frameChoice}.png`;
 
     return (
