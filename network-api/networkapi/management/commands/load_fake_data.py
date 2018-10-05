@@ -37,6 +37,8 @@ from networkapi.wagtailpages.factory import (
     HomepageFeaturedHighlightsFactory,
     ParticipatePageFactory,
     DonationModalsFactory,
+    StoriesFactory,
+    StoryFactory,
 )
 
 from networkapi.buyersguide.models import (
@@ -289,6 +291,18 @@ class Command(BaseCommand):
             print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
             [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
+
+        print('Generating Stories')
+
+        try:
+            stories = wagtailpages_models.StoriesPage.objects.get(title='Stories')
+            print('Stories page exists')
+        except ObjectDoesNotExist:
+            print('Generating Stories page')
+            stories = StoriesFactory(parent=home_page, title="Stories")
+
+        print('Generating Stories')
+        [StoryFactory.create(parent=stories) for i in range(9)]
 
         print('Generating Buyer\'s Guide Products')
         generate_fake_data(ProductFactory, 70)

@@ -4,7 +4,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('wagtailpages/tags/card.html')
-def card(image, title, description, link_url, link_label, commitment=None):
+def card(image, title, description, link_url, link_label, commitment=None, author=None, date=None):
     return {
         'image': image,
         'title': title,
@@ -12,6 +12,8 @@ def card(image, title, description, link_url, link_label, commitment=None):
         'link_url': link_url,
         'link_label': link_label,
         'commitment': commitment,
+        'author': author,
+        'date': date,
     }
 
 

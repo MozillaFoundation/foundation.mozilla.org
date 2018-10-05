@@ -1,0 +1,11 @@
+#stories-hero {
+  @media (min-width: $bp-sm) {
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+  }
+
+  @media (max-width: $bp-sm) {
+    background: none;
+  }
+}

@@ -1,0 +1,77 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags %}
+
+{% block bodyID %}stories{% endblock %}
+
+{% block content %}
+
+
+{% image featured.specific.hero_image format-jpeg as big_hero %}
+<div id="stories-hero" class="bottom-line mb-4" style="background-image: url({{ big_hero.url }});">
+  <img class="w-100 d-sm-none" src="{{ big_hero.url }}"/>
+  <div class="container">
+    <div class="row py-5">
+      <div class="col-12 col-md-10 col-xl-5 mb-2">
+        <h1 class="h1-heading">{{ featured.title }}</h1>
+        <div class="text-muted">{{featured.specific.author}}, {{featured.specific.date}}</div>
+        <div class="body-large">{{ featured.search_description }}</div>
+        <a class="btn btn-normal" href={{featured.url}}>Read now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-8 mb-1">
+      <h2 class="h3-heading">{{ page.h2 }}</h2>
+      <p class="body-large">{{ page.h2Subheader }}</p>
+    </div>
+  </div>
+<style>
+  .card-regular,
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-text {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .card-regular {
+    height: 100%;
+    margin-bottom: 1em;
+  }
+
+  .key-item {
+    width: 100%;
+  }
+</style>
+  <div class="my-2">
+    <div class="row">
+      {% for story in page.get_children|slice:"1:4" %}
+        {% image story.specific.hero_image width-400 as hero %}
+        <div class="card-wrapper col-md-6 col-lg-4 {% if forloop.counter == 3 %}{% endif %}">
+          {% card hero.url story.specific.title story.specific.search_description story.url "read more" author=story.specific.author date=story.specific.date %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% if page.ctaHero %}
+    {% cardCTA page.ctaHero page.ctaHeroHeader page.ctaHeroSubhead page.ctaButtonURL page.ctaButtonTitle page.ctaCommitment %}
+  {% endif %}
+  <div class="my-2">
+      <div class="row">
+        {% for story in page.get_children|slice:"4:" %}
+          {% image story.specific.hero_image width-400 as hero %}
+          <div class="card-wrapper col-md-6 col-lg-4 {% if forloop.counter == 3 %}{% endif %}">
+            {% card hero.url story.specific.title story.specific.search_description story.url "read more" author=story.specific.author date=story.specific.date %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+
+{% endblock %}
