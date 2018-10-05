@@ -19,8 +19,7 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 # Remove this when we're ready to launch.
 @login_required
 def buyersguide_home(request):
-    products = Product.objects.all()
-    products = [p.to_dict() for p in products]
+    products = [p.to_dict() for p in Product.objects.all()]
     return render(request, 'buyersguide_home.html', {'products': products})
 
 
