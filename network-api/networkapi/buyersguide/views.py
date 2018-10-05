@@ -25,7 +25,6 @@ def buyersguide_home(request):
 
 @login_required
 def product_view(request, productname):
-    print(productname)
     product = Product.objects.get(name__iexact=productname)
     return render(request, 'product_page.html', {
         'product': product.to_dict(),
