@@ -74,7 +74,7 @@ let main = {
   injectReactComponents() {
     if (document.querySelectorAll(`.creepometer`)) {
       Array.from(document.querySelectorAll(`.creepometer`)).forEach(element => {
-        ReactDOM.render(<Creepometer/>, element);
+        ReactDOM.render(<Creepometer initialValue={element.dataset.initialValue} />, element);
       });
     }
 

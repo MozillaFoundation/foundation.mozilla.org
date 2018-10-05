@@ -11,6 +11,7 @@ export default class Creepometer extends React.Component {
 
     this.handleWidth = 70;
     this.faceCount = 40; // Number of face frames
+    this.encodedStepCount = 100; // Range of values to be recorded
     this.framePath = `/_images/buyers-guide/faces/`;
 
     this.slideStart = this.slideStart.bind(this);
@@ -29,6 +30,14 @@ export default class Creepometer extends React.Component {
     }
   }
 
+  componentDidMount() {
+    // Set initial position
+    this.setState({
+      handleOffset: Math.floor(this.props.initialValue / this.encodedStepCount * this.sliderElement.scrollWidth),
+      encodedValue: this.props.initialValue
+    });
+  }
+
   slideStart(e) {
     if (e.nativeEvent.target.className === `handle`) {
       this.setState({
@@ -44,7 +53,8 @@ export default class Creepometer extends React.Component {
       let offset = Math.floor(clientX - sliderLeftEdgeX);
 
       this.setState({
-        handleOffset: offset
+        handleOffset: offset,
+        encodedValue: Math.floor(offset / this.sliderElement.scrollWidth * this.encodedStepCount)
       });
     }
   }
@@ -74,8 +84,11 @@ export default class Creepometer extends React.Component {
     let faceImgSrc = `${this.framePath}${frameChoice}.png`;
 
     return (
-      <div className="slider" ref={this.setSliderRef} onMouseLeave={this.slideStop} onMouseMove={this.slideMove} onMouseDown={this.slideStart} onMouseUp={this.slideStop}>
-        <div className="handle" style={{background: `url("${faceImgSrc}") 0 0 / contain, #f2b946`, left: `${handleX}px`}}></div>
+      <div>
+        <div className="slider" ref={this.setSliderRef} onMouseLeave={this.slideStop} onMouseMove={this.slideMove} onMouseDown={this.slideStart} onMouseUp={this.slideStop}>
+          <div className="handle" style={{background: `url("${faceImgSrc}") 0 0 / contain, #f2b946`, left: `${handleX}px`}}></div>
+        </div>
+        <h1>{this.state.encodedValue}</h1>
       </div>
     );
   }
