@@ -156,6 +156,29 @@ class OpportunityPageFactory(CMSPageFactory):
     cta = SubFactory(SignupFactory)
 
 
+class StoriesFactory(PageFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.StoriesPage
+
+
+class StoryFactory(PageFactory):
+
+    class Meta:
+        model = networkapi.wagtailpages.models.StoryPage
+        exclude = (
+            'title_text',
+        )
+
+    title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
+    body = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
+    search_description = Faker('paragraph', nb_sentences=1)
+    author = Faker('name')
+    date = Faker('date')
+    hero_image = SubFactory(ImageFactory)
+    # Lazy Values
+    title_text = sentence_faker
+
+
 class FeaturedFactory(DjangoModelFactory):
     class Meta:
         abstract = True

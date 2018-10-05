@@ -1,0 +1,25 @@
+{% extends "./modular_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block socialMetadata %}
+{% endblock %}
+
+{% block subcontent %}
+
+  <div class="py-4 py-md-5">
+      {% image page.hero_image width-400 %}
+    <h1 class="h1-heading">
+        {{ page.title }}
+    </h1>
+    <p class="text-muted">{{page.author}}, {{page.date}}</p>
+    <div class="cms">
+      {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+          <h1>{{ block.value }}</h1>
+        {% else %}
+          {% comment %} {% include_block block %} {% endcomment %}
+        {% endif %}
+      {% endfor %}
+      {{ page.body|richtext }}
+    </div>
+  </div>
+{% endblock %}

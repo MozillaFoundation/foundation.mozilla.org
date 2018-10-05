@@ -11,6 +11,7 @@
   <div class="full-bleed-xs">
     <div class="key-item mx-2 mx-md-3 p-3">
       <h5 class="h4-heading mb-2">{{ title }}</h5>
+      <div class="text-muted">{% if author %}{{author}}, {% endif %}{{date}}</div>
       <p>{{ description | richtext }}</p>
       <a class="cta-link mb-2" href="{{ link_url }}">{{ link_label }}</a>
     </div>

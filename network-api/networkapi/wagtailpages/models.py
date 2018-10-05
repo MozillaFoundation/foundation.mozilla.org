@@ -515,6 +515,51 @@ class ParticipatePage(PrimaryPage):
     template = 'wagtailpages/static/participate_page.html'
 
 
+class StoriesPage(PrimaryPage):
+    parent_page_types = ['Homepage']
+    template = 'wagtailpages/static/stories.html'
+
+    subpage_types = ['StoryPage']
+
+    def get_context(self, request):
+        context = super(StoriesPage, self).get_context(request)
+        context['featured'] = self.get_children().public()[0]
+        return context
+
+
+class StoryPage(Page):
+    parent_page_types = ['StoriesPage']
+    template = 'wagtailpages/story_page.html'
+
+    body = RichTextField()
+    date = models.DateField(
+        "Post date",
+        help_text="For display on page. This does not affect when the page goes live",
+    )
+    author = models.CharField(
+        verbose_name='Byline',
+        max_length=50,
+        blank=True,
+    )
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    # Editor panels configuration
+
+    content_panels = Page.content_panels + [
+        FieldPanel('date'),
+        ImageChooserPanel('hero_image'),
+        FieldPanel('body', classname="full"),
+        FieldPanel('author')
+        # InlinePanel('related_links', label="Related links"),
+    ]
+
+
 class ParticipatePage2(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page2.html'
@@ -905,6 +950,7 @@ class Homepage(MetadataPageMixin, Page):
         'MiniSiteNameSpace',
         'RedirectingPage',
         'OpportunityPage',
+        'StoriesPage',
     ]
 
     def get_context(self, request):
