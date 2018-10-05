@@ -9,9 +9,9 @@ export default class Creepometer extends React.Component {
       handleOffset: 0
     };
 
-    this.handleWidth = 70;
+    this.handleWidth = 70; // px
     this.faceCount = 40; // Number of face frames
-    this.encodedStepCount = 100; // Range of values to be recorded
+    this.encodedStepCount = 100; // Upper range of values to be recorded
     this.framePath = `/_images/buyers-guide/faces/`;
 
     this.slideStart = this.slideStart.bind(this);
@@ -31,11 +31,14 @@ export default class Creepometer extends React.Component {
   }
 
   componentDidMount() {
-    // Set initial position
-    this.setState({
-      handleOffset: Math.floor(this.props.initialValue / this.encodedStepCount * this.sliderElement.scrollWidth),
-      encodedValue: this.props.initialValue
-    });
+    // Slight delay because Firefox is too dang fast
+    setTimeout(() => {
+      // Set initial position
+      this.setState({
+        handleOffset: Math.floor(this.props.initialValue / this.encodedStepCount * this.sliderElement.scrollWidth),
+        encodedValue: this.props.initialValue
+      });
+    }, 100);
   }
 
   slideStart(e) {
