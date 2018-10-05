@@ -11,6 +11,7 @@ export default class Creepometer extends React.Component {
 
     this.handleWidth = 70;
     this.faceCount = 40; // Number of face frames
+    this.framePath = `/_images/buyers-guide/faces/`;
 
     this.slideStart = this.slideStart.bind(this);
     this.slideMove = this.slideMove.bind(this);
@@ -20,6 +21,12 @@ export default class Creepometer extends React.Component {
       this.sliderElement = element;
     };
 
+    // Preload images
+    for (let i = 1; i <= this.faceCount; i++) {
+      let img = document.createElement(`img`);
+
+      img.src = `${this.framePath}${i}.png`;
+    }
   }
 
   slideStart(e) {
@@ -64,7 +71,7 @@ export default class Creepometer extends React.Component {
       frameChoice = Math.floor(handleX / this.sliderElement.scrollWidth * this.faceCount) + 1;
     }
 
-    let faceImgSrc = `/_images/buyers-guide/faces/${frameChoice}.png`;
+    let faceImgSrc = `${this.framePath}${frameChoice}.png`;
 
     return (
       <div className="slider" ref={this.setSliderRef} onMouseLeave={this.slideStop} onMouseMove={this.slideMove} onMouseDown={this.slideStart} onMouseUp={this.slideStop}>
