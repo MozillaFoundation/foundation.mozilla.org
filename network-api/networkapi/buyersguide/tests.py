@@ -5,11 +5,10 @@ from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote
 from django.core.management import call_command
 
+VOTE_URL = reverse('product-vote')
+
 
 class ManagementCommandTest(APITestCase):
-
-    def setUp(self):
-        self.vote_url = reverse('product-vote')
 
     def test_aggregate_product_votes_range(self):
         """
@@ -28,14 +27,14 @@ class ManagementCommandTest(APITestCase):
         # Make 10 creepiness votes
         for i in (1, 10, 20, 30, 40, 50, 60, 70, 80, 90):
             request_data['value'] = i
-            response = self.client.post(self.vote_url, request_data, format='json')
+            response = self.client.post(VOTE_URL, request_data, format='json')
             self.assertEqual(response.status_code, 201)
 
         request_data['attribute'] = 'confidence'
         for value in (True, False):
             request_data['value'] = value
             for _ in range(5):
-                response = self.client.post(self.vote_url, request_data, format='json')
+                response = self.client.post(VOTE_URL, request_data, format='json')
                 self.assertEqual(response.status_code, 201)
 
         call_command('aggregate_product_votes')
@@ -61,9 +60,6 @@ class ManagementCommandTest(APITestCase):
 
 class BuyersGuideVoteTest(APITestCase):
 
-    def setUp(self):
-        self.vote_url = reverse('product-vote')
-
     def test_can_vote_range(self):
         """
         Range votes are recorded
@@ -72,7 +68,7 @@ class BuyersGuideVoteTest(APITestCase):
         test_product_id = ProductFactory.create().id
         vote_value = 50
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -92,7 +88,7 @@ class BuyersGuideVoteTest(APITestCase):
         test_product_id = ProductFactory.create().id
         vote_value = True
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'confidence',
             'value': vote_value,
             'productID': test_product_id
@@ -111,7 +107,7 @@ class BuyersGuideVoteTest(APITestCase):
         # String values not allowed
         vote_value = 'invalid'
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'confidence',
             'value': vote_value,
             'productID': test_product_id
@@ -121,7 +117,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         # Floating point numbers not allowed
         vote_value = 14.5
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -130,7 +126,7 @@ class BuyersGuideVoteTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
         # undefined values not allowed
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': None,
             'productID': test_product_id
@@ -145,7 +141,7 @@ class BuyersGuideVoteTest(APITestCase):
         test_product_id = '1'
         vote_value = 50
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -156,7 +152,7 @@ class BuyersGuideVoteTest(APITestCase):
         # Test an id that won't exist
         test_product_id = 100000000
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -171,7 +167,7 @@ class BuyersGuideVoteTest(APITestCase):
         test_product_id = ProductFactory.create().id
         vote_value = 0
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -182,7 +178,7 @@ class BuyersGuideVoteTest(APITestCase):
         test_product_id = ProductFactory.create().id
         vote_value = 101
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -197,7 +193,7 @@ class BuyersGuideVoteTest(APITestCase):
         test_product_id = ProductFactory.create().id
         vote_value = 50
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -207,7 +203,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         test_product_id = ProductFactory.create().id
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'confidence',
             'value': vote_value,
             'productID': test_product_id
@@ -222,7 +218,7 @@ class BuyersGuideVoteTest(APITestCase):
         test_product_id = ProductFactory.create().id
         vote_value = True
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'confidence',
             'value': vote_value,
             'productID': test_product_id
@@ -232,7 +228,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         test_product_id = ProductFactory.create().id
 
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
             'value': vote_value,
             'productID': test_product_id
@@ -248,7 +244,7 @@ class BuyersGuideVoteTest(APITestCase):
         vote_value = True
 
         # no attribute
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'value': vote_value,
             'productID': test_product_id
         }, format='json')
@@ -256,7 +252,7 @@ class BuyersGuideVoteTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
         # no value
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'confidence',
             'productID': test_product_id
         }, format='json')
@@ -264,7 +260,7 @@ class BuyersGuideVoteTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
         # no productID
-        response = self.client.post(self.vote_url, {
+        response = self.client.post(VOTE_URL, {
             'attribute': 'confidence',
             'value': vote_value
         }, format='json')
