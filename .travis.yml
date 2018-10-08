@@ -4,7 +4,7 @@ python:
 services:
 - postgresql
 install:
-- pip install --upgrade pip
+- pip install pip==18.0
 - pip install pipenv
 - pipenv install --dev --deploy
 - nvm install --lts=carbon
