@@ -87,7 +87,7 @@ export default class Creepometer extends React.Component {
     return (
       <div>
         <div className="slider" ref={this.setSliderRef} onMouseLeave={this.slideStop} onMouseMove={this.slideMove} onMouseDown={this.slideStart} onMouseUp={this.slideStop}>
-          <div className="handle" style={{background: `url("${this.framePath}sprite.png") 0 ${this.handleWidth * frameChoice}px / 70px auto, #f2b946`, left: `${handleX}px`}}></div>
+          <div className="handle" style={{background: `url("${this.framePath}sprite-resized-64-colors.png") 0 ${this.handleWidth * frameChoice}px / 70px auto, #f2b946`, left: `${handleX}px`}}></div>
         </div>
         <h1>{this.state.encodedValue}</h1>
       </div>
