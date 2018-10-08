@@ -43,7 +43,7 @@ install:
   - ps: Install-Product node $env:nodejs_version
   - "npm install -g npm@latest"
   - "npm ci"
-  - "python -m pip install --upgrade pip"
+  - "python -m pip install pip==18.0"
   - "python -m pip install pipenv"
   - "python -m pipenv install --dev --deploy"
   - "python -m pipenv run python network-api/manage.py collectstatic --no-input"
