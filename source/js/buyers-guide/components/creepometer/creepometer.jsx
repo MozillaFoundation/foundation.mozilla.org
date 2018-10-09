@@ -21,13 +21,6 @@ export default class Creepometer extends React.Component {
     this.setSliderRef = element => {
       this.sliderElement = element;
     };
-
-    // Preload images
-    for (let i = 1; i <= this.faceCount; i++) {
-      let img = document.createElement(`img`);
-
-      img.src = `${this.framePath}${i}.png`;
-    }
   }
 
   componentDidMount() {
