@@ -57,14 +57,14 @@ def product_vote(request):
 
     try:
         product = Product.objects.get(id=product_id)
-        vote_class = RangeVote
+        VoteClass = RangeVote
 
         # Check if this vote is a boolean (yes/no) vote, and switch the model if it is
         if isinstance(value, bool):
-            vote_class = BooleanVote
+            VoteClass = BooleanVote
 
         # Build the model instance
-        vote = vote_class(
+        vote = VoteClass(
             attribute=attribute,
             value=value,
             product=product
