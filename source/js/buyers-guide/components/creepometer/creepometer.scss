@@ -1,8 +1,27 @@
 .creepometer {
   .slider {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: url("/_images/buyers-guide/gradient-bar.svg") no-repeat 0 center / contain;
     position: relative;
     height: 72px;
+  }
+
+  .copy {
+    position: absolute;
+    bottom: 0;
+    z-index: 0;
+    font-size: 16px;
+
+    &::selection {
+      background: $white;
+    }
+  }
+
+  .copy-left {
+    left: 0;
+  }
+
+  .copy-right {
+    right: 0;
   }
 
   .handle {
@@ -11,5 +30,6 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
+    z-index: 1;
   }
 }
