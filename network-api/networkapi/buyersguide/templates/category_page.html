@@ -1,5 +1,7 @@
 {% extends "./bg_base.html" %}
 
+{% load env %}
+
 {% block body-id %}{{ category.websafe_name }}{% endblock %}
 
 {% block guts %}
@@ -15,7 +17,7 @@
       <div class="category-item-container" >
         <a class="" href="/privacynotincluded/products/{{ product.name}}">
           <div class="category-image-container">
-            <img src="{{ mediaUrl}}{{product.image }}">
+            <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
           </div>
           <div class="category-item-label">{{ product.company }}</div>
           <div class="category-item-header zilla-slab">{{ product.name }}</div>
