@@ -1,9 +1,11 @@
+import re
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import model_to_dict
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
+from wagtail.snippets.models import register_snippet
 
 
 def get_product_image_upload_path(instance, filename):
@@ -42,6 +44,27 @@ class Update(models.Model):
         return self.title
 
 
+@register_snippet
+class BuyersGuideProductCategory(models.Model):
+    """
+    A simple category class for use with Buyers Guide products,
+    registered as snippet so that we can moderate them if and
+    when necessary.
+    """
+    name = models.CharField(max_length=100)
+
+    @property
+    def websafe_name(self):
+        return re.sub(r"[ \W]+", "-", self.name).lower()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Category"
+        verbose_name_plural = "Buyers Guide Product Categories"
+
+
 class Product(models.Model):
     """
     A thing you can buy in stores and our review of it
@@ -57,6 +80,13 @@ class Product(models.Model):
         max_length=100,
         help_text='Name of Company',
         blank="True",
+    )
+
+    product_category = models.ManyToManyField(
+        BuyersGuideProductCategory,
+        related_name='product',
+        null=True,
+        blank=True
     )
 
     blurb = models.TextField(

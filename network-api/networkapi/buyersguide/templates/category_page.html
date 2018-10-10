@@ -1,0 +1,30 @@
+{% extends "./bg_base.html" %}
+
+{% block body-id %}{{ category.websafe_name }}{% endblock %}
+
+{% block guts %}
+  <div class="category-listing page-width container-fluid text-center px-5 mt-4">
+
+    <div class="info-blob">
+      <h1>{{ category.name }}</h1>
+      <p><em>The information provided here is pulled directly from the product website.</em></p>
+    </div>
+
+    <div class="categories-container">
+      {% for product in products %}
+      <div class="category-item-container" >
+        <a class="" href="/privacynotincluded/products/{{ product.name}}">
+          <div class="category-image-container">
+            <img src="{{ mediaUrl}}{{product.image }}">
+          </div>
+          <div class="category-item-label">{{ product.company }}</div>
+          <div class="category-item-header zilla-slab">{{ product.name }}</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+
+

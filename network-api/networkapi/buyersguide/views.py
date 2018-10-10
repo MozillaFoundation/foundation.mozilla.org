@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, parser_classes, throttle_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
-from networkapi.buyersguide.models import Product, BooleanVote, RangeVote
+from networkapi.buyersguide.models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
@@ -20,13 +20,29 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 @login_required
 def buyersguide_home(request):
     products = [p.to_dict() for p in Product.objects.all()]
-    return render(request, 'buyersguide_home.html', {'products': products})
+    return render(request, 'buyersguide_home.html', {
+        'categories': BuyersGuideProductCategory.objects.all(),
+        'products': products,
+    })
+
+
+@login_required
+def category_view(request, categoryname):
+    category = BuyersGuideProductCategory.objects.get(name__iexact=categoryname)
+    products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
+    return render(request, 'category_page.html', {
+        'categories': BuyersGuideProductCategory.objects.all(),
+        'category': category,
+        'products': products,
+        'mediaUrl': settings.MEDIA_URL,
+    })
 
 
 @login_required
 def product_view(request, productname):
     product = Product.objects.get(name__iexact=productname)
     return render(request, 'product_page.html', {
+        'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),
         'mediaUrl': settings.MEDIA_URL
     })
@@ -34,7 +50,9 @@ def product_view(request, productname):
 
 @login_required
 def about_view(request):
-    return render(request, 'about.html')
+    return render(request, 'about.html', {
+        'categories': BuyersGuideProductCategory.objects.all(),
+    })
 
 
 @api_view(['POST'])

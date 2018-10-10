@@ -8,9 +8,16 @@ from factory import (
 )
 
 from networkapi.utility.faker_providers import ImageProvider
-from networkapi.buyersguide.models import Product
+from networkapi.buyersguide.models import Product, BuyersGuideProductCategory
 
 Faker.add_provider(ImageProvider)
+
+
+def get_random_category():
+    all = BuyersGuideProductCategory.objects.all()
+    total = all.count()
+    index = random.randint(0, total-1)
+    return all[index]
 
 
 class ProductFactory(DjangoModelFactory):
@@ -24,6 +31,23 @@ class ProductFactory(DjangoModelFactory):
     product_words = Faker('words', nb=2)
 
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
+
+    @post_generation
+    def product_category(self, create, extracted, **kwargs):
+        """
+        After model generation, Relate this product to one or more product categories.
+        Do this in a way that will assign some products 2 or more categories.
+        """
+        ceiling = 1.0
+        while True:
+            odds = random.random()
+            if odds < ceiling:
+                category = get_random_category()
+                self.product_category.add(category)
+                ceiling = ceiling / 5
+            else:
+                return
+
     company = Faker('company')
     blurb = Faker('sentence')
     url = Faker('url')
