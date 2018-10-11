@@ -1,6 +1,9 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.forms import model_to_dict
+
+from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
-# from wagtail.snippets.models import register_snippet
 
 
 def get_product_image_upload_path(instance, filename):
@@ -76,7 +79,7 @@ class Product(models.Model):
 
     image = models.FileField(
         max_length=2048,
-        help_text='Image representing this prodct',
+        help_text='Image representing this product',
         upload_to=get_product_image_upload_path,
         blank=True,
     )
@@ -257,7 +260,150 @@ class Product(models.Model):
 
     related_products = models.ManyToManyField('self', related_name='rps', null=True, blank=True)
 
-    # objects = HighlightQuerySet.as_manager()
+    @property
+    def votes(self):
+        votes = []
+        for range_product_vote in self.range_product_votes.all():
+            breakdown = {
+                'attribute': 'creepiness',
+                'average': range_product_vote.average,
+                'vote_breakdown': {}
+            }
+
+            for vote_breakdown in range_product_vote.rangevotebreakdown_set.all():
+                breakdown['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+
+            votes.append(breakdown)
+
+        for boolean_product_vote in self.boolean_product_votes.all():
+            breakdown = {
+                'attribute': 'confidence',
+                'vote_breakdown': {}
+            }
+
+            for vote_breakdown in boolean_product_vote.booleanvotebreakdown_set.all():
+                breakdown['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+
+            votes.append(breakdown)
+
+        return votes
+
+    def to_dict(self):
+        model_dict = model_to_dict(self)
+        model_dict['votes'] = self.votes
+        return model_dict
 
     def __str__(self):
         return str(self.name)
+
+
+class ProductVote(models.Model):
+    votes = models.IntegerField(
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class RangeProductVote(ProductVote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['creepiness'])
+        ]
+    )
+    average = models.IntegerField(
+        validators=(
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        )
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='range_product_votes',
+    )
+
+
+class BooleanProductVote(ProductVote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='boolean_product_votes'
+    )
+
+
+class VoteBreakdown(models.Model):
+    count = models.IntegerField(
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class BooleanVoteBreakdown(VoteBreakdown):
+    product_vote = models.ForeignKey(
+        BooleanProductVote,
+        on_delete=models.CASCADE
+    )
+    bucket = models.IntegerField(
+        validators=[
+            ValueListValidator(
+                valid_values=[0, 1]
+            )
+        ]
+    )
+
+
+class RangeVoteBreakdown(VoteBreakdown):
+    product_vote = models.ForeignKey(
+        RangeProductVote,
+        on_delete=models.CASCADE
+    )
+    bucket = models.IntegerField(
+        validators=[
+            ValueListValidator(
+                valid_values=[0, 1, 2, 3, 4]
+            )
+        ]
+    )
+
+
+class Vote(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class BooleanVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    value = models.BooleanField()
+
+
+class RangeVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['creepiness'])
+        ]
+    )
+    value = models.IntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        ]
+    )
