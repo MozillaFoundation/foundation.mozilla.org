@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
 import Criterion from './components/criterion/criterion.jsx';
 
@@ -72,9 +73,15 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    if (document.querySelectorAll(`.creepometer`)) {
-      Array.from(document.querySelectorAll(`.creepometer`)).forEach(element => {
-        ReactDOM.render(<Creepometer/>, element);
+    if (document.querySelectorAll(`.creep-vote-target`)) {
+      Array.from(document.querySelectorAll(`.creep-vote-target`)).forEach(element => {
+        ReactDOM.render(<CreepVote />, element);
+      });
+    }
+
+    if (document.querySelectorAll(`.creepometer-target`)) {
+      Array.from(document.querySelectorAll(`.creepometer-target`)).forEach(element => {
+        ReactDOM.render(<Creepometer initialValue={element.dataset.initialValue} />, element);
       });
     }
 
