@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="350px" height="6px" viewBox="0 0 350 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 13</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="49.7500002%" x2="101.257813%" y2="49.7500002%" id="linearGradient-1">
+            <stop stop-color="#0000FF" offset="0%"></stop>
+            <stop stop-color="#FF506E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Buyers-Guide" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Product-Wide-Copy" transform="translate(-269.000000, -1057.000000)" fill="url(#linearGradient-1)">
+            <g id="Step-1-Copy" transform="translate(269.000000, 852.000000)">
+                <g id="Creepy" transform="translate(0.000000, 68.000000)">
+                    <path d="M3,137 L347,137 C348.656854,137 350,138.343146 350,140 L350,140 C350,141.656854 348.656854,143 347,143 L3,143 C1.34314575,143 2.02906125e-16,141.656854 0,140 L0,140 C-2.02906125e-16,138.343146 1.34314575,137 3,137 Z" id="Rectangle-13"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
