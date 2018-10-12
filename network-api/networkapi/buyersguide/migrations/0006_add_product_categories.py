@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='product_category',
-            field=models.ManyToManyField(blank=True, null=True, related_name='product', to='buyersguide.BuyersGuideProductCategory'),
+            field=models.ManyToManyField(blank=True, related_name='product', to='buyersguide.BuyersGuideProductCategory'),
         ),
         migrations.RunPython(create_default_categories, migrations.RunPython.noop),
     ]
