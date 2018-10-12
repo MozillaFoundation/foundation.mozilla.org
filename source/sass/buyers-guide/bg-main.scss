@@ -21,6 +21,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 // React Components
 
 @import '../../js/buyers-guide/components/creepometer/creepometer';
+@import '../../js/buyers-guide/components/creep-vote/creep-vote';
 
 // Non-React Components
 
