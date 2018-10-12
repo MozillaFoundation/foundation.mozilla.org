@@ -85,7 +85,6 @@ class Product(models.Model):
     product_category = models.ManyToManyField(
         BuyersGuideProductCategory,
         related_name='product',
-        null=True,
         blank=True
     )
 
@@ -286,9 +285,9 @@ class Product(models.Model):
         blank="True",
     )
 
-    updates = models.ManyToManyField(Update, related_name='products', null=True, blank=True)
+    updates = models.ManyToManyField(Update, related_name='products', blank=True)
 
-    related_products = models.ManyToManyField('self', related_name='rps', null=True, blank=True)
+    related_products = models.ManyToManyField('self', related_name='rps', blank=True)
 
     @property
     def votes(self):
