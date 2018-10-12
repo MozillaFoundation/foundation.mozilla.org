@@ -911,7 +911,6 @@ class Homepage(MetadataPageMixin, Page):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
         # due to our custom image upload approach pre-wagtail
         context = super(Homepage, self).get_context(request)
-        print(settings.MEDIA_URL)
         context['MEDIA_URL'] = settings.MEDIA_URL
         return context
 

@@ -285,6 +285,6 @@ class Command(BaseCommand):
             [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
 
         print('Generating Buyer\'s Guide Products')
-        generate_fake_data(ProductFactory, 4)
+        generate_fake_data(ProductFactory, 20)
 
         print(self.style.SUCCESS('Done!'))

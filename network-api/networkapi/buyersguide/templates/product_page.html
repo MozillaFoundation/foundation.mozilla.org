@@ -5,7 +5,7 @@
 {% load yes_no %}
 {% load env %}
 
-{% block body-id %}TODO-CATEGORY{% endblock %}
+{% block body-id %}product-page{% endblock %}
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
@@ -165,7 +165,7 @@
       <div class="row">
       {% for product in product.related_products.all %}
       <div class="col-12 col-md-3">
-        <a href="/privacynotincluded/product/{{ product.name }}">
+        <a href="/privacynotincluded/products/{{ product.name }}">
           <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
         </a>
       </div>

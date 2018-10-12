@@ -34,12 +34,13 @@
     <div class="primary-nav">
       <div class="container">
         <a class="nav-home" href="/privacynotincluded">Home</a>
-        <a class="nav-TODO" href="#TODO">Toys & Games</a>
-        <a class="nav-TODO" href="#TODO">Smart Home</a>
-        <a class="nav-TODO" href="#TODO">Entertainment</a>
-        <a class="nav-TODO" href="#TODO">Wearables</a>
-        <a class="nav-TODO" href="#TODO">Health & Exercise</a>
-        <a class="nav-TODO" href="#TODO">Pets</a>
+        {% for current in categories %}
+        <a class="nav{% if category %}
+          {% if category.name == current.name %}
+            active
+          {% endif %}
+        {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
+        {% endfor %}
         <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
       </div>
     </div>
