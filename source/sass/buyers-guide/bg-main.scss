@@ -80,3 +80,4 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 @import './views/product';
 @import './views/about';
+@import './views/category';
