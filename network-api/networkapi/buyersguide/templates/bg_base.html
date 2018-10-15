@@ -14,31 +14,33 @@
     <title>Mozilla - *privacy not included</title>
   </head>
   <body class="pni" id="pni-{% block body-id %}{% endblock %}">
-    <header class="container">
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center py-3">
-          <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
-          <p class="mb-0 h4-heading">*privacy not&nbsp;included</p>
+    <div class="sticky-nav">
+      <header class="container">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center py-3">
+            <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
+            <p class="mb-0 h4-heading">*privacy not&nbsp;included</p>
+          </div>
+          <div class="social d-flex align-items-center">
+            <a class="social-button social-button-fb" href="#TODO"><span class="sr-only">Facebook</a></a>
+            <a class="social-button social-button-twitter" href="#TODO"><span class="sr-only">Twitter</a></a>
+            <a class="social-button social-button-email" href="#TODO"><span class="sr-only">Email</a></a>
+            <a class="d-none d-sm-block btn btn-blue ml-3" href="https://donate.mozilla.org">Donate</a>
+          </div>
         </div>
-        <div class="social d-flex align-items-center">
-          <a class="social-button social-button-fb" href="#TODO"><span class="sr-only">Facebook</a></a>
-          <a class="social-button social-button-twitter" href="#TODO"><span class="sr-only">Twitter</a></a>
-          <a class="social-button social-button-email" href="#TODO"><span class="sr-only">Email</a></a>
-          <a class="d-none d-sm-block btn btn-blue ml-3" href="https://donate.mozilla.org">Donate</a>
+      </header>
+      <div class="primary-nav">
+        <div class="container">
+          <a class="nav-home" href="/privacynotincluded">Home</a>
+          {% for current in categories %}
+          <a class="nav{% if category %}
+            {% if category.name == current.name %}
+              active
+            {% endif %}
+          {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
+          {% endfor %}
+          <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
         </div>
-      </div>
-    </header>
-    <div class="primary-nav">
-      <div class="container">
-        <a class="nav-home" href="/privacynotincluded">Home</a>
-        {% for current in categories %}
-        <a class="nav{% if category %}
-          {% if category.name == current.name %}
-            active
-          {% endif %}
-        {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
-        {% endfor %}
-        <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
       </div>
     </div>
 
