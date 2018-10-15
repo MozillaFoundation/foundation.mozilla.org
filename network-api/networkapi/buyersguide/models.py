@@ -290,32 +290,32 @@ class Product(models.Model):
     related_products = models.ManyToManyField('self', related_name='rps', blank=True)
 
     @property
-    def votes(self):
-        votes = []
-        for range_product_vote in self.range_product_votes.all():
-            breakdown = {
-                'attribute': 'creepiness',
-                'average': range_product_vote.average,
-                'vote_breakdown': {}
-            }
+    def creepiness(self):
+        creepiness_votes = self.range_product_votes.find(attribute='creepiness')
 
-            for vote_breakdown in range_product_vote.rangevotebreakdown_set.all():
-                breakdown['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+        creepiness = {
+            'average': creepiness_votes.average,
+            'vote_breakdown': {}
+        }
 
-            votes.append(breakdown)
+        for vote_breakdown in creepiness_votes.rangevotebreakdown_set.all():
+            creepiness['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
 
-        for boolean_product_vote in self.boolean_product_votes.all():
-            breakdown = {
-                'attribute': 'confidence',
-                'vote_breakdown': {}
-            }
+        return creepiness
 
-            for vote_breakdown in boolean_product_vote.booleanvotebreakdown_set.all():
-                breakdown['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+    @property
+    def confidence(self):
+        confidence_votes = self.boolean_product_votes.find(attribute='confidence')
 
-            votes.append(breakdown)
+        confidence = {
+            'vote_breakdown': {}
+        }
 
-        return votes
+        for vote_breakdown in confidence_votes.rangevotebreakdown_set.all():
+            confidence['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+
+        return confidence
+
 
     def to_dict(self):
         model_dict = model_to_dict(self)
