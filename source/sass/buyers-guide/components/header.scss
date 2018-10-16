@@ -32,13 +32,14 @@
     margin-right: 20px;
     padding: 10px 0 6px;
     text-decoration: none;
+    border-bottom: 4px solid white;
 
     &:hover {
       color: $black;
     }
 
     &.active {
-      border-bottom: 4px solid black;
+      border-color: black;
     }
   }
 }
@@ -69,4 +70,15 @@
 
 .social-button-email {
   background-image: url("/_images/glyphs/email.svg");
+}
+
+.btn-donate {
+  background: #ff4f5e;
+  border-radius: 19px;
+  color: white;
+
+  @include hover-focus-active {
+    background: #f00;
+    color: white;
+  }
 }
