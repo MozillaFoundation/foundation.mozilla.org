@@ -14,28 +14,26 @@
     <title>Mozilla - *privacy not included</title>
   </head>
   <body class="pni" id="pni-{% block body-id %}{% endblock %}">
-    <div class="sticky-nav">
-      {% include "./primary_nav.html" with showCopyLink=True %}
-      <div class="category-nav">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <a class="nav-home" href="/privacynotincluded">Home</a>
-              {% for current in categories %}
-              <a class="nav{% if category %}
-                {% if category.name == current.name %}
-                  active
-                {% endif %}
-              {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
-              {% endfor %}
-              <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
-            </div>
+    {% include "./primary_nav.html" with showCopyLink=True %}
+    <div class="category-nav sticky-nav">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <a class="nav-home" href="/privacynotincluded">Home</a>
+            {% for current in categories %}
+            <a class="nav{% if category %}
+              {% if category.name == current.name %}
+                active
+              {% endif %}
+            {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
+            {% endfor %}
+            <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="pb-5">{% block guts %}{% endblock %}</div>
+    <div class="pb-5 main-content">{% block guts %}{% endblock %}</div>
 
     <footer class="mofo-footer">
       <div class="container">

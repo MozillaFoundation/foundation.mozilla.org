@@ -13,11 +13,11 @@
 .sticky-nav {
   position: sticky;
   top: 0;
-  background: white;
-  z-index: 100;
+  z-index: 2;
 }
 
 .category-nav {
+  background: white;
   overflow-x: auto;
   white-space: nowrap;
   border-top: 1px solid #ccc;

@@ -1,6 +1,18 @@
 .menu-container {
   position: relative;
-  z-index: 10;
+  z-index: 3;
+
+  .burger {
+    width: 18px;
+    height: 18px;
+    background-image: url("../_images/buyers-guide/icon-share.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &.menu-open {
+      background-image: url("../_images/buyers-guide/icon-close.svg");
+    }
+  }
 }
 
 .logo-section {
