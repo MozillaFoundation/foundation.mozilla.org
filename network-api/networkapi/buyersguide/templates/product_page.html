@@ -174,7 +174,26 @@
 
     </div>
   </div>
-
 </div>
 
+{% if coralTalkServerUrl %}
+  <div class="container">
+    <div class="row">
+      <div class="p-5 col-12 col-md-10 offset-md-1">
+        <div id="coral_talk_stream"></div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 {% endblock %}
+
+{% if coralTalkServerUrl %}
+  {% block extra_scripts %}
+    <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
+      Coral.Talk.render(document.getElementById('coral_talk_stream'), {
+        talk: '{{ coralTalkServerUrl }}'
+      });
+    "></script>
+  {% endblock %}
+{% endif %}

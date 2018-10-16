@@ -44,7 +44,8 @@ def product_view(request, productname):
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),
-        'mediaUrl': settings.MEDIA_URL
+        'mediaUrl': settings.MEDIA_URL,
+        'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
 
 
