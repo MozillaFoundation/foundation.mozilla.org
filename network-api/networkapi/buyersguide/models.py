@@ -1,4 +1,5 @@
 import re
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import model_to_dict
@@ -290,32 +291,33 @@ class Product(models.Model):
     related_products = models.ManyToManyField('self', related_name='rps', blank=True)
 
     @property
-    def creepiness(self):
-        creepiness_votes = self.range_product_votes.find(attribute='creepiness')
+    def votes(self):
+        votes = {}
+        confidence_vote_breakdown = {}
+        creepiness = {'vote_breakdown': {}}
 
-        creepiness = {
-            'average': creepiness_votes.average,
-            'vote_breakdown': {}
-        }
+        try:
+            # Get vote QuerySets
+            creepiness_votes = self.range_product_votes.get(attribute='creepiness')
+            confidence_votes = self.boolean_product_votes.get(attribute='confidence')
 
-        for vote_breakdown in creepiness_votes.rangevotebreakdown_set.all():
-            creepiness['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+            # Aggregate the Creepiness votes
+            creepiness['average'] = creepiness_votes.average
+            for vote_breakdown in creepiness_votes.rangevotebreakdown_set.all():
+                creepiness['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
 
-        return creepiness
+            # Aggregate the confidence votes
+            for boolean_vote_breakdown in confidence_votes.booleanvotebreakdown_set.all():
+                confidence_vote_breakdown[str(boolean_vote_breakdown.bucket)] = boolean_vote_breakdown.count
 
-    @property
-    def confidence(self):
-        confidence_votes = self.boolean_product_votes.find(attribute='confidence')
+            # Build + return the votes dict
+            votes['creepiness'] = creepiness
+            votes['confidence'] = confidence_vote_breakdown
+            return votes
 
-        confidence = {
-            'vote_breakdown': {}
-        }
-
-        for vote_breakdown in confidence_votes.rangevotebreakdown_set.all():
-            confidence['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
-
-        return confidence
-
+        except ObjectDoesNotExist:
+            # There's no aggregate data available yet, return None
+            return None
 
     def to_dict(self):
         model_dict = model_to_dict(self)

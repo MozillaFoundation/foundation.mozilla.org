@@ -10,9 +10,42 @@ VOTE_URL = reverse('product-vote')
 
 class ManagementCommandTest(APITestCase):
 
-    def test_aggregate_product_votes_range(self):
+    def test_votes_before_management_command_has_run(self):
         """
-        Test that aggregate_product_votes properly aggregates range votes
+        Test that the votes attribute is None when there is no aggregated vote data for it
+        """
+
+        product = ProductFactory.create()
+        self.assertIsNone(product.votes)
+
+    def test_aggregate_product_votes_default(self):
+        """
+        Test that aggregate_product_votes provides default vote data for a product with no votes
+        """
+        product = ProductFactory.create()
+
+        call_command('aggregate_product_votes')
+
+        self.assertDictEqual(product.votes, {
+            'creepiness': {
+                'average': 50,
+                'vote_breakdown': {
+                    '0': 0,
+                    '1': 0,
+                    '2': 0,
+                    '3': 0,
+                    '4': 0
+                }
+            },
+            'confidence': {
+                '0': 0,
+                '1': 0
+            }
+        })
+
+    def test_aggregate_product_votes(self):
+        """
+        Test that aggregate_product_votes properly aggregates votes
         """
 
         product = ProductFactory.create()
@@ -21,8 +54,6 @@ class ManagementCommandTest(APITestCase):
             'attribute': 'creepiness',
             'productID': test_product_id
         }
-
-        self.assertListEqual(product.votes, [])
 
         # Make 10 creepiness votes
         for i in (1, 10, 20, 30, 40, 50, 60, 70, 80, 90):
@@ -38,24 +69,22 @@ class ManagementCommandTest(APITestCase):
                 self.assertEqual(response.status_code, 201)
 
         call_command('aggregate_product_votes')
-
-        self.assertListEqual(product.votes, [{
-            'attribute': 'creepiness',
-            'average': 45,
-            'vote_breakdown': {
-                '0': 3,
-                '1': 2,
-                '2': 2,
-                '3': 2,
-                '4': 1
-            }
-        }, {
-            'attribute': 'confidence',
-            'vote_breakdown': {
+        self.assertDictEqual(product.votes, {
+            'creepiness': {
+                'average': 45,
+                'vote_breakdown': {
+                    '0': 3,
+                    '1': 2,
+                    '2': 2,
+                    '3': 2,
+                    '4': 1
+                }
+            },
+            'confidence': {
                 '0': 5,
                 '1': 5
             }
-        }])
+        })
 
 
 class BuyersGuideVoteTest(APITestCase):
