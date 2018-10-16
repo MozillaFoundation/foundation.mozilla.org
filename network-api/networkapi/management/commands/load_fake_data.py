@@ -287,4 +287,7 @@ class Command(BaseCommand):
         print('Generating Buyer\'s Guide Products')
         generate_fake_data(ProductFactory, 20)
 
+        print('Aggregating Buyer\'s Guide Product votes')
+        call_command('aggregate_model_data')
+
         print(self.style.SUCCESS('Done!'))
