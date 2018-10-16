@@ -317,3 +317,11 @@ class BuyersGuideViewTest(TestCase):
         request = self.factory.get('/privacynotincluded/products/this is not a product')
         request.user = self.user
         self.assertRaises(Http404, product_view, request, 'this is not a product')
+
+    def test_category_view_404(self):
+        """
+        Test that the category view raises an Http404 if the category name doesn't exist
+        """
+        request = self.factory.get('/privacynotincluded/categories/this is not a category')
+        request.user = self.user
+        self.assertRaises(Http404, product_view, request, 'this is not a category')
