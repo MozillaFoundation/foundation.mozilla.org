@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import Error
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
@@ -40,7 +40,7 @@ def category_view(request, categoryname):
 
 @login_required
 def product_view(request, productname):
-    product = Product.objects.get(name__iexact=productname)
+    product = get_object_or_404(Product, name__iexact=productname)
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),

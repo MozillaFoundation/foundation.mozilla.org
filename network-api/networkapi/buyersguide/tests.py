@@ -1,8 +1,12 @@
+from django.contrib.auth.models import User
+from django.http import Http404
 from django.urls import reverse
 from rest_framework.test import APITestCase
+from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote
+from networkapi.buyersguide.views import product_view
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
@@ -295,3 +299,21 @@ class BuyersGuideVoteTest(APITestCase):
         }, format='json')
 
         self.assertEqual(response.status_code, 400)
+
+
+class BuyersGuideViewTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='testuser@example.com',
+            password='testuser password'
+        )
+
+    def test_product_view_404(self):
+        """
+        Test that the product view raises an Http404 if the product name doesn't exist
+        """
+        request = self.factory.get('/privacynotincluded/products/this is not a product')
+        request.user = self.user
+        self.assertRaises(Http404, product_view, request, 'this is not a product')
