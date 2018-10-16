@@ -5,10 +5,7 @@
         <div class="narrow-screen-menu-background">
           <div class="narrow-screen-menu-container">
             <div class="social d-flex flex-column">
-              <a class="social-button body-large social-button-fb" href="#TODO">Facebook</a>
-              <a class="social-button body-large social-button-twitter" href="#TODO">Twitter</a>
-              <a class="social-button body-large social-button-email" href="#TODO">Email</a>
-              <a class="social-button body-large social-button-link" href="#TODO">Copy link</a>
+              {% include "./social.html" with mobile=True %}
             </div>
             <div class="donate">
               <div class="container text-center">
@@ -35,11 +32,7 @@
                     <p class="mb-0 h4-heading flex-wrap">*privacy not included</p>
                   </div>
                   <div class="social d-flex align-items-center">
-                    <a class="social-button social-button-fb hidden-sm-down" href="#TODO"><span class="sr-only">Facebook</span></a>
-                    <a class="social-button social-button-twitter hidden-sm-down" href="#TODO"><span class="sr-only">Twitter</span></a>
-                    <a class="social-button social-button-email hidden-sm-down" href="#TODO"><span class="sr-only">Email</span></a>
-                    <a class="social-button social-button-link hidden-sm-down" href="#TODO"><span class="sr-only">Copy link</span></a>
-                    <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" href="https://donate.mozilla.org">Donate</a>
+                    {% include "./social.html" with mobile=False %}
                     <button class="burger btn btn-link p-0 ml-4 hidden-md-up">
                       <span class="sr-only">Share</span>
                     </button>

@@ -1,0 +1,30 @@
+<a class="social-button social-button-fb
+  {% if mobile %}
+    body-large
+  {% else %}
+    hidden-sm-down
+  {% endif %}
+">{% if mobile != True %}<span class="sr-only">{% endif %}Facebook{% if mobile %}</span>{% endif %}</a>
+<a class="social-button social-button-twitter
+  {% if mobile %}
+    body-large
+  {% else %}
+    hidden-sm-down
+  {% endif %}
+">{% if mobile != True %}<span class="sr-only">{% endif %}Twitter{% if mobile %}</span>{% endif %}</a>
+<a class="social-button social-button-email
+  {% if mobile %}
+    body-large
+  {% else %}
+    hidden-sm-down
+  {% endif %}
+">{% if mobile != True %}<span class="sr-only">{% endif %}Email{% if mobile %}</span>{% endif %}</a>
+<a class="social-button social-button-link
+  {% if mobile %}
+    body-large
+  {% else %}
+    hidden-sm-down
+  {% endif %}
+">{% if mobile != True %}<span class="sr-only">{% endif %}Copy link{% if mobile %}</span>{% endif %}</a>
+{% if mobile != True %}<a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" href="https://donate.mozilla.org">Donate</a>{% endif %}
+
