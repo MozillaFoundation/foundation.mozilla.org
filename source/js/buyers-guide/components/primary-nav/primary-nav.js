@@ -1,21 +1,13 @@
+/*
+* This is a slightly simplied version of source/js/primary-nav.js
+*/
+
 let primaryNav = {
   init: function() {
     let elBurger = document.querySelector(`.burger`);
-    let elWideMenu = document.querySelector(`.wide-screen-menu`);
     let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
-    let primaryNavContainer = document.getElementById(`primary-nav-container`);
-    let navMode = primaryNavContainer.dataset.navMode;
+    let elUnderneath = document.querySelector(`.underneath-screen-overlay`);
     let menuOpen = false;
-
-    function setWideMenuState(openMenu) {
-      if (navMode === `zen`) {
-        if (openMenu) {
-          elWideMenu.classList.remove(`hidden`);
-        } else {
-          elWideMenu.classList.add(`hidden`);
-        }
-      }
-    }
 
     function setNarrowMenuState(openMenu) {
       if (openMenu) {
@@ -34,9 +26,14 @@ let primaryNav = {
     }
 
     function setMenuState(openMenu) {
-      setWideMenuState(openMenu);
       setNarrowMenuState(openMenu);
       setBurgerState(openMenu);
+
+      if (openMenu) {
+        elUnderneath.style.display = `none`;
+      } else {
+        elUnderneath.style.display = `initial`;
+      }
     }
 
     document.addEventListener(`keyup`, (e) => {

@@ -1,3 +1,15 @@
+.moz-logo {
+  background-image: url("../_images/mozilla-m.svg");
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+
+  @include media-breakpoint-up(md) {
+    width: 97px;
+    background-image: url("../_images/mozilla-on-black.svg");
+  }
+}
+
 .menu-container {
   position: relative;
   z-index: 3;
@@ -36,7 +48,7 @@
     padding-top: 72px;
   }
 
-  // height: 100vh;
+  height: 100vh;
   top: 0;
   left: 0;
   width: 100vw;
@@ -104,5 +116,44 @@
 
   @media (min-width: $bp-md) {
     display: none;
+  }
+}
+
+.social-button {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.social-button-fb {
+  background-image: url("/_images/glyphs/fb.svg");
+}
+
+.social-button-twitter {
+  background-image: url("/_images/glyphs/twitter.svg");
+}
+
+.social-button-email {
+  background-image: url("/_images/glyphs/email.svg");
+}
+
+.social-button-link {
+  background-image: url("/_images/glyphs/link.svg");
+}
+
+.btn-donate {
+  background: #ff4f5e;
+  border-radius: 14px;
+  color: white;
+  padding: 4px 12px;
+  font-size: 14px;
+
+  @include hover-focus-active {
+    background: #f00;
+    color: white;
   }
 }
