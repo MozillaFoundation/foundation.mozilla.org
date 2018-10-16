@@ -44,9 +44,15 @@ export default class Creepometer extends React.Component {
 
   slideMove(e) {
     if (this.state.isHandleGrabbed) {
-      let clientX = e.nativeEvent.clientX;
-      let sliderLeftEdgeX = this.sliderElement.getBoundingClientRect().left;
-      let offset = Math.floor(clientX - sliderLeftEdgeX);
+      let clientX, sliderLeftEdgeX, offset;
+
+      if (e.nativeEvent.type === `touchmove`){
+        clientX = e.nativeEvent.touches[0].pageX;
+      } else {
+        clientX = e.nativeEvent.clientX;
+      }
+      sliderLeftEdgeX = this.sliderElement.getBoundingClientRect().left;
+      offset = Math.floor(clientX - sliderLeftEdgeX);
 
       this.setState({
         handleOffset: offset,
@@ -84,7 +90,7 @@ export default class Creepometer extends React.Component {
         <div class="slider-container p-2" onMouseLeave={this.slideStop} onMouseUp={this.slideStop}>
           <div className="slider" ref={this.setSliderRef} onMouseMove={this.slideMove} onMouseDown={this.slideStart} onMouseUp={this.slideStop}>
             <div className="h6-heading copy copy-left">Not creepy</div>
-            <div className="handle" style={{background: `url("${this.framePath}sprite-resized-64-colors.png") 0 ${pxOffset}px / 70px auto, #f2b946`, left: `${handleX}px`}}></div>
+            <div className="handle" onTouchStart={this.slideStart} onTouchMove={this.slideMove} onTouchEnd={this.slideStop} style={{background: `url("${this.framePath}sprite-resized-64-colors.png") 0 ${pxOffset}px / 70px auto, #f2b946`, left: `${handleX}px`}}></div>
             <div className="h6-heading copy copy-right">Super creepy</div>
           </div>
         </div>
