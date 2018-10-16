@@ -1,0 +1,56 @@
+#creepiness-score {
+  display: flex;
+  border-image: url("/_images/buyers-guide/gradient-bar.svg") 7/0px 6px 6px;
+
+  tbody {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  th {
+    order: 2;
+    margin: 0 1px;
+    text-align: center;
+    align-self: flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    position: relative;
+    min-height: 40px; //TODO: fix magic
+  }
+
+  .bar,
+  td {
+    position: relative;
+    bottom: -19px; //Todo: fix magic
+  }
+
+  .creepiness,
+  .bar {
+    transition: all 2.5s ease;
+  }
+
+  .bar {
+    background-color: $light-gray;
+  }
+
+  td {
+    order: 1;
+    text-align: center;
+  }
+
+  .creep-face {
+    position: relative;
+  }
+
+  tr {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 1px;
+  }
+}

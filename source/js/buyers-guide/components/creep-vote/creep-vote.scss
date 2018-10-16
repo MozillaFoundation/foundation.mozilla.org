@@ -1,4 +1,35 @@
+$radio-button-radius: 50px;
+$btn-shadow-width: 3px;
+
 .creep-vote {
-  border-top: 1px solid #c8c8ca;
   border-bottom: 1px solid #c8c8ca;
+  border-top: 1px solid #c8c8ca;
+
+  .btn-group {
+    .btn {
+      border: 1px solid $medium-gray;
+      border-bottom-width: $btn-shadow-width;
+      color: black;
+      text-transform: initial;
+      transition: all 0.1s linear;
+    }
+
+    input { display: none; }
+
+    input:checked + span {
+      background-color: #5cccff;
+    }
+
+    input:-moz-ui-invalid + span {
+      border-color: red;
+    }
+
+    label:first-of-type span {
+      border-radius: $radio-button-radius 0 0 $radio-button-radius;
+    }
+
+    label:last-of-type span {
+      border-radius: 0 $radio-button-radius $radio-button-radius 0;
+    }
+  }
 }
