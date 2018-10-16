@@ -1,0 +1,93 @@
+.menu-container {
+  position: relative;
+  z-index: 10;
+}
+
+.logo-section {
+  .h4-heading {
+    font-size: 13px;
+    font-weight: 600;
+    max-width: 85px;
+
+    @media (min-width: $bp-sm) {
+      font-size: 22px;
+      max-width: none;
+    }
+  }
+}
+
+.narrow-screen-menu {
+  position: absolute;
+  padding-top: 62px;
+
+  @media (min-width: $bp-sm) {
+    padding-top: 72px;
+  }
+
+  // height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: white;
+  transition: opacity 0.2s, height 0s;
+
+  &.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s, height 0s linear 0.2s;
+  }
+
+  .narrow-screen-menu-container {
+    .social-button {
+      width: auto;
+      height: auto;
+      border-bottom: 1px solid white;
+      margin: 0;
+      padding: 1rem 1rem 1rem 4rem;
+      background-color: #ccc;
+      background-position: 20px center;
+      color: black;
+      font-size: 2rem;
+      font-weight: 300;
+
+      @include hover-focus-active {
+        text-decoration: none;
+      }
+
+      &.social-button-fb {
+        background-position: 24px center;
+        background-size: auto 20px;
+      }
+
+      &.social-button-twitter {
+        background-size: auto 18px;
+      }
+
+      &.social-button-email {
+        background-size: auto 18px;
+      }
+    }
+
+    .donate {
+      background: black;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+
+      h1,
+      p {
+        color: white;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .narrow-screen-menu-background {
+    background: white;
+    height: 100%;
+  }
+
+  @media (min-width: $bp-md) {
+    display: none;
+  }
+}

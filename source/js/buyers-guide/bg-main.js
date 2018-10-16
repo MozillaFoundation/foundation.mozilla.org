@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
 import Criterion from './components/criterion/criterion.jsx';
@@ -9,6 +10,7 @@ let main = {
   init() {
     this.enableCopyLinks();
     this.injectReactComponents();
+    primaryNav.init();
   },
 
   enableCopyLinks() {
