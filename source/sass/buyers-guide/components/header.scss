@@ -52,8 +52,8 @@
 
 .social-button {
   display: block;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   margin: 0 12px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -72,10 +72,16 @@
   background-image: url("/_images/glyphs/email.svg");
 }
 
+.social-button-link {
+  background-image: url("/_images/glyphs/link.svg");
+}
+
 .btn-donate {
   background: #ff4f5e;
-  border-radius: 19px;
+  border-radius: 14px;
   color: white;
+  padding: 4px 12px;
+  font-size: 14px;
 
   @include hover-focus-active {
     background: #f00;
