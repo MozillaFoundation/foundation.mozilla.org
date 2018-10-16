@@ -1,5 +1,5 @@
 /*
-* This is a slightly simplied version of source/js/primary-nav.js
+* This is a modified version of source/js/primary-nav.js
 */
 
 let primaryNav = {
@@ -11,9 +11,9 @@ let primaryNav = {
 
     function setNarrowMenuState(openMenu) {
       if (openMenu) {
-        elNarrowMenu.classList.remove(`hidden`);
+        elNarrowMenu.classList.add(`menu-open`);
       } else {
-        elNarrowMenu.classList.add(`hidden`);
+        elNarrowMenu.classList.remove(`menu-open`);
       }
     }
 
@@ -25,15 +25,18 @@ let primaryNav = {
       }
     }
 
+    function setContentUnderneathState(openMenu) {
+      if (openMenu) {
+        elUnderneath.classList.add(`menu-open`);
+      } else {
+        elUnderneath.classList.remove(`menu-open`);
+      }
+    }
+
     function setMenuState(openMenu) {
       setNarrowMenuState(openMenu);
       setBurgerState(openMenu);
-
-      if (openMenu) {
-        elUnderneath.style.display = `none`;
-      } else {
-        elUnderneath.style.display = `initial`;
-      }
+      setContentUnderneathState(openMenu);
     }
 
     document.addEventListener(`keyup`, (e) => {

@@ -55,7 +55,7 @@
   background: white;
   transition: opacity 0.2s, height 0s;
 
-  &.hidden {
+  &:not(.menu-open) {
     opacity: 0;
     height: 0;
     overflow: hidden;
@@ -155,5 +155,17 @@
   @include hover-focus-active {
     background: #f00;
     color: white;
+  }
+}
+
+.underneath-screen-overlay {
+  &.menu-open {
+    display: none;
+  }
+
+  @media (min-width: $bp-sm) {
+    &.menu-open {
+      display: initial;
+    }
   }
 }
