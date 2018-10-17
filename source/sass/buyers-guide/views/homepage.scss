@@ -26,6 +26,8 @@
     z-index: 0;
     position: sticky;
     position: -webkit-sticky;
+    top: 30px;
+    padding-top: 20px;
 
     .current-creepiness {
       display: inline-block;
