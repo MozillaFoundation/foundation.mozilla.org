@@ -19,7 +19,8 @@ export default class CreepChart extends React.Component {
         <table id="creepiness-score">
           <tbody>
             {/* TODO: Pull in vote% and apply as pixel height, td value.
-            TODO: Apply "your-vote" class to the level of the user's vote  */}
+            TODO: Apply "your-vote" class to the level of the user's vote
+            Height needs to be in px so that the value sits on top of the bar  */}
             <tr className="your-vote no-creep">
               <th>
                 <div className="bar" style={{height: '100px'}}></div>

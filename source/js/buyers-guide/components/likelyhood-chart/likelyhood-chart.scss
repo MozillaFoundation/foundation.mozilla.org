@@ -1,0 +1,36 @@
+#likelyhood-score {
+  tbody {
+    width: 100%;
+  }
+
+  .bar {
+    //For some nice animations later on, width set in JSX
+    transition: width 2.5s ease;
+    background-color: $light-gray;
+    position: absolute;
+    height: 25px;
+  }
+
+  tr {
+    position: relative;
+    display: block;
+  }
+
+  .likelyhood-words {
+    position: relative;
+  }
+
+  .likely-label {
+    //Make sure screen readers can see the label
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+  }
+
+  .likely th::before {
+    content: '👍';
+  }
+
+  .unlikely th::before {
+    content: '👎';
+  }
+}

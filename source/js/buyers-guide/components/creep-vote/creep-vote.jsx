@@ -1,6 +1,7 @@
 import React from 'react';
 import Creepometer from '../creepometer/creepometer.jsx';
 import CreepChart from '../creepiness-chart/creepiness-chart.jsx';
+import LikelyhoodChart from '../likelyhood-chart/likelyhood-chart.jsx';
 
 export default class CreepVote extends React.Component {
   constructor(props) {
@@ -73,7 +74,7 @@ export default class CreepVote extends React.Component {
           </div>
           <div className="row">
             <div className="col"><CreepChart/></div>
-            <div className="col likelyhood-chart">10% likely to buy</div>
+            <div className="col likelyhood-chart"><LikelyhoodChart /></div>
           </div>
         </div>
       </div>
@@ -93,6 +94,7 @@ export default class CreepVote extends React.Component {
       <div className="creep-vote py-5">
         { voteContent }
         <div>View comments or share your results</div>
+        {/* TODO: Make these share links work */}
         <div className="share-links">fb, tw, email</div>
       </div>
     );
