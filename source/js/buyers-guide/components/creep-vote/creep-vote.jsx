@@ -92,6 +92,8 @@ export default class CreepVote extends React.Component {
     return (
       <div className="creep-vote py-5">
         { voteContent }
+        <div>View comments or share your results</div>
+        <div className="share-links">fb, tw, email</div>
       </div>
     );
   }
