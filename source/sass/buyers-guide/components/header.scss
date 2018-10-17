@@ -2,6 +2,7 @@ $category-nav-border-bottom-thickness: 4px;
 
 .sticky-nav {
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   z-index: 2;
 }
