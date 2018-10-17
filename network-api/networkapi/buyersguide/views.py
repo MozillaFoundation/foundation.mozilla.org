@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import Error
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
@@ -28,7 +28,7 @@ def buyersguide_home(request):
 
 @login_required
 def category_view(request, categoryname):
-    category = BuyersGuideProductCategory.objects.get(name__iexact=categoryname)
+    category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
@@ -40,7 +40,7 @@ def category_view(request, categoryname):
 
 @login_required
 def product_view(request, productname):
-    product = Product.objects.get(name__iexact=productname)
+    product = get_object_or_404(Product, name__iexact=productname)
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),
