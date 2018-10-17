@@ -65,6 +65,7 @@ env = environ.Env(
     GITHUB_TOKEN=(str, ''),
     SLACK_WEBHOOK_RA=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
+    CORAL_TALK_SERVER_URL=(str, ''),
 )
 
 # Read in the environment
@@ -495,3 +496,8 @@ BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
 
 # Detect if we're testing
 TESTING = 'test' in sys.argv
+
+
+# Coral Talk Server URL
+
+CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
