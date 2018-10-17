@@ -17,53 +17,48 @@
     <title>Mozilla - *privacy not included</title>
   </head>
   <body class="pni" id="pni-{% block body-id %}{% endblock %}">
-    <header class="container">
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center py-3">
-          <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
-          <p class="mb-0 h4-heading">*privacy not&nbsp;included</p>
-        </div>
-        <div class="social d-flex align-items-center">
-          <a class="social-button social-button-fb" href="#TODO"><span class="sr-only">Facebook</a></a>
-          <a class="social-button social-button-twitter" href="#TODO"><span class="sr-only">Twitter</a></a>
-          <a class="social-button social-button-email" href="#TODO"><span class="sr-only">Email</a></a>
-          <a class="d-none d-sm-block btn btn-blue ml-3" href="https://donate.mozilla.org">Donate</a>
+    {% include "./primary_nav.html" %}
+    <div class="underneath-screen-overlay">
+      <div class="category-nav sticky-nav">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <a class="nav-home" href="/privacynotincluded">Home</a>
+              {% for current in categories %}
+              <a class="nav{% if category %}
+                {% if category.name == current.name %}
+                  active
+                {% endif %}
+              {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
+              {% endfor %}
+              <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
+            </div>
+          </div>
         </div>
       </div>
-    </header>
-    <div class="primary-nav">
-      <div class="container">
-        <a class="nav-home" href="/privacynotincluded">Home</a>
-        {% for current in categories %}
-        <a class="nav{% if category %}
-          {% if category.name == current.name %}
-            active
-          {% endif %}
-        {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
-        {% endfor %}
-        <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
-      </div>
+
+      <div class="pb-5 main-content">{% block guts %}{% endblock %}</div>
+
+      <footer class="mofo-footer">
+        <div class="container">
+          <ul class="list-unstyled footer-links row justify-content-center">
+            <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
+            <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
+            <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
+            <li class="col-auto"><a class="footer-link-participation-guidelines" href="https://www.mozilla.org/about/governance/policies/participation/">Participation Guidelines</a></li>
+            <li class="col-auto"><a class="footer-link-legal" href="https://mozilla.org/en-US/about/legal/">Legal</a></li>
+            <li class="col-auto"><a class="footer-link-privacy" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a></li>
+            <li class="col-auto"><a class="footer-link-donate" id="donate-footer-btn" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer" target="_blank" rel="noopener noreferrer">Donate</a></li>
+          </ul>
+          <div class="org-info mozilla">
+            <div class="logo-container"><a class="logo" href="https://mozilla.org"></a></div>
+            <p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>
+          </div>
+        </div>
+      </footer>
     </div>
 
-    <div class="pb-5">{% block guts %}{% endblock %}</div>
-
-    <footer class="mofo-footer">
-      <div class="container">
-        <ul class="list-unstyled footer-links row justify-content-center">
-          <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
-          <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
-          <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
-          <li class="col-auto"><a class="footer-link-participation-guidelines" href="https://www.mozilla.org/about/governance/policies/participation/">Participation Guidelines</a></li>
-          <li class="col-auto"><a class="footer-link-legal" href="https://mozilla.org/en-US/about/legal/">Legal</a></li>
-          <li class="col-auto"><a class="footer-link-privacy" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a></li>
-          <li class="col-auto"><a class="footer-link-donate" id="donate-footer-btn" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer" target="_blank" rel="noopener noreferrer">Donate</a></li>
-        </ul>
-        <div class="org-info mozilla">
-          <div class="logo-container"><a class="logo" href="https://mozilla.org"></a></div>
-          <p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>
-        </div>
-      </div>
-    </footer>
     <script src="/_js/bg-main.compiled.js" defer="defer"></script>
+    {% block extra_scripts %}{% endblock %}
   </body>
 </html>
