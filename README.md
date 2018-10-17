@@ -304,6 +304,7 @@ Every sunday, a script runs on prod dyno to remove non-staff accounts created on
 - the account is in a group.
 
 ---
+
 ### Security
 
 [https://snyk.io](https://snyk.io) is used to test our npm and PyPi dependencies for vulnerabilities. These tests are run on Travis and Appveyor, and will cause a build to fail when a new vulnerability is detected.
