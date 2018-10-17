@@ -17,7 +17,7 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 
 # Login required so we can continue to develop this and merge into master without the public seeing it.
 # Remove this when we're ready to launch.
-@login_required
+# @login_required
 def buyersguide_home(request):
     products = [p.to_dict() for p in Product.objects.all()]
     return render(request, 'buyersguide_home.html', {
@@ -26,7 +26,7 @@ def buyersguide_home(request):
     })
 
 
-@login_required
+# @login_required
 def category_view(request, categoryname):
     category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
@@ -38,7 +38,7 @@ def category_view(request, categoryname):
     })
 
 
-@login_required
+# @login_required
 def product_view(request, productname):
     product = get_object_or_404(Product, name__iexact=productname)
     return render(request, 'product_page.html', {
@@ -49,7 +49,7 @@ def product_view(request, productname):
     })
 
 
-@login_required
+# @login_required
 def about_view(request):
     return render(request, 'about.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
