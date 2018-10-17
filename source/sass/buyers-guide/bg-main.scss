@@ -79,6 +79,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // View specific
 
+@import './views/homepage';
 @import './views/product';
 @import './views/about';
 @import './views/category';

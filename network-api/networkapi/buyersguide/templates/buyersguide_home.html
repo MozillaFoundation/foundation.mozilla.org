@@ -1,15 +1,49 @@
 {% extends "./bg_base.html" %}
 
+{% load env %}
+
 {% block body-id %}home{% endblock %}
 
 {% block guts %}
-
-<div class="container">
-  <h1>Buyer's guide homepage!</h1>
-
-  {% for product in products %}
-  <div><a href="./products/{{product.name | urlencode}}">{{product.name}}</a></div>
-  {% endfor %}
+<div class="container-fluid text-center page-header bg-gray">
+  <!-- home banner as css background -->
 </div>
 
+<div class="container">
+    <div class="row">
+      <div class="product-listing bg-white p-5 col-12 col-md-10 offset-md-1">
+        <h1 class="h3-heading text-center">Shop Safe This Holiday Season</h1>
+
+        <p class="body-large text-center">
+            Teddy bears that connect to the internet.
+            Smart speakers that listen to commands.
+            Great gifts—unless they spy on you.
+            We created this guide to help you buy safe, secure products this holiday season.
+        </p>
+
+        <div class="creepiness-slider sticky-top bg-white text-center">
+          <span class="current-creepiness"></span>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-stretch flex-wrap">
+          {% for product in products %}
+          <div class="product-box bg-gray" data-creepiness="{{ product.votes.creepiness.average }}">
+            {% if product.votes.confidence %}
+              {% if product.votes.confidence.vote_breakdown.1 > product.votes.confidence.vote_breakdown.0 %}
+                <div class="recommendation go-for-it m-2"></div>
+              {% else %}
+                <div class="recommendation stay-away m-2"></div>
+              {% endif %}
+            {% endif %}
+            <a class="" href="/privacynotincluded/products/{{ product.name | urlencode}}">
+              <div>
+                <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>
 {% endblock %}

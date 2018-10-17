@@ -20,9 +20,12 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 @login_required
 def buyersguide_home(request):
     products = [p.to_dict() for p in Product.objects.all()]
+    # sort products on creepiness, least creepy first
+    products.sort(key=lambda p: p['votes']['creepiness']['average'])
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
+        'mediaUrl': settings.MEDIA_URL,
     })
 
 

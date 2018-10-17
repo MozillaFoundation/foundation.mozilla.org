@@ -1,0 +1,56 @@
+#pni-home {
+  .page-header {
+    height: 400px;
+    background-image: url(/_images/buyers-guide/home-banner.jpg);
+    background-size: auto 400px;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  .product-listing {
+    margin-top: -88px;
+    padding-bottom: 88px;
+  }
+
+  .product-box {
+    width: calc(33%);
+    box-sizing: content-box;
+    margin: 1px;
+    overflow: hidden;
+  }
+
+  .creepiness-slider {
+    z-index: 0;
+    padding-top: 55px;
+
+    .current-creepiness {
+      display: inline-block;
+      width: 70px;
+      height: 70px;
+      background-image: url(/_images/buyers-guide/faces/sprite-resized-64-colors.png);
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+  }
+
+  .recommendation {
+    float: right;
+    width: 1em;
+    height: 1em;
+
+    &.go-for-it {
+      background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    &.stay-away {
+      background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+}
