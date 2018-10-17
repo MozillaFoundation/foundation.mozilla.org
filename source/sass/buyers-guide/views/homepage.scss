@@ -13,15 +13,19 @@
   }
 
   .product-box {
-    width: calc(33%);
-    box-sizing: content-box;
+    width: calc(50% - 2px);
     margin: 1px;
     overflow: hidden;
+
+    @media screen and (min-width: 750px) {
+      width: calc(33% - 2px);
+    }
   }
 
   .creepiness-slider {
     z-index: 0;
-    padding-top: 55px;
+    position: sticky;
+    position: -webkit-sticky;
 
     .current-creepiness {
       display: inline-block;

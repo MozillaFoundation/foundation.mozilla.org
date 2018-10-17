@@ -15,13 +15,25 @@ from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRa
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
 
+def get_average_creepiness(product):
+    try:
+        votes = product['votes']
+        creepiness = votes['creepiness']
+        avg = creepiness['average']
+        return avg
+
+    except TypeError:
+        pass
+
+    return 50
+
+
 # Login required so we can continue to develop this and merge into master without the public seeing it.
 # Remove this when we're ready to launch.
 @login_required
 def buyersguide_home(request):
     products = [p.to_dict() for p in Product.objects.all()]
-    # sort products on creepiness, least creepy first
-    products.sort(key=lambda p: p['votes']['creepiness']['average'])
+    products.sort(key=lambda p: get_average_creepiness(p))
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,

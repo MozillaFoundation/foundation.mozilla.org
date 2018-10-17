@@ -12,11 +12,8 @@ let main = {
   init() {
     this.enableCopyLinks();
     this.injectReactComponents();
-<<<<<<< HEAD
     primaryNav.init();
-=======
     HomepageSlider.init();
->>>>>>> e2a6fa6... the start of a homepage
   },
 
   enableCopyLinks() {
