@@ -28,7 +28,7 @@ def buyersguide_home(request):
 
 @login_required
 def category_view(request, categoryname):
-    category = BuyersGuideProductCategory.objects.get(name__iexact=categoryname)
+    category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
