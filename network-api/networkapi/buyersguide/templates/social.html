@@ -1,29 +1,19 @@
-<a class="social-button social-button-fb
-  {% if mobile %}
-    body-large
-  {% else %}
-    hidden-sm-down
-  {% endif %}
-">{% if mobile != True %}<span class="sr-only">{% endif %}Facebook{% if mobile %}</span>{% endif %}</a>
-<a class="social-button social-button-twitter
-  {% if mobile %}
-    body-large
-  {% else %}
-    hidden-sm-down
-  {% endif %}
-">{% if mobile != True %}<span class="sr-only">{% endif %}Twitter{% if mobile %}</span>{% endif %}</a>
-<a class="social-button social-button-email
-  {% if mobile %}
-    body-large
-  {% else %}
-    hidden-sm-down
-  {% endif %}
-">{% if mobile != True %}<span class="sr-only">{% endif %}Email{% if mobile %}</span>{% endif %}</a>
-<a class="social-button social-button-link
-  {% if mobile %}
-    body-large
-  {% else %}
-    hidden-sm-down
-  {% endif %}
-">{% if mobile != True %}<span class="sr-only">{% endif %}Copy link{% if mobile %}</span>{% endif %}</a>
-
+{% if mobile %}
+  <div class="social d-flex flex-column">
+    <a class="social-button social-button-fb body-large">Facebook</a>
+    <a class="social-button social-button-twitter body-large">Twitter</a>
+    <a class="social-button social-button-email body-large">Email</a>
+    <a class="social-button social-button-link body-large">Copy link</a>
+  </div>
+{% else %}
+<div class="social d-flex align-items-center">
+  <a class="social-button social-button-fb hidden-sm-down"><span class="sr-only">Facebook</span></a>
+  <a class="social-button social-button-twitter hidden-sm-down"><span class="sr-only">Twitter</span></a>
+  <a class="social-button social-button-email hidden-sm-down"><span class="sr-only">Email</span></a>
+  <a class="social-button social-button-link hidden-sm-down"><span class="sr-only">Copy link</span></a>
+  <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" href="https://donate.mozilla.org">Donate</a>
+  <button class="burger btn btn-link p-0 ml-4 hidden-md-up">
+    <span class="sr-only">Share</span>
+  </button>
+</div>
+{% endif %}

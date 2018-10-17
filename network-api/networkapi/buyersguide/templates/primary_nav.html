@@ -4,9 +4,7 @@
       <div class="narrow-screen-menu">
         <div class="narrow-screen-menu-background">
           <div class="narrow-screen-menu-container">
-            <div class="social d-flex flex-column">
-              {% include "./social.html" with mobile=True %}
-            </div>
+            {% include "./social.html" with mobile=True %}
             <div class="donate">
               <div class="container text-center">
                 <div class="row">
@@ -31,13 +29,7 @@
                     <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
                     <p class="mb-0 h4-heading flex-wrap">*privacy not included</p>
                   </div>
-                  <div class="social d-flex align-items-center">
-                    {% include "./social.html" with mobile=False %}
-                    <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" href="https://donate.mozilla.org">Donate</a>
-                    <button class="burger btn btn-link p-0 ml-4 hidden-md-up">
-                      <span class="sr-only">Share</span>
-                    </button>
-                  </div>
+                  {% include "./social.html" %}
                 </div>
               </div>
             </div>
