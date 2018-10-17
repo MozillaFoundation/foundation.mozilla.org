@@ -135,6 +135,10 @@ class Person(SortableMixin):
         db_index=True,
     )
 
+    testfield = models.IntegerField(
+        null=False
+    )
+
     objects = PeopleQuerySet.as_manager()
 
     class Meta:
