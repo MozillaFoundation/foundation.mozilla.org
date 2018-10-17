@@ -25,11 +25,12 @@
   }
 
   .handle {
-    cursor: grab;
-    position: absolute;
-    width: 70px;
-    height: 70px;
     border-radius: 50%;
+    cursor: grab;
+    height: 70px;
+    position: absolute;
+    user-select: none;
+    width: 70px;
     z-index: 1;
   }
 }
