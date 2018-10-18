@@ -54,8 +54,8 @@ def category_view(request, categoryname):
 
 
 @login_required
-def product_view(request, productname):
-    product = get_object_or_404(Product, name__iexact=productname)
+def product_view(request, slug):
+    product = get_object_or_404(Product, slug=slug)
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),
