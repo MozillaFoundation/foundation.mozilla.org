@@ -6,11 +6,14 @@ import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
 import Criterion from './components/criterion/criterion.jsx';
 
+import HomepageSlider from './homepage-c-slider.js';
+
 let main = {
   init() {
     this.enableCopyLinks();
     this.injectReactComponents();
     primaryNav.init();
+    HomepageSlider.init();
   },
 
   enableCopyLinks() {

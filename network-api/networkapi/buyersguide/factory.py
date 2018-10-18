@@ -8,7 +8,10 @@ from factory import (
 )
 
 from networkapi.utility.faker_providers import ImageProvider
-from networkapi.buyersguide.models import Product, BuyersGuideProductCategory
+from networkapi.buyersguide.models import (
+    Product,
+    BuyersGuideProductCategory
+)
 
 Faker.add_provider(ImageProvider)
 

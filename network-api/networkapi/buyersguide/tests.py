@@ -6,7 +6,7 @@ from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote
-from networkapi.buyersguide.views import product_view, category_view
+from networkapi.buyersguide.views import buyersguide_home, product_view, category_view
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
@@ -309,6 +309,15 @@ class BuyersGuideViewTest(TestCase):
             email='testuser@example.com',
             password='testuser password'
         )
+
+    def test_homepage(self):
+        """
+        Test that the homepage works.
+        """
+        request = self.factory.get('/privacynotincluded/')
+        request.user = self.user
+        response = buyersguide_home(request)
+        self.assertEqual(response.status_code, 200, 'homepage yields a working page')
 
     def test_product_view_404(self):
         """
