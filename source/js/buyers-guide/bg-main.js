@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
@@ -23,6 +24,15 @@ let main = {
       Array.from(document.querySelectorAll(`.copy-link`)).forEach(element => {
         element.addEventListener(`click`, (event) => {
           event.preventDefault();
+
+          let productBox = document.querySelector(`.product-detail .h1-heading`);
+          let productTitle = productBox ? productBox.textContent : `unknown product`;
+
+          ReactGA.event({
+            category: `product`,
+            action: `copy link tap`,
+            label: `copy link ${productTitle}`
+          });
 
           let textArea = document.createElement(`textarea`);
 
