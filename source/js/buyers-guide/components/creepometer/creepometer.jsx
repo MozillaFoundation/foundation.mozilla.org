@@ -85,8 +85,6 @@ export default class Creepometer extends React.Component {
       percentage = Math.round(100 * (x - bbox.left) / bbox.width);
       value = percentage ? percentage : 1;
 
-      console.log(bbox.left, x, bbox.right, percentage);
-
       this.setState({
         percentage,
         value
