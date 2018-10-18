@@ -44,7 +44,7 @@ export default class Creepometer extends React.Component {
 
   slideMove(e) {
     if (this.state.isHandleGrabbed) {
-      let clientX, sliderLeftEdgeX, offset;
+      let clientX, sliderLeftEdgeX, offset, value=50;
 
       if (e.nativeEvent.type === `touchmove`){
         clientX = e.nativeEvent.touches[0].pageX;
@@ -53,11 +53,16 @@ export default class Creepometer extends React.Component {
       }
       sliderLeftEdgeX = this.sliderElement.getBoundingClientRect().left;
       offset = Math.floor(clientX - sliderLeftEdgeX);
+      value = Math.floor(offset / this.sliderElement.scrollWidth * this.encodedStepCount);
 
       this.setState({
         handleOffset: offset,
-        encodedValue: Math.floor(offset / this.sliderElement.scrollWidth * this.encodedStepCount)
+        encodedValue: value
       });
+
+      if (this.props.onChange) {
+        this.props.onChange(value);
+      }
     }
   }
 

@@ -3,64 +3,47 @@ import React from 'react';
 export default class CreepChart extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = this.getInitialState();
-
   }
 
   getInitialState() {
+    let values = this.props.values;
+    let data = [
+      {c: 'no-creep', label: 'Not creepy', value: values[0], offset: 0},
+      {c: 'little-creep', label: 'A little creepy', value: values[1], offset: 225},
+      {c: 'somewhat-creep', label: 'Somewhat creepy', value: values[2], offset: 475},
+      {c: 'very-creep', label: 'Very creepy', value: values[3], offset: 725},
+      {c: 'super-creep', label: 'Super creepy', value: values[4], offset: 975}
+    ];
+    let sum = data.reduce((tally, v) => tally + v.value, 0);
+
     return {
+      totalCreepiness: sum,
+      creepinessData: data
     };
   }
 
-  render(){
+  render() {
     return (
       <div>
         <table id="creepiness-score">
           <tbody>
-            {/* TODO: Pull in vote% and apply as pixel height, td value.
-            TODO: Apply "your-vote" class to the level of the user's vote
-            Height needs to be in px so that the value sits on top of the bar  */}
-            <tr className="your-vote no-creep">
-              <th>
-                <div className="bar" style={{height: '100px'}}></div>
-                <span className="creep-label">Not creepy</span>
-                <span className="creep-face"></span>
-              </th>
-              <td className="creepiness">1%</td>
-            </tr>
-            <tr className="your-vote little-creep">
-              <th>
-                <div className="bar" style={{height: '20px'}}></div>
-                <span className="creep-label">A little creepy</span>
-                <span className="creep-face"></span>
-              </th>
-              <td className="creepiness">2%</td>
-            </tr>
-            <tr className="your-vote somewhat-creep">
-              <th>
-                <div className="bar" style={{height: '40px'}}></div>
-                <span className="creep-label">Somewhat creepy</span>
-                <span className="creep-face"></span>
-              </th>
-              <td className="creepiness">3%</td>
-            </tr>
-            <tr className="your-vote very-creep">
-              <th>
-                <div className="bar" style={{height: '25px'}}></div>
-                <span className="creep-label">Very creepy</span>
-                <span className="creep-face"></span>
-              </th>
-              <td className="creepiness">4%</td>
-            </tr>
-            <tr className="your-vote super-creep">
-              <th>
-                <div className="bar" style={{height: '65px'}}></div>
-                <span className="creep-label">Super creepy</span>
-                <span className="creep-face"></span>
-              </th>
-              <td className="creepiness">5%</td>
-            </tr>
+            {
+              this.state.creepinessData.map(data => {
+                let percent = Math.round(100 * data.value / this.state.totalCreepiness);
+                console.log(data.value, this.state.totalCreepiness, percent);
+                return (
+                  <tr key={data.c} className={`your-vote ${data.c}`}>
+                    <th>
+                      <div className="bar" style={{height: `${percent}px`}}></div>
+                      <span className="creep-label">{data.label}</span>
+                      <span className="creep-face" style={{backgroundPositionY: `-${data.offset}px`}}></span>
+                    </th>
+                    <td className="creepiness">{percent}%</td>
+                  </tr>
+                );
+              })
+            }
           </tbody>
         </table>
         <div className="row">

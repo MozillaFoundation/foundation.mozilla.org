@@ -23,7 +23,11 @@
       </div>
       <div class="body-large mb-5">{{product.blurb}}</div>
 
-      <div class="creep-vote-target my-5"></div>
+      <div class="creep-vote-target my-5">
+          {% csrf_token %}
+          <input type="hidden" name="productID" value="{{ product.id }}">
+          <input type="hidden" name="votes" value="{{ product.votes | safe }}">
+      </div>
 
       <h3 class="h3-heading h3-heading-small">Can it spy on me?</h3>
 
