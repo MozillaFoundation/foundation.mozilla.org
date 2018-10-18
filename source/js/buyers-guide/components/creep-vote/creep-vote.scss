@@ -16,13 +16,16 @@ $btn-shadow-width: 3px;
   }
 
   .btn-group {
+    display: flex;
+    justify-content: center;
+
     .btn {
-      border: 1px solid $medium-gray;
+      border: 1px solid black;
       border-bottom-width: $btn-shadow-width;
       color: black;
+      padding: 0.5em 1.5em;
       text-transform: initial;
       transition: all 0.1s linear;
-
     }
 
     input { display: none; }
@@ -42,5 +45,13 @@ $btn-shadow-width: 3px;
     label:last-of-type span {
       border-radius: 0 $radio-button-radius $radio-button-radius 0;
     }
+
+    img {
+      height: 1em;
+    }
+  }
+
+  .help-text {
+    font-style: italic;
   }
 }

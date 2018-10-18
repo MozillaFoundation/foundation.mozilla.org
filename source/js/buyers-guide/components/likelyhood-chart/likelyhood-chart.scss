@@ -1,6 +1,10 @@
 #likelyhood-score {
   tbody {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 4.5em;
+    justify-content: space-between;
   }
 
   .bar {
@@ -18,6 +22,9 @@
 
   .likelyhood-words {
     position: relative;
+    font-weight: bold;
+    font-variant: small-caps;
+    padding: 0 5px;
   }
 
   .likely-label {
@@ -26,11 +33,19 @@
     position: absolute;
   }
 
+  th::before {
+    content: '';
+    display: block;
+    height: 1em;
+    margin: 0 0.5em;
+    width: 1em;
+  }
+
   .likely th::before {
-    content: '👍';
+    background: url("/_images/buyers-guide/icon-thumb-up.svg");
   }
 
   .unlikely th::before {
-    content: '👎';
+    background: url("/_images/buyers-guide/icon-thumb-down.svg");
   }
 }

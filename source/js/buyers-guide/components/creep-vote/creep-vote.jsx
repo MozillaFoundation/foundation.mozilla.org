@@ -7,7 +7,6 @@ export default class CreepVote extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
-    console.log(this.props.votes);
   }
 
   getInitialState() {
@@ -30,12 +29,12 @@ export default class CreepVote extends React.Component {
 
   sendVoteFor(payload) {
     let attribute = payload.attribute;
-    let url = "/privacynotincluded/vote";
-    let method = "POST";
-    let credentials = 'same-origin';
+    let url = `/privacynotincluded/vote`;
+    let method = `POST`;
+    let credentials = `same-origin`;
     let headers = {
       "X-CSRFToken": this.props.csrf,
-      "Content-Type": "application/json"
+      "Content-Type": `application/json`
     };
 
     fetch(url, {
@@ -44,17 +43,18 @@ export default class CreepVote extends React.Component {
       headers,
       body: JSON.stringify(payload)
     })
-    .then(response => {
-      let update = {};
-      update[`${attribute}Submitted`] = true;
-      this.setState(update, () => {
-        this.showVoteResult()
+      .then(response => {
+        let update = {};
+
+        update[`${attribute}Submitted`] = true;
+        this.setState(update, () => {
+          this.showVoteResult();
+        });
+      })
+      .catch(e => {
+        console.warn(e);
+        this.setState({ disableVoteButton: false });
       });
-    })
-    .catch(e => {
-      console.warn(e);
-      this.setState({ disableVoteButton: false });
-    });
   }
 
   submitVote(evt) {
@@ -71,13 +71,13 @@ export default class CreepVote extends React.Component {
     let productID = this.props.productID;
 
     this.sendVoteFor({
-      attribute: 'confidence',
+      attribute: `confidence`,
       productID,
       value: confidence,
     });
 
     this.sendVoteFor({
-      attribute: 'creepiness',
+      attribute: `creepiness`,
       productID,
       value: this.state.creepiness
     });
@@ -95,29 +95,29 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
-    return (<form method="post" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
+    return (<form method="post" className="creep-vote" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
       <div className="row mb-5">
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
             <h3 className="h5-heading mb-2">How creepy is this product?</h3>
-            <p>Majority of voters think it is super creepy</p>
+            <p className="help-text">Majority of voters think it is super creepy</p>
           </div>
           <Creepometer initialValue={this.state.creepiness} onChange={value => this.setCreepiness(value)}></Creepometer>
         </div>
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
             <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
-            <p>Majority of voters are not likely to buy it</p>
+            <p className="help-text">Majority of voters are not likely to buy it</p>
           </div>
           <div className="text-center">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div class="btn-group btn-group-toggle mt-5" data-toggle="buttons">
               <label for="likely">
                 <input type="radio" name="wouldbuy" id="likely" autocomplete="off" required/>
-                <span class="btn" onClick={evt => this.setConfidence(true)}>Likely</span>
+                <span class="likely btn" onClick={evt => this.setConfidence(true)}><img alt="thumb up" src="/_images/buyers-guide/icon-thumb-up-black.svg" /> Likely</span>
               </label>
               <label for="unlikely">
                 <input type="radio" name="wouldbuy" id="unlikely" autocomplete="off" required/>
-                <span class="btn" onClick={evt => this.setConfidence(false)}>Not likely</span>
+                <span class="unlikely btn" onClick={evt => this.setConfidence(false)}><img alt="thumb down" src="/_images/buyers-guide/icon-thumb-down-black.svg" /> Not likely</span>
               </label>
             </div>
           </div>
@@ -140,14 +140,14 @@ export default class CreepVote extends React.Component {
       <div>
         <div className="mb-5">
           <div className="col-12 text-center">
-            <h3 className="h4-heading">Thanks for voting! Here are the results so far:</h3>
-            <div>{this.state.totalVotes} Votes</div>
+            <h3 className="h5-heading mb-1">Thanks for voting! Here are the results so far:</h3>
+            <div className="text-muted">{this.state.totalVotes + 1} Votes</div>
           </div>
-          <div className="row">
+          <div className="row mt-3">
             <div className="col">
-              <CreepChart values={this.props.votes.creepiness.vote_breakdown} />
+              <CreepChart userVoteGroup={Math.floor(this.state.creepiness/20)} values={this.props.votes.creepiness.vote_breakdown} />
             </div>
-            <div className="col likelyhood-chart">
+            <div className="col likelyhood-chart p-5">
               <LikelyhoodChart values={this.props.votes.confidence} />
             </div>
           </div>
@@ -168,9 +168,11 @@ export default class CreepVote extends React.Component {
     return (
       <div className="creep-vote py-5">
         { voteContent }
-        <div>View comments or share your results</div>
-        {/* TODO: Make these share links work */}
-        <div className="share-links">fb, tw, email</div>
+        <div className="text-center">
+          <div>View comments or share your results</div>
+          {/* TODO: Make these share links work */}
+          <div className="share-links">fb, tw, email</div>
+        </div>
       </div>
     );
   }
