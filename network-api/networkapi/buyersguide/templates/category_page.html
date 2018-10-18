@@ -14,7 +14,7 @@
     <div class="categories-container">
       {% for product in products %}
       <div class="category-item-container" >
-        <a class="" href="/privacynotincluded/products/{{ product.name}}">
+        <a class="" href="/privacynotincluded/products/{{ product.name | urlencode }}">
           <div class="category-image-container">
             <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
           </div>
