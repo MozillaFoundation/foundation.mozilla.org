@@ -1,4 +1,6 @@
 .creepometer {
+  margin-top: 70px;
+
   .slider {
     background: url("/_images/buyers-guide/gradient-bar.svg") no-repeat 0 center / contain;
     position: relative;
@@ -28,9 +30,24 @@
     border-radius: 50%;
     cursor: grab;
     height: 70px;
-    position: absolute;
-    user-select: none;
     width: 70px;
+    position: absolute;
+    margin-left: -35px;
+    top: -55px;
+    user-select: none;
     z-index: 1;
+
+    &::after {
+      content: ' ';
+      background: white;
+      height: 12px;
+      width: 12px;
+      border-radius: 10px;
+      position: relative;
+      margin-left: 28px;
+      margin-top: 85px;
+      display: inline-block;
+      border: 1px solid grey;
+    }
   }
 }
