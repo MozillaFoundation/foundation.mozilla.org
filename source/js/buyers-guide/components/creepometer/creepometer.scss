@@ -26,28 +26,41 @@
     right: 0;
   }
 
-  .handle {
-    border-radius: 50%;
+  .trackhead {
     cursor: grab;
-    height: 70px;
-    width: 70px;
-    position: absolute;
+    position: relative;
+    display: inline-block;
+    z-index: 1;
     margin-left: -35px;
     top: -55px;
     user-select: none;
-    z-index: 1;
 
-    &::after {
-      content: ' ';
-      background: white;
-      height: 12px;
-      width: 12px;
-      border-radius: 10px;
+    .face {
       position: relative;
-      margin-left: 28px;
-      margin-top: 85px;
-      display: inline-block;
-      border: 1px solid grey;
+      border-radius: 50%;
+      height: 70px;
+      width: 70px;
+      z-index: 0;
+    }
+
+    .pip {
+      position: relative;
+      width: 70px;
+      height: 20px;
+      background: transparent;
+
+      &::after {
+        content: ' ';
+        background: white;
+        height: 12px;
+        width: 12px;
+        border-radius: 10px;
+        position: relative;
+        margin-left: 28px;
+        margin-top: 15px;
+        display: inline-block;
+        border: 1px solid grey;
+      }
     }
   }
 }

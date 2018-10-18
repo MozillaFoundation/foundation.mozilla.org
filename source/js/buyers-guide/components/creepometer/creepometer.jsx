@@ -47,16 +47,14 @@ export default class Creepometer extends React.Component {
   }
 
   slideStart(e) {
-    if (e.target === this.handle) {
-      this.setState({
-        parentBBox: this.sliderElement.getBoundingClientRect(),
-        dragging: true
-      });
-      // The "move" and "release" events have to be handled at
-      // the document level, because the events can be generated
-      // "nowhere near the React-managed DOM node".
-      this.addDocumentListeners();
-    }
+    this.setState({
+      parentBBox: this.sliderElement.getBoundingClientRect(),
+      dragging: true
+    });
+    // The "move" and "release" events have to be handled at
+    // the document level, because the events can be generated
+    // "nowhere near the React-managed DOM node".
+    this.addDocumentListeners();
   }
 
   slideReleased() {
@@ -99,18 +97,25 @@ export default class Creepometer extends React.Component {
   render() {
     let frameOffset = Math.round(this.state.percentage * (this.faceCount-1)/100);
 
-    let handleOpts = {
-      ref: e => (this.handle=e),
+    let trackheadOpts = {
+      style: {
+        left: `${this.state.value}%`
+      },
+    };
+
+    let faceOpts = {
       style: {
         background: `url("${this.framePath}sprite-resized-64-colors.png"), #f2b946`,
         backgroundSize: `70px`,
         backgroundPositionX: 0,
         backgroundPositionY: `-${frameOffset * this.faceHeight}px`,
         backgroundRepeat: `no-repeat`,
-        left: `${this.state.value}%`
       },
+    };
+
+    let mouseOpts = {
       onMouseDown: evt => this.slideStart(evt),
-      onTouchStart: evt => this.slideStart(evt)
+      onTouchStart: evt => this.slideStart(evt),
     };
 
     return (
@@ -118,7 +123,10 @@ export default class Creepometer extends React.Component {
         <div className="slider-container p-2">
           <div className="slider" ref={e => (this.sliderElement=e)}>
             <div className="h6-heading copy copy-left">Not creepy</div>
-            <div className="handle" {...handleOpts}></div>
+            <div className="trackhead" {...trackheadOpts}>
+              <div className="face" {...faceOpts} {...mouseOpts}/>
+              <div className="pip" {...mouseOpts}/>
+            </div>
             <div className="h6-heading copy copy-right">Super creepy</div>
           </div>
         </div>
