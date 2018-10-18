@@ -13,7 +13,9 @@ let main = {
     this.enableCopyLinks();
     this.injectReactComponents();
     primaryNav.init();
-    HomepageSlider.init();
+    if (document.getElementById(`pni-home`)) {
+      HomepageSlider.init();
+    }
   },
 
   enableCopyLinks() {

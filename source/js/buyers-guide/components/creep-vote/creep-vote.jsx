@@ -10,8 +10,8 @@ export default class CreepVote extends React.Component {
   }
 
   getInitialState() {
-    let conf = this.props.votes.confidence;
-    let totalVotes = conf[0] + conf[1];
+    // let conf = this.props.votes.confidence;
+    let totalVotes = this.props.votes.total;
 
     return {
       totalVotes,
@@ -43,7 +43,7 @@ export default class CreepVote extends React.Component {
       headers,
       body: JSON.stringify(payload)
     })
-      .then(response => {
+      .then(() => {
         let update = {};
 
         update[`${attribute}Submitted`] = true;
@@ -95,7 +95,7 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
-    return (<form method="post" className="creep-vote" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
+    return (<form method="post" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
       <div className="row mb-5">
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
@@ -113,11 +113,11 @@ export default class CreepVote extends React.Component {
             <div class="btn-group btn-group-toggle mt-5" data-toggle="buttons">
               <label for="likely">
                 <input type="radio" name="wouldbuy" id="likely" autocomplete="off" required/>
-                <span class="likely btn" onClick={evt => this.setConfidence(true)}><img alt="thumb up" src="/_images/buyers-guide/icon-thumb-up-black.svg" /> Likely</span>
+                <span class="likely btn" onClick={() => this.setConfidence(true)}><img alt="thumb up" src="/_images/buyers-guide/icon-thumb-up-black.svg" /> Likely</span>
               </label>
               <label for="unlikely">
                 <input type="radio" name="wouldbuy" id="unlikely" autocomplete="off" required/>
-                <span class="unlikely btn" onClick={evt => this.setConfidence(false)}><img alt="thumb down" src="/_images/buyers-guide/icon-thumb-down-black.svg" /> Not likely</span>
+                <span class="unlikely btn" onClick={() => this.setConfidence(false)}><img alt="thumb down" src="/_images/buyers-guide/icon-thumb-down-black.svg" /> Not likely</span>
               </label>
             </div>
           </div>
@@ -152,6 +152,15 @@ export default class CreepVote extends React.Component {
             </div>
           </div>
         </div>
+        <div className="text-center">
+          <div><a className="share-results" href="#coral_talk_stream">View comments</a> or share your results</div>
+          {/* TODO: Make these share links work */}
+          <div class="social d-flex justify-content-center mt-3">
+            <a class="social-button social-button-fb" href=""><span class="sr-only">Facebook</span></a>
+            <a class="social-button social-button-twitter" href=""><span class="sr-only">Twitter</span></a>
+            <a class="social-button social-button-email" href=""><span class="sr-only">Email</span></a>
+          </div>
+        </div>
       </div>
     );
   }
@@ -168,11 +177,6 @@ export default class CreepVote extends React.Component {
     return (
       <div className="creep-vote py-5">
         { voteContent }
-        <div className="text-center">
-          <div>View comments or share your results</div>
-          {/* TODO: Make these share links work */}
-          <div className="share-links">fb, tw, email</div>
-        </div>
       </div>
     );
   }

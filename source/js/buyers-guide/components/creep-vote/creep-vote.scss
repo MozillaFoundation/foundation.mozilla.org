@@ -6,7 +6,7 @@ $btn-shadow-width: 3px;
   border-top: 1px solid #c8c8ca;
 
   button[disabled] {
-    color: #bbbbbb;
+    color: #bbb;
 
     &.btn-ghost:hover {
       cursor: auto;
@@ -53,5 +53,15 @@ $btn-shadow-width: 3px;
 
   .help-text {
     font-style: italic;
+  }
+
+  a.share-results {
+    text-decoration: underline;
+    color: black;
+
+    &:hover {
+      color: #4383bf;
+      font-weight: bold;
+    }
   }
 }
