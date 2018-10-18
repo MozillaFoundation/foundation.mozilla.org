@@ -322,6 +322,7 @@ class Product(models.Model):
             # Build + return the votes dict
             votes['creepiness'] = creepiness
             votes['confidence'] = confidence_vote_breakdown
+            votes['total'] = BooleanVote.objects.filter(product=self).count()
             return votes
 
         except ObjectDoesNotExist:

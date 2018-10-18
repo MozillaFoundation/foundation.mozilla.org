@@ -45,7 +45,8 @@ class ManagementCommandTest(APITestCase):
             'confidence': {
                 '0': 0,
                 '1': 0
-            }
+            },
+            'total': 0
         })
 
     def test_aggregate_product_votes(self):
@@ -74,6 +75,7 @@ class ManagementCommandTest(APITestCase):
                 self.assertEqual(response.status_code, 201)
 
         call_command('aggregate_product_votes')
+
         self.assertDictEqual(product.votes, {
             'creepiness': {
                 'average': 45,
@@ -88,7 +90,8 @@ class ManagementCommandTest(APITestCase):
             'confidence': {
                 '0': 5,
                 '1': 5
-            }
+            },
+            'total': 10
         })
 
 
