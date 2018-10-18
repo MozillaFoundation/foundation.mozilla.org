@@ -1,4 +1,5 @@
 import React from 'react';
+import CREEPINESS_LABELS from "../creepiness-labels.js";
 
 export default class CreepChart extends React.Component {
   constructor(props) {
@@ -9,11 +10,11 @@ export default class CreepChart extends React.Component {
   getInitialState() {
     let values = this.props.values;
     let data = [
-      {c: `no-creep`, label: `Not creepy`, value: values[0], offset: 0},
-      {c: `little-creep`, label: `A little creepy`, value: values[1], offset: 225},
-      {c: `somewhat-creep`, label: `Somewhat creepy`, value: values[2], offset: 475},
-      {c: `very-creep`, label: `Very creepy`, value: values[3], offset: 725},
-      {c: `super-creep`, label: `Super creepy`, value: values[4], offset: 975}
+      {c: `no-creep`, label: CREEPINESS_LABELS[0], value: values[0], offset: 0},
+      {c: `little-creep`, label: CREEPINESS_LABELS[1], value: values[1], offset: 225},
+      {c: `somewhat-creep`, label: CREEPINESS_LABELS[2], value: values[2], offset: 475},
+      {c: `very-creep`, label: CREEPINESS_LABELS[3], value: values[3], offset: 725},
+      {c: `super-creep`, label: CREEPINESS_LABELS[4], value: values[4], offset: 975}
     ];
     let sum = data.reduce((tally, v) => tally + v.value, 0);
 
