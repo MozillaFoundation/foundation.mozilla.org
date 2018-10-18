@@ -165,7 +165,7 @@
       <div class="row">
       {% for product in product.related_products.all %}
       <div class="col-12 col-md-3">
-        <a href="/privacynotincluded/products/{{ product.name }}">
+        <a href="/privacynotincluded/products/{{ product.slug }}">
           <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
         </a>
       </div>

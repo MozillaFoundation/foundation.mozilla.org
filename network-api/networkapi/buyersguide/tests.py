@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.urls import reverse
+from django.utils.text import slugify
 from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
-from networkapi.buyersguide.models import RangeVote, BooleanVote
+from networkapi.buyersguide.models import RangeVote, BooleanVote, Product
 from networkapi.buyersguide.views import buyersguide_home, product_view, category_view
 from django.core.management import call_command
 
@@ -334,3 +335,15 @@ class BuyersGuideViewTest(TestCase):
         request = self.factory.get('/privacynotincluded/categories/this is not a category')
         request.user = self.user
         self.assertRaises(Http404, category_view, request, 'this is not a category')
+
+
+class ProductTests(TestCase):
+    def test_product_slug(self):
+        p = Product.objects.create(name='this name should get slugified')
+        self.assertEqual(p.slug, slugify(p.name))
+
+    def name_change_changes_slug(self):
+        p = Product.objects.create(name='this will change')
+        p.name = 'name changed'
+        p.save()
+        self.assertEqual(p.slug, slugify(p.name))
