@@ -1,15 +1,18 @@
+{% with twitter_share_link="https://twitter.com/intent/tweet?text=I%20found%20this%20really%20useful%20website%20and%20wanted%20to%20share.%20It%E2%80%99s%20%40mozilla%E2%80%99s%20holiday%20buyer%E2%80%99s%20guide%20to%20help%20understand%20what%20connected%20products%20are%20safe%20and%20which%20ones%20aren%E2%80%99t.%20So%20you%20don%E2%80%99t%20give%20someone%20a%20gift%20that%20could%20spy%20on%20them%20this%20holiday.&url=PrivacyNotIncluded.org" facebook_share_link="https://www.facebook.com/sharer/sharer.php?u=PrivacyNotIncluded.org&quote=This-is-the-quote-message" email_share_link="mailto:?&body=I%20found%20this%20really%20useful%20website%20and%20wanted%20to%20share.%20It%E2%80%99s%20%40mozilla%E2%80%99s%20holiday%20buyer%E2%80%99s%20guide%20to%20help%20understand%20what%20connected%20products%20are%20safe%20and%20which%20ones%20aren%E2%80%99t.%20So%20you%20don%E2%80%99t%20give%20someone%20a%20gift%20that%20could%20spy%20on%20them%20this%20holiday. PrivacyNotIncluded.org" %}
+
 {% if mobile %}
   <div class="social d-flex flex-column">
-    <a class="social-button social-button-fb body-large" href="">Facebook</a>
-    <a class="social-button social-button-twitter body-large sp_191726">Twitter</a>
-    <a class="social-button social-button-email body-large sp_191727" href="">Email</a>
+    <a class="social-button social-button-fb body-large" href="{{facebook_share_link}}">Facebook</a>
+    <a class="social-button social-button-twitter body-large" href="{{twitter_share_link}}">Twitter</a>
+    <a class="social-button social-button-email body-large" href="{{email_share_link}}">Email</a>
     <a class="social-button social-button-link body-large" href="">Copy link</a>
   </div>
 {% else %}
 <div class="social d-flex align-items-center">
-  <a class="social-button social-button-fb hidden-sm-down" href=""><span class="sr-only">Facebook</span></a>
-  <div class="sp_191726 sp_tw_large"><a class="social-button social-button-twitter hidden-sm-down sp_191726 sp_tw_large"><span class="sr-only">Twitter</span></a></div>
-  <a class="social-button social-button-email hidden-sm-down sp_191727" href=""><span class="sr-only">Email</span></a>
+  <a type="f" href="http://share.mozilla.org/352/191732/facebook" style="display:inline-block;width:213px;height:30px;color:#FFFFFF;text-decoration:none;text-align:center;padding:15px 0px 0px;background:#39579A;font:normal 17px/17px Arial, Helvetica, sans-serif;box-sizing:content-box;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;">Post to Facebook &#9658;</a>
+  <a class="social-button social-button-fb hidden-sm-down" href="{{facebook_share_link}}"><span class="sr-only">Facebook</span></a>
+  <a class="social-button social-button-twitter hidden-sm-down" href="{{twitter_share_link}}" target="_blank"><span class="sr-only">Twitter</span></a>
+  <a class="social-button social-button-email hidden-sm-down" href="{{email_share_link}}"><span class="sr-only">Email</span></a>
   <a class="social-button social-button-link hidden-sm-down" href=""><span class="sr-only">Copy link</span></a>
   <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" href="https://donate.mozilla.org">Donate</a>
   <button class="burger btn btn-link p-0 ml-4 hidden-md-up">
@@ -17,3 +20,5 @@
   </button>
 </div>
 {% endif %}
+
+{% endwith %}
