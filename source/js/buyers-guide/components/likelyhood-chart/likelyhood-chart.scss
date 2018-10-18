@@ -42,10 +42,10 @@
   }
 
   .likely th::before {
-    background: url("/_images/buyers-guide/icon-thumb-up.svg");
+    background: url("/_images/buyers-guide/icon-thumb-up.svg") no-repeat;
   }
 
   .unlikely th::before {
-    background: url("/_images/buyers-guide/icon-thumb-down.svg");
+    background: url("/_images/buyers-guide/icon-thumb-down.svg") no-repeat;
   }
 }
