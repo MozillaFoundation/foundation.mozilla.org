@@ -163,7 +163,7 @@
       <h3 class="h3-heading mb-3 mt-5">Related Products</h3>
 
       <div class="row">
-      {% for product in product.related_products.all %}
+      {% for product in product.related_products %}
       <div class="col-12 col-md-3">
         <a href="/privacynotincluded/products/{{ product.name }}">
           <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
