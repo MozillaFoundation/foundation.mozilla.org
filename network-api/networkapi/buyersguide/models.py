@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import model_to_dict
+from django.utils.text import slugify
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
@@ -75,6 +76,14 @@ class Product(models.Model):
         max_length=100,
         help_text='Name of Product',
         blank="True",
+    )
+
+    slug = models.CharField(
+        max_length=256,
+        help_text='slug used in urls',
+        blank=True,
+        default=None,
+        editable=False
     )
 
     company = models.CharField(
@@ -313,6 +322,7 @@ class Product(models.Model):
             # Build + return the votes dict
             votes['creepiness'] = creepiness
             votes['confidence'] = confidence_vote_breakdown
+            votes['total'] = BooleanVote.objects.filter(product=self).count()
             return votes
 
         except ObjectDoesNotExist:
@@ -322,7 +332,12 @@ class Product(models.Model):
     def to_dict(self):
         model_dict = model_to_dict(self)
         model_dict['votes'] = self.votes
+        model_dict['slug'] = self.slug
         return model_dict
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        models.Model.save(self, *args, **kwargs)
 
     def __str__(self):
         return str(self.name)

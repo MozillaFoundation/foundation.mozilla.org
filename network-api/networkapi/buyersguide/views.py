@@ -1,7 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import Error
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 from rest_framework.parsers import JSONParser
@@ -28,9 +27,6 @@ def get_average_creepiness(product):
     return 50
 
 
-# Login required so we can continue to develop this and merge into master without the public seeing it.
-# Remove this when we're ready to launch.
-@login_required
 def buyersguide_home(request):
     products = [p.to_dict() for p in Product.objects.all()]
     products.sort(key=lambda p: get_average_creepiness(p))
@@ -41,7 +37,6 @@ def buyersguide_home(request):
     })
 
 
-@login_required
 def category_view(request, categoryname):
     category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
@@ -53,9 +48,8 @@ def category_view(request, categoryname):
     })
 
 
-@login_required
-def product_view(request, productname):
-    product = get_object_or_404(Product, name__iexact=productname)
+def product_view(request, slug):
+    product = get_object_or_404(Product, slug=slug)
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),
@@ -64,7 +58,6 @@ def product_view(request, productname):
     })
 
 
-@login_required
 def about_view(request):
     return render(request, 'about.html', {
         'categories': BuyersGuideProductCategory.objects.all(),

@@ -37,7 +37,7 @@
                 <div class="recommendation stay-away m-2"></div>
               {% endif %}
             {% endif %}
-            <a class="" href="/privacynotincluded/products/{{ product.name | urlencode}}">
+            <a class="" href="/privacynotincluded/products/{{ product.slug }}">
               <div>
                 <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
               </div>

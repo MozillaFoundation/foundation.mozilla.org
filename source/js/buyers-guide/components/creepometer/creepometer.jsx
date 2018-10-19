@@ -4,93 +4,129 @@ export default class Creepometer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isHandleGrabbed: false,
-      handleOffset: 0
-    };
-
-    this.handleWidth = 70; // px
     this.faceCount = 40; // Number of face frames
-    this.encodedStepCount = 100; // Upper range of values to be recorded
+    this.faceHeight = 70; // pixel height for one frame
     this.framePath = `/_images/buyers-guide/faces/`;
 
-    this.slideStart = this.slideStart.bind(this);
-    this.slideMove = this.slideMove.bind(this);
-    this.slideStop = this.slideStop.bind(this);
-
-    this.setSliderRef = element => {
-      this.sliderElement = element;
+    this.state = {
+      dragging: false,
+      percentage: 50,
+      value: 50
     };
+
+    this.setupDocumentListeners();
   }
 
-  componentDidMount() {
-    // Slight delay because Firefox is too dang fast
-    setTimeout(() => {
-      // Set initial position
-      this.setState({
-        handleOffset: Math.floor(this.props.initialValue / this.encodedStepCount * this.sliderElement.scrollWidth),
-        encodedValue: this.props.initialValue
-      });
-    }, 100);
+  setupDocumentListeners() {
+    this.moveListener = (function(evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      this.slideMove(evt);
+    }).bind(this);
+
+    this.releaseListener = (function(evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      this.slideReleased(evt);
+      this.removeDocumentListeners();
+    }).bind(this);
+  }
+
+  addDocumentListeners() {
+    document.addEventListener('mousemove', this.moveListener, true);
+    document.addEventListener('touchmove', this.moveListener, true);
+    document.addEventListener('mouseup', this.releaseListener, true);
+    document.addEventListener('touchstart', this.releaseListener, true);
+  }
+
+  removeDocumentListeners() {
+    document.removeEventListener('mousemove', this.moveListener, true);
+    document.removeEventListener('touchmove', this.moveListener, true);
+    document.removeEventListener('mouseup', this.releaseListener, true);
+    document.removeEventListener('touchstart', this.releaseListener, true);
   }
 
   slideStart(e) {
-    if (e.nativeEvent.target.className === `handle`) {
-      this.setState({
-        isHandleGrabbed: true
-      });
-    }
-  }
-
-  slideMove(e) {
-    if (this.state.isHandleGrabbed) {
-      let clientX, sliderLeftEdgeX, offset;
-
-      if (e.nativeEvent.type === `touchmove`){
-        clientX = e.nativeEvent.touches[0].pageX;
-      } else {
-        clientX = e.nativeEvent.clientX;
-      }
-      sliderLeftEdgeX = this.sliderElement.getBoundingClientRect().left;
-      offset = Math.floor(clientX - sliderLeftEdgeX);
-
-      this.setState({
-        handleOffset: offset,
-        encodedValue: Math.floor(offset / this.sliderElement.scrollWidth * this.encodedStepCount)
-      });
-    }
-  }
-
-  slideStop() {
     this.setState({
-      isHandleGrabbed: false
+      parentBBox: this.sliderElement.getBoundingClientRect(),
+      dragging: true
+    });
+    // The "move" and "release" events have to be handled at
+    // the document level, because the events can be generated
+    // "nowhere near the React-managed DOM node".
+    this.addDocumentListeners();
+  }
+
+  slideReleased() {
+    this.setState({
+      dragging: false
     });
   }
 
-  render() {
-    let handleX = this.state.handleOffset - this.handleWidth / 2;
-    let frameChoice = Math.floor(this.faceCount / 2);
+  slideMove(e) {
+    if (this.state.dragging) {
+      let x = e.clientX, bbox = this.state.parentBBox, percentage, value;
 
-    // Don't let handle overflow slider's left side
-    handleX = handleX < 0 ? 0 : handleX;
-
-    if (this.sliderElement) {
-      // Don't let handle overflow slider's right side
-      if (handleX > this.sliderElement.scrollWidth - this.handleWidth) {
-        handleX = this.sliderElement.scrollWidth - this.handleWidth;
+      if (e.touches){
+        x = e.touches[0].clientX;
       }
 
-      frameChoice = Math.floor(handleX / this.sliderElement.scrollWidth * this.faceCount) + 1;
-    }
+      // cap the position:
+      if (x > bbox.right) {
+        x = bbox.right;
+      } else if (x < bbox.left) {
+        x = bbox.left;
+      }
 
-    let pxOffset = this.handleWidth * this.faceCount - this.handleWidth * frameChoice; // offset position for spritesheet
+
+      // compute the handle offset
+      percentage = Math.round(100 * (x - bbox.left) / bbox.width);
+      value = percentage ? percentage : 1;
+
+      this.setState({
+        percentage,
+        value
+      }, () => {
+        if (this.props.onChange) {
+          this.props.onChange(value);
+        }
+      });
+    }
+  }
+
+  render() {
+    let frameOffset = Math.round(this.state.percentage * (this.faceCount-1)/100);
+
+    let trackheadOpts = {
+      style: {
+        left: `${this.state.value}%`
+      },
+    };
+
+    let faceOpts = {
+      style: {
+        background: `url("${this.framePath}sprite-resized-64-colors.png"), #f2b946`,
+        backgroundSize: `70px`,
+        backgroundPositionX: 0,
+        backgroundPositionY: `-${frameOffset * this.faceHeight}px`,
+        backgroundRepeat: `no-repeat`,
+      },
+    };
+
+    let mouseOpts = {
+      onMouseDown: evt => this.slideStart(evt),
+      onTouchStart: evt => this.slideStart(evt),
+    };
 
     return (
-      <div class="creepometer">
-        <div class="slider-container p-2" onMouseLeave={this.slideStop} onMouseUp={this.slideStop}>
-          <div className="slider" ref={this.setSliderRef} onMouseMove={this.slideMove} onMouseDown={this.slideStart} onMouseUp={this.slideStop}>
+      <div className="creepometer">
+        <div className="slider-container p-2">
+          <div className="slider" ref={e => (this.sliderElement=e)}>
             <div className="h6-heading copy copy-left">Not creepy</div>
-            <div className="handle" onTouchStart={this.slideStart} onTouchMove={this.slideMove} onTouchEnd={this.slideStop} style={{background: `url("${this.framePath}sprite-resized-64-colors.png") 0 ${pxOffset}px / 70px auto, #f2b946`, left: `${handleX}px`}}></div>
+            <div className="trackhead" {...trackheadOpts}>
+              <div className="face" {...faceOpts} {...mouseOpts}/>
+              <div className="pip" {...mouseOpts}/>
+            </div>
             <div className="h6-heading copy copy-right">Super creepy</div>
           </div>
         </div>
