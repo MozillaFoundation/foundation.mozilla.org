@@ -4,7 +4,9 @@
 {% load product-update %}
 {% load yes_no %}
 {% load env %}
-
+{% block og-title %}
+  <meta property="og:title" content="privacy not included - {{ product.name }}" />
+{% endblock %}
 {% block body-id %}product-page{% endblock %}
 
 {% block guts %}

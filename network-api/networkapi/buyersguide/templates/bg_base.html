@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="privacy not included" />
+    {% block og-title %}
+      <meta property="og:title" content="privacy not included" />
+    {% endblock %}
     <meta property="og:description" content="This year, learn what tech comes with privacy included, using Mozilla's buyer's guide for connected gadgets." />
     <meta property="og:image" content="{{request.scheme}}://{{request.get_host}}/_images/buyers-guide/share.jpg" />
     <meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.path}}" />
