@@ -102,6 +102,7 @@
         {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
       </div>
 
+      <h4 class="normal">Customer support</h4>
       <div class="row mb-5">
         <div class="col-12 col-md-4">
           <div class="spy">
@@ -171,7 +172,7 @@
       <h3 class="h3-heading mb-3">Related Products</h3>
       <div class="row">
       {% for product in product.related_products %}
-      <div class="col-12 col-md-3 mb-3 mb-md-0">
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
         <a class="d-block" href="/privacynotincluded/products/{{ product.slug }}">
           <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
         </a>
