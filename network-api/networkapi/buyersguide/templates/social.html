@@ -9,10 +9,10 @@
   </div>
 {% else %}
 <div class="social d-flex align-items-center">
-  <a class="social-button social-button-fb hidden-sm-down" href="{{facebook_share_link}}"><span class="sr-only">Facebook</span></a>
-  <a class="social-button social-button-twitter hidden-sm-down" href="{{twitter_share_link}}{{share_text|urlencode}}" target="_blank"><span class="sr-only">Twitter</span></a>
-  <a class="social-button social-button-email hidden-sm-down" href="{{email_share_link}}{{share_text|urlencode}}"><span class="sr-only">Email</span></a>
-  <a class="social-button social-button-link copy-link hidden-sm-down" href=""><span class="sr-only">Copy link</span></a>
+  <a class="social-button social-button-fb hidden-sm-down" id="nav-social-button-fb" href="{{facebook_share_link}}"><span class="sr-only">Facebook</span></a>
+  <a class="social-button social-button-twitter hidden-sm-down" id="nav-social-button-twitter" href="{{twitter_share_link}}{{share_text|urlencode}}" target="_blank"><span class="sr-only">Twitter</span></a>
+  <a class="social-button social-button-email hidden-sm-down" id="nav-social-button-email" href="{{email_share_link}}{{share_text|urlencode}}"><span class="sr-only">Email</span></a>
+  <a class="social-button social-button-link copy-link hidden-sm-down" id="nave-social-button-link" href=""><span class="sr-only">Copy link</span></a>
   <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" href="https://donate.mozilla.org">Donate</a>
   <button class="burger btn btn-link p-0 ml-4 hidden-md-up">
     <span class="sr-only">Share</span>
