@@ -2,6 +2,7 @@ import React from 'react';
 import Creepometer from '../creepometer/creepometer.jsx';
 import CreepChart from '../creepiness-chart/creepiness-chart.jsx';
 import LikelyhoodChart from '../likelyhood-chart/likelyhood-chart.jsx';
+import SocialShare from '../social-share/social-share.jsx';
 
 export default class CreepVote extends React.Component {
   constructor(props) {
@@ -136,6 +137,18 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they have voted on this product.
    */
   renderDidVote(){
+    let numGroups = 5;
+    let userVoteGroup = Math.floor(this.state.creepiness/(100/numGroups)); // 0 1 2 3 4
+    let creepType;
+
+    if (userVoteGroup < Math.floor(numGroups/2)) { // lower half groups
+      creepType = `NOT CREEPY`;
+    } else if (userVoteGroup === Math.floor(numGroups/2)) { // mid group
+      creepType = `NOT REALLY CREEPY`;
+    } else { // upper half groups
+      creepType = `CREEPY`;
+    }
+
     return(
       <div>
         <div className="mb-5">
@@ -145,7 +158,7 @@ export default class CreepVote extends React.Component {
           </div>
           <div className="row mt-3">
             <div className="col">
-              <CreepChart userVoteGroup={Math.floor(this.state.creepiness/20)} values={this.props.votes.creepiness.vote_breakdown} />
+              <CreepChart userVoteGroup={userVoteGroup} values={this.props.votes.creepiness.vote_breakdown} />
             </div>
             <div className="col likelyhood-chart p-5">
               <LikelyhoodChart values={this.props.votes.confidence} />
@@ -154,12 +167,7 @@ export default class CreepVote extends React.Component {
         </div>
         <div className="text-center">
           <div><a className="share-results" href="#coral_talk_stream">View comments</a> or share your results</div>
-          {/* TODO: Make these share links work */}
-          <div class="social d-flex justify-content-center mt-3">
-            <a class="social-button social-button-fb" href=""><span class="sr-only">Facebook</span></a>
-            <a class="social-button social-button-twitter" href=""><span class="sr-only">Twitter</span></a>
-            <a class="social-button social-button-email" href=""><span class="sr-only">Email</span></a>
-          </div>
+          <SocialShare creepType={creepType} />
         </div>
       </div>
     );
