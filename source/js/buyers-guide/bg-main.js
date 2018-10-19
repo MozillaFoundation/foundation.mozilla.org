@@ -83,6 +83,7 @@ let main = {
     if (document.querySelectorAll(`.creep-vote-target`)) {
       Array.from(document.querySelectorAll(`.creep-vote-target`)).forEach(element => {
         let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
+        let productName = element.dataset.productName;
         let productID = element.querySelector(`input[name=productID]`).value;
         let votes = element.querySelector(`input[name=votes]`).value;
 
@@ -98,7 +99,7 @@ let main = {
           };
         }
 
-        ReactDOM.render(<CreepVote csrf={csrf.value} productID={parseInt(productID,10)} votes={votes}/>, element);
+        ReactDOM.render(<CreepVote csrf={csrf.value} productName={productName} productID={parseInt(productID,10)} votes={votes}/>, element);
       });
     }
 
