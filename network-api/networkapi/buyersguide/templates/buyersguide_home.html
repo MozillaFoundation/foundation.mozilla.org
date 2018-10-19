@@ -31,7 +31,7 @@
           {% for product in products %}
           <div class="product-box bg-gray" data-creepiness="{{ product.votes.creepiness.average }}">
             {% if product.votes.confidence %}
-              {% if product.votes.confidence.vote_breakdown.1 > product.votes.confidence.vote_breakdown.0 %}
+              {% if product.votes.confidence.1 > product.votes.confidence.0 %}
                 <div class="recommendation go-for-it m-2"></div>
               {% else %}
                 <div class="recommendation stay-away m-2"></div>
