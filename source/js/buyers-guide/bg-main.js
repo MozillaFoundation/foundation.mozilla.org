@@ -18,10 +18,10 @@ let main = {
       HomepageSlider.init();
     }
 
-    let _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack;
-    let fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/);
-    let ie10Match = navigator.userAgent.match(/MSIE 10/i);
-    let w8Match = navigator.appVersion.match(/Windows NT 6.2/);
+    let _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack,
+        fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/),
+        ie10Match = navigator.userAgent.match(/MSIE 10/i),
+        w8Match = navigator.appVersion.match(/Windows NT 6.2/);
 
     if (fxMatch && Number(fxMatch[1]) < 32) {
       _dntStatus = `Unspecified`;
