@@ -54,7 +54,6 @@
       }
 
       .category-image-container {
-        padding: 32.3% 0;
         margin-bottom: 20px;
         box-shadow: 0 0 1px 1px #e1e1e1;
         overflow: hidden;
@@ -63,7 +62,7 @@
       img {
         display: block;
         width: 100%;
-        transform: scale(3);
+        height: auto;
       }
 
       .category-item-label {

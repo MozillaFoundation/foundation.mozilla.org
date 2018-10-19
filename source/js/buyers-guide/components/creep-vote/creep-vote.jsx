@@ -4,6 +4,8 @@ import CreepChart from '../creepiness-chart/creepiness-chart.jsx';
 import LikelyhoodChart from '../likelyhood-chart/likelyhood-chart.jsx';
 import SocialShare from '../social-share/social-share.jsx';
 
+import CREEPINESS_LABELS from "../creepiness-labels.js";
+
 export default class CreepVote extends React.Component {
   constructor(props) {
     super(props);
@@ -11,14 +13,32 @@ export default class CreepVote extends React.Component {
   }
 
   getInitialState() {
-    // let conf = this.props.votes.confidence;
-    let totalVotes = this.props.votes.total;
+    let votes = this.props.votes;
+    let totalVotes = votes.total;
+
+    let c_breakdown = votes.creepiness['vote_breakdown'];
+    let creepiness = 0;
+    let creepinessId = 0;
+
+    Object.keys(c_breakdown).forEach(id => {
+      let v = c_breakdown[id];
+      if (v>creepiness) {
+        creepiness = v;
+        creepinessId = id;
+      }
+    });
+
+    let confidence = votes.confidence;
 
     return {
       totalVotes,
       creepiness: 50,
       confidence: undefined,
-      didVote: false
+      didVote: false,
+      majority: {
+        creepiness: creepinessId,
+        confidence: confidence[0] > confidence[1] ? 0 : 1
+      }
     };
   }
 
@@ -96,19 +116,22 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
+    let creepJudgement =  CREEPINESS_LABELS[this.state.majority.creepiness].toLowerCase();
+    let confJudgement = this.state.majority.confidence ? `likely` : `not likely`;
+
     return (<form method="post" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
       <div className="row mb-5">
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
             <h3 className="h5-heading mb-2">How creepy is this product?</h3>
-            <p className="help-text">Majority of voters think it is super creepy</p>
+            <p className="help-text">Majority of voters think it is {creepJudgement}</p>
           </div>
           <Creepometer initialValue={this.state.creepiness} onChange={value => this.setCreepiness(value)}></Creepometer>
         </div>
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
             <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
-            <p className="help-text">Majority of voters are not likely to buy it</p>
+            <p className="help-text">Majority of voters are {confJudgement} to buy it</p>
           </div>
           <div className="text-center">
             <div class="btn-group btn-group-toggle mt-5" data-toggle="buttons">
