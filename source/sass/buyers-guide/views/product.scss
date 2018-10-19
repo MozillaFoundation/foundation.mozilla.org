@@ -19,7 +19,7 @@
 
       .copy-link {
         position: absolute;
-        top: #{$h1-font-size/2px}px;
+        top: $h1-font-size/2;
         right: 0;
       }
     }
