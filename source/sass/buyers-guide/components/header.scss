@@ -1,19 +1,15 @@
 $category-nav-border-bottom-thickness: 4px;
 
-.sticky-nav {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  z-index: 2;
-}
-
 .category-nav {
   background: white;
   overflow-x: auto;
   white-space: nowrap;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
-  z-index: 1;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
 
   a {
     display: inline-block;
