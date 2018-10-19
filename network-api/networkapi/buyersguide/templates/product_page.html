@@ -154,18 +154,21 @@
 
 </div>
 
+{% if product.updates|length > 0 and product.related_products|length > 0 %}
 <div class="container">
   <div class="row">
     <div class="p-5 col-12 col-md-10 offset-md-1">
 
+      {% if product.updates|length > 0 %}
       <h3 class="h3-heading my-5">Updates</h3>
-
-      {% for product in product.updates.all %}
+      {% for product in product.updates %}
         {% productUpdate product.source product.title product.author product.snippet %}
       {% endfor %}
+      {% endif %}
 
-      <h3 class="h3-heading mb-3 mt-5">Related Products</h3>
 
+      {% if product.related_products|length > 0 %}
+      <h3 class="h3-heading mb-3">Related Products</h3>
       <div class="row">
       {% for product in product.related_products %}
       <div class="col-12 col-md-3 mb-3 mb-md-0">
@@ -175,10 +178,12 @@
       </div>
       {% endfor %}
       </div>
+      {% endif %}
 
     </div>
   </div>
 </div>
+{% endif %}
 
 {% if coralTalkServerUrl %}
   <div class="container">
