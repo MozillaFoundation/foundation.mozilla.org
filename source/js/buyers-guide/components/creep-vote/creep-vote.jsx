@@ -160,13 +160,13 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they have voted on this product.
    */
   renderDidVote(){
-    let numGroups = 5;
-    let userVoteGroup = Math.floor(this.state.creepiness/(100/numGroups));
+    const NUM_GROUPS = CREEPINESS_LABELS.length;
+    let userVoteGroup = Math.floor(this.state.creepiness/(100/NUM_GROUPS));
     let creepType;
 
-    if (userVoteGroup < Math.floor(numGroups/2)) { // lower half groups
+    if (userVoteGroup < Math.floor(NUM_GROUPS/2)) { // lower half groups
       creepType = `NOT CREEPY`;
-    } else if (userVoteGroup === Math.floor(numGroups/2)) { // mid group
+    } else if (userVoteGroup === Math.floor(NUM_GROUPS/2)) { // mid group
       creepType = `NOT REALLY CREEPY`;
     } else { // upper half groups
       creepType = `CREEPY`;
