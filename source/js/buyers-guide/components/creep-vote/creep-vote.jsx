@@ -160,17 +160,7 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they have voted on this product.
    */
   renderDidVote(){
-    const NUM_GROUPS = CREEPINESS_LABELS.length;
-    let userVoteGroup = Math.floor(this.state.creepiness/(100/NUM_GROUPS));
-    let creepType;
-
-    if (userVoteGroup < Math.floor(NUM_GROUPS/2)) { // lower half groups
-      creepType = `NOT CREEPY`;
-    } else if (userVoteGroup === Math.floor(NUM_GROUPS/2)) { // mid group
-      creepType = `NOT REALLY CREEPY`;
-    } else { // upper half groups
-      creepType = `CREEPY`;
-    }
+    let userVoteGroup = Math.floor(this.state.creepiness/(100/CREEPINESS_LABELS.length));
 
     return(
       <div>
@@ -190,7 +180,7 @@ export default class CreepVote extends React.Component {
         </div>
         <div className="text-center">
           <div><a className="share-results" href="#coral_talk_stream">View comments</a> or share your results</div>
-          <SocialShare productName={this.props.productName} creepType={creepType} />
+          <SocialShare productName={this.props.productName} creepType={CREEPINESS_LABELS[userVoteGroup]} />
         </div>
       </div>
     );

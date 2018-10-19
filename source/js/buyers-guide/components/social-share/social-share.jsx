@@ -4,7 +4,7 @@ const SocialShareLink = (props) => {
   let classes = `social-button`;
   let srLabel = ``;
   let link = `PrivacyNotINcluded.org`;
-  let shareText = `I think ${props.productName} is ${props.creepType}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} holiday buyer’s guide.`;
+  let shareText = `I think ${props.productName} is ${props.creepType.toUpperCase()}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} holiday buyer’s guide.`;
 
   switch (props.type) {
     case 'facebook':
