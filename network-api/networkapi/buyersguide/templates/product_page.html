@@ -23,7 +23,7 @@
       </div>
       <div class="body-large mb-5">{{product.blurb}}</div>
 
-      <div class="creep-vote-target my-5">
+      <div class="creep-vote-target my-5" data-product-name="{{product.name}}">
           {% csrf_token %}
           <input type="hidden" name="productID" value="{{ product.id }}">
           <input type="hidden" name="votes" value="{{ product.votes | safe }}">

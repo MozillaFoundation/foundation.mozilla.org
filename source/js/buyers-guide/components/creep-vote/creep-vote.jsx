@@ -138,7 +138,7 @@ export default class CreepVote extends React.Component {
    */
   renderDidVote(){
     let numGroups = 5;
-    let userVoteGroup = Math.floor(this.state.creepiness/(100/numGroups)); // 0 1 2 3 4
+    let userVoteGroup = Math.floor(this.state.creepiness/(100/numGroups));
     let creepType;
 
     if (userVoteGroup < Math.floor(numGroups/2)) { // lower half groups
@@ -167,7 +167,7 @@ export default class CreepVote extends React.Component {
         </div>
         <div className="text-center">
           <div><a className="share-results" href="#coral_talk_stream">View comments</a> or share your results</div>
-          <SocialShare creepType={creepType} />
+          <SocialShare productName={this.props.productName} creepType={creepType} />
         </div>
       </div>
     );

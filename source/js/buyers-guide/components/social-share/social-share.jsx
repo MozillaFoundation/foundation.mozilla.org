@@ -4,7 +4,7 @@ const SocialShareLink = (props) => {
   let classes = `social-button`;
   let srLabel = ``;
   let link = `PrivacyNotINcluded.org`;
-  let shareText = `I think this product is ${props.creepType}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} holiday buyer’s guide.`;
+  let shareText = `I think ${props.productName} is ${props.creepType}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} holiday buyer’s guide.`;
 
   switch (props.type) {
     case 'facebook':
@@ -32,10 +32,10 @@ const SocialShareLink = (props) => {
 
 const SocialShare = (props) => {
   return <div class="social d-flex justify-content-center mt-3">
-    <SocialShareLink type="facebook" creepType={props.creepType} />
-    <SocialShareLink type="twitter" creepType={props.creepType} />
-    <SocialShareLink type="email" creepType={props.creepType} />
+    <SocialShareLink type="facebook" {...props} />
+    <SocialShareLink type="twitter" {...props} />
+    <SocialShareLink type="email" {...props} />
   </div>
-}
+};
 
 export default SocialShare;
