@@ -150,7 +150,11 @@ export default class Petition extends React.Component {
       label: `${document.title} - share tap`
     });
 
-    document.querySelector(id + ` a`).click();
+    let redirectLink = document.querySelector(id + ` a`);
+
+    if(redirectLink!==null){
+      redirectLink.click();
+    }
   }
 
   /**
