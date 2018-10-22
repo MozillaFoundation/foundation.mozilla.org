@@ -8,14 +8,20 @@ import Creepometer from './components/creepometer/creepometer.jsx';
 import Criterion from './components/criterion/criterion.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
+import ProductGA from './product-analytics.js';
 
 let main = {
   init() {
     this.enableCopyLinks();
     this.injectReactComponents();
     primaryNav.init();
+
     if (document.getElementById(`pni-home`)) {
       HomepageSlider.init();
+    }
+
+    if (document.getElementById(`pni-product-page`)) {
+      ProductGA.init();
     }
 
     let _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack,
