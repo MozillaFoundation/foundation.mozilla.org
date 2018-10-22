@@ -1,7 +1,7 @@
 from itertools import chain, combinations
 
 import factory
-from random import randint
+from random import randint, random
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
@@ -37,6 +37,12 @@ from networkapi.wagtailpages.factory import (
     HomepageFeaturedHighlightsFactory,
     ParticipatePageFactory,
     DonationModalsFactory,
+)
+
+from networkapi.buyersguide.models import (
+    Product,
+    RangeVote,
+    BooleanVote
 )
 from networkapi.buyersguide.factory import ProductFactory
 
@@ -285,6 +291,26 @@ class Command(BaseCommand):
             [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
 
         print('Generating Buyer\'s Guide Products')
-        generate_fake_data(ProductFactory, 20)
+        generate_fake_data(ProductFactory, 70)
+
+        print('Generating Randomised Buyer\'s Guide Products Votes')
+        for p in Product.objects.all():
+            for _ in range(1, 15):
+                value = randint(1, 100)
+                RangeVote.objects.create(
+                    product=p,
+                    attribute='creepiness',
+                    value=value
+                )
+
+                value = (random() < 0.5)
+                BooleanVote.objects.create(
+                    product=p,
+                    attribute='confidence',
+                    value=value
+                )
+
+        print('Aggregating Buyer\'s Guide Product votes')
+        call_command('aggregate_product_votes')
 
         print(self.style.SUCCESS('Done!'))

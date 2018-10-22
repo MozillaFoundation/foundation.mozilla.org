@@ -1,4 +1,6 @@
 .creepometer {
+  margin-top: 70px;
+
   .slider {
     background: url("/_images/buyers-guide/gradient-bar.svg") no-repeat 0 center / contain;
     position: relative;
@@ -24,12 +26,41 @@
     right: 0;
   }
 
-  .handle {
+  .trackhead {
     cursor: grab;
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+    position: relative;
+    display: inline-block;
     z-index: 1;
+    margin-left: -35px;
+    top: -55px;
+    user-select: none;
+
+    .face {
+      position: relative;
+      border-radius: 50%;
+      height: 70px;
+      width: 70px;
+      z-index: 0;
+    }
+
+    .pip {
+      position: relative;
+      width: 70px;
+      height: 20px;
+      background: transparent;
+
+      &::after {
+        content: ' ';
+        background: white;
+        height: 12px;
+        width: 12px;
+        border-radius: 10px;
+        position: relative;
+        margin-left: 28px;
+        margin-top: 15px;
+        display: inline-block;
+        border: 1px solid grey;
+      }
+    }
   }
 }
