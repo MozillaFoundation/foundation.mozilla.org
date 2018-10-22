@@ -191,6 +191,10 @@ class Product(models.Model):
         max_length=2,
     )
 
+    privacy_policy_reading_level_url = models.URLField(
+        blank="True"
+    )
+
     privacy_policy_helptext = models.TextField(
         max_length=5000,
         blank="True"
