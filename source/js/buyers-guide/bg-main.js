@@ -81,6 +81,7 @@ let main = {
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
     let creepVoteTargets = document.querySelectorAll(`.creep-vote-target`);
+
     if (creepVoteTargets.length > 0) {
       Array.from(creepVoteTargets).forEach(element => {
         let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
@@ -104,19 +105,33 @@ let main = {
       });
     }
 
-    let creepometerTargets = document.querySelectorAll(`.creepometer-target`)
+    let creepometerTargets = document.querySelectorAll(`.creepometer-target`);
+
     if (creepometerTargets.length > 0) {
       Array.from(creepometerTargets).forEach(element => {
         let initialValue = element.dataset.initialValue;
+
         ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
       });
     }
 
     let criterionTargets = document.querySelectorAll(`.criterion-target`);
+
     if (criterionTargets.length > 0) {
       Array.from(criterionTargets).forEach(element => {
-        console.log(element);
-        let meta = JSON.parse(element.dataset.meta);
+        let meta = {};
+
+        try {
+          meta = JSON.parse(element.dataset.meta);
+        } catch (e) {
+          if (!element.dataset) {
+            console.warn(`element did not have a dataset:`, element);
+          } else if (!element.dataset.meta) {
+            console.warn(`element did not have a data-meta attribute:`, element);
+          } else {
+            console.warn(`could not parse JSON`, element, element.dataset.meta);
+          }
+        }
 
         ReactDOM.render(<Criterion meta={meta}></Criterion>, element);
       });
