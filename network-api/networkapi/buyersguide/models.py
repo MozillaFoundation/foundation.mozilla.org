@@ -182,6 +182,8 @@ class Product(models.Model):
     )
 
     privacy_policy_url = models.URLField(
+        max_length=2048,
+        help_text='Link to privacy policy',
         blank="True"
     )
 
@@ -192,6 +194,8 @@ class Product(models.Model):
     )
 
     privacy_policy_reading_level_url = models.URLField(
+        max_length=2048,
+        help_text='Link to this privacy policy reading level',
         blank="True"
     )
 
