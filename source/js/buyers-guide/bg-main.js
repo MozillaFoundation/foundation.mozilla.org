@@ -25,7 +25,7 @@ let main = {
       _dntStatus = { '0': `Disabled`, '1': `Enabled` }[_dntStatus] || `Unspecified`;
     }
 
-    let allowTracking = (_dntStatus === `Enabled` || _dntStatus === `Unspecified`);
+    let allowTracking = (_dntStatus !== `Enabled`);
 
     if (allowTracking) {
       ReactGA.initialize(`UA-87658599-6`);
