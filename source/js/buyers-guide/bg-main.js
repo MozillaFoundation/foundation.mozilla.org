@@ -12,18 +12,6 @@ import ProductGA from './product-analytics.js';
 
 let main = {
   init() {
-    this.enableCopyLinks();
-    this.injectReactComponents();
-    primaryNav.init();
-
-    if (document.getElementById(`pni-home`)) {
-      HomepageSlider.init();
-    }
-
-    if (document.getElementById(`pni-product-page`)) {
-      ProductGA.init();
-    }
-
     let _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack,
         fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/),
         ie10Match = navigator.userAgent.match(/MSIE 10/i),
@@ -37,25 +25,44 @@ let main = {
       _dntStatus = { '0': `Disabled`, '1': `Enabled` }[_dntStatus] || `Unspecified`;
     }
 
-    if (_dntStatus !== `Enabled`) {
+    let allowTracking = (_dntStatus === `Enabled` || _dntStatus === `Unspecified`);
+
+    if (allowTracking) {
       ReactGA.initialize(`UA-87658599-6`);
+    }
+
+    this.enableCopyLinks(allowTracking);
+    this.injectReactComponents();
+
+    primaryNav.init();
+
+    if (document.getElementById(`pni-home`)) {
+      HomepageSlider.init();
+    }
+
+    if (document.getElementById(`pni-product-page`)) {
+      if (allowTracking) {
+        ProductGA.init();
+      }
     }
   },
 
-  enableCopyLinks() {
+  enableCopyLinks(allowAnalytics) {
     if (document.querySelectorAll(`.copy-link`)) {
       Array.from(document.querySelectorAll(`.copy-link`)).forEach(element => {
         element.addEventListener(`click`, (event) => {
           event.preventDefault();
 
-          let productBox = document.querySelector(`.product-detail .h1-heading`);
-          let productTitle = productBox ? productBox.textContent : `unknown product`;
+          if (allowAnalytics) {
+            let productBox = document.querySelector(`.product-detail .h1-heading`);
+            let productTitle = productBox ? productBox.textContent : `unknown product`;
 
-          ReactGA.event({
-            category: `product`,
-            action: `copy link tap`,
-            label: `copy link ${productTitle}`
-          });
+            ReactGA.event({
+              category: `product`,
+              action: `copy link tap`,
+              label: `copy link ${productTitle}`
+            });
+          }
 
           let textArea = document.createElement(`textarea`);
 
