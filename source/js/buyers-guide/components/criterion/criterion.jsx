@@ -20,8 +20,6 @@ export default class Criterion extends React.Component {
     let meta = this.props.meta;
     let fullClass = `criterion criterion-${meta.class} criterion-${meta.id}`;
 
-    console.log(meta);
-
     return (
       <div className={fullClass}>
         <div className="primary-info">
