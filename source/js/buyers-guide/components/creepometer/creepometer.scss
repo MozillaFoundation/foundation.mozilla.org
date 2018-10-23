@@ -4,7 +4,7 @@
   .slider {
     background: url("/_images/buyers-guide/gradient-bar.svg") no-repeat 0 center / contain;
     position: relative;
-    height: 72px;
+    height: 100px;
   }
 
   .copy {
@@ -52,14 +52,14 @@
       &::after {
         content: ' ';
         background: white;
-        height: 12px;
-        width: 12px;
-        border-radius: 10px;
-        position: relative;
-        margin-left: 28px;
-        margin-top: 15px;
+        border-radius: 20px;
+        box-shadow: 2px 2px 3px grey;
         display: inline-block;
-        border: 1px solid grey;
+        height: 40px;
+        margin-left: 15px;
+        margin-top: 15px;
+        position: relative;
+        width: 40px;
       }
     }
   }

@@ -15,7 +15,7 @@ def criterion(id, question, answer, helptext=None, indeterminate_copy="Can't det
             formattedAnswer = indeterminate_copy
         else:
             cssClassSuffix = answer
-            formattedAnswer = ("Grade {answer}".format(answer=answer))
+            formattedAnswer = ("{answer}".format(answer=answer))
     else:
         cssClassSuffix = ("false", "true")[answer]
         formattedAnswer = ("No", "Yes")[answer]
