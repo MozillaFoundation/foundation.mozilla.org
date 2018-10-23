@@ -40,6 +40,29 @@ function getElementGAInformation(pageTitle, productName) {
       label: `share site to Email`,
       transport: `beacon`
     },
+    'nav-social-button-fb-mb': {
+      category: `site`,
+      action: `share tap`,
+      label: `share site to Facebook`,
+      transport: `beacon`
+    },
+    'nav-social-button-twitter-mb': {
+      category: `site`,
+      action: `share tap`,
+      label: `share site to Twitter`,
+      transport: `beacon`
+    },
+    'nav-social-button-link-mb': {
+      category: `site`,
+      action: `copy link tap`,
+      label: `copy link to site `
+    },
+    'nav-social-button-email-mb': {
+      category: `site`,
+      action: `share tap`,
+      label: `share site to Email`,
+      transport: `beacon`
+    },
     'product-copy-link-button': {
       category: `product`,
       action: `copy link tap`,
