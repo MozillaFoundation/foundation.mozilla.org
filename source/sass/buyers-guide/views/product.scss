@@ -4,6 +4,26 @@
 
 .product-detail {
   margin-top: -88px;
+
+  @media (min-width: $bp-md) {
+    .intro {
+      position: relative;
+
+      .h1-heading {
+        margin-right: 8rem;
+
+        a {
+          font-weight: inherit;
+        }
+      }
+
+      .copy-link {
+        position: absolute;
+        top: #{$h1-font-size/2px}px;
+        right: 0;
+      }
+    }
+  }
 }
 
 .product-price {

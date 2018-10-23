@@ -11,19 +11,22 @@
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
-  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="500" alt="{{product.name}}"/>
+  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="400" alt="{{product.name}}"/>
 </div>
 <div class="container">
 
   <div class="row">
     <div class="product-detail bg-white p-5 col-12 col-md-10 offset-md-1">
       <div class="product-price mb-3">{{product.company}} ${{product.price}}</div>
-
-      <div class="d-flex justify-content-between align-items-center">
-        <h2 class="h1-heading">{{product.name}}</h2>
+      <div class="intro d-flex flex-column flex-md-row justify-content-between">
+        <div>
+          <h2 class="h1-heading"><a href="{{product.url}}" href="_blank">{{product.name}}</a></h2>
+          <div class="body-large mb-4 mb-md-5">{{product.blurb}}</div>
+        </div>
         <a class="links-btn copy-link" id="product-copy-link-button" href="#" data-url={{product.url}}>Copy link</a>
       </div>
-      <div class="body-large mb-5">{{product.blurb}}</div>
+
+      {{product}}
 
       <div class="creep-vote-target my-5" data-product-name="{{product.name}}">
           {% csrf_token %}
@@ -83,7 +86,7 @@
           {% endif %}
         {% endif %}
         {% endwith %}
-        {% criterion "share_data" "Shares your information with third parties" product.share_data product.share_data_helptext %}
+        {% criterion "share_data" "Shares your information with 3rd parties for unexpected reasons" product.share_data product.share_data_helptext %}
       </div>
 
       <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
