@@ -4,6 +4,18 @@
 
 .product-detail {
   margin-top: -88px;
+
+  .copy-link {
+    order: 3;
+
+    @media (min-width: $bp-md) {
+      order: unset;
+    }
+  }
+
+  h4 {
+    font-family: "Nunito Sans";
+  }
 }
 
 .product-price {
@@ -22,6 +34,11 @@
   display: flex;
   align-items: center;
   word-break: break-word;
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-md) {
+    margin-bottom: 0;
+  }
 
   img {
     margin-right: 15px;

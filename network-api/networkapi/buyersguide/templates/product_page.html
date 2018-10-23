@@ -11,19 +11,18 @@
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
-  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="500" alt="{{product.name}}"/>
+  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="400" alt="{{product.name}}"/>
 </div>
 <div class="container">
 
   <div class="row">
     <div class="product-detail bg-white p-5 col-12 col-md-10 offset-md-1">
       <div class="product-price mb-3">{{product.company}} ${{product.price}}</div>
-
-      <div class="d-flex justify-content-between align-items-center">
-        <h2 class="h1-heading">{{product.name}}</h2>
-        <a class="links-btn copy-link" id="product-copy-link-button" href="#" data-url={{product.url}}>Copy link</a>
+      <div class="row intro d-flex justify-content-between align-items-center">
+        <h2 class="h1-heading col-md-10"><a href="{{product.url}}" target="_blank">{{product.name}}</a></h2>
+        <a class="links-btn copy-link col-md-2 text-md-right" href="#" data-url={{product.url}}>Copy link</a>
+        <div class="body-large mb-4 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
-      <div class="body-large mb-5">{{product.blurb}}</div>
 
       <div class="creep-vote-target my-5" data-product-name="{{product.name}}">
           {% csrf_token %}
@@ -83,7 +82,7 @@
           {% endif %}
         {% endif %}
         {% endwith %}
-        {% criterion "share_data" "Shares your information with third parties" product.share_data product.share_data_helptext %}
+        {% criterion "share_data" "Shares your information with 3rd parties for unexpected reasons" product.share_data product.share_data_helptext %}
       </div>
 
       <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
@@ -101,6 +100,7 @@
         {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
       </div>
 
+      <h4 class="normal">Customer support</h4>
       <div class="row mb-5">
         <div class="col-12 col-md-3">
           <div class="spy">
@@ -134,7 +134,7 @@
             <div>
               <strong class="d-block">Email</strong>
               {% if product.email %}
-              <a href="mailto:{{ product.email }}">Yes</a>
+              <a href="{{ product.email }}">Yes</a>
               {% else %}
               No
               {% endif %}
@@ -170,18 +170,18 @@
   <div class="row">
     <div class="p-5 col-12 col-md-10 offset-md-1">
 
+      {% if product.updates|length > 0 %}
       <h3 class="h3-heading my-5">Updates</h3>
-
-      {% for product in product.updates.all %}
+      {% for product in product.updates %}
         {% productUpdate product.source product.title product.author product.snippet %}
       {% endfor %}
+      {% endif %}
 
-      <h3 class="h3-heading mb-3 mt-5">Related Products</h3>
-
+      <h3 class="h3-heading mt-5 mb-3">Related Products</h3>
       <div class="row">
       {% for product in product.related_products %}
-      <div class="col-12 col-md-3">
-        <a href="/privacynotincluded/products/{{ product.slug }}">
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
+        <a class="d-block" href="/privacynotincluded/products/{{ product.slug }}">
           <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
         </a>
       </div>
