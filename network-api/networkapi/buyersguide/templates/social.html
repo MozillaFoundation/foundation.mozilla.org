@@ -2,18 +2,18 @@
 
 {% if mobile %}
   <div class="social d-flex flex-column">
-    <a class="social-button social-button-fb body-large" href="{{facebook_share_link}}">Facebook</a>
-    <a class="social-button social-button-twitter body-large" href="{{twitter_share_link}}{{share_text|urlencode}}">Twitter</a>
-    <a class="social-button social-button-email body-large" href="{{email_share_link}}{{share_text|urlencode}}">Email</a>
-    <a class="social-button social-button-link copy-link body-large" href="">Copy link</a>
+    <a class="social-button social-button-fb body-large" id="nav-social-button-fb" href="{{facebook_share_link}}">Facebook</a>
+    <a class="social-button social-button-twitter body-large" id="nav-social-button-twitter" href="{{twitter_share_link}}{{share_text|urlencode}}">Twitter</a>
+    <a class="social-button social-button-email body-large" id="nav-social-button-email" href="{{email_share_link}}{{share_text|urlencode}}">Email</a>
+    <a class="social-button social-button-link copy-link body-large" id="nav-social-button-link" href="">Copy link</a>
   </div>
 {% else %}
 <div class="social d-flex align-items-center">
   <a class="social-button social-button-fb hidden-sm-down" id="nav-social-button-fb" href="{{facebook_share_link}}"><span class="sr-only">Facebook</span></a>
   <a class="social-button social-button-twitter hidden-sm-down" id="nav-social-button-twitter" href="{{twitter_share_link}}{{share_text|urlencode}}" target="_blank"><span class="sr-only">Twitter</span></a>
   <a class="social-button social-button-email hidden-sm-down" id="nav-social-button-email" href="{{email_share_link}}{{share_text|urlencode}}"><span class="sr-only">Email</span></a>
-  <a class="social-button social-button-link copy-link hidden-sm-down" id="nave-social-button-link" href=""><span class="sr-only">Copy link</span></a>
-  <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" href="https://donate.mozilla.org">Donate</a>
+  <a class="social-button social-button-link copy-link hidden-sm-down" id="nav-social-button-link" href=""><span class="sr-only">Copy link</span></a>
+  <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" id="donate-button" href="https://donate.mozilla.org">Donate</a>
   <button class="burger btn btn-link p-0 ml-4 hidden-md-up">
     <span class="sr-only">Share</span>
   </button>

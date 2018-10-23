@@ -2,7 +2,7 @@ import ReactGA from 'react-ga';
 
 function getElementGAInformation(pageTitle, productName) {
   return {
-    'product-live-chat`': {
+    'product-live-chat': {
       category: `product`,
       action: `customer support link tap`,
       label: `support link for ${productName}`
@@ -11,6 +11,11 @@ function getElementGAInformation(pageTitle, productName) {
       category: `site`,
       action: `donate tap`,
       label: `${pageTitle} donate header`
+    },
+    'donate-footer-btn': {
+      category: `site`,
+      action: `donate tap`,
+      label: `${pageTitle} donate footer`
     },
     'nav-social-button-fb': {
       category: `site`,
@@ -40,7 +45,7 @@ function getElementGAInformation(pageTitle, productName) {
       action: `copy link tap`,
       label: `copy link ${productName}`
     },
-    'creep-vote': {
+    'creep-vote-btn': {
       category: `product`,
       action: `opinion submitted`,
       label: `opinion on ${productName}`
