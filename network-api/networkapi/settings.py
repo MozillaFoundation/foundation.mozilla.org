@@ -268,6 +268,12 @@ TEMPLATES = [
     },
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+    }
+}
+
 # network asset domain used in templates
 ASSET_DOMAIN = env('ASSET_DOMAIN')
 
