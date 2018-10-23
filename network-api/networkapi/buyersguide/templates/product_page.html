@@ -21,7 +21,7 @@
 
       <div class="d-flex justify-content-between align-items-center">
         <h2 class="h1-heading">{{product.name}}</h2>
-        <a class="links-btn copy-link" href="#" data-url={{product.url}}>Copy link</a>
+        <a class="links-btn copy-link" id="product-copy-link-button" href="#" data-url={{product.url}}>Copy link</a>
       </div>
       <div class="body-large mb-5">{{product.blurb}}</div>
 
@@ -91,7 +91,6 @@
       <div class="mb-5">
         {% criterion "must_change_default_password" "If a password is required, you must change the default password" product.must_change_default_password product.must_change_default_password_helptext "Not required" %}
         {% criterion "security_updates" "Automatic security updates" product.security_updates product.security_updates_helptext %}
-        {% criterion "need_account" "Requires an account" product.need_account product.need_account_helptext %}
         {% criterion "delete_data" "Deletes data it stores on you" product.delete_data product.delete_data_helptext %}
         {% criterion "child_rules" "Has parental controls" product.child_rules product.child_rules_helptext %}
       </div>
@@ -122,7 +121,7 @@
             <div>
               <strong class="d-block">Live Chat</strong>
               {% if product.live_chat %}
-              <a target="_blank" href={{ product.live_chat }}>Yes</a>
+              <a id="product-live-chat" target="_blank" href={{ product.live_chat }}>Yes</a>
               {% else %}
               No
               {% endif %}

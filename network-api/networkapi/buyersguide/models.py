@@ -233,15 +233,6 @@ class Product(models.Model):
         blank="True"
     )
 
-    need_account = models.NullBooleanField(
-        help_text='Do you need an account to use this product?',
-    )
-
-    need_account_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
     delete_data = models.NullBooleanField(
         help_text='Can you request data be deleted?',
     )
