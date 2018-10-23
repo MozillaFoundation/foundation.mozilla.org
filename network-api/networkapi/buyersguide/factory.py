@@ -68,7 +68,6 @@ class ProductFactory(DjangoModelFactory):
     share_data = Faker('boolean')
     must_change_default_password = Faker('boolean')
     security_updates = Faker('boolean')
-    need_account = Faker('boolean')
     delete_data = Faker('boolean')
     child_rules = Faker('boolean')
     manage_security = Faker('boolean')
