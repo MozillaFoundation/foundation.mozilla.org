@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.urls import reverse
+from django.utils.text import slugify
 from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
-from networkapi.buyersguide.models import RangeVote, BooleanVote
-from networkapi.buyersguide.views import product_view, category_view
+from networkapi.buyersguide.models import RangeVote, BooleanVote, Product
+from networkapi.buyersguide.views import buyersguide_home, product_view, category_view
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
@@ -44,7 +45,8 @@ class ManagementCommandTest(APITestCase):
             'confidence': {
                 '0': 0,
                 '1': 0
-            }
+            },
+            'total': 0
         })
 
     def test_aggregate_product_votes(self):
@@ -73,6 +75,7 @@ class ManagementCommandTest(APITestCase):
                 self.assertEqual(response.status_code, 201)
 
         call_command('aggregate_product_votes')
+
         self.assertDictEqual(product.votes, {
             'creepiness': {
                 'average': 45,
@@ -87,7 +90,8 @@ class ManagementCommandTest(APITestCase):
             'confidence': {
                 '0': 5,
                 '1': 5
-            }
+            },
+            'total': 10
         })
 
 
@@ -310,6 +314,15 @@ class BuyersGuideViewTest(TestCase):
             password='testuser password'
         )
 
+    def test_homepage(self):
+        """
+        Test that the homepage works.
+        """
+        request = self.factory.get('/privacynotincluded/')
+        request.user = self.user
+        response = buyersguide_home(request)
+        self.assertEqual(response.status_code, 200, 'homepage yields a working page')
+
     def test_product_view_404(self):
         """
         Test that the product view raises an Http404 if the product name doesn't exist
@@ -325,3 +338,15 @@ class BuyersGuideViewTest(TestCase):
         request = self.factory.get('/privacynotincluded/categories/this is not a category')
         request.user = self.user
         self.assertRaises(Http404, category_view, request, 'this is not a category')
+
+
+class ProductTests(TestCase):
+    def test_product_slug(self):
+        p = Product.objects.create(name='this name should get slugified')
+        self.assertEqual(p.slug, slugify(p.name))
+
+    def name_change_changes_slug(self):
+        p = Product.objects.create(name='this will change')
+        p.name = 'name changed'
+        p.save()
+        self.assertEqual(p.slug, slugify(p.name))

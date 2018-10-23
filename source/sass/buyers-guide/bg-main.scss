@@ -22,6 +22,9 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 @import '../../js/buyers-guide/components/creepometer/creepometer';
 @import '../../js/buyers-guide/components/creep-vote/creep-vote';
+@import '../../js/buyers-guide/components/primary-nav/primary-nav';
+@import '../../js/buyers-guide/components/creepiness-chart/creepiness-chart';
+@import '../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart';
 
 // Non-React Components
 
@@ -78,6 +81,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // View specific
 
+@import './views/homepage';
 @import './views/product';
 @import './views/about';
 @import './views/category';

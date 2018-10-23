@@ -1,65 +1,39 @@
-.moz-logo {
-  background-image: url("../_images/mozilla-m.svg");
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+$category-nav-border-bottom-thickness: 4px;
 
-  @include media-breakpoint-up(md) {
-    width: 97px;
-    background-image: url("../_images/mozilla-on-black.svg");
-  }
-}
-
-.primary-nav {
+.category-nav {
+  background: white;
   overflow-x: auto;
   white-space: nowrap;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
 
   a {
     display: inline-block;
     font-family: "Nunito Sans";
-    font-size: 17px;
+    font-size: 15px;
     color: #909090;
-    font-weight: 900;
+    font-weight: 700;
     margin-right: 20px;
     padding: 10px 0 6px;
     text-decoration: none;
+    border-bottom: $category-nav-border-bottom-thickness solid white;
 
     &:hover {
       color: $black;
     }
 
     &.active {
-      border-bottom: 4px solid black;
+      border-color: black;
     }
   }
 }
 
 #pni-home .nav-home,
 #pni-about .nav-about {
-  border-bottom: 4px solid $black;
+  border-bottom: $category-nav-border-bottom-thickness solid $black;
   color: $black;
-}
-
-.social-button {
-  display: block;
-  width: 25px;
-  height: 25px;
-  margin: 0 12px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.social-button-fb {
-  background-image: url("/_images/glyphs/fb.svg");
-}
-
-.social-button-twitter {
-  background-image: url("/_images/glyphs/twitter.svg");
-}
-
-.social-button-email {
-  background-image: url("/_images/glyphs/email.svg");
 }

@@ -1,14 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
 import Criterion from './components/criterion/criterion.jsx';
+
+import HomepageSlider from './homepage-c-slider.js';
 
 let main = {
   init() {
     this.enableCopyLinks();
     this.injectReactComponents();
+    primaryNav.init();
+    if (document.getElementById(`pni-home`)) {
+      HomepageSlider.init();
+    }
   },
 
   enableCopyLinks() {
@@ -73,21 +80,58 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    if (document.querySelectorAll(`.creep-vote-target`)) {
-      Array.from(document.querySelectorAll(`.creep-vote-target`)).forEach(element => {
-        ReactDOM.render(<CreepVote />, element);
+    let creepVoteTargets = document.querySelectorAll(`.creep-vote-target`);
+
+    if (creepVoteTargets.length > 0) {
+      Array.from(creepVoteTargets).forEach(element => {
+        let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
+        let productName = element.dataset.productName;
+        let productID = element.querySelector(`input[name=productID]`).value;
+        let votes = element.querySelector(`input[name=votes]`).value;
+
+        try {
+          votes = JSON.parse(votes.replace(/'/g,`"`));
+        } catch (e) {
+          votes = {
+            creepiness: {
+              average: 50,
+              'vote_breakdown': {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0}
+            },
+            confidence: {'0': 0, '1': 0}
+          };
+        }
+
+        ReactDOM.render(<CreepVote csrf={csrf.value} productName={productName} productID={parseInt(productID,10)} votes={votes}/>, element);
       });
     }
 
-    if (document.querySelectorAll(`.creepometer-target`)) {
-      Array.from(document.querySelectorAll(`.creepometer-target`)).forEach(element => {
-        ReactDOM.render(<Creepometer initialValue={element.dataset.initialValue} />, element);
+    let creepometerTargets = document.querySelectorAll(`.creepometer-target`);
+
+    if (creepometerTargets.length > 0) {
+      Array.from(creepometerTargets).forEach(element => {
+        let initialValue = element.dataset.initialValue;
+
+        ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
       });
     }
 
-    if (document.querySelectorAll(`.criterion-target`)) {
-      Array.from(document.querySelectorAll(`.criterion-target`)).forEach(element => {
-        let meta = JSON.parse(element.dataset.meta);
+    let criterionTargets = document.querySelectorAll(`.criterion-target`);
+
+    if (criterionTargets.length > 0) {
+      Array.from(criterionTargets).forEach(element => {
+        let meta = {};
+
+        try {
+          meta = JSON.parse(element.dataset.meta);
+        } catch (e) {
+          if (!element.dataset) {
+            console.warn(`element did not have a dataset:`, element);
+          } else if (!element.dataset.meta) {
+            console.warn(`element did not have a data-meta attribute:`, element);
+          } else {
+            console.warn(`could not parse JSON`, element, element.dataset.meta);
+          }
+        }
 
         ReactDOM.render(<Criterion meta={meta}></Criterion>, element);
       });
