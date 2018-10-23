@@ -22,8 +22,9 @@ def get_product_image_upload_path(instance, filename):
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
 
 class Update(models.Model):
-    source = models.CharField(
-        max_length=256,
+    source = models.URLField(
+        max_length=2048,
+        help_text='Link to source',
         blank="True",
     )
 
