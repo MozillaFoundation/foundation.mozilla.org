@@ -12,7 +12,12 @@ function getElementGAInformation(pageTitle, productName) {
       action: `donate tap`,
       label: `${pageTitle} donate header`
     },
-    'donate-footer-btn': {
+    'donate-button-main': {
+      category: `site`,
+      action: `donate tap`,
+      label: `${pageTitle} donate header`
+    },
+    'donate-button-footer': {
       category: `site`,
       action: `donate tap`,
       label: `${pageTitle} donate footer`
