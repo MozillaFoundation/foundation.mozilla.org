@@ -66,6 +66,9 @@ env = environ.Env(
     SLACK_WEBHOOK_RA=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CORAL_TALK_SERVER_URL=(str, ''),
+    MEMCACHEDCLOUD_PASSWORD=(str, ''),
+    MEMCACHEDCLOUD_SERVERS=(str, ''),
+    MEMCACHEDCLOUD_USERNAME=(str, ''),
 )
 
 # Read in the environment
@@ -268,11 +271,24 @@ TEMPLATES = [
     },
 ]
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+if env('MEMCACHEDCLOUD_SERVERS'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+            'LOCATION': env('MEMCACHEDCLOUD_SERVERS'),
+            'OPTIONS': {
+                'binary': True,
+                'username': env('MEMCACHEDCLOUD_USERNAME'),
+                'password': env('MEMCACHEDCLOUD_PASSWORD')
+            }
+        }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+        }
+    }
 
 # network asset domain used in templates
 ASSET_DOMAIN = env('ASSET_DOMAIN')
