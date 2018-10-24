@@ -50,8 +50,8 @@ let main = {
       if (criteriaWithHelp.length > 0) {
         Array.from(criteriaWithHelp).forEach(button => {
           let help = button.closest(`.criterion`).querySelector(`.helptext`);
-          console.log(help);
-          button.addEventListener(`click`, evt => {
+
+          button.addEventListener(`click`, () => {
             button.classList.toggle(`open`);
             help.classList.toggle(`open`);
           });
