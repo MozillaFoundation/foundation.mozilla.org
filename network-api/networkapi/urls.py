@@ -53,7 +53,7 @@ urlpatterns = list(filter(None, [
     ),
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-    url('^sitemap\.xml$', sitemap) if settings.DEBUG else None,
+    url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
 ]))
 
 # Anything that needs to respect the localised
