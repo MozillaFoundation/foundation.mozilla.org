@@ -3,6 +3,7 @@ from django.db import Error
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
+from django.core.cache import cache
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
 from rest_framework.response import Response
@@ -28,8 +29,13 @@ def get_average_creepiness(product):
 
 
 def buyersguide_home(request):
-    products = [p.to_dict() for p in Product.objects.all()]
-    products.sort(key=lambda p: get_average_creepiness(p))
+    products = cache.get('sorted_product_dicts')
+
+    if not products:
+        products = [p.to_dict() for p in Product.objects.all()]
+        products.sort(key=lambda p: get_average_creepiness(p))
+        cache.set('sorted_product_dicts', products, 86400)
+
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
