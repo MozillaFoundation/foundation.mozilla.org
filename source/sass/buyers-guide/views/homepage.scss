@@ -14,6 +14,17 @@
   .product-listing {
     margin-top: -88px;
     padding-bottom: 88px;
+
+    .user-rated {
+      font-family: "Zilla Slab";
+      font-size: 18px;
+      color: #9B9B9B;
+      font-style: italic;
+
+      @media screen and (min-width: 750px) {
+        font-size: 24px;
+      }
+    }
   }
 
   .product-box {
