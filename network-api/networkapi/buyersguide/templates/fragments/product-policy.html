@@ -1,5 +1,5 @@
 {% with level=product.privacy_policy_reading_level %}
-<div class="criterion criterion-{% if level == 0 %}none{% else %}good{% endif %}">
+<div class="criterion criterion-{% if level == "0" %}none{% else %}good{% endif %}">
   <div class="primary-info">
     <p class="d-flex align-items-center">
       <span>
@@ -11,7 +11,7 @@
       </span>
     </p>
     <p class="rating">
-      {% if product.privacy_policy_reading_level == 0 %}
+      {% if product.privacy_policy_reading_level == "0" %}
         Can't determine
       {% else %}
         {% if product.privacy_policy_url %}
