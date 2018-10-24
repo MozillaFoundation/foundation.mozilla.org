@@ -66,9 +66,9 @@ env = environ.Env(
     SLACK_WEBHOOK_RA=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CORAL_TALK_SERVER_URL=(str, ''),
-    MEMCACHEDCLOUD_PASSWORD=(str, ''),
-    MEMCACHEDCLOUD_SERVERS=(str, ''),
-    MEMCACHEDCLOUD_USERNAME=(str, ''),
+    MEMCACHIER_PASSWORD=(str, ''),
+    MEMCACHIER_SERVERS=(str, ''),
+    MEMCACHIER_USERNAME=(str, ''),
 )
 
 # Read in the environment
@@ -271,15 +271,15 @@ TEMPLATES = [
     },
 ]
 
-if env('MEMCACHEDCLOUD_SERVERS'):
+if env('MEMCACHIER_SERVERS'):
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-            'LOCATION': env('MEMCACHEDCLOUD_SERVERS'),
+            'LOCATION': env('MEMCACHIER_SERVERS'),
             'OPTIONS': {
                 'binary': True,
-                'username': env('MEMCACHEDCLOUD_USERNAME'),
-                'password': env('MEMCACHEDCLOUD_PASSWORD')
+                'username': env('MEMCACHIER_USERNAME'),
+                'password': env('MEMCACHIER_PASSWORD')
             }
         }
     }
