@@ -160,7 +160,8 @@ let main = {
 
     if (criterionTargets.length > 0) {
       Array.from(criterionTargets).forEach(element => {
-        let list = element.querySelector("ul");
+        let list = element.querySelector(`ul.values`);
+
         ReactDOM.render(<Criterion data={list}></Criterion>, element);
       });
     }
