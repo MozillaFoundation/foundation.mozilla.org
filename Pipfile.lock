@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "966f5a1c341f726f85d623cdb90cbec6cb578a44a1b1c3cef5ef62151fe28745"
+            "sha256": "4516ecb69735c761af8d2be3ba9688c66f16cffe518017f852439c4917cc3216"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -126,6 +126,14 @@
                 "sha256:40149f959edefc9ab0824e8a7437298e8ca232b0aaa4762224c580ced3f1db17"
             ],
             "version": "==0.12.2"
+        },
+        "django-redis": {
+            "hashes": [
+                "sha256:15b47faef6aefaa3f47135a2aeb67372da300e4a4cf06809c66ab392686a2155",
+                "sha256:a90343c33a816073b735f0bed878eaeec4f83b75fcc0dce2432189b8ea130424"
+            ],
+            "index": "pypi",
+            "version": "==4.9.0"
         },
         "django-storages": {
             "hashes": [
@@ -316,13 +324,6 @@
             ],
             "version": "==1.6.4"
         },
-        "pylibmc": {
-            "hashes": [
-                "sha256:fc54e28a9f1b5b2ec0c030da29c7ad8a15c2755bd98aaa4142eaf419d5fabb33"
-            ],
-            "index": "pypi",
-            "version": "==1.5.2"
-        },
         "python-dateutil": {
             "hashes": [
                 "sha256:1adb80e7a782c12e52ef9a8182bebeb73f1d7e24e374397af06fb4956c8dc5c0",
@@ -352,6 +353,13 @@
                 "sha256:91e3ccf2c344ffaa6defba1ce7f38f97026943f675b7703f44789768e4cb0ece"
             ],
             "version": "==2018.6"
+        },
+        "redis": {
+            "hashes": [
+                "sha256:8a1900a9f2a0a44ecf6e8b5eb3e967a9909dfed219ad66df094f27f7d6f330fb",
+                "sha256:a22ca993cea2962dbb588f9f30d0015ac4afcc45bee27d3978c0dbe9e97c6c0f"
+            ],
+            "version": "==2.10.6"
         },
         "requests": {
             "hashes": [

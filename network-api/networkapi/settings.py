@@ -66,9 +66,7 @@ env = environ.Env(
     SLACK_WEBHOOK_RA=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CORAL_TALK_SERVER_URL=(str, ''),
-    MEMCACHIER_PASSWORD=(str, ''),
-    MEMCACHIER_SERVERS=(str, ''),
-    MEMCACHIER_USERNAME=(str, ''),
+    REDIS_URL=(str, ''),
 )
 
 # Read in the environment
@@ -271,15 +269,13 @@ TEMPLATES = [
     },
 ]
 
-if env('MEMCACHIER_SERVERS'):
+if env('REDIS_URL'):
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-            'LOCATION': env('MEMCACHIER_SERVERS'),
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': env('REDIS_URL'),
             'OPTIONS': {
-                'binary': True,
-                'username': env('MEMCACHIER_USERNAME'),
-                'password': env('MEMCACHIER_PASSWORD')
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient'
             }
         }
     }
