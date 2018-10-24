@@ -1,26 +1,26 @@
-{% with level=product.privacy_policy_reading_level %}
+{% with level=product.privacy_policy_reading_level policy_url=product.privacy_policy_url level_url=product.privacy_policy_reading_level_url %}
 <div class="criterion criterion-{% if level == "0" %}none{% else %}good{% endif %}">
   <div class="primary-info">
     <p class="d-flex align-items-center">
       <span>
-          Reading level of the {% if product.privacy_policy_url %}
-          <a target="_blank" href="{{ product.privacy_policy_url }}">Privacy policy</a>
+          Reading level for {% if policy_url %}
+          <a target="_blank" href="{{ policy_url }}">Privacy policy</a>
         {% else %}
           Privacy policy
         {% endif %}
       </span>
     </p>
     <p class="rating">
-      {% if product.privacy_policy_reading_level == "0" %}
+      {% if level == "0" %}
         Can't determine
       {% else %}
-        {% if product.privacy_policy_url %}
-          <a target="_blank" href="{{ product.privacy_policy_reading_level_url }}">
+        {% if level_url %}
+          <a target="_blank" href="{{ level_url }}">
         {% endif %}
 
         Grade {{ product.privacy_policy_reading_level }}
 
-        {% if product.privacy_policy_url %}
+        {% if level_url %}
           </a>
         {% endif %}
       {% endif %}
