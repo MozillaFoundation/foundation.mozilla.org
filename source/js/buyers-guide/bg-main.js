@@ -160,21 +160,8 @@ let main = {
 
     if (criterionTargets.length > 0) {
       Array.from(criterionTargets).forEach(element => {
-        let meta = {};
-
-        try {
-          meta = JSON.parse(element.dataset.meta);
-        } catch (e) {
-          if (!element.dataset) {
-            console.warn(`element did not have a dataset:`, element);
-          } else if (!element.dataset.meta) {
-            console.warn(`element did not have a data-meta attribute:`, element);
-          } else {
-            console.warn(`could not parse JSON`, element, element.dataset.meta);
-          }
-        }
-
-        ReactDOM.render(<Criterion meta={meta}></Criterion>, element);
+        let list = element.querySelector("ul");
+        ReactDOM.render(<Criterion data={list}></Criterion>, element);
       });
     }
   }

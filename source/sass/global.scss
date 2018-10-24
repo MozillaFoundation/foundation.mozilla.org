@@ -91,3 +91,7 @@ button:hover {
     color: transparentize($white, 0.5);
   }
 }
+
+.hidden {
+  display: none !important;
+}

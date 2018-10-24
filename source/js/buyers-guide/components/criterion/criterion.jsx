@@ -1,12 +1,37 @@
 import React from 'react';
 
+// Helper function to get the text content from
+// a DOM element. Returns false if the query
+// selector fails to find an element.
+function getValueFrom(e, qs) {
+  let v = e.querySelector(qs);
+  return v ? v.textContent : false;
+}
+
+// These values are currently based on the list that is set up
+// in networkapi/buyersguide/templates/tags/criterion.html
+const PRODUCT_PROPERTIES = [
+  `class`,
+  `id`,
+  `question`,
+  `helptext`,
+  `answer`
+];
+
 export default class Criterion extends React.Component {
   constructor(props) {
     super(props);
 
+    let meta = {};
+
+    PRODUCT_PROPERTIES.forEach(p => {
+      meta[p] = getValueFrom(this.props.data, `.${p}`);
+    });
+
     this.state = {
-      hasHelptext: !!this.props.meta.helptext,
-      helptextVisible: false
+      hasHelptext: !!meta.helptext,
+      helptextVisible: false,
+      meta
     };
   }
 
@@ -17,7 +42,7 @@ export default class Criterion extends React.Component {
   }
 
   render() {
-    let meta = this.props.meta;
+    let meta = this.state.meta;
     let fullClass = `criterion criterion-${meta.class} criterion-${meta.id}`;
 
     return (

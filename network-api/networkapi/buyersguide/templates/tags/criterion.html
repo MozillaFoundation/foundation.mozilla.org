@@ -1,1 +1,9 @@
-<div class="criterion-target" data-meta='{"class": "{{ class }}","id": "{{ id }}","question": "{{ question }}","helptext": "{{ helptext | addslashes }}","answer": "{% if id == "privacy_policy_reading_level" %}{{answer}}{% else %}{{ answer | addslashes }}{% endif %}"}'></div>
+<div class="criterion-target">
+  <ul class="hidden">
+    <li class="class">{{ class }}</li>
+    <li class="id">{{ id }}</li>
+    <li class="question">{{ question | safe}}</li>
+    <li class="helptext">{{ helptext | safe}}</li>
+    <li class="answer">{{ answer | safe }}</li>
+  </ul>
+</div>
