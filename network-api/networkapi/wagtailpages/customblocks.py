@@ -362,7 +362,7 @@ class ProfileById(blocks.StructBlock):
         # FIXME: the protocol should be part of the pulse api variable.
         #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
 
-        url = "https://{pulse_api}/api/pulse/v2/profiles/?format=json&ids={ids}".format(
+        url = "{pulse_api}/api/pulse/v2/profiles/?format=json&ids={ids}".format(
             pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
             ids=ids
         )
@@ -447,7 +447,7 @@ class LatestProfileList(blocks.StructBlock):
         # FIXME: the protocol should be part of the pulse api variable.
         #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
 
-        url = "https://{pulse_api}/api/pulse/v2/profiles/?{query}".format(
+        url = "{pulse_api}/api/pulse/v2/profiles/?{query}".format(
             pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
             query=parse.urlencode(query_args)
         )
