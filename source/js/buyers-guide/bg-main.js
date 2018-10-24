@@ -29,6 +29,7 @@ let main = {
 
     if (allowTracking) {
       ReactGA.initialize(`UA-87658599-6`);
+      ReactGA.pageview(window.location.pathname);
     }
 
     this.enableCopyLinks(allowTracking);
