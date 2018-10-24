@@ -196,7 +196,7 @@ export default class CreepVote extends React.Component {
     }
 
     return (
-      <div className="creep-vote py-5">
+      <div className="creep-vote">
         { voteContent }
       </div>
     );

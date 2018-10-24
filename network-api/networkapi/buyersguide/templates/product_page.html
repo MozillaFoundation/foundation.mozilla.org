@@ -1,9 +1,9 @@
 {% extends "./bg_base.html" %}
 
-{% load criterion %}
 {% load product-update %}
 {% load yes_no %}
 {% load env %}
+
 {% block og-title %}
   <meta property="og:title" content="privacy not included - {{ product.name }}" />
 {% endblock %}
@@ -24,7 +24,7 @@
         <div class="body-large mb-4 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
 
-      <div class="creep-vote-target my-5" data-product-name="{{product.name}}">
+      <div class="creep-vote-target my-5 py-5" data-product-name="{{product.name}}">
           {% csrf_token %}
           <input type="hidden" name="productID" value="{{ product.id }}">
           <input type="hidden" name="votes" value="{{ product.votes | safe }}">
@@ -65,39 +65,24 @@
       <h3 class="h3-heading h3-heading-small">What does it know about me?</h3>
 
       <div class="mb-5">
-        {# TODO: criterion tag and the following template code need to be cleaned up. See https://github.com/mozilla/foundation.mozilla.org/issues/2003  #}
-        {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption product.uses_encryption_helptext %}
-        {% with reading_level="Grade "|add:product.privacy_policy_reading_level %}
-        {% if product.privacy_policy_url %}
-          {% if product.privacy_policy_reading_level_url %}
-            {% criterion "privacy_policy_reading_level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_url|add:"\\\">Privacy policy</a> reading level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_reading_level_url|add:"\\\">"|add:reading_level|add:"</a>" product.privacy_policy_helptext %}
-          {% else %}
-            {% criterion "privacy_policy_reading_level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_url|add:"\\\">Privacy policy</a> reading level" reading_level product.privacy_policy_helptext %}
-          {% endif %}
-        {% else %}
-          {% if product.privacy_policy_reading_level_url %}
-            {% criterion "privacy_policy_reading_level" "Privacy policy reading level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_reading_level_url|add:"\\\">"|add:reading_level|add:"</a>" product.privacy_policy_helptext %}
-          {% else %}
-            {% criterion "privacy_policy_reading_level" "Privacy policy reading level" reading_level product.privacy_policy_helptext %}
-          {% endif %}
-        {% endif %}
-        {% endwith %}
-        {% criterion "share_data" "Shares your information with 3rd parties for unexpected reasons" product.share_data product.share_data_helptext %}
+        {% include "fragments/product-criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" %}
+        {% include "fragments/product-policy.html" with product=product %}
+        {% include "fragments/product-criterion.html"  with  value=product.share_data  bad=True  help=product.share_data_helptext  label="Shares your information with 3rd parties for unexpected reasons" %}
       </div>
 
       <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
 
       <div class="mb-5">
-        {% criterion "must_change_default_password" "If a password is required, you must change the default password" product.must_change_default_password product.must_change_default_password_helptext "Not required" %}
-        {% criterion "security_updates" "Automatic security updates" product.security_updates product.security_updates_helptext %}
-        {% criterion "delete_data" "Deletes data it stores on you" product.delete_data product.delete_data_helptext %}
-        {% criterion "child_rules" "Has parental controls" product.child_rules product.child_rules_helptext %}
+        {% include "fragments/product-criterion.html"  with  value=product.must_change_default_password  bad=False  help=product.must_change_default_password_helptext   label="If a password is required, you must change the default password" %}
+        {% include "fragments/product-criterion.html"  with  value=product.security_updates              bad=False  help=product.security_updates_helptext               label="Automatic security updates" %}
+        {% include "fragments/product-criterion.html"  with  value=product.delete_data                   bad=False  help=product.delete_data_helptext                    label="Deletes data it stores on you" %}
+        {% include "fragments/product-criterion.html"  with  value=product.child_rules                   bad=False  help=product.child_rules_helptext                    label="Has parental controls "%}
       </div>
 
       <h3 class="h3-heading h3-heading-small">Company shows it cares about its customers?</h3>
 
       <div class="mb-5">
-        {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
+          {% include "fragments/product-criterion.html"  with  value=product.manage_security  bad=False  help=product.manage_security_helptext label="Company manages security vulnerabilities"%}
       </div>
 
       <h4 class="normal">Customer support</h4>
