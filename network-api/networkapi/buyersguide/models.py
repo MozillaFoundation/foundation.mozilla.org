@@ -22,8 +22,9 @@ def get_product_image_upload_path(instance, filename):
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
 
 class Update(models.Model):
-    source = models.CharField(
-        max_length=256,
+    source = models.URLField(
+        max_length=2048,
+        help_text='Link to source',
         blank="True",
     )
 
@@ -229,15 +230,6 @@ class Product(models.Model):
     )
 
     security_updates_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    need_account = models.NullBooleanField(
-        help_text='Do you need an account to use this product?',
-    )
-
-    need_account_helptext = models.TextField(
         max_length=5000,
         blank="True"
     )
