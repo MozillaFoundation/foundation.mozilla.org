@@ -34,7 +34,7 @@ export default class CreepVote extends React.Component {
       totalVotes,
       creepiness: 50,
       confidence: undefined,
-      didVote: true,
+      didVote: false,
       majority: {
         creepiness: creepinessId,
         confidence: confidence[0] > confidence[1] ? 0 : 1
