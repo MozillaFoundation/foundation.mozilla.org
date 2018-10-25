@@ -36,25 +36,50 @@ class Command(BaseCommand):
                 'product': product.name,
                 'creepiness': votes['creepiness']['average'],
                 'creepiness_votes': creepiness_votes,
-                'wouldbuy': votes['confidence']['1'],
-                'wouldnotbuy': votes['confidence']['0']
+                'would_buy': votes['confidence']['1'],
+                'would_not_buy': votes['confidence']['0']
             })
 
         return stats
 
+    def generate_insert_values(self, stats):
+        retval = ''
+        for index, p_data in enumerate(stats):
+            retval += f'({ p_data["id"] }, \'{ p_data["product"] }\', { p_data["creepiness"] }, ' \
+                      f'{ p_data["creepiness_votes"] }, { p_data["would_buy"] } , { p_data["would_not_buy"] })'
+            if index != len(stats) - 1:
+                retval += ', '
+
+        return retval
 
     def handle(self, *args, **options):
         connection = None
         try:
-            connection = self.setup_db_connection()
-            cursor = connection.cursor()
+            print('Fetching Product data')
             stats = self.fetch_stats()
-            print(stats)
-            cursor.execute('SELECT version()')
-            db_version = cursor.fetchone()
-            print(db_version)
+
+            print('Generating Upsert Query')
+            sql = 'INSERT INTO public.product_stats\n' \
+                  f' VALUES { self.generate_insert_values(stats) }\n' \
+                  'ON CONFLICT (id) DO UPDATE\n' \
+                  'SET product_name = EXCLUDED.product_name,\n' \
+                  'creepiness = EXCLUDED.creepiness,\n' \
+                  'creepiness_votes = EXCLUDED.creepiness_votes,\n' \
+                  'would_buy = EXCLUDED.would_buy,\n' \
+                  'would_not_buy = EXCLUDED.would_not_buy'
+
+            print('Opening connection to DB')
+            connection = self.setup_db_connection()
+            connection.set_session(autocommit=True)
+            cursor = connection.cursor()
+
+            print('Executing Upsert')
+            cursor.execute(sql)
+            print('Done!')
+
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+
         finally:
             if connection is not None:
                 connection.close()
