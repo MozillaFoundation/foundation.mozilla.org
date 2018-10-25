@@ -1,9 +1,10 @@
-from urllib.parse import urlparse
 import psycopg2
+from urllib.parse import urlparse
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from networkapi.buyersguide.models import Product
+
 
 class Command(BaseCommand):
     help = 'Generate statistical data about privacynotincluded activity, for internal' \
