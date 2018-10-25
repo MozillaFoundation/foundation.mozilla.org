@@ -35,6 +35,9 @@ urlpatterns = list(filter(None, [
     # Buyer's Guide / Privacy Not Included
     url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
 
+    # And for good measure, because these prefixed URLs keep poppung up:
+    url(r'^en/privacynotincluded/', include('networkapi.buyersguide.urls')),
+
     # network API routes:
 
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
@@ -53,7 +56,7 @@ urlpatterns = list(filter(None, [
     ),
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-    url('^sitemap\.xml$', sitemap) if settings.DEBUG else None,
+    url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
 ]))
 
 # Anything that needs to respect the localised

@@ -14,12 +14,18 @@
       <div class="product-listing bg-white col-12 col-md-10 offset-md-1">
         <h1 class="h1-heading text-center mt-4">Shop Safe This Holiday Season</h1>
 
-        <div class="row px-5 mx-4">
-          <p class="col body-large text-center">
+        <div class="row justify-content-center">
+          <p class="col col-lg-9 body-large text-center">
               Teddy bears that connect to the internet.
               Smart speakers that listen to commands.
               Great gifts—unless they spy on you.
               We created this guide to help you buy safe, secure products this holiday season.
+          </p>
+        </div>
+
+        <div class="row justify-content-center">
+          <p class="col col-lg-9 text-center user-rated">
+            Products below are rated by users. Click on a product to rate it.
           </p>
         </div>
 
@@ -39,7 +45,7 @@
             {% endif %}
             <a class="" href="/privacynotincluded/products/{{ product.slug }}">
               <div>
-                <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
+                <img class="thumb-border" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="{{product.name}}">
               </div>
             </a>
           </div>

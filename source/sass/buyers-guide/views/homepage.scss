@@ -1,8 +1,12 @@
 #pni-home {
   .page-header {
+    @media (max-width: $bp-md) {
+      height: 200px;
+    }
+
     height: 304px;
     background-image: url(/_images/buyers-guide/home-banner.jpg);
-    background-size: auto 400px;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
   }
@@ -10,6 +14,17 @@
   .product-listing {
     margin-top: -88px;
     padding-bottom: 88px;
+
+    .user-rated {
+      font-family: "Zilla Slab";
+      font-size: 18px;
+      color: #9b9b9b;
+      font-style: italic;
+
+      @media screen and (min-width: 750px) {
+        font-size: 24px;
+      }
+    }
   }
 
   .product-box {

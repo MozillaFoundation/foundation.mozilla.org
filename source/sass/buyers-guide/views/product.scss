@@ -4,6 +4,18 @@
 
 .product-detail {
   margin-top: -88px;
+
+  .copy-link {
+    order: 3;
+
+    @media (min-width: $bp-md) {
+      order: unset;
+    }
+  }
+
+  h4 {
+    font-family: "Nunito Sans";
+  }
 }
 
 .product-price {
@@ -22,6 +34,11 @@
   display: flex;
   align-items: center;
   word-break: break-word;
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-md) {
+    margin-bottom: 0;
+  }
 
   img {
     margin-right: 15px;
@@ -101,7 +118,6 @@
 .criterion-share_data.criterion-true,
 .criterion-must_change_default_password.criterion-false,
 .criterion-security_updates.criterion-false,
-.criterion-need_account.criterion-false,
 .criterion-delete_data.criterion-false,
 .criterion-child_rules.criterion-false,
 .criterion-manage_security.criterion-false {
@@ -125,10 +141,6 @@
 }
 
 .product-update {
-  .h6-heading {
-    text-transform: uppercase;
-  }
-
   .title {
     font-family: "Zilla Slab";
     font-size: 22px;

@@ -11,19 +11,18 @@
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
-  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="500"/>
+  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="400" alt="{{product.name}}"/>
 </div>
 <div class="container">
 
   <div class="row">
     <div class="product-detail bg-white p-5 col-12 col-md-10 offset-md-1">
       <div class="product-price mb-3">{{product.company}} ${{product.price}}</div>
-
-      <div class="d-flex justify-content-between align-items-center">
-        <h2 class="h1-heading">{{product.name}}</h2>
-        <a class="links-btn copy-link" href="#" data-url={{product.url}}>Copy link</a>
+      <div class="row intro d-flex justify-content-between align-items-center">
+        <h2 class="h1-heading col-md-10"><a href="{{product.url}}" target="_blank">{{product.name}}</a></h2>
+        <a class="links-btn copy-link col-md-2 text-md-right" href="#" data-url={{product.url}}>Copy link</a>
+        <div class="body-large mb-4 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
-      <div class="body-large mb-5">{{product.blurb}}</div>
 
       <div class="creep-vote-target my-5" data-product-name="{{product.name}}">
           {% csrf_token %}
@@ -66,13 +65,24 @@
       <h3 class="h3-heading h3-heading-small">What does it know about me?</h3>
 
       <div class="mb-5">
+        {# TODO: criterion tag and the following template code need to be cleaned up. See https://github.com/mozilla/foundation.mozilla.org/issues/2003  #}
         {% criterion "uses_encryption" "Product uses encryption" product.uses_encryption product.uses_encryption_helptext %}
+        {% with reading_level="Grade "|add:product.privacy_policy_reading_level %}
         {% if product.privacy_policy_url %}
-          {% criterion "privacy_policy_reading_level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_url|add:"\\\">Privacy policy</a> reading level" product.privacy_policy_reading_level product.privacy_policy_helptext %}
+          {% if product.privacy_policy_reading_level_url %}
+            {% criterion "privacy_policy_reading_level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_url|add:"\\\">Privacy policy</a> reading level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_reading_level_url|add:"\\\">"|add:reading_level|add:"</a>" product.privacy_policy_helptext %}
+          {% else %}
+            {% criterion "privacy_policy_reading_level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_url|add:"\\\">Privacy policy</a> reading level" reading_level product.privacy_policy_helptext %}
+          {% endif %}
         {% else %}
-          {% criterion "privacy_policy_reading_level" "Privacy policy reading level" product.privacy_policy_reading_level product.privacy_policy_helptext %}
+          {% if product.privacy_policy_reading_level_url %}
+            {% criterion "privacy_policy_reading_level" "Privacy policy reading level" "<a target=\\\"_blank\\\" href=\\\""|add:product.privacy_policy_reading_level_url|add:"\\\">"|add:reading_level|add:"</a>" product.privacy_policy_helptext %}
+          {% else %}
+            {% criterion "privacy_policy_reading_level" "Privacy policy reading level" reading_level product.privacy_policy_helptext %}
+          {% endif %}
         {% endif %}
-        {% criterion "share_data" "Shares your information with third parties" product.share_data product.share_data_helptext %}
+        {% endwith %}
+        {% criterion "share_data" "Shares your information with 3rd parties for unexpected reasons" product.share_data product.share_data_helptext %}
       </div>
 
       <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
@@ -80,7 +90,6 @@
       <div class="mb-5">
         {% criterion "must_change_default_password" "If a password is required, you must change the default password" product.must_change_default_password product.must_change_default_password_helptext "Not required" %}
         {% criterion "security_updates" "Automatic security updates" product.security_updates product.security_updates_helptext %}
-        {% criterion "need_account" "Requires an account" product.need_account product.need_account_helptext %}
         {% criterion "delete_data" "Deletes data it stores on you" product.delete_data product.delete_data_helptext %}
         {% criterion "child_rules" "Has parental controls" product.child_rules product.child_rules_helptext %}
       </div>
@@ -91,6 +100,7 @@
         {% criterion "manage_security" "Company manages security vulnerabilities" product.manage_security product.manage_security_helptext %}
       </div>
 
+      <h4 class="normal">Customer support</h4>
       <div class="row mb-5">
         <div class="col-12 col-md-3">
           <div class="spy">
@@ -111,7 +121,7 @@
             <div>
               <strong class="d-block">Live Chat</strong>
               {% if product.live_chat %}
-              <a target="_blank" href={{ product.live_chat }}>Yes</a>
+              <a id="product-live-chat" target="_blank" href={{ product.live_chat }}>Yes</a>
               {% else %}
               No
               {% endif %}
@@ -124,7 +134,7 @@
             <div>
               <strong class="d-block">Email</strong>
               {% if product.email %}
-              <a href="mailto:{{ product.email }}">Yes</a>
+              <a href="{{ product.email }}">Yes</a>
               {% else %}
               No
               {% endif %}
@@ -160,19 +170,19 @@
   <div class="row">
     <div class="p-5 col-12 col-md-10 offset-md-1">
 
+      {% if product.updates|length > 0 %}
       <h3 class="h3-heading my-5">Updates</h3>
-
-      {% for product in product.updates.all %}
+      {% for product in product.updates %}
         {% productUpdate product.source product.title product.author product.snippet %}
       {% endfor %}
+      {% endif %}
 
-      <h3 class="h3-heading mb-3 mt-5">Related Products</h3>
-
+      <h3 class="h3-heading mt-5 mb-3">Related Products</h3>
       <div class="row">
       {% for product in product.related_products %}
-      <div class="col-12 col-md-3">
-        <a href="/privacynotincluded/products/{{ product.slug }}">
-          <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
+        <a class="d-block" href="/privacynotincluded/products/{{ product.slug }}">
+          <img class="thumb-border" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
         </a>
       </div>
       {% endfor %}

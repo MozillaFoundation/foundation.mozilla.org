@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
@@ -7,22 +8,62 @@ import Creepometer from './components/creepometer/creepometer.jsx';
 import Criterion from './components/criterion/criterion.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
+import ProductGA from './product-analytics.js';
 
 let main = {
   init() {
-    this.enableCopyLinks();
+    let _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack,
+        fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/),
+        ie10Match = navigator.userAgent.match(/MSIE 10/i),
+        w8Match = navigator.appVersion.match(/Windows NT 6.2/);
+
+    if (fxMatch && Number(fxMatch[1]) < 32) {
+      _dntStatus = `Unspecified`;
+    } else if (ie10Match && w8Match) {
+      _dntStatus = `Unspecified`;
+    } else {
+      _dntStatus = { '0': `Disabled`, '1': `Enabled` }[_dntStatus] || `Unspecified`;
+    }
+
+    let allowTracking = (_dntStatus !== `Enabled`);
+
+    if (allowTracking) {
+      ReactGA.initialize(`UA-87658599-6`);
+      ReactGA.pageview(window.location.pathname);
+    }
+
+    this.enableCopyLinks(allowTracking);
     this.injectReactComponents();
+
     primaryNav.init();
+
     if (document.getElementById(`pni-home`)) {
       HomepageSlider.init();
     }
+
+    if (document.getElementById(`pni-product-page`)) {
+      if (allowTracking) {
+        ProductGA.init();
+      }
+    }
   },
 
-  enableCopyLinks() {
+  enableCopyLinks(allowAnalytics) {
     if (document.querySelectorAll(`.copy-link`)) {
       Array.from(document.querySelectorAll(`.copy-link`)).forEach(element => {
         element.addEventListener(`click`, (event) => {
           event.preventDefault();
+
+          if (allowAnalytics) {
+            let productBox = document.querySelector(`.product-detail .h1-heading`);
+            let productTitle = productBox ? productBox.textContent : `unknown product`;
+
+            ReactGA.event({
+              category: `product`,
+              action: `copy link tap`,
+              label: `copy link ${productTitle}`
+            });
+          }
 
           let textArea = document.createElement(`textarea`);
 
@@ -80,8 +121,10 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    if (document.querySelectorAll(`.creep-vote-target`)) {
-      Array.from(document.querySelectorAll(`.creep-vote-target`)).forEach(element => {
+    let creepVoteTargets = document.querySelectorAll(`.creep-vote-target`);
+
+    if (creepVoteTargets.length > 0) {
+      Array.from(creepVoteTargets).forEach(element => {
         let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
         let productName = element.dataset.productName;
         let productID = element.querySelector(`input[name=productID]`).value;
@@ -103,15 +146,33 @@ let main = {
       });
     }
 
-    if (document.querySelectorAll(`.creepometer-target`)) {
-      Array.from(document.querySelectorAll(`.creepometer-target`)).forEach(element => {
-        ReactDOM.render(<Creepometer initialValue={element.dataset.initialValue} />, element);
+    let creepometerTargets = document.querySelectorAll(`.creepometer-target`);
+
+    if (creepometerTargets.length > 0) {
+      Array.from(creepometerTargets).forEach(element => {
+        let initialValue = element.dataset.initialValue;
+
+        ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
       });
     }
 
-    if (document.querySelectorAll(`.criterion-target`)) {
-      Array.from(document.querySelectorAll(`.criterion-target`)).forEach(element => {
-        let meta = JSON.parse(element.dataset.meta);
+    let criterionTargets = document.querySelectorAll(`.criterion-target`);
+
+    if (criterionTargets.length > 0) {
+      Array.from(criterionTargets).forEach(element => {
+        let meta = {};
+
+        try {
+          meta = JSON.parse(element.dataset.meta);
+        } catch (e) {
+          if (!element.dataset) {
+            console.warn(`element did not have a dataset:`, element);
+          } else if (!element.dataset.meta) {
+            console.warn(`element did not have a data-meta attribute:`, element);
+          } else {
+            console.warn(`could not parse JSON`, element, element.dataset.meta);
+          }
+        }
 
         ReactDOM.render(<Criterion meta={meta}></Criterion>, element);
       });
