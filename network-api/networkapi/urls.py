@@ -36,7 +36,7 @@ urlpatterns = list(filter(None, [
     # Buyer's Guide / Privacy Not Included
     url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
 
-    # And for good measure, because these prefixed URLs keep poppung up:
+    # And for good measure, because these prefixed URLs keep popping up:
     remove_locale_for_buyers_guide,
 
     # network API routes:
