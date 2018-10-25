@@ -66,6 +66,7 @@ env = environ.Env(
     SLACK_WEBHOOK_RA=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CORAL_TALK_SERVER_URL=(str, ''),
+    PNI_STATS_DB_URL=(str, ''),
     REDIS_URL=(str, ''),
 )
 
@@ -519,3 +520,6 @@ TESTING = 'test' in sys.argv
 # Coral Talk Server URL
 
 CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
+
+# privacynotincluded statistics DB
+PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
