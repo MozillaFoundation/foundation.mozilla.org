@@ -333,6 +333,10 @@ class Product(models.Model):
         model_dict = model_to_dict(self)
         model_dict['votes'] = self.votes
         model_dict['slug'] = self.slug
+        try:
+            model_dict['reading_grade'] = int(self.privacy_policy_reading_level)
+        except ValueError:
+            model_dict['reading_grade'] = 0
         return model_dict
 
     def save(self, *args, **kwargs):
