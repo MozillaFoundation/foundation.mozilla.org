@@ -1,0 +1,82 @@
+.donate-modal {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  width: 100vw;
+  bottom: 0;
+  height: 0;
+  max-height: 50vh;
+  transition: height 0.3s ease-in-out;
+  background: #333;
+  background-image: url(/_images/buyers-guide/earth.jpg);
+  background-size: auto 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  &.show {
+    height: 25em;
+
+    @media (min-width: 750px) {
+      height: 22em;
+    }
+
+    @media (min-width: 900px) {
+      height: 20em;
+    }
+
+    @media (min-width: 1160px) {
+      height: 16em;
+    }
+  }
+
+  .white {
+    color: white;
+  }
+
+  .close {
+    span {
+      position: absolute;
+      top: 0;
+      right: 18px;
+      height: 44px;
+      width: 44px;
+      font-family: Arial;
+      font-weight: 300;
+      font-size: 17px;
+      vertical-align: baseline;
+      display: inline-block;
+      text-align: right;
+      padding: 5px;
+    }
+  }
+
+  .content {
+
+
+    .d-flex > * {
+      width: 100%;
+    }
+
+    h1 {
+      font-family: "Zilla Slab";
+      font-weight: 200;
+      font-size: 34px;
+      line-height: 42px;
+    }
+
+    h2 {
+      font-family: "Zilla Slab";
+      font-size: 22px;
+      line-height: 28px;
+      color: white;
+    }
+
+    a.btn {
+      height: 2em;
+      width: 13em;
+      margin-left: 9em!important;
+      margin-top: -3em!important;
+      padding-top: 0.3em;
+    }
+  }
+}

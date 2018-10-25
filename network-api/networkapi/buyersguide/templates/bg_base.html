@@ -21,6 +21,12 @@
     <title>Mozilla - *privacy not included</title>
   </head>
   <body class="pni" id="pni-{% block body-id %}{% endblock %}">
+    <script src="/_js/bg-main.compiled.js" defer="defer"></script>
+
+    <!-- these will be populated by bg-main.js if needed -->
+    <div class="donate-modal"></div>
+    <div class="donate-modal-mobile"></div>
+
     {% include "./primary_nav.html" %}
     <div class="underneath-screen-overlay">
       <div class="category-nav">
@@ -62,7 +68,6 @@
       </footer>
     </div>
 
-    <script src="/_js/bg-main.compiled.js" defer="defer"></script>
     {% block extra_scripts %}{% endblock %}
   </body>
 </html>

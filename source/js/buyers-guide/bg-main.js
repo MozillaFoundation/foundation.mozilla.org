@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
+import DonateModal from './components/donate-modal/donate-modal.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
@@ -167,6 +168,13 @@ let main = {
         ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
       });
     }
+
+    let donationModal = document.querySelector(`.donate-modal`);
+
+    if (donationModal) {
+      ReactDOM.render(<DonateModal />, donationModal);
+    }
+
   }
 };
 
