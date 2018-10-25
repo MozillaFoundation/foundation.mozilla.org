@@ -304,7 +304,7 @@ Every sunday, a script runs on prod dyno to remove non-staff accounts created on
 - `is_staff` is at True,
 - the account is in a group.
 
-#### Generate vote statistics for DataStudio
+#### Generating vote statistics for Data Studio
 
 The `generate_pni_stats` management task can run periodically to summarize vote totals for each product in the buyer's guide. Data is inserted or updated into the database specified By `PNI_STATS_DB_URL`. 
 
