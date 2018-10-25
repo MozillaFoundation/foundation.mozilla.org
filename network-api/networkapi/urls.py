@@ -35,6 +35,9 @@ urlpatterns = list(filter(None, [
     # Buyer's Guide / Privacy Not Included
     url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
 
+    # And for good measure, because these prefixed URLs keep poppung up:
+    url(r'^en/privacynotincluded/', include('networkapi.buyersguide.urls')),
+
     # network API routes:
 
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
