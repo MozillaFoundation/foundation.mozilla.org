@@ -18,20 +18,20 @@ export default class LikelyhoodChart extends React.Component {
           <tbody>
             <tr className="likely">
               <th>
-                <span className="likely-label">Likely</span>
+                <span className="likely-label">likely</span>
               </th>
               <td className="likelyhood">
                 <span className="bar" style={{width: `${100 - perc}%`,}}></span>
-                <span className="likelyhood-words">{100 - perc}% Likely to buy it</span>
+                <span className="likelyhood-words">{100 - perc}% likely to buy it</span>
               </td>
             </tr>
             <tr className="unlikely">
               <th>
-                <span className="likely-label">Not likely</span>
+                <span className="likely-label">not likely</span>
               </th>
               <td className="likelyhood">
                 <span className="bar" style={{width: `${perc}%`,}}></span>
-                <span className="likelyhood-words">{perc}% Not likely to buy it</span>
+                <span className="likelyhood-words">{perc}% not likely to buy it</span>
               </td>
             </tr>
           </tbody>
