@@ -10,9 +10,6 @@ class Command(BaseCommand):
     help = 'Generate statistical data about privacynotincluded activity, for internal' \
            ' dashboards and update a DB connected to data studio'
 
-    def add_arguments(self, parser):
-        pass
-
     def setup_db_connection(self):
         STATS_DB = urlparse(settings.PNI_STATS_DB_URL)
         return psycopg2.connect(
