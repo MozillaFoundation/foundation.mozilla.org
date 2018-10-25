@@ -10,7 +10,11 @@
       <span>{% if value != None %}
         {% if value is True %} Yes {% else %} No {% endif %}
       {% else %}
-        Can't determine
+        {% if unknown_label %}
+          {{ unknown_label }}
+        {% else %}
+          Can't determine
+        {% endif %}
       {% endif %}<span class="emoji"></span>
     </div>
   </div>
