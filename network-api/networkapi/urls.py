@@ -64,7 +64,7 @@ urlpatterns = list(filter(None, [
 # url format with /<language_code>/ infixed needs
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
-   url(r'', include(wagtail_urls)),
+    url(r'', include(wagtail_urls)),
 )
 
 if settings.USE_S3 is not True:
