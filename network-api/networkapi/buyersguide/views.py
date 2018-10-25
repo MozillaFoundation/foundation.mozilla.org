@@ -1,13 +1,13 @@
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import Error
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 from django.core.cache import cache
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 
 from networkapi.buyersguide.models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
@@ -117,3 +117,12 @@ def product_vote(request):
     except Error as ex:
         print(f'{ex.message} ({type(ex)})')
         return Response('Internal Server Error', status=500, content_type='text/plain')
+
+
+@api_view(['POST'])
+@permission_classes((IsAdminUser,))
+def refresh_cache(request):
+    products = [p.to_dict() for p in Product.objects.all()]
+    products.sort(key=lambda p: get_average_creepiness(p))
+    cache.set('sorted_product_dicts', products, 86400)
+    return redirect('/cms/buyersguide/product/')

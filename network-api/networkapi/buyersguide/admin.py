@@ -14,6 +14,7 @@ class WagtailBuyersGuideAdmin(ModelAdmin):
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
     list_display = ('name', 'company', 'url',)
     search_fields = ('name', 'company')
+    index_template_name = 'admin/index_view.html'
 
 
 class WagtailBuyersGuideUpdateAdmin(ModelAdmin):
