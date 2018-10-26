@@ -1,9 +1,20 @@
 $radio-button-radius: 50px;
 $btn-shadow-width: 3px;
 
+#creep-vote-btn {
+  &:hover {
+    @media (hover: none) {
+      &:hover {
+        background: initial;
+        color: initial;
+        cursor: initial;
+        text-decoration: initial;
+      }
+    }
+  }
+}
 
 .creep-vote {
-
   button[disabled] {
     color: #bbb;
 

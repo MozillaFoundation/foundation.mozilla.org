@@ -1,4 +1,5 @@
 import ReactGA from 'react-ga';
+import DNT from './dnt.js';
 
 function getElementGAInformation(pageTitle, productName) {
   return {
@@ -111,6 +112,10 @@ function setupElementGA(elementId, opts) {
 
 const ProductGA = {
   init: () => {
+    if (!DNT.allowTracking) {
+      return;
+    }
+
     let productBox = document.querySelector(`.product-detail .h1-heading`);
     let productName = productBox ? productBox.textContent : `unknown product`;
     let pageTitle = document.querySelector(`meta[property='og:title']`).getAttribute(`content`);

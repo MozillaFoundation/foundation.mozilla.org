@@ -9,29 +9,16 @@ import Creepometer from './components/creepometer/creepometer.jsx';
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
 
+import DNT from './dnt.js';
+
 let main = {
   init() {
-    let _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack,
-        fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/),
-        ie10Match = navigator.userAgent.match(/MSIE 10/i),
-        w8Match = navigator.appVersion.match(/Windows NT 6.2/);
-
-    if (fxMatch && Number(fxMatch[1]) < 32) {
-      _dntStatus = `Unspecified`;
-    } else if (ie10Match && w8Match) {
-      _dntStatus = `Unspecified`;
-    } else {
-      _dntStatus = { '0': `Disabled`, '1': `Enabled` }[_dntStatus] || `Unspecified`;
-    }
-
-    let allowTracking = (_dntStatus !== `Enabled`);
-
-    if (allowTracking) {
+    if (DNT.allowTracking) {
       ReactGA.initialize(`UA-87658599-6`);
       ReactGA.pageview(window.location.pathname);
     }
 
-    this.enableCopyLinks(allowTracking);
+    this.enableCopyLinks();
     this.injectReactComponents();
 
     primaryNav.init();
@@ -41,9 +28,7 @@ let main = {
     }
 
     if (document.getElementById(`pni-product-page`)) {
-      if (allowTracking) {
-        ProductGA.init();
-      }
+      ProductGA.init();
 
       let criteriaWithHelp = document.querySelectorAll(`.criterion button.toggle`);
 
@@ -60,13 +45,13 @@ let main = {
     }
   },
 
-  enableCopyLinks(allowAnalytics) {
+  enableCopyLinks() {
     if (document.querySelectorAll(`.copy-link`)) {
       Array.from(document.querySelectorAll(`.copy-link`)).forEach(element => {
         element.addEventListener(`click`, (event) => {
           event.preventDefault();
 
-          if (allowAnalytics) {
+          if (DNT.allowTracking) {
             let productBox = document.querySelector(`.product-detail .h1-heading`);
             let productTitle = productBox ? productBox.textContent : `unknown product`;
 
