@@ -5,7 +5,7 @@ import DNT from '../../dnt.js';
 const SocialShareLink = (props) => {
   let classes = `social-button`;
   let srLabel = ``;
-  let link = `PrivacyNotINcluded.org`;
+  let link = `privacynotincluded.org`;
   let shareText = `I think ${props.productName} is ${props.creepType.toUpperCase()}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} holiday buyer’s guide.`;
   let shareEvent = {
     category: `product`,
