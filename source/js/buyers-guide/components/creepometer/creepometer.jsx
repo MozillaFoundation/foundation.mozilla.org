@@ -47,10 +47,14 @@ export default class Creepometer extends React.Component {
   }
 
   slideStart(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     this.setState({
       parentBBox: this.sliderElement.getBoundingClientRect(),
       dragging: true
     });
+
     // The "move" and "release" events have to be handled at
     // the document level, because the events can be generated
     // "nowhere near the React-managed DOM node".
@@ -63,9 +67,19 @@ export default class Creepometer extends React.Component {
     });
   }
 
+  slideClick(e) {
+    let x = e.clientX;
+
+    if (e.touches) {
+      x = e.touches[0].clientX;
+    }
+
+    this.repositionTrackHead(x, this.sliderElement.getBoundingClientRect());
+  }
+
   slideMove(e) {
     if (this.state.dragging) {
-      let x = e.clientX, bbox = this.state.parentBBox, percentage, value;
+      let x = e.clientX, bbox = this.state.parentBBox;
 
       if (e.touches){
         x = e.touches[0].clientX;
@@ -78,20 +92,23 @@ export default class Creepometer extends React.Component {
         x = bbox.left;
       }
 
-
-      // compute the handle offset
-      percentage = Math.round(100 * (x - bbox.left) / bbox.width);
-      value = percentage ? percentage : 1;
-
-      this.setState({
-        percentage,
-        value
-      }, () => {
-        if (this.props.onChange) {
-          this.props.onChange(value);
-        }
-      });
+      this.repositionTrackHead(x, bbox);
     }
+  }
+
+  repositionTrackHead(x, bbox) {
+    // compute the handle offset
+    let percentage = Math.round(100 * (x - bbox.left) / bbox.width);
+    let value = percentage ? percentage : 1;
+
+    this.setState({
+      percentage,
+      value
+    }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(value);
+      }
+    });
   }
 
   render() {
@@ -121,7 +138,7 @@ export default class Creepometer extends React.Component {
     return (
       <div className="creepometer">
         <div className="slider-container p-2">
-          <div className="slider" ref={e => (this.sliderElement=e)}>
+          <div className="slider" ref={e => (this.sliderElement=e)} onClick={evt => this.slideClick(evt)}>
             <div className="h6-heading copy copy-left">Not creepy</div>
             <div className="trackhead" {...trackheadOpts}>
               <div className="face" {...faceOpts} {...mouseOpts}/>

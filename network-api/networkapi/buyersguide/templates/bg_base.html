@@ -19,6 +19,20 @@
     <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
     <title>Mozilla - *privacy not included</title>
+    <script>
+      var modernBrowser = (
+        'fetch' in window &&
+        'assign' in Object
+      );
+
+      if ( !modernBrowser ) {
+        var scriptElement = document.createElement('script');
+
+        scriptElement.async = false;
+        scriptElement.src = '/_js/polyfills.compiled.js';
+        document.head.appendChild(scriptElement);
+      }
+      </script>
   </head>
   <body class="pni" id="pni-{% block body-id %}{% endblock %}">
     {% include "./primary_nav.html" %}

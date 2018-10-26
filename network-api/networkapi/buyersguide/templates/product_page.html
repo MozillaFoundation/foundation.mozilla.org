@@ -66,14 +66,14 @@
 
       <div class="mb-5">
         {% include "fragments/product-criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" %}
-        {% include "fragments/product-policy.html" with product=product %}
+        {% include "fragments/product-policy.html" with product=product help=product.privacy_policy_helptext %}
         {% include "fragments/product-criterion.html"  with  value=product.share_data  bad=True  help=product.share_data_helptext  label="Shares your information with 3rd parties for unexpected reasons" %}
       </div>
 
       <h3 class="h3-heading h3-heading-small">Can I control it?</h3>
 
       <div class="mb-5">
-        {% include "fragments/product-criterion.html"  with  value=product.must_change_default_password  bad=False  help=product.must_change_default_password_helptext   label="If a password is required, you must change the default password" %}
+        {% include "fragments/product-criterion.html"  with  value=product.must_change_default_password  bad=False  help=product.must_change_default_password_helptext   label="If a password is required, you must change the default password"  unknown_label="Not required" %}
         {% include "fragments/product-criterion.html"  with  value=product.security_updates              bad=False  help=product.security_updates_helptext               label="Automatic security updates" %}
         {% include "fragments/product-criterion.html"  with  value=product.delete_data                   bad=False  help=product.delete_data_helptext                    label="Deletes data it stores on you" %}
         {% include "fragments/product-criterion.html"  with  value=product.child_rules                   bad=False  help=product.child_rules_helptext                    label="Has parental controls "%}
