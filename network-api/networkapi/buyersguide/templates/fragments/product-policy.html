@@ -9,6 +9,9 @@
           Privacy policy
         {% endif %}
       </span>
+      {% if help %}
+      <button class="toggle"></button>
+      {% endif %}
     </p>
     <p class="rating">
       {% if product.reading_grade == 0 %}
@@ -25,5 +28,8 @@
       <span class="emoji"></span>
     </p>
   </div>
+  {% if help %}
+  <div class="helptext mt-3">{{ help }}</div>
+  {% endif %}
 </div>
 {% endwith %}

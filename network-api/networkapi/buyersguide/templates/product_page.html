@@ -66,7 +66,7 @@
 
       <div class="mb-5">
         {% include "fragments/product-criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" %}
-        {% include "fragments/product-policy.html" with product=product %}
+        {% include "fragments/product-policy.html" with product=product help=product.privacy_policy_helptext %}
         {% include "fragments/product-criterion.html"  with  value=product.share_data  bad=True  help=product.share_data_helptext  label="Shares your information with 3rd parties for unexpected reasons" %}
       </div>
 
