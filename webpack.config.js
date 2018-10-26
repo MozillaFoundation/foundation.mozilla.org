@@ -28,10 +28,13 @@ let main = {
 };
 
 let bgMain = {
-  entry: `./source/js/buyers-guide/bg-main.js`,
+  entry: {
+    "bg-main": `./source/js/buyers-guide/bg-main.js`,
+    polyfills: `./source/js/polyfills.js`
+  },
   output: {
     path: frontendPath,
-    filename: `bg-main.compiled.js`
+    filename: `[name].compiled.js`
   },
   module: {
     rules
