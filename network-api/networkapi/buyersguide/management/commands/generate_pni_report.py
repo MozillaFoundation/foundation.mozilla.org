@@ -40,18 +40,33 @@ class Command(BaseCommand):
 
         return stats
 
+    def formstring(self, data):
+        return '({id}, \'{name}\', {value}, {votes}, {yes}, {no})'.format(
+            id=data['id'],
+            name=data['product'],
+            value=data['creepiness'],
+            votes=data['creepiness_votes'],
+            yes=data['would_buy'],
+            no=data['would_not_buy']
+        )
+
     def generate_insert_values(self, stats):
         retval = ''
-        for index, p_data in enumerate(stats):
-            retval += f'({ p_data["id"] }, \'{ p_data["product"] }\', { p_data["creepiness"] }, ' \
-                      f'{ p_data["creepiness_votes"] }, { p_data["would_buy"] } , { p_data["would_not_buy"] })'
-            if index != len(stats) - 1:
+        for i in range(len(stats)):
+            retval += self.formstring(stats[i])
+            if i != len(stats) - 1:
                 retval += ', '
 
         return retval
 
     def handle(self, *args, **options):
+
+        if not settings.PNI_STATS_DB_URL:
+            print('You must set PNI_STATS_DB_URL to run this task')
+            return;
+
         connection = None
+
         try:
             print('Fetching Product data')
             stats = self.fetch_stats()
