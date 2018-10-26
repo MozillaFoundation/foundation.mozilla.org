@@ -29,7 +29,7 @@ export default class PulseProjectList extends React.Component {
       });
     });
 
-    const apiURL = `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/`;
+    const apiURL = `${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/`;
 
     const params = {
       "format": `json`,
