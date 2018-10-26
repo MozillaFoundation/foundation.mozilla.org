@@ -63,7 +63,7 @@ class Command(BaseCommand):
 
         if not settings.PNI_STATS_DB_URL:
             print('You must set PNI_STATS_DB_URL to run this task')
-            return;
+            return
 
         connection = None
 
