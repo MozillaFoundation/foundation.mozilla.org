@@ -66,6 +66,7 @@ env = environ.Env(
     SLACK_WEBHOOK_RA=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CORAL_TALK_SERVER_URL=(str, ''),
+    REDIS_URL=(str, ''),
 )
 
 # Read in the environment
@@ -267,6 +268,23 @@ TEMPLATES = [
         },
     },
 ]
+
+if env('REDIS_URL'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': env('REDIS_URL'),
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+            }
+        }
+    }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+        }
+    }
 
 # network asset domain used in templates
 ASSET_DOMAIN = env('ASSET_DOMAIN')

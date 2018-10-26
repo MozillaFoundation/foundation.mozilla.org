@@ -5,7 +5,6 @@ import ReactGA from 'react-ga';
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
-import Criterion from './components/criterion/criterion.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
@@ -29,6 +28,7 @@ let main = {
 
     if (allowTracking) {
       ReactGA.initialize(`UA-87658599-6`);
+      ReactGA.pageview(window.location.pathname);
     }
 
     this.enableCopyLinks(allowTracking);
@@ -43,6 +43,19 @@ let main = {
     if (document.getElementById(`pni-product-page`)) {
       if (allowTracking) {
         ProductGA.init();
+      }
+
+      let criteriaWithHelp = document.querySelectorAll(`.criterion button.toggle`);
+
+      if (criteriaWithHelp.length > 0) {
+        Array.from(criteriaWithHelp).forEach(button => {
+          let help = button.closest(`.criterion`).querySelector(`.helptext`);
+
+          button.addEventListener(`click`, () => {
+            button.classList.toggle(`open`);
+            help.classList.toggle(`open`);
+          });
+        });
       }
     }
   },
@@ -152,28 +165,6 @@ let main = {
         let initialValue = element.dataset.initialValue;
 
         ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
-      });
-    }
-
-    let criterionTargets = document.querySelectorAll(`.criterion-target`);
-
-    if (criterionTargets.length > 0) {
-      Array.from(criterionTargets).forEach(element => {
-        let meta = {};
-
-        try {
-          meta = JSON.parse(element.dataset.meta);
-        } catch (e) {
-          if (!element.dataset) {
-            console.warn(`element did not have a dataset:`, element);
-          } else if (!element.dataset.meta) {
-            console.warn(`element did not have a data-meta attribute:`, element);
-          } else {
-            console.warn(`could not parse JSON`, element, element.dataset.meta);
-          }
-        }
-
-        ReactDOM.render(<Criterion meta={meta}></Criterion>, element);
       });
     }
   }

@@ -150,7 +150,7 @@ export default class CreepVote extends React.Component {
       <div className="row">
         <div className="col-12 text-center">
           <button id="creep-vote-btn" type="submit" className="btn btn-ghost mb-2" disabled={this.state.confidence===undefined}>Vote & See Results</button>
-          <p>{this.state.totalVotes} votes</p>
+          <p class="h6-heading-uppercase">{this.state.totalVotes} votes</p>
         </div>
       </div>
     </form>);
@@ -166,8 +166,8 @@ export default class CreepVote extends React.Component {
       <div>
         <div className="mb-5">
           <div className="col-12 text-center">
-            <h3 className="h5-heading mb-1">Thanks for voting! Here are the results so far:</h3>
-            <div className="text-muted">{this.state.totalVotes + 1} Votes</div>
+            <h3 className="h5-heading mb-1">Thanks for voting! Here are the results</h3>
+            <div className="h6-heading-uppercase text-muted">{this.state.totalVotes + 1} Votes</div>
           </div>
           <div className="row mt-3">
             <div className="col">
@@ -196,7 +196,7 @@ export default class CreepVote extends React.Component {
     }
 
     return (
-      <div className="creep-vote py-5">
+      <div className="creep-vote">
         { voteContent }
       </div>
     );

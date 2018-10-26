@@ -42,3 +42,6 @@ cache:
   pip: true
   directories:
   - "$HOME/.npm"
+branches:
+  only:
+    - master

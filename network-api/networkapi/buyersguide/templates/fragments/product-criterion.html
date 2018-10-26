@@ -1,0 +1,24 @@
+<div class="criterion criterion-{{ value|lower }} criterion-{% if value == bad %}bad{% else %}good{% endif %}">
+  <div class="primary-info">
+    <div class="d-flex align-items-center">
+      <span>{{ label }}</span>
+      {% if help %}
+      <button class="toggle"></button>
+      {% endif %}
+    </div>
+    <div class="rating">
+      <span>{% if value != None %}
+        {% if value is True %} Yes {% else %} No {% endif %}
+      {% else %}
+        {% if unknown_label %}
+          {{ unknown_label }}
+        {% else %}
+          Can't determine
+        {% endif %}
+      {% endif %}<span class="emoji"></span>
+    </div>
+  </div>
+  {% if help %}
+  <div class="helptext mt-3">{{ help }}</div>
+  {% endif %}
+</div>

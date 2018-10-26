@@ -1,9 +1,8 @@
 $radio-button-radius: 50px;
 $btn-shadow-width: 3px;
 
+
 .creep-vote {
-  border-bottom: 1px solid #c8c8ca;
-  border-top: 1px solid #c8c8ca;
 
   button[disabled] {
     color: #bbb;
@@ -26,6 +25,7 @@ $btn-shadow-width: 3px;
       padding: 0.5em 1.5em;
       text-transform: initial;
       transition: all 0.1s linear;
+      width: 9em;
     }
 
     input { display: none; }

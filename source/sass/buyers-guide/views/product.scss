@@ -100,6 +100,7 @@
     height: 20px;
     display: inline-block;
     margin-left: 10px;
+    vertical-align: text-top;
   }
 
   z-index: 1;
@@ -107,20 +108,7 @@
 }
 
 // Sad Cases
-.criterion-uses_encryption.criterion-false,
-.criterion-privacy_policy_reading_level.criterion-13,
-.criterion-privacy_policy_reading_level.criterion-14,
-.criterion-privacy_policy_reading_level.criterion-15,
-.criterion-privacy_policy_reading_level.criterion-16,
-.criterion-privacy_policy_reading_level.criterion-17,
-.criterion-privacy_policy_reading_level.criterion-18,
-.criterion-privacy_policy_reading_level.criterion-19,
-.criterion-share_data.criterion-true,
-.criterion-must_change_default_password.criterion-false,
-.criterion-security_updates.criterion-false,
-.criterion-delete_data.criterion-false,
-.criterion-child_rules.criterion-false,
-.criterion-manage_security.criterion-false {
+.criterion-bad {
   .emoji {
     background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
   }
@@ -134,7 +122,7 @@
 
 // Ambivalent Case
 .criterion-privacy_policy_reading_level.criterion-0,
-.criterion.criterion-null {
+.criterion.criterion-none {
   .emoji {
     background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
   }
@@ -159,5 +147,19 @@
     color: $black;
     letter-spacing: 0;
     line-height: 24px;
+  }
+}
+
+.creep-vote-target {
+  min-height: 380px;
+  border-top: 1px solid #c8c8ca;
+  border-bottom: 1px solid #c8c8ca;
+}
+
+.helptext {
+  display: none;
+
+  &.open {
+    display: block;
   }
 }
