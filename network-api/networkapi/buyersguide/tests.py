@@ -319,16 +319,24 @@ class BuyersGuideViewTest(TestCase):
         Test that the homepage works.
         """
         request = self.factory.get('/privacynotincluded/')
-        request.user = self.user
         response = buyersguide_home(request)
         self.assertEqual(response.status_code, 200, 'homepage yields a working page')
+
+    def test_localised_homepage(self):
+        """
+        Test that the homepage works, despite a locale code.
+        """
+        response = self.client.get('/en/privacynotincluded/')
+        self.assertEqual(response.status_code, 302, 'simple locale gets redirected')
+
+        response = self.client.get('/fr-FR/privacynotincluded/')
+        self.assertEqual(response.status_code, 302, 'complex locale gets redirected')
 
     def test_product_view_404(self):
         """
         Test that the product view raises an Http404 if the product name doesn't exist
         """
         request = self.factory.get('/privacynotincluded/products/this is not a product')
-        request.user = self.user
         self.assertRaises(Http404, product_view, request, 'this is not a product')
 
     def test_category_view_404(self):
@@ -336,7 +344,6 @@ class BuyersGuideViewTest(TestCase):
         Test that the category view raises an Http404 if the category name doesn't exist
         """
         request = self.factory.get('/privacynotincluded/categories/this is not a category')
-        request.user = self.user
         self.assertRaises(Http404, category_view, request, 'this is not a category')
 
 
