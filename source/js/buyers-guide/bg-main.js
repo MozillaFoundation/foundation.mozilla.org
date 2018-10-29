@@ -30,6 +30,8 @@ let main = {
     if (document.getElementById(`pni-product-page`)) {
       ProductGA.init();
 
+      let productBox = document.querySelector(`.product-detail .h1-heading`);
+      let productTitle = productBox ? productBox.textContent : `unknown product`;
       let criteriaWithHelp = document.querySelectorAll(`.criterion button.toggle`);
 
       if (criteriaWithHelp.length > 0) {
@@ -40,12 +42,12 @@ let main = {
             button.classList.toggle(`open`);
             help.classList.toggle(`open`);
 
-            if (help.classList.contains(`open`) && allowTracking) {
+            if (help.classList.contains(`open`) && DNT.allowTracking) {
               ProductGA.event({
                 category: `product`,
                 action: `expand accordion tap`,
                 label: `detail view on ${productTitle}`
-              })
+              });
             }
           });
         });
