@@ -39,6 +39,14 @@ let main = {
           button.addEventListener(`click`, () => {
             button.classList.toggle(`open`);
             help.classList.toggle(`open`);
+
+            if (help.classList.contains(`open`) && allowTracking) {
+              ProductGA.event({
+                category: `product`,
+                action: `expand accordion tap`,
+                label: `detail view on ${productTitle}`
+              })
+            }
           });
         });
       }
