@@ -11,7 +11,6 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
 from networkapi.views import EnvVariablesView, review_app_help_view
-from networkapi.buyersguide.urls import remove_locale_for_buyers_guide
 
 admin.autodiscover()
 
