@@ -189,12 +189,12 @@
 
 {% endblock %}
 
-{% if coralTalkServerUrl %}
-  {% block extra_scripts %}
+{% block extra_scripts %}
+  {% if coralTalkServerUrl %}
     <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
       Coral.Talk.render(document.getElementById('coral_talk_stream'), {
         talk: '{{ coralTalkServerUrl }}'
       });
     "></script>
-  {% endblock %}
-{% endif %}
+  {% endif %}
+{% endblock %}
