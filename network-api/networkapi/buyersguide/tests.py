@@ -7,7 +7,7 @@ from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote, Product
-from networkapi.buyersguide.views import buyersguide_home, product_view, category_view
+from networkapi.buyersguide.views import product_view, category_view
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
