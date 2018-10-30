@@ -318,7 +318,7 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the homepage works.
         """
-        request = self.factory.get('/privacynotincluded/')
+        request = self.factory.get('/en/privacynotincluded/')
         response = buyersguide_home(request)
         self.assertEqual(response.status_code, 200, 'homepage yields a working page')
 
@@ -326,11 +326,8 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the homepage works, despite a locale code.
         """
-        response = self.client.get('/en/privacynotincluded/')
+        response = self.client.get('/privacynotincluded/')
         self.assertEqual(response.status_code, 302, 'simple locale gets redirected')
-
-        response = self.client.get('/fr-FR/privacynotincluded/')
-        self.assertEqual(response.status_code, 302, 'complex locale gets redirected')
 
     def test_product_view_404(self):
         """
