@@ -33,7 +33,6 @@ wagtail-modeltranslation = "*"
 "psycopg2-binary" = "*"
 
 [dev-packages]
-django-debug-toolbar = "*"
 "flake8" = "*"
 python-coveralls = "*"
 

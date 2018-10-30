@@ -42,7 +42,6 @@ env = environ.Env(
     CORS_WHITELIST=(tuple, ()),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
-    DISABLE_DEBUG_TOOLBAR=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
@@ -86,7 +85,6 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
-DISABLE_DEBUG_TOOLBAR = env('DISABLE_DEBUG_TOOLBAR')
 
 # Force permanent redirects to the domain specified in TARGET_DOMAIN
 DOMAIN_REDIRECT_MIDDLWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLWARE_ENABLED')
@@ -130,9 +128,6 @@ INSTALLED_APPS = list(filter(None, [
     'django.contrib.staticfiles',
     'django.contrib.redirects',
     'django.contrib.sitemaps',
-
-    'debug_toolbar'
-    if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
 
     'networkapi.wagtailcustomization',
 
@@ -205,9 +200,6 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
-    if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
@@ -490,18 +482,6 @@ FRONTEND = {
     'TARGET_DOMAIN': env('TARGET_DOMAIN'),
     'SHOW_TAKEOVER': env('SHOW_TAKEOVER'),
 }
-
-
-# DEBUG toolbar
-if DEBUG and not DISABLE_DEBUG_TOOLBAR:
-    INTERNAL_IPS = ('127.0.0.1',)
-
-    def show_toolbar(request):
-        return True
-
-    DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
-    }
 
 # Review apps' slack bot
 GITHUB_TOKEN = env('GITHUB_TOKEN')
