@@ -33,12 +33,6 @@ urlpatterns = list(filter(None, [
         query_string=True
     )),
 
-    # Buyer's Guide / Privacy Not Included
-    url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
-
-    # And for good measure, because these prefixed URLs keep popping up:
-    remove_locale_for_buyers_guide,
-
     # network API routes:
 
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
@@ -64,6 +58,9 @@ urlpatterns = list(filter(None, [
 # url format with /<language_code>/ infixed needs
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
+    # Buyer's Guide / Privacy Not Included
+    url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
+
     url(r'', include(wagtail_urls)),
 )
 
