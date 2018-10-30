@@ -7,7 +7,7 @@ from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote, Product
-from networkapi.buyersguide.views import product_view, category_view
+from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
@@ -318,8 +318,8 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the homepage works.
         """
-        response = self.client.get('/en/privacynotincluded/')
-        # response = buyersguide_home(request)
+        request = self.factory.get('/en/privacynotincluded/')
+        response = buyersguide_home(request)
         self.assertEqual(response.status_code, 200, 'homepage yields a working page')
 
     def test_localised_homepage(self):
