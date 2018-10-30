@@ -43,7 +43,7 @@ let main = {
             help.classList.toggle(`open`);
 
             if (help.classList.contains(`open`) && DNT.allowTracking) {
-              ProductGA.event({
+              ReactGA.event({
                 category: `product`,
                 action: `expand accordion tap`,
                 label: `detail view on ${productTitle}`
