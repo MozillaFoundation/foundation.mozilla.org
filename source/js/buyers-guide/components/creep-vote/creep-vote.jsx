@@ -161,7 +161,7 @@ export default class CreepVote extends React.Component {
    */
   renderDidVote(){
     let bins = CREEPINESS_LABELS.length;
-    let userVoteGroup = Math.round((bins-1) * this.state.creepiness/100);
+    let userVoteGroup = Math.floor(bins * (this.state.creepiness-1)/100);
     let creepType = CREEPINESS_LABELS[userVoteGroup];
 
     return(
