@@ -64,7 +64,7 @@ env = environ.Env(
     GITHUB_TOKEN=(str, ''),
     SLACK_WEBHOOK_RA=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
-    CORAL_TALK_SERVER_URL=(str, ''),
+    CORAL_TALK_SERVER_URL=(str, None),
     PNI_STATS_DB_URL=(str, None),
     REDIS_URL=(str, ''),
 )
