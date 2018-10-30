@@ -7,7 +7,7 @@ from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote, Product
-from networkapi.buyersguide.views import buyersguide_home, product_view, category_view
+from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
@@ -318,19 +318,16 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the homepage works.
         """
-        request = self.factory.get('/privacynotincluded/')
+        request = self.factory.get('/en/privacynotincluded/')
         response = buyersguide_home(request)
         self.assertEqual(response.status_code, 200, 'homepage yields a working page')
 
     def test_localised_homepage(self):
         """
-        Test that the homepage works, despite a locale code.
+        Test that the homepage redirects when missing a locale code.
         """
-        response = self.client.get('/en/privacynotincluded/')
+        response = self.client.get('/privacynotincluded/')
         self.assertEqual(response.status_code, 302, 'simple locale gets redirected')
-
-        response = self.client.get('/fr-FR/privacynotincluded/')
-        self.assertEqual(response.status_code, 302, 'complex locale gets redirected')
 
     def test_product_view_404(self):
         """

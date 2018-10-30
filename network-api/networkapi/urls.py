@@ -11,7 +11,6 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
 from networkapi.views import EnvVariablesView, review_app_help_view
-from networkapi.buyersguide.urls import remove_locale_for_buyers_guide
 
 admin.autodiscover()
 
@@ -32,12 +31,6 @@ urlpatterns = list(filter(None, [
         url='/fellowships/directory',
         query_string=True
     )),
-
-    # Buyer's Guide / Privacy Not Included
-    url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
-
-    # And for good measure, because these prefixed URLs keep popping up:
-    remove_locale_for_buyers_guide,
 
     # network API routes:
 
@@ -65,6 +58,9 @@ urlpatterns = list(filter(None, [
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
     url(r'', include(wagtail_urls)),
+
+    # Buyer's Guide / Privacy Not Included
+    url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
 )
 
 if settings.USE_S3 is not True:
@@ -72,9 +68,3 @@ if settings.USE_S3 is not True:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
-
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
