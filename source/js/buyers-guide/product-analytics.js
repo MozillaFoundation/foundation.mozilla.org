@@ -96,6 +96,18 @@ function getElementGAInformation(pageTitle, productName) {
       action: `share tap`,
       label: `share ${productName} to Email`,
       transport: `beacon`
+    },
+    'privacy-policy-link': {
+      category: `product`,
+      action: `privacy policy link tap`,
+      label: `policy link for ${productName}`,
+      transport: `beacon`
+    },
+    'reading-level-link': {
+      category: `product`,
+      action: `carnegie mellon reading level links`,
+      label: `reading level link for ${productName}`,
+      transport: `beacon`
     }
   };
 }

@@ -4,7 +4,7 @@
     <p class="d-flex align-items-center">
       <span>
           Reading level for {% if policy_url %}
-          <a target="_blank" href="{{ policy_url }}">Privacy policy</a>
+          <a target="_blank" id="privacy-policy-link" href="{{ policy_url }}">Privacy policy</a>
         {% else %}
           Privacy policy
         {% endif %}
@@ -18,7 +18,7 @@
         Can't determine
       {% else %}
         {% if level_url %}
-          <a target="_blank" href="{{ level_url }}">
+          <a target="_blank" id="reading-level-link" href="{{ level_url }}">
         {% endif %}
         Grade {{ product.reading_grade }}
         {% if level_url %}
