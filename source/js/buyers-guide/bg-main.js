@@ -30,8 +30,9 @@ let main = {
     if (document.getElementById(`pni-product-page`)) {
       ProductGA.init();
 
+      // Set up help text accordions where necessary:
       let productBox = document.querySelector(`.product-detail .h1-heading`);
-      let productTitle = productBox ? productBox.textContent : `unknown product`;
+      let productName = productBox ? productBox.textContent : `unknown product`;
       let criteriaWithHelp = document.querySelectorAll(`.criterion button.toggle`);
 
       if (criteriaWithHelp.length > 0) {
@@ -46,12 +47,13 @@ let main = {
               ReactGA.event({
                 category: `product`,
                 action: `expand accordion tap`,
-                label: `detail view on ${productTitle}`
+                label: `detail view on ${productName}`
               });
             }
           });
         });
       }
+
     }
   },
 
