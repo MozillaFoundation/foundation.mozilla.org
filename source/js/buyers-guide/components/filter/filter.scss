@@ -1,0 +1,219 @@
+#product-filter {
+  $filter-box-dimension: 700px;
+  $inner-dimension: 330px;
+
+  position: relative;
+  height: 0;
+  z-index: 200;
+  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+
+  @media screen and (min-width: 550px) {
+    float: right;
+  }
+
+  float: none;
+
+  .h6-heading {
+    font-size: 120%;
+  }
+
+  .creepiness .h6-heading,
+  .likelihood .h6-heading {
+    color: #444;
+    font-size: 120%;
+    font-variant: small-caps;
+    font-weight: 600;
+  }
+
+  .filter-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+
+    @media screen and (min-width: 550px) {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      left: auto;
+      width: $filter-box-dimension;
+      height: $filter-box-dimension;
+      border-radius: 1000em;
+    }
+
+    position: absolute;
+    top: -55px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 0;
+
+    text-align: left;
+    padding: 0.5em;
+    overflow: hidden;
+    box-shadow: 4px 4px 13px 0px #999;
+
+    transition: top, right, height, width;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+
+    div {
+      transform: scale(1,1);
+      transition: transform;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
+
+      @media screen and (min-width: 550px) {
+        width: $inner-dimension;
+      }
+
+      width: 100%;
+    }
+
+    &.collapsed {
+      div {
+        transform: scale(0.01,0.01);
+      }
+
+      @media screen and (min-width: 550px) {
+        top: -0.6em;
+        right: 1.1em;
+        width: 6em;
+        height: 6em;
+        border-radius: 1000em;
+      }
+
+      width: 4em;
+      height: 4em;
+      top: -4.5em;
+      border-radius: 2em;
+
+      background-image: url(/_images/buyers-guide/icon-filter.svg);
+      background-position: center center;
+      background-size: 2em;
+      background-repeat: no-repeat;
+    }
+
+    .close {
+      cursor: pointer;
+      background: url(/_images/buyers-guide/icon-close.svg);
+      color: transparent;
+      background-repeat: no-repeat;
+      width: 2em;
+      height: 2em;
+      background-position: center center;
+      background-size: 50%;
+    }
+
+    h2 {
+      margin-bottom: 3em;
+    }
+
+    .creepiness {
+      margin-bottom: 3em;
+
+      .slider {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        cursor: pointer;
+
+        label {
+          flex: 0 0 auto;
+          margin: 0 0.25em;
+          background: url(/_images/buyers-guide/faces/sprite-resized-64-colors.png);
+          display: inline-block;
+          width: 32px;
+          height: 32px;
+          background-size: 32px;
+          background-position: 0 0;
+          background-repeat: no-repeat;
+          color: transparent;
+        }
+
+        .track {
+          + label.creepy {
+            background-position: 0 -1248px;
+          }
+
+          flex: 1 1 auto;
+          position: relative;
+          height: 5px;
+          background-color: grey;
+          background-image: url(/_images/buyers-guide/gradient-bar.svg);
+          background-position: 0% center;
+          background-size: 100% 100%;
+          background-repeat: repeat-y;
+          margin: 0 1em;
+
+          .track-head {
+            position: absolute;
+            width: 1.5em;
+            height: 1.5em;
+            top: -0.7em;
+            left: 50%;
+            color: black;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 2em;
+            box-shadow: 2px 2px 3px 0 grey;
+
+            &:hover {
+              color: grey;
+            }
+          }
+        }
+      }
+    }
+
+    .likelihood {
+      .radio-button {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        opacity: 0.5;
+        margin: 1em 0;
+
+        .dot {
+          display: inline-block;
+          width: 2px;
+          height: 2px;
+          border-radius: 1000px;
+          background: white;
+          box-shadow: 0 0 0 9px white, 0 0 0 10px black;
+          margin: 10px;
+
+          &.selected {
+            box-shadow: 0 0 0 6px black, 0 0 0 9px white, 0 0 0 10px black;
+            background: black;
+          }
+        }
+
+        .label {
+          text-align: left;
+
+          &[data-label] {
+            text-indent: 2.5em;
+            background-repeat: no-repeat;
+            background-size: 16px;
+          }
+
+          &[data-label=Both] {
+            text-indent: 0.7em;
+          }
+
+          &[data-label=Likely] {
+            background-image: url(/_images/buyers-guide/icon-thumb-up-black.svg);
+            background-position: 12px 4px;
+          }
+
+          &[data-label='Not likely'] {
+            background-image: url(/_images/buyers-guide/icon-thumb-down-black.svg);
+            background-position: 12px 7px;
+          }
+        }
+      }
+    }
+  }
+}

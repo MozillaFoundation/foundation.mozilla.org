@@ -41,8 +41,9 @@
     z-index: 0;
     position: sticky;
     position: -webkit-sticky;
-    top: 30px;
-    padding-top: 20px;
+    top: 22px;
+    padding-top: 40px;
+    padding-bottom: 10px;
 
     .current-creepiness {
       display: inline-block;
@@ -60,14 +61,14 @@
     width: 1em;
     height: 1em;
 
-    &.go-for-it {
+    &.positive {
       background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }
 
-    &.stay-away {
+    &.negative {
       background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
       background-position: 0 0;
       background-repeat: no-repeat;

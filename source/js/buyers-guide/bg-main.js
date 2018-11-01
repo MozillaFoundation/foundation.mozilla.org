@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
+import Filter from './components/filter/filter.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
@@ -25,6 +26,12 @@ let main = {
 
     if (document.getElementById(`pni-home`)) {
       HomepageSlider.init();
+
+      let filter = document.querySelector(`#product-filter`);
+
+      if (filter) {
+        ReactDOM.render(<Filter />, filter);
+      }
     }
 
     if (document.getElementById(`pni-product-page`)) {
