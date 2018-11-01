@@ -320,9 +320,14 @@ create table product_stats
   would_buy        integer,
   would_not_buy    integer
 );
+  
+create table comment_counts
+(
+  url            varchar(2048) not null constraint comment_counts_pkey primary key,
+  title          varchar(100),
+  total_comments integer
+);
 
-create unique index product_stats_id_uindex
-  on product_stats (id);
 ```
 
 ---
