@@ -124,6 +124,10 @@ def product_vote(request):
 @api_view(['POST'])
 @permission_classes((IsAdminUser,))
 def refresh_cache(request):
+    # clear entire cache
+    cache.clear()
+
+    # refresh the products list for the homepage
     products = list(Product.objects.all())
     products.sort(key=lambda p: p.votes['creepiness']['average'])
     cache.set('sorted_product_dicts', products, 86400)
