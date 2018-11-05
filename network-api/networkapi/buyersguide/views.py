@@ -39,10 +39,10 @@ def buyersguide_home(request):
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': settings.CLOUDINARY_URL,
     })
 
-
+# TODO update all MEDIA_URL TO CLOUDINARY_URL
 def category_view(request, categoryname):
     category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
@@ -50,7 +50,7 @@ def category_view(request, categoryname):
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': settings.CLOUDINARY_URL,
     })
 
 
@@ -59,7 +59,7 @@ def product_view(request, slug):
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': settings.CLOUDINARY_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
 

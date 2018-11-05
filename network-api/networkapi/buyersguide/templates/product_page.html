@@ -3,6 +3,7 @@
 {% load product-update %}
 {% load yes_no %}
 {% load env %}
+{% load cloudinary %}
 
 {% block og-title %}
   <meta property="og:title" content="privacy not included - {{ product.name }}" />
@@ -11,7 +12,9 @@
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
-  <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="400" alt="{{product.name}}"/>
+  <img class="mb-0" src="
+{% cloudinary_url product.cloudinary_image quality=85 fetch_format="auto" crop="fit" width=400 %}" alt=
+    "{{product.name}}"/>
 </div>
 <div class="container">
 

@@ -1,13 +1,21 @@
+import random
 import re
+import string
+
+from cloudinary import uploader
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.text import slugify
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
+
+from cloudinary.models import CloudinaryField
 
 
 def get_product_image_upload_path(instance, filename):
@@ -17,6 +25,18 @@ def get_product_image_upload_path(instance, filename):
         instance=instance,
         current_filename=filename
     )
+
+
+# Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
+class CloudinaryImageField(CloudinaryField):
+    def upload_options(self, model_instance):
+        return {
+            'public_id': self.filename()
+        }
+
+    def filename(self):
+        random_name = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        return f'buyersguide/{random_name}'
 
 
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
@@ -121,6 +141,11 @@ class Product(models.Model):
         max_length=2048,
         help_text='Image representing this product',
         upload_to=get_product_image_upload_path,
+        blank=True,
+    )
+
+    cloudinary_image = CloudinaryImageField(
+        help_text='Image representing this product',
         blank=True,
     )
 
@@ -345,6 +370,12 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+# We want to delete the product image when the product is removed
+@receiver(pre_delete, sender=Product)
+def delete_image(sender, instance, **kwargs):
+    uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
 
 
 class ProductVote(models.Model):
