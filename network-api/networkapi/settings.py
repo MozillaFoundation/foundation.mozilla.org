@@ -68,6 +68,10 @@ env = environ.Env(
     PNI_STATS_DB_URL=(str, None),
     CORAL_TALK_API_TOKEN=(str, None),
     REDIS_URL=(str, ''),
+    USE_CLOUDINARY=(bool, False),
+    CLOUDINARY_CLOUD_NAME=(str, ''),
+    CLOUDINARY_API_KEY=(str, ''),
+    CLOUDINARY_API_SECRET=(str, ''),
 )
 
 # Read in the environment
@@ -114,6 +118,7 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
                     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
 
 USE_S3 = env('USE_S3')
+USE_CLOUDINARY = env('USE_CLOUDINARY')
 
 INSTALLED_APPS = list(filter(None, [
 
@@ -159,6 +164,7 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
+    'cloudinary',
 
     # the network site
     'networkapi',
@@ -377,6 +383,13 @@ CRM_AWS_SQS_ACCESS_KEY_ID = env('CRM_AWS_SQS_ACCESS_KEY_ID')
 CRM_AWS_SQS_SECRET_ACCESS_KEY = env('CRM_AWS_SQS_SECRET_ACCESS_KEY')
 CRM_AWS_SQS_REGION = env('CRM_AWS_SQS_REGION')
 CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
+
+if USE_CLOUDINARY:
+    CLOUDINARY_CLOUD_NAME = env('CLOUDINARY_CLOUD_NAME')
+    CLOUDINARY_API_KEY = env('CLOUDINARY_API_KEY')
+    CLOUDINARY_API_SECRET = env('CLOUDINARY_API_SECRET')
+
+    CLOUDINARY_URL = 'https://res.cloudinary.com/' + CLOUDINARY_CLOUD_NAME + '/image/upload/'
 
 # Storage for user generated files
 if USE_S3:
