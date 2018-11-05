@@ -31,6 +31,7 @@ wagtail-metadata = "*"
 whitenoise = "==4.1"
 wagtail-modeltranslation = "*"
 "psycopg2-binary" = "*"
+cloudinary = "*"
 
 [dev-packages]
 "flake8" = "*"
