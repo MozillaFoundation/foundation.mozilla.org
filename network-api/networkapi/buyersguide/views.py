@@ -36,12 +36,13 @@ def path_is_en_prefixed(path):
 
 
 def get_en_redirect(path):
-    return re.sub(path_regex, '/en/', path, count=1)
+    redirect_path = re.sub(path_regex, '/en/', path, count=1)
+    return redirect(redirect_path, permanent=False)
 
 
 def buyersguide_home(request):
     if not path_is_en_prefixed(request.path):
-        return redirect(get_en_redirect(request.path), permanent=False)
+        return get_en_redirect(request.path)
 
     products = cache.get('sorted_product_dicts')
 
@@ -59,7 +60,7 @@ def buyersguide_home(request):
 
 def category_view(request, categoryname):
     if not path_is_en_prefixed(request.path):
-        return redirect(get_en_redirect(request.path), permanent=False)
+        return get_en_redirect(request.path)
 
     category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
@@ -73,7 +74,7 @@ def category_view(request, categoryname):
 
 def product_view(request, slug):
     if not path_is_en_prefixed(request.path):
-        return redirect(get_en_redirect(request.path), permanent=False)
+        return get_en_redirect(request.path)
 
     product = get_object_or_404(Product, slug=slug)
     return render(request, 'product_page.html', {
@@ -86,7 +87,7 @@ def product_view(request, slug):
 
 def about_view(request):
     if not path_is_en_prefixed(request.path):
-        return redirect(get_en_redirect(request.path), permanent=False)
+        return get_en_redirect(request.path)
 
     return render(request, 'about.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
