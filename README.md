@@ -306,7 +306,10 @@ Every sunday, a script runs on prod dyno to remove non-staff accounts created on
 
 #### Generating vote statistics for Data Studio
 
-The `generate_pni_report` management task can run periodically to summarize vote totals for each product in the buyer's guide. Data is inserted or updated into the database specified By `PNI_STATS_DB_URL`. 
+The `generate_pni_report` management task can run periodically to summarize vote totals for each product in the buyer's guide.
+Data is inserted or updated into the database specified By `PNI_STATS_DB_URL`.
+You must also have the `CORAL_TALK_SERVER_URL` and `CORAL_TALK_API_TOKEN` variables set.
+The API token must have admin rights in order to fetch comment totals.
 
 The database should have the following schema:
 
@@ -324,7 +327,7 @@ create table product_stats
 create table comment_counts
 (
   url            varchar(2048) not null constraint comment_counts_pkey primary key,
-  title          varchar(100),
+  title          varchar(255),
   total_comments integer
 );
 
