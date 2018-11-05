@@ -1,3 +1,4 @@
+import re
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import Error
 from django.shortcuts import render, get_object_or_404, redirect
@@ -14,6 +15,8 @@ from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRa
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
+path_regex = re.compile(r"^/\w\w/")
+
 
 def get_average_creepiness(product):
     try:
@@ -28,7 +31,15 @@ def get_average_creepiness(product):
     return 50
 
 
+def path_is_en_prefixed(path):
+    return path.startswith('/en/')
+
+
 def buyersguide_home(request):
+    if not path_is_en_prefixed(request.path):
+        redirect_path = re.sub(path_regex, '/en/', request.path, count=1)
+        return redirect(redirect_path)
+
     products = cache.get('sorted_product_dicts')
 
     if not products:
@@ -44,6 +55,10 @@ def buyersguide_home(request):
 
 
 def category_view(request, categoryname):
+    if not path_is_en_prefixed(request.path):
+        redirect_path = re.sub(path_regex, '/en/', request.path, count=1)
+        return redirect(redirect_path)
+
     category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
     return render(request, 'category_page.html', {
@@ -55,6 +70,10 @@ def category_view(request, categoryname):
 
 
 def product_view(request, slug):
+    if not path_is_en_prefixed(request.path):
+        redirect_path = re.sub(path_regex, '/en/', request.path, count=1)
+        return redirect(redirect_path)
+
     product = get_object_or_404(Product, slug=slug)
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
@@ -65,6 +84,10 @@ def product_view(request, slug):
 
 
 def about_view(request):
+    if not path_is_en_prefixed(request.path):
+        redirect_path = re.sub(path_regex, '/en/', request.path, count=1)
+        return redirect(redirect_path)
+
     return render(request, 'about.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
     })
