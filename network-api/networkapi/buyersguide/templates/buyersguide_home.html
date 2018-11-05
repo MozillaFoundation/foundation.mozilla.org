@@ -1,6 +1,7 @@
 {% extends "./bg_base.html" %}
 
 {% load env %}
+{% load cloudinary %}
 
 {% block body-id %}home{% endblock %}
 
@@ -48,7 +49,10 @@
             {% endif %}
             <a class="" href="/privacynotincluded/products/{{ product.slug }}">
               <div>
-                <img class="thumb-border" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="{{product.name}}">
+                <img class="thumb-border"
+                     src="
+{% cloudinary_url product.cloudinary_image quality=85 fetch_format="auto" crop="fit" width=300 %}"
+                     alt="{{product.name}}">
               </div>
             </a>
           </div>

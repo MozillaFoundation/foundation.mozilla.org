@@ -63,7 +63,7 @@ def buyersguide_home(request):
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': settings.CLOUDINARY_URL,
     })
 
 
@@ -82,7 +82,7 @@ def category_view(request, categoryname):
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': settings.CLOUDINARY_URL,
     })
 
 
@@ -92,8 +92,8 @@ def product_view(request, slug):
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
-        'product': product,
-        'mediaUrl': settings.MEDIA_URL,
+        'product': product.to_dict(),
+        'mediaUrl': settings.CLOUDINARY_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
 

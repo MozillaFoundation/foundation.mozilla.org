@@ -3,6 +3,7 @@
 {% load product-update %}
 {% load yes_no %}
 {% load env %}
+{% load cloudinary %}
 
 {% block og-title %}
   <meta property="og:title" content="privacy not included - {{ product.name }}" />
@@ -14,7 +15,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
-        <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="400" alt="{{product.name}}"/>
+        <img class="mb-0" src="{% cloudinary_url product.cloudinary_image quality=85 fetch_format="auto" crop="fit" width=400 %}" width="400" alt="{{product.name}}"/>
         {% if product.meets_minimum_security_standards is True %}
         <img src="/_images/buyers-guide/badge.svg" class="seal-of-approval" alt="this product meets our minimum security standards" />
         {% endif %}
