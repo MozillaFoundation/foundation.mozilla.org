@@ -203,6 +203,16 @@ let main = {
         Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
       });
     }
+
+    if (document.querySelector(`#view-participate .card-cta .btn[href*="donate.mozilla.org"]`)) {
+      document.querySelector(`#view-participate .card-cta .btn[href*="donate.mozilla.org"]`).addEventListener(`click`, () => {
+        ReactGA.event({
+          category: `donate`,
+          action: `donate button tap`,
+          label: document.title
+        });
+      });
+    }
   },
 
   // Embed various React components based on the existence of containers within the current page

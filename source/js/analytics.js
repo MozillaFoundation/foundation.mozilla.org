@@ -1,5 +1,3 @@
-import ReactGA from 'react-ga';
-
 export default {
   initialize: function() {
     var _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack;
