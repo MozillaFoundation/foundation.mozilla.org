@@ -30,5 +30,3 @@ class WagtailBuyersGuideUpdateAdmin(ModelAdmin):
 
 modeladmin_register(WagtailBuyersGuideAdmin)
 modeladmin_register(WagtailBuyersGuideUpdateAdmin)
-
-# TODO: Remove cloudinary image field if USE_CLOUDINARY is False

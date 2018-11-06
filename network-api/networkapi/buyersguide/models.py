@@ -5,10 +5,12 @@ import string
 from cloudinary import uploader
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
@@ -322,6 +324,80 @@ class Product(models.Model):
     updates = models.ManyToManyField(Update, related_name='products', blank=True)
 
     related_products = models.ManyToManyField('self', related_name='rps', blank=True)
+
+    if settings.USE_CLOUDINARY:
+        image_field = FieldPanel('cloudinary_image')
+    else:
+        image_field = FieldPanel('image')
+
+    # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better ways to do
+    # this using `_meta.get_fields()` but I ran into issues linked to the fact I don't know wagtail that much. To be
+    #  refactored in the future.
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('name'),
+            FieldPanel('company'),
+            FieldPanel('product_category'),
+            FieldPanel('blurb'),
+            FieldPanel('url'),
+            FieldPanel('price'),
+            image_field,
+            FieldPanel('meets_minimum_security_standards')
+        ],
+            heading="Product General Details"
+        ),
+        MultiFieldPanel([
+            FieldPanel('camera_device'),
+            FieldPanel('camera_app'),
+            FieldPanel('microphone_device'),
+            FieldPanel('microphone_app'),
+            FieldPanel('location_device'),
+            FieldPanel('location_app'),
+        ],
+            heading="Can it spy on me?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('uses_encryption'),
+            FieldPanel('uses_encryption_helptext'),
+            FieldPanel('privacy_policy_url'),
+            FieldPanel('privacy_policy_reading_level'),
+            FieldPanel('privacy_policy_reading_level_url'),
+            FieldPanel('privacy_policy_helptext'),
+            FieldPanel('share_data'),
+            FieldPanel('share_data_helptext'),
+        ],
+            heading="What does it know about me?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('must_change_default_password'),
+            FieldPanel('must_change_default_password_helptext'),
+            FieldPanel('security_updates'),
+            FieldPanel('security_updates_helptext'),
+            FieldPanel('delete_data'),
+            FieldPanel('delete_data_helptext'),
+            FieldPanel('child_rules'),
+            FieldPanel('child_rules_helptext'),
+        ],
+            heading="Can I control it?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('manage_security'),
+            FieldPanel('manage_security_helptext'),
+            FieldPanel('phone_number'),
+            FieldPanel('live_chat'),
+            FieldPanel('email'),
+            FieldPanel('twitter'),
+        ],
+            heading="Company shows it cares about its customers?",
+            classname="collapsible"
+        ),
+        FieldPanel('worst_case'),
+        FieldPanel('updates'),
+        FieldPanel('related_products'),
+    ]
 
     @property
     def votes(self):
