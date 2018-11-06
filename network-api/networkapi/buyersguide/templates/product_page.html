@@ -12,6 +12,7 @@
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
+<<<<<<< HEAD
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
@@ -22,6 +23,15 @@
       </div>
     </div>
   </div>
+=======
+{% if USE_CLOUDINARY %}
+  <img class="thumb-border"
+     src="{% cloudinary_url product.cloudinary_image quality=85 fetch_format="auto" crop="fit" width=400 %}"
+     alt="{{product.name}}">
+{% else %}
+  <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="400">
+{% endif %}
+>>>>>>> Modify template to use cloudinary src url or not
 </div>
 <div class="container">
 

@@ -258,6 +258,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'networkapi.context_processor.review_app',
+                'networkapi.context_processor.cloudinary',
             ])),
             'libraries': {
                 'settings_value': 'networkapi.utility.templatetags.settings_value',
