@@ -1,4 +1,5 @@
 import psycopg2
+import re
 import requests
 
 from urllib.parse import urlparse
@@ -6,6 +7,8 @@ from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from networkapi.buyersguide.models import Product
+
+LOCALE_REGEX = '/([a-z]{2}(?:-[A-Z]{2})?/)'
 
 
 class Command(BaseCommand):
@@ -90,7 +93,26 @@ class Command(BaseCommand):
             print(f'Request for comment data failed with a {response.status_code} status code')
             response.raise_for_status()
 
-        return response.json()
+        return response.json()['data']['assets']['nodes']
+
+    @staticmethod
+    def dedupe_comments(comments):
+        cleaned_comments = dict()
+        for comment in comments:
+            url = re.sub(LOCALE_REGEX, '/', comment['url'])
+
+            # Filter out the records created before we fixed og title meta tags
+            if comment['title'] == 'privacy not included':
+                continue
+
+            elif url in cleaned_comments:
+                cleaned_comments[url]['totalCommentCount'] += comment['totalCommentCount']
+
+            else:
+                cleaned_comments[url] = comment
+                cleaned_comments[url]['url'] = url
+
+        return list(cleaned_comments.values())
 
     @staticmethod
     def generate_insert_values(data, formstring):
@@ -129,7 +151,8 @@ class Command(BaseCommand):
                            'would_not_buy = EXCLUDED.would_not_buy'
 
             print('Fetching Coral Comment Data')
-            comment_data = self.get_comment_counts()['data']['assets']['nodes']
+            comment_data = self.get_comment_counts()
+            comment_data = self.dedupe_comments(comment_data)
 
             print('Generating Upsert Query for comment data')
             sql_comments = 'INSERT INTO comment_counts\n' \
@@ -149,7 +172,6 @@ class Command(BaseCommand):
 
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
-
         finally:
             if connection is not None:
                 connection.close()
