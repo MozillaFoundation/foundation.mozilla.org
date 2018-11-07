@@ -168,9 +168,13 @@ React is used *à la carte* for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
-#### Django and Mezzanine
+#### Django and Wagtail
 
-Django powers the backend of the site, and we use Mezzanine with Django to provide CMS features and functionality.
+Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
+
+#### S3 and Cloudinary
+
+Most assets are stored on S3. Only BuyersGuide images are hosted on Cloudinary for now.
 
 ---
 
