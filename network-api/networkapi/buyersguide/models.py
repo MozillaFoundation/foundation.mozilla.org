@@ -32,12 +32,9 @@ def get_product_image_upload_path(instance, filename):
 class CloudinaryImageField(CloudinaryField):
     def upload_options(self, model_instance):
         return {
-            'public_id': self.filename()
+            'folder': 'foundationsite/buyersguide',
+            'use_filename': True,
         }
-
-    def filename(self):
-        random_name = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
-        return f'foundationsite/buyersguide/{random_name}'
 
 
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
