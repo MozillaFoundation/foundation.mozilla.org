@@ -37,7 +37,7 @@ class CloudinaryImageField(CloudinaryField):
 
     def filename(self):
         random_name = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
-        return f'buyersguide/{random_name}'
+        return f'foundationsite/buyersguide/{random_name}'
 
 
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
@@ -440,7 +440,8 @@ class Product(models.Model):
 # We want to delete the product image when the product is removed
 @receiver(pre_delete, sender=Product)
 def delete_image(sender, instance, **kwargs):
-    uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
+    if instance.cloudinary_image:
+        uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
 
 
 class ProductVote(models.Model):
