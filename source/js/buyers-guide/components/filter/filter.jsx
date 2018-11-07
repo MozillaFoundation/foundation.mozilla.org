@@ -172,31 +172,37 @@ export default class Filter extends React.Component {
     min = min || this.state.creepinessMin;
     max = max || this.state.creepinessMax;
 
-    // TODO: update the faces as you slide
+    update.offsetMin = `calc(${min}% - 14px)`;
+    update.offsetMax = `calc(${max}% - 14px)`;
 
-    if (this.track) {
-      let bbox = this.track.getBoundingClientRect();
+    // Now, you'd think that given a min and max percentage,
+    // the logic would be straight forward:
+    //
+    //   interval = max - min
+    //   x-size = interval %,
+    //   x-position = min %
+    //
+    // But that is very much not how CSS works in this case:
+    // backgrounds are placed based on 0% meaning "anchor this
+    // image to the left edge", but 100% meaning "anchor this
+    // image to the right edge", which is rather different from
+    // the usual meaning where 100% is assumed to mean "make the
+    // left edge of the image coincide with the right edge of
+    // the container it's a background for".
+    //
+    // So: we need to non-linear-maths it up, to fix that!
 
-      if (bbox && bbox.width) {
-        let interval = (max - min);
+    let interval = (max - min),
+        left = min,
+        pivot = (100 - interval) / 100,
+        naiveScaledLeft = left * pivot,
+        difference = left - naiveScaledLeft,
+        leftMatchingPercentage = left + difference/pivot;
 
-        update.offsetMin = `calc(${min}% - 14px)`;
-        update.offsetMax = `calc(${max}% - 14px)`;
-
-        update.trackStyle = {
-          backgroundSize: `${interval}% 5px`,
-          // TODO: compute this without having to resort to the bounding box.
-          //
-          // NOTE: computing this value based on percentages is INSANE, because
-          // the background is positioned based on a double percentage: 0% will
-          // anchor the left side of the background, to the left side of the
-          // container, and 100% will anchor the right side of the background
-          // to the right side of the container, regardless of the size of the
-          // interval, so the behaviour is non-linear and things get super weird.
-          backgroundPosition: `${Math.round(bbox.width * min/100)}px center`
-        };
-      }
-    }
+    update.trackStyle = {
+      backgroundSize: `${interval}% 5px`,
+      backgroundPosition: `${leftMatchingPercentage}% center`
+    };
   }
 
   setVisibilities() {
@@ -208,33 +214,34 @@ export default class Filter extends React.Component {
     all.forEach(productBox => {
       let c = parseInt(productBox.dataset.creepiness);
       let classes = productBox.classList;
-      let keepChecking = true;
+      let hidden = false;
 
       // Filter out for creepiness
       if (c < minC || c > maxC) {
         classes.add(`d-none`);
-        keepChecking = false;
+        hidden = true;
       } else {
         classes.remove(`d-none`);
       }
 
-      // not hidden by creepiness: do we need to hide it due to buyers likelihood?
-      if (keepChecking) {
-        let recommendation = productBox.querySelector(`.recommendation`);
+      if (hidden) return;
 
-        if (like === `Likely` && recommendation.classList.contains(`negative`)) {
-          classes.add(`d-none`);
-          keepChecking = false;
-        } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
-          classes.add(`d-none`);
-          keepChecking = false;
-        }
+      // not hidden by creepiness: do we need to hide it due to buyers likelihood?
+      let recommendation = productBox.querySelector(`.recommendation`);
+
+      if (like === `Likely` && recommendation.classList.contains(`negative`)) {
+        classes.add(`d-none`);
+        hidden = true;
+      } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
+        classes.add(`d-none`);
+        hidden = true;
       }
+
+      if (hidden) return;
 
       // not hidden by recommendation: do we need to hide it due to seal-of-approval selection?
-      if (keepChecking) {
-        // ...code for this will go here
-      }
+
+      // ...code for this will go here
     });
   }
 
