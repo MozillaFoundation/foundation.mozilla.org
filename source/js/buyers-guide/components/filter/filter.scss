@@ -27,6 +27,9 @@
 
   div.filter-label {
     position: absolute;
+    left: -9em;
+    top: 1.3em;
+    font-weight: bold;
   }
 
   .filter-content {
@@ -42,7 +45,7 @@
       left: auto;
       width: $filter-box-dimension;
       height: $filter-box-dimension;
-      border-radius: 1000em;
+      border-radius: 50%;
     }
 
     position: absolute;
@@ -85,7 +88,7 @@
         right: 1.1em;
         width: 6em;
         height: 6em;
-        border-radius: 1000em;
+        border-radius: 50%;
       }
 
       width: 4em;

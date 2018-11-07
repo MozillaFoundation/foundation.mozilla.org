@@ -17,7 +17,7 @@ class RadioGroupEntry extends React.Component {
   render() {
     return (
       <div onClick={e => this.forward(e)} className="radio-button">
-        <span className={`dot` + (this.props.selected? ` selected`:``)}/> <span data-label={this.props.label} className={`label`}>{this.props.label}</span>
+        <span className={`dot` + (this.props.selected? ` selected`:``)}/> <span data-label={this.props.label} className="label">{this.props.label}</span>
       </div>
     );
   }
@@ -46,18 +46,18 @@ export default class Filter extends React.Component {
   }
 
   setupDocumentListeners() {
-    this.moveListener = (function(evt) {
+    this.moveListener = evt => {
       evt.preventDefault();
       evt.stopPropagation();
       this.slideMove(evt);
-    }).bind(this);
+    };
 
-    this.releaseListener = (function(evt) {
+    this.releaseListener = evt => {
       evt.preventDefault();
       evt.stopPropagation();
       this.slideReleased(evt);
       this.removeDocumentListeners();
-    }).bind(this);
+    };
   }
 
   addDocumentListeners() {
@@ -200,7 +200,7 @@ export default class Filter extends React.Component {
         leftMatchingPercentage = left + difference/pivot;
 
     update.trackStyle = {
-      backgroundSize: `${interval}% 5px`,
+      backgroundSize: `${interval}% 100%`,
       backgroundPosition: `${leftMatchingPercentage}% center`
     };
   }
