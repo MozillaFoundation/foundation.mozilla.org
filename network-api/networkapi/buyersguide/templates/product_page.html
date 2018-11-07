@@ -15,7 +15,7 @@
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
         <img class="mb-0" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}" width="400" alt="{{product.name}}"/>
-        {% if product.meets_minimum_security_standards %}
+        {% if product.meets_minimum_security_standards is True %}
         <img src="/_images/buyers-guide/badge.svg" class="seal-of-approval" alt="this product meets minimum security standards" />
         {% endif %}
       </div>
