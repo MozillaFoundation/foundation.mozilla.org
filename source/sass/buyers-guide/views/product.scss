@@ -1,5 +1,19 @@
 .product-header {
   padding-bottom: 88px;
+  position: relative;
+
+  .seal-of-approval {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 76px;
+    height: 76px;
+
+    @media (min-width: $bp-md) {
+      width: 140px;
+      height: 140px;
+    }
+  }
 }
 
 .product-detail {
