@@ -287,11 +287,11 @@ export default class Filter extends React.Component {
 
   render() {
     let content = this.getFilterContent();
-    return (
-      <div
-        className={`filter-content` + (this.state.collapsed ? ` collapsed` : ``)}
-        onClick={evt => this.open()}
-      >{ content }</div>
-    );
+    return [
+      <div className="filter-label h6-heading">Filter</div>,
+      <div className={`filter-content` + (this.state.collapsed ? ` collapsed` : ``)} onClick={evt => this.open()}>
+        { content }
+      </div>
+    ];
   }
 };
