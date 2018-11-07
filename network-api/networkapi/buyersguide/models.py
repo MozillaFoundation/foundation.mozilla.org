@@ -146,8 +146,9 @@ class Product(models.Model):
     )
 
     cloudinary_image = CloudinaryImageField(
-        help_text='Image representing this product',
+        help_text='Image representing this product - hosted on Cloudinary',
         blank=True,
+        verbose_name='image',
     )
 
     meets_minimum_security_standards = models.NullBooleanField(
