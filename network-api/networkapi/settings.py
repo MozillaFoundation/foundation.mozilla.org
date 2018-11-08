@@ -387,8 +387,6 @@ CRM_AWS_SQS_REGION = env('CRM_AWS_SQS_REGION')
 CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
 
 if USE_CLOUDINARY:
-    # Use network_url to check if we're running prod or not
-    NETWORK_SITE_URL = env('NETWORK_SITE_URL')
     CLOUDINARY_CLOUD_NAME = env('CLOUDINARY_CLOUD_NAME')
     CLOUDINARY_API_KEY = env('CLOUDINARY_API_KEY')
     CLOUDINARY_API_SECRET = env('CLOUDINARY_API_SECRET')
@@ -522,3 +520,6 @@ CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
 CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
+
+# Use network_url to check if we're running prod or not
+NETWORK_SITE_URL = env('NETWORK_SITE_URL')
