@@ -12,27 +12,25 @@
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-gray">
-<<<<<<< HEAD
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
-        <img class="mb-0" src="{% cloudinary_url product.cloudinary_image quality=85 fetch_format="auto" crop="fit" width=400 %}" width="400" alt="{{product.name}}"/>
-        {% if product.meets_minimum_security_standards is True %}
-        <img src="/_images/buyers-guide/badge.svg" class="seal-of-approval" alt="this product meets our minimum security standards" />
+        {% if USE_CLOUDINARY %}
+          <img class="thumb-border"
+               width="400"
+               src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
+               alt="{{product.name}}">
+        {% else %}
+           <img class="thumb-border"
+                width="400"
+                src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
         {% endif %}
+        {% if product.meets_minimum_security_standards is True %}
+          <img src="/_images/buyers-guide/badge.svg" class="seal-of-approval" alt="this product meets our minimum security standards" />
+          {% endif %}
       </div>
     </div>
   </div>
-=======
-{% if USE_CLOUDINARY %}
-  <img class="thumb-border"
-       width="400"
-     src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
-     alt="{{product.name}}">
-{% else %}
-  <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="400">
-{% endif %}
->>>>>>> Modify template to use cloudinary src url or not
 </div>
 <div class="container">
 
