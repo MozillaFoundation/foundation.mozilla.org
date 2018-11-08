@@ -35,6 +35,14 @@ body {
       background-position: center top;
     }
   }
+
+  .noselect {
+    -webkit-touch-callout: none; /* iOS */
+    -webkit-user-select: none; /* Webkit */
+    -moz-user-select: none; /* FF */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none;
+  }
 }
 
 button:hover {
