@@ -12,7 +12,10 @@ class Command(BaseCommand):
         all_products = Product.objects.all()
 
         for product in all_products:
-            image = UploadedFile(product.image.file, product.image.file.name)
-            product.cloudinary_image = image
-            product.save()
-            print(f"Product image for {product.name} migrated")
+            if product.image:
+                image = UploadedFile(product.image.file, product.image.file.name)
+                product.cloudinary_image = image
+                product.save()
+                print(f"Product image for {product.name} migrated")
+            else:
+                print(f"No Product image for {product.name} to migrate")
