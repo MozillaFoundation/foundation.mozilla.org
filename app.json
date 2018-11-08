@@ -35,6 +35,9 @@
     "SLACK_WEBHOOK_RA": {
       "required": true
     },
+    "USE_CLOUDINARY": {
+      "required": true
+    },
     "CLOUDINARY_CLOUD_NAME": {
       "required": true
     },
@@ -47,7 +50,6 @@
     "CLOUDINARY_URL": {
       "required": true
     },
-    "USE_CLOUDINARY": "False",
     "DEBUG": "False",
     "CORS_WHITELIST": "*",
     "XSS_PROTECTION": "True",
