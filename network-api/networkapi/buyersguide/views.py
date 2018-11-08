@@ -1,3 +1,4 @@
+import re
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import Error
 from django.shortcuts import render, get_object_or_404, redirect
@@ -14,6 +15,8 @@ from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRa
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
+locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
+
 
 def get_average_creepiness(product):
     try:
@@ -28,6 +31,27 @@ def get_average_creepiness(product):
     return 50
 
 
+def path_is_en_prefixed(path):
+    return path.startswith('/en/')
+
+
+def get_en_redirect(path):
+    redirect_path = re.sub(locale_regex, '/en/', path)
+    return redirect(redirect_path, permanent=False)
+
+
+def enforce_en_locale(view_handler):
+    def check_locale(*args, **kwargs):
+        path = args[0].path
+        if not path_is_en_prefixed(path):
+            return get_en_redirect(path)
+
+        return view_handler(*args, **kwargs)
+
+    return check_locale
+
+
+@enforce_en_locale
 def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
 
@@ -43,6 +67,7 @@ def buyersguide_home(request):
     })
 
 
+@enforce_en_locale
 def category_view(request, categoryname):
     category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
     products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
@@ -54,6 +79,7 @@ def category_view(request, categoryname):
     })
 
 
+@enforce_en_locale
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
     return render(request, 'product_page.html', {
@@ -64,6 +90,7 @@ def product_view(request, slug):
     })
 
 
+@enforce_en_locale
 def about_view(request):
     return render(request, 'about.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
