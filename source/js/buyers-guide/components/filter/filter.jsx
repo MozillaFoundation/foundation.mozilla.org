@@ -277,7 +277,7 @@ export default class Filter extends React.Component {
           </div>
         </div>
 
-        <div className="likelihood">A simple class for radio-group-looking things.
+        <div className="likelihood">
           <h3 className="h6-heading">likelihood to buy</h3>
           { likelihoods.map(opts => <RadioGroupEntry {...opts}/>) }
         </div>
