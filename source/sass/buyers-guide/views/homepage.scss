@@ -53,6 +53,21 @@
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;
+      position: relative;
+
+      .speech-bubble {
+        white-space: nowrap;
+        position: absolute;
+        top: 0;
+        right: 120%;
+        background-image: url(/_images/buyers-guide/icon-bubble.svg);
+        background-size: 100% 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        padding: 1.5em 2em;
+        border-radius: 1em;
+        color: #333;
+      }
     }
   }
 
