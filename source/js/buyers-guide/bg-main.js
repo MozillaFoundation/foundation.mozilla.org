@@ -173,7 +173,7 @@ let main = {
       });
     }
 
-    let donationModal = document.querySelector(`.donate-modal`);
+    let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
     if (donationModal) {
       ReactDOM.render(<DonateModal />, donationModal);
