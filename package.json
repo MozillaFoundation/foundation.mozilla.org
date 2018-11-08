@@ -47,7 +47,7 @@
     "chokidar-cli": "^1.2.1",
     "classnames": "2.2.6",
     "dotenv": "^6.0.0",
-    "eslint": "^5.7.0",
+    "eslint": "^5.8.0",
     "eslint-plugin-react": "^7.11.1",
     "html-entities": "^1.2.1",
     "js-cookie": "2.2.0",
