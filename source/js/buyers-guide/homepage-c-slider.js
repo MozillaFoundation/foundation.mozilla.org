@@ -18,11 +18,12 @@ export default {
   init: () => {
     let face = document.querySelector(`.current-creepiness`);
     let bubble = document.querySelector(`.speech-bubble`);
+    let bubbleText = bubble.querySelector(`.text`);
     let products = document.querySelectorAll(`.product-box`);
 
     window.addEventListener(`scroll`, () => {
       let visible = Array.from(products).filter(v => {
-        return isElementInViewport(v) && !v.classList.contains('d-none');
+        return isElementInViewport(v) && !v.classList.contains(`d-none`);
       });
       let n = visible.length;
       let averageCreepiness = visible.reduce( (tally, v) => tally + parseFloat(v.dataset.creepiness)/n, 0);
@@ -35,10 +36,10 @@ export default {
       let bin = Math.floor(len * (averageCreepiness-1)/100);
 
       if (bin === -1) {
-        bubble.textContent = ``;
+        bubbleText.textContent = ``;
         bubble.classList.add(`d-none`);
       } else {
-        bubble.textContent = CREEPINESS_LABELS[bin];
+        bubbleText.textContent = `${CREEPINESS_LABELS[bin]}!`;
         bubble.classList.remove(`d-none`);
       }
     }, {

@@ -22,7 +22,22 @@
       font-style: italic;
 
       @media screen and (min-width: 750px) {
-        font-size: 24px;
+        font-size: 20px;
+      }
+
+      .creep-face-emoji {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        position: relative;
+        top: 0.25em;
+        margin: 0 0.2em;
+        font-variant: normal;
+        color: transparent;
+        background-image: url(/_images/buyers-guide/faces/most-emoji.png);
+        background-size: 100% 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
     }
   }
@@ -56,17 +71,41 @@
       position: relative;
 
       .speech-bubble {
-        white-space: nowrap;
+        display: inline-block;
+        height: 2em;
         position: absolute;
-        top: 0;
+        top: 1em;
         right: 120%;
-        background-image: url(/_images/buyers-guide/icon-bubble.svg);
-        background-size: 100% 100%;
-        background-position: center center;
-        background-repeat: no-repeat;
-        padding: 1.5em 2em;
-        border-radius: 1em;
-        color: #333;
+        white-space: nowrap;
+
+        @media (max-width: 530px) {
+          display: none !important;
+        }
+
+        $sb-height: 2.5em;
+
+        .text {
+          display: inline-block;
+          height: $sb-height;
+          background: #f4f4f4;
+          border-radius: 1em 0 0 1em;
+          line-height: 2em;
+          padding: 0.25em 0 0.25em 1em;
+          font-weight: 600;
+          color: #777;
+        }
+
+        .hook {
+          display: inline-block;
+          width: 2em;
+          height: $sb-height;
+          background-image: url(/_images/buyers-guide/icon-bubble.svg);
+          background-size: auto $sb-height;
+          background-position: -100px 0;
+          background-repeat: no-repeat;
+          vertical-align: top;
+          margin-left: -5px;
+        }
       }
     }
   }
