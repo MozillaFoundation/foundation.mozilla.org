@@ -175,7 +175,7 @@
       <div class="row">
       {% for product in product.related_products.all %}
       <div class="col-6 col-md-3 mb-3 mb-md-0">
-        <a class="d-block" href="/privacynotincluded/products/{{ product.slug }}">
+        <a class="d-block" href="/en/privacynotincluded/products/{{ product.slug }}">
           <img class="thumb-border" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
         </a>
       </div>

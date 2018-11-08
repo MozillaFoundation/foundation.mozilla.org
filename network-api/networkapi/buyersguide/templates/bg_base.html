@@ -41,15 +41,15 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <a class="nav-home" href="/privacynotincluded">Home</a>
+              <a class="nav-home" href="/en/privacynotincluded">Home</a>
               {% for current in categories %}
               <a class="nav{% if category %}
                 {% if category.name == current.name %}
                   active
                 {% endif %}
-              {% endif %}" href="/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
+              {% endif %}" href="/en/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
               {% endfor %}
-              <a class="nav-about" href="/privacynotincluded/about">About the Guide</a>
+              <a class="nav-about" href="/en/privacynotincluded/about">About the Guide</a>
             </div>
           </div>
         </div>

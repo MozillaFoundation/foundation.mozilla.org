@@ -3,7 +3,7 @@
 {% block header_extra %}
   {{ block.super }}
   <div class="right">
-    <form action="/privacynotincluded/refresh-cache" method="post">
+    <form action="/en/privacynotincluded/refresh-cache" method="post">
       <button class="button bicolor icon icon-cog" style="height: 2.9em;" type="submit">Refresh Homepage Cache</button>
       {% csrf_token %}
     </form>
