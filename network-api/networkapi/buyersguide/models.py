@@ -2,7 +2,6 @@ import re
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.forms import model_to_dict
 from django.utils.text import slugify
 
 from networkapi.buyersguide.validators import ValueListValidator
@@ -328,16 +327,6 @@ class Product(models.Model):
         except ObjectDoesNotExist:
             # There's no aggregate data available yet, return None
             return None
-
-    def to_dict(self):
-        model_dict = model_to_dict(self)
-        model_dict['votes'] = self.votes
-        model_dict['slug'] = self.slug
-        try:
-            model_dict['reading_grade'] = int(self.privacy_policy_reading_level)
-        except ValueError:
-            model_dict['reading_grade'] = 0
-        return model_dict
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
