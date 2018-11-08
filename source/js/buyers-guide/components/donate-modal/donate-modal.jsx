@@ -6,7 +6,8 @@ import DNT from '../../dnt.js';
 export default class DonateModal extends React.Component {
   constructor(props) {
     super(props);
-    let dismissed = !!sessionStorage.getItem('dismissed') || false;
+    let dismissed = !!sessionStorage.getItem(`dismissed`) || false;
+
     this.state = {
       delay: this.props.delay || 100,
       visible: false,
@@ -18,11 +19,11 @@ export default class DonateModal extends React.Component {
     if (this.state.dismissed) {
       this.props.onDismiss();
     }
-    setTimeout(e => this.setState({ visible: true }), this.state.delay);
+    setTimeout(() => this.setState({ visible: true }), this.state.delay);
   }
 
   dismiss() {
-    sessionStorage.setItem('dismissed', 'dismissed');
+    sessionStorage.setItem(`dismissed`, `dismissed`);
     this.setState({
       dismissed: true
     });
@@ -44,8 +45,8 @@ export default class DonateModal extends React.Component {
     }
 
     return (
-      <div className={`donate-modal ${this.state.visible ? 'show' : ''}`}>
-        <div className="close" onClick={evt => this.dismiss()}>
+      <div className={`donate-modal ${this.state.visible ? `show` : ``}`}>
+        <div className="close" onClick={() => this.dismiss()}>
           <span className="white">X</span>
         </div>
         <div className="row content">
