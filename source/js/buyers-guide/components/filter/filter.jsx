@@ -260,7 +260,7 @@ export default class Filter extends React.Component {
     });
 
     return (
-      <div className={this.state.collapsed ? `d-none`: ``}>
+      <div className={`content` + (this.state.collapsed ? ` d-none`: ``)}>
         <span className="close" onClick={() => this.close()} />
 
         <h2 className="h6-heading">Filter by</h2>
