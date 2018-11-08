@@ -330,9 +330,8 @@ class Product(models.Model):
     else:
         image_field = FieldPanel('image')
 
-    # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better ways to do
-    # this using `_meta.get_fields()` but I ran into issues linked to the fact I don't know wagtail that much. To be
-    #  refactored in the future.
+    # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better way to do
+    # this using `_meta.get_fields()`. To be refactored in the future.
     panels = [
         MultiFieldPanel([
             FieldPanel('name'),

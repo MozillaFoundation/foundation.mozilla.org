@@ -174,7 +174,7 @@ Django powers the backend of the site, and we use Wagtail with Django to provide
 
 #### S3 and Cloudinary
 
-Most assets are stored on S3. Only BuyersGuide images are hosted on Cloudinary for now.
+Most assets are stored on S3. Buyers Guide images are hosted on Cloudinary.
 
 ---
 
