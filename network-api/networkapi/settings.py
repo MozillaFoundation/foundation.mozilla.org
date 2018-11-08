@@ -66,6 +66,7 @@ env = environ.Env(
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CORAL_TALK_SERVER_URL=(str, None),
     PNI_STATS_DB_URL=(str, None),
+    CORAL_TALK_API_TOKEN=(str, None),
     REDIS_URL=(str, ''),
 )
 
@@ -503,3 +504,4 @@ CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
+CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
