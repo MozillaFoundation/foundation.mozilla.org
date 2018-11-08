@@ -26,7 +26,8 @@
 =======
 {% if USE_CLOUDINARY %}
   <img class="thumb-border"
-     src="{% cloudinary_url product.cloudinary_image quality=85 fetch_format="auto" crop="fit" width=400 %}"
+       width="400"
+     src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
      alt="{{product.name}}">
 {% else %}
   <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="400">
@@ -187,7 +188,14 @@
       {% for product in product.related_products.all %}
       <div class="col-6 col-md-3 mb-3 mb-md-0">
         <a class="d-block" href="/privacynotincluded/products/{{ product.slug }}">
-          <img class="thumb-border" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image}}"/>
+          {% if USE_CLOUDINARY %}
+            <img class="thumb-border"
+            width="300"
+            src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+            alt="{{product.name}}">
+          {% else %}
+            <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
+          {% endif %}
         </a>
       </div>
       {% endfor %}
