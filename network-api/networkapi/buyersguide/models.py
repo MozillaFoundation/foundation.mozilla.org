@@ -1,6 +1,4 @@
-import random
 import re
-import string
 
 from cloudinary import uploader
 from django.core.exceptions import ObjectDoesNotExist
