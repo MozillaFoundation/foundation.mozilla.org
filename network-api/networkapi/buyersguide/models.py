@@ -2,7 +2,6 @@ import re
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.forms import model_to_dict
 from django.utils.text import slugify
 
 from networkapi.buyersguide.validators import ValueListValidator
@@ -329,12 +328,6 @@ class Product(models.Model):
             # There's no aggregate data available yet, return None
             return None
 
-    def to_dict(self):
-        model_dict = model_to_dict(self)
-        model_dict['votes'] = self.votes
-        model_dict['slug'] = self.slug
-        return model_dict
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         models.Model.save(self, *args, **kwargs)
@@ -425,6 +418,7 @@ class RangeVoteBreakdown(VoteBreakdown):
 
 class Vote(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True

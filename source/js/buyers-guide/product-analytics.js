@@ -1,4 +1,5 @@
 import ReactGA from 'react-ga';
+import DNT from './dnt.js';
 
 function getElementGAInformation(pageTitle, productName) {
   return {
@@ -95,6 +96,18 @@ function getElementGAInformation(pageTitle, productName) {
       action: `share tap`,
       label: `share ${productName} to Email`,
       transport: `beacon`
+    },
+    'privacy-policy-link': {
+      category: `product`,
+      action: `privacy policy link tap`,
+      label: `policy link for ${productName}`,
+      transport: `beacon`
+    },
+    'reading-level-link': {
+      category: `product`,
+      action: `carnegie mellon reading level links`,
+      label: `reading level link for ${productName}`,
+      transport: `beacon`
     }
   };
 }
@@ -111,6 +124,10 @@ function setupElementGA(elementId, opts) {
 
 const ProductGA = {
   init: () => {
+    if (!DNT.allowTracking) {
+      return;
+    }
+
     let productBox = document.querySelector(`.product-detail .h1-heading`);
     let productName = productBox ? productBox.textContent : `unknown product`;
     let pageTitle = document.querySelector(`meta[property='og:title']`).getAttribute(`content`);

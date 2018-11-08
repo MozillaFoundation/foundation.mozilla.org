@@ -6,8 +6,8 @@ from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 
 from networkapi.buyersguide.factory import ProductFactory
-from networkapi.buyersguide.models import RangeVote, BooleanVote, Product
-from networkapi.buyersguide.views import buyersguide_home, product_view, category_view
+from networkapi.buyersguide.models import RangeVote, BooleanVote, Product, BuyersGuideProductCategory
+from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
@@ -318,25 +318,53 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the homepage works.
         """
-        request = self.factory.get('/privacynotincluded/')
-        request.user = self.user
+        request = self.factory.get('/en/privacynotincluded/')
         response = buyersguide_home(request)
         self.assertEqual(response.status_code, 200, 'homepage yields a working page')
+
+    def test_localised_homepage(self):
+        """
+        Test that the homepage redirects when missing a locale code.
+        """
+        response = self.client.get('/privacynotincluded/')
+        self.assertEqual(response.status_code, 302, 'simple locale gets redirected')
+
+    def test_only_en(self):
+        """
+        Test that the homepage redirects away from the other locales the site supports
+        """
+        response = self.client.get('/fr/privacynotincluded', follow=True)
+        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /fr/ to /en/')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get('/de/privacynotincluded', follow=True)
+        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /de/ to /en/')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get('/pt/privacynotincluded', follow=True)
+        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /pt/ to /en/')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get('/es/privacynotincluded', follow=True)
+        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /es/ to /en/')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get('/pl/privacynotincluded', follow=True)
+        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /pl/ to /en/')
+        self.assertEqual(response.status_code, 200)
 
     def test_product_view_404(self):
         """
         Test that the product view raises an Http404 if the product name doesn't exist
         """
-        request = self.factory.get('/privacynotincluded/products/this is not a product')
-        request.user = self.user
+        request = self.factory.get('/en/privacynotincluded/products/this is not a product')
         self.assertRaises(Http404, product_view, request, 'this is not a product')
 
     def test_category_view_404(self):
         """
         Test that the category view raises an Http404 if the category name doesn't exist
         """
-        request = self.factory.get('/privacynotincluded/categories/this is not a category')
-        request.user = self.user
+        request = self.factory.get('/en/privacynotincluded/categories/this is not a category')
         self.assertRaises(Http404, category_view, request, 'this is not a category')
 
 
@@ -350,3 +378,39 @@ class ProductTests(TestCase):
         p.name = 'name changed'
         p.save()
         self.assertEqual(p.slug, slugify(p.name))
+
+    def test_only_en(self):
+        p = Product.objects.create(name='this should redirect')
+        url = f'/fr/privacynotincluded/products/{p.slug}/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response['Location'],
+            f'/en/privacynotincluded/products/{p.slug}/',
+            'redirects to /en/privacynotincluded/products/{slug}/'
+        )
+
+
+class CategoryViewTest(TestCase):
+    def test_only_en(self):
+        c = BuyersGuideProductCategory.objects.create(name='testcategory')
+        url = f'/fr/privacynotincluded/categories/{c.name}/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response['Location'],
+            f'/en/privacynotincluded/categories/{c.name}/',
+            'redirects to /en/privacynotincluded/categories/{name}/'
+        )
+
+
+class AboutViewTest(TestCase):
+    def test_only_en(self):
+        url = f'/fr/privacynotincluded/about/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response['Location'],
+            f'/en/privacynotincluded/about/',
+            'redirects to /en/privacynotincluded/about/'
+        )
