@@ -77,10 +77,9 @@ def buyersguide_home(request):
 def category_view(request, categoryname):
     key = f'products_category__{categoryname}'
     products = cache.get(key)
-    category = None
+    category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
 
     if not products:
-        category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
         products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
         cache.set(key, products, 86400)
 
