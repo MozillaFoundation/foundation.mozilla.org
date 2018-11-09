@@ -117,15 +117,13 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
-    let creepJudgement = CREEPINESS_LABELS[this.state.majority.creepiness].toLowerCase();
     let confJudgement = this.state.majority.confidence ? `likely` : `not likely`;
 
     return (<form method="post" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
       <div className="row mb-5">
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
-            <h3 className="h5-heading mb-2">How creepy is this product?</h3>
-            <p className="help-text">Majority of voters think it is {creepJudgement}</p>
+            <h3 className="h5-heading mb-2">How creepy do you think this is?</h3>
           </div>
           <Creepometer initialValue={this.state.creepiness} onChange={value => this.setCreepiness(value)}></Creepometer>
         </div>
