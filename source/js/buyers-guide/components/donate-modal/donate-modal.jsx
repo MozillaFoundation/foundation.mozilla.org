@@ -4,7 +4,7 @@ import DNT from '../../dnt.js';
 
 const KEY_STATE = `donate modal state`;
 const KEY_TIMER = `donate modal timer`;
-const DELAY = 5000; // in ms
+const DELAY = 10000; // in ms
 const TIMER_INCREMENT = 1000; // in ms
 
 export default class DonateModal extends React.Component {
