@@ -98,7 +98,7 @@ def product_view(request, slug):
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
-        'product': product.to_dict(),
+        'product': product,
         'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
@@ -169,12 +169,6 @@ def product_vote(request):
 
 @api_view(['POST'])
 @permission_classes((IsAdminUser,))
-def refresh_cache(request):
-    # clear entire cache
+def clear_cache(request):
     cache.clear()
-
-    # refresh the products list for the homepage
-    products = list(Product.objects.all())
-    products.sort(key=lambda p: p.votes['creepiness']['average'])
-    cache.set('sorted_product_dicts', products, 86400)
     return redirect('/cms/buyersguide/product/')
