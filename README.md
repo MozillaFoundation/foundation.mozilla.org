@@ -298,6 +298,19 @@ The domain used to fetch static content from Network Pulse can be customized by 
 The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. **NOTE: this variable must include a protocol (such as `https://`)**
 
 ---
+### Cloudinary for Review Apps and Staging (BuyersGuide only)
+
+We use Cloudinary upload-mapping feature to copy images from the production to the staging Cloudinary account.
+
+Current directories available on Cloudinary staging:
+
+Folder | URL prefix
+--- | ---
+`foundationsite/buyersguide` | `https://res.cloudinary.com/mozilla-foundation/image/upload/foundationsite/buyersguide/`
+
+To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
+
+---
 
 ### Scheduled tasks
 

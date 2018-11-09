@@ -21,7 +21,7 @@ class ImageProvider(BaseProvider):
     """
 
     if settings.USE_CLOUDINARY:
-        base_path = f'foundationsite-staging/images/placeholders/'
+        base_path = 'foundationsite/images/placeholders/'
     else:
         base_path = 'images/placeholders/'
 

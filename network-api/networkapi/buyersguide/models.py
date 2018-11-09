@@ -29,12 +29,8 @@ def get_product_image_upload_path(instance, filename):
 # Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
 class CloudinaryImageField(CloudinaryField):
     def upload_options(self, model_instance):
-        if settings.NETWORK_SITE_URL == 'https://foundation.mozilla.org':
-            folder = 'foundationsite/buyersguide'
-        else:
-            folder = 'foundationsite-staging/buyersguide'
         return {
-            'folder': folder,
+            'folder': 'foundationsite/buyersguide',
             'use_filename': True,
         }
 
