@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.http import Http404
 from django.urls import reverse
 from django.utils.text import slugify
