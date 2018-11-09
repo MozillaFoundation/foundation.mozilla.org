@@ -169,8 +169,6 @@ def product_vote(request):
 
 @api_view(['POST'])
 @permission_classes((IsAdminUser,))
-def refresh_cache(request):
-    products = [p.to_dict() for p in Product.objects.all()]
-    products.sort(key=lambda p: get_average_creepiness(p))
-    cache.set('sorted_product_dicts', products, 86400)
+def clear_cache(request):
+    cache.clear()
     return redirect('/cms/buyersguide/product/')
