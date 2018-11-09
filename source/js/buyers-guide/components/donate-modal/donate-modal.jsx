@@ -35,14 +35,47 @@ export default class DonateModal extends React.Component {
 
   componentDidMount() {
     if (!this.state.dismissed) {
-      this.runTimer = setInterval(() => {
-        this.timer += TIMER_INCREMENT;
-        sessionStorage.setItem(KEY_TIMER, this.timer);
-      }, TIMER_INCREMENT);
+      this.detectClick();
+      this.startTimer();
+
+      // show modal after delay. If delay is a negative value, show modal immediately
+      setTimeout(() => this.setState({ visible: true }), Math.max(this.state.delay, 0));
+    }
+  }
+
+  startTimer() {
+    this.runTimer = setInterval(() => {
+      this.timer += TIMER_INCREMENT;
+
+      sessionStorage.setItem(KEY_TIMER, this.timer);
+    }, TIMER_INCREMENT);
+  }
+
+  detectClick() {
+    document.addEventListener(`click`, (event) => {
+      // clicking outside of the modal should dismiss the modal
+      if (!this.checkIfClickedInside(event.target) && this.state.visible) {
+        this.dismiss();
+      }
+    });
+  }
+
+  checkIfClickedInside(elem) {
+    let wrapper = document.querySelector(`.donate-modal-wrapper`);
+
+    return elem === wrapper || wrapper.contains(elem);
+  }
+
+  handleBtnClick() {
+    if (DNT.allowTracking) {
+      ReactGA.event({
+        category: `site`,
+        action: `donate tap`,
+        label: `donate popup`
+      });
     }
 
-    // show modal after delay. If delay is a negative value, show modal immediately
-    setTimeout(() => this.setState({ visible: true }), Math.max(this.state.delay, 0));
+    this.dismiss();
   }
 
   dismiss() {
@@ -54,16 +87,6 @@ export default class DonateModal extends React.Component {
     }, () => {
       clearInterval(this.runTimer);
     });
-  }
-
-  trackDonation() {
-    if (DNT.allowTracking) {
-      ReactGA.event({
-        category: `site`,
-        action: `donate tap`,
-        label: `donate popup`
-      });
-    }
   }
 
   render() {
@@ -85,7 +108,7 @@ export default class DonateModal extends React.Component {
             <div className="col-md-4 offset-md-2">
               <h2 className="h5-heading">Help us keep this work going</h2>
               <div>
-                <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.trackDonation(evt)} href="https://donate.mozilla.org?utm_source=pni">Support Mozilla</a>
+                <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org?utm_source=pni">Support Mozilla</a>
               </div>
             </div>
           </div>
