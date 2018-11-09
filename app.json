@@ -47,9 +47,6 @@
     "CLOUDINARY_API_SECRET": {
       "required": true
     },
-    "CLOUDINARY_URL": {
-      "required": true
-    },
     "DEBUG": "False",
     "CORS_WHITELIST": "*",
     "XSS_PROTECTION": "True",
