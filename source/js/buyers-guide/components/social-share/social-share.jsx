@@ -15,30 +15,30 @@ const SocialShareLink = (props) => {
   };
 
   if (props.type === `facebook`) {
-      classes += " social-button-fb";
-      srLabel = `Facebook`;
-      shareEvent.label += `to facebook`;
-      link = `https://www.facebook.com/sharer/sharer.php?u=https://${link}`;
+    classes += ` social-button-fb`;
+    srLabel = `Facebook`;
+    shareEvent.label += `to facebook`;
+    link = `https://www.facebook.com/sharer/sharer.php?u=https://${link}`;
   }
 
   if (props.type === `twitter`) {
-      classes += " social-button-twitter";
-      srLabel = `Twitter`;
-      shareEvent.label += `to twitter`;
-      link = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+    classes += ` social-button-twitter`;
+    srLabel = `Twitter`;
+    shareEvent.label += `to twitter`;
+    link = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
   }
 
   if (props.type === `email`) {
-      classes += " social-button-email";
-      srLabel = `Email`;
-      shareEvent.label += `via email`;
-      link = `mailto:?&body=${encodeURIComponent(shareText)}`;
+    classes += ` social-button-email`;
+    srLabel = `Email`;
+    shareEvent.label += `via email`;
+    link = `mailto:?&body=${encodeURIComponent(shareText)}`;
   }
 
   let trackShareAction = () => {};
 
   if (DNT.allowTracking) {
-    trackShareAction = evt => {
+    trackShareAction = () => {
       ReactGA.event(shareEvent);
     };
   }
@@ -47,11 +47,13 @@ const SocialShareLink = (props) => {
 };
 
 const SocialShare = (props) => {
-  return <div class="social d-flex justify-content-center mt-3">
-    <SocialShareLink type="facebook" {...props} />
-    <SocialShareLink type="twitter" {...props} />
-    <SocialShareLink type="email" {...props} />
-  </div>
+  return (
+    <div class="social d-flex justify-content-center mt-3">
+      <SocialShareLink type="facebook" {...props} />
+      <SocialShareLink type="twitter" {...props} />
+      <SocialShareLink type="email" {...props} />
+    </div>
+  );
 };
 
 export default SocialShare;

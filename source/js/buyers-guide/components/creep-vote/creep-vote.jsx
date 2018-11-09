@@ -16,13 +16,14 @@ export default class CreepVote extends React.Component {
     let votes = this.props.votes;
     let totalVotes = votes.total;
 
-    let c_breakdown = votes.creepiness['vote_breakdown'];
+    let creepBreakdown = votes.creepiness.vote_breakdown;
     let creepiness = 0;
     let creepinessId = 0;
 
-    Object.keys(c_breakdown).forEach(id => {
-      let v = c_breakdown[id];
-      if (v>creepiness) {
+    Object.keys(creepBreakdown).forEach(id => {
+      let v = creepBreakdown[id];
+
+      if (v > creepiness) {
         creepiness = v;
         creepinessId = id;
       }
@@ -116,7 +117,7 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
-    let creepJudgement =  CREEPINESS_LABELS[this.state.majority.creepiness].toLowerCase();
+    let creepJudgement = CREEPINESS_LABELS[this.state.majority.creepiness].toLowerCase();
     let confJudgement = this.state.majority.confidence ? `likely` : `not likely`;
 
     return (<form method="post" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>

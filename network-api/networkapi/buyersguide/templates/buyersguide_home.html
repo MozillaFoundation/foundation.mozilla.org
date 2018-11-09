@@ -25,12 +25,20 @@
 
         <div class="row justify-content-center">
           <p class="col col-lg-9 text-center user-rated">
-            Products below are rated by users. Click on a product to rate it.
+            The <span class="creep-face-emoji">😮</span> below shows how creepy users find these products. Scroll to see it change. Click on a product to rate it.
           </p>
         </div>
 
-        <div class="creepiness-slider sticky-top bg-white text-center">
-          <span class="current-creepiness"></span>
+        <div class="creepiness-slider bg-white text-center">
+          <span class="current-creepiness">
+            <span class="speech-bubble d-none">
+              <span class="text"></span>
+              <span class="hook"></span>
+            </span>
+          </span>
+          <div id="product-filter" class="noselect">
+            <!-- instantiated to a real filter by bg-main.js -->
+          </div>
         </div>
 
         <div class="d-flex justify-content-center align-items-stretch flex-wrap">
@@ -38,9 +46,9 @@
           <div class="product-box bg-gray" data-creepiness="{{ product.votes.creepiness.average }}">
             {% if product.votes.confidence %}
               {% if product.votes.confidence.1 > product.votes.confidence.0 %}
-                <div class="recommendation go-for-it m-2"></div>
+                <div class="recommendation positive m-2"></div>
               {% else %}
-                <div class="recommendation stay-away m-2"></div>
+                <div class="recommendation negative m-2"></div>
               {% endif %}
             {% endif %}
             <a class="" href="/privacynotincluded/products/{{ product.slug }}">

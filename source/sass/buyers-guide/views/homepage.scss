@@ -22,7 +22,22 @@
       font-style: italic;
 
       @media screen and (min-width: 750px) {
-        font-size: 24px;
+        font-size: 20px;
+      }
+
+      .creep-face-emoji {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        position: relative;
+        top: 0.25em;
+        margin: 0 0.2em;
+        font-variant: normal;
+        color: transparent;
+        background-image: url(/_images/buyers-guide/faces/most-emoji.png);
+        background-size: 100% 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
     }
   }
@@ -41,8 +56,9 @@
     z-index: 0;
     position: sticky;
     position: -webkit-sticky;
-    top: 30px;
-    padding-top: 20px;
+    top: 22px;
+    padding-top: 40px;
+    padding-bottom: 10px;
 
     .current-creepiness {
       display: inline-block;
@@ -52,6 +68,44 @@
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;
+      position: relative;
+
+      .speech-bubble {
+        display: inline-block;
+        height: 2em;
+        position: absolute;
+        top: 1em;
+        right: 120%;
+        white-space: nowrap;
+
+        @media (max-width: 530px) {
+          display: none !important;
+        }
+
+        $sb-height: 2.5em;
+
+        .text {
+          display: inline-block;
+          height: $sb-height;
+          background: #f4f4f4;
+          border-radius: 1em 0 0 1em;
+          line-height: 2em;
+          padding: 0.25em 0 0.25em 1em;
+          color: #777;
+        }
+
+        .hook {
+          display: inline-block;
+          width: 2em;
+          height: $sb-height;
+          background-image: url(/_images/buyers-guide/icon-bubble.svg);
+          background-size: auto $sb-height;
+          background-position: -100px 0;
+          background-repeat: no-repeat;
+          vertical-align: top;
+          margin-left: -5px;
+        }
+      }
     }
   }
 
@@ -60,14 +114,14 @@
     width: 1em;
     height: 1em;
 
-    &.go-for-it {
+    &.positive {
       background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }
 
-    &.stay-away {
+    &.negative {
       background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
       background-position: 0 0;
       background-repeat: no-repeat;
