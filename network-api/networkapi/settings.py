@@ -72,7 +72,6 @@ env = environ.Env(
     CLOUDINARY_CLOUD_NAME=(str, ''),
     CLOUDINARY_API_KEY=(str, ''),
     CLOUDINARY_API_SECRET=(str, ''),
-    CLOUDINARY_URL=(str, ''),
 )
 
 # Read in the environment
