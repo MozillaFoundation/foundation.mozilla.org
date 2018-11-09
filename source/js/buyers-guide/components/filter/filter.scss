@@ -29,7 +29,6 @@
     position: absolute;
     left: -9em;
     top: 1.3em;
-    font-weight: bold;
   }
 
   .filter-content {
@@ -53,20 +52,17 @@
     right: 0;
     left: 0;
     width: 100%;
-    background: white;
     border-radius: 0;
-
     text-align: left;
     padding: 0.5em;
     overflow: hidden;
-    box-shadow: 4px 4px 13px 0px #999;
-
+    box-shadow: 4px 4px 13px 0 #999;
     transition: top, right, height, width;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
 
     div.content {
-      transform: scale(1,1);
+      transform: scale(1, 1);
       transition: transform;
       transition-duration: 0.2s;
       transition-timing-function: ease-in-out;
@@ -80,7 +76,7 @@
 
     &.collapsed {
       div.content {
-        transform: scale(0.01,0.01);
+        transform: scale(0.01, 0.01);
       }
 
       @media screen and (min-width: 550px) {
@@ -95,7 +91,6 @@
       height: 4em;
       top: -4.5em;
       border-radius: 2em;
-
       background-image: url(/_images/buyers-guide/icon-filter.svg);
       background-position: center center;
       background-size: 2em;
