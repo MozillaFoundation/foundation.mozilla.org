@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from django.forms import model_to_dict
 from django.utils.text import slugify
 from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 
@@ -423,6 +424,16 @@ class Product(models.Model):
         except ObjectDoesNotExist:
             # There's no aggregate data available yet, return None
             return None
+
+    def to_dict(self):
+        model_dict = model_to_dict(self)
+        model_dict['votes'] = self.votes
+        model_dict['slug'] = self.slug
+        try:
+            model_dict['reading_grade'] = int(self.privacy_policy_reading_level)
+        except ValueError:
+            model_dict['reading_grade'] = 0
+        return model_dict
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
