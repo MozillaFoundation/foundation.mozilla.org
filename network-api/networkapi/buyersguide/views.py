@@ -18,6 +18,12 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
 
 
+if settings.USE_CLOUDINARY:
+    MEDIA_URL = settings.CLOUDINARY_URL
+else:
+    MEDIA_URL = settings.MEDIA_URL
+
+
 def get_average_creepiness(product):
     try:
         votes = product['votes']
@@ -63,7 +69,7 @@ def buyersguide_home(request):
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': MEDIA_URL,
     })
 
 
@@ -82,7 +88,7 @@ def category_view(request, categoryname):
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': MEDIA_URL,
     })
 
 
@@ -92,8 +98,8 @@ def product_view(request, slug):
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
-        'product': product,
-        'mediaUrl': settings.MEDIA_URL,
+        'product': product.to_dict(),
+        'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
 

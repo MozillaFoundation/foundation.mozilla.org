@@ -1,5 +1,6 @@
 from random import choices, randint
 
+from django.conf import settings
 from faker.providers import BaseProvider
 
 
@@ -19,7 +20,10 @@ class ImageProvider(BaseProvider):
     >>> Faker.add_provider(ImageProvider)
     """
 
-    base_path = 'images/placeholders/'
+    if settings.USE_CLOUDINARY:
+        base_path = 'foundationsite/images/placeholders/'
+    else:
+        base_path = 'images/placeholders/'
 
     generic_images = (
         'generic/tigerparrot.jpg',
