@@ -41,6 +41,7 @@ urlpatterns = list(filter(None, [
     url(r'^api/milestones/', include('networkapi.milestones.urls')),
     url(r'^api/people/', include('networkapi.people.urls')),
     url(r'^api/buyersguide/vote/', buyersguide_views.product_vote, name='product-vote'),
+    url(r'^api/buyersguide/clear-cache/', buyersguide_views.clear_cache, name='clear-cache'),
     url(r'^environment.json', EnvVariablesView.as_view()),
     url(r'^help/', review_app_help_view, name='Review app help'),
 
