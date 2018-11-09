@@ -29,6 +29,7 @@ environment:
   NETWORK_SITE_URL: https://foundation.mozilla.org
   TARGET_DOMAIN: foundation.mozilla.org
   SHOW_TAKEOVER: false
+  USE_CLOUDINARY: false
 
   matrix:
     - PYTHON: "C:\\Python36"

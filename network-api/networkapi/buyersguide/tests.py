@@ -367,6 +367,15 @@ class BuyersGuideViewTest(TestCase):
         request = self.factory.get('/en/privacynotincluded/categories/this is not a category')
         self.assertRaises(Http404, category_view, request, 'this is not a category')
 
+    def test_product_view(self):
+        """
+        Test that the product view returns a 200
+        """
+        p = Product.objects.create(name='test product view')
+
+        response = self.client.get(f'/en/privacynotincluded/products/{p.slug}/')
+        self.assertEqual(response.status_code, 200, 'The product view should render')
+
 
 class ProductTests(TestCase):
     def test_product_slug(self):

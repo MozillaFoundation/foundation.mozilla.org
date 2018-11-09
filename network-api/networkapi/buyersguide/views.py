@@ -18,6 +18,12 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
 
 
+if settings.USE_CLOUDINARY:
+    MEDIA_URL = settings.CLOUDINARY_URL
+else:
+    MEDIA_URL = settings.MEDIA_URL
+
+
 def get_average_creepiness(product):
     try:
         votes = product['votes']
@@ -56,14 +62,14 @@ def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
 
     if not products:
-        products = list(Product.objects.all())
-        products.sort(key=lambda p: p.votes['creepiness']['average'])
+        products = [p.to_dict() for p in Product.objects.all()]
+        products.sort(key=lambda p: get_average_creepiness(p))
         cache.set('sorted_product_dicts', products, 86400)
 
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': MEDIA_URL,
     })
 
 
@@ -71,18 +77,17 @@ def buyersguide_home(request):
 def category_view(request, categoryname):
     key = f'products_category__{categoryname}'
     products = cache.get(key)
-    category = None
+    category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
 
     if not products:
-        category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
-        products = Product.objects.filter(product_category__in=[category]).distinct()
+        products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
         cache.set(key, products, 86400)
 
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': MEDIA_URL,
     })
 
 
@@ -92,8 +97,8 @@ def product_view(request, slug):
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
-        'product': product,
-        'mediaUrl': settings.MEDIA_URL,
+        'product': product.to_dict(),
+        'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
 
@@ -163,12 +168,6 @@ def product_vote(request):
 
 @api_view(['POST'])
 @permission_classes((IsAdminUser,))
-def refresh_cache(request):
-    # clear entire cache
+def clear_cache(request):
     cache.clear()
-
-    # refresh the products list for the homepage
-    products = list(Product.objects.all())
-    products.sort(key=lambda p: p.votes['creepiness']['average'])
-    cache.set('sorted_product_dicts', products, 86400)
     return redirect('/cms/buyersguide/product/')
