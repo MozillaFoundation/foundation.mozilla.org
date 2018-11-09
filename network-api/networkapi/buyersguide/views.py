@@ -98,7 +98,7 @@ def product_view(request, slug):
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
-        'product': product.to_dict(),
+        'product': product,
         'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
