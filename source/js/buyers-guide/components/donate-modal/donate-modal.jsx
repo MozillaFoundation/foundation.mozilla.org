@@ -2,32 +2,58 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import DNT from '../../dnt.js';
 
+const KEY_STATE = `donate modal state`;
+const KEY_TIMER = `donate modal timer`;
+const DELAY = 10000; // in ms
+const TIMER_INCREMENT = 1000; // in ms
 
 export default class DonateModal extends React.Component {
   constructor(props) {
     super(props);
-    let dismissed = !!sessionStorage.getItem(`dismissed`) || false;
+
+    let dismissed = !!sessionStorage.getItem(KEY_STATE) || false;
+    let prevTimer = this.getPrevTimer();
 
     this.state = {
-      delay: this.props.delay || 100,
+      delay: DELAY - prevTimer,
       visible: false,
       dismissed
     };
+    this.timer = prevTimer;
+    this.runTimer;
+  }
+
+  getPrevTimer() {
+    let prevTimer = parseInt(sessionStorage.getItem(KEY_TIMER), 10);
+
+    if (isNaN(prevTimer)) {
+      prevTimer = 0;
+    }
+
+    return prevTimer;
   }
 
   componentDidMount() {
-    if (this.state.dismissed) {
-      this.props.onDismiss();
+    if (!this.state.dismissed) {
+      this.runTimer = setInterval(() => {
+        this.timer += TIMER_INCREMENT;
+        sessionStorage.setItem(KEY_TIMER, this.timer);
+      }, TIMER_INCREMENT);
     }
-    setTimeout(() => this.setState({ visible: true }), this.state.delay);
+
+    // show modal after delay. If delay is a negative value, show modal immediately
+    setTimeout(() => this.setState({ visible: true }), Math.max(this.state.delay, 0));
   }
 
   dismiss() {
-    console.log(`close button clicked`);
-    // sessionStorage.setItem(`dismissed`, `dismissed`);
-    // this.setState({
-    //   dismissed: true
-    // });
+    sessionStorage.setItem(KEY_STATE, `dismissed`);
+    sessionStorage.removeItem(KEY_TIMER);
+
+    this.setState({
+      dismissed: true
+    }, () => {
+      clearInterval(this.runTimer);
+    });
   }
 
   trackDonation() {
@@ -54,7 +80,7 @@ export default class DonateModal extends React.Component {
           <div className="row align-items-center text-center text-md-left">
             <div className="col-md-6">
               <h1 className="h3-heading">We made this guide with support from people like you</h1>
-              <p>Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.</p>
+              <p className="normal">Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.</p>
             </div>
             <div className="col-md-4 offset-md-2">
               <h2 className="h5-heading">Help us keep this work going</h2>

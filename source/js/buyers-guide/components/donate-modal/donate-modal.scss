@@ -7,14 +7,14 @@
   width: 100vw;
   bottom: 0;
   height: 0;
-  transition: height 0.3s ease-in-out;
+  transition: height 0.8s cubic-bezier(0, 1, 0.5, 1);
   background-color: #333;
-  background-size: auto 100%;
-  background-position: center center;
-  background-repeat: no-repeat;
 
   @media (min-width: $bp-md) {
     background-image: url(/_images/buyers-guide/earth.jpg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 
   &.show {
@@ -22,6 +22,10 @@
 
     @media (min-width: $bp-lg) {
       height: 19em;
+    }
+
+    @media (min-width: $bp-xl) {
+      height: 17em;
     }
   }
 
@@ -71,8 +75,9 @@
   }
 
   .btn-donate {
-    padding: 12px 18px;
+    padding: 15px 18px;
     border-radius: 24px;
+    border: none;
   }
 
   p,
@@ -81,7 +86,13 @@
     color: white;
   }
 
+  .h3-heading {
+    @include scaleText(28px, 32px, 34px, 42px);
+  }
+
   .h5-heading {
     font-weight: 400;
+
+    @include scaleText(22px, 28px, 22px, 28px);
   }
 }
