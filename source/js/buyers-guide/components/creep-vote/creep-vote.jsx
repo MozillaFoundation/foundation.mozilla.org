@@ -117,7 +117,6 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
-    let confJudgement = this.state.majority.confidence ? `likely` : `not likely`;
 
     return (<form method="post" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
       <div className="row mb-5">
@@ -130,7 +129,6 @@ export default class CreepVote extends React.Component {
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
             <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
-            <p className="help-text">Majority of voters are {confJudgement} to buy it</p>
           </div>
           <div className="text-center">
             <div class="btn-group btn-group-toggle mt-5" data-toggle="buttons">
