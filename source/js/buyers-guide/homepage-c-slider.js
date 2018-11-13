@@ -22,16 +22,26 @@ export default {
     let products = document.querySelectorAll(`.product-box`);
 
     window.addEventListener(`scroll`, () => {
+
+      // Figure out which face to show while scrolling:
       let visible = Array.from(products).filter(v => {
         return isElementInViewport(v) && !v.classList.contains(`d-none`);
       });
+
       let n = visible.length;
+
+      // shortcut this scroll update if there are no products
+      if (n===0) { return; }
+
       let averageCreepiness = visible.reduce( (tally, v) => tally + parseFloat(v.dataset.creepiness)/n, 0);
-      let frame = Math.round(totalSteps * averageCreepiness/100);
-      let offset = `${-frame * creepStep}px`;
 
-      face.style.backgroundPositionY = offset;
+      // The averageCreepiness will be in range [1,100] so we can dec1 the
+      // valueto make sure we're in frame range [0,frames.length-1]:
+      let frame = Math.round(totalSteps * (averageCreepiness-1)/100);
 
+      face.style.backgroundPositionY = `${-frame * creepStep}px`;
+
+      // Figure out what the corresponding creepiness label should be:
       let len = CREEPINESS_LABELS.length;
       let bin = Math.floor(len * (averageCreepiness-1)/100);
 
