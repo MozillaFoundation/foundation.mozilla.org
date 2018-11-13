@@ -69,7 +69,7 @@ export default class DonateModal extends React.Component {
   handleBtnClick() {
     if (DNT.allowTracking) {
       ReactGA.event({
-        category: `site`,
+        category: `buyersguide`,
         action: `donate tap`,
         label: `donate popup`
       });
