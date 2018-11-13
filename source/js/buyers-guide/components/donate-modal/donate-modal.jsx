@@ -108,7 +108,7 @@ export default class DonateModal extends React.Component {
             <div className="col-md-4 offset-md-2">
               <h2 className="h5-heading">Help us keep this work going</h2>
               <div>
-                <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org?utm_source=pni">Support Mozilla</a>
+                <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=popupbutton">Support Mozilla</a>
               </div>
             </div>
           </div>
