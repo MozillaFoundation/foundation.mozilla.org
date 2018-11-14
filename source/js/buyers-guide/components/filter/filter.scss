@@ -1,4 +1,5 @@
 #product-filter {
+  $filter-bubble-dimension-mobile: 70px;
   $filter-bubble-dimension: 6em;
   $filter-box-dimension: 700px;
   $inner-dimension: 330px;
@@ -6,13 +7,13 @@
   $option-color: #979797;
 
   position: relative;
-  top: -$filter-bubble-dimension + 1em;
+  top: calc(-1 * #{$filter-bubble-dimension-mobile} + 0.8em);
   height: 0;
   z-index: 200;
   font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 
   @media screen and (min-width: 550px) {
-    top: 1.5em;
+    top: -$filter-bubble-dimension + 0.8em;
   }
 
   .h6-heading-uppercase {
@@ -24,7 +25,7 @@
     display: none;
     position: absolute;
     right: 2*$filter-bubble-dimension - 1.5em;
-    top: -($filter-bubble-dimension/2 + 1.5em);
+    top: calc(#{$filter-bubble-dimension} / 2 + 2px);
     color: #666;
     font-size: 12px;
     font-weight: 700;
@@ -42,7 +43,6 @@
 
     @media screen and (min-width: 550px) {
       position: absolute;
-      top: -100px;
       right: -100px;
       width: $filter-box-dimension;
       height: $filter-box-dimension;
@@ -50,7 +50,6 @@
     }
 
     position: absolute;
-    top: 2em;
     right: 0;
     left: auto;
     width: 100%;
@@ -88,12 +87,14 @@
         height: $filter-bubble-dimension;
       }
 
-      width: 70px;
-      height: 70px;
+      cursor: pointer;
+      width: $filter-bubble-dimension-mobile;
+      height: $filter-bubble-dimension-mobile;
+      padding: 0;
       border-radius: 50%;
       background-image: url(/_images/buyers-guide/icon-filter.svg);
       background-position: center center;
-      background-size: 30px;
+      background-size: 24px;
       background-repeat: no-repeat;
     }
 
@@ -185,12 +186,12 @@
           height: 2px;
           border-radius: 1000px;
           background: white;
-          box-shadow: 0 0 0 9px white, 0 0 0 10px black;
+          box-shadow: 0 0 0 9px white, 0 0 0 10px $option-color;
           margin: 10px;
 
           &.selected {
-            box-shadow: 0 0 0 6px black, 0 0 0 9px white, 0 0 0 10px black;
-            background: black;
+            box-shadow: 0 0 0 6px $option-color, 0 0 0 9px white, 0 0 0 10px $option-color;
+            background: $option-color;
           }
         }
 
@@ -199,7 +200,7 @@
           position: relative;
 
           &[data-label] {
-            text-indent: 2.2em;
+            text-indent: 2.5em;
             background-repeat: no-repeat;
             background-size: 16px;
           }
@@ -208,33 +209,14 @@
             text-indent: 0.7em;
           }
 
-          &[data-label=Likely],
-          &[data-label='Not likely'] {
-            &::before {
-              content: "";
-              background-size: 16px 16px;
-              background-repeat: no-repeat;
-              opacity: 0.5;
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-            }
-          }
-
           &[data-label=Likely] {
-            &::before {
-              background-image: url(/_images/buyers-guide/icon-thumb-up-black.svg);
-              background-position: 12px 4px;
-            }
+            background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
+            background-position: 12px 4px;
           }
 
           &[data-label='Not likely'] {
-            &::before {
-              background-image: url(/_images/buyers-guide/icon-thumb-down-black.svg);
-              background-position: 12px 7px;
-            }
+            background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
+            background-position: 12px 7px;
           }
         }
       }
