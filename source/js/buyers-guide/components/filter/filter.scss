@@ -6,14 +6,18 @@
   $heading-color: #4a4a4a;
   $option-color: #979797;
 
+  @function calc-top-offset($bubble-dimension: $filter-bubble-dimension-mobile) {
+    @return calc(-1 * #{$bubble-dimension} + 0.8em);
+  }
+
   position: relative;
-  top: calc(-1 * #{$filter-bubble-dimension-mobile} + 0.8em);
+  top: calc-top-offset($filter-bubble-dimension-mobile);
   height: 0;
   z-index: 200;
   font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 
   @media screen and (min-width: 550px) {
-    top: -$filter-bubble-dimension + 0.8em;
+    top: calc-top-offset($filter-bubble-dimension);
   }
 
   .h6-heading-uppercase {
