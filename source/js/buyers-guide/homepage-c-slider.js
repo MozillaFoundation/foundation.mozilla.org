@@ -1,7 +1,12 @@
 import CREEPINESS_LABELS from "./components/creepiness-labels.js";
 
-const creepStep = 70; // height of a single frame, see the ".current-creepiness" rule in homagepage.sccs
-const totalSteps = 50; // total number of frames in our sprite sheet
+// Height of a single frame, see the
+// ".current-creepiness" rule in homagepage.sccs
+const creepStep = 70;
+
+// Total number of frames in our sprite sheet,
+// see the "./source/images/buyers-guide/faces/sprite.png" file
+const totalSteps = 40;
 
 function isElementInViewport(element) {
   let rect = element.getBoundingClientRect();
@@ -37,7 +42,7 @@ export default {
 
       // The averageCreepiness will be in range [1,100] so we can dec1 the
       // valueto make sure we're in frame range [0,frames.length-1]:
-      let frame = Math.round(totalSteps * (averageCreepiness-1)/100);
+      let frame = Math.round((totalSteps-1) * (averageCreepiness-1)/100);
 
       face.style.backgroundPositionY = `${-frame * creepStep}px`;
 
