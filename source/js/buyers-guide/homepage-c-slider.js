@@ -1,7 +1,12 @@
 import CREEPINESS_LABELS from "./components/creepiness-labels.js";
 
-const creepStep = 70; // height of a single frame, see the ".current-creepiness" rule in homagepage.sccs
-const totalSteps = 50; // total number of frames in our sprite sheet
+// Height of a single frame, see the
+// ".current-creepiness" rule in homagepage.sccs
+const creepStep = 70;
+
+// Total number of frames in our sprite sheet,
+// see the "./source/images/buyers-guide/faces/sprite.png" file
+const totalSteps = 40;
 
 function isElementInViewport(element) {
   let rect = element.getBoundingClientRect();
