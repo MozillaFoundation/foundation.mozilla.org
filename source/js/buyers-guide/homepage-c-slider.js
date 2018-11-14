@@ -31,9 +31,7 @@ export default {
       let n = visible.length;
 
       // shortcut this scroll update if there are no products
-      if (n===0) {
-        return;
-      }
+      if (n===0) { return; }
 
       let averageCreepiness = visible.reduce( (tally, v) => tally + parseFloat(v.dataset.creepiness)/n, 0);
 
