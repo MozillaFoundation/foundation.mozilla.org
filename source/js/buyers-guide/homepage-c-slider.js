@@ -31,13 +31,15 @@ export default {
       let n = visible.length;
 
       // shortcut this scroll update if there are no products
-      if (n===0) { return; }
+      if (n===0) {
+        return;
+      }
 
       let averageCreepiness = visible.reduce( (tally, v) => tally + parseFloat(v.dataset.creepiness)/n, 0);
 
       // The averageCreepiness will be in range [1,100] so we can dec1 the
       // valueto make sure we're in frame range [0,frames.length-1]:
-      let frame = Math.round(totalSteps * (averageCreepiness-1)/100);
+      let frame = Math.round((totalSteps-1) * (averageCreepiness-1)/100);
 
       face.style.backgroundPositionY = `${-frame * creepStep}px`;
 
