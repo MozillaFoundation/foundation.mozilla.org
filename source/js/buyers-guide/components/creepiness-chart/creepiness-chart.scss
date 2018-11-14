@@ -1,9 +1,7 @@
 #creepiness-score {
-  $chart-gradient: url(/_images/buyers-guide/gradient-bar.svg) 7/0px 6px 6px;
-
   display: flex;
-  border-image: $chart-gradient;
-  -webkit-border-image: $chart-gradient;
+  border-image: url(/_images/buyers-guide/gradient-bar.svg) 7/0px 6px 6px;
+  border-style: solid;
 
   tbody {
     display: flex;
