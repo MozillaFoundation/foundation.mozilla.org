@@ -1,7 +1,7 @@
 #creepiness-score {
   display: flex;
-  // There's probably a better way to do this.
-  border-image: url("/_images/buyers-guide/gradient-bar.svg") 7/0px 6px 6px;
+  border-image: url(/_images/buyers-guide/gradient-bar.svg) 7/0px 6px 6px;
+  border-style: solid;
 
   tbody {
     display: flex;
@@ -111,6 +111,6 @@
     justify-content: space-between;
     flex-direction: column;
     flex-grow: 1;
-    margin: 0 1px;
+    margin: -3px 1px;
   }
 }
