@@ -37,7 +37,7 @@ export default {
 
       // The averageCreepiness will be in range [1,100] so we can dec1 the
       // valueto make sure we're in frame range [0,frames.length-1]:
-      let frame = Math.round(totalSteps * (averageCreepiness-1)/100);
+      let frame = Math.round((totalSteps-1) * (averageCreepiness-1)/100);
 
       face.style.backgroundPositionY = `${-frame * creepStep}px`;
 
