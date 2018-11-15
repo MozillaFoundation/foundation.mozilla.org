@@ -82,6 +82,7 @@ let main = {
             });
           }
 
+          let target = event.target;
           let textArea = document.createElement(`textarea`);
 
           //
@@ -126,6 +127,13 @@ let main = {
 
           try {
             document.execCommand(`copy`);
+
+            if (target.dataset.successText) {
+              setTimeout(() => {
+                target.innerText = target.dataset.successText;
+                target.classList.add(`copied`);
+              }, 3000);
+            }
           } catch (err) {
             console.error(`Copy failed.`);
           }

@@ -17,25 +17,58 @@
 }
 
 .product-detail {
+  $link-active-color: #3302ff;
+
   margin-top: -88px;
 
-  .copy-link {
-    order: 3;
+  .small-link {
+    font-family: "Nunito Sans";
+    font-size: 18px;
+    font-weight: 600;
+    color: #909090;
+    text-decoration: underline;
+
+    @include hover-focus-active {
+      color: $link-active-color;
+    }
+  }
+
+  .copy-link-wrapper {
+    order: 4;
 
     @media (min-width: $bp-md) {
       order: unset;
+    }
+
+    .copy-link {
+      position: relative;
+      padding-left: 20px;
+
+      &.copied {
+        cursor: auto;
+        color: $link-active-color;
+        text-decoration: none;
+      }
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        background-image: url(/_images/buyers-guide/icon-product-link.svg);
+        background-repeat: no-repeat;
+        background-position: center 65%;
+        background-size: contain;
+        width: 15px;
+        height: 100%;
+        display: block;
+      }
     }
   }
 
   h4 {
     font-family: "Nunito Sans";
   }
-}
-
-.product-price {
-  font-family: "Nunito Sans";
-  font-size: 18px;
-  color: #909090;
 }
 
 .copy-link {
