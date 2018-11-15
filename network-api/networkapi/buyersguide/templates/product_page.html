@@ -26,9 +26,15 @@
                 width="400"
                 src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
         {% endif %}
+
         {% if product.meets_minimum_security_standards is True %}
-          <img src="/_images/buyers-guide/badge.svg" class="seal-of-approval" alt="this product meets our minimum security standards" />
-          {% endif %}
+          <img
+            src="/_images/buyers-guide/badge.svg"
+            class="seal-of-approval"
+            alt="this product meets our minimum security standards"
+            title="this product meets our minimum security standards"
+          >
+        {% endif %}
       </div>
     </div>
   </div>
