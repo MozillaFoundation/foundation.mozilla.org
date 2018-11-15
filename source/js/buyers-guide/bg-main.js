@@ -82,7 +82,6 @@ let main = {
             });
           }
 
-          let target = event.target;
           let textArea = document.createElement(`textarea`);
 
           //
@@ -126,6 +125,8 @@ let main = {
           textArea.select();
 
           try {
+            let target = event.target;
+
             document.execCommand(`copy`);
 
             if (target.dataset && target.dataset.successText) {
