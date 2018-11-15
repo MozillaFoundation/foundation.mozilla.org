@@ -128,7 +128,7 @@ let main = {
           try {
             document.execCommand(`copy`);
 
-            if (target.dataset.successText) {
+            if (target.dataset && target.dataset.successText) {
               let defaultText = target.innerText;
 
               target.innerText = target.dataset.successText;
