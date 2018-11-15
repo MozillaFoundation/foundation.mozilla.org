@@ -83,11 +83,19 @@
     .product-image {
       display: block;
       text-align: center;
+
+      $image-margin: 26px;
+
+      img {
+        display: inline-block;
+        margin: $image-margin;
+        width: calc(100% - (#{$image-margin} * 2));
+      }
     }
   }
 
   .creepiness-slider {
-    z-index: 0;
+    z-index: 1;
     position: sticky;
     position: -webkit-sticky;
     top: 16px;
