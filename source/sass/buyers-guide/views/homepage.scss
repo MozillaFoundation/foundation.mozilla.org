@@ -50,6 +50,22 @@
     @media screen and (min-width: 750px) {
       width: calc(33% - 2px);
     }
+
+    $icon-bar-height: 56px;
+
+    .iconography-bar {
+      height: $icon-bar-height;
+    }
+
+    .product-image {
+      display: block;
+      text-align: center;
+
+      img {
+        background: #e0e0e0;
+        max-width: calc(100% - (#{$icon-bar-height} / 2));
+      }
+    }
   }
 
   .creepiness-slider {
@@ -107,6 +123,12 @@
         }
       }
     }
+  }
+
+  .seal-of-approval {
+    width: 44px;
+    height: auto;
+    margin: 10px 0 0 6px;
   }
 
   .recommendation {

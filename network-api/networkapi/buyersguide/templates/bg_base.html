@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:type" content="website" />
     {% block og-title %}
-      <meta property="og:title" content="privacy not included" />
+      <meta property="og:title" content="*Privacy Not Included: A Buyer’s Guide for Connected Products" />
     {% endblock %}
-    <meta property="og:description" content="This year, learn what tech comes with privacy included, using Mozilla's buyer's guide for connected gadgets." />
+    <meta property="og:description" content="70 connected products rated on their safety and security" />
     <meta property="og:image" content="{{request.scheme}}://{{request.get_host}}/_images/buyers-guide/share.jpg" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.path}}" />
     <link rel="stylesheet" href="/_css/buyers-guide.compiled.css">
     <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
@@ -32,7 +35,7 @@
         scriptElement.src = '/_js/polyfills.compiled.js';
         document.head.appendChild(scriptElement);
       }
-      </script>
+    </script>
   </head>
   <body class="pni" id="pni-{% block body-id %}{% endblock %}">
     <script src="/_js/bg-main.compiled.js" async defer></script>
