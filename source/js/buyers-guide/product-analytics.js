@@ -8,57 +8,59 @@ function getElementGAInformation(pageTitle, productName) {
       action: `customer support link tap`,
       label: `support link for ${productName}`
     },
+    // "site-wide" events
     'donate-button': {
-      category: `site`,
+      category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate header`
     },
     'donate-button-main': {
-      category: `site`,
+      category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate header`
     },
     'donate-button-footer': {
-      category: `site`,
+      category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate footer`
     },
     'nav-social-button-fb': {
-      category: `site`,
+      category: `buyersguide`,
       action: `share tap`,
       label: `share site to Facebook`,
       transport: `beacon`
     },
     'nav-social-button-twitter': {
-      category: `site`,
+      category: `buyersguide`,
       action: `share tap`,
       label: `share site to Twitter`,
       transport: `beacon`
     },
     'nav-social-button-email': {
-      category: `site`,
+      category: `buyersguide`,
       action: `share tap`,
       label: `share site to Email`,
       transport: `beacon`
     },
     'nav-social-button-fb-mb': {
-      category: `site`,
+      category: `buyersguide`,
       action: `share tap`,
       label: `share site to Facebook`,
       transport: `beacon`
     },
     'nav-social-button-twitter-mb': {
-      category: `site`,
+      category: `buyersguide`,
       action: `share tap`,
       label: `share site to Twitter`,
       transport: `beacon`
     },
     'nav-social-button-email-mb': {
-      category: `site`,
+      category: `buyersguide`,
       action: `share tap`,
       label: `share site to Email`,
       transport: `beacon`
     },
+    // product events
     'product-copy-link-button': {
       category: `product`,
       action: `copy link tap`,
