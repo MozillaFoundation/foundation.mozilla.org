@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactGA from 'react-ga';
+import DNT from '../../dnt.js';
 
 /**
  * A simple class for radio-group-looking things.
@@ -82,6 +84,14 @@ export default class Filter extends React.Component {
 
       this.updateWithCSSvalues(update);
       this.setState(update);
+
+      if(DNT.allowTracking) {
+        ReactGA.event({
+          category: `buyersguide`,
+          action: `filter set`,
+          label: `filter on homepage`
+        });
+      }
     }
   }
 
