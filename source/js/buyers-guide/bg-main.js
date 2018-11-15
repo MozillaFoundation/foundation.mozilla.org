@@ -125,9 +125,9 @@ let main = {
           textArea.select();
 
           try {
-            let target = event.target;
-
             document.execCommand(`copy`);
+
+            let target = event.target;
 
             if (target.dataset && target.dataset.successText) {
               let defaultText = target.innerText;
