@@ -129,9 +129,14 @@ let main = {
             document.execCommand(`copy`);
 
             if (target.dataset.successText) {
+              let defaultText = target.innerText;
+
+              target.innerText = target.dataset.successText;
+              target.classList.add(`copied`);
+
               setTimeout(() => {
-                target.innerText = target.dataset.successText;
-                target.classList.add(`copied`);
+                target.innerText = defaultText;
+                target.classList.remove(`copied`);
               }, 3000);
             }
           } catch (err) {
