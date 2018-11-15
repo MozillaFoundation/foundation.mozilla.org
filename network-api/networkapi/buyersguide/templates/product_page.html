@@ -7,6 +7,7 @@
 
 {% block og-title %}
   <meta property="og:title" content="privacy not included - {{ product.name }}" />
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
 {% block body-id %}product-page{% endblock %}
 
