@@ -31,7 +31,7 @@
 
     @media (min-width: $bp-md) {
       top: calc(#{$filter-bubble-dimension} / 2 + 2px);
-      right: 2*$filter-bubble-dimension - 1.5em;
+      right: calc(2 * #{$filter-bubble-dimension} - 1.5em);
     }
   }
 
