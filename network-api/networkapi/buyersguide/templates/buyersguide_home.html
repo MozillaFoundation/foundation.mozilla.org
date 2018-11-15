@@ -54,6 +54,14 @@
               >
             {% endif %}
 
+            {% if product.votes.confidence %}
+              {% if product.votes.confidence.1 > product.votes.confidence.0 %}
+                <div class="d-none recommendation positive m-2"></div>
+              {% else %}
+                <div class="d-none recommendation negative m-2"></div>
+              {% endif %}
+            {% endif %}
+
             <a class="product-image" href="/en/privacynotincluded/products/{{ product.slug }}">
               {% if USE_CLOUDINARY %}
               <img

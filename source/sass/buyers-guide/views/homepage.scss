@@ -61,7 +61,8 @@
     }
 
     .recommendation {
-      float: right;
+      position: absolute;
+      right: 0;
       width: 1em;
       height: 1em;
 
