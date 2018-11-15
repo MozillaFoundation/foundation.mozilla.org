@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga';
+import ReactGA from './react-ga-proxy';
 import DNT from './dnt.js';
 
 function getElementGAInformation(pageTitle, productName) {
