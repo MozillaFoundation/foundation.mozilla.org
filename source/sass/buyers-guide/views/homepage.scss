@@ -56,26 +56,39 @@
     z-index: 0;
     position: sticky;
     position: -webkit-sticky;
-    top: 20px;
+    top: 16px;
     padding-top: 40px;
     padding-bottom: 9px;
 
+    @media (min-width: $bp-md) {
+      top: 20px;
+    }
+
     .current-creepiness {
+      $face-dimension-mobile: 46px;
+      $face-dimension: 70px;
+      $scale-down-ratio: $face-dimension-mobile/$face-dimension;
+
       display: inline-block;
-      width: 70px;
-      height: 70px;
+      width: $face-dimension;
+      height: $face-dimension;
       background-image: url(/_images/buyers-guide/faces/sprite-resized-64-colors.png);
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;
       position: relative;
+      transform: scale($scale-down-ratio);
+
+      @media (min-width: $bp-md) {
+        transform: scale(1);
+      }
 
       .speech-bubble {
         display: inline-block;
         height: 2em;
         position: absolute;
         top: 1em;
-        right: 120%;
+        right: 110%;
         white-space: nowrap;
 
         $sb-height: 2.5em;
