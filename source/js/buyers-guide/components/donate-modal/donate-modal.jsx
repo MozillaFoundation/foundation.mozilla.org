@@ -35,7 +35,6 @@ export default class DonateModal extends React.Component {
 
   componentDidMount() {
     if (!this.state.dismissed) {
-      this.detectClick();
       this.startTimer();
 
       // show modal after delay. If delay is a negative value, show modal immediately
@@ -49,21 +48,6 @@ export default class DonateModal extends React.Component {
 
       sessionStorage.setItem(KEY_TIMER, this.timer);
     }, TIMER_INCREMENT);
-  }
-
-  detectClick() {
-    document.addEventListener(`click`, (event) => {
-      // clicking outside of the modal should dismiss the modal
-      if (!this.checkIfClickedInside(event.target) && this.state.visible) {
-        this.dismiss();
-      }
-    });
-  }
-
-  checkIfClickedInside(elem) {
-    let wrapper = document.querySelector(`.donate-modal-wrapper`);
-
-    return elem === wrapper || wrapper.contains(elem);
   }
 
   handleBtnClick() {

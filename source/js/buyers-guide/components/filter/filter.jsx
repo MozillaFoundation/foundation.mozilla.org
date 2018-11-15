@@ -273,10 +273,10 @@ export default class Filter extends React.Component {
       <div className={`content` + (this.state.collapsed ? ` d-none`: ``)}>
         <span className="close" onClick={() => this.close()} />
 
-        <h2 className="h6-heading">Filter by</h2>
+        <h2 className="mb-4 mb-sm-5">Filter by</h2>
 
         <div className="creepiness">
-          <h3 className="h6-heading">creepiness</h3>
+          <h3 className="h6-heading-uppercase">creepiness</h3>
           <div className="slider">
             <label>nice</label>
             <div className="track" ref={e => (this.track=e)} style={this.state.trackStyle}>
@@ -288,7 +288,7 @@ export default class Filter extends React.Component {
         </div>
 
         <div className="likelihood">
-          <h3 className="h6-heading">likelihood to buy</h3>
+          <h3 className="h6-heading-uppercase">likelihood to buy</h3>
           { likelihoods.map(opts => <RadioGroupEntry {...opts}/>) }
         </div>
       </div>
@@ -299,7 +299,7 @@ export default class Filter extends React.Component {
     let content = this.getFilterContent();
 
     return [
-      <div className="filter-label h6-heading">Filter</div>,
+      <div className="filter-label">Filter</div>,
       <div className={`filter-content` + (this.state.collapsed ? ` collapsed` : ``)} onClick={() => this.open()}>
         { content }
       </div>

@@ -320,7 +320,7 @@ class Product(models.Model):
 
     updates = models.ManyToManyField(Update, related_name='products', blank=True)
 
-    related_products = models.ManyToManyField('self', related_name='rps', blank=True)
+    related_products = models.ManyToManyField('self', related_name='rps', blank=True, symmetrical=False)
 
     if settings.USE_CLOUDINARY:
         image_field = FieldPanel('cloudinary_image')

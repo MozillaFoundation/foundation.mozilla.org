@@ -36,11 +36,6 @@ function getElementGAInformation(pageTitle, productName) {
       label: `share site to Twitter`,
       transport: `beacon`
     },
-    'nav-social-button-link': {
-      category: `buyersguide`,
-      action: `copy link tap`,
-      label: `copy link to site `
-    },
     'nav-social-button-email': {
       category: `buyersguide`,
       action: `share tap`,
@@ -58,11 +53,6 @@ function getElementGAInformation(pageTitle, productName) {
       action: `share tap`,
       label: `share site to Twitter`,
       transport: `beacon`
-    },
-    'nav-social-button-link-mb': {
-      category: `buyersguide`,
-      action: `copy link tap`,
-      label: `copy link to site `
     },
     'nav-social-button-email-mb': {
       category: `buyersguide`,
