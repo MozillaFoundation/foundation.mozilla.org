@@ -26,16 +26,16 @@
   }
 
   .filter-label {
-    display: none;
     position: absolute;
-    right: 2*$filter-bubble-dimension - 1.5em;
-    top: calc(#{$filter-bubble-dimension} / 2 + 2px);
+    top: 2.2em;
+    right: 6.3em;
     color: #666;
     font-size: 12px;
     font-weight: 700;
 
     @media screen and (min-width: 550px) {
-      display: initial;
+      top: calc(#{$filter-bubble-dimension} / 2 + 2px);
+      right: 2*$filter-bubble-dimension - 1.5em;
     }
   }
 

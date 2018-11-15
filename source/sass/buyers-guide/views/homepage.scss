@@ -78,10 +78,6 @@
         right: 120%;
         white-space: nowrap;
 
-        @media (max-width: 530px) {
-          display: none !important;
-        }
-
         $sb-height: 2.5em;
 
         .text {
