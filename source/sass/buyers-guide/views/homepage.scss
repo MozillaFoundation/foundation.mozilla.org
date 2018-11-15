@@ -50,37 +50,62 @@
     @media screen and (min-width: 750px) {
       width: calc(33% - 2px);
     }
+
+    $icon-bar-height: 56px;
+
+    .iconography-bar {
+      height: $icon-bar-height;
+    }
+
+    .product-image {
+      display: block;
+      text-align: center;
+
+      img {
+        background: #e0e0e0;
+        max-width: calc(100% - (#{$icon-bar-height} / 2));
+      }
+    }
   }
 
   .creepiness-slider {
     z-index: 0;
     position: sticky;
     position: -webkit-sticky;
-    top: 20px;
+    top: 16px;
     padding-top: 40px;
     padding-bottom: 9px;
 
+    @media (min-width: $bp-md) {
+      top: 20px;
+    }
+
     .current-creepiness {
+      $face-dimension-mobile: 46px;
+      $face-dimension: 70px;
+      $scale-down-ratio: $face-dimension-mobile/$face-dimension;
+
       display: inline-block;
-      width: 70px;
-      height: 70px;
+      width: $face-dimension;
+      height: $face-dimension;
       background-image: url(/_images/buyers-guide/faces/sprite-resized-64-colors.png);
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;
       position: relative;
+      transform: scale($scale-down-ratio);
+
+      @media (min-width: $bp-md) {
+        transform: scale(1);
+      }
 
       .speech-bubble {
         display: inline-block;
         height: 2em;
         position: absolute;
         top: 1em;
-        right: 120%;
+        right: 110%;
         white-space: nowrap;
-
-        @media (max-width: 530px) {
-          display: none !important;
-        }
 
         $sb-height: 2.5em;
 
@@ -107,6 +132,12 @@
         }
       }
     }
+  }
+
+  .seal-of-approval {
+    width: 44px;
+    height: auto;
+    margin: 10px 0 0 6px;
   }
 
   .recommendation {

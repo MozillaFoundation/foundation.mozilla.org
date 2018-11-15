@@ -425,14 +425,32 @@ class Product(models.Model):
             # There's no aggregate data available yet, return None
             return None
 
+    @property
+    def numeric_reading_grade(self):
+        try:
+            return int(self.privacy_policy_reading_level)
+        except ValueError:
+            return 0
+
+    @property
+    def reading_grade(self):
+        val = self.numeric_reading_grade
+        if val == 0:
+            return 0
+        if val <= 8:
+            return 'Middle school'
+        if val <= 12:
+            return 'High school'
+        if val <= 16:
+            return 'College'
+        return 'Grad school'
+
     def to_dict(self):
         model_dict = model_to_dict(self)
         model_dict['votes'] = self.votes
         model_dict['slug'] = self.slug
-        try:
-            model_dict['reading_grade'] = int(self.privacy_policy_reading_level)
-        except ValueError:
-            model_dict['reading_grade'] = 0
+        model_dict['numeric_reading_grade'] = self.numeric_reading_grade
+        model_dict['reading_grade'] = self.reading_grade
         return model_dict
 
     def save(self, *args, **kwargs):
