@@ -66,11 +66,12 @@
 
             <a class="product-image" href="/en/privacynotincluded/products/{{ product.slug }}">
               {% if USE_CLOUDINARY %}
-              <img class="thumb-border"
-                    width="300"
-                    src="
-{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-                    alt="{{product.name}}">
+              <img
+                class="thumb-border"
+                width="300"
+                src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+                alt="link to {{product.name}}"
+              >
               {% else %}
               <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="link to {{product.name}}">
               {% endif %}
