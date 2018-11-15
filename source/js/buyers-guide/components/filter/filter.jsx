@@ -241,10 +241,10 @@ export default class Filter extends React.Component {
 
       if (recommendation) {
         if (like === `Both`) {
-          recommendation.classList.add('d-none');
+          recommendation.classList.add(`d-none`);
           hidden = true;
         } else {
-          recommendation.classList.remove('d-none');
+          recommendation.classList.remove(`d-none`);
         }
 
         if (hidden) { return; }
