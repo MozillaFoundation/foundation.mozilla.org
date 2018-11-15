@@ -168,9 +168,13 @@ React is used *à la carte* for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
-#### Django and Mezzanine
+#### Django and Wagtail
 
-Django powers the backend of the site, and we use Mezzanine with Django to provide CMS features and functionality.
+Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
+
+#### S3 and Cloudinary
+
+Most assets are stored on S3. Buyers Guide images are hosted on Cloudinary.
 
 ---
 
@@ -294,6 +298,19 @@ The domain used to fetch static content from Network Pulse can be customized by 
 The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. **NOTE: this variable must include a protocol (such as `https://`)**
 
 ---
+### Cloudinary for Review Apps and Staging (BuyersGuide only)
+
+We use Cloudinary upload-mapping feature to copy images from the production to the staging Cloudinary account.
+
+Current directories available on Cloudinary staging:
+
+Folder | URL prefix
+--- | ---
+`foundationsite/buyersguide` | `https://res.cloudinary.com/mozilla-foundation/image/upload/foundationsite/buyersguide/`
+
+To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
+
+---
 
 ### Scheduled tasks
 
@@ -306,7 +323,10 @@ Every sunday, a script runs on prod dyno to remove non-staff accounts created on
 
 #### Generating vote statistics for Data Studio
 
-The `generate_pni_report` management task can run periodically to summarize vote totals for each product in the buyer's guide. Data is inserted or updated into the database specified By `PNI_STATS_DB_URL`. 
+The `generate_pni_report` management task can run periodically to summarize vote totals for each product in the buyer's guide.
+Data is inserted or updated into the database specified By `PNI_STATS_DB_URL`.
+You must also have the `CORAL_TALK_SERVER_URL` and `CORAL_TALK_API_TOKEN` variables set.
+The API token must have admin rights in order to fetch comment totals.
 
 The database should have the following schema:
 
@@ -320,9 +340,14 @@ create table product_stats
   would_buy        integer,
   would_not_buy    integer
 );
+  
+create table comment_counts
+(
+  url            varchar(2048) not null constraint comment_counts_pkey primary key,
+  title          varchar(255),
+  total_comments integer
+);
 
-create unique index product_stats_id_uindex
-  on product_stats (id);
 ```
 
 ---

@@ -172,6 +172,8 @@
 
 .helptext {
   display: none;
+  font-style: italic;
+  font-size: 14px;
 
   &.open {
     display: block;

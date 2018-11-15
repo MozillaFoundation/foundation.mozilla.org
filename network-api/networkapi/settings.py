@@ -66,7 +66,12 @@ env = environ.Env(
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CORAL_TALK_SERVER_URL=(str, None),
     PNI_STATS_DB_URL=(str, None),
+    CORAL_TALK_API_TOKEN=(str, None),
     REDIS_URL=(str, ''),
+    USE_CLOUDINARY=(bool, False),
+    CLOUDINARY_CLOUD_NAME=(str, ''),
+    CLOUDINARY_API_KEY=(str, ''),
+    CLOUDINARY_API_SECRET=(str, ''),
 )
 
 # Read in the environment
@@ -113,6 +118,7 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
                     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
 
 USE_S3 = env('USE_S3')
+USE_CLOUDINARY = env('USE_CLOUDINARY')
 
 INSTALLED_APPS = list(filter(None, [
 
@@ -158,6 +164,7 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
+    'cloudinary',
 
     # the network site
     'networkapi',
@@ -250,6 +257,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'networkapi.context_processor.review_app',
+                'networkapi.context_processor.cloudinary',
             ])),
             'libraries': {
                 'settings_value': 'networkapi.utility.templatetags.settings_value',
@@ -377,6 +385,13 @@ CRM_AWS_SQS_SECRET_ACCESS_KEY = env('CRM_AWS_SQS_SECRET_ACCESS_KEY')
 CRM_AWS_SQS_REGION = env('CRM_AWS_SQS_REGION')
 CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
 
+if USE_CLOUDINARY:
+    CLOUDINARY_CLOUD_NAME = env('CLOUDINARY_CLOUD_NAME')
+    CLOUDINARY_API_KEY = env('CLOUDINARY_API_KEY')
+    CLOUDINARY_API_SECRET = env('CLOUDINARY_API_SECRET')
+
+    CLOUDINARY_URL = 'https://res.cloudinary.com/' + CLOUDINARY_CLOUD_NAME + '/image/upload/'
+
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
@@ -503,3 +518,7 @@ CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
+CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
+
+# Use network_url to check if we're running prod or not
+NETWORK_SITE_URL = env('NETWORK_SITE_URL')

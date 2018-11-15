@@ -1,13 +1,21 @@
 import re
+
+from cloudinary import uploader
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.text import slugify
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
+
+from cloudinary.models import CloudinaryField
 
 
 def get_product_image_upload_path(instance, filename):
@@ -17,6 +25,15 @@ def get_product_image_upload_path(instance, filename):
         instance=instance,
         current_filename=filename
     )
+
+
+# Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
+class CloudinaryImageField(CloudinaryField):
+    def upload_options(self, model_instance):
+        return {
+            'folder': 'foundationsite/buyersguide',
+            'use_filename': True,
+        }
 
 
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
@@ -122,6 +139,12 @@ class Product(models.Model):
         help_text='Image representing this product',
         upload_to=get_product_image_upload_path,
         blank=True,
+    )
+
+    cloudinary_image = CloudinaryImageField(
+        help_text='Image representing this product - hosted on Cloudinary',
+        blank=True,
+        verbose_name='image',
     )
 
     meets_minimum_security_standards = models.NullBooleanField(
@@ -297,7 +320,80 @@ class Product(models.Model):
 
     updates = models.ManyToManyField(Update, related_name='products', blank=True)
 
-    related_products = models.ManyToManyField('self', related_name='rps', blank=True)
+    related_products = models.ManyToManyField('self', related_name='rps', blank=True, symmetrical=False)
+
+    if settings.USE_CLOUDINARY:
+        image_field = FieldPanel('cloudinary_image')
+    else:
+        image_field = FieldPanel('image')
+
+    # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better way to do
+    # this using `_meta.get_fields()`. To be refactored in the future.
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('name'),
+            FieldPanel('company'),
+            FieldPanel('product_category'),
+            FieldPanel('blurb'),
+            FieldPanel('url'),
+            FieldPanel('price'),
+            image_field,
+            FieldPanel('meets_minimum_security_standards')
+        ],
+            heading="Product General Details"
+        ),
+        MultiFieldPanel([
+            FieldPanel('camera_device'),
+            FieldPanel('camera_app'),
+            FieldPanel('microphone_device'),
+            FieldPanel('microphone_app'),
+            FieldPanel('location_device'),
+            FieldPanel('location_app'),
+        ],
+            heading="Can it spy on me?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('uses_encryption'),
+            FieldPanel('uses_encryption_helptext'),
+            FieldPanel('privacy_policy_url'),
+            FieldPanel('privacy_policy_reading_level'),
+            FieldPanel('privacy_policy_reading_level_url'),
+            FieldPanel('privacy_policy_helptext'),
+            FieldPanel('share_data'),
+            FieldPanel('share_data_helptext'),
+        ],
+            heading="What does it know about me?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('must_change_default_password'),
+            FieldPanel('must_change_default_password_helptext'),
+            FieldPanel('security_updates'),
+            FieldPanel('security_updates_helptext'),
+            FieldPanel('delete_data'),
+            FieldPanel('delete_data_helptext'),
+            FieldPanel('child_rules'),
+            FieldPanel('child_rules_helptext'),
+        ],
+            heading="Can I control it?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('manage_security'),
+            FieldPanel('manage_security_helptext'),
+            FieldPanel('phone_number'),
+            FieldPanel('live_chat'),
+            FieldPanel('email'),
+            FieldPanel('twitter'),
+        ],
+            heading="Company shows it cares about its customers?",
+            classname="collapsible"
+        ),
+        FieldPanel('worst_case'),
+        FieldPanel('updates'),
+        FieldPanel('related_products'),
+    ]
 
     @property
     def votes(self):
@@ -329,14 +425,32 @@ class Product(models.Model):
             # There's no aggregate data available yet, return None
             return None
 
+    @property
+    def numeric_reading_grade(self):
+        try:
+            return int(self.privacy_policy_reading_level)
+        except ValueError:
+            return 0
+
+    @property
+    def reading_grade(self):
+        val = self.numeric_reading_grade
+        if val == 0:
+            return 0
+        if val <= 8:
+            return 'Middle school'
+        if val <= 12:
+            return 'High school'
+        if val <= 16:
+            return 'College'
+        return 'Grad school'
+
     def to_dict(self):
         model_dict = model_to_dict(self)
         model_dict['votes'] = self.votes
         model_dict['slug'] = self.slug
-        try:
-            model_dict['reading_grade'] = int(self.privacy_policy_reading_level)
-        except ValueError:
-            model_dict['reading_grade'] = 0
+        model_dict['numeric_reading_grade'] = self.numeric_reading_grade
+        model_dict['reading_grade'] = self.reading_grade
         return model_dict
 
     def save(self, *args, **kwargs):
@@ -345,6 +459,13 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+# We want to delete the product image when the product is removed
+@receiver(pre_delete, sender=Product)
+def delete_image(sender, instance, **kwargs):
+    if instance.cloudinary_image:
+        uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
 
 
 class ProductVote(models.Model):

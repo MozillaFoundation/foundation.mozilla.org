@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactGA from 'react-ga';
+import DNT from '../../dnt.js';
 
 /**
  * A simple class for radio-group-looking things.
@@ -61,17 +63,17 @@ export default class Filter extends React.Component {
   }
 
   addDocumentListeners() {
-    document.addEventListener('mousemove', this.moveListener, true);
-    document.addEventListener('touchmove', this.moveListener, true);
-    document.addEventListener('mouseup', this.releaseListener, true);
-    document.addEventListener('touchstart', this.releaseListener, true);
+    document.addEventListener(`mousemove`, this.moveListener, true);
+    document.addEventListener(`touchmove`, this.moveListener, true);
+    document.addEventListener(`mouseup`, this.releaseListener, true);
+    document.addEventListener(`touchstart`, this.releaseListener, true);
   }
 
   removeDocumentListeners() {
-    document.removeEventListener('mousemove', this.moveListener, true);
-    document.removeEventListener('touchmove', this.moveListener, true);
-    document.removeEventListener('mouseup', this.releaseListener, true);
-    document.removeEventListener('touchstart', this.releaseListener, true);
+    document.removeEventListener(`mousemove`, this.moveListener, true);
+    document.removeEventListener(`touchmove`, this.moveListener, true);
+    document.removeEventListener(`mouseup`, this.releaseListener, true);
+    document.removeEventListener(`touchstart`, this.releaseListener, true);
   }
 
   open() {
@@ -82,6 +84,14 @@ export default class Filter extends React.Component {
 
       this.updateWithCSSvalues(update);
       this.setState(update);
+
+      if(DNT.allowTracking) {
+        ReactGA.event({
+          category: `buyersguide`,
+          action: `filter set`,
+          label: `filter on homepage`
+        });
+      }
     }
   }
 
@@ -212,7 +222,7 @@ export default class Filter extends React.Component {
         all = Array.from(document.querySelectorAll(`.product-box`));
 
     all.forEach(productBox => {
-      let c = parseInt(productBox.dataset.creepiness);
+      let c = parseInt(productBox.dataset.creepiness, 10);
       let classes = productBox.classList;
       let hidden = false;
 
@@ -224,7 +234,7 @@ export default class Filter extends React.Component {
         classes.remove(`d-none`);
       }
 
-      if (hidden) return;
+      if (hidden) { return; }
 
       // not hidden by creepiness: do we need to hide it due to buyers likelihood?
       let recommendation = productBox.querySelector(`.recommendation`);
@@ -237,7 +247,7 @@ export default class Filter extends React.Component {
         hidden = true;
       }
 
-      if (hidden) return;
+      if (hidden) { return; }
 
       // not hidden by recommendation: do we need to hide it due to seal-of-approval selection?
 
@@ -254,19 +264,19 @@ export default class Filter extends React.Component {
     let likelihoods = [`Likely`, `Not likely`, `Both`].map(label => {
       return {
         label,
-        onClick: label => this.handleLikelihood(label),
+        onClick: () => this.handleLikelihood(label),
         selected: (this.state.likelihood === label)
       };
     });
 
     return (
-      <div className={this.state.collapsed ? `d-none`: ``}>
-        <span className="close" onClick={evt => this.close()} />
+      <div className={`content` + (this.state.collapsed ? ` d-none`: ``)}>
+        <span className="close" onClick={() => this.close()} />
 
-        <h2 className="h6-heading">Filter by</h2>
+        <h2 className="mb-4 mb-sm-5">Filter by</h2>
 
         <div className="creepiness">
-          <h3 className="h6-heading">creepiness</h3>
+          <h3 className="h6-heading-uppercase">creepiness</h3>
           <div className="slider">
             <label>nice</label>
             <div className="track" ref={e => (this.track=e)} style={this.state.trackStyle}>
@@ -277,8 +287,8 @@ export default class Filter extends React.Component {
           </div>
         </div>
 
-        <div className="likelihood">A simple class for radio-group-looking things.
-          <h3 className="h6-heading">likelihood to buy</h3>
+        <div className="likelihood">
+          <h3 className="h6-heading-uppercase">likelihood to buy</h3>
           { likelihoods.map(opts => <RadioGroupEntry {...opts}/>) }
         </div>
       </div>
@@ -287,11 +297,12 @@ export default class Filter extends React.Component {
 
   render() {
     let content = this.getFilterContent();
+
     return [
-      <div className="filter-label h6-heading">Filter</div>,
-      <div className={`filter-content` + (this.state.collapsed ? ` collapsed` : ``)} onClick={evt => this.open()}>
+      <div className="filter-label">Filter</div>,
+      <div className={`filter-content` + (this.state.collapsed ? ` collapsed` : ``)} onClick={() => this.open()}>
         { content }
       </div>
     ];
   }
-};
+}

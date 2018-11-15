@@ -1,3 +1,4 @@
+import re
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import Error
 from django.shortcuts import render, get_object_or_404, redirect
@@ -14,6 +15,14 @@ from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRa
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
+locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
+
+
+if settings.USE_CLOUDINARY:
+    MEDIA_URL = settings.CLOUDINARY_URL
+else:
+    MEDIA_URL = settings.MEDIA_URL
+
 
 def get_average_creepiness(product):
     try:
@@ -28,6 +37,27 @@ def get_average_creepiness(product):
     return 50
 
 
+def path_is_en_prefixed(path):
+    return path.startswith('/en/')
+
+
+def get_en_redirect(path):
+    redirect_path = re.sub(locale_regex, '/en/', path)
+    return redirect(redirect_path, permanent=False)
+
+
+def enforce_en_locale(view_handler):
+    def check_locale(*args, **kwargs):
+        path = args[0].path
+        if not path_is_en_prefixed(path):
+            return get_en_redirect(path)
+
+        return view_handler(*args, **kwargs)
+
+    return check_locale
+
+
+@enforce_en_locale
 def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
 
@@ -39,34 +69,51 @@ def buyersguide_home(request):
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': MEDIA_URL,
     })
 
 
+@enforce_en_locale
 def category_view(request, categoryname):
+    key = f'products_category__{categoryname}'
+    products = cache.get(key)
     category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
-    products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
+
+    if not products:
+        products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
+        cache.set(key, products, 86400)
+
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': MEDIA_URL,
     })
 
 
+@enforce_en_locale
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
+
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product.to_dict(),
-        'mediaUrl': settings.MEDIA_URL,
+        'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
     })
 
 
+@enforce_en_locale
 def about_view(request):
+    key = 'categories'
+    categories = cache.get(key)
+
+    if not categories:
+        categories = BuyersGuideProductCategory.objects.all()
+        cache.set(key, categories, 86400)
+
     return render(request, 'about.html', {
-        'categories': BuyersGuideProductCategory.objects.all(),
+        'categories': categories,
     })
 
 
@@ -121,8 +168,6 @@ def product_vote(request):
 
 @api_view(['POST'])
 @permission_classes((IsAdminUser,))
-def refresh_cache(request):
-    products = [p.to_dict() for p in Product.objects.all()]
-    products.sort(key=lambda p: get_average_creepiness(p))
-    cache.set('sorted_product_dicts', products, 86400)
+def clear_cache(request):
+    cache.clear()
     return redirect('/cms/buyersguide/product/')

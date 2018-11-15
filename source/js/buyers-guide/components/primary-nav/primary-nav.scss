@@ -38,6 +38,11 @@
       max-width: none;
     }
   }
+
+  a.link-back {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .narrow-screen-menu {
@@ -90,10 +95,6 @@
       &.social-button-email {
         background-size: auto 17px;
       }
-
-      &.social-button-link {
-        background-size: auto 19px;
-      }
     }
 
     .donate {
@@ -139,10 +140,6 @@
 
 .social-button-email {
   background-image: url("/_images/glyphs/email.svg");
-}
-
-.social-button-link {
-  background-image: url("/_images/glyphs/link.svg");
 }
 
 .btn-donate {

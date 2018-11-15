@@ -1,0 +1,98 @@
+.donate-modal {
+  $modal-z-index: 10;
+
+  position: fixed;
+  z-index: $modal-z-index;
+  left: 0;
+  width: 100vw;
+  bottom: 0;
+  height: 0;
+  transition: height 0.8s cubic-bezier(0, 1, 0.5, 1);
+  background-color: #333;
+
+  @media (min-width: $bp-md) {
+    background-image: url(/_images/buyers-guide/earth.jpg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  &.show {
+    height: 23em;
+
+    @media (min-width: $bp-lg) {
+      height: 19em;
+    }
+
+    @media (min-width: $bp-xl) {
+      height: 17em;
+    }
+  }
+
+  .close {
+    $width: 15px;
+    $height: $width;
+
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: $width;
+    height: $height;
+    outline: 0;
+    z-index: $modal-z-index+1;
+
+    @media (min-width: $bp-md) {
+      top: 20px;
+      right: 25px;
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: ' ';
+      height: $height;
+      width: 2px;
+      background-color: white;
+      bottom: 0;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  .container {
+    padding-top: 60px;
+    padding-bottom: 20px;
+
+    @media (min-width: $bp-md) {
+      padding-bottom: 60px;
+    }
+  }
+
+  .btn-donate {
+    padding: 15px 18px;
+    border-radius: 24px;
+    border: none;
+  }
+
+  p,
+  .h3-heading,
+  .h5-heading {
+    color: white;
+  }
+
+  .h3-heading {
+    @include scaleText(28px, 32px, 34px, 42px);
+  }
+
+  .h5-heading {
+    font-weight: 400;
+
+    @include scaleText(22px, 28px, 22px, 28px);
+  }
+}

@@ -18,32 +18,32 @@ export default class Creepometer extends React.Component {
   }
 
   setupDocumentListeners() {
-    this.moveListener = (function(evt) {
+    this.moveListener = evt => {
       evt.preventDefault();
       evt.stopPropagation();
       this.slideMove(evt);
-    }).bind(this);
+    };
 
-    this.releaseListener = (function(evt) {
+    this.releaseListener = evt => {
       evt.preventDefault();
       evt.stopPropagation();
       this.slideReleased(evt);
       this.removeDocumentListeners();
-    }).bind(this);
+    };
   }
 
   addDocumentListeners() {
-    document.addEventListener('mousemove', this.moveListener, true);
-    document.addEventListener('touchmove', this.moveListener, true);
-    document.addEventListener('mouseup', this.releaseListener, true);
-    document.addEventListener('touchstart', this.releaseListener, true);
+    document.addEventListener(`mousemove`, this.moveListener, true);
+    document.addEventListener(`touchmove`, this.moveListener, true);
+    document.addEventListener(`mouseup`, this.releaseListener, true);
+    document.addEventListener(`touchstart`, this.releaseListener, true);
   }
 
   removeDocumentListeners() {
-    document.removeEventListener('mousemove', this.moveListener, true);
-    document.removeEventListener('touchmove', this.moveListener, true);
-    document.removeEventListener('mouseup', this.releaseListener, true);
-    document.removeEventListener('touchstart', this.releaseListener, true);
+    document.removeEventListener(`mousemove`, this.moveListener, true);
+    document.removeEventListener(`touchmove`, this.moveListener, true);
+    document.removeEventListener(`mouseup`, this.releaseListener, true);
+    document.removeEventListener(`touchstart`, this.releaseListener, true);
   }
 
   slideStart(e) {
