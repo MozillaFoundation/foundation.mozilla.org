@@ -38,10 +38,12 @@
     </div>
   </div>
 </div>
+
+{% with section_class="p-md-5 col-12 col-lg-10 offset-lg-1" %}
 <div class="container">
 
   <div class="row">
-    <div class="product-detail bg-white px-md-5 py-3 py-md-5 col-12 col-lg-10 offset-lg-1">
+    <div class="product-detail bg-white py-3 {{section_class}}">
       <div class="row intro d-flex justify-content-between align-items-center">
         <a class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
@@ -180,7 +182,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="p-5 col-12 col-md-10 offset-md-1">
+    <div class="{{section_class}}">
 
       {% if product.updates|length > 0 %}
       <h3 class="h3-heading my-5">Updates</h3>
@@ -214,13 +216,14 @@
 {% if coralTalkServerUrl %}
   <div class="container">
     <div class="row">
-      <div class="p-5 col-12 col-md-10 offset-md-1">
+      <div class="{{section_class}}">
         <div id="coral_talk_stream"></div>
       </div>
     </div>
   </div>
 {% endif %}
 
+{% endwith %}
 {% endblock %}
 
 {% block extra_scripts %}
