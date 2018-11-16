@@ -61,3 +61,5 @@ cache:
   - "%LOCALAPPDATA%\\pip\\Cache"
 
 clone_depth: 1
+
+appveyor_build_worker_cloud: gce
