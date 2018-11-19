@@ -45,24 +45,22 @@
         <div class="d-flex justify-content-center align-items-stretch flex-wrap">
           {% for product in products %}
           <div class="product-box bg-gray" data-creepiness="{{ product.votes.creepiness.average }}">
-            <div class="iconography-bar">
-              {% if product.meets_minimum_security_standards is True %}
-                <img
-                  class="seal-of-approval"
-                  src="/_images/buyers-guide/mini-badge.svg"
-                  title="this product meets our minimum security standards"
-                  alt="this product meets our minimum security standards"
-                >
-              {% endif %}
+            {% if product.meets_minimum_security_standards is True %}
+              <img
+                class="seal-of-approval"
+                src="/_images/buyers-guide/mini-badge.svg"
+                title="this product meets our minimum security standards"
+                alt="this product meets our minimum security standards"
+              >
+            {% endif %}
 
-              {% if product.votes.confidence %}
-                {% if product.votes.confidence.1 > product.votes.confidence.0 %}
-                  <div class="recommendation positive m-2"></div>
-                {% else %}
-                  <div class="recommendation negative m-2"></div>
-                {% endif %}
+            {% if product.votes.confidence %}
+              {% if product.votes.confidence.1 > product.votes.confidence.0 %}
+                <div class="d-none recommendation positive m-2"></div>
+              {% else %}
+                <div class="d-none recommendation negative m-2"></div>
               {% endif %}
-            </div>
+            {% endif %}
 
             <a class="product-image" href="/en/privacynotincluded/products/{{ product.slug }}">
               {% if USE_CLOUDINARY %}

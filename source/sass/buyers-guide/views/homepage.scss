@@ -43,6 +43,7 @@
   }
 
   .product-box {
+    position: relative;
     width: calc(50% - 2px);
     margin: 1px;
     overflow: hidden;
@@ -51,25 +52,51 @@
       width: calc(33% - 2px);
     }
 
-    $icon-bar-height: 56px;
+    .seal-of-approval {
+      position: absolute;
+      top: 10px;
+      left: 6px;
+      width: 44px;
+      height: auto;
+    }
 
-    .iconography-bar {
-      height: $icon-bar-height;
+    .recommendation {
+      position: absolute;
+      right: 0;
+      width: 1em;
+      height: 1em;
+
+      &.positive {
+        background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+
+      &.negative {
+        background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
     }
 
     .product-image {
       display: block;
       text-align: center;
 
+      $image-margin: 26px;
+
       img {
-        background: #e0e0e0;
-        max-width: calc(100% - (#{$icon-bar-height} / 2));
+        display: inline-block;
+        margin: $image-margin;
+        width: calc(100% - (#{$image-margin} * 2));
       }
     }
   }
 
   .creepiness-slider {
-    z-index: 0;
+    z-index: 1;
     position: sticky;
     position: -webkit-sticky;
     top: 16px;
@@ -131,32 +158,6 @@
           margin-left: -5px;
         }
       }
-    }
-  }
-
-  .seal-of-approval {
-    width: 44px;
-    height: auto;
-    margin: 10px 0 0 6px;
-  }
-
-  .recommendation {
-    float: right;
-    width: 1em;
-    height: 1em;
-
-    &.positive {
-      background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
-      background-position: 0 0;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-    }
-
-    &.negative {
-      background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
-      background-position: 0 0;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
     }
   }
 }
