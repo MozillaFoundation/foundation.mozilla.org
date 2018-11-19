@@ -176,7 +176,7 @@
   }
 }
 
-.dot-pattern {
+.row.dot-pattern {
   position: absolute;
   top: 0;
   left: -10em;
@@ -184,6 +184,16 @@
   height: 228px;
   background-image: url("/_images/buyers-guide/dot-pattern.svg");
   background-size: 9px 9px;
+}
+
+.row.with-product-updates {
+  margin-left: 15px;
+  margin-right: 15px;
+
+  @media (min-width: 576px) {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
 }
 
 .product-update {
