@@ -142,16 +142,6 @@
     align-items: center;
   }
 
-  .dot-pattern {
-    position: absolute;
-    top: 0;
-    left: -10em;
-    right: -10em;
-    height: 228px;
-    background-image: url("/_images/buyers-guide/dot-pattern.svg");
-    background-size: 9px 9px;
-  }
-
   .emoji {
     background: url("/_images/buyers-guide/icon-face-happy.svg") no-repeat;
     width: 20px;
@@ -184,6 +174,16 @@
   .emoji {
     background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
   }
+}
+
+.dot-pattern {
+  position: absolute;
+  top: 0;
+  left: -10em;
+  right: -10em;
+  height: 228px;
+  background-image: url("/_images/buyers-guide/dot-pattern.svg");
+  background-size: 9px 9px;
 }
 
 .product-update {
