@@ -44,7 +44,7 @@
 
         <div class="d-flex justify-content-center align-items-stretch flex-wrap">
           {% for product in products %}
-          <div class="product-box bg-gray" data-creepiness="{{ product.votes.creepiness.average }}">
+          <figure class="product-box bg-gray d-flex flex-column justify-content-between" data-creepiness="{{ product.votes.creepiness.average }}">
             {% if product.meets_minimum_security_standards is True %}
               <img
                 class="seal-of-approval"
@@ -62,19 +62,21 @@
               {% endif %}
             {% endif %}
 
-            <a class="product-image" href="/en/privacynotincluded/products/{{ product.slug }}">
+            <a class="product-image d-block text-center mt-4" href="/en/privacynotincluded/products/{{ product.slug }}">
               {% if USE_CLOUDINARY %}
               <img
-                class="thumb-border"
-                width="300"
                 src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
                 alt="link to {{product.name}}"
               >
               {% else %}
               <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="link to {{product.name}}">
               {% endif %}
-            </a>
-          </div>
+              <figcaption class="hidden-sm-down mt-md-2 text-left">
+                <div class="h6-heading">{{product.company}}</div>
+                <div class="body">{{product.name}}</div>
+              </figcaption>
+            </figure>
+          </a>
           {% endfor %}
         </div>
       </div>

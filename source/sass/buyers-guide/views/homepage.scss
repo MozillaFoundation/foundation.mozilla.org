@@ -43,10 +43,14 @@
   }
 
   .product-box {
+    $padding-x: 12px;
+    $padding-y: 12px;
+
     position: relative;
     width: calc(50% - 2px);
     margin: 1px;
     overflow: hidden;
+    padding: $padding-y $padding-x;
 
     @media screen and (min-width: 750px) {
       width: calc(33% - 2px);
@@ -54,9 +58,9 @@
 
     .seal-of-approval {
       position: absolute;
-      top: 10px;
-      left: 6px;
-      width: 44px;
+      top: $padding-y;
+      left: $padding-x;
+      width: 30px;
       height: auto;
     }
 
@@ -82,15 +86,24 @@
     }
 
     .product-image {
-      display: block;
-      text-align: center;
-
-      $image-margin: 26px;
+      @include hover-focus-active {
+        text-decoration: none;
+      }
 
       img {
-        display: inline-block;
-        margin: $image-margin;
-        width: calc(100% - (#{$image-margin} * 2));
+        @media (min-width: $bp-md) {
+          max-width: 78%;
+        }
+      }
+    }
+
+    figcaption {
+      color: #909090;
+      position: relative;
+      bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
+
+      .body {
+        font-weight: initial;
       }
     }
   }
