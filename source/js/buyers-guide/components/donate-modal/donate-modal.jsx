@@ -52,7 +52,7 @@ export default class DonateModal extends React.Component {
 
   handleBtnClick() {
     if (DNT.allowTracking) {
-      let url = window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,'');
+      let url = window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,``);
 
       ReactGA.event({
         category: `buyersguide`,
