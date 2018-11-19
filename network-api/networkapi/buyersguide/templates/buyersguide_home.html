@@ -44,7 +44,7 @@
 
         <div class="d-flex justify-content-center align-items-stretch flex-wrap">
           {% for product in products %}
-          <figure class="product-box bg-gray d-flex flex-column justify-content-between" data-creepiness="{{ product.votes.creepiness.average }}">
+          <figure class="product-box bg-gray" data-creepiness="{{ product.votes.creepiness.average }}">
             {% if product.meets_minimum_security_standards is True %}
               <img
                 class="seal-of-approval"
@@ -62,7 +62,7 @@
               {% endif %}
             {% endif %}
 
-            <a class="product-image d-block text-center mt-4" href="/en/privacynotincluded/products/{{ product.slug }}">
+            <a class="product-image text-center mt-4 d-flex flex-column justify-content-between" href="/en/privacynotincluded/products/{{ product.slug }}">
               {% if USE_CLOUDINARY %}
               <img
                 src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"

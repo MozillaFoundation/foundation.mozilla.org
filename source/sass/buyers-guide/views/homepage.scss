@@ -91,6 +91,8 @@
       }
 
       img {
+        margin: 0 auto;
+
         @media (min-width: $bp-md) {
           max-width: 78%;
         }
