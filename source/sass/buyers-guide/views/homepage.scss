@@ -133,6 +133,10 @@
     }
 
     @media (min-width: $bp-lg) {
+      @include product-box-size(1px, 4);
+    }
+
+    @media (min-width: $bp-xl) {
       @include product-box-size(1px, 5);
     }
   }
