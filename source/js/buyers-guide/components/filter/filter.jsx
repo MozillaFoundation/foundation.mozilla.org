@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactGA from 'react-ga';
+import DNT from '../../dnt.js';
 
 /**
  * A simple class for radio-group-looking things.
@@ -82,6 +84,14 @@ export default class Filter extends React.Component {
 
       this.updateWithCSSvalues(update);
       this.setState(update);
+
+      if(DNT.allowTracking) {
+        ReactGA.event({
+          category: `buyersguide`,
+          action: `filter set`,
+          label: `filter on homepage`
+        });
+      }
     }
   }
 
@@ -229,12 +239,23 @@ export default class Filter extends React.Component {
       // not hidden by creepiness: do we need to hide it due to buyers likelihood?
       let recommendation = productBox.querySelector(`.recommendation`);
 
-      if (like === `Likely` && recommendation.classList.contains(`negative`)) {
-        classes.add(`d-none`);
-        hidden = true;
-      } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
-        classes.add(`d-none`);
-        hidden = true;
+      if (recommendation) {
+        if (like === `Both`) {
+          recommendation.classList.add(`d-none`);
+          hidden = true;
+        } else {
+          recommendation.classList.remove(`d-none`);
+        }
+
+        if (hidden) { return; }
+
+        if (like === `Likely` && recommendation.classList.contains(`negative`)) {
+          classes.add(`d-none`);
+          hidden = true;
+        } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
+          classes.add(`d-none`);
+          hidden = true;
+        }
       }
 
       if (hidden) { return; }
@@ -263,10 +284,10 @@ export default class Filter extends React.Component {
       <div className={`content` + (this.state.collapsed ? ` d-none`: ``)}>
         <span className="close" onClick={() => this.close()} />
 
-        <h2 className="h6-heading">Filter by</h2>
+        <h2 className="mb-4 mb-sm-5">Filter by</h2>
 
         <div className="creepiness">
-          <h3 className="h6-heading">creepiness</h3>
+          <h3 className="h6-heading-uppercase">creepiness</h3>
           <div className="slider">
             <label>nice</label>
             <div className="track" ref={e => (this.track=e)} style={this.state.trackStyle}>
@@ -278,7 +299,7 @@ export default class Filter extends React.Component {
         </div>
 
         <div className="likelihood">
-          <h3 className="h6-heading">likelihood to buy</h3>
+          <h3 className="h6-heading-uppercase">likelihood to buy</h3>
           { likelihoods.map(opts => <RadioGroupEntry {...opts}/>) }
         </div>
       </div>
@@ -289,7 +310,7 @@ export default class Filter extends React.Component {
     let content = this.getFilterContent();
 
     return [
-      <div className="filter-label h6-heading">Filter</div>,
+      <div className="filter-label">Filter</div>,
       <div className={`filter-content` + (this.state.collapsed ? ` collapsed` : ``)} onClick={() => this.open()}>
         { content }
       </div>

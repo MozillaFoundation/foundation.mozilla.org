@@ -1,34 +1,38 @@
 #product-filter {
+  $filter-bubble-dimension-mobile: 70px;
+  $filter-bubble-dimension: 6em;
   $filter-box-dimension: 700px;
   $inner-dimension: 330px;
+  $heading-color: #4a4a4a;
+  $option-color: #979797;
 
   position: relative;
+  top: -75px;
   height: 0;
   z-index: 200;
   font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 
-  @media screen and (min-width: 550px) {
-    float: right;
+  @media (min-width: $bp-md) {
+    top: calc(-1 * #{$filter-bubble-dimension} + 0.8em);
   }
 
-  float: none;
-
-  .h6-heading {
-    font-size: 120%;
+  .h6-heading-uppercase {
+    font-weight: 700;
+    color: $heading-color;
   }
 
-  .creepiness .h6-heading,
-  .likelihood .h6-heading {
-    color: #444;
-    font-size: 120%;
-    font-variant: small-caps;
-    font-weight: 600;
-  }
-
-  div.filter-label {
+  .filter-label {
     position: absolute;
-    left: -9em;
-    top: 1.3em;
+    top: 2.2em;
+    right: 6.3em;
+    color: #666;
+    font-size: 12px;
+    font-weight: 700;
+
+    @media (min-width: $bp-md) {
+      top: calc(#{$filter-bubble-dimension} / 2 + 2px);
+      right: calc(2 * #{$filter-bubble-dimension} - 1.5em);
+    }
   }
 
   .filter-content {
@@ -37,26 +41,24 @@
     justify-content: center;
     background: white;
 
-    @media screen and (min-width: 550px) {
+    @media (min-width: $bp-md) {
       position: absolute;
-      top: -100px;
       right: -100px;
-      left: auto;
       width: $filter-box-dimension;
       height: $filter-box-dimension;
       border-radius: 50%;
     }
 
     position: absolute;
-    top: -55px;
     right: 0;
-    left: 0;
+    left: auto;
     width: 100%;
     border-radius: 0;
     text-align: left;
     padding: 0.5em;
     overflow: hidden;
-    box-shadow: 4px 4px 13px 0 #999;
+    border: 1px solid #f2f2f2;
+    box-shadow: 4px 5px 10px -5px rgba(74, 74, 74, 26);
     transition: top, right, height, width;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
@@ -67,7 +69,7 @@
       transition-duration: 0.2s;
       transition-timing-function: ease-in-out;
 
-      @media screen and (min-width: 550px) {
+      @media screen and (min-width: $bp-md) {
         width: $inner-dimension;
       }
 
@@ -79,21 +81,20 @@
         transform: scale(0.01, 0.01);
       }
 
-      @media screen and (min-width: 550px) {
-        top: -0.6em;
+      @media (min-width: $bp-md) {
         right: 1.1em;
-        width: 6em;
-        height: 6em;
-        border-radius: 50%;
+        width: $filter-bubble-dimension;
+        height: $filter-bubble-dimension;
       }
 
-      width: 4em;
-      height: 4em;
-      top: -4.5em;
-      border-radius: 2em;
+      cursor: pointer;
+      width: $filter-bubble-dimension-mobile;
+      height: $filter-bubble-dimension-mobile;
+      padding: 0;
+      border-radius: 50%;
       background-image: url(/_images/buyers-guide/icon-filter.svg);
       background-position: center center;
-      background-size: 2em;
+      background-size: 24px;
       background-repeat: no-repeat;
     }
 
@@ -102,14 +103,16 @@
       background: url(/_images/buyers-guide/icon-close.svg);
       color: transparent;
       background-repeat: no-repeat;
-      width: 2em;
-      height: 2em;
+      width: 16px;
+      height: 16px;
       background-position: center center;
-      background-size: 50%;
+      background-size: contain;
     }
 
     h2 {
-      margin-bottom: 3em;
+      font-weight: 400;
+      font-size: 16px;
+      color: $option-color;
     }
 
     .creepiness {
@@ -174,8 +177,8 @@
         cursor: pointer;
         display: flex;
         align-items: center;
-        opacity: 0.5;
         margin: 1em 0;
+        color: $option-color;
 
         .dot {
           display: inline-block;
@@ -183,17 +186,18 @@
           height: 2px;
           border-radius: 1000px;
           background: white;
-          box-shadow: 0 0 0 9px white, 0 0 0 10px black;
+          box-shadow: 0 0 0 9px white, 0 0 0 10px $option-color;
           margin: 10px;
 
           &.selected {
-            box-shadow: 0 0 0 6px black, 0 0 0 9px white, 0 0 0 10px black;
-            background: black;
+            box-shadow: 0 0 0 6px $option-color, 0 0 0 9px white, 0 0 0 10px $option-color;
+            background: $option-color;
           }
         }
 
         .label {
           text-align: left;
+          position: relative;
 
           &[data-label] {
             text-indent: 2.5em;
@@ -206,12 +210,12 @@
           }
 
           &[data-label=Likely] {
-            background-image: url(/_images/buyers-guide/icon-thumb-up-black.svg);
+            background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
             background-position: 12px 4px;
           }
 
           &[data-label='Not likely'] {
-            background-image: url(/_images/buyers-guide/icon-thumb-down-black.svg);
+            background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
             background-position: 12px 7px;
           }
         }

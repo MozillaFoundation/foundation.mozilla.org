@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
+import DonateModal from './components/donate-modal/donate-modal.jsx';
 import Filter from './components/filter/filter.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
@@ -125,6 +126,20 @@ let main = {
 
           try {
             document.execCommand(`copy`);
+
+            let target = event.target;
+
+            if (target.dataset && target.dataset.successText) {
+              let defaultText = target.innerText;
+
+              target.innerText = target.dataset.successText;
+              target.classList.add(`copied`);
+
+              setTimeout(() => {
+                target.innerText = defaultText;
+                target.classList.remove(`copied`);
+              }, 3000);
+            }
           } catch (err) {
             console.error(`Copy failed.`);
           }
@@ -171,6 +186,13 @@ let main = {
         ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
       });
     }
+
+    let donationModal = document.querySelector(`.donate-modal-wrapper`);
+
+    if (donationModal) {
+      ReactDOM.render(<DonateModal />, donationModal);
+    }
+
   }
 };
 

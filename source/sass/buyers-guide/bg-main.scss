@@ -25,6 +25,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../../js/buyers-guide/components/primary-nav/primary-nav';
 @import '../../js/buyers-guide/components/creepiness-chart/creepiness-chart';
 @import '../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart';
+@import '../../js/buyers-guide/components/donate-modal/donate-modal';
 @import '../../js/buyers-guide/components/filter/filter';
 
 // Non-React Components
@@ -67,17 +68,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 .bg-white {
   background: $white;
-}
-
-// Type specific to PNI
-
-.links-btn {
-  font-family: "Nunito Sans";
-  font-size: 16px;
-  color: $black;
-  text-transform: uppercase;
-  text-decoration: underline;
-  line-height: 20px;
 }
 
 img.thumb-border {
