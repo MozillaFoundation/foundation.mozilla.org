@@ -64,6 +64,11 @@
         padding: $padding-y $padding-x;
         width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
 
+        &.d-flex.d-none {
+          /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */
+          display: none !important;
+        }
+
         .seal-of-approval {
           position: absolute;
           top: $padding-y;
