@@ -1,4 +1,8 @@
 #pni-home {
+  .main-content.pb-5 {
+    padding-bottom: 0 !important;
+  }
+
   .page-header {
     @media (max-width: $bp-md) {
       height: 200px;
@@ -12,6 +16,9 @@
   }
 
   .product-listing {
+    margin-top: -88px;
+    padding-bottom: 88px;
+
     .user-rated {
       font-family: "Zilla Slab";
       font-size: 18px;
@@ -118,7 +125,6 @@
     }
 
     overflow-x: hidden;
-    margin-bottom: 90px;
 
     @include product-box-size(1px, 2);
 
