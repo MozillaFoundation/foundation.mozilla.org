@@ -138,18 +138,27 @@
 
       <h3 class="h3-heading mt-5 mb-3">Compare products</h3>
       <div class="row">
-      {% for product in product.related_products %}
-      <div class="col-6 col-md-3 mb-3 mb-md-0">
-        <a class="d-block" href="/en/privacynotincluded/products/{{ product.slug }}">
+      {% for related_product in product.related_products %}
+      <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
+        <a class="d-block" href="/en/privacynotincluded/products/{{ related_product.slug }}">
           {% if USE_CLOUDINARY %}
             <img class="thumb-border"
             width="300"
-            src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
-            alt="{{product.name}}">
+            src="{% cloudinary_url related_product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+            alt="{{related_product.name}}">
           {% else %}
-            <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
+            <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{related_product.image }}" width="600">
           {% endif %}
         </a>
+
+        {% if related_product.meets_minimum_security_standards is True %}
+        <img
+          src="/_images/buyers-guide/badge.svg"
+          class="seal-of-approval"
+          alt="this product meets our minimum security standards"
+          title="this product meets our minimum security standards"
+        >
+        {% endif %}
       </div>
       {% endfor %}
       </div>
