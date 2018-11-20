@@ -16,6 +16,21 @@
   }
 }
 
+.related-product {
+  a {
+    background: #f4f4f4;
+    padding: 10px 0 0 10px;
+  }
+
+  .seal-of-approval {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
 .product-detail {
   $link-active-color: #3302ff;
 
