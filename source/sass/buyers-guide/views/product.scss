@@ -17,12 +17,16 @@
 }
 
 .related-product {
+  a {
+    background: #f4f4f4;
+    padding: 20px 10px 10px 20px;
+  }
   .seal-of-approval {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 38px;
-    height: 38px;
+    top: 5px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
   }
 }
 
