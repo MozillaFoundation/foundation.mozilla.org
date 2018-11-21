@@ -119,8 +119,85 @@
       color: $option-color;
     }
 
+    .radio-group-entry {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin: 1em 0;
+      color: $option-color;
+
+      .dot {
+        position: relative;
+        display: inline-block;
+        width: 2px;
+        height: 2px;
+        border-radius: 1000px;
+        background: white;
+        box-shadow: 0 0 0 9px white, 0 0 0 10px $option-color;
+        margin: 10px;
+
+        &.selected {
+          box-shadow: 0 0 0 6px $option-color, 0 0 0 9px white, 0 0 0 10px $option-color;
+          background: $option-color;
+        }
+
+        &.square {
+          border-radius: 0;
+
+          &.selected {
+            box-shadow: 0 0 0 10px $option-color;
+
+            &::after {
+              content: ' ';
+              display: block;
+              width: 22px;
+              height: 22px;
+              position: absolute;
+              top: -10px;
+              left: -10px;
+              background-image: url(/_images/buyers-guide/icon-checkmark.svg);
+              background-size: 100% 100%;
+            }
+          }
+        }
+      }
+
+      .label {
+        text-align: left;
+        position: relative;
+
+        &[data-label] {
+          text-indent: 2.5em;
+          background-repeat: no-repeat;
+          background-size: 16px;
+        }
+
+        &[data-label=Both] {
+          text-indent: 0.7em;
+        }
+
+        &[data-label=Likely] {
+          background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
+          background-position: 12px 4px;
+        }
+
+        &[data-label='Not likely'] {
+          background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
+          background-position: 12px 7px;
+        }
+      }
+    }
+
     .seal-of-approval {
       margin-bottom: 48px;
+
+      .radio-group-entry {
+        .label {
+          &[data-label] {
+            text-indent: 1em;
+          }
+        }
+      }
     }
 
     .creepiness {
@@ -175,85 +252,6 @@
             &:hover {
               color: grey;
             }
-          }
-        }
-      }
-    }
-
-    .radio-group-entry {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      margin: 1em 0;
-      color: $option-color;
-
-      .dot {
-        position: relative;
-        display: inline-block;
-        width: 2px;
-        height: 2px;
-        border-radius: 1000px;
-        background: white;
-        box-shadow: 0 0 0 9px white, 0 0 0 10px $option-color;
-        margin: 10px;
-
-        &.selected {
-          box-shadow: 0 0 0 6px $option-color, 0 0 0 9px white, 0 0 0 10px $option-color;
-          background: $option-color;
-        }
-
-        &.square {
-          border-radius: 0;
-
-          &.selected{
-            box-shadow: 0 0 0 10px $option-color;
-
-            &::after {
-              content: ' ';
-              display: block;
-              width: 22px;
-              height: 22px;
-              position: absolute;
-              top: -10px;
-              left: -10px;
-              background-image: url(/_images/buyers-guide/icon-checkmark.svg);
-              background-size: 100% 100%;
-            }
-          }
-        }
-      }
-
-      .label {
-        text-align: left;
-        position: relative;
-
-        &[data-label] {
-          text-indent: 2.5em;
-          background-repeat: no-repeat;
-          background-size: 16px;
-        }
-
-        &[data-label=Both] {
-          text-indent: 0.7em;
-        }
-
-        &[data-label=Likely] {
-          background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
-          background-position: 12px 4px;
-        }
-
-        &[data-label='Not likely'] {
-          background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
-          background-position: 12px 7px;
-        }
-      }
-    }
-
-    .seal-of-approval {
-      .radio-group-entry {
-        .label {
-          &[data-label] {
-            text-indent: 1em;
           }
         }
       }
