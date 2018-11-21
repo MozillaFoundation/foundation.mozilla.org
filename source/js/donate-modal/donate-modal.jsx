@@ -98,6 +98,8 @@ class DonateModal extends React.Component {
   }
 }
 
+// Export a manual injection function.
+
 export default function injectDonateModal(element, props={}) {
   ReactDOM.render(<DonateModal {...props} />, element);
 }

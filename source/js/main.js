@@ -15,7 +15,7 @@ import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
-
+import injectDonateModal from './donate-modal/donate-modal.jsx';
 
 import primaryNav from './primary-nav.js';
 
@@ -318,6 +318,26 @@ let main = {
         target
       );
     });
+
+    let donationModal = document.querySelector(`.donate-modal-wrapper`);
+
+    if (donationModal) {
+      let modalOptions = {
+        title: `We made this guide with support from people like you`,
+        subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
+        cta: {
+          title: `Help us keep this work going`,
+          body: <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=popupbutton">Support Mozilla</a>
+        },
+        ga: {
+          category: `site`,
+          action: `donate tap`,
+          label: `donate popup on foundation site`
+        }
+      };
+
+      injectDonateModal(donationModal, modalOptions);
+    }
   }
 };
 
