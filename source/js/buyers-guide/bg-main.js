@@ -191,10 +191,10 @@ let main = {
 
     if (donationModal) {
       let modalOptions = {
-        title: "We made this guide with support from people like you",
-        subheading: "Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.",
+        title: `We made this guide with support from people like you`,
+        subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
         cta: {
-          title: "Help us keep this work going",
+          title: `Help us keep this work going`,
           body: <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=popupbutton">Support Mozilla</a>
         },
         ga: {
