@@ -1,4 +1,6 @@
 #product-filter {
+  $bp-cs: 500px;
+
   $filter-bubble-dimension-mobile: 70px;
   $filter-bubble-dimension: 6em;
   $filter-box-dimension: 700px;
@@ -12,7 +14,7 @@
   z-index: 200;
   font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 
-  @media (min-width: $bp-md) {
+  @media (min-width: $bp-cs) {
     top: calc(-1 * #{$filter-bubble-dimension} + 0.8em);
   }
 
@@ -33,7 +35,7 @@
     font-size: 12px;
     font-weight: 700;
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $bp-cs) {
       top: calc(#{$filter-bubble-dimension} / 2 + 2px);
       right: calc(2 * #{$filter-bubble-dimension} - 1.5em);
     }
@@ -45,36 +47,41 @@
     justify-content: center;
     background: white;
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $bp-cs) {
       position: absolute;
       right: -100px;
+      left: auto;
+      top: auto;
+      bottom: auto;
       width: $filter-box-dimension;
       height: $filter-box-dimension;
       border-radius: 50%;
+      transition: top, right, height, width;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
     }
 
-    position: absolute;
+    border: 1px solid #f2f2f2;
+    box-shadow: 4px 5px 10px -5px rgba(74, 74, 74, 26);
+    position: fixed;
     right: 0;
-    left: auto;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 100%;
     border-radius: 0;
     text-align: left;
     padding: 0.5em;
     overflow: hidden;
-    border: 1px solid #f2f2f2;
-    box-shadow: 4px 5px 10px -5px rgba(74, 74, 74, 26);
-    transition: top, right, height, width;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
 
     div.content {
       transform: scale(1, 1);
-      transition: transform;
-      transition-duration: 0.2s;
-      transition-timing-function: ease-in-out;
 
-      @media screen and (min-width: $bp-md) {
+      @media (min-width: $bp-cs) {
         width: $inner-dimension;
+        transition: transform;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
       }
 
       width: 100%;
@@ -85,12 +92,14 @@
         transform: scale(0.01, 0.01);
       }
 
-      @media (min-width: $bp-md) {
+      @media (min-width: $bp-cs) {
         right: 1.1em;
         width: $filter-bubble-dimension;
         height: $filter-bubble-dimension;
       }
 
+      position: absolute;
+      left: auto;
       cursor: pointer;
       width: $filter-bubble-dimension-mobile;
       height: $filter-bubble-dimension-mobile;
