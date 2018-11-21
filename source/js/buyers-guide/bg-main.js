@@ -84,6 +84,9 @@ let main = {
 
           let textArea = document.createElement(`textarea`);
 
+          textArea.setAttribute(`contenteditable`, true);
+          textArea.setAttribute(`readonly`, false);
+
           //
           // *** This styling is an extra step which is likely not required. ***
           //
@@ -122,7 +125,20 @@ let main = {
 
           textArea.value = window.location.href;
           document.body.appendChild(textArea);
-          textArea.select();
+
+
+          // Simply running textArea.select() and document.execCommand(`copy`) won't work on iOS Safari
+          // Below is the suggested solution to make copying and pasting working more cross-platform
+          // For details see https://stackoverflow.com/a/34046084
+          let range = document.createRange();
+          let selection = window.getSelection();
+
+          range.selectNodeContents(textArea);
+
+          selection.removeAllRanges();
+          selection.addRange(range);
+
+          textArea.setSelectionRange(0, 999999); // use a big number to cover anything that could be inside textArea
 
           try {
             document.execCommand(`copy`);
