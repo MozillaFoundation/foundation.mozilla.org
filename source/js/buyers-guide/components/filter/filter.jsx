@@ -293,9 +293,9 @@ export default class Filter extends React.Component {
       <div className={`content` + (this.state.collapsed ? ` d-none`: ``)}>
         <span className="close" onClick={() => this.close()} />
 
-        <h2 className="mb-4 mb-sm-5">Filter by</h2>
+        <h2 className="filter-caption">Filter by</h2>
 
-        <div className="seal-of-approval mb-3">
+        <div className="seal-of-approval">
           <h3 className="h6-heading-uppercase">minimum security standards <img
             src="/_images/buyers-guide/mini-badge.svg"
             width="30px"

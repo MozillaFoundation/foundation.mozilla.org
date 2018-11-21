@@ -21,6 +21,10 @@
     color: $heading-color;
   }
 
+  .filter-caption {
+    margin-bottom: 24px;
+  }
+
   .filter-label {
     position: absolute;
     top: 2.2em;
@@ -115,8 +119,12 @@
       color: $option-color;
     }
 
+    .seal-of-approval {
+      margin-bottom: 48px;
+    }
+
     .creepiness {
-      margin-bottom: 3em;
+      margin-bottom: 48px;
 
       .slider {
         display: flex;
@@ -180,6 +188,7 @@
       color: $option-color;
 
       .dot {
+        position: relative;
         display: inline-block;
         width: 2px;
         height: 2px;
@@ -195,6 +204,22 @@
 
         &.square {
           border-radius: 0;
+
+          &.selected{
+            box-shadow: 0 0 0 10px $option-color;
+
+            &::after {
+              content: ' ';
+              display: block;
+              width: 22px;
+              height: 22px;
+              position: absolute;
+              top: -10px;
+              left: -10px;
+              background-image: url(/_images/buyers-guide/icon-checkmark.svg);
+              background-size: 100% 100%;
+            }
+          }
         }
       }
 
