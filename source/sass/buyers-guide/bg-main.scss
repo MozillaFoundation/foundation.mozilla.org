@@ -1,3 +1,8 @@
+// Disallow any horizontal scrollbar at the document level.
+html {
+  overflow-x: hidden;
+}
+
 // Bootstrap
 
 @import '../../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap';
