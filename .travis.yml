@@ -5,11 +5,12 @@ matrix:
   include:
     - os: windows
       language: sh
-      python: "3.7"
+      python: "3.6"
       before_install:
-        - choco install python3
-        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+        - choco install python --version 3.6.7
+        - export PATH="/c/Python36:/c/Python36/Scripts:$PATH"
         - python -m pip install --upgrade pip
+        - choco install nvm
     - os: linux
 services:
 - postgresql
