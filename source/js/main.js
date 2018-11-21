@@ -322,6 +322,10 @@ let main = {
     let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
     if (donationModal) {
+      /*
+
+      COMMENTED OFF PENDING https://github.com/mozilla/foundation.mozilla.org/issues/2250
+
       let modalOptions = {
         title: `We made this guide with support from people like you`,
         subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
@@ -337,6 +341,7 @@ let main = {
       };
 
       injectDonateModal(donationModal, modalOptions);
+      */
     }
   }
 };
