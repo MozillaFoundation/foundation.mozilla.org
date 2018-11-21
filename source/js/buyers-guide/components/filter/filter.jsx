@@ -4,7 +4,7 @@ import ReactGA from '../../react-ga-proxy.js';
 /**
  * A simple class for radio-group-looking things.
  */
-class RadioGroupEntry extends React.Component {
+class SelectableOption extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -17,8 +17,8 @@ class RadioGroupEntry extends React.Component {
 
   render() {
     return (
-      <div onClick={e => this.forward(e)} className="radio-button">
-        <span className={`dot` + (this.props.selected? ` selected`:``)}/> <span data-label={this.props.label} className="label">{this.props.label}</span>
+      <div onClick={e => this.forward(e)} className={`radio-group-entry ` + (this.props.type || `radio-button`)}>
+        <span className={(this.props.square ? `square` : ``) + ` dot ` + (this.props.selected? `selected` : ``)}/> <span data-label={this.props.label} className="label">{this.props.label}</span>
       </div>
     );
   }
@@ -37,6 +37,7 @@ export default class Filter extends React.Component {
   getInitialState() {
     return {
       collapsed: true,
+      sealOfApproval: false,
       likelihood: `Both`,
       creepinessMin: 1,
       offsetMin: `calc(0% - 14px)`,
@@ -96,12 +97,16 @@ export default class Filter extends React.Component {
     this.setState({ collapsed: true });
   }
 
+  toggleSealOfApproval() {
+    this.setState({
+      sealOfApproval: !this.state.sealOfApproval
+    }, () => this.setVisibilities());
+  }
+
   handleLikelihood(label) {
     this.setState({
       likelihood: label
-    }, () => {
-      this.setVisibilities();
-    });
+    }, () => this.setVisibilities());
   }
 
   slideStart(e) {
@@ -169,9 +174,7 @@ export default class Filter extends React.Component {
         update.creepinessMax
       );
 
-      this.setState(update, () => {
-        this.setVisibilities();
-      });
+      this.setState(update, () => this.setVisibilities());
     }
   }
 
@@ -223,6 +226,18 @@ export default class Filter extends React.Component {
       let classes = productBox.classList;
       let hidden = false;
 
+      // prefilter on seal of approval?
+      if (this.state.sealOfApproval) {
+        if (!productBox.querySelector(`img.seal-of-approval`)) {
+          classes.add(`d-none`);
+          hidden = true;
+        } else {
+          classes.remove(`d-none`);
+        }
+      }
+
+      if (hidden) { return; }
+
       // Filter out for creepiness
       if (c < minC || c > maxC) {
         classes.add(`d-none`);
@@ -254,12 +269,6 @@ export default class Filter extends React.Component {
           hidden = true;
         }
       }
-
-      if (hidden) { return; }
-
-      // not hidden by recommendation: do we need to hide it due to seal-of-approval selection?
-
-      // ...code for this will go here
     });
   }
 
@@ -281,7 +290,22 @@ export default class Filter extends React.Component {
       <div className={`content` + (this.state.collapsed ? ` d-none`: ``)}>
         <span className="close" onClick={() => this.close()} />
 
-        <h2 className="mb-4 mb-sm-5">Filter by</h2>
+        <h2 className="filter-caption">Filter by</h2>
+
+        <div className="seal-of-approval">
+          <h3 className="h6-heading-uppercase">minimum security standards <img
+            src="/_images/buyers-guide/mini-badge.svg"
+            width="30px"
+            height="30px"
+          /></h3>
+          <SelectableOption
+            type="checkbox"
+            label="Meets standards"
+            onClick={() => this.toggleSealOfApproval()}
+            selected={this.state.sealOfApproval}
+            square={true}
+          />
+        </div>
 
         <div className="creepiness">
           <h3 className="h6-heading-uppercase">creepiness</h3>
@@ -297,7 +321,7 @@ export default class Filter extends React.Component {
 
         <div className="likelihood">
           <h3 className="h6-heading-uppercase">likelihood to buy</h3>
-          { likelihoods.map(opts => <RadioGroupEntry {...opts}/>) }
+          { likelihoods.map(opts => <SelectableOption {...opts}/>) }
         </div>
       </div>
     );
