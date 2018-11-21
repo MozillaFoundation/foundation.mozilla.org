@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga';
+import ReactGA from './react-ga-proxy.js';
 
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
@@ -11,14 +11,10 @@ import Filter from './components/filter/filter.jsx';
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
 
-import DNT from './dnt.js';
-
 let main = {
   init() {
-    if (DNT.allowTracking) {
-      ReactGA.initialize(`UA-87658599-6`);
-      ReactGA.pageview(window.location.pathname);
-    }
+    ReactGA.initialize(`UA-87658599-6`);
+    ReactGA.pageview(window.location.pathname);
 
     this.enableCopyLinks();
     this.injectReactComponents();
@@ -51,7 +47,7 @@ let main = {
             button.classList.toggle(`open`);
             help.classList.toggle(`open`);
 
-            if (help.classList.contains(`open`) && DNT.allowTracking) {
+            if (help.classList.contains(`open`)) {
               ReactGA.event({
                 category: `product`,
                 action: `expand accordion tap`,
@@ -71,16 +67,14 @@ let main = {
         element.addEventListener(`click`, (event) => {
           event.preventDefault();
 
-          if (DNT.allowTracking) {
-            let productBox = document.querySelector(`.product-detail .h1-heading`);
-            let productTitle = productBox ? productBox.textContent : `unknown product`;
+          let productBox = document.querySelector(`.product-detail .h1-heading`);
+          let productTitle = productBox ? productBox.textContent : `unknown product`;
 
-            ReactGA.event({
-              category: `product`,
-              action: `copy link tap`,
-              label: `copy link ${productTitle}`
-            });
-          }
+          ReactGA.event({
+            category: `product`,
+            action: `copy link tap`,
+            label: `copy link ${productTitle}`
+          });
 
           let textArea = document.createElement(`textarea`);
 
