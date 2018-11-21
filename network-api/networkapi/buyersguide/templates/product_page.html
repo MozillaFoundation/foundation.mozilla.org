@@ -125,8 +125,16 @@
 </div>
 
 <div class="container">
+  {% if product.updates|length > 0 %}
+  <div class="row with-product-updates">
+  {% else %}
   <div class="row">
+  {% endif %}
+    {% if product.updates|length > 0 %}
+    <div class="px-5 mt-5 col-12 col-md-10 offset-md-1 bg-white">
+    {% else %}
     <div class="{{section_class}}">
+    {% endif %}
 
       {% if product.updates|length > 0 %}
       <h3 class="h3-heading my-5">Updates</h3>
