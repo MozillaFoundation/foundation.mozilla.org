@@ -110,7 +110,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
     },
 
     // product updates
-    'a.product-update-link': {
+    '.product-update-link': {
       category: `product`,
       action: `update article link tap`,
       label: `update article link for ${productName}`,
