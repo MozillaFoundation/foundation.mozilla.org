@@ -132,7 +132,7 @@ let main = {
           selection.removeAllRanges();
           selection.addRange(range);
 
-          textArea.setSelectionRange(0, 999999); // use a big number to cover anything that could be inside textArea
+          textArea.setSelectionRange(0, textArea.value.length); // use a big number to cover anything that could be inside textArea
 
           try {
             document.execCommand(`copy`);
