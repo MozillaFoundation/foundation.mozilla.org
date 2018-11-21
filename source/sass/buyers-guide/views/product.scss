@@ -176,7 +176,9 @@
   }
 }
 
-.row.dot-pattern {
+.row.with-product-updates::before {
+  display: block;
+  content: ' '; /* :before and :after won't work without content... =( */
   position: absolute;
   top: 0;
   left: -100%;
