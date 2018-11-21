@@ -38,10 +38,12 @@
     </div>
   </div>
 </div>
+
+{% with section_class="p-md-5 col-12 col-lg-10 offset-lg-1" %}
 <div class="container">
 
   <div class="row">
-    <div class="product-detail bg-white px-md-5 py-3 py-md-5 col-12 col-md-10 offset-md-1">
+    <div class="product-detail bg-white py-3 {{section_class}}">
       <div class="row intro d-flex justify-content-between align-items-center">
         <a class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
@@ -110,62 +112,7 @@
 
       <div class="mb-5">
           {% include "fragments/product-criterion.html"  with  value=product.manage_security  bad=False  help=product.manage_security_helptext label="Company manages security vulnerabilities"%}
-      </div>
-
-      <h4 class="normal">Company makes it easy to contact customer support</h4>
-      <div class="row mb-5">
-        <div class="col-12 col-md-3">
-          <div class="spy">
-            <img src="/_images/buyers-guide/icon-phone.svg" width="28" height="28" />
-            <div>
-              <strong class="d-block">Phone Number</strong>
-              {% if product.phone_number %}
-              {{ product.phone_number }}
-              {% else %}
-              No
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <div class="spy">
-            <img src="/_images/buyers-guide/icon-chat.svg" width="31" height="26" />
-            <div>
-              <strong class="d-block">Live Chat</strong>
-              {% if product.live_chat %}
-              <a id="product-live-chat" target="_blank" href={{ product.live_chat }}>Yes</a>
-              {% else %}
-              No
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <div class="spy">
-            <img src="/_images/buyers-guide/icon-mail.svg" width="31" height="23" />
-            <div>
-              <strong class="d-block">Email</strong>
-              {% if product.email %}
-              <a href="{{ product.email }}">Yes</a>
-              {% else %}
-              No
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <div class="spy">
-            <img src="/_images/buyers-guide/icon-twitter.svg" width="31" height="23" />
-            <div>
-              <strong class="d-block">Twitter</strong>
-              {% if product.twitter %}
-              <a href="https://twitter.com/{{product.twitter}}">Yes</a>
-              {% else %}
-              No
-              {% endif %}
-            </div>
-          </div>
-        </div>
+          {% include "fragments/product-contact.html" with product=product %}
       </div>
 
       <h3 class="h3-heading h3-heading-small">What could happen if something went wrong</h3>
@@ -179,8 +126,16 @@
 </div>
 
 <div class="container">
+  {% if product.updates|length > 0 %}
+  <div class="row with-product-updates">
+  {% else %}
   <div class="row">
-    <div class="p-5 col-12 col-md-10 offset-md-1">
+  {% endif %}
+    {% if product.updates|length > 0 %}
+    <div class="px-5 mt-5 col-12 col-md-10 offset-md-1 bg-white">
+    {% else %}
+    <div class="{{section_class}}">
+    {% endif %}
 
       {% if product.updates|length > 0 %}
       <h3 class="h3-heading my-5">Updates</h3>
@@ -192,7 +147,7 @@
       <h3 class="h3-heading mt-5 mb-3">Compare products</h3>
       <div class="row">
       {% for product in product.related_products %}
-      <div class="col-6 col-md-3 mb-3 mb-md-0">
+      <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
         <a class="d-block" href="/en/privacynotincluded/products/{{ product.slug }}">
           {% if USE_CLOUDINARY %}
             <img class="thumb-border"
@@ -203,6 +158,15 @@
             <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
           {% endif %}
         </a>
+
+        {% if product.meets_minimum_security_standards is True %}
+        <img
+          src="/_images/buyers-guide/mini-badge.svg"
+          class="seal-of-approval"
+          alt="this related product meets our minimum security standards"
+          title="this related product meets our minimum security standards"
+        >
+        {% endif %}
       </div>
       {% endfor %}
       </div>
@@ -214,13 +178,14 @@
 {% if coralTalkServerUrl %}
   <div class="container">
     <div class="row">
-      <div class="p-5 col-12 col-md-10 offset-md-1">
+      <div class="{{section_class}}">
         <div id="coral_talk_stream"></div>
       </div>
     </div>
   </div>
 {% endif %}
 
+{% endwith %}
 {% endblock %}
 
 {% block extra_scripts %}

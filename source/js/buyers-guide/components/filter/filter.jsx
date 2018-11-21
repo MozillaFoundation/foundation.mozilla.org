@@ -236,12 +236,23 @@ export default class Filter extends React.Component {
       // not hidden by creepiness: do we need to hide it due to buyers likelihood?
       let recommendation = productBox.querySelector(`.recommendation`);
 
-      if (like === `Likely` && recommendation.classList.contains(`negative`)) {
-        classes.add(`d-none`);
-        hidden = true;
-      } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
-        classes.add(`d-none`);
-        hidden = true;
+      if (recommendation) {
+        if (like === `Both`) {
+          recommendation.classList.add(`d-none`);
+          hidden = true;
+        } else {
+          recommendation.classList.remove(`d-none`);
+        }
+
+        if (hidden) { return; }
+
+        if (like === `Likely` && recommendation.classList.contains(`negative`)) {
+          classes.add(`d-none`);
+          hidden = true;
+        } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
+          classes.add(`d-none`);
+          hidden = true;
+        }
       }
 
       if (hidden) { return; }
