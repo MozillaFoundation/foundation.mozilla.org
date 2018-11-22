@@ -30,8 +30,11 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../../js/buyers-guide/components/primary-nav/primary-nav';
 @import '../../js/buyers-guide/components/creepiness-chart/creepiness-chart';
 @import '../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart';
-@import '../../js/buyers-guide/components/donate-modal/donate-modal';
 @import '../../js/buyers-guide/components/filter/filter';
+
+// Special react component
+
+@import '../../js/donate-modal/donate-modal';
 
 // Non-React Components
 
