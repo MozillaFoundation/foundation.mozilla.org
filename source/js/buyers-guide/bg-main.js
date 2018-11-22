@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactGA from './react-ga-proxy.js';
+import ReactGA from '../react-ga-proxy.js';
 
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
-import DonateModal from './components/donate-modal/donate-modal.jsx';
+import injectDonateModal from '../donate-modal/donate-modal.jsx';
 import Filter from './components/filter/filter.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
@@ -199,9 +199,27 @@ let main = {
     let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
     if (donationModal) {
-      ReactDOM.render(<DonateModal />, donationModal);
-    }
+      let modalOptions = {
+        title: `We made this guide with support from people like you`,
+        subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
+        cta: {
+          title: `Help us keep this work going`,
+          text: `Support Mozilla`
+        },
+        utm: {
+          medium: `buyersguide`,
+          campaign: `buyersguide2018`,
+          content: `popupbutton`
+        },
+        ga: {
+          category: `buyersguide`,
+          action: `donate tap`,
+          label: `donate popup on ${window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,``)}`
+        }
+      };
 
+      injectDonateModal(donationModal, modalOptions);
+    }
   }
 };
 

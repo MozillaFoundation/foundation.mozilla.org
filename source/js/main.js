@@ -15,7 +15,7 @@ import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
-
+import injectDonateModal from './donate-modal/donate-modal.jsx';
 
 import primaryNav from './primary-nav.js';
 
@@ -318,6 +318,31 @@ let main = {
         target
       );
     });
+
+    let donationModal = document.querySelector(`.donate-modal-wrapper`);
+
+    if (donationModal) {
+      let modalOptions = {
+        title: `We all love the web. Join Mozilla in defending it!`,
+        subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
+        cta: {
+          title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
+          text: `Support Mozilla`
+        },
+        utm: {
+          medium: `foundation`,
+          campaign: `mainsite`,
+          content: `popupbutton`
+        },
+        ga: {
+          category: `site`,
+          action: `donate tap`,
+          label: `donate popup on foundation site`
+        }
+      };
+
+      injectDonateModal(donationModal, modalOptions);
+    }
   }
 };
 

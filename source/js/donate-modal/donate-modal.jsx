@@ -1,13 +1,13 @@
 import React from 'react';
-import ReactGA from 'react-ga';
-import DNT from '../../dnt.js';
+import ReactDOM from 'react-dom';
+import ReactGA from '../react-ga-proxy.js';
 
 const KEY_STATE = `donate modal state`;
 const KEY_TIMER = `donate modal timer`;
 const DELAY = 10000; // in ms
 const TIMER_INCREMENT = 1000; // in ms
 
-export default class DonateModal extends React.Component {
+class DonateModal extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,6 +19,7 @@ export default class DonateModal extends React.Component {
       visible: false,
       dismissed
     };
+
     this.timer = prevTimer;
     this.runTimer;
   }
@@ -51,14 +52,8 @@ export default class DonateModal extends React.Component {
   }
 
   handleBtnClick() {
-    if (DNT.allowTracking) {
-      let url = window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,``);
-
-      ReactGA.event({
-        category: `buyersguide`,
-        action: `donate tap`,
-        label: `donate popup on ${url}`
-      });
+    if (this.props.ga) {
+      ReactGA.event(this.props.ga);
     }
 
     this.dismiss();
@@ -80,6 +75,11 @@ export default class DonateModal extends React.Component {
       return null;
     }
 
+    let title = this.props.title,
+        subheading = this.props.subheading,
+        cta = this.props.cta,
+        utm = this.props.utm;
+
     return (
       <div className={`donate-modal ${this.state.visible ? `show` : ``}`}>
         <button className="close" onClick={() => this.dismiss()}>
@@ -88,13 +88,18 @@ export default class DonateModal extends React.Component {
         <div className="container">
           <div className="row align-items-center text-center text-md-left">
             <div className="col-md-6">
-              <h1 className="h3-heading">We made this guide with support from people like you</h1>
-              <p className="normal">Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.</p>
+              <h1 className="h3-heading">{ title }</h1>
+              <p className="normal">{ subheading } </p>
             </div>
             <div className="col-md-4 offset-md-2">
-              <h2 className="h5-heading">Help us keep this work going</h2>
+              <h2 className="h5-heading">{ cta.title }</h2>
               <div>
-                <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=popupbutton">Support Mozilla</a>
+                <a
+                  className="d-block d-md-inline-block text-center btn btn-donate ml-0"
+                  onClick={evt => this.handleBtnClick(evt)}
+                  href={`https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=${utm.medium}&utm_campaign=${utm.campaign}&utm_content=${utm.content}`}
+                  target="_blank"
+                >{ cta.text }</a>
               </div>
             </div>
           </div>
@@ -102,4 +107,10 @@ export default class DonateModal extends React.Component {
       </div>
     );
   }
+}
+
+// Export a manual injection function.
+
+export default function injectDonateModal(element, props={}) {
+  ReactDOM.render(<DonateModal {...props} />, element);
 }
