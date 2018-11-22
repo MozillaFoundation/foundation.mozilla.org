@@ -15,7 +15,7 @@ import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
-import injectDonateModal from './donate-modal/donate-modal.jsx';
+// import injectDonateModal from './donate-modal/donate-modal.jsx';
 
 import primaryNav from './primary-nav.js';
 
