@@ -18,7 +18,11 @@
   }
 
   &.show {
-    height: 23em;
+    height: 24em;
+
+    @media (min-width: $bp-sm) {
+      height: 23em;
+    }
 
     @media (min-width: $bp-lg) {
       height: 19em;
@@ -81,6 +85,12 @@
     color: white;
     padding: 15px 18px;
     border-radius: calc((20px + 18px * 2) / 2); // half of button's height
+
+    &:focus,
+    &:active,
+    &:hover {
+      background: #f00;
+    }
   }
 
   p,
