@@ -1,6 +1,5 @@
 {% extends "./bg_base.html" %}
 
-{% load product-update %}
 {% load yes_no %}
 {% load env %}
 {% load cloudinary %}
@@ -46,9 +45,9 @@
   <div class="row">
     <div class="product-detail bg-white py-3 {{section_class}}">
       <div class="row intro d-flex justify-content-between align-items-center">
-        <a class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
+        <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
-          <a class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="link copied!">copy & share link</a>
+          <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="link copied!">copy & share link</a>
         </div>
         <h2 class="h1-heading col-md-10">{{product.name}}</h2>
         <div class="body-large mb-4 mb-md-5 col-12">{{product.blurb}}</div>
@@ -127,13 +126,25 @@
 </div>
 
 <div class="container">
+  {% if product.updates|length > 0 %}
+  <div class="row with-product-updates">
+  {% else %}
   <div class="row">
+  {% endif %}
+    {% if product.updates|length > 0 %}
+    <div class="px-5 mt-5 col-12 col-md-10 offset-md-1 bg-white">
+    {% else %}
     <div class="{{section_class}}">
+    {% endif %}
 
       {% if product.updates|length > 0 %}
       <h3 class="h3-heading my-5">Updates</h3>
       {% for product in product.updates %}
-        {% productUpdate product.source product.title product.author product.snippet %}
+        <div class="product-update mb-3">
+          <a class="product-update-link h5-heading title" href="{{product.source}}" target="_blank">{{product.title}}</a>
+          <div class="author">{{product.author}}</div>
+          <div class="snippet">{{product.snippet}}</div>
+        </div>
       {% endfor %}
       {% endif %}
 
