@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactGA from './react-ga-proxy.js';
+import ReactGA from '../react-ga-proxy.js';
 
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
@@ -189,7 +189,12 @@ let main = {
         subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
         cta: {
           title: `Help us keep this work going`,
-          body: <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=popupbutton">Support Mozilla</a>
+          text: `Support Mozilla`
+        },
+        utm: {
+          medium: `buyersguide`,
+          campaign: `buyersguide2018`,
+          content: `popupbutton`
         },
         ga: {
           category: `buyersguide`,

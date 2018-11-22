@@ -15,7 +15,7 @@ import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
-// import injectDonateModal from './donate-modal/donate-modal.jsx';
+import injectDonateModal from './donate-modal/donate-modal.jsx';
 
 import primaryNav from './primary-nav.js';
 
@@ -322,16 +322,17 @@ let main = {
     let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
     if (donationModal) {
-      /*
-
-      COMMENTED OFF PENDING https://github.com/mozilla/foundation.mozilla.org/issues/2250
-
       let modalOptions = {
-        title: `We made this guide with support from people like you`,
-        subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
+        title: `We all love the web. Join Mozilla in defending it!`,
+        subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
         cta: {
-          title: `Help us keep this work going`,
-          body: <a className="d-block d-md-inline-block text-center btn btn-donate ml-0" target="_blank" onClick={evt => this.handleBtnClick(evt)} href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=popupbutton">Support Mozilla</a>
+          title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
+          text: `Support Mozilla`
+        },
+        utm: {
+          medium: `foundation`,
+          campaign: `mainsite`,
+          content: `popupbutton`
         },
         ga: {
           category: `site`,
@@ -341,7 +342,6 @@ let main = {
       };
 
       injectDonateModal(donationModal, modalOptions);
-      */
     }
   }
 };
