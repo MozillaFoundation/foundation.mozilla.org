@@ -112,6 +112,7 @@
       font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
       font-size: 16px;
       line-height: 1.5;
+
       @include scaleText(16px, 24px, 16px, 24px);
     }
   }
