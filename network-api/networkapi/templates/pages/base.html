@@ -15,6 +15,10 @@
     <title>{% block pageTitle %}Mozilla Foundation - {{ page.meta_title }}{% endblock %}</title>
   </head>
   <body id="view-{% block bodyID %}{% endblock %}">
+
+    <!-- this will be populated by main.js if needed -->
+    <div class="donate-modal-wrapper"></div>
+
     {% block page_top_content %}{% endblock %}
     <div class="takeover"></div>
     <div class="wrapper">

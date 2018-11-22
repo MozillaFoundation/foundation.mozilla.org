@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactGA from '../../react-ga-proxy.js';
+import ReactGA from '../../../react-ga-proxy.js';
 
 /**
  * A simple class for radio-group-looking things.

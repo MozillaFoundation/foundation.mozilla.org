@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactGA from '../../react-ga-proxy';
+import ReactGA from '../../../react-ga-proxy';
 
 const SocialShareLink = (props) => {
   let classes = `social-button`;

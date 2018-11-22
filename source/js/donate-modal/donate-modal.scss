@@ -75,9 +75,12 @@
   }
 
   .btn-donate {
+    @include scaleText(16px, 20px);
+
+    background: #ff4f5e;
+    color: white;
     padding: 15px 18px;
-    border-radius: 24px;
-    border: none;
+    border-radius: calc((20px + 18px * 2) / 2); // half of button's height
   }
 
   p,
