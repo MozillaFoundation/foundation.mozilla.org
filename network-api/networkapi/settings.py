@@ -423,8 +423,7 @@ else:
 
 # CSP
 CSP_DEFAULT = (
-    'self',
-    'localhost:8000',
+    '\'self\''
 )
 
 CSP_DEFAULT_SRC = env('CSP_DEFAULT_SRC', default=CSP_DEFAULT)
