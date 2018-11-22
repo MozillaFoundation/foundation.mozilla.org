@@ -120,7 +120,6 @@ let main = {
           textArea.value = window.location.href;
           document.body.appendChild(textArea);
 
-
           // Simply running textArea.select() and document.execCommand(`copy`) won't work on iOS Safari
           // Below is the suggested solution to make copying and pasting working more cross-platform
           // For details see https://stackoverflow.com/a/34046084
