@@ -135,9 +135,15 @@
     @media (min-width: $bp-lg) {
       @include product-box-size(1px, 4);
     }
+  }
 
+  .project-list-section {
     @media (min-width: $bp-xl) {
-      @include product-box-size(1px, 5);
+      // on extra large screen we want project-list-section's width to match
+      // Bootstrap's .container's width
+      width: calc(#{map-get($container-max-widths, xl)} - #{map-get($grid-gutter-widths, xl)});
+      max-width: 100%;
+      margin: 0 auto;
     }
   }
 
