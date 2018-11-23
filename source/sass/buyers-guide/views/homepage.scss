@@ -13,7 +13,6 @@
 
   .product-listing {
     margin-top: -88px;
-    padding-bottom: 88px;
 
     .user-rated {
       font-family: "Zilla Slab";
@@ -42,34 +41,114 @@
     }
   }
 
-  .product-box {
-    width: calc(50% - 2px);
-    margin: 1px;
-    overflow: hidden;
+  .product-box-list-wrapper {
+    @mixin product-box-size($box-margin: 1px, $items-per-row: 2) {
+      $num-of-gutter: $items-per-row;
+      $gutter-width: $box-margin * 2;
+      $row-total-gutter-width: $gutter-width * $num-of-gutter;
 
-    @media screen and (min-width: 750px) {
-      width: calc(33% - 2px);
-    }
-
-    $icon-bar-height: 56px;
-
-    .iconography-bar {
-      height: $icon-bar-height;
-    }
-
-    .product-image {
-      display: block;
-      text-align: center;
-
-      img {
-        background: #e0e0e0;
-        max-width: calc(100% - (#{$icon-bar-height} / 2));
+      .product-box-list {
+        margin-right: -$box-margin;
+        margin-left: -$box-margin;
       }
+
+      figure.product-box {
+        $padding-x: 12px;
+        $padding-y: 12px;
+
+        display: inline-block;
+        position: relative;
+        margin-left: $box-margin;
+        margin-right: $box-margin;
+        margin-bottom: $box-margin * 2;
+        padding: $padding-y $padding-x;
+        width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
+
+        &.d-flex.d-none {
+          /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */
+          display: none !important;
+        }
+
+        .seal-of-approval {
+          position: absolute;
+          top: $padding-y;
+          left: $padding-x;
+          width: 30px;
+          height: auto;
+        }
+
+        .recommendation {
+          position: absolute;
+          right: 0;
+          width: 1em;
+          height: 1em;
+
+          &.positive {
+            background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
+            background-position: 0 0;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+          }
+
+          &.negative {
+            background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
+            background-position: 0 0;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+          }
+        }
+
+        .product-image {
+          @include hover-focus-active {
+            text-decoration: none;
+          }
+
+          img {
+            margin: 0 auto;
+
+            @media (min-width: $bp-md) {
+              max-width: 78%;
+            }
+          }
+        }
+
+        figcaption {
+          color: #909090;
+          position: relative;
+          bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
+
+          .body {
+            font-weight: initial;
+          }
+        }
+      }
+    }
+
+    overflow-x: hidden;
+
+    @include product-box-size(1px, 2);
+
+    @media (min-width: $bp-md) {
+      @include product-box-size(1px, 3);
+    }
+
+    @media (min-width: $bp-lg) {
+      @include product-box-size(1px, 4);
+    }
+  }
+
+  .project-list-section {
+    @media (min-width: $bp-xl) {
+      // on extra large screen we want project-list-section's width to match
+      // Bootstrap's .container's width
+      width: calc(#{map-get($container-max-widths, xl)} - #{map-get($grid-gutter-widths, xl)});
+      max-width: 100%;
+      margin: 0 auto;
     }
   }
 
   .creepiness-slider {
-    z-index: 0;
+    z-index: 1;
     position: sticky;
     position: -webkit-sticky;
     top: 16px;
@@ -131,32 +210,6 @@
           margin-left: -5px;
         }
       }
-    }
-  }
-
-  .seal-of-approval {
-    width: 44px;
-    height: auto;
-    margin: 10px 0 0 6px;
-  }
-
-  .recommendation {
-    float: right;
-    width: 1em;
-    height: 1em;
-
-    &.positive {
-      background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
-      background-position: 0 0;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-    }
-
-    &.negative {
-      background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
-      background-position: 0 0;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
     }
   }
 }

@@ -15,6 +15,13 @@
     <title>{% block pageTitle %}Mozilla Foundation - {{ page.meta_title }}{% endblock %}</title>
   </head>
   <body id="view-{% block bodyID %}{% endblock %}">
+
+    {% block donate %}
+    <div class="donate-modal-wrapper">
+      <!-- this will be populated by main.js if needed -->
+    </div>
+    {% endblock %}
+
     {% block page_top_content %}{% endblock %}
     <div class="takeover"></div>
     <div class="wrapper">
@@ -41,8 +48,9 @@
           <ul class="list-unstyled footer-links row justify-content-center">
             <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
             <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
-            <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
+            <li class="col-auto"><a class="footer-link-github" href="https://www.github.com/mozilla/foundation.mozilla.org/">Github</a></li>
             <li class="col-auto"><a class="footer-link-participation-guidelines" href="https://www.mozilla.org/about/governance/policies/participation/">Participation Guidelines</a></li>
+            <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
             <li class="col-auto"><a class="footer-link-legal" href="https://mozilla.org/en-US/about/legal/">Legal</a></li>
             <li class="col-auto"><a class="footer-link-privacy" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a></li>
             <li class="col-auto"><a class="footer-link-donate" id="donate-footer-btn" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer" target="_blank" rel="noopener noreferrer">Donate</a></li>

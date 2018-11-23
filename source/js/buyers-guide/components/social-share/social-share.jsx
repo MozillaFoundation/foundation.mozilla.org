@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactGA from 'react-ga';
-import DNT from '../../dnt.js';
+import ReactGA from '../../../react-ga-proxy';
 
 const SocialShareLink = (props) => {
   let classes = `social-button`;
@@ -35,13 +34,9 @@ const SocialShareLink = (props) => {
     link = `mailto:?&body=${encodeURIComponent(shareText)}`;
   }
 
-  let trackShareAction = () => {};
-
-  if (DNT.allowTracking) {
-    trackShareAction = () => {
-      ReactGA.event(shareEvent);
-    };
-  }
+  let trackShareAction = () => {
+    ReactGA.event(shareEvent);
+  };
 
   return <a target="_blank" className={classes} href={link} onClick={trackShareAction}><span class="sr-only">{srLabel}</span></a>;
 };

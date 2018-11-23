@@ -1,24 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga';
+import ReactGA from '../react-ga-proxy.js';
 
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
-import DonateModal from './components/donate-modal/donate-modal.jsx';
+import injectDonateModal from '../donate-modal/donate-modal.jsx';
 import Filter from './components/filter/filter.jsx';
 
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
 
-import DNT from './dnt.js';
-
 let main = {
   init() {
-    if (DNT.allowTracking) {
-      ReactGA.initialize(`UA-87658599-6`);
-      ReactGA.pageview(window.location.pathname);
-    }
+    ReactGA.initialize(`UA-87658599-6`);
+    ReactGA.pageview(window.location.pathname);
 
     this.enableCopyLinks();
     this.injectReactComponents();
@@ -51,7 +47,7 @@ let main = {
             button.classList.toggle(`open`);
             help.classList.toggle(`open`);
 
-            if (help.classList.contains(`open`) && DNT.allowTracking) {
+            if (help.classList.contains(`open`)) {
               ReactGA.event({
                 category: `product`,
                 action: `expand accordion tap`,
@@ -71,18 +67,19 @@ let main = {
         element.addEventListener(`click`, (event) => {
           event.preventDefault();
 
-          if (DNT.allowTracking) {
-            let productBox = document.querySelector(`.product-detail .h1-heading`);
-            let productTitle = productBox ? productBox.textContent : `unknown product`;
+          let productBox = document.querySelector(`.product-detail .h1-heading`);
+          let productTitle = productBox ? productBox.textContent : `unknown product`;
 
-            ReactGA.event({
-              category: `product`,
-              action: `copy link tap`,
-              label: `copy link ${productTitle}`
-            });
-          }
+          ReactGA.event({
+            category: `product`,
+            action: `copy link tap`,
+            label: `copy link ${productTitle}`
+          });
 
           let textArea = document.createElement(`textarea`);
+
+          textArea.setAttribute(`contenteditable`, true);
+          textArea.setAttribute(`readonly`, false);
 
           //
           // *** This styling is an extra step which is likely not required. ***
@@ -122,10 +119,36 @@ let main = {
 
           textArea.value = window.location.href;
           document.body.appendChild(textArea);
-          textArea.select();
+
+          // Simply running textArea.select() and document.execCommand(`copy`) won't work on iOS Safari
+          // Below is the suggested solution to make copying and pasting working more cross-platform
+          // For details see https://stackoverflow.com/a/34046084
+          let range = document.createRange();
+          let selection = window.getSelection();
+
+          range.selectNodeContents(textArea);
+
+          selection.removeAllRanges();
+          selection.addRange(range);
+
+          textArea.setSelectionRange(0, textArea.value.length);
 
           try {
             document.execCommand(`copy`);
+
+            let target = event.target;
+
+            if (target.dataset && target.dataset.successText) {
+              let defaultText = target.innerText;
+
+              target.innerText = target.dataset.successText;
+              target.classList.add(`copied`);
+
+              setTimeout(() => {
+                target.innerText = defaultText;
+                target.classList.remove(`copied`);
+              }, 3000);
+            }
           } catch (err) {
             console.error(`Copy failed.`);
           }
@@ -176,9 +199,27 @@ let main = {
     let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
     if (donationModal) {
-      ReactDOM.render(<DonateModal />, donationModal);
-    }
+      let modalOptions = {
+        title: `We made this guide with support from people like you`,
+        subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
+        cta: {
+          title: `Help us keep this work going`,
+          text: `Support Mozilla`
+        },
+        utm: {
+          medium: `buyersguide`,
+          campaign: `buyersguide2018`,
+          content: `popupbutton`
+        },
+        ga: {
+          category: `buyersguide`,
+          action: `donate tap`,
+          label: `donate popup on ${window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,``)}`
+        }
+      };
 
+      injectDonateModal(donationModal, modalOptions);
+    }
   }
 };
 

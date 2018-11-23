@@ -16,26 +16,74 @@
   }
 }
 
+.related-product {
+  a {
+    background: #f4f4f4;
+    padding: 10px 0 0 10px;
+  }
+
+  .seal-of-approval {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
 .product-detail {
+  $link-active-color: #3302ff;
+
   margin-top: -88px;
 
-  .copy-link {
-    order: 3;
+  .small-link {
+    font-family: "Nunito Sans";
+    font-size: 18px;
+    font-weight: 400;
+    color: #909090;
+    text-decoration: underline;
+
+    @include hover-focus-active {
+      color: $link-active-color;
+    }
+  }
+
+  .copy-link-wrapper {
+    order: 4;
 
     @media (min-width: $bp-md) {
       order: unset;
+    }
+
+    .copy-link {
+      position: relative;
+      padding-left: 20px;
+
+      &.copied {
+        cursor: auto;
+        color: $link-active-color;
+        text-decoration: none;
+      }
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        background-image: url(/_images/buyers-guide/icon-product-link.svg);
+        background-repeat: no-repeat;
+        background-position: center 65%;
+        background-size: contain;
+        width: 15px;
+        height: 100%;
+        display: block;
+      }
     }
   }
 
   h4 {
     font-family: "Nunito Sans";
   }
-}
-
-.product-price {
-  font-family: "Nunito Sans";
-  font-size: 18px;
-  color: #909090;
 }
 
 .copy-link {
@@ -88,13 +136,14 @@
 
   button {
     margin: 0 10px;
-    background: url(/_images/buyers-guide/plus.svg) no-repeat;
+    background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
     background-size: contain;
     border: 0;
     width: 24px;
     height: 24px;
     outline: 0;
     transition: transform 100ms ease-in-out;
+    transform-origin: 50% 50%;
 
     &.open {
       transform: rotate(45deg);
@@ -139,6 +188,28 @@
 .criterion.criterion-none {
   .emoji {
     background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
+  }
+}
+
+.row.with-product-updates::before {
+  display: block;
+  content: ' '; /* :before and :after won't work without content... =( */
+  position: absolute;
+  top: 0;
+  left: -100%;
+  right: -100%;
+  height: 228px;
+  background-image: url("/_images/buyers-guide/dot-pattern.svg");
+  background-size: 9px 9px;
+}
+
+.row.with-product-updates {
+  margin-left: 15px;
+  margin-right: 15px;
+
+  @media (min-width: 576px) {
+    margin-right: -15px;
+    margin-left: -15px;
   }
 }
 

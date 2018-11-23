@@ -1,6 +1,14 @@
 {% extends "./mini_site_name_space.html" %}
 {% load wagtailcore_tags mini_site_tags %}
 
+{% comment %}
+  Note: we don't want the donation modal to pop up on
+  pages with petitions, for specifically for campaign
+  pages, we blank out the donation block.
+{% endcomment %}
+
+{% block donate %}{% endblock %}
+
 {% block subcontent %}
 <div class="py-4 py-md-5
   {% if page.specific.narrowed_page_content %}

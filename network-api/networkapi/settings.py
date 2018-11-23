@@ -223,7 +223,7 @@ if SOCIAL_SIGNIN:
         'django.contrib.auth.backends.ModelBackend',
     ]
 
-    # See http://python-social-auth.readthedocs.io/en/latest/pipeline.html
+    # See https://python-social-auth.readthedocs.io/en/latest/pipeline.html
     SOCIAL_AUTH_PIPELINE = (
         'social_core.pipeline.social_auth.social_details',
         'social_core.pipeline.social_auth.social_uid',
@@ -423,8 +423,7 @@ else:
 
 # CSP
 CSP_DEFAULT = (
-    'self',
-    'localhost:8000',
+    '\'self\''
 )
 
 CSP_DEFAULT_SRC = env('CSP_DEFAULT_SRC', default=CSP_DEFAULT)
