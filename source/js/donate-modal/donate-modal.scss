@@ -104,7 +104,7 @@
   .h5-heading {
     font-weight: 400;
 
-    @include scaleText(22px, 28px, 22px, 28px);
+    @include scaleText(22px, 28px);
 
     @media (max-width: $bp-sm) {
       font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
