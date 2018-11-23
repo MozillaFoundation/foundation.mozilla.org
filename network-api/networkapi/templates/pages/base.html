@@ -16,8 +16,11 @@
   </head>
   <body id="view-{% block bodyID %}{% endblock %}">
 
-    <!-- this will be populated by main.js if needed -->
-    <div class="donate-modal-wrapper"></div>
+    {% block donate %}
+    <div class="donate-modal-wrapper">
+      <!-- this will be populated by main.js if needed -->
+    </div>
+    {% endblock %}
 
     {% block page_top_content %}{% endblock %}
     <div class="takeover"></div>

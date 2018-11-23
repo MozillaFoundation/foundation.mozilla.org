@@ -18,7 +18,11 @@
   }
 
   &.show {
-    height: 23em;
+    height: 24em;
+
+    @media (min-width: $bp-sm) {
+      height: 23em;
+    }
 
     @media (min-width: $bp-lg) {
       height: 19em;
@@ -81,6 +85,10 @@
     color: white;
     padding: 15px 18px;
     border-radius: calc((20px + 18px * 2) / 2); // half of button's height
+
+    @include hover-focus-active {
+      background: #f00;
+    }
   }
 
   p,
@@ -96,6 +104,12 @@
   .h5-heading {
     font-weight: 400;
 
-    @include scaleText(22px, 28px, 22px, 28px);
+    @include scaleText(22px, 28px);
+
+    @media (max-width: $bp-sm) {
+      font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+
+      @include scaleText(16px, 24px);
+    }
   }
 }
