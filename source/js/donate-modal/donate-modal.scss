@@ -86,9 +86,7 @@
     padding: 15px 18px;
     border-radius: calc((20px + 18px * 2) / 2); // half of button's height
 
-    &:focus,
-    &:active,
-    &:hover {
+    @include hover-focus-active {
       background: #f00;
     }
   }
