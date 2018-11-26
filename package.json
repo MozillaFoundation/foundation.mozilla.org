@@ -50,6 +50,7 @@
     "dotenv": "^6.1.0",
     "eslint": "^5.7.0",
     "eslint-plugin-react": "^7.11.1",
+    "event-stream": "3.3.4",
     "html-entities": "^1.2.1",
     "js-cookie": "2.2.0",
     "mofo-bootstrap": "4.1.0",
