@@ -101,11 +101,16 @@ export default class Filter extends React.Component {
     this.setState({
       sealOfApproval: !this.state.sealOfApproval
     }, () => {
-      ReactGA.event({
-        category: `buyersguide`,
-        action: `filter by standards`,
-        label: `filter by standards on buyersguide homepage`
-      });
+      // Only fire once (per app lifecycle).
+      if (!this.toggledSealOfApproval) {
+        this.toggledSealOfApproval = true;
+
+        ReactGA.event({
+          category: `buyersguide`,
+          action: `filter by standards`,
+          label: `filter by standards on buyersguide homepage`
+        });
+      }
 
       this.setVisibilities();
     });
