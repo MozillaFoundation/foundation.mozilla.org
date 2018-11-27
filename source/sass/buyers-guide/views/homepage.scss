@@ -147,6 +147,22 @@
     }
   }
 
+  .no-matching-products-note {
+    min-height: 200px;
+    height: 40vh;
+
+    .btn.btn-link {
+      color: inherit;
+      text-transform: none;
+      text-decoration: underline;
+      font-weight: 400;
+
+      @include hover-focus-active {
+        color: #3302ff;
+      }
+    }
+  }
+
   .creepiness-slider {
     z-index: 1;
     position: sticky;

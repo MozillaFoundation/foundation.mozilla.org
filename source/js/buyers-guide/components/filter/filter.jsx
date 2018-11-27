@@ -47,6 +47,20 @@ export default class Filter extends React.Component {
     };
   }
 
+  componentDidMount() {
+    let clearFiltersBtn = document.getElementById(`clear-filters-btn`);
+
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener(`click`, () => {
+        this.reset();
+      });
+    }
+  }
+
+  reset() {
+    this.setState(this.getInitialState(), () => this.setVisibilities());
+  }
+
   setupDocumentListeners() {
     this.moveListener = evt => {
       evt.preventDefault();
@@ -216,10 +230,12 @@ export default class Filter extends React.Component {
   }
 
   setVisibilities() {
+    const CLASS_HIDDEN = `d-none`;
+    const CLASS_PRODUCT_BOX = `product-box`;
     let minC = this.state.creepinessMin,
         maxC = this.state.creepinessMax,
         like = this.state.likelihood,
-        all = Array.from(document.querySelectorAll(`.product-box`));
+        all = Array.from(document.querySelectorAll(`.${CLASS_PRODUCT_BOX}`));
 
     all.forEach(productBox => {
       let c = parseInt(productBox.dataset.creepiness, 10);
@@ -229,10 +245,10 @@ export default class Filter extends React.Component {
       // prefilter on seal of approval?
       if (this.state.sealOfApproval) {
         if (!productBox.querySelector(`img.seal-of-approval`)) {
-          classes.add(`d-none`);
+          classes.add(CLASS_HIDDEN);
           hidden = true;
         } else {
-          classes.remove(`d-none`);
+          classes.remove(CLASS_HIDDEN);
         }
       }
 
@@ -240,10 +256,10 @@ export default class Filter extends React.Component {
 
       // Filter out for creepiness
       if (c < minC || c > maxC) {
-        classes.add(`d-none`);
+        classes.add(CLASS_HIDDEN);
         hidden = true;
       } else {
-        classes.remove(`d-none`);
+        classes.remove(CLASS_HIDDEN);
       }
 
       if (hidden) { return; }
@@ -253,23 +269,32 @@ export default class Filter extends React.Component {
 
       if (recommendation) {
         if (like === `Both`) {
-          recommendation.classList.add(`d-none`);
+          recommendation.classList.add(CLASS_HIDDEN);
           hidden = true;
         } else {
-          recommendation.classList.remove(`d-none`);
+          recommendation.classList.remove(CLASS_HIDDEN);
         }
 
         if (hidden) { return; }
 
         if (like === `Likely` && recommendation.classList.contains(`negative`)) {
-          classes.add(`d-none`);
+          classes.add(CLASS_HIDDEN);
           hidden = true;
         } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
-          classes.add(`d-none`);
+          classes.add(CLASS_HIDDEN);
           hidden = true;
         }
       }
     });
+
+    let noMatchingNote = document.querySelector(`.no-matching-products-note`);
+    let numHidden = document.querySelectorAll(`.${CLASS_PRODUCT_BOX}.${CLASS_HIDDEN}`).length;
+
+    if (numHidden === all.length) {
+      noMatchingNote.classList.remove(CLASS_HIDDEN);
+    } else {
+      noMatchingNote.classList.add(CLASS_HIDDEN);
+    }
   }
 
   getFilterContent() {
