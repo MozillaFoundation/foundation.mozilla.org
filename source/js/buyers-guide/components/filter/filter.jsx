@@ -287,7 +287,7 @@ export default class Filter extends React.Component {
     });
 
     return (
-      <div className={`content` + (this.state.collapsed ? ` d-none`: ``)}>
+      <div className="content">
         <span className="close" onClick={() => this.close()} />
 
         <h2 className="filter-caption">Filter by</h2>
