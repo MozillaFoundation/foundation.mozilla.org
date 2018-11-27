@@ -25,21 +25,21 @@
 
 #pni-about .criteria-accordion {
   input[type=checkbox].accordion-helper {
-    display:none;
+    display: none;
 
     & + label.foldable {
+      $foldable-padding: 1em;
+      $icon-dimension: 24px;
+
       cursor: pointer;
       position: relative;
       border: 1px solid lightgrey;
-      border-width: 1px 0px;
-      $foldable-padding: 1em;
+      border-width: 1px 0;
       padding-top: $foldable-padding;
 
       & + input + label.foldable {
-        border-width: 0px 0px 1px 0px;
+        border-width: 0 0 1px 0;
       }
-
-      $icon-dimension: 24px;
 
       h2::after {
         content: ' ';
