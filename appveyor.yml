@@ -46,7 +46,7 @@ install:
   - "npm ci"
   - "python -m pip install --upgrade pip"
   - "python -m pip install pipenv"
-  - "python -m pipenv install --dev --deploy -v"
+  - "python -m pipenv sync --dev -v"
   - "python -m pipenv run python network-api/manage.py collectstatic --no-input"
 
 test_script:

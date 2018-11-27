@@ -6,7 +6,7 @@ services:
 install:
 - pip install --upgrade pip
 - pip install pipenv
-- pipenv install --dev --deploy
+- pipenv sync --dev
 - nvm install --lts=carbon
 - nvm use --lts=carbon
 - npm install -g npm@latest # Needed to use npm ci
