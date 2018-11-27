@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactGA from '../../../react-ga-proxy.js';
 
+const CLASS_HIDDEN = `d-none`;
+const CLASS_PRODUCT_BOX = `product-box`;
+
 /**
  * A simple class for radio-group-looking things.
  */
@@ -243,8 +246,6 @@ export default class Filter extends React.Component {
   }
 
   setVisibilities() {
-    const CLASS_HIDDEN = `d-none`;
-    const CLASS_PRODUCT_BOX = `product-box`;
     let minC = this.state.creepinessMin,
         maxC = this.state.creepinessMax,
         like = this.state.likelihood,
