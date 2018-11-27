@@ -100,7 +100,15 @@ export default class Filter extends React.Component {
   toggleSealOfApproval() {
     this.setState({
       sealOfApproval: !this.state.sealOfApproval
-    }, () => this.setVisibilities());
+    }, () => {
+      ReactGA.event({
+        category: `buyersguide`,
+        action: `filter by standards`,
+        label: `filter by standards on buyersguide homepage`
+      });
+
+      this.setVisibilities();
+    });
   }
 
   handleLikelihood(label) {
