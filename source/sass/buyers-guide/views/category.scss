@@ -37,6 +37,10 @@
     flex-wrap: wrap;
 
     .category-item-container {
+      $padding-x: 12px;
+      $padding-y: 12px;
+
+      position: relative;
       width: 50%;
       text-align: left;
 
@@ -46,6 +50,15 @@
 
       &:nth-child(odd) {
         padding-right: 3%;
+      }
+
+      .seal-of-approval {
+        position: absolute;
+        z-index: 2;
+        top: $padding-y;
+        left: $padding-x;
+        width: 30px;
+        height: auto;
       }
 
       a {

@@ -17,15 +17,23 @@
       <div class="category-item-container" >
         <a class="" href="/en/privacynotincluded/products/{{ product.slug }}">
           <div class="category-image-container">
-                {% if USE_CLOUDINARY %}
-                <img class="thumb-border"
-                     width="300"
-                     src="
-{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-                     alt="{{product.name}}">
-                {% else %}
-                <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
-                {% endif %}
+            {% if product.meets_minimum_security_standards is True %}
+            <img
+              class="seal-of-approval"
+              src="/_images/buyers-guide/mini-badge.svg"
+              title="this product meets our minimum security standards"
+              alt="this product meets our minimum security standards"
+            >
+            {% endif %}
+
+            {% if USE_CLOUDINARY %}
+            <img class="thumb-border"
+                  width="300"
+                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+                  alt="{{product.name}}">
+            {% else %}
+            <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
+            {% endif %}
           </div>
           <h3 class="mb-2 h6-heading-uppercase">{{ product.company }}</h3>
           <h3 class="mb-5 h5-heading">{{ product.name }}</h3>
