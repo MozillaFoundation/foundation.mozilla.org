@@ -21,6 +21,7 @@
     color: grey;
   }
 
+  a:hover,
   a.current {
     color: black;
     border-bottom: 5px solid black;
@@ -28,9 +29,37 @@
   }
 }
 
+/*
+  This accordion relies on the following (repeated) structure:
+
+      <input type="checkbox" class="accordion-helper d-none" id="...">
+      <label class="foldable" for="...">
+        <div class="taboverlay" tabindex="0"></div>
+        <h2 class="h5-heading">
+          Some Heading
+        </h2>
+        <p class="explanation">
+          Some text
+        </p>
+      </label>
+
+  The input checkbox is invisible, but on the page, and the
+  label wraps the caption/text block such that clicking anywhere
+  on it toggles the textbox.
+
+  For accessibilty, there is also an "overlay" div that can be
+  focussed on with the keyboard by tabbing through. This is not
+  perfect, and combining tabbed browsing with clicks will do
+  some weird things where clicking a tab-opened element will
+  first open it (because the checkbox is now checked), before
+  a second click closes it.
+*/
 #pni-about .criteria-accordion {
   input[type=checkbox].accordion-helper {
-    display: none;
+    display: block;
+    height: 0;
+
+    $explanation-max-height: 20em;
 
     & + label.foldable {
       $foldable-padding: 10px;
@@ -47,7 +76,35 @@
         border-width: 0 0 1px 0;
       }
 
+      .taboverlay {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        &:focus {
+          background: red;
+          bottom: 100%;
+
+          & + h2 {
+            margin-bottom: 0.5rem;
+
+            &::after {
+              transform: rotate(45deg);
+            }
+
+            & + p {
+              max-height: $explanation-max-height;
+            }
+          }
+        }
+      }
+
       h2 {
+        user-select: none;
+        outline: 0;
         font-size: 18px;
         margin: 0;
       }
@@ -79,18 +136,21 @@
       }
     }
 
-    &:checked + label.foldable,
-    & + label.foldable:focus {
+    &:checked + label.foldable {
+      .taboverlay {
+        bottom: 100%;
+      }
+
       h2 {
         margin-bottom: 0.5rem;
-      }
 
-      h2::after {
-        transform: rotate(45deg);
-      }
+        & ::after {
+          transform: rotate(45deg);
+        }
 
-      p {
-        max-height: 20em;
+        & + p {
+          max-height: $explanation-max-height;
+        }
       }
     }
   }
