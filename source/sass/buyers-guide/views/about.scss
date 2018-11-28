@@ -10,6 +10,10 @@
 
 #pni-about .side-nav {
   li {
+    @media (max-width: $bp-lg) {
+      margin: 1em 0;
+    }
+
     margin: 2em 0;
   }
 
@@ -20,6 +24,7 @@
   a.current {
     color: black;
     border-bottom: 5px solid black;
+    text-decoration: none;
   }
 }
 
@@ -28,17 +33,23 @@
     display: none;
 
     & + label.foldable {
-      $foldable-padding: 1em;
+      $foldable-padding: 10px;
       $icon-dimension: 24px;
 
       cursor: pointer;
       position: relative;
       border: 1px solid lightgrey;
       border-width: 1px 0;
-      padding-top: $foldable-padding;
+      padding: $foldable-padding 0;
+      margin-bottom: 0;
 
       & + input + label.foldable {
         border-width: 0 0 1px 0;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin: 0;
       }
 
       h2::after {
@@ -61,10 +72,19 @@
         max-height: 0;
         overflow: hidden;
         transition: max-height 100ms ease-in-out;
+
+        &:last-child() {
+          margin-bottom: 0;
+        }
       }
     }
 
-    &:checked + label.foldable {
+    &:checked + label.foldable,
+    & + label.foldable:focus {
+      h2 {
+        margin-bottom: 0.5rem;
+      }
+
       h2::after {
         transform: rotate(45deg);
       }
