@@ -83,6 +83,10 @@
         display: block;
         width: 100%;
         height: auto;
+
+        @media (max-width: $pb-md) {
+          transform: scale(1.25);
+        }
       }
 
       .category-item-label {
