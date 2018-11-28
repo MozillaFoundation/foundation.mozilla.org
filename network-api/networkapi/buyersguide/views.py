@@ -100,6 +100,7 @@ def product_view(request, slug):
         'product': product.to_dict(),
         'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
+        'pageTitle': f'*privacy not included - {product.name}',
     })
 
 
