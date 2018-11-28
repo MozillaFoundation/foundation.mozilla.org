@@ -59,12 +59,12 @@
     display: block;
     height: 0;
 
-    $explanation-max-height: 20em;
+    $explanation-max-height: 200vh;
+    $foldable-padding: 10px;
+    $foldable-margin: 8px;
+    $icon-dimension: 24px;
 
     & + label.foldable {
-      $foldable-padding: 10px;
-      $icon-dimension: 24px;
-
       cursor: pointer;
       position: relative;
       border: 1px solid lightgrey;
@@ -106,7 +106,8 @@
         user-select: none;
         outline: 0;
         font-size: 18px;
-        margin: 0;
+        margin: $foldable-margin 0;
+        width: calc(100% - #{$icon-dimension});
       }
 
       h2::after {
@@ -114,7 +115,7 @@
         display: block;
         position: absolute;
         right: 0;
-        top: $foldable-padding;
+        top: calc(#{$foldable-padding} + #{$foldable-margin});
         background: url(/_images/buyers-guide/plus.svg);
         background-size: 100% 100%;
         width: $icon-dimension;
