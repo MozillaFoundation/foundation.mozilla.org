@@ -84,6 +84,12 @@
   h4 {
     font-family: "Nunito Sans";
   }
+
+  @import "../creep-face-emoji";
+
+  .creep-face-emoji {
+    top: 3px;
+  }
 }
 
 .copy-link {
