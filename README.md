@@ -265,7 +265,7 @@ Using the `static` tag in templates is supposed both in Django and Mezzanine, bu
 
 Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. Login are published in the `mofo-review-apps` Slack channel when the review app is ready.
 
-##### Environment Variables
+##### Environment Variable
 
 - `GITHUB_TOKEN`: GITHUB API authentication,
 - `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
