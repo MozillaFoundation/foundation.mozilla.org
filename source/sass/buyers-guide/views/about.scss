@@ -7,3 +7,71 @@
   margin-bottom: 0;
   font-weight: bold;
 }
+
+#pni-about .side-nav {
+  li {
+    margin: 2em 0;
+  }
+
+  a {
+    color: grey;
+  }
+
+  a.current {
+    color: black;
+    border-bottom: 5px solid black;
+  }
+}
+
+#pni-about .criteria-accordion {
+  input[type=checkbox].accordion-helper {
+    display:none;
+
+    & + label.foldable {
+      cursor: pointer;
+      position: relative;
+      border: 1px solid lightgrey;
+      border-width: 1px 0px;
+      $foldable-padding: 1em;
+      padding-top: $foldable-padding;
+
+      & + input + label.foldable {
+        border-width: 0px 0px 1px 0px;
+      }
+
+      $icon-dimension: 24px;
+
+      h2::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        right: 0;
+        top: $foldable-padding;
+        background: url(/_images/buyers-guide/plus.svg);
+        background-size: 100% 100%;
+        width: $icon-dimension;
+        height: $icon-dimension;
+        opacity: 0.3;
+        transition: transform 100ms ease-in-out;
+        transform-origin: 50% 50%;
+      }
+
+      p {
+        width: calc(100% - #{$icon-dimension});
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 100ms ease-in-out;
+      }
+    }
+
+    &:checked + label.foldable {
+      h2::after {
+        transform: rotate(45deg);
+      }
+
+      p {
+        max-height: 20em;
+      }
+    }
+  }
+}
