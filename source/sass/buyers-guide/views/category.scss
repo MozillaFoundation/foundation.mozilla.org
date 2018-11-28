@@ -17,16 +17,6 @@
     margin-bottom: 50px;
     text-align: left;
 
-    h1 {
-      font-size: 30px;
-      margin-bottom: 10px;
-      font-weight: 600;
-
-      @media screen and (min-width: $bp-md) {
-        font-size: 52px;
-      }
-    }
-
     p {
       font-size: 20px;
     }
@@ -72,11 +62,15 @@
       }
 
       .category-image-container {
-        margin-bottom: 20px;
-        padding: 10px;
-        background: #f4f4f4;
-        overflow: hidden;
         position: relative;
+        overflow: hidden;
+        background: #f4f4f4;
+        margin-bottom: 12px;
+        padding: 10px;
+
+        @media (min-width: $bp-xl) {
+          padding: 20px;
+        }
       }
 
       img {
