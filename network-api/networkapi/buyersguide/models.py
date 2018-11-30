@@ -464,8 +464,12 @@ class Product(models.Model):
 # We want to delete the product image when the product is removed
 @receiver(pre_delete, sender=Product)
 def delete_image(sender, instance, **kwargs):
-    if instance.cloudinary_image:
-        uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
+    # We want to keep our review app placeholders
+    if settings.HEROKU_APP_NAME:
+        pass
+    else:
+        if instance.cloudinary_image:
+            uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
 
 
 class ProductVote(models.Model):
