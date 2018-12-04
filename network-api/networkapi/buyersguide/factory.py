@@ -80,6 +80,6 @@ class ProductFactory(DjangoModelFactory):
     @post_generation
     def set_image(self, create, extracted, **kwargs):
         if settings.USE_CLOUDINARY:
-            self.cloudinary_image = Faker('generic_image').generate({})
+            self.cloudinary_image = Faker('product_image').generate({})
         else:
-            self.image.name = Faker('generic_image').generate({})
+            self.image.name = Faker('product_image').generate({})
