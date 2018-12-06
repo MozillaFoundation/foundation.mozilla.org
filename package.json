@@ -44,7 +44,7 @@
     "autoprefixer": "^9.3.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.2",
-    "browserslist": "^4.3.4",
+    "browserslist": "^4.3.5",
     "chokidar-cli": "^1.2.1",
     "classnames": "2.2.6",
     "dotenv": "^6.1.0",
