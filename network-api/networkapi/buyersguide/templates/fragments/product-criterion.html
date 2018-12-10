@@ -7,7 +7,8 @@
       {% endif %}
     </div>
     <div class="rating">
-      <span>{% if value != None %}
+      <span>
+      {% if value != None %}
         {% if value is True %} Yes {% else %} No {% endif %}
       {% else %}
         {% if unknown_label %}
@@ -15,7 +16,9 @@
         {% else %}
           Can't determine
         {% endif %}
-      {% endif %}<span class="emoji hidden-md-down"></span>
+      {% endif %}
+      </span>
+      <span class="emoji hidden-md-down"></span>
     </div>
   </div>
   {% if help %}

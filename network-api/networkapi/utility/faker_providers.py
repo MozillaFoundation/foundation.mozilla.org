@@ -39,6 +39,14 @@ class ImageProvider(BaseProvider):
         'people/dino.jpg',
     )
 
+    product_images = (
+        'products/drone.jpg',
+        'products/echo.jpg',
+        'products/nest.jpg',
+        'products/babymonitor.jpg',
+        'products/teddy.jpg'
+    )
+
     def generic_image(self):
         """
         returns a path to one of the predefined generic placeholder images
@@ -52,3 +60,10 @@ class ImageProvider(BaseProvider):
         """
 
         return '{}{}'.format(self.base_path, self.random_element(self.headshot_images))
+
+    def product_image(self):
+        """
+        returns a path to one of the predefined product placeholder images
+        """
+
+        return '{}{}'.format(self.base_path, self.random_element(self.product_images))
