@@ -1,18 +1,3 @@
-'''networkapi URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-'''
 from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
@@ -26,6 +11,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
 from networkapi.views import EnvVariablesView, review_app_help_view
+from networkapi.buyersguide import views as buyersguide_views
 
 admin.autodiscover()
 
@@ -47,9 +33,6 @@ urlpatterns = list(filter(None, [
         query_string=True
     )),
 
-    # Buyer's Guide / Privacy Not Included
-    url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
-
     # network API routes:
 
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
@@ -57,6 +40,8 @@ urlpatterns = list(filter(None, [
     url(r'^api/news/', include('networkapi.news.urls')),
     url(r'^api/milestones/', include('networkapi.milestones.urls')),
     url(r'^api/people/', include('networkapi.people.urls')),
+    url(r'^api/buyersguide/vote/', buyersguide_views.product_vote, name='product-vote'),
+    url(r'^api/buyersguide/clear-cache/', buyersguide_views.clear_cache, name='clear-cache'),
     url(r'^environment.json', EnvVariablesView.as_view()),
     url(r'^help/', review_app_help_view, name='Review app help'),
 
@@ -68,13 +53,16 @@ urlpatterns = list(filter(None, [
     ),
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-    url('^sitemap\.xml$', sitemap) if settings.DEBUG else None,
+    url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
 ]))
 
 # Anything that needs to respect the localised
 # url format with /<language_code>/ infixed needs
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
+    # Buyer's Guide / Privacy Not Included
+    url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
+
     url(r'', include(wagtail_urls)),
 )
 
@@ -83,9 +71,3 @@ if settings.USE_S3 is not True:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
-
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns

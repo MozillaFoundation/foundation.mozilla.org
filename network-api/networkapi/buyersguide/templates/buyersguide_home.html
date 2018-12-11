@@ -1,5 +1,99 @@
-Buyer's guide homepage!
+{% extends "./bg_base.html" %}
 
-{% for product in products %}
-<div><a href="{{product.name | urlencode}}">{{product.name}}</a></div>
-{% endfor %}
+{% load env %}
+{% load cloudinary %}
+
+{% block body-id %}home{% endblock %}
+
+{% block main-content-class %}{% endblock %}
+
+{% block guts %}
+<div class="container-fluid text-center page-header bg-gray">
+  <!-- home banner as css background -->
+</div>
+
+<div class="container">
+    <div class="row mx-xl-0">
+      <div class="product-listing bg-white col-12 col-md-10 offset-md-1 col-xl-12 offset-xl-0">
+        <h1 class="h1-heading text-center mt-4">Shop Safe This Holiday Season</h1>
+
+        <div class="row justify-content-center">
+          <p class="col col-lg-9 col-xl-10 body-large text-center">
+              Teddy bears that connect to the internet.
+              Smart speakers that listen to commands.
+              Great gifts—unless they spy on you.
+              We created this guide to help you buy safe, secure products this holiday season.
+          </p>
+        </div>
+
+        <div class="row justify-content-center">
+          <p class="col col-lg-9 col-xl-10 text-center user-rated">
+            The <span class="creep-face-emoji">😮</span> below shows how creepy users find these products. Scroll to see it change. Click on a product to rate it.
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="project-list-section">
+  <div class="creepiness-slider bg-white text-center">
+    <span class="current-creepiness">
+      <span class="speech-bubble d-none">
+        <span class="text"></span>
+        <span class="hook"></span>
+      </span>
+    </span>
+    <div id="product-filter" class="noselect">
+      <!-- instantiated to a real filter by bg-main.js -->
+    </div>
+  </div>
+
+  <div class="product-box-list-wrapper">
+    <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
+      {% for product in products %}
+      <figure class="product-box bg-gray d-flex flex-column justify-content-between" data-creepiness="{{ product.votes.creepiness.average }}">
+        {% if product.meets_minimum_security_standards is True %}
+          <img
+            class="seal-of-approval"
+            src="/_images/buyers-guide/mini-badge.svg"
+            title="this product meets our minimum security standards"
+            alt="this product meets our minimum security standards"
+          >
+        {% endif %}
+
+        {% if product.votes.confidence %}
+          {% if product.votes.confidence.1 > product.votes.confidence.0 %}
+            <div class="d-none recommendation positive m-2"></div>
+          {% else %}
+            <div class="d-none recommendation negative m-2"></div>
+          {% endif %}
+        {% endif %}
+
+        <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="/en/privacynotincluded/products/{{ product.slug }}">
+          {% if USE_CLOUDINARY %}
+          <img
+            src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+            alt="link to {{product.name}}"
+          >
+          {% else %}
+          <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="link to {{product.name}}">
+          {% endif %}
+          <figcaption class="hidden-sm-down mt-md-2 text-left">
+            <div class="h6-heading">{{product.company}}</div>
+            <div class="body">{{product.name}}</div>
+          </figcaption>
+        </a>
+      </figure>
+      {% endfor %}
+      <div class="no-matching-products-note bg-gray w-100 pt-5 d-none">
+        <div class="d-flex flex-column align-items-center">
+          <div>No results.</div>
+          <button class="btn btn-link p-0" id="clear-filters-btn">Clear filters and try again.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

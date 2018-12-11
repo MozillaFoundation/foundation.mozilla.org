@@ -6,7 +6,9 @@ services:
 install:
 - pip install --upgrade pip
 - pip install pipenv
-- pipenv install --dev --deploy
+- pipenv sync --dev
+- nvm install --lts=carbon
+- nvm use --lts=carbon
 - npm install -g npm@latest # Needed to use npm ci
 - npm ci # use package-lock.json
 - pipenv run python network-api/manage.py collectstatic --no-input
@@ -14,7 +16,7 @@ before_script:
 - psql -c 'create database network;' -U postgres
 script:
 - npm test
-- pipenv run flake8 network-api/
+- pipenv run flake8 tasks.py network-api/
 - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
 after_success:
 - coveralls
@@ -31,12 +33,16 @@ env:
   - SSL_REDIRECT=False
   - X_FRAME_OPTIONS=DENY
   - ALLOWED_HOSTS=localhost
-  - PULSE_API_DOMAIN=network-pulse-api-production.herokuapp.com
+  - PULSE_API_DOMAIN=https://network-pulse-api-production.herokuapp.com
   - PULSE_DOMAIN=www.mozillapulse.org
   - NETWORK_SITE_URL=https://foundation.mozilla.org
   - TARGET_DOMAIN=foundation.mozilla.org
   - SHOW_TAKEOVER=false
+  - USE_CLOUDINARY=false
 cache:
   pip: true
   directories:
   - "$HOME/.npm"
+branches:
+  only:
+    - master

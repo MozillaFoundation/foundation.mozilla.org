@@ -1,0 +1,40 @@
+$category-nav-border-bottom-thickness: 4px;
+
+.category-nav {
+  background: white;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
+
+  a {
+    display: inline-block;
+    height: 42px;
+    font-family: "Nunito Sans";
+    font-size: 15px;
+    color: #909090;
+    font-weight: 700;
+    margin-right: 20px;
+    padding: 10px 0 6px;
+    text-decoration: none;
+    border-bottom: $category-nav-border-bottom-thickness solid white;
+
+    &:hover {
+      color: $black;
+    }
+
+    &.active {
+      border-color: black;
+    }
+  }
+}
+
+#pni-home .nav-home,
+#pni-about .nav-about {
+  border-bottom: $category-nav-border-bottom-thickness solid $black;
+  color: $black;
+}

@@ -1,0 +1,35 @@
+{% with policy_url=product.privacy_policy_url level_url=product.privacy_policy_reading_level_url %}
+<div class="criterion criterion-{% if product.numeric_reading_grade == 0 %}none{% elif product.numeric_reading_grade > 12 %}bad{% else %}good{% endif %}">
+  <div class="primary-info">
+    <p class="d-flex align-items-center">
+      <span>
+          Reading level for {% if policy_url %}
+          <a target="_blank" id="privacy-policy-link" href="{{ policy_url }}">privacy policy</a>
+        {% else %}
+          privacy policy
+        {% endif %}
+      </span>
+      {% if help %}
+      <button class="toggle"></button>
+      {% endif %}
+    </p>
+    <p class="rating">
+      {% if product.reading_grade == 0 %}
+        Can't determine
+      {% else %}
+        {% if level_url %}
+          <a target="_blank" id="reading-level-link" href="{{ level_url }}">
+        {% endif %}
+          {{ product.reading_grade }}
+        {% if level_url %}
+          </a>
+        {% endif %}
+      {% endif %}
+      <span class="emoji hidden-md-down"></span>
+    </p>
+  </div>
+  {% if help %}
+  <div class="helptext mt-3">{{ help }}</div>
+  {% endif %}
+</div>
+{% endwith %}

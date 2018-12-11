@@ -1,0 +1,45 @@
+<div class="profiles">
+  <div class="row">
+    {% for profile in profiles %}
+      <div class="col-md-6 col-12 mb-5">
+        <div class="person-card row no-gutters">
+          <div class="col-4 mr-3">
+            <div class="row">
+              <div class="col">
+                <img
+                  src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
+                  class="headshot"
+                  alt="Headshot"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col bio-content pt-3">
+
+            <div class="meta-block mb-2">
+              <div class="h5-heading mb-1">{{profile.name }}</div>
+              {% if profile.program_type %}
+              <div class="meta-block-item meta-block-item-role">{{ profile.program_type }}{% if profile.program_year %}, {{ profile.program_year }}{% endif %}</div>
+              {% endif %}
+            </div>
+
+            {% if profile.issues|length > 0 %}
+            <div class="person-issues">
+              {% for issue in profile.issues %}
+              <span class="issue-link small d-inline-block mr-1">{{ issue }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <hr>
+
+            <div class="full-profile">
+              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">SEE FULL PROFILE →</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,168 @@
+.moz-logo {
+  background-image: url("../_images/mozilla-m.svg");
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+
+  @include media-breakpoint-up(md) {
+    width: 97px;
+    background-image: url("../_images/mozilla-on-black.svg");
+  }
+}
+
+.menu-container {
+  position: relative;
+  z-index: 30;
+
+  .burger {
+    width: 18px;
+    height: 18px;
+    background-image: url("../_images/buyers-guide/icon-share.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &.menu-open {
+      background-image: url("../_images/buyers-guide/icon-close.svg");
+    }
+  }
+}
+
+.logo-section {
+  .h4-heading {
+    font-size: 13px;
+    font-weight: 600;
+    max-width: 85px;
+
+    @media (min-width: $bp-sm) {
+      font-size: 22px;
+      max-width: none;
+    }
+  }
+
+  a.link-back {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.narrow-screen-menu {
+  position: absolute;
+  padding-top: 62px;
+
+  @media (min-width: $bp-sm) {
+    padding-top: 72px;
+  }
+
+  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: white;
+  transition: opacity 0.2s, height 0s;
+
+  &:not(.menu-open) {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s, height 0s linear 0.2s;
+  }
+
+  .narrow-screen-menu-container {
+    .social-button {
+      width: auto;
+      height: auto;
+      border-bottom: 1px solid white;
+      margin: 0;
+      padding: 1rem 1rem 1rem 4rem;
+      background-color: #f6f6f6;
+      background-position: 20px center;
+      color: black;
+      font-weight: 300;
+
+      @include hover-focus-active {
+        text-decoration: none;
+      }
+
+      &.social-button-fb {
+        background-position: 24px center;
+        background-size: auto 20px;
+      }
+
+      &.social-button-twitter {
+        background-size: auto 18px;
+      }
+
+      &.social-button-email {
+        background-size: auto 17px;
+      }
+    }
+
+    .donate {
+      background: black;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+
+      h3,
+      p {
+        color: white;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .narrow-screen-menu-background {
+    background: white;
+    height: 100%;
+  }
+
+  @media (min-width: $bp-md) {
+    display: none;
+  }
+}
+
+.social-button {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.social-button-fb {
+  background-image: url("/_images/glyphs/fb.svg");
+}
+
+.social-button-twitter {
+  background-image: url("/_images/glyphs/twitter.svg");
+}
+
+.social-button-email {
+  background-image: url("/_images/glyphs/email.svg");
+}
+
+.btn-donate {
+  background: #ff4f5e;
+  border-radius: 14px;
+  color: white;
+  padding: 4px 12px;
+  font-size: 14px;
+
+  @include hover-focus-active {
+    background: #f00;
+    color: white;
+  }
+}
+
+.underneath-screen-overlay {
+  &.menu-open {
+    display: none;
+  }
+
+  @media (min-width: $bp-sm) {
+    &.menu-open {
+      display: initial;
+    }
+  }
+}

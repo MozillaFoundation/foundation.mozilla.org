@@ -31,6 +31,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../js/components/fellow-list/fellow-list';
 @import '../js/components/petition/petition';
 
+// Special react component
+
+@import '../js/donate-modal/donate-modal';
+
 // Non-React Components
 
 @import './components/jump-bar';
@@ -60,5 +64,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './views/contact';
 @import './views/projects';
 @import './views/initiatives';
+@import './views/participate';
 @import './views/fellowships/shared';
 @import './views/style-guide';

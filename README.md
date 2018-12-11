@@ -9,7 +9,7 @@
 
 ## Setup
 
-**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), [pipenv](https://docs.pipenv.org/), [invoke](http://www.pyinvoke.org/installing.html).
+**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), [pipenv](https://docs.pipenv.org/), [invoke](https://www.pyinvoke.org/installing.html).
 
 If you installed [Python with Homebrew](https://docs.brew.sh/Homebrew-and-Python), use `pip3 install` instead of `pip install` when installing the relevant requirements.
 
@@ -67,7 +67,7 @@ For management commands not covered by an invoke tasks, use `inv manage [command
 By default, your dev site will use production data (read only!). To load fake model data into your dev site:
 
 - Run `inv manage load_fake_data`
-- Replace `NETWORK_SITE_URL` value by `http://localhost:8000` in your `.env` file.
+- Replace `NETWORK_SITE_URL` value with `http://localhost:8000` in your `.env` file.
 
 You can empty your database and create a full new set of fake model data using the following command
 
@@ -168,9 +168,13 @@ React is used *à la carte* for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
-#### Django and Mezzanine
+#### Django and Wagtail
 
-Django powers the backend of the site, and we use Mezzanine with Django to provide CMS features and functionality.
+Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
+
+#### S3 and Cloudinary
+
+Most assets are stored on S3. Buyers Guide images are hosted on Cloudinary.
 
 ---
 
@@ -265,6 +269,7 @@ Opening a PR will automatically create a Review App in the `foundation-site` pip
 
 - `GITHUB_TOKEN`: GITHUB API authentication,
 - `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
+- `CORAL_TALK_SERVER_URL`: If Coral Talk commenting is to be enabled, set the server URL here. Don't forget to add the domain to your CSP directives for script-src and child-src
 
 #### Staging
 
@@ -291,6 +296,59 @@ Default environment variables are declared in `env.default`. If you wish to over
 The domain used to fetch static content from Network Pulse can be customized by specifying `PULSE_API_DOMAIN`. By default it uses `network-pulse-api-production.herokuapp.com`.
 
 The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. **NOTE: this variable must include a protocol (such as `https://`)**
+
+---
+### Cloudinary for Review Apps and Staging (BuyersGuide only)
+
+We use Cloudinary upload-mapping feature to copy images from the production to the staging Cloudinary account.
+
+Current directories available on Cloudinary staging:
+
+Folder | URL prefix
+--- | ---
+`foundationsite/buyersguide` | `https://res.cloudinary.com/mozilla-foundation/image/upload/foundationsite/buyersguide/`
+
+To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
+
+---
+
+### Scheduled tasks
+
+#### Delete non-staff management command
+
+Every sunday, a script runs on prod dyno to remove non-staff accounts created on the Foundation site. An account is considered staff if one of those conditions is true:
+- it's an `@mozillafoundation.org` email,
+- `is_staff` is at True,
+- the account is in a group.
+
+#### Generating vote statistics for Data Studio
+
+The `generate_pni_report` management task can run periodically to summarize vote totals for each product in the buyer's guide.
+Data is inserted or updated into the database specified By `PNI_STATS_DB_URL`.
+You must also have the `CORAL_TALK_SERVER_URL` and `CORAL_TALK_API_TOKEN` variables set.
+The API token must have admin rights in order to fetch comment totals.
+
+The database should have the following schema:
+
+```postgresql
+create table product_stats
+(
+  id               integer not null constraint product_stats_pkey primary key,
+  product_name     varchar(100),
+  creepiness       integer,
+  creepiness_votes integer,
+  would_buy        integer,
+  would_not_buy    integer
+);
+
+create table comment_counts
+(
+  url            varchar(2048) not null constraint comment_counts_pkey primary key,
+  title          varchar(255),
+  total_comments integer
+);
+
+```
 
 ---
 ### Security

@@ -1,0 +1,55 @@
+#likelyhood-score {
+  tbody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 4.5em;
+    justify-content: space-between;
+  }
+
+  .bar {
+    //For some nice animations later on, width set in JSX
+    transition: width 2.5s ease;
+    background-color: #e1e1e1;
+    position: absolute;
+    height: 25px;
+  }
+
+  tr {
+    position: relative;
+    display: block;
+  }
+
+  .likelyhood {
+    white-space: nowrap;
+  }
+
+  .likelyhood-words {
+    position: relative;
+    font-weight: bold;
+    font-variant: small-caps;
+    padding: 0 5px;
+  }
+
+  .likely-label {
+    //Make sure screen readers can see the label
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+  }
+
+  th::before {
+    content: '';
+    display: block;
+    height: 1em;
+    margin: 0 0.5em;
+    width: 1em;
+  }
+
+  .likely th::before {
+    background: url("/_images/buyers-guide/icon-thumb-up.svg") no-repeat;
+  }
+
+  .unlikely th::before {
+    background: url("/_images/buyers-guide/icon-thumb-down.svg") no-repeat;
+  }
+}

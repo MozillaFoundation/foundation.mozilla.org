@@ -1,0 +1,78 @@
+$radio-button-radius: 50px;
+$btn-shadow-width: 3px;
+
+#creep-vote-btn {
+  &:hover {
+    @media (hover: none) {
+      &:hover {
+        background: initial;
+        color: initial;
+        cursor: initial;
+        text-decoration: initial;
+      }
+    }
+  }
+}
+
+.creep-vote {
+  button[disabled] {
+    color: #bbb;
+
+    &.btn-ghost:hover {
+      cursor: auto;
+      color: inherit;
+      background: inherit;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      border: 1px solid black;
+      border-bottom-width: $btn-shadow-width;
+      color: black;
+      padding: 0.5em 1.5em;
+      text-transform: initial;
+      transition: all 0.1s linear;
+      width: 9em;
+    }
+
+    input { display: none; }
+
+    input:checked + span {
+      background-color: #5cccff;
+    }
+
+    input:-moz-ui-invalid + span {
+      border-color: red;
+    }
+
+    label:first-of-type span {
+      border-radius: $radio-button-radius 0 0 $radio-button-radius;
+    }
+
+    label:last-of-type span {
+      border-radius: 0 $radio-button-radius $radio-button-radius 0;
+    }
+
+    img {
+      height: 1em;
+    }
+  }
+
+  .help-text {
+    font-style: italic;
+  }
+
+  a.share-results {
+    text-decoration: underline;
+    color: black;
+
+    &:hover {
+      color: #4383bf;
+      font-weight: bold;
+    }
+  }
+}

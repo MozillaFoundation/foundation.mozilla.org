@@ -1,19 +1,205 @@
-<h2>{{product.name}}</h2>
+{% extends "./bg_base.html" %}
 
-<img src="{{mediaUrl}}{{product.image}}" width="500"/>
-<div>
-  {{product.company}}
+{% load yes_no %}
+{% load env %}
+{% load cloudinary %}
+
+{% block head-extra %}
+  <meta property="og:title" content="privacy not included - {{ product.name }}" />
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
+{% endblock %}
+{% block body-id %}product-page{% endblock %}
+
+{% block guts %}
+<div class="container-fluid text-center product-header bg-gray">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1">
+        {% if USE_CLOUDINARY %}
+          <img class="thumb-border"
+               width="400"
+               src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
+               alt="{{product.name}}">
+        {% else %}
+           <img class="thumb-border"
+                width="400"
+                src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
+        {% endif %}
+
+        {% if product.meets_minimum_security_standards is True %}
+          <img
+            src="/_images/buyers-guide/badge.svg"
+            class="seal-of-approval"
+            alt="this product meets our minimum security standards"
+            title="this product meets our minimum security standards"
+          >
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </div>
-<div>{{product.blurb}}</div>
-<div>{{product.url}}</div>
-<div>{{product.price}}</div>
-<div>Camera: {{product.camera}}</div>
-<div>Microphone: {{product.microphone}}</div>
-<div>Location: {{product.location}}</div>
-<div>Need account: {{product.need_account}}</div>
-<div>Privacy Controls: {{product.privacy_controls}}</div>
-<div>Delete Data: {{product.delete_data}}</div>
-<div>Share Data: {{product.share_data}}</div>
-<div>Child rules: {{product.child_rules}}</div>
-<div>Privacy Policy: {{product.privacy_policy}}</div>
-<div>Worst case scenario: {{product.worst_case}}</div>
+
+{% with section_class_col="col-12 col-lg-10 offset-lg-1" section_class_padding_x="px-md-5" section_class_padding_y="py-md-5" %}
+<div class="container">
+
+  <div class="row">
+    <div class="product-detail bg-white py-3 {{section_class_col}} {{section_class_padding_x}} {{section_class_padding_y}}">
+      <div class="row intro d-flex justify-content-between align-items-center">
+        <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
+        <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
+          <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="link copied!">copy & share link</a>
+        </div>
+        <h2 class="h1-heading col-md-10">{{product.name}}</h2>
+        <div class="body-large mb-4 mb-md-5 col-12">{{product.blurb}}</div>
+      </div>
+
+      <div class="creep-vote-target my-5 py-5" data-product-name="{{product.name}}">
+          {% csrf_token %}
+          <input type="hidden" name="productID" value="{{ product.id }}">
+          <input type="hidden" name="votes" value="{{ product.votes | safe }}">
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">Can it spy on me</h3>
+
+      <div class="row mb-5">
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-camera.svg" width="31" height="24" />
+            <div>
+              <strong class="d-block">Camera</strong>
+              Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-mic.svg" width="17" height="29" />
+            <div>
+              <strong class="d-block">Microphone</strong>
+              Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-location.svg" width="24" height="29" />
+            <div>
+              <strong class="d-block">Location Tracking</strong>
+              Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">What does it know about me</h3>
+
+      <div class="mb-5">
+        {% include "fragments/product-criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" %}
+        {% include "fragments/product-policy.html" with product=product help=product.privacy_policy_helptext %}
+        {% include "fragments/product-criterion.html"  with  value=product.share_data  bad=True  help=product.share_data_helptext  label="Shares your information with 3rd parties for unexpected reasons" %}
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">Can I control it</h3>
+
+      <div class="mb-5">
+        {% include "fragments/product-criterion.html"  with  value=product.must_change_default_password  bad=False  help=product.must_change_default_password_helptext   label="If a password is required, you must change the default password"  unknown_label="Not required" %}
+        {% include "fragments/product-criterion.html"  with  value=product.security_updates              bad=False  help=product.security_updates_helptext               label="Automatic security updates" %}
+        {% include "fragments/product-criterion.html"  with  value=product.delete_data                   bad=False  help=product.delete_data_helptext                    label="Deletes data it stores on you" %}
+        {% include "fragments/product-criterion.html"  with  value=product.child_rules                   bad=False  help=product.child_rules_helptext                    label="Has parental controls "%}
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">Company shows it cares about its customers</h3>
+
+      <div class="mb-5">
+          {% include "fragments/product-criterion.html"  with  value=product.manage_security  bad=False  help=product.manage_security_helptext label="Company manages security vulnerabilities"%}
+          {% include "fragments/product-contact.html" with product=product %}
+      </div>
+
+      <h3 class="h3-heading h3-heading-small">What could happen if something went wrong</h3>
+
+      <p>{{product.worst_case}}</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container-fluid">
+  {% if product.updates|length > 0 %}
+  <div class="row with-product-updates mx-0">
+  {% else %}
+  <div class="row">
+  {% endif %}
+    <div class="container">
+      <div class="row">
+      {% if product.updates|length > 0 %}
+        <div class="{{section_class_col}} {{section_class_padding_x}} mt-5 bg-white">
+        {% else %}
+        <div class="{{section_class_col}} {{section_class_padding_x}} {{section_class_padding_y}}">
+        {% endif %}
+          {% if product.updates|length > 0 %}
+          <h3 class="h3-heading my-5">Updates</h3>
+          {% for product in product.updates %}
+            <div class="product-update mb-3">
+              <a class="product-update-link h5-heading title" href="{{product.source}}" target="_blank">{{product.title}}</a>
+              <div class="author">{{product.author}}</div>
+              <div class="snippet">{{product.snippet}}</div>
+            </div>
+          {% endfor %}
+          {% endif %}
+
+          <h3 class="h3-heading mt-5 mb-3">Compare products</h3>
+          <div class="row">
+          {% for product in product.related_products %}
+          <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
+            <a class="d-block" href="/en/privacynotincluded/products/{{ product.slug }}">
+              {% if USE_CLOUDINARY %}
+                <img class="thumb-border"
+                width="300"
+                src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+                alt="{{product.name}}">
+              {% else %}
+                <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
+              {% endif %}
+            </a>
+
+            {% if product.meets_minimum_security_standards is True %}
+            <img
+              src="/_images/buyers-guide/mini-badge.svg"
+              class="seal-of-approval"
+              alt="this related product meets our minimum security standards"
+              title="this related product meets our minimum security standards"
+            >
+            {% endif %}
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if coralTalkServerUrl %}
+  <div class="container">
+    <div class="row">
+      <div class="{{section_class_col}} {{section_class_padding_x}} {{section_class_padding_y}}">
+        <div id="coral_talk_stream"></div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% endwith %}
+{% endblock %}
+
+{% block extra_scripts %}
+  {% if coralTalkServerUrl %}
+    <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
+      Coral.Talk.render(document.getElementById('coral_talk_stream'), {
+        talk: '{{ coralTalkServerUrl }}'
+      });
+    "></script>
+  {% endif %}
+{% endblock %}

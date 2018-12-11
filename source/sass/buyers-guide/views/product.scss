@@ -1,0 +1,242 @@
+.product-header {
+  padding-bottom: 88px;
+  position: relative;
+
+  .seal-of-approval {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 76px;
+    height: 76px;
+
+    @media (min-width: $bp-md) {
+      width: 140px;
+      height: 140px;
+    }
+  }
+}
+
+.related-product {
+  a {
+    background: #f4f4f4;
+    padding: 10px 0 0 10px;
+  }
+
+  .seal-of-approval {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.product-detail {
+  $link-active-color: #3302ff;
+
+  margin-top: -88px;
+
+  .small-link {
+    font-family: "Nunito Sans";
+    font-size: 18px;
+    font-weight: 400;
+    color: #909090;
+    text-decoration: underline;
+
+    @include hover-focus-active {
+      color: $link-active-color;
+    }
+  }
+
+  .copy-link-wrapper {
+    order: 4;
+
+    @media (min-width: $bp-md) {
+      order: unset;
+    }
+
+    .copy-link {
+      position: relative;
+      padding-left: 20px;
+
+      &.copied {
+        cursor: auto;
+        color: $link-active-color;
+        text-decoration: none;
+      }
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        background-image: url(/_images/buyers-guide/icon-product-link.svg);
+        background-repeat: no-repeat;
+        background-position: center 65%;
+        background-size: contain;
+        width: 15px;
+        height: 100%;
+        display: block;
+      }
+    }
+  }
+
+  h4 {
+    font-family: "Nunito Sans";
+  }
+}
+
+.copy-link {
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  color: $black;
+}
+
+.spy {
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-md) {
+    margin-bottom: 0;
+  }
+
+  img {
+    margin-right: 15px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+}
+
+.criterion {
+  padding: 10px 0;
+  border-top: 1px solid #c8c8ca;
+  border-bottom: 1px solid #c8c8ca;
+  margin-top: -1px;
+
+  .primary-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  button {
+    margin: 0 10px;
+    background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
+    background-size: contain;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    outline: 0;
+    transition: transform 100ms ease-in-out;
+    transform-origin: 50% 50%;
+
+    &.open {
+      transform: rotate(45deg);
+    }
+  }
+
+  // Smiley Cases (default)
+
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-happy.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: text-top;
+  }
+
+  z-index: 1;
+  position: relative;
+}
+
+// Sad Cases
+.criterion-bad {
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
+  }
+
+  background: rgba(237, 53, 71, 0.06);
+  border: 1px solid #ed3547;
+  margin: -1px -10px -1px -10px;
+  padding: 10px;
+  z-index: 2;
+}
+
+// Ambivalent Case
+.criterion-privacy_policy_reading_level.criterion-0,
+.criterion.criterion-none {
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
+  }
+}
+
+.row.with-product-updates::before {
+  display: block;
+  content: ' '; /* :before and :after won't work without content... =( */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 228px;
+  background-image: url("/_images/buyers-guide/dot-pattern.svg");
+  background-size: 9px 9px;
+}
+
+.product-update {
+  .title {
+    font-family: "Zilla Slab";
+    font-size: 22px;
+    color: $black;
+  }
+
+  .author {
+    font-family: "Nunito Sans";
+    font-size: 12px;
+    color: #909090;
+  }
+
+  .snippet {
+    font-family: "Nunito Sans";
+    font-size: 16px;
+    color: $black;
+    letter-spacing: 0;
+    line-height: 24px;
+  }
+}
+
+.creep-vote-target {
+  min-height: 380px;
+  border-top: 1px solid #c8c8ca;
+  border-bottom: 1px solid #c8c8ca;
+}
+
+.helptext {
+  display: none;
+  font-style: italic;
+  font-size: 14px;
+
+  &.open {
+    display: block;
+  }
+}

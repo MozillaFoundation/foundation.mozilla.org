@@ -1,0 +1,67 @@
+.creepometer {
+  margin-top: 70px;
+
+  .slider {
+    background: url("/_images/buyers-guide/gradient-bar.svg") no-repeat 0 center / contain;
+    position: relative;
+    height: 100px;
+    cursor: pointer;
+  }
+
+  .copy {
+    position: absolute;
+    bottom: 0;
+    z-index: 0;
+    font-size: 16px;
+
+    &::selection {
+      background: $white;
+    }
+  }
+
+  .copy-left {
+    left: 0;
+  }
+
+  .copy-right {
+    right: 0;
+  }
+
+  .trackhead {
+    cursor: grab;
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    margin-left: -35px;
+    top: -55px;
+    user-select: none;
+
+    .face {
+      position: relative;
+      border-radius: 50%;
+      height: 70px;
+      width: 70px;
+      z-index: 0;
+    }
+
+    .pip {
+      position: relative;
+      width: 70px;
+      height: 20px;
+      background: transparent;
+
+      &::after {
+        content: ' ';
+        background: white;
+        border-radius: 20px;
+        box-shadow: 2px 2px 3px grey;
+        display: inline-block;
+        height: 40px;
+        margin-left: 15px;
+        margin-top: 15px;
+        position: relative;
+        width: 40px;
+      }
+    }
+  }
+}

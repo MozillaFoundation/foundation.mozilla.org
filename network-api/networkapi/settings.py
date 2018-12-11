@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 '''
+import sys
 
 import os
 import environ
@@ -41,7 +42,6 @@ env = environ.Env(
     CORS_WHITELIST=(tuple, ()),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
-    DISABLE_DEBUG_TOOLBAR=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
@@ -63,6 +63,15 @@ env = environ.Env(
     REFERRER_HEADER_VALUE=(str, ''),
     GITHUB_TOKEN=(str, ''),
     SLACK_WEBHOOK_RA=(str, ''),
+    BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
+    CORAL_TALK_SERVER_URL=(str, None),
+    PNI_STATS_DB_URL=(str, None),
+    CORAL_TALK_API_TOKEN=(str, None),
+    REDIS_URL=(str, ''),
+    USE_CLOUDINARY=(bool, False),
+    CLOUDINARY_CLOUD_NAME=(str, ''),
+    CLOUDINARY_API_KEY=(str, ''),
+    CLOUDINARY_API_SECRET=(str, ''),
 )
 
 # Read in the environment
@@ -81,7 +90,6 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
-DISABLE_DEBUG_TOOLBAR = env('DISABLE_DEBUG_TOOLBAR')
 
 # Force permanent redirects to the domain specified in TARGET_DOMAIN
 DOMAIN_REDIRECT_MIDDLWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLWARE_ENABLED')
@@ -110,6 +118,7 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
                     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
 
 USE_S3 = env('USE_S3')
+USE_CLOUDINARY = env('USE_CLOUDINARY')
 
 INSTALLED_APPS = list(filter(None, [
 
@@ -125,9 +134,6 @@ INSTALLED_APPS = list(filter(None, [
     'django.contrib.staticfiles',
     'django.contrib.redirects',
     'django.contrib.sitemaps',
-
-    'debug_toolbar'
-    if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
 
     'networkapi.wagtailcustomization',
 
@@ -158,6 +164,7 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
+    'cloudinary',
 
     # the network site
     'networkapi',
@@ -201,9 +208,6 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
-    if DEBUG and not DISABLE_DEBUG_TOOLBAR else None,
-
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]))
@@ -219,7 +223,7 @@ if SOCIAL_SIGNIN:
         'django.contrib.auth.backends.ModelBackend',
     ]
 
-    # See http://python-social-auth.readthedocs.io/en/latest/pipeline.html
+    # See https://python-social-auth.readthedocs.io/en/latest/pipeline.html
     SOCIAL_AUTH_PIPELINE = (
         'social_core.pipeline.social_auth.social_details',
         'social_core.pipeline.social_auth.social_uid',
@@ -253,6 +257,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'networkapi.context_processor.review_app',
+                'networkapi.context_processor.cloudinary',
             ])),
             'libraries': {
                 'settings_value': 'networkapi.utility.templatetags.settings_value',
@@ -264,6 +269,23 @@ TEMPLATES = [
         },
     },
 ]
+
+if env('REDIS_URL'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': env('REDIS_URL'),
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+            }
+        }
+    }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+        }
+    }
 
 # network asset domain used in templates
 ASSET_DOMAIN = env('ASSET_DOMAIN')
@@ -348,7 +370,7 @@ WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ],
+    ]
 }
 
 # SQS information (if any) for google sheet petition data
@@ -362,6 +384,13 @@ CRM_AWS_SQS_ACCESS_KEY_ID = env('CRM_AWS_SQS_ACCESS_KEY_ID')
 CRM_AWS_SQS_SECRET_ACCESS_KEY = env('CRM_AWS_SQS_SECRET_ACCESS_KEY')
 CRM_AWS_SQS_REGION = env('CRM_AWS_SQS_REGION')
 CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
+
+if USE_CLOUDINARY:
+    CLOUDINARY_CLOUD_NAME = env('CLOUDINARY_CLOUD_NAME')
+    CLOUDINARY_API_KEY = env('CLOUDINARY_API_KEY')
+    CLOUDINARY_API_SECRET = env('CLOUDINARY_API_SECRET')
+
+    CLOUDINARY_URL = 'https://res.cloudinary.com/' + CLOUDINARY_CLOUD_NAME + '/image/upload/'
 
 # Storage for user generated files
 if USE_S3:
@@ -394,8 +423,7 @@ else:
 
 # CSP
 CSP_DEFAULT = (
-    'self',
-    'localhost:8000',
+    '\'self\''
 )
 
 CSP_DEFAULT_SRC = env('CSP_DEFAULT_SRC', default=CSP_DEFAULT)
@@ -469,21 +497,27 @@ FRONTEND = {
     'SHOW_TAKEOVER': env('SHOW_TAKEOVER'),
 }
 
-
-# DEBUG toolbar
-if DEBUG and not DISABLE_DEBUG_TOOLBAR:
-    INTERNAL_IPS = ('127.0.0.1',)
-
-    def show_toolbar(request):
-        return True
-
-    DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
-    }
-
 # Review apps' slack bot
 GITHUB_TOKEN = env('GITHUB_TOKEN')
 SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # Used by load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
+
+# Buyers Guide Rate Limit Setting
+BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
+
+# Detect if we're testing
+TESTING = 'test' in sys.argv
+
+
+# Coral Talk Server URL
+
+CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
+
+# privacynotincluded statistics DB
+PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
+CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
+
+# Use network_url to check if we're running prod or not
+NETWORK_SITE_URL = env('NETWORK_SITE_URL')

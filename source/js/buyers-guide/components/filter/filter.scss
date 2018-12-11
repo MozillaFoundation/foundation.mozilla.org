@@ -1,0 +1,269 @@
+#product-filter {
+  $bp-cs: 500px;
+
+  $filter-bubble-dimension-mobile: 70px;
+  $filter-bubble-dimension: 6em;
+  $filter-box-dimension: 700px;
+  $inner-dimension: 330px;
+  $heading-color: #4a4a4a;
+  $option-color: #979797;
+
+  position: relative;
+  top: -75px;
+  height: 0;
+  z-index: 200;
+  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+
+  @media (min-width: $bp-cs) {
+    top: calc(-1 * #{$filter-bubble-dimension} + 0.8em);
+  }
+
+  .h6-heading-uppercase {
+    font-weight: 700;
+    color: $heading-color;
+  }
+
+  .filter-caption {
+    margin-bottom: 24px;
+  }
+
+  .filter-label {
+    position: absolute;
+    top: 2.2em;
+    right: 6.3em;
+    color: #666;
+    font-size: 12px;
+    font-weight: 700;
+
+    @media (min-width: $bp-cs) {
+      top: calc(#{$filter-bubble-dimension} / 2 + 2px);
+      right: calc(2 * #{$filter-bubble-dimension} - 1.5em);
+    }
+  }
+
+  .filter-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+
+    @media (min-width: $bp-cs) {
+      position: absolute;
+      right: -100px;
+      left: auto;
+      top: auto;
+      bottom: auto;
+      width: $filter-box-dimension;
+      height: $filter-box-dimension;
+      border-radius: 50%;
+      transition: top, right, height, width;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
+    }
+
+    border: 1px solid #f2f2f2;
+    box-shadow: 4px 5px 10px -5px rgba(74, 74, 74, 26);
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    padding: 0.5em;
+    overflow: hidden;
+
+    div.content {
+      transform: scale(1, 1);
+
+      @media (min-width: $bp-cs) {
+        width: $inner-dimension;
+        transition: transform;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+      }
+
+      width: 100%;
+    }
+
+    &.collapsed {
+      div.content {
+        transform: scale(0.01, 0.01);
+      }
+
+      @media (min-width: $bp-cs) {
+        right: 1.1em;
+        width: $filter-bubble-dimension;
+        height: $filter-bubble-dimension;
+      }
+
+      position: absolute;
+      left: auto;
+      cursor: pointer;
+      width: $filter-bubble-dimension-mobile;
+      height: $filter-bubble-dimension-mobile;
+      padding: 0;
+      border-radius: 50%;
+      background-image: url(/_images/buyers-guide/icon-filter.svg);
+      background-position: center center;
+      background-size: 24px;
+      background-repeat: no-repeat;
+    }
+
+    .close {
+      cursor: pointer;
+      background: url(/_images/buyers-guide/icon-close.svg);
+      color: transparent;
+      background-repeat: no-repeat;
+      width: 16px;
+      height: 16px;
+      background-position: center center;
+      background-size: contain;
+    }
+
+    h2 {
+      font-weight: 400;
+      font-size: 16px;
+      color: $option-color;
+    }
+
+    .radio-group-entry {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin: 1em 0;
+      color: $option-color;
+
+      .dot {
+        position: relative;
+        display: inline-block;
+        width: 2px;
+        height: 2px;
+        border-radius: 1000px;
+        background: white;
+        box-shadow: 0 0 0 9px white, 0 0 0 10px $option-color;
+        margin: 10px;
+
+        &.selected {
+          box-shadow: 0 0 0 6px $option-color, 0 0 0 9px white, 0 0 0 10px $option-color;
+          background: $option-color;
+        }
+
+        &.square {
+          border-radius: 0;
+
+          &.selected {
+            box-shadow: 0 0 0 10px $option-color;
+
+            &::after {
+              content: ' ';
+              display: block;
+              width: 22px;
+              height: 22px;
+              position: absolute;
+              top: -10px;
+              left: -10px;
+              background-image: url(/_images/buyers-guide/icon-checkmark.svg);
+              background-size: 100% 100%;
+            }
+          }
+        }
+      }
+
+      .label {
+        text-align: left;
+        position: relative;
+
+        &[data-label] {
+          text-indent: 2.5em;
+          background-repeat: no-repeat;
+          background-size: 16px;
+        }
+
+        &[data-label=Both] {
+          text-indent: 0.7em;
+        }
+
+        &[data-label=Likely] {
+          background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
+          background-position: 12px 4px;
+        }
+
+        &[data-label='Not likely'] {
+          background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
+          background-position: 12px 7px;
+        }
+      }
+    }
+
+    .seal-of-approval {
+      margin-bottom: 48px;
+
+      .radio-group-entry {
+        .label {
+          &[data-label] {
+            text-indent: 1em;
+          }
+        }
+      }
+    }
+
+    .creepiness {
+      margin-bottom: 48px;
+
+      .slider {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        cursor: pointer;
+
+        label {
+          flex: 0 0 auto;
+          margin: 0 0.25em;
+          background: url(/_images/buyers-guide/faces/sprite-resized-64-colors.png);
+          display: inline-block;
+          width: 32px;
+          height: 32px;
+          background-size: 32px;
+          background-position: 0 0;
+          background-repeat: no-repeat;
+          color: transparent;
+        }
+
+        .track {
+          + label.creepy {
+            background-position: 0 -1248px;
+          }
+
+          flex: 1 1 auto;
+          position: relative;
+          height: 5px;
+          background-color: grey;
+          background-image: url(/_images/buyers-guide/gradient-bar.svg);
+          background-position: 0% center;
+          background-size: 100% 100%;
+          background-repeat: repeat-y;
+          margin: 0 1em;
+
+          .track-head {
+            position: absolute;
+            width: 1.5em;
+            height: 1.5em;
+            top: -0.7em;
+            left: 50%;
+            color: black;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 2em;
+            box-shadow: 2px 2px 3px 0 grey;
+
+            &:hover {
+              color: grey;
+            }
+          }
+        }
+      }
+    }
+  }
+}

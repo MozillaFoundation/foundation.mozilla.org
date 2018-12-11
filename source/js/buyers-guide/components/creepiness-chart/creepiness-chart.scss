@@ -1,0 +1,116 @@
+#creepiness-score {
+  display: flex;
+  border-image: url(/_images/buyers-guide/gradient-bar.svg) 7/0px 6px 6px;
+  border-style: solid;
+
+  tbody {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  th {
+    order: 2;
+    margin: 0 1px;
+    text-align: center;
+    align-self: flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    position: relative;
+    min-height: 85px;
+  }
+
+  .bar,
+  td {
+    position: relative;
+    bottom: -40px;
+  }
+
+  .creepiness {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  //For some nice animations later on
+  .creepiness,
+  .bar {
+    transition: all 2.5s ease;
+  }
+
+  .creep-label {
+    //Make sure screen readers can see the label
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+  }
+
+  //Height of this is set inline via JSX
+  .bar {
+    background-color: #e1e1e1;
+  }
+
+  //Show a different creep-face in each bar of the graph
+  .creep-face {
+    background-image: url("/_images/buyers-guide/faces/sprite-resized-64-colors.png");
+    background-position: center 0;
+    background-size: 35px auto;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    height: 35px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .little-creep .creep-face {
+    background-position: center 25.6%;
+  }
+
+  .somewhat-creep .creep-face {
+    background-position: center 51.25%;
+  }
+
+  .very-creep .creep-face {
+    background-position: center 76.9%;
+  }
+
+  .super-creep .creep-face {
+    background-position: center 100%;
+  }
+
+  //Style the graph bar representing the range the user voted
+  .your-vote {
+    &.no-creep .bar {
+      background-color: #1808f2;
+    }
+
+    &.little-creep .bar {
+      background-color: #4a17d4;
+    }
+
+    &.somewhat-creep .bar {
+      background-color: #7f28b7;
+    }
+
+    &.very-creep .bar {
+      background-color: #b0379b;
+    }
+
+    &.super-creep .bar {
+      background-color: #e4487d;
+    }
+  }
+
+  td {
+    order: 1;
+    text-align: center;
+  }
+
+  tr {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: -3px 1px;
+  }
+}

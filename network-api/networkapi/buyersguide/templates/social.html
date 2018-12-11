@@ -1,0 +1,21 @@
+{% with share_text="Shop safe this holiday season using @mozilla’s PrivacyNotIncluded.org buyer’s guide. 70 popular connected products rated to help understand if they are likely to spy on you. Find out which are creepy and which aren’t." twitter_share_link="https://twitter.com/intent/tweet?text=" email_share_link="mailto:?&body=" facebook_share_link="https://www.facebook.com/sharer/sharer.php?u=PrivacyNotIncluded.org" %}
+
+{% if mobile %}
+  <div class="social d-flex flex-column">
+    <a class="social-button social-button-fb body-large" id="nav-social-button-fb-mb" href="{{facebook_share_link}}">Facebook</a>
+    <a class="social-button social-button-twitter body-large" id="nav-social-button-twitter-mb" href="{{twitter_share_link}}{{share_text|urlencode}}">Twitter</a>
+    <a class="social-button social-button-email body-large" id="nav-social-button-email-mb" href="{{email_share_link}}{{share_text|urlencode}}">Email</a>
+  </div>
+{% else %}
+<div class="social d-flex align-items-center">
+  <a class="social-button social-button-fb hidden-sm-down" id="nav-social-button-fb" href="{{facebook_share_link}}"><span class="sr-only">Facebook</span></a>
+  <a class="social-button social-button-twitter hidden-sm-down" id="nav-social-button-twitter" href="{{twitter_share_link}}{{share_text|urlencode}}" target="_blank"><span class="sr-only">Twitter</span></a>
+  <a class="social-button social-button-email hidden-sm-down" id="nav-social-button-email" href="{{email_share_link}}{{share_text|urlencode}}"><span class="sr-only">Email</span></a>
+  <a class="d-none d-sm-block btn btn-donate ml-3 mr-0 hidden-sm-down" id="donate-button-main" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=headerbutton">Donate</a>
+  <button class="burger btn btn-link p-0 ml-4 hidden-md-up">
+    <span class="sr-only">Share</span>
+  </button>
+</div>
+{% endif %}
+
+{% endwith %}

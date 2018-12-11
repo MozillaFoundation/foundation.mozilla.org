@@ -24,11 +24,12 @@ environment:
   SSL_REDIRECT: False
   X_FRAME_OPTIONS: DENY
   ALLOWED_HOSTS: localhost
-  PULSE_API_DOMAIN: network-pulse-api-production.herokuapp.com
+  PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
   PULSE_DOMAIN: www.mozillapulse.org
   NETWORK_SITE_URL: https://foundation.mozilla.org
   TARGET_DOMAIN: foundation.mozilla.org
   SHOW_TAKEOVER: false
+  USE_CLOUDINARY: false
 
   matrix:
     - PYTHON: "C:\\Python36"
@@ -45,14 +46,14 @@ install:
   - "npm ci"
   - "python -m pip install --upgrade pip"
   - "python -m pip install pipenv"
-  - "python -m pipenv install --dev --deploy"
+  - "python -m pipenv sync --dev"
   - "python -m pipenv run python network-api/manage.py collectstatic --no-input"
 
 test_script:
   - node --version
   - npm --version
   - npm test
-  - "python -m pipenv run flake8 network-api/"
+  - "python -m pipenv run flake8 tasks.py network-api/"
   - "python -m pipenv run python network-api/manage.py test"
 
 cache:

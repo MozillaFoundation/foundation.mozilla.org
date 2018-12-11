@@ -1,3 +1,7 @@
+import json
+
+from urllib import request, parse
+from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -339,3 +343,134 @@ class PulseProjectList(blocks.StructBlock):
         template = 'wagtailpages/blocks/pulse_project_list.html'
         icon = 'site'
         value_class = PulseProjectQueryValue
+
+
+class ProfileById(blocks.StructBlock):
+
+    ids = blocks.CharBlock(
+        label='Profile by ID',
+        help_text='Show profiles for pulse users with specific profile ids'
+                  ' (mozillapulse.org/profile/[##]). For multiple profiles'
+                  ', specify a comma separated list (e.g. 85,105,332).'
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        ids = context['block'].value['ids']
+        data = list()
+
+        # FIXME: the protocol should be part of the pulse api variable.
+        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
+
+        url = "{pulse_api}/api/pulse/v2/profiles/?format=json&ids={ids}".format(
+            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
+            ids=ids
+        )
+
+        try:
+            response = request.urlopen(url)
+            response_data = response.read()
+            data = json.loads(response_data)
+
+        except (IOError, ValueError) as exception:
+            print(str(exception))
+            pass
+
+        context['profiles'] = data
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_blocks.html'
+        icon = 'user'
+
+
+class LatestProfileQueryValue(blocks.StructValue):
+    @property
+    def size(self):
+        max_number_of_results = self['max_number_of_results']
+        return '' if max_number_of_results <= 0 else max_number_of_results
+
+    @property
+    def rev(self):
+        # The default API behaviour is newest-first, so the "rev" attribute
+        # should only have an attribute value when oldest-first is needed.
+        newest_first = self['newest_first']
+        return True if newest_first else ''
+
+
+class LatestProfileList(blocks.StructBlock):
+    max_number_of_results = blocks.IntegerBlock(
+        min_value=1,
+        max_value=48,
+        default=12,
+        required=True,
+        help_text='Pick up to 48 profiles.',
+    )
+
+    advanced_filter_header = blocks.StaticBlock(
+        label=' ',
+        admin_text='-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------',
+    )
+
+    profile_type = blocks.CharBlock(
+        required=False,
+        default='',
+        help_text='Example: Fellow.'
+    )
+
+    program_type = blocks.CharBlock(
+        required=False,
+        default='',
+        help_text='Example: Tech Policy.'
+    )
+
+    year = blocks.CharBlock(
+        required=False,
+        default=''
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        query_args = {
+            'limit': context['block'].value['max_number_of_results'],
+            'profile_type': context['block'].value['profile_type'],
+            'program_type': context['block'].value['program_type'],
+            'program_year': context['block'].value['year'],
+            'ordering': '-id',
+            'is_active': 'true',
+            'format': 'json',
+        }
+
+        # filter out emptish values
+        query_args = {k: v for k, v in query_args.items() if v}
+
+        # FIXME: the protocol should be part of the pulse api variable.
+        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
+
+        url = "{pulse_api}/api/pulse/v2/profiles/?{query}".format(
+            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
+            query=parse.urlencode(query_args)
+        )
+
+        try:
+            response = request.urlopen(url)
+            response_data = response.read()
+            data = json.loads(response_data)
+
+            for profile in data:
+                profile['created_entries'] = False
+                profile['published_entries'] = False
+                profile['entry_count'] = False
+                profile['user_bio_long'] = False
+
+        except (IOError, ValueError) as exception:
+            print(str(exception))
+            pass
+
+        context['profiles'] = data
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_blocks.html'
+        icon = 'group'
+        value_class = LatestProfileQueryValue

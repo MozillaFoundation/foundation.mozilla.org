@@ -71,4 +71,4 @@ let primaryNav = {
   }
 };
 
-module.exports = primaryNav;
+export default primaryNav;
