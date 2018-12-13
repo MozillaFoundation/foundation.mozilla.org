@@ -40,6 +40,13 @@ class ImageBlock(blocks.StructBlock):
         icon = 'image'
         template = 'wagtailpages/blocks/image_block.html'
 
+class AirTableBlock(blocks.StructBlock):
+    url = blocks.URLBlock()
+    height = blocks.IntegerBlock()
+
+    class Meta:
+        icon = 'placeholder'
+        template = 'wagtailpages/blocks/airtable_block.html'
 
 class AnnotatedImageBlock(ImageBlock):
     caption = blocks.CharBlock(
