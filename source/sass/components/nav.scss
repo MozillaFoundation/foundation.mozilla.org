@@ -57,6 +57,7 @@
   .wrapper-burger {
     background: none;
     transition: background 200ms ease-in-out;
+    border-top: 10px solid black;
 
     &.simple-background {
       background: white;
