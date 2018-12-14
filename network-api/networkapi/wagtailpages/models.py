@@ -70,12 +70,28 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
     def get_meta_description(self):
         if self.search_description:
             return self.search_description
-        else:
-            return self.default_description
+
+        parent = self.get_parent()
+
+        while parent:
+            if parent.search_description:
+                return parent.search_description
+            parent = parent.get_parent()
+
+        return self.default_description
 
     def get_meta_image(self):
         if self.search_image:
             return self.search_image
+
+        parent = self.get_parent()
+
+        while parent:
+            if hasattr(parent, 'search_image') and parent.search_image:
+                return parent.search_image
+            if hasattr(parent, 'homepage') and parent.homepage.search_image:
+                return parent.homepage.search_image
+            parent = parent.get_parent()
 
         try:
             return Image.objects.filter(tags=social_share_tag).first()
