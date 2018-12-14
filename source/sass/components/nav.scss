@@ -1,8 +1,16 @@
-$primary-nav-padding-md: 16px;
-$primary-nav-link-padding-md: 9px;
-$logo-height: 28px;
-
 #primary-nav-container {
+  $logo-height: 28px;
+
+  $menu-container-padding: (
+    md: 16px
+  );
+
+  $primary-nav-link-padding: (
+    xs: 18px,
+    sm: 22px,
+    md: 9px
+  );
+
   &.zen-mode {
     .menu-container {
       @media (min-width: $bp-md) {
@@ -16,7 +24,7 @@ $logo-height: 28px;
     padding: 0 0 0 52px;
 
     @media (min-width: $bp-md) {
-      padding: $primary-nav-padding-md 0;
+      padding: map-get($menu-container-padding, md) 0;
     }
   }
 
@@ -38,17 +46,19 @@ $logo-height: 28px;
   }
 
   #primary-nav-links {
-    padding-top: 18px;
-    padding-bottom: 18px;
+    @mixin link-padding($v-padding: xs) {
+      padding-top: $v-padding;
+      padding-bottom: $v-padding;
+    }
+
+    @include link-padding(map-get($primary-nav-link-padding, xs));
 
     @media (min-width: $bp-sm) {
-      padding-top: 22px;
-      padding-bottom: 22px;
+      @include link-padding(map-get($primary-nav-link-padding, sm));
     }
 
     @media (min-width: $bp-md) {
-      padding-top: $primary-nav-link-padding-md;
-      padding-bottom: $primary-nav-link-padding-md;
+      @include link-padding(map-get($primary-nav-link-padding, md));
     }
   }
 
@@ -76,13 +86,26 @@ $logo-height: 28px;
 
     .nav-links {
       a {
+        $border-thickness: 6px;
+
         border-bottom: 6px solid transparent;
         color: $black;
         font-family: "Nunito Sans";
         font-weight: 700;
         margin-right: 18px;
-        padding-bottom: $primary-nav-padding-md + $primary-nav-link-padding-md - 1px;
         transition: border-color 0.25s ease;
+
+        @mixin padding-bottom($bp: sm) {
+          padding-bottom: calc(#{map-get($menu-container-padding, $bp)} + #{map-get($primary-nav-link-padding, $bp)} - #{$border-thickness} / 2);
+        }
+
+        @media (min-width: $bp-sm) {
+          @include padding-bottom(sm);
+        }
+
+        @media (min-width: $bp-md) {
+          @include padding-bottom(md);
+        }
 
         @include scaleText(17px, 30px, 17px, 24px);
 
@@ -101,8 +124,9 @@ $logo-height: 28px;
         #view-about .nav-link-about {
           border-color: black !important;
 
-          &:hover {
+          @include hover-focus-active {
             border-color: initial !important;
+            text-decoration: none;
           }
         }
       }
@@ -193,14 +217,6 @@ $logo-height: 28px;
       @media (min-width: $bp-sm) {
         width: 97px;
         background: url(../_images/mozilla-on-black.svg) no-repeat;
-      }
-
-      @media (min-width: $bp-md) {
-        margin-bottom: 0.6rem;
-      }
-
-      @media (min-width: $bp-lg) {
-        margin-bottom: 0;
       }
 
       margin: 0 26px 0 0;
