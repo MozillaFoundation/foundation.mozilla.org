@@ -2,6 +2,7 @@ import json
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from taggit.models import Tag
 
 from . import customblocks
 from wagtail.core import blocks
@@ -12,12 +13,12 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.images.models import Image
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import get_page_tree_information
-from .donation_modal import DonationModals  # noqa: F401
 
 """
 We'll need to figure out which components are truly "base" and
@@ -50,8 +51,42 @@ base_fields = [
     ('profile_by_id', customblocks.ProfileById()),
 ]
 
+# The first Wagtail image returned that has the specified tag name will be the default image URL in social shares
+# when no Image is specified at the Page level
+try:
+    default_social_share_tag = 'social share image'
+    social_share_tag = Tag.objects.get(name=default_social_share_tag)
+except Tag.DoesNotExist:
+    social_share_tag = None
 
-class ModularPage(MetadataPageMixin, Page):
+
+# Override the MetadataPageMixin to allow for a default description and image in page metadata for all Pages on the site
+class FoundationMetadataPageMixin(MetadataPageMixin):
+
+    # Change this string to update the default description of all pages on the site
+    default_description = 'Mozilla is a global non-profit dedicated to putting you in control of your online ' \
+                          'experience and shaping the future of the web for the public good. '
+
+    def get_meta_description(self):
+        if self.search_description:
+            return self.search_description
+        else:
+            return self.default_description
+
+    def get_meta_image(self):
+        if self.search_image:
+            return self.search_image
+
+        try:
+            return Image.objects.filter(tags=social_share_tag).first()
+        except Image.DoesNotExist:
+            return None
+
+    class Meta:
+        abstract = True
+
+
+class ModularPage(FoundationMetadataPageMixin, Page):
     """
     The base class offers universal component picking
     """
@@ -363,7 +398,7 @@ class CampaignPage(MiniSiteNameSpace):
 # Code for the new wagtail primary pages (under homepage)
 
 
-class PrimaryPage(MetadataPageMixin, Page):
+class PrimaryPage(FoundationMetadataPageMixin, Page):
     """
     Basically a straight copy of modular page, but with
     restrictions on what can live 'under it'.
@@ -847,7 +882,7 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
-class Homepage(MetadataPageMixin, Page):
+class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
         max_length=140,
         help_text='Hero story headline',
