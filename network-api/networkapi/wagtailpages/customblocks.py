@@ -42,8 +42,13 @@ class ImageBlock(blocks.StructBlock):
 
 
 class AirTableBlock(blocks.StructBlock):
-    url = blocks.URLBlock()
-    height = blocks.IntegerBlock()
+    url = blocks.URLBlock(
+        help_text="Copied from the Airtable embed code. The word 'embed' will be in the url"
+    )
+    height = blocks.IntegerBlock(
+        default=533,
+        help_text="The height of the view on a desktop, usually coped from the Airtable embed code",
+    )
 
     class Meta:
         icon = 'placeholder'
