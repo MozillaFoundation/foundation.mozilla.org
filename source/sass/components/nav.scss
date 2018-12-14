@@ -37,14 +37,6 @@
     }
   }
 
-  .sticky-top .btn-pop {
-    @media (max-width: $bp-sm) {
-      padding: 0.25em;
-      margin-right: -0.25em;
-      top: -2px;
-    }
-  }
-
   #primary-nav-links {
     @mixin link-padding($v-padding: xs) {
       padding-top: $v-padding;
@@ -109,7 +101,7 @@
 
         @include scaleText(17px, 30px, 17px, 24px);
 
-        &:hover {
+        @include hover-focus-active {
           text-decoration: none;
           border-bottom-color: #ccc;
         }
@@ -126,7 +118,6 @@
 
           @include hover-focus-active {
             border-color: initial !important;
-            text-decoration: none;
           }
         }
       }
@@ -272,10 +263,6 @@
           padding: 9px 0;
           color: white;
         }
-      }
-
-      @media (min-width: $bp-lg) {
-        display: none;
       }
     }
   }
