@@ -21,20 +21,14 @@
 </div>
 
 <div class="py-4 bottom-line">
-  <div class="hidden-md-up" id="multipage-nav-mobile">
-    <div class="container">
-      <div class="row">
-        <div class="col-12"></div>
-      </div>
-    </div>
-  </div>
+  {% include "partials/multipage-nav-mobile.html" %}
   <div class="container">
     <div class="row">
       <div class="col-12 hidden-sm-down">
-        <div class="d-flex flex-row align-items-center" id="multipage-nav">
-          <div><a class="multipage-link multipage-link-active" href="./">Overview</a></div>
+        <div id="multipage-nav">
+            <a class="multipage-link multipage-link-active" href="./">Overview</a>
           {% for section in page.initiative_sections.all %}
-            <div><a class="multipage-link" href="{{ section.sectionButtonURL }}">{{ section.sectionHeader }}</a></div>
+            <a class="multipage-link" href="{{ section.sectionButtonURL }}">{{ section.sectionHeader }}</a>
           {% endfor %}
         </div>
       </div>

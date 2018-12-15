@@ -220,21 +220,15 @@
         </div>
       </h4>
       <h4>multipage-nav (used as secondary nav )</h4>
-      <div class="hidden-md-up" id="multipage-nav-mobile">
-        <div class="container">
-          <div class="row">
-            <div class="col-12"></div>
-          </div>
-        </div>
-      </div>
+      {% include "partials/multipage-nav-mobile.html" %}
       <div class="container">
         <div class="row">
           <div class="col-12 hidden-sm-down">
-            <div class="multipage-nav" id="multipage-nav">
-              <div><a class="multipage-link" href="/">Home</a></div>
-              <div><a class="multipage-link" href="/about">About</a></div>
-              <div><a class="multipage-link multipage-link-active" href="/style-guide">Style Guide</a></div>
-              <div><a class="multipage-link" href="/sign-up">Sign Up</a></div>
+            <div class="vertical-nav" id="multipage-nav">
+              <div class="multipage-link-wrapper"><a class="multipage-link" href="/">Home</a></div>
+              <div class="multipage-link-wrapper"><a class="multipage-link" href="/about">About</a></div>
+              <div class="multipage-link-wrapper"><a class="multipage-link multipage-link-active" href="/style-guide">Style Guide</a></div>
+              <div class="multipage-link-wrapper"><a class="multipage-link" href="/sign-up">Sign Up</a></div>
             </div>
           </div>
         </div>

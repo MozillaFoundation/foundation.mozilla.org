@@ -4,17 +4,12 @@
 <div class="container hidden-sm-down my-4">
   <div class="row">
     <div class="col-12">
-      <div class="d-flex flex-row primary-menu" id="multipage-nav">
+      <div id="multipage-nav">
       	{% for entry in menu_pages %}
-      	<div>
       	  <a class="multipage-link {% if current.title == entry.page.title %}multipage-link-active{% endif %} {% if entry.restriction != None %}multipage-{{entry.restriction}}-restricted{% endif %} {% if not entry.page.live %}multipage-draft{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
       	  </a>
-      	</div>
       	{% endfor %}
       </div>
-    </div>
-    <div class="col-12">
-      <hr class="hr-gradient mb-0">
     </div>
   </div>
 </div>

@@ -2,9 +2,9 @@
 
 {% if menu_pages %}
 <div class="py-5 col-md-3 mb-3 hidden-sm-down">
-  <div class="multipage-nav side-nav" id="multipage-nav">
+  <div class="vertical-nav side-nav" id="multipage-nav">
     {% for entry in menu_pages %}
-    <div>
+    <div class="multipage-link-wrapper">
       <a class="multipage-link {% if current.title == entry.page.title %}multipage-link-active{% endif %} {% if entry.restriction != None %}multipage-{{entry.restriction}}-restricted{% endif %} {% if not entry.page.live %}multipage-draft{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
       </a>
     </div>
