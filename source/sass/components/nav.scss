@@ -29,11 +29,8 @@
   }
 
   #donate-header-btn {
-    margin-top: 16px;
-    margin-bottom: 16px;
-
-    @media (min-width: $bp-md) {
-      margin: 0;
+    @media (max-width: $bp-sm) {
+      padding: 4px;
     }
   }
 
@@ -99,7 +96,7 @@
           @include padding-bottom(md);
         }
 
-        @include scaleText(17px, 30px, 17px, 24px);
+        @include scaleText(17px, 23px);
 
         @include hover-focus-active {
           text-decoration: none;
@@ -258,9 +255,8 @@
         a {
           font-weight: 500;
           transition: transform 0.15s;
-          display: block;
-          margin-right: 0;
-          padding: 9px 0;
+          display: inline-block;
+          margin: 10px 0;
           color: white;
         }
       }
