@@ -1,13 +1,5 @@
-from random import choices, randint
-
 from django.conf import settings
 from faker.providers import BaseProvider
-
-
-# Used to return a random number of tags, issues or helptypes to associate with fake pulse entries or profile
-def get_random_items(model):
-    items = model.objects.all()
-    return choices(items, k=randint(0, len(items)))
 
 
 class ImageProvider(BaseProvider):
@@ -15,8 +7,8 @@ class ImageProvider(BaseProvider):
     A custom Faker Provider for relative image urls, for use with factory_boy
 
     >>> from factory import Faker
-    >>> from networkapi.utility.faker_providers import ImageProvider
-    >>> fake - Faker()
+    >>> from networkapi.utility.faker import ImageProvider
+    >>> fake = Faker()
     >>> Faker.add_provider(ImageProvider)
     """
 

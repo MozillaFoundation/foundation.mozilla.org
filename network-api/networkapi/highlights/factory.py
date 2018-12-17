@@ -8,7 +8,7 @@ from factory import (
     post_generation,
 )
 
-from networkapi.utility.faker_providers import ImageProvider
+from networkapi.utility.faker import ImageProvider
 from networkapi.highlights.models import Highlight
 
 Faker.add_provider(ImageProvider)

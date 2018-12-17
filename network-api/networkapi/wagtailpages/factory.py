@@ -12,6 +12,11 @@ from factory import (
 import networkapi.wagtailpages.models
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.news.factory import NewsFactory
+from networkapi.utility.faker import StreamfieldProvider
+
+streamfield_fields = ['header', 'paragraph', 'image', 'spacer', 'image_text2', 'quote']
+
+Faker.add_provider(StreamfieldProvider)
 
 sentence_faker: Faker = Faker('sentence', nb_words=3, variable_nb_words=False)
 header_faker: Faker = Faker('sentence', nb_words=6, variable_nb_words=True)
@@ -26,7 +31,7 @@ class CTAFactory(DjangoModelFactory):
             'description_text',
         )
 
-    name = Faker('text', max_nb_chars=80)
+    name = Faker('text', max_nb_chars=35)
     header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
     description = LazyAttribute(lambda o: ''.join(o.description_text))
     newsletter = Faker('word')
@@ -85,6 +90,7 @@ class CMSPageFactory(PageFactory):
     header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
     title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
     narrowed_page_content = Faker('boolean', chance_of_getting_true=50)
+    body = Faker('streamfield', fields=streamfield_fields)
 
     # Lazy Values
     title_text = sentence_faker
