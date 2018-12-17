@@ -21,8 +21,10 @@
     color: grey;
   }
 
-  a:hover,
-  a.current {
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
     color: black;
     border-bottom: 5px solid black;
     text-decoration: none;
