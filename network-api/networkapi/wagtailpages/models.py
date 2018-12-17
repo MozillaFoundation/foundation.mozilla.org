@@ -52,7 +52,8 @@ base_fields = [
 ]
 
 
-# Override the MetadataPageMixin to allow for a default description and image in page metadata for all Pages on the site
+# Override the MetadataPageMixin to allow for a default
+# description and image in page metadata for all Pages on the site
 class FoundationMetadataPageMixin(MetadataPageMixin):
     def __init__(self, *args, **kwargs):
         # The first Wagtail image returned that has the specified tag name will
