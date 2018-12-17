@@ -44,6 +44,7 @@ from networkapi.buyersguide.models import (
     BooleanVote
 )
 from networkapi.buyersguide.factory import ProductFactory
+from wagtail_factories import ImageFactory
 
 # Wagtail Page Models
 import networkapi.wagtailpages.models as wagtailpages_models
@@ -115,6 +116,15 @@ class Command(BaseCommand):
         print('Seeding Faker with: {}'.format(seed))
         faker = factory.faker.Faker._get_faker(locale='en-US')
         faker.random.seed(seed)
+
+        print('Generating Images')
+        [
+            ImageFactory.create(
+                file__width=1080,
+                file__height=720,
+                file__color=faker.safe_color_name()
+            ) for i in range(20)
+        ]
 
         print('Generating Milestones')
         [MilestoneFactory.create() for i in range(10)]
