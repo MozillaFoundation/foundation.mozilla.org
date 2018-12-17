@@ -118,7 +118,7 @@
         position: absolute;
         right: 0;
         top: calc(#{$foldable-padding} + #{$foldable-margin});
-        background: url(/_images/buyers-guide/plus.svg);
+        background-image: url(/_images/buyers-guide/plus.svg);
         background-size: 100% 100%;
         width: $icon-dimension;
         height: $icon-dimension;
