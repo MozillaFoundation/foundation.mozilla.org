@@ -6,7 +6,7 @@
 {% block body-id %}{{ category.websafe_name }}{% endblock %}
 
 {% block guts %}
-  <div class="category-listing page-width container-fluid text-center px-5 mt-4">
+  <div class="category-listing container-fluid text-center px-5 mt-4">
 
     <div class="info-blob">
       <h1 class="h3-heading">{{ category.name }}</h1>
@@ -17,17 +17,27 @@
       <div class="category-item-container" >
         <a class="" href="/en/privacynotincluded/products/{{ product.slug }}">
           <div class="category-image-container">
-                {% if USE_CLOUDINARY %}
-                <img class="thumb-border"
-                     width="300"
-                     src="
-{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-                     alt="{{product.name}}">
-                {% else %}
-                <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
-                {% endif %}
+            {% if product.meets_minimum_security_standards is True %}
+            <img
+              class="seal-of-approval"
+              src="/_images/buyers-guide/mini-badge.svg"
+              title="this product meets our minimum security standards"
+              alt="this product meets our minimum security standards"
+            >
+            {% endif %}
+
+            {% if USE_CLOUDINARY %}
+            <img
+              class="thumb-border"
+              width="300"
+              src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+              alt="{{ product.name }}"
+            >
+            {% else %}
+            <img src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
+            {% endif %}
           </div>
-          <h3 class="mb-2 h6-heading-uppercase">{{ product.company }}</h3>
+          <h3 class="mb-1 h6-heading">{{ product.company }}</h3>
           <h3 class="mb-5 h5-heading">{{ product.name }}</h3>
         </a>
       </div>
