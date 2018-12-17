@@ -6,7 +6,7 @@
 {% block body-id %}{{ category.websafe_name }}{% endblock %}
 
 {% block guts %}
-  <div class="category-listing page-width container-fluid text-center px-5 mt-4">
+  <div class="category-listing container-fluid text-center px-5 mt-4">
 
     <div class="info-blob">
       <h1 class="h3-heading">{{ category.name }}</h1>
@@ -31,10 +31,10 @@
               class="thumb-border"
               width="300"
               src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-              alt="{{product.name}}"
+              alt="{{ product.name }}"
             >
             {% else %}
-            <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
+            <img src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
             {% endif %}
           </div>
           <h3 class="mb-1 h6-heading">{{ product.company }}</h3>

@@ -1,15 +1,12 @@
 .category-listing {
   background: #fff;
   padding-top: 2em;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 545px;
 
-  &.page-width {
-    width: 100%;
-    margin: 0 auto;
-    max-width: 545px;
-
-    @media screen and (min-width: $bp-md) {
-      max-width: 800px;
-    }
+  @media screen and (min-width: $bp-md) {
+    max-width: 800px;
   }
 
   .info-blob {
@@ -80,26 +77,6 @@
 
         @media (max-width: $bp-md) {
           transform: scale(1.25);
-        }
-      }
-
-      .category-item-label {
-        opacity: 0.5;
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 300;
-
-        @media screen and (min-width: $bp-md) {
-          font-size: 24px;
-        }
-      }
-
-      .category-item-header {
-        font-weight: 700;
-        margin-bottom: 15px;
-
-        @media screen and (min-width: $bp-md) {
-          font-size: 24px;
-          margin-bottom: 50px;
         }
       }
     }
