@@ -51,17 +51,18 @@ base_fields = [
     ('profile_by_id', customblocks.ProfileById()),
 ]
 
-# The first Wagtail image returned that has the specified tag name will be the default image URL in social shares
-# when no Image is specified at the Page level
-try:
-    default_social_share_tag = 'social share image'
-    social_share_tag = Tag.objects.get(name=default_social_share_tag)
-except Tag.DoesNotExist:
-    social_share_tag = None
-
 
 # Override the MetadataPageMixin to allow for a default description and image in page metadata for all Pages on the site
 class FoundationMetadataPageMixin(MetadataPageMixin):
+    def __init__(self, *args, **kwargs):
+        # The first Wagtail image returned that has the specified tag name will
+        # be the default image URL in social shares when no Image is specified at the Page level
+        super().__init__(*args, **kwargs)
+        try:
+            default_social_share_tag = 'social share image'
+            self.social_share_tag = Tag.objects.get(name=default_social_share_tag)
+        except Tag.DoesNotExist:
+            self.social_share_tag = None
 
     # Change this string to update the default description of all pages on the site
     default_description = 'Mozilla is a global non-profit dedicated to putting you in control of your online ' \
@@ -94,7 +95,7 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
             parent = parent.get_parent()
 
         try:
-            return Image.objects.filter(tags=social_share_tag).first()
+            return Image.objects.filter(tags=self.social_share_tag).first()
         except Image.DoesNotExist:
             return None
 
