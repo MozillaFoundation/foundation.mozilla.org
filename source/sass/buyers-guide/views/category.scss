@@ -1,31 +1,18 @@
 .category-listing {
   background: #fff;
   padding-top: 2em;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 545px;
 
-  &.page-width {
-    width: 100%;
-    margin: 0 auto;
-    max-width: 545px;
-
-    @media screen and (min-width: 750px) {
-      max-width: 800px;
-    }
+  @media screen and (min-width: $bp-md) {
+    max-width: 800px;
   }
 
   .info-blob {
     font-family: "Zilla Slab";
     margin-bottom: 50px;
     text-align: left;
-
-    h1 {
-      font-size: 30px;
-      margin-bottom: 10px;
-      font-weight: 600;
-
-      @media screen and (min-width: 750px) {
-        font-size: 52px;
-      }
-    }
 
     p {
       font-size: 20px;
@@ -37,6 +24,10 @@
     flex-wrap: wrap;
 
     .category-item-container {
+      $padding-x: 12px;
+      $padding-y: 12px;
+
+      position: relative;
       width: 50%;
       text-align: left;
 
@@ -48,39 +39,44 @@
         padding-right: 3%;
       }
 
+      .seal-of-approval {
+        position: absolute;
+        z-index: 2;
+        top: $padding-y;
+        left: $padding-x;
+        width: 40px;
+        height: auto;
+
+        @media (max-width: $bp-md) {
+          width: 20px;
+          height: auto;
+        }
+      }
+
       a {
         text-decoration: none;
         color: inherit;
       }
 
       .category-image-container {
-        margin-bottom: 20px;
+        position: relative;
         overflow: hidden;
+        background: #f4f4f4;
+        margin-bottom: 12px;
+        padding: 10px;
+
+        @media (min-width: $bp-xl) {
+          padding: 20px;
+        }
       }
 
       img {
         display: block;
         width: 100%;
         height: auto;
-      }
 
-      .category-item-label {
-        opacity: 0.5;
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 300;
-
-        @media screen and (min-width: 750px) {
-          font-size: 24px;
-        }
-      }
-
-      .category-item-header {
-        font-weight: 700;
-        margin-bottom: 15px;
-
-        @media screen and (min-width: 750px) {
-          font-size: 24px;
-          margin-bottom: 50px;
+        @media (max-width: $bp-md) {
+          transform: scale(1.25);
         }
       }
     }
