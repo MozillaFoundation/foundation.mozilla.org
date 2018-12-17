@@ -47,7 +47,7 @@ class AirTableBlock(blocks.StructBlock):
     )
     height = blocks.IntegerBlock(
         default=533,
-        help_text="The height of the view on a desktop, usually coped from the Airtable embed code",
+        help_text="The height of the view on a desktop, usually copied from the Airtable embed code",
     )
 
     class Meta:
