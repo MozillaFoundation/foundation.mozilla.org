@@ -5,11 +5,11 @@
 {% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
 {% block primaryNav %}
-  {% include "pages/primary_nav.html" with background="colorful-background" %}
+  {% include "pages/primary_nav.html" %}
 {% endblock %}
 
 {% block heroGuts %}
-  <h1 class="h1-heading pb-5">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+  <h1 class="h1-heading pt-2 pb-5">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
 {% endblock %}
 
 {% block content %}
