@@ -191,16 +191,18 @@
   }
 }
 
-.row.with-product-updates::before {
-  display: block;
-  content: ' '; /* :before and :after won't work without content... =( */
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 228px;
-  background-image: url("/_images/buyers-guide/dot-pattern.svg");
-  background-size: 9px 9px;
+.dotted-section {
+  &::before {
+    display: block;
+    content: ' '; /* :before and :after won't work without content... =( */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 228px;
+    background-image: url("/_images/buyers-guide/dot-pattern.svg");
+    background-size: 9px 9px;
+  }
 }
 
 .product-update {
