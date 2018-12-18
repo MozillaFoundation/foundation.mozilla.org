@@ -1,4 +1,16 @@
 #primary-nav-container {
+  $logo-height: 28px;
+
+  $menu-container-padding: (
+    md: 16px
+  );
+
+  $primary-nav-link-padding: (
+    xs: 18px,
+    sm: 22px,
+    md: 9px
+  );
+
   &.zen-mode {
     .menu-container {
       @media (min-width: $bp-md) {
@@ -11,59 +23,46 @@
   .menu-container {
     padding: 0 0 0 52px;
 
-    @media (min-width: $bp-sm) {
-      padding: 0 52px;
-    }
-
     @media (min-width: $bp-md) {
-      padding: 8px 0;
-    }
-
-    @media (min-width: 990px) {
-      padding: 16px 0;
+      padding: map-get($menu-container-padding, md) 0;
     }
   }
 
   #donate-header-btn {
-    margin-top: 16px;
-    margin-bottom: 16px;
-
-    @media (min-width: $bp-md) {
-      margin-top: 0;
-      margin-bottom: 0;
+    @media (max-width: $bp-sm) {
+      padding: 4px;
     }
   }
 
   #primary-nav-links {
-    padding-top: 18px;
-    padding-bottom: 18px;
+    @mixin link-padding($v-padding: xs) {
+      padding-top: $v-padding;
+      padding-bottom: $v-padding;
+    }
+
+    @include link-padding(map-get($primary-nav-link-padding, xs));
 
     @media (min-width: $bp-sm) {
-      padding-top: 22px;
-      padding-bottom: 22px;
+      @include link-padding(map-get($primary-nav-link-padding, sm));
     }
 
     @media (min-width: $bp-md) {
-      padding-top: 9px;
-      padding-bottom: 9px;
-    }
-
-    @media (min-width: $bp-lg) {
-      padding-top: 8px;
-      padding-bottom: 8px;
+      @include link-padding(map-get($primary-nav-link-padding, md));
     }
   }
 
-  .wrapper-burger {
-    background: none;
-    transition: background 200ms ease-in-out;
+  .donate-btn-wrapper {
+    display: flex;
+    align-items: center;
+  }
 
-    &.simple-background {
-      background: white;
-      border-bottom: 1px solid #ccc;
-    }
+  .wrapper-burger {
+    transition: background 200ms ease-in-out;
+    background: white;
+    border-bottom: 1px solid #ccc;
 
     .wide-screen-menu {
+      line-height: $logo-height; //Tied to logo height so that the "active" page border shows up at the correct alignment consistently
       &.hidden {
         opacity: 0;
         transform: translateY(8px);
@@ -76,11 +75,48 @@
 
     .nav-links {
       a {
+        $border-thickness: 6px;
+
+        border-bottom: 6px solid transparent;
+        color: $black;
+        font-family: "Nunito Sans";
+        font-weight: 700;
         margin-right: 18px;
+        transition: border-color 0.25s ease;
+
+        @mixin padding-bottom($bp: sm) {
+          padding-bottom: calc(#{map-get($menu-container-padding, $bp)} + #{map-get($primary-nav-link-padding, $bp)} - #{$border-thickness} / 2);
+        }
+
+        @media (min-width: $bp-sm) {
+          @include padding-bottom(sm);
+        }
+
+        @media (min-width: $bp-md) {
+          @include padding-bottom(md);
+        }
+
+        @include scaleText(17px, 23px);
+
+        @include hover-focus-active {
+          text-decoration: none;
+          border-bottom-color: #ccc;
+        }
       }
 
-      @media (max-width: $bp-lg) {
-        padding-top: 0.6rem;
+      @at-root {
+        #view-people .nav-link-people,
+        #view-initiatives .nav-link-initiatives,
+        #view-projects .nav-link-projects,
+        #view-participate .nav-link-participate,
+        #view-internet-health .nav-link-internet-health,
+        #view-about .nav-link-about {
+          border-color: black !important;
+
+          @include hover-focus-active {
+            border-color: initial !important;
+          }
+        }
       }
     }
 
@@ -160,7 +196,7 @@
 
     .logo {
       width: 28px;
-      height: 28px;
+      height: $logo-height;
       background: url(../_images/mozilla-m.svg) no-repeat;
       background-size: contain;
       position: relative;
@@ -219,15 +255,10 @@
         a {
           font-weight: 500;
           transition: transform 0.15s;
-          display: block;
-          margin-right: 0;
-          padding: 9px 0;
+          display: inline-block;
+          margin: 10px 0;
           color: white;
         }
-      }
-
-      @media (min-width: $bp-md) {
-        display: none;
       }
     }
   }
