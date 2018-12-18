@@ -175,8 +175,10 @@ let main = {
   },
 
   bindGAEventTrackers() {
-    if (document.querySelector(`#see-more-modular-page`)) {
-      document.querySelector(`#see-more-modular-page`).addEventListener(`click`, () => {
+    let seeMorePage = document.querySelector(`#see-more-modular-page`);
+
+    if (seeMorePage) {
+      seeMorePage.addEventListener(`click`, () => {
         let label = ``;
         let pageHeader = document.querySelector(`.cms h1`);
 
@@ -185,6 +187,18 @@ let main = {
         }
 
         Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
+      });
+    }
+
+    let participateDonateBtn = document.querySelector(`#view-participate .card-cta .btn[href*="donate.mozilla.org"]`);
+
+    if (participateDonateBtn) {
+      participateDonateBtn.addEventListener(`click`, () => {
+        ReactGA.event({
+          category: `donate`,
+          action: `donate button tap`,
+          label: document.title
+        });
       });
     }
   },
