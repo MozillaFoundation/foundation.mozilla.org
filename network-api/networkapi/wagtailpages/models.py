@@ -508,14 +508,7 @@ class InitiativesPage(PrimaryPage):
         InlinePanel('featured_highlights', label='Highlights', max_num=9),
     ]
 
-
-# TODO: Remove this model after ParticipatePage2 is in use
 class ParticipatePage(PrimaryPage):
-    parent_page_types = ['Homepage']
-    template = 'wagtailpages/static/participate_page.html'
-
-
-class ParticipatePage2(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page2.html'
 
@@ -802,14 +795,14 @@ class CTABase(WagtailOrderable, models.Model):
 
 class CTA4(CTABase):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='cta4',
     )
 
 
 class ParticipateHighlightsBase(WagtailOrderable, models.Model):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', related_name='+')
@@ -835,14 +828,14 @@ class ParticipateHighlightsBase(WagtailOrderable, models.Model):
 
 class ParticipateHighlights(ParticipateHighlightsBase):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='featured_highlights',
     )
 
 
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='featured_highlights2',
     )
 
@@ -901,7 +894,6 @@ class Homepage(MetadataPageMixin, Page):
         'Styleguide',
         'NewsPage',
         'ParticipatePage',
-        'ParticipatePage2',
         'MiniSiteNameSpace',
         'RedirectingPage',
         'OpportunityPage',
