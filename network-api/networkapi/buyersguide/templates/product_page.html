@@ -39,11 +39,11 @@
   </div>
 </div>
 
-{% with section_class_col="col-12 col-lg-10 offset-lg-1" section_class_padding_x="px-md-5" section_class_padding_y="py-md-5" %}
+{% with section_class="col-12 col-lg-10 offset-lg-1 p-md-5" %}
 <div class="container">
 
   <div class="row">
-    <div class="product-detail bg-white py-3 {{section_class_col}} {{section_class_padding_x}} {{section_class_padding_y}}">
+    <div class="product-detail bg-white py-3 {{section_class}}">
       <div class="row intro d-flex justify-content-between align-items-center">
         <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
@@ -126,54 +126,48 @@
 </div>
 
 <div class="container-fluid">
-  {% if product.updates|length > 0 %}
-  <div class="row with-product-updates mx-0">
-  {% else %}
-  <div class="row">
-  {% endif %}
+  <div class="row dotted-section d-block d-sm-flex mx-0">
     <div class="container">
       <div class="row">
-      {% if product.updates|length > 0 %}
-        <div class="{{section_class_col}} {{section_class_padding_x}} mt-5 bg-white">
-        {% else %}
-        <div class="{{section_class_col}} {{section_class_padding_x}} {{section_class_padding_y}}">
-        {% endif %}
+        <div class="{{section_class}} mt-5 pt-3 bg-white">
           {% if product.updates|length > 0 %}
-          <h3 class="h3-heading my-5">Updates</h3>
-          {% for product in product.updates %}
-            <div class="product-update mb-3">
-              <a class="product-update-link h5-heading title" href="{{product.source}}" target="_blank">{{product.title}}</a>
-              <div class="author">{{product.author}}</div>
-              <div class="snippet">{{product.snippet}}</div>
-            </div>
-          {% endfor %}
+          <div class="mb-5">
+            <h3 class="h3-heading mb-4 mb-md-5">Updates</h3>
+            {% for product in product.updates %}
+              <div class="product-update mb-4">
+                <a class="product-update-link h5-heading title" href="{{product.source}}" target="_blank">{{product.title}}</a>
+                <div class="author">{{product.author}}</div>
+                <div class="snippet">{{product.snippet}}</div>
+              </div>
+            {% endfor %}
+          </div>
           {% endif %}
 
-          <h3 class="h3-heading mt-5 mb-3">Compare products</h3>
+          <h3 class="h3-heading mb-4">Compare products</h3>
           <div class="row">
-          {% for product in product.related_products %}
-          <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
-            <a class="d-block" href="/en/privacynotincluded/products/{{ product.slug }}">
-              {% if USE_CLOUDINARY %}
-                <img class="thumb-border"
-                width="300"
-                src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
-                alt="{{product.name}}">
-              {% else %}
-                <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
-              {% endif %}
-            </a>
+            {% for product in product.related_products %}
+            <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
+              <a class="d-block" href="/en/privacynotincluded/products/{{ product.slug }}">
+                {% if USE_CLOUDINARY %}
+                  <img class="thumb-border"
+                  width="300"
+                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+                  alt="{{product.name}}">
+                {% else %}
+                  <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
+                {% endif %}
+              </a>
 
-            {% if product.meets_minimum_security_standards is True %}
-            <img
-              src="/_images/buyers-guide/mini-badge.svg"
-              class="seal-of-approval"
-              alt="this related product meets our minimum security standards"
-              title="this related product meets our minimum security standards"
-            >
-            {% endif %}
-          </div>
-          {% endfor %}
+              {% if product.meets_minimum_security_standards is True %}
+              <img
+                src="/_images/buyers-guide/mini-badge.svg"
+                class="seal-of-approval"
+                alt="this related product meets our minimum security standards"
+                title="this related product meets our minimum security standards"
+              >
+              {% endif %}
+            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -184,7 +178,7 @@
 {% if coralTalkServerUrl %}
   <div class="container">
     <div class="row">
-      <div class="{{section_class_col}} {{section_class_padding_x}} {{section_class_padding_y}}">
+      <div class="{{section_class}}">
         <div id="coral_talk_stream"></div>
       </div>
     </div>
