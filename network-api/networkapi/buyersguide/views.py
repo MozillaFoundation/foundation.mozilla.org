@@ -113,7 +113,21 @@ def about_view(request):
         categories = BuyersGuideProductCategory.objects.all()
         cache.set(key, categories, 86400)
 
-    return render(request, 'about.html', {
+    return render(request, 'about/how-to-use.html', {
+        'categories': categories,
+    })
+
+
+@enforce_en_locale
+def why_view(request):
+    key = 'categories'
+    categories = cache.get(key)
+
+    if not categories:
+        categories = BuyersGuideProductCategory.objects.all()
+        cache.set(key, categories, 86400)
+
+    return render(request, 'about/why-we-made.html', {
         'categories': categories,
     })
 

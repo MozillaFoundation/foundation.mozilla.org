@@ -155,22 +155,6 @@ let main = {
 
     primaryNav.init();
 
-    // Adjust #hero offset on load and window resize to accomodate the sticky header
-
-    let elHero = document.querySelector(`#hero`);
-    let elStickyTop = document.querySelector(`.sticky-top`);
-
-    let adjustHero = () => {
-      elHero.style.paddingTop = `${elStickyTop.clientHeight}px`;
-      elHero.style.marginTop = `-${elStickyTop.clientHeight}px`;
-    };
-
-    adjustHero();
-
-    window.addEventListener(`resize`, () => {
-      adjustHero();
-    });
-
     // Extra tracking
 
     document.getElementById(`donate-header-btn`).addEventListener(`click`, () => {
@@ -191,8 +175,10 @@ let main = {
   },
 
   bindGAEventTrackers() {
-    if (document.querySelector(`#see-more-modular-page`)) {
-      document.querySelector(`#see-more-modular-page`).addEventListener(`click`, () => {
+    let seeMorePage = document.querySelector(`#see-more-modular-page`);
+
+    if (seeMorePage) {
+      seeMorePage.addEventListener(`click`, () => {
         let label = ``;
         let pageHeader = document.querySelector(`.cms h1`);
 
@@ -201,6 +187,18 @@ let main = {
         }
 
         Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
+      });
+    }
+
+    let participateDonateBtn = document.querySelector(`#view-participate .card-cta .btn[href*="donate.mozilla.org"]`);
+
+    if (participateDonateBtn) {
+      participateDonateBtn.addEventListener(`click`, () => {
+        ReactGA.event({
+          category: `donate`,
+          action: `donate button tap`,
+          label: document.title
+        });
       });
     }
   },
