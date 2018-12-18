@@ -268,15 +268,12 @@
   &:not(.vertical-nav) {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    // align-items-center
-
+    align-items: stretch;
     border-bottom: 1px $light-gray solid;
-    // border-bottom: 10px red solid;
-
-    // padding-bottom: 16px;
 
     .multipage-link {
+      display: flex;
+      align-items: center;
       margin-right: 2rem;
       padding-bottom: 16px;
     }
