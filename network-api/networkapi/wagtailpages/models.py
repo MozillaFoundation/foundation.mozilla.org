@@ -20,6 +20,9 @@ from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import get_page_tree_information
 
+# TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
+from .donation_modal import DonationModals  # noqa: F401
+
 """
 We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
