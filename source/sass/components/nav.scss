@@ -264,12 +264,22 @@
   }
 }
 
+#multipage-nav-wrapper {
+  &.full-width {
+    border-bottom: 1px solid #ccc;
+  }
+}
+
 #multipage-nav {
   &:not(.vertical-nav) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     border-bottom: 1px $light-gray solid;
+
+    @at-root #multipage-nav-wrapper.full-width #{&} {
+      border: none;
+    }
 
     .multipage-link {
       display: flex;

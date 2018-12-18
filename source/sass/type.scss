@@ -54,6 +54,9 @@ a {
   font-family: "Nunito Sans";
   color: $medium-gray;
   font-size: 15px;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
 
   &:hover,
   &:focus,
@@ -62,7 +65,7 @@ a {
     color: inherit;
     color: $black;
     text-decoration: none;
-    box-shadow: 0 3px black;
+    border-bottom-color: black;
   }
 
   @at-root #multipage-nav-mobile &#{$active-class-name} {

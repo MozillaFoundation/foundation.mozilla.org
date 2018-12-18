@@ -6,15 +6,17 @@
 
 {% include "partials/multipage-nav-mobile.html" with wrapper_classes="mb-4 mb-md-5 mt-3" %}
 
-<div id="fellowships-nav" class="hidden-sm-down my-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div id="multipage-nav">
-          <a href="{% url 'fellowships-home' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-home fellowships-type' %}">Fellowships</a>
-          <a href="{% url 'fellowships-directory' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-directory fellowships-directory-archive' %}">Directory</a>
-          <a href="{% url 'fellowships-support' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-support' %}">Support the Program</a>
-          <a href="{% url 'fellowships-get-involved' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-get-involved' %}">Get Involved</a>
+<div id="fellowships-nav" class="multipage-nav-wrapper hidden-sm-down my-4">
+  <div id="multipage-nav-wrapper" class="full-width">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div id="multipage-nav">
+            <a href="{% url 'fellowships-home' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-home fellowships-type' %}">Fellowships</a>
+            <a href="{% url 'fellowships-directory' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-directory fellowships-directory-archive' %}">Directory</a>
+            <a href="{% url 'fellowships-support' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-support' %}">Support the Program</a>
+            <a href="{% url 'fellowships-get-involved' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-get-involved' %}">Get Involved</a>
+          </div>
         </div>
       </div>
     </div>
