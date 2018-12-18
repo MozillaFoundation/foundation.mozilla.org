@@ -155,22 +155,6 @@ let main = {
 
     primaryNav.init();
 
-    // Adjust #hero offset on load and window resize to accomodate the sticky header
-
-    let elHero = document.querySelector(`#hero`);
-    let elStickyTop = document.querySelector(`.sticky-top`);
-
-    let adjustHero = () => {
-      elHero.style.paddingTop = `${elStickyTop.clientHeight}px`;
-      elHero.style.marginTop = `-${elStickyTop.clientHeight}px`;
-    };
-
-    adjustHero();
-
-    window.addEventListener(`resize`, () => {
-      adjustHero();
-    });
-
     // Extra tracking
 
     document.getElementById(`donate-header-btn`).addEventListener(`click`, () => {
