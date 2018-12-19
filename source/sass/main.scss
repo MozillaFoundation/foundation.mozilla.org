@@ -43,6 +43,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './components/nav';
 @import './components/commitment';
 @import './components/card';
+@import './components/airtable-block.scss';
 
 // Misc
 
