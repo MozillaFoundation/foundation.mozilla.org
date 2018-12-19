@@ -52,6 +52,7 @@ base_fields = [
     ('pulse_listing', customblocks.PulseProjectList()),
     ('profile_listing', customblocks.LatestProfileList()),
     ('profile_by_id', customblocks.ProfileById()),
+    ('airtable', customblocks.AirTableBlock()),
 ]
 
 
