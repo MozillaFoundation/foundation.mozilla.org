@@ -1,8 +1,8 @@
-.donate-modal {
-  $modal-z-index: 1040; //War of escalation with .sticky-top
+@import '../../../node_modules/bootstrap/scss/_variables';
 
+.donate-modal {
   position: fixed;
-  z-index: $modal-z-index;
+  z-index: $zindex-modal-backdrop;
   left: 0;
   width: 100vw;
   bottom: 0;
@@ -44,7 +44,7 @@
     width: $width;
     height: $height;
     outline: 0;
-    z-index: $modal-z-index+1;
+    z-index: $zindex-modal;
 
     @media (min-width: $bp-md) {
       top: 20px;
