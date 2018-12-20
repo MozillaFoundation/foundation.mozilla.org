@@ -40,3 +40,7 @@ class MilestoneFactory(DjangoModelFactory):
     @post_generation
     def photo_name(self, create, extracted, **kwargs):
         self.photo.name = Faker('generic_image').generate({})
+
+
+def generate():
+    [MilestoneFactory.create() for i in range(10)]

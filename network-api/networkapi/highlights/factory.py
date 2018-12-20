@@ -8,7 +8,7 @@ from factory import (
     post_generation,
 )
 
-from networkapi.utility.faker import ImageProvider
+from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.highlights.models import Highlight
 
 Faker.add_provider(ImageProvider)
@@ -67,3 +67,8 @@ class HighlightFactory(DjangoModelFactory):
     @post_generation
     def image_name(self, create, extracted, **kwargs):
         self.image.name = Faker('generic_image').generate({})
+
+
+def generate():
+    print('Generating Highlights')
+    generate_fake_data(HighlightFactory, 10)

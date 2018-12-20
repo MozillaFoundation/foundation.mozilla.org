@@ -1,5 +1,6 @@
 import random
 from django.conf import settings
+from django.core.management import call_command
 
 from factory import (
     DjangoModelFactory,
@@ -8,10 +9,12 @@ from factory import (
     LazyAttribute,
 )
 
-from networkapi.utility.faker import ImageProvider
+from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.buyersguide.models import (
     Product,
-    BuyersGuideProductCategory
+    BuyersGuideProductCategory,
+    RangeVote,
+    BooleanVote
 )
 
 Faker.add_provider(ImageProvider)
@@ -83,3 +86,28 @@ class ProductFactory(DjangoModelFactory):
             self.cloudinary_image = Faker('product_image').generate({})
         else:
             self.image.name = Faker('product_image').generate({})
+
+
+def generate():
+    print('Generating Buyer\'s Guide Products')
+    generate_fake_data(ProductFactory, 70)
+
+    print('Generating Randomised Buyer\'s Guide Products Votes')
+    for p in Product.objects.all():
+        for _ in range(1, 15):
+            value = random.randint(1, 100)
+            RangeVote.objects.create(
+                product=p,
+                attribute='creepiness',
+                value=value
+            )
+
+            value = (random.random() < 0.5)
+            BooleanVote.objects.create(
+                product=p,
+                attribute='confidence',
+                value=value
+            )
+
+    print('Aggregating Buyer\'s Guide Product votes')
+    call_command('aggregate_product_votes')
