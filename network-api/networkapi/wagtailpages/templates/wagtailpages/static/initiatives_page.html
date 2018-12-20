@@ -27,7 +27,7 @@
       <div class="row">
         <div class="col-12 hidden-sm-down">
           <div id="multipage-nav">
-            <a class="multipage-link multipage-link-active" href="./">Overview</a>
+            <a class="multipage-link active" href="./">Overview</a>
             {% for section in page.initiative_sections.all %}
             <a class="multipage-link" href="{{ section.sectionButtonURL }}">{{ section.sectionHeader }}</a>
             {% endfor %}
