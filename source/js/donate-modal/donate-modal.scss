@@ -19,6 +19,7 @@
 
   &.show {
     height: 24em;
+    max-height: 100vh;
 
     @media (min-width: $bp-sm) {
       height: 23em;
