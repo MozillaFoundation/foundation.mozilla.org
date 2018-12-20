@@ -1,20 +1,17 @@
 from itertools import chain, combinations
 
 import factory
+<<<<<<< HEAD
 import random
+=======
+from random import randint
+>>>>>>> Refactor load_fake_data so that the factory files can define a callable 'generate' method which the management command can call
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
-from django.conf import settings
-
-from networkapi.people.models import InternetHealthIssue
-
-from wagtail.core.models import (
-    Site as WagtailSite,
-    Page as WagtailPage
-)
 
 # Factories
+<<<<<<< HEAD
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.milestones.factory import MilestoneFactory
 from networkapi.news.factory import NewsFactory
@@ -40,29 +37,16 @@ from networkapi.wagtailpages.factory import (
     ParticipatePage2FeaturedHighlights2Factory,
     DonationModalsFactory,
 )
+=======
+import networkapi.highlights.factory as highlights_factory
+import networkapi.milestones.factory as milestones_factory
+import networkapi.news.factory as news_factory
+import networkapi.people.factory as people_factory
+import networkapi.wagtailpages.factory as wagtailpages_factory
+import networkapi.buyersguide.factory as buyersguide_factory
+>>>>>>> Refactor load_fake_data so that the factory files can define a callable 'generate' method which the management command can call
 
-from networkapi.buyersguide.models import (
-    Product,
-    RangeVote,
-    BooleanVote
-)
-from networkapi.buyersguide.factory import ProductFactory
 from wagtail_factories import ImageFactory
-
-# Wagtail Page Models
-import networkapi.wagtailpages.models as wagtailpages_models
-
-internet_health_issues = [
-    'Digital Inclusion',
-    'Web Literacy',
-    'Open Innovation',
-    'Decentralization',
-    'Online Privacy and Security',
-]
-
-if settings.HEROKU_APP_NAME:
-    REVIEW_APP_NAME = settings.HEROKU_APP_NAME
-    REVIEW_APP_HOSTNAME = f'{REVIEW_APP_NAME}.herokuapp.com'
 
 
 def powerset(iterable):
@@ -137,6 +121,7 @@ class Command(BaseCommand):
             ) for i in range(20)
         ]
 
+<<<<<<< HEAD
         reseed()
 
         print('Generating Milestones')
@@ -442,5 +427,15 @@ class Command(BaseCommand):
 
         print('Aggregating Buyer\'s Guide Product votes')
         call_command('aggregate_product_votes')
+=======
+        [app_factory.generate() for app_factory in [
+            milestones_factory,
+            news_factory,
+            highlights_factory,
+            people_factory,
+            wagtailpages_factory,
+            buyersguide_factory
+        ]]
+>>>>>>> Refactor load_fake_data so that the factory files can define a callable 'generate' method which the management command can call
 
         print(self.style.SUCCESS('Done!'))

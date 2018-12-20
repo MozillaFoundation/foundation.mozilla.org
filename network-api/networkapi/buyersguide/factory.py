@@ -1,5 +1,6 @@
 from random import randint, random, choice
 from django.conf import settings
+from django.core.management import call_command
 
 from factory import (
     DjangoModelFactory,
@@ -8,10 +9,12 @@ from factory import (
     LazyAttribute,
 )
 
-from networkapi.utility.faker import ImageProvider
+from networkapi.utility.faker import ImageProvider, generate_fake_data, reseed
 from networkapi.buyersguide.models import (
     Product,
-    BuyersGuideProductCategory
+    BuyersGuideProductCategory,
+    RangeVote,
+    BooleanVote
 )
 
 Faker.add_provider(ImageProvider)
@@ -78,3 +81,68 @@ class ProductFactory(DjangoModelFactory):
             self.cloudinary_image = Faker('product_image').generate({})
         else:
             self.image.name = Faker('product_image').generate({})
+
+
+def generate(seed):
+    reseed(seed)
+
+    print('Generating fixed Buyer\'s Guide Product for visual regression testing')
+    ProductFactory.create(
+        product_words=['Percy', 'Cypress'],
+        name='percy cypress',
+        draft=False,
+        adult_content=False,
+        company='Percy',
+        blurb='Visual Regression Testing',
+        url='https://vrt.example.com',
+        price=350,
+        camera_app=True,
+        meets_minimum_security_standards=True,
+        camera_device=False,
+        microphone_app=True,
+        microphone_device=False,
+        location_app=True,
+        location_device=False,
+        uses_encryption=True,
+        privacy_policy_reading_level_url='https://vrt.example.com/pprl',
+        privacy_policy_reading_level='7',
+        share_data=False,
+        must_change_default_password=False,
+        security_updates=False,
+        delete_data=True,
+        child_rules=False,
+        manage_security=True,
+        phone_number='1-555-555-5555',
+        live_chat=True,
+        email='vrt@example.com',
+        worst_case='Duplicate work that burns through screenshots',
+    )
+
+    reseed(seed)
+
+    print('Generating Buyer\'s Guide Products')
+    generate_fake_data(ProductFactory, 70)
+
+    reseed(seed)
+
+    print('Generating Randomised Buyer\'s Guide Products Votes')
+    for p in Product.objects.all():
+        for _ in range(1, 15):
+            value = random.randint(1, 100)
+            RangeVote.objects.create(
+                product=p,
+                attribute='creepiness',
+                value=value
+            )
+
+            value = (random.random() < 0.5)
+            BooleanVote.objects.create(
+                product=p,
+                attribute='confidence',
+                value=value
+            )
+
+    reseed(seed)
+
+    print('Aggregating Buyer\'s Guide Product votes')
+    call_command('aggregate_product_votes')

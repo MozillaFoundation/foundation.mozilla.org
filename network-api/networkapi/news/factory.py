@@ -8,7 +8,7 @@ from factory import (
     LazyAttribute,
 )
 
-from networkapi.utility.faker import ImageProvider
+from networkapi.utility.faker import ImageProvider, generate_fake_data, reseed
 from networkapi.news.models import News
 
 from django.conf import settings
@@ -59,3 +59,10 @@ class NewsFactory(DjangoModelFactory):
     @post_generation
     def set_thumbnail(self, create, extracted, **kwargs):
         self.thumbnail.name = Faker('generic_image').generate({})
+
+
+def generate(seed):
+    reseed(seed)
+
+    print('Generating Fake News')
+    generate_fake_data(NewsFactory, 10)
