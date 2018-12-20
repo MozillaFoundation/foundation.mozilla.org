@@ -69,7 +69,7 @@ a {
   }
 
   @at-root #multipage-nav-mobile &#{$active-class-name} {
-    box-shadow: none;
+    border-bottom: none;
   }
 }
 
