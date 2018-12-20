@@ -1,5 +1,5 @@
 .donate-modal {
-  $modal-z-index: 10;
+  $modal-z-index: 1040; //War of escalation with .sticky-top
 
   position: fixed;
   z-index: $modal-z-index;
