@@ -105,4 +105,3 @@ def generate():
 
     print('Generating People with Affiliation')
     generate_fake_data(AffiliationFactory, 10)
-
