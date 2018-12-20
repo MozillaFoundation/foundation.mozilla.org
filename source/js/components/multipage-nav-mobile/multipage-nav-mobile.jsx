@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class MultipageNav extends React.Component {
+export default class MultipageNavMobile extends React.Component {
   constructor(props) {
     super(props);
 
