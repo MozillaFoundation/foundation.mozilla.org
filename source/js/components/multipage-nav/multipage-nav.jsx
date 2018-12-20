@@ -20,7 +20,7 @@ export default class MultipageNav extends React.Component {
   render() {
     let activeLinkLabel;
     let links = this.props.links.map((link, index) => {
-      let className = `multipage-link${ link.isActive && link.isHighlighted ? ` multipage-link-active` : `` }`;
+      let className = `multipage-link${ link.isActive ? ` active` : `` }`;
 
       if (link.isActive) {
         activeLinkLabel = <a className={`active-link-label ${className}`}>{link.label}</a>;
@@ -47,7 +47,7 @@ export default class MultipageNav extends React.Component {
     </div>);
 
     return (
-      <div className={`multipage-nav${this.state.isOpen ? ` multipage-nav-open` : ``}`}>
+      <div className={`dropdown-nav${this.state.isOpen ? ` dropdown-nav-open` : ``}`}>
         {links}
       </div>
     );
