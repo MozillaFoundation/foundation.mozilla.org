@@ -19,7 +19,7 @@
 
   &.show {
     height: 24em;
-    max-height: 100vh;
+    max-height: 100vh; //Small devices in landscape mode sholdn't add so much extra space due to hardcoded height that they push the close button off the screen
 
     @media (min-width: $bp-sm) {
       height: 23em;
