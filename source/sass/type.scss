@@ -212,7 +212,7 @@ p,
 }
 
 .multipage-link {
-  @include secondary-nav-link(".multipage-link-active");
+  @include secondary-nav-link(".active");
 
   @at-root .side-nav #{&} {
     @include scaleText(17px, 17px*1.6);
