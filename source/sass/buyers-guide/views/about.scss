@@ -8,29 +8,6 @@
   font-weight: bold;
 }
 
-#pni-about .side-nav {
-  li {
-    @media (max-width: $bp-lg) {
-      margin: 1em 0;
-    }
-
-    margin: 2em 0;
-  }
-
-  a {
-    color: #909090;
-  }
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active {
-    color: black;
-    border-bottom: 5px solid black;
-    text-decoration: none;
-  }
-}
-
 /*
   This accordion relies on the following (repeated) structure:
 

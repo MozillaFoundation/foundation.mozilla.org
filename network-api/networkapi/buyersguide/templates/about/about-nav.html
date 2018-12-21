@@ -1,6 +1,6 @@
 <div class="col-lg-3">
-  <ul class="side-nav mt-4 pt-3">
-    <li><a {% if page == 'about'%}class="current"{% endif %} href="./">How to use this guide</a></li>
-    <li><a {% if page == 'why'%}class="current"{% endif %} href="./why">Why we made this guide</a></li>
-  </ul>
+  <div class="vertical-nav side-nav mt-5 pt-sm-2" id="multipage-nav">
+    <div class="multipage-link-wrapper"><a class="multipage-link {% if page == 'about'%}active{% endif %}" href="./">How to use this guide</a></div>
+    <div class="multipage-link-wrapper"><a class="multipage-link {% if page == 'why'%} active{% endif %}" href="./why">Why we made this guide</a></div>
+  </div>
 </div>
