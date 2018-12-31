@@ -34,10 +34,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:033efb6ea10d06404431f5f5fe86ecb3bccb17458960740da661b981f09359c7",
-                "sha256:4a091f5296da00e4e552637101d5fa4f4c87fa888ee88e99e09127fe15176aec"
+                "sha256:d6fa29f28899892f77014c19afa40ec1b87ef1e57b15c7eac582e8d48eddf32d",
+                "sha256:e5bcea66a1ffad9b2e1ff2935a31455c76f689e00b924e9920cb012b177fbe35"
             ],
-            "version": "==1.12.67"
+            "version": "==1.12.71"
         },
         "certifi": {
             "hashes": [
@@ -356,10 +356,10 @@
         },
         "python-slugify": {
             "hashes": [
-                "sha256:7723daf30996db26573176bddcdf5fcb98f66dc70df05c9cb29f2c79b8193245"
+                "sha256:4e867cb16712f4d660b74fd55ba2ef4b7431ccd6aafec0a6d41a398f4cbc2de4"
             ],
             "index": "pypi",
-            "version": "==1.2.6"
+            "version": "==2.0.0"
         },
         "python3-openid": {
             "hashes": [
