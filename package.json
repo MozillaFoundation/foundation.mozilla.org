@@ -48,7 +48,7 @@
     "chokidar-cli": "^1.2.1",
     "classnames": "2.2.6",
     "dotenv": "^6.2.0",
-    "eslint": "^5.10.0",
+    "eslint": "^5.11.1",
     "eslint-plugin-react": "^7.11.1",
     "event-stream": "3.3.4",
     "html-entities": "^1.2.1",
