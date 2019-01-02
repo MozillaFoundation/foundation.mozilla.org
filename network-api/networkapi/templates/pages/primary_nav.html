@@ -1,3 +1,5 @@
+{% load primary_active_nav %}
+
 {% if page.zen_nav == True %}<div id="primary-nav-container" data-nav-mode="zen" class="zen-mode">
 {% else %}<div id="primary-nav-container">
 {% endif %}
@@ -10,11 +12,11 @@
               <div class="row">
                 <div class="col">
                   <div class="nav-links pt-3">
-                    <div><a class="nav-link-home" href="/">Home</a></div>
-                    <div><a class="nav-link-initiatives" href="/initiatives">Initiatives</a></div>
-                    <div><a class="nav-link-participate" href="/participate">Participate</a></div>
-                    <div><a class="nav-link-internet-health" href="/internet-health">Internet&nbsp;Health</a></div>
-                    <div><a class="nav-link-about" href="/about">About&nbsp;Us</a></div>
+                    <div><a class="{% primary_active_nav request '/' %}" href="/">Home</a></div>
+                    <div><a class="{% primary_active_nav request '/initiatives' %}" href="/initiatives">Initiatives</a></div>
+                    <div><a class="{% primary_active_nav request '/participate' %}" href="/participate">Participate</a></div>
+                    <div><a class="{% primary_active_nav request '/internet-health' %}" href="/internet-health">Internet&nbsp;Health</a></div>
+                    <div><a class="{% primary_active_nav request '/about' %}" href="/about">About&nbsp;Us</a></div>
                     {% if HEROKU_APP_NAME %}
                     <div><a href="/help">DEV HELP</a></div>
                     {% endif %}
@@ -47,10 +49,10 @@
                   <div class="wide-screen-menu">
                 {% endif %}
                     <div class="nav-links hidden-sm-down">
-                      <a class="nav-link-initiatives" href="/initiatives">Initiatives</a>
-                      <a class="nav-link-participate" href="/participate">Participate</a>
-                      <a class="nav-link-internet-health" href="/internet-health">Internet&nbsp;Health</a>
-                      <a class="nav-link-about" href="/about">About&nbsp;Us</a>
+                      <a class="{% primary_active_nav request '/initiatives' %}" href="/initiatives">Initiatives</a>
+                      <a class="{% primary_active_nav request '/participate' %}" href="/participate">Participate</a>
+                      <a class="{% primary_active_nav request '/internet-health' %}" href="/internet-health">Internet&nbsp;Health</a>
+                      <a class="{% primary_active_nav request '/about' %}" href="/about">About&nbsp;Us</a>
                       {% if HEROKU_APP_NAME %}
                         <a href="/help">DEV HELP</a>
                       {% endif %}
