@@ -199,6 +199,7 @@ MIDDLEWARE = list(filter(None, [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'networkapi.middleware.ReferrerMiddleware',
+    'log_request_id.middleware.RequestIDMiddleware',
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -464,15 +465,21 @@ DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'request_id': {
+            '()': 'log_request_id.filters.RequestIDFilter'
+        }
+    },
     'formatters': {
-        'simple': {
-            'format': '[%(asctime)s] [%(levelname)s] %(message)s'
+        'standard': {
+            'format': '%(levelname)-8s [%(asctime)s] [%(request_id)s] %(name)s: %(message)s'
         },
     },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'simple',
+            'formatter': 'standard',
+            'filters': ['request_id']
         },
     },
     'loggers': {
@@ -481,11 +488,11 @@ LOGGING = {
             'level': DJANGO_LOG_LEVEL,
             'propagate': True,
         },
-        'django.request': {
+        'log_request_id.middleware': {
             'handlers': ['console'],
-            'level': DJANGO_LOG_LEVEL,
-            'propagate': True,
-        },
+            'level': 'DEBUG',
+            'propagate': False,
+        }
     },
 }
 
