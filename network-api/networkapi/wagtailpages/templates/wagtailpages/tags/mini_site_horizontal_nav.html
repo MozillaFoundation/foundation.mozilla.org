@@ -1,10 +1,12 @@
 {% load wagtailcore_tags %}
 
 {% if menu_pages %}
+{% pageurl current as current_page_url %}
 <div class="mb-4 hidden-sm-down">
   <div class="mini-site" id="multipage-nav">
     {% for entry in menu_pages %}
-    <a class="multipage-link {% if current.title == entry.page.title %}active{% endif %} {% if entry.restriction != None %}multipage-{{entry.restriction}}-restricted{% endif %} {% if not entry.page.live %}multipage-draft{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
+    {% pageurl entry.page as entry_page_url %}
+    <a class="multipage-link {% if current_page_url == entry_page_url %}active{% endif %} {% if entry.restriction != None %}multipage-{{entry.restriction}}-restricted{% endif %} {% if not entry.page.live %}multipage-draft{% endif %}" href="{% pageurl entry.page %}">{% if entry.depth == 2 %}→ {% endif %}{{ entry.menu_title }}
     </a>
     {% endfor %}
   </div>
