@@ -13,6 +13,7 @@ import sys
 
 import os
 import environ
+import logging.config
 import dj_database_url
 from django.utils.translation import gettext_lazy as _
 
@@ -199,7 +200,6 @@ MIDDLEWARE = list(filter(None, [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'networkapi.middleware.ReferrerMiddleware',
-    'log_request_id.middleware.RequestIDMiddleware',
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -459,42 +459,65 @@ if env('SSL_REDIRECT') is True:
 X_FRAME_OPTIONS = env('X_FRAME_OPTIONS')
 REFERRER_HEADER_VALUE = env('REFERRER_HEADER_VALUE')
 
-DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
-
-# LOGGING
+LOGGING_CONFIG = None
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
     'filters': {
-        'request_id': {
-            '()': 'log_request_id.filters.RequestIDFilter'
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
         }
     },
     'formatters': {
-        'standard': {
-            'format': '%(levelname)-8s [%(asctime)s] [%(request_id)s] %(name)s: %(message)s'
-        },
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard',
-            'filters': ['request_id']
-        },
-    },
-    'loggers': {
-        'networkapi': {
-            'handlers': ['console'],
-            'level': DJANGO_LOG_LEVEL,
-            'propagate': True,
-        },
-        'log_request_id.middleware': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
         }
     },
+    'handlers': {
+        'debug': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'filters': ['require_debug_true'],
+            'formatter': 'verbose'
+        },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler'
+        },
+        'debug-error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['debug'],
+            'level': 'DEBUG'
+        },
+        'django.server': {
+            'handlers': ['debug'],
+            'level': 'DEBUG',
+        },
+        'django.request': {
+            'handlers': ['error'],
+            'propagate': False,
+            'level': 'ERROR'
+        },
+        'django.template': {
+            'handlers': ['debug-error'],
+            'level': 'ERROR'
+        },
+        'django.db.backends': {
+            'handlers': ['debug-error'],
+            'level': 'ERROR'
+        },
+    }
 }
+DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
+logging.config.dictConfig(LOGGING)
+
+# Override all the default Django loggers
 
 # Frontend
 FRONTEND = {
