@@ -41,9 +41,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './components/hr-gradient';
 @import './components/feature-quote';
 @import './components/nav';
+@import './components/multipage-nav';
 @import './components/commitment';
 @import './components/card';
-@import './components/airtable-block.scss';
+@import './components/airtable-block';
 
 // Misc
 
