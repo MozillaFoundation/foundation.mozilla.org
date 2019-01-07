@@ -26,7 +26,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../js/components/takeover/takeover';
 @import '../js/components/loading-indicator/loading-indicator';
 @import '../js/components/member-notice/member-notice';
-@import '../js/components/multipage-nav/multipage-nav';
+@import '../js/components/multipage-nav-mobile/multipage-nav-mobile';
 @import '../js/components/pulse-project-list/pulse-project-list';
 @import '../js/components/fellow-list/fellow-list';
 @import '../js/components/petition/petition';
@@ -41,9 +41,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './components/hr-gradient';
 @import './components/feature-quote';
 @import './components/nav';
+@import './components/multipage-nav';
 @import './components/commitment';
 @import './components/card';
-@import './components/airtable-block.scss';
+@import './components/airtable-block';
 
 // Misc
 

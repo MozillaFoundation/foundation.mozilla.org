@@ -39,6 +39,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 // Non-React Components
 
 @import './components/future-non-react-component';
+@import '../components/multipage-nav';
 
 .btn-blue {
   color: $white;

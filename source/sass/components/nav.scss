@@ -56,6 +56,42 @@
     align-items: center;
   }
 
+  .nav-links {
+    a {
+      $border-thickness: 6px;
+
+      border-bottom: 6px solid transparent;
+      color: $black;
+      font-family: "Nunito Sans";
+      font-weight: 700;
+      margin-right: 18px;
+      transition: border-color 0.25s ease;
+
+      @mixin padding-bottom($bp: sm) {
+        padding-bottom: calc(#{map-get($menu-container-padding, $bp)} + #{map-get($primary-nav-link-padding, $bp)} - #{$border-thickness} / 2);
+      }
+
+      @media (min-width: $bp-sm) {
+        @include padding-bottom(sm);
+      }
+
+      @media (min-width: $bp-md) {
+        @include padding-bottom(md);
+      }
+
+      @include scaleText(17px, 23px);
+
+      @include hover-focus-active {
+        text-decoration: none;
+        border-bottom-color: #ccc;
+      }
+
+      &.active {
+        border-color: black;
+      }
+    }
+  }
+
   .wrapper-burger {
     transition: background 200ms ease-in-out;
     background: white;
@@ -71,53 +107,6 @@
       }
 
       transition: opacity 0.15s, transform 0.15s, visibility 0s;
-    }
-
-    .nav-links {
-      a {
-        $border-thickness: 6px;
-
-        border-bottom: 6px solid transparent;
-        color: $black;
-        font-family: "Nunito Sans";
-        font-weight: 700;
-        margin-right: 18px;
-        transition: border-color 0.25s ease;
-
-        @mixin padding-bottom($bp: sm) {
-          padding-bottom: calc(#{map-get($menu-container-padding, $bp)} + #{map-get($primary-nav-link-padding, $bp)} - #{$border-thickness} / 2);
-        }
-
-        @media (min-width: $bp-sm) {
-          @include padding-bottom(sm);
-        }
-
-        @media (min-width: $bp-md) {
-          @include padding-bottom(md);
-        }
-
-        @include scaleText(17px, 23px);
-
-        @include hover-focus-active {
-          text-decoration: none;
-          border-bottom-color: #ccc;
-        }
-      }
-
-      @at-root {
-        #view-people .nav-link-people,
-        #view-initiatives .nav-link-initiatives,
-        #view-projects .nav-link-projects,
-        #view-participate .nav-link-participate,
-        #view-internet-health .nav-link-internet-health,
-        #view-about .nav-link-about {
-          border-color: black !important;
-
-          @include hover-focus-active {
-            border-color: initial !important;
-          }
-        }
-      }
     }
 
     .burger {
@@ -261,53 +250,5 @@
         }
       }
     }
-  }
-}
-
-#multipage-nav-wrapper {
-  &.full-width {
-    border-bottom: 1px solid #ccc;
-  }
-}
-
-#multipage-nav {
-  &:not(.vertical-nav) {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    border-bottom: 1px $light-gray solid;
-
-    @at-root #multipage-nav-wrapper.full-width #{&} {
-      border: none;
-    }
-
-    .multipage-link {
-      display: flex;
-      align-items: center;
-      margin-right: 2rem;
-      padding-bottom: 16px;
-    }
-  }
-
-  &.vertical-nav {
-    .multipage-link-wrapper {
-      margin-bottom: 24px;
-    }
-  }
-
-  .multipage-login-restricted::after {
-    content: '🙈';
-  }
-
-  .multipage-groups-restricted::after {
-    content: '👥';
-  }
-
-  .multipage-password-restricted::after {
-    content: '🔒';
-  }
-
-  .multipage-draft::after {
-    content: '🐣';
   }
 }
