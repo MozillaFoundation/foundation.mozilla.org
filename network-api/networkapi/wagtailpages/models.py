@@ -515,12 +515,25 @@ class InitiativeSection(models.Model):
         verbose_name='Button URL',
     )
 
+    sectionButtonTitle2 = models.CharField(
+        verbose_name='Button 2 Text',
+        max_length=250,
+        blank="True"
+    )
+
+    sectionButtonURL2 = models.TextField(
+        verbose_name='Button 2 URL',
+        blank="True"
+    )
+
     panels = [
         ImageChooserPanel('sectionImage'),
         FieldPanel('sectionHeader'),
         FieldPanel('sectionCopy'),
         FieldPanel('sectionButtonTitle'),
         FieldPanel('sectionButtonURL'),
+        FieldPanel('sectionButtonTitle2'),
+        FieldPanel('sectionButtonURL2'),
     ]
 
 
