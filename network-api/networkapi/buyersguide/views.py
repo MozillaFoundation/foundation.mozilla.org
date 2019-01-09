@@ -1,14 +1,17 @@
 import re
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.db import Error
-from django.shortcuts import render, get_object_or_404, redirect
-from django.conf import settings
-from django.views.decorators.csrf import csrf_protect
+
 from django.core.cache import cache
-from rest_framework.parsers import JSONParser
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.conf import settings
+from django.db import Error
+from django.http import Http404
+from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render, get_object_or_404, redirect
+
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
-from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.response import Response
 
 from networkapi.buyersguide.models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
@@ -57,6 +60,13 @@ def enforce_en_locale(view_handler):
     return check_locale
 
 
+def filter_draft_products(request, products):
+    if request.user.is_authenticated():
+        return products
+
+    return filter(lambda p: p['draft'] is False, products)
+
+
 @enforce_en_locale
 def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
@@ -65,6 +75,8 @@ def buyersguide_home(request):
         products = [p.to_dict() for p in Product.objects.all()]
         products.sort(key=lambda p: get_average_creepiness(p))
         cache.set('sorted_product_dicts', products, 86400)
+
+    filter_draft_products(request, products)
 
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
@@ -83,6 +95,8 @@ def category_view(request, categoryname):
         products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
         cache.set(key, products, 86400)
 
+    filter_draft_products(request, products)
+
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
@@ -94,6 +108,9 @@ def category_view(request, categoryname):
 @enforce_en_locale
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
+
+    if product.draft and not request.user.is_authenticated():
+        raise Http404("Product does not exist")
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
@@ -152,6 +169,10 @@ def product_vote(request):
 
     try:
         product = Product.objects.get(id=product_id)
+
+        if product.draft and not request.user.is_authenticated():
+            raise Http404("Product does not exist")
+
         VoteClass = RangeVote
 
         # Check if this vote is a boolean (yes/no) vote, and switch the model if it is

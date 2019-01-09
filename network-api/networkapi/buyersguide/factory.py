@@ -34,6 +34,8 @@ class ProductFactory(DjangoModelFactory):
 
     product_words = Faker('words', nb=2)
 
+#    draft = Faker('boolean')
+    draft = True
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
 
     @post_generation
