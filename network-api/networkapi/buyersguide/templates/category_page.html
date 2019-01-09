@@ -14,7 +14,7 @@
 
     <div class="categories-container">
       {% for product in products %}
-      <div class="category-item-container" >
+      <div class="category-item-container{% if product.draft %} draft{% endif %}">
         <a class="" href="/en/privacynotincluded/products/{{ product.slug }}">
           <div class="category-image-container">
             {% if product.meets_minimum_security_standards is True %}
