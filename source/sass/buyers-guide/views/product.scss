@@ -1,19 +1,12 @@
+
 .product-header {
   padding-bottom: 88px;
   position: relative;
 
+  @import "../fragments/_draft_product.scss";
+
   &.draft::before {
     content: 'This product is in draft and only visible to CMS-authorised users.';
-    color: #ff000054;
-    font-weight: bold;
-    font-size: 120%;
-    font-family: 'Zilla Slab';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    text-align: center;
   }
 
   .seal-of-approval {

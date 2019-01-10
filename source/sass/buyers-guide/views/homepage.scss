@@ -49,21 +49,7 @@
         padding: $padding-y $padding-x;
         width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
 
-        &.draft {
-          &::before {
-            content: 'This product is in draft';
-            color: #ff000054;
-            font-weight: bold;
-            font-size: 120%;
-            font-family: 'Zilla Slab';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1;
-            text-align: center;
-          }
-        }
+        @import "../fragments/_draft_product.scss";
 
         &.d-flex.d-none {
           /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */
