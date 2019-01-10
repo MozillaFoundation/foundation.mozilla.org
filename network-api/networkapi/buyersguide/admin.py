@@ -12,7 +12,14 @@ class WagtailBuyersGuideAdmin(ModelAdmin):
     menu_order = 600  # will put in 3rd place (000 being 1st, 100 2nd)
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
-    list_display = ('name', 'company', 'url',)
+
+    def get_published(self, obj):
+        return not obj.draft
+
+    get_published.short_description = 'Published'
+    get_published.boolean = True
+
+    list_display = ('get_published', 'name', 'company', 'url')
     search_fields = ('name', 'company')
     index_template_name = 'admin/index_view.html'
 
