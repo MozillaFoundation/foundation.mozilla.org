@@ -76,7 +76,7 @@ def buyersguide_home(request):
         products.sort(key=lambda p: get_average_creepiness(p))
         cache.set('sorted_product_dicts', products, 86400)
 
-    filter_draft_products(request, products)
+    products = filter_draft_products(request, products)
 
     return render(request, 'buyersguide_home.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
@@ -95,7 +95,7 @@ def category_view(request, categoryname):
         products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
         cache.set(key, products, 86400)
 
-    filter_draft_products(request, products)
+    products = filter_draft_products(request, products)
 
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
