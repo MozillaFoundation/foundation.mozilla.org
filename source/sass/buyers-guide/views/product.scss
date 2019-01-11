@@ -3,8 +3,6 @@ $product-detail-padding-x: (
   md: 5rem
 );
 
-$product-detail-link-active-color: #3302ff;
-
 .product-header {
   padding-bottom: 88px;
   position: relative;
@@ -59,7 +57,7 @@ $product-detail-link-active-color: #3302ff;
     text-decoration: underline;
 
     @include hover-focus-active {
-      color: $product-detail-link-active-color;
+      color: $bg-link-blue;
     }
   }
 
@@ -76,7 +74,7 @@ $product-detail-link-active-color: #3302ff;
 
       &.copied {
         cursor: auto;
-        color: $product-detail-link-active-color;
+        color: $bg-link-blue;
         text-decoration: none;
       }
 
@@ -309,7 +307,7 @@ $product-detail-link-active-color: #3302ff;
   padding: 0 0 0 1.3rem;
 
   @include hover-focus-active {
-    color: $product-detail-link-active-color;
+    color: $bg-link-blue;
   }
 
   &::before {
