@@ -126,12 +126,12 @@ export default class CreepVote extends React.Component {
           </div>
           <Creepometer initialValue={this.state.creepiness} onChange={value => this.setCreepiness(value)}></Creepometer>
         </div>
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-6 mt-5 mt-md-0">
           <div className="mb-4 text-center">
             <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
           </div>
           <div className="text-center">
-            <div class="btn-group btn-group-toggle mt-5" data-toggle="buttons">
+            <div class="btn-group btn-group-toggle mt-3 mt-md-5" data-toggle="buttons">
               <label for="likely">
                 <input type="radio" name="wouldbuy" id="likely" autocomplete="off" required/>
                 <span class="likely btn" onClick={() => this.setConfidence(true)}><img alt="thumb up" src="/_images/buyers-guide/icon-thumb-up-black.svg" /> Likely</span>
