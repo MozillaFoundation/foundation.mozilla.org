@@ -185,6 +185,20 @@ export default class CreepVote extends React.Component {
     );
   }
 
+  handleReadResearchClick() {
+    let research = document.getElementById(`product-research`);
+
+    if (!research) { return; }
+
+    let marginTop = Number(window.getComputedStyle(research).marginTop.replace(`px`, ``));
+
+    window.scrollBy({
+      top: research.getBoundingClientRect().top - marginTop,
+      left: 0,
+      behavior: `smooth`
+    });
+  }
+
   render() {
     let voteContent;
 
@@ -196,6 +210,8 @@ export default class CreepVote extends React.Component {
 
     return (
       <div className="creep-vote">
+        <div class="what-you-think-label h5-heading d-inline-block">Tell us what you think</div>
+        <button id="btn-read-search" className="btn btn-link mb-5 mt-2" onClick={() => this.handleReadResearchClick()}>Read our research first</button>
         { voteContent }
       </div>
     );
