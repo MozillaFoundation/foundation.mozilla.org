@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
-    <title>i in circle</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="pink-information-circle" fill="#FF4F5E">
-            <g id="i-in-circle">
-                <path d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M6.90285714,11.8628571 L8.93714286,11.8628571 L8.93714286,6.24 L6.90285714,6.24 L6.90285714,11.8628571 Z M6.85714286,3.42857143 L6.85714286,5.26857143 L8.98285714,5.26857143 L8.98285714,3.42857143 L6.85714286,3.42857143 Z" id="Combined-Shape"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm-1.097-4.137h2.034V6.24H6.903v5.623zm-.046-8.434v1.84h2.126v-1.84H6.857z" fill="#FF4F5E" fill-rule="evenodd"/></svg>
