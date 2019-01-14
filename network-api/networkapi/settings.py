@@ -139,8 +139,6 @@ INSTALLED_APPS = list(filter(None, [
 
     'wagtailmetadata',
 
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -150,9 +148,12 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
-    'wagtail.contrib.modeladmin',
-    'wagtailinventory',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
     'wagtail.contrib.styleguide' if DEBUG else None,
+    'wagtail.contrib.modeladmin',
+    'experiments',
+    'wagtailinventory',
 
     'modelcluster',
     'taggit',
