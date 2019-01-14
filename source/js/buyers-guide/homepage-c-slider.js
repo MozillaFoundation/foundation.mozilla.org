@@ -69,6 +69,7 @@ export default {
       // as a "neutral" product with creepiness = 50
       let averageCreepiness = visible.reduce( (tally, v) => {
         let value = parseFloat(v.dataset.creepiness) || 50;
+
         return tally + value/n;
       }, 0);
 
