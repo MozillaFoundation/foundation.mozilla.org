@@ -126,7 +126,6 @@ You will now also need to update your `.env` file to make sure you're using this
 
 If you need to reset this database, rerun step 2 (with `dropdb foundation` as first command) through 5 to get back to a clean copy of the production database.
 
-
 ### Resolving conflicting Django migrations
 
 **AKA: What to do when a migration lands before yours**
@@ -171,6 +170,14 @@ To add a React component, you can target a container element from `/source/js/ma
 #### Django and Wagtail
 
 Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
+
+##### localization
+
+We use [wagtail-modeltranslations](https://github.com/infoportugal/wagtail-modeltranslation) for CMS content localization. Please see its documentation for more information.
+
+##### A/B testing
+
+We use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) for CMS-based A/B testing. Please see its documentation for more information.
 
 #### S3 and Cloudinary
 

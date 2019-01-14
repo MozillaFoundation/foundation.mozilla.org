@@ -12,6 +12,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.buyersguide import views as buyersguide_views
+from experiments import views as experiment_views
 
 admin.autodiscover()
 
@@ -42,6 +43,7 @@ urlpatterns = list(filter(None, [
     url(r'^api/people/', include('networkapi.people.urls')),
     url(r'^api/buyersguide/vote/', buyersguide_views.product_vote, name='product-vote'),
     url(r'^api/buyersguide/clear-cache/', buyersguide_views.clear_cache, name='clear-cache'),
+    url(r'^api/experiments/complete/([^\/]+)/$', experiment_views.record_completion),
     url(r'^environment.json', EnvVariablesView.as_view()),
     url(r'^help/', review_app_help_view, name='Review app help'),
 
