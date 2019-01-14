@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "124551117885c105366c2abfeb7bd51f2c6bc2dcc40ba4f17283f7a29c4ce723"
+            "sha256": "db67af93de17b0b99317cdc283ed729b18138b7f8a5eeed3e83084e4950d001a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,18 +26,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:1ed36e390a64d9f45fbcc71f835a43b2fef437cc89d6fd9306c6396b10b8ec29",
-                "sha256:db5704a505d8af01cdbc57682797e8b1784a31a37d24a82f4855c270cd5f8b2f"
+                "sha256:8cb94f08158f5fb5f28fa4e94be9ab5cd03e63a4056b220c65edc39a13e6c5ad",
+                "sha256:e3f01b76a6ed8abf7e1cce631933268bb1cef82b4e1677dbb1c8d97aae759150"
             ],
             "index": "pypi",
-            "version": "==1.9.74"
+            "version": "==1.9.75"
         },
         "botocore": {
             "hashes": [
-                "sha256:0d21a6a163033792c759d8bc03a9267cd00813b3c2136cc626a0a2d0ed7f7cfb",
-                "sha256:1af5c692b8af8c6f955af8e2e4daad3186eab382ead24b517006462b0f71cc13"
+                "sha256:9b1093791e564df14c6af014e186e2d0975ab96415f1d14f624e03a098c2de68",
+                "sha256:c84b302f016fc4b16227ac975b99eaae73a52bff69b175a46fe43907957e2265"
             ],
-            "version": "==1.12.74"
+            "version": "==1.12.75"
         },
         "certifi": {
             "hashes": [
@@ -256,10 +256,10 @@
         },
         "oauthlib": {
             "hashes": [
-                "sha256:ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162",
-                "sha256:d883b36b21a6ad813953803edfa563b1b579d79ca758fe950d1bc9e8b326025b"
+                "sha256:0a8b2e0daa7afb62bd1b0b387b7a3723fa9a35d1183694ca5a5c8e3d6df59913",
+                "sha256:8932fb34f7c6a4fc50c9f423b105923ed2e6df091b3c388d182540db02c581a0"
             ],
-            "version": "==2.1.0"
+            "version": "==3.0.0"
         },
         "pbr": {
             "hashes": [
@@ -465,6 +465,14 @@
             ],
             "index": "pypi",
             "version": "==2.1.3"
+        },
+        "wagtail-experiments": {
+            "hashes": [
+                "sha256:7f24a2f976fafa78d4c3baf1cf41a1e8ef8b34413c9e662c7fd63428c3c8afdc",
+                "sha256:a3e268510b4d7732c4cc9f9cd51bb01fefc511eee14b35df7608a59a9732cffa"
+            ],
+            "index": "pypi",
+            "version": "==0.2"
         },
         "wagtail-factories": {
             "hashes": [
