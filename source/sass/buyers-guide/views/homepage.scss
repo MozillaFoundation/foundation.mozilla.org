@@ -49,7 +49,7 @@
         padding: $padding-y $padding-x;
         width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
 
-        @import "../fragments/_draft_product.scss";
+        @include draft-product;
 
         &.d-flex.d-none {
           /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */
@@ -151,7 +151,7 @@
   }
 
   .creepiness-slider {
-    z-index: 1;
+    z-index: 2;
     position: sticky;
     position: -webkit-sticky;
     top: 16px;

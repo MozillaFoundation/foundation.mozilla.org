@@ -39,7 +39,7 @@
         padding-right: 3%;
       }
 
-      @import "../fragments/_draft_product.scss";
+      @include draft-product;
 
       .seal-of-approval {
         position: absolute;

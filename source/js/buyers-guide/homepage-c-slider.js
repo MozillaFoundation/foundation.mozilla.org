@@ -62,12 +62,17 @@ export default {
 
       let n = visible.length;
 
-      // shortcut this scroll update if there are no products
+      // Shortcut this scroll update if there are no products
       if (n===0) { return; }
 
-      let averageCreepiness = visible.reduce( (tally, v) => tally + parseFloat(v.dataset.creepiness)/n, 0);
+      // Reduce the creepiness, treating any product without votes
+      // as a "neutral" product with creepiness = 50
+      let averageCreepiness = visible.reduce( (tally, v) => {
+        let value = parseFloat(v.dataset.creepiness) || 50;
+        return tally + value/n;
+      }, 0);
 
-      // compress the value so that we show a smiley face even for products with a lowish creepiness score.
+      // Compress the value so that we show a smiley face even for products with a lowish creepiness score.
       let mappedAverageCreepiness = cap(map(averageCreepiness, MINIMUM_HAPPINESS_RATING, MAXIMUM_CREEPINESS_RATING, 0, 100), 1, 100);
 
       // The averageCreepiness will be in range [1,100] so we can dec1 the

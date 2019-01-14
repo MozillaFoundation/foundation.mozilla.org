@@ -84,6 +84,9 @@ img.thumb-border {
   border: 16px solid #f4f4f4;
 }
 
+// mixins
+@import "./mixins/draft-product";
+
 // used by various pages
 @import "./creep-face-emoji";
 
