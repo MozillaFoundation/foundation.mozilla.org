@@ -3,9 +3,7 @@
   padding-bottom: 88px;
   position: relative;
 
-  @include draft-product;
-
-  &.draft::before {
+  &.draft-product::before {
     content: 'This product is in draft and only visible to CMS-authorised users.';
   }
 
