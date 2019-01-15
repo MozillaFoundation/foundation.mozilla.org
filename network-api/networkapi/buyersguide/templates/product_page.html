@@ -55,7 +55,7 @@
 
       <div class="row">
         <div class="col-12">
-          <div class="creep-vote-target mt-5 mt-md-0 py-4" data-product-name="{{product.name}}">
+          <div class="creep-vote-target mt-5 mt-md-0" data-product-name="{{product.name}}">
               {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value="{{ product.votes | safe }}">
