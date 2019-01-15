@@ -12,17 +12,24 @@
 {% block content %}
 <div class="container">
   <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center homepage-feature">
-    <div class="col-md-6 mb-3 d-sm-none">
-      {% image page.hero_image fill-1152x770-c100 format-jpeg class="full-bleed-xs" %}
+    <div class="col-md-6 mb-3">
+      {% image page.hero_image max-200x200 as tmp_photo2 %}
+      {% image page.hero_image max-400x400 as image_small %}
+      {% image page.hero_image max-1200x1200 as image_large %}
+
+      <img src="{{ tmp_photo2.url }}" class="full-bleed-xs"
+           srcset="{{ image_small.url }} 320w,
+                   {{ image_large.url }} 480w"
+           sizes="(max-width: 320px) 320px,
+                  480px"
+      />
     </div>
     <div class="col-sm-6">
       <h1 class="h1-heading">{{ page.hero_headline }}</h1>
       <div class="body-large mb-4">{{ page.hero_story_description | richtext }}</div>
       <a class="btn btn-normal d-block d-sm-inline" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
     </div>
-    <div class="col-sm-6 d-none d-sm-block">
-      {% image page.hero_image max-1080x800 %}
-    </div>
+
   </div>
   <div class="row">
     <div class="col mb-4">
