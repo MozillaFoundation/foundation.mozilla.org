@@ -434,6 +434,12 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    intro = models.CharField(
+        max_length=250,
+        blank=True,
+        help_text='Intro paragraph to show in hero cutout box'
+    )
+
     narrowed_page_content = models.BooleanField(
         default=False,
         help_text='For text-heavy pages, turn this on to reduce the overall width of the content on the page.'
@@ -457,6 +463,7 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
+        FieldPanel('intro'),
         StreamFieldPanel('body'),
     ]
 
@@ -515,12 +522,25 @@ class InitiativeSection(models.Model):
         verbose_name='Button URL',
     )
 
+    sectionButtonTitle2 = models.CharField(
+        verbose_name='Button 2 Text',
+        max_length=250,
+        blank="True"
+    )
+
+    sectionButtonURL2 = models.TextField(
+        verbose_name='Button 2 URL',
+        blank="True"
+    )
+
     panels = [
         ImageChooserPanel('sectionImage'),
         FieldPanel('sectionHeader'),
         FieldPanel('sectionCopy'),
         FieldPanel('sectionButtonTitle'),
         FieldPanel('sectionButtonURL'),
+        FieldPanel('sectionButtonTitle2'),
+        FieldPanel('sectionButtonURL2'),
     ]
 
 
