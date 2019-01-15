@@ -190,10 +190,8 @@ export default class CreepVote extends React.Component {
 
     if (!research) { return; }
 
-    let marginTop = Number(window.getComputedStyle(research).marginTop.replace(`px`, ``));
-
     window.scrollBy({
-      top: research.getBoundingClientRect().top - marginTop,
+      top: research.getBoundingClientRect().top - parseInt(window.getComputedStyle(research).marginTop, 10),
       left: 0,
       behavior: `smooth`
     });
