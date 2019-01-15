@@ -165,6 +165,7 @@ INSTALLED_APPS = list(filter(None, [
     'storages',
     'adminsortable',
     'cloudinary',
+    'sorl.thumbnail',
 
     # the network site
     'networkapi',

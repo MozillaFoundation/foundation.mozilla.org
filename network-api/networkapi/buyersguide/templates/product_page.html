@@ -3,6 +3,7 @@
 {% load yes_no %}
 {% load env %}
 {% load cloudinary %}
+{% load thumbnail %}
 
 {% block head-extra %}
   <meta property="og:title" content="privacy not included - {{ product.name }}" />
@@ -15,16 +16,26 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
-        {% if USE_CLOUDINARY %}
-          <img class="thumb-border"
-               width="400"
-               src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
-               alt="{{product.name}}">
-        {% else %}
-           <img class="thumb-border"
-                width="400"
-                src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
-        {% endif %}
+{#        {% if USE_CLOUDINARY %}#}
+{#          <img class="thumb-border"#}
+{#               width="400"#}
+{#               src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"#}
+{#               alt="{{product.name}}">#}
+{#        {% else %}#}
+{#           <img class="thumb-border"#}
+{#                width="400"#}
+{#                src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">#}
+{#        {% endif %}#}
+
+      <img class="thumb-border" width="400"
+           src="{% thumbnail product.image '800' as im %}{{ im.url }}{% endthumbnail %}"
+           srcset="{% thumbnail product.image '190' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                   {% thumbnail product.image '553' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                   {% thumbnail product.image '800' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+           sizes="(max-width: 320px) 190px,
+                  (max-width: 480px) 553px,
+                  800px"
+        />
 
         {% if product.meets_minimum_security_standards is True %}
           <img
