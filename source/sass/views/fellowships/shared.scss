@@ -23,23 +23,6 @@
   }
 }
 
-.in-page-cta {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-top: 1px solid transparentize($black, 0.9);
-  border-bottom: 1px solid transparentize($black, 0.9);
-
-  .content::before {
-    content: '';
-    display: flex;
-    align-self: center;
-    width: 22px;
-    height: 22px;
-    margin-right: 10px;
-    background: url('../_images/fellowships/svg/info-icon.svg') no-repeat 0 0/contain;
-  }
-}
-
 [id^="view-fellows-directory"] {
   .meta-block-item-role {
     text-transform: capitalize;
