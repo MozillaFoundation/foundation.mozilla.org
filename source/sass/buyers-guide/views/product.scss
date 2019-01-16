@@ -84,6 +84,11 @@
   h4 {
     font-family: "Nunito Sans";
   }
+
+  .creep-face-emoji {
+    top: 3px;
+    margin: 0 0.25em 0 0;
+  }
 }
 
 .copy-link {
@@ -191,16 +196,18 @@
   }
 }
 
-.row.with-product-updates::before {
-  display: block;
-  content: ' '; /* :before and :after won't work without content... =( */
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 228px;
-  background-image: url("/_images/buyers-guide/dot-pattern.svg");
-  background-size: 9px 9px;
+.dotted-section {
+  &::before {
+    display: block;
+    content: ' '; /* :before and :after won't work without content... =( */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 228px;
+    background-image: url("/_images/buyers-guide/dot-pattern.svg");
+    background-size: 9px 9px;
+  }
 }
 
 .product-update {

@@ -1,0 +1,254 @@
+#primary-nav-container {
+  $logo-height: 28px;
+
+  $menu-container-padding: (
+    md: 16px
+  );
+
+  $primary-nav-link-padding: (
+    xs: 18px,
+    sm: 22px,
+    md: 9px
+  );
+
+  &.zen-mode {
+    .menu-container {
+      @media (min-width: $bp-md) {
+        padding-left: 52px;
+        padding-right: 52px;
+      }
+    }
+  }
+
+  .menu-container {
+    padding: 0 0 0 52px;
+
+    @media (min-width: $bp-md) {
+      padding: map-get($menu-container-padding, md) 0;
+    }
+  }
+
+  #donate-header-btn {
+    @media (max-width: $bp-sm) {
+      padding: 4px;
+    }
+  }
+
+  #primary-nav-links {
+    @mixin link-padding($v-padding: xs) {
+      padding-top: $v-padding;
+      padding-bottom: $v-padding;
+    }
+
+    @include link-padding(map-get($primary-nav-link-padding, xs));
+
+    @media (min-width: $bp-sm) {
+      @include link-padding(map-get($primary-nav-link-padding, sm));
+    }
+
+    @media (min-width: $bp-md) {
+      @include link-padding(map-get($primary-nav-link-padding, md));
+    }
+  }
+
+  .donate-btn-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links {
+    a {
+      $border-thickness: 6px;
+
+      border-bottom: 6px solid transparent;
+      color: $black;
+      font-family: "Nunito Sans";
+      font-weight: 700;
+      margin-right: 18px;
+      transition: border-color 0.25s ease;
+
+      @mixin padding-bottom($bp: sm) {
+        padding-bottom: calc(#{map-get($menu-container-padding, $bp)} + #{map-get($primary-nav-link-padding, $bp)} - #{$border-thickness} / 2);
+      }
+
+      @media (min-width: $bp-sm) {
+        @include padding-bottom(sm);
+      }
+
+      @media (min-width: $bp-md) {
+        @include padding-bottom(md);
+      }
+
+      @include scaleText(17px, 23px);
+
+      @include hover-focus-active {
+        text-decoration: none;
+        border-bottom-color: #ccc;
+      }
+
+      &.active {
+        border-color: black;
+      }
+    }
+  }
+
+  .wrapper-burger {
+    transition: background 200ms ease-in-out;
+    background: white;
+    border-bottom: 1px solid #ccc;
+
+    .wide-screen-menu {
+      line-height: $logo-height; //Tied to logo height so that the "active" page border shows up at the correct alignment consistently
+      &.hidden {
+        opacity: 0;
+        transform: translateY(8px);
+        visibility: hidden;
+        transition: opacity 0.15s, transform 0.15s, visibility 0s linear 0.15s;
+      }
+
+      transition: opacity 0.15s, transform 0.15s, visibility 0s;
+    }
+
+    .burger {
+      cursor: pointer;
+      margin-right: 24px;
+      margin-left: -52px;
+      border: 0;
+      background: transparent;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+
+      .burger-bar {
+        position: absolute;
+        background: black;
+        height: 3px;
+        width: 28px;
+
+        &.burger-bar-top {
+          top: 3px;
+          width: 16px;
+        }
+
+        &.burger-bar-middle {
+          top: 12.5px;
+        }
+
+        &.burger-bar-bottom {
+          top: 22px;
+          width: 23px;
+        }
+
+        transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s;
+      }
+
+      &.menu-open {
+        .burger-bar {
+          &.burger-bar-top {
+            top: 12.5px;
+            width: 28px;
+            transform: rotate(135deg);
+          }
+
+          &.burger-bar-middle {
+            transform: rotate(135deg);
+          }
+
+          &.burger-bar-bottom {
+            top: 12.5px;
+            width: 28px;
+            transform: rotate(45deg);
+          }
+
+          transition: top 0.1s, width 0.1s, transform 0.1s linear 0.1s;
+        }
+      }
+
+      outline: 0;
+    }
+
+    &.scrolled {
+      background: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .center-nav-title p {
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+      color: $black;
+      letter-spacing: 1px;
+      line-height: 24px;
+    }
+
+    .logo {
+      width: 28px;
+      height: $logo-height;
+      background: url(../_images/mozilla-m.svg) no-repeat;
+      background-size: contain;
+      position: relative;
+      z-index: 1;
+
+      @media (min-width: $bp-sm) {
+        width: 97px;
+        background: url(../_images/mozilla-on-black.svg) no-repeat;
+      }
+
+      margin: 0 26px 0 0;
+      padding: 0;
+      line-height: 0;
+    }
+
+    .narrow-screen-menu {
+      position: absolute;
+      padding-top: 64px;
+
+      @media (min-width: $bp-sm) {
+        padding-top: 72px;
+      }
+
+      height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      background: white;
+      transition: opacity 0.2s, height 0s;
+
+      &.hidden {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.2s, height 0s linear 0.2s;
+
+        .nav-links {
+          a {
+            transform: translateY(8px);
+          }
+        }
+      }
+
+      .narrow-screen-menu-container {
+        padding: 0 52px;
+      }
+
+      .narrow-screen-menu-background {
+        background: black;
+        height: 100%;
+      }
+
+      .nav-links {
+        height: 100%;
+
+        a {
+          font-weight: 500;
+          transition: transform 0.15s;
+          display: inline-block;
+          margin: 10px 0;
+          color: white;
+        }
+      }
+    }
+  }
+}

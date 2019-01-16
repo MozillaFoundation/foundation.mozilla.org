@@ -39,6 +39,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 // Non-React Components
 
 @import './components/future-non-react-component';
+@import '../components/nav';
+@import '../components/multipage-nav';
 
 .btn-blue {
   color: $white;
@@ -83,8 +85,10 @@ img.thumb-border {
   border: 16px solid #f4f4f4;
 }
 
-// View specific
+// used by various pages
+@import "./creep-face-emoji";
 
+// View specific
 @import './views/homepage';
 @import './views/product';
 @import './views/about';

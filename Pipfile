@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 "boto3" = "*"
-Django = "==1.11.17"
+Django = "==1.11.18"
 dj-database-url = "*"
 djangorestframework = "*"
 django-admin-sortable = "*"
@@ -31,6 +31,7 @@ whitenoise = "*"
 wagtail-modeltranslation = "*"
 "psycopg2-binary" = "*"
 cloudinary = "*"
+wagtail-experiments = "*"
 
 [dev-packages]
 "flake8" = "*"
