@@ -46,6 +46,7 @@ install:
   - "npm ci"
   - "python -m pip install --upgrade pip"
   - "python -m pip install pipenv"
+  - "python -m pip install invoke"
   - "python -m pipenv sync --dev"
   - "python -m pipenv run python network-api/manage.py collectstatic --no-input"
   - "release-steps.bat"
@@ -54,7 +55,7 @@ test_script:
   - node --version
   - npm --version
   - npm test
-  - "python -m pipenv run flake8 tasks.py network-api/"
+  - "python -m pipenv run flake8 tasks.py network-api"
   - "python -m pipenv run python network-api/manage.py test"
 
 cache:
