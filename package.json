@@ -22,7 +22,7 @@
     "optimize:jpg": "find source/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "optimize": "run-p optimize:**",
-    "server": "inv runserver",
+    "server": "pipenv run python network-api/manage.py runserver",
     "start": "npm i && run-p build-uncompressed server watch:**",
     "snyk": "snyk test --file=package.json",
     "test:procfile": "node test/test-procfile.js",
