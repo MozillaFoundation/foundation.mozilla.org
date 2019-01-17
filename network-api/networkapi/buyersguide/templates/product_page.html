@@ -39,11 +39,11 @@
   </div>
 </div>
 
-{% with section_class="col-12 col-lg-10 offset-lg-1 p-md-5" %}
+{% with section_class="col-12 col-lg-10 offset-lg-1 product-section-padding-x" %}
 <div class="container">
 
   <div class="row">
-    <div class="product-detail bg-white py-3 {{section_class}}">
+    <div class="product-detail bg-white py-3 py-md-5 {{section_class}}">
       <div class="row intro d-flex justify-content-between align-items-center">
         <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
@@ -53,71 +53,79 @@
         <div class="body-large mb-4 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
 
-      <div class="creep-vote-target my-5 py-5" data-product-name="{{product.name}}">
-          {% csrf_token %}
-          <input type="hidden" name="productID" value="{{ product.id }}">
-          <input type="hidden" name="votes" value="{{ product.votes | safe }}">
-      </div>
-
-      <h3 class="h3-heading h3-heading-small">Can it spy on me</h3>
-
-      <div class="row mb-5">
-        <div class="col-12 col-md-4">
-          <div class="spy">
-            <img src="/_images/buyers-guide/icon-camera.svg" width="31" height="24" />
-            <div>
-              <strong class="d-block">Camera</strong>
-              Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-4">
-          <div class="spy">
-            <img src="/_images/buyers-guide/icon-mic.svg" width="17" height="29" />
-            <div>
-              <strong class="d-block">Microphone</strong>
-              Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-4">
-          <div class="spy">
-            <img src="/_images/buyers-guide/icon-location.svg" width="24" height="29" />
-            <div>
-              <strong class="d-block">Location Tracking</strong>
-              Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
-            </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="creep-vote-target mt-5 mt-md-0" data-product-name="{{product.name}}">
+              {% csrf_token %}
+              <input type="hidden" name="productID" value="{{ product.id }}">
+              <input type="hidden" name="votes" value="{{ product.votes | safe }}">
           </div>
         </div>
       </div>
 
-      <h3 class="h3-heading h3-heading-small">What does it know about me</h3>
+      <div id="product-research" class="mt-5">
 
-      <div class="mb-5">
-        {% include "fragments/product-criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" %}
-        {% include "fragments/product-policy.html" with product=product help=product.privacy_policy_helptext %}
-        {% include "fragments/product-criterion.html"  with  value=product.share_data  bad=True  help=product.share_data_helptext  label="Shares your information with 3rd parties for unexpected reasons" %}
+        <h3 class="h3-heading h3-heading-small">Can it spy on me</h3>
+
+        <div class="row mb-5">
+          <div class="col-12 col-md-4">
+            <div class="spy">
+              <img src="/_images/buyers-guide/icon-camera.svg" width="31" height="24" />
+              <div>
+                <strong class="d-block">Camera</strong>
+                Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="spy">
+              <img src="/_images/buyers-guide/icon-mic.svg" width="17" height="29" />
+              <div>
+                <strong class="d-block">Microphone</strong>
+                Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="spy">
+              <img src="/_images/buyers-guide/icon-location.svg" width="24" height="29" />
+              <div>
+                <strong class="d-block">Location Tracking</strong>
+                Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="h3-heading h3-heading-small">What does it know about me</h3>
+
+        <div class="mb-5">
+          {% include "fragments/product-criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" %}
+          {% include "fragments/product-policy.html" with product=product help=product.privacy_policy_helptext %}
+          {% include "fragments/product-criterion.html"  with  value=product.share_data  bad=True  help=product.share_data_helptext  label="Shares your information with 3rd parties for unexpected reasons" %}
+        </div>
+
+        <h3 class="h3-heading h3-heading-small">Can I control it</h3>
+
+        <div class="mb-5">
+          {% include "fragments/product-criterion.html"  with  value=product.must_change_default_password  bad=False  help=product.must_change_default_password_helptext   label="If a password is required, you must change the default password"  unknown_label="Not required" %}
+          {% include "fragments/product-criterion.html"  with  value=product.security_updates              bad=False  help=product.security_updates_helptext               label="Automatic security updates" %}
+          {% include "fragments/product-criterion.html"  with  value=product.delete_data                   bad=False  help=product.delete_data_helptext                    label="Deletes data it stores on you" %}
+          {% include "fragments/product-criterion.html"  with  value=product.child_rules                   bad=False  help=product.child_rules_helptext                    label="Has parental controls "%}
+        </div>
+
+        <h3 class="h3-heading h3-heading-small">Company shows it cares about its customers</h3>
+
+        <div class="mb-5">
+            {% include "fragments/product-criterion.html"  with  value=product.manage_security  bad=False  help=product.manage_security_helptext label="Company manages security vulnerabilities"%}
+            {% include "fragments/product-contact.html" with product=product %}
+        </div>
+
+        <h3 class="h3-heading h3-heading-small"><span class="creep-face-emoji">😮</span>What could happen if something went wrong</h3>
+
+        <p>{{product.worst_case}}</p>
+
       </div>
-
-      <h3 class="h3-heading h3-heading-small">Can I control it</h3>
-
-      <div class="mb-5">
-        {% include "fragments/product-criterion.html"  with  value=product.must_change_default_password  bad=False  help=product.must_change_default_password_helptext   label="If a password is required, you must change the default password"  unknown_label="Not required" %}
-        {% include "fragments/product-criterion.html"  with  value=product.security_updates              bad=False  help=product.security_updates_helptext               label="Automatic security updates" %}
-        {% include "fragments/product-criterion.html"  with  value=product.delete_data                   bad=False  help=product.delete_data_helptext                    label="Deletes data it stores on you" %}
-        {% include "fragments/product-criterion.html"  with  value=product.child_rules                   bad=False  help=product.child_rules_helptext                    label="Has parental controls "%}
-      </div>
-
-      <h3 class="h3-heading h3-heading-small">Company shows it cares about its customers</h3>
-
-      <div class="mb-5">
-          {% include "fragments/product-criterion.html"  with  value=product.manage_security  bad=False  help=product.manage_security_helptext label="Company manages security vulnerabilities"%}
-          {% include "fragments/product-contact.html" with product=product %}
-      </div>
-
-      <h3 class="h3-heading h3-heading-small"><span class="creep-face-emoji">😮</span>What could happen if something went wrong</h3>
-
-      <p>{{product.worst_case}}</p>
 
     </div>
 
