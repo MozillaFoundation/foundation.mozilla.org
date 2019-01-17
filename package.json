@@ -15,7 +15,7 @@
     "build": "npm run build:common && npm run build:js",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
     "cypress:test": "run-p --race server cypress:run",
-    "cypress:run": "cypress run",
+    "cypress:run": "wait-on tcp:8000 && cypress run",
     "heroku-postbuild": "npm run build",
     "migrate": "pipenv run python network-api/manage.py migrate",
     "optimize:svg": "find source/images -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
@@ -82,6 +82,7 @@
   },
   "devDependencies": {
     "@percy/cypress": "^0.2.3",
-    "cypress": "^3.1.4"
+    "cypress": "^3.1.4",
+    "wait-on": "^3.2.0"
   }
 }
