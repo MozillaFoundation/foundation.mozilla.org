@@ -14,7 +14,7 @@
   <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center flex-sm-row-reverse homepage-feature">
     <div class="col-sm-6 mb-3 mb-sm-0">
         {% image page.hero_image max-200x200 as image_small %}
-        {% image page.hero_image fill-300x169 format-jpeg jpegquality-70 as image_medium %}
+        {% image page.hero_image fill-300x169 format-jpeg jpegquality-80 as image_medium %}
         {% image page.hero_image fill-480x270-c0 format-jpeg as image_large %}
         <img src="{{ image_small.url }}" class="full-bleed-xs" srcset="{{ image_medium.url }} 400w, {{ image_large.url }} 1200w" sizes="(max-width: 575px) 400px, 1200px"/>
     </div>
