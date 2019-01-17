@@ -48,7 +48,6 @@ install:
   - "python -m pip install pipenv"
   - "python -m pipenv sync --dev"
   - "python -m pipenv run python network-api/manage.py collectstatic --no-input"
-  - "release-steps.bat"
 
 test_script:
   - node --version
