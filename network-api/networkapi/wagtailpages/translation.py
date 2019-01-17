@@ -4,7 +4,6 @@ from .models import (
     PrimaryPage,
     NewsPage,
     InitiativesPage,
-    ParticipatePage,
     ParticipatePage2,
     PeoplePage,
     Styleguide,
@@ -90,11 +89,6 @@ class NewsPageTR(TranslationOptions):
 
 @register(InitiativesPage)
 class InitiativesPageTR(TranslationOptions):
-    fields = ()
-
-
-@register(ParticipatePage)
-class ParticipatePageTR(TranslationOptions):
     fields = ()
 
 

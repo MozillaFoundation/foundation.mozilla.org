@@ -147,7 +147,7 @@ class InitiativesPageFactory(PageFactory):
 
 class ParticipatePageFactory(PageFactory):
     class Meta:
-        model = networkapi.wagtailpages.models.ParticipatePage
+        model = networkapi.wagtailpages.models.ParticipatePage2
 
     title = 'participate'
 
