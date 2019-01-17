@@ -83,7 +83,7 @@
 
       @include hover-focus-active {
         text-decoration: none;
-        border-bottom-color: #ccc;
+        border-bottom-color: $light-gray;
       }
 
       &.active {
@@ -95,7 +95,7 @@
   .wrapper-burger {
     transition: background 200ms ease-in-out;
     background: white;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $light-gray;
 
     .wide-screen-menu {
       line-height: $logo-height; //Tied to logo height so that the "active" page border shows up at the correct alignment consistently
