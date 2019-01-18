@@ -15,7 +15,7 @@
       <picture class="col-sm-6 mb-3 mb-sm-0">
           {% image page.hero_image max-1080x800 format-jpeg class="full-bleed-xs" aria-hidden="true" as hero_small %}
           <source srcset="{{page.hero_image}}" media="(min-width: 768px)">
-          <img src="{{ hero_small.url }}" aria-hidden="true" />
+          <img src="{{ hero_small.url }}"  alt="{{ hero_small.alt }}" />
       </picture>
     <div class="col-sm-6">
       <h1 class="h1-heading">{{ page.hero_headline }}</h1>
