@@ -308,6 +308,7 @@ $product-detail-padding-x: (
   padding: 0 0 0 1.3rem;
   color: $medium-gray;
   text-decoration: underline;
+  transition: none;
 
   &::before {
     position: absolute;
