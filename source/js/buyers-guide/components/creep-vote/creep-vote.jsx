@@ -209,7 +209,7 @@ export default class CreepVote extends React.Component {
     return (
       <div className="creep-vote mt-4 mb-5">
         <div class="what-you-think-label h5-heading d-inline-block">Tell us what you think</div>
-        <button id="btn-read-search" className="btn btn-link mb-4 mt-2" onClick={() => this.handleReadResearchClick()}>Read our research first</button>
+        <button id="btn-read-search" className="btn btn-link info-help mb-4 mt-2" onClick={() => this.handleReadResearchClick()}>Read our research first</button>
         { voteContent }
       </div>
     );

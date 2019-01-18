@@ -299,16 +299,15 @@ $product-detail-padding-x: (
 }
 
 #btn-read-search {
-  position: relative;
   text-transform: none;
-  text-decoration: underline;
   letter-spacing: 0;
-  color: $medium-gray;
-  padding: 0 0 0 1.3rem;
+}
 
-  @include hover-focus-active {
-    color: $bg-link-blue;
-  }
+.info-help {
+  position: relative;
+  padding: 0 0 0 1.3rem;
+  color: $medium-gray;
+  text-decoration: underline;
 
   &::before {
     position: absolute;
@@ -317,6 +316,10 @@ $product-detail-padding-x: (
     background: url('/_images/buyers-guide/icon-info-pink.svg') no-repeat 50% 50%/contain;
     width: 16px;
     height: 100%;
+  }
+
+  @include hover-focus-active {
+    color: $bg-link-blue;
   }
 }
 
