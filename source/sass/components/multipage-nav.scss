@@ -1,7 +1,7 @@
 #multipage-nav-wrapper {
   &.full-width {
     @media (min-width: $bp-md) {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $light-gray;
     }
   }
 }

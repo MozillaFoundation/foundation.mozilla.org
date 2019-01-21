@@ -126,12 +126,12 @@ export default class CreepVote extends React.Component {
           </div>
           <Creepometer initialValue={this.state.creepiness} onChange={value => this.setCreepiness(value)}></Creepometer>
         </div>
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-6 mt-5 mt-md-0">
           <div className="mb-4 text-center">
             <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
           </div>
           <div className="text-center">
-            <div class="btn-group btn-group-toggle mt-5" data-toggle="buttons">
+            <div class="btn-group btn-group-toggle mt-3 mt-md-5" data-toggle="buttons">
               <label for="likely">
                 <input type="radio" name="wouldbuy" id="likely" autocomplete="off" required/>
                 <span class="likely btn" onClick={() => this.setConfidence(true)}><img alt="thumb up" src="/_images/buyers-guide/icon-thumb-up-black.svg" /> Likely</span>
@@ -147,7 +147,7 @@ export default class CreepVote extends React.Component {
       <div className="row">
         <div className="col-12 text-center">
           <button id="creep-vote-btn" type="submit" className="btn btn-ghost mb-2" disabled={this.state.confidence===undefined}>Vote & See Results</button>
-          <p class="h6-heading-uppercase">{this.state.totalVotes} votes</p>
+          <p class="h6-heading-uppercase mb-0">{this.state.totalVotes} votes</p>
         </div>
       </div>
     </form>);
@@ -185,6 +185,18 @@ export default class CreepVote extends React.Component {
     );
   }
 
+  handleReadResearchClick() {
+    let research = document.getElementById(`product-research`);
+
+    if (!research) { return; }
+
+    window.scrollBy({
+      top: research.getBoundingClientRect().top - parseInt(window.getComputedStyle(research).marginTop, 10),
+      left: 0,
+      behavior: `smooth`
+    });
+  }
+
   render() {
     let voteContent;
 
@@ -195,7 +207,9 @@ export default class CreepVote extends React.Component {
     }
 
     return (
-      <div className="creep-vote">
+      <div className="creep-vote mt-4 mb-5">
+        <div class="what-you-think-label h5-heading d-inline-block">Tell us what you think</div>
+        <button id="btn-read-search" className="btn btn-link mb-4 mt-2" onClick={() => this.handleReadResearchClick()}>Read our research first</button>
         { voteContent }
       </div>
     );
