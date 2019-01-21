@@ -76,6 +76,9 @@ img.thumb-border {
   border: 16px solid #f4f4f4;
 }
 
+// includes
+@import "./includes/draft-product";
+
 // used by various pages
 @import "./creep-face-emoji";
 

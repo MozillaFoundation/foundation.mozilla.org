@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.urls import reverse
@@ -54,7 +56,7 @@ class ManagementCommandTest(APITestCase):
         Test that aggregate_product_votes properly aggregates votes
         """
 
-        product = ProductFactory.create()
+        product = ProductFactory.create(draft=False)
         test_product_id = product.id
         request_data = {
             'attribute': 'creepiness',
@@ -102,7 +104,7 @@ class BuyersGuideVoteTest(APITestCase):
         Range votes are recorded
         """
 
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
         vote_value = 50
 
         response = self.client.post(VOTE_URL, {
@@ -122,7 +124,7 @@ class BuyersGuideVoteTest(APITestCase):
         """
         Boolean votes are recorded
         """
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
         vote_value = True
 
         response = self.client.post(VOTE_URL, {
@@ -140,7 +142,7 @@ class BuyersGuideVoteTest(APITestCase):
         """
         Value can't be anything other than a Boolean or int
         """
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
         # String values not allowed
         vote_value = 'invalid'
 
@@ -201,7 +203,7 @@ class BuyersGuideVoteTest(APITestCase):
         """
         If value is an int, it must be between 1 and 100
         """
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
         vote_value = 0
 
         response = self.client.post(VOTE_URL, {
@@ -212,7 +214,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         self.assertEqual(response.status_code, 400)
 
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
         vote_value = 101
 
         response = self.client.post(VOTE_URL, {
@@ -227,7 +229,7 @@ class BuyersGuideVoteTest(APITestCase):
         """
         Test that attribute can only be 'creepiness' when value is an int
         """
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
         vote_value = 50
 
         response = self.client.post(VOTE_URL, {
@@ -238,7 +240,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
 
         response = self.client.post(VOTE_URL, {
             'attribute': 'confidence',
@@ -252,7 +254,7 @@ class BuyersGuideVoteTest(APITestCase):
         """
         Test that attribute can only be 'confidence' when value is a boolean
         """
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
         vote_value = True
 
         response = self.client.post(VOTE_URL, {
@@ -263,7 +265,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        test_product_id = ProductFactory.create().id
+        test_product_id = ProductFactory.create(draft=False).id
 
         response = self.client.post(VOTE_URL, {
             'attribute': 'creepiness',
@@ -319,6 +321,7 @@ class BuyersGuideViewTest(TestCase):
         Test that the homepage works.
         """
         request = self.factory.get('/en/privacynotincluded/')
+        request.user = self.user
         response = buyersguide_home(request)
         self.assertEqual(response.status_code, 200, 'homepage yields a working page')
 
@@ -373,8 +376,18 @@ class BuyersGuideViewTest(TestCase):
         """
         p = Product.objects.create(name='test product view')
 
+        logger = logging.getLogger('django.request')
+        previous_level = logger.getEffectiveLevel()
+        logger.setLevel(logging.ERROR)
         response = self.client.get(f'/en/privacynotincluded/products/{p.slug}/')
-        self.assertEqual(response.status_code, 200, 'The product view should render')
+        self.assertEqual(response.status_code, 404, 'The product should be a draft and so should not have a legal URL')
+        logger.setLevel(previous_level)
+
+        p.draft = False
+        p.save()
+
+        response = self.client.get(f'/en/privacynotincluded/products/{p.slug}/')
+        self.assertEqual(response.status_code, 200, 'The product view should render once no longer a draft')
 
 
 class ProductTests(TestCase):
