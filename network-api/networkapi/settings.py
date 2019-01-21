@@ -459,6 +459,8 @@ if env('SSL_REDIRECT') is True:
 X_FRAME_OPTIONS = env('X_FRAME_OPTIONS')
 REFERRER_HEADER_VALUE = env('REFERRER_HEADER_VALUE')
 
+
+# Remove the default Django loggers and configure new ones
 LOGGING_CONFIG = None
 LOGGING = {
     'version': 1,
@@ -515,8 +517,6 @@ LOGGING = {
 }
 DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
 logging.config.dictConfig(LOGGING)
-
-# Override all the default Django loggers
 
 # Frontend
 FRONTEND = {
