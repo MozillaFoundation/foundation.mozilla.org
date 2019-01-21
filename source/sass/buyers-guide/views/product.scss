@@ -1,3 +1,8 @@
+$product-detail-padding-x: (
+  xs: 18px,
+  md: 5rem
+);
+
 .product-header {
   padding-bottom: 88px;
   position: relative;
@@ -31,20 +36,28 @@
   }
 }
 
-.product-detail {
-  $link-active-color: #3302ff;
+.product-section-padding-x {
+  padding-left: map-get($product-detail-padding-x, xs);
+  padding-right: map-get($product-detail-padding-x, xs);
 
+  @media (min-width: $bp-md) {
+    padding-left: map-get($product-detail-padding-x, md);
+    padding-right: map-get($product-detail-padding-x, md);
+  }
+}
+
+.product-detail {
   margin-top: -88px;
 
   .small-link {
     font-family: "Nunito Sans";
     font-size: 18px;
     font-weight: 400;
-    color: #909090;
+    color: $medium-gray;
     text-decoration: underline;
 
     @include hover-focus-active {
-      color: $link-active-color;
+      color: $bg-link-blue;
     }
   }
 
@@ -61,7 +74,7 @@
 
       &.copied {
         cursor: auto;
-        color: $link-active-color;
+        color: $bg-link-blue;
         text-decoration: none;
       }
 
@@ -220,7 +233,7 @@
   .author {
     font-family: "Nunito Sans";
     font-size: 12px;
-    color: #909090;
+    color: $medium-gray;
   }
 
   .snippet {
@@ -233,9 +246,78 @@
 }
 
 .creep-vote-target {
+  position: relative;
   min-height: 380px;
-  border-top: 1px solid #c8c8ca;
-  border-bottom: 1px solid #c8c8ca;
+  border: 1px solid $light-gray;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media (min-width: $bp-md) {
+    $padding-x: map-get($product-detail-padding-x, md) / 2;
+
+    margin-left: -$padding-x;
+    margin-right: -$padding-x;
+    padding-left: $padding-x;
+    padding-right: $padding-x;
+  }
+}
+
+.creep-vote {
+  .what-you-think-label {
+    $line-height: 24px;
+    $padding-x: 1rem;
+    $padding-y: 0.5rem;
+    $shadow-width: calc(#{$padding-x} + 10px);
+
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-50%);
+    background: $dark-gray;
+    padding: $padding-y 1rem;
+
+    &.h5-heading {
+      color: white;
+    }
+
+    @media (min-width: $bp-md) {
+      left: calc(#{$shadow-width} * -1);
+
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 $shadow-width $shadow-width 0;
+        border-color: transparent #000 transparent transparent;
+      }
+    }
+  }
+}
+
+#btn-read-search {
+  position: relative;
+  text-transform: none;
+  text-decoration: underline;
+  letter-spacing: 0;
+  color: $medium-gray;
+  padding: 0 0 0 1.3rem;
+
+  @include hover-focus-active {
+    color: $bg-link-blue;
+  }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    content: "";
+    background: url('/_images/buyers-guide/icon-info-pink.svg') no-repeat 50% 50%/contain;
+    width: 16px;
+    height: 100%;
+  }
 }
 
 .helptext {
