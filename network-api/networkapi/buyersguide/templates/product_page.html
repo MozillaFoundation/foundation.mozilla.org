@@ -11,7 +11,7 @@
 {% block body-id %}product-page{% endblock %}
 
 {% block guts %}
-<div class="container-fluid text-center product-header bg-gray">
+<div class="container-fluid text-center product-header bg-gray{% if product.draft %} draft-product{% endif %}">
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">

@@ -7,6 +7,10 @@ $product-detail-padding-x: (
   padding-bottom: 88px;
   position: relative;
 
+  &.draft-product::before {
+    content: 'This product is in draft and only visible to CMS-authorised users.';
+  }
+
   .seal-of-approval {
     position: absolute;
     top: 1rem;
