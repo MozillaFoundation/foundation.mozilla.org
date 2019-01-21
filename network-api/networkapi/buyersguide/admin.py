@@ -18,6 +18,7 @@ class WagtailBuyersGuideAdmin(ModelAdmin):
 
     get_published.short_description = 'Published'
     get_published.boolean = True
+    get_published.admin_order_field = 'draft'
 
     list_display = ('get_published', 'name', 'company', 'url')
     search_fields = ('name', 'company')
