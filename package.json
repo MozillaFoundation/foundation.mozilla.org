@@ -70,7 +70,7 @@
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
     "snyk": "^1.120.1",
-    "stylelint": "^9.9.0",
+    "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
     "svgo": "^1.1.1",
     "webpack": "^4.28.4",
