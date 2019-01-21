@@ -6,7 +6,7 @@ addons:
 install:
 - pip install --upgrade pip
 - pip install pipenv
-- pipenv sync --dev
+- pipenv install --dev --deploy
 - nvm install --lts=carbon
 - nvm use --lts=carbon
 - npm install -g npm@latest # Needed to use npm ci
@@ -39,6 +39,7 @@ env:
   - TARGET_DOMAIN=foundation.mozilla.org
   - SHOW_TAKEOVER=false
   - USE_CLOUDINARY=false
+  - secure: WYFW77Nv8vsuy/4pLqqh8IIQ1NxzeFEIE8M/83QbNaIm2j8ZdxGZX7MdfKW1KVhH1dw76MJgZoDi9JBT/471uJKLj2cV3BQZqxf9pty1mXl0WSzd8tOA9vAxHaNSmOyjvh8XQaN/B5nu+QJxHJjg1hrwfcXJ88YSv52oQk9cVWjcM5FkeRgwUJXEFEtgctDw18Fb48a7YNuMMuBieaM5lNwtOHNFzuQXEPzh+xt7jSHYVYOpE3BEGhi/8A8SSu4QdsKkAG1glT5fZvU5xS9HSE9HP7zMVfXfu15AyBke5B7v8qt5u6O6JRB+ozMRgcrc0fLlbxGcH9BVq8O85IGQuUc7Wxh9Xmsn/bmaC7MCUNDP6zmn+iyJYSRnsdU3In4F+nocomAE+cL7MnzwWgab2NW/EcslGUwr3nPdG1wwFtfKuYMyabZWG4SoBb3gaRGblTGCyMtFgsK1MIuaozjPPk6X/BhdlV+/L7xz3NMysMUNOUlLq7StRv/7TTvpGdWbDeWuojHRxCXtjNIsRGARJOESQjVM71hwiN6wHCmFeYONe/QKrLeqITEzXi1GwM23o+IsW6AIVwess2jf0kxO0gn/UoVJZ74vfGIhd5EfGD1ZYRwwOgaHyf7SD73c6OLotLEd5lUMtCyOtIdYQQYz4V8P4oHJicNeh07f8g39rmc=
 cache:
   pip: true
   directories:
