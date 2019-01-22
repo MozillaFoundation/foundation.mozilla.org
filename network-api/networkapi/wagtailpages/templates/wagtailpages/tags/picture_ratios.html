@@ -17,7 +17,7 @@
     {% image unoptimized_image fill-320x180-c0 format-jpeg as image_small_hq %}
     {# Low quality small img #}
     {% image unoptimized_image fill-320x180-c0 format-jpeg jpegquality-83 as image_small_lq %}
-    <source class="full-bleed-xs" srcset="{{ image_small_lq.url }} 1x, {{ image_small_hq.url }} 2x" type="image/jpeg">
+    <source srcset="{{ image_small_lq.url }} 1x, {{ image_small_hq.url }} 2x" type="image/jpeg">
     
     {# Fallback/Default Image #} 
     <img src="{{ image_large_lq.url }}" class="full-bleed-xs" srcset="{{image_small_lq.url}} 320w, {{ image_medium_lq.url }} 480w, {{ image_large_lq.url }} 540w" />
