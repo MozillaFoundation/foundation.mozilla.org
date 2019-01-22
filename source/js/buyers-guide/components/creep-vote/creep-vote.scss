@@ -28,15 +28,20 @@ $btn-shadow-width: 3px;
   .btn-group {
     display: flex;
     justify-content: center;
+    max-width: 300px;
+    margin: 0 auto;
+
+    label {
+      flex: 1;
+    }
 
     .btn {
       border: 1px solid black;
       border-bottom-width: $btn-shadow-width;
       color: black;
-      padding: 0.5em 1.5em;
       text-transform: initial;
       transition: all 0.1s linear;
-      width: 9em;
+      width: 100%;
     }
 
     input { display: none; }
@@ -71,7 +76,7 @@ $btn-shadow-width: 3px;
     color: black;
 
     &:hover {
-      color: #4383bf;
+      color: $dark-blue;
       font-weight: bold;
     }
   }

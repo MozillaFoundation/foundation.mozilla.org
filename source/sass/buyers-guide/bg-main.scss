@@ -21,6 +21,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 //Site-wide
 
 @import '../colors';
+@import './colors'; // Buyer's Guide specific colors
 @import '../mixins';
 
 // React Components
@@ -39,17 +40,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 // Non-React Components
 
 @import './components/future-non-react-component';
+@import '../components/nav';
 @import '../components/multipage-nav';
-
-.btn-blue {
-  color: $white;
-  background: #3302ff;
-
-  &:hover {
-    color: $white;
-    background: #4a90e2;
-  }
-}
 
 // Misc
 
@@ -83,6 +75,9 @@ img.thumb-border {
   background: #f4f4f4;
   border: 16px solid #f4f4f4;
 }
+
+// includes
+@import "./includes/draft-product";
 
 // used by various pages
 @import "./creep-face-emoji";

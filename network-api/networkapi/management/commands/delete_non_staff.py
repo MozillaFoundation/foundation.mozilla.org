@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand
 
 
 def delete_non_staff():
-    print("Deleting non staff users")
+    print("\nDeleting non staff users")
     group_q = Group.objects.all()
     non_staff = User.objects.exclude(
         Q(email__endswith='@mozillafoundation.org') |

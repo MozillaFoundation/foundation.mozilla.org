@@ -26,18 +26,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:8cb94f08158f5fb5f28fa4e94be9ab5cd03e63a4056b220c65edc39a13e6c5ad",
-                "sha256:e3f01b76a6ed8abf7e1cce631933268bb1cef82b4e1677dbb1c8d97aae759150"
+                "sha256:8f02aebdbb274d1be3af1e6c117865afa97a34a6810a304e079beab5827c7614",
+                "sha256:b131da6494d5036a2768fcea56fb9891bff7eb6b8faaa7dce93e939f50382b1c"
             ],
             "index": "pypi",
-            "version": "==1.9.75"
+            "version": "==1.9.78"
         },
         "botocore": {
             "hashes": [
-                "sha256:9b1093791e564df14c6af014e186e2d0975ab96415f1d14f624e03a098c2de68",
-                "sha256:c84b302f016fc4b16227ac975b99eaae73a52bff69b175a46fe43907957e2265"
+                "sha256:2cdf5519ddab95774248a002c24fbd804b5e5b44ed1c25497d34b34a06e9f84a",
+                "sha256:bd0b042dded14c7b2978d13dd8088f10f05f9e12382e882e03694e9131185358"
             ],
-            "version": "==1.12.75"
+            "version": "==1.12.78"
         },
         "certifi": {
             "hashes": [
@@ -256,10 +256,10 @@
         },
         "oauthlib": {
             "hashes": [
-                "sha256:0a8b2e0daa7afb62bd1b0b387b7a3723fa9a35d1183694ca5a5c8e3d6df59913",
-                "sha256:8932fb34f7c6a4fc50c9f423b105923ed2e6df091b3c388d182540db02c581a0"
+                "sha256:ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162",
+                "sha256:d883b36b21a6ad813953803edfa563b1b579d79ca758fe950d1bc9e8b326025b"
             ],
-            "version": "==3.0.0"
+            "version": "==2.1.0"
         },
         "pbr": {
             "hashes": [
@@ -393,10 +393,10 @@
         },
         "requests-oauthlib": {
             "hashes": [
-                "sha256:8886bfec5ad7afb391ed5443b1f697c6f4ae98d0e5620839d8b4499c032ada3f",
-                "sha256:e21232e2465808c0e892e0e4dbb8c2faafec16ac6dc067dd546e9b466f3deac8"
+                "sha256:be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61",
+                "sha256:eabd8eb700ebed81ba080c6ead96d39d6bdc39996094bd23000204f6965786b0"
             ],
-            "version": "==1.0.0"
+            "version": "==1.1.0"
         },
         "s3transfer": {
             "hashes": [
@@ -423,11 +423,11 @@
         },
         "social-auth-core": {
             "hashes": [
-                "sha256:744c8b8498cf7e970151e8ea96a8d3e3aa818986ace7e1a0f39295fc193f4529",
-                "sha256:b8a34e7eb71c66e4d68deb007c81d4f74d4e0bc52c1c4f871a7758db0a0c268e",
-                "sha256:cec8e0a2297a23c0e1cab21bbcfaf32c8378fdb98762f47e315bbc65c3a83c89"
+                "sha256:3584a6b96b5c505bb2d2a5c35a9f8656addd895bfa64c58f9c40d4e3d824ea26",
+                "sha256:54eb683eeee677a45e4e544995b0c62a88d705ae5d9509256187f8d6a943a32a",
+                "sha256:d47c4f48484847faf043e975ec07300be84d64bfcf8268029e2383759222b609"
             ],
-            "version": "==2.0.0"
+            "version": "==3.0.0"
         },
         "text-unidecode": {
             "hashes": [
