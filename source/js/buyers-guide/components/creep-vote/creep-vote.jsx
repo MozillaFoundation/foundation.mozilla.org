@@ -163,7 +163,7 @@ export default class CreepVote extends React.Component {
 
     return(
       <div>
-        <div className="mb-5">
+        <div className="mb-4">
           <div className="col-12 text-center">
             <h3 className="h5-heading mb-1">Thanks for voting! Here are the results</h3>
             <div className="h6-heading-uppercase text-muted">{this.state.totalVotes + 1} Votes</div>
