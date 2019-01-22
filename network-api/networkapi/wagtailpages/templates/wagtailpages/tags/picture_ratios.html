@@ -1,6 +1,6 @@
 {% load wagtailimages_tags %}
 
-<picture class="{{class_names}}">
+<picture class="wagtail-image {{class_names}}">
     {# High quality large img #}
     {% image unoptimized_image fill-540x304-c0 format-jpeg as image_large_hq %}
     {# Low quality large img #}
