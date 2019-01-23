@@ -14,6 +14,8 @@
     "build:sass": "shx mkdir -p network-api/networkapi/frontend/_css && node-sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && node-sass source/sass/buyers-guide/bg-main.scss network-api/networkapi/frontend/_css/buyers-guide.compiled.css && npm run autoprefix",
     "build": "npm run build:common && npm run build:js",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
+    "cypress": "run-p --race server cypress:test",
+    "cypress:test": "wait-on tcp:8000 && cypress run",
     "heroku-postbuild": "npm run build",
     "migrate": "pipenv run python network-api/manage.py migrate",
     "optimize:svg": "find source/images -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
@@ -41,7 +43,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
-    "autoprefixer": "^9.4.5",
+    "autoprefixer": "^9.4.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
     "browserslist": "^4.3.7",
@@ -59,7 +61,7 @@
     "node-sass": "^4.11.0",
     "npm-run-all": "^4.1.3",
     "optipng-bin": "^5.1.0",
-    "postcss": "^7.0.7",
+    "postcss": "^7.0.14",
     "postcss-cli": "^6.1.1",
     "prop-types": "^15.6.2",
     "react": "16.7.0",
@@ -68,7 +70,7 @@
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
     "snyk": "^1.120.1",
-    "stylelint": "^9.9.0",
+    "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
     "svgo": "^1.1.1",
     "webpack": "^4.28.4",
@@ -77,5 +79,10 @@
   },
   "engines": {
     "node": "^8.9.0"
+  },
+  "devDependencies": {
+    "@percy/cypress": "^0.2.3",
+    "cypress": "^3.1.4",
+    "wait-on": "^3.2.0"
   }
 }

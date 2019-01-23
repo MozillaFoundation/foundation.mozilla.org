@@ -11,7 +11,7 @@
 {% block body-id %}product-page{% endblock %}
 
 {% block guts %}
-<div class="container-fluid text-center product-header bg-gray">
+<div class="container-fluid text-center product-header bg-gray{% if product.draft %} draft-product{% endif %}">
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
@@ -50,12 +50,12 @@
           <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="link copied!">copy & share link</a>
         </div>
         <h2 class="h1-heading col-md-10">{{product.name}}</h2>
-        <div class="body-large mb-4 mb-md-5 col-12">{{product.blurb}}</div>
+        <div class="body-large mb-3 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
 
       <div class="row">
         <div class="col-12">
-          <div class="creep-vote-target mt-5 mt-md-0" data-product-name="{{product.name}}">
+          <div class="creep-vote-target mt-5 mt-md-4" data-product-name="{{product.name}}">
               {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value="{{ product.votes | safe }}">
