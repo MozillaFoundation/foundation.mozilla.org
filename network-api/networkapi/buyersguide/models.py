@@ -90,6 +90,11 @@ class Product(models.Model):
     A thing you can buy in stores and our review of it
     """
 
+    draft = models.BooleanField(
+        help_text='When checked, this product will only show for CMS-authenticated users',
+        default=True,
+    )
+
     name = models.CharField(
         max_length=100,
         help_text='Name of Product',
@@ -331,6 +336,11 @@ class Product(models.Model):
     # this using `_meta.get_fields()`. To be refactored in the future.
     panels = [
         MultiFieldPanel([
+            FieldPanel('draft'),
+        ],
+            heading="Publication status"
+        ),
+        MultiFieldPanel([
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),
@@ -464,8 +474,12 @@ class Product(models.Model):
 # We want to delete the product image when the product is removed
 @receiver(pre_delete, sender=Product)
 def delete_image(sender, instance, **kwargs):
-    if instance.cloudinary_image:
-        uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
+    # We want to keep our review app placeholders
+    if settings.HEROKU_APP_NAME:
+        pass
+    else:
+        if instance.cloudinary_image:
+            uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
 
 
 class ProductVote(models.Model):

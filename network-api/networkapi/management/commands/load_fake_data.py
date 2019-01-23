@@ -3,7 +3,6 @@ from itertools import chain, combinations
 import factory
 from random import randint, random
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.conf import settings
@@ -47,6 +46,7 @@ from networkapi.buyersguide.models import (
     BooleanVote
 )
 from networkapi.buyersguide.factory import ProductFactory
+from wagtail_factories import ImageFactory
 
 # Wagtail Page Models
 import networkapi.wagtailpages.models as wagtailpages_models
@@ -119,6 +119,15 @@ class Command(BaseCommand):
         faker = factory.faker.Faker._get_faker(locale='en-US')
         faker.random.seed(seed)
 
+        print('Generating Images')
+        [
+            ImageFactory.create(
+                file__width=1080,
+                file__height=720,
+                file__color=faker.safe_color_name()
+            ) for i in range(20)
+        ]
+
         print('Generating Milestones')
         [MilestoneFactory.create() for i in range(10)]
 
@@ -141,7 +150,7 @@ class Command(BaseCommand):
         try:
             home_page = wagtailpages_models.Homepage.objects.get(title='Homepage')
             print('Homepage already exists')
-        except ObjectDoesNotExist:
+        except wagtailpages_models.Homepage.DoesNotExist:
             print('Generating a Homepage')
             site_root = WagtailPage.objects.get(title='Root')
             home_page = WagtailHomepageFactory.create(
@@ -170,7 +179,7 @@ class Command(BaseCommand):
             default_site.root_page = home_page
             default_site.save()
             print('Updated the default Site')
-        except ObjectDoesNotExist:
+        except WagtailSite.DoesNotExist:
             print('Generating a default Site')
             if settings.HEROKU_APP_NAME:
                 hostname = REVIEW_APP_HOSTNAME
@@ -190,7 +199,7 @@ class Command(BaseCommand):
         try:
             about_page = WagtailPage.objects.get(title='about')
             print('about page exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating an about Page (PrimaryPage)')
             about_page = PrimaryPageFactory.create(parent=home_page, title='about')
 
@@ -200,42 +209,42 @@ class Command(BaseCommand):
         try:
             WagtailPage.objects.get(title='styleguide')
             print('styleguide page exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating a Styleguide Page')
             StyleguideFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='people')
             print('people page exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating an empty People Page')
             PeoplePageFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='news')
             print('news page exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating an empty News Page')
             NewsPageFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='initiatives')
             print('initiatives page exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating an empty Initiatives Page')
             InitiativesPageFactory.create(parent=home_page)
 
         try:
             WagtailPage.objects.get(title='participate')
             print('participate page exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating an empty Participate Page')
             ParticipatePageFactory.create(parent=home_page)
 
         try:
             campaign_namespace = WagtailPage.objects.get(title='campaigns')
             print('campaigns namespace exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating a campaigns namespace')
             campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
 
@@ -248,14 +257,14 @@ class Command(BaseCommand):
         try:
             wagtailpages_models.CampaignPage.objects.get(title='single-page')
             print('single-page CampaignPage already exists')
-        except ObjectDoesNotExist:
+        except wagtailpages_models.CampaignPage.DoesNotExist:
             print('Generating single-page CampaignPage')
             CampaignPageFactory.create(parent=campaign_namespace, title='single-page')
 
         try:
             wagtailpages_models.CampaignPage.objects.get(title='multi-page')
             print('multi-page CampaignPage already exists.')
-        except ObjectDoesNotExist:
+        except wagtailpages_models.CampaignPage.DoesNotExist:
             print('Generating multi-page CampaignPage')
             multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
             [CampaignPageFactory(parent=multi_page_campaign, no_cta=True) for k in range(3)]
@@ -263,7 +272,7 @@ class Command(BaseCommand):
         try:
             opportunity_namespace = WagtailPage.objects.get(title='opportunity')
             print('opportunity namespace exists')
-        except ObjectDoesNotExist:
+        except WagtailPage.DoesNotExist:
             print('Generating an opportunity namespace')
             opportunity_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='opportunity', live=False)
 
@@ -273,21 +282,21 @@ class Command(BaseCommand):
         try:
             wagtailpages_models.OpportunityPage.objects.get(title='Global Sprint')
             print('Global Sprint OpportunityPage exists')
-        except ObjectDoesNotExist:
+        except wagtailpages_models.OpportunityPage.DoesNotExist:
             print('Generating Global Sprint OpportunityPage')
             OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint', no_cta=True)
 
         try:
             wagtailpages_models.OpportunityPage.objects.get(title='single-page')
             print('single-page OpportunityPage exists')
-        except ObjectDoesNotExist:
+        except wagtailpages_models.OpportunityPage.DoesNotExist:
             print('Generating single-page OpportunityPage')
             OpportunityPageFactory.create(parent=opportunity_namespace, title='single-page')
 
         try:
             wagtailpages_models.OpportunityPage.objects.get(title='multi-page')
             print('multi-page OpportunityPage exists')
-        except ObjectDoesNotExist:
+        except wagtailpages_models.OpportunityPage.DoesNotExist:
             print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
             [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]

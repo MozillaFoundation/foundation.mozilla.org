@@ -8,7 +8,7 @@ from factory import (
     LazyAttribute,
 )
 
-from networkapi.utility.faker_providers import ImageProvider
+from networkapi.utility.faker import ImageProvider
 from networkapi.buyersguide.models import (
     Product,
     BuyersGuideProductCategory
@@ -34,6 +34,7 @@ class ProductFactory(DjangoModelFactory):
 
     product_words = Faker('words', nb=2)
 
+    draft = Faker('boolean')
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
 
     @post_generation
@@ -80,6 +81,6 @@ class ProductFactory(DjangoModelFactory):
     @post_generation
     def set_image(self, create, extracted, **kwargs):
         if settings.USE_CLOUDINARY:
-            self.cloudinary_image = Faker('generic_image').generate({})
+            self.cloudinary_image = Faker('product_image').generate({})
         else:
-            self.image.name = Faker('generic_image').generate({})
+            self.image.name = Faker('product_image').generate({})

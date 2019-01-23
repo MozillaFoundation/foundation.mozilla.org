@@ -1,5 +1,5 @@
 #multipage-nav-mobile {
-  .multipage-nav {
+  .dropdown-nav {
     .expander {
       background: none;
       text-align: left;
@@ -25,7 +25,7 @@
       display: none;
     }
 
-    &.multipage-nav-open {
+    &.dropdown-nav-open {
       .expander {
         .active-link-label {
           visibility: hidden;
@@ -43,27 +43,12 @@
   }
 
   .col-12 {
-    background: $subtle-gray;
+    border: 2px solid #dedede;
   }
 }
 
-.multipage-nav {
+.dropdown-nav {
   > div {
-    margin: 24px 0;
+    margin: 14px 0;
   }
-}
-
-#multipage-nav.flex-row > div {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-
-  @media screen and (min-width: $bp-md) {
-    margin-right: 2rem;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-}
-
-#multipage-nav > div:first-child {
-  margin-top: 0;
 }

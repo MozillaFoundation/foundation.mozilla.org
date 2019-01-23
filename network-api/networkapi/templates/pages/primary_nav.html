@@ -1,31 +1,33 @@
+{% load primary_active_nav %}
+
 {% if page.zen_nav == True %}<div id="primary-nav-container" data-nav-mode="zen" class="zen-mode">
 {% else %}<div id="primary-nav-container">
 {% endif %}
-  <div class="wrapper-burger {{ background }}">
+  <div class="wrapper-burger">
     <div class="menu-container">
-      <div class="narrow-screen-menu hidden">
+      <div class="narrow-screen-menu hidden d-md-none">
         <div class="narrow-screen-menu-background">
           <div class="narrow-screen-menu-container">
-            <div class="container">
+            <nav class="container">
               <div class="row">
                 <div class="col">
-                  <div class="nav-links">
-                    <a class="nav-link-home" href="/">Home</a>
-                    <a class="nav-link-initiatives" href="/initiatives">Initiatives</a>
-                    <a class="nav-link-participate" href="/participate">Participate</a>
-                    <a class="nav-link-internet-health" href="/internet-health">Internet&nbsp;Health</a>
-                    <a class="nav-link-about" href="/about">About&nbsp;Us</a>
+                  <div class="nav-links pt-3">
+                    <div><a class="{% primary_active_nav request '/' %}" href="/">Home</a></div>
+                    <div><a class="{% primary_active_nav request '/initiatives' %}" href="/initiatives">Initiatives</a></div>
+                    <div><a class="{% primary_active_nav request '/participate' %}" href="/participate">Participate</a></div>
+                    <div><a class="{% primary_active_nav request '/internet-health' %}" href="/internet-health">Internet&nbsp;Health</a></div>
+                    <div><a class="{% primary_active_nav request '/about' %}" href="/about">About&nbsp;Us</a></div>
                     {% if HEROKU_APP_NAME %}
-                      <a href="/help">DEV HELP</a>
+                    <div><a href="/help">DEV HELP</a></div>
                     {% endif %}
                   </div>
                 </div>
               </div>
-            </div>
+            </nav>
           </div>
         </div>
       </div>
-      <div class="container">
+      <nav class="container">
         <div class="row">
           <div class="col">
             <div class="d-flex flex-row justify-content-between">
@@ -47,10 +49,10 @@
                   <div class="wide-screen-menu">
                 {% endif %}
                     <div class="nav-links hidden-sm-down">
-                      <a class="nav-link-initiatives" href="/initiatives">Initiatives</a>
-                      <a class="nav-link-participate" href="/participate">Participate</a>
-                      <a class="nav-link-internet-health" href="/internet-health">Internet&nbsp;Health</a>
-                      <a class="nav-link-about" href="/about">About&nbsp;Us</a>
+                      <a class="{% primary_active_nav request '/initiatives' %}" href="/initiatives">Initiatives</a>
+                      <a class="{% primary_active_nav request '/participate' %}" href="/participate">Participate</a>
+                      <a class="{% primary_active_nav request '/internet-health' %}" href="/internet-health">Internet&nbsp;Health</a>
+                      <a class="{% primary_active_nav request '/about' %}" href="/about">About&nbsp;Us</a>
                       {% if HEROKU_APP_NAME %}
                         <a href="/help">DEV HELP</a>
                       {% endif %}
@@ -58,13 +60,13 @@
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="donate-btn-wrapper">
                 <a id="donate-header-btn" class="btn btn-pop" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   </div>
 </div>

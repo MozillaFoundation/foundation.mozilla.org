@@ -37,15 +37,11 @@
           {% include "./primary_nav.html" with background="simple-background" %}
         {% endblock %}
       </div>
-      <div class="wrapper-2">
-        <div id="hero">
-          <div class="container">{% block heroGuts %}{% endblock %}
-          </div>
-        </div>
-      </div>{% block content %}{% endblock %}
+      {% block heroGuts %}{% endblock %}
+      {% block content %}{% endblock %}
       <footer class="mofo-footer">
         <div class="container">
-          <ul class="list-unstyled footer-links row justify-content-center">
+          <ul class="list-unstyled footer-links row justify-content-center mb-0">
             <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
             <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
             <li class="col-auto"><a class="footer-link-github" href="https://www.github.com/mozilla/foundation.mozilla.org/">Github</a></li>

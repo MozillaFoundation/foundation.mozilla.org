@@ -11,7 +11,7 @@ import Petition from './components/petition/petition.jsx';
 import People from './components/people/people.jsx';
 import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
-import MultipageNav from './components/multipage-nav/multipage-nav.jsx';
+import MultipageNavMobile from './components/multipage-nav-mobile/multipage-nav-mobile.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
@@ -155,22 +155,6 @@ let main = {
 
     primaryNav.init();
 
-    // Adjust #hero offset on load and window resize to accomodate the sticky header
-
-    let elHero = document.querySelector(`#hero`);
-    let elStickyTop = document.querySelector(`.sticky-top`);
-
-    let adjustHero = () => {
-      elHero.style.paddingTop = `${elStickyTop.clientHeight}px`;
-      elHero.style.marginTop = `-${elStickyTop.clientHeight}px`;
-    };
-
-    adjustHero();
-
-    window.addEventListener(`resize`, () => {
-      adjustHero();
-    });
-
     // Extra tracking
 
     document.getElementById(`donate-header-btn`).addEventListener(`click`, () => {
@@ -191,8 +175,10 @@ let main = {
   },
 
   bindGAEventTrackers() {
-    if (document.querySelector(`#see-more-modular-page`)) {
-      document.querySelector(`#see-more-modular-page`).addEventListener(`click`, () => {
+    let seeMorePage = document.querySelector(`#see-more-modular-page`);
+
+    if (seeMorePage) {
+      seeMorePage.addEventListener(`click`, () => {
         let label = ``;
         let pageHeader = document.querySelector(`.cms h1`);
 
@@ -201,6 +187,18 @@ let main = {
         }
 
         Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
+      });
+    }
+
+    let participateDonateBtn = document.querySelector(`#view-participate .card-cta .btn[href*="donate.mozilla.org"]`);
+
+    if (participateDonateBtn) {
+      participateDonateBtn.addEventListener(`click`, () => {
+        ReactGA.event({
+          category: `donate`,
+          action: `donate button tap`,
+          label: document.title
+        });
       });
     }
   },
@@ -271,12 +269,11 @@ let main = {
         return {
           label: child.textContent.trim(),
           href: child.getAttribute(`href`),
-          isActive: !!child.getAttribute(`class`).match(/multipage-link-active/),
-          isHighlighted: !child.getAttribute(`class`).match(/multipage-link-active-no-highlight/)
+          isActive: !!child.getAttribute(`class`).match(/active/)
         };
       });
 
-      ReactDOM.render(<MultipageNav links={links} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
+      ReactDOM.render(<MultipageNavMobile links={links} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
     }
 
     // News

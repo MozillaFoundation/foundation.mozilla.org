@@ -23,21 +23,6 @@
       @media screen and (min-width: 750px) {
         font-size: 20px;
       }
-
-      .creep-face-emoji {
-        display: inline-block;
-        width: 1em;
-        height: 1em;
-        position: relative;
-        top: 0.25em;
-        margin: 0 0.2em;
-        font-variant: normal;
-        color: transparent;
-        background-image: url(/_images/buyers-guide/faces/most-emoji.png);
-        background-size: 100% 100%;
-        background-position: center center;
-        background-repeat: no-repeat;
-      }
     }
   }
 
@@ -113,7 +98,7 @@
         }
 
         figcaption {
-          color: #909090;
+          color: $medium-gray;
           position: relative;
           bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
 
@@ -147,8 +132,24 @@
     }
   }
 
+  .no-matching-products-note {
+    min-height: 200px;
+    height: 40vh;
+
+    .btn.btn-link {
+      color: inherit;
+      text-transform: none;
+      text-decoration: underline;
+      font-weight: 400;
+
+      @include hover-focus-active {
+        color: $bg-link-blue;
+      }
+    }
+  }
+
   .creepiness-slider {
-    z-index: 1;
+    z-index: 2;
     position: sticky;
     position: -webkit-sticky;
     top: 16px;
