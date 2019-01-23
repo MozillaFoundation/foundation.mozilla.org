@@ -10,13 +10,13 @@
     {# High quality medium img #}
     {% image unoptimized_image fill-480x270-c0 as image_medium_hq %}
     {# Low quality medium img #}
-    {% image unoptimized_image fill-480x270-c0 jpegquality-84 as image_medium_lq %}
+    {% image unoptimized_image fill-480x270-c0 as image_medium_lq %}
     <source media="(min-width: 576px)" srcset="{{ image_medium_lq.url }} 1x, {{ image_medium_hq.url }} 2x" type="image/jpeg" alt="{{ image_medium_hq.alt }}">
 
     {# High quality small img #}
     {% image unoptimized_image fill-320x180-c0 as image_small_hq %}
     {# Low quality small img #}
-    {% image unoptimized_image fill-320x180-c0 jpegquality-84 as image_small_lq %}
+    {% image unoptimized_image fill-320x180-c0 as image_small_lq %}
     <source srcset="{{ image_small_lq.url }} 1x, {{ image_small_hq.url }} 2x" type="image/jpeg" alt="{{ image_small_hq.alt }}">
     
     {# Fallback/Default Image #} 
