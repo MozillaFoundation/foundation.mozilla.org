@@ -13,7 +13,7 @@
 
 //Fall back for Wagtail images to take up entire space of parent container
 .wagtail-image {
-  @media only screen and (min-width: 576px) {
+  @media only screen and (min-width: $bp-sm) {
     width: 100%;
   }
 }
