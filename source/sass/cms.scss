@@ -13,6 +13,8 @@
 
 .wagtail-image {
   img {
-    width: 100%;
+    @media screen and (min-width: 597px) {
+      width: 100%;
+    }
   }
 }
