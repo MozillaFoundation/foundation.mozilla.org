@@ -1,0 +1,14 @@
+// product draft rules
+.draft-product::before {
+  content: 'This is a draft.';
+  color: #ffa7a7;
+  font-weight: bold;
+  font-size: 120%;
+  font-family: 'Zilla Slab';
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
