@@ -90,6 +90,11 @@ class Product(models.Model):
     A thing you can buy in stores and our review of it
     """
 
+    draft = models.BooleanField(
+        help_text='When checked, this product will only show for CMS-authenticated users',
+        default=True,
+    )
+
     name = models.CharField(
         max_length=100,
         help_text='Name of Product',
@@ -330,6 +335,11 @@ class Product(models.Model):
     # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better way to do
     # this using `_meta.get_fields()`. To be refactored in the future.
     panels = [
+        MultiFieldPanel([
+            FieldPanel('draft'),
+        ],
+            heading="Publication status"
+        ),
         MultiFieldPanel([
             FieldPanel('name'),
             FieldPanel('company'),
