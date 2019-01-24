@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class MultipageNav extends React.Component {
+export default class MultipageNavMobile extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,7 +20,7 @@ export default class MultipageNav extends React.Component {
   render() {
     let activeLinkLabel;
     let links = this.props.links.map((link, index) => {
-      let className = `multipage-link${ link.isActive && link.isHighlighted ? ` multipage-link-active` : `` }`;
+      let className = `multipage-link${ link.isActive ? ` active` : `` }`;
 
       if (link.isActive) {
         activeLinkLabel = <a className={`active-link-label ${className}`}>{link.label}</a>;

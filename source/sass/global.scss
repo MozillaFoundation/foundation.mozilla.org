@@ -6,31 +6,6 @@ body {
     background: $white;
   }
 
-  // Subpages
-  .wrapper-2 {
-    background:
-      url(../_images/bg-white-lines.png) center top / auto 335px repeat,
-      linear-gradient(to right, $neon-blue, $green);
-    background-blend-mode: normal, normal;
-  }
-
-  // Fellowships homepage
-  &#view-fellows-home .wrapper-2 {
-    @media (min-width: $bp-lg) {
-      background-blend-mode: hard-light;
-      background-image:
-        url(../_images/fellowships/hero-image@2x.png),
-        linear-gradient(to right, $neon-blue, $green);
-      background-repeat: repeat-x;
-      background-size: auto 100%;
-      background-position: 50% top;
-    }
-
-    @media (min-width: $bp-xl) {
-      background-position: center top;
-    }
-  }
-
   .noselect {
     -webkit-touch-callout: none; /* iOS */
     -webkit-user-select: none; /* Webkit */
@@ -45,15 +20,30 @@ button:hover {
 }
 
 #hero {
-  p a {
-    color: $black;
-    font-weight: 400;
-    text-decoration: underline solid $blue;
+  $bg-pattern-height: 144px;
 
-    &:hover,
-    &:focus {
-      text-decoration: underline solid $dark-blue;
-      color: $dark-blue;
+  &::before {
+    position: absolute;
+    content: "";
+    background: url(../_images/banner-black-white-marble.jpg) no-repeat top right;
+    background-size: cover;
+    height: $bg-pattern-height;
+    width: 100%;
+  }
+
+  .cutout {
+    margin-top: calc(#{$bg-pattern-height} - 40px);
+    background: white;
+
+    p a {
+      color: $black;
+      font-weight: 400;
+      text-decoration: underline solid $blue;
+
+      @include hover-focus-active {
+        text-decoration: underline solid $dark-blue;
+        color: $dark-blue;
+      }
     }
   }
 }

@@ -98,7 +98,7 @@
         }
 
         figcaption {
-          color: #909090;
+          color: $medium-gray;
           position: relative;
           bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
 
@@ -143,13 +143,13 @@
       font-weight: 400;
 
       @include hover-focus-active {
-        color: #3302ff;
+        color: $bg-link-blue;
       }
     }
   }
 
   .creepiness-slider {
-    z-index: 1;
+    z-index: 2;
     position: sticky;
     position: -webkit-sticky;
     top: 16px;

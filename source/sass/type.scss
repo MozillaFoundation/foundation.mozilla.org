@@ -50,29 +50,6 @@ a {
   line-height: 1.5;
 }
 
-@mixin secondary-nav-link($active-class-name) {
-  font-family: "Nunito Sans";
-  color: $medium-gray;
-  font-size: 15px;
-  border-bottom-width: 3px;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &#{$active-class-name} {
-    color: inherit;
-    color: $black;
-    text-decoration: none;
-    border-bottom-color: black;
-  }
-
-  @at-root #multipage-nav-mobile &#{$active-class-name} {
-    box-shadow: none;
-  }
-}
-
 h1,
 .h1-heading {
   font-family: "Zilla Slab";
@@ -209,12 +186,4 @@ p,
   }
 
   @include scaleText(16px, 24px);
-}
-
-.multipage-link {
-  @include secondary-nav-link(".multipage-link-active");
-
-  @at-root .side-nav #{&} {
-    @include scaleText(17px, 17px*1.6);
-  }
 }

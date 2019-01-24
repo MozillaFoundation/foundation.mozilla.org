@@ -96,13 +96,15 @@ The `load_fake_data` command will output pages with the following slugs:
 
 This list is available on review apps by clicking on `DEV HELP` in the menu or going to `[review app url]/help`.
 
-### Using a copy of the production database for critical testing
+### Using a copy of the staging database for critical testing
 
-Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windowsl; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql).
+Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
 
-The steps involved in cloning the production database for local use are as follows:
+The steps involved in cloning the database for local use are as follows:
 
-1) grab a copy of the production database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and you will want to replace it with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the production instance.
+1) grab a copy of the staging database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and needs to be replaced with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the staging instance.
+
+_If you are unsure how to get to this value, or how to get to the heroku staging settings, ask someone in the engineering team._
 
 This will take a little while, but once the operation  finishes, open `foundation.psql` in your favourite text/code editor and take note of who the owner is by looking for the following statements:
 
@@ -125,7 +127,6 @@ SET search_path = public, pg_catalog;
 You will now also need to update your `.env` file to make sure you're using this database, setting `DATABASE_URL=postgres://localhost:5432/foundation`.
 
 If you need to reset this database, rerun step 2 (with `dropdb foundation` as first command) through 5 to get back to a clean copy of the production database.
-
 
 ### Resolving conflicting Django migrations
 
@@ -171,6 +172,14 @@ To add a React component, you can target a container element from `/source/js/ma
 #### Django and Wagtail
 
 Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
+
+##### localization
+
+We use [wagtail-modeltranslations](https://github.com/infoportugal/wagtail-modeltranslation) for CMS content localization. Please see its documentation for more information.
+
+##### A/B testing
+
+We use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) for CMS-based A/B testing. Please see its documentation for more information.
 
 #### S3 and Cloudinary
 
