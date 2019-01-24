@@ -4,8 +4,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('wagtailpages/tags/picture_ratios.html')
-def optimize_images(image, class_names=""):
+def optimize_images(image):
     return {
-        'unoptimized_image': image,
-        'class_names': class_names
+        'unoptimized_image': image
     }
