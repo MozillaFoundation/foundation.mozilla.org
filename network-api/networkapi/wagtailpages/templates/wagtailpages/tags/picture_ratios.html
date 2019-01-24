@@ -1,17 +1,7 @@
 {% load wagtailimages_tags %}
 
-<picture class="{{class_names}}">
 
-    {% image unoptimized_image fill-540x304-c0 as image_large_lq %}
-    <source media="(min-width: 992px)" srcset="{{ image_large.url }}"  alt="{{ image_large.alt }}">
-    
-    {% image unoptimized_image fill-480x270-c0 as image_medium %}
-    <source media="(min-width: 576px)" srcset="{{ image_medium.url }}" alt="{{ image_medium.alt }}">
-
-    {% image unoptimized_image fill-320x180-c0 as image_small %}
-    <source srcset="{{ image_small.url }}" alt="{{ image_small.alt }}">
-    
-    {# Fallback/Default Image #} 
-    <img src="{{ image_large.url }}" class="full-bleed-xs wagtail-image" srcset="{{image_small.url}} 320w, {{ image_medium.url }} 480w, {{ image_large.url }} 540w" alt="{{ image_large.alt }}"/>
-
-</picture>
+{% image page.hero_image fill-320x180-c0 as hero_home_small %}
+{% image page.hero_image fill-480x270-c0 as hero_home_medium %}
+{% image page.hero_image fill-540x304-c0 as hero_home_large %}
+<img src="{{ hero_home_large.url }}" class="full-bleed-xs wagtail-image" srcset="{{hero_home_small.url}} 320w, {{ hero_home_medium.url }} 480w, {{ hero_home_large.url }} 540w" sizes="(max-width: 575px) 320px,(max-width: 991px) 480px,(min-width: 992px) 540px" alt="{{ hero_home_large.alt }}"/>
