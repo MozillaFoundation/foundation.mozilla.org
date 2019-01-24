@@ -13,6 +13,7 @@ import sys
 
 import os
 import environ
+import logging.config
 import dj_database_url
 from django.utils.translation import gettext_lazy as _
 
@@ -458,36 +459,64 @@ if env('SSL_REDIRECT') is True:
 X_FRAME_OPTIONS = env('X_FRAME_OPTIONS')
 REFERRER_HEADER_VALUE = env('REFERRER_HEADER_VALUE')
 
-DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
 
-# LOGGING
+# Remove the default Django loggers and configure new ones
+LOGGING_CONFIG = None
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
     'formatters': {
-        'simple': {
-            'format': '[%(asctime)s] [%(levelname)s] %(message)s'
-        },
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s] %(message)s'
+        }
     },
     'handlers': {
-        'console': {
+        'debug': {
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple',
+            'filters': ['require_debug_true'],
+            'formatter': 'verbose'
         },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler'
+        },
+        'debug-error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler'
+        }
     },
     'loggers': {
-        'networkapi': {
-            'handlers': ['console'],
-            'level': DJANGO_LOG_LEVEL,
-            'propagate': True,
+        'django': {
+            'handlers': ['debug'],
+            'level': 'DEBUG'
+        },
+        'django.server': {
+            'handlers': ['debug'],
+            'level': 'DEBUG',
         },
         'django.request': {
-            'handlers': ['console'],
-            'level': DJANGO_LOG_LEVEL,
-            'propagate': True,
+            'handlers': ['error'],
+            'propagate': False,
+            'level': 'ERROR'
         },
-    },
+        'django.template': {
+            'handlers': ['debug-error'],
+            'level': 'ERROR'
+        },
+        'django.db.backends': {
+            'handlers': ['debug-error'],
+            'level': 'ERROR'
+        },
+    }
 }
+DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
+logging.config.dictConfig(LOGGING)
 
 # Frontend
 FRONTEND = {
