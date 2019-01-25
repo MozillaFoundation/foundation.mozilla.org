@@ -72,6 +72,14 @@ class BuyersGuideProductCategory(models.Model):
     when necessary.
     """
     name = models.CharField(max_length=100)
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of the product category',
+        blank=True
+    )
+    featured = models.BooleanField(
+        default=False,
+    )
 
     @property
     def websafe_name(self):

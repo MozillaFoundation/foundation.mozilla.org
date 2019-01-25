@@ -8,8 +8,11 @@
 {% block guts %}
   <div class="category-listing container-fluid text-center px-5 mt-4">
 
-    <div class="info-blob">
+    <div class="text-left mb-5">
       <h1 class="h3-heading">{{ category.name }}</h1>
+      {% if category.description != None %}
+      <p class="body-large mt-4">{{ category.description }}</p>
+      {% endif %}
     </div>
 
     <div class="categories-container">
