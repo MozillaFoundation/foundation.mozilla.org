@@ -1,0 +1,17 @@
+{% load wagtailimages_tags %}
+
+{% image unoptimized_image fill-320x180-c0 as hero_home_small_1x %}
+{% image unoptimized_image fill-480x270-c0 as hero_home_medium_1x %}
+{% image unoptimized_image fill-540x304-c0 as hero_home_large_1x %}
+
+{% image unoptimized_image fill-640x360-c0 as hero_home_small_2x %}
+{% image unoptimized_image fill-960x520-c0 as hero_home_medium_2x %}
+{% image unoptimized_image fill-1080x608-c0 as hero_home_large_2x %}
+
+<img
+  src="{{ hero_home_large_1x.url }}"
+  class="full-bleed-xs wagtail-image"
+  srcset="{{hero_home_small_1x.url}} 1x, {{hero_home_small_2x.url}} 2x , {{ hero_home_medium_1x.url }} 1x, {{ hero_home_medium_2x.url }} 2x, {{ hero_home_large_1x.url }} 1x, {{ hero_home_large_2x.url }} 2x"
+  sizes="(max-width: 575px) 320px,(max-width: 575px) 320px,(max-width: 991px) 480px,(max-width: 991px) 480px,(min-width: 992px) 540px,(min-width: 992px) 540px"
+  alt="{{ hero_home_large.title }}"
+>
