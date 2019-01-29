@@ -30,6 +30,25 @@ $category-nav-border-bottom-thickness: 4px;
     &.active {
       border-color: black;
     }
+
+    &.featured[data-name="Valentine's Day"] {
+      $icon-width: 18px;
+
+      position: relative;
+      padding-left: calc(#{$icon-width} + 5px);
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        background: url('/_images/buyers-guide/icon-heart.svg') no-repeat;
+        background-size: contain;
+        background-position: center calc(50% + 2px);
+        width: $icon-width;
+        height: 100%;
+      }
+    }
   }
 }
 
