@@ -47,6 +47,7 @@ env = environ.Env(
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    RANDOM_SEED=(int, None),
     HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
@@ -313,6 +314,7 @@ if DATABASE_URL is not None:
 
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
+RANDOM_SEED = env('RANDOM_SEED')
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
