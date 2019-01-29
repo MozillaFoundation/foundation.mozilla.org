@@ -5,3 +5,15 @@
 .bottom-line {
   border-bottom: 1px solid $light-gray;
 }
+
+// Fellowships--Support
+
+.fellow-support {
+
+  &__intro {
+
+    &__help {
+      font-weight: 600;
+    }
+  }
+}
