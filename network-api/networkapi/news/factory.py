@@ -33,15 +33,15 @@ class NewsFactory(DjangoModelFactory):
             featured=True
         )
         unpublished = Trait(
-            publish_after=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+            publish_after=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED
             else Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
         )
         has_expiry = Trait(
-            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED
             else Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
         )
         expired = Trait(
-            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED
             else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
         )
         video = Trait(
@@ -54,7 +54,7 @@ class NewsFactory(DjangoModelFactory):
     link = Faker('url')
     excerpt = Faker('paragraph', nb_sentences=3, variable_nb_sentences=True)
     author = Faker('name')
-    publish_after = (Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+    publish_after = (Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED
                      else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
 
     # LazyAttribute helper value
