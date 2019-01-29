@@ -3,32 +3,28 @@
 {% block bodyID %}fellows-support{% endblock %}
 
 {% block mainContent %}
-<div class="row mb-5">
+<main class="row mb-5">
   <div class="col-md-8 offset-md-2">
-      <div class="row">
+      <section>
         <p class="body-large">The Mozilla Fellowship is building the next wave of internet health leaders, and the program depends on a large community of collaborators, partners, advisors, civil service organizations and funders.</p>
         <p class="font-weight-bold">There are two ways you can help:</p>
+      </section>
 
-        <div class="row mb-5">
-          <div class="col-12">
-            <div class="row">
-              <div class="col-md-9">
-                <h3 class="h3-heading my-2">Host a fellow</h3>
-                <p>Organizations defending an open and accessible web are the backbone of our fellowship program. They socialize fellows to a global assortment of issues, policies, and technologies, and inspire them with meaningful work that impacts the health of the internet.</p>
-                <p>In the past five years, the fellowship has partnered with dozens of host organizations around the globe and across sectors, including the American Civil Liberties Union, Amnesty International, Derechos Digitales, European Digital Rights, Freedom of the Press Foundation, and many more. Host organizations are united by a shared goal of a healthy internet.</p>
-                <p>This year, we are particularly interested in partnering with host organizations whose missions or projects align with Mozilla’s latest impact goal: “<a href="https://medium.com/read-write-participate/slowing-down-asking-questions-looking-ahead-265f6b99810d">better machine decision making</a>,” or ensuring artificial intelligence is developed with ethics, responsibility, and accountability in mind. More broadly, host organizations should be working on initiatives related to online privacy or security; openness; decentralization, digital inclusion; and/or web literacy.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12">
-            {% include 'fellows_host_org.html' %}
-          </div>
+      <section class="row mb-5">
+        <div class="col-12">
+          <h3 class="h3-heading my-2">Host a fellow</h3>
+          <p>Organizations defending an open and accessible web are the backbone of our fellowship program. They socialize fellows to a global assortment of issues, policies, and technologies, and inspire them with meaningful work that impacts the health of the internet.</p>
+          <p>In the past five years, the fellowship has partnered with dozens of host organizations around the globe and across sectors, including the American Civil Liberties Union, Amnesty International, Derechos Digitales, European Digital Rights, Freedom of the Press Foundation, and many more. Host organizations are united by a shared goal of a healthy internet.</p>
+          <p>This year, we are particularly interested in partnering with host organizations whose missions or projects align with Mozilla’s latest impact goal: “<a href="https://medium.com/read-write-participate/slowing-down-asking-questions-looking-ahead-265f6b99810d">better machine decision making</a>,” or ensuring artificial intelligence is developed with ethics, responsibility, and accountability in mind. More broadly, host organizations should be working on initiatives related to online privacy or security; openness; decentralization, digital inclusion; and/or web literacy.</p>
         </div>
-      </div>
+        <div class="col-12">
+          {% include 'fellows_host_org.html' %}
+        </div>
+      </section>
 
       <!-- Funding -->
-      <div>
-          <div>
+      <section>
+        <div>
           <h3 class="h3-heading my-2">Fund the fellows</h3>
           <p>We partner with other foundations and organizations across the globe to support the next wave of internet health leaders. Many funders find the expertise, leadership and passion that fellows bring to the experience to be key to catalyzing progress in the internet health field.</p>
         </div>
@@ -43,23 +39,22 @@
             <div class="col-6 col-md-3 logo"><img src="/_images/fellowships/logo/logo-open-society-foundations@2x.jpg"></div>
           </div>
         </div>
-      </div>
       
-      <div class="row mb-5 justify-content-center">
-        <div class="col-12 col-md-2 hear-from-funder-line-art"></div>
-        <div class="col-12 col-md-8 col-lg-6">
-          <h4 class="h4-heading">Support the Mozilla Fellows</h4>
-          <p>Please reach out to <a href="mailto:fellowships@mozillafoundation.org">fellowships@mozillafoundation.org</a> with any inquiries.</p>
+        <div class="row mb-5 justify-content-center">
+          <div class="col-12 col-md-2 hear-from-funder-line-art"></div>
+          <div class="col-12 col-md-8 col-lg-6">
+            <h4 class="h4-heading">Support the Mozilla Fellows</h4>
+            <p>Please reach out to <a href="mailto:fellowships@mozillafoundation.org">fellowships@mozillafoundation.org</a> with any inquiries.</p>
+          </div>
         </div>
-      </div>
-      
-      <div class="row mb-5 justify-content-center">
-        <div class="col-12 col-md-2 hear-from-host-org-line-art"></div>
-        <div class="col-12 col-md-8 col-lg-6">
-          <h4 class="h4-heading">Learn more about how to get involved</h4>
-          <p>Applications are currently closed, but reach out to <a href="mailto:fellowships@mozillafoundation.org">fellowships@mozillafoundation.org</a> with any inquiries.</p>
+        
+        <div class="row mb-5 justify-content-center">
+          <div class="col-12 col-md-2 hear-from-host-org-line-art"></div>
+          <div class="col-12 col-md-8 col-lg-6">
+            <h4 class="h4-heading">Learn more about how to get involved</h4>
+            <p>Applications are currently closed, but reach out to <a href="mailto:fellowships@mozillafoundation.org">fellowships@mozillafoundation.org</a> with any inquiries.</p>
+          </div>
         </div>
-      </div>
-  </div>
-</div>
+    </section>
+</main>
 {% endblock %}
