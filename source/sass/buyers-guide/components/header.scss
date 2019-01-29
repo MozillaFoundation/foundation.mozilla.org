@@ -42,9 +42,7 @@ $category-nav-border-bottom-thickness: 4px;
         top: 0;
         left: 0;
         content: "";
-        background: url('/_images/buyers-guide/icon-heart.svg') no-repeat;
-        background-size: contain;
-        background-position: center calc(50% + 2px);
+        background: url('/_images/buyers-guide/icon-heart.svg') no-repeat center calc(50% + 2px) / contain;
         width: $icon-width;
         height: 100%;
       }
