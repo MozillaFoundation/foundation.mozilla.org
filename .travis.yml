@@ -19,7 +19,7 @@ script:
 - npm test
 - pipenv run flake8 tasks.py network-api/
 - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
-- pipenv run python network-api/manage.py load_fake_data --seed 1
+- pipenv run python network-api/manage.py load_fake_data
 - npm run percy
 after_success:
 - coveralls
