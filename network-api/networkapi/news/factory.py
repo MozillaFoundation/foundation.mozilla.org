@@ -1,9 +1,5 @@
 from datetime import timezone
 
-from django.conf import settings
-
-RANDOM_SEED = settings.RANDOM_SEED
-
 from factory import (
     DjangoModelFactory,
     Faker,
@@ -14,6 +10,12 @@ from factory import (
 
 from networkapi.utility.faker import ImageProvider
 from networkapi.news.models import News
+
+from django.conf import settings
+
+RANDOM_SEED = settings.RANDOM_SEED
+
+print("RANDOM_SEED:", RANDOM_SEED)
 
 Faker.add_provider(ImageProvider)
 
@@ -31,13 +33,16 @@ class NewsFactory(DjangoModelFactory):
             featured=True
         )
         unpublished = Trait(
-            publish_after=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED else Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
+            publish_after=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+            else Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
         )
         has_expiry = Trait(
-            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED else Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
+            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+            else Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
         )
         expired = Trait(
-            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
+            expires=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+            else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
         )
         video = Trait(
             is_video=True
@@ -45,11 +50,12 @@ class NewsFactory(DjangoModelFactory):
 
     headline = LazyAttribute(lambda o: o.headline_sentence.rstrip('.'))
     outlet = Faker('company')
-    date =  Faker('date') if RANDOM_SEED else Faker('past_date', start_date='-30d')
+    date = Faker('date') if RANDOM_SEED else Faker('past_date', start_date='-30d')
     link = Faker('url')
     excerpt = Faker('paragraph', nb_sentences=3, variable_nb_sentences=True)
     author = Faker('name')
-    publish_after =  Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc)
+    publish_after = (Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED is not None
+                     else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
 
     # LazyAttribute helper value
     headline_sentence = Faker('sentence', nb_words=4)

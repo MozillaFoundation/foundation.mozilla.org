@@ -115,9 +115,6 @@ class Command(BaseCommand):
         else:
             seed = randint(0, 5000000)
 
-        # Ensure everything will use the same seed value after "discovering" which seed to use
-        settings.RANDOM_SEED = seed
-
         print('Seeding Faker with: {}'.format(seed))
         faker = factory.faker.Faker._get_faker(locale='en-US')
         faker.random.seed(seed)
