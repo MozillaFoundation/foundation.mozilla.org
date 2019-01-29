@@ -103,6 +103,11 @@ class Product(models.Model):
         default=True,
     )
 
+    not_safe_for_work = models.BooleanField(
+        help_text='When checked, product thumbnail will appear blurred as well as have a 18+ badge on it',
+        default=False,
+    )
+
     name = models.CharField(
         max_length=100,
         help_text='Name of Product',
@@ -349,6 +354,7 @@ class Product(models.Model):
             heading="Publication status"
         ),
         MultiFieldPanel([
+            FieldPanel('not_safe_for_work'),
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),

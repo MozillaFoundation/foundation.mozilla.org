@@ -34,13 +34,6 @@
         z-index: 2;
         top: $padding-y;
         left: $padding-x;
-        width: 40px;
-        height: auto;
-
-        @media (max-width: $bp-md) {
-          width: 20px;
-          height: auto;
-        }
       }
 
       a {
@@ -60,13 +53,9 @@
         }
       }
 
-      img {
-        display: block;
-        width: 100%;
-        height: auto;
-
-        @media (max-width: $bp-md) {
-          transform: scale(1.25);
+      img.product-thumbnail {
+        @media (min-width: $bp-md) {
+          transform: scale(calc(1 / 1.25));
         }
       }
     }
