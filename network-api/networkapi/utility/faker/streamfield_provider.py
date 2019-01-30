@@ -1,12 +1,17 @@
 import json
-from random import randint
 
+from random import randint
+from django.conf import settings
 from faker import Faker
 from faker.providers import BaseProvider
-
 from wagtail.images.models import Image
 
+seed = randint(0, 5000000)
+if settings.RANDOM_SEED is not None:
+    seed = settings.RANDOM_SEED
+
 fake = Faker()
+fake.random.seed(seed)
 
 
 def generate_field(field_type, value):
@@ -37,7 +42,10 @@ def generate_header_field():
 
 
 def generate_image_field():
-    image_id = Image.objects.order_by('?').first().id
+    images = Image.objects.all()
+    image_idx = fake.unix_time() % images.count()
+    image_id = images[image_idx].id
+
     alt_text = ' '.join(fake.words(nb=5))
     caption = ' '.join(fake.words(nb=5))
     caption_url = fake.url(schemes=['https'])
@@ -51,7 +59,10 @@ def generate_image_field():
 
 
 def generate_image_text2_field():
-    image_id = Image.objects.order_by('?').first().id
+    images = Image.objects.all()
+    image_idx = fake.unix_time() % images.count()
+    image_id = images[image_idx].id
+
     image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
     url = fake.url(schemes=['https'])
     alt_text = ' '.join(fake.words(nb=5))
@@ -67,7 +78,7 @@ def generate_image_text2_field():
 
 
 def generate_spacer_field():
-    size = randint(1, 5)
+    size = fake.unix_time() % 5
 
     return generate_field('spacer', {
         'size': size
