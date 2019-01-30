@@ -55,9 +55,11 @@
         }
 
         .seal-of-approval {
-          position: absolute;
-          top: $padding-y;
-          left: $padding-x;
+          @include seal-of-approval($padding-y, $padding-x, 30px, 25px);
+        }
+
+        .nsfw-badge {
+          @include nsfw-badge($padding-y, $padding-x, 41px, 35px);
         }
 
         .recommendation {

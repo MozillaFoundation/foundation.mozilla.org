@@ -30,10 +30,11 @@
       }
 
       .seal-of-approval {
-        position: absolute;
-        z-index: 2;
-        top: $padding-y;
-        left: $padding-x;
+        @include seal-of-approval($padding-y, $padding-x, 25px, 21px, 40px, 33px);
+      }
+
+      .nsfw-badge {
+        @include nsfw-badge($padding-y, $padding-x, 33px, 28px, 55px, 46px);
       }
 
       a {
@@ -46,7 +47,7 @@
         overflow: hidden;
         background: #f4f4f4;
         margin-bottom: 12px;
-        padding: 10px;
+        padding: $padding-x $padding-y;
 
         @media (min-width: $bp-xl) {
           padding: 20px;
@@ -55,7 +56,7 @@
 
       img.product-thumbnail {
         @media (min-width: $bp-md) {
-          transform: scale(calc(1 / 1.25));
+          transform: scale(0.9);
         }
       }
     }

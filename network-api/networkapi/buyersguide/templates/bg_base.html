@@ -52,10 +52,10 @@
           <div class="row">
             <div class="col">
               {% url 'buyersguide-home' as home_url %}
-              <a class="nav-home" href="{{ home_url }}">Home</a>
-              {% category_nav category categories %}
+              <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">Home</a>
+              {% category_nav request.get_full_path category categories %}
               {% url 'about-view' as about_url %}
-              <a class="nav-about" href="{{ about_url }}">About the Guide</a>
+              <a class="{% bg_active_nav request.get_full_path about_url %}" href="{{ about_url }}">About the Guide</a>
             </div>
           </div>
         </div>
