@@ -77,6 +77,8 @@ You can generate a specific set of fake model data by entering a seed value
 
 - `pipenv run python network-api/manage.py --delete --seed VALUE`
 
+Alternatively, the seed value can be specified through the use of the `RANDOM_SEED` environment variable.
+
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
 #### Landing Page and Campaign links
