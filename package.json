@@ -85,6 +85,7 @@
     "wait-on": "^3.2.0"
   },
   "peerDependencies": {
-    "@percy/cypress": "^0.2.3"
+    "@percy/cypress": "^0.2.3",
+    "cypress": "^3.1.4"
   }
 }

@@ -12,6 +12,7 @@ install:
 - npm install -g npm@latest # Needed to use npm ci
 - npm ci # use package-lock.json
 - npm i @percy/cypress@0.2.3 # version also noted in package.json -> peerDependencies
+- npm i cypress@3.1.4 # version also noted in package.json -> peerDependencies
 - pipenv run python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
