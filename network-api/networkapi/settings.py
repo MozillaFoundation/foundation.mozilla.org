@@ -540,9 +540,8 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
 
-# Detect if we're testing
+# Detect if we're officla testing mode
 TESTING = 'test' in sys.argv
-
 
 # Coral Talk Server URL
 
