@@ -78,7 +78,7 @@ def generate_image_text2_field():
 
 
 def generate_spacer_field():
-    size =  1 + (fake.unix_time() % 5)
+    size = 1 + (fake.unix_time() % 5)
 
     return generate_field('spacer', {
         'size': size

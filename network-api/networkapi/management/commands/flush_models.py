@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
         self.stdout.write('Flushing models from the database...')
 
-        self.stdout.write('Dropping Image objects...');
+        self.stdout.write('Dropping Image objects...')
         Image.objects.all().delete()
 
         self.stdout.write('Dropping Highlight objects...')
