@@ -14,8 +14,6 @@ from wagtail.core.models import (
     Page as WagtailPage
 )
 
-from wagtail.images.models import Image
-
 # Factories
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.milestones.factory import MilestoneFactory
