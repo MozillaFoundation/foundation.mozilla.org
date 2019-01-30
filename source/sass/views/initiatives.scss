@@ -17,9 +17,9 @@
 
   &-optim {
     max-width: 45%; 
-    
+
     @media (min-width: $bp-md) {
-      max-width: 100%;
+      max-width: 85%;
     }
   }
 }
