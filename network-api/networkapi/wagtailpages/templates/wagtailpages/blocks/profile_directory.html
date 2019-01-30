@@ -1,0 +1,15 @@
+{% load static %}
+
+<div class="profile-directory">
+  <div class="profile-filters">
+    {% for label in filters %}
+    <button class="filter-button">{{ label }}</button>
+    {% endfor %}
+
+    {% if filters|length > 0 %}
+    <script src="{% static 'js/directory-listing-filters.js' %}"></script>
+    {% endif %}
+  </div>
+
+  {% include "./profile_blocks.html" %}
+</div>
