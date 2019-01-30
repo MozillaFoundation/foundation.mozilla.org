@@ -87,7 +87,7 @@ class BuyersGuideProductCategory(models.Model):
 
     @property
     def published_product_count(self):
-        return Product.objects.filter(product_category=self,draft=False).count()
+        return Product.objects.filter(product_category=self, draft=False).count()
 
     def __str__(self):
         return self.name
