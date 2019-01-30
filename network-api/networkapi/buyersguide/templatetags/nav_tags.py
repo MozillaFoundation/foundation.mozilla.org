@@ -8,7 +8,5 @@ register = template.Library()
 def category_nav(context, current_category, all_categories):
     return {
         'current_category': current_category,
-        'categories': all_categories,
-        'featured_categories': all_categories.filter(featured=True),
-        'other_categories': all_categories.filter(featured=False)
+        'sorted_categories': all_categories.order_by('-featured'), # featured categories first
     }

@@ -1,11 +1,8 @@
 {% url 'category-view' current_category.name as current_category_url %}
 
-{% for cat in featured_categories %}
+{% for cat in sorted_categories %}
+{% if cat.published_product_count > 0 %}
 {% url 'category-view' cat.name as cat_url %}
-<a class="nav featured {% if cat_url == current_category_url %} active{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
-{% endfor %}
-
-{% for cat in other_categories %}
-{% url 'category-view' cat.name as cat_url %}
-<a class="nav {% if cat_url == current_category_url %} active{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+<a class="nav {% if cat_url == current_category_url %} active{% endif %} {% if cat.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+{% endif %}
 {% endfor %}

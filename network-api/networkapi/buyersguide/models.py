@@ -85,6 +85,10 @@ class BuyersGuideProductCategory(models.Model):
     def websafe_name(self):
         return re.sub(r"[ \W]+", "-", self.name).lower()
 
+    @property
+    def published_product_count(self):
+        return Product.objects.filter(product_category=self,draft=False).count()
+
     def __str__(self):
         return self.name
 
