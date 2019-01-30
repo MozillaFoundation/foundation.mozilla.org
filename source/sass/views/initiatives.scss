@@ -14,4 +14,10 @@
       font-weight: 600;
     }
   }
+  &-optim {
+    max-width:45%;
+    @media (min-width: $bp-md) {
+      max-width: 100%;
+    }
+  }
 }
