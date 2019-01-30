@@ -79,7 +79,7 @@ img.thumb-border {
 
 .nsfw { // products that are marked as nsfw (Not Safe For Work)
   img.product-thumbnail {
-    filter: blur(5px);
+    filter: blur(15px);
   }
 }
 
