@@ -27,7 +27,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
 
     @media (min-width: $bp-md) {
       margin: .5rem 0;
@@ -39,10 +39,7 @@
       }
 
     &-container {
-
-      @media (min-width: $bp-md) {
-        margin: 0 1.25rem;
-      }
+      margin-bottom: 5rem;
     }
   }
 }
