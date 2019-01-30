@@ -7,8 +7,6 @@
   z-index: 2;
 
   @if ($width-desktop && $height-desktop) {
-    // border: 3px solid blue;
-
     @media (min-width: $bp-md) {
       width: $width-desktop;
       height: $height-desktop;
@@ -25,8 +23,6 @@
   z-index: 2;
 
   @if ($width-desktop && $height-desktop) {
-    // border: 3px solid red;
-
     @media (min-width: $bp-md) {
       width: $width-desktop;
       height: $height-desktop;
