@@ -42,9 +42,7 @@ let main = {
       Analytics.initialize();
       this.bindGAEventTrackers();
 
-      document.dispatchEvent(new CustomEvent(`main-js:done`, {
-        detail: Date.now()
-      }));
+      window["bundle finished loading"] = true;
     });
   },
 
