@@ -47,7 +47,7 @@ But it's a bit long. So instead, you can use invoke:
 
 - `inv runserver`
 
-#### Invoke tasks available:
+### Invoke tasks available:
 
 - `inv -l`: list available invoke tasks
 - `inv makemigrations`: Creates new migration(s) for apps
@@ -81,7 +81,7 @@ Alternatively, the seed value can be specified through the use of the `RANDOM_SE
 
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
-#### Landing Page and Campaign links
+### Landing Page and Campaign links
 
 The `load_fake_data` command will output pages with the following slugs:
 
@@ -132,7 +132,7 @@ If you need to reset this database, rerun step 2 (with `dropdb foundation` as fi
 
 ### Resolving conflicting Django migrations
 
-**AKA: What to do when a migration lands before yours**
+**AKA: What to do when someone else's migration for the same app lands before yours**
 
 - Create a new, separate local instance of `foundation` per "Setup steps" above.
 - Check out your new PR branch locally.
@@ -142,52 +142,50 @@ If you need to reset this database, rerun step 2 (with `dropdb foundation` as fi
 - Run `inv migrate` to verify and run new migration.
 - Push changes to your PR branch.
 
-### Running the project for front-end development
+### Running the project with live front-end reloading
 
-- At the root of the project you can run: `npm start`, which will start the server as well as watch tasks for recompiling changes to JS(X) and Sass files.
+- At the root of the project you can run `npm start`, which will start the server as well as watch tasks for recompiling changes to JS(X) and Sass files.
 
-### Tests
+## Testing
 
-When relevant, we encourage you to write tests.
-You can run the tests using the following command
+When relevant, we encourage you to write tests. You can run the tests using the following command
 
 - `inv test`
 
----
+In addition to the code tests there are also visual regression tests, located in the `./cypress/integration` directory. You can run these tests locally by installing [cypress](https://www.cypress.io/) using `npm i cypress@3.0.3`, after which the command `npm run cypress` will run these tests locally. However, note that these tests are currently intended for screenshot comparisons across branches, and so will not yield any meaningful results when run for a single branch.
 
-### Stack
+## Stack
 
-#### HTML
+### HTML
 
 HTML for the majority of the site is generated from Django/Wagtail templates and components.
 
-#### CSS
+### CSS
 
 CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https://github.com/mozilla/mofo-bootstrap) theme is pulled in by default.
 
-#### React
+### React
 
 React is used *à la carte* for isolated component instances (eg: a tab switcher) since this is not a single page application, but rather a static generated website. This precludes the need for Flux architecture, or such libraries as React Router.
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
-#### Django and Wagtail
+### Django and Wagtail
 
 Django powers the backend of the site, and we use Wagtail with Django to provide CMS features and functionality.
 
-##### localization
+#### localization
 
 We use [wagtail-modeltranslations](https://github.com/infoportugal/wagtail-modeltranslation) for CMS content localization. Please see its documentation for more information.
 
-##### A/B testing
+#### A/B testing
 
 We use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) for CMS-based A/B testing. Please see its documentation for more information.
 
-#### S3 and Cloudinary
+### S3 and Cloudinary
 
 Most assets are stored on S3. Buyers Guide images are hosted on Cloudinary.
 
----
 
 ### File Structure
 
@@ -207,8 +205,6 @@ Most assets are stored on S3. Buyers Guide images are hosted on Cloudinary.
     │   └── temp <- JSON pulled from web services. Don't commit!
     └── sass <- Sass code
 ```
-
----
 
 ## Development
 
@@ -253,52 +249,35 @@ Sometimes it is necessary to override templates or static js/css/etc assets. In 
 
 Where `#...` is an issue number pointing to the issue that these changes are being made for.
 
-### Gotchas
+## Deployment
 
-As this is REST API and CMS built on top of Django, there are some "gotcha!"s to keep in mind due to the high level of magic in the Django code base (where things will happen automatically without the code explicitly telling you).
-
-#### **DEBUG=True**
-
-The `DEBUG` flag does all sorts of magical things, to the point where testing with debugging turned on effectively runs a completely different setup compared to testing with debugging turned off. When debugging is on, the following things happen:
-
-- Django uses its own built-in static content server, in which template tags may behave *differently* from the Mezzanine static server, which can lead to `400 Bad Request` errors in `DEBUG=False` setting.
-- Django bypasses the `ALLOWED_HOST` restrictions, which again can lead to `400 Bad Request` errors in `DEBUG=False` setting.
-- Rather than HTTP error pages, Django will generate stack traces pages that expose pretty much all environment variables except any that match certain substrings such as `KEY`, `PASS`, etc. for obvious security reasons.
-- ...there are probably more gotchas just for `DEBUG` so if you find any please add them to this list.
-
-#### Use of `{ static "...." }` in templates
-
-Using the `static` tag in templates is supposed both in Django and Mezzanine, but they work differently: in Django, `{static "/..." }` works fine, but in Mezzanine this is a breaking pattern and there **should not** be a leading slash: `{ static "..." }`.
-
-### Deployment
-
-#### Review Apps
+### Review Apps
 
 Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. Login are published in the `mofo-review-apps` Slack channel when the review app is ready.
 
-##### Environment Variables
+### Continuous Integration testing
 
-- `GITHUB_TOKEN`: GITHUB API authentication,
-- `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
-- `CORAL_TALK_SERVER_URL`: If Coral Talk commenting is to be enabled, set the server URL here. Don't forget to add the domain to your CSP directives for script-src and child-src
+Opening a PR will trigger [Travis](https://travis-ci.org) and [Appveyor](https://www.appveyor.com/) continuous integration runs, which should both pass before a PR is deemed good to merge.
 
-#### Staging
+### Visual regression testing
+
+The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepencies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.    
+
+### Staging
 
 Builds to staging are triggered by commits to `master`.
 
 Staging URL is [foundation.mofostaging.net](https://foundation.mofostaging.net)
 
-#### Production
+### Production
 
 Production deployments are done by promoting Staging in the Heroku pipeline.
 
 Production URL is [foundation.mozilla.org](https://foundation.mozilla.org)
 
-##### Domain Redirect
+### Domain Redirect
 
 Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLWARE_ENABLED` to `True`. This will enable a middleware function that checks every request, and return a 307 redirect to `TARGET_DOMAIN` if the host header does not match it.
-
----
 
 ### Environment Variables
 
@@ -308,7 +287,13 @@ The domain used to fetch static content from Network Pulse can be customized by 
 
 The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. **NOTE: this variable must include a protocol (such as `https://`)**
 
----
+#### Special purposes Environment Variables
+
+- `GITHUB_TOKEN`: GITHUB API authentication,
+- `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
+- `CORAL_TALK_SERVER_URL`: If Coral Talk commenting is to be enabled, set the server URL here. Don't forget to add the domain to your CSP directives for script-src and child-src
+
+
 ### Cloudinary for Review Apps and Staging (BuyersGuide only)
 
 We use Cloudinary upload-mapping feature to copy images from the production to the staging Cloudinary account.
@@ -321,18 +306,17 @@ Folder | URL prefix
 
 To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
 
----
 
-### Scheduled tasks
+## Scheduled tasks
 
-#### Delete non-staff management command
+### Delete non-staff management command
 
 Every sunday, a script runs on prod dyno to remove non-staff accounts created on the Foundation site. An account is considered staff if one of those conditions is true:
 - it's an `@mozillafoundation.org` email,
 - `is_staff` is at True,
 - the account is in a group.
 
-#### Generating vote statistics for Data Studio
+### Generating vote statistics for Data Studio
 
 The `generate_pni_report` management task can run periodically to summarize vote totals for each product in the buyer's guide.
 Data is inserted or updated into the database specified By `PNI_STATS_DB_URL`.
@@ -361,14 +345,30 @@ create table comment_counts
 
 ```
 
----
-### Security
+## Security
 
 [https://snyk.io](https://snyk.io) is used to test our npm and PyPi dependencies for vulnerabilities. These tests are run on Travis and Appveyor, and will cause a build to fail when a new vulnerability is detected.
 
-#### Resolving an issue
+### Resolving an issue
 
 If an issue is reported by Snyk, you have several options to remedy the problem. Firstly, the build log should contain a link to the vulnerability report on snyk.io. On that page you will find links to the issue or CVE, and information about how to resolve the problem. You should start a new feature branch and pull request to resolve this issue before merging any other features.
 
-#### Unpatched vulnerabilities
+### Unpatched vulnerabilities
 In some cases, vulnerabilities have not been patched - you will need to look at the nature of the issue and then add an exception to the `.snyk` file for it. You can install the snyk cli using `npm install -g snyk` and add the exception like so: `snyk ignore --id="SNYK-PYTHON-BOTO3-40617" --expiry="2017-12-31" --reason="No fix available"` (Replace the `id` and `reason` with relevant information). The `expiry` flag is an [RFC2822](https://tools.ietf.org/html/rfc2822#page-14) formatted date string that will cause the ignore rule to expire - useful so that we can check periodically for fixes to unpatched vulnerabilities in our dependencies.
+
+## Gotchas
+
+As this is REST API and CMS built on top of Django, there are some "gotcha!"s to keep in mind due to the high level of magic in the Django code base (where things will happen automatically without the code explicitly telling you).
+
+#### **DEBUG=True**
+
+The `DEBUG` flag does all sorts of magical things, to the point where testing with debugging turned on effectively runs a completely different setup compared to testing with debugging turned off. When debugging is on, the following things happen:
+
+- Django uses its own built-in static content server, in which template tags may behave *differently* from the Mezzanine static server, which can lead to `400 Bad Request` errors in `DEBUG=False` setting.
+- Django bypasses the `ALLOWED_HOST` restrictions, which again can lead to `400 Bad Request` errors in `DEBUG=False` setting.
+- Rather than HTTP error pages, Django will generate stack traces pages that expose pretty much all environment variables except any that match certain substrings such as `KEY`, `PASS`, etc. for obvious security reasons.
+- ...there are probably more gotchas just for `DEBUG` so if you find any please add them to this list.
+
+#### Use of `{ static "...." }` in templates
+
+Using the `static` tag in templates is supposed both in Django and Mezzanine, but they work differently: in Django, `{static "/..." }` works fine, but in Mezzanine this is a breaking pattern and there **should not** be a leading slash: `{ static "..." }`.
