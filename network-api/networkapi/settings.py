@@ -268,7 +268,7 @@ TEMPLATES = [
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'primary_page_tags': 'networkapi.wagtailpages.templatetags.primary_page_tags',
-                'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags'
+                'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags',
                 'nav_tags': 'networkapi.wagtailpages.templatetags.nav_tags',
             }
         },
