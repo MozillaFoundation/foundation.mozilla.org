@@ -112,6 +112,8 @@ class Command(BaseCommand):
         # Seed Faker with the provided seed value or a pseudorandom int between 0 and five million
         if options['seed']:
             seed = options['seed']
+        elif settings.RANDOM_SEED is not None:
+            seed = settings.RANDOM_SEED
         else:
             seed = randint(0, 5000000)
 

@@ -13,6 +13,7 @@ import sys
 
 import os
 import environ
+import logging.config
 import dj_database_url
 from django.utils.translation import gettext_lazy as _
 
@@ -46,6 +47,7 @@ env = environ.Env(
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    RANDOM_SEED=(int, None),
     HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
@@ -266,6 +268,7 @@ TEMPLATES = [
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'primary_page_tags': 'networkapi.wagtailpages.templatetags.primary_page_tags',
+                'nav_tags': 'networkapi.wagtailpages.templatetags.nav_tags',
             }
         },
     },
@@ -311,6 +314,7 @@ if DATABASE_URL is not None:
 
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
+RANDOM_SEED = env('RANDOM_SEED')
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -458,36 +462,64 @@ if env('SSL_REDIRECT') is True:
 X_FRAME_OPTIONS = env('X_FRAME_OPTIONS')
 REFERRER_HEADER_VALUE = env('REFERRER_HEADER_VALUE')
 
-DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
 
-# LOGGING
+# Remove the default Django loggers and configure new ones
+LOGGING_CONFIG = None
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
     'formatters': {
-        'simple': {
-            'format': '[%(asctime)s] [%(levelname)s] %(message)s'
-        },
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s] %(message)s'
+        }
     },
     'handlers': {
-        'console': {
+        'debug': {
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple',
+            'filters': ['require_debug_true'],
+            'formatter': 'verbose'
         },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler'
+        },
+        'debug-error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler'
+        }
     },
     'loggers': {
-        'networkapi': {
-            'handlers': ['console'],
-            'level': DJANGO_LOG_LEVEL,
-            'propagate': True,
+        'django': {
+            'handlers': ['debug'],
+            'level': 'DEBUG'
+        },
+        'django.server': {
+            'handlers': ['debug'],
+            'level': 'DEBUG',
         },
         'django.request': {
-            'handlers': ['console'],
-            'level': DJANGO_LOG_LEVEL,
-            'propagate': True,
+            'handlers': ['error'],
+            'propagate': False,
+            'level': 'ERROR'
         },
-    },
+        'django.template': {
+            'handlers': ['debug-error'],
+            'level': 'ERROR'
+        },
+        'django.db.backends': {
+            'handlers': ['debug-error'],
+            'level': 'ERROR'
+        },
+    }
 }
+DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')
+logging.config.dictConfig(LOGGING)
 
 # Frontend
 FRONTEND = {
@@ -508,9 +540,8 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
 
-# Detect if we're testing
+# Detect if we're in official testing mode
 TESTING = 'test' in sys.argv
-
 
 # Coral Talk Server URL
 
