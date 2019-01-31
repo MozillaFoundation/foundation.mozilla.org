@@ -72,10 +72,23 @@ class BuyersGuideProductCategory(models.Model):
     when necessary.
     """
     name = models.CharField(max_length=100)
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of the product category. Max. 300 characters.',
+        blank=True
+    )
+    featured = models.BooleanField(
+        default=False,
+        help_text='Featured category will appear first on Buyer\'s Guide site nav'
+    )
 
     @property
     def websafe_name(self):
         return re.sub(r"[ \W]+", "-", self.name).lower()
+
+    @property
+    def published_product_count(self):
+        return Product.objects.filter(product_category=self, draft=False).count()
 
     def __str__(self):
         return self.name
@@ -93,6 +106,11 @@ class Product(models.Model):
     draft = models.BooleanField(
         help_text='When checked, this product will only show for CMS-authenticated users',
         default=True,
+    )
+
+    adult_content = models.BooleanField(
+        help_text='When checked, product thumbnail will appear blurred as well as have an 18+ badge on it',
+        default=False,
     )
 
     name = models.CharField(
@@ -341,6 +359,7 @@ class Product(models.Model):
             heading="Publication status"
         ),
         MultiFieldPanel([
+            FieldPanel('adult_content'),
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),
