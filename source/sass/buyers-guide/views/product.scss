@@ -12,16 +12,7 @@ $product-detail-padding-x: (
   }
 
   .seal-of-approval {
-    position: absolute;
-    top: 1rem;
-    left: 0;
-    width: 76px;
-    height: 76px;
-
-    @media (min-width: $bp-md) {
-      width: 140px;
-      height: 140px;
-    }
+    @include seal-of-approval(1rem, 0, 76px, 76px, 140px, 140px);
   }
 }
 
