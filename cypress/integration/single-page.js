@@ -7,7 +7,7 @@ describe('Integration test with visual testing', () => {
 
   it('Loads the homepage', function() {
     cy.visit(`/`);
-    cy.window().its('bundle finished loading').should('equal', true);
+    cy.window().its('main-js:react:finished').should('equal', true);
     cy.percySnapshot();
   });
 });

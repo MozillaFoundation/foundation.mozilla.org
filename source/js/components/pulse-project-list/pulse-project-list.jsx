@@ -58,6 +58,8 @@ export default class PulseProjectList extends React.Component {
   render() {
     let projectList = this.state.projects.map((project, index) => {
 
+      this.props.whenLoaded();
+
       let byline = null;
 
       if (project.related_creators.length) {
