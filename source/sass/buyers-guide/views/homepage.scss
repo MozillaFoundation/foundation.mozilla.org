@@ -58,8 +58,8 @@
           @include seal-of-approval($padding-y, $padding-x, 30px, 25px);
         }
 
-        .nsfw-badge {
-          @include nsfw-badge($padding-y, $padding-x, 41px, 35px);
+        .adult-content-badge {
+          @include adult-content-badge($padding-y, $padding-x, 41px, 35px);
         }
 
         .recommendation {

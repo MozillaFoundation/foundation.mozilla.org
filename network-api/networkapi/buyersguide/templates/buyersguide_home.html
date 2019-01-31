@@ -50,7 +50,7 @@
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
       {% for product in products %}
-      <figure class="product-box bg-gray d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.not_safe_for_work %} nsfw{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
+      <figure class="product-box bg-gray d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
         {% if product.meets_minimum_security_standards is True %}
           <img
             class="seal-of-approval"
@@ -60,9 +60,9 @@
           >
         {% endif %}
 
-        {% if product.not_safe_for_work is True %}
+        {% if product.adult_content is True %}
         <img
-          class="nsfw-badge"
+          class="adult-content-badge"
           src="/_images/buyers-guide/icon-18-plus-heart.svg"
           title="this product has some Not Suitable For Work content"
           alt="this product has some Not Suitable For Work content"

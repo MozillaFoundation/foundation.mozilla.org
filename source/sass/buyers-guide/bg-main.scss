@@ -77,7 +77,7 @@ img.thumb-border {
   border: 16px solid #f4f4f4;
 }
 
-.nsfw { // products that are marked as nsfw (Not Safe For Work)
+.adult-content { // products which contain adult content
   img.product-thumbnail {
     filter: blur(15px);
   }
