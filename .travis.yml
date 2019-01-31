@@ -11,6 +11,9 @@ install:
 - nvm use --lts=carbon
 - npm install -g npm@latest # Needed to use npm ci
 - npm ci # use package-lock.json
+- npm i typescript@3.0.3 # STOPGAP, SEE https://github.com/percy/percy-cypress/issues/35
+- npm i cypress@3.1.3 # version also noted in package.json -> peerDependencies
+- npm i @percy/cypress@0.2.3 # version also noted in package.json -> peerDependencies
 - pipenv run python network-api/manage.py collectstatic --no-input
 before_script:
 - psql -c 'create database network;' -U postgres
@@ -19,29 +22,30 @@ script:
 - npm test
 - pipenv run flake8 tasks.py network-api/
 - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
-- pipenv run python network-api/manage.py load_fake_data --seed 1
+- pipenv run python network-api/manage.py load_fake_data
 - npm run percy
 after_success:
 - coveralls
 env:
   global:
+  - ALLOWED_HOSTS=localhost
+  - CONTENT_TYPE_NO_SNIFF=True
+  - CORS_WHITELIST="*"
+  - DATABASE_URL=postgres://postgres@localhost:5432/network
   - DEBUG=True
   - DJANGO_SECRET_KEY=secret
-  - DATABASE_URL=postgres://postgres@localhost:5432/network
-  - USE_S3=False
-  - CORS_WHITELIST="*"
-  - XSS_PROTECTION=True
-  - CONTENT_TYPE_NO_SNIFF=True
-  - SET_HSTS=False
-  - SSL_REDIRECT=False
-  - X_FRAME_OPTIONS=DENY
-  - ALLOWED_HOSTS=localhost
+  - NETWORK_SITE_URL=https://foundation.mozilla.org
   - PULSE_API_DOMAIN=https://network-pulse-api-production.herokuapp.com
   - PULSE_DOMAIN=www.mozillapulse.org
-  - NETWORK_SITE_URL=https://foundation.mozilla.org
-  - TARGET_DOMAIN=foundation.mozilla.org
+  - RANDOM_SEED=530910203
+  - SET_HSTS=False
   - SHOW_TAKEOVER=false
+  - SSL_REDIRECT=False
+  - TARGET_DOMAIN=foundation.mozilla.org
   - USE_CLOUDINARY=false
+  - USE_S3=False
+  - X_FRAME_OPTIONS=DENY
+  - XSS_PROTECTION=True
   matrix:
     secure: mC4GYW8PC98k8BDqNoQDBAWkM90sRbe8yHfEhelL5YkvZC3ORZR8cbqzkAieShWf3upOc+xFMD3m8bsLvJGisg/CHm+j4f5d0shz0Sv5YG7Ru95TW4Hj/0H9QTlHG4OZ12hZ6ZD9k7xQdPL9CkKVordIQMH883UYdao9Tl5Y9i01uPpdAH/1mF6xpNHbVC6LjUv2zstoXqFCyABXaK2U3FqdymVhT1e99GlgVGteYTzsVEdv9AbhOaXH1U+0NLFOBhFVm1ub7zIZBrWgdZKStOiOlXdb14/oLw0criiOAULKBbN7WoKE3ZZTO5BR89+ZkOt7bH8gt9QCOTQ2JrhF00pIM7BoYxoWq6fLqsLdN0tJQ27QDlmH8PwOrJ6AqPKCj6wGBAjuNtLLu3QpsTeT0gJYGip3/aB9ktUFEPpGWjw7JMSvYGNvMAl+0tTiSL3sqxeyyBKvqQ8WH4bGtNRBDfrAmrxAcX4hCZCKgxsB9WiTSFnXdCb6axgmew1V3uMGUeQHcKaM7C8K2hrxnvUF/yeGuwJAgtFha9dn0AuG4ZarcEHmuVA6Wg+QAX1Niz885WecZuMlyguyuFGX3Bmz/Aa9jIvcTD+WOHiw3f6nNEoxJe3hkKKv5Sguq4j2gMoK/0fQ3AcnU4EYdUVoMJ/RgWN5ROowA+AwMy7GMTqOV+8=
 cache:

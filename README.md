@@ -77,6 +77,8 @@ You can generate a specific set of fake model data by entering a seed value
 
 - `pipenv run python network-api/manage.py --delete --seed VALUE`
 
+Alternatively, the seed value can be specified through the use of the `RANDOM_SEED` environment variable.
+
 If a seed is not provided, a pseudorandom one will be generated and logged to the console. You can share this value with others if you need them to generate the same set of data that you have.
 
 #### Landing Page and Campaign links
@@ -96,9 +98,9 @@ The `load_fake_data` command will output pages with the following slugs:
 
 This list is available on review apps by clicking on `DEV HELP` in the menu or going to `[review app url]/help`.
 
-### Using a copy of the production database for critical testing
+### Using a copy of the staging database for critical testing
 
-Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windowsl; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). As we backport prod data to staging every week, scrubbing PII, we'll be creating a copy of that.
+Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
 
 The steps involved in cloning the database for local use are as follows:
 
