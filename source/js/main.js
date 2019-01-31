@@ -42,7 +42,7 @@ let main = {
       Analytics.initialize();
       this.bindGAEventTrackers();
 
-      window["bundle finished loading"] = true;
+      window[`bundle finished loading`] = true;
     });
   },
 
