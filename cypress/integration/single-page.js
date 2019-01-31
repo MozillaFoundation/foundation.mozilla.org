@@ -9,11 +9,16 @@ describe('Integration test with visual testing', () => {
     // Load the homepage
     cy.visit(`/`);
 
-    // Give the browser a few seconds for JSX
-    // conversion to kick in.
-    cy.wait(10000);
+    // Attach a listener to the document that lets us know
+    // when main.js is done with all the JSX (re)placement.
+    cy.document().then((document) => {
+      document.addEventListener(`main-js:done`, evt => {
+        // wait one second just in case
+        cy.wait(1000);
 
-    // Take a snapshot for visual diffing
-    cy.percySnapshot();
+        // And take a snapshot for visual diffing
+        cy.percySnapshot();
+      });
+    });
   });
 });
