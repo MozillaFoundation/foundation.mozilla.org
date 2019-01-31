@@ -86,6 +86,6 @@
   },
   "peerDependencies": {
     "@percy/cypress": "^0.2.3",
-    "cypress": "^3.1.4"
+    "cypress": "^3.1.3"
   }
 }
