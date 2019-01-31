@@ -8,6 +8,7 @@ describe('multipage visual regression tests', () => {
   it('Loads the multipage campaign correctly', function() {
     cy.visit(`/en/campaigns/multi-page/`);
     cy.window().its('main-js:react:finished').should('equal', true);
+    cy.wait(1000);
     cy.percySnapshot();
   });
 });

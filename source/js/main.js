@@ -18,7 +18,6 @@ import PulseProjectList from './components/pulse-project-list/pulse-project-list
 import injectDonateModal from './donate-modal/donate-modal.jsx';
 
 import primaryNav from './primary-nav.js';
-import { appendFileSync } from 'fs';
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -48,6 +47,7 @@ let main = {
       Analytics.initialize();
       this.bindGAEventTrackers();
 
+      // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
         window[`main-js:react:finished`] = true;
       });
@@ -216,7 +216,7 @@ let main = {
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(<MemberNotice whenLoaded={() => resolve()}/>, document.getElementById(`member-notice`));
       }));
     }
@@ -235,7 +235,7 @@ let main = {
         elWrapper.style.height = null;
       };
 
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(<Takeover onHide={onTakeoverHide} whenLoaded={() => resolve()}/>, document.querySelector(`#view-home .takeover`));
         Cookies.set(`seen-takeover`, `true`, { expires: 365 });
         ReactGA.pageview(`/welcome-splash`);
@@ -250,7 +250,7 @@ let main = {
         elements.forEach(element => {
           var props = element.dataset;
 
-          apps.push(new Promise((resolve, reject) => {
+          apps.push(new Promise(resolve => {
             ReactDOM.render(<JoinUs {...props} isHidden={false} whenLoaded={() => resolve()} />, element);
           }));
         });
@@ -270,13 +270,13 @@ let main = {
 
       props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}/`;
 
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(<Petition {...props} isHidden={false} subscribed={subscribed} whenLoaded={() => resolve()}/>, element);
       }));
     });
 
     if (document.getElementById(`people`)) {
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(<People env={env} whenLoaded={() => resolve()} />, document.getElementById(`people`));
       }));
     }
@@ -293,16 +293,16 @@ let main = {
         };
       });
 
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(<MultipageNavMobile links={links} whenLoaded={() => resolve()} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
       }));
     }
 
     // News
     if (document.querySelector(`#news`)) {
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(<News env={env} whenLoaded={() => resolve()} />, document.querySelector(`#news`));
-      });
+      }));
     }
 
     // Fellowships single filter fellow list
@@ -311,7 +311,7 @@ let main = {
     );
 
     singleFilterFellowList.forEach(target => {
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(
           <SingleFilterFellowList
             env={env}
@@ -330,7 +330,7 @@ let main = {
     );
 
     pulseProjectList.forEach(target => {
-      apps.push(new Promise((resolve, reject) => {
+      apps.push(new Promise(resolve => {
         ReactDOM.render(
           <PulseProjectList
             env={ env }

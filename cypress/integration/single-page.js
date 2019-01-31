@@ -8,6 +8,7 @@ describe('Integration test with visual testing', () => {
   it('Loads the homepage', function() {
     cy.visit(`/`);
     cy.window().its('main-js:react:finished').should('equal', true);
+    cy.wait(1000);
     cy.percySnapshot();
   });
 });
