@@ -3,6 +3,8 @@ python:
 - '3.6'
 addons:
   postgresql: "9.6"
+before_install:
+- python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)" # https://github.com/travis-ci/travis-ci/issues/8920
 install:
 - pip install --upgrade pip
 - pip install pipenv
