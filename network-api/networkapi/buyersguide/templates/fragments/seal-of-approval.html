@@ -1,7 +1,7 @@
 {% if product.meets_minimum_security_standards is True %}
 <img
   class="seal-of-approval"
-  src="/_images/buyers-guide/mini-badge.svg"
+  src="{% if full_badge is True%}/_images/buyers-guide/badge.svg{% else %}/_images/buyers-guide/mini-badge.svg{% endif %}"
   title="this {% if is_related_product is True%}related {% endif%}product meets our minimum security standards"
   alt="this {% if is_related_product is True%}related {% endif%}product meets our minimum security standards"
 >
