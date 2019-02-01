@@ -23,11 +23,11 @@ $product-detail-padding-x: (
   }
 
   .seal-of-approval {
-    position: absolute;
-    top: 5px;
-    left: 20px;
-    width: 30px;
-    height: 30px;
+    @include seal-of-approval(5px, 20px, 30px, 30px);
+  }
+
+  .adult-content-badge {
+    @include adult-content-badge(5px, 20px, 33px, 28px);
   }
 }
 

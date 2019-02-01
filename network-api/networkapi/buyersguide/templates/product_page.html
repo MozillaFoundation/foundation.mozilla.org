@@ -159,25 +159,19 @@
           <div class="row">
             {% for product in product.related_products %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
-              <a class="d-block" href="/en/privacynotincluded/products/{{ product.slug }}">
+              <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="/en/privacynotincluded/products/{{ product.slug }}">
                 {% if USE_CLOUDINARY %}
-                  <img class="thumb-border"
+                  <img class="product-thumbnail thumb-border"
                   width="300"
                   src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
                   alt="{{product.name}}">
                 {% else %}
-                  <img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
+                  <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
                 {% endif %}
               </a>
 
-              {% if product.meets_minimum_security_standards is True %}
-              <img
-                src="/_images/buyers-guide/mini-badge.svg"
-                class="seal-of-approval"
-                alt="this related product meets our minimum security standards"
-                title="this related product meets our minimum security standards"
-              >
-              {% endif %}
+              {% include "fragments/seal-of-approval.html" with product=product is_related_product=True %}
+              {% include "fragments/adult-content-badge.html" with product=product %}
             </div>
             {% endfor %}
           </div>
