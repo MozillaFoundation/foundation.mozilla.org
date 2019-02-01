@@ -28,9 +28,6 @@ class NewsFactory(DjangoModelFactory):
         )
 
     class Params:
-        is_featured = Trait(
-            featured=True
-        )
         unpublished = Trait(
             publish_after=Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED and not TESTING
             else Faker('future_datetime', end_date='+30d', tzinfo=timezone.utc)
