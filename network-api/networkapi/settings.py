@@ -281,7 +281,15 @@ if env('REDIS_URL'):
             'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': env('REDIS_URL'),
             'OPTIONS': {
-                'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                # timeout for read/write operations after a connection is established
+                'SOCKET_TIMEOUT': 120,
+                # timeout for the connection to be established
+                'SOCKET_CONNECT_TIMEOUT': 30,
+                # Enable compression
+                'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
+                # Ignore exceptions, redis only used for caching (i.e. if redis fails, will use database)
+                'IGNORE_EXCEPTIONS': True
             }
         }
     }
@@ -291,6 +299,8 @@ else:
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
         }
     }
+
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
 # network asset domain used in templates
 ASSET_DOMAIN = env('ASSET_DOMAIN')
