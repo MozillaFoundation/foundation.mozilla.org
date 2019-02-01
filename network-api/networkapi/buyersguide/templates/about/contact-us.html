@@ -1,0 +1,25 @@
+{% extends "../bg_base.html" %}
+
+{% block body-id %}contact-us{% endblock %}
+
+{% block main-content-class %}{% endblock %}
+
+{% block guts %}
+<div class="container">
+  <div class="row">
+
+  {% include "./about-nav.html" with page="contact-us" %}
+
+  <div class="col-12 col-md-12 col-lg-8 mt-5 mb-5 justify-content-center short-content">
+
+    <h1 class="h3-heading">
+      Contact Us
+    </h1>
+
+    <p>For any questions about the guide or to recommend a product for review or offer constructive feedback, please email Jen Caltrider <a href="mailto:jen@mozillafoundation.org">jen@mozillafoundation.org</a></p>
+
+    <p>For members of the press with questions about this guide, please email Kevin Zawacki <a href="mailto:kevin@mozillafoundation.org">kevin@mozillafoundation.org</a></p>
+  </div>
+</div>
+
+{% endblock %}
