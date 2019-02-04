@@ -149,7 +149,7 @@ def why_view(request):
     })
 
 @enforce_en_locale
-def contact_us_view(request):
+def contact_view(request):
     key = 'categories'
     categories = cache.get(key)
 
@@ -157,7 +157,7 @@ def contact_us_view(request):
         categories = BuyersGuideProductCategory.objects.all()
         cache.set(key, categories, 86400)
 
-    return render(request, 'about/contact-us.html', {
+    return render(request, 'about/contact.html', {
         'categories': categories,
     })
 
