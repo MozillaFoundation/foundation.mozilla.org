@@ -72,11 +72,9 @@
   <div class="highlights mb-5">
     <div class="row">
       {% for highlight in page.featured_highlights.all %}
-      {% if forloop.counter <= 3 %}
       <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
         {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
       </div>
-      {% endif %}
       {% endfor %}
     </div>
   </div>
