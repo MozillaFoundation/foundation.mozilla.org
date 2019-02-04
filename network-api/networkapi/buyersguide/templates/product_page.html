@@ -142,9 +142,11 @@
     <div class="container">
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white">
+          {% if product.updates|length > 0 or coralTalkServerUrl %}
+          <h3 class="h3-heading mb-4 mb-md-5">Updates</h3>
+          {% endif %}
           {% if product.updates|length > 0 %}
           <div class="mb-5">
-            <h3 class="h3-heading mb-4 mb-md-5">Updates</h3>
             {% for product in product.updates %}
               <div class="product-update mb-4">
                 <a class="product-update-link h5-heading title" href="{{product.source}}" target="_blank">{{product.title}}</a>
