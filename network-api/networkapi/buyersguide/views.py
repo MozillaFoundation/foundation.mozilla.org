@@ -148,6 +148,7 @@ def why_view(request):
         'categories': categories,
     })
 
+
 @enforce_en_locale
 def contact_view(request):
     key = 'categories'
