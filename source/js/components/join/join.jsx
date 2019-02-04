@@ -56,6 +56,10 @@ export default class JoinUs extends React.Component {
     this.setState({signupFailed: true});
   }
 
+  componentDidMount() {
+    this.props.whenLoaded();
+  }
+
   render() {
     let inputGroupClass = classNames({
       'has-danger': !this.state.signupSuccess && this.state.userSubmitted && !this.refs.email.value || this.state.signupFailed
