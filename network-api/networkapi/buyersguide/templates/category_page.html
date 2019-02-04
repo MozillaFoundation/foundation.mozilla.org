@@ -6,35 +6,32 @@
 {% block body-id %}{{ category.websafe_name }}{% endblock %}
 
 {% block guts %}
-  <div class="category-listing container-fluid text-center px-5 mt-4">
+  <div class="category-listing container-fluid text-center px-md-5 mt-4">
 
-    <div class="info-blob">
+    <div class="text-left mb-5">
       <h1 class="h3-heading">{{ category.name }}</h1>
+      {% if category.description != None %}
+      <p class="body-large mt-4">{{ category.description }}</p>
+      {% endif %}
     </div>
 
     <div class="categories-container">
       {% for product in products %}
-      <div class="category-item-container{% if product.draft %} draft-product{% endif %}">
+      <div class="category-item-container{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
         <a class="" href="/en/privacynotincluded/products/{{ product.slug }}">
           <div class="category-image-container">
-            {% if product.meets_minimum_security_standards is True %}
-            <img
-              class="seal-of-approval"
-              src="/_images/buyers-guide/mini-badge.svg"
-              title="this product meets our minimum security standards"
-              alt="this product meets our minimum security standards"
-            >
-            {% endif %}
+            {% include "fragments/seal-of-approval.html" with product=product %}
+            {% include "fragments/adult-content-badge.html" with product=product %}
 
             {% if USE_CLOUDINARY %}
             <img
-              class="thumb-border"
+              class="product-thumbnail thumb-border"
               width="300"
               src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
               alt="{{ product.name }}"
             >
             {% else %}
-            <img src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
+            <img class="product-thumbnail" src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
             {% endif %}
           </div>
           <h3 class="mb-1 h6-heading">{{ product.company }}</h3>
