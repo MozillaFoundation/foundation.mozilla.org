@@ -178,7 +178,7 @@ export default class CreepVote extends React.Component {
           </div>
         </div>
         <div className="text-center">
-          <div><a className="share-results" href="#coral_talk_stream">View comments</a> or share your results</div>
+          <div><a className="share-results" href="#coral-talk-stream">View comments</a> or share your results</div>
           <SocialShare productName={this.props.productName} creepType={creepType} />
         </div>
       </div>
