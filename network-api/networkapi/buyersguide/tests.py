@@ -363,13 +363,6 @@ class BuyersGuideViewTest(TestCase):
         request = self.factory.get('/en/privacynotincluded/products/this is not a product')
         self.assertRaises(Http404, product_view, request, 'this is not a product')
 
-    def test_category_view_404(self):
-        """
-        Test that the category view raises an Http404 if the category name doesn't exist
-        """
-        request = self.factory.get('/en/privacynotincluded/categories/this is not a category')
-        self.assertRaises(Http404, category_view, request, 'this is not a category')
-
     def test_product_view(self):
         """
         Test that the product view returns a 200
@@ -388,6 +381,23 @@ class BuyersGuideViewTest(TestCase):
 
         response = self.client.get(f'/en/privacynotincluded/products/{p.slug}/')
         self.assertEqual(response.status_code, 200, 'The product view should render once no longer a draft')
+
+    def test_category_view_404(self):
+        """
+        Test that the category view raises an Http404 if the category name doesn't exist
+        """
+        request = self.factory.get('/en/privacynotincluded/categories/this is not a category')
+        self.assertRaises(Http404, category_view, request, 'this is not a category')
+
+    def test_category_view(self):
+        """
+        Test that the category view returns a 200 for both slug and name URLs
+        """
+        response = self.client.get(f'/en/privacynotincluded/categories/Smart%20Home/')
+        self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by name')
+
+        response = self.client.get(f'/en/privacynotincluded/categories/smart-home/')
+        self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
 
 
 class ProductTests(TestCase):

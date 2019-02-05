@@ -12,8 +12,8 @@ def publish_all_products_up_to_now(apps, schema_editor):
     Product = apps.get_model("buyersguide", "Product")
 
     for product in Product.objects.all():
-        product.draft = False;
-        product.save();
+        product.draft = False
+        product.save()
 
 
 class Migration(migrations.Migration):

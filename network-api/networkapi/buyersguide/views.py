@@ -86,10 +86,15 @@ def buyersguide_home(request):
 
 
 @enforce_en_locale
-def category_view(request, categoryname):
-    key = f'products_category__{categoryname}'
+def category_view(request, slug):
+    key = f'products_category__{slug}'
     products = cache.get(key)
-    category = get_object_or_404(BuyersGuideProductCategory, name__iexact=categoryname)
+
+    # If getting by slug fails, also try to get it by name.
+    try:
+        category = BuyersGuideProductCategory.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
     if not products:
         products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]

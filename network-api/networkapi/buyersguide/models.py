@@ -1,21 +1,20 @@
-import re
-
 from cloudinary import uploader
-from django.core.exceptions import ObjectDoesNotExist
-from django.db import models
+from cloudinary.models import CloudinaryField
+
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.text import slugify
-from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
-from wagtail.snippets.models import register_snippet
 
-from cloudinary.models import CloudinaryField
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from wagtail.snippets.models import register_snippet
 
 
 def get_product_image_upload_path(instance, filename):
@@ -79,12 +78,13 @@ class BuyersGuideProductCategory(models.Model):
     )
     featured = models.BooleanField(
         default=False,
-        help_text='Featured category will appear first on Buyer\'s Guide site nav'
+        help_text='Featured category will appear first on Buyer\'s Guide site nav.'
     )
 
-    @property
-    def websafe_name(self):
-        return re.sub(r"[ \W]+", "-", self.name).lower()
+    slug = models.SlugField(
+        blank=True,
+        help_text='A URL-friendly version of the product name. This is an auto-generated field.'
+    )
 
     @property
     def published_product_count(self):
@@ -92,6 +92,10 @@ class BuyersGuideProductCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(BuyersGuideProductCategory, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Buyers Guide Product Category"
