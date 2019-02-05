@@ -24,6 +24,11 @@ const SHOW_MEMBER_NOTICE = false;
 // To be populated via XHR...
 let env, networkSiteURL;
 
+// Track all ReactDOM.render calls so we can use a Promise.all()
+// all the way at the end to make sure we don't report "we are done"
+// until all the React stuff is _actually_ done.
+const apps = [];
+
 let main = {
   init() {
     this.fetchEnv((envData) => {
@@ -41,6 +46,11 @@ let main = {
 
       Analytics.initialize();
       this.bindGAEventTrackers();
+
+      // Record that we're done, when we're really done.
+      Promise.all(apps).then(() => {
+        window[`main-js:react:finished`] = true;
+      });
     });
   },
 
@@ -206,7 +216,9 @@ let main = {
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
     if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
-      ReactDOM.render(<MemberNotice />, document.getElementById(`member-notice`));
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(<MemberNotice whenLoaded={() => resolve()}/>, document.getElementById(`member-notice`));
+      }));
     }
 
     // Show Takeover for new visitors
@@ -223,9 +235,11 @@ let main = {
         elWrapper.style.height = null;
       };
 
-      ReactDOM.render(<Takeover onHide={onTakeoverHide} />, document.querySelector(`#view-home .takeover`));
-      Cookies.set(`seen-takeover`, `true`, { expires: 365 });
-      ReactGA.pageview(`/welcome-splash`);
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(<Takeover onHide={onTakeoverHide} whenLoaded={() => resolve()}/>, document.querySelector(`#view-home .takeover`));
+        Cookies.set(`seen-takeover`, `true`, { expires: 365 });
+        ReactGA.pageview(`/welcome-splash`);
+      }));
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
@@ -236,7 +250,9 @@ let main = {
         elements.forEach(element => {
           var props = element.dataset;
 
-          ReactDOM.render(<JoinUs {...props} isHidden={false} />, element);
+          apps.push(new Promise(resolve => {
+            ReactDOM.render(<JoinUs {...props} isHidden={false} whenLoaded={() => resolve()} />, element);
+          }));
         });
       }
     }
@@ -254,11 +270,15 @@ let main = {
 
       props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}/`;
 
-      ReactDOM.render(<Petition {...props} isHidden={false} subscribed={subscribed}/>, element);
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(<Petition {...props} isHidden={false} subscribed={subscribed} whenLoaded={() => resolve()}/>, element);
+      }));
     });
 
     if (document.getElementById(`people`)) {
-      ReactDOM.render(<People env={env} />, document.getElementById(`people`));
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(<People env={env} whenLoaded={() => resolve()} />, document.getElementById(`people`));
+      }));
     }
 
     // Multipage nav used in landing pages
@@ -273,12 +293,16 @@ let main = {
         };
       });
 
-      ReactDOM.render(<MultipageNavMobile links={links} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(<MultipageNavMobile links={links} whenLoaded={() => resolve()} />, document.querySelector(`#multipage-nav-mobile .container .row .col-12`));
+      }));
     }
 
     // News
     if (document.querySelector(`#news`)) {
-      ReactDOM.render(<News env={env} />, document.querySelector(`#news`));
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(<News env={env} whenLoaded={() => resolve()} />, document.querySelector(`#news`));
+      }));
     }
 
     // Fellowships single filter fellow list
@@ -287,14 +311,17 @@ let main = {
     );
 
     singleFilterFellowList.forEach(target => {
-      return ReactDOM.render(
-        <SingleFilterFellowList
-          env={env}
-          filterType={target.dataset.filterType}
-          filterOptions={target.dataset.filterOptions.split(`,`)}
-          selectedOption={target.dataset.selectedOption}
-        />, target
-      );
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(
+          <SingleFilterFellowList
+            env={env}
+            filterType={target.dataset.filterType}
+            filterOptions={target.dataset.filterOptions.split(`,`)}
+            selectedOption={target.dataset.selectedOption}
+            whenLoaded={() => resolve()}
+          />, target
+        );
+      }));
     });
 
     // Pulse project lists
@@ -303,17 +330,20 @@ let main = {
     );
 
     pulseProjectList.forEach(target => {
-      ReactDOM.render(
-        <PulseProjectList
-          env={ env }
-          featured={ target.dataset.featured === `True` }
-          help={ target.dataset.help }
-          issues={ target.dataset.issues }
-          max={ parseInt(target.dataset.max, 10) }
-          query={ target.dataset.query || `` }
-          reverseChronological={ target.dataset.reversed === `True` } />,
-        target
-      );
+      apps.push(new Promise(resolve => {
+        ReactDOM.render(
+          <PulseProjectList
+            env={ env }
+            featured={ target.dataset.featured === `True` }
+            help={ target.dataset.help }
+            issues={ target.dataset.issues }
+            max={ parseInt(target.dataset.max, 10) }
+            query={ target.dataset.query || `` }
+            reverseChronological={ target.dataset.reversed === `True` }
+            whenLoaded={() => resolve()}
+          />, target
+        );
+      }));
     });
 
     let donationModal = document.querySelector(`.donate-modal-wrapper`);
