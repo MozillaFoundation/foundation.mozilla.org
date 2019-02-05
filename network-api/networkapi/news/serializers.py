@@ -18,4 +18,5 @@ class NewsSerializer(serializers.ModelSerializer):
             'author',
             'thumbnail',
             'is_video',
+            'featured',
         )
