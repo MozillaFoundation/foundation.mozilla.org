@@ -6,14 +6,9 @@ describe('Integration test with visual testing', () => {
   });
 
   it('Loads the homepage', function() {
-    // Load the homepage
     cy.visit(`/`);
-
-    // Give the browser a few seconds for JSX
-    // conversion to kick in.
-    cy.wait(10000);
-
-    // Take a snapshot for visual diffing
+    cy.window().its('main-js:react:finished').should('equal', true);
+    cy.wait(1000);
     cy.percySnapshot();
   });
 });
