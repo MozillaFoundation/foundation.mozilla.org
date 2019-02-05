@@ -1,6 +1,6 @@
 const FIXED_DATE = new Date(2019, 1, 1).getTime()
 
-describe('multipage visual regression tests', () => {
+describe('Visual regression testing for campaigns/multi-page', () => {
   beforeEach(function () {
     cy.clock(FIXED_DATE);
   });

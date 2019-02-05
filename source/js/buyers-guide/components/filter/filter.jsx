@@ -58,6 +58,8 @@ export default class Filter extends React.Component {
         this.reset();
       });
     }
+
+    this.props.whenLoaded();
   }
 
   reset() {

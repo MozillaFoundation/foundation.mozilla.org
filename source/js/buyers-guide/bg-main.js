@@ -11,6 +11,11 @@ import Filter from './components/filter/filter.jsx';
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
 
+// Track all ReactDOM.render calls so we can use a Promise.all()
+// all the way at the end to make sure we don't report "we are done"
+// until all the React stuff is _actually_ done.
+const apps = [];
+
 let main = {
   init() {
     ReactGA.initialize(`UA-87658599-6`);
@@ -27,7 +32,9 @@ let main = {
       let filter = document.querySelector(`#product-filter`);
 
       if (filter) {
-        ReactDOM.render(<Filter />, filter);
+        apps.push(new Promise(resolve => {
+          ReactDOM.render(<Filter whenLoaded={() => resolve()}/>, filter);
+        }));
       }
     }
 
@@ -57,8 +64,12 @@ let main = {
           });
         });
       }
-
     }
+
+    // Record that we're done, when we're really done.
+    Promise.all(apps).then(() => {
+      window[`bg-main-js:react:finished`] = true;
+    });
   },
 
   enableCopyLinks() {
@@ -182,7 +193,9 @@ let main = {
           };
         }
 
-        ReactDOM.render(<CreepVote csrf={csrf.value} productName={productName} productID={parseInt(productID,10)} votes={votes}/>, element);
+        apps.push(new Promise(resolve => {
+          ReactDOM.render(<CreepVote csrf={csrf.value} productName={productName} productID={parseInt(productID,10)} votes={votes} whenLoaded={() => resolve()}/>, element);
+        }));
       });
     }
 
@@ -192,7 +205,9 @@ let main = {
       Array.from(creepometerTargets).forEach(element => {
         let initialValue = element.dataset.initialValue;
 
-        ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
+        apps.push(new Promise(resolve => {
+          ReactDOM.render(<Creepometer initialValue={initialValue} whenLoaded={() => resolve()}/>, element);
+        }));
       });
     }
 
