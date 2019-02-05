@@ -78,7 +78,7 @@ class BuyersGuideProductCategory(models.Model):
     )
     featured = models.BooleanField(
         default=False,
-        help_text='Featured category will appear first on Buyer\'s Guide site nav.'
+        help_text='Featured category will appear first on Buyer\'s Guide site nav'
     )
 
     slug = models.SlugField(
