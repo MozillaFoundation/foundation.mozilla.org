@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactGA from '../../../react-ga-proxy';
+import copyToClipboard from '../../copy-to-clipboard.js';
 
 const SocialShareLink = (props) => {
   let classes = `social-icon`;
@@ -38,19 +39,32 @@ const SocialShareLink = (props) => {
     classes += ` social-button-link`;
     srLabel = `Link`;
     shareEvent.label += `using a link`;
-    link = window.location.toString();
+    link = `#`;
   }
 
   let trackShareAction = () => {
     ReactGA.event(shareEvent);
   };
 
-  return <a target="_blank" className="social-link" href={link} onClick={trackShareAction}><span className={classes}/> {srLabel}</a>;
+  // We actually need slightly different behaviour
+  // for the "copy link" functionality:
+  if (props.type === `link`) {
+    let _trackShareAction = trackShareAction;
+
+    trackShareAction = (evt) => {
+      evt.preventDefault();
+      copyToClipboard(evt.target, window.location.href);
+      evt.target.innerHTML = evt.target.innerHTML.replace(srLabel, `Copied`);
+      _trackShareAction();
+    };
+  }
+
+  return <a target="_blank" className="pni-s-link" href={link} onClick={trackShareAction}><span className={classes}/> {srLabel}</a>;
 };
 
 const SocialShare = (props) => {
   return (
-    <div class="social social-buttons d-flex justify-content-around flex-wrap flex-md-nowrap mt-3">
+    <div class="social pni-share-buttons d-flex justify-content-center flex-wrap flex-md-nowrap mt-3">
       <SocialShareLink type="facebook" {...props} />
       <SocialShareLink type="twitter" {...props} />
       <SocialShareLink type="email" {...props} />
