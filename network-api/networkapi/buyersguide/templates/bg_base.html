@@ -1,3 +1,5 @@
+{% load bg_nav_tags %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -49,15 +51,11 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <a class="nav-home" href="/en/privacynotincluded">Home</a>
-              {% for current in categories %}
-              <a class="nav{% if category %}
-                {% if category.name == current.name %}
-                  active
-                {% endif %}
-              {% endif %}" href="/en/privacynotincluded/categories/{{ current.name }}">{{ current.name }}</a>
-              {% endfor %}
-              <a class="nav-about" href="/en/privacynotincluded/about">About the Guide</a>
+              {% url 'buyersguide-home' as home_url %}
+              <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">Home</a>
+              {% category_nav request.get_full_path category categories %}
+              {% url 'about-view' as about_url %}
+              <a class="{% bg_active_nav request.get_full_path about_url %}" href="{{ about_url }}">About the Guide</a>
             </div>
           </div>
         </div>

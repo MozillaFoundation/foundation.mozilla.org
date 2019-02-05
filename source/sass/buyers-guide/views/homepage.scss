@@ -55,11 +55,11 @@
         }
 
         .seal-of-approval {
-          position: absolute;
-          top: $padding-y;
-          left: $padding-x;
-          width: 30px;
-          height: auto;
+          @include seal-of-approval($padding-y, $padding-x, 30px, 25px);
+        }
+
+        .adult-content-badge {
+          @include adult-content-badge($padding-y, $padding-x, 41px, 35px);
         }
 
         .recommendation {
@@ -149,7 +149,7 @@
   }
 
   .creepiness-slider {
-    z-index: 2;
+    z-index: 3;
     position: sticky;
     position: -webkit-sticky;
     top: 16px;
