@@ -152,7 +152,7 @@ class Command(BaseCommand):
             print('Homepage already exists')
         except wagtailpages_models.Homepage.DoesNotExist:
             print('Generating a Homepage')
-            site_root = WagtailPage.objects.get(title='Root')
+            site_root = WagtailPage.objects.get(id=1)
             home_page = WagtailHomepageFactory.create(
                 parent=site_root,
                 title='Homepage',
