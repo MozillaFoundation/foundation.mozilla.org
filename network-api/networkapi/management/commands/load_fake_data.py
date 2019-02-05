@@ -308,7 +308,7 @@ class Command(BaseCommand):
         try:
             stories = wagtailpages_models.StoriesPage.objects.get(title='Stories')
             print('Stories page exists')
-        except ObjectDoesNotExist:
+        except wagtailpages_models.StoriesPage.DoesNotExist:
             print('Generating Stories page')
             stories = StoriesFactory(parent=home_page, title="Stories")
 
