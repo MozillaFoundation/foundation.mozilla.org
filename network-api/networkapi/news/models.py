@@ -60,10 +60,7 @@ class News(models.Model):
         blank=True,
         null=True,
     )
-    featured = models.BooleanField(
-        help_text='Do you want to feature this news piece on the homepage?',
-        default=False,
-    )
+
     publish_after = models.DateTimeField(
         help_text='Make this news visible only '
                   'after this date and time (UTC)',

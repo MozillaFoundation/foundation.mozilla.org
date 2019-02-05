@@ -26,15 +26,6 @@ class TestNewsFactory(TestCase):
 
         self.assertIsInstance(news, News)
 
-    def test_news_is_featured_param(self):
-        """
-        The is_featured kwargs should set featured to True
-        """
-
-        news = NewsFactory.create(is_featured=True)
-
-        self.assertEqual(news.featured, True)
-
     def test_news_unpublished_param(self):
         """
         The unpublished kwargs should set publish_after date to sometime in the future
