@@ -51,10 +51,10 @@ const SocialShareLink = (props) => {
 const SocialShare = (props) => {
   return (
     <div class="social social-buttons d-flex justify-content-around flex-wrap flex-md-nowrap mt-3">
-       <SocialShareLink type="facebook" {...props} />
-       <SocialShareLink type="twitter" {...props} />
-       <SocialShareLink type="email" {...props} />
-       <SocialShareLink type="link" {...props} />
+      <SocialShareLink type="facebook" {...props} />
+      <SocialShareLink type="twitter" {...props} />
+      <SocialShareLink type="email" {...props} />
+      <SocialShareLink type="link" {...props} />
     </div>
   );
 };
