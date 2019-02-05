@@ -4,8 +4,8 @@ import ReactGA from '../../../react-ga-proxy';
 const SocialShareLink = (props) => {
   let classes = `social-button`;
   let srLabel = ``;
-  let link = `privacynotincluded.org`;
-  let shareText = `I think ${props.productName} is ${props.creepType.toUpperCase()}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} holiday buyer’s guide.`;
+  let link = `PrivacyNotIncluded.org`;
+  let shareText = `I think this ${props.productName} is ${props.creepType.toUpperCase()}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} buyer’s guide.`;
   let shareEvent = {
     category: `product`,
     action: `share tap`,
