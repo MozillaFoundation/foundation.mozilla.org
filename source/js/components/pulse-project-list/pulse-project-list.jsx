@@ -27,7 +27,9 @@ export default class PulseProjectList extends React.Component {
       this.setState({
         projects: this.props.max ? projects.results.slice(0, this.props.max) : projects.results
       }, () => {
-        this.props.whenLoaded();
+        if (this.props.whenLoaded) {
+          this.props.whenLoaded();
+        }
       });
     });
 

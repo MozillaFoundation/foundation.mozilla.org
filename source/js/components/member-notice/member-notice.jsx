@@ -59,7 +59,9 @@ export default class MemberNotice extends React.Component {
   }
 
   componentDidMount() {
-    this.props.whenLoaded();
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
   }
 
   render() {
