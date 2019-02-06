@@ -1,21 +1,20 @@
-import re
-
 from cloudinary import uploader
-from django.core.exceptions import ObjectDoesNotExist
-from django.db import models
+from cloudinary.models import CloudinaryField
+
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.text import slugify
-from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
-from wagtail.snippets.models import register_snippet
 
-from cloudinary.models import CloudinaryField
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from wagtail.snippets.models import register_snippet
 
 
 def get_product_image_upload_path(instance, filename):
@@ -72,13 +71,31 @@ class BuyersGuideProductCategory(models.Model):
     when necessary.
     """
     name = models.CharField(max_length=100)
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of the product category. Max. 300 characters.',
+        blank=True
+    )
+    featured = models.BooleanField(
+        default=False,
+        help_text='Featured category will appear first on Buyer\'s Guide site nav'
+    )
+
+    slug = models.SlugField(
+        blank=True,
+        help_text='A URL-friendly version of the product name. This is an auto-generated field.'
+    )
 
     @property
-    def websafe_name(self):
-        return re.sub(r"[ \W]+", "-", self.name).lower()
+    def published_product_count(self):
+        return Product.objects.filter(product_category=self, draft=False).count()
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(BuyersGuideProductCategory, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Buyers Guide Product Category"
@@ -93,6 +110,11 @@ class Product(models.Model):
     draft = models.BooleanField(
         help_text='When checked, this product will only show for CMS-authenticated users',
         default=True,
+    )
+
+    adult_content = models.BooleanField(
+        help_text='When checked, product thumbnail will appear blurred as well as have an 18+ badge on it',
+        default=False,
     )
 
     name = models.CharField(
@@ -341,6 +363,7 @@ class Product(models.Model):
             heading="Publication status"
         ),
         MultiFieldPanel([
+            FieldPanel('adult_content'),
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),

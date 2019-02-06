@@ -43,6 +43,12 @@ export default class CreepVote extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   showVoteResult() {
     if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
       this.setState({ didVote: true });
@@ -178,7 +184,7 @@ export default class CreepVote extends React.Component {
           </div>
         </div>
         <div className="text-center">
-          <div><a className="share-results" href="#coral_talk_stream">View comments</a> or share your results</div>
+          <div><a className="share-results" href="#coral-talk-stream">View comments</a> or share your results</div>
           <SocialShare productName={this.props.productName} creepType={creepType} />
         </div>
       </div>

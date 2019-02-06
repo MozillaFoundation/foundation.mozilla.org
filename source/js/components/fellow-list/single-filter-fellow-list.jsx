@@ -47,6 +47,12 @@ export default class SingleFilterFellowList extends React.Component {
     </div>;
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   render() {
     return (
       <div>

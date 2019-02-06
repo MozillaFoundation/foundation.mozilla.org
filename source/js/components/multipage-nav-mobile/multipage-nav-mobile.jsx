@@ -17,6 +17,12 @@ export default class MultipageNavMobile extends React.Component {
     });
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   render() {
     let activeLinkLabel;
     let links = this.props.links.map((link, index) => {
