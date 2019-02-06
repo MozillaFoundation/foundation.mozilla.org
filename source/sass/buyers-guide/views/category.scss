@@ -11,15 +11,7 @@
 
   .category-item-container {
     $padding-x: 12px;
-    $padding-y: 12px;
-
-    &:nth-child(even) {
-      padding-left: 3%;
-    }
-
-    &:nth-child(odd) {
-      padding-right: 3%;
-    }
+    $padding-y: 25px;
 
     .seal-of-approval {
       @include seal-of-approval($padding-y, $padding-x, 25px, 21px, 40px, 33px);
@@ -32,7 +24,7 @@
     .category-image-container {
       background: #f4f4f4;
       margin-bottom: 12px;
-      padding: $padding-x $padding-y;
+      padding: 12px;
 
       @media (min-width: $bp-xl) {
         padding: 20px;
