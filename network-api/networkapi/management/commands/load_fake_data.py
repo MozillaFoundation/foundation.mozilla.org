@@ -307,14 +307,14 @@ class Command(BaseCommand):
         print('Generating Randomised Buyer\'s Guide Products Votes')
         for p in Product.objects.all():
             for _ in range(1, 15):
-                value = randint(1, 100)
+                value = 1 + (faker.unix_time() % 99)
                 RangeVote.objects.create(
                     product=p,
                     attribute='creepiness',
                     value=value
                 )
 
-                value = (random() < 0.5)
+                value = (faker.unix_time() % 100) < 50
                 BooleanVote.objects.create(
                     product=p,
                     attribute='confidence',
