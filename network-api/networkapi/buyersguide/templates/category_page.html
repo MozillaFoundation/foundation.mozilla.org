@@ -15,7 +15,7 @@
       {% endif %}
     </div>
 
-    <div class="categories-container">
+    <div class="d-flex flex-wrap">
       {% for product in products %}
       <div class="category-item-container{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
         <a class="" href="/en/privacynotincluded/products/{{ product.slug }}">
@@ -44,6 +44,3 @@
     </div>
   </div>
 {% endblock %}
-
-
-
