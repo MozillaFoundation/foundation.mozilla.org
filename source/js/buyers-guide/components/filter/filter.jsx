@@ -59,7 +59,9 @@ export default class Filter extends React.Component {
       });
     }
 
-    this.props.whenLoaded();
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
   }
 
   reset() {
