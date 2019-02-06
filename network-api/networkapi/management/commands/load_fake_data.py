@@ -1,7 +1,7 @@
 from itertools import chain, combinations
 
 import factory
-from random import randint, random
+from random import randint
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
