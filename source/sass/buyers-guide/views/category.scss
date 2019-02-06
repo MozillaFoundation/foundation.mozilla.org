@@ -33,11 +33,6 @@
       @include adult-content-badge($padding-y, $padding-x, 33px, 28px, 55px, 46px);
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
     .category-image-container {
       background: #f4f4f4;
       margin-bottom: 12px;
