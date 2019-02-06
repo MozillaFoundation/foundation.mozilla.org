@@ -10,8 +10,8 @@
   }
 
   .category-item-container {
-    $padding-x: 12px;
-    $padding-y: 25px;
+    $padding-x: 24px;
+    $padding-y: 12px;
 
     .seal-of-approval {
       @include seal-of-approval($padding-y, $padding-x, 25px, 21px, 40px, 33px);
