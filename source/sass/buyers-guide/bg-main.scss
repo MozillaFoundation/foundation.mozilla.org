@@ -80,6 +80,10 @@ img.thumb-border {
 .adult-content { // products which contain adult content
   img.product-thumbnail {
     filter: blur(15px);
+
+    @at-root .related-product #{&} {
+      filter: blur(5px);
+    }
   }
 }
 

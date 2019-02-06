@@ -154,6 +154,20 @@ def why_view(request):
     })
 
 
+@enforce_en_locale
+def contact_view(request):
+    key = 'categories'
+    categories = cache.get(key)
+
+    if not categories:
+        categories = BuyersGuideProductCategory.objects.all()
+        cache.set(key, categories, 86400)
+
+    return render(request, 'about/contact.html', {
+        'categories': categories,
+    })
+
+
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 @parser_classes((JSONParser,))
