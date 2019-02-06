@@ -43,6 +43,12 @@ export default class CreepVote extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   showVoteResult() {
     if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
       this.setState({ didVote: true });

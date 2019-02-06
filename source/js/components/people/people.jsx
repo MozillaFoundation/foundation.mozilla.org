@@ -24,7 +24,9 @@ export default class People extends React.Component {
       this.setState({
         people: JSON.parse(xhr.response)
       }, () => {
-        this.props.whenLoaded();
+        if (this.props.whenLoaded) {
+          this.props.whenLoaded();
+        }
       });
     });
 
