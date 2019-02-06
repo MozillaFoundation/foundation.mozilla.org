@@ -18,13 +18,13 @@ from networkapi.buyersguide.models import (
 
 Faker.add_provider(ImageProvider)
 
+
 seed = randint(0, 5000000)
 if settings.RANDOM_SEED is not None:
     seed = settings.RANDOM_SEED
 
 fake = ValueFaker()
 fake.random.seed(seed)
-
 
 
 def get_random_category():
