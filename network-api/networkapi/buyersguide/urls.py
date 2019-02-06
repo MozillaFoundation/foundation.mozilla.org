@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^about/contact', views.contact_view, name='contact-view'),
     url(r'^about/why', views.why_view, name='why-view'),
     url(r'^about/', views.about_view, name='about-view'),
-    url(r'^categories/(?P<categoryname>[\w\W]+)/', views.category_view, name='category-view'),
-    url(r'^products/(?P<slug>[-\w]+)/$', views.product_view, name='product-view'),
+    url(r'^categories/(?P<slug>[\w\W]+)/', views.category_view, name='category-view'),
+    url(r'^products/(?P<slug>[-\w\d]+)/$', views.product_view, name='product-view'),
 ]

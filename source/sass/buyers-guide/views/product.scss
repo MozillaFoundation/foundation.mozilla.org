@@ -328,3 +328,10 @@ $product-detail-padding-x: (
     display: block;
   }
 }
+
+// Coral Embed
+#coral-talk-stream_iframe {
+  body {
+    padding-bottom: 0;
+  }
+}
