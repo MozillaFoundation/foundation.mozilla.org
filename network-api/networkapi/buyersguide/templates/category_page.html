@@ -3,7 +3,7 @@
 {% load env %}
 {% load cloudinary %}
 
-{% block body-id %}{{ category.websafe_name }}{% endblock %}
+{% block body-id %}{{ category.slug }}{% endblock %}
 
 {% block guts %}
   <div class="category-listing container-fluid text-center px-md-5 mt-4">

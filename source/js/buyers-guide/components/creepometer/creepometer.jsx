@@ -17,6 +17,12 @@ export default class Creepometer extends React.Component {
     this.setupDocumentListeners();
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   setupDocumentListeners() {
     this.moveListener = evt => {
       evt.preventDefault();

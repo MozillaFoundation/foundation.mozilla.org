@@ -25,7 +25,9 @@ export default class News extends React.Component {
       this.setState({
         news: JSON.parse(xhr.response)
       }, () => {
-        this.props.whenLoaded();
+        if (this.props.whenLoaded) {
+          this.props.whenLoaded();
+        }
       });
     });
 

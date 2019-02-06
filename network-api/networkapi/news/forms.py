@@ -34,9 +34,11 @@ class NewsAdminForm(forms.ModelForm):
             'author',
             'thumbnail',
             'is_video',
+            'featured',
             'publish_after',
             'expires',
         )
         labels = {
             'is_video': 'Is Video?',
+            'featured': 'Featured?'
         }
