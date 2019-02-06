@@ -2,7 +2,7 @@
 
 {% for cat in sorted_categories %}
 {% if cat.published_product_count > 0 %}
-{% url 'category-view' cat.name as cat_url %}
-<a class="{% bg_active_nav current_url cat_url %}{% if cat.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+{% url 'category-view' cat.slug as cat_url %}
+<a class="{% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
 {% endif %}
 {% endfor %}

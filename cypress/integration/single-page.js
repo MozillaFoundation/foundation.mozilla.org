@@ -1,6 +1,6 @@
 const FIXED_DATE = new Date(2019, 1, 1).getTime()
 
-describe('Integration test with visual testing', () => {
+describe('Visual regression testing for homepage', () => {
   beforeEach(function () {
     cy.clock(FIXED_DATE);
   });
