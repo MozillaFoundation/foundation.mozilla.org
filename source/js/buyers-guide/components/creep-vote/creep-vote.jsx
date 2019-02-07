@@ -40,7 +40,7 @@ export default class CreepVote extends React.Component {
         creepiness: creepinessId,
         confidence: confidence[0] > confidence[1] ? 0 : 1
       },
-      validated: false
+      submitAttempted: false
     };
   }
 
@@ -86,6 +86,14 @@ export default class CreepVote extends React.Component {
       });
   }
 
+  handleSubmitBtnClick() {
+    this.setState({
+      submitAttempted: true
+    }, () => {
+      setTimeout(() => this.setState({ submitAttempted: false }), 1000); // The 1s timeout is for the wiggle animation to finish. See &:invalid.submit-attempted ruleset in creep-vote.scss for details
+    });
+  }
+
   submitVote(evt) {
     evt.preventDefault();
 
@@ -120,20 +128,12 @@ export default class CreepVote extends React.Component {
     this.setState({ confidence });
   }
 
-  handleSubmitBtnClick(evt) {
-    evt.preventDefault();
-
-    this.setState({
-      validated: true
-    });
-  }
-
   /**
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
 
-    return (<form method="post" id="creep-vote" className={this.state.validated ? `validated` : ``} onSubmit={evt => this.submitVote(evt)}>
+    return (<form method="post" id="creep-vote" className={this.state.submitAttempted ? `submit-attempted` : ``} onSubmit={evt => this.submitVote(evt)}>
       <div className="row mb-5">
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
@@ -161,7 +161,7 @@ export default class CreepVote extends React.Component {
       </div>
       <div className="row">
         <div className="col-12 text-center">
-          <button id="creep-vote-btn" type="submit" className="btn btn-ghost mb-2" onClick={evt => this.handleSubmitBtnClick(evt)}>Vote & See Results</button>
+          <button id="creep-vote-btn" type="submit" className="btn btn-ghost mb-2" onClick={evt => this.handleSubmitBtnClick()}>Vote & See Results</button>
           <p class="h6-heading-uppercase mb-0">{this.state.totalVotes} votes</p>
         </div>
       </div>
