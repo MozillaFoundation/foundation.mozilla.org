@@ -268,8 +268,8 @@ TEMPLATES = [
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'primary_page_tags': 'networkapi.wagtailpages.templatetags.primary_page_tags',
-                'nav_tags': 'networkapi.wagtailpages.templatetags.nav_tags',
-                'bg_nav_tags': 'networkapi.buyersguide.templatetags.nav_tags',
+                'nav_tags': 'networkapi.utility.templatetags.nav_tags',
+                'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
             }
         },
     },
@@ -281,7 +281,15 @@ if env('REDIS_URL'):
             'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': env('REDIS_URL'),
             'OPTIONS': {
-                'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                # timeout for read/write operations after a connection is established
+                'SOCKET_TIMEOUT': 120,
+                # timeout for the connection to be established
+                'SOCKET_CONNECT_TIMEOUT': 30,
+                # Enable compression
+                'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
+                # Ignore exceptions, redis only used for caching (i.e. if redis fails, will use database)
+                'IGNORE_EXCEPTIONS': True
             }
         }
     }
@@ -291,6 +299,8 @@ else:
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
         }
     }
+
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
 # network asset domain used in templates
 ASSET_DOMAIN = env('ASSET_DOMAIN')
@@ -541,7 +551,7 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
 
-# Detect if we're in official testing mode
+# Detect if Django is running normally, or in test mode through "manage.py test"
 TESTING = 'test' in sys.argv
 
 # Coral Talk Server URL

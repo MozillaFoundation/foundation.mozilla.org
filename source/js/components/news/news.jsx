@@ -24,6 +24,10 @@ export default class News extends React.Component {
     xhr.addEventListener(`load`, () => {
       this.setState({
         news: JSON.parse(xhr.response)
+      }, () => {
+        if (this.props.whenLoaded) {
+          this.props.whenLoaded();
+        }
       });
     });
 

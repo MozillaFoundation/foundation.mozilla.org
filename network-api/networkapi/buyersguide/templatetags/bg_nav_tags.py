@@ -3,7 +3,13 @@ from django import template
 register = template.Library()
 
 
-# Determine if a link should be active
+# Determine if a category nav link should be marked active
+@register.simple_tag(name='check_active_category')
+def check_active_category(current_category, target_category):
+    return 'active' if current_category == target_category else ''
+
+
+# Determine if a nav link should be active.
 @register.simple_tag(name='bg_active_nav')
 def bg_active_nav(current, target):
     return 'active' if current == target else ''

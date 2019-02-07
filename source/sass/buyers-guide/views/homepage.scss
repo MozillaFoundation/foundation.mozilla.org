@@ -1,14 +1,11 @@
 #pni-home {
   .page-header {
-    @media (max-width: $bp-md) {
-      height: 200px;
-    }
+    background: url(/_images/buyers-guide/home-banner-valentines.jpg) center center / cover no-repeat;
+    height: 200px;
 
-    height: 304px;
-    background-image: url(/_images/buyers-guide/home-banner.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    @media (min-width: $bp-md) {
+      height: 304px;
+    }
   }
 
   .product-listing {
