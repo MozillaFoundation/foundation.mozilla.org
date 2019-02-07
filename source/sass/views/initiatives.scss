@@ -5,3 +5,33 @@
 .bottom-line {
   border-bottom: 1px solid $light-gray;
 }
+
+// Fellowships--Support
+
+#view-fellows-support #multipage-nav-mobile {
+  margin-top: 1.5rem;
+}
+
+.fellow-support {
+  &-intro {
+    &-help {
+      font-weight: 600;
+    }
+  }
+
+  &-optim {
+    max-width: 45%;
+
+    @media (min-width: $bp-md) {
+      max-width: 85%;
+    }
+  }
+
+  &-fund {
+    margin-bottom: 5rem;
+
+    div img {
+      max-width: 85%;
+    }
+  }
+}

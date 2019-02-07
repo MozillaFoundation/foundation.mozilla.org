@@ -9,16 +9,6 @@
     max-width: 800px;
   }
 
-  .info-blob {
-    font-family: "Zilla Slab";
-    margin-bottom: 50px;
-    text-align: left;
-
-    p {
-      font-size: 20px;
-    }
-  }
-
   .categories-container {
     display: flex;
     flex-wrap: wrap;
@@ -40,17 +30,11 @@
       }
 
       .seal-of-approval {
-        position: absolute;
-        z-index: 2;
-        top: $padding-y;
-        left: $padding-x;
-        width: 40px;
-        height: auto;
+        @include seal-of-approval($padding-y, $padding-x, 25px, 21px, 40px, 33px);
+      }
 
-        @media (max-width: $bp-md) {
-          width: 20px;
-          height: auto;
-        }
+      .adult-content-badge {
+        @include adult-content-badge($padding-y, $padding-x, 33px, 28px, 55px, 46px);
       }
 
       a {
@@ -63,20 +47,16 @@
         overflow: hidden;
         background: #f4f4f4;
         margin-bottom: 12px;
-        padding: 10px;
+        padding: $padding-x $padding-y;
 
         @media (min-width: $bp-xl) {
           padding: 20px;
         }
       }
 
-      img {
-        display: block;
-        width: 100%;
-        height: auto;
-
-        @media (max-width: $bp-md) {
-          transform: scale(1.25);
+      img.product-thumbnail {
+        @media (min-width: $bp-md) {
+          transform: scale(0.9);
         }
       }
     }

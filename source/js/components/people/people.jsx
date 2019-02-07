@@ -23,6 +23,10 @@ export default class People extends React.Component {
     xhr.addEventListener(`load`, () => {
       this.setState({
         people: JSON.parse(xhr.response)
+      }, () => {
+        if (this.props.whenLoaded) {
+          this.props.whenLoaded();
+        }
       });
     });
 

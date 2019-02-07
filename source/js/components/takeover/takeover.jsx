@@ -37,6 +37,12 @@ export default class Takeover extends React.Component {
     });
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   render() {
     return (
       <div hidden={this.state.isHidden}>

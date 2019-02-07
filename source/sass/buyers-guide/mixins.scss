@@ -1,0 +1,31 @@
+@mixin seal-of-approval($offset-top, $offset-left, $width, $height, $width-desktop: null, $height-desktop: null) {
+  position: absolute;
+  top: $offset-top;
+  left: $offset-left;
+  width: $width;
+  height: $height;
+  z-index: 2;
+
+  @if ($width-desktop && $height-desktop) {
+    @media (min-width: $bp-md) {
+      width: $width-desktop;
+      height: $height-desktop;
+    }
+  }
+}
+
+@mixin adult-content-badge($offset-top, $offset-right, $width, $height, $width-desktop: null, $height-desktop: null) {
+  position: absolute;
+  top: $offset-top;
+  right: $offset-right;
+  width: $width;
+  height: $height;
+  z-index: 2;
+
+  @if ($width-desktop && $height-desktop) {
+    @media (min-width: $bp-md) {
+      width: $width-desktop;
+      height: $height-desktop;
+    }
+  }
+}
