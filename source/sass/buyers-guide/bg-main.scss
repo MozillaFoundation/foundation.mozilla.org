@@ -25,6 +25,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../mixins';
 @import './mixins'; // Buyer's Guide specific mixins
 
+// includes
+@import "./includes/draft-product";
+@import "./includes/social";
+
 // React Components
 
 @import '../../js/buyers-guide/components/creepometer/creepometer';
@@ -33,6 +37,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../../js/buyers-guide/components/creepiness-chart/creepiness-chart';
 @import '../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart';
 @import '../../js/buyers-guide/components/filter/filter';
+@import '../../js/buyers-guide/components/social-share/social-share';
 
 // Special react component
 
@@ -80,11 +85,12 @@ img.thumb-border {
 .adult-content { // products which contain adult content
   img.product-thumbnail {
     filter: blur(15px);
+
+    @at-root .related-product #{&} {
+      filter: blur(5px);
+    }
   }
 }
-
-// includes
-@import "./includes/draft-product";
 
 // used by various pages
 @import "./creep-face-emoji";

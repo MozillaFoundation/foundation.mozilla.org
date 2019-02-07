@@ -5,6 +5,7 @@ addons:
   postgresql: "9.6"
 before_install:
 - python -c 'import os,sys,fcntl; flags = fcntl.fcntl(sys.stdout, fcntl.F_GETFL); fcntl.fcntl(sys.stdout, fcntl.F_SETFL, flags&~os.O_NONBLOCK);'
+=======
 install:
 - pip install --upgrade pip
 - pip install pipenv
@@ -19,7 +20,7 @@ install:
 - echo "HERE LOOK"
 - python -c 'import os,sys,fcntl; flags = fcntl.fcntl(sys.stdout, fcntl.F_GETFL); fcntl.fcntl(sys.stdout, fcntl.F_SETFL, flags&~os.O_NONBLOCK);'
 - python -c 'import os,sys,fcntl; flags = fcntl.fcntl(sys.stdout, fcntl.F_GETFL); print(flags&os.O_NONBLOCK);'
-- pipenv run python network-api/manage.py collectstatic --no-input
+- pipenv run python network-api/manage.py collectstatic --no-input --verbosity 0
 before_script:
 - psql -c 'create database network;' -U postgres
 - ./release-steps.sh
