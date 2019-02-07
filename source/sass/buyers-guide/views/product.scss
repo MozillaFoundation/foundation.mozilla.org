@@ -204,6 +204,10 @@ $product-detail-padding-x: (
   }
 }
 
+.criterion[data-criterion="uses_encryption"].criterion-none.criterion-good {
+  @extend .criterion-bad;
+}
+
 .dotted-section {
   &::before {
     display: block;
