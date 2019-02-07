@@ -346,30 +346,39 @@ let main = {
       }));
     });
 
-    let donationModal = document.querySelector(`.donate-modal-wrapper`);
+    /*
+      The following code has been disabled for
+      https://github.com/mozilla/foundation.mozilla.org/issues/2630,
+      but we want to keep this code around for when we need to
+      re-enable this functionality
 
-    if (donationModal) {
-      let modalOptions = {
-        title: `We all love the web. Join Mozilla in defending it!`,
-        subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
-        cta: {
-          title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
-          text: `Support Mozilla`
-        },
-        utm: {
-          medium: `foundation`,
-          campaign: `mainsite`,
-          content: `popupbutton`
-        },
-        ga: {
-          category: `site`,
-          action: `donate tap`,
-          label: `donate popup on foundation site`
-        }
-      };
+      ---
 
-      injectDonateModal(donationModal, modalOptions);
-    }
+      let donationModal = document.querySelector(`.donate-modal-wrapper`);
+
+      if (donationModal) {
+        let modalOptions = {
+          title: `We all love the web. Join Mozilla in defending it!`,
+          subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
+          cta: {
+            title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
+            text: `Support Mozilla`
+          },
+          utm: {
+            medium: `foundation`,
+            campaign: `mainsite`,
+            content: `popupbutton`
+          },
+          ga: {
+            category: `site`,
+            action: `donate tap`,
+            label: `donate popup on foundation site`
+          }
+        };
+
+        injectDonateModal(donationModal, modalOptions);
+      }
+    */
   }
 };
 
