@@ -16,9 +16,9 @@
           {% endif %}
         </div>
 
-        <div class="d-flex flex-wrap row">
+        <div class="row">
           {% for product in products %}
-          <div class="category-item-container col-6 text-left {% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
+          <div class="category-item-container col-6 {% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
             <a href="/en/privacynotincluded/products/{{ product.slug }}">
               <div class="category-image-container">
                 {% include "fragments/seal-of-approval.html" with product=product %}
