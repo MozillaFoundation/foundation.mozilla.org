@@ -269,7 +269,6 @@ TEMPLATES = [
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'primary_page_tags': 'networkapi.wagtailpages.templatetags.primary_page_tags',
                 'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags',
-                'nav_tags': 'networkapi.wagtailpages.templatetags.nav_tags',
                 'nav_tags': 'networkapi.utility.templatetags.nav_tags',
                 'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
             }
