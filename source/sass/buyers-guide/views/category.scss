@@ -1,83 +1,32 @@
 .category-listing {
   background: #fff;
   padding-top: 2em;
-  width: 100%;
-  margin: 0 auto;
-  max-width: 545px;
 
-  @media screen and (min-width: $bp-md) {
-    max-width: 800px;
-  }
+  .category-item-container {
+    $padding-x: 24px;
+    $padding-y: 12px;
 
-  .info-blob {
-    font-family: "Zilla Slab";
-    margin-bottom: 50px;
-    text-align: left;
-
-    p {
-      font-size: 20px;
+    .seal-of-approval {
+      @include seal-of-approval($padding-y, $padding-x, 25px, 21px, 40px, 33px);
     }
-  }
 
-  .categories-container {
-    display: flex;
-    flex-wrap: wrap;
+    .adult-content-badge {
+      @include adult-content-badge($padding-y, $padding-x, 33px, 28px, 55px, 46px);
+    }
 
-    .category-item-container {
-      $padding-x: 12px;
-      $padding-y: 12px;
+    .category-image-container {
+      background: #f4f4f4;
+      margin-bottom: 12px;
+      padding: 12px;
 
-      position: relative;
-      width: 50%;
-      text-align: left;
-
-      &:nth-child(even) {
-        padding-left: 3%;
+      @media (min-width: $bp-xl) {
+        padding: 20px;
       }
+    }
 
-      &:nth-child(odd) {
-        padding-right: 3%;
-      }
-
-      .seal-of-approval {
-        position: absolute;
-        z-index: 2;
-        top: $padding-y;
-        left: $padding-x;
-        width: 40px;
-        height: auto;
-
-        @media (max-width: $bp-md) {
-          width: 20px;
-          height: auto;
-        }
-      }
-
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
-
-      .category-image-container {
-        position: relative;
-        overflow: hidden;
-        background: #f4f4f4;
-        margin-bottom: 12px;
-        padding: 10px;
-
-        @media (min-width: $bp-xl) {
-          padding: 20px;
-        }
-      }
-
-      img {
-        display: block;
-        width: 100%;
-        height: auto;
-
-        @media (max-width: $bp-md) {
-          transform: scale(1.25);
-        }
+    img.product-thumbnail {
+      @media (min-width: $bp-md) {
+        transform: scale(0.9);
       }
     }
   }

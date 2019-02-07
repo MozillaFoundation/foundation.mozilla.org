@@ -3,59 +3,74 @@
 {% block bodyID %}fellows-support{% endblock %}
 
 {% block mainContent %}
-<div class="row mb-5">
-  <div class="col-12">
-    <div class="mb-4">
-      <h1 class="h1-heading">Support the Program</h1>
-    </div>
-  </div>
-  <div class="col-md-9">
-    <p>The Mozilla Fellows are building the next wave of internet health leaders, and the program depends on a large community of collaborators, partners, advisors, civil service organizations and funders.</p>
-    <h4 class="h4-heading">There are 2 ways you can help:</h4>
-    <h3 class="h5-heading my-2">Fund the fellows</h3>
-    <p>We partner with other foundations and organizations across the globe to support the next wave of internet health leaders. Many funders find the expertise, leadership and passion that fellows bring to the experience to be key to catalyzing progress in the internet health field.</p>
-  </div>
-  <div class="col-md-3 d-flex justify-content-center align-items-center">
-    <img src="/_images/fellowships/svg/support-fellows-optim.svg" class="hidden-md-down">
-  </div>
-  <div class="col-12">
-    <div class="row">
-      <div class="col-6 col-md-3 logo"><img src="/_images/fellowships/logo/ford-foundation.png"></div>
-      <div class="col-6 col-md-3 logo"><img src="/_images/fellowships/logo/logo-siegel@2x.jpg"></div>
-      <div class="col-6 col-md-3 logo"><img src="/_images/fellowships/logo/logo-helmsley@2x.jpg"></div>
-      <div class="col-6 col-md-3 logo"><img src="/_images/fellowships/logo/logo-open-society-foundations@2x.jpg"></div>
-    </div>
-  </div>
-</div>
+<main class="row my-md-5 fellow-support">
+  <div class="col-md-8 offset-md-2">
+      <section class="fellow-support-intro mb-4 mb-md-5">
+        <p class="body-large mb-4">The Mozilla Fellowship is building the next wave of internet health leaders, and the program depends on a large community of collaborators, partners, advisors, civil service organizations and funders.</p>
+        <p class="body-large fellow-support-intro-help">There are two ways you can help:</p>
+      </section>
 
-<div class="row mb-5 justify-content-center">
-  <div class="col-12 col-md-2 hear-from-funder-line-art"></div>
-  <div class="col-12 col-md-8 col-lg-6">
-    <h4 class="h4-heading">Support the Mozilla Fellows</h4>
-    <p>Please reach out to <a href="mailto:fellowships@mozillafoundation.org">fellowships@mozillafoundation.org</a> with any inquiries.</p>
-  </div>
-</div>
+      <!-- Hosting Fellows Content-->
+      <section class="row mb-5">
+        <div class="col-12 mb-4">
+          <h3 class="h3-heading mb-3">Host a Fellow</h3>
+          <p>Organizations defending an open and accessible web are the backbone of our fellowship program. They socialize fellows to a global assortment of issues, policies, and technologies, and inspire them with meaningful work that impacts the health of the internet.</p>
+          <p>In the past five years, the fellowship has partnered with dozens of host organizations around the globe and across sectors, including the American Civil Liberties Union, Amnesty International, Derechos Digitales, European Digital Rights, Freedom of the Press Foundation, and many more. Host organizations are united by a shared goal of a healthy internet.</p>
+          <p>This year, we are particularly interested in partnering with host organizations whose missions or projects align with Mozilla’s latest impact goal: “<a href="https://medium.com/read-write-participate/slowing-down-asking-questions-looking-ahead-265f6b99810d" target="_blank">better machine decision making</a>,” or ensuring artificial intelligence is developed with ethics, responsibility, and accountability in mind. More broadly, host organizations should be working on initiatives related to online privacy or security; openness; decentralization, digital inclusion; and/or web literacy.</p>
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 mb-4">
+                <div class="row mb-3">
+                  <div class="col-md-3 d-flex justify-content-center align-items-center mb-3 mb-md-0">
+                    <img src="/_images/fellowships/svg/support-fellows-optim.svg" class="fellow-support-optim">
+                  </div>
+                  <div class="col-md-9">
+                    <h5 class="h5-heading mb-2">Apply to Host a Fellow</h5>
+                    <p>Host organization applications are now open through March 3.</p>
+                    <a class="btn btn-ghost" href="https://mozilla.fluxx.io/apply/OWFHostOrg" target="_blank">Apply Now</a>
+                  </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4">
+              <p class="mb-4">
+                <span class="font-weight-bold">Want to learn more?</span> 
+                Read more about our <a href="https://medium.com/read-write-participate/apply-to-host-a-mozilla-fellow-d3f82106fcef">call for host applications</a>; read our <a href="https://docs.google.com/document/d/1bK413vD-9AGuaDdYnPzTrl4aJ4HQnG2BSWcb-Haz6NA/edit#" target="_blank">host organization application guide</a>; or email <a href="mailto:fellowships@mozillafoundation.org">fellowships@mozillafoundation.org.</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3 mb-md-0">
+          <h5 class="h5-heading mb-1 mb-md-0">Past Host Organizations</h5>
+          {% include 'fellows_host_org.html' %}
+        </div>
+        <div class="col-12 mt-3">
+            <h5 class="h5-heading">Supported By</h5>
+            <div class="row">
+                <div class="col-6 col-md-3 d-flex align-items-center justify-content-start justify-content-md-center mb-3">
+                  <img src="/_images/fellowships/logo/ford-foundation.png" alt="Ford Foundation">
+                </div>
+                <div class="col-md-9 align-self-md-center">
+                  <p class="mb-0">The Ford Foundation works around the world on the frontlines of social change to fight inequality, strengthen democratic values, reduce poverty and injustice, and advance human achievement. Learn more at <a href="https://www.fordfoundation.org/">FordFoundation.org</a></p>
+                </div>
+          </div>
+      </section>
 
-<div class="row mb-5">
-  <div class="col-12">
-    <div class="row">
-      <div class="col-md-9">
-        <h3 class="h5-heading my-2">Host a fellow</h3>
-        <p>Organizations defending an open and accessible web are the backbone of our fellowship program. They socialize fellows to a global assortment of issues, policies, and technologies and inspire them with meaningful work that impacts how the internet grows and supports community globally.</p>
-        <p>In the past four years, the fellowship has partnered with 21 host organizations around the globe, including the American Civil Liberties Union, Amnesty International, Derechos Digitales, European Digital Rights, Freedom of the Press Foundation and many more, across sectors and specialties, united by a shared goal to protect public interaction on the open web.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-12">
-    {% include 'fellows_host_org.html' %}
-  </div>
-</div>
+      <!-- Funding Fellows Content-->
+      <section class="row">
+        <div class="col-12">
+          <h3 class="h3-heading my-3">Fund the Fellows</h3>
+          <p>We partner with other foundations and organizations across the globe to support the next wave of internet health leaders. Many funders find the expertise, leadership and passion that fellows bring to the experience to be key to catalyzing progress in the internet health field.</p>
+        </div>
+        <div class="col-12">
+          <div class="row fellow-support-fund">
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center mb-3 my-md-2 px-md-2"><img src="/_images/fellowships/logo/ford-foundation.png" alt="Ford Foundation"></div>
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center mb-3 my-md-2 px-md-2"><img src="/_images/fellowships/logo/logo-siegel@2x.jpg" alt="Siegel Family Foundation"></div>
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center mb-3 my-md-2 px-md-2"><img src="/_images/fellowships/logo/logo-helmsley@2x.jpg" alt="The Leona M. and Harry B. Helmsley Charitable Trust"></div>
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center mb-3 my-md-2 px-md-2"><img src="/_images/fellowships/logo/logo-open-society-foundations@2x.jpg" alt="Open Society Foundations"></div>
+          </div>
+        </div>
+    </section>
 
-<div class="row mb-5 justify-content-center">
-  <div class="col-12 col-md-2 hear-from-host-org-line-art"></div>
-  <div class="col-12 col-md-8 col-lg-6">
-    <h4 class="h4-heading">Learn more about how to get involved</h4>
-    <p>Applications are currently closed, but reach out to <a href="mailto:fellowships@mozillafoundation.org">fellowships@mozillafoundation.org</a> with any inquiries.</p>
-  </div>
-</div>
+</main>
 {% endblock %}

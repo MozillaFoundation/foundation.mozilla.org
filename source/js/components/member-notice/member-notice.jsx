@@ -58,6 +58,12 @@ export default class MemberNotice extends React.Component {
     this.refs.wrapper.style.height = this.state.isExpanded ? `${this.refs.pane1.clientHeight}px` : `${this.refs.pane2.clientHeight}px`;
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   render() {
     return (
       <div className="container d-flex py-3 justify-content-between align-items-top">

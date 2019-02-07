@@ -26,6 +26,10 @@ export default class PulseProjectList extends React.Component {
 
       this.setState({
         projects: this.props.max ? projects.results.slice(0, this.props.max) : projects.results
+      }, () => {
+        if (this.props.whenLoaded) {
+          this.props.whenLoaded();
+        }
       });
     });
 
@@ -57,7 +61,6 @@ export default class PulseProjectList extends React.Component {
 
   render() {
     let projectList = this.state.projects.map((project, index) => {
-
       let byline = null;
 
       if (project.related_creators.length) {
