@@ -17,6 +17,8 @@ $btn-shadow-width: 3px;
 #creep-vote {
   &:invalid {
     button[type="submit"] {
+      @extend .btn.disabled; // we want it to have Bootstrap's .btn.disabled stylings
+
       color: #bbb;
 
       &.btn-ghost:hover {
