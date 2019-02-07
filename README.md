@@ -31,6 +31,8 @@ If you're on windows, you need an extra step: run `inv manage createsuperuser` t
 
 You're done :tada:
 
+To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command.
+
 ## Development
 
 ### Pipenv and Invoke commands
