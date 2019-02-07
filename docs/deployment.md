@@ -1,42 +1,56 @@
-## Development
+## Deployment
 
-This project is based on [Wagtail](https://wagtail.io/), which is itself based on Django, so the documentation for both projects applies.
- If you're new to Django, Django official documentation provide a [tutorial](https://docs.djangoproject.com/en/2.0/intro/) and a handful of [topics](https://docs.djangoproject.com/en/2.0/topics/) and [how-to](https://docs.djangoproject.com/en/2.0/howto/) guides to help you get started. If you're completely new to programming, check
- [Django Girls](https://tutorial.djangogirls.org/en/) tutorial.
+### Review Apps
 
-### Pipenv workflow
+Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. Login are published in the `mofo-review-apps` Slack channel when the review app is ready.
 
-Checking [Pipenv documentation](https://docs.pipenv.org/) is highly recommended if you're new to it.
+### Continuous Integration testing
 
-#### Virtual environment
+Opening a PR will trigger [Travis](https://travis-ci.org) and [Appveyor](https://www.appveyor.com/) continuous integration runs, which should both pass before a PR is deemed good to merge.
 
-- `pipenv shell` activates your virtual environment and automatically loads your `.env`. Run `exit` to leave it. You don't need to be in your virtual environment to run python commands: Use `pipenv run python [...]` instead.
+### Visual regression testing
 
-#### Installing dependencies
+The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepencies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.    
 
-- `pipenv install [package name]`
+### Staging
 
-After installing a package, pipenv automatically runs a `pipenv lock` that updates the `pipfile.lock`. You need to add both `pipfile` and `pipfile.lock` to your commit.
+Builds to staging are triggered by commits to `master`.
 
-#### Updating dependencies
+Staging URL is [foundation.mofostaging.net](https://foundation.mofostaging.net)
 
-- `pipenv update --outdated` to list dependencies that need to be updated,
-- `pipenv update` to update dependencies
+### Production
 
-If a dependency is updated, pipenv automatically runs a `pipenv lock` that updates the `pipfile.lock`. You need to add both `pipfile` and `pipfile.lock` to your commit.
+Production deployments are done by promoting Staging in the Heroku pipeline.
 
-#### Listing installed dependencies
+Production URL is [foundation.mozilla.org](https://foundation.mozilla.org)
 
-- `pipenv graph`
+### Domain Redirect
 
-### Overriding templates and static content
+Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLWARE_ENABLED` to `True`. This will enable a middleware function that checks every request, and return a 307 redirect to `TARGET_DOMAIN` if the host header does not match it.
 
-Sometimes it is necessary to override templates or static js/css/etc assets. In order to track *what* we changed in these files please surround your changes with:
+### Environment Variables
 
-```
-# override: start #123
-... override code here...
-# override: end #123
-```
+Default environment variables are declared in `env.default`. If you wish to override any of the values, you can create a local `.env` file in the root of the project. This file should not be committed.
 
-Where `#...` is an issue number pointing to the issue that these changes are being made for.
+The domain used to fetch static content from Network Pulse can be customized by specifying `PULSE_API_DOMAIN`. By default it uses `network-pulse-api-production.herokuapp.com`.
+
+The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. **NOTE: this variable must include a protocol (such as `https://`)**
+
+#### Special purposes Environment Variables
+
+- `GITHUB_TOKEN`: GITHUB API authentication,
+- `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
+- `CORAL_TALK_SERVER_URL`: If Coral Talk commenting is to be enabled, set the server URL here. Don't forget to add the domain to your CSP directives for script-src and child-src
+
+
+### Cloudinary for Review Apps and Staging (BuyersGuide only)
+
+We use Cloudinary upload-mapping feature to copy images from the production to the staging Cloudinary account.
+
+Current directories available on Cloudinary staging:
+
+Folder | URL prefix
+--- | ---
+`foundationsite/buyersguide` | `https://res.cloudinary.com/mozilla-foundation/image/upload/foundationsite/buyersguide/`
+
+To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
