@@ -43,7 +43,7 @@ def generate_header_field():
 
 def generate_image_field():
     images = Image.objects.all()
-    image_idx = fake.unix_time() % images.count()
+    image_idx = randint(0, images.count() - 1)
     image_id = images[image_idx].id
 
     alt_text = ' '.join(fake.words(nb=5))
@@ -60,7 +60,7 @@ def generate_image_field():
 
 def generate_image_text2_field():
     images = Image.objects.all()
-    image_idx = fake.unix_time() % images.count()
+    image_idx = randint(0, images.count() - 1)
     image_id = images[image_idx].id
 
     image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
@@ -78,7 +78,7 @@ def generate_image_text2_field():
 
 
 def generate_spacer_field():
-    size = 1 + (fake.unix_time() % 5)
+    size = randint(1,5)
 
     return generate_field('spacer', {
         'size': size
