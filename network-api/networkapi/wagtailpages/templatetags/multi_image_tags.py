@@ -8,4 +8,3 @@ def optimize_images(image):
     return {
         'unoptimized_image': image
     }
-    
