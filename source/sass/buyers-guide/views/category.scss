@@ -1,13 +1,6 @@
 .category-listing {
   background: #fff;
   padding-top: 2em;
-  width: 100%;
-  margin: 0 auto;
-  max-width: 545px;
-
-  @media screen and (min-width: $bp-md) {
-    max-width: 800px;
-  }
 
   .category-item-container {
     $padding-x: 24px;
