@@ -8,8 +8,6 @@ from factory import (
     LazyAttribute,
 )
 
-from faker import Faker as ValueFaker
-
 from networkapi.utility.faker import ImageProvider
 from networkapi.buyersguide.models import (
     Product,
@@ -18,10 +16,11 @@ from networkapi.buyersguide.models import (
 
 Faker.add_provider(ImageProvider)
 
+
 def get_random_category():
     categories = BuyersGuideProductCategory.objects.all()
     total = categories.count()
-    index = randint(0,total-1);
+    index = randint(0, total-1)
     return categories[index]
 
 

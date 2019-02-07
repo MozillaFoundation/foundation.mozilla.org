@@ -116,7 +116,7 @@ class Command(BaseCommand):
             seed = random.randint(0, 5000000)
 
         print(f'Seeding random numbers with: {seed}')
-        random.seed(seed);
+        random.seed(seed)
 
         faker = factory.faker.Faker._get_faker(locale='en-US')
 
@@ -315,7 +315,7 @@ class Command(BaseCommand):
                     value=value
                 )
 
-                value = random.randint(1,100) < 50
+                value = random.randint(1, 100) < 50
                 BooleanVote.objects.create(
                     product=p,
                     attribute='confidence',
