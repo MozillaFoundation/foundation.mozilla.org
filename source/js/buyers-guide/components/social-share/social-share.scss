@@ -1,0 +1,47 @@
+.pni-share-buttons {
+  .pni-s-link {
+    border: 1px solid black;
+    border-bottom-width: $btn-shadow-width;
+    color: black;
+    text-transform: initial;
+    transition: all 0.1s linear;
+    border-radius: 2em;
+    white-space: nowrap;
+    font-size: 1em;
+    width: 43%;
+    margin: 0;
+    padding: 0.5em 0;
+
+    @media screen and (min-width: $bp-xs) {
+      margin: 0.5em 8px;
+    }
+
+    @media screen and (min-width: $bp-sm) {
+      margin: 1em 8px;
+      font-size: 1em;
+      padding: 0.5em 1em;
+    }
+
+    @media screen and (min-width: $bp-md) {
+      margin: 0 8px;
+    }
+
+    @media screen and (min-width: $bp-lg) {
+      width: 9em;
+    }
+
+    @include hover-focus-active {
+      text-decoration: none;
+    }
+
+    span.social-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      position: relative;
+      top: 4px;
+    }
+  }
+}

@@ -171,8 +171,8 @@ export default class CreepVote extends React.Component {
       <div>
         <div className="mb-4">
           <div className="col-12 text-center">
-            <h3 className="h5-heading mb-1">Thanks for voting! Here are the results</h3>
-            <div className="h6-heading-uppercase text-muted">{this.state.totalVotes + 1} Votes</div>
+            <h3 className="h3-heading mb-1">{this.state.totalVotes + 1} Votes — invite your friends!</h3>
+            <div className="h6-heading-uppercase text-muted"></div>
           </div>
           <div className="row mt-3">
             <div className="col">
@@ -184,7 +184,6 @@ export default class CreepVote extends React.Component {
           </div>
         </div>
         <div className="text-center">
-          <div><a className="share-results" href="#coral-talk-stream">View comments</a> or share your results</div>
           <SocialShare productName={this.props.productName} creepType={creepType} />
         </div>
       </div>
@@ -206,7 +205,7 @@ export default class CreepVote extends React.Component {
   render() {
     let voteContent;
 
-    if(this.state.didVote){
+    if(this.state.didVote) {
       voteContent = this.renderDidVote();
     } else {
       voteContent = this.renderVoteAsk();
