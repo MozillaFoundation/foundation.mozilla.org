@@ -18,8 +18,8 @@
     <div class="d-flex flex-wrap row">
       {% for product in products %}
       <div class="category-item-container col-6 text-left {% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
-        <a class="text-decoration-none text-reset" href="/en/privacynotincluded/products/{{ product.slug }}">
-          <div class="category-image-container position-relative overflow-hidden">
+        <a href="/en/privacynotincluded/products/{{ product.slug }}">
+          <div class="category-image-container">
             {% include "fragments/seal-of-approval.html" with product=product %}
             {% include "fragments/adult-content-badge.html" with product=product %}
 
