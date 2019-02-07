@@ -24,7 +24,7 @@
     "optimize": "run-p optimize:**",
     "percy": "percy exec -- npm run cypress",
     "server": "pipenv run python network-api/manage.py runserver",
-    "start": "npm i && run-p build-uncompressed server watch:**",
+    "start": "run-p build-uncompressed server watch:**",
     "snyk": "snyk test --file=package.json",
     "test:procfile": "node test/test-procfile.js",
     "test:eslint": "eslint --config ./.eslintrc.yaml \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
