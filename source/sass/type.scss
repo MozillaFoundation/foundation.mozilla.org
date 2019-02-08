@@ -71,7 +71,7 @@ h1,
 .h2-typeaccent {
   font-family: "Zilla Slab";
   font-weight: 400;
-  color: $light-gray;
+  color: $gray-20;
 
   @include scaleText(56px, 64px, 72px, 88px);
 }
