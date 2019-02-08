@@ -5,7 +5,6 @@ import ReactGA from '../react-ga-proxy.js';
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
-import injectDonateModal from '../donate-modal/donate-modal.jsx';
 import Filter from './components/filter/filter.jsx';
 
 import copyToClipboard from './copy-to-clipboard.js';
@@ -141,8 +140,8 @@ let main = {
       but we want to keep this code around for when we need to
       re-enable this functionality
 
-      ---
-
+      import injectDonateModal from '../donate-modal/donate-modal.jsx';
+      ...
       let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
       if (donationModal) {
