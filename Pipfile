@@ -32,6 +32,7 @@ wagtail-modeltranslation = "*"
 "psycopg2-binary" = "*"
 cloudinary = "*"
 wagtail-experiments = "*"
+pyyaml = "==4.2b4"
 
 [dev-packages]
 "flake8" = "*"
