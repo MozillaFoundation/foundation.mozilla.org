@@ -15,7 +15,6 @@ import MultipageNavMobile from './components/multipage-nav-mobile/multipage-nav-
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
-import injectDonateModal from './donate-modal/donate-modal.jsx';
 
 import primaryNav from './primary-nav.js';
 
@@ -353,7 +352,8 @@ let main = {
       re-enable this functionality
 
       ---
-
+      import injectDonateModal from './donate-modal/donate-modal.jsx';
+      ...
       let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
       if (donationModal) {
