@@ -48,7 +48,7 @@ $product-detail-padding-x: (
     font-family: "Nunito Sans";
     font-size: 18px;
     font-weight: 400;
-    color: $medium-gray;
+    color: $gray-40;
     text-decoration: underline;
 
     @include hover-focus-active {
@@ -228,7 +228,7 @@ $product-detail-padding-x: (
   .author {
     font-family: "Nunito Sans";
     font-size: 12px;
-    color: $medium-gray;
+    color: $gray-40;
   }
 
   .snippet {
@@ -301,7 +301,7 @@ $product-detail-padding-x: (
 .info-help {
   position: relative;
   padding: 0 0 0 1.3rem;
-  color: $medium-gray;
+  color: $gray-40;
   text-decoration: underline;
   transition: none;
 
