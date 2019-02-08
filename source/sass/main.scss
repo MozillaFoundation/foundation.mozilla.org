@@ -37,7 +37,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Non-React Components
 
-@import './components/hr-gradient';
+@import './components/hr-emphasis';
 @import './components/feature-quote';
 @import './components/nav';
 @import './components/primary-nav';
