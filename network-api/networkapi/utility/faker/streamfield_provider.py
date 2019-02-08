@@ -1,6 +1,6 @@
 import json
 
-from random import randint
+from random import randint, choice
 from django.conf import settings
 from faker import Faker
 from faker.providers import BaseProvider
@@ -42,10 +42,7 @@ def generate_header_field():
 
 
 def generate_image_field():
-    images = Image.objects.all()
-    image_idx = randint(0, images.count() - 1)
-    image_id = images[image_idx].id
-
+    image_id = choice(Image.objects.all()).id
     alt_text = ' '.join(fake.words(nb=5))
     caption = ' '.join(fake.words(nb=5))
     caption_url = fake.url(schemes=['https'])
@@ -59,10 +56,7 @@ def generate_image_field():
 
 
 def generate_image_text2_field():
-    images = Image.objects.all()
-    image_idx = randint(0, images.count() - 1)
-    image_id = images[image_idx].id
-
+    image_id = choice(Image.objects.all()).id
     image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
     url = fake.url(schemes=['https'])
     alt_text = ' '.join(fake.words(nb=5))
