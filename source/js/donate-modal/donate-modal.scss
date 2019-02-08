@@ -8,7 +8,7 @@
   bottom: 0;
   height: 0;
   transition: height 0.8s cubic-bezier(0, 1, 0.5, 1);
-  background-color: #333;
+  background-color: $gray-80;
 
   @media (min-width: $bp-md) {
     background-image: url(/_images/buyers-guide/earth.jpg);
