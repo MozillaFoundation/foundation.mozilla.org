@@ -14,7 +14,7 @@
   }
 
   .narrow-sticky-button-container {
-    background: #ffffff;
+    background: $white;
     padding: 15px;
     width: 100%;
     box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
@@ -40,7 +40,7 @@
     .narrow-sticky-button {
       width: 100%;
       background: $yellow;
-      color: #000000;
+      color: $black;
 
       &:hover {
         background: $dark-yellow;
@@ -61,7 +61,7 @@
   }
 
   .form-control {
-    color: #000000;
+    color: $black;
   }
 
   input ~ label {
