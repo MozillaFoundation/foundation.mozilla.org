@@ -33,7 +33,7 @@ a {
   color: $blue;
   font-weight: 700;
 
-  &:hover {
+  @include hover-focus-active {
     color: $dark-blue;
   }
 
