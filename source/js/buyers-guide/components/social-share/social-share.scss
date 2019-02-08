@@ -1,33 +1,36 @@
 .pni-share-buttons {
+  max-width: 568px;
+  margin: 0 auto;
+
   .pni-s-link {
+    $margin-x: 0.5rem;
+
     border: 1px solid black;
     border-bottom-width: $btn-shadow-width;
     color: black;
-    text-transform: initial;
     transition: all 0.1s linear;
     border-radius: 2em;
     white-space: nowrap;
-    font-size: 1em;
-    width: 43%;
-    margin: 0;
+    margin-bottom: 1rem;
     padding: 0.5em 0;
+    font-weight: 600;
 
-    @media screen and (min-width: $bp-xs) {
-      margin: 0.5em 8px;
-    }
+    @media screen and (max-width: $bp-md) {
+      flex-wrap: wrap;
+      width: calc(50% - #{$margin-x});
 
-    @media screen and (min-width: $bp-sm) {
-      margin: 1em 8px;
-      font-size: 1em;
-      padding: 0.5em 1em;
+      &:nth-child(2n+1) {
+        margin-right: $margin-x * 2;
+      }
     }
 
     @media screen and (min-width: $bp-md) {
-      margin: 0 8px;
-    }
+      margin-right: $margin-x * 2;
+      flex: 1;
 
-    @media screen and (min-width: $bp-lg) {
-      width: 9em;
+      &:last-child {
+        margin-right: 0;
+      }
     }
 
     @include hover-focus-active {
