@@ -30,11 +30,12 @@ h6,
 }
 
 a {
-  color: $blue;
+  color: $dark-blue;
   font-weight: 700;
 
-  @include hover-focus-active {
+  @include hover-focus-active { // Bootstrap / mofo-style overrides
     color: $dark-blue;
+    text-decoration: underline;
   }
 
   &.h4-heading {
