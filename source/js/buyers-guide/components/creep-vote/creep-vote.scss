@@ -109,14 +109,4 @@ $btn-shadow-width: 3px;
   .help-text {
     font-style: italic;
   }
-
-  a.share-results {
-    text-decoration: underline;
-    color: black;
-
-    &:hover {
-      color: $dark-blue;
-      font-weight: bold;
-    }
-  }
 }
