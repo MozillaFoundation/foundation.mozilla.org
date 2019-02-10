@@ -27,8 +27,6 @@ export default {
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/">Privacy Notice</a></span>,
     "Please check this box if you want to proceed": `Please check this box if you want to proceed`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Yes, I want to receive email updates about Mozilla’s campaigns.`,
-    "I give permission to reprint my first name and last initial, e.g. in a newspaper ad or blog post. (Jane Smith would be published as \"Jane S\")": `I give permission to reprint my first name and last initial, e.g. in a newspaper ad or blog post. (Jane Smith would be published as "Jane S")`,
-    "Add your name": `Add your name`,
     "Add my name": `Add my name`
   },
 
@@ -50,8 +48,6 @@ export default {
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>Ich bin einverstanden mit dem Umgang Mozillas mit meinen Informationen wie im <a href="https://www.mozilla.org/privacy/websites/">Datenschutzhinweis</a> beschrieben</span>,
     "Please check this box if you want to proceed": `Aktivieren Sie bitte dieses Kontrollkästchen, um fortzufahren`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Ja, ich möchte per E-Mail Neuigkeiten über Mozillas Kampagnen erfahren.`,
-    "I give permission to reprint my first name and last initial, e.g. in a newspaper ad or blog post. (Jane Smith would be published as \"Jane S\")": `Ich stimme zu, dass mein Vorname und der Anfangsbuchstabe meines Nachnamens z. B in einem Zeitungsartikel oder einem Blog-Beitrag abgedruckt werden (Max Mustermann würde zu „Max M“)`,
-    "Add your name": `Meinen Namen hinzufügen`,
     "Add my name": `Meinen Namen hinzufügen`
   },
 
@@ -73,8 +69,6 @@ export default {
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>Estoy de acuerdo con la gestión de mi información, tal y como se explica en este <a href="https://www.mozilla.org/privacy/websites/">Aviso de privacidad</a></span>,
     "Please check this box if you want to proceed": `Marca esta casilla si quieres continuar`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Sí, quiero recibir actualizaciones sobre las campañas de Mozilla.`,
-    "I give permission to reprint my first name and last initial, e.g. in a newspaper ad or blog post. (Jane Smith would be published as \"Jane S\")": `Doy permiso para publicar mi nombre y la primera letra de mi apellido; por ejemplo, en un anuncio del periódico o en una publicación de blog (Jane Smith se publicaría como "Jane S")`,
-    "Add your name": `Añadir mi nombre`,
     "Add my name": `Añadir mi nombre`
   },
 
@@ -96,8 +90,6 @@ export default {
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>J’accepte que Mozilla utilise mes informations conformément à <a href="https://www.mozilla.org/privacy/websites/">cette politique de confidentialité</a></span>,
     "Please check this box if you want to proceed": `Veuillez cocher cette case si vous désirez poursuivre`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla.`,
-    "I give permission to reprint my first name and last initial, e.g. in a newspaper ad or blog post. (Jane Smith would be published as \"Jane S\")": `Je donne la permission de reproduire mon prénom et ma dernière initiale, par exemple dans une annonce de journal ou dans un article de blog. (Jean Dupont serait publié en tant que « Jean D »)`,
-    "Add your name": `Ajoutez votre nom`,
     "Add my name": `Ajouter mon nom`
   },
 
@@ -140,8 +132,6 @@ export default {
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>Concordo com a Mozilla lidar com minhas informações, como explicado neste <a href="https://www.mozilla.org/privacy/websites/">Aviso de Privacidade</a></span>,
     "Please check this box if you want to proceed": `Marque esta opção se deseja continuar`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Quero receber atualizações por e-mail sobre campanhas da Mozilla.`,
-    "I give permission to reprint my first name and last initial, e.g. in a newspaper ad or blog post. (Jane Smith would be published as \"Jane S\")": `Dou permissão para reproduzir meu primeiro nome e a inicial do sobrenome, por exemplo em um jornal ou blog (Alice Martins seria publicado como "Alice M").`,
-    "Add your name": `Adicionar meu nome`,
     "Add my name": `Adicionar meu nome`
   }
 
