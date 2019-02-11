@@ -1,9 +1,13 @@
 {% load static %}
 
 <div class="profile-directory">
-  <div class="profile-filters">
+  <div class="profile-filters mb-5 px-2 d-flex flex-row align-items-center flex-wrap">
     {% for label in filters %}
-    <button class="filter-button">{{ label }}</button>
+    <button class="profile-filters-button d-flex flex-row align-items-center justify-content-center">
+      <span class="p-2">
+          {{ label }}
+      </span>
+    </button>
     {% endfor %}
   </div>
 
