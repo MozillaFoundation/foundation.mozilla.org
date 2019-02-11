@@ -9,7 +9,6 @@ import Analytics from './analytics.js';
 import JoinUs from './components/join/join.jsx';
 import Petition from './components/petition/petition.jsx';
 import People from './components/people/people.jsx';
-import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
 import MultipageNavMobile from './components/multipage-nav-mobile/multipage-nav-mobile.jsx';
 import News from './components/news/news.jsx';
@@ -221,25 +220,8 @@ let main = {
       }));
     }
 
-    // Show Takeover for new visitors
-    if (env.SHOW_TAKEOVER && !Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
-      let elWrapper = document.querySelector(`#view-home > .wrapper`);
-
-      // Don't allow the content block to scroll
-      elWrapper.style.overflow = `hidden`;
-      elWrapper.style.height = `100vh`;
-
-      let onTakeoverHide = () => {
-        // Allow scrolling again when the takeover is dismissed
-        elWrapper.style.overflow = null;
-        elWrapper.style.height = null;
-      };
-
-      apps.push(new Promise(resolve => {
-        ReactDOM.render(<Takeover onHide={onTakeoverHide} whenLoaded={() => resolve()}/>, document.querySelector(`#view-home .takeover`));
-        Cookies.set(`seen-takeover`, `true`, { expires: 365 });
-        ReactGA.pageview(`/welcome-splash`);
-      }));
+    if (Cookies.get(`seen-takeover`)) {
+      Cookies.remove(`seen-takeover`); // we no longer need this cookie
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
