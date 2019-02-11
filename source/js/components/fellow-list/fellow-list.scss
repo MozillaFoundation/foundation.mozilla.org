@@ -1,11 +1,5 @@
 .fellowships-directory-filter {
-  display: flex;
-  flex-wrap: wrap;
-  background: $gray-05;
-
-  @media (min-width: $bp-md) {
-    flex-wrap: nowrap;
-  }
+  background: $subtle-gray;
 
   .filter-option {
     &:not(:last-child) {

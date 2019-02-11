@@ -31,8 +31,8 @@
 
   &.small {
     &::before {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
   }
 }
@@ -43,8 +43,10 @@
 
 .twitter {
   @include compositeGlyph("twitter");
+  @include hoverGlyph("twitter-hover");
 }
 
 .linkedIn {
   @include compositeGlyph("linkedin");
+  @include hoverGlyph("linkedin-hover");
 }
