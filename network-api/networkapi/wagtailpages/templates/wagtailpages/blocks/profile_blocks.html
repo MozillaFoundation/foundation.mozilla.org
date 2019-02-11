@@ -18,27 +18,16 @@
 
             <div class="meta-block mb-2">
               <div class="h5-heading mb-1">{{profile.name }}</div>
-              {% if profile.program_type %}
-              <div class="meta-block-item meta-block-item-role">{{ profile.program_type }}{% if profile.program_year %}, {{ profile.program_year }}{% endif %}</div>
-              {% endif %}
-            </div>
-
-            {% if profile.issues|length > 0 %}
-            <div class="person-issues">
-              {% for issue in profile.issues %}
-              <span class="issue-link small d-inline-block mr-1">{{ issue }}</span>
-              {% endfor %}
-            </div>
-            {% endif %}
-
-            <hr>
-
-            <div class="full-profile">
-              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">SEE FULL PROFILE →</a>
               <div className="person-social-links mt-3">
                 {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter gray small mr-4"></a> {% endif %}
                 {%if profile.linkedIn %} <a href="{{ profile.linkedIn }}" class="linkedIn gray small mr-4"></a> {% endif %}
               </div>
+            </div>
+
+            <div class="full-profile">
+              <p class="meta-block-item meta-block-item-location">{{ profile.location }}</p>
+              <p class="">{{ profile.user_bio }}</p>
+              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">SEE FULL PROFILE →</a>
             </div>
 
           </div>
