@@ -338,6 +338,12 @@ export default class Petition extends React.Component {
     this.setState({ showDonationModal: false });
   }
 
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
+
   /**
    * master render entry point - this will branch out
    * to different render functions depending on the

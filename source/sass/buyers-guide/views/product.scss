@@ -12,16 +12,7 @@ $product-detail-padding-x: (
   }
 
   .seal-of-approval {
-    position: absolute;
-    top: 1rem;
-    left: 0;
-    width: 76px;
-    height: 76px;
-
-    @media (min-width: $bp-md) {
-      width: 140px;
-      height: 140px;
-    }
+    @include seal-of-approval(1rem, 0, 76px, 76px, 140px, 140px);
   }
 }
 
@@ -32,11 +23,11 @@ $product-detail-padding-x: (
   }
 
   .seal-of-approval {
-    position: absolute;
-    top: 5px;
-    left: 20px;
-    width: 30px;
-    height: 30px;
+    @include seal-of-approval(5px, 20px, 30px, 30px);
+  }
+
+  .adult-content-badge {
+    @include adult-content-badge(5px, 20px, 33px, 28px);
   }
 }
 
@@ -303,16 +294,16 @@ $product-detail-padding-x: (
 }
 
 #btn-read-search {
-  position: relative;
   text-transform: none;
-  text-decoration: underline;
   letter-spacing: 0;
-  color: $medium-gray;
-  padding: 0 0 0 1.3rem;
+}
 
-  @include hover-focus-active {
-    color: $bg-link-blue;
-  }
+.info-help {
+  position: relative;
+  padding: 0 0 0 1.3rem;
+  color: $medium-gray;
+  text-decoration: underline;
+  transition: none;
 
   &::before {
     position: absolute;
@@ -321,6 +312,10 @@ $product-detail-padding-x: (
     background: url('/_images/buyers-guide/icon-info-pink.svg') no-repeat 50% 50%/contain;
     width: 16px;
     height: 100%;
+  }
+
+  @include hover-focus-active {
+    color: $bg-link-blue;
   }
 }
 
@@ -331,5 +326,12 @@ $product-detail-padding-x: (
 
   &.open {
     display: block;
+  }
+}
+
+// Coral Embed
+#coral-talk-stream_iframe {
+  body {
+    padding-bottom: 0;
   }
 }

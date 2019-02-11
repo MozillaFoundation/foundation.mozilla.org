@@ -8,8 +8,14 @@ import Creepometer from './components/creepometer/creepometer.jsx';
 import injectDonateModal from '../donate-modal/donate-modal.jsx';
 import Filter from './components/filter/filter.jsx';
 
+import copyToClipboard from './copy-to-clipboard.js';
 import HomepageSlider from './homepage-c-slider.js';
 import ProductGA from './product-analytics.js';
+
+// Track all ReactDOM.render calls so we can use a Promise.all()
+// all the way at the end to make sure we don't report "we are done"
+// until all the React stuff is _actually_ done.
+const apps = [];
 
 let main = {
   init() {
@@ -27,7 +33,9 @@ let main = {
       let filter = document.querySelector(`#product-filter`);
 
       if (filter) {
-        ReactDOM.render(<Filter />, filter);
+        apps.push(new Promise(resolve => {
+          ReactDOM.render(<Filter whenLoaded={() => resolve()}/>, filter);
+        }));
       }
     }
 
@@ -57,8 +65,12 @@ let main = {
           });
         });
       }
-
     }
+
+    // Record that we're done, when we're really done.
+    Promise.all(apps).then(() => {
+      window[`bg-main-js:react:finished`] = true;
+    });
   },
 
   enableCopyLinks() {
@@ -76,84 +88,7 @@ let main = {
             label: `copy link ${productTitle}`
           });
 
-          let textArea = document.createElement(`textarea`);
-
-          textArea.setAttribute(`contenteditable`, true);
-          textArea.setAttribute(`readonly`, false);
-
-          //
-          // *** This styling is an extra step which is likely not required. ***
-          //
-          // Why is it here? To ensure:
-          // 1. the element is able to have focus and selection.
-          // 2. if element was to flash render it has minimal visual impact.
-          // 3. less flakyness with selection and copying which **might** occur if
-          //    the textarea element is not visible.
-          //
-          // The likelihood is the element won't even render, not even a flash,
-          // so some of these are just precautions. However in IE the element
-          // is visible whilst the popup box asking the user for permission for
-          // the web page to copy to the clipboard.
-          //
-
-          // Place in top-left corner of screen regardless of scroll position.
-          textArea.style.position = `fixed`;
-          textArea.style.top = 0;
-          textArea.style.left = 0;
-
-          // Ensure it has a small width and height. Setting to 1px / 1em
-          // doesn't work as this gives a negative w/h on some browsers.
-          textArea.style.width = `2em`;
-          textArea.style.height = `2em`;
-
-          // We don't need padding, reducing the size if it does flash render.
-          textArea.style.padding = 0;
-
-          // Clean up any borders.
-          textArea.style.border = `none`;
-          textArea.style.outline = `none`;
-          textArea.style.boxShadow = `none`;
-
-          // Avoid flash of white box if rendered for any reason.
-          textArea.style.background = `transparent`;
-
-          textArea.value = window.location.href;
-          document.body.appendChild(textArea);
-
-          // Simply running textArea.select() and document.execCommand(`copy`) won't work on iOS Safari
-          // Below is the suggested solution to make copying and pasting working more cross-platform
-          // For details see https://stackoverflow.com/a/34046084
-          let range = document.createRange();
-          let selection = window.getSelection();
-
-          range.selectNodeContents(textArea);
-
-          selection.removeAllRanges();
-          selection.addRange(range);
-
-          textArea.setSelectionRange(0, textArea.value.length);
-
-          try {
-            document.execCommand(`copy`);
-
-            let target = event.target;
-
-            if (target.dataset && target.dataset.successText) {
-              let defaultText = target.innerText;
-
-              target.innerText = target.dataset.successText;
-              target.classList.add(`copied`);
-
-              setTimeout(() => {
-                target.innerText = defaultText;
-                target.classList.remove(`copied`);
-              }, 3000);
-            }
-          } catch (err) {
-            console.error(`Copy failed.`);
-          }
-
-          document.body.removeChild(textArea);
+          copyToClipboard(event.target, window.location.href);
         });
       });
     }
@@ -182,7 +117,9 @@ let main = {
           };
         }
 
-        ReactDOM.render(<CreepVote csrf={csrf.value} productName={productName} productID={parseInt(productID,10)} votes={votes}/>, element);
+        apps.push(new Promise(resolve => {
+          ReactDOM.render(<CreepVote csrf={csrf.value} productName={productName} productID={parseInt(productID,10)} votes={votes} whenLoaded={() => resolve()}/>, element);
+        }));
       });
     }
 
@@ -192,7 +129,9 @@ let main = {
       Array.from(creepometerTargets).forEach(element => {
         let initialValue = element.dataset.initialValue;
 
-        ReactDOM.render(<Creepometer initialValue={initialValue} />, element);
+        apps.push(new Promise(resolve => {
+          ReactDOM.render(<Creepometer initialValue={initialValue} whenLoaded={() => resolve()}/>, element);
+        }));
       });
     }
 

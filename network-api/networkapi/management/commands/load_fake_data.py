@@ -1,7 +1,7 @@
 from itertools import chain, combinations
 
 import factory
-from random import randint, random
+from random import randint
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
@@ -110,6 +110,8 @@ class Command(BaseCommand):
         # Seed Faker with the provided seed value or a pseudorandom int between 0 and five million
         if options['seed']:
             seed = options['seed']
+        elif settings.RANDOM_SEED is not None:
+            seed = settings.RANDOM_SEED
         else:
             seed = randint(0, 5000000)
 
@@ -150,7 +152,7 @@ class Command(BaseCommand):
             print('Homepage already exists')
         except wagtailpages_models.Homepage.DoesNotExist:
             print('Generating a Homepage')
-            site_root = WagtailPage.objects.get(title='Root')
+            site_root = WagtailPage.objects.get(id=1)
             home_page = WagtailHomepageFactory.create(
                 parent=site_root,
                 title='Homepage',
@@ -305,14 +307,14 @@ class Command(BaseCommand):
         print('Generating Randomised Buyer\'s Guide Products Votes')
         for p in Product.objects.all():
             for _ in range(1, 15):
-                value = randint(1, 100)
+                value = 1 + (faker.unix_time() % 99)
                 RangeVote.objects.create(
                     product=p,
                     attribute='creepiness',
                     value=value
                 )
 
-                value = (random() < 0.5)
+                value = (faker.unix_time() % 100) < 50
                 BooleanVote.objects.create(
                     product=p,
                     attribute='confidence',
