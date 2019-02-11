@@ -489,19 +489,20 @@ class LatestProfileList(blocks.StructBlock):
         icon = 'group'
         value_class = LatestProfileQueryValue
 
-    class ProfileDirectory(LatestProfileList):
-        filter_values = blocks.CharBlock(
-            required=True,
-            default='',
-            help_text='Example: 2013,2014,2015,2016,2017,2018'
-        )
 
-        def get_context(self, value, parent_context=None):
-            context = super().get_context(value, parent_context=parent_context)
-            filter_values = context['block'].value['filter_values']
-            context['filters'] = filter_values.split(",")
-            return context
+class ProfileDirectory(LatestProfileList):
+    filter_values = blocks.CharBlock(
+        required=True,
+        default='',
+        help_text='Example: 2013,2014,2015,2016,2017,2018'
+    )
 
-        class Meta:
-            template = 'wagtailpages/blocks/profile_directory.html'
-            icon = 'group'
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        filter_values = context['block'].value['filter_values']
+        context['filters'] = filter_values.split(",")
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_directory.html'
+        icon = 'group'
