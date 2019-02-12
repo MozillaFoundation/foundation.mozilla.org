@@ -3,7 +3,6 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
-import Cookies from 'js-cookie';
 import Analytics from './analytics.js';
 
 import JoinUs from './components/join/join.jsx';
