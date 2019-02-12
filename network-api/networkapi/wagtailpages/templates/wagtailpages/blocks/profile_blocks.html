@@ -14,20 +14,19 @@
               </div>
             </div>
           </div>
-          <div class="col bio-content pt-3">
+          <div class="col bio-content pt-2">
 
-            <div class="meta-block mb-2">
-              <div class="h5-heading mb-1">{{profile.name }}</div>
-              <div className="person-social-links mt-3">
+            <div class="meta-block mb-2 d-flex justify-content-between align-items-center">
+              <div class="h5-heading">{{profile.name }}</div>
+              <div class="">
                 {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter gray small mr-4"></a> {% endif %}
                 {%if profile.linkedIn %} <a href="{{ profile.linkedIn }}" class="linkedIn gray small mr-4"></a> {% endif %}
               </div>
             </div>
 
             <div class="">
-              <p class="meta-block-item meta-block-item-location">{{ profile.location }}</p>
-              <p class="">{{ profile.user_bio }}</p>
-              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">SEE FULL PROFILE →</a>
+              <p class="meta-block-item meta-block-item-location h6-heading mb-2">{{ profile.location }}</p>
+              <p class="m-0">{{ profile.user_bio }}</p>
             </div>
 
           </div>
