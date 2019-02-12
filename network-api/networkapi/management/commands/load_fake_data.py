@@ -119,7 +119,7 @@ class Command(BaseCommand):
         random.seed(seed)
 
         faker = factory.faker.Faker._get_faker(locale='en-US')
-        faker.random.seed(seed);
+        faker.random.seed(seed)
 
         print('Generating Images')
         [
