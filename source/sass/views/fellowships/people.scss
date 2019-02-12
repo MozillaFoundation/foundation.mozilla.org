@@ -1,10 +1,11 @@
-.profiles {
+#people,
+.fellow-list {
   .headshot {
     width: 100%;
   }
 
   .person-card {
-    border-top: 0.0625rem solid black;
+    border-top: 0.25rem solid black;
   }
 
   .person-card-featured {
@@ -16,6 +17,10 @@
         background-color: $dark-blue;
       }
     }
+  }
+
+  .person-issues {
+    line-height: 1;
   }
 
   .meta-block {
@@ -93,13 +98,5 @@
     max-width: 8rem;
     max-height: 3rem;
     filter: grayscale(100%) opacity(50%);
-  }
-
-  .full-profile {
-    text-align: left;
-
-    @media (min-width: $bp-md) {
-      text-align: right;
-    }
   }
 }
