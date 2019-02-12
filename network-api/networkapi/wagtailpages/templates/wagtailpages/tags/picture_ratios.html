@@ -1,6 +1,6 @@
 {% load wagtailimages_tags %}
 
-{% with alt_text = unoptimized_image.alt %}
+{% with alt_text=unoptimized_image.alt %}
 <picture class="cms-image {{class_names}}">
 
     {% image unoptimized_image fill-540x304-c0 as image_large %}
