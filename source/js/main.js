@@ -220,10 +220,6 @@ let main = {
       }));
     }
 
-    if (Cookies.get(`seen-takeover`)) {
-      Cookies.remove(`seen-takeover`); // we no longer need this cookie
-    }
-
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
     if (document.querySelectorAll(`.join-us:not(#join-us)`)) {
       var elements = Array.from(document.querySelectorAll(`.join-us:not(#join-us)`));
