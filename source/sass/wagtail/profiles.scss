@@ -30,6 +30,24 @@
 
 
   .meta-block {
+
+    a {
+      color: $black;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &-name {
+      line-height: .8;
+      display: inline-block;
+
+      &:hover {
+        border-bottom: 1.5px solid black;
+      }
+    }
+
     &-location {
       font-size: 12px;
 
