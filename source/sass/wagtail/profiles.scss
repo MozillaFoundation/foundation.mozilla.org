@@ -1,3 +1,24 @@
+.profile-filters {
+  background-color: $subtle-gray;
+
+  &-button {
+    border: none;
+    padding: 0;
+
+    &:hover span{
+      text-decoration: underline;
+    }
+
+    &:not(:last-child) {
+      &::after {
+        content: "|";
+        display: inline-block;
+        color: $gray-light;
+      }
+    }
+  }
+}
+
 .profiles {
   .headshot {
     width: 100%;
