@@ -64,9 +64,9 @@
     "optipng-bin": "^5.1.0",
     "postcss": "^7.0.14",
     "postcss-cli": "^6.1.1",
-    "prop-types": "^15.6.2",
+    "prop-types": "^15.7.1",
     "react": "16.7.0",
-    "react-dom": "16.7.0",
+    "react-dom": "16.8.1",
     "react-ga": "2.5.7",
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
@@ -74,8 +74,8 @@
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
     "svgo": "^1.1.1",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
