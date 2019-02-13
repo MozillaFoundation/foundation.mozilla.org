@@ -43,8 +43,10 @@
 
 .twitter {
   @include compositeGlyph("twitter");
+  @include hoverGlyph("twitter-hover");
 }
 
 .linkedIn {
   @include compositeGlyph("linkedin");
+  @include hoverGlyph("linkedin-hover");
 }
