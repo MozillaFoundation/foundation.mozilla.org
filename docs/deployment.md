@@ -55,7 +55,7 @@ Folder | URL prefix
 
 To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
 
-## Django Migrations and foundation.mozilla.org: is my deploy safe?
+## Django Migrations: is my deploy safe?
 
 ### Context
 
