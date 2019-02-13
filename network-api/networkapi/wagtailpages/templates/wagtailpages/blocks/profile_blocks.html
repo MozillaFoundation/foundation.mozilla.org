@@ -16,16 +16,18 @@
           </div>
           <div class="col bio-content pt-2">
 
-            <div class="mb-2 d-flex justify-content-between align-items-end">
-              <div class="h5-heading">{{profile.name }}</div>
-              <div class="">
-                {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter small mr-4"></a> {% endif %}
-                {%if profile.linkedIn %} <a href="{{ profile.linkedIn }}" class="linkedIn small mr-4"></a> {% endif %}
+            <div class="mb-2 d-flex justify-content-between align-items-baseline row">
+              <div class="meta-block col-10">
+                <div class="h5-heading">{{profile.name }}</div>
+                <p class="d-flex align-items-center meta-block-location h6-heading my-2">{{ profile.location }}</p>
+              </div>
+              <div class="social-icons col">
+                {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter small"></a> {% endif %}
+                {%if profile.linkedIn %} <a href="{{ profile.linkedIn }}" class="linkedIn small"></a> {% endif %}
               </div>
             </div>
 
             <div class="">
-              <p class="d-flex align-items-center meta-block-location h6-heading mb-2">{{ profile.location }}</p>
               <p class="m-0">{{ profile.user_bio }}</p>
             </div>
 
