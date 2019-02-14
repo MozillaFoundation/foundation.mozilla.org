@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, random, choice
 from django.conf import settings
 
 from factory import (
@@ -8,8 +8,6 @@ from factory import (
     LazyAttribute,
 )
 
-from faker import Faker as ValueFaker
-
 from networkapi.utility.faker import ImageProvider
 from networkapi.buyersguide.models import (
     Product,
@@ -17,31 +15,6 @@ from networkapi.buyersguide.models import (
 )
 
 Faker.add_provider(ImageProvider)
-
-
-seed = randint(0, 5000000)
-if settings.RANDOM_SEED is not None:
-    seed = settings.RANDOM_SEED
-
-fake = ValueFaker()
-fake.random.seed(seed)
-
-
-def get_random_category():
-    all = BuyersGuideProductCategory.objects.all()
-    total = all.count()
-    index = fake.unix_time() % total
-    return all[index]
-
-
-def get_random_float():
-    window = 100000
-    base = fake.unix_time() % (window + 1)
-    return base / window
-
-
-def get_random_int(s, e):
-    return s + (fake.unix_time() % (e - s + 1))
 
 
 class ProductFactory(DjangoModelFactory):
@@ -66,9 +39,9 @@ class ProductFactory(DjangoModelFactory):
         """
         ceiling = 1.0
         while True:
-            odds = get_random_float()
+            odds = random()
             if odds < ceiling:
-                category = get_random_category()
+                category = choice(BuyersGuideProductCategory.objects.all())
                 self.product_category.add(category)
                 ceiling = ceiling / 5
             else:
@@ -77,7 +50,7 @@ class ProductFactory(DjangoModelFactory):
     company = Faker('company')
     blurb = Faker('sentence')
     url = Faker('url')
-    price = get_random_int(49, 1500)
+    price = LazyAttribute(lambda _: randint(49, 1500))
     camera_app = Faker('boolean')
     meets_minimum_security_standards = Faker('boolean')
     camera_device = Faker('boolean')
@@ -87,7 +60,7 @@ class ProductFactory(DjangoModelFactory):
     location_device = Faker('boolean')
     uses_encryption = Faker('boolean')
     privacy_policy_reading_level_url = Faker('url')
-    privacy_policy_reading_level = str(get_random_int(7, 15))
+    privacy_policy_reading_level = LazyAttribute(lambda _: str(randint(7, 15)))
     share_data = Faker('boolean')
     must_change_default_password = Faker('boolean')
     security_updates = Faker('boolean')
