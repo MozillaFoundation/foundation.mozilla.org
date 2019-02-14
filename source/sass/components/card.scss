@@ -6,13 +6,14 @@
     top: 16px;
     left: 16px;
     background: $white;
-    border: 1px solid #cecece;
+    border: 1px solid $gray-20;
     padding: 4px 8px;
   }
 }
 
 .card-cta {
   margin: 48px 0;
+  background: $gray-05;
 
   .wrapper {
     display: flex;

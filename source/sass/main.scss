@@ -36,7 +36,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Non-React Components
 
-@import './components/hr-gradient';
+@import './components/hr-emphasis';
 @import './components/feature-quote';
 @import './components/nav';
 @import './components/primary-nav';
@@ -67,3 +67,9 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './views/participate';
 @import './views/fellowships/shared';
 @import './views/style-guide';
+
+// Bootstrap or mofo-bootstrap overrides
+
+hr {
+  border-color: $gray-20;
+}

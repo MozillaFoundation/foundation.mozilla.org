@@ -121,14 +121,14 @@
 }
 
 .btn-donate {
-  background: #ff4f5e;
+  background: $red;
   border-radius: 14px;
   color: white;
   padding: 4px 12px;
   font-size: 14px;
 
   @include hover-focus-active {
-    background: #f00;
+    background: $dark-red;
     color: white;
   }
 }

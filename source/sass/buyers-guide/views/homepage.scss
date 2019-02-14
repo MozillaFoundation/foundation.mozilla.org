@@ -95,7 +95,7 @@
         }
 
         figcaption {
-          color: $medium-gray;
+          color: $gray-40;
           position: relative;
           bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
 
@@ -193,7 +193,7 @@
           border-radius: 1em 0 0 1em;
           line-height: 2em;
           padding: 0.25em 0 0.25em 1em;
-          color: #777;
+          color: #777777;
         }
 
         .hook {
