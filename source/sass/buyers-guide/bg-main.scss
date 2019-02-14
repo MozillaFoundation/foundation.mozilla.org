@@ -100,3 +100,14 @@ img.thumb-border {
 @import './views/product';
 @import './views/about';
 @import './views/category';
+
+// Force Buyer's Guide links to use the old blues until
+// we tackle this cleanup ticket https://github.com/mozilla/foundation.mozilla.org/issues/2665
+
+a {
+  color: $old-blue;
+
+  @include hover-focus-active {
+    color: $old-dark-blue;
+  }
+}
