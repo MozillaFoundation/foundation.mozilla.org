@@ -26,7 +26,7 @@
     thead {
       tr {
         th {
-          text-align:center;
+          text-align: center;
           background: rgb(242, 242, 243);
 
           &:first-child {
@@ -35,12 +35,14 @@
         }
       }
     }
+
     tbody {
       tr {
         th {
           text-align: center;
           background: rgb(242, 242, 243);
         }
+
         td {
           text-align: right;
         }
