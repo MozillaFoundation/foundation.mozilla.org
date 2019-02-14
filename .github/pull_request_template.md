@@ -1,8 +1,16 @@
 Closes #
+Related PRs/issues #
 
+## Checklist
 
-[ ] Check if this PR introduces [backward-incompatible DB changes](../docs/deployment#django-migrations-is-my-deploy-safe)
-[ ] Generates new fake data, if necessary
-[ ] Wagtail documentation has been updated, if necessary
-[ ] Includes tests, if appropriate
-[ ] Migrations squashed
+**Tests**
+- [ ] Is the code I'm adding covered by tests?
+
+**Changes in Models:**
+- [ ] Did I update or add new fake data?
+- [ ] Did I squash my migration?
+- [ ] If my changes are not backward-compatible, did I schedule a deploy with the rest of the team?
+
+**Documentation:**
+- [ ] Is my code documented?
+- [ ] Did I update the READMEs or wagtail documentation?

@@ -54,33 +54,3 @@ Folder | URL prefix
 `foundationsite/buyersguide` | `https://res.cloudinary.com/mozilla-foundation/image/upload/foundationsite/buyersguide/`
 
 To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
-
-## Django Migrations: is my deploy safe?
-
-### Context
-
-[Preboot](https://devcenter.heroku.com/articles/preboot) is a feature from Heroku that prevents downtime when deploying: Heroku still serves traffic to old dynos while creating new dynos at the same time. For up to 3 minutes, two versions of the code are running and talking to the same DB: backward-incompatible changes to the DB result in internal server errors from the old code.
-
-### How to apply backward-incompatible migrations
-
-Always announce in `#mofo-engineering` when you deploy backward-incompatible changes.
-
-#### Rename or change a field type
-
-**Three deploys:**
-
-- Add a new field and generate the migration file (migrate data if necessary),
-- Deploy,
-- Replace all the references of the old field by the new field,
-- Deploy,
-- Remove the old field and generate the migration file,
-- Deploy.
-
-#### Remove a field or a model
-
-**Two deploys:**
-
-- Remove all usages of the element(s) you want to remove in models, template, views, tests, etc.
-- Deploy,
-- Generate the migration,
-- Deploy.
