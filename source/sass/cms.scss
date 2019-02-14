@@ -17,4 +17,34 @@
       }
     }
   }
+
+  table {
+    margin: 1em 0;
+    width: 100%;
+    border-collapse: separate;
+
+    thead {
+      tr {
+        th {
+          text-align:center;
+          background: rgb(242, 242, 243);
+
+          &:first-child {
+            background: inherit;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        th {
+          text-align: center;
+          background: rgb(242, 242, 243);
+        }
+        td {
+          text-align: right;
+        }
+      }
+    }
+  }
 }
