@@ -28,51 +28,54 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
-    # old SQS information (x4)
-    AWS_SQS_ACCESS_KEY_ID=(str, None),
-    AWS_SQS_SECRET_ACCESS_KEY=(str, None),
-    AWS_SQS_REGION=(str, None),
-    PETITION_SQS_QUEUE_URL=(str, None),
-    # new SQS information (x4)
-    CRM_AWS_SQS_ACCESS_KEY_ID=(str, None),
-    CRM_AWS_SQS_SECRET_ACCESS_KEY=(str, None),
-    CRM_AWS_SQS_REGION=(str, None),
-    CRM_PETITION_SQS_QUEUE_URL=(str, None),
+    BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
+    CLOUDINARY_CLOUD_NAME=(str, ''),
+    CLOUDINARY_API_KEY=(str, ''),
+    CLOUDINARY_API_SECRET=(str, ''),
     CONTENT_TYPE_NO_SNIFF=bool,
+    CORAL_TALK_API_TOKEN=(str, None),
+    CORAL_TALK_SERVER_URL=(str, None),
     CORS_REGEX_WHITELIST=(tuple, ()),
     CORS_WHITELIST=(tuple, ()),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
+    ENABLE_TABLE_BLOCK=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
-    RANDOM_SEED=(int, None),
+    GITHUB_TOKEN=(str, ''),
     HEROKU_APP_NAME=(str, ''),
     NETWORK_SITE_URL=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
+    PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
+    RANDOM_SEED=(int, None),
+    REDIS_URL=(str, ''),
+    REFERRER_HEADER_VALUE=(str, ''),
     SET_HSTS=bool,
+    SLACK_WEBHOOK_RA=(str, ''),
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
     TARGET_DOMAIN=(str, None),
     USE_S3=(bool, True),
+    USE_CLOUDINARY=(bool, False),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
-    REFERRER_HEADER_VALUE=(str, ''),
-    GITHUB_TOKEN=(str, ''),
-    SLACK_WEBHOOK_RA=(str, ''),
-    BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
-    CORAL_TALK_SERVER_URL=(str, None),
-    PNI_STATS_DB_URL=(str, None),
-    CORAL_TALK_API_TOKEN=(str, None),
-    REDIS_URL=(str, ''),
-    USE_CLOUDINARY=(bool, False),
-    CLOUDINARY_CLOUD_NAME=(str, ''),
-    CLOUDINARY_API_KEY=(str, ''),
-    CLOUDINARY_API_SECRET=(str, ''),
+
+    # old SQS information (x4)
+    AWS_SQS_ACCESS_KEY_ID=(str, None),
+    AWS_SQS_SECRET_ACCESS_KEY=(str, None),
+    AWS_SQS_REGION=(str, None),
+    PETITION_SQS_QUEUE_URL=(str, None),
+
+    # new SQS information (x4)
+    CRM_AWS_SQS_ACCESS_KEY_ID=(str, None),
+    CRM_AWS_SQS_SECRET_ACCESS_KEY=(str, None),
+    CRM_AWS_SQS_REGION=(str, None),
+    CRM_PETITION_SQS_QUEUE_URL=(str, None),
 )
 
 # Read in the environment
@@ -150,9 +153,10 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.admin',
     'wagtail.core',
     'wagtail.contrib.forms',
+    'wagtail.contrib.modeladmin',
     'wagtail.contrib.redirects',
     'wagtail.contrib.styleguide' if DEBUG else None,
-    'wagtail.contrib.modeladmin',
+    'wagtail.contrib.table_block',
     'experiments',
     'wagtailinventory',
 
@@ -190,6 +194,10 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.wagtailpages',
     'networkapi.buyersguide',
 ]))
+
+# Wagtail feature flags
+ENABLE_TABLE_BLOCK = env('ENABLE_TABLE_BLOCK')
+
 
 MIDDLEWARE = list(filter(None, [
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',

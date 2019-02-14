@@ -9,6 +9,7 @@ from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel, FieldRowPanel
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -28,7 +29,7 @@ We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
 page types.
 """
-base_fields = [
+base_fields = [field for field in [
     ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
@@ -44,6 +45,7 @@ base_fields = [
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
     ('figuregrid2', customblocks.FigureGridBlock2()),
+    ('table', TableBlock()) if settings.ENABLE_TABLE_BLOCK else None,
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
@@ -53,7 +55,7 @@ base_fields = [
     ('profile_listing', customblocks.LatestProfileList()),
     ('profile_by_id', customblocks.ProfileById()),
     ('airtable', customblocks.AirTableBlock()),
-]
+] if field is not None]
 
 
 # Override the MetadataPageMixin to allow for a default
