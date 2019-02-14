@@ -1,7 +1,7 @@
 from itertools import chain, combinations
 
 import factory
-from random import randint
+import random
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
@@ -113,9 +113,11 @@ class Command(BaseCommand):
         elif settings.RANDOM_SEED is not None:
             seed = settings.RANDOM_SEED
         else:
-            seed = randint(0, 5000000)
+            seed = random.randint(0, 5000000)
 
-        print('Seeding Faker with: {}'.format(seed))
+        print(f'Seeding random numbers with: {seed}')
+        random.seed(seed)
+
         faker = factory.faker.Faker._get_faker(locale='en-US')
         faker.random.seed(seed)
 
@@ -307,14 +309,14 @@ class Command(BaseCommand):
         print('Generating Randomised Buyer\'s Guide Products Votes')
         for p in Product.objects.all():
             for _ in range(1, 15):
-                value = 1 + (faker.unix_time() % 99)
+                value = random.randint(1, 100)
                 RangeVote.objects.create(
                     product=p,
                     attribute='creepiness',
                     value=value
                 )
 
-                value = (faker.unix_time() % 100) < 50
+                value = random.randint(1, 100) < 50
                 BooleanVote.objects.create(
                     product=p,
                     attribute='confidence',
