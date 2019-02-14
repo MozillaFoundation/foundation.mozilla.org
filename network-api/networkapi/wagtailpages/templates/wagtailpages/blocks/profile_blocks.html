@@ -18,12 +18,12 @@
           </div>
           <div class="col bio-content pt-2">
 
-            <div class="mb-2 d-flex justify-content-between align-items-baseline row">
-              <div class="meta-block col-10">
+            <div class="mb-1 d-flex justify-content-between align-items-baseline row">
+              <div class="meta-block col-9">
                 <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">
                   <div class="h5-heading">
                     <span class="meta-block-name">
-                      {{profile.name }}
+                      {{ profile.name }}
                     </span>
                   </div>
                 </a>
@@ -31,7 +31,7 @@
               </div>
               <div class="social-icons col">
                 {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter small"></a> {% endif %}
-                {%if profile.linkedIn %} <a href="{{ profile.linkedIn }}" class="linkedIn small"></a> {% endif %}
+                {%if profile.linkedin %} <a href="{{ profile.linkedIn }}" class="linkedIn small"></a> {% endif %}
               </div>
             </div>
 
