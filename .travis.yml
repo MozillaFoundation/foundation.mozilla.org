@@ -39,7 +39,6 @@ env:
   - PULSE_DOMAIN=www.mozillapulse.org
   - RANDOM_SEED=530910203
   - SET_HSTS=False
-  - SHOW_TAKEOVER=false
   - SSL_REDIRECT=False
   - TARGET_DOMAIN=foundation.mozilla.org
   - USE_CLOUDINARY=false

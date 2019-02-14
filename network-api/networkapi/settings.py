@@ -54,7 +54,6 @@ env = environ.Env(
     PULSE_API_DOMAIN=(str, ''),
     PULSE_DOMAIN=(str, ''),
     SET_HSTS=bool,
-    SHOW_TAKEOVER=(bool, False),
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
@@ -539,7 +538,6 @@ FRONTEND = {
     'PULSE_DOMAIN': env('PULSE_DOMAIN'),
     'NETWORK_SITE_URL': env('NETWORK_SITE_URL'),
     'TARGET_DOMAIN': env('TARGET_DOMAIN'),
-    'SHOW_TAKEOVER': env('SHOW_TAKEOVER'),
 }
 
 # Review apps' slack bot
