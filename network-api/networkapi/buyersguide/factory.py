@@ -1,4 +1,4 @@
-from random import randint, random
+from random import randint, random, choice
 from django.conf import settings
 
 from factory import (
@@ -15,13 +15,6 @@ from networkapi.buyersguide.models import (
 )
 
 Faker.add_provider(ImageProvider)
-
-
-def get_random_category():
-    categories = BuyersGuideProductCategory.objects.all()
-    total = categories.count()
-    index = randint(0, total-1)
-    return categories[index]
 
 
 class ProductFactory(DjangoModelFactory):
