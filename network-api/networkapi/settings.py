@@ -198,7 +198,6 @@ INSTALLED_APPS = list(filter(None, [
 # Wagtail feature flags
 ENABLE_TABLE_BLOCK = env('ENABLE_TABLE_BLOCK')
 
-
 MIDDLEWARE = list(filter(None, [
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
 
