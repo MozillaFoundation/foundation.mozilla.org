@@ -1,7 +1,7 @@
 .fellowships-directory-filter {
   display: flex;
   flex-wrap: wrap;
-  background: $subtle-gray;
+  background: $gray-05;
 
   @media (min-width: $bp-md) {
     flex-wrap: nowrap;
