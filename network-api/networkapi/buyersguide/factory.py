@@ -48,7 +48,7 @@ class ProductFactory(DjangoModelFactory):
         while True:
             odds = random()
             if odds < ceiling:
-                category = get_random_category()
+                category = choice(BuyersGuideProductCategory.objects.all())
                 self.product_category.add(category)
                 ceiling = ceiling / 5
             else:
