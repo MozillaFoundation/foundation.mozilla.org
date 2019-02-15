@@ -9,7 +9,6 @@ import CREEPINESS_LABELS from "../creepiness-labels.js";
 export default class CreepVote extends React.Component {
   constructor(props) {
     super(props);
-    this.wouldbuyBtnGroup = React.createRef();
     this.state = this.getInitialState();
   }
 
@@ -49,14 +48,6 @@ export default class CreepVote extends React.Component {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
     }
-
-    if (this.wouldbuyBtnGroup.current) {
-      this.wouldbuyBtnGroup.current.addEventListener(`animationend`, () => {
-        this.setState({
-          submitAttempted: false
-        });
-      });
-    }
   }
 
   showVoteResult() {
@@ -93,6 +84,14 @@ export default class CreepVote extends React.Component {
         console.warn(e);
         this.setState({ disableVoteButton: false });
       });
+  }
+
+  handleAnimationEnd(evt) {
+    if (evt.animationName === `wiggle`) {
+      this.setState({
+        submitAttempted: false
+      });
+    }
   }
 
   handleSubmitBtnClick() {
@@ -153,7 +152,7 @@ export default class CreepVote extends React.Component {
             <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
           </div>
           <div className="text-center">
-            <div class="btn-group btn-group-toggle mt-3 mt-md-5" data-toggle="buttons" ref={this.wouldbuyBtnGroup}>
+            <div class="btn-group btn-group-toggle mt-3 mt-md-5" data-toggle="buttons" onAnimationEnd={evt => this.handleAnimationEnd(evt)}>
               <label for="likely">
                 <input type="radio" name="wouldbuy" id="likely" autocomplete="off" required/>
                 <span class="likely btn" onClick={() => this.setConfidence(true)}><img alt="thumb up" src="/_images/buyers-guide/icon-thumb-up-black.svg" /> Likely</span>
