@@ -1,7 +1,7 @@
 #multipage-nav-wrapper {
   &.full-width {
     @media (min-width: $bp-md) {
-      border-bottom: 1px solid $light-gray;
+      border-bottom: 1px solid $gray-20;
     }
   }
 }
@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    border-bottom: 1px $light-gray solid;
+    border-bottom: 1px $gray-20 solid;
 
     @at-root #multipage-nav-wrapper.full-width #{&} {
       border: none;

@@ -48,7 +48,7 @@ $product-detail-padding-x: (
     font-family: "Nunito Sans";
     font-size: 18px;
     font-weight: 400;
-    color: $medium-gray;
+    color: $gray-40;
     text-decoration: underline;
 
     @include hover-focus-active {
@@ -128,8 +128,8 @@ $product-detail-padding-x: (
 
 .criterion {
   padding: 10px 0;
-  border-top: 1px solid #c8c8ca;
-  border-bottom: 1px solid #c8c8ca;
+  border-top: 1px solid $gray-20;
+  border-bottom: 1px solid $gray-20;
   margin-top: -1px;
 
   .primary-info {
@@ -204,6 +204,10 @@ $product-detail-padding-x: (
   }
 }
 
+.criterion.uses-encryption.criterion-none.criterion-good {
+  @extend .criterion-bad;
+}
+
 .dotted-section {
   &::before {
     display: block;
@@ -228,7 +232,7 @@ $product-detail-padding-x: (
   .author {
     font-family: "Nunito Sans";
     font-size: 12px;
-    color: $medium-gray;
+    color: $gray-40;
   }
 
   .snippet {
@@ -243,7 +247,7 @@ $product-detail-padding-x: (
 .creep-vote-target {
   position: relative;
   min-height: 380px;
-  border: 1px solid $light-gray;
+  border: 1px solid $gray-20;
   padding-left: 1rem;
   padding-right: 1rem;
 
@@ -268,7 +272,7 @@ $product-detail-padding-x: (
     top: 0;
     left: 1rem;
     transform: translateY(-50%);
-    background: $dark-gray;
+    background: $gray-60;
     padding: $padding-y 1rem;
 
     &.h5-heading {
@@ -287,7 +291,7 @@ $product-detail-padding-x: (
         height: 0;
         border-style: solid;
         border-width: 0 $shadow-width $shadow-width 0;
-        border-color: transparent #000 transparent transparent;
+        border-color: transparent $black transparent transparent;
       }
     }
   }
@@ -301,7 +305,7 @@ $product-detail-padding-x: (
 .info-help {
   position: relative;
   padding: 0 0 0 1.3rem;
-  color: $medium-gray;
+  color: $gray-40;
   text-decoration: underline;
   transition: none;
 
