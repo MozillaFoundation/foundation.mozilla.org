@@ -552,7 +552,7 @@ export default class Petition extends React.Component {
 
     return (
       <div className="col petition-form" id="petition-form">
-        <form onSubmit={e => this.processFormData(e)} noValidate={true}>
+        <form onSubmit={e => this.processFormData(e)}>
           <div className="mb-2">
             <div className={givenGroupClass}>
               <FloatingLabelInput
