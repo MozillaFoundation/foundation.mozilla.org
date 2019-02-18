@@ -1,3 +1,5 @@
+from io import StringIO
+
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.test import TestCase
@@ -28,7 +30,11 @@ class MissingMigrationsTests(TestCase):
         """
         Ensure we didn't forget a migration
         """
-        call_command('makemigrations', interactive=False, dry_run=True, check_changes=True)
+        output = StringIO()
+        call_command('makemigrations', interactive=False, dry_run=True, stdout=output)
+
+        if output.getvalue() != "No changes detected\n":
+            raise AssertionError("Missing migrations detected:\n" + output.getvalue())
 
 
 class DeleteNonStaffTest(TestCase):
