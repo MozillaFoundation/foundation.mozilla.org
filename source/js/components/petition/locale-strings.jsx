@@ -51,6 +51,27 @@ export default {
     "Add my name": `Meinen Namen hinzufügen`
   },
 
+  // Spanish
+  "es": {
+    "First name": `Nombre`,
+    "Please enter your given name(s)": `Introduce tu nombre`,
+    "Last name": `Apellido`,
+    "Please enter your surname": `Introduce tu apellido`,
+    "Email address": `Dirección de correo electrónico`,
+    "Please enter your email": `Introduce tu correo electrónico`,
+    "Your country": `País`,
+    "Please enter your country": `Introduce tu país`,
+    "Postal code": `Código postal`,
+    "Please enter your postal code": `Introduce tu código postal`,
+    "Comment": `Comentario`,
+    "Please include a comment": `Por favor, escribe un comentario`,
+    "Something went wrong. Please check your email address and try again": `Algo fue mal. Comprueba tu dirección de correo y vuelve a intentarlo`,
+    "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>Estoy de acuerdo con la gestión de mi información, tal y como se explica en este <a href="https://www.mozilla.org/privacy/websites/">Aviso de privacidad</a></span>,
+    "Please check this box if you want to proceed": `Marca esta casilla si quieres continuar`,
+    "Yes, I want to receive email updates about Mozilla's campaigns.": `Sí, quiero recibir actualizaciones sobre las campañas de Mozilla.`,
+    "Add my name": `Añadir mi nombre`
+  },
+
   // French
   "fr": {
     "First name": `Prénom`,
@@ -91,6 +112,27 @@ export default {
     "Please check this box if you want to proceed": `Proszę zaznaczyć to pole, aby kontynuować`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Tak, chcę otrzymywać wiadomości o kampaniach Mozilli.`,
     "Add my name": `Podpisz`
+  },
+
+  // Portuguese
+  "pt": {
+    "First name": `Nome`,
+    "Please enter your given name(s)": `Insira seu nome`,
+    "Last name": `Sobrenome`,
+    "Please enter your surname": `Insira seu sobrenome`,
+    "Email address": `Endereço de e-mail`,
+    "Please enter your email": `Insira seu e-mail`,
+    "Your country": `Seu país`,
+    "Please enter your country": `Insira seu país`,
+    "Postal code": `CEP`,
+    "Please enter your postal code": `Insira seu CEP`,
+    "Comment": `Comentário`,
+    "Please include a comment": `Inclua um comentário`,
+    "Something went wrong. Please check your email address and try again": `Algo deu errado. Verifique seu endereço de e-mail e tente novamente`,
+    "I'm okay with Mozilla handling my info as explained in this Privacy Notice": <span>Concordo com a Mozilla lidar com minhas informações, como explicado neste <a href="https://www.mozilla.org/privacy/websites/">Aviso de Privacidade</a></span>,
+    "Please check this box if you want to proceed": `Marque esta opção se deseja continuar`,
+    "Yes, I want to receive email updates about Mozilla's campaigns.": `Quero receber atualizações por e-mail sobre campanhas da Mozilla.`,
+    "Add my name": `Adicionar meu nome`
   }
 
 };

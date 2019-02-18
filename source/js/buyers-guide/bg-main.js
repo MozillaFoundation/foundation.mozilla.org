@@ -5,7 +5,6 @@ import ReactGA from '../react-ga-proxy.js';
 import primaryNav from './components/primary-nav/primary-nav.js';
 import CreepVote from './components/creep-vote/creep-vote.jsx';
 import Creepometer from './components/creepometer/creepometer.jsx';
-import injectDonateModal from '../donate-modal/donate-modal.jsx';
 import Filter from './components/filter/filter.jsx';
 
 import copyToClipboard from './copy-to-clipboard.js';
@@ -135,30 +134,39 @@ let main = {
       });
     }
 
-    let donationModal = document.querySelector(`.donate-modal-wrapper`);
+    /*
+      The following code has been disabled for
+      https://github.com/mozilla/foundation.mozilla.org/issues/2630,
+      but we want to keep this code around for when we need to
+      re-enable this functionality
 
-    if (donationModal) {
-      let modalOptions = {
-        title: `We made this guide with support from people like you`,
-        subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
-        cta: {
-          title: `Help us keep this work going`,
-          text: `Support Mozilla`
-        },
-        utm: {
-          medium: `buyersguide`,
-          campaign: `buyersguide2018`,
-          content: `popupbutton`
-        },
-        ga: {
-          category: `buyersguide`,
-          action: `donate tap`,
-          label: `donate popup on ${window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,``)}`
-        }
-      };
+      import injectDonateModal from '../donate-modal/donate-modal.jsx';
+      ...
+      let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
-      injectDonateModal(donationModal, modalOptions);
-    }
+      if (donationModal) {
+        let modalOptions = {
+          title: `We made this guide with support from people like you`,
+          subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
+          cta: {
+            title: `Help us keep this work going`,
+            text: `Support Mozilla`
+          },
+          utm: {
+            medium: `buyersguide`,
+            campaign: `buyersguide2018`,
+            content: `popupbutton`
+          },
+          ga: {
+            category: `buyersguide`,
+            action: `donate tap`,
+            label: `donate popup on ${window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,``)}`
+          }
+        };
+
+        injectDonateModal(donationModal, modalOptions);
+      }
+    */
   }
 };
 

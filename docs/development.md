@@ -155,3 +155,9 @@ Sometimes it is necessary to override templates or static js/css/etc assets. In 
 ```
 
 Where `#...` is an issue number pointing to the issue that these changes are being made for.
+
+## Django Migrations
+
+You need to generate a migration file when you add, remove or modify a model. [Django migrations documentation](https://docs.djangoproject.com/en/1.11/topics/migrations/) is a must read on the subject.
+
+You need to follow a special workflow described in the [engineering workflow documentation](./workflow.md) if you intend to remove a field or a model, or if you want to rename or change a field type.

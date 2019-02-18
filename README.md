@@ -7,6 +7,20 @@
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
 [![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
+## Table of contents
+
+[Setup](#setup)
+
+[Development and tooling](docs/development.md)
+
+[Workflow](docs/workflow.md)
+
+[Deployment](docs/deployment.md)
+
+[Scheduled Task](docs/scheduled.md)
+
+[Stack](docs/stack.md)
+
 ## Setup
 
 **Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), [pipenv](https://docs.pipenv.org/), [invoke](https://www.pyinvoke.org/installing.html).
@@ -73,14 +87,3 @@ The `DEBUG` flag does all sorts of magical things, to the point where testing wi
 #### Use of `{ static "...." }` in templates
 
 Using the `static` tag in templates is supposed both in Django and Mezzanine, but they work differently: in Django, `{static "/..." }` works fine, but in Mezzanine this is a breaking pattern and there **should not** be a leading slash: `{ static "..." }`.
-
-
-## Further Documentation
-
-[Development](docs/development.md)
-
-[Deployment](docs/deployment.md)
-
-[Scheduled Task](docs/scheduled.md)
-
-[Stack](docs/stack.md)
