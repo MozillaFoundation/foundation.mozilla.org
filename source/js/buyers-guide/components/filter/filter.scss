@@ -31,7 +31,7 @@
     position: absolute;
     top: 2.2em;
     right: 6.3em;
-    color: $dark-gray;
+    color: $gray-60;
     font-size: 12px;
     font-weight: 700;
 
@@ -61,7 +61,7 @@
       transition-timing-function: ease-in-out;
     }
 
-    border: 1px solid $subtle-gray;
+    border: 1px solid $gray-05;
     box-shadow: 4px 5px 10px -5px rgba(74, 74, 74, 26);
     position: fixed;
     right: 0;
@@ -254,7 +254,7 @@
             left: 50%;
             color: black;
             background: white;
-            border: 1px solid $light-gray;
+            border: 1px solid $gray-20;
             border-radius: 2em;
             box-shadow: 2px 2px 3px 0 grey;
 

@@ -39,7 +39,8 @@ export default class CreepVote extends React.Component {
       majority: {
         creepiness: creepinessId,
         confidence: confidence[0] > confidence[1] ? 0 : 1
-      }
+      },
+      submitAttempted: false
     };
   }
 
@@ -85,6 +86,20 @@ export default class CreepVote extends React.Component {
       });
   }
 
+  handleAnimationEnd(evt) {
+    if (evt.animationName === `wiggle`) {
+      this.setState({
+        submitAttempted: false
+      });
+    }
+  }
+
+  handleSubmitBtnClick() {
+    this.setState({
+      submitAttempted: true
+    });
+  }
+
   submitVote(evt) {
     evt.preventDefault();
 
@@ -124,7 +139,7 @@ export default class CreepVote extends React.Component {
    */
   renderVoteAsk() {
 
-    return (<form method="post" id="creep-vote" onSubmit={evt => this.submitVote(evt)}>
+    return (<form method="post" id="creep-vote" className={this.state.submitAttempted ? `submit-attempted` : ``} onSubmit={evt => this.submitVote(evt)}>
       <div className="row mb-5">
         <div className="col-12 col-md-6">
           <div className="mb-4 text-center">
@@ -137,7 +152,7 @@ export default class CreepVote extends React.Component {
             <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
           </div>
           <div className="text-center">
-            <div class="btn-group btn-group-toggle mt-3 mt-md-5" data-toggle="buttons">
+            <div class="btn-group btn-group-toggle mt-3 mt-md-5" data-toggle="buttons" onAnimationEnd={evt => this.handleAnimationEnd(evt)}>
               <label for="likely">
                 <input type="radio" name="wouldbuy" id="likely" autocomplete="off" required/>
                 <span class="likely btn" onClick={() => this.setConfidence(true)}><img alt="thumb up" src="/_images/buyers-guide/icon-thumb-up-black.svg" /> Likely</span>
@@ -152,7 +167,7 @@ export default class CreepVote extends React.Component {
       </div>
       <div className="row">
         <div className="col-12 text-center">
-          <button id="creep-vote-btn" type="submit" className="btn btn-ghost mb-2" disabled={this.state.confidence===undefined}>Vote & See Results</button>
+          <button id="creep-vote-btn" type="submit" className="btn btn-ghost mb-2" onClick={() => this.handleSubmitBtnClick()}>Vote & See Results</button>
           <p class="h6-heading-uppercase mb-0">{this.state.totalVotes} votes</p>
         </div>
       </div>

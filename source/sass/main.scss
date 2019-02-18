@@ -23,7 +23,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import '../js/components/highlights/highlights';
 @import '../js/components/people/people';
 @import '../js/components/join/join';
-@import '../js/components/takeover/takeover';
 @import '../js/components/loading-indicator/loading-indicator';
 @import '../js/components/member-notice/member-notice';
 @import '../js/components/multipage-nav-mobile/multipage-nav-mobile';
@@ -37,7 +36,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Non-React Components
 
-@import './components/hr-gradient';
+@import './components/hr-emphasis';
 @import './components/feature-quote';
 @import './components/nav';
 @import './components/primary-nav';
@@ -68,3 +67,9 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import './views/participate';
 @import './views/fellowships/shared';
 @import './views/style-guide';
+
+// Bootstrap or mofo-bootstrap overrides
+
+hr {
+  border-color: $gray-20;
+}

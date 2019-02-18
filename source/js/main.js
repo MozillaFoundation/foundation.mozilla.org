@@ -3,19 +3,16 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
-import Cookies from 'js-cookie';
 import Analytics from './analytics.js';
 
 import JoinUs from './components/join/join.jsx';
 import Petition from './components/petition/petition.jsx';
 import People from './components/people/people.jsx';
-import Takeover from './components/takeover/takeover.jsx';
 import MemberNotice from './components/member-notice/member-notice.jsx';
 import MultipageNavMobile from './components/multipage-nav-mobile/multipage-nav-mobile.jsx';
 import News from './components/news/news.jsx';
 import SingleFilterFellowList from './components/fellow-list/single-filter-fellow-list.jsx';
 import PulseProjectList from './components/pulse-project-list/pulse-project-list.jsx';
-import injectDonateModal from './donate-modal/donate-modal.jsx';
 
 import primaryNav from './primary-nav.js';
 
@@ -221,27 +218,6 @@ let main = {
       }));
     }
 
-    // Show Takeover for new visitors
-    if (env.SHOW_TAKEOVER && !Cookies.get(`seen-takeover`) && document.querySelector(`#view-home .takeover`)) {
-      let elWrapper = document.querySelector(`#view-home > .wrapper`);
-
-      // Don't allow the content block to scroll
-      elWrapper.style.overflow = `hidden`;
-      elWrapper.style.height = `100vh`;
-
-      let onTakeoverHide = () => {
-        // Allow scrolling again when the takeover is dismissed
-        elWrapper.style.overflow = null;
-        elWrapper.style.height = null;
-      };
-
-      apps.push(new Promise(resolve => {
-        ReactDOM.render(<Takeover onHide={onTakeoverHide} whenLoaded={() => resolve()}/>, document.querySelector(`#view-home .takeover`));
-        Cookies.set(`seen-takeover`, `true`, { expires: 365 });
-        ReactGA.pageview(`/welcome-splash`);
-      }));
-    }
-
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
     if (document.querySelectorAll(`.join-us:not(#join-us)`)) {
       var elements = Array.from(document.querySelectorAll(`.join-us:not(#join-us)`));
@@ -346,30 +322,40 @@ let main = {
       }));
     });
 
-    let donationModal = document.querySelector(`.donate-modal-wrapper`);
+    /*
+      The following code has been disabled for
+      https://github.com/mozilla/foundation.mozilla.org/issues/2630,
+      but we want to keep this code around for when we need to
+      re-enable this functionality
 
-    if (donationModal) {
-      let modalOptions = {
-        title: `We all love the web. Join Mozilla in defending it!`,
-        subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
-        cta: {
-          title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
-          text: `Support Mozilla`
-        },
-        utm: {
-          medium: `foundation`,
-          campaign: `mainsite`,
-          content: `popupbutton`
-        },
-        ga: {
-          category: `site`,
-          action: `donate tap`,
-          label: `donate popup on foundation site`
-        }
-      };
+      ---
+      import injectDonateModal from './donate-modal/donate-modal.jsx';
+      ...
+      let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
-      injectDonateModal(donationModal, modalOptions);
-    }
+      if (donationModal) {
+        let modalOptions = {
+          title: `We all love the web. Join Mozilla in defending it!`,
+          subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
+          cta: {
+            title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
+            text: `Support Mozilla`
+          },
+          utm: {
+            medium: `foundation`,
+            campaign: `mainsite`,
+            content: `popupbutton`
+          },
+          ga: {
+            category: `site`,
+            action: `donate tap`,
+            label: `donate popup on foundation site`
+          }
+        };
+
+        injectDonateModal(donationModal, modalOptions);
+      }
+    */
   }
 };
 
