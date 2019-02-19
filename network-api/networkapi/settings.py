@@ -191,7 +191,7 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.buyersguide',
 
     # Wagtail feature flags
-    ENABLE_PROFILE_DIRECTORY_BLOCK = env('ENABLE_PROFILE_DIRECTORY_BLOCK ')
+    ENABLE_PROFILE_DIRECTORY_BLOCK=env('ENABLE_PROFILE_DIRECTORY_BLOCK ')
 
 ]))
 

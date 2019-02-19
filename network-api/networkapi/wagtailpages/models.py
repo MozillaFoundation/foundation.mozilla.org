@@ -28,7 +28,7 @@ We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
 page types.
 """
-base_fields = [ field for field in [
+base_fields = [field for field in [
     ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
@@ -54,7 +54,7 @@ base_fields = [ field for field in [
     ('profile_by_id', customblocks.ProfileById()),
     ('profile_directory', customblocks.ProfileDirectory()),
     ('airtable', customblocks.AirTableBlock()),
-] if field is not None ]
+] if field is not None]
 
 
 # Override the MetadataPageMixin to allow for a default
