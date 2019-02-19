@@ -10,7 +10,7 @@ Opening a PR will trigger [Travis](https://travis-ci.org) and [Appveyor](https:/
 
 ### Visual regression testing
 
-The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepencies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.    
+The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepencies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
 
 ### Staging
 
@@ -54,4 +54,3 @@ Folder | URL prefix
 `foundationsite/buyersguide` | `https://res.cloudinary.com/mozilla-foundation/image/upload/foundationsite/buyersguide/`
 
 To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
-
