@@ -25,9 +25,6 @@ root = app - 1
 # we rely on it being explicitly set (no default values) so that
 # we error out first.
 env = environ.Env(
-    DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
-    ENABLE_PROFILE_DIRECTORY_BLOCK=(bool, False),
-    FILEBROWSER_DEBUG=(bool, False),
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
@@ -47,6 +44,9 @@ env = environ.Env(
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
+    DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
+    ENABLE_PROFILE_DIRECTORY_BLOCK=(bool, False),
+    FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
     RANDOM_SEED=(int, None),
     HEROKU_APP_NAME=(str, ''),
