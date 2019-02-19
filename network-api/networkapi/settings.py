@@ -189,6 +189,10 @@ INSTALLED_APPS = list(filter(None, [
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
     'networkapi.buyersguide',
+
+    # Wagtail feature flags
+    ENABLE_PROFILE_DIRECTORY_BLOCK = env('ENABLE_PROFILE_DIRECTORY_BLOCK ')
+
 ]))
 
 MIDDLEWARE = list(filter(None, [
