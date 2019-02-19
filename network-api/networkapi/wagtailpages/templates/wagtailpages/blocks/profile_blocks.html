@@ -1,7 +1,7 @@
 <div class="profiles">
   <div class="row">
     {% for profile in profiles %}
-      <div class="col-md-6 col-12 mb-5" data-year="" data-profile-type ="" data-program-type="">
+      <div class="col-md-6 col-12 mb-5" data-year="{{ profile.program_year }}" data-profile-type ="{{ profile.profile_type }}" data-program-type="{{ profile.program_type }}">
         <div class="person-card row no-gutters">
           <div class="col-4 mr-3">
             <div class="row">
