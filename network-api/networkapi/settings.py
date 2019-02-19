@@ -190,10 +190,10 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.wagtailpages',
     'networkapi.buyersguide',
 
-    # Wagtail feature flags
-    ENABLE_PROFILE_DIRECTORY_BLOCK=env('ENABLE_PROFILE_DIRECTORY_BLOCK ')
-
 ]))
+
+# Wagtail feature flags
+ENABLE_PROFILE_DIRECTORY_BLOCK=env('ENABLE_PROFILE_DIRECTORY_BLOCK ')
 
 MIDDLEWARE = list(filter(None, [
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
