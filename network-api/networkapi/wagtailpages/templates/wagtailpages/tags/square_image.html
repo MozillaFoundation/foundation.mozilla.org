@@ -1,0 +1,18 @@
+{% load wagtailimages_tags %}
+
+{% with alt_text=unoptimized_image.alt %}
+<picture class="cms-image {{pic_class_names}}">
+
+    {% image unoptimized_image fill-160x160-c0 as image_large %}
+    {% image unoptimized_image fill-320x320-c0 as image_large_2x %}
+    <source media="(min-width: 768px)" srcset="{{ image_large.url }}, {{ image_large_2x.url }} 2x"  alt="{{ alt_text }}">
+    
+    {% image unoptimized_image fill-92x92-c0 as image_small %}
+    {% image unoptimized_image fill-184x184-c0 as image_small_2x %}
+    <source srcset="{{ image_small.url }}, {{ image_small_2x.url }} 2x" alt="{{ alt_text }}">
+    
+    {# Fallback/Default Image #} 
+    <img src="{{ image_large.url }}" class="{{pic_img_class_names}}" srcset="{{image_small.url}} 92w, {{ image_large.url }} 160w" alt="{{ alt_text }}"/>
+
+</picture>
+{% endwith %}
