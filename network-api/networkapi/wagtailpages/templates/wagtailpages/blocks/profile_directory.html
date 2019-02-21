@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="profile-directory">
+  <div class="profile-filters">
+    {% for label in filters %}
+    <button class="filter-button">{{ label }}</button>
+    {% endfor %}
+  </div>
+
+  {% include "./profile_blocks.html" %}
+</div>

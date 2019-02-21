@@ -1,7 +1,7 @@
 <div class="profiles">
   <div class="row">
     {% for profile in profiles %}
-      <div class="col-md-6 col-12 mb-5">
+      <div class="col-md-6 col-12 mb-5" data-year="{{ profile.program_year }}" data-profile-type ="{{ profile.profile_type }}" data-program-type="{{ profile.program_type }}">
         <div class="person-card row no-gutters">
           <div class="col-4 mr-3">
             <div class="row">
@@ -9,8 +9,7 @@
                 <img
                   src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
                   class="headshot"
-                  alt="Headshot"
-                >
+                  alt="Headshot">
               </div>
             </div>
           </div>
