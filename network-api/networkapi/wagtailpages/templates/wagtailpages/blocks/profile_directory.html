@@ -1,16 +1,19 @@
 {% load static %}
 
 <div class="profile-directory">
-  <div class="profile-filters">
+  <div class="fellowships-directory-filter px-2 mb-5">
     {% for label in filters %}
-    <button class="filter-button">{{ label }}</button>
+    <div class="filter-option">
+      <input type="radio" name="program_year" id="fellow-list-program_year-{{label}}" value="{{label}}" {% if forloop.first %}checked{% endif %}>
+      <label for="fellow-list-program_year-{{label}}">{{label}}</label>
+    </div>
     {% endfor %}
-
-    {% if filters|length > 0 %}
-    <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
-    <script src="{% static 'js/directory-listing-filters.js' %}" async defer></script>
-    {% endif %}
   </div>
 
   {% include "./profile_blocks.html" %}
+
+  {% if filters|length > 0 %}
+  <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
+  <script src="{% static 'js/directory-listing-filters.js' %}" async defer></script>
+  {% endif %}
 </div>

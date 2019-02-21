@@ -2,7 +2,7 @@
   // start of function
 
   const profileCache = {};
-  const filters = document.querySelectorAll(`.profile-directory .profile-filters .profile-filters-button`);
+  const filters = document.querySelectorAll(`.profile-directory .fellowships-directory-filter .filter-option label`);
   const profileContainer = document.querySelector(`.profiles .row`);
   const { profileType, programType } = document.querySelector(`.profiles`).dataset;
   const API_ENDPOINT = document.querySelector(`[data-api-endpoint]`).dataset.apiEndpoint;
@@ -17,15 +17,15 @@
 
     // build and append the query arguments
     let query = [
-      profileType ? `&profile_type=${profileType}` : false,
-      programType ? `&program_type=${programType}` : false,
-      programYear ? `&program_year=${programYear}` : false
-    ].filter(v => v).join('');
+      profileType ? `profile_type=${profileType}` : false,
+      programType ? `program_type=${programType}` : false,
+      programYear ? `program_year=${programYear}` : false
+    ].filter(v => v).join('&');
 
     // and then perform our API call using the Fetch API
     return new Promise(
       (resolve, reject) => {
-        return fetch(`${url}${query}`)
+        return fetch(`${url}&${query}`)
                // conver the resonse from JSON to real data
                .then(response => response.json())
                // all went well? resolve.
@@ -91,22 +91,34 @@
     profileContainer.innerHTML = cards.join('\n');
   };
 
+  function showLoadSpinner() {
+    profileContainer.innerHTML = `
+      <div class="col-12 mx-auto my-5 text-center">
+        <div class="loading-indicator d-inline-block">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>`;
+  }
+
   /**
    * This function grabs all buttons, and adds click
    * event handling, to load up all profiles for the
    * associated year (for now)
    */
-  function bindEventsToButtons() {
-    let buttons = Array.from(filters);
-    buttons.forEach(button => {
-      button.addEventListener("click", evt => {
-        // the button text content is, itself, the filter:
-        let year = button.textContent;
+  function bindEventsToLabels() {
+    let labels = Array.from(filters);
+    labels.forEach(label => {
+      label.addEventListener("click", evt => {
+        // the label text content is, itself, the filter:
+        let year = label.textContent;
 
         // if we have a cache, use it, but if we don't:
         if (!profileCache[year]) {
           // initiate an API call to fetch all data
           // associated with a particular year:
+          showLoadSpinner();
           getData(year)
           .then(data => {
             // catch that data, and then load the results.
@@ -127,7 +139,7 @@
 
   // and finally, kick everything off by
   // invoking the filter binding function
-  bindEventsToButtons();
+  bindEventsToLabels();
 
   // end of function
 })();
