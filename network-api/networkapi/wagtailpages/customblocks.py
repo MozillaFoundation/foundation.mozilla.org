@@ -446,10 +446,10 @@ class LatestProfileList(blocks.StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         query_args = {
-            'limit': context['block'].value['max_number_of_results'],
-            'profile_type': context['block'].value['profile_type'],
-            'program_type': context['block'].value['program_type'],
-            'program_year': context['block'].value['year'],
+            'limit': value['max_number_of_results'],
+            'profile_type': value['profile_type'],
+            'program_type': value['program_type'],
+            'program_year': value['year'],
             'ordering': '-id',
             'is_active': 'true',
             'format': 'json',
@@ -457,9 +457,6 @@ class LatestProfileList(blocks.StructBlock):
 
         # filter out emptish values
         query_args = {k: v for k, v in query_args.items() if v}
-
-        # FIXME: the protocol should be part of the pulse api variable.
-        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
 
         url = "{pulse_api}/api/pulse/v2/profiles/?{query}".format(
             pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
@@ -482,6 +479,10 @@ class LatestProfileList(blocks.StructBlock):
             pass
 
         context['profiles'] = data
+        context['profile_type'] = value['profile_type']
+        context['program_type'] = value['program_type']
+        context['program_year'] = value['year']
+
         return context
 
     class Meta:
@@ -501,6 +502,9 @@ class ProfileDirectory(LatestProfileList):
         context = super().get_context(value, parent_context=parent_context)
         filter_values = context['block'].value['filter_values']
         context['filters'] = filter_values.split(",")
+        context['api_endpoint'] = "{pulse_api}/api/pulse/v2/profiles/?is_active=true&format=json".format(
+            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN']
+        )
         return context
 
     class Meta:
