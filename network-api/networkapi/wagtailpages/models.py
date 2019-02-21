@@ -52,7 +52,7 @@ base_fields = [field for field in [
     ('pulse_listing', customblocks.PulseProjectList()),
     ('profile_listing', customblocks.LatestProfileList()),
     ('profile_by_id', customblocks.ProfileById()),
-   ('profile_directory', customblocks.ProfileDirectory()) if settings.ENABLE_PROFILE_DIRECTORY_BLOCK else None,
+    ('profile_directory', customblocks.ProfileDirectory()) if settings.ENABLE_PROFILE_DIRECTORY_BLOCK else None,
     ('airtable', customblocks.AirTableBlock()),
 ] if field is not None]
 
