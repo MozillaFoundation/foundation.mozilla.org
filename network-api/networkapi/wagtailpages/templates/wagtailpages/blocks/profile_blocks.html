@@ -1,11 +1,10 @@
 <div class="profiles">
   <div class="row">
     {% for profile in profiles %}
-      <div class="col-md-6 col-12 mb-5" data-year="{{ profile.program_year }}" data-profile-type ="{{ profile.profile_type }}" data-program-type="{{ profile.program_type }}">
+      <div class="col-md-6 col-12 mb-5">
 
         <div class="person-card">
 
-          <!--Profile Headshot-->
           <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="headshot-container">
             <img
               src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
@@ -13,7 +12,6 @@
               alt="Headshot">
           </a>
 
-          <!--Meta Info (Name, Location, Social)-->
           <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between">
             <div class="meta-block">
               <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">
@@ -31,7 +29,6 @@
             </div>
           </div>
 
-          <!--Individual Bio-->
           <div class="bio mt-2 mt-sm-0 pl-sm-2">
             <p class="m-0">{{ profile.user_bio }}</p>
           </div>
