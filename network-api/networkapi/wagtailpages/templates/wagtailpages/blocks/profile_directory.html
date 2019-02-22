@@ -1,15 +1,18 @@
 {% load static %}
 
 <div class="profile-directory">
-  <div class="profile-filters mb-5 px-2 d-flex flex-row align-items-center flex-wrap">
+  <div class="fellowships-directory-filter px-2 mb-5">
     {% for label in filters %}
-    <button class="profile-filters-button d-flex flex-row align-items-center justify-content-center">
-      <span class="p-2">
-          {{ label }}
-      </span>
-    </button>
+    <div class="filter-option">
+      <button {% if forloop.first %}class="active"{% endif %}>{{ label }}</button>
+    </div>
     {% endfor %}
   </div>
 
   {% include "./profile_blocks.html" %}
+
+  {% if filters|length > 0 %}
+  <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
+  <script src="{% static 'js/directory-listing-filters.js' %}" async defer></script>
+  {% endif %}
 </div>
