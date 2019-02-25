@@ -107,17 +107,13 @@ class ImageTextBlock(blocks.StructBlock):
         group = 'Deprecated'
 
 
-class ImageTextBlock2(ImageBlock):
+class ImageTextMini(ImageBlock):
     text = blocks.RichTextBlock(
         features=['link', 'h2', 'h3', 'h4', 'h5', 'h6']
     )
     url = blocks.CharBlock(
         required=False,
         help_text='Optional URL that this image should link out to.',
-    )
-    small = blocks.BooleanBlock(
-        required=False,
-        help_text='Use smaller, fixed image size (eg: icon)',
     )
 
     class Meta:
