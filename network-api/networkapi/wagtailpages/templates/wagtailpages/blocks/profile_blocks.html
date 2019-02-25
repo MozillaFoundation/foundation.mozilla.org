@@ -1,4 +1,4 @@
-<div class="profiles">
+<div class="profiles" data-program-type="{{ value.program_type }}" data-program-year="{{ value.program_year }}" data-profile-type="{{ value.profile_type }}">
   <div class="row">
     {% for profile in profiles %}
       <div class="col-md-6 col-12 mb-5">
@@ -32,7 +32,7 @@
           <div class="bio mt-2 mt-sm-0 pl-sm-2">
             <p class="m-0">{{ profile.user_bio }}</p>
           </div>
-        
+
         </div>
       </div>
     {% endfor %}

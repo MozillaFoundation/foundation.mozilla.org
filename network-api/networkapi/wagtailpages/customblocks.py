@@ -443,23 +443,26 @@ class LatestProfileList(blocks.StructBlock):
         default=''
     )
 
-    def get_context(self, value, parent_context=None):
+    def get_context(self, value, parent_context=None, no_limit=False, initial_year=False, ordering=False):
         context = super().get_context(value, parent_context=parent_context)
+
         query_args = {
-            'limit': context['block'].value['max_number_of_results'],
-            'profile_type': context['block'].value['profile_type'],
-            'program_type': context['block'].value['program_type'],
-            'program_year': context['block'].value['year'],
-            'ordering': '-id',
+            'limit': value['max_number_of_results'],
+            'profile_type': value['profile_type'],
+            'program_type': value['program_type'],
+            'program_year': initial_year if initial_year else value['year'],
+            'ordering': ordering if ordering else '-id',
             'is_active': 'true',
             'format': 'json',
         }
 
-        # filter out emptish values
-        query_args = {k: v for k, v in query_args.items() if v}
+        # Removing after the fact is actually easier than
+        # conditionally adding and then filtering the list.
+        if no_limit:
+            query_args.pop('limit')
 
-        # FIXME: the protocol should be part of the pulse api variable.
-        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
+        # Filter out emptish values
+        query_args = {k: v for k, v in query_args.items() if v}
 
         url = "{pulse_api}/api/pulse/v2/profiles/?{query}".format(
             pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
@@ -482,6 +485,10 @@ class LatestProfileList(blocks.StructBlock):
             pass
 
         context['profiles'] = data
+        context['profile_type'] = value['profile_type']
+        context['program_type'] = value['program_type']
+        context['program_year'] = value['year']
+
         return context
 
     class Meta:
@@ -491,16 +498,42 @@ class LatestProfileList(blocks.StructBlock):
 
 
 class ProfileDirectory(LatestProfileList):
+    """
+    NOTE:
+    this component has been set up specifically for year
+    filtering for its initial pass. It does not do any
+    kind of filter detection and query argument juggling
+    yet, which is why the default filter_values text is
+    literally the string that matches the filter that
+    was used on the fellowship directory page prior to
+    porting to the CMS.
+    There is an issue open to make this component more
+    generic. See:
+    https://github.com/mozilla/foundation.mozilla.org/issues/2700
+    """
+
     filter_values = blocks.CharBlock(
         required=True,
-        default='',
-        help_text='Example: 2013,2014,2015,2016,2017,2018'
+        default='2019,2018,2017,2016,2015,2014,2013',
+        help_text='Example: 2019,2018,2017,2016,2015,2014,2013'
     )
 
     def get_context(self, value, parent_context=None):
-        context = super().get_context(value, parent_context=parent_context)
-        filter_values = context['block'].value['filter_values']
-        context['filters'] = filter_values.split(",")
+        pulse_api = settings.FRONTEND['PULSE_API_DOMAIN']
+        filter_values = value['filter_values']
+        years = filter_values.split(",")
+        initial_year = years[0]
+
+        context = super().get_context(
+            value,
+            parent_context=parent_context,
+            no_limit=True,
+            initial_year=initial_year,
+            ordering='custom_name'
+        )
+
+        context['filters'] = years
+        context['api_endpoint'] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
         return context
 
     class Meta:
