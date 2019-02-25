@@ -2,12 +2,12 @@
   &-container {
     border-top: 1px solid $black;
     border-bottom: 1px solid $black;
-  }
 
-  img {
-    min-width: 30px;
-    height: auto;
-    max-width: 60px;
+    img {
+      min-width: 30px;
+      height: auto;
+      max-width: 60px;
+    } 
   }
 
   &-text {
