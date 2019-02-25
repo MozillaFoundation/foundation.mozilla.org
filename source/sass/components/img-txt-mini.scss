@@ -4,6 +4,12 @@
     border-bottom: 1px solid $black;
   }
 
+  img {
+    min-width: 30px;
+    height: auto;
+    max-width: 60px;
+  }
+
   &-text {
     .rich-text {
       p {
