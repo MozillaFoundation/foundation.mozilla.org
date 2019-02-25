@@ -114,7 +114,7 @@ class ImageTextMini(ImageBlock):
 
     class Meta:
         icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_block2.html'
+        template = 'wagtailpages/blocks/image_text_mini.html'
 
 
 class FigureBlock(blocks.StructBlock):
