@@ -8,6 +8,10 @@
     .rich-text {
       p {
         margin-bottom: 0;
+        
+        &:not(:first-child) {
+            margin-top: .25rem;
+        }
       }
     }
   }
