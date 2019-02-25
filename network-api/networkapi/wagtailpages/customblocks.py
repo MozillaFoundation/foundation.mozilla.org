@@ -109,7 +109,7 @@ class ImageTextBlock(blocks.StructBlock):
 
 class ImageTextMini(ImageBlock):
     text = blocks.RichTextBlock(
-        features=['link', 'h2', 'h3', 'h4', 'h5', 'h6']
+        features=['bold', 'italic', 'link']
     )
 
     class Meta:
