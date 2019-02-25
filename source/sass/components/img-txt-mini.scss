@@ -1,0 +1,14 @@
+.img-txt-mini {
+    &-container {
+        border-top: 1px solid $black;
+        border-bottom: 1px solid $black;
+    }
+
+    &-text {
+        .rich-text {
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
