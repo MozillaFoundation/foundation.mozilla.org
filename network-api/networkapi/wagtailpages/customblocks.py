@@ -109,7 +109,7 @@ class ImageTextBlock(blocks.StructBlock):
 
 class ImageTextBlock2(ImageBlock):
     text = blocks.RichTextBlock(
-        features=[ 'bold', 'italic','h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul','link']
+        features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'link']
     )
     url = blocks.CharBlock(
         required=False,
@@ -127,6 +127,19 @@ class ImageTextBlock2(ImageBlock):
         required=False,
         help_text='Optional divider below content block.',
     )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        divider_styles = ""
+        if value.top_divider or value.bottom_divider:
+            if value.top_divider and value.bottom_divider:
+                return "div-both"
+            elif value.top_divider:
+                return "div-top"
+            else:
+                return "div-bottom"
+        context['divider_styles'] = divider_styles
+        return context
 
     class Meta:
         icon = 'doc-full'
