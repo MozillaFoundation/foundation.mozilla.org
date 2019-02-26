@@ -109,7 +109,7 @@ class ImageTextBlock(blocks.StructBlock):
 
 class ImageTextBlock2(ImageBlock):
     text = blocks.RichTextBlock(
-        features=['link', 'h2', 'h3', 'h4', 'h5', 'h6']
+        features=[ 'bold', 'italic','h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul','link']
     )
     url = blocks.CharBlock(
         required=False,
