@@ -119,6 +119,14 @@ class ImageTextBlock2(ImageBlock):
         required=False,
         help_text='Use smaller, fixed image size (eg: icon)',
     )
+    top_divider = blocks.BooleanBlock(
+        required=False,
+        help_text='Optional divider above content block.',
+    )
+    bottom_divider = blocks.BooleanBlock(
+        required=False,
+        help_text='Optional divider below content block.',
+    )
 
     class Meta:
         icon = 'doc-full'
