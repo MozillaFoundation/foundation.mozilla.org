@@ -1,0 +1,23 @@
+.div {
+    &-top {
+        border-top: 1px solid $black;
+        padding-top: 1em;
+    }
+
+    &-bottom {
+        border-bottom: 1px solid $black;
+        padding-bottom: 1em;
+    }
+}
+
+.image-text {
+    &-img {
+        img {
+            width: 50%;
+
+            @include media-breakpoint-up(md) {
+                width: 100%;
+            }
+        }
+    }
+}
