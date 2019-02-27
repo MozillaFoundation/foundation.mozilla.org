@@ -41,6 +41,7 @@ base_fields = [field for field in [
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text2', customblocks.ImageTextBlock2()),
+    ('image_text_mini', customblocks.ImageTextMini()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
     ('figuregrid2', customblocks.FigureGridBlock2()),
@@ -52,7 +53,7 @@ base_fields = [field for field in [
     ('pulse_listing', customblocks.PulseProjectList()),
     ('profile_listing', customblocks.LatestProfileList()),
     ('profile_by_id', customblocks.ProfileById()),
-    ('profile_directory', customblocks.ProfileDirectory()) if settings.ENABLE_PROFILE_DIRECTORY_BLOCK else None,
+    ('profile_directory', customblocks.ProfileDirectory()),
     ('airtable', customblocks.AirTableBlock()),
 ] if field is not None]
 

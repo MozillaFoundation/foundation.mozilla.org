@@ -145,6 +145,16 @@ class ImageTextBlock2(ImageBlock):
         template = 'wagtailpages/blocks/image_text_block2.html'
 
 
+class ImageTextMini(ImageBlock):
+    text = blocks.RichTextBlock(
+        features=['bold', 'italic', 'link']
+    )
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'wagtailpages/blocks/image_text_mini.html'
+
+
 class FigureBlock(blocks.StructBlock):
     figure = AlignedImageBlock()
     caption = blocks.CharBlock(
