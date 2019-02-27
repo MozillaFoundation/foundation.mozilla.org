@@ -43,7 +43,9 @@ cache:
 jobs:
   include:
     - name: "Python tests"
-      script:  ./travis-scripts/python_tests.sh
+      script:
+        - pipenv run flake8 tasks.py network-api/ --statistics
+        - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
       after_success:
         - coveralls
     - name: "npm tests"
@@ -52,4 +54,4 @@ jobs:
         - nvm use --lts=carbon
         - npm install -g npm@latest # Needed to use npm ci
         - npm ci # use package-lock.json
-      script: ./travis-scripts/npm_tests.sh
+      script: npm test
