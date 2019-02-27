@@ -20,8 +20,6 @@ class NewsView(RetrieveAPIView):
     """
     A view that permits a GET request for a News article in the database
     """
-
-    
     def get_queryset(self):
         return News.objects.published()
 
