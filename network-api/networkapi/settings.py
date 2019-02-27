@@ -45,7 +45,6 @@ env = environ.Env(
     DEBUG=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
     DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
-    ENABLE_PROFILE_DIRECTORY_BLOCK=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
     RANDOM_SEED=(int, None),
@@ -191,9 +190,6 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.wagtailpages',
     'networkapi.buyersguide',
 ]))
-
-# Wagtail feature flags
-ENABLE_PROFILE_DIRECTORY_BLOCK = env('ENABLE_PROFILE_DIRECTORY_BLOCK')
 
 MIDDLEWARE = list(filter(None, [
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
