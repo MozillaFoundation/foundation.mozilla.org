@@ -134,7 +134,7 @@ class ImageTextBlock2(ImageBlock):
         top_divider = value.get("top_divider")
         bottom_divider = value.get("bottom_divider")
         if top_divider:
-            divider_styles.append('div-top') 
+            divider_styles.append('div-top')
         if bottom_divider:
             divider_styles.append('div-bottom')
         context['divider_styles'] = ' '.join(divider_styles)
