@@ -32,6 +32,7 @@ env:
   - USE_S3=False
   - X_FRAME_OPTIONS=DENY
   - XSS_PROTECTION=True
+  - PIPENV_VERBOSITY=-1
 
 cache:
   pip: true
@@ -42,4 +43,5 @@ jobs:
       script:  ./travis-scripts/python_tests.sh
       after_success:
         - coveralls
-    - script: echo "Hello"
+    - name: "JS tests"
+      script: echo "hello"
