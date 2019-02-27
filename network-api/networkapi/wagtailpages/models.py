@@ -160,6 +160,7 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
+        'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
     ]
@@ -415,7 +416,6 @@ class CampaignPage(MiniSiteNameSpace):
 
     subpage_types = [
         'CampaignPage',
-        'BanneredCampaignPage',
         'RedirectingPage',
     ]
 
@@ -505,13 +505,6 @@ class BanneredCampaignPage(PrimaryPage):
 
     content_panels = PrimaryPage.content_panels + [
         SnippetChooserPanel('cta')
-    ]
-
-    parent_page_types = [
-        'Homepage',
-        'MiniSiteNameSpace',
-        'BanneredCampaignPage',
-        'CampaignPage',
     ]
 
     subpage_types = [
