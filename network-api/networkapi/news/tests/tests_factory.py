@@ -22,7 +22,7 @@ class TestNewsFactory(TestCase):
         NewsFactory should return an instance of News
         """
 
-        news = NewsFactory.create()
+        news = "test"
 
         self.assertIsInstance(news, News)
 
