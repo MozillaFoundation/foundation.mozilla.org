@@ -130,15 +130,14 @@ class ImageTextBlock2(ImageBlock):
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
-        divider_styles = ""
-        if value.top_divider or value.bottom_divider:
-            if value.top_divider and value.bottom_divider:
-                return "div-both"
-            elif value.top_divider:
-                return "div-top"
-            else:
-                return "div-bottom"
-        context['divider_styles'] = divider_styles
+        divider_styles = []
+        top_divider = value.get("top_divider")
+        bottom_divider = value.get("bottom_divider")
+        if top_divider:
+            divider_styles.append('div-top') 
+        if bottom_divider:
+            divider_styles.append('div-bottom')
+        context['divider_styles'] = ' '.join(divider_styles)
         return context
 
     class Meta:
