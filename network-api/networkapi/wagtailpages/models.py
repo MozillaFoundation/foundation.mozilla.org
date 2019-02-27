@@ -415,6 +415,7 @@ class CampaignPage(MiniSiteNameSpace):
 
     subpage_types = [
         'CampaignPage',
+        'BanneredCampaignPage',
         'RedirectingPage',
     ]
 
@@ -509,6 +510,7 @@ class BanneredCampaignPage(PrimaryPage):
     parent_page_types = [
         'Homepage',
         'MiniSiteNameSpace',
+        'BanneredCampaignPage',
     ]
 
     subpage_types = [
