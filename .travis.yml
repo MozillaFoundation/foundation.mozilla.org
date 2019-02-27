@@ -36,12 +36,20 @@ env:
 
 cache:
   pip: true
+  directories:
+    - "$HOME/.npm"
 
+# TODOs Maybe add stages to run percy only if the tests worked?
 jobs:
   include:
     - name: "Python tests"
       script:  ./travis-scripts/python_tests.sh
       after_success:
         - coveralls
-    - name: "JS tests"
-      script: echo "hello"
+    - name: "npm tests"
+      install:
+        - nvm install --lts=carbon
+        - nvm use --lts=carbon
+        - npm install -g npm@latest # Needed to use npm ci
+        - npm ci # use package-lock.json
+      script: ./travis-scripts/npm_tests.sh
