@@ -11,8 +11,9 @@ from .models import (
     Homepage,
     RedirectingPage,
 
-    OpportunityPage,
+    BanneredCampaignPage,
     CampaignPage,
+    OpportunityPage,
 
     CTA,
     Petition,
@@ -80,6 +81,12 @@ class PrimaryPageTR(TranslationOptions):
     fields = (
         'header',
         'body',
+    )
+
+
+@register(BanneredCampaignPage)
+class BanneredCampaignPageTR(TranslationOptions):
+    fields = (
     )
 
 
