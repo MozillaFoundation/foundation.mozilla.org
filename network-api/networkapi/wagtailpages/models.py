@@ -511,6 +511,7 @@ class BanneredCampaignPage(PrimaryPage):
         'Homepage',
         'MiniSiteNameSpace',
         'BanneredCampaignPage',
+        'CampaignPage',
     ]
 
     subpage_types = [
