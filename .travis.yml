@@ -1,13 +1,43 @@
 language: python
 python:
 - '3.6'
+
 addons:
   postgresql: "9.6"
+
 install:
 - pip install --upgrade pip
 - pip install pipenv
+- pipenv install --dev --deploy
+
+before_script:
+- psql -c 'create database network;' -U postgres
+
+after_success:
+- coveralls
+
+env:
+  global:
+  - ALLOWED_HOSTS=localhost
+  - CONTENT_TYPE_NO_SNIFF=True
+  - CORS_WHITELIST="*"
+  - DATABASE_URL=postgres://postgres@localhost:5432/network
+  - DEBUG=True
+  - DJANGO_SECRET_KEY=secret
+  - NETWORK_SITE_URL=https://foundation.mozilla.org
+  - PULSE_API_DOMAIN=https://network-pulse-api-production.herokuapp.com
+  - PULSE_DOMAIN=www.mozillapulse.org
+  - RANDOM_SEED=530910203
+  - SET_HSTS=False
+  - SSL_REDIRECT=False
+  - TARGET_DOMAIN=foundation.mozilla.org
+  - USE_CLOUDINARY=false
+  - USE_S3=False
+  - X_FRAME_OPTIONS=DENY
+  - XSS_PROTECTION=True
 
 jobs:
   include:
-    - script: python --version
+    - name: "Python tests"
+      script: pipenv run flake8 tasks.py network-api/ && pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
     - script: echo "Hello"
