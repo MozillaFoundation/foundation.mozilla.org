@@ -17,12 +17,11 @@
   {% else %}
     <div class="col-12 col-md-3 mb-3 mb-md-0 image-text-img">
       {% if value.url %}<a href="{{ value.url }}">{% endif %}
-        {% image value.image fill-760x760 format-jpeg %}
+        {% image value.image fill-760x760-c100 format-jpeg %}
       {% if value.url %}</a>{% endif %}
     </div>
     <div class="col-12 col-md-9">
       {{ value.text|richtext }}
     </div>
   {% endif %}
-
 </div>
