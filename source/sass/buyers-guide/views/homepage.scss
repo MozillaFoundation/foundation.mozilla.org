@@ -1,11 +1,11 @@
 #pni-home {
   .page-header {
-    @media (max-width: $bp-md) {
-      height: 200px;
-    }
-
-    height: 304px;
     background-image: url(/_images/buyers-guide/home-banner.jpg) center center / cover no-repeat;
+    height: 200px;
+
+    @media (min-width: $bp-md) {
+      height: 304px;    
+    }
   }
 
   .product-listing {
