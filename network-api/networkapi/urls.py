@@ -21,8 +21,7 @@ urlpatterns = list(filter(None, [
     url(r'^soc/', include('social_django.urls', namespace='social')),
 
     # fellowship routes
-
-    url(r'^fellowships/', include('networkapi.fellows.urls')),
+    # leaving some redirects in for the time being to make a clean switch to CMS-managed pages
 
     url(r'^fellowship/(?P<path>.*)', RedirectView.as_view(
         url='/fellowships/%(path)s',
