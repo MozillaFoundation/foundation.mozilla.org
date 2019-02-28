@@ -32,10 +32,10 @@ cache:
   directories:
     - "$HOME/.npm"
 
-# TODOs Maybe add stages to run percy only if the tests worked?
 matrix:
   include:
     - name: "Python tests"
+      if: branch =~ ^(back|all)-
       install: ./travis-scripts/python-install.sh
       before_script:
         - psql -c 'create database network;' -U postgres
@@ -45,12 +45,14 @@ matrix:
       after_success:
         - coveralls
     - name: "npm tests"
+      if: branch =~ ^(front|all)-
       before_install:
         - nvm install --lts=carbon
         - nvm use --lts=carbon
       install: ./travis-scripts/npm-install.sh
       script: npm test
     - name: "Percy tests"
+      if: branch =~ ^(front|all)-
       before_install:
         - nvm install --lts=carbon
         - nvm use --lts=carbon
