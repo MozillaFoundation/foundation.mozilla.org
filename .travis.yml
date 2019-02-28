@@ -5,11 +5,6 @@ python:
 addons:
   postgresql: "9.6"
 
-install:
-- pip install --upgrade pip
-- pip install pipenv
-- pipenv install --dev --deploy
-
 before_script:
 - psql -c 'create database network;' -U postgres
 
@@ -43,15 +38,12 @@ cache:
 jobs:
   include:
     - name: "Python tests"
+      install: ./travis-scripts/python-install.sh
       script:
         - pipenv run flake8 tasks.py network-api/
         - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
       after_success:
         - coveralls
     - name: "npm tests"
-      install:
-        - nvm install --lts=carbon
-        - nvm use --lts=carbon
-        - npm install -g npm@latest # Needed to use npm ci
-        - npm ci # use package-lock.json
+      install: ./travis-scripts/npm-install.sh
       script: npm test
