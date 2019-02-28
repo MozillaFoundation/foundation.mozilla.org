@@ -33,7 +33,7 @@ cache:
     - "$HOME/.npm"
 
 # TODOs Maybe add stages to run percy only if the tests worked?
-jobs:
+matrix:
   include:
     - name: "Python tests"
       install: ./travis-scripts/python-install.sh
