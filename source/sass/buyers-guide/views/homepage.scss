@@ -1,10 +1,10 @@
 #pni-home {
   .page-header {
-    background-image: url(/_images/buyers-guide/home-banner.jpg) center center / cover no-repeat;
+    background: url(/_images/buyers-guide/home-banner.jpg) center center / cover no-repeat;
     height: 200px;
 
     @media (min-width: $bp-md) {
-      height: 304px;    
+      height: 304px;
     }
   }
 
