@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0049_auto_20190227_0115'),
+        ('wagtailpages', '0049_auto_20190227_1858'),
     ]
 
     operations = [
