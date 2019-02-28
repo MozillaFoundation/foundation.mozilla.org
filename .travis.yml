@@ -56,10 +56,11 @@ jobs:
         - nvm use --lts=carbon
       install:
         - ./travis-scripts/python-install.sh
-        - python network-api/manage.py collectstatic --no-input --verbosity 0
         - ./travis-scripts/npm-install.sh
       before_script:
         - psql -c 'create database network;' -U postgres
+        - npm run build
+        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity 0
         - pipenv run python network-api/manage.py migrate --no-input
         - pipenv run python network-api/manage.py block_inventory
         - pipenv run python network-api/manage.py sync_page_translation_fields
