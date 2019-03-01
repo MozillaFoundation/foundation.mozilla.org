@@ -275,9 +275,6 @@ export default class Petition extends React.Component {
     // validate data here. Do not continue unless we're cool.
     let hasName = this.givenNames.element.value && this.surname.element.value;
     let email = this.email.element.value;
-
-    email = email && this.validatesAsEmail(email);
-
     let consent = this.refs.privacy.checked;
     let country = true;
     let postalCode = true;
@@ -316,18 +313,6 @@ export default class Petition extends React.Component {
       action: `form submit tap`,
       label: `Petition form submitted`
     });
-  }
-
-  /**
-   * Performs very simple validation for emails.
-   * @param {string} input the string that should be validated as an email address
-   * @returns {boolean} true if the input is a legal-enough email address, else false
-   */
-  validatesAsEmail(input) {
-    if (!input) {
-      return false;
-    }
-    return input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
   }
 
   userElectedToDonate() {
@@ -528,7 +513,7 @@ export default class Petition extends React.Component {
     });
 
     let emailGroupClass = classNames({
-      'has-danger': this.state.userTriedSubmitting && (!this.email.element.value || !this.validatesAsEmail(this.email.element.value))
+      'has-danger': this.state.userTriedSubmitting && !this.email.element.value
     });
 
     let countryGroupClass = classNames({
@@ -584,7 +569,7 @@ export default class Petition extends React.Component {
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
               />
-              {this.state.userTriedSubmitting && (!this.email.element.value || !this.validatesAsEmail(this.email.element.value)) && <small className="form-check form-control-feedback">{ get(`Please enter your email`) }</small>}
+              {this.state.userTriedSubmitting && !this.email.element.value && <small className="form-check form-control-feedback">{ get(`Please enter your email`) }</small>}
             </div>
 
             { this.legacy === `True` ? null :
