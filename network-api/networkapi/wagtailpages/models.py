@@ -160,6 +160,7 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
+        'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
     ]
@@ -483,6 +484,43 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super(PrimaryPage, self).get_context(request)
+        return get_page_tree_information(self, context)
+
+
+class BanneredCampaignPage(PrimaryPage):
+    """
+    title, header, intro, and body are inherited from PrimaryPage
+    """
+
+    # Note that this is a different related_name, as the `page`
+    # name is already taken as back-referenced to CampaignPage.
+    cta = models.ForeignKey(
+        'Petition',
+        related_name='bcpage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose existing or create new sign-up form'
+    )
+
+    content_panels = PrimaryPage.content_panels + [
+        SnippetChooserPanel('cta')
+    ]
+
+    parent_page_types = [
+        'HomePage',
+        'MiniSiteNameSpace',
+        'BanneredCampaignPage',
+    ]
+
+    subpage_types = [
+        'BanneredCampaignPage',
+    ]
+
+    show_in_menus_default = True
+
+    def get_context(self, request):
+        context = super(BanneredCampaignPage, self).get_context(request)
         return get_page_tree_information(self, context)
 
 
@@ -984,6 +1022,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'MiniSiteNameSpace',
         'RedirectingPage',
         'OpportunityPage',
+        'BanneredCampaignPage',
     ]
 
     def get_context(self, request):

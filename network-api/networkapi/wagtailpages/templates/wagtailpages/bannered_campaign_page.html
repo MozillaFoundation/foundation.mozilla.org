@@ -1,0 +1,8 @@
+{% extends "./campaign_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
+
+{% block heroGuts %}
+  {% include "./fragments/primary_heroguts.html" with root=root page=page %}
+{% endblock %}
