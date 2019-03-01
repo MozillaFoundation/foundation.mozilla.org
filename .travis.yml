@@ -33,6 +33,10 @@ cache:
   directories:
     - "$HOME/.npm"
 
+branches:
+  only:
+    - master
+
 install: pip install pipenv
 
 script:
