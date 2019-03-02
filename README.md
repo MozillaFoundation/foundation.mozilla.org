@@ -86,4 +86,4 @@ The `DEBUG` flag does all sorts of magical things, to the point where testing wi
 
 #### Use of `{ static "...." }` in templates
 
-Using the `static` tag in templates is supposed both in Django and Mezzanine, but they work differently: in Django, `{static "/..." }` works fine, but in Mezzanine this is a breaking pattern and there **should not** be a leading slash: `{ static "..." }`.
+Using the `static` tag in templates is supported both in Django and Mezzanine, but they work differently: in Django, `{static "/..." }` works fine, but in Mezzanine this is a breaking pattern and there **should not** be a leading slash: `{ static "..." }`.
