@@ -180,6 +180,11 @@ class FigureBlock2(blocks.StructBlock):
         required=False,
         help_text='Optional URL that this figure should link out to.',
     )
+    square_image = blocks.BooleanBlock(
+        default=True,
+        required=False,
+        help_text='Note: If checked, images will be square.'
+    )
 
 
 class FigureGridBlock(blocks.StructBlock):
