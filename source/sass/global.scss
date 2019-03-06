@@ -33,6 +33,10 @@ button:hover {
       top: 0;
       right: 0;
       min-width: $bp-sm;
+
+      @media screen and (min-width: $bp-sm) {
+        min-width: 100%;
+      }
     }
   }
 

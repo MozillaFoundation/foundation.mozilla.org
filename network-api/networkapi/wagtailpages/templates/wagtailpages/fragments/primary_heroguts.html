@@ -1,7 +1,12 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
 <div id="hero" class="mb-md-3">
   <div class="banner">
-    <!-- this will become a CMS-managed variable instead -->
-    <img src="/_images/banner-black-white-marble.jpg">
+    {% if page.banner %}
+    {% image page.banner original alt="" %}
+    {% else %}
+    <img src="/_images/banner-black-white-marble.jpg" alt="">
+    {% endif %}
   </div>
 
   <div class="container">
