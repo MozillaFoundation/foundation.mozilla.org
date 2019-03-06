@@ -12,13 +12,13 @@ CI_LABELS = ["Frontend", "Backend", "Python", "Javascript"]
 
 
 def get_labels():
-    pr_url = "https://api.github.com/repos/mozilla/foundation.mozilla.org/pulls/{}".format(PR_NUMBER)
+    pr_url = "https://api.github.com/repos/mozilla/foundation.mozilla.org/pulls/{}".format("2730")
 
     try:
         with request.urlopen(pr_url) as f:
-            json_response = json.load(f)
+            json_response = json.loads(f.read().decode('utf-8'))
     except HTTPError as error:
-        print(error)
+        print("ERROR: {}".format(error))
         return []
     try:
         labels = json_response["labels"]
