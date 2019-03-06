@@ -12,6 +12,13 @@ describe('Visual regression testing for campaigns/multi-page', () => {
     cy.percySnapshot();
   });
 
+  it('About page', function() {
+    cy.visit(`/en/about`);
+    cy.window().its('main-js:react:finished').should('equal', true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
   it('Multie-page campaign', function() {
     cy.visit(`/en/campaigns/multi-page/`);
     cy.window().its('main-js:react:finished').should('equal', true);
