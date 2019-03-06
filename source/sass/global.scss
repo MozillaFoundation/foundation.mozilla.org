@@ -32,7 +32,7 @@ button:hover {
       position: absolute;
       top: 0;
       right: 0;
-      min-width: #{$bp-sm};
+      min-width: $bp-sm;
     }
   }
 
