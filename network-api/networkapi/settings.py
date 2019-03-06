@@ -416,9 +416,10 @@ if USE_S3:
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
     AWS_LOCATION = env('AWS_LOCATION')
-
     MEDIA_URL = 'https://' + AWS_S3_CUSTOM_DOMAIN + '/'
     MEDIA_ROOT = ''
+    # This is a workaround for https://github.com/wagtail/wagtail/issues/3206
+    AWS_S3_FILE_OVERWRITE = False
 
     FILEBROWSER_DIRECTORY = env('FILEBROWSER_DIRECTORY')
 
