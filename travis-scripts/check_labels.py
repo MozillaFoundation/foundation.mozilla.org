@@ -1,9 +1,8 @@
 #!/usr/bin/env python
+import json
 import os
+from urllib import request
 
-import requests
-
-# TODO remove: PR number = 2730
 PR_NUMBER = os.environ.get("TRAVIS_PULL_REQUEST")
 # TODO: encrypt github_token for travis
 # GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
@@ -14,13 +13,11 @@ CI_LABELS = ["Frontend", "Backend", "Python", "Javascript"]
 def get_labels():
     pr_url = "https://api.github.com/repos/mozilla/foundation.mozilla.org/pulls/{}".format(PR_NUMBER)
 
-    r = requests.get(pr_url)
-
-    # TODO: do not fail and return an empty list + print error message + status
-    r.raise_for_status()
+    with request.urlopen(pr_url) as f:
+        json_response = json.load(f)
 
     try:
-        labels = r.json()["labels"]
+        labels = json_response["labels"]
         label_names = []
         [label_names.append(label["name"]) for label in labels]
     except KeyError:
@@ -39,4 +36,5 @@ def check_labels(labels_list):
 
 if __name__ == "__main__":
     all_labels = get_labels()
-    check_labels(all_labels)
+    if all_labels:
+        check_labels(all_labels)
