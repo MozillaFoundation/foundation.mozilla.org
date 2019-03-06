@@ -86,7 +86,7 @@ In addition to the standard Wagtail-supplied blocks, the `customblocks.py` files
 
 This block sets up a button that links out to a URL, using `wagtailpages/templates/wagtailpages/blocks/link_button_block.html` as its rendering template.
 
-#### 2. ImageTextBlock
+#### 2. ImageTextBlock2
 
 This block sets up a text-with-image (image can be placed either right or left of the text), using `wagtailpages/templates/wagtailpages/blocks/image_text_block.html` as its rendering template.
 
