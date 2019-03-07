@@ -39,8 +39,6 @@ branches:
 matrix:
   include:
     - name: "Python tests"
-      env: CI_LABELS=`python3 ./travis-scripts/check_labels.py`
-      if: CI_LABELS =~ Backend
       install: ./travis-scripts/python-install.sh
       before_script:
         - psql -c 'create database network;' -U postgres
@@ -55,20 +53,21 @@ matrix:
         - nvm use --lts=carbon
       install: ./travis-scripts/npm-install.sh
       script: npm test
-#    - name: "Percy tests"
-#      before_install:
-#        - nvm install --lts=carbon
-#        - nvm use --lts=carbon
-#      install:
-#        - ./travis-scripts/python-install.sh
-#        - ./travis-scripts/npm-install.sh
-#      before_script:
-#        - psql -c 'create database network;' -U postgres
-#        - npm run build
-#        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity 0
-#        - pipenv run python network-api/manage.py migrate --no-input
-#        - pipenv run python network-api/manage.py block_inventory
-#        - pipenv run python network-api/manage.py sync_page_translation_fields
-#        - pipenv run python network-api/manage.py update_translation_fields
-#        - pipenv run python network-api/manage.py load_fake_data
-#      script: npm run percy
+    - name: "Percy tests"
+      if: NOT branch =~ /^(dependabot\/)/
+      before_install:
+        - nvm install --lts=carbon
+        - nvm use --lts=carbon
+      install:
+        - ./travis-scripts/python-install.sh
+        - ./travis-scripts/npm-install.sh
+      before_script:
+        - psql -c 'create database network;' -U postgres
+        - npm run build
+        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity 0
+        - pipenv run python network-api/manage.py migrate --no-input
+        - pipenv run python network-api/manage.py block_inventory
+        - pipenv run python network-api/manage.py sync_page_translation_fields
+        - pipenv run python network-api/manage.py update_translation_fields
+        - pipenv run python network-api/manage.py load_fake_data
+      script: npm run percy
