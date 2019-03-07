@@ -39,7 +39,6 @@ base_fields = [field for field in [
         ]
     )),
     ('image', customblocks.AnnotatedImageBlock()),
-    ('image_text', customblocks.ImageTextBlock()),
     ('image_text2', customblocks.ImageTextBlock2()),
     ('image_text_mini', customblocks.ImageTextMini()),
     ('figure', customblocks.FigureBlock()),
@@ -437,6 +436,15 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    banner = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_banner',
+        verbose_name='Hero Image',
+    )
+
     intro = models.CharField(
         max_length=250,
         blank=True,
@@ -466,6 +474,7 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
+        ImageChooserPanel('banner'),
         FieldPanel('intro'),
         StreamFieldPanel('body'),
     ]
