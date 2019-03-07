@@ -183,7 +183,7 @@ class FigureBlock2(blocks.StructBlock):
     square_image = blocks.BooleanBlock(
         default=True,
         required=False,
-        help_text='Note: If left checked, the image will be cropped to be square. If unchecked, the image will not be cropped and will be the same width as the other images.'
+        help_text='If left checked, the image will be cropped to be square.'
     )
 
 
