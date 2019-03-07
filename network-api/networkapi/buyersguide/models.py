@@ -76,9 +76,15 @@ class BuyersGuideProductCategory(models.Model):
         help_text='Description of the product category. Max. 300 characters.',
         blank=True
     )
+
     featured = models.BooleanField(
         default=False,
         help_text='Featured category will appear first on Buyer\'s Guide site nav'
+    )
+
+    hidden = models.BooleanField(
+        default=False,
+        help_text='Hidden categories will not appear in the Buyer\'s Guide site nav at all'
     )
 
     slug = models.SlugField(

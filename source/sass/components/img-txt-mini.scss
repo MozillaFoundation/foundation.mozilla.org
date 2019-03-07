@@ -1,0 +1,27 @@
+.img-txt-mini {
+  &-container {
+    border-top: 1px solid $black;
+    border-bottom: 1px solid $black;
+
+    img {
+      min-width: 30px;
+      max-width: 65px;
+
+      @include media-breakpoint-up(md) {
+        min-width: 50px;
+      }
+    }
+  }
+
+  &-text {
+    .rich-text {
+      p {
+        margin-bottom: 0;
+
+        &:not(:first-child) {
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
+}
