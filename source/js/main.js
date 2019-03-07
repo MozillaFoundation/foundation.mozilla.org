@@ -317,7 +317,7 @@ let main = {
             query={ target.dataset.query || `` }
             reverseChronological={ target.dataset.reversed === `True` }
             whenLoaded={() => resolve()}
-            directLink={ target.dataset.directLink }
+            directLink={ target.dataset.directLink === `True` }
           />, target
         );
       }));
