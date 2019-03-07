@@ -9,6 +9,8 @@
 
 ## Table of contents
 
+bip bop
+
 [Setup](#setup)
 
 [Development and tooling](docs/development.md)
