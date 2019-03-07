@@ -29,8 +29,7 @@ def get_labels():
 
 
 def check_labels(labels_list):
-    travis_labels = []
-    [travis_labels.append(label) for label in labels_list if label in CI_LABELS]
+    travis_labels = [label for label in labels_list if label in CI_LABELS]
 
     print(",".join(travis_labels))
 
