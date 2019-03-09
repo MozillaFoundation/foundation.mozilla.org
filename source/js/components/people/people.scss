@@ -9,14 +9,12 @@
   }
 
   .person-card-featured {
-    .more-details {
-      background-color: $blue;
-      color: white;
+    
 
       &:hover {
         background-color: $dark-blue;
       }
-    }
+    
   }
 
   .person-issues {
