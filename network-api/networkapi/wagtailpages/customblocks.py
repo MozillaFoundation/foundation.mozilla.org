@@ -132,10 +132,6 @@ class ImageTextBlock(ImageBlock):
         required=False,
         help_text='Optional URL that this image should link out to.',
     )
-    small = blocks.BooleanBlock(
-        required=False,
-        help_text='Use smaller, fixed image size (eg: icon)',
-    )
     top_divider = blocks.BooleanBlock(
         required=False,
         help_text='Optional divider above content block.',
