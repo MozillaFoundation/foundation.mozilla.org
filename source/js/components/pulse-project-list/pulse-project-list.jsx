@@ -62,14 +62,21 @@ export default class PulseProjectList extends React.Component {
   render() {
     let projectList = this.state.projects.map((project, index) => {
       let byline = null;
+      let url;
 
       if (project.related_creators.length) {
         byline = `By ${project.related_creators.map(rc => rc.name).join(`, `)}`;
       }
 
+      if (this.props.directLink){
+        url = project.content_url;
+      } else {
+        url = `https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`;
+      }
+
       return (
         <div className="col-6 col-md-4 my-4" key={`pulse-project-${index}`}>
-          <a className="pulse-project" href={`https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`} target="_blank" rel="noopener noreferrer">
+          <a className="pulse-project" href={url} target="_blank" rel="noopener noreferrer">
             <div className="thumbnail">
               <div className="img-container">
                 <img className={`project-image${ project.thumbnail ? `` : ` placeholder` }`} src={ project.thumbnail ? project.thumbnail : `/_images/proportional-spacer.png` }/>
@@ -91,6 +98,7 @@ export default class PulseProjectList extends React.Component {
 PulseProjectList.propTypes = {
   env: PropTypes.object.isRequired,
   featured: PropTypes.bool,
+  directLink: PropTypes.bool,
   help: PropTypes.string,
   issues: PropTypes.string,
   max: PropTypes.number,
