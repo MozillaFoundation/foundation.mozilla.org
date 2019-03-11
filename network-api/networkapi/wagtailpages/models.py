@@ -43,7 +43,6 @@ base_fields = [field for field in [
     ('image_text_mini', customblocks.ImageTextMini()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
-    ('figuregrid2', customblocks.FigureGridBlock2()),
     ('image_grid', customblocks.ImageGridBlock()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
