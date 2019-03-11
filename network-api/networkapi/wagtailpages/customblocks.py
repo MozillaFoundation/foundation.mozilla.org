@@ -156,7 +156,6 @@ class ImageTextBlock(ImageBlock):
         template = 'wagtailpages/blocks/image_text.html'
 
 
-
 class ImageTextMini(ImageBlock):
     text = blocks.RichTextBlock(
         features=['bold', 'italic', 'link']
