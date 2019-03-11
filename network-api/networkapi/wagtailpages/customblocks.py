@@ -187,6 +187,32 @@ class FigureGridBlock2(blocks.StructBlock):
         template = 'wagtailpages/blocks/figure_grid_block2.html'
 
 
+class ImageGrid(blocks.StructBlock):
+    image = ImageChooserBlock()
+    caption = blocks.CharBlock(
+        required=False,
+        help_text='Please remember to properly attribute any images we use.'
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this figure should link out to.',
+    )
+    square_image = blocks.BooleanBlock(
+        default=True,
+        required=False,
+        help_text='If left checked, the image will be cropped to be square.'
+    )
+
+
+class ImageGridBlock(blocks.StructBlock):
+    grid_items = blocks.ListBlock(ImageGrid())
+
+    class Meta:
+        # this is probably the wrong icon but let's run with it for now
+        icon = 'grip'
+        template = 'wagtailpages/blocks/figure_grid_block2.html'
+
+
 class BootstrapSpacerBlock(blocks.StructBlock):
     """
     See https://getbootstrap.com/docs/4.0/utilities/spacing/
@@ -365,6 +391,13 @@ class PulseProjectList(blocks.StructBlock):
         required=True,
         default='all',
         label='Type of help needed',
+    )
+
+    direct_link = blocks.BooleanBlock(
+        default=False,
+        label='Direct link',
+        help_text='Checked: user goes to project link. Unchecked: user goes to pulse entry',
+        required=False,
     )
 
     class Meta:

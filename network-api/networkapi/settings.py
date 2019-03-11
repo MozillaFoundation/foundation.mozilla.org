@@ -200,6 +200,7 @@ MIDDLEWARE = list(filter(None, [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'networkapi.middleware.ReferrerMiddleware',
 
+    'django.middleware.gzip.GZipMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
