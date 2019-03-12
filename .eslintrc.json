@@ -3,7 +3,6 @@
     "prettier"
   ],
   "plugins": [
-    "babel",
     "prettier",
     "react"
   ],
@@ -14,8 +13,7 @@
     }
   },
   "env": {
-    "es6": true,
-    "node": true
+    "es6": true
   },
   "rules": {
     "prettier/prettier": "error",
