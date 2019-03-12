@@ -480,11 +480,6 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         StreamFieldPanel('body'),
     ]
 
-    parent_page_types = [
-        'Homepage',
-        'PrimaryPage',
-    ]
-
     subpage_types = [
         'PrimaryPage',
         'RedirectingPage'
