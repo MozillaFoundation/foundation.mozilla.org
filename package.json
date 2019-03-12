@@ -65,8 +65,8 @@
     "postcss": "^7.0.14",
     "postcss-cli": "^6.1.2",
     "prop-types": "^15.7.2",
-    "react": "16.7.0",
-    "react-dom": "16.8.1",
+    "react": "16.8.4",
+    "react-dom": "16.8.4",
     "react-ga": "2.5.7",
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
@@ -82,10 +82,8 @@
     "node": "^8.9.0"
   },
   "devDependencies": {
+    "@percy/cypress": "^1.0.2",
+    "cypress": "^3.1.5",
     "wait-on": "^3.2.0"
-  },
-  "peerDependencies": {
-    "@percy/cypress": "^0.2.3",
-    "cypress": "^3.1.3"
   }
 }

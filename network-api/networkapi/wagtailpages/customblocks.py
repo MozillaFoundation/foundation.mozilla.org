@@ -124,6 +124,38 @@ class ImageTextBlock2(ImageBlock):
         template = 'wagtailpages/blocks/image_text_block2.html'
 
 
+class ImageTextBlock(ImageBlock):
+    text = blocks.RichTextBlock(
+        features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'link']
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this image should link out to.',
+    )
+    top_divider = blocks.BooleanBlock(
+        required=False,
+        help_text='Optional divider above content block.',
+    )
+    bottom_divider = blocks.BooleanBlock(
+        required=False,
+        help_text='Optional divider below content block.',
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        divider_styles = []
+        if value.get("top_divider"):
+            divider_styles.append('div-top')
+        if value.get("bottom_divider"):
+            divider_styles.append('div-bottom')
+        context['divider_styles'] = ' '.join(divider_styles)
+        return context
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'wagtailpages/blocks/image_text.html'
+
+
 class ImageTextMini(ImageBlock):
     text = blocks.RichTextBlock(
         features=['bold', 'italic', 'link']
@@ -176,15 +208,6 @@ class FigureGridBlock(blocks.StructBlock):
         icon = 'grip'
         template = 'wagtailpages/blocks/figure_grid_block.html'
         group = 'Deprecated'
-
-
-class FigureGridBlock2(blocks.StructBlock):
-    grid_items = blocks.ListBlock(FigureBlock2())
-
-    class Meta:
-        # this is probably the wrong icon but let's run with it for now
-        icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block2.html'
 
 
 class ImageGrid(blocks.StructBlock):
