@@ -13,13 +13,21 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
   var errorArray = [];
   var newsletterErrors = [];
 
-  while (newsletterErrors.firstChild) { newsletterErrors.removeChild(newsletterErrors.firstChild); }
+  while (newsletterErrors.firstChild) {
+    newsletterErrors.removeChild(newsletterErrors.firstChild);
+  }
 
-  var params = `email=` + encodeURIComponent(payload.email) +
-                  `&newsletters=` + payload.newsletter +
-                   `&privacy=`+ payload.privacy +
-                  `&fmt=` + payload.format +
-                  `&source_url=` + encodeURIComponent(document.location.href);
+  var params =
+    `email=` +
+    encodeURIComponent(payload.email) +
+    `&newsletters=` +
+    payload.newsletter +
+    `&privacy=` +
+    payload.privacy +
+    `&fmt=` +
+    payload.format +
+    `&source_url=` +
+    encodeURIComponent(document.location.href);
 
   var xhr = new XMLHttpRequest();
 
@@ -27,7 +35,7 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
     if (r.target.status >= 200 && r.target.status < 300) {
       var response = r.target.response;
 
-      if(response === null ) {
+      if (response === null) {
         onFailCallback(new Error());
         return;
       }
@@ -35,7 +43,7 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
       if (response.success === true) {
         onSuccessCallback();
       } else {
-        if(response.errors) {
+        if (response.errors) {
           for (var i = 0; i < response.errors.length; i++) {
             errorArray.push(response.errors[i]);
           }
@@ -53,14 +61,13 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
 
   xhr.open(`POST`, url, true);
   xhr.setRequestHeader(`Content-type`, `application/x-www-form-urlencoded`);
-  xhr.setRequestHeader(`X-Requested-With`,`XMLHttpRequest`);
+  xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
   xhr.timeout = 5000;
   xhr.ontimeout = onFailCallback;
   xhr.responseType = `json`;
   xhr.send(params);
 
   return false;
-
 };
 
 module.exports = basketSignup;
