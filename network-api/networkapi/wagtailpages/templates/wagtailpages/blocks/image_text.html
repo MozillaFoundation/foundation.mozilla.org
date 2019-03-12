@@ -1,7 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="row my-4">
-
   {% if value.small %}
     <div class="col-12 d-flex flex-nowrap">
       <div class="mr-3" style="width:50px; flex-shrink:0;">
@@ -13,7 +12,6 @@
         {{ value.text|richtext }}
       </div>
     </div>
-
   {% else %}
   <div class="col-12 image-text-img">
       <div class="col-12 px-0 d-md-flex align-items-md-center {{ divider_styles }}">
