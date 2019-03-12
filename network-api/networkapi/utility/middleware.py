@@ -2,10 +2,20 @@ from django.http.response import HttpResponseRedirectBase
 from django.conf import settings
 
 hostname = settings.TARGET_DOMAIN
+referrer_value = 'same-origin'
+
+if settings.REFERRER_HEADER_VALUE:
+    referrer_value = settings.REFERRER_HEADER_VALUE
 
 
 class HttpResponseTemporaryRedirect(HttpResponseRedirectBase):
     status_code = 307
+
+
+class ReferrerMiddleware(MiddlewareMixin):
+    def process_response(self, request, response):
+        response['Referrer-Policy'] = referrer_value
+        return response
 
 
 class TargetDomainRedirectMiddleware:

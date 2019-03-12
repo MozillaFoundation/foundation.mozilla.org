@@ -198,7 +198,7 @@ MIDDLEWARE = list(filter(None, [
 
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'networkapi.middleware.ReferrerMiddleware',
+    'networkapi.utility.middleware.ReferrerMiddleware',
 
     'django.middleware.gzip.GZipMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
