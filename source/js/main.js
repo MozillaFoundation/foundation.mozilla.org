@@ -55,8 +55,12 @@ let main = {
     Array.from( document.querySelectorAll(`a`) ).forEach((link) => {
       let href = link.getAttribute(`href`);
 
+      function checkDomain(domain) {
+        return !href.match(`//${domain}`);
+      }
+
       // Define an external link as any URL with `//` in it
-      if (href && href.match(/\/\//) && !href.match(`//${env.TARGET_DOMAIN}`)) {
+      if (href && href.match(/\/\//) && env.TARGET_DOMAINS.some(checkDomain)) {
         link.setAttribute(`target`, `_blank`);
 
         // https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/
