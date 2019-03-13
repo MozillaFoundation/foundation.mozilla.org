@@ -56,7 +56,7 @@
 
           <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row">
             <div class="meta-block">
-              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">
+              <a href="https://www.mozillapulse.org/profile/${ profile.profile_id }">
                 <div class="h5-heading">
                   <span class="meta-block-name">
                     ${ profile.name }
