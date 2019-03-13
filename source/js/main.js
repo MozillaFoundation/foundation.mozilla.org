@@ -324,30 +324,32 @@ let main = {
     });
 
     // store profile cards
-    let profileCards = document.querySelector(`.profiles .person-card`);
+    let profileCards = document.querySelectorAll(`.profiles .person-card`);
 
     // checks for profile cards
     if (profileCards.length > 0) {
-
-      // function adding event listener to headshot & name
+      // event listener & GA
       let bindAnalytics = (element, name) => {
-        element.addEventListener(`click`, () => {
-          let success = ReactGA.event({
+        element.addEventListener(`click`, evt => {
+          evt.preventDefault();
+          console.log(`Test: ${name}`);
+          ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
             label: `${document.title} ${name} pulse profile`
           });
-
-          console.log(success);
         });
       };
 
-      profileCards.forEach( () => {
-        let profileName = profileCards.querySelector(`.meta-name-container`);
-        let profileHeadshot = profileCards.querySelector(`.headshot-container`);
+      // adding event listener for each headshot & name
+      profileCards.forEach(card => {
+        let profileNameElement = card.querySelector(`.meta-block-name`);
+        let profileName = profileNameElement.textContent;
+        let profileHeadshotElement = card.querySelector(`.headshot-container`);
 
-        // tacks event listener to name & headshot then providesname content for ReactGA event ^
-        [profileName, profileHeadshot].forEach(target => bindAnalytics(target, profileName.textContent));
+        [profileNameElement, profileHeadshotElement].forEach(target =>
+          bindAnalytics(target, profileName)
+        );
       });
     }
 

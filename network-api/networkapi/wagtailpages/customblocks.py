@@ -539,6 +539,8 @@ class LatestProfileList(blocks.StructBlock):
             query=parse.urlencode(query_args)
         )
 
+        data = []
+
         try:
             response = request.urlopen(url)
             response_data = response.read()
@@ -554,7 +556,6 @@ class LatestProfileList(blocks.StructBlock):
             print(str(exception))
             pass
 
-        data = []
         context['profiles'] = data
         context['profile_type'] = value['profile_type']
         context['program_type'] = value['program_type']
