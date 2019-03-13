@@ -323,27 +323,30 @@ let main = {
       }));
     });
 
+    // store profile cards
     let profileCards = document.querySelector(`.profiles .person-card`);
 
+    // checks for profile cards
     if (profileCards.length > 0) {
-      const updateCardEvents = () => {
-        profileCards.forEach( () => {
-          const name = profileCards.querySelector(`.meta-name-container`);
 
-          const profile = profileCards.querySelector(`.headshot-container, ${name}`);
-
-          profile.addEventListener(`click`, () => {
-            ReactGA.event({
-              category: `profiles`,
-              action: `profile tap`,
-              label: `${document.title} ${name} pulse profile`
-            });
+      // function adding event listener to headshot & name
+      let bindAnalytics = (element, name) => {
+        element.addEventListener(`click`, () => {
+          ReactGA.event({
+            category: `profiles`,
+            action: `profile tap`,
+            label: `${document.title} ${name} pulse profile`
           });
         });
       };
 
-      document.addEventListener(`profiles:list-updated`, () => updateCardEvents());
-      updateCardEvents();
+      profileCards.forEach( () => {
+        let profileName = profileCards.querySelector(`.meta-name-container`);
+        let profileHeadshot = profileCards.querySelector(`.headshot-container`);
+
+        // tacks event listener to name & headshot then providesname content for ReactGA event ^
+        [profileName, profileHeadshot].forEach(target => bindAnalytics(target, profileName.textContent));
+      });
     }
 
     /*
