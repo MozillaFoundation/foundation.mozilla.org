@@ -22,13 +22,22 @@ button:hover {
 #hero {
   $bg-pattern-height: 144px;
 
-  &::before {
+  .banner {
     position: absolute;
-    content: "";
-    background: url(../_images/banner-black-white-marble.jpg) no-repeat top right;
-    background-size: cover;
     height: $bg-pattern-height;
     width: 100%;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: $bp-sm;
+
+      @media screen and (min-width: $bp-sm) {
+        min-width: 100%;
+      }
+    }
   }
 
   .cutout {

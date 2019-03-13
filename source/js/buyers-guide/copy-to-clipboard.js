@@ -1,5 +1,4 @@
 const copyToClipboard = (linkElement, textToCopy) => {
-
   let textArea = document.createElement(`textarea`);
 
   textArea.setAttribute(`contenteditable`, true);

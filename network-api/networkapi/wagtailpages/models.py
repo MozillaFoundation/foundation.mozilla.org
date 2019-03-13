@@ -40,10 +40,11 @@ base_fields = [field for field in [
     )),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text2', customblocks.ImageTextBlock2()),
+    ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
-    ('figuregrid2', customblocks.FigureGridBlock2()),
+    ('image_grid', customblocks.ImageGridBlock()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
@@ -436,6 +437,15 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    banner = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_banner',
+        verbose_name='Hero Image',
+    )
+
     intro = models.CharField(
         max_length=250,
         blank=True,
@@ -465,13 +475,9 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
+        ImageChooserPanel('banner'),
         FieldPanel('intro'),
         StreamFieldPanel('body'),
-    ]
-
-    parent_page_types = [
-        'Homepage',
-        'PrimaryPage',
     ]
 
     subpage_types = [
@@ -504,12 +510,6 @@ class BanneredCampaignPage(PrimaryPage):
 
     content_panels = PrimaryPage.content_panels + [
         SnippetChooserPanel('cta')
-    ]
-
-    parent_page_types = [
-        'HomePage',
-        'MiniSiteNameSpace',
-        'BanneredCampaignPage',
     ]
 
     subpage_types = [
