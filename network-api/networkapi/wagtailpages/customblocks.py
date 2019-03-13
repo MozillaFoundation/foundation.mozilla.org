@@ -554,6 +554,7 @@ class LatestProfileList(blocks.StructBlock):
             print(str(exception))
             pass
 
+        data = []
         context['profiles'] = data
         context['profile_type'] = value['profile_type']
         context['program_type'] = value['program_type']

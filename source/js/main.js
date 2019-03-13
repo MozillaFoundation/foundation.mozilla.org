@@ -323,6 +323,27 @@ let main = {
       }));
     });
 
+    let profileCards = document.querySelector('.profiles .person-card');
+    
+    if (profileCards.length > 0) {
+      const updateCardEvents = () => {
+        profileCards.forEach(profile => {
+          const name = profileCards.querySelector('.meta-name-container');
+          const profile = profileCards.querySelector(`.headshot-container, ${name}`);
+          profile.addEventListener('click', evt => {
+            ReactGA.event({
+              category: `profiles`,
+              action: `profile tap`,
+              label: `${document.title} ${name} pulse profile`
+            });
+          });
+          document.addEventListener('profiles:list-updated', () => updateCardEvents());
+          updateCardEvents();
+        });
+      }
+    }
+    
+
     /*
       The following code has been disabled for
       https://github.com/mozilla/foundation.mozilla.org/issues/2630,

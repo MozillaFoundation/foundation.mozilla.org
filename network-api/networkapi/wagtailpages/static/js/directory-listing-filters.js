@@ -130,6 +130,7 @@
         }
       });
     });
+    document.dispatchEvent(new CustomEvent('profiles:list-updated'));
   }
 
   // and finally, kick everything off by
