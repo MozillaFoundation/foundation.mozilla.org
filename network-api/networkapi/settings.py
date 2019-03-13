@@ -57,6 +57,7 @@ env = environ.Env(
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
+    DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
     TARGET_DOMAINS=(list, None),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
