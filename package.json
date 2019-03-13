@@ -76,6 +76,7 @@
     "snyk": "^1.136.1",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
+    "stylelint-prettier": "^1.0.6",
     "svgo": "^1.2.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
