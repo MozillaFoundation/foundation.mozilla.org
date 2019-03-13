@@ -40,6 +40,7 @@ base_fields = [field for field in [
     )),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text2', customblocks.ImageTextBlock2()),
+    ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
     ('figure', customblocks.FigureBlock()),
     ('figuregrid', customblocks.FigureGridBlock()),
@@ -479,11 +480,6 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         StreamFieldPanel('body'),
     ]
 
-    parent_page_types = [
-        'Homepage',
-        'PrimaryPage',
-    ]
-
     subpage_types = [
         'PrimaryPage',
         'RedirectingPage'
@@ -514,12 +510,6 @@ class BanneredCampaignPage(PrimaryPage):
 
     content_panels = PrimaryPage.content_panels + [
         SnippetChooserPanel('cta')
-    ]
-
-    parent_page_types = [
-        'HomePage',
-        'MiniSiteNameSpace',
-        'BanneredCampaignPage',
     ]
 
     subpage_types = [
