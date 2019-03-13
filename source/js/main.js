@@ -56,7 +56,11 @@ let main = {
       let href = link.getAttribute(`href`);
 
       // Define an external link as any URL with `//` in it
-      if (href && href.match(/\/\//) && env.TARGET_DOMAINS.some(domain => !href.match(`//${domain}`))) {
+      if (
+        href &&
+        href.match(/\/\//) &&
+        env.TARGET_DOMAINS.some(domain => !href.match(`//${domain}`))
+      ) {
         link.setAttribute(`target`, `_blank`);
 
         // https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/
