@@ -1,5 +1,5 @@
-import DNT from './dnt.js';
-import ReactGA from 'react-ga';
+import DNT from "./dnt.js";
+import ReactGA from "react-ga";
 
 // A no-operation object with the same API surface
 // as ReactGA, for when tracking is not appreciated:
