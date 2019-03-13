@@ -5,7 +5,7 @@ from django.core.management import call_command
 from django.test import TestCase
 from unittest.mock import MagicMock
 
-from networkapi.middleware import ReferrerMiddleware
+from networkapi.utility.middleware import ReferrerMiddleware
 
 
 class ReferrerMiddlewareTests(TestCase):
