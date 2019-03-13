@@ -332,11 +332,13 @@ let main = {
       // function adding event listener to headshot & name
       let bindAnalytics = (element, name) => {
         element.addEventListener(`click`, () => {
-          ReactGA.event({
+          let success = ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
             label: `${document.title} ${name} pulse profile`
           });
+
+          console.log(success);
         });
       };
 
