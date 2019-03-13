@@ -1,4 +1,4 @@
-import data from './locale-strings.jsx';
+import data from "./locale-strings.jsx";
 
 const DEFAULT_LOCALE = `en`;
 let currentLocale = false;
@@ -17,7 +17,7 @@ function getCurrentLocale() {
   if (!currentLocale) {
     var pathsegments = window.location.pathname.split(`/`).filter(v => v);
 
-    currentLocale = (pathsegments.length > 0) ? pathsegments[0] : DEFAULT_LOCALE;
+    currentLocale = pathsegments.length > 0 ? pathsegments[0] : DEFAULT_LOCALE;
   }
 
   return currentLocale || DEFAULT_LOCALE;
