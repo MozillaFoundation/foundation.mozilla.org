@@ -513,12 +513,6 @@ class BanneredCampaignPage(PrimaryPage):
         SnippetChooserPanel('cta')
     ]
 
-    parent_page_types = [
-        'HomePage',
-        'MiniSiteNameSpace',
-        'BanneredCampaignPage',
-    ]
-
     subpage_types = [
         'BanneredCampaignPage',
     ]
