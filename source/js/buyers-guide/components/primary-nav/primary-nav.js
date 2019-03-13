@@ -1,6 +1,6 @@
 /*
-* This is a modified version of source/js/primary-nav.js
-*/
+ * This is a modified version of source/js/primary-nav.js
+ */
 
 let primaryNav = {
   init: function() {
@@ -39,7 +39,7 @@ let primaryNav = {
       setContentUnderneathState(openMenu);
     }
 
-    document.addEventListener(`keyup`, (e) => {
+    document.addEventListener(`keyup`, e => {
       if (e.keyCode === 27) {
         menuOpen = false;
         setMenuState(menuOpen);
