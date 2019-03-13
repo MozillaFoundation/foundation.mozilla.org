@@ -323,26 +323,28 @@ let main = {
       }));
     });
 
-    let profileCards = document.querySelector('.profiles .person-card');
-    
+    let profileCards = document.querySelector(`.profiles .person-card`);
+
     if (profileCards.length > 0) {
       const updateCardEvents = () => {
-          const name = profileCards.querySelector('.meta-name-container');
+        profileCards.forEach( () => {
+          const name = profileCards.querySelector(`.meta-name-container`);
+
           const profile = profileCards.querySelector(`.headshot-container, ${name}`);
-          for (profile in profileCards) {
-            profile.addEventListener('click', evt => {
-              ReactGA.event({
-                category: `profiles`,
-                action: `profile tap`,
-                label: `${document.title} ${name} pulse profile`
-              });
+
+          profile.addEventListener(`click`, () => {
+            ReactGA.event({
+              category: `profiles`,
+              action: `profile tap`,
+              label: `${document.title} ${name} pulse profile`
             });
-          } 
-          document.addEventListener('profiles:list-updated', () => updateCardEvents());
-          updateCardEvents();
-      }
+          });
+        });
+      };
+
+      document.addEventListener(`profiles:list-updated`, () => updateCardEvents());
+      updateCardEvents();
     }
-    
 
     /*
       The following code has been disabled for
