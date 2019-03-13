@@ -233,7 +233,7 @@ class ImageGridBlock(blocks.StructBlock):
     class Meta:
         # this is probably the wrong icon but let's run with it for now
         icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block2.html'
+        template = 'wagtailpages/blocks/image_grid_block.html'
 
 
 class BootstrapSpacerBlock(blocks.StructBlock):
