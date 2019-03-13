@@ -3,25 +3,27 @@ from io import StringIO
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.test import TestCase
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from networkapi.utility.middleware import ReferrerMiddleware
 
 
 class ReferrerMiddlewareTests(TestCase):
 
+    @patch('networkapi.utility.middleware.ReferrerMiddleware')
     def setUp(self):
-        self.middleware = ReferrerMiddleware()
-        self.request = MagicMock()
-        self.response = MagicMock()
+        referrer_middleware = ReferrerMiddleware('response')
+        self.assertEqual(referrer_middleware.get_response, 'response')
 
     def test_requestProcessing(self):
         """
         Ensure that the middleware assigns a Referrer-Policy header to the response object
         """
 
-        response = self.middleware.process_response(self.request, self.response)
-        response.__setitem__.assert_called_with('Referrer-Policy', 'same-origin')
+        request = MagicMock()
+        referrer_middleware = ReferrerMiddleware(MagicMock())
+        response = referrer_middleware(request)
+        self.assertEqual(response['Referrer-Policy'], 'same-origin')
 
 
 class MissingMigrationsTests(TestCase):
