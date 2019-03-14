@@ -62,7 +62,7 @@
           <a href="/en/privacynotincluded/about" class="info-help">How to use this guide</a>
         </div>
 
-        <h3 class="h3new-heading">Can it spy on me</h3>
+        <h3 class="h3-heading">Can it spy on me</h3>
 
         <div class="row mb-5">
           <div class="col-12 col-md-4">
@@ -94,7 +94,7 @@
           </div>
         </div>
 
-        <h3 class="h3new-heading">What does it know about me</h3>
+        <h3 class="h3-heading">What does it know about me</h3>
 
         <div class="mb-5">
           {% include "fragments/product-criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" criterion_name="uses-encryption" %}
@@ -102,7 +102,7 @@
           {% include "fragments/product-criterion.html"  with  value=product.share_data  bad=True  help=product.share_data_helptext  label="Shares your information with 3rd parties for unexpected reasons" %}
         </div>
 
-        <h3 class="h3new-heading">Can I control it</h3>
+        <h3 class="h3-heading">Can I control it</h3>
 
         <div class="mb-5">
           {% include "fragments/product-criterion.html"  with  value=product.must_change_default_password  bad=False  help=product.must_change_default_password_helptext   label="If a password is required, you must change the default password"  unknown_label="Not required" %}
@@ -111,14 +111,14 @@
           {% include "fragments/product-criterion.html"  with  value=product.child_rules                   bad=False  help=product.child_rules_helptext                    label="Has parental controls "%}
         </div>
 
-        <h3 class="h3new-heading">Company shows it cares about its customers</h3>
+        <h3 class="h3-heading">Company shows it cares about its customers</h3>
 
         <div class="mb-5">
             {% include "fragments/product-criterion.html"  with  value=product.manage_security  bad=False  help=product.manage_security_helptext label="Company manages security vulnerabilities"%}
             {% include "fragments/product-contact.html" with product=product %}
         </div>
 
-        <h3 class="h3new-heading"><span class="creep-face-emoji">😮</span>What could happen if something went wrong</h3>
+        <h3 class="h3-heading"><span class="creep-face-emoji">😮</span>What could happen if something went wrong</h3>
 
         <p>{{product.worst_case}}</p>
 

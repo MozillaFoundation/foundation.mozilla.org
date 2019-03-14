@@ -54,7 +54,7 @@ export default class News extends React.Component {
               )}
               <p className="h6-heading mb-0">{newsItem.outlet}</p>
             </div>
-            <h3 className="h3new-heading mb-2">
+            <h3 className="h3-heading mb-2">
               <a href={newsItem.link} className="newsItem headline">
                 {newsItem.headline}
               </a>

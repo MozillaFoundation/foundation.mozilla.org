@@ -15,7 +15,7 @@ export default class Highlights extends React.Component {
           <div className={`${item.image ? `pb-5` : `py-5`}`}>
             {item.image && <img src={item.image} />}
             <div className="key-item mx-2 mx-md-4 p-3">
-              <h5 className="h3new-heading mb-2">{item.title}</h5>
+              <h5 className="h3-heading mb-2">{item.title}</h5>
               <p>{item.description}</p>
               <a className="cta-link mb-2" href={item.link_url}>
                 {item.link_label}

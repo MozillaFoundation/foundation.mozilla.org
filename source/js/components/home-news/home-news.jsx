@@ -20,7 +20,7 @@ export default class HomeNews extends React.Component {
           <h5 className="mb-2">
             <a
               href={item.link}
-              className={featured ? `h3new-heading` : `h5-heading`}
+              className={featured ? `h3-heading` : `h5-heading`}
             >
               {item.headline}
             </a>
