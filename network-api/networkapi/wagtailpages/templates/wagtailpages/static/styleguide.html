@@ -5,12 +5,10 @@
 
 {% block content %}
 <div class="container mt-4">
-  <h2>OUT OF DATE</h2>
-  <h3>New style guide is being developed.</h3>
-  <div class="row" style="filter: blur(0px);">
+  <h2 class="mb-5">OUT OF DATE. New style guide is being developed.</h2>
+  <div class="row">
     <div class="col-12 pb-5">
-      <h1>Style Guide</h1>
-      <h2>Colors</h2>
+      <h2 class="h1-heading">Colors</h2>
       <div class="row">
         <div class="col-sm-6 col-md-3 mb-3">
           <div class="color-display d-flex flex-column h-100">
@@ -145,19 +143,21 @@
           </div>
         </div>
       </div>
-      <h2>Typography</h2>
-      <h3 class="my-5">Headers</h3>
+
+      <h2 class="h1-heading">Typography</h2>
+
+      <h3 class="h2new-heading my-4">Headers</h3>
       <div class="py-2">
         <h1 class="h1-heading">.h1-heading</h1>
       </div>
       <div class="py-2">
-        <h3 class="h2new-heading">.h2new-heading</h3>
+        <h2 class="h2new-heading">.h2new-heading</h2>
       </div>
       <div class="py-2">
-        <h4 class="h3new-heading">.h3new-heading</h4>
+        <h3 class="h3new-heading">.h3new-heading</h3>
       </div>
       <div class="py-2">
-        <h2 class="h4new-heading">.h4new-heading</h2>
+        <h4 class="h4new-heading">.h4new-heading</h4>
       </div>
       <div class="py-2">
         <h5 class="h5-heading">.h5-heading</h5>
@@ -165,7 +165,30 @@
       <div class="py-2">
         <h6 class="h6-heading">.h6-heading</h6>
       </div>
-      <h3 class="my-5">Paragraphs</h3>
+
+      <hr />
+      <h3 class="h2new-heading my-4">Headers with links</h3>
+      <div class="py-2">
+        <h1 class="h1-heading">.h1-heading with <a href="">link</a></h1>
+      </div>
+      <div class="py-2">
+        <h2 class="h2new-heading">.h2new-heading with <a href="">link</a></h2>
+      </div>
+      <div class="py-2">
+        <h3 class="h3new-heading">.h3new-heading with <a href="">link</a></h3>
+      </div>
+      <div class="py-2">
+        <h4 class="h4new-heading">.h4new-heading with <a href="">link</a></h4>
+      </div>
+      <div class="py-2">
+        <h5 class="h5-heading">.h5-heading with <a href="">link</a></h5>
+      </div>
+      <div class="py-2">
+        <h6 class="h6-heading">.h6-heading with <a href="">link</a></h6>
+      </div>
+
+      <hr />
+      <h3 class="h2new-heading my-4">Paragraphs</h3>
       <div class="py-2">
         <p class="quote">.quote</p>
       </div>
@@ -181,9 +204,13 @@
       <div class="py-2">
         <p class="body-small">.body-small</p>
       </div>
-      <h3 class="my-5">Anchors</h3>
+
+      <hr />
+      <h3 class="h2new-heading my-4">Anchors</h3>
       <div class="py-2"><a class="cta-link" href="#">.cta-link</a></div>
-      <h3 class="my-5">Buttons</h3>
+
+      <hr />
+      <h3 class="h2new-heading my-4">Buttons</h3>
       <div class="py-2">
         <button class="btn btn-ghost">.btn-ghost</button>
       </div>
@@ -193,7 +220,9 @@
       <div class="py-2">
         <button class="btn btn-pop">.btn-pop</button>
       </div>
-      <h3 class="my-5">Components</h3>
+
+      <hr />
+      <h3 class="h2new-heading my-4">Components</h3>
       <h4>.hr-gradient</h4>
       <hr class="hr-gradient">
       <h4>card (Django template custom tag: `card_tags`)</h4>
