@@ -3,6 +3,8 @@ Related PRs/issues #
 
 ## Checklist
 
+_Remove unnecessary checks_
+
 **Tests**
 - [ ] Is the code I'm adding covered by tests?
 
