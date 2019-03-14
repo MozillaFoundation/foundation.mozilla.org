@@ -21,3 +21,13 @@
     }
   }
 }
+
+@mixin dark-theme-inline-anchor($color: inherit) {
+  color: $color;
+  font-weight: inherit;
+
+  @include hover-focus-active {
+    color: $light-blue;
+    text-decoration: underline;
+  }
+}
