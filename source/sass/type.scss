@@ -1,7 +1,8 @@
 a {
   color: $dark-blue;
 
-  @include hover-focus-active { // Bootstrap / mofo-style overrides
+  @include hover-focus-active {
+    // Bootstrap / mofo-style overrides
     color: $dark-blue;
     text-decoration: underline;
   }

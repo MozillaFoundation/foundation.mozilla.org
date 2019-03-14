@@ -19,7 +19,7 @@
       flex-wrap: wrap;
       width: calc(50% - #{$margin-x});
 
-      &:nth-child(2n+1) {
+      &:nth-child(2n + 1) {
         margin-right: $margin-x * 2;
       }
     }

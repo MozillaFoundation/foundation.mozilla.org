@@ -219,9 +219,7 @@ export default class CreepVote extends React.Component {
             >
               Vote & See Results
             </button>
-            <p class="h6-heading mb-0">
-              {this.state.totalVotes} votes
-            </p>
+            <p class="h6-heading mb-0">{this.state.totalVotes} votes</p>
           </div>
         </div>
       </form>

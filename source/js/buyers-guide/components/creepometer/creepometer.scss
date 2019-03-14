@@ -2,7 +2,8 @@
   margin-top: 70px;
 
   .slider {
-    background: url("/_images/buyers-guide/gradient-bar.svg") no-repeat 0 center / contain;
+    background: url("/_images/buyers-guide/gradient-bar.svg") no-repeat 0 center /
+      contain;
     position: relative;
     height: 100px;
     cursor: pointer;
@@ -51,7 +52,7 @@
       background: transparent;
 
       &::after {
-        content: ' ';
+        content: " ";
         background: white;
         border-radius: 20px;
         box-shadow: 2px 2px 3px grey;

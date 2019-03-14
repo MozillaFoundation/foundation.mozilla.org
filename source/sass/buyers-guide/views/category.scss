@@ -11,7 +11,14 @@
     }
 
     .adult-content-badge {
-      @include adult-content-badge($padding-y, $padding-x, 33px, 28px, 55px, 46px);
+      @include adult-content-badge(
+        $padding-y,
+        $padding-x,
+        33px,
+        28px,
+        55px,
+        46px
+      );
     }
 
     .category-image-container {
