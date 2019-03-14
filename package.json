@@ -29,6 +29,7 @@
     "test:procfile": "node test/test-procfile.js",
     "test:eslint": "eslint --config ./.eslintrc.json \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
+    "test:css": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --syntax scss",
     "test": "run-s test:** build",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:js": "chokidar \"source/js/**/*.js\" \"source/js/**/*.jsx\" -c \"npm run build:js-uncompressed\"",
