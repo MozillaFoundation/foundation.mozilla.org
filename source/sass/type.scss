@@ -4,10 +4,11 @@ h3,
 h4,
 h5,
 h6 {
-  color: $black;
+  color: $black; // Bootstrap override
 
   a {
     color: inherit;
+    font-weight: inherit;
 
     @include hover-focus-active {
       color: inherit;
@@ -42,9 +43,10 @@ a {
 
 h1,
 .h1-heading {
-  font-family: "Zilla Slab";
-  font-weight: 400;
+  // font-family: "Zilla Slab";
+  // font-weight: 400;
 
+  @include heading("Zilla Slab", 400, 0);
   @include scaleText(36px, 40px, 48px, 56px);
 }
 
@@ -52,10 +54,11 @@ h1,
 // .h3-heading,
 h2,
 .h2new-heading {
-  font-family: "Zilla Slab";
-  font-weight: 300;
-  letter-spacing: 0;
+  // font-family: "Zilla Slab";
+  // font-weight: 300;
+  // letter-spacing: 0;
 
+  @include heading("Zilla Slab", 300, 0);
   @include scaleText(28px, 32px, 40px, 48px);
 }
 
@@ -63,10 +66,11 @@ h2,
 // .h4-heading,
 h3,
 .h3new-heading {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  letter-spacing: 0;
+  // font-family: "Zilla Slab";
+  // font-weight: 400;
+  // letter-spacing: 0;
 
+  @include heading("Zilla Slab", 400, 0);
   @include scaleText(24px, 28px, 28px, 36px);
 
   a {
@@ -78,35 +82,32 @@ h3,
 // .h2-heading,
 h4,
 .h4new-heading {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  letter-spacing: 0;
-
+  // font-family: "Zilla Slab";
+  // font-weight: 400;
+  // letter-spacing: 0;
+  @include heading("Zilla Slab", 400, 0);
   @include scaleText(22px, 32px, 24px, 36px);
 }
 
 h5,
 .h5-heading {
-  font-family: "Zilla Slab";
-  font-weight: 600;
-  letter-spacing: 0;
-
+  // font-family: "Zilla Slab";
+  // font-weight: 600;
+  // letter-spacing: 0;
+  @include heading("Zilla Slab", 600, 0);
   @include scaleText(20px, 24px, 22px, 28px);
-
-  a {
-    font-weight: inherit;
-  }
 }
 
 h6,
 .h6-heading {
-  font-family: "Nunito Sans";
-  font-weight: 400;
-  color: $gray-40;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-
+  // font-family: "Nunito Sans";
+  // font-weight: 400;
+  // letter-spacing: 0.5px;
+  @include heading("Nunito Sans", 400, 0.5px);
   @include scaleText(12px, 16px);
+
+  color: $gray-40;
+  text-transform: uppercase;
 }
 
 .body-small {

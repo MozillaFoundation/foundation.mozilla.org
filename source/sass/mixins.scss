@@ -1,3 +1,9 @@
+@mixin heading($font-family, $font-weight, $letter-spacing) {
+  font-family: $font-family;
+  font-weight: $font-weight;
+  letter-spacing: $letter-spacing;
+}
+
 @mixin scaleText($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
   font-size: $base-font-size;
 

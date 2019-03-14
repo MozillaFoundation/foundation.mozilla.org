@@ -52,7 +52,7 @@ export default class News extends React.Component {
               {newsItem.glyph && (
                 <img src={newsItem.glyph} className="mr-2 glyph" />
               )}
-              <p className="body-small-uppercase mb-0">{newsItem.outlet}</p>
+              <p className="h6-heading mb-0">{newsItem.outlet}</p>
             </div>
             <h3 className="h3new-heading mb-2">
               <a href={newsItem.link} className="newsItem headline">

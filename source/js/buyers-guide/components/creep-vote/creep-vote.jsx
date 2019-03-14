@@ -219,7 +219,7 @@ export default class CreepVote extends React.Component {
             >
               Vote & See Results
             </button>
-            <p class="body-small-uppercase mb-0">
+            <p class="h6-heading mb-0">
               {this.state.totalVotes} votes
             </p>
           </div>
@@ -243,7 +243,7 @@ export default class CreepVote extends React.Component {
             <h3 className="h2new-heading mb-1">
               {this.state.totalVotes + 1} Votes — invite your friends!
             </h3>
-            <div className="body-small-uppercase text-muted" />
+            <div className="h6-heading text-muted" />
           </div>
           <div className="row mt-3">
             <div className="col">
