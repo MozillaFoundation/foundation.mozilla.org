@@ -110,33 +110,6 @@ h6,
   text-transform: uppercase;
 }
 
-.body-small {
-  font-family: "Nunito Sans";
-  font-weight: 400;
-  color: $gray-40;
-  letter-spacing: 0;
-
-  @include scaleText(12px, 16px);
-}
-
-.body-large,
-.body-large p {
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.333;
-
-  @include scaleText(18px, 24px, 20px, 28px);
-}
-
-.quote-small {
-  font-family: "Nunito Sans";
-  font-weight: 300;
-  font-style: italic;
-  color: $black;
-
-  @include scaleText(18px, 24px, 22px, 32px);
-}
-
 .quote-feature {
   font-family: "Zilla Slab";
   font-weight: 300;
@@ -154,18 +127,29 @@ h6,
 }
 
 p,
-.normal {
+.body {
   color: $black;
   letter-spacing: 0;
 
   @include scaleText(16px, 24px);
 }
 
-.body-link {
+.body-small {
+  font-family: "Nunito Sans";
+  font-weight: 400;
+  color: $gray-40;
   letter-spacing: 0;
-  font-weight: 700;
 
-  @include scaleText(16px, 24px);
+  @include scaleText(12px, 16px);
+}
+
+.body-large,
+.body-large p {
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1.333;
+
+  @include scaleText(18px, 24px, 20px, 28px);
 }
 
 .cta-link {

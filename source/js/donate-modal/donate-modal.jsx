@@ -95,7 +95,7 @@ class DonateModal extends React.Component {
           <div className="row align-items-center text-center text-md-left">
             <div className="col-md-6">
               <h1 className="h2new-heading">{title}</h1>
-              <p className="normal">{subheading} </p>
+              <p>{subheading} </p>
             </div>
             <div className="col-md-4 offset-md-2">
               <h2 className="h5-heading">{cta.title}</h2>
