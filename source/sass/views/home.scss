@@ -32,9 +32,3 @@
 .cta {
   min-height: 350px;
 }
-
-#view-home {
-  .h1-heading {
-    @include scaleText(36px, 40px, 48px, 56px);
-  }
-}

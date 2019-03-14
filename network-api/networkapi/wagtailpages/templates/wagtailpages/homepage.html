@@ -24,7 +24,7 @@
   <div class="row">
     <div class="col mb-4">
       <hr class="mb-4 hr-emphasis mt-0">
-      <h4 class="h2-heading">Latest news</h4>
+      <h4 class="h4new-heading">Latest news</h4>
     </div>
   </div>
   <div id="home-news-wagtail">
@@ -44,12 +44,12 @@
                   {% if article.news.glyph %}
                     {% homepage_image_with_class article.news.glyph "mr-2 glyph" %}
                   {% endif %}
-                  <p class="h6-heading-uppercase mb-0">{{article.news.outlet}}</p>
+                  <p class="body-small-uppercase mb-0">{{article.news.outlet}}</p>
                 </div>
-                <h5 class="mb-2 h4-heading">
+                <h5 class="mb-2 h3new-heading">
                   <a href="{{article.news.link}}">{{article.news.headline}}</a>
                 </h5>
-                <p class="h6-heading mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+                <p class="body-small mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
                 <p>{{article.news.excerpt}}</p>
               </div>
             </div>
@@ -68,12 +68,12 @@
             {% if article.news.glyph %}
             {% homepage_image_with_class article.news.glyph "mr-2 glyph" %}
             {% endif %}
-            <p class="h6-heading-uppercase mb-0">{{article.news.outlet}}</p>
+            <p class="body-small-uppercase mb-0">{{article.news.outlet}}</p>
           </div>
           <h5 class="mb-2">
             <a href="{{article.news.link}}">{{article.news.headline}}</a>
           </h5>
-          <p class="h6-heading mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+          <p class="body-small mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
           <p>{{article.news.excerpt}}</p>
           <hr>
         </div>
@@ -91,7 +91,7 @@
   <div class="row">
     <div class="col mb-4">
       <hr class="hr-emphasis mb-4">
-      <h4 class="h2-heading">Happening now</h4>
+      <h4 class="h4new-heading">Happening now</h4>
     </div>
   </div>
   <div id="home-highlights-wagtail">
@@ -127,7 +127,7 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <h4 class="h2-heading">Trending projects</h4>
+    <h4 class="h4new-heading">Trending projects</h4>
   </div>
   <div class="col-md-6 d-none d-md-flex justify-content-end">
     <a class="cta-link" href="https://www.mozillapulse.org/add">Add your project</a>
@@ -151,7 +151,7 @@
       <div class="col">
         <div class="feature-quote">
           <h3>We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices.</h3>
-          <p class="h6-heading-uppercase">Rishab Nithyanand, Mozilla Fellow</p>
+          <p class="body-small-uppercase">Rishab Nithyanand, Mozilla Fellow</p>
         </div>
       </div>
     </div>

@@ -63,7 +63,7 @@
                   </span>
                 </div>
               </a>
-              <p class="d-flex align-items-center meta-block-location h6-heading my-2">${ profile.location }</p>
+              <p class="d-flex align-items-center meta-block-location body-small my-2">${ profile.location }</p>
             </div>
             <div class="social-icons">
               ${ profile.twitter ? `<a href="${ profile.twitter }" class="twitter small"></a>` : `` }

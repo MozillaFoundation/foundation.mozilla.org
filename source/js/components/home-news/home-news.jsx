@@ -15,17 +15,17 @@ export default class HomeNews extends React.Component {
         <div className="news-item" key={index}>
           <div className="d-flex align-items-center mb-2">
             {item.glyph && <img src={item.glyph} className="mr-2 glyph" />}
-            <p className="h6-heading-uppercase mb-0">{item.outlet}</p>
+            <p className="body-small-uppercase mb-0">{item.outlet}</p>
           </div>
           <h5 className="mb-2">
             <a
               href={item.link}
-              className={featured ? `h4-heading` : `h5-heading`}
+              className={featured ? `h3new-heading` : `h5-heading`}
             >
               {item.headline}
             </a>
           </h5>
-          <p className="h6-heading mb-2">
+          <p className="body-small mb-2">
             {item.author && `by ${item.author} on `}
             {moment(item.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}
           </p>

@@ -86,7 +86,7 @@ export default class Petition extends React.Component {
                 ref={name}
               />
               <span
-                className="h6-heading form-text"
+                className="body-small form-text"
                 dangerouslySetInnerHTML={{ __html: label }}
               />
             </label>
@@ -776,7 +776,7 @@ export default class Petition extends React.Component {
                   id="PrivacyCheckbox"
                   ref="privacy"
                 />
-                <span className="h6-heading form-text">
+                <span className="body-small form-text">
                   {get(
                     `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
                   )}
@@ -799,7 +799,7 @@ export default class Petition extends React.Component {
                     id="NewsletterSignup"
                     ref="newsletterSignup"
                   />
-                  <span className="h6-heading form-text">
+                  <span className="body-small form-text">
                     {get(
                       `Yes, I want to receive email updates about Mozilla's campaigns.`
                     )}

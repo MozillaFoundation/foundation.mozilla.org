@@ -6,11 +6,13 @@ h5,
 h6 {
   color: $black;
 
-  a,
-  a:hover,
-  a:active,
-  a:focus {
+  a {
     color: inherit;
+
+    @include hover-focus-active {
+      color: inherit;
+      text-decoration: underline;
+    }
   }
 }
 
@@ -31,54 +33,25 @@ h6,
 
 a {
   color: $dark-blue;
-  font-weight: 700;
 
   @include hover-focus-active { // Bootstrap / mofo-style overrides
     color: $dark-blue;
     text-decoration: underline;
   }
-
-  &.h4-heading {
-    font-weight: inherit;
-  }
-}
-
-@mixin black-box-white-text($padding:0.1em) {
-  background: $black;
-  color: $white;
-  display: inline;
-  padding: $padding;
-  line-height: 1.5;
 }
 
 h1,
 .h1-heading {
   font-family: "Zilla Slab";
   font-weight: 400;
-  letter-spacing: 0;
 
-  @include scaleText(36px, 40px, 56px, 64px);
+  @include scaleText(36px, 40px, 48px, 56px);
 }
 
-.h2-heading {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  letter-spacing: 1px;
-
-  @include scaleText(22px, 32px, 24px, 36px);
-  @include black-box-white-text(0 0 0 40px);
-}
-
-.h2-typeaccent {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  color: $gray-20;
-
-  @include scaleText(56px, 64px, 72px, 88px);
-}
-
-h3,
-.h3-heading {
+// h3,
+// .h3-heading,
+h2,
+.h2new-heading {
   font-family: "Zilla Slab";
   font-weight: 300;
   letter-spacing: 0;
@@ -86,10 +59,13 @@ h3,
   @include scaleText(28px, 32px, 40px, 48px);
 }
 
-h4,
-.h4-heading {
+// h4,
+// .h4-heading,
+h3,
+.h3new-heading {
   font-family: "Zilla Slab";
   font-weight: 400;
+  letter-spacing: 0;
 
   @include scaleText(24px, 28px, 28px, 36px);
 
@@ -98,10 +74,22 @@ h4,
   }
 }
 
+// h2,
+// .h2-heading,
+h4,
+.h4new-heading {
+  font-family: "Zilla Slab";
+  font-weight: 400;
+  letter-spacing: 0;
+
+  @include scaleText(22px, 32px, 24px, 36px);
+}
+
 h5,
 .h5-heading {
   font-family: "Zilla Slab";
   font-weight: 600;
+  letter-spacing: 0;
 
   @include scaleText(20px, 24px, 22px, 28px);
 
@@ -110,7 +98,8 @@ h5,
   }
 }
 
-.h6-heading-uppercase {
+h6,
+.h6-heading {
   font-family: "Nunito Sans";
   font-weight: 400;
   color: $gray-40;
@@ -120,8 +109,7 @@ h5,
   @include scaleText(12px, 16px);
 }
 
-h6,
-.h6-heading {
+.body-small {
   font-family: "Nunito Sans";
   font-weight: 400;
   color: $gray-40;
@@ -154,6 +142,14 @@ h6,
   font-style: italic;
 
   @include scaleText(24px, 32px, 30px, 40px);
+}
+
+.type-typeaccent {
+  font-family: "Zilla Slab";
+  font-weight: 400;
+  color: $gray-20;
+
+  @include scaleText(56px, 64px, 72px, 88px);
 }
 
 p,
