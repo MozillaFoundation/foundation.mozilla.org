@@ -23,7 +23,7 @@
         width: 12px;
         height: 12px;
         display: block;
-        content: '';
+        content: "";
         margin-right: 5px;
         background-size: contain;
         background-repeat: no-repeat;
@@ -32,13 +32,13 @@
 
     .meta-block-item-role {
       &::before {
-        background-image: url('/_images/glyphs/mozilla-icon.svg');
+        background-image: url("/_images/glyphs/mozilla-icon.svg");
       }
     }
 
     .meta-block-item-location {
       &::before {
-        background-image: url('/_images/glyphs/map-marker-icon.svg');
+        background-image: url("/_images/glyphs/map-marker-icon.svg");
       }
     }
   }
@@ -55,14 +55,14 @@
   }
 
   .issue-link:not(:last-child)::after {
-    content: ', ';
+    content: ", ";
   }
 
   .person-quote {
     z-index: 1;
 
     &::before {
-      content: '\201C';
+      content: "\201C";
       font-size: 15em;
       color: $gray-05;
       z-index: -1;
