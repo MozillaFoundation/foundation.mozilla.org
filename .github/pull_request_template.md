@@ -14,3 +14,5 @@ Related PRs/issues #
 **Documentation:**
 - [ ] Is my code documented?
 - [ ] Did I update the READMEs or wagtail documentation?
+
+Note: If you don't need [visual regression tests](docs/workflow.md#visual-regression-testing) to run, rename your branch to `no-percy-XXXX`.
