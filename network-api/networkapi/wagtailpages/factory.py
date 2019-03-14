@@ -170,7 +170,7 @@ class ParticipatePage2Factory(PageFactory):
     # third block
     ctaHero3 = SubFactory(ImageFactory)
     ctaHeroHeader3 = Faker('text', max_nb_chars=50)
-    ctaHeroSubhead3 = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True) # actually a streamfield?
+    ctaHeroSubhead3 = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
     ctaCommitment3 = Faker('text', max_nb_chars=10)
     ctaFacebook3 = Faker('text', max_nb_chars=20)
     ctaTwitter3 = Faker('text', max_nb_chars=20)
@@ -178,6 +178,7 @@ class ParticipatePage2Factory(PageFactory):
     ctaEmailShareSubject3 = Faker('text', max_nb_chars=50)
 
     # TODO: reduce all this duplication
+
 
 class ParticipateFeaturedFactory(DjangoModelFactory):
     class Meta:
@@ -208,6 +209,7 @@ class OpportunityPageFactory(CMSPageFactory):
         no_cta = Trait(cta=None)
 
     cta = SubFactory(SignupFactory)
+
 
 class FeaturedFactory(DjangoModelFactory):
     class Meta:

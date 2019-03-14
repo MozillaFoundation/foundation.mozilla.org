@@ -259,7 +259,6 @@ class Command(BaseCommand):
             ]
             participate_page.save()
 
-
         try:
             campaign_namespace = WagtailPage.objects.get(title='campaigns')
             print('campaigns namespace exists')
