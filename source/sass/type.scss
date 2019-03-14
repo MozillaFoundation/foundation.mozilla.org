@@ -33,7 +33,8 @@ a {
   color: $dark-blue;
   font-weight: 700;
 
-  @include hover-focus-active { // Bootstrap / mofo-style overrides
+  @include hover-focus-active {
+    // Bootstrap / mofo-style overrides
     color: $dark-blue;
     text-decoration: underline;
   }
@@ -43,7 +44,7 @@ a {
   }
 }
 
-@mixin black-box-white-text($padding:0.1em) {
+@mixin black-box-white-text($padding: 0.1em) {
   background: $black;
   color: $white;
   display: inline;
