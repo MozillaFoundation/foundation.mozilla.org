@@ -1,6 +1,7 @@
 #pni-home {
   .page-header {
-    background: url(/_images/buyers-guide/home-banner.jpg) center center / cover no-repeat;
+    background: url(/_images/buyers-guide/home-banner.jpg) center center / cover
+      no-repeat;
     height: 200px;
 
     @media (min-width: $bp-md) {
@@ -123,7 +124,12 @@
     @media (min-width: $bp-xl) {
       // on extra large screen we want project-list-section's width to match
       // Bootstrap's .container's width
-      width: calc(#{map-get($container-max-widths, xl)} - #{map-get($grid-gutter-widths, xl)});
+      width: calc(
+        #{map-get($container-max-widths, xl)} - #{map-get(
+            $grid-gutter-widths,
+            xl
+          )}
+      );
       max-width: 100%;
       margin: 0 auto;
     }
