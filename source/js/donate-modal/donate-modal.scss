@@ -93,12 +93,12 @@
   }
 
   p,
-  .h2new-heading,
+  .h2-heading,
   .h5-heading {
     color: white;
   }
 
-  .h2new-heading {
+  .h2-heading {
     @include scaleText(28px, 32px, 34px, 42px);
   }
 

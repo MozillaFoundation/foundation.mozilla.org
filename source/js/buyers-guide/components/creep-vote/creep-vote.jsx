@@ -240,7 +240,7 @@ export default class CreepVote extends React.Component {
       <div>
         <div className="mb-4">
           <div className="col-12 text-center">
-            <h3 className="h2new-heading mb-1">
+            <h3 className="h2-heading mb-1">
               {this.state.totalVotes + 1} Votes — invite your friends!
             </h3>
             <div className="h6-heading text-muted" />

@@ -80,7 +80,7 @@ class DonationModal extends React.Component {
         </div>
 
         <div className="modal-body">
-          <h3 className={classNames(`h2new-heading`, `text-center`)}>
+          <h3 className={classNames(`h2-heading`, `text-center`)}>
             {this.props.heading}
           </h3>
           <p className={classNames(`body-large`, `text-center`)}>
