@@ -91,7 +91,9 @@ $btn-shadow-width: 3px;
       width: 100%;
     }
 
-    input { display: none; }
+    input {
+      display: none;
+    }
 
     label:first-of-type span {
       border-radius: $radio-button-radius 0 0 $radio-button-radius;

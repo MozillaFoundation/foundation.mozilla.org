@@ -68,7 +68,12 @@
       transition: border-color 0.25s ease;
 
       @mixin padding-bottom($bp: sm) {
-        padding-bottom: calc(#{map-get($menu-container-padding, $bp)} + #{map-get($primary-nav-link-padding, $bp)} - #{$border-thickness} / 2);
+        padding-bottom: calc(
+          #{map-get($menu-container-padding, $bp)} + #{map-get(
+              $primary-nav-link-padding,
+              $bp
+            )} - #{$border-thickness} / 2
+        );
       }
 
       @media (min-width: $bp-sm) {

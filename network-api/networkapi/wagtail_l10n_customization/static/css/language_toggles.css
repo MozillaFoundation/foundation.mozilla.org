@@ -1,5 +1,5 @@
 form .l10n-hidden {
-    display: none;
+  display: none;
 }
 
 div.locale-picker {
@@ -14,7 +14,7 @@ form > div.locale-picker {
      wagtail's header has a 2em margin-bottom,
      and so we correct that for the 1.5em
      margin-bottom used in the normal definition
-     for the div.locale-picker, above */;
+     for the div.locale-picker, above */
   margin-top: calc(1.5em - 2em);
   margin-bottom: 1em;
 }
@@ -41,8 +41,8 @@ div.locale-picker ul.locales li.locale button.locale-toggle {
   font-weight: 700;
   font-size: 1.2em;
   text-decoration: none;
-  color: #fff;
-  padding: .25em;
+  color: #ffffff;
+  padding: 0.25em;
   max-height: 2em;
 }
 
