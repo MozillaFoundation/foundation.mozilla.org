@@ -27,7 +27,7 @@
     "start": "run-p build-uncompressed server watch:**",
     "snyk": "snyk test --file=package.json",
     "test:procfile": "node test/test-procfile.js",
-    "test:eslint": "eslint --config ./.eslintrc.json \"network-api/networkapi/**/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
+    "test:eslint": "eslint --config ./.eslintrc.json \"network-api/networkapi/{,!(frontend)/**/}*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
     "test": "run-s test:** build",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
