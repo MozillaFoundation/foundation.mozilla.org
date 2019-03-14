@@ -55,8 +55,9 @@ matrix:
       install: ./travis-scripts/npm-install.sh
       script: npm test
     - name: "Percy tests"
-      if: NOT TRAVIS_PULL_REQUEST_BRANCH =~ /(dependabot\/|no-percy|nopercy)/
+      if: NOT TRAVIS_PULL_REQUEST_BRANCH =~ no-percy-tests
       before_install:
+        - echo $TRAVIS_PULL_REQUEST_BRANCH
         - nvm install --lts=carbon
         - nvm use --lts=carbon
       install:

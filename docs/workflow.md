@@ -53,4 +53,4 @@ It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the comm
 
 The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
 
-It's possible to skip Percy runs entirely by adding `no-percy` or `nopercy` in your branch name. Keep in mind that once your PR is opened, it will **never** run Percy: you will have to close your PR, change your [branch name](https://github.com/k88hudson/git-flight-rules#i-want-to-rename-a-branch) and open a new PR.
+It's possible to skip Percy runs entirely by adding `no-percy` in your branch name. Keep in mind that once your PR is opened, it will **never** run Percy: you will have to close your PR, change your [branch name](https://github.com/k88hudson/git-flight-rules#i-want-to-rename-a-branch) and open a new PR.
