@@ -222,9 +222,7 @@ p,
 
 .cta-link {
   display: inline-block;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  text-decoration: underline;
+  font-weight: 700;
 
   &::after {
     content: " →";
