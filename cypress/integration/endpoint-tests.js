@@ -104,7 +104,7 @@ describe(`Visual regression testing for campaigns/multi-page`, () => {
   });
 
   it(`PNI product page`, function() {
-    cy.visit(`/en/privacynotincluded/products/along-talk/`);
+    cy.visit(`/en/privacynotincluded/products/home-great/`);
     cy.window()
       .its(`bg-main-js:react:finished`)
       .should(`equal`, true);
