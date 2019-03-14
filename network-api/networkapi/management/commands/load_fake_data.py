@@ -34,7 +34,10 @@ from networkapi.wagtailpages.factory import (
     CampaignPageFactory,
     HomepageFeaturedNewsFactory,
     HomepageFeaturedHighlightsFactory,
-    ParticipatePageFactory,
+    # TODO: remove all this duplication
+    ParticipatePage2Factory,
+    ParticipatePage2FeaturedHighlightsFactory,
+    ParticipatePage2FeaturedHighlights2Factory,
     DonationModalsFactory,
 )
 
@@ -164,15 +167,16 @@ class Command(BaseCommand):
             )
 
         print('Generating Homepage Highlights and News')
-        featured_news = [NewsFactory.create() for i in range(6)]
-        featured_highlights = [HighlightFactory.create() for i in range(6)]
-        home_page.featured_news = [
-            HomepageFeaturedNewsFactory.build(news=featured_news[i]) for i in range(6)
-        ]
-        home_page.featured_highlights = [
-            HomepageFeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(6)
-        ]
-        home_page.save()
+        if home_page is not None:
+            featured_news = [NewsFactory.create() for i in range(6)]
+            featured_highlights = [HighlightFactory.create() for i in range(6)]
+            home_page.featured_news = [
+                HomepageFeaturedNewsFactory.build(news=featured_news[i]) for i in range(6)
+            ]
+            home_page.featured_highlights = [
+                HomepageFeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(6)
+            ]
+            home_page.save()
 
         try:
             default_site = WagtailSite.objects.get(is_default_site=True)
@@ -237,11 +241,24 @@ class Command(BaseCommand):
             InitiativesPageFactory.create(parent=home_page)
 
         try:
-            WagtailPage.objects.get(title='participate')
+            participate_page = WagtailPage.objects.get(title='participate')
             print('participate page exists')
         except WagtailPage.DoesNotExist:
             print('Generating an empty Participate Page')
-            ParticipatePageFactory.create(parent=home_page)
+            participate_page = ParticipatePage2Factory.create(parent=home_page)
+
+        print('Generating Participate Highlights')
+        if participate_page is not None:
+            featured_highlights = [HighlightFactory.create() for i in range(3)]
+            participate_page.featured_highlights = [
+                ParticipatePage2FeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(3)
+            ]
+            featured_highlights2 = [HighlightFactory.create() for i in range(6)]
+            participate_page.featured_highlights2 = [
+                ParticipatePage2FeaturedHighlights2Factory.build(highlight=featured_highlights2[i]) for i in range(6)
+            ]
+            participate_page.save()
+
 
         try:
             campaign_namespace = WagtailPage.objects.get(title='campaigns')

@@ -4,7 +4,7 @@ from .models import (
     PrimaryPage,
     NewsPage,
     InitiativesPage,
-    ParticipatePage,
+    ParticipatePage, # DEPRECATED
     ParticipatePage2,
     PeoplePage,
     Styleguide,
@@ -100,8 +100,10 @@ class InitiativesPageTR(TranslationOptions):
     fields = ()
 
 
+# DEPRECATED
 @register(ParticipatePage)
 class ParticipatePageTR(TranslationOptions):
+    # DEPRECATED
     fields = ()
 
 
