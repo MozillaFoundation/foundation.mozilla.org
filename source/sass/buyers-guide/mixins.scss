@@ -1,4 +1,11 @@
-@mixin seal-of-approval($offset-top, $offset-left, $width, $height, $width-desktop: null, $height-desktop: null) {
+@mixin seal-of-approval(
+  $offset-top,
+  $offset-left,
+  $width,
+  $height,
+  $width-desktop: null,
+  $height-desktop: null
+) {
   position: absolute;
   top: $offset-top;
   left: $offset-left;
@@ -14,7 +21,14 @@
   }
 }
 
-@mixin adult-content-badge($offset-top, $offset-right, $width, $height, $width-desktop: null, $height-desktop: null) {
+@mixin adult-content-badge(
+  $offset-top,
+  $offset-right,
+  $width,
+  $height,
+  $width-desktop: null,
+  $height-desktop: null
+) {
   position: absolute;
   top: $offset-top;
   right: $offset-right;
