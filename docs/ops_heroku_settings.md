@@ -4,7 +4,7 @@
 
 Builds to staging are triggered by commits to `master`.
 
-Staging URL is [foundation.mofostaging.net](https://foundation.mofostaging.net)
+The staging URL is [foundation.mofostaging.net](https://foundation.mofostaging.net)
 
 ## Production
 
