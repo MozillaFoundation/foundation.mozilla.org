@@ -164,16 +164,6 @@ class FigureBlock2(blocks.StructBlock):
     )
 
 
-class FigureGridBlock(blocks.StructBlock):
-    grid_items = blocks.ListBlock(FigureBlock())
-
-    class Meta:
-        # this is probably the wrong icon but let's run with it for now
-        icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block.html'
-        group = 'Deprecated'
-
-
 class ImageGrid(blocks.StructBlock):
     image = ImageChooserBlock()
     caption = blocks.CharBlock(
