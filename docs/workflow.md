@@ -35,7 +35,7 @@ Deploy each PR separately and in ascending order.
 ## Continuous Integration and Review Apps
 
 Opening a PR activates different services:
-- Review app: temporary apps with fake data running on Heroku,
+- [Review app](#review-apps): temporary apps with fake data running on Heroku,
 - Continuous Integration testing: Travis (Linux) and Appveyor (Windows),
 - Visual regression testing: Percy.
 
