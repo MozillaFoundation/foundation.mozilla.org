@@ -4,7 +4,6 @@ from .models import (
     PrimaryPage,
     NewsPage,
     InitiativesPage,
-    ParticipatePage,
     ParticipatePage2,
     PeoplePage,
     Styleguide,
@@ -17,6 +16,9 @@ from .models import (
 
     CTA,
     Petition,
+
+    # DEPRECATED
+    ParticipatePage,
 )
 
 from .donation_modal import DonationModal
@@ -100,8 +102,10 @@ class InitiativesPageTR(TranslationOptions):
     fields = ()
 
 
+# DEPRECATED
 @register(ParticipatePage)
 class ParticipatePageTR(TranslationOptions):
+    # DEPRECATED
     fields = ()
 
 
