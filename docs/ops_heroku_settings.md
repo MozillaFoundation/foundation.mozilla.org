@@ -25,7 +25,7 @@ Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLEWARE_ENABLED` to `Tr
 
 ## Cloudinary for Review Apps and Staging (BuyersGuide only)
 
-We use Cloudinary upload-mapping feature to copy images from the production to the staging Cloudinary account.
+We use [Cloudinary's upload-mapping](https://cloudinary.com/documentation/django_image_and_video_upload#django_forms_and_models) feature to copy images from the production to the staging Cloudinary account.
 
 Current directories available on Cloudinary staging:
 
