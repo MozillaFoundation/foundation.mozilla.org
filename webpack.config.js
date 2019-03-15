@@ -1,5 +1,11 @@
 let path = require(`path`);
-let frontendPath = path.resolve(__dirname, `network-api`,`networkapi`,`frontend`,`_js`);
+let frontendPath = path.resolve(
+  __dirname,
+  `network-api`,
+  `networkapi`,
+  `frontend`,
+  `_js`
+);
 
 let rules = [
   {
@@ -14,7 +20,6 @@ let rules = [
     }
   }
 ];
-
 
 let main = {
   entry: `./source/js/main.js`,

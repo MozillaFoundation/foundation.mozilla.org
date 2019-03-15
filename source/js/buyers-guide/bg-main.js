@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactGA from '../react-ga-proxy.js';
+import React from "react";
+import ReactDOM from "react-dom";
+import ReactGA from "../react-ga-proxy.js";
 
-import primaryNav from './components/primary-nav/primary-nav.js';
-import CreepVote from './components/creep-vote/creep-vote.jsx';
-import Creepometer from './components/creepometer/creepometer.jsx';
-import Filter from './components/filter/filter.jsx';
+import primaryNav from "./components/primary-nav/primary-nav.js";
+import CreepVote from "./components/creep-vote/creep-vote.jsx";
+import Creepometer from "./components/creepometer/creepometer.jsx";
+import Filter from "./components/filter/filter.jsx";
 
-import copyToClipboard from './copy-to-clipboard.js';
-import HomepageSlider from './homepage-c-slider.js';
-import ProductGA from './product-analytics.js';
+import copyToClipboard from "./copy-to-clipboard.js";
+import HomepageSlider from "./homepage-c-slider.js";
+import ProductGA from "./product-analytics.js";
 
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
@@ -32,9 +32,11 @@ let main = {
       let filter = document.querySelector(`#product-filter`);
 
       if (filter) {
-        apps.push(new Promise(resolve => {
-          ReactDOM.render(<Filter whenLoaded={() => resolve()}/>, filter);
-        }));
+        apps.push(
+          new Promise(resolve => {
+            ReactDOM.render(<Filter whenLoaded={() => resolve()} />, filter);
+          })
+        );
       }
     }
 
@@ -44,7 +46,9 @@ let main = {
       // Set up help text accordions where necessary:
       let productBox = document.querySelector(`.product-detail .h1-heading`);
       let productName = productBox ? productBox.textContent : `unknown product`;
-      let criteriaWithHelp = document.querySelectorAll(`.criterion button.toggle`);
+      let criteriaWithHelp = document.querySelectorAll(
+        `.criterion button.toggle`
+      );
 
       if (criteriaWithHelp.length > 0) {
         Array.from(criteriaWithHelp).forEach(button => {
@@ -75,11 +79,15 @@ let main = {
   enableCopyLinks() {
     if (document.querySelectorAll(`.copy-link`)) {
       Array.from(document.querySelectorAll(`.copy-link`)).forEach(element => {
-        element.addEventListener(`click`, (event) => {
+        element.addEventListener(`click`, event => {
           event.preventDefault();
 
-          let productBox = document.querySelector(`.product-detail .h1-heading`);
-          let productTitle = productBox ? productBox.textContent : `unknown product`;
+          let productBox = document.querySelector(
+            `.product-detail .h1-heading`
+          );
+          let productTitle = productBox
+            ? productBox.textContent
+            : `unknown product`;
 
           ReactGA.event({
             category: `product`,
@@ -105,20 +113,31 @@ let main = {
         let votes = element.querySelector(`input[name=votes]`).value;
 
         try {
-          votes = JSON.parse(votes.replace(/'/g,`"`));
+          votes = JSON.parse(votes.replace(/'/g, `"`));
         } catch (e) {
           votes = {
             creepiness: {
               average: 50,
-              'vote_breakdown': {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0}
+              vote_breakdown: { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0 }
             },
-            confidence: {'0': 0, '1': 0}
+            confidence: { "0": 0, "1": 0 }
           };
         }
 
-        apps.push(new Promise(resolve => {
-          ReactDOM.render(<CreepVote csrf={csrf.value} productName={productName} productID={parseInt(productID,10)} votes={votes} whenLoaded={() => resolve()}/>, element);
-        }));
+        apps.push(
+          new Promise(resolve => {
+            ReactDOM.render(
+              <CreepVote
+                csrf={csrf.value}
+                productName={productName}
+                productID={parseInt(productID, 10)}
+                votes={votes}
+                whenLoaded={() => resolve()}
+              />,
+              element
+            );
+          })
+        );
       });
     }
 
@@ -128,9 +147,17 @@ let main = {
       Array.from(creepometerTargets).forEach(element => {
         let initialValue = element.dataset.initialValue;
 
-        apps.push(new Promise(resolve => {
-          ReactDOM.render(<Creepometer initialValue={initialValue} whenLoaded={() => resolve()}/>, element);
-        }));
+        apps.push(
+          new Promise(resolve => {
+            ReactDOM.render(
+              <Creepometer
+                initialValue={initialValue}
+                whenLoaded={() => resolve()}
+              />,
+              element
+            );
+          })
+        );
       });
     }
 

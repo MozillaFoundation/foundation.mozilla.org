@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactGA from '../../../react-ga-proxy.js';
+import React from "react";
+import ReactGA from "../../../react-ga-proxy.js";
 
 const CLASS_HIDDEN = `d-none`;
 const CLASS_PRODUCT_BOX = `product-box`;
@@ -20,8 +20,20 @@ class SelectableOption extends React.Component {
 
   render() {
     return (
-      <div onClick={e => this.forward(e)} className={`radio-group-entry ` + (this.props.type || `radio-button`)}>
-        <span className={(this.props.square ? `square` : ``) + ` dot ` + (this.props.selected? `selected` : ``)}/> <span data-label={this.props.label} className="label">{this.props.label}</span>
+      <div
+        onClick={e => this.forward(e)}
+        className={`radio-group-entry ` + (this.props.type || `radio-button`)}
+      >
+        <span
+          className={
+            (this.props.square ? `square` : ``) +
+            ` dot ` +
+            (this.props.selected ? `selected` : ``)
+          }
+        />{" "}
+        <span data-label={this.props.label} className="label">
+          {this.props.label}
+        </span>
       </div>
     );
   }
@@ -119,28 +131,34 @@ export default class Filter extends React.Component {
   }
 
   toggleSealOfApproval() {
-    this.setState({
-      sealOfApproval: !this.state.sealOfApproval
-    }, () => {
-      // Only fire once (per app lifecycle).
-      if (!this.toggledSealOfApproval) {
-        this.toggledSealOfApproval = true;
+    this.setState(
+      {
+        sealOfApproval: !this.state.sealOfApproval
+      },
+      () => {
+        // Only fire once (per app lifecycle).
+        if (!this.toggledSealOfApproval) {
+          this.toggledSealOfApproval = true;
 
-        ReactGA.event({
-          category: `buyersguide`,
-          action: `filter by standards`,
-          label: `filter by standards on buyersguide homepage`
-        });
+          ReactGA.event({
+            category: `buyersguide`,
+            action: `filter by standards`,
+            label: `filter by standards on buyersguide homepage`
+          });
+        }
+
+        this.setVisibilities();
       }
-
-      this.setVisibilities();
-    });
+    );
   }
 
   handleLikelihood(label) {
-    this.setState({
-      likelihood: label
-    }, () => this.setVisibilities());
+    this.setState(
+      {
+        likelihood: label
+      },
+      () => this.setVisibilities()
+    );
   }
 
   slideStart(e) {
@@ -170,9 +188,10 @@ export default class Filter extends React.Component {
 
   slideMove(e) {
     if (this.state.dragging) {
-      let x = e.clientX, bbox = this.state.parentBBox;
+      let x = e.clientX,
+        bbox = this.state.parentBBox;
 
-      if (e.touches){
+      if (e.touches) {
         x = e.touches[0].clientX;
       }
 
@@ -183,8 +202,8 @@ export default class Filter extends React.Component {
         x = bbox.left;
       }
 
-      let fraction = (x-bbox.left)/bbox.width;
-      let percentage = (fraction*100) | 0;
+      let fraction = (x - bbox.left) / bbox.width;
+      let percentage = (fraction * 100) | 0;
       let value = percentage ? percentage : 1;
 
       let update = {};
@@ -195,7 +214,7 @@ export default class Filter extends React.Component {
         if (update.creepinessMin > this.state.creepinessMax - creepInterval) {
           update.creepinessMax = update.creepinessMin + creepInterval;
         }
-      } else if(this.activeSlider === this.maxHead) {
+      } else if (this.activeSlider === this.maxHead) {
         update.creepinessMax = Math.max(value, 1 + creepInterval);
         if (update.creepinessMax < this.state.creepinessMin + creepInterval) {
           update.creepinessMin = update.creepinessMax - creepInterval;
@@ -236,12 +255,12 @@ export default class Filter extends React.Component {
     //
     // So: we need to non-linear-maths it up, to fix that!
 
-    let interval = (max - min),
-        left = min,
-        pivot = (100 - interval) / 100,
-        naiveScaledLeft = left * pivot,
-        difference = left - naiveScaledLeft,
-        leftMatchingPercentage = left + difference/pivot;
+    let interval = max - min,
+      left = min,
+      pivot = (100 - interval) / 100,
+      naiveScaledLeft = left * pivot,
+      difference = left - naiveScaledLeft,
+      leftMatchingPercentage = left + difference / pivot;
 
     update.trackStyle = {
       backgroundSize: `${interval}% 100%`,
@@ -251,9 +270,9 @@ export default class Filter extends React.Component {
 
   setVisibilities() {
     let minC = this.state.creepinessMin,
-        maxC = this.state.creepinessMax,
-        like = this.state.likelihood,
-        all = Array.from(document.querySelectorAll(`.${CLASS_PRODUCT_BOX}`));
+      maxC = this.state.creepinessMax,
+      like = this.state.likelihood,
+      all = Array.from(document.querySelectorAll(`.${CLASS_PRODUCT_BOX}`));
 
     all.forEach(productBox => {
       let c = parseInt(productBox.dataset.creepiness, 10);
@@ -270,7 +289,9 @@ export default class Filter extends React.Component {
         }
       }
 
-      if (hidden) { return; }
+      if (hidden) {
+        return;
+      }
 
       // Filter out for creepiness
       if (c < minC || c > maxC) {
@@ -280,7 +301,9 @@ export default class Filter extends React.Component {
         classes.remove(CLASS_HIDDEN);
       }
 
-      if (hidden) { return; }
+      if (hidden) {
+        return;
+      }
 
       // not hidden by creepiness: do we need to hide it due to buyers likelihood?
       let recommendation = productBox.querySelector(`.recommendation`);
@@ -293,12 +316,20 @@ export default class Filter extends React.Component {
           recommendation.classList.remove(CLASS_HIDDEN);
         }
 
-        if (hidden) { return; }
+        if (hidden) {
+          return;
+        }
 
-        if (like === `Likely` && recommendation.classList.contains(`negative`)) {
+        if (
+          like === `Likely` &&
+          recommendation.classList.contains(`negative`)
+        ) {
           classes.add(CLASS_HIDDEN);
           hidden = true;
-        } else if (like === `Not likely` && recommendation.classList.contains(`positive`)) {
+        } else if (
+          like === `Not likely` &&
+          recommendation.classList.contains(`positive`)
+        ) {
           classes.add(CLASS_HIDDEN);
           hidden = true;
         }
@@ -306,7 +337,9 @@ export default class Filter extends React.Component {
     });
 
     let noMatchingNote = document.querySelector(`.no-matching-products-note`);
-    let numHidden = document.querySelectorAll(`.${CLASS_PRODUCT_BOX}.${CLASS_HIDDEN}`).length;
+    let numHidden = document.querySelectorAll(
+      `.${CLASS_PRODUCT_BOX}.${CLASS_HIDDEN}`
+    ).length;
 
     if (numHidden === all.length) {
       noMatchingNote.classList.remove(CLASS_HIDDEN);
@@ -318,14 +351,14 @@ export default class Filter extends React.Component {
   getFilterContent() {
     let mouseOpts = {
       onMouseDown: evt => this.slideStart(evt),
-      onTouchStart: evt => this.slideStart(evt),
+      onTouchStart: evt => this.slideStart(evt)
     };
 
     let likelihoods = [`Likely`, `Not likely`, `Both`].map(label => {
       return {
         label,
         onClick: () => this.handleLikelihood(label),
-        selected: (this.state.likelihood === label)
+        selected: this.state.likelihood === label
       };
     });
 
@@ -336,11 +369,14 @@ export default class Filter extends React.Component {
         <h2 className="filter-caption">Filter by</h2>
 
         <div className="seal-of-approval">
-          <h3 className="h6-heading-uppercase">minimum security standards <img
-            src="/_images/buyers-guide/mini-badge.svg"
-            width="30px"
-            height="30px"
-          /></h3>
+          <h3 className="h6-heading-uppercase">
+            minimum security standards{" "}
+            <img
+              src="/_images/buyers-guide/mini-badge.svg"
+              width="30px"
+              height="30px"
+            />
+          </h3>
           <SelectableOption
             type="checkbox"
             label="Meets standards"
@@ -354,9 +390,23 @@ export default class Filter extends React.Component {
           <h3 className="h6-heading-uppercase">creepiness</h3>
           <div className="slider">
             <label>nice</label>
-            <div className="track" ref={e => (this.track=e)} style={this.state.trackStyle}>
-              <span className="min track-head" style={{ left: this.state.offsetMin }} ref={e => (this.minHead=e)} {...mouseOpts} />
-              <span className="max track-head" style={{ left: this.state.offsetMax }} ref={e => (this.maxHead=e)} {...mouseOpts} />
+            <div
+              className="track"
+              ref={e => (this.track = e)}
+              style={this.state.trackStyle}
+            >
+              <span
+                className="min track-head"
+                style={{ left: this.state.offsetMin }}
+                ref={e => (this.minHead = e)}
+                {...mouseOpts}
+              />
+              <span
+                className="max track-head"
+                style={{ left: this.state.offsetMax }}
+                ref={e => (this.maxHead = e)}
+                {...mouseOpts}
+              />
             </div>
             <label className="creepy">creepy</label>
           </div>
@@ -364,7 +414,9 @@ export default class Filter extends React.Component {
 
         <div className="likelihood">
           <h3 className="h6-heading-uppercase">likelihood to buy</h3>
-          { likelihoods.map(opts => <SelectableOption {...opts}/>) }
+          {likelihoods.map(opts => (
+            <SelectableOption {...opts} />
+          ))}
         </div>
       </div>
     );
@@ -375,8 +427,13 @@ export default class Filter extends React.Component {
 
     return [
       <div className="filter-label">Filter</div>,
-      <div className={`filter-content` + (this.state.collapsed ? ` collapsed` : ``)} onClick={() => this.open()}>
-        { content }
+      <div
+        className={
+          `filter-content` + (this.state.collapsed ? ` collapsed` : ``)
+        }
+        onClick={() => this.open()}
+      >
+        {content}
       </div>
     ];
   }
