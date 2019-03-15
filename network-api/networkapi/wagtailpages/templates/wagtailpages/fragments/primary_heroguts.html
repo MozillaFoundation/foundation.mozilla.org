@@ -8,15 +8,15 @@
       {% image page.banner fill-2400x686 as image_lg %}
       {% image page.banner fill-1984x567 as image_md %}
       {% image page.banner fill-1536x439 as image_sm %}
-      <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}"  alt="">
-      <source media="(min-width: 992px)" srcset="{{ image_lg.url }}"  alt="">
-      <source media="(min-width: 768px)" srcset="{{ image_md.url }}"  alt="">
-      <source media="(min-width: 576px)" srcset="{{ image_sm.url }}"  alt="">
+      <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="Banner">
+      <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="Banner">
+      <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="Banner">
+      <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="Banner">
       {# Fallback Image #}
-      {% image page.banner fill-1008x288 alt="" %}
+      {% image page.banner fill-1008x288 alt="Banner" %}
     </picture>
     {% else %}
-    <img src="/_images/banner-black-white-marble.jpg" alt="">
+    <img src="/_images/banner-black-white-marble.jpg" alt="Banner">
     {% endif %}
   </div>
 
