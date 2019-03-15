@@ -47,7 +47,7 @@ Opening a PR will automatically create a Review App in the `foundation-site` pip
 
 Opening a PR will trigger [Travis](https://travis-ci.org) and [Appveyor](https://www.appveyor.com/) continuous integration runs, which should both pass before a PR is deemed good to merge.
 
-It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the commit message title. If you only want to skip Travis, use `[skip travis]` or `[travis skip]`. For Appveyor, use `[skip appveyor]` or `[appveyor skip]`.
+It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the commit message title. If you only want to skip Travis, use `[skip travis]` or `[travis skip]`. For Appveyor, use `[skip appveyor]` or `[appveyor skip]`. Note: since Travis is a required check on GitHub, your last commit needs to run the CI.
 
 ### Visual regression testing
 
