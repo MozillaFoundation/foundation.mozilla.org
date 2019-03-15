@@ -43,17 +43,6 @@ button:hover {
   .cutout {
     margin-top: calc(#{$bg-pattern-height} - 40px);
     background: white;
-
-    p a {
-      color: $black;
-      font-weight: 400;
-      text-decoration: underline solid $blue;
-
-      @include hover-focus-active {
-        text-decoration: underline solid $dark-blue;
-        color: $dark-blue;
-      }
-    }
   }
 }
 
