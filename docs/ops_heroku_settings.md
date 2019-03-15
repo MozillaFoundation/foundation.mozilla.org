@@ -10,7 +10,7 @@ The staging URL is [foundation.mofostaging.net](https://foundation.mofostaging.n
 
 Production deployments are done by promoting Staging in the Heroku pipeline.
 
-Production URL is [foundation.mozilla.org](https://foundation.mozilla.org)
+The production URL is [foundation.mozilla.org](https://foundation.mozilla.org)
 
 ## Domain Redirect
 
