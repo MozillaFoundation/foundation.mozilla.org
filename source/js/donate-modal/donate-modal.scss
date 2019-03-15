@@ -1,4 +1,4 @@
-@import '../../../node_modules/bootstrap/scss/_variables';
+@import "../../../node_modules/bootstrap/scss/_variables";
 
 .donate-modal {
   position: fixed;
@@ -54,7 +54,7 @@
     &::before,
     &::after {
       position: absolute;
-      content: ' ';
+      content: " ";
       height: $height;
       width: 2px;
       background-color: white;
