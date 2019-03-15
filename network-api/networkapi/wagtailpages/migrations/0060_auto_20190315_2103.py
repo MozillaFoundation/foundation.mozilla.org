@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='primarypage',
             name='banner',
-            field=models.ForeignKey(blank=True, help_text="choose an image that's bigger than 4032px x 1152px with aspect ratio 3.5:1", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='primary_banner', to='wagtailimages.Image', verbose_name='Hero Image'),
+            field=models.ForeignKey(blank=True, help_text="Choose an image that's bigger than 4032px x 1152px with aspect ratio 3.5:1", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='primary_banner', to='wagtailimages.Image', verbose_name='Hero Image'),
         ),
     ]
