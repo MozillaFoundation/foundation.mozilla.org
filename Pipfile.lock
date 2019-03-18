@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7af7f4a6e604a8a9c896b951b86141afcf11fde1cf7e4c857df3c26f24770d41"
+            "sha256": "ab2dfbf08c41a16d6159179f109820ef3741efe895b364727176d6cdc3255ac8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -78,11 +78,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:0a73696e0ac71ee6177103df984f9c1e07cd297f080f8ec4dc7c6f3fb74395b5",
-                "sha256:43a99da08fee329480d27860d68279945b7d8bf7b537388ee2c8938c709b2041"
+                "sha256:275bec66fd2588dd517ada59b8bfb23d4a9abc5a362349139ddda3c7ff6f5ade",
+                "sha256:939652e9d34d7d53d74d5d8ef82a19e5f8bb2de75618f7e5360691b6e9667963"
             ],
             "index": "pypi",
-            "version": "==1.11.20"
+            "version": "==2.1.7"
         },
         "django-admin-sortable": {
             "hashes": [
@@ -154,10 +154,10 @@
         },
         "django-taggit": {
             "hashes": [
-                "sha256:710b4d15ec1996550cc68a0abbc41903ca7d832540e52b1336e6858737e410d8",
-                "sha256:bb8f27684814cd1414b2af75b857b5e26a40912631904038a7ecacd2bfafc3ac"
+                "sha256:a21cbe7e0879f1364eef1c88a2eda89d593bf000ebf51c3f00423c6927075dce",
+                "sha256:db4430ec99265341e05d0274edb0279163bd74357241f7b4d9274bdcb3338b17"
             ],
-            "version": "==0.24.0"
+            "version": "==0.23.0"
         },
         "django-treebeard": {
             "hashes": [
@@ -469,11 +469,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:39f28855b2e7094e61f15764ca846ac0d21115c877689ffa7723d464173bbbcf",
-                "sha256:a8629f6a612a63f55bd1f6bfef82ac3a618b2d1e853bff0a22acc60893bbf513"
+                "sha256:1dd069ef8b3a08728fa5304e45ee2a92ed49b8e235e9c8b677adfd2039cff1fd",
+                "sha256:fa588695932178667f58347fb77cc85a34be963ccceafa818e0d7f9998c2cdf3"
             ],
             "index": "pypi",
-            "version": "==2.1.3"
+            "version": "==2.4"
         },
         "wagtail-experiments": {
             "hashes": [
