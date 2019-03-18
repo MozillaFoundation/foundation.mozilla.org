@@ -240,9 +240,7 @@ let main = {
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
     if (document.querySelectorAll(`.join-us`)) {
-      var elements = Array.from(
-        document.querySelectorAll(`.join-us`)
-      );
+      var elements = Array.from(document.querySelectorAll(`.join-us`));
 
       if (elements.length) {
         elements.forEach(element => {
