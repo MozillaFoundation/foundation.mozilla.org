@@ -52,7 +52,7 @@
     "chokidar-cli": "^1.2.2",
     "classnames": "2.2.6",
     "dotenv": "^6.2.0",
-    "eslint": "^5.15.1",
+    "eslint": "^5.15.2",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
