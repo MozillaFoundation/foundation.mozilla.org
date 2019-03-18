@@ -80,7 +80,7 @@
     "stylelint-prettier": "^1.0.6",
     "svgo": "^1.2.0",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3",
+    "webpack-cli": "^3.3.0",
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
