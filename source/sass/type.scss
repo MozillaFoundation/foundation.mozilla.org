@@ -25,6 +25,7 @@ h6,
 .h5-heading,
 .h6-heading {
   color: $black; // Bootstrap override
+  margin-bottom: 1rem;
 
   a {
     color: inherit;
@@ -44,25 +45,7 @@ h6,
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-  margin-bottom: 1rem;
-}
-
-h1,
 .h1-heading {
-  // font-family: "Zilla Slab";
-  // font-weight: 400;
-
   @include heading("Zilla Slab", 400, 0);
   @include scaleText(36px, 40px, 48px, 56px);
 
@@ -71,14 +54,8 @@ h1,
   }
 }
 
-// h3,
-// .h3-heading,
 h2,
 .h2-heading {
-  // font-family: "Zilla Slab";
-  // font-weight: 300;
-  // letter-spacing: 0;
-
   @include heading("Zilla Slab", 300, 0);
   @include scaleText(28px, 32px, 40px, 48px);
 
@@ -87,14 +64,8 @@ h2,
   }
 }
 
-// h4,
-// .h4-heading,
 h3,
 .h3-heading {
-  // font-family: "Zilla Slab";
-  // font-weight: 400;
-  // letter-spacing: 0;
-
   @include heading("Zilla Slab", 400, 0);
   @include scaleText(24px, 28px, 28px, 36px);
 
@@ -103,13 +74,8 @@ h3,
   }
 }
 
-// h2,
-// .h2-heading,
 h4,
 .h4-heading {
-  // font-family: "Zilla Slab";
-  // font-weight: 400;
-  // letter-spacing: 0;
   @include heading("Zilla Slab", 400, 0);
   @include scaleText(22px, 32px, 24px, 36px);
 
@@ -120,9 +86,6 @@ h4,
 
 h5,
 .h5-heading {
-  // font-family: "Zilla Slab";
-  // font-weight: 600;
-  // letter-spacing: 0;
   @include heading("Zilla Slab", 600, 0);
   @include scaleText(20px, 24px, 22px, 28px);
 
@@ -133,9 +96,6 @@ h5,
 
 h6,
 .h6-heading {
-  // font-family: "Nunito Sans";
-  // font-weight: 400;
-  // letter-spacing: 0.5px;
   @include heading("Nunito Sans", 400, 0.5px);
   @include scaleText(12px, 16px);
 
