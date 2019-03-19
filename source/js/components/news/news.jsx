@@ -79,7 +79,7 @@ export default class News extends React.Component {
       return (
         <div className="row mb-5" key={year}>
           <div className="col-md-4 d-md-flex justify-content-end">
-            <h2 className="type-typeaccent">{year}</h2>
+            <h2 className="type-accent">{year}</h2>
           </div>
           <div className="col-md-8 col-lg-7">
             {filteredNews.map((item, index, array) => {
