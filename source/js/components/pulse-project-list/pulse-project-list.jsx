@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 export default class PulseProjectList extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class PulseProjectList extends React.Component {
     projectXHR.addEventListener(`load`, () => {
       let projects = JSON.parse(projectXHR.response);
 
-      projects.results = projects.results.sort((a,b) => {
+      projects.results = projects.results.sort((a, b) => {
         if (this.props.reverseChronological) {
           return Date.parse(a.created) < Date.parse(b.created) ? 1 : -1;
         } else {
@@ -24,30 +24,41 @@ export default class PulseProjectList extends React.Component {
         }
       });
 
-      this.setState({
-        projects: this.props.max ? projects.results.slice(0, this.props.max) : projects.results
-      }, () => {
-        if (this.props.whenLoaded) {
-          this.props.whenLoaded();
+      this.setState(
+        {
+          projects: this.props.max
+            ? projects.results.slice(0, this.props.max)
+            : projects.results
+        },
+        () => {
+          if (this.props.whenLoaded) {
+            this.props.whenLoaded();
+          }
         }
-      });
+      );
     });
 
     const apiURL = `${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/entries/`;
 
     const params = {
-      "format": `json`,
-      "help_type": this.props.help && this.props.help !== `all` ? this.props.help : null,
-      "issue": this.props.issues && this.props.issues !== `all` ? this.props.issues : null,
-      "page_size": this.props.max ? this.props.max : 12,
-      "search": this.props.query,
-      "featured": this.props.featured && `True`
+      format: `json`,
+      help_type:
+        this.props.help && this.props.help !== `all` ? this.props.help : null,
+      issue:
+        this.props.issues && this.props.issues !== `all`
+          ? this.props.issues
+          : null,
+      page_size: this.props.max ? this.props.max : 12,
+      search: this.props.query,
+      featured: this.props.featured && `True`
     };
 
     // Serialize parameters into a query string
-    const serializedParams = Object.keys(params).filter((key) => params[key]).map((key) => {
-      return `${key}=${encodeURIComponent(params[key])}`;
-    });
+    const serializedParams = Object.keys(params)
+      .filter(key => params[key])
+      .map(key => {
+        return `${key}=${encodeURIComponent(params[key])}`;
+      });
 
     const apiURLwithQuery = `${apiURL}?${serializedParams.join(`&`)}`;
 
@@ -68,7 +79,7 @@ export default class PulseProjectList extends React.Component {
         byline = `By ${project.related_creators.map(rc => rc.name).join(`, `)}`;
       }
 
-      if (this.props.directLink){
+      if (this.props.directLink) {
         url = project.content_url;
       } else {
         url = `https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`;
@@ -76,22 +87,34 @@ export default class PulseProjectList extends React.Component {
 
       return (
         <div className="col-6 col-md-4 my-4" key={`pulse-project-${index}`}>
-          <a className="pulse-project" href={url} target="_blank" rel="noopener noreferrer">
+          <a
+            className="pulse-project"
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div className="thumbnail">
               <div className="img-container">
-                <img className={`project-image${ project.thumbnail ? `` : ` placeholder` }`} src={ project.thumbnail ? project.thumbnail : `/_images/proportional-spacer.png` }/>
+                <img
+                  className={`project-image${
+                    project.thumbnail ? `` : ` placeholder`
+                  }`}
+                  src={
+                    project.thumbnail
+                      ? project.thumbnail
+                      : `/_images/proportional-spacer.png`
+                  }
+                />
               </div>
             </div>
             <h5 className="project-title h5-heading my-2">{project.title}</h5>
           </a>
-          { byline && <p className="h6-heading my-1">{byline}</p> }
+          {byline && <p className="h6-heading my-1">{byline}</p>}
         </div>
       );
     });
 
-    return (
-      <div className="row">{projectList}</div>
-    );
+    return <div className="row">{projectList}</div>;
   }
 }
 

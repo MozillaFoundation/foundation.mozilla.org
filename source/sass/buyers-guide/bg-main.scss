@@ -5,10 +5,10 @@ html {
 
 // Bootstrap
 
-@import '../../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap';
-@import '../../../node_modules/mofo-bootstrap/src/scss/custom/_colors';
-@import '../../../node_modules/bootstrap/scss/_variables';
-@import '../../../node_modules/bootstrap/scss/mixins';
+@import "../../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap";
+@import "../../../node_modules/mofo-bootstrap/src/scss/custom/_colors";
+@import "../../../node_modules/bootstrap/scss/_variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
 
 // Breakpoints (imported from Bootstrap)
 
@@ -20,10 +20,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 //Site-wide
 
-@import '../colors';
-@import './colors'; // Buyer's Guide specific colors
-@import '../mixins';
-@import './mixins'; // Buyer's Guide specific mixins
+@import "../colors";
+@import "./colors"; // Buyer's Guide specific colors
+@import "../mixins";
+@import "./mixins"; // Buyer's Guide specific mixins
 
 // includes
 @import "./includes/draft-product";
@@ -31,31 +31,31 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // React Components
 
-@import '../../js/buyers-guide/components/creepometer/creepometer';
-@import '../../js/buyers-guide/components/creep-vote/creep-vote';
-@import '../../js/buyers-guide/components/primary-nav/primary-nav';
-@import '../../js/buyers-guide/components/creepiness-chart/creepiness-chart';
-@import '../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart';
-@import '../../js/buyers-guide/components/filter/filter';
-@import '../../js/buyers-guide/components/social-share/social-share';
+@import "../../js/buyers-guide/components/creepometer/creepometer";
+@import "../../js/buyers-guide/components/creep-vote/creep-vote";
+@import "../../js/buyers-guide/components/primary-nav/primary-nav";
+@import "../../js/buyers-guide/components/creepiness-chart/creepiness-chart";
+@import "../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart";
+@import "../../js/buyers-guide/components/filter/filter";
+@import "../../js/buyers-guide/components/social-share/social-share";
 
 // Special react component
 
-@import '../../js/donate-modal/donate-modal';
+@import "../../js/donate-modal/donate-modal";
 
 // Non-React Components
 
-@import './components/future-non-react-component';
-@import '../components/nav';
-@import '../components/multipage-nav';
+@import "./components/future-non-react-component";
+@import "../components/nav";
+@import "../components/multipage-nav";
 
 // Misc
 
-@import '../resets';
-@import '../type';
-@import '../buttons';
-@import '../global';
-@import '../utilities';
+@import "../resets";
+@import "../type";
+@import "../buttons";
+@import "../global";
+@import "../utilities";
 
 // Type overrides
 
@@ -65,7 +65,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Header
 
-@import './components/header.scss';
+@import "./components/header.scss";
 
 // Utilities
 
@@ -82,7 +82,8 @@ img.thumb-border {
   border: 16px solid #f4f4f4;
 }
 
-.adult-content { // products which contain adult content
+.adult-content {
+  // products which contain adult content
   img.product-thumbnail {
     filter: blur(15px);
 
@@ -96,10 +97,10 @@ img.thumb-border {
 @import "./creep-face-emoji";
 
 // View specific
-@import './views/homepage';
-@import './views/product';
-@import './views/about';
-@import './views/category';
+@import "./views/homepage";
+@import "./views/product";
+@import "./views/about";
+@import "./views/category";
 
 // Force Buyer's Guide links to use the old blues until
 // we tackle this cleanup ticket https://github.com/mozilla/foundation.mozilla.org/issues/2665

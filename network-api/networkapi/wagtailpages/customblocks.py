@@ -88,17 +88,13 @@ class AlignedImageBlock(ImageBlock):
         template = 'wagtailpages/blocks/aligned_image_block.html'
 
 
-class ImageTextBlock2(ImageBlock):
+class ImageTextBlock(ImageBlock):
     text = blocks.RichTextBlock(
         features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'link']
     )
     url = blocks.CharBlock(
         required=False,
         help_text='Optional URL that this image should link out to.',
-    )
-    small = blocks.BooleanBlock(
-        required=False,
-        help_text='Use smaller, fixed image size (eg: icon)',
     )
     top_divider = blocks.BooleanBlock(
         required=False,
@@ -121,7 +117,7 @@ class ImageTextBlock2(ImageBlock):
 
     class Meta:
         icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_block2.html'
+        template = 'wagtailpages/blocks/image_text.html'
 
 
 class ImageTextMini(ImageBlock):
@@ -132,23 +128,6 @@ class ImageTextMini(ImageBlock):
     class Meta:
         icon = 'doc-full'
         template = 'wagtailpages/blocks/image_text_mini.html'
-
-
-class FigureBlock(blocks.StructBlock):
-    figure = AlignedImageBlock()
-    caption = blocks.CharBlock(
-        required=False,
-        help_text='Please remember to properly attribute any images we use.'
-    )
-    url = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this figure should link out to.',
-    )
-
-    class Meta:
-        icon = 'picture'
-        template = 'wagtailpages/blocks/figure_block.html'
-        group = 'Deprecated'
 
 
 class FigureBlock2(blocks.StructBlock):
@@ -166,25 +145,6 @@ class FigureBlock2(blocks.StructBlock):
         required=False,
         help_text='If left checked, the image will be cropped to be square.'
     )
-
-
-class FigureGridBlock(blocks.StructBlock):
-    grid_items = blocks.ListBlock(FigureBlock())
-
-    class Meta:
-        # this is probably the wrong icon but let's run with it for now
-        icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block.html'
-        group = 'Deprecated'
-
-
-class FigureGridBlock2(blocks.StructBlock):
-    grid_items = blocks.ListBlock(FigureBlock2())
-
-    class Meta:
-        # this is probably the wrong icon but let's run with it for now
-        icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block2.html'
 
 
 class ImageGrid(blocks.StructBlock):
@@ -210,7 +170,7 @@ class ImageGridBlock(blocks.StructBlock):
     class Meta:
         # this is probably the wrong icon but let's run with it for now
         icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block2.html'
+        template = 'wagtailpages/blocks/image_grid_block.html'
 
 
 class BootstrapSpacerBlock(blocks.StructBlock):

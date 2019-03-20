@@ -145,11 +145,60 @@ class InitiativesPageFactory(PageFactory):
     title = 'initiatives'
 
 
-class ParticipatePageFactory(PageFactory):
+class ParticipatePage2Factory(PageFactory):
     class Meta:
-        model = networkapi.wagtailpages.models.ParticipatePage
+        model = networkapi.wagtailpages.models.ParticipatePage2
 
     title = 'participate'
+    h2 = Faker('text', max_nb_chars=20)
+    h2Subheader = Faker('text', max_nb_chars=250)
+
+    # first block
+    ctaHero = SubFactory(ImageFactory)
+    ctaHeroHeader = Faker('text', max_nb_chars=50)
+    ctaCommitment = Faker('text', max_nb_chars=10)
+    ctaButtonTitle = Faker('text', max_nb_chars=50)
+    ctaButtonURL = Faker('url')
+
+    # second block
+    ctaHero2 = SubFactory(ImageFactory)
+    ctaHeroHeader2 = Faker('text', max_nb_chars=50)
+    ctaCommitment2 = Faker('text', max_nb_chars=10)
+    ctaButtonTitle2 = Faker('text', max_nb_chars=50)
+    ctaButtonURL2 = Faker('url')
+
+    # third block
+    ctaHero3 = SubFactory(ImageFactory)
+    ctaHeroHeader3 = Faker('text', max_nb_chars=50)
+    ctaHeroSubhead3 = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
+    ctaCommitment3 = Faker('text', max_nb_chars=10)
+    ctaFacebook3 = Faker('text', max_nb_chars=20)
+    ctaTwitter3 = Faker('text', max_nb_chars=20)
+    ctaEmailShareBody3 = Faker('text', max_nb_chars=20)
+    ctaEmailShareSubject3 = Faker('text', max_nb_chars=50)
+
+    # TODO: reduce all this duplication
+
+
+class ParticipateFeaturedFactory(DjangoModelFactory):
+    class Meta:
+        abstract = True
+
+    page = SubFactory(ParticipatePage2Factory)
+
+
+class ParticipatePage2FeaturedHighlightsFactory(ParticipateFeaturedFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.ParticipateHighlights
+
+    highlight = SubFactory(HighlightFactory)
+
+
+class ParticipatePage2FeaturedHighlights2Factory(ParticipateFeaturedFactory):
+    class Meta:
+        model = networkapi.wagtailpages.models.ParticipateHighlights2
+
+    highlight = SubFactory(HighlightFactory)
 
 
 class OpportunityPageFactory(CMSPageFactory):
