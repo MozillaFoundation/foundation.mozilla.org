@@ -44,10 +44,9 @@
   grid-template-columns: 1fr 2fr;
 
   @media screen and (min-width: $bp-sm) {
-    grid-template-rows: 0.5fr 0.75fr 0.1fr;
+    grid-template-rows: 0.5fr 0.75fr;
     grid-template-columns: 0.9fr 2fr;
-    max-height: 300px;
-    overflow: hidden;
+    min-height: 160px;
   }
 }
 
@@ -93,9 +92,5 @@
   @media screen and (min-width: $bp-sm) {
     grid-column-start: 2;
     grid-column-end: 3;
-  }
-
-  @media screen and (min-width: $bp-lg) {
-    height: 115px;
   }
 }
