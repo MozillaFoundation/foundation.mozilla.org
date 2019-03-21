@@ -7,7 +7,6 @@ import Analytics from "./analytics.js";
 
 import JoinUs from "./components/join/join.jsx";
 import Petition from "./components/petition/petition.jsx";
-import People from "./components/people/people.jsx";
 import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
@@ -293,17 +292,7 @@ let main = {
         })
       );
     });
-
-    if (document.getElementById(`people`)) {
-      apps.push(
-        new Promise(resolve => {
-          ReactDOM.render(
-            <People env={env} whenLoaded={() => resolve()} />,
-            document.getElementById(`people`)
-          );
-        })
-      );
-    }
+    
 
     // Multipage nav used in landing pages
     if (document.querySelector(`#multipage-nav`)) {
