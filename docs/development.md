@@ -46,11 +46,19 @@ By default, your dev site will use production data (read only!). To load fake mo
 
 You can empty your database and create a full new set of fake model data using the following command
 
+- `inv manage load_fake_data -o --delete`
+
+Or
+
 - `pipenv run python network-api/manage.py load_fake_data --delete`
 
 You can generate a specific set of fake model data by entering a seed value
 
-- `pipenv run python network-api/manage.py --delete --seed VALUE`
+- `inv manage load_fake_data -o --delete --seed VALUE`
+
+Or
+
+- `pipenv run python network-api/manage.py load_fake_data --delete --seed VALUE`
 
 Alternatively, the seed value can be specified through the use of the `RANDOM_SEED` environment variable.
 

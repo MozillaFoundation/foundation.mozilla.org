@@ -39,11 +39,8 @@ base_fields = [field for field in [
         ]
     )),
     ('image', customblocks.AnnotatedImageBlock()),
-    ('image_text2', customblocks.ImageTextBlock2()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
-    ('figure', customblocks.FigureBlock()),
-    ('figuregrid', customblocks.FigureGridBlock()),
     ('image_grid', customblocks.ImageGridBlock()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
