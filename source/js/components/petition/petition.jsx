@@ -566,7 +566,6 @@ export default class Petition extends React.Component {
                   </small>
                 )}
             </div>
-
             <div className={surGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
@@ -586,7 +585,6 @@ export default class Petition extends React.Component {
                   </small>
                 )}
             </div>
-
             <div className={emailGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
@@ -647,7 +645,6 @@ export default class Petition extends React.Component {
                   )}
               </div>
             )}
-
             {this.props.commentRequirements === `none` ? null : (
               <div className={commentGroupClass}>
                 <FloatingLabelTextarea
