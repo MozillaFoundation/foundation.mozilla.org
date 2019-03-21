@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">{% block socialMetadata %}{% endblock %}
+    <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
     <link rel="stylesheet" href="/_css/main.compiled.css">
-    <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
@@ -14,34 +14,31 @@
     <title>{% block pageTitle %}Mozilla Foundation - {{ page.meta_title }}{% endblock %}</title>
   </head>
   <body id="view-{% block bodyID %}{% endblock %}">
+
+    {% block donate %}
+    <div class="donate-modal-wrapper">
+      <!-- this will be populated by main.js if needed -->
+    </div>
+    {% endblock %}
+
     {% block page_top_content %}{% endblock %}
-    <div class="takeover"></div>
     <div class="wrapper">
       <div id="member-notice">{% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
       </div>
       <div class="sticky-top">
-        <div class="wrapper-join-us">
-          <div class="container">
-            <div class="join-us" id="join-us"></div>
-          </div>
-        </div>
         {% block primaryNav %}
-          {% include "./primary_nav.html" with background="simple-background" %}
+          {% include "partials/primary_nav.html" with background="simple-background" %}
         {% endblock %}
       </div>
-      <div class="wrapper-2">
-        <div id="hero">
-          <div class="container">{% block heroGuts %}{% endblock %}
-          </div>
-        </div>
-      </div>{% block content %}{% endblock %}
+      {% block heroGuts %}{% endblock %}
+      {% block content %}{% endblock %}
       <footer class="mofo-footer">
         <div class="container">
-          <ul class="list-unstyled footer-links row justify-content-center">
-            <li class="col-auto"><a class="footer-link-email" href="mailto:network@mozillafoundation.org">Email</a></li>
+          <ul class="list-unstyled footer-links row justify-content-center mb-0">
             <li class="col-auto"><a class="footer-link-twitter" href="https://twitter.com/mozilla">Twitter</a></li>
-            <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
+            <li class="col-auto"><a class="footer-link-github" href="https://www.github.com/mozilla/foundation.mozilla.org/">Github</a></li>
             <li class="col-auto"><a class="footer-link-participation-guidelines" href="https://www.mozilla.org/about/governance/policies/participation/">Participation Guidelines</a></li>
+            <li class="col-auto"><a class="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a></li>
             <li class="col-auto"><a class="footer-link-legal" href="https://mozilla.org/en-US/about/legal/">Legal</a></li>
             <li class="col-auto"><a class="footer-link-privacy" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a></li>
             <li class="col-auto"><a class="footer-link-donate" id="donate-footer-btn" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer" target="_blank" rel="noopener noreferrer">Donate</a></li>

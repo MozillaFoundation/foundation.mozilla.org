@@ -1,0 +1,342 @@
+$product-detail-padding-x: (
+  xs: 18px,
+  md: 5rem
+);
+
+.product-header {
+  padding-bottom: 88px;
+  position: relative;
+
+  &.draft-product::before {
+    content: "This product is in draft and only visible to CMS-authorised users.";
+  }
+
+  .seal-of-approval {
+    @include seal-of-approval(1rem, 0, 76px, 76px, 140px, 140px);
+  }
+}
+
+.related-product {
+  a {
+    background: #f4f4f4;
+    padding: 10px 0 0 10px;
+  }
+
+  .seal-of-approval {
+    @include seal-of-approval(5px, 20px, 30px, 30px);
+  }
+
+  .adult-content-badge {
+    @include adult-content-badge(5px, 20px, 33px, 28px);
+  }
+}
+
+.product-section-padding-x {
+  padding-left: map-get($product-detail-padding-x, xs);
+  padding-right: map-get($product-detail-padding-x, xs);
+
+  @media (min-width: $bp-md) {
+    padding-left: map-get($product-detail-padding-x, md);
+    padding-right: map-get($product-detail-padding-x, md);
+  }
+}
+
+.product-detail {
+  margin-top: -88px;
+
+  .small-link {
+    font-family: "Nunito Sans";
+    font-size: 18px;
+    font-weight: 400;
+    color: $gray-40;
+    text-decoration: underline;
+
+    @include hover-focus-active {
+      color: $bg-link-blue;
+    }
+  }
+
+  .copy-link-wrapper {
+    order: 4;
+
+    @media (min-width: $bp-md) {
+      order: unset;
+    }
+
+    .copy-link {
+      position: relative;
+      padding-left: 20px;
+
+      &.copied {
+        cursor: auto;
+        color: $bg-link-blue;
+        text-decoration: none;
+      }
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        background-image: url(/_images/buyers-guide/icon-product-link.svg);
+        background-repeat: no-repeat;
+        background-position: center 65%;
+        background-size: contain;
+        width: 15px;
+        height: 100%;
+        display: block;
+      }
+    }
+  }
+
+  h4 {
+    font-family: "Nunito Sans";
+  }
+
+  .creep-face-emoji {
+    top: 3px;
+    margin: 0 0.25em 0 0;
+  }
+}
+
+.copy-link {
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  color: $black;
+}
+
+.spy {
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-md) {
+    margin-bottom: 0;
+  }
+
+  img {
+    margin-right: 15px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+}
+
+.criterion {
+  padding: 10px 0;
+  border-top: 1px solid $gray-20;
+  border-bottom: 1px solid $gray-20;
+  margin-top: -1px;
+
+  .primary-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  button {
+    margin: 0 10px;
+    background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
+    background-size: contain;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    outline: 0;
+    transition: transform 100ms ease-in-out;
+    transform-origin: 50% 50%;
+
+    &.open {
+      transform: rotate(45deg);
+    }
+  }
+
+  // Smiley Cases (default)
+
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-happy.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: text-top;
+  }
+
+  z-index: 1;
+  position: relative;
+}
+
+// Sad Cases
+.criterion-bad {
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
+  }
+
+  background: rgba(237, 53, 71, 0.06);
+  border: 1px solid #ed3547;
+  margin: -1px -10px -1px -10px;
+  padding: 10px;
+  z-index: 2;
+}
+
+// Ambivalent Case
+.criterion-privacy_policy_reading_level.criterion-0,
+.criterion.criterion-none {
+  .emoji {
+    background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
+  }
+}
+
+.criterion.uses-encryption.criterion-none.criterion-good {
+  @extend .criterion-bad;
+}
+
+.dotted-section {
+  &::before {
+    display: block;
+    content: " "; /* :before and :after won't work without content... =( */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 228px;
+    background-image: url("/_images/buyers-guide/dot-pattern.svg");
+    background-size: 9px 9px;
+  }
+}
+
+.product-update {
+  .title {
+    font-family: "Zilla Slab";
+    font-size: 22px;
+    color: $black;
+  }
+
+  .author {
+    font-family: "Nunito Sans";
+    font-size: 12px;
+    color: $gray-40;
+  }
+
+  .snippet {
+    font-family: "Nunito Sans";
+    font-size: 16px;
+    color: $black;
+    letter-spacing: 0;
+    line-height: 24px;
+  }
+}
+
+.creep-vote-target {
+  position: relative;
+  min-height: 380px;
+  border: 1px solid $gray-20;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media (min-width: $bp-md) {
+    $padding-x: map-get($product-detail-padding-x, md) / 2;
+
+    margin-left: -$padding-x;
+    margin-right: -$padding-x;
+    padding-left: $padding-x;
+    padding-right: $padding-x;
+  }
+}
+
+.creep-vote {
+  .what-you-think-label {
+    $line-height: 24px;
+    $padding-x: 1rem;
+    $padding-y: 0.5rem;
+    $shadow-width: calc(#{$padding-x} + 10px);
+
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-50%);
+    background: $gray-60;
+    padding: $padding-y 1rem;
+
+    &.h5-heading {
+      color: white;
+    }
+
+    @media (min-width: $bp-md) {
+      left: calc(#{$shadow-width} * -1);
+
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 $shadow-width $shadow-width 0;
+        border-color: transparent $black transparent transparent;
+      }
+    }
+  }
+}
+
+#btn-read-search {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.info-help {
+  position: relative;
+  padding: 0 0 0 1.3rem;
+  color: $gray-40;
+  text-decoration: underline;
+  transition: none;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    content: "";
+    background: url("/_images/buyers-guide/icon-info-pink.svg") no-repeat 50%
+      50% / contain;
+    width: 16px;
+    height: 100%;
+  }
+
+  @include hover-focus-active {
+    color: $bg-link-blue;
+  }
+}
+
+.helptext {
+  display: none;
+  font-style: italic;
+  font-size: 14px;
+
+  &.open {
+    display: block;
+  }
+}
+
+// Coral Embed
+#coral-talk-stream_iframe {
+  body {
+    padding-bottom: 0;
+  }
+}

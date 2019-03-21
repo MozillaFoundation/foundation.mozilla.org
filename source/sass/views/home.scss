@@ -33,14 +33,6 @@
   min-height: 350px;
 }
 
-.stay-connected {
-  background: $subtle-gray;
-
-  a {
-    width: 50%;
-  }
-}
-
 #view-home {
   .h1-heading {
     @include scaleText(36px, 40px, 48px, 56px);

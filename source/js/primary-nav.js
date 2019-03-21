@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 
 let primaryNav = {
   init: function() {
@@ -58,7 +58,7 @@ let primaryNav = {
       trackMenuState(openMenu);
     }
 
-    document.addEventListener(`keyup`, (e) => {
+    document.addEventListener(`keyup`, e => {
       if (e.keyCode === 27) {
         menuOpen = false;
         setMenuState(menuOpen);
@@ -71,4 +71,4 @@ let primaryNav = {
   }
 };
 
-module.exports = primaryNav;
+export default primaryNav;

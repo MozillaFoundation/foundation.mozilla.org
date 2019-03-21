@@ -1,3 +1,7 @@
+import json
+
+from urllib import request, parse
+from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -37,6 +41,20 @@ class ImageBlock(blocks.StructBlock):
         template = 'wagtailpages/blocks/image_block.html'
 
 
+class AirTableBlock(blocks.StructBlock):
+    url = blocks.URLBlock(
+        help_text="Copied from the Airtable embed code. The word 'embed' will be in the url"
+    )
+    height = blocks.IntegerBlock(
+        default=533,
+        help_text="The height of the view on a desktop, usually copied from the Airtable embed code",
+    )
+
+    class Meta:
+        icon = 'placeholder'
+        template = 'wagtailpages/blocks/airtable_block.html'
+
+
 class AnnotatedImageBlock(ImageBlock):
     caption = blocks.CharBlock(
         required=False
@@ -70,58 +88,46 @@ class AlignedImageBlock(ImageBlock):
         template = 'wagtailpages/blocks/aligned_image_block.html'
 
 
-class ImageTextBlock(blocks.StructBlock):
+class ImageTextBlock(ImageBlock):
     text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'link', ]
-    )
-    image = ImageBlock()
-    ordering = blocks.ChoiceBlock(
-        choices=[
-            ('left', 'Image on the left'),
-            ('right', 'Image on the right'),
-        ],
-        default='left',
-    )
-
-    class Meta:
-        icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_block.html'
-        group = 'Deprecated'
-
-
-class ImageTextBlock2(ImageBlock):
-    text = blocks.RichTextBlock(
-        features=['link', 'h2', 'h3', 'h4', 'h5', 'h6']
+        features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'link']
     )
     url = blocks.CharBlock(
         required=False,
         help_text='Optional URL that this image should link out to.',
     )
-    small = blocks.BooleanBlock(
+    top_divider = blocks.BooleanBlock(
         required=False,
-        help_text='Use smaller, fixed image size (eg: icon)',
+        help_text='Optional divider above content block.',
+    )
+    bottom_divider = blocks.BooleanBlock(
+        required=False,
+        help_text='Optional divider below content block.',
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        divider_styles = []
+        if value.get("top_divider"):
+            divider_styles.append('div-top')
+        if value.get("bottom_divider"):
+            divider_styles.append('div-bottom')
+        context['divider_styles'] = ' '.join(divider_styles)
+        return context
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'wagtailpages/blocks/image_text.html'
+
+
+class ImageTextMini(ImageBlock):
+    text = blocks.RichTextBlock(
+        features=['bold', 'italic', 'link']
     )
 
     class Meta:
         icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_block2.html'
-
-
-class FigureBlock(blocks.StructBlock):
-    figure = AlignedImageBlock()
-    caption = blocks.CharBlock(
-        required=False,
-        help_text='Please remember to properly attribute any images we use.'
-    )
-    url = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this figure should link out to.',
-    )
-
-    class Meta:
-        icon = 'picture'
-        template = 'wagtailpages/blocks/figure_block.html'
-        group = 'Deprecated'
+        template = 'wagtailpages/blocks/image_text_mini.html'
 
 
 class FigureBlock2(blocks.StructBlock):
@@ -134,25 +140,37 @@ class FigureBlock2(blocks.StructBlock):
         required=False,
         help_text='Optional URL that this figure should link out to.',
     )
+    square_image = blocks.BooleanBlock(
+        default=True,
+        required=False,
+        help_text='If left checked, the image will be cropped to be square.'
+    )
 
 
-class FigureGridBlock(blocks.StructBlock):
-    grid_items = blocks.ListBlock(FigureBlock())
+class ImageGrid(blocks.StructBlock):
+    image = ImageChooserBlock()
+    caption = blocks.CharBlock(
+        required=False,
+        help_text='Please remember to properly attribute any images we use.'
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text='Optional URL that this figure should link out to.',
+    )
+    square_image = blocks.BooleanBlock(
+        default=True,
+        required=False,
+        help_text='If left checked, the image will be cropped to be square.'
+    )
+
+
+class ImageGridBlock(blocks.StructBlock):
+    grid_items = blocks.ListBlock(ImageGrid())
 
     class Meta:
         # this is probably the wrong icon but let's run with it for now
         icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block.html'
-        group = 'Deprecated'
-
-
-class FigureGridBlock2(blocks.StructBlock):
-    grid_items = blocks.ListBlock(FigureBlock2())
-
-    class Meta:
-        # this is probably the wrong icon but let's run with it for now
-        icon = 'grip'
-        template = 'wagtailpages/blocks/figure_grid_block2.html'
+        template = 'wagtailpages/blocks/image_grid_block.html'
 
 
 class BootstrapSpacerBlock(blocks.StructBlock):
@@ -335,7 +353,198 @@ class PulseProjectList(blocks.StructBlock):
         label='Type of help needed',
     )
 
+    direct_link = blocks.BooleanBlock(
+        default=False,
+        label='Direct link',
+        help_text='Checked: user goes to project link. Unchecked: user goes to pulse entry',
+        required=False,
+    )
+
     class Meta:
         template = 'wagtailpages/blocks/pulse_project_list.html'
         icon = 'site'
         value_class = PulseProjectQueryValue
+
+
+class ProfileById(blocks.StructBlock):
+
+    ids = blocks.CharBlock(
+        label='Profile by ID',
+        help_text='Show profiles for pulse users with specific profile ids'
+                  ' (mozillapulse.org/profile/[##]). For multiple profiles'
+                  ', specify a comma separated list (e.g. 85,105,332).'
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        ids = context['block'].value['ids']
+        data = list()
+
+        # FIXME: the protocol should be part of the pulse api variable.
+        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
+
+        url = "{pulse_api}/api/pulse/v2/profiles/?format=json&ids={ids}".format(
+            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
+            ids=ids
+        )
+
+        try:
+            response = request.urlopen(url)
+            response_data = response.read()
+            data = json.loads(response_data)
+
+        except (IOError, ValueError) as exception:
+            print(str(exception))
+            pass
+
+        context['profiles'] = data
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_blocks.html'
+        icon = 'user'
+
+
+class LatestProfileQueryValue(blocks.StructValue):
+    @property
+    def size(self):
+        max_number_of_results = self['max_number_of_results']
+        return '' if max_number_of_results <= 0 else max_number_of_results
+
+    @property
+    def rev(self):
+        # The default API behaviour is newest-first, so the "rev" attribute
+        # should only have an attribute value when oldest-first is needed.
+        newest_first = self['newest_first']
+        return True if newest_first else ''
+
+
+class LatestProfileList(blocks.StructBlock):
+    max_number_of_results = blocks.IntegerBlock(
+        min_value=1,
+        max_value=48,
+        default=12,
+        required=True,
+        help_text='Pick up to 48 profiles.',
+    )
+
+    advanced_filter_header = blocks.StaticBlock(
+        label=' ',
+        admin_text='-------- ADVANCED FILTERS: OPTIONS TO DISPLAY FEWER, MORE TARGETED RESULTS. --------',
+    )
+
+    profile_type = blocks.CharBlock(
+        required=False,
+        default='',
+        help_text='Example: Fellow.'
+    )
+
+    program_type = blocks.CharBlock(
+        required=False,
+        default='',
+        help_text='Example: Tech Policy.'
+    )
+
+    year = blocks.CharBlock(
+        required=False,
+        default=''
+    )
+
+    def get_context(self, value, parent_context=None, no_limit=False, initial_year=False, ordering=False):
+        context = super().get_context(value, parent_context=parent_context)
+
+        query_args = {
+            'limit': value['max_number_of_results'],
+            'profile_type': value['profile_type'],
+            'program_type': value['program_type'],
+            'program_year': initial_year if initial_year else value['year'],
+            'ordering': ordering if ordering else '-id',
+            'is_active': 'true',
+            'format': 'json',
+        }
+
+        # Removing after the fact is actually easier than
+        # conditionally adding and then filtering the list.
+        if no_limit:
+            query_args.pop('limit')
+
+        # Filter out emptish values
+        query_args = {k: v for k, v in query_args.items() if v}
+
+        url = "{pulse_api}/api/pulse/v2/profiles/?{query}".format(
+            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
+            query=parse.urlencode(query_args)
+        )
+
+        data = []
+
+        try:
+            response = request.urlopen(url)
+            response_data = response.read()
+            data = json.loads(response_data)
+
+            for profile in data:
+                profile['created_entries'] = False
+                profile['published_entries'] = False
+                profile['entry_count'] = False
+                profile['user_bio_long'] = False
+
+        except (IOError, ValueError) as exception:
+            print(str(exception))
+            pass
+
+        context['profiles'] = data
+        context['profile_type'] = value['profile_type']
+        context['program_type'] = value['program_type']
+        context['program_year'] = value['year']
+
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_blocks.html'
+        icon = 'group'
+        value_class = LatestProfileQueryValue
+
+
+class ProfileDirectory(LatestProfileList):
+    """
+    NOTE:
+    this component has been set up specifically for year
+    filtering for its initial pass. It does not do any
+    kind of filter detection and query argument juggling
+    yet, which is why the default filter_values text is
+    literally the string that matches the filter that
+    was used on the fellowship directory page prior to
+    porting to the CMS.
+    There is an issue open to make this component more
+    generic. See:
+    https://github.com/mozilla/foundation.mozilla.org/issues/2700
+    """
+
+    filter_values = blocks.CharBlock(
+        required=True,
+        default='2019,2018,2017,2016,2015,2014,2013',
+        help_text='Example: 2019,2018,2017,2016,2015,2014,2013'
+    )
+
+    def get_context(self, value, parent_context=None):
+        pulse_api = settings.FRONTEND['PULSE_API_DOMAIN']
+        filter_values = value['filter_values']
+        years = filter_values.split(",")
+        initial_year = years[0]
+
+        context = super().get_context(
+            value,
+            parent_context=parent_context,
+            no_limit=True,
+            initial_year=initial_year,
+            ordering='custom_name'
+        )
+
+        context['filters'] = years
+        context['api_endpoint'] = f"{pulse_api}/api/pulse/v2/profiles/?ordering=custom_name&is_active=true&format=json"
+        return context
+
+    class Meta:
+        template = 'wagtailpages/blocks/profile_directory.html'
+        icon = 'group'

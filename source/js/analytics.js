@@ -1,5 +1,3 @@
-import ReactGA from 'react-ga';
-
 export default {
   initialize: function() {
     var _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack;
@@ -30,10 +28,7 @@ export default {
     if (!window.ga) {
       return;
     }
-
     window.ga('send', category, 'navigation', action, label);
-
-
     window.ga('send', 'event', 'navigation', 'page footer cta', document.querySelectorAll('.cms h1').length > 0 ? document.querySelectorAll('.cms h1')[0].innerText + ' - footer cta' : '');
   }
 };

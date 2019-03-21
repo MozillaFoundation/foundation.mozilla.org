@@ -4,18 +4,21 @@ from .models import (
     PrimaryPage,
     NewsPage,
     InitiativesPage,
-    ParticipatePage,
     ParticipatePage2,
     PeoplePage,
     Styleguide,
     Homepage,
     RedirectingPage,
 
-    OpportunityPage,
+    BanneredCampaignPage,
     CampaignPage,
+    OpportunityPage,
 
     CTA,
     Petition,
+
+    # DEPRECATED
+    ParticipatePage,
 )
 
 from .donation_modal import DonationModal
@@ -83,6 +86,12 @@ class PrimaryPageTR(TranslationOptions):
     )
 
 
+@register(BanneredCampaignPage)
+class BanneredCampaignPageTR(TranslationOptions):
+    fields = (
+    )
+
+
 @register(NewsPage)
 class NewsPageTR(TranslationOptions):
     fields = ()
@@ -93,8 +102,10 @@ class InitiativesPageTR(TranslationOptions):
     fields = ()
 
 
+# DEPRECATED
 @register(ParticipatePage)
 class ParticipatePageTR(TranslationOptions):
+    # DEPRECATED
     fields = ()
 
 

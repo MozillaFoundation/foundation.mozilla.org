@@ -1,9 +1,14 @@
+// Disallow any horizontal scrollbar at the document level.
+html {
+  overflow-x: hidden;
+}
+
 // Bootstrap
 
-@import '../../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap';
-@import '../../../node_modules/mofo-bootstrap/src/scss/custom/_colors';
-@import '../../../node_modules/bootstrap/scss/_variables';
-@import '../../../node_modules/bootstrap/scss/mixins';
+@import "../../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap";
+@import "../../../node_modules/mofo-bootstrap/src/scss/custom/_colors";
+@import "../../../node_modules/bootstrap/scss/_variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
 
 // Breakpoints (imported from Bootstrap)
 
@@ -15,97 +20,95 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 //Site-wide
 
-@import '../colors';
-@import '../mixins';
+@import "../colors";
+@import "./colors"; // Buyer's Guide specific colors
+@import "../mixins";
+@import "./mixins"; // Buyer's Guide specific mixins
+
+// includes
+@import "./includes/draft-product";
+@import "./includes/social";
 
 // React Components
 
-@import '../../js/buyers-guide/components/creepometer/creepometer';
+@import "../../js/buyers-guide/components/creepometer/creepometer";
+@import "../../js/buyers-guide/components/creep-vote/creep-vote";
+@import "../../js/buyers-guide/components/primary-nav/primary-nav";
+@import "../../js/buyers-guide/components/creepiness-chart/creepiness-chart";
+@import "../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart";
+@import "../../js/buyers-guide/components/filter/filter";
+@import "../../js/buyers-guide/components/social-share/social-share";
+
+// Special react component
+
+@import "../../js/donate-modal/donate-modal";
 
 // Non-React Components
 
-@import './components/future-non-react-component';
-
-.btn-blue {
-  color: $white;
-  background: #3302ff;
-
-  &:hover {
-    color: $white;
-    background: #4a90e2;
-  }
-}
+@import "./components/future-non-react-component";
+@import "../components/nav";
+@import "../components/multipage-nav";
 
 // Misc
 
-@import '../resets';
-@import '../type';
-@import '../buttons';
-@import '../global';
-@import '../utilities';
+@import "../resets";
+@import "../type";
+@import "../buttons";
+@import "../global";
+@import "../utilities";
+
+// Type overrides
+
+.h3-heading.h3-heading-small {
+  font-size: 28px;
+}
 
 // Header
 
-.moz-logo {
-  background-image: url("../_images/mozilla-m.svg");
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+@import "./components/header.scss";
 
-  @include media-breakpoint-up(md) {
-    width: 97px;
-    background-image: url("../_images/mozilla-on-black.svg");
-  }
+// Utilities
+
+.bg-gray {
+  background: #f4f4f4;
 }
 
-.primary-nav {
-  overflow-x: auto;
-  white-space: nowrap;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+.bg-white {
+  background: $white;
+}
 
-  a {
-    display: inline-block;
-    font-family: "Nunito Sans";
-    font-size: 17px;
-    color: #909090;
-    font-weight: 900;
-    margin-right: 20px;
-    padding: 10px 0 6px;
-    text-decoration: none;
+img.thumb-border {
+  background: #f4f4f4;
+  border: 16px solid #f4f4f4;
+}
 
-    &:hover {
-      color: $black;
+.adult-content {
+  // products which contain adult content
+  img.product-thumbnail {
+    filter: blur(15px);
+
+    @at-root .related-product #{&} {
+      filter: blur(5px);
     }
   }
 }
 
-#pni-home .nav-home,
-#pni-about .nav-about {
-  border-bottom: 4px solid $black;
-  color: $black;
-}
-
-.social-button {
-  display: block;
-  width: 25px;
-  height: 25px;
-  margin: 0 12px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.social-button-fb {
-  background-image: url("/_images/glyphs/fb.svg");
-}
-
-.social-button-twitter {
-  background-image: url("/_images/glyphs/twitter.svg");
-}
-
-.social-button-email {
-  background-image: url("/_images/glyphs/email.svg");
-}
+// used by various pages
+@import "./creep-face-emoji";
 
 // View specific
+@import "./views/homepage";
+@import "./views/product";
+@import "./views/about";
+@import "./views/category";
+
+// Force Buyer's Guide links to use the old blues until
+// we tackle this cleanup ticket https://github.com/mozilla/foundation.mozilla.org/issues/2665
+
+a {
+  color: $old-blue;
+
+  @include hover-focus-active {
+    color: $old-dark-blue;
+  }
+}

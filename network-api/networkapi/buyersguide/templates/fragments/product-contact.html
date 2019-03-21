@@ -1,0 +1,66 @@
+<div class="criterion criterion-contact">
+  <div class="primary-info">
+    <div class="d-flex align-items-center">
+      <span>Company makes it easy to contact customer support</span>
+    </div>
+    <div class="rating">
+      <button class="toggle mr-0"></button>
+    </div>
+  </div>
+  <div class="helptext mt-2">
+    <div class="row mt-4 mb-3">
+        <div class="col-12 col-md-3">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-phone.svg" width="28" height="28" />
+            <div>
+              <strong class="d-block">Phone Number</strong>
+              {% if product.phone_number %}
+              {{ product.phone_number }}
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-chat.svg" width="31" height="26" />
+            <div>
+              <strong class="d-block">Live Chat</strong>
+              {% if product.live_chat %}
+              <a id="product-live-chat" target="_blank" href={{ product.live_chat }}>Yes</a>
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-mail.svg" width="31" height="23" />
+            <div>
+              <strong class="d-block">Email</strong>
+              {% if product.email %}
+              <a href="{{ product.email }}">Yes</a>
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="spy">
+            <img src="/_images/buyers-guide/icon-twitter.svg" width="31" height="23" />
+            <div>
+              <strong class="d-block">Twitter</strong>
+              {% if product.twitter %}
+              <a href="https://twitter.com/{{product.twitter}}">Yes</a>
+              {% else %}
+              No
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

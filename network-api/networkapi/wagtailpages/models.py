@@ -2,6 +2,7 @@ import json
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from taggit.models import Tag
 
 from . import customblocks
 from wagtail.core import blocks
@@ -12,11 +13,14 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.images.models import Image
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import get_page_tree_information
+
+# TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from .donation_modal import DonationModals  # noqa: F401
 
 """
@@ -24,7 +28,7 @@ We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
 page types.
 """
-base_fields = [
+base_fields = [field for field in [
     ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
@@ -36,20 +40,74 @@ base_fields = [
     )),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
-    ('image_text2', customblocks.ImageTextBlock2()),
-    ('figure', customblocks.FigureBlock()),
-    ('figuregrid', customblocks.FigureGridBlock()),
-    ('figuregrid2', customblocks.FigureGridBlock2()),
+    ('image_text_mini', customblocks.ImageTextMini()),
+    ('image_grid', customblocks.ImageGridBlock()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('quote', customblocks.QuoteBlock()),
     ('pulse_listing', customblocks.PulseProjectList()),
-]
+    ('profile_listing', customblocks.LatestProfileList()),
+    ('profile_by_id', customblocks.ProfileById()),
+    ('profile_directory', customblocks.ProfileDirectory()),
+    ('airtable', customblocks.AirTableBlock()),
+] if field is not None]
 
 
-class ModularPage(MetadataPageMixin, Page):
+# Override the MetadataPageMixin to allow for a default
+# description and image in page metadata for all Pages on the site
+class FoundationMetadataPageMixin(MetadataPageMixin):
+    def __init__(self, *args, **kwargs):
+        # The first Wagtail image returned that has the specified tag name will
+        # be the default image URL in social shares when no Image is specified at the Page level
+        super().__init__(*args, **kwargs)
+        try:
+            default_social_share_tag = 'social share image'
+            self.social_share_tag = Tag.objects.get(name=default_social_share_tag)
+        except Tag.DoesNotExist:
+            self.social_share_tag = None
+
+    # Change this string to update the default description of all pages on the site
+    default_description = 'Mozilla is a global non-profit dedicated to putting you in control of your online ' \
+                          'experience and shaping the future of the web for the public good. '
+
+    def get_meta_description(self):
+        if self.search_description:
+            return self.search_description
+
+        parent = self.get_parent()
+
+        while parent:
+            if parent.search_description:
+                return parent.search_description
+            parent = parent.get_parent()
+
+        return self.default_description
+
+    def get_meta_image(self):
+        if self.search_image:
+            return self.search_image
+
+        parent = self.get_parent()
+
+        while parent:
+            if hasattr(parent, 'search_image') and parent.search_image:
+                return parent.search_image
+            if hasattr(parent, 'homepage') and parent.homepage.search_image:
+                return parent.homepage.search_image
+            parent = parent.get_parent()
+
+        try:
+            return Image.objects.filter(tags=self.social_share_tag).first()
+        except Image.DoesNotExist:
+            return None
+
+    class Meta:
+        abstract = True
+
+
+class ModularPage(FoundationMetadataPageMixin, Page):
     """
     The base class offers universal component picking
     """
@@ -99,6 +157,7 @@ class ModularPage(MetadataPageMixin, Page):
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
+        'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
     ]
@@ -361,7 +420,7 @@ class CampaignPage(MiniSiteNameSpace):
 # Code for the new wagtail primary pages (under homepage)
 
 
-class PrimaryPage(MetadataPageMixin, Page):
+class PrimaryPage(FoundationMetadataPageMixin, Page):
     """
     Basically a straight copy of modular page, but with
     restrictions on what can live 'under it'.
@@ -373,6 +432,21 @@ class PrimaryPage(MetadataPageMixin, Page):
     header = models.CharField(
         max_length=250,
         blank=True
+    )
+
+    banner = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='primary_banner',
+        verbose_name='Hero Image',
+    )
+
+    intro = models.CharField(
+        max_length=250,
+        blank=True,
+        help_text='Intro paragraph to show in hero cutout box'
     )
 
     narrowed_page_content = models.BooleanField(
@@ -398,12 +472,9 @@ class PrimaryPage(MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
+        ImageChooserPanel('banner'),
+        FieldPanel('intro'),
         StreamFieldPanel('body'),
-    ]
-
-    parent_page_types = [
-        'Homepage',
-        'PrimaryPage',
     ]
 
     subpage_types = [
@@ -415,6 +486,37 @@ class PrimaryPage(MetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super(PrimaryPage, self).get_context(request)
+        return get_page_tree_information(self, context)
+
+
+class BanneredCampaignPage(PrimaryPage):
+    """
+    title, header, intro, and body are inherited from PrimaryPage
+    """
+
+    # Note that this is a different related_name, as the `page`
+    # name is already taken as back-referenced to CampaignPage.
+    cta = models.ForeignKey(
+        'Petition',
+        related_name='bcpage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose existing or create new sign-up form'
+    )
+
+    content_panels = PrimaryPage.content_panels + [
+        SnippetChooserPanel('cta')
+    ]
+
+    subpage_types = [
+        'BanneredCampaignPage',
+    ]
+
+    show_in_menus_default = True
+
+    def get_context(self, request):
+        context = super(BanneredCampaignPage, self).get_context(request)
         return get_page_tree_information(self, context)
 
 
@@ -456,12 +558,25 @@ class InitiativeSection(models.Model):
         verbose_name='Button URL',
     )
 
+    sectionButtonTitle2 = models.CharField(
+        verbose_name='Button 2 Text',
+        max_length=250,
+        blank="True"
+    )
+
+    sectionButtonURL2 = models.TextField(
+        verbose_name='Button 2 URL',
+        blank="True"
+    )
+
     panels = [
         ImageChooserPanel('sectionImage'),
         FieldPanel('sectionHeader'),
         FieldPanel('sectionCopy'),
         FieldPanel('sectionButtonTitle'),
         FieldPanel('sectionButtonURL'),
+        FieldPanel('sectionButtonTitle2'),
+        FieldPanel('sectionButtonURL2'),
     ]
 
 
@@ -845,7 +960,7 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
-class Homepage(MetadataPageMixin, Page):
+class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
         max_length=140,
         help_text='Hero story headline',
@@ -903,13 +1018,13 @@ class Homepage(MetadataPageMixin, Page):
         'MiniSiteNameSpace',
         'RedirectingPage',
         'OpportunityPage',
+        'BanneredCampaignPage',
     ]
 
     def get_context(self, request):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
         # due to our custom image upload approach pre-wagtail
         context = super(Homepage, self).get_context(request)
-        print(settings.MEDIA_URL)
         context['MEDIA_URL'] = settings.MEDIA_URL
         return context
 

@@ -35,6 +35,18 @@
     "SLACK_WEBHOOK_RA": {
       "required": true
     },
+    "USE_CLOUDINARY": {
+      "required": true
+    },
+    "CLOUDINARY_CLOUD_NAME": {
+      "required": true
+    },
+    "CLOUDINARY_API_KEY": {
+      "required": true
+    },
+    "CLOUDINARY_API_SECRET": {
+      "required": true
+    },
     "DEBUG": "False",
     "CORS_WHITELIST": "*",
     "XSS_PROTECTION": "True",
@@ -43,7 +55,7 @@
     "SSL_REDIRECT": "True",
     "X_FRAME_OPTIONS": "DENY",
     "USE_S3": "True",
-    "PULSE_API_DOMAIN": "network-pulse-api-production.herokuapp.com",
+    "PULSE_API_DOMAIN": "https://network-pulse-api-production.herokuapp.com",
     "PULSE_DOMAIN": "www.mozillapulse.org",
     "CSP_DEFAULT_SRC": "'none'",
     "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' cdn.optimizely.com https://www.google-analytics.com/analytics.js",

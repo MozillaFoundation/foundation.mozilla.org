@@ -1,26 +1,18 @@
 {% extends "./modular_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-
 {% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
 {% block primaryNav %}
-  {% include "pages/primary_nav.html" with background="colorful-background" %}
+  {% include "partials/primary_nav.html" %}
 {% endblock %}
 
 {% block heroGuts %}
-  <h1 class="h1-heading pb-5">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+  {% include "./fragments/primary_heroguts.html" with root=root page=page %}
 {% endblock %}
 
 {% block content %}
-
-  <div class="hidden-md-up mb-4 mb-md-5" id="multipage-nav-mobile">
-    <div class="container">
-      <div class="row px-3">
-        <div class="col-12"></div>
-      </div>
-    </div>
-  </div>
+  {% include "partials/multipage-nav-mobile.html" with wrapper_classes="mb-3 mb-md-5" %}
 
   {% primary_page_menu page %}
 

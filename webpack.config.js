@@ -1,28 +1,49 @@
-let loaders = [
+let path = require(`path`);
+let frontendPath = path.resolve(
+  __dirname,
+  `network-api`,
+  `networkapi`,
+  `frontend`,
+  `_js`
+);
+
+let rules = [
   {
     test: /\.js(x?)$/,
     exclude: /node_modules/,
     loader: `babel-loader`,
     query: {
-      presets: [`es2015`, `react`]
+      presets: [
+        [`@babel/preset-env`, { targets: `> 1%, last 2 versions` }],
+        [`@babel/preset-react`]
+      ]
     }
   }
 ];
 
-module.exports = [{
+let main = {
   entry: `./source/js/main.js`,
   output: {
-    filename: `./network-api/networkapi/frontend/_js/main.compiled.js`
+    path: frontendPath,
+    filename: `main.compiled.js`
   },
   module: {
-    loaders: loaders
+    rules
   }
-}, {
-  entry: `./source/js/buyers-guide/bg-main.js`,
+};
+
+let bgMain = {
+  entry: {
+    "bg-main": `./source/js/buyers-guide/bg-main.js`,
+    polyfills: `./source/js/polyfills.js`
+  },
   output: {
-    filename: `./network-api/networkapi/frontend/_js/bg-main.compiled.js`
+    path: frontendPath,
+    filename: `[name].compiled.js`
   },
   module: {
-    loaders: loaders
+    rules
   }
-}];
+};
+
+module.exports = [main, bgMain];

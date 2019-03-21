@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 
 # Models
 from wagtail.core.models import Page
+from wagtail.images.models import Image
 
 from networkapi.highlights.models import Highlight
 from networkapi.milestones.models import Milestone
@@ -21,6 +22,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         self.stdout.write('Flushing models from the database...')
+
+        self.stdout.write('Dropping Image objects...')
+        Image.objects.all().delete()
 
         self.stdout.write('Dropping Highlight objects...')
         Highlight.objects.all().delete()

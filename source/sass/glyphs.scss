@@ -3,14 +3,18 @@
   display: inline-block;
   width: $width;
   height: $height;
-  margin-right: 10px;
-  background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0/contain;
+  margin-right: 20px;
+  background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
+
+  @media screen and (min-width: $bp-lg) {
+    margin-right: 10px;
+  }
 }
 
 @mixin hoverGlyph($id) {
   &:hover::before,
   &:focus::before {
-    background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0/contain;
+    background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
   }
 }
 
@@ -31,8 +35,8 @@
 
   &.small {
     &::before {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
   }
 }
@@ -43,8 +47,10 @@
 
 .twitter {
   @include compositeGlyph("twitter");
+  @include hoverGlyph("twitter-hover");
 }
 
 .linkedIn {
   @include compositeGlyph("linkedin");
+  @include hoverGlyph("linkedin-hover");
 }

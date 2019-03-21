@@ -1,0 +1,11 @@
+{% extends 'modeladmin/index.html' %}
+
+{% block header_extra %}
+  {{ block.super }}
+  <div class="right">
+    <form action="/api/buyersguide/clear-cache/" method="post">
+      <button class="button bicolor icon icon-cog" style="height: 2.9em;" type="submit">Clear Homepage Cache</button>
+      {% csrf_token %}
+    </form>
+  </div>
+{% endblock %}

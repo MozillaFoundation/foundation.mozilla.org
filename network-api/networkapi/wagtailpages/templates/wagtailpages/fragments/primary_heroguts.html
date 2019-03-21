@@ -1,0 +1,24 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div id="hero" class="mb-md-3">
+  <div class="banner">
+    {% if page.banner %}
+    {% image page.banner original alt="" %}
+    {% else %}
+    <img src="/_images/banner-black-white-marble.jpg" alt="">
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="cutout p-3 px-md-5 py-md-3">
+          <h1 class="h1-heading">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+          {% if page.intro %}
+          <p class="body-large mb-0">{{ page.intro }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

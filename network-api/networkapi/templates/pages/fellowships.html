@@ -3,27 +3,21 @@
 {% load fellowship_active_nav %}
 
 {% block content %}
-<div class="hidden-md-up mb-4 mb-md-5" id="multipage-nav-mobile">
-  <div class="container">
-    <div class="row">
-      <div class="col-12"></div>
-    </div>
-  </div>
-</div>
+
+{% include "partials/multipage-nav-mobile.html" with wrapper_classes="mb-3 mb-md-5" %}
 
 <div id="fellowships-nav" class="hidden-sm-down my-4">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div id="multipage-nav" class="d-flex flex-row align-items-center">
-          <div><a href="{% url 'fellowships-home' %}" class="{% fellowship_active_nav request 'fellowships-home fellowships-type' %}">Fellowships</a></div>
-          <div><a href="{% url 'fellowships-directory' %}" class="{% fellowship_active_nav request 'fellowships-directory fellowships-directory-archive' %}">Directory</a></div>
-          <div><a href="{% url 'fellowships-support' %}" class="{% fellowship_active_nav request 'fellowships-support' %}">Support the Program</a></div>
-          <div><a href="{% url 'fellowships-get-involved' %}" class="{% fellowship_active_nav request 'fellowships-get-involved' %}">Get Involved</a></div>
+  <div id="multipage-nav-wrapper" class="full-width">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div id="multipage-nav">
+            <a href="{% url 'fellowships-home' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-home fellowships-type' %}">Fellowships</a>
+            <a href="{% url 'fellowships-directory' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-directory fellowships-directory-archive' %}">Directory</a>
+            <a href="{% url 'fellowships-support' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-support' %}">Support the Program</a>
+            <a href="{% url 'fellowships-get-involved' %}" class="multipage-link {% fellowship_active_nav request 'fellowships-get-involved' %}">Get Involved</a>
+          </div>
         </div>
-      </div>
-      <div class="col-12">
-        <hr class="hr-gradient mb-0">
       </div>
     </div>
   </div>

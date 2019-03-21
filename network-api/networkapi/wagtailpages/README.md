@@ -88,7 +88,7 @@ This block sets up a button that links out to a URL, using `wagtailpages/templat
 
 #### 2. ImageTextBlock
 
-This block sets up a text-with-image (image can be placed either right or left of the text), using `wagtailpages/templates/wagtailpages/blocks/image_text_block.html` as its rendering template.
+This block sets up a text-with-image (image can be placed either right or left of the text), using `wagtailpages/templates/wagtailpages/blocks/image_text.html` as its rendering template.
 
 #### 3. VerticalSpacerBlock
 

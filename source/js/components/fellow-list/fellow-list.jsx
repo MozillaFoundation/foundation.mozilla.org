@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Person from '../../components/people/person.jsx';
-import LoadingIndicator from '../../components/loading-indicator/loading-indicator.jsx';
+import React from "react";
+import PropTypes from "prop-types";
+import Person from "../../components/people/person.jsx";
+import LoadingIndicator from "../../components/loading-indicator/loading-indicator.jsx";
 
 export default class FellowList extends React.Component {
   constructor(props) {
@@ -14,11 +14,13 @@ export default class FellowList extends React.Component {
 
   fetchFellows(query) {
     Object.assign(query, {
-      'profile_type': `fellow`,
-      'ordering': `custom_name`
+      profile_type: `fellow`,
+      ordering: `custom_name`
     });
 
-    let queryString = Object.entries(query).map(pair => pair.map(encodeURIComponent).join(`=`)).join(`&`);
+    let queryString = Object.entries(query)
+      .map(pair => pair.map(encodeURIComponent).join(`=`))
+      .join(`&`);
     let xhr = new XMLHttpRequest();
 
     xhr.addEventListener(`load`, () => {
@@ -27,7 +29,10 @@ export default class FellowList extends React.Component {
       });
     });
 
-    xhr.open(`GET`, `https://${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/profiles/?${queryString}`);
+    xhr.open(
+      `GET`,
+      `${this.props.env.PULSE_API_DOMAIN}/api/pulse/v2/profiles/?${queryString}`
+    );
     xhr.send();
   }
 
@@ -57,7 +62,8 @@ export default class FellowList extends React.Component {
       newQKeys.splice(newQKeys.indexOf(key), 1);
     });
 
-    if (newQKeys.length) { // newQuery has more key-value pairs than oldQuery
+    if (newQKeys.length) {
+      // newQuery has more key-value pairs than oldQuery
       hasChanged = true;
     }
 
@@ -68,28 +74,37 @@ export default class FellowList extends React.Component {
     // massage fellow's Pulse profile data and pass it to <Person> to render
 
     let links = {};
-    let programType = fellow.program_type && fellow.program_type.toLowerCase() === `in residence` ? `Fellow in Residence` : fellow.program_type;
+    let programType =
+      fellow.program_type &&
+      fellow.program_type.toLowerCase() === `in residence`
+        ? `Fellow in Residence`
+        : fellow.program_type;
     let issues = fellow.issues;
 
     issues.unshift(programType);
 
-    if ( fellow.twitter ) {
+    if (fellow.twitter) {
       links.twitter = fellow.twitter;
     }
 
-    if ( fellow.linkedin ) {
+    if (fellow.linkedin) {
       links.linkedIn = fellow.linkedin;
     }
 
     let metadata = {
-      'internet_health_issues': issues,
+      internet_health_issues: issues,
       links: links,
       name: fellow.name,
       role: `${fellow.profile_type}, ${fellow.program_year}`,
       image: fellow.thumbnail,
       location: fellow.location,
       affiliations: [], // don't show affiliations meta for now
-      'custom_link': { text: `See work`, link: `https://${this.props.env.PULSE_DOMAIN}/profile/${fellow.profile_id}` }
+      custom_link: {
+        text: `See work`,
+        link: `https://${this.props.env.PULSE_DOMAIN}/profile/${
+          fellow.profile_id
+        }`
+      }
     };
 
     return <Person metadata={metadata} key={fellow.name} />;
@@ -97,10 +112,18 @@ export default class FellowList extends React.Component {
 
   renderFellows() {
     if (!this.state.fellows) {
-      return <div className="col-12 mx-auto my-5 text-center"><LoadingIndicator /></div>;
+      return (
+        <div className="col-12 mx-auto my-5 text-center">
+          <LoadingIndicator />
+        </div>
+      );
     }
 
-    return this.state.fellows.length ? this.state.fellows.map(fellow => this.renderFellowCard(fellow)) : <div className="col-12 mb-5">No fellow profile found.</div>;
+    return this.state.fellows.length ? (
+      this.state.fellows.map(fellow => this.renderFellowCard(fellow))
+    ) : (
+      <div className="col-12 mb-5">No fellow profile found.</div>
+    );
   }
 
   render() {

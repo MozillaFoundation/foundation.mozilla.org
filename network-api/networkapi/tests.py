@@ -1,24 +1,26 @@
+from io import StringIO
+
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.test import TestCase
 from unittest.mock import MagicMock
 
-from networkapi.middleware import ReferrerMiddleware
+from networkapi.utility.middleware import ReferrerMiddleware
 
 
 class ReferrerMiddlewareTests(TestCase):
 
     def setUp(self):
-        self.middleware = ReferrerMiddleware()
-        self.request = MagicMock()
-        self.response = MagicMock()
+        referrer_middleware = ReferrerMiddleware('response')
+        self.assertEqual(referrer_middleware.get_response, 'response')
 
     def test_requestProcessing(self):
         """
         Ensure that the middleware assigns a Referrer-Policy header to the response object
         """
 
-        response = self.middleware.process_response(self.request, self.response)
+        referrer_middleware = ReferrerMiddleware(MagicMock())
+        response = referrer_middleware(MagicMock())
         response.__setitem__.assert_called_with('Referrer-Policy', 'same-origin')
 
 
@@ -28,7 +30,11 @@ class MissingMigrationsTests(TestCase):
         """
         Ensure we didn't forget a migration
         """
-        call_command('makemigrations', interactive=False, dry_run=True, check_changes=True)
+        output = StringIO()
+        call_command('makemigrations', interactive=False, dry_run=True, stdout=output)
+
+        if output.getvalue() != "No changes detected\n":
+            raise AssertionError("Missing migrations detected:\n" + output.getvalue())
 
 
 class DeleteNonStaffTest(TestCase):
@@ -41,7 +47,7 @@ class DeleteNonStaffTest(TestCase):
         Simple users are deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 0)
 
@@ -56,7 +62,7 @@ class IsStaffNotDeletedTest(TestCase):
         Users with 'is_staff' flag at True are not deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 1)
 
@@ -72,7 +78,7 @@ class InGroupNotDeletedTest(TestCase):
         Users in a group are not deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 1)
 
@@ -87,6 +93,6 @@ class MozillaFoundationUsersNotDeletedTest(TestCase):
         Mozilla Foundation Users are not deleted
         """
 
-        call_command('delete_non_staff')
+        call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 1)

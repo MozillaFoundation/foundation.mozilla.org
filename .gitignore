@@ -112,3 +112,6 @@ network-api/networkapi/frontend/*
 
 # PyCharm
 .idea/
+
+# Cypress visual regression testing
+cypress/videos

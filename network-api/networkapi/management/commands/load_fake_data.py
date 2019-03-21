@@ -139,6 +139,15 @@ class Command(BaseCommand):
 
         reseed()
 
+        print('Generating Images')
+        [
+            ImageFactory.create(
+                file__width=1080,
+                file__height=720,
+                file__color=faker.safe_color_name()
+            ) for i in range(20)
+        ]
+
         print('Generating Milestones')
         [MilestoneFactory.create() for i in range(10)]
 

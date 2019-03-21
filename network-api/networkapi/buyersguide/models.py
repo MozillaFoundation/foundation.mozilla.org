@@ -1,6 +1,20 @@
+from cloudinary import uploader
+from cloudinary.models import CloudinaryField
+
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from django.forms import model_to_dict
+from django.utils.text import slugify
+
+from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
-# from wagtail.snippets.models import register_snippet
+
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from wagtail.snippets.models import register_snippet
 
 
 def get_product_image_upload_path(instance, filename):
@@ -12,12 +26,102 @@ def get_product_image_upload_path(instance, filename):
     )
 
 
+# Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
+class CloudinaryImageField(CloudinaryField):
+    def upload_options(self, model_instance):
+        return {
+            'folder': 'foundationsite/buyersguide',
+            'use_filename': True,
+        }
+
+
 # https://docs.google.com/document/d/1jtWOVqH20qMYRSwvb2rHzPNTrWIoPs8EbWR25r9iyi4/edit
+
+class Update(models.Model):
+    source = models.URLField(
+        max_length=2048,
+        help_text='Link to source',
+        blank="True",
+    )
+
+    title = models.CharField(
+        max_length=256,
+        blank="True",
+    )
+
+    author = models.CharField(
+        max_length=256,
+        blank="True",
+    )
+
+    snippet = models.TextField(
+        max_length=5000,
+        blank="True",
+    )
+
+    def __str__(self):
+        return self.title
+
+
+@register_snippet
+class BuyersGuideProductCategory(models.Model):
+    """
+    A simple category class for use with Buyers Guide products,
+    registered as snippet so that we can moderate them if and
+    when necessary.
+    """
+    name = models.CharField(max_length=100)
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of the product category. Max. 300 characters.',
+        blank=True
+    )
+
+    featured = models.BooleanField(
+        default=False,
+        help_text='Featured category will appear first on Buyer\'s Guide site nav'
+    )
+
+    hidden = models.BooleanField(
+        default=False,
+        help_text='Hidden categories will not appear in the Buyer\'s Guide site nav at all'
+    )
+
+    slug = models.SlugField(
+        blank=True,
+        help_text='A URL-friendly version of the product name. This is an auto-generated field.'
+    )
+
+    @property
+    def published_product_count(self):
+        return Product.objects.filter(product_category=self, draft=False).count()
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(BuyersGuideProductCategory, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Category"
+        verbose_name_plural = "Buyers Guide Product Categories"
+
 
 class Product(models.Model):
     """
     A thing you can buy in stores and our review of it
     """
+
+    draft = models.BooleanField(
+        help_text='When checked, this product will only show for CMS-authenticated users',
+        default=True,
+    )
+
+    adult_content = models.BooleanField(
+        help_text='When checked, product thumbnail will appear blurred as well as have an 18+ badge on it',
+        default=False,
+    )
 
     name = models.CharField(
         max_length=100,
@@ -25,10 +129,24 @@ class Product(models.Model):
         blank="True",
     )
 
+    slug = models.CharField(
+        max_length=256,
+        help_text='slug used in urls',
+        blank=True,
+        default=None,
+        editable=False
+    )
+
     company = models.CharField(
         max_length=100,
         help_text='Name of Company',
         blank="True",
+    )
+
+    product_category = models.ManyToManyField(
+        BuyersGuideProductCategory,
+        related_name='product',
+        blank=True
     )
 
     blurb = models.TextField(
@@ -51,23 +169,45 @@ class Product(models.Model):
 
     image = models.FileField(
         max_length=2048,
-        help_text='Image representing this prodct',
+        help_text='Image representing this product',
         upload_to=get_product_image_upload_path,
         blank=True,
     )
 
+    cloudinary_image = CloudinaryImageField(
+        help_text='Image representing this product - hosted on Cloudinary',
+        blank=True,
+        verbose_name='image',
+    )
+
+    meets_minimum_security_standards = models.NullBooleanField(
+        help_text='Does this product meet minimum security standards?',
+    )
+
     # Can it spy on me?
 
-    camera = models.NullBooleanField(
-        help_text='Does this product have or access a camera?',
+    camera_device = models.NullBooleanField(
+        help_text='Does this device have or access a camera?',
     )
 
-    microphone = models.NullBooleanField(
-        help_text='Does this product have or access a microphone?',
+    camera_app = models.NullBooleanField(
+        help_text='Does the app have or access a camera?',
     )
 
-    location = models.NullBooleanField(
+    microphone_device = models.NullBooleanField(
+        help_text='Does this Device have or access a microphone?',
+    )
+
+    microphone_app = models.NullBooleanField(
+        help_text='Does this app have or access a microphone?',
+    )
+
+    location_device = models.NullBooleanField(
         help_text='Does this product access your location?',
+    )
+
+    location_app = models.NullBooleanField(
+        help_text='Does this app access your location?',
     )
 
     # What does it know about me?
@@ -76,14 +216,58 @@ class Product(models.Model):
         help_text='Does the product use encryption?',
     )
 
-    privacy_policy = models.URLField(
-        help_text='Link to privacy policy for this product',
+    uses_encryption_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
+    PP_CHOICES = (
+        ('0', 'Can\'t Determine'),
+        ('7', 'Grade 7'),
+        ('8', 'Grade 8'),
+        ('9', 'Grade 9'),
+        ('10', 'Grade 10'),
+        ('11', 'Grade 11'),
+        ('12', 'Grade 12'),
+        ('13', 'Grade 13'),
+        ('14', 'Grade 14'),
+        ('15', 'Grade 15'),
+        ('16', 'Grade 16'),
+        ('17', 'Grade 17'),
+        ('18', 'Grade 18'),
+        ('19', 'Grade 19'),
+    )
+
+    privacy_policy_url = models.URLField(
         max_length=2048,
-        blank="True",
+        help_text='Link to privacy policy',
+        blank="True"
+    )
+
+    privacy_policy_reading_level = models.CharField(
+        choices=PP_CHOICES,
+        default='0',
+        max_length=2,
+    )
+
+    privacy_policy_reading_level_url = models.URLField(
+        max_length=2048,
+        help_text='Link to privacy policy reading level',
+        blank="True"
+    )
+
+    privacy_policy_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     share_data = models.NullBooleanField(
         help_text='Does the maker share data with other companies?',
+    )
+
+    share_data_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     # Can I control it?
@@ -92,20 +276,36 @@ class Product(models.Model):
         help_text='Must change a default password?',
     )
 
+    must_change_default_password_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     security_updates = models.NullBooleanField(
         help_text='Security updates?',
     )
 
-    need_account = models.NullBooleanField(
-        help_text='Do you need an account to use this product?',
+    security_updates_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     delete_data = models.NullBooleanField(
         help_text='Can you request data be deleted?',
     )
 
+    delete_data_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
+    )
+
     child_rules = models.NullBooleanField(
         help_text='Are there rules for children?',
+    )
+
+    child_rules_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     # Company shows it cares about its customers?
@@ -114,8 +314,9 @@ class Product(models.Model):
         help_text='Manages security vulnerabilities?',
     )
 
-    customer_support_easy = models.NullBooleanField(
-        help_text='Makes it easy to contact customer support?',
+    manage_security_helptext = models.TextField(
+        max_length=5000,
+        blank="True"
     )
 
     phone_number = models.CharField(
@@ -136,6 +337,12 @@ class Product(models.Model):
         blank="True",
     )
 
+    twitter = models.CharField(
+        max_length=100,
+        help_text='Twitter username',
+        blank="True",
+    )
+
     # What could happen if something went wrong?
 
     worst_case = models.CharField(
@@ -144,7 +351,274 @@ class Product(models.Model):
         blank="True",
     )
 
-    # objects = HighlightQuerySet.as_manager()
+    updates = models.ManyToManyField(Update, related_name='products', blank=True)
+
+    related_products = models.ManyToManyField('self', related_name='rps', blank=True, symmetrical=False)
+
+    if settings.USE_CLOUDINARY:
+        image_field = FieldPanel('cloudinary_image')
+    else:
+        image_field = FieldPanel('image')
+
+    # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better way to do
+    # this using `_meta.get_fields()`. To be refactored in the future.
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('draft'),
+        ],
+            heading="Publication status"
+        ),
+        MultiFieldPanel([
+            FieldPanel('adult_content'),
+            FieldPanel('name'),
+            FieldPanel('company'),
+            FieldPanel('product_category'),
+            FieldPanel('blurb'),
+            FieldPanel('url'),
+            FieldPanel('price'),
+            image_field,
+            FieldPanel('meets_minimum_security_standards')
+        ],
+            heading="Product General Details"
+        ),
+        MultiFieldPanel([
+            FieldPanel('camera_device'),
+            FieldPanel('camera_app'),
+            FieldPanel('microphone_device'),
+            FieldPanel('microphone_app'),
+            FieldPanel('location_device'),
+            FieldPanel('location_app'),
+        ],
+            heading="Can it spy on me?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('uses_encryption'),
+            FieldPanel('uses_encryption_helptext'),
+            FieldPanel('privacy_policy_url'),
+            FieldPanel('privacy_policy_reading_level'),
+            FieldPanel('privacy_policy_reading_level_url'),
+            FieldPanel('privacy_policy_helptext'),
+            FieldPanel('share_data'),
+            FieldPanel('share_data_helptext'),
+        ],
+            heading="What does it know about me?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('must_change_default_password'),
+            FieldPanel('must_change_default_password_helptext'),
+            FieldPanel('security_updates'),
+            FieldPanel('security_updates_helptext'),
+            FieldPanel('delete_data'),
+            FieldPanel('delete_data_helptext'),
+            FieldPanel('child_rules'),
+            FieldPanel('child_rules_helptext'),
+        ],
+            heading="Can I control it?",
+            classname="collapsible"
+        ),
+        MultiFieldPanel([
+            FieldPanel('manage_security'),
+            FieldPanel('manage_security_helptext'),
+            FieldPanel('phone_number'),
+            FieldPanel('live_chat'),
+            FieldPanel('email'),
+            FieldPanel('twitter'),
+        ],
+            heading="Company shows it cares about its customers?",
+            classname="collapsible"
+        ),
+        FieldPanel('worst_case'),
+        FieldPanel('updates'),
+        FieldPanel('related_products'),
+    ]
+
+    @property
+    def votes(self):
+        votes = {}
+        confidence_vote_breakdown = {}
+        creepiness = {'vote_breakdown': {}}
+
+        try:
+            # Get vote QuerySets
+            creepiness_votes = self.range_product_votes.get(attribute='creepiness')
+            confidence_votes = self.boolean_product_votes.get(attribute='confidence')
+
+            # Aggregate the Creepiness votes
+            creepiness['average'] = creepiness_votes.average
+            for vote_breakdown in creepiness_votes.rangevotebreakdown_set.all():
+                creepiness['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
+
+            # Aggregate the confidence votes
+            for boolean_vote_breakdown in confidence_votes.booleanvotebreakdown_set.all():
+                confidence_vote_breakdown[str(boolean_vote_breakdown.bucket)] = boolean_vote_breakdown.count
+
+            # Build + return the votes dict
+            votes['creepiness'] = creepiness
+            votes['confidence'] = confidence_vote_breakdown
+            votes['total'] = BooleanVote.objects.filter(product=self).count()
+            return votes
+
+        except ObjectDoesNotExist:
+            # There's no aggregate data available yet, return None
+            return None
+
+    @property
+    def numeric_reading_grade(self):
+        try:
+            return int(self.privacy_policy_reading_level)
+        except ValueError:
+            return 0
+
+    @property
+    def reading_grade(self):
+        val = self.numeric_reading_grade
+        if val == 0:
+            return 0
+        if val <= 8:
+            return 'Middle school'
+        if val <= 12:
+            return 'High school'
+        if val <= 16:
+            return 'College'
+        return 'Grad school'
+
+    def to_dict(self):
+        model_dict = model_to_dict(self)
+        model_dict['votes'] = self.votes
+        model_dict['slug'] = self.slug
+        model_dict['numeric_reading_grade'] = self.numeric_reading_grade
+        model_dict['reading_grade'] = self.reading_grade
+        return model_dict
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        models.Model.save(self, *args, **kwargs)
 
     def __str__(self):
         return str(self.name)
+
+
+# We want to delete the product image when the product is removed
+@receiver(pre_delete, sender=Product)
+def delete_image(sender, instance, **kwargs):
+    # We want to keep our review app placeholders
+    if settings.HEROKU_APP_NAME:
+        pass
+    else:
+        if instance.cloudinary_image:
+            uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
+
+
+class ProductVote(models.Model):
+    votes = models.IntegerField(
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class RangeProductVote(ProductVote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['creepiness'])
+        ]
+    )
+    average = models.IntegerField(
+        validators=(
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        )
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='range_product_votes',
+    )
+
+
+class BooleanProductVote(ProductVote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='boolean_product_votes'
+    )
+
+
+class VoteBreakdown(models.Model):
+    count = models.IntegerField(
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class BooleanVoteBreakdown(VoteBreakdown):
+    product_vote = models.ForeignKey(
+        BooleanProductVote,
+        on_delete=models.CASCADE
+    )
+    bucket = models.IntegerField(
+        validators=[
+            ValueListValidator(
+                valid_values=[0, 1]
+            )
+        ]
+    )
+
+
+class RangeVoteBreakdown(VoteBreakdown):
+    product_vote = models.ForeignKey(
+        RangeProductVote,
+        on_delete=models.CASCADE
+    )
+    bucket = models.IntegerField(
+        validators=[
+            ValueListValidator(
+                valid_values=[0, 1, 2, 3, 4]
+            )
+        ]
+    )
+
+
+class Vote(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
+
+class BooleanVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    value = models.BooleanField()
+
+
+class RangeVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['creepiness'])
+        ]
+    )
+    value = models.IntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        ]
+    )

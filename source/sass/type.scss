@@ -30,11 +30,13 @@ h6,
 }
 
 a {
-  color: $blue;
+  color: $dark-blue;
   font-weight: 700;
 
-  &:hover {
+  @include hover-focus-active {
+    // Bootstrap / mofo-style overrides
     color: $dark-blue;
+    text-decoration: underline;
   }
 
   &.h4-heading {
@@ -42,26 +44,12 @@ a {
   }
 }
 
-@mixin black-box-white-text($padding:0.1em) {
+@mixin black-box-white-text($padding: 0.1em) {
   background: $black;
   color: $white;
   display: inline;
   padding: $padding;
   line-height: 1.5;
-}
-
-@mixin secondary-nav-link($active-class-name) {
-  font-family: "Nunito Sans";
-  color: $medium-gray;
-  font-size: 15px;
-
-  &:hover,
-  &#{$active-class-name} {
-    color: inherit;
-    color: $black;
-    text-decoration: none;
-    box-shadow: 0 3px $yellow;
-  }
 }
 
 h1,
@@ -85,7 +73,7 @@ h1,
 .h2-typeaccent {
   font-family: "Zilla Slab";
   font-weight: 400;
-  color: $light-gray;
+  color: $gray-20;
 
   @include scaleText(56px, 64px, 72px, 88px);
 }
@@ -126,7 +114,7 @@ h5,
 .h6-heading-uppercase {
   font-family: "Nunito Sans";
   font-weight: 400;
-  color: $medium-gray;
+  color: $gray-40;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 
@@ -137,7 +125,7 @@ h6,
 .h6-heading {
   font-family: "Nunito Sans";
   font-weight: 400;
-  color: $medium-gray;
+  color: $gray-40;
   letter-spacing: 0;
 
   @include scaleText(12px, 16px);
@@ -200,12 +188,4 @@ p,
   }
 
   @include scaleText(16px, 24px);
-}
-
-.multipage-link {
-  @include secondary-nav-link(".multipage-link-active");
-
-  @at-root .side-nav #{&} {
-    @include scaleText(17px, 17px*1.6);
-  }
 }

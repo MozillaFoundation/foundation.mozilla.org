@@ -1,4 +1,4 @@
-@import 'donation-modal.scss';
+@import "donation-modal.scss";
 
 #cta-anchor {
   margin-top: -80px;
@@ -14,11 +14,11 @@
   }
 
   .narrow-sticky-button-container {
-    background: #fff;
+    background: $white;
     padding: 15px;
     width: 100%;
     box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $gray-20;
     display: block;
     position: fixed;
     bottom: 0;
@@ -39,11 +39,11 @@
 
     .narrow-sticky-button {
       width: 100%;
-      background: #ffed00;
-      color: #000;
+      background: $yellow;
+      color: $black;
 
       &:hover {
-        background: #e7c121;
+        background: $dark-yellow;
       }
     }
   }
@@ -61,7 +61,7 @@
   }
 
   .form-control {
-    color: #000;
+    color: $black;
   }
 
   input ~ label {

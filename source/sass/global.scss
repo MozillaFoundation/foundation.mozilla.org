@@ -6,34 +6,12 @@ body {
     background: $white;
   }
 
-  // Subpages
-  .wrapper-2 {
-    #hero {
-      padding-top: 76px;
-      margin-top: -76px;
-    }
-
-    background:
-      url(../_images/bg-white-lines.png) center top / auto 335px repeat,
-      linear-gradient(to right, $neon-blue, $green);
-    background-blend-mode: normal, normal;
-  }
-
-  // Fellowships homepage
-  &#view-fellows-home .wrapper-2 {
-    @media (min-width: $bp-lg) {
-      background-blend-mode: hard-light;
-      background-image:
-        url(../_images/fellowships/hero-image@2x.png),
-        linear-gradient(to right, $neon-blue, $green);
-      background-repeat: repeat-x;
-      background-size: auto 100%;
-      background-position: 50% top;
-    }
-
-    @media (min-width: $bp-xl) {
-      background-position: center top;
-    }
+  .noselect {
+    -webkit-touch-callout: none; /* iOS */
+    -webkit-user-select: none; /* Webkit */
+    -moz-user-select: none; /* FF */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none;
   }
 }
 
@@ -42,44 +20,40 @@ button:hover {
 }
 
 #hero {
-  p a {
-    color: $black;
-    font-weight: 400;
-    text-decoration: underline solid $blue;
+  $bg-pattern-height: 144px;
 
-    &:hover,
-    &:focus {
-      text-decoration: underline solid $dark-blue;
-      color: $dark-blue;
+  .banner {
+    position: absolute;
+    height: $bg-pattern-height;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: $bp-sm;
+
+      @media screen and (min-width: $bp-sm) {
+        min-width: 100%;
+      }
     }
   }
-}
 
-.nav-links a {
-  color: $black;
-  margin-right: 26px;
-  font-family: "Nunito Sans";
-  font-weight: 700;
+  .cutout {
+    margin-top: calc(#{$bg-pattern-height} - 40px);
+    background: white;
 
-  @include scaleText(17px, 30px, 17px, 24px);
-}
+    p a {
+      color: $black;
+      font-weight: 400;
+      text-decoration: underline solid $blue;
 
-@at-root {
-  #view-people .nav-link-people,
-  #view-initiatives .nav-link-initiatives,
-  #view-projects .nav-link-projects,
-  #view-participate .nav-link-participate,
-  #view-internet-health .nav-link-internet-health,
-  #view-about .nav-link-about {
-    text-decoration: underline;
-  }
-}
-
-.sticky-top .btn-pop {
-  @media (max-width: $bp-sm) {
-    padding: 0.25em;
-    margin-right: -0.25em;
-    top: -2px;
+      @include hover-focus-active {
+        text-decoration: underline solid $dark-blue;
+        color: $dark-blue;
+      }
+    }
   }
 }
 

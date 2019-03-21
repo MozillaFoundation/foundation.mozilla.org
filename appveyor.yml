@@ -24,11 +24,12 @@ environment:
   SSL_REDIRECT: False
   X_FRAME_OPTIONS: DENY
   ALLOWED_HOSTS: localhost
-  PULSE_API_DOMAIN: network-pulse-api-production.herokuapp.com
+  PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
   PULSE_DOMAIN: www.mozillapulse.org
   NETWORK_SITE_URL: https://foundation.mozilla.org
-  TARGET_DOMAIN: foundation.mozilla.org
-  SHOW_TAKEOVER: false
+  DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
+  TARGET_DOMAINS: foundation.mozilla.org
+  USE_CLOUDINARY: false
 
   matrix:
     - PYTHON: "C:\\Python36"

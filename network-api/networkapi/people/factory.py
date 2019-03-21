@@ -1,5 +1,5 @@
 from datetime import timezone
-
+from random import choices, randint
 from factory import (
     DjangoModelFactory,
     Faker,
@@ -8,10 +8,15 @@ from factory import (
     Trait,
 )
 
-from networkapi.utility.faker_providers import ImageProvider, get_random_items
+from networkapi.utility.faker import ImageProvider
 from networkapi.people.models import InternetHealthIssue, Person, Affiliation
 
 Faker.add_provider(ImageProvider)
+
+
+def get_random_items(model):
+    items = model.objects.all()
+    return choices(items, k=randint(0, len(items)))
 
 
 class PersonFactory(DjangoModelFactory):

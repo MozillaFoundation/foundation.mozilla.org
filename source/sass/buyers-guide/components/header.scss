@@ -1,0 +1,52 @@
+$category-nav-border-bottom-thickness: 4px;
+
+.category-nav {
+  background: white;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-top: 1px solid $gray-20;
+  border-bottom: 1px solid $gray-20;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
+
+  a {
+    display: inline-block;
+    height: 42px;
+    font-family: "Nunito Sans";
+    font-size: 15px;
+    color: $gray-40;
+    font-weight: 700;
+    margin-right: 20px;
+    padding: 10px 0 6px;
+    text-decoration: none;
+    border-bottom: $category-nav-border-bottom-thickness solid white;
+
+    &:hover {
+      color: $black;
+    }
+
+    &.active {
+      border-color: black;
+    }
+
+    &.featured[data-name="Valentine's Day"] {
+      $icon-width: 18px;
+
+      position: relative;
+      padding-left: calc(#{$icon-width} + 5px);
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        background: url("/_images/buyers-guide/icon-heart.svg") no-repeat center
+          calc(50% + 2px) / contain;
+        width: $icon-width;
+        height: 100%;
+      }
+    }
+  }
+}
