@@ -292,7 +292,6 @@ let main = {
         })
       );
     });
-    
 
     // Multipage nav used in landing pages
     if (document.querySelector(`#multipage-nav`)) {
