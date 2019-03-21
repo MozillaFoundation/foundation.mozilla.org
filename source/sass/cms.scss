@@ -1,6 +1,17 @@
 // Resets / sensible defaults for CMS-managed content
 
 .cms {
+  h1,
+  h2,
+  h3 {
+    position: relative;
+
+    a.fragment-id {
+      position: absolute;
+      top: -85px;
+    }
+  }
+
   img {
     height: auto;
   }
