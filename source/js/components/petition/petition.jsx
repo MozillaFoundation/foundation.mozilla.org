@@ -623,7 +623,7 @@ export default class Petition extends React.Component {
                   </small>
                 )}
             </div>
-            )
+
             {this.props.requiresPostalCode === `False` ? null : (
               <div className={postalCodeGroupClass}>
                 <FloatingLabelInput
@@ -668,13 +668,6 @@ export default class Petition extends React.Component {
               </div>
             )}
           </div>
-          {
-            <small className="form-check form-control-feedback">
-              {get(
-                `Something went wrong. Please check your email address and try again`
-              )}
-            </small>
-          }
           <div className={privacyClass}>
             <div className="my-2">
               <label className="form-check-label">
