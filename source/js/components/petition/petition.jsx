@@ -607,28 +607,25 @@ export default class Petition extends React.Component {
                   </small>
                 )}
             </div>
-
-            {this.legacy === `True` ? null : (
-              <div className={countryGroupClass}>
-                <CountrySelect
-                  className="mb-1 w-100"
-                  ref={element => {
-                    this.country = element;
-                  }}
-                  label={get(`Your country`)}
-                  disabled={disableFields}
-                  onFocus={this.onInputFocus}
-                />
-                {this.props.requiresCountryCode === `True` &&
-                  this.state.userTriedSubmitting &&
-                  !this.country.element.value && (
-                    <small className="form-check form-control-feedback">
-                      {get(`Please enter your country`)}
-                    </small>
-                  )}
-              </div>
-            )}
-
+            <div className={countryGroupClass}>
+              <CountrySelect
+                className="mb-1 w-100"
+                ref={element => {
+                  this.country = element;
+                }}
+                label={get(`Your country`)}
+                disabled={disableFields}
+                onFocus={this.onInputFocus}
+              />
+              {this.props.requiresCountryCode === `True` &&
+                this.state.userTriedSubmitting &&
+                !this.country.element.value && (
+                  <small className="form-check form-control-feedback">
+                    {get(`Please enter your country`)}
+                  </small>
+                )}
+            </div>
+            )
             {this.props.requiresPostalCode === `False` ? null : (
               <div className={postalCodeGroupClass}>
                 <FloatingLabelInput
