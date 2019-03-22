@@ -41,6 +41,10 @@
     background: $dark-red;
   }
 
+  &.light-blue {
+    background: $light-blue;
+  }
+
   &.blue {
     background: $blue;
   }
@@ -57,12 +61,12 @@
     background: $dark-yellow;
   }
 
-  &.blue {
-    background: $blue;
+  &.old-blue {
+    background: $old-blue;
   }
 
-  &.dark-blue {
-    background: $dark-blue;
+  &.old-dark-blue {
+    background: $old-dark-blue;
   }
 
   &.neon-blue {
