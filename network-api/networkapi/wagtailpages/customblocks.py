@@ -130,23 +130,6 @@ class ImageTextMini(ImageBlock):
         template = 'wagtailpages/blocks/image_text_mini.html'
 
 
-class FigureBlock(blocks.StructBlock):
-    figure = AlignedImageBlock()
-    caption = blocks.CharBlock(
-        required=False,
-        help_text='Please remember to properly attribute any images we use.'
-    )
-    url = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this figure should link out to.',
-    )
-
-    class Meta:
-        icon = 'picture'
-        template = 'wagtailpages/blocks/figure_block.html'
-        group = 'Deprecated'
-
-
 class FigureBlock2(blocks.StructBlock):
     image = ImageChooserBlock()
     caption = blocks.CharBlock(
@@ -492,6 +475,8 @@ class LatestProfileList(blocks.StructBlock):
             pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
             query=parse.urlencode(query_args)
         )
+
+        data = []
 
         try:
             response = request.urlopen(url)

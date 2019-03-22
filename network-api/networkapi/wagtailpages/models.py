@@ -41,7 +41,6 @@ base_fields = [field for field in [
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
-    ('figure', customblocks.FigureBlock()),
     ('image_grid', customblocks.ImageGridBlock()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
@@ -442,6 +441,7 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='primary_banner',
         verbose_name='Hero Image',
+        help_text='Choose an image that\'s bigger than 4032px x 1152px with aspect ratio 3.5:1',
     )
 
     intro = models.CharField(

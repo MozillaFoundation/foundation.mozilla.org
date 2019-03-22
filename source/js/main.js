@@ -11,7 +11,6 @@ import People from "./components/people/people.jsx";
 import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
-import SingleFilterFellowList from "./components/fellow-list/single-filter-fellow-list.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
 
 import primaryNav from "./primary-nav.js";
@@ -239,10 +238,8 @@ let main = {
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
-    if (document.querySelectorAll(`.join-us:not(#join-us)`)) {
-      var elements = Array.from(
-        document.querySelectorAll(`.join-us:not(#join-us)`)
-      );
+    if (document.querySelectorAll(`.join-us`)) {
+      var elements = Array.from(document.querySelectorAll(`.join-us`));
 
       if (elements.length) {
         elements.forEach(element => {
