@@ -369,7 +369,7 @@ export default class Filter extends React.Component {
         <h2 className="filter-caption">Filter by</h2>
 
         <div className="seal-of-approval">
-          <h3 className="h6-heading-uppercase">
+          <h3 className="h6-heading">
             minimum security standards{" "}
             <img
               src="/_images/buyers-guide/mini-badge.svg"
@@ -387,7 +387,7 @@ export default class Filter extends React.Component {
         </div>
 
         <div className="creepiness">
-          <h3 className="h6-heading-uppercase">creepiness</h3>
+          <h3 className="h6-heading">creepiness</h3>
           <div className="slider">
             <label>nice</label>
             <div
@@ -413,7 +413,7 @@ export default class Filter extends React.Component {
         </div>
 
         <div className="likelihood">
-          <h3 className="h6-heading-uppercase">likelihood to buy</h3>
+          <h3 className="h6-heading">likelihood to buy</h3>
           {likelihoods.map(opts => (
             <SelectableOption {...opts} />
           ))}

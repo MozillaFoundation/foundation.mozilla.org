@@ -29,7 +29,6 @@ which are bits that should be used in subclassing template-based
 page types.
 """
 base_fields = [field for field in [
-    ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
             'bold', 'italic',
