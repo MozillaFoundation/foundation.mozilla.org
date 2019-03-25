@@ -34,10 +34,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:6f89ccad473451959337d52b3d6b98c6ba5da1059fb61156b427ddcea704e8b7",
-                "sha256:8364e8956e0b6e7394eda1fbfc321db02dfd6c84f878dff717b918dd0cf7a73e"
+                "sha256:2bf8768887bfb008406eec725eecf6f174307dac00f5fad244cdd5d39c6c2147",
+                "sha256:c0f9c57e7a8c65f17a62a0926c3e73686f6ae1c08abf3b5a63cc3a5bcc4c437b"
             ],
-            "version": "==1.12.118"
+            "version": "==1.12.120"
         },
         "certifi": {
             "hashes": [
@@ -511,11 +511,10 @@
         },
         "wagtail-modeltranslation": {
             "hashes": [
-                "sha256:026777941eb1245de992fa655ba918ffc7bd2e4b06afcf369a406cc908bbd9c6",
-                "sha256:d9fa2666c8c51b78d3d966945c6080dc39b5422b028d70391e6cc0091c937cf1"
+                "sha256:793a27e5b2c21de72ccdd471109a4f8453cd606ce534cfbe4824634f706aa2f5"
             ],
             "index": "pypi",
-            "version": "==0.9.0"
+            "version": "==0.10.1"
         },
         "webencodings": {
             "hashes": [
