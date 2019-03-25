@@ -75,7 +75,7 @@ This is an empty subclass of CTA, as the base fields already cover the signup CT
 
 #### 2. Petition
 
-This is a subclass of CTA that adds checkbox labels and google form identifiers for ensuring that petition form data can be captured in a specific google form. See its definition in `models.py` for the full list of fields this CTA makes use of.
+This is a subclass of CTA that adds checkbox labels and Basket->Salesforce submission. See its definition in `models.py` for the full list of fields this CTA makes use of.
 
 
 ## Stream blocks
@@ -86,9 +86,9 @@ In addition to the standard Wagtail-supplied blocks, the `customblocks.py` files
 
 This block sets up a button that links out to a URL, using `wagtailpages/templates/wagtailpages/blocks/link_button_block.html` as its rendering template.
 
-#### 2. ImageTextBlock2
+#### 2. ImageTextBlock
 
-This block sets up a text-with-image (image can be placed either right or left of the text), using `wagtailpages/templates/wagtailpages/blocks/image_text_block.html` as its rendering template.
+This block sets up a text-with-image (image can be placed either right or left of the text), using `wagtailpages/templates/wagtailpages/blocks/image_text.html` as its rendering template.
 
 #### 3. VerticalSpacerBlock
 

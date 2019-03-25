@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default class Creepometer extends React.Component {
   constructor(props) {
@@ -85,9 +85,10 @@ export default class Creepometer extends React.Component {
 
   slideMove(e) {
     if (this.state.dragging) {
-      let x = e.clientX, bbox = this.state.parentBBox;
+      let x = e.clientX,
+        bbox = this.state.parentBBox;
 
-      if (e.touches){
+      if (e.touches) {
         x = e.touches[0].clientX;
       }
 
@@ -104,53 +105,64 @@ export default class Creepometer extends React.Component {
 
   repositionTrackHead(x, bbox) {
     // compute the handle offset
-    let percentage = Math.round(100 * (x - bbox.left) / bbox.width);
+    let percentage = Math.round((100 * (x - bbox.left)) / bbox.width);
     let value = percentage ? percentage : 1;
 
-    this.setState({
-      percentage,
-      value
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(value);
+    this.setState(
+      {
+        percentage,
+        value
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(value);
+        }
       }
-    });
+    );
   }
 
   render() {
-    let frameOffset = Math.round(this.state.percentage * (this.faceCount-1)/100);
+    let frameOffset = Math.round(
+      (this.state.percentage * (this.faceCount - 1)) / 100
+    );
 
     let trackheadOpts = {
       style: {
         left: `${this.state.value}%`
-      },
+      }
     };
 
     let faceOpts = {
       style: {
-        background: `url("${this.framePath}sprite-resized-64-colors.png"), #f2b946`,
+        background: `url("${
+          this.framePath
+        }sprite-resized-64-colors.png"), #f2b946`,
         backgroundSize: `70px`,
         backgroundPositionX: 0,
         backgroundPositionY: `-${frameOffset * this.faceHeight}px`,
-        backgroundRepeat: `no-repeat`,
-      },
+        backgroundRepeat: `no-repeat`
+      }
     };
 
     let mouseOpts = {
       onMouseDown: evt => this.slideStart(evt),
-      onTouchStart: evt => this.slideStart(evt),
+      onTouchStart: evt => this.slideStart(evt)
     };
 
     return (
       <div className="creepometer">
         <div className="slider-container p-2">
-          <div className="slider" ref={e => (this.sliderElement=e)} onClick={evt => this.slideClick(evt)}>
-            <div className="h6-heading copy copy-left">Not creepy</div>
+          <div
+            className="slider"
+            ref={e => (this.sliderElement = e)}
+            onClick={evt => this.slideClick(evt)}
+          >
+            <div className="body-small copy copy-left">Not creepy</div>
             <div className="trackhead" {...trackheadOpts}>
-              <div className="face" {...faceOpts} {...mouseOpts}/>
-              <div className="pip" {...mouseOpts}/>
+              <div className="face" {...faceOpts} {...mouseOpts} />
+              <div className="pip" {...mouseOpts} />
             </div>
-            <div className="h6-heading copy copy-right">Super creepy</div>
+            <div className="body-small copy copy-right">Super creepy</div>
           </div>
         </div>
       </div>

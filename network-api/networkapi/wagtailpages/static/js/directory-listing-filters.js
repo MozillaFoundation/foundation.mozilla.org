@@ -78,9 +78,9 @@
                   </span>
                 </div>
               </a>
-              <p class="d-flex align-items-center meta-block-location h6-heading my-2">${
-                profile.location
-              }</p>
+              <p class="d-flex align-items-center meta-block-location h6-heading my-2">
+                ${profile.location}
+              </p>
             </div>
             <div class="social-icons">
               ${

@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactGA from '../../../react-ga-proxy';
-import copyToClipboard from '../../copy-to-clipboard.js';
+import React from "react";
+import ReactGA from "../../../react-ga-proxy";
+import copyToClipboard from "../../copy-to-clipboard.js";
 
-const SocialShareLink = (props) => {
+const SocialShareLink = props => {
   let classes = `social-icon`;
   let srLabel = ``;
   let link = `PrivacyNotIncluded.org`;
-  let shareText = `I think this ${props.productName} is ${props.creepType.toUpperCase()}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} buyer’s guide.`;
+  let shareText = `I think this ${
+    props.productName
+  } is ${props.creepType.toUpperCase()}. What do you think? Check out the Creep-O-Meter over on @mozilla’s ${link} buyer’s guide.`;
   let shareEvent = {
     category: `product`,
     action: `share tap`,
@@ -25,7 +27,9 @@ const SocialShareLink = (props) => {
     classes += ` social-button-twitter`;
     srLabel = `Twitter`;
     shareEvent.label += `to twitter`;
-    link = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+    link = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      shareText
+    )}`;
   }
 
   if (props.type === `email`) {
@@ -51,7 +55,7 @@ const SocialShareLink = (props) => {
   if (props.type === `link`) {
     let _trackShareAction = trackShareAction;
 
-    trackShareAction = (evt) => {
+    trackShareAction = evt => {
       evt.preventDefault();
       copyToClipboard(evt.target, window.location.href);
       evt.target.innerHTML = evt.target.innerHTML.replace(srLabel, `Copied`);
@@ -59,10 +63,19 @@ const SocialShareLink = (props) => {
     };
   }
 
-  return <a target="_blank" className="pni-s-link" href={link} onClick={trackShareAction}><span className={classes}/> {srLabel}</a>;
+  return (
+    <a
+      target="_blank"
+      className="pni-s-link"
+      href={link}
+      onClick={trackShareAction}
+    >
+      <span className={classes} /> {srLabel}
+    </a>
+  );
 };
 
-const SocialShare = (props) => {
+const SocialShare = props => {
   return (
     <div class="social pni-share-buttons d-flex justify-content-center flex-wrap flex-md-nowrap mt-3">
       <SocialShareLink type="facebook" {...props} />

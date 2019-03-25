@@ -57,7 +57,8 @@ env = environ.Env(
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
-    TARGET_DOMAIN=(str, None),
+    DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
+    TARGET_DOMAINS=(list, None),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     XSS_PROTECTION=bool,
@@ -92,9 +93,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
 
-# Force permanent redirects to the domain specified in TARGET_DOMAIN
-DOMAIN_REDIRECT_MIDDLWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLWARE_ENABLED')
-TARGET_DOMAIN = env('TARGET_DOMAIN')
+# Force permanent redirects to the domains specified in TARGET_DOMAINS
+DOMAIN_REDIRECT_MIDDLEWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLEWARE_ENABLED')
+TARGET_DOMAINS = env('TARGET_DOMAINS')
 
 if env('FILEBROWSER_DEBUG') or DEBUG != env('FILEBROWSER_DEBUG'):
     FILEBROWSER_DEBUG = env('FILEBROWSER_DEBUG')
@@ -198,7 +199,7 @@ MIDDLEWARE = list(filter(None, [
 
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'networkapi.middleware.ReferrerMiddleware',
+    'networkapi.utility.middleware.ReferrerMiddleware',
 
     'django.middleware.gzip.GZipMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -270,6 +271,7 @@ TEMPLATES = [
                 'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags',
                 'nav_tags': 'networkapi.utility.templatetags.nav_tags',
                 'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
+                'wagtailcustom_tags': 'networkapi.wagtailcustomization.templatetags.wagtailcustom_tags',
             }
         },
     },
@@ -417,9 +419,10 @@ if USE_S3:
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
     AWS_LOCATION = env('AWS_LOCATION')
-
     MEDIA_URL = 'https://' + AWS_S3_CUSTOM_DOMAIN + '/'
     MEDIA_ROOT = ''
+    # This is a workaround for https://github.com/wagtail/wagtail/issues/3206
+    AWS_S3_FILE_OVERWRITE = False
 
     FILEBROWSER_DIRECTORY = env('FILEBROWSER_DIRECTORY')
 
@@ -537,7 +540,7 @@ FRONTEND = {
     'PULSE_API_DOMAIN': env('PULSE_API_DOMAIN'),
     'PULSE_DOMAIN': env('PULSE_DOMAIN'),
     'NETWORK_SITE_URL': env('NETWORK_SITE_URL'),
-    'TARGET_DOMAIN': env('TARGET_DOMAIN'),
+    'TARGET_DOMAINS': env('TARGET_DOMAINS'),
 }
 
 # Review apps' slack bot

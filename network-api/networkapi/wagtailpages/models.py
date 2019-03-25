@@ -29,7 +29,6 @@ which are bits that should be used in subclassing template-based
 page types.
 """
 base_fields = [field for field in [
-    ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
             'bold', 'italic',
@@ -39,11 +38,8 @@ base_fields = [field for field in [
         ]
     )),
     ('image', customblocks.AnnotatedImageBlock()),
-    ('image_text2', customblocks.ImageTextBlock2()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
-    ('figure', customblocks.FigureBlock()),
-    ('figuregrid', customblocks.FigureGridBlock()),
     ('image_grid', customblocks.ImageGridBlock()),
     ('video', customblocks.VideoBlock()),
     ('iframe', customblocks.iFrameBlock()),
@@ -444,6 +440,7 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='primary_banner',
         verbose_name='Hero Image',
+        help_text='Choose an image that\'s bigger than 4032px x 1152px with aspect ratio 3.5:1',
     )
 
     intro = models.CharField(

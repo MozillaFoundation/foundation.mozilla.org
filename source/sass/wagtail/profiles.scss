@@ -1,5 +1,5 @@
 .profile-filters {
-  background-color: $subtle-gray;
+  background-color: $gray-05;
 
   &-button {
     border: none;
@@ -38,14 +38,15 @@
 }
 
 .person-card {
-  border-top: 0.0625rem solid black;
+  border-top: 1px solid black;
   display: grid;
   grid-template-rows: repeat(2, 0.25fr);
   grid-template-columns: 1fr 2fr;
 
   @media screen and (min-width: $bp-sm) {
-    grid-template-rows: repeat(3, 0.25fr);
+    grid-template-rows: 0.5fr 0.75fr;
     grid-template-columns: 0.9fr 2fr;
+    min-height: 160px;
   }
 }
 
@@ -74,11 +75,11 @@
       width: 12px;
       height: 12px;
       display: block;
-      content: '';
+      content: "";
       margin-right: 5px;
       background-size: contain;
       background-repeat: no-repeat;
-      background-image: url('/_images/glyphs/map-marker-icon.svg');
+      background-image: url("/_images/glyphs/map-marker-icon.svg");
     }
   }
 }

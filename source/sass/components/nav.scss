@@ -5,6 +5,7 @@
   font-family: "Nunito Sans";
   color: $gray-40;
   font-size: 15px;
+  font-weight: 700;
   border-bottom-width: 3px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
@@ -24,6 +25,6 @@
   }
 
   @at-root .vertical-nav #{&} {
-    @include scaleText(17px, 17px*1.6);
+    @include scaleText(17px, 17px * 1.6);
   }
 }

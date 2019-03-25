@@ -1,4 +1,4 @@
-#pni-about .main-content .h4-heading {
+#pni-about .main-content .h3-heading {
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
 }
@@ -34,7 +34,7 @@
   a second click closes it.
 */
 #pni-about .criteria-accordion {
-  input[type=checkbox].accordion-helper {
+  input[type="checkbox"].accordion-helper {
     display: block;
     height: 0;
 
@@ -90,7 +90,7 @@
       }
 
       h2::after {
-        content: ' ';
+        content: " ";
         display: block;
         position: absolute;
         right: 0;

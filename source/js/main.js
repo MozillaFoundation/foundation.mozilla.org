@@ -11,7 +11,6 @@ import People from "./components/people/people.jsx";
 import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
-import SingleFilterFellowList from "./components/fellow-list/single-filter-fellow-list.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
 
 import primaryNav from "./primary-nav.js";
@@ -56,7 +55,11 @@ let main = {
       let href = link.getAttribute(`href`);
 
       // Define an external link as any URL with `//` in it
-      if (href && href.match(/\/\//) && !href.match(`//${env.TARGET_DOMAIN}`)) {
+      if (
+        href &&
+        href.match(/\/\//) &&
+        env.TARGET_DOMAINS.some(domain => !href.match(`//${domain}`))
+      ) {
         link.setAttribute(`target`, `_blank`);
 
         // https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/

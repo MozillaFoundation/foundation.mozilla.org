@@ -1,9 +1,9 @@
 // Bootstrap
 
-@import '../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap';
-@import '../../node_modules/mofo-bootstrap/src/scss/custom/_colors';
-@import '../../node_modules/bootstrap/scss/_variables';
-@import '../../node_modules/bootstrap/scss/mixins';
+@import "../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap";
+@import "../../node_modules/mofo-bootstrap/src/scss/custom/_colors";
+@import "../../node_modules/bootstrap/scss/_variables";
+@import "../../node_modules/bootstrap/scss/mixins";
 
 // Breakpoints (imported from Bootstrap)
 
@@ -14,60 +14,57 @@ $bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
 $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 //Site-wide
-@import './glyphs';
-@import './colors';
-@import './mixins';
+@import "./glyphs";
+@import "./colors";
+@import "./mixins";
 
 // React Components
 
-@import '../js/components/highlights/highlights';
-@import '../js/components/people/people';
-@import '../js/components/join/join';
-@import '../js/components/loading-indicator/loading-indicator';
-@import '../js/components/member-notice/member-notice';
-@import '../js/components/multipage-nav-mobile/multipage-nav-mobile';
-@import '../js/components/pulse-project-list/pulse-project-list';
-@import '../js/components/fellow-list/fellow-list';
-@import '../js/components/petition/petition';
+@import "../js/components/people/people";
+@import "../js/components/join/join";
+@import "../js/components/loading-indicator/loading-indicator";
+@import "../js/components/member-notice/member-notice";
+@import "../js/components/multipage-nav-mobile/multipage-nav-mobile";
+@import "../js/components/pulse-project-list/pulse-project-list";
+@import "../js/components/fellow-list/directory-filter-bar";
+@import "../js/components/petition/petition";
 
 // Special react component
 
-@import '../js/donate-modal/donate-modal';
+@import "../js/donate-modal/donate-modal";
 
 // Non-React Components
 
-@import './components/hr-emphasis';
-@import './components/feature-quote';
-@import './components/nav';
-@import './components/primary-nav';
-@import './components/multipage-nav';
-@import './components/commitment';
-@import './components/card';
-@import './components/airtable-block';
-@import './components/img-txt-mini';
+@import "./components/hr-emphasis";
+@import "./components/feature-quote";
+@import "./components/nav";
+@import "./components/primary-nav";
+@import "./components/multipage-nav";
+@import "./components/commitment";
+@import "./components/card";
+@import "./components/airtable-block";
+@import "./components/img-txt-mini";
 
 // Misc
 
-@import './resets';
-@import './type';
-@import './buttons';
-@import './global';
-@import './utilities';
-@import './cms';
-@import './share-progress';
-@import './wagtail';
+@import "./resets";
+@import "./type";
+@import "./buttons";
+@import "./global";
+@import "./utilities";
+@import "./cms";
+@import "./share-progress";
+@import "./wagtail";
 
 // View specific
 
-@import './views/home';
-@import './views/programs';
-@import './views/about';
-@import './views/contact';
-@import './views/projects';
-@import './views/initiatives';
-@import './views/participate';
-@import './views/fellowships/shared';
-@import './views/style-guide';
+@import "./views/home";
+@import "./views/about";
+@import "./views/contact";
+@import "./views/projects";
+@import "./views/initiatives";
+@import "./views/participate";
+@import "./views/style-guide";
 
 // Bootstrap or mofo-bootstrap overrides
 

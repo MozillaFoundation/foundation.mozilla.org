@@ -23,8 +23,8 @@ class DonationModal extends React.Component {
     // CSS position property, we need to relocate the DOM
     // node so that we get the full-viewport effect.
     let body = document.body,
-        c1 = body.children[0],
-        n = this.fragment;
+      c1 = body.children[0],
+      n = this.fragment;
 
     if (!c1) {
       body.appendChild(n);
@@ -56,12 +56,12 @@ class DonationModal extends React.Component {
   getModalContent() {
     if (!this.donateURL) {
       let base = `https://donate.mozilla.org/?`,
-          query = [
-            `utm_source=foundation.mozilla.org`,
-            `utm_medium=petitionmodal`,
-            `utm_campaign=${this.props.slug}`,
-            `utm_content=${this.props.name}`
-          ].join(`&`);
+        query = [
+          `utm_source=foundation.mozilla.org`,
+          `utm_medium=petitionmodal`,
+          `utm_campaign=${this.props.slug}`,
+          `utm_content=${this.props.name}`
+        ].join(`&`);
 
       this.donateURL = `${base}${query}`;
     }
@@ -80,7 +80,7 @@ class DonationModal extends React.Component {
         </div>
 
         <div className="modal-body">
-          <h3 className={classNames(`h3-heading`, `text-center`)}>
+          <h3 className={classNames(`h2-heading`, `text-center`)}>
             {this.props.heading}
           </h3>
           <p className={classNames(`body-large`, `text-center`)}>

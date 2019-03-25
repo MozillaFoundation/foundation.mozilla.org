@@ -1,16 +1,14 @@
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: $black;
+a {
+  color: $dark-blue;
 
-  a,
-  a:hover,
-  a:active,
-  a:focus {
-    color: inherit;
+  @include hover-focus-active {
+    // Bootstrap / mofo-style overrides
+    color: $dark-blue;
+    text-decoration: underline;
+  }
+
+  &.dark-theme {
+    @include dark-theme-inline-anchor($white);
   }
 }
 
@@ -20,162 +18,171 @@ h3,
 h4,
 h5,
 h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
+.h1-heading,
+.h2-heading,
+.h3-heading,
+.h4-heading,
+.h5-heading,
+.h6-heading {
+  color: $black; // Bootstrap override
   margin-bottom: 1rem;
-}
 
-a {
-  color: $dark-blue;
-  font-weight: 700;
-
-  @include hover-focus-active { // Bootstrap / mofo-style overrides
-    color: $dark-blue;
-    text-decoration: underline;
-  }
-
-  &.h4-heading {
+  a {
+    color: inherit;
     font-weight: inherit;
-  }
-}
 
-@mixin black-box-white-text($padding:0.1em) {
-  background: $black;
-  color: $white;
-  display: inline;
-  padding: $padding;
-  line-height: 1.5;
+    @include hover-focus-active {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  &.dark-theme {
+    a {
+      @include dark-theme-inline-anchor();
+    }
+  }
 }
 
 h1,
 .h1-heading {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  letter-spacing: 0;
+  @include heading("Zilla Slab", 400, 0);
+  @include scaleText(36px, 40px, 48px, 56px);
 
-  @include scaleText(36px, 40px, 56px, 64px);
+  &.dark-theme {
+    color: $white;
+  }
 }
 
+h2,
 .h2-heading {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  letter-spacing: 1px;
+  @include heading("Zilla Slab", 300, 0);
+  @include scaleText(28px, 32px, 40px, 48px);
 
-  @include scaleText(22px, 32px, 24px, 36px);
-  @include black-box-white-text(0 0 0 40px);
-}
-
-.h2-typeaccent {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  color: $gray-20;
-
-  @include scaleText(56px, 64px, 72px, 88px);
+  &.dark-theme {
+    color: $white;
+  }
 }
 
 h3,
 .h3-heading {
-  font-family: "Zilla Slab";
-  font-weight: 300;
-  letter-spacing: 0;
+  @include heading("Zilla Slab", 400, 0);
+  @include scaleText(24px, 28px, 28px, 36px);
 
-  @include scaleText(28px, 32px, 40px, 48px);
+  &.dark-theme {
+    color: $white;
+  }
 }
 
 h4,
 .h4-heading {
-  font-family: "Zilla Slab";
-  font-weight: 400;
+  @include heading("Zilla Slab", 400, 0);
+  @include scaleText(22px, 32px, 24px, 36px);
 
-  @include scaleText(24px, 28px, 28px, 36px);
-
-  a {
-    font-weight: inherit;
+  &.dark-theme {
+    color: $white;
   }
 }
 
 h5,
 .h5-heading {
-  font-family: "Zilla Slab";
-  font-weight: 600;
-
+  @include heading("Zilla Slab", 600, 0);
   @include scaleText(20px, 24px, 22px, 28px);
 
-  a {
-    font-weight: inherit;
+  &.dark-theme {
+    color: $white;
   }
-}
-
-.h6-heading-uppercase {
-  font-family: "Nunito Sans";
-  font-weight: 400;
-  color: $gray-40;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-
-  @include scaleText(12px, 16px);
 }
 
 h6,
 .h6-heading {
-  font-family: "Nunito Sans";
-  font-weight: 400;
-  color: $gray-40;
-  letter-spacing: 0;
-
+  @include heading("Nunito Sans", 400, 0.5px);
   @include scaleText(12px, 16px);
+
+  color: $gray-40;
+  text-transform: uppercase;
+
+  &.dark-theme {
+    color: $gray-40;
+  }
+}
+
+.quote {
+  font-family: "Zilla Slab";
+  font-weight: 300;
+  font-style: italic;
+  color: $black;
+
+  @include scaleText(24px, 32px, 30px, 40px);
+
+  &.dark-theme {
+    color: $white;
+  }
+}
+
+.type-accent {
+  font-family: "Zilla Slab";
+  font-weight: 400;
+  color: $gray-20;
+
+  @include scaleText(56px, 64px, 72px, 88px);
+
+  &.dark-theme {
+    color: $gray-20;
+  }
 }
 
 .body-large,
 .body-large p {
+  color: $black;
   font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.333;
 
   @include scaleText(18px, 24px, 20px, 28px);
-}
 
-.quote-small {
-  font-family: "Nunito Sans";
-  font-weight: 300;
-  font-style: italic;
-  color: $black;
+  &.dark-theme {
+    color: $white;
 
-  @include scaleText(18px, 24px, 22px, 32px);
-}
-
-.quote-feature {
-  font-family: "Zilla Slab";
-  font-weight: 300;
-  font-style: italic;
-
-  @include scaleText(24px, 32px, 30px, 40px);
+    a {
+      @include dark-theme-inline-anchor();
+    }
+  }
 }
 
 p,
-.normal {
+.body {
   color: $black;
-  letter-spacing: 0;
+  font-weight: 400;
 
   @include scaleText(16px, 24px);
+
+  &.dark-theme {
+    color: $white;
+
+    a {
+      @include dark-theme-inline-anchor();
+    }
+  }
 }
 
-.body-link {
-  letter-spacing: 0;
-  font-weight: 700;
+.body-small {
+  font-family: "Nunito Sans";
+  font-weight: 400;
+  color: $gray-40;
 
-  @include scaleText(16px, 24px);
+  @include scaleText(12px, 16px);
+
+  &.dark-theme {
+    color: $gray-40;
+
+    a {
+      @include dark-theme-inline-anchor();
+    }
+  }
 }
 
 .cta-link {
   display: inline-block;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  text-decoration: underline;
+  font-weight: 700;
 
   &::after {
     content: " →";
@@ -187,4 +194,8 @@ p,
   }
 
   @include scaleText(16px, 24px);
+
+  &.dark-theme {
+    color: $light-blue;
+  }
 }
