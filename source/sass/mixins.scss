@@ -1,3 +1,9 @@
+@mixin heading($font-family, $font-weight, $letter-spacing) {
+  font-family: $font-family;
+  font-weight: $font-weight;
+  letter-spacing: $letter-spacing;
+}
+
 @mixin scaleText(
   $base-font-size,
   $base-line-height: null,
@@ -18,5 +24,15 @@
         line-height: $large-line-height/$large-font-size;
       }
     }
+  }
+}
+
+@mixin dark-theme-inline-anchor($color: inherit) {
+  color: $color;
+  font-weight: inherit;
+
+  @include hover-focus-active {
+    color: $light-blue;
+    text-decoration: underline;
   }
 }
