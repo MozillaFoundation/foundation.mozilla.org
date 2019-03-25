@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-8">
         <div class="mb-5">
-          <h1 class="h3-heading">{{ category.name }}</h1>
+          <h1 class="h2-heading">{{ category.name }}</h1>
           {% if category.description != None %}
           <p class="body-large mt-4">{{ category.description }}</p>
           {% endif %}
@@ -35,7 +35,7 @@
                 <img class="product-thumbnail" src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
                 {% endif %}
               </div>
-              <h3 class="mb-1 h6-heading">{{ product.company }}</h3>
+              <h3 class="mb-1 body-small">{{ product.company }}</h3>
               <h3 class="mb-5 h5-heading">{{ product.name }}</h3>
             </a>
           </div>
