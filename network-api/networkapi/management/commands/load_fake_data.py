@@ -378,6 +378,7 @@ class Command(BaseCommand):
         reseed()
 
         print('Generating Buyer\'s Guide Products')
+        ProductFactory.create(product_words=['Percy','Cypress',])
         generate_fake_data(ProductFactory, 70)
 
         reseed()
