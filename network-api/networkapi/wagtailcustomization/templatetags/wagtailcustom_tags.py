@@ -54,7 +54,7 @@ def add_id_attribute(match):
     text_content = match.group(3)
     anchor = ''
 
-    if int(n) < 3:
+    if int(n) < 4:
         id = slugify(strip_tags(text_content))
         anchor = f'<a class="fragment-id" id="{id}"></a>'
 
