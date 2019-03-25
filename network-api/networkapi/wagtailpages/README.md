@@ -75,7 +75,7 @@ This is an empty subclass of CTA, as the base fields already cover the signup CT
 
 #### 2. Petition
 
-This is a subclass of CTA that adds checkbox labels and google form identifiers for ensuring that petition form data can be captured in a specific google form. See its definition in `models.py` for the full list of fields this CTA makes use of.
+This is a subclass of CTA that adds checkbox labels and Basket->Salesforce submission. See its definition in `models.py` for the full list of fields this CTA makes use of.
 
 
 ## Stream blocks

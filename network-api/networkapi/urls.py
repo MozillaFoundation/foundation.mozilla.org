@@ -20,19 +20,6 @@ urlpatterns = list(filter(None, [
     # social-sign-on routes so that Google auth works
     url(r'^soc/', include('social_django.urls', namespace='social')),
 
-    # fellowship routes
-    # leaving some redirects in for the time being to make a clean switch to CMS-managed pages
-
-    url(r'^fellowship/(?P<path>.*)', RedirectView.as_view(
-        url='/fellowships/%(path)s',
-        query_string=True
-    )),
-
-    url(r'^fellowships/directory/archive', RedirectView.as_view(
-        url='/fellowships/directory',
-        query_string=True
-    )),
-
     # network API routes:
 
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
