@@ -92,7 +92,7 @@ class Person extends React.Component {
                       <div className="quote-attribution">
                         {metaBlock}
                         <div className="person-issues mb-2">{issues}</div>
-                        <div className="h6-heading">
+                        <div className="body-small">
                           {this.props.metadata.affiliations[0]}
                         </div>
                         {this.props.metadata.partnership_logo && (
@@ -154,7 +154,7 @@ class Person extends React.Component {
             <div className="col bio-content pt-3">
               {metaBlock}
               <div className="person-issues">{issues}</div>
-              <div className="person-affiliations h6-heading mt-2">
+              <div className="person-affiliations body-small mt-2">
                 {this.props.metadata.affiliations.join(`; `)}
               </div>
               {this.props.metadata.partnership_logo && (

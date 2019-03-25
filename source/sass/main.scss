@@ -26,6 +26,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "../js/components/member-notice/member-notice";
 @import "../js/components/multipage-nav-mobile/multipage-nav-mobile";
 @import "../js/components/pulse-project-list/pulse-project-list";
+@import "../js/components/fellow-list/directory-filter-bar";
 @import "../js/components/petition/petition";
 
 // Special react component
