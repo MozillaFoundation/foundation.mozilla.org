@@ -21,7 +21,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 //Site-wide
 
 @import "../colors";
-@import "./colors"; // Buyer's Guide specific colors
 @import "../mixins";
 @import "./mixins"; // Buyer's Guide specific mixins
 
@@ -95,14 +94,3 @@ img.thumb-border {
 @import "./views/product";
 @import "./views/about";
 @import "./views/category";
-
-// Force Buyer's Guide links to use the old blues until
-// we tackle this cleanup ticket https://github.com/mozilla/foundation.mozilla.org/issues/2665
-
-a {
-  color: $old-blue;
-
-  @include hover-focus-active {
-    color: $old-dark-blue;
-  }
-}

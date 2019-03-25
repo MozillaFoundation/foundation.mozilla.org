@@ -52,7 +52,7 @@ $product-detail-padding-x: (
     text-decoration: underline;
 
     @include hover-focus-active {
-      color: $bg-link-blue;
+      color: $blue;
     }
   }
 
@@ -69,7 +69,7 @@ $product-detail-padding-x: (
 
       &.copied {
         cursor: auto;
-        color: $bg-link-blue;
+        color: $blue;
         text-decoration: none;
       }
 
@@ -320,7 +320,7 @@ $product-detail-padding-x: (
   }
 
   @include hover-focus-active {
-    color: $bg-link-blue;
+    color: $blue;
   }
 }
 
