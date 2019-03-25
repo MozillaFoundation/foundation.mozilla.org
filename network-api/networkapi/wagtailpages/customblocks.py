@@ -476,6 +476,8 @@ class LatestProfileList(blocks.StructBlock):
             query=parse.urlencode(query_args)
         )
 
+        data = []
+
         try:
             response = request.urlopen(url)
             response_data = response.read()
