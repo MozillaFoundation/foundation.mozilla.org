@@ -271,6 +271,7 @@ TEMPLATES = [
                 'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags',
                 'nav_tags': 'networkapi.utility.templatetags.nav_tags',
                 'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
+                'wagtailcustom_tags': 'networkapi.wagtailcustomization.templatetags.wagtailcustom_tags',
             }
         },
     },

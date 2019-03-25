@@ -48,21 +48,19 @@ export default class News extends React.Component {
       return (
         <div key={newsItem.headline}>
           <div className="mb-3 news-item">
-            <div className="d-flex align-items-center mb-3">
+            <div className="d-flex align-items-center mb-2">
               {newsItem.glyph && (
                 <img src={newsItem.glyph} className="mr-2 glyph" />
               )}
-              <p className="h6-heading-uppercase mb-0">{newsItem.outlet}</p>
+              <p className="h6-heading mb-0">{newsItem.outlet}</p>
             </div>
-            <h3 className="h4-heading mb-2">
+            <h3 className="h3-heading mb-2">
               <a href={newsItem.link} className="newsItem headline">
                 {newsItem.headline}
               </a>
             </h3>
-            {newsItem.author && (
-              <p className="h6-heading">by {newsItem.author}</p>
-            )}
             <p className="h6-heading">
+              {newsItem.author && <span>by {newsItem.author} on </span>}
               {moment(newsItem.date, `YYYY-MM-DD`).format(`MMMM YYYY`)}
             </p>
           </div>
@@ -79,7 +77,7 @@ export default class News extends React.Component {
       return (
         <div className="row mb-5" key={year}>
           <div className="col-md-4 d-md-flex justify-content-end">
-            <h2 className="h2-typeaccent">{year}</h2>
+            <h2 className="type-accent">{year}</h2>
           </div>
           <div className="col-md-8 col-lg-7">
             {filteredNews.map((item, index, array) => {
