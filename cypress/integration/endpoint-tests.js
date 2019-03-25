@@ -104,7 +104,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`PNI product page`, function() {
-    cy.visit(`/en/privacynotincluded/products/never-statement/`);
+    cy.visit(`/en/privacynotincluded/products/percy-cypress/`);
     cy.window()
       .its(`bg-main-js:react:finished`)
       .should(`equal`, true);
