@@ -1,40 +1,48 @@
 .color-display {
-  border: 1px solid $light-gray;
+  border: 1px solid $gray-20;
 }
 
 .color-block {
-  border-bottom: 1px solid $light-gray;
-
-  &.black {
-    background: $black;
-  }
+  border-bottom: 1px solid $gray-20;
 
   &.white {
     background: $white;
   }
 
-  &.dark-gray {
-    background: $dark-gray;
+  &.gray-05 {
+    background: $gray-05;
   }
 
-  &.medium-gray {
-    background: $medium-gray;
+  &.gray-20 {
+    background: $gray-20;
   }
 
-  &.light-gray {
-    background: $light-gray;
+  &.gray-40 {
+    background: $gray-40;
   }
 
-  &.subtle-gray {
-    background: $subtle-gray;
+  &.gray-60 {
+    background: $gray-60;
   }
 
-  &.yellow {
-    background: $yellow;
+  &.gray-80 {
+    background: $gray-80;
   }
 
-  &.dark-yellow {
-    background: $dark-yellow;
+  &.black {
+    background: $black;
+  }
+
+  &.red {
+    background: $red;
+  }
+
+  &.dark-red {
+    background: $dark-red;
+  }
+
+  &.light-blue {
+    background: $light-blue;
   }
 
   &.blue {
@@ -45,23 +53,27 @@
     background: $dark-blue;
   }
 
-  &.neon-blue {
-    background: $neon-blue;
+  &.yellow {
+    background: $yellow;
+  }
+
+  &.dark-yellow {
+    background: $dark-yellow;
+  }
+
+  &.old-blue {
+    background: $old-blue;
+  }
+
+  &.old-dark-blue {
+    background: $old-dark-blue;
   }
 
   &.green {
     background: $green;
   }
-
-  &.neon-blue-green-gradient {
-    background: $neon-blue-green-gradient;
-  }
-
-  &.bright-green {
-    background: $bright-green;
-  }
 }
 
 .color-code {
-  color: $dark-gray;
+  color: $gray-60;
 }

@@ -10,7 +10,6 @@ import Petition from "./components/petition/petition.jsx";
 import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
-import SingleFilterFellowList from "./components/fellow-list/single-filter-fellow-list.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
 
 import primaryNav from "./primary-nav.js";
