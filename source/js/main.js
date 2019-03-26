@@ -385,8 +385,8 @@ let main = {
       `.profile-directory .fellowships-directory-filter .filter-option button`
     );
     filters.forEach(filter => {
+      let year = filter.textContent.trim();
       filter.addEventListener("click", () => {
-        let year = filter.textContent.trim();
         ReactGA.event({
           category: `profiles`,
           action: `directory filter"`,
