@@ -384,6 +384,7 @@ let main = {
     const filters = document.querySelectorAll(
       `.profile-directory .fellowships-directory-filter .filter-option button`
     );
+
     filters.forEach(filter => {
       let year = filter.textContent.trim();
       filter.addEventListener("click", () => {
