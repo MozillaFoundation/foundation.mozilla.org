@@ -460,6 +460,23 @@ let main = {
     // in case profile cards get updated.
     document.addEventListener(`profiles:list-updated`, evt => {
       evt.preventDefault();
+
+      //Profile Directory Filter Analytics 
+      const filters = document.querySelectorAll(
+        `.profile-directory .fellowships-directory-filter .filter-option button`
+      );
+      let labels = Array.from(filters);
+      labels.forEach(label => {
+        label.addEventListener("click", evt => {
+          evt.preventDefault();
+          let year = label.textContent;
+          ReactGA.event({
+            category: `profiles`,
+            action: `directory filter"`,
+            label: `${document.title} ${year}`
+          });
+        })
+      })
       // Refetch the profile cards, because they'll have gone stale.
       profileCards = document.querySelectorAll(`.profiles .person-card`);
       bindProfileCardAnalytics(profileCards);

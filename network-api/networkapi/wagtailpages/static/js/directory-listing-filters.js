@@ -106,7 +106,6 @@
 
     // And then we update the content that the user sees:
     profileContainer.innerHTML = cards.join("\n");
-    console.log("dispatching load event!");
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   }
 
