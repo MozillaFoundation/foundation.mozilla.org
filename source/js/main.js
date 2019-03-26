@@ -393,12 +393,36 @@ let main = {
       );
     });
 
+    function profileCardSocialAnalytics(socialTwitter, socialLinkedIn) {
+      if (socialTwitter) {
+        socialTwitter.addEventListener(`click`, () => {
+          evt.preventDefault();
+          ReactGA.event({
+            category: `profiles`,
+            action: `profile tap`,
+            label: `${document.title} ${name} twitter`
+          });
+        });
+      }
+      if (socialLinkedIn) {
+        socialTwitter.addEventListener(`click`, () => {
+          evt.preventDefault();
+          ReactGA.event({
+            category: `profiles`,
+            action: `profile tap`,
+            label: `${document.title} ${name} linkedin`
+          });
+        });
+      }
+    }
+
     function bindProfileCardAnalytics(profileCards) {
       // event listener & GA
-      let bindAnalytics = (element, name) => {
+      let bindAnalytics = (element, name, socialTwitter, socialLinkedIn) => {
         element.addEventListener(`click`, evt => {
           evt.preventDefault();
-          console.log(`Test: ${name}`);
+          profileCardSocialAnalytics(socialTwitter, socialLinkedIn);
+          console.log(profileCardSocialAnalytics());
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
@@ -412,9 +436,11 @@ let main = {
         let profileNameElement = card.querySelector(`.meta-block-name`);
         let profileName = profileNameElement.textContent;
         let profileHeadshotElement = card.querySelector(`.headshot-container`);
+        let socialTwitter = card.querySelector(`.twitter`);
+        let socialLinkedIn = card.querySelector(`.linkedIn`);
 
         [profileNameElement, profileHeadshotElement].forEach(target =>
-          bindAnalytics(target, profileName)
+          bindAnalytics(target, profileName, socialTwitter, socialLinkedIn)
         );
       });
     }
@@ -430,6 +456,7 @@ let main = {
     // And start listening for profile filter events,
     // in case profile cards get updated.
     document.addEventListener(`profiles:list-updated`, evt => {
+      evt.preventDefault();
       // Refetch the profile cards, because they'll have gone stale.
       profileCards = document.querySelectorAll(`.profiles .person-card`);
       bindProfileCardAnalytics(profileCards);
