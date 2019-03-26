@@ -237,9 +237,10 @@ let main = {
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
-    if (document.querySelectorAll(`.join-us:not(#join-us)`)) {
-      var elements = document.querySelectorAll(`.join-us:not(#join-us)`);
-      if (elements.length > 0) {
+    if (document.querySelectorAll(`.join-us`)) {
+      var elements = Array.from(document.querySelectorAll(`.join-us`));
+
+      if (elements.length) {
         elements.forEach(element => {
           var props = element.dataset;
 
@@ -383,7 +384,7 @@ let main = {
         `.profile-directory .fellowships-directory-filter .filter-option button`
       );
       filters.forEach(filter => {
-        filter.addEventListener("click", evt => {
+        filter.addEventListener("click", () => {
           let year = filter.textContent;
           ReactGA.event({
             category: `profiles`,
@@ -402,7 +403,7 @@ let main = {
       profileName
     ) {
       if (socialTwitter) {
-        socialTwitter.addEventListener(`click`, evt => {
+        socialTwitter.addEventListener(`click`, () => {
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
@@ -413,7 +414,7 @@ let main = {
       }
 
       if (socialLinkedIn) {
-        socialLinkedIn.addEventListener(`click`, evt => {
+        socialLinkedIn.addEventListener(`click`, () => {
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
@@ -427,7 +428,7 @@ let main = {
     function bindProfileCardAnalytics(profileCards) {
       // event listener & GA
       let bindAnalytics = (element, profileName) => {
-        element.addEventListener(`click`, evt => {
+        element.addEventListener(`click`, () => {
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
@@ -462,7 +463,7 @@ let main = {
     }
     // And start listening for profile filter events,
     // in case profile cards get updated.
-    document.addEventListener(`profiles:list-updated`, evt => {
+    document.addEventListener(`profiles:list-updated`, () => {
       // Refetch the profile cards, because they'll have gone stale.
       profileCards = document.querySelectorAll(`.profiles .person-card`);
       bindProfileCardAnalytics(profileCards);
