@@ -377,11 +377,41 @@ class Command(BaseCommand):
 
         reseed()
 
-        print('Generating Buyer\'s Guide Products')
+        print('Generating fixed Buyer\'s Guide Product for visual regression testing')
         ProductFactory.create(
             product_words=['Percy', 'Cypress'],
-            name="percy cypress",
+            name='percy cypress',
+            draft=False,
+            adult_content=False,
+            company='Percy',
+            blurb='Visual Regression Testing',
+            url='https://vrt.example.com',
+            price=350,
+            camera_app=True,
+            meets_minimum_security_standards=True,
+            camera_device=False,
+            microphone_app=True,
+            microphone_device=False,
+            location_app=True,
+            location_device=False,
+            uses_encryption=True,
+            privacy_policy_reading_level_url='https://vrt.example.com/pprl',
+            privacy_policy_reading_level='7',
+            share_data=False,
+            must_change_default_password=False,
+            security_updates=False,
+            delete_data=True,
+            child_rules=False,
+            manage_security=True,
+            phone_number='1-555-555-5555',
+            live_chat=True,
+            email='vrt@example.com',
+            worst_case='Duplicate work that burns through screenshots',
         )
+
+        reseed()
+
+        print('Generating Buyer\'s Guide Products')
         generate_fake_data(ProductFactory, 70)
 
         reseed()
