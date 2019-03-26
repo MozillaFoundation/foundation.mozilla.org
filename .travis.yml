@@ -76,6 +76,7 @@ matrix:
         - pipenv run python network-api/manage.py load_fake_data
       script: npm run percy
     - stage: Deploy
+      name: Deploy Maintenance page to S3
       script: skip
       deploy:
         provider: s3
