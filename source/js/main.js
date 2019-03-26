@@ -36,11 +36,11 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
+      Analytics.initialize();
+
       this.injectReactComponents();
       this.bindGlobalHandlers();
       this.decorateExternalLinks();
-
-      Analytics.initialize();
       this.bindGAEventTrackers();
 
       // Record that we're done, when we're really done.
@@ -239,11 +239,8 @@ let main = {
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
     if (document.querySelectorAll(`.join-us:not(#join-us)`)) {
-      var elements = Array.from(
-        document.querySelectorAll(`.join-us:not(#join-us)`)
-      );
-
-      if (elements.length) {
+      var elements = document.querySelectorAll(`.join-us:not(#join-us)`);
+      if (elements.length > 0) {
         elements.forEach(element => {
           var props = element.dataset;
 
@@ -393,14 +390,35 @@ let main = {
       );
     });
 
-    function profileCardSocialAnalytics(socialTwitter, socialLinkedIn) {
+    function profileDirectoryFilterAnalytics() {
+      const filters = document.querySelectorAll(
+        `.profile-directory .fellowships-directory-filter .filter-option button`
+      );
+      filters.forEach(filter => {
+        filter.addEventListener("click", evt => {
+          let year = filter.textContent;
+          ReactGA.event({
+            category: `profiles`,
+            action: `directory filter"`,
+            label: `${document.title} ${year}`
+          });
+        });
+      });
+    }
+
+    profileDirectoryFilterAnalytics();
+
+    function profileCardSocialAnalytics(
+      socialTwitter,
+      socialLinkedIn,
+      profileName
+    ) {
       if (socialTwitter) {
         socialTwitter.addEventListener(`click`, evt => {
-          evt.preventDefault();
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
-            label: `${document.title} ${name} twitter`,
+            label: `${document.title} ${profileName} twitter`,
             transport: `beacon`
           });
         });
@@ -408,11 +426,10 @@ let main = {
 
       if (socialLinkedIn) {
         socialLinkedIn.addEventListener(`click`, evt => {
-          evt.preventDefault();
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
-            label: `${document.title} ${name} linkedin`,
+            label: `${document.title} ${profileName} linkedin`,
             transport: `beacon`
           });
         });
@@ -421,22 +438,22 @@ let main = {
 
     function bindProfileCardAnalytics(profileCards) {
       // event listener & GA
-      let bindAnalytics = (element, name) => {
+      let bindAnalytics = (element, profileName) => {
         element.addEventListener(`click`, evt => {
-          evt.preventDefault();
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
-            label: `${document.title} ${name} pulse profile`
+            label: `${document.title} ${profileName} pulse profile`,
+            transport: `beacon`
           });
         });
       };
 
-      // adding event listener for each headshot & nam
+      // adding event listener for each headshot & name
       profileCards.forEach(card => {
-        let profileNameElement = card.querySelector(`.meta-block-name`);
-        let profileName = profileNameElement.textContent;
         let profileHeadshotElement = card.querySelector(`.headshot-container`);
+        let profileNameElement = card.querySelector(`.meta-block-name`);
+        let profileName = profileNameElement.textContent.trim();
 
         [(profileNameElement, profileHeadshotElement)].forEach(target =>
           bindAnalytics(target, profileName)
@@ -444,7 +461,7 @@ let main = {
 
         let socialTwitter = card.querySelector(`.twitter`);
         let socialLinkedIn = card.querySelector(`.linkedIn`);
-        profileCardSocialAnalytics(socialTwitter, socialLinkedIn);
+        profileCardSocialAnalytics(socialTwitter, socialLinkedIn, profileName);
       });
     }
 
@@ -455,28 +472,9 @@ let main = {
     if (profileCards.length > 0) {
       bindProfileCardAnalytics(profileCards);
     }
-
     // And start listening for profile filter events,
     // in case profile cards get updated.
     document.addEventListener(`profiles:list-updated`, evt => {
-      evt.preventDefault();
-
-      //Profile Directory Filter Analytics
-      const filters = document.querySelectorAll(
-        `.profile-directory .fellowships-directory-filter .filter-option button`
-      );
-      let labels = Array.from(filters);
-      labels.forEach(label => {
-        label.addEventListener("click", evt => {
-          evt.preventDefault();
-          let year = label.textContent;
-          ReactGA.event({
-            category: `profiles`,
-            action: `directory filter"`,
-            label: `${document.title} ${year}`
-          });
-        });
-      });
       // Refetch the profile cards, because they'll have gone stale.
       profileCards = document.querySelectorAll(`.profiles .person-card`);
       bindProfileCardAnalytics(profileCards);
