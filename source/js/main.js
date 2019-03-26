@@ -379,23 +379,23 @@ let main = {
       );
     });
 
-    function profileDirectoryFilterAnalytics() {
-      const filters = document.querySelectorAll(
-        `.profile-directory .fellowships-directory-filter .filter-option button`
-      );
-      filters.forEach(filter => {
-        filter.addEventListener("click", () => {
-          let year = filter.textContent;
-          ReactGA.event({
-            category: `profiles`,
-            action: `directory filter"`,
-            label: `${document.title} ${year}`
-          });
+    //Profile Directory Filter-Bar GA
+
+    const filters = document.querySelectorAll(
+      `.profile-directory .fellowships-directory-filter .filter-option button`
+    );
+    filters.forEach(filter => {
+      filter.addEventListener("click", () => {
+        let year = filter.textContent.trim();
+        ReactGA.event({
+          category: `profiles`,
+          action: `directory filter"`,
+          label: `${document.title} ${year}`
         });
       });
-    }
+    });
 
-    profileDirectoryFilterAnalytics();
+    //Profile Directory Cards Social Media GA
 
     function profileCardSocialAnalytics(
       socialTwitter,
@@ -424,6 +424,8 @@ let main = {
         });
       }
     }
+
+    //Profile Directory Card Headshot/Name GA
 
     function bindProfileCardAnalytics(profileCards) {
       // event listener & GA
