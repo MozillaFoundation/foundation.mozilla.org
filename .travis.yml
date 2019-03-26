@@ -34,6 +34,7 @@ branches:
     - master
 matrix:
   include:
+    - stage: Tests
     - name: Python tests
       install: "./travis-scripts/python-install.sh"
       before_script:
@@ -69,14 +70,16 @@ matrix:
         - pipenv run python network-api/manage.py update_translation_fields
         - pipenv run python network-api/manage.py load_fake_data
       script: npm run percy
-deploy:
-  provider: s3
-  access_key_id: "AKIAIDLSQZEZHN7MPGKA"
-  secret_access_key:
-    secure: 41kXOgS58Ew64cXRE8KfDWMIAaSHdab/x2e0Pkv0pzEcEAbZloY2I6qlGs+K1JuK68WCicivU1cgmxgqSlA+Ol9cl3LD+XyeQsZqeIiYw9exZVHy1b49I2GPrW32mooasndJd29GNEqLfC5C1PuiVv4Ixs6USeshDH7+/SUFswO4A08F2S0C9r0bAhc9ff2TpsCSGBMNB9QgXvKnKvWB1S+mGbf9anrfJlPV0G6/PrMhldrVUrIULZidbiJuaW2FoKlt0YkEBYdzM+gdNI88VHRSrBnbbZrMs26sd4XBUtSeZcFA2QWnkfltRWLjpmPQWd6lcA53T7jNRr9z89HjEkxtz9N3Rb7qT1fuDwc6f9+5lj9G+kzxSeOoVBDNRNmhHTlEUIbODP80jcbr2GCCs6NgKq4yKApiA1lHA3REooBbGzkc53WtXfITDfK7h6BDDsJyGxBbU2gS66vvmGkv//wdXMsEwTfnmx0oHeQS1ad5emvOJSLIJXtCAqepStEBIhWRnN0ZCDhNTMoz63qE3Ne0KQhHX9j7UBLw7MRy6qGm2+Kd8ok2akqw8WUpQtUkgoxJzMHdx8BEYrFjfWEXnhqGriwWYRCNVI2MK53sE7ia8lzOil4jDAFURtRq7sJBBbgufc010gSHdBdcqm3haYr0XUgebR7hs2BD45+kVZA=
-  bucket: "foundation-mozilla-org-maintenance"
-  region: us-east-1
-  acl: public_read
-  local_dir: maintenance
-  on:
-    branch: master
+    - stage: deploy
+      script: skip
+      deploy:
+        provider: s3
+        access_key_id: "AKIAIDLSQZEZHN7MPGKA"
+        secret_access_key:
+          secure: 41kXOgS58Ew64cXRE8KfDWMIAaSHdab/x2e0Pkv0pzEcEAbZloY2I6qlGs+K1JuK68WCicivU1cgmxgqSlA+Ol9cl3LD+XyeQsZqeIiYw9exZVHy1b49I2GPrW32mooasndJd29GNEqLfC5C1PuiVv4Ixs6USeshDH7+/SUFswO4A08F2S0C9r0bAhc9ff2TpsCSGBMNB9QgXvKnKvWB1S+mGbf9anrfJlPV0G6/PrMhldrVUrIULZidbiJuaW2FoKlt0YkEBYdzM+gdNI88VHRSrBnbbZrMs26sd4XBUtSeZcFA2QWnkfltRWLjpmPQWd6lcA53T7jNRr9z89HjEkxtz9N3Rb7qT1fuDwc6f9+5lj9G+kzxSeOoVBDNRNmhHTlEUIbODP80jcbr2GCCs6NgKq4yKApiA1lHA3REooBbGzkc53WtXfITDfK7h6BDDsJyGxBbU2gS66vvmGkv//wdXMsEwTfnmx0oHeQS1ad5emvOJSLIJXtCAqepStEBIhWRnN0ZCDhNTMoz63qE3Ne0KQhHX9j7UBLw7MRy6qGm2+Kd8ok2akqw8WUpQtUkgoxJzMHdx8BEYrFjfWEXnhqGriwWYRCNVI2MK53sE7ia8lzOil4jDAFURtRq7sJBBbgufc010gSHdBdcqm3haYr0XUgebR7hs2BD45+kVZA=
+        bucket: "foundation-mozilla-org-maintenance"
+        region: us-east-1
+        acl: public_read
+        local_dir: maintenance
+        on:
+          branch: master
