@@ -35,11 +35,11 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
+      Analytics.initialize();
+
       this.injectReactComponents();
       this.bindGlobalHandlers();
       this.decorateExternalLinks();
-
-      Analytics.initialize();
       this.bindGAEventTrackers();
 
       // Record that we're done, when we're really done.
@@ -377,6 +377,99 @@ let main = {
           );
         })
       );
+    });
+
+    //Profile Directory Filter-Bar GA
+
+    const filters = document.querySelectorAll(
+      `.profile-directory .fellowships-directory-filter .filter-option button`
+    );
+
+    filters.forEach(filter => {
+      let year = filter.textContent.trim();
+      filter.addEventListener("click", () => {
+        ReactGA.event({
+          category: `profiles`,
+          action: `directory filter"`,
+          label: `${document.title} ${year}`
+        });
+      });
+    });
+
+    //Profile Directory Cards Social Media GA
+
+    function profileCardSocialAnalytics(
+      socialTwitter,
+      socialLinkedIn,
+      profileName
+    ) {
+      if (socialTwitter) {
+        socialTwitter.addEventListener(`click`, () => {
+          ReactGA.event({
+            category: `profiles`,
+            action: `profile tap`,
+            label: `${document.title} ${profileName} twitter`,
+            transport: `beacon`
+          });
+        });
+      }
+
+      if (socialLinkedIn) {
+        socialLinkedIn.addEventListener(`click`, () => {
+          ReactGA.event({
+            category: `profiles`,
+            action: `profile tap`,
+            label: `${document.title} ${profileName} linkedin`,
+            transport: `beacon`
+          });
+        });
+      }
+    }
+
+    //Profile Directory Card Headshot/Name GA
+
+    function bindProfileCardAnalytics(profileCards) {
+      // event listener & GA
+      let bindAnalytics = (element, profileName) => {
+        element.addEventListener(`click`, () => {
+          ReactGA.event({
+            category: `profiles`,
+            action: `profile tap`,
+            label: `${document.title} ${profileName} pulse profile`,
+            transport: `beacon`
+          });
+        });
+      };
+
+      // adding event listener for each headshot & name
+      profileCards.forEach(card => {
+        let profileHeadshotElement = card.querySelector(`.headshot-container`);
+        let profileNameElement = card.querySelector(`.meta-block-name`);
+        let profileName = profileNameElement.textContent.trim();
+
+        [(profileNameElement, profileHeadshotElement)].forEach(target =>
+          bindAnalytics(target, profileName)
+        );
+
+        let socialTwitter = card.querySelector(`.twitter`);
+        let socialLinkedIn = card.querySelector(`.linkedIn`);
+        profileCardSocialAnalytics(socialTwitter, socialLinkedIn, profileName);
+      });
+    }
+
+    // store profile cards
+    let profileCards = document.querySelectorAll(`.profiles .person-card`);
+
+    // checks for profile cards in the initial page load
+    if (profileCards.length > 0) {
+      bindProfileCardAnalytics(profileCards);
+    }
+    // And start listening for profile filter events,
+    // in case profile cards get updated.
+    document.addEventListener(`profiles:list-updated`, () => {
+      // Refetch the profile cards, because they'll have gone stale.
+      profileCards = document.querySelectorAll(`.profiles .person-card`);
+      bindProfileCardAnalytics(profileCards);
     });
 
     /*
