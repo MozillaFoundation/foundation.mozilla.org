@@ -70,7 +70,7 @@ matrix:
         - pipenv run python network-api/manage.py update_translation_fields
         - pipenv run python network-api/manage.py load_fake_data
       script: npm run percy
-    - stage: deploy
+    - stage: Deploy
       script: skip
       deploy:
         provider: s3
