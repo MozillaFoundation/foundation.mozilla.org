@@ -11,9 +11,4 @@ const noop = {
 
 const TrackingObject = DNT.allowTracking ? ReactGA : noop;
 
-TrackingObject.event = (...args) => {
-  console.log(args);
-  ReactGA.event(...args);
-};
-
 export default TrackingObject;

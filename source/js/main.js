@@ -395,22 +395,25 @@ let main = {
 
     function profileCardSocialAnalytics(socialTwitter, socialLinkedIn) {
       if (socialTwitter) {
-        socialTwitter.addEventListener(`click`, () => {
-          evt.preventDefault();
+        socialTwitter.addEventListener(`click`, evt => {
+          console.log('twitter clicked!');
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
-            label: `${document.title} ${name} twitter`
+            label: `${document.title} ${name} twitter`,
+            transport: `beacon`
           });
         });
       }
+
       if (socialLinkedIn) {
-        socialTwitter.addEventListener(`click`, () => {
-          evt.preventDefault();
+        socialLinkedIn.addEventListener(`click`, evt => {
+          console.log('linkeding clicked!');
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
-            label: `${document.title} ${name} linkedin`
+            label: `${document.title} ${name} linkedin`,
+            transport: `beacon`
           });
         });
       }
@@ -418,11 +421,9 @@ let main = {
 
     function bindProfileCardAnalytics(profileCards) {
       // event listener & GA
-      let bindAnalytics = (element, name, socialTwitter, socialLinkedIn) => {
+      let bindAnalytics = (element, name) => {
         element.addEventListener(`click`, evt => {
           evt.preventDefault();
-          profileCardSocialAnalytics(socialTwitter, socialLinkedIn);
-          console.log(profileCardSocialAnalytics());
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
@@ -431,17 +432,19 @@ let main = {
         });
       };
 
-      // adding event listener for each headshot & name
+      // adding event listener for each headshot & nam
       profileCards.forEach(card => {
         let profileNameElement = card.querySelector(`.meta-block-name`);
         let profileName = profileNameElement.textContent;
         let profileHeadshotElement = card.querySelector(`.headshot-container`);
+
+        [(profileNameElement, profileHeadshotElement)].forEach(target =>
+          bindAnalytics(target, profileName)
+        );
+
         let socialTwitter = card.querySelector(`.twitter`);
         let socialLinkedIn = card.querySelector(`.linkedIn`);
-
-        [profileNameElement, profileHeadshotElement].forEach(target =>
-          bindAnalytics(target, profileName, socialTwitter, socialLinkedIn)
-        );
+        profileCardSocialAnalytics(socialTwitter, socialLinkedIn);
       });
     }
 
