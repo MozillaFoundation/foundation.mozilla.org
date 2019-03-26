@@ -40,7 +40,6 @@ branches:
 
 matrix:
   include:
-    - stage: Tests
     - name: Python tests
       install: "./travis-scripts/python-install.sh"
       before_script:
