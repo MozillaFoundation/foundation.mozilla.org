@@ -1,5 +1,13 @@
 ## Development
 
+### Environment Variables
+
+Default environment variables are declared in `env.default`. If you wish to override any of the values, you can create a local `.env` file in the root of the project.
+
+The domain used to fetch static content from Network Pulse can be customized by specifying `PULSE_API_DOMAIN`. By default it uses `network-pulse-api-production.herokuapp.com`.
+
+The URL for fetching static content from the Network API can be customized by specifying `NETWORK_SITE_URL`. By default it uses `https://foundation.mozilla.org`. **NOTE: this variable must include a protocol (such as `https://`)**
+
 ### Pipenv and Invoke commands
 
 Pipenv pattern to run Django management commands is:
