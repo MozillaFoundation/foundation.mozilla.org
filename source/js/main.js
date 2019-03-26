@@ -396,7 +396,7 @@ let main = {
     function profileCardSocialAnalytics(socialTwitter, socialLinkedIn) {
       if (socialTwitter) {
         socialTwitter.addEventListener(`click`, evt => {
-          console.log('twitter clicked!');
+          evt.preventDefault();
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
@@ -408,7 +408,7 @@ let main = {
 
       if (socialLinkedIn) {
         socialLinkedIn.addEventListener(`click`, evt => {
-          console.log('linkeding clicked!');
+          evt.preventDefault();
           ReactGA.event({
             category: `profiles`,
             action: `profile tap`,
@@ -461,7 +461,7 @@ let main = {
     document.addEventListener(`profiles:list-updated`, evt => {
       evt.preventDefault();
 
-      //Profile Directory Filter Analytics 
+      //Profile Directory Filter Analytics
       const filters = document.querySelectorAll(
         `.profile-directory .fellowships-directory-filter .filter-option button`
       );
@@ -475,8 +475,8 @@ let main = {
             action: `directory filter"`,
             label: `${document.title} ${year}`
           });
-        })
-      })
+        });
+      });
       // Refetch the profile cards, because they'll have gone stale.
       profileCards = document.querySelectorAll(`.profiles .person-card`);
       bindProfileCardAnalytics(profileCards);
