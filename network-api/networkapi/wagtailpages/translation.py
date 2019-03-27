@@ -5,7 +5,6 @@ from .models import (
     NewsPage,
     InitiativesPage,
     ParticipatePage2,
-    PeoplePage,
     Styleguide,
     Homepage,
     RedirectingPage,
@@ -111,11 +110,6 @@ class ParticipatePageTR(TranslationOptions):
 
 @register(ParticipatePage2)
 class ParticipatePage2TR(TranslationOptions):
-    fields = ()
-
-
-@register(PeoplePage)
-class PeoplePageTR(TranslationOptions):
     fields = ()
 
 
