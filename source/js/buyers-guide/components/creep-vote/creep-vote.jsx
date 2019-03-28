@@ -214,7 +214,7 @@ export default class CreepVote extends React.Component {
             <button
               id="creep-vote-btn"
               type="submit"
-              className="btn btn-ghost mb-2"
+              className="btn button-secondary mb-2"
               onClick={() => this.handleSubmitBtnClick()}
             >
               Vote & See Results
