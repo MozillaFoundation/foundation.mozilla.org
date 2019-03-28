@@ -26,6 +26,18 @@ class LinkButtonBlock(blocks.StructBlock):
         default='btn-normal',
     )
 
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        styling = value.get("styling")
+
+        if styling == 'btn-normal':
+            styling = 'button-primary'
+        if styling == 'btn-ghost':
+            styling = 'button-secondary'
+        context['styling'] = styling
+
+        return context
+
     class Meta:
         icon = 'link'
         template = 'wagtailpages/blocks/link_button_block.html'
