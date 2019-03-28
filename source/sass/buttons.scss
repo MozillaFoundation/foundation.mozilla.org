@@ -14,12 +14,12 @@
   $offset: 4px;
 
   background: transparent;
-  color: black;
+  color: $black;
   box-shadow: $offset $offset $black;
-  transition: all 0.08s ease;
   border: 2px solid $black;
   position: relative;
   top: -$offset / 2;
+  transition: all 0.08s ease;
 
   @include hover-focus-active {
     transform: translate($offset, $offset);
@@ -34,8 +34,9 @@
     border-color: $white;
 
     @include hover-focus-active {
+      transform: translate($offset, $offset);
       color: $white;
-      background: transparent;
+      box-shadow: none;
     }
   }
 }
@@ -103,14 +104,24 @@
     width: 16px;
     height: 14px;
     background: url(../_images/glyphs/external.svg) no-repeat;
-    margin-left: 10px;
+    margin-left: 8px;
     position: relative;
     bottom: 1px;
     transition: filter 0.2s ease-in-out;
   }
 
   &:hover::after {
-    filter: brightness(100);
+    filter: brightness(1);
+  }
+
+  &.dark-theme {
+    &::after {
+      filter: brightness(1);
+    }
+
+    &:hover::after {
+      filter: brightness(0);
+    }
   }
 }
 

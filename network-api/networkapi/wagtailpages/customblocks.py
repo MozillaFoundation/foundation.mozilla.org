@@ -18,8 +18,8 @@ class LinkButtonBlock(blocks.StructBlock):
     # should be used.
     styling = blocks.ChoiceBlock(
         choices=[
-            ('btn-normal', 'Normal button'),
-            ('btn-ghost', 'Ghost button'),
+            ('btn-normal', 'Normal button'), # old option to be removed
+            ('btn-ghost', 'Ghost button'), # old option to be removed
             ('button-primary', 'Primary button'),
             ('button-secondary', 'Secondary button'),
         ],
