@@ -36,16 +36,6 @@
     @media (min-width: $bp-lg) {
       display: none;
     }
-
-    .narrow-sticky-button {
-      width: 100%;
-      background: $yellow;
-      color: $black;
-
-      &:hover {
-        background: $dark-yellow;
-      }
-    }
   }
 }
 
