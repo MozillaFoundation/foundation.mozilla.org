@@ -216,9 +216,6 @@ class Signup(CTA):
 
 
 class OpportunityPage(MiniSiteNameSpace):
-    """
-    these pages come with sign-up-for-xyz CTAs
-    """
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
