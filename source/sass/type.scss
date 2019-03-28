@@ -10,6 +10,14 @@ a {
   &.dark-theme {
     @include dark-theme-inline-anchor($white);
   }
+
+  &.btn.dark-theme {
+    font-weight: $btn-font-weight;
+
+    @include hover-focus-active {
+      text-decoration: none;
+    }
+  }
 }
 
 h1,

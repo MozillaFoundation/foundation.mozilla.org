@@ -20,6 +20,8 @@ class LinkButtonBlock(blocks.StructBlock):
         choices=[
             ('btn-normal', 'Normal button'),
             ('btn-ghost', 'Ghost button'),
+            ('button-primary', 'Primary button'),
+            ('button-secondary', 'Secondary button'),
         ],
         default='btn-normal',
     )

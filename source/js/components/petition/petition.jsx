@@ -715,7 +715,7 @@ export default class Petition extends React.Component {
             <div className="mt-3">
               <button
                 disabled={disableFields}
-                className="col-12 btn btn-normal petition-btn"
+                className="col-12 btn button-primary petition-btn"
               >
                 {get(`Add my name`)}
               </button>

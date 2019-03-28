@@ -169,7 +169,7 @@ export default class JoinUs extends React.Component {
                         )}
                     </label>
                     <div>
-                      <button className="btn btn-normal join-btn">
+                      <button className="btn button-primary join-btn">
                         Sign Up
                       </button>
                     </div>
