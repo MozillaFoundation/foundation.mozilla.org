@@ -18,7 +18,7 @@ class LinkButtonBlock(blocks.StructBlock):
     # should be used.
     styling = blocks.ChoiceBlock(
         choices=[
-            ('button-primary', 'Primary button'),
+            ('btn-primary', 'Primary button'),
             ('button-secondary', 'Secondary button'),
             ('btn-normal', 'Normal button (Obsolete. Use \'primary button\' instead)'),  # old option to be removed
             ('btn-ghost', 'Ghost button  (Obsolete. Use \'secondary button\' instead)'),  # old option to be removed
@@ -31,7 +31,7 @@ class LinkButtonBlock(blocks.StructBlock):
         styling = value.get("styling")
 
         if styling == 'btn-normal':
-            styling = 'button-primary'
+            styling = 'btn-primary'
         if styling == 'btn-ghost':
             styling = 'button-secondary'
         context['styling'] = styling
