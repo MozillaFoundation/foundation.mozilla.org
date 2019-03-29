@@ -208,8 +208,6 @@ class OpportunityPageFactory(CMSPageFactory):
     class Params:
         no_cta = Trait(cta=None)
 
-    cta = SubFactory(SignupFactory)
-
 
 class FeaturedFactory(DjangoModelFactory):
     class Meta:
