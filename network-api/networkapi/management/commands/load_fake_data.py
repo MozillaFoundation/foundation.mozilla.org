@@ -137,6 +137,8 @@ class Command(BaseCommand):
             ) for i in range(20)
         ]
 
+        reseed()
+
         print('Generating Milestones')
         [MilestoneFactory.create() for i in range(10)]
 
