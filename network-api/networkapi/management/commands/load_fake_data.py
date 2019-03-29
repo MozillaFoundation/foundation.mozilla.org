@@ -137,6 +137,8 @@ class Command(BaseCommand):
             ) for i in range(20)
         ]
 
+        reseed()
+
         print('Generating Milestones')
         [MilestoneFactory.create() for i in range(10)]
 
@@ -331,7 +333,7 @@ class Command(BaseCommand):
         except wagtailpages_models.CampaignPage.DoesNotExist:
             print('Generating multi-page CampaignPage')
             multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
-            [CampaignPageFactory(parent=multi_page_campaign, no_cta=True) for k in range(3)]
+            [CampaignPageFactory(parent=multi_page_campaign) for k in range(3)]
 
         reseed()
 
@@ -354,7 +356,7 @@ class Command(BaseCommand):
             print('Global Sprint OpportunityPage exists')
         except wagtailpages_models.OpportunityPage.DoesNotExist:
             print('Generating Global Sprint OpportunityPage')
-            OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint', no_cta=True)
+            OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint')
 
         reseed()
 
@@ -373,7 +375,7 @@ class Command(BaseCommand):
         except wagtailpages_models.OpportunityPage.DoesNotExist:
             print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
-            [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
+            [OpportunityPageFactory(parent=multi_page_opportunity) for k in range(3)]
 
         reseed()
 
