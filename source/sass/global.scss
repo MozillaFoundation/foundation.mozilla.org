@@ -59,3 +59,30 @@ button:hover {
   border-bottom: 1px solid $black;
   border-top: 1px solid $black;
 }
+
+.donate-banner {
+  background: $blue;
+
+  * {
+    color: $white; // temp, to be updated
+  }
+}
+
+footer.site-footer {
+  background: $black;
+
+  * {
+    color: $white; // temp, to be updated
+  }
+
+  .link-list {
+    @media (min-width: $bp-md) {
+      column-count: 2;
+      break-inside: avoid-column;
+    }
+
+    a {
+      color: $gray-40;
+    }
+  }
+}
