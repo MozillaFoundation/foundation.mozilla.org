@@ -43,7 +43,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.1",
+    "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.5.0",
     "babel-core": "^6.26.3",
@@ -70,7 +70,7 @@
     "prettier": "^1.16.4",
     "prop-types": "^15.7.2",
     "react": "16.8.4",
-    "react-dom": "16.8.4",
+    "react-dom": "16.8.5",
     "react-ga": "2.5.7",
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
