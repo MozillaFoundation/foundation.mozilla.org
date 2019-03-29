@@ -11,7 +11,7 @@ a {
     @include dark-theme-inline-anchor($white);
   }
 
-  &.btn.dark-theme {
+  &.btn {
     font-weight: $btn-font-weight;
 
     @include hover-focus-active {

@@ -67,7 +67,7 @@
 }
 
 .btn-ghost,
-.button-secondary {
+.btn-secondary {
   // [TODO] .btn-ghost is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
 
   color: $black;
@@ -75,8 +75,9 @@
   border: 2px solid $black;
 
   @include hover-focus-active {
-    background: $black;
     color: $white;
+    background: $black;
+    border: 2px solid $black;
   }
 
   &.dark-theme {
@@ -93,7 +94,7 @@
 
 // append external link glyph
 .btn-ghost[href*="//"]:not([href*="foundation.mozilla.org"]),
-.button-secondary[href*="//"]:not([href*="foundation.mozilla.org"]) {
+.btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]) {
   // [TODO] .btn-ghost is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
 
   display: inline-flex;
@@ -112,8 +113,10 @@
     transition: filter 0.2s ease-in-out;
   }
 
-  &:hover::after {
-    filter: brightness(1);
+  @include hover-focus-active {
+    &::after {
+      filter: brightness(1);
+    }
   }
 
   &.dark-theme {
@@ -121,8 +124,10 @@
       filter: brightness(1);
     }
 
-    &:hover::after {
-      filter: brightness(0);
+    @include hover-focus-active {
+      &::after {
+        filter: brightness(0);
+      }
     }
   }
 }
