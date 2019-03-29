@@ -78,9 +78,9 @@
                   </span>
                 </div>
               </a>
-              <p class="d-flex align-items-center meta-block-location h6-heading my-2">${
-                profile.location
-              }</p>
+              <p class="d-flex align-items-center meta-block-location h6-heading my-2">
+                ${profile.location}
+              </p>
             </div>
             <div class="social-icons">
               ${
@@ -106,6 +106,7 @@
 
     // And then we update the content that the user sees:
     profileContainer.innerHTML = cards.join("\n");
+    document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   }
 
   function showLoadSpinner() {

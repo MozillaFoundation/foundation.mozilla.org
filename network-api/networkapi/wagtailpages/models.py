@@ -29,7 +29,6 @@ which are bits that should be used in subclassing template-based
 page types.
 """
 base_fields = [field for field in [
-    ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
             'bold', 'italic',
@@ -217,21 +216,9 @@ class Signup(CTA):
 
 
 class OpportunityPage(MiniSiteNameSpace):
-    """
-    these pages come with sign-up-for-xyz CTAs
-    """
-    cta = models.ForeignKey(
-        'Signup',
-        related_name='page',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        help_text='Choose existing or create new petition form'
-    )
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
-        SnippetChooserPanel('cta'),
         StreamFieldPanel('body'),
     ]
 
@@ -789,7 +776,6 @@ class ParticipatePage2(PrimaryPage):
 
 class PeoplePage(PrimaryPage):
     parent_page_types = ['Homepage']
-    template = 'wagtailpages/static/people_page.html'
 
 
 class Styleguide(PrimaryPage):

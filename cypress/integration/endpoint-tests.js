@@ -94,17 +94,8 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`PNI category page`, function() {
-    cy.visit(`/en/privacynotincluded/categories/toys-games/`);
-    cy.window()
-      .its(`bg-main-js:react:finished`)
-      .should(`equal`, true);
-    cy.wait(500);
-    cy.percySnapshot();
-  });
-
   it(`PNI product page`, function() {
-    cy.visit(`/en/privacynotincluded/products/home-great/`);
+    cy.visit(`/en/privacynotincluded/products/percy-cypress/`);
     cy.window()
       .its(`bg-main-js:react:finished`)
       .should(`equal`, true);
