@@ -1,5 +1,5 @@
 {% extends "./campaign_page.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags mini_site_tags %}
 
 {% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
@@ -8,3 +8,16 @@
 {% endblock %}
 
 {% block campaign_page_header %}{% endblock %}
+{% block campaign_page_menu %}{% endblock %}
+
+{% block bannered_campaign_page_menu %}
+  <div id="multipage-nav-wrapper" class="hidden-sm-down full-width">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          {% mini_site_horizontal_nav page %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
