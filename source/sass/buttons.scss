@@ -52,6 +52,7 @@
   @include hover-focus-active {
     color: $white;
     background: $dark-blue;
+    border: none;
   }
 
   &.dark-theme {
