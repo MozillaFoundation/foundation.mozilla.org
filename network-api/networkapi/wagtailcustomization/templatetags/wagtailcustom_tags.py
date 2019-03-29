@@ -18,7 +18,13 @@ __original__html__ = RichText.__html__
 # guaranteed to work because we know that the source of
 # the HTML code we'll be working with generates nice
 # and predictable HTML code.
-heading_re = r"<h(\d)[^>]*>([^<]*)</h\1>"
+#
+# This RE uses three capture groups:
+#
+# 1. "everything after the h" for the opening tag
+# 2. the heading number
+# 3. the tag's text content
+heading_re = r"<h((\d)[^>]*)>([^<]*)</h\1>"
 
 
 def add_id_attribute(match):
@@ -43,14 +49,16 @@ def add_id_attribute(match):
 
     Also note that this replacement will only kick in for h1/h2/h3.
     """
-    n = match.group(1)
-    text_content = match.group(2)
+    hsuffix = match.group(1)
+    n = match.group(2)
+    text_content = match.group(3)
+    anchor = ''
 
-    if int(n) > 3:
-        return text_content
+    if int(n) < 4:
+        id = slugify(strip_tags(text_content))
+        anchor = f'<a class="fragment-id" id="{id}"></a>'
 
-    id = slugify(strip_tags(text_content))
-    return f'<h{n}><a class="fragment-id" id="{id}"></a>{text_content}</h{n}>'
+    return f'<h{hsuffix}>{anchor}{text_content}</h{n}>'
 
 
 def with_heading_ids(self):
