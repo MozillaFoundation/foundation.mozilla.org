@@ -29,7 +29,6 @@ which are bits that should be used in subclassing template-based
 page types.
 """
 base_fields = [field for field in [
-    ('heading', blocks.CharBlock()),
     ('paragraph', blocks.RichTextBlock(
         features=[
             'bold', 'italic',
@@ -441,6 +440,7 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='primary_banner',
         verbose_name='Hero Image',
+        help_text='Choose an image that\'s bigger than 4032px x 1152px with aspect ratio 3.5:1',
     )
 
     intro = models.CharField(
@@ -788,7 +788,6 @@ class ParticipatePage2(PrimaryPage):
 
 class PeoplePage(PrimaryPage):
     parent_page_types = ['Homepage']
-    template = 'wagtailpages/static/people_page.html'
 
 
 class Styleguide(PrimaryPage):
