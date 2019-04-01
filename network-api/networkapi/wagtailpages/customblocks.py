@@ -20,8 +20,10 @@ class LinkButtonBlock(blocks.StructBlock):
         choices=[
             ('btn-primary', 'Primary button'),
             ('btn-secondary', 'Secondary button'),
-            ('btn-normal', 'Normal button (Obsolete. Use \'primary button\' instead)'),  # old option to be removed in https://github.com/mozilla/foundation.mozilla.org/issues/2936
-            ('btn-ghost', 'Ghost button  (Obsolete. Use \'secondary button\' instead)'),  # old option to be removed in https://github.com/mozilla/foundation.mozilla.org/issues/2936
+            # Obsolete options to be removed in
+            # https://github.com/mozilla/foundation.mozilla.org/issues/2936
+            ('btn-normal', 'Normal button (Obsolete. Use \'primary button\' instead)'),
+            ('btn-ghost', 'Ghost button  (Obsolete. Use \'secondary button\' instead)'),
         ],
         default='btn-normal',
     )
