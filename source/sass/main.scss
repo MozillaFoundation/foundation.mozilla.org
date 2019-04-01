@@ -14,7 +14,7 @@ $bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
 $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 //Site-wide
-@import "./variables";
+@import "./_variables";
 @import "./glyphs";
 @import "./mixins";
 
