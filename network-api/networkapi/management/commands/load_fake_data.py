@@ -249,18 +249,6 @@ class Command(BaseCommand):
         reseed()
 
         try:
-<<<<<<< HEAD
-            WagtailPage.objects.get(title='people')
-            print('people page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty People Page')
-            PeoplePageFactory.create(parent=home_page)
-
-        reseed()
-
-        try:
-=======
->>>>>>> dcd2610... removing peoplepage from loadfakedata
             WagtailPage.objects.get(title='news')
             print('news page exists')
         except WagtailPage.DoesNotExist:
