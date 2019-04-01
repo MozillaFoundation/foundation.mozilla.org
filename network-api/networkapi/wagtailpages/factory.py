@@ -205,11 +205,6 @@ class OpportunityPageFactory(CMSPageFactory):
     class Meta:
         model = networkapi.wagtailpages.models.OpportunityPage
 
-    class Params:
-        no_cta = Trait(cta=None)
-
-    cta = SubFactory(SignupFactory)
-
 
 class FeaturedFactory(DjangoModelFactory):
     class Meta:
