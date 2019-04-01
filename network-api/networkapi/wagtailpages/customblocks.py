@@ -18,11 +18,28 @@ class LinkButtonBlock(blocks.StructBlock):
     # should be used.
     styling = blocks.ChoiceBlock(
         choices=[
-            ('btn-normal', 'Normal button'),
-            ('btn-ghost', 'Ghost button'),
+            ('btn-primary', 'Primary button'),
+            ('btn-secondary', 'Secondary button'),
+            # Obsolete options to be removed in
+            # https://github.com/mozilla/foundation.mozilla.org/issues/2936
+            ('btn-normal', 'Normal button (Obsolete. Use \'primary button\' instead)'),
+            ('btn-ghost', 'Ghost button  (Obsolete. Use \'secondary button\' instead)'),
         ],
         default='btn-normal',
     )
+
+    # def get_context block to be removed in https://github.com/mozilla/foundation.mozilla.org/issues/2936
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        styling = value.get("styling")
+
+        if styling == 'btn-normal':
+            styling = 'btn-primary'
+        if styling == 'btn-ghost':
+            styling = 'btn-secondary'
+        context['styling'] = styling
+
+        return context
 
     class Meta:
         icon = 'link'
