@@ -68,8 +68,6 @@ def signup_submission(request, signup):
         "newsletters": signup.newsletter,
     }
 
-    print(data)
-
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
         'timestamp': datetime.now().isoformat(),
