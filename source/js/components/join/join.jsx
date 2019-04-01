@@ -4,9 +4,6 @@ import classNames from "classnames";
 import basketSignup from "../../basket-signup.js";
 
 export default class JoinUs extends React.Component {
-  /**
-   * ...docs go here...
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +15,9 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * ...docs go here...
+   * Ensure that the parent component is informed
+   * about this component being mounted (primarily
+   * used in the context of automated testing)
    */
   componentDidMount() {
     if (this.props.whenLoaded) {
@@ -87,7 +86,9 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * ...docs go here...
+   * Process the form data, to make sure there is a valid
+   * email address, and the consent checkbox has been checked,
+   * before proceding with a data post to the API server.
    */
   processFormData(event) {
     this.setState({ userTriedSubmitting: true });
@@ -113,7 +114,7 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * ...docs go here...
+   * GA event when users interact with the signup form.
    */
   onInputFocus() {
     ReactGA.event({
@@ -124,7 +125,7 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * ...docs go here
+   * Render the signup CTA.
    */
   render() {
     let signupState = classNames({
@@ -146,7 +147,7 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * ...docs go here
+   * Render the CTA heading.
    */
   renderFormHeading() {
     return (
@@ -178,7 +179,8 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * ...docs go here
+   * Render the actual CTA form, with an email
+   * field and a consent checkbox.
    */
   renderFormContent() {
     if (this.state.apiSuccess) return null;
