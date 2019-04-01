@@ -149,7 +149,7 @@ class ModularPage(FoundationMetadataPageMixin, Page):
     # page models, rather than Wagtail pages models.
     @property
     def meta_title(self):
-        return self.title
+        return self.seo_title if self.seo_title else self.title
 
     show_in_menus_default = True
 
