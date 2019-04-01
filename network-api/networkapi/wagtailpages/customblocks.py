@@ -20,12 +20,13 @@ class LinkButtonBlock(blocks.StructBlock):
         choices=[
             ('btn-primary', 'Primary button'),
             ('btn-secondary', 'Secondary button'),
-            ('btn-normal', 'Normal button (Obsolete. Use \'primary button\' instead)'),  # old option to be removed
-            ('btn-ghost', 'Ghost button  (Obsolete. Use \'secondary button\' instead)'),  # old option to be removed
+            ('btn-normal', 'Normal button (Obsolete. Use \'primary button\' instead)'),  # old option to be removed in https://github.com/mozilla/foundation.mozilla.org/issues/2936
+            ('btn-ghost', 'Ghost button  (Obsolete. Use \'secondary button\' instead)'),  # old option to be removed in https://github.com/mozilla/foundation.mozilla.org/issues/2936
         ],
         default='btn-normal',
     )
 
+    # def get_context block to be removed in https://github.com/mozilla/foundation.mozilla.org/issues/2936
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         styling = value.get("styling")
