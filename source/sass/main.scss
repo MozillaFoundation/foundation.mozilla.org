@@ -14,13 +14,12 @@ $bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
 $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 //Site-wide
+@import "./_variables";
 @import "./glyphs";
-@import "./colors";
 @import "./mixins";
 
 // React Components
 
-@import "../js/components/people/people";
 @import "../js/components/join/join";
 @import "../js/components/loading-indicator/loading-indicator";
 @import "../js/components/member-notice/member-notice";

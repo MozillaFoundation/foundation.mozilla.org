@@ -31,3 +31,24 @@ Deploy each PR separately and in ascending order.
 - PR #2: Generate the migration
 
 Deploy each PR separately and in ascending order.
+
+## Continuous Integration and Review Apps
+
+Opening a PR activates different services:
+- [Review app](#review-apps): temporary apps with fake data running on Heroku,
+- [Continuous Integration testing](#continuous-integration-testing): Travis (Linux) and Appveyor (Windows),
+- [Visual regression testing](#visual-regression-testing): Percy.
+
+### Review Apps
+
+Opening a PR will automatically create a Review App in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin with `admin` as the username. Login are published in the `mofo-review-apps` Slack channel when the review app is ready.
+
+### Continuous Integration testing
+
+Opening a PR will trigger [Travis](https://travis-ci.org) and [Appveyor](https://www.appveyor.com/) continuous integration runs, which should both pass before a PR is deemed good to merge.
+
+It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the commit message title. If you only want to skip Travis, use `[skip travis]` or `[travis skip]`. For Appveyor, use `[skip appveyor]` or `[appveyor skip]`. Note: since Travis is a required check on GitHub, your last commit needs to run the CI.
+
+### Visual regression testing
+
+The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.

@@ -13,9 +13,9 @@
 
 [Development and tooling](docs/development.md)
 
-[Workflow](docs/workflow.md)
+[Engineer Workflow](docs/workflow.md)
 
-[Deployment](docs/deployment.md)
+[OPS and Heroku Settings](docs/ops_heroku_settings.md)
 
 [Scheduled Task](docs/scheduled.md)
 
