@@ -117,13 +117,6 @@ class MiniSiteNameSpaceFactory(PageFactory):
         model = networkapi.wagtailpages.models.MiniSiteNameSpace
 
 
-class PeoplePageFactory(PageFactory):
-    class Meta:
-        model = networkapi.wagtailpages.models.PeoplePage
-
-    title = 'people'
-
-
 class NewsPageFactory(PageFactory):
     class Meta:
         model = networkapi.wagtailpages.models.NewsPage
