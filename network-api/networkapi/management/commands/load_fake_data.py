@@ -27,7 +27,6 @@ from networkapi.wagtailpages.factory import (
     PrimaryPageFactory,
     OpportunityPageFactory,
     StyleguideFactory,
-    PeoplePageFactory,
     NewsPageFactory,
     InitiativesPageFactory,
     MiniSiteNameSpaceFactory,
@@ -246,15 +245,6 @@ class Command(BaseCommand):
         except WagtailPage.DoesNotExist:
             print('Generating a Styleguide Page')
             StyleguideFactory.create(parent=home_page)
-
-        reseed()
-
-        try:
-            WagtailPage.objects.get(title='people')
-            print('people page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty People Page')
-            PeoplePageFactory.create(parent=home_page)
 
         reseed()
 
