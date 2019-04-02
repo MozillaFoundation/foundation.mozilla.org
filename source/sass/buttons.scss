@@ -1,8 +1,6 @@
 .btn {
   font-family: "Nunito Sans";
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: $btn-font-weight;
 
   &:hover {
     cursor: pointer;
@@ -10,70 +8,124 @@
 }
 
 .btn-pop {
-  background: $yellow;
-  color: black;
-  box-shadow: 4px 4px black;
-  transition: all 0.25s ease;
-  border: 2px solid black;
+  $offset: 4px;
+
+  background: transparent;
+  color: $black;
+  box-shadow: $offset $offset $black;
+  border: 2px solid $black;
   position: relative;
+  top: -$offset / 2;
+  transition: all 0.08s ease;
 
-  &:hover {
-    box-shadow: 8px 8px black;
-    transform: translate(-4px, -4px);
-    color: black;
-    background: $dark-yellow;
+  @include hover-focus-active {
+    transform: translate($offset, $offset);
+    color: $black;
+    box-shadow: none;
+  }
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: -10px;
-      left: 0;
-      right: -10px;
+  &.dark-theme {
+    background: transparent;
+    color: $white;
+    box-shadow: $offset $offset $white;
+    border-color: $white;
+
+    @include hover-focus-active {
+      transform: translate($offset, $offset);
+      color: $white;
+      box-shadow: none;
     }
   }
 }
 
-.btn-ghost {
-  color: $black;
-  background: transparent;
-  border: 2px solid $blue;
+.btn-normal,
+.btn-primary {
+  // [TODO] .btn-normal is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
 
-  &:hover {
+  color: $white;
+  background: $blue;
+  border: none;
+
+  @include hover-focus-active {
     color: $white;
-    background-color: $blue;
+    background: $dark-blue;
+    border: none;
+  }
+
+  &.dark-theme {
+    color: $white;
+    background: $blue;
+
+    @include hover-focus-active {
+      color: $black;
+      background: $light-blue;
+    }
   }
 }
 
-.btn-normal {
-  color: $black;
-  background: $yellow;
+.btn-ghost,
+.btn-secondary {
+  // [TODO] .btn-ghost is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
 
-  &:hover {
-    color: $black;
-    background: $dark-yellow;
+  color: $black;
+  background: transparent;
+  border: 2px solid $black;
+
+  @include hover-focus-active {
+    color: $white;
+    background: $black;
+    border: 2px solid $black;
+  }
+
+  &.dark-theme {
+    color: $white;
+    background: transparent;
+    border: 2px solid $white;
+
+    @include hover-focus-active {
+      color: $black;
+      background: $white;
+    }
   }
 }
 
 // append external link glyph
-.btn-ghost[href*="//"]:not([href*="foundation.mozilla.org"]) {
+.btn-ghost[href*="//"]:not([href*="foundation.mozilla.org"]),
+.btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]) {
+  // [TODO] .btn-ghost is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
+
   display: inline-flex;
   align-items: center;
 
   &::after {
-    filter: brightness(0.1);
+    filter: brightness(0);
     content: " ";
     display: block;
     width: 16px;
     height: 14px;
     background: url(../_images/glyphs/external.svg) no-repeat;
-    margin-left: 10px;
+    margin-left: 8px;
     position: relative;
     bottom: 1px;
+    transition: filter 0.2s ease-in-out;
   }
 
-  &:hover::after {
-    filter: brightness(100);
+  @include hover-focus-active {
+    &::after {
+      filter: brightness(1);
+    }
+  }
+
+  &.dark-theme {
+    &::after {
+      filter: brightness(1);
+    }
+
+    @include hover-focus-active {
+      &::after {
+        filter: brightness(0);
+      }
+    }
   }
 }
 
