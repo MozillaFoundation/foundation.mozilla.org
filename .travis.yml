@@ -29,6 +29,8 @@ cache:
   pip: true
   directories:
     - "$HOME/.npm"
+    # Caching cypress binary
+    - ~/.cache
 branches:
   only:
     - master
