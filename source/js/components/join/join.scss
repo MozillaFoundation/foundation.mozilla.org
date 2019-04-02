@@ -1,18 +1,11 @@
 .join-us {
-  background: linear-gradient(
-      to right,
-      rgba(61, 254, 253, 1) 0%,
-      rgba(183, 212, 63, 1) 100%
-    ),
-    url(../_images/hero-image-crop@2x.jpg) center -60px / auto 666px no-repeat,
-    url(../_images/bg-repeat-crop@2x.jpg) center -60px / 2px 666px repeat-x;
-  background-blend-mode: overlay, normal, normal;
+  background: inherit;
 
   .has-danger {
-    color: #d9534f;
+    color: $red;
 
     a {
-      color: #d9534f !important;
+      color: $red !important;
     }
   }
 
