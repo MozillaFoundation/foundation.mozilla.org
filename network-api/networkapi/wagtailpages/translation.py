@@ -130,9 +130,11 @@ class RedirectingPageTR(TranslationOptions):
 
 # The following bindings are obsolete and require cleanup
 
+
 @register(ParticipatePage)
 class ParticipatePageTR(TranslationOptions):
     fields = ()
+
 
 @register(PeoplePage)
 class PeoplePageTR(TranslationOptions):
