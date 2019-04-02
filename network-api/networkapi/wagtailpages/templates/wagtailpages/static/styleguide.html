@@ -5,7 +5,6 @@
 
 {% block content %}
 <div class="container mt-4">
-  <h2 class="mb-5">OUT OF DATE. New style guide is being developed.</h2>
   <div class="row">
     <div class="col-12 pb-5">
       <h2 class="h1-heading">Colors</h2>
@@ -110,18 +109,6 @@
             <div class="color-block w-100 px-2 py-5 dark-blue"></div>
             <div class="p-2"><strong>Dark Blue ($dark-blue)</strong>
               <div class="color-code small">#0d10bf</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-6 col-md-3 mb-3">
-          <div class="color-display d-flex flex-column h-100">
-            <div class="color-block w-100 px-2 py-5 green"></div>
-            <div class="p-2"><strong>(To be removed) <br/>Green ($green)</strong>
-              <div class="color-code small">#b7d43f</div>
-              <div class="color-code small">rgba(183, 212, 63, 1)</div>
             </div>
           </div>
         </div>
@@ -361,38 +348,6 @@
         </div>
       </div>
 
-      <h2 class="h1-heading mt-5">Components</h2>
-      <hr class="hr-emphasis">
-      <h4>.hr-gradient</h4>
-      <hr class="hr-gradient">
-      <h4>card (Django template custom tag: `card_tags`)</h4>
-      {% card "https://placekitten.com/g/600/400" "title" "description" "https://example.org" "Link" %}
-      <h4>.commitment</h4>
-      <div class="commitment mb-5">10 hour commitment</div>
-      <h4>.join-us</h4>
-      <div class="join-us mb-5"></div>
-      <h4 class="h5">.pulse-project-list(for="SEARCH_QUERY", size="MAX_TO_DISPLAY", rev="BOOLEAN_TO_INDICATE_ORDERING")</h4>
-      <div class="pulse-project-list" for="mozfest" size="6" rev="false"></div>
-      <h4>.feature-quote
-        <div class="feature-quote">
-          <h3>We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices.</h3>
-          <p class="h6-heading">Rishab Nithyanand, Mozilla Fellow</p>
-        </div>
-      </h4>
-      <h4>multipage-nav (used as secondary nav )</h4>
-      {% include "partials/multipage-nav-mobile.html" %}
-      <div class="container">
-        <div class="row">
-          <div class="col-12 hidden-sm-down">
-            <div class="vertical-nav" id="multipage-nav">
-              <div class="multipage-link-wrapper"><a class="multipage-link" href="/">Home</a></div>
-              <div class="multipage-link-wrapper"><a class="multipage-link" href="/about">About</a></div>
-              <div class="multipage-link-wrapper"><a class="multipage-link active" href="/style-guide">Style Guide</a></div>
-              <div class="multipage-link-wrapper"><a class="multipage-link" href="/sign-up">Sign Up</a></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
