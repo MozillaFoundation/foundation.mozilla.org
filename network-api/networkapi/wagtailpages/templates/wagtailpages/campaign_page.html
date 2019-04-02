@@ -51,7 +51,6 @@
             {% endif %}
           {% endfor %}
         {% endblock %}
-        {% include "./static/ih_cta.html" %}
       </div>
 
       {% if page.cta != None %}
@@ -73,6 +72,15 @@
         <script src="https://c.shpg.org/352/sp.js"></script>
       </div>
       {% endif %}
+      <div class="cms
+        {% if page.cta and page.specific.narrowed_page_content == False %}
+          col-lg-7
+        {% else %}
+          col-12
+        {% endif %}"
+      >
+        {% include "./static/ih_cta.html" %}
+      </div>
   </div>
 </div>
 {% endblock %}
