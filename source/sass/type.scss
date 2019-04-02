@@ -21,176 +21,77 @@ a {
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1-heading,
-.h2-heading,
-.h3-heading,
-.h4-heading,
-.h5-heading,
-.h6-heading {
-  color: $black; // Bootstrap override
-  margin-bottom: 1rem;
-
-  a {
-    color: inherit;
-    font-weight: inherit;
-
-    @include hover-focus-active {
-      color: inherit;
-      text-decoration: underline;
-    }
-  }
-
-  &.dark-theme {
-    a {
-      @include dark-theme-inline-anchor();
-    }
-  }
-}
-
-h1,
 .h1-heading {
-  @include heading("Zilla Slab", 400, 0);
+  @include heading("Zilla Slab", 400, 0, $black, $white);
   @include scaleText(36px, 40px, 48px, 56px);
-
-  &.dark-theme {
-    color: $white;
-  }
 }
 
 h2,
 .h2-heading {
-  @include heading("Zilla Slab", 300, 0);
+  @include heading("Zilla Slab", 300, 0, $black, $white);
   @include scaleText(28px, 32px, 40px, 48px);
-
-  &.dark-theme {
-    color: $white;
-  }
 }
 
 h3,
 .h3-heading {
-  @include heading("Zilla Slab", 400, 0);
+  @include heading("Zilla Slab", 400, 0, $black, $white);
   @include scaleText(24px, 28px, 28px, 36px);
-
-  &.dark-theme {
-    color: $white;
-  }
 }
 
 h4,
 .h4-heading {
-  @include heading("Zilla Slab", 400, 0);
+  @include heading("Zilla Slab", 400, 0, $black, $white);
   @include scaleText(22px, 32px, 24px, 36px);
-
-  &.dark-theme {
-    color: $white;
-  }
 }
 
 h5,
 .h5-heading {
-  @include heading("Zilla Slab", 600, 0);
+  @include heading("Zilla Slab", 600, 0, $black, $white);
   @include scaleText(20px, 24px, 22px, 28px);
-
-  &.dark-theme {
-    color: $white;
-  }
 }
 
 h6,
 .h6-heading {
-  @include heading("Nunito Sans", 400, 0.5px);
+  @include heading("Nunito Sans", 400, 0.5px, $gray-40, $gray-40);
   @include scaleText(12px, 16px);
 
-  color: $gray-40;
   text-transform: uppercase;
-
-  &.dark-theme {
-    color: $gray-40;
-  }
 }
 
 .quote {
-  font-family: "Zilla Slab";
-  font-weight: 300;
-  font-style: italic;
-  color: $black;
-
+  @include body-text("Zilla Slab", 300, $black, $white);
   @include scaleText(24px, 32px, 30px, 40px);
 
-  &.dark-theme {
-    color: $white;
-  }
+  font-style: italic;
 }
 
 .type-accent {
-  font-family: "Zilla Slab";
-  font-weight: 400;
-  color: $gray-20;
-
+  @include body-text("Zilla Slab", 400, $gray-20, $gray-20);
   @include scaleText(56px, 64px, 72px, 88px);
-
-  &.dark-theme {
-    color: $gray-20;
-  }
 }
 
 .body-large,
 .body-large p {
-  color: $black;
-  font-weight: 300;
-
+  @include body-text(null, 300, $black, $white);
   @include scaleText(18px, 24px, 20px, 28px);
-
-  &.dark-theme {
-    color: $white;
-
-    a {
-      @include dark-theme-inline-anchor();
-    }
-  }
 }
 
 p,
 .body {
-  color: $black;
-  font-weight: 400;
-
+  @include body-text(null, 400, $black, $white);
   @include scaleText(16px, 24px);
-
-  &.dark-theme {
-    color: $white;
-
-    a {
-      @include dark-theme-inline-anchor();
-    }
-  }
 }
 
 .body-small {
-  font-family: "Nunito Sans";
-  font-weight: 400;
-  color: $gray-40;
-
+  @include body-text("Nunito Sans", 400, $gray-40, $gray-40);
   @include scaleText(12px, 16px);
-
-  &.dark-theme {
-    color: $gray-40;
-
-    a {
-      @include dark-theme-inline-anchor();
-    }
-  }
 }
 
 .cta-link {
+  @include body-text(null, 700, null, $light-blue);
+  @include scaleText(16px, 24px);
+
   display: inline-block;
-  font-weight: 700;
 
   &::after {
     content: " →";
@@ -199,11 +100,5 @@ p,
     margin-left: 0.333em;
     position: relative;
     top: -1px;
-  }
-
-  @include scaleText(16px, 24px);
-
-  &.dark-theme {
-    color: $light-blue;
   }
 }
