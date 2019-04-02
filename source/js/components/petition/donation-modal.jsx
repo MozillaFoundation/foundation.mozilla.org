@@ -90,7 +90,7 @@ class DonationModal extends React.Component {
 
         <div className="text-center">
           <a
-            className="btn btn-normal"
+            className="btn btn-primary"
             href={this.donateURL}
             target="_blank"
             onClick={e => this.userElectedToDonate(e)}
