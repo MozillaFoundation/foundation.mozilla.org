@@ -63,7 +63,7 @@
         {% endif %}"
       >
         <div class="narrow-sticky-button-container hidden">
-          <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
+          <a href="#cta-anchor" class="btn btn-primary d-block">TAKE ACTION</a>
         </div>
         <div class="sticky-cta">
           <div id="cta-anchor">
@@ -74,6 +74,16 @@
       </div>
       {% endif %}
       {% endblock %}
+
+      <div class="cms
+        {% if page.cta and page.specific.narrowed_page_content == False %}
+          col-lg-7
+        {% else %}
+          col-12
+        {% endif %}"
+      >
+        {% include "./fragments/ih_cta.html" %}
+      </div>
   </div>
 </div>
 {% endblock %}
