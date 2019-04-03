@@ -51,7 +51,7 @@ work should not be done at the same time as adding signup CTAs to the b.c. pages
 
         {% if page.signup %}
           <div
-            class="join-us p-2 full-width mb-5"
+            class="join-us mb-5"
             data-csrf-token="{{ csrf_token }}"
             data-signup-id="{{ page.signup.id }}"
             data-cta-header="{{ page.signup.header | escape }}"

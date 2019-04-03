@@ -128,19 +128,19 @@ export default class JoinUs extends React.Component {
    * Render the signup CTA.
    */
   render() {
+    console.log(this.props);
+    console.log(this.state);
+
     let signupState = classNames({
-      "py-5": true,
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
     return (
-      <div className={`container my-default ${signupState}`}>
-        <div className="col join-main-content">
-          <div className="row">
-            {this.renderFormHeading()}
-            {this.renderFormContent()}
-          </div>
+      <div className={`container px-0 my-default ${signupState}`}>
+        <div className="row">
+          {this.renderFormHeading()}
+          {this.renderFormContent()}
         </div>
       </div>
     );
@@ -151,18 +151,12 @@ export default class JoinUs extends React.Component {
    */
   renderFormHeading() {
     return (
-      <div className="col-12 col-md-6 d-flex justify-content-center flex-column join-content">
-        <div className="mb-5 join-page-title">
-          <h2 className="h1-heading">
-            {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
-          </h2>
-        </div>
-        <div className="join-heading">
-          {this.state.apiSuccess && <h3 className="h3-black">Thanks!</h3>}
-        </div>
+      <div className="col-12 join-content">
+        <h5 className="h5-heading">
+          {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
+        </h5>
         {!this.state.apiSuccess ? (
           <p
-            className="body-large"
             dangerouslySetInnerHTML={{
               __html: this.props.ctaDescription
             }}
@@ -202,7 +196,7 @@ export default class JoinUs extends React.Component {
     });
 
     return (
-      <div className="col-12 col-md-6 join-form">
+      <div className="col-12 join-form">
         <form onSubmit={evt => this.processFormData(evt)}>
           <div className={inputGroupClass}>
             <div className="mb-2">
@@ -247,7 +241,7 @@ export default class JoinUs extends React.Component {
               )}
             </label>
             <div>
-              <button className="btn btn-normal join-btn">Sign Up</button>
+              <button className="btn btn-normal join-btn w-100">Sign Up</button>
             </div>
           </div>
         </form>

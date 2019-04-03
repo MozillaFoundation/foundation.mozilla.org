@@ -9,9 +9,9 @@
     }
   }
 
-  .join-page-title {
-    display: none;
-  }
+  // .join-page-title {
+  //   display: none;
+  // }
 
   .join-graphic {
     display: none;
@@ -25,15 +25,15 @@
     width: 100%;
   }
 
-  .join-heading h2 {
-    font-family: "Nunito Sans";
-    font-weight: 900;
-    font-size: 22px;
+  // .join-heading h2 {
+  //   font-family: "Nunito Sans";
+  //   font-weight: 900;
+  //   font-size: 22px;
 
-    @media screen and (min-width: $bp-md) {
-      font-size: 32px;
-    }
-  }
+  //   @media screen and (min-width: $bp-md) {
+  //     font-size: 32px;
+  //   }
+  // }
 
   .form-control,
   .form-text {
@@ -87,59 +87,59 @@
         }
       }
 
-      .join-content {
-        @include make-col(6);
-      }
+      // .join-content {
+      //   @include make-col(6);
+      // }
 
-      .signup-success .join-content {
-        @include make-col(7);
-      }
+      // .signup-success .join-content {
+      //   @include make-col(7);
+      // }
 
-      .join-form {
-        @include make-col(6);
-      }
+      // .join-form {
+      //   @include make-col(6);
+      // }
     }
   }
 
-  &.full-page {
-    .join-graphic {
-      display: block;
+  // &.full-page {
+  //   .join-graphic {
+  //     display: block;
 
-      @include make-col(12);
+  //     @include make-col(12);
 
-      img {
-        max-width: 5em;
-      }
-    }
+  //     img {
+  //       max-width: 5em;
+  //     }
+  //   }
 
-    .join-page-title {
-      display: block;
-    }
+  //   // .join-page-title {
+  //   //   display: block;
+  //   // }
 
-    .join-heading {
-      display: none;
-    }
+  //   // .join-heading {
+  //   //   display: none;
+  //   // }
 
-    @media (min-width: $bp-md) {
-      .join-btn {
-        width: auto;
-      }
+  //   @media (min-width: $bp-md) {
+  //     .join-btn {
+  //       width: auto;
+  //     }
 
-      .join-graphic {
-        @include make-col(4);
-        @include make-col-push(8);
+  //     .join-graphic {
+  //       @include make-col(4);
+  //       @include make-col-push(8);
 
-        display: flex;
-        justify-content: center;
+  //       display: flex;
+  //       justify-content: center;
 
-        img {
-          max-width: unset;
-        }
-      }
+  //       img {
+  //         max-width: unset;
+  //       }
+  //     }
 
-      .join-main-content {
-        @include make-col-pull(4);
-      }
-    }
-  }
+  //     // .join-main-content {
+  //     //   @include make-col-pull(4);
+  //     // }
+  //   }
+  // }
 }

@@ -22,6 +22,8 @@
       <div class="cms
         {% if page.cta and page.specific.narrowed_page_content == False %}
           col-lg-7
+        {% elif page.signup and page.specific.narrowed_page_content == False %}
+          col-lg-7
         {% else %}
           col-12
         {% endif %}"
