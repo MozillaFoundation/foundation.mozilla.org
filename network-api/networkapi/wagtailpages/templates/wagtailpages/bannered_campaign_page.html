@@ -32,13 +32,36 @@ named "cta", which is an assumption that the bannered campaign page squarely vio
 As such, the CTA tag needs to be refactored to take this into account, however this
 work should not be done at the same time as adding signup CTAs to the b.c. pages.
 
-{% block secondary_cta %}
-	{% if page.signup %}
-    <div
-      class="join-us p-2 full-width mb-5"
-      data-cta-header="{{ page.signup.header | escape }}"
-      data-cta-description="{{ page.signup.description | escape }}"
-      data-newsletter="{{ page.signup.newsletter }}">
+
+{% block cta %}
+  {% if page.cta != None or page.signup != None %}
+  <div class="cta
+    {% if page.specific.narrowed_page_content == False %}
+      col-lg-4 offset-lg-1
+    {% else %}
+      col-lg-12
+    {% endif %}"
+  >
+    <div class="narrow-sticky-button-container hidden">
+      <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
     </div>
-	{% endif %}
+    <div class="sticky-cta">
+      <div id="cta-anchor">
+        {% cta page %}
+
+        {% if page.signup %}
+          <div
+            class="join-us p-2 full-width mb-5"
+            data-csrf-token="{{ csrf_token }}"
+            data-signup-id="{{ page.signup.id }}"
+            data-cta-header="{{ page.signup.header | escape }}"
+            data-cta-description="{{ page.signup.description | escape }}"
+            data-newsletter="{{ page.signup.newsletter }}">
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <script src="https://c.shpg.org/352/sp.js"></script>
+  </div>
+  {% endif %}
 {% endblock %}

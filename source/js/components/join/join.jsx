@@ -4,45 +4,117 @@ import classNames from "classnames";
 import basketSignup from "../../basket-signup.js";
 
 export default class JoinUs extends React.Component {
+  /**
+   * ...docs go here...
+   */
   constructor(props) {
     super(props);
-    // Default props defined at end of file
-
-    this.submitForm = this.submitForm.bind(this);
-    this.formSubmissionSuccessful = this.formSubmissionSuccessful.bind(this);
-    this.formSubmissionFailure = this.formSubmissionFailure.bind(this);
-
     this.state = {
-      signupSuccess: false,
-      signupFailed: false,
-      userSubmitted: false
+      apiSubmitted: false,
+      apiSuccess: false,
+      apiFailed: false,
+      userTriedSubmitting: false
     };
   }
 
-  submitForm(event) {
-    this.setState({ userSubmitted: true });
+  /**
+   * ...docs go here...
+   */
+  componentDidMount() {
+    if (this.props.whenLoaded) {
+      this.props.whenLoaded();
+    }
+  }
 
+  // state update function
+  apiSubmissionSuccessful() {
+    this.setState({
+      apiSuccess: true
+    });
+  }
+
+  // state update function
+  apiSubmissionFailure(e) {
+    if (e && e instanceof Error) {
+      this.setState({
+        apiFailed: true
+      });
+    }
+  }
+
+  // state check function
+  apiIsDone() {
+    return (
+      this.state.apiSubmitted && (this.state.apiSuccess || this.state.apiFailed)
+    );
+  }
+
+  /**
+   * Submit the user's data to the API server.
+   */
+  submitDataToApi() {
+    this.setState({ apiSubmitted: true });
+
+    return new Promise((resolve, reject) => {
+      let payload = {
+        email: this.email.value,
+        source: window.location.toString()
+      };
+
+      let xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState !== XMLHttpRequest.DONE) {
+          return;
+        }
+
+        if (xhr.status !== 201) {
+          reject(new Error(xhr.responseText));
+        }
+
+        resolve();
+      };
+
+      xhr.open(`POST`, this.props.apiUrl, true);
+      xhr.setRequestHeader(`Content-Type`, `application/json`);
+      xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
+      xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
+      xhr.timeout = 5000;
+      xhr.ontimeout = () => reject(new Error(`xhr timed out`));
+
+      xhr.send(JSON.stringify(payload));
+    });
+  }
+
+  /**
+   * ...docs go here...
+   */
+  processFormData(event) {
+    this.setState({ userTriedSubmitting: true });
     event.preventDefault();
 
-    if (this.refs.email.value && this.refs.privacy.checked) {
-      basketSignup(
-        {
-          email: this.refs.email.value,
-          privacy: this.refs.privacy.checked,
-          newsletter: this.props.newsletter
-        },
-        this.formSubmissionSuccessful,
-        this.formSubmissionFailure
-      );
+    // validate data here. Do not continue unless we're cool.
+    let email = this.email.value;
+    let consent = this.privacy.checked;
+
+    if (email && consent) {
+      this.submitDataToApi()
+        .then(() => {
+          this.apiSubmissionSuccessful();
+        })
+        .catch(e => this.apiSubmissionFailure(e));
     }
 
     ReactGA.event({
       category: `signup`,
       action: `form submit tap`,
-      label: `Signup form submitted`
+      label: `Signup submitted`
     });
   }
 
+  /**
+   * ...docs go here...
+   */
   onInputFocus() {
     ReactGA.event({
       category: `signup`,
@@ -51,134 +123,132 @@ export default class JoinUs extends React.Component {
     });
   }
 
-  formSubmissionSuccessful() {
-    this.setState({ signupSuccess: true });
-  }
-
-  formSubmissionFailure(e) {
-    console.error(e);
-    this.setState({ signupFailed: true });
-  }
-
-  componentDidMount() {
-    if (this.props.whenLoaded) {
-      this.props.whenLoaded();
-    }
-  }
-
+  /**
+   * ...docs go here
+   */
   render() {
-    let inputGroupClass = classNames({
-      "has-danger":
-        (!this.state.signupSuccess &&
-          this.state.userSubmitted &&
-          !this.refs.email.value) ||
-        this.state.signupFailed
-    });
-
-    let privacyClass = classNames({
-      "form-check": true,
-      "has-danger":
-        !this.state.signupSuccess &&
-        this.state.userSubmitted &&
-        !this.refs.privacy.checked
-    });
-
     let signupState = classNames({
       "py-5": true,
-      "signup-success": this.state.signupSuccess && this.state.userSubmitted,
-      "signup-fail": !this.state.signupSuccess && this.state.userSubmitted
+      "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
+      "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
     return (
       <div className={`container my-default ${signupState}`}>
         <div className="col join-main-content">
           <div className="row">
-            <div className="col-12 col-md-6 d-flex justify-content-center flex-column join-content">
-              <div className="mb-5 join-page-title">
-                <h2 className="h1-heading">
-                  {!this.state.signupSuccess
-                    ? `${this.props.ctaHeader}`
-                    : `Thanks!`}
-                </h2>
-              </div>
-              <div className="join-heading">
-                {this.state.signupSuccess && (
-                  <h3 className="h3-black">Thanks!</h3>
-                )}
-              </div>
-              {!this.state.signupSuccess ? (
-                <p
-                  className="body-large"
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.ctaDescription
-                  }}
-                />
-              ) : (
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.thankYouMessage
-                  }}
-                />
-              )}
-            </div>
-            {!this.state.signupSuccess && (
-              <div className="col-12 col-md-6 join-form">
-                <form onSubmit={this.submitForm}>
-                  <div className={inputGroupClass}>
-                    <div className="mb-2">
-                      <input
-                        type="email"
-                        className="form-control"
-                        placeholder="EMAIL ADDRESS"
-                        ref="email"
-                        onFocus={this.onInputFocus}
-                      />
-                    </div>
-                    {this.state.userSubmitted && !this.refs.email.value && (
-                      <small className="form-check form-control-feedback">
-                        Please enter your email
-                      </small>
-                    )}
-                    {this.state.signupFailed && (
-                      <small className="form-check form-control-feedback">
-                        Something went wrong. Please check your email address
-                        and try again
-                      </small>
-                    )}
-                  </div>
-                  <div className={privacyClass}>
-                    <label className="form-check-label mb-4">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="PrivacyCheckbox"
-                        ref="privacy"
-                      />
-                      <span className="form-text">
-                        I'm okay with Mozilla handling my info as explained in
-                        this{" "}
-                        <a href="https://www.mozilla.org/privacy/websites/">
-                          Privacy Notice
-                        </a>
-                      </span>
-                      {this.state.userSubmitted &&
-                        !this.refs.privacy.checked && (
-                          <small className="has-danger">
-                            Please check this box if you want to proceed
-                          </small>
-                        )}
-                    </label>
-                    <div>
-                      <button className="btn btn-primary join-btn">
-                        Sign Up
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            )}
+            {this.renderFormHeading()}
+            {this.renderFormContent()}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  /**
+   * ...docs go here
+   */
+  renderFormHeading() {
+    return (
+      <div className="col-12 col-md-6 d-flex justify-content-center flex-column join-content">
+        <div className="mb-5 join-page-title">
+          <h2 className="h1-heading">
+            {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
+          </h2>
+        </div>
+        <div className="join-heading">
+          {this.state.apiSuccess && <h3 className="h3-black">Thanks!</h3>}
+        </div>
+        {!this.state.apiSuccess ? (
+          <p
+            className="body-large"
+            dangerouslySetInnerHTML={{
+              __html: this.props.ctaDescription
+            }}
+          />
+        ) : (
+          <p
+            dangerouslySetInnerHTML={{
+              __html: this.props.thankYouMessage
+            }}
+          />
+        )}
+      </div>
+    );
+  }
+
+  /**
+   * ...docs go here
+   */
+  renderFormContent() {
+    if (this.state.apiSuccess) return null;
+
+    let inputGroupClass = classNames({
+      "has-danger":
+        (!this.state.apiSuccess &&
+          this.state.userTriedSubmitting &&
+          !this.email.value) ||
+        this.state.signupFailed
+    });
+
+    let privacyClass = classNames({
+      "form-check": true,
+      "has-danger":
+        !this.state.apiSuccess &&
+        this.state.userTriedSubmitting &&
+        !this.privacy.checked
+    });
+
+    return (
+      <div className="col-12 col-md-6 join-form">
+        <form onSubmit={evt => this.processFormData(evt)}>
+          <div className={inputGroupClass}>
+            <div className="mb-2">
+              <input
+                type="email"
+                className="form-control"
+                placeholder="EMAIL ADDRESS"
+                ref={el => (this.email = el)}
+                onFocus={evt => this.onInputFocus(evt)}
+              />
+            </div>
+            {this.state.apiSubmitted && !this.email.value && (
+              <small className="form-check form-control-feedback">
+                Please enter your email
+              </small>
+            )}
+            {this.state.signupFailed && (
+              <small className="form-check form-control-feedback">
+                Something went wrong. Please check your email address and try
+                again
+              </small>
+            )}
+          </div>
+          <div className={privacyClass}>
+            <label className="form-check-label mb-4">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="PrivacyCheckbox"
+                ref={el => (this.privacy = el)}
+              />
+              <span className="form-text">
+                I'm okay with Mozilla handling my info as explained in this{" "}
+                <a href="https://www.mozilla.org/privacy/websites/">
+                  Privacy Notice
+                </a>
+              </span>
+              {this.state.apiSubmitted && !this.privacy.checked && (
+                <small className="has-danger">
+                  Please check this box if you want to proceed
+                </small>
+              )}
+            </label>
+            <div>
+              <button className="btn btn-normal join-btn">Sign Up</button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }

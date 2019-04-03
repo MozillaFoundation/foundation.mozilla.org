@@ -244,6 +244,10 @@ let main = {
         elements.forEach(element => {
           var props = element.dataset;
 
+          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${
+            props.signupId
+          }/`;
+
           apps.push(
             new Promise(resolve => {
               ReactDOM.render(
