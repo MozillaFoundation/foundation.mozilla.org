@@ -23,3 +23,22 @@ Note: Wrapper HTML elements are copied from primary_page_menu.html as we want me
     </div>
   </div>
 {% endblock %}
+
+The following block has been borrowed from the templates/tags/cta/petition.html file,
+rather than using the `cta` tag from our mini_site_tags collection, because the cta
+tag was written in the assumption that models would only ever have a single CTA field
+named "cta", which is an assumption that the bannered campaign page squarely violates.
+
+As such, the CTA tag needs to be refactored to take this into account, however this
+work should not be done at the same time as adding signup CTAs to the b.c. pages.
+
+{% block secondary_cta %}
+	{% if page.signup %}
+    <div
+      class="join-us p-2 full-width mb-5"
+      data-cta-header="{{ page.signup.header | escape }}"
+      data-cta-description="{{ page.signup.description | escape }}"
+      data-newsletter="{{ page.signup.newsletter }}">
+    </div>
+	{% endif %}
+{% endblock %}
