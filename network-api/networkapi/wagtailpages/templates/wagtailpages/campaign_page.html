@@ -53,27 +53,26 @@
         {% endblock %}
       </div>
 
-      {% block primary_cta %}
-      {% if page.cta != None %}
-      <div class="cta
-        {% if page.specific.narrowed_page_content == False %}
-          col-lg-4 offset-lg-1
-        {% else %}
-          col-lg-12
-        {% endif %}"
-      >
-        <div class="narrow-sticky-button-container hidden">
-          <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
-        </div>
-        <div class="sticky-cta">
-          <div id="cta-anchor">
-            {% cta page %}
+      {% block cta %}
+        {% if page.cta != None %}
+        <div class="cta
+          {% if page.specific.narrowed_page_content == False %}
+            col-lg-4 offset-lg-1
+          {% else %}
+            col-lg-12
+          {% endif %}"
+        >
+          <div class="narrow-sticky-button-container hidden">
+            <a href="#cta-anchor" class="narrow-sticky-button btn">TAKE ACTION</a>
           </div>
-          {% block secondary_cta %}{% endblock %}
+          <div class="sticky-cta">
+            <div id="cta-anchor">
+              {% cta page %}
+            </div>
+          </div>
+          <script src="https://c.shpg.org/352/sp.js"></script>
         </div>
-        <script src="https://c.shpg.org/352/sp.js"></script>
-      </div>
-      {% endif %}
+        {% endif %}
       {% endblock %}
   </div>
 </div>
