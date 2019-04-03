@@ -82,6 +82,7 @@ class PetitionTR(TranslationOptions):
 class PrimaryPageTR(TranslationOptions):
     fields = (
         'header',
+        'intro',
         'body',
     )
 
