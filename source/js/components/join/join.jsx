@@ -124,6 +124,14 @@ export default class JoinUs extends React.Component {
     });
   }
 
+  createClasslist(classes = ``) {
+    if (this.props.version == `dark-theme`) {
+      classes += ` dark-theme`;
+    }
+
+    return classes;
+  }
+
   /**
    * Render the signup CTA.
    */
@@ -137,7 +145,7 @@ export default class JoinUs extends React.Component {
     });
 
     return (
-      <div className={`container px-0 my-default ${signupState}`}>
+      <div className={`container px-0 ${signupState}`}>
         <div className="row">
           {this.renderFormHeading()}
           {this.renderFormContent()}
@@ -152,17 +160,19 @@ export default class JoinUs extends React.Component {
   renderFormHeading() {
     return (
       <div className="col-12">
-        <h5 className="h5-heading">
+        <h5 className={this.createClasslist(`h5-heading`)}>
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>
         {!this.state.apiSuccess ? (
           <p
+            className={this.createClasslist()}
             dangerouslySetInnerHTML={{
               __html: this.props.ctaDescription
             }}
           />
         ) : (
           <p
+            className={this.createClasslist()}
             dangerouslySetInnerHTML={{
               __html: this.props.thankYouMessage
             }}
@@ -170,6 +180,10 @@ export default class JoinUs extends React.Component {
         )}
       </div>
     );
+  }
+
+  renderSubmitButton() {
+    return <button className="btn btn-normal join-btn w-100">Sign Up</button>;
   }
 
   /**
@@ -194,6 +208,8 @@ export default class JoinUs extends React.Component {
         this.state.userTriedSubmitting &&
         !this.privacy.checked
     });
+
+    console.log(`this.state.apiSubmitted`, this.state.apiSubmitted, this.email);
 
     return (
       <div className="col-12 join-form">
@@ -228,21 +244,22 @@ export default class JoinUs extends React.Component {
                 id="PrivacyCheckbox"
                 ref={el => (this.privacy = el)}
               />
-              <span className="form-text">
+              <p className={this.createClasslist(`form-text d-inline-block`)}>
                 I'm okay with Mozilla handling my info as explained in this{" "}
-                <a href="https://www.mozilla.org/privacy/websites/">
+                <a
+                  href="https://www.mozilla.org/privacy/websites/"
+                  className={this.createClasslist()}
+                >
                   Privacy Notice
                 </a>
-              </span>
+              </p>
               {this.state.apiSubmitted && !this.privacy.checked && (
                 <small className="has-danger">
                   Please check this box if you want to proceed
                 </small>
               )}
             </label>
-            <div>
-              <button className="btn btn-normal join-btn w-100">Sign Up</button>
-            </div>
+            <div>{this.renderSubmitButton()}</div>
           </div>
         </form>
       </div>
@@ -251,8 +268,8 @@ export default class JoinUs extends React.Component {
 }
 
 JoinUs.defaultProps = {
-  ctaDescription: `Sign up for opportunities and news related to a healthy internet.`,
-  ctaHeader: `Get Connected`,
-  thankYouMessage: `Please check your inbox to confirm your subscription.<br/><br/>If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. Please check your inbox or your spam filter for an email from us.`,
+  ctaHeader: `Want to get smarter about your online life?`,
+  ctaDescription: `Sign up for our Mozilla newsletter!`,
+  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
   newsletter: `mozilla-foundation`
 };
