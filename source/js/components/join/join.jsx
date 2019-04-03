@@ -151,7 +151,7 @@ export default class JoinUs extends React.Component {
    */
   renderFormHeading() {
     return (
-      <div className="col-12 join-content">
+      <div className="col-12">
         <h5 className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>

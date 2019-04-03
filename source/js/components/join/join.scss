@@ -13,18 +13,6 @@
   //   display: none;
   // }
 
-  .join-graphic {
-    display: none;
-  }
-
-  .signup-success .join-graphic {
-    display: block;
-  }
-
-  .join-btn {
-    width: 100%;
-  }
-
   // .join-heading h2 {
   //   font-family: "Nunito Sans";
   //   font-weight: 900;
@@ -48,98 +36,9 @@
     }
   }
 
-  &.half-width {
-    .join-graphic {
-      @include make-col(12);
-
-      margin-bottom: 3em;
-
-      img {
-        max-width: 5em;
-      }
-    }
-  }
-
   &.full-width {
-    .join-graphic {
-      @include make-col(12);
-
-      img {
-        max-width: 5em;
-      }
-    }
-
     @media (min-width: $bp-md) {
       padding: 1em 2rem;
-
-      .join-btn {
-        width: auto;
-      }
-
-      .join-graphic {
-        @include make-col(2);
-
-        display: flex;
-        justify-content: center;
-
-        img {
-          max-width: 100%;
-        }
-      }
-
-      // .join-content {
-      //   @include make-col(6);
-      // }
-
-      // .signup-success .join-content {
-      //   @include make-col(7);
-      // }
-
-      // .join-form {
-      //   @include make-col(6);
-      // }
     }
   }
-
-  // &.full-page {
-  //   .join-graphic {
-  //     display: block;
-
-  //     @include make-col(12);
-
-  //     img {
-  //       max-width: 5em;
-  //     }
-  //   }
-
-  //   // .join-page-title {
-  //   //   display: block;
-  //   // }
-
-  //   // .join-heading {
-  //   //   display: none;
-  //   // }
-
-  //   @media (min-width: $bp-md) {
-  //     .join-btn {
-  //       width: auto;
-  //     }
-
-  //     .join-graphic {
-  //       @include make-col(4);
-  //       @include make-col-push(8);
-
-  //       display: flex;
-  //       justify-content: center;
-
-  //       img {
-  //         max-width: unset;
-  //       }
-  //     }
-
-  //     // .join-main-content {
-  //     //   @include make-col-pull(4);
-  //     // }
-  //   }
-  // }
 }
