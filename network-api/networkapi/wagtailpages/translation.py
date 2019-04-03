@@ -89,6 +89,7 @@ class SignupTR(TranslationOptions):
 class PrimaryPageTR(TranslationOptions):
     fields = (
         'header',
+        'intro',
         'body',
     )
 
