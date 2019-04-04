@@ -11,7 +11,6 @@ import json
 
 from networkapi.wagtailpages.models import Petition, Signup
 
-
 class SQSProxy:
     """
     We use a proxy class to make sure that code that
@@ -59,10 +58,11 @@ def signup_submission_view(request, pk):
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
-        return Response(
-            {'error': 'Invalid signup id'},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+        # Create a "default" Signup object, but without
+        # actually saving that object to the database,
+        # because we really just want to use it for getting
+        # the default newsletter to sign up for.
+        signup = Signup()
 
     return signup_submission(request, signup)
 
