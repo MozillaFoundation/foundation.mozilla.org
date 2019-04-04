@@ -58,13 +58,11 @@ def signup_submission_view(request, pk):
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
-
-        print(Signup())
-
-        return Response(
-            {'error': 'Invalid signup id'},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+        # Create a "default" Signup object, but without
+        # actually saving that object to the database,
+        # because we really just want to use it for getting
+        # the default newsletter to sign up for.
+        signup = Signup()
 
     return signup_submission(request, signup)
 
