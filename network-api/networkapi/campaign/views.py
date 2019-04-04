@@ -162,11 +162,7 @@ def petition_submission(request, petition):
         }
     })
 
-<<<<<<< HEAD
-    return send_to_sqs(crm_sqs, crm_queue_url, message, type='petition')
-=======
     return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='petition')
->>>>>>> 316c82da6b4fd0dc41cf658de1968e6a5bed4ff5
 
 
 def send_to_sqs(sqs, queue_url, message, type='petition'):
