@@ -145,7 +145,11 @@ export default class JoinUs extends React.Component {
     });
 
     return (
-      <div className={`container px-0 ${signupState}`}>
+      <div
+        className={`container px-0 ${signupState} ${
+          this.props.version === `dark-theme` ? `dark-theme` : ``
+        }`}
+      >
         <div className="row">
           {this.renderFormHeading()}
           {this.renderFormContent()}
@@ -182,8 +186,30 @@ export default class JoinUs extends React.Component {
     );
   }
 
-  renderSubmitButton() {
-    return <button className="btn btn-normal join-btn w-100">Sign Up</button>;
+  renderEmailFieldSection() {
+    return (
+      <div className="mb-2 d-flex">
+        <input
+          type="email"
+          className="form-control"
+          placeholder="EMAIL ADDRESS"
+          ref={el => (this.email = el)}
+          onFocus={evt => this.onInputFocus(evt)}
+        />
+        {this.props.version === `dark-theme` &&
+          this.renderSubmitButton(`ml-3 hidden-sm-down`)}
+      </div>
+    );
+  }
+
+  renderSubmitButton(classes = ``) {
+    return (
+      <button
+        className={this.createClasslist(`btn btn-normal join-btn ${classes}`)}
+      >
+        Sign up
+      </button>
+    );
   }
 
   /**
@@ -212,23 +238,17 @@ export default class JoinUs extends React.Component {
     console.log(`this.state.apiSubmitted`, this.state.apiSubmitted, this.email);
 
     return (
-      <div className="col-12 join-form">
+      <div className="col-12">
         <form onSubmit={evt => this.processFormData(evt)}>
           <div className={inputGroupClass}>
-            <div className="mb-2">
-              <input
-                type="email"
-                className="form-control"
-                placeholder="EMAIL ADDRESS"
-                ref={el => (this.email = el)}
-                onFocus={evt => this.onInputFocus(evt)}
-              />
-            </div>
-            {this.state.apiSubmitted && !this.email.value && (
-              <small className="form-check form-control-feedback">
-                Please enter your email
-              </small>
-            )}
+            {this.renderEmailFieldSection()}
+            {this.state.userTriedSubmitting &&
+              !this.state.apiSubmitted &&
+              !this.email.value && (
+                <p className="body-small form-check form-control-feedback">
+                  Please enter your email
+                </p>
+              )}
             {this.state.signupFailed && (
               <small className="form-check form-control-feedback">
                 Something went wrong. Please check your email address and try
@@ -244,7 +264,11 @@ export default class JoinUs extends React.Component {
                 id="PrivacyCheckbox"
                 ref={el => (this.privacy = el)}
               />
-              <p className={this.createClasslist(`form-text d-inline-block`)}>
+              <p
+                className={this.createClasslist(
+                  `d-inline-block body-small mb-0`
+                )}
+              >
                 I'm okay with Mozilla handling my info as explained in this{" "}
                 <a
                   href="https://www.mozilla.org/privacy/websites/"
@@ -253,13 +277,15 @@ export default class JoinUs extends React.Component {
                   Privacy Notice
                 </a>
               </p>
-              {this.state.apiSubmitted && !this.privacy.checked && (
-                <small className="has-danger">
-                  Please check this box if you want to proceed
-                </small>
-              )}
+              {this.state.userTriedSubmitting &&
+                !this.state.apiSubmitted &&
+                !this.privacy.checked && (
+                  <p className="body-small form-check form-control-feedback">
+                    Please check this box if you want to proceed
+                  </p>
+                )}
             </label>
-            <div>{this.renderSubmitButton()}</div>
+            <div>{this.renderSubmitButton(`w-100`)}</div>
           </div>
         </form>
       </div>

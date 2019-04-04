@@ -3,27 +3,17 @@
 
   .has-danger {
     color: $red;
-
-    a {
-      color: $red !important;
-    }
   }
 
   .form-control {
     font-family: "Nunito Sans";
     font-weight: 400;
     font-size: 12px;
-
-    a {
-      text-decoration: underline;
-      color: $black;
-      font-weight: 400;
-    }
   }
 
-  &.full-width {
-    @media (min-width: $bp-md) {
-      padding: 1em 2rem;
+  &.dark-theme {
+    .join-btn.w-100 {
+      @extend .hidden-sm-up;
     }
   }
 }
