@@ -38,10 +38,7 @@
   }
 }
 
-.btn-normal,
 .btn-primary {
-  // [TODO] .btn-normal is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
-
   color: $white;
   background: $blue;
   border: none;
@@ -63,10 +60,7 @@
   }
 }
 
-.btn-ghost,
 .btn-secondary {
-  // [TODO] .btn-ghost is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
-
   color: $black;
   background: transparent;
   border: 2px solid $black;
@@ -90,10 +84,7 @@
 }
 
 // append external link glyph
-.btn-ghost[href*="//"]:not([href*="foundation.mozilla.org"]),
 .btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]) {
-  // [TODO] .btn-ghost is old classname to be removed as part 2 of https://github.com/mozilla/foundation.mozilla.org/issues/2905
-
   display: inline-flex;
   align-items: center;
 
