@@ -9,7 +9,7 @@ import boto3
 import logging
 import json
 
-from networkapi.wagtailpages.models import Petition
+from networkapi.wagtailpages.models import Petition, Signup
 
 # Basket/Salesforce SQS client
 crm_sqs = False
@@ -33,6 +33,21 @@ logger = logging.getLogger(__name__)
 @api_view(['POST'])
 @parser_classes((JSONParser,))
 @permission_classes((permissions.AllowAny,))
+def signup_submission_view(request, pk):
+    try:
+        signup = Signup.objects.get(id=pk)
+    except ObjectDoesNotExist:
+        return Response(
+            {'error': 'Invalid signup id'},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    return signup_submission(request, signup)
+
+
+@api_view(['POST'])
+@parser_classes((JSONParser,))
+@permission_classes((permissions.AllowAny,))
 def petition_submission_view(request, pk):
     try:
         petition = Petition.objects.get(id=pk)
@@ -43,6 +58,27 @@ def petition_submission_view(request, pk):
         )
 
     return petition_submission(request, petition)
+
+
+# handle Salesforce petition data
+def signup_submission(request, signup):
+    data = {
+        "email": request.data['email'],
+        "source_url": request.data['source'],
+        "newsletters": signup.newsletter,
+    }
+
+    message = json.dumps({
+        'app': settings.HEROKU_APP_NAME,
+        'timestamp': datetime.now().isoformat(),
+        'data': {
+            'json': True,
+            'form': data,
+            'event_type': 'newsletter_signup_data'
+        }
+    })
+
+    return send_to_sqs(crm_sqs, crm_queue_url, message, type='signup')
 
 
 # handle Salesforce petition data
@@ -105,19 +141,19 @@ def petition_submission(request, petition):
         }
     })
 
-    return send_to_sqs(crm_sqs, crm_queue_url, message)
+    return send_to_sqs(crm_sqs, crm_queue_url, message, type='petition')
 
 
-def send_to_sqs(sqs, queue_url, message):
+def send_to_sqs(sqs, queue_url, message, type='petition'):
     if settings.DEBUG is True:
-        logger.info('Sending petition message: {}'.format(message))
+        logger.info(f'Sending {type} message: {message}')
 
         if not sqs:
             logger.info('Faking a success message (debug=true, sqs=nonexistent).')
             return Response({'message': 'success (faked)'}, 201)
 
     if queue_url is None:
-        logger.warning('Petition was not submitted: No petition SQS url was specified')
+        logger.warning(f'{type} was not submitted: No {type} SQS url was specified')
         return Response({'message': 'success'}, 201)
 
     try:
@@ -126,9 +162,9 @@ def send_to_sqs(sqs, queue_url, message):
             MessageBody=message
         )
     except Exception as error:
-        logger.error('Failed to send petition with: {}'.format(error))
+        logger.error(f'Failed to send {type} with: {error}')
         return Response(
-            {'error': 'Failed to queue up petition signup'},
+            {'error': f'Failed to queue up {type}'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
@@ -136,6 +172,6 @@ def send_to_sqs(sqs, queue_url, message):
         return Response({'message': 'success'}, 201)
     else:
         return Response(
-            {'error': 'Something went wrong with petition signup'},
+            {'error': f'Something went wrong with {type}'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
