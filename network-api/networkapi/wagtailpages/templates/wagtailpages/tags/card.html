@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="card-regular">
+<div class="card-regular h-100 d-flex flex-column">
 
   {% if commitment %}
   <div class="h6-heading commitment">{{ commitment }}</div>
@@ -8,8 +8,8 @@
 
   <img src={{ image }} class="full-bleed-xs" />
 
-  <div class="full-bleed-xs">
-    <div class="key-item mx-2 mx-md-3 p-3">
+  <div class="full-bleed-xs d-flex flex-grow-1">
+    <div class="key-item mx-2 mx-md-3 p-3 w-100">
       <h5 class="h3-heading mb-2">{{ title }}</h5>
       <p>{{ description | richtext }}</p>
       <a class="cta-link mb-2" href="{{ link_url }}">{{ link_label }}</a>
