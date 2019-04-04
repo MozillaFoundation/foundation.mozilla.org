@@ -10,12 +10,38 @@ import logging
 import json
 
 from networkapi.wagtailpages.models import Petition, Signup
+<<<<<<< HEAD
+=======
+
+
+class SQSProxy:
+    """
+    We use a proxy class to make sure that code that
+    relies on SQS posting still works, even when there
+    is no "real" sqs client available to work with.
+    """
+
+    def send_message(self, QueueUrl, MessageBody):
+        """
+        As a proxy function, the only thing we report
+        is that "things succeeded!" even though nothing
+        actually happened.
+        """
+
+        return {
+            'MessageId': True
+        }
+
+>>>>>>> signup-post-route
 
 # Basket/Salesforce SQS client
-crm_sqs = False
+crm_sqs = {
+    'client': SQSProxy()
+}
+
 
 if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
-    crm_sqs = boto3.client(
+    crm_sqs['client'] = boto3.client(
         'sqs',
         region_name=settings.CRM_AWS_SQS_REGION,
         aws_access_key_id=settings.CRM_AWS_SQS_ACCESS_KEY_ID,
@@ -25,7 +51,6 @@ if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
 
 # sqs destination for salesforce
 crm_queue_url = settings.CRM_PETITION_SQS_QUEUE_URL
-
 
 logger = logging.getLogger(__name__)
 
@@ -78,7 +103,11 @@ def signup_submission(request, signup):
         }
     })
 
+<<<<<<< HEAD
     return send_to_sqs(crm_sqs, crm_queue_url, message, type='signup')
+=======
+    return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
+>>>>>>> signup-post-route
 
 
 # handle Salesforce petition data
@@ -141,7 +170,11 @@ def petition_submission(request, petition):
         }
     })
 
+<<<<<<< HEAD
     return send_to_sqs(crm_sqs, crm_queue_url, message, type='petition')
+=======
+    return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='petition')
+>>>>>>> signup-post-route
 
 
 def send_to_sqs(sqs, queue_url, message, type='petition'):
