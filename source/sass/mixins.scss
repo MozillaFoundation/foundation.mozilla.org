@@ -1,7 +1,47 @@
-@mixin heading($font-family, $font-weight, $letter-spacing) {
+@mixin heading(
+  $font-family,
+  $font-weight,
+  $letter-spacing,
+  $color,
+  $dark-theme-color
+) {
   font-family: $font-family;
   font-weight: $font-weight;
   letter-spacing: $letter-spacing;
+  color: $color;
+  margin-bottom: 1rem;
+
+  &.dark-theme {
+    color: $dark-theme-color;
+
+    a {
+      @include dark-theme-inline-anchor();
+    }
+  }
+
+  a {
+    color: inherit;
+    font-weight: inherit;
+
+    @include hover-focus-active {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin body-text($font-family, $font-weight, $color, $dark-theme-color) {
+  font-family: $font-family;
+  font-weight: $font-weight;
+  color: $color;
+
+  &.dark-theme {
+    color: $dark-theme-color;
+
+    a {
+      @include dark-theme-inline-anchor();
+    }
+  }
 }
 
 @mixin scaleText(
