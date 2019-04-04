@@ -30,6 +30,7 @@ class SQSProxy:
             'MessageId': True
         }
 
+
 # Basket/Salesforce SQS client
 crm_sqs = {
     'client': SQSProxy()
