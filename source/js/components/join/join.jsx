@@ -257,7 +257,7 @@ export default class JoinUs extends React.Component {
             )}
           </div>
           <div className={privacyClass}>
-            <label className="form-check-label mb-4">
+            <label className="form-check-label">
               <input
                 type="checkbox"
                 className="form-check-input"
@@ -285,7 +285,7 @@ export default class JoinUs extends React.Component {
                   </p>
                 )}
             </label>
-            <div>{this.renderSubmitButton(`w-100`)}</div>
+            <div>{this.renderSubmitButton(`w-100 mt-4`)}</div>
           </div>
         </form>
       </div>
