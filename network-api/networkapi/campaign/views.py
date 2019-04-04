@@ -10,9 +10,6 @@ import logging
 import json
 
 from networkapi.wagtailpages.models import Petition, Signup
-<<<<<<< HEAD
-=======
-
 
 class SQSProxy:
     """
@@ -32,7 +29,6 @@ class SQSProxy:
             'MessageId': True
         }
 
->>>>>>> signup-post-route
 
 # Basket/Salesforce SQS client
 crm_sqs = {
@@ -62,6 +58,9 @@ def signup_submission_view(request, pk):
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
+
+        print(Signup())
+
         return Response(
             {'error': 'Invalid signup id'},
             status=status.HTTP_400_BAD_REQUEST,
@@ -103,11 +102,7 @@ def signup_submission(request, signup):
         }
     })
 
-<<<<<<< HEAD
-    return send_to_sqs(crm_sqs, crm_queue_url, message, type='signup')
-=======
     return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
->>>>>>> signup-post-route
 
 
 # handle Salesforce petition data
@@ -170,11 +165,7 @@ def petition_submission(request, petition):
         }
     })
 
-<<<<<<< HEAD
-    return send_to_sqs(crm_sqs, crm_queue_url, message, type='petition')
-=======
     return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='petition')
->>>>>>> signup-post-route
 
 
 def send_to_sqs(sqs, queue_url, message, type='petition'):
