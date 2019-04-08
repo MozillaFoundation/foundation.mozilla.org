@@ -42,7 +42,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@babel/core": "^7.4.0",
+    "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.5.0",
@@ -78,7 +78,7 @@
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-prettier": "^1.0.6",
-    "svgo": "^1.2.0",
+    "svgo": "^1.2.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "whatwg-fetch": "^3.0.0"
