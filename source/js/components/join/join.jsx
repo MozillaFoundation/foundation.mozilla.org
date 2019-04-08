@@ -125,7 +125,7 @@ export default class JoinUs extends React.Component {
   }
 
   createClasslist(classes = ``) {
-    if (this.props.version === `dark-theme`) {
+    if (this.props.theme === `dark-theme`) {
       classes = ` ${classes} dark-theme`;
     }
 
