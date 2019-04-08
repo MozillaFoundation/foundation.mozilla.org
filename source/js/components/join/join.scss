@@ -8,12 +8,13 @@
   .form-control {
     font-family: "Nunito Sans";
     font-weight: 400;
-    font-size: 12px;
   }
 
-  &.dark-theme {
-    .join-btn.w-100 {
-      @extend .hidden-sm-up;
+  .dark-theme {
+    form {
+      input {
+        border-color: $white;
+      }
     }
   }
 }

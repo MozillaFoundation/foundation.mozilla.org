@@ -136,20 +136,13 @@ export default class JoinUs extends React.Component {
    * Render the signup CTA.
    */
   render() {
-    console.log(this.props);
-    console.log(this.state);
-
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
     return (
-      <div
-        className={`container px-0 ${signupState} ${
-          this.props.version === `dark-theme` ? `dark-theme` : ``
-        }`}
-      >
+      <div className={this.createClasslist(`container px-0 ${signupState}`)}>
         <div className="row">
           {this.renderFormHeading()}
           {this.renderFormContent()}
@@ -186,26 +179,67 @@ export default class JoinUs extends React.Component {
     );
   }
 
-  renderEmailFieldSection() {
+  renderEmailField(classes = ``) {
     return (
-      <div className="mb-2 d-flex">
+      <div className={`mb-2 ${classes}`}>
         <input
           type="email"
           className="form-control"
-          placeholder="EMAIL ADDRESS"
+          placeholder="Enter email address"
           ref={el => (this.email = el)}
           onFocus={evt => this.onInputFocus(evt)}
         />
-        {this.props.version === `dark-theme` &&
-          this.renderSubmitButton(`ml-3 hidden-sm-down`)}
+        {this.state.userTriedSubmitting &&
+          !this.state.apiSubmitted &&
+          !this.email.value && (
+            <p className="body-small form-check form-control-feedback">
+              Please enter your email
+            </p>
+          )}
+        {this.state.signupFailed && (
+          <small className="form-check form-control-feedback">
+            Something went wrong. Please check your email address and try again
+          </small>
+        )}
       </div>
     );
   }
 
-  renderSubmitButton(classes = ``) {
+  renderPrivacyField(classes = ``) {
+    return (
+      <div className={`mb-2 ${classes}`}>
+        <label className="form-check-label">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="PrivacyCheckbox"
+            ref={el => (this.privacy = el)}
+          />
+          <p className={this.createClasslist(`d-inline-block body-small mb-0`)}>
+            I'm okay with Mozilla handling my info as explained in this{" "}
+            <a
+              href="https://www.mozilla.org/privacy/websites/"
+              className={this.createClasslist()}
+            >
+              Privacy Notice
+            </a>
+          </p>
+          {this.state.userTriedSubmitting &&
+            !this.state.apiSubmitted &&
+            !this.privacy.checked && (
+              <p className="body-small form-check form-control-feedback">
+                Please check this box if you want to proceed
+              </p>
+            )}
+        </label>
+      </div>
+    );
+  }
+
+  renderSubmitBtn() {
     return (
       <button
-        className={this.createClasslist(`btn btn-normal join-btn ${classes}`)}
+        className={this.createClasslist(`btn btn-primary join-btn w-100`)}
       >
         Sign up
       </button>
@@ -218,6 +252,16 @@ export default class JoinUs extends React.Component {
    */
   renderFormContent() {
     if (this.state.apiSuccess) return null;
+
+    let fieldsWrapperClass = classNames({
+      "col-md-9": this.props.layout === `side-button`,
+      "col-md-12": this.props.layout !== `side-button`
+    });
+
+    let submitWrapperClass = classNames({
+      "col-md-3 pl-md-0": this.props.layout === `side-button`,
+      "col-md-12": this.props.layout !== `side-button`
+    });
 
     let inputGroupClass = classNames({
       "has-danger":
@@ -235,58 +279,14 @@ export default class JoinUs extends React.Component {
         !this.privacy.checked
     });
 
-    console.log(`this.state.apiSubmitted`, this.state.apiSubmitted, this.email);
-
     return (
       <div className="col-12">
-        <form onSubmit={evt => this.processFormData(evt)}>
-          <div className={inputGroupClass}>
-            {this.renderEmailFieldSection()}
-            {this.state.userTriedSubmitting &&
-              !this.state.apiSubmitted &&
-              !this.email.value && (
-                <p className="body-small form-check form-control-feedback">
-                  Please enter your email
-                </p>
-              )}
-            {this.state.signupFailed && (
-              <small className="form-check form-control-feedback">
-                Something went wrong. Please check your email address and try
-                again
-              </small>
-            )}
+        <form onSubmit={evt => this.processFormData(evt)} className="row">
+          <div className={fieldsWrapperClass}>
+            {this.renderEmailField(inputGroupClass)}
+            {this.renderPrivacyField(privacyClass)}
           </div>
-          <div className={privacyClass}>
-            <label className="form-check-label">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="PrivacyCheckbox"
-                ref={el => (this.privacy = el)}
-              />
-              <p
-                className={this.createClasslist(
-                  `d-inline-block body-small mb-0`
-                )}
-              >
-                I'm okay with Mozilla handling my info as explained in this{" "}
-                <a
-                  href="https://www.mozilla.org/privacy/websites/"
-                  className={this.createClasslist()}
-                >
-                  Privacy Notice
-                </a>
-              </p>
-              {this.state.userTriedSubmitting &&
-                !this.state.apiSubmitted &&
-                !this.privacy.checked && (
-                  <p className="body-small form-check form-control-feedback">
-                    Please check this box if you want to proceed
-                  </p>
-                )}
-            </label>
-            <div>{this.renderSubmitButton(`w-100 mt-4`)}</div>
-          </div>
+          <div className={submitWrapperClass}>{this.renderSubmitBtn()}</div>
         </form>
       </div>
     );
