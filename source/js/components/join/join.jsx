@@ -125,8 +125,8 @@ export default class JoinUs extends React.Component {
   }
 
   createClasslist(classes = ``) {
-    if (this.props.version == `dark-theme`) {
-      classes += ` dark-theme`;
+    if (this.props.version === `dark-theme`) {
+      classes = ` ${classes} dark-theme`;
     }
 
     return classes;
@@ -179,9 +179,20 @@ export default class JoinUs extends React.Component {
     );
   }
 
-  renderEmailField(classes = ``) {
+  /**
+   * Render the email field in signup CTA.
+   */
+  renderEmailField() {
+    let classes = classNames(`mb-2`, {
+      "has-danger":
+        (!this.state.apiSuccess &&
+          this.state.userTriedSubmitting &&
+          !this.email.value) ||
+        this.state.signupFailed
+    });
+
     return (
-      <div className={`mb-2 ${classes}`}>
+      <div className={classes}>
         <input
           type="email"
           className="form-control"
@@ -205,9 +216,20 @@ export default class JoinUs extends React.Component {
     );
   }
 
-  renderPrivacyField(classes = ``) {
+  /**
+   * Render the privacy field in signup CTA.
+   */
+  renderPrivacyField() {
+    let classes = classNames(`mb-2`, {
+      "form-check": true,
+      "has-danger":
+        !this.state.apiSuccess &&
+        this.state.userTriedSubmitting &&
+        !this.privacy.checked
+    });
+
     return (
-      <div className={`mb-2 ${classes}`}>
+      <div className={classes}>
         <label className="form-check-label">
           <input
             type="checkbox"
@@ -236,7 +258,10 @@ export default class JoinUs extends React.Component {
     );
   }
 
-  renderSubmitBtn() {
+  /**
+   * Render the submit button in signup CTA.
+   */
+  renderSubmitButton() {
     return (
       <button
         className={this.createClasslist(`btn btn-primary join-btn w-100`)}
@@ -253,40 +278,19 @@ export default class JoinUs extends React.Component {
   renderFormContent() {
     if (this.state.apiSuccess) return null;
 
-    let fieldsWrapperClass = classNames({
-      "col-md-9": this.props.layout === `side-button`,
-      "col-md-12": this.props.layout !== `side-button`
-    });
-
-    let submitWrapperClass = classNames({
-      "col-md-3 pl-md-0": this.props.layout === `side-button`,
-      "col-md-12": this.props.layout !== `side-button`
-    });
-
-    let inputGroupClass = classNames({
-      "has-danger":
-        (!this.state.apiSuccess &&
-          this.state.userTriedSubmitting &&
-          !this.email.value) ||
-        this.state.signupFailed
-    });
-
-    let privacyClass = classNames({
-      "form-check": true,
-      "has-danger":
-        !this.state.apiSuccess &&
-        this.state.userTriedSubmitting &&
-        !this.privacy.checked
-    });
+    let fieldsWrapperClass =
+      this.props.layout === `side-button` ? `col-md-9` : `col-md-12`;
+    let submitWrapperClass =
+      this.props.layout === `side-button` ? `col-md-3 pl-md-0` : `col-md-12`;
 
     return (
       <div className="col-12">
         <form onSubmit={evt => this.processFormData(evt)} className="row">
           <div className={fieldsWrapperClass}>
-            {this.renderEmailField(inputGroupClass)}
-            {this.renderPrivacyField(privacyClass)}
+            {this.renderEmailField()}
+            {this.renderPrivacyField()}
           </div>
-          <div className={submitWrapperClass}>{this.renderSubmitBtn()}</div>
+          <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
         </form>
       </div>
     );
