@@ -31,7 +31,7 @@ let main = {
       networkSiteURL = env.NETWORK_SITE_URL;
 
       csrfToken = document.querySelector('meta[name="csrf-token"]');
-      csrfToken = csrfToken ? csrfToken.getAttribute('content') : false;
+      csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
@@ -247,9 +247,8 @@ let main = {
         elements.forEach(element => {
           var props = element.dataset;
 
-          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${
-            props.signupId || 0
-          }/`;
+          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
+            0}/`;
 
           props.csrfToken = props.csrfToken || csrfToken;
 
