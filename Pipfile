@@ -39,4 +39,4 @@ pyyaml = "==4.2b4"
 python-coveralls = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"

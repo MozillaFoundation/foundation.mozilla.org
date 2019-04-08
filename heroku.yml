@@ -1,0 +1,13 @@
+build:
+  docker:
+    web: 
+      dockerfile: Dockerfile.heroku
+      target: application
+
+release:
+  image: web
+  command:
+    - ./release-steps.sh
+
+run:
+  web: cd network-api && gunicorn networkapi.wsgi:application

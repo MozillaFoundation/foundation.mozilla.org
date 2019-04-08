@@ -1,6 +1,7 @@
 {
   "name": "network",
   "description": "The Mozilla Network site",
+  "stack": "container",
   "addons": [
     "heroku-postgresql:hobby-dev"
   ],

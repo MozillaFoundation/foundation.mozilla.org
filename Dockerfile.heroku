@@ -1,0 +1,67 @@
+# Install node dependencies and run webpack build
+FROM node:8-alpine AS node-build
+
+WORKDIR /app/
+
+# Copy over files necessary for the webpack build
+COPY package.json package-lock.json ./
+COPY source ./source
+COPY contribute.json .
+COPY webpack.config.js .
+
+# Install node dependencies
+RUN npm ci
+
+# Run the webpack build
+RUN npm run build
+
+# Build the container the app will run in
+FROM python:3.7-alpine AS application
+
+# Ensure logs are output to console
+ENV PYTHONUNBUFFERED 1
+
+# Reduce image size by not writing python bytecode
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# Create a group and user for the app
+RUN addgroup -S django && adduser -S django -G django
+
+WORKDIR /app
+
+# Build dependencies for pillow and psycopg
+# curl is required for release step output
+RUN apk add --no-cache \
+    jpeg-dev \
+    zlib-dev \
+    postgresql-dev \
+    curl \
+    su-exec
+
+# Install pipenv and gunicorn
+RUN pip install pipenv gunicorn
+
+# Copy files over
+COPY Pipfile Pipfile.lock LICENSE ./
+COPY network-api/ ./network-api/
+COPY locales/ ./locales
+COPY release-steps.sh ./
+
+# this suppresses annoying warnings from django-environ
+RUN touch .env
+
+# Install build deps, install app deps then remove build deps
+RUN apk add --no-cache --virtual .build-deps \
+    build-base \
+    linux-headers && \
+    pipenv install --system && \
+    apk del .build-deps
+
+# Allow the www user to read/write the app directory
+RUN chown -R django /app
+
+# Tell docker that all commands should be run as the www user
+USER django
+
+# Grab the compiled front-end assets from the node-build stage
+COPY --from=node-build /app/network-api/networkapi/frontend/ ./network-api/networkapi/frontend/
