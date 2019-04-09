@@ -15,6 +15,7 @@ from .models import (
 
     CTA,
     Petition,
+    Signup,
 
     # DEPRECATED
     ParticipatePage,
@@ -74,6 +75,12 @@ class CTATR(TranslationOptions):
 
 @register(Petition)
 class PetitionTR(TranslationOptions):
+    fields = (
+    )
+
+
+@register(Signup)
+class SignupTR(TranslationOptions):
     fields = (
     )
 
