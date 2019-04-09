@@ -9,6 +9,12 @@
     border: 1px solid $gray-20;
     padding: 4px 8px;
   }
+
+  .key-item {
+    .rich-text {
+      flex: 1;
+    }
+  }
 }
 
 .card-cta {
