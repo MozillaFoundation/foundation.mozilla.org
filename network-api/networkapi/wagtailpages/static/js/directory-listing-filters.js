@@ -51,7 +51,7 @@
    */
   function loadResults(profiles) {
     let cards = profiles.map(profile => {
-      return `
+      let cardContents = `
       <div class="col-md-6 col-12 mb-5">
         <div class="person-card">
           <a href="https://www.mozillapulse.org/profile/${
@@ -77,10 +77,16 @@
                     ${profile.name}
                   </span>
                 </div>
-              </a>
-              <p class="d-flex align-items-center meta-block-location h6-heading my-2">
+              </a>`;
+
+      let { location } = profile;
+
+      if (location) {
+        cardContents += `<p class="d-flex align-items-center meta-block-location h6-heading my-2">
                 ${profile.location}
-              </p>
+              </p>`;
+      }
+      cardContents += `
             </div>
             <div class="social-icons">
               ${
@@ -102,8 +108,8 @@
         </div>
       </div>
       `;
+      return cardContents;
     });
-
     // And then we update the content that the user sees:
     profileContainer.innerHTML = cards.join("\n");
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
