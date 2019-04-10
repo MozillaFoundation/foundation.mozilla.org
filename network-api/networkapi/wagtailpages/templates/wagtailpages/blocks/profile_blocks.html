@@ -21,7 +21,9 @@
                   </span>
                 </div>
               </a>
+              {% if profile.location %}
               <p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>
+              {% endif %}
             </div>
             <div class="social-icons">
               {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter small"></a> {% endif %}
