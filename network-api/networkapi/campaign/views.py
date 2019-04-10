@@ -11,6 +11,7 @@ import json
 
 from networkapi.wagtailpages.models import Petition, Signup
 
+
 class SQSProxy:
     """
     We use a proxy class to make sure that code that
