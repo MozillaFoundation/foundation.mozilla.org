@@ -86,6 +86,8 @@ def petition_submission_view(request, pk):
 def signup_submission(request, signup):
     data = {
         "email": request.data['email'],
+        "lang": "en",
+        "format": "html",
         "source_url": request.data['source'],
         "newsletters": signup.newsletter,
     }

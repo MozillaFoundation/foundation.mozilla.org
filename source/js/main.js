@@ -247,8 +247,9 @@ let main = {
         elements.forEach(element => {
           var props = element.dataset;
 
-          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
-            0}/`;
+          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${
+            props.signupId || 0
+          }/`;
 
           props.csrfToken = props.csrfToken || csrfToken;
 

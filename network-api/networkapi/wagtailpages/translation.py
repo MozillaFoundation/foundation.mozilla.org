@@ -15,6 +15,7 @@ from .models import (
 
     CTA,
     Petition,
+    Signup,
 
     # DEPRECATED
     ParticipatePage,
@@ -78,10 +79,17 @@ class PetitionTR(TranslationOptions):
     )
 
 
+@register(Signup)
+class SignupTR(TranslationOptions):
+    fields = (
+    )
+
+
 @register(PrimaryPage)
 class PrimaryPageTR(TranslationOptions):
     fields = (
         'header',
+        'intro',
         'body',
     )
 

@@ -28,3 +28,13 @@
 .cta {
   min-height: 350px;
 }
+
+.highlights-card {
+  &:first-of-type {
+    margin-bottom: 1.5rem;
+
+    @media screen and (min-width: $bp-md) {
+      margin-bottom: 0;
+    }
+  }
+}

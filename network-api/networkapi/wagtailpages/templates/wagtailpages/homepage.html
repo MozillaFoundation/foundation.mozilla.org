@@ -96,10 +96,10 @@
   </div>
   <div id="home-highlights-wagtail">
     <div class="highlights mb-5">
-      <div class="row">
+      <div class="row pb-md-5 mb-md-2">
         {% for highlight in page.featured_highlights.all %}
         {% if forloop.counter <= 2 %}
-        <div class="col-md-6">
+        <div class="col-md-6 highlights-card">
           {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
         </div>
       {% endif %} {% endfor %}
