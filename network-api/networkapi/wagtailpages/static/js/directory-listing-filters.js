@@ -111,10 +111,7 @@
   }
 
   function showLoadSpinner() {
-    let containerHeight = profileContainer.offsetHeight;
-    let containerFullHeight = `${containerHeight}px`;
-
-    profileContainer.style.height = containerFullHeight;
+    profileContainer.style.height = `${profileContainer.offsetHeight}px`
     profileContainer.innerHTML = `
       <div class="col-12 mx-auto my-5 text-center">
         <div class="loading-indicator d-inline-block">
