@@ -15,13 +15,15 @@
           <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row">
             <div class="meta-block">
               <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">
-                <div class="h5-heading">
+                <div class="h5-heading mb-0">
                   <span class="meta-block-name">
                     {{ profile.name }}
                   </span>
                 </div>
               </a>
-              <p class="d-flex align-items-center {% if profile.location %} meta-block-location {% endif %} body-small my-2">{{ profile.location }}</p>
+              {% if profile.location %}
+              <p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>
+              {% endif %}
             </div>
             <div class="social-icons">
               {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter small"></a> {% endif %}
