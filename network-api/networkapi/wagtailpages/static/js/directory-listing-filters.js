@@ -83,7 +83,7 @@
               <a href="https://www.mozillapulse.org/profile/${
                 profile.profile_id
               }">
-                <div class="h5-heading">
+                <div class="h5-heading mb-0">
                   <span class="meta-block-name">
                     ${profile.name}
                   </span>

@@ -32,7 +32,7 @@
     display: grid;
     grid-template-rows: repeat(2, 0.25fr);
     grid-template-columns: 1fr 2fr;
-    
+
     @media screen and (min-width: $bp-sm) {
       grid-template-rows: 0.35fr 1fr;
       grid-template-columns: 0.9fr 2fr;
