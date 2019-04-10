@@ -5,6 +5,14 @@ from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
+##############################
+##############################
+
+from custom_blocks.base import base
+from custom_blocks.image_block import AnnotatedImageBlock
+
+##############################
+##############################
 
 class LinkButtonBlock(blocks.StructBlock):
     label = blocks.CharBlock()
@@ -29,16 +37,6 @@ class LinkButtonBlock(blocks.StructBlock):
         template = 'wagtailpages/blocks/link_button_block.html'
 
 
-class ImageBlock(blocks.StructBlock):
-    image = ImageChooserBlock()
-    altText = blocks.CharBlock(
-        required=True,
-        help_text='Image description (for screen readers).'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/image_block.html'
 
 
 class AirTableBlock(blocks.StructBlock):
@@ -53,22 +51,6 @@ class AirTableBlock(blocks.StructBlock):
     class Meta:
         icon = 'placeholder'
         template = 'wagtailpages/blocks/airtable_block.html'
-
-
-class AnnotatedImageBlock(ImageBlock):
-    caption = blocks.CharBlock(
-        required=False
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this caption should link out to.'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/annotated_image_block.html'
-        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
-
 
 class AlignedImageBlock(ImageBlock):
     alignment = blocks.ChoiceBlock(
