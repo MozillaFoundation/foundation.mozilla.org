@@ -51,9 +51,20 @@
    */
   function loadResults(profiles) {
     let cards = profiles.map(profile => {
-      let cardContents = `
+      let { location } = profile;
+      let metaLocation = "";
+      let cardClass = "person-card";
+
+      if (location) {
+        metaLocation = `<p class="d-flex align-items-center meta-block-location h6-heading my-2">
+              ${profile.location}
+            </p>`;
+      } else {
+        cardClass = "person-card-sans-location";
+      }
+      return `
       <div class="col-md-6 col-12 mb-5">
-        <div class="person-card">
+        <div class="${cardClass}">
           <a href="https://www.mozillapulse.org/profile/${
             profile.profile_id
           }" class="headshot-container">
@@ -77,16 +88,8 @@
                     ${profile.name}
                   </span>
                 </div>
-              </a>`;
-
-      let { location } = profile;
-
-      if (location) {
-        cardContents += `<p class="d-flex align-items-center meta-block-location h6-heading my-2">
-                ${profile.location}
-              </p>`;
-      }
-      cardContents += `
+              </a>
+              ${metaLocation}
             </div>
             <div class="social-icons">
               ${
@@ -108,7 +111,6 @@
         </div>
       </div>
       `;
-      return cardContents;
     });
     // And then we update the content that the user sees:
     profileContainer.innerHTML = cards.join("\n");
