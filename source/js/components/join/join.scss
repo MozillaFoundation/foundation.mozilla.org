@@ -10,6 +10,11 @@
     font-weight: 400;
   }
 
+  &:not(.dark-theme) .form-check-label {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
   .dark-theme {
     form {
       input {

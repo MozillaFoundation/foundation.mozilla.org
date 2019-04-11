@@ -278,14 +278,19 @@ export default class JoinUs extends React.Component {
   renderFormContent() {
     if (this.state.apiSuccess) return null;
 
-    let fieldsWrapperClass =
-      this.props.layout === `side-button` ? `col-md-9` : `col-md-12`;
-    let submitWrapperClass =
-      this.props.layout === `side-button` ? `col-md-3 pl-md-0` : `col-md-12`;
+    let formClass = `d-flex flex-column`;
+    let fieldsWrapperClass = `w-100`;
+    let submitWrapperClass = `w-100`;
+
+    if (this.props.layout === `side-button`) {
+      formClass = `${formClass} flex-md-row`;
+      fieldsWrapperClass = ``;
+      submitWrapperClass = `ml-md-3`;
+    }
 
     return (
       <div className="col-12">
-        <form onSubmit={evt => this.processFormData(evt)} className="row">
+        <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
           <div className={fieldsWrapperClass}>
             {this.renderEmailField()}
             {this.renderPrivacyField()}
