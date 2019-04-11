@@ -220,13 +220,16 @@ export default class JoinUs extends React.Component {
    * Render the privacy field in signup CTA.
    */
   renderPrivacyField() {
-    let classes = classNames(`mb-2`, {
-      "form-check": true,
-      "has-danger":
-        !this.state.apiSuccess &&
-        this.state.userTriedSubmitting &&
-        !this.privacy.checked
-    });
+    let classes = classNames(
+      this.props.layout === `side-button` ? `mb-2` : `my-3`,
+      {
+        "form-check": true,
+        "has-danger":
+          !this.state.apiSuccess &&
+          this.state.userTriedSubmitting &&
+          !this.privacy.checked
+      }
+    );
 
     return (
       <div className={classes}>
