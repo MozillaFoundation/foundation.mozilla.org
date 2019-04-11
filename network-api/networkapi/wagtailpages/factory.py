@@ -117,13 +117,6 @@ class MiniSiteNameSpaceFactory(PageFactory):
         model = networkapi.wagtailpages.models.MiniSiteNameSpace
 
 
-class PeoplePageFactory(PageFactory):
-    class Meta:
-        model = networkapi.wagtailpages.models.PeoplePage
-
-    title = 'people'
-
-
 class NewsPageFactory(PageFactory):
     class Meta:
         model = networkapi.wagtailpages.models.NewsPage
@@ -204,11 +197,6 @@ class ParticipatePage2FeaturedHighlights2Factory(ParticipateFeaturedFactory):
 class OpportunityPageFactory(CMSPageFactory):
     class Meta:
         model = networkapi.wagtailpages.models.OpportunityPage
-
-    class Params:
-        no_cta = Trait(cta=None)
-
-    cta = SubFactory(SignupFactory)
 
 
 class FeaturedFactory(DjangoModelFactory):

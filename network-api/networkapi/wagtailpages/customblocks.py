@@ -18,10 +18,10 @@ class LinkButtonBlock(blocks.StructBlock):
     # should be used.
     styling = blocks.ChoiceBlock(
         choices=[
-            ('btn-normal', 'Normal button'),
-            ('btn-ghost', 'Ghost button'),
+            ('btn-primary', 'Primary button'),
+            ('btn-secondary', 'Secondary button'),
         ],
-        default='btn-normal',
+        default='btn-primary',
     )
 
     class Meta:

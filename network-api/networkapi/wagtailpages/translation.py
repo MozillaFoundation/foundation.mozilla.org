@@ -5,7 +5,6 @@ from .models import (
     NewsPage,
     InitiativesPage,
     ParticipatePage2,
-    PeoplePage,
     Styleguide,
     Homepage,
     RedirectingPage,
@@ -16,9 +15,11 @@ from .models import (
 
     CTA,
     Petition,
+    Signup,
 
     # DEPRECATED
     ParticipatePage,
+    PeoplePage,
 )
 
 from .donation_modal import DonationModal
@@ -78,10 +79,17 @@ class PetitionTR(TranslationOptions):
     )
 
 
+@register(Signup)
+class SignupTR(TranslationOptions):
+    fields = (
+    )
+
+
 @register(PrimaryPage)
 class PrimaryPageTR(TranslationOptions):
     fields = (
         'header',
+        'intro',
         'body',
     )
 
@@ -102,20 +110,8 @@ class InitiativesPageTR(TranslationOptions):
     fields = ()
 
 
-# DEPRECATED
-@register(ParticipatePage)
-class ParticipatePageTR(TranslationOptions):
-    # DEPRECATED
-    fields = ()
-
-
 @register(ParticipatePage2)
 class ParticipatePage2TR(TranslationOptions):
-    fields = ()
-
-
-@register(PeoplePage)
-class PeoplePageTR(TranslationOptions):
     fields = ()
 
 
@@ -139,3 +135,15 @@ class RedirectingPageTR(TranslationOptions):
     fields = (
         'URL',
     )
+
+# The following bindings are obsolete and require cleanup
+
+
+@register(ParticipatePage)
+class ParticipatePageTR(TranslationOptions):
+    fields = ()
+
+
+@register(PeoplePage)
+class PeoplePageTR(TranslationOptions):
+    fields = ()

@@ -18,7 +18,7 @@
     <div class="col-sm-6">
       <h1 class="h1-heading">{{ page.hero_headline }}</h1>
       <div class="body-large mb-4">{{ page.hero_story_description | richtext }}</div>
-      <a class="btn btn-normal d-block d-sm-inline" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
+      <a class="btn btn-primary d-block d-sm-inline" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
     </div>
   </div>
   <div class="row">
@@ -85,7 +85,7 @@
   </div>
   <div class="row">
     <div class="col text-center mb-5">
-      <a class="btn btn-ghost" href="/news">View more news</a>
+      <a class="btn btn-secondary" href="/news">View more news</a>
     </div>
   </div>
   <div class="row">
@@ -96,10 +96,10 @@
   </div>
   <div id="home-highlights-wagtail">
     <div class="highlights mb-5">
-      <div class="row">
+      <div class="row pb-md-5 mb-md-2">
         {% for highlight in page.featured_highlights.all %}
         {% if forloop.counter <= 2 %}
-        <div class="col-md-6">
+        <div class="col-md-6 highlights-card">
           {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
         </div>
       {% endif %} {% endfor %}
@@ -140,7 +140,7 @@
 </div>
 <div class="row">
   <div class="col text-center mb-5">
-    <a class="btn btn-ghost mb-4" href="https://www.mozillapulse.org">More from our network</a>
+    <a class="btn btn-secondary mb-4" href="https://www.mozillapulse.org">More from our network</a>
     <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">Add your project</a>
   </div>
 </div>

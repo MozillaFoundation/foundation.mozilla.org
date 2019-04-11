@@ -244,6 +244,10 @@ let main = {
         elements.forEach(element => {
           var props = element.dataset;
 
+          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${
+            props.signupId
+          }/`;
+
           apps.push(
             new Promise(resolve => {
               ReactDOM.render(
@@ -330,28 +334,6 @@ let main = {
         })
       );
     }
-
-    // Fellowships single filter fellow list
-    let singleFilterFellowList = Array.from(
-      document.querySelectorAll(`.single-filter-fellow-list`)
-    );
-
-    singleFilterFellowList.forEach(target => {
-      apps.push(
-        new Promise(resolve => {
-          ReactDOM.render(
-            <SingleFilterFellowList
-              env={env}
-              filterType={target.dataset.filterType}
-              filterOptions={target.dataset.filterOptions.split(`,`)}
-              selectedOption={target.dataset.selectedOption}
-              whenLoaded={() => resolve()}
-            />,
-            target
-          );
-        })
-      );
-    });
 
     // Pulse project lists
     let pulseProjectList = Array.from(
