@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  watch-static-files:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile.node
+    environment:
+      # Need to specify the SHELL env var for chokidar
+      - SHELL=/bin/sh
+    command: npm run watch
+    volumes:
+      - .:/app
+      - node_dependencies:/app/node_modules/
+
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile.python
+    env_file:
+      - ".docker.env"
+    environment:
+      # Prevents pipenv from loading env files (python dotenv and docker-compose compatibility issue).
+      - PIPENV_DONT_LOAD_ENV=1
+    command: pipenv run python network-api/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - watch-static-files
+
+volumes:
+  postgres_data:
+  node_dependencies:
