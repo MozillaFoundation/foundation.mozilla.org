@@ -63,7 +63,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 // Utilities
 
 .bg-gray {
-  background: #f4f4f4;
+  background: $gray-05;
 }
 
 .bg-white {
@@ -71,8 +71,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 }
 
 img.thumb-border {
-  background: #f4f4f4;
-  border: 16px solid #f4f4f4;
+  background: $gray-05;;
+  border: 16px solid $gray-05;
 }
 
 .adult-content {
