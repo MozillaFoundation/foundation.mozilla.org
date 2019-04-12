@@ -46,7 +46,7 @@
     & + label.foldable {
       cursor: pointer;
       position: relative;
-      border: 1px solid lightgrey;
+      border: 1px solid $gray-20;
       border-width: 1px 0;
       padding: $foldable-padding 0;
       margin-bottom: 0;
