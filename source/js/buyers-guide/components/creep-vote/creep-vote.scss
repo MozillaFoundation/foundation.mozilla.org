@@ -19,7 +19,7 @@ $btn-shadow-width: 3px;
     button[type="submit"] {
       @extend .btn.disabled; // we want it to have Bootstrap's .btn.disabled stylings
 
-      color: #bbbbbb;
+      color: $gray-20;
 
       &.btn-secondary:hover {
         cursor: auto;
