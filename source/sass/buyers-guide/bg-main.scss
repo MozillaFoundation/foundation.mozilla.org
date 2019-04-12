@@ -21,7 +21,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 //Site-wide
 
 @import "../_variables";
-@import "./_variables";
 @import "../mixins";
 @import "./mixins"; // Buyer's Guide specific mixins
 
