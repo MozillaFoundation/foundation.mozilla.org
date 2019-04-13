@@ -11,7 +11,7 @@
   color: $color;
   margin-bottom: 1rem;
 
-  &.dark-theme {
+  @at-root .dark-theme & {
     color: $dark-theme-color;
 
     a {
@@ -35,7 +35,7 @@
   font-weight: $font-weight;
   color: $color;
 
-  &.dark-theme {
+  @at-root .dark-theme & {
     color: $dark-theme-color;
 
     a {

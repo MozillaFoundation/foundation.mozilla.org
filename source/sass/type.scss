@@ -7,7 +7,7 @@ a {
     text-decoration: underline;
   }
 
-  &.dark-theme {
+  @at-root .dark-theme & {
     @include dark-theme-inline-anchor($white);
   }
 

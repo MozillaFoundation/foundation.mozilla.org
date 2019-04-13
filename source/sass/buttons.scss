@@ -24,7 +24,7 @@
     box-shadow: none;
   }
 
-  &.dark-theme {
+  @at-root .dark-theme & {
     background: transparent;
     color: $white;
     box-shadow: $offset $offset $white;
@@ -49,7 +49,7 @@
     border: none;
   }
 
-  &.dark-theme {
+  @at-root .dark-theme & {
     color: $white;
     background: $blue;
 
@@ -71,7 +71,7 @@
     border: 2px solid $black;
   }
 
-  &.dark-theme {
+  @at-root .dark-theme & {
     color: $white;
     background: transparent;
     border: 2px solid $white;
@@ -107,7 +107,7 @@
     }
   }
 
-  &.dark-theme {
+  @at-root .dark-theme & {
     &::after {
       filter: brightness(1);
     }
