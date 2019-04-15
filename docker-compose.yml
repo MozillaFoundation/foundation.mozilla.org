@@ -9,6 +9,8 @@ services:
     environment:
       # Need to specify the SHELL env var for chokidar
       - SHELL=/bin/sh
+      # Force polling because inotify doesn't work on Docker Windows
+      - CHOKIDAR_USEPOLLING=1
     command: npm run watch
     volumes:
       - .:/app
