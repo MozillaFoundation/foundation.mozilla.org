@@ -34,10 +34,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:6f89ccad473451959337d52b3d6b98c6ba5da1059fb61156b427ddcea704e8b7",
-                "sha256:8364e8956e0b6e7394eda1fbfc321db02dfd6c84f878dff717b918dd0cf7a73e"
+                "sha256:128130b12f8ba4bf07a673b119135264060eb98f6a4a7419cbd1f2c6dc926827",
+                "sha256:59376112fdee707927b644dd44a1771861f8fe354a48d596131ced83d7a3c05b"
             ],
-            "version": "==1.12.118"
+            "version": "==1.12.130"
         },
         "certifi": {
             "hashes": [
@@ -125,10 +125,10 @@
         },
         "django-modelcluster": {
             "hashes": [
-                "sha256:407845f0c16b6f17547a65864657377446e0b3aa8a629b032bf5053f87f82fe9",
-                "sha256:5275f64b0ed21851af24dd23e5f553852955d20e8f85f56406fef2d6fe7f8f98"
+                "sha256:59672386191d38c69d6f994c3f9aaab3ff93910ec71e78a0bb6aa9abd4d1b90a",
+                "sha256:eea507f2dd8bd283600c1cfa4de6776501a28f199089bb00613c1621505e80cc"
             ],
-            "version": "==4.3"
+            "version": "==4.4"
         },
         "django-modeltranslation": {
             "hashes": [
@@ -197,11 +197,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:00b7011757c4907546f17d0e47df098b542ea2b04c966ee0e80a493aae2c13c8",
-                "sha256:745ac8b9c9526e338696e07b7f2e206e5e317e5744e22fdd7c2894bf19af41f1"
+                "sha256:167cef2454482dc2fbd8b0ff6a5ba3dbac8d3a3ebdee6ba819d008100d9d9428",
+                "sha256:3f2f4570df28df2eb8f39b00520eb610081d6552975e926c6a2cbc64fd89c4c1"
             ],
             "index": "pypi",
-            "version": "==1.0.4"
+            "version": "==1.0.5"
         },
         "filebrowser-safe": {
             "hashes": [
@@ -371,10 +371,10 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:32b0891edff07e28efe91284ed9c31e123d84bea3fd98e1f72be2508f43ef8d9",
-                "sha256:d5f05e487007e29e03409f9398d074e158d920d36eb82eaf66fb1136b0c5374c"
+                "sha256:303879e36b721603cc54604edcac9d20401bdbe31e1e4fdee5b9f98d5d31dfda",
+                "sha256:d747dd3d23d77ef44c6a3526e274af6efeb0a6f1afd5a69ba4d5be4098c8e141"
             ],
-            "version": "==2018.9"
+            "version": "==2019.1"
         },
         "pyyaml": {
             "hashes": [
