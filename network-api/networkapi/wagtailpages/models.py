@@ -481,12 +481,25 @@ class BanneredCampaignPage(PrimaryPage):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text='Choose existing or create new sign-up form'
+        help_text='Choose an existing, or create a new, pettition form'
     )
 
-    content_panels = PrimaryPage.content_panels + [
-        SnippetChooserPanel('cta')
-    ]
+    signup = models.ForeignKey(
+        'Signup',
+        related_name='bcpage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose an existing, or create a new, sign-up form'
+    )
+
+    panel_count = len(PrimaryPage.content_panels)
+    n = panel_count - 1
+
+    content_panels = PrimaryPage.content_panels[:n] + [
+        SnippetChooserPanel('cta'),
+        SnippetChooserPanel('signup'),
+    ] + PrimaryPage.content_panels[n:]
 
     subpage_types = [
         'BanneredCampaignPage',
