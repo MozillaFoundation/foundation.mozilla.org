@@ -36,6 +36,7 @@ crm_sqs = {
     'client': SQSProxy()
 }
 
+has_client = False
 
 if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
     crm_sqs['client'] = boto3.client(
@@ -44,6 +45,7 @@ if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
         aws_access_key_id=settings.CRM_AWS_SQS_ACCESS_KEY_ID,
         aws_secret_access_key=settings.CRM_AWS_SQS_SECRET_ACCESS_KEY,
     )
+    has_client = True
 
 
 # sqs destination for salesforce
@@ -56,6 +58,8 @@ logger = logging.getLogger(__name__)
 @parser_classes((JSONParser,))
 @permission_classes((permissions.AllowAny,))
 def signup_submission_view(request, pk):
+    print(f'submission view, has_client={has_client}');
+
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -102,6 +106,8 @@ def signup_submission(request, signup):
             'event_type': 'newsletter_signup_data'
         }
     })
+
+    print(f'calling send_to_sqs with message={message}');
 
     return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
 
@@ -181,19 +187,24 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
         logger.warning(f'{type} was not submitted: No {type} SQS url was specified')
         return Response({'message': 'success'}, 201)
 
+    print(f'sending to SQS')
+    
     try:
         response = sqs.send_message(
             QueueUrl=queue_url,
             MessageBody=message
         )
+        print('received response')
     except Exception as error:
+        print(f'send_message failed! {error}')
         logger.error(f'Failed to send {type} with: {error}')
         return Response(
             {'error': f'Failed to queue up {type}'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
+    
     if 'MessageId' in response and response['MessageId']:
+        print('response message id:', response['MessageId'])
         return Response({'message': 'success'}, 201)
     else:
         return Response(
