@@ -66,13 +66,17 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
   background: $gray-05;
 }
 
+.bg-product-image {
+  background: $bg-product-image;
+}
+
 .bg-white {
   background: $white;
 }
 
 img.thumb-border {
-  background: $gray-05;
-  border: 16px solid $gray-05;
+  background: $bg-product-image;
+  border: 16px solid $bg-product-image;
 }
 
 .adult-content {
