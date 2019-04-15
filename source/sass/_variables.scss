@@ -23,11 +23,7 @@ $pni-blue-purple: #4a17d4;
 $pni-purple: #7f28b7;
 $pni-purple-pink: #b0379b;
 $pni-pink: #e4487d;
-
-$pni-gradient: linear-gradient(to right, #0000ff 0%, #ff506f 100%);
-
-$emoji-yellow: #f2b946;
-$emoji-pink: #e59c9c;
+$pni-gradient: linear-gradient(to right, $pni-blue 0%, $pni-pink 100%);
 
 $bg-product-image: #f4f4f4; // keep this #f4f4f4 as this is the background colour that product images have
 
