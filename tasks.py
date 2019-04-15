@@ -103,14 +103,14 @@ def setup(ctx):
         print("Installing Python dependencies.")
         ctx.run("pipenv install --dev")
         print("Applying database migrations.")
-        ctx.run("inv migrate")
+        migrate(ctx)
         print("Updating localizable fields")
-        ctx.run("inv l10n-sync")
-        ctx.run("inv l10n-update")
+        l10n_sync(ctx)
+        l10n_update(ctx)
         print("Creating fake data")
-        ctx.run("inv manage load_fake_data")
+        manage(ctx, "load_fake_data")
         print("Updating block information")
-        ctx.run("inv manage block_inventory")
+        manage(ctx, "block_inventory")
 
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
@@ -131,12 +131,12 @@ def catch_up(ctx):
     print("Installing Python dependencies.")
     ctx.run("pipenv install --dev")
     print("Applying database migrations.")
-    ctx.run("inv migrate")
+    migrate(ctx)
     print("Updating localizable fields")
-    ctx.run("inv l10n-sync")
-    ctx.run("inv l10n-update")
+    l10n_sync(ctx)
+    l10n_update(ctx)
     print("Updating block information")
-    ctx.run("inv manage block_inventory")
+    manage(ctx, "block_inventory")
 
 
 # Tasks with Docker
@@ -211,14 +211,14 @@ def docker_nuke_db(ctx):
     print("Deleting database")
     ctx.run("docker volume rm foundation.mozilla.org_postgres_data")
     print("Applying database migrations.")
-    ctx.run("inv docker-migrate")
+    docker_migrate(ctx)
     print("Creating fake data")
-    ctx.run("inv docker-manage load_fake_data")
+    docker_manage(ctx, "load_fake_data")
     print("Updating localizable fields")
-    ctx.run("inv docker-l10n-sync")
-    ctx.run("inv docker-l10n-update")
+    docker_l10n_sync(ctx)
+    docker_l10n_update(ctx)
     print("Updating block information")
-    ctx.run("inv docker-manage block_inventory")
+    docker_manage(ctx, "block_inventory")
 
 
 @task(aliases=["docker-catchup"])
@@ -229,12 +229,12 @@ def docker_catch_up(ctx):
     print("Rebuilding images and install dependencies")
     ctx.run("docker-compose build")
     print("Applying database migrations.")
-    ctx.run("inv docker-migrate")
+    docker_migrate(ctx)
     print("Updating localizable fields")
-    ctx.run("inv docker-l10n-sync")
-    ctx.run("inv docker-l10n-update")
+    docker_l10n_sync(ctx)
+    docker_l10n_update(ctx)
     print("Updating block information")
-    ctx.run("inv docker-manage block_inventory")
+    docker_manage(ctx, "block_inventory")
 
 
 @task
@@ -254,14 +254,14 @@ def docker_setup(ctx):
         print("Building Docker images")
         ctx.run("docker-compose build", **PLATFORM_ARG)
         print("Applying database migrations.")
-        ctx.run("inv docker-migrate")
+        docker_migrate(ctx)
         print("Updating localizable fields")
-        ctx.run("inv docker-l10n-sync")
-        ctx.run("inv docker-l10n-update")
+        docker_l10n_sync(ctx)
+        docker_l10n_update(ctx)
         print("Creating fake data")
-        ctx.run("inv docker-manage load_fake_data")
+        docker_manage(ctx, "load_fake_data")
         print("Updating block information")
-        ctx.run("inv docker-manage block_inventory")
+        docker_manage(ctx, "block_inventory")
 
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
