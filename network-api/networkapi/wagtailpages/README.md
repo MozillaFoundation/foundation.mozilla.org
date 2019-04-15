@@ -3,10 +3,15 @@
 This document explains how the wagtail `wagtailpages` app works with respect to the "networkapi" Django instance.
 
 The base app has the following directory structure:
+
 ```
 - wagtailpages
   |- migrations
   |  `- standard django migration files
+  |
+  |- customblocks
+  |  `- __init__.py
+  |  `- all custom blocks
   |
   |- templates
   |  `- wagtailpages
@@ -21,7 +26,6 @@ The base app has the following directory structure:
   |- templatetags
   |  `- mini_site_tags.py
   |
-  |- customblocks.py
   |- models.py
   `- README.md
 ```
@@ -77,10 +81,9 @@ This is an empty subclass of CTA, as the base fields already cover the signup CT
 
 This is a subclass of CTA that adds checkbox labels and Basket->Salesforce submission. See its definition in `models.py` for the full list of fields this CTA makes use of.
 
-
 ## Stream blocks
 
-In addition to the standard Wagtail-supplied blocks, the `customblocks.py` files defines the following custom blocks that can be used to build out content on pages:
+In addition to the standard Wagtail-supplied blocks, the `customblocks/__init__.py` file defines the following custom blocks that can be used to build out content on pages:
 
 #### 1. LinkButtonBlock
 
@@ -88,19 +91,31 @@ This block sets up a button that links out to a URL, using `wagtailpages/templat
 
 #### 2. ImageTextBlock
 
-This block sets up a text-with-image (image can be placed either right or left of the text), using `wagtailpages/templates/wagtailpages/blocks/image_text.html` as its rendering template.
+This block sets up a text-with-image (image can be placed either right or left of the text) that includes optional top and bottom dividers , using `wagtailpages/templates/wagtailpages/blocks/image_text.html` as its rendering template.
 
-#### 3. VerticalSpacerBlock
+#### 3. BootstrapSpacerBlock
 
-This is a purely cosmetic block, effecting vertical whitespace as specified in `rem` units. It uses `wagtailpages/templates/wagtailpages/blocks/vertical_spacer_block.html` as its rendering template.
+This is a purely cosmetic block, effecting vertical whitespace as specified in `rem` units. It uses `wagtailpages/templates/wagtailpages/blocks/bootstrap_spacer_block.html` as its rendering template.
 
 #### 4. iFrameBlock
 
 This is identical to the `VideoBlock`, but effects a straight-up iframe element, using `wagtailpages/templates/wagtailpages/blocks/iframe_block.html` as its rendering template.
 
-#### 5 .VideoBlock
+#### 5. VideoBlock
 
 This is an embed block that yields an iframe to an online video, with explicit width/heigh dimensions in pixels. It uses `wagtailpages/templates/wagtailpages/blocks/video_block.html` as its rendering template.
+
+#### 6. ImageTextMini
+
+This block is identical to `ImageTextBlock` except the image is visibly smaller, using `wagtailpages/templates/wagtailpages/blocks/image_text_mini.html` as its rendering template.
+
+#### 7. ImageGridBlock
+
+This blocks creates a grid of images (at least 2) with the functionality of adding a caption and square image cropping. It uses `wagtailpages/templates/wagtailpages/blocks/image_grid_block.html` as its rendering template.
+
+#### 8. ProfileDirectory
+
+This builds a directory complete with profile cards that include data retrieved via the [ Mozilla Network-Pulse API](https://github.com/mozilla/network-pulse-api) and a filter bar. It uses `wagtailpages/templates/wagtailpages/blocks/profile_directory.html` and `wagtailpages/templates/wagtailpages/blocks/profile_blocks.html` as its rendering templates.
 
 ## Template tags
 
