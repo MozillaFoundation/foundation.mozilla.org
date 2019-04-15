@@ -124,14 +124,6 @@ export default class JoinUs extends React.Component {
     });
   }
 
-  createClasslist(classes = ``) {
-    if (this.props.theme === `dark-theme`) {
-      classes = ` ${classes} dark-theme`;
-    }
-
-    return classes;
-  }
-
   /**
    * Render the signup CTA.
    */
@@ -142,7 +134,7 @@ export default class JoinUs extends React.Component {
     });
 
     return (
-      <div className={this.createClasslist(`container px-0 ${signupState}`)}>
+      <div className={`container px-0 ${signupState}`}>
         <div className="row">
           {this.renderFormHeading()}
           {this.renderFormContent()}
@@ -157,19 +149,17 @@ export default class JoinUs extends React.Component {
   renderFormHeading() {
     return (
       <div className="col-12">
-        <h5 className={this.createClasslist(`h5-heading`)}>
+        <h5 className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>
         {!this.state.apiSuccess ? (
           <p
-            className={this.createClasslist()}
             dangerouslySetInnerHTML={{
               __html: this.props.ctaDescription
             }}
           />
         ) : (
           <p
-            className={this.createClasslist()}
             dangerouslySetInnerHTML={{
               __html: this.props.thankYouMessage
             }}
@@ -240,12 +230,9 @@ export default class JoinUs extends React.Component {
             id="PrivacyCheckbox"
             ref={el => (this.privacy = el)}
           />
-          <p className={this.createClasslist(`d-inline-block body-small mb-0`)}>
+          <p className="d-inline-block body-small mb-0">
             I'm okay with Mozilla handling my info as explained in this{" "}
-            <a
-              href="https://www.mozilla.org/privacy/websites/"
-              className={this.createClasslist()}
-            >
+            <a href="https://www.mozilla.org/privacy/websites/">
               Privacy Notice
             </a>
           </p>
@@ -265,13 +252,7 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return (
-      <button
-        className={this.createClasslist(`btn btn-primary join-btn w-100`)}
-      >
-        Sign up
-      </button>
-    );
+    return <button className="btn btn-primary join-btn w-100">Sign up</button>;
   }
 
   /**
