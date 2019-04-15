@@ -10,11 +10,15 @@
     font-weight: 400;
   }
 
-  .dark-theme {
+  @at-root .dark-theme & {
     form {
       input {
         border: none;
       }
+    }
+
+    .body-small.form-control-feedback {
+      color: $red;
     }
   }
 }
