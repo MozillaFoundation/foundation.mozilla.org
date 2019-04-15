@@ -64,7 +64,7 @@ In addition to the code tests there are also visual regression tests, located in
 
 ## How to Setup your Dev Environment with Docker
 
-- Install [Docker Desktop](https://www.docker.com/products/docker-desktop) (macOS and Windows). For Linux users: install [Docker CE](https://docs.docker.com/install/#supported-platforms) and [Docker Compose](https://docs.docker.com/compose/install/),
+- Install [Docker Desktop](https://www.docker.com/products/docker-desktop) (macOS and Windows). For Linux users: install [Docker CE](https://docs.docker.com/install/#supported-platforms) and [Docker Compose](https://docs.docker.com/compose/install/). If you don't want to create a Docker account, direct links to download can be found [in this issue](https://github.com/docker/docker.github.io/issues/6910),
 - [Check your install](https://docs.docker.com/get-started/#test-docker-version) by running `docker run hello-world`,
 - If relevant: delete your node_modules directory (`rm -rf node_modules`). It's not necessary, but it speeds up the install.
 - Run `invoke docker-setup` ([install invoke](http://www.pyinvoke.org/installing.html) if you don't have it yet). If you're running on Windows, you need to run `docker-compose --rm pipenv run python network-api/manage.py createsuperuser` when the setup is finished.
