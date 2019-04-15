@@ -6,12 +6,16 @@ The base app has the following directory structure:
 
 ```
 - wagtailpages
-  |- migrations
-  |  `- standard django migration files
-  |
   |- customblocks
   |  `- __init__.py
   |  `- all custom blocks
+  |
+  |- migrations
+  |  `- standard django migration files
+  |
+  |- static
+  |  `- js
+  |    |- directory-listing-filters.js
   |
   |- templates
   |  `- wagtailpages
@@ -91,7 +95,7 @@ This block sets up a button that links out to a URL, using `wagtailpages/templat
 
 #### 2. ImageTextBlock
 
-This block sets up a text-with-image (image can be placed either right or left of the text) that includes optional top and bottom dividers , using `wagtailpages/templates/wagtailpages/blocks/image_text.html` as its rendering template.
+This block sets up a text-with-image (image can be placed either right or left of the text) that includes optional top and bottom dividers, using `wagtailpages/templates/wagtailpages/blocks/image_text.html` as its rendering template.
 
 #### 3. BootstrapSpacerBlock
 
