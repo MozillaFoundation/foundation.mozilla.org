@@ -189,7 +189,7 @@ $product-detail-padding-x: (
     background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
   }
 
-  background: rgba(237, 53, 71, 0.06);
+  background: $light-red;
   border: 1px solid $red;
   margin: -1px -10px -1px -10px;
   padding: 10px;
