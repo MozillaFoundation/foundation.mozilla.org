@@ -16,8 +16,8 @@ import primaryNav from "./primary-nav.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
-// To be populated via XHR...
-let env, networkSiteURL;
+// To be populated via XHR and querySelector
+let env, networkSiteURL, csrfToken;
 
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
@@ -29,6 +29,9 @@ let main = {
     this.fetchEnv(envData => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
+
+      csrfToken = document.querySelector('meta[name="csrf-token"]');
+      csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
@@ -244,9 +247,10 @@ let main = {
         elements.forEach(element => {
           var props = element.dataset;
 
-          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${
-            props.signupId
-          }/`;
+          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
+            0}/`;
+
+          props.csrfToken = props.csrfToken || csrfToken;
 
           apps.push(
             new Promise(resolve => {
