@@ -46,7 +46,7 @@
     & + label.foldable {
       cursor: pointer;
       position: relative;
-      border: 1px solid lightgrey;
+      border: 1px solid $gray-20;
       border-width: 1px 0;
       padding: $foldable-padding 0;
       margin-bottom: 0;
@@ -99,7 +99,6 @@
         background-size: 100% 100%;
         width: $icon-dimension;
         height: $icon-dimension;
-        opacity: 0.3;
         transition: transform 100ms ease-in-out;
         transform-origin: 50% 50%;
       }

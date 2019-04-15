@@ -5,8 +5,8 @@
   $filter-bubble-dimension: 6em;
   $filter-box-dimension: 700px;
   $inner-dimension: 330px;
-  $heading-color: #4a4a4a;
-  $option-color: #979797;
+  $heading-color: $gray-80;
+  $option-color: $gray-60;
 
   position: relative;
   top: -75px;
@@ -62,7 +62,7 @@
     }
 
     border: 1px solid $gray-05;
-    box-shadow: 4px 5px 10px -5px rgba(74, 74, 74, 26);
+    box-shadow: 4px 5px 10px -5px $gray-80;
     position: fixed;
     right: 0;
     left: 0;
@@ -240,7 +240,7 @@
           flex: 1 1 auto;
           position: relative;
           height: 5px;
-          background-color: grey;
+          background-color: $gray-80;
           background-image: url(/_images/buyers-guide/gradient-bar.svg);
           background-position: 0% center;
           background-size: 100% 100%;
@@ -257,10 +257,10 @@
             background: white;
             border: 1px solid $gray-20;
             border-radius: 2em;
-            box-shadow: 2px 2px 3px 0 grey;
+            box-shadow: 2px 2px 3px 0 $gray-80;
 
             &:hover {
-              color: grey;
+              color: $gray-80;
             }
           }
         }

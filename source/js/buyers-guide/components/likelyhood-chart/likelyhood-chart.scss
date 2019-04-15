@@ -10,7 +10,7 @@
   .bar {
     //For some nice animations later on, width set in JSX
     transition: width 2.5s ease;
-    background-color: #e1e1e1;
+    background-color: $gray-20;
     position: absolute;
     height: 25px;
   }

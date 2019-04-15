@@ -18,7 +18,7 @@ $product-detail-padding-x: (
 
 .related-product {
   a {
-    background: #f4f4f4;
+    background: $gray-05;
     padding: 10px 0 0 10px;
   }
 
@@ -52,7 +52,7 @@ $product-detail-padding-x: (
     text-decoration: underline;
 
     @include hover-focus-active {
-      color: $blue;
+      color: $dark-blue;
     }
   }
 
@@ -189,8 +189,8 @@ $product-detail-padding-x: (
     background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
   }
 
-  background: rgba(237, 53, 71, 0.06);
-  border: 1px solid #ed3547;
+  background: $light-red;
+  border: 1px solid $red;
   margin: -1px -10px -1px -10px;
   padding: 10px;
   z-index: 2;

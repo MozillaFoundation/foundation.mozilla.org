@@ -47,7 +47,7 @@
 
   //Height of this is set inline via JSX
   .bar {
-    background-color: #e1e1e1;
+    background-color: $gray-20;
   }
 
   //Show a different creep-face in each bar of the graph
@@ -81,23 +81,23 @@
   //Style the graph bar representing the range the user voted
   .your-vote {
     &.no-creep .bar {
-      background-color: #1808f2;
+      background-color: $pni-blue;
     }
 
     &.little-creep .bar {
-      background-color: #4a17d4;
+      background-color: $pni-blue-purple;
     }
 
     &.somewhat-creep .bar {
-      background-color: #7f28b7;
+      background-color: $pni-purple;
     }
 
     &.very-creep .bar {
-      background-color: #b0379b;
+      background-color: $pni-purple-pink;
     }
 
     &.super-creep .bar {
-      background-color: #e4487d;
+      background-color: $pni-pink;
     }
   }
 
