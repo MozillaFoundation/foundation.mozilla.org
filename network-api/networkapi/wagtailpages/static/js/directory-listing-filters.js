@@ -60,7 +60,7 @@
               ${profile.location}
             </p>`;
       } else {
-        cardClass = "person-card-sans-location";
+        cardClass = "person-card no-location";
       }
       return `
       <div class="col-md-6 col-12 mb-5">
