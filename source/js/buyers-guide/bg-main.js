@@ -49,7 +49,9 @@ let main = {
 
         // Set up help text accordions where necessary:
         let productBox = document.querySelector(`.product-detail .h1-heading`);
-        let productName = productBox ? productBox.textContent : `unknown product`;
+        let productName = productBox
+          ? productBox.textContent
+          : `unknown product`;
         let criteriaWithHelp = document.querySelectorAll(
           `.criterion button.toggle`
         );
