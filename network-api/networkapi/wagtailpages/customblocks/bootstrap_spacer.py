@@ -6,14 +6,6 @@ class BootstrapSpacerBlock(blocks.StructBlock):
     See https://getbootstrap.com/docs/4.0/utilities/spacing/
     """
 
-    # property = blocks.ChoiceBlock(
-    #    choices=[
-    #        ('m', 'Margin'),
-    #        #('p', 'Padding'),
-    #    ],
-    #    default='m',
-    # )
-
     # sides = blocks.ChoiceBlock(
     #    choices=[
     #        ('t', 'top'),

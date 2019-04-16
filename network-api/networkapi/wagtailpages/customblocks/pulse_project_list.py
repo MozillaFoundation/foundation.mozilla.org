@@ -1,10 +1,4 @@
-import json
-
-from urllib import request, parse
-from django.conf import settings
 from wagtail.core import blocks
-
-from .latest_profile_list import LatestProfileList
 
 
 class PulseProjectQueryValue(blocks.StructValue):
