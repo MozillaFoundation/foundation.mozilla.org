@@ -7,7 +7,7 @@
   <div class="row">
     {% for profile in profiles %}
     <div class="col-md-6 col-12 mb-5">
-      <div class="person-card {% if profile.location is False %} no-location {% endif %}">
+      <div class="person-card {% if profile.location == Null %} no-location {% endif %}">
         <a
           href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}"
           class="headshot-container">
