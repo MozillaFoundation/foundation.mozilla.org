@@ -41,8 +41,20 @@ button:hover {
   }
 
   .cutout {
+    $grid-gutter-width: map-get($grid-gutter-widths, xs);
+    $padding-x: #{$grid-gutter-width / 2};
+
     margin-top: calc(#{$bg-pattern-height} - 40px);
     background: white;
+    padding-left: $padding-x;
+    padding-right: $padding-x;
+
+    @media screen and (min-width: $bp-md) {
+      $offset-left: 24px;
+
+      margin-left: -$offset-left;
+      padding-left: $offset-left;
+    }
   }
 }
 
