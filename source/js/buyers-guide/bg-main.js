@@ -6,6 +6,7 @@ import primaryNav from "./components/primary-nav/primary-nav.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
 import Filter from "./components/filter/filter.jsx";
+import JoinUs from "../components/join/join.jsx";
 
 import copyToClipboard from "./copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
@@ -16,64 +17,79 @@ import ProductGA from "./product-analytics.js";
 // until all the React stuff is _actually_ done.
 const apps = [];
 
+let env, networkSiteURL, csrfToken;
+
 let main = {
   init() {
-    ReactGA.initialize(`UA-87658599-6`);
-    ReactGA.pageview(window.location.pathname);
+    this.fetchEnv(envData => {
+      ReactGA.initialize(`UA-87658599-6`);
+      ReactGA.pageview(window.location.pathname);
 
-    this.enableCopyLinks();
-    this.injectReactComponents();
+      this.enableCopyLinks();
+      this.injectReactComponents();
 
-    primaryNav.init();
+      primaryNav.init();
 
-    if (document.getElementById(`pni-home`)) {
-      HomepageSlider.init();
+      if (document.getElementById(`pni-home`)) {
+        HomepageSlider.init();
 
-      let filter = document.querySelector(`#product-filter`);
+        let filter = document.querySelector(`#product-filter`);
 
-      if (filter) {
-        apps.push(
-          new Promise(resolve => {
-            ReactDOM.render(<Filter whenLoaded={() => resolve()} />, filter);
-          })
+        if (filter) {
+          apps.push(
+            new Promise(resolve => {
+              ReactDOM.render(<Filter whenLoaded={() => resolve()} />, filter);
+            })
+          );
+        }
+      }
+
+      if (document.getElementById(`pni-product-page`)) {
+        ProductGA.init();
+
+        // Set up help text accordions where necessary:
+        let productBox = document.querySelector(`.product-detail .h1-heading`);
+        let productName = productBox ? productBox.textContent : `unknown product`;
+        let criteriaWithHelp = document.querySelectorAll(
+          `.criterion button.toggle`
         );
-      }
-    }
 
-    if (document.getElementById(`pni-product-page`)) {
-      ProductGA.init();
+        if (criteriaWithHelp.length > 0) {
+          Array.from(criteriaWithHelp).forEach(button => {
+            let help = button.closest(`.criterion`).querySelector(`.helptext`);
 
-      // Set up help text accordions where necessary:
-      let productBox = document.querySelector(`.product-detail .h1-heading`);
-      let productName = productBox ? productBox.textContent : `unknown product`;
-      let criteriaWithHelp = document.querySelectorAll(
-        `.criterion button.toggle`
-      );
+            button.addEventListener(`click`, () => {
+              button.classList.toggle(`open`);
+              help.classList.toggle(`open`);
 
-      if (criteriaWithHelp.length > 0) {
-        Array.from(criteriaWithHelp).forEach(button => {
-          let help = button.closest(`.criterion`).querySelector(`.helptext`);
-
-          button.addEventListener(`click`, () => {
-            button.classList.toggle(`open`);
-            help.classList.toggle(`open`);
-
-            if (help.classList.contains(`open`)) {
-              ReactGA.event({
-                category: `product`,
-                action: `expand accordion tap`,
-                label: `detail view on ${productName}`
-              });
-            }
+              if (help.classList.contains(`open`)) {
+                ReactGA.event({
+                  category: `product`,
+                  action: `expand accordion tap`,
+                  label: `detail view on ${productName}`
+                });
+              }
+            });
           });
-        });
+        }
       }
-    }
 
-    // Record that we're done, when we're really done.
-    Promise.all(apps).then(() => {
-      window[`bg-main-js:react:finished`] = true;
+      // Record that we're done, when we're really done.
+      Promise.all(apps).then(() => {
+        window[`bg-main-js:react:finished`] = true;
+      });
     });
+  },
+
+  fetchEnv(callback) {
+    let envReq = new XMLHttpRequest();
+
+    envReq.addEventListener(`load`, () => {
+      callback.call(this, JSON.parse(envReq.response));
+    });
+
+    envReq.open(`GET`, `/environment.json`);
+    envReq.send();
   },
 
   enableCopyLinks() {
@@ -194,6 +210,35 @@ let main = {
         injectDonateModal(donationModal, modalOptions);
       }
     */
+
+    // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
+    if (document.querySelectorAll(`.join-us`)) {
+      var elements = Array.from(document.querySelectorAll(`.join-us`));
+
+      if (elements.length) {
+        elements.forEach(element => {
+          var props = element.dataset;
+
+          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
+            0}/`;
+
+          props.csrfToken = props.csrfToken || csrfToken;
+
+          apps.push(
+            new Promise(resolve => {
+              ReactDOM.render(
+                <JoinUs
+                  {...props}
+                  isHidden={false}
+                  whenLoaded={() => resolve()}
+                />,
+                element
+              );
+            })
+          );
+        });
+      }
+    }
   }
 };
 
