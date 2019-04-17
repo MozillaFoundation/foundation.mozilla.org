@@ -7,15 +7,26 @@
     object-position: top;
 
     &-container {
+      //Mobile & Desktop
+
       @media screen and (min-width: $bp-sm) {
         grid-row-end: 3;
         grid-row-start: 1;
+      }
+
+      //Tablet
+
+      @media screen and (min-width: $bp-md) and (max-width: $bp-lg) {
+        grid-row-start: 1;
+        grid-row-end: 2;
       }
     }
   }
 }
 
 .person-card {
+  //Mobile & Desktop
+
   border-top: 1px solid black;
   display: grid;
   grid-template-rows: repeat(2, 0.25fr);
@@ -25,6 +36,22 @@
     grid-template-rows: 0.5fr 0.75fr;
     grid-template-columns: 0.9fr 2fr;
     min-height: 160px;
+  }
+
+  //Tablet
+
+  @media screen and (min-width: $bp-md) and (max-width: $bp-lg) {
+    grid-template-rows: repeat(2, 0.25fr);
+    grid-template-columns: 1fr 2fr;
+    min-height: 160px;
+  }
+}
+
+.meta-container {
+  //Tablet
+
+  @media screen and (min-width: $bp-md) and (max-width: $bp-lg) {
+    height: 50%;
   }
 }
 
@@ -63,12 +90,22 @@
 }
 
 .bio {
+  //Mobile & Desktop
+
   width: 100%;
   grid-column-start: 1;
   grid-column-end: 3;
 
   @media screen and (min-width: $bp-sm) {
     grid-column-start: 2;
+    grid-column-end: 3;
+  }
+
+  //Tablet
+
+  @media screen and (min-width: $bp-md) and (max-width: $bp-lg) {
+    width: 100%;
+    grid-column-start: 1;
     grid-column-end: 3;
   }
 }
