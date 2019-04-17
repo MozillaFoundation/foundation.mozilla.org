@@ -61,7 +61,7 @@ def enforce_en_locale(view_handler):
 
 
 def filter_draft_products(request, products):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return products
 
     return filter(lambda p: p['draft'] is False, products)
@@ -114,7 +114,7 @@ def category_view(request, slug):
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
 
-    if product.draft and not request.user.is_authenticated():
+    if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")
 
     return render(request, 'product_page.html', {
@@ -189,7 +189,7 @@ def product_vote(request):
     try:
         product = Product.objects.get(id=product_id)
 
-        if product.draft and not request.user.is_authenticated():
+        if product.draft and not request.user.is_authenticated:
             raise Http404("Product does not exist")
 
         VoteClass = RangeVote

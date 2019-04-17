@@ -72,7 +72,7 @@ def get_menu_pages(root, authenticated=False):
 
 def get_mini_side_nav_data(context, page, no_minimum_page_count=False):
     user = context['user']
-    authenticated = user.is_authenticated() if user else False
+    authenticated = user.is_authenticated if user else False
     menu_pages = get_menu_pages(context['root'], authenticated)
 
     # We need at least 2 pages, or a nav menu is meaningless.
