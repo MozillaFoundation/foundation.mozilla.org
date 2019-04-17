@@ -1,54 +1,78 @@
-.profiles {
-  .headshot {
-    width: 100%;
-    max-width: 160px;
-    max-height: 160px;
-    object-fit: cover;
-    object-position: top;
-
-    &-container {
-      @media screen and (min-width: $bp-sm) {
-        grid-row-end: 3;
-        grid-row-start: 1;
-      }
-    }
-  }
-}
-
 .person-card {
+  $headshot-width: 92px;
+  $headshot-height: 92px;
+  $headshot-width-lg: 160px;
+  $headshot-height-lg: 160px;
+  $gutter: 14px;
+
   border-top: 1px solid black;
-  display: grid;
-  grid-template-rows: repeat(2, 0.25fr);
-  grid-template-columns: 1fr 2fr;
 
-  @media screen and (min-width: $bp-sm) {
-    grid-template-rows: 0.5fr 0.75fr;
-    grid-template-columns: 0.9fr 2fr;
-    min-height: 160px;
+  @media screen and (min-width: $bp-lg) {
+    position: relative;
   }
-}
 
-.meta-block {
-  a {
-    color: $black;
+  .thumbnail-grid {
+    float: left;
 
-    &:hover {
-      text-decoration: none;
+    @media screen and (min-width: $bp-lg) {
+      float: none;
+      position: absolute;
     }
   }
 
-  &-name {
-    line-height: 0.8;
-    display: inline-block;
+  .headshot-container {
+    border: 2px solid blue;
+    width: $headshot-width;
+    height: $headshot-height;
+    margin-right: $gutter;
+    margin-bottom: $gutter;
 
-    &:hover {
-      text-decoration: underline;
+    @media screen and (min-width: $bp-lg) {
+      width: $headshot-width-lg;
+      height: $headshot-height-lg;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+
+    img {
+      object-fit: cover;
+      object-position: top center;
+      width: 100%;
+      height: 100%;
     }
   }
 
-  &-location {
-    font-size: 12px;
+  .short-meta-grid {
+    @media screen and (min-width: $bp-lg) {
+      margin-left: $headshot-width-lg + $gutter;
+    }
+  }
 
+  .meta-block-name {
+    border: 1px solid green;
+
+    @media screen and (min-width: $bp-lg) {
+      width: calc( 100% - 70px );
+    }
+  }
+
+  .bio-grid {
+    clear: both;
+
+    @media screen and (min-width: $bp-lg) {
+      margin-left: $headshot-width-lg + $gutter;
+    }
+  }
+
+  .social-icons {
+    @media screen and (min-width: $bp-lg) {
+      position: absolute;
+      top: 5px;
+      right: 0;
+    }
+  }
+
+  .meta-block-location {
     &::before {
       width: 12px;
       height: 12px;
@@ -59,16 +83,5 @@
       background-repeat: no-repeat;
       background-image: url("/_images/glyphs/map-marker-icon.svg");
     }
-  }
-}
-
-.bio {
-  width: 100%;
-  grid-column-start: 1;
-  grid-column-end: 3;
-
-  @media screen and (min-width: $bp-sm) {
-    grid-column-start: 2;
-    grid-column-end: 3;
   }
 }

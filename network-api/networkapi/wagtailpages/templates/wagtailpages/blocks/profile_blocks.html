@@ -5,32 +5,27 @@
 
         <div class="person-card">
 
-          <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="headshot-container">
-            <img
-              src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
-              class="headshot"
-              alt="Headshot">
-          </a>
-
-          <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row">
-            <div class="meta-block">
-              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">
-                <div class="h5-heading mb-0">
-                  <span class="meta-block-name">
-                    {{ profile.name }}
-                  </span>
-                </div>
+          <div class="thumbnail-grid">
+              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="d-block headshot-container">
+                <img
+                  src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
+                  class="headshot"
+                  alt="Headshot">
               </a>
-              <p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>
-            </div>
+          </div>
+
+          <div class="short-meta-grid">
+            <a class="h5-heading meta-block-name mb-0 d-block" href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">{{ profile.name }}
+            </a>
+            {% if profile.location %}<p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>{% endif %}
             <div class="social-icons">
-              {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter small"></a> {% endif %}
-              {%if profile.linkedin %} <a href="{{ profile.linkedin }}" class="linkedIn small"></a> {% endif %}
+              {% if profile.twitter %}<a href="{{ profile.twitter }}" class="twitter small"></a>{% endif %}
+              {% if profile.linkedin %}<a href="{{ profile.linkedin }}" class="linkedIn small"></a>{% endif %}
             </div>
           </div>
 
-          <div class="bio mt-2 mt-sm-0 pl-sm-2">
-            <p class="m-0">{{ profile.user_bio }}</p>
+          <div class="bio-grid">
+              <p class="m-0">{{ profile.user_bio }} {{ profile.user_bio }} {{ profile.user_bio }} {{ profile.user_bio }} {{ profile.user_bio }} {{ profile.user_bio }} {{ profile.user_bio }} {{ profile.user_bio }}</p>
           </div>
 
         </div>
