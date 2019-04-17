@@ -795,7 +795,7 @@ class HomepageFeaturedNews(WagtailOrderable, models.Model):
         'wagtailpages.Homepage',
         related_name='featured_news',
     )
-    news = models.ForeignKey('news.News', related_name='+')
+    news = models.ForeignKey('news.News', on_delete=models.CASCADE, related_name='+')
     panels = [
         SnippetChooserPanel('news'),
     ]
@@ -814,7 +814,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         'wagtailpages.Homepage',
         related_name='featured_highlights',
     )
-    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
     panels = [
         SnippetChooserPanel('highlight'),
     ]
@@ -833,7 +833,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
         'wagtailpages.InitiativesPage',
         related_name='featured_highlights',
     )
-    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
     panels = [
         SnippetChooserPanel('highlight'),
     ]
@@ -916,7 +916,7 @@ class ParticipateHighlightsBase(WagtailOrderable, models.Model):
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights',
     )
-    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
     commitment = models.CharField(
         blank=True,
         max_length=256,
