@@ -72,13 +72,13 @@
               <a href="https://www.mozillapulse.org/profile/${
                 profile.profile_id
               }">
-                <div class="h5-heading">
+                <div class="h5-heading mb-0">
                   <span class="meta-block-name">
                     ${profile.name}
                   </span>
                 </div>
               </a>
-              <p class="d-flex align-items-center meta-block-location h6-heading my-2">
+              <p class="d-flex align-items-center meta-block-location body-small my-2">
                 ${profile.location}
               </p>
             </div>
