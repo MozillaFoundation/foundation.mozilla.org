@@ -28,9 +28,20 @@
     }
   }
 
+  .donate-btn-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
   #donate-header-btn {
+    color: $black;
+
     @media (max-width: $bp-sm) {
       padding: 4px;
+    }
+
+    &:hover {
+      color: $dark-blue;
     }
   }
 
@@ -51,12 +62,11 @@
     }
   }
 
-  .donate-btn-wrapper {
-    display: flex;
-    align-items: center;
-  }
-
   .nav-links {
+    @media screen and (max-width: $bp-lg) {
+      display: none;
+    }
+
     a {
       $border-thickness: 6px;
 
