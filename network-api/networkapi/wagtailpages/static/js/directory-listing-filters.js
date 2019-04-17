@@ -90,7 +90,7 @@
               }
               ${
                 profile.linkedin
-                  ? `<a href="${profile.linkedIn}" class="linkedIn small"></a>`
+                  ? `<a href="${profile.linkedin}" class="linkedIn small"></a>`
                   : ``
               }
             </div>
