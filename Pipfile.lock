@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "503690ce41c93fc504f514958a7a9808ba3225afc92a99503f03ac8f5b91d26f"
+            "sha256": "9f3e613098cfda738372eda3c684a2ecc691769f8376794f4ed54dcaccef0d72"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -78,11 +78,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:25df265e1fdb74f7e7305a1de620a84681bcc9c05e84a3ed97e4a1a63024f18d",
-                "sha256:d6d94554abc82ca37e447c3d28958f5ac39bd7d4adaa285543ae97fb1129fd69"
+                "sha256:04f2e423f2e60943c02bd2959174b844f7d1bcd19eabb7f8e4282999958021fd",
+                "sha256:e1cc1cd6b658aa4e052f5f2b148bfda08091d7c3558529708342e37e4e33f72c"
             ],
             "index": "pypi",
-            "version": "==2.0.9"
+            "version": "==2.1.1"
         },
         "django-admin-sortable": {
             "hashes": [
@@ -154,10 +154,10 @@
         },
         "django-taggit": {
             "hashes": [
-                "sha256:710b4d15ec1996550cc68a0abbc41903ca7d832540e52b1336e6858737e410d8",
-                "sha256:bb8f27684814cd1414b2af75b857b5e26a40912631904038a7ecacd2bfafc3ac"
+                "sha256:a21cbe7e0879f1364eef1c88a2eda89d593bf000ebf51c3f00423c6927075dce",
+                "sha256:db4430ec99265341e05d0274edb0279163bd74357241f7b4d9274bdcb3338b17"
             ],
-            "version": "==0.24.0"
+            "version": "==0.23.0"
         },
         "django-treebeard": {
             "hashes": [
@@ -471,11 +471,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:5813b303a2f7e82f614d2a1301c5bbe1c88c829ba16101b2f9dbf945ce6bf8f7",
-                "sha256:ea3913bcab30ea22ab6914210f9612083c8702255a408059ae246eddd229cd49"
+                "sha256:6aec70968f4792bf5200e1ac667e9dfd00ddc39367a072bf83752dfcaf13dd51",
+                "sha256:aa9daf174ed83dc9d805fc958b7d34f6cfe840d053e929af105d9f7d154938dc"
             ],
             "index": "pypi",
-            "version": "==2.2.2"
+            "version": "==2.3"
         },
         "wagtail-experiments": {
             "hashes": [
