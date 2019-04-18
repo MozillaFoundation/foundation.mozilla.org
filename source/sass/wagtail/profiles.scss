@@ -9,6 +9,7 @@
 
   @media screen and (min-width: $bp-lg) {
     position: relative;
+    min-height: $headshot-height-lg;
   }
 
   .thumbnail-grid {
