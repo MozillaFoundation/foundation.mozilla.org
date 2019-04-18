@@ -34,7 +34,9 @@
   }
 
   #donate-header-btn {
+    @include scaleText(17px, 23px);
     color: $black;
+    font-weight: $btn-font-weight;
 
     @media (max-width: $bp-sm) {
       padding: 4px;
@@ -42,6 +44,7 @@
 
     &:hover {
       color: $dark-blue;
+      cursor: pointer;
     }
   }
 
