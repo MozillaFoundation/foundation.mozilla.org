@@ -73,19 +73,4 @@ footer.site-footer {
       break-inside: avoid-column;
     }
   }
-
-  .twitter-link {
-    @include compositeGlyph("twitter-dark-theme");
-    @include hoverGlyph("twitter-dark-theme-hover");
-  }
-
-  .instagram-link {
-    @include compositeGlyph("instagram-dark-theme");
-    @include hoverGlyph("instagram-dark-theme-hover");
-  }
-
-  .github-link {
-    @include compositeGlyph("github-dark-theme");
-    @include hoverGlyph("github-dark-theme-hover");
-  }
 }
