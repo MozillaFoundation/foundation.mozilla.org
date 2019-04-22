@@ -78,7 +78,7 @@
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-prettier": "^1.0.6",
-    "svgo": "^1.2.1",
+    "svgo": "^1.2.2",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0",
     "whatwg-fetch": "^3.0.0"
