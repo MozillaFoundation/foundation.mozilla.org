@@ -114,11 +114,13 @@
     });
 
     // And then we update the content that the user sees:
+    profileContainer.style.removeProperty(`height`);
     profileContainer.innerHTML = cards.join("\n");
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   }
 
   function showLoadSpinner() {
+    profileContainer.style.height = `${profileContainer.offsetHeight}px`;
     profileContainer.innerHTML = `
       <div class="col-12 mx-auto my-5 text-center">
         <div class="loading-indicator d-inline-block">
