@@ -28,9 +28,23 @@
     }
   }
 
+  .donate-btn-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
   #donate-header-btn {
+    @include scaleText(17px, 23px);
+    color: $black;
+    font-weight: $btn-font-weight;
+
     @media (max-width: $bp-sm) {
       padding: 4px;
+    }
+
+    &:hover {
+      color: $dark-blue;
+      cursor: pointer;
     }
   }
 
@@ -49,11 +63,6 @@
     @media (min-width: $bp-md) {
       @include link-padding(map-get($primary-nav-link-padding, md));
     }
-  }
-
-  .donate-btn-wrapper {
-    display: flex;
-    align-items: center;
   }
 
   .nav-links {
