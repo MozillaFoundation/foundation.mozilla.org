@@ -66,10 +66,6 @@
   }
 
   .nav-links {
-    @media screen and (max-width: $bp-lg) {
-      display: none;
-    }
-
     a {
       $border-thickness: 6px;
 

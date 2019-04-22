@@ -5,7 +5,7 @@
 {% endif %}
   <div class="wrapper-burger">
     <div class="menu-container">
-      <div class="narrow-screen-menu hidden d-md-none">
+      <div class="narrow-screen-menu hidden d-lg-none">
         <div class="narrow-screen-menu-background">
           <div class="narrow-screen-menu-container">
             <nav class="container">
@@ -48,7 +48,7 @@
                 {% else %}
                   <div class="wide-screen-menu">
                 {% endif %}
-                    <div class="nav-links">
+                    <div class="nav-links d-none d-lg-block">
                       <a class="{% primary_active_nav request '/initiatives' %}" href="/initiatives">Initiatives</a>
                       <a class="{% primary_active_nav request '/participate' %}" href="/participate">Participate</a>
                       <a class="{% primary_active_nav request '/internet-health' %}" href="/internet-health">Internet&nbsp;Health</a>
