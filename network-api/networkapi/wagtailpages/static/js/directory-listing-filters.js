@@ -56,7 +56,7 @@
       let cardClass = `person-card`;
 
       if (location) {
-        metaLocation = `<p class="d-flex align-items-center meta-block-location h6-heading my-2">
+        metaLocation = `<p class="d-flex align-items-center meta-block-location body-small my-2">
               ${profile.location}
             </p>`;
       } else {
@@ -78,8 +78,8 @@
               alt="Headshot">
           </a>
 
-          <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row">
-            <div class="meta-block">
+          <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row meta-container">
+            <div class="meta-block flex-1">
               <a href="https://www.mozillapulse.org/profile/${
                 profile.profile_id
               }">
@@ -99,13 +99,13 @@
               }
               ${
                 profile.linkedin
-                  ? `<a href="${profile.linkedIn}" class="linkedIn small"></a>`
+                  ? `<a href="${profile.linkedin}" class="linkedIn small"></a>`
                   : ``
               }
             </div>
           </div>
 
-          <div class="bio mt-2 mt-sm-0 pl-sm-2">
+          <div class="bio mt-2 mt-sm-0 mt-md-2 mt-lg-0 pl-sm-2 pl-md-0 pl-lg-2">
             <p class="m-0">${profile.user_bio}</p>
           </div>
         </div>
