@@ -52,15 +52,15 @@
   function loadResults(profiles) {
     let cards = profiles.map(profile => {
       let { location } = profile;
-      let metaLocation = "";
-      let cardClass = "person-card";
+      let metaLocation = ``;
+      let cardClass = `person-card`;
 
       if (location) {
         metaLocation = `<p class="d-flex align-items-center meta-block-location h6-heading my-2">
               ${profile.location}
             </p>`;
       } else {
-        cardClass = "person-card no-location";
+        cardClass = `person-card no-location`;
       }
       return `
       <div class="col-md-6 col-12 mb-5">
