@@ -105,7 +105,7 @@
     });
 
     // And then we update the content that the user sees:
-    profileContainer.style.height = null;
+    profileContainer.style.removeProperty(`height`);
     profileContainer.innerHTML = cards.join("\n");
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   }
