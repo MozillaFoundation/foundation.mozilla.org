@@ -11,7 +11,7 @@
             <nav class="container">
               <div class="row">
                 <div class="col">
-                  <div class="nav-links pt-3">
+                  <div class="nav-links pt-3 dark-theme">
                     <div><a class="{% primary_active_nav request '/' %}" href="/">Home</a></div>
                     <div><a class="{% primary_active_nav request '/initiatives' %}" href="/initiatives">Initiatives</a></div>
                     <div><a class="{% primary_active_nav request '/participate' %}" href="/participate">Participate</a></div>
@@ -20,6 +20,7 @@
                     {% if HEROKU_APP_NAME %}
                     <div><a href="/help">DEV HELP</a></div>
                     {% endif %}
+                    <div class="newletter-btn-wrapper mt-2 d-md-none"><button class="btn btn-secondary">Newsletter</button></div>
                   </div>
                 </div>
               </div>
@@ -60,8 +61,13 @@
                   </div>
                 </div>
               </div>
-              <div class="donate-btn-wrapper">
-                <a id="donate-header-btn" class="donate-header" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
+              <div class="nav-buttons d-flex align-items-center">
+                <div class="donate-btn-wrapper mr-md-3">
+                  <a id="donate-header-btn" class="donate-header" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
+                </div>
+                <div class="newletter-btn-wrapper d-none d-md-block">
+                  <button class="btn btn-secondary">Newsletter</button>
+                </div>
               </div>
             </div>
           </div>

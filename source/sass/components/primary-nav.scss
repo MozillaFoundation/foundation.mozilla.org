@@ -38,10 +38,6 @@
     color: $black;
     font-weight: $btn-font-weight;
 
-    @media (max-width: $bp-sm) {
-      padding: 4px;
-    }
-
     &:hover {
       color: $dark-blue;
       cursor: pointer;
