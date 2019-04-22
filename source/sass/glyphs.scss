@@ -39,6 +39,21 @@
       height: 16px;
     }
   }
+
+  &.donate-header {
+    &::before {
+      width: 19px;
+      height: 16px;
+      margin-right: 6px;
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
+.donate-header {
+  @include compositeGlyph("donate-header");
+  @include hoverGlyph("donate-header-hover");
 }
 
 .donate {

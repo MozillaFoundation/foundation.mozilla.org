@@ -5,7 +5,7 @@
 {% endif %}
   <div class="wrapper-burger">
     <div class="menu-container">
-      <div class="narrow-screen-menu hidden d-md-none">
+      <div class="narrow-screen-menu hidden d-lg-none">
         <div class="narrow-screen-menu-background">
           <div class="narrow-screen-menu-container">
             <nav class="container">
@@ -36,7 +36,7 @@
                 {% if page.zen_nav == True %}
                   <button class="burger">
                 {% else %}
-                  <button class="burger hidden-md-up">
+                  <button class="burger hidden-lg-up ml-md-0">
                 {% endif %}
                     <div class="burger-bar burger-bar-top"></div>
                     <div class="burger-bar burger-bar-middle"></div>
@@ -48,7 +48,7 @@
                 {% else %}
                   <div class="wide-screen-menu">
                 {% endif %}
-                    <div class="nav-links hidden-sm-down">
+                    <div class="nav-links d-none d-lg-block">
                       <a class="{% primary_active_nav request '/initiatives' %}" href="/initiatives">Initiatives</a>
                       <a class="{% primary_active_nav request '/participate' %}" href="/participate">Participate</a>
                       <a class="{% primary_active_nav request '/internet-health' %}" href="/internet-health">Internet&nbsp;Health</a>
@@ -61,7 +61,7 @@
                 </div>
               </div>
               <div class="donate-btn-wrapper">
-                <a id="donate-header-btn" class="btn btn-pop" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
+                <a id="donate-header-btn" class="donate-header" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
               </div>
             </div>
           </div>
