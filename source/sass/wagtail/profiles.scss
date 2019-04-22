@@ -28,6 +28,14 @@
   }
 }
 
+.no-location {
+  @media screen and (min-width: $bp-sm) {
+    grid-template-rows: 0.35fr 1fr;
+    grid-template-columns: 0.9fr 2fr;
+    min-height: 160px;
+  }
+}
+
 .meta-block {
   a {
     color: $black;

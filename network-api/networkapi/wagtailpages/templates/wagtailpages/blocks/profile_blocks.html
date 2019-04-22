@@ -1,40 +1,57 @@
-<div class="profiles" data-program-type="{{ value.program_type }}" data-program-year="{{ value.program_year }}" data-profile-type="{{ value.profile_type }}">
+<div
+  class="profiles"
+  data-program-type="{{ value.program_type }}"
+  data-program-year="{{ value.program_year }}"
+  data-profile-type="{{ value.profile_type }}"
+>
   <div class="row">
     {% for profile in profiles %}
-      <div class="col-md-6 col-12 mb-5">
+    <div class="col-md-6 col-12 mb-5">
+      <div class="person-card {% if not profile.location %} no-location {% endif %}">
+        <a
+          href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}"
+          class="headshot-container">
+          <img
+            src="{% if profile.thumbnail %}
+            {{ profile.thumbnail }}
+            {% else %}
+            /_images/fellowships/headshot/placeholder.jpg
+            {% endif %}"
+            class="headshot"
+            alt="Headshot"
+          />
+        </a>
 
-        <div class="person-card">
-
-          <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="headshot-container">
-            <img
-              src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
-              class="headshot"
-              alt="Headshot">
-          </a>
-
-          <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row">
-            <div class="meta-block">
-              <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">
-                <div class="h5-heading mb-0">
-                  <span class="meta-block-name">
-                    {{ profile.name }}
-                  </span>
-                </div>
-              </a>
-              <p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>
-            </div>
-            <div class="social-icons">
-              {%if profile.twitter %} <a href="{{ profile.twitter }}" class="twitter small"></a> {% endif %}
-              {%if profile.linkedin %} <a href="{{ profile.linkedin }}" class="linkedIn small"></a> {% endif %}
-            </div>
+        <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row">
+          <div class="meta-block">
+            <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">
+              <div class="h5-heading mb-0">
+                <span class="meta-block-name">
+                  {{ profile.name }}
+                </span>
+              </div>
+            </a>
+            {% if profile.location %}
+            <p class="d-flex align-items-center meta-block-location body-small my-2">
+              {{ profile.location }}
+            </p>
+            {% endif %}
           </div>
-
-          <div class="bio mt-2 mt-sm-0 pl-sm-2">
-            <p class="m-0">{{ profile.user_bio }}</p>
+          <div class="social-icons">
+            {%if profile.twitter %}
+            <a href="{{ profile.twitter }}" class="twitter small"></a> 
+            {% endif %} 
+            {%if profile.linkedin %}
+            <a href="{{ profile.linkedin }}" class="linkedIn small"></a> 
+            {% endif %}
           </div>
+        </div>
 
+        <div class="bio mt-2 mt-sm-0 pl-sm-2">
+          <p class="m-0">{{ profile.user_bio }}</p>
         </div>
       </div>
+    </div>
     {% endfor %}
   </div>
 </div>
