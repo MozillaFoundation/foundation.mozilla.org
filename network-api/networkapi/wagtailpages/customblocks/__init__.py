@@ -5,7 +5,7 @@ from .air_table_block import AirTableBlock
 from .bootstrap_spacer import BootstrapSpacerBlock
 from .iframe_block import iFrameBlock
 from .annotated_image_block import AnnotatedImageBlock
-from .image_grid import ImageGrid, ImageGridBlock
+from .image_grid_block import ImageGridBlock
 from .image_text_mini import ImageTextMini, ImageBlock
 from .image_text import ImageTextBlock
 from .latest_profile_list import LatestProfileQueryValue, LatestProfileList
@@ -21,7 +21,6 @@ __all__ = [
     'BootstrapSpacerBlock',
     'iFrameBlock',
     'AnnotatedImageBlock',
-    'ImageGrid',
     'ImageGridBlock',
     'ImageTextMini',
     'ImageTextBlock',
