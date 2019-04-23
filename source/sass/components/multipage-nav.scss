@@ -1,4 +1,17 @@
-#multipage-nav-wrapper {
+#multipage-horizontal-nav-wrapper {
+  $margin-y: 24px;
+  $margin-y-md: 48px;
+
+  margin-top: $margin-y;
+  margin-bottom: $margin-y;
+
+  background: yellow;
+
+  @media (min-width: $bp-md) {
+    margin-top: $margin-y-md;
+    margin-bottom: $margin-y-md;
+  }
+
   &.full-width {
     @media (min-width: $bp-md) {
       border-bottom: 1px solid $gray-20;
@@ -13,7 +26,7 @@
     align-items: stretch;
     border-bottom: 1px $gray-20 solid;
 
-    @at-root #multipage-nav-wrapper.full-width #{&} {
+    @at-root #multipage-horizontal-nav-wrapper.full-width #{&} {
       border: none;
     }
 
