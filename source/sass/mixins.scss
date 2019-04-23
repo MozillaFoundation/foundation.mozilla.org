@@ -39,7 +39,7 @@
     color: $dark-theme-color;
 
     a {
-      @include dark-theme-inline-anchor();
+      @include dark-theme-inline-anchor($light-blue);
     }
   }
 }
