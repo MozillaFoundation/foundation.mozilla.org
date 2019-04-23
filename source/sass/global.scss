@@ -88,14 +88,5 @@ footer.site-footer {
 }
 
 hr.intro-and-content-divider {
-  $margin-y: 24px;
-  $margin-y-md: 48px;
-
-  margin-top: $margin-y;
-  margin-bottom: $margin-y;
-
-  @media (min-width: $bp-md) {
-    margin-top: $margin-y-md;
-    margin-bottom: $margin-y-md;
-  }
+  @include intro-and-content-spacing();
 }

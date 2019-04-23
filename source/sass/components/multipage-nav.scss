@@ -1,16 +1,5 @@
 #multipage-horizontal-nav-wrapper {
-  $margin-y: 24px;
-  $margin-y-md: 48px;
-
-  margin-top: $margin-y;
-  margin-bottom: $margin-y;
-
-  background: yellow;
-
-  @media (min-width: $bp-md) {
-    margin-top: $margin-y-md;
-    margin-bottom: $margin-y-md;
-  }
+  @include intro-and-content-spacing();
 
   &.full-width {
     @media (min-width: $bp-md) {
