@@ -39,6 +39,21 @@
       height: 16px;
     }
   }
+
+  &.donate-header {
+    &::before {
+      width: 19px;
+      height: 16px;
+      margin-right: 6px;
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
+.donate-header {
+  @include compositeGlyph("donate-header");
+  @include hoverGlyph("donate-header-hover");
 }
 
 .donate {
@@ -53,4 +68,21 @@
 .linkedIn {
   @include compositeGlyph("linkedin");
   @include hoverGlyph("linkedin-hover");
+}
+
+.dark-theme {
+  .twitter {
+    @include compositeGlyph("twitter-dark-theme");
+    @include hoverGlyph("twitter-dark-theme-hover");
+  }
+
+  .instagram {
+    @include compositeGlyph("instagram-dark-theme");
+    @include hoverGlyph("instagram-dark-theme-hover");
+  }
+
+  .github {
+    @include compositeGlyph("github-dark-theme");
+    @include hoverGlyph("github-dark-theme-hover");
+  }
 }
