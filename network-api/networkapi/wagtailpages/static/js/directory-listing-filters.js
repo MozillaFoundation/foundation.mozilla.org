@@ -51,9 +51,20 @@
    */
   function loadResults(profiles) {
     let cards = profiles.map(profile => {
+      let { location } = profile;
+      let metaLocation = ``;
+      let cardClass = `person-card`;
+
+      if (location) {
+        metaLocation = `<p class="d-flex align-items-center meta-block-location body-small my-2">
+              ${profile.location}
+            </p>`;
+      } else {
+        cardClass = `person-card no-location`;
+      }
       return `
       <div class="col-md-6 col-12 mb-5">
-        <div class="person-card">
+        <div class="${cardClass}">
           <a href="https://www.mozillapulse.org/profile/${
             profile.profile_id
           }" class="headshot-container">
@@ -67,20 +78,18 @@
               alt="Headshot">
           </a>
 
-          <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row">
-            <div class="meta-block">
+          <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row meta-container">
+            <div class="meta-block flex-1">
               <a href="https://www.mozillapulse.org/profile/${
                 profile.profile_id
               }">
-                <div class="h5-heading">
+                <div class="h5-heading mb-0">
                   <span class="meta-block-name">
                     ${profile.name}
                   </span>
                 </div>
               </a>
-              <p class="d-flex align-items-center meta-block-location h6-heading my-2">
-                ${profile.location}
-              </p>
+              ${metaLocation}
             </div>
             <div class="social-icons">
               ${
@@ -90,13 +99,13 @@
               }
               ${
                 profile.linkedin
-                  ? `<a href="${profile.linkedIn}" class="linkedIn small"></a>`
+                  ? `<a href="${profile.linkedin}" class="linkedIn small"></a>`
                   : ``
               }
             </div>
           </div>
 
-          <div class="bio mt-2 mt-sm-0 pl-sm-2">
+          <div class="bio mt-2 mt-sm-0 mt-md-2 mt-lg-0 pl-sm-2 pl-md-0 pl-lg-2">
             <p class="m-0">${profile.user_bio}</p>
           </div>
         </div>
@@ -105,11 +114,13 @@
     });
 
     // And then we update the content that the user sees:
+    profileContainer.style.removeProperty(`height`);
     profileContainer.innerHTML = cards.join("\n");
     document.dispatchEvent(new CustomEvent("profiles:list-updated"));
   }
 
   function showLoadSpinner() {
+    profileContainer.style.height = `${profileContainer.offsetHeight}px`;
     profileContainer.innerHTML = `
       <div class="col-12 mx-auto my-5 text-center">
         <div class="loading-indicator d-inline-block">

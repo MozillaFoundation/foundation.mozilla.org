@@ -1,152 +1,24 @@
 .join-us {
-  background: linear-gradient(
-      to right,
-      rgba(61, 254, 253, 1) 0%,
-      rgba(183, 212, 63, 1) 100%
-    ),
-    url(../_images/hero-image-crop@2x.jpg) center -60px / auto 666px no-repeat,
-    url(../_images/bg-repeat-crop@2x.jpg) center -60px / 2px 666px repeat-x;
-  background-blend-mode: overlay, normal, normal;
+  background: inherit;
 
   .has-danger {
-    color: #d9534f;
-
-    a {
-      color: #d9534f !important;
-    }
+    color: $red;
   }
 
-  .join-page-title {
-    display: none;
-  }
-
-  .join-graphic {
-    display: none;
-  }
-
-  .signup-success .join-graphic {
-    display: block;
-  }
-
-  .join-btn {
-    width: 100%;
-  }
-
-  .join-heading h2 {
-    font-family: "Nunito Sans";
-    font-weight: 900;
-    font-size: 22px;
-
-    @media screen and (min-width: $bp-md) {
-      font-size: 32px;
-    }
-  }
-
-  .form-control,
-  .form-text {
+  .form-control {
     font-family: "Nunito Sans";
     font-weight: 400;
-    font-size: 12px;
-
-    a {
-      text-decoration: underline;
-      color: $black;
-      font-weight: 400;
-    }
   }
 
-  &.half-width {
-    .join-graphic {
-      @include make-col(12);
-
-      margin-bottom: 3em;
-
-      img {
-        max-width: 5em;
-      }
-    }
-  }
-
-  &.full-width {
-    .join-graphic {
-      @include make-col(12);
-
-      img {
-        max-width: 5em;
+  @at-root .dark-theme & {
+    form {
+      input {
+        border: none;
       }
     }
 
-    @media (min-width: $bp-md) {
-      padding: 1em 2rem;
-
-      .join-btn {
-        width: auto;
-      }
-
-      .join-graphic {
-        @include make-col(2);
-
-        display: flex;
-        justify-content: center;
-
-        img {
-          max-width: 100%;
-        }
-      }
-
-      .join-content {
-        @include make-col(6);
-      }
-
-      .signup-success .join-content {
-        @include make-col(7);
-      }
-
-      .join-form {
-        @include make-col(6);
-      }
-    }
-  }
-
-  &.full-page {
-    .join-graphic {
-      display: block;
-
-      @include make-col(12);
-
-      img {
-        max-width: 5em;
-      }
-    }
-
-    .join-page-title {
-      display: block;
-    }
-
-    .join-heading {
-      display: none;
-    }
-
-    @media (min-width: $bp-md) {
-      .join-btn {
-        width: auto;
-      }
-
-      .join-graphic {
-        @include make-col(4);
-        @include make-col-push(8);
-
-        display: flex;
-        justify-content: center;
-
-        img {
-          max-width: unset;
-        }
-      }
-
-      .join-main-content {
-        @include make-col-pull(4);
-      }
+    .body-small.form-control-feedback {
+      color: $red;
     }
   }
 }

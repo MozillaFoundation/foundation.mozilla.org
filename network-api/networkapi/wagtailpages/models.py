@@ -481,12 +481,25 @@ class BanneredCampaignPage(PrimaryPage):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text='Choose existing or create new sign-up form'
+        help_text='Choose an existing, or create a new, pettition form'
     )
 
-    content_panels = PrimaryPage.content_panels + [
-        SnippetChooserPanel('cta')
-    ]
+    signup = models.ForeignKey(
+        'Signup',
+        related_name='bcpage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose an existing, or create a new, sign-up form'
+    )
+
+    panel_count = len(PrimaryPage.content_panels)
+    n = panel_count - 1
+
+    content_panels = PrimaryPage.content_panels[:n] + [
+        SnippetChooserPanel('cta'),
+        SnippetChooserPanel('signup'),
+    ] + PrimaryPage.content_panels[n:]
 
     subpage_types = [
         'BanneredCampaignPage',
@@ -782,7 +795,7 @@ class HomepageFeaturedNews(WagtailOrderable, models.Model):
         'wagtailpages.Homepage',
         related_name='featured_news',
     )
-    news = models.ForeignKey('news.News', related_name='+')
+    news = models.ForeignKey('news.News', on_delete=models.CASCADE, related_name='+')
     panels = [
         SnippetChooserPanel('news'),
     ]
@@ -801,7 +814,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         'wagtailpages.Homepage',
         related_name='featured_highlights',
     )
-    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
     panels = [
         SnippetChooserPanel('highlight'),
     ]
@@ -820,7 +833,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
         'wagtailpages.InitiativesPage',
         related_name='featured_highlights',
     )
-    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
     panels = [
         SnippetChooserPanel('highlight'),
     ]
@@ -903,7 +916,7 @@ class ParticipateHighlightsBase(WagtailOrderable, models.Model):
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights',
     )
-    highlight = models.ForeignKey('highlights.Highlight', related_name='+')
+    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
     commitment = models.CharField(
         blank=True,
         max_length=256,

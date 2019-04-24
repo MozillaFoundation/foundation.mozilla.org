@@ -36,7 +36,6 @@ crm_sqs = {
     'client': SQSProxy()
 }
 
-
 if settings.CRM_AWS_SQS_ACCESS_KEY_ID:
     crm_sqs['client'] = boto3.client(
         'sqs',
@@ -59,10 +58,11 @@ def signup_submission_view(request, pk):
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
-        return Response(
-            {'error': 'Invalid signup id'},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+        # Create a "default" Signup object, but without
+        # actually saving that object to the database,
+        # because we really just want to use it for getting
+        # the default newsletter to sign up for.
+        signup = Signup()
 
     return signup_submission(request, signup)
 
@@ -173,6 +173,7 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
         logger.info(f'Sending {type} message: {message}')
 
         if not sqs:
+            # TODO: can this still kick in now that we have an SQS proxy object?
             logger.info('Faking a success message (debug=true, sqs=nonexistent).')
             return Response({'message': 'success (faked)'}, 201)
 
