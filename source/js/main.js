@@ -55,12 +55,13 @@ let main = {
   decorateExternalLinks() {
     Array.from(document.querySelectorAll(`a`)).forEach(link => {
       let href = link.getAttribute(`href`);
+      let targetDomains = env.TARGET_DOMAINS || [];
 
       // Define an external link as any URL with `//` in it
       if (
         href &&
         href.match(/\/\//) &&
-        env.TARGET_DOMAINS.some(domain => !href.match(`//${domain}`))
+        targetDomains.some(domain => !href.match(`//${domain}`))
       ) {
         link.setAttribute(`target`, `_blank`);
 

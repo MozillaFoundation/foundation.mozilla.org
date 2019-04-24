@@ -208,7 +208,6 @@ MIDDLEWARE = list(filter(None, [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
     'wagtail.core.middleware.SiteMiddleware',
