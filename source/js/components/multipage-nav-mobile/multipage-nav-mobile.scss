@@ -1,6 +1,5 @@
 #multipage-nav-mobile {
-  margin-top: 24px;
-  margin-bottom: 24px;
+  @include intro-and-content-spacing();
 
   .dropdown-nav {
     .expander {
