@@ -1,5 +1,5 @@
 #multipage-horizontal-nav-wrapper {
-  @include intro-and-content-spacing();
+  @include intro-and-content-spacing(true);
 
   &.full-width {
     @media (min-width: $bp-md) {
