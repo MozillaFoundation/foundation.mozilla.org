@@ -88,5 +88,5 @@ footer.site-footer {
 }
 
 hr.intro-and-content-divider {
-  @include intro-and-content-spacing();
+  @include intro-and-content-spacing(true);
 }

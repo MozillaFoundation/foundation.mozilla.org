@@ -77,12 +77,14 @@
   }
 }
 
-@mixin intro-and-content-spacing() {
+@mixin intro-and-content-spacing($adjust-spacing-for-md: null) {
   margin-top: 24px;
   margin-bottom: 24px;
 
-  @media (min-width: $bp-md) {
-    margin-top: 48px;
-    margin-bottom: 48px;
+  @if ($adjust-spacing-for-md) {
+    @media (min-width: $bp-md) {
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
   }
 }
