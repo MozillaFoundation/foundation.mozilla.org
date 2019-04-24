@@ -55,7 +55,7 @@ let main = {
   decorateExternalLinks() {
     Array.from(document.querySelectorAll(`a`)).forEach(link => {
       let href = link.getAttribute(`href`);
-      let targetDomains = env.TARGET_DOMAINS || [];
+      let targetDomains = env.TARGET_DOMAINS;
 
       // Define an external link as any URL with `//` in it
       if (
