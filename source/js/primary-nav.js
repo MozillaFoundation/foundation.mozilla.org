@@ -68,6 +68,45 @@ let primaryNav = {
       menuOpen = !menuOpen;
       setMenuState(menuOpen);
     });
+
+    // Newsletter Header Form
+
+    let newsletterContainer = document.querySelector(".newsletter-header-form");
+    let newsletterButtonSmall = document.getElementById("newsletter-button-2");
+    let newsletterButtonLarge = document.getElementById("newsletter-button");
+    let newsletterInput = document.getElementById("newsletter-input");
+
+    function closeNewsletter(event) {
+      if (
+        !newsletterContainer.contains(event.target) &&
+        event.target !== newsletterContainer
+      ) {
+        newsletterContainer.classList.remove("newsletter-active");
+        newsletterButtonLarge.classList.remove("newsletter-button-active");
+        document.removeEventListener("click", closeNewsletter);
+      }
+    }
+
+    //Form at desktop+
+    newsletterButtonLarge.addEventListener("click", event => {
+      if (!newsletterContainer.classList.contains("newsletter-active")) {
+        newsletterContainer.classList.add("newsletter-active");
+        newsletterButtonLarge.classList.add("newsletter-button-active");
+        newsletterInput.focus();
+        event.stopPropagation();
+        document.addEventListener("click", closeNewsletter);
+      }
+    });
+
+    //Form at mobile & tablet
+    newsletterButtonSmall.addEventListener("click", event => {
+      event.preventDefault();
+      newsletterContainer.style.height = "100%";
+      document.querySelector(".narrow-screen-menu-container").style.display =
+        "none";
+
+      //need to close mobile & tablet form
+    });
   }
 };
 
