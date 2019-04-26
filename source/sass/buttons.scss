@@ -66,9 +66,7 @@
   border: 2px solid $black;
 
   @include hover-focus-active {
-    color: $white;
-    background: $black;
-    border: 2px solid $black;
+    @include btn-secondary-active;
   }
 
   @at-root .dark-theme & {

@@ -20,7 +20,7 @@
                     {% if HEROKU_APP_NAME %}
                     <div><a href="/help">DEV HELP</a></div>
                     {% endif %}
-                    <div class="newletter-btn-wrapper mt-2 d-md-none"><button class="btn btn-secondary">Newsletter</button></div>
+                    <div class="newletter-btn-wrapper mt-2 d-md-none"><button class="btn btn-secondary" id="newsletter-button-2">Newsletter</button></div>
                   </div>
                 </div>
               </div>
@@ -66,13 +66,41 @@
                   <a id="donate-header-btn" class="donate-header" href="https://donate.mozilla.org?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=header" target="_blank" rel="noopener noreferrer">Donate</a>
                 </div>
                 <div class="newletter-btn-wrapper d-none d-md-block">
-                  <button class="btn btn-secondary">Newsletter</button>
+                  <button class="btn btn-secondary" id="newsletter-button">Newsletter</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </nav>
+    </div>
+  </div>
+</div>
+<div class="newsletter-header-form">
+  <div class="container pt-5 dark-theme">
+    <div class="mt-md-3 flex-column flex-md-row row">
+      <div class="newsletter-copy col-md-6">
+        <h5 class="h5-heading mb-2">Want to get smarter about your online life?</h5>
+        <p class="body">Sign up for our Mozilla newsletter!</p>
+      </div>
+      <div class="newsletter-form col-md-6 d-lg-flex justify-content-lg-end">
+          <form>
+            <div class="d-flex flex-column flex-md-row">
+              <div class="d-flex flex-column">
+                <input id="newsletter-input" type="email" class="form-control mb-3" placeholder="Enter email address">
+                <div class="mb-2 form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="PrivacyCheckbox">
+                    <p class="d-inline-block body-small">I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
+                  </label>
+                </div>
+              </div>
+              <div class="ml-md-3 mb-1 mb-md-0">
+                <button class="btn btn-primary join-btn w-100">Sign up</button>
+              </div>
+            </div>
+          </form>
+      </div>
     </div>
   </div>
 </div>

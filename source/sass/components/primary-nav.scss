@@ -262,3 +262,21 @@
     }
   }
 }
+
+//Newsletter
+
+.newsletter-header-form {
+  background-color: $black;
+  height: 0px;
+  overflow-y: hidden;
+  transition: 1s;
+}
+
+//remove once form exit is added
+.newsletter-active {
+  height: 200px !important;
+}
+
+#newsletter-button.newsletter-button-active {
+  @include btn-secondary-active;
+}
