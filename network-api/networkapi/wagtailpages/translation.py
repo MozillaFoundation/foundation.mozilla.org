@@ -12,6 +12,7 @@ from .models import (
     BanneredCampaignPage,
     CampaignPage,
     OpportunityPage,
+    BlogPage,
 
     CTA,
     Petition,
@@ -146,4 +147,9 @@ class ParticipatePageTR(TranslationOptions):
 
 @register(PeoplePage)
 class PeoplePageTR(TranslationOptions):
+    fields = ()
+
+
+@register(BlogPage)
+class BlogPageTR(TranslationOptions):
     fields = ()

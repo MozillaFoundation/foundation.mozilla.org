@@ -150,6 +150,7 @@ class MiniSiteNameSpace(ModularPage):
         'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
+        'BlogPage',
     ]
 
     """
@@ -515,6 +516,54 @@ class BanneredCampaignPage(PrimaryPage):
 class NewsPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/news_page.html'
+
+
+class BlogPage(FoundationMetadataPageMixin, Page):
+    template = 'wagtailpages/blog_page.html'
+
+    parent_page_types = [
+        'MiniSiteNameSpace',
+    ]
+
+    subpage_types = []
+
+    author = models.CharField(
+        verbose_name='Author',
+        max_length=50,
+        blank=False,
+    )
+
+    body = StreamField([
+        ('paragraph', blocks.RichTextBlock(
+            features=[
+                'bold', 'italic',
+                'h2', 'h3', 'h4', 'h5',
+                'ol', 'ul',
+                'link', 'hr',
+            ]
+        )),
+        ('image', customblocks.AnnotatedImageBlock()),
+        ('image_text', customblocks.ImageTextBlock()),
+        ('image_text_mini', customblocks.ImageTextMini()),
+        ('video', customblocks.VideoBlock()),
+        ('linkbutton', customblocks.LinkButtonBlock()),
+        ('spacer', customblocks.BootstrapSpacerBlock()),
+        ('quote', customblocks.QuoteBlock()),
+    ])
+
+    # Editor panels configuration
+
+    content_panels = Page.content_panels + [
+        # FieldPanel('pub_date'),
+        FieldPanel('author'),
+        StreamFieldPanel('body'),
+    ]
+
+    # Database fields
+
+    pub_date = models.DateTimeField(auto_now_add=True)
+    zen_nav = True
+    narrowed_page_content = True
 
 
 class InitiativeSection(models.Model):

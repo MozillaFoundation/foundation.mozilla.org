@@ -15,6 +15,8 @@ from networkapi.news.factory import NewsFactory
 from networkapi.utility.faker import StreamfieldProvider
 
 streamfield_fields = ['header', 'paragraph', 'image', 'spacer', 'image_text2', 'quote']
+blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
+                                'video', 'linkbutton', 'spacer', 'quote']
 
 Faker.add_provider(StreamfieldProvider)
 
@@ -197,6 +199,22 @@ class ParticipatePage2FeaturedHighlights2Factory(ParticipateFeaturedFactory):
 class OpportunityPageFactory(CMSPageFactory):
     class Meta:
         model = networkapi.wagtailpages.models.OpportunityPage
+
+
+class BlogPageFactory(PageFactory):
+
+    class Meta:
+        model = networkapi.wagtailpages.models.BlogPage
+        exclude = (
+            'title_text',
+        )
+
+    title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
+    author = Faker('name')
+    body = Faker('streamfield', fields=blog_body_streamfield_fields)
+
+    # Lazy Values
+    title_text = sentence_faker
 
 
 class FeaturedFactory(DjangoModelFactory):
