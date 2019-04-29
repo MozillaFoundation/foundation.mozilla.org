@@ -34,10 +34,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:5c4d9ea1b0fbb1dc98b6a06ed8780096fca981a1c3599bf8f03f338e6aa389ae",
-                "sha256:c59a74539eb081f4b3a307fc5c3d69d8459e30bfaf4b94aa78e74a9a05583764"
+                "sha256:0d95794f6b1239c75e2c5f966221bcd4b68020fddb5676f757531eedbb612ed8",
+                "sha256:3213cf48cf2ceee10fc3b93221f2cd1c38521cca7584f547d5c086213cc60f35"
             ],
-            "version": "==1.12.134"
+            "version": "==1.12.137"
         },
         "certifi": {
             "hashes": [
@@ -93,11 +93,11 @@
         },
         "django-cors-headers": {
             "hashes": [
-                "sha256:1ccedec2973087be9d73f96d58c4f6660c823efc0385581e13efb77f060d0e02",
-                "sha256:fb44f6b9f10de847919305c3f0d38fcfbadfe0dd5cf1c866f37df66ad0dda1bb"
+                "sha256:c7987faa9aaef7f6a802b0f354a719e80a9158c284f530265ac792f1ee725e52",
+                "sha256:ceacbd60dd5a65c95e65e74b5559bd4161aa3fe5713c44e1f3417a12bd41e7ba"
             ],
             "index": "pypi",
-            "version": "==2.5.2"
+            "version": "==2.5.3"
         },
         "django-csp": {
             "hashes": [
@@ -263,10 +263,10 @@
         },
         "pbr": {
             "hashes": [
-                "sha256:8257baf496c8522437e8a6cfe0f15e00aedc6c0e0e7c9d55eeeeab31e0853843",
-                "sha256:8c361cc353d988e4f5b998555c88098b9d5964c2e11acf7b0d21925a66bb5824"
+                "sha256:6901995b9b686cb90cceba67a0f6d4d14ae003cd59bc12beb61549bdfbe3bc89",
+                "sha256:d950c64aeea5456bbd147468382a5bb77fe692c13c9f00f0219814ce5b642755"
             ],
-            "version": "==5.1.3"
+            "version": "==5.2.0"
         },
         "pillow": {
             "hashes": [
