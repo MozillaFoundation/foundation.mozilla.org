@@ -15,6 +15,7 @@
     "build": "npm run build:common && npm run build:js",
     "build-uncompressed": "npm run build:common && npm run build:js-uncompressed",
     "cypress": "run-p --race server cypress:test",
+    "cypress:install": "npm install --no-save cypress@^3.1.5 @percy/cypress@^1.0.2",
     "cypress:test": "wait-on tcp:8000 && cypress run",
     "heroku-postbuild": "npm run build",
     "migrate": "pipenv run python network-api/manage.py migrate",
@@ -31,6 +32,7 @@
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
     "test:css": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --syntax scss",
     "test": "run-s test:** build",
+    "watch": "npm run build && run-p watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:js": "chokidar \"source/js/**/*.js\" \"source/js/**/*.jsx\" -c \"npm run build:js-uncompressed\"",
     "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\""
@@ -42,8 +44,8 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.5.1",
     "babel-core": "^6.26.3",
@@ -53,7 +55,7 @@
     "classnames": "2.2.6",
     "dotenv": "^7.0.0",
     "eslint": "^5.16.0",
-    "eslint-config-prettier": "^4.1.0",
+    "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "event-stream": "3.3.4",
@@ -74,7 +76,7 @@
     "react-ga": "2.5.7",
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
-    "snyk": "^1.153.0",
+    "snyk": "^1.154.0",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-prettier": "^1.0.6",
@@ -87,8 +89,6 @@
     "node": "^8.9.0"
   },
   "devDependencies": {
-    "@percy/cypress": "^1.0.6",
-    "cypress": "^3.2.0",
     "wait-on": "^3.2.0"
   }
 }
