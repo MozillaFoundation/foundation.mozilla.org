@@ -272,6 +272,16 @@
   transition: 1s;
 }
 
+.newsletter-low-opacity {
+  opacity: 0;
+  height: 0px;
+}
+
+.newsletter-full-opacity {
+  opacity: 1;
+  height: 100%;
+}
+
 //remove once form exit is added
 .newsletter-active {
   height: 200px !important;
@@ -279,4 +289,9 @@
 
 #newsletter-button.newsletter-button-active {
   @include btn-secondary-active;
+}
+
+.form-dismiss {
+  font-weight: 700; 
+  color: #b7b9fa !important;
 }

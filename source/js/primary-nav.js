@@ -72,10 +72,12 @@ let primaryNav = {
     // Newsletter Header Form
 
     let newsletterContainer = document.querySelector(".newsletter-header-form");
-    let newsletterButtonSmall = document.getElementById("newsletter-button-2");
-    let newsletterButtonLarge = document.getElementById("newsletter-button");
+    let newsletterButtonSmall = document.getElementById("newsletter-button-2"); // Mobile Button
+    let newsletterButtonLarge = document.getElementById("newsletter-button"); // Tablet & Desktop Button
+    let newsletterDismiss = document.querySelector(".form-dismiss");
     let newsletterInput = document.getElementById("newsletter-input");
 
+    // Close form at desktop+
     function closeNewsletter(event) {
       if (
         !newsletterContainer.contains(event.target) &&
@@ -84,28 +86,44 @@ let primaryNav = {
         newsletterContainer.classList.remove("newsletter-active");
         newsletterButtonLarge.classList.remove("newsletter-button-active");
         document.removeEventListener("click", closeNewsletter);
+        document.removeEventListener("scroll", closeNewsletter);
       }
     }
 
-    //Form at desktop+
+    // Open form at desktop+
     newsletterButtonLarge.addEventListener("click", event => {
       if (!newsletterContainer.classList.contains("newsletter-active")) {
+
+        //Opens Newsletter Form & forces button's active state
+        newsletterContainer.classList.remove('newsletter-low-opacity');
         newsletterContainer.classList.add("newsletter-active");
         newsletterButtonLarge.classList.add("newsletter-button-active");
         newsletterInput.focus();
         event.stopPropagation();
+
+        //Listens for user's click or scroll to close newsletter
+
         document.addEventListener("click", closeNewsletter);
+        document.addEventListener("scroll", closeNewsletter);
+        
       }
     });
 
-    //Form at mobile & tablet
-    newsletterButtonSmall.addEventListener("click", event => {
-      event.preventDefault();
-      newsletterContainer.style.height = "100%";
-      document.querySelector(".narrow-screen-menu-container").style.display =
-        "none";
+    //Close Mobile Form & bringing back nav
 
-      //need to close mobile & tablet form
+    function closeMobileNewsletter() {
+      if (event.target == newsletterDismiss) {
+        document.querySelector(".narrow-screen-menu-container").classList.remove('d-none');
+        newsletterContainer.classList.replace('newsletter-full-opacity', 'newsletter-low-opacity');
+      }
+    }
+
+    // Open form at mobile
+    newsletterButtonSmall.addEventListener("click", () => {
+      document.querySelector(".narrow-screen-menu-container").classList.add(`d-none`);
+      newsletterContainer.classList.replace('newsletter-low-opacity', 'newsletter-full-opacity');
+
+      newsletterDismiss.addEventListener('click', closeMobileNewsletter);
     });
   }
 };
