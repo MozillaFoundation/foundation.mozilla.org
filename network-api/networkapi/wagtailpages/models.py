@@ -15,6 +15,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail.images.models import Image
 from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
@@ -518,6 +520,10 @@ class NewsPage(PrimaryPage):
     template = 'wagtailpages/static/news_page.html'
 
 
+class BlogPageTag(TaggedItemBase):
+    content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
+
+
 class BlogPage(FoundationMetadataPageMixin, Page):
     template = 'wagtailpages/blog_page.html'
 
@@ -554,14 +560,19 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     # Editor panels configuration
 
     content_panels = Page.content_panels + [
-        # FieldPanel('pub_date'),
         FieldPanel('author'),
         StreamFieldPanel('body'),
     ]
 
+    # Promote panels configuration
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+    ]
+
     # Database fields
 
-    pub_date = models.DateTimeField(auto_now_add=True)
     zen_nav = True
     narrowed_page_content = True
 

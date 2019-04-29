@@ -3,6 +3,7 @@ from itertools import chain, combinations
 import factory
 import random
 
+from django.utils import timezone
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.conf import settings
@@ -378,7 +379,8 @@ class Command(BaseCommand):
             blog_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='blog', live=False)
 
         print('Generating Blog Pages under namespace')
-        [BlogPageFactory.create(parent=blog_namespace, live=False) for i in range(3)]
+        [BlogPageFactory.create(
+            parent=blog_namespace, live=True, first_published_at=timezone.now()) for i in range(3)]
 
         reseed()
 

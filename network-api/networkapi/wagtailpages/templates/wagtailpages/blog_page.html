@@ -17,6 +17,9 @@
   <div class="blog-body">
     {{ page.body }}
   </div>
+  {% if page.tags|length > 0 %}
+    <p>Tagged: {{ page.tags.all|join:", "}}</p>
+  {% endif %}
 
   {% include "./fragments/ih_cta.html" with wrapper_class="blog-ih-cta-wrapper" %}
 </div>
