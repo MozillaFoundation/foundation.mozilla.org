@@ -93,9 +93,8 @@ let primaryNav = {
     // Open form at desktop+
     newsletterButtonLarge.addEventListener("click", event => {
       if (!newsletterContainer.classList.contains("newsletter-active")) {
-
         //Opens Newsletter Form & forces button's active state
-        newsletterContainer.classList.remove('newsletter-low-opacity');
+        newsletterContainer.classList.remove("newsletter-low-opacity");
         newsletterContainer.classList.add("newsletter-active");
         newsletterButtonLarge.classList.add("newsletter-button-active");
         newsletterInput.focus();
@@ -105,7 +104,6 @@ let primaryNav = {
 
         document.addEventListener("click", closeNewsletter);
         document.addEventListener("scroll", closeNewsletter);
-        
       }
     });
 
@@ -113,17 +111,27 @@ let primaryNav = {
 
     function closeMobileNewsletter() {
       if (event.target == newsletterDismiss) {
-        document.querySelector(".narrow-screen-menu-container").classList.remove('d-none');
-        newsletterContainer.classList.replace('newsletter-full-opacity', 'newsletter-low-opacity');
+        document
+          .querySelector(".narrow-screen-menu-container")
+          .classList.remove("d-none");
+        newsletterContainer.classList.replace(
+          "newsletter-full-opacity",
+          "newsletter-low-opacity"
+        );
       }
     }
 
     // Open form at mobile
     newsletterButtonSmall.addEventListener("click", () => {
-      document.querySelector(".narrow-screen-menu-container").classList.add(`d-none`);
-      newsletterContainer.classList.replace('newsletter-low-opacity', 'newsletter-full-opacity');
+      document
+        .querySelector(".narrow-screen-menu-container")
+        .classList.add(`d-none`);
+      newsletterContainer.classList.replace(
+        "newsletter-low-opacity",
+        "newsletter-full-opacity"
+      );
 
-      newsletterDismiss.addEventListener('click', closeMobileNewsletter);
+      newsletterDismiss.addEventListener("click", closeMobileNewsletter);
     });
   }
 };
