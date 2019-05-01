@@ -32,10 +32,7 @@ But it's a bit long. So instead, you can use invoke:
 - `inv test`: Run tests
 - `inv catch-up`: Install dependencies and apply migrations
 
-For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`). You can pass flag and options to management commands using `inv manage [command] -o [positional argument] -f [optional argument]`. For example:
-- `inv manage runserver -o 3000`
-- `inv manage load_fake_data -f seed=VALUE`
-- `inv manage migrate -o news`
+For management commands not covered by an invoke tasks, use `inv manage [command]` (example: `inv manage load_fake_data`). You can pass multiple arguments to `inv manage` by using double quotes. Ex: `inv manage "load_fake_data --delete"`.
 
 ### Generating a new set of fake model data
 
@@ -46,7 +43,7 @@ By default, your dev site will use production data (read only!). To load fake mo
 
 You can empty your database and create a full new set of fake model data using the following command
 
-- `inv manage load_fake_data -o --delete`
+- `inv manage "load_fake_data --delete"`
 
 Or
 
@@ -54,7 +51,7 @@ Or
 
 You can generate a specific set of fake model data by entering a seed value
 
-- `inv manage load_fake_data -o --delete --seed VALUE`
+- `inv manage "load_fake_data --delete --seed VALUE"`
 
 Or
 
