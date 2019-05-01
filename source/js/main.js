@@ -252,15 +252,12 @@ let main = {
             0}/`;
 
           props.csrfToken = props.csrfToken || csrfToken;
+          props.isHidden = false;
 
           apps.push(
             new Promise(resolve => {
               ReactDOM.render(
-                <JoinUs
-                  {...props}
-                  isHidden={false}
-                  whenLoaded={() => resolve()}
-                />,
+                <JoinUs {...props} whenLoaded={() => resolve()} />,
                 element
               );
             })

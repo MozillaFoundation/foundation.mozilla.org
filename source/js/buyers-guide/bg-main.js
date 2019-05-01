@@ -22,6 +22,17 @@ let env, networkSiteURL, csrfToken;
 let main = {
   init() {
     this.fetchEnv(envData => {
+      env = envData;
+      networkSiteURL = env.NETWORK_SITE_URL;
+
+      csrfToken = document.querySelector('meta[name="csrf-token"]');
+      csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
+
+      // HEROKU_APP_DOMAIN is used by review apps
+      if (!networkSiteURL && env.HEROKU_APP_NAME) {
+        networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
+      }
+
       ReactGA.initialize(`UA-87658599-6`);
       ReactGA.pageview(window.location.pathname);
 
@@ -224,15 +235,12 @@ let main = {
             0}/`;
 
           props.csrfToken = props.csrfToken || csrfToken;
+          props.isHidden = false;
 
           apps.push(
             new Promise(resolve => {
               ReactDOM.render(
-                <JoinUs
-                  {...props}
-                  isHidden={false}
-                  whenLoaded={() => resolve()}
-                />,
+                <JoinUs {...props} whenLoaded={() => resolve()} />,
                 element
               );
             })
