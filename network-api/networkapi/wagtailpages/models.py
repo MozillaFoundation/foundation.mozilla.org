@@ -637,9 +637,10 @@ class InitiativesPage(PrimaryPage):
     template = 'wagtailpages/static/initiatives_page.html'
 
     subpage_types = [
+        'BanneredCampaignPage',
         'MiniSiteNameSpace',
-        'RedirectingPage',
         'OpportunityPage',
+        'RedirectingPage',
     ]
 
     primaryHero = models.ForeignKey(
