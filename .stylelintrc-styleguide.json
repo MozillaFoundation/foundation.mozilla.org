@@ -1,0 +1,12 @@
+{
+  "plugins": ["stylelint-prettier"],
+  "rules": {
+    "color-no-hex": true,
+    "declaration-property-value-blacklist": {
+      "color": [ "/rgba{0,1}\\(/", "/hsla{0,1}\\(/", "/hwb\\(/", "/gray\\(/" ],
+      "background": [ "/rgba{0,1}\\(/", "/hsla{0,1}\\(/", "/hwb\\(/", "/gray\\(/" ],
+      "border": [ "/rgba{0,1}\\(/", "/hsla{0,1}\\(/", "/hwb\\(/", "/gray\\(/" ],
+      "box-shadow": [ "/rgba{0,1}\\(/", "/hsla{0,1}\\(/", "/hwb\\(/", "/gray\\(/" ]
+    }
+  }
+}
