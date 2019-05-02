@@ -2,6 +2,7 @@
   "plugins": ["stylelint-prettier"],
   "rules": {
     "color-no-hex": true,
+    "color-named": "never",
     "declaration-property-value-blacklist": {
       "color": [ "/rgba{0,1}\\(/", "/hsla{0,1}\\(/", "/hwb\\(/", "/gray\\(/" ],
       "background": [ "/rgba{0,1}\\(/", "/hsla{0,1}\\(/", "/hwb\\(/", "/gray\\(/" ],

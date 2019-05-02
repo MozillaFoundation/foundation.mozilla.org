@@ -27,7 +27,7 @@
 .person-card {
   //Mobile & Desktop
 
-  border-top: 1px solid black;
+  border-top: 1px solid $black;
   display: grid;
   grid-template-rows: repeat(2, 0.25fr);
   grid-template-columns: 1fr 2fr;

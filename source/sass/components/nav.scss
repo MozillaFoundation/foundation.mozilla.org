@@ -17,7 +17,7 @@
     color: inherit;
     color: $black;
     text-decoration: none;
-    border-bottom-color: black;
+    border-bottom-color: $black;
   }
 
   @at-root #multipage-nav-mobile &#{&}.active {
