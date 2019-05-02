@@ -25,7 +25,7 @@ def create_docker_env_file(env_file):
     # remove the double quote for docker-compose and python_dotenv compatibility reasons
     env_vars = env_vars.replace('"', '')
     # update the DATABASE_URL env
-    new_db_url = "DATABASE_URL=postgres://postgres@postgres:5432/postgres"
+    new_db_url = "DATABASE_URL=postgres://postgres@postgres:5439/postgres"
     old_db_url = re.search('DATABASE_URL=.*', env_vars)
     env_vars = env_vars.replace(old_db_url.group(0), new_db_url)
     # update the ALLOWED_HOSTS
