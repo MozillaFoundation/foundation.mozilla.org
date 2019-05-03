@@ -1,7 +1,7 @@
 $category-nav-border-bottom-thickness: 4px;
 
 .category-nav {
-  background: $white;
+  background: white;
   overflow-x: auto;
   white-space: nowrap;
   border-top: 1px solid $gray-20;
@@ -21,14 +21,14 @@ $category-nav-border-bottom-thickness: 4px;
     margin-right: 20px;
     padding: 10px 0 6px;
     text-decoration: none;
-    border-bottom: $category-nav-border-bottom-thickness solid $white;
+    border-bottom: $category-nav-border-bottom-thickness solid white;
 
     &:hover {
       color: $black;
     }
 
     &.active {
-      border-color: $black;
+      border-color: black;
     }
 
     &.featured[data-name="Valentine's Day"] {

@@ -57,7 +57,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  background: $white;
+  background: white;
   transition: opacity 0.2s, height 0s;
 
   &:not(.menu-open) {
@@ -71,12 +71,12 @@
     .social-button {
       width: auto;
       height: auto;
-      border-bottom: 1px solid $white;
+      border-bottom: 1px solid white;
       margin: 0;
       padding: 1rem 1rem 1rem 4rem;
       background-color: $gray-05;
       background-position: 20px center;
-      color: $black;
+      color: black;
       font-weight: 300;
 
       @include hover-focus-active {
@@ -98,20 +98,20 @@
     }
 
     .donate {
-      background: $black;
+      background: black;
       padding-top: 3rem;
       padding-bottom: 3rem;
 
       h3,
       p {
-        color: $white;
+        color: white;
         font-weight: 300;
       }
     }
   }
 
   .narrow-screen-menu-background {
-    background: $white;
+    background: white;
     height: 100%;
   }
 
@@ -123,13 +123,13 @@
 .btn-donate {
   background: $red;
   border-radius: 14px;
-  color: $white;
+  color: white;
   padding: 4px 12px;
   font-size: 14px;
 
   @include hover-focus-active {
     background: $dark-red;
-    color: $white;
+    color: white;
   }
 }
 

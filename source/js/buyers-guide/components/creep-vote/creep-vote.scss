@@ -83,9 +83,9 @@ $btn-shadow-width: 3px;
     }
 
     .btn {
-      border: 1px solid $black;
+      border: 1px solid black;
       border-bottom-width: $btn-shadow-width;
-      color: $black;
+      color: black;
       text-transform: initial;
       transition: all 0.1s linear;
       width: 100%;

@@ -17,9 +17,9 @@
     }
 
     .modal-content {
-      border: 2px solid $black;
+      border: 2px solid black;
       border-radius: 0;
-      box-shadow: 4px 4px 0 0 $black;
+      box-shadow: 4px 4px 0 0 black;
       padding: 0 2em 2em;
     }
 
@@ -38,7 +38,7 @@
         font-size: 2.5rem;
         font-weight: normal;
         line-height: 1;
-        color: $black;
+        color: black;
         text-shadow: 0 1px 0 $white;
         opacity: 1;
       }
