@@ -1,0 +1,76 @@
+# This a small variation of the image use in prod: we need the dev dependencies.
+# Rename to backend at some point
+# Install node dependencies and run webpack build
+FROM node:8-alpine AS node-build
+
+WORKDIR /app/
+
+# Copy over files necessary for the webpack build
+COPY package.json package-lock.json ./
+COPY source ./source
+COPY contribute.json .
+COPY webpack.config.js .
+
+# Install node dependencies
+RUN apk add --no-cache --virtual .build-deps \
+    zlib-dev \
+    build-base \
+    linux-headers \
+    && npm ci \
+    && apk del .build-deps
+
+# Run the webpack build
+RUN npm run build
+
+# Build the container the app will run in
+FROM python:3.7-alpine AS application
+
+# Ensure logs are output to console
+ENV PYTHONUNBUFFERED 1
+
+# Reduce image size by not writing python bytecode
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# Create a group and user for the app
+RUN addgroup -S django && adduser -S django -G django
+
+WORKDIR /app
+
+# Install pipenv
+RUN pip install pipenv
+
+# Build and runtime deps for pillow and psycopg
+RUN apk add --no-cache \
+    jpeg-dev \
+    zlib-dev \
+    postgresql-dev
+
+# Copy Pipefiles
+COPY Pipfile Pipfile.lock LICENSE ./
+
+# Install build deps, install app deps then remove build deps
+RUN apk add --no-cache --virtual .build-deps \
+    build-base \
+    linux-headers \
+    && pipenv install -d --deploy --system\
+    && apk del .build-deps
+
+# this suppresses annoying warnings from django-environ
+RUN touch .env
+
+# Copy files over
+COPY network-api/ ./network-api/
+COPY locales/ ./locales
+COPY tox.ini .
+
+# Grab the compiled front-end assets from the node-build stage
+COPY --from=node-build /app/network-api/networkapi/frontend/ ./network-api/networkapi/frontend/
+
+RUN mkdir -p ./network-api/staticfiles
+RUN mkdir -p ./network-api/media/original_images/
+
+# Allow the www user to read/write the app directory
+RUN chown -R django /app
+
+# Tell docker that all commands should be run as the www user
+USER django

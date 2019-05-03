@@ -1,0 +1,89 @@
+version: "3.7"
+
+services:
+
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  backend:
+    image: $DOCKER_REPO:$PYTHON_TAG
+    ports:
+      - "8000:8000"
+    environment:
+      - ALLOWED_HOSTS=localhost
+      - CONTENT_TYPE_NO_SNIFF=True
+      - CORS_WHITELIST=*
+      - DATABASE_URL=postgres://postgres@postgres:5432/postgres
+      - DEBUG=True
+      - DJANGO_SECRET_KEY=secret
+      - NETWORK_SITE_URL=https://foundation.mozilla.org
+      - PULSE_API_DOMAIN=https://network-pulse-api-production.herokuapp.com
+      - PULSE_DOMAIN=www.mozillapulse.org
+      - RANDOM_SEED=530910203
+      - SET_HSTS=False
+      - SSL_REDIRECT=False
+      - DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=False
+      - TARGET_DOMAINS=foundation.mozilla.org
+      - USE_CLOUDINARY=false
+      - USE_S3=False
+      - X_FRAME_OPTIONS=DENY
+      - XSS_PROTECTION=True
+      - PIPENV_DONT_LOAD_ENV=1
+    depends_on:
+      - postgres
+
+  # Let's do something cleaner later
+  backend_cypress:
+    image: $DOCKER_REPO:$PYTHON_TAG
+    ports:
+      - "8000:8000"
+    command: python network-api/manage.py runserver 0.0.0.0:8000
+    environment:
+      - ALLOWED_HOSTS=0.0.0.0
+      - CONTENT_TYPE_NO_SNIFF=True
+      - CORS_WHITELIST=*
+      - DATABASE_URL=postgres://postgres@postgres:5432/postgres
+      - DEBUG=True
+      - DJANGO_SECRET_KEY=secret
+      - NETWORK_SITE_URL=https://foundation.mozilla.org
+      - PULSE_API_DOMAIN=https://network-pulse-api-production.herokuapp.com
+      - PULSE_DOMAIN=www.mozillapulse.org
+      - RANDOM_SEED=530910203
+      - SET_HSTS=False
+      - SSL_REDIRECT=False
+      - DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=False
+      - TARGET_DOMAINS=foundation.mozilla.org
+      - USE_CLOUDINARY=false
+      - USE_S3=False
+      - X_FRAME_OPTIONS=DENY
+      - XSS_PROTECTION=True
+      - PIPENV_DONT_LOAD_ENV=1
+    volumes:
+      - static_files:/app/network-api/staticfiles/
+      - media_files:/app/network-api/media/original_images/
+    depends_on:
+      - postgres
+
+  cypress:
+    build:
+      context: ../
+      cache_from:
+        - $DOCKER_REPO:$CYPRESS_TAG
+      dockerfile: ./travis-scripts/Dockerfile.cypress
+    image: $DOCKER_REPO:$CYPRESS_TAG
+    environment:
+      - CYPRESS_baseUrl=http://0.0.0.0:8000
+      - PERCY_TOKEN=$PERCY_TOKEN
+    command: ./wait-for-it.sh -t 30 0.0.0.0:8000 -- /node_modules/.bin/percy exec -- /node_modules/.bin/cypress run
+    depends_on:
+      - backend_cypress
+    network_mode: 'host'
+
+volumes:
+  postgres_data:
+  static_files:
+  media_files:

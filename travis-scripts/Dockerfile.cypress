@@ -1,0 +1,10 @@
+# Image with both Chrome 67 and Firefox 57, and dependencies to install Cypress.
+FROM cypress/browsers:chrome67-ff57
+
+COPY travis-scripts/wait-for-it.sh ./
+COPY package.json package-lock.json ./
+
+RUN CI=true npm run cypress:install
+
+COPY cypress.json ./
+COPY cypress/ ./cypress/
