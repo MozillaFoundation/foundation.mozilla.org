@@ -11,7 +11,7 @@
 
 [Setup](#setup)
 
-[Setup with Docker](#how-to-set-up-your-dev-environment-with-docker)
+[Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
 
 [Local development with invoke and pipenv](docs/local_development_with_invoke_pipenv.md)
 
