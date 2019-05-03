@@ -18,7 +18,7 @@
 
   <div class="container cms">
     <div class="row my-1 d-flex align-items-center">
-      <div class="{% if page.specific.narrowed_page_content %}col-lg-8 offset-lg-2{% else %}col-12{% endif %}">
+      <div class="pb-5 {% if page.specific.narrowed_page_content %}col-lg-8 offset-lg-2{% else %}col-12{% endif %}">
         {% for block in page.body %}
           {% if block.block_type == 'heading' %}
             <h1>{{ block.value }}</h1>
