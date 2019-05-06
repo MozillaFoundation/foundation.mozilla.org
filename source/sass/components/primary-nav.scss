@@ -200,7 +200,7 @@
     .logo {
       width: 28px;
       height: $logo-height;
-      background: url(../_images/mozilla-m.svg) no-repeat;
+      background: url(../_images/mozilla-m.svg) no-repeat 0 0/contain;
       background-size: contain;
       position: relative;
       z-index: 1;
