@@ -9,7 +9,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
-  backend:
+  wagtail:
     image: $DOCKER_REPO:$PYTHON_TAG
     ports:
       - "8000:8000"
@@ -18,8 +18,7 @@ services:
     depends_on:
       - postgres
 
-  # Let's do something cleaner later
-  backend_cypress:
+  wagtail_cypress:
     image: $DOCKER_REPO:$PYTHON_TAG
     ports:
       - "8000:8000"

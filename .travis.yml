@@ -41,10 +41,10 @@ jobs:
     script:
     - docker pull $DOCKER_REPO:$APP_BUILD_TAG || true
     - docker build --pull --cache-from $DOCKER_REPO:$APP_BUILD_TAG --tag $DOCKER_REPO:$APP_BUILD_TAG
-      --target node-build --file "./travis-scripts/Dockerfile.python" .
+      --target node-build --file "./travis-scripts/Dockerfile.wagtail" .
     - docker pull $DOCKER_REPO:$PYTHON_TAG || true
     - docker build --pull --cache-from $DOCKER_REPO:$APP_BUILD_TAG --cache-from $DOCKER_REPO:$PYTHON_TAG
-      --tag $DOCKER_REPO:$PYTHON_TAG --target application --file "./travis-scripts/Dockerfile.python"
+      --tag $DOCKER_REPO:$PYTHON_TAG --target application --file "./travis-scripts/Dockerfile.wagtail"
       .
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_REPO:$APP_BUILD_TAG
