@@ -14,7 +14,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ./travis-scripts/travis.env
+      - ./travis.env
     depends_on:
       - postgres
 
@@ -25,7 +25,7 @@ services:
       - "8000:8000"
     command: python network-api/manage.py runserver 0.0.0.0:8000
     env_file:
-      - ./travis-scripts/travis.env
+      - ./travis.env
     volumes:
       - static_files:/app/network-api/staticfiles/
       - media_files:/app/network-api/media/original_images/
