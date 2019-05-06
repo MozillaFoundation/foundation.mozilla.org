@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo `pwd`
+
 # Load environment vars
 . .travis/scripts/environment.sh
 
