@@ -30,7 +30,7 @@
     "test:procfile": "node test/test-procfile.js",
     "test:eslint": "eslint --config ./.eslintrc.json \"cypress/integration/*.js\" \"network-api/networkapi/{,!(frontend)/**/}*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
-    "test:scss:styleguide:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" --syntax scss --config .stylelintrc-styleguide.js",
+    "test:scss:styleguide:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:css": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --syntax scss",
     "test": "run-s test:** build",
     "watch": "npm run build && run-p watch:**",
