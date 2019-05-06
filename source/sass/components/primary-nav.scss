@@ -185,7 +185,7 @@
 
     &.scrolled {
       background: white;
-      box-shadow: 0 1px 3px transparentize($black, 0.85);
+      box-shadow: 0 1px 3px $border-shadow-black;
     }
 
     .center-nav-title p {
