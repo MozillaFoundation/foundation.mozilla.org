@@ -8,6 +8,7 @@ env:
   - secure: 4OI4AidOcRE5vUGqmmSN2KhgH+7rZvSzrzMuKEfT5/eMSlBmWNSAU9hYQ/dJX9drlCJrjPRM5r5VVwSIQXo1qxlDmCqatRKbq/JdKcJPXA3ZS1WFxUHiDMVzP27EONlNqNXTqE0Mfy59cQRgWTnNYkkI1vX2ZwNLmRSPPKXSEt29rsPcF63rr1xF//UZ1riEvbve2sFZqvAQckLAyCnuXv6cX157YTt5vatRxmOZxbjYWdRJlOKqWTxjlpSJ6qOVRHSjvsGbJoo/oeALV4WMKWJ9EFQfNWSpjcmqqNnUQp8kf65XC9i8HXo7c7Szf8TeCnaAksKINoHTWOccq2pTkcnkMWBppNVGtBjvjzrFBodIJFhC5mCe+yBkgdZK1I17Se2N6hIqjikcMUNI93SBE4KSsrg8TYh5glWkMw5p+ehJuqCUq5xl2t3KielOvXT0c51PjAStWht74q0OMJJ3V4IznogBDt82zgUunTGDtgQL4SvLd68roaF9Hii2oVRwg9WFftKIgyH/Uo9OJ+gHKIQU/Gdro5BoIjHdqSfLgSIpl/IHnRHd3mbcjHjjNzTrpKYmf/Eeb4PNZEX6SNy8WFJ2eTHwMpHbAvrC+XKt/yz6+c5VMpFFRYt9nRSJiy8JmWVBEy+RtpxcMotNxFd5bjZ3VsL77kFmHjZkyLo4h5o=
   - secure: HIzjSNuo4Gs9YYk4GqlJt1atL4l8yVLaRX2KetMh7hvqpzBGNEhA3mAkvgLkAjLckX8v9+IWUWy2cZU7XP7CBG8oPaxYw6+tKojYHr+snFRFrGvYoZ5s8e6k+5J6FLGdHH8LSvCJyMzNgDGKEJUR1hJl0YYI+/g6AOTfakXpW9mEfVgFVXeZh25RIbwQV3LD6+wbxGGjGhLAHXIwUr5QEiYDhYjngtacROTuXNs5/bY7As1qtiDxNdz7dnY54biHnptwRHO7zcXvgs1N9nvHnZtE+sbbDOXO0Qyxjkj2BB5IoMgoA1XiaeM7BUuAdZyuRwbhGcZapLDcjG630es2cNu0HuKYcNgC0bFyCSWN4uxf02ip6bcvvcu6jFMWHD6FjifC7Pob7x+TLECfPQO7MX/ZlTl2Md3LBfJCkFZd1zTG3Vgg0gY7O5DR7fw5XY8I3nWRVSlgJEMP0brBnTVOO0mnvIzcrUs93L1uAnd1YuERKF6hYIXPwtYMc1tIYtmj0Xm7kxfrncQu3gsIIuvF30U5x1v+NYfFKPqMu64MM9wZlFZq/Q+sSYAi24upA4llwaLjAcM/pueOPHeXTBAzkkHqlBTchm819SC+WFfZH/QjYcpg33kjm3yLxbDmB0y0vk0waLFyBxGNffjFyVhyBbrphahqaPnAzKWpus4aa1Y=
   - secure: 0ldmvzmC73hRSAAEODJevQTKdG4hIuCdswQxJn4RHi9lVDdrmZIOalVBi0WgCcvbcunz28a9unpZQflLP2LRcQ65It8tb+C7GHYptEp2vOrK5E1cvSIFWIgPWipsqsl3xK8HIeTSADFektbN+MCeNgq6rbuOyr536UgfYFm6X1pgVLp3zLsbyfOwalLKPBIfS4Nti2rP8PxTJk1Vu3nqOLXEd1JN5nix3atN4DgOibHZZpyEdh/leEeKdeZSV5DC7jS/sxDBVr1UQPQ+grsMlZqzTnF5jVk28mXnlw0IhHH+nMyAHZc79w1zuaBqjOXBHdCTvhQjKWdAsrQvtwCpwpVHI655V1+H/UA0o8ZSjSfE2WfA3/l+ti8SB8TqMw2yIzpMG5Pa5eGV72szy2RCjA5g0PKhI5vCfsona8f1BgT4F5zE/gFR+tWh+6vILJ2wLtwxkHb+2l/3GRunsBzQkOqu+YAWSQ7c5d3ueTLnRrKI+s4ovzAaMLE4DOSRxHGC8I0v2e76pLrDSK9WpKwZJBS/pj4o+wTmRYvau5G5pmJZt5nN4l0n1T2JslwQYHdMZN3pn8bjT8sQMHJVxFhD5RrwwYA+1NgH48bgyqh6f756+7UVrVUHhF9cr96Nkhw/ymq+ppNhx2KPXPsiRyK4xGAR6cxYhLOj90re2KVeBcA=
+
 before_script:
 - if [ $TRAVIS_EVENT_TYPE == "pull_request" ]; then eval NODE_TAG=$TRAVIS_PULL_REQUEST_BRANCH-node;
   eval PYTHON_TAG=$TRAVIS_PULL_REQUEST_BRANCH-python; eval APP_BUILD_TAG=$TRAVIS_PULL_REQUEST_BRANCH-app-build;
@@ -21,6 +22,8 @@ before_script:
 - export PYTHON_TAG=$PYTHON_TAG
 - export APP_BUILD_TAG=$APP_BUILD_TAG
 - export CYPRESS_TAG=$CYPRESS_TAG
+- export COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
+
 jobs:
   include:
   - stage: Build
@@ -32,6 +35,7 @@ jobs:
       --file "./travis-scripts/Dockerfile.node" .
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_REPO:$NODE_TAG
+
   - stage: Build
     name: Django app image
     install: skip
@@ -46,10 +50,12 @@ jobs:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_REPO:$APP_BUILD_TAG
     - docker push $DOCKER_REPO:$PYTHON_TAG
+
   - stage: Test
     name: Node tests
     script:
     - docker run -it $DOCKER_REPO:$NODE_TAG npm run test
+
   - stage: Test
     name: Python tests
     script:
@@ -58,6 +64,7 @@ jobs:
     - docker-compose -f travis-scripts/docker-compose.travis.yml run --rm backend
       sh -c "coverage run --source './network-api/networkapi' network-api/manage.py
       test networkapi && coveralls"
+
   - stage: Test
     name: Visual regression tests
     script:
@@ -78,6 +85,7 @@ jobs:
     - docker-compose -f travis-scripts/docker-compose.travis.yml up cypress
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker-compose -f travis-scripts/docker-compose.travis.yml push cypress
+
   - stage: Deploy
     name: Deploy Maintenance page to S3
     script: skip
