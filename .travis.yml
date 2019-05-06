@@ -22,8 +22,6 @@ before_script:
 - export PYTHON_TAG=$PYTHON_TAG
 - export APP_BUILD_TAG=$APP_BUILD_TAG
 - export CYPRESS_TAG=$CYPRESS_TAG
-- export COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
-- export TRAVIS_JOB_ID=$TRAVIS_JOB_ID
 
 jobs:
   include:
@@ -63,6 +61,8 @@ jobs:
     - docker-compose -f travis-scripts/docker-compose.travis.yml run --rm backend
       flake8 tasks.py network-api
     - docker-compose -f travis-scripts/docker-compose.travis.yml run --rm backend
+      -e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
+      -e TRAVIS_JOB_ID=$TRAVIS_JOB_ID
       sh -c "coverage run --source './network-api/networkapi' network-api/manage.py
       test networkapi && coveralls"
 
