@@ -26,7 +26,7 @@ jobs:
   - stage: Test
     name: CSS/JS linting
     script:
-    - docker run -it $DOCKER_REPO:$NODE_TAG npm run test
+      - ./travis/scripts/test_css_js.sh
 
   - stage: Test
     name: Wagtail tests
