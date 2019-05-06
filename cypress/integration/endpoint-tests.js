@@ -12,7 +12,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);
-    cy.wait(500);
+    cy.wait(1000);
     cy.percySnapshot();
   });
 
