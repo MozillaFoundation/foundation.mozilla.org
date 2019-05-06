@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Load environment vars
-. .travis/scripts/environment.sh
+. ./travis/scripts/environment.sh
 
 # Pull the latest images from our Docker Hub repo
 docker pull $DOCKER_REPO:$APP_BUILD_TAG || true

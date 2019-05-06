@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-echo `pwd`
-
 # Load environment vars
-. .travis/scripts/environment.sh
+. ./travis/scripts/environment.sh
 
 # Pull the latest wagtail docker image from our Docker Hub repo
 docker pull $DOCKER_REPO:$NODE_TAG || true
