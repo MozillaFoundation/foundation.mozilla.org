@@ -2,7 +2,6 @@
     "plugins": ["stylelint-prettier"],
     "rules": {
       "color-no-hex": true,
-      // "color-named": "never",
       "declaration-property-value-blacklist": [
         {
           "/.*/": [
@@ -10,10 +9,7 @@
             /hsla{0,1}\(/i,
             /hwb\(/i,
             /gray\(/i,
-            // /[^\$-\w]black/i,
-            // /^black/i,
-            // /[^\$-\w]white/i,
-            // /^white/i,
+            // uses of web color names are not allowed (with 'white' and 'black' being the only exceptions)
             /[^\$-\w]lavender/i,
             /^lavender/i,
             /[^\$-\w]thistle/i,
@@ -240,8 +236,6 @@
             /^navy/i,
             /[^\$-\w]midnightblue/i,
             /^midnightblue/i,
-            // /[^\$-\w]white/i,
-            // /^white/i,
             /[^\$-\w]snow/i,
             /^snow/i,
             /[^\$-\w]honeydew/i,
@@ -291,9 +285,7 @@
             /[^\$-\w]slategray/i,
             /^slategray/i,
             /[^\$-\w]darkslategray/i,
-            /^darkslategray/i,
-            // /[^\$-\w]black/i,
-            // /^black/i
+            /^darkslategray/i
           ]
         },
         {
