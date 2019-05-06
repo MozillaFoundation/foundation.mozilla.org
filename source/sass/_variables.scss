@@ -1,17 +1,9 @@
-@import "./styleguide_variables";
+@import "./colors";
 
-/* Shared vairables that are not part of the standarized style guide */
+// Font weight
 
-// Pulse Palatte
-
-$pulse-pink: #ff506f;
-$pulse-purple: #a66efd;
-
-// Social Media Brand Colours
-
-$fb-blue: #3b5999;
-$twitter-blue: #1da1f3;
+$btn-font-weight: 700;
 
 // Shadow
 
-$border-shadow-black: transparentize($black, 0.85);
+$border-shadow-color: transparentize(black, 0.85);

@@ -1,4 +1,4 @@
-// Note: Only approved brand colors and styles should be added to this file.
+// Note: Only approved brand colors should be added to this file.
 //       Double check with the design team before you introduce a new variable here.
 
 // Foundation Brand Palatte
@@ -30,6 +30,12 @@ $pni-gradient: linear-gradient(to right, $pni-blue 0%, $pni-pink 100%);
 
 $bg-product-image: #f4f4f4; /* keep this #f4f4f4 as this is the background colour that product images have */
 
-// Font weight
+// Pulse Palatte
 
-$btn-font-weight: 700;
+$pulse-pink: #ff506f;
+$pulse-purple: #a66efd;
+
+// Social Media Brand Colours
+
+$fb-blue: #3b5999;
+$twitter-blue: #1da1f3;
