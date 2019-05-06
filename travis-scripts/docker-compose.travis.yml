@@ -78,6 +78,7 @@ services:
     environment:
       - CYPRESS_baseUrl=http://0.0.0.0:8000
       - PERCY_TOKEN=$PERCY_TOKEN
+      - PERCY_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
     command: ./wait-for-it.sh -t 30 0.0.0.0:8000 -- /node_modules/.bin/percy exec -- /node_modules/.bin/cypress run
     depends_on:
       - backend_cypress
