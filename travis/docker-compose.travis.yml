@@ -36,7 +36,7 @@ services:
       context: ../
       cache_from:
         - $DOCKER_REPO:$CYPRESS_TAG
-      dockerfile: ./travis-scripts/Dockerfile.cypress
+      dockerfile: ""
     image: $DOCKER_REPO:$CYPRESS_TAG
     environment:
       - CYPRESS_baseUrl=http://0.0.0.0:8000
@@ -46,7 +46,7 @@ services:
       - PERCY_PULL_REQUEST=$TRAVIS_PULL_REQUEST
     command: ./wait-for-it.sh -t 30 0.0.0.0:8000 -- /node_modules/.bin/percy exec -- /node_modules/.bin/cypress run
     depends_on:
-      - backend_cypress
+      - wagtail_cypress
     network_mode: 'host'
 
 volumes:

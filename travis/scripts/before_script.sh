@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ $TRAVIS_EVENT_TYPE == "pull_request" ]; then
+  eval NODE_TAG=$TRAVIS_PULL_REQUEST_BRANCH-node;
+  eval PYTHON_TAG=$TRAVIS_PULL_REQUEST_BRANCH-python;
+  eval APP_BUILD_TAG=$TRAVIS_PULL_REQUEST_BRANCH-app-build;
+  eval CYPRESS_TAG=$TRAVIS_PULL_REQUEST_BRANCH-cypress;
+else
+  eval NODE_TAG=$TRAVIS_BRANCH-node;
+  eval PYTHON_TAG=$TRAVIS_BRANCH-python; eval APP_BUILD_TAG=$TRAVIS_BRANCH-app-build;
+  eval CYPRESS_TAG=$TRAVIS_BRANCH-cypress;
+fi
+
+export PYTHON_TAG=$PYTHON_TAG
+export APP_BUILD_TAG=$APP_BUILD_TAG
+export CYPRESS_TAG=$CYPRESS_TAG
