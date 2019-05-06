@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Load environment vars
+. ./environment.sh
+
 # Pull the latest wagtail docker image from our Docker Hub repo
 docker pull $DOCKER_REPO:$NODE_TAG || true
 

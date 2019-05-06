@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Load environment vars
+. ./environment.sh
+
 # Run flake8 inside the wagtail container
 docker-compose -f travis/docker-compose.travis.yml \
   run --rm \

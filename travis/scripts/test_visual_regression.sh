@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Load environment vars
+. ./environment.sh
+
 # Pull down the prebuilt cypress image
 docker-compose -f travis/docker-compose.travis.yml pull cypress || true
 

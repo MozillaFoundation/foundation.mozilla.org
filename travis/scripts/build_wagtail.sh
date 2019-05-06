@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Load environment vars
+. ./environment.sh
+
 # Pull the latest images from our Docker Hub repo
 docker pull $DOCKER_REPO:$APP_BUILD_TAG || true
 docker pull $DOCKER_REPO:$PYTHON_TAG || true
