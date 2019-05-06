@@ -60,9 +60,7 @@ jobs:
     script:
     - docker-compose -f travis-scripts/docker-compose.travis.yml run --rm backend
       flake8 tasks.py network-api
-    - docker-compose -f travis-scripts/docker-compose.travis.yml run --rm backend
-      -e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
-      -e TRAVIS_JOB_ID=$TRAVIS_JOB_ID
+    - docker-compose run -f travis-scripts/docker-compose.travis.yml --rm backend -e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN -e TRAVIS_JOB_ID=$TRAVIS_JOB_ID
       sh -c "coverage run --source './network-api/networkapi' network-api/manage.py
       test networkapi && coveralls"
 
