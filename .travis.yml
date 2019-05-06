@@ -23,6 +23,7 @@ before_script:
 - export APP_BUILD_TAG=$APP_BUILD_TAG
 - export CYPRESS_TAG=$CYPRESS_TAG
 - export COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
+- export TRAVIS_JOB_ID=$TRAVIS_JOB_ID
 
 jobs:
   include:
