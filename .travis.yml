@@ -21,7 +21,7 @@ jobs:
     name: Wagtail app image
     install: skip
     script:
-      - ./travis/node_build.sh
+      - ./travis/scripts/node_build.sh
 
   - stage: Test
     name: CSS/JS linting
