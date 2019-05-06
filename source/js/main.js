@@ -55,7 +55,7 @@ let main = {
   decorateExternalLinks() {
     Array.from(document.querySelectorAll(`a`)).forEach(link => {
       let href = link.getAttribute(`href`);
-      let targetDomains = env.TARGET_DOMAINS || [];
+      let targetDomains = env.TARGET_DOMAINS;
 
       // Define an external link as any URL with `//` in it
       if (
@@ -252,15 +252,12 @@ let main = {
             0}/`;
 
           props.csrfToken = props.csrfToken || csrfToken;
+          props.isHidden = false;
 
           apps.push(
             new Promise(resolve => {
               ReactDOM.render(
-                <JoinUs
-                  {...props}
-                  isHidden={false}
-                  whenLoaded={() => resolve()}
-                />,
+                <JoinUs {...props} whenLoaded={() => resolve()} />,
                 element
               );
             })
