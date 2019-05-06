@@ -53,7 +53,7 @@
     "browserslist": "^4.5.5",
     "chokidar-cli": "^1.2.2",
     "classnames": "2.2.6",
-    "dotenv": "^7.0.0",
+    "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
