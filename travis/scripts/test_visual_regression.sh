@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Expand aliases (disabled by default in non-interactive shells
+shopt -s expand_aliases
+
 # Load environment vars
 . ./travis/scripts/environment.sh
 
