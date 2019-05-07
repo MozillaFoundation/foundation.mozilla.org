@@ -1,3 +1,4 @@
+# This image is used to run tests on CSS and JS via npm
 FROM node:8-alpine
 
 WORKDIR /app/

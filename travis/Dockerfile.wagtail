@@ -1,4 +1,4 @@
-# This a small variation of the image use in prod: we need the dev depen# Install node dependencies and run webpack build
+# This a small variation of the image use in prod, it keeps dependencies required to run tests.
 FROM node:8-alpine AS node-build
 
 WORKDIR /app/

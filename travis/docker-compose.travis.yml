@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
 
+  # A postgres 9.6 server for all the test data
   postgres:
     image: postgres:9.6
     ports:
@@ -9,6 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
+  # This container is used to run the python test suite against the wagtail site
   wagtail:
     image: $DOCKER_REPO:$PYTHON_TAG
     ports:
@@ -18,6 +20,7 @@ services:
     depends_on:
       - postgres
 
+  # This container runs a version of the wagtail app that has mounted volumes we need to enable testing with cypress
   wagtail_cypress:
     image: $DOCKER_REPO:$PYTHON_TAG
     ports:
@@ -31,6 +34,7 @@ services:
     depends_on:
       - postgres
 
+  # This container runs the visual regression testing using percy and cypress
   cypress:
     build:
       context: ../

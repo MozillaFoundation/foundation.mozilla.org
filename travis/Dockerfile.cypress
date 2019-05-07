@@ -1,10 +1,13 @@
 # Image with both Chrome 67 and Firefox 57, and dependencies to install Cypress.
 FROM cypress/browsers:chrome67-ff57
 
+# We need to wait for the wagtail server to finish starting up, so wait-for-it will poll for a successful HTTP response
 COPY travis/scripts/wait-for-it.sh ./
 COPY package.json package-lock.json ./
 
+# Get the latest version of cypress installed
 RUN CI=true npm run cypress:install
 
+# Copy in our Cypress configuration files
 COPY cypress.json ./
 COPY cypress/ ./cypress/
