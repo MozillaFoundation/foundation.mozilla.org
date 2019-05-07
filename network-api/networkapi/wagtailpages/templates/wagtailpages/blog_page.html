@@ -5,13 +5,7 @@
 {% block pre_footer_classes %}{% if singleton_page %}col-12 col-lg-10 offset-lg-1{% else %}col-md-12{% endif %}{% endblock %}
 
 {% block subcontent %}
-<div class="py-4 py-md-5
-  {% if page.narrowed_page_content == True %}
-    col-lg-8 offset-lg-2
-  {% else %}
-    col-12
-  {% endif %}"
->
+<div class="py-4 py-md-5 col-lg-8 offset-lg-2">
   <div class="cms">
     <h1 class="h1-heading">{{ page.title }}</h1>
     <p class="h6-heading mb-5">By {{ page.author }} | {% if page.first_published_at %}{{ page.first_published_at|date:"F j, Y" }}{% else %}not published yet{% endif %}</p>

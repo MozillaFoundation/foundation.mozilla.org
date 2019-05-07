@@ -574,7 +574,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     # Database fields
 
     zen_nav = True
-    narrowed_page_content = True
 
 
 class InitiativeSection(models.Model):
