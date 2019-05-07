@@ -4,7 +4,7 @@
 . ./travis/scripts/environment.sh
 
 # Alias docker-compose command
-dc='docker-compose -f travis/docker-compose.travis.yml'
+alias dc="docker-compose -f travis/docker-compose.travis.yml"
 
 # Pull down the prebuilt cypress image
 dc pull cypress || true
