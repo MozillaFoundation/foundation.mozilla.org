@@ -39,7 +39,11 @@ urlpatterns = list(filter(None, [
         RedirectView.as_view(url='/docs/how-do-i-wagtail/'),
         name='how-do-i-wagtail'
     ),
+
+    # For convenience, set up /cms/ but alias /en/cms/ to point there, too.
     url(r'^cms/', include(wagtailadmin_urls)),
+    url(r'^en/cms/', RedirectView.as_view(url='/cms/')),
+    
     url(r'^documents/', include(wagtaildocs_urls)),
     url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
 ]))
