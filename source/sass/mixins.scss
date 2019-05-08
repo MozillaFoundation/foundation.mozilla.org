@@ -77,12 +77,6 @@
   }
 }
 
-@mixin btn-secondary-active {
-  background-color: $black;
-  color: $white;
-  border: 2px solid $black;
-}
-
 @mixin intro-and-content-spacing($adjust-spacing-for-md: null) {
   margin-top: 24px;
   margin-bottom: 24px;
