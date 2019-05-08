@@ -1,4 +1,6 @@
-#multipage-nav-wrapper {
+#multipage-horizontal-nav-wrapper {
+  @include intro-and-content-spacing(true);
+
   &.full-width {
     @media (min-width: $bp-md) {
       border-bottom: 1px solid $gray-20;
@@ -13,7 +15,7 @@
     align-items: stretch;
     border-bottom: 1px $gray-20 solid;
 
-    @at-root #multipage-nav-wrapper.full-width #{&} {
+    @at-root #multipage-horizontal-nav-wrapper.full-width #{&} {
       border: none;
     }
 

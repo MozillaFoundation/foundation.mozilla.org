@@ -1,4 +1,6 @@
 #multipage-nav-mobile {
+  @include intro-and-content-spacing();
+
   .dropdown-nav {
     .expander {
       background: none;

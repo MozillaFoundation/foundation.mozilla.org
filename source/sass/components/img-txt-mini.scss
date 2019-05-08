@@ -2,15 +2,10 @@
   &-container {
     border-top: 1px solid $black;
     border-bottom: 1px solid $black;
+  }
 
-    img {
-      min-width: 30px;
-      max-width: 65px;
-
-      @include media-breakpoint-up(md) {
-        min-width: 50px;
-      }
-    }
+  &-img-container {
+    flex: 0 0 50px;
   }
 
   &-text {

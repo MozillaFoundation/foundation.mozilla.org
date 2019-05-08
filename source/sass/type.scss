@@ -73,7 +73,7 @@ h6,
 .body-large,
 .body-large p {
   @include body-text(null, 300, $black, $white);
-  @include scaleText(18px, 24px, 20px, 28px);
+  @include scaleText(18px, 27px, 20px, 30px);
 }
 
 p,
