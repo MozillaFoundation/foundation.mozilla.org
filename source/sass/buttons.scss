@@ -65,8 +65,13 @@
   background: transparent;
   border: 2px solid $black;
 
-  @include hover-focus-active {
-    @include btn-secondary-active;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    background-color: $black;
+    color: $white;
+    border: 2px solid $black;
   }
 
   @at-root .dark-theme & {
@@ -74,7 +79,10 @@
     background: transparent;
     border: 2px solid $white;
 
-    @include hover-focus-active {
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
       color: $black;
       background: $white;
     }

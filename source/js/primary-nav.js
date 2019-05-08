@@ -69,69 +69,68 @@ let primaryNav = {
       setMenuState(menuOpen);
     });
 
-    // Newsletter Header Form
+    // Newsletter Section
 
-    let newsletterContainer = document.querySelector(".newsletter-header-form");
-    let newsletterButtonSmall = document.getElementById("newsletter-button-2"); // Mobile Button
-    let newsletterButtonLarge = document.getElementById("newsletter-button"); // Tablet & Desktop Button
-    let newsletterDismiss = document.querySelector(".form-dismiss");
-    let newsletterInput = document.getElementById("newsletter-input");
+    let newsletterContainer = document.querySelector(".nav-newsletter-form-wrapper");
+    let newsletterDismiss = newsletterContainer.querySelector(".form-dismiss");
+    let narrowMenuContainer = primaryNavContainer.querySelector(".narrow-screen-menu-container");
+    let desktopMenuContainer = primaryNavContainer.querySelector(".wide-screen-menu-container");
+    let newsletterButtonMobile = narrowMenuContainer.querySelector(".btn-newsletter");
+    let newsletterButtonDesktop = desktopMenuContainer.querySelector(".btn-newsletter");
+    let mobileNewsletterOpen = false;
+    // let newsletterInput = document.getElementById("newsletter-input");
 
-    // Close form at desktop+
-    function closeNewsletter(event) {
+    let closeFormClickHandler = event => {
+      // close newsletter section if clicking anywhere outside of the section
       if (
         !newsletterContainer.contains(event.target) &&
         event.target !== newsletterContainer
       ) {
-        newsletterContainer.classList.remove("newsletter-active");
-        newsletterButtonLarge.classList.remove("newsletter-button-active");
-        document.removeEventListener("click", closeNewsletter);
-        document.removeEventListener("scroll", closeNewsletter);
+        closeDesktopNewsletter();
       }
+    };
+
+    function expandDesktopNewsletter() {
+      newsletterContainer.classList.add("expanded");
+      newsletterButtonDesktop.classList.add("active");
+    }
+
+    function closeDesktopNewsletter() {
+      newsletterContainer.classList.remove("expanded");
+      newsletterButtonDesktop.classList.remove("active");
+      document.removeEventListener("click", closeFormClickHandler);
     }
 
     // Open form at desktop+
-    newsletterButtonLarge.addEventListener("click", event => {
-      if (!newsletterContainer.classList.contains("newsletter-active")) {
-        //Opens Newsletter Form & forces button's active state
-        newsletterContainer.classList.remove("newsletter-low-opacity");
-        newsletterContainer.classList.add("newsletter-active");
-        newsletterButtonLarge.classList.add("newsletter-button-active");
-        newsletterInput.focus();
+    newsletterButtonDesktop.addEventListener("click", event => {
+      if (!newsletterContainer.classList.contains("expanded")) {
         event.stopPropagation();
 
-        //Listens for user's click or scroll to close newsletter
-
-        document.addEventListener("click", closeNewsletter);
-        document.addEventListener("scroll", closeNewsletter);
+        expandDesktopNewsletter();
+        document.addEventListener(`click`, closeFormClickHandler);
       }
     });
 
-    //Close Mobile Form & bringing back nav
-
-    function closeMobileNewsletter() {
-      if (event.target == newsletterDismiss) {
-        document
-          .querySelector(".narrow-screen-menu-container")
-          .classList.remove("d-none");
-        newsletterContainer.classList.replace(
-          "newsletter-full-opacity",
-          "newsletter-low-opacity"
-        );
+    function toggleMobileNewsletter() {
+      if (!mobileNewsletterOpen) {
+        // show newsletter form & hide nav
+        narrowMenuContainer.classList.add(`d-none`);
+        newsletterContainer.classList.add("faded-in");
+        mobileNewsletterOpen = true;
+      } else {
+        // close newsletter form & bring back nav
+        narrowMenuContainer.classList.remove("d-none");
+        newsletterContainer.classList.remove("faded-in");
+        mobileNewsletterOpen = false;
       }
     }
 
-    // Open form at mobile
-    newsletterButtonSmall.addEventListener("click", () => {
-      document
-        .querySelector(".narrow-screen-menu-container")
-        .classList.add(`d-none`);
-      newsletterContainer.classList.replace(
-        "newsletter-low-opacity",
-        "newsletter-full-opacity"
-      );
+    newsletterButtonMobile.addEventListener("click", () => {
+      toggleMobileNewsletter();
+    });
 
-      newsletterDismiss.addEventListener("click", closeMobileNewsletter);
+    newsletterDismiss.addEventListener("click", () => {
+      toggleMobileNewsletter();
     });
   }
 };

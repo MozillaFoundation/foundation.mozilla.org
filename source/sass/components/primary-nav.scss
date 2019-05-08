@@ -28,11 +28,6 @@
     }
   }
 
-  .donate-btn-wrapper {
-    display: flex;
-    align-items: center;
-  }
-
   #donate-header-btn {
     @include scaleText(17px, 23px);
     color: $black;
@@ -263,35 +258,32 @@
   }
 }
 
-//Newsletter
+// Newsletter
 
-.newsletter-header-form {
+.nav-newsletter-form-wrapper {
   background-color: $black;
-  height: 0px;
+  opacity: 0;
+  height: 0;
   overflow-y: hidden;
   transition: 1s;
+
+  &.expanded {
+    opacity: 1;
+    height: 250px;
+  }
+
+  &.faded-in {
+    opacity: 1;
+    height: 100%;
+  }
 }
 
-.newsletter-low-opacity {
-  opacity: 0;
-  height: 0px;
-}
+.btn.form-dismiss { /* TODO:FIXME: custom button style introduced */
+  color: $light-blue;
+  border: none;
+  background: transparent;
 
-.newsletter-full-opacity {
-  opacity: 1;
-  height: 100%;
-}
-
-//remove once form exit is added
-.newsletter-active {
-  height: 200px !important;
-}
-
-#newsletter-button.newsletter-button-active {
-  @include btn-secondary-active;
-}
-
-.form-dismiss {
-  font-weight: 700;
-  color: #b7b9fa !important;
+  @include hover-focus-active {
+    text-decoration: underline;
+  }
 }
