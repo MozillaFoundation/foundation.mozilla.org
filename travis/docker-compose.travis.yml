@@ -40,7 +40,6 @@ services:
       context: ../
       cache_from:
         - $DOCKER_REPO:$CYPRESS_TAG
-      dockerfile: ""
     image: $DOCKER_REPO:$CYPRESS_TAG
     environment:
       - CYPRESS_baseUrl=http://0.0.0.0:8000
