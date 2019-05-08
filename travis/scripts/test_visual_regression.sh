@@ -45,4 +45,4 @@ dc up cypress
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # Push the cypress image up to Docker Hub
-dc push cypress # $DOCKER_REPO:$CYPRESS_TAG?
+dc push cypress
