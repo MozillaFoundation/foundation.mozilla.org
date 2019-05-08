@@ -9,7 +9,6 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   it(`Foundation homepage`, function() {
     cy.visit(`/en/`);
-    cy.wait(2000);
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);
