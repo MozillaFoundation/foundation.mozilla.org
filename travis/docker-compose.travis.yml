@@ -29,8 +29,8 @@ services:
     env_file:
       - ./travis.env
     volumes:
-      - static_files:/app/network-api/staticfiles/
-      - media_files:/app/network-api/media/original_images/
+      - static_files:/app/network-api/staticfiles
+      - media_files:/app/network-api/media
     depends_on:
       - postgres
 

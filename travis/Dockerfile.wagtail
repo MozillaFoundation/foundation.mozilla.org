@@ -68,7 +68,7 @@ RUN mkdir -p ./network-api/staticfiles
 RUN mkdir -p ./network-api/media
 
 # Allow the www user to read/write the app directory
-RUN chown -R django /app
+RUN chown -R django:django /app
 
 # Tell docker that all commands should be run as the www user
 USER django
