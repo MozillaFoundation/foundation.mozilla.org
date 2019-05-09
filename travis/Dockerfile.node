@@ -23,5 +23,6 @@ COPY Procfile .
 COPY .eslintrc.json .
 COPY .eslintignore .
 COPY .stylelintrc .
+COPY .stylelintrc-colors.js .
 COPY cypress/integration ./cypress/integration
 COPY network-api/networkapi ./network-api/networkapi
