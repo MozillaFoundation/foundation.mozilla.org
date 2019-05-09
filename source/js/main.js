@@ -13,6 +13,7 @@ import News from "./components/news/news.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
 
 import primaryNav from "./primary-nav.js";
+import navNewsletter from "./nav-newsletter.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -172,6 +173,7 @@ let main = {
     onScroll();
 
     primaryNav.init();
+    navNewsletter.init(env, networkSiteURL, csrfToken);
 
     // Extra tracking
 
@@ -241,8 +243,8 @@ let main = {
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
-    if (document.querySelectorAll(`.join-us`)) {
-      var elements = Array.from(document.querySelectorAll(`.join-us`));
+    if (document.querySelectorAll(`.join-us:not(.on-nav)`)) {
+      var elements = document.querySelectorAll(`.join-us:not(.on-nav)`);
 
       if (elements.length) {
         elements.forEach(element => {

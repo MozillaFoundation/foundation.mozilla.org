@@ -1,4 +1,5 @@
 import ReactGA from "react-ga";
+import ReactDOM from "react-dom";
 
 let primaryNav = {
   init: function() {
@@ -67,70 +68,6 @@ let primaryNav = {
     elBurger.addEventListener(`click`, () => {
       menuOpen = !menuOpen;
       setMenuState(menuOpen);
-    });
-
-    // Newsletter Section
-
-    let newsletterContainer = document.querySelector(".nav-newsletter-form-wrapper");
-    let newsletterDismiss = newsletterContainer.querySelector(".form-dismiss");
-    let narrowMenuContainer = primaryNavContainer.querySelector(".narrow-screen-menu-container");
-    let desktopMenuContainer = primaryNavContainer.querySelector(".wide-screen-menu-container");
-    let newsletterButtonMobile = narrowMenuContainer.querySelector(".btn-newsletter");
-    let newsletterButtonDesktop = desktopMenuContainer.querySelector(".btn-newsletter");
-    let mobileNewsletterOpen = false;
-    // let newsletterInput = document.getElementById("newsletter-input");
-
-    let closeFormClickHandler = event => {
-      // close newsletter section if clicking anywhere outside of the section
-      if (
-        !newsletterContainer.contains(event.target) &&
-        event.target !== newsletterContainer
-      ) {
-        closeDesktopNewsletter();
-      }
-    };
-
-    function expandDesktopNewsletter() {
-      newsletterContainer.classList.add("expanded");
-      newsletterButtonDesktop.classList.add("active");
-    }
-
-    function closeDesktopNewsletter() {
-      newsletterContainer.classList.remove("expanded");
-      newsletterButtonDesktop.classList.remove("active");
-      document.removeEventListener("click", closeFormClickHandler);
-    }
-
-    // Open form at desktop+
-    newsletterButtonDesktop.addEventListener("click", event => {
-      if (!newsletterContainer.classList.contains("expanded")) {
-        event.stopPropagation();
-
-        expandDesktopNewsletter();
-        document.addEventListener(`click`, closeFormClickHandler);
-      }
-    });
-
-    function toggleMobileNewsletter() {
-      if (!mobileNewsletterOpen) {
-        // show newsletter form & hide nav
-        narrowMenuContainer.classList.add(`d-none`);
-        newsletterContainer.classList.add("faded-in");
-        mobileNewsletterOpen = true;
-      } else {
-        // close newsletter form & bring back nav
-        narrowMenuContainer.classList.remove("d-none");
-        newsletterContainer.classList.remove("faded-in");
-        mobileNewsletterOpen = false;
-      }
-    }
-
-    newsletterButtonMobile.addEventListener("click", () => {
-      toggleMobileNewsletter();
-    });
-
-    newsletterDismiss.addEventListener("click", () => {
-      toggleMobileNewsletter();
     });
   }
 };
