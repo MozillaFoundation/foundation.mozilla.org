@@ -45,7 +45,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: $white;
 
     @media (min-width: $bp-cs) {
       position: absolute;
@@ -141,12 +141,12 @@
         width: 2px;
         height: 2px;
         border-radius: 1000px;
-        background: white;
-        box-shadow: 0 0 0 9px white, 0 0 0 10px $option-color;
+        background: $white;
+        box-shadow: 0 0 0 9px $white, 0 0 0 10px $option-color;
         margin: 10px;
 
         &.selected {
-          box-shadow: 0 0 0 6px $option-color, 0 0 0 9px white,
+          box-shadow: 0 0 0 6px $option-color, 0 0 0 9px $white,
             0 0 0 10px $option-color;
           background: $option-color;
         }
@@ -253,8 +253,8 @@
             height: 1.5em;
             top: -0.7em;
             left: 50%;
-            color: black;
-            background: white;
+            color: $black;
+            background: $white;
             border: 1px solid $gray-20;
             border-radius: 2em;
             box-shadow: 2px 2px 3px 0 $gray-80;

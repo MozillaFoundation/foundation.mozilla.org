@@ -64,7 +64,7 @@
         bottom: 0;
 
         &:focus {
-          background: red;
+          background: $dark-red;
           bottom: 100%;
 
           & + h2 {
