@@ -173,7 +173,7 @@ let main = {
     onScroll();
 
     primaryNav.init();
-    navNewsletter.init(env, networkSiteURL, csrfToken);
+    navNewsletter.init(networkSiteURL, csrfToken);
 
     // Extra tracking
 
