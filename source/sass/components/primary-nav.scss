@@ -92,14 +92,14 @@
       }
 
       &.active {
-        border-color: black;
+        border-color: $black;
       }
     }
   }
 
   .wrapper-burger {
     transition: background 200ms ease-in-out;
-    background: white;
+    background: $white;
     border-bottom: 1px solid $gray-20;
 
     .wide-screen-menu {
@@ -128,7 +128,7 @@
 
       .burger-bar {
         position: absolute;
-        background: black;
+        background: $black;
         height: 3px;
         width: 28px;
 
@@ -175,8 +175,8 @@
     }
 
     &.scrolled {
-      background: white;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+      background: $white;
+      box-shadow: 0 1px 3px $border-shadow-color;
     }
 
     .center-nav-title p {
@@ -218,7 +218,7 @@
       top: 0;
       left: 0;
       width: 100vw;
-      background: white;
+      background: $white;
       transition: opacity 0.2s, height 0s;
 
       &.hidden {
@@ -239,7 +239,7 @@
       }
 
       .narrow-screen-menu-background {
-        background: black;
+        background: $black;
         height: 100%;
       }
 
@@ -251,7 +251,7 @@
           transition: transform 0.15s;
           display: inline-block;
           margin: 10px 0;
-          color: white;
+          color: $white;
         }
       }
     }

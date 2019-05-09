@@ -1,7 +1,7 @@
 // product draft rules
 .draft-product::before {
   content: "This is a draft.";
-  color: #ffa7a7;
+  color: $light-red;
   font-weight: bold;
   font-size: 120%;
   font-family: "Zilla Slab";
