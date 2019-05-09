@@ -133,11 +133,14 @@ export default class JoinUs extends React.Component {
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
+    let layoutClass = this.props.layout === `2-column` ? `col-6` : `col-12`;
+
+
     return (
       <div className={`container px-0 ${signupState}`}>
         <div className="row">
-          {this.renderFormHeading()}
-          {this.renderFormContent()}
+          <div className={layoutClass}>{this.renderFormHeading()}</div>
+          <div className={layoutClass}>{this.renderFormContent()}</div>
         </div>
       </div>
     );
@@ -148,7 +151,7 @@ export default class JoinUs extends React.Component {
    */
   renderFormHeading() {
     return (
-      <div className="col-12">
+      <div>
         <h5 className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>
@@ -211,7 +214,7 @@ export default class JoinUs extends React.Component {
    */
   renderPrivacyField() {
     let classes = classNames(
-      this.props.layout === `side-button` ? `mb-2` : `my-3`,
+      this.props.buttonPosition === `side` ? `mb-2` : `my-3`,
       {
         "form-check": true,
         "has-danger":
@@ -266,22 +269,21 @@ export default class JoinUs extends React.Component {
     let fieldsWrapperClass = `w-100`;
     let submitWrapperClass = `w-100`;
 
-    if (this.props.layout === `side-button`) {
+    console.log(this.props);
+    if (this.props.buttonPosition === `side`) {
       formClass = `${formClass} flex-md-row`;
       fieldsWrapperClass = ``;
       submitWrapperClass = `ml-md-3`;
     }
 
     return (
-      <div className="col-12">
-        <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
-          <div className={fieldsWrapperClass}>
-            {this.renderEmailField()}
-            {this.renderPrivacyField()}
-          </div>
-          <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
-        </form>
-      </div>
+      <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
+        <div className={fieldsWrapperClass}>
+          {this.renderEmailField()}
+          {this.renderPrivacyField()}
+        </div>
+        <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
+      </form>
     );
   }
 }
