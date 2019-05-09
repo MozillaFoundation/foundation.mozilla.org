@@ -1,5 +1,5 @@
-# Image with both Chrome 67 and Firefox 57, and dependencies to install Cypress.
-FROM cypress/browsers:chrome67-ff57
+# Image with dependencies to install Cypress.
+FROM cypress/base:12.1.0
 
 # We need to wait for the wagtail server to finish starting up, so wait-for-it will poll for a successful HTTP response
 COPY travis/scripts/wait-for-it.sh ./

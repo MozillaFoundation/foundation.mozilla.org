@@ -43,12 +43,12 @@ services:
       dockerfile: "./travis/Dockerfile.cypress"
     image: $DOCKER_REPO:$CYPRESS_TAG
     environment:
-      - CYPRESS_baseUrl=http://0.0.0.0:8000
+      - CYPRESS_baseUrl=http://localhost:8000
       - PERCY_TOKEN=$PERCY_TOKEN
       - PERCY_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
       - PERCY_COMMIT=$TRAVIS_PULL_REQUEST_SHA
       - PERCY_PULL_REQUEST=$TRAVIS_PULL_REQUEST
-    command: ./wait-for-it.sh -t 30 0.0.0.0:8000 -- /node_modules/.bin/percy exec -t 200 -- /node_modules/.bin/cypress run
+    command: ./wait-for-it.sh -t 30 localhost:8000 -- /node_modules/.bin/percy exec -t 200 -- /node_modules/.bin/cypress run
     depends_on:
       - wagtail_cypress
     network_mode: 'host'
