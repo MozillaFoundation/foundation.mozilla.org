@@ -3,8 +3,8 @@ import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
 
-let isShown = false;
 let foundationSiteURL, csrfToken;
+let isShown = false;
 let primaryNav = document.querySelector(`#primary-nav-container`);
 let narrowMenuContainer = primaryNav.querySelector(
   ".narrow-screen-menu-container"
@@ -37,7 +37,7 @@ let navNewsletter = {
   },
 
   // We can't simply reset the form as we don't
-  // have access to trigger <JoinUs> React component's state or lifecycle.
+  // have access to trigger <JoinUs> React component's state or lifecycle methods.
   // Instead, we unmount <JoinUs> from DOM.
   unmountForm: () => {
     // unmount form after newsletter section has transitioned back to the previous view
@@ -72,7 +72,7 @@ let navNewsletter = {
 
   // For mobile version:
   // transition section to its close state,
-  // remove the global 'closeFormClickHandler' click event handler
+  // remove the global 'closeFormClickHandler' click event handler,
   // and unmount the form from DOM
   closeMobileNewsletter: () => {
     narrowMenuContainer.classList.remove("d-none");
