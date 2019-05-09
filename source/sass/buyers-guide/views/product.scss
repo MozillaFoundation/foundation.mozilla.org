@@ -276,7 +276,7 @@ $product-detail-padding-x: (
     padding: $padding-y 1rem;
 
     &.h5-heading {
-      color: white;
+      color: $white;
     }
 
     @media (min-width: $bp-md) {

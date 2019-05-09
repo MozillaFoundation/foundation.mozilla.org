@@ -1,32 +1,9 @@
-// Side-wide Palatte
-
-$gray-05: #f2f2f2;
-$gray-20: #cccccc;
-$gray-40: #999999;
-$gray-60: #666666;
-$gray-80: #333333;
-$black: #000000;
-$white: #ffffff;
-
-$light-red: #ffe6e8;
-$red: #ff4f5e;
-$dark-red: #cc0011;
-
-$light-blue: #b7b9fa;
-$blue: #595cf3;
-$dark-blue: #0d10bf;
-
-// Privacy Not Included (PNI) Palatte
-
-$pni-blue: #1808f2;
-$pni-blue-purple: #4a17d4;
-$pni-purple: #7f28b7;
-$pni-purple-pink: #b0379b;
-$pni-pink: #e4487d;
-$pni-gradient: linear-gradient(to right, $pni-blue 0%, $pni-pink 100%);
-
-$bg-product-image: #f4f4f4; // keep this #f4f4f4 as this is the background colour that product images have
+@import "./colors";
 
 // Font weight
 
 $btn-font-weight: 700;
+
+// Shadow
+
+$border-shadow-color: transparentize($black, 0.85);

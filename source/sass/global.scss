@@ -45,7 +45,7 @@ button:hover {
     $padding-x: #{$grid-gutter-width / 2};
 
     margin-top: calc(#{$bg-pattern-height} - 40px);
-    background: white;
+    background: $white;
     padding-left: $padding-x;
     padding-right: $padding-x;
 
