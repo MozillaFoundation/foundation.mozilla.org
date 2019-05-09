@@ -7,8 +7,12 @@ let isShown = false;
 let navNewsletter = {
   init: function(env, networkSiteURL, csrfToken) {
     let primaryNav = document.querySelector(`#primary-nav-container`);
-    let narrowMenuContainer = primaryNav.querySelector(".narrow-screen-menu-container");
-    let wideMenuContainer = primaryNav.querySelector(".wide-screen-menu-container");
+    let narrowMenuContainer = primaryNav.querySelector(
+      ".narrow-screen-menu-container"
+    );
+    let wideMenuContainer = primaryNav.querySelector(
+      ".wide-screen-menu-container"
+    );
     let container = document.querySelector("#nav-newsletter-form-wrapper");
     let buttonDesktop = wideMenuContainer.querySelector(".btn-newsletter");
     let buttonMobile = narrowMenuContainer.querySelector(".btn-newsletter");
