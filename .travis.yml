@@ -37,6 +37,7 @@ jobs:
     name: Visual regression tests
     script:
     - ./travis/scripts/test_visual_regression.sh
+
   - stage: Deploy
     name: Deploy Maintenance page to S3
     script: skip

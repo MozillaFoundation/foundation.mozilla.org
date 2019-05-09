@@ -48,7 +48,7 @@ services:
       - PERCY_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
       - PERCY_COMMIT=$TRAVIS_PULL_REQUEST_SHA
       - PERCY_PULL_REQUEST=$TRAVIS_PULL_REQUEST
-    command: ./wait-for-it.sh -t 30 localhost:8000 -- /node_modules/.bin/percy exec -t 200 -- /node_modules/.bin/cypress run
+    command: ./wait-for-it.sh -t 30 localhost:8000 -- /node_modules/.bin/percy exec -t 800 -- /node_modules/.bin/cypress run
     depends_on:
       - wagtail_cypress
     network_mode: 'host'
