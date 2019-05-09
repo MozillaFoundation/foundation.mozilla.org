@@ -527,12 +527,6 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(FoundationMetadataPageMixin, Page):
     template = 'wagtailpages/blog_page.html'
 
-    parent_page_types = [
-        'MiniSiteNameSpace',
-    ]
-
-    subpage_types = []
-
     author = models.CharField(
         verbose_name='Author',
         max_length=50,
