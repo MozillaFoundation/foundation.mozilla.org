@@ -135,13 +135,10 @@ export default class JoinUs extends React.Component {
 
     let layoutClass = this.props.layout === `2-column` ? `col-6` : `col-12`;
 
-
     return (
-      <div className={`container px-0 ${signupState}`}>
-        <div className="row">
-          <div className={layoutClass}>{this.renderFormHeading()}</div>
-          <div className={layoutClass}>{this.renderFormContent()}</div>
-        </div>
+      <div className={`row ${signupState}`}>
+        <div className={layoutClass}>{this.renderFormHeading()}</div>
+        <div className={layoutClass}>{this.renderFormContent()}</div>
       </div>
     );
   }
