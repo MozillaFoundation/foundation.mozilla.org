@@ -65,10 +65,18 @@
   background: transparent;
   border: 2px solid $black;
 
+  /*
+  *  TODO:FIXME:
+  *  talk to designers and see if we need to create a new button type
+  *  & find a smarter way to do this
+  */
   &:hover,
   &:focus,
   &:active,
-  &.active {
+  &.active,
+  &.active:hover,
+  &.active:focus,
+  &.active:active {
     background-color: $black;
     color: $white;
     border: 2px solid $black;
@@ -79,10 +87,18 @@
     background: transparent;
     border: 2px solid $white;
 
+    /*
+    *  TODO:FIXME:
+    *  talk to designers and see if we need to create a new button type
+    *  & find a smarter way to do this
+    */
     &:hover,
     &:focus,
     &:active,
-    &.active {
+    &.active,
+    &.active:hover,
+    &.active:focus,
+    &.active:active {
       color: $black;
       background: $white;
     }

@@ -64,6 +64,14 @@ let navNewsletter = {
   // inject a new sign up form then transition section to its expanded state
   expandDesktopNewsletter: event => {
     navNewsletter.injectForm();
+
+    // Any element set as "sticky" by CSS is not truly sticky until page has been scrolled.
+    // Here's an ugly but simple hack to force the newsletter section to act sticky
+    // so as it expands it will not push the page content down
+    if (window.scrollY === 0) {
+      window.scroll({ top: 1 });
+    }
+
     container.classList.add("expanded");
     buttonDesktop.classList.add("active");
     document.addEventListener(`click`, navNewsletter.closeFormClickHandler);
