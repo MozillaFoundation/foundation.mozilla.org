@@ -8,7 +8,8 @@ from factory import (
     post_generation
 )
 
-from networkapi.utility.faker import ImageProvider, reseed
+from networkapi.utility.faker import ImageProvider
+from networkapi.utility.faker.helpers import reseed
 from networkapi.milestones.models import Milestone
 
 Faker.add_provider(ImageProvider)

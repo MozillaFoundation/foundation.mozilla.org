@@ -8,7 +8,8 @@ from factory import (
     LazyAttribute,
 )
 
-from networkapi.utility.faker import ImageProvider, generate_fake_data, reseed
+from networkapi.utility.faker import ImageProvider, generate_fake_data
+from networkapi.utility.faker.helpers import reseed
 from networkapi.news.models import News
 
 from django.conf import settings

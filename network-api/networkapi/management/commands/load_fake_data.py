@@ -14,7 +14,7 @@ import networkapi.people.factory as people_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
 import networkapi.buyersguide.factory as buyersguide_factory
 
-from networkapi.utility.faker import reseed
+from networkapi.utility.faker.helpers import reseed
 
 from wagtail_factories import ImageFactory
 

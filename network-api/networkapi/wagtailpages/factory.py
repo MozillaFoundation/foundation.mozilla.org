@@ -34,7 +34,8 @@ from networkapi.wagtailpages.models import (
 from networkapi.wagtailpages.donation_modal import DonationModal, DonationModals
 from networkapi.highlights.factory import HighlightFactory
 from networkapi.news.factory import NewsFactory
-from networkapi.utility.faker import StreamfieldProvider, reseed
+from networkapi.utility.faker import StreamfieldProvider
+from networkapi.utility.faker.helpers import reseed
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
