@@ -148,16 +148,6 @@ class MiniSiteNameSpaceFactory(PageFactory):
         model = MiniSiteNameSpace
 
 
-<<<<<<< HEAD
-=======
-class PeoplePageFactory(PageFactory):
-    class Meta:
-        model = PeoplePage
-
-    title = 'people'
-
-
->>>>>>> Refactor load_fake_data so that the factory files can define a callable 'generate' method which the management command can call
 class NewsPageFactory(PageFactory):
     class Meta:
         model = NewsPage

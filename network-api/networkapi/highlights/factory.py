@@ -71,6 +71,6 @@ class HighlightFactory(DjangoModelFactory):
 
 def generate(seed):
     reseed(seed)
-
+    
     print('Generating Highlights')
     generate_fake_data(HighlightFactory, 10)

@@ -1,52 +1,20 @@
 from itertools import chain, combinations
 
 import factory
-<<<<<<< HEAD
 import random
-=======
-from random import randint
->>>>>>> Refactor load_fake_data so that the factory files can define a callable 'generate' method which the management command can call
-
-from django.conf import settings
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 
 # Factories
-<<<<<<< HEAD
-from networkapi.highlights.factory import HighlightFactory
-from networkapi.milestones.factory import MilestoneFactory
-from networkapi.news.factory import NewsFactory
-from networkapi.people.factory import (
-    PersonFactory,
-    AffiliationFactory,
-)
-from networkapi.wagtailpages.factory import (
-    WagtailHomepageFactory,
-    PrimaryPageFactory,
-    OpportunityPageFactory,
-    StyleguideFactory,
-    NewsPageFactory,
-    InitiativesPageFactory,
-    BlogPageFactory,
-    MiniSiteNameSpaceFactory,
-    CampaignPageFactory,
-    HomepageFeaturedNewsFactory,
-    HomepageFeaturedHighlightsFactory,
-    # TODO: remove all this duplication
-    ParticipatePage2Factory,
-    ParticipatePage2FeaturedHighlightsFactory,
-    ParticipatePage2FeaturedHighlights2Factory,
-    DonationModalsFactory,
-)
-=======
 import networkapi.highlights.factory as highlights_factory
 import networkapi.milestones.factory as milestones_factory
 import networkapi.news.factory as news_factory
 import networkapi.people.factory as people_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
 import networkapi.buyersguide.factory as buyersguide_factory
->>>>>>> Refactor load_fake_data so that the factory files can define a callable 'generate' method which the management command can call
+
+from networkapi.utility.faker import reseed
 
 from wagtail_factories import ImageFactory
 
@@ -104,15 +72,9 @@ class Command(BaseCommand):
         else:
             seed = random.randint(0, 5000000)
 
-        faker = factory.faker.Faker._get_faker(locale='en-US')
-
-        def reseed():
-            random.seed(seed)
-            faker.random.seed(seed)
-
         print(f'Seeding random numbers with: {seed}')
 
-        reseed()
+        reseed(seed)
 
         print('Generating Images')
         [
@@ -123,314 +85,7 @@ class Command(BaseCommand):
             ) for i in range(20)
         ]
 
-<<<<<<< HEAD
-        reseed()
-
-        print('Generating Milestones')
-        [MilestoneFactory.create() for i in range(10)]
-
-        reseed()
-
-        print('Generating five InternetHealthIssue')
-        [InternetHealthIssue.objects.get_or_create(name=e) for e in internet_health_issues]
-
-        reseed()
-
-        print('Generating Fake News')
-        generate_fake_data(NewsFactory, 10)
-
-        reseed()
-
-        print('Generating highlights')
-        generate_fake_data(HighlightFactory, 4)
-
-        reseed()
-
-        print('Generating People')
-        generate_fake_data(PersonFactory, 10)
-
-        reseed()
-
-        print('Generating People with affiliation')
-        generate_fake_data(AffiliationFactory, 10)
-
-        reseed()
-
-        print('Generating blank Homepage')
-        try:
-            home_page = wagtailpages_models.Homepage.objects.get(title='Homepage')
-            print('Homepage already exists')
-        except wagtailpages_models.Homepage.DoesNotExist:
-            print('Generating a Homepage')
-            site_root = WagtailPage.objects.get(id=1)
-            home_page = WagtailHomepageFactory.create(
-                parent=site_root,
-                title='Homepage',
-                slug=None,
-                hero_image__file__width=1080,
-                hero_image__file__height=720
-            )
-
-        reseed()
-
-        print('Generating Homepage Highlights and News')
-        if home_page is not None:
-            featured_news = [NewsFactory.create() for i in range(6)]
-            featured_highlights = [HighlightFactory.create() for i in range(6)]
-            home_page.featured_news = [
-                HomepageFeaturedNewsFactory.build(news=featured_news[i]) for i in range(6)
-            ]
-            home_page.featured_highlights = [
-                HomepageFeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(6)
-            ]
-            home_page.save()
-
-        reseed()
-
-        try:
-            default_site = WagtailSite.objects.get(is_default_site=True)
-            if settings.HEROKU_APP_NAME:
-                default_site.hostname = REVIEW_APP_HOSTNAME
-            default_site.root_page = home_page
-            default_site.save()
-            print('Updated the default Site')
-        except WagtailSite.DoesNotExist:
-            print('Generating a default Site')
-            if settings.HEROKU_APP_NAME:
-                hostname = REVIEW_APP_HOSTNAME
-                port = 80
-            else:
-                hostname = 'localhost'
-                port = 8000
-
-            WagtailSite.objects.create(
-                hostname=hostname,
-                port=port,
-                root_page=home_page,
-                site_name='Foundation Home Page',
-                is_default_site=True
-            )
-
-        reseed()
-
-        try:
-            about_page = WagtailPage.objects.get(title='about')
-            print('about page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an about Page (PrimaryPage)')
-            about_page = PrimaryPageFactory.create(parent=home_page, title='about')
-
-        reseed()
-
-        print('Generating child pages for about page')
-        [PrimaryPageFactory.create(parent=about_page) for i in range(5)]
-
-        reseed()
-
-        try:
-            WagtailPage.objects.get(title='styleguide')
-            print('styleguide page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating a Styleguide Page')
-            StyleguideFactory.create(parent=home_page)
-
-        reseed()
-
-        try:
-            WagtailPage.objects.get(title='news')
-            print('news page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty News Page')
-            NewsPageFactory.create(parent=home_page)
-
-        reseed()
-
-        try:
-            WagtailPage.objects.get(title='initiatives')
-            print('initiatives page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty Initiatives Page')
-            InitiativesPageFactory.create(parent=home_page)
-
-        reseed()
-
-        try:
-            participate_page = WagtailPage.objects.get(title='participate')
-            print('participate page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty Participate Page')
-            participate_page = ParticipatePage2Factory.create(parent=home_page)
-
-        reseed()
-
-        print('Generating Participate Highlights')
-        if participate_page is not None:
-            featured_highlights = [HighlightFactory.create() for i in range(3)]
-            participate_page.featured_highlights = [
-                ParticipatePage2FeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(3)
-            ]
-            featured_highlights2 = [HighlightFactory.create() for i in range(6)]
-            participate_page.featured_highlights2 = [
-                ParticipatePage2FeaturedHighlights2Factory.build(highlight=featured_highlights2[i]) for i in range(6)
-            ]
-            participate_page.save()
-
-        reseed()
-
-        try:
-            campaign_namespace = WagtailPage.objects.get(title='campaigns')
-            print('campaigns namespace exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating a campaigns namespace')
-            campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
-
-        reseed()
-
-        print('Generating Campaign Pages under namespace')
-        campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
-
-        reseed()
-
-        print('Generating Donation Modals for Campaign Pages')
-        [DonationModalsFactory.create(page=campaign) for campaign in campaigns]
-
-        reseed()
-
-        try:
-            wagtailpages_models.CampaignPage.objects.get(title='single-page')
-            print('single-page CampaignPage already exists')
-        except wagtailpages_models.CampaignPage.DoesNotExist:
-            print('Generating single-page CampaignPage')
-            CampaignPageFactory.create(parent=campaign_namespace, title='single-page')
-
-        reseed()
-
-        try:
-            wagtailpages_models.CampaignPage.objects.get(title='multi-page')
-            print('multi-page CampaignPage already exists.')
-        except wagtailpages_models.CampaignPage.DoesNotExist:
-            print('Generating multi-page CampaignPage')
-            multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
-            [CampaignPageFactory(parent=multi_page_campaign) for k in range(3)]
-
-        reseed()
-
-        try:
-            opportunity_namespace = WagtailPage.objects.get(title='opportunity')
-            print('opportunity namespace exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an opportunity namespace')
-            opportunity_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='opportunity', live=False)
-
-        reseed()
-
-        print('Generating Opportunity Pages under namespace')
-        [OpportunityPageFactory.create(parent=opportunity_namespace) for i in range(5)]
-
-        reseed()
-
-        try:
-            wagtailpages_models.OpportunityPage.objects.get(title='Global Sprint')
-            print('Global Sprint OpportunityPage exists')
-        except wagtailpages_models.OpportunityPage.DoesNotExist:
-            print('Generating Global Sprint OpportunityPage')
-            OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint')
-
-        reseed()
-
-        try:
-            wagtailpages_models.OpportunityPage.objects.get(title='single-page')
-            print('single-page OpportunityPage exists')
-        except wagtailpages_models.OpportunityPage.DoesNotExist:
-            print('Generating single-page OpportunityPage')
-            OpportunityPageFactory.create(parent=opportunity_namespace, title='single-page')
-
-        reseed()
-
-        try:
-            wagtailpages_models.OpportunityPage.objects.get(title='multi-page')
-            print('multi-page OpportunityPage exists')
-        except wagtailpages_models.OpportunityPage.DoesNotExist:
-            print('Generating multi-page OpportunityPage')
-            multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
-            [OpportunityPageFactory(parent=multi_page_opportunity) for k in range(3)]
-
-        reseed()
-
-        try:
-            blog_namespace = WagtailPage.objects.get(title='blog')
-            print('blog namespace exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating a blog namespace')
-            blog_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='blog', live=False)
-
-        print('Generating Blog Pages under namespace')
-        [BlogPageFactory.create(parent=blog_namespace) for i in range(3)]
-
-        reseed()
-
-        print('Generating fixed Buyer\'s Guide Product for visual regression testing')
-        ProductFactory.create(
-            product_words=['Percy', 'Cypress'],
-            name='percy cypress',
-            draft=False,
-            adult_content=False,
-            company='Percy',
-            blurb='Visual Regression Testing',
-            url='https://vrt.example.com',
-            price=350,
-            camera_app=True,
-            meets_minimum_security_standards=True,
-            camera_device=False,
-            microphone_app=True,
-            microphone_device=False,
-            location_app=True,
-            location_device=False,
-            uses_encryption=True,
-            privacy_policy_reading_level_url='https://vrt.example.com/pprl',
-            privacy_policy_reading_level='7',
-            share_data=False,
-            must_change_default_password=False,
-            security_updates=False,
-            delete_data=True,
-            child_rules=False,
-            manage_security=True,
-            phone_number='1-555-555-5555',
-            live_chat=True,
-            email='vrt@example.com',
-            worst_case='Duplicate work that burns through screenshots',
-        )
-
-        reseed()
-
-        print('Generating Buyer\'s Guide Products')
-        generate_fake_data(ProductFactory, 70)
-
-        reseed()
-
-        print('Generating Randomised Buyer\'s Guide Products Votes')
-        for p in Product.objects.all():
-            for _ in range(1, 15):
-                value = random.randint(1, 100)
-                RangeVote.objects.create(
-                    product=p,
-                    attribute='creepiness',
-                    value=value
-                )
-
-                value = random.randint(1, 100) < 50
-                BooleanVote.objects.create(
-                    product=p,
-                    attribute='confidence',
-                    value=value
-                )
-
-        reseed()
-
-        print('Aggregating Buyer\'s Guide Product votes')
-        call_command('aggregate_product_votes')
-=======
-        [app_factory.generate() for app_factory in [
+        [app_factory.generate(seed) for app_factory in [
             milestones_factory,
             news_factory,
             highlights_factory,
@@ -438,6 +93,5 @@ class Command(BaseCommand):
             wagtailpages_factory,
             buyersguide_factory
         ]]
->>>>>>> Refactor load_fake_data so that the factory files can define a callable 'generate' method which the management command can call
 
         print(self.style.SUCCESS('Done!'))
