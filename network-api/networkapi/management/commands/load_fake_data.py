@@ -29,6 +29,7 @@ from networkapi.wagtailpages.factory import (
     StyleguideFactory,
     NewsPageFactory,
     InitiativesPageFactory,
+    BlogPageFactory,
     MiniSiteNameSpaceFactory,
     CampaignPageFactory,
     HomepageFeaturedNewsFactory,
@@ -366,6 +367,18 @@ class Command(BaseCommand):
             print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
             [OpportunityPageFactory(parent=multi_page_opportunity) for k in range(3)]
+
+        reseed()
+
+        try:
+            blog_namespace = WagtailPage.objects.get(title='blog')
+            print('blog namespace exists')
+        except WagtailPage.DoesNotExist:
+            print('Generating a blog namespace')
+            blog_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='blog', live=False)
+
+        print('Generating Blog Pages under namespace')
+        [BlogPageFactory.create(parent=blog_namespace) for i in range(3)]
 
         reseed()
 

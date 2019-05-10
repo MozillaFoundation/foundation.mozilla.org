@@ -1,4 +1,5 @@
 from django.conf import settings
+from datetime import timezone
 from factory.django import DjangoModelFactory
 from wagtail_factories import (
     PageFactory,
@@ -14,7 +15,12 @@ from networkapi.highlights.factory import HighlightFactory
 from networkapi.news.factory import NewsFactory
 from networkapi.utility.faker import StreamfieldProvider
 
+RANDOM_SEED = settings.RANDOM_SEED
+TESTING = settings.TESTING
+
 streamfield_fields = ['header', 'paragraph', 'image', 'spacer', 'image_text2', 'quote']
+blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
+                                'video', 'linkbutton', 'spacer', 'quote']
 
 Faker.add_provider(StreamfieldProvider)
 
@@ -197,6 +203,25 @@ class ParticipatePage2FeaturedHighlights2Factory(ParticipateFeaturedFactory):
 class OpportunityPageFactory(CMSPageFactory):
     class Meta:
         model = networkapi.wagtailpages.models.OpportunityPage
+
+
+class BlogPageFactory(PageFactory):
+
+    class Meta:
+        model = networkapi.wagtailpages.models.BlogPage
+        exclude = (
+            'title_text',
+        )
+
+    title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
+    author = Faker('name')
+    body = Faker('streamfield', fields=blog_body_streamfield_fields)
+    first_published_at = (Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED and not TESTING
+                          else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
+    live = True
+
+    # Lazy Values
+    title_text = sentence_faker
 
 
 class FeaturedFactory(DjangoModelFactory):
