@@ -15,6 +15,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail.images.models import Image
 from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
@@ -150,6 +152,7 @@ class MiniSiteNameSpace(ModularPage):
         'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
+        'BlogPage',
     ]
 
     """
@@ -515,6 +518,56 @@ class BanneredCampaignPage(PrimaryPage):
 class NewsPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/news_page.html'
+
+
+class BlogPageTag(TaggedItemBase):
+    content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
+
+
+class BlogPage(FoundationMetadataPageMixin, Page):
+    template = 'wagtailpages/blog_page.html'
+
+    author = models.CharField(
+        verbose_name='Author',
+        max_length=50,
+        blank=False,
+    )
+
+    body = StreamField([
+        ('paragraph', blocks.RichTextBlock(
+            features=[
+                'bold', 'italic',
+                'h2', 'h3', 'h4', 'h5',
+                'ol', 'ul',
+                'link', 'hr',
+            ]
+        )),
+        ('image', customblocks.AnnotatedImageBlock()),
+        ('image_text', customblocks.ImageTextBlock()),
+        ('image_text_mini', customblocks.ImageTextMini()),
+        ('video', customblocks.VideoBlock()),
+        ('linkbutton', customblocks.LinkButtonBlock()),
+        ('spacer', customblocks.BootstrapSpacerBlock()),
+        ('quote', customblocks.QuoteBlock()),
+    ])
+
+    # Editor panels configuration
+
+    content_panels = Page.content_panels + [
+        FieldPanel('author'),
+        StreamFieldPanel('body'),
+    ]
+
+    # Promote panels configuration
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+    ]
+
+    # Database fields
+
+    zen_nav = True
 
 
 class InitiativeSection(models.Model):

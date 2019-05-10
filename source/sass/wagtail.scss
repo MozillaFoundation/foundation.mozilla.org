@@ -69,6 +69,21 @@
       max-height: 800px;
     }
   }
+
+  .blog-body {
+    .block-paragraph {
+      p,
+      ul,
+      ol,
+      a {
+        @extend .body-large;
+      }
+    }
+
+    b {
+      font-weight: 700;
+    }
+  }
 }
 
 .homepage-feature p {
