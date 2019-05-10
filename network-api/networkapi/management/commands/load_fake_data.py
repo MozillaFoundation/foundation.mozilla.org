@@ -5,6 +5,7 @@ import random
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
+from django.conf import settings
 
 # Factories
 import networkapi.highlights.factory as highlights_factory
@@ -63,6 +64,8 @@ class Command(BaseCommand):
 
         if options['delete']:
             call_command('flush_models')
+
+        faker = factory.faker.Faker._get_faker(locale='en-US')
 
         # Seed Faker with the provided seed value or a pseudorandom int between 0 and five million
         if options['seed']:

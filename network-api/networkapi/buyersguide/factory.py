@@ -129,14 +129,14 @@ def generate(seed):
     print('Generating Randomised Buyer\'s Guide Products Votes')
     for p in Product.objects.all():
         for _ in range(1, 15):
-            value = random.randint(1, 100)
+            value = randint(1, 100)
             RangeVote.objects.create(
                 product=p,
                 attribute='creepiness',
                 value=value
             )
 
-            value = (random.random() < 0.5)
+            value = (random() < 0.5)
             BooleanVote.objects.create(
                 product=p,
                 attribute='confidence',

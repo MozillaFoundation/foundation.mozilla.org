@@ -26,7 +26,10 @@ from networkapi.wagtailpages.models import (
     NewsPage,
     Styleguide,
     InitiativesPage,
-    ParticipatePage,
+    ParticipatePage2,
+    ParticipateHighlights,
+    ParticipateHighlights2,
+    BlogPage,
     OpportunityPage,
     HomepageFeaturedNews,
     HomepageFeaturedHighlights
@@ -172,7 +175,7 @@ class InitiativesPageFactory(PageFactory):
 
 class ParticipatePage2Factory(PageFactory):
     class Meta:
-        model = networkapi.wagtailpages.models.ParticipatePage2
+        model = ParticipatePage2
 
     title = 'participate'
     h2 = Faker('text', max_nb_chars=20)
@@ -214,14 +217,14 @@ class ParticipateFeaturedFactory(DjangoModelFactory):
 
 class ParticipatePage2FeaturedHighlightsFactory(ParticipateFeaturedFactory):
     class Meta:
-        model = networkapi.wagtailpages.models.ParticipateHighlights
+        model = ParticipateHighlights
 
     highlight = SubFactory(HighlightFactory)
 
 
 class ParticipatePage2FeaturedHighlights2Factory(ParticipateFeaturedFactory):
     class Meta:
-        model = networkapi.wagtailpages.models.ParticipateHighlights2
+        model = ParticipateHighlights2
 
     highlight = SubFactory(HighlightFactory)
 
@@ -234,7 +237,7 @@ class OpportunityPageFactory(CMSPageFactory):
 class BlogPageFactory(PageFactory):
 
     class Meta:
-        model = networkapi.wagtailpages.models.BlogPage
+        model = BlogPage
         exclude = (
             'title_text',
         )
@@ -352,15 +355,6 @@ def generate(seed):
         reseed(seed)
 
         try:
-            WagtailPage.objects.get(title='people')
-            print('people page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty People Page')
-            PeoplePageFactory.create(parent=home_page)
-
-        reseed(seed)
-
-        try:
             WagtailPage.objects.get(title='news')
             print('news page exists')
         except WagtailPage.DoesNotExist:
@@ -399,7 +393,7 @@ def generate(seed):
             ]
             participate_page.save()
 
-        reseed()
+        reseed(seed)
 
         try:
             campaign_namespace = WagtailPage.objects.get(title='campaigns')
@@ -435,7 +429,7 @@ def generate(seed):
         except CampaignPage.DoesNotExist:
             print('Generating multi-page CampaignPage')
             multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
-            [CampaignPageFactory(parent=multi_page_campaign, no_cta=True) for k in range(3)]
+            [CampaignPageFactory(parent=multi_page_campaign) for k in range(3)]
 
         reseed(seed)
 
@@ -458,7 +452,7 @@ def generate(seed):
             print('Global Sprint OpportunityPage exists')
         except OpportunityPage.DoesNotExist:
             print('Generating Global Sprint OpportunityPage')
-            OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint', no_cta=True)
+            OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint')
 
         reseed(seed)
 
@@ -477,9 +471,9 @@ def generate(seed):
         except OpportunityPage.DoesNotExist:
             print('Generating multi-page OpportunityPage')
             multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
-            [OpportunityPageFactory(parent=multi_page_opportunity, no_cta=True) for k in range(3)]
+            [OpportunityPageFactory(parent=multi_page_opportunity) for k in range(3)]
 
-        reseed(seed)]
+        reseed(seed)
 
         try:
             blog_namespace = WagtailPage.objects.get(title='blog')
