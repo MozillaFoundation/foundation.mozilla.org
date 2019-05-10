@@ -10,6 +10,10 @@
     font-weight: 400;
   }
 
+  .fields-wrapper {
+    flex: 1 1 auto;
+  }
+
   @at-root .dark-theme & {
     form {
       input {

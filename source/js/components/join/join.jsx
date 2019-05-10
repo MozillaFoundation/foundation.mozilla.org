@@ -230,7 +230,7 @@ export default class JoinUs extends React.Component {
             id="PrivacyCheckbox"
             ref={el => (this.privacy = el)}
           />
-          <p className="d-inline-block body-small mb-0">
+          <p className="d-inline-block body-small my-0">
             I'm okay with Mozilla handling my info as explained in this{" "}
             <a href="https://www.mozilla.org/privacy/websites/">
               Privacy Notice
@@ -252,7 +252,7 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return <button className="btn btn-primary join-btn w-100">Sign up</button>;
+    return <button className="btn btn-primary w-100">Sign up</button>;
   }
 
   /**
@@ -275,7 +275,7 @@ export default class JoinUs extends React.Component {
 
     return (
       <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
-        <div className={fieldsWrapperClass}>
+        <div className={`fields-wrapper ${fieldsWrapperClass}`}>
           {this.renderEmailField()}
           {this.renderPrivacyField()}
         </div>
