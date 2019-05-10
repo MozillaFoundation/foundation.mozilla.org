@@ -266,7 +266,6 @@ export default class JoinUs extends React.Component {
     let fieldsWrapperClass = `w-100`;
     let submitWrapperClass = `w-100`;
 
-    console.log(this.props);
     if (this.props.buttonPosition === `side`) {
       formClass = `${formClass} flex-md-row`;
       fieldsWrapperClass = ``;
