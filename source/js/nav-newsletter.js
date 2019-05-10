@@ -56,30 +56,25 @@ let navNewsletter = {
     container.classList.remove("expanded");
     buttonDesktop.classList.remove("active");
     document.removeEventListener("click", navNewsletter.closeFormClickHandler);
+    document.removeEventListener("scroll", navNewsletter.closeFormClickHandler);
     navNewsletter.unmountForm();
     isShown = false;
   },
 
   // For desktop+ version:
-  // inject a new sign up form then transition section to its expanded state
+  // inject a new sign up form then transition newsletter section to its expanded state
   expandDesktopNewsletter: event => {
     navNewsletter.injectForm();
-
-    // Any element set as "sticky" by CSS is not truly sticky until page has been scrolled.
-    // Here's an ugly but simple hack to force the newsletter section to act sticky
-    // so as it expands it will not push the page content down
-    if (window.scrollY === 0) {
-      window.scroll({ top: 1 });
-    }
-
+    container.style.top = `${primaryNav.offsetHeight}px`;
     container.classList.add("expanded");
     buttonDesktop.classList.add("active");
     document.addEventListener(`click`, navNewsletter.closeFormClickHandler);
+    document.addEventListener("scroll", navNewsletter.closeFormClickHandler);
     isShown = true;
   },
 
   // For mobile version:
-  // transition section to its close state,
+  // transition newsletter section to its close state,
   // remove the global 'closeFormClickHandler' click event handler,
   // and unmount the form from DOM
   closeMobileNewsletter: () => {

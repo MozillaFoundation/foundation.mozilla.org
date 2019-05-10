@@ -269,6 +269,10 @@
 
   @media (min-width: $bp-lg) {
     opacity: 1;
+    position: absolute;
+    left: 0;
+    // width: 100%;
+    right: 0;
   }
 
   &.expanded {
