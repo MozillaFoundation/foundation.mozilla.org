@@ -25,7 +25,10 @@ def generate_field(field_type, value):
 def generate_paragraph_field():
     paragraphs = (
         f'<h3>{fake.sentence()}</h3>',
-        f'<p>{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}</p>',
+        f'<p>{fake.text(max_nb_chars=200)} <b>This sentence is in bold text.</b> {fake.text(max_nb_chars=200)} '
+        f'<a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a> '
+        f'{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}</p>',
+        f'<p>{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}',
         f'<ul>',
         ''.join([f'<li>{fake.word()}</li>' for i in range(10)]),
         f'</ul><br />',
@@ -52,6 +55,36 @@ def generate_image_field():
         'altText': alt_text,
         'caption': caption,
         'captionURL': caption_url,
+    })
+
+
+def generate_image_text_field():
+    image_id = choice(Image.objects.all()).id
+    image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+    url = fake.url(schemes=['https'])
+    alt_text = ' '.join(fake.words(nb=5))
+    top_divider = fake.boolean()
+    bottom_divider = top_divider
+
+    return generate_field('image_text', {
+        'image': image_id,
+        'text': image_text,
+        'url': url,
+        'altText': alt_text,
+        'top_divider': top_divider,
+        'bottom_divider': bottom_divider,
+    })
+
+
+def generate_image_text_mini_field():
+    image_id = choice(Image.objects.all()).id
+    image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+    alt_text = ' '.join(fake.words(nb=5))
+
+    return generate_field('image_text_mini', {
+        'image': image_id,
+        'text': image_text,
+        'altText': alt_text,
     })
 
 
@@ -91,6 +124,30 @@ def generate_quote_field():
     })
 
 
+def generate_video_field():
+    url = fake.url(schemes=['https'])
+    caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+    captionURL = fake.url(schemes=['https'])
+
+    return generate_field('video', {
+        'url': url,
+        'caption': caption,
+        'captionURL': captionURL,
+    })
+
+
+def generate_linkbutton_field():
+    label = ' '.join(fake.words(nb=3))
+    url = fake.url(schemes=['https'])
+    styling = choice(['btn-primary', 'btn-secondary'])
+
+    return generate_field('linkbutton', {
+        'label': label,
+        'URL': url,
+        'styling': styling,
+    })
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -113,7 +170,11 @@ class StreamfieldProvider(BaseProvider):
             'image': generate_image_field,
             'spacer': generate_spacer_field,
             'image_text2': generate_image_text2_field,
-            'quote': generate_quote_field
+            'quote': generate_quote_field,
+            'image_text': generate_image_text_field,
+            'image_text_mini': generate_image_text_mini_field,
+            'video': generate_video_field,
+            'linkbutton': generate_linkbutton_field,
         }
 
         streamfield_data = []
