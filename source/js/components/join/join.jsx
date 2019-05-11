@@ -1,5 +1,6 @@
 import React from "react";
 import ReactGA from "react-ga";
+import ReactDOM from "react-dom";
 import classNames from "classnames";
 import basketSignup from "../../basket-signup.js";
 
@@ -22,6 +23,21 @@ export default class JoinUs extends React.Component {
   componentDidMount() {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    let navWrapper = document.querySelector("#nav-newsletter-form-wrapper");
+
+    // when user has successfully signed up for newletter from the newsletter section on the nav,
+    // update the dismiss button so it reads "Back to menu" instead of "No thanks"
+    if (
+      navWrapper &&
+      navWrapper.contains(ReactDOM.findDOMNode(this)) &&
+      navWrapper.querySelector(".form-dismiss") &&
+      this.state.apiSuccess
+    ) {
+      navWrapper.querySelector(".form-dismiss").textContent = "Back to menu";
     }
   }
 

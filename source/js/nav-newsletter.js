@@ -43,6 +43,7 @@ let navNewsletter = {
     // unmount form after newsletter section has transitioned back to the previous view
     let handleTransitionend = () => {
       container.removeEventListener("transitionend", handleTransitionend);
+      buttonDismiss.textContent = "No thanks";
       ReactDOM.unmountComponentAtNode(container.querySelector(".join-us"));
     };
     container.addEventListener("transitionend", handleTransitionend);
@@ -105,8 +106,6 @@ let navNewsletter = {
   init: (siteUrl, token) => {
     foundationSiteURL = siteUrl;
     csrfToken = token;
-
-    // let newsletterInput = document.getElementById("newsletter-input");
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section
