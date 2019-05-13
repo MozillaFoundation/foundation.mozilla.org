@@ -24,6 +24,7 @@ def generate_field(field_type, value):
 
 def generate_paragraph_field():
     paragraphs = (
+        f'<p>'
         f'<h3>{fake.sentence()}</h3>',
         f'<p>{fake.text(max_nb_chars=200)} <b>This sentence is in bold text.</b> {fake.text(max_nb_chars=200)} '
         f'<a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a> '
@@ -32,7 +33,8 @@ def generate_paragraph_field():
         f'<ul>',
         ''.join([f'<li>{fake.word()}</li>' for i in range(10)]),
         f'</ul><br />',
-        f'<a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a>'
+        f'<a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a>',
+        f'</p>'
     )
 
     return generate_field('paragraph', ''.join(paragraphs))
