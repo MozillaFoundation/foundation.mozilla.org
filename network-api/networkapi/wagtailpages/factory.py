@@ -322,13 +322,13 @@ def generate(seed):
             hostname = 'localhost'
             port = 8000
 
-    WagtailSite.objects.create(
-        hostname=hostname,
-        port=port,
-        root_page=home_page,
-        site_name='Foundation Home Page',
-        is_default_site=True
-    )
+        WagtailSite.objects.create(
+            hostname=hostname,
+            port=port,
+            root_page=home_page,
+            site_name='Foundation Home Page',
+            is_default_site=True
+        )
 
     reseed(seed)
 
