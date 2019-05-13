@@ -322,166 +322,166 @@ def generate(seed):
             hostname = 'localhost'
             port = 8000
 
-        WagtailSite.objects.create(
-            hostname=hostname,
-            port=port,
-            root_page=home_page,
-            site_name='Foundation Home Page',
-            is_default_site=True
-        )
+    WagtailSite.objects.create(
+        hostname=hostname,
+        port=port,
+        root_page=home_page,
+        site_name='Foundation Home Page',
+        is_default_site=True
+    )
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            about_page = WagtailPage.objects.get(title='about')
-            print('about page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an about Page (PrimaryPage)')
-            about_page = PrimaryPageFactory.create(parent=home_page, title='about')
+    try:
+        about_page = WagtailPage.objects.get(title='about')
+        print('about page exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating an about Page (PrimaryPage)')
+        about_page = PrimaryPageFactory.create(parent=home_page, title='about')
 
-        reseed(seed)
+    reseed(seed)
 
-        print('Generating child pages for about page')
-        [PrimaryPageFactory.create(parent=about_page) for i in range(5)]
+    print('Generating child pages for about page')
+    [PrimaryPageFactory.create(parent=about_page) for i in range(5)]
 
-        try:
-            WagtailPage.objects.get(title='styleguide')
-            print('styleguide page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating a Styleguide Page')
-            StyleguideFactory.create(parent=home_page)
+    try:
+        WagtailPage.objects.get(title='styleguide')
+        print('styleguide page exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating a Styleguide Page')
+        StyleguideFactory.create(parent=home_page)
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            WagtailPage.objects.get(title='news')
-            print('news page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty News Page')
-            NewsPageFactory.create(parent=home_page)
+    try:
+        WagtailPage.objects.get(title='news')
+        print('news page exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating an empty News Page')
+        NewsPageFactory.create(parent=home_page)
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            WagtailPage.objects.get(title='initiatives')
-            print('initiatives page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty Initiatives Page')
-            InitiativesPageFactory.create(parent=home_page)
+    try:
+        WagtailPage.objects.get(title='initiatives')
+        print('initiatives page exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating an empty Initiatives Page')
+        InitiativesPageFactory.create(parent=home_page)
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            participate_page = WagtailPage.objects.get(title='participate')
-            print('participate page exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an empty Participate Page')
-            participate_page = ParticipatePage2Factory.create(parent=home_page)
+    try:
+        participate_page = WagtailPage.objects.get(title='participate')
+        print('participate page exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating an empty Participate Page')
+        participate_page = ParticipatePage2Factory.create(parent=home_page)
 
-        reseed(seed)
+    reseed(seed)
 
-        print('Generating Participate Highlights')
-        if participate_page is not None:
-            featured_highlights = [HighlightFactory.create() for i in range(3)]
-            participate_page.featured_highlights = [
-                ParticipatePage2FeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(3)
-            ]
-            featured_highlights2 = [HighlightFactory.create() for i in range(6)]
-            participate_page.featured_highlights2 = [
-                ParticipatePage2FeaturedHighlights2Factory.build(highlight=featured_highlights2[i]) for i in range(6)
-            ]
-            participate_page.save()
+    print('Generating Participate Highlights')
+    if participate_page is not None:
+        featured_highlights = [HighlightFactory.create() for i in range(3)]
+        participate_page.featured_highlights = [
+            ParticipatePage2FeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(3)
+        ]
+        featured_highlights2 = [HighlightFactory.create() for i in range(6)]
+        participate_page.featured_highlights2 = [
+            ParticipatePage2FeaturedHighlights2Factory.build(highlight=featured_highlights2[i]) for i in range(6)
+        ]
+        participate_page.save()
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            campaign_namespace = WagtailPage.objects.get(title='campaigns')
-            print('campaigns namespace exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating a campaigns namespace')
-            campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
+    try:
+        campaign_namespace = WagtailPage.objects.get(title='campaigns')
+        print('campaigns namespace exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating a campaigns namespace')
+        campaign_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='campaigns', live=False)
 
-        reseed(seed)
+    reseed(seed)
 
-        print('Generating Campaign Pages under namespace')
-        campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+    print('Generating Campaign Pages under namespace')
+    campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
 
-        reseed(seed)
+    reseed(seed)
 
-        print('Generating Donation Modals for Campaign Pages')
-        [DonationModalsFactory.create(page=campaign) for campaign in campaigns]
+    print('Generating Donation Modals for Campaign Pages')
+    [DonationModalsFactory.create(page=campaign) for campaign in campaigns]
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            CampaignPage.objects.get(title='single-page')
-            print('single-page CampaignPage already exists')
-        except CampaignPage.DoesNotExist:
-            print('Generating single-page CampaignPage')
-            CampaignPageFactory.create(parent=campaign_namespace, title='single-page')
+    try:
+        CampaignPage.objects.get(title='single-page')
+        print('single-page CampaignPage already exists')
+    except CampaignPage.DoesNotExist:
+        print('Generating single-page CampaignPage')
+        CampaignPageFactory.create(parent=campaign_namespace, title='single-page')
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            CampaignPage.objects.get(title='multi-page')
-            print('multi-page CampaignPage already exists.')
-        except CampaignPage.DoesNotExist:
-            print('Generating multi-page CampaignPage')
-            multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
-            [CampaignPageFactory(parent=multi_page_campaign) for k in range(3)]
+    try:
+        CampaignPage.objects.get(title='multi-page')
+        print('multi-page CampaignPage already exists.')
+    except CampaignPage.DoesNotExist:
+        print('Generating multi-page CampaignPage')
+        multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
+        [CampaignPageFactory(parent=multi_page_campaign) for k in range(3)]
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            opportunity_namespace = WagtailPage.objects.get(title='opportunity')
-            print('opportunity namespace exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating an opportunity namespace')
-            opportunity_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='opportunity', live=False)
+    try:
+        opportunity_namespace = WagtailPage.objects.get(title='opportunity')
+        print('opportunity namespace exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating an opportunity namespace')
+        opportunity_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='opportunity', live=False)
 
-        reseed(seed)
+    reseed(seed)
 
-        print('Generating Opportunity Pages under namespace')
-        [OpportunityPageFactory.create(parent=opportunity_namespace) for i in range(5)]
+    print('Generating Opportunity Pages under namespace')
+    [OpportunityPageFactory.create(parent=opportunity_namespace) for i in range(5)]
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            OpportunityPage.objects.get(title='Global Sprint')
-            print('Global Sprint OpportunityPage exists')
-        except OpportunityPage.DoesNotExist:
-            print('Generating Global Sprint OpportunityPage')
-            OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint')
+    try:
+        OpportunityPage.objects.get(title='Global Sprint')
+        print('Global Sprint OpportunityPage exists')
+    except OpportunityPage.DoesNotExist:
+        print('Generating Global Sprint OpportunityPage')
+        OpportunityPageFactory.create(parent=opportunity_namespace, title='Global Sprint')
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            OpportunityPage.objects.get(title='single-page')
-            print('single-page OpportunityPage exists')
-        except OpportunityPage.DoesNotExist:
-            print('Generating single-page OpportunityPage')
-            OpportunityPageFactory.create(parent=opportunity_namespace, title='single-page')
+    try:
+        OpportunityPage.objects.get(title='single-page')
+        print('single-page OpportunityPage exists')
+    except OpportunityPage.DoesNotExist:
+        print('Generating single-page OpportunityPage')
+        OpportunityPageFactory.create(parent=opportunity_namespace, title='single-page')
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            OpportunityPage.objects.get(title='multi-page')
-            print('multi-page OpportunityPage exists')
-        except OpportunityPage.DoesNotExist:
-            print('Generating multi-page OpportunityPage')
-            multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
-            [OpportunityPageFactory(parent=multi_page_opportunity) for k in range(3)]
+    try:
+        OpportunityPage.objects.get(title='multi-page')
+        print('multi-page OpportunityPage exists')
+    except OpportunityPage.DoesNotExist:
+        print('Generating multi-page OpportunityPage')
+        multi_page_opportunity = OpportunityPageFactory(parent=opportunity_namespace, title='multi-page')
+        [OpportunityPageFactory(parent=multi_page_opportunity) for k in range(3)]
 
-        reseed(seed)
+    reseed(seed)
 
-        try:
-            blog_namespace = WagtailPage.objects.get(title='blog')
-            print('blog namespace exists')
-        except WagtailPage.DoesNotExist:
-            print('Generating a blog namespace')
-            blog_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='blog', live=False)
+    try:
+        blog_namespace = WagtailPage.objects.get(title='blog')
+        print('blog namespace exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating a blog namespace')
+        blog_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='blog', live=False)
 
-        print('Generating Blog Pages under namespace')
-        [BlogPageFactory.create(parent=blog_namespace) for i in range(3)]
+    print('Generating Blog Pages under namespace')
+    [BlogPageFactory.create(parent=blog_namespace) for i in range(3)]
 
-        reseed(seed)
+    reseed(seed)
