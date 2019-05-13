@@ -80,7 +80,7 @@
     "snyk": "^1.154.0",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
-    "stylelint-prettier": "^1.0.6",
+    "stylelint-prettier": "^1.1.0",
     "svgo": "^1.2.2",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
