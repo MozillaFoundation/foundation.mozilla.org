@@ -22,7 +22,6 @@ from networkapi.wagtailpages.models import (
     PrimaryPage,
     CampaignPage,
     MiniSiteNameSpace,
-    PeoplePage,
     NewsPage,
     Styleguide,
     InitiativesPage,
@@ -292,7 +291,7 @@ def generate(seed):
         )
 
     reseed(seed)
-    
+
     print('Generating Homepage Highlights and News')
     if home_page is not None:
         featured_news = [NewsFactory.create() for i in range(6)]
@@ -486,4 +485,3 @@ def generate(seed):
         [BlogPageFactory.create(parent=blog_namespace) for i in range(3)]
 
         reseed(seed)
-

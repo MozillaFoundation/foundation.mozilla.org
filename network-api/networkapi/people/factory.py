@@ -99,16 +99,16 @@ class AffiliationFactory(DjangoModelFactory):
 
 def generate(seed):
     reseed(seed)
-    
+
     print('Generating five InternetHealthIssue')
     [InternetHealthIssue.objects.get_or_create(name=e) for e in internet_health_issues]
-        
+
     reseed(seed)
-    
+
     print('Generating People')
     generate_fake_data(PersonFactory, 10)
 
     reseed(seed)
-    
+
     print('Generating People with Affiliation')
     generate_fake_data(AffiliationFactory, 10)

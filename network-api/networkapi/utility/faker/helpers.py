@@ -2,6 +2,7 @@ from itertools import chain, combinations
 import factory
 import random
 
+
 def powerset(iterable):
     "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
     s = list(iterable)
@@ -21,8 +22,8 @@ def generate_fake_data(factory_model, count):
         for i in range(count):
             factory_model.create(**kwargs)
 
+
 def reseed(seed):
     random.seed(seed)
     faker = factory.faker.Faker._get_faker(locale='en-US')
     faker.random.seed(seed)
-
