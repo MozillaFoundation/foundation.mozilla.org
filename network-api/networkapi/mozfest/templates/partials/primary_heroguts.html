@@ -1,0 +1,37 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div id="hero">
+  <div class="banner">
+    {% if page.banner %}
+    <picture>
+      {% image page.banner fill-4032x1152 as image_xl %}
+      {% image page.banner fill-2400x686 as image_lg %}
+      {% image page.banner fill-1984x567 as image_md %}
+      {% image page.banner fill-1536x439 as image_sm %}
+      <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
+      <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
+      <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
+      <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
+      {# Fallback Image #}
+      {% image page.banner fill-1008x288 alt="" %}
+    </picture>
+    {% else %}
+    <img src="/_images/banner-black-white-marble.jpg" alt="">
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="cutout col-12 col-md-8 pt-4">
+        <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+        {% if page.intro %}
+        <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if singleton_page == True %}
+    {% include "partials/intro_and_content_divider.html" with wrapper_class="hidden-md-up" %}
+  {% endif %}
+</div>

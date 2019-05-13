@@ -29,6 +29,7 @@
     {% endblock %}
 
     {% block page_top_content %}{% endblock %}
+
     <div class="wrapper">
       <div id="member-notice">{% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
       </div>
@@ -40,8 +41,13 @@
       {% block heroGuts %}{% endblock %}
       {% block content %}{% endblock %}
 
+      {% block footer_block %}
       {% include "partials/footer.html" %}
+      {% endblock %}
     </div>
+
+    {% block script_bundle %}
     <script src="/_js/main.compiled.js"></script>
+    {% endblock %}
   </body>
 </html>
