@@ -50,7 +50,7 @@
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.5.1",
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^8.0.6",
     "browserslist": "^4.5.5",
     "chokidar-cli": "^1.2.2",
     "classnames": "2.2.6",
