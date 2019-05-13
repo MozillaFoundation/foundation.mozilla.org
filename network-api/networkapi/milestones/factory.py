@@ -9,6 +9,7 @@ from factory import (
 )
 
 from networkapi.utility.faker import ImageProvider
+from networkapi.utility.faker.helpers import reseed
 from networkapi.milestones.models import Milestone
 
 Faker.add_provider(ImageProvider)
@@ -40,3 +41,9 @@ class MilestoneFactory(DjangoModelFactory):
     @post_generation
     def photo_name(self, create, extracted, **kwargs):
         self.photo.name = Faker('generic_image').generate({})
+
+
+def generate(seed):
+    reseed(seed)
+
+    [MilestoneFactory.create() for i in range(10)]

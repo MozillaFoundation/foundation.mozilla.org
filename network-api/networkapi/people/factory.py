@@ -8,8 +8,17 @@ from factory import (
     Trait,
 )
 
-from networkapi.utility.faker import ImageProvider
+from networkapi.utility.faker import ImageProvider, generate_fake_data
+from networkapi.utility.faker.helpers import reseed
 from networkapi.people.models import InternetHealthIssue, Person, Affiliation
+
+internet_health_issues = [
+    'Digital Inclusion',
+    'Web Literacy',
+    'Open Innovation',
+    'Decentralization',
+    'Online Privacy and Security',
+]
 
 Faker.add_provider(ImageProvider)
 
@@ -86,3 +95,20 @@ class AffiliationFactory(DjangoModelFactory):
 
     name = Faker('company')
     person = SubFactory(PersonFactory)
+
+
+def generate(seed):
+    reseed(seed)
+
+    print('Generating five InternetHealthIssue')
+    [InternetHealthIssue.objects.get_or_create(name=e) for e in internet_health_issues]
+
+    reseed(seed)
+
+    print('Generating People')
+    generate_fake_data(PersonFactory, 10)
+
+    reseed(seed)
+
+    print('Generating People with Affiliation')
+    generate_fake_data(AffiliationFactory, 10)
