@@ -209,7 +209,7 @@ def docker_nuke_db(ctx):
     print("Stopping services first")
     ctx.run("docker-compose down")
     print("Deleting database")
-    ctx.run("docker volume rm foundation.mozilla.org_postgres_data")
+    ctx.run("docker volume rm foundationmozillaorg_postgres_data")
     print("Applying database migrations.")
     docker_migrate(ctx)
     print("Creating fake data")
