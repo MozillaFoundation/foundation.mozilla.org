@@ -34,10 +34,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:0247ad0da9fdbf4e8025b0dafb3982b945d335bcd7043518fdabe9d99f704e17",
-                "sha256:94846e90fc4dbe91a9e70f6a24ca823b4f3acc9a4047b497266d003fe12c80ce"
+                "sha256:1517c52eaa3056d0e81f9a81b580d7f28440e7e1523d10a8acc8160c56be7113",
+                "sha256:19d9d56fcf4f16ffea8a929bbf3c72db3458b6c1f306c04031f3166759cd62ac"
             ],
-            "version": "==1.12.143"
+            "version": "==1.12.146"
         },
         "certifi": {
             "hashes": [
@@ -197,11 +197,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:167cef2454482dc2fbd8b0ff6a5ba3dbac8d3a3ebdee6ba819d008100d9d9428",
-                "sha256:3f2f4570df28df2eb8f39b00520eb610081d6552975e926c6a2cbc64fd89c4c1"
+                "sha256:1da8b46b4767588a007aac546e809a9b65bdf6631817c8b6b7e8b209573e0799",
+                "sha256:64650af92d1cbba15fc607440c824e6744a95b80c7ab6769ceb7b5d99e89129b"
             ],
             "index": "pypi",
-            "version": "==1.0.5"
+            "version": "==1.0.6"
         },
         "filebrowser-safe": {
             "hashes": [
@@ -249,10 +249,10 @@
         },
         "mock": {
             "hashes": [
-                "sha256:21a2c07af3bbc4a77f9d14ac18fcc1782e8e7ea363df718740cdeaf61995b5e7",
-                "sha256:7868db2825a1563578869d4a011a036503a2f1d60f9ff9dd1e3205cd6e25fcec"
+                "sha256:83657d894c90d5681d62155c82bda9c1187827525880eda8ff5df4ec813437c3",
+                "sha256:d157e52d4e5b938c550f39eb2fd15610db062441a9c2747d3dbfa9298211d0f8"
             ],
-            "version": "==3.0.4"
+            "version": "==3.0.5"
         },
         "oauthlib": {
             "hashes": [
