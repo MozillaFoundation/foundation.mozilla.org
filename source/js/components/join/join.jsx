@@ -133,7 +133,8 @@ export default class JoinUs extends React.Component {
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
-    let layoutClass = this.props.layout === `2-column` ? `col-6` : `col-12`;
+    let layoutClass =
+      this.props.layout === `2-column` ? `col-12 col-md-6` : `col-12`;
 
     return (
       <div className={`row ${signupState}`}>
