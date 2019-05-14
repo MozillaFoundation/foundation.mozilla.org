@@ -34,6 +34,15 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  it(`Blog page`, function() {
+    cy.visit(`/en/blog/post`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
   // Opportunity page tests (single and multi-page)
 
   it(`Single-page opportunity`, function() {

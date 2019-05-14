@@ -481,7 +481,13 @@ def generate(seed):
         print('Generating a blog namespace')
         blog_namespace = MiniSiteNameSpaceFactory.create(parent=home_page, title='blog', live=False)
 
-    print('Generating Blog Pages under namespace')
-    [BlogPageFactory.create(parent=blog_namespace) for i in range(3)]
+    reseed(seed)
+
+    try:
+        BlogPage.objects.get(title='post')
+        print('a post page (BlogPage) exists')
+    except BlogPage.DoesNotExist:
+        print('Generating a post page (BlogPage) under namespace')
+        BlogPageFactory.create(parent=blog_namespace, title='post')
 
     reseed(seed)
