@@ -75,6 +75,7 @@ The `load_fake_data` command will output pages with the following slugs:
 - `/campaigns/multi-page/`
 - `/opportunity/single-page/`
 - `/opportunity/multi-page/`
+- `/blog/post/
 
 This list is available on review apps by clicking on `DEV HELP` in the menu or going to `[review app url]/help`.
 
