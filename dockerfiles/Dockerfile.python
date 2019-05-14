@@ -12,7 +12,8 @@ RUN apk add --no-cache \
     build-base \
     jpeg-dev \
     zlib-dev \
-    postgresql-dev
+    postgresql-dev \
+    postgresql-client
 
 # Install pipenv
 RUN pip install pipenv
