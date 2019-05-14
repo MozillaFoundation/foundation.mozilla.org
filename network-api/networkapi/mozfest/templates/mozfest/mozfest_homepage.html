@@ -1,34 +1,3 @@
-{% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
+{% extends "mozfest-base.html" %}
 
-{% block pageTitle %}
-    Mozfest - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
-{% endblock %}
-
-{% block bodyID %}home{% endblock %}
-
-{% block donate %}
-    <!-- nothing right now -->
-{% endblock %}
-
-{% block primaryNav %}
-    {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
-{% endblock %}
-
-{% block heroGuts %}
-  {% include "partials/primary_heroguts.html" with root=root page=page %}
-{% endblock %}
-
-{% block content %}
-<div class="container cms">
-  Mozfest content goes here
-</div>
-{% endblock %}
-
-{% block script_bundle %}
-     <!-- nothing right now -->
-{% endblock %}
-
-{% block footer_block %}
-    {% include "partials/mozfest_footer.html" %}
-{% endblock %}
+{% block mozfestBodyId %}home{% endblock %}

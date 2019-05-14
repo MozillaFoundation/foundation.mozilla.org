@@ -1,0 +1,40 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
+
+{% block pageTitle %}
+    Mozfest - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+{% endblock %}
+
+{% block bodyID %}mozfest-{% block mozfestBodyId %}home{% endblock %}{% endblock %}
+
+{% block donate %}
+    <!-- nothing right now -->
+{% endblock %}
+
+
+{% block primaryNav %}
+    {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
+{% endblock %}
+
+
+{% block heroGuts %}
+  {% include "partials/primary_heroguts.html" with root=root page=page %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container cms">
+  Mozfest content goes here
+</div>
+{% endblock %}
+
+
+{% block footer_block %}
+    {% include "partials/mozfest_footer.html" %}
+{% endblock %}
+
+
+{% block script_bundle %}
+  {# This uses the mofo main.js for now, to make sure "things work" until we (maybe never?) create a separate bundle #}
+  <script src="/_js/main.compiled.js"></script>
+{% endblock %}
