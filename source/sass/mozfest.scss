@@ -5,6 +5,16 @@ body.mozfest {
 
       .banner {
         height: var(--moz_banner_height);
+
+        .homepage-top-content {
+          position: absolute;
+          z-index: 2;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+
+          // add heading and paragraph color override here
+        }
       }
 
       .cutout {

@@ -10,6 +10,7 @@ from networkapi.wagtailpages.models import (
     FoundationMetadataPageMixin
 )
 
+
 class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
     header = models.CharField(
         max_length=250,
@@ -53,6 +54,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class MozfestHomepage(MozfestPrimaryPage):
+
     subpage_types = [
         'MozfestPrimaryPage'
     ]
