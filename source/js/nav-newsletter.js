@@ -3,16 +3,14 @@ import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
 
-let primaryNav = document.querySelector(`#primary-nav-container`);
-let narrowMenuContainer = primaryNav.querySelector(
-  ".narrow-screen-menu-container"
-);
-let wideMenuContainer = primaryNav.querySelector(".wide-screen-menu-container");
-let container = document.querySelector("#nav-newsletter-form-wrapper");
-let buttonDesktop = wideMenuContainer.querySelector(".btn-newsletter");
-let buttonMobile = narrowMenuContainer.querySelector(".btn-newsletter");
-let joinUs = container.querySelector(`.join-us.on-nav`);
-let buttonDismiss = container.querySelector(".form-dismiss");
+let primaryNav,
+  narrowMenuContainer,
+  wideMenuContainer,
+  container,
+  buttonDesktop,
+  buttonMobile,
+  joinUs,
+  buttonDismiss;
 
 class NavNewsletter {
   constructor() {
@@ -87,10 +85,45 @@ class NavNewsletter {
     }
   }
 
-  init(foundationSiteURL, csrfToken) {
-    if (!joinUs) return;
+  checkDomNodes() {
+    let allNodesExisted = false;
 
-    console.log(`.join-us.on-nav exists`);
+    try {
+      primaryNav = document.querySelector(`#primary-nav-container`);
+      narrowMenuContainer = primaryNav.querySelector(
+        ".narrow-screen-menu-container"
+      );
+      wideMenuContainer = primaryNav.querySelector(
+        ".wide-screen-menu-container"
+      );
+      container = document.querySelector("#nav-newsletter-form-wrapper");
+      buttonDesktop = wideMenuContainer.querySelector(".btn-newsletter");
+      buttonMobile = narrowMenuContainer.querySelector(".btn-newsletter");
+      joinUs = container.querySelector(`.join-us.on-nav`);
+      buttonDismiss = container.querySelector(".form-dismiss");
+    } catch (error) {
+      console.error(`Some DOM nodes do not exist!`);
+    }
+
+    if (
+      primaryNav &&
+      narrowMenuContainer &&
+      wideMenuContainer &&
+      container &&
+      buttonDesktop &&
+      buttonMobile &&
+      joinUs &&
+      buttonDismiss
+    ) {
+      allNodesExisted = true;
+    }
+
+    return allNodesExisted;
+  }
+
+  init(foundationSiteURL, csrfToken) {
+    // some DOM nodes do not exist, return
+    if (!this.checkDomNodes()) return;
 
     var props = joinUs.dataset;
     props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${props.signupId ||
