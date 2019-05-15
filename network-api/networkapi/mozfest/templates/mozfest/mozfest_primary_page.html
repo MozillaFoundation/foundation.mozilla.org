@@ -1,3 +1,8 @@
 {% extends "./mozfest-base.html" %}
+{% load primary_page_tags %}
 
 {% block mozfestBodyId %}primary{% endblock %}
+
+{% block secondary_nav %}
+  {% primary_page_menu page %}
+{% endblock %}

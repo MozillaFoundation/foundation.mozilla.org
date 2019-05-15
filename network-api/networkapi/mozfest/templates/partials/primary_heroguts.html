@@ -3,7 +3,10 @@
 <div id="hero">
   <div class="banner">
     {% if page.banner %}
-      {% if large %}
+      {% if homepage %}
+        <div class="homepage-content">
+          <h1>HOMEPAGE</h1>
+        </div>
         {% include "./hero/large.html" with page=page %}
       {% else %}
         {% include "./hero/normal.html" with page=page %}

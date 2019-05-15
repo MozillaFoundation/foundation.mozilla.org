@@ -3,11 +3,12 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from networkapi.wagtailpages.utils import get_page_tree_information
 from networkapi.wagtailpages.models import (
     base_fields,
     FoundationMetadataPageMixin
 )
-
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
     header = models.CharField(
@@ -45,6 +46,10 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
     ]
 
     show_in_menus_default = True
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return get_page_tree_information(self, context)
 
 
 class MozfestHomepage(MozfestPrimaryPage):
