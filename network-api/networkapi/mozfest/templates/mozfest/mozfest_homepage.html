@@ -1,3 +1,7 @@
-{% extends "mozfest-base.html" %}
+{% extends "./mozfest-base.html" %}
 
 {% block mozfestBodyId %}home{% endblock %}
+
+{% block heroGuts %}
+  {% include "partials/primary_heroguts.html" with root=root page=page large=True%}
+{% endblock %}

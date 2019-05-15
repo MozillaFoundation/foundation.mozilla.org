@@ -9,7 +9,11 @@ from modeltranslation.decorators import register
 
 @register(MozfestPrimaryPage)
 class MozfestPrimaryPageTR(TranslationOptions):
-    fields = ()
+    fields = (
+        'header',
+        'intro',
+        'body',
+    )
 
 
 @register(MozfestHomepage)

@@ -1,0 +1,18 @@
+body.mozfest {
+  &#view-mozfest-home {
+    #hero {
+      --moz_banner_height: 430px;
+
+      .banner {
+        height: var(--moz_banner_height);
+      }
+
+      .cutout {
+        margin-top: calc(var(--moz_banner_height) - 40px);
+        background: #ffffff;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+  }
+}
