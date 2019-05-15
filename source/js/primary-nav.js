@@ -69,7 +69,7 @@ let primaryNav = {
     elBurger.addEventListener(`click`, () => {
       if (navNewsletter.getShownState()) {
         // if newsletter section is open, close just that section
-        // instead of chaging the menuOpen state
+        // instead of changing the menuOpen state
         navNewsletter.closeMobileNewsletter();
       } else {
         menuOpen = !menuOpen;

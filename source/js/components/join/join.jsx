@@ -7,7 +7,19 @@ import basketSignup from "../../basket-signup.js";
 export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState();
+  }
+
+  reset() {
+    if (!this.state.apiSuccess) {
+      this.email.value = "";
+      this.privacy.checked = false;
+    }
+    this.setState(this.getInitialState());
+  }
+
+  getInitialState() {
+    return {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
@@ -29,7 +41,7 @@ export default class JoinUs extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     let navWrapper = document.querySelector("#nav-newsletter-form-wrapper");
 
-    // when user has successfully signed up for newletter from the newsletter section on the nav,
+    // when user has successfully signed up for newsletter from the newsletter section on the nav,
     // update the dismiss button so it reads "Back to menu" instead of "No thanks"
     if (
       navWrapper &&
