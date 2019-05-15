@@ -9,7 +9,7 @@ body.mozfest {
 
       .cutout {
         margin-top: calc(var(--moz_banner_height) - 40px);
-        background: #ffffff;
+        background: $white;
         padding-left: 15px;
         padding-right: 15px;
       }
