@@ -4,18 +4,7 @@
   <div class="banner">
     {% if page.banner %}
       {% if homepage %}
-        <div class="homepage-top-content row">
-          <div class="col-12 col-md-8">
-            <h1 class="h2-heading white">Come with an idea<br>leave with a community</h1>
-            <p>
-              Now in its 10<sup>th</sup> year, the Mozilla Festival is
-              a seven-day gathering of educators, activists, technologists,
-              artists, and young people dedicated to creating a better,
-              healthier open internet.
-            </p>
-            <button>Watch Video</button>
-          </div>
-        </div>
+        {% include "./homepage_banner.html" with page=page %}
         {% include "./hero/large.html" with page=page %}
       {% else %}
         {% include "./hero/normal.html" with page=page %}

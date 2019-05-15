@@ -54,7 +54,30 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class MozfestHomepage(MozfestPrimaryPage):
+    banner_heading = models.CharField(
+        max_length=250,
+        blank=True,
+        help_text='A banner heading specific to the homepage'
+    )
+
+    banner_guide_text = models.CharField(
+        max_length=1000,
+        blank=True,
+        help_text='A banner paragraph specific to the homepage'
+    )
+
+    banner_video_url = models.URLField(
+        max_length=2048,
+        blank=True,
+        help_text='The video to play when users click "watch video"'
+    )
 
     subpage_types = [
         'MozfestPrimaryPage'
+    ]
+
+    content_panels = MozfestPrimaryPage.content_panels + [
+        FieldPanel('banner_heading'),
+        FieldPanel('banner_guide_text'),
+        FieldPanel('banner_video_url'),
     ]

@@ -13,7 +13,13 @@ body.mozfest {
           margin: 0;
           padding: 0;
 
-          // add heading and paragraph color override here
+          .banner-heading {
+            color: $white;
+          }
+
+          .banner-text {
+            color: $white;
+          }
         }
       }
 

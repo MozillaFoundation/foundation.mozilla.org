@@ -31,21 +31,13 @@
             <div class="d-flex flex-row justify-content-between">
               <div id="primary-nav-links">
                 <div class="d-flex align-items-center flex-wrap">
-                {% if page.zen_nav == True %}
-                  <button class="burger">
-                {% else %}
                   <button class="burger hidden-lg-up ml-md-0">
-                {% endif %}
                     <div class="burger-bar burger-bar-top"></div>
                     <div class="burger-bar burger-bar-middle"></div>
                     <div class="burger-bar burger-bar-bottom"></div>
                   </button>
                   <a class="logo text-hide" href="/">Mozilla Foundation</a>
-                {% if page.zen_nav == True %}
-                  <div class="wide-screen-menu hidden">
-                {% else %}
                   <div class="wide-screen-menu">
-                {% endif %}
                     <div class="nav-links d-none d-lg-block">
                       <a class="{% primary_active_nav request '/about' %}" href="/about">About</a>
                       <a class="{% primary_active_nav request '/spaces' %}" href="/spaces">Spaces</a>
