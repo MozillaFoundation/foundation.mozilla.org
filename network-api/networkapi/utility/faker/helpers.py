@@ -1,7 +1,6 @@
 from itertools import chain, combinations
 import factory
 import random
-from wagtail.core.models import Page as WagtailPage
 from networkapi.wagtailpages.models import Homepage
 
 
