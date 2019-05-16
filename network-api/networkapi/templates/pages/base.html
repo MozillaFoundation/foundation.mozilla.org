@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
     <title>{% block pageTitle %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
   </head>
-  <body id="view-{% block bodyID %}{% endblock %}">
+  <body class="{% block bodyclass %}{% endblock %}" id="view-{% block bodyID %}{% endblock %}">
 
     {% if user.is_authenticated %}
     <div class="authenticated-page-edit" style="position: fixed; bottom:0; background: teal; padding: 0.25em; z-index:1000">
@@ -29,6 +29,7 @@
     {% endblock %}
 
     {% block page_top_content %}{% endblock %}
+
     <div class="wrapper">
       <div id="member-notice">{% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
       </div>
@@ -38,10 +39,18 @@
         {% endblock %}
       </div>
       {% block heroGuts %}{% endblock %}
+
       {% block content %}{% endblock %}
 
+      {% block prefooter %}{% endblock %}
+
+      {% block footer_block %}
       {% include "partials/footer.html" %}
+      {% endblock %}
     </div>
+
+    {% block script_bundle %}
     <script src="/_js/main.compiled.js"></script>
+    {% endblock %}
   </body>
 </html>
