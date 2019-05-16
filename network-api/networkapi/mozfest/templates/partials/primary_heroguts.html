@@ -4,10 +4,10 @@
   <div class="banner">
     {% if page.banner %}
       {% if homepage %}
-        {% include "./homepage_banner.html" with page=page %}
-        {% include "./hero/large.html" with page=page %}
+        {% include "../fragments/homepage_banner.html" with page=page %}
+        {% include "./fragments/hero/large.html" with page=page %}
       {% else %}
-        {% include "./hero/normal.html" with page=page %}
+        {% include "./fragments/hero/normal.html" with page=page %}
       {% endif %}
     {% else %}
     <img src="/_images/mozfest/Festival Banner 1.jpg" alt="">

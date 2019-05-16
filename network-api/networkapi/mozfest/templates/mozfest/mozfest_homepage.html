@@ -1,7 +1,19 @@
 {% extends "./mozfest-base.html" %}
+{% load wagtailcore_tags %}
 
 {% block mozfestBodyId %}home{% endblock %}
 
 {% block heroGuts %}
   {% include "partials/primary_heroguts.html" with root=root page=page homepage=True %}
+{% endblock %}
+
+{% block prefooter %}
+  <div class="row">
+    <div class="prefooter-text col-6">{{ page.prefooter_text | richtext }}</div>
+    <div class="twitter-feed col-6">{% include "../fragments/twitter-feed.html" %}</div>
+  </div>
+{% endblock %}
+
+{% block footer_block %}
+  {% include "partials/mozfest_footer.html" %}
 {% endblock %}

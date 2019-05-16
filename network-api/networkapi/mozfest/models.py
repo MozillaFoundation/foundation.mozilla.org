@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -72,12 +72,24 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='The video to play when users click "watch video"'
     )
 
+    prefooter_text = RichTextField(
+        help_text='Pre-footer content',
+        blank=True
+    )
+
     subpage_types = [
         'MozfestPrimaryPage'
     ]
 
-    content_panels = MozfestPrimaryPage.content_panels + [
+    # Put everything except `prefooter_text` above the body
+    parent_panels = MozfestPrimaryPage.content_panels
+    panel_count = len(parent_panels)
+    n = panel_count - 1
+
+    content_panels = parent_panels[:n] + [
         FieldPanel('banner_heading'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
+    ] + parent_panels[n:] + [
+        FieldPanel('prefooter_text'),
     ]
