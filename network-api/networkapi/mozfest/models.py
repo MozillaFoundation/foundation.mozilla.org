@@ -27,10 +27,9 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         help_text='Choose an image that\'s bigger than 4032px x 1152px with aspect ratio 3.5:1',
     )
 
-    intro = models.CharField(
-        max_length=250,
-        blank=True,
-        help_text='Intro paragraph to show in hero cutout box'
+    intro = RichTextField(
+        help_text='Page intro content',
+        blank=True
     )
 
     body = StreamField(base_fields)
