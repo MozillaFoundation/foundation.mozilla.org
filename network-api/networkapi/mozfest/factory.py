@@ -43,8 +43,12 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
             'banner_heading_text'
         )
 
-    banner_heading = LazyAttribute(lambda o: o.banner_heading_text.rstrip('.'))
-    banner_guide_text = Faker('paragraph', nb_sentences=10, variable_nb_sentences=True)
+    banner_heading = 'Come with an idea, leave with a community.'
+    # LazyAttribute(lambda o: o.banner_heading_text.rstrip('.'))
+    banner_guide_text = ('Now in its 10th year, the Mozilla Festival is a seven-day '
+                         'gathering of educators, activists, technologists, artists, and '
+                         'young people dedicated to creating a better, healthier open internet.')
+    # Faker('paragraph', nb_sentences=10, variable_nb_sentences=True)
     banner_video_url = Faker('url')
     prefooter_text = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
     banner_heading_text = Faker('sentence', nb_words=6, variable_nb_words=True)
