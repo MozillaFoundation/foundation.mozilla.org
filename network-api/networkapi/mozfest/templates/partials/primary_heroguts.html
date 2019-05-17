@@ -4,8 +4,8 @@
   <div class="banner">
     {% if page.banner %}
       {% if homepage %}
-        {% include "./homepage_banner.html" with page=page %}
         {% include "../fragments/hero/large.html" with page=page %}
+        {% include "./homepage_banner.html" with page=page %}
       {% else %}
         {% include "../fragments/hero/normal.html" with page=page %}
       {% endif %}
@@ -16,8 +16,8 @@
 
   <div class="container">
     <div class="row no-gutters">
-      <div class="cutout col-12 col-md-8 pt-4">
-        <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+      <div class="cutout col-12 pt-4">
+        <h1 class="h2-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
         {% if page.intro %}
         <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
         {% endif %}
