@@ -26,10 +26,10 @@ class Command(BaseCommand):
         else:
             seed = random.randint(0, 5000000)
 
-        print('Removing existing Mozfest pages')
+        print('Dropping all Mozfest pages')
         MozfestPrimaryPage.objects.all().delete()
         try:
-            print('Removing existing Mozfest Site')
+            print('Dropping Mozfest Site')
             WagtailSite.objects.get(site_name='Mozilla Festival').delete()
         except WagtailSite.DoesNotExist:
             pass
