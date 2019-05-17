@@ -17,7 +17,6 @@ from networkapi.people.models import (
 )
 from networkapi.wagtailpages.models import CTA
 from networkapi.buyersguide.models import Product
-from networkapi.mozfest.models import MozfestPrimaryPage
 
 
 class Command(BaseCommand):
