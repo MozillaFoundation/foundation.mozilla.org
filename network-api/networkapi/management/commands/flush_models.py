@@ -51,16 +51,19 @@ class Command(BaseCommand):
         self.stdout.write('Dropping Wagtail CTAs...')
         CTA.objects.all().delete()
 
+<<<<<<< HEAD
         self.stdout.write('Dropping all Pages')
         WagtailPage.objects.exclude(id=1).delete()
+=======
+        self.stdout.write('Dropping all Pages...')
+        WagtailPage.objects.exclude(title='Root').delete()
+>>>>>>> Generate sub-pages, and other fixes
 
-        self.stdout.write('Dropping all Products')
+        self.stdout.write('Dropping all Products...')
         Product.objects.all().delete()
 
-        print('Dropping all Mozfest pages')
-        MozfestPrimaryPage.objects.all().delete()
         try:
-            print('Dropping Mozfest Site')
+            print('Dropping Mozfest Site...')
             WagtailSite.objects.get(site_name='Mozilla Festival').delete()
         except WagtailSite.DoesNotExist:
             pass

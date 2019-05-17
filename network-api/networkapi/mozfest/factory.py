@@ -90,3 +90,9 @@ def generate(seed):
         site_name='Mozilla Festival',
         is_default_site=False
     )
+
+    print('Generating Mozfest sub-pages')
+    [MozfestPrimaryPageFactory.create(
+        parent=home_page,
+        title=title
+    ) for title in ['About', 'Spaces', 'Tickets', 'Team', 'Sponsors']]
