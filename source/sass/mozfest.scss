@@ -1,15 +1,73 @@
 body.mozfest {
   &#view-mozfest-home {
     #hero {
-      --moz_banner_height: 470px;
+      --moz_banner_height: 464px;
+      --moz_banner_background_z_index: 1;
 
       .banner {
         height: var(--moz_banner_height);
+        position: relative;
       }
 
-      .cutout {
-        margin-top: calc(var(--moz_banner_height) - 40px);
-        background: $white;
+      .homepage-banner-content {
+        margin-top: 70px;
+        z-index: calc(var(--moz_banner_background_z_index) + 3);
+      }
+
+      .full-width-cutout {
+        $grid-gutter-width: map-get($grid-gutter-widths, xs);
+        $padding-x: #{$grid-gutter-width / 2};
+
+        @media screen and (min-width: $bp-md) {
+          $offset-left: 24px;
+
+          margin-left: -$offset-left;
+          margin-right: -$offset-left;
+          margin-top: -40px;
+
+          .content {
+            z-index: calc(var(--moz_banner_background_z_index) + 2);
+            background: $white;
+            padding-left: $offset-left;
+            padding-right: $offset-left;
+          }
+        }
+      }
+
+      .background-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        .overlay {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            120deg,
+            /* TODO:FIXME: not sure why stylelint didn't complain about these HEX codes */
+              scale-color(#6e008b, $alpha: -20%),
+            scale-color(#4cd6ff, $alpha: -20%)
+          );
+          z-index: calc(var(--moz_banner_background_z_index) + 1);
+        }
+
+        picture {
+          display: flex;
+          position: absolute;
+          z-index: var(--moz_banner_background_z_index);
+          top: 0;
+          left: 0;
+          height: 100%;
+
+          img {
+            position: static;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            object-position: center center;
+          }
+        }
       }
     }
   }

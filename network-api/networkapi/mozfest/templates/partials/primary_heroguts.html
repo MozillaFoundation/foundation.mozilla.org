@@ -14,6 +14,18 @@
     {% endif %}
   </div>
 
+  {% if homepage %}
+  <div class="container">
+    <div class="row full-width-cutout">
+      <div class="content col-12 pt-4">
+        <h1 class="h2-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+        {% if page.intro %}
+        <p class="body-large mt-3 mb-0">{{ page.intro | richtext }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% else %}
   <div class="container">
     <div class="row no-gutters">
       <div class="cutout col-12 pt-4">
@@ -24,6 +36,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   {% if singleton_page == True %}
     {% include "partials/intro_and_content_divider.html" with wrapper_class="hidden-md-up" %}

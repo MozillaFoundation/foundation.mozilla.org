@@ -1,14 +1,18 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<picture>
-  {% image page.banner fill-4032x2304 as image_xl %}
-  {% image page.banner fill-2400x1372 as image_lg %}
-  {% image page.banner fill-1984x1134 as image_md %}
-  {% image page.banner fill-1536x878 as image_sm %}
-  <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
-  <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
-  <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
-  <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
-  {# Fallback Image #}
-  {% image page.banner fill-1008x576 alt="" %}
-</picture>
+<div class="background-wrapper">
+  <div class="overlay"></div>
+  <picture>
+    <!-- 2480/1500 = 1.65333 -->
+    {% image page.banner fill-4960x3000 as image_xl %}
+    {% image page.banner fill-2480x1500 as image_lg %}
+    {% image page.banner fill-1984x1200 as image_md %}
+    {% image page.banner fill-1536x929 as image_sm %}
+    <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
+    <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
+    <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
+    <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
+    {# Fallback Image #}
+    {% image page.banner fill-1536x929 alt="" %}
+  </picture>
+</div>
