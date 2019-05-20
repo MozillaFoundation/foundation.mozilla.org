@@ -70,7 +70,7 @@
     "optipng-bin": "^5.1.0",
     "postcss": "^7.0.16",
     "postcss-cli": "^6.1.2",
-    "prettier": "^1.17.0",
+    "prettier": "^1.17.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
