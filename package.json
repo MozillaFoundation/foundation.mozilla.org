@@ -77,7 +77,7 @@
     "react-ga": "2.5.7",
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
-    "snyk": "^1.163.3",
+    "snyk": "^1.165.1",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-prettier": "^1.1.0",
