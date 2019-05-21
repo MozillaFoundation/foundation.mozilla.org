@@ -12,7 +12,7 @@ services:
 
   # This container is used to run the python test suite against the wagtail site
   wagtail:
-    image: $DOCKER_REPO:$PYTHON_TAG
+    image: $DOCKER_REPO:$WAGTAIL_APP_TAG
     ports:
       - "8000:8000"
     env_file:
@@ -22,7 +22,7 @@ services:
 
   # This container runs a version of the wagtail app that has mounted volumes we need to enable testing with cypress
   wagtail_cypress:
-    image: $DOCKER_REPO:$PYTHON_TAG
+    image: $DOCKER_REPO:$WAGTAIL_APP_TAG
     ports:
       - "8000:8000"
     command: python network-api/manage.py runserver 0.0.0.0:8000

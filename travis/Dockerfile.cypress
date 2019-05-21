@@ -5,7 +5,7 @@ FROM cypress/base:12.1.0
 COPY travis/scripts/wait-for-it.sh ./
 COPY package.json package-lock.json ./
 
-# Get the latest version of cypress installed
+# Get the latest version of cypress installed. Run with CI=true to avoid thousand of "unzipping" lines.
 RUN CI=true npm run cypress:install
 
 # Copy in our Cypress configuration files
