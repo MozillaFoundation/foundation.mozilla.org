@@ -461,7 +461,8 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
     subpage_types = [
         'PrimaryPage',
-        'RedirectingPage'
+        'RedirectingPage',
+        'BanneredCampaignPage'
     ]
 
     show_in_menus_default = True
