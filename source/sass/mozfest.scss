@@ -3,15 +3,22 @@ body.mozfest {
     #hero {
       --moz_banner_height: 464px;
       --moz_banner_background_z_index: 1;
+      --moz_cutoff_offset: 40px;
 
       .banner {
         height: var(--moz_banner_height);
         position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .homepage-banner-content {
-        margin-top: 70px;
         z-index: calc(var(--moz_banner_background_z_index) + 3);
+
+        @media screen and (min-width: $bp-md) {
+          padding-bottom: var(--moz_cutoff_offset);
+        }
       }
 
       .full-width-cutout {
@@ -23,7 +30,7 @@ body.mozfest {
 
           margin-left: -$offset-left;
           margin-right: -$offset-left;
-          margin-top: -40px;
+          margin-top: calc(-1 * var(--moz_cutoff_offset));
 
           .content {
             z-index: calc(var(--moz_banner_background_z_index) + 2);
