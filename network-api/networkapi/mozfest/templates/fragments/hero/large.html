@@ -1,8 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% if page.banner %}
 <div class="background-wrapper">
-    <div class="overlay"></div>
+  <div class="overlay"></div>
+  {% if page.banner %}
     <picture>
       <!-- 2480/1500 = 1.65333 -->
       {% image page.banner fill-4960x3000 as image_xl %}
@@ -16,8 +16,9 @@
       {# Fallback Image #}
       {% image page.banner fill-1536x929 alt="" %}
     </picture>
-  </div>
-
-{% else %}
-  <img src="/_images/mozfest/Festival Home Temporary Banner.jpg" alt="">
-{% endif %}
+  {% else %}
+  <picture>
+    <img src="/_images/mozfest/mozfest-home-banner-default.jpg" alt="">
+  </picture>
+  {% endif %}
+</div>
