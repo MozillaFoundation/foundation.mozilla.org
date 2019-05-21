@@ -4,5 +4,7 @@
 {% block mozfestBodyId %}primary{% endblock %}
 
 {% block secondary_nav %}
+  {% include "partials/multipage-nav-mobile.html" %}
   {% primary_page_menu page %}
 {% endblock %}
+
