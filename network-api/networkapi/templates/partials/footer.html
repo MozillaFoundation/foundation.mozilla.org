@@ -1,5 +1,6 @@
 {% with wrapper_class="py-5" %}
 
+{% block footer_donate %}
 <div class="donate-banner dark-theme {{wrapper_class}}">
   <div class="container">
     <div class="row">
@@ -13,16 +14,22 @@
     </div>
   </div>
 </div>
+{% endblock %}
 
 <footer class="site-footer dark-theme {{wrapper_class}}">
   <div class="container">
     <div class="row">
+
+      {% block left_footer_column %}
       <div class="col-md-5">
         <div class="join-us mb-5" data-button-position="side"></div>
         <div class="my-5 mb-md-0">
           <a class="logo" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
         </div>
       </div>
+      {% endblock %}
+
+      {% block right_footer_column %}
       <div class="col-md-6 offset-md-1 d-flex flex-column justify-content-between">
         <div class="row">
           <div class="col-md-4">
@@ -50,6 +57,8 @@
           </div>
         </div>
       </div>
+      {% endblock %}
+
     </div>
   </div>
 </footer>

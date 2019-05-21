@@ -1,5 +1,6 @@
 {% load primary_active_nav %}
 
+{% with root_name="Home" %}
 <div id="primary-nav-container">
   <div class="wrapper-burger">
     <div class="menu-container">
@@ -10,14 +11,8 @@
               <div class="row">
                 <div class="col">
                   <div class="nav-links pt-3">
-                    <div><a class="{% primary_active_nav request '/' %}" href="/">Home</a></div>
-                    <div><a class="{% primary_active_nav request '/about' %}" href="/about">About</a></div>
-                    <div><a class="{% primary_active_nav request '/spaces' %}" href="/spaces">Spaces</a></div>
-                    <div><a class="{% primary_active_nav request '/team' %}" href="/team">Team</a></div>
-                    <div><a class="{% primary_active_nav request '/tickets' %}" href="/tickets">Tickets</a></div>
-                    {% if HEROKU_APP_NAME %}
-                    <div><a href="/help">DEV HELP</a></div>
-                    {% endif %}
+                    <div><a class="{% primary_active_nav request '/' %}" href="/">{{ root_name }}</a></div>
+                    {% include "../fragments/nav-links.html" with pre="<div>" post="</div>" %}
                   </div>
                 </div>
               </div>
@@ -36,16 +31,10 @@
                     <div class="burger-bar burger-bar-middle"></div>
                     <div class="burger-bar burger-bar-bottom"></div>
                   </button>
-                  <a class="logo text-hide" href="/">Mozilla Foundation</a>
+                  <a class="logo text-hide" href="/">{{ root_name }}</a>
                   <div class="wide-screen-menu">
                     <div class="nav-links d-none d-lg-block">
-                      <a class="{% primary_active_nav request '/about' %}" href="/about">About</a>
-                      <a class="{% primary_active_nav request '/spaces' %}" href="/spaces">Spaces</a>
-                      <a class="{% primary_active_nav request '/team' %}" href="/team">Team</a>
-                      <a class="{% primary_active_nav request '/ticket' %}" href="/ticket">Ticket</a>
-                      {% if HEROKU_APP_NAME %}
-                        <a href="/help">DEV HELP</a>
-                      {% endif %}
+                      {% include "../fragments/nav-links.html" %}
                     </div>
                   </div>
                 </div>
@@ -60,3 +49,4 @@
     </div>
   </div>
 </div>
+{% endwith %}

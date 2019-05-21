@@ -7,7 +7,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from networkapi.wagtailpages.utils import get_page_tree_information
 from networkapi.wagtailpages.models import (
     base_fields,
-    FoundationMetadataPageMixin
+    FoundationMetadataPageMixin,
+    Signup
 )
 
 
@@ -49,7 +50,11 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        return get_page_tree_information(self, context)
+        context = get_page_tree_information(self, context)
+        # Also make sure that these pages always tap into the mozfest newsletter for the footer!
+        mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
+        context['mozfest_footer'] = mozfest_footer
+        return context
 
 
 class MozfestHomepage(MozfestPrimaryPage):
