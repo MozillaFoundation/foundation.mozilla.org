@@ -1,4 +1,12 @@
 body.mozfest {
+  #primary-nav-container .wrapper-burger .logo {
+    @media (min-width: $bp-sm) {
+      width: 99px;
+      height: 37px;
+      background-image: url(../_images/mozfest/logo.svg);
+    }
+  }
+
   &#view-mozfest-home {
     #hero {
       --moz_banner_height: 470px;
