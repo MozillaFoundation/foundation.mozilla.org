@@ -2,15 +2,11 @@
 
 <div id="hero">
   <div class="banner">
-    {% if page.banner %}
-      {% if homepage %}
-        {% include "../fragments/hero/large.html" with page=page %}
-        {% include "./homepage_banner.html" with page=page %}
-      {% else %}
-        {% include "../fragments/hero/normal.html" with page=page %}
-      {% endif %}
+    {% if homepage %}
+      {% include "../fragments/hero/large.html" with page=page %}
+      {% include "./homepage_banner.html" with page=page %}
     {% else %}
-    <img src="/_images/mozfest/Festival Banner 1.jpg" alt="">
+      {% include "../fragments/hero/normal.html" with page=page %}
     {% endif %}
   </div>
 
