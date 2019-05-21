@@ -9,12 +9,6 @@ shopt -s expand_aliases
 # Alias docker-compose command
 alias dc="docker-compose -f travis/docker-compose.travis.yml"
 
-# Pull down the prebuilt cypress image
-dc pull cypress || true
-
-# Update the cypress image if necessary
-dc build cypress
-
 # Generate static assets for Django/Wagtail
 dc run --rm wagtail_cypress \
   python network-api/manage.py collectstatic --no-input --verbosity 0
@@ -40,9 +34,3 @@ dc run --rm \
 
 # Run the visual regression tests on the test site
 dc up cypress
-
-# Authenticate with Docker Hub
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-# Push the cypress image up to Docker Hub
-dc push cypress

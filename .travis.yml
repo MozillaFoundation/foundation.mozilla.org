@@ -36,6 +36,7 @@ jobs:
   - stage: Test
     name: Visual regression tests
     script:
+    - ./travis/scrit/cypress_build.sh
     - ./travis/scripts/test_visual_regression.sh
 
   - stage: Deploy
