@@ -5,6 +5,16 @@ body.mozfest {
 
       .banner {
         height: var(--moz_banner_height);
+
+        .homepage-top-content {
+          /*
+            This puts the homepage on-banner text
+            and button in the forefront, so it can
+            be text-selected, and buttons clicked.
+          */
+          position: relative;
+          z-index: 1;
+        }
       }
 
       .cutout {
