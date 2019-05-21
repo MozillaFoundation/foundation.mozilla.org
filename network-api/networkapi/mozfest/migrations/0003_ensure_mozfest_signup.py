@@ -18,7 +18,7 @@ def ensure_mozfest_signup(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0001_initial'),
+        ('mozfest', '0002_auto_20190516_1558'),
         ('wagtailpages', '0068_auto_20190509_1803'),
     ]
 
