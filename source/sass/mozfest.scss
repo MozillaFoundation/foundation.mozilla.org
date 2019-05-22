@@ -1,12 +1,5 @@
 body.mozfest {
 
-  .submit-btn-wrapper {
-    @media (max-width: $bp-md) {
-      align-self: center;
-      margin-right: 30%;
-    }
-  }
-
   &#view-mozfest-home {
     #hero {
       --moz_banner_height: 470px;
