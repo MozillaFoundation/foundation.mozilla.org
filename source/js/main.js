@@ -42,32 +42,12 @@ let main = {
 
       this.injectReactComponents();
       this.bindGlobalHandlers();
-      this.decorateExternalLinks();
       this.bindGAEventTrackers();
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
         window[`main-js:react:finished`] = true;
       });
-    });
-  },
-
-  decorateExternalLinks() {
-    Array.from(document.querySelectorAll(`a`)).forEach(link => {
-      let href = link.getAttribute(`href`);
-      let targetDomains = env.TARGET_DOMAINS;
-
-      // Define an external link as any URL with `//` in it
-      if (
-        href &&
-        href.match(/\/\//) &&
-        targetDomains.some(domain => !href.match(`//${domain}`))
-      ) {
-        link.setAttribute(`target`, `_blank`);
-
-        // https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/
-        link.setAttribute(`rel`, `noopener noreferrer`);
-      }
     });
   },
 
