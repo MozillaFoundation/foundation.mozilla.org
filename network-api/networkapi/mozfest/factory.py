@@ -69,7 +69,7 @@ def generate(seed):
         if is_review_app:
             site_root = WagtailPage.objects.get(title='Homepage')
         else:
-            site_root = WagtailPage.objects.get(title='Root')
+            site_root = WagtailPage.objects.get(id=1)
 
         home_page = MozfestHomepageFactory.create(
             parent=site_root,
