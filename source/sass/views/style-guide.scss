@@ -33,6 +33,10 @@
     background: $black;
   }
 
+  &.light-red {
+    background: $light-red;
+  }
+
   &.red {
     background: $red;
   }
@@ -77,8 +81,16 @@
     background: $pni-gradient;
   }
 
-  &.light-red {
-    background: $light-red;
+  &.festival-purple {
+    background: $festival-purple;
+  }
+
+  &.festival-dark-blue {
+    background: $festival-dark-blue;
+  }
+
+  &.festival-gradient {
+    background: $festival-gradient;
   }
 }
 

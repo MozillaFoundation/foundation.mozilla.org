@@ -2,18 +2,26 @@
 
 <div id="hero">
   <div class="banner">
-    {% if page.banner %}
-      {% if homepage %}
-        {% include "../fragments/hero/large.html" with page=page %}
-        {% include "./homepage_banner.html" with page=page %}
-      {% else %}
-        {% include "../fragments/hero/normal.html" with page=page %}
-      {% endif %}
+    {% if homepage %}
+      {% include "../fragments/hero/large.html" with page=page %}
+      {% include "./homepage_banner.html" with page=page %}
     {% else %}
-    <img src="/_images/mozfest/Festival Banner 1.jpg" alt="">
+      {% include "../fragments/hero/normal.html" with page=page %}
     {% endif %}
   </div>
 
+  {% if homepage %}
+  <div class="container">
+    <div class="row full-width-cutout">
+      <div class="content col-12 pt-4">
+        <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+        {% if page.intro %}
+        <p class="body-large mt-3 mb-0">{{ page.intro | richtext }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% else %}
   <div class="container">
     <div class="row no-gutters">
       <div class="cutout pt-4 col-12 {% if homepage != True %}col-md-8{% endif %}">
@@ -24,6 +32,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   {% if singleton_page == True %}
     {% include "partials/intro_and_content_divider.html" with wrapper_class="hidden-md-up" %}

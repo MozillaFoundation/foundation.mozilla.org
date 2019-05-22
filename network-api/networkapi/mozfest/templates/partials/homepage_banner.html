@@ -1,9 +1,11 @@
-<div class="homepage-top-content container">
+<div class="homepage-banner-content container">
   <div class="row">
-    <div class="col-12 col-md-8 my-5 dark-theme">
+    <div class="col-12 col-lg-8 dark-theme">
       <h1 class="h1-heading">{{ page.banner_heading }}</h1>
       <p class="body-large">{{ page.banner_guide_text }}</p>
-      <button class="btn btn-primary video-button" data-url="{{ page.banner_video_url }}">Watch Video</button>
+      {% if page.banner_video_url %}
+      <a class="btn btn-primary" href="{{ page.banner_video_url }}" target="_blank">Watch Video</a>
+      {% endif %}
     </div>
   </div>
 </div>
