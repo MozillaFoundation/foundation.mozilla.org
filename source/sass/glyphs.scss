@@ -96,8 +96,6 @@
     @include hoverGlyph("email-dark-theme-hover");
   }
 
-
-
   .github {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
