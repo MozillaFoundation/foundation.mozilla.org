@@ -29,7 +29,7 @@
 
   <div class="container cms">
     <div class="row my-1 d-flex align-items-center">
-      <div class="pb-5 col-12">
+      <div class="pb-5 {% block bootstrap_width %}col-lg-8 offset-lg-2{% endblock %}">
         {% for block in page.body %}
           {% if block.block_type == 'heading' %}
             <h1>{{ block.value }}</h1>
