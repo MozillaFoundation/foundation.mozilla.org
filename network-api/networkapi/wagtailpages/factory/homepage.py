@@ -44,7 +44,7 @@ def generate(seed):
         print('Homepage already exists')
     except Homepage.DoesNotExist:
         print('Generating a Homepage')
-        site_root = WagtailPage.objects.get(title='Root')
+        site_root = WagtailPage.objects.get(id=1)
         home_page = WagtailHomepageFactory.create(
             parent=site_root,
             title='Homepage',

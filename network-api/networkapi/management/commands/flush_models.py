@@ -48,7 +48,7 @@ class Command(BaseCommand):
         CTA.objects.all().delete()
 
         self.stdout.write('Dropping all Pages')
-        Page.objects.exclude(title='Root').delete()
+        Page.objects.exclude(id=1).delete()
 
         self.stdout.write('Dropping all Products')
         Product.objects.all().delete()
