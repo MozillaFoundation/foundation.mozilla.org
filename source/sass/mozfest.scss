@@ -9,12 +9,12 @@ body.mozfest {
 
   &#view-mozfest-home {
     #hero {
-      --moz_banner_height: 464px;
-      --moz_banner_background_z_index: 1;
-      --moz_cutoff_offset: 40px;
+      $banner-height: 464px;
+      $banner-background-z-index: 1;
+      $cutoff-offset: 40px;
 
       .banner {
-        height: var(--moz_banner_height);
+        height: $banner-height;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -22,10 +22,10 @@ body.mozfest {
       }
 
       .homepage-banner-content {
-        z-index: calc(var(--moz_banner_background_z_index) + 3);
+        z-index: $banner-background-z-index + 3;
 
         @media screen and (min-width: $bp-md) {
-          padding-bottom: var(--moz_cutoff_offset);
+          padding-bottom: $cutoff-offset;
         }
       }
 
@@ -38,10 +38,10 @@ body.mozfest {
 
           margin-left: -$offset-left;
           margin-right: -$offset-left;
-          margin-top: calc(-1 * var(--moz_cutoff_offset));
+          margin-top: -$cutoff-offset;
 
           .content {
-            z-index: calc(var(--moz_banner_background_z_index) + 2);
+            z-index: $banner-background-z-index + 2;
             background: $white;
             padding-left: $offset-left;
             padding-right: $offset-left;
@@ -60,13 +60,13 @@ body.mozfest {
           height: 100%;
           background: $festival-gradient;
           opacity: 0.8;
-          z-index: calc(var(--moz_banner_background_z_index) + 1);
+          z-index: $banner-background-z-index + 1;
         }
 
         picture {
           display: flex;
           position: absolute;
-          z-index: var(--moz_banner_background_z_index);
+          z-index: $banner-background-z-index;
           top: 0;
           left: 0;
           height: 100%;
