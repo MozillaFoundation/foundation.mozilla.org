@@ -81,6 +81,23 @@
     @include hoverGlyph("instagram-dark-theme-hover");
   }
 
+  .medium {
+    @include compositeGlyph("medium-dark-theme");
+    @include hoverGlyph("medium-dark-theme-hover");
+  }
+
+  .youtube {
+    @include compositeGlyph("youtube-dark-theme");
+    @include hoverGlyph("youtube-dark-theme-hover");
+  }
+
+  .email {
+    @include compositeGlyph("email-dark-theme");
+    @include hoverGlyph("email-dark-theme-hover");
+  }
+
+
+
   .github {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
