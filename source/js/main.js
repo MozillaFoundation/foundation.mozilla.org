@@ -30,15 +30,19 @@ let main = {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
 
-      csrfToken = document.querySelector('meta[name="csrf-token"]');
-      csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
+      csrfToken = document.querySelector(`meta[name="csrf-token"]`);
+      csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      Analytics.initialize();
+      const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
+      if (gaMeta) {
+        let gaIdentifier = gaMeta.getAttribute(`content`);
+        Analytics.initialize(gaIdentifier);
+      }
 
       this.injectReactComponents();
       this.bindGlobalHandlers();
@@ -155,25 +159,27 @@ let main = {
 
     // Extra tracking
 
-    document
-      .getElementById(`donate-header-btn`)
-      .addEventListener(`click`, () => {
+    let donateHeaderBtn = document.getElementById(`donate-header-btn`);
+    if (donateHeaderBtn) {
+      donateHeaderBtn.addEventListener(`click`, () => {
         ReactGA.event({
           category: `donate`,
           action: `donate button tap`,
           label: `${document.title} header`
         });
       });
+    }
 
-    document
-      .getElementById(`donate-footer-btn`)
-      .addEventListener(`click`, () => {
+    let donateFooterBtn = document.getElementById(`donate-footer-btn`);
+    if (donateFooterBtn) {
+      donateFooterBtn.addEventListener(`click`, () => {
         ReactGA.event({
           category: `donate`,
           action: `donate button tap`,
           label: `${document.title} footer`
         });
       });
+    }
   },
 
   bindGAEventTrackers() {
@@ -351,10 +357,10 @@ let main = {
 
     filters.forEach(filter => {
       let year = filter.textContent.trim();
-      filter.addEventListener("click", () => {
+      filter.addEventListener(`click`, () => {
         ReactGA.event({
           category: `profiles`,
-          action: `directory filter"`,
+          action: `directory filter`,
           label: `${document.title} ${year}`
         });
       });
