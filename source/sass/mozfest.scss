@@ -82,4 +82,17 @@ body.mozfest {
       }
     }
   }
+
+  #multipage-nav {
+    // These overrides are to overcome the loooooong secondary nav we have on Spaces pages
+    // Targeting these overrides to all pages that have secondary nav (#multipage-nav)
+    // to keep things consistent across the MozFest site
+
+    flex-wrap: wrap;
+
+    .multipage-link {
+      padding-top: 16px;
+      padding-bottom: 5px;
+    }
+  }
 }
