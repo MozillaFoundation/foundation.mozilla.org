@@ -1,6 +1,11 @@
 {% extends "pages/base.html" %}
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
 
+
+{% block ga_identifier %}
+  <meta name="ga-identifier" content="UA-87658599-15">
+{% endblock %}
+
 {% block bodyclass %}mozfest{% endblock %}
 
 {% block pageTitle %}
