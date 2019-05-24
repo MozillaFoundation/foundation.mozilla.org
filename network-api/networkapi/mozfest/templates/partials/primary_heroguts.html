@@ -16,7 +16,7 @@
       <div class="content col-12 pt-4">
         <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
         {% if page.intro %}
-        <p class="body-large mt-3 mb-0">{{ page.intro | richtext }}</p>
+        <div class="body-large mt-3 mb-0">{{ page.intro | richtext }}</div>
         {% endif %}
       </div>
     </div>
