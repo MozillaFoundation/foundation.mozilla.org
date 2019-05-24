@@ -2,11 +2,9 @@ from factory.django import DjangoModelFactory
 from wagtail_factories import PageFactory
 from factory import (
     Faker,
-    LazyAttribute,
-    SubFactory
+    LazyAttribute
 )
 from networkapi.utility.faker import StreamfieldProvider
-from .participate_page import ParticipatePage2Factory
 
 streamfield_fields = ['header', 'paragraph', 'image', 'spacer', 'image_text2', 'quote']
 
@@ -51,10 +49,3 @@ class CMSPageFactory(PageFactory):
     # Lazy Values
     title_text = sentence_faker
     header_text = header_faker
-
-
-class ParticipateFeaturedFactory(DjangoModelFactory):
-    class Meta:
-        abstract = True
-
-    page = SubFactory(ParticipatePage2Factory)
