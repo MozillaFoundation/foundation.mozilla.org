@@ -60,6 +60,13 @@ export default class JoinUs extends React.Component {
         source: window.location.toString()
       };
 
+      if (this.givenNames && this.givenNames.value) {
+        payload.givenNames = this.givenNames.value;
+      }
+      if (this.surname && this.surname.value) {
+        payload.surname = this.surname.value;
+      }
+
       let xhr = new XMLHttpRequest();
 
       xhr.onreadystatechange = () => {
@@ -208,6 +215,33 @@ export default class JoinUs extends React.Component {
   }
 
   /**
+   * Render fields asking for user name
+   */
+  renderNameFields() {
+    return (
+      <div>
+        <div className="mb-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="First name"
+            ref={el => (this.givenNames = el)}
+            onFocus={evt => this.onInputFocus(evt)}
+          />
+        </div>
+        <div className="mb-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Last name"
+            ref={el => (this.surname = el)}
+            onFocus={evt => this.onInputFocus(evt)}
+          />
+        </div>
+      </div>
+    );
+  }
+  /**
    * Render the privacy field in signup CTA.
    */
   renderPrivacyField() {
@@ -276,6 +310,7 @@ export default class JoinUs extends React.Component {
     return (
       <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
+          {this.props.askName ? this.renderNameFields() : null}
           {this.renderEmailField()}
           {this.renderPrivacyField()}
         </div>
@@ -289,5 +324,6 @@ JoinUs.defaultProps = {
   ctaHeader: `Want to get smarter about your online life?`,
   ctaDescription: `Sign up for our Mozilla newsletter!`,
   thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
-  newsletter: `mozilla-foundation`
+  newsletter: `mozilla-foundation`,
+  askName: false
 };

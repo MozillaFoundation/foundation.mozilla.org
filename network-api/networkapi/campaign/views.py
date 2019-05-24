@@ -92,6 +92,12 @@ def signup_submission(request, signup):
         "newsletters": signup.newsletter,
     }
 
+    if request.data['givenNames']:
+        data["first_name"] = request.data['givenNames']
+
+    if request.data['surname']:
+        data["last_name"] = request.data['surname']
+
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
         'timestamp': datetime.now().isoformat(),

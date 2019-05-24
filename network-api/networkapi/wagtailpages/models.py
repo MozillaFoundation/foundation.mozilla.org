@@ -205,6 +205,11 @@ class CTA(models.Model):
 @register_snippet
 class Signup(CTA):
 
+    ask_name = models.BooleanField(
+        help_text='Check this box to show (optional) name fields',
+        default=False,
+    )
+
     class Meta:
         verbose_name = 'signup snippet'
 
