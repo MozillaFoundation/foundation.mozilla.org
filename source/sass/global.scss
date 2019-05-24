@@ -80,7 +80,7 @@ footer.site-footer {
   background: $black;
 
   .link-list {
-    @media (min-width: $bp-md) {
+    @media (min-width: $bp-lg) {
       column-count: 2;
       break-inside: avoid-column;
     }
