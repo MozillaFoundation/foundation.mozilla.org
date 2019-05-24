@@ -103,4 +103,4 @@ def generate(seed):
     [MozfestPrimaryPageFactory.create(
         parent=home_page,
         title=title
-    ) for title in ['About', 'Spaces', 'Tickets', 'Team', 'Sponsors']]
+    ) for title in ['Spaces', 'Tickets', 'Team', 'Sponsors']]
