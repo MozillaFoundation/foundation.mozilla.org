@@ -33,6 +33,7 @@ cache:
   pip: true
   directories:
     - "$HOME/.npm"
+    - "$HOME/.cache/pipenv"
 
 branches:
   only:
