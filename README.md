@@ -33,7 +33,7 @@ If you installed [Python with Homebrew](https://docs.brew.sh/Homebrew-and-Python
 
 ### Check your environment
 
-- `python --version` should return 3.6 or higher,
+- `python --version` should return 3.7 or higher,
 - `pipenv --version` should return 11.10 or higher,
 - `invoke --version` should return 0.22.1 or higher.
 
