@@ -1,6 +1,7 @@
 from itertools import chain, combinations
 import factory
 import random
+from networkapi.wagtailpages.models import Homepage
 
 
 def powerset(iterable):
@@ -23,7 +24,18 @@ def generate_fake_data(factory_model, count):
             factory_model.create(**kwargs)
 
 
+# reseed the Faker RNG used by factory using seed
 def reseed(seed):
     random.seed(seed)
     faker = factory.faker.Faker._get_faker(locale='en-US')
     faker.random.seed(seed)
+
+
+# get a reference to the site's home page
+def get_homepage(will_generate=False):
+    try:
+        return Homepage.objects.get(title='Homepage')
+    except Homepage.DoesNotExist as ex:
+        # In some cases, we will want to catch this exception and generate a homepage,
+        # and in others we'll want to bail out on the load_fake_data task with an error.
+        raise ex
