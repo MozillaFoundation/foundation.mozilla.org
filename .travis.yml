@@ -94,3 +94,4 @@ matrix:
         local_dir: maintenance
         on:
           branch: master
+          condition: "$TRAVIS_EVENT_TYPE != pull_request"
