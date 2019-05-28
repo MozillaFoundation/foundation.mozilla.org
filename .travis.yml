@@ -1,7 +1,8 @@
+dist: xenial
 language: python
 
 python:
-  - "3.6"
+  - "3.7"
 
 addons:
   postgresql: "9.6"
@@ -60,6 +61,8 @@ matrix:
     - name: Percy tests
       if: NOT TRAVIS_PULL_REQUEST_BRANCH =~ /^(dependabot\/)/
       before_install:
+        # libgconf is required by cypress
+        - sudo apt-get install -y libgconf-2-4
         - nvm install --lts=carbon
         - nvm use --lts=carbon
       install:
