@@ -14,6 +14,7 @@ import networkapi.news.factory as news_factory
 import networkapi.people.factory as people_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
 import networkapi.buyersguide.factory as buyersguide_factory
+import networkapi.mozfest.factory as mozfest_factory
 
 from networkapi.utility.faker.helpers import reseed
 
@@ -94,7 +95,8 @@ class Command(BaseCommand):
             highlights_factory,
             people_factory,
             wagtailpages_factory,
-            buyersguide_factory
+            buyersguide_factory,
+            mozfest_factory
         ]]
 
         print(self.style.SUCCESS('Done!'))
