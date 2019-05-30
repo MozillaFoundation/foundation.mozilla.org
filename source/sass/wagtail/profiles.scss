@@ -4,6 +4,7 @@
   $headshot-width-lg: 160px;
   $headshot-height-lg: 160px;
   $gutter: 14px;
+  $card-padding-top: 10px;
 
   border-top: 1px solid $black;
 
@@ -43,6 +44,7 @@
   }
 
   .short-meta-wrapper {
+    padding-top: $card-padding-top;
     @media screen and (min-width: $bp-lg) {
       margin-left: $headshot-width-lg + $gutter;
     }
@@ -65,7 +67,7 @@
   .social-icons {
     @media screen and (min-width: $bp-lg) {
       position: absolute;
-      top: 5px;
+      top: calc(#{$card-padding-top} + 5px);
       right: 0;
     }
   }
