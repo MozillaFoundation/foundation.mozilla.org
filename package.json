@@ -1,9 +1,7 @@
 {
-  "name": "network",
-  "repository": "https://github.com/mozilla/network",
-  "issues": "https://github.com/mozilla/network/issues",
-  "version": "1.0.0",
-  "description": "Mozilla Network",
+  "repository": "https://github.com/mozilla/foundation.mozilla.org",
+  "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
+  "description": "Mozilla Foundation site",
   "scripts": {
     "autoprefix": "postcss --use autoprefixer -o network-api/networkapi/frontend/_css/main.compiled.css network-api/networkapi/frontend/_css/main.compiled.css",
     "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && run-p build:images build:sass && npm run build:contribute",
@@ -46,8 +44,8 @@
   "license": "MPL-2.0",
   "dependencies": {
     "autoprefixer": "^9.5.1",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
@@ -68,7 +66,7 @@
     "npm-run-all": "^4.1.3",
     "shx": "^0.3.2",
     "snyk": "^1.163.3",
-    "webpack": "^4.32.0",
+    "webpack": "^4.32.2",
     "webpack-cli": "^3.3.1",
     "whatwg-fetch": "^3.0.0"
   },
@@ -83,7 +81,7 @@
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
-    "optipng-bin": "^5.1.0",
+    "optipng-bin": "^6.0.0",
     "prettier": "^1.17.1",
     "wait-on": "^3.2.0",
     "shelljs": "^0.8.3",
