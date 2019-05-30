@@ -1,8 +1,18 @@
 {% load primary_active_nav %}
 
+{% if HEROKU_APP_NAME %}
+
+{{ pre }}<a class="{% primary_active_nav request '/mozilla-festival/spaces' %}" href="/mozilla-festival/spaces">Spaces</a>{{ post }}
+{{ pre }}<a class="{% primary_active_nav request '/mozilla-festival/team' %}" href="/mozilla-festival/team">Team</a>{{ post }}
+{{ pre }}<a class="{% primary_active_nav request '/mozilla-festival/tickets' %}" href="/mozilla-festival/tickets">Tickets</a>{{ post }}
+{{ pre }}<a class="{% primary_active_nav request '/mozilla-festival/sponsors' %}" href="/mozilla-festival/sponsors">Sponsors</a>{{ post }}
+{% endif %}
+
+{% if not HEROKU_APP_NAME %}
 {{ pre }}<a class="{% primary_active_nav request '/spaces' %}" href="/spaces">Spaces</a>{{ post }}
 {{ pre }}<a class="{% primary_active_nav request '/team' %}" href="/team">Team</a>{{ post }}
 {{ pre }}<a class="{% primary_active_nav request '/tickets' %}" href="/tickets">Tickets</a>{{ post }}
 {{ pre }}<a class="{% primary_active_nav request '/sponsors' %}" href="/sponsors">Sponsors</a>{{ post }}
+{% endif %}
 
 {% if HEROKU_APP_NAME %}{{ pre }}<a href="/help">DEV HELP</a>{{ post }}{% endif %}
