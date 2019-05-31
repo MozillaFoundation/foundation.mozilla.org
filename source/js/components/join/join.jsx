@@ -60,12 +60,8 @@ export default class JoinUs extends React.Component {
         source: window.location.toString()
       };
 
-      if (this.givenNames && this.givenNames.value) {
-        payload.givenNames = this.givenNames.value;
-      }
-      if (this.surname && this.surname.value) {
-        payload.surname = this.surname.value;
-      }
+      payload.givenNames = this.givenNames && this.givenNames.value;
+      payload.surname = this.surname && this.surname.value;
 
       let xhr = new XMLHttpRequest();
 
@@ -310,7 +306,8 @@ export default class JoinUs extends React.Component {
     return (
       <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
-          {this.props.askName ? this.renderNameFields() : null}
+          {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
+          {this.props.askName == "True" && this.renderNameFields()}
           {this.renderEmailField()}
           {this.renderPrivacyField()}
         </div>

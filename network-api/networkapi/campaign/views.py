@@ -90,13 +90,9 @@ def signup_submission(request, signup):
         "format": "html",
         "source_url": request.data['source'],
         "newsletters": signup.newsletter,
+        "first_name": request.data.get('givenNames', None),
+        "last_name": request.data.get('surname', None)
     }
-
-    if request.data['givenNames']:
-        data["first_name"] = request.data['givenNames']
-
-    if request.data['surname']:
-        data["last_name"] = request.data['surname']
 
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
