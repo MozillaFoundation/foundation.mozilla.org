@@ -1,5 +1,7 @@
 {% load primary_active_nav %}
 
+{# TODO: Dynamically generated Nav links: https://github.com/mozilla/foundation.mozilla.org/issues/3289 #}
+
 {% if HEROKU_APP_NAME %}
 
 {{ pre }}<a class="{% primary_active_nav request '/mozilla-festival/spaces' %}" href="/mozilla-festival/spaces">Spaces</a>{{ post }}
