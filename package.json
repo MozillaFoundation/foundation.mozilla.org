@@ -87,7 +87,7 @@
     "shelljs": "^0.8.3",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
-    "stylelint-prettier": "^1.1.0",
+    "stylelint-prettier": "^1.1.1",
     "svgo": "^1.2.2"
   }
 }
