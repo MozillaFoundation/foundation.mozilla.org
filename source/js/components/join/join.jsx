@@ -307,7 +307,7 @@ export default class JoinUs extends React.Component {
       <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
-          {this.props.askName == "True" && this.renderNameFields()}
+          {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
           {this.renderPrivacyField()}
         </div>
