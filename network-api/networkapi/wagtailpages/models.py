@@ -108,6 +108,12 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         abstract = True
 
 
+class FoundationMetadataMixinWithTags(FoundationMetadataPageMixin):
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+        FieldPanel('tags')
+    ]
+
+
 class ModularPage(FoundationMetadataPageMixin, Page):
     """
     The base class offers universal component picking
@@ -525,7 +531,7 @@ class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
 
-class BlogPage(FoundationMetadataPageMixin, Page):
+class BlogPage(FoundationMetadataMixinWithTags, Page):
     template = 'wagtailpages/blog_page.html'
 
     author = models.CharField(
