@@ -13,4 +13,7 @@ def primary_active_nav(request, target_path):
     lang = f"/{request.LANGUAGE_CODE}"
     path_info = request.path_info[len(lang):] if request.path_info.startswith(lang) else request.path_info
 
-    return "active" if path_info.rstrip("/") == target_path.rstrip("/") else ""
+    current = path_info.lstrip("/").rstrip("/").lower()
+    target = target_path.lstrip("/").rstrip("/").lower()
+
+    return "active" if current == target else ""

@@ -63,12 +63,25 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
         return 'mozfest/mozfest_primary_page.html'
 
-    def get_context(self, request):
+    def get_context(self, request, bypass_menu_buildstep=False):
         context = super().get_context(request)
         context = get_page_tree_information(self, context)
+
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
         mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
+
+        # Find the homepage, and then record all pages that should end up as nav items. Note
+        # that subclasses can bypass this, because the MozfestHomepage doesn't need any of
+        # this work to be done.
+        if not bypass_menu_buildstep:
+            homepage = list(filter(
+                lambda x: x.specific.__class__.__name__ is 'MozfestHomepage',
+                self.get_ancestors()
+            ))[0]
+            context['menu_root'] = homepage
+            context['menu_items'] = homepage.get_children().filter(live=True, show_in_menus=True)
+
         return context
 
 
@@ -119,3 +132,9 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
+
+    def get_context(self, request):
+        context = super().get_context(request, bypass_menu_buildstep=True)
+        context['menu_root'] = self
+        context['menu_items'] = self.get_children().filter(live=True, show_in_menus=True)
+        return context
