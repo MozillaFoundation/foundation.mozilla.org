@@ -3,7 +3,14 @@
 
 
 {% block ga_identifier %}
+  <meta name="google-site-verification" content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk" />
   <meta name="ga-identifier" content="UA-87658599-15">
+{% endblock %}
+
+{% block socialMetadata %}
+    <meta property='og:type' content='website'>
+    <meta property='og:locale' content='en_US'>
+    {% meta_tags %}
 {% endblock %}
 
 {% block bodyclass %}mozfest{% endblock %}
