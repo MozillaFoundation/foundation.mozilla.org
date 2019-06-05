@@ -1,0 +1,5 @@
+<div class="">Tagged:
+  {% for tag in page.tags.all %}
+  <strong>{{ tag }}</strong>{% if not forloop.last %}, {% endif %}
+  {% endfor %}
+</div>

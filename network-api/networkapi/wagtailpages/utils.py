@@ -1,3 +1,7 @@
+from django.apps import apps
+from django.db.models import Count
+
+
 def get_page_tree_information(page, context):
     '''
     Helper function for abstracting details about page trees
@@ -86,3 +90,47 @@ def get_mini_side_nav_data(context, page, no_minimum_page_count=False):
         'current': page,
         'menu_pages': menu_pages,
     }
+
+
+def get_content_related_by_tag(page, result_count=3):
+    """
+    Get all posts that feel related to this page, based
+    on its `.tags` content. If it has tags.
+    """
+
+    tagged_post_types = (
+        apps.get_model('wagtailpages', 'BlogPage'),
+        # Add more models here as we add tags to more types
+    )
+
+    own_tags = page.tags.all()
+
+    related_qs = False
+
+    for post_type in tagged_post_types:
+        related_posts = post_type.objects.filter(tags__in=own_tags).distinct()
+
+        # Exlude "this page" from the result set for the page's own.
+        # page type, so we don't yield "this page is similar to itself".
+        if page.__class__ is post_type:
+            related_posts = related_posts.exclude(pk=page.pk)
+
+        if related_qs is False:
+            related_qs = related_posts
+        else:
+            related_qs = related_qs | related_posts
+
+    # Annotate the results by adding a column that, effectively, records
+    # a `countDistinct(result_table.tag)` for each related post.
+    annotated = related_qs.annotate(num_common_tags=Count('pk'))
+
+    # Finally, we sort on those tag count values, with publication
+    # date as secondary sorting, so that "the same number of matching
+    # tags" is further sorted such that the most recent post shows
+    # up first (note that this is done on the database side, not in python).
+    ordered = annotated.order_by(
+        '-num_common_tags',
+        '-last_published_at'
+    )
+
+    return ordered[:result_count]
