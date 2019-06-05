@@ -60,8 +60,12 @@ export default class JoinUs extends React.Component {
         source: window.location.toString()
       };
 
-      payload.givenNames = this.givenNames && this.givenNames.value;
-      payload.surname = this.surname && this.surname.value;
+      if (this.givenNames) {
+        payload.givenNames = this.givenNames.value;
+      }
+      if (this.surname) {
+        payload.surname = this.surname.value;
+      }
 
       let xhr = new XMLHttpRequest();
 
