@@ -4,7 +4,11 @@ from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from networkapi.wagtailpages.utils import get_page_tree_information
+from networkapi.wagtailpages.utils import (
+    set_main_site_nav_information,
+    get_page_tree_information
+)
+
 from networkapi.wagtailpages.models import (
     base_fields,
     FoundationMetadataPageMixin,
@@ -71,16 +75,8 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
 
-        # Find the homepage, and then record all pages that should end up as nav items. Note
-        # that subclasses can bypass this, because the MozfestHomepage doesn't need any of
-        # this work to be done.
         if not bypass_menu_buildstep:
-            homepage = list(filter(
-                lambda x: x.specific.__class__.__name__ is 'MozfestHomepage',
-                self.get_ancestors()
-            ))[0]
-            context['menu_root'] = homepage
-            context['menu_items'] = homepage.get_children().live().in_menu()
+            context = set_main_site_nav_information(self, context, 'MozfestHomepage')
 
         return context
 
