@@ -3,14 +3,31 @@
 {% load wagtailcore_tags mini_site_tags %}
 
 {% block subcontent %}
-<div class="py-4 py-md-5 col-lg-8 offset-lg-2">
+{% with share_text=page.title|add:' by @mozilla' twitter_share_link="https://twitter.com/intent/tweet?text=" email_share_link="mailto:?&body=" facebook_share_link="https://www.facebook.com/sharer/sharer.php?u=PrivacyNotIncluded.org" %}
+<div class="offset-lg-1 col-lg-1 py-4 py-md-5 text-center">
+  <div class="blog-sticky-side hidden-md-down">
+    <a class="btn btn-social circle facebook" href="{{facebook_share_link}}" target="_blank"><span class="sr-only">Share on Facebook</span></a>
+    <a class="btn btn-social circle twitter" href="{{twitter_share_link}}{{share_text|urlencode}}" target="_blank"><span class="sr-only">Share on Twitter</span></a>
+    <a class="btn btn-social circle email" href="{{email_share_link}}{{share_text|urlencode}}" target="_blank"><span class="sr-only">Share by E-mail</span></a>
+    <a class="btn btn-social circle link" href="" target="_blank"><span class="sr-only">Copy page link</span></a>
+  </div>
+</div>
+<div class="py-4 py-md-5 col-lg-8">
   <div class="cms">
-    <h1 class="h1-heading">{{ page.title }}</h1>
+    <h1 class="h1-heading">{{ page.title }}{{share_text}}</h1>
     <p class="h6-heading mb-5">By {{ page.author }} | {% if page.first_published_at %}{{ page.first_published_at|date:"F j, Y" }}{% else %}not published yet{% endif %}</p>
     <div class="blog-body">
       {{ page.body }}
+      <div class="mt-5">
+        <a class="btn btn-secondary btn-social rectangle facebook" href="{{facebook_share_link}}" target="_blank">Facebook</span></a>
+        <a class="btn btn-secondary btn-social rectangle twitter" href="{{twitter_share_link}}{{share_text|urlencode}}" target="_blank">Twitter</a>
+        <a class="btn btn-secondary btn-social rectangle email" href="{{email_share_link}}{{share_text|urlencode}}" target="_blank">Email</a>
+        <a class="btn btn-secondary btn-social rectangle link" href="" target="_blank">Link</a>
+      </div>
     </div>
   </div>
   {% include "./fragments/ih_cta.html" %}
 </div>
+
+{% endwith %}
 {% endblock %}

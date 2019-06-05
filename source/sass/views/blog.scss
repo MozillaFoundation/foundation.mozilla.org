@@ -1,3 +1,61 @@
 .blog-ih-cta-wrapper {
   margin-top: 95px;
 }
+
+.blog-sticky-side {
+  border: 2px solid pink;
+  position: sticky;
+  top: 100px;
+  // height: 220px;
+}
+
+.btn-social {
+  border: 2px solid $black;
+  margin-bottom: 1rem;
+  padding: 8px;
+
+  @include hover-focus-active {
+    background: $black;
+  }
+
+  &::before {
+    filter: brightness(0);
+    content: " ";
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: no-repeat 0 0 / contain;
+    transition: filter 0.2s ease-in-out;
+  }
+
+  &.twitter {
+    &::before {
+      background-image: url(../_images/glyphs/twitter-white.svg);
+    }
+  }
+
+  @include hover-focus-active {
+    &::before {
+      filter: brightness(1);
+    }
+  }
+
+  &.circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+
+  &.rectangle {
+    // background: green;
+    width: 130px;
+
+    &::before {
+      position: relative;
+      top: 3px;
+      display: inline-block;
+      margin-right: 8px;
+      // background: red;
+    }
+  }
+}

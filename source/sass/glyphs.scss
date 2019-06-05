@@ -60,6 +60,11 @@
   @include compositeGlyph("donate");
 }
 
+.facebook {
+  @include compositeGlyph("fb");
+  @include hoverGlyph("fb-hover");
+}
+
 .twitter {
   @include compositeGlyph("twitter");
   @include hoverGlyph("twitter-hover");
