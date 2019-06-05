@@ -80,7 +80,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
                 self.get_ancestors()
             ))[0]
             context['menu_root'] = homepage
-            context['menu_items'] = homepage.get_children().filter(live=True, show_in_menus=True)
+            context['menu_items'] = homepage.get_children().live().in_menu()
 
         return context
 
@@ -136,5 +136,5 @@ class MozfestHomepage(MozfestPrimaryPage):
     def get_context(self, request):
         context = super().get_context(request, bypass_menu_buildstep=True)
         context['menu_root'] = self
-        context['menu_items'] = self.get_children().filter(live=True, show_in_menus=True)
+        context['menu_items'] = self.get_children().live().in_menu()
         return context

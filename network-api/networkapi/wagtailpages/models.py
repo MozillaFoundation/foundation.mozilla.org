@@ -20,7 +20,10 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
-from .utils import get_page_tree_information
+from .utils import (
+    set_main_site_nav_information,
+    get_page_tree_information
+)
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from .donation_modal import DonationModals  # noqa: F401
@@ -146,6 +149,10 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
     show_in_menus_default = True
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        return set_main_site_nav_information(self, context, 'Homepage')
+
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
@@ -165,7 +172,7 @@ class MiniSiteNameSpace(ModularPage):
         Extend the context so that mini-site pages know what kind of tree
         they live in, and what some of their local aspects are:
         """
-        context = super(MiniSiteNameSpace, self).get_context(request)
+        context = super().get_context(request)
         updated = get_page_tree_information(self, context)
         updated['mini_site_title'] = updated['root'].title
         return updated
@@ -468,8 +475,10 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
     show_in_menus_default = True
 
     def get_context(self, request):
-        context = super(PrimaryPage, self).get_context(request)
-        return get_page_tree_information(self, context)
+        context = super().get_context(request)
+        context = set_main_site_nav_information(self, context, 'Homepage')
+        context = get_page_tree_information(self, context)
+        return context
 
 
 class BanneredCampaignPage(PrimaryPage):
@@ -1072,6 +1081,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         # due to our custom image upload approach pre-wagtail
         context = super(Homepage, self).get_context(request)
         context['MEDIA_URL'] = settings.MEDIA_URL
+        context['menu_root'] = self
+        context['menu_items'] = self.get_children().filter(live=True, show_in_menus=True)
         return context
 
 
