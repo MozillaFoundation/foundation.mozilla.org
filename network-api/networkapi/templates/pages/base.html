@@ -12,15 +12,9 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
-    {% block favicon_apple %}
     <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
-    {% endblock %}
-    {% block favicon_large %}
     <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
-    {% endblock %}
-    {% block favicon %}
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
-    {% endblock %}
     <title>{% block pageTitle %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block bodyID %}{% endblock %}">
