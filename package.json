@@ -74,7 +74,7 @@
     "node": "^8.9.0"
   },
   "devDependencies": {
-    "browserslist": "^4.6.0",
+    "browserslist": "^4.6.1",
     "chokidar-cli": "^1.2.2",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
@@ -87,7 +87,7 @@
     "shelljs": "^0.8.3",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
-    "stylelint-prettier": "^1.1.0",
+    "stylelint-prettier": "^1.1.1",
     "svgo": "^1.2.2"
   }
 }

@@ -48,6 +48,21 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
     show_in_menus_default = True
 
+    use_wide_template = models.BooleanField(
+        default=False,
+        help_text="Make the body content wide, useful for components like directories"
+    )
+
+    settings_panels = Page.settings_panels + [
+       FieldPanel('use_wide_template')
+    ]
+
+    def get_template(self, request):
+        if self.use_wide_template:
+            return 'mozfest/mozfest_primary_page_wide.html'
+
+        return 'mozfest/mozfest_primary_page.html'
+
     def get_context(self, request):
         context = super().get_context(request)
         context = get_page_tree_information(self, context)
@@ -97,3 +112,10 @@ class MozfestHomepage(MozfestPrimaryPage):
     ] + parent_panels[n:] + [
         FieldPanel('prefooter_text'),
     ]
+
+    # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
+    # we should hide it and make sure we use the right template
+    settings_panels = Page.settings_panels
+
+    def get_template(self, request):
+        return 'mozfest/mozfest_homepage.html'
