@@ -1,9 +1,7 @@
 {
-  "name": "network",
-  "repository": "https://github.com/mozilla/network",
-  "issues": "https://github.com/mozilla/network/issues",
-  "version": "1.0.0",
-  "description": "Mozilla Network",
+  "repository": "https://github.com/mozilla/foundation.mozilla.org",
+  "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
+  "description": "Mozilla Foundation site",
   "scripts": {
     "autoprefix": "postcss --use autoprefixer -o network-api/networkapi/frontend/_css/main.compiled.css network-api/networkapi/frontend/_css/main.compiled.css",
     "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && run-p build:images build:sass && npm run build:contribute",
@@ -76,7 +74,7 @@
     "node": "^8.9.0"
   },
   "devDependencies": {
-    "browserslist": "^4.6.0",
+    "browserslist": "^4.6.1",
     "chokidar-cli": "^1.2.2",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
@@ -89,7 +87,7 @@
     "shelljs": "^0.8.3",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
-    "stylelint-prettier": "^1.1.0",
+    "stylelint-prettier": "^1.1.1",
     "svgo": "^1.2.2"
   }
 }

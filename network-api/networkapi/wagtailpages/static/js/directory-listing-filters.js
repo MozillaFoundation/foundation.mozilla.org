@@ -51,46 +51,35 @@
    */
   function loadResults(profiles) {
     let cards = profiles.map(profile => {
-      let { location } = profile;
-      let metaLocation = ``;
-      let cardClass = `person-card`;
-
-      if (location) {
-        metaLocation = `<p class="d-flex align-items-center meta-block-location body-small my-2">
-              ${profile.location}
-            </p>`;
-      } else {
-        cardClass = `person-card no-location`;
-      }
       return `
       <div class="col-md-6 col-12 mb-5">
-        <div class="${cardClass}">
-          <a href="https://www.mozillapulse.org/profile/${
-            profile.profile_id
-          }" class="headshot-container">
-            <img
-              src="${
-                profile.thumbnail
-                  ? profile.thumbnail
-                  : `/_images/fellowships/headshot/placeholder.jpg`
-              }"
-              class="headshot"
-              alt="Headshot">
-          </a>
+        <div class="person-card">
+          <div class="thumbnail-wrapper">
+            <a href="https://www.mozillapulse.org/profile/${
+              profile.profile_id
+            }" class="d-block headshot-container">
+              <img
+                src="${
+                  profile.thumbnail
+                    ? profile.thumbnail
+                    : `/_images/fellowships/headshot/placeholder.jpg`
+                }"
+                class="headshot"
+                alt="Headshot">
+            </a>
+          </div>
 
-          <div class="pl-3 pl-sm-2 pt-2 d-sm-flex justify-content-sm-between flex-md-column flex-lg-row meta-container">
-            <div class="meta-block flex-1">
-              <a href="https://www.mozillapulse.org/profile/${
-                profile.profile_id
-              }">
-                <div class="h5-heading mb-0">
-                  <span class="meta-block-name">
-                    ${profile.name}
-                  </span>
-                </div>
-              </a>
-              ${metaLocation}
-            </div>
+          <div class="short-meta-wrapper">
+            <a class="h5-heading meta-block-name mb-0 d-block"
+                href="https://www.mozillapulse.org/profile/${
+                  profile.profile_id
+                }">
+                  ${profile.name}
+            </a>
+            ${profile.location &&
+              `<p class="d-flex align-items-center meta-block-location body-small my-2">${
+                profile.location
+              }</p>`}
             <div class="social-icons">
               ${
                 profile.twitter
@@ -105,7 +94,7 @@
             </div>
           </div>
 
-          <div class="bio mt-2 mt-sm-0 mt-md-2 mt-lg-0 pl-sm-2 pl-md-0 pl-lg-2">
+          <div class="bio-wrapper">
             <p class="m-0">${profile.user_bio}</p>
           </div>
         </div>
