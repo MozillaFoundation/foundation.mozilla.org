@@ -2,6 +2,10 @@ version: '3'
 
 services:
   backend:
+    build:
+      dockerfile: ./.devcontainer/Dockerfile.devcontainer
+    environment:
+      - SHELL=/bin/bash
     volumes:
       - .:/app:delegated
       - ~/.gitconfig:/root/.gitconfig:delegated

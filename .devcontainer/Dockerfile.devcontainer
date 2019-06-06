@@ -5,10 +5,16 @@ ENV PYTHONUNBUFFERED 1
 # We don't want *.pyc
 ENV PYTHONDONTWRITEBYTECODE 1
 
+RUN apt-get update && apt-get install -y --no-install-recommends curl
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+
+RUN apt-get install -y --no-install-recommends git nodejs
+
 WORKDIR /app/
 
 # Install pipenv
-RUN pip install pipenv
+RUN pip install pipenv invoke
 
 # Copy Pipfiles in the container
 COPY Pipfile Pipfile.lock ./
