@@ -12,6 +12,8 @@ import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-
 import News from "./components/news/news.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
 
+import injectDonateModal from "./donate-modal/donate-modal.jsx";
+
 import primaryNav from "./primary-nav.js";
 
 const SHOW_MEMBER_NOTICE = false;
@@ -442,40 +444,35 @@ let main = {
       bindProfileCardAnalytics(profileCards);
     });
 
-    /*
-      The following code has been disabled for
-      https://github.com/mozilla/foundation.mozilla.org/issues/2630,
-      but we want to keep this code around for when we need to
-      re-enable this functionality
+    // Load up a fundraising banner
+    let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
-      ---
-      import injectDonateModal from './donate-modal/donate-modal.jsx';
-      ...
-      let donationModal = document.querySelector(`.donate-modal-wrapper`);
+    if (donationModal) {
+      let modalOptions = {
+        title: `Big corporations try to restrict how we access the web.`,
+        subheading: `Misinformation makes it harder for us to find the truth. Web-connected devices go to market without basic security standards.`,
+        cta: {
+          title: [
+            `The non-profit Mozilla Foundation fights for a healthier internet.`,
+            ` `,
+            <strong>Will you donate today?</strong>
+          ],
+          text: `Support Mozilla`
+        },
+        utm: {
+          medium: `foundation`,
+          campaign: `mainsite`,
+          content: `popupbutton`
+        },
+        ga: {
+          category: `site`,
+          action: `donate tap`,
+          label: `donate popup on foundation site`
+        }
+      };
 
-      if (donationModal) {
-        let modalOptions = {
-          title: `We all love the web. Join Mozilla in defending it!`,
-          subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
-          cta: {
-            title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
-            text: `Support Mozilla`
-          },
-          utm: {
-            medium: `foundation`,
-            campaign: `mainsite`,
-            content: `popupbutton`
-          },
-          ga: {
-            category: `site`,
-            action: `donate tap`,
-            label: `donate popup on foundation site`
-          }
-        };
-
-        injectDonateModal(donationModal, modalOptions);
-      }
-    */
+      injectDonateModal(donationModal, modalOptions);
+    }
   }
 };
 
