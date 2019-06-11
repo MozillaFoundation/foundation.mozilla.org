@@ -1,12 +1,7 @@
 {
 	"name": "Mozilla Foundation CMS",
-	"dockerComposeFile": [
-		"../docker-compose.yml",
-		"docker-compose.extend.yml"
-	],
-	"service": "backend",
-	"shutdownAction": "stopCompose",
-	"workspaceFolder": "/app",
+	"dockerFile": "../dockerfiles/Dockerfile.python",
+	"context": "..",
 	"extensions": [
 		"ms-python.python"
 	],
