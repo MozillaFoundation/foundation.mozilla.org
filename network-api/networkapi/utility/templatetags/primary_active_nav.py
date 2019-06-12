@@ -14,5 +14,4 @@ def primary_active_nav(request, root_url, target_url):
     if target_url == root_url:
         return "active" if request_url == target_url else ""
 
-
     return "active" if request_url.startswith(target_url) else ""
