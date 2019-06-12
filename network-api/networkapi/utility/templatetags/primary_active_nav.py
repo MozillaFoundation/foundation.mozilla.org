@@ -4,12 +4,15 @@ register = template.Library()
 
 
 @register.simple_tag(name='primary_active_nav')
-def primary_active_nav(request, root_path, target_path):
+def primary_active_nav(request, root_url, target_url):
 
     if not request:
         return ""
 
-    if target_path == root_path:
-        return "active" if request.path == target_path else ""
+    request_url = request.build_absolute_uri()
 
-    return "active" if request.path.startswith(target_path) else ""
+    if target_url == root_url:
+        return "active" if request_url == target_url else ""
+
+
+    return "active" if request_url.startswith(target_url) else ""
