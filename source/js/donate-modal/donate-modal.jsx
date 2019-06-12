@@ -11,7 +11,8 @@ class DonateModal extends React.Component {
   constructor(props) {
     super(props);
 
-    const INITIAL_DELAY_IN_MILLISECONDS = parseInt(this.props.delay) || 10 * MILLISECONDS; // 10 seconds, in ms
+    const INITIAL_DELAY_IN_MILLISECONDS =
+      parseInt(this.props.delay) || 10 * MILLISECONDS; // 10 seconds, in ms
     const DISMISSAL_DELAY_IN_DAYS = parseInt(this.props.hideFor) || 7; // one week, in days
 
     // Don't treat the modal as dismissed if:
