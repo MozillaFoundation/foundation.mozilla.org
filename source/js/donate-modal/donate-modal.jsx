@@ -11,8 +11,8 @@ class DonateModal extends React.Component {
   constructor(props) {
     super(props);
 
-    const INITIAL_DELAY = parseInt(this.props.delay) || 10 * MILLISECONDS; // 10 seconds, in ms
-    const DISMISSAL_DELAY = parseInt(this.props.hideFor) || 7; // one week, in days
+    const INITIAL_DELAY_IN_MILLISECONDS = parseInt(this.props.delay) || 10 * MILLISECONDS; // 10 seconds, in ms
+    const DISMISSAL_DELAY_IN_DAYS = parseInt(this.props.hideFor) || 7; // one week, in days
 
     // Don't treat the modal as dismissed if:
     // 1. the user never dismissed it before, or
@@ -21,13 +21,13 @@ class DonateModal extends React.Component {
     let lastLoad = localStorage[DISMISSED_CHECK_KEY];
     if (lastLoad) {
       var diff = (Date.now() - parseInt(lastLoad, 10)) / DAY;
-      if (diff < DISMISSAL_DELAY) {
+      if (diff < DISMISSAL_DELAY_IN_DAYS) {
         dismissed = true;
       }
     }
 
     this.state = {
-      delay: INITIAL_DELAY,
+      delay: INITIAL_DELAY_IN_MILLISECONDS,
       visible: false,
       dismissed
     };
