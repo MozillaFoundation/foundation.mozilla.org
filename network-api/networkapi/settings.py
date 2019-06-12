@@ -510,7 +510,12 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler'
-        }
+        },
+        'info': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django': {
@@ -537,6 +542,10 @@ LOGGING = {
         'django.utils.autoreload': {
             'handlers': ['debug-error'],
             'level': 'ERROR'
+        },
+        'networkapi': {
+            'handlers': ['info'],
+            'level': 'INFO',
         }
     }
 }

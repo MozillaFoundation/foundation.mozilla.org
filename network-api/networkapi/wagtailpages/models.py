@@ -212,6 +212,11 @@ class CTA(models.Model):
 @register_snippet
 class Signup(CTA):
 
+    ask_name = models.BooleanField(
+        help_text='Check this box to show (optional) name fields',
+        default=False,
+    )
+
     class Meta:
         verbose_name = 'signup snippet'
 
@@ -1082,7 +1087,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context = super(Homepage, self).get_context(request)
         context['MEDIA_URL'] = settings.MEDIA_URL
         context['menu_root'] = self
-        context['menu_items'] = self.get_children().filter(live=True, show_in_menus=True)
+        context['menu_items'] = self.get_children().live().in_menu()
         return context
 
 
