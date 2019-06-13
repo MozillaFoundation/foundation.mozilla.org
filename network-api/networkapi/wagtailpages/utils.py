@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.db.models import Count
 
+
 def set_main_site_nav_information(page, context, homepage_class_name):
     # Find the homepage, and then record all pages that should end up as nav items. Note
     # that subclasses can bypass this, because the MozfestHomepage doesn't need any of
