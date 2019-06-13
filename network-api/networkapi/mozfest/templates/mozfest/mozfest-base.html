@@ -16,7 +16,7 @@
 {% block bodyclass %}mozfest{% endblock %}
 
 {% block pageTitle %}
-    Mozfest - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+    Mozilla Festival 2019{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
 {% block bodyID %}mozfest-{% block mozfestBodyId %}home{% endblock %}{% endblock %}
