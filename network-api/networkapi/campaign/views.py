@@ -181,7 +181,10 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
 
     if queue_url is None:
         logger.warning(f'{type} was not submitted: No {type} SQS url was specified')
-        return Response({'message': 'success'}, 201)
+        return Response({
+            'message': 'success',
+            'details': 'nq'
+        }, 201)
 
     try:
         response = sqs.send_message(
@@ -196,7 +199,10 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
         )
 
     if 'MessageId' in response and response['MessageId']:
-        return Response({'message': 'success'}, 201)
+        return Response({
+            'message': 'success',
+            'details': response['MessageId']
+        }, 201)
     else:
         return Response(
             {'error': f'Something went wrong with {type}'},
