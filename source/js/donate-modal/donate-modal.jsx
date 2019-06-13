@@ -2,56 +2,46 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ReactGA from "../react-ga-proxy.js";
 
-const KEY_STATE = `donate modal state`;
-const KEY_TIMER = `donate modal timer`;
-const DELAY = 10000; // in ms
-const TIMER_INCREMENT = 1000; // in ms
+const DISMISSED_CHECK_KEY = "fundraising-banner";
+const MILLISECONDS = 1000;
+const DAY = 24 * 3600 * MILLISECONDS;
+const localStorage = typeof window === "undefined" ? {} : window.localStorage;
 
 class DonateModal extends React.Component {
   constructor(props) {
     super(props);
 
-    let dismissed = !!sessionStorage.getItem(KEY_STATE) || false;
-    let prevTimer = this.getPrevTimer();
+    const INITIAL_DELAY_IN_MILLISECONDS =
+      parseInt(this.props.delay) || 10 * MILLISECONDS; // 10 seconds, in ms
+    const DISMISSAL_DELAY_IN_DAYS = parseInt(this.props.hideFor) || 7; // one week, in days
+
+    // Don't treat the modal as dismissed if:
+    // 1. the user never dismissed it before, or
+    // 2. it's been longer than a week since they dismissed
+    let dismissed = false;
+    let lastLoad = localStorage[DISMISSED_CHECK_KEY];
+    if (lastLoad) {
+      var diff = (Date.now() - parseInt(lastLoad, 10)) / DAY;
+      if (diff < DISMISSAL_DELAY_IN_DAYS) {
+        dismissed = true;
+      }
+    }
 
     this.state = {
-      delay: DELAY - prevTimer,
+      delay: INITIAL_DELAY_IN_MILLISECONDS,
       visible: false,
       dismissed
     };
-
-    this.timer = prevTimer;
-    this.runTimer;
-  }
-
-  getPrevTimer() {
-    let prevTimer = parseInt(sessionStorage.getItem(KEY_TIMER), 10);
-
-    if (isNaN(prevTimer)) {
-      prevTimer = 0;
-    }
-
-    return prevTimer;
   }
 
   componentDidMount() {
     if (!this.state.dismissed) {
-      this.startTimer();
-
       // show modal after delay. If delay is a negative value, show modal immediately
-      setTimeout(
+      this.runTimer = setTimeout(
         () => this.setState({ visible: true }),
-        Math.max(this.state.delay, 0)
+        this.state.delay
       );
     }
-  }
-
-  startTimer() {
-    this.runTimer = setInterval(() => {
-      this.timer += TIMER_INCREMENT;
-
-      sessionStorage.setItem(KEY_TIMER, this.timer);
-    }, TIMER_INCREMENT);
   }
 
   handleBtnClick() {
@@ -63,17 +53,9 @@ class DonateModal extends React.Component {
   }
 
   dismiss() {
-    sessionStorage.setItem(KEY_STATE, `dismissed`);
-    sessionStorage.removeItem(KEY_TIMER);
-
-    this.setState(
-      {
-        dismissed: true
-      },
-      () => {
-        clearInterval(this.runTimer);
-      }
-    );
+    clearInterval(this.runTimer);
+    localStorage[DISMISSED_CHECK_KEY] = Date.now();
+    this.setState({ dismissed: true });
   }
 
   render() {
