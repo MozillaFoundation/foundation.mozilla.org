@@ -21,6 +21,7 @@ from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import (
+    set_main_site_nav_information,
     get_page_tree_information,
     get_content_related_by_tag
 )
@@ -148,6 +149,10 @@ class ModularPage(FoundationMetadataPageMixin, Page):
     ]
 
     show_in_menus_default = True
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return set_main_site_nav_information(self, context, 'Homepage')
 
 
 class MiniSiteNameSpace(ModularPage):
@@ -477,7 +482,9 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        return get_page_tree_information(self, context)
+        context = set_main_site_nav_information(self, context, 'Homepage')
+        context = get_page_tree_information(self, context)
+        return context
 
 
 class BanneredCampaignPage(PrimaryPage):
@@ -1085,6 +1092,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         # due to our custom image upload approach pre-wagtail
         context = super().get_context(request)
         context['MEDIA_URL'] = settings.MEDIA_URL
+        context['menu_root'] = self
+        context['menu_items'] = self.get_children().live().in_menu()
         return context
 
 

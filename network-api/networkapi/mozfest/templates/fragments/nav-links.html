@@ -1,8 +1,0 @@
-{% load primary_active_nav %}
-
-{{ pre }}<a class="{% primary_active_nav request '/spaces' %}" href="/spaces">Spaces</a>{{ post }}
-{{ pre }}<a class="{% primary_active_nav request '/team' %}" href="/team">Team</a>{{ post }}
-{{ pre }}<a class="{% primary_active_nav request '/tickets' %}" href="/tickets">Tickets</a>{{ post }}
-{{ pre }}<a class="{% primary_active_nav request '/sponsors' %}" href="/sponsors">Sponsors</a>{{ post }}
-
-{% if HEROKU_APP_NAME %}{{ pre }}<a href="/help">DEV HELP</a>{{ post }}{% endif %}
