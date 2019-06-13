@@ -22,7 +22,8 @@ from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import (
     set_main_site_nav_information,
-    get_page_tree_information
+    get_page_tree_information,
+    get_content_related_by_tag
 )
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -526,7 +527,7 @@ class BanneredCampaignPage(PrimaryPage):
     show_in_menus_default = True
 
     def get_context(self, request):
-        context = super(BanneredCampaignPage, self).get_context(request)
+        context = super().get_context(request)
         return get_page_tree_information(self, context)
 
 
@@ -583,6 +584,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     # Database fields
 
     zen_nav = True
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['related_posts'] = get_content_related_by_tag(self)
+        return context
 
 
 class InitiativeSection(models.Model):
@@ -1084,7 +1090,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
         # due to our custom image upload approach pre-wagtail
-        context = super(Homepage, self).get_context(request)
+        context = super().get_context(request)
         context['MEDIA_URL'] = settings.MEDIA_URL
         context['menu_root'] = self
         context['menu_items'] = self.get_children().live().in_menu()
