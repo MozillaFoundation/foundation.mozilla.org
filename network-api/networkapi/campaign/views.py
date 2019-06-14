@@ -90,8 +90,9 @@ def signup_submission(request, signup):
         "format": "html",
         "source_url": request.data['source'],
         "newsletters": signup.newsletter,
-        "first_name": request.data.get('givenNames', None),
-        "last_name": request.data.get('surname', None)
+        # Empty string instead of None due to Basket issues
+        "first_name": request.data.get('givenNames', ''),
+        "last_name": request.data.get('surname', '')
     }
 
     message = json.dumps({
