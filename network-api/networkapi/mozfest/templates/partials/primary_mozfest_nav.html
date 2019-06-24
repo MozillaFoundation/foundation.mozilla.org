@@ -11,8 +11,8 @@
               <div class="row">
                 <div class="col">
                   <div class="nav-links pt-3">
-                    <div><a class="{% primary_active_nav request '/' %}" href="/">{{ root_name }}</a></div>
-                    {% include "../fragments/nav-links.html" with pre="<div>" post="</div>" %}
+                    <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{{ root_name }}</a></div>
+                    {% include "fragments/nav-links.html" with pre="<div>" post="</div>" %}
                   </div>
                 </div>
               </div>
@@ -31,10 +31,10 @@
                     <div class="burger-bar burger-bar-middle"></div>
                     <div class="burger-bar burger-bar-bottom"></div>
                   </button>
-                  <a class="logo text-hide" href="/">{{ root_name }}</a>
+                  <a class="logo text-hide" href="{{ menu_root.url }}">{{ root_name }}</a>
                   <div class="wide-screen-menu">
                     <div class="nav-links d-none d-lg-block">
-                      {% include "../fragments/nav-links.html" %}
+                      {% include "fragments/nav-links.html" %}
                     </div>
                   </div>
                 </div>
