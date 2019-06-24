@@ -12,6 +12,7 @@
     {% block head-extra %}
     <meta property="og:title" content="*Privacy Not Included: A Buyer’s Guide for Connected Products">
     {% endblock %}
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta property="og:description" content="89 connected products rated on their safety and security">
     <meta property="og:image" content="{{request.scheme}}://{{request.get_host}}/_images/buyers-guide/share.jpg">
     <meta property="og:image:type" content="image/jpg">
