@@ -18,6 +18,15 @@
     <title>{% block pageTitle %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block bodyID %}{% endblock %}">
+   <script type="application/ld+json">
+   {
+     "@context" : "http://schema.org",
+     "@type" : "Organization",
+     "legalName" : "Mozilla Foundation",
+     "url" : "https://foundation.mozilla.org/en/",
+     "logo" : "https://camo.githubusercontent.com/37daaa17be7871c4ee4ab3d459e7e83e11cb85fa/68747470733a2f2f6173736574732e6d6f666f70726f642e6e65742f6e6574776f726b2f696d616765732f6d6f7a696c6c612d6f672d696d6167652d6d696e2e6f726967696e616c2e6a7067",
+    }
+   </script>
     {% if user.is_authenticated %}
     <div class="authenticated-page-edit" style="position: fixed; bottom:0; background: teal; padding: 0.25em; z-index:1000">
       <a style="color: white" href="/cms/pages/{{page.id}}/edit/">Edit</a>
