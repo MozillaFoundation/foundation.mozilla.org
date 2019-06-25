@@ -56,7 +56,7 @@
     "mofo-style": "^2.4.0",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
-    "postcss": "^7.0.16",
+    "postcss": "^7.0.17",
     "postcss-cli": "^6.1.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
