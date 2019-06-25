@@ -94,4 +94,4 @@ The `DEBUG` flag does all sorts of magical things, to the point where testing wi
 
 ## Contributing
 
-We love contributors, but the team maintaining this project isn't structured to significantly support new ones. If there's an unassigned issue that catches your eye, you're free to open a PR for it if you have enough details. (Or if you need to ask a clarifying question if you know the general approach you want to take but need an implementation decision.) However, we don't have the capacity to walk you through the process of spinning up the project or opening a PR.
+We love contributors, but the team maintaining this project is small and not structured to significantly support new and inexperienced ones. If there's an unassigned issue that catches your eye, you're free to open a PR for it but keep in mind our support will be limited. We don't have the capacity to walk you through the process of spinning up the project, opening a PR or describing what the solution to the issue could be.
