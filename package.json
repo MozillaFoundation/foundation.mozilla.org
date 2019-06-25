@@ -56,7 +56,7 @@
     "mofo-style": "^2.4.0",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
-    "postcss": "^7.0.16",
+    "postcss": "^7.0.17",
     "postcss-cli": "^6.1.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -72,7 +72,7 @@
     "node": "^8.9.0"
   },
   "devDependencies": {
-    "browserslist": "^4.6.1",
+    "browserslist": "^4.6.3",
     "chokidar-cli": "^1.2.2",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
@@ -83,7 +83,7 @@
     "prettier": "^1.17.1",
     "wait-on": "^3.2.0",
     "shelljs": "^0.8.3",
-    "stylelint": "^10.0.1",
+    "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-prettier": "^1.1.1",
     "svgo": "^1.2.2"
