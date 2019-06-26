@@ -145,14 +145,6 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   render() {
-    // initialArray.reduce(function(result, value, index, array) {
-    //   if (index % 2 === 0)
-    //     result.push(array.slice(index, index + 2));
-    //   return result;
-    // }, []);
-
-    console.log(this.props);
-
     return (
       <>
         {this.props.version === `mini`
