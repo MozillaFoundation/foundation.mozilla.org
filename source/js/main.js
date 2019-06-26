@@ -353,7 +353,9 @@ let main = {
     });
 
     // Share button group
-    let shareButtonGroups = document.querySelectorAll(`.share-button-group-wrapper`);
+    let shareButtonGroups = document.querySelectorAll(
+      `.share-button-group-wrapper`
+    );
     if (shareButtonGroups) {
       if (shareButtonGroups.length) {
         shareButtonGroups.forEach(element => {
@@ -370,7 +372,6 @@ let main = {
         });
       }
     }
-
 
     //Profile Directory Filter-Bar GA
 

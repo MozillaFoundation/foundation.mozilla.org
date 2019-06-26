@@ -19,7 +19,7 @@ export default class ShareButtonGroup extends React.Component {
     }
   }
 
-  renderFacebookButton(srLabel) {
+  renderFacebookButton() {
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share by Facebook</span>
@@ -39,7 +39,7 @@ export default class ShareButtonGroup extends React.Component {
     );
   }
 
-  renderTwitterButton(srLabel) {
+  renderTwitterButton() {
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share by Twitter</span>
@@ -59,7 +59,7 @@ export default class ShareButtonGroup extends React.Component {
     );
   }
 
-  renderEmailButton(srLabel) {
+  renderEmailButton() {
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share by email</span>
@@ -77,7 +77,7 @@ export default class ShareButtonGroup extends React.Component {
     );
   }
 
-  renderLinkButton(srLabel) {
+  renderLinkButton() {
     let label = this.state.linkCopied ? `Copied` : `Copy`;
     label =
       this.props.version === `mini` ? (
@@ -140,10 +140,6 @@ export default class ShareButtonGroup extends React.Component {
     );
   }
 
-  generateButtonsList() {
-    let buttons = [];
-  }
-
   render() {
     return (
       <>
@@ -154,7 +150,3 @@ export default class ShareButtonGroup extends React.Component {
     );
   }
 }
-
-ShareButtonGroup.propTypes = {
-  // env: PropTypes.object
-};
