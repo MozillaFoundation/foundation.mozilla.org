@@ -6,8 +6,6 @@ export default class ShareButtonGroup extends React.Component {
   constructor(props) {
     super(props);
 
-    this.link = ``;
-    this.shareText = ``;
     this.state = {
       linkCopied: false
     };
@@ -27,12 +25,12 @@ export default class ShareButtonGroup extends React.Component {
         `Faceook`
       );
 
+    let link = this.props.link ? this.props.link : ``;
+
     return (
       <a
         class="btn btn-secondary btn-share facebook-share"
-        href={`https://www.facebook.com/sharer/sharer.php?u=https://${
-          this.link
-        }`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=https://${link}`}
       >
         {label}
       </a>
@@ -40,6 +38,7 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderTwitterButton() {
+    let shareText = this.props.shareText ? this.props.shareText : ``;
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share by Twitter</span>
@@ -51,7 +50,7 @@ export default class ShareButtonGroup extends React.Component {
       <a
         class="btn btn-secondary btn-share twitter-share"
         href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          this.shareText
+          shareText
         )}`}
       >
         {label}
@@ -60,6 +59,7 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderEmailButton() {
+    let shareText = this.props.shareText ? this.props.shareText : ``;
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share by email</span>
@@ -70,7 +70,7 @@ export default class ShareButtonGroup extends React.Component {
     return (
       <a
         class="btn btn-secondary btn-share email-share"
-        href={`mailto:?&body=${encodeURIComponent(this.shareText)}`}
+        href={`mailto:?&body=${encodeURIComponent(shareText)}`}
       >
         {label}
       </a>

@@ -6,7 +6,7 @@
       margin-bottom: 16px;
     }
 
-    a.btn.btn-secondary {
+    .btn {
       &:last-child {
         margin-right: 0;
       }
@@ -28,7 +28,7 @@
       @include stacked-rectangle();
     }
 
-    a.btn {
+    .btn {
       width: 130px;
 
       &::before {
@@ -44,12 +44,12 @@
     &.stacked {
       flex-direction: column;
 
-      a.btn:not(:last-child) {
+      .btn:not(:last-child) {
         margin-bottom: 16px;
       }
     }
 
-    a.btn {
+    .btn {
       width: 36px;
       height: 36px;
       border-radius: 50%;
@@ -62,7 +62,6 @@
   }
 
   .btn {
-    width: 130px;
     margin-right: 16px;
 
     @include hover-focus-active {
