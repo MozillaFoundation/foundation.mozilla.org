@@ -84,7 +84,7 @@
 }
 
 // append external link glyph
-.btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]) {
+.btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]):not(.btn-share) {
   display: inline-flex;
   align-items: center;
 

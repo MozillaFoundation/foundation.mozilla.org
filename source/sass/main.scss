@@ -27,6 +27,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "../js/components/pulse-project-list/pulse-project-list";
 @import "../js/components/fellow-list/directory-filter-bar";
 @import "../js/components/petition/petition";
+@import "../js/components/share-button-group/share-button-group";
 
 // Special react component
 
@@ -53,7 +54,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./utilities";
 @import "./cms";
 @import "./share-progress";
-@import "./share-button-group";
 @import "./wagtail";
 
 // temporary?

@@ -11,6 +11,7 @@ import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
+import ShareButtonGroup from "./components/share-button-group/share-button-group.jsx";
 
 import injectDonateModal from "./donate-modal/donate-modal.jsx";
 
@@ -350,6 +351,26 @@ let main = {
         })
       );
     });
+
+    // Share button group
+    let shareButtonGroups = document.querySelectorAll(`.share-button-group-wrapper`);
+    if (shareButtonGroups) {
+      if (shareButtonGroups.length) {
+        shareButtonGroups.forEach(element => {
+          var props = element.dataset;
+
+          apps.push(
+            new Promise(resolve => {
+              ReactDOM.render(
+                <ShareButtonGroup {...props} whenLoaded={() => resolve()} />,
+                element
+              );
+            })
+          );
+        });
+      }
+    }
+
 
     //Profile Directory Filter-Bar GA
 

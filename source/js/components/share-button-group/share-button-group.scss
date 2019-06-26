@@ -1,31 +1,31 @@
-@mixin stacked-share-button-group() {
-  flex-direction: column;
+.share-button-group {
+  @mixin stacked-rectangle() {
+    flex-direction: column;
 
-  .subgroup:not(:last-child) {
-    margin-bottom: 16px;
-  }
+    .subgroup:not(:last-child) {
+      margin-bottom: 16px;
+    }
 
-  a.btn.btn-secondary {
-    &:last-child {
-      margin-right: 0;
+    a.btn.btn-secondary {
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .subgroup {
+      flex: 0;
     }
   }
 
-  .subgroup {
-    flex: 0;
-  }
-}
-
-.share-button-group {
   display: flex;
 
   &.rectangle {
     @media (max-width: $bp-md) {
-      @include stacked-share-button-group();
+      @include stacked-rectangle();
     }
 
     &.stacked {
-      @include stacked-share-button-group();
+      @include stacked-rectangle();
     }
 
     a.btn {
@@ -61,9 +61,8 @@
     }
   }
 
-  a.btn {
+  .btn {
     width: 130px;
-    border-width: 2px;
     margin-right: 16px;
 
     @include hover-focus-active {
@@ -103,6 +102,12 @@
     &.link-share {
       &::before {
         background-image: url(../_images/glyphs/social-share/link-share.svg);
+      }
+
+      &.copied {
+        &::before {
+          background-image: url(../_images/glyphs/social-share/link-share-copied.svg);
+        }
       }
     }
   }
