@@ -116,3 +116,6 @@ network-api/networkapi/frontend/*
 
 # Cypress visual regression testing
 cypress/videos
+
+# Selenium drivers
+*driver.*

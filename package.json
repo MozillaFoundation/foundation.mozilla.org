@@ -29,6 +29,9 @@
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
     "test:scss:styleguide:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:css": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --syntax scss",
+    "test:site": "run-p --race server test:site:selenium",
+    "test:site:selenium": "wait-on tcp:8000 && npm run test:selenium",
+    "test:selenium": "mocha ./test/selenium --timeout 60000",
     "test": "run-s test:** build",
     "watch": "npm run build && run-p watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
@@ -73,19 +76,22 @@
   },
   "devDependencies": {
     "browserslist": "^4.6.1",
+    "chai": "^4.2.0",
     "chokidar-cli": "^1.2.2",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
+    "mocha": "^6.1.4",
     "optipng-bin": "^6.0.0",
     "prettier": "^1.17.1",
-    "wait-on": "^3.2.0",
+    "selenium-webdriver": "^4.0.0-alpha.4",
     "shelljs": "^0.8.3",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-prettier": "^1.1.1",
-    "svgo": "^1.2.2"
+    "svgo": "^1.2.2",
+    "wait-on": "^3.2.0"
   }
 }
