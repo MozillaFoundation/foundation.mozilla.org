@@ -83,7 +83,7 @@ footer.site-footer {
     @media (min-width: $bp-lg) {
       column-count: 2;
       li {
-        break-inside: avoid-column;
+        break-inside: avoid;
       }
     }
   }
