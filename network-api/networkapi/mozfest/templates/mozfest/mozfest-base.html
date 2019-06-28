@@ -3,6 +3,7 @@
 
 
 {% block ga_identifier %}
+  <meta name="google-site-verification" content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk" />
   <meta name="ga-identifier" content="UA-87658599-15">
 {% endblock %}
 
@@ -15,7 +16,7 @@
 {% block bodyclass %}mozfest{% endblock %}
 
 {% block pageTitle %}
-    Mozfest - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}
+    Mozilla Festival 2019{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
 {% block bodyID %}mozfest-{% block mozfestBodyId %}home{% endblock %}{% endblock %}
