@@ -33,7 +33,6 @@ wagtail-modeltranslation = "==0.10.1"
 cloudinary = "*"
 wagtail-experiments = "*"
 pyyaml = "==5.1"
-invoke = "*"
 
 [dev-packages]
 "flake8" = "*"

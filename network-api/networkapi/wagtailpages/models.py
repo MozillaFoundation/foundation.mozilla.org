@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 
-from networkapi.wagtailpages import customblocks
+from . import customblocks
 from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
@@ -25,6 +25,7 @@ from .utils import (
     get_page_tree_information,
     get_content_related_by_tag
 )
+
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from .donation_modal import DonationModals  # noqa: F401
 
