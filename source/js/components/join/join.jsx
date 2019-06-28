@@ -322,8 +322,8 @@ export default class JoinUs extends React.Component {
 }
 
 JoinUs.defaultProps = {
-  ctaHeader: `Want to get smarter about your online life?`,
-  ctaDescription: `Sign up for our Mozilla newsletter!`,
+  ctaHeader: `Protect the internet as a global public resource`,
+  ctaDescription: `Join our email list to take action and stay updated!`,
   thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
   newsletter: `mozilla-foundation`,
   askName: false
