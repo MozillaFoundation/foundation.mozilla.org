@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 
-from . import customblocks
+from networkapi.wagtailpages import customblocks
 from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
@@ -20,10 +20,9 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
-from .utils import get_page_tree_information
+from networkapi.wagtailpages.utils import get_page_tree_information
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
-from .donation_modal import DonationModals  # noqa: F401
 
 """
 We'll need to figure out which components are truly "base" and
