@@ -26,6 +26,7 @@ from .utils import (
     get_content_related_by_tag
 )
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
+from .donation_modal import DonationModals  # noqa: F401
 
 """
 We'll need to figure out which components are truly "base" and
