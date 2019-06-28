@@ -20,7 +20,6 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import InlinePanel
 from wagtailmetadata.models import MetadataPageMixin
 
-from networkapi.wagtailpages.utils import get_page_tree_information
 from .utils import (
     set_main_site_nav_information,
     get_page_tree_information,
