@@ -4,7 +4,11 @@ from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from networkapi.wagtailpages.utils import get_page_tree_information
+from networkapi.wagtailpages.utils import (
+    set_main_site_nav_information,
+    get_page_tree_information
+)
+
 from networkapi.wagtailpages.models import (
     base_fields,
     FoundationMetadataPageMixin,
@@ -63,12 +67,17 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
         return 'mozfest/mozfest_primary_page.html'
 
-    def get_context(self, request):
+    def get_context(self, request, bypass_menu_buildstep=False):
         context = super().get_context(request)
         context = get_page_tree_information(self, context)
+
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
         mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
+
+        if not bypass_menu_buildstep:
+            context = set_main_site_nav_information(self, context, 'MozfestHomepage')
+
         return context
 
 
@@ -119,3 +128,9 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
+
+    def get_context(self, request):
+        context = super().get_context(request, bypass_menu_buildstep=True)
+        context['menu_root'] = self
+        context['menu_items'] = self.get_children().live().in_menu()
+        return context

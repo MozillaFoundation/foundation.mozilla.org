@@ -4,13 +4,21 @@ register = template.Library()
 
 
 @register.simple_tag(name='primary_active_nav')
-def primary_active_nav(request, target_path):
+def primary_active_nav(request, root_url, target_url):
 
     if not request:
         return ""
 
-    # remove langauge code segment from path to make path comparison easier
-    lang = f"/{request.LANGUAGE_CODE}"
-    path_info = request.path_info[len(lang):] if request.path_info.startswith(lang) else request.path_info
+    request_url = request.build_absolute_uri()
 
-    return "active" if path_info.rstrip("/") == target_path.rstrip("/") else ""
+    # In order to work around https://github.com/wagtail/wagtail/issues/5379
+    # we need to strip all protocols from the urls first, because they might
+    # mismatch, even though they reasonably shouldn't.
+    root_url = root_url.replace('http://', '').replace('https://', '')
+    target_url = target_url.replace('http://', '').replace('https://', '')
+    request_url = request_url.replace('http://', '').replace('https://', '')
+
+    if target_url == root_url:
+        return "active" if request_url == target_url else ""
+
+    return "active" if request_url.startswith(target_url) else ""
