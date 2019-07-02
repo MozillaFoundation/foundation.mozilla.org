@@ -142,7 +142,7 @@ export default class ShareButtonGroup extends React.Component {
 
   render() {
     return (
-      <>
+      <React.Fragment>
         {this.props.version === `mini`
           ? this.renderCircleButtons()
           : this.renderRectangleButtons()}
