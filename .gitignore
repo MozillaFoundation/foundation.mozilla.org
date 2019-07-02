@@ -118,4 +118,4 @@ network-api/networkapi/frontend/*
 cypress/videos
 
 # Selenium drivers
-*driver.*
+*driver*
