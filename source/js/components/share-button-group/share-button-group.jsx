@@ -59,7 +59,7 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderEmailButton() {
-    let shareText = this.props.shareText ? this.props.shareText : ``;
+    let shareText = this.props.shareText || ``;
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share by email</span>
