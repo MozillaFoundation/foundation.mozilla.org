@@ -77,6 +77,15 @@ export default class ShareButtonGroup extends React.Component {
     );
   }
 
+  handleLinkButtonClick(event) {
+    event.preventDefault();
+
+    copyToClipboard(event.target, window.location.href);
+    this.setState({
+      linkCopied: true
+    });
+  }
+
   renderLinkButton() {
     let label = this.state.linkCopied ? `Copied` : `Copy`;
     label =
@@ -90,17 +99,12 @@ export default class ShareButtonGroup extends React.Component {
       copied: this.state.linkCopied
     });
 
-    let onClickHandler = event => {
-      event.preventDefault();
-
-      copyToClipboard(event.target, window.location.href);
-      this.setState({
-        linkCopied: true
-      });
-    };
-
     return (
-      <a class={classes} href="#" onClick={onClickHandler}>
+      <a
+        class={classes}
+        href="#"
+        onClick={event => this.handleLinkButtonClick(event)}
+      >
         {label}
       </a>
     );

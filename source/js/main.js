@@ -357,20 +357,18 @@ let main = {
       `.share-button-group-wrapper`
     );
     if (shareButtonGroups) {
-      if (shareButtonGroups.length) {
-        shareButtonGroups.forEach(element => {
-          var props = element.dataset;
+      shareButtonGroups.forEach(element => {
+        var props = element.dataset;
 
-          apps.push(
-            new Promise(resolve => {
-              ReactDOM.render(
-                <ShareButtonGroup {...props} whenLoaded={() => resolve()} />,
-                element
-              );
-            })
-          );
-        });
-      }
+        apps.push(
+          new Promise(resolve => {
+            ReactDOM.render(
+              <ShareButtonGroup {...props} whenLoaded={() => resolve()} />,
+              element
+            );
+          })
+        );
+      });
     }
 
     //Profile Directory Filter-Bar GA
