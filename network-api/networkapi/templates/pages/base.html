@@ -16,9 +16,17 @@
     <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
     <title>{% block pageTitle %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
+    <script type="application/ld+json">
+   {
+     "@context" : "http://schema.org",
+     "@type" : "Organization",
+     "legalName" : "Mozilla Foundation",
+     "url" : "https://foundation.mozilla.org",
+     "logo" : "https://foundation.mozilla.org/_images/mozlogo.jpg",
+    }
+   </script>
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block bodyID %}{% endblock %}">
-
     {% if user.is_authenticated %}
     <div class="authenticated-page-edit" style="position: fixed; bottom:0; background: teal; padding: 0.25em; z-index:1000">
       <a style="color: white" href="/cms/pages/{{page.id}}/edit/">Edit</a>
@@ -30,7 +38,6 @@
       <!-- this will be populated by main.js if needed -->
     </div>
     {% endblock %}
-
     {% block page_top_content %}{% endblock %}
 
     <div class="wrapper">
