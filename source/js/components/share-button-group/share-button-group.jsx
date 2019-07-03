@@ -20,17 +20,19 @@ export default class ShareButtonGroup extends React.Component {
   renderFacebookButton() {
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share by Facebook</span>
+        <span class="sr-only">Share on Facebook</span>
       ) : (
         `Faceook`
       );
 
-    let link = this.props.link ? this.props.link : ``;
+    let link = this.props.link || ``;
 
     return (
       <a
         class="btn btn-secondary btn-share facebook-share"
-        href={`https://www.facebook.com/sharer/sharer.php?u=https://${link}`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          `https://${link}`
+        )}`}
       >
         {label}
       </a>
@@ -41,7 +43,7 @@ export default class ShareButtonGroup extends React.Component {
     let shareText = this.props.shareText ? this.props.shareText : ``;
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share by Twitter</span>
+        <span class="sr-only">Share on Twitter</span>
       ) : (
         `Twitter`
       );
