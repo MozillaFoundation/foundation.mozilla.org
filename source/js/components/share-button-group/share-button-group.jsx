@@ -40,7 +40,7 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderTwitterButton() {
-    let shareText = this.props.shareText ? this.props.shareText : ``;
+    let shareText = this.props.shareText || ``;
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share on Twitter</span>
