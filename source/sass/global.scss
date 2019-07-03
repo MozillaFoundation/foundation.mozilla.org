@@ -82,7 +82,9 @@ footer.site-footer {
   .link-list {
     @media (min-width: $bp-lg) {
       column-count: 2;
-      break-inside: avoid-column;
+      li {
+        break-inside: avoid;
+      }
     }
   }
 }
