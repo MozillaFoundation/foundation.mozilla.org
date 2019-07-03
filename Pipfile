@@ -32,7 +32,7 @@ wagtail-modeltranslation = "==0.10.1"
 "psycopg2-binary" = "==2.7.7"
 cloudinary = "*"
 wagtail-experiments = "*"
-pyyaml = "==5.1"
+pyyaml = "==5.1.1"
 
 [dev-packages]
 "flake8" = "*"
