@@ -55,10 +55,10 @@
         },
         "cloudinary": {
             "hashes": [
-                "sha256:fb409844beaddeeea07908e1022412833b7000021187a113bb18dac321fa70cc"
+                "sha256:73ba5a634483d12cfdfb3ebf8354f1ac0a62ee866b49d52950ff871ac64e31c0"
             ],
             "index": "pypi",
-            "version": "==1.15.0"
+            "version": "==1.16.0"
         },
         "defusedxml": {
             "hashes": [
