@@ -61,10 +61,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-ga": "2.5.7",
+    "react-ga": "2.6.0",
     "shx": "^0.3.2",
-    "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.1",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
