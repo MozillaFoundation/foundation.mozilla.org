@@ -2,6 +2,7 @@
 
 This documentation is composed of three main sections:
 - [How to install and use Docker for local development](./local_development_with_docker.md#how-to-use)
+- [Connecting Docker to your code editor](./local_development_with_docker.md#connecting-docker-to-your-code-editor)
 - [Docker 101 and how we use it with the foundation site](./local_development_with_docker.md#docker-vocabulary-and-overview). Start here if you're new to Docker
 - [FAQ](./local_development_with_docker.md#faq)
 
@@ -88,6 +89,30 @@ You don't need to rebuild the `watch-static-files` image.
 
 ---
 
+## Connecting Docker to your code editor
+
+
+### Pycharm
+
+This feature is only available for the professional version of Pycharm. Follow the official instructions [available here](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#config-docker)
+
+### Visual Studio Code
+
+Visual Studio Code use a feature called Dev Container to run Docker projects. The configuration files are in the `.devconatainer` directory. This feature is only available starting VSCode 1.35 stable. For now, we're only creating a python container to get Intellisense, we're not running the full project inside VSCode. We may revisit this in the future if Docker support in VSCode improves.
+
+A few things to keep in mind when using that setup:
+- Do not use the terminal in VSCode when running `invoke docker-` commands: use a local terminal instead,
+- when running `inv docker-catchup` or installing python dependencies, you will need to rebuild the Dev Container. To do that, press `F1` and look for `Rebuild Container`.
+
+#### Instructions:
+
+- Install the [Remote - containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers),
+- Open the project in VSCode: it detects the Dev Container files and a popup appears: click on `Reopen in a Container`,
+- Wait for the Dev Container to build,
+- Work as usual and use the docker invoke commands in a terminal outside VSCode.
+
+---
+
 ## Docker vocabulary and overview
 
 Welcome to Docker! Before jumping into Docker installation, take a moment to get familiar with Docker vocabulary:
@@ -111,8 +136,8 @@ I would recommend watching [An Intro to Docker for Djangonauts](https://www.yout
 All our containers run on Linux.
 
 For local development, we have two Dockerfiles that define our images:
-- `Dockerfile.node`: use a node8-alpine base image from the Docker Hub and install node dependencies,
-- `Dockerfile.python`: use a python3.6-alpine base image, install required build dependencies before installing pipenv and the project dependencies.
+- `Dockerfile.node`: use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
+- `Dockerfile.python`: use a python3.7 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
 We don't have a custom image for running postgres and use one from the Docker Hub. 
 
 The `docker-compose.yml` file describes the 3 services that the project needs to run:

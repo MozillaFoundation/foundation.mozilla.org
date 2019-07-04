@@ -51,7 +51,7 @@ def manage(ctx, command, option=None, flag=None):
 @task
 def runserver(ctx):
     """Start a web server"""
-    manage(ctx, "runserver")
+    manage(ctx, "runserver 0.0.0.0:8000")
 
 
 @task
