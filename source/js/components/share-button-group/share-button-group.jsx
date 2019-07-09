@@ -106,6 +106,7 @@ export default class ShareButtonGroup extends React.Component {
         class={classes}
         href="#"
         onClick={event => this.handleLinkButtonClick(event)}
+        title="Copy page URL to clipboard"
       >
         {label}
       </a>
