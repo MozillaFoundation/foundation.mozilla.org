@@ -3,6 +3,7 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.defaults import page_not_found
 from django.views.generic.base import RedirectView
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -60,3 +61,7 @@ if settings.USE_S3 is not True:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
+
+# Custom 404 handler so we can serve distinct 404 pages for
+# each "website" that wagtail services.
+handler404 = 'networkapi.wagtailpages.views.custom404_view'
