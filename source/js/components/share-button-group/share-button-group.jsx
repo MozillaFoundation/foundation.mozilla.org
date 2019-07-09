@@ -89,6 +89,9 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderLinkButton() {
+    let tooltip = this.state.linkCopied
+      ? `Copied`
+      : `Copy page URL to clipboard`;
     let label = this.state.linkCopied ? `Copied` : `Copy`;
     label =
       this.props.version === `mini` ? (
@@ -106,7 +109,7 @@ export default class ShareButtonGroup extends React.Component {
         class={classes}
         href="#"
         onClick={event => this.handleLinkButtonClick(event)}
-        title="Copy page URL to clipboard"
+        title={tooltip}
       >
         {label}
       </a>
