@@ -5,6 +5,8 @@ from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
+__all__ = []
+
 
 class LinkButtonBlock(blocks.StructBlock):
     label = blocks.CharBlock()
