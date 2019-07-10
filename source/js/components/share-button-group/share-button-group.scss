@@ -44,8 +44,12 @@
     &.stacked {
       flex-direction: column;
 
-      .btn:not(:last-child) {
-        margin-bottom: 16px;
+      .btn {
+        margin-right: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
       }
     }
 
