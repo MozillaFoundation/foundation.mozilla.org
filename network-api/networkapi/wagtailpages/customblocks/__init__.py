@@ -4,8 +4,11 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from .iframe_block import iFrameBlock
 
-__all__ = []
+__all__ = [
+    iFrameBlock
+]
 
 
 class LinkButtonBlock(blocks.StructBlock):
@@ -201,22 +204,6 @@ class BootstrapSpacerBlock(blocks.StructBlock):
         icon = 'arrows-up-down'
         template = 'wagtailpages/blocks/bootstrap_spacer_block.html'
         help_text = 'A bootstrap based vertical spacing block.'
-
-
-class iFrameBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
-        help_text='Please note that only URLs from white-listed domains will work.'
-    )
-    caption = blocks.CharBlock(
-        required=False
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this caption should link out to.'
-    )
-
-    class Meta:
-        template = 'wagtailpages/blocks/iframe_block.html'
 
 
 class VideoBlock(blocks.StructBlock):
