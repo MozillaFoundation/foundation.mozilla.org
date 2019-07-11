@@ -4,8 +4,11 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from .profile_by_id import ProfileById
 
-__all__ = []
+__all__ = [
+    ProfileById
+]
 
 
 class LinkButtonBlock(blocks.StructBlock):
@@ -349,45 +352,6 @@ class PulseProjectList(blocks.StructBlock):
         template = 'wagtailpages/blocks/pulse_project_list.html'
         icon = 'site'
         value_class = PulseProjectQueryValue
-
-
-class ProfileById(blocks.StructBlock):
-
-    ids = blocks.CharBlock(
-        label='Profile by ID',
-        help_text='Show profiles for pulse users with specific profile ids'
-                  ' (mozillapulse.org/profile/[##]). For multiple profiles'
-                  ', specify a comma separated list (e.g. 85,105,332).'
-    )
-
-    def get_context(self, value, parent_context=None):
-        context = super().get_context(value, parent_context=parent_context)
-        ids = context['block'].value['ids']
-        data = list()
-
-        # FIXME: the protocol should be part of the pulse api variable.
-        #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
-
-        url = "{pulse_api}/api/pulse/v2/profiles/?format=json&ids={ids}".format(
-            pulse_api=settings.FRONTEND['PULSE_API_DOMAIN'],
-            ids=ids
-        )
-
-        try:
-            response = request.urlopen(url)
-            response_data = response.read()
-            data = json.loads(response_data)
-
-        except (IOError, ValueError) as exception:
-            print(str(exception))
-            pass
-
-        context['profiles'] = data
-        return context
-
-    class Meta:
-        template = 'wagtailpages/blocks/profile_blocks.html'
-        icon = 'user'
 
 
 class LatestProfileQueryValue(blocks.StructValue):
