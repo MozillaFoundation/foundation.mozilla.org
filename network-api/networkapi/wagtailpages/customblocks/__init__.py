@@ -4,8 +4,11 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from .quote_block import QuoteBlock
 
-__all__ = []
+__all__ = [
+    QuoteBlock
+]
 
 
 class LinkButtonBlock(blocks.StructBlock):
