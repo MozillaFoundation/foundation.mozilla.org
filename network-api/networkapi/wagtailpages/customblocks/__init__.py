@@ -4,8 +4,11 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from .video_block import VideoBlock
 
-__all__ = []
+__all__ = [
+    VideoBlock
+]
 
 
 class LinkButtonBlock(blocks.StructBlock):
@@ -217,22 +220,6 @@ class iFrameBlock(blocks.StructBlock):
 
     class Meta:
         template = 'wagtailpages/blocks/iframe_block.html'
-
-
-class VideoBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
-        help_text='Please make sure this is a proper embed URL, or your video will not show up on the page.'
-    )
-    caption = blocks.CharBlock(
-        required=False,
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL for caption to link to.'
-    )
-
-    class Meta:
-        template = 'wagtailpages/blocks/video_block.html'
 
 
 class QuoteBlock(blocks.StructBlock):
