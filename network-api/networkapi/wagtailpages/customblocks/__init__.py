@@ -5,9 +5,11 @@ from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from .image_block import ImageBlock
+from .image_text_mini import ImageTextMini
 
 __all__ = [
-    ImageBlock
+    ImageBlock,
+    ImageTextMini
 ]
 
 
@@ -111,16 +113,6 @@ class ImageTextBlock(ImageBlock):
     class Meta:
         icon = 'doc-full'
         template = 'wagtailpages/blocks/image_text.html'
-
-
-class ImageTextMini(ImageBlock):
-    text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'link']
-    )
-
-    class Meta:
-        icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_mini.html'
 
 
 class ImageGrid(blocks.StructBlock):
