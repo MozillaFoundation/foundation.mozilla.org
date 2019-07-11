@@ -5,9 +5,11 @@ from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from .image_block import ImageBlock
+from .aligned_image_block import AlignedImageBlock
 
 __all__ = [
-    ImageBlock
+    ImageBlock,
+    AlignedImageBlock
 ]
 
 
@@ -61,24 +63,6 @@ class AnnotatedImageBlock(ImageBlock):
         icon = 'image'
         template = 'wagtailpages/blocks/annotated_image_block.html'
         help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
-
-
-class AlignedImageBlock(ImageBlock):
-    alignment = blocks.ChoiceBlock(
-        choices=[
-            ('', 'Do not apply any explicit alignment classes.'),
-            ('left-align', 'Left-align this image with the page content.'),
-            ('right-align', 'Right-align this image with the page content.'),
-            ('center', 'Center this image with the page content.'),
-            ('full-width', 'Make this image full-width.'),
-        ],
-        default='',
-        required=False
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/aligned_image_block.html'
 
 
 class ImageTextBlock(ImageBlock):
