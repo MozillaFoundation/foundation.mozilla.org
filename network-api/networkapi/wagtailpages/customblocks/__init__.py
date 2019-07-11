@@ -4,8 +4,11 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from .bootstrap_spacer_block import BootstrapSpacerBlock
 
-__all__ = []
+__all__ = [
+    BootstrapSpacerBlock
+]
 
 
 class LinkButtonBlock(blocks.StructBlock):
@@ -156,51 +159,6 @@ class ImageGridBlock(blocks.StructBlock):
         # this is probably the wrong icon but let's run with it for now
         icon = 'grip'
         template = 'wagtailpages/blocks/image_grid_block.html'
-
-
-class BootstrapSpacerBlock(blocks.StructBlock):
-    """
-    See https://getbootstrap.com/docs/4.0/utilities/spacing/
-    """
-
-    # property = blocks.ChoiceBlock(
-    #    choices=[
-    #        ('m', 'Margin'),
-    #        #('p', 'Padding'),
-    #    ],
-    #    default='m',
-    # )
-
-    # sides = blocks.ChoiceBlock(
-    #    choices=[
-    #        ('t', 'top'),
-    #        ('b', 'bottom'),
-    #        ('l', 'left'),
-    #        ('r', 'right'),
-    #        ('x', 'left + right'),
-    #        ('y', 'top+bottom'),
-    #        ('', 'all sides'),
-    #    ],
-    #    default='',
-    # )
-
-    size = blocks.ChoiceBlock(
-        choices=[
-            # ('0', 'no spacing'),
-            ('1', 'quarter spacing'),
-            ('2', 'half spacing'),
-            ('3', 'single spacing'),
-            ('4', 'one and a half spacing'),
-            ('5', 'triple spacing'),
-            # ('auto', 'automagical'),
-        ],
-        default='3',
-    )
-
-    class Meta:
-        icon = 'arrows-up-down'
-        template = 'wagtailpages/blocks/bootstrap_spacer_block.html'
-        help_text = 'A bootstrap based vertical spacing block.'
 
 
 class iFrameBlock(blocks.StructBlock):
