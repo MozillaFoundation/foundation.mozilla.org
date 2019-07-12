@@ -21,4 +21,4 @@ def custom404_view(request, exception):
         return HttpResponseNotFound(html)
     else:
         html = render(request, '404.html')
-        return HttpResponseNotFound(html)
+        return HttpResponseNotFound(html.content)
