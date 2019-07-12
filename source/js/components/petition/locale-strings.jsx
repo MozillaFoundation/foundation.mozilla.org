@@ -20,7 +20,7 @@ export default {
     "Please enter your country": `Please enter your country`,
     "Postal code": `Postal code`,
     "Please enter your postal code": `Please enter your postal code`,
-    Comment: `Comment`,
+    "Comment": `Comment`,
     "Please include a comment": `Please include a comment`,
     "Something went wrong. Please check your email address and try again": `Something went wrong. Please check your email address and try again`,
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": (
@@ -46,7 +46,7 @@ export default {
     "Please enter your country": `Bitte geben Sie Ihr Land ein`,
     "Postal code": `Postleitzahl`,
     "Please enter your postal code": `Bitte geben Sie Ihre Postleitzahl ein`,
-    Comment: `Kommentar`,
+    "Comment": `Kommentar`,
     "Please include a comment": `Bitte geben Sie einen Kommentar ein`,
     "Something went wrong. Please check your email address and try again": `Etwas ist schiefgegangen. Bitte überprüfen Sie Ihre E-Mail-Adresse und versuchen Sie es erneut`,
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": (
@@ -76,7 +76,7 @@ export default {
     "Please enter your country": `Introduce tu país`,
     "Postal code": `Código postal`,
     "Please enter your postal code": `Introduce tu código postal`,
-    Comment: `Comentario`,
+    "Comment": `Comentario`,
     "Please include a comment": `Por favor, escribe un comentario`,
     "Something went wrong. Please check your email address and try again": `Algo fue mal. Comprueba tu dirección de correo y vuelve a intentarlo`,
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": (
@@ -105,7 +105,7 @@ export default {
     "Please enter your country": `Veuillez sélectionner votre pays`,
     "Postal code": `Code postal`,
     "Please enter your postal code": `Veuillez saisir votre code postal`,
-    Comment: `Commentaire`,
+    "Comment": `Commentaire`,
     "Please include a comment": `Veuillez ajouter un commentaire`,
     "Something went wrong. Please check your email address and try again": `Une erreur s’est produite. Veuillez vérifier votre adresse électronique et réessayer`,
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": (
@@ -133,7 +133,7 @@ export default {
     "Please enter your country": `Proszę podać kraj`,
     "Postal code": `Kod pocztowy`,
     "Please enter your postal code": `Proszę podać kod pocztowy`,
-    Comment: `Komentarz`,
+    "Comment": `Komentarz`,
     "Please include a comment": `Proszę dołączyć komentarz`,
     "Something went wrong. Please check your email address and try again": `Coś się nie powiodło. Proszę sprawdzić poprawność adresu e-mail i spróbować ponownie`,
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": (
@@ -161,7 +161,7 @@ export default {
     "Please enter your country": `Insira seu país`,
     "Postal code": `CEP`,
     "Please enter your postal code": `Insira seu CEP`,
-    Comment: `Comentário`,
+    "Comment": `Comentário`,
     "Please include a comment": `Inclua um comentário`,
     "Something went wrong. Please check your email address and try again": `Algo deu errado. Verifique seu endereço de e-mail e tente novamente`,
     "I'm okay with Mozilla handling my info as explained in this Privacy Notice": (
