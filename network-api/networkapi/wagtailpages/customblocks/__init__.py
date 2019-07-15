@@ -29,7 +29,7 @@ class AirTableBlock(blocks.StructBlock):
         template = 'wagtailpages/blocks/airtable_block.html'
 
 
-        class AlignedImageBlock(ImageBlock):
+class AlignedImageBlock(ImageBlock):
     alignment = blocks.ChoiceBlock(
         choices=[
             ('', 'Do not apply any explicit alignment classes.'),
