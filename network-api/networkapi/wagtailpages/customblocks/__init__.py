@@ -6,10 +6,12 @@ from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from .image_block import ImageBlock
 from .link_button_block import LinkButtonBlock
+from .annotated_image_block import AnnotatedImageBlock
 
 __all__ = [
     ImageBlock,
     LinkButtonBlock,
+    AnnotatedImageBlock,
 ]
 
 
@@ -25,21 +27,6 @@ class AirTableBlock(blocks.StructBlock):
     class Meta:
         icon = 'placeholder'
         template = 'wagtailpages/blocks/airtable_block.html'
-
-
-class AnnotatedImageBlock(ImageBlock):
-    caption = blocks.CharBlock(
-        required=False
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this caption should link out to.'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/annotated_image_block.html'
-        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
 
 
 class AlignedImageBlock(ImageBlock):
