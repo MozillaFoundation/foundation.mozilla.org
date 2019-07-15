@@ -6,10 +6,8 @@
       margin-bottom: 16px;
     }
 
-    .btn {
-      &:last-child {
-        margin-right: 0;
-      }
+    .btn:last-child {
+      margin-right: 0;
     }
 
     .subgroup {
@@ -18,8 +16,20 @@
   }
 
   display: flex;
+  flex-wrap: wrap;
 
   &.rectangle {
+    .subgroup {
+      display: flex;
+      flex: 1;
+
+      &:last-child {
+        .btn:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
     @media (max-width: $bp-md) {
       @include stacked-rectangle();
     }
@@ -29,7 +39,8 @@
     }
 
     .btn {
-      width: 130px;
+      min-width: 130px;
+      flex: 1;
 
       &::before {
         position: relative;

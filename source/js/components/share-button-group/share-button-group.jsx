@@ -22,7 +22,7 @@ export default class ShareButtonGroup extends React.Component {
       this.props.version === `mini` ? (
         <span class="sr-only">Share on Facebook</span>
       ) : (
-        `Faceook`
+        `Facebook`
       );
 
     let link = this.props.link || ``;
