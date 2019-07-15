@@ -155,6 +155,31 @@ let main = {
 
     window.addEventListener(`scroll`, onScroll);
 
+    // Toggle sticky share buttons on blog page
+
+    let blogPageStickyButtons = document.querySelector(
+      `#view-blog .blog-sticky-side .share-button-group`
+    );
+    let blogPageFullButtons = document.querySelector(
+      `#view-blog .blog-body .share-button-group`
+    );
+
+    if (blogPageStickyButtons && blogPageFullButtons) {
+      const isInViewport = element => {
+        let box = element.getBoundingClientRect();
+
+        return box.top <= window.innerHeight && box.top + box.height >= 0;
+      };
+
+      window.addEventListener(`scroll`, () => {
+        if (isInViewport(blogPageFullButtons)) {
+          blogPageStickyButtons.classList.add(`d-none`);
+        } else {
+          blogPageStickyButtons.classList.remove(`d-none`);
+        }
+      });
+    }
+
     // Call once to get scroll position on initial page load.
     onScroll();
 
