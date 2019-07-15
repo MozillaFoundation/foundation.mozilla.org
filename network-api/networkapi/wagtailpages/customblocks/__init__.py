@@ -4,12 +4,12 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
-from .link_button_block import LinkButtonBlock
 from .image_block import ImageBlock
+from .link_button_block import LinkButtonBlock
 
 __all__ = [
-    LinkButtonBlock,
     ImageBlock,
+    LinkButtonBlock,
 ]
 
 
