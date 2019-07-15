@@ -7,26 +7,14 @@ from wagtail.images.blocks import ImageChooserBlock
 from .image_block import ImageBlock
 from .link_button_block import LinkButtonBlock
 from .annotated_image_block import AnnotatedImageBlock
+from .airtable_block import AirTableBlock
 
 __all__ = [
     ImageBlock,
     LinkButtonBlock,
     AnnotatedImageBlock,
+    AirTableBlock,
 ]
-
-
-class AirTableBlock(blocks.StructBlock):
-    url = blocks.URLBlock(
-        help_text="Copied from the Airtable embed code. The word 'embed' will be in the url"
-    )
-    height = blocks.IntegerBlock(
-        default=533,
-        help_text="The height of the view on a desktop, usually copied from the Airtable embed code",
-    )
-
-    class Meta:
-        icon = 'placeholder'
-        template = 'wagtailpages/blocks/airtable_block.html'
 
 
 class AlignedImageBlock(ImageBlock):
