@@ -4,61 +4,17 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from .image_block import ImageBlock
+from .link_button_block import LinkButtonBlock
+from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
 
 __all__ = [
-    AirTableBlock
+    ImageBlock,
+    LinkButtonBlock,
+    AnnotatedImageBlock,
+    AirTableBlock,
 ]
-
-
-class LinkButtonBlock(blocks.StructBlock):
-    label = blocks.CharBlock()
-
-    # We use a char block because UrlBlock does not
-    # allow for relative linking.
-    URL = blocks.CharBlock()
-
-    # Buttons can have different looks, so we
-    # offer the choice to decide which styling
-    # should be used.
-    styling = blocks.ChoiceBlock(
-        choices=[
-            ('btn-primary', 'Primary button'),
-            ('btn-secondary', 'Secondary button'),
-        ],
-        default='btn-primary',
-    )
-
-    class Meta:
-        icon = 'link'
-        template = 'wagtailpages/blocks/link_button_block.html'
-
-
-class ImageBlock(blocks.StructBlock):
-    image = ImageChooserBlock()
-    altText = blocks.CharBlock(
-        required=True,
-        help_text='Image description (for screen readers).'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/image_block.html'
-
-
-class AnnotatedImageBlock(ImageBlock):
-    caption = blocks.CharBlock(
-        required=False
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this caption should link out to.'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/annotated_image_block.html'
-        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
 
 
 class AlignedImageBlock(ImageBlock):

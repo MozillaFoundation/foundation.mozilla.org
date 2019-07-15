@@ -8,7 +8,7 @@ import Creepometer from "./components/creepometer/creepometer.jsx";
 import Filter from "./components/filter/filter.jsx";
 import JoinUs from "../components/join/join.jsx";
 
-import copyToClipboard from "./copy-to-clipboard.js";
+import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
 import ProductGA from "./product-analytics.js";
 
