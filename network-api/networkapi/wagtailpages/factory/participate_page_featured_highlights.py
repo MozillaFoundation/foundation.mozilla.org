@@ -34,6 +34,8 @@ class ParticipatePage2FeaturedHighlights2Factory(ParticipateFeaturedFactory):
 
 
 def generate(seed):
+    participate_page = None
+
     try:
         participate_page = ParticipatePage2.objects.get(title='participate')
     except WagtailPage.DoesNotExist:
