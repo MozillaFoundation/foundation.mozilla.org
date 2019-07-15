@@ -43,7 +43,7 @@ export default class PulseProjectList extends React.Component {
       page_size: this.props.max ? this.props.max : 12,
       search: this.props.query,
       featured: this.props.featured && `True`,
-      ordering: this.props.reverseChronological ? `-created`, `created`
+      ordering: this.props.reverseChronological ? `-created` : `created`
     };
 
     // Serialize parameters into a query string
