@@ -577,7 +577,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     # Promote panels configuration
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    promote_panels = Page.promote_panels + [
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
     ]
 

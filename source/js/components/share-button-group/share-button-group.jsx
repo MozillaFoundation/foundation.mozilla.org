@@ -22,7 +22,7 @@ export default class ShareButtonGroup extends React.Component {
       this.props.version === `mini` ? (
         <span class="sr-only">Share on Facebook</span>
       ) : (
-        `Faceook`
+        `Facebook`
       );
 
     let link = this.props.link || ``;
@@ -31,7 +31,7 @@ export default class ShareButtonGroup extends React.Component {
       <a
         class="btn btn-secondary btn-share facebook-share"
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          `https://${link}`
+          link
         )}`}
       >
         {label}
@@ -40,7 +40,10 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderTwitterButton() {
-    let shareText = this.props.shareText || ``;
+    let shareText = this.props.shareText
+      ? encodeURIComponent(this.props.shareText)
+      : ``;
+    let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share on Twitter</span>
@@ -51,9 +54,7 @@ export default class ShareButtonGroup extends React.Component {
     return (
       <a
         class="btn btn-secondary btn-share twitter-share"
-        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          shareText
-        )}`}
+        href={`https://twitter.com/intent/tweet?text=${shareText}${link}`}
       >
         {label}
       </a>
@@ -61,7 +62,10 @@ export default class ShareButtonGroup extends React.Component {
   }
 
   renderEmailButton() {
-    let shareText = this.props.shareText || ``;
+    let shareText = this.props.shareText
+      ? encodeURIComponent(this.props.shareText)
+      : ``;
+    let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
         <span class="sr-only">Share by email</span>
@@ -72,7 +76,7 @@ export default class ShareButtonGroup extends React.Component {
     return (
       <a
         class="btn btn-secondary btn-share email-share"
-        href={`mailto:?&body=${encodeURIComponent(shareText)}`}
+        href={`mailto:?&body=${shareText}${link}`}
       >
         {label}
       </a>
