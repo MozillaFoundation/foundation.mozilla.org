@@ -16,14 +16,6 @@ export default class PulseProjectList extends React.Component {
     projectXHR.addEventListener(`load`, () => {
       let projects = JSON.parse(projectXHR.response);
 
-      projects.results = projects.results.sort((a, b) => {
-        if (this.props.reverseChronological) {
-          return Date.parse(a.created) < Date.parse(b.created) ? 1 : -1;
-        } else {
-          return Date.parse(a.created) > Date.parse(b.created) ? 1 : -1;
-        }
-      });
-
       this.setState(
         {
           projects: this.props.max
@@ -50,7 +42,8 @@ export default class PulseProjectList extends React.Component {
           : null,
       page_size: this.props.max ? this.props.max : 12,
       search: this.props.query,
-      featured: this.props.featured && `True`
+      featured: this.props.featured && `True`,
+      ordering: this.props.reverseChronological ? `-created` : `created`
     };
 
     // Serialize parameters into a query string
