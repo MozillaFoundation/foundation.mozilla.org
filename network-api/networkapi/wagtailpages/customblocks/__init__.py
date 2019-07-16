@@ -9,6 +9,7 @@ from .link_button_block import LinkButtonBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
 from .aligned_image_block import AlignedImageBlock
+from .image_text_block import ImageTextBlock
 
 __all__ = [
     ImageBlock,
