@@ -77,6 +77,11 @@ class CTATR(TranslationOptions):
 @register(Petition)
 class PetitionTR(TranslationOptions):
     fields = (
+        'share_link',
+        'share_link_text',
+        'share_twitter',
+        'share_facebook',
+        'share_email',
     )
 
 
