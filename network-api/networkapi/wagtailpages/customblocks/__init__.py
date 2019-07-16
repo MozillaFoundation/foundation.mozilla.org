@@ -10,6 +10,7 @@ from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
 from .aligned_image_block import AlignedImageBlock
 from .image_text_block import ImageTextBlock
+from .image_text_mini import ImageTextMini
 
 __all__ = [
     ImageBlock,
@@ -18,17 +19,8 @@ __all__ = [
     AirTableBlock,
     AlignedImageBlock,
     ImageTextBlock,
+    ImageTextMini,
 ]
-
-
-class ImageTextMini(ImageBlock):
-    text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'link']
-    )
-
-    class Meta:
-        icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_mini.html'
 
 
 class ImageGrid(blocks.StructBlock):
