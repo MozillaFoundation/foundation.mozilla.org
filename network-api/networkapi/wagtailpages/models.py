@@ -1,4 +1,5 @@
 import json
+
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -160,6 +161,7 @@ class MiniSiteNameSpace(ModularPage):
         'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
+        'BlogListingPage',
         'BlogPage',
     ]
 
@@ -531,6 +533,25 @@ class BanneredCampaignPage(PrimaryPage):
         return get_page_tree_information(self, context)
 
 
+class ListingPage(FoundationMetadataPageMixin, Page):
+    """
+    This is an abstract page type for creating "listing" pages, e.g.
+    pages that list "all blog posts" or "all campaigns", etc.
+    """
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        try:
+            PageType = self.model_type
+            context['entries'] = PageType.objects.all()
+        except NameError:
+            context['entries'] = Page.objects.none()
+        return context
+
+    class Meta:
+        abstract = True
+
+
 class NewsPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/news_page.html'
@@ -589,6 +610,10 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
         return context
+
+
+class BlogListingPage(ListingPage):
+    model_type = BlogPage
 
 
 class InitiativeSection(models.Model):

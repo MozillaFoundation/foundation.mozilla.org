@@ -1,0 +1,7 @@
+{% extends "./modular_page.html" %}
+
+{% load wagtailcore_tags mini_site_tags %}
+
+{% block subcontent %}
+  {% include "./fragments/related_posts.html" with related_posts=entries %}
+{% endblock %}
