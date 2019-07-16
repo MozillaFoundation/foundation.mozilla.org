@@ -82,6 +82,7 @@ class PetitionTR(TranslationOptions):
         'share_twitter',
         'share_facebook',
         'share_email',
+        'thank_you',
     )
 
 
