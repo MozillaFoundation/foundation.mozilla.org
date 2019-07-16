@@ -1,6 +1,6 @@
 import React from "react";
 import ReactGA from "../../../react-ga-proxy";
-import copyToClipboard from "../../copy-to-clipboard.js";
+import copyToClipboard from "../../../../js/copy-to-clipboard.js";
 
 const SocialShareLink = props => {
   let classes = `social-icon`;
