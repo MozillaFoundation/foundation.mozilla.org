@@ -171,13 +171,16 @@ let main = {
         return box.top <= window.innerHeight && box.top + box.height >= 0;
       };
 
-      window.addEventListener(`scroll`, () => {
+      const toggleStickyButtons = () => {
         if (isInViewport(blogPageFullButtons)) {
           blogPageStickyButtons.classList.add(`d-none`);
         } else {
           blogPageStickyButtons.classList.remove(`d-none`);
         }
-      });
+      };
+
+      window.addEventListener(`scroll`, toggleStickyButtons);
+      toggleStickyButtons();
     }
 
     // Call once to get scroll position on initial page load.
