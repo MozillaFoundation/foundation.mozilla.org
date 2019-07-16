@@ -8,31 +8,15 @@ from .image_block import ImageBlock
 from .link_button_block import LinkButtonBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
+from .aligned_image_block import AlignedImageBlock
 
 __all__ = [
     ImageBlock,
     LinkButtonBlock,
     AnnotatedImageBlock,
     AirTableBlock,
+    AlignedImageBlock,
 ]
-
-
-class AlignedImageBlock(ImageBlock):
-    alignment = blocks.ChoiceBlock(
-        choices=[
-            ('', 'Do not apply any explicit alignment classes.'),
-            ('left-align', 'Left-align this image with the page content.'),
-            ('right-align', 'Right-align this image with the page content.'),
-            ('center', 'Center this image with the page content.'),
-            ('full-width', 'Make this image full-width.'),
-        ],
-        default='',
-        required=False
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/aligned_image_block.html'
 
 
 class ImageTextBlock(ImageBlock):
