@@ -4,139 +4,26 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
-from .image_grid import (
-    ImageGrid,
-    ImageGridBlock
-)
+from .image_block import ImageBlock
+from .link_button_block import LinkButtonBlock
+from .annotated_image_block import AnnotatedImageBlock
+from .airtable_block import AirTableBlock
+from .aligned_image_block import AlignedImageBlock
+from .image_text_block import ImageTextBlock
+from .image_text_mini import ImageTextMini
 
 __all__ = [
+    ImageBlock,
+    LinkButtonBlock,
+    AnnotatedImageBlock,
+    AirTableBlock,
+    AlignedImageBlock,
+    ImageTextBlock,
+    ImageTextMini,
     ImageGrid,
-    ImageGridBlock
+    ImageGridBlock,
 ]
 
-
-class LinkButtonBlock(blocks.StructBlock):
-    label = blocks.CharBlock()
-
-    # We use a char block because UrlBlock does not
-    # allow for relative linking.
-    URL = blocks.CharBlock()
-
-    # Buttons can have different looks, so we
-    # offer the choice to decide which styling
-    # should be used.
-    styling = blocks.ChoiceBlock(
-        choices=[
-            ('btn-primary', 'Primary button'),
-            ('btn-secondary', 'Secondary button'),
-        ],
-        default='btn-primary',
-    )
-
-    class Meta:
-        icon = 'link'
-        template = 'wagtailpages/blocks/link_button_block.html'
-
-
-class ImageBlock(blocks.StructBlock):
-    image = ImageChooserBlock()
-    altText = blocks.CharBlock(
-        required=True,
-        help_text='Image description (for screen readers).'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/image_block.html'
-
-
-class AirTableBlock(blocks.StructBlock):
-    url = blocks.URLBlock(
-        help_text="Copied from the Airtable embed code. The word 'embed' will be in the url"
-    )
-    height = blocks.IntegerBlock(
-        default=533,
-        help_text="The height of the view on a desktop, usually copied from the Airtable embed code",
-    )
-
-    class Meta:
-        icon = 'placeholder'
-        template = 'wagtailpages/blocks/airtable_block.html'
-
-
-class AnnotatedImageBlock(ImageBlock):
-    caption = blocks.CharBlock(
-        required=False
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this caption should link out to.'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/annotated_image_block.html'
-        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
-
-
-class AlignedImageBlock(ImageBlock):
-    alignment = blocks.ChoiceBlock(
-        choices=[
-            ('', 'Do not apply any explicit alignment classes.'),
-            ('left-align', 'Left-align this image with the page content.'),
-            ('right-align', 'Right-align this image with the page content.'),
-            ('center', 'Center this image with the page content.'),
-            ('full-width', 'Make this image full-width.'),
-        ],
-        default='',
-        required=False
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/aligned_image_block.html'
-
-
-class ImageTextBlock(ImageBlock):
-    text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'link']
-    )
-    url = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this image should link out to.',
-    )
-    top_divider = blocks.BooleanBlock(
-        required=False,
-        help_text='Optional divider above content block.',
-    )
-    bottom_divider = blocks.BooleanBlock(
-        required=False,
-        help_text='Optional divider below content block.',
-    )
-
-    def get_context(self, value, parent_context=None):
-        context = super().get_context(value, parent_context=parent_context)
-        divider_styles = []
-        if value.get("top_divider"):
-            divider_styles.append('div-top')
-        if value.get("bottom_divider"):
-            divider_styles.append('div-bottom')
-        context['divider_styles'] = ' '.join(divider_styles)
-        return context
-
-    class Meta:
-        icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text.html'
-
-
-class ImageTextMini(ImageBlock):
-    text = blocks.RichTextBlock(
-        features=['bold', 'italic', 'link']
-    )
-
-    class Meta:
-        icon = 'doc-full'
-        template = 'wagtailpages/blocks/image_text_mini.html'
 
 
 class BootstrapSpacerBlock(blocks.StructBlock):
