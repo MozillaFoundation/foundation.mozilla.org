@@ -3,7 +3,7 @@ import json
 from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
-from wagtail.images.blocks import ImageChooserBlock
+
 from .image_block import ImageBlock
 from .link_button_block import LinkButtonBlock
 from .annotated_image_block import AnnotatedImageBlock
@@ -11,6 +11,7 @@ from .airtable_block import AirTableBlock
 from .aligned_image_block import AlignedImageBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
+from .image_grid import ImageGrid, ImageGridBlock
 
 __all__ = [
     ImageBlock,
@@ -20,33 +21,9 @@ __all__ = [
     AlignedImageBlock,
     ImageTextBlock,
     ImageTextMini,
+    ImageGrid,
+    ImageGridBlock,
 ]
-
-
-class ImageGrid(blocks.StructBlock):
-    image = ImageChooserBlock()
-    caption = blocks.CharBlock(
-        required=False,
-        help_text='Please remember to properly attribute any images we use.'
-    )
-    url = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this figure should link out to.',
-    )
-    square_image = blocks.BooleanBlock(
-        default=True,
-        required=False,
-        help_text='If left checked, the image will be cropped to be square.'
-    )
-
-
-class ImageGridBlock(blocks.StructBlock):
-    grid_items = blocks.ListBlock(ImageGrid())
-
-    class Meta:
-        # this is probably the wrong icon but let's run with it for now
-        icon = 'grip'
-        template = 'wagtailpages/blocks/image_grid_block.html'
 
 
 class BootstrapSpacerBlock(blocks.StructBlock):
