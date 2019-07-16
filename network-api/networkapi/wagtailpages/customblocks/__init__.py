@@ -25,7 +25,6 @@ __all__ = [
 ]
 
 
-
 class BootstrapSpacerBlock(blocks.StructBlock):
     """
     See https://getbootstrap.com/docs/4.0/utilities/spacing/
