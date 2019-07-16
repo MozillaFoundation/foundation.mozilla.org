@@ -3,7 +3,7 @@ import json
 from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
-from wagtail.images.blocks import ImageChooserBlock
+
 from .image_block import ImageBlock
 from .link_button_block import LinkButtonBlock
 from .annotated_image_block import AnnotatedImageBlock
@@ -11,6 +11,7 @@ from .airtable_block import AirTableBlock
 from .aligned_image_block import AlignedImageBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
+from .image_grid import ImageGrid, ImageGridBlock
 
 __all__ = [
     ImageBlock,
