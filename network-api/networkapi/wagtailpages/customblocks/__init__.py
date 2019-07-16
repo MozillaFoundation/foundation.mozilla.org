@@ -5,82 +5,19 @@ from django.conf import settings
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from .image_block import ImageBlock
-from .image_text_block import ImageTextBlock
+from .link_button_block import LinkButtonBlock
+from .annotated_image_block import AnnotatedImageBlock
+from .airtable_block import AirTableBlock
+from .aligned_image_block import AlignedImageBlock
 
 __all__ = [
     ImageBlock,
-    ImageTextBlock
+    LinkButtonBlock,
+    AnnotatedImageBlock,
+    AirTableBlock,
+    AlignedImageBlock,
+    ImageTextBlock,
 ]
-
-
-class LinkButtonBlock(blocks.StructBlock):
-    label = blocks.CharBlock()
-
-    # We use a char block because UrlBlock does not
-    # allow for relative linking.
-    URL = blocks.CharBlock()
-
-    # Buttons can have different looks, so we
-    # offer the choice to decide which styling
-    # should be used.
-    styling = blocks.ChoiceBlock(
-        choices=[
-            ('btn-primary', 'Primary button'),
-            ('btn-secondary', 'Secondary button'),
-        ],
-        default='btn-primary',
-    )
-
-    class Meta:
-        icon = 'link'
-        template = 'wagtailpages/blocks/link_button_block.html'
-
-
-class AirTableBlock(blocks.StructBlock):
-    url = blocks.URLBlock(
-        help_text="Copied from the Airtable embed code. The word 'embed' will be in the url"
-    )
-    height = blocks.IntegerBlock(
-        default=533,
-        help_text="The height of the view on a desktop, usually copied from the Airtable embed code",
-    )
-
-    class Meta:
-        icon = 'placeholder'
-        template = 'wagtailpages/blocks/airtable_block.html'
-
-
-class AnnotatedImageBlock(ImageBlock):
-    caption = blocks.CharBlock(
-        required=False
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this caption should link out to.'
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/annotated_image_block.html'
-        help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
-
-
-class AlignedImageBlock(ImageBlock):
-    alignment = blocks.ChoiceBlock(
-        choices=[
-            ('', 'Do not apply any explicit alignment classes.'),
-            ('left-align', 'Left-align this image with the page content.'),
-            ('right-align', 'Right-align this image with the page content.'),
-            ('center', 'Center this image with the page content.'),
-            ('full-width', 'Make this image full-width.'),
-        ],
-        default='',
-        required=False
-    )
-
-    class Meta:
-        icon = 'image'
-        template = 'wagtailpages/blocks/aligned_image_block.html'
 
 
 class ImageTextMini(ImageBlock):
