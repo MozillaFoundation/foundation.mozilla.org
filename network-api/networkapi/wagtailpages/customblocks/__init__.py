@@ -14,8 +14,8 @@ from .image_grid import ImageGrid, ImageGridBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
 from .link_button_block import LinkButtonBlock
-from .pulse_project_list import PulseProjectList
 from .profile_by_id import ProfileById
+from .pulse_project_list import PulseProjectList
 from .quote_block import QuoteBlock
 from .video_block import VideoBlock
 
