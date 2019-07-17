@@ -31,8 +31,8 @@ __all__ = [
     ImageTextBlock,
     ImageTextMini,
     LinkButtonBlock,
-    PulseProjectList,
     ProfileById,
+    PulseProjectList,
     QuoteBlock,
     VideoBlock,
 ]
