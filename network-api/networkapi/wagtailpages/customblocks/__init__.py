@@ -4,17 +4,17 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 
-from .video_block import VideoBlock
-from .image_block import ImageBlock
-from .link_button_block import LinkButtonBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
 from .aligned_image_block import AlignedImageBlock
+from .bootstrap_spacer_block import BootstrapSpacerBlock
+from .iframe_block import iFrameBlock
+from .image_block import ImageBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
 from .image_grid import ImageGrid, ImageGridBlock
-from .bootstrap_spacer_block import BootstrapSpacerBlock
-from .iframe_block import iFrameBlock
+from .link_button_block import LinkButtonBlock
+from .video_block import VideoBlock
 
 __all__ = [
     ImageBlock,
