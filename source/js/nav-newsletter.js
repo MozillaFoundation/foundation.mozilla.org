@@ -90,11 +90,11 @@ class NavNewsletter {
 
     try {
       primaryNav = document.querySelector(`#primary-nav-container`);
-      narrowMenuContainer = primaryNav.querySelector(
-        ".narrow-screen-menu-container"
-      );
       wideMenuContainer = primaryNav.querySelector(
         ".wide-screen-menu-container"
+      );
+      narrowMenuContainer = primaryNav.querySelector(
+        ".narrow-screen-menu-container"
       );
       container = document.querySelector("#nav-newsletter-form-wrapper");
       buttonDesktop = wideMenuContainer.querySelector(".btn-newsletter");
