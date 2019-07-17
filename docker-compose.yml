@@ -13,15 +13,15 @@ services:
       - CHOKIDAR_USEPOLLING=1
     command: npm run watch
     volumes:
-      - .:/app
-      - node_dependencies:/app/node_modules/
+      - .:/app:delegated
+      - node_dependencies:/app/node_modules/:delegated
 
   postgres:
     image: postgres:9.6
     ports:
       - "5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/:delegated
 
   backend:
     build:
@@ -36,7 +36,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      - .:/app:delegated
     depends_on:
       - postgres
       - watch-static-files

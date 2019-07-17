@@ -30,6 +30,16 @@ $pni-gradient: linear-gradient(to right, $pni-blue 0%, $pni-pink 100%);
 
 $bg-product-image: #f4f4f4; /* keep this #f4f4f4 as this is the background colour that product images have */
 
+// Festival Palatte
+
+$festival-dark-blue: #0e11bf;
+$festival-purple: #8f14fb;
+$festival-gradient: linear-gradient(
+  120deg,
+  $festival-dark-blue 0%,
+  $festival-purple 100%
+);
+
 // Pulse Palatte
 
 $pulse-pink: #ff506f;

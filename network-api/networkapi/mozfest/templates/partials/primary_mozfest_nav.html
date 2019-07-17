@@ -1,0 +1,50 @@
+{% load primary_active_nav %}
+
+{% with root_name="Home" %}
+<div id="primary-nav-container">
+  <div class="wrapper-burger">
+    <div class="menu-container">
+      <div class="narrow-screen-menu hidden d-lg-none">
+        <div class="narrow-screen-menu-background">
+          <div class="narrow-screen-menu-container">
+            <nav class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="nav-links pt-3">
+                    <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{{ root_name }}</a></div>
+                    {% include "fragments/nav-links.html" with pre="<div>" post="</div>" %}
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <nav class="container">
+        <div class="row">
+          <div class="col">
+            <div class="d-flex flex-row justify-content-between align-items-center">
+              <div id="primary-nav-links">
+                <div class="d-flex align-items-center flex-wrap">
+                  <button class="burger hidden-lg-up ml-md-0">
+                    <div class="burger-bar burger-bar-top"></div>
+                    <div class="burger-bar burger-bar-middle"></div>
+                    <div class="burger-bar burger-bar-bottom"></div>
+                  </button>
+                  <a class="logo text-hide" href="{{ menu_root.url }}">{{ root_name }}</a>
+                  <div class="wide-screen-menu">
+                    <div class="nav-links d-none d-lg-block">
+                      {% include "fragments/nav-links.html" %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="btn btn-secondary" href="/proposals">Submit proposal</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endwith %}

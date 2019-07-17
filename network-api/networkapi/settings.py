@@ -58,6 +58,7 @@ env = environ.Env(
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
     SSL_REDIRECT=bool,
     DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
+    MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     TARGET_DOMAINS=(list, []),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
@@ -96,6 +97,9 @@ DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
 # Force permanent redirects to the domains specified in TARGET_DOMAINS
 DOMAIN_REDIRECT_MIDDLEWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLEWARE_ENABLED')
 TARGET_DOMAINS = env('TARGET_DOMAINS')
+
+# Temporary Redirect for Mozilla Festival domain
+MOZFEST_DOMAIN_REDIRECT_ENABLED = env('MOZFEST_DOMAIN_REDIRECT_ENABLED')
 
 if env('FILEBROWSER_DEBUG') or DEBUG != env('FILEBROWSER_DEBUG'):
     FILEBROWSER_DEBUG = env('FILEBROWSER_DEBUG')
@@ -189,6 +193,7 @@ INSTALLED_APPS = list(filter(None, [
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
     'networkapi.buyersguide',
+    'networkapi.mozfest',
 ]))
 
 MIDDLEWARE = list(filter(None, [
@@ -505,7 +510,12 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler'
-        }
+        },
+        'info': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django': {
@@ -529,6 +539,14 @@ LOGGING = {
             'handlers': ['debug-error'],
             'level': 'ERROR'
         },
+        'django.utils.autoreload': {
+            'handlers': ['debug-error'],
+            'level': 'ERROR'
+        },
+        'networkapi': {
+            'handlers': ['info'],
+            'level': 'INFO',
+        }
     }
 }
 DJANGO_LOG_LEVEL = env('DJANGO_LOG_LEVEL')

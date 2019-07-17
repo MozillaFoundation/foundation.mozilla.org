@@ -11,6 +11,9 @@ import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
+import ShareButtonGroup from "./components/share-button-group/share-button-group.jsx";
+
+import injectDonateModal from "./donate-modal/donate-modal.jsx";
 
 import primaryNav from "./primary-nav.js";
 import navNewsletter from "./nav-newsletter.js";
@@ -31,44 +34,28 @@ let main = {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
 
-      csrfToken = document.querySelector('meta[name="csrf-token"]');
-      csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
+      csrfToken = document.querySelector(`meta[name="csrf-token"]`);
+      csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      Analytics.initialize();
+      const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
+      if (gaMeta) {
+        let gaIdentifier = gaMeta.getAttribute(`content`);
+        Analytics.initialize(gaIdentifier);
+      }
 
       this.injectReactComponents();
       this.bindGlobalHandlers();
-      this.decorateExternalLinks();
       this.bindGAEventTrackers();
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
         window[`main-js:react:finished`] = true;
       });
-    });
-  },
-
-  decorateExternalLinks() {
-    Array.from(document.querySelectorAll(`a`)).forEach(link => {
-      let href = link.getAttribute(`href`);
-      let targetDomains = env.TARGET_DOMAINS;
-
-      // Define an external link as any URL with `//` in it
-      if (
-        href &&
-        href.match(/\/\//) &&
-        targetDomains.some(domain => !href.match(`//${domain}`))
-      ) {
-        link.setAttribute(`target`, `_blank`);
-
-        // https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/
-        link.setAttribute(`rel`, `noopener noreferrer`);
-      }
     });
   },
 
@@ -169,6 +156,34 @@ let main = {
 
     window.addEventListener(`scroll`, onScroll);
 
+    // Toggle sticky share buttons on blog page
+
+    let blogPageStickyButtons = document.querySelector(
+      `#view-blog .blog-sticky-side .share-button-group`
+    );
+    let blogPageFullButtons = document.querySelector(
+      `#view-blog .blog-body .share-button-group`
+    );
+
+    if (blogPageStickyButtons && blogPageFullButtons) {
+      const isInViewport = element => {
+        let box = element.getBoundingClientRect();
+
+        return box.top <= window.innerHeight && box.top + box.height >= 0;
+      };
+
+      const toggleStickyButtons = () => {
+        if (isInViewport(blogPageFullButtons)) {
+          blogPageStickyButtons.classList.add(`d-none`);
+        } else {
+          blogPageStickyButtons.classList.remove(`d-none`);
+        }
+      };
+
+      window.addEventListener(`scroll`, toggleStickyButtons);
+      toggleStickyButtons();
+    }
+
     // Call once to get scroll position on initial page load.
     onScroll();
 
@@ -177,25 +192,27 @@ let main = {
 
     // Extra tracking
 
-    document
-      .getElementById(`donate-header-btn`)
-      .addEventListener(`click`, () => {
+    let donateHeaderBtn = document.getElementById(`donate-header-btn`);
+    if (donateHeaderBtn) {
+      donateHeaderBtn.addEventListener(`click`, () => {
         ReactGA.event({
           category: `donate`,
           action: `donate button tap`,
           label: `${document.title} header`
         });
       });
+    }
 
-    document
-      .getElementById(`donate-footer-btn`)
-      .addEventListener(`click`, () => {
+    let donateFooterBtn = document.getElementById(`donate-footer-btn`);
+    if (donateFooterBtn) {
+      donateFooterBtn.addEventListener(`click`, () => {
         ReactGA.event({
           category: `donate`,
           action: `donate button tap`,
           label: `${document.title} footer`
         });
       });
+    }
   },
 
   bindGAEventTrackers() {
@@ -362,6 +379,25 @@ let main = {
       );
     });
 
+    // Share button group
+    let shareButtonGroups = document.querySelectorAll(
+      `.share-button-group-wrapper`
+    );
+    if (shareButtonGroups) {
+      shareButtonGroups.forEach(element => {
+        var props = element.dataset;
+
+        apps.push(
+          new Promise(resolve => {
+            ReactDOM.render(
+              <ShareButtonGroup {...props} whenLoaded={() => resolve()} />,
+              element
+            );
+          })
+        );
+      });
+    }
+
     //Profile Directory Filter-Bar GA
 
     const filters = document.querySelectorAll(
@@ -370,10 +406,10 @@ let main = {
 
     filters.forEach(filter => {
       let year = filter.textContent.trim();
-      filter.addEventListener("click", () => {
+      filter.addEventListener(`click`, () => {
         ReactGA.event({
           category: `profiles`,
-          action: `directory filter"`,
+          action: `directory filter`,
           label: `${document.title} ${year}`
         });
       });
@@ -455,40 +491,35 @@ let main = {
       bindProfileCardAnalytics(profileCards);
     });
 
-    /*
-      The following code has been disabled for
-      https://github.com/mozilla/foundation.mozilla.org/issues/2630,
-      but we want to keep this code around for when we need to
-      re-enable this functionality
+    // Load up a fundraising banner
+    let donationModal = document.querySelector(`.donate-modal-wrapper`);
 
-      ---
-      import injectDonateModal from './donate-modal/donate-modal.jsx';
-      ...
-      let donationModal = document.querySelector(`.donate-modal-wrapper`);
+    if (donationModal) {
+      let modalOptions = {
+        title: `Big corporations try to restrict how we access the web.`,
+        subheading: `Misinformation makes it harder for us to find the truth. Web-connected devices go to market without basic security standards.`,
+        cta: {
+          title: [
+            `The non-profit Mozilla Foundation fights for a healthier internet.`,
+            ` `,
+            <strong>Will you donate today?</strong>
+          ],
+          text: `Support Mozilla`
+        },
+        utm: {
+          medium: `foundation`,
+          campaign: `mainsite`,
+          content: `popupbutton`
+        },
+        ga: {
+          category: `site`,
+          action: `donate tap`,
+          label: `donate popup on foundation site`
+        }
+      };
 
-      if (donationModal) {
-        let modalOptions = {
-          title: `We all love the web. Join Mozilla in defending it!`,
-          subheading: `Let's protect the world's largest resource for future generations. A few times a year, the Mozilla Foundation asks for donations.`,
-          cta: {
-            title: `Chip in to help us keep the web healthy, wonderful, and welcoming to all.`,
-            text: `Support Mozilla`
-          },
-          utm: {
-            medium: `foundation`,
-            campaign: `mainsite`,
-            content: `popupbutton`
-          },
-          ga: {
-            category: `site`,
-            action: `donate tap`,
-            label: `donate popup on foundation site`
-          }
-        };
-
-        injectDonateModal(donationModal, modalOptions);
-      }
-    */
+      injectDonateModal(donationModal, modalOptions);
+    }
   }
 };
 

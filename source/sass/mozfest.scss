@@ -1,0 +1,117 @@
+body.mozfest {
+  #primary-nav-container {
+    @media (min-width: $bp-md) {
+      // The following overrides are to make sure
+      // 1) MozFest logo shows up larger than
+      //    the default Mozilla logo that we have on the main site
+      // 2) MozFest primary nav and main Foundation site's primary nav have the same height
+      .menu-container {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .wrapper-burger .logo {
+        height: 36px;
+        background-image: url(../_images/mozfest/logo.svg);
+      }
+    }
+  }
+
+  &#view-mozfest-home {
+    #hero {
+      $banner-height: 464px;
+      $banner-background-z-index: 1;
+      $cutoff-offset: 40px;
+
+      .banner {
+        height: $banner-height;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .homepage-banner-content {
+        z-index: $banner-background-z-index + 3;
+
+        @media screen and (min-width: $bp-md) {
+          padding-bottom: $cutoff-offset;
+        }
+      }
+
+      .full-width-cutout {
+        $grid-gutter-width: map-get($grid-gutter-widths, xs);
+        $padding-x: #{$grid-gutter-width / 2};
+
+        @media screen and (min-width: $bp-md) {
+          $offset-left: 24px;
+
+          margin-left: -$offset-left;
+          margin-right: -$offset-left;
+          margin-top: -$cutoff-offset;
+
+          .content {
+            z-index: $banner-background-z-index + 2;
+            background: $white;
+            padding-left: $offset-left;
+            padding-right: $offset-left;
+          }
+        }
+      }
+
+      .background-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        .overlay {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: $festival-gradient;
+          opacity: 0.8;
+          z-index: $banner-background-z-index + 1;
+        }
+
+        picture {
+          display: flex;
+          position: absolute;
+          z-index: $banner-background-z-index;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+
+          img {
+            position: static;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            object-position: center center;
+          }
+        }
+      }
+    }
+  }
+
+  #multipage-nav {
+    // These overrides are to overcome the loooooong secondary nav we have on Spaces pages
+    // Targeting these overrides to all pages that have secondary nav (#multipage-nav)
+    // to keep things consistent across the MozFest site
+
+    flex-wrap: wrap;
+
+    .multipage-link {
+      padding-top: 16px;
+      padding-bottom: 5px;
+    }
+  }
+
+  .cutout {
+    .intro {
+      .rich-text p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

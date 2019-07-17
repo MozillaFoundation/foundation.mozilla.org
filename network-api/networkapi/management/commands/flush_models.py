@@ -1,7 +1,10 @@
 from django.core.management.base import BaseCommand
 
 # Models
-from wagtail.core.models import Page
+from wagtail.core.models import (
+    Page as WagtailPage,
+    Site as WagtailSite
+)
 from wagtail.images.models import Image
 
 from networkapi.highlights.models import Highlight
@@ -48,9 +51,15 @@ class Command(BaseCommand):
         CTA.objects.all().delete()
 
         self.stdout.write('Dropping all Pages')
-        Page.objects.exclude(title='Root').delete()
+        WagtailPage.objects.exclude(id=1).delete()
 
-        self.stdout.write('Dropping all Products')
+        self.stdout.write('Dropping all Products...')
         Product.objects.all().delete()
+
+        try:
+            print('Dropping Mozfest Site...')
+            WagtailSite.objects.get(site_name='Mozilla Festival').delete()
+        except WagtailSite.DoesNotExist:
+            pass
 
         self.stdout.write(self.style.SUCCESS('Done!'))

@@ -1,5 +1,6 @@
 {% with wrapper_class="py-5" %}
 
+{% block footer_donate %}
 <div class="donate-banner dark-theme {{wrapper_class}}">
   <div class="container">
     <div class="row">
@@ -13,33 +14,43 @@
     </div>
   </div>
 </div>
+{% endblock %}
 
 <footer class="site-footer dark-theme {{wrapper_class}}">
   <div class="container">
     <div class="row">
-      <div class="col-md-5">
+
+      {% block left_footer_column %}
+      <div class="col-md-5 col-lg-6">
         <div class="join-us mb-5" data-button-position="side"></div>
         <div class="my-5 mb-md-0">
           <a class="logo" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
         </div>
       </div>
-      <div class="col-md-6 offset-md-1 d-flex flex-column justify-content-between">
+      {% endblock %}
+
+      {% block right_footer_column %}
+      <div class="col-md-6 col-lg-5 offset-md-1 d-flex flex-column justify-content-between">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-lg-6 col-xl-5">
             <h5 class="h5-heading">More about us</h5>
             <ul class="d-flex">
+              {% block social_links %}
               <li class="mr-2"><a class="twitter small d-inline-block" href="https://twitter.com/mozilla"><span class="sr-only">Twitter</span></a></li>
               <li class="mr-2"><a class="instagram small d-inline-block" href="https://www.instagram.com/mozilla/"><span class="sr-only">Instagram</span></a></li>
               <li class="mr-2"><a class="github small d-inline-block" href="https://www.github.com/mozilla/foundation.mozilla.org/"><span class="sr-only">Github</span></a></li>
+              {% endblock %}
             </ul>
           </div>
-          <div class="col-md-8">
+          <div class="col-lg-6 col-xl-7">
             <ul class="link-list list-unstyled mb-0">
+              {% block general_links %}
               <li class="mb-2"><a id="donate-footer-btn" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_content=footer" target="_blank" rel="noopener noreferrer" class="dark-theme">Donate</a></li>
               <li class="mb-2"><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">Legal</a></li>
               <li class="mb-2"><a href="https://creativecommons.org/licenses/by/4.0" class="dark-theme">License</a></li>
               <li class="mb-2"><a href="https://www.mozilla.org/about/governance/policies/participation/" class="dark-theme">Participation Guidelines</a></li>
-              <li class="mb-2"><a href="https://mozilla.org/en-US/privacy/websites/" class="dark-theme">Privacy</a></li>
+              <li class="mb-2"><a href="https://mozilla.org/privacy/websites/" class="dark-theme">Privacy</a></li>
+              {% endblock %}
             </ul>
           </div>
         </div>
@@ -50,6 +61,8 @@
           </div>
         </div>
       </div>
+      {% endblock %}
+
     </div>
   </div>
 </footer>

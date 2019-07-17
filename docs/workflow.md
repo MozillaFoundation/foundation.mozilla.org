@@ -36,7 +36,7 @@ Deploy each PR separately and in ascending order.
 
 Opening a PR activates different services:
 - [Review app](#review-apps): temporary apps with fake data running on Heroku,
-- [Continuous Integration testing](#continuous-integration-testing): Travis (Linux) and Appveyor (Windows),
+- [Continuous Integration testing](#continuous-integration-testing): Travis,
 - [Visual regression testing](#visual-regression-testing): Percy.
 
 ### Review Apps
@@ -45,9 +45,9 @@ Opening a PR will automatically create a Review App in the `foundation-site` pip
 
 ### Continuous Integration testing
 
-Opening a PR will trigger [Travis](https://travis-ci.org) and [Appveyor](https://www.appveyor.com/) continuous integration runs, which should both pass before a PR is deemed good to merge.
+Opening a PR will trigger [Travis](https://travis-ci.org) continuous integration, which should pass before a PR is deemed good to merge.
 
-It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the commit message title. If you only want to skip Travis, use `[skip travis]` or `[travis skip]`. For Appveyor, use `[skip appveyor]` or `[appveyor skip]`. Note: since Travis is a required check on GitHub, your last commit needs to run the CI.
+It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the commit message title. If you only want to skip Travis, use `[skip travis]` or `[travis skip]`. Note: since Travis is a required check on GitHub, your last commit needs to run the CI.
 
 ### Visual regression testing
 

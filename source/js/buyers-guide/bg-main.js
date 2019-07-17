@@ -8,7 +8,7 @@ import Creepometer from "./components/creepometer/creepometer.jsx";
 import Filter from "./components/filter/filter.jsx";
 import JoinUs from "../components/join/join.jsx";
 
-import copyToClipboard from "./copy-to-clipboard.js";
+import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
 import ProductGA from "./product-analytics.js";
 
@@ -33,8 +33,18 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      ReactGA.initialize(`UA-87658599-6`);
-      ReactGA.pageview(window.location.pathname);
+      // TODO: this should probably tap into the analytics.js file that
+      // we use in main.js so that we only have one place where top level
+      // changes to how analytics works need to be made.
+
+      const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
+      if (gaMeta) {
+        let gaIdentifier = gaMeta.getAttribute(`content`);
+        ReactGA.initialize(gaIdentifier); // UA-87658599-6 by default
+        ReactGA.pageview(window.location.pathname);
+      } else {
+        console.warn(`No GA identifier found: skipping bootstrap step`);
+      }
 
       this.enableCopyLinks();
       this.injectReactComponents();
