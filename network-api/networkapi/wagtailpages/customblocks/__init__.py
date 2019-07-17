@@ -10,24 +10,24 @@ from .aligned_image_block import AlignedImageBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
+from .image_grid import ImageGrid, ImageGridBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
-from .image_grid import ImageGrid, ImageGridBlock
 from .link_button_block import LinkButtonBlock
 from .video_block import VideoBlock
 
 __all__ = [
-    ImageBlock,
-    LinkButtonBlock,
     AnnotatedImageBlock,
     AirTableBlock,
     AlignedImageBlock,
-    ImageTextBlock,
-    ImageTextMini,
-    ImageGrid,
-    ImageGridBlock,
     BootstrapSpacerBlock,
     iFrameBlock,
+    ImageBlock,
+    ImageGrid,
+    ImageGridBlock,
+    ImageTextBlock,
+    ImageTextMini,
+    LinkButtonBlock,
     VideoBlock,
 ]
 
