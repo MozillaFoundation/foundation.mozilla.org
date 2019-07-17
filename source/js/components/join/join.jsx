@@ -117,7 +117,7 @@ export default class JoinUs extends React.Component {
     let email = this.email.value;
     let consent = this.privacy.checked;
 
-    if (email && consent) {
+    if (email && this.validatesAsEmail(email) && consent) {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
@@ -195,9 +195,10 @@ export default class JoinUs extends React.Component {
   renderEmailField() {
     let classes = classNames(`mb-2`, {
       "has-danger":
-        !this.email || (!this.state.apiSuccess &&
+        !this.email ||
+        (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
-          (!this.email.value || !this.validatesAsEmail(this.email.value))) ||
+          !this.validatesAsEmail(this.email.value)) ||
         this.state.signupFailed
     });
 
@@ -212,7 +213,7 @@ export default class JoinUs extends React.Component {
         />
         {this.state.userTriedSubmitting &&
           !this.state.apiSubmitted &&
-          (!this.email.value || !this.validatesAsEmail(this.email.value)) && (
+          !this.validatesAsEmail(this.email.value) && (
             <p className="body-small form-check form-control-feedback">
               Please enter your email
             </p>
