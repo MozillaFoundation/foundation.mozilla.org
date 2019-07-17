@@ -1,6 +1,3 @@
-import json
-
-from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 
@@ -31,7 +28,7 @@ __all__ = [
     ImageGridBlock,
     ImageTextBlock,
     ImageTextMini,
-    LatestProfileList,  
+    LatestProfileList,
     LinkButtonBlock,
     ProfileById,
     PulseProjectList,
