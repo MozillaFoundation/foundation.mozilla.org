@@ -13,6 +13,7 @@ from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
 from .image_grid import ImageGrid, ImageGridBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
+from .iframe_block import iFrameBlock
 
 __all__ = [
     ImageBlock,
@@ -25,23 +26,8 @@ __all__ = [
     ImageGrid,
     ImageGridBlock,
     BootstrapSpacerBlock,
+    iFrameBlock,
 ]
-
-
-class iFrameBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
-        help_text='Please note that only URLs from white-listed domains will work.'
-    )
-    caption = blocks.CharBlock(
-        required=False
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL that this caption should link out to.'
-    )
-
-    class Meta:
-        template = 'wagtailpages/blocks/iframe_block.html'
 
 
 class VideoBlock(blocks.StructBlock):
