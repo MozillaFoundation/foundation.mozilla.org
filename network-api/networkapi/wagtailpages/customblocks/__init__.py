@@ -4,46 +4,32 @@ from urllib import request, parse
 from django.conf import settings
 from wagtail.core import blocks
 
-from .image_block import ImageBlock
-from .link_button_block import LinkButtonBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
 from .aligned_image_block import AlignedImageBlock
-from .image_text_block import ImageTextBlock
-from .image_text_mini import ImageTextMini
-from .image_grid import ImageGrid, ImageGridBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .iframe_block import iFrameBlock
+from .image_block import ImageBlock
+from .image_grid import ImageGrid, ImageGridBlock
+from .image_text_block import ImageTextBlock
+from .image_text_mini import ImageTextMini
+from .link_button_block import LinkButtonBlock
+from .video_block import VideoBlock
 
 __all__ = [
-    ImageBlock,
-    LinkButtonBlock,
     AnnotatedImageBlock,
     AirTableBlock,
     AlignedImageBlock,
-    ImageTextBlock,
-    ImageTextMini,
-    ImageGrid,
-    ImageGridBlock,
     BootstrapSpacerBlock,
     iFrameBlock,
+    ImageBlock,
+    ImageGrid,
+    ImageGridBlock,
+    ImageTextBlock,
+    ImageTextMini,
+    LinkButtonBlock,
+    VideoBlock,
 ]
-
-
-class VideoBlock(blocks.StructBlock):
-    url = blocks.CharBlock(
-        help_text='Please make sure this is a proper embed URL, or your video will not show up on the page.'
-    )
-    caption = blocks.CharBlock(
-        required=False,
-    )
-    captionURL = blocks.CharBlock(
-        required=False,
-        help_text='Optional URL for caption to link to.'
-    )
-
-    class Meta:
-        template = 'wagtailpages/blocks/video_block.html'
 
 
 class QuoteBlock(blocks.StructBlock):
