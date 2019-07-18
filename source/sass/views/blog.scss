@@ -7,4 +7,13 @@
   top: 140px;
   display: flex;
   justify-content: flex-end;
+
+  .share-button-group {
+    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+
+    &.faded {
+      opacity: 0;
+    }
+  }
 }
