@@ -49,6 +49,18 @@ export default class JoinUs extends React.Component {
   }
 
   /**
+   * Performs very simple validation for emails.
+   * @param {string} input the string that should be validated as an email address
+   * @returns {boolean} true if the input is a legal-enough email address, else false
+   */
+  validatesAsEmail(input) {
+    if (!input) {
+      return false;
+    }
+    return input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
+  }
+
+  /**
    * Submit the user's data to the API server.
    */
   submitDataToApi() {
@@ -105,7 +117,7 @@ export default class JoinUs extends React.Component {
     let email = this.email.value;
     let consent = this.privacy.checked;
 
-    if (email && consent) {
+    if (email && this.validatesAsEmail(email) && consent) {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
@@ -183,9 +195,10 @@ export default class JoinUs extends React.Component {
   renderEmailField() {
     let classes = classNames(`mb-2`, {
       "has-danger":
+        !this.email ||
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
-          !this.email.value) ||
+          !this.validatesAsEmail(this.email.value)) ||
         this.state.signupFailed
     });
 
@@ -200,7 +213,7 @@ export default class JoinUs extends React.Component {
         />
         {this.state.userTriedSubmitting &&
           !this.state.apiSubmitted &&
-          !this.email.value && (
+          !this.validatesAsEmail(this.email.value) && (
             <p className="body-small form-check form-control-feedback">
               Please enter your email
             </p>
@@ -308,7 +321,11 @@ export default class JoinUs extends React.Component {
     }
 
     return (
-      <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
+      <form
+        noValidate
+        onSubmit={evt => this.processFormData(evt)}
+        className={formClass}
+      >
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
