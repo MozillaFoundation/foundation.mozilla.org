@@ -174,9 +174,9 @@ let main = {
 
       const toggleStickyButtons = () => {
         if (isInViewport(blogPageFullButtons)) {
-          blogPageStickyButtons.classList.add(`d-none`);
+          blogPageStickyButtons.classList.add(`faded`);
         } else {
-          blogPageStickyButtons.classList.remove(`d-none`);
+          blogPageStickyButtons.classList.remove(`faded`);
         }
       };
 
