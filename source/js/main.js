@@ -16,6 +16,7 @@ import ShareButtonGroup from "./components/share-button-group/share-button-group
 import injectDonateModal from "./donate-modal/donate-modal.jsx";
 
 import primaryNav from "./primary-nav.js";
+import bindMozFestGA from "./mozfest-ga.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -242,6 +243,8 @@ let main = {
         });
       });
     }
+
+    bindMozFestGA();
   },
 
   // Embed various React components based on the existence of containers within the current page
