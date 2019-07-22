@@ -539,6 +539,17 @@ class ListingPage(FoundationMetadataPageMixin, Page):
     pages that list "all blog posts" or "all campaigns", etc.
     """
 
+    header = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    intro = models.CharField(
+        max_length=250,
+        blank=True,
+        help_text='Intro paragraph to show in hero cutout box'
+    )
+
     def get_context(self, request):
         context = super().get_context(request)
         try:
@@ -547,9 +558,6 @@ class ListingPage(FoundationMetadataPageMixin, Page):
         except NameError:
             context['entries'] = Page.objects.none()
         return context
-
-    class Meta:
-        abstract = True
 
 
 class NewsPage(PrimaryPage):
