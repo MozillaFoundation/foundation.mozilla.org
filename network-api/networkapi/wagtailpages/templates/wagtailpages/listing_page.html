@@ -4,28 +4,28 @@
 
 
 {% block content %}
-{% block minisite_title_mb %}{% endblock %}
+  {% block minisite_title_mb %}{% endblock %}
 
-{% include "partials/multipage-nav-mobile.html" %}
+  {% include "partials/multipage-nav-mobile.html" %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="h1-heading mb-0">
-        {% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
-      </h1>
-      <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="h1-heading mb-0">
+          {% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+        </h1>
+        <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <hr class="intro-and-content-divider">
+      </div>
+    </div>
+
+    <div class="row">
+      {% block subcontent %}{% endblock %}
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-12">
-      <hr class="intro-and-content-divider">
-    </div>
-  </div>
-
-  <div class="row">
-    {% block subcontent %}{% endblock %}
-  </div>
-</div>
 {% endblock %}

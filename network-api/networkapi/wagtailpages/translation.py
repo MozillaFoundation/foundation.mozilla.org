@@ -102,6 +102,7 @@ class BanneredCampaignPageTR(TranslationOptions):
     fields = (
     )
 
+
 @register(ListingPage)
 class ListingPageTR(TranslationOptions):
     fields = (
