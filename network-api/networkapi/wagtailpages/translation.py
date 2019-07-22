@@ -105,6 +105,8 @@ class BanneredCampaignPageTR(TranslationOptions):
 @register(ListingPage)
 class ListingPageTR(TranslationOptions):
     fields = (
+        'header',
+        'intro',
     )
 
 

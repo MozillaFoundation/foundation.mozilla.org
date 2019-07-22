@@ -550,6 +550,11 @@ class ListingPage(FoundationMetadataPageMixin, Page):
         help_text='Intro paragraph to show in hero cutout box'
     )
 
+    content_panels = Page.content_panels + [
+        FieldPanel('header'),
+        FieldPanel('intro'),
+    ]
+
     def get_context(self, request):
         context = super().get_context(request)
         try:
