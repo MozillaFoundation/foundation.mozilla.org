@@ -1,7 +1,9 @@
 import ReactGA from "./react-ga-proxy.js";
 
 const bindMozfestGAEventTrackers = () => {
-  let homeWatchVideoButton = document.querySelector(`#mozfest-home-watch-video-button`);
+  let homeWatchVideoButton = document.querySelector(
+    `#mozfest-home-watch-video-button`
+  );
 
   if (homeWatchVideoButton) {
     homeWatchVideoButton.addEventListener(`click`, () => {
