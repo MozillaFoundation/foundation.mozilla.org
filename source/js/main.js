@@ -11,6 +11,7 @@ import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
+import ShareButtonGroup from "./components/share-button-group/share-button-group.jsx";
 
 import injectDonateModal from "./donate-modal/donate-modal.jsx";
 
@@ -153,6 +154,34 @@ let main = {
     };
 
     window.addEventListener(`scroll`, onScroll);
+
+    // Toggle sticky share buttons on blog page
+
+    let blogPageStickyButtons = document.querySelector(
+      `#view-blog .blog-sticky-side .share-button-group`
+    );
+    let blogPageFullButtons = document.querySelector(
+      `#view-blog .blog-body .share-button-group`
+    );
+
+    if (blogPageStickyButtons && blogPageFullButtons) {
+      const isInViewport = element => {
+        let box = element.getBoundingClientRect();
+
+        return box.top <= window.innerHeight && box.top + box.height >= 0;
+      };
+
+      const toggleStickyButtons = () => {
+        if (isInViewport(blogPageFullButtons)) {
+          blogPageStickyButtons.classList.add(`faded`);
+        } else {
+          blogPageStickyButtons.classList.remove(`faded`);
+        }
+      };
+
+      window.addEventListener(`scroll`, toggleStickyButtons);
+      toggleStickyButtons();
+    }
 
     // Call once to get scroll position on initial page load.
     onScroll();
@@ -350,6 +379,25 @@ let main = {
         })
       );
     });
+
+    // Share button group
+    let shareButtonGroups = document.querySelectorAll(
+      `.share-button-group-wrapper`
+    );
+    if (shareButtonGroups) {
+      shareButtonGroups.forEach(element => {
+        var props = element.dataset;
+
+        apps.push(
+          new Promise(resolve => {
+            ReactDOM.render(
+              <ShareButtonGroup {...props} whenLoaded={() => resolve()} />,
+              element
+            );
+          })
+        );
+      });
+    }
 
     //Profile Directory Filter-Bar GA
 
