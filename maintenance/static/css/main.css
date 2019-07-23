@@ -8438,7 +8438,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     @media (min-width: 576px) {
       #primary-nav-container .wrapper-burger .logo {
         width: 97px;
-        background: url(../_images/mozilla-on-black.svg) no-repeat; } }
+        background: url(../images/mozilla-on-black.svg) no-repeat; } }
   #primary-nav-container .wrapper-burger .narrow-screen-menu {
     position: absolute;
     padding-top: 64px;
