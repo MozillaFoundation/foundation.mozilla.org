@@ -564,6 +564,9 @@ class ListingPage(FoundationMetadataPageMixin, Page):
             context['entries'] = Page.objects.none()
         return context
 
+    class Meta:
+        abstract = True
+
 
 class NewsPage(PrimaryPage):
     parent_page_types = ['Homepage']
