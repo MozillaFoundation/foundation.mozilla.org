@@ -161,7 +161,6 @@ class MiniSiteNameSpace(ModularPage):
         'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
-        'BlogListingPage',
         'BlogPage',
     ]
 
@@ -563,9 +562,6 @@ class ListingPage(FoundationMetadataPageMixin, Page):
         except NameError:
             context['entries'] = Page.objects.none()
         return context
-
-    class Meta:
-        abstract = True
 
 
 class NewsPage(PrimaryPage):
@@ -1126,6 +1122,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'RedirectingPage',
         'OpportunityPage',
         'BanneredCampaignPage',
+        'BlogListingPage',
     ]
 
     def get_context(self, request):
