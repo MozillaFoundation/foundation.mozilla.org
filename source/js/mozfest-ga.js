@@ -15,20 +15,17 @@ const bindMozfestGAEventTrackers = () => {
     });
   }
 
-  // TODO:FIXME:
-  // The proposals page is created via CMS and so are these buttons.
-  // Not sure what the best way is to target these buttons.
-  let beginSessionProposalButtons = document.querySelectorAll(
-    `body.mozfest a.btn.btn-primary[href='https://forms.gle/WY2zCp6cfdJU2fmp7']`
+  let cmsPrimaryButtons = document.querySelectorAll(
+    `body.mozfest .cms a.btn.btn-primary`
   );
 
-  if (beginSessionProposalButtons) {
-    beginSessionProposalButtons.forEach(button => {
+  if (cmsPrimaryButtons) {
+    cmsPrimaryButtons.forEach(button => {
       button.addEventListener(`click`, () => {
         ReactGA.event({
           category: `CTA`,
-          action: `submit proposal tap`,
-          label: `proposal button tap`
+          action: `button tap`,
+          label: button.innerHTML
         });
       });
     });
