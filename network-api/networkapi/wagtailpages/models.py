@@ -556,6 +556,8 @@ class ListingPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        context = set_main_site_nav_information(self, context, 'Homepage')
+        context = get_page_tree_information(self, context)
         try:
             PageType = self.model_type
             context['entries'] = PageType.objects.all()
