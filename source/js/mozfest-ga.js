@@ -25,7 +25,7 @@ const bindMozfestGAEventTrackers = () => {
         ReactGA.event({
           category: `CTA`,
           action: `button tap`,
-          label: button.innerHTML
+          label: button.innerText
         });
       });
     });
