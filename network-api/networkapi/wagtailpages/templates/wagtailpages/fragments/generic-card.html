@@ -8,5 +8,9 @@
   </div>
   {% block tags %}{% endblock %}
   <a class="h4-heading d-inline-block my-2" href={{ page.url }}>{{ page.title }}</a>
-  <p class="body-small mb-0">by {{ page.author }} on {{ page.first_published_at|date:"F j, Y" }}</p>
+  <p class="body-small mb-0">
+    {% block byline %}
+      Published on {{ page.first_published_at|date:"F j, Y" }}
+    {% endblock %}
+  </p>
 </div>
