@@ -1,8 +1,8 @@
 {% extends "./generic-card.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags %}
 
-{% block tags %}
+{% block tags-DISABLED-FOR-NOW %}
 <div>
     {% with tag=page.specific.tags.first %}
     <a class="main-tag" href="#">{{ tag }}</a>
