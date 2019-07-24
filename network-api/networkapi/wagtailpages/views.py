@@ -16,7 +16,7 @@ def custom404_view(request, exception):
     belongs to which site, as "a site" is not tied to "a django
     app" in the wagtail way of things.
     """
-    if request.site.hostname == 'mozillafestival.org':
+    if request.site.hostname == 'www.mozillafestival.org':
         html = render(request, 'mozfest/404.html')
         return HttpResponseNotFound(html.content)
     else:
