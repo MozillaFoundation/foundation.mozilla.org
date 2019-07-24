@@ -1,0 +1,12 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="child-card col-6 col-md-4 mb-5">
+  <div>
+    <a href="{{ page.url }}"">
+      {% image page.get_meta_image fill-400x225 %}
+    </a>
+  </div>
+  {% block tags %}{% endblock %}
+  <a class="h4-heading d-inline-block my-2" href={{ page.url }}>{{ page.title }}</a>
+  <p class="body-small mb-0">by {{ page.author }} on {{ page.first_published_at|date:"F j, Y" }}</p>
+</div>

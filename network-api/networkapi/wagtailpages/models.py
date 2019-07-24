@@ -532,10 +532,12 @@ class BanneredCampaignPage(PrimaryPage):
         return get_page_tree_information(self, context)
 
 
-class ListingPage(FoundationMetadataPageMixin, Page):
+class IndexPage(FoundationMetadataPageMixin, Page):
     """
-    This is an abstract page type for creating "listing" pages, e.g.
-    pages that list "all blog posts" or "all campaigns", etc.
+    This is a page type for creating "index" pages that
+    can show cards for all their child content.
+    E.g. a page that list "all blog posts" under it,
+    or "all the various campaigns", etc.
     """
 
     header = models.CharField(
@@ -558,11 +560,6 @@ class ListingPage(FoundationMetadataPageMixin, Page):
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, 'Homepage')
         context = get_page_tree_information(self, context)
-        try:
-            PageType = self.model_type
-            context['entries'] = PageType.objects.all()
-        except NameError:
-            context['entries'] = Page.objects.none()
         return context
 
 
@@ -624,10 +621,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
         return context
-
-
-class BlogListingPage(ListingPage):
-    model_type = BlogPage
 
 
 class InitiativeSection(models.Model):
@@ -1124,7 +1117,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'RedirectingPage',
         'OpportunityPage',
         'BanneredCampaignPage',
-        'BlogListingPage',
+        'IndexPage',
     ]
 
     def get_context(self, request):

@@ -1,0 +1,11 @@
+{% extends "./generic-card.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block tags %}
+<div>
+    {% with tag=page.specific.tags.first %}
+    <a class="main-tag" href="#">{{ tag }}</a>
+    {% endwith %}
+</div>
+{% endblock %}
