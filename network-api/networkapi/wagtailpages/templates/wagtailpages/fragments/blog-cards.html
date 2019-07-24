@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% for page in entries %}
-<div class="blog-card col-6 col-md-4 my-4">
+<div class="blog-card col-6 col-md-4 mt-0 mb-4">
   <div>
     <a href={{ page.url }}>
       {% image page.get_meta_image fill-400x225 %}
