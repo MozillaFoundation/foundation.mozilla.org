@@ -1,15 +1,33 @@
 {% extends "./generic-card.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailroutablepage_tags class_tags %}
 
-{% block tags-DISABLED-FOR-NOW %}
+
+The following block needs to know where the blog IndexPage is,
+so it checks whether "were" are the index page, and if not, it
+crawls up the ancestor tree until it has found it.
+
+(Without it, we cannot generate the links to /blob/tag/... for
+each blog page's dominant tag)
+
+{% block tags %}
 <div>
-    {% with tag=page.specific.tags.first %}
-    <a class="main-tag" href="#">{{ tag }}</a>
-    {% endwith %}
+  {% with tag=page.specific.tags.first %}
+    {% if "IndexPage" == self.specific|to_class_name %}
+      <a class="main-tag" href="{% routablepageurl self.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>
+    {% else %}
+      {% for page in self.get_ancestors reversed %}
+        {% if "IndexPage" == page.specific|to_class_name %}
+          <a class="main-tag" href="{% routablepageurl page.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 </div>
 {% endblock %}
 
 {% block byline %}
 By {{ page.specific.author }} on {{ page.first_published_at|date:"F j, Y" }}
-{% endblock%}
+{% endblock %}
+
+
