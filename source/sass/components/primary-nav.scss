@@ -28,19 +28,10 @@
     }
   }
 
-  .donate-btn-wrapper {
-    display: flex;
-    align-items: center;
-  }
-
   #donate-header-btn {
     @include scaleText(17px, 23px);
     color: $black;
     font-weight: $btn-font-weight;
-
-    @media (max-width: $bp-sm) {
-      padding: 4px;
-    }
 
     &:hover {
       color: $dark-blue;
@@ -227,7 +218,6 @@
       top: 0;
       left: 0;
       width: 100vw;
-      background: $white;
       transition: opacity 0.2s, height 0s;
 
       &.hidden {
@@ -264,5 +254,43 @@
         }
       }
     }
+  }
+}
+
+// Newsletter
+
+#nav-newsletter-form-wrapper {
+  background-color: $black;
+  opacity: 0;
+  height: 0;
+  overflow-y: hidden;
+  transition: height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+
+  @media (min-width: $bp-lg) {
+    opacity: 1;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+
+  &.expanded {
+    opacity: 1;
+    height: 200px;
+  }
+
+  &.faded-in {
+    opacity: 1;
+    height: 100%;
+  }
+}
+
+/* TODO:FIXME: custom button style introduced */
+.btn.form-dismiss {
+  color: $light-blue;
+  border: none;
+  background: transparent;
+
+  @include hover-focus-active {
+    text-decoration: underline;
   }
 }
