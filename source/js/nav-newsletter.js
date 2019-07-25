@@ -29,10 +29,10 @@ class NavNewsletter {
     this.form.reset();
 
     let handleTransitionend = () => {
-      container.removeEventListener("transitionend", handleTransitionend);
-      buttonDismiss.textContent = "No thanks";
+      elements.container.removeEventListener("transitionend", handleTransitionend);
+      elements.buttonDismiss.textContent = "No thanks";
     };
-    container.addEventListener("transitionend", handleTransitionend);
+    elements.container.addEventListener("transitionend", handleTransitionend);
   }
 
   // For desktop+ version:
