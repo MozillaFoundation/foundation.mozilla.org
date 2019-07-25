@@ -60,3 +60,7 @@ if settings.USE_S3 is not True:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
+
+# Use a custom 404 handler so that we can serve distinct 404
+# pages for each "site" that wagtail services.
+handler404 = 'networkapi.wagtailpages.views.custom404_view'

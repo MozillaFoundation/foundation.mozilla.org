@@ -16,6 +16,8 @@ import ShareButtonGroup from "./components/share-button-group/share-button-group
 import injectDonateModal from "./donate-modal/donate-modal.jsx";
 
 import primaryNav from "./primary-nav.js";
+import navNewsletter from "./nav-newsletter.js";
+import bindMozFestGA from "./mozfest-ga.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -155,10 +157,39 @@ let main = {
 
     window.addEventListener(`scroll`, onScroll);
 
+    // Toggle sticky share buttons on blog page
+
+    let blogPageStickyButtons = document.querySelector(
+      `#view-blog .blog-sticky-side .share-button-group`
+    );
+    let blogPageFullButtons = document.querySelector(
+      `#view-blog .blog-body .share-button-group`
+    );
+
+    if (blogPageStickyButtons && blogPageFullButtons) {
+      const isInViewport = element => {
+        let box = element.getBoundingClientRect();
+
+        return box.top <= window.innerHeight && box.top + box.height >= 0;
+      };
+
+      const toggleStickyButtons = () => {
+        if (isInViewport(blogPageFullButtons)) {
+          blogPageStickyButtons.classList.add(`faded`);
+        } else {
+          blogPageStickyButtons.classList.remove(`faded`);
+        }
+      };
+
+      window.addEventListener(`scroll`, toggleStickyButtons);
+      toggleStickyButtons();
+    }
+
     // Call once to get scroll position on initial page load.
     onScroll();
 
     primaryNav.init();
+    navNewsletter.init(networkSiteURL, csrfToken);
 
     // Extra tracking
 
@@ -214,6 +245,8 @@ let main = {
         });
       });
     }
+
+    bindMozFestGA();
   },
 
   // Embed various React components based on the existence of containers within the current page
@@ -230,30 +263,24 @@ let main = {
     }
 
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
-    if (document.querySelectorAll(`.join-us`)) {
-      var elements = Array.from(document.querySelectorAll(`.join-us`));
+    document.querySelectorAll(`.join-us:not(.on-nav)`).forEach(element => {
+      var props = element.dataset;
 
-      if (elements.length) {
-        elements.forEach(element => {
-          var props = element.dataset;
+      props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
+        0}/`;
 
-          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
-            0}/`;
+      props.csrfToken = props.csrfToken || csrfToken;
+      props.isHidden = false;
 
-          props.csrfToken = props.csrfToken || csrfToken;
-          props.isHidden = false;
-
-          apps.push(
-            new Promise(resolve => {
-              ReactDOM.render(
-                <JoinUs {...props} whenLoaded={() => resolve()} />,
-                element
-              );
-            })
+      apps.push(
+        new Promise(resolve => {
+          ReactDOM.render(
+            <JoinUs {...props} whenLoaded={() => resolve()} />,
+            element
           );
-        });
-      }
-    }
+        })
+      );
+    });
 
     // petition elements
     var petitionElements = Array.from(

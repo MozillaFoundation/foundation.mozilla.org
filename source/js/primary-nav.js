@@ -1,4 +1,5 @@
 import ReactGA from "react-ga";
+import navNewsletter from "./nav-newsletter.js";
 
 let primaryNav = {
   init: function() {
@@ -65,8 +66,14 @@ let primaryNav = {
       }
     });
     elBurger.addEventListener(`click`, () => {
-      menuOpen = !menuOpen;
-      setMenuState(menuOpen);
+      if (navNewsletter.getShownState()) {
+        // if newsletter section is open, close just that section
+        // instead of changing the menuOpen state
+        navNewsletter.closeMobileNewsletter();
+      } else {
+        menuOpen = !menuOpen;
+        setMenuState(menuOpen);
+      }
     });
   }
 };

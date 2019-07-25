@@ -1,12 +1,25 @@
 import React from "react";
 import ReactGA from "react-ga";
+import ReactDOM from "react-dom";
 import classNames from "classnames";
 import basketSignup from "../../basket-signup.js";
 
 export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState();
+  }
+
+  reset() {
+    if (!this.state.apiSuccess) {
+      this.email.value = "";
+      this.privacy.checked = false;
+    }
+    this.setState(this.getInitialState());
+  }
+
+  getInitialState() {
+    return {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
@@ -22,6 +35,21 @@ export default class JoinUs extends React.Component {
   componentDidMount() {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    let navWrapper = document.querySelector("#nav-newsletter-form-wrapper");
+
+    // when user has successfully signed up for newsletter from the newsletter section on the nav,
+    // update the dismiss button so it reads "Back to menu" instead of "No thanks"
+    if (
+      navWrapper &&
+      navWrapper.contains(ReactDOM.findDOMNode(this)) &&
+      navWrapper.querySelector(".form-dismiss") &&
+      this.state.apiSuccess
+    ) {
+      navWrapper.querySelector(".form-dismiss").textContent = "Back to menu";
     }
   }
 
@@ -46,6 +74,18 @@ export default class JoinUs extends React.Component {
     return (
       this.state.apiSubmitted && (this.state.apiSuccess || this.state.apiFailed)
     );
+  }
+
+  /**
+   * Performs very simple validation for emails.
+   * @param {string} input the string that should be validated as an email address
+   * @returns {boolean} true if the input is a legal-enough email address, else false
+   */
+  validatesAsEmail(input) {
+    if (!input) {
+      return false;
+    }
+    return input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
   }
 
   /**
@@ -105,7 +145,7 @@ export default class JoinUs extends React.Component {
     let email = this.email.value;
     let consent = this.privacy.checked;
 
-    if (email && consent) {
+    if (email && this.validatesAsEmail(email) && consent) {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
@@ -183,9 +223,10 @@ export default class JoinUs extends React.Component {
   renderEmailField() {
     let classes = classNames(`mb-2`, {
       "has-danger":
+        !this.email ||
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
-          !this.email.value) ||
+          !this.validatesAsEmail(this.email.value)) ||
         this.state.signupFailed
     });
 
@@ -200,7 +241,7 @@ export default class JoinUs extends React.Component {
         />
         {this.state.userTriedSubmitting &&
           !this.state.apiSubmitted &&
-          !this.email.value && (
+          !this.validatesAsEmail(this.email.value) && (
             <p className="body-small form-check form-control-feedback">
               Please enter your email
             </p>
@@ -308,7 +349,11 @@ export default class JoinUs extends React.Component {
     }
 
     return (
-      <form onSubmit={evt => this.processFormData(evt)} className={formClass}>
+      <form
+        noValidate
+        onSubmit={evt => this.processFormData(evt)}
+        className={formClass}
+      >
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
