@@ -3,14 +3,16 @@ import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
 
-let primaryNav,
-  narrowMenuContainer,
-  wideMenuContainer,
-  container,
-  buttonDesktop,
-  buttonMobile,
-  joinUs,
-  buttonDismiss;
+const elements = {
+  primaryNav: `#primary-nav-container`,
+  narrowMenuContainer: `#primary-nav-container .narrow-screen-menu-container`,
+  wideMenuContainer: `#primary-nav-container .wide-screen-menu-container`,
+  buttonMobile: `#primary-nav-container .narrow-screen-menu-container .btn-newsletter`,
+  buttonDesktop: `#primary-nav-container .wide-screen-menu-container .btn-newsletter`,
+  container: `#nav-newsletter-form-wrapper`,
+  joinUs: `#nav-newsletter-form-wrapper .join-us.on-nav`,
+  buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`
+};
 
 class NavNewsletter {
   constructor() {
@@ -38,8 +40,8 @@ class NavNewsletter {
   // remove the global 'closeFormClickHandler' click event handler
   // and reset the form
   closeDesktopNewsletter(event) {
-    container.classList.remove("expanded");
-    buttonDesktop.classList.remove("active");
+    elements.container.classList.remove("expanded");
+    elements.buttonDesktop.classList.remove("active");
     document.removeEventListener("click", this.closeFormClickHandler);
     document.removeEventListener("scroll", this.closeFormClickHandler);
     this.resetForm();
@@ -49,9 +51,9 @@ class NavNewsletter {
   // For desktop+ version:
   // transition newsletter section to its expanded state
   expandDesktopNewsletter(event) {
-    container.style.top = `${primaryNav.offsetHeight}px`;
-    container.classList.add("expanded");
-    buttonDesktop.classList.add("active");
+    elements.container.style.top = `${elements.primaryNav.offsetHeight}px`;
+    elements.container.classList.add("expanded");
+    elements.buttonDesktop.classList.add("active");
     document.addEventListener(`click`, this.closeFormClickHandler);
     document.addEventListener("scroll", this.closeFormClickHandler);
     this.isShown = true;
@@ -62,8 +64,8 @@ class NavNewsletter {
   // remove the global 'closeFormClickHandler' click event handler,
   // and reset the form
   closeMobileNewsletter() {
-    narrowMenuContainer.classList.remove("d-none");
-    container.classList.remove("faded-in");
+    elements.narrowMenuContainer.classList.remove("d-none");
+    elements.container.classList.remove("faded-in");
     this.resetForm();
     this.isShown = false;
   }
@@ -71,8 +73,8 @@ class NavNewsletter {
   // For mobile version:
   // transition section to its expanded state
   expandMobileNewsletter() {
-    narrowMenuContainer.classList.add(`d-none`);
-    container.classList.add("faded-in");
+    elements.narrowMenuContainer.classList.add(`d-none`);
+    elements.container.classList.add("faded-in");
     this.isShown = true;
   }
 
@@ -80,61 +82,44 @@ class NavNewsletter {
   // create click handler to detect clicking event outside of the newsletter section
   closeFormClickHandler(event) {
     // close newsletter section if clicking anywhere outside of the section
-    if (!container.contains(event.target) && event.target !== container) {
+    if (
+      !elements.container.contains(event.target) &&
+      event.target !== elements.container
+    ) {
       navNewsletter.closeDesktopNewsletter();
     }
   }
 
+  /**
+   * Find and bind all necessary DOM nodes, returning "false" if not all DOM nodes were found.
+   */
   checkDomNodes() {
-    let allNodesExisted = false;
+    return Object.keys(elements).every(key => {
+      // if this element already resolved to a DOM node, move on to the next
+      let value = elements[key];
+      if (typeof value !== "string") return true;
 
-    try {
-      primaryNav = document.querySelector(`#primary-nav-container`);
-      wideMenuContainer = primaryNav.querySelector(
-        ".wide-screen-menu-container"
-      );
-      narrowMenuContainer = primaryNav.querySelector(
-        ".narrow-screen-menu-container"
-      );
-      container = document.querySelector("#nav-newsletter-form-wrapper");
-      buttonDesktop = wideMenuContainer.querySelector(".btn-newsletter");
-      buttonMobile = narrowMenuContainer.querySelector(".btn-newsletter");
-      joinUs = container.querySelector(`.join-us.on-nav`);
-      buttonDismiss = container.querySelector(".form-dismiss");
-    } catch (error) {
-      console.error(`Some DOM nodes do not exist!`);
-    }
-
-    if (
-      primaryNav &&
-      narrowMenuContainer &&
-      wideMenuContainer &&
-      container &&
-      buttonDesktop &&
-      buttonMobile &&
-      joinUs &&
-      buttonDismiss
-    ) {
-      allNodesExisted = true;
-    }
-
-    return allNodesExisted;
+      // find this DOM node, and report on the result (binding it if found for later use)
+      let element = document.querySelector(value);
+      if (element) elements[key] = element;
+      return !!element;
+    });
   }
 
   init(foundationSiteURL, csrfToken) {
     // some DOM nodes do not exist, return
     if (!this.checkDomNodes()) return;
 
-    var props = joinUs.dataset;
+    var props = elements.joinUs.dataset;
     props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${props.signupId ||
       0}/`;
     props.csrfToken = props.csrfToken || csrfToken;
     props.isHidden = false;
-    this.form = ReactDOM.render(<JoinUs {...props} />, joinUs);
+    this.form = ReactDOM.render(<JoinUs {...props} />, elements.joinUs);
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section
-    buttonDesktop.addEventListener("click", event => {
+    elements.buttonDesktop.addEventListener("click", event => {
       if (!this.isShown) {
         event.stopPropagation();
         this.expandDesktopNewsletter();
@@ -145,13 +130,13 @@ class NavNewsletter {
 
     // For mobile version:
     // make 'buttonDismiss' the trigger to close newsletter section
-    buttonDismiss.addEventListener("click", () => {
+    elements.buttonDismiss.addEventListener("click", () => {
       this.closeMobileNewsletter();
     });
 
     // For mobile version:
     // make 'buttonMobile' the trigger to show newsletter section
-    buttonMobile.addEventListener("click", () => {
+    elements.buttonMobile.addEventListener("click", () => {
       navNewsletter.expandMobileNewsletter();
     });
   }

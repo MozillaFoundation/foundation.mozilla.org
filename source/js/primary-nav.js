@@ -1,5 +1,4 @@
 import ReactGA from "react-ga";
-import ReactDOM from "react-dom";
 import navNewsletter from "./nav-newsletter.js";
 
 let primaryNav = {
