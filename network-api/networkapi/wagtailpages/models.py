@@ -568,7 +568,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         to work with and then ii) those tags match the specified ones.
         """
         type = self.filtered.get('type')
-        if type is 'tag':
+        if type == 'tag':
             terms = self.filtered.get('terms')
             entries = [
                 entry

@@ -9,6 +9,7 @@ class HowToWagtailMenuItem(MenuItem):
     def is_shown(self, request):
         return True
 
+
 @hooks.register('register_admin_menu_item')
 def register_howto_menu_item():
     return HowToWagtailMenuItem(
