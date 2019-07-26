@@ -40,20 +40,27 @@ button:hover {
     }
   }
 
-  .cutout {
-    $grid-gutter-width: map-get($grid-gutter-widths, xs);
-    $padding-x: #{$grid-gutter-width / 2};
-
-    margin-top: calc(#{$bg-pattern-height} - 40px);
-    background: $white;
-    padding-left: $padding-x;
-    padding-right: $padding-x;
+  .cutout-wrapper-row {
+    $offset-x-md: 24px;
 
     @media screen and (min-width: $bp-md) {
-      $offset-left: 24px;
+      margin-left: -$offset-x-md;
+      margin-right: -$offset-x-md;
+    }
 
-      margin-left: -$offset-left;
-      padding-left: $offset-left;
+    .cutout {
+      $grid-gutter-width: map-get($grid-gutter-widths, xs);
+      $padding-x: #{$grid-gutter-width / 2};
+
+      margin-top: calc(#{$bg-pattern-height} - 40px);
+      background: $white;
+      padding-left: $padding-x;
+      padding-right: $padding-x;
+
+      @media screen and (min-width: $bp-md) {
+        padding-left: $offset-x-md;
+        padding-right: $offset-x-md;
+      }
     }
   }
 }
