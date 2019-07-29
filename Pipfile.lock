@@ -26,18 +26,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:34a8ddb7247316be6ea94c7eeee41212312d250d99bf668fcd6748629b578622",
-                "sha256:71f3554cc69fa20be06cf20d6c9e0d8095d7c40695b48618676c3cd9a5ba0783"
+                "sha256:01f1792838981191da87bed271f2b486841a282fcd78a3b5bac98e5b85c95ba8",
+                "sha256:0f1f796abf85e53a8a50b893cbeccd93ee081184453127b663da4b97d72aa0cc"
             ],
             "index": "pypi",
-            "version": "==1.9.189"
+            "version": "==1.9.197"
         },
         "botocore": {
             "hashes": [
-                "sha256:4febbf206d1dc8b8299aa211d8e382d5bf3f22097855b9f98d5e8c401ef8192b",
-                "sha256:b62ab3e4e98e075fc9e8e8fd4e8f5b92ebf311a6dc9f7578650938c7bc94e592"
+                "sha256:6e7c49014430f73ba6ab638d4ad313f8522b8185e476fe1a57ce9cd50c596062",
+                "sha256:78627966a280328e4a7018758e91e6413d5cae8387e08ab219e232689a92cb45"
             ],
-            "version": "==1.12.189"
+            "version": "==1.12.197"
         },
         "certifi": {
             "hashes": [
@@ -133,9 +133,9 @@
         },
         "django-modeltranslation": {
             "hashes": [
-                "sha256:d91b627297491f5a47e4e0758d0121cd98cc78af36e6e7bb92c6a05e92b3a57f"
+                "sha256:64f8ad3477b268cbc403719ddc6423ed42d1bd8ea2814671bcfc35fc9ea31748"
             ],
-            "version": "==0.13.2"
+            "version": "==0.13.3"
         },
         "django-redis": {
             "hashes": [
@@ -370,10 +370,10 @@
         },
         "redis": {
             "hashes": [
-                "sha256:6946b5dca72e86103edc8033019cc3814c031232d339d5f4533b02ea85685175",
-                "sha256:8ca418d2ddca1b1a850afa1680a7d2fd1f3322739271de4b704e0d4668449273"
+                "sha256:22b8b0041989d9002c04907466bc737cb6c3f6a77196315cf29205e13220836b",
+                "sha256:73ced19326cb85f69eb0724005c3fc24eaf7a5b6c3b387bfb13e900e808078d0"
             ],
-            "version": "==3.2.1"
+            "version": "==3.3.0"
         },
         "requests": {
             "hashes": [
