@@ -560,6 +560,7 @@ class IndexPage(FoundationMetadataPageMixin, Page):
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, 'Homepage')
         context = get_page_tree_information(self, context)
+        context['entries'] = self.get_children().live().order_by('-first_published_at')
         return context
 
 
