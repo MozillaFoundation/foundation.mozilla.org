@@ -1,0 +1,39 @@
+{% extends "./modular_page.html" %}
+
+{% load wagtailcore_tags mini_site_tags %}
+
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 pt-4">
+        <h1 class="h1-heading mb-0 mt-1 pt-2">
+          {% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+        </h1>
+        <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <hr class="intro-and-content-divider">
+      </div>
+    </div>
+
+    <div class="row">
+      {% block subcontent %}
+
+        {% for entry in page.get_children.live %}
+          {% with type=entry.specific_class.get_verbose_name|lower %}
+            {% if type == "blog page" %}
+              {% include "./fragments/blog-card.html" with page=entry %}
+            {% else %}
+              {% include "./fragments/generic-card.html" with page=entry %}
+            {% endif %}
+          {% endwith %}
+        {% endfor %}
+
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
