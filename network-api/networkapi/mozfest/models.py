@@ -17,6 +17,18 @@ from networkapi.wagtailpages.models import (
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
+    cta_button_label = models.CharField(
+        max_length=250,
+        blank=True,
+        help_text='Label text for the CTA button in the primary nav bar',
+    )
+
+    cta_button_destination = models.CharField(
+        max_length=2048,
+        blank=True,
+        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to',
+    )
+
     header = models.CharField(
         max_length=250,
         blank=True
@@ -40,6 +52,8 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
     body = StreamField(base_fields)
 
     content_panels = Page.content_panels + [
+        FieldPanel('cta_button_label'),
+        FieldPanel('cta_button_destination'),
         FieldPanel('header'),
         ImageChooserPanel('banner'),
         FieldPanel('intro'),
@@ -69,6 +83,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, bypass_menu_buildstep=False):
         context = super().get_context(request)
+        context = set_main_site_nav_information(self, context, 'MozfestHomepage')
         context = get_page_tree_information(self, context)
 
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
