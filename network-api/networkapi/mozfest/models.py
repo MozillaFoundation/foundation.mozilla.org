@@ -99,13 +99,13 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 class MozfestHomepage(MozfestPrimaryPage):
     banner_heading = models.CharField(
         max_length=250,
-        blank=True,
+        default='Submit proposal',
         help_text='A banner heading specific to the homepage'
     )
 
     banner_guide_text = models.CharField(
         max_length=1000,
-        blank=True,
+        default='/proposals',
         help_text='A banner paragraph specific to the homepage'
     )
 
