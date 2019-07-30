@@ -12,7 +12,7 @@ from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
 )
-from .mini_site_namespace import MiniSiteNamespaceFactory
+from .index_page import IndexPageFactory
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
@@ -49,15 +49,17 @@ def generate(seed):
         print('blog namespace exists')
     except WagtailPage.DoesNotExist:
         print('Generating a blog namespace')
-        blog_namespace = MiniSiteNamespaceFactory.create(
+        blog_namespace = IndexPageFactory.create(
             parent=home_page,
             title='blog',
-            live=False
+            header='blog',
+            live=True
         )
 
-    try:
-        BlogPage.objects.get(title='post')
-        print('a post page (BlogPage) exists')
-    except BlogPage.DoesNotExist:
-        print('Generating a post page (BlogPage) under namespace')
-        BlogPageFactory.create(parent=blog_namespace, title='post')
+    print('Generating blog posts under namespace')
+    for i in range(7):
+        title = f'post {i}'
+        try:
+            BlogPage.objects.get(title=title)
+        except BlogPage.DoesNotExist:
+            BlogPageFactory.create(parent=blog_namespace, title=title)
