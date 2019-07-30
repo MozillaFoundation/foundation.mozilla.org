@@ -11,6 +11,8 @@ def set_main_site_nav_information(page, context, homepage_class_name):
     chain = page.get_ancestors(True)  # incude ourselves! 
     root = list(filter(locate, chain))[0]
 
+    print(root)
+
     context['menu_root'] = root
     context['menu_items'] = root.get_children().live().in_menu()
 
