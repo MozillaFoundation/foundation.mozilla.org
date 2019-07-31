@@ -2,10 +2,13 @@ import json
 
 from django.db import models
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.template import loader
+
 from taggit.models import Tag
 
 from . import customblocks
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
@@ -532,7 +535,7 @@ class BanneredCampaignPage(PrimaryPage):
         return get_page_tree_information(self, context)
 
 
-class IndexPage(FoundationMetadataPageMixin, Page):
+class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     """
     This is a page type for creating "index" pages that
     can show cards for all their child content.
@@ -551,17 +554,66 @@ class IndexPage(FoundationMetadataPageMixin, Page):
         help_text='Intro paragraph to show in hero cutout box'
     )
 
+    DEFAULT_PAGE_SIZE = 12
+
+    PAGE_SIZES = (
+        (4, '4'),
+        (8, '8'),
+        (DEFAULT_PAGE_SIZE, str(DEFAULT_PAGE_SIZE)),
+        (24, '24'),
+    )
+
+    page_size = models.IntegerField(
+        choices=PAGE_SIZES,
+        default=DEFAULT_PAGE_SIZE,
+        help_text='The number of entries to show by default, and per incremental load'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         FieldPanel('intro'),
+        FieldPanel('page_size'),
     ]
+
+    def get_entries(self):
+        return self.get_children().live().order_by('-first_published_at')
 
     def get_context(self, request):
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, 'Homepage')
         context = get_page_tree_information(self, context)
-        context['entries'] = self.get_children().live().order_by('-first_published_at')
+        context['entries'] = self.get_entries()[0:self.page_size]
         return context
+
+    @route('entries')
+    def generate_entries_set_html(self, request, *args, **kwargs):
+        """
+        Get a set of entries, as rendered HTML
+        """
+
+        page = 1
+
+        if 'page' in request.GET:
+            page = int(request.GET['page'])
+
+        page_size = self.page_size
+
+        if 'page_size' in request.GET:
+            page_size = int(request.GET['page_size'])
+
+        start = page * page_size
+        end = start + page_size
+        entries = self.get_entries()
+
+        return JsonResponse({
+            'entries_html': loader.render_to_string(
+                'wagtailpages/fragments/entry_cards.html',
+                {
+                    'entries':  entries[start:end]
+                }
+            ),
+            'has_next': end < len(entries)
+        })
 
 
 class NewsPage(PrimaryPage):
@@ -574,7 +626,6 @@ class BlogPageTag(TaggedItemBase):
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
-    template = 'wagtailpages/blog_page.html'
 
     author = models.CharField(
         verbose_name='Author',
@@ -600,23 +651,18 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ('quote', customblocks.QuoteBlock()),
     ])
 
-    # Editor panels configuration
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
+    zen_nav = True
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
         StreamFieldPanel('body'),
     ]
 
-    # Promote panels configuration
-    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
     ]
-
-    # Database fields
-
-    zen_nav = True
 
     def get_context(self, request):
         context = super().get_context(request)

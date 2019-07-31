@@ -156,6 +156,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.core',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
+    'wagtail.contrib.routable_page',
     'wagtail.contrib.styleguide' if DEBUG else None,
     'wagtail.contrib.modeladmin',
     'experiments',
