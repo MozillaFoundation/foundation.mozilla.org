@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 
+from .api import api_router
+
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
@@ -51,7 +53,7 @@ urlpatterns = list(filter(None, [
 urlpatterns += i18n_patterns(
     # Buyer's Guide / Privacy Not Included
     url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
-
+    url(r'^api/v2/', api_router.urls),
     url(r'', include(wagtail_urls)),
 )
 

@@ -145,6 +145,7 @@ INSTALLED_APPS = list(filter(None, [
 
     'wagtailmetadata',
 
+    'wagtail.api.v2',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',

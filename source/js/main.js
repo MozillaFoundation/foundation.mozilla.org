@@ -520,6 +520,50 @@ let main = {
 
       injectDonateModal(donationModal, modalOptions);
     }
+
+    // Enable the "load more results" button on index pages
+    let loadMoreButton = document.querySelector(`.load-more-index-entries`);
+    if (loadMoreButton) {
+      loadMoreButton.addEventListener(`click`, evt => {
+        let meta = document.querySelector(`meta[property="og:locale"]`);
+        let locale = meta ? meta.getAttribute(`content`) : `en`;
+        let data = loadMoreButton.dataset;
+
+        // Parsing the object types that we need to pass into the wagtail
+        // API is a little bit tricky, so it takes up a few lines...
+        let types = ``;
+        if (data.types) {
+          let json = data.types.replace(/"/g, `\\"`).replace(/'/g, `"`);
+          try {
+            let parsed = JSON.parse(json);
+            let mapped = parsed.map(type => `wagtailpages.${type}`);
+            types = `&type=${mapped.join(`,`)}`;
+          }
+          catch (e) {
+            console.error(`could not parse index entry types ${json}`);
+          }
+        }
+
+        // Construct our localized API url:
+        let url = `/${locale}/api/v2/pages/?child_of=${
+          data.index
+        }${types}&fields=*&order=-first_published_at&format=json`;
+
+        // And then fetch the results and render them into the page.
+        fetch(url)
+          .then(result => result.json())
+          .then(data => data.items)
+          .then(entries => {
+            // TODO: load this data into appropriate card form...
+            // TODO: how do we GET the appropriate card form?
+            console.log(entries);
+          })
+          .catch(err => {
+            // TODO: what do we want to do in this case?
+            console.error(err);
+          });
+      });
+    }
   }
 };
 

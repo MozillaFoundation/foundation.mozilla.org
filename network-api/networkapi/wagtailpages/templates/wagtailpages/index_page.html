@@ -20,9 +20,8 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="index-entries row">
       {% block subcontent %}
-
         {% for entry in entries %}
           {% with type=entry.specific_class.get_verbose_name|lower %}
             {% if type == "blog page" %}
@@ -32,8 +31,20 @@
             {% endif %}
           {% endwith %}
         {% endfor %}
-
       {% endblock %}
+    </div>
+
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <button
+          class="btn btn-primary load-more-index-entries"
+          data-index="{{ index_id }}"
+          data-types="{{ entry_types }}"
+        >
+          Load more results
+        </button>
+        {# See main.js for the JS that hooks into this #}
+      </div>
     </div>
   </div>
 {% endblock %}

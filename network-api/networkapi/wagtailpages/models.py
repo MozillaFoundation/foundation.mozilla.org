@@ -2,10 +2,13 @@ import json
 
 from django.db import models
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.core import serializers
+from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect, JsonResponse
+
 from taggit.models import Tag
 
 from . import customblocks
+from wagtail.api import APIField
 from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
@@ -556,11 +559,16 @@ class IndexPage(FoundationMetadataPageMixin, Page):
         FieldPanel('intro'),
     ]
 
+    def get_entries(self):
+        return self.get_children().live().order_by('-first_published_at')
+
     def get_context(self, request):
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, 'Homepage')
         context = get_page_tree_information(self, context)
-        context['entries'] = self.get_children().live().order_by('-first_published_at')
+        context['index_id'] = self.pk
+        context['entries'] = self.get_entries()
+        context['entry_types'] = list(set([e.specific_class.__name__ for e in context['entries']]))
         return context
 
 
@@ -574,7 +582,6 @@ class BlogPageTag(TaggedItemBase):
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
-    template = 'wagtailpages/blog_page.html'
 
     author = models.CharField(
         verbose_name='Author',
@@ -600,23 +607,24 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ('quote', customblocks.QuoteBlock()),
     ])
 
-    # Editor panels configuration
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
+    zen_nav = True
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
         StreamFieldPanel('body'),
     ]
 
-    # Promote panels configuration
-    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
     ]
 
-    # Database fields
-
-    zen_nav = True
+    api_fields = [
+        APIField('title'),
+        APIField('author'),
+        APIField('tags'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)
