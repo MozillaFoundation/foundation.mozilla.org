@@ -1,0 +1,15 @@
+{% extends "./generic-card.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block tags-DISABLED-FOR-NOW %}
+<div>
+    {% with tag=page.specific.tags.first %}
+    <a class="main-tag" href="#">{{ tag }}</a>
+    {% endwith %}
+</div>
+{% endblock %}
+
+{% block byline %}
+By {{ page.specific.author }} on {{ page.first_published_at|date:"F j, Y" }}
+{% endblock%}
