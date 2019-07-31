@@ -17,18 +17,6 @@ from networkapi.wagtailpages.models import (
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
-    cta_button_label = models.CharField(
-        max_length=250,
-        default='Submit proposal',
-        help_text='Label text for the CTA button in the primary nav bar',
-    )
-
-    cta_button_destination = models.CharField(
-        max_length=2048,
-        default='/proposals',
-        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to',
-    )
-
     header = models.CharField(
         max_length=250,
         blank=True
@@ -52,8 +40,6 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
     body = StreamField(base_fields)
 
     content_panels = Page.content_panels + [
-        FieldPanel('cta_button_label'),
-        FieldPanel('cta_button_destination'),
         FieldPanel('header'),
         ImageChooserPanel('banner'),
         FieldPanel('intro'),
@@ -97,6 +83,18 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class MozfestHomepage(MozfestPrimaryPage):
+    cta_button_label = models.CharField(
+        max_length=250,
+        default='Submit proposal',
+        help_text='Label text for the CTA button in the primary nav bar',
+    )
+
+    cta_button_destination = models.CharField(
+        max_length=2048,
+        default='/proposals',
+        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to',
+    )
+
     banner_heading = models.CharField(
         max_length=250,
         blank=True,
@@ -130,6 +128,8 @@ class MozfestHomepage(MozfestPrimaryPage):
     n = panel_count - 1
 
     content_panels = parent_panels[:n] + [
+        FieldPanel('cta_button_label'),
+        FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
