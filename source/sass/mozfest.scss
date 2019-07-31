@@ -39,23 +39,11 @@ body.mozfest {
         }
       }
 
-      .full-width-cutout {
-        $grid-gutter-width: map-get($grid-gutter-widths, xs);
-        $padding-x: #{$grid-gutter-width / 2};
-
+      .cutout {
+        z-index: $banner-background-z-index + 2;
+        margin-top: 0;
         @media screen and (min-width: $bp-md) {
-          $offset-left: 24px;
-
-          margin-left: -$offset-left;
-          margin-right: -$offset-left;
           margin-top: -$cutoff-offset;
-
-          .content {
-            z-index: $banner-background-z-index + 2;
-            background: $white;
-            padding-left: $offset-left;
-            padding-right: $offset-left;
-          }
         }
       }
 
