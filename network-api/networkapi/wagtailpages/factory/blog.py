@@ -58,7 +58,7 @@ def generate(seed):
 
     print('Generating blog posts under namespace')
     for i in range(7):
-        title = f'post {i}'
+        title = Faker('sentence', nb_words=6, variable_nb_words=False)
         try:
             BlogPage.objects.get(title=title)
         except BlogPage.DoesNotExist:
