@@ -57,7 +57,14 @@ def generate(seed):
         )
 
     print('Generating blog posts under namespace')
-    for i in range(7):
+    title = 'Initial test blog post with fixed title'
+
+    try:
+        BlogPage.objects.get(title=title)
+    except BlogPage.DoesNotExist:
+        BlogPageFactory.create(parent=blog_namespace, title=title)
+
+    for i in range(6):
         title = Faker('sentence', nb_words=6, variable_nb_words=False)
         try:
             BlogPage.objects.get(title=title)
