@@ -18,7 +18,7 @@ The modeltranslation library adds localised URLs to Wagtail, interjecting the lo
 
 with "en" as locale, becomes:
 
-    https://foundation.mozilla.org/en/campaigns/aadhaar
+    https://foundation.mozilla.org/campaigns/aadhaar
 
 This functionality is enabled in the main `urls.py` file, where any (subset of) routes that need this kind of infix locale must be wrapped by the Django `i18npatterns` call.
 
