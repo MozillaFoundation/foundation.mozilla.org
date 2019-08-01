@@ -12,8 +12,8 @@
 
   {% if homepage %}
   <div class="container">
-    <div class="row full-width-cutout">
-      <div class="content col-12 pt-4">
+    <div class="row cutout-wrapper-row">
+      <div class="cutout col-12 pt-4">
         <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
         {% if page.intro %}
         <div class="body-large mt-3 mb-0">{{ page.intro | richtext }}</div>
@@ -23,8 +23,8 @@
   </div>
   {% else %}
   <div class="container">
-    <div class="row no-gutters">
-      <div class="cutout pt-4 col-12 {% if homepage != True %}col-md-8{% endif %}">
+    <div class="row cutout-wrapper-row">
+      <div class="cutout pt-4 col-12 col-lg-8">
         <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
         {% if page.intro %}
         <div class="intro body-large mt-3">{{ page.intro | richtext }}</div>

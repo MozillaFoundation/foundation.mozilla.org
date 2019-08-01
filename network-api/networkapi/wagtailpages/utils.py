@@ -6,14 +6,14 @@ def set_main_site_nav_information(page, context, homepage_class_name):
     # Find the homepage, and then record all pages that should end up as nav items. Note
     # that subclasses can bypass this, because the MozfestHomepage doesn't need any of
     # this work to be done.
-    homepage = list(filter(
-        lambda x: x.specific.__class__.__name__ is homepage_class_name,
-        page.get_ancestors()
+
+    root = list(filter(
+        lambda x: x.specific.__class__.__name__ == homepage_class_name,
+        page.get_ancestors(True)  # incude ourselves!
     ))[0]
 
-    context['menu_root'] = homepage
-    context['menu_items'] = homepage.get_children().live().in_menu()
-
+    context['menu_root'] = root
+    context['menu_items'] = root.get_children().live().in_menu()
     return context
 
 

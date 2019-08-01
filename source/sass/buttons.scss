@@ -65,9 +65,20 @@
   background: transparent;
   border: 2px solid $black;
 
-  @include hover-focus-active {
+  /*
+  *  TODO:FIXME:
+  *  talk to designers and see if we need to create a new button type
+  *  & find a smarter way to do this
+  */
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  &.active:hover,
+  &.active:focus,
+  &.active:active {
+    background-color: $black;
     color: $white;
-    background: $black;
     border: 2px solid $black;
   }
 
@@ -76,7 +87,18 @@
     background: transparent;
     border: 2px solid $white;
 
-    @include hover-focus-active {
+    /*
+    *  TODO:FIXME:
+    *  talk to designers and see if we need to create a new button type
+    *  & find a smarter way to do this
+    */
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    &.active:hover,
+    &.active:focus,
+    &.active:active {
       color: $black;
       background: $white;
     }
@@ -117,6 +139,17 @@
         filter: brightness(0);
       }
     }
+  }
+}
+
+button[disabled],
+.btn[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.3;
+
+  @at-root .dark-theme & {
+    opacity: 0.5;
   }
 }
 
