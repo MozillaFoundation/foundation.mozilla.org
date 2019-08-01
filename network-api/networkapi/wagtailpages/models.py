@@ -1,4 +1,5 @@
 import json
+
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -529,6 +530,38 @@ class BanneredCampaignPage(PrimaryPage):
     def get_context(self, request):
         context = super().get_context(request)
         return get_page_tree_information(self, context)
+
+
+class IndexPage(FoundationMetadataPageMixin, Page):
+    """
+    This is a page type for creating "index" pages that
+    can show cards for all their child content.
+    E.g. a page that list "all blog posts" under it,
+    or "all the various campaigns", etc.
+    """
+
+    header = models.CharField(
+        max_length=250,
+        blank=True
+    )
+
+    intro = models.CharField(
+        max_length=250,
+        blank=True,
+        help_text='Intro paragraph to show in hero cutout box'
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('header'),
+        FieldPanel('intro'),
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context = set_main_site_nav_information(self, context, 'Homepage')
+        context = get_page_tree_information(self, context)
+        context['entries'] = self.get_children().live().order_by('-first_published_at')
+        return context
 
 
 class NewsPage(PrimaryPage):
@@ -1085,6 +1118,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'RedirectingPage',
         'OpportunityPage',
         'BanneredCampaignPage',
+        'IndexPage',
     ]
 
     def get_context(self, request):

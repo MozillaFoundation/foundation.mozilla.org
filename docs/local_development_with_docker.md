@@ -28,9 +28,10 @@ The general workflow is:
   docker-manage                      Shorthand to manage.py. inv docker.manage "[COMMAND] [ARG]"
   docker-migrate                     Updates database schema
   docker-npm                         Shorthand to npm. inv docker.npm "[COMMAND] [ARG]"
-  docker-nuke-db                     Delete your database and create a new one with fake data
+  docker-new-db                      Delete your database and create a new one with fake data
   docker-pipenv                      Shorthand to pipenv. inv docker.pipenv "[COMMAND] [ARG]"
   docker-setup                       Prepare your dev environment after a fresh git clone
+  docker_switching_branch            Get a new database with fake data and rebuild images
   docker-test-node                   Run node tests
   docker-test-python                 Run python tests
 ```
