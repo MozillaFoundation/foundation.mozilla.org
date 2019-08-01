@@ -8,7 +8,7 @@ from factory import (
 )
 from wagtail.core.models import Page as WagtailPage
 
-from networkapi.wagtailpages.models import BlogPage, BlogPageTag
+from networkapi.wagtailpages.models import BlogPage
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
@@ -21,23 +21,17 @@ TESTING = settings.TESTING
 blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
                                 'video', 'linkbutton', 'spacer', 'quote']
 
+
 def add_tags(post):
     tags = [
-        'mozilla',
-        'iot',
-        'privacy',
-        'security',
-        'internet health',
-        'digital inclusion',
-        'advocacy',
-        'policy',
-    ]
+        'mozilla', 'iot', 'privacy', 'security', 'internet health',
+        'digital inclusion', 'advocacy', 'policy']
 
     shuffle(tags)
-    
+
     for tag in tags[0:3]:
         post.tags.add(tag)
-    
+
     post.save()
 
 
