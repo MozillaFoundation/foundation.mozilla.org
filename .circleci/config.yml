@@ -1,12 +1,51 @@
-version: 2.1
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
+      - image: circleci/python:3.7.4
 
-orbs:
-    hello: circleci/hello-build@0.0.7 # uses the circleci/buildpack-deps Docker image
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: circleci/postgres:9.6
 
-workflows:
-    "Hello Workflow":
-        jobs:
-          - hello/hello-build:
-            filters:
-              branches:
-                only: circle-ci
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - v1-dependencies-{{ .Branch }}-
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            pip install pipenv
+            pipenv install --dev --deploy
+
+      - save_cache:
+          paths:
+            - "{{ pipenv --venv }}"
+          key: v1-dependencies-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            pipenv run flake8 tasks.py network-api/
+            pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
