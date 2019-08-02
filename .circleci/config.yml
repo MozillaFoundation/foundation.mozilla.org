@@ -9,7 +9,7 @@ jobs:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: circleci/python:3.7.4
-        environement:
+        environment:
           # pipenv install in .venv
           PIPENV_VENV_IN_PROJECT: true
           DJANGO_SECRET_KEY: secret
@@ -30,6 +30,9 @@ jobs:
 
     steps:
       - checkout
+      # Use the chown command to grant CircleCI access to dependency locations
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
 
       # Download and cache dependencies
       - restore_cache:
