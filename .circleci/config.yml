@@ -10,12 +10,17 @@ jobs:
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: circleci/python:3.7.4
         environment:
+          CONTENT_TYPE_NO_SNIFF: true
+          DATABASE_URL: postgres://postgres@localhost:5432/network
+          DEBUG: true
+          DJANGO_SECRET_KEY: secret
           # pipenv install in .venv
           PIPENV_VENV_IN_PROJECT: true
-          DJANGO_SECRET_KEY: secret
-          DATABASE_URL: postgres://postgres@localhost:5432/network
+          SET_HSTS: false
           USE_S3: false
-          DEBUG: true
+          SSL_REDIRECT: false
+          X_FRAME_OPTIONS: DENY
+          XSS_PROTECTION: true
 
 
       # Specify service dependencies here if necessary
