@@ -97,7 +97,8 @@ export default class JoinUs extends React.Component {
     return new Promise((resolve, reject) => {
       let payload = {
         email: this.email.value,
-        source: window.location.toString()
+        /* Strip query params in source url for newsletter signups: https://github.com/mozilla/foundation.mozilla.org/issues/2994#issuecomment-516997473 */
+        source: window.location.href.split(`?`)[0]
       };
 
       if (this.givenNames) {

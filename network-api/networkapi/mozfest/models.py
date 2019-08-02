@@ -69,6 +69,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, bypass_menu_buildstep=False):
         context = super().get_context(request)
+        context = set_main_site_nav_information(self, context, 'MozfestHomepage')
         context = get_page_tree_information(self, context)
 
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
@@ -82,6 +83,18 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class MozfestHomepage(MozfestPrimaryPage):
+    cta_button_label = models.CharField(
+        max_length=250,
+        default='Submit proposal',
+        help_text='Label text for the CTA button in the primary nav bar',
+    )
+
+    cta_button_destination = models.CharField(
+        max_length=2048,
+        default='/proposals',
+        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to',
+    )
+
     banner_heading = models.CharField(
         max_length=250,
         blank=True,
@@ -115,6 +128,8 @@ class MozfestHomepage(MozfestPrimaryPage):
     n = panel_count - 1
 
     content_panels = parent_panels[:n] + [
+        FieldPanel('cta_button_label'),
+        FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
