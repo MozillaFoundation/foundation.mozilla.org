@@ -6,4 +6,7 @@ orbs:
 workflows:
     "Hello Workflow":
         jobs:
-          - hello/hello-build
+          - hello/hello-build:
+            filters:
+              branches:
+                only: circle-ci
