@@ -17,6 +17,9 @@ jobs:
 
     working_directory: ~/repo
 
+    environment:
+      DJANGO_SECRET_KEY: secret
+
     steps:
       - checkout
 
@@ -36,7 +39,7 @@ jobs:
 
       - save_cache:
           paths:
-            - "{{ pipenv --venv }}"
+            - ~/.local/share/virtualenvs/venv
           key: v1-dependencies-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
 
       # run tests!
