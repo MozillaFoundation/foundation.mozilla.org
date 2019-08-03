@@ -8591,19 +8591,10 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   border-top: 1px solid #000000;
   border-bottom: 1px solid #000000; }
 
-  .image-text-mini-container img {
-    min-width: 30px;
-    max-width: 65px; }
-    @media (min-width: 768px) {
-      .image-text-mini-container img {
-        min-width: 50px; } }
-
-
-.image-txt-mini-img-container {
+.image-text-mini-img-container {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50px;
           flex: 0 0 50px; }
-
 
 .image-text-mini-text .rich-text p {
   margin-bottom: 0; }
@@ -9710,5 +9701,3 @@ a.pulse-project {
 
 hr {
   border-color: #cccccc; }
-<
-
