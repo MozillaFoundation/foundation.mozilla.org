@@ -2,6 +2,7 @@ from .models import (
     ModularPage,
     MiniSiteNameSpace,
     PrimaryPage,
+    IndexPage,
     NewsPage,
     InitiativesPage,
     ParticipatePage2,
@@ -104,6 +105,14 @@ class PrimaryPageTR(TranslationOptions):
 @register(BanneredCampaignPage)
 class BanneredCampaignPageTR(TranslationOptions):
     fields = (
+    )
+
+
+@register(IndexPage)
+class IndexPageTR(TranslationOptions):
+    fields = (
+        'header',
+        'intro',
     )
 
 
