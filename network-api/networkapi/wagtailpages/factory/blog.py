@@ -21,12 +21,12 @@ TESTING = settings.TESTING
 blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
                                 'video', 'linkbutton', 'spacer', 'quote']
 
+tags = [
+    'mozilla', 'iot', 'privacy', 'security', 'internet health',
+    'digital inclusion', 'advocacy', 'policy']
+
 
 def add_tags(post):
-    tags = [
-        'mozilla', 'iot', 'privacy', 'security', 'internet health',
-        'digital inclusion', 'advocacy', 'policy']
-
     shuffle(tags)
 
     for tag in tags[0:3]:
