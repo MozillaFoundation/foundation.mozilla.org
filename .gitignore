@@ -101,6 +101,10 @@ ENV/
 # Static files from python manage.py collectstatic
 network-api/staticfiles/
 
+# Extra .po file python manage.py makemessages
+network-api/locale/templates/LC_MESSAGES/django.po
+network-api/locale/templates/LC_MESSAGES/django.mo
+
 # Storage for user generated files
 network-api/media/
 

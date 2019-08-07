@@ -1,11 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load i18n %}
 
 {% block related_posts %}
   {% if related_posts|length %}
     <div class="container">
       <hr class="mb-4 hr-emphasis mt-0">
 
-      <h1 class="h4-heading">Related content</h2>
+      <h1 class="h4-heading">{% trans "Related content" %}</h1>
 
       <div class="related-posts mb-4">
         <div class="row">

@@ -1,12 +1,14 @@
+{% load i18n %}
+
 <div class="container">
     <div class="row py-md-5 d-flex align-items-center">
         <div class="col-md-5 offset-md-1 py-5">
             <div class="mb-4">
-                <h1 class="h1-heading">Uh oh!</h1>
+                <h1 class="h1-heading">{% trans "Uh oh!" %}</h1>
             </div>
-            <p class="h5-black">Sorry, the page does not exist</p>
-            <p><a href="mailto:{% if email %}{{ email }}{% else %}network@mozillafoundation.org{% endif %}">Contact us</a> or ...</p>
-            <a href="/" class="btn btn-secondary">Go to home page</a>
+            <p class="h5-black">{% trans "Sorry, the page does not exist" %}</p>
+            <p>{% blocktrans with email=email|default:'network@mozillafoundation.org' %}<a href="mailto:{{email}}">Contact us</a> or ...{% endblocktrans %}</p>
+            <a href="/" class="btn btn-secondary">{% trans "Go to home page" %}</a>
         </div>
         <div class="col-md-5 pt-5 p-md-5 flex-first flex-md-last">
             <img src="/_images/404.svg" class="w-100" alt="Sad anthropomorphized 404">

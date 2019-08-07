@@ -1,5 +1,6 @@
 {% extends "pages/base.html" %}
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
+{% load i18n %}
 
 {% block bodyID %}home{% endblock %}
 
@@ -24,7 +25,7 @@
   <div class="row">
     <div class="col mb-4">
       <hr class="mb-4 hr-emphasis mt-0">
-      <h4 class="h4-heading">Latest news</h4>
+      <h4 class="h4-heading">{% trans "Latest news" %}</h4>
     </div>
   </div>
   <div id="home-news-wagtail">
@@ -49,7 +50,13 @@
                 <h5 class="mb-2 h3-heading">
                   <a href="{{article.news.link}}">{{article.news.headline}}</a>
                 </h5>
-                <p class="body-small mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+                <p class="body-small mb-2">
+                  {% if article.news.author %}
+                    {% blocktrans with author=article.news.author date=article.news.date %}By {{author}} on {{date}}{% endblocktrans %}
+                  {% else %}
+                    {{article.news.date}}
+                  {% endif %}
+                </p>
                 <p>{{article.news.excerpt}}</p>
               </div>
             </div>
@@ -73,7 +80,13 @@
           <h5 class="mb-2">
             <a href="{{article.news.link}}">{{article.news.headline}}</a>
           </h5>
-          <p class="body-small mb-2">{% if article.news.author %}by {{article.news.author}} on {% endif %} {{article.news.date}}</p>
+          <p class="body-small mb-2">
+            {% if article.news.author %}
+              {% blocktrans with author=article.news.author date=article.news.date %}By {{author}} on {{date}}{% endblocktrans %}
+            {% else %}
+              {{article.news.date}}
+            {% endif %}
+          </p>
           <p>{{article.news.excerpt}}</p>
           <hr>
         </div>
@@ -85,13 +98,13 @@
   </div>
   <div class="row">
     <div class="col text-center mb-5">
-      <a class="btn btn-secondary" href="/news">View more news</a>
+      <a class="btn btn-secondary" href="/news">{% trans "View more news" %}</a>
     </div>
   </div>
   <div class="row">
     <div class="col mb-4">
       <hr class="hr-emphasis mb-4">
-      <h4 class="h4-heading">Happening now</h4>
+      <h4 class="h4-heading">{% trans "Happening now" %}</h4>
     </div>
   </div>
   <div id="home-highlights-wagtail">
@@ -127,10 +140,10 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <h4 class="h4-heading">Trending projects</h4>
+    <h4 class="h4-heading">{% trans "Trending projects" %}</h4>
   </div>
   <div class="col-md-6 d-none d-md-flex justify-content-end">
-    <a class="cta-link" href="https://www.mozillapulse.org/add">Add your project</a>
+    <a class="cta-link" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
   </div>
 </div>
 <div class="row">
@@ -140,8 +153,8 @@
 </div>
 <div class="row">
   <div class="col text-center mb-5">
-    <a class="btn btn-secondary mb-4" href="https://www.mozillapulse.org">More from our network</a>
-    <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">Add your project</a>
+    <a class="btn btn-secondary mb-4" href="https://www.mozillapulse.org">{% trans "More from our network" %}</a>
+    <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
   </div>
 </div>
 <div class="row">
@@ -150,8 +163,8 @@
     <div class="row mb-5">
       <div class="col">
         <div class="feature-quote">
-          <h3>We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices.</h3>
-          <p class="h6-heading">Rishab Nithyanand, Mozilla Fellow</p>
+          <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
+          <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
         </div>
       </div>
     </div>
