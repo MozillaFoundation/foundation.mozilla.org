@@ -23,16 +23,6 @@
     @include glyph($id);
   }
 
-  &.gray {
-    &::before {
-      filter: opacity(40%);
-    }
-
-    &:hover::before {
-      filter: opacity(60%);
-    }
-  }
-
   &.small {
     &::before {
       width: 16px;
@@ -40,7 +30,7 @@
     }
   }
 
-  &.donate-header {
+  &.heart-glyph {
     &::before {
       width: 19px;
       height: 16px;
@@ -51,52 +41,52 @@
   }
 }
 
-.donate-header {
-  @include compositeGlyph("donate-header");
-  @include hoverGlyph("donate-header-hover");
+.heart-glyph {
+  @include compositeGlyph("heart");
+  @include hoverGlyph("heart-hover");
 }
 
 .donate {
   @include compositeGlyph("donate");
 }
 
-.twitter {
+.twitter-glyph {
   @include compositeGlyph("twitter");
   @include hoverGlyph("twitter-hover");
 }
 
-.linkedIn {
+.linkedIn-glyph {
   @include compositeGlyph("linkedin");
   @include hoverGlyph("linkedin-hover");
 }
 
 .dark-theme {
-  .twitter {
+  .twitter-glyph {
     @include compositeGlyph("twitter-dark-theme");
     @include hoverGlyph("twitter-dark-theme-hover");
   }
 
-  .instagram {
+  .instagram-glyph {
     @include compositeGlyph("instagram-dark-theme");
     @include hoverGlyph("instagram-dark-theme-hover");
   }
 
-  .medium {
+  .medium-glyph {
     @include compositeGlyph("medium-dark-theme");
     @include hoverGlyph("medium-dark-theme-hover");
   }
 
-  .youtube {
+  .youtube-glyph {
     @include compositeGlyph("youtube-dark-theme");
     @include hoverGlyph("youtube-dark-theme-hover");
   }
 
-  .email {
+  .email-glyph {
     @include compositeGlyph("email-dark-theme");
     @include hoverGlyph("email-dark-theme-hover");
   }
 
-  .github {
+  .github-glyph {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
   }
