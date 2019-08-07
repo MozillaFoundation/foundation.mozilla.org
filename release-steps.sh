@@ -12,6 +12,9 @@ python ./manage.py block_inventory
 python ./manage.py sync_page_translation_fields
 python ./manage.py update_translation_fields
 
+# Get the latest Portuguese (Brazil) translation file from Pontoon
+cp ./locale/pt_BR/LC_MESSAGES/django.po ./locale/pt/LC_MESSAGES/django.po
+
 # Django translations
 python ./manage.py compilemessages
 

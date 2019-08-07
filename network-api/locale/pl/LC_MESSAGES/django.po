@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 20:35+0000\n"
+"POT-Creation-Date: 2019-08-07 22:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,6 +117,7 @@ msgstr ""
 
 #: networkapi/wagtailpages/templates/wagtailpages/bannered_campaign_page.html:56
 #: networkapi/wagtailpages/templates/wagtailpages/campaign_page.html:69
+msgctxt "Sticky button in mobile view on campaign pages"
 msgid "TAKE ACTION"
 msgstr ""
 
