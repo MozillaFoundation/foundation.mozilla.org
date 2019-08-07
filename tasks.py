@@ -204,7 +204,27 @@ def docker_test_node(ctx):
 
 
 @task
-def docker_nuke_db(ctx):
+def docker_switching_branch(ctx):
+    """Get a new database with fake data and rebuild images"""
+    print("Stopping services first")
+    ctx.run("docker-compose down")
+    print("Deleting database")
+    ctx.run("docker volume rm foundationmozillaorg_postgres_data")
+    print("Rebuilding images and install dependencies")
+    ctx.run("docker-compose build")
+    print("Applying database migrations.")
+    docker_migrate(ctx)
+    print("Creating fake data")
+    docker_manage(ctx, "load_fake_data")
+    print("Updating localizable fields")
+    docker_l10n_sync(ctx)
+    docker_l10n_update(ctx)
+    print("Updating block information")
+    docker_manage(ctx, "block_inventory")
+
+
+@task
+def docker_new_db(ctx):
     """Delete your database and create a new one with fake data"""
     print("Stopping services first")
     ctx.run("docker-compose down")

@@ -35,7 +35,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Blog page`, function() {
-    cy.visit(`/en/blog/post`);
+    cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);

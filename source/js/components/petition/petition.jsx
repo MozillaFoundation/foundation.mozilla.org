@@ -654,7 +654,7 @@ export default class Petition extends React.Component {
                   }}
                   id="commentInput"
                   type="text"
-                  label="Comment"
+                  label={get(`Comment`)}
                   disabled={disableFields}
                   onFocus={this.onInputFocus}
                 />
