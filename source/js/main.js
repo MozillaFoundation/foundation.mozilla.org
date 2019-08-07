@@ -41,7 +41,7 @@ let main = {
       csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
 
       locale = document.querySelector(`meta[property="og:locale"]`);
-      locale = locale.getAttribute(`content`) : DEFAULT_LOCALE;
+      locale = locale ? locale.getAttribute(`content`) : DEFAULT_LOCALE;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
