@@ -40,7 +40,7 @@
     }
   }
 
-  &.donate-header {
+  &.heart-glyph {
     &::before {
       width: 19px;
       height: 16px;
@@ -51,18 +51,18 @@
   }
 }
 
-.donate-header {
-  @include compositeGlyph("donate-header");
-  @include hoverGlyph("donate-header-hover");
+.heart-glyph {
+  @include compositeGlyph("heart-glyph");
+  @include hoverGlyph("heart-glyph-hover");
 }
 
 .donate {
   @include compositeGlyph("donate");
 }
 
-.twitter {
-  @include compositeGlyph("twitter");
-  @include hoverGlyph("twitter-hover");
+.twitter-glyph {
+  @include compositeGlyph("twitter-glyph");
+  @include hoverGlyph("twitter-glyph-hover");
 }
 
 .linkedIn {
@@ -71,9 +71,9 @@
 }
 
 .dark-theme {
-  .twitter {
-    @include compositeGlyph("twitter-dark-theme");
-    @include hoverGlyph("twitter-dark-theme-hover");
+  .twitter-glyph {
+    @include compositeGlyph("twitter-glyph-dark-theme");
+    @include hoverGlyph("twitter-glyph-dark-theme-hover");
   }
 
   .instagram {
