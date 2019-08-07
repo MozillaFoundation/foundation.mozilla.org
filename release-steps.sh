@@ -12,5 +12,8 @@ python ./manage.py block_inventory
 python ./manage.py sync_page_translation_fields
 python ./manage.py update_translation_fields
 
+# Django translations
+python ./manage.py compilemessages
+
 # Clear cache for BuyersGuide
 python ./manage.py clear_cache
