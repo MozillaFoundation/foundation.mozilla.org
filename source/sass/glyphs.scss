@@ -23,16 +23,6 @@
     @include glyph($id);
   }
 
-  &.gray {
-    &::before {
-      filter: opacity(40%);
-    }
-
-    &:hover::before {
-      filter: opacity(60%);
-    }
-  }
-
   &.small {
     &::before {
       width: 16px;
