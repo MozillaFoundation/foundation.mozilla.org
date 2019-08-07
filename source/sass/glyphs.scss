@@ -52,8 +52,8 @@
 }
 
 .heart-glyph {
-  @include compositeGlyph("heart-glyph");
-  @include hoverGlyph("heart-glyph-hover");
+  @include compositeGlyph("heart");
+  @include hoverGlyph("heart-hover");
 }
 
 .donate {
@@ -61,43 +61,43 @@
 }
 
 .twitter-glyph {
-  @include compositeGlyph("twitter-glyph");
-  @include hoverGlyph("twitter-glyph-hover");
+  @include compositeGlyph("twitter");
+  @include hoverGlyph("twitter-hover");
 }
 
 .linkedIn-glyph {
-  @include compositeGlyph("linkedin-glyph");
-  @include hoverGlyph("linkedin-glyph-hover");
+  @include compositeGlyph("linkedin");
+  @include hoverGlyph("linkedin-hover");
 }
 
 .dark-theme {
   .twitter-glyph {
-    @include compositeGlyph("twitter-glyph-dark-theme");
-    @include hoverGlyph("twitter-glyph-dark-theme-hover");
+    @include compositeGlyph("twitter-dark-theme");
+    @include hoverGlyph("twitter-dark-theme-hover");
   }
 
   .instagram-glyph {
-    @include compositeGlyph("instagram-glyph-dark-theme");
-    @include hoverGlyph("instagram-glyph-dark-theme-hover");
+    @include compositeGlyph("instagram-dark-theme");
+    @include hoverGlyph("instagram-dark-theme-hover");
   }
 
   .medium-glyph {
-    @include compositeGlyph("medium-glyph-dark-theme");
-    @include hoverGlyph("medium-glyph-dark-theme-hover");
+    @include compositeGlyph("medium-dark-theme");
+    @include hoverGlyph("medium-dark-theme-hover");
   }
 
   .youtube-glyph {
-    @include compositeGlyph("youtube-glyph-dark-theme");
-    @include hoverGlyph("youtube-glyph-dark-theme-hover");
+    @include compositeGlyph("youtube-dark-theme");
+    @include hoverGlyph("youtube-dark-theme-hover");
   }
 
   .email-glyph {
-    @include compositeGlyph("email-glyph-dark-theme");
-    @include hoverGlyph("email-glyph-dark-theme-hover");
+    @include compositeGlyph("email-dark-theme");
+    @include hoverGlyph("email-dark-theme-hover");
   }
 
   .github-glyph {
-    @include compositeGlyph("github-glyph-dark-theme");
-    @include hoverGlyph("github-glyph-dark-theme-hover");
+    @include compositeGlyph("github-dark-theme");
+    @include hoverGlyph("github-dark-theme-hover");
   }
 }
