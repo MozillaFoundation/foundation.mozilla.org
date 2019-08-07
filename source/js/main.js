@@ -21,8 +21,10 @@ import bindMozFestGA from "./mozfest-ga.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
+const DEFAULT_LOCALE = `en`;
+
 // To be populated via XHR and querySelector
-let env, networkSiteURL, csrfToken;
+let env, networkSiteURL, csrfToken, locale;
 
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
@@ -37,6 +39,9 @@ let main = {
 
       csrfToken = document.querySelector(`meta[name="csrf-token"]`);
       csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
+
+      locale = document.querySelector(`meta[property="og:locale"]`);
+      locale = locale.getAttribute(`content`) : DEFAULT_LOCALE;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
