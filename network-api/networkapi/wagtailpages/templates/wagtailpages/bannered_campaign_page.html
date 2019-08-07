@@ -1,5 +1,6 @@
 {% extends "./campaign_page.html" %}
 {% load wagtailcore_tags mini_site_tags %}
+{% load i18n %}
 
 {% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
@@ -53,7 +54,7 @@ An extra check has been added so as to not show the fixed "Take action" button o
   >
     {% if page.cta != None %}
       <div class="narrow-sticky-button-container hidden">
-        <a href="#cta-anchor" class="btn btn-primary d-block">TAKE ACTION</a>
+        <a href="#cta-anchor" class="btn btn-primary d-block">{% trans "TAKE ACTION" %}</a>
       </div>
     {% endif %}
     <div class="sticky-cta">

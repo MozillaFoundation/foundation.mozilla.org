@@ -1,6 +1,7 @@
 {% extends "./modular_page.html" %}
 
 {% load wagtailcore_tags mini_site_tags %}
+{% load i18n %}
 
 {% block coral_talk_meta %}
   {% if coral_talk %}
@@ -31,7 +32,7 @@
     <div class="cms {% if coral_talk %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       <p class="h6-heading mb-5">
-        By {{ page.author }} | {% if page.first_published_at %}{{ page.first_published_at|date:"F j, Y" }}{% else %}not
+        {% blocktrans with author=page.author %}By {{ page.author }}{% endblocktrans %} | {% if page.first_published_at %}{{ page.first_published_at|date:"DATE_FORMAT" }}{% else %}not
         published yet{% endif %}
         {% with category=page.specific.category.first %}
         {% if category %}
@@ -41,7 +42,7 @@
       </p>
       <div class="blog-body">
         {{ page.body }}
-        <div class="share-button-group-wrapper mt-5" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+        <div class="share-button-group-wrapper mt-5" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>
     </div>
 

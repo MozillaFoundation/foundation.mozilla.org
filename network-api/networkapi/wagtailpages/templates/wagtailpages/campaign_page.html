@@ -1,5 +1,6 @@
 {% extends "./mini_site_name_space.html" %}
 {% load wagtailcore_tags mini_site_tags %}
+{% load i18n %}
 
 {% comment %}
   Note: we don't want the donation modal to pop up on
@@ -63,7 +64,7 @@
         {% endif %}"
       >
         <div class="narrow-sticky-button-container hidden">
-          <a href="#cta-anchor" class="btn btn-primary d-block">TAKE ACTION</a>
+          <a href="#cta-anchor" class="btn btn-primary d-block">{% trans "TAKE ACTION" %}</a>
         </div>
         <div class="sticky-cta">
           <div id="cta-anchor">

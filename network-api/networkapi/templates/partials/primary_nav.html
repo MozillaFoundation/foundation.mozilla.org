@@ -1,4 +1,5 @@
 {% load primary_active_nav %}
+{% load i18n %}
 
 {% if page.zen_nav == True %}<div id="primary-nav-container" data-nav-mode="zen" class="zen-mode">
 {% else %}<div id="primary-nav-container">
@@ -14,9 +15,9 @@
               <div class="row">
                 <div class="col">
                   <div class="nav-links pt-3">
-                    <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">Home</a></div>
+                    <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
                     {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
-                    <div class="mt-2"><button class="btn btn-secondary btn-newsletter">Newsletter</button></div>
+                    <div class="mt-2"><button class="btn btn-secondary btn-newsletter">{% trans "Newsletter" %}</button></div>
                   </div>
                 </div>
               </div>
@@ -43,7 +44,7 @@
                       <div class="burger-bar burger-bar-middle"></div>
                       <div class="burger-bar burger-bar-bottom"></div>
                     </button>
-                    <a class="logo text-hide" href="/">Mozilla Foundation</a>
+                    <a class="logo text-hide" href="/">{% trans "Mozilla Foundation" %}</a>
                   {% endblock %}
 
                   {% if page.zen_nav == True %}
@@ -64,8 +65,8 @@
 
               {% block donate_and_newsletter %}
               <div class="d-flex align-items-center">
-                <a id="donate-header-btn" class="heart-glyph mr-md-3" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer">Donate</a>
-                <button class="btn btn-secondary btn-newsletter hidden-md-down">Newsletter</button>
+                <a id="donate-header-btn" class="heart-glyph mr-md-3" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
+                <button class="btn btn-secondary btn-newsletter hidden-md-down">{% trans "Newsletter" %}</button>
               </div>
               {% endblock %}
 
@@ -85,7 +86,7 @@
       <div class="col-12">
         <div class="join-us pt-5 on-nav" data-layout="2-column" data-form-position="header" data-button-position="side"></div>
         <div class="text-center mt-3 hidden-lg-up">
-          <button class="btn form-dismiss">No thanks</button>
+          <button class="btn form-dismiss">{% trans "No thanks" %}</button>
         </div>
       </div>
     </div>
