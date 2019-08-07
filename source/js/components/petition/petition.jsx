@@ -170,6 +170,10 @@ export default class Petition extends React.Component {
         return reject(new Error(`missing required comment`));
       }
 
+      if (comment && comment.length >= 500) {
+        return reject(new Error(`comment too long`));
+      }
+
       if (this.refs.newsletterSignup) {
         newsletterSignup = !!this.refs.newsletterSignup.checked;
       }
@@ -240,8 +244,14 @@ export default class Petition extends React.Component {
       postalCode = !!this.postalCode.element.value;
     }
 
+    let commentValue = this.comment.element && this.comment.element.value;
+
     if (this.props.commentRequirements === `required`) {
-      comment = !!this.comment.element.value;
+      comment = !!commentValue;
+    }
+
+    if (comment && commentValue.length >= 500) {
+      comment = false;
     }
 
     if (hasName && email && consent && country && postalCode && comment) {
@@ -531,9 +541,12 @@ export default class Petition extends React.Component {
 
     let commentGroupClass = classNames({
       "has-danger":
-        this.props.commentRequirements === `required` &&
-        this.state.userTriedSubmitting &&
-        !this.comment.element.value
+        (this.props.commentRequirements === `required` &&
+          this.state.userTriedSubmitting &&
+          !this.comment.element.value) ||
+        (this.state.userTriedSubmitting &&
+          this.comment.element.value &&
+          this.comment.element.value.length >= 500)
     });
 
     let privacyClass = classNames(`my-3`, {
@@ -663,6 +676,13 @@ export default class Petition extends React.Component {
                   !this.comment.element.value && (
                     <small className="form-check form-control-feedback">
                       Please include a comment
+                    </small>
+                  )}
+                {this.state.userTriedSubmitting &&
+                  this.comment.element.value &&
+                  this.comment.element.value.length >= 500 && (
+                    <small className="form-check form-control-feedback">
+                      Comments cannot be longer than 500 characters
                     </small>
                   )}
               </div>
