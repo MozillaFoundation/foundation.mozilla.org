@@ -8587,18 +8587,18 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   -webkit-box-sizing: content-box;
           box-sizing: content-box; }
 
-.img-txt-mini-container {
+.image-text-mini-container {
   border-top: 1px solid #000000;
   border-bottom: 1px solid #000000; }
 
-.img-txt-mini-img-container {
+.image-text-mini-img-container {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50px;
           flex: 0 0 50px; }
 
-.img-txt-mini-text .rich-text p {
+.image-text-mini-text .rich-text p {
   margin-bottom: 0; }
-  .img-txt-mini-text .rich-text p:not(:first-child) {
+  .image-text-mini-text .rich-text p:not(:first-child) {
     margin-top: 0.25rem; }
 
 html {
