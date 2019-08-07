@@ -83,12 +83,16 @@
             <div class="social-icons">
               ${
                 profile.twitter
-                  ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
+                  ? `<a href="${
+                      profile.twitter
+                    }" class="twitter twitter-glyph small"></a>`
                   : ``
               }
               ${
                 profile.linkedin
-                  ? `<a href="${profile.linkedin}" class="linkedIn small"></a>`
+                  ? `<a href="${
+                      profile.linkedin
+                    }" class="linkedIn linkedIn-glyph small"></a>`
                   : ``
               }
             </div>

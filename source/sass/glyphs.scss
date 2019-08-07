@@ -65,9 +65,9 @@
   @include hoverGlyph("twitter-glyph-hover");
 }
 
-.linkedIn {
-  @include compositeGlyph("linkedin");
-  @include hoverGlyph("linkedin-hover");
+.linkedIn-glyph {
+  @include compositeGlyph("linkedin-glyph");
+  @include hoverGlyph("linkedin-glyph-hover");
 }
 
 .dark-theme {
@@ -76,28 +76,28 @@
     @include hoverGlyph("twitter-glyph-dark-theme-hover");
   }
 
-  .instagram {
-    @include compositeGlyph("instagram-dark-theme");
-    @include hoverGlyph("instagram-dark-theme-hover");
+  .instagram-glyph {
+    @include compositeGlyph("instagram-glyph-dark-theme");
+    @include hoverGlyph("instagram-glyph-dark-theme-hover");
   }
 
-  .medium {
-    @include compositeGlyph("medium-dark-theme");
-    @include hoverGlyph("medium-dark-theme-hover");
+  .medium-glyph {
+    @include compositeGlyph("medium-glyph-dark-theme");
+    @include hoverGlyph("medium-glyph-dark-theme-hover");
   }
 
-  .youtube {
-    @include compositeGlyph("youtube-dark-theme");
-    @include hoverGlyph("youtube-dark-theme-hover");
+  .youtube-glyph {
+    @include compositeGlyph("youtube-glyph-dark-theme");
+    @include hoverGlyph("youtube-glyph-dark-theme-hover");
   }
 
-  .email {
-    @include compositeGlyph("email-dark-theme");
-    @include hoverGlyph("email-dark-theme-hover");
+  .email-glyph {
+    @include compositeGlyph("email-glyph-dark-theme");
+    @include hoverGlyph("email-glyph-dark-theme-hover");
   }
 
-  .github {
-    @include compositeGlyph("github-dark-theme");
-    @include hoverGlyph("github-dark-theme-hover");
+  .github-glyph {
+    @include compositeGlyph("github-glyph-dark-theme");
+    @include hoverGlyph("github-glyph-dark-theme-hover");
   }
 }
