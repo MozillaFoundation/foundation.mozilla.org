@@ -1,29 +1,22 @@
 {
-  "name": "Mozilla Network",
-  "description": "Website for the Mozilla Network",
+  "name": "Mozilla Foundation",
+  "description": "Website for the Mozilla Foundation",
   "repository": {
-    "url": "https://github.com/mozilla/network",
+    "url": "https://github.com/mozilla/foundation.mozilla.org",
     "license": "MPL2"
   },
   "participate": {
-    "home": "https://github.com/mozilla/network/",
-    "docs": "https://github.com/mozilla/network/#mozilla-network",
-    "irc": "irc://irc.mozilla.org/#foundation",
-    "irc-contacts": [
-      "cade",
-      "alanmoo",
-      "mattheww",
-      "Pomax"
-    ]
+    "home": "https://github.com/mozilla/foundation.mozilla.org/",
+    "docs": "https://github.com/mozilla/foundation.mozilla.org/#contributing"
   },
   "bugs": {
-    "list": "https://github.com/mozilla/network/issues",
-    "report": "https://github.com/mozilla/network/issues/new"
+    "list": "https://github.com/mozilla/foundation.mozilla.org/issues",
+    "report": "https://github.com/mozilla/foundation.mozilla.org/issues/new"
   },
   "urls": {
-    "prod": "network.mofoprod.net",
-    "staging": "network.mofostaging.net",
-    "dev": "network-dev.mofostaging.net"
+    "prod": "https://foundation.mozilla.org",
+    "staging": "https://foundation.mofostaging.net/",
+    "dev": "localhost:8000"
   },
   "keywords": [
     "JavaScript",
