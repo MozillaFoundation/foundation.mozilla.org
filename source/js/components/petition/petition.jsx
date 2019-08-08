@@ -7,6 +7,8 @@ import FloatingLabelTextarea from "./floating-label-textarea.jsx";
 import CountrySelect from "./country-select.jsx";
 import get from "./locales";
 
+const SALESFORCE_COMMENT_LIMIT = 500;
+
 export default class Petition extends React.Component {
   constructor(props) {
     super(props);
@@ -170,7 +172,7 @@ export default class Petition extends React.Component {
         return reject(new Error(`missing required comment`));
       }
 
-      if (comment && comment.length >= 500) {
+      if (comment && comment.length >= SALESFORCE_COMMENT_LIMIT) {
         return reject(new Error(`comment too long`));
       }
 
@@ -250,7 +252,7 @@ export default class Petition extends React.Component {
       comment = !!commentValue;
     }
 
-    if (comment && commentValue.length >= 500) {
+    if (comment && commentValue.length >= SALESFORCE_COMMENT_LIMIT) {
       comment = false;
     }
 
@@ -546,7 +548,7 @@ export default class Petition extends React.Component {
           !this.comment.element.value) ||
         (this.state.userTriedSubmitting &&
           this.comment.element.value &&
-          this.comment.element.value.length >= 500)
+          this.comment.element.value.length >= SALESFORCE_COMMENT_LIMIT)
     });
 
     let privacyClass = classNames(`my-3`, {
@@ -680,9 +682,11 @@ export default class Petition extends React.Component {
                   )}
                 {this.state.userTriedSubmitting &&
                   this.comment.element.value &&
-                  this.comment.element.value.length >= 500 && (
+                  this.comment.element.value.length >=
+                    SALESFORCE_COMMENT_LIMIT && (
                     <small className="form-check form-control-feedback">
-                      Comments cannot be longer than 500 characters
+                      Comments cannot be longer than {SALESFORCE_COMMENT_LIMIT}{" "}
+                      characters
                     </small>
                   )}
               </div>
