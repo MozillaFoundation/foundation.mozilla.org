@@ -21,10 +21,13 @@ import bindMozFestGA from "./mozfest-ga.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
-const DEFAULT_LOCALE = `en`;
-
 // To be populated via XHR and querySelector
-let env, networkSiteURL, csrfToken, locale;
+let env, networkSiteURL, csrfToken;
+
+// To be populated via querySelector
+const DEFAULT_LOCALE = `en_US`;
+const DEFAULT_WAGTAIL_LOCALE = `en`;
+let locale, wagtailLocale;
 
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
@@ -42,6 +45,11 @@ let main = {
 
       locale = document.querySelector(`meta[property="og:locale"]`);
       locale = locale ? locale.getAttribute(`content`) : DEFAULT_LOCALE;
+
+      wagtailLocale = document.querySelector(`meta[property="wagtail:locale"]`);
+      wagtailLocale = wagtailLocale
+        ? wagtailLocale.getAttribute(`content`)
+        : DEFAULT_WAGTAIL_LOCALE;
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
