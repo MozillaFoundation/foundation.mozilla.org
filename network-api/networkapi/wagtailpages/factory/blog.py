@@ -1,4 +1,5 @@
 from datetime import timezone
+from random import shuffle
 from django.conf import settings
 from wagtail_factories import PageFactory
 from factory import (
@@ -19,6 +20,19 @@ TESTING = settings.TESTING
 
 blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
                                 'video', 'linkbutton', 'spacer', 'quote']
+
+tags = [
+    'mozilla', 'iot', 'privacy', 'security', 'internet health',
+    'digital inclusion', 'advocacy', 'policy']
+
+
+def add_tags(post):
+    shuffle(tags)
+
+    for tag in tags[0:3]:
+        post.tags.add(tag)
+
+    post.save()
 
 
 class BlogPageFactory(PageFactory):
@@ -59,14 +73,22 @@ def generate(seed):
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'
 
+    post = None
+
     try:
-        BlogPage.objects.get(title=title)
+        post = BlogPage.objects.get(title=title)
     except BlogPage.DoesNotExist:
-        BlogPageFactory.create(parent=blog_namespace, title=title)
+        post = BlogPageFactory.create(parent=blog_namespace, title=title)
+
+    add_tags(post)
 
     for i in range(6):
         title = Faker('sentence', nb_words=6, variable_nb_words=False)
+        post = None
+
         try:
-            BlogPage.objects.get(title=title)
+            post = BlogPage.objects.get(title=title)
         except BlogPage.DoesNotExist:
-            BlogPageFactory.create(parent=blog_namespace, title=title)
+            post = BlogPageFactory.create(parent=blog_namespace, title=title)
+
+        add_tags(post)
