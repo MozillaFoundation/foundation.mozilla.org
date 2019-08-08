@@ -35,19 +35,6 @@ def add_tags(post):
     post.save()
 
 
-def add_tags(post):
-    tags = [
-        'mozilla', 'iot', 'privacy', 'security', 'internet health',
-        'digital inclusion', 'advocacy', 'policy']
-
-    shuffle(tags)
-
-    for tag in tags[0:3]:
-        post.tags.add(tag)
-
-    post.save()
-
-
 class BlogPageFactory(PageFactory):
 
     class Meta:
