@@ -13,7 +13,7 @@ $bp-md: #{map-get($grid-breakpoints, md)}; // >= 768px
 $bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
 $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
-//Site-wide
+// Site-wide
 @import "./_variables";
 @import "./glyphs";
 @import "./mixins";
@@ -43,7 +43,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/commitment";
 @import "./components/card";
 @import "./components/airtable-block";
-@import "./components/img-txt-mini";
+@import "./components/image-text-mini";
 
 // Misc
 
