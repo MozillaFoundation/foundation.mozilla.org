@@ -568,8 +568,12 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         to work with and then ii) those tags match the specified ones.
         """
         type = self.filtered.get('type')
+        context['filtered'] = type
+
         if type == 'tag':
             terms = self.filtered.get('terms')
+            context['terms'] = terms
+
             entries = [
                 entry
                 for
@@ -581,9 +585,8 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
                 # the tags specified. This effects ANY matching (rather than ALL).
                 set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
             ]
+
             context['entries'] = entries
-            context['filtered'] = type
-            context['terms'] = terms
 
     def get_context(self, request):
         """
