@@ -49,9 +49,6 @@ export default class News extends React.Component {
         <div key={newsItem.headline}>
           <div className="mb-3 news-item">
             <div className="d-flex align-items-center mb-2">
-              {newsItem.glyph && (
-                <img src={newsItem.glyph} className="mr-2 glyph" />
-              )}
               <p className="h6-heading mb-0">{newsItem.outlet}</p>
             </div>
             <h3 className="h3-heading mb-2">
