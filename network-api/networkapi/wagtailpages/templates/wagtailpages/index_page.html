@@ -20,7 +20,25 @@
       </div>
     </div>
 
+    <div class="row mb-4">
+      {% if filtered %}  {# Start of IF for filtered page content. Note that this injects an entire row. #}
+      <div class="col-12">
+        <h3 class="h3-heading result-info">
+          {% with count=entries|length %}
+            {{ count }} page{% if count != 1 %}s{% endif %} for
+          {% endwith %}
+          <ul class="term-list">
+          {% for term in terms %}
+            <li class="term">{{ term }}</li>
+          {% endfor %}
+          </ul>
+        </h3>
+      </div>
+    </div>
+
     <div class="row">
+      {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
+
       {% block subcontent %}
 
         {% for entry in entries %}
