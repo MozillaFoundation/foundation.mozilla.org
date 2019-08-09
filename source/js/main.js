@@ -46,7 +46,9 @@ let main = {
       locale = document.querySelector(`meta[property="og:locale"]`);
       locale = locale ? locale.getAttribute(`content`) : DEFAULT_LOCALE;
 
-      wagtailLanguage = document.querySelector(`meta[property="wagtail:language"]`);
+      wagtailLanguage = document.querySelector(
+        `meta[property="wagtail:language"]`
+      );
       wagtailLanguage = wagtailLanguage
         ? wagtailLanguage.getAttribute(`content`)
         : DEFAULT_WAGTAIL_LANGUAGE;
