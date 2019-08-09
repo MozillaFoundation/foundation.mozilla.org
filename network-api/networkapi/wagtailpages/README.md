@@ -122,7 +122,7 @@ Used in the minisite template, this tag will effect a signup or petition div ele
 
 The logic for this tag is found in `wagtailpages/templatetags/mini_site_tags.py`, in the `def cta(context, page):` definition.
 
-Its code block simply sets up a context with the cta, and its Python class name, and is then rendered using the template found in `wagtailpages/templates/wagtailpages/tags/cta.html`, which is a switching template, falling through to either `wagtailpages/templates/wagtailpages/tags/cta/signup.html` or `wagtailpages/templates/wagtailpages/tags/cta/peition.html`, depending on the CTA class name.
+Its code block simply sets up a context with the cta, and its Python class name, and is then rendered using the template found in `wagtailpages/templates/wagtailpages/tags/cta.html`, which is a switching template, falling through to `wagtailpages/templates/wagtailpages/tags/cta/peition.html`.
 
 # Concrete use
 
