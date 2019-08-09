@@ -246,7 +246,8 @@ export default class Petition extends React.Component {
       postalCode = !!this.postalCode.element.value;
     }
 
-    let commentValue = this.comment.element && this.comment.element.value;
+    let commentValue =
+      this.comment && this.comment.element && this.comment.element.value;
 
     if (this.props.commentRequirements === `required`) {
       comment = !!commentValue;
