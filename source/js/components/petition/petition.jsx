@@ -547,6 +547,7 @@ export default class Petition extends React.Component {
           this.state.userTriedSubmitting &&
           !this.comment.element.value) ||
         (this.state.userTriedSubmitting &&
+          this.comment &&
           this.comment.element.value &&
           this.comment.element.value.length >= SALESFORCE_COMMENT_LIMIT)
     });
@@ -681,6 +682,7 @@ export default class Petition extends React.Component {
                     </small>
                   )}
                 {this.state.userTriedSubmitting &&
+                  this.comment &&
                   this.comment.element.value &&
                   this.comment.element.value.length >=
                     SALESFORCE_COMMENT_LIMIT && (
