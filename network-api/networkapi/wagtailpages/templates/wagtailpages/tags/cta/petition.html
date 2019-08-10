@@ -1,15 +1,18 @@
 <div>
+    <!-- ShareProgress button embedding doc:
+        https://shareprogress-kb-05152019.groovehq.com/help/how-can-i-embed-my-share-buttons-in-my-template
+    -->
 
 	{% if cta.share_twitter %}
-	<div id="share-progress-tw" class='{{cta.share_twitter}} share-progress-button sp_tw_small'></div>
+	<div id="share-progress-tw" class='{{cta.share_twitter}} sp_tw_small d-none'></div>
 	{% endif %}
 
 	{% if cta.share_facebook %}
-	<div id="share-progress-fb" class='{{cta.share_facebook}} share-progress-button sp_fb_small'></div>
+	<div id="share-progress-fb" class='{{cta.share_facebook}} sp_fb_small d-none'></div>
 	{% endif %}
 
 	{% if cta.share_email %}
-	<div id="share-progress-em" class='{{cta.share_email}} share-progress-button sp_em_small'></div>
+	<div id="share-progress-em" class='{{cta.share_email}} sp_em_small d-none'></div>
 	{% endif %}
 
 	<div

@@ -53,7 +53,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./global";
 @import "./utilities";
 @import "./cms";
-@import "./share-progress";
 @import "./wagtail";
 
 // temporary?
