@@ -17,6 +17,19 @@ if platform == 'win32':
 else:
     PLATFORM_ARG = dict(pty=True)
 
+# The command for locale string abstraction is long and elaborate,
+# so we build it here rather so that we don't clutter up the tasks.
+locale_abstraction_instructions = " ".join([
+    "makemessages",
+    "-l de -l es -l fr -l pl -l pt",
+    "--keep-pot",
+    "--no-wrap",
+    "--ignore=network-api/networkapi/wagtailcustomization/*",
+    "--ignore=network-api/networkapi/wagtail_l10n_customization/*",
+    "--ignore=network-api/networkapi/settings.py",
+    "--ignore=network-api/networkapi/wagtailpages/__init__.py",
+])
+
 
 def create_docker_env_file(env_file):
     """Create or update an .env to work with a docker environment"""
@@ -77,6 +90,12 @@ def l10n_update(ctx):
     """Update localizable field data (copies from
     original unlocalized to default localized field)"""
     manage(ctx, "update_translation_fields")
+
+
+@task
+def makemessages(ctx):
+    """Compile all template messages for localization"""
+    manage(ctx, locale_abstraction_instructions)
 
 
 @task
@@ -206,6 +225,11 @@ def docker_l10n_sync(ctx):
 def docker_l10n_update(ctx):
     """Update localizable field data (copies from original unlocalized to default localized field)"""
     docker_manage(ctx, "update_translation_fields")
+
+@task
+def docker_makemessages(ctx):
+    """Compile all template messages for localization"""
+    docker_manage(ctx, locale_abstraction_instructions)
 
 
 @task
