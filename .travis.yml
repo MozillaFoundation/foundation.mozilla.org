@@ -78,7 +78,6 @@ matrix:
         - pipenv run python network-api/manage.py sync_page_translation_fields
         - pipenv run python network-api/manage.py update_translation_fields
         - pipenv run python network-api/manage.py load_fake_data
-        - cp network-api/locale/pt_BR/LC_MESSAGES/django.po network-api/locale/pt/LC_MESSAGES/django.po
         - pipenv run python network-api/manage.py compilemessages
       script: npm run percy
     - stage: Deploy

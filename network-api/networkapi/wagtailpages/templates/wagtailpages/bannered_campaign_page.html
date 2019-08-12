@@ -1,6 +1,5 @@
 {% extends "./campaign_page.html" %}
-{% load wagtailcore_tags mini_site_tags %}
-{% load i18n %}
+{% load wagtailcore_tags mini_site_tags i18n %}
 
 {% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 

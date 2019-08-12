@@ -1,9 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-12 15:32-0700\n"
+"POT-Creation-Date: 2019-08-12 13:40-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,7 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\network-api\networkapi\settings.py:364
 msgid "English"
@@ -47,6 +51,7 @@ msgid "Mozilla Foundation"
 msgstr ""
 
 #: .\network-api\networkapi\templates\partials\404.html:7
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\404.html:678
 msgid "Uh oh!"
 msgstr ""
 
@@ -118,7 +123,10 @@ msgstr ""
 
 #: .\network-api\networkapi\templates\partials\footer.html:63
 #, python-format
-msgid "Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href=\"%(foundation_website_url)s\">%(foundation_website)s</a>"
+msgid ""
+"Mozilla is a global non-profit dedicated to putting you in control of your "
+"online experience and shaping the future of the web for the public good. "
+"Visit us at <a href=\"%(foundation_website_url)s\">%(foundation_website)s</a>"
 msgstr ""
 
 #: .\network-api\networkapi\templates\partials\primary_nav.html:15
@@ -132,6 +140,78 @@ msgstr ""
 
 #: .\network-api\networkapi\templates\partials\primary_nav.html:69
 msgid "No thanks"
+msgstr ""
+
+#: .\network-api\networkapi\wagtail_l10n_customization\wagtail_hooks.py:33
+msgid "View / edit fields for"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\404.html:3
+msgid "Error 404: Page not found"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\404.html:682
+msgid "The requested page could not be found."
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\404.html:685
+msgid "Go to Wagtail admin"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:4
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:6
+msgid "Account"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:15
+msgid "You are a system administrator!"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:18
+msgid "Wield this power with care..."
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:26
+msgid "You are part of the following user groups:"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:36
+msgid "Set gravatar"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:40
+msgid ""
+"Your avatar image is provided by Gravatar and is connected to your email "
+"address. With a Gravatar account you can set an avatar for any number of "
+"other email addresses you use."
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:47
+msgid "Change password"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:51
+msgid "Change the password you use to log in."
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:58
+msgid "Notification preferences"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:62
+msgid "Choose which email notifications to receive."
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:69
+msgid "Language preferences"
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\account\account.html:73
+msgid "Choose the language you want to use here."
+msgstr ""
+
+#: .\network-api\networkapi\wagtailcustomization\templates\wagtailadmin\login.html:10
+msgid "Log in with Google"
 msgstr ""
 
 #: .\network-api\networkapi\wagtailpages\__init__.py:15
@@ -156,7 +236,9 @@ msgstr ""
 
 #: .\network-api\networkapi\wagtailpages\templates\wagtailpages\fragments\ih_cta.html:6
 #, python-format
-msgid "This is part of a broader movement for a healthy internet. <a %(see_more_link)s>See more</a>."
+msgid ""
+"This is part of a broader movement for a healthy internet. <a "
+"%(see_more_link)s>See more</a>."
 msgstr ""
 
 #: .\network-api\networkapi\wagtailpages\templates\wagtailpages\fragments\related_posts.html:8
@@ -195,7 +277,9 @@ msgid "More from our network"
 msgstr ""
 
 #: .\network-api\networkapi\wagtailpages\templates\wagtailpages\homepage.html:166
-msgid "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices."
+msgid ""
+"We want to give users the knowledge and the power to make informed decisions "
+"by themselves to prevent abusive practices."
 msgstr ""
 
 #: .\network-api\networkapi\wagtailpages\templates\wagtailpages\homepage.html:167

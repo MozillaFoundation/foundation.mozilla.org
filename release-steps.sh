@@ -15,7 +15,7 @@ python ./manage.py update_translation_fields
 # Get the latest Portuguese (Brazil) translation file from Pontoon
 cp ./locale/pt_BR/LC_MESSAGES/django.po ./locale/pt/LC_MESSAGES/django.po
 
-# Django translations
+# Compile the Django template translations
 python ./manage.py compilemessages
 
 # Clear cache for BuyersGuide
