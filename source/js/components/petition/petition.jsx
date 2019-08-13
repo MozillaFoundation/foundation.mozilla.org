@@ -6,6 +6,7 @@ import FloatingLabelInput from "./floating-label-input.jsx";
 import FloatingLabelTextarea from "./floating-label-textarea.jsx";
 import CountrySelect from "./country-select.jsx";
 import get from "./locales";
+import copyToClipboard from "../../copy-to-clipboard";
 
 const SALESFORCE_COMMENT_LIMIT = 500;
 
@@ -131,6 +132,8 @@ export default class Petition extends React.Component {
       if (shareProgressButton) {
         document.querySelector(`#${shareProgressButtonId} a`).click();
       }
+    } else {
+      copyToClipboard(event.target, window.location.href);
     }
   }
 
@@ -427,6 +430,7 @@ export default class Petition extends React.Component {
               <button
                 className="btn btn-secondary btn-share link-share"
                 onClick={e => this.shareButtonClicked(e)}
+                data-success-text="Copied"
               >
                 Copy
               </button>
