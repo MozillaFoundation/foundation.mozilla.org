@@ -1,6 +1,6 @@
 {% extends "./generic_card.html" %}
 
-{% load wagtailcore_tags wagtailroutablepage_tags class_tags blog_tags %}
+{% load wagtailcore_tags wagtailroutablepage_tags class_tags blog_tags i18n %}
 
 {% block card_type %}blog-card{% endblock %}
 
@@ -34,5 +34,5 @@ each blog page's dominant tag)
 {% endblock %}
 
 {% block byline %}
-By {{ page.specific.author }} on {{ page.first_published_at|date:"F j, Y" }}
+{% blocktrans with author=page.specific.author date=page.first_published_at|date:"DATE_FORMAT" %}By {{ author }} on {{ date }}{% endblocktrans %}
 {% endblock %}
