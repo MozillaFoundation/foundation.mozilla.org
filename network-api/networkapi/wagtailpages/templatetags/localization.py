@@ -10,7 +10,7 @@ mappings = {
     'es': 'es_ES',
     'de': 'de_DE',
     'pl': 'pl_PL',
-    'pt': 'pt_PT',
+    'pt': 'pt_BR',
 }
 
 
