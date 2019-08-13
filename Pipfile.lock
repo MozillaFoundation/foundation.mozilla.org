@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4451ee54ed4ccf75fb2748833a4137cfdf3cd60db45cb11a491a464479c4434d"
+            "sha256": "f7a75345b52d70b07fbddce96f766d6d51e01cfb9892d74b2b4e9dad61a053b0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,18 +26,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:34a8ddb7247316be6ea94c7eeee41212312d250d99bf668fcd6748629b578622",
-                "sha256:71f3554cc69fa20be06cf20d6c9e0d8095d7c40695b48618676c3cd9a5ba0783"
+                "sha256:19a77d8ecb05d87123e88a65cba49cdbc8c66717ced21c2093a6f091492c22da",
+                "sha256:e184590781c127358c2d9ae1eab6607441d92fbddd88ba08b891b8c14d0bbfff"
             ],
             "index": "pypi",
-            "version": "==1.9.189"
+            "version": "==1.9.205"
         },
         "botocore": {
             "hashes": [
-                "sha256:59ad306f96ef679db1960ab0506fa298f420dc3624e88ccfb3bdc92b9475b933",
-                "sha256:9b9301fcf4891c0148533dde33313fb597c2d1b82064a1258d4b534cf12f7f8a"
+                "sha256:0d6290f725a69a5950785fb058c2405e438674011eff7c11ce192b561b3c9aa6",
+                "sha256:e9452a8e48aea82157e846eb8ec2e8e57f52366ba3362ec5128ecff2c8b52e2f"
             ],
-            "version": "==1.12.203"
+            "version": "==1.12.205"
         },
         "certifi": {
             "hashes": [
@@ -55,10 +55,10 @@
         },
         "cloudinary": {
             "hashes": [
-                "sha256:73ba5a634483d12cfdfb3ebf8354f1ac0a62ee866b49d52950ff871ac64e31c0"
+                "sha256:d1337ea54046f91b30f491fbdaa805ccbb0b054cf5d37eac8e4e78006c7532b0"
             ],
             "index": "pypi",
-            "version": "==1.16.0"
+            "version": "==1.17.0"
         },
         "defusedxml": {
             "hashes": [
@@ -86,11 +86,10 @@
         },
         "django-admin-sortable": {
             "hashes": [
-                "sha256:55537cd3661cc08207bb9bc562c5069fc477c4e4b768fd02df5e01e29932928d",
-                "sha256:6bd0a6f63d4bebce276517d5affb241d539d4837772c2df10bf681c2c0eead1a"
+                "sha256:693703bd47149e50fd1bd6f4aaa73b4528409f78932a6db594d00c0c538eda55"
             ],
             "index": "pypi",
-            "version": "==2.1.16"
+            "version": "==2.1.17"
         },
         "django-cors-headers": {
             "hashes": [
@@ -168,11 +167,11 @@
         },
         "djangorestframework": {
             "hashes": [
-                "sha256:1ca4a5599a5ec31f3d6238a687fcc1dd4c41b1d90edab9ad398fcbf87872b7ba",
-                "sha256:c3c5edfdbc5dd33f9121bb84305bfd603d2c791f20cff9782772f44a7684a4e4"
+                "sha256:42979bd5441bb4d8fd69d0f385024a114c3cae7df0f110600b718751250f6929",
+                "sha256:aedb48010ebfab9651aaab1df5fd3b4848eb4182afc909852a2110c24f89a359"
             ],
             "index": "pypi",
-            "version": "==3.10.1"
+            "version": "==3.10.2"
         },
         "docutils": {
             "hashes": [
@@ -348,10 +347,10 @@
         },
         "python-slugify": {
             "hashes": [
-                "sha256:57163ffb345c7e26063435a27add1feae67fa821f1ef4b2f292c25847575d758"
+                "sha256:a9f468227cb11e20e251670d78e1b5f6b0b15dd37bbd5c9814a25a904e44ff66"
             ],
             "index": "pypi",
-            "version": "==3.0.2"
+            "version": "==3.0.3"
         },
         "python3-openid": {
             "hashes": [
@@ -459,11 +458,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:6213d91d0624d62723fdd2c8c88c5b2b96a6e5a301b742b305c40a674286172c",
-                "sha256:aa4371d3e6feba01bbb1c48a6ed2569c4aa6b3f715971827c6ca1a68afda0f60"
+                "sha256:07e3adb1a3ed3385a803257859482c364a7fb37929b22a214e5a93df0725b402",
+                "sha256:6fe4f9438e48fdb56b9446a219b4276345ced49099521f90ae500e21665bae08"
             ],
             "index": "pypi",
-            "version": "==2.5.1"
+            "version": "==2.5.2"
         },
         "wagtail-experiments": {
             "hashes": [
