@@ -96,6 +96,7 @@ def l10n_update(ctx):
 def makemessages(ctx):
     """Compile all template messages for localization"""
     manage(ctx, locale_abstraction_instructions)
+    os.rename("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
 
 
 @task

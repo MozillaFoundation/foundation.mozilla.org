@@ -7,7 +7,7 @@
 {% block subcontent %}
   <div class="offset-lg-1 col-lg-1 py-4 py-md-5 text-center">
     <div class="blog-sticky-side hidden-md-down"">
-      <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+      <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
     </div>
   </div>
   <div class="py-4 py-md-5 col-lg-8">

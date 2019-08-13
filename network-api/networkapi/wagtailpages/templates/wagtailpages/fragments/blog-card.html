@@ -1,6 +1,6 @@
 {% extends "./generic-card.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 {% block tags-DISABLED-FOR-NOW %}
 <div>
@@ -11,5 +11,5 @@
 {% endblock %}
 
 {% block byline %}
-By {{ page.specific.author }} on {{ page.first_published_at|date:"F j, Y" }}
+{% blocktrans with author=page.specific.author date=page.first_published_at|date:"F j, Y" %}By {{ author }} on {{ date }}{% endblocktrans %}
 {% endblock%}
