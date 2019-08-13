@@ -15,23 +15,23 @@
 
 {% block bodyclass %}mozfest{% endblock %}
 
-{% block pageTitle %}
+{% block page_title %}
     Mozilla Festival 2019{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
-{% block body_id %}mozfest-{% block mozfestBodyId %}home{% endblock %}{% endblock %}
+{% block body_id %}mozfest-{% block mozfest_body_id %}home{% endblock %}{% endblock %}
 
 {% block donate %}
     <!-- nothing right now -->
 {% endblock %}
 
 
-{% block primaryNav %}
+{% block primary_nav %}
     {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
 {% endblock %}
 
 
-{% block heroGuts %}
+{% block hero_guts %}
   {% include "partials/primary_heroguts.html" with root=root page=page %}
 {% endblock %}
 
