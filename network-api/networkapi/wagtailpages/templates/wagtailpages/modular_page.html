@@ -2,10 +2,6 @@
 
 {% load wagtailcore_tags mini_site_tags %}
 
-{% block socialMetadata %}
-  {% include "fragments/og_metadata.html" %}
-{% endblock %}
-
 {% block page_top_content %}
   {% if page.live == False %}
   <div class="wagtail-draft-warning">
