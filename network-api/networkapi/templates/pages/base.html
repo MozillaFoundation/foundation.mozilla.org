@@ -16,15 +16,7 @@
     <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
     <title>{% block pageTitle %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
-    <script type="application/ld+json">
-   {
-     "@context" : "http://schema.org",
-     "@type" : "Organization",
-     "legalName" : "Mozilla Foundation",
-     "url" : "https://foundation.mozilla.org",
-     "logo" : "https://foundation.mozilla.org/_images/mozlogo.jpg"
-    }
-   </script>
+    {% block org_schema%}{% endblock %}
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block bodyID %}{% endblock %}">
     {% if user.is_authenticated %}
