@@ -28,9 +28,7 @@
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block bodyID %}{% endblock %}">
     {% if user.is_authenticated %}
-    <div class="authenticated-page-edit">
       {% wagtailuserbar 'bottom-left' %}
-    </div>
     {% endif %}
 
     {% block donate %}
