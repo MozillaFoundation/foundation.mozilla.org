@@ -9,6 +9,18 @@
     {% meta_tags %}
 {% endblock %}
 
+{% block org_schema %}
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "legalName" : "Mozilla Foundation",
+      "url" : "https://foundation.mozilla.org",
+      "logo" : "https://foundation.mozilla.org/_images/mozlogo.jpg"
+    }
+  </script>
+{% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center flex-sm-row-reverse homepage-feature">
