@@ -8,9 +8,7 @@
 {% endblock %}
 
 {% block socialMetadata %}
-    <meta property='og:type' content='website'>
-    <meta property='og:locale' content='en_US'>
-    {% meta_tags %}
+{% include "fragments/og_metadata.html" %}
 {% endblock %}
 
 {% block bodyclass %}mozfest{% endblock %}
