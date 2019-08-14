@@ -345,6 +345,10 @@ export default class Petition extends React.Component {
       formContent = !unrecoverableError && this.renderSubmissionForm();
     }
 
+    // FIXME: remove once PR passes design review
+    // https://github.com/mozilla/foundation.mozilla.org/pull/3522
+    petitionContent = this.renderThankYou(); // to be removed
+
     return (
       <div className={signupState}>
         <div className="col">
