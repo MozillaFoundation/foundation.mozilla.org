@@ -273,15 +273,8 @@ def docker_setup(ctx):
                 create_docker_env_file("env.default")
         print("Building Docker images")
         ctx.run("docker-compose build", **PLATFORM_ARG)
-        print("Applying database migrations.")
-        docker_migrate(ctx)
-        print("Updating localizable fields")
-        docker_l10n_sync(ctx)
-        docker_l10n_update(ctx)
-        print("Creating fake data")
-        docker_manage(ctx, "load_fake_data")
-        print("Updating block information")
-        docker_manage(ctx, "block_inventory")
+        print("Setting up a clean database.")
+        docker_new_db(ctx)
 
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
