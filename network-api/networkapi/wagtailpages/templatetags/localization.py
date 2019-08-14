@@ -10,7 +10,7 @@ mappings = {
     'es': 'es_ES',
     'de': 'de_DE',
     'pl': 'pl_PL',
-    'pt': 'pt_BR',
+    'pt': 'pt_BR',  # our main focus is Brazilian Portuguese
 }
 
 
