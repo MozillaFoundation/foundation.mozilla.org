@@ -1,0 +1,9 @@
+{% load wagtailmetadata_tags i18n localization %}
+
+{% get_current_language as lang_code %}
+
+<meta property='og:type' content='website'>
+<meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
+<meta property='wagtail:language' content='{{ lang_code }}'>
+
+{% meta_tags %}
