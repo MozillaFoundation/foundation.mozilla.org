@@ -14,6 +14,7 @@ mappings = {
 }
 
 
+# This filter turns Wagtail language codes into OpenGraph locale strings
 @register.filter
 def to_opengraph_locale(value):
     try:
