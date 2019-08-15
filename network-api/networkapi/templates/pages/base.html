@@ -12,6 +12,8 @@
       <meta property='og:type' content='website'>
       <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
       <meta property='wagtail:language' content='{{ lang_code }}'>
+    {% endblock %}
+    {% block wagtail_metadata %}
       {% meta_tags %}
     {% endblock %}
     {% block ga_identifier %}
