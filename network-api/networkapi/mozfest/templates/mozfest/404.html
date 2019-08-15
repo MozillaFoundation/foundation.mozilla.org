@@ -1,8 +1,7 @@
 {% extends "mozfest/mozfest-base.html" %}
 
 {% block socialMetadata %}
-<meta property='og:type' content='website'>
-<meta property='og:locale' content='en_US'>
+{% include "fragments/og_metadata.html" %}
 {% endblock %}
 
 {% block pageTitle %}
