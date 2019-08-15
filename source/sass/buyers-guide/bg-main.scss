@@ -92,6 +92,10 @@ img.thumb-border {
   }
 }
 
+footer hr {
+  border-color: $gray-20;
+}
+
 // used by various pages
 @import "./creep-face-emoji";
 
