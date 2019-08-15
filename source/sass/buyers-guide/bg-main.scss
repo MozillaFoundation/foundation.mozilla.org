@@ -21,6 +21,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 //Site-wide
 
 @import "../_variables";
+@import "../glyphs";
 @import "../mixins";
 @import "./mixins"; // Buyer's Guide specific mixins
 
@@ -89,6 +90,10 @@ img.thumb-border {
       filter: blur(5px);
     }
   }
+}
+
+footer hr {
+  border-color: $gray-20;
 }
 
 // used by various pages
