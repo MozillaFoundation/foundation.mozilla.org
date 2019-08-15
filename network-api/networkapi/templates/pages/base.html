@@ -3,7 +3,7 @@
 {% get_current_language as lang_code %}
 
 <!DOCTYPE html>
-<html lang="{{ lang_code }}">{% load settings_value %}
+<html lang="{{ lang_code }}">
   <head>
     <meta charset="utf-8">
     <title>{% block pageTitle %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
