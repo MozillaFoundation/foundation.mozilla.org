@@ -22,17 +22,24 @@
 
     <div class="row mb-4">
       {% if filtered %}  {# Start of IF for filtered page content. Note that this injects an entire row. #}
-      <div class="col-12">
-        <h3 class="body result-info">
-          {% with count=entries|length %}
-            {{ count }} page{% if count != 1 %}s{% endif %} for
-          {% endwith %}
-          <ul class="term-list">
-          {% for term in terms %}
-            <li class="term body-small">{{ term }}</li>
-          {% endfor %}
-          </ul>
-        </h3>
+      <div class="col-12 d-flex justify-content-between">
+        <div class="result-count">
+          <h3 class="body result-info">
+            {% with count=entries|length %}
+              {{ count }} result{% if count != 1 %}s{% endif %} for
+            {% endwith %}
+            <ul class="term-list">
+            {% for term in terms %}
+              <li class="term body-small">{{ term }}</li>
+            {% endfor %}
+            </ul>
+          </h3>
+        </div>
+
+
+        <div class="clear-link">
+          <a href="{{ root.url }}">clear filters</a>
+        </div>
       </div>
     </div>
 
