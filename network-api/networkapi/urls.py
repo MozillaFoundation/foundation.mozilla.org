@@ -40,6 +40,7 @@ urlpatterns = list(filter(None, [
         name='how-do-i-wagtail'
     ),
     url(r'^cms/', include(wagtailadmin_urls)),
+    # FIXME:TODO: what to do with this /en route
     url(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     url(r'^documents/', include(wagtaildocs_urls)),
     url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
