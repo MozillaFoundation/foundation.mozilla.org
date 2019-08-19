@@ -1,25 +1,27 @@
 import json
+import re
 
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from taggit.models import Tag
 
 from . import customblocks
+
+from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core import blocks
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable as WagtailOrderable
 from wagtail.core.fields import StreamField, RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel, FieldRowPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.models import Image
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.models import Orderable as WagtailOrderable
-from wagtail.images.models import Image
+
+from wagtailmetadata.models import MetadataPageMixin
+
+from taggit.models import Tag, TaggedItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import InlinePanel
-from wagtailmetadata.models import MetadataPageMixin
 
 from .utils import (
     set_main_site_nav_information,
@@ -532,7 +534,7 @@ class BanneredCampaignPage(PrimaryPage):
         return get_page_tree_information(self, context)
 
 
-class IndexPage(FoundationMetadataPageMixin, Page):
+class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     """
     This is a page type for creating "index" pages that
     can show cards for all their child content.
@@ -556,12 +558,69 @@ class IndexPage(FoundationMetadataPageMixin, Page):
         FieldPanel('intro'),
     ]
 
+    def filter_entries_for_tag(self, context):
+        """
+        Realise the 'entries' queryset and filter it for tags presences.
+        We need to perform this realisation because there is no guarantee
+        that all children for this IndexPage in fact have a `tags` field,
+        so in order to test this each entry needs to be "cast" into its
+        specific model before we can test for whether i) there are tags
+        to work with and then ii) those tags match the specified ones.
+        """
+        type = self.filtered.get('type')
+        context['filtered'] = type
+
+        if type == 'tag':
+            terms = self.filtered.get('terms')
+            context['terms'] = terms
+
+            entries = [
+                entry
+                for
+                entry in context['entries'].specific()
+                if
+                hasattr(entry, 'tags')
+                and not
+                # Determine whether there is any overlap between 'all tags' and
+                # the tags specified. This effects ANY matching (rather than ALL).
+                set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
+            ]
+
+            context['entries'] = entries
+
     def get_context(self, request):
+        """
+        Bootstrap this page in similar fashion to the PrimaryPage,
+        but include an `entries` context variable that represents
+        all public children under this page.
+
+        Additionally, if this is a fall-through render due to a
+        tag filtering subroute call, perform that filtering of
+        all entries.
+        """
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, 'Homepage')
         context = get_page_tree_information(self, context)
         context['entries'] = self.get_children().live().order_by('-first_published_at')
+        if hasattr(self, 'filtered'):
+            self.filter_entries_for_tag(context)
         return context
+
+    @route(r'^tags/(?P<tag>.+)$')
+    def entries_by_tag(self, request, tag, *args, **kwargs):
+        """
+        If this page was called with `/tags/...` as suffix, extract
+        the tags to filter prior to rendering this page. Multiple
+        tags are specified as subpath: `/tags/tag1/tag2/...`
+        """
+        terms = list(filter(None, re.split('/', tag)))
+
+        self.filtered = {
+            'type': 'tag',
+            'terms': terms
+        }
+
+        return IndexPage.serve(self, request, *args, **kwargs)
 
 
 class NewsPage(PrimaryPage):

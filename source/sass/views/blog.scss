@@ -17,3 +17,21 @@
     }
   }
 }
+
+.blog-card {
+  .main-tag {
+    text-transform: capitalize;
+  }
+
+  .tag-list {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .tag {
+      display: inline-block;
+      text-transform: capitalize;
+    }
+  }
+}
