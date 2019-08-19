@@ -6,8 +6,6 @@ from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
 from django.template import loader
 
-from taggit.models import Tag
-
 from . import customblocks
 
 from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
@@ -577,10 +575,35 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         FieldPanel('page_size'),
     ]
 
-    def get_entries(self):
+    def get_context(self, request):
+        # bootstrap the render context
+        context = super().get_context(request)
+        context = set_main_site_nav_information(self, context, 'Homepage')
+        context = get_page_tree_information(self, context)
+
+        # perform entry pagination and (optional) filterin
+        entries = self.get_entries(context)
+        context['has_more'] = self.page_size < len(entries)
+        context['entries'] = entries[0:self.page_size]
+        return context
+
+    def get_all_entries(self):
+        """
+        Get all (live) child entries, ordered "newest first"
+        """
         return self.get_children().live().order_by('-first_published_at')
 
-    def filter_entries_for_tag(self, context):
+    def get_entries(self, context=dict()):
+        """
+        Get all child entries, filtered down if required based on
+        the `self.filtered` field being set or not.
+        """
+        entries = self.get_all_entries()
+        if hasattr(self, 'filtered'):
+            entries = self.filter_entries_for_tag(entries, context)
+        return entries
+
+    def filter_entries_for_tag(self, entries, context):
         """
         Realise the 'entries' queryset and filter it for tags presences.
         We need to perform this realisation because there is no guarantee
@@ -592,14 +615,14 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         type = self.filtered.get('type')
         context['filtered'] = type
 
-        if type == 'tag':
+        if type == 'tags':
             terms = self.filtered.get('terms')
             context['terms'] = terms
 
             entries = [
                 entry
                 for
-                entry in context['entries'].specific()
+                entry in entries.specific()
                 if
                 hasattr(entry, 'tags')
                 and not
@@ -608,55 +631,59 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
                 set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
             ]
 
-            context['entries'] = entries
+        return entries
 
-    def get_context(self, request):
-        """
-        Bootstrap this page in similar fashion to the PrimaryPage,
-        but include an `entries` context variable that represents
-        all public children under this page.
+    """
+    Sub routes
+    """
 
-        Additionally, if this is a fall-through render due to a
-        tag filtering subroute call, perform that filtering of
-        all entries.
-        """
-        context = super().get_context(request)
-        context = set_main_site_nav_information(self, context, 'Homepage')
-        context = get_page_tree_information(self, context)
-        context['entries'] = self.get_children().live().order_by('-first_published_at')
-        if hasattr(self, 'filtered'):
-            self.filter_entries_for_tag(context)
-        return context
-
-    @route('entries')
+    @route('^entries/')
     def generate_entries_set_html(self, request, *args, **kwargs):
         """
-        Get a set of entries, as rendered HTML
+        JSON endpoint for getting a set of (pre-rendered) entries
         """
 
         page = 1
-
         if 'page' in request.GET:
             page = int(request.GET['page'])
 
         page_size = self.page_size
-
         if 'page_size' in request.GET:
             page_size = int(request.GET['page_size'])
 
         start = page * page_size
         end = start + page_size
         entries = self.get_entries()
+        has_next = end < len(entries)
+
+        html = loader.render_to_string(
+            'wagtailpages/fragments/entry_cards.html',
+            context={
+                'entries': entries[start:end]
+            },
+            request=request
+        )
 
         return JsonResponse({
-            'entries_html': loader.render_to_string(
-                'wagtailpages/fragments/entry_cards.html',
-                {
-                    'entries':  entries[start:end]
-                }
-            ),
-            'has_next': end < len(entries)
+            'entries_html': html,
+            'has_next': has_next
         })
+
+    # helper function for /tags/... subroutes
+    def extract_tag_information(self, tag):
+        terms = list(filter(None, re.split('/', tag)))
+        self.filtered = {
+            'type': 'tags',
+            'terms': terms
+        }
+
+    @route(r'^tags/(?P<tag>.+)/entries/')
+    def generate_tagged_entries_set_html(self, request, tag, *args, **kwargs):
+        """
+        JSON endpoint for getting a set of (pre-rendered) tagged entries
+        """
+        self.extract_tag_information(tag)
+        return self.generate_entries_set_html(request, *args, **kwargs)
 
     @route(r'^tags/(?P<tag>.+)$')
     def entries_by_tag(self, request, tag, *args, **kwargs):
@@ -665,13 +692,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         the tags to filter prior to rendering this page. Multiple
         tags are specified as subpath: `/tags/tag1/tag2/...`
         """
-        terms = list(filter(None, re.split('/', tag)))
-
-        self.filtered = {
-            'type': 'tag',
-            'terms': terms
-        }
-
+        self.extract_tag_information(tag)
         return IndexPage.serve(self, request, *args, **kwargs)
 
 
