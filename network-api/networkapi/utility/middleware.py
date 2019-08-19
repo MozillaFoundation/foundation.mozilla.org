@@ -37,8 +37,7 @@ class TargetDomainRedirectMiddleware:
                     redirect_url = '{protocol}://{hostname}{path}'.format(
                         protocol=protocol,
                         hostname=hostnames[0],
-                        # FIXME:TODO: what to do with this /en link
-                        path='/en/mozfest/'
+                        path='/mozfest/'
                     )
 
                     return HttpResponseTemporaryRedirect(redirect_url)
