@@ -74,7 +74,7 @@
     "browserslist": "^4.6.6",
     "chokidar-cli": "^2.0.0",
     "dotenv": "^8.0.0",
-    "eslint": "^6.1.0",
+    "eslint": "^6.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
