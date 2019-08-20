@@ -37,7 +37,7 @@ class TargetDomainRedirectMiddleware:
                     redirect_url = '{protocol}://{hostname}{path}'.format(
                         protocol=protocol,
                         hostname=hostnames[0],
-                        path='/mozfest/'
+                        path='/en/mozfest/'
                     )
 
                     return HttpResponseTemporaryRedirect(redirect_url)
