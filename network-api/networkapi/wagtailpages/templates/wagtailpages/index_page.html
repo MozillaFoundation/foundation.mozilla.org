@@ -25,9 +25,7 @@
       <div class="col-12 d-flex justify-content-between">
         <div class="search-result">
           <h3 class="body result-info">
-            {% with count=entries|length %}
-              <span class="result-count">{{ count }}</span> result{% if count != 1 %}s{% endif %} for
-            {% endwith %}
+            {{ total_entries }} result{% if count != 1 %}s{% endif %} for
             <ul class="term-list">
             {% for term in terms %}
               <li class="term body-small">{{ term }}</li>

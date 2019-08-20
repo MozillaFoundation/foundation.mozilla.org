@@ -614,6 +614,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         type = self.filtered.get('type')
         context['filtered'] = type
+        context['total_entries'] = len(entries)
 
         if type == 'tags':
             terms = self.filtered.get('terms')

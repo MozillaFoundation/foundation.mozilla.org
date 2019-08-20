@@ -525,7 +525,6 @@ let main = {
     let loadMoreButton = document.querySelector(`.load-more-index-entries`);
     if (loadMoreButton) {
       const entries = document.querySelector(`.index-entries`);
-      const resultCount = document.querySelector(`.result-count`);
 
       // Get the page size from the document, which the IndexPage should
       // have templated into its button as a data-page-size attribute.
@@ -553,14 +552,7 @@ let main = {
           .then(entries_html => {
             const div = document.createElement(`div`);
             div.innerHTML = entries_html;
-
-            const children = div.querySelectorAll(`.entry-card`);
-            children.forEach(c => entries.appendChild(c));
-
-            if (resultCount) {
-              resultCount.textContent =
-                parseInt(resultCount.textContent) + children.length;
-            }
+            Array.from(div.children).forEach(c => entries.appendChild(c));
           })
           .catch(err => {
             // TODO: what do we want to do in this case?
