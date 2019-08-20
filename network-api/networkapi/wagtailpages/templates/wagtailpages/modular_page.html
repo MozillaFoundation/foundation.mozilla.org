@@ -1,9 +1,11 @@
 {% extends "pages/base.html" %}
 
-{% load wagtailcore_tags mini_site_tags %}
+{% load wagtailcore_tags mini_site_tags wagtailmetadata_tags %}
 
 {% block socialMetadata %}
-  {% include "fragments/og_metadata.html" %}
+    <meta property='og:type' content='website'>
+    <meta property='og:locale' content='en_US'>
+    {% meta_tags %}
 {% endblock %}
 
 {% block page_top_content %}
