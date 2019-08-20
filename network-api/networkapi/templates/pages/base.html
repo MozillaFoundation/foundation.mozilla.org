@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>{% load settings_value %}
+<html>{% load settings_value wagtailuserbar %}
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">{% block social_metadata %}{% endblock %}
@@ -16,21 +16,11 @@
     <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
     <title>{% block page_title %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
-    <script type="application/ld+json">
-   {
-     "@context" : "http://schema.org",
-     "@type" : "Organization",
-     "legalName" : "Mozilla Foundation",
-     "url" : "https://foundation.mozilla.org",
-     "logo" : "https://foundation.mozilla.org/_images/mozlogo.jpg"
-    }
-   </script>
+    {% block org_schema%}{% endblock %}
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
     {% if user.is_authenticated %}
-    <div class="authenticated-page-edit" style="position: fixed; bottom:0; background: teal; padding: 0.25em; z-index:1000">
-      <a style="color: white" href="/cms/pages/{{page.id}}/edit/">Edit</a>
-    </div>
+      {% wagtailuserbar 'bottom-left' %}
     {% endif %}
 
     {% block donate %}

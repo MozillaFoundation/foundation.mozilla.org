@@ -20,9 +20,33 @@
       </div>
     </div>
 
-    <div class="row">
-      {% block subcontent %}
+    <div class="row mb-4">
+      {% if filtered %}  {# Start of IF for filtered page content. Note that this injects an entire row. #}
+      <div class="col-12 d-flex justify-content-between">
+        <div class="result-count">
+          <h3 class="body result-info">
+            {% with count=entries|length %}
+              {{ count }} result{% if count != 1 %}s{% endif %} for
+            {% endwith %}
+            <ul class="term-list">
+            {% for term in terms %}
+              <li class="term body-small">{{ term }}</li>
+            {% endfor %}
+            </ul>
+          </h3>
+        </div>
 
+
+        <div class="clear-link">
+          <a href="{{ root.url }}">clear filters</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
+
+      {% block subcontent %}
         {% for entry in entries %}
           {% with type=entry.specific_class.get_verbose_name|lower %}
             {% if type == "blog page" %}

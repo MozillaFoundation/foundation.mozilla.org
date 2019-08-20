@@ -1,0 +1,16 @@
+.term-list {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .term {
+    display: inline-block;
+    padding: 0 0.5em;
+    margin-left: 0.25em;
+    border: 1px solid $black;
+    border-radius: 10px;
+    color: $black;
+    text-transform: capitalize;
+  }
+}
