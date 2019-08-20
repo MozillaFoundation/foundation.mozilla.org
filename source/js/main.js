@@ -525,6 +525,7 @@ let main = {
     let loadMoreButton = document.querySelector(`.load-more-index-entries`);
     if (loadMoreButton) {
       const entries = document.querySelector(`.index-entries`);
+      const resultCount = div.querySelector(`.result-count`);
 
       // Get the page size from the document, which the IndexPage should
       // have templated into its button as a data-page-size attribute.
@@ -534,6 +535,8 @@ let main = {
       let page = 1;
 
       const loadMoreResults = () => {
+        loadMoreButton.disabled = true;
+
         // Construct our API call as a relative URL:
         let url = `./entries/?page=${page++}&page_size=${pageSize}`;
 
@@ -551,13 +554,20 @@ let main = {
             const div = document.createElement(`div`);
             div.innerHTML = entries_html;
 
-            Array.from(div.children).forEach(child =>
-              entries.appendChild(child)
-            );
+            const children = div.querySelectorAll(`.entry-card`);
+            children.forEach(c => entries.appendChild(c));
+
+            if (resultCount) {
+              const newCount = parseInt(label.textContent) + children.length;
+              label.textContent = newCount;
+            }
           })
           .catch(err => {
             // TODO: what do we want to do in this case?
             console.error(err);
+          })
+          .finally(() => {
+            loadMoreButton.disabled = false;
           });
       };
 

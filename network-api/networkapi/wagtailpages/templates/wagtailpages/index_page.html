@@ -26,7 +26,7 @@
         <div class="result-count">
           <h3 class="body result-info">
             {% with count=entries|length %}
-              {{ count }} result{% if count != 1 %}s{% endif %} for
+              <span class="result-count">{{ count }}</span> result{% if count != 1 %}s{% endif %} for
             {% endwith %}
             <ul class="term-list">
             {% for term in terms %}
@@ -58,7 +58,7 @@
           Load more results
         </button>
         {% endif %}
-        
+
         {# See main.js for the javascript that hooks into this button #}
       </div>
     </div>
