@@ -558,8 +558,8 @@ let main = {
             children.forEach(c => entries.appendChild(c));
 
             if (resultCount) {
-              const newCount = parseInt(label.textContent) + children.length;
-              label.textContent = newCount;
+              resultCount.textContent =
+                parseInt(resultCount.textContent) + children.length;
             }
           })
           .catch(err => {
