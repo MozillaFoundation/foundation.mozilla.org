@@ -525,7 +525,7 @@ let main = {
     let loadMoreButton = document.querySelector(`.load-more-index-entries`);
     if (loadMoreButton) {
       const entries = document.querySelector(`.index-entries`);
-      const resultCount = div.querySelector(`.result-count`);
+      const resultCount = document.querySelector(`.result-count`);
 
       // Get the page size from the document, which the IndexPage should
       // have templated into its button as a data-page-size attribute.

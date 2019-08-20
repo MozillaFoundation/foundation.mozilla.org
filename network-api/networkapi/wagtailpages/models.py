@@ -617,7 +617,9 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
         if type == 'tags':
             terms = self.filtered.get('terms')
-            context['terms'] = terms
+
+            # "unsluggify" all terms:
+            context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
 
             entries = [
                 entry
