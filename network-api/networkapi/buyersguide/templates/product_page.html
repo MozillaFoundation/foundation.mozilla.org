@@ -59,7 +59,7 @@
       <div id="product-research" class="mt-5">
         <div class="mb-5 d-flex flex-column flex-sm-row align-items-sm-center">
           <h3 class="h5-heading d-inline-block mb-2 mb-sm-0 mr-3">Our Research</h3>
-          <a href="{% url 'about-view' %}" class="info-help">How to use this guide</a>
+          <a href="/en/privacynotincluded/about" class="info-help">How to use this guide</a>
         </div>
 
         <h3 class="h3-heading">Can it spy on me</h3>
@@ -158,7 +158,7 @@
           <div class="row">
             {% for product in product.related_products %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
-              <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="{% url 'product-view' product.slug %}">
+              <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="/en/privacynotincluded/products/{{ product.slug }}">
                 {% if USE_CLOUDINARY %}
                   <img class="product-thumbnail thumb-border"
                   width="300"
