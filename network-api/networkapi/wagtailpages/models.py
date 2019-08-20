@@ -614,7 +614,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         type = self.filtered.get('type')
         context['filtered'] = type
-        context['total_entries'] = len(entries)
 
         if type == 'tags':
             terms = self.filtered.get('terms')
@@ -633,6 +632,8 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
                 # the tags specified. This effects ANY matching (rather than ALL).
                 set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
             ]
+
+        context['total_entries'] = len(entries)
 
         return entries
 
