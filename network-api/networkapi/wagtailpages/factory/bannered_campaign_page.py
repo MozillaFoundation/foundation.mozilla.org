@@ -11,9 +11,7 @@ from networkapi.utility.faker.helpers import (
 )
 from .petition import PetitionFactory
 from .mini_site_namespace import MiniSiteNamespaceFactory
-from .donation import DonationModalsFactory
 from .abstract import CMSPageFactory
-from .campaign_page import CampaignPageFactory
 
 
 class BanneredCampaignPageFactory(CMSPageFactory):
@@ -44,9 +42,9 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Bannered Campaign Pages under namespace')
-        BanneredCampaignPageFactory.getOrCreate(
-          parent=bannered_campaign_namespace
-          title="Test Bannered Campaign"
-        )
+    BanneredCampaignPageFactory.getOrCreate(
+        parent=bannered_campaign_namespace,
+        title="Test Bannered Campaign"
+    )
 
     reseed(seed)
