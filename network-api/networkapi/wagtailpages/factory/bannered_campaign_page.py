@@ -13,6 +13,7 @@ from .petition import PetitionFactory
 from .mini_site_namespace import MiniSiteNamespaceFactory
 from .donation import DonationModalsFactory
 from .abstract import CMSPageFactory
+from .campaign_page import CampaignPageFactory
 
 
 class BanneredCampaignPageFactory(CMSPageFactory):
@@ -30,12 +31,24 @@ def generate(seed):
     reseed(seed)
 
     try:
-        campaign_namespace = WagtailPage.objects.get(title='bannered_campaign')
-        print('bannered campaign namespace exists')
+        campaign_namespace = WagtailPage.objects.get(title='bannered_campaigns')
+        print('bannered campaigns namespace exists')
     except WagtailPage.DoesNotExist:
-        print('Generating a bannered campaign namespace')
+        print('Generating a bannered campaigns namespace')
         campaign_namespace = MiniSiteNamespaceFactory.create(
             parent=home_page,
-            title='bannered campaigns',
+            title='campaigns',
             live=False
         )
+
+    reseed(seed)
+
+    print('Generating Campaign Pages under namespace')
+    campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+
+    reseed(seed)
+
+    print('Generating Donation Modals for Campaign Pages')
+    [DonationModalsFactory.create(page=campaign) for campaign in campaigns]
+
+    reseed(seed)
