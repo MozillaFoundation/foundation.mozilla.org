@@ -42,7 +42,7 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Bannered Campaign Pages under namespace')
-    BanneredCampaignPageFactory.getOrCreate(
+    BanneredCampaignPageFactory.create(
         parent=bannered_campaign_namespace,
         title="Test Bannered Campaign"
     )
