@@ -1,13 +1,13 @@
 {% extends "./modular_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags primary_page_tags %}
 
-{% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
+{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
-{% block primaryNav %}
+{% block primary_nav %}
   {% include "partials/primary_nav.html" %}
 {% endblock %}
 
-{% block heroGuts %}
+{% block hero_guts %}
   {% include "./fragments/primary_heroguts.html" with root=root page=page %}
 {% endblock %}
 
