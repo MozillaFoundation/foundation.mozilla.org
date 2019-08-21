@@ -50,8 +50,3 @@ def generate(seed):
         )
 
     reseed(seed)
-
-    print('Generating Donation Modals for Campaign Pages')
-    [DonationModalsFactory.create(page=campaign) for campaign in campaigns]
-
-    reseed(seed)
