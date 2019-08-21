@@ -31,20 +31,20 @@ def generate(seed):
     reseed(seed)
 
     try:
-        campaign_namespace = WagtailPage.objects.get(title='bannered_campaigns')
+        bannered_campaign_namespace = WagtailPage.objects.get(title='bannered_campaigns')
         print('bannered campaigns namespace exists')
     except WagtailPage.DoesNotExist:
         print('Generating a bannered campaigns namespace')
-        campaign_namespace = MiniSiteNamespaceFactory.create(
+        bannered_campaign_namespace = MiniSiteNamespaceFactory.create(
             parent=home_page,
-            title='campaigns',
+            title='bannered_campaigns',
             live=False
         )
 
     reseed(seed)
 
-    print('Generating Campaign Pages under namespace')
-    campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+    print('Generating Bannered Campaign Pages under namespace')
+    campaigns = [CampaignPageFactory.create(parent=bannered_campaign_namespace) for i in range(5)]
 
     reseed(seed)
 
