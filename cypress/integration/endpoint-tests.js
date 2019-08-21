@@ -104,7 +104,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   // Bannered Campaign page test
 
   it(`Bannered Campaign Page`, function() {
-    cy.visit(`/en/campaigns/banneredcampaign`);
+    cy.visit(`/en/campaigns/test-bannered-campaign`);
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);
