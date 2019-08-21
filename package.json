@@ -63,7 +63,7 @@
     "react-dom": "^16.9.0",
     "react-ga": "2.6.0",
     "shx": "^0.3.2",
-    "webpack": "^4.39.1",
+    "webpack": "^4.39.2",
     "webpack-cli": "^3.3.6",
     "whatwg-fetch": "^3.0.0"
   },
