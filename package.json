@@ -64,7 +64,7 @@
     "react-ga": "2.6.0",
     "shx": "^0.3.2",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.6",
+    "webpack-cli": "^3.3.7",
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
@@ -73,8 +73,8 @@
   "devDependencies": {
     "browserslist": "^4.6.6",
     "chokidar-cli": "^2.0.0",
-    "dotenv": "^8.0.0",
-    "eslint": "^6.1.0",
+    "dotenv": "^8.1.0",
+    "eslint": "^6.2.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
