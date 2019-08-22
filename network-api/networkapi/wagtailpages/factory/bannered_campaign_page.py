@@ -22,7 +22,7 @@ class BanneredCampaignPageFactory(CMSPageFactory):
     class Params:
         no_cta = Trait(cta=None)
 
-    petition = SubFactory(PetitionFactory)
+    cta = SubFactory(PetitionFactory)
 
     signup = SubFactory(SignupFactory)
 
