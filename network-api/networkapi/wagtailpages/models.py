@@ -1281,16 +1281,15 @@ class RedirectingPage(Page):
 
 class SpecialTemplatePage(FoundationMetadataPageMixin, Page):
     ALLOWED_TEMPLATES = [
-        ('unspecified', '-'),
+        (None, '-'),
         ('wagtailpages/one-off-pages/youtube.html', 'Youtube Campaign'),
     ]
 
     template = models.CharField(
         choices=ALLOWED_TEMPLATES,
-        default='unspecified',
+        default=None,
         max_length=500,
         help_text='The template to be used to render this one-off page',
-        blank=True,
     )
 
     textfields = StreamField([
