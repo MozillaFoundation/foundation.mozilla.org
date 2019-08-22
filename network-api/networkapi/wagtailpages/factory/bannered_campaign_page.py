@@ -10,6 +10,7 @@ from networkapi.utility.faker.helpers import (
     get_homepage
 )
 from .petition import PetitionFactory
+from .signup import SignupFactory
 from .mini_site_namespace import MiniSiteNamespaceFactory
 from .abstract import CMSPageFactory
 
@@ -21,7 +22,7 @@ class BanneredCampaignPageFactory(CMSPageFactory):
     class Params:
         no_cta = Trait(cta=None)
 
-    cta = SubFactory(PetitionFactory)
+    cta = SubFactory(PetitionFactory, SignupFactory)
 
 
 def generate(seed):
