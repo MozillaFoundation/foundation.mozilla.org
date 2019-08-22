@@ -22,7 +22,9 @@ class BanneredCampaignPageFactory(CMSPageFactory):
     class Params:
         no_cta = Trait(cta=None)
 
-    cta = SubFactory(PetitionFactory, SignupFactory)
+    petition = SubFactory(PetitionFactory)
+
+    signup = SubFactory(SignupFactory)
 
 
 def generate(seed):
