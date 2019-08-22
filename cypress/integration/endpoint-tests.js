@@ -101,6 +101,17 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  // Bannered Campaign page test
+
+  it(`Bannered Campaign Page`, function() {
+    cy.visit(`/en/campaigns/test-bannered-campaign`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
   // Pages specific to the "Privacy Not Included" Buyers Guide
 
   it(`PNI homepage`, function() {
