@@ -14,6 +14,7 @@ from .models import (
     CampaignPage,
     OpportunityPage,
     BlogPage,
+    SpecialTemplatePage,
 
     CTA,
     Petition,
@@ -169,4 +170,11 @@ class PeoplePageTR(TranslationOptions):
 class BlogPageTR(TranslationOptions):
     fields = (
         'body',
+    )
+
+
+@register(SpecialTemplatePage)
+class SpecialTemplatePageTR(TranslationOptions):
+    fields = (
+        'textfields',
     )

@@ -1,0 +1,23 @@
+{% load wagtailcore_tags special_template_page_tags %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>test</title>
+    </head>
+    <body>
+        <header>
+            <h1>One-off page test template: youtube</h1>
+            <h2>{{ page.title }}</h2>
+        </header>
+
+        <main>
+            <p>{% gettext "intro-text" %}</p>
+            <p>{% gettext "follow-up" %}</p>
+        </main>
+
+        <footer>
+            <p>{% gettext "non-existent-key" %}</p>
+        </footer>
+    </body>
+</html>

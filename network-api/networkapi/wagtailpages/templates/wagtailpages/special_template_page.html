@@ -1,0 +1,5 @@
+{% if page.specific.template != "unspecified" %}
+  {% include page.specific.template %}
+{% else %}
+  <h1>Error: missing template for SpecialTemplatePage {{ page.title }}</h1>
+{% endif %}

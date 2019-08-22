@@ -165,6 +165,7 @@ class MiniSiteNameSpace(ModularPage):
         'CampaignPage',
         'OpportunityPage',
         'BlogPage',
+        'SpecialTemplatePage',
     ]
 
     """
@@ -1276,3 +1277,27 @@ class RedirectingPage(Page):
         # Note that due to how this page type works, there is no
         # associated template file in the wagtailpages directory.
         return HttpResponseRedirect(self.URL)
+
+
+class SpecialTemplatePage(FoundationMetadataPageMixin, Page):
+    ALLOWED_TEMPLATES = [
+        ('unspecified', '-'),
+        ('wagtailpages/one-off-pages/youtube.html', 'Youtube Campaign'),
+    ]
+
+    template = models.CharField(
+        choices=ALLOWED_TEMPLATES,
+        default='unspecified',
+        max_length=500,
+        help_text='The template to be used to render this one-off page',
+        blank=True,
+    )
+
+    textfields = StreamField([
+        ('textblock', customblocks.TRKeyValueBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('template'),
+        StreamFieldPanel('textfields'),
+    ]
