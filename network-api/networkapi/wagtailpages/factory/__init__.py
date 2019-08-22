@@ -1,6 +1,7 @@
 from . import (
     blog,
     campaign_page,
+    bannered_campaign_page,
     homepage_features,
     homepage,
     initiatives_page,
@@ -17,6 +18,7 @@ def generate(seed):
     homepage_features.generate(seed)
     blog.generate(seed)
     campaign_page.generate(seed)
+    bannered_campaign_page.generate(seed)
     initiatives_page.generate(seed)
     news_page.generate(seed)
     opportunity.generate(seed)
