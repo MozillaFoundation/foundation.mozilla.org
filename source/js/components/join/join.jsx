@@ -133,18 +133,15 @@ export default class JoinUs extends React.Component {
     });
   }
 
-  renderGAEventLabel() {
+  getSubmittedGALabel() {
     let formPosition = this.props.formPosition;
-    switch (formPosition) {
-      case `header`:
-        return `Signup submitted from Header`;
-        break;
-      case `footer`:
-        return `Signup submitted from Footer`;
-        break;
-      default:
-        return `Signup submitted`;
+    let gaLabel = `Signup submitted`;
+
+    if (formPosition) {
+      gaLabel = `Signup from ${formPosition}`;
     }
+
+    return gaLabel;
   }
 
   /**
@@ -171,7 +168,7 @@ export default class JoinUs extends React.Component {
     ReactGA.event({
       category: `signup`,
       action: `form submit tap`,
-      label: `${this.renderGAEventLabel()}`
+      label: `${this.getSubmittedGALabel()}`
     });
   }
 
