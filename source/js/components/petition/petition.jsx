@@ -130,7 +130,7 @@ export default class Petition extends React.Component {
       );
 
       if (shareProgressButton) {
-        document.querySelector(`#${shareProgressButtonId} a`).click();
+        shareProgressButton.click();
       }
     } else {
       copyToClipboard(event.target, window.location.href);
