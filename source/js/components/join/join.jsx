@@ -135,13 +135,13 @@ export default class JoinUs extends React.Component {
 
   getSubmittedGALabel() {
     let formPosition = this.props.formPosition;
-    let gaLabel = `Signup submitted`;
+    let gaLabel = `Signup submitted from ${document.title}`;
 
     if (formPosition) {
       gaLabel = `Signup submitted from ${formPosition}`;
     }
 
-    return gaLabel;
+    console.log(gaLabel);
   }
 
   /**
