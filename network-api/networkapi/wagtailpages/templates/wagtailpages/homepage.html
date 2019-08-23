@@ -1,10 +1,12 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags multi_image_tags %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
 
-{% block bodyID %}home{% endblock %}
+{% block body_id %}home{% endblock %}
 
-{% block socialMetadata %}
-  {% include "fragments/og_metadata.html" %}
+{% block social_metadata %}
+    <meta property='og:type' content='website'>
+    <meta property='og:locale' content='en_US'>
+    {% meta_tags %}
 {% endblock %}
 
 {% block org_schema %}

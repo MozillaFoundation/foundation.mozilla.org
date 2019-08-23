@@ -20,20 +20,45 @@
       </div>
     </div>
 
-    <div class="row">
+    {% if filtered %}  {# Start of IF for filtered page content. Note that this injects an entire row. #}
+    <div class="row mb-4">
+      <div class="col-12 d-flex justify-content-between">
+        <div class="search-result">
+          <h3 class="body result-info">
+            {{ total_entries }} result{% if count != 1 %}s{% endif %} for
+            <ul class="term-list">
+            {% for term in terms %}
+              <li class="term body-small">{{ term }}</li>
+            {% endfor %}
+            </ul>
+          </h3>
+        </div>
+
+        <div class="clear-link">
+          <a href="{{ root.url }}">clear filters</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="index-entries row">
+    {% else %}
+    <div class="index-entries row mb-4">
+    {% endif %}  {# End of IF for filtered page content _after_ starting a new row. #}
       {% block subcontent %}
-
-        {% for entry in entries %}
-          {% with type=entry.specific_class.get_verbose_name|lower %}
-            {% if type == "blog page" %}
-              {% include "./fragments/blog-card.html" with page=entry %}
-            {% else %}
-              {% include "./fragments/generic-card.html" with page=entry %}
-            {% endif %}
-          {% endwith %}
-        {% endfor %}
-
+        {% include "./fragments/entry_cards.html" %}
       {% endblock %}
+    </div>
+
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        {% if has_more %}
+        <button class="btn btn-primary load-more-index-entries" data-page-size="{{ page.specific.page_size }}">
+          Load more results
+        </button>
+        {% endif %}
+
+        {# See main.js for the javascript that hooks into this button #}
+      </div>
     </div>
   </div>
 {% endblock %}
