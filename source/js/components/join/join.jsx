@@ -133,6 +133,20 @@ export default class JoinUs extends React.Component {
     });
   }
 
+  renderGAEventLabel() {
+    let formPosition = this.props.formPosition;
+    switch (formPosition) {
+      case `header`:
+        return `Signup submitted from Header`;
+        break;
+      case `footer`:
+        return `Signup submitted from Footer`;
+        break;
+      default:
+        return `Signup submitted`;
+    }
+  }
+
   /**
    * Process the form data, to make sure there is a valid
    * email address, and the consent checkbox has been checked,
@@ -157,7 +171,7 @@ export default class JoinUs extends React.Component {
     ReactGA.event({
       category: `signup`,
       action: `form submit tap`,
-      label: `Signup submitted`
+      label: `${this.renderGAEventLabel()}`
     });
   }
 
