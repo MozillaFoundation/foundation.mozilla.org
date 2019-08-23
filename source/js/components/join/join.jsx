@@ -224,7 +224,8 @@ export default class JoinUs extends React.Component {
   renderEmailField() {
     let classes = classNames(`mb-2`, {
       "has-danger":
-        (this.state.userTriedSubmitting &&
+        (!this.state.apiSuccess &&
+          this.state.userTriedSubmitting &&
           !this.validatesAsEmail(this.email.value)) ||
         this.state.signupFailed
     });
