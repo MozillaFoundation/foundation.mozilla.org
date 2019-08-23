@@ -138,7 +138,7 @@ export default class JoinUs extends React.Component {
     let gaLabel = `Signup submitted`;
 
     if (formPosition) {
-      gaLabel = `Signup from ${formPosition}`;
+      gaLabel = `Signup submitted from ${formPosition}`;
     }
 
     return gaLabel;
