@@ -6,7 +6,7 @@ from factory import (
 )
 from networkapi.utility.faker import StreamfieldProvider
 
-streamfield_fields = ['header', 'paragraph', 'image', 'spacer', 'image_text2', 'quote']
+streamfield_fields = ['header', 'paragraph', 'image', 'spacer', 'image_text', 'quote']
 
 sentence_faker: Faker = Faker('sentence', nb_words=3, variable_nb_words=False)
 header_faker: Faker = Faker('sentence', nb_words=6, variable_nb_words=True)
