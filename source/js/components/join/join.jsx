@@ -133,17 +133,6 @@ export default class JoinUs extends React.Component {
     });
   }
 
-  getSubmittedGALabel() {
-    let formPosition = this.props.formPosition;
-    let gaLabel = `Signup submitted from ${document.title}`;
-
-    if (formPosition) {
-      gaLabel = `Signup submitted from ${formPosition}`;
-    }
-
-    return gaLabel;
-  }
-
   /**
    * Process the form data, to make sure there is a valid
    * email address, and the consent checkbox has been checked,
@@ -168,7 +157,9 @@ export default class JoinUs extends React.Component {
     ReactGA.event({
       category: `signup`,
       action: `form submit tap`,
-      label: this.getSubmittedGALabel()
+      label: `Signup submitted from ${
+        this.props.formPosition ? this.props.formPosition : document.title
+      }`
     });
   }
 
