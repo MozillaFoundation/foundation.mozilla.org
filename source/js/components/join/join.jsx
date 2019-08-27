@@ -242,8 +242,15 @@ export default class JoinUs extends React.Component {
           onFocus={evt => this.onInputFocus(evt)}
         />
         {this.state.userTriedSubmitting &&
+          (this.email.value == "" || this.email.value == null ) && (
+            <p className="body-small form-check form-control-feedback">
+              This is a required section.
+            </p>
+          )}
+        {this.state.userTriedSubmitting &&
           !this.state.apiSubmitted &&
-          !this.validatesAsEmail(this.email.value) && (
+          !this.validatesAsEmail(this.email.value) && 
+          (!this.email.value == "" || !this.email.value == null) && (
             <p className="body-small form-check form-control-feedback">
               Please enter your email
             </p>
