@@ -3,11 +3,16 @@
 
   .has-danger {
     color: $red;
+
+    .form-control {
+      border: 2px solid $red;
+    }
   }
 
   .form-control {
     font-family: "Nunito Sans";
     font-weight: 400;
+    color: $black;
   }
 
   .fields-wrapper {
@@ -15,12 +20,6 @@
   }
 
   @at-root .dark-theme & {
-    form {
-      input {
-        border: none;
-      }
-    }
-
     .body-small.form-control-feedback {
       color: $red;
     }
