@@ -157,7 +157,9 @@ export default class JoinUs extends React.Component {
     ReactGA.event({
       category: `signup`,
       action: `form submit tap`,
-      label: `Signup submitted`
+      label: `Signup submitted from ${
+        this.props.formPosition ? this.props.formPosition : document.title
+      }`
     });
   }
 
