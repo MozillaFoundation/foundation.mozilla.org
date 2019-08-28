@@ -7,6 +7,16 @@
     .form-control {
       border: 2px solid $red;
     }
+
+    .glyph-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 10px;
+      height: 13px;
+      width: 13px;
+      margin: auto;
+    }
   }
 
   .form-control {

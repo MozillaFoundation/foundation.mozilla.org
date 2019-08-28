@@ -224,7 +224,7 @@ export default class JoinUs extends React.Component {
    * Render the email field in signup CTA.
    */
   renderEmailField() {
-    let classes = classNames(`mb-2`, {
+    let wrapperClasses = classNames(``, {
       "has-danger":
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
@@ -232,31 +232,44 @@ export default class JoinUs extends React.Component {
         this.state.signupFailed
     });
 
+    let classes = classNames(`mb-2`, {
+      "position-relative": wrapperClasses != ``
+    });
+
     return (
-      <div className={classes}>
-        <input
-          type="email"
-          className="form-control"
-          placeholder="Enter email address"
-          ref={el => (this.email = el)}
-          onFocus={evt => this.onInputFocus(evt)}
-        />
+      <div className={wrapperClasses}>
+        <div className={classes}>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Enter email address"
+            ref={el => (this.email = el)}
+            onFocus={evt => this.onInputFocus(evt)}
+          />
+          {this.state.userTriedSubmitting &&
+            !this.state.apiSubmitted &&
+            !this.validatesAsEmail(this.email.value) && (
+              <div className="glyph-container">
+                <span className="form-error-glyph" />
+              </div>
+            )}
+        </div>
         {this.state.userTriedSubmitting &&
-          (this.email.value == "" || this.email.value == null ) && (
-            <p className="body-small form-check form-control-feedback">
+          (this.email.value == "" || this.email.value == null) && (
+            <p className="body-small form-check form-control-feedback has-danger">
               This is a required section.
             </p>
           )}
         {this.state.userTriedSubmitting &&
           !this.state.apiSubmitted &&
-          !this.validatesAsEmail(this.email.value) && 
+          !this.validatesAsEmail(this.email.value) &&
           (!this.email.value == "" || !this.email.value == null) && (
-            <p className="body-small form-check form-control-feedback">
+            <p className="body-small form-check form-control-feedback has-danger">
               Please enter your email
             </p>
           )}
         {this.state.signupFailed && (
-          <small className="form-check form-control-feedback">
+          <small className="form-check form-control-feedback has-danger">
             Something went wrong. Please check your email address and try again
           </small>
         )}
@@ -308,27 +321,37 @@ export default class JoinUs extends React.Component {
 
     return (
       <div className={classes}>
-        <label className="form-check-label">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="PrivacyCheckbox"
-            ref={el => (this.privacy = el)}
-          />
-          <p className="d-inline-block body-small my-0">
-            I'm okay with Mozilla handling my info as explained in this{" "}
-            <a href="https://www.mozilla.org/privacy/websites/">
-              Privacy Notice
-            </a>
-          </p>
+        <div className="d-flex align-items-center">
+          <div className="mt-3 mb-1 form-check has-danger">
+            <input
+              type="checkbox"
+              className="form-check-input ml-0"
+              id="PrivacyCheckbox"
+              ref={el => (this.privacy = el)}
+              required
+            />
+            <label className="form-check-label">
+              <p className="d-inline-block body-small my-0">
+                I'm okay with Mozilla handling my info as explained in this{" "}
+                <a href="https://www.mozilla.org/privacy/websites/">
+                  Privacy Notice
+                </a>
+              </p>
+            </label>
+          </div>
           {this.state.userTriedSubmitting &&
             !this.state.apiSubmitted &&
             !this.privacy.checked && (
-              <p className="body-small form-check form-control-feedback">
-                Please check this box if you want to proceed
-              </p>
+              <span class="form-error-glyph d-flex mt-2 mt-sm-4 ml-sm-2 mt-lg-0 ml-lg-0" />
             )}
-        </label>
+        </div>
+        {this.state.userTriedSubmitting &&
+          !this.state.apiSubmitted &&
+          !this.privacy.checked && (
+            <p className="body-small form-check form-control-feedback mt-0 mb-3">
+              Please check this box if you want to proceed
+            </p>
+          )}
       </div>
     );
   }
