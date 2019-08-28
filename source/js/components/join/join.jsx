@@ -232,7 +232,7 @@ export default class JoinUs extends React.Component {
         this.state.signupFailed
     });
 
-    let classes = classNames(`mb-2`, {
+    let classes = classNames(``, {
       "position-relative": wrapperClasses != ``
     });
 
@@ -241,7 +241,7 @@ export default class JoinUs extends React.Component {
         <div className={classes}>
           <input
             type="email"
-            className="form-control"
+            className="form-control align-items"
             placeholder="Enter email address"
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
@@ -308,21 +308,18 @@ export default class JoinUs extends React.Component {
    * Render the privacy field in signup CTA.
    */
   renderPrivacyField() {
-    let classes = classNames(
-      this.props.buttonPosition === `side` ? `mb-2` : `my-3`,
-      {
-        "form-check": true,
-        "has-danger":
-          !this.state.apiSuccess &&
-          this.state.userTriedSubmitting &&
-          !this.privacy.checked
-      }
-    );
+    let classes = classNames(`my-3`, {
+      "form-check": true,
+      "has-danger":
+        !this.state.apiSuccess &&
+        this.state.userTriedSubmitting &&
+        !this.privacy.checked
+    });
 
     return (
       <div className={classes}>
         <div className="d-flex align-items-center">
-          <div className="mt-3 mb-1 form-check has-danger">
+          <div className="mb-0 form-check d-flex align-items-center">
             <input
               type="checkbox"
               className="form-check-input ml-0"
@@ -342,7 +339,7 @@ export default class JoinUs extends React.Component {
           {this.state.userTriedSubmitting &&
             !this.state.apiSubmitted &&
             !this.privacy.checked && (
-              <span class="form-error-glyph d-flex mt-2 mt-sm-4 ml-sm-2 mt-lg-0 ml-lg-0" />
+              <span class="form-error-glyph d-flex mt-1 mt-lg-0" />
             )}
         </div>
         {this.state.userTriedSubmitting &&

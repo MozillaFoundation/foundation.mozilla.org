@@ -44,7 +44,7 @@
     &::before {
       width: 13px;
       height: 20px;
-      margin-right: 0;
+      margin-right: 10px;
     }
   }
 }
@@ -101,5 +101,9 @@
   .github-glyph {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
+  }
+
+  .form-error-glyph {
+    @include compositeGlyph("form-control-error-dark-theme");
   }
 }

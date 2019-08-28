@@ -2,10 +2,10 @@
   background: inherit;
 
   .has-danger {
-    color: $red;
+    color: $dark-red;
 
     .form-control {
-      border: 2px solid $red;
+      border: 2px solid $dark-red;
     }
 
     .glyph-container {
@@ -16,6 +16,21 @@
       height: 13px;
       width: 13px;
       margin: auto;
+    }
+
+    .form-error-glyph:nth-child(2) {
+      @media (min-width: $bp-sm) {
+        position: absolute;
+        right: 4px;
+        top: 6px;
+      }
+      @media (min-width: $bp-md) {
+        right: 250px;
+        top: 2px;
+      }
+      @media (min-width: $bp-lg) {
+        right: -8px;
+      }
     }
   }
 
@@ -32,6 +47,29 @@
   @at-root .dark-theme & {
     .body-small.form-control-feedback {
       color: $red;
+    }
+
+    .has-danger .form-control{  
+      border-color: $red;
+    }
+    
+
+    .form-error-glyph {
+      @media (min-width: $bp-md) {
+        margin-left: 0;
+      }    
+    }
+
+    .form-error-glyph:nth-child(2) {
+      @media (min-width: $bp-md) {
+        position: absolute;
+        right: -30px;
+        top: 6px;
+      }
+      @media (min-width: $bp-lg) {
+        right: -2px;
+        top: 6px;
+      }
     }
   }
 }
