@@ -67,6 +67,10 @@
         top: 6px;
       }
       @media (min-width: $bp-lg) {
+        right: -10px;
+        top: 2px;
+      }
+      @media (min-width: $bp-xl) {
         right: -2px;
         top: 6px;
       }
