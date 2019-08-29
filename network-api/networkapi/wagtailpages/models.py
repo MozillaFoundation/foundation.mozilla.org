@@ -712,6 +712,10 @@ class BlogPageCategory(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Blog Page Category"
+        verbose_name_plural = "Blog Page Categories"
+
 
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
