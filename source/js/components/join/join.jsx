@@ -265,7 +265,7 @@ export default class JoinUs extends React.Component {
           !this.validatesAsEmail(this.email.value) &&
           (!this.email.value == "" || !this.email.value == null) && (
             <p className="body-small form-check form-control-feedback has-danger">
-              Please enter your email
+              Please enter a valid email address.
             </p>
           )}
         {this.state.signupFailed && (
@@ -318,8 +318,8 @@ export default class JoinUs extends React.Component {
 
     return (
       <div className={classes}>
-        <div className="d-flex align-items-center">
-          <div className="mb-0 form-check d-flex align-items-center">
+        <div className="d-flex align-items-start">
+          <div className="mb-0 form-check d-flex align-items-start">
             <input
               type="checkbox"
               className="form-check-input ml-0"
@@ -346,7 +346,7 @@ export default class JoinUs extends React.Component {
           !this.state.apiSubmitted &&
           !this.privacy.checked && (
             <p className="body-small form-check form-control-feedback mt-0 mb-3">
-              Please check this box if you want to proceed
+              Please check this box if you want to proceed.
             </p>
           )}
       </div>
