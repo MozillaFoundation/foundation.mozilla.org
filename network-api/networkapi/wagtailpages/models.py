@@ -705,6 +705,18 @@ class NewsPage(PrimaryPage):
     template = 'wagtailpages/static/news_page.html'
 
 
+@register_snippet
+class BlogPageCategory(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Blog Page Category"
+        verbose_name_plural = "Blog Page Categories"
+
+
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
