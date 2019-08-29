@@ -705,6 +705,7 @@ class NewsPage(PrimaryPage):
     template = 'wagtailpages/static/news_page.html'
 
 
+@register_snippet
 class BlogPageCategory(models.Model):
     name = models.CharField(max_length=50)
 
