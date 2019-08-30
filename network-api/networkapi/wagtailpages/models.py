@@ -695,12 +695,20 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ('quote', customblocks.QuoteBlock()),
     ])
 
+    category = models.ManyToManyField(
+        BlogPageCategory,
+        help_text='Which blog categories is this blog page associated with?',
+        blank=True,
+        verbose_name="Categories",
+    )
+
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
     zen_nav = True
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
+        FieldPanel('category'),
         StreamFieldPanel('body'),
     ]
 
