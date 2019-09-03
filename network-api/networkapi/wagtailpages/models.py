@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
 from django.template import loader
+from django.template.defaultfilters import slugify
 
 from . import customblocks
 
@@ -548,9 +549,24 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         entries = self.get_all_entries()
         if hasattr(self, 'filtered'):
-            entries = self.filter_entries_for_tag(entries, context)
+            entries = self.filter_entries(entries, context)
         return entries
 
+    def filter_entries(self, entries, context):
+        type = self.filtered.get('type')
+        context['filtered'] = type
+
+        print('filtering:', self.filtered)
+
+        if type == 'tags':
+            entries = self.filter_entries_for_tag(entries, context)
+
+        if type == 'category':
+            entries = self.filter_entries_for_category(entries, context)
+
+        context['total_entries'] = len(entries)
+        return entries
+    
     def filter_entries_for_tag(self, entries, context):
         """
         Realise the 'entries' queryset and filter it for tags presences.
@@ -560,31 +576,62 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         specific model before we can test for whether i) there are tags
         to work with and then ii) those tags match the specified ones.
         """
-        type = self.filtered.get('type')
-        context['filtered'] = type
+        terms = self.filtered.get('terms')
 
-        if type == 'tags':
-            terms = self.filtered.get('terms')
+        # "unsluggify" all terms:
+        context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
 
-            # "unsluggify" all terms:
-            context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
+        entries = [
+            entry
+            for
+            entry in entries.specific()
+            if
+            hasattr(entry, 'tags')
+            and not
+            # Determine whether there is any overlap between 'all tags' and
+            # the tags specified. This effects ANY matching (rather than ALL).
+            set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
+        ]
 
+        return entries
+
+    def filter_entries_for_category(self, entries, context):
+        """
+        NOTE: we currently assume only blog pages can have
+        categories. If that ever changes, we will need to rename
+        the model from BlogPageCategory to PageCategory and make
+        the corresponding adjustments to this code
+        """
+        slug = self.filtered.get('category')
+        cat = None
+        for bpc in BlogPageCategory.objects.all():
+            # We can't use .filter for @property fields,
+            # so we have to run through all categories =(
+            if bpc.slug == slug:
+                cat = bpc
+        
+        if cat is not None:
+            # make sure we bypass "x results for Y"
+            context['no_filter_ui'] = True
+
+            # explicitly set the index page title and intro
+            context['index_title'] = f'{cat.name} {self.title}'
+            context['index_intro'] = cat.intro
+
+            # and then the filtered content
+            context['terms'] = [cat.name, ]
             entries = [
                 entry
                 for
                 entry in entries.specific()
                 if
-                hasattr(entry, 'tags')
-                and not
-                # Determine whether there is any overlap between 'all tags' and
-                # the tags specified. This effects ANY matching (rather than ALL).
-                set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
+                hasattr(entry, 'category')
+                and
+                cat in entry.category.all()
             ]
 
-        context['total_entries'] = len(entries)
-
         return entries
-
+    
     """
     Sub routes
     """
@@ -621,6 +668,10 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
             'has_next': has_next
         })
 
+    """
+    tag routes
+    """
+
     # helper function for /tags/... subroutes
     def extract_tag_information(self, tag):
         terms = list(filter(None, re.split('/', tag)))
@@ -637,7 +688,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         self.extract_tag_information(tag)
         return self.generate_entries_set_html(request, *args, **kwargs)
 
-    @route(r'^tags/(?P<tag>.+)$')
+    @route(r'^tags/(?P<tag>.+)/')
     def entries_by_tag(self, request, tag, *args, **kwargs):
         """
         If this page was called with `/tags/...` as suffix, extract
@@ -645,6 +696,36 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         tags are specified as subpath: `/tags/tag1/tag2/...`
         """
         self.extract_tag_information(tag)
+        return IndexPage.serve(self, request, *args, **kwargs)
+    
+    """
+    category routes
+    """
+
+    # helper function for /category/... subroutes
+    def extract_category_information(self, category):
+        print('binding filter:', category)
+        self.filtered = {
+            'type': 'category',
+            'category': category
+        }
+
+    @route(r'^category/(?P<category>.+)/entries/')
+    def generate_tagged_entries_set_html(self, request, tag, *args, **kwargs):
+        """
+        JSON endpoint for getting a set of (pre-rendered) category entries
+        """
+        self.extract_category_information(tag)
+        return self.generate_entries_set_html(request, *args, **kwargs)
+
+    @route(r'^category/(?P<category>.+)/')
+    def entries_by_category(self, request, category, *args, **kwargs):
+        """
+        If this page was called with `/category/...` as suffix, extract
+        the category to filter prior to rendering this page. Only one
+        category can be specified (unlike tags)
+        """
+        self.extract_category_information(category)
         return IndexPage.serve(self, request, *args, **kwargs)
 
 
@@ -655,7 +736,20 @@ class NewsPage(PrimaryPage):
 
 @register_snippet
 class BlogPageCategory(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(
+        max_length=50
+    )
+
+    intro = RichTextField(
+        features=[
+            'bold', 'italic', 'link',
+        ],
+        blank=True,
+    )
+
+    @property
+    def slug(self):
+        return slugify(self.name)
 
     def __str__(self):
         return self.name
