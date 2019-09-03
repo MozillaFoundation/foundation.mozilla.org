@@ -556,8 +556,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         type = self.filtered.get('type')
         context['filtered'] = type
 
-        print('filtering:', self.filtered)
-
         if type == 'tags':
             entries = self.filter_entries_for_tag(entries, context)
 
@@ -704,7 +702,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
     # helper function for /category/... subroutes
     def extract_category_information(self, category):
-        print('binding filter:', category)
         self.filtered = {
             'type': 'category',
             'category': category
