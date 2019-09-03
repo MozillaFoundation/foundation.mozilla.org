@@ -612,6 +612,9 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
             # make sure we bypass "x results for Y"
             context['no_filter_ui'] = True
 
+            # and that we don't show the primary tag/category
+            context['hide_classifiers'] = True
+
             # explicitly set the index page title and intro
             context['index_title'] = f'{cat.name} {self.title}'.title()
             context['index_intro'] = cat.intro
