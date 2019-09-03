@@ -708,7 +708,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         }
 
     @route(r'^category/(?P<category>.+)/entries/')
-    def generate_tagged_entries_set_html(self, request, tag, *args, **kwargs):
+    def generate_category_entries_set_html(self, request, tag, *args, **kwargs):
         """
         JSON endpoint for getting a set of (pre-rendered) category entries
         """
