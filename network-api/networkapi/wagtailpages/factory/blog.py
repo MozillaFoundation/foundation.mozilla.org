@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import shuffle
+from random import shuffle, randint
 from django.conf import settings
 from wagtail_factories import PageFactory
 from factory import (
@@ -8,7 +8,7 @@ from factory import (
 )
 from wagtail.core.models import Page as WagtailPage
 
-from networkapi.wagtailpages.models import BlogPage
+from networkapi.wagtailpages.models import BlogPage, BlogPageCategory
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
@@ -31,6 +31,15 @@ def add_tags(post):
 
     for tag in tags[0:3]:
         post.tags.add(tag)
+
+    post.save()
+
+
+def add_category(post):
+    categories = BlogPageCategory.objects.all()
+
+    for category in categories.order_by('?')[:randint(0, len(categories))]:
+        post.category.add(category)
 
     post.save()
 
@@ -81,6 +90,7 @@ def generate(seed):
         post = BlogPageFactory.create(parent=blog_namespace, title=title)
 
     add_tags(post)
+    add_category(post)
 
     for i in range(6):
         title = Faker('sentence', nb_words=6, variable_nb_words=False)
@@ -92,3 +102,4 @@ def generate(seed):
             post = BlogPageFactory.create(parent=blog_namespace, title=title)
 
         add_tags(post)
+        add_category(post)
