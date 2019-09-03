@@ -256,7 +256,7 @@ export default class JoinUs extends React.Component {
         </div>
         {this.state.userTriedSubmitting &&
           (this.email.value == "" || this.email.value == null) && (
-            <p className="body-small form-check form-control-feedback has-danger">
+            <p className="body-small form-check form-control-feedback">
               This is a required section.
             </p>
           )}
@@ -264,12 +264,12 @@ export default class JoinUs extends React.Component {
           !this.state.apiSubmitted &&
           !this.validatesAsEmail(this.email.value) &&
           (!this.email.value == "" || !this.email.value == null) && (
-            <p className="body-small form-check form-control-feedback has-danger">
+            <p className="body-small form-check form-control-feedback">
               Please enter a valid email address.
             </p>
           )}
         {this.state.signupFailed && (
-          <small className="form-check form-control-feedback has-danger">
+          <small className="form-check form-control-feedback">
             Something went wrong. Please check your email address and try again
           </small>
         )}
