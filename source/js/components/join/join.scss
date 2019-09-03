@@ -49,15 +49,14 @@
       color: $red;
     }
 
-    .has-danger .form-control{  
+    .has-danger .form-control {
       border-color: $red;
     }
-    
 
     .form-error-glyph {
       @media (min-width: $bp-md) {
         margin-left: 0;
-      }    
+      }
     }
 
     .form-error-glyph:nth-child(2) {
