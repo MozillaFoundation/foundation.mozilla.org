@@ -629,7 +629,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
             ]
 
         return entries
-    
+
     """
     Sub routes
     """
