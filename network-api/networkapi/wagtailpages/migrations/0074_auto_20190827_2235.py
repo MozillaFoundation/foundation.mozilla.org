@@ -53,4 +53,3 @@ class Migration(migrations.Migration):
             field=models.CharField(blank=True, editable=False, help_text='label for the second checkbox option (may contain HTML)', max_length=1024),
         ),
     ]
-    
