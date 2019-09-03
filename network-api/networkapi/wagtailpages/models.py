@@ -708,11 +708,11 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         }
 
     @route(r'^category/(?P<category>.+)/entries/')
-    def generate_category_entries_set_html(self, request, tag, *args, **kwargs):
+    def generate_category_entries_set_html(self, request, category, *args, **kwargs):
         """
         JSON endpoint for getting a set of (pre-rendered) category entries
         """
-        self.extract_category_information(tag)
+        self.extract_category_information(category)
         return self.generate_entries_set_html(request, *args, **kwargs)
 
     @route(r'^category/(?P<category>.+)/')
