@@ -10,7 +10,11 @@
         <h1 class="h1-heading mb-0 mt-1 pt-2">
           {% if index_title %}{{ index_title }}{% elif root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
         </h1>
-        <p class="body-large mt-3 mb-0">{% if index_intro %}{{ index_intro|safe }}{% else %}{{ page.intro|safe }}{% endif %}</p>
+        {% if index_intro %}
+        <div class="body-large mt-3 mb-0">{{ index_intro|safe }}</div>
+        {% else %}
+        <p class="body-large mt-3 mb-0">{{ page.intro|safe }}</p>
+        {% endif %}
       </div>
     </div>
 
