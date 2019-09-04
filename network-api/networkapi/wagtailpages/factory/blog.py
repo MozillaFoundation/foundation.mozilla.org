@@ -37,9 +37,7 @@ def add_tags(post):
 
 def add_category(post):
     categories = BlogPageCategory.objects.all()
-
-        post.category.add(choice(categories))
-
+    post.category.add(choice(categories))
     post.save()
 
 
