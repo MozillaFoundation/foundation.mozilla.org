@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import shuffle, randint
+from random import shuffle, choice
 from django.conf import settings
 from wagtail_factories import PageFactory
 from factory import (
