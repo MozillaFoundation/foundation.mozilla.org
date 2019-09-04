@@ -39,7 +39,7 @@ def add_category(post):
     categories = BlogPageCategory.objects.all()
 
     for category in categories.order_by('?')[:randint(0, len(categories))]:
-        post.category.add(category)
+        post.category.add(choice(categories))
 
     post.save()
 
