@@ -656,17 +656,23 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         entries = self.get_entries()
         has_next = end < len(entries)
 
+        hide_classifiers = False
+        if hasattr(self, 'filtered'):
+            if self.filtered.get('type') == 'category':
+                hide_classifiers = True
+
         html = loader.render_to_string(
             'wagtailpages/fragments/entry_cards.html',
             context={
-                'entries': entries[start:end]
+                'entries': entries[start:end],
+                'hide_classifiers': hide_classifiers
             },
             request=request
         )
 
         return JsonResponse({
             'entries_html': html,
-            'has_next': has_next
+            'has_next': has_next,
         })
 
     """
