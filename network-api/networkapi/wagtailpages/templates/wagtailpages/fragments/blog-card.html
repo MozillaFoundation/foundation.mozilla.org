@@ -13,9 +13,9 @@ each blog page's dominant tag)
 
 {% block tags %}
   {% if filtered %}
-    <ul class="tag-list mt-3">
+    <ul class="list-unstyled mt-3 mb-0">
     {% for tag in page.specific.tags.all %}
-      <li class="tag">
+      <li class="tag d-inline-block text-capitalize">
         <a href="{% routablepageurl root.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
       </li>
     {% endfor %}
