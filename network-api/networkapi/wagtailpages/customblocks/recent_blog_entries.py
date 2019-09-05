@@ -1,4 +1,7 @@
+import json
+
 from wagtail.core import blocks
+from networkapi.wagtailpages.models import IndexPage
 
 
 class PulseProjectQueryValue(blocks.StructValue):
@@ -16,14 +19,24 @@ class PulseProjectQueryValue(blocks.StructValue):
 
 
 class RecentBlogEntries(blocks.StructBlock):
+    blogpage = IndexPage.objects.get(title="blog")
+
     title = blocks.CharBlock(
         required=True,
     )
 
+    # Finds out which filter is in-use. If both are chosen, category is prioritized
+    def tag_or_category(self):
+        selection = self.tag_filter or self.category_filter
+        if self.tag_filter and self.category_filter:
+            selection = self.category_filter
+            print("You've selected a category")
+        return selection
+
     tag_filter = blocks.CharBlock(
         label='Filter by Tag',
         required=False,
-        validator = tag_or_category
+        validator=tag_or_category
     )
 
     category_filter = blocks.ChoiceBlock(
@@ -37,7 +50,7 @@ class RecentBlogEntries(blocks.StructBlock):
             ('Fellowships & Awards', 'Fellowships & Awards'),
             ('Advocacy', 'Advocacy'),
         ],
-        validator = tag_or_category,
+        validator=tag_or_category,
     )
 
     direct_link = blocks.BooleanBlock(
@@ -56,6 +69,25 @@ class RecentBlogEntries(blocks.StructBlock):
         help_text='Optional divider below content block.',
     )
 
+    def renderHTML(selection, self, value):
+        context = {}
+
+        # If tag_filter is chosen we want to load json response of entries by tag
+        if selection is self.tag_filter:
+            tag = value.get("tag_filter")
+            response = f'./tags/{tag}/entries/?page=0&page_size=6'
+
+        # If category_filter is chosen we want to load json response of entries by category
+        if selection is self.category_filter:
+            category = value.get("category_filter")
+            response = f'./categories/{category}/entries/?page=0&page_size=6'
+
+        # Load final json response to be used in template
+        html = json.loads(response).get('html')
+        context['htmlblock'] = html
+        return context
+
+    # Add optional dividers
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         divider_styles = []
