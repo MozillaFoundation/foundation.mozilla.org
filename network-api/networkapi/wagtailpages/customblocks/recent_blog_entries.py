@@ -21,9 +21,23 @@ class RecentBlogEntries(blocks.StructBlock):
     )
 
     tag_filter = blocks.CharBlock(
-        help_text='Test your search at mozillapulse.org/tags',
         label='Filter by Tag',
         required=False,
+        validator = tag_or_category
+    )
+
+    category_filter = blocks.ChoiceBlock(
+        label='Filter by Category',
+        required=False,
+        choices=[
+            ('all', 'All'),
+            ('Mozilla Festival', 'Mozilla Festival'),
+            ('Open Leadership & Events', 'Open Leadership & Events'),
+            ('Internet Health', 'Internet Health'),
+            ('Fellowships & Awards', 'Fellowships & Awards'),
+            ('Advocacy', 'Advocacy'),
+        ],
+        validator = tag_or_category,
     )
 
     direct_link = blocks.BooleanBlock(
