@@ -203,15 +203,7 @@ def docker_test_node(ctx):
     ctx.run("docker-compose run --rm watch-static-files npm run test", **PLATFORM_ARG)
 
 
-@task
-def docker_switching_branch(ctx):
-    """Get a new database with fake data and rebuild images"""
-    print("Stopping services first")
-    ctx.run("docker-compose down")
-    print("Deleting database")
-    ctx.run("docker volume rm foundationmozillaorg_postgres_data")
-    print("Rebuilding images and install dependencies")
-    ctx.run("docker-compose build")
+def docker_shared_database_operations(ctx):
     print("Applying database migrations.")
     docker_migrate(ctx)
     print("Creating fake data")
@@ -221,24 +213,33 @@ def docker_switching_branch(ctx):
     docker_l10n_update(ctx)
     print("Updating block information")
     docker_manage(ctx, "block_inventory")
+
+
+def docker_stop_and_delete_db(ctx):
+    print("Stopping services first")
+    ctx.run("docker-compose down")
+    print("Deleting database")
+    try:
+        ctx.run("docker volume rm foundationmozillaorg_postgres_data")
+    except:
+        pass
+
+
+@task
+def docker_switching_branch(ctx):
+    """Get a new database with fake data and rebuild images"""
+    docker_stop_and_delete_db(ctx)
+    print("Rebuilding images and install dependencies")
+    ctx.run("docker-compose build")
+    docker_shared_database_operations(ctx)
 
 
 @task
 def docker_new_db(ctx):
     """Delete your database and create a new one with fake data"""
-    print("Stopping services first")
-    ctx.run("docker-compose down")
-    print("Deleting database")
-    ctx.run("docker volume rm foundationmozillaorg_postgres_data")
-    print("Applying database migrations.")
-    docker_migrate(ctx)
-    print("Creating fake data")
-    docker_manage(ctx, "load_fake_data")
-    print("Updating localizable fields")
-    docker_l10n_sync(ctx)
-    docker_l10n_update(ctx)
-    print("Updating block information")
-    docker_manage(ctx, "block_inventory")
+    docker_stop_and_delete_db(ctx)
+    docker_shared_database_operations(ctx)
+
 
 
 @task(aliases=["docker-catchup"])
