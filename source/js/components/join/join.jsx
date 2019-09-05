@@ -82,10 +82,21 @@ export default class JoinUs extends React.Component {
    * @returns {boolean} true if the input is a legal-enough email address, else false
    */
   validatesAsEmail(input) {
-    if (!input) {
-      return false;
+    if (input == "" || input == null) {
+      return {
+        errorMessage: `This is a required section.`
+      };
     }
-    return input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
+
+    let valid = input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
+
+    if (!valid) {
+      return {
+        errorMessage: `Please enter a valid email address.`
+      };
+    }
+
+    return valid;
   }
 
   /**
@@ -224,15 +235,15 @@ export default class JoinUs extends React.Component {
    * Render the email field in signup CTA.
    */
   renderEmailField() {
-    let wrapperClasses = classNames(``, {
+    let wrapperClasses = classNames({
       "has-danger":
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
-          !this.validatesAsEmail(this.email.value)) ||
+          this.validatesAsEmail(this.email.value).errorMessage) ||
         this.state.signupFailed
     });
 
-    let classes = classNames(``, {
+    let classes = classNames({
       "position-relative": wrapperClasses != ``
     });
 
@@ -241,31 +252,22 @@ export default class JoinUs extends React.Component {
         <div className={classes}>
           <input
             type="email"
-            className="form-control align-items"
+            className="form-control"
             placeholder="Enter email address"
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
           {this.state.userTriedSubmitting &&
-            !this.state.apiSubmitted &&
-            !this.validatesAsEmail(this.email.value) && (
+            this.validatesAsEmail(this.email.value).errorMessage && (
               <div className="glyph-container">
                 <span className="form-error-glyph" />
               </div>
             )}
         </div>
         {this.state.userTriedSubmitting &&
-          (this.email.value == "" || this.email.value == null) && (
+          this.validatesAsEmail(this.email.value).errorMessage && (
             <p className="body-small form-check form-control-feedback">
-              This is a required section.
-            </p>
-          )}
-        {this.state.userTriedSubmitting &&
-          !this.state.apiSubmitted &&
-          !this.validatesAsEmail(this.email.value) &&
-          (!this.email.value == "" || !this.email.value == null) && (
-            <p className="body-small form-check form-control-feedback">
-              Please enter a valid email address.
+              {this.validatesAsEmail(this.email.value).errorMessage}
             </p>
           )}
         {this.state.signupFailed && (
@@ -322,33 +324,31 @@ export default class JoinUs extends React.Component {
           <div className="mb-0 form-check d-flex align-items-start">
             <input
               type="checkbox"
-              className="form-check-input ml-0"
+              className="form-check-input ml-0 mt-0"
               id="PrivacyCheckbox"
               ref={el => (this.privacy = el)}
               required
             />
-            <label className="form-check-label">
-              <p className="d-inline-block body-small my-0">
+            <label className="form-check-label d-flex align-items-start">
+              <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-0">
                 I'm okay with Mozilla handling my info as explained in this{" "}
                 <a href="https://www.mozilla.org/privacy/websites/">
                   Privacy Notice
                 </a>
               </p>
+              {this.state.userTriedSubmitting &&
+                !this.state.apiSubmitted &&
+                !this.privacy.checked && (
+                  <span class="form-error-glyph d-flex ml-md-0" />
+                )}
             </label>
           </div>
-          {this.state.userTriedSubmitting &&
-            !this.state.apiSubmitted &&
-            !this.privacy.checked && (
-              <span class="form-error-glyph d-flex mt-1 mt-lg-0" />
-            )}
         </div>
-        {this.state.userTriedSubmitting &&
-          !this.state.apiSubmitted &&
-          !this.privacy.checked && (
-            <p className="body-small form-check form-control-feedback mt-0 mb-3">
-              Please check this box if you want to proceed.
-            </p>
-          )}
+        {this.state.userTriedSubmitting && !this.privacy.checked && (
+          <p className="body-small form-check form-control-feedback mt-0 mb-3">
+            Please check this box if you want to proceed.
+          </p>
+        )}
       </div>
     );
   }

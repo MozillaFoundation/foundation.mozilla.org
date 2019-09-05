@@ -20,16 +20,7 @@
 
     .form-error-glyph:nth-child(2) {
       @media (min-width: $bp-sm) {
-        position: absolute;
-        right: 4px;
-        top: 6px;
-      }
-      @media (min-width: $bp-md) {
-        right: 250px;
-        top: 2px;
-      }
-      @media (min-width: $bp-lg) {
-        right: -8px;
+        margin-left: 30px;
       }
     }
   }
@@ -59,20 +50,20 @@
       }
     }
 
-    .form-error-glyph:nth-child(2) {
-      @media (min-width: $bp-md) {
-        position: absolute;
-        right: -30px;
-        top: 6px;
-      }
-      @media (min-width: $bp-lg) {
-        right: -10px;
-        top: 2px;
-      }
-      @media (min-width: $bp-xl) {
-        right: -2px;
-        top: 6px;
-      }
-    }
+    // .form-error-glyph:nth-child(2) {
+    //   @media (min-width: $bp-md) {
+    //     position: absolute;
+    //     right: -30px;
+    //     top: 6px;
+    //   }
+    //   @media (min-width: $bp-lg) {
+    //     right: -10px;
+    //     top: 2px;
+    //   }
+    //   @media (min-width: $bp-xl) {
+    //     right: -2px;
+    //     top: 6px;
+    //   }
+    // }
   }
 }
