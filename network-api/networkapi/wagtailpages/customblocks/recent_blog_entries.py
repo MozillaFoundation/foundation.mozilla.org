@@ -26,6 +26,16 @@ class RecentBlogEntries(blocks.StructBlock):
         ]
     )
 
+    top_divider = blocks.BooleanBlock(
+        required=False,
+        help_text='Optional divider above content block.',
+    )
+
+    bottom_divider = blocks.BooleanBlock(
+        required=False,
+        help_text='Optional divider below content block.',
+    )
+
     # TODO: add in validation so that if there are no tags or category
     #       filled in we don't allow the page to be saved, with a wagtail
     #       error indication what's wrong.
@@ -56,6 +66,14 @@ class RecentBlogEntries(blocks.StructBlock):
         # transclusion in arbitrary pages, so don't try to figure out the
         # page hierarachy.
         context['root'] = None
+
+        # Optional dividers
+        divider_styles = []
+        if value.get("top_divider"):
+            divider_styles.append('div-top-thick pt-4')
+        if value.get("bottom_divider"):
+            divider_styles.append('div-bottom-thick pb-4')
+        context['divider_styles'] = ' '.join(divider_styles)
 
         return context
 
