@@ -1,15 +1,6 @@
 import json
 import re
 
-
-# See https://docs.python.org/3.7/library/stdtypes.html#str.title
-# for why this definition exists (basically: apostrophes)
-def titlecase(s):
-     return re.sub(r"[A-Za-z]+('[A-Za-z]+)?",
-                   lambda mo: mo.group(0)[0].upper() +
-                              mo.group(0)[1:].lower(),
-                   s)
-
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
@@ -42,6 +33,18 @@ from .utils import (
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from .donation_modal import DonationModals  # noqa: F401
+
+
+# See https://docs.python.org/3.7/library/stdtypes.html#str.title
+# for why this definition exists (basically: apostrophes)
+def titlecase(s):
+    return re.sub(
+        r"[A-Za-z]+('[A-Za-z]+)?",
+        lambda mo: mo.group(0)[0].upper() +
+        mo.group(0)[1:].lower(),
+        s
+    )
+
 
 """
 We'll need to figure out which components are truly "base" and
@@ -573,7 +576,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
         context['total_entries'] = len(entries)
         return entries
-    
+
     def filter_entries_for_tag(self, entries, context):
         """
         Realise the 'entries' queryset and filter it for tags presences.
@@ -616,7 +619,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
             # so we have to run through all categories =(
             if bpc.slug == slug:
                 cat = bpc
-        
+
         if cat is not None:
             # make sure we bypass "x results for Y"
             context['no_filter_ui'] = True
@@ -714,7 +717,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         self.extract_tag_information(tag)
         return IndexPage.serve(self, request, *args, **kwargs)
-    
+
     """
     category routes
     """
