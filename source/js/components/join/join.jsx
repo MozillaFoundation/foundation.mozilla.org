@@ -244,7 +244,7 @@ export default class JoinUs extends React.Component {
     });
 
     let classes = classNames({
-      "position-relative": wrapperClasses != ``
+      "position-relative": wrapperClasses !== ``
     });
 
     return (
