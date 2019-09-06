@@ -587,24 +587,31 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         specific model before we can test for whether i) there are tags
         to work with and then ii) those tags match the specified ones.
         """
-        terms = self.filtered.get('terms')
+        type = self.filtered.get('type')
+        context['filtered'] = type
 
-        # "unsluggify" all terms:
-        context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
+        if type == 'tags':
+            terms = self.filtered.get('terms')
 
-        entries = [
-            entry
-            for
-            entry in entries.specific()
-            if
-            hasattr(entry, 'tags')
-            and not
-            # Determine whether there is any overlap between 'all tags' and
-            # the tags specified. This effects ANY matching (rather than ALL).
-            set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
-        ]
+            # "unsluggify" all terms:
+            context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
+
+            entries = [
+                entry
+                for
+                entry in entries.specific()
+                if
+                hasattr(entry, 'tags')
+                and not
+                # Determine whether there is any overlap between 'all tags' and
+                # the tags specified. This effects ANY matching (rather than ALL).
+                set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
+            ]
+
+        context['total_entries'] = len(entries)
 
         return entries
+
 
     def filter_entries_for_category(self, entries, context):
         """
