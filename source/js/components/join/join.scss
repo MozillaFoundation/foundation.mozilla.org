@@ -2,25 +2,36 @@
   background: inherit;
 
   .has-danger {
+    $glyph-container: (
+      "margin-x": 10px,
+      "height": 20px,
+      "width": 13px
+    );
+
     color: $dark-red;
 
     .form-control {
       border: 2px solid $dark-red;
+      padding-right: map-get($glyph-container, "margin-x") *2 + map-get($glyph-container, "width");
     }
 
     .glyph-container {
       position: absolute;
       top: 0;
       bottom: 0;
-      right: 10px;
-      height: 13px;
-      width: 13px;
+      right: map-get($glyph-container, "margin-x");
+      height: map-get($glyph-container, "height");
+      width: map-get($glyph-container, "width");
       margin: auto;
     }
 
-    .form-error-glyph:nth-child(2) {
+    .privacy-error {
       @media (min-width: $bp-sm) {
         margin-left: 30px;
+      }
+
+      @media (min-width: $bp-md) {
+        margin-left: 0;
       }
     }
   }
@@ -36,34 +47,12 @@
   }
 
   @at-root .dark-theme & {
-    .body-small.form-control-feedback {
+    .form-control-feedback {
       color: $red;
     }
 
     .has-danger .form-control {
       border-color: $red;
     }
-
-    .form-error-glyph {
-      @media (min-width: $bp-md) {
-        margin-left: 0;
-      }
-    }
-
-    // .form-error-glyph:nth-child(2) {
-    //   @media (min-width: $bp-md) {
-    //     position: absolute;
-    //     right: -30px;
-    //     top: 6px;
-    //   }
-    //   @media (min-width: $bp-lg) {
-    //     right: -10px;
-    //     top: 2px;
-    //   }
-    //   @media (min-width: $bp-xl) {
-    //     right: -2px;
-    //     top: 6px;
-    //   }
-    // }
   }
 }

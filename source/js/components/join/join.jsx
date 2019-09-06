@@ -82,7 +82,7 @@ export default class JoinUs extends React.Component {
    * @returns {boolean} true if the input is a legal-enough email address, else false
    */
   validatesAsEmail(input) {
-    if (input == "" || input == null) {
+    if (!input) {
       return {
         errorMessage: `This is a required section.`
       };
@@ -330,7 +330,7 @@ export default class JoinUs extends React.Component {
               required
             />
             <label className="form-check-label d-flex align-items-start">
-              <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-0">
+              <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-1">
                 I'm okay with Mozilla handling my info as explained in this{" "}
                 <a href="https://www.mozilla.org/privacy/websites/">
                   Privacy Notice
@@ -339,7 +339,7 @@ export default class JoinUs extends React.Component {
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
                 !this.privacy.checked && (
-                  <span class="form-error-glyph d-flex ml-md-0" />
+                  <span class="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
           </div>
