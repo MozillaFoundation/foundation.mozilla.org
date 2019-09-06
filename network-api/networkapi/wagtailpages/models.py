@@ -1,6 +1,15 @@
 import json
 import re
 
+
+# See https://docs.python.org/3.7/library/stdtypes.html#str.title
+# for why this definition exists (basically: apostrophes)
+def titlecase(s):
+     return re.sub(r"[A-Za-z]+('[A-Za-z]+)?",
+                   lambda mo: mo.group(0)[0].upper() +
+                              mo.group(0)[1:].lower(),
+                   s)
+
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
@@ -616,7 +625,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
             context['hide_classifiers'] = True
 
             # explicitly set the index page title and intro
-            context['index_title'] = f'{cat.name} {self.title}'.title()
+            context['index_title'] = titlecase(f'{cat.name} {self.title}')
             context['index_intro'] = cat.intro
 
             # and then the filtered content
