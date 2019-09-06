@@ -12,7 +12,8 @@
 
     .form-control {
       border: 2px solid $dark-red;
-      padding-right: map-get($glyph-container, "margin-x") *2 + map-get($glyph-container, "width");
+      padding-right: map-get($glyph-container, "margin-x") * 2 +
+        map-get($glyph-container, "width");
     }
 
     .glyph-container {
