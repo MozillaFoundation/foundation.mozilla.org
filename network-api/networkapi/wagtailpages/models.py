@@ -562,13 +562,13 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         return entries
 
     def filter_entries(self, entries, context):
-        type = self.filtered.get('type')
-        context['filtered'] = type
+        filter_type = self.filtered.get('type')
+        context['filtered'] = filter_type
 
-        if type == 'tags':
+        if filter_type == 'tags':
             entries = self.filter_entries_for_tag(entries, context)
 
-        if type == 'category':
+        if filter_type == 'category':
             entries = self.filter_entries_for_category(entries, context)
 
         context['total_entries'] = len(entries)
@@ -625,6 +625,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
             context['hide_classifiers'] = True
 
             # explicitly set the index page title and intro
+            print('titlecase')
             context['index_title'] = titlecase(f'{cat.name} {self.title}')
             context['index_intro'] = cat.intro
 
