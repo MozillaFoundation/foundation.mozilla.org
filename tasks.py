@@ -203,6 +203,12 @@ def docker_test_node(ctx):
     ctx.run("docker-compose run --rm watch-static-files npm run test", **PLATFORM_ARG)
 
 
+@task
+def docker_test(ctx):
+    docker_test_python(ctx)
+    docker_test_node(ctx)
+
+
 def docker_shared_database_operations(ctx):
     print("Applying database migrations.")
     docker_migrate(ctx)
@@ -221,7 +227,7 @@ def docker_stop_and_delete_db(ctx):
     print("Deleting database")
     try:
         ctx.run("docker volume rm foundationmozillaorg_postgres_data")
-    except:
+    except:  # noqa: E722 
         pass
 
 
@@ -239,7 +245,6 @@ def docker_new_db(ctx):
     """Delete your database and create a new one with fake data"""
     docker_stop_and_delete_db(ctx)
     docker_shared_database_operations(ctx)
-
 
 
 @task(aliases=["docker-catchup"])
