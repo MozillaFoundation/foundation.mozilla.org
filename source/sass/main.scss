@@ -75,3 +75,15 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 hr {
   border-color: $gray-20;
 }
+
+#site-language-picker {
+  background: transparent;
+  background-image: none;
+  border-radius: 0;
+  border: 1px solid $white;
+  color: $white;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  // height: 36px;
+  padding: 5px 20px;
+}

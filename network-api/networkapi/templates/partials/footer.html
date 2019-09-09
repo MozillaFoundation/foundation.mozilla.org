@@ -1,3 +1,5 @@
+{% load settings_value i18n %}
+
 {% with wrapper_class="py-5" %}
 
 {% block footer_donate %}
@@ -53,6 +55,26 @@
               <li class="mb-2"><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">Cookies</a></li>
               {% endblock %}
             </ul>
+          </div>
+        </div>
+        <div class="row mt-4 mb-4 mb-md-0">
+          <div class="col-12">
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+              <input name="next" type="hidden" value="{{ request.path }}">
+              <fieldset class="d-flex flex-column flex-md-row align-items-md-center mb-4 mb-md-0">
+                <label class="h5-heading mb-0" for="site-language-picker">Language:</label>
+                <select name="language" id="site-language-picker" class="mt-2 åw-100" onchange="this.form.submit()">
+                  {% get_current_language as LANGUAGE_CODE %}
+                  {% get_available_languages as LANGUAGES %}
+                  {% get_language_info_list for LANGUAGES as languages %}
+                  {% for language in languages %}
+                  <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local | capfirst }} ({{ language.code }})
+                  </option>
+                {% endfor %}
+                </select>
+              </fieldset>
+            </form>
           </div>
         </div>
         <div class="row">

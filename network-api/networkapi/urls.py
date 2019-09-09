@@ -55,6 +55,11 @@ urlpatterns += i18n_patterns(
     url(r'', include(wagtail_urls)),
 )
 
+urlpatterns += list([
+    # set up set language redirect view
+    url('i18n/', include('django.conf.urls.i18n')),
+])
+
 if settings.USE_S3 is not True:
     urlpatterns += static(
         settings.MEDIA_URL,
