@@ -1,6 +1,8 @@
 from django.apps import apps
 from wagtail.core import blocks
 
+from django.template.defaultfilters import slugify
+
 
 class RecentBlogEntries(blocks.StructBlock):
     title = blocks.CharBlock(
@@ -44,20 +46,21 @@ class RecentBlogEntries(blocks.StructBlock):
         IndexPage = apps.get_model('wagtailpages.IndexPage')
         blogpage = IndexPage.objects.get(title="blog")
 
-        tag = value.get("tag_filter")
-        category = value.get("category_filter")
-        entry_filter = {"type": "", "query": ""}
-        type = entry_filter["type"]
-        query = entry_filter["query"]
+        tag = value.get("tag_filter", False)
+        category = value.get("category_filter", False)
 
+        # default filter and query
+        type = "tags"
+        query = "mozilla"
         entries = []
 
         # If tag_filter is chosen we want to load entries by tag and update the url(L76) accordingly
-        if tag:
+        if tag and not category:
+            tag = slugify(tag)
+            type = "tags"
+            query = tag
             blogpage.extract_tag_information(tag)
             entries = blogpage.get_entries(context)
-            type = "tags"
-            query = tag.lower().replace(f" ", f"-")
 
         '''
         If category_filter OR category_filter & tag_filter are chosen
@@ -66,14 +69,15 @@ class RecentBlogEntries(blocks.StructBlock):
         of category and instead notify the user they the must/can only choose one
         filter option.
         '''
-        if category or (tag and category):
+        if category:
+            category = slugify(category)
+            type = "category"
+            query = category
             blogpage.extract_category_information(category)
             entries = blogpage.get_entries(context)
-            type = "category"
-            query = category.lower().replace(f" ", f"-").replace(f"&", f"and")
 
         # This will update the href for the 'More from our blog' button
-        url = f"/blog/{type}/{query}"
+        url = f"/{blogpage.slug}/{type}/{query}"
         context['more_entries'] = url
 
         # We only want to grab no more than the first 6 entries
