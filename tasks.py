@@ -203,12 +203,6 @@ def docker_test_node(ctx):
     ctx.run("docker-compose run --rm watch-static-files npm run test", **PLATFORM_ARG)
 
 
-@task
-def docker_test(ctx):
-    docker_test_python(ctx)
-    docker_test_node(ctx)
-
-
 def docker_shared_database_operations(ctx):
     print("Applying database migrations.")
     docker_migrate(ctx)
