@@ -30,6 +30,13 @@
     }
   }
 
+  &.medium {
+    &::before {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   &.heart-glyph {
     &::before {
       width: 19px;
@@ -89,5 +96,21 @@
   .github-glyph {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
+  }
+
+  .globe-glyph {
+    @include compositeGlyph("globe-dark-theme");
+
+    &::before {
+      margin-right: 10px;
+    }
+  }
+
+  .down-chevron-glyph {
+    @include compositeGlyph("globe-dark-theme");
+
+    &::before {
+      margin-right: 10px;
+    }
   }
 }

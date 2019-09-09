@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Iconography / Small / Stroke / Website / White</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Iconography-/-Small-/-Stroke-/-Website-/-White" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#FFFFFF" stroke-width="2" cx="12" cy="12" r="11"></circle>
+        <ellipse id="Oval" stroke="#FFFFFF" stroke-width="2" cx="12" cy="12" rx="6" ry="11"></ellipse>
+        <path d="M1,12 L23,12" id="Line-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M1,12 L23,12" id="Line-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(12.000000, 12.000000) scale(-1, -1) rotate(-90.000000) translate(-12.000000, -12.000000) "></path>
+    </g>
+</svg>
