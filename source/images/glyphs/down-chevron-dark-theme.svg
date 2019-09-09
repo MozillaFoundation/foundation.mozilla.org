@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
-    <title>Iconography / Small / Stroke / Down Chevron / White</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Iconography-/-Small-/-Stroke-/-Down-Chevron-/-White" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="Iconography-/-Small-/-Down-Chevron" transform="translate(4.000000, 8.000000)" stroke="#FFFFFF" stroke-width="2">
-            <polyline id="Shape" points="1.7781332e-12 -9.37916411e-13 8.05007181 8.05007181 16.1001436 -9.37916411e-13"></polyline>
-        </g>
-    </g>
-</svg>
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M4 8l8.05 8.05L20.1 8" stroke="#FFF" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/></svg>
