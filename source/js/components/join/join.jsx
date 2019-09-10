@@ -84,6 +84,7 @@ export default class JoinUs extends React.Component {
   validatesAsEmail(input) {
     if (!input) {
       return {
+        valid: false,
         errorMessage: `This is a required section.`
       };
     }
@@ -92,11 +93,14 @@ export default class JoinUs extends React.Component {
 
     if (!valid) {
       return {
+        valid: false,
         errorMessage: `Please enter a valid email address.`
       };
     }
 
-    return valid;
+    return {
+      valid: true
+    };
   }
 
   /**
@@ -157,7 +161,7 @@ export default class JoinUs extends React.Component {
     let email = this.email.value;
     let consent = this.privacy.checked;
 
-    if (email && this.validatesAsEmail(email) && consent) {
+    if (email && this.validatesAsEmail(email).valid && consent) {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
@@ -235,11 +239,19 @@ export default class JoinUs extends React.Component {
    * Render the email field in signup CTA.
    */
   renderEmailField() {
+    // During the first render, we bind the email field to this.email
+    // using ref={el => (this.email = el)}
+    // This means this.email is undefined until the second render.
+    // To avoid TypeError we have do the following conditional assignment.
+    let emailValidation = this.email
+      ? this.validatesAsEmail(this.email.value)
+      : false;
+
     let wrapperClasses = classNames({
       "has-danger":
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
-          this.validatesAsEmail(this.email.value).errorMessage) ||
+          !emailValidation.valid) ||
         this.state.signupFailed
     });
 
@@ -257,19 +269,17 @@ export default class JoinUs extends React.Component {
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
-          {this.state.userTriedSubmitting &&
-            this.validatesAsEmail(this.email.value).errorMessage && (
-              <div className="glyph-container">
-                <span className="form-error-glyph" />
-              </div>
-            )}
-        </div>
-        {this.state.userTriedSubmitting &&
-          this.validatesAsEmail(this.email.value).errorMessage && (
-            <p className="body-small form-check form-control-feedback">
-              {this.validatesAsEmail(this.email.value).errorMessage}
-            </p>
+          {this.state.userTriedSubmitting && !emailValidation.valid && (
+            <div className="glyph-container">
+              <span className="form-error-glyph" />
+            </div>
           )}
+        </div>
+        {this.state.userTriedSubmitting && !emailValidation.valid && (
+          <p className="body-small form-check form-control-feedback">
+            {emailValidation.errorMessage}
+          </p>
+        )}
         {this.state.signupFailed && (
           <small className="form-check form-control-feedback">
             Something went wrong. Please check your email address and try again
