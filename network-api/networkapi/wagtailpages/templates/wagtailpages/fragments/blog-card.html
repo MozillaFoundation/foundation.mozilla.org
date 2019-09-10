@@ -13,16 +13,15 @@ each blog page's dominant tag)
 
 {% block tags %}
   {% if filtered and root %}
-    <ul class="tag-list mt-3">
+    <ul class="list-unstyled mt-3 mb-0">
     {% for tag in page.specific.tags.all %}
-      <li class="tag">
+      <li class="d-inline-block text-capitalize">
         <a href="{% routablepageurl root.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
       </li>
     {% endfor %}
     </ul>
   {% else %}
     {# Show the tag's own "main" tag (i.e. first tag in its tag list) as each blog card's visible tag #}
-
       {% with tag=page.specific.tags.first %}
         {% if tag %}
           {% if root %}
