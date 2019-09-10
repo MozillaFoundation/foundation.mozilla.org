@@ -748,6 +748,10 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         FieldPanel('tags'),
     ]
 
+    settings_panels = Page.settings_panels + [
+        FieldPanel('first_published_at'),
+    ]
+
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
