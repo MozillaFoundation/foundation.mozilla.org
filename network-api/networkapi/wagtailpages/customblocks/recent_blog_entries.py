@@ -12,6 +12,7 @@ class RecentBlogEntries(blocks.StructBlock):
     tag_filter = blocks.CharBlock(
         label='Filter by Tag',
         required=False,
+        help_text='Test this filter at foundation.mozilla.org/blog/tags/',
     )
 
     category_filter = blocks.ChoiceBlock(
@@ -24,7 +25,8 @@ class RecentBlogEntries(blocks.StructBlock):
             ('Internet Health', 'Internet Health'),
             ('Fellowships & Awards', 'Fellowships & Awards'),
             ('Advocacy', 'Advocacy'),
-        ]
+        ],
+        help_text='Test this filter at foundation.mozilla.org/blog/category/',
     )
 
     top_divider = blocks.BooleanBlock(
@@ -54,20 +56,18 @@ class RecentBlogEntries(blocks.StructBlock):
         query = "mozilla"
         entries = []
 
-        # If tag_filter is chosen we want to load entries by tag and update the url(L76) accordingly
+        # If only tag_filter is chosen we want to load entries by tag and update the url accordingly
         if tag and not category:
             tag = slugify(tag)
-            type = "tags"
             query = tag
             blogpage.extract_tag_information(tag)
             entries = blogpage.get_entries(context)
 
         '''
-        If category_filter OR category_filter & tag_filter are chosen
-        we want to load entries by category and update the url(L76) accordingly.
-        Once we add validation(L38), we'll be able to remove the prioritization
-        of category and instead notify the user they the must/can only choose one
-        filter option.
+        If category_filter is chosen at all, we want to load entries by category and
+        update the url accordingly. Once we add validation, we'll be able to remove
+        the prioritization of category and instead notify the user that they must/can
+        only choose one filter option.
         '''
         if category:
             category = slugify(category)
@@ -76,12 +76,16 @@ class RecentBlogEntries(blocks.StructBlock):
             blogpage.extract_category_information(category)
             entries = blogpage.get_entries(context)
 
-        # This will update the href for the 'More from our blog' button
+        # Updates the href for the 'More from our blog' button
         url = f"/{blogpage.slug}/{type}/{query}"
-        context['more_entries'] = url
+        context['more_entries_link'] = url
 
         # We only want to grab no more than the first 6 entries
         context['entries'] = entries[0:6]
+
+        # We only want to display the 'More from our blog' button if
+        # there's more than 6 entries
+        context['more_entries'] = len(entries) > 6
 
         # this data does not belong "on a root document" but is pulled for
         # transclusion in arbitrary pages, so don't try to figure out the
