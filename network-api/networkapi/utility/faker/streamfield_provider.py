@@ -88,22 +88,6 @@ def generate_image_text_mini_field():
     })
 
 
-def generate_image_text2_field():
-    image_id = choice(Image.objects.all()).id
-    image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
-    url = fake.url(schemes=['https'])
-    alt_text = ' '.join(fake.words(nb=5))
-    small = fake.boolean()
-
-    return generate_field('image_text2', {
-        'image': image_id,
-        'text': image_text,
-        'url': url,
-        'altText': alt_text,
-        'small': small,
-    })
-
-
 def generate_spacer_field():
     size = randint(1, 5)
 
@@ -169,7 +153,6 @@ class StreamfieldProvider(BaseProvider):
             'paragraph': generate_paragraph_field,
             'image': generate_image_field,
             'spacer': generate_spacer_field,
-            'image_text2': generate_image_text2_field,
             'quote': generate_quote_field,
             'image_text': generate_image_text_field,
             'image_text_mini': generate_image_text_mini_field,
