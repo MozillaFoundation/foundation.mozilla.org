@@ -2,12 +2,45 @@
   background: inherit;
 
   .has-danger {
-    color: $red;
+    $glyph-container: (
+      "margin-x": 10px,
+      "height": 20px,
+      "width": 13px
+    );
+
+    color: $dark-red;
+
+    .form-control {
+      border: 2px solid $dark-red;
+      padding-right: map-get($glyph-container, "margin-x") * 2 +
+        map-get($glyph-container, "width");
+    }
+
+    .glyph-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: map-get($glyph-container, "margin-x");
+      height: map-get($glyph-container, "height");
+      width: map-get($glyph-container, "width");
+      margin: auto;
+    }
+
+    .privacy-error {
+      @media (min-width: $bp-sm) {
+        margin-left: 30px;
+      }
+
+      @media (min-width: $bp-md) {
+        margin-left: 0;
+      }
+    }
   }
 
   .form-control {
     font-family: "Nunito Sans";
     font-weight: 400;
+    color: $black;
   }
 
   .fields-wrapper {
@@ -15,14 +48,12 @@
   }
 
   @at-root .dark-theme & {
-    form {
-      input {
-        border: none;
-      }
+    .form-control-feedback {
+      color: $red;
     }
 
-    .body-small.form-control-feedback {
-      color: $red;
+    .has-danger .form-control {
+      border-color: $red;
     }
   }
 }
