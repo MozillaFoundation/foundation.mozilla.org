@@ -82,6 +82,16 @@ footer.site-footer {
   background: $black;
 
   .link-list {
+    li {
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
     @media (min-width: $bp-lg) {
       column-count: 2;
       li {
