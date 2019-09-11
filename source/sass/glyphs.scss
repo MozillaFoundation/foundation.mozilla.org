@@ -69,7 +69,7 @@
 }
 
 .form-error-glyph {
-  @include compositeGlyph("form-control-error");
+  @include compositeGlyph("form-error");
 }
 
 .dark-theme {
@@ -104,6 +104,6 @@
   }
 
   .form-error-glyph {
-    @include compositeGlyph("form-control-error-dark-theme");
+    @include compositeGlyph("form-error-dark-theme");
   }
 }
