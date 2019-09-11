@@ -55,7 +55,7 @@
             </ul>
           </div>
         </div>
-        <div class="row mt-5 mb-md-0">
+        <div class="row mt-5">
           <div class="col-12">
             <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
               <input name="next" type="hidden" value="{{ request.path }}">
