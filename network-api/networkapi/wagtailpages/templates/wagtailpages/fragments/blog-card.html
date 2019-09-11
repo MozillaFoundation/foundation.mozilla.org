@@ -28,10 +28,10 @@ each blog page's dominant tag)
         {% if category %}
           {% if root %}
             {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-            <a class="main-category d-block mt-3" href="{% routablepageurl root.specific "entries_by_category" category.slug %}">{{ category }}</a>
+            <a class="text-uppercase d-block mt-3" href="{% routablepageurl root.specific "entries_by_category" category.slug %}">{{ category }}</a>
           {% else %}
             {# If we do not have a "root" context variable, this card is being generated outside of an index page, and so needs to use its parent as root #}
-            <a class="main-tag d-block mt-3" href="{% routablepageurl page.get_parent.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>
+            <a class="text-capitalize d-block mt-3" href="{% routablepageurl page.get_parent.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>
           {% endif %}
         {% endif %}
       {% endwith %}
