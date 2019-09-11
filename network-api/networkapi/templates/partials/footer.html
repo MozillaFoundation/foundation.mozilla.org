@@ -23,11 +23,9 @@
     <div class="row">
 
       {% block left_footer_column %}
-      <div class="col-md-5 col-lg-6">
-        <div class="join-us mb-5" data-form-position="footer" data-button-position="side"></div>
-        <div class="my-5 mb-md-0">
-          <a class="logo" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
-        </div>
+      <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
+        <div class="join-us" data-form-position="footer" data-button-position="side"></div>
+        <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
       </div>
       {% endblock %}
 
@@ -57,12 +55,12 @@
             </ul>
           </div>
         </div>
-        <div class="row mt-4 mb-4 mb-md-0">
+        <div class="row mt-5 mb-4 mb-md-0">
           <div class="col-12">
             <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
               <input name="next" type="hidden" value="{{ request.path }}">
               <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center mb-4 mb-md-0">
-                <label class="h5-heading mb-0 d-flex align-items-center globe-glyph medium" for="site-language-picker">Language:</label>
+                <label class="h5-heading mb-0 d-flex align-items-center globe-glyph medium" for="site-language-picker">Language</label>
                 <select name="language" id="site-language-picker" class="mt-3 mt-md-0 ml-md-3 w-100" onchange="this.form.submit()">
                   {% get_current_language as LANGUAGE_CODE %}
                   {% get_available_languages as LANGUAGES %}

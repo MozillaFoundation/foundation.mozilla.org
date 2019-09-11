@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block left_footer_column %}
-  <div class="col-md-5 col-lg-6">
+  <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
     <div
-      class="join-us mb-5"
+      class="join-us"
       data-button-position="side"
       data-csrf-token="{{ csrf_token }}"
       data-signup-id="{{ mozfest_footer.id }}"
@@ -16,9 +16,7 @@
       data-newsletter="{{ mozfest_footer.newsletter }}">
     </div>
 
-    <div class="my-5 mb-md-0">
-      <a class="logo" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
-    </div>
+    <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
   </div>
 {% endblock %}
 
