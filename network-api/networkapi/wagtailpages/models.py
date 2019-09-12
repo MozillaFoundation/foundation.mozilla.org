@@ -74,6 +74,7 @@ base_fields = [field for field in [
     ('profile_listing', customblocks.LatestProfileList()),
     ('profile_by_id', customblocks.ProfileById()),
     ('profile_directory', customblocks.ProfileDirectory()),
+    ('recent_blog_entries', customblocks.RecentBlogEntries()),
     ('airtable', customblocks.AirTableBlock()),
 ] if field is not None]
 

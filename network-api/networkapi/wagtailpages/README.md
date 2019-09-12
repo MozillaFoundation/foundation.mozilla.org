@@ -98,9 +98,13 @@ This is a purely cosmetic block, effecting vertical whitespace as specified in `
 
 This is identical to the `VideoBlock`, but effects a straight-up iframe element, using `wagtailpages/templates/wagtailpages/blocks/iframe_block.html` as its rendering template.
 
-#### 5 .VideoBlock
+#### 5. VideoBlock
 
 This is an embed block that yields an iframe to an online video, with explicit width/heigh dimensions in pixels. It uses `wagtailpages/templates/wagtailpages/blocks/video_block.html` as its rendering template.
+
+#### 6. RecentBlogEntries
+
+This block retrieves the 6 most recent blog posts filtered by either tag or category. It also includes a title and optional top and bottom thick-lined dividers. It uses `wagtailpages/templates/wagtailpages/blocks/recent_blog_entries.html` as its rendering template.
 
 ## Template tags
 
