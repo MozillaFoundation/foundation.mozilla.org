@@ -13,7 +13,7 @@ each blog page's dominant tag)
 
 {% block tags %}
   {% if hide_classifiers != True %}
-    {% if filtered %}
+    {% if filtered and root %}
       <ul class="list-unstyled mt-3 mb-0">
       {% for tag in page.specific.tags.all %}
         <li class="d-inline-block text-capitalize">

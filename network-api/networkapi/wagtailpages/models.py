@@ -22,7 +22,7 @@ from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
 from taggit.models import Tag, TaggedItemBase
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from .utils import (
@@ -73,6 +73,7 @@ base_fields = [field for field in [
     ('profile_listing', customblocks.LatestProfileList()),
     ('profile_by_id', customblocks.ProfileById()),
     ('profile_directory', customblocks.ProfileDirectory()),
+    ('recent_blog_entries', customblocks.RecentBlogEntries()),
     ('airtable', customblocks.AirTableBlock()),
 ] if field is not None]
 
@@ -808,7 +809,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ('quote', customblocks.QuoteBlock()),
     ])
 
-    category = models.ManyToManyField(
+    category = ParentalManyToManyField(
         BlogPageCategory,
         help_text='Which blog categories is this blog page associated with?',
         blank=True,
