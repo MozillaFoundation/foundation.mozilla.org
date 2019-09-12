@@ -16,6 +16,7 @@ from .models import (
     BlogPage,
 
     CTA,
+    CTA4,
     Petition,
     Signup,
 
@@ -128,7 +129,36 @@ class InitiativesPageTR(TranslationOptions):
 
 @register(ParticipatePage2)
 class ParticipatePage2TR(TranslationOptions):
-    fields = ()
+    fields = (
+        'ctaHeroHeader',
+        'ctaHeroSubhead',
+        'ctaCommitment',
+        'ctaButtonTitle',
+        'h2',
+        'h2Subheader',
+        'ctaHero2',
+        'ctaHeroHeader2',
+        'ctaHeroSubhead2',
+        'ctaButtonTitle2',
+        'ctaCommitment2',
+        'ctaHero3',
+        'ctaHeroHeader3',
+        'ctaHeroSubhead3',
+        'ctaCommitment3',
+        'ctaTwitter3',
+        'ctaEmailShareSubject3',
+        'ctaEmailShareBody3',
+    )
+
+
+@register(CTA4)
+class CTA4TR(TranslationOptions):
+    fields = (
+        'header',
+        'subhead',
+        'commitment',
+        'buttonTitle',
+    )
 
 
 @register(Styleguide)
