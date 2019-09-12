@@ -17,6 +17,7 @@ from wagtail.core.fields import StreamField, RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import Image
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from wagtailmetadata.models import MetadataPageMixin
@@ -1151,6 +1152,24 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
+class HomepageFeaturedBlogs(models.Model):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='featured_blogs',
+    )
+    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
+    panels = [
+        PageChooserPanel('blog'),
+    ]
+
+    class Meta:
+        verbose_name = 'blog'
+        verbose_name_plural = 'blogs'
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
+
+
 class InitiativesHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
@@ -1318,7 +1337,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             classname='collapsible'
         ),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
-        InlinePanel('featured_news', label='News', max_num=4),
+        InlinePanel('featured_blogs', label='Blogs', max_num=4),
     ]
 
     subpage_types = [
