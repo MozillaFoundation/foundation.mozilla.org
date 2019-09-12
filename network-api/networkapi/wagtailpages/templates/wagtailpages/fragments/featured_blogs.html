@@ -44,7 +44,7 @@
         <a href="/blog/category/{{category.slug}}" class="text-uppercase">{{ category }}</a>{% if not forloop.last %}, {% endif %}
         {% endfor %}
       </p>
-      <h5 class="mb-2 h3-heading">
+      <h5 class="mb-2">
         <a href="{{blog.blog.url}}">{{blog.blog.title}}</a>
       </h5>
       <p class="body-small mb-2">{% if blog.blog.author %}by {{blog.blog.author}} on {% endif %} {% if blog.blog.first_published_at %}{{ blog.blog.first_published_at|date:"F j, Y" }}{% else %}not published yet{% endif %}</p>

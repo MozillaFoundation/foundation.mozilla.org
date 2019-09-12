@@ -1337,8 +1337,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
             heading='hero',
             classname='collapsible'
         ),
-        InlinePanel('featured_highlights', label='Highlights', max_num=5),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
+        InlinePanel('featured_highlights', label='Highlights', max_num=5),
     ]
 
     subpage_types = [
