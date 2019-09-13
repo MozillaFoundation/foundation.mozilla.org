@@ -39,6 +39,14 @@
       top: 2px;
     }
   }
+
+  &.form-error-glyph {
+    &::before {
+      width: 13px;
+      height: 13px;
+      margin-right: 10px;
+    }
+  }
 }
 
 .heart-glyph {
@@ -58,6 +66,10 @@
 .linkedIn-glyph {
   @include compositeGlyph("linkedin");
   @include hoverGlyph("linkedin-hover");
+}
+
+.form-error-glyph {
+  @include compositeGlyph("form-error");
 }
 
 .dark-theme {
@@ -89,5 +101,9 @@
   .github-glyph {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
+  }
+
+  .form-error-glyph {
+    @include compositeGlyph("form-error-dark-theme");
   }
 }
