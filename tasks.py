@@ -222,6 +222,14 @@ def docker_stop_and_delete_db(ctx):
     try:
         ctx.run("docker volume rm foundationmozillaorg_postgres_data")
     except:  # noqa: E722 
+        """
+        Removing the postgres data may fail on a clean install that
+        never had docker run before. If that happens, docker will
+        normally generate an error and stop, but not being able to
+        delete data that doesn't exist isn't actually an error in
+        our case, so the task should just keep running.
+        """
+        print("Database did not exist, skipping delete")
         pass
 
 
