@@ -4,11 +4,12 @@
 {% load env %}
 {% load cloudinary %}
 
-{% block head-extra %}
+{% block head_extra %}
   <meta property="og:title" content="privacy not included - {{ product.name }}" />
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
-{% block body-id %}product-page{% endblock %}
+
+{% block body_id %}product-page{% endblock %}
 
 {% block guts %}
 <div class="container-fluid text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">

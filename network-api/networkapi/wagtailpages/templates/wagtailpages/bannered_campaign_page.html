@@ -1,15 +1,16 @@
 {% extends "./campaign_page.html" %}
 {% load wagtailcore_tags mini_site_tags %}
 
-{% block bodyID %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
+{% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
-{% block heroGuts %}
+{% block hero_guts %}
   {% include "./fragments/primary_heroguts.html" with root=root page=page %}
 {% endblock %}
 
 {% block content_wrapper_class %}{% endblock %}
 
 {% block campaign_page_header %}{% endblock %}
+
 {% block campaign_page_menu %}{% endblock %}
 
 Note: Wrapper HTML elements are copied from primary_page_menu.html as we want menu on BanneredCampaignPage to look exactly the same as PrimaryPage's.

@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags multi_image_tags %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
 
 
 {% block ga_identifier %}
@@ -7,29 +7,31 @@
   <meta name="ga-identifier" content="UA-87658599-15">
 {% endblock %}
 
-{% block socialMetadata %}
-{% include "fragments/og_metadata.html" %}
+{% block social_metadata %}
+    <meta property='og:type' content='website'>
+    <meta property='og:locale' content='en_US'>
+    {% meta_tags %}
 {% endblock %}
 
 {% block bodyclass %}mozfest{% endblock %}
 
-{% block pageTitle %}
+{% block page_title %}
     Mozilla Festival 2019{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
-{% block bodyID %}mozfest-{% block mozfestBodyId %}home{% endblock %}{% endblock %}
+{% block body_id %}mozfest-{% block mozfest_body_id %}home{% endblock %}{% endblock %}
 
 {% block donate %}
     <!-- nothing right now -->
 {% endblock %}
 
 
-{% block primaryNav %}
+{% block primary_nav %}
     {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
 {% endblock %}
 
 
-{% block heroGuts %}
+{% block hero_guts %}
   {% include "partials/primary_heroguts.html" with root=root page=page %}
 {% endblock %}
 
