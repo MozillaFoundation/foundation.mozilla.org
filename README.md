@@ -76,7 +76,7 @@ For more information on how to run the project with Docker, check the [local dev
 
 ## Mozilla Festival
 
-The fake data generator can generate a site structure for the Mozilla Festival that can be served under it's own domain, or in the case of review apps on Heroku, where we're limited to a single domain, as a sub-directory of the main foundation site, at `{review_app_host}/en/mozilla-festival`.
+The fake data generator can generate a site structure for the Mozilla Festival that can be served under it's own domain, or in the case of review apps on Heroku, where we're limited to a single domain, as a sub-directory of the main foundation site, at `{review_app_host}/mozilla-festival`.
 
 In order to access the Mozilla Festival site locally on a different domain than the main Foundation site, you'll need to edit your hosts file (`/etc/hosts` on *nix systems, `C:\Windows\System32\Drivers\etc\hosts` on Windows) to allow you to access the site at `mozillafestival.localhost:8000`. To enable this, add the following line to your hosts file: `127.0.0.1 mozillafestival.localhost`
 
