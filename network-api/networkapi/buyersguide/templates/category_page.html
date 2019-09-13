@@ -3,7 +3,7 @@
 {% load env %}
 {% load cloudinary %}
 
-{% block body-id %}{{ category.slug }}{% endblock %}
+{% block body_id %}{{ category.slug }}{% endblock %}
 
 {% block guts %}
   <div class="category-listing container mt-4">
@@ -19,7 +19,7 @@
         <div class="row">
           {% for product in products %}
           <div class="category-item-container col-6 {% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
-            <a href="{% url 'product-view' product.slug %}">
+            <a href="/en/privacynotincluded/products/{{ product.slug }}">
               <div class="category-image-container">
                 {% include "fragments/seal-of-approval.html" with product=product %}
                 {% include "fragments/adult-content-badge.html" with product=product %}
