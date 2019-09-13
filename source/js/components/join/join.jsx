@@ -83,9 +83,24 @@ export default class JoinUs extends React.Component {
    */
   validatesAsEmail(input) {
     if (!input) {
-      return false;
+      return {
+        valid: false,
+        errorMessage: `This is a required section.`
+      };
     }
-    return input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
+
+    let valid = input.match(/[^@]+@[^.@]+(\.[^.@]+)+$/) !== null;
+
+    if (!valid) {
+      return {
+        valid: false,
+        errorMessage: `Please enter a valid email address.`
+      };
+    }
+
+    return {
+      valid: true
+    };
   }
 
   /**
@@ -146,7 +161,7 @@ export default class JoinUs extends React.Component {
     let email = this.email.value;
     let consent = this.privacy.checked;
 
-    if (email && this.validatesAsEmail(email) && consent) {
+    if (email && this.validatesAsEmail(email).valid && consent) {
       this.submitDataToApi()
         .then(() => {
           this.apiSubmissionSuccessful();
@@ -224,30 +239,47 @@ export default class JoinUs extends React.Component {
    * Render the email field in signup CTA.
    */
   renderEmailField() {
-    let classes = classNames(`mb-2`, {
+    // During the first render, we bind the email field to this.email
+    // using ref={el => (this.email = el)}
+    // This means this.email is undefined until the second render.
+    // To avoid TypeError we have do the following conditional assignment.
+    let emailValidation = this.email
+      ? this.validatesAsEmail(this.email.value)
+      : false;
+
+    let wrapperClasses = classNames({
       "has-danger":
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
-          !this.validatesAsEmail(this.email.value)) ||
+          !emailValidation.valid) ||
         this.state.signupFailed
     });
 
+    let classes = classNames({
+      "position-relative": wrapperClasses !== ``
+    });
+
     return (
-      <div className={classes}>
-        <input
-          type="email"
-          className="form-control"
-          placeholder="Enter email address"
-          ref={el => (this.email = el)}
-          onFocus={evt => this.onInputFocus(evt)}
-        />
-        {this.state.userTriedSubmitting &&
-          !this.state.apiSubmitted &&
-          !this.validatesAsEmail(this.email.value) && (
-            <p className="body-small form-check form-control-feedback">
-              Please enter your email
-            </p>
+      <div className={wrapperClasses}>
+        <div className={classes}>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Enter email address"
+            ref={el => (this.email = el)}
+            onFocus={evt => this.onInputFocus(evt)}
+          />
+          {this.state.userTriedSubmitting && !emailValidation.valid && (
+            <div className="glyph-container">
+              <span className="form-error-glyph" />
+            </div>
           )}
+        </div>
+        {this.state.userTriedSubmitting && !emailValidation.valid && (
+          <p className="body-small form-check form-control-feedback">
+            {emailValidation.errorMessage}
+          </p>
+        )}
         {this.state.signupFailed && (
           <small className="form-check form-control-feedback">
             Something went wrong. Please check your email address and try again
@@ -288,40 +320,45 @@ export default class JoinUs extends React.Component {
    * Render the privacy field in signup CTA.
    */
   renderPrivacyField() {
-    let classes = classNames(
-      this.props.buttonPosition === `side` ? `mb-2` : `my-3`,
-      {
-        "form-check": true,
-        "has-danger":
-          !this.state.apiSuccess &&
-          this.state.userTriedSubmitting &&
-          !this.privacy.checked
-      }
-    );
+    let classes = classNames(`my-3`, {
+      "form-check": true,
+      "has-danger":
+        !this.state.apiSuccess &&
+        this.state.userTriedSubmitting &&
+        !this.privacy.checked
+    });
 
     return (
       <div className={classes}>
-        <label className="form-check-label">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="PrivacyCheckbox"
-            ref={el => (this.privacy = el)}
-          />
-          <p className="d-inline-block body-small my-0">
-            I'm okay with Mozilla handling my info as explained in this{" "}
-            <a href="https://www.mozilla.org/privacy/websites/">
-              Privacy Notice
-            </a>
-          </p>
-          {this.state.userTriedSubmitting &&
-            !this.state.apiSubmitted &&
-            !this.privacy.checked && (
-              <p className="body-small form-check form-control-feedback">
-                Please check this box if you want to proceed
+        <div className="d-flex align-items-start">
+          <div className="mb-0 form-check d-flex align-items-start">
+            <input
+              type="checkbox"
+              className="form-check-input ml-0 mt-0"
+              id="PrivacyCheckbox"
+              ref={el => (this.privacy = el)}
+              required
+            />
+            <label className="form-check-label d-flex align-items-start">
+              <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-1">
+                I'm okay with Mozilla handling my info as explained in this{" "}
+                <a href="https://www.mozilla.org/privacy/websites/">
+                  Privacy Notice
+                </a>
               </p>
-            )}
-        </label>
+              {this.state.userTriedSubmitting &&
+                !this.state.apiSubmitted &&
+                !this.privacy.checked && (
+                  <span class="form-error-glyph privacy-error d-flex" />
+                )}
+            </label>
+          </div>
+        </div>
+        {this.state.userTriedSubmitting && !this.privacy.checked && (
+          <p className="body-small form-check form-control-feedback mt-0 mb-3">
+            Please check this box if you want to proceed.
+          </p>
+        )}
       </div>
     );
   }
