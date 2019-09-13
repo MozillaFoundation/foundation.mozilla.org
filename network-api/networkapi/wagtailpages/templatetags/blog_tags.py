@@ -10,5 +10,7 @@ def get_root_or_page(context):
 
     if root:
         return root.specific
-    else:
+    elif page:
         return page.get_parent().specific
+    else:
+        print("There is no root or page in templatetag get_root_or_page")

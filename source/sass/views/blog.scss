@@ -17,12 +17,3 @@
     }
   }
 }
-
-.blog-card {
-  .main-category,
-  .main-tag {
-    @extend .text-uppercase;
-    color: $dark-blue;
-    letter-spacing: 0.5px;
-  }
-}
