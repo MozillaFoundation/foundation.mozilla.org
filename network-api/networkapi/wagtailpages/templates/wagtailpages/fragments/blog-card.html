@@ -13,7 +13,7 @@ each blog page's dominant tag)
 
 {% block tags %}
   {% if hide_classifiers != True %}
-    {% if filtered %}
+    {% if filtered and root %}
       <ul class="list-unstyled mt-3 mb-0">
       {% for tag in page.specific.tags.all %}
         <li class="d-inline-block text-capitalize">
@@ -22,8 +22,7 @@ each blog page's dominant tag)
       {% endfor %}
       </ul>
     {% else %}
-      {# Show the tag's own "main" tag (i.e. first tag in its tag list) as each blog card's visible tag #}
-
+    {# Show the tag's own "main" tag (i.e. first tag in its tag list) as each blog card's visible tag #}
       {% with tag=page.specific.tags.first %}
         {% if tag %}
           {% if root %}
