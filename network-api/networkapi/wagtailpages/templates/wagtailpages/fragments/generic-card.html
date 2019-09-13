@@ -1,14 +1,14 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="child-card col-6 col-md-4 mb-5">
-  <div>
+<div class="entry-card {% block card_type %}{% endblock %} col-6 col-md-4 mb-5">
+  <div class="card-image">
     <a href="{{ page.url }}">
       {% image page.specific.get_meta_image fill-400x225 %}
     </a>
   </div>
   {% block tags %}{% endblock %}
   <a class="h4-heading d-inline-block my-2" href={{ page.url }}>{{ page.title }}</a>
-  <p class="body-small mb-0">
+  <p class="body-small my-0">
     {% block byline %}{% endblock %}
   </p>
 </div>

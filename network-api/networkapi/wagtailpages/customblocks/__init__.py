@@ -12,6 +12,7 @@ from .link_button_block import LinkButtonBlock
 from .profile_by_id import ProfileById
 from .profile_directory import ProfileDirectory
 from .pulse_project_list import PulseProjectList
+from .recent_blog_entries import RecentBlogEntries
 from .quote_block import QuoteBlock
 from .video_block import VideoBlock
 
@@ -32,5 +33,6 @@ __all__ = [
     ProfileDirectory,
     PulseProjectList,
     QuoteBlock,
+    RecentBlogEntries,
     VideoBlock,
 ]

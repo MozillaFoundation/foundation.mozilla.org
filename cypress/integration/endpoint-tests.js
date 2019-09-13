@@ -34,7 +34,25 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`Blog page`, function() {
+  it(`Blog index page`, function() {
+    cy.visit(`/en/blog`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  it(`Blog index filtered on tag`, function() {
+    cy.visit(`/en/blog/tags/iot`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  it(`Fixed blog page`, function() {
     cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
     cy.window()
       .its(`main-js:react:finished`)
@@ -76,6 +94,17 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   it(`Multi-page campaign`, function() {
     cy.visit(`/en/campaigns/multi-page/`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  // Bannered Campaign page test
+
+  it(`Bannered Campaign Page`, function() {
+    cy.visit(`/en/campaigns/test-bannered-campaign`);
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);
