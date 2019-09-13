@@ -11,4 +11,4 @@ def get_root_or_page(context):
     if root:
         return root.specific
     else:
-        return page.get_parent().specific()
+        return page.get_parent().specific
