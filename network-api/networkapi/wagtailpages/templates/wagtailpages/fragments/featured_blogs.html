@@ -20,7 +20,7 @@
         <div class="key-item mx-2 mx-md-4 p-3">
           <p class="h6-heading mb-2">
             {% for category in blog.blog.specific.category.all %}
-            <a href="/blog/category/{{category.slug}}" class="text-uppercase">{{ category }}</a>{% if not forloop.last %}, {% endif %}
+            <a href="/blog/category/{{category.slug}}">{{ category }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </p>
           <h5 class="mb-2 h3-heading">
@@ -41,7 +41,7 @@
     <div>
       <p class="h6-heading mb-2">
         {% for category in blog.blog.specific.category.all %}
-        <a href="/blog/category/{{category.slug}}" class="text-uppercase">{{ category }}</a>{% if not forloop.last %}, {% endif %}
+        <a href="/blog/category/{{category.slug}}">{{ category }}</a>{% if not forloop.last %}, {% endif %}
         {% endfor %}
       </p>
       <h5 class="mb-2">
