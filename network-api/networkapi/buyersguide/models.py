@@ -1,5 +1,6 @@
 from cloudinary import uploader
 from cloudinary.models import CloudinaryField
+from datetime import date
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -121,6 +122,11 @@ class Product(models.Model):
     adult_content = models.BooleanField(
         help_text='When checked, product thumbnail will appear blurred as well as have an 18+ badge on it',
         default=False,
+    )
+
+    review_date = models.DateField(
+        help_text='Review date of this product',
+        default=date(year=2018, month=11, day=1)
     )
 
     name = models.CharField(
@@ -370,6 +376,7 @@ class Product(models.Model):
         ),
         MultiFieldPanel([
             FieldPanel('adult_content'),
+            FieldPanel('review_date'),
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),
