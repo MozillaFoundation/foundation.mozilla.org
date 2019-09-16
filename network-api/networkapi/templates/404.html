@@ -7,3 +7,7 @@
 {% block content %}
 {% include "partials/404.html" %}
 {% endblock %}
+
+{% block footer_block %}
+  {% include "partials/footer.html" with exclude_language_switcher=True %}
+{% endblock %}
