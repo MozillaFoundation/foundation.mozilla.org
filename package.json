@@ -42,8 +42,8 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.6.1",
     "babel-core": "^6.26.3",
