@@ -13,6 +13,7 @@ from .profile_by_id import ProfileById
 from .profile_directory import ProfileDirectory
 from .pulse_project_list import PulseProjectList
 from .quote_block import QuoteBlock
+from .recent_blog_entries import RecentBlogEntries
 from .tr_key_value_block import TRKeyValueBlock
 from .video_block import VideoBlock
 
@@ -33,6 +34,7 @@ __all__ = [
     ProfileDirectory,
     PulseProjectList,
     QuoteBlock,
+    RecentBlogEntries,
     TRKeyValueBlock,
     VideoBlock,
 ]

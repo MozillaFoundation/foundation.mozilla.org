@@ -144,6 +144,7 @@ class HomepageTR(TranslationOptions):
         'hero_story_description',
         'hero_button_text',
         'hero_button_url',
+        'hero_image',
     )
 
 

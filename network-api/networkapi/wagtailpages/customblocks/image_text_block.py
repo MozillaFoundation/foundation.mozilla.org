@@ -23,9 +23,9 @@ class ImageTextBlock(ImageBlock):
         context = super().get_context(value, parent_context=parent_context)
         divider_styles = []
         if value.get("top_divider"):
-            divider_styles.append('div-top')
+            divider_styles.append('div-top pt-4')
         if value.get("bottom_divider"):
-            divider_styles.append('div-bottom')
+            divider_styles.append('div-bottom pb-4')
         context['divider_styles'] = ' '.join(divider_styles)
         return context
 

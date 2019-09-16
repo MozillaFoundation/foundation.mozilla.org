@@ -31,12 +31,18 @@
 
   .div-top {
     border-top: 1px solid $black;
-    padding-top: 1.5rem;
+
+    &-thick {
+      border-top: 4px solid $black;
+    }
   }
 
   .div-bottom {
     border-bottom: 1px solid $black;
-    padding-bottom: 1.5rem;
+
+    &-thick {
+      border-bottom: 4px solid $black;
+    }
   }
 
   .image-text-img {
