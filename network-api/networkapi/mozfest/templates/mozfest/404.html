@@ -73,3 +73,7 @@ Mozilla Festival 2019 - Page Not Found
     {% include "partials/404.html" with email="info@mozillafestival.org" %}
     </div>
 {% endblock %}
+
+{% block footer_block %}
+  {% include "partials/footer.html" with exclude_language_switcher=True %}
+{% endblock %}
