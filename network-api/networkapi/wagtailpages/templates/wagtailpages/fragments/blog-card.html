@@ -24,7 +24,7 @@ each blog page's dominant tag)
     {% else %}
       {% with category=page.specific.category.first %}
       {% if category %}
-      {% get_root_or_page as parent_page %}
+        {% get_root_or_page as parent_page %}
           {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
           <a class="h6-heading d-block mt-3 mb-0" href="{% routablepageurl parent_page "entries_by_category" category.slug %}">{{ category }}</a>
         {% endif %}
