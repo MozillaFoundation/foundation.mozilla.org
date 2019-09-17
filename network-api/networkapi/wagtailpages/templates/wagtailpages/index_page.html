@@ -29,12 +29,14 @@
       <div class="col-12 d-flex justify-content-between">
         <div class="search-result">
           <h3 class="body result-info">
-            {{ total_entries }} result{% if total_entries != 1 %}s{% endif %} for
+            {{ total_entries }} result{% if total_entries != 1 %}s{% endif %}
+            {% if total_entries > 0 %} for
             <ul class="term-list">
             {% for term in terms %}
               <li class="term body-small">{{ term }}</li>
             {% endfor %}
             </ul>
+            {% endif %}
           </h3>
         </div>
 
