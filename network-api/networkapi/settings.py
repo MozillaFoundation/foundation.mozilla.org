@@ -272,6 +272,7 @@ TEMPLATES = [
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
+                'localization': 'networkapi.wagtailpages.templatetags.localization',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
                 'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags',
                 'nav_tags': 'networkapi.utility.templatetags.nav_tags',
