@@ -1,6 +1,5 @@
 from cloudinary import uploader
 from cloudinary.models import CloudinaryField
-from datetime import date
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
