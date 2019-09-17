@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.db.models import Count
+from django.utils import translation
 
 
 def set_main_site_nav_information(page, context, homepage_class_name):
@@ -49,12 +50,26 @@ def get_descendants(node, list, authenticated=False, depth=0, max_depth=2):
     helper function to get_menu_pages for performing a depth-first
     discovery pass of all menu-listable children to some root node.
     '''
+
+    def get_overview_label(language_code):
+        localized_overview = {
+            'en': 'Overview',
+            'de': 'Übersicht',
+            'es': 'Síntesis',
+            'fr': 'Vue d’ensemble',
+        }
+
+        overview_label = localized_overview.get(language_code)
+        overview_label = overview_label if overview_label else localized_overview.get('en')
+
+        return overview_label
+
     if (depth <= max_depth):
         title = node.title
         header = getattr(node.specific, 'header', None)
         if header:
             title = header
-        menu_title = title if depth > 0 else 'Overview'
+        menu_title = title if depth > 0 else get_overview_label(translation.get_language())
         restriction = node.get_view_restrictions().first()
         try:
             restriction_type = restriction.restriction_type
