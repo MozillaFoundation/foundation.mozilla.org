@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-13 15:20+0000\n"
+"POT-Creation-Date: 2019-09-17 09:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,8 +13,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: network-api/networkapi/templates/404.html:5
+#: network-api/networkapi/templates/404.html:3
 msgid "Page Not Found"
+msgstr ""
+
+#: network-api/networkapi/templates/fragments/language_switcher.html:6
+msgid "Language"
 msgstr ""
 
 #: network-api/networkapi/templates/pages/base.html:20
@@ -51,48 +55,48 @@ msgstr ""
 msgid "Donate now"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:38
+#: network-api/networkapi/templates/partials/footer.html:36
 msgid "More about us"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:41
+#: network-api/networkapi/templates/partials/footer.html:39
 msgid "Twitter"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:42
+#: network-api/networkapi/templates/partials/footer.html:40
 msgid "Instagram"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:43
+#: network-api/networkapi/templates/partials/footer.html:41
 msgid "GitHub"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:50
+#: network-api/networkapi/templates/partials/footer.html:48
 #: network-api/networkapi/templates/partials/primary_nav.html:53
 msgid "Donate"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:51
+#: network-api/networkapi/templates/partials/footer.html:49
 msgid "Legal"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:52
+#: network-api/networkapi/templates/partials/footer.html:50
 msgid "License"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:53
+#: network-api/networkapi/templates/partials/footer.html:51
 msgid "Participation Guidelines"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:54
+#: network-api/networkapi/templates/partials/footer.html:52
 msgid "Privacy"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:55
+#: network-api/networkapi/templates/partials/footer.html:53
 msgid "Cookies"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:63
+#: network-api/networkapi/templates/partials/footer.html:70
 #, python-format
 msgid "Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href=\"%(foundation_website_url)s\">%(foundation_website)s</a>"
 msgstr ""
@@ -110,8 +114,8 @@ msgstr ""
 msgid "No thanks"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/bannered_campaign_page.html:55
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/campaign_page.html:69
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/bannered_campaign_page.html:56
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/campaign_page.html:68
 msgctxt "Sticky button in mobile view on campaign pages"
 msgid "TAKE ACTION"
 msgstr ""
@@ -127,9 +131,9 @@ msgstr ""
 msgid "By %(author)s"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog-card.html:14
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:55
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:85
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog-card.html:42
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:67
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:97
 #, python-format
 msgid "By %(author)s on %(date)s"
 msgstr ""
@@ -143,36 +147,36 @@ msgstr ""
 msgid "Related content"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:28
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:40
 msgid "Latest news"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:101
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:113
 msgid "View more news"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:107
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:119
 msgid "Happening now"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:143
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:155
 msgid "Trending projects"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:146
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:157
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:158
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:169
 msgid "Add your project"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:156
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:168
 msgid "More from our network"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:166
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:178
 msgid "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices."
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:167
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:179
 msgid "Rishab Nithyanand, Mozilla Fellow"
 msgstr ""
 
