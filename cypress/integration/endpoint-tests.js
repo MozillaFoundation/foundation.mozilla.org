@@ -52,6 +52,15 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  it(`Blog index with non-existent tag`, function() {
+    cy.visit(`/en/blog/tags/randomnonsensetagthatdoesntexist`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
   it(`Fixed blog page`, function() {
     cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
     cy.window()
