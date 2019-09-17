@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block left_footer_column %}
-  <div class="col-md-5 col-lg-6">
+  <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
     <div
-      class="join-us mb-5"
+      class="join-us"
       data-button-position="side"
       data-csrf-token="{{ csrf_token }}"
       data-signup-id="{{ mozfest_footer.id }}"
@@ -16,9 +16,7 @@
       data-newsletter="{{ mozfest_footer.newsletter }}">
     </div>
 
-    <div class="my-5 mb-md-0">
-      <a class="logo" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
-    </div>
+    <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
   </div>
 {% endblock %}
 
@@ -30,11 +28,11 @@
 {% endblock %}
 
 {% block general_links %}
-  <li class="mb-2"><a id="donate-footer-btn" href="https://donate.mozilla.org/?utm_source=mozillafestival.org&utm_medium=referral&utm_content=footer" target="_blank" rel="noopener noreferrer" class="dark-theme">Donate</a></li>
-  <li class="mb-2"><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">Legal</a></li>
-  <li class="mb-2"><a href="https://creativecommons.org/licenses/by/4.0" class="dark-theme">License</a></li>
-  <li class="mb-2"><a href="/guidelines" class="dark-theme">Participation Guidelines</a></li>
-  <li class="mb-2"><a href="/media" class="dark-theme">Media Center</a></li>
-  <li class="mb-2"><a href="https://mozilla.org/privacy/websites/" class="dark-theme">Privacy</a></li>
-  <li class="mb-2"><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">Cookies</a></li>
+  <li><a id="donate-footer-btn" href="https://donate.mozilla.org/?utm_source=mozillafestival.org&utm_medium=referral&utm_content=footer" target="_blank" rel="noopener noreferrer" class="dark-theme">Donate</a></li>
+  <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">Legal</a></li>
+  <li><a href="https://creativecommons.org/licenses/by/4.0" class="dark-theme">License</a></li>
+  <li><a href="/guidelines" class="dark-theme">Participation Guidelines</a></li>
+  <li><a href="/media" class="dark-theme">Media Center</a></li>
+  <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">Privacy</a></li>
+  <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">Cookies</a></li>
 {% endblock %}
