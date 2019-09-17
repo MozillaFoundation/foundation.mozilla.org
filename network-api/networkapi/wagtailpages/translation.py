@@ -5,6 +5,7 @@ from .models import (
     IndexPage,
     NewsPage,
     InitiativesPage,
+    InitiativeSection,
     ParticipatePage2,
     Styleguide,
     Homepage,
@@ -123,7 +124,22 @@ class NewsPageTR(TranslationOptions):
 
 @register(InitiativesPage)
 class InitiativesPageTR(TranslationOptions):
-    fields = ()
+    fields = (
+        'subheader',
+        'h3',
+        'sub_h3',
+    )
+
+
+@register(InitiativeSection)
+class InitiativeSectionTR(TranslationOptions):
+    fields = {
+        'sectionImage',
+        'sectionHeader',
+        'sectionCopy',
+        'sectionButtonTitle',
+        'sectionButtonTitle2',
+    }
 
 
 @register(ParticipatePage2)
