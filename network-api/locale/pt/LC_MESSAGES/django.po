@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-17 09:28+0000\n"
+"POT-Creation-Date: 2019-09-17 11:13+0000\n"
 "PO-Revision-Date: 2019-08-07 20:44+0000\n"
 "Last-Translator: Théo Chevalier <theo.chevalier11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pontoon\n"
 
-#: network-api/networkapi/templates/404.html:3
+#: network-api/networkapi/templates/404.html:4
 msgid "Page Not Found"
 msgstr ""
 
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: network-api/networkapi/templates/pages/base.html:20
+#: network-api/networkapi/templates/pages/base.html:9
 #: network-api/networkapi/templates/partials/primary_nav.html:40
 msgid "Mozilla Foundation"
 msgstr ""
@@ -133,10 +133,28 @@ msgid "By %(author)s"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog-card.html:42
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:67
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:97
 #, python-format
 msgid "By %(author)s on %(date)s"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:8
+msgid "Latest news"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:31
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:58
+#, python-format
+msgid "by %(author)s"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:33
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:60
+#, python-format
+msgid "on %(date)s"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:72
+msgid "More from our blog"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/ih_cta.html:6
@@ -148,36 +166,28 @@ msgstr ""
 msgid "Related content"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:40
-msgid "Latest news"
-msgstr ""
-
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:113
-msgid "View more news"
-msgstr ""
-
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:119
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:36
 msgid "Happening now"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:155
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:72
 msgid "Trending projects"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:158
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:169
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:75
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:86
 msgid "Add your project"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:168
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:85
 msgid "More from our network"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:178
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:95
 msgid "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices."
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:179
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:96
 msgid "Rishab Nithyanand, Mozilla Fellow"
 msgstr ""
 
