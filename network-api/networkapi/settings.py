@@ -92,7 +92,7 @@ APP_DIR = app()
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+DEBUG = False  # FILEBROWSER_DEBUG = env('DEBUG')
 
 # Force permanent redirects to the domains specified in TARGET_DOMAINS
 DOMAIN_REDIRECT_MIDDLEWARE_ENABLED = env('DOMAIN_REDIRECT_MIDDLEWARE_ENABLED')
@@ -269,6 +269,7 @@ TEMPLATES = [
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
+                'blog_tags': 'networkapi.wagtailpages.templatetags.blog_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
