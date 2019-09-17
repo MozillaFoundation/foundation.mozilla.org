@@ -589,8 +589,16 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         terms = self.filtered.get('terms')
 
-        # "unsluggify" all terms:
-        context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
+        # "unsluggify" all terms. Note that we cannot use list comprehension,
+        # as not all terms might be real tags, in which case something like
+        # this will crash:[str(Tag.objects.get(slug=term)) for term in terms]
+        context['terms'] = list()
+        for term in terms:
+            try:
+                tag = Tag.objects.get(slug=term)
+                context['terms'].append(str(tag))
+            except Tag.DoesNotExist:
+                pass
 
         entries = [
             entry
