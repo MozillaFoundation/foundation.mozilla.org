@@ -30,6 +30,13 @@
     }
   }
 
+  &.medium {
+    &::before {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   &.heart-glyph {
     &::before {
       width: 19px;
@@ -105,5 +112,13 @@
 
   .form-error-glyph {
     @include compositeGlyph("form-error-dark-theme");
+  }
+
+  .globe-glyph {
+    @include compositeGlyph("globe-dark-theme");
+
+    &::before {
+      margin-right: 10px;
+    }
   }
 }

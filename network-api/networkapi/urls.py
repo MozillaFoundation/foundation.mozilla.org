@@ -43,6 +43,9 @@ urlpatterns = list(filter(None, [
     url(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     url(r'^documents/', include(wagtaildocs_urls)),
     url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
+
+    # set up set language redirect view
+    url('i18n/', include('django.conf.urls.i18n')),
 ]))
 
 # Anything that needs to respect the localised

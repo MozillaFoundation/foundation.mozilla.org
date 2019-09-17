@@ -1,15 +1,12 @@
 {% extends "mozfest/mozfest-base.html" %}
 
-{% block social_metadata %}
-<meta property='og:type' content='website'>
-<meta property='og:locale' content='en_US'>
-{% endblock %}
-
 {% block page_title %}
 Mozilla Festival 2019 - Page Not Found
 {% endblock %}
 
 {% block body_id %}{% endblock %}
+
+{% block wagtail_metadata %}{% endblock %}
 
 {% block primary_nav %}
 <div id="primary-nav-container">
@@ -75,4 +72,8 @@ Mozilla Festival 2019 - Page Not Found
     <div class="py-4 my-4">
     {% include "partials/404.html" with email="info@mozillafestival.org" %}
     </div>
+{% endblock %}
+
+{% block footer_block %}
+  {% include "partials/footer.html" with exclude_language_switcher=True %}
 {% endblock %}
