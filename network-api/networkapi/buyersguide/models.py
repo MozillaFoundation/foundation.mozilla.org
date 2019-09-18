@@ -124,7 +124,7 @@ class Product(models.Model):
     )
 
     review_date = models.DateField(
-        help_text='Review date of this product'
+        help_text='Review date of this product',
     )
 
     name = models.CharField(
