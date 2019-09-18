@@ -798,7 +798,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     author = models.CharField(
         verbose_name='Author',
-        max_length=50,
+        max_length=70,
         blank=False,
     )
 
