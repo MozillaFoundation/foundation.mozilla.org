@@ -555,7 +555,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         Get all (live) child entries, ordered "newest first"
         """
-        return self.get_children().live().order_by('-first_published_at')
+        return self.get_children().live().public().order_by('-first_published_at')
 
     def get_entries(self, context=dict()):
         """
