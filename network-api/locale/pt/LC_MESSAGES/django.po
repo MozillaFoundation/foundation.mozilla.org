@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-17 11:13+0000\n"
+"POT-Creation-Date: 2019-09-18 19:54+0000\n"
 "PO-Revision-Date: 2019-08-07 20:44+0000\n"
 "Last-Translator: Théo Chevalier <theo.chevalier11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,7 +132,7 @@ msgstr ""
 msgid "By %(author)s"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog-card.html:42
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog-card.html:37
 #, python-format
 msgid "By %(author)s on %(date)s"
 msgstr ""
@@ -192,6 +192,7 @@ msgid "Rishab Nithyanand, Mozilla Fellow"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:30
+#: network-api/networkapi/wagtailpages/utils.py:58
 msgid "Overview"
 msgstr ""
 

@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.db.models import Count
+from django.utils.translation import gettext as _
 
 
 def set_main_site_nav_information(page, context, homepage_class_name):
@@ -54,7 +55,7 @@ def get_descendants(node, list, authenticated=False, depth=0, max_depth=2):
         header = getattr(node.specific, 'header', None)
         if header:
             title = header
-        menu_title = title if depth > 0 else 'Overview'
+        menu_title = title if depth > 0 else _('Overview')
         restriction = node.get_view_restrictions().first()
         try:
             restriction_type = restriction.restriction_type
