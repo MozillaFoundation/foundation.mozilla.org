@@ -227,6 +227,7 @@ def docker_l10n_update(ctx):
     """Update localizable field data (copies from original unlocalized to default localized field)"""
     docker_manage(ctx, "update_translation_fields")
 
+
 @task
 def docker_makemessages(ctx):
     """Compile all template messages for localization"""
