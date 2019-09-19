@@ -172,6 +172,5 @@ We still use all those tools with Docker. The major difference is that `npm` and
 ### Can I use Docker in parallel with the old way of running the foundation site?
 
 Short answer is yes but:
-- you will have two different databases
-- you will have two files to manage your environments variables (`.env` and `.env.docker`),
+- you will have two different databases.
 - those two environment won't share their dependencies: you will have to maintain and update both of them.
