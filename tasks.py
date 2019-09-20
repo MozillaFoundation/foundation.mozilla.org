@@ -257,7 +257,7 @@ def docker_new_env(ctx):
     with ctx.cd(ROOT):
         print("* Setting default environment variables")
         if os.path.isfile(".env"):
-            print("* Striping quotes and making sure your DATABASE_URL and ALLOWED_HOSTS are properly setup")
+            print("* Stripping quotes and making sure your DATABASE_URL and ALLOWED_HOSTS are properly setup")
             create_docker_env_file(".env")
         else:
             print("* Creating a new .env")
