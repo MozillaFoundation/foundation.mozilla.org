@@ -1,11 +1,6 @@
-from html import unescape
-
-from django.conf import settings;
+from django.conf import settings
 from django.contrib.syndication.views import Feed
-from django.urls import reverse
-from django.utils.feedgenerator import Rss201rev2Feed
 from django.utils.feedgenerator import Atom1Feed
-from django.shortcuts import get_object_or_404
 
 from .models import BlogPage
 
