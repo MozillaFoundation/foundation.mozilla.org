@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
+from datetime import date
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote, Product, BuyersGuideProductCategory
@@ -367,7 +368,7 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the product view returns a 200
         """
-        p = Product.objects.create(name='test product view')
+        p = Product.objects.create(name='test product view', review_date=date.today())
 
         logger = logging.getLogger('django.request')
         previous_level = logger.getEffectiveLevel()
@@ -402,17 +403,17 @@ class BuyersGuideViewTest(TestCase):
 
 class ProductTests(TestCase):
     def test_product_slug(self):
-        p = Product.objects.create(name='this name should get slugified')
+        p = Product.objects.create(name='this name should get slugified', review_date=date.today())
         self.assertEqual(p.slug, slugify(p.name))
 
     def name_change_changes_slug(self):
-        p = Product.objects.create(name='this will change')
+        p = Product.objects.create(name='this will change', review_date=date.today())
         p.name = 'name changed'
         p.save()
         self.assertEqual(p.slug, slugify(p.name))
 
     def test_only_en(self):
-        p = Product.objects.create(name='this should redirect')
+        p = Product.objects.create(name='this should redirect', review_date=date.today())
         url = f'/fr/privacynotincluded/products/{p.slug}/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 302)
