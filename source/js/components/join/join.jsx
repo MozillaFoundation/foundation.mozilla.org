@@ -2,7 +2,8 @@ import React from "react";
 import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
-import basketSignup from "../../basket-signup.js";
+import CountrySelect from "../petition/country-select.jsx";
+import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {
   constructor(props) {
@@ -290,6 +291,23 @@ export default class JoinUs extends React.Component {
   }
 
   /**
+   * Render localization fields
+   */
+
+   renderLocalizationFields() {
+     return (
+       <div>
+         <div>
+          <CountrySelect label="Your country"/>
+         </div>
+         <div>
+           <LanguageSelect/>
+         </div>
+       </div>
+     );
+   }
+
+  /**
    * Render fields asking for user name
    */
   renderNameFields() {
@@ -397,6 +415,7 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
+          {this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
         <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
