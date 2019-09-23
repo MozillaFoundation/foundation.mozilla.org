@@ -1,4 +1,5 @@
 from random import randint, random, choice
+from datetime import date, timezone
 from django.conf import settings
 from django.core.management import call_command
 
@@ -33,6 +34,8 @@ class ProductFactory(DjangoModelFactory):
 
     draft = Faker('boolean')
     adult_content = Faker('boolean')
+    review_date = Faker('date_time_between_dates',
+                        datetime_start=date(year=2018, month=11, day=1), datetime_end=None, tzinfo=timezone.utc)
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
 
     @post_generation

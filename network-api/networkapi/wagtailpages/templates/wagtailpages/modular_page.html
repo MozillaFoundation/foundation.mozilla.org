@@ -2,12 +2,6 @@
 
 {% load wagtailcore_tags mini_site_tags wagtailmetadata_tags %}
 
-{% block social_metadata %}
-    <meta property='og:type' content='website'>
-    <meta property='og:locale' content='en_US'>
-    {% meta_tags %}
-{% endblock %}
-
 {% block page_top_content %}
   {% if page.live == False %}
   <div class="wagtail-draft-warning">
@@ -19,7 +13,7 @@
 {% block content %}
   {% block minisite_title_mb %}{% endblock %}
 
-  {% include "partials/multipage-nav-mobile.html" %}
+  {% include "partials/multipage_nav_mobile.html" %}
 
   <div class="container">
     <div class="row">

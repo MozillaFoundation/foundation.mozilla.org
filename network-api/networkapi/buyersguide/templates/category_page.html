@@ -19,10 +19,10 @@
         <div class="row">
           {% for product in products %}
           <div class="category-item-container col-6 {% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
-            <a href="/en/privacynotincluded/products/{{ product.slug }}">
+            <a href="{% url 'product-view' product.slug %}">
               <div class="category-image-container">
-                {% include "fragments/seal-of-approval.html" with product=product %}
-                {% include "fragments/adult-content-badge.html" with product=product %}
+                {% include "fragments/seal_of_approval.html" with product=product %}
+                {% include "fragments/adult_content_badge.html" with product=product %}
 
                 {% if USE_CLOUDINARY %}
                 <img
