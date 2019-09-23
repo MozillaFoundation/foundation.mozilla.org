@@ -11,7 +11,7 @@ This documentation is composed of three main sections:
 To interact with the project, you can use [docker](https://docs.docker.com/engine/reference/commandline/cli/) and [docker-compose](https://docs.docker.com/compose/reference/overview/) CLIs or use shortcuts with invoke.
 
 The general workflow is:
-- Install the project with `invoke docker-setup`,
+- Install the project with `invoke docker-new-env`,
 - Run the project with `docker-compose up`,
 - Use invoke commands for frequent development tasks (database migrations, dependencies install, run tests, etc),
 - After doing a `git pull`, keep your clone up to date by running `invoke docker-catchup`.
@@ -27,11 +27,10 @@ The general workflow is:
   docker-makemigrations              Creates new migration(s) for apps
   docker-manage                      Shorthand to manage.py. inv docker.manage "[COMMAND] [ARG]"
   docker-migrate                     Updates database schema
-  docker-npm                         Shorthand to npm. inv docker.npm "[COMMAND] [ARG]"
   docker-new-db                      Delete your database and create a new one with fake data
+  docker-new-env                     Get a new dev environment and a new database with fake data
+  docker-npm                         Shorthand to npm. inv docker.npm "[COMMAND] [ARG]"
   docker-pipenv                      Shorthand to pipenv. inv docker.pipenv "[COMMAND] [ARG]"
-  docker-setup                       Prepare your dev environment after a fresh git clone
-  docker_switching_branch            Get a new database with fake data and rebuild images
   docker-test-node                   Run node tests
   docker-test-python                 Run python tests
 ```
@@ -173,6 +172,5 @@ We still use all those tools with Docker. The major difference is that `npm` and
 ### Can I use Docker in parallel with the old way of running the foundation site?
 
 Short answer is yes but:
-- you will have two different databases
-- you will have two files to manage your environments variables (`.env` and `.env.docker`),
+- you will have two different databases.
 - those two environment won't share their dependencies: you will have to maintain and update both of them.
