@@ -45,6 +45,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/airtable-block";
 @import "./components/image-text-mini";
 
+// Design System Components
+
+@import "./library/components/dropdown-field";
+
 // Misc
 
 @import "./resets";
