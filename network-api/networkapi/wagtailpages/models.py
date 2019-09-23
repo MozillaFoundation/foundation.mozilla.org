@@ -847,7 +847,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        return context
+        return set_main_site_nav_information(self, context, 'Homepage')
 
 
 class InitiativeSection(models.Model):
