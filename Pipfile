@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 "boto3" = "*"
-Django = "==2.2.4"
+Django = "==2.2.5"
 dj-database-url = "*"
 djangorestframework = "*"
 django-admin-sortable = "*"
