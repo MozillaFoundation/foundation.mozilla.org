@@ -2,7 +2,9 @@ from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 
-from .models import BlogPage
+from bs4 import BeautifulSoup
+
+from .models import IndexPage
 
 
 class RSSFeed(Feed):
@@ -16,7 +18,9 @@ class RSSFeed(Feed):
     description = 'The Mozilla Foundation Blog'
 
     def items(self):
-        return BlogPage.objects.live().public()[:settings.FEED_LIMIT]
+        blog_index = IndexPage.objects.get(title__iexact='blog')
+        blog_pages = blog_index.get_children().live().public()
+        return blog_pages[:settings.FEED_LIMIT]
 
     def item_title(self, item):
         return item.title
@@ -25,7 +29,13 @@ class RSSFeed(Feed):
         return item.full_url
 
     def item_description(self, item):
-        return item.get_meta_description()
+        page = item.specific
+        html = str(page.body)
+        parsed = BeautifulSoup(html, 'html.parser')
+        text = parsed.get_text()[:1000]
+        if len(text) >= 1000:
+            text = f'{text}[...]'
+        return text
 
     def item_pubdate(self, item):
         return item.first_published_at
