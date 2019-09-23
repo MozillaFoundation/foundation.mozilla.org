@@ -18,7 +18,7 @@
   &-large {
     @extend .dropdown-field;
     font-size: 20px;
-    padding: 15px $padding-right 15px $padding-x;
+    padding: $padding-x $padding-right $padding-x $padding-x;
   }
 
   @at-root .dark-theme & {
