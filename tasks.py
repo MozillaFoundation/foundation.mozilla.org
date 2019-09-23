@@ -24,6 +24,7 @@ locale_abstraction_instructions = " ".join([
     "-l de -l es -l fr -l pl -l pt",
     "--keep-pot",
     "--no-wrap",
+    "--no-location",
     "--ignore=network-api/networkapi/wagtailcustomization/*",
     "--ignore=network-api/networkapi/wagtail_l10n_customization/*",
     "--ignore=network-api/networkapi/settings.py",
