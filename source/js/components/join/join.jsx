@@ -294,18 +294,18 @@ export default class JoinUs extends React.Component {
    * Render localization fields
    */
 
-   renderLocalizationFields() {
-     return (
-       <div>
-         <div>
-          <CountrySelect label="Your country"/>
-         </div>
-         <div>
-           <LanguageSelect/>
-         </div>
-       </div>
-     );
-   }
+  renderLocalizationFields() {
+    return (
+      <div>
+        <div>
+          <CountrySelect label="Your country" />
+        </div>
+        <div>
+          <LanguageSelect />
+        </div>
+      </div>
+    );
+  }
 
   /**
    * Render fields asking for user name
