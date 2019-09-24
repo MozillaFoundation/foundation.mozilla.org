@@ -7,10 +7,22 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
+            <h1>{{ page.specific.headline }}</h1>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
         {% for block in page.body %}
             {% include_block block %}
         {% endfor %}
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block footer_block %}
+{% include "partials/footer.html" with skip_donate=True %}
 {% endblock %}
