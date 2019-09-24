@@ -33,7 +33,7 @@ class RSSFeed(Feed):
         html = str(page.body)
         parsed = BeautifulSoup(html, 'html.parser')
         text = parsed.get_text()[:1000]
-        if len(text) >= 1000:
+        if len(text) == 1000:
             text = f'{text}[...]'
         return text
 
