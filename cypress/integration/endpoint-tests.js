@@ -150,8 +150,8 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it('Styleguide page', function() {
-    cy.visit('/en/styleguide/');
+  it(`Styleguide page`, function() {
+    cy.visit(`/en/styleguide/`);
     cy.wait(1000);
     cy.percySnapshot();
   })
