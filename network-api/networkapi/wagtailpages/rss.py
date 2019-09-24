@@ -19,7 +19,7 @@ class RSSFeed(Feed):
 
     def items(self):
         blog_index = IndexPage.objects.get(title__iexact='blog')
-        blog_pages = blog_index.get_children().live().public()
+        blog_pages = blog_index.get_all_entries()
         return blog_pages[:settings.FEED_LIMIT]
 
     def item_title(self, item):
