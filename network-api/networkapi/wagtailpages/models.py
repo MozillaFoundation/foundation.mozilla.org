@@ -1351,18 +1351,19 @@ class Homepage(FoundationMetadataPageMixin, Page):
     ]
 
     subpage_types = [
-        'PrimaryPage',
-        'PeoplePage',
-        'InitiativesPage',
-        'Styleguide',
-        'NewsPage',
-        'ParticipatePage',
-        'ParticipatePage2',
-        'MiniSiteNameSpace',
-        'RedirectingPage',
-        'OpportunityPage',
         'BanneredCampaignPage',
         'IndexPage',
+        'InitiativesPage',
+        'MiniSiteNameSpace',
+        'NewsPage',
+        'OpportunityPage',
+        'ParticipatePage',
+        'ParticipatePage2',
+        'PeoplePage',
+        'PrimaryPage',
+        'RedirectingPage',
+        'Styleguide',
+        'YoutubeRegretsPage',
     ]
 
     def get_context(self, request):
@@ -1390,3 +1391,22 @@ class RedirectingPage(Page):
         # Note that due to how this page type works, there is no
         # associated template file in the wagtailpages directory.
         return HttpResponseRedirect(self.URL)
+
+
+class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
+    headline = models.CharField(
+        max_length=500,
+        help_text='Page headline',
+        blank=True,
+    )
+
+    body = StreamField([
+        ('regret_block', customblocks.YoutubeRegretBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('headline'),
+        StreamFieldPanel('body'),
+    ]
+
+    template = 'wagtailpages/pages/youtube_regrets_page.html'
