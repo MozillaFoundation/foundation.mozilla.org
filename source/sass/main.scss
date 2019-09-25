@@ -29,10 +29,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "../js/components/petition/petition";
 @import "../js/components/share-button-group/share-button-group";
 
-// Special react component
-
-@import "../js/donate-modal/donate-modal";
-
 // Non-React Components
 
 @import "./components/hr-emphasis";

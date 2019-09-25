@@ -200,40 +200,6 @@ let main = {
       });
     }
 
-    /*
-      The following code has been disabled for
-      https://github.com/mozilla/foundation.mozilla.org/issues/2630,
-      but we want to keep this code around for when we need to
-      re-enable this functionality
-
-      import injectDonateModal from '../donate-modal/donate-modal.jsx';
-      ...
-      let donationModal = document.querySelector(`.donate-modal-wrapper`);
-
-      if (donationModal) {
-        let modalOptions = {
-          title: `We made this guide with support from people like you`,
-          subheading: `Our supporters told us they are uncertain about how to be safer online. We listened. This guide is a result.`,
-          cta: {
-            title: `Help us keep this work going`,
-            text: `Support Mozilla`
-          },
-          utm: {
-            medium: `buyersguide`,
-            campaign: `buyersguide2018`,
-            content: `popupbutton`
-          },
-          ga: {
-            category: `buyersguide`,
-            action: `donate tap`,
-            label: `donate popup on ${window.location.pathname.replace(/\w\w(-\W\W)?\/privacynotincluded\//,``)}`
-          }
-        };
-
-        injectDonateModal(donationModal, modalOptions);
-      }
-    */
-
     if (document.querySelectorAll(`.join-us`)) {
       var elements = Array.from(document.querySelectorAll(`.join-us`));
 
