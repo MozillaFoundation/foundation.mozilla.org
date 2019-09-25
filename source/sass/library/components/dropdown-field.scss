@@ -1,4 +1,4 @@
-.dropdown-field {
+select {
   $background-size: 24px;
   $padding-x: 12px;
   $padding-right: $padding-x * 2 + $background-size;
@@ -15,8 +15,8 @@
   border: 1px solid $gray-20;
   padding: 5px $padding-right 5px $padding-x;
 
-  &-large {
-    @extend .dropdown-field;
+  &.large {
+    @extend select;
     font-size: 20px;
     padding: $padding-x $padding-right $padding-x $padding-x;
   }
