@@ -4,6 +4,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
+from django.urls import path
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -12,6 +13,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.buyersguide import views as buyersguide_views
+from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
 from experiments import views as experiment_views
 
 admin.autodiscover()
@@ -55,6 +57,11 @@ urlpatterns += i18n_patterns(
     # Buyer's Guide / Privacy Not Included
     url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
 
+    # Blog RSS feed
+    path('blog/rss/', RSSFeed()),
+    path('blog/atom/', AtomFeed()),
+
+    # wagtail-managed data
     url(r'', include(wagtail_urls)),
 )
 
