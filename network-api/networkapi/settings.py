@@ -75,6 +75,7 @@ env = environ.Env(
     CLOUDINARY_CLOUD_NAME=(str, ''),
     CLOUDINARY_API_KEY=(str, ''),
     CLOUDINARY_API_SECRET=(str, ''),
+    FEED_LIMIT=(int, 10),
 )
 
 # Read in the environment
@@ -587,3 +588,6 @@ CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
 
 # Use network_url to check if we're running prod or not
 NETWORK_SITE_URL = env('NETWORK_SITE_URL')
+
+# RSS / ATOM settings
+FEED_LIMIT = env('FEED_LIMIT')

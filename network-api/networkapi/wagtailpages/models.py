@@ -1162,7 +1162,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
-class HomepageFeaturedBlogs(models.Model):
+class HomepageFeaturedBlogs(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='featured_blogs',
@@ -1175,6 +1175,7 @@ class HomepageFeaturedBlogs(models.Model):
     class Meta:
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
+        ordering = ['sort_order']  # not automatically inherited!
 
     def __str__(self):
         return self.page.title + '->' + self.blog.title
