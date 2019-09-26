@@ -233,6 +233,7 @@ def docker_l10n_update(ctx):
 def docker_makemessages(ctx):
     """Compile all template messages for localization"""
     docker_manage(ctx, locale_abstraction_instructions)
+    os.rename("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
 
 
 @task
