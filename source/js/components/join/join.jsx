@@ -180,7 +180,9 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * GA event when users interact with the signup form.
+   * On focus, we want to do two things: 
+   * 1.Fire a GA event when users interact with the signup form
+   * 2.Reveal localization fields for header and footer signup forms
    */
   onInputFocus() {
     ReactGA.event({
