@@ -188,6 +188,20 @@ export default class JoinUs extends React.Component {
       action: `form focus`,
       label: `Signup form input focused`
     });
+
+    let emailFields = document.querySelectorAll(
+      '.fields-wrapper .form-control[type="email"]'
+    );
+
+    emailFields.forEach(emailField => {
+      let currentEmailField = emailField == event.target;
+      if (currentEmailField) {
+        let localizationFields = document.querySelector(
+          `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
+        );
+        localizationFields.classList.remove(`d-none`);
+      }
+    });
   }
 
   /**
@@ -295,8 +309,14 @@ export default class JoinUs extends React.Component {
    */
 
   renderLocalizationFields() {
+    let header = this.props.formPosition == `header`;
+    let footer = this.props.formPosition == `footer`;
+    let classes = classNames(`form-l10n`, {
+      "d-none": footer || header
+    });
+
     return (
-      <div>
+      <div className={classes}>
         <div>
           <CountrySelect label="Your country" />
         </div>

@@ -42,11 +42,7 @@ export default class LanguageSelect extends React.Component {
     let value = this.state.value;
 
     return (
-      <select
-        value={value ? value : meta_lang}
-        onChange={this.handleChange}
-        id="test"
-      >
+      <select value={value ? value : meta_lang} onChange={this.handleChange}>
         {this.renderOptions()}
       </select>
     );
