@@ -7,7 +7,6 @@ import FloatingLabelTextarea from "./floating-label-textarea.jsx";
 import CountrySelect from "./country-select.jsx";
 import get from "./locales";
 import copyToClipboard from "../../copy-to-clipboard";
-
 const SALESFORCE_COMMENT_LIMIT = 500;
 
 export default class Petition extends React.Component {
@@ -152,6 +151,9 @@ export default class Petition extends React.Component {
       let postalCode = this.postalCode && this.postalCode.element.value;
       let comment = this.comment && this.comment.element.value;
       let newsletterSignup = false;
+      let locale = document
+        .querySelector(`meta[property="wagtail:language"]`)
+        .getAttribute("content");
 
       // These should not be possible due to the fact that we validate
       // their content prior to submission. TODO: remove these rejections?
@@ -187,6 +189,7 @@ export default class Petition extends React.Component {
         checkbox2: this.props.checkbox2 ? !!this.refs.checkbox2.checked : null,
         newsletterSignup,
         country,
+        locale,
         postalCode,
         comment,
         source: window.location.toString()

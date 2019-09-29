@@ -125,6 +125,7 @@ def petition_submission(request, petition):
         "email": request.data['email'],
         "email_subscription": request.data['newsletterSignup'],
         "source_url": request.data['source'],
+        "page_locale": request.data['locale'],
     }
 
     if petition.requires_country_code:
