@@ -176,10 +176,11 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
-        'BanneredCampaignPage',
-        'CampaignPage',
-        'OpportunityPage',
         'BlogPage',
+        'CampaignPage',
+        'BanneredCampaignPage',
+        'OpportunityPage',
+        'YoutubeRegretsPage',
     ]
 
     """
@@ -1364,7 +1365,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'PrimaryPage',
         'RedirectingPage',
         'Styleguide',
-        'YoutubeRegretsPage',
     ]
 
     def get_context(self, request):
