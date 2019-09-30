@@ -113,14 +113,12 @@ let main = {
   },
 
   enableCopyLinks() {
-    const copyLinks = document.querySelectorAll(`.copy-link`)
+    const copyLinks = document.querySelectorAll(`.copy-link`);
     copyLinks.forEach(element => {
       element.addEventListener(`click`, event => {
         event.preventDefault();
 
-        let productBox = document.querySelector(
-          `.product-detail .h1-heading`
-        );
+        let productBox = document.querySelector(`.product-detail .h1-heading`);
         let productTitle = productBox
           ? productBox.textContent
           : `unknown product`;
@@ -194,7 +192,7 @@ let main = {
     elements.forEach(element => {
       var props = element.dataset;
 
-      props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId || 
+      props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
         0}/`;
 
       props.csrfToken = props.csrfToken || csrfToken;
