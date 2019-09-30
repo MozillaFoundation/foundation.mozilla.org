@@ -280,16 +280,14 @@ let main = {
       );
     });
 
-    // petition elements
-    var petitionElements = Array.from(
-      document.querySelectorAll(`.sign-petition`)
-    );
     var subscribed = false;
-
+    
     if (window.location.search.indexOf(`subscribed=1`) !== -1) {
       subscribed = true;
     }
-
+    
+    // petition elements
+    const petitionElements = document.querySelectorAll(`.sign-petition`)
     petitionElements.forEach(element => {
       var props = element.dataset;
 
@@ -352,10 +350,7 @@ let main = {
     }
 
     // Pulse project lists
-    let pulseProjectList = Array.from(
-      document.querySelectorAll(`.pulse-project-list`)
-    );
-
+    const pulseProjectList = document.querySelectorAll(`.pulse-project-list`)
     pulseProjectList.forEach(target => {
       apps.push(
         new Promise(resolve => {

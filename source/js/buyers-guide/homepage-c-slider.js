@@ -58,7 +58,7 @@ export default {
       `scroll`,
       () => {
         // Figure out which face to show while scrolling:
-        let visible = Array.from(products).filter(v => {
+        let visible = products.filter(v => {
           return isElementInViewport(v) && !v.classList.contains(`d-none`);
         });
 

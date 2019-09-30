@@ -130,7 +130,7 @@
    * associated year (for now)
    */
   function bindEventsToLabels() {
-    let labels = Array.from(filters);
+    const labels = filters;
     labels.forEach(label => {
       label.addEventListener("click", evt => {
         // the label text content is, itself, the filter:

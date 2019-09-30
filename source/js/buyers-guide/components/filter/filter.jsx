@@ -272,7 +272,7 @@ export default class Filter extends React.Component {
     let minC = this.state.creepinessMin,
       maxC = this.state.creepinessMax,
       like = this.state.likelihood,
-      all = Array.from(document.querySelectorAll(`.${CLASS_PRODUCT_BOX}`));
+      all = document.querySelectorAll(`.${CLASS_PRODUCT_BOX}`);
 
     all.forEach(productBox => {
       let c = parseInt(productBox.dataset.creepiness, 10);
