@@ -1401,13 +1401,23 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         blank=True,
     )
 
-    body = StreamField([
-        ('regret_block', customblocks.YoutubeRegretBlock()),
+    intro_text = StreamField([
+        ('text', blocks.CharBlock()),
+    ])
+
+    intro_images = StreamField([
+        ('image', customblocks.ImageBlock()),
+    ])
+
+    regret_stories = StreamField([
+        ('regret_story', customblocks.YoutubeRegretBlock()),
     ])
 
     content_panels = Page.content_panels + [
         FieldPanel('headline'),
-        StreamFieldPanel('body'),
+        StreamFieldPanel('intro_text'),
+        StreamFieldPanel('intro_images'),
+        StreamFieldPanel('regret_stories'),
     ]
 
     template = 'wagtailpages/pages/youtube_regrets_page.html'

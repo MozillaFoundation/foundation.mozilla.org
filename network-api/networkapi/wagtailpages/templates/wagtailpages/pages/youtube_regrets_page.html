@@ -9,13 +9,19 @@
         <div class="col-12">
             <h1>{{ page.specific.headline }}</h1>
         </div>
+
+        <div class="col-12">
+        {% for block in page.intro_elements %}
+            {# do something with "block here - we mostly care about the data, not getting them rendered "as html" #}
+        {% endfor %}
+        </div>
     </div>
 
     <hr>
 
     <div class="row">
         <div class="col-12">
-        {% for block in page.body %}
+        {% for block in page.regret_stories %}
             {% include_block block %}
         {% endfor %}
         </div>

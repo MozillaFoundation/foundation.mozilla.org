@@ -179,5 +179,7 @@ class BlogPageTR(TranslationOptions):
 class YoutubeRegretsPageTR(TranslationOptions):
     fields = {
         'headline',
-        'body',
+        'intro_text',
+        'intro_images',
+        'regret_stories',
     }
