@@ -11,9 +11,17 @@
         </div>
 
         <div class="col-12">
-        {% for block in page.intro_elements %}
-            {# do something with "block here - we mostly care about the data, not getting them rendered "as html" #}
-        {% endfor %}
+            <div class="text">
+            {% for block in page.intro_text %}
+                {# do something with "block" here - we mostly care about the data, not getting them rendered "as html" #}
+            {% endfor %}
+            </div>
+
+            <div class="images">
+            {% for block in page.intro_images %}
+                {# same as above, but now they're images instead of text #}
+            {% endfor %}
+            </div>
         </div>
     </div>
 
