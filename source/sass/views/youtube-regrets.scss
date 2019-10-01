@@ -1,5 +1,10 @@
 #view-youtube-regrets {
+  .wrapper {
+    background: linear-gradient($youtube-regrets-light-red, $white);
+  }
+
   main {
+
     h2,
     p {
       color: $youtube-regrets-red;
