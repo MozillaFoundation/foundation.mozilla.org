@@ -95,7 +95,7 @@ class NavNewsletter {
       navNewsletter.closeDesktopNewsletter();
       // Make sure we don't leak event listeners:
       document.removeEventListener("click", this.closeFormClickHandler);
-      document.removeEventListener("scroll", this.closeFormClickHandler);  
+      document.removeEventListener("scroll", this.closeFormClickHandler);
     }
   }
 
@@ -126,13 +126,8 @@ class NavNewsletter {
   }
 
   init(foundationSiteURL, csrfToken) {
-    console.log('text');
-
     // some DOM nodes do not exist, return
     if (!this.checkDomNodes()) return;
-    
-    console.log('b');
-
 
     var props = elements.joinUs.dataset;
     props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${props.signupId ||
