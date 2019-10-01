@@ -1,10 +1,13 @@
 {% extends "pages/base.html" %}
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
 
-{% block body_id %}youtube-regret{% endblock %}
+{% block body_id %}youtube-regrets{% endblock %}
+{% block extra_font %}
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Changa" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-<div class="container">
+<main class="container">
   <div class="row">
     <div class="col-12">
       <h1>{{ page.specific.headline }}</h1>
@@ -34,7 +37,7 @@
       {% endfor %}
     </div>
   </div>
-</div>
+</main>
 {% endblock %}
 
 {% block footer_block %}
