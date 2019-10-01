@@ -28,9 +28,9 @@
   <hr>
 
   <div class="row">
-    <div class="col-12">
+    <div class="col-md-8 offset-md-2">
       {% for block in page.regret_stories %}
-      {% include_block block %}
+      {% include_block block with index=forloop.counter %}
       {% endfor %}
     </div>
   </div>
