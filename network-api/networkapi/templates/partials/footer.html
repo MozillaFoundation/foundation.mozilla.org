@@ -2,6 +2,7 @@
 
 {% with wrapper_class="py-5" %}
 
+{% if skip_donate != True %}
 {% block footer_donate %}
 <div class="donate-banner dark-theme {{wrapper_class}}">
   <div class="container">
@@ -17,6 +18,7 @@
   </div>
 </div>
 {% endblock %}
+{% endif %}
 
 <footer class="site-footer dark-theme {{wrapper_class}}">
   <div class="container">

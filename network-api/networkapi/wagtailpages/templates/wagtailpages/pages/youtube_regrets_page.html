@@ -1,0 +1,42 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
+
+{% block body_id %}youtube-regret{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ page.specific.headline }}</h1>
+    </div>
+
+    <div class="col-12">
+      <div class="text">
+        {% for block in page.intro_text %}
+        {# do something with "block" here - we mostly care about the data, not getting them rendered "as html" #}
+        {% endfor %}
+      </div>
+
+      <div class="images">
+        {% for block in page.intro_images %}
+        {# same as above, but now they're images instead of text #}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-12">
+      {% for block in page.regret_stories %}
+      {% include_block block %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer_block %}
+{% include "partials/footer.html" with skip_donate=True %}
+{% endblock %}
