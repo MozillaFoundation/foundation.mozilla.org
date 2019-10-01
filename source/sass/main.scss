@@ -41,10 +41,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/airtable-block";
 @import "./components/image-text-mini";
 
-// Design System Components
-
-@import "./library/components/dropdown-field";
-
 // Misc
 
 @import "./resets";
@@ -76,26 +72,39 @@ hr {
   border-color: $gray-20;
 }
 
-#language-switcher {
+select {
   $background-size: 24px;
   $padding-x: 12px;
   $padding-right: $padding-x * 2 + $background-size;
 
   -moz-appearance: none;
   -webkit-appearance: none;
-  background-color: transparent;
-  background-image: url("../_images/glyphs/down-chevron-dark-theme.svg");
+  background-image: url("../_images/glyphs/down-chevron.svg");
   background-repeat: no-repeat;
   background-position: right $padding-x top 50%;
   background-size: $background-size $background-size;
+  width: 100%;
+  font-size: 16px;
   border-radius: 0;
-  border: 1px solid $white;
-  color: $white;
+  border: 1px solid $gray-20;
   padding: 5px $padding-right 5px $padding-x;
 
-  // target Edge broswser to explictly set background color to black
-  // otherwise on Edge the dropdown options won't show (white text on Edge's default white background)
-  @supports (-ms-ime-align: auto) {
-    background-color: $black;
+  &.large {
+    @extend select;
+    font-size: 20px;
+    padding: $padding-x $padding-right $padding-x $padding-x;
+  }
+
+  @at-root .dark-theme & {
+    background-image: url("../_images/glyphs/down-chevron-dark-theme.svg");
+    background-color: transparent;
+    border: 1px solid $white;
+    color: $white;
+
+    // target Edge broswser to explictly set background color to black
+    // otherwise on Edge the dropdown options won't show (white text on Edge's default white background)
+    @supports (-ms-ime-align: auto) {
+      background-color: $black;
+    }
   }
 }
