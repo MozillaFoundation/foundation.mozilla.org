@@ -8,15 +8,15 @@
 
 {% block content %}
 <div class="intro-viewport">
-  <div class="scene3D-container">
-    <div class="scene3D">
+  <div class="scene-container">
+    <div class="scene">
       <div class="ring"></div>
       <div class="ring"></div>
       <div class="ring"></div>
       <div class="ring"></div>
       <div class="ring"></div>
     </div>
-    <div class="scene3D">
+    <div class="scene">
       {% for image in page.intro_images %}
       <div class="block">
         {% image image.value.image width-500 class="mb-3" alt=image.value.altText %}

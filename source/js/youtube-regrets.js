@@ -1,7 +1,8 @@
 const elements = {
-  blocks: `#view-youtube-regrets .block`,
-  rings: `#view-youtube-regrets .ring`,
-  introText: `#view-youtube-regrets .intro-text p`
+  introViewport: `#view-youtube-regrets .intro-viewport`,
+  blocks: `#view-youtube-regrets .intro-viewport .block`,
+  rings: `#view-youtube-regrets .intro-viewport .ring`,
+  introText: `#view-youtube-regrets .intro-viewport .intro-text p`
 };
 
 class YouTubeRegretsTunnel {
@@ -20,10 +21,10 @@ class YouTubeRegretsTunnel {
       let value = elements[key];
       if (typeof value !== "string") return true;
 
-      // find this DOM node, and report on the result (binding it if found for later use)
+      // find DOM nodes, and report on the result (binding it if found for later use)
       let element = document.querySelectorAll(value);
       if (element) elements[key] = element;
-      return !!element;
+      return !!element && element.length > 0;
     });
   }
 
@@ -81,27 +82,29 @@ class YouTubeRegretsTunnel {
   }
 
   /**
-   *
+   * Show rings' opacity vlaue
    */
   setRingsOpacity() {
     elements.rings.forEach(ring => {
-      ring.style.opacity = 0.3;
+      ring.style.opacity = 0.5;
     });
   }
 
+  /**
+   * Move objects towards / away from viewint point as user scrolls
+   */
   moveObjects() {
-    // console.log(`\nScrolling up: `, this.lastPageYOffset > window.pageYOffset);
     this.lastPageYOffset = window.pageYOffset;
 
     let blocksSpeedFactor = elements.blocks.length / elements.introText.length;
     let ringsSpeedFactor = this.scenePerspective / this.sceneDepth;
 
-    document.documentElement.style.setProperty(
-      "--blockZTranslate",
+    this.updateCSSCustomProperty(
+      `--blockZTranslate`,
       this.lastPageYOffset * blocksSpeedFactor
     );
-    document.documentElement.style.setProperty(
-      "--ringZTranslate",
+    this.updateCSSCustomProperty(
+      `--ringZTranslate`,
       this.lastPageYOffset * ringsSpeedFactor
     );
   }
@@ -132,9 +135,7 @@ class YouTubeRegretsTunnel {
 
   setSceneDepth() {
     const scenePerspective = parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--scenePerspective"
-      )
+      this.getCSSCustomPropertyValue(`--scenePerspective`)
     );
     this.scenePerspective = scenePerspective;
 
@@ -143,9 +144,23 @@ class YouTubeRegretsTunnel {
 
     // depth of the scene
     this.sceneDepth = this.introScrollHeight - 1 * window.innerHeight;
-    document.documentElement.style.setProperty("--sceneDepth", this.sceneDepth);
+    this.updateCSSCustomProperty(`--sceneDepth`, this.sceneDepth);
+  }
 
-    console.log(this.introScrollHeight, document.body.scrollHeight);
+  /**
+   * Update CSS custom property
+   */
+  updateCSSCustomProperty(property, value) {
+    elements.introViewport[0].style.setProperty(property, value);
+  }
+
+  /**
+   * Get CSS custom property's value
+   */
+  getCSSCustomPropertyValue(property) {
+    return window
+      .getComputedStyle(elements.introViewport[0])
+      .getPropertyValue(property);
   }
 
   /**
@@ -157,24 +172,19 @@ class YouTubeRegretsTunnel {
     this.setRingsOpacity();
   }
 
+  /**
+   * Initiate interactive intro
+   */
   init() {
     if (!this.checkDomNodes()) return;
 
     let tunnel = this;
-    // console.log(elements.blocks, elements.rings, elements.introText);
-    console.log(tunnel);
 
     window.onload = () => {
       tunnel.setSceneDepth();
       tunnel.setObjectsOpacity();
 
-      window.addEventListener("scroll", event => {
-        // console.log(
-        //   `intro height: `,
-        //   tunnel.introScrollHeight,
-        //   `pixels scrolled: `,
-        //   window.pageYOffset
-        // );
+      window.addEventListener(`scroll`, event => {
         tunnel.moveObjects();
         tunnel.setObjectsOpacity();
       });
