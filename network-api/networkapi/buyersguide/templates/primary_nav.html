@@ -3,9 +3,7 @@
 {% block narrow_screen_menu %}
   <div class="narrow-screen-menu-background">
     <div class="narrow-screen-menu-container">
-
       {% include "./social.html" with mobile=True %}
-      
       <div class="container text-center">
         <div class="row">
           <div class="col">
@@ -21,6 +19,10 @@
 
     </div>
   </div>
+{% endblock %}
+
+{% block burger_and_logo %}
+  {# we do not want the burger and logo from the original nav here #}
 {% endblock %}
 
 {% block wide_screen_menu %}
