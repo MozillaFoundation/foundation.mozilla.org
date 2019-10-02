@@ -40,9 +40,10 @@ export default class LanguageSelect extends React.Component {
       .querySelector(`meta[property="wagtail:language"]`)
       .getAttribute("content");
     let value = this.state.value;
+    let classes = this.props.className;
 
     return (
-      <select value={value ? value : meta_lang} onChange={this.handleChange}>
+      <select value={value ? value : meta_lang} onChange={this.handleChange} className={classes}>
         {this.renderOptions()}
       </select>
     );
