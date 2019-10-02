@@ -56,43 +56,43 @@ $numRings: 5;
         }
 
         &:nth-child(1) {
-          transform: translate3D(-100%, 190%, get-block-z-tranlsate(1));
+          transform: translate3D(-100%, 250%, get-block-z-tranlsate(1));
         }
 
         &:nth-child(2) {
-          transform: translate3D(120%, 160%, get-block-z-tranlsate(2));
+          transform: translate3D(240%, 240%, get-block-z-tranlsate(2));
         }
 
         &:nth-child(3) {
-          transform: translate3D(-270%, -90%, get-block-z-tranlsate(3));
+          transform: translate3D(-200%, -290%, get-block-z-tranlsate(3));
         }
 
         &:nth-child(4) {
-          transform: translate3D(290%, -150%, get-block-z-tranlsate(4));
+          transform: translate3D(270%, -230%, get-block-z-tranlsate(4));
         }
 
         &:nth-child(5) {
-          transform: translate3D(-130%, 90%, get-block-z-tranlsate(5));
+          transform: translate3D(50%, 150%, get-block-z-tranlsate(5));
         }
 
         &:nth-child(6) {
-          transform: translate3D(270%, 170%, get-block-z-tranlsate(6));
+          transform: translate3D(-220%, -180%, get-block-z-tranlsate(6));
         }
 
         &:nth-child(7) {
-          transform: translate3D(350%, -250%, get-block-z-tranlsate(7));
+          transform: translate3D(300%, -250%, get-block-z-tranlsate(7));
         }
 
         &:nth-child(8) {
-          transform: translate3D(-290%, -60%, get-block-z-tranlsate(8));
+          transform: translate3D(-50%, 170%, get-block-z-tranlsate(8));
         }
 
         &:nth-child(9) {
-          transform: translate3D(200%, 220%, get-block-z-tranlsate(9));
+          transform: translate3D(130%, -220%, get-block-z-tranlsate(9));
         }
 
         &:nth-child(10) {
-          transform: translate3D(-170%, 180%, get-block-z-tranlsate(10));
+          transform: translate3D(60%, 250%, get-block-z-tranlsate(10));
         }
       }
 
