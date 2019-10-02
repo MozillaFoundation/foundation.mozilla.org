@@ -4,7 +4,6 @@ const elements = {
   rings: `#view-youtube-regrets .intro-viewport .ring`,
   introText: `#view-youtube-regrets .intro-viewport .intro-text p`
 };
-
 class YouTubeRegretsTunnel {
   constructor() {
     this.introScrollHeight = 0;
@@ -40,7 +39,6 @@ class YouTubeRegretsTunnel {
       let item = elements.introText[i];
       let positionToShow = baseUnit * (i / length);
       let positionToHide = baseUnit * ((i + 1) / length);
-      // console.log(this.lastPageYOffset, positionToHide, this.lastPageYOffset / positionToHide);
 
       if (
         positionToShow <= this.lastPageYOffset &&
@@ -67,17 +65,9 @@ class YouTubeRegretsTunnel {
       let item = elements.blocks[i];
       let matrix = window.getComputedStyle(item).transform;
       let coord = this.getCoordinatefromMatrix3d(matrix);
-      // console.log(coord);
       let percentToOrigin = coord.z / this.introScrollHeight;
 
       item.style.opacity = Math.min(percentToOrigin + 1, 1);
-
-      // console.log(
-      //   `[${i}] `,
-      //   coord.z,
-      //   window.pageYOffset,
-      //   this.introScrollHeight
-      // );
     }
   }
 
@@ -144,7 +134,17 @@ class YouTubeRegretsTunnel {
 
     // depth of the scene
     this.sceneDepth = this.introScrollHeight - 1 * window.innerHeight;
+
+    // update CSS custom properties
     this.updateCSSCustomProperty(`--sceneDepth`, this.sceneDepth);
+    this.updateCSSCustomProperty(
+      `--baseBlockGap`,
+      this.sceneDepth / elements.blocks.length
+    );
+    this.updateCSSCustomProperty(
+      `--baseRingGap`,
+      this.scenePerspective / elements.rings.length
+    );
   }
 
   /**
