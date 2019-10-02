@@ -6,13 +6,6 @@
   --ringZTranslate: 0;
 
   --sceneDepth: 0;
-  --scene3D-width: 100vw;
-  --scene3D-height: 100vw;
-
-  @media (min-width: 576px) {
-    --scene3D-width: 60vw;
-    --scene3D-height: 60vw;
-  }
 }
 
 $numBlocks: 11;
@@ -23,10 +16,6 @@ $numRings: 7;
 .intro-viewport {
   min-height: 100vh;
   height: calc(var(--sceneDepth) * 1px);
-  // background: radial-gradient(#000000, #3a3b46);
-  // background: black;
-  // background: linear-gradient(red, blue);
-  // background: linear-gradient(black 50%, #FF4949);
 
   .scene3D-container {
     position: fixed;
@@ -42,15 +31,18 @@ $numRings: 7;
       top: 0;
       bottom: 0;
       margin: auto;
-      width: var(--scene3D-width);
-      height: var(--scene3D-height);
       transform-style: preserve-3d;
-      // transform: translateZ(calc(var(--cameraZ) * 1px));
       transform: translate3D(0, 0, 0);
       // will-change: transform;
-
       perspective-origin: 50% 50%;
       perspective: calc(var(--scenePerspective) * 1px);
+      width: 100vw;
+      height: 100vw;
+
+      @media (min-width: $bp-sm) {
+        width: 60vw;
+        height: 60vw;
+      }
 
       .block {
         position: absolute;
@@ -133,7 +125,12 @@ $numRings: 7;
     width: 100%;
     height: 100%;
     // border: 3px solid white;
-    box-shadow: inset 0 0 10px 15px $white;
+    box-shadow: inset 0 0 5px 5px $white;
+
+    @media (min-width: $bp-sm) {
+      box-shadow: inset 0 0 10px 15px $white;
+    }
+
     border-radius: 50%;
     // opacity: 0.3;
     opacity: 0;
@@ -173,7 +170,7 @@ $numRings: 7;
       color: $youtube-regrets-red;
       opacity: 0;
 
-      @include scaleText(50px, 56px);
+      @include scaleText(30px, 38px, 50px, 56px);
     }
   }
 }

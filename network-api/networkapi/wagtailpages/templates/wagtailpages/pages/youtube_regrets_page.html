@@ -21,7 +21,7 @@
     <div class="scene3D">
       {% for image in page.intro_images %}
       <div class="block">
-        {% image image.value.image width-800 class="mb-3" alt=image.value.altText %}
+        {% image image.value.image width-500 class="mb-3" alt=image.value.altText %}
       </div>
       {% endfor %}
     </div>
@@ -29,14 +29,9 @@
 
   <div class="intro-text-container">
     <div class="intro-text">
-      <!-- {% for text in page.intro_text %}
+      {% for text in page.intro_text %}
       <p>{{text}}</p>
-      {% endfor %} -->
-      <p>Got YouTube Regrets? Thousands do!</p>
-      <p>They told us about the videos they wish they’d never clicked</p>
-      <p>that sent them down a rabbit how they never meant to go down and didn’t know how to stop</p>
-      <p>Let’s send a message to YouTube: recommend responsibly, or don't recommend at all.</p>
-      <p>No regrets!</p>
+      {% endfor %}
     </div>
   </div>
 

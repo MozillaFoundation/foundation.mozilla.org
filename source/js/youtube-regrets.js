@@ -71,12 +71,12 @@ class YouTubeRegretsTunnel {
 
       item.style.opacity = Math.min(percentToOrigin + 1, 1);
 
-      console.log(
-        `[${i}] `,
-        coord.z,
-        window.pageYOffset,
-        this.introScrollHeight
-      );
+      // console.log(
+      //   `[${i}] `,
+      //   coord.z,
+      //   window.pageYOffset,
+      //   this.introScrollHeight
+      // );
     }
   }
 
@@ -90,7 +90,7 @@ class YouTubeRegretsTunnel {
   }
 
   moveObjects() {
-    console.log(`\nscrolling up: `, this.lastPageYOffset > window.pageYOffset);
+    console.log(`\nScrolling up: `, this.lastPageYOffset > window.pageYOffset);
     this.lastPageYOffset = window.pageYOffset;
 
     let blocksSpeedFactor = elements.blocks.length / elements.introText.length;
@@ -100,7 +100,6 @@ class YouTubeRegretsTunnel {
       "--blockZTranslate",
       this.lastPageYOffset * blocksSpeedFactor
     );
-
     document.documentElement.style.setProperty(
       "--ringZTranslate",
       this.lastPageYOffset * ringsSpeedFactor
@@ -124,8 +123,6 @@ class YouTubeRegretsTunnel {
       console.log(error);
     }
 
-    // console.log(matrix3d);
-
     return {
       x: matrix3d.m41,
       y: matrix3d.m42,
@@ -140,17 +137,14 @@ class YouTubeRegretsTunnel {
       )
     );
 
-    const mainHeight = document.querySelector(`main`).scrollHeight;
-    const footerHeight = document.querySelector(`footer`).scrollHeight;
-
     // the total scroll distance users have to scroll in order to get through the intro tunnel
-    this.introScrollHeight =
-      scenePerspective + window.innerHeight + mainHeight + footerHeight;
-    this.sceneDepth = this.introScrollHeight - 1 * window.innerHeight;
+    this.introScrollHeight = document.body.scrollHeight;
 
+    // depth of the scene
+    this.sceneDepth = this.introScrollHeight - 1 * window.innerHeight;
     document.documentElement.style.setProperty("--sceneDepth", this.sceneDepth);
 
-    console.log(`>>>>>>`, this.introScrollHeight, document.body.scrollHeight);
+    console.log(this.introScrollHeight, document.body.scrollHeight);
   }
 
   /**
