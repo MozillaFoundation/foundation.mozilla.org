@@ -16,6 +16,7 @@ import ShareButtonGroup from "./components/share-button-group/share-button-group
 import primaryNav from "./primary-nav.js";
 import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
+import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -188,6 +189,7 @@ let main = {
 
     primaryNav.init();
     navNewsletter.init(networkSiteURL, csrfToken);
+    youTubeRegretsTunnel.init();
 
     // Extra tracking
 

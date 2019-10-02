@@ -1,3 +1,185 @@
+:root {
+  --scenePerspective: 50;
+  --cameraZ: 0; // Initial camera position
+
+  --blockZTranslate: 0;
+  --ringZTranslate: 0;
+
+  --sceneDepth: 0;
+  --scene3D-width: 100vw;
+  --scene3D-height: 100vw;
+
+  @media (min-width: 576px) {
+    --scene3D-width: 60vw;
+    --scene3D-height: 60vw;
+  }
+}
+
+$numBlocks: 11;
+$numRings: 7;
+
+// Set 3D scene
+
+.intro-viewport {
+  min-height: 100vh;
+  height: calc(var(--sceneDepth) * 1px);
+  // background: radial-gradient(#000000, #3a3b46);
+  // background: black;
+  // background: linear-gradient(red, blue);
+  // background: linear-gradient(black 50%, #FF4949);
+
+  .scene3D-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .scene3D {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: var(--scene3D-width);
+      height: var(--scene3D-height);
+      transform-style: preserve-3d;
+      // transform: translateZ(calc(var(--cameraZ) * 1px));
+      transform: translate3D(0, 0, 0);
+      // will-change: transform;
+
+      perspective-origin: 50% 50%;
+      perspective: calc(var(--scenePerspective) * 1px);
+
+      .block {
+        position: absolute;
+        display: block;
+        width: 100%;
+        opacity: 0;
+
+        @function get-block-z-tranlsate($block-index) {
+          @return calc(
+            var(--blockZTranslate) * 1px -
+            calc(var(--sceneDepth) * 1px / #{$numBlocks} * #{$block-index}) +
+            var(--scenePerspective) * 1px
+          );
+        }
+
+        &:nth-child(1) {
+          transform: translate3D(-100%, 190%, get-block-z-tranlsate(1));
+        }
+
+        &:nth-child(2) {
+          transform: translate3D(120%, 160%, get-block-z-tranlsate(2));
+        }
+
+        &:nth-child(3) {
+          transform: translate3D(-270%, -90%, get-block-z-tranlsate(3));
+        }
+
+        &:nth-child(4) {
+          transform: translate3D(290%, -150%, get-block-z-tranlsate(4));
+        }
+
+        &:nth-child(5) {
+          transform: translate3D(-130%, 90%, get-block-z-tranlsate(5));
+        }
+
+        &:nth-child(6) {
+          transform: translate3D(270%, 170%, get-block-z-tranlsate(6));
+        }
+
+        &:nth-child(7) {
+          transform: translate3D(350%, -250%, get-block-z-tranlsate(7));
+        }
+
+        &:nth-child(8) {
+          transform: translate3D(-290%, -60%, get-block-z-tranlsate(8));
+        }
+
+        &:nth-child(9) {
+          transform: translate3D(200%, 220%, get-block-z-tranlsate(9));
+        }
+
+        &:nth-child(10) {
+          transform: translate3D(-170%, 180%, get-block-z-tranlsate(10));
+        }
+      }
+
+      .ring {
+        position: absolute;
+
+        @function get-ring-z-tranlsate($ring-index) {
+          @return calc(
+            var(--ringZTranslate) * 1px +
+              var(--scenePerspective) / #{$numRings} * #{$ring-index} * 1px -
+              var(--scenePerspective) / 2 * 1px
+          );
+        }
+
+        @for $i from 0 through $numRings {
+          &:nth-child(#{$i}) {
+            transform: translate3D(0, 0, get-ring-z-tranlsate(#{$i}));
+          }
+        }
+      }
+    }
+  }
+}
+
+.scene3D {
+  .ring {
+    width: 100%;
+    height: 100%;
+    // border: 3px solid white;
+    box-shadow: inset 0 0 10px 15px $white;
+    border-radius: 50%;
+    // opacity: 0.3;
+    opacity: 0;
+  }
+}
+
+.intro-text-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+
+  .intro-text {
+    position: relative;
+    width: 100%;
+    max-width: 840px;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+
+    p {
+      position: absolute;
+      // border: 1px solid lightpink;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      font-family: "Changa", sans-serif;
+      font-weight: 500;
+      color: $youtube-regrets-red;
+      opacity: 0;
+
+      @include scaleText(50px, 56px);
+    }
+  }
+}
+
+
+
 #view-youtube-regrets {
   .wrapper {
     background: linear-gradient($youtube-regrets-light-red, $white);
