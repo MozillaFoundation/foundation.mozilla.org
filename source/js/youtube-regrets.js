@@ -90,11 +90,11 @@ class YouTubeRegretsTunnel {
   }
 
   moveObjects() {
-    console.log(`\nScrolling up: `, this.lastPageYOffset > window.pageYOffset);
+    // console.log(`\nScrolling up: `, this.lastPageYOffset > window.pageYOffset);
     this.lastPageYOffset = window.pageYOffset;
 
     let blocksSpeedFactor = elements.blocks.length / elements.introText.length;
-    let ringsSpeedFactor = 1 / (elements.rings.length * 5); // we want rings to move slower
+    let ringsSpeedFactor = this.scenePerspective / this.sceneDepth;
 
     document.documentElement.style.setProperty(
       "--blockZTranslate",
@@ -136,6 +136,7 @@ class YouTubeRegretsTunnel {
         "--scenePerspective"
       )
     );
+    this.scenePerspective = scenePerspective;
 
     // the total scroll distance users have to scroll in order to get through the intro tunnel
     this.introScrollHeight = document.body.scrollHeight;
@@ -148,8 +149,7 @@ class YouTubeRegretsTunnel {
   }
 
   /**
-   * Fade in image block when it's moving towards the origin.
-   * Fade out otherwise.
+   * Update objects' opacity value as user scrolls
    */
   setObjectsOpacity() {
     this.setIntroTextOpacity();
@@ -161,7 +161,6 @@ class YouTubeRegretsTunnel {
     if (!this.checkDomNodes()) return;
 
     let tunnel = this;
-
     // console.log(elements.blocks, elements.rings, elements.introText);
     console.log(tunnel);
 
@@ -170,7 +169,6 @@ class YouTubeRegretsTunnel {
       tunnel.setObjectsOpacity();
 
       window.addEventListener("scroll", event => {
-        console.log(event);
         // console.log(
         //   `intro height: `,
         //   tunnel.introScrollHeight,

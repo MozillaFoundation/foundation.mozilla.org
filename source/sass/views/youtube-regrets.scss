@@ -1,15 +1,12 @@
 :root {
   --scenePerspective: 50;
-  --cameraZ: 0; // Initial camera position
-
   --blockZTranslate: 0;
   --ringZTranslate: 0;
-
   --sceneDepth: 0;
 }
 
-$numBlocks: 11;
-$numRings: 7;
+$numBlocks: 10;
+$numRings: 5;
 
 // Set 3D scene
 
@@ -155,8 +152,10 @@ $numRings: 7;
     text-align: center;
 
     p {
+      font-family: "Changa", sans-serif;
+      font-weight: 500;
+      color: $youtube-regrets-red;
       position: absolute;
-      // border: 1px solid lightpink;
       left: 0;
       right: 0;
       top: 0;
@@ -165,9 +164,7 @@ $numRings: 7;
       justify-content: center;
       align-items: center;
       margin: 0;
-      font-family: "Changa", sans-serif;
-      font-weight: 500;
-      color: $youtube-regrets-red;
+      padding: 0 1rem;
       opacity: 0;
 
       @include scaleText(30px, 38px, 50px, 56px);
