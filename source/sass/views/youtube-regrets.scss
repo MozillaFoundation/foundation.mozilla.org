@@ -1,0 +1,25 @@
+#view-youtube-regrets {
+  .wrapper {
+    background: linear-gradient($youtube-regrets-light-red, $white);
+  }
+
+  main {
+    h2,
+    p {
+      color: $youtube-regrets-red;
+    }
+
+    h2 {
+      font-family: "Changa", sans-serif;
+
+      @include scaleText(30px, 36px, 42px, 42px);
+    }
+
+    p {
+      font-family: "Zilla Slab";
+      font-weight: 500;
+
+      @include scaleText(18px, 24px, 22px, 32px);
+    }
+  }
+}
