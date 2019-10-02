@@ -43,7 +43,11 @@ export default class LanguageSelect extends React.Component {
     let classes = this.props.className;
 
     return (
-      <select value={value ? value : meta_lang} onChange={this.handleChange} className={classes}>
+      <select
+        value={value ? value : meta_lang}
+        onChange={this.handleChange}
+        className={classes}
+      >
         {this.renderOptions()}
       </select>
     );

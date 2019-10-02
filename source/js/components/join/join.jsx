@@ -273,7 +273,7 @@ export default class JoinUs extends React.Component {
         this.state.signupFailed
     });
 
-    let classes = classNames({
+    let classes = classNames(`mb-2`, {
       "position-relative": wrapperClasses !== ``
     });
 
@@ -320,8 +320,8 @@ export default class JoinUs extends React.Component {
 
     return (
       <div className={classes}>
-        <div>
-          <CountrySelect label={get(`Your country`)} className="w-100"/>
+        <div className="mb-2">
+          <CountrySelect label={get(`Your country`)} className="w-100" />
         </div>
         <div>
           <LanguageSelect className="w-100" />
@@ -382,7 +382,9 @@ export default class JoinUs extends React.Component {
             />
             <label className="form-check-label d-flex align-items-start">
               <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-1">
-                {get(`I'm okay with Mozilla handling my info as explained in this Privacy Notice`)}
+                {get(
+                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
+                )}
               </p>
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
