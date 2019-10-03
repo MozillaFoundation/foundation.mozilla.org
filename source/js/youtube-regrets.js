@@ -17,11 +17,12 @@ class YouTubeRegretsTunnel {
    * Fade in text blocks one by one as user scrolls
    */
   setIntroTextOpacity() {
-    let length = elements.introText.length;
-    let speedFactor = elements.introText.length / elements.blocks.length;
+    let introText = elements.introText;
+    let length = introText.length;
+    let speedFactor = length / elements.blocks.length;
     let baseUnit = this.introScrollHeight * speedFactor;
 
-    elements.introText.forEach((item, i) => {
+    introText.forEach((item, i) => {
       let positionToShow = baseUnit * (i / length);
       let positionToHide = baseUnit * ((i + 1) / length);
 
