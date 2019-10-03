@@ -28,8 +28,14 @@
     </div>
   </div>
 
+  <div class="row hidden-md-up my-3">
+    <div class="col-12">
+      <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+    </div>
+  </div>
+
   {% if page.faq != None %}
-  <div class="row mb-5">
+  <div class="row my-3 my-md-5">
     <div class="offset-md-2 col-md-8">
       {{ page.faq }}
     </div>
@@ -37,8 +43,8 @@
   {% endif %}
 
   <div class="row">
-    <div class="offset-md-1 col-md-1 text-center pb-5">
-      <div class="sticky-side hidden-md-down">
+    <div class="offset-md-1 col-md-1 text-center pb-md-4 hidden-sm-down">
+      <div class="sticky-side">
         <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>
     </div>
