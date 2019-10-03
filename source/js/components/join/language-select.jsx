@@ -1,4 +1,5 @@
 import React from "react";
+import { getCurrentLanguage } from "../petition/locales";
 
 export default class LanguageSelect extends React.Component {
   constructor(props) {
@@ -33,9 +34,7 @@ export default class LanguageSelect extends React.Component {
   }
 
   render() {
-    let meta_lang = document
-      .querySelector(`meta[property="wagtail:language"]`)
-      .getAttribute("content");
+    let meta_lang = getCurrentLanguage();
     let classes = this.props.className;
 
     return (

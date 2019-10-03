@@ -3,7 +3,7 @@ import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
-import getText from "../petition/locales";
+import { getText } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {

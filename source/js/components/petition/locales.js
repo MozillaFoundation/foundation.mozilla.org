@@ -30,7 +30,7 @@ function getCurrentLanguage() {
  * @param {string} locale the locale for which to fetch the localized key (optional, defaults to current URL locale)
  * @return {string} the localised key (with fall-back to the default localized string, and the key itself)
  */
-function get(key, locale) {
+function getText(key, locale) {
   if (!locale) {
     locale = getCurrentLanguage();
   }
@@ -42,6 +42,4 @@ function get(key, locale) {
   return data[locale][key] || key;
 }
 
-const test = { getText: get, getCurrentLanguage };
-
-export test;
+export { getText, getCurrentLanguage };

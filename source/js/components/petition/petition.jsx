@@ -5,7 +5,7 @@ import DonationModal from "./donation-modal.jsx";
 import FloatingLabelInput from "./floating-label-input.jsx";
 import FloatingLabelTextarea from "./floating-label-textarea.jsx";
 import CountrySelect from "./country-select.jsx";
-import get from "./locales";
+import { getText, getCurrentLanguage } from "./locales";
 import copyToClipboard from "../../copy-to-clipboard";
 const SALESFORCE_COMMENT_LIMIT = 500;
 
@@ -151,9 +151,7 @@ export default class Petition extends React.Component {
       let postalCode = this.postalCode && this.postalCode.element.value;
       let comment = this.comment && this.comment.element.value;
       let newsletterSignup = false;
-      let lang = document
-        .querySelector(`meta[property="wagtail:language"]`)
-        .getAttribute("content");
+      let lang = getCurrentLanguage();
 
       // These should not be possible due to the fact that we validate
       // their content prior to submission. TODO: remove these rejections?
@@ -556,14 +554,14 @@ export default class Petition extends React.Component {
                 }}
                 id="givenNames"
                 type="text"
-                label={get(`First name`)}
+                label={getText(`First name`)}
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
               />
               {this.state.userTriedSubmitting &&
                 !this.givenNames.element.value && (
                   <small className="form-check form-control-feedback">
-                    {get(`Please enter your given name(s)`)}
+                    {getText(`Please enter your given name(s)`)}
                   </small>
                 )}
             </div>
@@ -575,14 +573,14 @@ export default class Petition extends React.Component {
                 }}
                 id="surname"
                 type="text"
-                label={get(`Last name`)}
+                label={getText(`Last name`)}
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
               />
               {this.state.userTriedSubmitting &&
                 !this.surname.element.value && (
                   <small className="form-check form-control-feedback">
-                    {get(`Please enter your surname`)}
+                    {getText(`Please enter your surname`)}
                   </small>
                 )}
             </div>
@@ -594,7 +592,7 @@ export default class Petition extends React.Component {
                 }}
                 id="emailInput"
                 type="email"
-                label={get(`Email address`)}
+                label={getText(`Email address`)}
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
               />
@@ -602,7 +600,7 @@ export default class Petition extends React.Component {
                 (!this.email.element.value ||
                   !this.validatesAsEmail(this.email.element.value)) && (
                   <small className="form-check form-control-feedback">
-                    {get(`Please enter your email`)}
+                    {getText(`Please enter your email`)}
                   </small>
                 )}
             </div>
@@ -612,7 +610,7 @@ export default class Petition extends React.Component {
                 ref={element => {
                   this.country = element;
                 }}
-                label={get(`Your country`)}
+                label={getText(`Your country`)}
                 disabled={disableFields}
                 onFocus={this.onInputFocus}
               />
@@ -620,7 +618,7 @@ export default class Petition extends React.Component {
                 this.state.userTriedSubmitting &&
                 !this.country.element.value && (
                   <small className="form-check form-control-feedback">
-                    {get(`Please enter your country`)}
+                    {getText(`Please enter your country`)}
                   </small>
                 )}
             </div>
@@ -634,14 +632,14 @@ export default class Petition extends React.Component {
                   }}
                   id="postalCodeInput"
                   type="text"
-                  label={get(`Postal code`)}
+                  label={getText(`Postal code`)}
                   disabled={disableFields}
                   onFocus={this.onInputFocus}
                 />
                 {this.state.userTriedSubmitting &&
                   !this.postalCode.element.value && (
                     <small className="form-check form-control-feedback">
-                      {get(`Please enter your postal code`)}
+                      {getText(`Please enter your postal code`)}
                     </small>
                   )}
               </div>
@@ -655,7 +653,7 @@ export default class Petition extends React.Component {
                   }}
                   id="commentInput"
                   type="text"
-                  label={get(`Comment`)}
+                  label={getText(`Comment`)}
                   disabled={disableFields}
                   onFocus={this.onInputFocus}
                 />
@@ -690,14 +688,14 @@ export default class Petition extends React.Component {
                   ref="privacy"
                 />
                 <span className="body-small form-text">
-                  {get(
+                  {getText(
                     `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
                   )}
                 </span>
                 {this.state.userTriedSubmitting &&
                   !this.refs.privacy.checked && (
                     <small className="has-danger">
-                      {get(`Please check this box if you want to proceed`)}
+                      {getText(`Please check this box if you want to proceed`)}
                     </small>
                   )}
               </label>
@@ -713,7 +711,7 @@ export default class Petition extends React.Component {
                     ref="newsletterSignup"
                   />
                   <span className="body-small form-text">
-                    {get(
+                    {getText(
                       `Yes, I want to receive email updates about Mozilla's campaigns.`
                     )}
                   </span>
@@ -728,7 +726,7 @@ export default class Petition extends React.Component {
                 disabled={disableFields}
                 className="col-12 btn btn-primary petition-btn"
               >
-                {get(`Add my name`)}
+                {getText(`Add my name`)}
               </button>
             </div>
           </div>
@@ -739,7 +737,7 @@ export default class Petition extends React.Component {
 }
 
 Petition.defaultProps = {
-  ctaDescription: get(`Add my name`),
+  ctaDescription: getText(`Add my name`),
   ctaHeader: ``,
   newsletter: `mozilla-foundation`
 };
