@@ -171,15 +171,13 @@ class YouTubeRegretsTunnel {
   init() {
     if (!utility.checkAndBindDomNodes(elements, true)) return;
 
-    let tunnel = this;
-
     window.onload = () => {
-      tunnel.setSceneDepth();
-      tunnel.setObjectsOpacity();
+      this.setSceneDepth();
+      this.setObjectsOpacity();
 
       window.addEventListener(`scroll`, event => {
-        tunnel.moveObjects();
-        tunnel.setObjectsOpacity();
+        this.moveObjects();
+        this.setObjectsOpacity();
       });
     };
   }

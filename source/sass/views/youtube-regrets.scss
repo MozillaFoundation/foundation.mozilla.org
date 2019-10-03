@@ -119,10 +119,24 @@
             );
           }
 
-          @for $i from 0 through $numRings {
-            &:nth-child(#{$i}) {
-              transform: translate3D(0, 0, get-ring-z-translate(#{$i}));
-            }
+          &:nth-child(1) {
+            transform: translate3D(0, 0, get-ring-z-translate(1));
+          }
+
+          &:nth-child(2) {
+            transform: translate3D(0, 0, get-ring-z-translate(2));
+          }
+
+          &:nth-child(3) {
+            transform: translate3D(0, 0, get-ring-z-translate(3));
+          }
+
+          &:nth-child(4) {
+            transform: translate3D(0, 0, get-ring-z-translate(4));
+          }
+
+          &:nth-child(5) {
+            transform: translate3D(0, 0, get-ring-z-translate(5));
           }
         }
       }
