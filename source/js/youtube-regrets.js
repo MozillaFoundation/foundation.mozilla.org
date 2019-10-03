@@ -21,8 +21,7 @@ class YouTubeRegretsTunnel {
     let speedFactor = elements.introText.length / elements.blocks.length;
     let baseUnit = this.introScrollHeight * speedFactor;
 
-    for (let i = 0; i < length; i++) {
-      let item = elements.introText[i];
+    elements.introText.forEach((item, i) => {
       let positionToShow = baseUnit * (i / length);
       let positionToHide = baseUnit * ((i + 1) / length);
 
@@ -39,7 +38,7 @@ class YouTubeRegretsTunnel {
       } else {
         item.style.opacity = 0;
       }
-    }
+    });
   }
 
   /**
@@ -47,14 +46,13 @@ class YouTubeRegretsTunnel {
    * Fade out otherwise.
    */
   setBlocksOpacity() {
-    for (let i = 0; i < elements.blocks.length; i++) {
-      let item = elements.blocks[i];
+    elements.blocks.forEach((item, i) => {
       let matrix = window.getComputedStyle(item).transform;
       let coord = this.getCoordinatefromMatrix3d(matrix);
       let percentToOrigin = coord.z / this.introScrollHeight;
 
       item.style.opacity = Math.min(percentToOrigin + 1, 1);
-    }
+    });
   }
 
   /**
