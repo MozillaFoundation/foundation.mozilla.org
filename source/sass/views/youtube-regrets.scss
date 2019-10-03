@@ -186,4 +186,9 @@
       @include scaleText(18px, 24px, 22px, 32px);
     }
   }
+
+  .sticky-side {
+    position: sticky;
+    top: 120px;
+  }
 }

@@ -1409,6 +1409,20 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         ('image', customblocks.ImageBlock()),
     ])
 
+    faq = StreamField(
+        [
+            ('paragraph', blocks.RichTextBlock(
+                features=[
+                    'bold', 'italic',
+                    'h2', 'h3', 'h4', 'h5',
+                    'ol', 'ul',
+                    'link', 'hr',
+                ]
+            ))
+        ],
+        blank=True,
+    )
+
     regret_stories = StreamField([
         ('regret_story', customblocks.YoutubeRegretBlock()),
     ])
@@ -1417,6 +1431,7 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         FieldPanel('headline'),
         StreamFieldPanel('intro_text'),
         StreamFieldPanel('intro_images'),
+        StreamFieldPanel('faq'),
         StreamFieldPanel('regret_stories'),
     ]
 

@@ -181,5 +181,6 @@ class YoutubeRegretsPageTR(TranslationOptions):
         'headline',
         'intro_text',
         'intro_images',
+        'faq',
         'regret_stories',
     }
