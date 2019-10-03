@@ -29,10 +29,12 @@
   </div>
 
   <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="regret-stories show-1 col-md-8 offset-md-2">
       {% for block in page.regret_stories %}
       {% include_block block with index=forloop.counter %}
       {% endfor %}
+
+      {% include "./load-more-regrets.html" %}
     </div>
   </div>
 </main>
