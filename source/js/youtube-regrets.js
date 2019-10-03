@@ -47,12 +47,18 @@ class YouTubeRegretsTunnel {
    * Fade out otherwise.
    */
   setBlocksOpacity() {
-    elements.blocks.forEach((item, i) => {
+    let opacity = 1;
+
+    elements.blocks.forEach(item => {
       let matrix = window.getComputedStyle(item).transform;
       let coord = this.getCoordinatefromMatrix3d(matrix);
-      let percentToOrigin = coord.z / this.introScrollHeight;
 
-      item.style.opacity = Math.min(percentToOrigin + 1, 1);
+      if (coord) {
+        let percentToOrigin = coord.z / this.introScrollHeight;
+        opacity = Math.min(percentToOrigin + 1, 1);
+      }
+
+      item.style.opacity = opacity;
     });
   }
 
@@ -88,7 +94,7 @@ class YouTubeRegretsTunnel {
    * Parse x, y, and z coordinate from matrix
    */
   getCoordinatefromMatrix3d(matrix = ``) {
-    let matrix3d = {};
+    let matrix3d;
 
     try {
       if (typeof DOMMatrix !== `undefined`) {
@@ -101,11 +107,13 @@ class YouTubeRegretsTunnel {
       console.log(error);
     }
 
-    return {
-      x: matrix3d.m41,
-      y: matrix3d.m42,
-      z: matrix3d.m43
-    };
+    return !!matrix3d
+      ? {
+          x: matrix3d.m41,
+          y: matrix3d.m42,
+          z: matrix3d.m43
+        }
+      : false;
   }
 
   setSceneDepth() {
