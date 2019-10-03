@@ -3,7 +3,7 @@ import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
-import get from "../petition/locales";
+import getText from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {
@@ -197,7 +197,7 @@ export default class JoinUs extends React.Component {
     );
 
     emailFields.forEach(emailField => {
-      let currentEmailField = emailField == event.target;
+      let currentEmailField = event.target === emailField;
       if (currentEmailField) {
         let localizationFields = document.querySelector(
           `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
@@ -283,7 +283,7 @@ export default class JoinUs extends React.Component {
           <input
             type="email"
             className="form-control"
-            placeholder={get(`Please enter your email`)}
+            placeholder={getText(`Please enter your email`)}
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
@@ -312,8 +312,8 @@ export default class JoinUs extends React.Component {
    */
 
   renderLocalizationFields() {
-    let header = this.props.formPosition == `header`;
-    let footer = this.props.formPosition == `footer`;
+    let header = this.props.formPosition === `header`;
+    let footer = this.props.formPosition === `footer`;
     let classes = classNames(`form-l10n`, {
       "d-none": footer || header
     });
@@ -321,7 +321,7 @@ export default class JoinUs extends React.Component {
     return (
       <div className={classes}>
         <div className="mb-2">
-          <CountrySelect label={get(`Your country`)} className="w-100" />
+          <CountrySelect label={getText(`Your country`)} className="w-100" />
         </div>
         <div>
           <LanguageSelect className="w-100" />
@@ -382,7 +382,7 @@ export default class JoinUs extends React.Component {
             />
             <label className="form-check-label d-flex align-items-start">
               <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-1">
-                {get(
+                {getText(
                   `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
                 )}
               </p>

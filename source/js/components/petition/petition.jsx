@@ -151,7 +151,7 @@ export default class Petition extends React.Component {
       let postalCode = this.postalCode && this.postalCode.element.value;
       let comment = this.comment && this.comment.element.value;
       let newsletterSignup = false;
-      let locale = document
+      let lang = document
         .querySelector(`meta[property="wagtail:language"]`)
         .getAttribute("content");
 
@@ -189,7 +189,7 @@ export default class Petition extends React.Component {
         checkbox2: this.props.checkbox2 ? !!this.refs.checkbox2.checked : null,
         newsletterSignup,
         country,
-        locale,
+        lang,
         postalCode,
         comment,
         source: window.location.toString()

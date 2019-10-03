@@ -4,13 +4,10 @@ export default class LanguageSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "" };
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
     this.setState({ value: event.target.value });
-    console.log(`After: ${this.state.value}`);
   }
 
   renderOptions() {
@@ -39,13 +36,12 @@ export default class LanguageSelect extends React.Component {
     let meta_lang = document
       .querySelector(`meta[property="wagtail:language"]`)
       .getAttribute("content");
-    let value = this.state.value;
     let classes = this.props.className;
 
     return (
       <select
-        value={value ? value : meta_lang}
-        onChange={this.handleChange}
+        value={this.state.value || meta_lang}
+        onChange={evt => this.handleChange(evt)}
         className={classes}
       >
         {this.renderOptions()}

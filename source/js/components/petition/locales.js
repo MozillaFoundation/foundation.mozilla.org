@@ -9,7 +9,7 @@ let currentLocale = false;
  * path-after-the-domain is, and tries to resolve that as a locale.
  * @return {string} The current locale string
  */
-function getCurrentLocale() {
+function getCurrentLanguage() {
   if (typeof window === `undefined` || !window.location) {
     return DEFAULT_LOCALE;
   }
@@ -32,7 +32,7 @@ function getCurrentLocale() {
  */
 function get(key, locale) {
   if (!locale) {
-    locale = getCurrentLocale();
+    locale = getCurrentLanguage();
   }
 
   if (!data[locale]) {
@@ -42,4 +42,6 @@ function get(key, locale) {
   return data[locale][key] || key;
 }
 
-export default get;
+const test = { getText: get, getCurrentLanguage };
+
+export test;
