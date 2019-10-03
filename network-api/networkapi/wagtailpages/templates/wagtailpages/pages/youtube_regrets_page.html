@@ -29,6 +29,12 @@
   </div>
 
   <div class="row">
+    <style>
+      .regret-stories.show-1 .youtube-regret:nth-of-type(n+{% if page.specific.batch_size %}{{ page.specific.batch_size|add:"1" }}{% else %}11{% endif %}) {
+        display: none;
+      }
+    </style>
+
     <div class="regret-stories show-1 col-md-8 offset-md-2">
       {% for block in page.regret_stories %}
       {% include_block block with index=forloop.counter %}

@@ -1,4 +1,4 @@
-<div class="text-center mb-5">
+<div class="text-center mb-5 d-none">
   <button id="load-more-regrets" class="btn btn-secondary">load more</button>
 </div>
 
@@ -35,5 +35,6 @@
     let batch = 1;
     stories.classList.add(`show-${batch}`);
     btn.addEventListener(`click`, reveal);
+    btn.parentNode.classList.remove(`d-none`);
   })();
 </script>
