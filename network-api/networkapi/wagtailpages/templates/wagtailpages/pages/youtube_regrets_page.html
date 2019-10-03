@@ -28,8 +28,21 @@
     </div>
   </div>
 
+  {% if page.faq != None %}
+  <div class="row mb-5">
+    <div class="offset-md-2 col-md-8">
+      {{ page.faq }}
+    </div>
+  </div>
+  {% endif %}
+
   <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="offset-md-1 col-md-1 text-center pb-5">
+      <div class="sticky-side hidden-md-down">
+        <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+      </div>
+    </div>
+    <div class="col-md-8">
       {% for block in page.regret_stories %}
       {% include_block block with index=forloop.counter %}
       {% endfor %}
