@@ -1,4 +1,6 @@
-const elements = {
+import utility from "./utility";
+
+let elements = {
   introViewport: `#view-youtube-regrets .intro-viewport`,
   blocks: `#view-youtube-regrets .intro-viewport .block`,
   rings: `#view-youtube-regrets .intro-viewport .ring`,
@@ -9,22 +11,6 @@ class YouTubeRegretsTunnel {
     this.introScrollHeight = 0;
     this.sceneDepth = 0;
     this.lastPageYOffset = 0;
-  }
-
-  /**
-   * Find and bind all necessary DOM nodes, returning "false" if not all DOM nodes were found.
-   */
-  checkDomNodes() {
-    return Object.keys(elements).every(key => {
-      // if this element already resolved to a DOM node, move on to the next
-      let value = elements[key];
-      if (typeof value !== "string") return true;
-
-      // find DOM nodes, and report on the result (binding it if found for later use)
-      let element = document.querySelectorAll(value);
-      if (element) elements[key] = element;
-      return !!element && element.length > 0;
-    });
   }
 
   /**
@@ -176,7 +162,7 @@ class YouTubeRegretsTunnel {
    * Initiate interactive intro
    */
   init() {
-    if (!this.checkDomNodes()) return;
+    if (!utility.checkAndBindDomNodes(elements, true)) return;
 
     let tunnel = this;
 
