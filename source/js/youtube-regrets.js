@@ -1,5 +1,8 @@
 import utility from "./utility";
 
+// factor for bringing image blocks closer to perspective origin
+const ZOOM_FACTOR = 2.5;
+
 let elements = {
   introViewport: `#view-youtube-regrets .intro-viewport`,
   blocks: `#view-youtube-regrets .intro-viewport .block`,
@@ -82,7 +85,7 @@ class YouTubeRegretsTunnel {
 
     this.updateCSSCustomProperty(
       `--blockZTranslate`,
-      this.lastPageYOffset * blocksSpeedFactor
+      this.lastPageYOffset * blocksSpeedFactor / ZOOM_FACTOR
     );
     this.updateCSSCustomProperty(
       `--ringZTranslate`,
@@ -132,7 +135,7 @@ class YouTubeRegretsTunnel {
     this.updateCSSCustomProperty(`--sceneDepth`, this.sceneDepth);
     this.updateCSSCustomProperty(
       `--baseBlockGap`,
-      this.sceneDepth / elements.blocks.length
+      this.sceneDepth / elements.blocks.length / ZOOM_FACTOR
     );
     this.updateCSSCustomProperty(
       `--baseRingGap`,

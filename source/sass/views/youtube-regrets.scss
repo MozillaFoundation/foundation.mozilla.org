@@ -4,12 +4,10 @@
   }
 
   .intro-viewport {
-    --scenePerspective: 50;
+    --scenePerspective: 55;
     --blockZTranslate: 0;
     --ringZTranslate: 0;
     --sceneDepth: 0;
-
-    $numRings: 5;
 
     min-height: 100vh;
     height: calc(var(--sceneDepth) * 1px);
@@ -56,11 +54,11 @@
           }
 
           &:nth-child(1) {
-            transform: translate3D(-100%, 250%, get-block-z-translate(1));
+            transform: translate3D(-70%, 220%, get-block-z-translate(1));
           }
 
           &:nth-child(2) {
-            transform: translate3D(240%, 240%, get-block-z-translate(2));
+            transform: translate3D(200%, 240%, get-block-z-translate(2));
           }
 
           &:nth-child(3) {
@@ -68,11 +66,11 @@
           }
 
           &:nth-child(4) {
-            transform: translate3D(270%, -230%, get-block-z-translate(4));
+            transform: translate3D(230%, -230%, get-block-z-translate(4));
           }
 
           &:nth-child(5) {
-            transform: translate3D(50%, 150%, get-block-z-translate(5));
+            transform: translate3D(60%, 250%, get-block-z-translate(5));
           }
 
           &:nth-child(6) {
@@ -84,15 +82,15 @@
           }
 
           &:nth-child(8) {
-            transform: translate3D(-50%, 170%, get-block-z-translate(8));
+            transform: translate3D(-50%, 230%, get-block-z-translate(8));
           }
 
           &:nth-child(9) {
-            transform: translate3D(130%, -220%, get-block-z-translate(9));
+            transform: translate3D(130%, -200%, get-block-z-translate(9));
           }
 
           &:nth-child(10) {
-            transform: translate3D(60%, 250%, get-block-z-translate(10));
+            transform: translate3D(130%, 270%, get-block-z-translate(10));
           }
         }
 
