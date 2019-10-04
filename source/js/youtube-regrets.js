@@ -11,6 +11,7 @@ let elements = {
   introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
   scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`
 };
+
 class YouTubeRegretsTunnel {
   constructor() {
     this.introScrollHeight = 0;
@@ -185,19 +186,24 @@ class YouTubeRegretsTunnel {
    * Initiate interactive intro
    */
   init() {
-    if (!utility.checkAndBindDomNodes(elements, true)) return;
+    this.loadAttempt = this.loadAttempt || 1;
 
-    window.onload = () => {
-      this.setSceneDepth();
+    if (!utility.checkAndBindDomNodes(elements, true)) {
+      if (this.loadAttempt++ < 5) {
+        setTimeout(() => this.init(), 200);
+      }
+      return;
+    }
+
+    this.setSceneDepth();
+    this.setObjectsOpacity();
+    this.toggleScrollHint();
+
+    window.addEventListener(`scroll`, event => {
+      this.moveObjects();
       this.setObjectsOpacity();
       this.toggleScrollHint();
-
-      window.addEventListener(`scroll`, event => {
-        this.moveObjects();
-        this.setObjectsOpacity();
-        this.toggleScrollHint();
-      });
-    };
+    });
   }
 }
 
