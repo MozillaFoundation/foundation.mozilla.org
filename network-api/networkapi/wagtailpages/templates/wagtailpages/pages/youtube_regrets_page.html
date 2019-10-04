@@ -7,27 +7,39 @@
 {% endblock %}
 
 {% block content %}
-<main class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>{{ page.specific.headline }}</h1>
+<div class="intro-viewport">
+  <div class="scene-container">
+    <div class="scene">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
     </div>
-
-    <div class="col-12">
-      <div class="text">
-        {% for block in page.intro_text %}
-        {# do something with "block" here - we mostly care about the data, not getting them rendered "as html" #}
-        {% endfor %}
+    <div class="scene">
+      {% for image in page.intro_images %}
+      <div class="block">
+        {% image image.value.image width-500 class="mb-3" alt=image.value.altText %}
       </div>
-
-      <div class="images">
-        {% for block in page.intro_images %}
-        {# same as above, but now they're images instead of text #}
-        {% endfor %}
-      </div>
+      {% endfor %}
     </div>
   </div>
 
+  <div class="intro-text-container">
+    <div class="intro-text">
+      {% for text in page.intro_text %}
+      <p>{{text}}</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <figure class="scroll-hint text-center d-none">
+    <img src="/_images/youtube-regrets-scroll.svg" width="28" height="85" />
+    <figcaption>Scroll</figcaption>
+  </figure>
+</div>
+
+<main class="container">
   <div class="row hidden-md-up my-3">
     <div class="col-12">
       <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
