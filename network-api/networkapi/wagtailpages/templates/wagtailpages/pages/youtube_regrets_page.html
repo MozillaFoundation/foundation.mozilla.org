@@ -33,7 +33,16 @@
     </div>
   </div>
 
-  <figure class="scroll-hint text-center d-none">
+  <style>
+    figure.scroll-hint {
+      transition: opacity 0.5s;
+      opacity: 1;
+    }
+    figure.scroll-hint.hide {
+      opacity: 0;
+    }
+  </style>
+  <figure class="scroll-hint text-center">
     <img src="/_images/youtube-regrets-scroll.svg" width="28" height="85" />
     <figcaption>Scroll</figcaption>
   </figure>
