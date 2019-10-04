@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+GETTEXT_SHA256="2f991a49b3fb616a032490c907cb700966c5fd998d2aa12b86d547a93746ed66"
+GETTEXT_TARBALL="https://assets.mofoprod.net/gettext/gettext-0.20.1.tar.xz"
+
+echo "-----> Downloading and installing gettext tools"
+
+cd $BUILD_DIR
+
+# Ensure the file was not cached
+rm -f gettext.tar.xz
+
+# Fetch our precompiled gettext package
+curl -s -L -o gettext.tar.xz $GETTEXT_TARBALL
+
+# Verify the contents of the package
+if [ "$GETTEXT_SHA256" != "$(sha256sum gettext.tar.xz | cut -d ' ' -f 1)" ]; then
+    echo "Checksum doesn't match. gettext tools will not be installed."
+    exit 1
+fi
+
+# Extract the gettext tools
+tar -xf gettext.tar.xz > /dev/null
+
+# clean up
+rm gettext.tar.xz
+
+# Update PATH and LD_LIBRARY_PATH so that gettext binaries are available and can run.
+PATH=$BUILD_DIR/gettext/bin:$PATH
+LD_LIBRARY_PATH=$BUILD_DIR/gettext/lib:$LD_LIBRARY_PATH
+
+# Compile localized strings
+python $BUILD_DIR/manage.py compilemessages
