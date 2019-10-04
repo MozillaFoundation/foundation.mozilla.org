@@ -1435,4 +1435,10 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         StreamFieldPanel('regret_stories'),
     ]
 
+    zen_nav = True
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return set_main_site_nav_information(self, context, 'Homepage')
+
     template = 'wagtailpages/pages/youtube_regrets_page.html'
