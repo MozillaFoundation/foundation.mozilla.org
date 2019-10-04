@@ -185,6 +185,7 @@ class YouTubeRegretsTunnel {
   init() {
     if (!utility.checkAndBindDomNodes(elements, true)) return;
 
+    window.onload = () => {
       this.setSceneDepth();
       this.setObjectsOpacity();
       this.toggleScrollHint();
@@ -194,6 +195,7 @@ class YouTubeRegretsTunnel {
         this.setObjectsOpacity();
         this.toggleScrollHint();
       });
+    };
   }
 }
 
