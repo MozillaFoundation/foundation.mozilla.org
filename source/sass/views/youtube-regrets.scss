@@ -112,8 +112,8 @@
             @return calc(
               1px *
                 (
-                  var(--ringZTranslate) +
-                  var(--baseRingGap) * #{$ring-index} -
+                  var(--ringZTranslate) -
+                  var(--baseRingGap) * #{$ring-index} +
                   var(--scenePerspective) / 2
                 )
             );

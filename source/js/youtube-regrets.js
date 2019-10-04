@@ -78,7 +78,7 @@ class YouTubeRegretsTunnel {
     this.lastPageYOffset = window.pageYOffset;
 
     let blocksSpeedFactor = elements.blocks.length / elements.introText.length;
-    let ringsSpeedFactor = this.scenePerspective / this.sceneDepth;
+    let ringsSpeedFactor = (this.scenePerspective / this.sceneDepth) * 1.2;
 
     this.updateCSSCustomProperty(
       `--blockZTranslate`,
@@ -123,10 +123,10 @@ class YouTubeRegretsTunnel {
     this.scenePerspective = scenePerspective;
 
     // the total scroll distance users have to scroll in order to get through the intro tunnel
-    this.introScrollHeight = document.body.scrollHeight;
+    this.introScrollHeight = window.innerHeight * 5;
 
     // depth of the scene
-    this.sceneDepth = this.introScrollHeight - 1 * window.innerHeight;
+    this.sceneDepth = this.introScrollHeight - window.innerHeight;
 
     // update CSS custom properties
     this.updateCSSCustomProperty(`--sceneDepth`, this.sceneDepth);

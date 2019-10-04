@@ -36,26 +36,6 @@
 </div>
 
 <main class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>{{ page.specific.headline }}</h1>
-    </div>
-
-    <div class="col-12">
-      <div class="text">
-        {% for block in page.intro_text %}
-        {# do something with "block" here - we mostly care about the data, not getting them rendered "as html" #}
-        {% endfor %}
-      </div>
-
-      <div class="images">
-        {% for block in page.intro_images %}
-        {# same as above, but now they're images instead of text #}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-
   <div class="row hidden-md-up my-3">
     <div class="col-12">
       <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
