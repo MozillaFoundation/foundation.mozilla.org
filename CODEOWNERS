@@ -1,2 +1,2 @@
 # Théo as main contact for string changes
-network-api/locale/templates/* @TheoChevalier
+network-api/locale/templates/LC_MESSAGES/* @TheoChevalier
