@@ -31,7 +31,8 @@ export default {
     ),
     "Please check this box if you want to proceed": `Please check this box if you want to proceed`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Yes, I want to receive email updates about Mozilla’s campaigns.`,
-    "Add my name": `Add my name`
+    "Add my name": `Add my name`,
+    "Sign up": `Sign up`
   },
 
   // German
@@ -61,7 +62,8 @@ export default {
     ),
     "Please check this box if you want to proceed": `Aktivieren Sie bitte dieses Kontrollkästchen, um fortzufahren`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Ja, ich möchte per E-Mail Neuigkeiten über Mozillas Kampagnen erfahren.`,
-    "Add my name": `Meinen Namen hinzufügen`
+    "Add my name": `Meinen Namen hinzufügen`,
+    "Sign up": `Abonnieren`
   },
 
   // Spanish
@@ -90,7 +92,8 @@ export default {
     ),
     "Please check this box if you want to proceed": `Marca esta casilla si quieres continuar`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Sí, quiero recibir actualizaciones sobre las campañas de Mozilla.`,
-    "Add my name": `Añadir mi nombre`
+    "Add my name": `Añadir mi nombre`,
+    "Sign up": `Suscribirme`
   },
 
   // French
@@ -118,7 +121,8 @@ export default {
     ),
     "Please check this box if you want to proceed": `Veuillez cocher cette case si vous désirez poursuivre`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla.`,
-    "Add my name": `Ajouter mon nom`
+    "Add my name": `Ajouter mon nom`,
+    "Sign up": `Je m’inscris`
   },
 
   // Polish
@@ -146,7 +150,8 @@ export default {
     ),
     "Please check this box if you want to proceed": `Proszę zaznaczyć to pole, aby kontynuować`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Tak, chcę otrzymywać wiadomości o kampaniach Mozilli.`,
-    "Add my name": `Podpisz`
+    "Add my name": `Podpisz`,
+    "Sign up": `Zapisz się`
   },
 
   // Portuguese
@@ -175,6 +180,7 @@ export default {
     ),
     "Please check this box if you want to proceed": `Marque esta opção se deseja continuar`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Quero receber atualizações por e-mail sobre campanhas da Mozilla.`,
-    "Add my name": `Adicionar meu nome`
+    "Add my name": `Adicionar meu nome`,
+    "Sign up": `Inscreva-me`
   }
 };

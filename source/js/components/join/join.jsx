@@ -373,15 +373,15 @@ export default class JoinUs extends React.Component {
       <div className={classes}>
         <div className="d-flex align-items-start">
           <div className="mb-0 form-check d-flex align-items-start">
-            <input
-              type="checkbox"
-              className="form-check-input ml-0 mt-0"
-              id="PrivacyCheckbox"
-              ref={el => (this.privacy = el)}
-              required
-            />
             <label className="form-check-label d-flex align-items-start">
-              <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-1">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="PrivacyCheckbox"
+                ref={el => (this.privacy = el)}
+                required
+              />
+              <p className="d-inline-block body-small form-text mb-0">
                 {getText(
                   `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
                 )}
@@ -407,7 +407,9 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return <button className="btn btn-primary w-100">Sign up</button>;
+    return (
+      <button className="btn btn-primary w-100">{getText(`Sign up`)}</button>
+    );
   }
 
   /**
