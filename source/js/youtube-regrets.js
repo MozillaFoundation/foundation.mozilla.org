@@ -186,7 +186,7 @@ class YouTubeRegretsTunnel {
    * Initiate interactive intro
    */
   init() {
-    this.loadAttempt = (this.loadAttempt || 1);
+    this.loadAttempt = this.loadAttempt || 1;
 
     if (!utility.checkAndBindDomNodes(elements, true)) {
       if (this.loadAttempt++ < 5) {
