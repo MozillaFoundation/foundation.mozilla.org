@@ -1,4 +1,4 @@
-@mixin glyph($id, $width: 20px, $height: 20px) {
+@mixin glyph($id, $width: 20px, $height: 20px, ) {
   content: "";
   display: inline-block;
   width: $width;
@@ -11,16 +11,24 @@
   }
 }
 
-@mixin hoverGlyph($id) {
+@mixin hoverGlyph($id, $bg: false) {
   &:hover::before,
   &:focus::before {
     background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
+
+    @if $bg {
+      background: url(../_images/buyers-guide/#{$id}.svg) no-repeat 0 0 / contain;
+    }
   }
 }
 
-@mixin compositeGlyph($id) {
+@mixin compositeGlyph($id, $bg: false) {
   &::before {
     @include glyph($id);
+
+    @if $bg {
+      background: url(../_images/buyers-guide/#{$id}.svg) no-repeat 0 0 / contain;
+    }
   }
 
   &.small {
@@ -77,6 +85,16 @@
 
 .form-error-glyph {
   @include compositeGlyph("form-error");
+}
+
+.likely-glyph {
+  @include compositeGlyph("icon-thumb-up-black", true);
+  @include hoverGlyph("icon-thumb-up-white", true);
+}
+
+.unlikely-glyph {
+  @include compositeGlyph("icon-thumb-down-black", true);
+  @include hoverGlyph("icon-thumb-down-white", true);
 }
 
 .dark-theme {

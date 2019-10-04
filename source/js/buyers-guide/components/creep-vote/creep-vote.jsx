@@ -50,12 +50,6 @@ export default class CreepVote extends React.Component {
     }
   }
 
-  showVoteResult() {
-    if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
-      this.setState({ didVote: true });
-    }
-  }
-
   sendVoteFor(payload) {
     let attribute = payload.attribute;
     let url = `/api/buyersguide/vote/`;
@@ -76,27 +70,16 @@ export default class CreepVote extends React.Component {
         let update = {};
 
         update[`${attribute}Submitted`] = true;
-        this.setState(update, () => {
-          this.showVoteResult();
-        });
       })
       .catch(e => {
         console.warn(e);
-        this.setState({ disableVoteButton: false });
       });
-  }
-
-  handleAnimationEnd(evt) {
-    if (evt.animationName === `wiggle`) {
-      this.setState({
-        submitAttempted: false
-      });
-    }
   }
 
   handleSubmitBtnClick() {
     this.setState({
-      submitAttempted: true
+      submitAttempted: true,
+      didVote: true
     });
   }
 
@@ -165,7 +148,6 @@ export default class CreepVote extends React.Component {
               <div
                 class="btn-group btn-group-toggle mt-3 mt-md-5"
                 data-toggle="buttons"
-                onAnimationEnd={evt => this.handleAnimationEnd(evt)}
               >
                 <label for="likely">
                   <input
@@ -173,18 +155,13 @@ export default class CreepVote extends React.Component {
                     name="wouldbuy"
                     id="likely"
                     autocomplete="off"
-                    required
                   />
-                  <span
-                    class="likely btn"
+                  <button 
+                    className="likely-glyph btn btn-secondary"
                     onClick={() => this.setConfidence(true)}
                   >
-                    <img
-                      alt="thumb up"
-                      src="/_images/buyers-guide/icon-thumb-up-black.svg"
-                    />{" "}
                     Likely
-                  </span>
+                  </button>
                 </label>
                 <label for="unlikely">
                   <input
@@ -192,18 +169,13 @@ export default class CreepVote extends React.Component {
                     name="wouldbuy"
                     id="unlikely"
                     autocomplete="off"
-                    required
                   />
-                  <span
-                    class="unlikely btn"
+                  <button 
+                    className="unlikely-glyph btn btn-secondary"
                     onClick={() => this.setConfidence(false)}
                   >
-                    <img
-                      alt="thumb down"
-                      src="/_images/buyers-guide/icon-thumb-down-black.svg"
-                    />{" "}
                     Not likely
-                  </span>
+                  </button>
                 </label>
               </div>
             </div>
