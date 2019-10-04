@@ -1,4 +1,5 @@
 import utility from "./utility";
+import navNewsletter from "./nav-newsletter.js";
 
 // factor for bringing image blocks closer to perspective origin
 const ZOOM_FACTOR = 2.5;
@@ -7,7 +8,8 @@ let elements = {
   introViewport: `#view-youtube-regrets .intro-viewport`,
   blocks: `#view-youtube-regrets .intro-viewport .block`,
   rings: `#view-youtube-regrets .intro-viewport .ring`,
-  introText: `#view-youtube-regrets .intro-viewport .intro-text p`
+  introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
+  scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`
 };
 class YouTubeRegretsTunnel {
   constructor() {
@@ -85,7 +87,7 @@ class YouTubeRegretsTunnel {
 
     this.updateCSSCustomProperty(
       `--blockZTranslate`,
-      this.lastPageYOffset * blocksSpeedFactor / ZOOM_FACTOR
+      (this.lastPageYOffset * blocksSpeedFactor) / ZOOM_FACTOR
     );
     this.updateCSSCustomProperty(
       `--ringZTranslate`,
@@ -169,6 +171,17 @@ class YouTubeRegretsTunnel {
   }
 
   /**
+   * Toggle scrolling hint
+   */
+  toggleScrollHint() {
+    if (window.pageYOffset !== 0) {
+      elements.scrollHint[0].classList.add(`d-none`);
+    } else {
+      elements.scrollHint[0].classList.remove(`d-none`);
+    }
+  }
+
+  /**
    * Initiate interactive intro
    */
   init() {
@@ -177,10 +190,12 @@ class YouTubeRegretsTunnel {
     window.onload = () => {
       this.setSceneDepth();
       this.setObjectsOpacity();
+      this.toggleScrollHint();
 
       window.addEventListener(`scroll`, event => {
         this.moveObjects();
         this.setObjectsOpacity();
+        this.toggleScrollHint();
       });
     };
   }

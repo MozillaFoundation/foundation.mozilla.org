@@ -6,11 +6,20 @@
   .intro-viewport {
     --scenePerspective: 55;
     --blockZTranslate: 0;
+    --baseBlockGap: 0;
     --ringZTranslate: 0;
+    --baseRingGap: 0;
     --sceneDepth: 0;
 
     min-height: 100vh;
     height: calc(var(--sceneDepth) * 1px);
+
+    .scroll-hint {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      color: $youtube-regrets-red;
+    }
 
     .scene-container {
       position: fixed;
@@ -110,9 +119,8 @@
             @return calc(
               1px *
                 (
-                  var(--ringZTranslate) -
-                  var(--baseRingGap) * #{$ring-index} +
-                  var(--scenePerspective) / 2
+                  var(--ringZTranslate) - (var(--baseRingGap) * #{$ring-index}) +
+                    var(--scenePerspective) / 2
                 )
             );
           }
