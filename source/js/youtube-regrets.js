@@ -175,9 +175,7 @@ class YouTubeRegretsTunnel {
    */
   toggleScrollHint() {
     if (window.pageYOffset !== 0) {
-      elements.scrollHint[0].classList.add(`d-none`);
-    } else {
-      elements.scrollHint[0].classList.remove(`d-none`);
+      elements.scrollHint[0].classList.add(`hide`);
     }
   }
 
@@ -187,7 +185,6 @@ class YouTubeRegretsTunnel {
   init() {
     if (!utility.checkAndBindDomNodes(elements, true)) return;
 
-    window.onload = () => {
       this.setSceneDepth();
       this.setObjectsOpacity();
       this.toggleScrollHint();
@@ -197,7 +194,6 @@ class YouTubeRegretsTunnel {
         this.setObjectsOpacity();
         this.toggleScrollHint();
       });
-    };
   }
 }
 
