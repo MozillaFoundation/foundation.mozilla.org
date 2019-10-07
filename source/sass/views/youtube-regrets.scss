@@ -1,3 +1,8 @@
+/*
+* SCSS rules here are specifically for YouTube Regrets Page only
+* and should not be re-used elsewhere.
+*/
+
 #view-youtube-regrets {
   .wrapper {
     background: linear-gradient($youtube-regrets-light-red, $white);
@@ -18,6 +23,7 @@
       position: fixed;
       bottom: 0;
       left: 50%;
+      transform: translateX(-50%);
       color: $youtube-regrets-red;
     }
 
@@ -204,6 +210,69 @@
       font-weight: 500;
 
       @include scaleText(18px, 24px, 22px, 32px);
+    }
+
+    .btn.btn-secondary {
+      border-color: $youtube-regrets-red;
+      color: $youtube-regrets-red;
+
+      @include hover-focus-active {
+        background-color: $youtube-regrets-red;
+        color: $white;
+      }
+    }
+
+    .btn.btn-share {
+      @include hover-focus-active {
+        &::before {
+          filter: brightness(0) invert(100%);
+        }
+      }
+
+      &::before {
+        filter: brightness(1);
+      }
+
+      &.facebook-share {
+        &::before {
+          background-image: url(../_images/youtube-regrets/facebook-share.svg);
+        }
+      }
+
+      &.twitter-share {
+        &::before {
+          background-image: url(../_images/youtube-regrets/twitter-share.svg);
+        }
+      }
+
+      &.email-share {
+        &::before {
+          background-image: url(../_images/youtube-regrets/email-share.svg);
+        }
+      }
+
+      &.link-share {
+        &::before {
+          background-image: url(../_images/youtube-regrets/link-share.svg);
+        }
+
+        &.copied {
+          &::before {
+            background-image: url(../_images/youtube-regrets/link-share-copied.svg);
+          }
+        }
+      }
+    }
+  }
+
+  .faq {
+    a {
+      color: $youtube-regrets-red;
+      text-decoration: underline;
+
+      @include hover-focus-active {
+        color: $youtube-regrets-lighter-red;
+      }
     }
   }
 
