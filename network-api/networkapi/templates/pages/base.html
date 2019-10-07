@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
+    {% block extended_head %}{% endblock %}
 
     <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
     <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
@@ -42,11 +43,6 @@
       {% wagtailuserbar 'bottom-left' %}
     {% endif %}
 
-    {% block donate %}
-    <div class="donate-modal-wrapper">
-      <!-- this will be populated by main.js if needed -->
-    </div>
-    {% endblock %}
     {% block page_top_content %}{% endblock %}
 
     <div class="wrapper">

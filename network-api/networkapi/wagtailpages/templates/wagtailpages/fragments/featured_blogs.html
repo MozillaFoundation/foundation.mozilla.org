@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
 
 {% if page.featured_blogs.all.count > 0 %}
-{% with page.featured_blogs.all|dictsortreversed:"blog.first_published_at" as featured_blogs %}
+{% with page.featured_blogs.all as featured_blogs %}
 <div class="row">
   <div class="col mb-4">
     <hr class="mb-4 hr-emphasis mt-0">
