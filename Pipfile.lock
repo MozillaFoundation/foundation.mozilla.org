@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1fadbbd8999ad59316b8f205ed3943eb1d3a0afe17dc971ba82c76210a65209e"
+            "sha256": "be1ae089c59936a127b9fd09d1abfa859b14825d64d9569de829a7a0e89fb83f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -35,10 +35,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:14ff881779776a5b08e4bb8d7e0cd6ca86e36fc80decc536d605c406fb81c993",
-                "sha256:5df4a8f8bb579daed58368d6c15cdd72455bfee7dc86be243e2ef4dff5ba1177"
+                "sha256:7b75482156ef93e7a463f80411dc76fc868cd9fb1dedf03250cec98f8459d765",
+                "sha256:e43e7d19f203d572f78c18a6a16cb87bbea10bc0543e0285f7b6a35d0c825bb6"
             ],
-            "version": "==1.12.239"
+            "version": "==1.12.244"
         },
         "certifi": {
             "hashes": [
@@ -79,11 +79,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:148a4a2d1a85b23883b0a4e99ab7718f518a83675e4485e44dc0c1d36988c5fa",
-                "sha256:deb70aa038e59b58593673b15e9a711d1e5ccd941b5973b30750d5d026abfd56"
+                "sha256:4025317ca01f75fc79250ff7262a06d8ba97cd4f82e93394b2a0a6a4a925caeb",
+                "sha256:a8ca1033acac9f33995eb2209a6bf18a4681c3e5269a878e9a7e0b7384ed1ca3"
             ],
             "index": "pypi",
-            "version": "==2.2.5"
+            "version": "==2.2.6"
         },
         "django-admin-sortable": {
             "hashes": [
@@ -364,10 +364,10 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:26c0b32e437e54a18161324a2fca3c4b9846b74a8dccddd843113109e1116b32",
-                "sha256:c894d57500a4cd2d5c71114aaab77dbab5eabd9022308ce5ac9bb93a60a6f0c7"
+                "sha256:1c557d7d0e871de1f5ccd5833f60fb2550652da6be2693c1e02300743d21500d",
+                "sha256:b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be"
             ],
-            "version": "==2019.2"
+            "version": "==2019.3"
         },
         "redis": {
             "hashes": [
