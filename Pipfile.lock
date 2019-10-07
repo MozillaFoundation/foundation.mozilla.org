@@ -27,18 +27,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:5ff78c697d8009b9fe9808baea60660f0a07be666fb7c65fc4c11756f568124e",
-                "sha256:d01314496080ac82ddff3d1b2c6ad542d89bfcb100b7a0e8aaf2d6aef99775c6"
+                "sha256:2efd0a9647ef8fd7bf9fbbfdeb77007050258aa39914569c689bdf9cc288cdc1",
+                "sha256:331b82e878f524be11c10d866a68b123b1c5e892d218a8250de10bf11cb14402"
             ],
             "index": "pypi",
-            "version": "==1.9.239"
+            "version": "==1.9.244"
         },
         "botocore": {
             "hashes": [
-                "sha256:14ff881779776a5b08e4bb8d7e0cd6ca86e36fc80decc536d605c406fb81c993",
-                "sha256:5df4a8f8bb579daed58368d6c15cdd72455bfee7dc86be243e2ef4dff5ba1177"
+                "sha256:7b75482156ef93e7a463f80411dc76fc868cd9fb1dedf03250cec98f8459d765",
+                "sha256:e43e7d19f203d572f78c18a6a16cb87bbea10bc0543e0285f7b6a35d0c825bb6"
             ],
-            "version": "==1.12.239"
+            "version": "==1.12.244"
         },
         "certifi": {
             "hashes": [
@@ -364,10 +364,10 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:26c0b32e437e54a18161324a2fca3c4b9846b74a8dccddd843113109e1116b32",
-                "sha256:c894d57500a4cd2d5c71114aaab77dbab5eabd9022308ce5ac9bb93a60a6f0c7"
+                "sha256:1c557d7d0e871de1f5ccd5833f60fb2550652da6be2693c1e02300743d21500d",
+                "sha256:b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be"
             ],
-            "version": "==2019.2"
+            "version": "==2019.3"
         },
         "redis": {
             "hashes": [
