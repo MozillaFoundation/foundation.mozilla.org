@@ -94,9 +94,15 @@ def l10n_update(ctx):
 
 @task
 def makemessages(ctx):
-    """Compile all template messages for localization"""
+    """Extract all template messages in .po files for localization"""
     manage(ctx, locale_abstraction_instructions)
     os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+
+
+@task
+def compilemessages(ctx):
+    """Compile the latest translations"""
+    manage(ctx, "compilemessages")
 
 
 @task
@@ -230,9 +236,15 @@ def docker_l10n_update(ctx):
 
 @task
 def docker_makemessages(ctx):
-    """Compile all template messages for localization"""
+    """Extract all template messages in .po files for localization"""
     docker_manage(ctx, locale_abstraction_instructions)
     os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+
+
+@task
+def docker_compilemessages(ctx):
+    """Compile the latest translations"""
+    docker_manage(ctx, "compilemessages")
 
 
 @task
