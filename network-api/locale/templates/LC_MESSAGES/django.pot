@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-18 19:51+0000\n"
+"POT-Creation-Date: 2019-10-07 12:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,60 +47,60 @@ msgstr ""
 msgid "Go to home page"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:10
+#: network-api/networkapi/templates/partials/footer.html:11
 msgid "We all love the Web. Join Mozilla in defending it."
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:11
+#: network-api/networkapi/templates/partials/footer.html:12
 msgid "Let’s protect the world’s largest resource for future generations."
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:13
+#: network-api/networkapi/templates/partials/footer.html:14
 msgid "Donate now"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:36
+#: network-api/networkapi/templates/partials/footer.html:38
 msgid "More about us"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:39
+#: network-api/networkapi/templates/partials/footer.html:41
 msgid "Twitter"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:40
+#: network-api/networkapi/templates/partials/footer.html:42
 msgid "Instagram"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:41
+#: network-api/networkapi/templates/partials/footer.html:43
 msgid "GitHub"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:48
+#: network-api/networkapi/templates/partials/footer.html:50
 #: network-api/networkapi/templates/partials/primary_nav.html:53
 msgid "Donate"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:49
+#: network-api/networkapi/templates/partials/footer.html:51
 msgid "Legal"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:50
+#: network-api/networkapi/templates/partials/footer.html:52
 msgid "License"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:51
+#: network-api/networkapi/templates/partials/footer.html:53
 msgid "Participation Guidelines"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:52
+#: network-api/networkapi/templates/partials/footer.html:54
 msgid "Privacy"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:53
+#: network-api/networkapi/templates/partials/footer.html:55
 msgid "Cookies"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:70
+#: network-api/networkapi/templates/partials/footer.html:72
 #, python-format
 msgid "Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href=\"%(foundation_website_url)s\">%(foundation_website)s</a>"
 msgstr ""
@@ -119,9 +119,14 @@ msgid "No thanks"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/bannered_campaign_page.html:56
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/campaign_page.html:68
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/campaign_page.html:66
 msgctxt "Sticky button in mobile view on campaign pages"
 msgid "TAKE ACTION"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/blocks/recent_blog_entries.html:14
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:72
+msgid "More from our blog"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:10
@@ -135,7 +140,7 @@ msgstr ""
 msgid "By %(author)s"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog-card.html:37
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog_card.html:37
 #, python-format
 msgid "By %(author)s on %(date)s"
 msgstr ""
@@ -154,10 +159,6 @@ msgstr ""
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:60
 #, python-format
 msgid "on %(date)s"
-msgstr ""
-
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:72
-msgid "More from our blog"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/ih_cta.html:6
@@ -192,6 +193,14 @@ msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:96
 msgid "Rishab Nithyanand, Mozilla Fellow"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/load-more-regrets.html:4
+msgid "load more"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:39
+msgid "Scroll"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:30
