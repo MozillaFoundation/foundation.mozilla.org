@@ -13,7 +13,7 @@ python ./manage.py sync_page_translation_fields
 python ./manage.py update_translation_fields
 
 # Compile the Django template translations
-python ./manage.py compilemessages -l de -l es -l fr -l pl -l pt_BR
+python ./manage.py compilemessages -l de -l es -l fr -l pl
 
 # Clear cache for BuyersGuide
 python ./manage.py clear_cache

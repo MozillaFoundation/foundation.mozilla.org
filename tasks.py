@@ -21,7 +21,7 @@ else:
 # so we build it here rather so that we don't clutter up the tasks.
 locale_abstraction_instructions = " ".join([
     "makemessages",
-    "-l de -l es -l fr -l pl -l pt",
+    "-l de -l es -l fr -l pl",
     "--keep-pot",
     "--no-wrap",
     "--ignore=network-api/networkapi/wagtailcustomization/*",
