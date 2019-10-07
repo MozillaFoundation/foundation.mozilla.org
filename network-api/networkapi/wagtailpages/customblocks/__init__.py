@@ -15,6 +15,7 @@ from .pulse_project_list import PulseProjectList
 from .recent_blog_entries import RecentBlogEntries
 from .quote_block import QuoteBlock
 from .video_block import VideoBlock
+from .youtube_regret_block import YoutubeRegretBlock
 
 __all__ = [
     AnnotatedImageBlock,
@@ -35,4 +36,5 @@ __all__ = [
     QuoteBlock,
     RecentBlogEntries,
     VideoBlock,
+    YoutubeRegretBlock,
 ]

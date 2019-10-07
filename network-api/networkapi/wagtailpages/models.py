@@ -176,10 +176,11 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
-        'BanneredCampaignPage',
-        'CampaignPage',
-        'OpportunityPage',
         'BlogPage',
+        'CampaignPage',
+        'BanneredCampaignPage',
+        'OpportunityPage',
+        'YoutubeRegretsPage',
     ]
 
     """
@@ -1352,18 +1353,18 @@ class Homepage(FoundationMetadataPageMixin, Page):
     ]
 
     subpage_types = [
-        'PrimaryPage',
-        'PeoplePage',
-        'InitiativesPage',
-        'Styleguide',
-        'NewsPage',
-        'ParticipatePage',
-        'ParticipatePage2',
-        'MiniSiteNameSpace',
-        'RedirectingPage',
-        'OpportunityPage',
         'BanneredCampaignPage',
         'IndexPage',
+        'InitiativesPage',
+        'MiniSiteNameSpace',
+        'NewsPage',
+        'OpportunityPage',
+        'ParticipatePage',
+        'ParticipatePage2',
+        'PeoplePage',
+        'PrimaryPage',
+        'RedirectingPage',
+        'Styleguide',
     ]
 
     def get_context(self, request):
@@ -1391,3 +1392,47 @@ class RedirectingPage(Page):
         # Note that due to how this page type works, there is no
         # associated template file in the wagtailpages directory.
         return HttpResponseRedirect(self.URL)
+
+
+class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
+    headline = models.CharField(
+        max_length=500,
+        help_text='Page headline',
+        blank=True,
+    )
+
+    intro_text = StreamField([
+        ('text', blocks.CharBlock()),
+    ])
+
+    intro_images = StreamField([
+        ('image', customblocks.ImageBlock()),
+    ])
+
+    faq = StreamField(
+        [
+            ('paragraph', blocks.RichTextBlock(
+                features=[
+                    'bold', 'italic',
+                    'h2', 'h3', 'h4', 'h5',
+                    'ol', 'ul',
+                    'link', 'hr',
+                ]
+            ))
+        ],
+        blank=True,
+    )
+
+    regret_stories = StreamField([
+        ('regret_story', customblocks.YoutubeRegretBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('headline'),
+        StreamFieldPanel('intro_text'),
+        StreamFieldPanel('intro_images'),
+        StreamFieldPanel('faq'),
+        StreamFieldPanel('regret_stories'),
+    ]
+
+    template = 'wagtailpages/pages/youtube_regrets_page.html'
