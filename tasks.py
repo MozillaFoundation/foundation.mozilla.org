@@ -19,10 +19,10 @@ else:
 
 
 def create_docker_env_file(env_file):
-    """Create a docker .env from an existing env file"""
+    """Create or update an .env to work with a docker environment"""
     with open(env_file, 'r') as f:
         env_vars = f.read()
-    # remove the double quote for docker-compose and python_dotenv compatibility reasons
+    # We need to strip the quotes because Docker-compose considers them as part of the env value.
     env_vars = env_vars.replace('"', '')
     # update the DATABASE_URL env
     new_db_url = "DATABASE_URL=postgres://postgres@postgres:5432/postgres"
@@ -34,7 +34,7 @@ def create_docker_env_file(env_file):
     env_vars = env_vars.replace(old_hosts.group(0), new_hosts)
 
     # create the new env file
-    with open('.docker.env', 'w') as f:
+    with open('.env', 'w') as f:
         f.write(env_vars)
 
 
@@ -82,9 +82,9 @@ def l10n_update(ctx):
 @task
 def test(ctx):
     """Run tests"""
-    print("Running flake8")
+    print("* Running flake8")
     ctx.run(f"pipenv run flake8 tasks.py network-api", **PLATFORM_ARG)
-    print("Running tests")
+    print("* Running tests")
     manage(ctx, "test")
 
 
@@ -92,29 +92,29 @@ def test(ctx):
 def setup(ctx):
     """Prepare your dev environment after a fresh git clone"""
     with ctx.cd(ROOT):
-        print("Setting default environment variables.")
+        print("* Setting default environment variables.")
         if os.path.isfile(".env"):
-            print("Keeping your existing .env")
+            print("* Keeping your existing .env")
         else:
-            print("Creating a new .env")
+            print("* Creating a new .env")
             copy("env.default", ".env")
-        print("Installing npm dependencies and build.")
+        print("* Installing npm dependencies and build.")
         ctx.run("npm install && npm run build")
-        print("Installing Python dependencies.")
+        print("* Installing Python dependencies.")
         ctx.run("pipenv install --dev")
-        print("Applying database migrations.")
+        print("* Applying database migrations.")
         migrate(ctx)
-        print("Updating localizable fields")
+        print("* Updating localizable fields")
         l10n_sync(ctx)
         l10n_update(ctx)
-        print("Creating fake data")
+        print("* Creating fake data")
         manage(ctx, "load_fake_data")
-        print("Updating block information")
+        print("* Updating block information")
         manage(ctx, "block_inventory")
 
         # Windows doesn't support pty, skipping this step
         if platform == 'win32':
-            print("All done!\n"
+            print("\nAll done!\n"
                   "To create an admin user: pipenv run python network-api/manage.py createsuperuser\n"
                   "To start your dev server: inv runserver")
         else:
@@ -126,20 +126,41 @@ def setup(ctx):
 @task(aliases=["catchup"])
 def catch_up(ctx):
     """Install dependencies and apply migrations"""
-    print("Installing npm dependencies and build.")
+    print("* Installing npm dependencies and build.")
     ctx.run("npm install && npm run build")
-    print("Installing Python dependencies.")
+    print("* Installing Python dependencies.")
     ctx.run("pipenv install --dev")
-    print("Applying database migrations.")
+    print("* Applying database migrations.")
     migrate(ctx)
-    print("Updating localizable fields")
+    print("* Updating localizable fields")
     l10n_sync(ctx)
     l10n_update(ctx)
-    print("Updating block information")
+    print("* Updating block information")
     manage(ctx, "block_inventory")
 
 
 # Tasks with Docker
+
+def docker_l10n_block_inventory(ctx):
+    print("* Updating localizable fields")
+    docker_l10n_sync(ctx)
+    docker_l10n_update(ctx)
+    print("* Updating block information")
+    docker_manage(ctx, "block_inventory")
+
+
+def docker_create_super_user(ctx):
+    # Windows doesn't support pty, skipping this step
+    if platform == 'win32':
+        print("\nPTY is not supported on Windows.\n"
+              "To create an admin user:\n"
+              "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser\n")
+    else:
+        print("* Creating superuser.")
+        ctx.run(
+            "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser",
+            pty=True
+        )
 
 
 @task
@@ -190,103 +211,66 @@ def docker_l10n_update(ctx):
 @task
 def docker_test_python(ctx):
     """Run python tests"""
-    print("Running flake8")
+    print("* Running flake8")
     ctx.run("docker-compose run --rm backend pipenv run flake8 tasks.py network-api", **PLATFORM_ARG)
-    print("Running tests")
+    print("* Running tests")
     docker_manage(ctx, "test")
 
 
 @task
 def docker_test_node(ctx):
     """Run node tests"""
-    print("Running tests")
+    print("* Running tests")
     ctx.run("docker-compose run --rm watch-static-files npm run test", **PLATFORM_ARG)
-
-
-@task
-def docker_switching_branch(ctx):
-    """Get a new database with fake data and rebuild images"""
-    print("Stopping services first")
-    ctx.run("docker-compose down")
-    print("Deleting database")
-    ctx.run("docker volume rm foundationmozillaorg_postgres_data")
-    print("Rebuilding images and install dependencies")
-    ctx.run("docker-compose build")
-    print("Applying database migrations.")
-    docker_migrate(ctx)
-    print("Creating fake data")
-    docker_manage(ctx, "load_fake_data")
-    print("Updating localizable fields")
-    docker_l10n_sync(ctx)
-    docker_l10n_update(ctx)
-    print("Updating block information")
-    docker_manage(ctx, "block_inventory")
 
 
 @task
 def docker_new_db(ctx):
     """Delete your database and create a new one with fake data"""
-    print("Stopping services first")
+    print("* Stopping services first")
     ctx.run("docker-compose down")
-    print("Deleting database")
+    print("* Deleting database")
     ctx.run("docker volume rm foundationmozillaorg_postgres_data")
-    print("Applying database migrations.")
+    print("* Applying database migrations.")
     docker_migrate(ctx)
-    print("Creating fake data")
+    print("* Creating fake data")
     docker_manage(ctx, "load_fake_data")
-    print("Updating localizable fields")
-    docker_l10n_sync(ctx)
-    docker_l10n_update(ctx)
-    print("Updating block information")
-    docker_manage(ctx, "block_inventory")
+    docker_l10n_block_inventory(ctx)
+    docker_create_super_user(ctx)
 
 
 @task(aliases=["docker-catchup"])
 def docker_catch_up(ctx):
     """Rebuild images and apply migrations"""
-    print("Stopping services first")
+    print("* Stopping services first")
     ctx.run("docker-compose down")
-    print("Rebuilding images and install dependencies")
+    print("* Rebuilding images and install dependencies")
     ctx.run("docker-compose build")
-    print("Applying database migrations.")
+    print("* Applying database migrations.")
     docker_migrate(ctx)
-    print("Updating localizable fields")
-    docker_l10n_sync(ctx)
-    docker_l10n_update(ctx)
-    print("Updating block information")
-    docker_manage(ctx, "block_inventory")
+    docker_l10n_block_inventory(ctx)
 
 
 @task
-def docker_setup(ctx):
-    """Prepare your dev environment after a fresh git clone"""
+def docker_new_env(ctx):
+    """Get a new dev environment and a new database with fake data"""
     with ctx.cd(ROOT):
-        print("Setting default environment variables.")
+        print("* Setting default environment variables")
         if os.path.isfile(".env"):
-            print("Copying your existing .env to .docker.env")
+            print("* Stripping quotes and making sure your DATABASE_URL and ALLOWED_HOSTS are properly setup")
             create_docker_env_file(".env")
         else:
-            if os.path.isfile('.docker.env'):
-                print("Keeping your existing .docker.env.")
-            else:
-                print("Creating a new .docker.env")
-                create_docker_env_file("env.default")
-        print("Building Docker images")
-        ctx.run("docker-compose build", **PLATFORM_ARG)
-        print("Setting up a clean database.")
-        docker_new_db(ctx)
+            print("* Creating a new .env")
+            create_docker_env_file("env.default")
+        print("* Stopping project's containers and delete volumes if necessary")
+        ctx.run("docker-compose down --volumes")
+        print("* Building Docker images")
+        ctx.run("docker-compose build --no-cache", **PLATFORM_ARG)
+        print("* Applying database migrations.")
+        docker_migrate(ctx)
+        print("* Creating fake data")
+        docker_manage(ctx, "load_fake_data")
+        docker_l10n_block_inventory(ctx)
+        docker_create_super_user(ctx)
 
-        # Windows doesn't support pty, skipping this step
-        if platform == 'win32':
-            print("All done!\n"
-                  "To create an admin user:\n"
-                  "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser\n"
-                  "To start your dev server:\n"
-                  "docker-compose up")
-        else:
-            print("Creating superuser.")
-            ctx.run(
-                "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser",
-                pty=True
-            )
-            print("All done! To start your dev server, run the following:\n docker-compose up")
+        print("\n* Start your dev server with:\n docker-compose up")

@@ -28,10 +28,7 @@ services:
       context: .
       dockerfile: ./dockerfiles/Dockerfile.python
     env_file:
-      - ".docker.env"
-    environment:
-      # Prevents pipenv from loading env files (python dotenv and docker-compose compatibility issue).
-      - PIPENV_DONT_LOAD_ENV=1
+      - ".env"
     command: pipenv run python network-api/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"

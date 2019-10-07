@@ -14,6 +14,7 @@ from .models import (
     CampaignPage,
     OpportunityPage,
     BlogPage,
+    YoutubeRegretsPage,
 
     CTA,
     Petition,
@@ -143,6 +144,7 @@ class HomepageTR(TranslationOptions):
         'hero_story_description',
         'hero_button_text',
         'hero_button_url',
+        'hero_image',
     )
 
 
@@ -168,5 +170,17 @@ class PeoplePageTR(TranslationOptions):
 @register(BlogPage)
 class BlogPageTR(TranslationOptions):
     fields = (
+        'author',
         'body',
     )
+
+
+@register(YoutubeRegretsPage)
+class YoutubeRegretsPageTR(TranslationOptions):
+    fields = {
+        'headline',
+        'intro_text',
+        'intro_images',
+        'faq',
+        'regret_stories',
+    }

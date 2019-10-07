@@ -17,6 +17,7 @@ from wagtail.core.fields import StreamField, RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import Image
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from wagtailmetadata.models import MetadataPageMixin
@@ -175,10 +176,11 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
-        'BanneredCampaignPage',
-        'CampaignPage',
-        'OpportunityPage',
         'BlogPage',
+        'CampaignPage',
+        'BanneredCampaignPage',
+        'OpportunityPage',
+        'YoutubeRegretsPage',
     ]
 
     """
@@ -553,7 +555,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         Get all (live) child entries, ordered "newest first"
         """
-        return self.get_children().live().order_by('-first_published_at')
+        return self.get_children().live().public().order_by('-first_published_at')
 
     def get_entries(self, context=dict()):
         """
@@ -589,8 +591,17 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         terms = self.filtered.get('terms')
 
-        # "unsluggify" all terms:
-        context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
+        # "unsluggify" all terms. Note that we cannot use list comprehension,
+        # as not all terms might be real tags, and list comprehension cannot
+        # be made to ignore throws.
+        context['terms'] = list()
+        for term in terms:
+            try:
+                tag = Tag.objects.get(slug=term)
+                context['terms'].append(str(tag))
+            except Tag.DoesNotExist:
+                # ignore non-existent tags
+                pass
 
         entries = [
             entry
@@ -787,7 +798,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     author = models.CharField(
         verbose_name='Author',
-        max_length=50,
+        max_length=70,
         blank=False,
     )
 
@@ -837,7 +848,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        return context
+        return set_main_site_nav_information(self, context, 'Homepage')
 
 
 class InitiativeSection(models.Model):
@@ -1152,6 +1163,25 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
+class HomepageFeaturedBlogs(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='featured_blogs',
+    )
+    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
+    panels = [
+        PageChooserPanel('blog'),
+    ]
+
+    class Meta:
+        verbose_name = 'blog'
+        verbose_name_plural = 'blogs'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
+
+
 class InitiativesHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
@@ -1318,23 +1348,23 @@ class Homepage(FoundationMetadataPageMixin, Page):
             heading='hero',
             classname='collapsible'
         ),
+        InlinePanel('featured_blogs', label='Blogs', max_num=4),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
-        InlinePanel('featured_news', label='News', max_num=4),
     ]
 
     subpage_types = [
-        'PrimaryPage',
-        'PeoplePage',
-        'InitiativesPage',
-        'Styleguide',
-        'NewsPage',
-        'ParticipatePage',
-        'ParticipatePage2',
-        'MiniSiteNameSpace',
-        'RedirectingPage',
-        'OpportunityPage',
         'BanneredCampaignPage',
         'IndexPage',
+        'InitiativesPage',
+        'MiniSiteNameSpace',
+        'NewsPage',
+        'OpportunityPage',
+        'ParticipatePage',
+        'ParticipatePage2',
+        'PeoplePage',
+        'PrimaryPage',
+        'RedirectingPage',
+        'Styleguide',
     ]
 
     def get_context(self, request):
@@ -1362,3 +1392,47 @@ class RedirectingPage(Page):
         # Note that due to how this page type works, there is no
         # associated template file in the wagtailpages directory.
         return HttpResponseRedirect(self.URL)
+
+
+class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
+    headline = models.CharField(
+        max_length=500,
+        help_text='Page headline',
+        blank=True,
+    )
+
+    intro_text = StreamField([
+        ('text', blocks.CharBlock()),
+    ])
+
+    intro_images = StreamField([
+        ('image', customblocks.ImageBlock()),
+    ])
+
+    faq = StreamField(
+        [
+            ('paragraph', blocks.RichTextBlock(
+                features=[
+                    'bold', 'italic',
+                    'h2', 'h3', 'h4', 'h5',
+                    'ol', 'ul',
+                    'link', 'hr',
+                ]
+            ))
+        ],
+        blank=True,
+    )
+
+    regret_stories = StreamField([
+        ('regret_story', customblocks.YoutubeRegretBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('headline'),
+        StreamFieldPanel('intro_text'),
+        StreamFieldPanel('intro_images'),
+        StreamFieldPanel('faq'),
+        StreamFieldPanel('regret_stories'),
+    ]
+
+    template = 'wagtailpages/pages/youtube_regrets_page.html'

@@ -1,6 +1,6 @@
-{% extends "./generic-card.html" %}
+{% extends "./generic_card.html" %}
 
-{% load wagtailcore_tags wagtailroutablepage_tags class_tags %}
+{% load wagtailcore_tags wagtailroutablepage_tags class_tags blog_tags %}
 
 {% block card_type %}blog-card{% endblock %}
 
@@ -22,16 +22,11 @@ each blog page's dominant tag)
       {% endfor %}
       </ul>
     {% else %}
-    {# Show the tag's own "main" tag (i.e. first tag in its tag list) as each blog card's visible tag #}
-      {% with tag=page.specific.tags.first %}
-        {% if tag %}
-          {% if root %}
-            {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-            <a class="main-tag d-block mt-3" href="{% routablepageurl root.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>
-          {% else %}
-            {# If we do not have a "root" context variable, this card is being generated outside of an index page, and so needs to use its parent as root #}
-            <a class="main-tag d-block mt-3" href="{% routablepageurl page.get_parent.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>
-          {% endif %}
+      {% with category=page.specific.category.first %}
+      {% if category %}
+        {% get_root_or_page as parent_page %}
+          {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
+          <a class="h6-heading d-block mt-3 mb-0" href="{% routablepageurl parent_page "entries_by_category" category.slug %}">{{ category }}</a>
         {% endif %}
       {% endwith %}
     {% endif %}

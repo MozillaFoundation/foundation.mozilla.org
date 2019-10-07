@@ -75,6 +75,7 @@ env = environ.Env(
     CLOUDINARY_CLOUD_NAME=(str, ''),
     CLOUDINARY_API_KEY=(str, ''),
     CLOUDINARY_API_SECRET=(str, ''),
+    FEED_LIMIT=(int, 10),
 )
 
 # Read in the environment
@@ -269,9 +270,11 @@ TEMPLATES = [
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
+                'blog_tags': 'networkapi.wagtailpages.templatetags.blog_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
+                'localization': 'networkapi.wagtailpages.templatetags.localization',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
                 'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags',
                 'nav_tags': 'networkapi.utility.templatetags.nav_tags',
@@ -585,3 +588,6 @@ CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
 
 # Use network_url to check if we're running prod or not
 NETWORK_SITE_URL = env('NETWORK_SITE_URL')
+
+# RSS / ATOM settings
+FEED_LIMIT = env('FEED_LIMIT')

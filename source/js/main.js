@@ -13,11 +13,10 @@ import News from "./components/news/news.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
 import ShareButtonGroup from "./components/share-button-group/share-button-group.jsx";
 
-import injectDonateModal from "./donate-modal/donate-modal.jsx";
-
 import primaryNav from "./primary-nav.js";
 import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
+import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -190,6 +189,7 @@ let main = {
 
     primaryNav.init();
     navNewsletter.init(networkSiteURL, csrfToken);
+    youTubeRegretsTunnel.init();
 
     // Extra tracking
 
@@ -490,36 +490,6 @@ let main = {
       profileCards = document.querySelectorAll(`.profiles .person-card`);
       bindProfileCardAnalytics(profileCards);
     });
-
-    // Load up a fundraising banner
-    let donationModal = document.querySelector(`.donate-modal-wrapper`);
-
-    if (donationModal) {
-      let modalOptions = {
-        title: `Big corporations try to restrict how we access the web.`,
-        subheading: `Misinformation makes it harder for us to find the truth. Web-connected devices go to market without basic security standards.`,
-        cta: {
-          title: [
-            `The non-profit Mozilla Foundation fights for a healthier internet.`,
-            ` `,
-            <strong>Will you donate today?</strong>
-          ],
-          text: `Support Mozilla`
-        },
-        utm: {
-          medium: `foundation`,
-          campaign: `mainsite`,
-          content: `popupbutton`
-        },
-        ga: {
-          category: `site`,
-          action: `donate tap`,
-          label: `donate popup on foundation site`
-        }
-      };
-
-      injectDonateModal(donationModal, modalOptions);
-    }
 
     // Enable the "load more results" button on index pages
     let loadMoreButton = document.querySelector(`.load-more-index-entries`);
