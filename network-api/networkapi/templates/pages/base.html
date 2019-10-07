@@ -1,21 +1,41 @@
+{% load wagtailmetadata_tags i18n localization settings_value wagtailuserbar %}
+
+{% get_current_language as lang_code %}
+
 <!DOCTYPE html>
-<html>{% load settings_value wagtailuserbar %}
+<html lang="{{ lang_code }}">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">{% block social_metadata %}{% endblock %}
-    {% block ga_identifier %}
-    <meta name="google-site-verification" content="Hl4u7xOmnhODNRyNoTjSzBFJKizAYXWYtzxfHjVkPRc">
-    <meta name="ga-identifier" content="UA-87658599-6">
-    {% endblock %}
+    <title>{% block pageTitle %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token }}">
+
+    {% block social_metadata %}
+      <meta property='og:type' content='website'>
+      <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
+      <meta property='wagtail:language' content='{{ lang_code }}'>
+    {% endblock %}
+
+    {% block wagtail_metadata %}
+      {% meta_tags %}
+    {% endblock %}
+
+    {% block ga_identifier %}
+      <meta name="google-site-verification" content="Hl4u7xOmnhODNRyNoTjSzBFJKizAYXWYtzxfHjVkPRc">
+      <meta name="ga-identifier" content="UA-87658599-6">
+    {% endblock %}
+
     <link rel="stylesheet" href="/_css/main.compiled.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
+    {% block extended_head %}{% endblock %}
+
     <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
     <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
     <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
-    <title>{% block page_title %}Mozilla Foundation - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
+
     {% block org_schema%}{% endblock %}
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
@@ -23,11 +43,6 @@
       {% wagtailuserbar 'bottom-left' %}
     {% endif %}
 
-    {% block donate %}
-    <div class="donate-modal-wrapper">
-      <!-- this will be populated by main.js if needed -->
-    </div>
-    {% endblock %}
     {% block page_top_content %}{% endblock %}
 
     <div class="wrapper">

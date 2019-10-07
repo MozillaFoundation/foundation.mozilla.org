@@ -123,6 +123,10 @@ class Product(models.Model):
         default=False,
     )
 
+    review_date = models.DateField(
+        help_text='Review date of this product',
+    )
+
     name = models.CharField(
         max_length=100,
         help_text='Name of Product',
@@ -370,6 +374,7 @@ class Product(models.Model):
         ),
         MultiFieldPanel([
             FieldPanel('adult_content'),
+            FieldPanel('review_date'),
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),

@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
 from django.template import loader
+from django.template.defaultfilters import slugify
 
 from . import customblocks
 
@@ -16,12 +17,13 @@ from wagtail.core.fields import StreamField, RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import Image
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from wagtailmetadata.models import MetadataPageMixin
 
 from taggit.models import Tag, TaggedItemBase
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from .utils import (
@@ -32,6 +34,18 @@ from .utils import (
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from .donation_modal import DonationModals  # noqa: F401
+
+
+# See https://docs.python.org/3.7/library/stdtypes.html#str.title
+# for why this definition exists (basically: apostrophes)
+def titlecase(s):
+    return re.sub(
+        r"[A-Za-z]+('[A-Za-z]+)?",
+        lambda mo: mo.group(0)[0].upper() +
+        mo.group(0)[1:].lower(),
+        s
+    )
+
 
 """
 We'll need to figure out which components are truly "base" and
@@ -60,6 +74,7 @@ base_fields = [field for field in [
     ('profile_listing', customblocks.LatestProfileList()),
     ('profile_by_id', customblocks.ProfileById()),
     ('profile_directory', customblocks.ProfileDirectory()),
+    ('recent_blog_entries', customblocks.RecentBlogEntries()),
     ('airtable', customblocks.AirTableBlock()),
 ] if field is not None]
 
@@ -161,10 +176,11 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
 class MiniSiteNameSpace(ModularPage):
     subpage_types = [
-        'BanneredCampaignPage',
-        'CampaignPage',
-        'OpportunityPage',
         'BlogPage',
+        'CampaignPage',
+        'BanneredCampaignPage',
+        'OpportunityPage',
+        'YoutubeRegretsPage',
     ]
 
     """
@@ -241,11 +257,6 @@ class OpportunityPage(MiniSiteNameSpace):
 
 @register_snippet
 class Petition(CTA):
-    legacy_petition = models.BooleanField(
-        help_text='Mark this petition as a legacy petition in terms of where the data gets sent.',
-        default=False,
-    )
-
     campaign_id = models.CharField(
         max_length=20,
         help_text='Which campaign identifier should this petition be tied to?',
@@ -276,64 +287,17 @@ class Petition(CTA):
         max_length=8,
     )
 
-    google_forms_url = models.URLField(
-        help_text='Google form to post petition data to',
-        max_length=2048,
-        null=True,
-        blank=True,
-    )
-
     checkbox_1 = models.CharField(
+        editable=False,
         max_length=1024,
         help_text='label for the first checkbox option (may contain HTML)',
         blank=True,
     )
 
     checkbox_2 = models.CharField(
+        editable=False,
         max_length=1024,
         help_text='label for the second checkbox option (may contain HTML)',
-        blank=True,
-    )
-
-    checkbox_1_form_field = models.CharField(
-        max_length=1024,
-        help_text='Google form field name for Checkbox 1',
-        verbose_name='First checkbox Google Form field',
-        blank=True,
-    )
-
-    checkbox_2_form_field = models.CharField(
-        max_length=1024,
-        help_text='Google form field name for Checkbox 1',
-        verbose_name='Second checkbox Google Form field',
-        blank=True,
-    )
-
-    given_name_form_field = models.CharField(
-        max_length=1024,
-        help_text='Google form field name for Given Name(s)',
-        verbose_name='Given Name(s) Google Form field',
-        blank=True,
-    )
-
-    surname_form_field = models.CharField(
-        max_length=1024,
-        help_text='Google form field name for Surname',
-        verbose_name='Surname Google Form field',
-        blank=True,
-    )
-
-    email_form_field = models.CharField(
-        max_length=1024,
-        help_text='Google form field name for Email',
-        verbose_name='Email Google Form field',
-        blank=True,
-    )
-
-    newsletter_signup_form_field = models.CharField(
-        max_length=1024,
-        help_text='Google form field name for Mozilla Newsletter checkbox',
-        verbose_name='Mozilla Newsletter signup checkbox Google Form field',
         blank=True,
     )
 
@@ -591,7 +555,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         Get all (live) child entries, ordered "newest first"
         """
-        return self.get_children().live().order_by('-first_published_at')
+        return self.get_children().live().public().order_by('-first_published_at')
 
     def get_entries(self, context=dict()):
         """
@@ -600,7 +564,20 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         entries = self.get_all_entries()
         if hasattr(self, 'filtered'):
+            entries = self.filter_entries(entries, context)
+        return entries
+
+    def filter_entries(self, entries, context):
+        filter_type = self.filtered.get('type')
+        context['filtered'] = filter_type
+
+        if filter_type == 'tags':
             entries = self.filter_entries_for_tag(entries, context)
+
+        if filter_type == 'category':
+            entries = self.filter_entries_for_category(entries, context)
+
+        context['total_entries'] = len(entries)
         return entries
 
     def filter_entries_for_tag(self, entries, context):
@@ -612,28 +589,72 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         specific model before we can test for whether i) there are tags
         to work with and then ii) those tags match the specified ones.
         """
-        type = self.filtered.get('type')
-        context['filtered'] = type
+        terms = self.filtered.get('terms')
 
-        if type == 'tags':
-            terms = self.filtered.get('terms')
+        # "unsluggify" all terms. Note that we cannot use list comprehension,
+        # as not all terms might be real tags, and list comprehension cannot
+        # be made to ignore throws.
+        context['terms'] = list()
+        for term in terms:
+            try:
+                tag = Tag.objects.get(slug=term)
+                context['terms'].append(str(tag))
+            except Tag.DoesNotExist:
+                # ignore non-existent tags
+                pass
 
-            # "unsluggify" all terms:
-            context['terms'] = [str(Tag.objects.get(slug=term)) for term in terms]
+        entries = [
+            entry
+            for
+            entry in entries.specific()
+            if
+            hasattr(entry, 'tags')
+            and not
+            # Determine whether there is any overlap between 'all tags' and
+            # the tags specified. This effects ANY matching (rather than ALL).
+            set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
+        ]
 
+        return entries
+
+    def filter_entries_for_category(self, entries, context):
+        """
+        NOTE: we currently assume only blog pages can have
+        categories. If that ever changes, we will need to rename
+        the model from BlogPageCategory to PageCategory and make
+        the corresponding adjustments to this code
+        """
+        slug = self.filtered.get('category')
+        cat = None
+        for bpc in BlogPageCategory.objects.all():
+            # We can't use .filter for @property fields,
+            # so we have to run through all categories =(
+            if bpc.slug == slug:
+                cat = bpc
+
+        if cat is not None:
+            # make sure we bypass "x results for Y"
+            context['no_filter_ui'] = True
+
+            # and that we don't show the primary tag/category
+            context['hide_classifiers'] = True
+
+            # explicitly set the index page title and intro
+            print('titlecase')
+            context['index_title'] = titlecase(f'{cat.name} {self.title}')
+            context['index_intro'] = cat.intro
+
+            # and then the filtered content
+            context['terms'] = [cat.name, ]
             entries = [
                 entry
                 for
                 entry in entries.specific()
                 if
-                hasattr(entry, 'tags')
-                and not
-                # Determine whether there is any overlap between 'all tags' and
-                # the tags specified. This effects ANY matching (rather than ALL).
-                set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
+                hasattr(entry, 'category')
+                and
+                cat in entry.category.all()
             ]
-
-        context['total_entries'] = len(entries)
 
         return entries
 
@@ -660,18 +681,28 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         entries = self.get_entries()
         has_next = end < len(entries)
 
+        hide_classifiers = False
+        if hasattr(self, 'filtered'):
+            if self.filtered.get('type') == 'category':
+                hide_classifiers = True
+
         html = loader.render_to_string(
             'wagtailpages/fragments/entry_cards.html',
             context={
-                'entries': entries[start:end]
+                'entries': entries[start:end],
+                'hide_classifiers': hide_classifiers
             },
             request=request
         )
 
         return JsonResponse({
             'entries_html': html,
-            'has_next': has_next
+            'has_next': has_next,
         })
+
+    """
+    tag routes
+    """
 
     # helper function for /tags/... subroutes
     def extract_tag_information(self, tag):
@@ -689,7 +720,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         self.extract_tag_information(tag)
         return self.generate_entries_set_html(request, *args, **kwargs)
 
-    @route(r'^tags/(?P<tag>.+)$')
+    @route(r'^tags/(?P<tag>.+)/')
     def entries_by_tag(self, request, tag, *args, **kwargs):
         """
         If this page was called with `/tags/...` as suffix, extract
@@ -699,10 +730,64 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         self.extract_tag_information(tag)
         return IndexPage.serve(self, request, *args, **kwargs)
 
+    """
+    category routes
+    """
+
+    # helper function for /category/... subroutes
+    def extract_category_information(self, category):
+        self.filtered = {
+            'type': 'category',
+            'category': category
+        }
+
+    @route(r'^category/(?P<category>.+)/entries/')
+    def generate_category_entries_set_html(self, request, category, *args, **kwargs):
+        """
+        JSON endpoint for getting a set of (pre-rendered) category entries
+        """
+        self.extract_category_information(category)
+        return self.generate_entries_set_html(request, *args, **kwargs)
+
+    @route(r'^category/(?P<category>.+)/')
+    def entries_by_category(self, request, category, *args, **kwargs):
+        """
+        If this page was called with `/category/...` as suffix, extract
+        the category to filter prior to rendering this page. Only one
+        category can be specified (unlike tags)
+        """
+        self.extract_category_information(category)
+        return IndexPage.serve(self, request, *args, **kwargs)
+
 
 class NewsPage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/news_page.html'
+
+
+@register_snippet
+class BlogPageCategory(models.Model):
+    name = models.CharField(
+        max_length=50
+    )
+
+    intro = RichTextField(
+        features=[
+            'bold', 'italic', 'link',
+        ],
+        blank=True,
+    )
+
+    @property
+    def slug(self):
+        return slugify(self.name)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Blog Page Category"
+        verbose_name_plural = "Blog Page Categories"
 
 
 class BlogPageTag(TaggedItemBase):
@@ -713,7 +798,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     author = models.CharField(
         verbose_name='Author',
-        max_length=50,
+        max_length=70,
         blank=False,
     )
 
@@ -735,12 +820,20 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ('quote', customblocks.QuoteBlock()),
     ])
 
+    category = ParentalManyToManyField(
+        BlogPageCategory,
+        help_text='Which blog categories is this blog page associated with?',
+        blank=True,
+        verbose_name="Categories",
+    )
+
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
     zen_nav = True
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
+        FieldPanel('category'),
         StreamFieldPanel('body'),
     ]
 
@@ -748,10 +841,14 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         FieldPanel('tags'),
     ]
 
+    settings_panels = Page.settings_panels + [
+        FieldPanel('first_published_at'),
+    ]
+
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        return context
+        return set_main_site_nav_information(self, context, 'Homepage')
 
 
 class InitiativeSection(models.Model):
@@ -1066,6 +1163,25 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
+class HomepageFeaturedBlogs(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='featured_blogs',
+    )
+    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
+    panels = [
+        PageChooserPanel('blog'),
+    ]
+
+    class Meta:
+        verbose_name = 'blog'
+        verbose_name_plural = 'blogs'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
+
+
 class InitiativesHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
@@ -1232,23 +1348,23 @@ class Homepage(FoundationMetadataPageMixin, Page):
             heading='hero',
             classname='collapsible'
         ),
+        InlinePanel('featured_blogs', label='Blogs', max_num=4),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
-        InlinePanel('featured_news', label='News', max_num=4),
     ]
 
     subpage_types = [
-        'PrimaryPage',
-        'PeoplePage',
-        'InitiativesPage',
-        'Styleguide',
-        'NewsPage',
-        'ParticipatePage',
-        'ParticipatePage2',
-        'MiniSiteNameSpace',
-        'RedirectingPage',
-        'OpportunityPage',
         'BanneredCampaignPage',
         'IndexPage',
+        'InitiativesPage',
+        'MiniSiteNameSpace',
+        'NewsPage',
+        'OpportunityPage',
+        'ParticipatePage',
+        'ParticipatePage2',
+        'PeoplePage',
+        'PrimaryPage',
+        'RedirectingPage',
+        'Styleguide',
     ]
 
     def get_context(self, request):
@@ -1276,3 +1392,47 @@ class RedirectingPage(Page):
         # Note that due to how this page type works, there is no
         # associated template file in the wagtailpages directory.
         return HttpResponseRedirect(self.URL)
+
+
+class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
+    headline = models.CharField(
+        max_length=500,
+        help_text='Page headline',
+        blank=True,
+    )
+
+    intro_text = StreamField([
+        ('text', blocks.CharBlock()),
+    ])
+
+    intro_images = StreamField([
+        ('image', customblocks.ImageBlock()),
+    ])
+
+    faq = StreamField(
+        [
+            ('paragraph', blocks.RichTextBlock(
+                features=[
+                    'bold', 'italic',
+                    'h2', 'h3', 'h4', 'h5',
+                    'ol', 'ul',
+                    'link', 'hr',
+                ]
+            ))
+        ],
+        blank=True,
+    )
+
+    regret_stories = StreamField([
+        ('regret_story', customblocks.YoutubeRegretBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('headline'),
+        StreamFieldPanel('intro_text'),
+        StreamFieldPanel('intro_images'),
+        StreamFieldPanel('faq'),
+        StreamFieldPanel('regret_stories'),
+    ]
+
+    template = 'wagtailpages/pages/youtube_regrets_page.html'
