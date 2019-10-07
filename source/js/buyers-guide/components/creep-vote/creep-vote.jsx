@@ -156,12 +156,12 @@ export default class CreepVote extends React.Component {
                     id="likely"
                     autocomplete="off"
                   />
-                  <button 
+                  <span 
                     className="likely-glyph btn btn-secondary"
                     onClick={() => this.setConfidence(true)}
                   >
                     Likely
-                  </button>
+                  </span>
                 </label>
                 <label for="unlikely">
                   <input
@@ -170,12 +170,12 @@ export default class CreepVote extends React.Component {
                     id="unlikely"
                     autocomplete="off"
                   />
-                  <button 
+                  <span 
                     className="unlikely-glyph btn btn-secondary"
                     onClick={() => this.setConfidence(false)}
                   >
                     Not likely
-                  </button>
+                  </span>
                 </label>
               </div>
             </div>
@@ -208,31 +208,31 @@ export default class CreepVote extends React.Component {
 
     return (
       <div>
-        <div className="mb-4">
+        <div className="mb-5">
           <div className="col-12 text-center">
             <h3 className="h2-heading mb-1">
               {this.state.totalVotes + 1} Votes — invite your friends!
             </h3>
             <div className="h6-heading text-muted" />
           </div>
-          <div className="row mt-3">
-            <div className="col">
-              <CreepChart
-                userVoteGroup={userVoteGroup}
-                values={this.props.votes.creepiness.vote_breakdown}
-              />
-            </div>
-            <div className="col likelyhood-chart p-5">
-              <LikelyhoodChart values={this.props.votes.confidence} />
+          <div className="row mt-4">
+            <div className="col-12 col-lg-11 d-md-flex m-md-auto align-items-md-center">
+              <div className="px-0 px-lg-3 col-lg-7 mb-5 mb-md-0 creep-chart">
+                <CreepChart
+                  userVoteGroup={userVoteGroup}
+                  values={this.props.votes.creepiness.vote_breakdown}
+                />
+              </div>
+              <div className="col likelyhood-chart d-flex justify-content-center">
+                <LikelyhoodChart values={this.props.votes.confidence} />
+              </div>
             </div>
           </div>
         </div>
-        <div className="text-center">
-          <SocialShare
-            productName={this.props.productName}
-            creepType={creepType}
-          />
-        </div>
+        <SocialShare
+          productName={this.props.productName}
+          creepType={creepType}
+        />
       </div>
     );
   }

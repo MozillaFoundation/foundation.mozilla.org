@@ -41,7 +41,7 @@ $btn-shadow-width: 3px;
   input[name="wouldbuy"] {
     transition: all 0.1s ease-in-out;
 
-    &:checked + button {
+    &:checked + span.likely-glyph {      
       background: $black;
       color: $white;
     }
@@ -105,5 +105,9 @@ $btn-shadow-width: 3px;
 
   .help-text {
     font-style: italic;
+  }
+
+  .creep-chart {
+    min-width: 256px;
   }
 }
