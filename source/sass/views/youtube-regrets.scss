@@ -126,7 +126,7 @@
               1px *
                 (
                   var(--ringZTranslate) - (var(--baseRingGap) * #{$ring-index}) +
-                    var(--scenePerspective) / 2
+                    var(--scenePerspective) * 1
                 )
             );
           }
@@ -162,14 +162,19 @@
     top: 0;
     bottom: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+
+    @media (min-width: $bp-md) {
+      justify-content: start;
+    }
 
     .intro-text {
       position: relative;
       width: 100%;
       max-width: 840px;
-      height: 100%;
-      margin: auto;
+      height: 55%;
+      margin: 0 auto;
       text-align: center;
 
       p {
@@ -189,6 +194,24 @@
         opacity: 0;
 
         @include scaleText(30px, 38px, 50px, 56px);
+
+        @media (min-width: $bp-md) {
+          top: unset;
+          bottom: 10px;
+        }
+      }
+    }
+
+    .intro-button-wrapper {
+      text-align: center;
+
+      .btn.btn-primary {
+        background-color: $youtube-regrets-red;
+
+        @include hover-focus-active {
+          background-color: $youtube-regrets-lighter-red;
+          color: $white;
+        }
       }
     }
   }
@@ -202,7 +225,7 @@
     h2 {
       font-family: "Changa", sans-serif;
 
-      @include scaleText(30px, 36px, 42px, 42px);
+      @include scaleText(30px, 36px, 38px, 42px);
     }
 
     p {
@@ -279,5 +302,9 @@
   .sticky-side {
     position: sticky;
     top: 120px;
+  }
+
+  .youtube-regret {
+    margin-bottom: 80px;
   }
 }

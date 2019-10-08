@@ -109,6 +109,15 @@ class NavNewsletter {
     });
   }
 
+  buttonDesktopClickHandler(event) {
+    if (!this.isShown) {
+      event.stopPropagation();
+      this.expandDesktopNewsletter();
+    } else {
+      this.closeDesktopNewsletter();
+    }
+  }
+
   init(foundationSiteURL, csrfToken) {
     // some DOM nodes do not exist, return
     if (!this.checkDomNodes()) return;
@@ -122,14 +131,10 @@ class NavNewsletter {
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section
-    elements.buttonDesktop.addEventListener("click", event => {
-      if (!this.isShown) {
-        event.stopPropagation();
-        this.expandDesktopNewsletter();
-      } else {
-        this.closeDesktopNewsletter();
-      }
-    });
+    elements.buttonDesktop.addEventListener(
+      `click`,
+      this.buttonDesktopClickHandler
+    );
 
     // For mobile version:
     // make 'buttonDismiss' the trigger to close newsletter section

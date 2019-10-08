@@ -3,13 +3,16 @@ import navNewsletter from "./nav-newsletter.js";
 
 // factor for bringing image blocks closer to perspective origin
 const ZOOM_FACTOR = 2.5;
+// where on the z-axis do we want the rings to start spread out
+const RING_DEPTH_FACTOR = 1 / 5;
 
 let elements = {
   introViewport: `#view-youtube-regrets .intro-viewport`,
   blocks: `#view-youtube-regrets .intro-viewport .block`,
   rings: `#view-youtube-regrets .intro-viewport .ring`,
   introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
-  scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`
+  scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
+  newsletterButton: `#view-youtube-regrets .intro-viewport .btn-newsletter`
 };
 
 class YouTubeRegretsTunnel {
@@ -26,11 +29,11 @@ class YouTubeRegretsTunnel {
     let introText = elements.introText;
     let length = introText.length;
     let speedFactor = length / elements.blocks.length;
-    let baseUnit = this.introScrollHeight * speedFactor;
+    let totalScrollDistance = this.introScrollHeight * speedFactor;
 
     introText.forEach((item, i) => {
-      let positionToShow = baseUnit * (i / length);
-      let positionToHide = baseUnit * ((i + 1) / length);
+      let positionToShow = totalScrollDistance * (i / length);
+      let positionToHide = totalScrollDistance * ((i + 1) / length);
 
       if (
         positionToShow <= this.lastPageYOffset &&
@@ -46,6 +49,22 @@ class YouTubeRegretsTunnel {
         item.style.opacity = 0;
       }
     });
+
+    this.setNewsletterButtonVisibility(totalScrollDistance);
+  }
+
+  /**
+   * Show newsletter signup button if intro is in current viewport.
+   * Hide it otherwise.
+   */
+  setNewsletterButtonVisibility(positionTohide) {
+    let button = elements.newsletterButton[0];
+
+    if (window.pageYOffset >= positionTohide) {
+      button.classList.add(`d-none`);
+    } else {
+      button.classList.remove(`d-none`);
+    }
   }
 
   /**
@@ -61,7 +80,7 @@ class YouTubeRegretsTunnel {
 
       if (coord) {
         let percentToOrigin = coord.z / this.introScrollHeight;
-        opacity = Math.min(percentToOrigin + 1, 1);
+        opacity = Math.min(percentToOrigin * ZOOM_FACTOR + 1, 1);
       }
 
       item.style.opacity = opacity;
@@ -69,11 +88,24 @@ class YouTubeRegretsTunnel {
   }
 
   /**
-   * Show rings' opacity vlaue
+   * Set rings' opacity so they are become more visible
+   * as they come closer to the threshold we set
    */
   setRingsOpacity() {
-    elements.rings.forEach(ring => {
-      ring.style.opacity = 0.5;
+    const rings = elements.rings;
+    const Z_POSITION_TO_SHOW =
+      this.scenePerspective - this.baseRingGap * Math.ceil(rings.length / 2);
+    let opacity = 1;
+
+    rings.forEach(item => {
+      let matrix = window.getComputedStyle(item).transform;
+      let coord = this.getCoordinatefromMatrix3d(matrix);
+
+      if (coord) {
+        opacity = Math.min(1 - coord.z / Z_POSITION_TO_SHOW, 1);
+      }
+
+      item.style.opacity = opacity;
     });
   }
 
@@ -92,7 +124,8 @@ class YouTubeRegretsTunnel {
     );
     this.updateCSSCustomProperty(
       `--ringZTranslate`,
-      this.lastPageYOffset * ringsSpeedFactor
+      (this.lastPageYOffset * RING_DEPTH_FACTOR * blocksSpeedFactor) /
+        ZOOM_FACTOR
     );
   }
 
@@ -134,16 +167,16 @@ class YouTubeRegretsTunnel {
     // depth of the scene
     this.sceneDepth = this.introScrollHeight - window.innerHeight;
 
+    this.baseBlockGap = this.sceneDepth / elements.blocks.length / ZOOM_FACTOR;
+    this.baseRingGap =
+      (this.sceneDepth * RING_DEPTH_FACTOR) /
+      elements.rings.length /
+      ZOOM_FACTOR;
+
     // update CSS custom properties
     this.updateCSSCustomProperty(`--sceneDepth`, this.sceneDepth);
-    this.updateCSSCustomProperty(
-      `--baseBlockGap`,
-      this.sceneDepth / elements.blocks.length / ZOOM_FACTOR
-    );
-    this.updateCSSCustomProperty(
-      `--baseRingGap`,
-      this.scenePerspective / elements.rings.length
-    );
+    this.updateCSSCustomProperty(`--baseBlockGap`, this.baseBlockGap);
+    this.updateCSSCustomProperty(`--baseRingGap`, this.baseRingGap);
   }
 
   /**
@@ -194,6 +227,10 @@ class YouTubeRegretsTunnel {
       }
       return;
     }
+
+    elements.newsletterButton[0].addEventListener(`click`, event =>
+      navNewsletter.buttonDesktopClickHandler(event)
+    );
 
     this.setSceneDepth();
     this.setObjectsOpacity();
