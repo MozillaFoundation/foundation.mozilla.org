@@ -126,7 +126,7 @@
               1px *
                 (
                   var(--ringZTranslate) - (var(--baseRingGap) * #{$ring-index}) +
-                    var(--scenePerspective) * 1
+                    var(--scenePerspective)
                 )
             );
           }
