@@ -65,6 +65,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./views/indexpage";
 @import "./views/blog";
 @import "./views/style-guide";
+@import "./views/youtube-regrets";
 
 // Bootstrap or mofo-bootstrap overrides
 
