@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import LikelyhoodChart from "../likelyhood-chart/likelyhood-chart.jsx";
@@ -121,6 +122,14 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
+    let unlikelyClasses = classNames("unlikely-glyph btn btn-secondary", {
+      selected: this.state.confidence == false
+    });
+
+    let likelyClasses = classNames("likely-glyph btn btn-secondary", {
+      selected: this.state.confidence == true
+    });
+
     return (
       <form
         method="post"
@@ -156,8 +165,8 @@ export default class CreepVote extends React.Component {
                     id="likely"
                     autocomplete="off"
                   />
-                  <span 
-                    className="likely-glyph btn btn-secondary"
+                  <span
+                    className={likelyClasses}
                     onClick={() => this.setConfidence(true)}
                   >
                     Likely
@@ -170,8 +179,8 @@ export default class CreepVote extends React.Component {
                     id="unlikely"
                     autocomplete="off"
                   />
-                  <span 
-                    className="unlikely-glyph btn btn-secondary"
+                  <span
+                    className={unlikelyClasses}
                     onClick={() => this.setConfidence(false)}
                   >
                     Not likely

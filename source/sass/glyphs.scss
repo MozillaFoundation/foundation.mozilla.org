@@ -1,34 +1,38 @@
-@mixin glyph($id, $width: 20px, $height: 20px, ) {
+@mixin glyph($id, $buyers-guide: false, $width: 20px, $height: 20px) {
   content: "";
   display: inline-block;
   width: $width;
   height: $height;
   margin-right: 20px;
-  background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
+
+  @if $buyers-guide {
+    background: url(../_images/buyers-guide/#{$id}.svg) no-repeat 0 0 / contain;
+  } @else {
+    background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
+  }
 
   @media screen and (min-width: $bp-lg) {
     margin-right: 10px;
   }
 }
 
-@mixin hoverGlyph($id, $bg: false) {
+@mixin hoverGlyph($id, $buyers-guide: false) {
   &:hover::before,
-  &:focus::before,
-  &:active::before {
-    background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
-
-    @if $bg {
+  &:focus::before {
+    @if $buyers-guide {
       background: url(../_images/buyers-guide/#{$id}.svg) no-repeat 0 0 / contain;
+    } @else {
+      background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
     }
   }
 }
 
-@mixin compositeGlyph($id, $bg: false) {
+@mixin compositeGlyph($id, $buyers-guide: false) {
   &::before {
-    @include glyph($id);
-
-    @if $bg {
-      background: url(../_images/buyers-guide/#{$id}.svg) no-repeat 0 0 / contain;
+    @if $buyers-guide {
+      @include glyph($id, true);
+    } @else {
+      @include glyph($id);
     }
   }
 
@@ -139,5 +143,15 @@
     &::before {
       margin-right: 10px;
     }
+  }
+}
+
+.selected {
+  &.likely-glyph {
+    @include compositeGlyph("icon-thumb-up-white", true);
+  }
+
+  &.unlikely-glyph {
+    @include compositeGlyph("icon-thumb-down-white", true);
   }
 }

@@ -69,7 +69,8 @@ const SocialShareLink = props => {
       className={`btn btn-secondary btn-share ${classes}`}
       href={link}
       onClick={trackShareAction}
-    >{srLabel}
+    >
+      {srLabel}
     </a>
   );
 };
@@ -77,7 +78,7 @@ const SocialShareLink = props => {
 const SocialShare = props => {
   return (
     <div className="row">
-      <div className="col-xl-9 m-auto">
+      <div className="col-xl-9 m-auto px-2 px-md-3">
         <div className="share-button-group rectangle flex-md-nowrap">
           <div className="subgroup">
             <SocialShareLink type="facebook" {...props} />
