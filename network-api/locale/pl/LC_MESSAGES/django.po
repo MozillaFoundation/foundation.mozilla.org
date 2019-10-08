@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-07 12:56+0000\n"
+"POT-Creation-Date: 2019-10-08 23:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,7 +192,7 @@ msgid "Rishab Nithyanand, Mozilla Fellow"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/load-more-regrets.html:4
-msgid "load more"
+msgid "Load more stories"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:39
