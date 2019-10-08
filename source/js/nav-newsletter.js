@@ -131,10 +131,9 @@ class NavNewsletter {
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section
-    elements.buttonDesktop.addEventListener(
-      `click`,
-      this.buttonDesktopClickHandler
-    );
+    elements.buttonDesktop.addEventListener(`click`, event => {
+      this.buttonDesktopClickHandler(event);
+    });
 
     // For mobile version:
     // make 'buttonDismiss' the trigger to close newsletter section
@@ -145,7 +144,7 @@ class NavNewsletter {
     // For mobile version:
     // make 'buttonMobile' the trigger to show newsletter section
     elements.buttonMobile.addEventListener("click", () => {
-      navNewsletter.expandMobileNewsletter();
+      this.expandMobileNewsletter();
     });
   }
 }
