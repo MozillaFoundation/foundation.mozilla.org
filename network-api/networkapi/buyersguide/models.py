@@ -26,6 +26,19 @@ def get_product_image_upload_path(instance, filename):
     )
 
 
+class ExtendedYesNoField(models.Field):
+    description = "Yes, no, unknown, or not-applicable"
+
+    def __init__(self, *args, **kwargs):
+        kwargs['choices'] = [
+            ('Yes', 'Yes'),
+            ('No', 'No'),
+            ('NA', 'Not Applicable'),
+            ('U', 'Unknown'),
+        ]
+        kwargs['default'] = 'U'
+        super().__init__(*args, **kwargs)
+
 # Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
 class CloudinaryImageField(CloudinaryField):
     def upload_options(self, model_instance):
@@ -41,22 +54,22 @@ class Update(models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
-        blank="True",
+        blank=True,
     )
 
     title = models.CharField(
         max_length=256,
-        blank="True",
+        blank=True,
     )
 
     author = models.CharField(
         max_length=256,
-        blank="True",
+        blank=True,
     )
 
     snippet = models.TextField(
         max_length=5000,
-        blank="True",
+        blank=True,
     )
 
     def __str__(self):
@@ -130,7 +143,7 @@ class Product(models.Model):
     name = models.CharField(
         max_length=100,
         help_text='Name of Product',
-        blank="True",
+        blank=True,
     )
 
     slug = models.CharField(
@@ -144,7 +157,7 @@ class Product(models.Model):
     company = models.CharField(
         max_length=100,
         help_text='Name of Company',
-        blank="True",
+        blank=True,
     )
 
     product_category = models.ManyToManyField(
@@ -156,19 +169,19 @@ class Product(models.Model):
     blurb = models.TextField(
         max_length=5000,
         help_text='Description of the product',
-        blank="True"
+        blank=True
     )
 
     url = models.URLField(
         max_length=2048,
         help_text='Link to this product page',
-        blank="True",
+        blank=True,
     )
 
     price = models.CharField(
         max_length=100,
         help_text='Price',
-        blank="True",
+        blank=True,
     )
 
     image = models.FileField(
@@ -188,7 +201,63 @@ class Product(models.Model):
         help_text='Does this product meet minimum security standards?',
     )
 
-    # Can it spy on me?
+    # Minimum security standards (stars)
+
+    uses_encryption = models.NullBooleanField(
+        help_text='Does the product use encryption?',
+    )
+
+    uses_encryption_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    security_updates = models.NullBooleanField(
+        help_text='Security updates?',
+    )
+
+    security_updates_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    must_change_default_password = models.NullBooleanField(
+        help_text='Must change a default password?',
+    )
+
+    must_change_default_password_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    manage_security = models.NullBooleanField(
+        help_text='Manages security vulnerabilities?',
+    )
+
+    manage_security_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    privacy_policy = ExtendedYesNoField(
+        help_text='Does this product have a privacy policy?'
+    )
+
+    privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION BEFORE IT GETS PUT TO NEW USE
+        max_length=5000,
+        blank=True
+    )
+
+    share_data = models.NullBooleanField(  # TO BE REMOVED
+        help_text='Does the maker share data with other companies?',
+    )
+
+    share_data_helptext = models.TextField(  # TO BE REMOVED
+        max_length=5000,
+        blank=True
+    )
+
+    # It uses your...
 
     camera_device = models.NullBooleanField(
         help_text='Does this device have or access a camera?',
@@ -214,18 +283,55 @@ class Product(models.Model):
         help_text='Does this app access your location?',
     )
 
-    # What does it know about me?
+    # How it handles privacy
 
-    uses_encryption = models.NullBooleanField(
-        help_text='Does the product use encryption?',
-    )
-
-    uses_encryption_helptext = models.TextField(
+    how_does_it_share = models.CharField(
         max_length=5000,
-        blank="True"
+        help_text='How does this product handle private data?',
+        blank=True
     )
 
-    PP_CHOICES = (
+    delete_data = models.NullBooleanField(
+        help_text='Can you request data be deleted?',
+    )
+
+    delete_data_helptext = models.TextField(  # TO BE REMOVED
+        max_length=5000,
+        blank=True
+    )
+
+    child_rules = models.NullBooleanField(
+        help_text='Are there rules for children?',
+    )
+    
+    child_rules_helptext = models.TextField(  # TO BE REMOVED
+        max_length=5000,
+        blank=True
+    )
+
+    collects_biometrics = ExtendedYesNoField(
+        help_text='Does this product collect biometric data?',
+    )
+    
+    collects_biometrics_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    user_friendly_privacy_policy = ExtendedYesNoField(
+        help_text='Does this product have a user-friendly privacy policy?'
+    )
+
+    # NEW FIELD SET:
+    # privacy_policy_links = up to three instances of {namestring + policy link}
+
+    worst_case = models.CharField(
+        max_length=5000,
+        help_text="What's the worst thing that could happen by using this product?",
+        blank=True,
+    )
+
+    PP_CHOICES = (  # TO BE REMOVED
         ('0', 'Can\'t Determine'),
         ('7', 'Grade 7'),
         ('8', 'Grade 8'),
@@ -242,122 +348,56 @@ class Product(models.Model):
         ('19', 'Grade 19'),
     )
 
-    privacy_policy_url = models.URLField(
-        max_length=2048,
-        help_text='Link to privacy policy',
-        blank="True"
-    )
-
-    privacy_policy_reading_level = models.CharField(
+    privacy_policy_reading_level = models.CharField(  # TO BE REMOVED IN FAVOUR OF USER_FRIENDLY_PRIVACY_POLICY
         choices=PP_CHOICES,
         default='0',
         max_length=2,
     )
 
-    privacy_policy_reading_level_url = models.URLField(
+    privacy_policy_url = models.URLField(  # TO BE REMOVED IN FAVOUR OF PRIVACY_POLICY_LINKS
+        max_length=2048,
+        help_text='Link to privacy policy',
+        blank=True
+    )
+
+    privacy_policy_reading_level_url = models.URLField(  # TO BE REMOVED
         max_length=2048,
         help_text='Link to privacy policy reading level',
-        blank="True"
+        blank=True
     )
 
-    privacy_policy_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    share_data = models.NullBooleanField(
-        help_text='Does the maker share data with other companies?',
-    )
-
-    share_data_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    # Can I control it?
-
-    must_change_default_password = models.NullBooleanField(
-        help_text='Must change a default password?',
-    )
-
-    must_change_default_password_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    security_updates = models.NullBooleanField(
-        help_text='Security updates?',
-    )
-
-    security_updates_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    delete_data = models.NullBooleanField(
-        help_text='Can you request data be deleted?',
-    )
-
-    delete_data_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    child_rules = models.NullBooleanField(
-        help_text='Are there rules for children?',
-    )
-
-    child_rules_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    # Company shows it cares about its customers?
-
-    manage_security = models.NullBooleanField(
-        help_text='Manages security vulnerabilities?',
-    )
-
-    manage_security_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
+    # How to contact the company
 
     phone_number = models.CharField(
         max_length=100,
         help_text='Phone Number',
-        blank="True",
+        blank=True,
     )
 
     live_chat = models.CharField(
         max_length=100,
         help_text='Live Chat',
-        blank="True",
+        blank=True,
     )
 
     email = models.CharField(
         max_length=100,
         help_text='Email',
-        blank="True",
+        blank=True,
     )
 
     twitter = models.CharField(
         max_length=100,
         help_text='Twitter username',
-        blank="True",
+        blank=True,
     )
-
-    # What could happen if something went wrong?
-
-    worst_case = models.CharField(
-        max_length=5000,
-        help_text="What's the worst thing that could happen by using this product?",
-        blank="True",
-    )
-
     updates = models.ManyToManyField(Update, related_name='products', blank=True)
 
+    # comments are not a model field, but are "injected" on the product page instead
+
     related_products = models.ManyToManyField('self', related_name='rps', blank=True, symmetrical=False)
+
+    # ---
 
     if settings.USE_CLOUDINARY:
         image_field = FieldPanel('cloudinary_image')
