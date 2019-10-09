@@ -14,6 +14,7 @@ from .models import (
     CampaignPage,
     OpportunityPage,
     BlogPage,
+    YoutubeRegretsPage,
 
     CTA,
     Petition,
@@ -172,3 +173,14 @@ class BlogPageTR(TranslationOptions):
         'author',
         'body',
     )
+
+
+@register(YoutubeRegretsPage)
+class YoutubeRegretsPageTR(TranslationOptions):
+    fields = {
+        'headline',
+        'intro_text',
+        'intro_images',
+        'faq',
+        'regret_stories',
+    }
