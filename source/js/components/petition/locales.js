@@ -9,7 +9,7 @@ let currentLocale = false;
  * path-after-the-domain is, and tries to resolve that as a locale.
  * @return {string} The current locale string
  */
-function getCurrentLocale() {
+function getCurrentLanguage() {
   if (typeof window === `undefined` || !window.location) {
     return DEFAULT_LOCALE;
   }
@@ -30,9 +30,9 @@ function getCurrentLocale() {
  * @param {string} locale the locale for which to fetch the localized key (optional, defaults to current URL locale)
  * @return {string} the localised key (with fall-back to the default localized string, and the key itself)
  */
-function get(key, locale) {
+function getText(key, locale) {
   if (!locale) {
-    locale = getCurrentLocale();
+    locale = getCurrentLanguage();
   }
 
   if (!data[locale]) {
@@ -42,4 +42,4 @@ function get(key, locale) {
   return data[locale][key] || key;
 }
 
-export default get;
+export { getText, getCurrentLanguage };
