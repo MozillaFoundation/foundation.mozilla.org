@@ -465,9 +465,15 @@ class Product(ClusterableModel):
                 FieldPanel('collects_biometrics'),
                 FieldPanel('collects_biometrics_helptext'),
                 FieldPanel('user_friendly_privacy_policy'),
-                FieldPanel('worst_case'),
             ],
             heading="How does it handle privacy",
+            classname="collapsible"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('worst_case'),
+            ],
+            heading="The worst case is...",
             classname="collapsible"
         ),
         MultiFieldPanel(
@@ -489,7 +495,7 @@ class Product(ClusterableModel):
                 FieldPanel('email'),
                 FieldPanel('twitter'),
             ],
-            heading="Company to contact the company",
+            heading="Ways to contact the company",
             classname="collapsible"
         ),
         FieldPanel('updates'),
