@@ -2,7 +2,9 @@ import React from "react";
 import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
-import basketSignup from "../../basket-signup.js";
+import CountrySelect from "../petition/country-select.jsx";
+import { getText } from "../petition/locales";
+import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {
   constructor(props) {
@@ -179,13 +181,29 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * GA event when users interact with the signup form.
+   * On focus, we want to do two things:
+   * 1.Fire a GA event when users interact with the signup form
+   * 2.Reveal localization fields for header and footer signup forms
    */
   onInputFocus() {
     ReactGA.event({
       category: `signup`,
       action: `form focus`,
       label: `Signup form input focused`
+    });
+
+    let emailFields = document.querySelectorAll(
+      '.fields-wrapper .form-control[type="email"]'
+    );
+
+    emailFields.forEach(emailField => {
+      let currentEmailField = event.target === emailField;
+      if (currentEmailField) {
+        let localizationFields = document.querySelector(
+          `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
+        );
+        localizationFields.classList.remove(`d-none`);
+      }
     });
   }
 
@@ -255,7 +273,7 @@ export default class JoinUs extends React.Component {
         this.state.signupFailed
     });
 
-    let classes = classNames({
+    let classes = classNames(`mb-2`, {
       "position-relative": wrapperClasses !== ``
     });
 
@@ -265,7 +283,7 @@ export default class JoinUs extends React.Component {
           <input
             type="email"
             className="form-control"
-            placeholder="Enter email address"
+            placeholder={getText(`Please enter your email`)}
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
@@ -285,6 +303,29 @@ export default class JoinUs extends React.Component {
             Something went wrong. Please check your email address and try again
           </small>
         )}
+      </div>
+    );
+  }
+
+  /**
+   * Render localization fields
+   */
+
+  renderLocalizationFields() {
+    let header = this.props.formPosition === `header`;
+    let footer = this.props.formPosition === `footer`;
+    let classes = classNames(`form-l10n`, {
+      "d-none": footer || header
+    });
+
+    return (
+      <div className={classes}>
+        <div className="mb-2">
+          <CountrySelect label={getText(`Your country`)} className="w-100" />
+        </div>
+        <div>
+          <LanguageSelect className="w-100" />
+        </div>
       </div>
     );
   }
@@ -332,19 +373,18 @@ export default class JoinUs extends React.Component {
       <div className={classes}>
         <div className="d-flex align-items-start">
           <div className="mb-0 form-check d-flex align-items-start">
-            <input
-              type="checkbox"
-              className="form-check-input ml-0 mt-0"
-              id="PrivacyCheckbox"
-              ref={el => (this.privacy = el)}
-              required
-            />
             <label className="form-check-label d-flex align-items-start">
-              <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-1">
-                I'm okay with Mozilla handling my info as explained in this{" "}
-                <a href="https://www.mozilla.org/privacy/websites/">
-                  Privacy Notice
-                </a>
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="PrivacyCheckbox"
+                ref={el => (this.privacy = el)}
+                required
+              />
+              <p className="d-inline-block body-small form-text mb-0">
+                {getText(
+                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
+                )}
               </p>
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
@@ -367,7 +407,9 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return <button className="btn btn-primary w-100">Sign up</button>;
+    return (
+      <button className="btn btn-primary w-100">{getText(`Sign up`)}</button>
+    );
   }
 
   /**
@@ -397,6 +439,7 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
+          {this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
         <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
