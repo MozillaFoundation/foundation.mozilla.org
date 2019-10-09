@@ -14,8 +14,13 @@ from networkapi.buyersguide.fields import ExtendedYesNoField
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
 
-from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from modelcluster.models import ClusterableModel
+from modelcluster.fields import ParentalKey
+
+from wagtail.core.models import Orderable
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 
 def get_product_image_upload_path(instance, filename):
@@ -109,7 +114,7 @@ class BuyersGuideProductCategory(models.Model):
         verbose_name_plural = "Buyers Guide Product Categories"
 
 
-class Product(models.Model):
+class Product(ClusterableModel):
     """
     A thing you can buy in stores and our review of it
     """
@@ -310,8 +315,7 @@ class Product(models.Model):
         help_text='Does this product have a user-friendly privacy policy?'
     )
 
-    # NEW FIELD SET:
-    # privacy_policy_links = up to three instances of {namestring + policy link}
+    # privacy_policy_links = one to many, defined in PrivacyPolicyLink
 
     worst_case = models.CharField(
         max_length=5000,
@@ -469,6 +473,18 @@ class Product(models.Model):
         ),
         MultiFieldPanel(
             [
+                InlinePanel(
+                    'privacy_policy_links',
+                    label='link',
+                    min_num=1,
+                    max_num=3,
+                ),
+            ],
+            heading="Privacy policy links",
+            classname="collapsible"
+        ),
+        MultiFieldPanel(
+            [
                 FieldPanel('phone_number'),
                 FieldPanel('live_chat'),
                 FieldPanel('email'),
@@ -545,6 +561,33 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+@register_snippet
+class ProductPrivacyPolicyLink(Orderable, models.Model):
+    product = ParentalKey(
+        'Product',
+        related_name='privacy_policy_links',
+        on_delete=models.CASCADE
+    )
+ 
+    label = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text='Label for this link on the product page'
+    )
+
+    url = models.URLField(
+        max_length=2048,
+        help_text='Privacy policy URL'
+    )
+
+    def __str__(self):
+        return f'{self.product.name}: {self.label} ({self.url})'
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Privacy Policy link"
+        verbose_name_plural = "Buyers Guide Product Privacy Policy links"
 
 
 # We want to delete the product image when the product is removed
