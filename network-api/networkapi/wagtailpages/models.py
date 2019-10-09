@@ -1409,6 +1409,20 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         ('image', customblocks.ImageBlock()),
     ])
 
+    faq = StreamField(
+        [
+            ('paragraph', blocks.RichTextBlock(
+                features=[
+                    'bold', 'italic',
+                    'h2', 'h3', 'h4', 'h5',
+                    'ol', 'ul',
+                    'link', 'hr',
+                ]
+            ))
+        ],
+        blank=True,
+    )
+
     regret_stories = StreamField([
         ('regret_story', customblocks.YoutubeRegretBlock()),
     ])
@@ -1417,7 +1431,14 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         FieldPanel('headline'),
         StreamFieldPanel('intro_text'),
         StreamFieldPanel('intro_images'),
+        StreamFieldPanel('faq'),
         StreamFieldPanel('regret_stories'),
     ]
+
+    zen_nav = True
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return set_main_site_nav_information(self, context, 'Homepage')
 
     template = 'wagtailpages/pages/youtube_regrets_page.html'
