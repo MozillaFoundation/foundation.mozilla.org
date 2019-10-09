@@ -26,18 +26,31 @@ def get_product_image_upload_path(instance, filename):
     )
 
 
-class ExtendedYesNoField(models.Field):
-    description = "Yes, no, unknown, or not-applicable"
+class ExtendedYesNoField(models.CharField):
+    description = "Yes, No, Not Applicable, or Unknown"
+
+    choice_list = [
+        ('Yes', 'Yes'),
+        ('No', 'No'),
+        ('NA', 'Not Applicable'),
+        ('U', 'Unknown'),
+    ]
+
+    default_choice = 'U'
 
     def __init__(self, *args, **kwargs):
-        kwargs['choices'] = [
-            ('Yes', 'Yes'),
-            ('No', 'No'),
-            ('NA', 'Not Applicable'),
-            ('U', 'Unknown'),
-        ]
-        kwargs['default'] = 'U'
+        kwargs['choices'] = self.choice_list
+        kwargs['default'] = self.default_choice
+        kwargs['max_length'] = 3
         super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        del kwargs['choices']
+        del kwargs['default']
+        del kwargs['max_length']
+        return name, path, args, kwargs
+
 
 # Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
 class CloudinaryImageField(CloudinaryField):
@@ -243,7 +256,7 @@ class Product(models.Model):
         help_text='Does this product have a privacy policy?'
     )
 
-    privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION BEFORE IT GETS PUT TO NEW USE
+    privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION
         max_length=5000,
         blank=True
     )
@@ -303,7 +316,7 @@ class Product(models.Model):
     child_rules = models.NullBooleanField(
         help_text='Are there rules for children?',
     )
-    
+
     child_rules_helptext = models.TextField(  # TO BE REMOVED
         max_length=5000,
         blank=True
@@ -312,7 +325,7 @@ class Product(models.Model):
     collects_biometrics = ExtendedYesNoField(
         help_text='Does this product collect biometric data?',
     )
-    
+
     collects_biometrics_helptext = models.TextField(
         max_length=5000,
         blank=True
@@ -391,7 +404,7 @@ class Product(models.Model):
         help_text='Twitter username',
         blank=True,
     )
-    
+
     updates = models.ManyToManyField(Update, related_name='products', blank=True)
 
     # comments are not a model field, but are "injected" on the product page instead
@@ -474,8 +487,8 @@ class Product(models.Model):
                 FieldPanel('collects_biometrics'),
                 FieldPanel('collects_biometrics_helptext'),
                 FieldPanel('user_friendly_privacy_policy'),
-                 FieldPanel('worst_case'),
-           ],
+                FieldPanel('worst_case'),
+            ],
             heading="How does it handle privacy",
             classname="collapsible"
         ),
