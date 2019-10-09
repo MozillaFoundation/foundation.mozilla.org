@@ -20,7 +20,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.models import Orderable
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 
 def get_product_image_upload_path(instance, filename):
@@ -570,7 +569,7 @@ class ProductPrivacyPolicyLink(Orderable, models.Model):
         related_name='privacy_policy_links',
         on_delete=models.CASCADE
     )
- 
+
     label = models.CharField(
         blank=True,
         max_length=500,
