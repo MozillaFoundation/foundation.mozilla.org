@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='collects_biometrics',
-            field=networkapi.buyersguide.models.ExtendedYesNoField(help_text='Does this product collect biometric data?'),
+            field=networkapi.buyersguide.fields.ExtendedYesNoField(help_text='Does this product collect biometric data?'),
         ),
         migrations.AddField(
             model_name='product',
@@ -29,13 +29,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='privacy_policy',
-            field=networkapi.buyersguide.models.ExtendedYesNoField(help_text='Does this product have a privacy policy?'),
+            field=networkapi.buyersguide.fields.ExtendedYesNoField(help_text='Does this product have a privacy policy?'),
         ),
         migrations.AddField(
             model_name='product',
             name='user_friendly_privacy_policy',
-            field=networkapi.buyersguide.models.ExtendedYesNoField(help_text='Does this product have a user-friendly privacy policy?'),
+            field=networkapi.buyersguide.fields.ExtendedYesNoField(help_text='Does this product have a user-friendly privacy policy?'),
         ),
+
+        # A boatload of fields were using blank="True" rather than blank=True
+
         migrations.AlterField(
             model_name='product',
             name='blurb',

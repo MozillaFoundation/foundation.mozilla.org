@@ -10,6 +10,7 @@ from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.text import slugify
 
+from networkapi.buyersguide.fields import ExtendedYesNoField
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
 
@@ -24,32 +25,6 @@ def get_product_image_upload_path(instance, filename):
         instance=instance,
         current_filename=filename
     )
-
-
-class ExtendedYesNoField(models.CharField):
-    description = "Yes, No, Not Applicable, or Unknown"
-
-    choice_list = [
-        ('Yes', 'Yes'),
-        ('No', 'No'),
-        ('NA', 'Not Applicable'),
-        ('U', 'Unknown'),
-    ]
-
-    default_choice = 'U'
-
-    def __init__(self, *args, **kwargs):
-        kwargs['choices'] = self.choice_list
-        kwargs['default'] = self.default_choice
-        kwargs['max_length'] = 3
-        super().__init__(*args, **kwargs)
-
-    def deconstruct(self):
-        name, path, args, kwargs = super().deconstruct()
-        del kwargs['choices']
-        del kwargs['default']
-        del kwargs['max_length']
-        return name, path, args, kwargs
 
 
 # Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
