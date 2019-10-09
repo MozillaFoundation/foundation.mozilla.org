@@ -4,7 +4,10 @@ import SALESFORCE_COUNTRY_LIST from "./salesforce-country-list.js";
 
 export default class CountrySelect extends React.Component {
   render() {
-    let classes = classNames(`country-picker`, this.props.className);
+    let classes = classNames(
+      `country-picker form-control`,
+      this.props.className
+    );
     let codes = Object.keys(SALESFORCE_COUNTRY_LIST);
     let options = codes.map(code => {
       return (

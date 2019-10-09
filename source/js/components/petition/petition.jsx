@@ -606,7 +606,7 @@ export default class Petition extends React.Component {
             </div>
             <div className={countryGroupClass}>
               <CountrySelect
-                className="mb-1 w-100"
+                className="form-control-lg mb-1 w-100"
                 ref={element => {
                   this.country = element;
                 }}
