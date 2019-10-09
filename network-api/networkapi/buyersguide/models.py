@@ -189,14 +189,27 @@ class Product(ClusterableModel):
         verbose_name='image',
     )
 
-    meets_minimum_security_standards = models.NullBooleanField(
+    meets_minimum_security_standards = models.BooleanField(
+        null=True,
         help_text='Does this product meet minimum security standards?',
     )
 
     # Minimum security standards (stars)
 
-    uses_encryption = models.NullBooleanField(
+    uses_encryption = ExtendedYesNoField(
         help_text='Does the product use encryption?',
+    )
+
+    security_updates = ExtendedYesNoField(
+        help_text='Security updates?',
+    )
+
+    must_change_default_password = ExtendedYesNoField(
+        help_text='Must change a default password?',
+    )
+
+    manage_security = ExtendedYesNoField(
+        help_text='Manages security vulnerabilities?',
     )
 
     uses_encryption_helptext = models.TextField(
@@ -204,26 +217,14 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    security_updates = models.NullBooleanField(
-        help_text='Security updates?',
-    )
-
     security_updates_helptext = models.TextField(
         max_length=5000,
         blank=True
     )
 
-    must_change_default_password = models.NullBooleanField(
-        help_text='Must change a default password?',
-    )
-
     must_change_default_password_helptext = models.TextField(
         max_length=5000,
         blank=True
-    )
-
-    manage_security = models.NullBooleanField(
-        help_text='Manages security vulnerabilities?',
     )
 
     manage_security_helptext = models.TextField(
@@ -240,7 +241,8 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    share_data = models.NullBooleanField(  # TO BE REMOVED
+    share_data = models.BooleanField(  # TO BE REMOVED
+        null=True,
         help_text='Does the maker share data with other companies?',
     )
 
@@ -251,27 +253,33 @@ class Product(ClusterableModel):
 
     # It uses your...
 
-    camera_device = models.NullBooleanField(
+    camera_device = models.BooleanField(
+        null=True,
         help_text='Does this device have or access a camera?',
     )
 
-    camera_app = models.NullBooleanField(
+    camera_app = models.BooleanField(
+        null=True,
         help_text='Does the app have or access a camera?',
     )
 
-    microphone_device = models.NullBooleanField(
+    microphone_device = models.BooleanField(
+        null=True,
         help_text='Does this Device have or access a microphone?',
     )
 
-    microphone_app = models.NullBooleanField(
+    microphone_app = models.BooleanField(
+        null=True,
         help_text='Does this app have or access a microphone?',
     )
 
-    location_device = models.NullBooleanField(
+    location_device = models.BooleanField(
+        null=True,
         help_text='Does this product access your location?',
     )
 
-    location_app = models.NullBooleanField(
+    location_app = models.BooleanField(
+        null=True,
         help_text='Does this app access your location?',
     )
 
@@ -283,7 +291,8 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    delete_data = models.NullBooleanField(
+    delete_data = models.BooleanField(
+        null=True,
         help_text='Can you request data be deleted?',
     )
 
@@ -292,7 +301,8 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    child_rules = models.NullBooleanField(
+    child_rules = models.BooleanField(
+        null=True,
         help_text='Are there rules for children?',
     )
 
@@ -489,7 +499,7 @@ class Product(ClusterableModel):
                 FieldPanel('email'),
                 FieldPanel('twitter'),
             ],
-            heading="Company to contact the company",
+            heading="Ways to contact the company",
             classname="collapsible"
         ),
         FieldPanel('updates'),
