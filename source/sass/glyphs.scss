@@ -20,7 +20,11 @@
   &:hover::before,
   &:focus::before {
     @if $buyers-guide {
-      background: url(../_images/buyers-guide/#{$id}.svg) no-repeat 0 0 / contain;
+      background: url(../_images/buyers-guide/#{$id}.svg)
+        no-repeat
+        0
+        0 /
+        contain;
     } @else {
       background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
     }

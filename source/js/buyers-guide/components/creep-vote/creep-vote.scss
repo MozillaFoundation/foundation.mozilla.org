@@ -27,7 +27,7 @@ $btn-shadow-width: 3px;
         background: inherit;
       }
     }
-    
+
     &.submit-attempted {
       input[name="wouldbuy"]:invalid {
         + button {
@@ -41,7 +41,7 @@ $btn-shadow-width: 3px;
   input[name="wouldbuy"] {
     transition: all 0.1s ease-in-out;
 
-    &:checked + span {      
+    &:checked + span {
       background: $black;
       color: $white;
     }

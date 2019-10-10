@@ -59,6 +59,7 @@ const SocialShareLink = props => {
       evt.preventDefault();
       copyToClipboard(evt.target, window.location.href);
       evt.target.innerHTML = evt.target.innerHTML.replace(srLabel, `Copied`);
+      evt.target.classList.add("copied");
       _trackShareAction();
     };
   }
@@ -78,7 +79,7 @@ const SocialShareLink = props => {
 const SocialShare = props => {
   return (
     <div className="row">
-      <div className="col-xl-9 m-auto px-2 px-md-3">
+      <div className="col-xl-9">
         <div className="share-button-group rectangle flex-md-nowrap">
           <div className="subgroup">
             <SocialShareLink type="facebook" {...props} />
