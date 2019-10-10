@@ -4,7 +4,11 @@ import navNewsletter from "./nav-newsletter.js";
 // factor for bringing image blocks closer to perspective origin
 const ZOOM_FACTOR = 2.5;
 // where on the z-axis do we want the rings to start spread out
-const RING_DEPTH_FACTOR = 1 / 5;
+const RING_DEPTH_FACTOR = 1 / 4;
+// speed factors
+const TEXT_SPEED_FACTOR = 0.7;
+const BLOCK_SPEED_FACTOR = 0.8;
+const RING_SPEED_FACTOR = 0.6;
 
 let elements = {
   introViewport: `#view-youtube-regrets .intro-viewport`,
@@ -28,8 +32,9 @@ class YouTubeRegretsTunnel {
   setIntroTextOpacity() {
     let introText = elements.introText;
     let length = introText.length;
-    let speedFactor = length / elements.blocks.length;
-    let totalScrollDistance = this.introScrollHeight * speedFactor;
+    let textToBlockRatio = length / elements.blocks.length;
+    let totalScrollDistance =
+      (this.introScrollHeight * textToBlockRatio) / TEXT_SPEED_FACTOR;
 
     introText.forEach((item, i) => {
       let positionToShow = totalScrollDistance * (i / length);
@@ -116,16 +121,17 @@ class YouTubeRegretsTunnel {
     this.lastPageYOffset = window.pageYOffset;
 
     let blocksSpeedFactor = elements.blocks.length / elements.introText.length;
-    let ringsSpeedFactor = (this.scenePerspective / this.sceneDepth) * 1.2;
 
     this.updateCSSCustomProperty(
       `--blockZTranslate`,
-      (this.lastPageYOffset * blocksSpeedFactor) / ZOOM_FACTOR
+      ((this.lastPageYOffset * blocksSpeedFactor) / ZOOM_FACTOR) *
+        BLOCK_SPEED_FACTOR
     );
     this.updateCSSCustomProperty(
       `--ringZTranslate`,
-      (this.lastPageYOffset * RING_DEPTH_FACTOR * blocksSpeedFactor) /
-        ZOOM_FACTOR
+      ((this.lastPageYOffset * RING_DEPTH_FACTOR * blocksSpeedFactor) /
+        ZOOM_FACTOR) *
+        RING_SPEED_FACTOR
     );
   }
 
@@ -161,11 +167,11 @@ class YouTubeRegretsTunnel {
     );
     this.scenePerspective = scenePerspective;
 
-    // the total scroll distance users have to scroll in order to get through the intro tunnel
-    this.introScrollHeight = window.innerHeight * 5;
-
     // depth of the scene
-    this.sceneDepth = this.introScrollHeight - window.innerHeight;
+    this.sceneDepth = window.innerHeight * 3;
+
+    // the total scroll distance users have to scroll in order to get through the intro tunnel
+    this.introScrollHeight = this.sceneDepth + this.scenePerspective;
 
     this.baseBlockGap = this.sceneDepth / elements.blocks.length / ZOOM_FACTOR;
     this.baseRingGap =
