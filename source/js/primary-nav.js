@@ -1,104 +1,81 @@
 import ReactGA from "react-ga";
-import utility from "./utility";
 import navNewsletter from "./nav-newsletter.js";
 
-let elements = {
-  elBurger: `.burger`,
-  elWideMenu: `.wide-screen-menu`,
-  elNarrowMenu: `.narrow-screen-menu`,
-  primaryNavContainer: `#primary-nav-container`
-};
+let primaryNav = {
+  init: function() {
+    let elBurger = document.querySelector(`.burger`);
+    let elWideMenu = document.querySelector(`.wide-screen-menu`);
+    let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
+    let primaryNavContainer = document.getElementById(`primary-nav-container`);
+    let navMode = primaryNavContainer.dataset.navMode;
+    let menuOpen = false;
 
-class PrimaryNav {
-  constructor() {
-    this.navMode = null;
-    this.menuOpen = false;
-  }
-
-  setWideMenuState(openMenu) {
-    if (this.navMode === `zen`) {
-      if (openMenu) {
-        elements.elWideMenu.classList.remove(`hidden`);
-      } else {
-        elements.elWideMenu.classList.add(`hidden`);
+    function setWideMenuState(openMenu) {
+      if (navMode === `zen`) {
+        if (openMenu) {
+          elWideMenu.classList.remove(`hidden`);
+        } else {
+          elWideMenu.classList.add(`hidden`);
+        }
       }
     }
-  }
 
-  setNarrowMenuState(openMenu) {
-    if (openMenu) {
-      elements.elNarrowMenu.classList.remove(`hidden`);
-    } else {
-      elements.elNarrowMenu.classList.add(`hidden`);
-    }
-  }
-
-  setBurgerState(openMenu) {
-    if (openMenu) {
-      elements.elBurger.classList.add(`menu-open`);
-    } else {
-      elements.elBurger.classList.remove(`menu-open`);
-    }
-  }
-
-  trackMenuState(openMenu) {
-    if (openMenu) {
-      ReactGA.event({
-        category: `navigation`,
-        action: `show menu`,
-        label: `Show navigation menu`
-      });
-    } else {
-      ReactGA.event({
-        category: `navigation`,
-        action: `hide menu`,
-        label: `Hide navigation menu`
-      });
-    }
-  }
-
-  setMenuState(openMenu) {
-    this.setWideMenuState(openMenu);
-    this.setNarrowMenuState(openMenu);
-    this.setBurgerState(openMenu);
-    this.trackMenuState(openMenu);
-  }
-
-  init() {
-    if (!utility.checkAndBindDomNodes(elements)) {
-      return;
+    function setNarrowMenuState(openMenu) {
+      if (openMenu) {
+        elNarrowMenu.classList.remove(`hidden`);
+      } else {
+        elNarrowMenu.classList.add(`hidden`);
+      }
     }
 
-    this.navMode = elements.primaryNavContainer.dataset.navMode;
+    function setBurgerState(openMenu) {
+      if (openMenu) {
+        elBurger.classList.add(`menu-open`);
+      } else {
+        elBurger.classList.remove(`menu-open`);
+      }
+    }
 
-    document.addEventListener(`keyup`, event => {
-      this.docKeyupHanlder(event);
+    function trackMenuState(openMenu) {
+      if (openMenu) {
+        ReactGA.event({
+          category: `navigation`,
+          action: `show menu`,
+          label: `Show navigation menu`
+        });
+      } else {
+        ReactGA.event({
+          category: `navigation`,
+          action: `hide menu`,
+          label: `Hide navigation menu`
+        });
+      }
+    }
+
+    function setMenuState(openMenu) {
+      setWideMenuState(openMenu);
+      setNarrowMenuState(openMenu);
+      setBurgerState(openMenu);
+      trackMenuState(openMenu);
+    }
+
+    document.addEventListener(`keyup`, e => {
+      if (e.keyCode === 27) {
+        menuOpen = false;
+        setMenuState(menuOpen);
+      }
     });
-
-    elements.elBurger.addEventListener(`click`, () => {
-      this.elBurgerClickHanlder();
+    elBurger.addEventListener(`click`, () => {
+      if (navNewsletter.getShownState()) {
+        // if newsletter section is open, close just that section
+        // instead of changing the menuOpen state
+        navNewsletter.closeMobileNewsletter();
+      } else {
+        menuOpen = !menuOpen;
+        setMenuState(menuOpen);
+      }
     });
   }
-
-  docKeyupHanlder(event) {
-    if (event.keyCode === 27) {
-      this.menuOpen = false;
-      this.setMenuState(this.menuOpen);
-    }
-  }
-
-  elBurgerClickHanlder() {
-    if (navNewsletter.getShownState()) {
-      // if newsletter section is open, close just that section
-      // instead of changing the menuOpen state
-      navNewsletter.closeMobileNewsletter();
-    } else {
-      this.menuOpen = !this.menuOpen;
-      this.setMenuState(this.menuOpen);
-    }
-  }
-}
-
-const primaryNav = new PrimaryNav();
+};
 
 export default primaryNav;
