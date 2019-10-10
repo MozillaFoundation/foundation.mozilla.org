@@ -200,21 +200,13 @@ class Product(ClusterableModel):
         help_text='Does the product use encryption?',
     )
 
-    security_updates = ExtendedYesNoField(
-        help_text='Security updates?',
-    )
-
-    must_change_default_password = ExtendedYesNoField(
-        help_text='Must change a default password?',
-    )
-
-    manage_security = ExtendedYesNoField(
-        help_text='Manages security vulnerabilities?',
-    )
-
     uses_encryption_helptext = models.TextField(
         max_length=5000,
         blank=True
+    )
+
+    security_updates = ExtendedYesNoField(
+        help_text='Security updates?',
     )
 
     security_updates_helptext = models.TextField(
@@ -222,12 +214,18 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    must_change_default_password_helptext = models.TextField(
+    strong_password = ExtendedYesNoField()
+
+    strong_password_helptext = models.TextField(
         max_length=5000,
         blank=True
     )
 
-    manage_security_helptext = models.TextField(
+    manage_vulnerabilities = ExtendedYesNoField(
+        help_text='Manages security vulnerabilities?',
+    )
+
+    manage_vulnerabilities_helptext = models.TextField(
         max_length=5000,
         blank=True
     )
@@ -301,7 +299,7 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    child_rules = models.BooleanField(
+    parental_controls = models.BooleanField(
         null=True,
         help_text='Are there rules for children?',
     )
@@ -436,10 +434,10 @@ class Product(ClusterableModel):
                 FieldPanel('uses_encryption_helptext'),
                 FieldPanel('security_updates'),
                 FieldPanel('security_updates_helptext'),
-                FieldPanel('must_change_default_password'),
-                FieldPanel('must_change_default_password_helptext'),
-                FieldPanel('manage_security'),
-                FieldPanel('manage_security_helptext'),
+                FieldPanel('strong_password'),
+                FieldPanel('strong_password_helptext'),
+                FieldPanel('manage_vulnerabilities'),
+                FieldPanel('manage_vulnerabilities_helptext'),
                 FieldPanel('privacy_policy'),
                 FieldPanel('privacy_policy_helptext'),  # NEED A "clear" MIGRATION
                 FieldPanel('share_data'),
@@ -470,8 +468,7 @@ class Product(ClusterableModel):
                 FieldPanel('how_does_it_share'),
                 FieldPanel('delete_data'),
                 FieldPanel('delete_data_helptext'),
-                FieldPanel('child_rules'),
-                FieldPanel('child_rules_helptext'),
+                FieldPanel('parental_controls'),
                 FieldPanel('collects_biometrics'),
                 FieldPanel('collects_biometrics_helptext'),
                 FieldPanel('user_friendly_privacy_policy'),

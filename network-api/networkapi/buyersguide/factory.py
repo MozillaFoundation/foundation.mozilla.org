@@ -22,9 +22,11 @@ from networkapi.buyersguide.models import (
 
 Faker.add_provider(ImageProvider)
 
+
 def get_extended_yes_no_value():
     options = ['Yes', 'No', 'NA', 'U']
     return choice(options)
+
 
 class ProductFactory(DjangoModelFactory):
 
@@ -73,11 +75,11 @@ class ProductFactory(DjangoModelFactory):
     privacy_policy_reading_level_url = Faker('url')
     privacy_policy_reading_level = LazyAttribute(lambda _: str(randint(7, 15)))
     share_data = Faker('boolean')
-    must_change_default_password = LazyFunction(get_extended_yes_no_value)
+    strong_password = LazyFunction(get_extended_yes_no_value)
     security_updates = LazyFunction(get_extended_yes_no_value)
     delete_data = Faker('boolean')
-    child_rules = Faker('boolean')
-    manage_security = LazyFunction(get_extended_yes_no_value)
+    parental_controls = Faker('boolean')
+    manage_vulnerabilities = LazyFunction(get_extended_yes_no_value)
     phone_number = Faker('phone_number')
     live_chat = Faker('url')
     email = Faker('email')
@@ -100,7 +102,7 @@ def generate(seed):
         blurb='Visual Regression Testing',
         camera_app=True,
         camera_device=False,
-        child_rules=False,
+        parental_controls=False,
         company='Percy',
         delete_data=True,
         draft=False,
@@ -108,11 +110,11 @@ def generate(seed):
         live_chat=True,
         location_app=True,
         location_device=False,
-        manage_security='Yes',
+        manage_vulnerabilities='Yes',
         meets_minimum_security_standards=True,
         microphone_app=True,
         microphone_device=False,
-        must_change_default_password='No',
+        strong_password='No',
         name='percy cypress',
         phone_number='1-555-555-5555',
         price=350,

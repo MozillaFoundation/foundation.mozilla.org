@@ -84,12 +84,19 @@ class Migration(migrations.Migration):
             old_name='manage_security_temp',
             new_name='manage_security',
         ),
-
         migrations.RenameField(
             model_name='product',
             old_name='must_change_default_password_temp',
-            new_name='must_change_default_password',
+            new_name='strong_password',
         ),
+
+        # remove the help_text for this field, too.
+        migrations.AlterField(
+            model_name='product',
+            name='strong_password',
+            field=networkapi.buyersguide.fields.ExtendedYesNoField(),
+        ),
+
         migrations.RenameField(
             model_name='product',
             old_name='security_updates_temp',
@@ -99,5 +106,28 @@ class Migration(migrations.Migration):
             model_name='product',
             old_name='uses_encryption_temp',
             new_name='uses_encryption',
+        ),
+
+        # and finally, rename all other fields that needed to be renamed
+
+        migrations.RenameField(
+            model_name='product',
+            old_name='must_change_default_password_helptext',
+            new_name='strong_password_helptext',
+        ),
+        migrations.RenameField(
+            model_name='product',
+            old_name='manage_security',
+            new_name='manage_vulnerabilities',
+        ),
+        migrations.RenameField(
+            model_name='product',
+            old_name='manage_security_helptext',
+            new_name='manage_vulnerabilities_helptext',
+        ),
+        migrations.RenameField(
+            model_name='product',
+            old_name='child_rules',
+            new_name='parental_controls'
         ),
     ]
