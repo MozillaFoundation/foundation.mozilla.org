@@ -77,15 +77,17 @@ class YouTubeRegretsTunnel {
    * Fade out otherwise.
    */
   setBlocksOpacity() {
+    const blocks = elements.blocks;
+    const Z_POSITION_TO_SHOW =
+      this.scenePerspective - this.baseBlockGap * Math.ceil(blocks.length / 2);
     let opacity = 1;
 
-    elements.blocks.forEach(item => {
+    blocks.forEach(item => {
       let matrix = window.getComputedStyle(item).transform;
       let coord = this.getCoordinatefromMatrix3d(matrix);
 
       if (coord) {
-        let percentToOrigin = coord.z / this.introScrollHeight;
-        opacity = Math.min(percentToOrigin * ZOOM_FACTOR + 1, 1);
+        opacity = Math.min(1 - coord.z / Z_POSITION_TO_SHOW, 1);
       }
 
       item.style.opacity = opacity;
