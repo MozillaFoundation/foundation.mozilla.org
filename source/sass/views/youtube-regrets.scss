@@ -5,7 +5,11 @@
 
 #view-youtube-regrets {
   .wrapper {
-    background: linear-gradient($youtube-regrets-light-red, $white);
+    background: linear-gradient(
+      $youtube-regrets-light-red 100vh,
+      $white 500vh,
+      $white
+    );
   }
 
   .intro-viewport {
