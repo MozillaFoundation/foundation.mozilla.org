@@ -73,16 +73,15 @@ class YouTubeRegretsTunnel {
   }
 
   /**
-   * Fade in image block when it's moving towards the origin.
-   * Fade out otherwise.
+   * Set opacity for flying objects so they are become more visible
+   * as they come closer to the threshold we set
    */
-  setBlocksOpacity() {
-    const blocks = elements.blocks;
+  setFlyingObjectOpacity(objects, baseGap) {
     const Z_POSITION_TO_SHOW =
-      this.scenePerspective - this.baseBlockGap * Math.ceil(blocks.length / 2);
+      this.scenePerspective - baseGap * Math.ceil(objects.length / 2);
     let opacity = 1;
 
-    blocks.forEach(item => {
+    objects.forEach(item => {
       let matrix = window.getComputedStyle(item).transform;
       let coord = this.getCoordinatefromMatrix3d(matrix);
 
@@ -95,25 +94,17 @@ class YouTubeRegretsTunnel {
   }
 
   /**
-   * Set rings' opacity so they are become more visible
-   * as they come closer to the threshold we set
+   * Set opacity for image blocks
+   */
+  setBlocksOpacity() {
+    this.setFlyingObjectOpacity(elements.blocks, this.baseBlockGap);
+  }
+
+  /**
+   * Set opacity for rings
    */
   setRingsOpacity() {
-    const rings = elements.rings;
-    const Z_POSITION_TO_SHOW =
-      this.scenePerspective - this.baseRingGap * Math.ceil(rings.length / 2);
-    let opacity = 1;
-
-    rings.forEach(item => {
-      let matrix = window.getComputedStyle(item).transform;
-      let coord = this.getCoordinatefromMatrix3d(matrix);
-
-      if (coord) {
-        opacity = Math.min(1 - coord.z / Z_POSITION_TO_SHOW, 1);
-      }
-
-      item.style.opacity = opacity;
-    });
+    this.setFlyingObjectOpacity(elements.rings, this.baseRingGap);
   }
 
   /**
