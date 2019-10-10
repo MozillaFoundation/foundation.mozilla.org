@@ -32,6 +32,9 @@
       <p>{{text}}</p>
       {% endfor %}
     </div>
+    <div class="intro-button-wrapper">
+      <button class="btn btn-primary btn-newsletter hidden-md-down mx-auto d-none">Join Mozilla</button>
+    </div>
   </div>
 
   <figure class="scroll-hint text-center d-none">
@@ -40,10 +43,11 @@
   </figure>
 </div>
 
+{% with share_text="28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths" %}
 <main class="container">
   <div class="row hidden-md-up my-3">
     <div class="col-12">
-      <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+      <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{share_text}}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
     </div>
   </div>
 
@@ -58,7 +62,7 @@
   <div class="row">
     <div class="offset-md-1 col-md-1 text-center pb-md-5 hidden-sm-down">
       <div class="sticky-side">
-        <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+        <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{{share_text}}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>
     </div>
 
@@ -77,6 +81,7 @@
     </div>
   </div>
 </main>
+{% endwith %}
 {% endblock %}
 
 {% block footer_block %}
