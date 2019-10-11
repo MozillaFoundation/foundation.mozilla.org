@@ -89,17 +89,6 @@ class Migration(migrations.Migration):
             old_name='must_change_default_password_temp',
             new_name='strong_password',
         ),
-
-        migrations.AlterField(
-            model_name='product',
-            name='strong_password',
-            field=networkapi.buyersguide.fields.ExtendedYesNoField(),
-        ),
-        migrations.AlterField(
-            model_name='product',
-            name='strong_password',
-            field=networkapi.buyersguide.fields.ExtendedYesNoField(),
-        ),
         migrations.RenameField(
             model_name='product',
             old_name='security_updates_temp',
