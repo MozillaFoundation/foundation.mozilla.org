@@ -318,11 +318,11 @@ export default class JoinUs extends React.Component {
    */
 
   setCountry(country) {
-    this.setState({ country: country });
+    this.setState({ country });
   }
 
   setLang(lang) {
-    this.setState({ lang: lang });
+    this.setState({ lang });
   }
 
   renderLocalizationFields() {

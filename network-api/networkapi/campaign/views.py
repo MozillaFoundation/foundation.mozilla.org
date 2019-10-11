@@ -89,8 +89,8 @@ def signup_submission(request, signup):
         "format": "html",
         "source_url": request.data['source'],
         "newsletters": signup.newsletter,
-        "lang": request.data['lang'],
-        "country": request.data['country'],
+        "lang": request.data.get('lang', 'en'),
+        "country": request.data.get('country', 'US'),
         # Empty string instead of None due to Basket issues
         "first_name": request.data.get('givenNames', ''),
         "last_name": request.data.get('surname', '')
@@ -126,13 +126,13 @@ def petition_submission(request, petition):
         "email": request.data['email'],
         "email_subscription": request.data['newsletterSignup'],
         "source_url": request.data['source'],
-        "lang": request.data['lang']
+        "lang": request.data['lang'],
     }
 
     if petition:
         if 'country' in request.data:
             data["country"] = request.data['country']
-        if petition.requires_country_code and 'country' not in request.data:
+        elif petition.requires_country_code:
             return Response(
                 {'error': 'Required field "country" is missing'},
                 status=status.HTTP_400_BAD_REQUEST,
