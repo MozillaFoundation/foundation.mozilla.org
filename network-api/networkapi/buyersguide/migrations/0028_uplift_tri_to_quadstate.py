@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
             new_name='uses_encryption',
         ),
 
-        # and finally, rename all other fields that needed to be renamed
+        # then, rename all other fields that needed to be renamed
 
         migrations.RenameField(
             model_name='product',
@@ -121,5 +121,13 @@ class Migration(migrations.Migration):
             model_name='product',
             old_name='child_rules',
             new_name='parental_controls'
+        ),
+
+        # and finally, remove the help text on the "strong password" field
+
+        migrations.AlterField(
+            model_name='product',
+            name='strong_password',
+            field=networkapi.buyersguide.fields.ExtendedYesNoField(),
         ),
     ]
