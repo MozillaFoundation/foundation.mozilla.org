@@ -25,6 +25,7 @@ class PostRouteTests(TestCase):
             'newsletterSignup': True,
             'comment': 'Test comment',
             'source': 'http://localhost/testing/petition',
+            'lang': 'en'
         })
 
         url = reverse('petition-submission', kwargs={

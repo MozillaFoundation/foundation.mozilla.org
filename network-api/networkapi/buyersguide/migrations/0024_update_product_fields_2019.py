@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='how_does_it_share',
-            field=models.CharField(blank=True, help_text='How does this product handle private data?', max_length=5000),
+            field=models.CharField(blank=True, help_text='How does this product handle data?', max_length=5000),
         ),
         migrations.AddField(
             model_name='product',

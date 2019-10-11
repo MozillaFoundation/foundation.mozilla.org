@@ -17,12 +17,12 @@ def numeric_reading_grade(product):
 def bootstrap_ufpp(apps, schema_editor):
     Product = apps.get_model("buyersguide", "Product")
     for product in Product.objects.all():
-        rating = 'NO'
+        rating = 'No'
         grade = numeric_reading_grade(product)
         if grade == 0:
             rating = 'NA'
         elif grade <= 12:
-            rating = 'YES'
+            rating = 'Yes'
         product.user_friendly_privacy_policy = rating
         product.save()
 
