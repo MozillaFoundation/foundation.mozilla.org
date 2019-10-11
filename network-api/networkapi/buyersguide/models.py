@@ -10,10 +10,15 @@ from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.text import slugify
 
+from networkapi.buyersguide.fields import ExtendedYesNoField
 from networkapi.buyersguide.validators import ValueListValidator
 from networkapi.utility.images import get_image_upload_path
 
-from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
+from modelcluster.models import ClusterableModel
+from modelcluster.fields import ParentalKey
+
+from wagtail.core.models import Orderable
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
 
 
@@ -41,22 +46,22 @@ class Update(models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
-        blank="True",
+        blank=True,
     )
 
     title = models.CharField(
         max_length=256,
-        blank="True",
+        blank=True,
     )
 
     author = models.CharField(
         max_length=256,
-        blank="True",
+        blank=True,
     )
 
     snippet = models.TextField(
         max_length=5000,
-        blank="True",
+        blank=True,
     )
 
     def __str__(self):
@@ -108,7 +113,7 @@ class BuyersGuideProductCategory(models.Model):
         verbose_name_plural = "Buyers Guide Product Categories"
 
 
-class Product(models.Model):
+class Product(ClusterableModel):
     """
     A thing you can buy in stores and our review of it
     """
@@ -130,7 +135,7 @@ class Product(models.Model):
     name = models.CharField(
         max_length=100,
         help_text='Name of Product',
-        blank="True",
+        blank=True,
     )
 
     slug = models.CharField(
@@ -144,7 +149,7 @@ class Product(models.Model):
     company = models.CharField(
         max_length=100,
         help_text='Name of Company',
-        blank="True",
+        blank=True,
     )
 
     product_category = models.ManyToManyField(
@@ -156,19 +161,19 @@ class Product(models.Model):
     blurb = models.TextField(
         max_length=5000,
         help_text='Description of the product',
-        blank="True"
+        blank=True
     )
 
     url = models.URLField(
         max_length=2048,
         help_text='Link to this product page',
-        blank="True",
+        blank=True,
     )
 
     price = models.CharField(
         max_length=100,
         help_text='Price',
-        blank="True",
+        blank=True,
     )
 
     image = models.FileField(
@@ -188,7 +193,63 @@ class Product(models.Model):
         help_text='Does this product meet minimum security standards?',
     )
 
-    # Can it spy on me?
+    # Minimum security standards (stars)
+
+    uses_encryption = models.NullBooleanField(
+        help_text='Does the product use encryption?',
+    )
+
+    uses_encryption_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    security_updates = models.NullBooleanField(
+        help_text='Security updates?',
+    )
+
+    security_updates_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    must_change_default_password = models.NullBooleanField(
+        help_text='Must change a default password?',
+    )
+
+    must_change_default_password_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    manage_security = models.NullBooleanField(
+        help_text='Manages security vulnerabilities?',
+    )
+
+    manage_security_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    privacy_policy = ExtendedYesNoField(
+        help_text='Does this product have a privacy policy?'
+    )
+
+    privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION
+        max_length=5000,
+        blank=True
+    )
+
+    share_data = models.NullBooleanField(  # TO BE REMOVED
+        help_text='Does the maker share data with other companies?',
+    )
+
+    share_data_helptext = models.TextField(  # TO BE REMOVED
+        max_length=5000,
+        blank=True
+    )
+
+    # It uses your...
 
     camera_device = models.NullBooleanField(
         help_text='Does this device have or access a camera?',
@@ -214,18 +275,54 @@ class Product(models.Model):
         help_text='Does this app access your location?',
     )
 
-    # What does it know about me?
+    # How it handles privacy
 
-    uses_encryption = models.NullBooleanField(
-        help_text='Does the product use encryption?',
-    )
-
-    uses_encryption_helptext = models.TextField(
+    how_does_it_share = models.CharField(
         max_length=5000,
-        blank="True"
+        help_text='How does this product handle data?',
+        blank=True
     )
 
-    PP_CHOICES = (
+    delete_data = models.NullBooleanField(
+        help_text='Can you request data be deleted?',
+    )
+
+    delete_data_helptext = models.TextField(  # TO BE REMOVED
+        max_length=5000,
+        blank=True
+    )
+
+    child_rules = models.NullBooleanField(
+        help_text='Are there rules for children?',
+    )
+
+    child_rules_helptext = models.TextField(  # TO BE REMOVED
+        max_length=5000,
+        blank=True
+    )
+
+    collects_biometrics = ExtendedYesNoField(
+        help_text='Does this product collect biometric data?',
+    )
+
+    collects_biometrics_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
+    user_friendly_privacy_policy = ExtendedYesNoField(
+        help_text='Does this product have a user-friendly privacy policy?'
+    )
+
+    # privacy_policy_links = one to many, defined in PrivacyPolicyLink
+
+    worst_case = models.CharField(
+        max_length=5000,
+        help_text="What's the worst thing that could happen by using this product?",
+        blank=True,
+    )
+
+    PP_CHOICES = (  # TO BE REMOVED
         ('0', 'Can\'t Determine'),
         ('7', 'Grade 7'),
         ('8', 'Grade 8'),
@@ -242,122 +339,57 @@ class Product(models.Model):
         ('19', 'Grade 19'),
     )
 
-    privacy_policy_url = models.URLField(
-        max_length=2048,
-        help_text='Link to privacy policy',
-        blank="True"
-    )
-
-    privacy_policy_reading_level = models.CharField(
+    privacy_policy_reading_level = models.CharField(  # TO BE REMOVED IN FAVOUR OF USER_FRIENDLY_PRIVACY_POLICY
         choices=PP_CHOICES,
         default='0',
         max_length=2,
     )
 
-    privacy_policy_reading_level_url = models.URLField(
+    privacy_policy_url = models.URLField(  # TO BE REMOVED IN FAVOUR OF PRIVACY_POLICY_LINKS
+        max_length=2048,
+        help_text='Link to privacy policy',
+        blank=True
+    )
+
+    privacy_policy_reading_level_url = models.URLField(  # TO BE REMOVED
         max_length=2048,
         help_text='Link to privacy policy reading level',
-        blank="True"
+        blank=True
     )
 
-    privacy_policy_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    share_data = models.NullBooleanField(
-        help_text='Does the maker share data with other companies?',
-    )
-
-    share_data_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    # Can I control it?
-
-    must_change_default_password = models.NullBooleanField(
-        help_text='Must change a default password?',
-    )
-
-    must_change_default_password_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    security_updates = models.NullBooleanField(
-        help_text='Security updates?',
-    )
-
-    security_updates_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    delete_data = models.NullBooleanField(
-        help_text='Can you request data be deleted?',
-    )
-
-    delete_data_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    child_rules = models.NullBooleanField(
-        help_text='Are there rules for children?',
-    )
-
-    child_rules_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
-
-    # Company shows it cares about its customers?
-
-    manage_security = models.NullBooleanField(
-        help_text='Manages security vulnerabilities?',
-    )
-
-    manage_security_helptext = models.TextField(
-        max_length=5000,
-        blank="True"
-    )
+    # How to contact the company
 
     phone_number = models.CharField(
         max_length=100,
         help_text='Phone Number',
-        blank="True",
+        blank=True,
     )
 
     live_chat = models.CharField(
         max_length=100,
         help_text='Live Chat',
-        blank="True",
+        blank=True,
     )
 
     email = models.CharField(
         max_length=100,
         help_text='Email',
-        blank="True",
+        blank=True,
     )
 
     twitter = models.CharField(
         max_length=100,
         help_text='Twitter username',
-        blank="True",
-    )
-
-    # What could happen if something went wrong?
-
-    worst_case = models.CharField(
-        max_length=5000,
-        help_text="What's the worst thing that could happen by using this product?",
-        blank="True",
+        blank=True,
     )
 
     updates = models.ManyToManyField(Update, related_name='products', blank=True)
 
+    # comments are not a model field, but are "injected" on the product page instead
+
     related_products = models.ManyToManyField('self', related_name='rps', blank=True, symmetrical=False)
+
+    # ---
 
     if settings.USE_CLOUDINARY:
         image_field = FieldPanel('cloudinary_image')
@@ -367,74 +399,105 @@ class Product(models.Model):
     # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better way to do
     # this using `_meta.get_fields()`. To be refactored in the future.
     panels = [
-        MultiFieldPanel([
-            FieldPanel('draft'),
-        ],
+        MultiFieldPanel(
+            [
+                FieldPanel('draft'),
+            ],
             heading="Publication status"
         ),
-        MultiFieldPanel([
-            FieldPanel('adult_content'),
-            FieldPanel('review_date'),
-            FieldPanel('name'),
-            FieldPanel('company'),
-            FieldPanel('product_category'),
-            FieldPanel('blurb'),
-            FieldPanel('url'),
-            FieldPanel('price'),
-            image_field,
-            FieldPanel('meets_minimum_security_standards')
-        ],
-            heading="Product General Details"
+        MultiFieldPanel(
+            [
+                FieldPanel('adult_content'),
+                FieldPanel('review_date'),
+                FieldPanel('name'),
+                FieldPanel('company'),
+                FieldPanel('product_category'),
+                FieldPanel('blurb'),
+                FieldPanel('url'),
+                FieldPanel('price'),
+                image_field,
+                FieldPanel('meets_minimum_security_standards')
+            ],
+            heading="General Product Details"
         ),
-        MultiFieldPanel([
-            FieldPanel('camera_device'),
-            FieldPanel('camera_app'),
-            FieldPanel('microphone_device'),
-            FieldPanel('microphone_app'),
-            FieldPanel('location_device'),
-            FieldPanel('location_app'),
-        ],
-            heading="Can it spy on me?",
+        MultiFieldPanel(
+            [
+                FieldPanel('uses_encryption'),
+                FieldPanel('uses_encryption_helptext'),
+                FieldPanel('security_updates'),
+                FieldPanel('security_updates_helptext'),
+                FieldPanel('must_change_default_password'),
+                FieldPanel('must_change_default_password_helptext'),
+                FieldPanel('manage_security'),
+                FieldPanel('manage_security_helptext'),
+                FieldPanel('privacy_policy'),
+                FieldPanel('privacy_policy_helptext'),  # NEED A "clear" MIGRATION
+                FieldPanel('share_data'),
+                FieldPanel('share_data_helptext'),
+
+                # DEPRECATED AND WILL BE REMOVED
+                FieldPanel('privacy_policy_url'),
+                FieldPanel('privacy_policy_reading_level'),
+                FieldPanel('privacy_policy_reading_level_url'),
+            ],
+            heading="Minimum Security Standards",
             classname="collapsible"
         ),
-        MultiFieldPanel([
-            FieldPanel('uses_encryption'),
-            FieldPanel('uses_encryption_helptext'),
-            FieldPanel('privacy_policy_url'),
-            FieldPanel('privacy_policy_reading_level'),
-            FieldPanel('privacy_policy_reading_level_url'),
-            FieldPanel('privacy_policy_helptext'),
-            FieldPanel('share_data'),
-            FieldPanel('share_data_helptext'),
-        ],
-            heading="What does it know about me?",
+        MultiFieldPanel(
+            [
+                FieldPanel('camera_device'),
+                FieldPanel('camera_app'),
+                FieldPanel('microphone_device'),
+                FieldPanel('microphone_app'),
+                FieldPanel('location_device'),
+                FieldPanel('location_app'),
+            ],
+            heading="It uses your...",
             classname="collapsible"
         ),
-        MultiFieldPanel([
-            FieldPanel('must_change_default_password'),
-            FieldPanel('must_change_default_password_helptext'),
-            FieldPanel('security_updates'),
-            FieldPanel('security_updates_helptext'),
-            FieldPanel('delete_data'),
-            FieldPanel('delete_data_helptext'),
-            FieldPanel('child_rules'),
-            FieldPanel('child_rules_helptext'),
-        ],
-            heading="Can I control it?",
+        MultiFieldPanel(
+            [
+                FieldPanel('how_does_it_share'),
+                FieldPanel('delete_data'),
+                FieldPanel('delete_data_helptext'),
+                FieldPanel('child_rules'),
+                FieldPanel('child_rules_helptext'),
+                FieldPanel('collects_biometrics'),
+                FieldPanel('collects_biometrics_helptext'),
+                FieldPanel('user_friendly_privacy_policy'),
+            ],
+            heading="How does it handle privacy",
             classname="collapsible"
         ),
-        MultiFieldPanel([
-            FieldPanel('manage_security'),
-            FieldPanel('manage_security_helptext'),
-            FieldPanel('phone_number'),
-            FieldPanel('live_chat'),
-            FieldPanel('email'),
-            FieldPanel('twitter'),
-        ],
-            heading="Company shows it cares about its customers?",
+        MultiFieldPanel(
+            [
+                FieldPanel('worst_case'),
+            ],
+            heading="The worst case is...",
             classname="collapsible"
         ),
-        FieldPanel('worst_case'),
+        MultiFieldPanel(
+            [
+                InlinePanel(
+                    'privacy_policy_links',
+                    label='link',
+                    min_num=1,
+                    max_num=3,
+                ),
+            ],
+            heading="Privacy policy links",
+            classname="collapsible"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('phone_number'),
+                FieldPanel('live_chat'),
+                FieldPanel('email'),
+                FieldPanel('twitter'),
+            ],
+            heading="Ways to contact the company",
+            classname="collapsible"
+        ),
         FieldPanel('updates'),
         FieldPanel('related_products'),
     ]
@@ -503,6 +566,33 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+@register_snippet
+class ProductPrivacyPolicyLink(Orderable, models.Model):
+    product = ParentalKey(
+        'Product',
+        related_name='privacy_policy_links',
+        on_delete=models.CASCADE
+    )
+
+    label = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text='Label for this link on the product page'
+    )
+
+    url = models.URLField(
+        max_length=2048,
+        help_text='Privacy policy URL'
+    )
+
+    def __str__(self):
+        return f'{self.product.name}: {self.label} ({self.url})'
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Privacy Policy link"
+        verbose_name_plural = "Buyers Guide Product Privacy Policy links"
 
 
 # We want to delete the product image when the product is removed
