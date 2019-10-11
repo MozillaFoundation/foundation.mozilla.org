@@ -345,6 +345,7 @@ export default class JoinUs extends React.Component {
           <LanguageSelect
             className="w-100"
             handleLangChange={e => this.setLang(e)}
+            selectedLang={this.state.lang}
           />
         </div>
       </div>

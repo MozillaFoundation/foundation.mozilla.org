@@ -36,11 +36,10 @@ export default class LanguageSelect extends React.Component {
   render() {
     let meta_lang = getCurrentLanguage();
     let classes = classNames(`form-control`, this.props.className);
-    let value = event.target.value;
 
     return (
       <select
-        value={value || meta_lang}
+        value={this.props.selectedLang || meta_lang}
         onChange={evt => this.handleChange(evt)}
         className={classes}
       >
