@@ -6,7 +6,7 @@ from networkapi.buyersguide.models import Product
 
 def bootstrap_ufpp(apps, schema_editor):
     for product in Product.objects.all():
-        rating = 'NO'
+        rating = 'No'
         grade = product.numeric_reading_grade
         if grade == 0:
             rating = 'NA'
