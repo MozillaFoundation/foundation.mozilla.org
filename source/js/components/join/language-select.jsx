@@ -5,11 +5,10 @@ import { getCurrentLanguage } from "../petition/locales";
 export default class LanguageSelect extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.props.handleLangChange(event.target.value);
   }
 
   renderOptions() {
@@ -40,7 +39,7 @@ export default class LanguageSelect extends React.Component {
 
     return (
       <select
-        value={this.state.value || meta_lang}
+        value={this.props.selectedLang || meta_lang}
         onChange={evt => this.handleChange(evt)}
         className={classes}
       >

@@ -3,6 +3,14 @@ import classNames from "classnames";
 import SALESFORCE_COUNTRY_LIST from "./salesforce-country-list.js";
 
 export default class CountrySelect extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleChange(event) {
+    this.props.handleCountryChange(event.target.value);
+  }
+
   render() {
     let classes = classNames(
       `country-picker form-control`,
@@ -26,6 +34,7 @@ export default class CountrySelect extends React.Component {
         }}
         onFocus={this.props.onFocus}
         defaultValue={``}
+        onChange={evt => this.handleChange(evt)}
       >
         <option value="">{this.props.label}</option>
         {options}
