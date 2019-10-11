@@ -95,7 +95,11 @@ class Migration(migrations.Migration):
             name='strong_password',
             field=networkapi.buyersguide.fields.ExtendedYesNoField(),
         ),
-
+        migrations.AlterField(
+            model_name='product',
+            name='strong_password',
+            field=networkapi.buyersguide.fields.ExtendedYesNoField(),
+        ),
         migrations.RenameField(
             model_name='product',
             old_name='security_updates_temp',
