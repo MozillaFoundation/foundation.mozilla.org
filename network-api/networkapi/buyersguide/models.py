@@ -189,13 +189,14 @@ class Product(ClusterableModel):
         verbose_name='image',
     )
 
-    meets_minimum_security_standards = models.NullBooleanField(
+    meets_minimum_security_standards = models.BooleanField(
+        null=True,
         help_text='Does this product meet minimum security standards?',
     )
 
     # Minimum security standards (stars)
 
-    uses_encryption = models.NullBooleanField(
+    uses_encryption = ExtendedYesNoField(
         help_text='Does the product use encryption?',
     )
 
@@ -204,7 +205,7 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    security_updates = models.NullBooleanField(
+    security_updates = ExtendedYesNoField(
         help_text='Security updates?',
     )
 
@@ -213,20 +214,18 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    must_change_default_password = models.NullBooleanField(
-        help_text='Must change a default password?',
-    )
+    strong_password = ExtendedYesNoField()
 
-    must_change_default_password_helptext = models.TextField(
+    strong_password_helptext = models.TextField(
         max_length=5000,
         blank=True
     )
 
-    manage_security = models.NullBooleanField(
+    manage_vulnerabilities = ExtendedYesNoField(
         help_text='Manages security vulnerabilities?',
     )
 
-    manage_security_helptext = models.TextField(
+    manage_vulnerabilities_helptext = models.TextField(
         max_length=5000,
         blank=True
     )
@@ -240,7 +239,8 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    share_data = models.NullBooleanField(  # TO BE REMOVED
+    share_data = models.BooleanField(  # TO BE REMOVED
+        null=True,
         help_text='Does the maker share data with other companies?',
     )
 
@@ -251,27 +251,33 @@ class Product(ClusterableModel):
 
     # It uses your...
 
-    camera_device = models.NullBooleanField(
+    camera_device = models.BooleanField(
+        null=True,
         help_text='Does this device have or access a camera?',
     )
 
-    camera_app = models.NullBooleanField(
+    camera_app = models.BooleanField(
+        null=True,
         help_text='Does the app have or access a camera?',
     )
 
-    microphone_device = models.NullBooleanField(
+    microphone_device = models.BooleanField(
+        null=True,
         help_text='Does this Device have or access a microphone?',
     )
 
-    microphone_app = models.NullBooleanField(
+    microphone_app = models.BooleanField(
+        null=True,
         help_text='Does this app have or access a microphone?',
     )
 
-    location_device = models.NullBooleanField(
+    location_device = models.BooleanField(
+        null=True,
         help_text='Does this product access your location?',
     )
 
-    location_app = models.NullBooleanField(
+    location_app = models.BooleanField(
+        null=True,
         help_text='Does this app access your location?',
     )
 
@@ -283,7 +289,8 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    delete_data = models.NullBooleanField(
+    delete_data = models.BooleanField(
+        null=True,
         help_text='Can you request data be deleted?',
     )
 
@@ -292,7 +299,8 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    child_rules = models.NullBooleanField(
+    parental_controls = models.BooleanField(
+        null=True,
         help_text='Are there rules for children?',
     )
 
@@ -426,10 +434,10 @@ class Product(ClusterableModel):
                 FieldPanel('uses_encryption_helptext'),
                 FieldPanel('security_updates'),
                 FieldPanel('security_updates_helptext'),
-                FieldPanel('must_change_default_password'),
-                FieldPanel('must_change_default_password_helptext'),
-                FieldPanel('manage_security'),
-                FieldPanel('manage_security_helptext'),
+                FieldPanel('strong_password'),
+                FieldPanel('strong_password_helptext'),
+                FieldPanel('manage_vulnerabilities'),
+                FieldPanel('manage_vulnerabilities_helptext'),
                 FieldPanel('privacy_policy'),
                 FieldPanel('privacy_policy_helptext'),  # NEED A "clear" MIGRATION
                 FieldPanel('share_data'),
@@ -460,20 +468,13 @@ class Product(ClusterableModel):
                 FieldPanel('how_does_it_share'),
                 FieldPanel('delete_data'),
                 FieldPanel('delete_data_helptext'),
-                FieldPanel('child_rules'),
-                FieldPanel('child_rules_helptext'),
+                FieldPanel('parental_controls'),
                 FieldPanel('collects_biometrics'),
                 FieldPanel('collects_biometrics_helptext'),
                 FieldPanel('user_friendly_privacy_policy'),
-            ],
-            heading="How does it handle privacy",
-            classname="collapsible"
-        ),
-        MultiFieldPanel(
-            [
                 FieldPanel('worst_case'),
             ],
-            heading="The worst case is...",
+            heading="How does it handle privacy",
             classname="collapsible"
         ),
         MultiFieldPanel(
