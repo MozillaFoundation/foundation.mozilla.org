@@ -11,7 +11,7 @@ def bootstrap_ufpp(apps, schema_editor):
         if grade == 0:
             rating = 'NA'
         elif grade <= 12:
-            rating = 'YES'
+            rating = 'Yes'
         product.user_friendly_privacy_policy = rating
         product.save()
 
