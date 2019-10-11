@@ -279,7 +279,7 @@ class Product(ClusterableModel):
 
     how_does_it_share = models.CharField(
         max_length=5000,
-        help_text='How does this product handle private data?',
+        help_text='How does this product handle data?',
         blank=True
     )
 
