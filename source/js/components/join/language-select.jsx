@@ -45,7 +45,6 @@ export default class LanguageSelect extends React.Component {
         className={classes}
       >
         {this.renderOptions()}
-        {console.log(`lang ${value}`)}
       </select>
     );
   }

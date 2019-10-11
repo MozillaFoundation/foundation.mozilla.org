@@ -86,11 +86,11 @@ def petition_submission_view(request, pk):
 def signup_submission(request, signup):
     data = {
         "email": request.data['email'],
-        "lang": request.data['lang'],
-        "country": request.data['country'],
         "format": "html",
         "source_url": request.data['source'],
         "newsletters": signup.newsletter,
+        "lang": request.data['lang'],
+        "country": request.data['country'],
         # Empty string instead of None due to Basket issues
         "first_name": request.data.get('givenNames', ''),
         "last_name": request.data.get('surname', '')
@@ -126,8 +126,7 @@ def petition_submission(request, petition):
         "email": request.data['email'],
         "email_subscription": request.data['newsletterSignup'],
         "source_url": request.data['source'],
-        "lang": request.data['lang'],
-        "country": request.data['country'],
+        "lang": request.data['lang']
     }
 
     if petition:
