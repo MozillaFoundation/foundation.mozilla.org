@@ -318,11 +318,11 @@ export default class JoinUs extends React.Component {
    */
 
   setCountry(country) {
-    this.setState({country: country});
+    this.setState({ country: country });
   }
 
   setLang(lang) {
-    this.setState({lang: lang});
+    this.setState({ lang: lang });
   }
 
   renderLocalizationFields() {
@@ -335,10 +335,17 @@ export default class JoinUs extends React.Component {
     return (
       <div className={classes}>
         <div className="mb-2">
-          <CountrySelect label={getText(`Your country`)} className="w-100" handleCountryChange={e => this.setCountry(e)}/>
+          <CountrySelect
+            label={getText(`Your country`)}
+            className="w-100"
+            handleCountryChange={e => this.setCountry(e)}
+          />
         </div>
         <div>
-          <LanguageSelect className="w-100" handleLangChange={e => this.setLang(e)}/>
+          <LanguageSelect
+            className="w-100"
+            handleLangChange={e => this.setLang(e)}
+          />
         </div>
       </div>
     );
