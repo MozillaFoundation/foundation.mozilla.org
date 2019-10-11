@@ -90,7 +90,6 @@ class Migration(migrations.Migration):
             new_name='strong_password',
         ),
 
-        # remove the help_text for this field, too.
         migrations.AlterField(
             model_name='product',
             name='strong_password',
