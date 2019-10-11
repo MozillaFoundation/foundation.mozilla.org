@@ -18,8 +18,12 @@ services:
 
   postgres:
     image: postgres:9.6
+    environment:
+      - POSTGRES_USER=foundationsite
+      - POSTGRES_PASSWORD=mozilla
+      - POSTGRES_DB=foundationsite
     ports:
-      - "5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/:delegated
 
@@ -27,8 +31,8 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/Dockerfile.python
-    env_file:
-      - ".env"
+    environment:
+      - DATABASE_URL=postgres://foundationsite:mozilla@postgres:5432/foundationsite
     command: pipenv run python network-api/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
