@@ -124,6 +124,12 @@ export default class JoinUs extends React.Component {
       if (this.surname) {
         payload.surname = this.surname.value;
       }
+      if (this.state.country) {
+        payload.country = this.state.country;
+      }
+      if (this.state.lang) {
+        payload.lang = this.state.lang;
+      }
 
       let xhr = new XMLHttpRequest();
 
@@ -311,6 +317,14 @@ export default class JoinUs extends React.Component {
    * Render localization fields
    */
 
+  setCountry(country) {
+    this.setState({country: country});
+  }
+
+  setLang(lang) {
+    this.setState({lang: lang});
+  }
+
   renderLocalizationFields() {
     let header = this.props.formPosition === `header`;
     let footer = this.props.formPosition === `footer`;
@@ -321,10 +335,10 @@ export default class JoinUs extends React.Component {
     return (
       <div className={classes}>
         <div className="mb-2">
-          <CountrySelect label={getText(`Your country`)} className="w-100" />
+          <CountrySelect label={getText(`Your country`)} className="w-100" handleCountryChange={e => this.setCountry(e)}/>
         </div>
         <div>
-          <LanguageSelect className="w-100" />
+          <LanguageSelect className="w-100" handleLangChange={e => this.setLang(e)}/>
         </div>
       </div>
     );
