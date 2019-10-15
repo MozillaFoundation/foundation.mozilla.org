@@ -90,7 +90,7 @@ def signup_submission(request, signup):
         "source_url": request.data['source'],
         "newsletters": signup.newsletter,
         "lang": request.data.get('lang', 'en'),
-        "country": request.data.get('country', 'US'),
+        "country": request.data.get('country', ''),
         # Empty string instead of None due to Basket issues
         "first_name": request.data.get('givenNames', ''),
         "last_name": request.data.get('surname', '')

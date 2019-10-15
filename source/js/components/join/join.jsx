@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
+import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {
@@ -25,7 +26,8 @@ export default class JoinUs extends React.Component {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
-      userTriedSubmitting: false
+      userTriedSubmitting: false,
+      lang: getCurrentLanguage()
     };
   }
 
