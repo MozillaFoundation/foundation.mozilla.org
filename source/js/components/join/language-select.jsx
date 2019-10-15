@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import { getCurrentLanguage } from "../petition/locales";
 
 export default class LanguageSelect extends React.Component {
   constructor(props) {
@@ -34,12 +33,11 @@ export default class LanguageSelect extends React.Component {
   }
 
   render() {
-    let meta_lang = getCurrentLanguage();
     let classes = classNames(`form-control`, this.props.className);
 
     return (
       <select
-        value={this.props.selectedLang || meta_lang}
+        value={this.props.selectedLang}
         onChange={evt => this.handleChange(evt)}
         className={classes}
       >
