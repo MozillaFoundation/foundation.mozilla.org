@@ -4,6 +4,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status, permissions
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
+from django.utils import translation
 from datetime import datetime
 import boto3
 import logging
@@ -84,17 +85,25 @@ def petition_submission_view(request, pk):
 
 # handle Salesforce petition data
 def signup_submission(request, signup):
+    language = translation.get_language_from_request(request)
+    print('language is:', language)
     data = {
         "email": request.data['email'],
         "format": "html",
         "source_url": request.data['source'],
         "newsletters": signup.newsletter,
-        "lang": request.data['lang'],
         "country": request.data.get('country', ''),
         # Empty string instead of None due to Basket issues
         "first_name": request.data.get('givenNames', ''),
         "last_name": request.data.get('surname', '')
     }
+
+    if 'lang' in request.data:
+        data["lang"] = request.data['lang']
+    elif language:
+        data["lang"] = language
+    else:
+        data["lang"] = 'en'
 
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
