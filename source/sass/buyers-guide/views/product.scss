@@ -93,9 +93,27 @@ $product-detail-padding-x: (
     font-family: "Nunito Sans";
   }
 
-  .creep-face-emoji {
-    top: 3px;
-    margin: 0 0.25em 0 0;
+  .worst-case-box {
+    position: relative;
+    border-width: 1px;
+    border-image: linear-gradient(to left, $pni-pink 0%, $pni-blue 100%) 1 / auto;
+
+    .creep-face-emoji-wrapper {
+      $font-size: 3rem;
+      $padding-x: 1rem;
+
+      background: $white;
+      position: absolute;
+      top: -$font-size / 2;
+      left: calc(50% - #{$font-size} / 2 - #{$padding-x} / 2);
+      font-size: $font-size;
+      padding: 0 $padding-x;
+
+      .creep-face-emoji {
+        top: 0;
+        margin: 0;
+      }
+    }
   }
 }
 
