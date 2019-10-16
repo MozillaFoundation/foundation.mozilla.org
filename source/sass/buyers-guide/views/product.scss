@@ -44,12 +44,15 @@ $product-detail-padding-x: (
 .product-detail {
   margin-top: -88px;
 
+  a {
+    text-decoration: underline;
+  }
+
   .small-link {
     font-family: "Nunito Sans";
     font-size: 18px;
     font-weight: 400;
     color: $gray-40;
-    text-decoration: underline;
 
     @include hover-focus-active {
       color: $dark-blue;
@@ -89,6 +92,7 @@ $product-detail-padding-x: (
     }
   }
 
+  h3.body,
   h4 {
     font-family: "Nunito Sans";
   }
@@ -173,16 +177,19 @@ $product-detail-padding-x: (
 
 .criterion {
   padding: 10px 0;
-  border-top: 1px solid $gray-20;
-  border-bottom: 1px solid $gray-20;
-  margin-top: -1px;
+
+  &:not(.no-border) {
+    border-top: 1px solid $gray-20;
+    border-bottom: 1px solid $gray-20;
+    margin-top: -1px;
+  }
 
   .primary-info {
     display: flex;
     justify-content: space-between;
 
     strong {
-      font-weight: 600;
+      font-weight: 700;
     }
   }
 
@@ -312,7 +319,7 @@ $product-detail-padding-x: (
 
 .helptext {
   font-style: italic;
-  font-size: 14px;
+  margin-top: 0.5rem;
 }
 
 // Coral Embed
