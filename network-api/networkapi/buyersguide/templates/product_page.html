@@ -41,6 +41,9 @@
           <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="link copied!">copy & share link</a>
         </div>
         <h2 class="h1-heading col-md-10">{{product.name}}</h2>
+        <div class="col-12">
+          <p class="body-small">Review Date {{product.review_date|date:"m/d/y"}}</p>
+        </div>
         <div class="body-large mb-3 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
 
