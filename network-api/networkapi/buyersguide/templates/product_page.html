@@ -84,10 +84,13 @@
           {% include "fragments/product_criterion.html"  with  value=product.collects_biometrics  help=product.collects_biometrics_helptext  label="Collects biometrics data?"              %}
           {% include "fragments/product_criterion.html"  with  value=product.user_friendly_privacy_policy  help=""                           label="User friendly privacy info?"            %}
 
-          <strong>ADD LINKS BELOW</strong>
-          {{ product.privacy_policy_links.all }}
-          {% include "fragments/product_policy.html"     with  product=product                           help=product.privacy_policy_helptext %}
-          <strong>ADD LINKS ABOVE</strong>
+          {% if product.privacy_policy_links|length > 0 %}
+          <ul class="policy-links">
+            {% for link in product.privacy_policy_links %}
+            <a class="body-large d-block" href="{{ link.url }}">{{ link.label }}</a>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </div>
 
         <div class="NEW_WORST_CASE_STYLING">
