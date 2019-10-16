@@ -60,29 +60,29 @@ class ProductFactory(DjangoModelFactory):
             else:
                 return
 
-    company = Faker('company')
     blurb = Faker('sentence')
-    url = Faker('url')
-    price = LazyAttribute(lambda _: randint(49, 1500))
     camera_app = Faker('boolean')
-    meets_minimum_security_standards = Faker('boolean')
     camera_device = Faker('boolean')
-    microphone_app = Faker('boolean')
-    microphone_device = Faker('boolean')
+    company = Faker('company')
+    delete_data = Faker('boolean')
+    email = Faker('email')
+    live_chat = Faker('url')
     location_app = Faker('boolean')
     location_device = Faker('boolean')
-    uses_encryption = LazyFunction(get_extended_yes_no_value)
-    privacy_policy_reading_level_url = Faker('url')
+    manage_vulnerabilities = LazyFunction(get_extended_yes_no_value)
+    meets_minimum_security_standards = Faker('boolean')
+    microphone_app = Faker('boolean')
+    microphone_device = Faker('boolean')
+    parental_controls = LazyFunction(get_extended_yes_no_value)
+    phone_number = Faker('phone_number')
+    price = LazyAttribute(lambda _: randint(49, 1500))
     privacy_policy_reading_level = LazyAttribute(lambda _: str(randint(7, 15)))
+    privacy_policy_reading_level_url = Faker('url')
+    security_updates = LazyFunction(get_extended_yes_no_value)
     share_data = Faker('boolean')
     strong_password = LazyFunction(get_extended_yes_no_value)
-    security_updates = LazyFunction(get_extended_yes_no_value)
-    delete_data = Faker('boolean')
-    parental_controls = Faker('boolean')
-    manage_vulnerabilities = LazyFunction(get_extended_yes_no_value)
-    phone_number = Faker('phone_number')
-    live_chat = Faker('url')
-    email = Faker('email')
+    url = Faker('url')
+    uses_encryption = LazyFunction(get_extended_yes_no_value)
     worst_case = Faker('sentence')
 
     @post_generation
@@ -102,20 +102,21 @@ def generate(seed):
         blurb='Visual Regression Testing',
         camera_app=True,
         camera_device=False,
-        parental_controls=False,
+        collects_biometrics_helptext='biometrics help text',
+        collects_biometrics='Yes',
         company='Percy',
         delete_data=True,
         draft=False,
         email='vrt@example.com',
-        live_chat=True,
+        live_chat='https://example.com/chat',
         location_app=True,
         location_device=False,
         manage_vulnerabilities='Yes',
         meets_minimum_security_standards=True,
         microphone_app=True,
         microphone_device=False,
-        strong_password='No',
         name='percy cypress',
+        parental_controls='NA',
         phone_number='1-555-555-5555',
         price=350,
         privacy_policy_reading_level_url='https://vrt.example.com/pprl',
@@ -123,6 +124,7 @@ def generate(seed):
         product_words=['Percy', 'Cypress'],
         security_updates='No',
         share_data=False,
+        strong_password='No',
         url='https://vrt.example.com',
         uses_encryption='Yes',
         worst_case='Duplicate work that burns through screenshots',
