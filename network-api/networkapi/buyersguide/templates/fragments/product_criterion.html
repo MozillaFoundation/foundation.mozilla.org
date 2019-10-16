@@ -1,11 +1,10 @@
+{% if value != hide_value %}
 <div class="criterion value-{{ value|lower}}">
   <div class="primary-info">
     <div class="d-flex align-items-center">
       <span>{{ label }}</span>
-      {% if help %}
-      <button class="toggle"></button>
-      {% endif %}
     </div>
+
     <div class="rating">
       <span>
       {% if value == "U" %}
@@ -16,10 +15,13 @@
         {{ value }}
       {% endif %}
       </span>
-      <span class="emoji hidden-md-down"></span>
     </div>
   </div>
-  {% if help %}
+
+  {{ help }}
+
+  {% if help != None%}
   <div class="helptext mt-2">{{ help }}</div>
   {% endif %}
 </div>
+{% endif %}

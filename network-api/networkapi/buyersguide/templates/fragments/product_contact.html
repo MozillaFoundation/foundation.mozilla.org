@@ -21,7 +21,7 @@
     <div class="col-12 col-md-3">
       <strong class="d-block">Email</strong>
       {% if product.email %}
-      <a href="{{ product.email }}">{{ product.email }}</a>
+      <a href="mailto:{{ product.email }}">{{ product.email }}</a>
       {% else %}
       No
       {% endif %}

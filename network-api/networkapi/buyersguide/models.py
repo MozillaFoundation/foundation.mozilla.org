@@ -21,6 +21,8 @@ from wagtail.core.models import Orderable
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
 
+from .utils import tri_to_quad
+
 
 def get_product_image_upload_path(instance, filename):
     return get_image_upload_path(
@@ -299,7 +301,7 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    parental_controls = models.BooleanField(
+    parental_controls = ExtendedYesNoField(
         null=True,
         help_text='Are there rules for children?',
     )
@@ -568,6 +570,7 @@ class Product(ClusterableModel):
 
         model_dict['votes'] = self.votes
         model_dict['slug'] = self.slug
+        model_dict['delete_data'] = tri_to_quad(self.delete_data)
 
         # TODO: remove these two entries
         model_dict['numeric_reading_grade'] = self.numeric_reading_grade
@@ -595,14 +598,14 @@ class ProductPrivacyPolicyLink(Orderable, models.Model):
     )
 
     label = models.CharField(
-        blank=True,
         max_length=500,
         help_text='Label for this link on the product page'
     )
 
     url = models.URLField(
         max_length=2048,
-        help_text='Privacy policy URL'
+        help_text='Privacy policy URL',
+        blank=True
     )
 
     def __str__(self):

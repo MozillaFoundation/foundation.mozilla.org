@@ -44,15 +44,29 @@
         <div class="body-large mb-3 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
 
-      <div id="minimum-security" class="mt-5">
-        <h3 class="h3-heading">Minimum Security Standards</h3>
+      <div class="minimum-security mt-5">
+        <div class="criterion">
+          <div class="d-block primary-info">
+            <div class="d-flex w-100 justify-content-between">
+              <span>Minimum Security Standards</span>
+              <button class="toggle"></button>
+            </div>
+            <div class="d-flex w-100 rating">
+              <span class="star value-{{ product.uses_encryption|lower}}">&nbsp;</span>
+              <span class="star value-{{ product.security_updates|lower }}">&nbsp;</span>
+              <span class="star value-{{ product.strong_password|lower }}">&nbsp;</span>
+              <span class="star value-{{ product.manage_vulnerabilities|lower }}">&nbsp;</span>
+              <span class="star value-{{ product.privacy_policy|lower }}">&nbsp;</span>
+            </div>
+          </div>
 
-        <div class="mb-5">
-          {% include "fragments/product_criterion.html"  with  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
-          {% include "fragments/product_criterion.html"  with  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
-          {% include "fragments/product_criterion.html"  with  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
-          {% include "fragments/product_criterion.html"  with  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
-          {% include "fragments/product_criterion.html"  with  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
+          <div class="helptext mt-2">
+            {% include "fragments/product_criterion.html"  with  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
+            {% include "fragments/product_criterion.html"  with  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
+            {% include "fragments/product_criterion.html"  with  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
+            {% include "fragments/product_criterion.html"  with  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
+            {% include "fragments/product_criterion.html"  with  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
+          </div>
         </div>
       </div>
 
@@ -78,26 +92,29 @@
         <h3 class="h3-heading">How it handles privacy</h3>
 
         <div class="mb-5">
-          {% include "fragments/product_criterion.html"  with  value=""                           help=product.how_does_it_share             label="How does it share data?"                %}
-          {% include "fragments/product_criterion.html"  with  value=product.delete_data          help=product.delete_data_helptext          label="Can you delete your data?"              %}
-          {% include "fragments/product_criterion.html"  with  value=product.parental_controls    help=product.child_rules_helptext          label="Parental controls?"                     %}
-          {% include "fragments/product_criterion.html"  with  value=product.collects_biometrics  help=product.collects_biometrics_helptext  label="Collects biometrics data?"              %}
-          {% include "fragments/product_criterion.html"  with  value=product.user_friendly_privacy_policy  help=""                           label="User friendly privacy info?"            %}
+          {% include "fragments/product_criterion.html"  with  label="How does it share data?"      value=""                                           help=product.how_does_it_share             %}
+          {% include "fragments/product_criterion.html"  with  label="Can you delete your data?"    value=product.delete_data                          help=product.delete_data_helptext          %}
+          {% include "fragments/product_criterion.html"  with  label="Parental controls?"           value=product.parental_controls    hide_value="NA" help=product.child_rules_helptext          %}
+          {% include "fragments/product_criterion.html"  with  label="Collects biometrics data?"    value=product.collects_biometrics  hide_value="NA" help=product.collects_biometrics_helptext  %}
+          {% include "fragments/product_criterion.html"  with  label="User friendly privacy info?"  value=product.user_friendly_privacy_policy         help=""                           %}
 
           {% if product.privacy_policy_links|length > 0 %}
           <ul class="policy-links">
             {% for link in product.privacy_policy_links %}
-            <a class="body-large d-block" href="{{ link.url }}">{{ link.label }}</a>
+              {% if link.url != "" %}
+              <a class="body-large d-block" href="{{ link.url }}">{{ link.label }}</a>
+              {% else %}
+              <span class="body-large">{{ link.label }}</span>
+              {% endif %}
             {% endfor %}
           </ul>
           {% endif %}
         </div>
 
-        <div class="NEW_WORST_CASE_STYLING">
+        <div class="worst-case">
           <h3 class="h3-heading"><span class="creep-face-emoji">😮</span>What could happen if something went wrong</h3>
           <p>{{product.worst_case}}</p>
         </div>
-
 
         <h3 class="body-large">How to contact the company</h3>
 
