@@ -324,33 +324,6 @@ $product-detail-padding-x: (
   }
 }
 
-#btn-read-search {
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.info-help {
-  position: relative;
-  padding: 0 0 0 1.3rem;
-  color: $gray-40;
-  text-decoration: underline;
-  transition: none;
-
-  &::before {
-    position: absolute;
-    left: 0;
-    content: "";
-    background: url("/_images/buyers-guide/icon-info-pink.svg") no-repeat 50%
-      50% / contain;
-    width: 16px;
-    height: 100%;
-  }
-
-  @include hover-focus-active {
-    color: $blue;
-  }
-}
-
 .helptext {
   display: none;
   font-style: italic;
