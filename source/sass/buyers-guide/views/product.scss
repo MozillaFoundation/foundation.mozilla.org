@@ -152,7 +152,7 @@ $product-detail-padding-x: (
       color: transparent;
       background-size: 100% 100%;
       background-repeat: no-repeat;
-      
+
       &.value-yes {
         order: 1;
         background-image: url(/_images/buyers-guide/stars/black.svg);
@@ -180,6 +180,10 @@ $product-detail-padding-x: (
   .primary-info {
     display: flex;
     justify-content: space-between;
+
+    strong {
+      font-weight: 600;
+    }
   }
 
   a {

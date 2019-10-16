@@ -2,11 +2,11 @@
 <div class="criterion value-{{ value|lower}}">
   <div class="primary-info">
     <div class="d-flex align-items-center">
-      <span>{{ label }}</span>
+      <span><strong>{{ label }}</strong></span>
     </div>
 
     <div class="rating">
-      <span>
+      <span><strong>
       {% if value == "U" %}
         Unknown
       {% elif value == "NA" %}
@@ -14,7 +14,7 @@
       {% else %}
         {{ value }}
       {% endif %}
-      </span>
+      </strong></span>
     </div>
   </div>
 
