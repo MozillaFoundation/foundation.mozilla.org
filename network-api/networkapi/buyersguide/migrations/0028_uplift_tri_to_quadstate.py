@@ -2,13 +2,7 @@
 
 from django.db import migrations
 import networkapi.buyersguide.fields
-
-def tri_to_quad(input):
-    if input == True:
-        return 'Yes'
-    if input == False:
-        return 'No'
-    return 'U'
+from networkapi.buyersguide.utils import tri_to_quad, quad_to_tri
 
 def copy_tri_to_quad(apps, schema_editor):
     Product = apps.get_model("buyersguide", "Product")
@@ -19,13 +13,6 @@ def copy_tri_to_quad(apps, schema_editor):
         product.uses_encryption_temp = tri_to_quad(product.uses_encryption)
         product.save()
 
-def quad_to_tri(input):
-    if input == 'Yes':
-        return True
-    if input == 'No':
-        return False
-    return None
-
 def copy_quad_to_tri(apps, schema_editor):
     Product = apps.get_model("buyersguide", "Product")
     for product in Product.objects.all():
@@ -34,7 +21,6 @@ def copy_quad_to_tri(apps, schema_editor):
         product.security_updates = quad_to_tri(product.security_updates_temp)
         product.uses_encryption = quad_to_tri(product.uses_encryption_temp)
         product.save()
-
 
 class Migration(migrations.Migration):
 
@@ -123,7 +109,7 @@ class Migration(migrations.Migration):
             new_name='parental_controls'
         ),
 
-        # and finally, remove the help text on the "strong password" field
+        # and finally, remove the help text attribute on the "strong password" field
 
         migrations.AlterField(
             model_name='product',

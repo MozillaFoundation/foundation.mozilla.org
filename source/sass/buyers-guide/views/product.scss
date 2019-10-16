@@ -126,6 +126,33 @@ $product-detail-padding-x: (
   }
 }
 
+.minimum-security {
+  .rating {
+    .star {
+      display: inline-block;
+      width: 1em;
+      color: transparent;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      
+      &.value-yes {
+        order: 1;
+        background-image: url(/_images/buyers-guide/stars/black.svg);
+      }
+
+      &.value-u {
+        order: 2;
+        background-image: url(/_images/buyers-guide/stars/half.svg);
+      }
+
+      &.value-no {
+        order: 3;
+        background-image: url(/_images/buyers-guide/stars/empty.svg);
+      }
+    }
+  }
+}
+
 .criterion {
   padding: 10px 0;
   border-top: 1px solid $gray-20;
