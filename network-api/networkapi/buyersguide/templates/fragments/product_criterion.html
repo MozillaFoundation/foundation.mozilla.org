@@ -1,27 +1,27 @@
-<div class="criterion criterion-{{ value|lower }} {{criterion_name}} criterion-{% if value == bad %}bad{% else %}good{% endif %}">
+{% if value != hide_value %}
+<div class="criterion value-{{ value|lower}}">
   <div class="primary-info">
     <div class="d-flex align-items-center">
       <span>{{ label }}</span>
-      {% if help %}
-      <button class="toggle"></button>
-      {% endif %}
     </div>
+
     <div class="rating">
       <span>
-      {% if value != None %}
-        {% if value is True %} Yes {% else %} No {% endif %}
+      {% if value == "U" %}
+        Unknown
+      {% elif value == "NA" %}
+        N/A
       {% else %}
-        {% if unknown_label %}
-          {{ unknown_label }}
-        {% else %}
-          Can't determine
-        {% endif %}
+        {{ value }}
       {% endif %}
       </span>
-      <span class="emoji hidden-md-down"></span>
     </div>
   </div>
-  {% if help %}
+
+  {{ help }}
+
+  {% if help != None%}
   <div class="helptext mt-2">{{ help }}</div>
   {% endif %}
 </div>
+{% endif %}

@@ -21,6 +21,8 @@ from wagtail.core.models import Orderable
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
 
+from .utils import tri_to_quad
+
 
 def get_product_image_upload_path(instance, filename):
     return get_image_upload_path(
@@ -299,7 +301,7 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    parental_controls = models.BooleanField(
+    parental_controls = ExtendedYesNoField(
         null=True,
         help_text='Are there rules for children?',
     )
@@ -322,7 +324,9 @@ class Product(ClusterableModel):
         help_text='Does this product have a user-friendly privacy policy?'
     )
 
-    # privacy_policy_links = one to many, defined in PrivacyPolicyLink
+    """
+    privacy_policy_links =  one to many, defined in PrivacyPolicyLink
+    """
 
     worst_case = models.CharField(
         max_length=5000,
@@ -554,11 +558,27 @@ class Product(ClusterableModel):
         return 'Grad school'
 
     def to_dict(self):
+        """
+        Rather than rendering products based on the instance object,
+        we serialize the product to a dictionary, and instead render
+        the template based on that.
+
+        NOTE: if you add indirect fields like Foreign/ParentalKey or
+              @property definitions, those needs to be added!
+        """
         model_dict = model_to_dict(self)
+
         model_dict['votes'] = self.votes
         model_dict['slug'] = self.slug
+        model_dict['delete_data'] = tri_to_quad(self.delete_data)
+
+        # TODO: remove these two entries
         model_dict['numeric_reading_grade'] = self.numeric_reading_grade
         model_dict['reading_grade'] = self.reading_grade
+
+        # model_to_dict does NOT capture related fields!
+        model_dict['privacy_policy_links'] = list(self.privacy_policy_links.all())
+
         return model_dict
 
     def save(self, *args, **kwargs):
@@ -578,14 +598,14 @@ class ProductPrivacyPolicyLink(Orderable, models.Model):
     )
 
     label = models.CharField(
-        blank=True,
         max_length=500,
         help_text='Label for this link on the product page'
     )
 
     url = models.URLField(
         max_length=2048,
-        help_text='Privacy policy URL'
+        help_text='Privacy policy URL',
+        blank=True
     )
 
     def __str__(self):
