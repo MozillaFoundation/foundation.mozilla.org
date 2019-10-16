@@ -1,8 +1,6 @@
 {% extends "./bg_base.html" %}
 
-{% load yes_no %}
-{% load env %}
-{% load cloudinary %}
+{% load yes_no env cloudinary %}
 
 {% block head_extra %}
   <meta property="og:title" content="privacy not included - {{ product.name }}" />
@@ -35,7 +33,6 @@
 
 {% with section_class="col-12 col-lg-10 offset-lg-1 product-section-padding-x" %}
 <div class="container">
-
   <div class="row">
     <div class="product-detail bg-white py-3 py-md-5 {{section_class}}">
       <div class="row intro d-flex justify-content-between align-items-center">
@@ -47,88 +44,66 @@
         <div class="body-large mb-3 mb-md-5 col-12">{{product.blurb}}</div>
       </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="creep-vote-target mt-5 mt-md-4" data-product-name="{{product.name}}">
-              {% csrf_token %}
-              <input type="hidden" name="productID" value="{{ product.id }}">
-              <input type="hidden" name="votes" value="{{ product.votes | safe }}">
-          </div>
+      <div id="minimum-security" class="mt-5">
+        <h3 class="h3-heading">Minimum Security Standards</h3>
+
+        <div class="mb-5">
+          {% include "fragments/product_criterion.html"  with  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
+          {% include "fragments/product_criterion.html"  with  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
+          {% include "fragments/product_criterion.html"  with  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
+          {% include "fragments/product_criterion.html"  with  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
+          {% include "fragments/product_criterion.html"  with  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
         </div>
       </div>
 
       <div id="product-research" class="mt-5">
-        <div class="mb-5 d-flex flex-column flex-sm-row align-items-sm-center">
-          <h3 class="h5-heading d-inline-block mb-2 mb-sm-0 mr-3">Our Research</h3>
-          <a href="{% url 'about-view' %}" class="info-help">How to use this guide</a>
+        <div class="row">
+          <div class="col-12">
+            <div class="creep-vote-target mt-5 mt-md-4" data-product-name="{{product.name}}">
+              {% csrf_token %}
+              <input type="hidden" name="productID" value="{{ product.id }}">
+              <input type="hidden" name="votes" value="{{ product.votes | safe }}">
+            </div>
+          </div>
         </div>
-
-        <h3 class="h3-heading">Can it spy on me</h3>
+      
+        <h3 class="h3-heading">It uses</h3>
 
         <div class="row mb-5">
-          <div class="col-12 col-md-4">
-            <div class="spy">
-              <img src="/_images/buyers-guide/icon-camera.svg" width="31" height="24" />
-              <div>
-                <strong class="d-block">Camera</strong>
-                Device: {{product.camera_device|yes_no}} | App: {{product.camera_app|yes_no}}
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-4">
-            <div class="spy">
-              <img src="/_images/buyers-guide/icon-mic.svg" width="17" height="29" />
-              <div>
-                <strong class="d-block">Microphone</strong>
-                Device: {{product.microphone_device|yes_no}} | App: {{product.microphone_app|yes_no}}
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-4">
-            <div class="spy">
-              <img src="/_images/buyers-guide/icon-location.svg" width="24" height="29" />
-              <div>
-                <strong class="d-block">Location Tracking</strong>
-                Device: {{product.location_device|yes_no}} | App: {{product.location_app|yes_no}}
-              </div>
-            </div>
-          </div>
+          {% include "fragments/it_uses.html" with title="Camera"     device=product.camera_device     app=product.camera_app     %}
+          {% include "fragments/it_uses.html" with title="Microphone" device=product.microphone_device app=product.microphone_app %}
+          {% include "fragments/it_uses.html" with title="Location"   device=product.location_device   app=product.location_app   %}
         </div>
 
-        <h3 class="h3-heading">What does it know about me</h3>
+        <h3 class="h3-heading">How it handles privacy</h3>
 
         <div class="mb-5">
-          {% include "fragments/product_criterion.html"  with  value=product.uses_encryption  bad=False  help=product.uses_encryption_helptext  label="Product uses encryption" criterion_name="uses-encryption" %}
+          {% include "fragments/product_criterion.html"  with  value=""                           help=product.how_does_it_share             label="How does it share data?"                %}
+          {% include "fragments/product_criterion.html"  with  value=product.delete_data          help=product.delete_data_helptext          label="Can you delete your data?"              %}
+          {% include "fragments/product_criterion.html"  with  value=product.parental_controls    help=product.child_rules_helptext          label="Parental controls?"                     %}
+          {% include "fragments/product_criterion.html"  with  value=product.collects_biometrics  help=product.collects_biometrics_helptext  label="Collects biometrics data?"              %}
+          {% include "fragments/product_criterion.html"  with  value=product.user_friendly_privacy_policy  help=""                           label="User friendly privacy info?"            %}
+
+          <strong>ADD LINKS BELOW</strong>
+          {{ product.privacy_policy_links.all }}
           {% include "fragments/product_policy.html"     with  product=product                           help=product.privacy_policy_helptext %}
-          {% include "fragments/product_criterion.html"  with  value=product.share_data       bad=True   help=product.share_data_helptext        label="Shares your information with 3rd parties for unexpected reasons" %}
+          <strong>ADD LINKS ABOVE</strong>
         </div>
 
-        <h3 class="h3-heading">Can I control it</h3>
-
-        <div class="mb-5">
-          {% include "fragments/product_criterion.html"  with  value=product.strong_password    bad=False  help=product.strong_password           label="If a password is required, you must change the default password"  unknown_label="Not required" %}
-          {% include "fragments/product_criterion.html"  with  value=product.security_updates   bad=False  help=product.security_updates_helptext label="Automatic security updates" %}
-          {% include "fragments/product_criterion.html"  with  value=product.delete_data        bad=False  help=product.delete_data_helptext      label="Deletes data it stores on you" %}
-          {% include "fragments/product_criterion.html"  with  value=product.parental_controls  bad=False  help=product.child_rules_helptext      label="Has parental controls "%}
+        <div class="NEW_WORST_CASE_STYLING">
+          <h3 class="h3-heading"><span class="creep-face-emoji">😮</span>What could happen if something went wrong</h3>
+          <p>{{product.worst_case}}</p>
         </div>
 
-        <h3 class="h3-heading">Company shows it cares about its customers</h3>
+
+        <h3 class="body-large">How to contact the company</h3>
 
         <div class="mb-5">
-            {% include "fragments/product_criterion.html"  with  value=product.manage_vulnerabilities  bad=False  help=product.manage_vulnerabilities_helptext label="Company manages security vulnerabilities"%}
             {% include "fragments/product_contact.html" with product=product %}
         </div>
-
-        <h3 class="h3-heading"><span class="creep-face-emoji">😮</span>What could happen if something went wrong</h3>
-
-        <p>{{product.worst_case}}</p>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
 
 <div class="container-fluid">
