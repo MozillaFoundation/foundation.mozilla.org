@@ -197,7 +197,7 @@ $product-detail-padding-x: (
   }
 
   button {
-    margin: 0 10px;
+    margin-left: 10px;
     background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
     background-size: contain;
     border: 0;
@@ -212,15 +212,13 @@ $product-detail-padding-x: (
     }
   }
 
-  // Smiley Cases (default)
+  .details {
+    display: none;
 
-  .rating {
-    display: flex;
-    align-items: center;
+    &.open {
+      display: block;
+    }
   }
-
-  z-index: 1;
-  position: relative;
 }
 
 .dotted-section {
@@ -313,13 +311,8 @@ $product-detail-padding-x: (
 }
 
 .helptext {
-  display: none;
   font-style: italic;
   font-size: 14px;
-
-  &.open {
-    display: block;
-  }
 }
 
 // Coral Embed
