@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
-    <title>Half Star</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Half-Star" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group-16">
-            <polygon id="Star-Copy-7" fill="#C1BFBF" points="8 12 3.29771798 14.472136 4.19577393 9.23606798 0.39154787 5.52786405 5.64885899 4.76393202 8 0 10.351141 4.76393202 15.6084521 5.52786405 11.8042261 9.23606798 12.702282 14.472136"></polygon>
-            <path d="M8,-5.29354338e-13 L8,12 L3.29771798,14.472136 L4.19577393,9.23606798 L0.39154787,5.52786404 L5.64885899,4.76393202 L8,-5.29354338e-13 Z" id="Combined-Shape" fill="#000000"></path>
-        </g>
-    </g>
-</svg>
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#C1BFBF" d="M8 12l-4.702 2.472.898-5.236L.392 5.528l5.257-.764L8 0l2.351 4.764 5.257.764-3.804 3.708.898 5.236z"/><path d="M8 0v12l-4.702 2.472.898-5.236L.392 5.528l5.257-.764L8 0z" fill="#000"/></g></svg>
