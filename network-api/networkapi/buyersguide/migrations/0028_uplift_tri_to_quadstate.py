@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
             new_name='parental_controls'
         ),
 
-        # and finally, remove the help text attribyte on the "strong password" field
+        # and finally, remove the help text attribute on the "strong password" field
 
         migrations.AlterField(
             model_name='product',
