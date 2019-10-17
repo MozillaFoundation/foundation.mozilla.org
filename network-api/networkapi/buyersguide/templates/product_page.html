@@ -44,22 +44,25 @@
         <div class="col-12">
           <p class="body-small">Review Date {{product.review_date|date:"m/d/y"}}</p>
         </div>
-        <div class="body-large mb-3 mb-md-5 col-12">{{product.blurb}}</div>
+        <div class="body-large mb-2 mb-md-4 col-12">{{product.blurb}}</div>
       </div>
 
-      <div class="minimum-security mt-5">
+      <div class="minimum-security">
         <div class="criterion">
           <div class="d-block primary-info">
-            <div class="d-flex w-100 justify-content-between">
-              <span>Minimum Security Standards</span>
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-column">
+                <span>Minimum Security Standards</span>
+
+                <div class="d-flex rating mt-2">
+                  <span class="star value-{{ product.uses_encryption|lower}}">&nbsp;</span>
+                  <span class="star value-{{ product.security_updates|lower }}">&nbsp;</span>
+                  <span class="star value-{{ product.strong_password|lower }}">&nbsp;</span>
+                  <span class="star value-{{ product.manage_vulnerabilities|lower }}">&nbsp;</span>
+                  <span class="star value-{{ product.privacy_policy|lower }}">&nbsp;</span>
+                </div>
+              </div>
               <button class="toggle"></button>
-            </div>
-            <div class="d-flex w-100 rating">
-              <span class="star value-{{ product.uses_encryption|lower}}">&nbsp;</span>
-              <span class="star value-{{ product.security_updates|lower }}">&nbsp;</span>
-              <span class="star value-{{ product.strong_password|lower }}">&nbsp;</span>
-              <span class="star value-{{ product.manage_vulnerabilities|lower }}">&nbsp;</span>
-              <span class="star value-{{ product.privacy_policy|lower }}">&nbsp;</span>
             </div>
           </div>
 
@@ -76,7 +79,7 @@
       <div id="product-research" class="mt-5">
         <div class="row">
           <div class="col-12">
-            <div class="creep-vote-target my-5 mt-md-4" data-product-name="{{product.name}}">
+            <div class="creep-vote-target mb-5 mt-3 mt-md-4" data-product-name="{{product.name}}">
               {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value="{{ product.votes | safe }}">
@@ -86,15 +89,15 @@
 
         <h3 class="h3-heading">It uses</h3>
 
-        <div class="row mb-5">
+        <div class="row criterion mb-5 no-gutters">
           {% include "fragments/it_uses.html" with title="Camera"     device=product.camera_device     app=product.camera_app     %}
           {% include "fragments/it_uses.html" with title="Microphone" device=product.microphone_device app=product.microphone_app %}
-          {% include "fragments/it_uses.html" with title="Location"   device=product.location_device   app=product.location_app   %}
+          {% include "fragments/it_uses.html" with title="Tracks Location"   device=product.location_device   app=product.location_app   %}
         </div>
 
         <h3 class="h3-heading">How it handles privacy</h3>
 
-        <div class="mb-5">
+        <div class="mb-3 mb-md-5">
           {% include "fragments/product_criterion.html"  with  label="How does it share data?"      value=""                                           help=product.how_does_it_share             %}
           {% include "fragments/product_criterion.html"  with  label="Can you delete your data?"    value=product.delete_data                          help=product.delete_data_helptext          %}
           {% include "fragments/product_criterion.html"  with  label="Parental controls?"           value=product.parental_controls    hide_value="NA" help=product.child_rules_helptext          %}
@@ -102,7 +105,7 @@
           {% include "fragments/product_privacy.html"    with  label="User friendly privacy info?"  value=product.user_friendly_privacy_policy         links=product.privacy_policy_links         %}
         </div>
 
-        <div class="worst-case-box px-5 pt-5 pb-4 my-5 text-center">
+        <div class="worst-case-box px-4 px-md-5 pt-5 pb-2 pb-md-4 mb-5 text-center">
           <div class="creep-face-emoji-wrapper d-inline-block">
             <span class="creep-face-emoji">😮</span>
           </div>

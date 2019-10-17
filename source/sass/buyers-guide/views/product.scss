@@ -109,7 +109,7 @@ $product-detail-padding-x: (
       background: $white;
       position: absolute;
       top: -$font-size / 2;
-      left: calc(50% - #{$font-size} / 2 - #{$padding-x} / 2);
+      left: calc(50% - #{$font-size} / 2 - #{$padding-x});
       font-size: $font-size;
       padding: 0 $padding-x;
 
@@ -154,7 +154,7 @@ $product-detail-padding-x: (
       display: inline-block;
       width: 1em;
       color: transparent;
-      background-size: 100% 100%;
+      background-size: contain;
       background-repeat: no-repeat;
 
       &.value-yes {
@@ -162,16 +162,21 @@ $product-detail-padding-x: (
         background-image: url(/_images/buyers-guide/stars/black.svg);
       }
 
-      &.value-u {
+      &.value-na {
         order: 2;
         background-image: url(/_images/buyers-guide/stars/half.svg);
       }
 
-      &.value-no {
+      &.value-no,
+      &.value-u {
         order: 3;
         background-image: url(/_images/buyers-guide/stars/empty.svg);
       }
     }
+  }
+
+  .criterion .criterion:last-child {
+    border-bottom: none;
   }
 }
 
@@ -203,7 +208,8 @@ $product-detail-padding-x: (
     margin-bottom: 0;
   }
 
-  button {
+  button.toggle {
+    align-self: center;
     margin-left: 10px;
     background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
     background-size: contain;
