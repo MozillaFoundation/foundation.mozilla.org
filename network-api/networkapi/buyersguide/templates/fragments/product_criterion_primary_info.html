@@ -1,0 +1,17 @@
+<div class="primary-info">
+  <div class="d-flex align-items-center">
+    <span><strong>{{ label }}</strong></span>
+  </div>
+
+  <div class="rating">
+    <span><strong>
+    {% if value == "U" %}
+      Unknown
+    {% elif value == "NA" %}
+      N/A
+    {% else %}
+      {{ value }}
+    {% endif %}
+    </strong></span>
+  </div>
+</div>
