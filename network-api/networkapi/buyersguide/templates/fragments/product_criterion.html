@@ -1,27 +1,9 @@
 {% if value != hide_value %}
-<div class="criterion value-{{ value|lower}}">
-  <div class="primary-info">
-    <div class="d-flex align-items-center">
-      <span>{{ label }}</span>
-    </div>
+<div class="criterion value-{{value|lower}}">
+  {% include "./product_criterion_primary_info.html"  with  label=label  value=value %}
 
-    <div class="rating">
-      <span>
-      {% if value == "U" %}
-        Unknown
-      {% elif value == "NA" %}
-        N/A
-      {% else %}
-        {{ value }}
-      {% endif %}
-      </span>
-    </div>
-  </div>
-
-  {{ help }}
-
-  {% if help != None%}
-  <div class="helptext mt-2">{{ help }}</div>
+  {% if help != None %}
+  <div class="helptext">{{ help }}</div>
   {% endif %}
 </div>
 {% endif %}

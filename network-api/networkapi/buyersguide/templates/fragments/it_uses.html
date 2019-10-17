@@ -1,5 +1,5 @@
 {% if device != False or app != False %}
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-4 mb-2 mb-md-0">
   <div class="title">
     <strong class="d-block">{{ title }}</strong>
   </div>
@@ -9,8 +9,8 @@
     {% elif device == True and app == True %}
     Yes (device & app)
     {% else %}
-        <div class="text-nowrap">{% if device == True %}Yes (device){% elif device != False %} Unknown (device){% endif %}</div>
-        <div class="text-nowrap">{% if app == True %}Yes (app){% elif app != False %} Unknown (app){% endif %}</div>
+      <div class="text-nowrap">{% if device == True %}Yes (device){% elif device != False %} Unknown (device){% endif %}</div>
+      <div class="text-nowrap">{% if app == True %}Yes (app){% elif app != False %} Unknown (app){% endif %}</div>
     {% endif %}
   </div>
 </div>

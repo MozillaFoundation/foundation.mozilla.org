@@ -291,7 +291,7 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    delete_data = models.BooleanField(
+    delete_data = models.BooleanField(  # TO BE REMOVED
         null=True,
         help_text='Can you request data be deleted?',
     )
