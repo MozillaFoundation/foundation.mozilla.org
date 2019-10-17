@@ -1,5 +1,5 @@
 {% if value != hide_value %}
-<div class="criterion no-border value-{{value|lower}}">
+<div class="criterion value-{{value|lower}}">
   {% include "./product_criterion_primary_info.html"  with  label=label  value=value %}
 
   {% if links|length > 0 %}
