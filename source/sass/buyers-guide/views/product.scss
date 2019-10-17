@@ -101,7 +101,8 @@ $product-detail-padding-x: (
     position: relative;
     border-style: solid;
     border-width: 1px;
-    border-image: linear-gradient(to left, $pni-pink 0%, $pni-blue 100%) 1 / auto;
+    border-image: linear-gradient(to left, $pni-pink 0%, $pni-blue 100%) 1 /
+      auto;
 
     .creep-face-emoji-wrapper {
       $font-size: 3rem;
