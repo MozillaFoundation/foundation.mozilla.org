@@ -50,7 +50,7 @@
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
       {% for product in products %}
-      <figure class="product-box bg-gray d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
+      <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
         {% include "fragments/seal_of_approval.html" with product=product %}
         {% include "fragments/adult_content_badge.html" with product=product %}
 

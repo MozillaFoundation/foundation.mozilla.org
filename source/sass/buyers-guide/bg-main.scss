@@ -66,7 +66,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 }
 
 .bg-product-image {
-  background: $bg-product-image;
+  background: $pni-bg-product-image;
 }
 
 .bg-white {
@@ -74,8 +74,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 }
 
 img.thumb-border {
-  background: $bg-product-image;
-  border: 16px solid $bg-product-image;
+  background: $pni-bg-product-image;
+  border: 16px solid $pni-bg-product-image;
 }
 
 .adult-content {
