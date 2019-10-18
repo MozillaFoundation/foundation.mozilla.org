@@ -3,6 +3,7 @@ import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import LikelyhoodChart from "../likelyhood-chart/likelyhood-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
+import JoinUs from "../../../components/join/join.jsx";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 
@@ -134,6 +135,14 @@ export default class CreepVote extends React.Component {
     this.setState({ confidence });
   }
 
+  handleSignUpSuccess(success){
+    this.setState({signUpSuccess: success});
+  }
+
+  handleSignUpRejection() {
+    this.setState({signup: 'rejected' });
+  }
+
   /**
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
@@ -227,6 +236,25 @@ export default class CreepVote extends React.Component {
   }
 
   /**
+   * @returns {jsx} Sign up ask in the middle of vote if user is not already subscribed 
+   * or if they haven't voted multiple times.
+   */
+
+   renderSignUp() {
+      return (
+        <React.Fragment>
+          <JoinUs
+            formPosition="flow"
+            flowHeading="Thanks for voting! One moment —"
+            flowText="We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!"
+            handleSignUpSuccess={this.signUpSuccess}
+            handleRejection={() => this.handleSignUpRejection()}
+          />
+        </React.Fragment>
+      );
+   }
+
+  /**
    * @returns {jsx} What users see when they have voted on this product.
    */
   renderDidVote() {
@@ -269,8 +297,10 @@ export default class CreepVote extends React.Component {
     let voteContent;
 
     if (this.state.didVote) {
+      voteContent = this.renderSignUp();
+    } else if (this.state.signup == 'rejected' || 'success') {
       voteContent = this.renderDidVote();
-    } else {
+    }else {
       voteContent = this.renderVoteAsk();
     }
 

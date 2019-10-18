@@ -86,6 +86,8 @@ export default class JoinUs extends React.Component {
    * @returns {boolean} true if the input is a legal-enough email address, else false
    */
   validatesAsEmail(input) {
+    let flowForm = this.props.formPosition == "flow";
+
     if (!input) {
       return {
         valid: false,
@@ -238,9 +240,21 @@ export default class JoinUs extends React.Component {
   /**
    * Render the CTA heading.
    */
-  renderFormHeading() {
+  renderFlowHeading() {
     return (
-      <div>
+      <React.Fragment>
+        <h2>{this.props.flowHeading}</h2>
+        <p>{this.props.flowText}</p>
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * Render the CTA heading.
+   */
+  renderSnippetHeading() {
+    return (
+      <React.Fragment>
         <h5 className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>
@@ -257,7 +271,20 @@ export default class JoinUs extends React.Component {
             }}
           />
         )}
-      </div>
+      </React.Fragment>
+    );
+  }
+
+  /**
+   * Render the CTA heading.
+   */
+  renderFormHeading() {
+    return (
+      <React.Fragment>
+        {this.props.formPosition == "flow"
+          ? this.renderFlowHeading()
+          : this.renderSnippetHeading()}
+      </React.Fragment>
     );
   }
 
@@ -288,7 +315,11 @@ export default class JoinUs extends React.Component {
     return (
       <div className={wrapperClasses}>
         <div className={classes}>
+          {this.props.formPosition == 'flow' && (
+            <label class="" for="userEmail">Email</label>
+          )}
           <input
+            name="userEmail"
             type="email"
             className="form-control"
             placeholder={getText(`Please enter your email`)}
@@ -412,13 +443,15 @@ export default class JoinUs extends React.Component {
               </p>
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
-                !this.privacy.checked && (
+                !this.privacy.checked && 
+                this.props.formPosition !== "flow" && (
                   <span class="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
           </div>
         </div>
-        {this.state.userTriedSubmitting && !this.privacy.checked && (
+        {this.state.userTriedSubmitting && !this.privacy.checked && 
+          this.props.formPosition !== "flow" && (
           <p className="body-small form-check form-control-feedback mt-0 mb-3">
             Please check this box if you want to proceed.
           </p>
@@ -445,12 +478,12 @@ export default class JoinUs extends React.Component {
 
     let formClass = `d-flex flex-column`;
     let fieldsWrapperClass = `w-100`;
-    let submitWrapperClass = `w-100`;
+    let buttonsWrapperClass = `w-100`;
 
     if (this.props.buttonPosition === `side`) {
       formClass = `${formClass} flex-md-row`;
       fieldsWrapperClass = ``;
-      submitWrapperClass = `ml-md-3`;
+      buttonsWrapperClass = `ml-md-3`;
     }
 
     return (
@@ -463,10 +496,15 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
-          {this.renderLocalizationFields()}
+          {this.props.formPosition !== "flow" && this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
-        <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
+        <div className={buttonsWrapperClass}>
+          {this.renderSubmitButton()}
+          {this.props.formPosition == 'flow' && (
+            <button class="" onClick={this.props.handleRejection}>No Thanks</button>
+          )}
+        </div>
       </form>
     );
   }
