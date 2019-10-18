@@ -40,14 +40,19 @@ export default class CreepVote extends React.Component {
       majority: {
         creepiness: creepinessId,
         confidence: confidence[0] > confidence[1] ? 0 : 1
-      },
-      submitAttempted: false
+      }
     };
   }
 
   componentDidMount() {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
+    }
+  }
+
+  showVoteResult() {
+    if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
+      this.setState({ didVote: true });
     }
   }
 
@@ -71,30 +76,19 @@ export default class CreepVote extends React.Component {
         let update = {};
 
         update[`${attribute}Submitted`] = true;
+        this.setState(update, () => {
+          this.showVoteResult();
+        });
       })
       .catch(e => {
         console.warn(e);
       });
   }
 
-  handleSubmitBtnClick() {
-    this.setState({
-      submitAttempted: true,
-      didVote: true
-    });
-  }
-
   submitVote(evt) {
     evt.preventDefault();
 
     let confidence = this.state.confidence;
-
-    if (confidence === undefined) {
-      return;
-    }
-
-    this.setState({ disableVoteButton: true });
-
     let productID = this.props.productID;
 
     this.sendVoteFor({
@@ -134,7 +128,6 @@ export default class CreepVote extends React.Component {
       <form
         method="post"
         id="creep-vote"
-        className={this.state.submitAttempted ? `submit-attempted` : ``}
         onSubmit={evt => this.submitVote(evt)}
       >
         <div className="row mb-5">
@@ -196,7 +189,6 @@ export default class CreepVote extends React.Component {
               id="creep-vote-btn"
               type="submit"
               className="btn btn-secondary mb-2"
-              onClick={() => this.handleSubmitBtnClick()}
             >
               Vote & See Results
             </button>

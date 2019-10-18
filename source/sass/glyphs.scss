@@ -1,43 +1,34 @@
-@mixin glyph($id, $buyers-guide: false, $width: 20px, $height: 20px) {
+$defaultGlyphPath: "../_images/glyphs/";
+$bgGlyphPath: "../_images/buyers-guide/";
+
+@mixin glyph(
+  $id,
+  $path-to-directory: $defaultGlyphPath,
+  $width: 20px,
+  $height: 20px
+) {
   content: "";
   display: inline-block;
   width: $width;
   height: $height;
   margin-right: 20px;
-
-  @if $buyers-guide {
-    background: url(../_images/buyers-guide/#{$id}.svg) no-repeat 0 0 / contain;
-  } @else {
-    background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
-  }
+  background: url(#{$path-to-directory}#{$id}.svg) no-repeat 0 0 / contain;
 
   @media screen and (min-width: $bp-lg) {
     margin-right: 10px;
   }
 }
 
-@mixin hoverGlyph($id, $buyers-guide: false) {
+@mixin hoverGlyph($id, $path-to-directory: $defaultGlyphPath) {
   &:hover::before,
   &:focus::before {
-    @if $buyers-guide {
-      background: url(../_images/buyers-guide/#{$id}.svg)
-        no-repeat
-        0
-        0 /
-        contain;
-    } @else {
-      background: url(../_images/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
-    }
+    background: url(#{$path-to-directory}#{$id}.svg) no-repeat 0 0 / contain;
   }
 }
 
-@mixin compositeGlyph($id, $buyers-guide: false) {
+@mixin compositeGlyph($id, $path-to-directory: $defaultGlyphPath) {
   &::before {
-    @if $buyers-guide {
-      @include glyph($id, true);
-    } @else {
-      @include glyph($id);
-    }
+    @include glyph($id, $path-to-directory);
   }
 
   &.small {
@@ -97,13 +88,13 @@
 }
 
 .likely-glyph {
-  @include compositeGlyph("icon-thumb-up-black", true);
-  @include hoverGlyph("icon-thumb-up-white", true);
+  @include compositeGlyph("icon-thumb-up-black", $bgGlyphPath);
+  @include hoverGlyph("icon-thumb-up-white", $bgGlyphPath);
 }
 
 .unlikely-glyph {
-  @include compositeGlyph("icon-thumb-down-black", true);
-  @include hoverGlyph("icon-thumb-down-white", true);
+  @include compositeGlyph("icon-thumb-down-black", $bgGlyphPath);
+  @include hoverGlyph("icon-thumb-down-white", $bgGlyphPath);
 }
 
 .dark-theme {
@@ -152,10 +143,10 @@
 
 .selected {
   &.likely-glyph {
-    @include compositeGlyph("icon-thumb-up-white", true);
+    @include compositeGlyph("icon-thumb-up-white", $bgGlyphPath);
   }
 
   &.unlikely-glyph {
-    @include compositeGlyph("icon-thumb-down-white", true);
+    @include compositeGlyph("icon-thumb-down-white", $bgGlyphPath);
   }
 }
