@@ -56,8 +56,8 @@ class NavNewsletter {
 
   // For desktop+ version:
   // transition newsletter section to its expanded state
-  expandDesktopNewsletter(eventevent) {
-    elements.container.style.eventtop = `${elements.primaryNav.offsetHeight}px`;
+  expandDesktopNewsletter(event) {
+    elements.container.style.top = `${elements.primaryNav.offsetHeight}px`;
     elements.container.classList.add("expanded");
     elements.buttonDesktop.classList.add("active");
     document.addEventListener(`click`, this.closeFormClickHandler);
