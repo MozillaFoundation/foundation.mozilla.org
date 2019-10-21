@@ -2,7 +2,7 @@
 <div class="criterion value-{{value|lower}}">
   {% include "./product_criterion_primary_info.html"  with  label=label  value=value %}
 
-  {% if help != None %}
+  {% if help != None and help != "" %}
   <div class="helptext">{{ help }}</div>
   {% endif %}
 </div>
