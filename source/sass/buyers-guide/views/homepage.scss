@@ -1,7 +1,7 @@
 #pni-home {
   .page-header {
-    background: url(/_images/buyers-guide/home-banner.jpg) center center / cover
-      no-repeat;
+    background: url(/_images/buyers-guide/home-banner-2019-holiday.jpg) center
+      center / cover no-repeat;
     height: 200px;
 
     @media (min-width: $bp-md) {
@@ -38,6 +38,10 @@
       figure.product-box {
         $padding-x: 12px;
         $padding-y: 12px;
+        $seal-of-approval-width: 30px;
+        $seal-of-approval-height: 25px;
+        $recommendation-width: 17px;
+        $recommendation-height: 15.8px;
 
         display: inline-block;
         position: relative;
@@ -46,6 +50,7 @@
         margin-bottom: $box-margin * 2;
         padding: $padding-y $padding-x;
         width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
+        background: $pni-product-list-background;
 
         &.d-flex.d-none {
           /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */
@@ -53,18 +58,37 @@
         }
 
         .seal-of-approval {
-          @include seal-of-approval($padding-y, $padding-x, 30px, 25px);
+          @include seal-of-approval(
+            $padding-y,
+            $padding-x,
+            $seal-of-approval-width,
+            $seal-of-approval-height
+          );
+
+          position: static;
         }
 
         .adult-content-badge {
           @include adult-content-badge($padding-y, $padding-x, 41px, 35px);
         }
 
-        .recommendation {
+        .top-left-badge-container {
+          $badge-spacing: 0.5rem;
+
           position: absolute;
-          right: 0;
-          width: 1em;
-          height: 1em;
+          top: $padding-y;
+          left: $padding-x;
+          width: calc(
+            #{$seal-of-approval-width} + #{$recommendation-width} + #{$badge-spacing}
+          );
+          height: $seal-of-approval-height;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .recommendation {
+          width: $recommendation-width;
+          height: $recommendation-height;
 
           &.positive {
             background-image: url(/_images/buyers-guide/icon-thumb-up.svg);

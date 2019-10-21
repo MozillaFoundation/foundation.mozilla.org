@@ -46,6 +46,10 @@ $product-detail-padding-x: (
 
   a {
     text-decoration: underline;
+
+    @include hover-focus-active {
+      color: $dark-blue;
+    }
   }
 
   .small-link {
@@ -53,10 +57,6 @@ $product-detail-padding-x: (
     font-size: 18px;
     font-weight: 400;
     color: $gray-40;
-
-    @include hover-focus-active {
-      color: $dark-blue;
-    }
   }
 
   .copy-link-wrapper {
@@ -103,6 +103,7 @@ $product-detail-padding-x: (
     border-width: 1px;
     border-image: linear-gradient(to left, $pni-pink 0%, $pni-blue 100%) 1 /
       auto;
+    margin-top: 3.5rem;
 
     .creep-face-emoji-wrapper {
       $font-size: 3rem;
@@ -184,7 +185,7 @@ $product-detail-padding-x: (
 }
 
 .criterion {
-  padding: 10px 0;
+  padding: 1rem 0;
 
   &:not(.no-border) {
     border-top: 1px solid $gray-20;
@@ -329,6 +330,7 @@ $product-detail-padding-x: (
 .helptext {
   font-style: italic;
   margin-top: 0.5rem;
+  margin-right: 5rem;
 }
 
 // Coral Embed
