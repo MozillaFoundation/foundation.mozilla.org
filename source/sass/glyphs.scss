@@ -1,9 +1,9 @@
-$defaultGlyphPath: "../_images/glyphs/";
-$bgGlyphPath: "../_images/buyers-guide/";
+$default-glyph-path: "../_images/glyphs/";
+$bg-glyph-path: "../_images/buyers-guide/";
 
 @mixin glyph(
   $id,
-  $path-to-directory: $defaultGlyphPath,
+  $path-to-directory: $default-glyph-path,
   $width: 20px,
   $height: 20px
 ) {
@@ -19,14 +19,14 @@ $bgGlyphPath: "../_images/buyers-guide/";
   }
 }
 
-@mixin hoverGlyph($id, $path-to-directory: $defaultGlyphPath) {
+@mixin hoverGlyph($id, $path-to-directory: $default-glyph-path) {
   &:hover::before,
   &:focus::before {
     background: url(#{$path-to-directory}#{$id}.svg) no-repeat 0 0 / contain;
   }
 }
 
-@mixin compositeGlyph($id, $path-to-directory: $defaultGlyphPath) {
+@mixin compositeGlyph($id, $path-to-directory: $default-glyph-path) {
   &::before {
     @include glyph($id, $path-to-directory);
   }
@@ -88,13 +88,13 @@ $bgGlyphPath: "../_images/buyers-guide/";
 }
 
 .likely-glyph {
-  @include compositeGlyph("icon-thumb-up-black", $bgGlyphPath);
-  @include hoverGlyph("icon-thumb-up-white", $bgGlyphPath);
+  @include compositeGlyph("icon-thumb-up-black", $bg-glyph-path);
+  @include hoverGlyph("icon-thumb-up-white", $bg-glyph-path);
 }
 
 .unlikely-glyph {
-  @include compositeGlyph("icon-thumb-down-black", $bgGlyphPath);
-  @include hoverGlyph("icon-thumb-down-white", $bgGlyphPath);
+  @include compositeGlyph("icon-thumb-down-black", $bg-glyph-path);
+  @include hoverGlyph("icon-thumb-down-white", $bg-glyph-path);
 }
 
 .dark-theme {
@@ -143,10 +143,10 @@ $bgGlyphPath: "../_images/buyers-guide/";
 
 .selected {
   &.likely-glyph {
-    @include compositeGlyph("icon-thumb-up-white", $bgGlyphPath);
+    @include compositeGlyph("icon-thumb-up-white", $bg-glyph-path);
   }
 
   &.unlikely-glyph {
-    @include compositeGlyph("icon-thumb-down-white", $bgGlyphPath);
+    @include compositeGlyph("icon-thumb-down-white", $bg-glyph-path);
   }
 }
