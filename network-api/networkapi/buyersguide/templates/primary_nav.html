@@ -3,6 +3,7 @@
 {% block narrow_screen_menu %}
   <div class="narrow-screen-menu-background">
     <div class="narrow-screen-menu-container">
+      {% include "./social.html" %}
       <div class="container text-center">
         <div class="row">
           <div class="col">
@@ -24,9 +25,6 @@
   {# we do not want the burger and logo from the original nav here #}
 {% endblock %}
 
-{% block share_block %}
-  {% include "./social.html" %}
-{% endblock %}
 
 {% block wide_screen_menu %}
   <div class="d-flex align-items-center justify-content-between">
