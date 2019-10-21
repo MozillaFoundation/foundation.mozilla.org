@@ -18,7 +18,7 @@
         published yet{% endif %} |
         {% with category=page.specific.category.first %}
         {% if category %}
-        <a class="blog-detailed-category" href="/blog/category/{{category.slug}}">{{ category }}</a>
+        <a class="category" href="/blog/category/{{category.slug}}">{{ category }}</a>
         {% endif %}
         {% endwith %}
       </p>
