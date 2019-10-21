@@ -22,7 +22,7 @@ $bgGlyphPath: "../_images/buyers-guide";
 @mixin hoverGlyph($id, $path-to-directory: $defaultGlyphPath) {
   &:hover::before,
   &:focus::before {
-    background: url(#{$path-to-directory}#{$id}.svg) no-repeat 0 0 / contain;
+    background: url(#{$path-to-directory}/#{$id}.svg) no-repeat 0 0 / contain;
   }
 }
 
