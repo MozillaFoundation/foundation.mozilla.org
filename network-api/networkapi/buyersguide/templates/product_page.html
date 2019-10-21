@@ -90,14 +90,14 @@
         <h3 class="h3-heading">It uses</h3>
 
         <div class="row criterion mb-5 no-gutters">
-          {% include "fragments/it_uses.html" with title="Camera"     device=product.camera_device     app=product.camera_app     %}
-          {% include "fragments/it_uses.html" with title="Microphone" device=product.microphone_device app=product.microphone_app %}
-          {% include "fragments/it_uses.html" with title="Tracks Location"   device=product.location_device   app=product.location_app   %}
+          {% include "fragments/it_uses.html" with title="Camera"            device=product.camera_device     app=product.camera_app         margin_bottom_class="mb-3" %}
+          {% include "fragments/it_uses.html" with title="Microphone"        device=product.microphone_device app=product.microphone_app     margin_bottom_class="mb-3" %}
+          {% include "fragments/it_uses.html" with title="Tracks Location"   device=product.location_device   app=product.location_app       margin_bottom_class="" %}
         </div>
 
         <h3 class="h3-heading">How it handles privacy</h3>
 
-        <div class="mb-3 mb-md-5">
+        <div>
           {% include "fragments/product_criterion.html"  with  label="How does it share data?"      value=""                                           help=product.how_does_it_share             %}
           {% include "fragments/product_criterion.html"  with  label="Can you delete your data?"    value=product.delete_data                          help=product.delete_data_helptext          %}
           {% include "fragments/product_criterion.html"  with  label="Parental controls?"           value=product.parental_controls    hide_value="NA" help=product.child_rules_helptext          %}
