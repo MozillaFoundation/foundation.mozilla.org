@@ -445,7 +445,7 @@ export default class JoinUs extends React.Component {
       <div className={classes}>
         <div className="d-flex align-items-start">
           <div className="mb-0 form-check d-flex align-items-start">
-            <label className="form-check-label d-flex align-items-start">
+            <label className="form-check-label d-flex align-items-start align-items-md-center">
               <input
                 type="checkbox"
                 className="form-check-input"
