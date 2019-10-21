@@ -12,7 +12,7 @@ $bgGlyphPath: "../_images/buyers-guide";
   width: $width;
   height: $height;
   margin-right: 20px;
-  background: url(#{$path-to-directory}#{$id}.svg) no-repeat 0 0 / contain;
+  background: url(#{$path-to-directory}/#{$id}.svg) no-repeat 0 0 / contain;
 
   @media screen and (min-width: $bp-lg) {
     margin-right: 10px;
