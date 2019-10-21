@@ -1,17 +1,17 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-10 09:04+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2019-10-21 21:58+0000\n"
+"PO-Revision-Date: 2019-10-21 23:01+0100\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: network-api/networkapi/templates/404.html:4
 msgid "Page Not Found"
@@ -127,8 +127,6 @@ msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:10
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:19
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:46
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:61
 #, python-format
 msgid "%(title)s by @mozilla"
 msgstr ""
@@ -195,11 +193,20 @@ msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/load-more-regrets.html:4
 msgid "Load more stories"
-msgstr ""
+msgstr "Subir más historias"
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:39
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:36
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:37
+msgid "Join Mozilla"
+msgstr "Únete a Mozilla"
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:43
 msgid "Scroll"
-msgstr ""
+msgstr "Desplazamiento"
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:47
+msgid "28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths"
+msgstr "28 razones por las que YouTube debe cambiar: historias desconcertantes acerca de recomendaciones de YouTube que llevaron a las personas por rumbos extraños y peligrosos"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:30
 #: network-api/networkapi/wagtailpages/utils.py:58
