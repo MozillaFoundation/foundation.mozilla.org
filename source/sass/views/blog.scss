@@ -17,3 +17,9 @@
     }
   }
 }
+
+a.blog-detailed-category {
+  @include hover-focus-active {
+    color: $dark-blue;
+  }
+}
