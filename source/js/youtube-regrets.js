@@ -16,7 +16,9 @@ let elements = {
   rings: `#view-youtube-regrets .intro-viewport .ring`,
   introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
   scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
-  newsletterButton: `#view-youtube-regrets .intro-viewport .btn-newsletter`
+  newsletterButtons: `#view-youtube-regrets .intro-viewport .btn-newsletter`,
+  newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.hidden-lg-up`,
+  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.hidden-md-down`
 };
 
 class YouTubeRegretsTunnel {
@@ -63,13 +65,15 @@ class YouTubeRegretsTunnel {
    * Hide it otherwise.
    */
   setNewsletterButtonVisibility(positionTohide) {
-    let button = elements.newsletterButton[0];
+    let buttons = elements.newsletterButtons;
 
-    if (window.pageYOffset >= positionTohide) {
-      button.classList.add(`d-none`);
-    } else {
-      button.classList.remove(`d-none`);
-    }
+    buttons.forEach(button => {
+      if (window.pageYOffset >= positionTohide) {
+        button.classList.add(`d-none`);
+      } else {
+        button.classList.remove(`d-none`);
+      }
+    });
   }
 
   /**
@@ -227,9 +231,17 @@ class YouTubeRegretsTunnel {
       return;
     }
 
-    elements.newsletterButton[0].addEventListener(`click`, event =>
+    elements.newsletterButtonDesktop[0].addEventListener(`click`, event =>
       navNewsletter.buttonDesktopClickHandler(event)
     );
+
+    elements.newsletterButtonMobile[0].addEventListener(`click`, event => {
+      if (navNewsletter.getShownState()) {
+        navNewsletter.closeMobileNewsletter(event);
+      } else {
+        navNewsletter.expandMobileNewsletter(event);
+      }
+    });
 
     this.setSceneDepth();
     this.setObjectsOpacity();

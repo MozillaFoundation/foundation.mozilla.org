@@ -45,6 +45,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/future-non-react-component";
 @import "../components/nav";
 @import "../components/multipage-nav";
+@import "../components/select-dropdown";
 
 // Misc
 

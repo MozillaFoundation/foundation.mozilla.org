@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
+import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {
@@ -25,7 +26,8 @@ export default class JoinUs extends React.Component {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
-      userTriedSubmitting: false
+      userTriedSubmitting: false,
+      lang: getCurrentLanguage()
     };
   }
 
@@ -123,6 +125,12 @@ export default class JoinUs extends React.Component {
       }
       if (this.surname) {
         payload.surname = this.surname.value;
+      }
+      if (this.state.country) {
+        payload.country = this.state.country;
+      }
+      if (this.state.lang) {
+        payload.lang = this.state.lang;
       }
 
       let xhr = new XMLHttpRequest();
@@ -311,6 +319,14 @@ export default class JoinUs extends React.Component {
    * Render localization fields
    */
 
+  setCountry(country) {
+    this.setState({ country });
+  }
+
+  setLang(lang) {
+    this.setState({ lang });
+  }
+
   renderLocalizationFields() {
     let header = this.props.formPosition === `header`;
     let footer = this.props.formPosition === `footer`;
@@ -321,10 +337,18 @@ export default class JoinUs extends React.Component {
     return (
       <div className={classes}>
         <div className="mb-2">
-          <CountrySelect label={getText(`Your country`)} className="w-100" />
+          <CountrySelect
+            label={getText(`Your country`)}
+            className="w-100"
+            handleCountryChange={e => this.setCountry(e)}
+          />
         </div>
         <div>
-          <LanguageSelect className="w-100" />
+          <LanguageSelect
+            className="w-100"
+            handleLangChange={e => this.setLang(e)}
+            selectedLang={this.state.lang}
+          />
         </div>
       </div>
     );
