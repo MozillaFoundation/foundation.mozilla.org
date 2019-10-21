@@ -86,8 +86,6 @@ export default class JoinUs extends React.Component {
    * @returns {boolean} true if the input is a legal-enough email address, else false
    */
   validatesAsEmail(input) {
-    let flowForm = this.props.formPosition == "flow";
-
     if (!input) {
       return {
         valid: false,
@@ -221,6 +219,14 @@ export default class JoinUs extends React.Component {
    * Render the signup CTA.
    */
   render() {
+    if (
+      this.state.apiSuccess &&
+      this.state.apiSubmitted &&
+      this.props.formPosition == "flow"
+    ) {
+      this.props.handleSignUp(true);
+    }
+
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
@@ -502,7 +508,7 @@ export default class JoinUs extends React.Component {
         <div className={buttonsWrapperClass}>
           {this.renderSubmitButton()}
           {this.props.formPosition == 'flow' && (
-            <button class="" onClick={this.props.handleRejection}>No Thanks</button>
+            <button class="" onClick={() => this.props.handleSignUp(false)} type="button">No Thanks</button>
           )}
         </div>
       </form>
