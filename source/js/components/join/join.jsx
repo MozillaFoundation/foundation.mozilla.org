@@ -481,7 +481,7 @@ export default class JoinUs extends React.Component {
    */
   renderSubmitButton() {
     let classnames = classNames("btn btn-primary", {
-      "w-100": !this.props.formPosition == "flow",
+      "w-100": this.props.formPosition !== "flow",
       "flex-1": this.props.formPosition == "flow",
       "mr-3": this.props.formPosition == "flow"
     });
