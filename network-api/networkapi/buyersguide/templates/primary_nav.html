@@ -1,5 +1,28 @@
 {% extends "partials/primary_nav.html" %}
 
+{% block narrow_screen_menu %}
+  <div class="narrow-screen-menu-background">
+    <div class="narrow-screen-menu-container">
+
+      {% include "./social.html" with mobile=True %}
+      
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            <div class="nav-links">
+              <h3 class="h2-heading">Help us keep the Internet healthy</h3>
+              <p>Mozilla is a nonprofit organization fighting for a healthy interent.</p>
+              <a class="btn btn-donate m-0 w-100" id="donate-button" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2019&utm_content=headerbutton">Donate</a>
+              <button class="btn btn-secondary btn-newsletter">Newsletter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+
 {% block wide_screen_menu %}
   <div class="d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center py-3 logo-section">
@@ -7,26 +30,6 @@
       <p class="mb-0 h3-heading flex-wrap">
         <a class="link-back" href="{% url 'buyersguide-home' %}">*privacy not included</a>
       </p>
-    </div>
-  </div>
-{% endblock %}
-
-
-{% block narrow_screen_menu %}
-  <div class="narrow-screen-menu-background">
-    <div class="narrow-screen-menu-container">
-      {% include "./social.html" with mobile=True %}
-      <div class="donate">
-        <div class="container text-center">
-          <div class="row">
-            <div class="col">
-              <h3 class="h2-heading">Help us keep the Internet healthy</h3>
-              <p>Mozilla is a nonprofit organization fighting for a healthy interent.</p>
-              <a class="btn btn-donate m-0 w-100" id="donate-button" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2018&utm_content=headerbutton">Donate</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 {% endblock %}

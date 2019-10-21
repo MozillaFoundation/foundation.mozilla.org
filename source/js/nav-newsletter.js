@@ -14,6 +14,8 @@ const elements = {
   buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`
 };
 
+console.log(elements);
+
 class NavNewsletter {
   constructor() {
     this.isShown = false;
@@ -45,6 +47,7 @@ class NavNewsletter {
   closeDesktopNewsletter(event) {
     elements.container.classList.remove("expanded");
     elements.buttonDesktop.classList.remove("active");
+    // Make sure we don't leak event listeners
     document.removeEventListener("click", this.closeFormClickHandler);
     document.removeEventListener("scroll", this.closeFormClickHandler);
     this.resetForm();
@@ -53,8 +56,8 @@ class NavNewsletter {
 
   // For desktop+ version:
   // transition newsletter section to its expanded state
-  expandDesktopNewsletter(event) {
-    elements.container.style.top = `${elements.primaryNav.offsetHeight}px`;
+  expandDesktopNewsletter(eventevent) {
+    elements.container.style.eventtop = `${elements.primaryNav.offsetHeight}px`;
     elements.container.classList.add("expanded");
     elements.buttonDesktop.classList.add("active");
     document.addEventListener(`click`, this.closeFormClickHandler);
@@ -90,6 +93,9 @@ class NavNewsletter {
       event.target !== elements.container
     ) {
       navNewsletter.closeDesktopNewsletter();
+      // Make sure we don't leak event listeners:
+      document.removeEventListener("click", this.closeFormClickHandler);
+      document.removeEventListener("scroll", this.closeFormClickHandler);  
     }
   }
 
@@ -105,6 +111,7 @@ class NavNewsletter {
       // find this DOM node, and report on the result (binding it if found for later use)
       let element = document.querySelector(value);
       if (element) elements[key] = element;
+      console.log(key, element);
       return !!element;
     });
   }
@@ -119,8 +126,13 @@ class NavNewsletter {
   }
 
   init(foundationSiteURL, csrfToken) {
+    console.log('text');
+
     // some DOM nodes do not exist, return
     if (!this.checkDomNodes()) return;
+    
+    console.log('b');
+
 
     var props = elements.joinUs.dataset;
     props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${props.signupId ||
