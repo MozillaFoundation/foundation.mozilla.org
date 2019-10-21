@@ -8,7 +8,7 @@ import JoinUs from "../../../components/join/join.jsx";
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 import getStorage from "../../../storage";
 
-const sessionStorage = getStorage('sessionStorage');
+const sessionStorage = getStorage("sessionStorage");
 
 export default class CreepVote extends React.Component {
   constructor(props) {
@@ -36,23 +36,20 @@ export default class CreepVote extends React.Component {
     let confidence = votes.confidence;
 
     let queryString = new URLSearchParams(window.location.search);
-    let subscribedValue = queryString.get('subscribed');
-    let subscribed = subscribedValue === '1' ? true : false;
-    console.log(`#1 ${subscribed}`);
-    
-    let sessionSubscription = sessionStorage.getItem('subscribed') === "true";
-    let voteCount = Number(sessionStorage.getItem('voteCount'));
-      
-    if(sessionSubscription) {
+    let subscribedValue = queryString.get("subscribed");
+    let subscribed = subscribedValue === "1" ? true : false;
+
+    let sessionSubscription = sessionStorage.getItem("subscribed") === "true";
+    let voteCount = Number(sessionStorage.getItem("voteCount"));
+
+    if (sessionSubscription) {
       subscribed = sessionSubscription;
-      console.log(`#2 ${subscribed}`);
     } else if (voteCount >= 3) {
       subscribed = true;
-      console.log(`#3 ${subscribed}`);
     }
 
-    sessionStorage.setItem('subscribed', subscribed);
-    console.log(typeof subscribed);
+    sessionStorage.setItem("subscribed", subscribed);
+
     return {
       totalVotes,
       creepiness: 50,
@@ -134,7 +131,7 @@ export default class CreepVote extends React.Component {
 
     let voteCount = this.state.voteCount;
     voteCount++;
-    sessionStorage.setItem('voteCount', voteCount);
+    sessionStorage.setItem("voteCount", voteCount);
     this.setState({ voteCount });
 
     let confidence = this.state.confidence;
@@ -168,10 +165,9 @@ export default class CreepVote extends React.Component {
     this.setState({ confidence });
   }
 
-  handleSignUp(successState){
-    console.log(`#4 ${successState}`);
-    sessionStorage.setItem('subscribed', successState);
-    this.setState({nextView: "DidVote", subscribed: successState});
+  handleSignUp(successState) {
+    sessionStorage.setItem("subscribed", successState);
+    this.setState({ nextView: "DidVote", subscribed: successState });
   }
 
   /**
@@ -267,24 +263,24 @@ export default class CreepVote extends React.Component {
   }
 
   /**
-   * @returns {jsx} Sign up ask in the middle of vote if user is not already subscribed 
+   * @returns {jsx} Sign up ask in the middle of vote if user is not already subscribed
    * or if they haven't voted multiple times.
    */
 
-   renderSignUp() {
-      return (
-        <React.Fragment>
-          <JoinUs
-            formPosition="flow"
-            flowHeading="Thanks for voting! One moment —"
-            flowText="We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!"
-            csrfToken={this.props.joinUsCSRF}
-            apiUrl={this.props.joinUsApiUrl}
-            handleSignUp={(successState) => this.handleSignUp(successState)}
-          />
-        </React.Fragment>
-      );
-   }
+  renderSignUp() {
+    return (
+      <React.Fragment>
+        <JoinUs
+          formPosition="flow"
+          flowHeading="Thanks for voting! One moment —"
+          flowText="We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!"
+          csrfToken={this.props.joinUsCSRF}
+          apiUrl={this.props.joinUsApiUrl}
+          handleSignUp={successState => this.handleSignUp(successState)}
+        />
+      </React.Fragment>
+    );
+  }
 
   /**
    * @returns {jsx} What users see when they have voted on this product.

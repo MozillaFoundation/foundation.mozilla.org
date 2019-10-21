@@ -281,12 +281,9 @@ $product-detail-padding-x: (
   padding-right: 1rem;
 
   @media (min-width: $bp-md) {
-    $padding-x: map-get($product-detail-padding-x, md) / 2;
-
-    margin-left: -$padding-x;
-    margin-right: -$padding-x;
-    padding-left: $padding-x;
-    padding-right: $padding-x;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding: 1.5rem 3.75rem;
   }
 }
 

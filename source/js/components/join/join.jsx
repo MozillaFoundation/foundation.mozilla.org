@@ -235,10 +235,15 @@ export default class JoinUs extends React.Component {
     let layoutClass =
       this.props.layout === `2-column` ? `col-12 col-md-6` : `col-12`;
 
+    let flowFormClasses =
+      this.props.formPosition == "flow" ? "col-md-11 m-auto" : null;
+
     return (
       <div className={`row ${signupState}`}>
         <div className={layoutClass}>{this.renderFormHeading()}</div>
-        <div className={layoutClass}>{this.renderFormContent()}</div>
+        <div className={`${layoutClass} ${flowFormClasses}`}>
+          {this.renderFormContent()}
+        </div>
       </div>
     );
   }
@@ -249,8 +254,8 @@ export default class JoinUs extends React.Component {
   renderFlowHeading() {
     return (
       <React.Fragment>
-        <h2>{this.props.flowHeading}</h2>
-        <p>{this.props.flowText}</p>
+        <h2 className="text-center">{this.props.flowHeading}</h2>
+        <p className="text-center">{this.props.flowText}</p>
       </React.Fragment>
     );
   }
@@ -318,11 +323,17 @@ export default class JoinUs extends React.Component {
       "position-relative": wrapperClasses !== ``
     });
 
+    let errorWrapperClasses = classNames("glyph-container", {
+      "d-none": this.props.formPosition == "flow"
+    });
+
     return (
       <div className={wrapperClasses}>
         <div className={classes}>
-          {this.props.formPosition == 'flow' && (
-            <label class="" for="userEmail">Email</label>
+          {this.props.formPosition == "flow" && (
+            <label className="font-weight-bold" for="userEmail">
+              Email
+            </label>
           )}
           <input
             name="userEmail"
@@ -333,7 +344,7 @@ export default class JoinUs extends React.Component {
             onFocus={evt => this.onInputFocus(evt)}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
-            <div className="glyph-container">
+            <div className={errorWrapperClasses}>
               <span className="form-error-glyph" />
             </div>
           )}
@@ -449,15 +460,14 @@ export default class JoinUs extends React.Component {
               </p>
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
-                !this.privacy.checked && 
+                !this.privacy.checked &&
                 this.props.formPosition !== "flow" && (
                   <span class="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
           </div>
         </div>
-        {this.state.userTriedSubmitting && !this.privacy.checked && 
-          this.props.formPosition !== "flow" && (
+        {this.state.userTriedSubmitting && !this.privacy.checked && (
           <p className="body-small form-check form-control-feedback mt-0 mb-3">
             Please check this box if you want to proceed.
           </p>
@@ -470,9 +480,12 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return (
-      <button className="btn btn-primary w-100">{getText(`Sign up`)}</button>
-    );
+    let classnames = classNames("btn btn-primary", {
+      "w-100": !this.props.formPosition == "flow",
+      "flex-1": this.props.formPosition == "flow",
+      "mr-3": this.props.formPosition == "flow"
+    });
+    return <button className={classnames}>{getText(`Sign up`)}</button>;
   }
 
   /**
@@ -492,6 +505,10 @@ export default class JoinUs extends React.Component {
       buttonsWrapperClass = `ml-md-3`;
     }
 
+    if (this.props.formPosition === `flow`) {
+      buttonsWrapperClass = `d-flex`;
+    }
+
     return (
       <form
         noValidate
@@ -502,13 +519,20 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
-          {this.props.formPosition !== "flow" && this.renderLocalizationFields()}
+          {this.props.formPosition !== "flow" &&
+            this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
         <div className={buttonsWrapperClass}>
           {this.renderSubmitButton()}
-          {this.props.formPosition == 'flow' && (
-            <button class="" onClick={() => this.props.handleSignUp(false)} type="button">No Thanks</button>
+          {this.props.formPosition == "flow" && (
+            <button
+              class="btn btn-primary btn-dismiss flex-1"
+              onClick={() => this.props.handleSignUp(false)}
+              type="button"
+            >
+              No Thanks
+            </button>
           )}
         </div>
       </form>
