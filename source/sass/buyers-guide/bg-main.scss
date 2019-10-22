@@ -101,14 +101,3 @@ footer hr {
 @import "./views/product";
 @import "./views/about";
 @import "./views/category";
-
-// Removing text-decoration by product classes > a
-.creep-vote {
-  a {
-    @include hover-focus-active {
-      text-decoration: underline;
-    }
-
-    text-decoration: none;
-  }
-}

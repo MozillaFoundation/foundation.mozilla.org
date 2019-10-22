@@ -222,7 +222,7 @@ export default class JoinUs extends React.Component {
     if (
       this.state.apiSuccess &&
       this.state.apiSubmitted &&
-      this.props.formPosition == "flow"
+      this.props.formPosition === "flow"
     ) {
       this.props.handleSignUp(true);
     }
@@ -249,12 +249,10 @@ export default class JoinUs extends React.Component {
    * Render the CTA heading.
    */
   renderFlowHeading() {
-    return (
-      <React.Fragment>
-        <h2 className="text-center">{this.props.flowHeading}</h2>
+    return [
+        <h2 className="text-center">{this.props.flowHeading}</h2>,
         <p className="text-center">{this.props.flowText}</p>
-      </React.Fragment>
-    );
+    ];
   }
 
   /**
@@ -287,13 +285,10 @@ export default class JoinUs extends React.Component {
    * Render the CTA heading.
    */
   renderFormHeading() {
-    return (
-      <React.Fragment>
-        {this.props.formPosition == "flow"
-          ? this.renderFlowHeading()
-          : this.renderSnippetHeading()}
-      </React.Fragment>
-    );
+    if (this.props.formPosition == "flow") {
+      return this.renderFlowHeading();
+    }
+    return this.renderSnippetHeading();
   }
 
   /**

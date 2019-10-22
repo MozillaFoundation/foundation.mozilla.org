@@ -6,9 +6,9 @@ import SocialShare from "../social-share/social-share.jsx";
 import JoinUs from "../../../components/join/join.jsx";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
-import getStorage from "../../../storage";
+import Storage from "../../../storage";
 
-const sessionStorage = getStorage("sessionStorage");
+const sessionStorage = Storage.sessionStorage;
 
 export default class CreepVote extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class CreepVote extends React.Component {
 
     let queryString = new URLSearchParams(window.location.search);
     let subscribedValue = queryString.get("subscribed");
-    let subscribed = subscribedValue === "1" ? true : false;
+    let subscribed = (subscribedValue === "1");
 
     let sessionSubscription = sessionStorage.getItem("subscribed") === "true";
     let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
@@ -129,8 +129,7 @@ export default class CreepVote extends React.Component {
   submitVote(evt) {
     evt.preventDefault();
 
-    let voteCount = this.state.voteCount;
-    voteCount++;
+    let voteCount = this.state.voteCount + 1;
     sessionStorage.setItem("voteCount", voteCount);
     this.setState({ voteCount });
 

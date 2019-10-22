@@ -1,4 +1,4 @@
-class NoOpStorage {
+class NoopStorage {
   clear() {}
   getItem() {}
   key() {}
@@ -6,15 +6,11 @@ class NoOpStorage {
   setItem() {}
 }
 
-export default function getStorage(type) {
-  let storage;
-  try {
-    storage = window[type];
-    var x = "__storage_test__";
-    storage.setItem(x, x);
-    storage.removeItem(x);
-    return storage;
-  } catch (e) {
-    return new NoOpStorage();
-  }
+const haveWindow = (typeof window !== "undefined");
+
+const Storage = {
+  localStorage: haveWindow ? window.localStorage : new NoopStorage(),
+  sessionStorage: haveWindow ? window.sessionStorage : new NoopStorage()
 }
+
+export default Storage;
