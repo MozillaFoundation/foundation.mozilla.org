@@ -453,7 +453,7 @@ export default class JoinUs extends React.Component {
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
                 !this.privacy.checked &&
-                this.props.formPosition !== "flow" && (
+                !this.isFlowForm()  && (
                   <span class="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
