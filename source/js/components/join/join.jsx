@@ -222,7 +222,7 @@ export default class JoinUs extends React.Component {
     if (
       this.state.apiSuccess &&
       this.state.apiSubmitted &&
-      this.props.formPosition === "flow"
+      this.isFlowForm()
     ) {
       this.props.handleSignUp(true);
     }
@@ -234,7 +234,7 @@ export default class JoinUs extends React.Component {
 
     let layoutClasses = classNames(`col-12`, {
       "col-md-6": this.props.layout === `2-column`,
-      "col-md-11 m-auto": this.props.formPosition === "flow"
+      "col-md-11 m-auto": this.isFlowForm()
     });
 
     return (
@@ -243,6 +243,10 @@ export default class JoinUs extends React.Component {
         <div className={`${layoutClasses}`}>{this.renderFormContent()}</div>
       </div>
     );
+  }
+
+  isFlowForm() { 
+    return this.props.formPosition === "flow"; 
   }
 
   /**
@@ -285,7 +289,7 @@ export default class JoinUs extends React.Component {
    * Render the CTA heading.
    */
   renderFormHeading() {
-    if (this.props.formPosition == "flow") {
+    if (this.isFlowForm()) {
       return this.renderFlowHeading();
     }
     return this.renderSnippetHeading();
@@ -316,13 +320,13 @@ export default class JoinUs extends React.Component {
     });
 
     let errorWrapperClasses = classNames("glyph-container", {
-      "d-none": this.props.formPosition == "flow"
+      "d-none": this.isFlowForm()
     });
 
     return (
       <div className={wrapperClasses}>
         <div className={classes}>
-          {this.props.formPosition == "flow" && (
+          {this.isFlowForm() && (
             <label className="font-weight-bold" for="userEmail">
               Email
             </label>
@@ -474,8 +478,7 @@ export default class JoinUs extends React.Component {
   renderSubmitButton() {
     let classnames = classNames("btn btn-primary", {
       "w-100": this.props.formPosition !== "flow",
-      "flex-1": this.props.formPosition == "flow",
-      "mr-3": this.props.formPosition == "flow"
+      "flex-1 mr-3": this.isFlowForm()
     });
     return <button className={classnames}>{getText(`Sign up`)}</button>;
   }
@@ -517,7 +520,7 @@ export default class JoinUs extends React.Component {
         </div>
         <div className={buttonsWrapperClass}>
           {this.renderSubmitButton()}
-          {this.props.formPosition == "flow" && (
+          {this.isFlowForm() && (
             <button
               class="btn btn-primary btn-dismiss flex-1"
               onClick={() => this.props.handleSignUp(false)}
