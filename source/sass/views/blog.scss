@@ -17,3 +17,9 @@
     }
   }
 }
+
+a.category {
+  @include hover-focus-active {
+    color: $dark-blue;
+  }
+}
