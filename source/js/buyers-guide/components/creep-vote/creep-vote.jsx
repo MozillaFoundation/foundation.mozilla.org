@@ -254,7 +254,6 @@ export default class CreepVote extends React.Component {
           apiUrl={this.props.joinUsApiUrl}
           handleSignUp={successState => this.handleSignUp(successState)}
         />
-      </React.Fragment>
     );
   }
 
