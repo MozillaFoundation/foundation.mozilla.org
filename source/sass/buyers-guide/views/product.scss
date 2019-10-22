@@ -44,7 +44,7 @@ $product-detail-padding-x: (
 .product-detail {
   margin-top: -88px;
 
-  a {
+  a:not(.btn) {
     text-decoration: underline;
 
     @include hover-focus-active {
@@ -277,6 +277,7 @@ $product-detail-padding-x: (
 .creep-vote-target {
   position: relative;
   min-height: 380px;
+  min-width: 290px;
   border: 1px solid $gray-20;
   padding-left: 1rem;
   padding-right: 1rem;
