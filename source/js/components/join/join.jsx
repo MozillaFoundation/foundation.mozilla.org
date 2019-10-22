@@ -232,16 +232,15 @@ export default class JoinUs extends React.Component {
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
-    let layoutClass =
-      this.props.layout === `2-column` ? `col-12 col-md-6` : `col-12`;
-
-    let flowFormClasses =
-      this.props.formPosition == "flow" ? "col-md-11 m-auto" : null;
+    let layoutClasses = classNames(`col-12`,{
+      "col-md-6": this.props.layout === `2-column`,
+      "col-md-11 m-auto": this.props.formPosition === "flow"
+    });
 
     return (
       <div className={`row ${signupState}`}>
-        <div className={layoutClass}>{this.renderFormHeading()}</div>
-        <div className={`${layoutClass} ${flowFormClasses}`}>
+        <div className={layoutClasses}>{this.renderFormHeading()}</div>
+        <div className={`${layoutClasses}`}>
           {this.renderFormContent()}
         </div>
       </div>

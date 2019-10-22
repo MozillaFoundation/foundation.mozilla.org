@@ -40,7 +40,7 @@ export default class CreepVote extends React.Component {
     let subscribed = subscribedValue === "1" ? true : false;
 
     let sessionSubscription = sessionStorage.getItem("subscribed") === "true";
-    let voteCount = Number(sessionStorage.getItem("voteCount"));
+    let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
 
     if (sessionSubscription) {
       subscribed = sessionSubscription;
