@@ -244,7 +244,6 @@ export default class CreepVote extends React.Component {
 
   renderSignUp() {
     return (
-      <React.Fragment>
         <JoinUs
           formPosition="flow"
           flowHeading={getText(`Thanks for voting! One moment —`)}
