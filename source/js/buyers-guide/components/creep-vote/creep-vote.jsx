@@ -65,7 +65,6 @@ export default class CreepVote extends React.Component {
       subscribed,
       nextView: subscribed ? "DidVote" : "SignUp",
       voteCount
-      }
     };
   }
 
@@ -244,16 +243,16 @@ export default class CreepVote extends React.Component {
 
   renderSignUp() {
     return (
-        <JoinUs
-          formPosition="flow"
-          flowHeading={getText(`Thanks for voting! One moment —`)}
-          flowText={getText(
-            `We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`
-          )}
-          csrfToken={this.props.joinUsCSRF}
-          apiUrl={this.props.joinUsApiUrl}
-          handleSignUp={successState => this.handleSignUp(successState)}
-        />
+      <JoinUs
+        formPosition="flow"
+        flowHeading={getText(`Thanks for voting! One moment —`)}
+        flowText={getText(
+          `We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`
+        )}
+        csrfToken={this.props.joinUsCSRF}
+        apiUrl={this.props.joinUsApiUrl}
+        handleSignUp={successState => this.handleSignUp(successState)}
+      />
     );
   }
 
