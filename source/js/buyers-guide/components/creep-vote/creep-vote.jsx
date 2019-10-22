@@ -38,7 +38,7 @@ export default class CreepVote extends React.Component {
 
     let queryString = new URLSearchParams(window.location.search);
     let subscribedValue = queryString.get("subscribed");
-    let subscribed = (subscribedValue === "1");
+    let subscribed = subscribedValue === "1";
 
     let sessionSubscription = sessionStorage.getItem("subscribed") === "true";
     let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
@@ -273,7 +273,9 @@ export default class CreepVote extends React.Component {
         <JoinUs
           formPosition="flow"
           flowHeading={getText(`Thanks for voting! One moment —`)}
-          flowText={getText(`We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`)}
+          flowText={getText(
+            `We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`
+          )}
           csrfToken={this.props.joinUsCSRF}
           apiUrl={this.props.joinUsApiUrl}
           handleSignUp={successState => this.handleSignUp(successState)}

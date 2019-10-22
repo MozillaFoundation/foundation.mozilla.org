@@ -219,11 +219,7 @@ export default class JoinUs extends React.Component {
    * Render the signup CTA.
    */
   render() {
-    if (
-      this.state.apiSuccess &&
-      this.state.apiSubmitted &&
-      this.isFlowForm()
-    ) {
+    if (this.state.apiSuccess && this.state.apiSubmitted && this.isFlowForm()) {
       this.props.handleSignUp(true);
     }
 
@@ -245,8 +241,8 @@ export default class JoinUs extends React.Component {
     );
   }
 
-  isFlowForm() { 
-    return this.props.formPosition === "flow"; 
+  isFlowForm() {
+    return this.props.formPosition === "flow";
   }
 
   /**
@@ -254,8 +250,8 @@ export default class JoinUs extends React.Component {
    */
   renderFlowHeading() {
     return [
-        <h2 className="text-center">{this.props.flowHeading}</h2>,
-        <p className="text-center">{this.props.flowText}</p>
+      <h2 className="text-center">{this.props.flowHeading}</h2>,
+      <p className="text-center">{this.props.flowText}</p>
     ];
   }
 
