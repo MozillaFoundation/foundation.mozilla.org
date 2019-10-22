@@ -236,7 +236,7 @@ export default class JoinUs extends React.Component {
     return (
       <div className={`row ${signupState}`}>
         <div className={layoutClasses}>{this.renderFormHeading()}</div>
-        <div className={`${layoutClasses}`}>{this.renderFormContent()}</div>
+        <div className={layoutClasses}>{this.renderFormContent()}</div>
       </div>
     );
   }
