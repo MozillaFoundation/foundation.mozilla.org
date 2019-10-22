@@ -510,7 +510,7 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
-          {this.props.formPosition !== "flow" &&
+          {!this.isFlowForm() &&
             this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
