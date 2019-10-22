@@ -44,7 +44,7 @@ $product-detail-padding-x: (
 .product-detail {
   margin-top: -88px;
 
-  a {
+  a:not(.btn) {
     text-decoration: underline;
 
     @include hover-focus-active {
