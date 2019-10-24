@@ -453,7 +453,7 @@ export default class JoinUs extends React.Component {
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
                 !this.privacy.checked &&
-                !this.isFlowForm()  && (
+                !this.isFlowForm() && (
                   <span class="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
@@ -510,8 +510,7 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
-          {!this.isFlowForm() &&
-            this.renderLocalizationFields()}
+          {!this.isFlowForm() && this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
         <div className={buttonsWrapperClass}>
