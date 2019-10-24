@@ -18,27 +18,29 @@
 
         <div class="row">
           {% for product in products %}
-          <div class="category-item-container col-6 {% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
-            <a href="{% url 'product-view' product.slug %}">
-              <div class="category-image-container">
-                {% include "fragments/seal_of_approval.html" with product=product %}
-                {% include "fragments/adult_content_badge.html" with product=product %}
+            {% if product.is_current %}
+              <div class="category-item-container col-6 {% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}">
+                <a href="{% url 'product-view' product.slug %}">
+                  <div class="category-image-container">
+                    {% include "fragments/seal_of_approval.html" with product=product %}
+                    {% include "fragments/adult_content_badge.html" with product=product %}
 
-                {% if USE_CLOUDINARY %}
-                <img
-                  class="product-thumbnail thumb-border"
-                  width="300"
-                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-                  alt="{{ product.name }}"
-                >
-                {% else %}
-                <img class="product-thumbnail" src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
-                {% endif %}
+                    {% if USE_CLOUDINARY %}
+                    <img
+                      class="product-thumbnail thumb-border"
+                      width="300"
+                      src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+                      alt="{{ product.name }}"
+                    >
+                    {% else %}
+                    <img class="product-thumbnail" src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
+                    {% endif %}
+                  </div>
+                  <h3 class="mb-1 body-small">{{ product.company }}</h3>
+                  <h3 class="mb-5 h5-heading">{{ product.name }}</h3>
+                </a>
               </div>
-              <h3 class="mb-1 body-small">{{ product.company }}</h3>
-              <h3 class="mb-5 h5-heading">{{ product.name }}</h3>
-            </a>
-          </div>
+            {% endif %}
           {% endfor %}
 
           <p><em>The information provided here is pulled directly from the product website.</em></p>
