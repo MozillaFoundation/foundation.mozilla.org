@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from cloudinary import uploader
 from cloudinary.models import CloudinaryField
