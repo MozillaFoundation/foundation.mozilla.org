@@ -75,7 +75,32 @@ $btn-shadow-width: 3px;
     font-style: italic;
   }
 
-  .share-button-group.rectangle .btn {
-    min-width: 120px;
+  .form-control {
+    color: $black;
+    border-color: $black;
+  }
+
+  .btn-dismiss {
+    @include hover-focus-active {
+      background-color: $gray-60;
+    }
+
+    background-color: $gray-40;
+  }
+
+  .share-button-group.rectangle {
+    @media (min-width: $bp-md) and (max-width: $bp-lg) {
+      .subgroup {
+        .btn:last-child {
+          margin-right: 0;
+        }
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .btn {
+      min-width: 120px;
+    }
   }
 }
