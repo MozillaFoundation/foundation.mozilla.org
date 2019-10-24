@@ -172,6 +172,8 @@ let main = {
                 productID={parseInt(productID, 10)}
                 votes={votes}
                 whenLoaded={() => resolve()}
+                joinUsCSRF={csrfToken}
+                joinUsApiUrl={`${networkSiteURL}/api/campaign/signups/0/`}
               />,
               element
             );

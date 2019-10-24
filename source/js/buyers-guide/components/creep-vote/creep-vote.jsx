@@ -4,8 +4,13 @@ import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import LikelyhoodChart from "../likelyhood-chart/likelyhood-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
+import JoinUs from "../../../components/join/join.jsx";
+import { getText } from "../../../components/petition/locales";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
+import Storage from "../../../storage";
+
+const sessionStorage = Storage.sessionStorage;
 
 export default class CreepVote extends React.Component {
   constructor(props) {
@@ -32,6 +37,21 @@ export default class CreepVote extends React.Component {
 
     let confidence = votes.confidence;
 
+    let queryString = new URLSearchParams(window.location.search);
+    let subscribedValue = queryString.get("subscribed");
+    let subscribed = subscribedValue === "1";
+
+    let sessionSubscription = sessionStorage.getItem("subscribed") === "true";
+    let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
+
+    if (sessionSubscription) {
+      subscribed = sessionSubscription;
+    } else if (voteCount >= 3) {
+      subscribed = true;
+    }
+
+    sessionStorage.setItem("subscribed", subscribed);
+
     return {
       totalVotes,
       creepiness: 50,
@@ -40,7 +60,11 @@ export default class CreepVote extends React.Component {
       majority: {
         creepiness: creepinessId,
         confidence: confidence[0] > confidence[1] ? 0 : 1
-      }
+      },
+      submitAttempted: false,
+      subscribed,
+      nextView: subscribed ? "DidVote" : "SignUp",
+      voteCount
     };
   }
 
@@ -52,7 +76,11 @@ export default class CreepVote extends React.Component {
 
   showVoteResult() {
     if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
-      this.setState({ didVote: true });
+      let view = "SignUp";
+      if (this.state.subscribed) {
+        view = "DidVote";
+      }
+      this.setState({ didVote: true, view });
     }
   }
 
@@ -88,6 +116,10 @@ export default class CreepVote extends React.Component {
   submitVote(evt) {
     evt.preventDefault();
 
+    let voteCount = this.state.voteCount + 1;
+    sessionStorage.setItem("voteCount", voteCount);
+    this.setState({ voteCount });
+
     let confidence = this.state.confidence;
     let productID = this.props.productID;
 
@@ -110,6 +142,11 @@ export default class CreepVote extends React.Component {
 
   setConfidence(confidence) {
     this.setState({ confidence });
+  }
+
+  handleSignUp(successState) {
+    sessionStorage.setItem("subscribed", successState);
+    this.setState({ nextView: "DidVote", subscribed: successState });
   }
 
   /**
@@ -200,6 +237,26 @@ export default class CreepVote extends React.Component {
   }
 
   /**
+   * @returns {jsx} Sign up ask in the middle of vote if user is not already subscribed
+   * or if they haven't voted multiple times.
+   */
+
+  renderSignUp() {
+    return (
+      <JoinUs
+        formPosition="flow"
+        flowHeading={getText(`Thanks for voting! One moment —`)}
+        flowText={getText(
+          `We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`
+        )}
+        csrfToken={this.props.joinUsCSRF}
+        apiUrl={this.props.joinUsApiUrl}
+        handleSignUp={successState => this.handleSignUp(successState)}
+      />
+    );
+  }
+
+  /**
    * @returns {jsx} What users see when they have voted on this product.
    */
   renderDidVote() {
@@ -240,11 +297,16 @@ export default class CreepVote extends React.Component {
 
   render() {
     let voteContent;
+    const { didVote, nextView } = this.state;
 
-    if (this.state.didVote) {
-      voteContent = this.renderDidVote();
-    } else {
+    if (!didVote) {
       voteContent = this.renderVoteAsk();
+    } else {
+      if (nextView === "SignUp") {
+        voteContent = this.renderSignUp();
+      } else {
+        voteContent = this.renderDidVote();
+      }
     }
 
     return (
