@@ -140,7 +140,7 @@ class Product(ClusterableModel):
     def is_current(self):
         d = self.review_date
         review = datetime(d.year, d.month, d.day)
-        cutoff = datetime.now() - timedelta(days=365)
+        cutoff = datetime(2019, 6, 1)
         return cutoff < review
 
     name = models.CharField(
