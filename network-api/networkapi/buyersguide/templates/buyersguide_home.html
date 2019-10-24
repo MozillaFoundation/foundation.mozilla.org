@@ -1,7 +1,6 @@
 {% extends "./bg_base.html" %}
 
-{% load env %}
-{% load cloudinary %}
+{% load env cloudinary %}
 
 {% block body_id %}home{% endblock %}
 
@@ -32,8 +31,6 @@
     </div>
 </div>
 
-
-
 <div class="project-list-section">
   <div class="creepiness-slider bg-white text-center">
     <span class="current-creepiness">
@@ -49,37 +46,43 @@
 
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
-      {% for product in products %}
-      <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
-        <div class="top-left-badge-container">
-          {% include "fragments/seal_of_approval.html" with product=product %}
-          {% if product.votes.confidence %}
-          {% if product.votes.confidence.1 > product.votes.confidence.0 %}
-            <div class="d-none recommendation positive"></div>
-          {% else %}
-            <div class="d-none recommendation negative"></div>
-          {% endif %}
-        {% endif %}
-        </div>
-        {% include "fragments/adult_content_badge.html" with product=product %}
 
+      {% for product in products %}
+        {% if product.is_current %}
+        
+        <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
+        <div class="top-left-badge-container">
+            {% include "fragments/seal_of_approval.html" with product=product %}
+            {% if product.votes.confidence %}
+                {% if product.votes.confidence.1 > product.votes.confidence.0 %}
+                    <div class="d-none recommendation positive"></div>
+                {% else %}
+                    <div class="d-none recommendation negative"></div>
+                {% endif %}
+            {% endif %}
+        </div>
+    
+        {% include "fragments/adult_content_badge.html" with product=product %}
+    
         <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% url 'product-view' product.slug %}">
-          {% if USE_CLOUDINARY %}
-          <img
+            {% if USE_CLOUDINARY %}
+            <img
             class="product-thumbnail"
             src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
             alt="link to {{product.name}}"
-          >
-          {% else %}
-          <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="link to {{product.name}}">
-          {% endif %}
-          <figcaption class="hidden-sm-down mt-md-2 text-left">
+            >
+            {% else %}
+            <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="link to {{product.name}}">
+            {% endif %}
+            <figcaption class="hidden-sm-down mt-md-2 text-left">
             <div class="body-small">{{product.company}}</div>
             <div class="body">{{product.name}}</div>
-          </figcaption>
+            </figcaption>
         </a>
-      </figure>
-      {% endfor %}
+        </figure>
+        {% endif %}
+      {% endfor %}  
+
       <div class="no-matching-products-note bg-gray w-100 pt-5 d-none">
         <div class="d-flex flex-column align-items-center">
           <div>No results.</div>

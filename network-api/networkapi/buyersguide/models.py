@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from cloudinary import uploader
 from cloudinary.models import CloudinaryField
 
@@ -133,6 +135,13 @@ class Product(ClusterableModel):
     review_date = models.DateField(
         help_text='Review date of this product',
     )
+
+    @property
+    def is_current(self):
+        d = self.review_date
+        review = datetime(d.year, d.month, d.day)
+        cutoff = datetime(2019, 6, 1)
+        return cutoff < review
 
     name = models.CharField(
         max_length=100,
@@ -576,8 +585,9 @@ class Product(ClusterableModel):
         model_dict['numeric_reading_grade'] = self.numeric_reading_grade
         model_dict['reading_grade'] = self.reading_grade
 
-        # model_to_dict does NOT capture related fields!
+        # model_to_dict does NOT capture related fields or @properties!
         model_dict['privacy_policy_links'] = list(self.privacy_policy_links.all())
+        model_dict['is_current'] = self.is_current
 
         return model_dict
 
