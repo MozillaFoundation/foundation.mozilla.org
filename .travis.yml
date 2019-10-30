@@ -1,3 +1,6 @@
+# Activate Build Config Validation on Travis
+version: ~> 1.0
+
 dist: xenial
 language: python
 
