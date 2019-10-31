@@ -227,7 +227,7 @@ def docker_test_node(ctx):
 @task
 def docker_new_db(ctx):
     """Delete your database and create a new one with fake data"""
-    print("* Stopping services first and deleting database")
+    print("* Stopping services and deleting volumes first")
     ctx.run("docker-compose down --volumes")
     print("* Applying database migrations.")
     docker_migrate(ctx)
