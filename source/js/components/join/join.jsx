@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
+import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {
@@ -25,7 +26,8 @@ export default class JoinUs extends React.Component {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
-      userTriedSubmitting: false
+      userTriedSubmitting: false,
+      lang: getCurrentLanguage()
     };
   }
 
@@ -217,28 +219,48 @@ export default class JoinUs extends React.Component {
    * Render the signup CTA.
    */
   render() {
+    if (this.state.apiSuccess && this.state.apiSubmitted && this.isFlowForm()) {
+      this.props.handleSignUp(true);
+    }
+
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
-    let layoutClass =
-      this.props.layout === `2-column` ? `col-12 col-md-6` : `col-12`;
+    let layoutClasses = classNames(`col-12`, {
+      "col-md-6": this.props.layout === `2-column`,
+      "col-md-11 m-auto": this.isFlowForm()
+    });
 
     return (
       <div className={`row ${signupState}`}>
-        <div className={layoutClass}>{this.renderFormHeading()}</div>
-        <div className={layoutClass}>{this.renderFormContent()}</div>
+        <div className={layoutClasses}>{this.renderFormHeading()}</div>
+        <div className={layoutClasses}>{this.renderFormContent()}</div>
       </div>
     );
+  }
+
+  isFlowForm() {
+    return this.props.formPosition === "flow";
   }
 
   /**
    * Render the CTA heading.
    */
-  renderFormHeading() {
+  renderFlowHeading() {
+    return [
+      <h2 className="text-center">{this.props.flowHeading}</h2>,
+      <p className="text-center">{this.props.flowText}</p>
+    ];
+  }
+
+  /**
+   * Render the CTA heading.
+   */
+  renderSnippetHeading() {
     return (
-      <div>
+      <React.Fragment>
         <h5 className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>
@@ -255,8 +277,18 @@ export default class JoinUs extends React.Component {
             }}
           />
         )}
-      </div>
+      </React.Fragment>
     );
+  }
+
+  /**
+   * Render the CTA heading.
+   */
+  renderFormHeading() {
+    if (this.isFlowForm()) {
+      return this.renderFlowHeading();
+    }
+    return this.renderSnippetHeading();
   }
 
   /**
@@ -283,10 +315,20 @@ export default class JoinUs extends React.Component {
       "position-relative": wrapperClasses !== ``
     });
 
+    let errorWrapperClasses = classNames("glyph-container", {
+      "d-none": this.isFlowForm()
+    });
+
     return (
       <div className={wrapperClasses}>
         <div className={classes}>
+          {this.isFlowForm() && (
+            <label className="font-weight-bold" for="userEmail">
+              Email
+            </label>
+          )}
           <input
+            name="userEmail"
             type="email"
             className="form-control"
             placeholder={getText(`Please enter your email`)}
@@ -294,7 +336,7 @@ export default class JoinUs extends React.Component {
             onFocus={evt => this.onInputFocus(evt)}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
-            <div className="glyph-container">
+            <div className={errorWrapperClasses}>
               <span className="form-error-glyph" />
             </div>
           )}
@@ -410,7 +452,8 @@ export default class JoinUs extends React.Component {
               </p>
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
-                !this.privacy.checked && (
+                !this.privacy.checked &&
+                !this.isFlowForm() && (
                   <span class="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
@@ -429,9 +472,11 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return (
-      <button className="btn btn-primary w-100">{getText(`Sign up`)}</button>
-    );
+    let classnames = classNames("btn btn-primary", {
+      "w-100": !this.isFlowForm(),
+      "flex-1 mr-3": this.isFlowForm()
+    });
+    return <button className={classnames}>{getText(`Sign up`)}</button>;
   }
 
   /**
@@ -443,12 +488,16 @@ export default class JoinUs extends React.Component {
 
     let formClass = `d-flex flex-column`;
     let fieldsWrapperClass = `w-100`;
-    let submitWrapperClass = `w-100`;
+    let buttonsWrapperClass = `w-100`;
 
     if (this.props.buttonPosition === `side`) {
       formClass = `${formClass} flex-md-row`;
       fieldsWrapperClass = ``;
-      submitWrapperClass = `ml-md-3`;
+      buttonsWrapperClass = `ml-md-3`;
+    }
+
+    if (this.props.formPosition === `flow`) {
+      buttonsWrapperClass = `d-flex`;
     }
 
     return (
@@ -461,10 +510,21 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
-          {this.renderLocalizationFields()}
+          {!this.isFlowForm() && this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
-        <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
+        <div className={buttonsWrapperClass}>
+          {this.renderSubmitButton()}
+          {this.isFlowForm() && (
+            <button
+              class="btn btn-primary btn-dismiss flex-1"
+              onClick={() => this.props.handleSignUp(false)}
+              type="button"
+            >
+              No Thanks
+            </button>
+          )}
+        </div>
       </form>
     );
   }

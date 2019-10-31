@@ -37,7 +37,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "../../js/buyers-guide/components/creepiness-chart/creepiness-chart";
 @import "../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart";
 @import "../../js/buyers-guide/components/filter/filter";
-@import "../../js/buyers-guide/components/social-share/social-share";
+@import "../../js/components/share-button-group/share-button-group";
 @import "../../js/components/join/join";
 
 // Non-React Components
@@ -45,6 +45,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/future-non-react-component";
 @import "../components/nav";
 @import "../components/multipage-nav";
+@import "../components/select-dropdown";
 
 // Misc
 
@@ -65,7 +66,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 }
 
 .bg-product-image {
-  background: $bg-product-image;
+  background: $pni-product-image-background;
 }
 
 .bg-white {
@@ -73,8 +74,8 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 }
 
 img.thumb-border {
-  background: $bg-product-image;
-  border: 16px solid $bg-product-image;
+  background: $pni-product-image-background;
+  border: 16px solid $pni-product-image-background;
 }
 
 .adult-content {

@@ -1,0 +1,17 @@
+{% if device != False or app != False %}
+<div class="col-12 col-md-4 mb-md-0 {{margin_bottom_class}}">
+  <div class="title">
+    <strong class="d-block">{{ title }}</strong>
+  </div>
+  <div class="explanation text-nowrap">
+    {% if device == None and app == None %}
+    Unknown (device & app)
+    {% elif device == True and app == True %}
+    Yes (device & app)
+    {% else %}
+      <div class="text-nowrap">{% if device == True %}Yes (device){% elif device != False %} Unknown (device){% endif %}</div>
+      <div class="text-nowrap">{% if app == True %}Yes (app){% elif app != False %} Unknown (app){% endif %}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

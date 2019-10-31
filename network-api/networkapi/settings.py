@@ -76,6 +76,7 @@ env = environ.Env(
     CLOUDINARY_API_KEY=(str, ''),
     CLOUDINARY_API_SECRET=(str, ''),
     FEED_LIMIT=(int, 10),
+    DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
 )
 
 # Read in the environment
@@ -591,3 +592,6 @@ NETWORK_SITE_URL = env('NETWORK_SITE_URL')
 
 # RSS / ATOM settings
 FEED_LIMIT = env('FEED_LIMIT')
+
+# Support pages with a large number of fields
+DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')
