@@ -848,6 +848,8 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
+        context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
+
         return set_main_site_nav_information(self, context, 'Homepage')
 
 

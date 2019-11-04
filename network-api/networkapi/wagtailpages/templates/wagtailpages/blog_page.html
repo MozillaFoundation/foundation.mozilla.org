@@ -2,6 +2,20 @@
 
 {% load wagtailcore_tags mini_site_tags %}
 
+{% block coral_talk_meta %}
+  <meta property="article:author" content="{{ page.author }}" />
+  <meta property="article:published_time" content="{{ page.first_published_at|date:"F j, Y" }}">
+  {% if page.last_published_at %}
+    <meta property="article:modified" content="{{ page.last_published_at|date:"F j, Y" }}"/>
+  {% endif %}
+  {% with category=page.specific.category.first %}
+    {% if category %}
+      <meta property="article:section" content="Category - {{ category }}" />
+    {% endif %}
+  {% endwith %}
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
+{% endblock %}
+
 {% block body_id %}blog{% endblock %}
 
 {% block subcontent %}
@@ -37,9 +51,11 @@
 {% endblock %}
 
 {% block extra_scripts %}
-  <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
+  {% with url=coralTalkServerUrl %}
+  <script src="{{ url }}static/embed.js" async onload="
     Coral.Talk.render(document.getElementById('coral-talk-stream'), {
-      talk: '{{ coralTalkServerUrl }}'
+      talk: '{{ url }}'
     });
   "></script>
+  {% endwith %}
 {% endblock %}

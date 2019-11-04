@@ -1,6 +1,5 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
-from django.conf import settings
 
 
 def custom404_view(request, exception):
@@ -23,9 +22,3 @@ def custom404_view(request, exception):
     else:
         html = render(request, '404.html')
         return HttpResponseNotFound(html.content)
-
-
-def blog_post_view(request):
-    return render(request, 'blog_page.html', {
-        'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
-    })
