@@ -2,8 +2,8 @@
 
 {% load wagtailcore_tags mini_site_tags %}
 
-{% if coralTalkServerUrl %}
-  {% block coral_talk_meta %}
+{% block coral_talk_meta %}
+  {% if coralTalkServerUrl and page.feature_comments %}
     <meta property="article:author" content="{{ page.author }}" />
     <meta property="article:published_time" content="{{ page.first_published_at|date:"F j, Y" }}">
     {% if page.last_published_at %}
@@ -15,8 +15,9 @@
       {% endif %}
     {% endwith %}
     <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
-  {% endblock %}
-{% endif %}
+  {% endif %}
+{% endblock %}
+
 
 {% block body_id %}blog{% endblock %}
 
@@ -27,7 +28,7 @@
     </div>
   </div>
   <div class="py-4 py-md-5 col-lg-8">
-    <div class="cms mb-5">
+    <div class="cms {% if coralTalkServerUrl and page.feature_comments %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       <p class="h6-heading mb-5">
         By {{ page.author }} | {% if page.first_published_at %}{{ page.first_published_at|date:"F j, Y" }}{% else %}not
@@ -44,7 +45,7 @@
       </div>
     </div>
 
-    {% if coralTalkServerUrl %}
+    {% if coralTalkServerUrl and page.feature_comments %}
       <div id="coral-talk-stream"></div>
     {% endif %}
 
@@ -56,12 +57,12 @@
   {% include "./fragments/related_posts.html" %}
 {% endblock %}
 
-{% if coralTalkServerUrl %}
-  {% block extra_scripts %}
+{% block extra_scripts %}
+  {% if coralTalkServerUrl and page.feature_comments %}
     <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
       Coral.Talk.render(document.getElementById('coral-talk-stream'), {
         talk: '{{ coralTalkServerUrl }}'
       });
     "></script>
-  {% endblock %}
-{% endif %}
+  {% endif %}
+{% endblock %}

@@ -831,10 +831,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     zen_nav = True
 
+    feature_comments = models.BooleanField(
+        default=False,
+        help_text='Check box to add comments feature for this blog post.',
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('author'),
         FieldPanel('category'),
         StreamFieldPanel('body'),
+        FieldPanel('feature_comments'),
     ]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
