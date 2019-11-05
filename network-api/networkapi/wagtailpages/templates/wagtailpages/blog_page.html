@@ -11,7 +11,7 @@
     {% endif %}
     {% with category=page.specific.category.first %}
       {% if category %}
-        <meta property="article:section" content="Category - {{ category }}" />
+        <meta property="article:section" content="{{ category }}" />
       {% endif %}
     {% endwith %}
     <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
