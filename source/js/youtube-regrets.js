@@ -3,13 +3,22 @@ import navNewsletter from "./nav-newsletter.js";
 
 // factor for bringing image blocks closer to perspective origin
 const ZOOM_FACTOR = 2.5;
+// where on the z-axis do we want the rings to start spread out
+const RING_DEPTH_FACTOR = 1 / 4;
+// speed factors
+const TEXT_SPEED_FACTOR = 0.7;
+const BLOCK_SPEED_FACTOR = 0.8;
+const RING_SPEED_FACTOR = 0.6;
 
 let elements = {
   introViewport: `#view-youtube-regrets .intro-viewport`,
   blocks: `#view-youtube-regrets .intro-viewport .block`,
   rings: `#view-youtube-regrets .intro-viewport .ring`,
   introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
-  scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`
+  scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
+  newsletterButtons: `#view-youtube-regrets .intro-viewport .btn-newsletter`,
+  newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.hidden-lg-up`,
+  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.hidden-md-down`
 };
 
 class YouTubeRegretsTunnel {
@@ -25,12 +34,13 @@ class YouTubeRegretsTunnel {
   setIntroTextOpacity() {
     let introText = elements.introText;
     let length = introText.length;
-    let speedFactor = length / elements.blocks.length;
-    let baseUnit = this.introScrollHeight * speedFactor;
+    let textToBlockRatio = length / elements.blocks.length;
+    let totalScrollDistance =
+      (this.introScrollHeight * textToBlockRatio) / TEXT_SPEED_FACTOR;
 
     introText.forEach((item, i) => {
-      let positionToShow = baseUnit * (i / length);
-      let positionToHide = baseUnit * ((i + 1) / length);
+      let positionToShow = totalScrollDistance * (i / length);
+      let positionToHide = totalScrollDistance * ((i + 1) / length);
 
       if (
         positionToShow <= this.lastPageYOffset &&
@@ -46,22 +56,41 @@ class YouTubeRegretsTunnel {
         item.style.opacity = 0;
       }
     });
+
+    this.setNewsletterButtonVisibility(totalScrollDistance);
   }
 
   /**
-   * Fade in image block when it's moving towards the origin.
-   * Fade out otherwise.
+   * Show newsletter signup button if intro is in current viewport.
+   * Hide it otherwise.
    */
-  setBlocksOpacity() {
+  setNewsletterButtonVisibility(positionTohide) {
+    let buttons = elements.newsletterButtons;
+
+    buttons.forEach(button => {
+      if (window.pageYOffset >= positionTohide) {
+        button.classList.add(`d-none`);
+      } else {
+        button.classList.remove(`d-none`);
+      }
+    });
+  }
+
+  /**
+   * Set opacity for flying objects so they are become more visible
+   * as they come closer to the threshold we set
+   */
+  setFlyingObjectOpacity(objects, baseGap) {
+    const Z_POSITION_TO_SHOW =
+      this.scenePerspective - baseGap * Math.ceil(objects.length / 2);
     let opacity = 1;
 
-    elements.blocks.forEach(item => {
+    objects.forEach(item => {
       let matrix = window.getComputedStyle(item).transform;
       let coord = this.getCoordinatefromMatrix3d(matrix);
 
       if (coord) {
-        let percentToOrigin = coord.z / this.introScrollHeight;
-        opacity = Math.min(percentToOrigin + 1, 1);
+        opacity = Math.min(1 - coord.z / Z_POSITION_TO_SHOW, 1);
       }
 
       item.style.opacity = opacity;
@@ -69,12 +98,17 @@ class YouTubeRegretsTunnel {
   }
 
   /**
-   * Show rings' opacity vlaue
+   * Set opacity for image blocks
+   */
+  setBlocksOpacity() {
+    this.setFlyingObjectOpacity(elements.blocks, this.baseBlockGap);
+  }
+
+  /**
+   * Set opacity for rings
    */
   setRingsOpacity() {
-    elements.rings.forEach(ring => {
-      ring.style.opacity = 0.5;
-    });
+    this.setFlyingObjectOpacity(elements.rings, this.baseRingGap);
   }
 
   /**
@@ -84,15 +118,17 @@ class YouTubeRegretsTunnel {
     this.lastPageYOffset = window.pageYOffset;
 
     let blocksSpeedFactor = elements.blocks.length / elements.introText.length;
-    let ringsSpeedFactor = (this.scenePerspective / this.sceneDepth) * 1.2;
 
     this.updateCSSCustomProperty(
       `--blockZTranslate`,
-      (this.lastPageYOffset * blocksSpeedFactor) / ZOOM_FACTOR
+      ((this.lastPageYOffset * blocksSpeedFactor) / ZOOM_FACTOR) *
+        BLOCK_SPEED_FACTOR
     );
     this.updateCSSCustomProperty(
       `--ringZTranslate`,
-      this.lastPageYOffset * ringsSpeedFactor
+      ((this.lastPageYOffset * RING_DEPTH_FACTOR * blocksSpeedFactor) /
+        ZOOM_FACTOR) *
+        RING_SPEED_FACTOR
     );
   }
 
@@ -128,22 +164,22 @@ class YouTubeRegretsTunnel {
     );
     this.scenePerspective = scenePerspective;
 
-    // the total scroll distance users have to scroll in order to get through the intro tunnel
-    this.introScrollHeight = window.innerHeight * 5;
-
     // depth of the scene
-    this.sceneDepth = this.introScrollHeight - window.innerHeight;
+    this.sceneDepth = window.innerHeight * 3;
+
+    // the total scroll distance users have to scroll in order to get through the intro tunnel
+    this.introScrollHeight = this.sceneDepth + this.scenePerspective;
+
+    this.baseBlockGap = this.sceneDepth / elements.blocks.length / ZOOM_FACTOR;
+    this.baseRingGap =
+      (this.sceneDepth * RING_DEPTH_FACTOR) /
+      elements.rings.length /
+      ZOOM_FACTOR;
 
     // update CSS custom properties
     this.updateCSSCustomProperty(`--sceneDepth`, this.sceneDepth);
-    this.updateCSSCustomProperty(
-      `--baseBlockGap`,
-      this.sceneDepth / elements.blocks.length / ZOOM_FACTOR
-    );
-    this.updateCSSCustomProperty(
-      `--baseRingGap`,
-      this.scenePerspective / elements.rings.length
-    );
+    this.updateCSSCustomProperty(`--baseBlockGap`, this.baseBlockGap);
+    this.updateCSSCustomProperty(`--baseRingGap`, this.baseRingGap);
   }
 
   /**
@@ -194,6 +230,18 @@ class YouTubeRegretsTunnel {
       }
       return;
     }
+
+    elements.newsletterButtonDesktop[0].addEventListener(`click`, event =>
+      navNewsletter.buttonDesktopClickHandler(event)
+    );
+
+    elements.newsletterButtonMobile[0].addEventListener(`click`, event => {
+      if (navNewsletter.getShownState()) {
+        navNewsletter.closeMobileNewsletter(event);
+      } else {
+        navNewsletter.expandMobileNewsletter(event);
+      }
+    });
 
     this.setSceneDepth();
     this.setObjectsOpacity();

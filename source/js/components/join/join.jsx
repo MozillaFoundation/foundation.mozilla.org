@@ -2,7 +2,10 @@ import React from "react";
 import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
-import basketSignup from "../../basket-signup.js";
+import CountrySelect from "../petition/country-select.jsx";
+import { getText } from "../petition/locales";
+import { getCurrentLanguage } from "../petition/locales";
+import LanguageSelect from "./language-select.jsx";
 
 export default class JoinUs extends React.Component {
   constructor(props) {
@@ -23,7 +26,8 @@ export default class JoinUs extends React.Component {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
-      userTriedSubmitting: false
+      userTriedSubmitting: false,
+      lang: getCurrentLanguage()
     };
   }
 
@@ -122,6 +126,12 @@ export default class JoinUs extends React.Component {
       if (this.surname) {
         payload.surname = this.surname.value;
       }
+      if (this.state.country) {
+        payload.country = this.state.country;
+      }
+      if (this.state.lang) {
+        payload.lang = this.state.lang;
+      }
 
       let xhr = new XMLHttpRequest();
 
@@ -179,7 +189,9 @@ export default class JoinUs extends React.Component {
   }
 
   /**
-   * GA event when users interact with the signup form.
+   * On focus, we want to do two things:
+   * 1.Fire a GA event when users interact with the signup form
+   * 2.Reveal localization fields for header and footer signup forms
    */
   onInputFocus() {
     ReactGA.event({
@@ -187,34 +199,68 @@ export default class JoinUs extends React.Component {
       action: `form focus`,
       label: `Signup form input focused`
     });
+
+    let emailFields = document.querySelectorAll(
+      '.fields-wrapper .form-control[type="email"]'
+    );
+
+    emailFields.forEach(emailField => {
+      let currentEmailField = event.target === emailField;
+      if (currentEmailField) {
+        let localizationFields = document.querySelector(
+          `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
+        );
+        localizationFields.classList.remove(`d-none`);
+      }
+    });
   }
 
   /**
    * Render the signup CTA.
    */
   render() {
+    if (this.state.apiSuccess && this.state.apiSubmitted && this.isFlowForm()) {
+      this.props.handleSignUp(true);
+    }
+
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
     });
 
-    let layoutClass =
-      this.props.layout === `2-column` ? `col-12 col-md-6` : `col-12`;
+    let layoutClasses = classNames(`col-12`, {
+      "col-md-6": this.props.layout === `2-column`,
+      "col-md-11 m-auto": this.isFlowForm()
+    });
 
     return (
       <div className={`row ${signupState}`}>
-        <div className={layoutClass}>{this.renderFormHeading()}</div>
-        <div className={layoutClass}>{this.renderFormContent()}</div>
+        <div className={layoutClasses}>{this.renderFormHeading()}</div>
+        <div className={layoutClasses}>{this.renderFormContent()}</div>
       </div>
     );
+  }
+
+  isFlowForm() {
+    return this.props.formPosition === "flow";
   }
 
   /**
    * Render the CTA heading.
    */
-  renderFormHeading() {
+  renderFlowHeading() {
+    return [
+      <h2 className="text-center">{this.props.flowHeading}</h2>,
+      <p className="text-center">{this.props.flowText}</p>
+    ];
+  }
+
+  /**
+   * Render the CTA heading.
+   */
+  renderSnippetHeading() {
     return (
-      <div>
+      <React.Fragment>
         <h5 className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>
@@ -231,8 +277,18 @@ export default class JoinUs extends React.Component {
             }}
           />
         )}
-      </div>
+      </React.Fragment>
     );
+  }
+
+  /**
+   * Render the CTA heading.
+   */
+  renderFormHeading() {
+    if (this.isFlowForm()) {
+      return this.renderFlowHeading();
+    }
+    return this.renderSnippetHeading();
   }
 
   /**
@@ -255,22 +311,32 @@ export default class JoinUs extends React.Component {
         this.state.signupFailed
     });
 
-    let classes = classNames({
+    let classes = classNames(`mb-2`, {
       "position-relative": wrapperClasses !== ``
+    });
+
+    let errorWrapperClasses = classNames("glyph-container", {
+      "d-none": this.isFlowForm()
     });
 
     return (
       <div className={wrapperClasses}>
         <div className={classes}>
+          {this.isFlowForm() && (
+            <label className="font-weight-bold" for="userEmail">
+              Email
+            </label>
+          )}
           <input
+            name="userEmail"
             type="email"
             className="form-control"
-            placeholder="Enter email address"
+            placeholder={getText(`Please enter your email`)}
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
-            <div className="glyph-container">
+            <div className={errorWrapperClasses}>
               <span className="form-error-glyph" />
             </div>
           )}
@@ -285,6 +351,45 @@ export default class JoinUs extends React.Component {
             Something went wrong. Please check your email address and try again
           </small>
         )}
+      </div>
+    );
+  }
+
+  /**
+   * Render localization fields
+   */
+
+  setCountry(country) {
+    this.setState({ country });
+  }
+
+  setLang(lang) {
+    this.setState({ lang });
+  }
+
+  renderLocalizationFields() {
+    let header = this.props.formPosition === `header`;
+    let footer = this.props.formPosition === `footer`;
+    let classes = classNames(`form-l10n`, {
+      "d-none": footer || header
+    });
+
+    return (
+      <div className={classes}>
+        <div className="mb-2">
+          <CountrySelect
+            label={getText(`Your country`)}
+            className="w-100"
+            handleCountryChange={e => this.setCountry(e)}
+          />
+        </div>
+        <div>
+          <LanguageSelect
+            className="w-100"
+            handleLangChange={e => this.setLang(e)}
+            selectedLang={this.state.lang}
+          />
+        </div>
       </div>
     );
   }
@@ -332,23 +437,23 @@ export default class JoinUs extends React.Component {
       <div className={classes}>
         <div className="d-flex align-items-start">
           <div className="mb-0 form-check d-flex align-items-start">
-            <input
-              type="checkbox"
-              className="form-check-input ml-0 mt-0"
-              id="PrivacyCheckbox"
-              ref={el => (this.privacy = el)}
-              required
-            />
             <label className="form-check-label d-flex align-items-start">
-              <p className="d-inline-block body-small my-0 mr-1 mr-sm-5 mr-md-2 mr-lg-1">
-                I'm okay with Mozilla handling my info as explained in this{" "}
-                <a href="https://www.mozilla.org/privacy/websites/">
-                  Privacy Notice
-                </a>
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="PrivacyCheckbox"
+                ref={el => (this.privacy = el)}
+                required
+              />
+              <p className="d-inline-block body-small form-text mb-0">
+                {getText(
+                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
+                )}
               </p>
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
-                !this.privacy.checked && (
+                !this.privacy.checked &&
+                !this.isFlowForm() && (
                   <span class="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
@@ -367,7 +472,11 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return <button className="btn btn-primary w-100">Sign up</button>;
+    let classnames = classNames("btn btn-primary", {
+      "w-100": !this.isFlowForm(),
+      "flex-1 mr-3": this.isFlowForm()
+    });
+    return <button className={classnames}>{getText(`Sign up`)}</button>;
   }
 
   /**
@@ -379,12 +488,16 @@ export default class JoinUs extends React.Component {
 
     let formClass = `d-flex flex-column`;
     let fieldsWrapperClass = `w-100`;
-    let submitWrapperClass = `w-100`;
+    let buttonsWrapperClass = `w-100`;
 
     if (this.props.buttonPosition === `side`) {
       formClass = `${formClass} flex-md-row`;
       fieldsWrapperClass = ``;
-      submitWrapperClass = `ml-md-3`;
+      buttonsWrapperClass = `ml-md-3`;
+    }
+
+    if (this.props.formPosition === `flow`) {
+      buttonsWrapperClass = `d-flex`;
     }
 
     return (
@@ -397,9 +510,21 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
+          {!this.isFlowForm() && this.renderLocalizationFields()}
           {this.renderPrivacyField()}
         </div>
-        <div className={submitWrapperClass}>{this.renderSubmitButton()}</div>
+        <div className={buttonsWrapperClass}>
+          {this.renderSubmitButton()}
+          {this.isFlowForm() && (
+            <button
+              class="btn btn-primary btn-dismiss flex-1"
+              onClick={() => this.props.handleSignUp(false)}
+              type="button"
+            >
+              No Thanks
+            </button>
+          )}
+        </div>
       </form>
     );
   }

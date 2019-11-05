@@ -44,16 +44,19 @@ $product-detail-padding-x: (
 .product-detail {
   margin-top: -88px;
 
-  .small-link {
-    font-family: "Nunito Sans";
-    font-size: 18px;
-    font-weight: 400;
-    color: $gray-40;
+  a:not(.btn) {
     text-decoration: underline;
 
     @include hover-focus-active {
       color: $dark-blue;
     }
+  }
+
+  .small-link {
+    font-family: "Nunito Sans";
+    font-size: 18px;
+    font-weight: 400;
+    color: $gray-40;
   }
 
   .copy-link-wrapper {
@@ -89,13 +92,35 @@ $product-detail-padding-x: (
     }
   }
 
+  h3.body,
   h4 {
     font-family: "Nunito Sans";
   }
 
-  .creep-face-emoji {
-    top: 3px;
-    margin: 0 0.25em 0 0;
+  .worst-case-box {
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    border-image: linear-gradient(to left, $pni-pink 0%, $pni-blue 100%) 1 /
+      auto;
+    margin-top: 3.5rem;
+
+    .creep-face-emoji-wrapper {
+      $font-size: 3rem;
+      $padding-x: 1rem;
+
+      background: $white;
+      position: absolute;
+      top: -$font-size / 2;
+      left: calc(50% - #{$font-size} / 2 - #{$padding-x});
+      font-size: $font-size;
+      padding: 0 $padding-x;
+
+      .creep-face-emoji {
+        top: 0;
+        margin: 0;
+      }
+    }
   }
 }
 
@@ -126,15 +151,55 @@ $product-detail-padding-x: (
   }
 }
 
+.minimum-security {
+  .rating {
+    .star {
+      display: inline-block;
+      width: 1em;
+      margin-right: 2px;
+      color: transparent;
+      background-size: contain;
+      background-repeat: no-repeat;
+
+      &.value-yes {
+        order: 1;
+        background-image: url(/_images/buyers-guide/stars/black.svg);
+      }
+
+      &.value-na {
+        order: 2;
+        background-image: url(/_images/buyers-guide/stars/half.svg);
+      }
+
+      &.value-no,
+      &.value-u {
+        order: 3;
+        background-image: url(/_images/buyers-guide/stars/empty.svg);
+      }
+    }
+  }
+
+  .criterion .criterion:last-child {
+    border-bottom: none;
+  }
+}
+
 .criterion {
-  padding: 10px 0;
-  border-top: 1px solid $gray-20;
-  border-bottom: 1px solid $gray-20;
-  margin-top: -1px;
+  padding: 1rem 0;
+
+  &:not(.no-border) {
+    border-top: 1px solid $gray-20;
+    border-bottom: 1px solid $gray-20;
+    margin-top: -1px;
+  }
 
   .primary-info {
     display: flex;
     justify-content: space-between;
+
+    strong {
+      font-weight: 700;
+    }
   }
 
   a {
@@ -147,8 +212,9 @@ $product-detail-padding-x: (
     margin-bottom: 0;
   }
 
-  button {
-    margin: 0 10px;
+  button.toggle {
+    align-self: center;
+    margin-left: 10px;
     background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
     background-size: contain;
     border: 0;
@@ -163,49 +229,13 @@ $product-detail-padding-x: (
     }
   }
 
-  // Smiley Cases (default)
+  .details {
+    display: none;
 
-  .rating {
-    display: flex;
-    align-items: center;
+    &.open {
+      display: block;
+    }
   }
-
-  .emoji {
-    background: url("/_images/buyers-guide/icon-face-happy.svg") no-repeat;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: text-top;
-  }
-
-  z-index: 1;
-  position: relative;
-}
-
-// Sad Cases
-.criterion-bad {
-  .emoji {
-    background: url("/_images/buyers-guide/icon-face-sad.svg") no-repeat;
-  }
-
-  background: $light-red;
-  border: 1px solid $red;
-  margin: -1px -10px -1px -10px;
-  padding: 10px;
-  z-index: 2;
-}
-
-// Ambivalent Case
-.criterion-privacy_policy_reading_level.criterion-0,
-.criterion.criterion-none {
-  .emoji {
-    background: url("/_images/buyers-guide/icon-face-neutral.svg") no-repeat;
-  }
-}
-
-.criterion.uses-encryption.criterion-none.criterion-good {
-  @extend .criterion-bad;
 }
 
 .dotted-section {
@@ -247,17 +277,15 @@ $product-detail-padding-x: (
 .creep-vote-target {
   position: relative;
   min-height: 380px;
+  min-width: 290px;
   border: 1px solid $gray-20;
   padding-left: 1rem;
   padding-right: 1rem;
 
   @media (min-width: $bp-md) {
-    $padding-x: map-get($product-detail-padding-x, md) / 2;
-
-    margin-left: -$padding-x;
-    margin-right: -$padding-x;
-    padding-left: $padding-x;
-    padding-right: $padding-x;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding: 1.5rem 3.75rem;
   }
 }
 
@@ -297,41 +325,10 @@ $product-detail-padding-x: (
   }
 }
 
-#btn-read-search {
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.info-help {
-  position: relative;
-  padding: 0 0 0 1.3rem;
-  color: $gray-40;
-  text-decoration: underline;
-  transition: none;
-
-  &::before {
-    position: absolute;
-    left: 0;
-    content: "";
-    background: url("/_images/buyers-guide/icon-info-pink.svg") no-repeat 50%
-      50% / contain;
-    width: 16px;
-    height: 100%;
-  }
-
-  @include hover-focus-active {
-    color: $blue;
-  }
-}
-
 .helptext {
-  display: none;
   font-style: italic;
-  font-size: 14px;
-
-  &.open {
-    display: block;
-  }
+  margin-top: 0.5rem;
+  margin-right: 5rem;
 }
 
 // Coral Embed

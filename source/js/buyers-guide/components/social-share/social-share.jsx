@@ -3,7 +3,7 @@ import ReactGA from "../../../react-ga-proxy";
 import copyToClipboard from "../../../../js/copy-to-clipboard.js";
 
 const SocialShareLink = props => {
-  let classes = `social-icon`;
+  let classes = ``;
   let srLabel = ``;
   let link = `PrivacyNotIncluded.org`;
   let shareText = `I think this ${
@@ -17,14 +17,14 @@ const SocialShareLink = props => {
   };
 
   if (props.type === `facebook`) {
-    classes += ` social-button-fb`;
+    classes += `facebook-share`;
     srLabel = `Facebook`;
     shareEvent.label += `to facebook`;
     link = `https://www.facebook.com/sharer/sharer.php?u=https://${link}`;
   }
 
   if (props.type === `twitter`) {
-    classes += ` social-button-twitter`;
+    classes += `twitter-share`;
     srLabel = `Twitter`;
     shareEvent.label += `to twitter`;
     link = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -33,15 +33,15 @@ const SocialShareLink = props => {
   }
 
   if (props.type === `email`) {
-    classes += ` social-button-email`;
+    classes += `email-share`;
     srLabel = `Email`;
     shareEvent.label += `via email`;
     link = `mailto:?&body=${encodeURIComponent(shareText)}`;
   }
 
   if (props.type === `link`) {
-    classes += ` social-button-link`;
-    srLabel = `Link`;
+    classes += `link-share`;
+    srLabel = `Copy`;
     shareEvent.label += `using a link`;
     link = `#`;
   }
@@ -59,6 +59,7 @@ const SocialShareLink = props => {
       evt.preventDefault();
       copyToClipboard(evt.target, window.location.href);
       evt.target.innerHTML = evt.target.innerHTML.replace(srLabel, `Copied`);
+      evt.target.classList.add("copied");
       _trackShareAction();
     };
   }
@@ -66,22 +67,30 @@ const SocialShareLink = props => {
   return (
     <a
       target="_blank"
-      className="pni-s-link"
+      className={`btn btn-secondary btn-share ${classes}`}
       href={link}
       onClick={trackShareAction}
     >
-      <span className={classes} /> {srLabel}
+      {srLabel}
     </a>
   );
 };
 
 const SocialShare = props => {
   return (
-    <div class="social pni-share-buttons d-flex justify-content-center flex-wrap flex-md-nowrap mt-3">
-      <SocialShareLink type="facebook" {...props} />
-      <SocialShareLink type="twitter" {...props} />
-      <SocialShareLink type="email" {...props} />
-      <SocialShareLink type="link" {...props} />
+    <div className="row">
+      <div className="col-xl-10 m-auto px-2 px-sm-3">
+        <div className="share-button-group rectangle flex-lg-nowrap">
+          <div className="subgroup">
+            <SocialShareLink type="facebook" {...props} />
+            <SocialShareLink type="twitter" {...props} />
+          </div>
+          <div className="subgroup">
+            <SocialShareLink type="email" {...props} />
+            <SocialShareLink type="link" {...props} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

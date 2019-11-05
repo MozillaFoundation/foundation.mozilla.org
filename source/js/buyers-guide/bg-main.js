@@ -79,7 +79,7 @@ let main = {
 
         if (criteriaWithHelp.length > 0) {
           Array.from(criteriaWithHelp).forEach(button => {
-            let help = button.closest(`.criterion`).querySelector(`.helptext`);
+            let help = button.closest(`.criterion`).querySelector(`.details`);
 
             button.addEventListener(`click`, () => {
               button.classList.toggle(`open`);
@@ -172,6 +172,8 @@ let main = {
                 productID={parseInt(productID, 10)}
                 votes={votes}
                 whenLoaded={() => resolve()}
+                joinUsCSRF={csrfToken}
+                joinUsApiUrl={`${networkSiteURL}/api/campaign/signups/0/`}
               />,
               element
             );

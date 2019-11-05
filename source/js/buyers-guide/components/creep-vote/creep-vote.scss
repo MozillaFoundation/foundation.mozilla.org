@@ -27,46 +27,14 @@ $btn-shadow-width: 3px;
         background: inherit;
       }
     }
-
-    &.submit-attempted {
-      input[name="wouldbuy"]:invalid {
-        + span {
-          animation: wiggle 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-          transform: translate3d(0, 0, 0);
-        }
-      }
-    }
   }
 
   input[name="wouldbuy"] {
     transition: all 0.1s ease-in-out;
 
-    &:hover + span,
     &:checked + span {
-      background: $blue;
-    }
-  }
-
-  @keyframes wiggle {
-    10%,
-    90% {
-      transform: translate3d(-1px, 0, 0);
-    }
-
-    20%,
-    80% {
-      transform: translate3d(2px, 0, 0);
-    }
-
-    30%,
-    50%,
-    70% {
-      transform: translate3d(-4px, 0, 0);
-    }
-
-    40%,
-    60% {
-      transform: translate3d(4px, 0, 0);
+      background: $black;
+      color: $white;
     }
   }
 }
@@ -83,24 +51,19 @@ $btn-shadow-width: 3px;
     }
 
     .btn {
-      border: 1px solid $black;
-      border-bottom-width: $btn-shadow-width;
-      color: $black;
-      text-transform: initial;
-      transition: all 0.1s linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
       width: 100%;
+    }
+
+    .likely-glyph {
+      border-right-width: 0;
     }
 
     input {
       display: none;
-    }
-
-    label:first-of-type span {
-      border-radius: $radio-button-radius 0 0 $radio-button-radius;
-    }
-
-    label:last-of-type span {
-      border-radius: 0 $radio-button-radius $radio-button-radius 0;
     }
 
     img {
@@ -110,5 +73,34 @@ $btn-shadow-width: 3px;
 
   .help-text {
     font-style: italic;
+  }
+
+  .form-control {
+    color: $black;
+    border-color: $black;
+  }
+
+  .btn-dismiss {
+    @include hover-focus-active {
+      background-color: $gray-60;
+    }
+
+    background-color: $gray-40;
+  }
+
+  .share-button-group.rectangle {
+    @media (min-width: $bp-md) and (max-width: $bp-lg) {
+      .subgroup {
+        .btn:last-child {
+          margin-right: 0;
+        }
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .btn {
+      min-width: 120px;
+    }
   }
 }
