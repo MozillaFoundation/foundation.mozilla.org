@@ -61,18 +61,20 @@ class ProductFactory(DjangoModelFactory):
                 return
 
     blurb = Faker('sentence')
-    camera_app = Faker('boolean')
-    camera_device = Faker('boolean')
+
+    camera_app = LazyFunction(get_extended_yes_no_value)
+    camera_device = LazyFunction(get_extended_yes_no_value)
+    microphone_app = LazyFunction(get_extended_yes_no_value)
+    microphone_device = LazyFunction(get_extended_yes_no_value)
+    location_app = LazyFunction(get_extended_yes_no_value)
+    location_device = LazyFunction(get_extended_yes_no_value)
+
     company = Faker('company')
     delete_data = Faker('boolean')
     email = Faker('email')
     live_chat = Faker('url')
-    location_app = Faker('boolean')
-    location_device = Faker('boolean')
     manage_vulnerabilities = LazyFunction(get_extended_yes_no_value)
     meets_minimum_security_standards = Faker('boolean')
-    microphone_app = Faker('boolean')
-    microphone_device = Faker('boolean')
     parental_controls = LazyFunction(get_extended_yes_no_value)
     phone_number = Faker('phone_number')
     price = LazyAttribute(lambda _: randint(49, 1500))
