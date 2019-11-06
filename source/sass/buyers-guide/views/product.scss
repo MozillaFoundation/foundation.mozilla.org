@@ -122,6 +122,12 @@ $product-detail-padding-x: (
       }
     }
   }
+
+  .it-uses {
+    .separator {
+      color: $gray-20;
+    }
+  }
 }
 
 .copy-link {

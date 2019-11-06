@@ -107,39 +107,27 @@ class Migration(migrations.Migration):
         ),
         migrations.RenameField(
             model_name='product',
+            old_name='camera_device_temp',
+            new_name='camera_device',
+        ),
+        migrations.RenameField(
+            model_name='product',
             old_name='location_app_temp',
             new_name='location_app',
+        ),
+        migrations.RenameField(
+            model_name='product',
+            old_name='location_device_temp',
+            new_name='location_device',
         ),
         migrations.RenameField(
             model_name='product',
             old_name='microphone_app_temp',
             new_name='microphone_app',
         ),
-        migrations.RemoveField(
+        migrations.RenameField(
             model_name='product',
-            name='camera_device_temp',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='location_device_temp',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='microphone_device_temp',
-        ),
-        migrations.AddField(
-            model_name='product',
-            name='camera_device',
-            field=networkapi.buyersguide.fields.ExtendedYesNoField(help_text='Does this device have or access a camera?'),
-        ),
-        migrations.AddField(
-            model_name='product',
-            name='location_device',
-            field=networkapi.buyersguide.fields.ExtendedYesNoField(help_text='Does this product access your location?'),
-        ),
-        migrations.AddField(
-            model_name='product',
-            name='microphone_device',
-            field=networkapi.buyersguide.fields.ExtendedYesNoField(help_text='Does this Device have or access a microphone?'),
+            old_name='microphone_device_temp',
+            new_name='microphone_device',
         ),
     ]
