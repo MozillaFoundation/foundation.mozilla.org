@@ -394,7 +394,7 @@ class Product(ClusterableModel):
 
     email = models.CharField(
         max_length=100,
-        help_text='Please provide an email or a link to a product\'s company contact page.',
+        help_text='Email',
         blank=True,
     )
 
