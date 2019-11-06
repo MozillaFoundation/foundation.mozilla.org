@@ -398,11 +398,6 @@ class Product(ClusterableModel):
         blank=True,
     )
 
-    email_verification = models.BooleanField(
-        default=False,
-        help_text='Please check this box if you\'ve provided the company\'s email in the text field above.',
-    )
-
     twitter = models.CharField(
         max_length=100,
         help_text='Twitter username',
@@ -512,7 +507,6 @@ class Product(ClusterableModel):
                 FieldPanel('phone_number'),
                 FieldPanel('live_chat'),
                 FieldPanel('email'),
-                FieldPanel('email_verification'),
                 FieldPanel('twitter'),
             ],
             heading="Ways to contact the company",
