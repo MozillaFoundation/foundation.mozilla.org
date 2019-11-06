@@ -833,7 +833,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     feature_comments = models.BooleanField(
         default=False,
-        help_text='Check box to add comments feature for this blog post.',
+        help_text='Check this box to add a comment section for this blog post.',
     )
 
     content_panels = Page.content_panels + [
