@@ -13,6 +13,7 @@ def yes_no(value):
     # into 1, and using that as list index.
     return ("No", "Yes")[value]
 
+
 @register.filter
 def extended_yes_no(value):
     """Converts quad-state to human readable string"""
