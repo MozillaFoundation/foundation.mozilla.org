@@ -14,7 +14,7 @@
         <meta property="article:section" content="{{ category }}" />
       {% endif %}
     {% endwith %}
-    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
+    <link rel="canonical" href="{{ page.full_url }}" />
   {% endif %}
 {% endblock %}
 
