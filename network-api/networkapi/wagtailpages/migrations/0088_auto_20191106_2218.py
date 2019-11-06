@@ -10,8 +10,9 @@ import wagtail.images.blocks
 def add_blog_category(apps, schema_editor):
     BlogPageCategory = apps.get_model("wagtailpages", "BlogPageCategory")
 
-    internet_health_report = BlogPageCategory(name='Internet Health Report')
-    internet_health_report.save()
+    internet_health = BlogPageCategory.objects.get(name='Internet Health')
+    internet_health.name = 'Internet Health Report'
+    internet_health.save()
 
 
 class Migration(migrations.Migration):
