@@ -1,4 +1,8 @@
+# Activate Build Config Validation on Travis
+version: ~> 1.0
+
 dist: xenial
+os: linux
 language: python
 
 python:
@@ -40,7 +44,7 @@ branches:
   only:
     - master
 
-matrix:
+jobs:
   include:
     - name: Python tests
       install: "./travis-scripts/python-install.sh"
