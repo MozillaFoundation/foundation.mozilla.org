@@ -2,6 +2,23 @@
 
 {% load wagtailcore_tags mini_site_tags %}
 
+{% block coral_talk_meta %}
+  {% if coral_talk %}
+    <meta property="article:author" content="{{ page.author }}" />
+    <meta property="article:published_time" content="{{ page.first_published_at|date:"F j, Y" }}">
+    {% if page.last_published_at %}
+      <meta property="article:modified" content="{{ page.last_published_at|date:"F j, Y" }}"/>
+    {% endif %}
+    {% with category=page.specific.category.first %}
+      {% if category %}
+        <meta property="article:section" content="{{ category }}" />
+      {% endif %}
+    {% endwith %}
+    <link rel="canonical" href="{{ page.full_url }}" />
+  {% endif %}
+{% endblock %}
+
+
 {% block body_id %}blog{% endblock %}
 
 {% block subcontent %}
@@ -11,14 +28,14 @@
     </div>
   </div>
   <div class="py-4 py-md-5 col-lg-8">
-    <div class="cms">
+    <div class="cms {% if coral_talk %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       <p class="h6-heading mb-5">
         By {{ page.author }} | {% if page.first_published_at %}{{ page.first_published_at|date:"F j, Y" }}{% else %}not
-        published yet{% endif %} |
+        published yet{% endif %}
         {% with category=page.specific.category.first %}
         {% if category %}
-        <a class="category" href="{% slugurl 'blog' %}category/{{category.slug}}">{{ category }}</a>
+          | <a class="category" href="{% slugurl 'blog' %}category/{{category.slug}}">{{ category }}</a>
         {% endif %}
         {% endwith %}
       </p>
@@ -27,10 +44,25 @@
         <div class="share-button-group-wrapper mt-5" data-share-text="{{page.title}} by @mozilla" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>
     </div>
+
+    {% if coral_talk %}
+      <div id="coral-talk-stream"></div>
+    {% endif %}
+
     {% include "./fragments/post_tags.html" %}
   </div>
 {% endblock %}
 
 {% block prefooter %}
   {% include "./fragments/related_posts.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+  {% if coral_talk %}
+    <script src="{{ coral_talk_server_url }}static/embed.js" async onload="
+      Coral.Talk.render(document.getElementById('coral-talk-stream'), {
+        talk: '{{ coral_talk_server_url }}'
+      });
+    "></script>
+  {% endif %}
 {% endblock %}
