@@ -40,6 +40,10 @@ def add_category(post):
     post.category.add(choice(categories))
     post.save()
 
+    internet_health = BlogPageCategory.objects.get(name='Internet Health')
+    internet_health.name = 'Internet Health Report'
+    internet_health.save()
+
 
 class BlogPageFactory(PageFactory):
 
