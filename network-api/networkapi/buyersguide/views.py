@@ -155,6 +155,34 @@ def why_view(request):
 
 
 @enforce_en_locale
+def explained_view(request):
+    key = 'categories'
+    categories = cache.get(key)
+
+    if not categories:
+        categories = BuyersGuideProductCategory.objects.all()
+        cache.set(key, categories, 86400)
+
+    return render(request, 'about/minimum-security-explained.html', {
+        'categories': categories,
+    })
+
+
+@enforce_en_locale
+def methodology_view(request):
+    key = 'categories'
+    categories = cache.get(key)
+
+    if not categories:
+        categories = BuyersGuideProductCategory.objects.all()
+        cache.set(key, categories, 86400)
+
+    return render(request, 'about/methodology.html', {
+        'categories': categories,
+    })
+
+
+@enforce_en_locale
 def contact_view(request):
     key = 'categories'
     categories = cache.get(key)
@@ -164,6 +192,20 @@ def contact_view(request):
         cache.set(key, categories, 86400)
 
     return render(request, 'about/contact.html', {
+        'categories': categories,
+    })
+
+
+@enforce_en_locale
+def press_view(request):
+    key = 'categories'
+    categories = cache.get(key)
+
+    if not categories:
+        categories = BuyersGuideProductCategory.objects.all()
+        cache.set(key, categories, 86400)
+
+    return render(request, 'about/press.html', {
         'categories': categories,
     })
 
