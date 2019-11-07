@@ -30,7 +30,7 @@ wagtail-inventory = "==0.7"
 wagtail-metadata = "*"
 whitenoise = "*"
 wagtail-modeltranslation = "==0.10.6"
-"psycopg2-binary" = "==2.8.3"
+"psycopg2-binary" = "==2.8.4"
 cloudinary = "*"
 wagtail-experiments = "*"
 
