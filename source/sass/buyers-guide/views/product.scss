@@ -193,6 +193,10 @@ $product-detail-padding-x: (
     margin-top: -1px;
   }
 
+  &.bottom-border-only {
+    border-top: 0;
+  }
+
   .primary-info {
     display: flex;
     justify-content: space-between;
@@ -226,14 +230,6 @@ $product-detail-padding-x: (
 
     &.open {
       transform: rotate(45deg);
-    }
-  }
-
-  .details {
-    display: none;
-
-    &.open {
-      display: block;
     }
   }
 }
