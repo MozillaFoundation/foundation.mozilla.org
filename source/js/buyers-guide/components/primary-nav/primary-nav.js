@@ -4,7 +4,6 @@
 
 let primaryNav = {
   init: function() {
-    let elBurger = document.querySelector(`.burger`);
     let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
     let elUnderneath = document.querySelector(`.underneath-screen-overlay`);
     let menuOpen = false;
@@ -14,14 +13,6 @@ let primaryNav = {
         elNarrowMenu.classList.add(`menu-open`);
       } else {
         elNarrowMenu.classList.remove(`menu-open`);
-      }
-    }
-
-    function setBurgerState(openMenu) {
-      if (openMenu) {
-        elBurger.classList.add(`menu-open`);
-      } else {
-        elBurger.classList.remove(`menu-open`);
       }
     }
 
@@ -44,11 +35,6 @@ let primaryNav = {
         menuOpen = false;
         setMenuState(menuOpen);
       }
-    });
-
-    elBurger.addEventListener(`click`, () => {
-      menuOpen = !menuOpen;
-      setMenuState(menuOpen);
     });
   }
 };

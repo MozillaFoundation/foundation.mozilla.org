@@ -13,7 +13,7 @@
   height: $height;
   z-index: 2;
 
-  @if ($width-desktop && $height-desktop) {
+  @if ($width-desktop and $height-desktop) {
     @media (min-width: $bp-md) {
       width: $width-desktop;
       height: $height-desktop;
@@ -36,7 +36,7 @@
   height: $height;
   z-index: 2;
 
-  @if ($width-desktop && $height-desktop) {
+  @if ($width-desktop and $height-desktop) {
     @media (min-width: $bp-md) {
       width: $width-desktop;
       height: $height-desktop;

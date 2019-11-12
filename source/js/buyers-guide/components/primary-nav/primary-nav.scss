@@ -10,19 +10,22 @@
   }
 }
 
-.menu-container {
-  position: relative;
-  z-index: 30;
+#primary-nav-container {
+  .menu-container {
+    padding: 0;
+    position: relative;
+    z-index: 30;
 
-  .burger {
-    width: 18px;
-    height: 18px;
-    background-image: url("../_images/buyers-guide/icon-share.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
+    .burger {
+      width: 18px;
+      height: 18px;
+      background-image: url("../_images/buyers-guide/icon-share.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
 
-    &.menu-open {
-      background-image: url("../_images/buyers-guide/icon-close.svg");
+      &.menu-open {
+        background-image: url("../_images/buyers-guide/icon-close.svg");
+      }
     }
   }
 }
@@ -143,4 +146,8 @@
       display: initial;
     }
   }
+}
+
+#nav-newsletter-form-wrapper.expanded {
+  z-index: 11; /* this element needs to overlay header.scss's ".category-nav", which has z-index: 10 */
 }
