@@ -22,7 +22,7 @@ class RecentBlogEntries(blocks.StructBlock):
             ('all', 'All'),
             ('Mozilla Festival', 'Mozilla Festival'),
             ('Open Leadership & Events', 'Open Leadership & Events'),
-            ('Internet Health', 'Internet Health'),
+            ('Internet Health Report', 'Internet Health Report'),
             ('Fellowships & Awards', 'Fellowships & Awards'),
             ('Advocacy', 'Advocacy'),
         ],
