@@ -61,18 +61,20 @@ class ProductFactory(DjangoModelFactory):
                 return
 
     blurb = Faker('sentence')
-    camera_app = Faker('boolean')
-    camera_device = Faker('boolean')
+
+    camera_app = LazyFunction(get_extended_yes_no_value)
+    camera_device = LazyFunction(get_extended_yes_no_value)
+    microphone_app = LazyFunction(get_extended_yes_no_value)
+    microphone_device = LazyFunction(get_extended_yes_no_value)
+    location_app = LazyFunction(get_extended_yes_no_value)
+    location_device = LazyFunction(get_extended_yes_no_value)
+
     company = Faker('company')
     delete_data = Faker('boolean')
     email = Faker('email')
     live_chat = Faker('url')
-    location_app = Faker('boolean')
-    location_device = Faker('boolean')
     manage_vulnerabilities = LazyFunction(get_extended_yes_no_value)
     meets_minimum_security_standards = Faker('boolean')
-    microphone_app = Faker('boolean')
-    microphone_device = Faker('boolean')
     parental_controls = LazyFunction(get_extended_yes_no_value)
     phone_number = Faker('phone_number')
     price = LazyAttribute(lambda _: randint(49, 1500))
@@ -100,21 +102,21 @@ def generate(seed):
     ProductFactory.create(
         adult_content=False,
         blurb='Visual Regression Testing',
-        camera_app=True,
-        camera_device=False,
-        collects_biometrics_helptext='biometrics help text',
+        camera_app='Yes',
+        camera_device='No',
         collects_biometrics='Yes',
+        collects_biometrics_helptext='biometrics help text',
         company='Percy',
         delete_data=True,
         draft=False,
         email='vrt@example.com',
         live_chat='https://example.com/chat',
-        location_app=True,
-        location_device=False,
+        location_app='U',
+        location_device='NA',
         manage_vulnerabilities='Yes',
         meets_minimum_security_standards=True,
-        microphone_app=True,
-        microphone_device=False,
+        microphone_app='Yes',
+        microphone_device='No',
         name='percy cypress',
         parental_controls='NA',
         phone_number='1-555-555-5555',
