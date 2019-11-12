@@ -327,6 +327,11 @@ class Product(ClusterableModel):
         help_text='Does this product have a user-friendly privacy policy?'
     )
 
+    user_friendly_privacy_policy_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
     """
     privacy_policy_links =  one to many, defined in PrivacyPolicyLink
     """
@@ -479,6 +484,7 @@ class Product(ClusterableModel):
                 FieldPanel('collects_biometrics'),
                 FieldPanel('collects_biometrics_helptext'),
                 FieldPanel('user_friendly_privacy_policy'),
+                FieldPanel('user_friendly_privacy_policy_helptext'),
                 FieldPanel('worst_case'),
             ],
             heading="How does it handle privacy",
