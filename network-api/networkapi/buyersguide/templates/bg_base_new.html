@@ -1,15 +1,22 @@
-{% extends "pages/base.html" %}
+{% extends "../../wagtailpages/templates/base.html" %}
+
+{% load bg_nav_tags %}
 
 
-{% block page_title %}{% if page_title %}{{ page_title }}{% else %}Mozilla - *privacy not included{% endif %}{% endblock %}
+{% block pageTitle %}
+    {% if pageTitle %}{{ pageTitle }}{% else %}Mozilla - *privacy not included{% endif %}
+{% endblock %}
 
 
-{# TODO: consider using a different ga_identifier? #}
+{% block ga_identifier %}
+  <!-- <meta name="google-site-verification" content="..."> -->
+  <meta name="ga-identifier" content="UA-87658599-6">
+{% endblock %}
 
 
 {% block social_metadata %}
   <meta property='og:type' content='website'>
-  <meta property='og:locale' content='en-US'>
+  <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
   <meta property="og:title" content="*Privacy Not Included: A Buyer’s Guide for Connected Products">
 {% endblock %}
 
@@ -65,8 +72,12 @@
 {% endblock %}
 
 
-{% block body_wrapped %}
+{% block donate %}
+  <!-- this is getting removed, but clear it anyway -->
+{% endblock %}
 
+
+{% block body_wrapped %}
   {% include "./primary_nav.html" %}
 
   <div class="underneath-screen-overlay">

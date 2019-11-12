@@ -51,7 +51,7 @@ let main = {
 
       primaryNav.init();
 
-      if (document.getElementById(`pni-home`)) {
+      if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
 
         let filter = document.querySelector(`#product-filter`);
@@ -65,7 +65,7 @@ let main = {
         }
       }
 
-      if (document.getElementById(`pni-product-page`)) {
+      if (document.getElementById(`view-product-page`)) {
         ProductGA.init();
 
         // Set up help text accordions where necessary:
