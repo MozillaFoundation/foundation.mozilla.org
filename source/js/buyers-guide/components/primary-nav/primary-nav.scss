@@ -149,5 +149,5 @@
 }
 
 #nav-newsletter-form-wrapper.expanded {
-  z-index: 11; /* TODO: is there a var that can be used for this? */
+  z-index: 11; /* this element needs to overlay header.scss's ".category-nav", which has z-index: 10 */
 }

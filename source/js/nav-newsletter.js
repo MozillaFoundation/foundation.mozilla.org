@@ -14,8 +14,6 @@ const elements = {
   buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`
 };
 
-console.log(elements);
-
 class NavNewsletter {
   constructor() {
     this.isShown = false;
@@ -111,7 +109,7 @@ class NavNewsletter {
       // find this DOM node, and report on the result (binding it if found for later use)
       let element = document.querySelector(value);
       if (element) elements[key] = element;
-      console.log(key, element);
+
       return !!element;
     });
   }
