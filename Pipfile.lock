@@ -353,10 +353,10 @@
         },
         "python-slugify": {
             "hashes": [
-                "sha256:575d03256a132fc1efb4c52966c6eb11c57a13b071618f0b26076057a23f6937"
+                "sha256:a8fc3433821140e8f409a9831d13ae5deccd0b033d4744d94b31fea141bdd84c"
             ],
             "index": "pypi",
-            "version": "==3.0.4"
+            "version": "==4.0.0"
         },
         "python3-openid": {
             "hashes": [
