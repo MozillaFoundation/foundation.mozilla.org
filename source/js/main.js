@@ -295,9 +295,7 @@ let main = {
     petitionElements.forEach(element => {
       var props = element.dataset;
 
-      props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${
-        props.petitionId
-      }/`;
+      props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}/`;
 
       apps.push(
         new Promise(resolve => {

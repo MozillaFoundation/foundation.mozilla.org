@@ -77,22 +77,16 @@
                   ${profile.name}
             </a>
             ${profile.location &&
-              `<p class="d-flex align-items-center meta-block-location body-small my-2">${
-                profile.location
-              }</p>`}
+              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`}
             <div class="social-icons">
               ${
                 profile.twitter
-                  ? `<a href="${
-                      profile.twitter
-                    }" class="twitter twitter-glyph small"></a>`
+                  ? `<a href="${profile.twitter}" class="twitter twitter-glyph small"></a>`
                   : ``
               }
               ${
                 profile.linkedin
-                  ? `<a href="${
-                      profile.linkedin
-                    }" class="linkedIn linkedIn-glyph small"></a>`
+                  ? `<a href="${profile.linkedin}" class="linkedIn linkedIn-glyph small"></a>`
                   : ``
               }
             </div>

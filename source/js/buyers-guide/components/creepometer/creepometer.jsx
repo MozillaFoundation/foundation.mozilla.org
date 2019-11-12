@@ -134,9 +134,7 @@ export default class Creepometer extends React.Component {
 
     let faceOpts = {
       style: {
-        background: `url("${
-          this.framePath
-        }sprite-resized-64-colors.png"), #f2b946`,
+        background: `url("${this.framePath}sprite-resized-64-colors.png"), #f2b946`,
         backgroundSize: `70px`,
         backgroundPositionX: 0,
         backgroundPositionY: `-${frameOffset * this.faceHeight}px`,
