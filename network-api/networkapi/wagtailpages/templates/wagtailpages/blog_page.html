@@ -31,7 +31,7 @@
     <div class="cms {% if coral_talk %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       <p class="h6-heading mb-5">
-        {% blocktrans with author=page.author %}By {{ page.author }}{% endblocktrans %} | {% if page.first_published_at %}{{ page.first_published_at|date:"DATE_FORMAT" }}{% else %}not
+        {% blocktrans with author=page.author %}By {{ author }}{% endblocktrans %} | {% if page.first_published_at %}{{ page.first_published_at|date:"DATE_FORMAT" }}{% else %}not
         published yet{% endif %}
         {% with category=page.specific.category.first %}
         {% if category %}
