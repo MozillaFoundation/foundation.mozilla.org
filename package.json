@@ -79,7 +79,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "optipng-bin": "^6.0.0",
-    "prettier": "^1.17.1",
+    "prettier": "^1.19.1",
     "wait-on": "^3.2.0",
     "shelljs": "^0.8.3",
     "stylelint": "^10.1.0",

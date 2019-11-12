@@ -16,9 +16,7 @@ export default class News extends React.Component {
 
     // HEROKU_APP_DOMAIN is used by review apps
     if (!networkSiteUrl && this.props.env.HEROKU_APP_NAME) {
-      networkSiteUrl = `https://${
-        this.props.env.HEROKU_APP_NAME
-      }.herokuapp.com`;
+      networkSiteUrl = `https://${this.props.env.HEROKU_APP_NAME}.herokuapp.com`;
     }
 
     let xhr = new XMLHttpRequest();
