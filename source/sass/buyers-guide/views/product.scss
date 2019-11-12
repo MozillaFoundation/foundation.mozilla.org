@@ -124,8 +124,14 @@ $product-detail-padding-x: (
   }
 
   .it-uses {
+    margin-top: $spacer;
+
     .separator {
       color: $gray-20;
+    }
+
+    &:last-child() {
+      margin-bottom: $spacer;
     }
   }
 }

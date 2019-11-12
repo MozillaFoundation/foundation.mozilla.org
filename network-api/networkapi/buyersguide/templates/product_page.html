@@ -89,10 +89,10 @@
 
         <h3 class="h3-heading">Can it snoop on me?</h3>
 
-        <div class="row criterion mb-5 no-gutters">
-          {% include "fragments/it_uses.html" with title="Camera"            device=product.camera_device     app=product.camera_app         margin_bottom_class="mb-3" %}
-          {% include "fragments/it_uses.html" with title="Microphone"        device=product.microphone_device app=product.microphone_app     margin_bottom_class="mb-3" %}
-          {% include "fragments/it_uses.html" with title="Tracks Location"   device=product.location_device   app=product.location_app       margin_bottom_class="" %}
+        <div class="row criterion mb-5 no-gutters pb-3 d-flex flex-column flex-xl-row justify-content-between">
+          {% include "fragments/it_uses.html" with title="Camera"            device=product.camera_device     app=product.camera_app      %}
+          {% include "fragments/it_uses.html" with title="Microphone"        device=product.microphone_device app=product.microphone_app  %}
+          {% include "fragments/it_uses.html" with title="Tracks Location"   device=product.location_device   app=product.location_app    %}
         </div>
 
         <h3 class="h3-heading">How does it handle privacy?</h3>
