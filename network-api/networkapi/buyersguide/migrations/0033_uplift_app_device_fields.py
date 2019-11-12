@@ -30,7 +30,7 @@ def copy_quad_to_tri(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buyersguide', '0031_auto_20191016_2002'),
+        ('buyersguide', '0032_product_user_friendly_privacy_policy_helptext'),
     ]
 
     operations = [
