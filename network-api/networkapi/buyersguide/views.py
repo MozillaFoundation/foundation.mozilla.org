@@ -126,8 +126,7 @@ def product_view(request, slug):
     })
 
 
-@enforce_en_locale
-def about_view(request):
+def bg_about_page(template_name):
     key = 'categories'
     categories = cache.get(key)
 
@@ -135,79 +134,13 @@ def about_view(request):
         categories = BuyersGuideProductCategory.objects.all()
         cache.set(key, categories, 86400)
 
-    return render(request, 'about/how-to-use.html', {
-        'categories': categories,
-    })
+    @enforce_en_locale
+    def render_view(request):
+        return render(request, f"about/{template_name}.html", {
+            'categories': categories,
+        })
 
-
-@enforce_en_locale
-def why_view(request):
-    key = 'categories'
-    categories = cache.get(key)
-
-    if not categories:
-        categories = BuyersGuideProductCategory.objects.all()
-        cache.set(key, categories, 86400)
-
-    return render(request, 'about/why-we-made.html', {
-        'categories': categories,
-    })
-
-
-@enforce_en_locale
-def explained_view(request):
-    key = 'categories'
-    categories = cache.get(key)
-
-    if not categories:
-        categories = BuyersGuideProductCategory.objects.all()
-        cache.set(key, categories, 86400)
-
-    return render(request, 'about/minimum-security-explained.html', {
-        'categories': categories,
-    })
-
-
-@enforce_en_locale
-def methodology_view(request):
-    key = 'categories'
-    categories = cache.get(key)
-
-    if not categories:
-        categories = BuyersGuideProductCategory.objects.all()
-        cache.set(key, categories, 86400)
-
-    return render(request, 'about/methodology.html', {
-        'categories': categories,
-    })
-
-
-@enforce_en_locale
-def contact_view(request):
-    key = 'categories'
-    categories = cache.get(key)
-
-    if not categories:
-        categories = BuyersGuideProductCategory.objects.all()
-        cache.set(key, categories, 86400)
-
-    return render(request, 'about/contact.html', {
-        'categories': categories,
-    })
-
-
-@enforce_en_locale
-def press_view(request):
-    key = 'categories'
-    categories = cache.get(key)
-
-    if not categories:
-        categories = BuyersGuideProductCategory.objects.all()
-        cache.set(key, categories, 86400)
-
-    return render(request, 'about/press.html', {
-        'categories': categories,
-    })
+    return render_view
 
 
 @api_view(['POST'])
