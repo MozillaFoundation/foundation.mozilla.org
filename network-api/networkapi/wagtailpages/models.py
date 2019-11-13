@@ -156,12 +156,18 @@ class ModularPage(FoundationMetadataPageMixin, Page):
     body = StreamField(base_fields)
 
     settings_panels = Page.settings_panels + [
-        MultiFieldPanel([
+        MultiFieldPanel(
+          [
             FieldPanel('narrowed_page_content'),
-        ]),
-        MultiFieldPanel([
+          ], 
+          classname="collapsible"
+        ),
+        MultiFieldPanel(
+          [
             FieldPanel('zen_nav'),
-        ])
+          ],
+          classname="collapsible"
+        )
     ]
 
     content_panels = Page.content_panels + [
@@ -427,12 +433,18 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
     body = StreamField(base_fields)
 
     settings_panels = Page.settings_panels + [
-        MultiFieldPanel([
+        MultiFieldPanel(
+          [
             FieldPanel('narrowed_page_content'),
-        ]),
-        MultiFieldPanel([
+          ],
+          classname="collapsible"
+        ),
+        MultiFieldPanel(
+          [
             FieldPanel('zen_nav'),
-        ])
+          ],
+          classname="collapsible"
+        )
     ]
 
     content_panels = Page.content_panels + [
@@ -1090,27 +1102,36 @@ class ParticipatePage2(PrimaryPage):
     )
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
+        MultiFieldPanel(
+          [
             ImageChooserPanel('ctaHero'),
             FieldPanel('ctaHeroHeader'),
             FieldPanel('ctaHeroSubhead'),
             FieldPanel('ctaCommitment'),
             FieldPanel('ctaButtonTitle'),
             FieldPanel('ctaButtonURL'),
-        ], heading="Primary CTA"),
+          ], 
+          heading="Primary CTA",
+          classname="collapsible"
+        ),
         FieldPanel('h2'),
         FieldPanel('h2Subheader'),
         InlinePanel('featured_highlights', label='Highlights Group 1', max_num=3),
-        MultiFieldPanel([
+        MultiFieldPanel(
+          [
             ImageChooserPanel('ctaHero2'),
             FieldPanel('ctaHeroHeader2'),
             FieldPanel('ctaHeroSubhead2'),
             FieldPanel('ctaCommitment2'),
             FieldPanel('ctaButtonTitle2'),
             FieldPanel('ctaButtonURL2'),
-        ], heading="CTA 2"),
+          ], 
+          heading="CTA 2",
+          classname="collapsible"
+        ),
         InlinePanel('featured_highlights2', label='Highlights Group 2', max_num=6),
-        MultiFieldPanel([
+        MultiFieldPanel(
+          [
             ImageChooserPanel('ctaHero3'),
             FieldPanel('ctaHeroHeader3'),
             FieldPanel('ctaHeroSubhead3'),
@@ -1119,7 +1140,10 @@ class ParticipatePage2(PrimaryPage):
             FieldPanel('ctaTwitter3'),
             FieldPanel('ctaEmailShareSubject3'),
             FieldPanel('ctaEmailShareBody3'),
-        ], heading="CTA 3"),
+          ], 
+          heading="CTA 3",
+          classname="collapsible"
+        ),
         InlinePanel('cta4', label='CTA Group 4', max_num=3),
     ]
 
@@ -1347,13 +1371,16 @@ class Homepage(FoundationMetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
+        MultiFieldPanel(
+          [
             FieldPanel('hero_headline'),
             FieldPanel('hero_story_description'),
             FieldRowPanel([
                 FieldPanel('hero_button_text'),
                 FieldPanel('hero_button_url'),
-            ]),
+            ],
+            classname="collapsible"
+          ),
             ImageChooserPanel('hero_image'),
         ],
             heading='hero',

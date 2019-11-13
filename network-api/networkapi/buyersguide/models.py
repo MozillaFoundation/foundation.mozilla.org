@@ -423,7 +423,8 @@ class Product(ClusterableModel):
             [
                 FieldPanel('draft'),
             ],
-            heading="Publication status"
+            heading="Publication status",
+            classname="collapsible"
         ),
         MultiFieldPanel(
             [
@@ -438,7 +439,8 @@ class Product(ClusterableModel):
                 image_field,
                 FieldPanel('meets_minimum_security_standards')
             ],
-            heading="General Product Details"
+            heading="General Product Details",
+            classname="collapsible"
         ),
         MultiFieldPanel(
             [
