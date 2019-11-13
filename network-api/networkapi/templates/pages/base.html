@@ -26,17 +26,26 @@
       <meta name="ga-identifier" content="UA-87658599-6">
     {% endblock %}
 
-    <link rel="stylesheet" href="/_css/main.compiled.css">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
+    {% block coral_talk_meta %}{% endblock %}
+
+    {% block stylesheets %}
+      <link rel="stylesheet" href="/_css/main.compiled.css">
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
+    {% endblock %}
+
     {% block extended_head %}{% endblock %}
 
-    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
-    <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
-    <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
+    {% block icons %}
+      <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/_images/favicons/apple-touch-icon-180x180@2x.png">
+      <link rel="icon" type="image/png" sizes="196x196" href="/_images/favicons/favicon-196x196@2x.png">
+      <link rel="shortcut icon" href="/_images/favicons/favicon.ico">
+    {% endblock %}
 
     {% block org_schema%}{% endblock %}
+
+    {% block additional_head_elements %}{% endblock %}
   </head>
   <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
     {% if user.is_authenticated %}
@@ -45,6 +54,7 @@
 
     {% block page_top_content %}{% endblock %}
 
+    {% block body_wrapped %}
     <div class="wrapper">
       <div id="member-notice">{% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
       </div>
@@ -63,9 +73,12 @@
       {% include "partials/footer.html" %}
       {% endblock %}
     </div>
+    {% endblock %}
 
     {% block script_bundle %}
     <script src="/_js/main.compiled.js"></script>
     {% endblock %}
+
+    {% block extra_scripts %}{% endblock %}
   </body>
 </html>
