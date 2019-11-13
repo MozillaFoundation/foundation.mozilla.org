@@ -8,135 +8,29 @@
   font-weight: bold;
 }
 
-/*
-  This accordion relies on the following (repeated) structure:
+#view-about {
+  .short-content {
+    min-height: 50vh;
+  }
+}
 
-      <input type="checkbox" class="accordion-helper d-none" id="...">
-      <label class="foldable" for="...">
-        <div class="taboverlay" tabindex="0"></div>
-        <h2 class="h5-heading">
-          Some Heading
-        </h2>
-        <p class="explanation">
-          Some text
-        </p>
-      </label>
-
-  The input checkbox is invisible, but on the page, and the
-  label wraps the caption/text block such that clicking anywhere
-  on it toggles the textbox.
-
-  For accessibilty, there is also an "overlay" div that can be
-  focussed on with the keyboard by tabbing through. This is not
-  perfect, and combining tabbed browsing with clicks will do
-  some weird things where clicking a tab-opened element will
-  first open it (because the checkbox is now checked), before
-  a second click closes it.
-*/
-#view-about .criteria-accordion {
-  input[type="checkbox"].accordion-helper {
-    display: block;
-    height: 0;
-
-    $explanation-max-height: 200vh;
-    $foldable-padding: 10px;
-    $foldable-margin: 8px;
-    $icon-dimension: 24px;
-
-    & + label.foldable {
-      cursor: pointer;
-      position: relative;
-      border: 1px solid $gray-20;
-      border-width: 1px 0;
-      padding: $foldable-padding 0;
+.how-to-use,
+.why-we-made,
+.minimum-security-standards,
+.about-methodology,
+.about-minimum-security,
+.about-privacy,
+.about-permissions,
+.worst-case-scenario {
+  section {
+    p:first-child {
       margin-bottom: 0;
-
-      & + input + label.foldable {
-        border-width: 0 0 1px 0;
-      }
-
-      .taboverlay {
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        &:focus {
-          background: $dark-red;
-          bottom: 100%;
-
-          & + h2 {
-            margin-bottom: 0.5rem;
-
-            &::after {
-              transform: rotate(45deg);
-            }
-
-            & + p {
-              max-height: $explanation-max-height;
-            }
-          }
-        }
-      }
-
-      h2 {
-        user-select: none;
-        outline: 0;
-        font-size: 18px;
-        margin: $foldable-margin 0;
-        width: calc(100% - #{$icon-dimension});
-      }
-
-      h2::after {
-        content: " ";
-        display: block;
-        position: absolute;
-        right: 0;
-        top: calc(#{$foldable-padding} + #{$foldable-margin});
-        background-image: url(/_images/buyers-guide/plus.svg);
-        background-size: 100% 100%;
-        width: $icon-dimension;
-        height: $icon-dimension;
-        transition: transform 100ms ease-in-out;
-        transform-origin: 50% 50%;
-      }
-
-      p {
-        width: calc(100% - #{$icon-dimension});
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 100ms ease-in-out;
-
-        &:last-child() {
-          margin-bottom: 0;
-        }
-      }
-    }
-
-    &:checked + label.foldable {
-      .taboverlay {
-        bottom: 100%;
-      }
-
-      h2 {
-        margin-bottom: 0.5rem;
-
-        & ::after {
-          transform: rotate(45deg);
-        }
-
-        & + p {
-          max-height: $explanation-max-height;
-        }
-      }
     }
   }
 }
 
-#view-contact {
-  .short-content {
-    min-height: 50vh;
+.about-press-list {
+  li:not(:last-child) {
+    margin-bottom: 1rem;
   }
 }

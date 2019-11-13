@@ -1,0 +1,86 @@
+{% extends "../bg_about.html" %}
+
+{% block main_about_class %}{% endblock %}
+
+{% block about_guts %}
+  <h1 class="h2-heading mb-4">
+    Minimum Security Guidelines Explained
+  </h1>
+
+  <div class="minimum-security-explained-intro">
+    <p class="body">
+      Despite growing concerns about the safety and security of internet-connected devices, many companies still build and sell connected products that are insecure. Take the <a href="https://www.npr.org/sections/thetwo-way/2018/06/05/617196788/s-c-mom-says-baby-monitor-was-hacked-experts-say-many-devices-are-vulnerable">FREDI wireless baby camera monitor</a>, for instance, which has been repeatedly hacked. Further, many companies don’t provide clear information about the data privacy of the devices they sell. Is your personal data being used in ways you may not have anticipated or expected?
+    </p>
+
+    <p class="body">
+      In 2018, 
+        <a href="https://foundation.mozilla.org/en/">Mozilla</a>, 
+        <a href="https://www.consumersinternational.org/">Consumers International</a>, and the 
+        <a href="https://www.internetsociety.org/">Internet Society</a>,
+      decided to take a more proactive approach to these gaps. We believe that industry should start talking about what some of the initial ‘red lines’ are in this space, and should phase out practices that lead to the most egregious failings in connected devices.
+    </p>
+
+    <p class="body">
+      Together, the three organizations proposed five minimum guidelines that companies making connected devices should reasonably be expected to satisfy.
+    </p>
+  </div>
+
+  <div class="mt-5 mb-4 minimum-security-standards">
+    <h3>
+      Minimum Security Standards
+    </h3>
+
+    <section aria-labelledby="encryption">
+      <p id="encryption"><b>Encryption</b></p>
+      <p class="body">
+        The product must use encryption for all of its network communications functions and capabilities. This ensures that all communications are not eavesdropped or modified in transit. The product must also use encryption at rest to ensure that customer data is protected in storage.
+      </p>
+    </section>
+
+    <section aria-labelledby="security-updates" aria-describedby="security-updates-footnote">
+      <p id="security-updates"><b>Security updates [1]</b></p>
+      <p class="body">
+        The product must support automatic updates for a reasonable period after sale, and be enabled by default. This ensures that when a vulnerability is known, the vendor can make security updates available for consumers, which are verified and then installed seamlessly. Updates must not make the product unavailable for an extended period.
+      </p>
+    </section>
+
+    <section aria-labelledby="strong-passwords"
+    aria-describedby="strong-passwords-footnote">
+      <p id="strong-passwords"><b>Strong passwords [2]</b></p>
+      <p class="body">
+        If the product uses passwords for remote authentication, it must require that strong passwords are used, including having password strength requirements. Any non-unique default passwords must also be reset as part of the device’s initial setup. This helps protect the device from vulnerability to guessable password attacks, which could result in a compromised device.
+      </p>
+    </section>
+
+    <section aria-labelledby="vulnerability-management">
+      <p id="vulnerability-management"><b>Vulnerability management</b></p>
+      <p class="body">
+        The vendor must have a system in place to manage vulnerabilities in the product. This must also include a point of contact for reporting vulnerabilities or an equivalent bug bounty program. This ensures that vendors are actively managing vulnerabilities throughout the product’s lifecycle.
+      </p>
+    </section>
+
+    <section aria-labelledby="privacy-practices" aria-describedby="privacy-practices-footnote">
+      <p id="privacy-practices"><b>Privacy Practices [3]</b></p>
+      <p class="body">
+        The product must have privacy information that applies specifically to the device, not a generic privacy policy that is written to cover just the company web properties.
+      </p>
+    </section>
+  </div>
+
+  <div class="minimum-security-footnotes mt-5">
+    <p id="security-updates-footnote">
+      <em><b>[1]</b> Automatic updates are critical to creating a secure product ecosystem. Nonetheless, we have heard concerns that automatic updates can also be used in ways that are adversarial towards users. This guideline is not intended in any way to encourage or condone the use of update mechanisms to push software that would weaken the privacy properties of products or modify security or privacy settings in ways that are inconsistent with users’ choices and expectations.
+      </em>
+    </p>
+
+    <p id="strong-passwords-footnote">
+      <em><b>[2]</b> The guideline is also not intended to require that all devices have a password. It is intended for devices that use passwords for remote authentication, rather than devices that are in hand. For instance, many connected devices use secure methods for Bluetooth authentication that does not involve passwords.
+      </em>
+    </p>
+
+    <p id="privacy-practices-footnote">
+      <em><b>[3]</b> In the Mozilla *Privacy Not Included Buyer’s Guide, we evaluate additional privacy considerations including how data is shared with third parties, whether data can be deleted, and the readability of the privacy information.
+      </em>
+    </p>
+  </div>
+{% endblock %}

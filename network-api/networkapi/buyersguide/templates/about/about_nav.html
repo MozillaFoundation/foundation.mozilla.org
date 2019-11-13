@@ -1,15 +1,21 @@
 {% load bg_nav_tags %}
 
 {% with request.get_full_path as current_url %}
-{% url 'about-view' as about_url %}
+{% url 'how-to-use-view' as how_to_use_url %}
 {% url 'why-view' as why_url %}
+{% url 'min-security-view' as minimum_security_url %}
+{% url 'methodology-view' as methodology_url %}
 {% url 'contact-view' as contact_url %}
+{% url 'press-view' as press_url %}
 
 <div class="col-lg-3">
   <div class="vertical-nav mt-5 pt-sm-2" id="multipage-nav">
-    <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url about_url %}" href="{{ about_url }}">How to use this guide</a></div>
+    <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url how_to_use_url %}" href="{{ how_to_use_url }}">How to use this guide</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url why_url %}" href="{{ why_url }}">Why we made this guide</a></div>
+    <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url minimum_security_url %}" href="{{ minimum_security_url }}">Minimum Security Standards explained</a></div>
+    <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url methodology_url %}" href="{{ methodology_url }}">Methodology</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url contact_url %}" href="{{ contact_url }}">Contact us</a></div>
+    <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url press_url %}" href="{{ press_url }}">Press</a></div>
   </div>
 </div>
 

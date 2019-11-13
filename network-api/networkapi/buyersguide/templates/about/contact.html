@@ -1,30 +1,20 @@
-{% extends "../bg_base.html" %}
+{% extends "../bg_about.html" %}
 
-{% block body_id %}contact{% endblock %}
+{% block main_about_class %}short-content{% endblock %}
 
-{% block main_content_class %}{% endblock %}
-
-{% block guts %}
-<div class="container">
-  <div class="row">
-
-  {% include "./about_nav.html" %}
-
-  <div class="col-12 col-md-12 col-lg-8 mt-5 mb-5 justify-content-center short-content">
-
+{% block about_guts %}
     <h1 class="h2-heading">
       Contact Us
     </h1>
 
-    <p>For any questions about the guide or to recommend a product for review or offer constructive feedback, please email Jen Caltrider <a href="mailto:jen@mozillafoundation.org">jen@mozillafoundation.org</a></p>
+    <p>For any questions about the guide or to offer constructive feedback, please email Jen Caltrider <a href="mailto:jen@mozillafoundation.org">jen@mozillafoundation.org</a></p>
 
-    <p>For members of the press with questions about this guide, please email Kevin Zawacki <a href="mailto:kevin@mozillafoundation.org">kevin@mozillafoundation.org</a></p>
-    
+    <p>For members of the press with questions about this guide, please email Corey Nord at
+      <a href="mailto:kevin@mozillafoundation.org">corey@pkpr.com</a>.
+    </p>
+
     <div class="recommend-product">
       <p>We don’t want to miss any products that might be important to you. Tell us what connected products you want reviewed in our holiday buyer’s guide and we’ll do our best to include them.</p>
       <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">Submit a product</a>
     </div>
-  </div>
-</div>
-
 {% endblock %}
