@@ -70,10 +70,11 @@ class RecentBlogEntries(blocks.StructBlock):
         only choose one filter option.
         '''
         if category:
-            category = slugify(category)
             type = "category"
-            query = category
-            blogpage.extract_category_information(category)
+            query = slugify(category)
+            BlogPageCategory = apps.get_model('wagtailpages.BlogPageCategory')
+            category_object = BlogPageCategory.objects.get(name=category)
+            blogpage.extract_category_information(category_object)
             entries = blogpage.get_entries(context)
 
         # Updates the href for the 'More from our blog' button
