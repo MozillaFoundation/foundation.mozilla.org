@@ -5,7 +5,9 @@
 {% endif %}
   <div class="wrapper-burger">
     <div class="menu-container">
+
       <div class="narrow-screen-menu hidden d-lg-none">
+        {% block narrow_screen_menu %}
         <div class="narrow-screen-menu-background dark-theme">
           <div class="narrow-screen-menu-container">
             <nav class="container">
@@ -21,45 +23,62 @@
             </nav>
           </div>
         </div>
+        {% endblock %}
       </div>
+
       <nav class="container wide-screen-menu-container">
         <div class="row">
           <div class="col">
             <div class="d-flex flex-row justify-content-between">
               <div id="primary-nav-links">
                 <div class="d-flex align-items-center flex-wrap">
-                {% if page.zen_nav == True %}
-                  <button class="burger">
-                {% else %}
-                  <button class="burger hidden-lg-up ml-md-0">
-                {% endif %}
-                    <div class="burger-bar burger-bar-top"></div>
-                    <div class="burger-bar burger-bar-middle"></div>
-                    <div class="burger-bar burger-bar-bottom"></div>
-                  </button>
-                  <a class="logo text-hide" href="/">Mozilla Foundation</a>
-                {% if page.zen_nav == True %}
-                  <div class="wide-screen-menu hidden">
-                {% else %}
-                  <div class="wide-screen-menu">
-                {% endif %}
+
+                  {% block burger_and_logo %}
+                    {% if page.zen_nav == True %}
+                    <button class="burger">
+                    {% else %}
+                    <button class="burger hidden-lg-up ml-md-0">
+                    {% endif %}
+                      <div class="burger-bar burger-bar-top"></div>
+                      <div class="burger-bar burger-bar-middle"></div>
+                      <div class="burger-bar burger-bar-bottom"></div>
+                    </button>
+                    <a class="logo text-hide" href="/">Mozilla Foundation</a>
+                  {% endblock %}
+
+                  {% if page.zen_nav == True %}
+                    <div class="wide-screen-menu hidden">
+                  {% else %}
+                    <div class="wide-screen-menu">
+                  {% endif %}
+
+                  {% block wide_screen_menu %}
                     <div class="nav-links d-none d-lg-block">
                       {% include "fragments/nav_links.html" %}
                     </div>
+                  {% endblock %}
+
                   </div>
                 </div>
               </div>
+
+              {% block donate_and_newsletter %}
               <div class="d-flex align-items-center">
                 <a id="donate-header-btn" class="heart-glyph mr-md-3" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer">Donate</a>
                 <button class="btn btn-secondary btn-newsletter hidden-md-down">Newsletter</button>
               </div>
+              {% endblock %}
+
             </div>
           </div>
         </div>
       </nav>
+
     </div>
   </div>
 </div>
+
+
 <div id="nav-newsletter-form-wrapper">
   <div class="container dark-theme">
     <div class="row">

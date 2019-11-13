@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import ReactGA from "../react-ga-proxy.js";
 
 import primaryNav from "./components/primary-nav/primary-nav.js";
+import navNewsletter from "../nav-newsletter.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
 import Filter from "./components/filter/filter.jsx";
@@ -50,8 +51,9 @@ let main = {
       this.injectReactComponents();
 
       primaryNav.init();
+      navNewsletter.init(networkSiteURL, csrfToken);
 
-      if (document.getElementById(`pni-home`)) {
+      if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
 
         let filter = document.querySelector(`#product-filter`);

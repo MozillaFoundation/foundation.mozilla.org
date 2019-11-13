@@ -1,0 +1,173 @@
+{% extends "../bg_about.html" %}
+
+{% block main_about_class %}{% endblock %}
+
+{% block about_guts %}
+  <h1 class="h2-heading mb-4">
+    About our Methodology
+  </h1>
+
+  <div class="methodology-intro">
+    <p class="body">
+      The goal of Mozilla’s <em>*Privacy Not Included</em> buyer’s guide is to help consumers shop smart — and safe — for
+      products that connect to the Internet. Many companies don’t provide clear information about the privacy and
+      security of the connected devices they sell. Is your personal data being used in ways you may not have
+      anticipated or expected? What are the risks of buying a product that collects your health data? How does the
+      company regularly test for and fix security vulnerabilities?
+    </p>
+
+    <p class="body">
+      It’s difficult for consumers to get clear, concrete information from companies about the security and privacy of their connected products. With this guide, we hoped to help consumers navigate this landscape by understanding what questions they should ask before buying a device.
+    </p>
+
+    <p class="body">
+      Here is the methodology we used to develop this guide.
+    </p>
+  </div>
+
+  <article class="mt-5 mb-4 about-methodology">
+    <h3>
+      Methodology
+    </h3>
+
+    <section aria-labelledby="product-selection">
+      <p id="product-selection"><b>Product Selection</b></p>
+      <p class="body">
+        There are 76 products in the 2019 version of our <em>*Privacy Not Included</em> buyer’s guide. These products fit into six categories — Toys & Games, Smart Home, Entertainment, Wearables, Health & Exercise, and Pets.
+      </p>
+      <p class="body">
+        The goal was to select connected products that were likely to be popular during the holiday season and beyond. We selected products that were top sellers on <a href="http://smile.amazon.com">Amazon</a> Prime Day, products featured in the <a href="https://targetopenhouse.com/">Target Open House</a>, and products that were highly rated across a variety of consumer product websites such as <a href="https://thewirecutter.com/">Wirecutter</a>, <a href="https://www.thetoyinsider.com/">The Toy Insider</a>, <a href="https://www.pcmag.com/">PC Magazine</a>, <a href="https://www.techradar.com/">Tech Radar</a>, and <a href="https://www.gearbrain.com/">Gear Brain</a>.
+      </p>
+    </section>
+  </article>
+
+  <article class="mt-5 mb-4 about-minimum-security">
+    <h3>
+      Minimum Security Requirements
+    </h3>
+
+    <p>
+      Mozilla has established a set of <a href="https://foundation.mozilla.org/en/privacynotincluded/about/meets-minimum-security-standards">Minimum Security Standards</a> it has determined should be met by any manufacturer developing connected devices. We evaluated each product on our list against five criteria:
+    </p>
+
+    <section aria-labelledby="encryption">
+      <p id="encryption"><b>Encryption</b></p>
+      <p class="body">
+        Device should use encryption in transit and at rest (where applicable). The product must use encryption for all of its network communications functions and capabilities, ensuring that communications aren’t eavesdropped or modified in transit. User data should be encrypted when it is stored.
+      </p>
+    </section>
+
+    <section aria-labelledby="security-updates">
+      <p id="security-updates"><b>Security updates</b></p>
+      <p class="body">
+        The product must support automatic security updates for a reasonable period after sale, and be enabled by default. This ensures that when a vulnerability is known, the vendor can make security updates available for consumers, which are verified (using some form of cryptography) and then installed seamlessly.
+      </p>
+    </section>
+
+    <section aria-labelledby="strong-passwords">
+      <p id="strong-passwords"><b>Strong passwords</b></p>
+      <p class="body">
+        If the product uses passwords for remote authentication, it must require that strong passwords are used, including having password strength requirements. Any non-unique default passwords must also be reset as part of the device’s initial setup. This helps protect the device from vulnerability to guessable password attacks, which could result in a compromised device. 
+      </p>
+    </section>
+
+    <section aria-labelledby="vulnerability-management">
+      <p id="vulnerability-management"><b>Vulnerability management</b></p>
+      <p class="body">
+        The vendor must have a system in place to manage vulnerabilities in the product. This must also include a point of contact for reporting vulnerabilities or a bug bounty program. This ensures that vendors are actively managing vulnerabilities throughout the product’s lifecycle. 
+      </p>
+    </section>
+
+    <section aria-labelledby="privacy-policy">
+      <p id="privacy-policy"><b>Privacy Policy</b></p>
+      <p class="body">
+        The product must have a privacy policy and/or another privacy page that applies to the device, app, or service we are evaluating. 
+      </p>
+    </section>
+  </article>
+
+  <article class="mt-5 mb-4 about-privacy">
+    <h3>
+      Privacy
+    </h3>
+
+    <p>
+      We evaluated the privacy documentation — which included privacy policies, privacy pages, FAQs – for each company selling these products to determine (1) how data is shared with third parties, (2) whether or not users could request deletion of their data, and (3) the accessibility/readability of the privacy information. Where relevant, we also looked at whether (4) biometric data is collected, and (5) parental controls are in place.
+    </p>
+
+    <section aria-labelledby="share-data">
+      <p id="share-data"><b>1) How does it share data?</b></p>
+      <p class="body">
+        How do companies collect and share customer data with third parties? For this question, we analyzed the privacy documentation to determine how and when personal customer data is shared with third parties for reasons other than standard vendors.
+      </p>
+      <p class="body">
+        For instance, if a company can share or sell personal customer data with third parties, use  data for targeted advertising, or if third parties can use data for commercial purposes, then we noted this. We also noted where the company is permitted to sell or share aggregated, de-identified data. Even if the data is not personally identifiable, consumers have a right to know how their information may be used.
+      </p>
+    </section>
+
+    <section aria-labelledby="delete-data">
+      <p id="delete-data"><b>2) Can you delete your data?</b></p>
+      <p class="body">
+        Does the company provide a way for users to request deletion of their data? We looked for language around this in the privacy policy and/or whether the company had an online portal that lets users delete their data quickly. 
+      </p>
+    </section>
+
+    <section aria-labelledby="user-friendly-privacy">
+      <p id="user-friendly-privacy"><b>3) User-friendly privacy information</b></p>
+      <p class="body">
+        How easy is it to find clear information about a device’s privacy? How clearly is that information stated? Privacy information should be clear, readable, and communicate basic information to consumers about what happens to their data. We looked for whether the company provides easy-to-read privacy information, either in the privacy policy or in another privacy page.
+      </p>
+    </section>
+
+    <section aria-labelledby="biometric-information">
+      <p id="biometric-information"><b>4) Biometric information</b></p>
+      <p class="body">
+        Biometric data is data that describes our bodies and distinctive personal characteristics. Many devices collect sensitive data about our heart rate, our sleep patterns, and our menstrual cycle, for instance. Some even use data about our face and voice to identify us. We noted which products collect biometric data. 
+      </p>
+    </section>
+
+    <section aria-labelledby="parental-control">
+      <p id="parental-control"><b>5) Parental controls?</b></p>
+      <p class="body">
+        For products that are intended for children, can parents change and control the settings of the device? 
+      </p>
+    </section>
+  </article>
+
+  <article class="mt-5 mb-4 about-permissions">
+    <h3>
+      Permissions
+    </h3>
+
+    <p>
+      We looked into a set of criteria for each product across five questions.
+    </p>
+
+    <section aria-labelledby="device-uses">
+      <p id="device-uses"><b>The device/app uses:</b></p>
+      <p class="body">
+        This looks at whether a device or app uses a camera, microphone, or location tracking.
+      </p>
+      <p class="body">
+        For you to set up your new device, you will probably need to download an app. Both of these (the device and the app) will most likely need data to make things work. The app will typically need to request permissions for it to access your more sensitive data.
+      </p>
+      <p class="body">
+        In our ratings, we evaluated if the device or the app required access to the <b>camera</b>, <b>microphone</b>, or <b>GPS location</b> information. We evaluated the device based on the product website and we used the <a href="https://play.google.com/store/apps">Google Play store for Android</a> to check on the permissions requested by each app. (<b>Note</b>: apps may access “approximate” or “network” based location. “Tracks Location” was marked as “Yes” if an app requests <b>any</b> location information, including approximate location.)
+      </p>
+    </section>
+  </article>
+
+  <article class="mt-5 mb-4 worst-case-scenario">
+    <h3>
+      Worst-case scenario
+    </h3>
+
+    <section aria-labelledby="goes-wrong">
+      <p id="goes-wrong"><b>What could happen if something goes wrong?</b></p>
+      <p class="body">
+        We included this section to help people understand risk scenarios related to their privacy and each particular product. We aimed to identify risks that would feel relevant to consumers. It’s likely nothing bad will happen with most of the products in this guide. However, it’s also good to think through what <em>could</em> happen if something goes wrong. This question looks a potential worst-case scenarios for each product, in some cases for fun and in some cases based on things that have already happened with the product.
+      </p>
+    </section>
+  </article>
+
+{% endblock %}
