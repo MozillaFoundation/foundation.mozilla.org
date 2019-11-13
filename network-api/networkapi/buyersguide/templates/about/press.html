@@ -1,17 +1,8 @@
-{% extends "../bg_base.html" %}
+{% extends "../bg_about.html" %}
 
-{% block body_id %}about{% endblock %}
+{% block main_about_class %}short-content{% endblock %}
 
-{% block main_content_class %}{% endblock %}
-
-{% block guts %}
-<div class="container">
-  <div class="row">
-
-  {% include "./about_nav.html" %}
-
-  <div class="col-12 col-md-12 col-lg-8 mt-5 mb-5 justify-content-center short-content">
-
+{% block about_guts %}
     <h1 class="h2-heading">
       Press
     </h1>
@@ -49,7 +40,4 @@
             </a>
         </li>
     </ul>
-  </div>
-</div>
-
 {% endblock %}
