@@ -130,12 +130,14 @@ def setup(ctx):
         ctx.run("pipenv install --dev")
         print("* Applying database migrations.")
         migrate(ctx)
-        print("* Updating localizable fields")
+        print("* Updating localizable fields.")
         l10n_sync(ctx)
         l10n_update(ctx)
-        print("* Creating fake data")
+        print("* Creating fake data.")
         manage(ctx, "load_fake_data")
-        print("* Updating block information")
+        print("* Compiling locale strings.")
+        compilemessages(ctx)
+        print("* Updating block information.")
         manage(ctx, "block_inventory")
 
         # Windows doesn't support pty, skipping this step
@@ -158,10 +160,12 @@ def catch_up(ctx):
     ctx.run("pipenv install --dev")
     print("* Applying database migrations.")
     migrate(ctx)
-    print("* Updating localizable fields")
+    print("* Compiling locale strings.")
+    compilemessages(ctx)
+    print("* Updating localizable fields.")
     l10n_sync(ctx)
     l10n_update(ctx)
-    print("* Updating block information")
+    print("* Updating block information.")
     manage(ctx, "block_inventory")
 
 
@@ -285,6 +289,9 @@ def docker_catch_up(ctx):
     ctx.run("docker-compose build")
     print("* Applying database migrations.")
     docker_migrate(ctx)
+    print("* Compiling localse strings.")
+    docker_compilemessages
+    print("* Updating block information.")
     docker_l10n_block_inventory(ctx)
 
 
@@ -305,8 +312,11 @@ def docker_new_env(ctx):
         ctx.run("docker-compose build --no-cache", **PLATFORM_ARG)
         print("* Applying database migrations.")
         docker_migrate(ctx)
-        print("* Creating fake data")
+        print("* Creating fake data.")
         docker_manage(ctx, "load_fake_data")
+        print("* Compiling localse strings.")
+        docker_compilemessages
+        print("* Updating block information.")
         docker_l10n_block_inventory(ctx)
         docker_create_super_user(ctx)
 
