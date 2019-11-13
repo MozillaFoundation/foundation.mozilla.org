@@ -5,9 +5,9 @@
 {% block coral_talk_meta %}
   {% if coral_talk %}
     <meta property="article:author" content="{{ page.author }}" />
-    <meta property="article:published_time" content="{{ page.first_published_at|date:"F j, Y" }}">
+    <meta property="article:published_time" content="{{ page.first_published_at|date:"DATE_FORMAT" }}">
     {% if page.last_published_at %}
-      <meta property="article:modified" content="{{ page.last_published_at|date:"F j, Y" }}"/>
+      <meta property="article:modified" content="{{ page.last_published_at|date:"DATE_FORMAT" }}"/>
     {% endif %}
     {% with category=page.specific.category.first %}
       {% if category %}
