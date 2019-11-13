@@ -48,13 +48,13 @@
       </div>
 
       <div class="minimum-security">
-        <div class="criterion">
+        <div class="criterion bottom-border-only">
           <div class="d-block primary-info">
             <div class="d-flex justify-content-between">
-              <div class="d-flex flex-column">
-                <span class="body-large">Minimum Security Standards</span>
+              <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
+                <h3 class="h3-heading mb-0 mb-md-3">Minimum Security Standards</h3>
 
-                <div class="d-flex rating mt-2">
+                <div class="d-flex rating my-2">
                   <span class="star value-{{ product.uses_encryption|lower}}">&nbsp;</span>
                   <span class="star value-{{ product.security_updates|lower }}">&nbsp;</span>
                   <span class="star value-{{ product.strong_password|lower }}">&nbsp;</span>
@@ -62,7 +62,12 @@
                   <span class="star value-{{ product.privacy_policy|lower }}">&nbsp;</span>
                 </div>
               </div>
-              <button class="toggle"></button>
+            </div>
+            <div class="primary-info-description mb-3">
+              <p class="body">
+                Five basic steps every company should take to protect consumer privacy.
+                <a href="/privacynotincluded/about/meets-minimum-security-standards">Learn more.</a>
+              </p>
             </div>
           </div>
 

@@ -67,38 +67,6 @@ let main = {
         }
       }
 
-      if (document.getElementById(`view-product-page`)) {
-        ProductGA.init();
-
-        // Set up help text accordions where necessary:
-        let productBox = document.querySelector(`.product-detail .h1-heading`);
-        let productName = productBox
-          ? productBox.textContent
-          : `unknown product`;
-        let criteriaWithHelp = document.querySelectorAll(
-          `.criterion button.toggle`
-        );
-
-        if (criteriaWithHelp.length > 0) {
-          Array.from(criteriaWithHelp).forEach(button => {
-            let help = button.closest(`.criterion`).querySelector(`.details`);
-
-            button.addEventListener(`click`, () => {
-              button.classList.toggle(`open`);
-              help.classList.toggle(`open`);
-
-              if (help.classList.contains(`open`)) {
-                ReactGA.event({
-                  category: `product`,
-                  action: `expand accordion tap`,
-                  label: `detail view on ${productName}`
-                });
-              }
-            });
-          });
-        }
-      }
-
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
         window[`bg-main-js:react:finished`] = true;
