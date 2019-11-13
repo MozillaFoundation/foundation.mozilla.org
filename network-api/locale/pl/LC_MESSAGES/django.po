@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-21 21:58+0000\n"
+"POT-Creation-Date: 2019-11-13 11:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgid "Language"
 msgstr ""
 
 #: network-api/networkapi/templates/pages/base.html:9
-#: network-api/networkapi/templates/partials/primary_nav.html:40
+#: network-api/networkapi/templates/partials/primary_nav.html:46
 msgid "Mozilla Foundation"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgid "GitHub"
 msgstr ""
 
 #: network-api/networkapi/templates/partials/footer.html:50
-#: network-api/networkapi/templates/partials/primary_nav.html:53
+#: network-api/networkapi/templates/partials/primary_nav.html:67
 msgid "Donate"
 msgstr ""
 
@@ -101,16 +101,16 @@ msgstr ""
 msgid "Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href=\"%(foundation_website_url)s\">%(foundation_website)s</a>"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/primary_nav.html:15
+#: network-api/networkapi/templates/partials/primary_nav.html:17
 msgid "Home"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/primary_nav.html:17
-#: network-api/networkapi/templates/partials/primary_nav.html:54
+#: network-api/networkapi/templates/partials/primary_nav.html:19
+#: network-api/networkapi/templates/partials/primary_nav.html:68
 msgid "Newsletter"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/primary_nav.html:69
+#: network-api/networkapi/templates/partials/primary_nav.html:88
 msgid "No thanks"
 msgstr ""
 
@@ -125,13 +125,13 @@ msgstr ""
 msgid "More from our blog"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:10
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:19
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:27
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:44
 #, python-format
 msgid "%(title)s by @mozilla"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:16
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:34
 #, python-format
 msgid "By %(author)s"
 msgstr ""
@@ -189,6 +189,28 @@ msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:96
 msgid "Rishab Nithyanand, Mozilla Fellow"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:32
+#, python-format
+msgid "%(total_entries)s result"
+msgid_plural "%(total_entries)s results"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:37
+msgctxt "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”"
+msgid "for"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:48
+msgid "clear filters"
+msgstr ""
+
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:66
+msgid "Load more results"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/load-more-regrets.html:4
