@@ -15,7 +15,7 @@ import os
 import environ
 import logging.config
 import dj_database_url
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy
 
 app = environ.Path(__file__) - 1
 root = app - 1
@@ -367,12 +367,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en'
 LANGUAGES = (
-    ('en', _('English')),
-    ('de', _('German')),
-    ('pt', _('Portuguese')),
-    ('es', _('Spanish')),
-    ('fr', _('French')),
-    ('pl', _('Polish')),
+    ('en', gettext_lazy('English')),
+    ('de', gettext_lazy('German')),
+    ('pt', gettext_lazy('Portuguese')),
+    ('es', gettext_lazy('Spanish')),
+    ('fr', gettext_lazy('French')),
+    ('pl', gettext_lazy('Polish')),
 )
 
 TIME_ZONE = 'UTC'

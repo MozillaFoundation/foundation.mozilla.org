@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.utils.html import format_html_join
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext
 
 from wagtail.core import hooks
 
@@ -30,7 +30,7 @@ def language_toggles():
     """.format(
         languages=", ".join(lang_codes),
         language_code=settings.LANGUAGE_CODE,
-        view_edit_string=_('View / edit fields for')
+        view_edit_string=gettext('View / edit fields for')
     )
 
     js_includes = format_html_join(
