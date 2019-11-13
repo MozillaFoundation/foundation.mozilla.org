@@ -12,11 +12,5 @@ python ./manage.py block_inventory
 python ./manage.py sync_page_translation_fields
 python ./manage.py update_translation_fields
 
-# Get the latest Portuguese (Brazil) translation file from Pontoon
-cp ./locale/pt_BR/LC_MESSAGES/django.po ./locale/pt/LC_MESSAGES/django.po
-
-# Compile the Django template translations
-python ./manage.py compilemessages -l de -l es -l fr -l pl -l pt
-
 # Clear cache for BuyersGuide
 python ./manage.py clear_cache

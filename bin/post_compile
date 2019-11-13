@@ -29,5 +29,8 @@ rm gettext.tar.xz
 PATH=$BUILD_DIR/gettext/bin:$PATH
 LD_LIBRARY_PATH=$BUILD_DIR/gettext/lib:$LD_LIBRARY_PATH
 
+# Copy the latest Portuguese (Brazil) file translated from Pontoon into the folder consumed by Django
+cp $BUILD_DIR/locale/pt_BR/LC_MESSAGES/django.po $BUILD_DIR/locale/pt/LC_MESSAGES/django.po
+
 # Compile localized strings
 python $BUILD_DIR/manage.py compilemessages
