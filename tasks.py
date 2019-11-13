@@ -21,7 +21,7 @@ else:
 # so we build it here rather so that we don't clutter up the tasks.
 locale_abstraction_instructions = " ".join([
     "makemessages",
-    "-l de -l es -l fr -l pl",
+    "-l de -l es -l fr -l pl -l pt_BR",
     "--keep-pot",
     "--no-wrap",
     "--ignore=network-api/networkapi/wagtailcustomization/*",
@@ -102,6 +102,7 @@ def makemessages(ctx):
 @task
 def compilemessages(ctx):
     """Compile the latest translations"""
+    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
     manage(ctx, "compilemessages")
 
 
@@ -248,6 +249,7 @@ def docker_makemessages(ctx):
 @task
 def docker_compilemessages(ctx):
     """Compile the latest translations"""
+    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
     docker_manage(ctx, "compilemessages")
 
 
