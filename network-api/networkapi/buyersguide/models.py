@@ -262,33 +262,27 @@ class Product(ClusterableModel):
 
     # It uses your...
 
-    camera_device = models.BooleanField(
-        null=True,
+    camera_device = ExtendedYesNoField(
         help_text='Does this device have or access a camera?',
     )
 
-    camera_app = models.BooleanField(
-        null=True,
+    camera_app = ExtendedYesNoField(
         help_text='Does the app have or access a camera?',
     )
 
-    microphone_device = models.BooleanField(
-        null=True,
+    microphone_device = ExtendedYesNoField(
         help_text='Does this Device have or access a microphone?',
     )
 
-    microphone_app = models.BooleanField(
-        null=True,
+    microphone_app = ExtendedYesNoField(
         help_text='Does this app have or access a microphone?',
     )
 
-    location_device = models.BooleanField(
-        null=True,
+    location_device = ExtendedYesNoField(
         help_text='Does this product access your location?',
     )
 
-    location_app = models.BooleanField(
-        null=True,
+    location_app = ExtendedYesNoField(
         help_text='Does this app access your location?',
     )
 
@@ -331,6 +325,11 @@ class Product(ClusterableModel):
 
     user_friendly_privacy_policy = ExtendedYesNoField(
         help_text='Does this product have a user-friendly privacy policy?'
+    )
+
+    user_friendly_privacy_policy_helptext = models.TextField(
+        max_length=5000,
+        blank=True
     )
 
     """
@@ -473,7 +472,7 @@ class Product(ClusterableModel):
                 FieldPanel('location_device'),
                 FieldPanel('location_app'),
             ],
-            heading="It uses your...",
+            heading="Can it snoop?",
             classname="collapsible"
         ),
         MultiFieldPanel(
@@ -485,6 +484,7 @@ class Product(ClusterableModel):
                 FieldPanel('collects_biometrics'),
                 FieldPanel('collects_biometrics_helptext'),
                 FieldPanel('user_friendly_privacy_policy'),
+                FieldPanel('user_friendly_privacy_policy_helptext'),
                 FieldPanel('worst_case'),
             ],
             heading="How does it handle privacy",
