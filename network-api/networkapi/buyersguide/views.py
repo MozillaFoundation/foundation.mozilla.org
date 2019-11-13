@@ -127,15 +127,15 @@ def product_view(request, slug):
 
 
 def bg_about_page(template_name):
-    key = 'categories'
-    categories = cache.get(key)
-
-    if not categories:
-        categories = BuyersGuideProductCategory.objects.all()
-        cache.set(key, categories, 86400)
-
     @enforce_en_locale
     def render_view(request):
+        key = 'categories'
+        categories = cache.get(key)
+
+        if not categories:
+            categories = BuyersGuideProductCategory.objects.all()
+            cache.set(key, categories, 86400)
+
         return render(request, f"about/{template_name}.html", {
             'categories': categories,
         })
