@@ -492,6 +492,7 @@ class BanneredCampaignPage(PrimaryPage):
 
     subpage_types = [
         'BanneredCampaignPage',
+        'RedirectingPage',
     ]
 
     show_in_menus_default = True
