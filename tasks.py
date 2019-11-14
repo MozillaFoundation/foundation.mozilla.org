@@ -17,6 +17,19 @@ if platform == 'win32':
 else:
     PLATFORM_ARG = dict(pty=True)
 
+# The command for locale string abstraction is long and elaborate,
+# so we build it here rather so that we don't clutter up the tasks.
+locale_abstraction_instructions = " ".join([
+    "makemessages",
+    "-l de -l es -l fr -l pl -l pt_BR",
+    "--keep-pot",
+    "--no-wrap",
+    "--ignore=network-api/networkapi/wagtailcustomization/*",
+    "--ignore=network-api/networkapi/wagtail_l10n_customization/*",
+    "--ignore=network-api/networkapi/settings.py",
+    "--ignore=network-api/networkapi/wagtailpages/__init__.py",
+])
+
 
 def create_docker_env_file(env_file):
     """Create or update an .env to work with a docker environment"""
@@ -80,6 +93,20 @@ def l10n_update(ctx):
 
 
 @task
+def makemessages(ctx):
+    """Extract all template messages in .po files for localization"""
+    manage(ctx, locale_abstraction_instructions)
+    os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+
+
+@task
+def compilemessages(ctx):
+    """Compile the latest translations"""
+    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
+    manage(ctx, "compilemessages")
+
+
+@task
 def test(ctx):
     """Run tests"""
     print("* Running flake8")
@@ -104,12 +131,14 @@ def setup(ctx):
         ctx.run("pipenv install --dev")
         print("* Applying database migrations.")
         migrate(ctx)
-        print("* Updating localizable fields")
+        print("* Updating localizable fields.")
         l10n_sync(ctx)
         l10n_update(ctx)
-        print("* Creating fake data")
+        print("* Creating fake data.")
         manage(ctx, "load_fake_data")
-        print("* Updating block information")
+        print("* Compiling locale strings.")
+        compilemessages(ctx)
+        print("* Updating block information.")
         manage(ctx, "block_inventory")
 
         # Windows doesn't support pty, skipping this step
@@ -132,10 +161,12 @@ def catch_up(ctx):
     ctx.run("pipenv install --dev")
     print("* Applying database migrations.")
     migrate(ctx)
-    print("* Updating localizable fields")
+    print("* Compiling locale strings.")
+    compilemessages(ctx)
+    print("* Updating localizable fields.")
     l10n_sync(ctx)
     l10n_update(ctx)
-    print("* Updating block information")
+    print("* Updating block information.")
     manage(ctx, "block_inventory")
 
 
@@ -209,6 +240,20 @@ def docker_l10n_update(ctx):
 
 
 @task
+def docker_makemessages(ctx):
+    """Extract all template messages in .po files for localization"""
+    docker_manage(ctx, locale_abstraction_instructions)
+    os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+
+
+@task
+def docker_compilemessages(ctx):
+    """Compile the latest translations"""
+    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
+    docker_manage(ctx, "compilemessages")
+
+
+@task
 def docker_test_python(ctx):
     """Run python tests"""
     print("* Running flake8")
@@ -246,6 +291,9 @@ def docker_catch_up(ctx):
     ctx.run("docker-compose build")
     print("* Applying database migrations.")
     docker_migrate(ctx)
+    print("* Compiling localse strings.")
+    docker_compilemessages
+    print("* Updating block information.")
     docker_l10n_block_inventory(ctx)
 
 
@@ -266,8 +314,11 @@ def docker_new_env(ctx):
         ctx.run("docker-compose build --no-cache", **PLATFORM_ARG)
         print("* Applying database migrations.")
         docker_migrate(ctx)
-        print("* Creating fake data")
+        print("* Creating fake data.")
         docker_manage(ctx, "load_fake_data")
+        print("* Compiling localse strings.")
+        docker_compilemessages
+        print("* Updating block information.")
         docker_l10n_block_inventory(ctx)
         docker_create_super_user(ctx)
 
