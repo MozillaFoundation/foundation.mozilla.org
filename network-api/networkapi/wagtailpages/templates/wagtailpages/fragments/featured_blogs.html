@@ -1,11 +1,11 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags i18n %}
 
 {% if page.featured_blogs.all.count > 0 %}
 {% with page.featured_blogs.all as featured_blogs %}
 <div class="row">
   <div class="col mb-4">
     <hr class="mb-4 hr-emphasis mt-0">
-    <h4 class="h4-heading">Latest news</h4>
+    <h4 class="h4-heading">{% trans "Latest news" %}</h4>
   </div>
 </div>
 <div class="row mb-3">
@@ -26,7 +26,12 @@
           <h5 class="mb-2 h3-heading">
             <a href="{{blog.blog.url}}">{{blog.blog.title}}</a>
           </h5>
-          <p class="body-small mb-2">{% if blog.blog.author %}by {{blog.blog.author}} on {% endif %} {% if blog.blog.first_published_at %}{{ blog.blog.first_published_at|date:"F j, Y" }}{% else %}not published yet{% endif %}</p>
+          <p class="body-small mb-2">
+            {% if blog.blog.author %}
+              {% blocktrans with author=blog.blog.author %}by {{author}}{% endblocktrans %}
+            {% endif %}
+            {% if blog.blog.first_published_at %} {% blocktrans with date=page.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
+          </p>
           <p>{{blog.blog.search_description}}</p>
         </div>
       </div>
@@ -48,7 +53,12 @@
       <h5 class="mb-2">
         <a href="{{blog.blog.url}}">{{blog.blog.title}}</a>
       </h5>
-      <p class="body-small mb-2">{% if blog.blog.author %}by {{blog.blog.author}} on {% endif %} {% if blog.blog.first_published_at %}{{ blog.blog.first_published_at|date:"F j, Y" }}{% else %}not published yet{% endif %}</p>
+      <p class="body-small mb-2">
+        {% if blog.blog.author %}
+          {% blocktrans with author=blog.blog.author %}by {{author}}{% endblocktrans %}
+        {% endif %}
+        {% if blog.blog.first_published_at %} {% blocktrans with date=page.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
+      </p>
       <p>{{blog.blog.search_description}}</p>
       <hr>
     </div>
@@ -59,7 +69,7 @@
 </div>
 <div class="row">
   <div class="col text-center mb-5">
-    <a class="btn btn-secondary" href="/blog">More from our blog</a>
+    <a class="btn btn-secondary" href="/blog">{% trans "More from our blog" %}</a>
   </div>
 </div>
 {% endwith %}

@@ -1,7 +1,9 @@
+{% load i18n %}
+
 <div class="my-5">
     <div class="my-2 py-2 ih-cta">
         <div class="d-flex align-items-center"><img class="mr-3" src="/_images/icon-IH.svg" alt="" width="51" height="45">
-            <p class="my-0">This is part of a broader movement for a healthy internet. <a href="/" id="see-more-modular-page">See more</a>.</p>
+            <p class="my-0">{% blocktrans with see_more_link='href="/" id="see-more-modular-page"' %}This is part of a broader movement for a healthy internet. <a {{ see_more_link }}>See more</a>.{% endblocktrans %}</p>
         </div>
     </div>
 </div>

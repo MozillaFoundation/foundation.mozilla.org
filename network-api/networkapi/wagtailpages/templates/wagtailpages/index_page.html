@@ -1,6 +1,6 @@
 {% extends "./modular_page.html" %}
 
-{% load wagtailcore_tags mini_site_tags %}
+{% load wagtailcore_tags mini_site_tags i18n %}
 
 
 {% block content %}
@@ -29,8 +29,12 @@
       <div class="col-12 d-flex justify-content-between">
         <div class="search-result">
           <h3 class="body result-info">
-            {{ total_entries }} result{% if total_entries != 1 %}s{% endif %}
-            {% if total_entries > 0 %} for
+            {% blocktrans count count=total_entries trimmed %}
+                {{ total_entries }} result
+            {% plural %}
+                {{ total_entries }} results
+            {% endblocktrans %}
+            {% if total_entries > 0 %} {% trans "for" context "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”" %}
             <ul class="term-list">
             {% for term in terms %}
               <li class="term body-small">{{ term }}</li>
@@ -41,7 +45,7 @@
         </div>
 
         <div class="clear-link">
-          <a href="{{ root.url }}">clear filters</a>
+          <a href="{{ root.url }}">{% trans "clear filters" %}</a>
         </div>
       </div>
     </div>
@@ -59,7 +63,7 @@
       <div class="col-12 text-center mb-5">
         {% if has_more %}
         <button class="btn btn-primary load-more-index-entries" data-page-size="{{ page.specific.page_size }}">
-          Load more results
+          {% trans "Load more results" %}
         </button>
         {% endif %}
 
