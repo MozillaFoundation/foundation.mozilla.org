@@ -30,8 +30,8 @@ PATH=$BUILD_DIR/gettext/bin:$PATH
 LD_LIBRARY_PATH=$BUILD_DIR/gettext/lib:$LD_LIBRARY_PATH
 
 # Copy the latest Portuguese (Brazil) file translated from Pontoon into the folder consumed by Django
-ptSource=$BUILD_DIR/locale/pt_BR/LC_MESSAGES/django.po
-[[ -e $ptSource ]] && cp $ptSource $BUILD_DIR/locale/pt/LC_MESSAGES/django.po
+ptSource=$BUILD_DIR/network-api/locale/pt_BR/LC_MESSAGES/django.po
+[[ -e $ptSource ]] && cp $ptSource $BUILD_DIR/network-api/locale/pt/LC_MESSAGES/django.po
 
 # Compile localized strings
-python $BUILD_DIR/manage.py compilemessages
+python $BUILD_DIR/network-api/manage.py compilemessages
