@@ -3,7 +3,7 @@
 <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
   <input name="next" type="hidden" value="{{ request.path }}">
   <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center mb-md-0">
-    <label class="h5-heading mb-0 d-flex align-items-center globe-glyph medium" for="language-switcher">Language</label>
+    <label class="h5-heading mb-0 d-flex align-items-center globe-glyph medium" for="language-switcher">{% trans "Language" %}</label>
     <select name="language" id="language-switcher" class="mt-3 mt-md-0 ml-md-3 w-100 form-control" onchange="this.form.submit()">
       {% get_current_language as LANGUAGE_CODE %}
       {% get_available_languages as LANGUAGES %}

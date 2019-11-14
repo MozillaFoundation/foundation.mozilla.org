@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n %}
 
 {% block body_id %}youtube-regrets{% endblock %}
 
@@ -33,18 +33,18 @@
       {% endfor %}
     </div>
     <div class="intro-button-wrapper">
-      <button class="btn btn-primary btn-newsletter hidden-lg-up mx-auto d-none">Join Mozilla</button>
-      <button class="btn btn-primary btn-newsletter hidden-md-down mx-auto d-none">Join Mozilla</button>
+      <button class="btn btn-primary btn-newsletter hidden-lg-up mx-auto d-none">{% trans "Join Mozilla" %}</button>
+      <button class="btn btn-primary btn-newsletter hidden-md-down mx-auto d-none">{% trans "Join Mozilla" %}</button>
     </div>
   </div>
 
   <figure class="scroll-hint text-center d-none">
     <img src="/_images/youtube-regrets/scroll.svg" width="28" height="85" />
-    <figcaption>Scroll</figcaption>
+    <figcaption>{% trans "Scroll" %}</figcaption>
   </figure>
 </div>
 
-{% with share_text="28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths" %}
+{% trans "28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths" as share_text %}
 <main class="container">
   <div class="row hidden-md-up my-3">
     <div class="col-12">
@@ -82,7 +82,6 @@
     </div>
   </div>
 </main>
-{% endwith %}
 {% endblock %}
 
 {% block footer_block %}
