@@ -859,7 +859,10 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['coral_talk_server_url'] = settings.CORAL_TALK_SERVER_URL
         context['coral_talk'] = context['coral_talk_server_url'] and self.feature_comments
 
-        blog_page = IndexPage.objects.get(title_en='Blog')
+        blog_page = IndexPage.objects.get(title_en__iexact='Blog')
+
+        if blog_page is None:
+            blog_page = IndexPage.objects.get(title__iexact='Blog')
 
         if blog_page:
             context['blog_index'] = blog_page
