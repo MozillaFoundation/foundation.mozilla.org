@@ -34,8 +34,8 @@
         {% blocktrans with author=page.author %}By {{ author }}{% endblocktrans %} | {% if page.first_published_at %}{{ page.first_published_at|date:"DATE_FORMAT" }}{% else %}not
         published yet{% endif %}
         {% with category=page.specific.category.first %}
-        {% if category %}
-          | <a class="category" href="{% slugurl 'blog' %}category/{{category.slug}}">{{ category }}</a>
+        {% if category and blog_index %}
+          | <a class="category" href="{{blog_index.url}}category/{{category.slug}}">{{ category }}</a>
         {% endif %}
         {% endwith %}
       </p>
