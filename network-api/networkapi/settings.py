@@ -15,7 +15,7 @@ import os
 import environ
 import logging.config
 import dj_database_url
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy
 
 app = environ.Path(__file__) - 1
 root = app - 1
@@ -76,6 +76,7 @@ env = environ.Env(
     CLOUDINARY_API_KEY=(str, ''),
     CLOUDINARY_API_SECRET=(str, ''),
     FEED_LIMIT=(int, 10),
+    DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
 )
 
 # Read in the environment
@@ -194,8 +195,8 @@ INSTALLED_APPS = list(filter(None, [
 
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
-    'networkapi.buyersguide',
     'networkapi.mozfest',
+    'networkapi.buyersguide',
 ]))
 
 MIDDLEWARE = list(filter(None, [
@@ -366,18 +367,22 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en'
 LANGUAGES = (
-    ('en', _('English')),
-    ('de', _('German')),
-    ('pt', _('Portuguese')),
-    ('es', _('Spanish')),
-    ('fr', _('French')),
-    ('pl', _('Polish')),
+    ('en', gettext_lazy('English')),
+    ('de', gettext_lazy('German')),
+    ('pt', gettext_lazy('Portuguese')),
+    ('es', gettext_lazy('Spanish')),
+    ('fr', gettext_lazy('French')),
+    ('pl', gettext_lazy('Polish')),
 )
 
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -591,3 +596,6 @@ NETWORK_SITE_URL = env('NETWORK_SITE_URL')
 
 # RSS / ATOM settings
 FEED_LIMIT = env('FEED_LIMIT')
+
+# Support pages with a large number of fields
+DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')

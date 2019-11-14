@@ -40,6 +40,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/card";
 @import "./components/airtable-block";
 @import "./components/image-text-mini";
+@import "./components/select-dropdown";
 
 // Misc
 
@@ -65,33 +66,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./views/indexpage";
 @import "./views/blog";
 @import "./views/style-guide";
+@import "./views/youtube-regrets";
 
 // Bootstrap or mofo-bootstrap overrides
 
 hr {
   border-color: $gray-20;
-}
-
-#language-switcher {
-  $background-size: 24px;
-  $padding-x: 12px;
-  $padding-right: $padding-x * 2 + $background-size;
-
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background-color: transparent;
-  background-image: url("../_images/glyphs/down-chevron-dark-theme.svg");
-  background-repeat: no-repeat;
-  background-position: right $padding-x top 50%;
-  background-size: $background-size $background-size;
-  border-radius: 0;
-  border: 1px solid $white;
-  color: $white;
-  padding: 5px $padding-right 5px $padding-x;
-
-  // target Edge broswser to explictly set background color to black
-  // otherwise on Edge the dropdown options won't show (white text on Edge's default white background)
-  @supports (-ms-ime-align: auto) {
-    background-color: $black;
-  }
 }

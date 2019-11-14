@@ -45,6 +45,7 @@ class NavNewsletter {
   closeDesktopNewsletter(event) {
     elements.container.classList.remove("expanded");
     elements.buttonDesktop.classList.remove("active");
+    // Make sure we don't leak event listeners
     document.removeEventListener("click", this.closeFormClickHandler);
     document.removeEventListener("scroll", this.closeFormClickHandler);
     this.resetForm();
@@ -90,6 +91,9 @@ class NavNewsletter {
       event.target !== elements.container
     ) {
       navNewsletter.closeDesktopNewsletter();
+      // Make sure we don't leak event listeners:
+      document.removeEventListener("click", this.closeFormClickHandler);
+      document.removeEventListener("scroll", this.closeFormClickHandler);
     }
   }
 
@@ -105,8 +109,18 @@ class NavNewsletter {
       // find this DOM node, and report on the result (binding it if found for later use)
       let element = document.querySelector(value);
       if (element) elements[key] = element;
+
       return !!element;
     });
+  }
+
+  buttonDesktopClickHandler(event) {
+    if (!this.isShown) {
+      event.stopPropagation();
+      this.expandDesktopNewsletter();
+    } else {
+      this.closeDesktopNewsletter();
+    }
   }
 
   init(foundationSiteURL, csrfToken) {
@@ -122,13 +136,8 @@ class NavNewsletter {
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section
-    elements.buttonDesktop.addEventListener("click", event => {
-      if (!this.isShown) {
-        event.stopPropagation();
-        this.expandDesktopNewsletter();
-      } else {
-        this.closeDesktopNewsletter();
-      }
+    elements.buttonDesktop.addEventListener(`click`, event => {
+      this.buttonDesktopClickHandler(event);
     });
 
     // For mobile version:
@@ -140,7 +149,7 @@ class NavNewsletter {
     // For mobile version:
     // make 'buttonMobile' the trigger to show newsletter section
     elements.buttonMobile.addEventListener("click", () => {
-      navNewsletter.expandMobileNewsletter();
+      this.expandMobileNewsletter();
     });
   }
 }

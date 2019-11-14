@@ -1,6 +1,8 @@
 {% extends "./mozfest-base.html" %}
 {% load wagtailcore_tags %}
 
+{% block page_title %}{{page.title}}{% endblock%}
+
 {% block mozfest_body_id %}home{% endblock %}
 
 {% block hero_guts %}

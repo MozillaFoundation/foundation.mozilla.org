@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import ReactGA from "../react-ga-proxy.js";
 
 import primaryNav from "./components/primary-nav/primary-nav.js";
+import navNewsletter from "../nav-newsletter.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
 import Filter from "./components/filter/filter.jsx";
@@ -50,8 +51,9 @@ let main = {
       this.injectReactComponents();
 
       primaryNav.init();
+      navNewsletter.init(networkSiteURL, csrfToken);
 
-      if (document.getElementById(`pni-home`)) {
+      if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
 
         let filter = document.querySelector(`#product-filter`);
@@ -63,35 +65,6 @@ let main = {
             })
           );
         }
-      }
-
-      if (document.getElementById(`pni-product-page`)) {
-        ProductGA.init();
-
-        // Set up help text accordions where necessary:
-        let productBox = document.querySelector(`.product-detail .h1-heading`);
-        let productName = productBox
-          ? productBox.textContent
-          : `unknown product`;
-        const criteriaWithHelp = document.querySelectorAll(
-          `.criterion button.toggle`
-        );
-        criteriaWithHelp.forEach(button => {
-          let help = button.closest(`.criterion`).querySelector(`.helptext`);
-
-          button.addEventListener(`click`, () => {
-            button.classList.toggle(`open`);
-            help.classList.toggle(`open`);
-
-            if (help.classList.contains(`open`)) {
-              ReactGA.event({
-                category: `product`,
-                action: `expand accordion tap`,
-                label: `detail view on ${productName}`
-              });
-            }
-          });
-        });
       }
 
       // Record that we're done, when we're really done.
@@ -154,22 +127,24 @@ let main = {
           confidence: { "0": 0, "1": 0 }
         };
       }
-
-      apps.push(
-        new Promise(resolve => {
-          ReactDOM.render(
-            <CreepVote
-              csrf={csrf.value}
-              productName={productName}
-              productID={parseInt(productID, 10)}
-              votes={votes}
-              whenLoaded={() => resolve()}
-            />,
-            element
-          );
-        })
-      );
-    });
+        apps.push(
+          new Promise(resolve => {
+            ReactDOM.render(
+              <CreepVote
+                csrf={csrf.value}
+                productName={productName}
+                productID={parseInt(productID, 10)}
+                votes={votes}
+                whenLoaded={() => resolve()}
+                joinUsCSRF={csrfToken}
+                joinUsApiUrl={`${networkSiteURL}/api/campaign/signups/0/`}
+              />,
+              element
+            );
+          })
+        );
+      });
+    }
 
     const creepometerTargets = document.querySelectorAll(`.creepometer-target`);
     creepometerTargets.forEach(element => {

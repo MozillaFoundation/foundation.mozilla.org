@@ -25,6 +25,7 @@ class PostRouteTests(TestCase):
             'newsletterSignup': True,
             'comment': 'Test comment',
             'source': 'http://localhost/testing/petition',
+            'lang': 'en',
         })
 
         url = reverse('petition-submission', kwargs={
@@ -56,6 +57,8 @@ class PostRouteTests(TestCase):
             'email': 'user_test@example.org',
             'newsletterSignup': True,
             'source': 'http://localhost/testing/signup',
+            'lang': 'en',
+            'country': 'US',
         })
 
         url = reverse('signup-submission', kwargs={

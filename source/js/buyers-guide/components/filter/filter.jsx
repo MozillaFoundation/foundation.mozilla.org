@@ -372,7 +372,7 @@ export default class Filter extends React.Component {
           <h3 className="h6-heading">
             minimum security standards{" "}
             <img
-              src="/_images/buyers-guide/mini-badge.svg"
+              src="/_images/buyers-guide/badge-star-mini.svg"
               width="30px"
               height="30px"
             />

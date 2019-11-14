@@ -22,7 +22,7 @@ class RecentBlogEntries(blocks.StructBlock):
             ('all', 'All'),
             ('Mozilla Festival', 'Mozilla Festival'),
             ('Open Leadership & Events', 'Open Leadership & Events'),
-            ('Internet Health', 'Internet Health'),
+            ('Internet Health Report', 'Internet Health Report'),
             ('Fellowships & Awards', 'Fellowships & Awards'),
             ('Advocacy', 'Advocacy'),
         ],
@@ -46,7 +46,7 @@ class RecentBlogEntries(blocks.StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         IndexPage = apps.get_model('wagtailpages.IndexPage')
-        blogpage = IndexPage.objects.get(title__iexact="blog")
+        blogpage = IndexPage.objects.get(title_en__iexact="blog")
 
         tag = value.get("tag_filter", False)
         category = value.get("category_filter", False)
@@ -70,10 +70,11 @@ class RecentBlogEntries(blocks.StructBlock):
         only choose one filter option.
         '''
         if category:
-            category = slugify(category)
             type = "category"
-            query = category
-            blogpage.extract_category_information(category)
+            query = slugify(category)
+            BlogPageCategory = apps.get_model('wagtailpages.BlogPageCategory')
+            category_object = BlogPageCategory.objects.get(name=category)
+            blogpage.extract_category_information(category_object)
             entries = blogpage.get_entries(context)
 
         # Updates the href for the 'More from our blog' button

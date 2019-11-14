@@ -4,8 +4,10 @@ import re
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import redirect
 from django.template import loader
 from django.template.defaultfilters import slugify
+
 
 from . import customblocks
 
@@ -490,6 +492,7 @@ class BanneredCampaignPage(PrimaryPage):
 
     subpage_types = [
         'BanneredCampaignPage',
+        'RedirectingPage',
     ]
 
     show_in_menus_default = True
@@ -618,43 +621,29 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         return entries
 
     def filter_entries_for_category(self, entries, context):
-        """
-        NOTE: we currently assume only blog pages can have
-        categories. If that ever changes, we will need to rename
-        the model from BlogPageCategory to PageCategory and make
-        the corresponding adjustments to this code
-        """
-        slug = self.filtered.get('category')
-        cat = None
-        for bpc in BlogPageCategory.objects.all():
-            # We can't use .filter for @property fields,
-            # so we have to run through all categories =(
-            if bpc.slug == slug:
-                cat = bpc
+        category = self.filtered.get('category')
 
-        if cat is not None:
-            # make sure we bypass "x results for Y"
-            context['no_filter_ui'] = True
+        # make sure we bypass "x results for Y"
+        context['no_filter_ui'] = True
 
-            # and that we don't show the primary tag/category
-            context['hide_classifiers'] = True
+        # and that we don't show the primary tag/category
+        context['hide_classifiers'] = True
 
-            # explicitly set the index page title and intro
-            print('titlecase')
-            context['index_title'] = titlecase(f'{cat.name} {self.title}')
-            context['index_intro'] = cat.intro
+        # explicitly set the index page title and intro
+        context['index_title'] = titlecase(f'{category.name} {self.title}')
+        context['index_intro'] = category.intro
 
-            # and then the filtered content
-            context['terms'] = [cat.name, ]
-            entries = [
-                entry
-                for
-                entry in entries.specific()
-                if
-                hasattr(entry, 'category')
-                and
-                cat in entry.category.all()
-            ]
+        # and then the filtered content
+        context['terms'] = [category.name, ]
+        entries = [
+            entry
+            for
+            entry in entries.specific()
+            if
+            hasattr(entry, 'category')
+            and
+            category in entry.category.all()
+        ]
 
         return entries
 
@@ -735,10 +724,10 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     """
 
     # helper function for /category/... subroutes
-    def extract_category_information(self, category):
+    def extract_category_information(self, category_object):
         self.filtered = {
             'type': 'category',
-            'category': category
+            'category': category_object
         }
 
     @route(r'^category/(?P<category>.+)/entries/')
@@ -756,7 +745,20 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         the category to filter prior to rendering this page. Only one
         category can be specified (unlike tags)
         """
-        self.extract_category_information(category)
+        category_object = None
+
+        # We can't use .filter for @property fields,
+        # so we have to run through all categories =(
+        for bpc in BlogPageCategory.objects.all():
+            if bpc.slug == category:
+                category_object = bpc
+
+        # while tags yield '0 results', an unknown category
+        # should redirect to the base index page, instead.
+        if category_object is None:
+            return redirect(self.full_url)
+
+        self.extract_category_information(category_object)
         return IndexPage.serve(self, request, *args, **kwargs)
 
 
@@ -831,10 +833,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     zen_nav = True
 
+    feature_comments = models.BooleanField(
+        default=False,
+        help_text='Check this box to add a comment section for this blog post.',
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('author'),
         FieldPanel('category'),
         StreamFieldPanel('body'),
+        FieldPanel('feature_comments'),
     ]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
@@ -848,6 +856,9 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
+        context['coral_talk_server_url'] = settings.CORAL_TALK_SERVER_URL
+        context['coral_talk'] = context['coral_talk_server_url'] and self.feature_comments
+
         return set_main_site_nav_information(self, context, 'Homepage')
 
 
@@ -1409,6 +1420,20 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         ('image', customblocks.ImageBlock()),
     ])
 
+    faq = StreamField(
+        [
+            ('paragraph', blocks.RichTextBlock(
+                features=[
+                    'bold', 'italic',
+                    'h2', 'h3', 'h4', 'h5',
+                    'ol', 'ul',
+                    'link', 'hr',
+                ]
+            ))
+        ],
+        blank=True,
+    )
+
     regret_stories = StreamField([
         ('regret_story', customblocks.YoutubeRegretBlock()),
     ])
@@ -1417,7 +1442,14 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         FieldPanel('headline'),
         StreamFieldPanel('intro_text'),
         StreamFieldPanel('intro_images'),
+        StreamFieldPanel('faq'),
         StreamFieldPanel('regret_stories'),
     ]
+
+    zen_nav = True
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return set_main_site_nav_information(self, context, 'Homepage')
 
     template = 'wagtailpages/pages/youtube_regrets_page.html'

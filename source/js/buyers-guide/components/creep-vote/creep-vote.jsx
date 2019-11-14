@@ -1,10 +1,16 @@
 import React from "react";
+import classNames from "classnames";
 import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import LikelyhoodChart from "../likelyhood-chart/likelyhood-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
+import JoinUs from "../../../components/join/join.jsx";
+import { getText } from "../../../components/petition/locales";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
+import Storage from "../../../storage";
+
+const sessionStorage = Storage.sessionStorage;
 
 export default class CreepVote extends React.Component {
   constructor(props) {
@@ -31,6 +37,21 @@ export default class CreepVote extends React.Component {
 
     let confidence = votes.confidence;
 
+    let queryString = new URLSearchParams(window.location.search);
+    let subscribedValue = queryString.get("subscribed");
+    let subscribed = subscribedValue === "1";
+
+    let sessionSubscription = sessionStorage.getItem("subscribed") === "true";
+    let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
+
+    if (sessionSubscription) {
+      subscribed = sessionSubscription;
+    } else if (voteCount >= 3) {
+      subscribed = true;
+    }
+
+    sessionStorage.setItem("subscribed", subscribed);
+
     return {
       totalVotes,
       creepiness: 50,
@@ -40,7 +61,10 @@ export default class CreepVote extends React.Component {
         creepiness: creepinessId,
         confidence: confidence[0] > confidence[1] ? 0 : 1
       },
-      submitAttempted: false
+      submitAttempted: false,
+      subscribed,
+      nextView: subscribed ? "DidVote" : "SignUp",
+      voteCount
     };
   }
 
@@ -52,7 +76,11 @@ export default class CreepVote extends React.Component {
 
   showVoteResult() {
     if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
-      this.setState({ didVote: true });
+      let view = "SignUp";
+      if (this.state.subscribed) {
+        view = "DidVote";
+      }
+      this.setState({ didVote: true, view });
     }
   }
 
@@ -82,35 +110,17 @@ export default class CreepVote extends React.Component {
       })
       .catch(e => {
         console.warn(e);
-        this.setState({ disableVoteButton: false });
       });
-  }
-
-  handleAnimationEnd(evt) {
-    if (evt.animationName === `wiggle`) {
-      this.setState({
-        submitAttempted: false
-      });
-    }
-  }
-
-  handleSubmitBtnClick() {
-    this.setState({
-      submitAttempted: true
-    });
   }
 
   submitVote(evt) {
     evt.preventDefault();
 
+    let voteCount = this.state.voteCount + 1;
+    sessionStorage.setItem("voteCount", voteCount);
+    this.setState({ voteCount });
+
     let confidence = this.state.confidence;
-
-    if (confidence === undefined) {
-      return;
-    }
-
-    this.setState({ disableVoteButton: true });
-
     let productID = this.props.productID;
 
     this.sendVoteFor({
@@ -134,15 +144,27 @@ export default class CreepVote extends React.Component {
     this.setState({ confidence });
   }
 
+  handleSignUp(successState) {
+    sessionStorage.setItem("subscribed", successState);
+    this.setState({ nextView: "DidVote", subscribed: successState });
+  }
+
   /**
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
+    let unlikelyClasses = classNames("unlikely-glyph btn btn-secondary", {
+      selected: this.state.confidence == false
+    });
+
+    let likelyClasses = classNames("likely-glyph btn btn-secondary", {
+      selected: this.state.confidence == true
+    });
+
     return (
       <form
         method="post"
         id="creep-vote"
-        className={this.state.submitAttempted ? `submit-attempted` : ``}
         onSubmit={evt => this.submitVote(evt)}
       >
         <div className="row mb-5">
@@ -165,7 +187,6 @@ export default class CreepVote extends React.Component {
               <div
                 class="btn-group btn-group-toggle mt-3 mt-md-5"
                 data-toggle="buttons"
-                onAnimationEnd={evt => this.handleAnimationEnd(evt)}
               >
                 <label for="likely">
                   <input
@@ -173,16 +194,11 @@ export default class CreepVote extends React.Component {
                     name="wouldbuy"
                     id="likely"
                     autocomplete="off"
-                    required
                   />
                   <span
-                    class="likely btn"
+                    className={likelyClasses}
                     onClick={() => this.setConfidence(true)}
                   >
-                    <img
-                      alt="thumb up"
-                      src="/_images/buyers-guide/icon-thumb-up-black.svg"
-                    />{" "}
                     Likely
                   </span>
                 </label>
@@ -192,16 +208,11 @@ export default class CreepVote extends React.Component {
                     name="wouldbuy"
                     id="unlikely"
                     autocomplete="off"
-                    required
                   />
                   <span
-                    class="unlikely btn"
+                    className={unlikelyClasses}
                     onClick={() => this.setConfidence(false)}
                   >
-                    <img
-                      alt="thumb down"
-                      src="/_images/buyers-guide/icon-thumb-down-black.svg"
-                    />{" "}
                     Not likely
                   </span>
                 </label>
@@ -215,7 +226,6 @@ export default class CreepVote extends React.Component {
               id="creep-vote-btn"
               type="submit"
               className="btn btn-secondary mb-2"
-              onClick={() => this.handleSubmitBtnClick()}
             >
               Vote & See Results
             </button>
@@ -223,6 +233,26 @@ export default class CreepVote extends React.Component {
           </div>
         </div>
       </form>
+    );
+  }
+
+  /**
+   * @returns {jsx} Sign up ask in the middle of vote if user is not already subscribed
+   * or if they haven't voted multiple times.
+   */
+
+  renderSignUp() {
+    return (
+      <JoinUs
+        formPosition="flow"
+        flowHeading={getText(`Thanks for voting! One moment —`)}
+        flowText={getText(
+          `We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`
+        )}
+        csrfToken={this.props.joinUsCSRF}
+        apiUrl={this.props.joinUsApiUrl}
+        handleSignUp={successState => this.handleSignUp(successState)}
+      />
     );
   }
 
@@ -236,72 +266,54 @@ export default class CreepVote extends React.Component {
 
     return (
       <div>
-        <div className="mb-4">
+        <div className="mb-5">
           <div className="col-12 text-center">
             <h3 className="h2-heading mb-1">
               {this.state.totalVotes + 1} Votes — invite your friends!
             </h3>
             <div className="h6-heading text-muted" />
           </div>
-          <div className="row mt-3">
-            <div className="col">
-              <CreepChart
-                userVoteGroup={userVoteGroup}
-                values={this.props.votes.creepiness.vote_breakdown}
-              />
-            </div>
-            <div className="col likelyhood-chart p-5">
-              <LikelyhoodChart values={this.props.votes.confidence} />
+          <div className="row mt-4">
+            <div className="col-12 col-lg-11 d-md-flex m-md-auto align-items-md-center">
+              <div className="px-0 px-lg-3 col-lg-7 mb-5 mb-md-0 creep-chart">
+                <CreepChart
+                  userVoteGroup={userVoteGroup}
+                  values={this.props.votes.creepiness.vote_breakdown}
+                />
+              </div>
+              <div className="col likelyhood-chart d-flex justify-content-center">
+                <LikelyhoodChart values={this.props.votes.confidence} />
+              </div>
             </div>
           </div>
         </div>
-        <div className="text-center">
-          <SocialShare
-            productName={this.props.productName}
-            creepType={creepType}
-          />
-        </div>
+        <SocialShare
+          productName={this.props.productName}
+          creepType={creepType}
+        />
       </div>
     );
   }
 
-  handleReadResearchClick() {
-    let research = document.getElementById(`product-research`);
-
-    if (!research) {
-      return;
-    }
-
-    window.scrollBy({
-      top:
-        research.getBoundingClientRect().top -
-        parseInt(window.getComputedStyle(research).marginTop, 10),
-      left: 0,
-      behavior: `smooth`
-    });
-  }
-
   render() {
     let voteContent;
+    const { didVote, nextView } = this.state;
 
-    if (this.state.didVote) {
-      voteContent = this.renderDidVote();
-    } else {
+    if (!didVote) {
       voteContent = this.renderVoteAsk();
+    } else {
+      if (nextView === "SignUp") {
+        voteContent = this.renderSignUp();
+      } else {
+        voteContent = this.renderDidVote();
+      }
     }
 
     return (
-      <div className="creep-vote mt-4 mb-5">
+      <div className="creep-vote my-5">
         <div class="what-you-think-label h5-heading d-inline-block">
           Tell us what you think
         </div>
-        <button
-          id="btn-read-search"
-          className="btn btn-link info-help mb-4 mt-2"
-          onClick={() => this.handleReadResearchClick()}
-        >
-          Read our research first
-        </button>
         {voteContent}
       </div>
     );
