@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% if entries|length != 0 %}
 <div class="recent-blog-entries index-entries row my-default mx-0 d-flex flex-column {{ divider_styles }}">
   <div class="mb-4">
@@ -9,7 +11,7 @@
   {% if more_entries %}
   <div class="col-12 text-center mb-5">
     <a class="btn btn-secondary text" href="{{ more_entries_link }}">
-      More from our blog
+      {% trans "More from our blog" %}
     </a>
   </div>
   {% endif %}

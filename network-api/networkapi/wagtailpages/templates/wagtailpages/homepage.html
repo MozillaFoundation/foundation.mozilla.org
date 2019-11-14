@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n %}
 
 {% block body_id %}home{% endblock %}
 
@@ -33,7 +33,7 @@
   <div class="row">
     <div class="col mb-4">
       <hr class="hr-emphasis mb-4">
-      <h4 class="h4-heading">Happening now</h4>
+      <h4 class="h4-heading">{% trans "Happening now" %}</h4>
     </div>
   </div>
   <div id="home-highlights-wagtail">
@@ -69,10 +69,10 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <h4 class="h4-heading">Trending projects</h4>
+    <h4 class="h4-heading">{% trans "Trending projects" %}</h4>
   </div>
   <div class="col-md-6 d-none d-md-flex justify-content-end">
-    <a class="cta-link" href="https://www.mozillapulse.org/add">Add your project</a>
+    <a class="cta-link" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
   </div>
 </div>
 <div class="row">
@@ -82,8 +82,8 @@
 </div>
 <div class="row">
   <div class="col text-center mb-5">
-    <a class="btn btn-secondary mb-4" href="https://www.mozillapulse.org">More from our network</a>
-    <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">Add your project</a>
+    <a class="btn btn-secondary mb-4" href="https://www.mozillapulse.org">{% trans "More from our network" %}</a>
+    <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
   </div>
 </div>
 <div class="row">
@@ -92,8 +92,8 @@
     <div class="row mb-5">
       <div class="col">
         <div class="feature-quote">
-          <h3>We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices.</h3>
-          <p class="h6-heading">Rishab Nithyanand, Mozilla Fellow</p>
+          <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
+          <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
         </div>
       </div>
     </div>
