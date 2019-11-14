@@ -33,5 +33,8 @@ LD_LIBRARY_PATH=$BUILD_DIR/gettext/lib:$LD_LIBRARY_PATH
 ptSource=$BUILD_DIR/network-api/locale/pt_BR/LC_MESSAGES/django.po
 [[ -e $ptSource ]] && cp $ptSource $BUILD_DIR/network-api/locale/pt/LC_MESSAGES/django.po
 
+# Change to the locale directory so that we only process our .po files
+cd ./network-api/locale/
+
 # Compile localized strings
 python $BUILD_DIR/network-api/manage.py compilemessages
