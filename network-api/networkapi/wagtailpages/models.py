@@ -859,6 +859,16 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['coral_talk_server_url'] = settings.CORAL_TALK_SERVER_URL
         context['coral_talk'] = context['coral_talk_server_url'] and self.feature_comments
 
+        # Pull this object specifically using the English page title
+        blog_page = IndexPage.objects.get(title_en__iexact='Blog')
+
+        # If that doesn't yield the blog page, pull using the universal title
+        if blog_page is None:
+            blog_page = IndexPage.objects.get(title__iexact='Blog')
+
+        if blog_page:
+            context['blog_index'] = blog_page
+
         return set_main_site_nav_information(self, context, 'Homepage')
 
 
