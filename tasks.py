@@ -9,6 +9,7 @@ import os
 os.environ.pop('__PYVENV_LAUNCHER__', None)
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
+LOCALE_DIR = os.path.dirname(os.path.realpath(f'{__file__}/network-api/locale/'))
 
 # Python commands's outputs are not rendering properly. Setting pty for *Nix system and
 # "PYTHONUNBUFFERED" env var for Windows at True.
@@ -102,8 +103,9 @@ def makemessages(ctx):
 @task
 def compilemessages(ctx):
     """Compile the latest translations"""
-    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
-    manage(ctx, "compilemessages")
+    with ctx.cd(LOCALE_DIR):
+        copy("pt_BR/LC_MESSAGES/django.po", "pt/LC_MESSAGES/django.po")
+        manage(ctx, "compilemessages")
 
 
 @task
