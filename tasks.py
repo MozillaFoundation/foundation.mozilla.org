@@ -9,6 +9,7 @@ import os
 os.environ.pop('__PYVENV_LAUNCHER__', None)
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
+LOCALE_DIR = os.path.realpath(os.path.abspath('network-api/locale'))
 
 # Python commands's outputs are not rendering properly. Setting pty for *Nix system and
 # "PYTHONUNBUFFERED" env var for Windows at True.
@@ -103,7 +104,8 @@ def makemessages(ctx):
 def compilemessages(ctx):
     """Compile the latest translations"""
     copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
-    manage(ctx, "compilemessages")
+    with ctx.cd(LOCALE_DIR):
+        manage(ctx, "compilemessages")
 
 
 @task
@@ -250,7 +252,8 @@ def docker_makemessages(ctx):
 def docker_compilemessages(ctx):
     """Compile the latest translations"""
     copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
-    docker_manage(ctx, "compilemessages")
+    with ctx.cd(LOCALE_DIR):
+        manage(ctx, "compilemessages")
 
 
 @task
@@ -291,7 +294,7 @@ def docker_catch_up(ctx):
     ctx.run("docker-compose build")
     print("* Applying database migrations.")
     docker_migrate(ctx)
-    print("* Compiling localse strings.")
+    print("* Compiling locale strings.")
     docker_compilemessages
     print("* Updating block information.")
     docker_l10n_block_inventory(ctx)
