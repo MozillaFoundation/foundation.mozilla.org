@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -185,7 +185,7 @@ msgstr "Nous voulons fournir aux utilisateurs des connaissances pour leur permet
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:96
 msgid "Rishab Nithyanand, Mozilla Fellow"
-msgstr "Rishab Nithyanand, titulaire d’une bourse Mozilla"
+msgstr "Rishab Nithyanand, détenteur d’une bourse Mozilla"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:32
 #, python-format
