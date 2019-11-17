@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-13 16:25+0000\n"
-"PO-Revision-Date: 2019-11-14 23:27+0000\n"
+"PO-Revision-Date: 2019-11-17 20:25+0000\n"
 "Last-Translator: Théo Chevalier <theo.chevalier11@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -181,7 +181,7 @@ msgstr "Plus de projets de notre réseau"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:95
 msgid "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices."
-msgstr "Nous voulons fournir aux utilisateurs des connaissances pour leur permettre de prendre eux-même des décisions éclairées afin de lutter contre les pratiques abusives."
+msgstr "Nous voulons fournir aux utilisateurs des connaissances pour leur permettre de prendre eux-mêmes des décisions éclairées afin de lutter contre les pratiques abusives."
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:96
 msgid "Rishab Nithyanand, Mozilla Fellow"
