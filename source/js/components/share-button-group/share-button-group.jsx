@@ -97,9 +97,10 @@ export default class ShareButtonGroup extends React.Component {
       ? gettext("Copied")
       : gettext("Copy page URL to clipboard");
     let label = this.state.linkCopied ? gettext("Copied") : gettext("Copy");
+    let labelMini = this.state.linkCopied ? gettext("Page link copied") : gettext("Copy page link")
     label =
       this.props.version === `mini` ? (
-        <span class="sr-only">{label} page link</span>
+        <span class="sr-only">{labelMini}</span>
       ) : (
         label
       );

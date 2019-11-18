@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-18 01:18+0000\n"
+"POT-Creation-Date: 2019-11-18 01:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,6 +175,14 @@ msgstr ""
 
 #: source/js/components/share-button-group/share-button-group.jsx:98
 msgid "Copy page URL to clipboard"
+msgstr ""
+
+#: source/js/components/share-button-group/share-button-group.jsx:100
+msgid "Page link copied"
+msgstr ""
+
+#: source/js/components/share-button-group/share-button-group.jsx:100
+msgid "Copy page link"
 msgstr ""
 
 #: source/js/nav-newsletter.js:36
