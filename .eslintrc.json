@@ -1,10 +1,12 @@
 {
   "extends": [
-    "prettier"
+    "prettier",
+    "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
     "prettier",
-    "react"
+    "react",
+    "jsx-a11y"
   ],
   "parserOptions": {
     "sourceType": "module",
