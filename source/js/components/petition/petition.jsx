@@ -693,13 +693,11 @@ export default class Petition extends React.Component {
                   className="body-small form-text"
                   dangerouslySetInnerHTML={{
                     __html: gettext(
-                      "I’m okay with Mozilla handling my info as explained in {linkstart}this privacy policy{linkend}"
+                      'I’m okay with Mozilla handling my info as explained in <a href="{link}">this privacy policy</a>'
+                    ).replace(
+                      "{link}",
+                      "https://www.mozilla.org/privacy/websites/"
                     )
-                      .replace(
-                        "{linkstart}",
-                        '<a href="https://www.mozilla.org/privacy/websites/">'
-                      )
-                      .replace("{linkend}", "</a>")
                   }}
                 />
                 {this.state.userTriedSubmitting &&

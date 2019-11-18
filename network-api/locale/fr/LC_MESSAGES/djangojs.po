@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-18 00:51+0000\n"
-"PO-Revision-Date: 2019-11-18 00:51+0000\n"
+"POT-Creation-Date: 2019-11-18 01:18+0000\n"
+"PO-Revision-Date: 2019-11-18 01:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -61,30 +61,30 @@ msgstr "Nom"
 #: source/js/components/join/join.jsx:457
 #: source/js/components/petition/petition.jsx:696
 #, python-brace-format
-msgid "I’m okay with Mozilla handling my info as explained in {linkstart}this privacy policy{linkend}"
-msgstr "J’accepte que Mozilla utilise mes informations conformément à {linkstart}cette politique de confidentialité{linkend}"
+msgid "I’m okay with Mozilla handling my info as explained in <a href=\"{link}\">this privacy policy</a>"
+msgstr "J’accepte que Mozilla utilise mes informations conformément à <a href=\"{link}\">cette politique de confidentialité</a>"
 
-#: source/js/components/join/join.jsx:477
+#: source/js/components/join/join.jsx:475
 msgid "Please check this box if you want to proceed."
 msgstr "Veuillez cocher cette case si vous souhaitez poursuivre."
 
-#: source/js/components/join/join.jsx:492
+#: source/js/components/join/join.jsx:490
 msgid "Sign up"
 msgstr "Je m’inscris"
 
-#: source/js/components/join/join.jsx:537
+#: source/js/components/join/join.jsx:535
 msgid "No Thanks"
 msgstr "Non merci"
 
-#: source/js/components/join/join.jsx:547
+#: source/js/components/join/join.jsx:545
 msgid "Protect the internet as a global public resource"
 msgstr "Protégeons Internet en tant que bien commun"
 
-#: source/js/components/join/join.jsx:549
+#: source/js/components/join/join.jsx:547
 msgid "Join our email list to take action and stay updated!"
 msgstr "Inscrivez-vous à notre lettre d’information pour agir et rester au courant de nos actions !"
 
-#: source/js/components/join/join.jsx:552
+#: source/js/components/join/join.jsx:550
 msgid "If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>"
 msgstr "Si vous n’avez jamais confirmé d’abonnement à une lettre d’information liée à Mozilla, vous devrez peut-être le faire. <strong>Veuillez vérifier votre boîte de réception ou vos courriers indésirables et recherchez un message de notre part.</strong>"
 
@@ -145,16 +145,16 @@ msgstr "Veuillez inclure un commentaire"
 msgid "Comments cannot be longer than %s characters"
 msgstr "Les commentaires ne peuvent pas dépasser %s caractères"
 
-#: source/js/components/petition/petition.jsx:708
+#: source/js/components/petition/petition.jsx:706
 msgid "Please check this box if you want to proceed"
 msgstr "Veuillez cocher cette case si vous souhaitez poursuivre"
 
-#: source/js/components/petition/petition.jsx:725
+#: source/js/components/petition/petition.jsx:723
 msgid "Yes, I want to receive email updates about Mozilla’s campaigns."
 msgstr "J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla."
 
-#: source/js/components/petition/petition.jsx:739
-#: source/js/components/petition/petition.jsx:750
+#: source/js/components/petition/petition.jsx:737
+#: source/js/components/petition/petition.jsx:748
 msgid "Add my name"
 msgstr "Ajouter mon nom"
 
@@ -182,9 +182,9 @@ msgstr "Copier l’adresse de la page dans le presse-papiers"
 msgid "No thanks"
 msgstr "Non merci"
 
-#, python-format
-#~ msgid "I’m okay with Mozilla handling my info as explained in <a href=\"%s\">this Privacy Notice</a>"
-#~ msgstr "J’accepte que Mozilla utilise mes informations conformément à <a href=\"%s\">cette politique de confidentialité</a>"
+#, python-brace-format
+#~ msgid "I’m okay with Mozilla handling my info as explained in {linkstart}this privacy policy{linkend}"
+#~ msgstr "J’accepte que Mozilla utilise mes informations conformément à {linkstart}cette politique de confidentialité{linkend}"
 
 #, python-format
 #~ msgid "I’m okay with Mozilla handling my info as explained in %s"
