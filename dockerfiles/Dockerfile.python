@@ -1,5 +1,10 @@
 FROM python:3.7-slim
 
+RUN apt-get update && apt-get install -y \
+      gettext \
+      git \
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
 # We want output
 ENV PYTHONUNBUFFERED 1
 # We don't want *.pyc
@@ -15,7 +20,3 @@ COPY Pipfile Pipfile.lock ./
 
 # Install app deps
 RUN pipenv install -d
-
-RUN apt-get update && apt-get install -y \
-      gettext \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
