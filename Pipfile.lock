@@ -35,10 +35,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:174399fb3e95b965afb2f33ab0d71448d60f336c5eaf9654e4436b44ca7aaa0b",
-                "sha256:a6e4a62667437f01a70e7f2e5c569320d520b2364c45084ec40de143bc0e23a4"
+                "sha256:084b37c46f2c0705d3e6c42e83176669b5d4381d08da4abb2010a94c62168713",
+                "sha256:f027643f1ebb852fb125a17f5950e868de77b40b9187e3420ed00c037e1b4583"
             ],
-            "version": "==1.13.15"
+            "version": "==1.13.20"
         },
         "certifi": {
             "hashes": [
@@ -134,9 +134,9 @@
         },
         "django-modeltranslation": {
             "hashes": [
-                "sha256:c03070a29e35b498da3f07e80d6847bf9236e6231102829e62d437b6022cfb5c"
+                "sha256:e1ce37e9da52621e871d51418ddf123b67655ea879280b0b023146650bf6e560"
             ],
-            "version": "==0.13.4"
+            "version": "==0.14"
         },
         "django-redis": {
             "hashes": [
@@ -199,11 +199,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:5902379d8df308a204fc11c4f621590ee83975805a6c7b2228203b9defa45250",
-                "sha256:5e8c755c619f332d5ec28b7586389665f136bcf528e165eb925e87c06a63eda7"
+                "sha256:48c03580720e0b46538d528b1296e4e5b24a809dcaf33a7dddec719489a9edb8",
+                "sha256:6327c665c0d8721280b3036d9c9e851c60092bc1f30c8394cc433f8723e2bda5"
             ],
             "index": "pypi",
-            "version": "==2.0.3"
+            "version": "==2.0.4"
         },
         "filebrowser-safe": {
             "hashes": [
