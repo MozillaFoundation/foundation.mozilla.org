@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-18 01:35+0000\n"
+"POT-Creation-Date: 2019-11-18 12:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr ""
 #: source/js/components/join/join.jsx:457
 #: source/js/components/petition/petition.jsx:696
 #, python-brace-format
-msgid "I’m okay with Mozilla handling my info as explained in <a href=\"{link}\">this privacy policy</a>"
+msgid "I’m okay with Mozilla handling my info as explained in this <a href=\"{link}\">Privacy Notice</a>"
 msgstr ""
 
 #: source/js/components/join/join.jsx:475
@@ -177,11 +177,11 @@ msgstr ""
 msgid "Copy page URL to clipboard"
 msgstr ""
 
-#: source/js/components/share-button-group/share-button-group.jsx:100
+#: source/js/components/share-button-group/share-button-group.jsx:101
 msgid "Page link copied"
 msgstr ""
 
-#: source/js/components/share-button-group/share-button-group.jsx:100
+#: source/js/components/share-button-group/share-button-group.jsx:102
 msgid "Copy page link"
 msgstr ""
 

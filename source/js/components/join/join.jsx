@@ -454,7 +454,7 @@ export default class JoinUs extends React.Component {
                 className="d-inline-block body-small form-text mb-0"
                 dangerouslySetInnerHTML={{
                   __html: gettext(
-                    'I’m okay with Mozilla handling my info as explained in <a href="{link}">this privacy policy</a>'
+                    'I’m okay with Mozilla handling my info as explained in this <a href="{link}">Privacy Notice</a>'
                   ).replace(
                     "{link}",
                     "https://www.mozilla.org/privacy/websites/"

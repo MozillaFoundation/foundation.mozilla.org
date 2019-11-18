@@ -693,7 +693,7 @@ export default class Petition extends React.Component {
                   className="body-small form-text"
                   dangerouslySetInnerHTML={{
                     __html: gettext(
-                      'I’m okay with Mozilla handling my info as explained in <a href="{link}">this privacy policy</a>'
+                      'I’m okay with Mozilla handling my info as explained in this <a href="{link}">Privacy Notice</a>'
                     ).replace(
                       "{link}",
                       "https://www.mozilla.org/privacy/websites/"
