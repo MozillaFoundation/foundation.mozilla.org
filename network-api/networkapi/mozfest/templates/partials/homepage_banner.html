@@ -3,7 +3,7 @@
     <div class="col-12 col-lg-8 dark-theme">
       <h1 class="h1-heading">{{ page.banner_heading }}</h1>
       <p class="body-large">{{ page.banner_guide_text }}</p>
-      {% if page.banner_video_url %}
+      {% if page.banner_video_url is not none %}
       <a class="btn btn-primary" href="{{ page.banner_video_url }}" target="_blank" id="mozfest-home-watch-video-button">Watch Video</a>
       {% endif %}
     </div>
