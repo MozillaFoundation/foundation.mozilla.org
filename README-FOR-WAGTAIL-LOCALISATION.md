@@ -1,5 +1,14 @@
-# (Temporary) localised content in Wagtail
+# Wagtail localization
 
+## Localizing Python files and Django templates
+
+Strings should be wrapped for localization following the [Django localization documentation](https://docs.djangoproject.com/en/2.2/topics/i18n/translation/).
+
+## Localizing .js or .jsx files
+
+Strings should be wrapped for localization using `gettext("Your string")`
+
+## CMS localization
 This document exists primarily because the current localisation approach is at best a patch to ensure there is _some_ localisation possible of Wagtail content in lieu of an official localisation solution that would ideally take the form of:
 
 - An API for retrieving strings tied to specific pages using a unique page id,
@@ -12,7 +21,7 @@ While Wagtail forms a plan of attack around tackling this, we need a localisatio
 - `wagtail-modeltranslation` is used to enable content localisation based on a `LANGUAGE_CODE` default language identifier, and `LANGUAGES` list of tuples (of the form `('code', 'full name of locale')`).
 - a custom javascript library that improves usability by allowing users of the CMS to hide/reveal localisable fields based on the language they belong to.
 
-The modeltranslation library adds localised URLs to Wagtail, interjecting the locale code in the URL betewen the host domain and the content path, such that a url like:
+The modeltranslation library adds localised URLs to Wagtail, interjecting the locale code in the URL between the host domain and the content path, such that a url like:
 
     https://foundation.mozilla.org/campaigns/aadhaar
 
