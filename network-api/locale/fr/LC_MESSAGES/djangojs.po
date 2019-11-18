@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-18 00:51+0000\n"
+"PO-Revision-Date: 2019-11-18 00:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: source/js/components/join/join.jsx:56
+msgid "Back to menu"
+msgstr "Revenir au menu"
+
+#: source/js/components/join/join.jsx:93
+msgid "This is a required section."
+msgstr "Cette section est requise."
+
+#: source/js/components/join/join.jsx:102
+msgid "Please enter a valid email address."
+msgstr "Veuillez saisir une adresse électronique valide."
+
+#: source/js/components/join/join.jsx:268
+msgid "Thanks!"
+msgstr "Merci !"
+
+#: source/js/components/join/join.jsx:337
+#: source/js/components/petition/petition.jsx:604
+msgid "Please enter your email"
+msgstr "Veuillez saisir votre adresse électronique"
+
+#: source/js/components/join/join.jsx:355
+msgid "Something went wrong. Please check your email address and try again"
+msgstr "Une erreur s’est produite. Veuillez vérifier votre adresse électronique puis réessayer."
+
+#: source/js/components/join/join.jsx:386
+#: source/js/components/petition/petition.jsx:614
+msgid "Your country"
+msgstr "Votre pays"
+
+#: source/js/components/join/join.jsx:412
+#: source/js/components/petition/petition.jsx:558
+msgid "First name"
+msgstr "Prénom"
+
+#: source/js/components/join/join.jsx:421
+#: source/js/components/petition/petition.jsx:577
+msgid "Last name"
+msgstr "Nom"
+
+#: source/js/components/join/join.jsx:457
+#: source/js/components/petition/petition.jsx:696
+#, python-brace-format
+msgid "I’m okay with Mozilla handling my info as explained in {linkstart}this privacy policy{linkend}"
+msgstr "J’accepte que Mozilla utilise mes informations conformément à {linkstart}cette politique de confidentialité{linkend}"
+
+#: source/js/components/join/join.jsx:477
+msgid "Please check this box if you want to proceed."
+msgstr "Veuillez cocher cette case si vous souhaitez poursuivre."
+
+#: source/js/components/join/join.jsx:492
+msgid "Sign up"
+msgstr "Je m’inscris"
+
+#: source/js/components/join/join.jsx:537
+msgid "No Thanks"
+msgstr "Non merci"
+
+#: source/js/components/join/join.jsx:547
+msgid "Protect the internet as a global public resource"
+msgstr "Protégeons Internet en tant que bien commun"
+
+#: source/js/components/join/join.jsx:549
+msgid "Join our email list to take action and stay updated!"
+msgstr "Inscrivez-vous à notre lettre d’information pour agir et rester au courant de nos actions !"
+
+#: source/js/components/join/join.jsx:552
+msgid "If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>"
+msgstr "Si vous n’avez jamais confirmé d’abonnement à une lettre d’information liée à Mozilla, vous devrez peut-être le faire. <strong>Veuillez vérifier votre boîte de réception ou vos courriers indésirables et recherchez un message de notre part.</strong>"
+
+#: source/js/components/petition/petition.jsx:429
+#: source/js/components/share-button-group/share-button-group.jsx:73
+msgid "Email"
+msgstr "Courriel"
+
+#: source/js/components/petition/petition.jsx:434
+#: source/js/components/share-button-group/share-button-group.jsx:97
+#: source/js/components/share-button-group/share-button-group.jsx:99
+msgid "Copied"
+msgstr "Copié"
+
+#: source/js/components/petition/petition.jsx:436
+#: source/js/components/share-button-group/share-button-group.jsx:99
+msgid "Copy"
+msgstr "Copier"
+
+#: source/js/components/petition/petition.jsx:453
+msgid "Something went wrong while trying to sign the petition. Please try again later."
+msgstr "Une erreur s’est produite lors de la signature de la pétition. Merci de réessayer plus tard."
+
+#: source/js/components/petition/petition.jsx:565
+msgid "Please enter your given name(s)"
+msgstr "Veuillez saisir votre prénom"
+
+#: source/js/components/petition/petition.jsx:584
+msgid "Please enter your surname"
+msgstr "Veuillez saisir votre nom de famille"
+
+#: source/js/components/petition/petition.jsx:596
+msgid "Email address"
+msgstr "Adresse électronique"
+
+#: source/js/components/petition/petition.jsx:622
+msgid "Please enter your country"
+msgstr "Veuillez saisir votre pays"
+
+#: source/js/components/petition/petition.jsx:636
+msgid "Postal code"
+msgstr "Code postal"
+
+#: source/js/components/petition/petition.jsx:643
+msgid "Please enter your postal code"
+msgstr "Veuillez saisir votre code postal"
+
+#: source/js/components/petition/petition.jsx:657
+msgid "Comment"
+msgstr "Commentaire"
+
+#: source/js/components/petition/petition.jsx:665
+msgid "Please include a comment"
+msgstr "Veuillez inclure un commentaire"
+
+#: source/js/components/petition/petition.jsx:675
+#, python-format
+msgid "Comments cannot be longer than %s characters"
+msgstr "Les commentaires ne peuvent pas dépasser %s caractères"
+
+#: source/js/components/petition/petition.jsx:708
+msgid "Please check this box if you want to proceed"
+msgstr "Veuillez cocher cette case si vous souhaitez poursuivre"
+
+#: source/js/components/petition/petition.jsx:725
+msgid "Yes, I want to receive email updates about Mozilla’s campaigns."
+msgstr "J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla."
+
+#: source/js/components/petition/petition.jsx:739
+#: source/js/components/petition/petition.jsx:750
+msgid "Add my name"
+msgstr "Ajouter mon nom"
+
+#: source/js/components/pulse-project-list/pulse-project-list.jsx:73
+msgid "By"
+msgstr "Par"
+
+#: source/js/components/share-button-group/share-button-group.jsx:23
+msgid "Share on Facebook"
+msgstr "Partager sur Facebook"
+
+#: source/js/components/share-button-group/share-button-group.jsx:49
+msgid "Share on Twitter"
+msgstr "Partager sur Twitter"
+
+#: source/js/components/share-button-group/share-button-group.jsx:71
+msgid "Share by email"
+msgstr "Partager par courrier électronique"
+
+#: source/js/components/share-button-group/share-button-group.jsx:98
+msgid "Copy page URL to clipboard"
+msgstr "Copier l’adresse de la page dans le presse-papiers"
+
+#: source/js/nav-newsletter.js:36
+msgid "No thanks"
+msgstr "Non merci"
+
+#, python-format
+#~ msgid "I’m okay with Mozilla handling my info as explained in <a href=\"%s\">this Privacy Notice</a>"
+#~ msgstr "J’accepte que Mozilla utilise mes informations conformément à <a href=\"%s\">cette politique de confidentialité</a>"
+
+#, python-format
+#~ msgid "I’m okay with Mozilla handling my info as explained in %s"
+#~ msgstr "J’accepte que Mozilla utilise mes informations conformément à %s"

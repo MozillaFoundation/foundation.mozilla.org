@@ -3,7 +3,6 @@ import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
-import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 
@@ -53,7 +52,9 @@ export default class JoinUs extends React.Component {
       navWrapper.querySelector(".form-dismiss") &&
       this.state.apiSuccess
     ) {
-      navWrapper.querySelector(".form-dismiss").textContent = "Back to menu";
+      navWrapper.querySelector(".form-dismiss").textContent = gettext(
+        "Back to menu"
+      );
     }
   }
 
@@ -89,7 +90,7 @@ export default class JoinUs extends React.Component {
     if (!input) {
       return {
         valid: false,
-        errorMessage: `This is a required section.`
+        errorMessage: gettext("This is a required section.")
       };
     }
 
@@ -98,7 +99,7 @@ export default class JoinUs extends React.Component {
     if (!valid) {
       return {
         valid: false,
-        errorMessage: `Please enter a valid email address.`
+        errorMessage: gettext("Please enter a valid email address.")
       };
     }
 
@@ -262,7 +263,9 @@ export default class JoinUs extends React.Component {
     return (
       <React.Fragment>
         <h5 className="h5-heading">
-          {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
+          {!this.state.apiSuccess
+            ? `${this.props.ctaHeader}`
+            : gettext("Thanks!")}
         </h5>
         {!this.state.apiSuccess ? (
           <p
@@ -331,7 +334,7 @@ export default class JoinUs extends React.Component {
             name="userEmail"
             type="email"
             className="form-control"
-            placeholder={getText(`Please enter your email`)}
+            placeholder={gettext("Please enter your email")}
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
@@ -348,7 +351,9 @@ export default class JoinUs extends React.Component {
         )}
         {this.state.signupFailed && (
           <small className="form-check form-control-feedback">
-            Something went wrong. Please check your email address and try again
+            {gettext(
+              "Something went wrong. Please check your email address and try again"
+            )}
           </small>
         )}
       </div>
@@ -378,7 +383,7 @@ export default class JoinUs extends React.Component {
       <div className={classes}>
         <div className="mb-2">
           <CountrySelect
-            label={getText(`Your country`)}
+            label={gettext("Your country")}
             className="w-100"
             handleCountryChange={e => this.setCountry(e)}
           />
@@ -404,7 +409,7 @@ export default class JoinUs extends React.Component {
           <input
             type="text"
             className="form-control"
-            placeholder="First name"
+            placeholder={gettext("First name")}
             ref={el => (this.givenNames = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
@@ -413,7 +418,7 @@ export default class JoinUs extends React.Component {
           <input
             type="text"
             className="form-control"
-            placeholder="Last name"
+            placeholder={gettext("Last name")}
             ref={el => (this.surname = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
@@ -445,11 +450,19 @@ export default class JoinUs extends React.Component {
                 ref={el => (this.privacy = el)}
                 required
               />
-              <p className="d-inline-block body-small form-text mb-0">
-                {getText(
-                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-                )}
-              </p>
+              <p
+                className="d-inline-block body-small form-text mb-0"
+                dangerouslySetInnerHTML={{
+                  __html: gettext(
+                    "I’m okay with Mozilla handling my info as explained in {linkstart}this privacy policy{linkend}"
+                  )
+                    .replace(
+                      "{linkstart}",
+                      '<a href="https://www.mozilla.org/privacy/websites/">'
+                    )
+                    .replace("{linkend}", "</a>")
+                }}
+              />
               {this.state.userTriedSubmitting &&
                 !this.state.apiSubmitted &&
                 !this.privacy.checked &&
@@ -461,7 +474,7 @@ export default class JoinUs extends React.Component {
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
           <p className="body-small form-check form-control-feedback mt-0 mb-3">
-            Please check this box if you want to proceed.
+            {gettext("Please check this box if you want to proceed.")}
           </p>
         )}
       </div>
@@ -476,7 +489,7 @@ export default class JoinUs extends React.Component {
       "w-100": !this.isFlowForm(),
       "flex-1 mr-3": this.isFlowForm()
     });
-    return <button className={classnames}>{getText(`Sign up`)}</button>;
+    return <button className={classnames}>{gettext("Sign up")}</button>;
   }
 
   /**
@@ -521,7 +534,7 @@ export default class JoinUs extends React.Component {
               onClick={() => this.props.handleSignUp(false)}
               type="button"
             >
-              No Thanks
+              {gettext("No Thanks")}
             </button>
           )}
         </div>
@@ -531,9 +544,13 @@ export default class JoinUs extends React.Component {
 }
 
 JoinUs.defaultProps = {
-  ctaHeader: `Protect the internet as a global public resource`,
-  ctaDescription: `Join our email list to take action and stay updated!`,
-  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
+  ctaHeader: gettext("Protect the internet as a global public resource"),
+  ctaDescription: gettext(
+    "Join our email list to take action and stay updated!"
+  ),
+  thankYouMessage: gettext(
+    "If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>"
+  ),
   newsletter: `mozilla-foundation`,
   askName: false
 };

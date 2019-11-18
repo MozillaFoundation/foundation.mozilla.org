@@ -33,7 +33,7 @@ class NavNewsletter {
         "transitionend",
         handleTransitionend
       );
-      elements.buttonDismiss.textContent = "No thanks";
+      elements.buttonDismiss.textContent = gettext("No thanks");
     };
     elements.container.addEventListener("transitionend", handleTransitionend);
   }

@@ -18,8 +18,8 @@ if platform == 'win32':
 else:
     PLATFORM_ARG = dict(pty=True)
 
-# The command for locale string abstraction is long and elaborate,
-# so we build it here rather so that we don't clutter up the tasks.
+# The commands for locale string abstraction are long and elaborate,
+# so we build them here rather so that we don't clutter up the tasks.
 locale_abstraction_instructions = " ".join([
     "makemessages",
     "-l de -l es -l fr -l pl -l pt_BR",
@@ -29,6 +29,20 @@ locale_abstraction_instructions = " ".join([
     "--ignore=network-api/networkapi/wagtail_l10n_customization/*",
     "--ignore=network-api/networkapi/settings.py",
     "--ignore=network-api/networkapi/wagtailpages/__init__.py",
+])
+
+locale_abstraction_instructions_js = " ".join([
+    "makemessages_djangojs",
+    "-l de -l es -l fr -l pl -l pt_BR",
+    "--domain djangojs",
+    "--keep-pot",
+    "--no-wrap",
+    "--ignore=cypress",
+    "--ignore=node_modules",
+    "--ignore=network-api",
+    "--ignore=source/js/buyers-guide",
+    "--extension js,jsx",
+    "--language Python",
 ])
 
 
@@ -97,13 +111,16 @@ def l10n_update(ctx):
 def makemessages(ctx):
     """Extract all template messages in .po files for localization"""
     manage(ctx, locale_abstraction_instructions)
+    manage(ctx, locale_abstraction_instructions_js)
     os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+    os.replace("network-api/locale/djangojs.pot", "network-api/locale/templates/LC_MESSAGES/djangojs.pot")
 
 
 @task
 def compilemessages(ctx):
     """Compile the latest translations"""
     copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
+    copy("network-api/locale/pt_BR/LC_MESSAGES/djangojs.po", "network-api/locale/pt/LC_MESSAGES/djangojs.po")
     with ctx.cd(LOCALE_DIR):
         manage(ctx, "compilemessages")
 
@@ -245,13 +262,16 @@ def docker_l10n_update(ctx):
 def docker_makemessages(ctx):
     """Extract all template messages in .po files for localization"""
     docker_manage(ctx, locale_abstraction_instructions)
+    docker_manage(ctx, locale_abstraction_instructions_js)
     os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+    os.replace("network-api/locale/djangojs.pot", "network-api/locale/templates/LC_MESSAGES/djangojs.pot")
 
 
 @task
 def docker_compilemessages(ctx):
     """Compile the latest translations"""
     copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
+    copy("network-api/locale/pt_BR/LC_MESSAGES/djangojs.po", "network-api/locale/pt/LC_MESSAGES/djangojs.po")
     with ctx.cd(LOCALE_DIR):
         manage(ctx, "compilemessages")
 

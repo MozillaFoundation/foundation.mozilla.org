@@ -3,7 +3,9 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.decorators.cache import cache_page
 from django.views.generic.base import RedirectView
+from django.views.i18n import JavaScriptCatalog
 from django.urls import path
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -60,6 +62,10 @@ urlpatterns += i18n_patterns(
     # Blog RSS feed
     path('blog/rss/', RSSFeed()),
     path('blog/atom/', AtomFeed()),
+
+    # TODO we may want to version this cache, or pre-compile the catalog at build time
+    # See https://django-statici18n.readthedocs.io
+    path('jsi18n/', cache_page(86400)(JavaScriptCatalog.as_view()), name='javascript-catalog'),
 
     # wagtail-managed data
     url(r'', include(wagtail_urls)),

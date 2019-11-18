@@ -5,7 +5,6 @@ import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import LikelyhoodChart from "../likelyhood-chart/likelyhood-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
 import JoinUs from "../../../components/join/join.jsx";
-import { getText } from "../../../components/petition/locales";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 import Storage from "../../../storage";
@@ -245,10 +244,8 @@ export default class CreepVote extends React.Component {
     return (
       <JoinUs
         formPosition="flow"
-        flowHeading={getText(`Thanks for voting! One moment —`)}
-        flowText={getText(
-          `We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`
-        )}
+        flowHeading={`Thanks for voting! One moment —`}
+        flowText={`We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`}
         csrfToken={this.props.joinUsCSRF}
         apiUrl={this.props.joinUsApiUrl}
         handleSignUp={successState => this.handleSignUp(successState)}

@@ -20,7 +20,7 @@ export default class ShareButtonGroup extends React.Component {
   renderFacebookButton() {
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share on Facebook</span>
+        <span class="sr-only">{gettext("Share on Facebook")}</span>
       ) : (
         `Facebook`
       );
@@ -46,7 +46,7 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share on Twitter</span>
+        <span class="sr-only">{gettext("Share on Twitter")}</span>
       ) : (
         `Twitter`
       );
@@ -68,9 +68,9 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share by email</span>
+        <span class="sr-only">{gettext("Share by email")}</span>
       ) : (
-        `Email`
+        gettext("Email")
       );
 
     return (
@@ -94,9 +94,9 @@ export default class ShareButtonGroup extends React.Component {
 
   renderLinkButton() {
     let tooltip = this.state.linkCopied
-      ? `Copied`
-      : `Copy page URL to clipboard`;
-    let label = this.state.linkCopied ? `Copied` : `Copy`;
+      ? gettext("Copied")
+      : gettext("Copy page URL to clipboard");
+    let label = this.state.linkCopied ? gettext("Copied") : gettext("Copy");
     label =
       this.props.version === `mini` ? (
         <span class="sr-only">{label} page link</span>

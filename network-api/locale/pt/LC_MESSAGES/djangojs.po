@@ -1,0 +1,183 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-17 23:25+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: source/js/components/join/join.jsx:53
+msgid "Back to menu"
+msgstr ""
+
+#: source/js/components/join/join.jsx:89
+msgid "This is a required section."
+msgstr ""
+
+#: source/js/components/join/join.jsx:98
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: source/js/components/join/join.jsx:262
+msgid "Thanks!"
+msgstr ""
+
+#: source/js/components/join/join.jsx:331
+#: source/js/components/petition/petition.jsx:602
+msgid "Please enter your email"
+msgstr ""
+
+#: source/js/components/join/join.jsx:348
+msgid "Something went wrong. Please check your email address and try again"
+msgstr ""
+
+#: source/js/components/join/join.jsx:378
+#: source/js/components/petition/petition.jsx:612
+msgid "Your country"
+msgstr ""
+
+#: source/js/components/join/join.jsx:404
+#: source/js/components/petition/petition.jsx:556
+msgid "First name"
+msgstr ""
+
+#: source/js/components/join/join.jsx:413
+#: source/js/components/petition/petition.jsx:575
+msgid "Last name"
+msgstr ""
+
+#: source/js/components/join/join.jsx:446
+#: source/js/components/petition/petition.jsx:690
+#, python-brace-format
+msgid "I’m okay with Mozilla handling my info as explained in {linkstart}this privacy policy{linkend}"
+msgstr ""
+
+#: source/js/components/join/join.jsx:462
+msgid "Please check this box if you want to proceed."
+msgstr ""
+
+#: source/js/components/join/join.jsx:477
+msgid "Sign up"
+msgstr ""
+
+#: source/js/components/join/join.jsx:522
+msgid "No Thanks"
+msgstr ""
+
+#: source/js/components/join/join.jsx:532
+msgid "Protect the internet as a global public resource"
+msgstr ""
+
+#: source/js/components/join/join.jsx:533
+msgid "Join our email list to take action and stay updated!"
+msgstr ""
+
+#: source/js/components/join/join.jsx:534
+msgid "If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:429
+#: source/js/components/share-button-group/share-button-group.jsx:73
+msgid "Email"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:434
+#: source/js/components/share-button-group/share-button-group.jsx:97
+#: source/js/components/share-button-group/share-button-group.jsx:99
+msgid "Copied"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:436
+#: source/js/components/share-button-group/share-button-group.jsx:99
+msgid "Copy"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:452
+msgid "Something went wrong while trying to sign the petition. Please try again later."
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:563
+msgid "Please enter your given name(s)"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:582
+msgid "Please enter your surname"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:594
+msgid "Email address"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:620
+msgid "Please enter your country"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:634
+msgid "Postal code"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:641
+msgid "Please enter your postal code"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:655
+msgid "Comment"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:663
+msgid "Please include a comment"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:672
+#, python-format
+msgid "Comments cannot be longer than %s characters"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:698
+msgid "Please check this box if you want to proceed"
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:715
+msgid "Yes, I want to receive email updates about Mozilla’s campaigns."
+msgstr ""
+
+#: source/js/components/petition/petition.jsx:729
+#: source/js/components/petition/petition.jsx:740
+msgid "Add my name"
+msgstr ""
+
+#: source/js/components/pulse-project-list/pulse-project-list.jsx:72
+msgid "By"
+msgstr ""
+
+#: source/js/components/share-button-group/share-button-group.jsx:23
+msgid "Share on Facebook"
+msgstr ""
+
+#: source/js/components/share-button-group/share-button-group.jsx:49
+msgid "Share on Twitter"
+msgstr ""
+
+#: source/js/components/share-button-group/share-button-group.jsx:71
+msgid "Share by email"
+msgstr ""
+
+#: source/js/components/share-button-group/share-button-group.jsx:98
+msgid "Copy page URL to clipboard"
+msgstr ""
+
+#: source/js/nav-newsletter.js:36
+msgid "No thanks"
+msgstr ""
