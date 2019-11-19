@@ -85,7 +85,8 @@ jobs:
         - pipenv run python network-api/manage.py compilemessages
       script: 
         - npm run percy
-        - npm run pa11y
+    - name: pa11y tests
+      script: npm run pa11y
     - stage: Deploy
       name: Deploy Maintenance page to S3
       script: skip
