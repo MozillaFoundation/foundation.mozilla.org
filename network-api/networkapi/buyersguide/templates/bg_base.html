@@ -42,6 +42,7 @@
 
 
 {% block additional_head_elements %}
+  <meta name="monetization" content="$pay.stronghold.co/1a1938a9a3ec0ea4c539d779be2b7e1c9ee">
   <!-- TODO: determine if we still need this -->
   <script>
     var modernBrowser = (
@@ -79,8 +80,8 @@
             {% url 'buyersguide-home' as home_url %}
             <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">Home</a>
             {% category_nav request.get_full_path category categories %}
-            {% url 'how-to-use-view' as how_to_use_url %}
-            <a class="{% bg_active_nav request.get_full_path how_to_use_url %}" href="{{ how_to_use_url }}">About the Guide</a>
+            {% url 'why-view' as why_url %}
+            <a class="{% bg_active_nav request.get_full_path why_url %}" href="{{ why_url }}">About the Guide</a>
           </div>
         </div>
       </div>

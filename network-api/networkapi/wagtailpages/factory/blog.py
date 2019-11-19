@@ -71,8 +71,8 @@ def generate(seed):
         print('Generating a blog namespace')
         blog_namespace = IndexPageFactory.create(
             parent=home_page,
-            title='blog',
-            header='blog',
+            title='Blog',
+            header='Blog',
             live=True
         )
 
