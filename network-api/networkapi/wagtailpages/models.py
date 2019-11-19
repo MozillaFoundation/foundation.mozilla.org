@@ -57,7 +57,7 @@ page types.
 base_fields = [field for field in [
     ('paragraph', blocks.RichTextBlock(
         features=[
-            'bold', 'italic',
+            'bold', 'italic', 'bodylarge',
             'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
             'link', 'hr',
