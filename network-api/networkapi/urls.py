@@ -63,10 +63,11 @@ urlpatterns += i18n_patterns(
     path('blog/rss/', RSSFeed()),
     path('blog/atom/', AtomFeed()),
 
-    # TODO we may want to version this cache, or pre-compile the catalog at build time
-    # See https://django-statici18n.readthedocs.io
-    path('jsi18n/', cache_page(86400)(JavaScriptCatalog.as_view()), name='javascript-catalog'),
-
+    path(
+        'jsi18n/',
+        JavaScriptCatalog.as_view() if settings.DEBUG else cache_page(86400)(JavaScriptCatalog.as_view()),
+        name='javascript-catalog'
+    ),
     # wagtail-managed data
     url(r'', include(wagtail_urls)),
 )
