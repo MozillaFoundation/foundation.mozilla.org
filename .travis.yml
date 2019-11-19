@@ -86,6 +86,9 @@ jobs:
       script: 
         - npm run percy
     - name: pa11y tests
+      install:
+        - pip install -r requirements.txt
+        - pip install -r test-requirements.txt
       script: npm run pa11y
     - stage: Deploy
       name: Deploy Maintenance page to S3
