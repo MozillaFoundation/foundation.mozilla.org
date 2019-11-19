@@ -69,9 +69,7 @@ export default class PulseProjectList extends React.Component {
       let url;
 
       if (project.related_creators.length) {
-        byline =
-          gettext("By") +
-          ` ${project.related_creators.map(rc => rc.name).join(`, `)}`;
+        byline = `${gettext("By")} ${project.related_creators.map(rc => rc.name).join(`, `)}`;
       }
 
       if (this.props.directLink) {
