@@ -1,7 +1,4 @@
 {
-    "defaults": {
-        "timeout": 1000
-      },
       "urls": [
         "https://foundation.mozilla.org/",
         "https://foundation.mozilla.org/privacynotincluded",
