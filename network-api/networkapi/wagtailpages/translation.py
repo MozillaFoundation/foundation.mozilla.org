@@ -14,6 +14,7 @@ from .models import (
     CampaignPage,
     OpportunityPage,
     BlogPage,
+    BlogPageCategory,
     YoutubeRegretsPage,
 
     CTA,
@@ -172,6 +173,14 @@ class BlogPageTR(TranslationOptions):
     fields = (
         'author',
         'body',
+    )
+
+
+@register(BlogPageCategory)
+class BlogPageCategoryTR(TranslationOptions):
+    fields = (
+        'name',
+        'intro',
     )
 
 
