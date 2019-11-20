@@ -8,9 +8,6 @@ import JoinUs from "../../../components/join/join.jsx";
 import { getText } from "../../../components/petition/locales";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
-import Storage from "../../../storage";
-
-const sessionStorage = Storage.sessionStorage;
 
 export default class CreepVote extends React.Component {
   constructor(props) {
@@ -37,16 +34,11 @@ export default class CreepVote extends React.Component {
 
     let confidence = votes.confidence;
 
-    let queryString = new URLSearchParams(window.location.search);
-    let subscribedValue = queryString.get("subscribed");
-    let subscribed = subscribedValue === "1";
 
-    let sessionSubscription = sessionStorage.getItem("subscribed") === "true";
+    let subscribed = sessionStorage.subscribed === "true";
     let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
 
-    if (sessionSubscription) {
-      subscribed = sessionSubscription;
-    } else if (voteCount >= 3) {
+    if (voteCount >= 3) {
       subscribed = true;
     }
 
