@@ -4,9 +4,11 @@ from django.utils.translation import gettext
 
 
 def set_main_site_nav_information(page, context, homepage_class_name):
-    # Find the homepage, and then record all pages that should end up as nav items. Note
-    # that subclasses can bypass this, because the MozfestHomepage doesn't need any of
-    # this work to be done.
+    '''
+    Find the homepage, and then record all pages that should end up as nav items. Note
+    that subclasses can bypass this, because the MozfestHomepage doesn't need any of
+    this work to be done.
+    '''
 
     root = list(filter(
         lambda x: x.specific.__class__.__name__ == homepage_class_name,
@@ -114,9 +116,14 @@ def get_content_related_by_tag(page, result_count=3):
     on its `.tags` content. If it has tags.
     """
 
+    pageModel = page.specific.__class__
+    hasTags = hasattr(page.specific, 'tags')
+
+    if hasTags is False:
+        return list()
+
     tagged_post_types = (
-        apps.get_model('wagtailpages', 'BlogPage'),
-        # Add more models here as we add tags to more types
+        pageModel,
     )
 
     own_tags = page.tags.all()

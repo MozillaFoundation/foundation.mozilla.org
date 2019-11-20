@@ -21,18 +21,8 @@ TESTING = settings.TESTING
 blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
                                 'video', 'linkbutton', 'spacer', 'quote']
 
-tags = [
-    'mozilla', 'iot', 'privacy', 'security', 'internet health',
-    'digital inclusion', 'advocacy', 'policy']
 
-
-def add_tags(post):
-    shuffle(tags)
-
-    for tag in tags[0:3]:
-        post.tags.add(tag)
-
-    post.save()
+from .tagging import add_tags
 
 
 def add_category(post):
@@ -78,7 +68,6 @@ def generate(seed):
 
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'
-
     post = None
 
     try:

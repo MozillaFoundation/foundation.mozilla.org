@@ -1,4 +1,5 @@
 from factory import (
+    Faker,
     Trait,
     SubFactory
 )
@@ -13,6 +14,8 @@ from .petition import PetitionFactory
 from .signup import SignupFactory
 from .mini_site_namespace import MiniSiteNamespaceFactory
 from .abstract import CMSPageFactory
+
+from .blog import add_tags
 
 
 class BanneredCampaignPageFactory(CMSPageFactory):
@@ -45,9 +48,23 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Bannered Campaign Pages under namespace')
-    BanneredCampaignPageFactory.create(
-        parent=bannered_campaign_namespace,
-        title="Test Bannered Campaign"
-    )
+    title = 'Test Bannered Campaign'
+    post = None
 
-    reseed(seed)
+    try:
+        post = BanneredCampaignPage.objects.get(title=title)
+    except BanneredCampaignPage.DoesNotExist:
+        post = BanneredCampaignPageFactory.create(parent=bannered_campaign_namespace, title=title)
+
+    add_tags(post)
+
+    for i in range(6):
+        title = Faker('sentence', nb_words=6, variable_nb_words=False)
+        post = None
+
+        try:
+            post = BanneredCampaignPage.objects.get(title=title)
+        except BanneredCampaignPage.DoesNotExist:
+            post = BanneredCampaignPageFactory.create(parent=bannered_campaign_namespace, title=title)
+
+        add_tags(post)

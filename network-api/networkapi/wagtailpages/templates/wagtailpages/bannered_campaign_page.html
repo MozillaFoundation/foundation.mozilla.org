@@ -4,6 +4,15 @@
 {% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
 {% block hero_guts %}
+  <blockquote>
+    This page's tags: {{ page.tags.all }}, related posts based on tags:
+    <pre>
+      {% for post in related_posts %}
+      page: {{ post }}, tags: {{ post.tags.all }}
+      {% endfor %}
+    </pre>
+  <blockquote>
+
   {% include "./fragments/primary_heroguts.html" with root=root page=page %}
 {% endblock %}
 
@@ -30,6 +39,7 @@ Note: Wrapper HTML elements are copied from primary_page_menu.html as we want me
 {% block minisite_no_menu %}
   {% include "partials/intro_and_content_divider.html" with wrapper_class="hidden-sm-down" %}
 {% endblock %}
+
 
 The following block has been borrowed from the templates/tags/cta/petition.html file,
 rather than using the `cta` tag from our mini_site_tags collection, because the cta
