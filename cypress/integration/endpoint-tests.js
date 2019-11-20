@@ -159,10 +159,10 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   // Pages specific to MozFest
 
-  it(`PNI homepage`, function() {
+  it(`MozFest homepage`, function() {
     cy.visit(`/en/mozilla-festival`);
     cy.window()
-      .its(`bg-main-js:react:finished`)
+      .its(`main-js:react:finished`)
       .should(`equal`, true);
     cy.wait(500);
     cy.percySnapshot();
