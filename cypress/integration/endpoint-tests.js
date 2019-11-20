@@ -156,4 +156,15 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.wait(1000);
     cy.percySnapshot();
   });
+
+  // Pages specific to MozFest
+
+  it(`PNI homepage`, function() {
+    cy.visit(`/en/mozilla-festival`);
+    cy.window()
+      .its(`bg-main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
 });
