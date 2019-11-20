@@ -15,7 +15,7 @@ from .signup import SignupFactory
 from .mini_site_namespace import MiniSiteNamespaceFactory
 from .abstract import CMSPageFactory
 
-from .blog import add_tags
+from .tagging import add_tags
 
 
 class BanneredCampaignPageFactory(CMSPageFactory):
