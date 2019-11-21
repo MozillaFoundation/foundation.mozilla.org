@@ -10,6 +10,8 @@ python:
 
 addons:
   postgresql: "9.6"
+  hosts:
+    - mozfest.localhost
 
 env:
   global:
