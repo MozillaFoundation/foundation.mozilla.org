@@ -34,7 +34,6 @@ export default class CreepVote extends React.Component {
 
     let confidence = votes.confidence;
 
-
     let subscribed = sessionStorage.subscribed === "true";
     let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
 

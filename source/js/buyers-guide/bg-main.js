@@ -29,7 +29,7 @@ let main = {
 
       csrfToken = document.querySelector('meta[name="csrf-token"]');
       csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
-      
+
       // Checking newsletter subscription status
       const sessionStorage = Storage.sessionStorage;
 
