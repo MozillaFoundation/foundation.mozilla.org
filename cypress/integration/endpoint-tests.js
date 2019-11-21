@@ -1,4 +1,5 @@
 const FIXED_DATE = new Date(2019, 1, 1).getTime();
+const MOZFEST_BASE_URL = Cypress.env("mozfest-baseurl");
 
 describe(`Visual regression testing for foundation.mozilla.org`, () => {
   beforeEach(function() {
@@ -154,6 +155,26 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   it(`Styleguide page`, function() {
     cy.visit(`/en/styleguide/`);
     cy.wait(1000);
+    cy.percySnapshot();
+  });
+
+  // Pages specific to MozFest
+
+  it(`MozFest homepage`, function() {
+    cy.visit(`${MOZFEST_BASE_URL}`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  it(`MozFest primary page`, function() {
+    cy.visit(`${MOZFEST_BASE_URL}/spaces`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
     cy.percySnapshot();
   });
 });
