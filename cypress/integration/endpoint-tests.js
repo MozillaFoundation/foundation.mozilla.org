@@ -159,11 +159,11 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   // Pages specific to MozFest
 
-  // const MOZFEST_BASE_URL = `${cy.env("mozfest-host")}:${cy.env(
-  //   "mozfest-port"
-  // )}`;
+  const MOZFEST_BASE_URL = `${Cypress.env("mozfest-host")}:${Cypress.env(
+    "mozfest-port"
+  )}`;
 
-  const MOZFEST_BASE_URL = `http://mozfest.localhost:8000`;
+  // const MOZFEST_BASE_URL = `http://mozfest.localhost:8000`;
 
   it(`MozFest homepage`, function() {
     cy.visit(`${MOZFEST_BASE_URL}`);
