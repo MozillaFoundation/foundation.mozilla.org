@@ -15,7 +15,7 @@
     "cypress": "run-p --race server cypress:test",
     "cypress:install": "npm install --no-save cypress@^3.1.5 @percy/cypress@^1.0.2",
     "cypress:open": "cypress open",
-    "cypress:test": "wait-on http://mozfest.localhost:8000 && cypress run",
+    "cypress:test": "wait-on tcp:8000 && cypress run",
     "heroku-postbuild": "npm run build",
     "migrate": "pipenv run python network-api/manage.py migrate",
     "optimize:svg": "find source/images -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
