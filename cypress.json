@@ -1,4 +1,8 @@
 {
   "baseUrl": "http://localhost:8000",
-  "video": false
+  "video": false,
+  "env": {
+    "mozfest-host": "mozfest.localhost",
+    "mozfest-port": "8000"
+  }
 }

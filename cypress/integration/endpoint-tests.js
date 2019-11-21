@@ -159,8 +159,10 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   // Pages specific to MozFest
 
+  const MOZFEST_BASE_URL = `${cy.env('mozfest-host')}:${cy.env('mozfest-port')}`;
+
   it(`MozFest homepage`, function() {
-    cy.visit(`/en/mozilla-festival`);
+    cy.visit(`${MOZFEST_BASE_URL}`);
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);
@@ -169,7 +171,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`MozFest primary page`, function() {
-    cy.visit(`/en/mozilla-festival/spaces`);
+    cy.visit(`${MOZFEST_BASE_URL}/spaces`);
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);
