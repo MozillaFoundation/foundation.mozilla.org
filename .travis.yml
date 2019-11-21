@@ -15,7 +15,7 @@ addons:
 
 env:
   global:
-    - ALLOWED_HOSTS=localhost
+    - ALLOWED_HOSTS=localhost,mozfest.localhost
     - CONTENT_TYPE_NO_SNIFF=True
     - CORS_WHITELIST="*"
     - DATABASE_URL=postgres://postgres@localhost:5432/network
