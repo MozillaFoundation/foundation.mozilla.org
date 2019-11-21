@@ -1,4 +1,5 @@
 const FIXED_DATE = new Date(2019, 1, 1).getTime();
+const MOZFEST_BASE_URL = Cypress.env("mozfest-baseurl");
 
 describe(`Visual regression testing for foundation.mozilla.org`, () => {
   beforeEach(function() {
@@ -158,12 +159,6 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   // Pages specific to MozFest
-
-  const MOZFEST_BASE_URL = `${Cypress.env("mozfest-host")}:${Cypress.env(
-    "mozfest-port"
-  )}`;
-
-  // const MOZFEST_BASE_URL = `http://mozfest.localhost:8000`;
 
   it(`MozFest homepage`, function() {
     cy.visit(`${MOZFEST_BASE_URL}`);
