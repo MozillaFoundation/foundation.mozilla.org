@@ -2,7 +2,7 @@
   "baseUrl": "http://localhost:8000",
   "video": false,
   "env": {
-    "mozfest-host": "mozfest.localhost",
+    "mozfest-host": "http://mozfest.localhost",
     "mozfest-port": "8000"
   }
 }
