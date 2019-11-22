@@ -253,7 +253,7 @@ def docker_compilemessages(ctx):
     """Compile the latest translations"""
     copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
     with ctx.cd(LOCALE_DIR):
-        manage(ctx, "compilemessages")
+        docker_manage(ctx, "compilemessages")
 
 
 @task
@@ -295,7 +295,7 @@ def docker_catch_up(ctx):
     print("* Applying database migrations.")
     docker_migrate(ctx)
     print("* Compiling locale strings.")
-    docker_compilemessages
+    docker_compilemessages(ctx)
     print("* Updating block information.")
     docker_l10n_block_inventory(ctx)
 
@@ -320,7 +320,7 @@ def docker_new_env(ctx):
         print("* Creating fake data.")
         docker_manage(ctx, "load_fake_data")
         print("* Compiling localse strings.")
-        docker_compilemessages
+        docker_compilemessages(ctx)
         print("* Updating block information.")
         docker_l10n_block_inventory(ctx)
         docker_create_super_user(ctx)

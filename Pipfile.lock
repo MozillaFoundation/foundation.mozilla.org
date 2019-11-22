@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e4c08d0277ab53dfcb64860b0f180367b08823db43aa7e0c76da26a8feab145b"
+            "sha256": "bd0a51d5695039804da0f68eaf9288e8f51f948b0265383bdf416dd69e46257a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -27,18 +27,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:52de290ce1af1513b7016996b6c94bc24d0dd7db233a7f2ed3b6f15866072969",
-                "sha256:58401fdd3311f35df4b76b9f0757952a44da63444a2d255484d824fa5c88bea5"
+                "sha256:f561974d433d48e497315d0b27329861d2bbbc5423656a496dc1b49b00c949d9",
+                "sha256:f953bf5aeaf034b4d75054eeec9c72ba15280968f5ca5bdb8e92c0b3b80327d1"
             ],
             "index": "pypi",
-            "version": "==1.10.19"
+            "version": "==1.10.20"
         },
         "botocore": {
             "hashes": [
-                "sha256:93613735b76d5fde3bee0d228566d37483c6ea09adcd7615a66f7443ac0f08f2",
-                "sha256:e4132d34e06356b7bb14838050360025700fda10294550807779154d303eaf9f"
+                "sha256:084b37c46f2c0705d3e6c42e83176669b5d4381d08da4abb2010a94c62168713",
+                "sha256:f027643f1ebb852fb125a17f5950e868de77b40b9187e3420ed00c037e1b4583"
             ],
-            "version": "==1.13.19"
+            "version": "==1.13.20"
         },
         "certifi": {
             "hashes": [
@@ -440,6 +440,13 @@
             ],
             "version": "==1.3"
         },
+        "tqdm": {
+            "hashes": [
+                "sha256:6ec1dc74efacf2cda936b4a6cf4082ce224c76763bdec9f17e437c8cfcaa9953",
+                "sha256:9f019dcbec25b5b4cb1bbf43e5c346e0d6a001fe4f598d70283d379e5314e202"
+            ],
+            "version": "==4.15.0"
+        },
         "unidecode": {
             "hashes": [
                 "sha256:1d7a042116536098d05d599ef2b8616759f02985c85b4fef50c78a5aaf10822a",
@@ -480,8 +487,12 @@
             "version": "==2.0.0"
         },
         "wagtail-inventory": {
-            "git": "https://github.com/cfpb/wagtail-inventory.git",
-            "ref": "bc0cc02e142791ccb66fabdba902c0c23367ae32"
+            "hashes": [
+                "sha256:1a47680b42f2c742124599950d39d4140eac242a4e262177a917bdae965a0585",
+                "sha256:ca1f9efe2fac168bc090559433589ed4b575c7e317be112d930fde6a6b7cbb25"
+            ],
+            "index": "pypi",
+            "version": "==0.8"
         },
         "wagtail-metadata": {
             "hashes": [
