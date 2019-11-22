@@ -3,6 +3,7 @@ import re
 
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
@@ -750,6 +751,10 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     # helper function for /category/... subroutes
     def extract_category_information(self, category_slug):
         category_object = self.get_category_object_for_slug(category_slug)
+
+        if category_object is None:
+            raise ObjectDoesNotExist
+
         self.filtered = {
             'type': 'category',
             'category': category_object
@@ -760,9 +765,10 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         JSON endpoint for getting a set of (pre-rendered) category entries
         """
-        indexRedirect = self.extract_category_information(category)
+        try:
+            self.extract_category_information(category)
 
-        if indexRedirect:
+        except ObjectDoesNotExist:
             return redirect(self.full_url)
 
         return self.generate_entries_set_html(request, *args, **kwargs)
@@ -774,9 +780,10 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         the category to filter prior to rendering this page. Only one
         category can be specified (unlike tags)
         """
-        indexRedirect = self.extract_category_information(category)
+        try:
+            self.extract_category_information(category)
 
-        if indexRedirect:
+        except ObjectDoesNotExist:
             return redirect(self.full_url)
 
         return IndexPage.serve(self, request, *args, **kwargs)
