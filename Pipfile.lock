@@ -27,18 +27,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:f561974d433d48e497315d0b27329861d2bbbc5423656a496dc1b49b00c949d9",
-                "sha256:f953bf5aeaf034b4d75054eeec9c72ba15280968f5ca5bdb8e92c0b3b80327d1"
+                "sha256:0fe72c4cea35892cce01cc8d4ab3a4062df574733e87806111dedbc1cf0c1701",
+                "sha256:fb8f11740dfdd9082d77d29100e1ab122d1194383a370386b2f555f785a78e91"
             ],
             "index": "pypi",
-            "version": "==1.10.20"
+            "version": "==1.10.22"
         },
         "botocore": {
             "hashes": [
-                "sha256:084b37c46f2c0705d3e6c42e83176669b5d4381d08da4abb2010a94c62168713",
-                "sha256:f027643f1ebb852fb125a17f5950e868de77b40b9187e3420ed00c037e1b4583"
+                "sha256:9fefb42c6d4fa0079a52b49e5491fa0738cca63649f68be180b3ed6c253d2622",
+                "sha256:ee55ce128056c5120680d25c8e8dfa3a08dbe7ac3445dc16997daaa68ae4060e"
             ],
-            "version": "==1.13.20"
+            "version": "==1.13.26"
         },
         "certifi": {
             "hashes": [
@@ -148,11 +148,11 @@
         },
         "django-storages": {
             "hashes": [
-                "sha256:87287b7ad2e789cd603373439994e1ac6f94d9dc2e5f8173d2a87aa3ed458bd9",
-                "sha256:f3b3def96493d3ccde37b864cea376472baf6e8a596504b209278801c510b807"
+                "sha256:0a9b7e620e969fb0797523695329ed223bf540bbfdf6cd163b061fc11dab2d1c",
+                "sha256:9322ab74ba6371e2e0fccc350c741686ade829e43085597b26b07ae8955a0a00"
             ],
             "index": "pypi",
-            "version": "==1.7.2"
+            "version": "==1.8"
         },
         "django-taggit": {
             "hashes": [
@@ -222,11 +222,11 @@
         },
         "gunicorn": {
             "hashes": [
-                "sha256:0806b5e8a2eb8ba9ac1be65d7b743ec896fc25f5d6cb16c5e051540157b315bb",
-                "sha256:ef69dea4814df95e64e3f40b47b7ffedc6911c5009233be9d01cfd0d14aa3f50"
+                "sha256:5a3bf56a1d44c2ed15dae2f9d2a9e7c87acc3517f7225e27e4ece3098a2b5efc",
+                "sha256:fe457b7093b353cefcb2ebc40d192fc7c8a62bba49da648c9e1fa0671fa654d1"
             ],
             "index": "pypi",
-            "version": "==20.0.0"
+            "version": "==20.0.2"
         },
         "html5lib": {
             "hashes": [
