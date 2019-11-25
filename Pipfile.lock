@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e4c08d0277ab53dfcb64860b0f180367b08823db43aa7e0c76da26a8feab145b"
+            "sha256": "bd0a51d5695039804da0f68eaf9288e8f51f948b0265383bdf416dd69e46257a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -27,18 +27,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:52de290ce1af1513b7016996b6c94bc24d0dd7db233a7f2ed3b6f15866072969",
-                "sha256:58401fdd3311f35df4b76b9f0757952a44da63444a2d255484d824fa5c88bea5"
+                "sha256:0fe72c4cea35892cce01cc8d4ab3a4062df574733e87806111dedbc1cf0c1701",
+                "sha256:fb8f11740dfdd9082d77d29100e1ab122d1194383a370386b2f555f785a78e91"
             ],
             "index": "pypi",
-            "version": "==1.10.19"
+            "version": "==1.10.22"
         },
         "botocore": {
             "hashes": [
-                "sha256:93613735b76d5fde3bee0d228566d37483c6ea09adcd7615a66f7443ac0f08f2",
-                "sha256:e4132d34e06356b7bb14838050360025700fda10294550807779154d303eaf9f"
+                "sha256:9fefb42c6d4fa0079a52b49e5491fa0738cca63649f68be180b3ed6c253d2622",
+                "sha256:ee55ce128056c5120680d25c8e8dfa3a08dbe7ac3445dc16997daaa68ae4060e"
             ],
-            "version": "==1.13.19"
+            "version": "==1.13.26"
         },
         "certifi": {
             "hashes": [
@@ -148,11 +148,11 @@
         },
         "django-storages": {
             "hashes": [
-                "sha256:87287b7ad2e789cd603373439994e1ac6f94d9dc2e5f8173d2a87aa3ed458bd9",
-                "sha256:f3b3def96493d3ccde37b864cea376472baf6e8a596504b209278801c510b807"
+                "sha256:0a9b7e620e969fb0797523695329ed223bf540bbfdf6cd163b061fc11dab2d1c",
+                "sha256:9322ab74ba6371e2e0fccc350c741686ade829e43085597b26b07ae8955a0a00"
             ],
             "index": "pypi",
-            "version": "==1.7.2"
+            "version": "==1.8"
         },
         "django-taggit": {
             "hashes": [
@@ -222,11 +222,11 @@
         },
         "gunicorn": {
             "hashes": [
-                "sha256:0806b5e8a2eb8ba9ac1be65d7b743ec896fc25f5d6cb16c5e051540157b315bb",
-                "sha256:ef69dea4814df95e64e3f40b47b7ffedc6911c5009233be9d01cfd0d14aa3f50"
+                "sha256:5a3bf56a1d44c2ed15dae2f9d2a9e7c87acc3517f7225e27e4ece3098a2b5efc",
+                "sha256:fe457b7093b353cefcb2ebc40d192fc7c8a62bba49da648c9e1fa0671fa654d1"
             ],
             "index": "pypi",
-            "version": "==20.0.0"
+            "version": "==20.0.2"
         },
         "html5lib": {
             "hashes": [
@@ -440,6 +440,13 @@
             ],
             "version": "==1.3"
         },
+        "tqdm": {
+            "hashes": [
+                "sha256:6ec1dc74efacf2cda936b4a6cf4082ce224c76763bdec9f17e437c8cfcaa9953",
+                "sha256:9f019dcbec25b5b4cb1bbf43e5c346e0d6a001fe4f598d70283d379e5314e202"
+            ],
+            "version": "==4.15.0"
+        },
         "unidecode": {
             "hashes": [
                 "sha256:1d7a042116536098d05d599ef2b8616759f02985c85b4fef50c78a5aaf10822a",
@@ -480,8 +487,12 @@
             "version": "==2.0.0"
         },
         "wagtail-inventory": {
-            "git": "https://github.com/cfpb/wagtail-inventory.git",
-            "ref": "bc0cc02e142791ccb66fabdba902c0c23367ae32"
+            "hashes": [
+                "sha256:1a47680b42f2c742124599950d39d4140eac242a4e262177a917bdae965a0585",
+                "sha256:ca1f9efe2fac168bc090559433589ed4b575c7e317be112d930fde6a6b7cbb25"
+            ],
+            "index": "pypi",
+            "version": "==0.8"
         },
         "wagtail-metadata": {
             "hashes": [

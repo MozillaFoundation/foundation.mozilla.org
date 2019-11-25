@@ -42,10 +42,10 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.0",
-    "autoprefixer": "^9.7.1",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "autoprefixer": "^9.7.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "classnames": "2.2.6",
@@ -71,11 +71,11 @@
     "node": "^8.9.0"
   },
   "devDependencies": {
-    "browserslist": "^4.7.2",
+    "browserslist": "^4.7.3",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.6.0",
+    "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "optipng-bin": "^6.0.0",
