@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactGA from "../react-ga-proxy.js";
+import Storage from "../storage.js";
 
 import primaryNav from "./components/primary-nav/primary-nav.js";
 import navNewsletter from "../nav-newsletter.js";
@@ -28,6 +29,17 @@ let main = {
 
       csrfToken = document.querySelector('meta[name="csrf-token"]');
       csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
+
+      // Checking newsletter subscription status
+      const sessionStorage = Storage.sessionStorage;
+
+      let queryString = new URLSearchParams(window.location.search);
+      let subscribedValue = queryString.get("subscribed");
+
+      if (subscribedValue) {
+        let subscribed = subscribedValue === "1";
+        sessionStorage.setItem("subscribed", subscribed);
+      }
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
