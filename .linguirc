@@ -1,0 +1,6 @@
+{
+   "localeDir": "network-api/locale/",
+   "srcPathDirs": ["source/js/components"],
+   "format": "po",
+   "sourceLocale": "en"
+}

@@ -1,0 +1,1 @@
+/* eslint-disable */module.exports={languageData:{"plurals":function(n,ord){if(ord)return"other";return n==1?"one":"other"}},messages:{"I\u2019m okay with Mozilla handling my info as explained in this Privacy Notice":"I\u2019m okay with Mozilla handling my info as explained in this Privacy Notice","This is a required section.":"This is a required section."}};

@@ -1,0 +1,27 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": false
+      }
+    ],
+    "@babel/react",
+    "@babel/flow",
+    "@lingui/babel-preset-react"
+  ],
+  "plugins": [
+    "macros",
+    "syntax-dynamic-import",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-regenerator",
+    "@babel/transform-runtime"
+  ],
+  "env": {
+    "test": {
+      "plugins": ["@babel/plugin-transform-modules-commonjs"]
+    }
+  }
+}

@@ -6,6 +6,15 @@ import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
+import { I18nProvider } from "@lingui/react"
+import { t, Trans } from "@lingui/macro"
+import frMessages from '../../../../network-api/locale/fr/messages.js';
+
+const languages = {
+  en: `English`,
+  fr: `Français`,
+  es: `Spanish`
+}
 
 export default class JoinUs extends React.Component {
   constructor(props) {
@@ -27,8 +36,24 @@ export default class JoinUs extends React.Component {
       apiSuccess: false,
       apiFailed: false,
       userTriedSubmitting: false,
-      lang: getCurrentLanguage()
+      lang: getCurrentLanguage(),
+      language: "fr",
+      catalogs: {
+        fr: frMessages,
+      },
     };
+  }
+
+  loadLanguage = async language => {
+    /* webpackMode: "lazy", webpackChunkName: "i18n-[index]" */
+    const catalogs = await import(`@lingui/loader!../../../../network-api/locale/${language}/messages.po`)
+
+    this.setState(state => ({
+      catalogs: {
+        ...state.catalogs,
+        [language]: catalogs
+      }
+    }))
   }
 
   /**
@@ -40,6 +65,16 @@ export default class JoinUs extends React.Component {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
     }
+    this.loadLanguage(this.state.language);
+  }
+
+  shouldComponentUpdate(nextProps, { language, catalogs }) {
+    if (language !== this.state.language && !catalogs[language]) {
+      this.loadLanguage(language)
+      return false
+    }
+
+    return true
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -89,7 +124,7 @@ export default class JoinUs extends React.Component {
     if (!input) {
       return {
         valid: false,
-        errorMessage: `This is a required section.`
+        errorMessage: <Trans>This is a required section.</Trans>
       };
     }
 
@@ -437,37 +472,41 @@ export default class JoinUs extends React.Component {
         !this.privacy.checked
     });
 
+    const { language, catalogs } = this.state
+
+    if (!catalogs[language]) return null
+
     return (
       <div className={classes}>
-        <div className="d-flex align-items-start">
-          <div className="mb-0 form-check d-flex align-items-start">
-            <label className="form-check-label d-flex align-items-start">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="PrivacyCheckbox"
-                ref={el => (this.privacy = el)}
-                required
-              />
-              <p className="d-inline-block body-small form-text mb-0">
-                {getText(
-                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-                )}
-              </p>
-              {this.state.userTriedSubmitting &&
-                !this.state.apiSubmitted &&
-                !this.privacy.checked &&
-                !this.isFlowForm() && (
-                  <span class="form-error-glyph privacy-error d-flex" />
-                )}
-            </label>
+        <I18nProvider language={language} catalogs={catalogs}>
+          <div className="d-flex align-items-start">
+            <div className="mb-0 form-check d-flex align-items-start">
+              <label className="form-check-label d-flex align-items-start">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="PrivacyCheckbox"
+                  ref={el => (this.privacy = el)}
+                  required
+                />
+                <p className="d-inline-block body-small form-text mb-0">
+                  <Trans>I’m okay with Mozilla handling my info as explained in this Privacy Notice</Trans>
+                </p>
+                {this.state.userTriedSubmitting &&
+                  !this.state.apiSubmitted &&
+                  !this.privacy.checked &&
+                  !this.isFlowForm() && (
+                    <span class="form-error-glyph privacy-error d-flex" />
+                  )}
+              </label>
+            </div>
           </div>
-        </div>
-        {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className="body-small form-check form-control-feedback mt-0 mb-3">
-            Please check this box if you want to proceed.
-          </p>
-        )}
+          {this.state.userTriedSubmitting && !this.privacy.checked && (
+            <p className="body-small form-check form-control-feedback mt-0 mb-3">
+              Please check this box if you want to proceed.
+            </p>
+          )}
+        </I18nProvider>
       </div>
     );
   }
