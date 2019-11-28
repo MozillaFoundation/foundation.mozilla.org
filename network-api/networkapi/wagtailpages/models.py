@@ -505,10 +505,13 @@ class BanneredCampaignPage(PrimaryPage):
     n = panel_count - 1
 
     content_panels = PrimaryPage.content_panels[:n] + [
-        FieldPanel('tags'),
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
     ] + PrimaryPage.content_panels[n:]
+
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+        FieldPanel('tags'),
+    ]
 
     subpage_types = [
         'BanneredCampaignPage',
