@@ -1,5 +1,4 @@
 from itertools import chain
-from operator import attrgetter
 from django.apps import apps
 from django.db.models import Count
 from django.utils.translation import gettext

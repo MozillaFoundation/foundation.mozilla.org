@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import shuffle, choice
+from random import choice
 from django.conf import settings
 from wagtail_factories import PageFactory
 from factory import (
@@ -15,14 +15,13 @@ from networkapi.utility.faker.helpers import (
 )
 from .index_page import IndexPageFactory
 
+from .tagging import add_tags
+
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
 
 blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
                                 'video', 'linkbutton', 'spacer', 'quote']
-
-
-from .tagging import add_tags
 
 
 def add_category(post):

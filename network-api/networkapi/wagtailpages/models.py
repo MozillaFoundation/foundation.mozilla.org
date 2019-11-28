@@ -471,7 +471,11 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class BanneredCampaignTag(TaggedItemBase):
-    content_object = ParentalKey('wagtailpages.BanneredCampaignPage', on_delete=models.CASCADE, related_name='tagged_items')
+    content_object = ParentalKey(
+        'wagtailpages.BanneredCampaignPage',
+        on_delete=models.CASCADE,
+        related_name='tagged_items'
+    )
 
 
 class BanneredCampaignPage(PrimaryPage):
