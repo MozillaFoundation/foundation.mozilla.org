@@ -1,4 +1,11 @@
 .cms {
+
+  a {
+    .body-large {
+      color: inherit;
+    }
+  }
+
   p:empty {
     height: 1em;
   }
