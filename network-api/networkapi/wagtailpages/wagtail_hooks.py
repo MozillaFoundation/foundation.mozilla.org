@@ -8,16 +8,16 @@ from wagtail.core import hooks
 
 # 1. Use the register_rich_text_features hook.
 @hooks.register('register_rich_text_features')
-def register_bodylarge_feature(features):
+def register_large_feature(features):
     """
-    Registering the 'bodylarge' Draftail feature which
+    Registering the 'large' Draftail feature which
     adds a span around the selected text with its class
     set to 'body-large'
     """
 
     # 1. Set up variables for use below
-    feature_name = 'bodylarge'
-    type_ = 'BODYLARGE'
+    feature_name = 'large'
+    type_ = 'LARGE'
 
     # 2. Set up a dictionary to pass to Draftail to configure
     # how it handles this feature in its toolbar.
@@ -64,4 +64,4 @@ def register_bodylarge_feature(features):
 
     # 6. (optional) Add the feature to the default features list to make it available
     # on rich text fields that do not specify an explicit 'features' list
-    features.default_features.append('bodylarge')
+    features.default_features.append('large')
