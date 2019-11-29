@@ -19,7 +19,7 @@ RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
 
 blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
-                                'video', 'linkbutton', 'spacer', 'quote']
+                                'linkbutton', 'spacer', 'quote']
 
 tags = [
     'mozilla', 'iot', 'privacy', 'security', 'internet health',
