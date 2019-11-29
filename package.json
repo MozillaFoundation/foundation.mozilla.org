@@ -22,7 +22,7 @@
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "optimize": "run-p optimize:**",
     "pa11y": "run-p --race server pally-ci",
-    "pally-ci": "pa11y-ci --config .pa11yci",
+    "pally-ci": "wait-on tcp:8000 && pa11y-ci --config .pa11yci",
     "percy": "percy exec -t 800 -- npm run cypress",
     "server": "pipenv run python network-api/manage.py runserver",
     "start": "run-p build-uncompressed server watch:**",
