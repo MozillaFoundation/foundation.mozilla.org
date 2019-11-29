@@ -1,3 +1,4 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -11,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Pontoon\n"
 
 #: network-api/networkapi/templates/404.html:4
 msgid "Page Not Found"
@@ -21,8 +22,7 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: network-api/networkapi/templates/pages/base.html:9
-#: network-api/networkapi/templates/partials/primary_nav.html:46
+#: network-api/networkapi/templates/pages/base.html:9 network-api/networkapi/templates/partials/primary_nav.html:46
 msgid "Mozilla Foundation"
 msgstr ""
 
@@ -71,8 +71,7 @@ msgstr ""
 msgid "GitHub"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/footer.html:50
-#: network-api/networkapi/templates/partials/primary_nav.html:67
+#: network-api/networkapi/templates/partials/footer.html:50 network-api/networkapi/templates/partials/primary_nav.html:67
 msgid "Donate"
 msgstr ""
 
@@ -98,15 +97,16 @@ msgstr ""
 
 #: network-api/networkapi/templates/partials/footer.html:72
 #, python-format
-msgid "Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href=\"%(foundation_website_url)s\">%(foundation_website)s</a>"
+msgid ""
+"Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a "
+"href=\"%(foundation_website_url)s\">%(foundation_website)s</a>"
 msgstr ""
 
 #: network-api/networkapi/templates/partials/primary_nav.html:17
 msgid "Home"
 msgstr ""
 
-#: network-api/networkapi/templates/partials/primary_nav.html:19
-#: network-api/networkapi/templates/partials/primary_nav.html:68
+#: network-api/networkapi/templates/partials/primary_nav.html:19 network-api/networkapi/templates/partials/primary_nav.html:68
 msgid "Newsletter"
 msgstr ""
 
@@ -114,19 +114,16 @@ msgstr ""
 msgid "No thanks"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/bannered_campaign_page.html:56
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/campaign_page.html:66
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/bannered_campaign_page.html:56 network-api/networkapi/wagtailpages/templates/wagtailpages/campaign_page.html:66
 msgctxt "Sticky button in mobile view on campaign pages"
 msgid "TAKE ACTION"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/blocks/recent_blog_entries.html:14
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:72
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/blocks/recent_blog_entries.html:14 network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:72
 msgid "More from our blog"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:27
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:44
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:27 network-api/networkapi/wagtailpages/templates/wagtailpages/blog_page.html:44
 #, python-format
 msgid "%(title)s by @mozilla"
 msgstr ""
@@ -145,14 +142,12 @@ msgstr ""
 msgid "Latest news"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:31
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:58
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:31 network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:58
 #, python-format
 msgid "by %(author)s"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:33
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:60
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:33 network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:60
 #, python-format
 msgid "on %(date)s"
 msgstr ""
@@ -174,8 +169,7 @@ msgstr ""
 msgid "Trending projects"
 msgstr ""
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:75
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:86
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:75 network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:86
 msgid "Add your project"
 msgstr ""
 
@@ -208,17 +202,15 @@ msgid "clear filters"
 msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:66
-#, fuzzy
 #| msgid "Load more stories"
 msgid "Load more results"
-msgstr "Subir más historias"
+msgstr ""
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/load-more-regrets.html:4
 msgid "Load more stories"
 msgstr "Subir más historias"
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:36
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:37
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:36 network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:37
 msgid "Join Mozilla"
 msgstr "Únete a Mozilla"
 
@@ -230,8 +222,7 @@ msgstr "Desplazamiento"
 msgid "28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths"
 msgstr "28 razones por las que YouTube debe cambiar: historias desconcertantes acerca de recomendaciones de YouTube que llevaron a las personas por rumbos extraños y peligrosos"
 
-#: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:30
-#: network-api/networkapi/wagtailpages/utils.py:58
+#: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:30 network-api/networkapi/wagtailpages/utils.py:58
 msgid "Overview"
 msgstr ""
 

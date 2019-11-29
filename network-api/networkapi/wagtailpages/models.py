@@ -3,6 +3,7 @@ import re
 
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
@@ -57,7 +58,7 @@ page types.
 base_fields = [field for field in [
     ('paragraph', blocks.RichTextBlock(
         features=[
-            'bold', 'italic',
+            'bold', 'italic', 'large',
             'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
             'link', 'hr',
@@ -735,8 +736,25 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     category routes
     """
 
+    # helper function to resolve category slugs to actual objects
+    def get_category_object_for_slug(self, category_slug):
+        category_object = None
+
+        # We can't use .filter for @property fields,
+        # so we have to run through all categories =(
+        for bpc in BlogPageCategory.objects.all():
+            if bpc.slug == category_slug:
+                category_object = bpc
+
+        return category_object
+
     # helper function for /category/... subroutes
-    def extract_category_information(self, category_object):
+    def extract_category_information(self, category_slug):
+        category_object = self.get_category_object_for_slug(category_slug)
+
+        if category_object is None:
+            raise ObjectDoesNotExist
+
         self.filtered = {
             'type': 'category',
             'category': category_object
@@ -747,7 +765,12 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         JSON endpoint for getting a set of (pre-rendered) category entries
         """
-        self.extract_category_information(category)
+        try:
+            self.extract_category_information(category)
+
+        except ObjectDoesNotExist:
+            return redirect(self.full_url)
+
         return self.generate_entries_set_html(request, *args, **kwargs)
 
     @route(r'^category/(?P<category>.+)/')
@@ -757,20 +780,12 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         the category to filter prior to rendering this page. Only one
         category can be specified (unlike tags)
         """
-        category_object = None
+        try:
+            self.extract_category_information(category)
 
-        # We can't use .filter for @property fields,
-        # so we have to run through all categories =(
-        for bpc in BlogPageCategory.objects.all():
-            if bpc.slug == category:
-                category_object = bpc
-
-        # while tags yield '0 results', an unknown category
-        # should redirect to the base index page, instead.
-        if category_object is None:
+        except ObjectDoesNotExist:
             return redirect(self.full_url)
 
-        self.extract_category_information(category_object)
         return IndexPage.serve(self, request, *args, **kwargs)
 
 
