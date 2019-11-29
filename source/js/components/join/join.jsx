@@ -7,15 +7,8 @@ import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import { I18nProvider } from "@lingui/react";
+import catalogs from '../i18n/catalogs-loader.jsx';
 import { t, Trans } from "@lingui/macro";
-import enMessages from '../../../../network-api/locale/en/messages.js';
-import frMessages from '../../../../network-api/locale/fr/messages.js';
-
-const languages = {
-  en: `English`,
-  fr: `Français`,
-  es: `Spanish`
-}
 
 export default class JoinUs extends React.Component {
   constructor(props) {
@@ -37,26 +30,10 @@ export default class JoinUs extends React.Component {
       apiSuccess: false,
       apiFailed: false,
       userTriedSubmitting: false,
-      lang: getCurrentLanguage(),
-      language: getCurrentLanguage(),
-      catalogs: {
-        en: enMessages,
-        fr: frMessages,
-      },
+      lang: getCurrentLanguage()
     };
   }
 
-  loadLanguage = async language => {
-    /* webpackMode: "lazy", webpackChunkName: "i18n-[index]" */
-    const catalogs = await import(`@lingui/loader!../../../../network-api/locale/${language}/messages.po`)
-
-    this.setState(state => ({
-      catalogs: {
-        ...state.catalogs,
-        [language]: catalogs
-      }
-    }))
-  }
 
   /**
    * Ensure that the parent component is informed
@@ -67,7 +44,6 @@ export default class JoinUs extends React.Component {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
     }
-    this.loadLanguage(this.state.language);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -465,13 +441,9 @@ export default class JoinUs extends React.Component {
         !this.privacy.checked
     });
 
-    const { language, catalogs } = this.state
-
-    if (!catalogs[language]) return null
-
     return (
       <div className={classes}>
-        <I18nProvider language={language} catalogs={catalogs}>
+        <I18nProvider language={getCurrentLanguage()} catalogs={catalogs}>
           <div className="d-flex align-items-start">
             <div className="mb-0 form-check d-flex align-items-start">
               <label className="form-check-label d-flex align-items-start">
@@ -483,7 +455,7 @@ export default class JoinUs extends React.Component {
                   required
                 />
                 <p className="d-inline-block body-small form-text mb-0">
-                  <Trans>I’m okay with Mozilla handling my info as explained in <a href="/this">this Privacy Notice</a></Trans>
+                  <Trans>I’m okay with Mozilla handling my info as explained in <a href="https://www.mozilla.org/privacy/websites/">this Privacy Notice</a></Trans>
                 </p>
                 {this.state.userTriedSubmitting &&
                   !this.state.apiSubmitted &&
