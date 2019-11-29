@@ -6,8 +6,9 @@ import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
-import { I18nProvider } from "@lingui/react"
-import { t, Trans } from "@lingui/macro"
+import { I18nProvider } from "@lingui/react";
+import { t, Trans } from "@lingui/macro";
+import enMessages from '../../../../network-api/locale/en/messages.js';
 import frMessages from '../../../../network-api/locale/fr/messages.js';
 
 const languages = {
@@ -37,8 +38,9 @@ export default class JoinUs extends React.Component {
       apiFailed: false,
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
-      language: "fr",
+      language: getCurrentLanguage(),
       catalogs: {
+        en: enMessages,
         fr: frMessages,
       },
     };
@@ -66,15 +68,6 @@ export default class JoinUs extends React.Component {
       this.props.whenLoaded();
     }
     this.loadLanguage(this.state.language);
-  }
-
-  shouldComponentUpdate(nextProps, { language, catalogs }) {
-    if (language !== this.state.language && !catalogs[language]) {
-      this.loadLanguage(language)
-      return false
-    }
-
-    return true
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -490,7 +483,7 @@ export default class JoinUs extends React.Component {
                   required
                 />
                 <p className="d-inline-block body-small form-text mb-0">
-                  <Trans>I’m okay with Mozilla handling my info as explained in this Privacy Notice</Trans>
+                  <Trans>I’m okay with Mozilla handling my info as explained in <a href="/this">this Privacy Notice</a></Trans>
                 </p>
                 {this.state.userTriedSubmitting &&
                   !this.state.apiSubmitted &&

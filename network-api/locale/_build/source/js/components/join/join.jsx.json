@@ -1,0 +1,18 @@
+{
+  "This is a required section.": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        120
+      ]
+    ]
+  },
+  "I’m okay with Mozilla handling my info as explained in <0>this Privacy Notice</0>": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        482
+      ]
+    ]
+  }
+}

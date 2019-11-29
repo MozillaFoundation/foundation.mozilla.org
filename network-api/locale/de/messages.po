@@ -13,10 +13,14 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: source/js/components/join/join.jsx:473
-msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
+#: source/js/components/join/join.jsx:482
+msgid "I’m okay with Mozilla handling my info as explained in <0>this Privacy Notice</0>"
 msgstr ""
 
-#: source/js/components/join/join.jsx:114
+#: source/js/components/join/join.jsx:473
+#~ msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
+#~ msgstr ""
+
+#: source/js/components/join/join.jsx:120
 msgid "This is a required section."
 msgstr ""

@@ -14,10 +14,13 @@ msgstr ""
 "Plural-Forms: \n"
 "MIME-Version: 1.0\n"
 
-#: source/js/components/join/join.jsx:473
-msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
-msgstr "J’accepte que Mozilla gère en utilisant LinguiJS"
+#: source/js/components/join/join.jsx:482
+msgid "I’m okay with Mozilla handling my info as explained in <0>this Privacy Notice</0>"
+msgstr "J’accepte que Mozilla gère mes informations tel que décrit dans <0>cette politique de confidentialité</0>."
 
-#: source/js/components/join/join.jsx:114
+#~ msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
+#~ msgstr "J’accepte que Mozilla gère en utilisant LinguiJS"
+
+#: source/js/components/join/join.jsx:120
 msgid "This is a required section."
-msgstr ""
+msgstr "Cette section est requise."

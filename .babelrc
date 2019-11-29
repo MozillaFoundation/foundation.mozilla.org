@@ -13,6 +13,7 @@
   "plugins": [
     "macros",
     "syntax-dynamic-import",
+    "transform-class-properties",
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-object-rest-spread",
