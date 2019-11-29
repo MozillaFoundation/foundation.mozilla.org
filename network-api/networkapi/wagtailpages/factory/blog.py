@@ -89,5 +89,17 @@ def generate(seed):
         post = BlogPageFactory.create(parent=blog_namespace, title=title)
         print('test blog post page created')
 
-    # add_tags(post)
-    # add_category(post)
+    add_tags(post)
+    add_category(post)
+
+    for i in range(6):
+        title = Faker('sentence', nb_words=6, variable_nb_words=False)
+        post = None
+
+        try:
+            post = BlogPage.objects.get(title=title)
+        except BlogPage.DoesNotExist:
+            post = BlogPageFactory.create(parent=blog_namespace, title=title)
+
+        add_tags(post)
+        add_category(post)
