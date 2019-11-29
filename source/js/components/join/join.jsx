@@ -7,7 +7,6 @@ import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import { I18nProvider } from "@lingui/react";
-import catalogs from '../i18n/catalogs-loader.jsx';
 import { t, Trans } from "@lingui/macro";
 
 export default class JoinUs extends React.Component {
@@ -443,35 +442,33 @@ export default class JoinUs extends React.Component {
 
     return (
       <div className={classes}>
-        <I18nProvider language={getCurrentLanguage()} catalogs={catalogs}>
-          <div className="d-flex align-items-start">
-            <div className="mb-0 form-check d-flex align-items-start">
-              <label className="form-check-label d-flex align-items-start">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="PrivacyCheckbox"
-                  ref={el => (this.privacy = el)}
-                  required
-                />
-                <p className="d-inline-block body-small form-text mb-0">
-                  <Trans>I’m okay with Mozilla handling my info as explained in <a href="https://www.mozilla.org/privacy/websites/">this Privacy Notice</a></Trans>
-                </p>
-                {this.state.userTriedSubmitting &&
-                  !this.state.apiSubmitted &&
-                  !this.privacy.checked &&
-                  !this.isFlowForm() && (
-                    <span class="form-error-glyph privacy-error d-flex" />
-                  )}
-              </label>
-            </div>
+        <div className="d-flex align-items-start">
+          <div className="mb-0 form-check d-flex align-items-start">
+            <label className="form-check-label d-flex align-items-start">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="PrivacyCheckbox"
+                ref={el => (this.privacy = el)}
+                required
+              />
+              <p className="d-inline-block body-small form-text mb-0">
+                <Trans>I’m okay with Mozilla handling my info as explained in <a href="https://www.mozilla.org/privacy/websites/">this Privacy Notice</a></Trans>
+              </p>
+              {this.state.userTriedSubmitting &&
+                !this.state.apiSubmitted &&
+                !this.privacy.checked &&
+                !this.isFlowForm() && (
+                  <span class="form-error-glyph privacy-error d-flex" />
+                )}
+            </label>
           </div>
-          {this.state.userTriedSubmitting && !this.privacy.checked && (
-            <p className="body-small form-check form-control-feedback mt-0 mb-3">
-              Please check this box if you want to proceed.
-            </p>
-          )}
-        </I18nProvider>
+        </div>
+        {this.state.userTriedSubmitting && !this.privacy.checked && (
+          <p className="body-small form-check form-control-feedback mt-0 mb-3">
+            Please check this box if you want to proceed.
+          </p>
+        )}
       </div>
     );
   }
