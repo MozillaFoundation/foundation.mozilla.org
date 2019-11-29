@@ -1,0 +1,7 @@
+{
+  "urls": [
+    "http://localhost:8000/",
+    "http://localhost:8000/privacynotincluded",
+    "http://localhost:8000/blog"
+  ]
+}

@@ -10,6 +10,7 @@ python:
 
 addons:
   postgresql: "9.6"
+  chrome: stable
 
 env:
   global:
@@ -86,9 +87,23 @@ jobs:
       script: 
         - npm run percy
     - name: pa11y tests
+      before_install:
+        - nvm install --lts=carbon
+        - nvm use --lts=carbon
       install:
-        - pip install -r requirements.txt
-        - pip install -r test-requirements.txt
+        - "./travis-scripts/python-install.sh"
+        - "./travis-scripts/npm-install.sh"
+      before_script:
+        - psql -c 'create database network;' -U postgres
+        - npm run build
+        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity
+          0
+        - pipenv run python network-api/manage.py migrate --no-input
+        - pipenv run python network-api/manage.py block_inventory
+        - pipenv run python network-api/manage.py sync_page_translation_fields
+        - pipenv run python network-api/manage.py update_translation_fields
+        - pipenv run python network-api/manage.py load_fake_data
+        - pipenv run python network-api/manage.py compilemessages
       script: npm run pa11y
     - stage: Deploy
       name: Deploy Maintenance page to S3
