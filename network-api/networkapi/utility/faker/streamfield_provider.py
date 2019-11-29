@@ -109,7 +109,6 @@ def generate_quote_field():
 
 
 def generate_video_field():
-    url = fake.url(schemes=['https'])
     caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
     captionURL = fake.url(schemes=['https'])
 
