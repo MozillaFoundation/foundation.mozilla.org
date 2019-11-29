@@ -106,7 +106,7 @@ jobs:
         - pipenv run python network-api/manage.py update_translation_fields
         - pipenv run python network-api/manage.py load_fake_data
         - pipenv run python network-api/manage.py compilemessages
-      script: npm run pa11y
+      script: npm run start & sleep 5; npm run pa11y;
     - stage: Deploy
       name: Deploy Maintenance page to S3
       script: skip
