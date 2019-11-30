@@ -3,7 +3,8 @@ from wagtail_factories import PageFactory
 from wagtail.core.models import Page as WagtailPage
 
 from networkapi.utility.faker.helpers import (
-    reseed
+    reseed,
+    get_homepage
 )
 
 
@@ -15,11 +16,12 @@ class RedirectingPageFactory(PageFactory):
 
 
 def generate(seed):
+    home_page = get_homepage()
     reseed(seed)
 
     try:
         WagtailPage.objects.get(title='redirecting to about page')
-        print('news page exists')
+        print('Redirecting page exists')
     except WagtailPage.DoesNotExist:
-        print('Generating an empty News Page')
-        RedirectingPageFactory.create(URL='/about')
+        print('Generating a new Redirecting Page')
+        RedirectingPageFactory.create(parent=home_page, URL='/about')
