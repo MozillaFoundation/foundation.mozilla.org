@@ -71,9 +71,6 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  // This test actually doesn't generate any *new* Percy snapshot
-  // as a non-existent blog category page gets redirects to /blog
-  // and we have already taken a /blog snapshot for a test above
   it(`Blog index with non-existent category`, function() {
     cy.visit(`/en/blog/category/randomnonsensecateogrythatdoesntexist`);
     cy.window()
