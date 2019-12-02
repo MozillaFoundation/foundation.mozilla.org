@@ -74,7 +74,7 @@ class RecentBlogEntries(blocks.StructBlock):
             query = slugify(category)
             BlogPageCategory = apps.get_model('wagtailpages.BlogPageCategory')
             category_object = BlogPageCategory.objects.get(name=category)
-            blogpage.extract_category_information(category_object)
+            blogpage.extract_category_information(category_object.slug)
             entries = blogpage.get_entries(context)
 
         # Updates the href for the 'More from our blog' button
