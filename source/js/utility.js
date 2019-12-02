@@ -27,6 +27,18 @@ const Utility = {
     });
 
     return allFound ? elements : false;
+  },
+
+  /**
+   * Hide newsletter button on nav if the page's main content section has a sign up form already.
+   */
+  hideNavNewsletterButtonConditionally() {
+    let mainSignup = document.querySelector(`.main-content .join-us`);
+    let navButtons = document.querySelectorAll(`nav .btn-newsletter`);
+
+    if (!!mainSignup && navButtons.length > 0) {
+      navButtons.forEach(button => button.classList.add(`d-none`));
+    }
   }
 };
 

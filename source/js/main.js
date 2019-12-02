@@ -17,6 +17,7 @@ import primaryNav from "./primary-nav.js";
 import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
+import utility from "./utility";
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -51,6 +52,8 @@ let main = {
       this.injectReactComponents();
       this.bindGlobalHandlers();
       this.bindGAEventTrackers();
+
+      utility.hideNavNewsletterButtonConditionally();
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
