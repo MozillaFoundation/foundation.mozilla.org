@@ -1,9 +1,17 @@
 {
+  "Back to menu": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        68
+      ]
+    ]
+  },
   "This is a required section.": {
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        120
+        104
       ]
     ]
   },
@@ -11,7 +19,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        482
+        461
       ]
     ]
   }

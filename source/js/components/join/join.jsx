@@ -6,8 +6,9 @@ import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
-import { I18nProvider } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
+import { i18n } from '../i18n/catalogs-loader.jsx';
+
 
 export default class JoinUs extends React.Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class JoinUs extends React.Component {
       navWrapper.querySelector(".form-dismiss") &&
       this.state.apiSuccess
     ) {
-      navWrapper.querySelector(".form-dismiss").textContent = "Back to menu";
+      navWrapper.querySelector(".form-dismiss").textContent = i18n._(t`Back to menu`);
     }
   }
 

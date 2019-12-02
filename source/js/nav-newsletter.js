@@ -2,6 +2,10 @@ import React from "react";
 import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
+import { getCurrentLanguage } from "./components/petition/locales";
+import { t } from "@lingui/macro";
+import { I18nProvider } from "@lingui/react";
+import { catalogs, i18n } from './components/i18n/catalogs-loader.jsx';
 
 const elements = {
   primaryNav: `#primary-nav-container`,
@@ -33,7 +37,7 @@ class NavNewsletter {
         "transitionend",
         handleTransitionend
       );
-      elements.buttonDismiss.textContent = "No thanks";
+      elements.buttonDismiss.textContent = i18n._(t`No thanks`);
     };
     elements.container.addEventListener("transitionend", handleTransitionend);
   }
@@ -132,7 +136,7 @@ class NavNewsletter {
       0}/`;
     props.csrfToken = props.csrfToken || csrfToken;
     props.isHidden = false;
-    this.form = ReactDOM.render(<JoinUs {...props} />, elements.joinUs);
+    this.form = ReactDOM.render(<I18nProvider language={getCurrentLanguage()} catalogs={catalogs}><JoinUs {...props} /></I18nProvider>, elements.joinUs);
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section

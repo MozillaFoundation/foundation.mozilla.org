@@ -14,13 +14,21 @@ msgstr ""
 "Plural-Forms: \n"
 "MIME-Version: 1.0\n"
 
-#: source/js/components/join/join.jsx:482
+#: source/js/components/join/join.jsx:68
+msgid "Back to menu"
+msgstr "Revenir au menu"
+
+#: source/js/components/join/join.jsx:461
 msgid "I’m okay with Mozilla handling my info as explained in <0>this Privacy Notice</0>"
 msgstr "J’accepte que Mozilla gère mes informations tel que décrit dans <0>cette politique de confidentialité</0>."
 
-#~ msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
-#~ msgstr "J’accepte que Mozilla gère en utilisant LinguiJS"
+#: source/js/nav-newsletter.js:37
+msgid "No thanks"
+msgstr "Non merci"
 
-#: source/js/components/join/join.jsx:120
+#: source/js/components/join/join.jsx:104
 msgid "This is a required section."
 msgstr "Cette section est requise."
+
+#~ msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
+#~ msgstr "J’accepte que Mozilla gère en utilisant LinguiJS"

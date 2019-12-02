@@ -5,8 +5,11 @@ import esMessages from '../../../../network-api/locale/es/messages.js';
 import frMessages from '../../../../network-api/locale/fr/messages.js';
 import plMessages from '../../../../network-api/locale/pl/messages.js';
 import ptMessages from '../../../../network-api/locale/pt/messages.js';
+import { setupI18n } from '@lingui/core'
+import { getCurrentLanguage } from "../petition/locales";
 
-export default {
+
+let catalogs = {
   en: enMessages,
   de: deMessages,
   es: esMessages,
@@ -14,3 +17,11 @@ export default {
   pl: plMessages,
   pt: ptMessages
 };
+
+let i18n = setupI18n({
+  language: getCurrentLanguage(),
+  catalogs: catalogs,
+});
+
+
+export { catalogs, i18n };

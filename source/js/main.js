@@ -20,7 +20,7 @@ import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 import { getCurrentLanguage } from "./components/petition/locales";
 import { I18nProvider } from "@lingui/react";
-import catalogs from './components/i18n/catalogs-loader.jsx';
+import { catalogs } from './components/i18n/catalogs-loader.jsx';
 
 const SHOW_MEMBER_NOTICE = false;
 
