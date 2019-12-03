@@ -48,7 +48,7 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Bannered Campaign Pages under namespace')
-    title = 'Test Bannered Campaign'
+    title = 'Initial test Bannered Campaign with fixed title'
     post = None
 
     try:
