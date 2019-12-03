@@ -65,11 +65,16 @@ export default class CreepVote extends React.Component {
   }
 
   showVoteResult() {
-    const { creepinessSubmitted, confidenceSubmitted, voteCount, subscribed } = this.state;
+    const {
+      creepinessSubmitted,
+      confidenceSubmitted,
+      voteCount,
+      subscribed
+    } = this.state;
 
     if (creepinessSubmitted && confidenceSubmitted) {
       if (voteCount == 2 || 3) {
-        this.setState({ showNewsletter: true});
+        this.setState({ showNewsletter: true });
       }
       if (voteCount == 1 || subscribed) {
         this.setState({ showNewsletter: false });
