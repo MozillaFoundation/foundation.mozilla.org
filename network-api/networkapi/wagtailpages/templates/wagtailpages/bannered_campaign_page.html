@@ -4,15 +4,6 @@
 {% block body_id %}{% if root.slug %}{{ root.slug }}{% else %}primary{% endif %}{% endblock%}
 
 {% block hero_guts %}
-  <blockquote>
-    This page's tags: {{ page.tags.all }}, related posts based on tags:
-    <pre>
-      {% for post in related_posts %}
-      page: {{ post }}, tags: {{ post.tags.all }}
-      {% endfor %}
-    </pre>
-  <blockquote>
-
   {% include "./fragments/primary_heroguts.html" with root=root page=page %}
 {% endblock %}
 
