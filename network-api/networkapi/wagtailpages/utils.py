@@ -122,7 +122,13 @@ def get_content_related_by_tag(page, result_count=3):
 
     page_models_with_tags = (
         apps.get_model('wagtailpages', 'BlogPage'),
-        apps.get_model('wagtailpages', 'BanneredCampaignPage'),
+        #
+        # Uncomment the following class(es) to add them to the
+        # set of classes to use for tag matching:
+        #
+        # apps.get_model('wagtailpages', 'BanneredCampaignPage'),
+        # apps.get_model('wagtailpages', 'CampaignPage'),
+        # apps.get_model('wagtailpages', 'OpportunityPage'),
     )
 
     results = False
