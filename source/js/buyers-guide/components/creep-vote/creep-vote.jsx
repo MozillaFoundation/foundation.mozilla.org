@@ -54,7 +54,7 @@ export default class CreepVote extends React.Component {
       },
       submitAttempted: false,
       subscribed,
-      nextView: subscribed ? "DidVote" : "SignUp",
+      nextView: undefined,
       voteCount
     };
   }
@@ -66,10 +66,19 @@ export default class CreepVote extends React.Component {
   }
 
   showVoteResult() {
-    if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
-      let view = "SignUp";
-      if (this.state.subscribed) {
+    const { creepinessSubmitted, confidenceSubmitted, voteCount, subscribed } = this.state;
+
+    if (creepinessSubmitted && confidenceSubmitted) {
+      let view;
+      console.log('I\'ve voted');
+
+      if ( voteCount == 2 || 3) {
+        view = "SignUp";
+        this.setState({ nextView: "SignUp"});
+      }
+      if ((voteCount == 1) || subscribed) {
         view = "DidVote";
+        this.setState({ nextView: "DidVote" });
       }
       this.setState({ didVote: true, view });
     }
