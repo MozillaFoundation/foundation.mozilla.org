@@ -53,7 +53,7 @@ export default class CreepVote extends React.Component {
         confidence: confidence[0] > confidence[1] ? 0 : 1
       },
       subscribed,
-      showNewsletter: undefined,
+      showNewsletter: false,
       voteCount
     };
   }
@@ -65,21 +65,13 @@ export default class CreepVote extends React.Component {
   }
 
   showVoteResult() {
-    const {
-      creepinessSubmitted,
-      confidenceSubmitted,
-      voteCount,
-      subscribed
-    } = this.state;
+    const { creepinessSubmitted, confidenceSubmitted, voteCount } = this.state;
 
     if (creepinessSubmitted && confidenceSubmitted) {
-      if (voteCount == 2 || 3) {
-        this.setState({ showNewsletter: true });
-      }
-      if (voteCount == 1 || subscribed) {
-        this.setState({ showNewsletter: false });
-      }
-      this.setState({ didVote: true });
+      this.setState({
+        showNewsletter: voteCount === 2 || voteCount === 3,
+        didVote: true
+      });
     }
   }
 
