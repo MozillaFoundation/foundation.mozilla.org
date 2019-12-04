@@ -26,19 +26,22 @@ export default class CountrySelect extends React.Component {
     });
 
     return (
-      <select
-        className={classes}
-        disabled={this.props.disabled}
-        ref={element => {
-          this.element = element;
-        }}
-        onFocus={this.props.onFocus}
-        defaultValue={``}
-        onChange={evt => this.handleChange(evt)}
-      >
-        <option value="">{this.props.label}</option>
-        {options}
-      </select>
+      <div id={`userCountry-${this.props.formPosition}`} aria-label="Please select your country">
+        <select
+          className={classes}
+          disabled={this.props.disabled}
+          ref={element => {
+            this.element = element;
+          }}
+          onFocus={this.props.onFocus}
+          defaultValue={``}
+          onChange={evt => this.handleChange(evt)}
+          aria-labelledby={`userCountry-${this.props.formPosition}`}
+        >
+          <option value="">{this.props.label}</option>
+          {options}
+        </select>
+      </div>
     );
   }
 }

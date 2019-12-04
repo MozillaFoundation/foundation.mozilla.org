@@ -327,14 +327,17 @@ export default class JoinUs extends React.Component {
               Email
             </label>
           )}
-          <input
-            name="userEmail"
-            type="email"
-            className="form-control"
-            placeholder={getText(`Please enter your email`)}
-            ref={el => (this.email = el)}
-            onFocus={evt => this.onInputFocus(evt)}
-          />
+          <div id={`userEmail-${this.props.formPosition}`} aria-label="Please enter your email">
+            <input
+              name="userEmail"
+              type="email"
+              className="form-control"
+              placeholder={getText(`Please enter your email`)}
+              ref={el => (this.email = el)}
+              onFocus={evt => this.onInputFocus(evt)}
+              aria-labelledby={`userEmail-${this.props.formPosition}`}
+            />
+          </div>
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
               <span className="form-error-glyph" />
@@ -381,6 +384,7 @@ export default class JoinUs extends React.Component {
             label={getText(`Your country`)}
             className="w-100"
             handleCountryChange={e => this.setCountry(e)}
+            formPosition={this.props.formPosition}
           />
         </div>
         <div>
@@ -388,6 +392,7 @@ export default class JoinUs extends React.Component {
             className="w-100"
             handleLangChange={e => this.setLang(e)}
             selectedLang={this.state.lang}
+            formPosition={this.props.formPosition}
           />
         </div>
       </div>
