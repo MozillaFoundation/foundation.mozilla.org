@@ -58,7 +58,7 @@ page types.
 base_fields = [field for field in [
     ('paragraph', blocks.RichTextBlock(
         features=[
-            'bold', 'italic',
+            'bold', 'italic', 'large',
             'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
             'link', 'hr',
@@ -738,13 +738,15 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
     # helper function to resolve category slugs to actual objects
     def get_category_object_for_slug(self, category_slug):
-        category_object = None
 
         # We can't use .filter for @property fields,
         # so we have to run through all categories =(
         for bpc in BlogPageCategory.objects.all():
             if bpc.slug == category_slug:
                 category_object = bpc
+                break
+        else:
+            category_object = None
 
         return category_object
 

@@ -1,4 +1,5 @@
 from django import template
+from urllib.parse import urlparse
 
 register = template.Library()
 
@@ -12,7 +13,7 @@ def check_active_category(current_category, target_category):
 # Determine if a nav link should be active.
 @register.simple_tag(name='bg_active_nav')
 def bg_active_nav(current, target):
-    return 'active' if current == target else ''
+    return 'active' if urlparse(current).path == urlparse(target).path else ''
 
 
 # Instantiate a list of category page links based on the current page's relation to them
