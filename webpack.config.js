@@ -33,7 +33,10 @@ let main = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN)
+      __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN),
+      __HEROKU_RELEASE_VERSION__: JSON.stringify(
+        process.env.HEROKU_RELEASE_VERSION
+      )
     })
   ]
 };
