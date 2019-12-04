@@ -327,7 +327,10 @@ export default class JoinUs extends React.Component {
               Email
             </label>
           )}
-          <div id={`userEmail-${this.props.formPosition}`} aria-label="Please enter your email">
+          <div
+            id={`userEmail-${this.props.formPosition}`}
+            aria-label="Please enter your email"
+          >
             <input
               name="userEmail"
               type="email"

@@ -36,7 +36,10 @@ export default class LanguageSelect extends React.Component {
     let classes = classNames(`form-control`, this.props.className);
 
     return (
-      <div id={`userLanguage-${this.props.formPosition}`} aria-label="Please select your preferred language">
+      <div
+        id={`userLanguage-${this.props.formPosition}`}
+        aria-label="Please select your preferred language"
+      >
         <select
           value={this.props.selectedLang}
           onChange={evt => this.handleChange(evt)}

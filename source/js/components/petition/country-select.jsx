@@ -26,7 +26,10 @@ export default class CountrySelect extends React.Component {
     });
 
     return (
-      <div id={`userCountry-${this.props.formPosition}`} aria-label="Please select your country">
+      <div
+        id={`userCountry-${this.props.formPosition}`}
+        aria-label="Please select your country"
+      >
         <select
           className={classes}
           disabled={this.props.disabled}
