@@ -34,11 +34,7 @@
                 <div class="d-flex align-items-center flex-wrap">
 
                   {% block burger_and_logo %}
-                    {% if page.zen_nav == True %}
-                    <button class="burger">
-                    {% else %}
-                    <button class="burger hidden-lg-up ml-md-0">
-                    {% endif %}
+                    <button class="burger {% if page.zen_nav == False %} hidden-lg-up ml-md-0 {% endif %}" aria-label="Open menu">
                       <div class="burger-bar burger-bar-top"></div>
                       <div class="burger-bar burger-bar-middle"></div>
                       <div class="burger-bar burger-bar-bottom"></div>
