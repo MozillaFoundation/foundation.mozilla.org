@@ -1,6 +1,7 @@
 {
   "defaults": {
-    "standard": "WCAG2AA"
+    "standard": "WCAG2AA",
+    "level": "none"
   },
   "urls": [
     "http://localhost:8000/",
