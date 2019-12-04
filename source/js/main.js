@@ -22,7 +22,10 @@ import youTubeRegretsTunnel from "./youtube-regrets.js";
 const SHOW_MEMBER_NOTICE = false;
 
 // Initialize Sentry error reporting
-Sentry.init({ dsn: __SENTRY_DSN__ });
+Sentry.init({
+  dsn: __SENTRY_DSN__,
+  release: __HEROKU_RELEASE_VERSION__
+});
 
 // To be populated via XHR and querySelector
 let env, networkSiteURL, csrfToken;
