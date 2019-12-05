@@ -113,7 +113,7 @@ def generate_video_field():
     captionURL = fake.url(schemes=['https'])
 
     return generate_field('video', {
-        'url': 'https://www.youtube.com/embed/mLrNPHn3Thc',
+        'url': '',
         'caption': caption,
         'captionURL': captionURL,
     })
