@@ -62,7 +62,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`Fixed blog page`, function() {
+  it(`Fixed blog post page`, function() {
     cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
     cy.window()
       .its(`main-js:react:finished`)
