@@ -206,7 +206,7 @@ export default class JoinUs extends React.Component {
 
     emailFields.forEach(emailField => {
       let currentEmailField = event.target === emailField;
-      if (currentEmailField) {
+      if (currentEmailField && this.props.formPosition !== "flow") {
         let localizationFields = document.querySelector(
           `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
         );
