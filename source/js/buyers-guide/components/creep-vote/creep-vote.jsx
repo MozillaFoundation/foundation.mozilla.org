@@ -52,9 +52,8 @@ export default class CreepVote extends React.Component {
         creepiness: creepinessId,
         confidence: confidence[0] > confidence[1] ? 0 : 1
       },
-      submitAttempted: false,
       subscribed,
-      nextView: subscribed ? "DidVote" : "SignUp",
+      showNewsletter: false,
       voteCount
     };
   }
@@ -66,12 +65,13 @@ export default class CreepVote extends React.Component {
   }
 
   showVoteResult() {
-    if (this.state.creepinessSubmitted && this.state.confidenceSubmitted) {
-      let view = "SignUp";
-      if (this.state.subscribed) {
-        view = "DidVote";
-      }
-      this.setState({ didVote: true, view });
+    const { creepinessSubmitted, confidenceSubmitted, voteCount } = this.state;
+
+    if (creepinessSubmitted && confidenceSubmitted) {
+      this.setState({
+        showNewsletter: voteCount === 2 || voteCount === 3,
+        didVote: true
+      });
     }
   }
 
@@ -137,7 +137,7 @@ export default class CreepVote extends React.Component {
 
   handleSignUp(successState) {
     sessionStorage.setItem("subscribed", successState);
-    this.setState({ nextView: "DidVote", subscribed: successState });
+    this.setState({ showNewsletter: false, subscribed: successState });
   }
 
   /**
@@ -288,12 +288,12 @@ export default class CreepVote extends React.Component {
 
   render() {
     let voteContent;
-    const { didVote, nextView } = this.state;
+    const { didVote, showNewsletter } = this.state;
 
     if (!didVote) {
       voteContent = this.renderVoteAsk();
     } else {
-      if (nextView === "SignUp") {
+      if (showNewsletter) {
         voteContent = this.renderSignUp();
       } else {
         voteContent = this.renderDidVote();
