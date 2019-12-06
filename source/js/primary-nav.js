@@ -31,8 +31,10 @@ let primaryNav = {
     function setBurgerState(openMenu) {
       if (openMenu) {
         elBurger.classList.add(`menu-open`);
+        elBurger.setAttribute(`aria-label`, `Close menu`);
       } else {
         elBurger.classList.remove(`menu-open`);
+        elBurger.setAttribute(`aria-label`, `Open menu`);
       }
     }
 
