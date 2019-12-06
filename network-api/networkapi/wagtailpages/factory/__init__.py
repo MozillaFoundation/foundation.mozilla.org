@@ -9,8 +9,7 @@ from . import (
     opportunity,
     participate_page_featured_highlights,
     participate_page,
-    styleguide,
-    redirecting
+    styleguide
 )
 
 
@@ -25,9 +24,7 @@ def generate(seed):
     opportunity.generate(seed)
     participate_page.generate(seed)
     participate_page_featured_highlights.generate(seed)
-    styleguide.generate(seed),
-    redirecting.generate(seed)
-
+    styleguide.generate(seed)
 
 __all__ = [
     'generate'

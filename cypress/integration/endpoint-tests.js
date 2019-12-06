@@ -35,15 +35,6 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`Redirecting to about page`, function() {
-    cy.visit(`/en/redirecting-to-about-page`);
-    cy.window()
-      .its(`main-js:react:finished`)
-      .should(`equal`, true);
-    cy.wait(500);
-    cy.percySnapshot();
-  });
-
   it(`Blog index page`, function() {
     cy.visit(`/en/blog`);
     cy.window()
