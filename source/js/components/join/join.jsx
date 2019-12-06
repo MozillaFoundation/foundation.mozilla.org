@@ -323,24 +323,20 @@ export default class JoinUs extends React.Component {
       <div className={wrapperClasses}>
         <div className={classes}>
           {this.isFlowForm() && (
-            <label className="font-weight-bold" for="userEmail">
+            <label className="font-weight-bold" for="userEmail-flow">
               Email
             </label>
           )}
-          <div
-            id={`userEmail-${this.props.formPosition}`}
-            aria-label="Please enter your email"
-          >
-            <input
-              name="userEmail"
-              type="email"
-              className="form-control"
-              placeholder={getText(`Please enter your email`)}
-              ref={el => (this.email = el)}
-              onFocus={evt => this.onInputFocus(evt)}
-              aria-labelledby={`userEmail-${this.props.formPosition}`}
-            />
-          </div>
+          <input
+            name="userEmail"
+            type="email"
+            className="form-control"
+            placeholder={getText(`Please enter your email`)}
+            ref={el => (this.email = el)}
+            onFocus={evt => this.onInputFocus(evt)}
+            aria-label={!this.isFlowForm() ? "Email" : ""}
+            id={this.isFlowForm() ? "userEmail-flow" : ""}
+          />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
               <span className="form-error-glyph" />
