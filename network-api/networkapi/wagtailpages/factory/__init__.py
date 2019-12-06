@@ -26,6 +26,7 @@ def generate(seed):
     participate_page_featured_highlights.generate(seed)
     styleguide.generate(seed)
 
+
 __all__ = [
     'generate'
 ]
