@@ -46,6 +46,9 @@ urlpatterns = list(filter(None, [
     url(r'^documents/', include(wagtaildocs_urls)),
     url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
 
+    # Sentry test url
+    path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
+
     # set up set language redirect view
     url('i18n/', include('django.conf.urls.i18n')),
 ]))

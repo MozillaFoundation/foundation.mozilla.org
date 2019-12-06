@@ -77,6 +77,9 @@ env = environ.Env(
     CLOUDINARY_API_SECRET=(str, ''),
     FEED_LIMIT=(int, 10),
     DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
+    # Sentry
+    SENTRY_DSN=(str, None),
+    HEROKU_RELEASE_VERSION=(str, None)
 )
 
 # Read in the environment
@@ -84,6 +87,18 @@ if os.path.exists(f'{root - 1}/.env') is True:
     environ.Env.read_env(f'{root - 1}/.env')
 else:
     environ.Env.read_env()
+
+SENTRY_DSN = env('SENTRY_DSN')
+HEROKU_RELEASE_VERSION = env('HEROKU_RELEASE_VERSION')
+
+if SENTRY_DSN:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        release=HEROKU_RELEASE_VERSION
+    )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
