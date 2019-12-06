@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  watch-static-files:
+    security_opt:
+      - seccomp:unconfined
+
+  backend:
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ~/.ssh:/root/.ssh-localhost:ro
+    command: /bin/sh -c "while sleep 1000; do :; done"

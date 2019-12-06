@@ -1,7 +1,11 @@
 {
 	"name": "Mozilla Foundation CMS",
-	"dockerFile": "../dockerfiles/Dockerfile.python",
+	"dockerComposeFile": ["../docker-compose.yml", "./docker-compose.extend.yml"],
 	"context": "..",
+	"service": "backend",
+	"workspaceFolder": "/app",
+	"shutdownAction": "stopCompose",
+	"postCreateCommand": "apt-get update && apt-get install -y git && pip install invoke && mkdir -p /root/.ssh && cp -r /root/.ssh-localhost/* /root/.ssh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/* && git config --global core.autocrlf input",
 	"extensions": [
 		"ms-python.python"
 	],

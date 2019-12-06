@@ -30,6 +30,7 @@ class NewsQuerySet(models.query.QuerySet):
 
 @register_snippet
 class News(models.Model):
+
     """
     Medium blog posts, articles and other media
     """
