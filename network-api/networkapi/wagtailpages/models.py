@@ -470,6 +470,14 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         return context
 
 
+class BanneredCampaignTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'wagtailpages.BanneredCampaignPage',
+        on_delete=models.CASCADE,
+        related_name='tagged_items'
+    )
+
+
 class BanneredCampaignPage(PrimaryPage):
     """
     title, header, intro, and body are inherited from PrimaryPage
@@ -495,6 +503,8 @@ class BanneredCampaignPage(PrimaryPage):
         help_text='Choose an existing, or create a new, sign-up form'
     )
 
+    tags = ClusterTaggableManager(through=BanneredCampaignTag, blank=True)
+
     panel_count = len(PrimaryPage.content_panels)
     n = panel_count - 1
 
@@ -502,6 +512,10 @@ class BanneredCampaignPage(PrimaryPage):
         SnippetChooserPanel('cta'),
         SnippetChooserPanel('signup'),
     ] + PrimaryPage.content_panels[n:]
+
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+        FieldPanel('tags'),
+    ]
 
     subpage_types = [
         'BanneredCampaignPage',
@@ -512,6 +526,7 @@ class BanneredCampaignPage(PrimaryPage):
 
     def get_context(self, request):
         context = super().get_context(request)
+        context['related_posts'] = get_content_related_by_tag(self)
         return get_page_tree_information(self, context)
 
 
@@ -738,13 +753,15 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
     # helper function to resolve category slugs to actual objects
     def get_category_object_for_slug(self, category_slug):
-        category_object = None
 
         # We can't use .filter for @property fields,
         # so we have to run through all categories =(
         for bpc in BlogPageCategory.objects.all():
             if bpc.slug == category_slug:
                 category_object = bpc
+                break
+        else:
+            category_object = None
 
         return category_object
 

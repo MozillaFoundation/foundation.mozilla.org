@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 beautifulsoup4 = "*"
 "boto3" = "*"
-Django = "==2.2.7"
+Django = "==2.2.8"
 dj-database-url = "*"
 djangorestframework = "*"
 django-admin-sortable = "*"
@@ -33,6 +33,7 @@ wagtail-modeltranslation = "==0.10.6"
 "psycopg2-binary" = "==2.8.4"
 cloudinary = "*"
 wagtail-experiments = "*"
+sentry-sdk = "*"
 
 [dev-packages]
 "flake8" = "*"

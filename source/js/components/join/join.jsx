@@ -206,7 +206,7 @@ export default class JoinUs extends React.Component {
 
     emailFields.forEach(emailField => {
       let currentEmailField = event.target === emailField;
-      if (currentEmailField) {
+      if (currentEmailField && this.props.formPosition !== "flow") {
         let localizationFields = document.querySelector(
           `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
         );
@@ -323,7 +323,7 @@ export default class JoinUs extends React.Component {
       <div className={wrapperClasses}>
         <div className={classes}>
           {this.isFlowForm() && (
-            <label className="font-weight-bold" for="userEmail">
+            <label className="font-weight-bold" for="userEmail-flow">
               Email
             </label>
           )}
@@ -334,6 +334,8 @@ export default class JoinUs extends React.Component {
             placeholder={getText(`Please enter your email`)}
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
+            aria-label={!this.isFlowForm() ? "Email" : ""}
+            id={this.isFlowForm() ? "userEmail-flow" : ""}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
@@ -381,6 +383,7 @@ export default class JoinUs extends React.Component {
             label={getText(`Your country`)}
             className="w-100"
             handleCountryChange={e => this.setCountry(e)}
+            formPosition={this.props.formPosition}
           />
         </div>
         <div>
@@ -388,6 +391,7 @@ export default class JoinUs extends React.Component {
             className="w-100"
             handleLangChange={e => this.setLang(e)}
             selectedLang={this.state.lang}
+            formPosition={this.props.formPosition}
           />
         </div>
       </div>
