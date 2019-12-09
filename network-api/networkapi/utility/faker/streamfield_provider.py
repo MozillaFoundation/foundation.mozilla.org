@@ -44,6 +44,18 @@ def generate_header_field():
     return generate_field('header', value)
 
 
+# generates a image field of type "ImageBlock"
+def generate_basic_image_field():
+    image_id = choice(Image.objects.all()).id
+    alt_text = ' '.join(fake.words(nb=5))
+
+    return generate_field('basic_image', {
+        'image': image_id,
+        'altText': alt_text,
+    })
+
+
+# generates a image field of type "AnnotatedImageBlock"
 def generate_image_field():
     image_id = choice(Image.objects.all()).id
     alt_text = ' '.join(fake.words(nb=5))
@@ -129,6 +141,26 @@ def generate_linkbutton_field():
         'label': label,
         'URL': url,
         'styling': styling,
+    })
+
+
+def generate_text_field():
+    value = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+
+    return generate_field('linkbutton', value)
+
+
+def generate_regret_story_field():
+    headline = ' '.join(fake.words(nb=10))
+    image_id = choice(Image.objects.all()).id
+    image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+    story = fake.paragraph(nb_sentences=5, variable_nb_sentences=True)
+
+    return generate_field('regret_story', {
+        'headline': headline,
+        'image': image_id,
+        'altText': image_text,
+        'story': story,
     })
 
 
