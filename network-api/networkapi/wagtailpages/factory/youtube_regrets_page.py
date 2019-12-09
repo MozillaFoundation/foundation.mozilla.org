@@ -49,11 +49,13 @@ def generate(seed):
 
     reseed(seed)
 
+    title = 'YouTube Regrets'
+
     try:
-        YoutubeRegretsPage.objects.get(title='YouTube Regrets')
+        YoutubeRegretsPage.objects.get(title=title)
         print('YouTube Regrets page exists')
-    except WagtailPage.DoesNotExist:
+    except YoutubeRegretsPage.DoesNotExist:
         print('Generating a YouTube Regrets page')
-        YoutubeRegretsPageFactory.create(parent=campaign_namespace)
+        YoutubeRegretsPageFactory.create(parent=campaign_namespace, title=title)
 
     reseed(seed)
