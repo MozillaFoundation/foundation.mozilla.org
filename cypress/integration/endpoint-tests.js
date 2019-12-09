@@ -62,6 +62,22 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  it(`Blog index filtered on category`, function() {
+    cy.visit(`/en/blog/category/mozilla-festival`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  it(`Blog index with non-existent category`, function() {
+    cy.visit(`/en/blog/category/randomnonsensecateogrythatdoesntexist`);
+    cy.window().then(win => {
+      expect(win.location.pathname.replace(/\/$/, ``)).to.equal(`/en/blog`);
+    });
+  });
+
   // Skipping this test for now because of an error on Percy that needs to be investigated
   it.skip(`Fixed blog page`, function() {
     cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
