@@ -81,7 +81,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
       cy.log(`testtt1`, res);
       cy.log(`blah`, res.redirectedToUrl);
       expect(res.status).to.eq(301);
-      expect(res.redirectedToUrl).to.eq(`/en/blog`);
+      expect(res.redirectedToUrl).to.eq(`${Cypress.config().baseUrl}/en/blog`);
     });
 
     cy.request({
