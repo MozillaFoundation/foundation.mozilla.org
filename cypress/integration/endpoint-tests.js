@@ -79,12 +79,6 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
       followRedirect: false
     }).then(res => {
       expect(res.status).to.eq(301);
-    });
-
-    cy.request({
-      url: path,
-      followRedirect: true
-    }).then(res => {
       expect(res.redirectedToUrl).to.eq(`${Cypress.config().baseUrl}/en/blog`);
     });
   });
