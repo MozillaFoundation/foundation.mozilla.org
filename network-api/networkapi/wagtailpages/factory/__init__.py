@@ -29,7 +29,6 @@ def generate(seed):
     youtube_regrets_page.generate(seed)
 
 
-
 __all__ = [
     'generate'
 ]
