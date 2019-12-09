@@ -78,7 +78,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
       followRedirect: false
     }).then(res => {
       expect(res.status).to.eq(302); // redirect status code is 302
-      expect(reressp.redirectedToUrl).to.eq(`/en/blog`);
+      expect(res.redirectedToUrl).to.eq(`/en/blog`);
     });
   });
 
