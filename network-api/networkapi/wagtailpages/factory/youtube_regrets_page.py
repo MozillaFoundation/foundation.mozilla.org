@@ -50,7 +50,7 @@ def generate(seed):
     reseed(seed)
 
     try:
-        WagtailPage.objects.get(title='YouTube Regrets')
+        YoutubeRegretsPage.objects.get(title='YouTube Regrets')
         print('YouTube Regrets page exists')
     except WagtailPage.DoesNotExist:
         print('Generating a YouTube Regrets page')
