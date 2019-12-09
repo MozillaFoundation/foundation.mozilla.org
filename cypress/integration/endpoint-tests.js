@@ -72,30 +72,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Blog index with non-existent category`, function() {
-    cy.request({
-      url: `/en/blog/category/randomnonsensecateogrythatdoesntexist`,
-      followRedirect: false
-    }).then(res => {
-      expect(res.status).to.eq(301);
-    });
-
-    cy.request({
-      url: `/en/blog/category/randomnonsensecateogrythatdoesntexist`,
-      followRedirect: true
-    }).then(res => {
-      // res.redirects should return the following array
-      // [
-      //  301: "baseUrl/en/blog/category/randomnonsensecateogrythatdoesntexist"
-      //  302: "baseUrl/en/blog"
-      // ]
-      let finalRedirect = res.redirects[res.redirects.length - 1]
-        .trim()
-        .split(` `);
-      expect(parseInt(finalRedirect[0], 10)).to.eq(302);
-      expect(finalRedirect[1].replace(/\/$/, ``)).to.eq(
-        `${Cypress.config().baseUrl}/en/blog`
-      );
-    });
+    cy.visit(`/en/blog/category/randomnonsensecateogrythatdoesntexist`);
   });
 
   // Skipping this test for now because of an error on Percy that needs to be investigated
