@@ -1,3 +1,6 @@
+const customViolationLogger = violation => cy.task("log", violation)
+const customViolationHandler = violation => cy.task("log", violation)
+
 const A11Y_CONFIG = {
   branding: {
     brand: "Mozilla",
@@ -34,7 +37,9 @@ describe(`A11y Tests`, () => {
     cy.checkA11y(
       document,
       {
-        runOnly: ['wcag2aa', 'section508', 'best-practice']
+        runOnly: ['wcag2aa', 'section508', 'best-practice'],
+        logger: customViolationLogger,
+        asserter: customViolationHandler
       },
       (err, results) => {
         if (err) throw err;
@@ -43,3 +48,14 @@ describe(`A11y Tests`, () => {
     )
   });
 });
+
+
+
+cy.checkA11y(
+    context, // can use undefined
+    options, // can use undefined
+    {
+        logger: customViolationLogger,
+        asserter: customViolationHandler
+    }
+)
