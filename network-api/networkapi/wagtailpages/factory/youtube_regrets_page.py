@@ -49,6 +49,7 @@ def generate(seed):
 
     reseed(seed)
 
+    print('Generating YouTube Regrets Page under campaigns namespace')
     title = 'YouTube Regrets'
 
     try:
