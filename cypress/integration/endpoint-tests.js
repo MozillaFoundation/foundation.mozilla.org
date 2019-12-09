@@ -72,13 +72,11 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Blog index with non-existent category`, function() {
-    let path = `/en/blog/category/randomnonsensecateogrythatdoesntexist`;
     cy.request({
-      url: path,
+      url: `/en/blog/category/randomnonsensecateogrythatdoesntexist`,
       followRedirect: false
     }).then(res => {
-      cy.log(res);
-      expect(res.status).to.eq(302); // redirect status code is 302
+      expect(res.status).to.eq(301);
       expect(res.redirectedToUrl).to.eq(`/en/blog`);
     });
   });
