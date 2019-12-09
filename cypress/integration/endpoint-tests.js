@@ -73,10 +73,13 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   it(`Blog index with non-existent category`, function() {
     let path = `/en/blog/category/randomnonsensecateogrythatdoesntexist`;
-    cy.visit(path);
-    cy.url().should(`equal`, `/en/blog`);
-    // cy.wait(500);
-    // cy.percySnapshot();
+    cy.request({
+      url: path,
+      followRedirect: false
+    }).then(res => {
+      expect(res.status).to.eq(302); // redirect status code is 302
+      expect(reressp.redirectedToUrl).to.eq(`/en/blog`);
+    });
   });
 
   // Skipping this test for now because of an error on Percy that needs to be investigated
