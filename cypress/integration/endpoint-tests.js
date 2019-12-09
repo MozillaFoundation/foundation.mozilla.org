@@ -54,12 +54,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Blog index with non-existent tag`, function() {
-    cy.visit(`/en/blog/tags/randomnonsensetagthatdoesntexist`);
-    cy.window()
-      .its(`main-js:react:finished`)
-      .should(`equal`, true);
-    cy.wait(500);
-    cy.percySnapshot();
+    let path = `/en/blog/tags/randomnonsensetagthatdoesntexist`;
+    cy.visit(path);
+    cy.window().its(`main-js:react:finished`);
+    cy.location(path).should(`eq`, `/en/blog`);
+    // cy.wait(500);
+    // cy.percySnapshot();
   });
 
   it(`Blog index filtered on category`, function() {
