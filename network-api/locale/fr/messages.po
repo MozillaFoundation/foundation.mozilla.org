@@ -14,21 +14,187 @@ msgstr ""
 "Plural-Forms: \n"
 "MIME-Version: 1.0\n"
 
-#: source/js/components/join/join.jsx:68
+#: source/js/components/petition/petition.jsx:728
+#: source/js/components/petition/petition.jsx:739
+msgid "Add my name"
+msgstr "Ajouter mon nom"
+
+#: source/js/components/join/join.jsx:60
 msgid "Back to menu"
 msgstr "Revenir au menu"
 
-#: source/js/components/join/join.jsx:461
+#: source/js/components/join/join.jsx:60
+#~ msgid "Back to schopol"
+#~ msgstr ""
+
+#: source/js/components/pulse-project-list/pulse-project-list.jsx:74
+msgid "By"
+msgstr "Par"
+
+#: source/js/components/petition/petition.jsx:659
+msgid "Comment"
+msgstr "Commentaire"
+
+#: source/js/components/petition/petition.jsx:676
+msgid "Comments cannot be longer than {SALESFORCE_COMMENT_LIMIT} characters"
+msgstr "Les commentaires ne peuvent pas dépasser {SALESFORCE_COMMENT_LIMIT} caractères."
+
+#: source/js/components/petition/petition.jsx:437
+#: source/js/components/share-button-group/share-button-group.jsx:100
+#: source/js/components/share-button-group/share-button-group.jsx:102
+msgid "Copied"
+msgstr "Copié"
+
+#: source/js/components/petition/petition.jsx:439
+#: source/js/components/share-button-group/share-button-group.jsx:102
+msgid "Copy"
+msgstr "Copier"
+
+#: source/js/components/share-button-group/share-button-group.jsx:101
+msgid "Copy page URL to clipboard"
+msgstr "Copier l’adresse de la page dans le presse-papiers"
+
+#: source/js/components/share-button-group/share-button-group.jsx:105
+msgid "Copy page link"
+msgstr "Copier le lien de la page"
+
+#: source/js/components/join/join.jsx:331
+#: source/js/components/petition/petition.jsx:432
+msgid "Email"
+msgstr "Adresse électronique"
+
+#: source/js/components/petition/petition.jsx:598
+msgid "Email address"
+msgstr "Adresse électronique"
+
+#: source/js/components/join/join.jsx:411
+#: source/js/components/petition/petition.jsx:560
+msgid "First name"
+msgstr "Prénom"
+
+#: source/js/components/join/join.jsx:540
+msgid "If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>"
+msgstr "Si vous n’avez jamais confirmé d’abonnement à une lettre d’information liée à Mozilla, vous devrez peut-être le faire. <strong>Veuillez vérifier votre boîte de réception ou vos courriers indésirables et recherchez un message de notre part.</strong>"
+
+#: source/js/components/join/join.jsx:453
+#: source/js/components/petition/petition.jsx:694
 msgid "I’m okay with Mozilla handling my info as explained in <0>this Privacy Notice</0>"
 msgstr "J’accepte que Mozilla gère mes informations tel que décrit dans <0>cette politique de confidentialité</0>."
 
-#: source/js/nav-newsletter.js:37
+#~ msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
+#~ msgstr "J’accepte que Mozilla gère en utilisant LinguiJS"
+
+#: source/js/components/join/join.jsx:539
+msgid "Join our email list to take action and stay updated!"
+msgstr "Rejoignez notre lettre d’information pour agir et vous tenir au courant !"
+
+#: source/js/components/join/join.jsx:420
+#: source/js/components/petition/petition.jsx:579
+msgid "Last name"
+msgstr "Nom"
+
+#: source/js/components/join/join.jsx:527
+msgid "No Thanks"
+msgstr "Non merci"
+
+#: source/js/nav-newsletter.js:40
 msgid "No thanks"
 msgstr "Non merci"
 
-#: source/js/components/join/join.jsx:104
+#: source/js/components/share-button-group/share-button-group.jsx:104
+msgid "Page link copied"
+msgstr "Le lien de la page a été copié"
+
+#: source/js/components/petition/petition.jsx:699
+msgid "Please check this box if you want to proceed"
+msgstr "Veuillez cocher cette case si vous désirez poursuivre"
+
+#: source/js/components/join/join.jsx:466
+msgid "Please check this box if you want to proceed."
+msgstr "Veuillez cocher cette case si vous désirez poursuivre."
+
+#: source/js/components/join/join.jsx:105
+msgid "Please enter a valid email address."
+msgstr "Veuillez saisir une adresse électronique valide."
+
+#: source/js/components/petition/petition.jsx:624
+msgid "Please enter your country"
+msgstr "Veuillez saisir votre pays"
+
+#: source/js/components/join/join.jsx:338
+#: source/js/components/petition/petition.jsx:606
+msgid "Please enter your email"
+msgstr "Veuillez saisir votre adresse électronique"
+
+#: source/js/components/petition/petition.jsx:567
+msgid "Please enter your given name(s)"
+msgstr "Veuillez saisir votre prénom"
+
+#: source/js/components/petition/petition.jsx:645
+msgid "Please enter your postal code"
+msgstr "Veuillez saisir votre code postal"
+
+#: source/js/components/petition/petition.jsx:586
+msgid "Please enter your surname"
+msgstr "Veuillez saisir votre nom de famille"
+
+#: source/js/components/petition/petition.jsx:667
+msgid "Please include a comment"
+msgstr "Veuillez inclure un commentaire"
+
+#: source/js/components/petition/petition.jsx:638
+msgid "Postal code"
+msgstr "Code postal"
+
+#: source/js/components/join/join.jsx:538
+msgid "Protect the internet as a global public resource"
+msgstr "Protégeons Internet en tant que bien commun"
+
+#: source/js/components/share-button-group/share-button-group.jsx:73
+msgid "Share by email"
+msgstr "Partager par courrier électronique"
+
+#: source/js/components/share-button-group/share-button-group.jsx:25
+msgid "Share on Facebook"
+msgstr "Partager sur Facebook"
+
+#: source/js/components/share-button-group/share-button-group.jsx:51
+msgid "Share on Twitter"
+msgstr "Partager sur Twitter"
+
+#: source/js/components/join/join.jsx:481
+msgid "Sign up"
+msgstr "Je m’inscris"
+
+#: source/js/components/petition/petition.jsx:455
+msgid "Something went wrong while trying to sign the petition. Please try again later."
+msgstr "Une erreur s’est produite lors de la signature de la pétition. Veuillez réessayer ultérieurement."
+
+#: source/js/components/join/join.jsx:355
+msgid "Something went wrong. Please check your email address and try again"
+msgstr "Une erreur s’est produite. Veuillez vérifier votre adresse électronique puis réessayer."
+
+#: source/js/components/join/join.jsx:269
+msgid "Thanks!"
+msgstr "Merci !"
+
+#: source/js/components/join/join.jsx:96
 msgid "This is a required section."
 msgstr "Cette section est requise."
 
-#~ msgid "I’m okay with Mozilla handling my info as explained in this Privacy Notice"
-#~ msgstr "J’accepte que Mozilla gère en utilisant LinguiJS"
+#: source/js/components/petition/petition.jsx:715
+msgid "Yes, I want to receive email updates about Mozilla’s campaigns."
+msgstr "J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla."
+
+#: source/js/components/join/join.jsx:385
+#: source/js/components/petition/petition.jsx:616
+msgid "Your country"
+msgstr "Votre pays"
+
+#: source/js/components/join/join.jsx:60
+#~ msgid "back-to-menu"
+#~ msgstr ""
+
+#: source/js/components/share-button-group/share-button-group.jsx:75
+#~ msgid "email.button"
+#~ msgstr ""

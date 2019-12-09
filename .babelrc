@@ -10,16 +10,7 @@
     "@babel/flow",
     "@lingui/babel-preset-react"
   ],
-  "plugins": [
-    "macros",
-    "syntax-dynamic-import",
-    "transform-class-properties",
-    "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-object-rest-spread",
-    "@babel/plugin-transform-regenerator",
-    "@babel/transform-runtime"
-  ],
+  "plugins": ["macros"],
   "env": {
     "test": {
       "plugins": ["@babel/plugin-transform-modules-commonjs"]

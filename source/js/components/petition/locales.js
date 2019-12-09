@@ -1,5 +1,3 @@
-import data from "./locale-strings.jsx";
-
 const DEFAULT_LOCALE = `en`;
 let currentLocale = false;
 
@@ -23,23 +21,4 @@ function getCurrentLanguage() {
   return currentLocale || DEFAULT_LOCALE;
 }
 
-/**
- * Get a localized string either for an explicitly known locale,
- * or whatever is the current locale based on the page URL.
- * @param {string} key the string key to localize
- * @param {string} locale the locale for which to fetch the localized key (optional, defaults to current URL locale)
- * @return {string} the localised key (with fall-back to the default localized string, and the key itself)
- */
-function getText(key, locale) {
-  if (!locale) {
-    locale = getCurrentLanguage();
-  }
-
-  if (!data[locale]) {
-    locale = DEFAULT_LOCALE;
-  }
-
-  return data[locale][key] || key;
-}
-
-export { getText, getCurrentLanguage };
+export { getCurrentLanguage };

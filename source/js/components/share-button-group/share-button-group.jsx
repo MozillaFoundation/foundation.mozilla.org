@@ -1,6 +1,8 @@
 import React from "react";
 import classNames from "classnames";
 import copyToClipboard from "../../copy-to-clipboard";
+import { t, Trans, defineMessage } from "@lingui/macro";
+import { i18n } from "../i18n/catalogs-loader.jsx";
 
 export default class ShareButtonGroup extends React.Component {
   constructor(props) {
@@ -20,7 +22,7 @@ export default class ShareButtonGroup extends React.Component {
   renderFacebookButton() {
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share on Facebook</span>
+        <span class="sr-only"><Trans>Share on Facebook</Trans></span>
       ) : (
         `Facebook`
       );
@@ -46,7 +48,7 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share on Twitter</span>
+        <span class="sr-only"><Trans>Share on Twitter</Trans></span>
       ) : (
         `Twitter`
       );
@@ -68,10 +70,11 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share by email</span>
-      ) : (
-        `Email`
-      );
+        <span class="sr-only"><Trans>Share by email</Trans></span>
+      ) : defineMessage({
+             message: "Email",
+             comment: "Comment for translators"
+          });
 
     return (
       <a
@@ -94,12 +97,15 @@ export default class ShareButtonGroup extends React.Component {
 
   renderLinkButton() {
     let tooltip = this.state.linkCopied
-      ? `Copied`
-      : `Copy page URL to clipboard`;
-    let label = this.state.linkCopied ? `Copied` : `Copy`;
+      ? i18n._(t`Copied`)
+      : i18n._(t`Copy page URL to clipboard`);
+    let label = this.state.linkCopied ? i18n._(t`Copied`) : i18n._(t`Copy`);
+    let labelMini = this.state.linkCopied
+      ? i18n._(t`Page link copied`)
+      : i18n._(t`Copy page link`);
     label =
       this.props.version === `mini` ? (
-        <span class="sr-only">{label} page link</span>
+        <span class="sr-only">{labelMini}</span>
       ) : (
         label
       );

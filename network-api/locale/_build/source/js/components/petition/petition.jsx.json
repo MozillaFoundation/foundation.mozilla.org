@@ -1,0 +1,174 @@
+{
+  "Email": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        432
+      ]
+    ]
+  },
+  "Copied": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        437
+      ]
+    ]
+  },
+  "Copy": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        439
+      ]
+    ]
+  },
+  "Something went wrong while trying to sign the petition. Please try again later.": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        455
+      ]
+    ]
+  },
+  "First name": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        560
+      ]
+    ]
+  },
+  "Please enter your given name(s)": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        567
+      ]
+    ]
+  },
+  "Last name": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        579
+      ]
+    ]
+  },
+  "Please enter your surname": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        586
+      ]
+    ]
+  },
+  "Email address": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        598
+      ]
+    ]
+  },
+  "Please enter your email": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        606
+      ]
+    ]
+  },
+  "Your country": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        616
+      ]
+    ]
+  },
+  "Please enter your country": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        624
+      ]
+    ]
+  },
+  "Postal code": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        638
+      ]
+    ]
+  },
+  "Please enter your postal code": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        645
+      ]
+    ]
+  },
+  "Comment": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        659
+      ]
+    ]
+  },
+  "Please include a comment": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        667
+      ]
+    ]
+  },
+  "Comments cannot be longer than {SALESFORCE_COMMENT_LIMIT} characters": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        676
+      ]
+    ]
+  },
+  "I’m okay with Mozilla handling my info as explained in <0>this Privacy Notice</0>": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        694
+      ]
+    ]
+  },
+  "Please check this box if you want to proceed": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        699
+      ]
+    ]
+  },
+  "Yes, I want to receive email updates about Mozilla’s campaigns.": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        715
+      ]
+    ]
+  },
+  "Add my name": {
+    "origin": [
+      [
+        "source/js/components/petition/petition.jsx",
+        728
+      ],
+      [
+        "source/js/components/petition/petition.jsx",
+        739
+      ]
+    ]
+  }
+}

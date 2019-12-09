@@ -3,11 +3,11 @@ import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
-import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import { t, Trans } from "@lingui/macro";
-import { i18n } from '../i18n/catalogs-loader.jsx';
+import { I18nProvider } from "@lingui/react";
+import { catalogs, i18n } from '../i18n/catalogs-loader.jsx';
 
 
 export default class JoinUs extends React.Component {
@@ -102,7 +102,7 @@ export default class JoinUs extends React.Component {
     if (!valid) {
       return {
         valid: false,
-        errorMessage: `Please enter a valid email address.`
+        errorMessage: i18n._(t`Please enter a valid email address.`)
       };
     }
 
@@ -266,7 +266,7 @@ export default class JoinUs extends React.Component {
     return (
       <React.Fragment>
         <h5 className="h5-heading">
-          {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
+          {!this.state.apiSuccess ? `${this.props.ctaHeader}` : i18n._(t`Thanks!`)}
         </h5>
         {!this.state.apiSuccess ? (
           <p
@@ -328,14 +328,14 @@ export default class JoinUs extends React.Component {
         <div className={classes}>
           {this.isFlowForm() && (
             <label className="font-weight-bold" for="userEmail-flow">
-              Email
+              <Trans>Email</Trans>
             </label>
           )}
           <input
             name="userEmail"
             type="email"
             className="form-control"
-            placeholder={getText(`Please enter your email`)}
+            placeholder={i18n._(t`Please enter your email`)}
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
             aria-label={!this.isFlowForm() ? "Email" : ""}
@@ -354,7 +354,7 @@ export default class JoinUs extends React.Component {
         )}
         {this.state.signupFailed && (
           <small className="form-check form-control-feedback">
-            Something went wrong. Please check your email address and try again
+            <Trans>Something went wrong. Please check your email address and try again</Trans>
           </small>
         )}
       </div>
@@ -384,7 +384,7 @@ export default class JoinUs extends React.Component {
       <div className={classes}>
         <div className="mb-2">
           <CountrySelect
-            label={getText(`Your country`)}
+            label={i18n._(t`Your country`)}
             className="w-100"
             handleCountryChange={e => this.setCountry(e)}
             formPosition={this.props.formPosition}
@@ -412,7 +412,7 @@ export default class JoinUs extends React.Component {
           <input
             type="text"
             className="form-control"
-            placeholder="First name"
+            placeholder={i18n._(t`First name`)}
             ref={el => (this.givenNames = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
@@ -421,7 +421,7 @@ export default class JoinUs extends React.Component {
           <input
             type="text"
             className="form-control"
-            placeholder="Last name"
+            placeholder={i18n._(t`Last name`)}
             ref={el => (this.surname = el)}
             onFocus={evt => this.onInputFocus(evt)}
           />
@@ -467,7 +467,7 @@ export default class JoinUs extends React.Component {
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
           <p className="body-small form-check form-control-feedback mt-0 mb-3">
-            Please check this box if you want to proceed.
+            <Trans>Please check this box if you want to proceed.</Trans>
           </p>
         )}
       </div>
@@ -482,7 +482,7 @@ export default class JoinUs extends React.Component {
       "w-100": !this.isFlowForm(),
       "flex-1 mr-3": this.isFlowForm()
     });
-    return <button className={classnames}>{getText(`Sign up`)}</button>;
+    return <button className={classnames}><Trans>Sign up</Trans></button>;
   }
 
   /**
@@ -512,6 +512,7 @@ export default class JoinUs extends React.Component {
         onSubmit={evt => this.processFormData(evt)}
         className={formClass}
       >
+
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
@@ -527,19 +528,20 @@ export default class JoinUs extends React.Component {
               onClick={() => this.props.handleSignUp(false)}
               type="button"
             >
-              No Thanks
+              <Trans>No Thanks</Trans>
             </button>
           )}
         </div>
+
       </form>
     );
   }
 }
 
 JoinUs.defaultProps = {
-  ctaHeader: `Protect the internet as a global public resource`,
-  ctaDescription: `Join our email list to take action and stay updated!`,
-  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
+  ctaHeader: i18n._(t`Protect the internet as a global public resource`),
+  ctaDescription: i18n._(t`Join our email list to take action and stay updated!`),
+  thankYouMessage: i18n._(t`If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`),
   newsletter: `mozilla-foundation`,
   askName: false
 };

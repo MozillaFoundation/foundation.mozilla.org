@@ -3,7 +3,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        68
+        60
       ]
     ]
   },
@@ -11,7 +11,71 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        104
+        96
+      ]
+    ]
+  },
+  "Please enter a valid email address.": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        105
+      ]
+    ]
+  },
+  "Thanks!": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        269
+      ]
+    ]
+  },
+  "Email": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        331
+      ]
+    ]
+  },
+  "Please enter your email": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        338
+      ]
+    ]
+  },
+  "Something went wrong. Please check your email address and try again": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        355
+      ]
+    ]
+  },
+  "Your country": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        385
+      ]
+    ]
+  },
+  "First name": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        411
+      ]
+    ]
+  },
+  "Last name": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        420
       ]
     ]
   },
@@ -19,7 +83,55 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        461
+        453
+      ]
+    ]
+  },
+  "Please check this box if you want to proceed.": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        466
+      ]
+    ]
+  },
+  "Sign up": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        481
+      ]
+    ]
+  },
+  "No Thanks": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        527
+      ]
+    ]
+  },
+  "Protect the internet as a global public resource": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        538
+      ]
+    ]
+  },
+  "Join our email list to take action and stay updated!": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        539
+      ]
+    ]
+  },
+  "If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>": {
+    "origin": [
+      [
+        "source/js/components/join/join.jsx",
+        540
       ]
     ]
   }

@@ -1,0 +1,70 @@
+{
+  "Share on Facebook": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        25
+      ]
+    ]
+  },
+  "Share on Twitter": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        51
+      ]
+    ]
+  },
+  "Share by email": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        73
+      ]
+    ]
+  },
+  "Copied": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        100
+      ],
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        102
+      ]
+    ]
+  },
+  "Copy page URL to clipboard": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        101
+      ]
+    ]
+  },
+  "Copy": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        102
+      ]
+    ]
+  },
+  "Page link copied": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        104
+      ]
+    ]
+  },
+  "Copy page link": {
+    "origin": [
+      [
+        "source/js/components/share-button-group/share-button-group.jsx",
+        105
+      ]
+    ]
+  }
+}

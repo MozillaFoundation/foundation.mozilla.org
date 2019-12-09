@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { t } from "@lingui/macro";
+import { i18n } from "../i18n/catalogs-loader.jsx";
 
 export default class PulseProjectList extends React.Component {
   constructor(props) {
@@ -69,7 +71,7 @@ export default class PulseProjectList extends React.Component {
       let url;
 
       if (project.related_creators.length) {
-        byline = `By ${project.related_creators.map(rc => rc.name).join(`, `)}`;
+        byline = `${i18n._(t`By`)} ${project.related_creators.map(rc => rc.name).join(`, `)}`;
       }
 
       if (this.props.directLink) {

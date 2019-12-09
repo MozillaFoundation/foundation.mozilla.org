@@ -20,7 +20,7 @@ import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 import { getCurrentLanguage } from "./components/petition/locales";
 import { I18nProvider } from "@lingui/react";
-import { catalogs } from './components/i18n/catalogs-loader.jsx';
+import { catalogs, i18n } from './components/i18n/catalogs-loader.jsx';
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -310,12 +310,14 @@ let main = {
       apps.push(
         new Promise(resolve => {
           ReactDOM.render(
-            <Petition
-              {...props}
-              isHidden={false}
-              subscribed={subscribed}
-              whenLoaded={() => resolve()}
-            />,
+            <I18nProvider language={getCurrentLanguage()} catalogs={catalogs}>
+              <Petition
+                {...props}
+                isHidden={false}
+                subscribed={subscribed}
+                whenLoaded={() => resolve()}
+              />
+            </I18nProvider>,
             element
           );
         })
@@ -370,17 +372,19 @@ let main = {
       apps.push(
         new Promise(resolve => {
           ReactDOM.render(
-            <PulseProjectList
-              env={env}
-              featured={target.dataset.featured === `True`}
-              help={target.dataset.help}
-              issues={target.dataset.issues}
-              max={parseInt(target.dataset.max, 10)}
-              query={target.dataset.query || ``}
-              reverseChronological={target.dataset.reversed === `True`}
-              whenLoaded={() => resolve()}
-              directLink={target.dataset.directLink === `True`}
-            />,
+            <I18nProvider language={getCurrentLanguage()} catalogs={catalogs}>
+              <PulseProjectList
+                env={env}
+                featured={target.dataset.featured === `True`}
+                help={target.dataset.help}
+                issues={target.dataset.issues}
+                max={parseInt(target.dataset.max, 10)}
+                query={target.dataset.query || ``}
+                reverseChronological={target.dataset.reversed === `True`}
+                whenLoaded={() => resolve()}
+                directLink={target.dataset.directLink === `True`}
+              />
+            </I18nProvider>,
             target
           );
         })
@@ -398,7 +402,9 @@ let main = {
         apps.push(
           new Promise(resolve => {
             ReactDOM.render(
-              <ShareButtonGroup {...props} whenLoaded={() => resolve()} />,
+              <I18nProvider language={getCurrentLanguage()} catalogs={catalogs}>
+                <ShareButtonGroup {...props} whenLoaded={() => resolve()} />
+              </I18nProvider>,
               element
             );
           })
