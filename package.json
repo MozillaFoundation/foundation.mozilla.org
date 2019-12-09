@@ -45,7 +45,6 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-flow": "^7.7.4",
@@ -80,14 +79,15 @@
     "node": "^8.9.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.5",
     "@babel/plugin-transform-regenerator": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@lingui/babel-preset-react": "^2.8.3",
-    "@lingui/cli": "^2.8.3",
+    "@lingui/cli": "^2.9.0",
     "@lingui/loader": "^2.8.3",
-    "@lingui/macro": "^2.8.3",
+    "@lingui/macro": "^2.9.0",
     "babel-plugin-dynamic-import-node": "^2.3.0",
-    "babel-plugin-macros": "^2.7.1",
+    "babel-plugin-macros": "^2.8.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "browserslist": "^4.8.2",
     "chokidar-cli": "^2.1.0",

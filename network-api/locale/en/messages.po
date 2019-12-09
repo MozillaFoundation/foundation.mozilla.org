@@ -39,21 +39,21 @@ msgid "Comments cannot be longer than {SALESFORCE_COMMENT_LIMIT} characters"
 msgstr "Comments cannot be longer than {SALESFORCE_COMMENT_LIMIT} characters"
 
 #: source/js/components/petition/petition.jsx:437
-#: source/js/components/share-button-group/share-button-group.jsx:100
-#: source/js/components/share-button-group/share-button-group.jsx:102
+#: source/js/components/share-button-group/share-button-group.jsx:104
+#: source/js/components/share-button-group/share-button-group.jsx:106
 msgid "Copied"
 msgstr "Copied"
 
 #: source/js/components/petition/petition.jsx:439
-#: source/js/components/share-button-group/share-button-group.jsx:102
+#: source/js/components/share-button-group/share-button-group.jsx:106
 msgid "Copy"
 msgstr "Copy"
 
-#: source/js/components/share-button-group/share-button-group.jsx:101
+#: source/js/components/share-button-group/share-button-group.jsx:105
 msgid "Copy page URL to clipboard"
 msgstr "Copy page URL to clipboard"
 
-#: source/js/components/share-button-group/share-button-group.jsx:105
+#: source/js/components/share-button-group/share-button-group.jsx:109
 msgid "Copy page link"
 msgstr "Copy page link"
 
@@ -101,7 +101,7 @@ msgstr "No Thanks"
 msgid "No thanks"
 msgstr "No thanks"
 
-#: source/js/components/share-button-group/share-button-group.jsx:104
+#: source/js/components/share-button-group/share-button-group.jsx:108
 msgid "Page link copied"
 msgstr "Page link copied"
 
@@ -150,7 +150,7 @@ msgstr "Postal code"
 msgid "Protect the internet as a global public resource"
 msgstr "Protect the internet as a global public resource"
 
-#: source/js/components/share-button-group/share-button-group.jsx:73
+#: source/js/components/share-button-group/share-button-group.jsx:77
 msgid "Share by email"
 msgstr "Share by email"
 
