@@ -9,7 +9,8 @@ from . import (
     opportunity,
     participate_page_featured_highlights,
     participate_page,
-    styleguide
+    styleguide,
+    youtube_regrets_page
 )
 
 
@@ -25,6 +26,8 @@ def generate(seed):
     participate_page.generate(seed)
     participate_page_featured_highlights.generate(seed)
     styleguide.generate(seed)
+    youtube_regrets_page.generate(seed)
+
 
 
 __all__ = [
