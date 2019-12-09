@@ -74,11 +74,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   it(`Blog index with non-existent category`, function() {
     let path = `/en/blog/category/randomnonsensecateogrythatdoesntexist`;
     cy.visit(path);
-    cy.window()
-      .its(`main-js:react:finished`)
-      .then(win => {
-        expect(win.location.pathname).to.equal(`/en/blog`);
-      });
+    cy.url().should(`equal`, `/en/blog`);
     // cy.wait(500);
     // cy.percySnapshot();
   });
