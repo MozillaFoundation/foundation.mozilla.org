@@ -48,14 +48,3 @@ describe(`A11y Tests`, () => {
     )
   });
 });
-
-
-
-cy.checkA11y(
-    context, // can use undefined
-    options, // can use undefined
-    {
-        logger: customViolationLogger,
-        asserter: customViolationHandler
-    }
-)
