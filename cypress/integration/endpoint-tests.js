@@ -54,10 +54,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Blog index with non-existent tag`, function() {
-    let path = `/en/blog/tags/randomnonsensetagthatdoesntexist`;
-    cy.location(path).should(`eq`, `/en/blog`);
-    // cy.wait(500);
-    // cy.percySnapshot();
+    cy.visit(`/en/blog/tags/randomnonsensetagthatdoesntexist`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
   });
 
   it(`Blog index filtered on category`, function() {
@@ -70,12 +72,15 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Blog index with non-existent category`, function() {
-    cy.visit(`/en/blog/category/randomnonsensecateogrythatdoesntexist`);
+    let path = `/en/blog/category/randomnonsensecateogrythatdoesntexist`;
+    cy.visit(path);
     cy.window()
       .its(`main-js:react:finished`)
-      .should(`equal`, true);
-    cy.wait(500);
-    cy.percySnapshot();
+      .then(win => {
+        expect(win.location.pathname).to.equal(`/en/blog`);
+      });
+    // cy.wait(500);
+    // cy.percySnapshot();
   });
 
   // Skipping this test for now because of an error on Percy that needs to be investigated
