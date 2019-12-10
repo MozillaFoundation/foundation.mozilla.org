@@ -43,6 +43,9 @@ Opening a PR activates different services:
 
 Opening a PR will automatically create a review app in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin interface with a username and password. The login details for review apps are published in the `mofo-ra-foundation` Slack channel when the app has finished deploying.
 
+Environment variable:
+- `REVIEW_APP`: set to True on review app.
+
 ### Continuous Integration testing
 
 Opening a PR will trigger [Travis](https://travis-ci.org) continuous integration, which should pass before a PR is deemed good to merge.

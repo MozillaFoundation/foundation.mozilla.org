@@ -4,6 +4,7 @@ import React from "react";
 import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import Analytics from "./analytics.js";
+import * as Sentry from "@sentry/browser";
 
 import JoinUs from "./components/join/join.jsx";
 import Petition from "./components/petition/petition.jsx";
@@ -19,6 +20,12 @@ import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 const SHOW_MEMBER_NOTICE = false;
+
+// Initialize Sentry error reporting
+Sentry.init({
+  dsn: __SENTRY_DSN__,
+  release: __HEROKU_RELEASE_VERSION__
+});
 
 // To be populated via XHR and querySelector
 let env, networkSiteURL, csrfToken;

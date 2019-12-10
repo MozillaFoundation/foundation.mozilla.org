@@ -35,6 +35,7 @@ export default class CountrySelect extends React.Component {
         onFocus={this.props.onFocus}
         defaultValue={``}
         onChange={evt => this.handleChange(evt)}
+        aria-label="Please select your country"
       >
         <option value="">{this.props.label}</option>
         {options}
