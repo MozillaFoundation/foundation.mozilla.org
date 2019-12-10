@@ -49,7 +49,7 @@ def generate_basic_image_field():
     image_id = choice(Image.objects.all()).id
     alt_text = ' '.join(fake.words(nb=5))
 
-    return generate_field('basic_image', {
+    return generate_field('image', {
         'image': image_id,
         'altText': alt_text,
     })
@@ -147,7 +147,7 @@ def generate_linkbutton_field():
 def generate_text_field():
     value = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
 
-    return generate_field('linkbutton', value)
+    return generate_field('text', value)
 
 
 def generate_regret_story_field():
@@ -159,7 +159,7 @@ def generate_regret_story_field():
     return generate_field('regret_story', {
         'headline': headline,
         'image': image_id,
-        'altText': image_text,
+        'imageAltText': image_text,
         'story': story,
     })
 
@@ -186,10 +186,13 @@ class StreamfieldProvider(BaseProvider):
             'image': generate_image_field,
             'spacer': generate_spacer_field,
             'quote': generate_quote_field,
+            'basic_image': generate_basic_image_field,
             'image_text': generate_image_text_field,
             'image_text_mini': generate_image_text_mini_field,
             'video': generate_video_field,
             'linkbutton': generate_linkbutton_field,
+            'text': generate_text_field,
+            'regret_story': generate_regret_story_field,
         }
 
         streamfield_data = []

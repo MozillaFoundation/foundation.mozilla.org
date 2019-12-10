@@ -3,7 +3,9 @@ from factory import (
 )
 from wagtail.core.models import Page as WagtailPage
 from networkapi.wagtailpages.models import YoutubeRegretsPage
-from .abstract import CMSPageFactory
+from wagtail_factories import (
+    PageFactory
+)
 from .mini_site_namespace import MiniSiteNamespaceFactory
 from networkapi.utility.faker.helpers import (
     reseed,
@@ -11,25 +13,21 @@ from networkapi.utility.faker.helpers import (
 )
 
 
-class YoutubeRegretsPageFactory(CMSPageFactory):
+class YoutubeRegretsPageFactory(PageFactory):
     class Meta:
         model = YoutubeRegretsPage
+        exclude = (
+            'title_text',
+            'header_text',
+            'header',
+        )
 
-    title = "YouTube Regrets"
-
+    title = 'YouTube Regrets'
     headline = Faker('text', max_nb_chars=50)
-
-    intro_text = Faker('streamfield', fields=['text', 'text', 'text', 'text', 'text'])
-
-    intro_images = Faker('streamfield', fields=[
-      'basic_image', 'basic_image', 'basic_image', 'basic_image', 'basic_image']
-    )
-
+    intro_text = Faker('streamfield', fields=['text']*5)
+    intro_images = Faker('streamfield', fields=['basic_image'] * 10)
     faq = Faker('streamfield', fields=['paragraph'])
-
-    regret_stories = Faker('streamfield', fields=[
-      'youtube_story', 'youtube_story', 'youtube_story', 'youtube_story', 'youtube_story']
-    )
+    regret_stories = Faker('streamfield', fields=['regret_story'] * 10)
 
 
 def generate(seed):
