@@ -102,7 +102,7 @@ if SENTRY_DSN:
     )
 
 # At True when running on a review app
-REVIEW_APP = env("REVIEW_APP", default=False)
+REVIEW_APP = env('REVIEW_APP', default=False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
