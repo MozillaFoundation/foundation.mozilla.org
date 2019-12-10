@@ -47,14 +47,13 @@ def generate(seed):
 
     reseed(seed)
 
-    print('Generating YouTube Regrets Page under campaigns namespace')
     title = 'YouTube Regrets'
 
     try:
         YoutubeRegretsPage.objects.get(title=title)
         print('YouTube Regrets page exists')
     except YoutubeRegretsPage.DoesNotExist:
-        print('Generating a YouTube Regrets page')
+        print('Generating YouTube Regrets Page under campaigns namespace')
         YoutubeRegretsPageFactory.create(parent=campaign_namespace, title=title)
 
     reseed(seed)
