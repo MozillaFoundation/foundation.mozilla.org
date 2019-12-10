@@ -27,7 +27,7 @@ class YoutubeRegretsPageFactory(PageFactory):
     intro_text = Faker('streamfield', fields=['text']*5)
     intro_images = Faker('streamfield', fields=['basic_image']*10)
     faq = Faker('streamfield', fields=['paragraph'])
-    regret_stories = Faker('streamfield', fields=['regret_story']*10)
+    regret_stories = Faker('streamfield', fields=['regret_story']*28)
 
 
 def generate(seed):
