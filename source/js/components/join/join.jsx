@@ -338,7 +338,7 @@ export default class JoinUs extends React.Component {
             placeholder={i18n._(t`Please enter your email`)}
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
-            aria-label={!this.isFlowForm() ? "Email" : ""}
+            aria-label={!this.isFlowForm() ? i18n._(t`Email`) : ""}
             id={this.isFlowForm() ? "userEmail-flow" : ""}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (

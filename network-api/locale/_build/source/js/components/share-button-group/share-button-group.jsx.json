@@ -19,7 +19,7 @@
     "origin": [
       [
         "source/js/components/share-button-group/share-button-group.jsx",
-        77
+        73
       ]
     ]
   },
@@ -27,11 +27,11 @@
     "origin": [
       [
         "source/js/components/share-button-group/share-button-group.jsx",
-        104
+        100
       ],
       [
         "source/js/components/share-button-group/share-button-group.jsx",
-        106
+        102
       ]
     ]
   },
@@ -39,7 +39,7 @@
     "origin": [
       [
         "source/js/components/share-button-group/share-button-group.jsx",
-        105
+        101
       ]
     ]
   },
@@ -47,7 +47,7 @@
     "origin": [
       [
         "source/js/components/share-button-group/share-button-group.jsx",
-        106
+        102
       ]
     ]
   },
@@ -55,15 +55,7 @@
     "origin": [
       [
         "source/js/components/share-button-group/share-button-group.jsx",
-        108
-      ]
-    ]
-  },
-  "Copy page link": {
-    "origin": [
-      [
-        "source/js/components/share-button-group/share-button-group.jsx",
-        109
+        104
       ]
     ]
   }

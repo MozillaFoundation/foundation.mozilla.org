@@ -1,5 +1,7 @@
 import ReactGA from "react-ga";
 import navNewsletter from "./nav-newsletter.js";
+import { t } from "@lingui/macro";
+import { i18n } from "./components/i18n/catalogs-loader.jsx";
 
 let primaryNav = {
   init: function() {
@@ -31,10 +33,10 @@ let primaryNav = {
     function setBurgerState(openMenu) {
       if (openMenu) {
         elBurger.classList.add(`menu-open`);
-        elBurger.setAttribute(`aria-label`, `Close menu`);
+        elBurger.setAttribute(`aria-label`, i18n._(t`Close menu`));
       } else {
         elBurger.classList.remove(`menu-open`);
-        elBurger.setAttribute(`aria-label`, `Open menu`);
+        elBurger.setAttribute(`aria-label`, i18n._(t`Open menu`));
       }
     }
 

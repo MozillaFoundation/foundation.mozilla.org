@@ -1,6 +1,8 @@
 import React from "react";
 import classNames from "classnames";
 import SALESFORCE_COUNTRY_LIST from "./salesforce-country-list.js";
+import { t } from "@lingui/macro";
+import { i18n } from "../i18n/catalogs-loader.jsx";
 
 export default class CountrySelect extends React.Component {
   constructor(props) {
@@ -35,7 +37,7 @@ export default class CountrySelect extends React.Component {
         onFocus={this.props.onFocus}
         defaultValue={``}
         onChange={evt => this.handleChange(evt)}
-        aria-label="Please select your country"
+        aria-label={i18n._(t`Please select your country`)}
       >
         <option value="">{this.props.label}</option>
         {options}

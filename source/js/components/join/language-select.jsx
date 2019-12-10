@@ -1,5 +1,7 @@
 import React from "react";
 import classNames from "classnames";
+import { i18n } from "../i18n/catalogs-loader.jsx";
+import { t } from "@lingui/macro";
 
 export default class LanguageSelect extends React.Component {
   constructor(props) {
@@ -41,7 +43,7 @@ export default class LanguageSelect extends React.Component {
         onChange={evt => this.handleChange(evt)}
         className={classes}
         id={`userLanguage-${this.props.formPosition}`}
-        aria-label="Please select your preferred language"
+        aria-label={i18n._(t`Please select your preferred language`)}
       >
         {this.renderOptions()}
       </select>

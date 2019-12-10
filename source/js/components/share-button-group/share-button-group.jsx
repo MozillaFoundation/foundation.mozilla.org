@@ -102,7 +102,10 @@ export default class ShareButtonGroup extends React.Component {
     let label = this.state.linkCopied ? i18n._(t`Copied`) : i18n._(t`Copy`);
     let labelMini = this.state.linkCopied
       ? i18n._(t`Page link copied`)
-      : i18n._(t`Copy page link`);
+      : i18n._(defineMessage({
+             message: "Test string",
+             comment: "Comment for translators"
+          }));
     label =
       this.props.version === `mini` ? (
         <span class="sr-only">{labelMini}</span>

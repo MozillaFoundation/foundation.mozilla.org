@@ -1,0 +1,18 @@
+{
+  "Close menu": {
+    "origin": [
+      [
+        "source/js/primary-nav.js",
+        35
+      ]
+    ]
+  },
+  "Open menu": {
+    "origin": [
+      [
+        "source/js/primary-nav.js",
+        38
+      ]
+    ]
+  }
+}

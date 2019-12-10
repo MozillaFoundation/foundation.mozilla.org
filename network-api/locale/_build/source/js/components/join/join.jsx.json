@@ -36,6 +36,10 @@
       [
         "source/js/components/join/join.jsx",
         331
+      ],
+      [
+        "source/js/components/join/join.jsx",
+        341
       ]
     ]
   },
@@ -51,7 +55,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        355
+        357
       ]
     ]
   },
@@ -59,7 +63,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        385
+        387
       ]
     ]
   },
@@ -67,7 +71,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        411
+        415
       ]
     ]
   },
@@ -75,7 +79,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        420
+        424
       ]
     ]
   },
@@ -83,7 +87,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        453
+        457
       ]
     ]
   },
@@ -91,7 +95,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        466
+        470
       ]
     ]
   },
@@ -99,7 +103,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        481
+        485
       ]
     ]
   },
@@ -107,7 +111,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        527
+        531
       ]
     ]
   },
@@ -115,7 +119,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        538
+        542
       ]
     ]
   },
@@ -123,7 +127,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        539
+        543
       ]
     ]
   },
@@ -131,7 +135,7 @@
     "origin": [
       [
         "source/js/components/join/join.jsx",
-        540
+        544
       ]
     ]
   }
