@@ -2,6 +2,7 @@ from itertools import chain
 from django.apps import apps
 from django.db.models import Count
 from django.utils.translation import gettext
+from sentry_sdk import capture_exception
 
 
 def set_main_site_nav_information(page, context, homepage_class_name):
@@ -168,7 +169,7 @@ def get_content_related_by_tag(page, result_count=3):
             key=lambda p: (p.num_common_tags, p.last_published_at),
             reverse=True
         )
-    except TypeError:
-        pass
+    except TypeError as err:
+        capture_exception(err)
 
     return result_list[:result_count]
