@@ -79,7 +79,8 @@ env = environ.Env(
     DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
     # Sentry
     SENTRY_DSN=(str, None),
-    HEROKU_RELEASE_VERSION=(str, None)
+    HEROKU_RELEASE_VERSION=(str, None),
+    REVIEW_APP=(bool, False),
 )
 
 # Read in the environment
@@ -99,6 +100,9 @@ if SENTRY_DSN:
         integrations=[DjangoIntegration()],
         release=HEROKU_RELEASE_VERSION
     )
+
+# At True when running on a review app
+REVIEW_APP = env('REVIEW_APP', default=False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
