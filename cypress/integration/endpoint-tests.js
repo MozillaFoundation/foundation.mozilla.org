@@ -71,7 +71,10 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`Blog index with non-existent category`, function() {
+  // Skipping as currently there's a bug related to Cypress about
+  // it not being able to visit a url that redirects
+  // GitHub ticket: https://github.com/mozilla/foundation.mozilla.org/issues/4042
+  it.skip(`Blog index with non-existent category`, function() {
     cy.visit(`/en/blog/category/randomnonsensecateogrythatdoesntexist`);
   });
 
