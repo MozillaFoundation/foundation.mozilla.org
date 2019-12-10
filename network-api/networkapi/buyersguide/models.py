@@ -632,7 +632,7 @@ class ProductPrivacyPolicyLink(Orderable, models.Model):
 @receiver(pre_delete, sender=Product)
 def delete_image(sender, instance, **kwargs):
     # We want to keep our review app placeholders
-    if settings.HEROKU_APP_NAME:
+    if settings.REVIEW_APP:
         pass
     else:
         if instance.cloudinary_image:

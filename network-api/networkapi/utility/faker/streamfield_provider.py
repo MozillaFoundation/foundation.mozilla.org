@@ -121,12 +121,14 @@ def generate_quote_field():
 
 
 def generate_video_field():
-    url = fake.url(schemes=['https'])
     caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
     captionURL = fake.url(schemes=['https'])
 
     return generate_field('video', {
-        'url': url,
+        # Fake embed url will lead to timeout error for Percy.
+        # Solution: either we provide a valid embed url or use an empty string.
+        # See details: https://github.com/mozilla/foundation.mozilla.org/issues/3833#issuecomment-562240677
+        'url': '',
         'caption': caption,
         'captionURL': captionURL,
     })
