@@ -57,7 +57,7 @@
         {% if blog.blog.author %}
           {% blocktrans with author=blog.blog.author %}by {{author}}{% endblocktrans %}
         {% endif %}
-        {% if blog.blog.first_published_at %} {% blocktrans with date=page.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
+        {% if blog.blog.first_published_at %} {% blocktrans with date=blog.blog.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
       </p>
       <p>{{blog.blog.search_description}}</p>
       <hr>
