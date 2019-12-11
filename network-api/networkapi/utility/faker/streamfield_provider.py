@@ -44,6 +44,18 @@ def generate_header_field():
     return generate_field('header', value)
 
 
+# generates a image field of type "ImageBlock"
+def generate_basic_image_field():
+    image_id = choice(Image.objects.all()).id
+    alt_text = ' '.join(fake.words(nb=5))
+
+    return generate_field('image', {
+        'image': image_id,
+        'altText': alt_text,
+    })
+
+
+# generates a image field of type "AnnotatedImageBlock"
 def generate_image_field():
     image_id = choice(Image.objects.all()).id
     alt_text = ' '.join(fake.words(nb=5))
@@ -109,12 +121,14 @@ def generate_quote_field():
 
 
 def generate_video_field():
-    url = fake.url(schemes=['https'])
     caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
     captionURL = fake.url(schemes=['https'])
 
     return generate_field('video', {
-        'url': url,
+        # Fake embed url will lead to timeout error for Percy.
+        # Solution: either we provide a valid embed url or use an empty string.
+        # See details: https://github.com/mozilla/foundation.mozilla.org/issues/3833#issuecomment-562240677
+        'url': '',
         'caption': caption,
         'captionURL': captionURL,
     })
@@ -129,6 +143,26 @@ def generate_linkbutton_field():
         'label': label,
         'URL': url,
         'styling': styling,
+    })
+
+
+def generate_text_field():
+    value = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+
+    return generate_field('text', value)
+
+
+def generate_regret_story_field():
+    headline = ' '.join(fake.words(nb=10))
+    image_id = choice(Image.objects.all()).id
+    image_text = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+    story = fake.paragraph(nb_sentences=5, variable_nb_sentences=True)
+
+    return generate_field('regret_story', {
+        'headline': headline,
+        'image': image_id,
+        'imageAltText': image_text,
+        'story': story,
     })
 
 
@@ -154,10 +188,13 @@ class StreamfieldProvider(BaseProvider):
             'image': generate_image_field,
             'spacer': generate_spacer_field,
             'quote': generate_quote_field,
+            'basic_image': generate_basic_image_field,
             'image_text': generate_image_text_field,
             'image_text_mini': generate_image_text_mini_field,
             'video': generate_video_field,
             'linkbutton': generate_linkbutton_field,
+            'text': generate_text_field,
+            'regret_story': generate_regret_story_field,
         }
 
         streamfield_data = []

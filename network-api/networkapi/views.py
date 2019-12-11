@@ -16,7 +16,7 @@ class EnvVariablesView(View):
 
 def review_app_help_view(request):
     try:
-        if settings.HEROKU_APP_NAME:
+        if settings.REVIEW_APP:
             return render(request, 'reviewapp-help.html')
     except AttributeError:
         raise Http404()

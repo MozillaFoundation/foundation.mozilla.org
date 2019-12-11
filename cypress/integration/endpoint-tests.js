@@ -62,8 +62,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  // Skipping this test for now because of an error on Percy that needs to be investigated
-  it.skip(`Fixed blog page`, function() {
+  it(`Fixed blog post page`, function() {
     cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
     cy.window()
       .its(`main-js:react:finished`)
@@ -154,6 +153,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   it(`Styleguide page`, function() {
     cy.visit(`/en/styleguide/`);
+    cy.wait(1000);
+    cy.percySnapshot();
+  });
+
+  it(`YouTube Regrets page`, function() {
+    cy.visit(`/en/campaigns/youtube-regrets/`);
     cy.wait(1000);
     cy.percySnapshot();
   });
