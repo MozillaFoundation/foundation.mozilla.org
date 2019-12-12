@@ -37,7 +37,7 @@ let main = {
       __HEROKU_RELEASE_VERSION__: JSON.stringify(
         process.env.HEROKU_RELEASE_VERSION
       ),
-      __SENTRY__ENVIRONMENT__: JSON.stringify(process.env.SENTRY_ENVIRONMENT)
+      __SENTRY_ENVIRONMENT__: JSON.stringify(process.env.SENTRY_ENVIRONMENT)
     })
   ]
 };
