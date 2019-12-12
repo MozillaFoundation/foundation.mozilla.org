@@ -2,6 +2,7 @@ from itertools import chain
 from django.apps import apps
 from django.db.models import Count
 from django.utils.translation import gettext
+from sentry_sdk import capture_exception
 
 
 def set_main_site_nav_information(page, context, homepage_class_name):
@@ -157,10 +158,18 @@ def get_content_related_by_tag(page, result_count=3):
     # tags" is further sorted such that the most recent post shows
     # up first (note that this is done on the database side, not in python).
 
-    ordered = sorted(
-        list(results),
-        key=lambda p: (p.num_common_tags, p.last_published_at),
-        reverse=True
-    )
+    # FIXME: temporary try/except to figure out a bug in production:
+    # See https://github.com/mozilla/foundation.mozilla.org/issues/4046
 
-    return ordered[:result_count]
+    result_list = list(results)
+
+    try:
+        result_list = sorted(
+            result_list,
+            key=lambda p: (p.num_common_tags, p.last_published_at),
+            reverse=True
+        )
+    except TypeError as err:
+        capture_exception(err)
+
+    return result_list[:result_count]
