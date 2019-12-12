@@ -39,9 +39,6 @@
         <span class="hook"></span>
       </span>
     </span>
-    <div id="product-filter" class="noselect">
-      <!-- instantiated to a real filter by bg-main.js -->
-    </div>
   </div>
 
   <div class="product-box-list-wrapper">
@@ -49,7 +46,7 @@
 
       {% for product in products %}
         {% if product.is_current %}
-        
+
         <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
         <div class="top-left-badge-container">
             {% include "fragments/seal_of_approval.html" with product=product %}
@@ -61,9 +58,9 @@
                 {% endif %}
             {% endif %}
         </div>
-    
+
         {% include "fragments/adult_content_badge.html" with product=product %}
-    
+
         <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% url 'product-view' product.slug %}">
             {% if USE_CLOUDINARY %}
             <img
@@ -81,7 +78,7 @@
         </a>
         </figure>
         {% endif %}
-      {% endfor %}  
+      {% endfor %}
 
       <div class="no-matching-products-note bg-gray w-100 pt-5 d-none">
         <div class="d-flex flex-column align-items-center">
