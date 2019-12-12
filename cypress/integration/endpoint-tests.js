@@ -62,8 +62,23 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  // Skipping this test for now because of an error on Percy that needs to be investigated
-  it.skip(`Fixed blog page`, function() {
+  it(`Blog index filtered on category`, function() {
+    cy.visit(`/en/blog/category/mozilla-festival`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  // Skipping as currently there's a bug related to Cypress about
+  // it not being able to visit a url that redirects
+  // GitHub ticket: https://github.com/mozilla/foundation.mozilla.org/issues/4042
+  it.skip(`Blog index with non-existent category`, function() {
+    cy.visit(`/en/blog/category/randomnonsensecateogrythatdoesntexist`);
+  });
+
+  it(`Fixed blog post page`, function() {
     cy.visit(`/en/blog/initial-test-blog-post-with-fixed-title`);
     cy.window()
       .its(`main-js:react:finished`)
@@ -154,6 +169,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   it(`Styleguide page`, function() {
     cy.visit(`/en/styleguide/`);
+    cy.wait(1000);
+    cy.percySnapshot();
+  });
+
+  it(`YouTube Regrets page`, function() {
+    cy.visit(`/en/campaigns/youtube-regrets/`);
     cy.wait(1000);
     cy.percySnapshot();
   });

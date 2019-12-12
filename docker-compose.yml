@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/Dockerfile.node
+    env_file:
+      - .env
     environment:
       # Need to specify the SHELL env var for chokidar
       - SHELL=/bin/sh
