@@ -14,6 +14,7 @@ $btn-shadow-width: 3px;
   }
 }
 
+// #creep-vote targets the <form>
 #creep-vote {
   &:invalid {
     button[type="submit"] {
@@ -40,6 +41,21 @@ $btn-shadow-width: 3px;
 }
 
 .creep-vote {
+  .btn.btn-close-sign-up {
+    color: inherit;
+    text-transform: none;
+    font-weight: 700;
+    font-size: 12px;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    @include hover-focus-active {
+      color: $blue;
+    }
+  }
+
   .btn-group {
     display: flex;
     justify-content: center;
