@@ -158,14 +158,18 @@
             {% for product in product.related_products %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
               <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="{% url 'product-view' product.slug %}">
-                {% if USE_CLOUDINARY %}
-                  <img class="product-thumbnail thumb-border"
-                  width="300"
-                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
-                  alt="{{product.name}}">
-                {% else %}
-                  <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
-                {% endif %}
+                <div class="img-container">
+                  {% if USE_CLOUDINARY %}
+                    <img class="product-thumbnail thumb-border"
+                    width="300"
+                    src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+                    alt="{{product.name}}">
+                  {% else %}
+                    <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
+                  {% endif %}
+                </div>
+                <p class="body-small mt-3 mb-1">{{product.company}}</p>
+                <p>{{product.name}}</p>
               </a>
 
               {% include "fragments/seal_of_approval.html" with product=product is_related_product=True %}

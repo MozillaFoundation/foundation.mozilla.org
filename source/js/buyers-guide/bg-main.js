@@ -7,7 +7,6 @@ import primaryNav from "./components/primary-nav/primary-nav.js";
 import navNewsletter from "../nav-newsletter.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
-import Filter from "./components/filter/filter.jsx";
 import JoinUs from "../components/join/join.jsx";
 
 import copyToClipboard from "../../js/copy-to-clipboard.js";
@@ -67,16 +66,6 @@ let main = {
 
       if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
-
-        let filter = document.querySelector(`#product-filter`);
-
-        if (filter) {
-          apps.push(
-            new Promise(resolve => {
-              ReactDOM.render(<Filter whenLoaded={() => resolve()} />, filter);
-            })
-          );
-        }
       }
 
       // Record that we're done, when we're really done.
