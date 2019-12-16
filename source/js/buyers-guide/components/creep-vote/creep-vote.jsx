@@ -238,11 +238,11 @@ export default class CreepVote extends React.Component {
   renderSignUp() {
     return [
       <button
-        className="btn btn-close-sign-up text-uppercase"
+        className="btn btn-close-sign-up text-uppercase d-flex justify-content-between align-items-center"
         onClick={() => this.handleSignUp(false)}
         type="button"
       >
-        Close X
+        Close
       </button>,
       <JoinUs
         formPosition="flow"

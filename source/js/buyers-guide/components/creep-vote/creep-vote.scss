@@ -47,13 +47,16 @@ $btn-shadow-width: 3px;
     font-weight: 700;
     font-size: 12px;
     border: none;
+    padding: 0;
     position: absolute;
-    top: 0;
-    right: 0;
-
-    @include hover-focus-active {
-      color: $blue;
-    }
+    top: 1rem;
+    right: 1rem;
+    background: center right/10px 10px url("/_images/buyers-guide/icon-x.svg")
+      no-repeat transparent;
+    padding-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn-group {
