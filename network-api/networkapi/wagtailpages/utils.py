@@ -137,7 +137,7 @@ def get_content_related_by_tag(page, result_count=3):
 
     for page_type in page_models_with_tags:
         # get all pages that share tags with this page
-        related_pages = page_type.objects.filter(tags__in=own_tags)
+        related_pages = page_type.objects.filter(tags__in=own_tags).live()
 
         # Exlude "this page" from the result set for the page's own page type
         # so that we don't end up with "this page is most similar to itself".
