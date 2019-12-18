@@ -250,7 +250,6 @@ export default class CreepVote extends React.Component {
         flowText={getText(
           `Now that you’re on a roll, why not join Mozilla? We’re not creepy (we promise). We actually fight back against creepy. And we need more people like you.`
         )}
-        flowSubText={getText(`(Your results are under here)`)}
         csrfToken={this.props.joinUsCSRF}
         apiUrl={this.props.joinUsApiUrl}
         handleSignUp={successState => this.handleSignUp(successState)}

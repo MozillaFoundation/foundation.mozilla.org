@@ -251,8 +251,7 @@ export default class JoinUs extends React.Component {
   renderFlowHeading() {
     return [
       <h2 className="text-center">{this.props.flowHeading}</h2>,
-      <p className="text-center mb-0">{this.props.flowText}</p>,
-      <p className="text-center">{this.props.flowSubText}</p>
+      <p className="text-center">{this.props.flowText}</p>
     ];
   }
 
