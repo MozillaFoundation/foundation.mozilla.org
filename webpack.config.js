@@ -30,16 +30,7 @@ let main = {
   },
   module: {
     rules
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN),
-      __HEROKU_RELEASE_VERSION__: JSON.stringify(
-        process.env.HEROKU_RELEASE_VERSION
-      ),
-      __SENTRY_ENVIRONMENT__: JSON.stringify(process.env.SENTRY_ENVIRONMENT)
-    })
-  ]
+  }
 };
 
 let bgMain = {

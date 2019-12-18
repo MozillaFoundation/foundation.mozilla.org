@@ -21,13 +21,6 @@ import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 const SHOW_MEMBER_NOTICE = false;
 
-// Initialize Sentry error reporting
-Sentry.init({
-  dsn: __SENTRY_DSN__,
-  release: __HEROKU_RELEASE_VERSION__,
-  environment: __SENTRY_ENVIRONMENT__
-});
-
 // To be populated via XHR and querySelector
 let env, networkSiteURL, csrfToken;
 
@@ -41,6 +34,15 @@ let main = {
     this.fetchEnv(envData => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
+
+      if (env.SENTRY_DSN) {
+        // Initialize Sentry error reporting
+        Sentry.init({
+          dsn: env.SENTRY_DSN,
+          release: env.RELEASE_VERSION,
+          environment: env.SENTRY_ENVIRONMENT
+        });
+      }
 
       csrfToken = document.querySelector(`meta[name="csrf-token"]`);
       csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
