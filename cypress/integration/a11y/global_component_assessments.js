@@ -18,20 +18,20 @@ const GLOBAL_COMPONENT_A11Y = () => {
       
             context("Header Newsletter Sign Up ", () => {
       
-              beforeEach(() => {
-                cy.viewport(viewport)
-                cy.visit(`/`)
-                cy.window()
-                  .its(`main-js:react:finished`)
-                  .should(`equal`, true)
-                cy.wait(500);
-                cy.injectAxe()
-                  .configureAxe(A11Y_CONFIG)
-              })
-      
               if (viewport === 'iphone-5') {
+
+                before(() => {
+                  cy.viewport(viewport)
+                  cy.visit(`/`)
+                  cy.window()
+                    .its(`main-js:react:finished`)
+                    .should(`equal`, true)
+                  cy.wait(500);
+                  cy.injectAxe()
+                    .configureAxe(A11Y_CONFIG)
+                })
       
-                it('General Assessment', () => {
+                it.skip('General Assessment', () => {
 
                   // testing user interaction to get to mobile newsletter
                   cy.get(".wide-screen-menu-container .burger")
@@ -40,7 +40,7 @@ const GLOBAL_COMPONENT_A11Y = () => {
                     .click()
                   cy.wait(300)
                   
-                  // Check focus states as well
+                  // Check focus states
                   cy.get(".join-us[data-form-position='header'] input[type='email']")
                     .click()
                     .wait(300)
@@ -50,13 +50,13 @@ const GLOBAL_COMPONENT_A11Y = () => {
                     .wait(200)
                     .should('have.focus')
                   cy.get(".join-us[data-form-position='header'] select#userLanguage-header")
-                    .select("Español")
+                    .select("Français")
                     .wait(200)
                     .should('have.focus')
-                  cy.checkA11y()
+                  cy.checkA11y(".join-us[data-form-position='header']");
                 });
       
-                it('Should display error messages after submission failure.', () => {
+                it.skip('Should display error messages after submission failure.', () => {
                   // testing user interaction to get to mobile newsletter
                   cy.get(".wide-screen-menu-container .burger")
                     .click()
@@ -75,10 +75,62 @@ const GLOBAL_COMPONENT_A11Y = () => {
                   // test a11y again, but only .has-danger containers
                   cy.checkA11y(".join-us[data-form-position='header'] form .has-danger");
                 });
-              } else {
-                it(``, () => {
-                  cy.log('It\'s Desktop')
+              } else if (viewport === 'macbook-13') {
+
+                before(() => {
+                  cy.viewport(viewport)
+                  cy.visit(`/`)
+                  cy.window()
+                    .its(`main-js:react:finished`)
+                    .should(`equal`, true)
+                  cy.wait(500);
+                  cy.injectAxe()
+                    .configureAxe(A11Y_CONFIG)
                 })
+
+                it('General Assessment', () => {
+
+                  // testing user interaction to get to desktop newsletter
+                  cy.get(".wide-screen-menu-container .btn-newsletter")
+                    .trigger('click', {force: true})
+                  cy.get("#nav-newsletter-form-wrapper")
+                    .should('be.visible')
+                    .then(() => {
+                      
+                      // Check focus states
+                    cy.get(".join-us[data-form-position='header'] input[type='email']")
+                      .should('be.visible')
+                      .click({force:true})
+                    cy.get(".join-us[data-form-position='header'] select.country-picker")
+                      .select("Canada", {force: true})
+                      .wait(200)
+                      .should('have.focus')
+                    cy.get(".join-us[data-form-position='header'] select#userLanguage-header")
+                      .select("Français", {force: true})
+                      .wait(200)
+                      .should('have.focus')
+                    cy.checkA11y(".join-us[data-form-position='header']");
+                    })
+                });
+      
+                it.skip('Should display error messages after submission failure.', () => {
+
+                  // testing user interaction to get to mobile newsletter
+                  cy.get(".wide-screen-menu-container .btn-newsletter")
+                    .click()
+                  cy.wait(200)
+                  cy.get(".join-us[data-form-position='header'] button")
+                    .click()
+                  
+                  // wait for the server to respond, then test for the error
+                  cy.wait(300)
+                  cy.get('.has-danger')
+                    .children('p.form-control-feedback')
+                    .should('be.visible')
+
+                  // test a11y again, but only .has-danger containers
+                  cy.checkA11y(".join-us[data-form-position='header'] form .has-danger");
+                });
       
               }
             })
