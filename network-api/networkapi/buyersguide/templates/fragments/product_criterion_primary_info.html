@@ -6,7 +6,11 @@
   <div class="rating">
     <span><strong>
     {% if value == "U" %}
+      {% if show_value_as_symbol == "True" %}
+      <img src="/_images/buyers-guide/score/icon-unknown.svg" alt="{{value}}">
+      {% else %}
       Unknown
+      {% endif %}
     {% elif value == "NA" %}
       N/A
     {% else %}
