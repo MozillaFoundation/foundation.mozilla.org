@@ -2,6 +2,7 @@
 
 import React from "react";
 import ReactGA from "react-ga";
+import {reactAxe as ReactAxe} from "../../node_modules/react-axe/index.js";
 import ReactDOM from "react-dom";
 import Analytics from "./analytics.js";
 import * as Sentry from "@sentry/browser";
@@ -20,6 +21,12 @@ import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 const SHOW_MEMBER_NOTICE = false;
+
+if (process.env.NODE_ENV === 'production') {  // Should equal development
+  const axe = require('react-axe');
+  axe(React, ReactDOM, 1000);
+}
+
 
 // Initialize Sentry error reporting
 Sentry.init({
