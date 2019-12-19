@@ -97,7 +97,7 @@ const GLOBAL_COMPONENT_A11Y = () => {
                     .should('be.visible')
                     .then(() => {
                       
-                      // Check focus states
+                    // Check focus states
                     cy.get(".join-us[data-form-position='header'] input[type='email']")
                       .should('be.visible')
                       .click({force:true})
