@@ -164,35 +164,47 @@ $product-detail-padding-x: (
 }
 
 .minimum-security {
-  .rating {
-    .star {
-      display: inline-block;
-      width: 1em;
-      margin-right: 2px;
-      color: transparent;
-      background-size: contain;
-      background-repeat: no-repeat;
+  background: $gray-05;
 
-      &.value-yes {
-        order: 1;
-        background-image: url(/_images/buyers-guide/stars/black.svg);
-      }
+  h3 {
+    $badge-width-mobile: 40px;
+    $badge-width: 30px;
 
-      &.value-na {
-        order: 2;
-        background-image: url(/_images/buyers-guide/stars/half.svg);
-      }
+    position: relative;
+    padding-left: calc(#{$badge-width-mobile} + 8px);
 
-      &.value-no,
-      &.value-u {
-        order: 3;
-        background-image: url(/_images/buyers-guide/stars/empty.svg);
+    @media (min-width: $bp-md) {
+      padding-left: calc(#{$badge-width} + 6px);
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: url("/_images/buyers-guide/badge-star-mini.svg") center /
+        contain no-repeat;
+      width: $badge-width-mobile;
+      height: 100%;
+
+      @media (min-width: $bp-md) {
+        width: $badge-width;
       }
     }
   }
 
-  .criterion .criterion:last-child {
+  .criterion:last-child {
     border-bottom: none;
+  }
+
+  .rating {
+    .security-score {
+      @include scaleText(40px, 46px);
+    }
+
+    .full-security-score {
+      @include scaleText(20px, 46px);
+    }
   }
 }
 
@@ -200,9 +212,13 @@ $product-detail-padding-x: (
   padding: 1rem 0;
 
   &:not(.no-border) {
-    border-top: 1px solid $gray-20;
-    border-bottom: 1px solid $gray-20;
-    margin-top: -1px;
+    border-color: $gray-20;
+    border-style: solid;
+    border-width: 1px 0 0 0;
+
+    &:last-child {
+      border-bottom-width: 1px;
+    }
   }
 
   &.bottom-border-only {

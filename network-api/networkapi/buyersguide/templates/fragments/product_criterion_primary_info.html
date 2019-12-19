@@ -10,7 +10,11 @@
     {% elif value == "NA" %}
       N/A
     {% else %}
+      {% if show_value_as_symbol == "True" %}
+      <img src="/_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">
+      {% else %}
       {{ value }}
+      {% endif %}
     {% endif %}
     </strong></span>
   </div>
