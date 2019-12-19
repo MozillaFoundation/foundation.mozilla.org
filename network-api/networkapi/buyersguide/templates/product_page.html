@@ -47,8 +47,8 @@
         <div class="body-large mb-2 mb-md-4 col-12">{{product.blurb}}</div>
       </div>
 
-      <div class="minimum-security p-5">
-        <div class="criterion bottom-border-only py-0">
+      <div class="minimum-security row py-5 px-3 px-md-5">
+        <div class="criterion bottom-border-only py-0 col-12">
           <div class="d-block primary-info">
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
@@ -66,8 +66,8 @@
           <div class="details mt-2">
             <div class="criterion rating">
               {% include "fragments/product_criterion_primary_info.html"  with  label="Overall Security Rating"  value="" %}
-              <div class="helptext">
-                <span class="security-score h3-heading mb-0">{{security_score}}</span><span class="full-security-score h3-heading mb-0">/{{full_security_score}}</span>
+              <div>
+                <span class="security-score mb-0">{{security_score}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
                 <img src="/_images/buyers-guide/score/icon-star.svg" width="20" height="20" alt="star">
               </div>
             </div>

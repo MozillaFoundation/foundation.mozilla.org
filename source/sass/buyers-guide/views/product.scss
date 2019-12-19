@@ -199,10 +199,12 @@ $product-detail-padding-x: (
 
   .rating {
     .security-score {
+      @include heading("Zilla Slab", 300, 0, $black, $white);
       @include scaleText(40px, 46px);
     }
 
     .full-security-score {
+      @include heading("Zilla Slab", 300, 0, $black, $white);
       @include scaleText(20px, 46px);
     }
   }
