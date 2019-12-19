@@ -152,7 +152,10 @@ export default class CreepVote extends React.Component {
       selected: this.state.confidence == true
     });
 
-    return (
+    return [
+      <div className="what-you-think-label h5-heading">
+        Tell us what you think
+      </div>,
       <form
         method="post"
         id="creep-vote"
@@ -224,7 +227,7 @@ export default class CreepVote extends React.Component {
           </div>
         </div>
       </form>
-    );
+    ];
   }
 
   /**
@@ -233,18 +236,25 @@ export default class CreepVote extends React.Component {
    */
 
   renderSignUp() {
-    return (
+    return [
+      <button
+        className="btn btn-close-sign-up text-uppercase d-flex justify-content-between align-items-center"
+        onClick={() => this.handleSignUp(false)}
+        type="button"
+      >
+        Close
+      </button>,
       <JoinUs
         formPosition="flow"
-        flowHeading={getText(`Thanks for voting! One moment —`)}
+        flowHeading={getText(`You Voted! You Rock!`)}
         flowText={getText(
-          `We strive to protect the internet as a global public resource, but we can only do it with people like you. Join our email list to take action and stay updated!`
+          `Now that you’re on a roll, why not join Mozilla? We’re not creepy (we promise). We actually fight back against creepy. And we need more people like you.`
         )}
         csrfToken={this.props.joinUsCSRF}
         apiUrl={this.props.joinUsApiUrl}
         handleSignUp={successState => this.handleSignUp(successState)}
       />
-    );
+    ];
   }
 
   /**
@@ -287,26 +297,17 @@ export default class CreepVote extends React.Component {
   }
 
   render() {
-    let voteContent;
     const { didVote, showNewsletter } = this.state;
+    let content = this.renderVoteAsk();
 
-    if (!didVote) {
-      voteContent = this.renderVoteAsk();
-    } else {
+    if (didVote) {
+      content = this.renderDidVote();
+
       if (showNewsletter) {
-        voteContent = this.renderSignUp();
-      } else {
-        voteContent = this.renderDidVote();
+        content = this.renderSignUp();
       }
     }
 
-    return (
-      <div className="creep-vote my-5">
-        <div class="what-you-think-label h5-heading d-inline-block">
-          Tell us what you think
-        </div>
-        {voteContent}
-      </div>
-    );
+    return <div className="creep-vote my-5">{content}</div>;
   }
 }
