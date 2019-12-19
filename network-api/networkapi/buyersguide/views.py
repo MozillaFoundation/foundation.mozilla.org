@@ -119,13 +119,12 @@ def product_view(request, slug):
 
     prodcut_dict = product.to_dict()
     criterions = ['uses_encryption', 'security_updates', 'strong_password',
-            'manage_vulnerabilities', 'privacy_policy']
+                  'manage_vulnerabilities', 'privacy_policy']
     total_score = 0
     num_criterions = len(criterions)
 
     for i in range(num_criterions):
         value = prodcut_dict[criterions[i]]
-        print(criterions[i], value)
         if value == 'Yes':
             total_score += 1
         if value == 'NA':
