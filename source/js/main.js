@@ -2,7 +2,6 @@
 
 import React from "react";
 import ReactGA from "react-ga";
-import {reactAxe as ReactAxe} from "../../node_modules/react-axe/index.js";
 import ReactDOM from "react-dom";
 import Analytics from "./analytics.js";
 import * as Sentry from "@sentry/browser";
@@ -21,12 +20,6 @@ import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 const SHOW_MEMBER_NOTICE = false;
-
-if (process.env.NODE_ENV === 'production') {  // Should equal development
-  const axe = require('react-axe');
-  axe(React, ReactDOM, 1000);
-}
-
 
 // Initialize Sentry error reporting
 Sentry.init({
@@ -51,6 +44,12 @@ let main = {
 
       csrfToken = document.querySelector(`meta[name="csrf-token"]`);
       csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
+
+      // Initializing component a11y browser console logging
+      if (networkSiteURL === "http://localhost:8000") {
+        const axe = require("react-axe");
+        axe(React, ReactDOM, 1000);
+      }
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
