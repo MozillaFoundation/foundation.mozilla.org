@@ -41,9 +41,7 @@ let main = {
       }
 
       // Initializing component a11y browser console logging
-      let reactAxe = env.ENABLE_AXE = true;
-
-      if (reactAxe) {
+      if (env.ENABLE_AXE = true) {
         const axe = require("react-axe");
         axe(React, ReactDOM, 1000);
       }
