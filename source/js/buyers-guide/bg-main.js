@@ -41,10 +41,10 @@ let main = {
       }
 
       // Initializing component a11y browser console logging
-      if (env.ENABLE_AXE = true) {
-        const axe = require("react-axe");
-        axe(React, ReactDOM, 1000);
-      }
+      // if (networkSiteURL === 'http://localhost:8000') {
+      //   const axe = require("react-axe");
+      //   axe(React, ReactDOM, 1000);
+      // }
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
