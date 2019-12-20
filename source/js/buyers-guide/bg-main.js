@@ -41,7 +41,9 @@ let main = {
       }
 
       // Initializing component a11y browser console logging
-      if (networkSiteURL === "http://localhost:8000") {
+      let reactAxe = env.ENABLE_AXE = true;
+
+      if (reactAxe) {
         const axe = require("react-axe");
         axe(React, ReactDOM, 1000);
       }
