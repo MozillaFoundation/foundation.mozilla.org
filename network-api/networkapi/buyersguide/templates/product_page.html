@@ -31,7 +31,7 @@
   </div>
 </div>
 
-{% with section_class="col-12 col-lg-10 offset-lg-1 product-section-padding-x" %}
+{% with section_class="col-12 col-lg-10 offset-lg-1" %}
 <div class="container">
   <div class="row">
     <div class="product-detail bg-white py-3 py-md-4 px-md-5 {{section_class}}">
@@ -132,7 +132,7 @@
   <div class="row dotted-section d-block d-sm-flex mx-0">
     <div class="container">
       <div class="row">
-        <div class="{{section_class}} mt-5 pt-3 bg-white">
+        <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
           {% if product.updates|length > 0 or coralTalkServerUrl %}
           <h3 class="h2-heading mb-4 mb-md-5">Updates</h3>
           {% endif %}
