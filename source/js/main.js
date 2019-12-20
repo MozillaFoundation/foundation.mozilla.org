@@ -46,13 +46,13 @@ let main = {
       csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
 
       // Initializing component a11y browser console logging
-      if (networkSiteURL === 'http://localhost:8000' || env.ENABLE_AXE !== false) {
-        const axe = require("react-axe");
-        axe(React, ReactDOM, 1000);
+      
+      if (networkSiteURL === 'http://localhost:8000') {
+        import("react-axe")
+        .then( axe => {
+          axe(React, ReactDOM, 1000);
+        })
       }
-
-      console.log(process.env.ENABLE_AXE);
-
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
