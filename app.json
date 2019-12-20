@@ -34,7 +34,7 @@
     "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
     "NPM_CONFIG_PRODUCTION": "true",
     "REVIEW_APP": "True",
-    "ENABLE_AXE": false
+    "ENABLE_AXE": "true"
   },
   "buildpacks": [
     {
