@@ -65,17 +65,17 @@
 
           <div class="details mt-2">
             <div class="criterion rating">
-              {% include "fragments/product_criterion_primary_info.html"  with  label="Overall Security Rating"  value="" %}
+              {% include "fragments/product_criterion_primary_info.html"  with  label="Overall Security Rating" %}
               <div>
                 <span class="security-score mb-0">{{security_score}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
                 <img src="/_images/buyers-guide/score/icon-star.svg" width="20" height="20" alt="star">
               </div>
             </div>
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol="True"  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol="True"  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol="True"  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol="True"  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol="True"  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
           </div>
         </div>
       </div>
