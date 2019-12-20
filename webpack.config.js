@@ -22,24 +22,27 @@ let rules = [
   }
 ];
 
-let main = {
-  entry: `./source/js/main.js`,
-  output: {
-    path: frontendPath,
-    filename: `main.compiled.js`
-  },
-  module: {
-    rules
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN),
-      __HEROKU_RELEASE_VERSION__: JSON.stringify(
-        process.env.HEROKU_RELEASE_VERSION
-      ),
-      __SENTRY_ENVIRONMENT__: JSON.stringify(process.env.SENTRY_ENVIRONMENT)
-    })
-  ]
+let main = (env) => {
+  return {
+    entry: `./source/js/main.js`,
+    output: {
+      path: frontendPath,
+      filename: `main.compiled.js`
+    },
+    module: {
+      rules
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN),
+        __HEROKU_RELEASE_VERSION__: JSON.stringify(
+          process.env.HEROKU_RELEASE_VERSION
+        ),
+        __SENTRY_ENVIRONMENT__: JSON.stringify(process.env.SENTRY_ENVIRONMENT),
+        __LOCAL_DEV__: env.local_dev
+      })
+    ]
+  };
 };
 
 let bgMain = {
