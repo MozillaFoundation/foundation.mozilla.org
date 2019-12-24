@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-13 16:25+0000\n"
-"PO-Revision-Date: 2019-12-24 18:51+0000\n"
+"PO-Revision-Date: 2019-12-24 18:59+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
@@ -139,7 +139,7 @@ msgstr "Autorzy: %(author)s"
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/blog_card.html:37
 #, python-format
 msgid "By %(author)s on %(date)s"
-msgstr "Autorzy: %(author)s (%(date)s)"
+msgstr "Autorzy: %(author)s — %(date)s"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:8
 msgid "Latest news"
@@ -153,98 +153,98 @@ msgstr "Autorzy: %(author)s"
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:33 network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/featured_blogs.html:60
 #, python-format
 msgid "on %(date)s"
-msgstr ""
+msgstr "— %(date)s"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/ih_cta.html:6
 #, python-format
 msgid "This is part of a broader movement for a healthy internet. <a %(see_more_link)s>See more</a>."
-msgstr ""
+msgstr "To część szerszego ruchu na rzecz zdrowego Internetu. <a %(see_more_link)s>Więcej informacji</a>."
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/fragments/related_posts.html:8
 msgid "Related content"
-msgstr ""
+msgstr "Podobne"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:36
 msgid "Happening now"
-msgstr ""
+msgstr "Dzieje się teraz"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:72
 msgid "Trending projects"
-msgstr ""
+msgstr "Popularne projekty"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:75 network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:86
 msgid "Add your project"
-msgstr ""
+msgstr "Dodaj swój projekt"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:85
 msgid "More from our network"
-msgstr ""
+msgstr "Więcej z naszej sieci"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:95
 msgid "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices."
-msgstr ""
+msgstr "Chcemy dać użytkownikom wiedzę i możliwości samodzielnego podejmowania świadomych decyzji, aby zapobiegać nadużyciom."
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:96
 msgid "Rishab Nithyanand, Mozilla Fellow"
-msgstr ""
+msgstr "Rishab Nithyanand, stypendysta Mozilli"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:32
 #, python-format
 msgid "%(total_entries)s result"
 msgid_plural "%(total_entries)s results"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%(total_entries)s wynik"
+msgstr[1] "%(total_entries)s wyniki"
+msgstr[2] "%(total_entries)s wyników"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:37
 msgctxt "Following “xx results” and followed by searched terms. Full string example: “12 results for Advocacy”"
 msgid "for"
-msgstr ""
+msgstr "dla zapytania:"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:48
 msgid "clear filters"
-msgstr ""
+msgstr "wyczyść filtry"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:66
 msgid "Load more results"
-msgstr ""
+msgstr "Więcej wyników"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/load-more-regrets.html:4
 msgid "Load more stories"
-msgstr ""
+msgstr "Więcej artykułów"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:36 network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:37
 msgid "Join Mozilla"
-msgstr ""
+msgstr "Dołącz do Mozilli"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:43
 msgid "Scroll"
-msgstr ""
+msgstr "Przewiń"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_page.html:47
 msgid "28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths"
-msgstr ""
+msgstr "28 powodów, dla których YouTube musi się zmienić: alarmujące historie o systemie rekomendacji YouTube’a prowadzącym ludzi na dziwne i niebezpieczne ścieżki"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:30 network-api/networkapi/wagtailpages/utils.py:58
 msgid "Overview"
-msgstr ""
+msgstr "Przegląd"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:32
 msgid "Advocacy"
-msgstr ""
+msgstr "Mobilizacja i promocja"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:33
 msgid "Internet Health Report"
-msgstr ""
+msgstr "Raport o zdrowiu Internetu"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:34
 msgid "Fellowships"
-msgstr ""
+msgstr "Stypendia"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:35
 msgid "Awards"
-msgstr ""
+msgstr "Nagrody"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/static/initiatives_page.html:36
 msgid "MozFest"
-msgstr ""
+msgstr "MozFest"
