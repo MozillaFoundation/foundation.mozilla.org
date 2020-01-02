@@ -32,13 +32,13 @@ let main = {
     rules
   },
   plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new webpack.DefinePlugin({
       __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN),
       __HEROKU_RELEASE_VERSION__: JSON.stringify(
         process.env.HEROKU_RELEASE_VERSION
       ),
-      __SENTRY_ENVIRONMENT__: JSON.stringify(process.env.SENTRY_ENVIRONMENT),
-      __LOCAL_BUILD__: JSON.stringify(process.env.NODE_ENV)
+      __SENTRY_ENVIRONMENT__: JSON.stringify(process.env.SENTRY_ENVIRONMENT)
     })
   ]
 };
@@ -60,16 +60,7 @@ let bgMain = {
 let config = [main, bgMain];
 
 module.exports = (env, argv) => {
-  console.log(`Development: ${env.development}`);
-  console.log(`Production: ${env.production}`);
-
-  if(env.development) {
-    process.env.NODE_ENV = "development";
-  } else {
-    process.env.NODE_ENV = "production"
-  }
-
-  console.log(process.env.NODE_ENV);
+  process.env.NODE_ENV = argv.mode;
 
   return config;
 }

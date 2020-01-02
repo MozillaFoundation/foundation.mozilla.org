@@ -88,7 +88,7 @@ const GLOBAL_COMPONENT_A11Y = () => {
                     .configureAxe(A11Y_CONFIG)
                 })
 
-                it('General Assessment', () => {
+                it.skip('General Assessment', () => {
 
                   // testing user interaction to get to desktop newsletter
                   cy.get(".wide-screen-menu-container .btn-newsletter")

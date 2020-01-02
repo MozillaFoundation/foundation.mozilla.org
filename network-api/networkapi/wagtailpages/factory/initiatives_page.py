@@ -1,6 +1,7 @@
 from networkapi.wagtailpages.models import InitiativesPage
 from wagtail_factories import PageFactory
 from wagtail.core.models import Page as WagtailPage
+
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
