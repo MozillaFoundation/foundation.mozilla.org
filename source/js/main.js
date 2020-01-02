@@ -19,13 +19,13 @@ import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
-let axe;
+console.log(process.env.NODE_ENV);
 
  // Initializing component a11y browser console logging
- if (__LOCAL_DEV__) {
-  axe = require('react-axe');
-  axe(React, ReactDOM, 1000);
-}
+//  if (__LOCAL_DEV__) {
+//   ReactAxe = require('react-axe');
+//   axe(React, ReactDOM, 1000);
+// }
 
 const SHOW_MEMBER_NOTICE = false;
 
