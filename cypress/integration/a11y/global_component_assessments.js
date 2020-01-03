@@ -181,7 +181,7 @@ const GLOBAL_COMPONENT_A11Y = () => {
                   cy.checkA11y('.sign-petition form .has-danger');
               });
             });
-            })
+          })
     })
 }
 

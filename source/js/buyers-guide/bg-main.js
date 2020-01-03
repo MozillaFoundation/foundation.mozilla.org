@@ -13,6 +13,12 @@ import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
 import ProductGA from "./product-analytics.js";
 
+// Initializing component a11y browser console logging
+if (process.env.NODE_ENV === "development") {
+  axe = require("react-axe");
+  axe(React, ReactDOM, 1000);
+}
+
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
 // until all the React stuff is _actually_ done.
@@ -39,12 +45,6 @@ let main = {
         let subscribed = subscribedValue === "1";
         sessionStorage.setItem("subscribed", subscribed);
       }
-
-      // Initializing component a11y browser console logging
-      // if (networkSiteURL === 'http://localhost:8000') {
-      //   const axe = require("react-axe");
-      //   axe(React, ReactDOM, 1000);
-      // }
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
