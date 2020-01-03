@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-13 16:25+0000\n"
-"PO-Revision-Date: 2020-01-03 08:59+0000\n"
+"PO-Revision-Date: 2020-01-03 14:31+0000\n"
 "Last-Translator: Théo Chevalier <theo.chevalier11@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -185,7 +185,7 @@ msgstr "Queremos dar a los usuarios el conocimiento y el poder para tomar decisi
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/homepage.html:96
 msgid "Rishab Nithyanand, Mozilla Fellow"
-msgstr "Rishab Nithyanand, colaborador de Mozilla"
+msgstr "Rishab Nithyanand, Fellow de Mozilla"
 
 #: network-api/networkapi/wagtailpages/templates/wagtailpages/index_page.html:32
 #, python-format
