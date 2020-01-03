@@ -19,6 +19,12 @@ import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
+ // Initializing component a11y browser console logging
+ if (process.env.NODE_ENV === 'development') {
+  axe = require('react-axe');
+  axe(React, ReactDOM, 1000);
+}
+
 const SHOW_MEMBER_NOTICE = false;
 
 // Initialize Sentry error reporting
