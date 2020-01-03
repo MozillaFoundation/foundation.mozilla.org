@@ -32,7 +32,7 @@ let main = {
     rules
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new webpack.EnvironmentPlugin(["NODE_ENV"]),
     new webpack.DefinePlugin({
       __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN),
       __HEROKU_RELEASE_VERSION__: JSON.stringify(
@@ -63,4 +63,4 @@ module.exports = (env, argv) => {
   process.env.NODE_ENV = argv.mode;
 
   return config;
-}
+};
