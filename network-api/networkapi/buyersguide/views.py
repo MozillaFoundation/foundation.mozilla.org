@@ -117,12 +117,32 @@ def product_view(request, slug):
     if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")
 
+    product_dict = product.to_dict()
+    criteria = [
+        'uses_encryption',
+        'security_updates',
+        'strong_password',
+        'manage_vulnerabilities',
+        'privacy_policy',
+    ]
+    total_score = 0
+    num_criteria = len(criteria)
+
+    for i in range(num_criteria):
+        value = product_dict[criteria[i]]
+        if value == 'Yes':
+            total_score += 1
+        if value == 'NA':
+            total_score += 0.5
+
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
-        'product': product.to_dict(),
+        'product': product_dict,
         'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
         'pageTitle': f'*privacy not included - {product.name}',
+        'security_score': total_score,
+        'full_security_score': num_criteria
     })
 
 
