@@ -36,6 +36,7 @@ def get_product_image_upload_path(instance, filename):
 
 
 # Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
+# TODO: this is not needed anymore and needs to be removed.
 class CloudinaryImageField(CloudinaryField):
     def upload_options(self, model_instance):
         return {
@@ -194,10 +195,12 @@ class Product(ClusterableModel):
         blank=True,
     )
 
-    cloudinary_image = CloudinaryImageField(
+    cloudinary_image = CloudinaryField(
         help_text='Image representing this product - hosted on Cloudinary',
         blank=True,
         verbose_name='image',
+        folder='foundationsite/buyersguide',
+        use_filename=True
     )
 
     meets_minimum_security_standards = models.BooleanField(
