@@ -43,7 +43,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "@babel/core": "^7.8.0",
-    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.7.4",
     "@sentry/browser": "^5.10.2",
     "autoprefixer": "^9.7.3",
