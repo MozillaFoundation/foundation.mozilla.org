@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactGA } from "../../../common";
+import { Localized } from "../../../components/localized.js";
 import copyToClipboard from "../../../../js/copy-to-clipboard.js";
 
 const SocialShareLink = (props) => {
@@ -34,14 +35,14 @@ const SocialShareLink = (props) => {
 
   if (props.type === `email`) {
     classes += `email-share`;
-    srLabel = `Email`;
+    srLabel = <Localized stringId="email">{`Email`}</Localized>;
     shareEvent.label += `via email`;
     link = `mailto:?&body=${encodeURIComponent(shareText)}`;
   }
 
   if (props.type === `link`) {
     classes += `link-share`;
-    srLabel = `Copy`;
+    srLabel = <Localized stringId="copy">{`Copy`}</Localized>;
     shareEvent.label += `using a link`;
     link = `#`;
   }
@@ -58,7 +59,7 @@ const SocialShareLink = (props) => {
     trackShareAction = (evt) => {
       evt.preventDefault();
       copyToClipboard(evt.target, window.location.href);
-      evt.target.innerHTML = evt.target.innerHTML.replace(srLabel, `Copied`);
+      evt.target.innerHTML = "Copied";
       evt.target.classList.add("copied");
       _trackShareAction();
     };

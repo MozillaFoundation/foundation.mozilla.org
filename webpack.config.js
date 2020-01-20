@@ -20,6 +20,14 @@ let rules = [
       ],
     },
   },
+  {
+    test: /\.ftl$/,
+    use: [
+      {
+        loader: `raw-loader`,
+      },
+    ],
+  },
 ];
 
 let main = {

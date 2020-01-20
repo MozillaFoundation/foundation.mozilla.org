@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Localized } from "../localized.js";
 
 export default class PulseProjectList extends React.Component {
   constructor(props) {
@@ -67,11 +68,14 @@ export default class PulseProjectList extends React.Component {
     let projectList = this.state.projects.map((project, index) => {
       let byline = null;
       let url;
+      let authorList = project.related_creators.map((rc) => rc.name).join(`, `);
 
       if (project.related_creators.length) {
-        byline = `By ${project.related_creators
-          .map((rc) => rc.name)
-          .join(`, `)}`;
+        byline = (
+          <Localized id="pulse-author" vars={{ authorList }}>
+            {`By {$authorList}`}
+          </Localized>
+        );
       }
 
       if (this.props.directLink) {

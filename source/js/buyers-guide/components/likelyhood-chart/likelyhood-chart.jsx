@@ -1,6 +1,7 @@
 // TODO: Inject likely % in .bar and .likelyhood-words
 
 import React from "react";
+import { Localized } from "../../../components/localized.js";
 
 export default class LikelyhoodChart extends React.Component {
   constructor(props) {
@@ -16,30 +17,54 @@ export default class LikelyhoodChart extends React.Component {
       perc = Math.round((100 * values[0]) / total, 10);
     }
 
+    let likely = (
+      <Localized stringId="percent-likely-to-buy" vars={{ perc: 100 - perc }}>
+        {`{$perc}% likely to buy it`}
+      </Localized>
+    );
+    let unlikely = (
+      <Localized stringId="percent-not-likely-to-buy" vars={{ perc }}>
+        {`{$perc}% not likely to buy it`}
+      </Localized>
+    );
+
+    if (this.props.isSoftware) {
+      likely = (
+        <Localized stringId="percent-likely-to-use" vars={{ perc: 100 - perc }}>
+          {`{$perc}% likely to use it`}
+        </Localized>
+      );
+      unlikely = (
+        <Localized stringId="percent-not-likely-to-use" vars={{ perc }}>
+          {`{$perc}% not likely to use it`}
+        </Localized>
+      );
+    }
+
     return (
       <div>
         <table id="likelyhood-score">
           <tbody>
             <tr className="likely">
               <th>
-                <span className="likely-label">likely</span>
+                <span className="likely-label">
+                  <Localized stringId="likely">{`Likely`}</Localized>
+                </span>
               </th>
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${100 - perc}%` }} />
-                <span className="likelyhood-words">
-                  {100 - perc}% likely to {this.props.buyOrUse} it
-                </span>
+                <span className="likelyhood-words">{likely}</span>
               </td>
             </tr>
             <tr className="unlikely">
               <th>
-                <span className="likely-label">not likely</span>
+                <span className="likely-label">
+                  <Localized stringId="not-likely">{`Not likely`}</Localized>
+                </span>
               </th>
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${perc}%` }} />
-                <span className="likelyhood-words">
-                  {perc}% not likely to {this.props.buyOrUse} it
-                </span>
+                <span className="likelyhood-words">{unlikely}</span>
               </td>
             </tr>
           </tbody>

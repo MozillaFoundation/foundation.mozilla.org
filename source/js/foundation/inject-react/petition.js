@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { LocalizationProvider } from "@fluent/react";
+import { getBundles } from "../../l10n";
 import Petition from "../../components/petition/petition.jsx";
 
 /**
@@ -23,12 +25,14 @@ export default (apps, siteUrl) => {
     apps.push(
       new Promise((resolve) => {
         ReactDOM.render(
-          <Petition
-            {...props}
-            isHidden={false}
-            subscribed={subscribed}
-            whenLoaded={() => resolve()}
-          />,
+          <LocalizationProvider l10n={getBundles()}>
+            <Petition
+              {...props}
+              isHidden={false}
+              subscribed={subscribed}
+              whenLoaded={() => resolve()}
+            />
+          </LocalizationProvider>,
           element
         );
       })

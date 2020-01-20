@@ -49,4 +49,5 @@ case $command in
     cp -r "network-api/networkapi/buyersguide/locale/" "${L10N_REPO}foundation/translations/networkapi/buyersguide/locale/"
     cp -r "network-api/networkapi/buyersguide/templates/about/locale/" "${L10N_REPO}foundation/translations/networkapi/buyersguide/templates/about/locale/"
     cp -r "network-api/networkapi/mozfest/locale/" "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/"
+    mv "${L10N_REPO}foundation/translations/locale/messages.ftl" "${L10N_REPO}foundation/translations/locale/en-messages.ftl"
 esac

@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import { Localized } from "../localized.js";
 
 export default class LanguageSelect extends React.Component {
   constructor(props) {
@@ -36,16 +37,18 @@ export default class LanguageSelect extends React.Component {
     let classes = classNames(`form-control`, this.props.className);
 
     return (
-      <select
-        className={classes}
-        id={`userLanguage-${this.props.formPosition}`}
-        value={this.props.selectedLang}
-        onBlur={(evt) => this.handleChange(evt)}
-        onChange={(evt) => this.handleChange(evt)}
-        aria-label="Please select your preferred language"
-      >
-        {this.renderOptions()}
-      </select>
+      <Localized stringId="language-dropdown" attrs={{ "aria-label": true }}>
+        <select
+          className={classes}
+          id={`userLanguage-${this.props.formPosition}`}
+          value={this.props.selectedLang}
+          onBlur={(evt) => this.handleChange(evt)}
+          onChange={(evt) => this.handleChange(evt)}
+          aria-label="Please select your preferred language"
+        >
+          {this.renderOptions()}
+        </select>
+      </Localized>
     );
   }
 }

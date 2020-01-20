@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { LocalizationProvider } from "@fluent/react";
+import { getBundles } from "../../l10n";
 import ShareButtonGroup from "../../components/share-button-group/share-button-group.jsx";
 
 /**
@@ -15,7 +17,9 @@ export default (apps) => {
       apps.push(
         new Promise((resolve) => {
           ReactDOM.render(
-            <ShareButtonGroup {...props} whenLoaded={() => resolve()} />,
+            <LocalizationProvider l10n={getBundles()}>
+              <ShareButtonGroup {...props} whenLoaded={() => resolve()} />
+            </LocalizationProvider>,
             element
           );
         })

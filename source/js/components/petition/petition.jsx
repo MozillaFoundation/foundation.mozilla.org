@@ -5,7 +5,8 @@ import DonationModal from "./donation-modal.jsx";
 import FloatingLabelInput from "./floating-label-input.jsx";
 import FloatingLabelTextarea from "./floating-label-textarea.jsx";
 import CountrySelect from "./country-select.jsx";
-import { getText, getCurrentLanguage } from "./locales";
+import { getCurrentLanguage } from "./locales";
+import { Localized } from "../localized.js";
 import copyToClipboard from "../../copy-to-clipboard";
 const SALESFORCE_COMMENT_LIMIT = 500;
 const CHECKBOX_LABEL_CLASS = `body-small`;
@@ -427,15 +428,20 @@ export default class Petition extends React.Component {
                 className="btn btn-secondary btn-share email-share"
                 onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
               >
-                Email
+                <Localized stringId="email-button">{`Email`}</Localized>
               </button>
-              <button
-                className="btn btn-secondary btn-share link-share"
-                onClick={(e) => this.shareButtonClicked(e)}
-                data-success-text="Copied"
+              <Localized
+                stringId="copy-button"
+                attrs={{ "data-success-text": true }}
               >
-                Copy
-              </button>
+                <button
+                  className="btn btn-secondary btn-share link-share"
+                  onClick={(e) => this.shareButtonClicked(e)}
+                  data-success-text="Copied"
+                >
+                  {`Copy`}
+                </button>
+              </Localized>
             </div>
           </div>
         </div>
@@ -450,8 +456,7 @@ export default class Petition extends React.Component {
     return (
       <div>
         <p>
-          Something went wrong while trying to sign the petition. Please try
-          again later.
+          <Localized stringId="petition-error">{`Something went wrong while trying to sign the petition. Please try again later.`}</Localized>
         </p>
       </div>
     );
@@ -478,7 +483,14 @@ export default class Petition extends React.Component {
         <div dangerouslySetInnerHTML={{ __html: this.props.ctaDescription }} />
       );
     }
-    return null;
+
+    return (
+      <div>
+        <p>
+          <Localized stringId="add-my-name-header">{`Add my name`}</Localized>
+        </p>
+      </div>
+    );
   }
 
   /**
@@ -551,121 +563,135 @@ export default class Petition extends React.Component {
         <form onSubmit={(e) => this.processFormData(e)} noValidate={true}>
           <div className="mb-3">
             <div className={givenGroupClass}>
-              <FloatingLabelInput
-                className="mb-1 w-100"
-                ref={(element) => {
-                  this.givenNames = element;
-                }}
-                id="givenNames"
-                type="text"
-                label={getText(`First name`)}
-                disabled={disableFields}
-                onFocus={this.onInputFocus}
-              />
+              <Localized stringId="petition-first-name" attrs={{ label: true }}>
+                <FloatingLabelInput
+                  className="mb-1 w-100"
+                  ref={(element) => {
+                    this.givenNames = element;
+                  }}
+                  id="givenNames"
+                  type="text"
+                  label="First name"
+                  disabled={disableFields}
+                  onFocus={this.onInputFocus}
+                />
+              </Localized>
               {this.state.userTriedSubmitting &&
                 !this.givenNames.element.value && (
                   <p className={errorMessageClass}>
-                    {getText(`Please enter your given name(s)`)}
+                    <Localized stringId="petition-first-name-error">{`Please enter your given name(s)`}</Localized>
                   </p>
                 )}
             </div>
             <div className={surGroupClass}>
-              <FloatingLabelInput
-                className="mb-1 w-100"
-                ref={(element) => {
-                  this.surname = element;
-                }}
-                id="surname"
-                type="text"
-                label={getText(`Last name`)}
-                disabled={disableFields}
-                onFocus={this.onInputFocus}
-              />
-              {this.state.userTriedSubmitting &&
-                !this.surname.element.value && (
-                  <p className={errorMessageClass}>
-                    {getText(`Please enter your surname`)}
-                  </p>
-                )}
+              <Localized stringId="petition-last-name" attrs={{ label: true }}>
+                <FloatingLabelInput
+                  className="mb-1 w-100"
+                  ref={(element) => {
+                    this.surname = element;
+                  }}
+                  id="surname"
+                  type="text"
+                  label="Last name"
+                  disabled={disableFields}
+                  onFocus={this.onInputFocus}
+                />
+              </Localized>
+              {this.state.userTriedSubmitting && !this.surname.element.value && (
+                <p className={errorMessageClass}>
+                  <Localized stringId="petition-last-name-error">{`Please enter your surname`}</Localized>
+                </p>
+              )}
             </div>
             <div className={emailGroupClass}>
-              <FloatingLabelInput
-                className="mb-1 w-100"
-                ref={(element) => {
-                  this.email = element;
-                }}
-                id="emailInput"
-                type="email"
-                label={getText(`Email address`)}
-                disabled={disableFields}
-                onFocus={this.onInputFocus}
-              />
+              <Localized stringId="petition-email" attrs={{ label: true }}>
+                <FloatingLabelInput
+                  className="mb-1 w-100"
+                  ref={(element) => {
+                    this.email = element;
+                  }}
+                  id="emailInput"
+                  type="email"
+                  label="Email address"
+                  disabled={disableFields}
+                  onFocus={this.onInputFocus}
+                />
+              </Localized>
               {this.state.userTriedSubmitting &&
                 (!this.email.element.value ||
                   !this.validatesAsEmail(this.email.element.value)) && (
                   <p className={errorMessageClass}>
-                    {getText(`Please enter your email`)}
+                    <Localized stringId="petition-email-error">{`Please enter your email`}</Localized>
                   </p>
                 )}
             </div>
             <div className={countryGroupClass}>
-              <CountrySelect
-                className="form-control-lg mb-1 w-100"
-                ref={(element) => {
-                  this.country = element;
-                }}
-                label={getText(`Your country`)}
-                disabled={disableFields}
-                onFocus={this.onInputFocus}
-              />
+              <Localized stringId="petition-country" attrs={{ label: true }}>
+                <CountrySelect
+                  className="form-control-lg mb-1 w-100"
+                  ref={(element) => {
+                    this.country = element;
+                  }}
+                  label="Your country"
+                  disabled={disableFields}
+                  onFocus={this.onInputFocus}
+                />
+              </Localized>
               {this.props.requiresCountryCode === `True` &&
                 this.state.userTriedSubmitting &&
                 !this.country.element.value && (
                   <p className={errorMessageClass}>
-                    {getText(`Please enter your country`)}
+                    <Localized stringId="petition-country-error">{`Please enter your country`}</Localized>
                   </p>
                 )}
             </div>
 
             {this.props.requiresPostalCode === `False` ? null : (
               <div className={postalCodeGroupClass}>
-                <FloatingLabelInput
-                  className="mb-1 w-100"
-                  ref={(element) => {
-                    this.postalCode = element;
-                  }}
-                  id="postalCodeInput"
-                  type="text"
-                  label={getText(`Postal code`)}
-                  disabled={disableFields}
-                  onFocus={this.onInputFocus}
-                />
+                <Localized
+                  stringId="petition-postal-code"
+                  attrs={{ label: true }}
+                >
+                  <FloatingLabelInput
+                    className="mb-1 w-100"
+                    ref={(element) => {
+                      this.postalCode = element;
+                    }}
+                    id="postalCodeInput"
+                    type="text"
+                    label="Postal code"
+                    disabled={disableFields}
+                    onFocus={this.onInputFocus}
+                  />
+                </Localized>
                 {this.state.userTriedSubmitting &&
                   !this.postalCode.element.value && (
                     <p className={errorMessageClass}>
-                      {getText(`Please enter your postal code`)}
+                      <Localized stringId="petition-postal-code-error">{`Please enter your postal code`}</Localized>
                     </p>
                   )}
               </div>
             )}
             {this.props.commentRequirements === `none` ? null : (
               <div className={commentGroupClass}>
-                <FloatingLabelTextarea
-                  className="mb-1 w-100"
-                  ref={(element) => {
-                    this.comment = element;
-                  }}
-                  id="commentInput"
-                  type="text"
-                  label={getText(`Comment`)}
-                  disabled={disableFields}
-                  onFocus={this.onInputFocus}
-                />
+                <Localized stringId="petition-comment" attrs={{ label: true }}>
+                  <FloatingLabelTextarea
+                    className="mb-1 w-100"
+                    ref={(element) => {
+                      this.comment = element;
+                    }}
+                    id="commentInput"
+                    type="text"
+                    label="Comment"
+                    disabled={disableFields}
+                    onFocus={this.onInputFocus}
+                  />
+                </Localized>
                 {this.props.commentRequirements === `required` &&
                   this.state.userTriedSubmitting &&
                   !this.comment.element.value && (
                     <p className={errorMessageClass}>
-                      Please include a comment
+                      <Localized stringId="petition-comment-error">{`Please include a comment`}</Localized>
                     </p>
                   )}
                 {this.state.userTriedSubmitting &&
@@ -674,8 +700,12 @@ export default class Petition extends React.Component {
                   this.comment.element.value.length >=
                     SALESFORCE_COMMENT_LIMIT && (
                     <p className={errorMessageClass}>
-                      Comments cannot be longer than {SALESFORCE_COMMENT_LIMIT}{" "}
-                      characters
+                      <Localized
+                        stringId="comments-limit"
+                        vars={{ limit: SALESFORCE_COMMENT_LIMIT }}
+                      >
+                        {`Comments cannot be longer than {$limit} characters`}
+                      </Localized>
                     </p>
                   )}
               </div>
@@ -692,16 +722,26 @@ export default class Petition extends React.Component {
                   ref="privacy"
                 />
                 <div className={CHECKBOX_LABEL_CLASS}>
-                  {getText(
-                    `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-                  )}
+                  <Localized
+                    stringId="privacy-policy"
+                    elems={{
+                      privacyLink: (
+                        <a href="https://www.mozilla.org/privacy/websites/">
+                          ``
+                        </a>
+                      ),
+                    }}
+                  >
+                    <span>
+                      {`I’m okay with Mozilla handling my info as explained in <privacyLink>this Privacy Notice</privacyLink>`}
+                    </span>
+                  </Localized>
                 </div>
-                {this.state.userTriedSubmitting &&
-                  !this.refs.privacy.checked && (
-                    <p className={errorMessageClass}>
-                      {getText(`Please check this box if you want to proceed`)}
-                    </p>
-                  )}
+                {this.state.userTriedSubmitting && !this.refs.privacy.checked && (
+                  <p className={errorMessageClass}>
+                    <Localized stringId="form-checkbox">{`Please check this box if you want to proceed`}</Localized>
+                  </p>
+                )}
               </label>
             </div>
             {this.props.subscribed ? null : (
@@ -715,9 +755,7 @@ export default class Petition extends React.Component {
                     ref="newsletterSignup"
                   />
                   <div className={CHECKBOX_LABEL_CLASS}>
-                    {getText(
-                      `Yes, I want to receive email updates about Mozilla's campaigns.`
-                    )}
+                    <Localized stringId="petition-signup">{`Yes, I want to receive email updates about Mozilla’s campaigns.`}</Localized>
                   </div>
                 </label>
               </div>
@@ -729,7 +767,7 @@ export default class Petition extends React.Component {
               disabled={disableFields}
               className="col-12 btn btn-primary petition-btn"
             >
-              {getText(`Add my name`)}
+              <Localized stringId="add-my-name-button">{`Add my name`}</Localized>
             </button>
           </div>
         </form>
@@ -739,7 +777,5 @@ export default class Petition extends React.Component {
 }
 
 Petition.defaultProps = {
-  ctaDescription: <p>{getText(`Add my name`)}</p>,
-  ctaHeader: ``,
   newsletter: `mozilla-foundation`,
 };

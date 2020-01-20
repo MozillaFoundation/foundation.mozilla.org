@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import JoinUs from "../../components/join/join.jsx";
+import { LocalizationProvider } from "@fluent/react";
+import { getBundles } from "../../l10n";
 
 /**
  * Inject newsletter signup forms
@@ -21,7 +23,9 @@ export default (apps, siteUrl, csrfToken) => {
     apps.push(
       new Promise((resolve) => {
         ReactDOM.render(
-          <JoinUs {...props} whenLoaded={() => resolve()} />,
+          <LocalizationProvider l10n={getBundles()}>
+            <JoinUs {...props} whenLoaded={() => resolve()} />
+          </LocalizationProvider>,
           element
         );
       })

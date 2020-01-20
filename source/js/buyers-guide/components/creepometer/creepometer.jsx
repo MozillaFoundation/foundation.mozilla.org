@@ -1,4 +1,5 @@
 import React from "react";
+import { Localized } from "../../../components/localized.js";
 
 export default class Creepometer extends React.Component {
   constructor(props) {
@@ -158,25 +159,31 @@ export default class Creepometer extends React.Component {
     return (
       <div className="creepometer">
         <div className="slider-container p-2">
-          <div
-            className="slider"
-            ref={(e) => (this.sliderElement = e)}
-            tabIndex="0"
-            role="slider"
-            onClick={(evt) => this.slideFromClick(evt)}
-            onKeyDown={(evt) => this.slideFromKey(evt)}
-            aria-valuemax={100}
-            aria-valuemin={1}
-            aria-valuenow={this.state.percentage}
-            aria-label="Please indicate how creepy you think this product is on a scale from 0 (not creepy at all) to 100 (incredibly creepy)"
-          >
-            <div className="body-small copy copy-left">Not creepy</div>
-            <div className="trackhead" {...trackheadOpts}>
-              <div className="face" {...faceOpts} {...mouseOpts} />
-              <div className="pip" {...mouseOpts} />
+          <Localized stringId="slider" attrs={{ "aria-label": true }}>
+            <div
+              className="slider"
+              ref={(e) => (this.sliderElement = e)}
+              tabIndex="0"
+              role="slider"
+              onClick={(evt) => this.slideFromClick(evt)}
+              onKeyDown={(evt) => this.slideFromKey(evt)}
+              aria-valuemax={100}
+              aria-valuemin={1}
+              aria-valuenow={this.state.percentage}
+              aria-label="Please indicate how creepy you think this product is on a scale from 0 (not creepy at all) to 100 (incredibly creepy)"
+            >
+              <div className="body-small copy copy-left">
+                <Localized stringId="not-creepy">{`Not creepy`}</Localized>
+              </div>
+              <div className="trackhead" {...trackheadOpts}>
+                <div className="face" {...faceOpts} {...mouseOpts} />
+                <div className="pip" {...mouseOpts} />
+              </div>
+              <div className="body-small copy copy-right">
+                <Localized stringId="super-creepy">{`Super creepy`}</Localized>
+              </div>
             </div>
-            <div className="body-small copy copy-right">Super creepy</div>
-          </div>
+          </Localized>
         </div>
       </div>
     );

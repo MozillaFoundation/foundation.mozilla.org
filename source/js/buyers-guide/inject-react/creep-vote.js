@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import CreepVote from "../components/creep-vote/creep-vote.jsx";
+import { LocalizationProvider } from "@fluent/react";
+import { getBundles } from "../../l10n";
 
 /**
  * Inject creep vote section
@@ -36,16 +38,18 @@ export default (apps, siteUrl, csrfToken) => {
     apps.push(
       new Promise((resolve) => {
         ReactDOM.render(
-          <CreepVote
-            csrf={csrf.value}
-            productType={productType}
-            productName={productName}
-            productID={parseInt(productID, 10)}
-            votes={votes}
-            whenLoaded={() => resolve()}
-            joinUsCSRF={csrfToken}
-            joinUsApiUrl={`${siteUrl}/api/campaign/signups/0/`}
-          />,
+          <LocalizationProvider l10n={getBundles()}>
+            <CreepVote
+              csrf={csrf.value}
+              productType={productType}
+              productName={productName}
+              productID={parseInt(productID, 10)}
+              votes={votes}
+              whenLoaded={() => resolve()}
+              joinUsCSRF={csrfToken}
+              joinUsApiUrl={`${siteUrl}/api/campaign/signups/0/`}
+            />
+          </LocalizationProvider>,
           element
         );
       })
