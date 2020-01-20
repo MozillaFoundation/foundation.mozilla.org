@@ -4,48 +4,14 @@
   "addons": [
     "heroku-postgresql:hobby-dev"
   ],
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
   "env": {
-    "HEROKU_APP_NAME": {
-      "required": true
-    },
     "DJANGO_SECRET_KEY": {
       "generator": "secret"
-    },
-    "ASSET_DOMAIN": {
-      "required": true
-    },
-    "AWS_ACCESS_KEY_ID": {
-      "required": true
-    },
-    "AWS_LOCATION": {
-      "required": true
-    },
-    "AWS_S3_CUSTOM_DOMAIN": {
-      "required": true
-    },
-    "AWS_SECRET_ACCESS_KEY": {
-      "required": true
-    },
-    "AWS_STORAGE_BUCKET_NAME": {
-      "required": true
-    },
-    "GITHUB_TOKEN": {
-      "required": true
-    },
-    "SLACK_WEBHOOK_RA": {
-      "required": true
-    },
-    "USE_CLOUDINARY": {
-      "required": true
-    },
-    "CLOUDINARY_CLOUD_NAME": {
-      "required": true
-    },
-    "CLOUDINARY_API_KEY": {
-      "required": true
-    },
-    "CLOUDINARY_API_SECRET": {
-      "required": true
     },
     "DEBUG": "False",
     "CORS_WHITELIST": "*",
