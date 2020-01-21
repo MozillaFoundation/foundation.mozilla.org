@@ -7,7 +7,6 @@ from django.core.management.base import BaseCommand
 from factory import Faker
 from django.contrib.auth.models import User
 from django.conf import settings
-import re
 
 import requests
 
@@ -31,36 +30,55 @@ class Command(BaseCommand):
             User.objects.create_superuser('admin', 'admin@example.com', password)
 
             reviewapp_name = settings.HEROKU_APP_NAME
-            m = re.search(r'\d+', reviewapp_name)
-            pr_number = m.group()
+            pr_number = settings.HEROKU_PR_NUMBER
+            branch_name = settings.HEROKU_BRANCH
 
-            # Get PR's title from Github
-            token = settings.GITHUB_TOKEN
-            org = 'mozilla'
-            repo = 'foundation.mozilla.org'
-            r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}&access_token={token}')
-            try:
-                pr_title = ': ' + r.json()['title']
-            except KeyError:
-                pr_title = ''
+            # As of 01/2020 we can only get the PR number if the review app was automatically created
+            # (https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables).
+            # For review app manually created, we have to use the branch name instead.
+            if pr_number:
+                # Get PR's title from Github
+                token = settings.GITHUB_TOKEN
+                org = 'mozilla'
+                repo = 'foundation.mozilla.org'
+                r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}&access_token={token}')
+                try:
+                    pr_title = ': ' + r.json()['title']
+                except KeyError:
+                    pr_title = ''
 
-            for l in r.json()['labels']:
-                if l['name'] == 'dependencies':
-                    color = '#BA55D3'
-                    break
+                for l in r.json()['labels']:
+                    if l['name'] == 'dependencies':
+                        color = '#BA55D3'
+                        break
+                else:
+                    color = '#7CD197'
+                fallback_text = f'''New review app deployed: It will be ready in a minute!\n
+                                                PR {pr_number}{pr_title}\n
+                                                Login: admin\n
+                                                Password: {password}\n
+                                                URL: https://{reviewapp_name}.herokuapp.com'''
+                message_title = f'PR {pr_number}{pr_title}\n'
+                github_url = f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
+                github_button_text = 'View PR on Github'
+
             else:
                 color = '#7CD197'
+                fallback_text = f'''New review app deployed: It will be ready in a minute!\n
+                                                Branch: {branch_name}\n
+                                                Login: admin\n
+                                                Password: {password}\n
+                                                URL: https://{reviewapp_name}.herokuapp.com'''
+                message_title = f'Branch: {branch_name}\n'
+                github_url = f'https://github.com/mozilla/foundation.mozilla.org/tree/{branch_name}'
+                github_button_text = 'View branch on Github'
 
             slack_payload = {
                 'attachments': [
                     {
-                        'fallback': 'New review app deployed: It will be ready in a minute!\n'
-                                    f'PR {pr_number}{pr_title}\n'
-                                    f'Login: admin\n'
-                                    f'Password: {password}\n'
-                                    f'URL: https://{reviewapp_name}.herokuapp.com',
+                        'fallback': f'{fallback_text}',
                         'pretext':  'New review app deployed. It will be ready in a minute!',
-                        'title':    f'PR {pr_number}{pr_title}\n',
+                        'title':    f'{message_title}',
                         'text':     'Login: admin\n'
                                     f'Password: {password}\n',
                         'color':    f'{color}',
@@ -72,8 +90,8 @@ class Command(BaseCommand):
                             },
                             {
                                 'type': 'button',
-                                'text': 'View PR on Github',
-                                'url': f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
+                                'text': f'{github_button_text}',
+                                'url': f'{github_url}'
                             }
                         ]
                     }

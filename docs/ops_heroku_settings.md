@@ -18,10 +18,7 @@ Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLEWARE_ENABLED` to `Tr
 
 ## Special purposes Environment Variables
 
-- `GITHUB_TOKEN`: GITHUB API authentication,
-- `SLACK_WEBHOOK_RA`: Webhook to `mofo-review-apps`
 - `CORAL_TALK_SERVER_URL`: If Coral Talk commenting is to be enabled, set the server URL here. Don't forget to add the domain to your CSP directives for script-src and child-src
-
 
 ## Cloudinary for Review Apps and Staging (BuyersGuide only)
 
