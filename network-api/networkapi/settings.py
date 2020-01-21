@@ -49,6 +49,8 @@ env = environ.Env(
     FILEBROWSER_DIRECTORY=(str, ''),
     RANDOM_SEED=(int, None),
     HEROKU_APP_NAME=(str, ''),
+    HEROKU_PR_NUMBER=(str, ''),
+    HEROKU_BRANCH=(str, ''),
     NETWORK_SITE_URL=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
     PULSE_API_DOMAIN=(str, ''),
@@ -134,6 +136,8 @@ ALLOWED_REDIRECT_HOSTS = ALLOWED_HOSTS
 USE_X_FORWARDED_HOST = env('USE_X_FORWARDED_HOST')
 
 HEROKU_APP_NAME = env('HEROKU_APP_NAME')
+HEROKU_PR_NUMBER = env('HEROKU_PR_NUMBER')
+HEROKU_BRANCH = env('HEROKU_BRANCH')
 
 if HEROKU_APP_NAME:
     herokuAppHost = env('HEROKU_APP_NAME') + '.herokuapp.com'
