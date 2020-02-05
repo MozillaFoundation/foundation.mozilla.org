@@ -3,6 +3,7 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
@@ -37,12 +38,22 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    signup = models.ForeignKey(
+        Signup,
+        related_name='mozfestpage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose an existing, or create a new, sign-up form'
+    )
+
     body = StreamField(base_fields)
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         ImageChooserPanel('banner'),
         FieldPanel('intro'),
+        SnippetChooserPanel('signup'),
         StreamFieldPanel('body'),
     ]
 
