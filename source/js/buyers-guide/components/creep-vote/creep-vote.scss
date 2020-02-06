@@ -14,6 +14,7 @@ $btn-shadow-width: 3px;
   }
 }
 
+// #creep-vote targets the <form>
 #creep-vote {
   &:invalid {
     button[type="submit"] {
@@ -40,6 +41,24 @@ $btn-shadow-width: 3px;
 }
 
 .creep-vote {
+  .btn.btn-close-sign-up {
+    color: inherit;
+    text-transform: none;
+    font-weight: 700;
+    font-size: 12px;
+    border: none;
+    padding: 0;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: center right/10px 10px url("/_images/buyers-guide/icon-x.svg")
+      no-repeat transparent;
+    padding-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .btn-group {
     display: flex;
     justify-content: center;
