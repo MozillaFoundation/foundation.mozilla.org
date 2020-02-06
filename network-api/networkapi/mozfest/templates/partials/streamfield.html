@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+<div class="pb-5 {% block bootstrap_width %}col-lg-{% if twocolumn %}6{% else %}8{% endif %} offset-lg-2{% endblock %}">
+  {% for block in page.body %}
+    {% if block.block_type == 'heading' %}
+      <h1>{{ block.value }}</h1>
+    {% else %}
+      {% include_block block %}
+    {% endif %}
+  {% endfor %}
+</div>
