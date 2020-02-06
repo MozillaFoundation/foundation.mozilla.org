@@ -83,6 +83,10 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         context = set_main_site_nav_information(self, context, 'MozfestHomepage')
         context = get_page_tree_information(self, context)
 
+        # primary nav information
+        context['menu_root'] = self
+        context['menu_items'] = self.get_children().live().in_menu()
+
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
         mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
@@ -154,9 +158,3 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
-
-    def get_context(self, request):
-        context = super().get_context(request, bypass_menu_buildstep=True)
-        context['menu_root'] = self
-        context['menu_items'] = self.get_children().live().in_menu()
-        return context
