@@ -1,9 +1,9 @@
 {% extends "./bg_base.html" %}
 
-{% load yes_no env cloudinary %}
+{% load yes_no env cloudinary l10n i18n %}
 
 {% block head_extra %}
-  <meta property="og:title" content="privacy not included - {{ product.name }}" />
+  <meta property="og:title" content="{% blocktrans context 'This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}privacy not included - {{ product.name }}{% endblocktrans %}" />
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
 
@@ -38,11 +38,11 @@
       <div class="row intro d-flex justify-content-between align-items-center">
         <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
-          <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="link copied!">copy & share link</a>
+          <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="{% trans 'link copied!' %}">{% trans "copy & share link" %}</a>
         </div>
         <h2 class="h1-heading col-md-10">{{product.name}}</h2>
         <div class="col-12">
-          <p class="body-small">Review Date {{product.review_date|date:"m/d/y"}}</p>
+          <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" %}Review Date {{ date }}{% endblocktrans %}</p>
         </div>
         <div class="body-large mb-2 mb-md-4 col-12">{{product.blurb}}</div>
       </div>
@@ -52,30 +52,37 @@
           <div class="d-block primary-info">
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
-                <h3 class="h3-heading">Minimum Security Standards</h3>
+                <h3 class="h3-heading">{% trans "Minimum Security Standards" %}</h3>
               </div>
             </div>
             <div class="primary-info-description mb-3">
               <p class="body">
-                Five basic steps every company should take to protect consumer privacy.
-                <a href="/privacynotincluded/about/meets-minimum-security-standards">Learn more.</a>
+                {% trans "Five basic steps every company should take to protect consumer privacy." %}
+                <a href="/privacynotincluded/about/meets-minimum-security-standards">{% trans "Learn more." %}</a>
               </p>
             </div>
           </div>
 
           <div class="details mt-2">
             <div class="criterion rating">
-              {% include "fragments/product_criterion_primary_info.html"  with  label="Overall Security Rating" %}
+              {% trans "Overall Security Rating" as overall_security_rating %}
+              {% include "fragments/product_criterion_primary_info.html"  with label=overall_security_rating %}
               <div>
-                <span class="security-score mb-0">{{security_score}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
-                <img src="/_images/buyers-guide/score/icon-star.svg" width="20" height="20" alt="star">
+                <span class="security-score mb-0">{% localize on %}{{security_score}}{% endlocalize %}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
+                <img src="/_images/buyers-guide/score/icon-star.svg" width="20" height="20" alt="{% trans 'star' context 'Used as a noun. Accessibility label for star image' %}">
               </div>
             </div>
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
+            {% trans "Encryption"              as encryption %}
+            {% trans "Security updates"        as security_updates %}
+            {% trans "Strong password"         as strong_password %}
+            {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
+            {% trans "Privacy policy"          as privacy_policy %}
+
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label=encryption                %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label=security_updates          %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label=strong_password           %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities   %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label=privacy_policy            %}
           </div>
         </div>
       </div>
@@ -91,34 +98,45 @@
           </div>
         </div>
 
-        <h3 class="h3-heading">Can it snoop on me?</h3>
+        <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
 
         <div class="row criterion mb-5 no-gutters pb-3 d-flex flex-column flex-xl-row justify-content-between">
-          {% include "fragments/it_uses.html" with title="Camera"            device=product.camera_device     app=product.camera_app      %}
-          {% include "fragments/it_uses.html" with title="Microphone"        device=product.microphone_device app=product.microphone_app  %}
-          {% include "fragments/it_uses.html" with title="Tracks Location"   device=product.location_device   app=product.location_app    %}
+          {% trans "Camera"          as camera %}
+          {% trans "Microphone"      as microphone %}
+          {% trans "Tracks Location" as tracks_location %}
+
+          {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
+          {% include "fragments/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app  %}
+          {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
         </div>
 
-        <h3 class="h3-heading">How does it handle privacy?</h3>
+        <h3 class="h3-heading">{% trans "How does it handle privacy?" %}</h3>
 
         <div>
-          {% include "fragments/product_criterion.html"  with  label="How does it share data?"      value=""                                           help=product.how_does_it_share                      %}
-          {% include "fragments/product_criterion.html"  with  label="Can you delete your data?"    value=product.delete_data                          help=product.delete_data_helptext                   %}
-          {% include "fragments/product_criterion.html"  with  label="Parental controls?"           value=product.parental_controls    hide_value="NA" help=product.child_rules_helptext                   %}
-          {% include "fragments/product_criterion.html"  with  label="Collects biometrics data?"    value=product.collects_biometrics  hide_value="NA" help=product.collects_biometrics_helptext           %}
-          {% include "fragments/product_criterion.html"  with  label="User friendly privacy info?"  value=product.user_friendly_privacy_policy         help=product.user_friendly_privacy_policy_helptext  %}
-          {% include "fragments/product_privacy.html"    with  label="Links to privacy information" value=""                                           links=product.privacy_policy_links                  %}
+          {% trans "How does it share data?"      as how_does_it_share %}
+          {% trans "Can you delete your data?"    as delete_data %}
+          {% trans "Parental controls?"           as parental_controls %}
+          {% trans "Collects biometrics data?"    as collects_biometrics %}
+          {% trans "User friendly privacy info?"  as user_friendly_privacy_policy %}
+          {% trans "Links to privacy information" as privacy_policy_links %}
+
+          {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
+          {% include "fragments/product_criterion.html"  with  label=delete_data                  value=product.delete_data                          help=product.delete_data_helptext                   %}
+          {% include "fragments/product_criterion.html"  with  label=parental_controls            value=product.parental_controls    hide_value="NA" help=product.child_rules_helptext                   %}
+          {% include "fragments/product_criterion.html"  with  label=collects_biometrics          value=product.collects_biometrics  hide_value="NA" help=product.collects_biometrics_helptext           %}
+          {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy value=product.user_friendly_privacy_policy         help=product.user_friendly_privacy_policy_helptext  %}
+          {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
         </div>
 
         <div class="worst-case-box px-4 px-md-5 pt-5 pb-2 pb-md-4 mb-5 text-center">
           <div class="creep-face-emoji-wrapper d-inline-block">
             <span class="creep-face-emoji">😮</span>
           </div>
-          <h3 class="h3-heading">What could happen if something went wrong</h3>
+          <h3 class="h3-heading">{% trans "What could happen if something went wrong" %}</h3>
           <p>{{product.worst_case}}</p>
         </div>
 
-        <h3 class="body mb-2">How to contact the company</h3>
+        <h3 class="body mb-2">{% trans "How to contact the company" %}</h3>
 
         <div>
           {% include "fragments/product_contact.html" with product=product %}
@@ -134,7 +152,7 @@
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
           {% if product.updates|length > 0 or coralTalkServerUrl %}
-          <h3 class="h2-heading mb-4 mb-md-5">Updates</h3>
+          <h3 class="h2-heading mb-4 mb-md-5">{% trans "Updates" %}</h3>
           {% endif %}
           {% if product.updates|length > 0 %}
           <div class="mb-5">
@@ -152,7 +170,7 @@
           <div id="coral-talk-stream"></div>
           {% endif %}
 
-          <h3 class="h2-heading mb-4">Compare products</h3>
+          <h3 class="h2-heading mb-4">{% trans "Compare products" %}</h3>
           <div class="row">
             {% for product in product.related_products %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">

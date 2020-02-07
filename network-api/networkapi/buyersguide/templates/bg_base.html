@@ -1,9 +1,10 @@
 {% extends "pages/base.html" %}
 
-{% load bg_nav_tags %}
+{% load bg_nav_tags localization i18n %}
 
+{% get_current_language as lang_code %}
 
-{% block page_title %}{% if pageTitle %}{{ pageTitle }}{% else %}Mozilla - *privacy not included{% endif %}{% endblock %}
+{% block page_title %}{% if pageTitle %}{{ pageTitle }}{% else %}Mozilla - {% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included{% endblocktrans %}{% endif %}{% endblock %}
 
 
 {# TODO: consider using a different ga_identifier? #}
@@ -11,13 +12,14 @@
 
 {% block social_metadata %}
   <meta property='og:type' content='website'>
-  <meta property='og:locale' content='en-US'>
-  <meta property="og:title" content="*Privacy Not Included: A Buyer’s Guide for Connected Products">
+  <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
+  <meta property="og:title" content='{% trans "*Privacy Not Included: A Buyer’s Guide for Connected Products" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}'>
+  <meta property='wagtail:language' content='{{ lang_code }}'>
 {% endblock %}
 
 
 {% block wagtail_metadata %}
-  <meta property="og:description" content="Smart home gadgets, fitness trackers, toys and more, rated for their privacy & security">
+  <meta property="og:description" content='{% trans "Smart home gadgets, fitness trackers, toys and more, rated for their privacy & security" %}'>
   <meta property="og:image" content="{{request.scheme}}://{{request.get_host}}/_images/buyers-guide/evergreen-social.jpg">
   <meta property="og:image:type" content="image/jpg">
   <meta property="og:image:width" content="1200">
@@ -78,10 +80,10 @@
         <div class="row">
           <div class="col">
             {% url 'buyersguide-home' as home_url %}
-            <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">Home</a>
+            <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">{% trans "Home" %}</a>
             {% category_nav request.get_full_path category categories %}
             {% url 'why-view' as why_url %}
-            <a class="{% bg_active_nav request.get_full_path why_url %}" href="{{ why_url }}">About the Guide</a>
+            <a class="{% bg_active_nav request.get_full_path why_url %}" href="{{ why_url }}">{% trans "About the Guide" %}</a>
           </div>
         </div>
       </div>

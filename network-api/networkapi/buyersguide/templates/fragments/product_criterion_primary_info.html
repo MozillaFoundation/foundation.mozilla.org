@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <div class="primary-info">
   <div class="d-flex align-items-center">
     <span><strong>{{ label }}</strong></span>
@@ -9,10 +11,14 @@
       {% if show_value_as_symbol %}
       <img src="/_images/buyers-guide/score/icon-unknown.svg" alt="{{value}}">
       {% else %}
-      Unknown
+      {% trans "Unknown" context "Unknown rating" %}
       {% endif %}
     {% elif value == "NA" %}
-      N/A
+      {% trans "N/A" %}
+    {% elif value == "Yes" %}
+      {% trans "Yes" %}
+    {% elif value == "No" %}
+      {% trans "No" %}
     {% else %}
       {% if show_value_as_symbol %}
       <img src="/_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">

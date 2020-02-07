@@ -1,6 +1,6 @@
 {% extends "./bg_base.html" %}
 
-{% load env cloudinary %}
+{% load env cloudinary i18n %}
 
 {% block body_id %}home{% endblock %}
 
@@ -14,20 +14,26 @@
 <div class="container">
     <div class="row mx-xl-0">
       <div class="product-listing bg-white col-12 col-md-10 offset-md-1 col-xl-12 offset-xl-0">
-        <h1 class="h1-heading text-center mt-4">Be Smart. Shop Safe.</h1>
+        <h1 class="h1-heading text-center mt-4">{% trans "Be Smart. Shop Safe." %}</h1>
 
         <div class="row justify-content-center">
           <p class="col col-lg-9 col-xl-10 body-large text-center">
+            {% trans "minimum decurity standards badge" as badge_alt %}
+            {% url 'min-security-view' as min_sec_url %}
+            {% blocktrans with url=min_sec_url image='<img src="/_images/buyers-guide/badge-star-mini.svg" width="24" height="20" alt="'|add:badge_alt|add:'">' trimmed %}
             How creepy is that smart speaker, that fitness tracker, those wireless headphones?
             We created this guide to help you shop for safe, secure connected products.
-            Look for this symbol <img src="/_images/buyers-guide/badge-star-mini.svg" width="24" height="20" alt="minimum decurity standards badge">
-            for products that meet our <a href="{% url 'min-security-view' %}">Minimum Security Standards</a>.
+            Look for this symbol {{image}} for products that
+            meet our <a href="{{url}}">Minimum Security Standards</a>.
+            {% endblocktrans %}
           </p>
         </div>
 
         <div class="row justify-content-center">
           <p class="col col-lg-9 col-xl-10 text-center user-rated">
-            The <span class="creep-face-emoji">😮</span> below shows how creepy users find these products.
+            {% blocktrans with emoji='<span class="creep-face-emoji">😮</span>' trimmed %}
+              The {{emoji}} below shows how creepy users find these products.
+            {% endblocktrans %}
           </p>
         </div>
       </div>
@@ -69,10 +75,10 @@
             <img
             class="product-thumbnail"
             src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-            alt="link to {{product.name}}"
+            alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
             >
             {% else %}
-            <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="link to {{product.name}}">
+            <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}">
             {% endif %}
             <figcaption class="hidden-sm-down mt-md-2 text-left">
             <div class="body-small">{{product.company}}</div>
@@ -87,9 +93,9 @@
 </div>
 <div class="recommend-product">
  <div class="container text-center my-5">
-  <h3 class="h3-heading">Don't see the product you're looking for?</h3>
-  <p class="body">Let us know what product you would like reviewed in the guide.</p>
-  <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">Submit a product</a>
+  <h3 class="h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h3>
+  <p class="body">{% trans "Let us know what product you would like reviewed in the guide." %}</p>
+  <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">{% trans "Submit a product" %}</a>
  </div>
 </div>
 {% endblock %}
