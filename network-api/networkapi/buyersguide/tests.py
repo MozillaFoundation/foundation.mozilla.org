@@ -5,12 +5,13 @@ from django.http import Http404
 from django.urls import reverse
 from django.utils.text import slugify
 from rest_framework.test import APITestCase
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from datetime import date
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import RangeVote, BooleanVote, Product, BuyersGuideProductCategory
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
+from networkapi.buyersguide.utils import redirect_to_main_cms_site_decorator
 from django.core.management import call_command
 
 VOTE_URL = reverse('product-vote')
@@ -357,6 +358,18 @@ class BuyersGuideViewTest(TestCase):
         self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /pl/ to /en/')
         self.assertEqual(response.status_code, 200)
 
+    @override_settings(SECONDARY_WAGTAIL_SITES=['www.mozillafestival.org'])
+    def test_PNI_homepage_redirect_to_foundation_site(self):
+        """
+        Test that users gets redirected to PNI on the foundation site when they visit it from a non-default CMS site
+        """
+        response = self.client.get('/en/privacynotincluded/', HTTP_HOST='www.mozillafestival.org')
+        self.assertRedirects(
+            response,
+            "https://foundation.mozilla.org/en/privacynotincluded/",
+            fetch_redirect_response=False
+        )
+
     def test_product_view_404(self):
         """
         Test that the product view raises an Http404 if the product name doesn't exist
@@ -447,3 +460,25 @@ class AboutViewTest(TestCase):
             f'/en/privacynotincluded/about/',
             'redirects to /en/privacynotincluded/about/'
         )
+
+
+class UtilsTests(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    @override_settings(SECONDARY_WAGTAIL_SITES=['www.mozillafestival.org'])
+    def test_redirect_decorator(self):
+        """
+        Test that the decorator redirects.
+        """
+        decorated_view = redirect_to_main_cms_site_decorator(lambda request: None)
+        response = decorated_view(self.factory.get('/example/', HTTP_HOST='www.mozillafestival.org'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_redirect_decorator_doesnt_redirect(self):
+        """
+        Test that the redirect is triggered only when needed.
+        """
+        decorated_view = redirect_to_main_cms_site_decorator(lambda request: "untouched response")
+        response = decorated_view(self.factory.get('/example/'))
+        self.assertEqual(response, "untouched response")
