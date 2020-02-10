@@ -31,7 +31,7 @@
 
 {% block content %}
   {% block secondary_nav %}{% endblock %}
-  <div class="container cms">
+  <div class="container">
     <div class="row my-1">
       {% if page.signup != None %}
         {# Use a two-colum layout #}
@@ -41,7 +41,6 @@
         {# Single column layout #}
         {% include "partials/streamfield.html" %}
       {% endif %}
-    </div>
   </div>
 {% endblock %}
 
