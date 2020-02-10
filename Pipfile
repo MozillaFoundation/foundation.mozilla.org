@@ -37,7 +37,7 @@ sentry-sdk = "*"
 
 [dev-packages]
 "flake8" = "*"
-python-coveralls = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.7"
