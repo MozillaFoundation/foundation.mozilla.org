@@ -1,23 +1,9 @@
 {% load wagtailcore_tags %}
 
-<!--
-<div class="cms pb-5
-  {% if twocolumn %}
-    col-lg-7
+{% for block in page.body %}
+  {% if block.block_type == 'heading' %}
+    <h1>{{ block.value }}</h1>
   {% else %}
-    {% block bootstrap_width %}
-      col-lg-8 offset-lg-2
-    {% endblock %}
+    {% include_block block %}
   {% endif %}
-">
--->
-  {% for block in page.body %}
-    {% if block.block_type == 'heading' %}
-      <h1>{{ block.value }}</h1>
-    {% else %}
-      {% include_block block %}
-    {% endif %}
-  {% endfor %}
-<!--
-</div>
--->
+{% endfor %}

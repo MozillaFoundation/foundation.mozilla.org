@@ -34,16 +34,20 @@
   <div class="container">
     <div class="row my-1">
       {% if page.signup != None %}
+
         {# Use a two-colum layout #}
         <div class="cms pb-5 col-lg-7">
           {% include "partials/streamfield.html" with twocolumn=True %}
         </div>
         {% block cta %}{% include "partials/signup.html" %}{% endblock %}
+
       {% else %}
+
         {# Single column layout #}
         <div class="cms {% block bootstrap_width %}col-lg-8 offset-lg-2{% endblock %}">
           {% include "partials/streamfield.html" %}
         </div>
+
       {% endif %}
     </div>
   </div>
