@@ -265,7 +265,7 @@ export default class JoinUs extends React.Component {
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </h5>
         {!this.state.apiSuccess ? (
-          <p
+          <div
             dangerouslySetInnerHTML={{
               __html: this.props.ctaDescription
             }}
@@ -536,7 +536,7 @@ export default class JoinUs extends React.Component {
 
 JoinUs.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
-  ctaDescription: `Join our email list to take action and stay updated!`,
+  ctaDescription: `<p>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>`,
   thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
   newsletter: `mozilla-foundation`,
   askName: false
