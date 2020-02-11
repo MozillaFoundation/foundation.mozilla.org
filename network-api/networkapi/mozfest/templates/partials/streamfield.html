@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-<div class="cms pb-5 col-lg-8 {% if twocolumn %}offset-lg-0{% else %}offset-lg-2{% endif %}">
+<div class="cms pb-5 col-lg-{% if twocolumn %}7{% else %}8 offset-lg-2{% endif %}">
   {% for block in page.body %}
     {% if block.block_type == 'heading' %}
       <h1>{{ block.value }}</h1>
