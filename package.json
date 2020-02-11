@@ -69,7 +69,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
-    "node": "^8.9.0"
+    "node": "12.x"
   },
   "devDependencies": {
     "browserslist": "^4.8.3",
