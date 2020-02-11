@@ -7,7 +7,7 @@ from unittest.mock import MagicMock
 
 from wagtail_factories import SiteFactory
 
-from networkapi.utility.redirects import redirect_to_default_cms_site_decorator
+from networkapi.utility.redirects import redirect_to_default_cms_site
 from networkapi.utility.middleware import ReferrerMiddleware
 
 
@@ -111,7 +111,7 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
         """
         Test that the decorator redirects.
         """
-        decorated_view = redirect_to_default_cms_site_decorator(lambda request: None)
+        decorated_view = redirect_to_default_cms_site(lambda request: None)
         response = decorated_view(self.factory.get('/example/', HTTP_HOST='secondary-site.com'))
         self.assertEqual(response.status_code, 302)
 
@@ -119,7 +119,7 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
         """
         Test that the redirect is triggered only when needed.
         """
-        decorated_view = redirect_to_default_cms_site_decorator(lambda request: "untouched response")
+        decorated_view = redirect_to_default_cms_site(lambda request: "untouched response")
         response = decorated_view(self.factory.get('/example/'))
         self.assertEqual(response, "untouched response")
 
