@@ -19,13 +19,11 @@ import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
-console.log(process.env.NODE_ENV);
-
  // Initializing component a11y browser console logging
-//  if (__LOCAL_DEV__) {
-//   ReactAxe = require('react-axe');
-//   axe(React, ReactDOM, 1000);
-// }
+ if (process.env.NODE_ENV === 'development') {
+  axe = require('react-axe');
+  axe(React, ReactDOM, 1000);
+}
 
 const SHOW_MEMBER_NOTICE = false;
 
@@ -51,8 +49,8 @@ let main = {
       networkSiteURL = env.NETWORK_SITE_URL;
 
       csrfToken = document.querySelector(`meta[name="csrf-token"]`);
-      csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;      
-      
+      csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
+
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;

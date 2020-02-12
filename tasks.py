@@ -173,6 +173,7 @@ def catch_up(ctx):
 
 # Tasks with Docker
 
+
 def docker_l10n_block_inventory(ctx):
     print("* Updating localizable fields")
     docker_l10n_sync(ctx)
