@@ -1,11 +1,25 @@
-const A11Y_SETTINGS = {
-  reporter: `v2`
-};
+const A11Y_CONFIG = {
+  branding: {
+    brand: "Mozilla",
+    application: "FoMo"
+  },
+  reporter: "v2",
+  checks: [
+    {
+      id: testCheck
+    }
+  ],
+  rules: [
+    {
+      id: testRules
+    }
+  ]
+}
 
 describe(`A11y Tests`, () => {
   beforeEach(() => {
     cy.injectAxe();
-    cy.configureAxe(A11Y_SETTINGS);
+    cy.configureAxe(A11Y_CONFIG);
   });
 
   before(() => {
@@ -16,5 +30,16 @@ describe(`A11y Tests`, () => {
     cy.wait(500);
   });
 
-  it(`Homepage`, () => cy.checkA11y(A11Y_SETTINGS));
+  it(`Homepage`, () => {
+    cy.checkA11y(
+      document,
+      {
+        runOnly: ['wcag2aa', 'section508', 'best-practice']
+      },
+      (err, results) => {
+        if (err) throw err;
+        console.log(`Results: ${results}`);
+      }
+    )
+  });
 });

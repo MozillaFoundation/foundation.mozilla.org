@@ -49,6 +49,7 @@
     "autoprefixer": "^9.7.4",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
+    "better-cypress-axe": "^1.0.8",
     "classnames": "2.2.6",
     "event-stream": "3.3.4",
     "html-entities": "^1.2.1",
