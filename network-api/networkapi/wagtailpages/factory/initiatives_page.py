@@ -1,12 +1,6 @@
 from networkapi.wagtailpages.models import InitiativesPage
-
-from wagtail_factories import PageFactory, ImageFactory
-
+from wagtail_factories import PageFactory
 from wagtail.core.models import Page as WagtailPage
-from factory import (
-    Faker,
-    SubFactory
-)
 
 from networkapi.utility.faker.helpers import (
     reseed,
