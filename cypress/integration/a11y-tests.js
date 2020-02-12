@@ -6,20 +6,10 @@ const A11Y_CONFIG = {
     brand: "Mozilla",
     application: "FoMo"
   },
-  reporter: "v2",
-  checks: [
-    {
-      id: testCheck
-    }
-  ],
-  rules: [
-    {
-      id: testRules
-    }
-  ]
+  reporter: "v2"
 }
 
-describe(`A11y Tests`, () => {
+describe(`A11y Tests`, () => {  
   beforeEach(() => {
     cy.injectAxe();
     cy.configureAxe(A11Y_CONFIG);
@@ -33,18 +23,31 @@ describe(`A11y Tests`, () => {
     cy.wait(500);
   });
 
-  it(`Homepage`, () => {
-    cy.checkA11y(
-      document,
-      {
-        runOnly: ['wcag2aa', 'section508', 'best-practice'],
-        logger: customViolationLogger,
-        asserter: customViolationHandler
-      },
-      (err, results) => {
-        if (err) throw err;
-        console.log(`Results: ${results}`);
-      }
-    )
-  });
+  // Need to test prod for Initiatives + Internet Health pages
+
+  it(`Homepage Accessibility Report`, () => {
+    cy.checkA11y()
+  })
+
+  it("About Page Accessibility Report", () => {
+    cy.get(".wide-screen-menu > .nav-links > a:nth-child(1)")
+      .click()
+      .injectAxe()
+      .configureAxe(A11Y_CONFIG)
+      .checkA11y()
+  })
+
+  it("Participate Page Accessibility Report", () => {
+    cy.get(".wide-screen-menu > .nav-links > a:nth-child(4)")
+      .click()
+      .injectAxe()
+      .configureAxe(A11Y_CONFIG)
+      .checkA11y()
+  })
+
+  /* TODO
+      - Blog
+      - Blog Page
+      - Header Newsletter
+  */
 });
