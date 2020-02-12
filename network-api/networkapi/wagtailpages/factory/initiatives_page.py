@@ -19,14 +19,6 @@ class InitiativesPageFactory(PageFactory):
 
     title = 'initiatives'
 
-    sectionImage = SubFactory(ImageFactory)
-    sectionHeader = Faker('text', max_nb_chars=20)
-    sectionCopy = Faker('text', max_nb_chars=300)
-    sectionButtonTitle = Faker('text', max_nb_chars=8)
-    sectionButtonURL = Faker('url')
-    sectionButtonTitle2 = Faker('text', max_nb_chars=10)
-    sectionButtonURL2 = Faker('url')
-
 
 def generate(seed):
     home_page = get_homepage()
