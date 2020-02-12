@@ -230,7 +230,7 @@ export default class JoinUs extends React.Component {
 
     let layoutClasses = classNames(`col-12`, {
       "col-md-6": this.props.layout === `2-column` && !this.state.apiSuccess,
-      "col-md-12": this.props.layout === `2-column` && this.state.apiSuccess,
+      "col-sm-12 col-md-8": this.props.layout === `2-column` && this.state.apiSuccess,
       "col-md-11 m-auto": this.isFlowForm()
     });
 
@@ -273,10 +273,6 @@ export default class JoinUs extends React.Component {
           />
         ) : (
           <React.Fragment>
-            <p>
-              One more thing. To protect you from unwanted emails, we ask you to
-              confirm your opt-in to our email subscriptions.
-            </p>
             <p>
               If you haven’t previously confirmed your opt-in to a
               Mozilla-related email subscription you may have to do so now.{" "}
