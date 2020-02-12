@@ -230,7 +230,8 @@ export default class JoinUs extends React.Component {
 
     let layoutClasses = classNames(`col-12`, {
       "col-md-6": this.props.layout === `2-column` && !this.state.apiSuccess,
-      "col-sm-12 col-md-8": this.props.layout === `2-column` && this.state.apiSuccess,
+      "col-sm-12 col-md-8":
+        this.props.layout === `2-column` && this.state.apiSuccess,
       "col-md-11 m-auto": this.isFlowForm()
     });
 
