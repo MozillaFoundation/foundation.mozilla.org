@@ -271,11 +271,32 @@ export default class JoinUs extends React.Component {
             }}
           />
         ) : (
-          <p
-            dangerouslySetInnerHTML={{
-              __html: this.props.thankYouMessage
-            }}
-          />
+          <React.Fragment>
+            <p>
+              One more thing. To protect you from unwanted emails, we ask you to
+              confirm your opt-in to our email subscriptions.
+            </p>
+            <p>
+              If you haven’t previously confirmed your opt-in to a
+              Mozilla-related email subscription you may have to do so now.{" "}
+              <strong>
+                Please check your inbox or spam filter for an email from us to
+                click and confirm your subscription
+              </strong>
+              .
+            </p>
+            <p>
+              If you have already confirmed your opt-in to receive
+              Mozilla-related emails, you can now{" "}
+              <a
+                href="https://www.mozilla.org/newsletter/recovery/"
+                target="_blank"
+              >
+                manage your subscriptions
+              </a>{" "}
+              and update your email preferences.
+            </p>
+          </React.Fragment>
         )}
       </React.Fragment>
     );
@@ -537,7 +558,6 @@ export default class JoinUs extends React.Component {
 JoinUs.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
   ctaDescription: `<p>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>`,
-  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
   newsletter: `mozilla-foundation`,
   askName: false
 };
