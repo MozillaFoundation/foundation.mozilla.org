@@ -1,33 +1,8 @@
 #!/usr/bin/env bash
 
-GETTEXT_SHA256="2f991a49b3fb616a032490c907cb700966c5fd998d2aa12b86d547a93746ed66"
-GETTEXT_TARBALL="https://assets.mofoprod.net/gettext/gettext-0.20.1.tar.xz"
+set -euo pipefail
 
-echo "-----> Downloading and installing gettext tools"
-
-cd $BUILD_DIR
-
-# Ensure the file was not cached
-rm -f gettext.tar.xz
-
-# Fetch our precompiled gettext package
-curl -s -L -o gettext.tar.xz $GETTEXT_TARBALL
-
-# Verify the contents of the package
-if [ "$GETTEXT_SHA256" != "$(sha256sum gettext.tar.xz | cut -d ' ' -f 1)" ]; then
-    echo "Checksum doesn't match. gettext tools will not be installed."
-    exit 1
-fi
-
-# Extract the gettext tools
-tar -xf gettext.tar.xz > /dev/null
-
-# clean up
-rm gettext.tar.xz
-
-# Update PATH and LD_LIBRARY_PATH so that gettext binaries are available and can run.
-PATH=$BUILD_DIR/gettext/bin:$PATH
-LD_LIBRARY_PATH=$BUILD_DIR/gettext/lib:$LD_LIBRARY_PATH
+cd ${BUILD_DIR}
 
 # Get the po files from S3
 curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar
@@ -35,14 +10,14 @@ curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/t
 # Untar the archive
 tar xvf translations.tar
 
-
-
 # Copy the latest Portuguese (Brazil) file translated from Pontoon into the folder consumed by Django
-ptSource=$BUILD_DIR/network-api/locale/pt_BR/LC_MESSAGES/django.po
-[[ -e $ptSource ]] && cp $ptSource $BUILD_DIR/network-api/locale/pt/LC_MESSAGES/django.po
+ptSourceDjango=${BUILD_DIR}/network-api/locale/pt_BR/LC_MESSAGES/django.*
+[[ -e ${ptSourceDjango} ]] && cp ${ptSourceDjango} ${BUILD_DIR}/network-api/locale/pt/LC_MESSAGES/django.*
 
-# Change to the locale directory so that we only process our .po files
-cd ./network-api/locale/
+# Same for Buyers Guide
+ptSourceBuyersguide=${BUILD_DIR}/network-api/networkapi/buyersguide/locale/pt_BR/LC_MESSAGES/django.*
+[[ -e ${ptSourceDjango} ]] && cp ${ptSourceDjango} ${BUILD_DIR}/network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/django.*
 
-# Compile localized strings
-python $BUILD_DIR/network-api/manage.py compilemessages
+# Same for Mozfest
+ptSourceMozfest=${BUILD_DIR}/network-api/networkapi/mozfest/locale/pt_BR/LC_MESSAGES/django.*
+[[ -e ${ptSourceDjango} ]] && cp ${ptSourceDjango} ${BUILD_DIR}/network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/django.*
