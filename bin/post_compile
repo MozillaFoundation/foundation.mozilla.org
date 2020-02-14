@@ -29,6 +29,14 @@ rm gettext.tar.xz
 PATH=$BUILD_DIR/gettext/bin:$PATH
 LD_LIBRARY_PATH=$BUILD_DIR/gettext/lib:$LD_LIBRARY_PATH
 
+# Get the po files from S3
+curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar
+
+# Untar the archive
+tar xvf translations.tar
+
+
+
 # Copy the latest Portuguese (Brazil) file translated from Pontoon into the folder consumed by Django
 ptSource=$BUILD_DIR/network-api/locale/pt_BR/LC_MESSAGES/django.po
 [[ -e $ptSource ]] && cp $ptSource $BUILD_DIR/network-api/locale/pt/LC_MESSAGES/django.po
