@@ -107,9 +107,18 @@ def compilemessages(ctx):
     os.makedirs(os.path.dirname("network-api/locale/pt/LC_MESSAGES/"), exist_ok=True)
     os.makedirs(os.path.dirname("network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/"), exist_ok=True)
     os.makedirs(os.path.dirname("network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/"), exist_ok=True)
-    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
-    copy("network-api/networkapi/buyersguide/locale/pt_BR/LC_MESSAGES/django.po", "network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/django.po")
-    copy("network-api/networkapi/mozfest/locale/pt_BR/LC_MESSAGES/django.po", "network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/django.po")
+    copy(
+        "network-api/locale/pt_BR/LC_MESSAGES/django.po",
+        "network-api/locale/pt/LC_MESSAGES/django.po"
+    )
+    copy(
+        "network-api/networkapi/buyersguide/locale/pt_BR/LC_MESSAGES/django.po",
+        "network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/django.po"
+    )
+    copy(
+        "network-api/networkapi/mozfest/locale/pt_BR/LC_MESSAGES/django.po",
+        "network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/django.po"
+    )
     with ctx.cd(LOCALE_DIR):
         manage(ctx, "compilemessages")
 
@@ -261,9 +270,18 @@ def docker_compilemessages(ctx):
     os.makedirs(os.path.dirname("network-api/locale/pt/LC_MESSAGES/"), exist_ok=True)
     os.makedirs(os.path.dirname("network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/"), exist_ok=True)
     os.makedirs(os.path.dirname("network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/"), exist_ok=True)
-    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
-    copy("network-api/networkapi/buyersguide/locale/pt_BR/LC_MESSAGES/django.po", "network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/django.po")
-    copy("network-api/networkapi/mozfest/locale/pt_BR/LC_MESSAGES/django.po", "network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/django.po")
+    copy(
+        "network-api/locale/pt_BR/LC_MESSAGES/django.po",
+        "network-api/locale/pt/LC_MESSAGES/django.po"
+    )
+    copy(
+        "network-api/networkapi/buyersguide/locale/pt_BR/LC_MESSAGES/django.po",
+        "network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/django.po"
+    )
+    copy(
+        "network-api/networkapi/mozfest/locale/pt_BR/LC_MESSAGES/django.po",
+        "network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/django.po"
+    )
     with ctx.cd(LOCALE_DIR):
         docker_manage(ctx, "compilemessages")
 
