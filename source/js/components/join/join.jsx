@@ -10,7 +10,7 @@ import LanguageSelect from "./language-select.jsx";
 export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.getInitialState();
+    this.state = this.getInitialState(props);
   }
 
   reset() {
@@ -18,16 +18,17 @@ export default class JoinUs extends React.Component {
       this.email.value = "";
       this.privacy.checked = false;
     }
-    this.setState(this.getInitialState());
+    this.setState(this.getInitialState(this.props));
   }
 
-  getInitialState() {
+  getInitialState(props) {
     return {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
       userTriedSubmitting: false,
-      lang: getCurrentLanguage()
+      lang: getCurrentLanguage(),
+      hideLocalizationFields: props.formPosition === `header` || props.formPosition === `footer`
     };
   }
 
@@ -193,26 +194,18 @@ export default class JoinUs extends React.Component {
    * 1.Fire a GA event when users interact with the signup form
    * 2.Reveal localization fields for header and footer signup forms
    */
-  onInputFocus() {
+  onInputFocus(event) {
     ReactGA.event({
       category: `signup`,
       action: `form focus`,
       label: `Signup form input focused`
     });
 
-    let emailFields = document.querySelectorAll(
-      '.fields-wrapper .form-control[type="email"]'
-    );
-
-    emailFields.forEach(emailField => {
-      let currentEmailField = event.target === emailField;
-      if (currentEmailField && this.props.formPosition !== "flow") {
-        let localizationFields = document.querySelector(
-          `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
-        );
-        localizationFields.classList.remove(`d-none`);
-      }
-    });
+    if (this.state.hideLocalizationFields) {
+      this.setState({
+        hideLocalizationFields: false
+      });
+    }
   }
 
   /**
@@ -370,14 +363,8 @@ export default class JoinUs extends React.Component {
   }
 
   renderLocalizationFields() {
-    let header = this.props.formPosition === `header`;
-    let footer = this.props.formPosition === `footer`;
-    let classes = classNames(`form-l10n`, {
-      "d-none": footer || header
-    });
-
     return (
-      <div className={classes}>
+      <div hidden={this.state.hideLocalizationFields}>
         <div className="mb-2">
           <CountrySelect
             label={getText(`Your country`)}
