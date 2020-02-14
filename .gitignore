@@ -55,6 +55,9 @@ coverage.xml
 *.mo
 *.po
 *.pot
+**/locale/**/*.ftl
+!network-api/locale/messages.ftl
+!network-api/networkapi/buyersguide/locale/messages.ftl
 
 # Django stuff:
 *.log
