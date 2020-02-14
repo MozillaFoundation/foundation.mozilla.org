@@ -93,6 +93,22 @@ The `DEBUG` flag does all sorts of magical things, to the point where testing wi
 - Rather than HTTP error pages, Django will generate stack traces pages that expose pretty much all environment variables except any that match certain substrings such as `KEY`, `PASS`, etc. for obvious security reasons.
 - ...there are probably more gotchas just for `DEBUG` so if you find any please add them to this list.
 
+## Translations
+
+Translations of UI strings (from the Django and React apps) are stored in [the fomo-l10n repository](https://github.com/mozilla-l10n/fomo-l10n). Translations are happening in Pontoon, in multiple projects: [Foundation website](https://pontoon.mozilla.org/projects/mozilla-foundation/), [\*Privacy Not Included](https://pontoon.mozilla.org/projects/privacy-not-included/) and [Mozilla Festival](https://pontoon.mozilla.org/projects/mozilla-festival/).
+
+The latest source strings are regularly exposed to Pontoon by a Localization PM using the following process:
+
+### Initial setup:
+- Clone the `fomo-l10n` repository locally.
+- Set the `LOCAL_PATH_TO_L10N_REPO` variable in your `.env` file. Use the absolute path to your copy of the `fomo-l10n` repository and include the trailing slash. E.g. `LOCAL_PATH_TO_L10N_REPO=/Users/username/Documents/GitHub/fomo-l10n/`
+
+### Exposing latest source strings:
+- Make sure your local repositories of `fomo-l10n` and `foundation.mozilla.org` are at the latest revision from master.
+- Run `inv docker-makemessages` from your `foundation.mozilla.org` repository.
+- Files should have been updated in your `fomo-l10n` repository. You can now create a pull-request.
+
+
 ## Contributing
 
 We love contributors, but the team maintaining this project is small and not structured to significantly support new and inexperienced contributors. If there's an unassigned issue that catches your eye, feel free to open a PR for it, but keep in mind our support will be limited. We usually don't have the capacity to walk you through the process of spinning up the project, opening a PR or describing what the solution to the issue could be.
