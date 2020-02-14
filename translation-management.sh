@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # Pretty printing functions
 NORMAL=$(tput sgr0)
