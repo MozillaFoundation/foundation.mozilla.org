@@ -104,7 +104,7 @@ The latest source strings are regularly exposed to Pontoon by a Localization PM 
 - Set the `LOCAL_PATH_TO_L10N_REPO` variable in your `.env` file. Use the absolute path to your copy of the `fomo-l10n` repository and include the trailing slash. E.g. `LOCAL_PATH_TO_L10N_REPO=/Users/username/Documents/GitHub/fomo-l10n/`
 
 ### Exposing latest source strings:
-- Make sure your local repositories of `fomo-l10n` and `foundation.mozilla.org` are at the latest revision from master.
+- Make sure your local repositories of `fomo-l10n` and `foundation.mozilla.org` are matching the latest revision from master.
 - Run `inv docker-makemessages` from your `foundation.mozilla.org` repository.
 - Files should have been updated in your `fomo-l10n` repository. You can now create a pull-request.
 
