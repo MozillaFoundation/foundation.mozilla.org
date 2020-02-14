@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -e
+
+set -euo pipefail
 
 # Pretty printing functions
 NORMAL=$(tput sgr0)
