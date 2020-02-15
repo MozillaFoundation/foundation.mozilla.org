@@ -28,7 +28,8 @@ export default class JoinUs extends React.Component {
       apiFailed: false,
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
-      hideLocalizationFields: props.formPosition === `header` || props.formPosition === `footer`
+      hideLocalizationFields:
+        props.formPosition === `header` || props.formPosition === `footer`
     };
   }
 
@@ -127,9 +128,11 @@ export default class JoinUs extends React.Component {
       if (this.surname) {
         payload.surname = this.surname.value;
       }
-      if (this.state.country) {
-        payload.country = this.state.country;
+
+      if (this.country && this.country.element.value) {
+        payload.country = this.country.element.value;
       }
+
       if (this.state.lang) {
         payload.lang = this.state.lang;
       }
@@ -354,10 +357,6 @@ export default class JoinUs extends React.Component {
    * Render localization fields
    */
 
-  setCountry(country) {
-    this.setState({ country });
-  }
-
   setLang(lang) {
     this.setState({ lang });
   }
@@ -367,9 +366,11 @@ export default class JoinUs extends React.Component {
       <div hidden={this.state.hideLocalizationFields}>
         <div className="mb-2">
           <CountrySelect
+            ref={element => {
+              this.country = element;
+            }}
             label={getText(`Your country`)}
             className="w-100"
-            handleCountryChange={e => this.setCountry(e)}
             formPosition={this.props.formPosition}
           />
         </div>
