@@ -38,6 +38,7 @@ case $command in
     echogreen "Importing latest translation files from fomo-l10n repository"
     cp -r "${L10N_REPO}dummydjangoproject/translationstests/locale/" "network-api/locale/"
     cp -r "${L10N_REPO}dummydjangoproject/translationstests/networkapi/buyersguide/locale/" "network-api/networkapi/buyersguide/locale/"
+    cp -r "${L10N_REPO}dummydjangoproject/translationstests/networkapi/buyersguide/templates/about/locale/" "network-api/networkapi/buyersguide/templates/about/locale/"
     cp -r "${L10N_REPO}dummydjangoproject/translationstests/networkapi/mozfest/locale/" "network-api/networkapi/mozfest/locale/"
 esac
 
@@ -46,5 +47,6 @@ case $command in
     echogreen "Exporting generated translation files to fomo-l10n repository"
     cp -r "network-api/locale/" "${L10N_REPO}dummydjangoproject/translationstests/locale/"
     cp -r "network-api/networkapi/buyersguide/locale/" "${L10N_REPO}dummydjangoproject/translationstests/networkapi/buyersguide/locale/"
+    cp -r "network-api/networkapi/buyersguide/templates/about/locale/" "${L10N_REPO}dummydjangoproject/translationstests/networkapi/buyersguide/templates/about/locale/"
     cp -r "network-api/networkapi/mozfest/locale/" "${L10N_REPO}dummydjangoproject/translationstests/networkapi/mozfest/locale/"
 esac
