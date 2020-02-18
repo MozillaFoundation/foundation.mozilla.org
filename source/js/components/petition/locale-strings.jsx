@@ -32,7 +32,29 @@ export default {
     "Please check this box if you want to proceed": `Please check this box if you want to proceed`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Yes, I want to receive email updates about Mozilla’s campaigns.`,
     "Add my name": `Add my name`,
-    "Sign up": `Sign up`
+    "Sign up": `Sign up`,
+    "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.": (
+      <React.Fragment>
+        If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.{" "}
+        <strong>
+          Please check your inbox or spam filter for an email from us to
+          click and confirm your subscription
+        </strong>
+        .
+      </React.Fragment>
+    ),
+    "manage your subscriptions": (
+      <React.Fragment>
+        If you have already confirmed your opt-in to receive Mozilla-related emails, you can now{" "}
+          <a
+            href="https://www.mozilla.org/newsletter/recovery/"
+            target="_blank"
+          >
+            manage your subscriptions
+          </a>{" "}
+          and update your email preferences.
+      </React.Fragment>
+    )
   },
 
   // German

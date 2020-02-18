@@ -271,24 +271,11 @@ export default class JoinUs extends React.Component {
         ) : (
           <React.Fragment>
             <p>
-              If you haven’t previously confirmed your opt-in to a
-              Mozilla-related email subscription you may have to do so now.{" "}
-              <strong>
-                Please check your inbox or spam filter for an email from us to
-                click and confirm your subscription
-              </strong>
-              .
+              {getText(`If you haven’t previously confirmed your opt-in to a
+              Mozilla-related email subscription you may have to do so now.`)}
             </p>
             <p>
-              If you have already confirmed your opt-in to receive
-              Mozilla-related emails, you can now{" "}
-              <a
-                href="https://www.mozilla.org/newsletter/recovery/"
-                target="_blank"
-              >
-                manage your subscriptions
-              </a>{" "}
-              and update your email preferences.
+              {getText(`manage your subscriptions`)}
             </p>
           </React.Fragment>
         )}
