@@ -60,7 +60,7 @@ let bgMain = {
 let config = [main, bgMain];
 
 module.exports = (env, argv) => {
-  process.env.NODE_ENV = argv.mode;
+  process.env.NODE_ENV = process.env.NODE_ENV || argv.mode;
 
   return config;
 };
