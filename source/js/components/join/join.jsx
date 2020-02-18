@@ -28,7 +28,7 @@ export default class JoinUs extends React.Component {
       apiFailed: false,
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
-      hideLocalizationFields:
+      hideLocaleFields:
         props.formPosition === `header` || props.formPosition === `footer`
     };
   }
@@ -204,9 +204,9 @@ export default class JoinUs extends React.Component {
       label: `Signup form input focused`
     });
 
-    if (this.state.hideLocalizationFields) {
+    if (this.state.hideLocaleFields) {
       this.setState({
-        hideLocalizationFields: false
+        hideLocaleFields: false
       });
     }
   }
@@ -361,9 +361,9 @@ export default class JoinUs extends React.Component {
     this.setState({ lang });
   }
 
-  renderLocalizationFields() {
+  renderLocaleFields() {
     return (
-      <div hidden={this.state.hideLocalizationFields}>
+      <div hidden={this.state.hideLocaleFields}>
         <div className="mb-2">
           <CountrySelect
             ref={element => {
@@ -502,7 +502,7 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
-          {this.renderLocalizationFields()}
+          {this.renderLocaleFields()}
           {this.renderPrivacyField()}
         </div>
         <div className={buttonsWrapperClass}>
