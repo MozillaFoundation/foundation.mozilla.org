@@ -85,7 +85,29 @@ export default {
     "Please check this box if you want to proceed": `Aktivieren Sie bitte dieses Kontrollkästchen, um fortzufahren`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Ja, ich möchte per E-Mail Neuigkeiten über Mozillas Kampagnen erfahren.`,
     "Add my name": `Meinen Namen hinzufügen`,
-    "Sign up": `Abonnieren`
+    "Sign up": `Abonnieren`,
+    "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.": (
+      <React.Fragment>
+        If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.{" "}
+        <strong>
+          Please check your inbox or spam filter for an email from us to
+          click and confirm your subscription
+        </strong>
+        .
+      </React.Fragment>
+    ),
+    "manage your subscriptions": (
+      <React.Fragment>
+        If you have already confirmed your opt-in to receive Mozilla-related emails, you can now{" "}
+          <a
+            href="https://www.mozilla.org/newsletter/recovery/"
+            target="_blank"
+          >
+            manage your subscriptions
+          </a>{" "}
+          and update your email preferences.
+      </React.Fragment>
+    )
   },
 
   // Spanish
@@ -115,7 +137,29 @@ export default {
     "Please check this box if you want to proceed": `Marca esta casilla si quieres continuar`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Sí, quiero recibir actualizaciones sobre las campañas de Mozilla.`,
     "Add my name": `Añadir mi nombre`,
-    "Sign up": `Suscribirme`
+    "Sign up": `Suscribirme`,
+    "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.": (
+      <React.Fragment>
+        If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.{" "}
+        <strong>
+          Please check your inbox or spam filter for an email from us to
+          click and confirm your subscription
+        </strong>
+        .
+      </React.Fragment>
+    ),
+    "manage your subscriptions": (
+      <React.Fragment>
+        If you have already confirmed your opt-in to receive Mozilla-related emails, you can now{" "}
+          <a
+            href="https://www.mozilla.org/newsletter/recovery/"
+            target="_blank"
+          >
+            manage your subscriptions
+          </a>{" "}
+          and update your email preferences.
+      </React.Fragment>
+    )
   },
 
   // French
@@ -144,7 +188,29 @@ export default {
     "Please check this box if you want to proceed": `Veuillez cocher cette case si vous désirez poursuivre`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla.`,
     "Add my name": `Ajouter mon nom`,
-    "Sign up": `Je m’inscris`
+    "Sign up": `Je m’inscris`,
+    "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.": (
+      <React.Fragment>
+        If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.{" "}
+        <strong>
+          Please check your inbox or spam filter for an email from us to
+          click and confirm your subscription
+        </strong>
+        .
+      </React.Fragment>
+    ),
+    "manage your subscriptions": (
+      <React.Fragment>
+        If you have already confirmed your opt-in to receive Mozilla-related emails, you can now{" "}
+          <a
+            href="https://www.mozilla.org/newsletter/recovery/"
+            target="_blank"
+          >
+            manage your subscriptions
+          </a>{" "}
+          and update your email preferences.
+      </React.Fragment>
+    )
   },
 
   // Polish
@@ -173,7 +239,29 @@ export default {
     "Please check this box if you want to proceed": `Proszę zaznaczyć to pole, aby kontynuować`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Tak, chcę otrzymywać wiadomości o kampaniach Mozilli.`,
     "Add my name": `Podpisz`,
-    "Sign up": `Zapisz się`
+    "Sign up": `Zapisz się`,
+    "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.": (
+      <React.Fragment>
+        If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.{" "}
+        <strong>
+          Please check your inbox or spam filter for an email from us to
+          click and confirm your subscription
+        </strong>
+        .
+      </React.Fragment>
+    ),
+    "manage your subscriptions": (
+      <React.Fragment>
+        If you have already confirmed your opt-in to receive Mozilla-related emails, you can now{" "}
+          <a
+            href="https://www.mozilla.org/newsletter/recovery/"
+            target="_blank"
+          >
+            manage your subscriptions
+          </a>{" "}
+          and update your email preferences.
+      </React.Fragment>
+    )
   },
 
   // Portuguese
@@ -203,6 +291,28 @@ export default {
     "Please check this box if you want to proceed": `Marque esta opção se deseja continuar`,
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Quero receber atualizações por e-mail sobre campanhas da Mozilla.`,
     "Add my name": `Adicionar meu nome`,
-    "Sign up": `Inscreva-me`
+    "Sign up": `Inscreva-me`,
+    "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.": (
+      <React.Fragment>
+        If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.{" "}
+        <strong>
+          Please check your inbox or spam filter for an email from us to
+          click and confirm your subscription
+        </strong>
+        .
+      </React.Fragment>
+    ),
+    "manage your subscriptions": (
+      <React.Fragment>
+        If you have already confirmed your opt-in to receive Mozilla-related emails, you can now{" "}
+          <a
+            href="https://www.mozilla.org/newsletter/recovery/"
+            target="_blank"
+          >
+            manage your subscriptions
+          </a>{" "}
+          and update your email preferences.
+      </React.Fragment>
+    )
   }
 };
