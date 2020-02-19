@@ -14,7 +14,11 @@ import HomepageSlider from "./homepage-c-slider.js";
 import ProductGA from "./product-analytics.js";
 
 // Initializing component a11y browser console logging
-if (typeof process !== "undefined" && process.env && process.env.NODE_ENV === "development") {
+if (
+  typeof process !== "undefined" &&
+  process.env &&
+  process.env.NODE_ENV === "development"
+) {
   axe = require("react-axe");
   axe(React, ReactDOM, 1000);
 }

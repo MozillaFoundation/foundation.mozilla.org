@@ -171,6 +171,7 @@ def catch_up(ctx):
     print("* Updating block information.")
     manage(ctx, "block_inventory")
 
+
 # Tasks with Docker
 
 def docker_l10n_block_inventory(ctx):
