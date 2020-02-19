@@ -60,16 +60,16 @@ jobs:
         - coveralls
     - name: npm tests
       before_install:
-        - nvm install --lts=carbon
-        - nvm use --lts=carbon
+        - nvm install --lts=erbium
+        - nvm use --lts=erbium
       install: "./travis-scripts/npm-install.sh"
       script: npm test
     - name: Percy tests
       before_install:
         # libgconf is required by cypress
         - sudo apt-get install -y libgconf-2-4
-        - nvm install --lts=carbon
-        - nvm use --lts=carbon
+        - nvm install --lts=erbium
+        - nvm use --lts=erbium
       install:
         - "./travis-scripts/python-install.sh"
         - "./travis-scripts/npm-install.sh"

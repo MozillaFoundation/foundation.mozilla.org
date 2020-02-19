@@ -7,13 +7,17 @@
   <meta name="ga-identifier" content="UA-87658599-15">
 {% endblock %}
 
+
 {% block bodyclass %}mozfest{% endblock %}
+
 
 {% block page_title %}
     Mozilla Festival 2019{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
+
 {% block body_id %}mozfest-{% block mozfest_body_id %}home{% endblock %}{% endblock %}
+
 
 {% block primary_nav %}
     {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
@@ -27,18 +31,24 @@
 
 {% block content %}
   {% block secondary_nav %}{% endblock %}
+  <div class="container">
+    <div class="row">
+      {% if page.signup != None %}
 
-  <div class="container cms">
-    <div class="row my-1 d-flex align-items-center">
-      <div class="pb-5 {% block bootstrap_width %}col-lg-8 offset-lg-2{% endblock %}">
-        {% for block in page.body %}
-          {% if block.block_type == 'heading' %}
-            <h1>{{ block.value }}</h1>
-          {% else %}
-            {% include_block block %}
-          {% endif %}
-        {% endfor %}
-      </div>
+        {# Use a two-colum layout #}
+        <div class="cms pb-5 col-lg-7">
+          {% include "partials/streamfield.html" with twocolumn=True %}
+        </div>
+        {% block cta %}{% include "partials/signup.html" %}{% endblock %}
+
+      {% else %}
+
+        {# Single column layout #}
+        <div class="cms {% block bootstrap_width %}col-lg-8 offset-lg-2{% endblock %}">
+          {% include "partials/streamfield.html" %}
+        </div>
+
+      {% endif %}
     </div>
   </div>
 {% endblock %}
