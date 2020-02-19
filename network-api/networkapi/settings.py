@@ -397,6 +397,7 @@ LANGUAGES = (
     ('pt', gettext_lazy('Portuguese')),
     ('es', gettext_lazy('Spanish')),
     ('fr', gettext_lazy('French')),
+    ('nl', gettext_lazy('Dutch')),
     ('pl', gettext_lazy('Polish')),
 )
 
