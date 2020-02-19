@@ -65,7 +65,7 @@
     "react-ga": "2.7.0",
     "shx": "^0.3.2",
     "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.10",
+    "webpack-cli": "^3.3.11",
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
