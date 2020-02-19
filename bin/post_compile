@@ -9,16 +9,3 @@ curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/t
 
 # Untar the archive
 tar -C network-api -xvf translations.tar
-
-# TODO MOVE ALL THAT AT THE TIME OF THE ARCHIVE CREATION
-# Copy the latest Portuguese (Brazil) file translated from Pontoon into the folder consumed by Django
-ptSourceDjango=${BUILD_DIR}/network-api/locale/pt_BR/LC_MESSAGES/django.*
-[[ -e ${ptSourceDjango} ]] && cp ${ptSourceDjango} ${BUILD_DIR}/network-api/locale/pt/LC_MESSAGES/
-
-# Same for Buyers Guide
-ptSourceBuyersguide=${BUILD_DIR}/network-api/networkapi/buyersguide/locale/pt_BR/LC_MESSAGES/django.*
-[[ -e ${ptSourceBuyersguide} ]] && cp ${ptSourceBuyersguide} ${BUILD_DIR}/network-api/networkapi/buyersguide/locale/pt/LC_MESSAGES/
-
-# Same for Mozfest
-ptSourceMozfest=${BUILD_DIR}/network-api/networkapi/mozfest/locale/pt_BR/LC_MESSAGES/django.*
-[[ -e ${ptSourceMozfest} ]] && cp ${ptSourceMozfest} ${BUILD_DIR}/network-api/networkapi/mozfest/locale/pt/LC_MESSAGES/
