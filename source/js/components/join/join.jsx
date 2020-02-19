@@ -10,7 +10,7 @@ import LanguageSelect from "./language-select.jsx";
 export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.getInitialState();
+    this.state = this.getInitialState(props);
   }
 
   reset() {
@@ -18,16 +18,18 @@ export default class JoinUs extends React.Component {
       this.email.value = "";
       this.privacy.checked = false;
     }
-    this.setState(this.getInitialState());
+    this.setState(this.getInitialState(this.props));
   }
 
-  getInitialState() {
+  getInitialState(props) {
     return {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
       userTriedSubmitting: false,
-      lang: getCurrentLanguage()
+      lang: getCurrentLanguage(),
+      hideLocaleFields:
+        props.formPosition === `header` || props.formPosition === `footer`
     };
   }
 
@@ -126,9 +128,11 @@ export default class JoinUs extends React.Component {
       if (this.surname) {
         payload.surname = this.surname.value;
       }
-      if (this.state.country) {
-        payload.country = this.state.country;
+
+      if (this.country && this.country.element.value) {
+        payload.country = this.country.element.value;
       }
+
       if (this.state.lang) {
         payload.lang = this.state.lang;
       }
@@ -200,19 +204,11 @@ export default class JoinUs extends React.Component {
       label: `Signup form input focused`
     });
 
-    let emailFields = document.querySelectorAll(
-      '.fields-wrapper .form-control[type="email"]'
-    );
-
-    emailFields.forEach(emailField => {
-      let currentEmailField = event.target === emailField;
-      if (currentEmailField && this.props.formPosition !== "flow") {
-        let localizationFields = document.querySelector(
-          `.join-us[data-form-position="${this.props.formPosition}"] .form-l10n`
-        );
-        localizationFields.classList.remove(`d-none`);
-      }
-    });
+    if (this.state.hideLocaleFields) {
+      this.setState({
+        hideLocaleFields: false
+      });
+    }
   }
 
   /**
@@ -361,28 +357,20 @@ export default class JoinUs extends React.Component {
    * Render localization fields
    */
 
-  setCountry(country) {
-    this.setState({ country });
-  }
-
   setLang(lang) {
     this.setState({ lang });
   }
 
-  renderLocalizationFields() {
-    let header = this.props.formPosition === `header`;
-    let footer = this.props.formPosition === `footer`;
-    let classes = classNames(`form-l10n`, {
-      "d-none": footer || header
-    });
-
+  renderLocaleFields() {
     return (
-      <div className={classes}>
+      <div hidden={this.state.hideLocaleFields}>
         <div className="mb-2">
           <CountrySelect
+            ref={element => {
+              this.country = element;
+            }}
             label={getText(`Your country`)}
             className="w-100"
-            handleCountryChange={e => this.setCountry(e)}
             formPosition={this.props.formPosition}
           />
         </div>
@@ -514,7 +502,7 @@ export default class JoinUs extends React.Component {
           {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
           {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
-          {this.renderLocalizationFields()}
+          {this.renderLocaleFields()}
           {this.renderPrivacyField()}
         </div>
         <div className={buttonsWrapperClass}>

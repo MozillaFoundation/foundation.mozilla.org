@@ -53,6 +53,10 @@ coverage.xml
 
 # Translations
 *.mo
+*.po
+*.pot
+*.ftl
+!network-api/locale/messages.ftl
 
 # Django stuff:
 *.log
