@@ -8,7 +8,14 @@ In order to set up accessibility testing locally, clone and install the project 
 npm run cypress:install
 ```
 
-Note that this should be run locally, _outside of Docker_. Also note that this will take quite a while to install, so be prepared to make some coffee/tea and maybe even a sandwich.
+Note that this should be run locally, _outside of Docker_, which means you will also need to run the regular npm installs using:
+
+```
+npm install
+```
+
+Finally, note that the cypress installation can take quite a while, so be prepared to make some coffee or tea, and maybe even a sandwich or some ramen.
+
 
 ## Running Cypress Accessibility Tests
 
