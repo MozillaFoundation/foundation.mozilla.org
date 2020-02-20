@@ -54,6 +54,7 @@ let main = {
         let gaIdentifier = gaMeta.getAttribute(`content`);
         ReactGA.initialize(gaIdentifier); // UA-87658599-6 by default
         ReactGA.pageview(window.location.pathname);
+        ProductGA.init();
       } else {
         console.warn(`No GA identifier found: skipping bootstrap step`);
       }
