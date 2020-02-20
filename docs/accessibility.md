@@ -33,7 +33,7 @@ Some tests may be set to "skip", which means that there is a test, but Cypress i
 
 ## Manual Browser-testing of Accessibility
 
-You can also perform manual a11y analysis by pointing either Firefox or Chromne at a localhost page and using the [Axe web extension](https://www.deque.com/axe/axe-for-web), which enables a new tab in dev tools for analysing pages. For general issue work, this is the easier way to test accessibility for single pages or small sets of pages, compared to running the full batter of tests using Cypress.
+You can also perform manual a11y analysis by pointing either Firefox or Chrome at a localhost page and using the [Axe web extension](https://www.deque.com/axe/axe-for-web), which enables a new tab in dev tools for analysing pages. For general issue work, this is the easier way to test accessibility for single pages or small sets of pages, compared to running the full battery of tests using Cypress.
 
 ## Running Cypress Unattended
 
