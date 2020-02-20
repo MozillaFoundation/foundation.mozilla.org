@@ -31,13 +31,12 @@ Provided that all the Cypress dependencies are installed, this kicks off an auto
 
 Some tests may be set to "skip", which means that there is a test, but Cypress is instructed to pass over it rather than running it. In the Cypress UI this will look like the test has stalled: it probably hasn't. Look in the `./cypress/integration/a11y-tests.js` file to see if the test(s) in question is/are marked as skipped.
 
-## Manual Cypress Testing using the UI
+## Manual Cypress Testing using the Cypress Desktop UI
 
 In addition to automated testing, you can also tell Cypress to start up its UI, for interactive test running. To do so, run:
 
 ```
-npm run cypress:open
-
+npm run cypress:test:manual
 ```
 ## Manual Accessibility Testing using the Browser
 
