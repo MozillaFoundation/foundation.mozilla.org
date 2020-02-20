@@ -29,7 +29,7 @@ This checks that all the Cypress dependencies are installed, and then kicks off 
 
 #### Tests that use `it.skip(...)`
 
-Some tests may be set to "skip", which means that there is a test, but Cypress is instructed to pass over it rather than running it. In the Cypress UI this will look like the test has stalled: it probably hasn't. Look int the `./cypress/integration/a11y-tests.js` file to see if the test(s) in question is/are marked as skipped.
+Some tests may be set to "skip", which means that there is a test, but Cypress is instructed to pass over it rather than running it. In the Cypress UI this will look like the test has stalled: it probably hasn't. Look in the `./cypress/integration/a11y-tests.js` file to see if the test(s) in question is/are marked as skipped.
 
 ## Manual Browser-testing of Accessibility
 
