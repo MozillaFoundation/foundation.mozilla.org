@@ -35,6 +35,8 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  // Blog pages
+
   it(`Blog index page`, function() {
     cy.visit(`/en/blog`);
     cy.window()
