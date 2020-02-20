@@ -274,9 +274,7 @@ export default class JoinUs extends React.Component {
               {getText(`If you haven’t previously confirmed your opt-in to a
               Mozilla-related email subscription you may have to do so now.`)}
             </p>
-            <p>
-              {getText(`manage your subscriptions`)}
-            </p>
+            <p>{getText(`manage your subscriptions`)}</p>
           </React.Fragment>
         )}
       </React.Fragment>
