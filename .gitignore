@@ -119,3 +119,7 @@ network-api/networkapi/frontend/*
 
 # Cypress visual regression testing
 cypress/videos
+
+# Translations
+translations.tar
+translations_github_commit_*
