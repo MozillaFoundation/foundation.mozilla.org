@@ -22,18 +22,26 @@ Finally, note that the cypress installation can take quite a while, so be prepar
 Once everything is installed, the a11y tests can be invoked by first making sure the server is running in docker, following the instructions for a normal build run, and then once the server is up and running, separately running the command:
 
 ```
-npm run build:dev:a11y
+npm run cypress:test:a11y
 ```
 
-This checks that all the Cypress dependencies are installed, and then kicks off a dev-rebuild specifically for a11y testing, and start up cypress locally (outside of docker). Once open, select the a11y tests, and Cypress should automatically start running them.
+Provided that all the Cypress dependencies are installed, this kicks off an automated test run for all tests in the a11y test script using your locally instapped cypress, connecting to the server running inside of Docker.
 
 #### Tests that use `it.skip(...)`
 
 Some tests may be set to "skip", which means that there is a test, but Cypress is instructed to pass over it rather than running it. In the Cypress UI this will look like the test has stalled: it probably hasn't. Look in the `./cypress/integration/a11y-tests.js` file to see if the test(s) in question is/are marked as skipped.
 
-## Manual Browser-testing of Accessibility
+## Manual Cypress Testing using the UI
 
-You can also perform manual a11y analysis by pointing either Firefox or Chrome at a localhost page and using the [Axe web extension](https://www.deque.com/axe/axe-for-web), which enables a new tab in dev tools for analysing pages. For general issue work, this is the easier way to test accessibility for single pages or small sets of pages, compared to running the full battery of tests using Cypress.
+In addition to automated testing, you can also tell Cypress to start up its UI, for interactive test running. To do so, run:
+
+```
+npm run cypress:open
+
+```
+## Manual Accessibility Testing using the Browser
+
+You can also perform manual a11y analysis of any webpage by pointing either Firefox or Chrome at a localhost:8000 page and using the [Axe web extension](https://www.deque.com/axe/axe-for-web), which enables a new tab in dev tools for analysing pages. For general issue work, this is the easier way to test accessibility for single pages or small sets of pages, compared to running the full battery of tests using Cypress.
 
 ## Running Cypress Unattended
 
