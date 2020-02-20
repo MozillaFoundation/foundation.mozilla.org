@@ -11,7 +11,6 @@ class VideoBlock(blocks.StructBlock):
     captionURL = blocks.CharBlock(
         required=False,
         help_text='Optional URL for caption to link to.'
-
     )
 
     class Meta:
