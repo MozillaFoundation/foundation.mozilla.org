@@ -191,24 +191,22 @@ export default {
     "Sign up": `Je m’inscris`,
     "If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.": (
       <React.Fragment>
-        If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.{" "}
+        Si vous n’avez pas précédemment confirmé votre abonnement aux courriels liés à Mozilla, vous devrez peut-être le faire maintenant.{" "}
         <strong>
-          Please check your inbox or spam filter for an email from us to
-          click and confirm your subscription
+          Veuillez vérifier votre boîte de réception ou vos courriers indésirables et recherchez un message de notre part pour confirmer votre abonnement.
         </strong>
-        .
       </React.Fragment>
     ),
     "manage your subscriptions": (
       <React.Fragment>
-        If you have already confirmed your opt-in to receive Mozilla-related emails, you can now{" "}
+        Si vous avez déjà confirmé votre abonnement aux courriels liés à Mozilla, vous pouvez maintenant{" "}
           <a
             href="https://www.mozilla.org/newsletter/recovery/"
             target="_blank"
           >
-            manage your subscriptions
+            gérer vos abonnements
           </a>{" "}
-          and update your email preferences.
+          et modifier vos préférences de messagerie.
       </React.Fragment>
     )
   },
