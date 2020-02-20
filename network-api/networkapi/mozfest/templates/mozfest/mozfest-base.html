@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n %}
 
 
 {% block ga_identifier %}
@@ -12,7 +12,7 @@
 
 
 {% block page_title %}
-    Mozilla Festival 2019{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
+    {% blocktrans with year="2019" %}Mozilla Festival {{year}}{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
 
