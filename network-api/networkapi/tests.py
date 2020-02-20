@@ -2,9 +2,12 @@ from io import StringIO
 
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from unittest.mock import MagicMock
 
+from wagtail_factories import SiteFactory
+
+from networkapi.utility.redirects import redirect_to_default_cms_site
 from networkapi.utility.middleware import ReferrerMiddleware
 
 
@@ -96,3 +99,37 @@ class MozillaFoundationUsersNotDeletedTest(TestCase):
         call_command('delete_non_staff', '--now')
 
         self.assertEqual(User.objects.count(), 1)
+
+
+class RedirectDefaultSiteDecoratorTests(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.default_site = SiteFactory(hostname='default-site.com', is_default_site=True)
+        self.secondary_site = SiteFactory(hostname="secondary-site.com")
+
+    def test_redirect_decorator(self):
+        """
+        Test that the decorator redirects.
+        """
+        decorated_view = redirect_to_default_cms_site(lambda request: None)
+        response = decorated_view(self.factory.get('/example/', HTTP_HOST='secondary-site.com'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_redirect_decorator_doesnt_redirect(self):
+        """
+        Test that the redirect is triggered only when needed.
+        """
+        decorated_view = redirect_to_default_cms_site(lambda request: "untouched response")
+        response = decorated_view(self.factory.get('/example/'))
+        self.assertEqual(response, "untouched response")
+
+    def test_PNI_homepage_redirect_to_foundation_site(self):
+        """
+        Test that users gets redirected to PNI on the foundation site when they visit it from a non-default CMS site
+        """
+        response = self.client.get('/en/privacynotincluded/', HTTP_HOST='secondary-site.com')
+        self.assertRedirects(
+            response,
+            "https://default-site.com/en/privacynotincluded/",
+            fetch_redirect_response=False
+        )
