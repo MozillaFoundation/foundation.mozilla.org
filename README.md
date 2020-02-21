@@ -108,6 +108,15 @@ The latest source strings are regularly exposed to Pontoon by a Localization PM 
 - Run `inv docker-makemessages` from your `foundation.mozilla.org` repository.
 - Files should have been updated in your `fomo-l10n` repository. You can now create a pull-request.
 
+### Getting the latest translations for local dev
+
+Latest translations are uploaded to S3. To get them, run:
+- `curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar`
+- `tar -C network-api -xvf translations.tar`
+
+You don't need to run `compilemessages` and it works for both pipenv or docker workflows.
+
+The `translations_github_commit_[...]` file from the archive is only used for debug purposes on Heroku. It can be safely deleted if needed.
 
 ## Contributing
 
