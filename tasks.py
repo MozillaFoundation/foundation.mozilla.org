@@ -128,7 +128,7 @@ def setup(ctx):
             print("* Creating a new .env")
             copy("env.default", ".env")
         print("* Installing npm dependencies and build.")
-        ctx.run("npm install && npm run build")
+        ctx.run("npm install && npm run build:dev")
         print("* Installing Python dependencies.")
         ctx.run("pipenv install --dev")
         print("* Applying database migrations.")
@@ -158,7 +158,7 @@ def setup(ctx):
 def catch_up(ctx):
     """Install dependencies and apply migrations"""
     print("* Installing npm dependencies and build.")
-    ctx.run("npm install && npm run build")
+    ctx.run("npm install && npm run build:dev")
     print("* Installing Python dependencies.")
     ctx.run("pipenv install --dev")
     print("* Applying database migrations.")

@@ -13,6 +13,16 @@ import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
 import AnalyticsEvents from "./analytics-events.js";
 
+// Initializing component a11y browser console logging
+if (
+  typeof process !== "undefined" &&
+  process.env &&
+  process.env.NODE_ENV === "development"
+) {
+  axe = require("react-axe");
+  axe(React, ReactDOM, 1000);
+}
+
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
 // until all the React stuff is _actually_ done.
