@@ -22,7 +22,3 @@ def custom404_view(request, exception):
     else:
         html = render(request, '404.html')
         return HttpResponseNotFound(html.content)
-
-
-def opportunity_to_initiatives():
-    return redirect('/initiatives')
