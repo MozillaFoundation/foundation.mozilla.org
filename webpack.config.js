@@ -23,6 +23,7 @@ let rules = [
 ];
 
 let main = {
+  devtool: "none",
   entry: `./source/js/main.js`,
   output: {
     path: frontendPath,
@@ -44,6 +45,7 @@ let main = {
 };
 
 let bgMain = {
+  devtool: "none",
   entry: {
     "bg-main": `./source/js/buyers-guide/bg-main.js`,
     polyfills: `./source/js/polyfills.js`
