@@ -1,6 +1,5 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
-from urllib.parse import urljoin
 from django.utils import translation
 
 
