@@ -14,6 +14,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.buyersguide import views as buyersguide_views
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
+from networkapi.wagtailpages.views import opportunity_to_initiatives
 from experiments import views as experiment_views
 
 admin.autodiscover()
@@ -66,6 +67,9 @@ urlpatterns += i18n_patterns(
 
     # wagtail-managed data
     url(r'', include(wagtail_urls)),
+
+    # redirect /opportunity Wagtail pages to /initiatives
+    url(r'^opportunity/', opportunity_to_initiatives)
 )
 
 if settings.USE_S3 is not True:
