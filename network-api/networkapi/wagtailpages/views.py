@@ -31,4 +31,4 @@ def redirect_to_initiatives(request, rest):
     translation.activate(lang)
     request.session[translation.LANGUAGE_SESSION_KEY] = lang
 
-    return redirect(urljoin('/', 'initiatives/' + rest))
+    return redirect(f'/initiatives/{rest}')
