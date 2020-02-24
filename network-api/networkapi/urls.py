@@ -14,6 +14,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.buyersguide import views as buyersguide_views
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
+from networkapi.wagtailpages.views import redirect_to_initiatives
 from experiments import views as experiment_views
 
 admin.autodiscover()
@@ -65,8 +66,8 @@ urlpatterns += i18n_patterns(
     path('blog/atom/', AtomFeed()),
 
     # redirect /opportunity Wagtail pages to /initiatives
-    # FIXME: need to preserve locale info as well
-    url(r'^opportunity/(?P<rest>.*)', RedirectView.as_view(url='/initiatives/%(rest)s')),
+    # see https://github.com/mozilla/foundation.mozilla.org/issues/2971 for context
+    url(r'^opportunity/(?P<rest>.*)', redirect_to_initiatives),
 
     # wagtail-managed data
     url(r'', include(wagtail_urls)),
