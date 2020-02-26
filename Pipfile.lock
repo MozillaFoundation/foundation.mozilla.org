@@ -56,10 +56,10 @@
         },
         "cloudinary": {
             "hashes": [
-                "sha256:c936c9315ca898ad7f9a62fbc0efb537380573e3e7c0fb04c62abf5ac3b0a931"
+                "sha256:299a684d523959ac7845bfc767282409f33dd06ebf3b0f6d77feb0a908240463"
             ],
             "index": "pypi",
-            "version": "==1.19.1"
+            "version": "==1.20.0"
         },
         "defusedxml": {
             "hashes": [
@@ -248,13 +248,6 @@
                 "sha256:bde2aef6f44302dfb30320115b17d030798de8c4110e28d5cf6cf91a7a31074c"
             ],
             "version": "==0.9.4"
-        },
-        "mock": {
-            "hashes": [
-                "sha256:2a572b715f09dd2f0a583d8aeb5bb67d7ed7a8fd31d193cf1227a99c16a67bc3",
-                "sha256:5e48d216809f6f393987ed56920305d8f3c647e6ed35407c1ff2ecb88a9e1151"
-            ],
-            "version": "==4.0.1"
         },
         "oauthlib": {
             "hashes": [
