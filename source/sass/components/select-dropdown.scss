@@ -26,10 +26,11 @@ select {
       border: 1px solid $white;
       color: $white;
 
-      // target Edge broswser to explictly set background color to black
-      // otherwise on Edge the dropdown options won't show (white text on Edge's default white background)
-      @supports (-ms-ime-align: auto) {
-        background-color: $black;
+      // Explicitly setting <option>'s color to black.
+      // Otherwise, certain browsers would inherit the text color we set for <select>, and
+      // we would end up having white text on white background in the dropdown.
+      option {
+        color: $black;
       }
     }
   }

@@ -22,7 +22,7 @@ else:
 # so we build it here rather so that we don't clutter up the tasks.
 locale_abstraction_instructions = " ".join([
     "makemessages",
-    "-l de -l es -l fr -l pl -l pt_BR",
+    "-l de -l es -l fr -l nl -l pl -l pt_BR",
     "--keep-pot",
     "--no-wrap",
     "--ignore=network-api/networkapi/wagtailcustomization/*",
@@ -96,14 +96,14 @@ def l10n_update(ctx):
 @task
 def makemessages(ctx):
     """Extract all template messages in .po files for localization"""
+    ctx.run("./translation-management.sh import")
     manage(ctx, locale_abstraction_instructions)
-    os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+    ctx.run("./translation-management.sh export")
 
 
 @task
 def compilemessages(ctx):
     """Compile the latest translations"""
-    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
     with ctx.cd(LOCALE_DIR):
         manage(ctx, "compilemessages")
 
@@ -128,7 +128,7 @@ def setup(ctx):
             print("* Creating a new .env")
             copy("env.default", ".env")
         print("* Installing npm dependencies and build.")
-        ctx.run("npm install && npm run build")
+        ctx.run("npm install && npm run build:dev")
         print("* Installing Python dependencies.")
         ctx.run("pipenv install --dev")
         print("* Applying database migrations.")
@@ -158,7 +158,7 @@ def setup(ctx):
 def catch_up(ctx):
     """Install dependencies and apply migrations"""
     print("* Installing npm dependencies and build.")
-    ctx.run("npm install && npm run build")
+    ctx.run("npm install && npm run build:dev")
     print("* Installing Python dependencies.")
     ctx.run("pipenv install --dev")
     print("* Applying database migrations.")
@@ -244,14 +244,14 @@ def docker_l10n_update(ctx):
 @task
 def docker_makemessages(ctx):
     """Extract all template messages in .po files for localization"""
+    ctx.run("./translation-management.sh import")
     docker_manage(ctx, locale_abstraction_instructions)
-    os.replace("network-api/locale/django.pot", "network-api/locale/templates/LC_MESSAGES/django.pot")
+    ctx.run("./translation-management.sh export")
 
 
 @task
 def docker_compilemessages(ctx):
     """Compile the latest translations"""
-    copy("network-api/locale/pt_BR/LC_MESSAGES/django.po", "network-api/locale/pt/LC_MESSAGES/django.po")
     with ctx.cd(LOCALE_DIR):
         docker_manage(ctx, "compilemessages")
 
@@ -319,7 +319,7 @@ def docker_new_env(ctx):
         docker_migrate(ctx)
         print("* Creating fake data.")
         docker_manage(ctx, "load_fake_data")
-        print("* Compiling localse strings.")
+        print("* Compiling locale strings.")
         docker_compilemessages(ctx)
         print("* Updating block information.")
         docker_l10n_block_inventory(ctx)

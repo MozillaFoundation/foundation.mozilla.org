@@ -1,7 +1,9 @@
 {% extends "mozfest/mozfest-base.html" %}
 
+{% load i18n %}
+
 {% block page_title %}
-Mozilla Festival 2019 - Page Not Found
+{% blocktrans with year="2019" %}Mozilla Festival {{year}} - Page Not Found{% endblocktrans %}
 {% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -19,12 +21,15 @@ Mozilla Festival 2019 - Page Not Found
                             <div class="row">
                                 <div class="col">
                                     <div class="nav-links pt-3">
-                                        <div><a class="active" href="https://www.mozillafestival.org/">Home</a></div>
-                                        <div><a class="" href="https://www.mozillafestival.org/spaces/">Spaces</a></div>
-                                        <div><a class="" href="https://www.mozillafestival.org/team/">Team</a></div>
-                                        <div><a class="" href="https://www.mozillafestival.org/speakers/">Speakers</a></div>
-                                        <div><a class="" href="https://www.mozillafestival.org/house/">MozFest House</a></div>
-                                        <div><a class="" href="https://www.mozillafestival.org/sponsors/">Sponsors</a></div>
+                                        <div><a class="active" href="https://www.mozillafestival.org/">{% trans "Home" %}</a></div>
+                                        <div><a class="" href="https://www.mozillafestival.org/spaces/">{% trans "Spaces" %}</a>
+                                        </div>
+                                        <div><a class="" href="https://www.mozillafestival.org/team/">{% trans "Team" %}</a></div>
+                                        <div><a class="" href="https://www.mozillafestival.org/speakers/">{% trans "Speakers" %}</a></div>
+                                        <div><a class="" href="https://www.mozillafestival.org/house/">{% trans MozFest House %}</a></div>
+                                        </div>
+                                        <div><a class=""
+                                                href="https://www.mozillafestival.org/sponsors/">{% trans "Sponsors" %}</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -43,19 +48,19 @@ Mozilla Festival 2019 - Page Not Found
                                         <div class="burger-bar burger-bar-middle"></div>
                                         <div class="burger-bar burger-bar-bottom"></div>
                                     </button>
-                                    <a class="logo text-hide" href="https://www.mozillafestival.org/">Home</a>
+                                    <a class="logo text-hide" href="https://www.mozillafestival.org/">{% trans "Home" %}</a>
                                     <div class="wide-screen-menu">
                                         <div class="nav-links d-none d-lg-block">
-                                            <a class="" href="https://www.mozillafestival.org/spaces/">Spaces</a>
-                                            <a class="" href="https://www.mozillafestival.org/team/">Team</a>
-                                            <a class="" href="https://www.mozillafestival.org/speakers/">Speakers</a>
-                                            <a class="" href="https://www.mozillafestival.org/house/">MozFest House</a>
-                                            <a class="" href="https://www.mozillafestival.org/sponsors/">Sponsors</a>
+                                            <a class="" href="https://www.mozillafestival.org/spaces/">{% trans "Spaces" %}</a>
+                                            <a class="" href="https://www.mozillafestival.org/team/">{% trans "Team" %}</a>
+                                            <a class="" href="https://www.mozillafestival.org/speakers/">{% trans "Speakers" %}</a>
+                                            <a class="" href="https://www.mozillafestival.org/house/">{% trans "MozFest House" %}</a>
+                                            <a class="" href="https://www.mozillafestival.org/sponsors/">{% trans "Sponsors" %}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-secondary" href="https://www.mozillafestival.org/#language-switcher">Keep Me Updated</a>
+                            <a class="btn btn-secondary" href="/proposals">{% trans "Submit proposal" %}</a>
                         </div>
                     </div>
                 </div>

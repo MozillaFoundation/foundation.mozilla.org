@@ -53,6 +53,10 @@ coverage.xml
 
 # Translations
 *.mo
+*.po
+*.pot
+*.ftl
+!network-api/locale/messages.ftl
 
 # Django stuff:
 *.log
@@ -115,3 +119,8 @@ network-api/networkapi/frontend/*
 
 # Cypress visual regression testing
 cypress/videos
+cypress/screenshots
+
+# Translations
+translations.tar
+translations_github_commit_*

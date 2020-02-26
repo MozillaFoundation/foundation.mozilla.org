@@ -23,6 +23,7 @@ let rules = [
 ];
 
 let main = {
+  devtool: false,
   entry: `./source/js/main.js`,
   output: {
     path: frontendPath,
@@ -32,6 +33,7 @@ let main = {
     rules
   },
   plugins: [
+    new webpack.EnvironmentPlugin(["NODE_ENV"]),
     new webpack.DefinePlugin({
       __SENTRY_DSN__: JSON.stringify(process.env.SENTRY_DSN),
       __HEROKU_RELEASE_VERSION__: JSON.stringify(
@@ -43,6 +45,7 @@ let main = {
 };
 
 let bgMain = {
+  devtool: false,
   entry: {
     "bg-main": `./source/js/buyers-guide/bg-main.js`,
     polyfills: `./source/js/polyfills.js`
@@ -56,4 +59,10 @@ let bgMain = {
   }
 };
 
-module.exports = [main, bgMain];
+let config = [main, bgMain];
+
+module.exports = (env, argv) => {
+  process.env.NODE_ENV = process.env.NODE_ENV || argv.mode;
+
+  return config;
+};
