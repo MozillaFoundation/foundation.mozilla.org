@@ -1,6 +1,5 @@
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
-from .aligned_image_block import AlignedImageBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
@@ -20,7 +19,6 @@ from .youtube_regret_block import YoutubeRegretBlock
 __all__ = [
     AnnotatedImageBlock,
     AirTableBlock,
-    AlignedImageBlock,
     BootstrapSpacerBlock,
     iFrameBlock,
     ImageBlock,

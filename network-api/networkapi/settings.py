@@ -214,7 +214,6 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.milestones',
 
     # wagtail localisation app
-    'networkapi.wagtail_l10n_customization',
     'wagtail_modeltranslation',
     'wagtail_modeltranslation.makemigrations',
     'wagtail_modeltranslation.migrate',
@@ -398,6 +397,7 @@ LANGUAGES = (
     ('pt', gettext_lazy('Portuguese')),
     ('es', gettext_lazy('Spanish')),
     ('fr', gettext_lazy('French')),
+    ('nl', gettext_lazy('Dutch')),
     ('pl', gettext_lazy('Polish')),
 )
 

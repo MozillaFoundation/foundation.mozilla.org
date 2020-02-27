@@ -15,7 +15,7 @@ addons:
 
 env:
   global:
-    - ALLOWED_HOSTS=localhost,mozfest.localhost
+    - ALLOWED_HOSTS=localhost,mozfest.localhost,default-site.com,secondary-site.com
     - CONTENT_TYPE_NO_SNIFF=True
     - CORS_WHITELIST="*"
     - DATABASE_URL=postgres://postgres@localhost:5432/network
@@ -60,16 +60,16 @@ jobs:
         - coveralls
     - name: npm tests
       before_install:
-        - nvm install --lts=carbon
-        - nvm use --lts=carbon
+        - nvm install --lts=erbium
+        - nvm use --lts=erbium
       install: "./travis-scripts/npm-install.sh"
       script: npm test
     - name: Percy tests
       before_install:
         # libgconf is required by cypress
         - sudo apt-get install -y libgconf-2-4
-        - nvm install --lts=carbon
-        - nvm use --lts=carbon
+        - nvm install --lts=erbium
+        - nvm use --lts=erbium
       install:
         - "./travis-scripts/python-install.sh"
         - "./travis-scripts/npm-install.sh"

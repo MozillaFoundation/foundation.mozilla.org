@@ -44,32 +44,6 @@
   background-size: contain;
 }
 
-.breadcrumb {
-  background: none;
-  padding: 0;
-  margin-bottom: 0;
-
-  a {
-    font-weight: 500;
-  }
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  padding-left: 5px;
-  padding-right: 2px;
-  content: ">";
-}
-
-.breadcrumb-item {
-  &.active {
-    @extend .body-small;
-  }
-
-  &:not(.active) {
-    text-decoration: underline;
-  }
-}
-
 // Break the constraints of parent container(s) to span the entire viewport width
 
 @mixin full-bleed {

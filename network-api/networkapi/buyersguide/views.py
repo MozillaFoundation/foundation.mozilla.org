@@ -15,6 +15,7 @@ from rest_framework.response import Response
 
 from networkapi.buyersguide.models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
+from networkapi.utility.redirects import redirect_to_default_cms_site
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
@@ -67,6 +68,7 @@ def filter_draft_products(request, products):
     return filter(lambda p: p['draft'] is False, products)
 
 
+@redirect_to_default_cms_site
 @enforce_en_locale
 def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
@@ -85,6 +87,7 @@ def buyersguide_home(request):
     })
 
 
+@redirect_to_default_cms_site
 @enforce_en_locale
 def category_view(request, slug):
     key = f'products_category__{slug}'
@@ -110,6 +113,7 @@ def category_view(request, slug):
     })
 
 
+@redirect_to_default_cms_site
 @enforce_en_locale
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -147,6 +151,7 @@ def product_view(request, slug):
 
 
 def bg_about_page(template_name):
+    @redirect_to_default_cms_site
     @enforce_en_locale
     def render_view(request):
         key = 'categories'

@@ -11,7 +11,17 @@ import JoinUs from "../components/join/join.jsx";
 
 import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
-import ProductGA from "./product-analytics.js";
+import AnalyticsEvents from "./analytics-events.js";
+
+// Initializing component a11y browser console logging
+if (
+  typeof process !== "undefined" &&
+  process.env &&
+  process.env.NODE_ENV === "development"
+) {
+  axe = require("react-axe");
+  axe(React, ReactDOM, 1000);
+}
 
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
@@ -54,6 +64,7 @@ let main = {
         let gaIdentifier = gaMeta.getAttribute(`content`);
         ReactGA.initialize(gaIdentifier); // UA-87658599-6 by default
         ReactGA.pageview(window.location.pathname);
+        AnalyticsEvents.init();
       } else {
         console.warn(`No GA identifier found: skipping bootstrap step`);
       }

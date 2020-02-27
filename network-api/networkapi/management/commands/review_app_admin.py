@@ -41,7 +41,9 @@ class Command(BaseCommand):
                 token = settings.GITHUB_TOKEN
                 org = 'mozilla'
                 repo = 'foundation.mozilla.org'
-                r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}&access_token={token}')
+                headers = {'Authorization': f'token {token}'}
+                r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}', headers=headers)
+                r.raise_for_status()
                 try:
                     pr_title = ': ' + r.json()['title']
                 except KeyError:
