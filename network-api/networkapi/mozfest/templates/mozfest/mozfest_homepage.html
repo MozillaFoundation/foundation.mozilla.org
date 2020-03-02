@@ -12,6 +12,9 @@
 {% block bootstrap_width %}col-lg-12{% endblock %}
 
 {% block prefooter %}
+  {% comment %}
+  We don't want to show this prefooter section for the early March version of site
+  See https://github.com/mozilla/foundation.mozilla.org/issues/4267
   <div class="prefooter container mb-5">
     <div class="row">
       <div class="col-12"><hr class="hr-emphasis mt-0 mb-5"></div>
@@ -19,6 +22,7 @@
       <div class="twitter-feed col-12 col-md-6 mt-4 mt-md-0">{% include "../fragments/twitter_feed.html" %}</div>
     </div>
   </div>
+  {% endcomment %}
 {% endblock %}
 
 {% block footer_block %}
