@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <div>
     <!-- ShareProgress button embedding doc:
         https://shareprogress-kb-05152019.groovehq.com/help/how-can-i-embed-my-share-buttons-in-my-template
@@ -33,7 +35,7 @@
         data-share-text="{{ cta.share_link_text }}"
         data-thank-you="{{ cta.thank_you }}"
         data-modals="{{ modals_json }}"
-	>loading CTA</div>
+	>{% trans "Loading form…" %}</div>
 
     <script src="https://c.shpg.org/352/sp.js"></script>
 </div>
