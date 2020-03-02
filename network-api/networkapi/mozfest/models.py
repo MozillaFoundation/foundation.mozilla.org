@@ -128,16 +128,11 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='The video to play when users click "watch video"'
     )
 
-    prefooter_text = RichTextField(
-        help_text='Pre-footer content',
-        blank=True
-    )
-
     subpage_types = [
         'MozfestPrimaryPage'
     ]
 
-    # Put everything except `prefooter_text` above the body
+    # Put everything above the body
     parent_panels = MozfestPrimaryPage.content_panels
     panel_count = len(parent_panels)
     n = panel_count - 1
@@ -148,9 +143,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('banner_heading'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
-    ] + parent_panels[n:] + [
-        FieldPanel('prefooter_text'),
-    ]
+    ] + parent_panels[n:]
 
     # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
     # we should hide it and make sure we use the right template
