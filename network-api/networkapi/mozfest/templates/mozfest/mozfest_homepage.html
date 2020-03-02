@@ -12,17 +12,19 @@
 {% block bootstrap_width %}col-lg-12{% endblock %}
 
 {% block prefooter %}
-  {% comment %}
-  We don't want to show this prefooter section for the early March version of site
-  See https://github.com/mozilla/foundation.mozilla.org/issues/4267
+  {% if page.prefooter_text %}
   <div class="prefooter container mb-5">
     <div class="row">
       <div class="col-12"><hr class="hr-emphasis mt-0 mb-5"></div>
-      <div class="prefooter-text body-large col-12 col-md-6">{{ page.prefooter_text | richtext }}</div>
+      <div class="prefooter-text body-large col-12">{{ page.prefooter_text | richtext }}</div>
+      {% comment %}
+      Hiding Twitter section as per https://github.com/mozilla/foundation.mozilla.org/issues/4267
+      To show this section again, remove the "comment" tags and add "col-md-6" to the class list of "prefooter-text" above.
       <div class="twitter-feed col-12 col-md-6 mt-4 mt-md-0">{% include "../fragments/twitter_feed.html" %}</div>
+      {% endcomment %}
     </div>
   </div>
-  {% endcomment %}
+  {% endif %}
 {% endblock %}
 
 {% block footer_block %}
