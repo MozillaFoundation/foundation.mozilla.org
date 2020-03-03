@@ -11,8 +11,8 @@
 
   <div class="why-we-made-intro mb-4">
     <p class="body">
-      {% blocktrans with link_args=' href="https://foundation.mozilla.org/" target="_blank"' trimmed %}
-      Welcome to the third edition of <a{{link_args}}>Mozilla’s</a> <em>*Privacy Not Included</em> buyer’s guide. Our
+      {% blocktrans with link_args='href="https://foundation.mozilla.org/" target="_blank"' trimmed %}
+      Welcome to the third edition of <a {{link_args}}>Mozilla’s</a> <em>*Privacy Not Included</em> buyer’s guide. Our
       goal is to help you shop smart—and safe—for products that connect to the internet.
       {% endblocktrans %}
     </p>
@@ -39,7 +39,7 @@
       {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards" trimmed %}
       We realize people want to <em>just know</em> which products are safe and which aren’t. We are Mozilla—not a
       consumer product review company—so we won’t say “Buy this, don’t buy that.” Instead, we used our technical
-      expertise to create a set of <a href={{url}}>Minimum Security Standards</a> we think all products should meet in
+      expertise to create a set of <a href="{{url}}">Minimum Security Standards</a> we think all products should meet in
       order to be sold in stores. Those standards include using encryption, automatic security updates, requiring strong
       passwords, having a system to manage vulnerabilities, and having an accessible privacy policy. Look for the “Meets
       Our Minimum Security Standards” badge on products in the guide. This year we’ve also added a star rating near the
@@ -78,11 +78,11 @@
 
   <div class="why-we-made-outro">
     <p class="body">
-      {% blocktrans with link_args=' href="https://foundation.mozilla.org/privacy-included/" target="_blank"' trimmed %}
+      {% blocktrans with link_args='href="https://foundation.mozilla.org/privacy-included/" target="_blank"' trimmed %}
       We hope you use and enjoy this guide to help you think about, shop for, and buy products from companies that show
       they value privacy and security. If you want to dig deeper, our friends on Mozilla’s Internet Health Report team
       have created a companion to our buyer’s guide that explains what can be done to make things better. It’s called
-      <a{{link_args}}>*Privacy Included: Rethinking the Smart Home</a>.
+      <a {{link_args}}>*Privacy Included: Rethinking the Smart Home</a>.
       {% endblocktrans %}
     </p>
 
@@ -100,10 +100,10 @@
 
     <p class="body">
       <em>
-        {% blocktrans with mofo_url=' href="https://foundation.mozilla.org" target="_blank"' donate_url=' href="https://donate.mozilla.org" target="_blank"' mozilla_url=' href="https://www.mozilla.org/" target="_blank"' trimmed %}
+        {% blocktrans with mofo_url='href="https://foundation.mozilla.org" target="_blank"' donate_url='href="https://donate.mozilla.org" target="_blank"' mozilla_url='href="https://www.mozilla.org/" target="_blank"' trimmed %}
         Mozilla fights daily for a healthier internet as a non-profit tech company that puts people before profit. This
-        guide was created by the <a{{mofo_url}}>Mozilla Foundation</a> which relies on <a{{donate_url}}>donations</a>
-        from people like you to do our work. You can also visit <a{{mozilla_url}}>Mozilla.org</a> to learn more about
+        guide was created by the <a {{mofo_url}}>Mozilla Foundation</a> which relies on <a {{donate_url}}>donations</a>
+        from people like you to do our work. You can also visit <a {{mozilla_url}}>Mozilla.org</a> to learn more about
         our purpose driven products like Firefox and Common Voice.
         {% endblocktrans %}
       </em>
