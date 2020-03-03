@@ -49,9 +49,9 @@ If you're on windows, you need an extra step: run `inv manage createsuperuser` t
 
 You're done :tada:
 
-To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command.
+To catch up on new dependencies, migrations, etc. after the initial setup, you can use the `inv catch-up` command.
 
-For more information on how to run this project, check the [local development with invoke and pipenv](docs/local_development_with_invoke_pipenv.md) documentation.
+For more information on how to run this project, check the [local development with invoking and pipenv](docs/local_development_with_invoke_pipenv.md) documentation.
 
 ## Testing
 
@@ -59,7 +59,7 @@ When relevant, we encourage you to write tests. You can run the tests using the 
 
 - `inv test`
 
-In addition to the code tests there are also visual regression tests, located in the `./cypress/integration` directory. You can run these tests locally by installing [cypress](https://www.cypress.io/) using `npm i cypress@3.0.3`, after which the command `npm run cypress` will run these tests locally. However, note that these tests are currently intended for screenshot comparisons across branches, and so will not yield any meaningful results when run for a single branch.
+In addition to the code tests, there are also visual regression tests, located in the `./cypress/integration` directory. You can run these tests locally by installing [cypress](https://www.cypress.io/) using `npm i cypress@3.0.3`, after which the command `npm run cypress` will run these tests locally. However, note that these tests are currently intended for screenshot comparisons across branches, and so will not yield any meaningful results when running for a single branch.
 
 
 ## How to Setup your Dev Environment with Docker
@@ -77,13 +77,13 @@ For more information on how to run the project with Docker, check the [local dev
 
 ## Mozilla Festival
 
-The fake data generator can generate a site structure for the Mozilla Festival that can be served under it's own domain, or in the case of review apps on Heroku, where we're limited to a single domain, as a sub-directory of the main foundation site, at `{review_app_host}/mozilla-festival`.
+The fake data generator can generate a site structure for the Mozilla Festival that can be served under its own domain, or in the case of review apps on Heroku, where we're limited to a single domain, as a sub-directory of the main foundation site, at `{review_app_host}/mozilla-festival`.
 
 In order to access the Mozilla Festival site locally on a different domain than the main Foundation site, you'll need to edit your hosts file (`/etc/hosts` on *nix systems, `C:\Windows\System32\Drivers\etc\hosts` on Windows) to allow you to access the site at `mozfest.localhost:8000`. To enable this, add the following line to your hosts file: `127.0.0.1 mozfest.localhost`
 
 ## Gotchas
 
-As this is REST API and CMS built on top of Django, there are some "gotcha!"s to keep in mind due to the high level of magic in the Django code base (where things will happen automatically without the code explicitly telling you).
+As this is REST API and CMS built on top of Django, there is some "gotcha!"s to keep in mind due to the high level of magic in the Django codebase (where things will happen automatically without the code explicitly telling you).
 
 #### **DEBUG=True**
 
@@ -110,13 +110,13 @@ The latest source strings are regularly exposed to Pontoon by a Localization PM 
 
 ### Getting the latest translations for local dev
 
-Latest translations are uploaded to S3. To get them, run:
+The latest translations are uploaded to S3. To get them, run:
 - `curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar`
 - `tar -C network-api -xvf translations.tar`
 
 You don't need to run `compilemessages` and it works for both pipenv or docker workflows.
 
-The `translations_github_commit_[...]` file from the archive is only used for debug purposes on Heroku. It can be safely deleted if needed.
+The `translations_github_commit_[...]` file from the archive is only used for debugging purposes on Heroku. It can be safely deleted if needed.
 
 ## Contributing
 
