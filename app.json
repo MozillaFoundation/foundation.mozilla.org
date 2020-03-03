@@ -1,6 +1,6 @@
 {
-  "name": "network",
-  "description": "The Mozilla Network site",
+  "name": "Mozilla Foundation site",
+  "description": "Mozilla Foundation site",
   "addons": [
     "heroku-postgresql:hobby-dev"
   ],
@@ -23,15 +23,15 @@
     "USE_S3": "True",
     "PULSE_API_DOMAIN": "https://network-pulse-api-production.herokuapp.com",
     "PULSE_DOMAIN": "www.mozillapulse.org",
-    "CSP_DEFAULT_SRC": "'none'",
-    "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' cdn.optimizely.com https://www.google-analytics.com/analytics.js",
-    "CSP_STYLE_SRC": "'self' 'unsafe-inline' code.cdn.mozilla.net fonts.googleapis.com",
-    "CSP_IMG_SRC": "* data:",
-    "CSP_FONT_SRC": "'self' fonts.gstatic.com fonts.googleapis.com code.cdn.mozilla.net",
+    "CSP_CHILD_SRC": "'self' https://www.youtube.com https://www.youtube-nocookie.com",
     "CSP_CONNECT_SRC": "*",
+    "CSP_DEFAULT_SRC": "'none'",
+    "CSP_FRAME_ANCESTORS": "'none'",
+    "CSP_FONT_SRC": "'self' https://fonts.gstatic.com https://fonts.googleapis.com https://code.cdn.mozilla.net",
+    "CSP_IMG_SRC": "* data:",
     "CSP_MEDIA_SRC": "'self'",
-    "CSP_CHILD_SRC": "'self'",
-    "CSP_FORM_ACTION": "'self' https://www.mozilla.org/en-US/newsletter/",
+    "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdn.syndication.twimg.com",
+    "CSP_STYLE_SRC": "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com  https://platform.twitter.com",
     "NPM_CONFIG_PRODUCTION": "true",
     "REVIEW_APP": "True"
   },
