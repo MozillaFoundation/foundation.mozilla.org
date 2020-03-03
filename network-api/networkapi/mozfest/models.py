@@ -88,7 +88,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         context['menu_items'] = self.get_children().live().in_menu()
 
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
-        mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
+        mozfest_footer = Signup.objects.filter(name_en__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
 
         if not bypass_menu_buildstep:
@@ -128,16 +128,11 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='The video to play when users click "watch video"'
     )
 
-    prefooter_text = RichTextField(
-        help_text='Pre-footer content',
-        blank=True
-    )
-
     subpage_types = [
         'MozfestPrimaryPage'
     ]
 
-    # Put everything except `prefooter_text` above the body
+    # Put everything above the body
     parent_panels = MozfestPrimaryPage.content_panels
     panel_count = len(parent_panels)
     n = panel_count - 1
@@ -148,9 +143,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('banner_heading'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
-    ] + parent_panels[n:] + [
-        FieldPanel('prefooter_text'),
-    ]
+    ] + parent_panels[n:]
 
     # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
     # we should hide it and make sure we use the right template
