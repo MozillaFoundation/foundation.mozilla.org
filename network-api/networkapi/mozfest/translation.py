@@ -23,5 +23,4 @@ class MozfestHomepageTR(TranslationOptions):
         'banner_heading',
         'banner_guide_text',
         'banner_video_url',
-        'prefooter_text',
     )
