@@ -246,7 +246,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     # helper function to resolve category slugs to actual objects
     def get_category_object_for_slug(self, category_slug):
         # FIXME: this should not need to be an app consult
-        BlogPageCategory = apps.get_model('networkapi.wagtailpages', 'BlogPageCategory')
+        BlogPageCategory = apps.get_model('wagtailpages', 'BlogPageCategory')
 
         # We can't use .filter for @property fields,
         # so we have to run through all categories =(
