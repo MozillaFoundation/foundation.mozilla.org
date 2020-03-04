@@ -312,6 +312,16 @@ TEMPLATES = [
     },
 ]
 
+# enable the cached template loader when debug is not enabled
+if not env('DEBUG'):
+    TEMPLATES[0]['APP_DIRS'] = False
+    TEMPLATES[0]['OPTIONS']['loaders'] = [
+        ('django.template.loaders.cached.Loader', [
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+        ]),
+    ]
+
 if env('REDIS_URL'):
     CACHES = {
         'default': {
