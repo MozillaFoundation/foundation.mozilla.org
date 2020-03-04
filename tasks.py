@@ -32,7 +32,6 @@ locale_abstraction_instructions = " ".join([
 ])
 
 
-@task
 def create_docker_env_file(env_file):
     """Create or update an .env to work with a docker environment"""
     with open(env_file, 'r') as f:
