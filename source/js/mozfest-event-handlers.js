@@ -36,10 +36,6 @@ const bindHomeBannerHandlers = () => {
       showVideoControls();
     });
 
-    // We do not to show video controls until video is ready to play.
-    // Having the if-else check because <video> could be loaded already before
-    // we could attach the "canplay" event handler.
-    // See https://stackoverflow.com/a/26034492
     showVideoControls();
 
     video.addEventListener(
