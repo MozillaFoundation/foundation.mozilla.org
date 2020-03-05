@@ -119,7 +119,7 @@ body.mozfest {
 
         video {
           // TODO:FIXME. Ratio will be adjusted once Mavis receives the final video file.
-          $screen-ratio: "2/2";
+          $screen-ratio: "1/1";
 
           // when screen is wide
           @media (min-aspect-ratio: $screen-ratio) {
