@@ -107,7 +107,8 @@ class MozfestHomepage(MozfestPrimaryPage):
     cta_button_destination = models.CharField(
         max_length=2048,
         blank=True,
-        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to. E.g., /proposals',
+        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to.'
+                  'E.g., /proposals, https://example.com/external-link',
     )
 
     banner_heading = models.CharField(
