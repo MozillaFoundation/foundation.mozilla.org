@@ -1,31 +1,26 @@
 import json
-import re
 
 from django.db import models
 from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import redirect
-from django.template import loader
-from django.template.defaultfilters import slugify
+from django.http import HttpResponseRedirect
 
+from django.template.defaultfilters import slugify
 
 from . import customblocks
 
 from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core import blocks
 from wagtail.core.models import Page, Orderable as WagtailOrderable
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.images.models import Image
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.snippets.models import register_snippet
 
-from wagtailmetadata.models import MetadataPageMixin
+from .pagemodels.index_page import IndexPage
+from .pagemodels.mixin.foundation_metadata import FoundationMetadataPageMixin
 
-from taggit.models import Tag, TaggedItemBase
+from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
@@ -37,17 +32,6 @@ from .utils import (
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from .donation_modal import DonationModals  # noqa: F401
-
-
-# See https://docs.python.org/3.7/library/stdtypes.html#str.title
-# for why this definition exists (basically: apostrophes)
-def titlecase(s):
-    return re.sub(
-        r"[A-Za-z]+('[A-Za-z]+)?",
-        lambda mo: mo.group(0)[0].upper() +
-        mo.group(0)[1:].lower(),
-        s
-    )
 
 
 """
@@ -80,58 +64,6 @@ base_fields = [field for field in [
     ('recent_blog_entries', customblocks.RecentBlogEntries()),
     ('airtable', customblocks.AirTableBlock()),
 ] if field is not None]
-
-
-# Override the MetadataPageMixin to allow for a default
-# description and image in page metadata for all Pages on the site
-class FoundationMetadataPageMixin(MetadataPageMixin):
-    def __init__(self, *args, **kwargs):
-        # The first Wagtail image returned that has the specified tag name will
-        # be the default image URL in social shares when no Image is specified at the Page level
-        super().__init__(*args, **kwargs)
-        try:
-            default_social_share_tag = 'social share image'
-            self.social_share_tag = Tag.objects.get(name=default_social_share_tag)
-        except Tag.DoesNotExist:
-            self.social_share_tag = None
-
-    # Change this string to update the default description of all pages on the site
-    default_description = 'Mozilla is a global non-profit dedicated to putting you in control of your online ' \
-                          'experience and shaping the future of the web for the public good. '
-
-    def get_meta_description(self):
-        if self.search_description:
-            return self.search_description
-
-        parent = self.get_parent()
-
-        while parent:
-            if parent.search_description:
-                return parent.search_description
-            parent = parent.get_parent()
-
-        return self.default_description
-
-    def get_meta_image(self):
-        if self.search_image:
-            return self.search_image
-
-        parent = self.get_parent()
-
-        while parent:
-            if hasattr(parent, 'search_image') and parent.search_image:
-                return parent.search_image
-            if hasattr(parent, 'homepage') and parent.homepage.search_image:
-                return parent.homepage.search_image
-            parent = parent.get_parent()
-
-        try:
-            return Image.objects.filter(tags=self.social_share_tag).first()
-        except Image.DoesNotExist:
-            return None
-
-    class Meta:
-        abstract = True
 
 
 class ModularPage(FoundationMetadataPageMixin, Page):
@@ -528,282 +460,6 @@ class BanneredCampaignPage(PrimaryPage):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
         return get_page_tree_information(self, context)
-
-
-class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
-    """
-    This is a page type for creating "index" pages that
-    can show cards for all their child content.
-    E.g. a page that list "all blog posts" under it,
-    or "all the various campaigns", etc.
-    """
-
-    header = models.CharField(
-        max_length=250,
-        blank=True
-    )
-
-    intro = models.CharField(
-        max_length=250,
-        blank=True,
-        help_text='Intro paragraph to show in hero cutout box'
-    )
-
-    DEFAULT_PAGE_SIZE = 12
-
-    PAGE_SIZES = (
-        (4, '4'),
-        (8, '8'),
-        (DEFAULT_PAGE_SIZE, str(DEFAULT_PAGE_SIZE)),
-        (24, '24'),
-    )
-
-    page_size = models.IntegerField(
-        choices=PAGE_SIZES,
-        default=DEFAULT_PAGE_SIZE,
-        help_text='The number of entries to show by default, and per incremental load'
-    )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('header'),
-        FieldPanel('intro'),
-        FieldPanel('page_size'),
-    ]
-
-    def get_context(self, request):
-        # bootstrap the render context
-        context = super().get_context(request)
-        context = set_main_site_nav_information(self, context, 'Homepage')
-        context = get_page_tree_information(self, context)
-
-        # perform entry pagination and (optional) filterin
-        entries = self.get_entries(context)
-        context['has_more'] = self.page_size < len(entries)
-        context['entries'] = entries[0:self.page_size]
-        return context
-
-    def get_all_entries(self):
-        """
-        Get all (live) child entries, ordered "newest first"
-        """
-        return self.get_children().live().public().order_by('-first_published_at')
-
-    def get_entries(self, context=dict()):
-        """
-        Get all child entries, filtered down if required based on
-        the `self.filtered` field being set or not.
-        """
-        entries = self.get_all_entries()
-        if hasattr(self, 'filtered'):
-            entries = self.filter_entries(entries, context)
-        return entries
-
-    def filter_entries(self, entries, context):
-        filter_type = self.filtered.get('type')
-        context['filtered'] = filter_type
-
-        if filter_type == 'tags':
-            entries = self.filter_entries_for_tag(entries, context)
-
-        if filter_type == 'category':
-            entries = self.filter_entries_for_category(entries, context)
-
-        context['total_entries'] = len(entries)
-        return entries
-
-    def filter_entries_for_tag(self, entries, context):
-        """
-        Realise the 'entries' queryset and filter it for tags presences.
-        We need to perform this realisation because there is no guarantee
-        that all children for this IndexPage in fact have a `tags` field,
-        so in order to test this each entry needs to be "cast" into its
-        specific model before we can test for whether i) there are tags
-        to work with and then ii) those tags match the specified ones.
-        """
-        terms = self.filtered.get('terms')
-
-        # "unsluggify" all terms. Note that we cannot use list comprehension,
-        # as not all terms might be real tags, and list comprehension cannot
-        # be made to ignore throws.
-        context['terms'] = list()
-        for term in terms:
-            try:
-                tag = Tag.objects.get(slug=term)
-                context['terms'].append(str(tag))
-            except Tag.DoesNotExist:
-                # ignore non-existent tags
-                pass
-
-        entries = [
-            entry
-            for
-            entry in entries.specific()
-            if
-            hasattr(entry, 'tags')
-            and not
-            # Determine whether there is any overlap between 'all tags' and
-            # the tags specified. This effects ANY matching (rather than ALL).
-            set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
-        ]
-
-        return entries
-
-    def filter_entries_for_category(self, entries, context):
-        category = self.filtered.get('category')
-
-        # make sure we bypass "x results for Y"
-        context['no_filter_ui'] = True
-
-        # and that we don't show the primary tag/category
-        context['hide_classifiers'] = True
-
-        # explicitly set the index page title and intro
-        context['index_title'] = titlecase(f'{category.name} {self.title}')
-        context['index_intro'] = category.intro
-
-        # and then the filtered content
-        context['terms'] = [category.name, ]
-        entries = [
-            entry
-            for
-            entry in entries.specific()
-            if
-            hasattr(entry, 'category')
-            and
-            category in entry.category.all()
-        ]
-
-        return entries
-
-    """
-    Sub routes
-    """
-
-    @route('^entries/')
-    def generate_entries_set_html(self, request, *args, **kwargs):
-        """
-        JSON endpoint for getting a set of (pre-rendered) entries
-        """
-
-        page = 1
-        if 'page' in request.GET:
-            page = int(request.GET['page'])
-
-        page_size = self.page_size
-        if 'page_size' in request.GET:
-            page_size = int(request.GET['page_size'])
-
-        start = page * page_size
-        end = start + page_size
-        entries = self.get_entries()
-        has_next = end < len(entries)
-
-        hide_classifiers = False
-        if hasattr(self, 'filtered'):
-            if self.filtered.get('type') == 'category':
-                hide_classifiers = True
-
-        html = loader.render_to_string(
-            'wagtailpages/fragments/entry_cards.html',
-            context={
-                'entries': entries[start:end],
-                'hide_classifiers': hide_classifiers
-            },
-            request=request
-        )
-
-        return JsonResponse({
-            'entries_html': html,
-            'has_next': has_next,
-        })
-
-    """
-    tag routes
-    """
-
-    # helper function for /tags/... subroutes
-    def extract_tag_information(self, tag):
-        terms = list(filter(None, re.split('/', tag)))
-        self.filtered = {
-            'type': 'tags',
-            'terms': terms
-        }
-
-    @route(r'^tags/(?P<tag>.+)/entries/')
-    def generate_tagged_entries_set_html(self, request, tag, *args, **kwargs):
-        """
-        JSON endpoint for getting a set of (pre-rendered) tagged entries
-        """
-        self.extract_tag_information(tag)
-        return self.generate_entries_set_html(request, *args, **kwargs)
-
-    @route(r'^tags/(?P<tag>.+)/')
-    def entries_by_tag(self, request, tag, *args, **kwargs):
-        """
-        If this page was called with `/tags/...` as suffix, extract
-        the tags to filter prior to rendering this page. Multiple
-        tags are specified as subpath: `/tags/tag1/tag2/...`
-        """
-        self.extract_tag_information(tag)
-        return IndexPage.serve(self, request, *args, **kwargs)
-
-    """
-    category routes
-    """
-
-    # helper function to resolve category slugs to actual objects
-    def get_category_object_for_slug(self, category_slug):
-
-        # We can't use .filter for @property fields,
-        # so we have to run through all categories =(
-        for bpc in BlogPageCategory.objects.all():
-            if bpc.slug == category_slug:
-                category_object = bpc
-                break
-        else:
-            category_object = None
-
-        return category_object
-
-    # helper function for /category/... subroutes
-    def extract_category_information(self, category_slug):
-        category_object = self.get_category_object_for_slug(category_slug)
-
-        if category_object is None:
-            raise ObjectDoesNotExist
-
-        self.filtered = {
-            'type': 'category',
-            'category': category_object
-        }
-
-    @route(r'^category/(?P<category>.+)/entries/')
-    def generate_category_entries_set_html(self, request, category, *args, **kwargs):
-        """
-        JSON endpoint for getting a set of (pre-rendered) category entries
-        """
-        try:
-            self.extract_category_information(category)
-
-        except ObjectDoesNotExist:
-            return redirect(self.full_url)
-
-        return self.generate_entries_set_html(request, *args, **kwargs)
-
-    @route(r'^category/(?P<category>.+)/')
-    def entries_by_category(self, request, category, *args, **kwargs):
-        """
-        If this page was called with `/category/...` as suffix, extract
-        the category to filter prior to rendering this page. Only one
-        category can be specified (unlike tags)
-        """
-        try:
-            self.extract_category_information(category)
-
-        except ObjectDoesNotExist:
-            return redirect(self.full_url)
-
-        return IndexPage.serve(self, request, *args, **kwargs)
 
 
 class NewsPage(PrimaryPage):
