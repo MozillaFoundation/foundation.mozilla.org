@@ -98,6 +98,8 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class MozfestHomepage(MozfestPrimaryPage):
+    banner_type = "video"
+
     cta_button_label = models.CharField(
         max_length=250,
         default='Submit proposal',
@@ -137,7 +139,7 @@ class MozfestHomepage(MozfestPrimaryPage):
     panel_count = len(parent_panels)
     n = panel_count - 1
 
-    content_panels = parent_panels[:n] + [
+    all_panels = parent_panels[:n] + [
         FieldPanel('cta_button_label'),
         FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
@@ -145,9 +147,23 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('banner_video_url'),
     ] + parent_panels[n:]
 
+    if banner_type == "video":
+        # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
+        content_panels = [field for field in all_panels
+                          if field.field_name not in
+                          ['banner', 'header', 'intro', 'banner_guide_text', 'banner_video_url']]
+    else:
+        content_panels = all_panels
+
     # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
     # we should hide it and make sure we use the right template
     settings_panels = Page.settings_panels
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['banner_type'] = self.specific.banner_type
+
+        return context
 
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
