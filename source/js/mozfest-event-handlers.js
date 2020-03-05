@@ -15,9 +15,11 @@ const bindHomeBannerHandlers = () => {
 
   if (video && pauseButton && playButton) {
     let showVideoControls = () => {
-      let classToToggle = `d-none`;
+      const classToToggle = `d-none`;
+      let autoplayStarted =
+        video.played.length == 0 && video.readyState >= video.HAVE_FUTURE_DATA;
 
-      if (!video.paused || video.readyState >= video.HAVE_FUTURE_DATA) {
+      if (!video.paused || autoplayStarted) {
         playButton.classList.add(classToToggle);
         pauseButton.classList.remove(classToToggle);
       } else {
