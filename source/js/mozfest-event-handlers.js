@@ -16,7 +16,9 @@ const bindHomeBannerHandlers = () => {
   if (video && pauseButton && playButton) {
     let showVideoControls = () => {
       let classToToggle = `d-none`;
-      if (!video.paused) {
+
+      if (!video.paused && video.played.length > 0) {
+        // by checking video.played.length, we can tell if autoplay has started
         playButton.classList.add(classToToggle);
         pauseButton.classList.remove(classToToggle);
       } else {
