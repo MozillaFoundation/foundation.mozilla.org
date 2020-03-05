@@ -18,4 +18,9 @@ class MozfestPrimaryPageTR(TranslationOptions):
 
 @register(MozfestHomepage)
 class MozfestHomepageTR(TranslationOptions):
-    fields = ()
+    fields = (
+        'cta_button_label',
+        'banner_heading',
+        'banner_guide_text',
+        'banner_video_url',
+    )

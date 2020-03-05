@@ -41,10 +41,30 @@ Opening a PR activates different services:
 
 ### Review Apps
 
-Opening a PR will automatically create a review app in the `foundation-site` pipeline. It's not possible to use OAuth but you can still access the admin interface with a username and password. The login details for review apps are published in the `mofo-ra-foundation` Slack channel when the app has finished deploying.
+#### Review App for PRs
 
-Environment variable:
+Opening a PR will automatically create a Review App in the `foundation-site` pipeline. A slack bot posts credentials and links to Review Apps in to the `mofo-ra-foundation` Slack channel.
+
+*Note:* This only work for Mo-Fo staff: you will need to manually open a Review App on Heroku for PRs opened by external contributors.
+
+#### Review App for branches
+
+You can manually create a review app for any branch pushed to this repo. It's useful if you want to test your code on Heroku without opening a PR yet.
+
+To create one:
+- log into Heroku.
+- Go to the `foundation-site` pipeline.
+- Click on `+ New app` and select the branch you want to use.
+
+The review app slack bot will post a message in the `foundation-site` with links and credentials as soon as the review app is ready.
+
+#### Environment variables:
+
 - `REVIEW_APP`: set to True on review app.
+- `GITHUB_TOKEN`: GITHUB API authentication,
+- `SLACK_WEBHOOK_RA`: Webhook to `mofo-ra-foundation`
+
+Non-secret envs can be added to the `app.json` file. Secrets must be set on Heroku in the `Review Apps` (pipelines' `settings` tab).
 
 ### Continuous Integration testing
 

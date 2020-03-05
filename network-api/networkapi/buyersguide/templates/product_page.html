@@ -31,7 +31,7 @@
   </div>
 </div>
 
-{% with section_class="col-12 col-lg-10 offset-lg-1 product-section-padding-x" %}
+{% with section_class="col-12 col-lg-10 offset-lg-1" %}
 <div class="container">
   <div class="row">
     <div class="product-detail bg-white py-3 py-md-4 px-md-5 {{section_class}}">
@@ -47,20 +47,12 @@
         <div class="body-large mb-2 mb-md-4 col-12">{{product.blurb}}</div>
       </div>
 
-      <div class="minimum-security">
-        <div class="criterion bottom-border-only">
+      <div class="minimum-security row py-5 px-3 px-md-5">
+        <div class="criterion bottom-border-only py-0 col-12">
           <div class="d-block primary-info">
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
-                <h3 class="h3-heading mb-0 mb-md-3">Minimum Security Standards</h3>
-
-                <div class="d-flex rating my-2">
-                  <span class="star value-{{ product.uses_encryption|lower}}">&nbsp;</span>
-                  <span class="star value-{{ product.security_updates|lower }}">&nbsp;</span>
-                  <span class="star value-{{ product.strong_password|lower }}">&nbsp;</span>
-                  <span class="star value-{{ product.manage_vulnerabilities|lower }}">&nbsp;</span>
-                  <span class="star value-{{ product.privacy_policy|lower }}">&nbsp;</span>
-                </div>
+                <h3 class="h3-heading">Minimum Security Standards</h3>
               </div>
             </div>
             <div class="primary-info-description mb-3">
@@ -72,11 +64,18 @@
           </div>
 
           <div class="details mt-2">
-            {% include "fragments/product_criterion.html"  with  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
-            {% include "fragments/product_criterion.html"  with  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
-            {% include "fragments/product_criterion.html"  with  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
-            {% include "fragments/product_criterion.html"  with  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
-            {% include "fragments/product_criterion.html"  with  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
+            <div class="criterion rating">
+              {% include "fragments/product_criterion_primary_info.html"  with  label="Overall Security Rating" %}
+              <div>
+                <span class="security-score mb-0">{{security_score}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
+                <img src="/_images/buyers-guide/score/icon-star.svg" width="20" height="20" alt="star">
+              </div>
+            </div>
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label="Security updates"        %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label="Strong password"         %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label="Manages vulnerabilities" %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label="Privacy policy"          %}
           </div>
         </div>
       </div>
@@ -133,7 +132,7 @@
   <div class="row dotted-section d-block d-sm-flex mx-0">
     <div class="container">
       <div class="row">
-        <div class="{{section_class}} mt-5 pt-3 bg-white">
+        <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
           {% if product.updates|length > 0 or coralTalkServerUrl %}
           <h3 class="h2-heading mb-4 mb-md-5">Updates</h3>
           {% endif %}

@@ -15,6 +15,7 @@ from rest_framework.response import Response
 
 from networkapi.buyersguide.models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
+from networkapi.utility.redirects import redirect_to_default_cms_site
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
@@ -67,6 +68,7 @@ def filter_draft_products(request, products):
     return filter(lambda p: p['draft'] is False, products)
 
 
+@redirect_to_default_cms_site
 @enforce_en_locale
 def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
@@ -85,6 +87,7 @@ def buyersguide_home(request):
     })
 
 
+@redirect_to_default_cms_site
 @enforce_en_locale
 def category_view(request, slug):
     key = f'products_category__{slug}'
@@ -110,6 +113,7 @@ def category_view(request, slug):
     })
 
 
+@redirect_to_default_cms_site
 @enforce_en_locale
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -117,16 +121,37 @@ def product_view(request, slug):
     if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")
 
+    product_dict = product.to_dict()
+    criteria = [
+        'uses_encryption',
+        'security_updates',
+        'strong_password',
+        'manage_vulnerabilities',
+        'privacy_policy',
+    ]
+    total_score = 0
+    num_criteria = len(criteria)
+
+    for i in range(num_criteria):
+        value = product_dict[criteria[i]]
+        if value == 'Yes':
+            total_score += 1
+        if value == 'NA':
+            total_score += 0.5
+
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
-        'product': product.to_dict(),
+        'product': product_dict,
         'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
         'pageTitle': f'*privacy not included - {product.name}',
+        'security_score': total_score,
+        'full_security_score': num_criteria
     })
 
 
 def bg_about_page(template_name):
+    @redirect_to_default_cms_site
     @enforce_en_locale
     def render_view(request):
         key = 'categories'

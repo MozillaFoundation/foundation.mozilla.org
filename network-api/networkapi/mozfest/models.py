@@ -3,6 +3,7 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
@@ -37,12 +38,22 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    signup = models.ForeignKey(
+        Signup,
+        related_name='mozfestpage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text='Choose an existing, or create a new, sign-up form'
+    )
+
     body = StreamField(base_fields)
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         ImageChooserPanel('banner'),
         FieldPanel('intro'),
+        SnippetChooserPanel('signup'),
         StreamFieldPanel('body'),
     ]
 
@@ -72,8 +83,12 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         context = set_main_site_nav_information(self, context, 'MozfestHomepage')
         context = get_page_tree_information(self, context)
 
+        # primary nav information
+        context['menu_root'] = self
+        context['menu_items'] = self.get_children().live().in_menu()
+
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
-        mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
+        mozfest_footer = Signup.objects.filter(name_en__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
 
         if not bypass_menu_buildstep:
@@ -113,16 +128,11 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='The video to play when users click "watch video"'
     )
 
-    prefooter_text = RichTextField(
-        help_text='Pre-footer content',
-        blank=True
-    )
-
     subpage_types = [
         'MozfestPrimaryPage'
     ]
 
-    # Put everything except `prefooter_text` above the body
+    # Put everything above the body
     parent_panels = MozfestPrimaryPage.content_panels
     panel_count = len(parent_panels)
     n = panel_count - 1
@@ -133,9 +143,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('banner_heading'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
-    ] + parent_panels[n:] + [
-        FieldPanel('prefooter_text'),
-    ]
+    ] + parent_panels[n:]
 
     # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
     # we should hide it and make sure we use the right template
@@ -143,9 +151,3 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
-
-    def get_context(self, request):
-        context = super().get_context(request, bypass_menu_buildstep=True)
-        context['menu_root'] = self
-        context['menu_items'] = self.get_children().live().in_menu()
-        return context

@@ -23,6 +23,7 @@ let rules = [
 ];
 
 let main = {
+  devtool: false,
   entry: `./source/js/main.js`,
   output: {
     path: frontendPath,
@@ -30,10 +31,14 @@ let main = {
   },
   module: {
     rules
-  }
+  },
+  plugins: [
+    new webpack.EnvironmentPlugin(["NODE_ENV"])
+  ]
 };
 
 let bgMain = {
+  devtool: false,
   entry: {
     "bg-main": `./source/js/buyers-guide/bg-main.js`,
     polyfills: `./source/js/polyfills.js`
@@ -47,4 +52,10 @@ let bgMain = {
   }
 };
 
-module.exports = [main, bgMain];
+let config = [main, bgMain];
+
+module.exports = (env, argv) => {
+  process.env.NODE_ENV = process.env.NODE_ENV || argv.mode;
+
+  return config;
+};

@@ -474,7 +474,7 @@ export default class Petition extends React.Component {
   renderCtaDescription() {
     if (this.props.ctaDescription) {
       return (
-        <p dangerouslySetInnerHTML={{ __html: this.props.ctaDescription }} />
+        <div dangerouslySetInnerHTML={{ __html: this.props.ctaDescription }} />
       );
     }
     return null;
@@ -737,7 +737,7 @@ export default class Petition extends React.Component {
 }
 
 Petition.defaultProps = {
-  ctaDescription: getText(`Add my name`),
+  ctaDescription: <p>{getText(`Add my name`)}</p>,
   ctaHeader: ``,
   newsletter: `mozilla-foundation`
 };

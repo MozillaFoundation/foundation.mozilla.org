@@ -1,5 +1,7 @@
 {% extends "partials/footer.html" %}
 
+{% load i18n %}
+
 {% block footer_donate %}
   <!-- nothing right now -->
 {% endblock %}
@@ -8,6 +10,7 @@
   <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
     <div
       class="join-us"
+      data-form-position="footer"
       data-button-position="side"
       data-csrf-token="{{ csrf_token }}"
       data-signup-id="{{ mozfest_footer.id }}"
@@ -22,17 +25,16 @@
 
 {% block social_links %}
   <li class="mr-2"><a class="twitter-glyph small d-inline-block" data-platform="twitter" href="https://twitter.com/mozillafestival"><span class="sr-only">Twitter</span></a></li>
-  <li class="mr-2"><a class="medium-glyph small d-inline-block" data-platform="medium" href="https://www.medium.com/mozilla-festival"><span class="sr-only">Youtube</span></a></li>
-  <li class="mr-2"><a class="youtube-glyph small d-inline-block" data-platform="youtube" href="https://www.youtube.com/playlist?list=PLnRGhgZaGeBt11miYYvKSSgbxkkbKKT7p"><span class="sr-only">Youtube</span></a></li>
-  <li class="mr-2"><a class="email-glyph small d-inline-block" data-platform="email" href="mailto:festival@mozilla.org"><span class="sr-only">Email</span></a></li>
+  <li class="mr-2"><a class="youtube-glyph small d-inline-block" data-platform="youtube" href="https://www.youtube.com/playlist?list=PLnRGhgZaGeBt11miYYvKSSgbxkkbKKT7p"><span class="sr-only">YouTube</span></a></li>
+  <li class="mr-2"><a class="email-glyph small d-inline-block" data-platform="email" href="mailto:festival@mozilla.org"><span class="sr-only">{% trans "Email" %}</span></a></li>
 {% endblock %}
 
 {% block general_links %}
-  <li><a id="donate-footer-btn" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer" class="dark-theme">Donate</a></li>
-  <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">Legal</a></li>
-  <li><a href="https://creativecommons.org/licenses/by/4.0" class="dark-theme">License</a></li>
-  <li><a href="/guidelines" class="dark-theme">Participation Guidelines</a></li>
-  <li><a href="/media" class="dark-theme">Media Center</a></li>
-  <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">Privacy</a></li>
-  <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">Cookies</a></li>
+  <li><a id="donate-footer-btn" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer" class="dark-theme">{% trans "Donate" %}</a></li>
+  <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">{% trans "Legal" %}</a></li>
+  <li><a href="https://creativecommons.org/licenses/by/4.0" class="dark-theme">{% trans "License" %}</a></li>
+  <li><a href="/guidelines" class="dark-theme">{% trans "Participation Guidelines" %}</a></li>
+  <li><a href="/media" class="dark-theme">{% trans "Media Center" %}</a></li>
+  <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">{% trans "Privacy" %}</a></li>
+  <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">{% trans "Cookies" %}</a></li>
 {% endblock %}
