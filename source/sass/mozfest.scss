@@ -19,22 +19,63 @@ body.mozfest {
 
   &#view-mozfest-home {
     #hero {
-      $banner-height: 464px;
+      // $banner-height: 464px;
+      $banner-height-mobile: 400px;
+      $banner-height-desktop: 480px;
       $banner-background-z-index: 1;
       $cutoff-offset: 40px;
 
       .video-control-wrapper {
-        z-index: 1000;
+        z-index: 1000; // TODO:FIXME
+        position: absolute;
+        width: 100%;
+        bottom: 1rem;
+
+        @media screen and (min-width: $bp-md) {
+          bottom: calc(#{$cutoff-offset} + 1rem);
+        }
+
+        .btn.btn-video-control {
+          $icon-size: 50px;
+
+          border: none;
+          height: $icon-size;
+          background: center left/$icon-size $icon-size no-repeat transparent;
+          padding-left: calc(#{$icon-size} + 0.5rem);
+
+          &:hover {
+            color: $white;
+            text-decoration: underline;
+          }
+
+          &.btn-pause {
+            background-image: url("/_images/mozfest/pause-button.svg");
+
+            &:hover {
+              background-image: url("/_images/mozfest/pause-button-hover.svg");
+            }
+          }
+
+          &.btn-play {
+            background-image: url("/_images/mozfest/play-button.svg");
+
+            &:hover {
+              background-image: url("/_images/mozfest/play-button-hover.svg");
+            }
+          }
+        }
       }
 
       .banner {
-        height: $banner-height;
+        height: $banner-height-mobile;
         position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
 
-        // justify-content: flex-start;
+        @media screen and (min-width: $bp-md) {
+          height: $banner-height-desktop;
+        }
       }
 
       .homepage-banner-content {
@@ -76,7 +117,7 @@ body.mozfest {
           left: 0;
         }
 
-        video {
+        video { // TODO:FIXME
           // width: 100%;
           $screen-ratio: "2/2";
 
