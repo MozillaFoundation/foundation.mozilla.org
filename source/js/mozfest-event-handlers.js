@@ -16,7 +16,6 @@ const bindHomeBannerHandlers = () => {
   if (video && pauseButton && playButton) {
     let showVideoControls = () => {
       let classToToggle = `d-none`;
-      console.log(`showVideoControls`);
       if (!video.paused) {
         playButton.classList.add(classToToggle);
         pauseButton.classList.remove(classToToggle);
@@ -26,16 +25,12 @@ const bindHomeBannerHandlers = () => {
       }
     };
 
-    console.log(`video.paused`, video.paused);
-
     pauseButton.addEventListener(`click`, () => {
-      console.log(`pauseButton clicked`);
       video.pause();
       showVideoControls();
     });
 
     playButton.addEventListener(`click`, () => {
-      console.log(`playButton clicked`);
       video.play();
       showVideoControls();
     });
