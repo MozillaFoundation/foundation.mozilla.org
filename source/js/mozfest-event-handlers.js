@@ -1,5 +1,6 @@
 const bindHomeBannerHandlers = () => {
   let homepage = document.querySelector("#view-mozfest-home");
+
   if (!homepage) {
     return;
   }
@@ -25,13 +26,11 @@ const bindHomeBannerHandlers = () => {
     // <video> could be loaded already before we could attach the "canplay" event handler
     // See https://stackoverflow.com/a/26034492
     if (homeVideo.readyState >= homeVideo.HAVE_FUTURE_DATA) {
-      console.log("IF video can play!");
       showVideoControl();
     } else {
       homeVideo.addEventListener(
         `canplay`,
         () => {
-          console.log("ELSE video can play!");
           showVideoControl();
         },
         false

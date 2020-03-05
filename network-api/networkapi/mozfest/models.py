@@ -149,9 +149,11 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     if banner_type == "video":
         # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
-        content_panels = [field for field in all_panels
-                          if field.field_name not in
-                          ['banner', 'header', 'intro', 'banner_guide_text', 'banner_video_url']]
+        content_panels = [
+            field for field in all_panels
+            if field.field_name not in
+            ['banner', 'header', 'intro', 'banner_guide_text', 'banner_video_url']
+        ]
     else:
         content_panels = all_panels
 
