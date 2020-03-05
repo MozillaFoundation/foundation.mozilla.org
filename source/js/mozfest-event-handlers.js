@@ -19,7 +19,11 @@ const bindHomeBannerHandlers = () => {
       let autoplayStarted =
         video.played.length == 0 && video.readyState >= video.HAVE_FUTURE_DATA;
 
-      if (!video.paused || autoplayStarted) {
+      if (video.readyState < video.HAVE_FUTURE_DATA) {
+        // don't show any video controls as the video isn't ready to play
+        playButton.classList.add(classToToggle);
+        pauseButton.classList.add(classToToggle);
+      } else if (!video.paused || autoplayStarted) {
         playButton.classList.add(classToToggle);
         pauseButton.classList.remove(classToToggle);
       } else {
