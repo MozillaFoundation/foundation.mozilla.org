@@ -17,8 +17,7 @@ const bindHomeBannerHandlers = () => {
     let showVideoControls = () => {
       let classToToggle = `d-none`;
 
-      if (!video.paused && video.played.length > 0) {
-        // by checking video.played.length, we can tell if autoplay has started
+      if (!video.paused || video.readyState >= video.HAVE_FUTURE_DATA) {
         playButton.classList.add(classToToggle);
         pauseButton.classList.remove(classToToggle);
       } else {
@@ -41,17 +40,15 @@ const bindHomeBannerHandlers = () => {
     // Having the if-else check because <video> could be loaded already before
     // we could attach the "canplay" event handler.
     // See https://stackoverflow.com/a/26034492
-    if (video.readyState >= video.HAVE_FUTURE_DATA) {
-      showVideoControls();
-    } else {
-      video.addEventListener(
-        `canplay`,
-        () => {
-          showVideoControls();
-        },
-        false
-      );
-    }
+    showVideoControls();
+
+    video.addEventListener(
+      `canplay`,
+      () => {
+        showVideoControls();
+      },
+      false
+    );
   }
 };
 
