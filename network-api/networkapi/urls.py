@@ -3,6 +3,7 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.http import HttpResponse
 from django.views.generic.base import RedirectView
 from django.urls import path
 
@@ -19,6 +20,13 @@ from experiments import views as experiment_views
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [
+    # Add robots.txt to exclude the thimble artifact page
+    path('robots.txt', lambda x: HttpResponse(
+        "User-Agent: *\nDisallow: /*artifacts/thimble",
+        content_type="text/plain; charset=utf-8"),
+         name="robots_file"
+         ),
+
     # social-sign-on routes so that Google auth works
     url(r'^soc/', include('social_django.urls', namespace='social')),
 
