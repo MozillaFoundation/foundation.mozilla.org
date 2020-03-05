@@ -29,6 +29,8 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     E.g. a page that list "all blog posts" under it,
     or "all the various campaigns", etc.
     """
+    class Meta:
+        app_label = "wagtailpages"
 
     header = models.CharField(
         max_length=250,
