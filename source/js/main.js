@@ -17,6 +17,7 @@ import ShareButtonGroup from "./components/share-button-group/share-button-group
 import primaryNav from "./primary-nav.js";
 import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
+import bindMozFestEventHandlers from "./mozfest-event-handlers";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 // Initializing component a11y browser console logging
@@ -264,7 +265,9 @@ let main = {
       });
     }
 
+    // MozFest specific scripts
     bindMozFestGA();
+    bindMozFestEventHandlers();
   },
 
   // Embed various React components based on the existence of containers within the current page
