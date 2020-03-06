@@ -19,16 +19,63 @@ body.mozfest {
 
   &#view-mozfest-home {
     #hero {
-      $banner-height: 464px;
+      $banner-height-mobile: 400px;
+      $banner-height-desktop: 480px;
       $banner-background-z-index: 1;
+      $banner-video-control-z-index: 2;
       $cutoff-offset: 40px;
 
+      .video-control-wrapper {
+        z-index: $banner-video-control-z-index;
+        position: absolute;
+        width: 100%;
+        bottom: 1rem;
+
+        @media screen and (min-width: $bp-md) {
+          bottom: calc(#{$cutoff-offset} + 1rem);
+        }
+
+        .btn.btn-video-control {
+          $icon-size: 50px;
+
+          border: none;
+          height: $icon-size;
+          background: center left/$icon-size $icon-size no-repeat transparent;
+          padding-left: calc(#{$icon-size} + 0.5rem);
+
+          &:hover {
+            color: $white;
+            text-decoration: underline;
+          }
+
+          &.btn-pause {
+            background-image: url("/_images/mozfest/pause-circle.svg");
+
+            &:hover {
+              background-image: url("/_images/mozfest/pause-circle-hover.svg");
+            }
+          }
+
+          &.btn-play {
+            background-image: url("/_images/mozfest/play-circle.svg");
+
+            &:hover {
+              background-image: url("/_images/mozfest/play-circle-hover.svg");
+            }
+          }
+        }
+      }
+
       .banner {
-        height: $banner-height;
+        height: $banner-height-mobile;
         position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        @media screen and (min-width: $bp-md) {
+          height: $banner-height-desktop;
+        }
       }
 
       .homepage-banner-content {
@@ -61,14 +108,35 @@ body.mozfest {
           z-index: $banner-background-z-index + 1;
         }
 
+        video,
         picture {
           display: flex;
           position: absolute;
           z-index: $banner-background-z-index;
           top: 0;
           left: 0;
-          height: 100%;
+        }
+
+        video {
+          // TODO:FIXME. Ratio will be adjusted once Mavis receives the final video file.
+          $screen-ratio: "1/1";
+
+          // when screen is wide
+          @media (min-aspect-ratio: $screen-ratio) {
+            width: 100%;
+            height: auto;
+          }
+
+          // when screen ratio is narrow
+          @media (max-aspect-ratio: $screen-ratio) {
+            width: auto;
+            height: 100%;
+          }
+        }
+
+        picture {
           width: 100%;
+          height: 100%;
 
           img {
             position: static;

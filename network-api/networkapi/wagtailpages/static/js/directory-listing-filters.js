@@ -2,7 +2,7 @@
   // start of function
 
   const profileCache = {};
-  const filters = document.querySelectorAll(
+  const labels = document.querySelectorAll(
     `.profile-directory .fellowships-directory-filter .filter-option button`
   );
   const profileContainer = document.querySelector(`.profiles .row`);
@@ -124,7 +124,6 @@
    * associated year (for now)
    */
   function bindEventsToLabels() {
-    let labels = Array.from(filters);
     labels.forEach(label => {
       label.addEventListener("click", evt => {
         // the label text content is, itself, the filter:
