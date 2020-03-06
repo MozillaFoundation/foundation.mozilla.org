@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block page_title %}
-{% blocktrans with year="2019" %}Mozilla Festival {{year}} - Page Not Found{% endblocktrans %}
+{% blocktrans %}Mozilla Festival - Page Not Found{% endblocktrans %}
 {% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -21,14 +21,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="nav-links pt-3">
-                                        <div><a class="active" href="https://www.mozillafestival.org/">{% trans "Home" %}</a></div>
-                                        <div><a class="" href="https://www.mozillafestival.org/spaces/">{% trans "Spaces" %}</a>
-                                        </div>
-                                        <div><a class="" href="https://www.mozillafestival.org/team/">{% trans "Team" %}</a></div>
-                                        <div><a class="" href="https://www.mozillafestival.org/tickets/">{% trans "Tickets" %}</a>
-                                        </div>
-                                        <div><a class=""
-                                                href="https://www.mozillafestival.org/sponsors/">{% trans "Sponsors" %}</a></div>
+                                        <div><a class="" href="https://www.mozillafestival.org/">{% trans "Home" %}</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -48,14 +41,6 @@
                                         <div class="burger-bar burger-bar-bottom"></div>
                                     </button>
                                     <a class="logo text-hide" href="https://www.mozillafestival.org/">{% trans "Home" %}</a>
-                                    <div class="wide-screen-menu">
-                                        <div class="nav-links d-none d-lg-block">
-                                            <a class="" href="https://www.mozillafestival.org/spaces/">{% trans "Spaces" %}</a>
-                                            <a class="" href="https://www.mozillafestival.org/team/">{% trans "Team" %}</a>
-                                            <a class="" href="https://www.mozillafestival.org/tickets/">{% trans "Tickets" %}</a>
-                                            <a class="" href="https://www.mozillafestival.org/sponsors/">{% trans "Sponsors" %}</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <a class="btn btn-secondary" href="/proposals">{% trans "Submit proposal" %}</a>

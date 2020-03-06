@@ -6,20 +6,10 @@
 {% block mozfest_body_id %}home{% endblock %}
 
 {% block hero_guts %}
-  {% include "partials/primary_heroguts.html" with root=root page=page homepage=True %}
+  {% include "partials/primary_heroguts.html" with root=root page=page homepage=True banner_video_type=banner_video_type %}
 {% endblock %}
 
 {% block bootstrap_width %}col-lg-12{% endblock %}
-
-{% block prefooter %}
-  <div class="prefooter container mb-5">
-    <div class="row">
-      <div class="col-12"><hr class="hr-emphasis mt-0 mb-5"></div>
-      <div class="prefooter-text body-large col-12 col-md-6">{{ page.prefooter_text | richtext }}</div>
-      <div class="twitter-feed col-12 col-md-6 mt-4 mt-md-0">{% include "../fragments/twitter_feed.html" %}</div>
-    </div>
-  </div>
-{% endblock %}
 
 {% block footer_block %}
   {% include "partials/mozfest_footer.html" %}
