@@ -98,7 +98,14 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class MozfestHomepage(MozfestPrimaryPage):
-    banner_type = "video"
+    """
+    MozFest Homepage
+
+    'banner_video_type' determines what version of banner design the page should load
+    """
+
+    #  this tells the templates to load a hardcoded, pre-defined video in the banner background
+    banner_video_type = "hardcoded"
 
     cta_button_label = models.CharField(
         max_length=250,
@@ -148,7 +155,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('banner_video_url'),
     ] + parent_panels[n:]
 
-    if banner_type == "video":
+    if banner_video_type == "hardcoded":
         # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
         content_panels = [
             field for field in all_panels
@@ -164,7 +171,7 @@ class MozfestHomepage(MozfestPrimaryPage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['banner_type'] = self.specific.banner_type
+        context['banner_video_type'] = self.specific.banner_video_type
 
         return context
 

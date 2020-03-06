@@ -44,13 +44,9 @@ const bindHomeBannerHandlers = () => {
 
     showVideoControls();
 
-    video.addEventListener(
-      `canplay`,
-      () => {
-        showVideoControls();
-      },
-      false
-    );
+    video.addEventListener(`canplay`, () => {
+      showVideoControls();
+    });
   }
 };
 
