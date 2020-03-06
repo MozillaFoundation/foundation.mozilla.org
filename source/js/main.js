@@ -483,22 +483,19 @@ let main = {
     }
 
     // store profile cards
-    function getProfileCards() {
-      return document.querySelectorAll(`.profiles .person-card`);
-    }
-
     function updateProfileList() {
-      let profileCards = getProfileCards();
-      if (profileCards.length > 0) {
-        bindProfileCardAnalytics(profileCards);
-      }
+      let profileCards = document.querySelectorAll(`.profiles .person-card`);
+      bindProfileCardAnalytics(profileCards);
     }
 
+    // Checks for profile cards in the initial page load
+    updateProfileList();
+
+    // And start listening for profile filter events,
+    // in case profile cards get updated.
     document.addEventListener(`profiles:list-updated`, () =>
       updateProfileList()
     );
-
-    updateProfileList();
 
     // Enable the "load more results" button on index pages
     let loadMoreButton = document.querySelector(`.load-more-index-entries`);
