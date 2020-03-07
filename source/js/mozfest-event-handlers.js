@@ -14,39 +14,35 @@ const bindHomeBannerHandlers = () => {
   let playButton = homepageBanner.querySelector(".btn-video-control.btn-play");
 
   if (video && pauseButton && playButton) {
-    let showVideoControls = () => {
-      const classToToggle = `d-none`;
-      let autoplayStarted =
-        video.played.length == 0 && video.readyState >= video.HAVE_FUTURE_DATA;
+    const HIDE = `d-none`;
 
-      if (video.readyState < video.HAVE_FUTURE_DATA) {
-        // don't show any video controls as the video isn't ready to play
-        playButton.classList.add(classToToggle);
-        pauseButton.classList.add(classToToggle);
-      } else if (!video.paused || autoplayStarted) {
-        playButton.classList.add(classToToggle);
-        pauseButton.classList.remove(classToToggle);
-      } else {
-        pauseButton.classList.add(classToToggle);
-        playButton.classList.remove(classToToggle);
-      }
+    const showPauseButton = () => {
+      playButton.classList.add(HIDE);
+      pauseButton.classList.remove(HIDE);
+    };
+
+    const showPlayButton = () => {
+      pauseButton.classList.add(HIDE);
+      playButton.classList.remove(HIDE);
     };
 
     pauseButton.addEventListener(`click`, () => {
       video.pause();
-      showVideoControls();
     });
 
     playButton.addEventListener(`click`, () => {
       video.play();
-      showVideoControls();
     });
 
-    showVideoControls();
-
-    video.addEventListener(`canplay`, () => {
-      showVideoControls();
+    video.addEventListener(`pause`, () => {
+      showPlayButton();
     });
+
+    video.addEventListener(`playing`, () => {
+      showPauseButton();
+    });
+
+    video.play();
   }
 };
 
