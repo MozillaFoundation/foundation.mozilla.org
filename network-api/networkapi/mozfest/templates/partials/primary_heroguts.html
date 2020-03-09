@@ -3,8 +3,8 @@
 <div id="hero">
   <div class="banner">
     {% if homepage %}
-      {% include "../fragments/hero/large.html" with page=page %}
-      {% include "./homepage_banner.html" with page=page %}
+      {% include "../fragments/hero/large.html" with page=page banner_video_type=banner_video_type %}
+      {% include "./homepage_banner.html" with page=page banner_video_type=banner_video_type %}
     {% else %}
       {% include "../fragments/hero/normal.html" with page=page %}
     {% endif %}
@@ -14,9 +14,11 @@
   <div class="container">
     <div class="row cutout-wrapper-row">
       <div class="cutout col-12 pt-4">
-        <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-        {% if page.intro %}
-        <div class="body-large mt-3 mb-0">{{ page.intro | richtext }}</div>
+        {% if banner_video_type != "hardcoded" %}
+          <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+          {% if page.intro %}
+          <div class="body-large mt-3 mb-0">{{ page.intro | richtext }}</div>
+          {% endif %}
         {% endif %}
       </div>
     </div>
