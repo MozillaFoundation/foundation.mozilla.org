@@ -39,7 +39,7 @@
                   </div>
                 </div>
               </div>
-              <a class="btn btn-secondary" href="{{ menu_root.specific.cta_button_destination }}">{{ menu_root.specific.cta_button_label }}</a>
+              {% include "fragments/primary_cta.html" with root=menu_root.specific %}
             </div>
           </div>
         </div>
