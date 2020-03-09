@@ -79,7 +79,7 @@ h6,
 p,
 .body {
   @include body-text(null, 400, $black, $white);
-  @include scaleText(16px, 24px);
+  @include scaleText(18px, 27px);
 }
 
 .body-small {
@@ -89,7 +89,7 @@ p,
 
 .cta-link {
   @include body-text(null, 700, null, $light-blue);
-  @include scaleText(16px, 24px);
+  @include scaleText(18px, 27px);
 
   display: inline-block;
 

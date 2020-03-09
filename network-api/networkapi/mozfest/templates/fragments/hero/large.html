@@ -1,23 +1,47 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 
 <div class="background-wrapper">
   <div class="overlay"></div>
-  {% if page.banner %}
-    <picture>
-      {% image page.banner fill-4960x3000 as image_xl %}
-      {% image page.banner fill-2480x1500 as image_lg %}
-      {% image page.banner fill-1984x1200 as image_md %}
-      {% image page.banner fill-1536x929 as image_sm %}
-      <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
-      <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
-      <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
-      <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
-      {# Fallback Image #}
-      {% image page.banner fill-1536x929 alt="" %}
-    </picture>
+  {% if banner_video_type == "hardcoded" %}
+    <video class="banner-video" playsinline autoplay muted loop preload poster="" >
+      <source
+        src="https://s3.amazonaws.com/mofo-assets/foundation/video/mozfest-banner-video.mp4"
+        type="video/mp4">
+    </video>
+
+    <div class="video-control-wrapper dark-theme">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <button class="btn btn-video-control btn-pause btn-secondary d-none">
+              <span>{% trans "PAUSE VIDEO" context "Pause button for video" %}</span>
+            </button>
+            <button class="btn btn-video-control btn-play btn-secondary d-none">
+              <span>{% trans "PLAY VIDEO" context "Play button for video" %}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   {% else %}
-  <picture>
-    <img src="/_images/mozfest/mozfest-home-banner-default.jpg" alt="">
-  </picture>
+    {% if page.banner %}
+      <picture>
+        {% image page.banner fill-4960x3000 as image_xl %}
+        {% image page.banner fill-2480x1500 as image_lg %}
+        {% image page.banner fill-1984x1200 as image_md %}
+        {% image page.banner fill-1536x929 as image_sm %}
+        <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
+        <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
+        <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
+        <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
+        {# Fallback Image #}
+        {% image page.banner fill-1536x929 alt="" %}
+      </picture>
+    {% else %}
+    <picture>
+      <img src="/_images/mozfest/mozfest-home-banner-default.jpg" alt="">
+    </picture>
+    {% endif %}
   {% endif %}
 </div>

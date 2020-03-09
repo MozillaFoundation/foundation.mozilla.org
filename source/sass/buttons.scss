@@ -1,6 +1,7 @@
 .btn {
   font-family: "Nunito Sans";
   font-weight: $btn-font-weight;
+  @include scaleText(18px, 22px);
 
   &:hover {
     cursor: pointer;

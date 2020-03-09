@@ -17,6 +17,7 @@ import ShareButtonGroup from "./components/share-button-group/share-button-group
 import primaryNav from "./primary-nav.js";
 import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
+import bindMozFestEventHandlers from "./mozfest-event-handlers";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 // Initializing component a11y browser console logging
@@ -266,7 +267,9 @@ let main = {
       });
     }
 
+    // MozFest specific scripts
     bindMozFestGA();
+    bindMozFestEventHandlers();
   },
 
   // Embed various React components based on the existence of containers within the current page
@@ -303,16 +306,13 @@ let main = {
     });
 
     // petition elements
-    var petitionElements = Array.from(
-      document.querySelectorAll(`.sign-petition`)
-    );
     var subscribed = false;
 
     if (window.location.search.indexOf(`subscribed=1`) !== -1) {
       subscribed = true;
     }
 
-    petitionElements.forEach(element => {
+    document.querySelectorAll(`.sign-petition`).forEach(element => {
       var props = element.dataset;
 
       props.apiUrl = `${networkSiteURL}/api/campaign/petitions/${props.petitionId}/`;
@@ -372,11 +372,7 @@ let main = {
     }
 
     // Pulse project lists
-    let pulseProjectList = Array.from(
-      document.querySelectorAll(`.pulse-project-list`)
-    );
-
-    pulseProjectList.forEach(target => {
+    document.querySelectorAll(`.pulse-project-list`).forEach(target => {
       apps.push(
         new Promise(resolve => {
           ReactDOM.render(
@@ -398,11 +394,9 @@ let main = {
     });
 
     // Share button group
-    let shareButtonGroups = document.querySelectorAll(
-      `.share-button-group-wrapper`
-    );
-    if (shareButtonGroups) {
-      shareButtonGroups.forEach(element => {
+    document
+      .querySelectorAll(`.share-button-group-wrapper`)
+      .forEach(element => {
         var props = element.dataset;
 
         apps.push(
@@ -414,24 +408,23 @@ let main = {
           })
         );
       });
-    }
 
     //Profile Directory Filter-Bar GA
 
-    const filters = document.querySelectorAll(
-      `.profile-directory .fellowships-directory-filter .filter-option button`
-    );
-
-    filters.forEach(filter => {
-      let year = filter.textContent.trim();
-      filter.addEventListener(`click`, () => {
-        ReactGA.event({
-          category: `profiles`,
-          action: `directory filter`,
-          label: `${document.title} ${year}`
+    document
+      .querySelectorAll(
+        `.profile-directory .fellowships-directory-filter .filter-option button`
+      )
+      .forEach(filter => {
+        let year = filter.textContent.trim();
+        filter.addEventListener(`click`, () => {
+          ReactGA.event({
+            category: `profiles`,
+            action: `directory filter`,
+            label: `${document.title} ${year}`
+          });
         });
       });
-    });
 
     //Profile Directory Cards Social Media GA
 
@@ -495,19 +488,19 @@ let main = {
     }
 
     // store profile cards
-    let profileCards = document.querySelectorAll(`.profiles .person-card`);
-
-    // checks for profile cards in the initial page load
-    if (profileCards.length > 0) {
+    function updateProfileList() {
+      let profileCards = document.querySelectorAll(`.profiles .person-card`);
       bindProfileCardAnalytics(profileCards);
     }
+
+    // Checks for profile cards in the initial page load
+    updateProfileList();
+
     // And start listening for profile filter events,
     // in case profile cards get updated.
-    document.addEventListener(`profiles:list-updated`, () => {
-      // Refetch the profile cards, because they'll have gone stale.
-      profileCards = document.querySelectorAll(`.profiles .person-card`);
-      bindProfileCardAnalytics(profileCards);
-    });
+    document.addEventListener(`profiles:list-updated`, () =>
+      updateProfileList()
+    );
 
     // Enable the "load more results" button on index pages
     let loadMoreButton = document.querySelector(`.load-more-index-entries`);
