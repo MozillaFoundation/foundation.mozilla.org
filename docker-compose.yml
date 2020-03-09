@@ -21,7 +21,11 @@ services:
   postgres:
     image: postgres:9.6
     ports:
-      - "5432"
+      - "5678:5432"
+    environment:
+      - POSTGRES_DB=wagtail
+      - POSTGRES_USER=foundation
+      - POSTGRES_PASSWORD=mozilla
     volumes:
       - postgres_data:/var/lib/postgresql/data/:delegated
 
