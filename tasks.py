@@ -22,7 +22,6 @@ else:
 # so we build it here rather so that we don't clutter up the tasks.
 locale_abstraction_instructions = " ".join([
     "makemessages",
-    "-l de -l es -l fr -l nl -l pl -l pt_BR",
     "--keep-pot",
     "--no-wrap",
     "--ignore=network-api/networkapi/wagtailcustomization/*",
@@ -36,12 +35,23 @@ def create_docker_env_file(env_file):
     """Create or update an .env to work with a docker environment"""
     with open(env_file, 'r') as f:
         env_vars = f.read()
+
     # We need to strip the quotes because Docker-compose considers them as part of the env value.
     env_vars = env_vars.replace('"', '')
-    # update the DATABASE_URL env
-    new_db_url = "DATABASE_URL=postgres://postgres@postgres:5432/postgres"
+
+    # We also need to make sure to use the correct db values based on our docker settings.
+    username = password = dbname = 'postgres'
+    with open('docker-compose.yml', 'r') as d:
+        docker_compose = d.read()
+        username = re.search('POSTGRES_USER=(.*)', docker_compose).group(1) or username
+        password = re.search('POSTGRES_PASSWORD=(.*)', docker_compose).group(1) or password
+        dbname = re.search('POSTGRES_DB=(.*)', docker_compose).group(1) or dbname
+
+    # Update the DATABASE_URL env
+    new_db_url = f"DATABASE_URL=postgresql://{username}:{password}@postgres:5432/{dbname}"
     old_db_url = re.search('DATABASE_URL=.*', env_vars)
     env_vars = env_vars.replace(old_db_url.group(0), new_db_url)
+
     # update the ALLOWED_HOSTS
     new_hosts = "ALLOWED_HOSTS=*"
     old_hosts = re.search('ALLOWED_HOSTS=.*', env_vars)
@@ -138,8 +148,6 @@ def setup(ctx):
         l10n_update(ctx)
         print("* Creating fake data.")
         manage(ctx, "load_fake_data")
-        print("* Compiling locale strings.")
-        compilemessages(ctx)
         print("* Updating block information.")
         manage(ctx, "block_inventory")
 
@@ -163,8 +171,6 @@ def catch_up(ctx):
     ctx.run("pipenv install --dev")
     print("* Applying database migrations.")
     migrate(ctx)
-    print("* Compiling locale strings.")
-    compilemessages(ctx)
     print("* Updating localizable fields.")
     l10n_sync(ctx)
     l10n_update(ctx)
@@ -294,8 +300,6 @@ def docker_catch_up(ctx):
     ctx.run("docker-compose build")
     print("* Applying database migrations.")
     docker_migrate(ctx)
-    print("* Compiling locale strings.")
-    docker_compilemessages(ctx)
     print("* Updating block information.")
     docker_l10n_block_inventory(ctx)
 
@@ -319,8 +323,6 @@ def docker_new_env(ctx):
         docker_migrate(ctx)
         print("* Creating fake data.")
         docker_manage(ctx, "load_fake_data")
-        print("* Compiling locale strings.")
-        docker_compilemessages(ctx)
         print("* Updating block information.")
         docker_l10n_block_inventory(ctx)
         docker_create_super_user(ctx)

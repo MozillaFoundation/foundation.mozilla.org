@@ -88,7 +88,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         context['menu_items'] = self.get_children().live().in_menu()
 
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
-        mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
+        mozfest_footer = Signup.objects.filter(name_en__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
 
         if not bypass_menu_buildstep:
@@ -98,16 +98,26 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
 
 
 class MozfestHomepage(MozfestPrimaryPage):
+    """
+    MozFest Homepage
+
+    'banner_video_type' determines what version of banner design the page should load
+    """
+
+    #  this tells the templates to load a hardcoded, pre-defined video in the banner background
+    banner_video_type = "hardcoded"
+
     cta_button_label = models.CharField(
         max_length=250,
-        default='Submit proposal',
+        blank=True,
         help_text='Label text for the CTA button in the primary nav bar',
     )
 
     cta_button_destination = models.CharField(
         max_length=2048,
-        default='/proposals',
-        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to',
+        blank=True,
+        help_text='The URL for the page that the CTA button in the primary nav bar should redirect to.'
+                  'E.g., /proposals, https://example.com/external-link',
     )
 
     banner_heading = models.CharField(
@@ -128,33 +138,42 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='The video to play when users click "watch video"'
     )
 
-    prefooter_text = RichTextField(
-        help_text='Pre-footer content',
-        blank=True
-    )
-
     subpage_types = [
         'MozfestPrimaryPage'
     ]
 
-    # Put everything except `prefooter_text` above the body
+    # Put everything above the body
     parent_panels = MozfestPrimaryPage.content_panels
     panel_count = len(parent_panels)
     n = panel_count - 1
 
-    content_panels = parent_panels[:n] + [
+    all_panels = parent_panels[:n] + [
         FieldPanel('cta_button_label'),
         FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
-    ] + parent_panels[n:] + [
-        FieldPanel('prefooter_text'),
-    ]
+    ] + parent_panels[n:]
+
+    if banner_video_type == "hardcoded":
+        # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
+        content_panels = [
+            field for field in all_panels
+            if field.field_name not in
+            ['banner', 'header', 'intro', 'banner_guide_text', 'banner_video_url']
+        ]
+    else:
+        content_panels = all_panels
 
     # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
     # we should hide it and make sure we use the right template
     settings_panels = Page.settings_panels
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['banner_video_type'] = self.specific.banner_video_type
+
+        return context
 
     def get_template(self, request):
         return 'mozfest/mozfest_homepage.html'
