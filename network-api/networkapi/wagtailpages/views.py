@@ -32,6 +32,6 @@ def redirect_to_initiatives(request, subpath):
     query_string = ""
 
     if request.META['QUERY_STRING']:
-        query_string = "?%s" % request.META['QUERY_STRING']
+        query_string = f'?{request.META['QUERY_STRING']}'
 
     return redirect(f'/{request.LANGUAGE_CODE}/initiatives/{subpath}{query_string}')
