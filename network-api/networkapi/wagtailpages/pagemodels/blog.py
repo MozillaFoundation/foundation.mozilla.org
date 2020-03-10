@@ -14,7 +14,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from . import customblocks
-from .index_page import IndexPage
+from .index import IndexPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import (
     set_main_site_nav_information,

@@ -35,7 +35,7 @@ from .pagemodels.primary import (
     PrimaryPage
 )
 
-from .pagemodels.index_page import (
+from .pagemodels.index import (
     IndexPage
 )
 
