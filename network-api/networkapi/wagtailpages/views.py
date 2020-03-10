@@ -25,9 +25,13 @@ def custom404_view(request, exception):
         return HttpResponseNotFound(html.content)
 
 
-def redirect_to_initiatives(request, rest):
+def redirect_to_initiatives(request, subpath):
     lang = request.LANGUAGE_CODE
     translation.activate(lang)
     request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    query_string = ""
 
-    return redirect(f'/{request.LANGUAGE_CODE}/initiatives/{rest}')
+    if request.META['QUERY_STRING']:
+        query_string = "?%s" % request.META['QUERY_STRING']
+
+    return redirect(f'/{request.LANGUAGE_CODE}/initiatives/{subpath}{query_string}')

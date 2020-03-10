@@ -75,7 +75,7 @@ urlpatterns += i18n_patterns(
 
     # redirect /opportunity Wagtail pages to /initiatives
     # see https://github.com/mozilla/foundation.mozilla.org/issues/2971 for context
-    url(r'^opportunity/(?P<rest>.*)', redirect_to_initiatives),
+    url(r'^opportunity/(?P<subpath>.*)', redirect_to_initiatives),
 
     # wagtail-managed data
     url(r'', include(wagtail_urls)),
