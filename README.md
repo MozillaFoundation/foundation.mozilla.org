@@ -122,4 +122,4 @@ The `translations_github_commit_[...]` file from the archive is only used for de
 
 We love contributors, but the team maintaining this project is small and not structured to significantly support new and inexperienced contributors. If there's an unassigned issue that catches your eye, feel free to open a PR for it, but keep in mind our support will be limited. We usually don't have the capacity to walk you through the process of spinning up the project, opening a PR or describing what the solution to the issue could be.
 
-Bump?
+Bump again
