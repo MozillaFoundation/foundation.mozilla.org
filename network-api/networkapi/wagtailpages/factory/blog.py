@@ -1,12 +1,16 @@
 from datetime import timezone
 from random import choice
+
 from django.conf import settings
+
+from wagtail.core.models import Page as WagtailPage
+
 from wagtail_factories import PageFactory
+
 from factory import (
     Faker,
     LazyAttribute
 )
-from wagtail.core.models import Page as WagtailPage
 
 from networkapi.wagtailpages.models import (
     BlogPage,
@@ -21,24 +25,31 @@ from networkapi.utility.faker.helpers import (
 
 from .index_page import IndexPageFactory
 
-class BlogIndexPageFactory(IndexPageFactory):
-    class Meta:
-        model = BlogIndexPage
-
-
 from .tagging import add_tags
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
-
-blog_body_streamfield_fields = ['paragraph', 'image', 'image_text', 'image_text_mini',
-                                'video', 'linkbutton', 'spacer', 'quote']
+blog_body_streamfield_fields = [
+    'paragraph',
+    'image',
+    'image_text',
+    'image_text_mini',
+    'video',
+    'linkbutton',
+    'spacer',
+    'quote',
+]
 
 
 def add_category(post):
     categories = BlogPageCategory.objects.all()
     post.category.add(choice(categories))
     post.save()
+
+
+class BlogIndexPageFactory(IndexPageFactory):
+    class Meta:
+        model = BlogIndexPage
 
 
 class BlogPageFactory(PageFactory):
