@@ -119,9 +119,11 @@ class IndexPageTR(TranslationOptions):
         'intro',
     )
 
+
 @register(BlogIndexPage)
 class BlogIndexPageTR(TranslationOptions):
     fields = ()
+
 
 @register(NewsPage)
 class NewsPageTR(TranslationOptions):
