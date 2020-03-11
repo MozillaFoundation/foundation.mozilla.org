@@ -189,17 +189,11 @@ def docker_l10n_block_inventory(ctx):
 
 
 def docker_create_super_user(ctx):
-    # Windows doesn't support pty, skipping this step
-    if platform == 'win32':
-        print("\nPTY is not supported on Windows.\n"
-              "To create an admin user:\n"
-              "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser\n")
-    else:
-        print("* Creating superuser.")
-        ctx.run(
-            "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser",
-            pty=True
-        )
+    print("* Creating superuser.")
+    ctx.run(
+        "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser",
+        pty=True
+    )
 
 
 @task

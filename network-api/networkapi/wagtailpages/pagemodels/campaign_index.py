@@ -9,6 +9,8 @@ class CampaignIndexPage(IndexPage):
     subpage_types = [
         'BanneredCampaignPage',
         'CampaignPage',
+        'OpportunityPage',
+        'YoutubeRegretsPage',
     ]
 
     template = 'wagtailpages/index_page.html'
