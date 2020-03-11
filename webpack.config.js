@@ -32,9 +32,7 @@ let main = {
   module: {
     rules
   },
-  plugins: [
-    new webpack.EnvironmentPlugin(["NODE_ENV"])
-  ]
+  plugins: [new webpack.EnvironmentPlugin(["NODE_ENV"])]
 };
 
 let bgMain = {
