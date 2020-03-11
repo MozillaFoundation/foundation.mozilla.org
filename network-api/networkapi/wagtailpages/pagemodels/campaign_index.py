@@ -7,6 +7,7 @@ class CampaignIndexPage(IndexPage):
     """
 
     subpage_types = [
+        'BlogPage',  # FIXME:This one really shouldn't be here.
         'BanneredCampaignPage',
         'CampaignPage',
         'OpportunityPage',
