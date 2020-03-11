@@ -8,12 +8,23 @@ from factory import (
 )
 from wagtail.core.models import Page as WagtailPage
 
-from networkapi.wagtailpages.models import BlogPage, BlogPageCategory
+from networkapi.wagtailpages.models import (
+    BlogPage,
+    BlogPageCategory,
+    BlogIndexPage
+)
+
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
 )
+
 from .index_page import IndexPageFactory
+
+class BlogIndexPageFactory(IndexPageFactory):
+    class Meta:
+        model = BlogIndexPage
+
 
 from .tagging import add_tags
 
@@ -58,7 +69,7 @@ def generate(seed):
         print('blog namespace exists')
     except WagtailPage.DoesNotExist:
         print('Generating a blog namespace')
-        blog_namespace = IndexPageFactory.create(
+        blog_namespace = BlogIndexPageFactory.create(
             parent=home_page,
             title='Blog',
             header='Blog',
