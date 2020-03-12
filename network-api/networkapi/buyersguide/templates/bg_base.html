@@ -11,10 +11,10 @@
 
 
 {% block social_metadata %}
-  <meta property='og:type' content='website'>
-  <meta property='og:locale' content='{{ lang_code|to_opengraph_locale }}'>
-  <meta property="og:title" content='{% trans "*Privacy Not Included: A Buyer’s Guide for Connected Products" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}'>
-  <meta property='wagtail:language' content='{{ lang_code }}'>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ lang_code|to_opengraph_locale }}">
+  <meta property="og:title" content="{% trans "*Privacy Not Included: A Buyer’s Guide for Connected Products" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}">
+  <meta property="wagtail:language" content="{{ lang_code }}">
 {% endblock %}
 
 
