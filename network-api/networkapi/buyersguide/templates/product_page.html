@@ -38,7 +38,7 @@
       <div class="row intro d-flex justify-content-between align-items-center">
         <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
-          <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url={{product.url}} data-success-text="{% trans 'link copied!' %}">{% trans "copy & share link" %}</a>
+          <a id="product-copy-link-button" class="copy-link small-link" href="#" data-url="{{product.url}}" data-success-text="{% trans "link copied!" %}">{% trans "copy & share link" %}</a>
         </div>
         <h2 class="h1-heading col-md-10">{{product.name}}</h2>
         <div class="col-12">
