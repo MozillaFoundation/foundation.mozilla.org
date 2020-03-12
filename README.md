@@ -59,8 +59,8 @@ For more information on how to run this project, check the [local development wi
 
 When relevant, we encourage you to write tests. You can run the tests using the following commands
 
-- Run Node.js tests: `docker-test-node`
-- Run Python tests: `docker-test-python`
+- Run Node tests: `inv docker-test-node`
+- Run Python tests: `inv docker-test-python`
 
 ### Visual regression tests
 
