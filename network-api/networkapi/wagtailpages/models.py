@@ -35,13 +35,17 @@ from .pagemodels.primary import (
     PrimaryPage
 )
 
+from .pagemodels.blog import (
+    BlogPage,
+    BlogPageCategory,
+)
+
 from .pagemodels.index import (
     IndexPage
 )
 
-from .pagemodels.blog import (
-    BlogPage,
-    BlogPageCategory,
+from .pagemodels.blog_index import (
+    BlogIndexPage
 )
 
 from .pagemodels.redirect import (
@@ -54,30 +58,31 @@ from .pagemodels.youtube import (
 
 __all__ = [
     base_fields,
-    FoundationMetadataPageMixin,
-    Signup,
-    ModularPage,
-    MiniSiteNameSpace,
-    PrimaryPage,
-    IndexPage,
-    NewsPage,
-    InitiativesPage,
-    ParticipatePage2,
-    Styleguide,
-    Homepage,
-    RedirectingPage,
     BanneredCampaignPage,
-    CampaignPage,
-    OpportunityPage,
+    BlogIndexPage,
     BlogPage,
-    YoutubeRegretsPage,
-    CTA,
-    Petition,
-    ParticipatePage,
-    PeoplePage,
     BlogPageCategory,
+    CTA,
+    CampaignPage,
+    FoundationMetadataPageMixin,
+    Homepage,
     HomepageFeaturedHighlights,
     HomepageFeaturedNews,
+    IndexPage,
+    InitiativesPage,
+    MiniSiteNameSpace,
+    ModularPage,
+    NewsPage,
+    OpportunityPage,
     ParticipateHighlights,
     ParticipateHighlights2,
+    ParticipatePage,
+    ParticipatePage2,
+    PeoplePage,
+    Petition,
+    PrimaryPage,
+    RedirectingPage,
+    Signup,
+    Styleguide,
+    YoutubeRegretsPage,
 ]
