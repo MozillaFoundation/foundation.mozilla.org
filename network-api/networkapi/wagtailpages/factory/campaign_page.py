@@ -4,15 +4,25 @@ from factory import (
 )
 from wagtail.core.models import Page as WagtailPage
 
-from networkapi.wagtailpages.models import CampaignPage
+from networkapi.wagtailpages.models import (
+    CampaignPage,
+    CampaignIndexPage,
+)
+
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
 )
 from .petition import PetitionFactory
-from .mini_site_namespace import MiniSiteNamespaceFactory
+
+from .index_page import IndexPageFactory
 from .donation import DonationModalsFactory
 from .abstract import CMSPageFactory
+
+
+class CampaignIndexPageFactory(IndexPageFactory):
+    class Meta:
+        model = CampaignIndexPage
 
 
 class CampaignPageFactory(CMSPageFactory):
@@ -34,7 +44,7 @@ def generate(seed):
         print('campaigns namespace exists')
     except WagtailPage.DoesNotExist:
         print('Generating a campaigns namespace')
-        campaign_namespace = MiniSiteNamespaceFactory.create(
+        campaign_namespace = CampaignIndexPageFactory.create(
             parent=home_page,
             title='campaigns',
             live=False

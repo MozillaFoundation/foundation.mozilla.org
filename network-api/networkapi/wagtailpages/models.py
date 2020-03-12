@@ -48,6 +48,10 @@ from .pagemodels.blog_index import (
     BlogIndexPage
 )
 
+from .pagemodels.campaign_index import (
+    CampaignIndexPage
+)
+
 from .pagemodels.redirect import (
     RedirectingPage
 )
@@ -63,6 +67,7 @@ __all__ = [
     BlogPage,
     BlogPageCategory,
     CTA,
+    CampaignIndexPage,
     CampaignPage,
     FoundationMetadataPageMixin,
     Homepage,
