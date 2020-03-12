@@ -5,6 +5,7 @@ from .models import (
 
     IndexPage,
     BlogIndexPage,
+    CampaignIndexPage,
 
     NewsPage,
     InitiativesPage,
@@ -122,6 +123,11 @@ class IndexPageTR(TranslationOptions):
 
 @register(BlogIndexPage)
 class BlogIndexPageTR(TranslationOptions):
+    fields = ()
+
+
+@register(CampaignIndexPage)
+class CampaignIndexPageTR(TranslationOptions):
     fields = ()
 
 

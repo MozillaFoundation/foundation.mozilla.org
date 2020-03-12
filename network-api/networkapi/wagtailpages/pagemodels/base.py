@@ -538,6 +538,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'BanneredCampaignPage',
         'IndexPage',
         'BlogIndexPage',
+        'CampaignIndexPage',
         'InitiativesPage',
         'MiniSiteNameSpace',
         'NewsPage',
