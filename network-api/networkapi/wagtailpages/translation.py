@@ -2,7 +2,10 @@ from .models import (
     ModularPage,
     MiniSiteNameSpace,
     PrimaryPage,
+
     IndexPage,
+    BlogIndexPage,
+
     NewsPage,
     InitiativesPage,
     ParticipatePage2,
@@ -115,6 +118,11 @@ class IndexPageTR(TranslationOptions):
         'header',
         'intro',
     )
+
+
+@register(BlogIndexPage)
+class BlogIndexPageTR(TranslationOptions):
+    fields = ()
 
 
 @register(NewsPage)

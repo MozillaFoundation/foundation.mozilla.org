@@ -1,10 +1,7 @@
 import re
 
-from django.apps import apps
 from django.db import models
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
-from django.shortcuts import redirect
 from django.template import loader
 
 from taggit.models import Tag
@@ -18,7 +15,6 @@ from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information,
-    titlecase
 )
 
 
@@ -97,9 +93,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         if filter_type == 'tags':
             entries = self.filter_entries_for_tag(entries, context)
 
-        if filter_type == 'category':
-            entries = self.filter_entries_for_category(entries, context)
-
         context['total_entries'] = len(entries)
         return entries
 
@@ -136,33 +129,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
             # Determine whether there is any overlap between 'all tags' and
             # the tags specified. This effects ANY matching (rather than ALL).
             set([tag.slug for tag in entry.tags.all()]).isdisjoint(terms)
-        ]
-
-        return entries
-
-    def filter_entries_for_category(self, entries, context):
-        category = self.filtered.get('category')
-
-        # make sure we bypass "x results for Y"
-        context['no_filter_ui'] = True
-
-        # and that we don't show the primary tag/category
-        context['hide_classifiers'] = True
-
-        # explicitly set the index page title and intro
-        context['index_title'] = titlecase(f'{category.name} {self.title}')
-        context['index_intro'] = category.intro
-
-        # and then the filtered content
-        context['terms'] = [category.name, ]
-        entries = [
-            entry
-            for
-            entry in entries.specific()
-            if
-            hasattr(entry, 'category')
-            and
-            category in entry.category.all()
         ]
 
         return entries
@@ -237,64 +203,4 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         tags are specified as subpath: `/tags/tag1/tag2/...`
         """
         self.extract_tag_information(tag)
-        return IndexPage.serve(self, request, *args, **kwargs)
-
-    """
-    category routes
-    """
-
-    # helper function to resolve category slugs to actual objects
-    def get_category_object_for_slug(self, category_slug):
-        # FIXME: this should not need to be an app consult
-        BlogPageCategory = apps.get_model('wagtailpages', 'BlogPageCategory')
-
-        # We can't use .filter for @property fields,
-        # so we have to run through all categories =(
-        for bpc in BlogPageCategory.objects.all():
-            if bpc.slug == category_slug:
-                category_object = bpc
-                break
-        else:
-            category_object = None
-
-        return category_object
-
-    # helper function for /category/... subroutes
-    def extract_category_information(self, category_slug):
-        category_object = self.get_category_object_for_slug(category_slug)
-
-        if category_object is None:
-            raise ObjectDoesNotExist
-
-        self.filtered = {
-            'type': 'category',
-            'category': category_object
-        }
-
-    @route(r'^category/(?P<category>.+)/entries/')
-    def generate_category_entries_set_html(self, request, category, *args, **kwargs):
-        """
-        JSON endpoint for getting a set of (pre-rendered) category entries
-        """
-        try:
-            self.extract_category_information(category)
-
-        except ObjectDoesNotExist:
-            return redirect(self.full_url)
-
-        return self.generate_entries_set_html(request, *args, **kwargs)
-
-    @route(r'^category/(?P<category>.+)/')
-    def entries_by_category(self, request, category, *args, **kwargs):
-        """
-        If this page was called with `/category/...` as suffix, extract
-        the category to filter prior to rendering this page. Only one
-        category can be specified (unlike tags)
-        """
-        try:
-            self.extract_category_information(category)
-
-        except ObjectDoesNotExist:
-            return redirect(self.full_url)
-
         return IndexPage.serve(self, request, *args, **kwargs)
