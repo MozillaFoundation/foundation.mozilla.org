@@ -1,10 +1,12 @@
 {
   "extends": [
-    "prettier"
+    "prettier",
+    "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
     "prettier",
-    "react"
+    "react",
+    "jsx-a11y"
   ],
   "parserOptions": {
     "sourceType": "module",
@@ -17,6 +19,13 @@
   },
   "rules": {
     "prettier/prettier": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "jsx-a11y/label-has-associated-control": "warn",
+    "jsx-a11y/no-onchange": "warn",
+    "jsx-a11y/anchor-is-valid": "warn",
+    "jsx-a11y/no-noninteractive-tabindex": "warn",
+    "jsx-a11y/alt-text": "warn"
   }
 }
