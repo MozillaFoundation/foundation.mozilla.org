@@ -3,7 +3,7 @@
 {% load yes_no env cloudinary l10n i18n %}
 
 {% block head_extra %}
-  <meta property="og:title" content="{% blocktrans context 'This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}privacy not included - {{ product.name }}{% endblocktrans %}" />
+  <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.name }}{% endblocktrans %}" />
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
 
