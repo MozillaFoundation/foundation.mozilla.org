@@ -3,6 +3,8 @@
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
   "scripts": {
+    "a11y": "run-s a11y:**",
+    "a11y:eslint": "eslint --config ./.eslintrc.a11y.json \"source/js/**/*.jsx\"",
     "autoprefix": "postcss --use autoprefixer -o network-api/networkapi/frontend/_css/main.compiled.css network-api/networkapi/frontend/_css/main.compiled.css",
     "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && run-p build:images build:sass && npm run build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
@@ -83,6 +85,7 @@
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
     "optipng-bin": "^6.0.0",

@@ -55,11 +55,22 @@ For more information on how to run this project, check the [local development wi
 
 ## Testing
 
-When relevant, we encourage you to write tests. You can run the tests using the following command
+### Code tests
 
-- `inv test`
+When relevant, we encourage you to write tests. You can run the tests using the following commands
+
+- Run Node tests: `inv docker-test-node`
+- Run Python tests: `inv docker-test-python`
+
+### Visual regression tests
 
 In addition to the code tests there are also visual regression tests, located in the `./cypress/integration` directory. You can run these tests locally by installing [cypress](https://www.cypress.io/) using `npm i cypress@3.0.3`, after which the command `npm run cypress` will run these tests locally. However, note that these tests are currently intended for screenshot comparisons across branches, and so will not yield any meaningful results when run for a single branch.
+
+### Accessibility tests (a11y tests)
+
+Accessibility tests are not part of the standard tests covered by `inv test`. You can run them using
+
+- `inv docker-npm "run a11y"`
 
 
 ## How to Setup your Dev Environment with Docker
