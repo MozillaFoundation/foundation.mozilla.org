@@ -6,11 +6,17 @@ import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
+import utility from "../../utility";
 
 export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.getInitialState(props);
+
+    let state = this.getInitialState(props);
+    state.id = {
+      userEmail: utility.generateUniqueId(`join-useremail`)
+    };
+    this.state = state;
   }
 
   reset() {
@@ -320,7 +326,10 @@ export default class JoinUs extends React.Component {
       <div className={wrapperClasses}>
         <div className={classes}>
           {this.isFlowForm() && (
-            <label className="font-weight-bold" for="userEmail-flow">
+            <label
+              className="font-weight-bold"
+              htmlFor={this.state.id.userEmail}
+            >
               Email
             </label>
           )}
@@ -332,7 +341,7 @@ export default class JoinUs extends React.Component {
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
             aria-label={!this.isFlowForm() ? "Email" : ""}
-            id={this.isFlowForm() ? "userEmail-flow" : ""}
+            id={this.state.id.userEmail}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
