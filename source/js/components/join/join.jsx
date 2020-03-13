@@ -11,12 +11,11 @@ import utility from "../../utility";
 export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
-
-    let state = this.getInitialState(props);
-    state.id = {
-      userEmail: utility.generateUniqueId(`join-useremail`)
+    this.id = {
+      userEmail: utility.generateUniqueId(`join-user-email`),
+      privacyCheckbox: utility.generateUniqueId(`join-privacy-checkbox`)
     };
-    this.state = state;
+    this.state = this.getInitialState(props);
   }
 
   reset() {
@@ -326,10 +325,7 @@ export default class JoinUs extends React.Component {
       <div className={wrapperClasses}>
         <div className={classes}>
           {this.isFlowForm() && (
-            <label
-              className="font-weight-bold"
-              htmlFor={this.state.id.userEmail}
-            >
+            <label className="font-weight-bold" htmlFor={this.id.userEmail}>
               Email
             </label>
           )}
@@ -341,7 +337,7 @@ export default class JoinUs extends React.Component {
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
             aria-label={!this.isFlowForm() ? "Email" : ""}
-            id={this.state.id.userEmail}
+            id={this.id.userEmail}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
@@ -443,7 +439,7 @@ export default class JoinUs extends React.Component {
               <input
                 type="checkbox"
                 className="form-check-input"
-                id="PrivacyCheckbox"
+                id={this.id.privacyCheckbox}
                 ref={el => (this.privacy = el)}
                 required
               />
