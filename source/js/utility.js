@@ -32,9 +32,9 @@ const Utility = {
   },
 
   /**
-   * Generate unique ID for React components by combining uuid to the given idPrefix
-   * @param  {String} idPrefix        Prefix to add to the id
-   * @returns {String} Returns a id composed with the given idPrefix and uuid
+   * Generate a unique ID by combining uuid with the given idPrefix
+   * @param  {String} idPrefix        Prefix to combine with uuid
+   * @returns {String}                Returns a unique id
    */
   generateUniqueId(idPrefix) {
     return idPrefix ? `${idPrefix}-${uuidv4()}` : uuidv4();
