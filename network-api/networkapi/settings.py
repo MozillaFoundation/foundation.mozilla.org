@@ -415,12 +415,12 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 
-WHITENOISE_ROOT = app('frontend')
 WHITENOISE_INDEX_FILE = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = root('staticfiles')
-STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [app('frontend')]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 
