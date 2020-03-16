@@ -263,6 +263,12 @@ def docker_compilemessages(ctx):
 
 
 @task
+def docker_test(ctx):
+    docker_test_node(ctx)
+    docker_test_python(ctx)
+
+
+@task
 def docker_test_python(ctx):
     """Run python tests"""
     print("* Running flake8")
