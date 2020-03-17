@@ -6,10 +6,15 @@ import CountrySelect from "../petition/country-select.jsx";
 import { getText } from "../petition/locales";
 import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
+import utility from "../../utility";
 
 export default class JoinUs extends React.Component {
   constructor(props) {
     super(props);
+    this.id = {
+      userEmail: utility.generateUniqueId(`join-user-email`),
+      privacyCheckbox: utility.generateUniqueId(`join-privacy-checkbox`)
+    };
     this.state = this.getInitialState(props);
   }
 
@@ -320,7 +325,7 @@ export default class JoinUs extends React.Component {
       <div className={wrapperClasses}>
         <div className={classes}>
           {this.isFlowForm() && (
-            <label className="font-weight-bold" for="userEmail-flow">
+            <label className="font-weight-bold" htmlFor={this.id.userEmail}>
               Email
             </label>
           )}
@@ -332,7 +337,7 @@ export default class JoinUs extends React.Component {
             ref={el => (this.email = el)}
             onFocus={evt => this.onInputFocus(evt)}
             aria-label={!this.isFlowForm() ? "Email" : ""}
-            id={this.isFlowForm() ? "userEmail-flow" : ""}
+            id={this.id.userEmail}
           />
           {this.state.userTriedSubmitting && !emailValidation.valid && (
             <div className={errorWrapperClasses}>
@@ -434,7 +439,7 @@ export default class JoinUs extends React.Component {
               <input
                 type="checkbox"
                 className="form-check-input"
-                id="PrivacyCheckbox"
+                id={this.id.privacyCheckbox}
                 ref={el => (this.privacy = el)}
                 required
               />
