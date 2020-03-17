@@ -1,4 +1,5 @@
 from django import template
+from bs4 import BeautifulSoup
 
 register = template.Library()
 
@@ -9,6 +10,7 @@ def card(image, title, description, link_url, link_label, commitment=None):
         'image': image,
         'title': title,
         'description': description,
+        'description_is_rich_text': BeautifulSoup(description, 'html.parser').p is not None,
         'link_url': link_url,
         'link_label': link_label,
         'commitment': commitment,
