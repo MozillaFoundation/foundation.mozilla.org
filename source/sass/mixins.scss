@@ -89,7 +89,7 @@
   }
 }
 
-@mixin cta-anchor-position($extra-vertical-spacing: 0) {
+@mixin cta-anchor-position($extra-vertical-spacing: 0px) {
   $offset: 80px;
 
   margin-top: -$offset;
