@@ -52,8 +52,9 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./cms";
 @import "./wagtail";
 
-// temporary?
-@import "./mozfest";
+// Shared between different views
+
+@import "./views/shared/sticky-cta";
 
 // View specific
 
@@ -67,6 +68,10 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./views/blog";
 @import "./views/style-guide";
 @import "./views/youtube-regrets";
+
+// MozFest
+
+@import "./mozfest";
 
 // Bootstrap or mofo-bootstrap overrides
 
