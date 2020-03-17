@@ -12,6 +12,7 @@ from factory import (
     SubFactory,
     LazyAttribute
 )
+from .signup import SignupFactory
 from .models import (
     MozfestHomepage,
     MozfestPrimaryPage
@@ -53,6 +54,8 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
                          'young people dedicated to creating a better, healthier open internet.')
     banner_video_url = Faker('url')
     banner_heading_text = Faker('sentence', nb_words=6, variable_nb_words=True)
+
+    signup = SubFactory(SignupFactory)
 
 
 def generate(seed):
