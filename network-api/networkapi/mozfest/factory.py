@@ -12,7 +12,7 @@ from factory import (
     SubFactory,
     LazyAttribute
 )
-from .signup import SignupFactory
+from networkapi.wagtailpages.factory.signup import SignupFactory
 from .models import (
     MozfestHomepage,
     MozfestPrimaryPage
