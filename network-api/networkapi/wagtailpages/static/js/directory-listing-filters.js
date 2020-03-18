@@ -49,7 +49,13 @@
    * into templated HTML using the same HTML as we have in
    * profile_blocks.html
    */
-  function loadResults(profiles) {
+  function loadResults(year, bypassState) {
+    const profiles = profileCache[year];
+
+    if (!bypassState) {
+      history.pushState({ year: year }, document.title);
+    }
+
     let cards = profiles.map(profile => {
       return `
       <div class="col-md-6 col-12 mb-5">
@@ -118,6 +124,37 @@
       </div>`;
   }
 
+  function loadForYear(year, bypassState) {
+    // if we have a cache, use it, but if we don't:
+    if (!profileCache[year]) {
+      // initiate an API call to fetch all data
+      // associated with a particular year:
+      showLoadSpinner();
+      getData(year)
+        .then(data => {
+          // catch that data, and then load the results.
+          profileCache[year] = data;
+          loadResults(year, bypassState);
+        })
+        .catch(error => {
+          // TODO: what do we want to do in this case?
+          console.error(error);
+        });
+    } else {
+      // if we already had the data cached, load immediately:
+      loadResults(year, bypassState);
+    }
+  }
+
+  /**
+   * Set focus and class-mark as active.
+   */
+  function selectLabel(label) {
+    labels.forEach(label => label.classList.remove("active"));
+    label.classList.add("active");
+    label.focus();
+  }
+
   /**
    * This function grabs all buttons, and adds click
    * event handling, to load up all profiles for the
@@ -126,34 +163,21 @@
   function bindEventsToLabels() {
     labels.forEach(label => {
       label.addEventListener("click", evt => {
-        // the label text content is, itself, the filter:
         let year = label.textContent;
-
-        labels.forEach(label => label.classList.remove("active"));
-        label.classList.add("active");
-
-        // if we have a cache, use it, but if we don't:
-        if (!profileCache[year]) {
-          // initiate an API call to fetch all data
-          // associated with a particular year:
-          showLoadSpinner();
-          getData(year)
-            .then(data => {
-              // catch that data, and then load the results.
-              profileCache[year] = data;
-              loadResults(profileCache[year]);
-            })
-            .catch(error => {
-              // TODO: what do we want to do in this case?
-              console.error(error);
-            });
-        } else {
-          // if we already had the data cached, load immediately:
-          loadResults(profileCache[year]);
-        }
+        selectLabel(label);
+        loadForYear(year);
       });
     });
   }
+
+  // make sure that "back" does the right thing.
+  window.addEventListener("popstate", evt => {
+    const state = evt.state || { year: labels[0].textContent };
+    const year = state.year;
+    const label = Array.from(labels).find(l => l.textContent == year);
+    selectLabel(label);
+    loadForYear(year, true);
+  });
 
   // and finally, kick everything off by
   // invoking the filter binding function
