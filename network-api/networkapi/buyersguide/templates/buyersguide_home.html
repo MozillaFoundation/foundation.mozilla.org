@@ -1,4 +1,5 @@
 {% extends "./bg_base.html" %}
+{% load static %}
 
 {% load env cloudinary %}
 
@@ -20,7 +21,7 @@
           <p class="col col-lg-9 col-xl-10 body-large text-center">
             How creepy is that smart speaker, that fitness tracker, those wireless headphones?
             We created this guide to help you shop for safe, secure connected products.
-            Look for this symbol <img src="/_images/buyers-guide/badge-star-mini.svg" width="24" height="20" alt="minimum decurity standards badge">
+            Look for this symbol <img src="{% static "_images/buyers-guide/badge-star-mini.svg" %}" width="24" height="20" alt="minimum decurity standards badge">
             for products that meet our <a href="{% url 'min-security-view' %}">Minimum Security Standards</a>.
           </p>
         </div>

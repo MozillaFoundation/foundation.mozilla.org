@@ -182,7 +182,7 @@ $product-detail-padding-x: (
       position: absolute;
       top: 0;
       left: 0;
-      background: url("/_images/buyers-guide/badge-star-mini.svg") center /
+      background: url(../_images/buyers-guide/badge-star-mini.svg) center /
         contain no-repeat;
       width: $badge-width-mobile;
       height: 100%;
@@ -273,7 +273,7 @@ $product-detail-padding-x: (
     left: 0;
     right: 0;
     height: 228px;
-    background-image: url("/_images/buyers-guide/dot-pattern.svg");
+    background-image: url(../_images/buyers-guide/dot-pattern.svg);
     background-size: 9px 9px;
   }
 }

@@ -1,5 +1,6 @@
 {% extends "./bg_base.html" %}
 
+{% load static %}
 {% load yes_no env cloudinary %}
 
 {% block head_extra %}
@@ -68,7 +69,7 @@
               {% include "fragments/product_criterion_primary_info.html"  with  label="Overall Security Rating" %}
               <div>
                 <span class="security-score mb-0">{{security_score}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
-                <img src="/_images/buyers-guide/score/icon-star.svg" width="20" height="20" alt="star">
+                <img src={% static "_images/buyers-guide/score/icon-star.svg" %} width="20" height="20" alt="star">
               </div>
             </div>
             {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label="Encryption"              %}

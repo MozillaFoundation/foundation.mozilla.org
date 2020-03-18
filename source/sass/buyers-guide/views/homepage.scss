@@ -1,6 +1,6 @@
 #view-home {
   .page-header {
-    background: url(/_images/buyers-guide/evergreen-header.jpg) center center /
+    background: url(../_images/buyers-guide/evergreen-header.jpg) center center /
       cover no-repeat;
     height: 200px;
 
@@ -179,7 +179,7 @@
       display: inline-block;
       width: $face-dimension;
       height: $face-dimension;
-      background-image: url(/_images/buyers-guide/faces/sprite-resized-64-colors.png);
+      background-image: url(../_images/buyers-guide/faces/sprite-resized-64-colors.png);
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;
