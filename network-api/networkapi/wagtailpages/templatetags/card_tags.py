@@ -6,11 +6,13 @@ register = template.Library()
 
 @register.inclusion_tag('wagtailpages/tags/card.html')
 def card(image, title, description, link_url, link_label, commitment=None):
+    parsedDescription = BeautifulSoup(description, 'html.parser')
+
     return {
         'image': image,
         'title': title,
         'description': description,
-        'description_is_rich_text': BeautifulSoup(description, 'html.parser').p is not None,
+        'description_is_rich_text': len(parsedDescription.find_all(True)) > 0,
         'link_url': link_url,
         'link_label': link_label,
         'commitment': commitment,
