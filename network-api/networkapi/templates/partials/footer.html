@@ -1,4 +1,5 @@
 {% load settings_value i18n %}
+{% load static %}
 
 {% with wrapper_class="py-5" %}
 
@@ -27,7 +28,7 @@
       {% block left_footer_column %}
       <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
         <div class="join-us" data-form-position="footer" data-button-position="side"></div>
-        <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="/_images/mozilla-block-white.svg" alt="{% trans 'Mozilla Foundation' %}"></a>
+        <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}"></a>
       </div>
       {% endblock %}
 
