@@ -156,6 +156,7 @@ USE_CLOUDINARY = env('USE_CLOUDINARY')
 
 INSTALLED_APPS = list(filter(None, [
 
+    'whitenoise.runserver_nostatic',
     'networkapi.filebrowser_s3' if USE_S3 else None,
     'social_django' if SOCIAL_SIGNIN else None,
 
@@ -193,7 +194,6 @@ INSTALLED_APPS = list(filter(None, [
     'modelcluster',
     'taggit',
 
-    'whitenoise.runserver_nostatic',
     'rest_framework',
     'django_filters',
     'gunicorn',
@@ -234,8 +234,8 @@ MIDDLEWARE = list(filter(None, [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'networkapi.utility.middleware.ReferrerMiddleware',
 
-    'django.middleware.gzip.GZipMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
     'django.middleware.common.CommonMiddleware',
