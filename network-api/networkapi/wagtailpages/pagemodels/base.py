@@ -536,7 +536,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     subpage_types = [
         'BanneredCampaignPage',
-        'IndexPage',
         'BlogIndexPage',
         'CampaignIndexPage',
         'InitiativesPage',
