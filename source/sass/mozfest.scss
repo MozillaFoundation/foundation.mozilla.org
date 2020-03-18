@@ -152,6 +152,17 @@ body.mozfest {
         }
       }
     }
+
+    .cta {
+      $sticky-extra-offset: 1.5rem;
+
+      position: relative;
+      top: -$sticky-extra-offset;
+
+      #cta-anchor {
+        @include cta-anchor-position($sticky-extra-offset);
+      }
+    }
   }
 
   #multipage-nav {

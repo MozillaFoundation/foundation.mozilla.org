@@ -1,0 +1,37 @@
+#cta-anchor {
+  @include cta-anchor-position();
+}
+
+.cta {
+  .sticky-cta {
+    position: sticky;
+    top: 5rem;
+    z-index: 1029; /* we need a z-index due to the header also being sticky, our header is 1030 (bootstrap) */
+    overflow: hidden;
+  }
+
+  .narrow-sticky-button-container {
+    background: $white;
+    padding: 15px;
+    width: 100%;
+    box-shadow: 0 -1px 3px $border-shadow-color;
+    border-top: 1px solid $gray-20;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: margin-bottom 0.3s ease-in-out;
+
+    &.hidden {
+      margin-bottom: -308px;
+      visibility: hidden;
+      pointer-events: auto;
+      transition: margin-bottom 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
+    }
+
+    @media (min-width: $bp-lg) {
+      display: none;
+    }
+  }
+}
