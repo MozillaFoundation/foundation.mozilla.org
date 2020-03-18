@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <div class="container">
     <div class="row py-md-5 d-flex align-items-center">
@@ -11,7 +12,7 @@
             <a href="/" class="btn btn-secondary">{% trans "Go to home page" %}</a>
         </div>
         <div class="col-md-5 pt-5 p-md-5 flex-first flex-md-last">
-            <img src="/_images/404.svg" class="w-100" alt="Sad anthropomorphized 404">
+            <img src="{% static "_images/404.svg" %}" class="w-100" alt="Sad anthropomorphized 404">
         </div>
     </div>
 </div>
