@@ -11,7 +11,11 @@
   <div class="full-bleed-xs d-flex flex-1">
     <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
       <h3 class="h3-heading mb-2">{{ title }}</h3>
-      <p>{{ description | richtext }}</p>
+      {% if description_is_rich_text %}
+        {{ description|richtext }}
+      {% else %}
+        <p>{{ description }}</p>
+      {% endif %}
       <a class="cta-link mb-2" href="{{ link_url }}">{{ link_label }}</a>
     </div>
   </div>
