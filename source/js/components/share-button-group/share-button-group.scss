@@ -74,6 +74,10 @@
         transform: translate(50%, 50%);
       }
     }
+
+    button.btn {
+      display: inline-flex;
+    }
   }
 
   .btn {
