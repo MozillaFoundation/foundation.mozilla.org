@@ -154,6 +154,9 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
 USE_S3 = env('USE_S3')
 USE_CLOUDINARY = env('USE_CLOUDINARY')
 
+# Detect if Django is running normally, or in test mode through "manage.py test"
+TESTING = 'test' in sys.argv
+
 INSTALLED_APPS = list(filter(None, [
 
     'whitenoise.runserver_nostatic',
@@ -420,7 +423,12 @@ WHITENOISE_INDEX_FILE = True
 STATIC_URL = '/static/'
 STATIC_ROOT = root('staticfiles')
 STATICFILES_DIRS = [app('frontend')]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Silence "Missing staticfiles manifest entry for" when running tests
+if TESTING:
+    STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
+else:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 
@@ -608,9 +616,6 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
-
-# Detect if Django is running normally, or in test mode through "manage.py test"
-TESTING = 'test' in sys.argv
 
 # Coral Talk Server URL
 
