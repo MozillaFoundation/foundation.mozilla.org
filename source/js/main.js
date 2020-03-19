@@ -8,7 +8,6 @@ import * as Sentry from "@sentry/browser";
 
 import JoinUs from "./components/join/join.jsx";
 import Petition from "./components/petition/petition.jsx";
-import MemberNotice from "./components/member-notice/member-notice.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
 import PulseProjectList from "./components/pulse-project-list/pulse-project-list.jsx";
@@ -29,8 +28,6 @@ if (
   axe = require("react-axe");
   axe(React, ReactDOM, 1000);
 }
-
-const SHOW_MEMBER_NOTICE = false;
 
 // To be populated via XHR and querySelector
 let env, networkSiteURL, csrfToken;
@@ -274,17 +271,6 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    if (SHOW_MEMBER_NOTICE && document.getElementById(`member-notice`)) {
-      apps.push(
-        new Promise(resolve => {
-          ReactDOM.render(
-            <MemberNotice whenLoaded={() => resolve()} />,
-            document.getElementById(`member-notice`)
-          );
-        })
-      );
-    }
-
     // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
     document.querySelectorAll(`.join-us:not(.on-nav)`).forEach(element => {
       var props = element.dataset;
