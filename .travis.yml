@@ -46,27 +46,71 @@ branches:
   only:
     - master
 
+#jobs:
+#  include:
+#    - name: Python tests
+#      install: "./travis-scripts/python-install.sh"
+#      before_script:
+#        - psql -c 'create database network;' -U postgres
+#      script:
+#        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity
+#            0
+#        - pipenv run flake8 tasks.py network-api/
+#        - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py
+#          test networkapi
+#      after_success:
+#          - coveralls
+#    - name: npm tests
+#      before_install:
+#        - nvm install --lts=erbium
+#        - nvm use --lts=erbium
+#      install: "./travis-scripts/npm-install.sh"
+#      script: npm test
+#    - name: Percy tests
+#      before_install:
+#        # libgconf is required by cypress
+#        - sudo apt-get install -y libgconf-2-4
+#        - nvm install --lts=erbium
+#        - nvm use --lts=erbium
+#      install:
+#        - "./travis-scripts/python-install.sh"
+#        - "./travis-scripts/npm-install.sh"
+#        - npm run cypress:install
+#      before_script:
+#        - psql -c 'create database network;' -U postgres
+#        - npm run build
+#        - pipenv run python network-api/manage.py migrate --no-input
+#        - pipenv run python network-api/manage.py block_inventory
+#        - pipenv run python network-api/manage.py sync_page_translation_fields
+#        - pipenv run python network-api/manage.py update_translation_fields
+#        - pipenv run python network-api/manage.py load_fake_data
+#        - pipenv run python network-api/manage.py compilemessages
+#      script: npm run percy
+#    - stage: Deploy
+#      name: Deploy Maintenance page to S3
+#      script: skip
+#      deploy:
+#        provider: s3
+#        access_key_id: "AKIAIDLSQZEZHN7MPGKA"
+#        secret_access_key:
+#          secure: 41kXOgS58Ew64cXRE8KfDWMIAaSHdab/x2e0Pkv0pzEcEAbZloY2I6qlGs+K1JuK68WCicivU1cgmxgqSlA+Ol9cl3LD+XyeQsZqeIiYw9exZVHy1b49I2GPrW32mooasndJd29GNEqLfC5C1PuiVv4Ixs6USeshDH7+/SUFswO4A08F2S0C9r0bAhc9ff2TpsCSGBMNB9QgXvKnKvWB1S+mGbf9anrfJlPV0G6/PrMhldrVUrIULZidbiJuaW2FoKlt0YkEBYdzM+gdNI88VHRSrBnbbZrMs26sd4XBUtSeZcFA2QWnkfltRWLjpmPQWd6lcA53T7jNRr9z89HjEkxtz9N3Rb7qT1fuDwc6f9+5lj9G+kzxSeOoVBDNRNmhHTlEUIbODP80jcbr2GCCs6NgKq4yKApiA1lHA3REooBbGzkc53WtXfITDfK7h6BDDsJyGxBbU2gS66vvmGkv//wdXMsEwTfnmx0oHeQS1ad5emvOJSLIJXtCAqepStEBIhWRnN0ZCDhNTMoz63qE3Ne0KQhHX9j7UBLw7MRy6qGm2+Kd8ok2akqw8WUpQtUkgoxJzMHdx8BEYrFjfWEXnhqGriwWYRCNVI2MK53sE7ia8lzOil4jDAFURtRq7sJBBbgufc010gSHdBdcqm3haYr0XUgebR7hs2BD45+kVZA=
+#        bucket: "foundation-mozilla-org-maintenance"
+#        region: us-east-1
+#        acl: public_read
+#        local_dir: maintenance
+#        on:
+#          branch: master
+#          condition: "$TRAVIS_EVENT_TYPE != pull_request"
+
 jobs:
   include:
-    - name: Python tests
-      install: "./travis-scripts/python-install.sh"
-      before_script:
-        - psql -c 'create database network;' -U postgres
-      script:
-        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity
-            0
-        - pipenv run flake8 tasks.py network-api/
-        - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py
-          test networkapi
-      after_success:
-        - coveralls
     - name: npm tests
       before_install:
         - nvm install --lts=erbium
         - nvm use --lts=erbium
       install: "./travis-scripts/npm-install.sh"
       script: npm test
-    - name: Percy tests
+    - name: Python and Percy tests
       before_install:
         # libgconf is required by cypress
         - sudo apt-get install -y libgconf-2-4
@@ -85,7 +129,13 @@ jobs:
         - pipenv run python network-api/manage.py update_translation_fields
         - pipenv run python network-api/manage.py load_fake_data
         - pipenv run python network-api/manage.py compilemessages
-      script: npm run percy
+        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity 0
+      script:
+       - pipenv run flake8 tasks.py network-api/
+       - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+       - npm run percy
+      after_success:
+       - coveralls
     - stage: Deploy
       name: Deploy Maintenance page to S3
       script: skip
