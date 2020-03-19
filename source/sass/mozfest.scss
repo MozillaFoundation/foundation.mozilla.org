@@ -78,8 +78,12 @@ body.mozfest {
         }
       }
 
-      .homepage-banner-content {
+      .homepage-banner-content.container {
         z-index: $banner-background-z-index + 3;
+
+        @media screen and (max-width: $bp-sm) {
+          width: 100%;
+        }
 
         @media screen and (min-width: $bp-md) {
           padding-bottom: $cutoff-offset;
@@ -146,6 +150,17 @@ body.mozfest {
             object-position: center center;
           }
         }
+      }
+    }
+
+    .cta {
+      $sticky-extra-offset: 1.5rem;
+
+      position: relative;
+      top: -$sticky-extra-offset;
+
+      #cta-anchor {
+        @include cta-anchor-position($sticky-extra-offset);
       }
     }
   }

@@ -182,7 +182,7 @@ export default class CreepVote extends React.Component {
                 class="btn-group btn-group-toggle mt-3 mt-md-5"
                 data-toggle="buttons"
               >
-                <label for="likely">
+                <label htmlFor="likely">
                   <input
                     type="radio"
                     name="wouldbuy"
@@ -196,7 +196,7 @@ export default class CreepVote extends React.Component {
                     Likely
                   </span>
                 </label>
-                <label for="unlikely">
+                <label htmlFor="unlikely">
                   <input
                     type="radio"
                     name="wouldbuy"

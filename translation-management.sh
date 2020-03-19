@@ -40,10 +40,6 @@ case $command in
     cp -r "${L10N_REPO}foundation/translations/networkapi/buyersguide/locale/" "network-api/networkapi/buyersguide/locale/"
     cp -r "${L10N_REPO}foundation/translations/networkapi/buyersguide/templates/about/locale/" "network-api/networkapi/buyersguide/templates/about/locale/"
     cp -r "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/" "network-api/networkapi/mozfest/locale/"
-    cp -r "network-api/locale/pt-BR/" "network-api/locale/pt_BR/"
-    cp -r "network-api/networkapi/buyersguide/locale/pt-BR/" "network-api/networkapi/buyersguide/locale/pt_BR/"
-    cp -r "network-api/networkapi/buyersguide/templates/about/locale/pt-BR/" "network-api/networkapi/buyersguide/templates/about/locale/pt_BR/"
-    cp -r "network-api/networkapi/mozfest/locale/pt-BR/" "network-api/networkapi/mozfest/locale/pt_BR/"
 esac
 
 case $command in
@@ -53,8 +49,4 @@ case $command in
     cp -r "network-api/networkapi/buyersguide/locale/" "${L10N_REPO}foundation/translations/networkapi/buyersguide/locale/"
     cp -r "network-api/networkapi/buyersguide/templates/about/locale/" "${L10N_REPO}foundation/translations/networkapi/buyersguide/templates/about/locale/"
     cp -r "network-api/networkapi/mozfest/locale/" "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/"
-    cp -r "${L10N_REPO}foundation/translations/locale/pt_BR/" "${L10N_REPO}foundation/translations/locale/pt-BR/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/buyersguide/locale/pt_BR/" "${L10N_REPO}foundation/translations/networkapi/buyersguide/locale/pt-BR/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/buyersguide/templates/about/locale/pt_BR/" "${L10N_REPO}foundation/translations/networkapi/buyersguide/templates/about/locale/pt-BR/"
-    cp -r "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/pt_BR/" "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/pt-BR/"
 esac
