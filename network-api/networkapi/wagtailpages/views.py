@@ -1,5 +1,6 @@
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils import translation
 
 
 def custom404_view(request, exception):
@@ -22,3 +23,15 @@ def custom404_view(request, exception):
     else:
         html = render(request, '404.html')
         return HttpResponseNotFound(html.content)
+
+
+def redirect_to_initiatives(request, subpath):
+    lang = request.LANGUAGE_CODE
+    translation.activate(lang)
+    request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    query_string = ""
+
+    if request.META['QUERY_STRING']:
+        query_string = f'?{request.META["QUERY_STRING"]}'
+
+    return redirect(f'/{request.LANGUAGE_CODE}/initiatives/{subpath}{query_string}')
