@@ -424,11 +424,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = root('staticfiles')
 STATICFILES_DIRS = [app('frontend')]
 
-# Silence "Missing staticfiles manifest entry for" when running tests
-if TESTING:
-    STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
-else:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 
