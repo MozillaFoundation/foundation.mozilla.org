@@ -54,6 +54,7 @@ jobs:
         - psql -c 'create database network;' -U postgres
       script:
         - pipenv run flake8 tasks.py network-api/
+        - pipenv run collectstatic --noinput
         - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py
           test networkapi
       after_success:
