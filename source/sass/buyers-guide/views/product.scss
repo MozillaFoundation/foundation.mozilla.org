@@ -81,7 +81,7 @@ $product-detail-padding-x: (
         top: 0;
         left: 0;
         content: "";
-        background-image: url(/_images/buyers-guide/icon-product-link.svg);
+        background-image: url(../_images/buyers-guide/icon-product-link.svg);
         background-repeat: no-repeat;
         background-position: center 65%;
         background-size: contain;
@@ -249,7 +249,7 @@ $product-detail-padding-x: (
   button.toggle {
     align-self: center;
     margin-left: 10px;
-    background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
+    background: url(../_images/buyers-guide/plus.svg) center center no-repeat;
     background-size: contain;
     border: 0;
     width: 24px;

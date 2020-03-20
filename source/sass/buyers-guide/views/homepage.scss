@@ -91,14 +91,14 @@
           height: $recommendation-height;
 
           &.positive {
-            background-image: url(/_images/buyers-guide/icon-thumb-up.svg);
+            background-image: url(../_images/buyers-guide/icon-thumb-up.svg);
             background-position: 0 0;
             background-repeat: no-repeat;
             background-size: 100% 100%;
           }
 
           &.negative {
-            background-image: url(/_images/buyers-guide/icon-thumb-down.svg);
+            background-image: url(../_images/buyers-guide/icon-thumb-down.svg);
             background-position: 0 0;
             background-repeat: no-repeat;
             background-size: 100% 100%;
@@ -214,7 +214,7 @@
           display: inline-block;
           width: 2em;
           height: $sb-height;
-          background-image: url(/_images/buyers-guide/icon-bubble.svg);
+          background-image: url(../_images/buyers-guide/icon-bubble.svg);
           background-size: auto $sb-height;
           background-position: -100px 0;
           background-repeat: no-repeat;
