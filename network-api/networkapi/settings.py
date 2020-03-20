@@ -84,6 +84,7 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     SENTRY_ENVIRONMENT=(str, None),
     REVIEW_APP=(bool, False),
+    STATIC_HOST=(str, ''),
 )
 
 # Read in the environment
@@ -420,7 +421,10 @@ LOCALE_PATHS = (
 
 WHITENOISE_INDEX_FILE = True
 
-STATIC_URL = '/static/'
+# Enable CloudFront for staticfiles
+STATIC_HOST = env('STATIC_HOST') if not DEBUG else ''
+
+STATIC_URL = STATIC_HOST + '/static/'
 STATIC_ROOT = root('staticfiles')
 STATICFILES_DIRS = [app('frontend')]
 
