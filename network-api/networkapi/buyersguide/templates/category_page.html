@@ -1,7 +1,6 @@
 {% extends "./bg_base.html" %}
 
-{% load env %}
-{% load cloudinary %}
+{% load env cloudinary i18n %}
 
 {% block body_id %}{{ category.slug }}{% endblock %}
 
@@ -43,7 +42,7 @@
             {% endif %}
           {% endfor %}
 
-          <p><em>The information provided here is pulled directly from the product website.</em></p>
+          <p><em>{% trans "The information provided here is pulled directly from the product website." %}</em></p>
         </div>
       </div>
     </div>

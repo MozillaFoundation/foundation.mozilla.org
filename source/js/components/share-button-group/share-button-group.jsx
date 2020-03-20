@@ -20,7 +20,7 @@ export default class ShareButtonGroup extends React.Component {
   renderFacebookButton() {
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share on Facebook</span>
+        <span className="sr-only">Share on Facebook</span>
       ) : (
         `Facebook`
       );
@@ -29,7 +29,7 @@ export default class ShareButtonGroup extends React.Component {
 
     return (
       <a
-        class="btn btn-secondary btn-share facebook-share"
+        className="btn btn-secondary btn-share facebook-share"
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
           link
         )}`}
@@ -46,14 +46,14 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share on Twitter</span>
+        <span className="sr-only">Share on Twitter</span>
       ) : (
         `Twitter`
       );
 
     return (
       <a
-        class="btn btn-secondary btn-share twitter-share"
+        className="btn btn-secondary btn-share twitter-share"
         href={`https://twitter.com/intent/tweet?text=${shareText}${link}`}
       >
         {label}
@@ -68,14 +68,14 @@ export default class ShareButtonGroup extends React.Component {
     let link = this.props.link ? ` ${encodeURIComponent(this.props.link)}` : ``;
     let label =
       this.props.version === `mini` ? (
-        <span class="sr-only">Share by email</span>
+        <span className="sr-only">Share by email</span>
       ) : (
         `Email`
       );
 
     return (
       <a
-        class="btn btn-secondary btn-share email-share"
+        className="btn btn-secondary btn-share email-share"
         href={`mailto:?&body=${shareText}${link}`}
       >
         {label}
@@ -99,7 +99,7 @@ export default class ShareButtonGroup extends React.Component {
     let label = this.state.linkCopied ? `Copied` : `Copy`;
     label =
       this.props.version === `mini` ? (
-        <span class="sr-only">{label} page link</span>
+        <span className="sr-only">{label} page link</span>
       ) : (
         label
       );
@@ -109,14 +109,13 @@ export default class ShareButtonGroup extends React.Component {
     });
 
     return (
-      <a
-        class={classes}
-        href="#"
+      <button
+        className={classes}
         onClick={event => this.handleLinkButtonClick(event)}
         title={tooltip}
       >
         {label}
-      </a>
+      </button>
     );
   }
 

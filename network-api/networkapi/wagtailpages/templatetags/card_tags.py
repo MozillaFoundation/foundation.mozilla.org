@@ -1,14 +1,18 @@
 from django import template
+from bs4 import BeautifulSoup
 
 register = template.Library()
 
 
 @register.inclusion_tag('wagtailpages/tags/card.html')
 def card(image, title, description, link_url, link_label, commitment=None):
+    parsedDescription = BeautifulSoup(description, 'html.parser')
+
     return {
         'image': image,
         'title': title,
         'description': description,
+        'description_is_rich_text': len(parsedDescription.find_all(True)) > 0,
         'link_url': link_url,
         'link_label': link_label,
         'commitment': commitment,

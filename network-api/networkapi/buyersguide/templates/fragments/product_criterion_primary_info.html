@@ -1,4 +1,4 @@
-{% load static %}
+{% load i18n static %}
 
 <div class="primary-info">
   <div class="d-flex align-items-center">
@@ -9,12 +9,24 @@
     <span><strong>
     {% if value == "U" %}
       {% if show_value_as_symbol %}
-      <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{{value}}">
+      <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Unknown" context "Unknown rating" %}">
       {% else %}
-      Unknown
+      {% trans "Unknown" context "Unknown rating" %}
       {% endif %}
     {% elif value == "NA" %}
-      N/A
+      {% trans "N/A" %}
+    {% elif value == "Yes" %}
+      {% if show_value_as_symbol %}
+      <img src="{% static "_images/buyers-guide/score/icon-yes.svg" %}" alt="{% trans "Yes" %}">
+      {% else %}
+      {% trans "Yes" %}
+      {% endif %}
+    {% elif value == "No" %}
+      {% if show_value_as_symbol %}
+      <img src="{% static "_images/buyers-guide/score/icon-no.svg" %}" alt="{% trans "No" %}">
+      {% else %}
+      {% trans "No" %}
+      {% endif %}
     {% else %}
       {% if show_value_as_symbol %}
       <img src="{% get_static_prefix %}_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">

@@ -1,10 +1,10 @@
-{% load static %}
+{% load i18n static %}
 
 {% if product.adult_content is True %}
 <img
   class="adult-content-badge"
   src="{% static "_images/buyers-guide/icon-18-plus-heart.svg" %}"
-  title="this product has adult content"
-  alt="this product has adult content"
+  title="{% trans "this product has adult content" %}"
+  alt="{% trans "this product has adult content" %}"
 >
 {% endif %}

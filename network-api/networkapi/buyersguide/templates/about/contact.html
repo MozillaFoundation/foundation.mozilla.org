@@ -1,20 +1,28 @@
 {% extends "../bg_about.html" %}
 
+{% load i18n %}
+
 {% block main_about_class %}short-content{% endblock %}
 
 {% block about_guts %}
     <h1 class="h2-heading">
-      Contact Us
+      {% trans "Contact Us" %}
     </h1>
 
-    <p>For any questions about the guide or to offer constructive feedback, please email Jen Caltrider <a href="mailto:jen@mozillafoundation.org">jen@mozillafoundation.org</a></p>
+    <p>
+      {% blocktrans with name="Jen Caltrider" email="jen@mozillafoundation.org" trimmed %}
+        For any questions about the guide or to offer constructive feedback, please email {{name}} at <a href="mailto:{{email}}">{{email}}</a>.
+      {% endblocktrans %}
+    </p>
 
-    <p>For members of the press with questions about this guide, please email Corey Nord at
-      <a href="mailto:kevin@mozillafoundation.org">corey@pkpr.com</a>.
+    <p>
+      {% blocktrans with name="Kevin Zawacki" email="kevin@mozillafoundation.org" trimmed %}
+        For members of the press with questions about this guide, please email {{name}} at <a href="mailto:{{email}}">{{email}}</a>.
+      {% endblocktrans %}
     </p>
 
     <div class="recommend-product">
-      <p>We don’t want to miss any products that might be important to you. Tell us what connected products you want reviewed in our holiday buyer’s guide and we’ll do our best to include them.</p>
-      <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">Submit a product</a>
+      <p>{% trans "We don’t want to miss any products that might be important to you. Tell us what connected products you want reviewed in our holiday buyer’s guide and we’ll do our best to include them." %}</p>
+      <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">{% trans "Submit a product" %}</a>
     </div>
 {% endblock %}
