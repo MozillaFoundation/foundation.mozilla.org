@@ -18,7 +18,7 @@
 
         <div class="row justify-content-center">
           <p class="col col-lg-9 col-xl-10 body-large text-center">
-            {% static '/_images/buyers-guide/badge-star-mini.svg' as image_src %}
+            {% static '_images/buyers-guide/badge-star-mini.svg' as image_src %}
             {% trans "minimum security standards badge" as badge_alt %}
             {% url 'min-security-view' as min_sec_url %}
             {% blocktrans trimmed with url=min_sec_url image='<img src="'|add:image_src|add:'" width="24" height="20" alt="'|add:badge_alt|add:'">' %}
