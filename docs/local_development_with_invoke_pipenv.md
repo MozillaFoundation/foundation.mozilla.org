@@ -71,11 +71,11 @@ The `load_fake_data` command will output pages with the following slugs:
 - `/people/`
 - `/news/`
 - `/initiatives/`
+- `/initiatives/single-page-opportunity/`
+- `/initiatives/multi-page-opportunity/`
 - `/campaigns/single-page/`
 - `/campaigns/multi-page/`
-- `/opportunity/single-page/`
-- `/opportunity/multi-page/`
-- `/blog/post/
+- `/blog/post/`
 
 This list is available on review apps by clicking on `DEV HELP` in the menu or going to `[review app url]/help`.
 
