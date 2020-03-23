@@ -1,12 +1,12 @@
-{% load yes_no %}
+{% load yes_no i18n %}
 
 <div class="it-uses d-flex flex-column">
   <div class="title">
     <strong class="d-block">{{ title }}</strong>
   </div>
   <div class="explanation text-nowrap">
-    Device: <span class="font-italic">{{ device|extended_yes_no }}</span>
+    {% trans "Device:" %} <span class="font-italic">{{ device|extended_yes_no }}</span>
     <span class="separator">|</span>
-    App: <span class="font-italic">{{ app|extended_yes_no }}</span>
+    {% trans "App:" %} <span class="font-italic">{{ app|extended_yes_no }}</span>
   </div>
 </div>
