@@ -92,27 +92,29 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   // Opportunity page tests (single and multi-page)
 
   it(`Single-page opportunity should redirect to /intiatives`, function() {
-    cy.request({
-      url: `/en/opportunity/single-page-opportunity/`,
-      followRedirect: false
-    }).then(res => {
-      expect(res.status).to.eq(302);
-      expect(res.redirectedToUrl).to.eq(
-        `${Cypress.config().baseUrl}/en/initiatives/single-page-opportunity/`
-      );
-    });
+    cy.visit(`/en/opportunity/single-page-opportunity/`);
+    cy.url().should(
+      "eq",
+      `${Cypress.config().baseUrl}/en/initiatives/single-page-opportunity/`
+    );
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
   });
 
   it(`Multi-page opportunity should redirect to /intiatives`, function() {
-    cy.request({
-      url: `/en/opportunity/multi-page-opportunity/`,
-      followRedirect: false
-    }).then(res => {
-      expect(res.status).to.eq(302);
-      expect(res.redirectedToUrl).to.eq(
-        `${Cypress.config().baseUrl}/en/initiatives/multi-page-opportunity/`
-      );
-    });
+    cy.visit(`/en/opportunity/multi-page-opportunity/`);
+    cy.url().should(
+      "eq",
+      `${Cypress.config().baseUrl}/en/initiatives/multi-page-opportunity/`
+    );
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
   });
 
   // Campaign page tests (single and multi-page)

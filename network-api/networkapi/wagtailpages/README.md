@@ -135,9 +135,8 @@ As Wagtail does not come with any specific default layout, I created a homepage 
 ```
 Wagtail site root
  |- MiniSiteNameSpace(name='campaigns', draft=True)
- `- MiniSiteNameSpace(name='opportunity', draft=True)
 ```
 
-These namespace pages are effectively placeholders for future work (where we can auto-generate the list of all campaign and opportunity minisites for accessibility/ease of navigation at some later point), with wagtail automatically creating name-spaced URLs for any subpages: any child of the `campaigns` page will automatically be `.../campaigns/page-title`, and any child of the `opportunities` page will automatically be `.../opportunity/page-title`.
+These namespace pages are effectively placeholders for future work (where we can auto-generate the list of all campaign minisite for accessibility/ease of navigation at some later point), with wagtail automatically creating name-spaced URLs for any subpages: any child of the `campaigns` page will automatically be `.../campaigns/page-title`.
 
-Both `campaigns` and `opportunity` were then given child pages of `CampaignPage` and `OpportunityPage` types, respectively, mirroring the current minisite content found on the foundation.mozilla.org when looking at the page admin.
+`campaigns` was then given child pages of `CampaignPage`, mirroring the current minisite content found on the foundation.mozilla.org when looking at the page admin.
