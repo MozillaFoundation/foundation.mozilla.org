@@ -229,8 +229,6 @@ INSTALLED_APPS = list(filter(None, [
 ]))
 
 MIDDLEWARE = list(filter(None, [
-    'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
-
     'csp.middleware.CSPMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 
@@ -240,6 +238,7 @@ MIDDLEWARE = list(filter(None, [
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+    'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
     'django.middleware.common.CommonMiddleware',
