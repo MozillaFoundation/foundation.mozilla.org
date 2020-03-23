@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 const Utility = {
   /**
    * Find and bind all necessary DOM nodes, returning "false" if not all DOM nodes were found.
@@ -27,6 +29,15 @@ const Utility = {
     });
 
     return allFound ? elements : false;
+  },
+
+  /**
+   * Generate a unique ID by combining uuid with the given idPrefix
+   * @param  {String} idPrefix        Prefix to combine with uuid
+   * @returns {String}                Returns a unique id
+   */
+  generateUniqueId(idPrefix) {
+    return idPrefix ? `${idPrefix}-${uuidv4()}` : uuidv4();
   }
 };
 

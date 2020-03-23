@@ -88,3 +88,10 @@
     }
   }
 }
+
+@mixin cta-anchor-position($extra-vertical-spacing: 0px) {
+  $offset: 80px;
+
+  margin-top: -$offset;
+  padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
+}

@@ -1,40 +1,47 @@
 {% extends "../bg_about.html" %}
 
+{% load i18n %}
+
 {% block main_about_class %}short-content{% endblock %}
 
 {% block about_guts %}
     <h1 class="h2-heading">
-      Press
+      {% trans "Press" %}
     </h1>
 
-    <p>If you're a member of the press interested in learning more about *Privacy Not Included, please email Corey Nord at <a href="mailto:corey@pkpr.com">corey@pkpr.com</a>. Below, peruse past coverage of *Privacy Not Included:</p>
+    <p>
+      {% blocktrans with name="Kevin Zawacki" email="kevin@mozillafoundation.org" trimmed %}
+      If you’re a member of the press interested in learning more about *Privacy Not Included, please email {{name}}
+      at <a href="mailto:{{email}}">{{email}}</a>. Below, peruse past coverage of *Privacy Not Included:
+      {% endblocktrans %}
+    </p>
 
     <ul class="about-press-list">
-        <li>2018 | WIRED: 
+        <li>2018 | WIRED:
             <a href="https://www.wired.com/story/mozilla-privacy-not-included-internet-connected-toys/">
                 Mozilla Makes a Naughty List of Gifts That Aren't Secure
             </a>
         </li>
 
-        <li>2018 | NPR: 
+        <li>2018 | NPR:
             <a href="https://www.npr.org/2018/12/01/672511667/a-tech-foundation-discusses-security-and-privacy-when-it-comes-to-smart-devices">
                 A Tech Foundation Discusses Security And Privacy When It Comes To Smart Devices
             </a>
         </li>
 
-        <li>2018 | USA Today: 
+        <li>2018 | USA Today:
             <a href="https://eu.usatoday.com/story/tech/columnist/2018/11/23/top-tech-gifts-privacy-may-not-included/2059892002/">
                 Looking at top tech toys and tools for the holidays? For many, privacy may not be included
             </a>
         </li>
 
-        <li>2017 | New York Times: 
+        <li>2017 | New York Times:
             <a href="https://www.nytimes.com/2017/12/08/opinion/holiday-gifts-toys-spying.html">
                 Don’t Give Kids Holiday Gifts That Can Spy on Them
             </a>
         </li>
 
-        <li>2017 | ABC San Francisco: 
+        <li>2017 | ABC San Francisco:
             <a href="http://abc7news.com/technology/your-privacy-may-be-at-risk-with-some-toys-gadgets/2827339/">
                 Your privacy may be at risk with some toys, gadgets
             </a>
@@ -42,6 +49,9 @@
     </ul>
 
     <p>
-        Seeking more background? Mozilla’s Internet Health Report have created a brief companion piece to our guide called <a href="https://foundation.mozilla.org/en/privacy-included/" target="_blank">*Privacy Included: Rethinking the Smart Home</a>.
+        {% blocktrans with link_args='href="https://foundation.mozilla.org/privacy-included/" target="_blank"' trimmed %}
+        Seeking more background? Mozilla’s Internet Health Report have created a brief companion piece to our guide
+        called <a {{link_args}}>*Privacy Included: Rethinking the Smart Home</a>.
+        {% endblocktrans %}
     </p>
 {% endblock %}
