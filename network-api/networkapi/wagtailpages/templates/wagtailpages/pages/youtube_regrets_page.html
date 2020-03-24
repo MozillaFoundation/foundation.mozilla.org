@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n static %}
 
 {% block body_id %}youtube-regrets{% endblock %}
 
@@ -39,7 +39,7 @@
   </div>
 
   <figure class="scroll-hint text-center d-none">
-    <img src="/_images/youtube-regrets/scroll.svg" width="28" height="85" />
+    <img src="{% static "_images/youtube-regrets/scroll.svg" %}" width="28" height="85" />
     <figcaption>{% trans "Scroll" %}</figcaption>
   </figure>
 </div>

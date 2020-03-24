@@ -87,7 +87,7 @@ $product-detail-padding-x: (
         top: 0;
         left: 0;
         content: "";
-        background-image: url(/_images/buyers-guide/icon-product-link.svg);
+        background-image: url(../_images/buyers-guide/icon-product-link.svg);
         background-repeat: no-repeat;
         background-position: center 65%;
         background-size: contain;
@@ -188,7 +188,7 @@ $product-detail-padding-x: (
       position: absolute;
       top: 0;
       left: 0;
-      background: url("/_images/buyers-guide/badge-star-mini.svg") center /
+      background: url(../_images/buyers-guide/badge-star-mini.svg) center /
         contain no-repeat;
       width: $badge-width-mobile;
       height: 100%;
@@ -255,7 +255,7 @@ $product-detail-padding-x: (
   button.toggle {
     align-self: center;
     margin-left: 10px;
-    background: url(/_images/buyers-guide/plus.svg) center center no-repeat;
+    background: url(../_images/buyers-guide/plus.svg) center center no-repeat;
     background-size: contain;
     border: 0;
     width: 24px;
@@ -279,7 +279,7 @@ $product-detail-padding-x: (
     left: 0;
     right: 0;
     height: 228px;
-    background-image: url("/_images/buyers-guide/dot-pattern.svg");
+    background-image: url(../_images/buyers-guide/dot-pattern.svg);
     background-size: 9px 9px;
   }
 }
