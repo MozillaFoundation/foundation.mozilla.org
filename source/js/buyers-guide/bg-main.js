@@ -61,7 +61,7 @@ let main = {
       this.injectReactComponents();
 
       common.bindEventHandlers();
-      common.initiatePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+      common.initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
 
       if (document.getElementById(`view-home`)) {
         HomepageSlider.init();

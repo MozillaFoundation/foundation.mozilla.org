@@ -44,7 +44,10 @@ const init = () => {
   }
 };
 
-export default {
+/**
+ * Object that includes analytics related configs and functions
+ */
+export const googleAnalytics = {
   doNotTrack: DO_NOT_TRACK,
   init: init
 };

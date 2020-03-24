@@ -1,9 +1,9 @@
-import ReactGA from "./react-ga-proxy.js";
+import ReactGA from "../react-ga-proxy.js";
 
 /**
  * Bind click handler to #donate-footer-btn
  */
-const bindDonateFooterButtonHandler = () => {
+export default () => {
   let donateFooterBtn = document.getElementById(`donate-footer-btn`);
 
   if (donateFooterBtn) {
@@ -15,11 +15,4 @@ const bindDonateFooterButtonHandler = () => {
       });
     });
   }
-};
-
-/**
- * Bind event handlers
- */
-export default () => {
-  bindDonateFooterButtonHandler();
 };

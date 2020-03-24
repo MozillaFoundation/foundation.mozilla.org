@@ -6,7 +6,7 @@ import navNewsletter from "../nav-newsletter.js";
  * @param {String} csrfToken CSRF Token
  * @param {Object} primaryNavModule primary nav module to initiate
  */
-export default (siteUrl, csrfToken, primaryNavModule) => {
+export const initializePrimaryNav = (siteUrl, csrfToken, primaryNavModule) => {
   primaryNavModule.init();
   navNewsletter.init(siteUrl, csrfToken);
 };

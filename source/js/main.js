@@ -199,7 +199,7 @@ let main = {
     // Call once to get scroll position on initial page load.
     onScroll();
 
-    common.initiatePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+    common.initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
     youTubeRegretsTunnel.init();
 
     // Extra tracking
@@ -222,14 +222,14 @@ let main = {
     let seeMorePage = document.querySelector(`#see-more-modular-page`);
 
     if (seeMorePage) {
-      seeMorePage.addEventListener(`click`, () => {
-        let label =
-          document.querySelectorAll(`.cms h1`).length > 0
-            ? `${
-                document.querySelectorAll(`.cms h1`)[0].innerText
-              } - footer cta`
-            : ``;
+      let label = ``;
+      let pageHeader = document.querySelector(`.cms h1`);
 
+      if (pageHeader) {
+        label = `${pageHeader.innerText} - footer cta`;
+      }
+
+      seeMorePage.addEventListener(`click`, () => {
         ReactGA.event({
           category: `navigation`,
           action: `page footer cta`,
