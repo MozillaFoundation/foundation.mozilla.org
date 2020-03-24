@@ -1,4 +1,4 @@
-import ReactGA from "../react-ga-proxy.js";
+import ReactGA from "./react-ga-proxy.js";
 
 /**
  * Check browser's "do not track" setting

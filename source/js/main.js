@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
 
 import React from "react";
-import ReactGA from "./react-ga-proxy.js";
+import ReactGA from "./common/react-ga-proxy.js";
 import ReactDOM from "react-dom";
 import * as Sentry from "@sentry/browser";
 import * as common from "./common";

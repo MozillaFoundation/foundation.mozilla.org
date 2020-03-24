@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactGA from "../react-ga-proxy.js";
+import ReactGA from "../common/react-ga-proxy.js";
 import Storage from "../storage.js";
 import * as common from "../common";
 

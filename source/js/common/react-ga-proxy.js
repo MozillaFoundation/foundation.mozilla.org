@@ -1,5 +1,5 @@
 import ReactGA from "react-ga";
-import { googleAnalytics } from "./common";
+import { googleAnalytics } from "../common";
 
 // A no-operation object with the same API surface
 // as ReactGA, for when tracking is not appreciated:

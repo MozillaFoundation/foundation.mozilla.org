@@ -1,4 +1,4 @@
-import ReactGA from "./react-ga-proxy.js";
+import ReactGA from "./common/react-ga-proxy.js";
 import navNewsletter from "./nav-newsletter.js";
 
 let primaryNav = {

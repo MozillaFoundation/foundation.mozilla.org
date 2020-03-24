@@ -1,4 +1,4 @@
-import ReactGA from "../react-ga-proxy";
+import ReactGA from "../common/react-ga-proxy";
 import { googleAnalytics } from "../common";
 
 function getQuerySelectorEvents(pageTitle, productName) {
