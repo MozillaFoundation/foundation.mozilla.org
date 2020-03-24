@@ -421,7 +421,7 @@ LOCALE_PATHS = (
 WHITENOISE_INDEX_FILE = True
 
 # Enable CloudFront for staticfiles
-STATIC_HOST = env('STATIC_HOST') if not DEBUG else ''
+STATIC_HOST = env('STATIC_HOST') if not DEBUG and not REVIEW_APP else ''
 
 STATIC_URL = STATIC_HOST + '/static/'
 STATIC_ROOT = root('staticfiles')
