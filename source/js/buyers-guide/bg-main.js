@@ -54,19 +54,8 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      // TODO: this should probably tap into the analytics.js file that
-      // we use in main.js so that we only have one place where top level
-      // changes to how analytics works need to be made.
-
-      const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
-      if (gaMeta) {
-        let gaIdentifier = gaMeta.getAttribute(`content`);
-        ReactGA.initialize(gaIdentifier); // UA-87658599-6 by default
-        ReactGA.pageview(window.location.pathname);
-        AnalyticsEvents.init();
-      } else {
-        console.warn(`No GA identifier found: skipping bootstrap step`);
-      }
+      common.googleAnalytics.init();
+      AnalyticsEvents.init();
 
       this.enableCopyLinks();
       this.injectReactComponents();

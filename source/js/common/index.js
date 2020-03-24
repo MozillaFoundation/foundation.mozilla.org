@@ -3,5 +3,6 @@
 // e.g., Foundation site, PNI, MozFest etc
 
 export { default as bindEventHandlers } from "./bind-event-handlers";
+export { default as googleAnalytics } from "./google-analytics";
 export { default as initiatePrimaryNav } from "./initiate-primary-nav";
 export { default as injectReactComponents } from "./inject-react-components";

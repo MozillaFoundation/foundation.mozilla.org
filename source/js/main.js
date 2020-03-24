@@ -1,9 +1,8 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
 
 import React from "react";
-import ReactGA from "react-ga";
+import ReactGA from "./react-ga-proxy.js";
 import ReactDOM from "react-dom";
-import Analytics from "./analytics.js";
 import * as Sentry from "@sentry/browser";
 import * as common from "./common";
 
@@ -59,11 +58,7 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
-      if (gaMeta) {
-        let gaIdentifier = gaMeta.getAttribute(`content`);
-        Analytics.initialize(gaIdentifier);
-      }
+      common.googleAnalytics.init();
 
       this.injectReactComponents();
       this.bindGlobalHandlers();
@@ -228,14 +223,18 @@ let main = {
 
     if (seeMorePage) {
       seeMorePage.addEventListener(`click`, () => {
-        let label = ``;
-        let pageHeader = document.querySelector(`.cms h1`);
+        let label =
+          document.querySelectorAll(`.cms h1`).length > 0
+            ? `${
+                document.querySelectorAll(`.cms h1`)[0].innerText
+              } - footer cta`
+            : ``;
 
-        if (pageHeader) {
-          label = `${pageHeader.innerText} - footer cta`;
-        }
-
-        Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
+        ReactGA.event({
+          category: `navigation`,
+          action: `page footer cta`,
+          label: label
+        });
       });
     }
 
