@@ -57,9 +57,15 @@ def generate(seed):
 
     try:
         default_site = WagtailSite.objects.get(is_default_site=True)
-        if settings.HEROKU_APP_NAME:
-            default_site.hostname = REVIEW_APP_HOSTNAME
         default_site.root_page = home_page
+        if settings.HEROKU_APP_NAME:
+            hostname = REVIEW_APP_HOSTNAME
+            port = 80
+        else:
+            hostname = 'localhost'
+            port = 8000
+        default_site.hostname = hostname
+        default_site.port = port
         default_site.save()
         print('Updated the default Site')
     except WagtailSite.DoesNotExist:
@@ -70,7 +76,6 @@ def generate(seed):
         else:
             hostname = 'localhost'
             port = 8000
-
         WagtailSite.objects.create(
             hostname=hostname,
             port=port,
