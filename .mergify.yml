@@ -1,0 +1,12 @@
+pull_request_rules:
+  - name: Automatic merge for dependabot PRs
+    conditions:
+      - "#approved-reviews-by>=1"
+      - author~=^dependabot(|-preview)\[bot\]$
+      - "status-success=percy/foundation.mozilla.org"
+      - "status-success=continuous-integration/travis-ci/pr"
+    actions:
+      merge:
+        method: merge
+        strict_method: rebase
+        strict: true
