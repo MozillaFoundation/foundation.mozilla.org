@@ -76,7 +76,7 @@ def generate(seed):
     home_page = get_homepage()
 
     try:
-        blog_namespace = WagtailPage.objects.get(title='blog')
+        blog_namespace = WagtailPage.objects.get(title='Blog')
         print('blog namespace exists')
     except WagtailPage.DoesNotExist:
         print('Generating a blog namespace')
