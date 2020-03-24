@@ -2,12 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ReactGA from "../react-ga-proxy.js";
 import Storage from "../storage.js";
+import * as common from "../common";
 
 import primaryNav from "./components/primary-nav/primary-nav.js";
-import navNewsletter from "../nav-newsletter.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
-import JoinUs from "../components/join/join.jsx";
 
 import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
@@ -72,8 +71,8 @@ let main = {
       this.enableCopyLinks();
       this.injectReactComponents();
 
-      primaryNav.init();
-      navNewsletter.init(networkSiteURL, csrfToken);
+      common.bindEventHandlers();
+      common.initiatePrimaryNav(networkSiteURL, csrfToken, primaryNav);
 
       if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
@@ -120,6 +119,8 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
+    common.injectReactComponents(apps, networkSiteURL, csrfToken);
+
     document.querySelectorAll(`.creep-vote-target`).forEach(element => {
       let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
       let productName = element.dataset.productName;
@@ -165,24 +166,6 @@ let main = {
               initialValue={initialValue}
               whenLoaded={() => resolve()}
             />,
-            element
-          );
-        })
-      );
-    });
-
-    document.querySelectorAll(`.join-us`).forEach(element => {
-      const props = element.dataset;
-      const sid = props.signupId || 0;
-      props.apiUrl = `${networkSiteURL}/api/campaign/signups/${sid}/`;
-
-      props.csrfToken = props.csrfToken || csrfToken;
-      props.isHidden = false;
-
-      apps.push(
-        new Promise(resolve => {
-          ReactDOM.render(
-            <JoinUs {...props} whenLoaded={() => resolve()} />,
             element
           );
         })

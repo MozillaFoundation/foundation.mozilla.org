@@ -9,6 +9,8 @@ const noop = {
   event: () => {}
 };
 
+console.log(`DNT.allowTracking`, DNT.allowTracking);
+
 const TrackingObject = DNT.allowTracking ? ReactGA : noop;
 
 export default TrackingObject;
