@@ -91,8 +91,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   // Opportunity page tests (single and multi-page)
 
-  it(`Single-page opportunity`, function() {
-    cy.visit(`/en/opportunity/single-page/`);
+  it(`Single-page opportunity should redirect to /intiatives`, function() {
+    cy.visit(`/en/opportunity/single-page-opportunity/`);
+    cy.url().should(
+      "eq",
+      `${Cypress.config().baseUrl}/en/initiatives/single-page-opportunity/`
+    );
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);
@@ -100,8 +104,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`Multi-page opportunity`, function() {
-    cy.visit(`/en/opportunity/multi-page/`);
+  it(`Multi-page opportunity should redirect to /intiatives`, function() {
+    cy.visit(`/en/opportunity/multi-page-opportunity/`);
+    cy.url().should(
+      "eq",
+      `${Cypress.config().baseUrl}/en/initiatives/multi-page-opportunity/`
+    );
     cy.window()
       .its(`main-js:react:finished`)
       .should(`equal`, true);

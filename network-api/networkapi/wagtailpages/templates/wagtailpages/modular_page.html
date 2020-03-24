@@ -2,14 +2,6 @@
 
 {% load wagtailcore_tags mini_site_tags wagtailmetadata_tags %}
 
-{% block page_top_content %}
-  {% if page.live == False %}
-  <div class="wagtail-draft-warning">
-    This is a draft page, and is only visible to users who are logged in to the CMS admin.
-  </div>
-  {% endif %}
-{% endblock %}
-
 {% block content %}
   {% block minisite_title_mb %}{% endblock %}
 

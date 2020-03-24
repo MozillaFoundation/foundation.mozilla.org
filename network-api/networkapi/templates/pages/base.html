@@ -22,7 +22,7 @@
     {% endblock %}
 
     {% block ga_identifier %}
-      <meta name="google-site-verification" content="Hl4u7xOmnhODNRyNoTjSzBFJKizAYXWYtzxfHjVkPRc">
+      <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
       <meta name="ga-identifier" content="UA-87658599-6">
     {% endblock %}
 
@@ -52,12 +52,14 @@
       {% wagtailuserbar 'bottom-left' %}
     {% endif %}
 
-    {% block page_top_content %}{% endblock %}
+    {% if page.live == False %}
+    <div id="wagtail-draft-warning">
+      This is a draft page, and is only visible to users who are logged in to the CMS admin.
+    </div>
+    {% endif %}
 
     {% block body_wrapped %}
     <div class="wrapper">
-      <div id="member-notice">{% if page.status == 1 %}<div><strong>Draft preview.</strong> You must save as Published to make it public.</div>{% endif %}
-      </div>
       <div class="sticky-top">
         {% block primary_nav %}
           {% include "partials/primary_nav.html" with background="simple-background" %}
