@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/admin_base.html" %}
+{% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags wagtailcore_tags staticfiles i18n %}
 
 {% block titletag %}{% trans "Error 404: Page not found" %}{% endblock %}
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.css' %}" />
 
     <!-- our app's additional CSS -->
-    <link rel="stylesheet" href="/_css/main.compiled.css">
+    <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404-additionals.css' %}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,300,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400">

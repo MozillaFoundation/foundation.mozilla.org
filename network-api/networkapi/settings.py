@@ -84,6 +84,7 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     SENTRY_ENVIRONMENT=(str, None),
     REVIEW_APP=(bool, False),
+    STATIC_HOST=(str, ''),
 )
 
 # Read in the environment
@@ -154,8 +155,12 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
 USE_S3 = env('USE_S3')
 USE_CLOUDINARY = env('USE_CLOUDINARY')
 
+# Detect if Django is running normally, or in test mode through "manage.py test"
+TESTING = 'test' in sys.argv
+
 INSTALLED_APPS = list(filter(None, [
 
+    'whitenoise.runserver_nostatic',
     'networkapi.filebrowser_s3' if USE_S3 else None,
     'social_django' if SOCIAL_SIGNIN else None,
 
@@ -193,7 +198,6 @@ INSTALLED_APPS = list(filter(None, [
     'modelcluster',
     'taggit',
 
-    'whitenoise.runserver_nostatic',
     'rest_framework',
     'django_filters',
     'gunicorn',
@@ -225,8 +229,6 @@ INSTALLED_APPS = list(filter(None, [
 ]))
 
 MIDDLEWARE = list(filter(None, [
-    'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
-
     'csp.middleware.CSPMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 
@@ -234,8 +236,9 @@ MIDDLEWARE = list(filter(None, [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'networkapi.utility.middleware.ReferrerMiddleware',
 
-    'django.middleware.gzip.GZipMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
+    'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
     'django.middleware.common.CommonMiddleware',
@@ -415,12 +418,16 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 
-WHITENOISE_ROOT = app('frontend')
 WHITENOISE_INDEX_FILE = True
 
-STATIC_URL = '/static/'
+# Enable CloudFront for staticfiles
+STATIC_HOST = env('STATIC_HOST') if not DEBUG and not REVIEW_APP else ''
+
+STATIC_URL = STATIC_HOST + '/static/'
 STATIC_ROOT = root('staticfiles')
-STATICFILES_STORAGE = 'networkapi.utility.staticfiles.NonStrictCompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [app('frontend')]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 
@@ -608,9 +615,6 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
-
-# Detect if Django is running normally, or in test mode through "manage.py test"
-TESTING = 'test' in sys.argv
 
 # Coral Talk Server URL
 

@@ -1,6 +1,6 @@
 {% extends "./bg_base.html" %}
 
-{% load yes_no env cloudinary l10n i18n %}
+{% load yes_no env cloudinary l10n i18n static %}
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.name }}{% endblocktrans %}" />
@@ -69,7 +69,7 @@
               {% include "fragments/product_criterion_primary_info.html"  with label=overall_security_rating %}
               <div>
                 <span class="security-score mb-0">{{security_score|localize}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
-                <img src="/_images/buyers-guide/score/icon-star.svg" width="20" height="20" alt="{% trans "star" context "Used as a noun. Accessibility label for star image" %}">
+                <img src="{% static "_images/buyers-guide/score/icon-star.svg" %}" width="20" height="20" alt="{% trans "star" context "Used as a noun. Accessibility label for star image" %}">
               </div>
             </div>
             {% trans "Encryption"              as encryption %}

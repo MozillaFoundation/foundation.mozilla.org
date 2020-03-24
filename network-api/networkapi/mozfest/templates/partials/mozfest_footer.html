@@ -1,6 +1,6 @@
 {% extends "partials/footer.html" %}
 
-{% load i18n %}
+{% load i18n static %}
 
 {% block footer_donate %}
   <!-- nothing right now -->
@@ -19,7 +19,7 @@
       data-newsletter="{{ mozfest_footer.newsletter }}">
     </div>
 
-    <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="/_images/mozilla-block-white.svg"></a>
+    <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="{% static "_images/mozilla-block-white.svg" %}"></a>
   </div>
 {% endblock %}
 

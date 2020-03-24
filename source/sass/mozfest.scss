@@ -49,18 +49,18 @@ body.mozfest {
           }
 
           &.btn-pause {
-            background-image: url("/_images/mozfest/pause-circle.svg");
+            background-image: url("../_images/mozfest/pause-circle.svg");
 
             &:hover {
-              background-image: url("/_images/mozfest/pause-circle-hover.svg");
+              background-image: url("../_images/mozfest/pause-circle-hover.svg");
             }
           }
 
           &.btn-play {
-            background-image: url("/_images/mozfest/play-circle.svg");
+            background-image: url("../_images/mozfest/play-circle.svg");
 
             &:hover {
-              background-image: url("/_images/mozfest/play-circle-hover.svg");
+              background-image: url("../_images/mozfest/play-circle-hover.svg");
             }
           }
         }

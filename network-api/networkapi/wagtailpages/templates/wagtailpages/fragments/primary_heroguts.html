@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 <div id="hero">
   <div class="banner">
@@ -16,7 +16,7 @@
       {% image page.banner fill-1008x288 alt="" %}
     </picture>
     {% else %}
-    <img src="/_images/banner-black-white-marble.jpg" alt="">
+    <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
     {% endif %}
   </div>
 

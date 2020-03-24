@@ -6,7 +6,7 @@ export default class Creepometer extends React.Component {
 
     this.faceCount = 40; // Number of face frames
     this.faceHeight = 70; // pixel height for one frame
-    this.framePath = `/_images/buyers-guide/faces/`;
+    this.framePath = `../../../../static/_images/buyers-guide/faces/`;
 
     this.state = {
       dragging: false,
