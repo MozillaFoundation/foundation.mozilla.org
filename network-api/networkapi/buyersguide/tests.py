@@ -9,7 +9,7 @@ from django.test import TestCase, RequestFactory
 from datetime import date
 
 from networkapi.buyersguide.factory import ProductFactory
-from networkapi.buyersguide.models import RangeVote, BooleanVote, Product
+from networkapi.buyersguide.models import RangeVote, BooleanVote, Product, BuyersGuideProductCategory
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 from django.core.management import call_command
 
@@ -403,3 +403,18 @@ class ProductTests(TestCase):
         p.name = 'name changed'
         p.save()
         self.assertEqual(p.slug, slugify(p.name))
+
+
+class CategoryViewTest(TestCase):
+    def test_localised_category(self):
+        c = BuyersGuideProductCategory.objects.create(name='testcategory')
+        url = f'/fr/privacynotincluded/categories/{c.name}/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
+
+
+class AboutViewTest(TestCase):
+    def test_localised_about(self):
+        url = f'/fr/privacynotincluded/about/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
