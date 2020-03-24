@@ -1,5 +1,5 @@
 import ReactGA from "../react-ga-proxy";
-import DNT from "../dnt.js";
+import { googleAnalytics } from "../common";
 
 function getQuerySelectorEvents(pageTitle, productName) {
   return {
@@ -127,7 +127,7 @@ function setupElementGA(element, eventData) {
 
 const ProductGA = {
   init: () => {
-    if (!DNT.allowTracking) {
+    if (googleAnalytics.doNotTrack) {
       // explicit check on DNT left in, to prevent
       // a whole heap of code from executing.
       return;

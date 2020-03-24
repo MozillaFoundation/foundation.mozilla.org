@@ -1,5 +1,5 @@
-import DNT from "./dnt.js";
 import ReactGA from "react-ga";
+import { googleAnalytics } from "./common";
 
 // A no-operation object with the same API surface
 // as ReactGA, for when tracking is not appreciated:
@@ -9,6 +9,6 @@ const noop = {
   event: () => {}
 };
 
-const TrackingObject = DNT.allowTracking ? ReactGA : noop;
+const TrackingObject = googleAnalytics.doNotTrack ? noop : ReactGA;
 
 export default TrackingObject;
