@@ -1,4 +1,4 @@
-import ReactGA from "./react-ga-proxy.js";
+import { ReactGA } from "./react-ga-proxy.js";
 
 /**
  * Check browser's "do not track" setting
@@ -47,7 +47,7 @@ const init = () => {
 /**
  * Object that includes analytics related configs and functions
  */
-export const googleAnalytics = {
+export const GoogleAnalytics = {
   doNotTrack: DO_NOT_TRACK,
   init: init
 };

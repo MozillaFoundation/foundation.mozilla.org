@@ -1,10 +1,15 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
 
 import React from "react";
-import ReactGA from "./common/react-ga-proxy.js";
 import ReactDOM from "react-dom";
 import * as Sentry from "@sentry/browser";
-import * as common from "./common";
+import {
+  bindCommonEventHandlers,
+  GoogleAnalytics,
+  initializePrimaryNav,
+  injectCommonReactComponents,
+  ReactGA
+} from "./common";
 
 import Petition from "./components/petition/petition.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
@@ -58,7 +63,7 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      common.googleAnalytics.init();
+      GoogleAnalytics.init();
 
       this.injectReactComponents();
       this.bindGlobalHandlers();
@@ -199,7 +204,7 @@ let main = {
     // Call once to get scroll position on initial page load.
     onScroll();
 
-    common.initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+    initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
     youTubeRegretsTunnel.init();
 
     // Extra tracking
@@ -215,7 +220,7 @@ let main = {
       });
     }
 
-    common.bindEventHandlers();
+    bindCommonEventHandlers();
   },
 
   bindGAEventTrackers() {
@@ -259,7 +264,7 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    common.injectReactComponents(apps, networkSiteURL, csrfToken);
+    injectCommonReactComponents(apps, networkSiteURL, csrfToken);
 
     // petition elements
     var subscribed = false;

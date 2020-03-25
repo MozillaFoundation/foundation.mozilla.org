@@ -1,8 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactGA from "../common/react-ga-proxy.js";
 import Storage from "../storage.js";
-import * as common from "../common";
+import {
+  bindCommonEventHandlers,
+  GoogleAnalytics,
+  initializePrimaryNav,
+  injectCommonReactComponents,
+  ReactGA
+} from "../common";
 
 import primaryNav from "./components/primary-nav/primary-nav.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
@@ -54,14 +59,14 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      common.googleAnalytics.init();
+      GoogleAnalytics.init();
       AnalyticsEvents.init();
 
       this.enableCopyLinks();
       this.injectReactComponents();
 
-      common.bindEventHandlers();
-      common.initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+      bindCommonEventHandlers();
+      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
 
       if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
@@ -108,7 +113,7 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    common.injectReactComponents(apps, networkSiteURL, csrfToken);
+    injectCommonReactComponents(apps, networkSiteURL, csrfToken);
 
     document.querySelectorAll(`.creep-vote-target`).forEach(element => {
       let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);

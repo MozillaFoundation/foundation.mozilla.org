@@ -1,5 +1,5 @@
 import React from "react";
-import ReactGA from "../../../common/react-ga-proxy";
+import { ReactGA } from "../../../common";
 import copyToClipboard from "../../../../js/copy-to-clipboard.js";
 
 const SocialShareLink = props => {

@@ -3,7 +3,8 @@
  * on all pages on the main Foundation site, apps, and microsites.
  * e.g., Foundation site, PNI, MozFest etc
  */
-export { bindEventHandlers } from "./template-js-handles";
-export { googleAnalytics } from "./google-analytics";
-export { initializePrimaryNav } from "./initialize-primary-nav";
-export { injectReactComponents } from "./inject-react";
+export { bindCommonEventHandlers } from "./template-js-handles";
+export { GoogleAnalytics } from "./google-analytics.js";
+export { initializePrimaryNav } from "./initialize-primary-nav.js";
+export { injectCommonReactComponents } from "./inject-react";
+export { ReactGA } from "./react-ga-proxy.js";

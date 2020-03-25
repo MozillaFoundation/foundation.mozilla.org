@@ -6,6 +6,6 @@ import injectJoinUs from "./join-us.js";
  * @param {String} siteUrl Foundation site base URL
  * @param {String} csrfToken CSRF Token
  */
-export const injectReactComponents = (apps, siteUrl, csrfToken) => {
+export const injectCommonReactComponents = (apps, siteUrl, csrfToken) => {
   injectJoinUs(apps, siteUrl, csrfToken);
 };
