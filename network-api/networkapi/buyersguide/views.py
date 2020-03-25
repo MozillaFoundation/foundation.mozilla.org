@@ -41,26 +41,6 @@ def get_average_creepiness(product):
     return 50
 
 
-def path_is_en_prefixed(path):
-    return path.startswith('/en/')
-
-
-def get_en_redirect(path):
-    redirect_path = re.sub(locale_regex, '/en/', path)
-    return redirect(redirect_path, permanent=False)
-
-
-def enforce_en_locale(view_handler):
-    def check_locale(*args, **kwargs):
-        path = args[0].path
-        if not path_is_en_prefixed(path):
-            return get_en_redirect(path)
-
-        return view_handler(*args, **kwargs)
-
-    return check_locale
-
-
 def filter_draft_products(request, products):
     if request.user.is_authenticated:
         return products
@@ -69,7 +49,6 @@ def filter_draft_products(request, products):
 
 
 @redirect_to_default_cms_site
-@enforce_en_locale
 def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
 
@@ -88,7 +67,6 @@ def buyersguide_home(request):
 
 
 @redirect_to_default_cms_site
-@enforce_en_locale
 def category_view(request, slug):
     key = f'products_category__{slug}'
     products = cache.get(key)
@@ -114,7 +92,6 @@ def category_view(request, slug):
 
 
 @redirect_to_default_cms_site
-@enforce_en_locale
 def product_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
 
@@ -152,7 +129,6 @@ def product_view(request, slug):
 
 def bg_about_page(template_name):
     @redirect_to_default_cms_site
-    @enforce_en_locale
     def render_view(request):
         key = 'categories'
         categories = cache.get(key)
