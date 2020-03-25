@@ -4,7 +4,7 @@ from django.utils.feedgenerator import Atom1Feed
 
 from bs4 import BeautifulSoup
 
-from .models import IndexPage
+from .models import BlogIndexPage
 
 
 class RSSFeed(Feed):
@@ -18,7 +18,13 @@ class RSSFeed(Feed):
     description = 'The Mozilla Foundation Blog'
 
     def items(self):
-        blog_index = IndexPage.objects.get(title__iexact='blog')
+        # Pull this object specifically using the English page title
+        blog_index = BlogIndexPage.objects.get(title_en__iexact='Blog')
+
+        # If that doesn't yield the blog page, pull using the universal title
+        if blog_index is None:
+            blog_index = BlogIndexPage.objects.get(title__iexact='Blog')
+
         blog_pages = blog_index.get_all_entries()
         return blog_pages[:settings.FEED_LIMIT]
 
