@@ -1,25 +1,26 @@
 from django.db import models
 from django.conf import settings
 
-from django.template.defaultfilters import slugify
-
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.models import Page
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.snippets.models import register_snippet
+from wagtail.core.fields import StreamField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
-from . import customblocks
-from .index import IndexPage
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from ..utils import (
+from .. import customblocks
+
+from ..mixin.foundation_metadata import FoundationMetadataPageMixin
+
+from ...utils import (
     set_main_site_nav_information,
     get_content_related_by_tag
 )
+
+from .blog_category import BlogPageCategory
+from .blog_index import BlogIndexPage
 
 base_fields = [
     ('paragraph', blocks.RichTextBlock(
@@ -38,31 +39,6 @@ base_fields = [
     ('spacer', customblocks.BootstrapSpacerBlock()),
     ('quote', customblocks.QuoteBlock()),
 ]
-
-
-@register_snippet
-class BlogPageCategory(models.Model):
-    name = models.CharField(
-        max_length=50
-    )
-
-    intro = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ],
-        blank=True,
-    )
-
-    @property
-    def slug(self):
-        return slugify(self.name)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Blog Page Category"
-        verbose_name_plural = "Blog Page Categories"
 
 
 class BlogPageTag(TaggedItemBase):
