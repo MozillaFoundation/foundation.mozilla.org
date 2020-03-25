@@ -1,5 +1,4 @@
-import { ReactGA } from "../common";
-import { GoogleAnalytics } from "../common";
+import { ReactGA, GoogleAnalytics } from "../common";
 
 function getQuerySelectorEvents(pageTitle, productName) {
   return {
