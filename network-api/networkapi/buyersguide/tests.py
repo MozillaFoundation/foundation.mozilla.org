@@ -328,33 +328,25 @@ class BuyersGuideViewTest(TestCase):
 
     def test_localised_homepage(self):
         """
-        Test that the homepage redirects when missing a locale code.
+        Test that the homepage redirects properly under different locale configurations.
         """
         response = self.client.get('/privacynotincluded/')
         self.assertEqual(response.status_code, 302, 'simple locale gets redirected')
 
-    def test_only_en(self):
-        """
-        Test that the homepage redirects away from the other locales the site supports
-        """
-        response = self.client.get('/fr/privacynotincluded', follow=True)
-        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /fr/ to /en/')
+        response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='fr')
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            '/fr/privacynotincluded/',
+            'redirects according to HTTP_ACCEPT_LANGUAGE'
+        )
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get('/de/privacynotincluded', follow=True)
-        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /de/ to /en/')
+        response = self.client.get('/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='foo')
+        self.assertEqual(response.redirect_chain[0][0], '/en/privacynotincluded/', 'redirects to /en/ by default')
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.get('/pt/privacynotincluded', follow=True)
-        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /pt/ to /en/')
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get('/es/privacynotincluded', follow=True)
-        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /es/ to /en/')
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get('/pl/privacynotincluded', follow=True)
-        self.assertEqual(response.redirect_chain[1][0], '/en/privacynotincluded/', 'redirects /pl/ to /en/')
+        response = self.client.get('/de/privacynotincluded', follow=True, HTTP_ACCEPT_LANGUAGE='it')
+        self.assertEqual(response.redirect_chain[0][0], '/de/privacynotincluded/', 'no redirect from hardcoded locale')
         self.assertEqual(response.status_code, 200)
 
     def test_product_view_404(self):
@@ -412,38 +404,17 @@ class ProductTests(TestCase):
         p.save()
         self.assertEqual(p.slug, slugify(p.name))
 
-    def test_only_en(self):
-        p = Product.objects.create(name='this should redirect', review_date=date.today())
-        url = f'/fr/privacynotincluded/products/{p.slug}/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            f'/en/privacynotincluded/products/{p.slug}/',
-            'redirects to /en/privacynotincluded/products/{slug}/'
-        )
-
 
 class CategoryViewTest(TestCase):
-    def test_only_en(self):
+    def test_localised_category(self):
         c = BuyersGuideProductCategory.objects.create(name='testcategory')
         url = f'/fr/privacynotincluded/categories/{c.name}/'
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            f'/en/privacynotincluded/categories/{c.name}/',
-            'redirects to /en/privacynotincluded/categories/{name}/'
-        )
+        self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
 
 
 class AboutViewTest(TestCase):
-    def test_only_en(self):
+    def test_localised_about(self):
         url = f'/fr/privacynotincluded/about/'
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response['Location'],
-            f'/en/privacynotincluded/about/',
-            'redirects to /en/privacynotincluded/about/'
-        )
+        self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
