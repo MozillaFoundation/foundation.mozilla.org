@@ -81,6 +81,13 @@ button:hover {
 footer.site-footer {
   background: $black;
 
+  &.dark-theme {
+    // special override to make sure footer list links appear white (vs default dark theme anchor color $light-blue)
+    .link-list a {
+      @include dark-theme-inline-anchor($white);
+    }
+  }
+
   .link-list {
     li {
       &:not(:last-child) {

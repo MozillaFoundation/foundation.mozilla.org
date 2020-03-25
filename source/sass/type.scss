@@ -76,6 +76,8 @@ h6,
   @include scaleText(18px, 27px, 20px, 30px);
 }
 
+ul,
+ol,
 p,
 .body {
   @include body-text(null, 400, $black, $white);
