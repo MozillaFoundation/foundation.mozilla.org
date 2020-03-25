@@ -15,7 +15,6 @@ export default (apps, siteUrl, csrfToken) => {
     const sid = props.signupId || 0;
 
     props.apiUrl = `${siteUrl}/api/campaign/signups/${sid}/`;
-
     props.csrfToken = props.csrfToken || csrfToken;
     props.isHidden = false;
 
