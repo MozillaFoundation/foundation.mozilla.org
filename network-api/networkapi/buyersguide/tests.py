@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import Http404
 from django.urls import reverse
 from django.utils.text import slugify
+from django.test.utils import override_settings
 from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 from datetime import date
@@ -308,6 +309,7 @@ class BuyersGuideVoteTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
 
+@override_settings(DEBUG=True)
 class BuyersGuideViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
@@ -393,6 +395,7 @@ class BuyersGuideViewTest(TestCase):
         self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
 
 
+@override_settings(DEBUG=True)
 class ProductTests(TestCase):
     def test_product_slug(self):
         p = Product.objects.create(name='this name should get slugified', review_date=date.today())
@@ -405,6 +408,7 @@ class ProductTests(TestCase):
         self.assertEqual(p.slug, slugify(p.name))
 
 
+@override_settings(DEBUG=True)
 class CategoryViewTest(TestCase):
     def test_localised_category(self):
         c = BuyersGuideProductCategory.objects.create(name='testcategory')
@@ -413,6 +417,7 @@ class CategoryViewTest(TestCase):
         self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
 
 
+@override_settings(DEBUG=True)
 class AboutViewTest(TestCase):
     def test_localised_about(self):
         url = f'/fr/privacynotincluded/about/'
