@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="profiles" data-program-type="{{ value.program_type }}" data-program-year="{{ value.program_year }}" data-profile-type="{{ value.profile_type }}">
   <div class="row">
     {% for profile in profiles %}
@@ -6,7 +8,7 @@
           <div class="thumbnail-wrapper">
             <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="d-block headshot-container">
               <img
-                src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}/_images/fellowships/headshot/placeholder.jpg{% endif %}"
+                src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
                 class="headshot"
                 alt="Headshot">
             </a>

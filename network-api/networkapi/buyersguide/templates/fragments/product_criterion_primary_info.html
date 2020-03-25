@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <div class="primary-info">
   <div class="d-flex align-items-center">
@@ -9,7 +9,7 @@
     <span><strong>
     {% if value == "U" %}
       {% if show_value_as_symbol %}
-      <img src="/_images/buyers-guide/score/icon-unknown.svg" alt="{% trans "Unknown" context "Unknown rating" %}">
+      <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Unknown" context "Unknown rating" %}">
       {% else %}
       {% trans "Unknown" context "Unknown rating" %}
       {% endif %}
@@ -17,19 +17,19 @@
       {% trans "N/A" %}
     {% elif value == "Yes" %}
       {% if show_value_as_symbol %}
-      <img src="/_images/buyers-guide/score/icon-yes.svg" alt="{% trans "Yes" %}">
+      <img src="{% static "_images/buyers-guide/score/icon-yes.svg" %}" alt="{% trans "Yes" %}">
       {% else %}
       {% trans "Yes" %}
       {% endif %}
     {% elif value == "No" %}
       {% if show_value_as_symbol %}
-      <img src="/_images/buyers-guide/score/icon-no.svg" alt="{% trans "No" %}">
+      <img src="{% static "_images/buyers-guide/score/icon-no.svg" %}" alt="{% trans "No" %}">
       {% else %}
       {% trans "No" %}
       {% endif %}
     {% else %}
       {% if show_value_as_symbol %}
-      <img src="/_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">
+      <img src="{% get_static_prefix %}_images/buyers-guide/score/icon-{{value|lower}}.svg" alt="{{value}}">
       {% else %}
       {{ value }}
       {% endif %}

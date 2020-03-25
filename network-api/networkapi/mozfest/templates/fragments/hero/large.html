@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags i18n static %}
 
 <div class="background-wrapper">
   <div class="overlay"></div>
@@ -41,7 +41,7 @@
       </picture>
     {% else %}
     <picture>
-      <img src="/_images/mozfest/mozfest-home-banner-default.jpg" alt="">
+      <img src="{% static "_images/mozfest/mozfest-home-banner-default.jpg" %}" alt="">
     </picture>
     {% endif %}
   {% endif %}
