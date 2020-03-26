@@ -309,7 +309,7 @@ class BuyersGuideVoteTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
 
-@override_settings(DEBUG=True)
+@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class BuyersGuideViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
@@ -395,7 +395,7 @@ class BuyersGuideViewTest(TestCase):
         self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
 
 
-@override_settings(DEBUG=True)
+@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class ProductTests(TestCase):
     def test_product_slug(self):
         p = Product.objects.create(name='this name should get slugified', review_date=date.today())
@@ -408,7 +408,7 @@ class ProductTests(TestCase):
         self.assertEqual(p.slug, slugify(p.name))
 
 
-@override_settings(DEBUG=True)
+@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class CategoryViewTest(TestCase):
     def test_localised_category(self):
         c = BuyersGuideProductCategory.objects.create(name='testcategory')
@@ -417,7 +417,7 @@ class CategoryViewTest(TestCase):
         self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
 
 
-@override_settings(DEBUG=True)
+@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class AboutViewTest(TestCase):
     def test_localised_about(self):
         url = f'/fr/privacynotincluded/about/'
