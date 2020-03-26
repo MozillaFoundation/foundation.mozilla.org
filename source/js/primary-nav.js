@@ -1,4 +1,4 @@
-import ReactGA from "react-ga";
+import { ReactGA } from "./common";
 import navNewsletter from "./nav-newsletter.js";
 
 let primaryNav = {

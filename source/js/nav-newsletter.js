@@ -1,5 +1,4 @@
 import React from "react";
-import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
 

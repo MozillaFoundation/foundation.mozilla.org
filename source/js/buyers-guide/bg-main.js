@@ -1,13 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactGA from "../react-ga-proxy.js";
 import Storage from "../storage.js";
+import {
+  bindCommonEventHandlers,
+  GoogleAnalytics,
+  initializePrimaryNav,
+  injectCommonReactComponents,
+  ReactGA
+} from "../common";
 
 import primaryNav from "./components/primary-nav/primary-nav.js";
-import navNewsletter from "../nav-newsletter.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
-import JoinUs from "../components/join/join.jsx";
 
 import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
@@ -55,25 +59,14 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      // TODO: this should probably tap into the analytics.js file that
-      // we use in main.js so that we only have one place where top level
-      // changes to how analytics works need to be made.
-
-      const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
-      if (gaMeta) {
-        let gaIdentifier = gaMeta.getAttribute(`content`);
-        ReactGA.initialize(gaIdentifier); // UA-87658599-6 by default
-        ReactGA.pageview(window.location.pathname);
-        AnalyticsEvents.init();
-      } else {
-        console.warn(`No GA identifier found: skipping bootstrap step`);
-      }
+      GoogleAnalytics.init();
+      AnalyticsEvents.init();
 
       this.enableCopyLinks();
       this.injectReactComponents();
 
-      primaryNav.init();
-      navNewsletter.init(networkSiteURL, csrfToken);
+      bindCommonEventHandlers();
+      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
 
       if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
@@ -120,6 +113,8 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
+    injectCommonReactComponents(apps, networkSiteURL, csrfToken);
+
     document.querySelectorAll(`.creep-vote-target`).forEach(element => {
       let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
       let productName = element.dataset.productName;
@@ -165,24 +160,6 @@ let main = {
               initialValue={initialValue}
               whenLoaded={() => resolve()}
             />,
-            element
-          );
-        })
-      );
-    });
-
-    document.querySelectorAll(`.join-us`).forEach(element => {
-      const props = element.dataset;
-      const sid = props.signupId || 0;
-      props.apiUrl = `${networkSiteURL}/api/campaign/signups/${sid}/`;
-
-      props.csrfToken = props.csrfToken || csrfToken;
-      props.isHidden = false;
-
-      apps.push(
-        new Promise(resolve => {
-          ReactDOM.render(
-            <JoinUs {...props} whenLoaded={() => resolve()} />,
             element
           );
         })
