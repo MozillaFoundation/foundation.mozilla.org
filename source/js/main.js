@@ -1,12 +1,16 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
 
 import React from "react";
-import ReactGA from "react-ga";
 import ReactDOM from "react-dom";
-import Analytics from "./analytics.js";
 import * as Sentry from "@sentry/browser";
+import {
+  bindCommonEventHandlers,
+  GoogleAnalytics,
+  initializePrimaryNav,
+  injectCommonReactComponents,
+  ReactGA
+} from "./common";
 
-import JoinUs from "./components/join/join.jsx";
 import Petition from "./components/petition/petition.jsx";
 import MultipageNavMobile from "./components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 import News from "./components/news/news.jsx";
@@ -14,7 +18,6 @@ import PulseProjectList from "./components/pulse-project-list/pulse-project-list
 import ShareButtonGroup from "./components/share-button-group/share-button-group.jsx";
 
 import primaryNav from "./primary-nav.js";
-import navNewsletter from "./nav-newsletter.js";
 import bindMozFestGA from "./mozfest-ga.js";
 import bindMozFestEventHandlers from "./mozfest-event-handlers";
 import youTubeRegretsTunnel from "./youtube-regrets.js";
@@ -60,11 +63,7 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
-      if (gaMeta) {
-        let gaIdentifier = gaMeta.getAttribute(`content`);
-        Analytics.initialize(gaIdentifier);
-      }
+      GoogleAnalytics.init();
 
       this.injectReactComponents();
       this.bindGlobalHandlers();
@@ -205,8 +204,7 @@ let main = {
     // Call once to get scroll position on initial page load.
     onScroll();
 
-    primaryNav.init();
-    navNewsletter.init(networkSiteURL, csrfToken);
+    initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
     youTubeRegretsTunnel.init();
 
     // Extra tracking
@@ -222,31 +220,26 @@ let main = {
       });
     }
 
-    let donateFooterBtn = document.getElementById(`donate-footer-btn`);
-    if (donateFooterBtn) {
-      donateFooterBtn.addEventListener(`click`, () => {
-        ReactGA.event({
-          category: `donate`,
-          action: `donate button tap`,
-          label: `${document.title} footer`
-        });
-      });
-    }
+    bindCommonEventHandlers();
   },
 
   bindGAEventTrackers() {
     let seeMorePage = document.querySelector(`#see-more-modular-page`);
 
     if (seeMorePage) {
+      let label = ``;
+      let pageHeader = document.querySelector(`.cms h1`);
+
+      if (pageHeader) {
+        label = `${pageHeader.innerText} - footer cta`;
+      }
+
       seeMorePage.addEventListener(`click`, () => {
-        let label = ``;
-        let pageHeader = document.querySelector(`.cms h1`);
-
-        if (pageHeader) {
-          label = `${pageHeader.innerText} - footer cta`;
-        }
-
-        Analytics.sendGAEvent(`navigation`, `page footer cta`, label);
+        ReactGA.event({
+          category: `navigation`,
+          action: `page footer cta`,
+          label: label
+        });
       });
     }
 
@@ -271,25 +264,7 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    // Embed additional instances of the Join Us box that don't need an API exposed (eg: Homepage)
-    document.querySelectorAll(`.join-us:not(.on-nav)`).forEach(element => {
-      var props = element.dataset;
-
-      props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
-        0}/`;
-
-      props.csrfToken = props.csrfToken || csrfToken;
-      props.isHidden = false;
-
-      apps.push(
-        new Promise(resolve => {
-          ReactDOM.render(
-            <JoinUs {...props} whenLoaded={() => resolve()} />,
-            element
-          );
-        })
-      );
-    });
+    injectCommonReactComponents(apps, networkSiteURL, csrfToken);
 
     // petition elements
     var subscribed = false;
