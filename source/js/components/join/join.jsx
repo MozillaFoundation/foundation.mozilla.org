@@ -1,5 +1,5 @@
 import React from "react";
-import ReactGA from "react-ga";
+import { ReactGA } from "../../common";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import CountrySelect from "../petition/country-select.jsx";
@@ -452,7 +452,7 @@ export default class JoinUs extends React.Component {
                 !this.state.apiSubmitted &&
                 !this.privacy.checked &&
                 !this.isFlowForm() && (
-                  <span class="form-error-glyph privacy-error d-flex" />
+                  <span className="form-error-glyph privacy-error d-flex" />
                 )}
             </label>
           </div>
@@ -515,7 +515,7 @@ export default class JoinUs extends React.Component {
           {this.renderSubmitButton()}
           {this.isFlowForm() && (
             <button
-              class="btn btn-primary btn-dismiss flex-1"
+              className="btn btn-primary btn-dismiss flex-1"
               onClick={() => this.props.handleSignUp(false)}
               type="button"
             >

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactGA from "react-ga";
+import { ReactGA } from "../../common";
 import classNames from "classnames";
 import DonationModal from "./donation-modal.jsx";
 import FloatingLabelInput from "./floating-label-input.jsx";
