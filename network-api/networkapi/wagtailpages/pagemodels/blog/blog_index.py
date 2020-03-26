@@ -5,8 +5,8 @@ from wagtail.contrib.routable_page.models import route
 
 from networkapi.wagtailpages.utils import titlecase
 
-from .index import IndexPage
-from .blog import BlogPageCategory
+from ..index import IndexPage
+from .blog_category import BlogPageCategory
 
 
 class BlogIndexPage(IndexPage):
