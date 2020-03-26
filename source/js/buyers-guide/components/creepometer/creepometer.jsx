@@ -73,6 +73,10 @@ export default class Creepometer extends React.Component {
     });
   }
 
+  stepClick(e) {
+    // TODO: FIXME: add in the logic for keyboard-changing the slider
+  }
+
   slideClick(e) {
     let x = e.clientX;
 
@@ -153,7 +157,14 @@ export default class Creepometer extends React.Component {
           <div
             className="slider"
             ref={e => (this.sliderElement = e)}
+            tabIndex="0"
+            role="slider"
             onClick={evt => this.slideClick(evt)}
+            onKeyDown={evt => this.stepClick(evt)}
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={this.state.percentage}
+            aria-label="Please indicate how creepy you think this product is on a scale from 0 (not creepy at all) to 100 (incredibly creepy)"
           >
             <div className="body-small copy copy-left">Not creepy</div>
             <div className="trackhead" {...trackheadOpts}>
