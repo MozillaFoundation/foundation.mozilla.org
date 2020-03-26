@@ -1,4 +1,4 @@
-import ReactGA from "./react-ga-proxy.js";
+import { ReactGA } from "./common";
 
 const bindMozfestGAEventTrackers = () => {
   let homeWatchVideoButton = document.querySelector(
