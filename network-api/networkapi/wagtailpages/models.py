@@ -35,16 +35,19 @@ from .pagemodels.primary import (
     PrimaryPage
 )
 
-from .pagemodels.blog import (
-    BlogPage,
-    BlogPageCategory,
-)
-
 from .pagemodels.index import (
     IndexPage
 )
 
-from .pagemodels.blog_index import (
+from .pagemodels.blog.blog import (
+    BlogPage
+)
+
+from .pagemodels.blog.blog_category import (
+    BlogPageCategory
+)
+
+from .pagemodels.blog.blog_index import (
     BlogIndexPage
 )
 
