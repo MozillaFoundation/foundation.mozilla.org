@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Storage from "../storage.js";
+import * as Sentry from "@sentry/browser";
 import {
   bindCommonEventHandlers,
   GoogleAnalytics,
@@ -39,6 +40,15 @@ let main = {
     this.fetchEnv(envData => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
+
+      if (env.SENTRY_DSN) {
+        // Initialize Sentry error reporting
+        Sentry.init({
+          dsn: env.SENTRY_DSN,
+          release: env.RELEASE_VERSION,
+          environment: env.SENTRY_ENVIRONMENT
+        });
+      }
 
       csrfToken = document.querySelector('meta[name="csrf-token"]');
       csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
