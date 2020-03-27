@@ -44,7 +44,6 @@ env = environ.Env(
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
-    DOMAIN_REDIRECT_MIDDLWARE_ENABLED=(bool, False),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
     RANDOM_SEED=(int, None),
