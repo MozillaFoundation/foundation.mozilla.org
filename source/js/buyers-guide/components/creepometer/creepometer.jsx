@@ -73,11 +73,18 @@ export default class Creepometer extends React.Component {
     });
   }
 
-  stepClick(e) {
-    // TODO: FIXME: add in the logic for keyboard-changing the slider
+  slideFromKey(e) {
+    const k = e.key;
+    let p = this.state.percentage;
+    if (k === `ArrowLeft`) {
+      this.saveTrackHead(p - 5);
+    }
+    if (k === `ArrowRight`) {
+      this.saveTrackHead(p + 5);
+    }
   }
 
-  slideClick(e) {
+  slideFromClick(e) {
     let x = e.clientX;
 
     if (e.touches) {
@@ -110,8 +117,13 @@ export default class Creepometer extends React.Component {
   repositionTrackHead(x, bbox) {
     // compute the handle offset
     let percentage = Math.round((100 * (x - bbox.left)) / bbox.width);
-    let value = percentage ? percentage : 1;
+    this.saveTrackHead(percentage);
+  }
 
+  saveTrackHead(percentage) {
+    if (percentage < 1) percentage = 1;
+    if (percentage > 100) percentage = 100;
+    const value = percentage ? percentage : 1;
     this.setState(
       {
         percentage,
@@ -159,8 +171,8 @@ export default class Creepometer extends React.Component {
             ref={e => (this.sliderElement = e)}
             tabIndex="0"
             role="slider"
-            onClick={evt => this.slideClick(evt)}
-            onKeyDown={evt => this.stepClick(evt)}
+            onClick={evt => this.slideFromClick(evt)}
+            onKeyDown={evt => this.slideFromKey(evt)}
             aria-valuemax={100}
             aria-valuemin={0}
             aria-valuenow={this.state.percentage}
