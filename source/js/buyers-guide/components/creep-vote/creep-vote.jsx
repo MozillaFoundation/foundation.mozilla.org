@@ -209,7 +209,7 @@ export default class CreepVote extends React.Component {
                   <span
                     className={unlikelyClasses}
                     onClick={() => this.setConfidence(false)}
-                    onKeyDown={() => this.setConfidence(true)}
+                    onKeyDown={() => this.setConfidence(false)}
                     tabIndex="0"
                     role="button"
                   >
