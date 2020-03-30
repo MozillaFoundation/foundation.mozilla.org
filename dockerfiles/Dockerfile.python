@@ -15,7 +15,7 @@ WORKDIR /app/
 RUN pip install pipenv
 
 # Copy Pipfiles in the container
-COPY Pipfile Pipfile.lock ./
+COPY Pipfile.*  ./
 
 # Install app deps
 RUN pipenv install -d
