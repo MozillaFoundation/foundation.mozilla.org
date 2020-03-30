@@ -69,7 +69,7 @@
     "postcss": "^7.0.27",
     "postcss-cli": "^7.1.0",
     "prop-types": "^15.7.2",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-axe": "^3.4.1",
     "react-dom": "^16.13.0",
     "react-ga": "2.7.0",
