@@ -189,8 +189,11 @@ def docker_l10n_block_inventory(ctx):
 
 
 def docker_create_super_user(ctx):
-    docker_manage(ctx, "shell -c \"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')\"")
+    preamble = "from django.contrib.auth.models import User;"
+    create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+    docker_manage(ctx, f"shell -c \"{preamble} {create}\"")
     print("\nCreated superuser `admin` with password `admin`.")
+
 
 @task
 def docker_manage(ctx, command):
