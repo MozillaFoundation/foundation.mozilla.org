@@ -29,7 +29,7 @@ if (
   process.env.NODE_ENV === "development"
 ) {
   axe = require("react-axe");
-  // axe(React, ReactDOM, 1000);
+  axe(React, ReactDOM, 1000);
 }
 
 // To be populated via XHR and querySelector
