@@ -68,9 +68,9 @@ In addition to the code tests there are also visual regression tests, located in
 
 ### Accessibility tests (a11y tests)
 
-Accessibility tests are not part of the standard tests covered by `inv test`. You can run them using
+Accessibility tests are not part of the standard tests covered by `inv test`. You can run them locally by running `npm install` and `npm run cypress:install` once, after which the following command will run the a11y testing:
 
-- `inv docker-npm "run a11y"`
+- `npm run cypress:a11y`
 
 
 ## How to Setup your Dev Environment with Docker
