@@ -22,11 +22,14 @@ export default class LanguageSelect extends React.Component {
 
     let lang_codes = Object.keys(languages);
     let options = lang_codes.map(lang_code => {
-      return (
-        <option key={lang_code} value={lang_code}>
-          {languages[lang_code]}
-        </option>
-      );
+      const optionAttributes = {
+        key: lang_code,
+        value: lang_code
+      };
+      if (this.props.selectedLang === lang_code) {
+        optionsAttributes.selected = "selected";
+      }
+      return <option {...optionAttributes}>{languages[lang_code]}</option>;
     });
 
     return options;
@@ -37,7 +40,6 @@ export default class LanguageSelect extends React.Component {
 
     return (
       <select
-        value={this.props.selectedLang}
         onBlur={evt => this.handleChange(evt)}
         className={classes}
         id={`userLanguage-${this.props.formPosition}`}

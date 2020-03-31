@@ -131,7 +131,8 @@ export default class CreepVote extends React.Component {
     this.setState({ creepiness });
   }
 
-  setConfidence(confidence) {
+  setConfidence(confidence, key) {
+    if (key && key === "Tab") return;
     this.setState({ confidence });
   }
 
@@ -179,7 +180,7 @@ export default class CreepVote extends React.Component {
             </div>
             <div className="text-center">
               <div
-                class="btn-group btn-group-toggle mt-3 mt-md-5"
+                className="btn-group btn-group-toggle mt-3 mt-md-5"
                 data-toggle="buttons"
               >
                 <label htmlFor="likely">
@@ -192,7 +193,7 @@ export default class CreepVote extends React.Component {
                   <span
                     className={likelyClasses}
                     onClick={() => this.setConfidence(true)}
-                    onKeyDown={() => this.setConfidence(true)}
+                    onKeyPress={evt => this.setConfidence(true, evt.key)}
                     tabIndex="0"
                     role="button"
                   >
@@ -209,7 +210,7 @@ export default class CreepVote extends React.Component {
                   <span
                     className={unlikelyClasses}
                     onClick={() => this.setConfidence(false)}
-                    onKeyDown={() => this.setConfidence(false)}
+                    onKeyPress={evt => this.setConfidence(false, evt.key)}
                     tabIndex="0"
                     role="button"
                   >
@@ -229,7 +230,7 @@ export default class CreepVote extends React.Component {
             >
               Vote & See Results
             </button>
-            <p class="h6-heading mb-0">{this.state.totalVotes} votes</p>
+            <p className="h6-heading mb-0">{this.state.totalVotes} votes</p>
           </div>
         </div>
       </form>

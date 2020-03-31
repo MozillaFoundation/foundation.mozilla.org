@@ -10,8 +10,7 @@ export default class Creepometer extends React.Component {
 
     this.state = {
       dragging: false,
-      percentage: 50,
-      value: 50
+      percentage: 50
     };
 
     this.setupDocumentListeners();
@@ -120,21 +119,14 @@ export default class Creepometer extends React.Component {
     this.saveTrackHead(percentage);
   }
 
-  saveTrackHead(percentage) {
+  saveTrackHead(percentage = 1) {
     if (percentage < 1) percentage = 1;
     if (percentage > 100) percentage = 100;
-    const value = percentage ? percentage : 1;
-    this.setState(
-      {
-        percentage,
-        value
-      },
-      () => {
-        if (this.props.onChange) {
-          this.props.onChange(value);
-        }
+    this.setState({ percentage }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(percentage);
       }
-    );
+    });
   }
 
   render() {
@@ -144,7 +136,7 @@ export default class Creepometer extends React.Component {
 
     let trackheadOpts = {
       style: {
-        left: `${this.state.value}%`
+        left: `${this.state.percentage}%`
       }
     };
 
@@ -174,7 +166,7 @@ export default class Creepometer extends React.Component {
             onClick={evt => this.slideFromClick(evt)}
             onKeyDown={evt => this.slideFromKey(evt)}
             aria-valuemax={100}
-            aria-valuemin={0}
+            aria-valuemin={1}
             aria-valuenow={this.state.percentage}
             aria-label="Please indicate how creepy you think this product is on a scale from 0 (not creepy at all) to 100 (incredibly creepy)"
           >
