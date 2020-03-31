@@ -16,11 +16,6 @@
     height: auto;
   }
 
-  ul {
-    list-style: initial;
-    padding-left: 40px;
-  }
-
   &-image {
     img {
       @media (min-width: $bp-md) {
