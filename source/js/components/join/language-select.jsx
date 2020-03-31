@@ -27,7 +27,7 @@ export default class LanguageSelect extends React.Component {
         value: lang_code
       };
       if (this.props.selectedLang === lang_code) {
-        optionsAttributes.selected = "selected";
+        optionAttributes.selected = "selected";
       }
       return <option {...optionAttributes}>{languages[lang_code]}</option>;
     });

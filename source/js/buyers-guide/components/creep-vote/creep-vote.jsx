@@ -153,88 +153,93 @@ export default class CreepVote extends React.Component {
       selected: this.state.confidence == true
     });
 
-    return [
-      <div className="what-you-think-label h5-heading">
-        Tell us what you think
-      </div>,
-      <form
-        method="post"
-        id="creep-vote"
-        onSubmit={evt => this.submitVote(evt)}
-      >
-        <div className="row mb-5">
-          <div className="col-12 col-md-6">
-            <div className="mb-4 text-center">
-              <h3 className="h5-heading mb-2">
-                How creepy do you think this is?
-              </h3>
+    return (
+      <React.Fragment>
+        <div className="what-you-think-label h5-heading">
+          Tell us what you think
+        </div>
+        ,
+        <form
+          method="post"
+          id="creep-vote"
+          onSubmit={evt => this.submitVote(evt)}
+        >
+          <div className="row mb-5">
+            <div className="col-12 col-md-6">
+              <div className="mb-4 text-center">
+                <h3 className="h5-heading mb-2">
+                  How creepy do you think this is?
+                </h3>
+              </div>
+              <Creepometer
+                initialValue={this.state.creepiness}
+                onChange={value => this.setCreepiness(value)}
+              />
             </div>
-            <Creepometer
-              initialValue={this.state.creepiness}
-              onChange={value => this.setCreepiness(value)}
-            />
-          </div>
-          <div className="col-12 col-md-6 mt-5 mt-md-0">
-            <div className="mb-4 text-center">
-              <h3 className="h5-heading mb-2">How likely are you to buy it?</h3>
-            </div>
-            <div className="text-center">
-              <div
-                className="btn-group btn-group-toggle mt-3 mt-md-5"
-                data-toggle="buttons"
-              >
-                <label htmlFor="likely">
-                  <input
-                    type="radio"
-                    name="wouldbuy"
-                    id="likely"
-                    autocomplete="off"
-                  />
-                  <span
-                    className={likelyClasses}
-                    onClick={() => this.setConfidence(true)}
-                    onKeyPress={evt => this.setConfidence(true, evt.key)}
-                    tabIndex="0"
-                    role="button"
-                  >
-                    Likely
-                  </span>
-                </label>
-                <label htmlFor="unlikely">
-                  <input
-                    type="radio"
-                    name="wouldbuy"
-                    id="unlikely"
-                    autocomplete="off"
-                  />
-                  <span
-                    className={unlikelyClasses}
-                    onClick={() => this.setConfidence(false)}
-                    onKeyPress={evt => this.setConfidence(false, evt.key)}
-                    tabIndex="0"
-                    role="button"
-                  >
-                    Not likely
-                  </span>
-                </label>
+            <div className="col-12 col-md-6 mt-5 mt-md-0">
+              <div className="mb-4 text-center">
+                <h3 className="h5-heading mb-2">
+                  How likely are you to buy it?
+                </h3>
+              </div>
+              <div className="text-center">
+                <div
+                  className="btn-group btn-group-toggle mt-3 mt-md-5"
+                  data-toggle="buttons"
+                >
+                  <label htmlFor="likely">
+                    <input
+                      type="radio"
+                      name="wouldbuy"
+                      id="likely"
+                      autoComplete="off"
+                    />
+                    <span
+                      className={likelyClasses}
+                      onClick={() => this.setConfidence(true)}
+                      onKeyPress={evt => this.setConfidence(true, evt.key)}
+                      tabIndex="0"
+                      role="button"
+                    >
+                      Likely
+                    </span>
+                  </label>
+                  <label htmlFor="unlikely">
+                    <input
+                      type="radio"
+                      name="wouldbuy"
+                      id="unlikely"
+                      autoComplete="off"
+                    />
+                    <span
+                      className={unlikelyClasses}
+                      onClick={() => this.setConfidence(false)}
+                      onKeyPress={evt => this.setConfidence(false, evt.key)}
+                      tabIndex="0"
+                      role="button"
+                    >
+                      Not likely
+                    </span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-12 text-center">
-            <button
-              id="creep-vote-btn"
-              type="submit"
-              className="btn btn-secondary mb-2"
-            >
-              Vote & See Results
-            </button>
-            <p className="h6-heading mb-0">{this.state.totalVotes} votes</p>
+          <div className="row">
+            <div className="col-12 text-center">
+              <button
+                id="creep-vote-btn"
+                type="submit"
+                className="btn btn-secondary mb-2"
+              >
+                Vote & See Results
+              </button>
+              <p className="h6-heading mb-0">{this.state.totalVotes} votes</p>
+            </div>
           </div>
-        </div>
-      </form>
-    ];
+        </form>
+      </React.Fragment>
+    );
   }
 
   /**
@@ -243,25 +248,28 @@ export default class CreepVote extends React.Component {
    */
 
   renderSignUp() {
-    return [
-      <button
-        className="btn btn-close-sign-up text-uppercase d-flex justify-content-between align-items-center"
-        onClick={() => this.handleSignUp(false)}
-        type="button"
-      >
-        Close
-      </button>,
-      <JoinUs
-        formPosition="flow"
-        flowHeading={getText(`You Voted! You Rock!`)}
-        flowText={getText(
-          `Now that you’re on a roll, why not join Mozilla? We’re not creepy (we promise). We actually fight back against creepy. And we need more people like you.`
-        )}
-        csrfToken={this.props.joinUsCSRF}
-        apiUrl={this.props.joinUsApiUrl}
-        handleSignUp={successState => this.handleSignUp(successState)}
-      />
-    ];
+    return (
+      <React.Fragment>
+        <button
+          className="btn btn-close-sign-up text-uppercase d-flex justify-content-between align-items-center"
+          onClick={() => this.handleSignUp(false)}
+          type="button"
+        >
+          Close
+        </button>
+        ,
+        <JoinUs
+          formPosition="flow"
+          flowHeading={getText(`You Voted! You Rock!`)}
+          flowText={getText(
+            `Now that you’re on a roll, why not join Mozilla? We’re not creepy (we promise). We actually fight back against creepy. And we need more people like you.`
+          )}
+          csrfToken={this.props.joinUsCSRF}
+          apiUrl={this.props.joinUsApiUrl}
+          handleSignUp={successState => this.handleSignUp(successState)}
+        />
+      </React.Fragment>
+    );
   }
 
   /**
