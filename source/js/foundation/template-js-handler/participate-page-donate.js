@@ -1,6 +1,6 @@
 /**
  * Bind click handler to "#view-participate .card-cta .btn[href*="donate.mozilla.org"]"
- * The Donate CTA button on participate page
+ * (the Donate CTA button on participate page)
  */
 export default () => {
   let participateDonateBtn = document.querySelector(

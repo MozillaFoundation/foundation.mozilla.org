@@ -7,7 +7,6 @@ import ShareButtonGroup from "../../components/share-button-group/share-button-g
  * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
  */
 export default apps => {
-  // Share button group
   document.querySelectorAll(`.share-button-group-wrapper`).forEach(element => {
     var props = element.dataset;
 

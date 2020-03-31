@@ -1,5 +1,5 @@
 /**
- * Bind click handler to "#see-more-modular-page"
+ * Bind click handler to "#see-more-modular-page" (the "see more" link in ih_cta.html)
  */
 export default () => {
   let seeMorePage = document.querySelector(`#see-more-modular-page`);

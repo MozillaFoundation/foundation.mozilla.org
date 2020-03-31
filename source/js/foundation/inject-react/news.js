@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import News from "../../components/news/news.jsx";
 
 /**
- * Inject multipage navs
+ * Inject news items to News page
  * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
  * @param {Object} env Object of environment variables
  */

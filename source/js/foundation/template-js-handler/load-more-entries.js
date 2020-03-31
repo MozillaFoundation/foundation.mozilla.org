@@ -1,5 +1,6 @@
 /**
  * Bind click handler to ".load-more-index-entries"
+ * (the "load more" button on index pages)
  */
 export default () => {
   // Enable the "load more results" button on index pages

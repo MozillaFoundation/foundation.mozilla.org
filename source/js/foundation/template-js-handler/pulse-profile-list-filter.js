@@ -3,6 +3,7 @@ import { ReactGA } from "../../common/react-ga-proxy.js";
 /**
  * Bind click handler to
  * ".profile-directory .fellowships-directory-filter .filter-option button"
+ * (filter buttons on fellowships' Pulse directory)
  */
 export default () => {
   document
