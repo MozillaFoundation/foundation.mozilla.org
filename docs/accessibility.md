@@ -19,10 +19,10 @@ Finally, note that the cypress installation can take quite a while, so be prepar
 
 ## Running Cypress Accessibility Tests
 
-Once everything is installed, the a11y tests can be invoked by first making sure the server is running in docker, following the instructions for a normal build run, and then once the server is up and running, separately running the command:
+Once everything is installed, the a11y tests can be invoked by running the command:
 
 ```
-npm run cypress:test:a11y
+npm run cypress:a11y
 ```
 
 Provided that all the Cypress dependencies are installed, this kicks off an automated test run for all tests in the a11y test script using your locally instapped cypress, connecting to the server running inside of Docker.
@@ -41,13 +41,3 @@ npm run cypress:test:manual
 ## Manual Accessibility Testing using the Browser
 
 You can also perform manual a11y analysis of any webpage by pointing either Firefox or Chrome at a localhost:8000 page and using the [Axe web extension](https://www.deque.com/axe/axe-for-web), which enables a new tab in dev tools for analysing pages. For general issue work, this is the easier way to test accessibility for single pages or small sets of pages, compared to running the full battery of tests using Cypress.
-
-## Running Cypress Unattended
-
-In order to run all Cypress tests without using the Cypress UI, the following command can be used:
-
-```
-npm run cypress:test:a11y
-```
-
-This will run through all tests on the command line and report any failures through logs as well as a non-zero process exit code.

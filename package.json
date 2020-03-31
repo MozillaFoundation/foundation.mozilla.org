@@ -15,6 +15,7 @@
     "build": "run-s build:common build:js",
     "build-uncompressed": "run-s build:common build:js-uncompressed",
     "cypress": "run-p --race cypress:docker cypress:test",
+    "cypress:a11y": "run-p --race cypress:docker cypress:test:a11y",
     "cypress:ci": "run-p --race server cypress:test",
     "cypress:docker": "docker-compose up",
     "cypress:install": "npm install --no-save cypress@^3.7.0 @percy/cypress@^2.0.0 cypress-axe@^0.5.3 @testing-library/cypress@^5.0.2",
