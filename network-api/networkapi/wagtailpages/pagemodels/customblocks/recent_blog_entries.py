@@ -1,7 +1,9 @@
 from django.apps import apps
 from wagtail.core import blocks
 
+from ..blog.blog_category import BlogPageCategory
 from django.template.defaultfilters import slugify
+
 
 
 class RecentBlogEntries(blocks.StructBlock):
@@ -15,17 +17,15 @@ class RecentBlogEntries(blocks.StructBlock):
         help_text='Test this filter at foundation.mozilla.org/blog/tags/',
     )
 
+    choices = [('all', 'All')]
+
+    for cat in BlogPageCategory.objects.all():
+        choices.append((cat.name, cat.name))
+
     category_filter = blocks.ChoiceBlock(
         label='Filter by Category',
         required=False,
-        choices=[
-            ('all', 'All'),
-            ('Mozilla Festival', 'Mozilla Festival'),
-            ('Open Leadership & Events', 'Open Leadership & Events'),
-            ('Internet Health Report', 'Internet Health Report'),
-            ('Fellowships & Awards', 'Fellowships & Awards'),
-            ('Advocacy', 'Advocacy'),
-        ],
+        choices=choices,
         help_text='Test this filter at foundation.mozilla.org/blog/category/',
     )
 
@@ -72,7 +72,6 @@ class RecentBlogEntries(blocks.StructBlock):
         if category:
             type = "category"
             query = slugify(category)
-            BlogPageCategory = apps.get_model('wagtailpages.BlogPageCategory')
             category_object = BlogPageCategory.objects.get(name=category)
             blogpage.extract_category_information(category_object.slug)
             entries = blogpage.get_entries(context)
