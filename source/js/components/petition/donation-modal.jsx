@@ -66,7 +66,7 @@ class DonationModal extends React.Component {
       this.donateURL = `${base}${query}`;
     }
     return (
-      <div className="modal-content">
+      <div className="modal-content" role="dialog">
         <div className="modal-header text-right">
           <button
             className="close"
