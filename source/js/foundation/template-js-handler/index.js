@@ -1,8 +1,20 @@
+import stickyCtaHandler from "./global/sticky-cta";
+import stickyShareButtonGroupHandler from "./global/sticky-share-button-group";
+
 import internetHealthSeeMoreHanlder from "./internet-health-see-more.js";
 import loadMoreEntriesHandler from "./load-more-entries.js";
 import participatePageDonateHandler from "./participate-page-donate.js";
 import pulseProfileCardHandler from "./pulse-profile-card.js";
 import pulseProfileListFilterHandler from "./pulse-profile-list-filter.js";
+
+/**
+ * Bind global event handlers
+ */
+export const bindGlobalEventHandlers = () => {
+  // global handlers for "window"
+  stickyCtaHandler();
+  stickyShareButtonGroupHandler();
+};
 
 /**
  * Bind event handlers
