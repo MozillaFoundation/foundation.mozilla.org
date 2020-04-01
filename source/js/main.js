@@ -7,8 +7,7 @@ import {
   bindCommonEventHandlers,
   GoogleAnalytics,
   initializePrimaryNav,
-  injectCommonReactComponents,
-  ReactGA
+  injectCommonReactComponents
 } from "./common";
 
 import {
@@ -42,6 +41,8 @@ const apps = [];
 
 let main = {
   init() {
+    GoogleAnalytics.init();
+
     this.fetchEnv(envData => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
@@ -62,8 +63,6 @@ let main = {
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
-
-      GoogleAnalytics.init();
 
       this.injectReactComponents();
       this.bindHandlers();
