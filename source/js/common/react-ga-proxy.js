@@ -1,4 +1,4 @@
-import ReactGAModule from "react-ga";
+import ReactGA from "react-ga";
 import { GoogleAnalytics } from "./google-analytics.js";
 
 // A no-operation object with the same API surface
@@ -9,6 +9,6 @@ const noop = {
   event: () => {}
 };
 
-const TrackingObject = GoogleAnalytics.doNotTrack ? noop : ReactGAModule;
+const TrackingObject = GoogleAnalytics.doNotTrack ? noop : ReactGA;
 
 export { TrackingObject as ReactGA };
