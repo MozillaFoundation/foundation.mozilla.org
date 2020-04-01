@@ -1,5 +1,5 @@
-import stickyCtaHandler from "./global/sticky-cta";
-import stickyShareButtonGroupHandler from "./global/sticky-share-button-group";
+import stickyCtaHandler from "./window/sticky-cta";
+import stickyShareButtonGroupHandler from "./window/sticky-share-button-group";
 
 import internetHealthSeeMoreHanlder from "./internet-health-see-more.js";
 import loadMoreEntriesHandler from "./load-more-entries.js";
