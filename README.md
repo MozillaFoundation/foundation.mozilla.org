@@ -78,11 +78,13 @@ Accessibility tests are not part of the standard tests covered by `inv test`. Yo
 - Install [Docker Desktop](https://www.docker.com/products/docker-desktop) (macOS and Windows). For Linux users: install [Docker CE](https://docs.docker.com/install/#supported-platforms) and [Docker Compose](https://docs.docker.com/compose/install/). If you don't want to create a Docker account, direct links to download can be found [in this issue](https://github.com/docker/docker.github.io/issues/6910),
 - [Check your install](https://docs.docker.com/get-started/#test-docker-version) by running `docker run hello-world`,
 - If relevant: delete your node_modules directory (`rm -rf node_modules`). It's not necessary, but it speeds up the install.
-- Run `invoke docker-new-env` ([install invoke](http://www.pyinvoke.org/installing.html) if you don't have it yet). If you're running on Windows, you need to run `docker-compose --rm pipenv run python network-api/manage.py createsuperuser` when the setup is finished.
+- Run `invoke docker-new-env` ([install invoke](http://www.pyinvoke.org/installing.html) if you don't have it yet).
 
-This task is creating a `.env` that is in charge of managing your environment variables while running Docker. The installation will take a few minutes: you need to download images from the Docker Hub, install JS and Python dependencies, create fake data, migrate your database, etc.
+This task creates a `.env` that is in charge of managing your environment variables while running Docker. The installation will take a few minutes: you need to download images from the Docker Hub, install JS and Python dependencies, create fake data, migrate your database, etc.
 
 When it's done, run `docker-compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
+
+To log into the admin site, a superuser will have been created with username `admin` with password `admin`.
 
 For more information on how to run the project with Docker, check the [local development with Docker](docs/local_development_with_docker.md) documentation.
 
