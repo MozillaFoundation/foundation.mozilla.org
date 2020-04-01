@@ -10,8 +10,7 @@ export default class Creepometer extends React.Component {
 
     this.state = {
       dragging: false,
-      percentage: 50,
-      value: 50
+      percentage: 50
     };
 
     this.setupDocumentListeners();
@@ -73,7 +72,18 @@ export default class Creepometer extends React.Component {
     });
   }
 
-  slideClick(e) {
+  slideFromKey(e) {
+    const k = e.key;
+    let p = this.state.percentage;
+    if (k === `ArrowLeft`) {
+      this.saveTrackHead(p - 5);
+    }
+    if (k === `ArrowRight`) {
+      this.saveTrackHead(p + 5);
+    }
+  }
+
+  slideFromClick(e) {
     let x = e.clientX;
 
     if (e.touches) {
@@ -106,19 +116,17 @@ export default class Creepometer extends React.Component {
   repositionTrackHead(x, bbox) {
     // compute the handle offset
     let percentage = Math.round((100 * (x - bbox.left)) / bbox.width);
-    let value = percentage ? percentage : 1;
+    this.saveTrackHead(percentage);
+  }
 
-    this.setState(
-      {
-        percentage,
-        value
-      },
-      () => {
-        if (this.props.onChange) {
-          this.props.onChange(value);
-        }
+  saveTrackHead(percentage = 1) {
+    if (percentage < 1) percentage = 1;
+    if (percentage > 100) percentage = 100;
+    this.setState({ percentage }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(percentage);
       }
-    );
+    });
   }
 
   render() {
@@ -128,7 +136,7 @@ export default class Creepometer extends React.Component {
 
     let trackheadOpts = {
       style: {
-        left: `${this.state.value}%`
+        left: `${this.state.percentage}%`
       }
     };
 
@@ -153,7 +161,14 @@ export default class Creepometer extends React.Component {
           <div
             className="slider"
             ref={e => (this.sliderElement = e)}
-            onClick={evt => this.slideClick(evt)}
+            tabIndex="0"
+            role="slider"
+            onClick={evt => this.slideFromClick(evt)}
+            onKeyDown={evt => this.slideFromKey(evt)}
+            aria-valuemax={100}
+            aria-valuemin={1}
+            aria-valuenow={this.state.percentage}
+            aria-label="Please indicate how creepy you think this product is on a scale from 0 (not creepy at all) to 100 (incredibly creepy)"
           >
             <div className="body-small copy copy-left">Not creepy</div>
             <div className="trackhead" {...trackheadOpts}>

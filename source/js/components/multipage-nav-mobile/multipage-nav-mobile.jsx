@@ -30,15 +30,9 @@ export default class MultipageNavMobile extends React.Component {
 
       if (link.isActive) {
         activeLinkLabel = (
-          <a className={`active-link-label ${className}`}>{link.label}</a>
-        );
-      }
-
-      if (link.isActive) {
-        activeLinkLabel = (
-          <a className={`active-link-label d-inline-block ${className}`}>
+          <div className={`active-link-label d-inline-block ${className}`}>
             {link.label}
-          </a>
+          </div>
         );
       }
 
