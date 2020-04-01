@@ -7,29 +7,20 @@ import MultipageNavMobile from "../../components/multipage-nav-mobile/multipage-
  * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
  */
 export default apps => {
-  if (document.querySelector(`#multipage-nav`)) {
-    let links = [];
+  let links = document.querySelectorAll(`#multipage-nav a`).map(link => {
+    return {
+      label: link.textContent.trim(),
+      href: link.getAttribute(`href`),
+      isActive: !!link.getAttribute(`class`).match(/active/)
+    };
+  });
 
-    links = [].map.call(
-      document.querySelectorAll(`#multipage-nav a`),
-      child => {
-        return {
-          label: child.textContent.trim(),
-          href: child.getAttribute(`href`),
-          isActive: !!child.getAttribute(`class`).match(/active/)
-        };
-      }
-    );
-
-    apps.push(
-      new Promise(resolve => {
-        ReactDOM.render(
-          <MultipageNavMobile links={links} whenLoaded={() => resolve()} />,
-          document.querySelector(
-            `#multipage-nav-mobile .container .row .col-12`
-          )
-        );
-      })
-    );
-  }
+  apps.push(
+    new Promise(resolve => {
+      ReactDOM.render(
+        <MultipageNavMobile links={links} whenLoaded={() => resolve()} />,
+        document.querySelector(`#multipage-nav-mobile .container .row .col-12`)
+      );
+    })
+  );
 };

@@ -66,6 +66,7 @@ let main = {
 
       this.injectReactComponents();
       this.bindHandlers();
+      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
 
       // bind MozFest specific script if on MozFest pages
       if (document.querySelector("body").classList.contains("mozfest")) {
@@ -99,8 +100,6 @@ let main = {
     bindCommonEventHandlers();
     bindWindowEventHandlers();
     bindEventHandlers();
-
-    initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
   },
 
   // Embed various React components based on the existence of containers within the current page
