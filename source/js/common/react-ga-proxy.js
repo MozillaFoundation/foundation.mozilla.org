@@ -1,4 +1,4 @@
-import ReactGA  from "react-ga";
+import ReactGA from "react-ga";
 import { GoogleAnalytics } from "./google-analytics.js";
 
 // A no-operation object with the same API surface
