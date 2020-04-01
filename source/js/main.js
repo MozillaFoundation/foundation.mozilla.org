@@ -11,7 +11,7 @@ import {
 } from "./common";
 
 import {
-  bindGlobalEventHandlers,
+  bindWindowEventHandlers,
   bindEventHandlers,
   injectReactComponents
 } from "./foundation";
@@ -97,7 +97,7 @@ let main = {
 
   bindHandlers() {
     bindCommonEventHandlers();
-    bindGlobalEventHandlers();
+    bindWindowEventHandlers();
     bindEventHandlers();
 
     initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);

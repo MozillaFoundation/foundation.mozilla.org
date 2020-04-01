@@ -10,7 +10,7 @@ import pulseProfileListFilterHandler from "./pulse-profile-list-filter.js";
 /**
  * Bind global event handlers
  */
-export const bindGlobalEventHandlers = () => {
+export const bindWindowEventHandlers = () => {
   // global handlers for "window"
   stickyCtaHandler();
   stickyShareButtonGroupHandler();
