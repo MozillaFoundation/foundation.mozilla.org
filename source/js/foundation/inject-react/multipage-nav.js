@@ -7,7 +7,7 @@ import MultipageNavMobile from "../../components/multipage-nav-mobile/multipage-
  * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
  */
 export default apps => {
-  let links = document.querySelectorAll(`#multipage-nav a`).map(link => {
+  let links = [...document.querySelectorAll(`#multipage-nav a`)].map(link => {
     return {
       label: link.textContent.trim(),
       href: link.getAttribute(`href`),
