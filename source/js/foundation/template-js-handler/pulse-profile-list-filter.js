@@ -1,4 +1,4 @@
-import { ReactGA } from "../../common/react-ga-proxy.js";
+import { ReactGA } from "../../common";
 
 /**
  * Bind click handler to

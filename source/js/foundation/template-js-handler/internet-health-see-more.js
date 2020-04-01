@@ -1,3 +1,5 @@
+import { ReactGA } from "../../common";
+
 /**
  * Bind click handler to "#see-more-modular-page" (the "see more" link in ih_cta.html)
  */
