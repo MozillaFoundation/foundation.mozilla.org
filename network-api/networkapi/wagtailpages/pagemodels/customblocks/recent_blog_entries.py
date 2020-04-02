@@ -5,6 +5,22 @@ from ..blog.blog_category import BlogPageCategory
 from django.template.defaultfilters import slugify
 
 
+def get_categories():
+    """
+    WARNING: this def is referenced by two migrations:
+
+      - mozfest/0014_auto_20200402_1710.py
+      - wagtailpages/0095_auto_20200402_1710.py
+
+    This means that renaming/(re)moving this function will require
+    back-updating those two migrations, as "from scratch" migrations
+    will throw errors, compared to update-only migrations.
+    """
+    choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
+    choices.sort()
+    choices.insert(0, ('all', 'All'))
+    return choices
+
 
 class RecentBlogEntries(blocks.StructBlock):
     title = blocks.CharBlock(
@@ -17,15 +33,10 @@ class RecentBlogEntries(blocks.StructBlock):
         help_text='Test this filter at foundation.mozilla.org/blog/tags/',
     )
 
-    choices = [('all', 'All')]
-
-    for cat in BlogPageCategory.objects.all():
-        choices.append((cat.name, cat.name))
-
     category_filter = blocks.ChoiceBlock(
         label='Filter by Category',
         required=False,
-        choices=choices,
+        choices=get_categories,
         help_text='Test this filter at foundation.mozilla.org/blog/category/',
     )
 
