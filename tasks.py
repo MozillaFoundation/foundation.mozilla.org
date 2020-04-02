@@ -189,17 +189,10 @@ def docker_l10n_block_inventory(ctx):
 
 
 def docker_create_super_user(ctx):
-    # Windows doesn't support pty, skipping this step
-    if platform == 'win32':
-        print("\nPTY is not supported on Windows.\n"
-              "To create an admin user:\n"
-              "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser\n")
-    else:
-        print("* Creating superuser.")
-        ctx.run(
-            "docker-compose run --rm backend pipenv run python network-api/manage.py createsuperuser",
-            pty=True
-        )
+    preamble = "from django.contrib.auth.models import User;"
+    create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+    docker_manage(ctx, f"shell -c \"{preamble} {create}\"")
+    print("\nCreated superuser `admin` with password `admin`.")
 
 
 @task
