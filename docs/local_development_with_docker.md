@@ -13,6 +13,7 @@ To interact with the project, you can use [docker](https://docs.docker.com/engin
 The general workflow is:
 - Install the project with `invoke docker-new-env`,
 - Run the project with `docker-compose up`,
+- Log into the admin site with username `admin` and password `admin`,
 - Use invoke commands for frequent development tasks (database migrations, dependencies install, run tests, etc),
 - After doing a `git pull`, keep your clone up to date by running `invoke docker-catchup`.
 
@@ -35,7 +36,7 @@ The general workflow is:
   docker-test-python                 Run python tests
 ```
 
-`docker-` prefixes all Docker commands. Note the double quotes to pass multiples arguments to `docker-manage`, `docker-pipenv` and `docker-npm` commands. There's no `invoke docker-runserver` command: use `docker-compose up` instead. 
+`docker-` prefixes all Docker commands. Note the double quotes to pass multiples arguments to `docker-manage`, `docker-pipenv` and `docker-npm` commands. There's no `invoke docker-runserver` command: use `docker-compose up` instead.
 
 **A few examples:** `invoke docker-pipenv "install requests""`: add requests to your `Pipfile` and lock it. :rotating_light: The package won't be installed: you need to [rebuild your image](./local_development_with_docker.md#python).
 - `invoke docker-manage load_fake_data`: add more fake data to your project,
@@ -56,7 +57,7 @@ We strongly recommend you to check at least the [docker-compose CLI](https://doc
 - [docker image](https://docs.docker.com/engine/reference/commandline/image/): interact with images,
 - [docker container](https://docs.docker.com/engine/reference/commandline/container/): interact with containers,
 - [docker volume](https://docs.docker.com/engine/reference/commandline/volume_create/): interact with volumes.
-- [docker system prune](https://docs.docker.com/engine/reference/commandline/system_prune/): delete all unused container, image and network. Add `--volumes` to also remove volume. :rotating_light: It will impact other docker project running on your system! For a more subtle approach, [check this blog post](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes) on to remove elements selectively. 
+- [docker system prune](https://docs.docker.com/engine/reference/commandline/system_prune/): delete all unused container, image and network. Add `--volumes` to also remove volume. :rotating_light: It will impact other docker project running on your system! For a more subtle approach, [check this blog post](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes) on to remove elements selectively.
 
 ### How to install or update dependencies?
 
@@ -120,11 +121,11 @@ Welcome to Docker! Before jumping into Docker installation, take a moment to get
 - Docker: Docker is a platform to develop, deploy and run applications with containers.
 - Docker engine: The Docker engine is a service running in the background (daemon). It's managing containers.
 - Docker CLI: Command Line Interface to interact with Docker. For example, `Docker image ls` lists the images available on your system.
-- Docker hub: Registry containing Docker images.  
+- Docker hub: Registry containing Docker images.
 - Image: An image is a file used to build containers: In our case, it's mostly instructions to install dependencies.
 - Container: Containers run an image. In our case, we have a container for the database, another one for building static files and the last one for running Django. A container life is ephemeral: data written there don't persist when you shut down a container.
 - Volume: A volume is a special directory on your machine that is used to make data persistent. For example, we use it to store the database: that way, you don't lose your data when you turn down your containers.
-- Host: host is used in Docker docs to mean the system on top of which containers run. 
+- Host: host is used in Docker docs to mean the system on top of which containers run.
 - Docker-compose: It's a tool to run multi-container applications: we use it to run our three containers together.
 - Docker-compose CLI: Command line interface to interact with docker-compose. It's used to launch your dev environment.
 - Docker-compose service: a service is a container and the configuration associated to it.
@@ -138,7 +139,7 @@ All our containers run on Linux.
 For local development, we have two Dockerfiles that define our images:
 - `Dockerfile.node`: use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
 - `Dockerfile.python`: use a python3.7 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
-We don't have a custom image for running postgres and use one from the Docker Hub. 
+We don't have a custom image for running postgres and use one from the Docker Hub.
 
 The `docker-compose.yml` file describes the 3 services that the project needs to run:
 - `watch-static-files`: rebuilds static files when they're modified,

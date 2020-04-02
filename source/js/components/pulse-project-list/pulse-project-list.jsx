@@ -97,6 +97,7 @@ export default class PulseProjectList extends React.Component {
                       ? project.thumbnail
                       : `/_images/proportional-spacer.png`
                   }
+                  alt=""
                 />
               </div>
             </div>
