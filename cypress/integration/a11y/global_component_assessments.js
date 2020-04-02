@@ -1,6 +1,7 @@
 import { MOBILE, DESKTOP, viewports, A11Y_CONFIG } from "./global_variables";
 
 let dimension;
+const INERT_CODE_PATH = false;
 
 const GLOBAL_COMPONENT_A11Y = () => {
   viewports.forEach(viewport => {
@@ -174,7 +175,7 @@ const GLOBAL_COMPONENT_A11Y = () => {
 
           // test general a11y for this form
 
-          if (false) { // KNOWN FAILURE: COLOR CONTRAST TOO LOW
+          if (INERT_CODE_PATH) { // KNOWN FAILURE: COLOR CONTRAST TOO LOW
             cy.checkA11y(".sign-petition form");
           }
         });
@@ -189,7 +190,7 @@ const GLOBAL_COMPONENT_A11Y = () => {
 
           // test a11y again, but only .has-danger containers
 
-          if (false) { // KNOWN FAILURE: COLOR CONTRAST TOO LOW
+          if (INERT_CODE_PATH) { // KNOWN FAILURE: COLOR CONTRAST TOO LOW
             cy.checkA11y(".sign-petition form .has-danger");
           }
         });
