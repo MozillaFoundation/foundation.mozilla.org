@@ -89,7 +89,7 @@ let main = {
     let envReq = new XMLHttpRequest();
 
     envReq.addEventListener(`load`, () => {
-      callback(JSON.parse(envReq.response));
+      callback.call(this, JSON.parse(envReq.response));
     });
 
     envReq.open(`GET`, `/environment.json`);
