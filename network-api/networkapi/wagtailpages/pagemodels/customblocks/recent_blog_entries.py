@@ -83,9 +83,14 @@ class RecentBlogEntries(blocks.StructBlock):
         if category:
             type = "category"
             query = slugify(category)
-            category_object = BlogPageCategory.objects.get(name=category)
-            blogpage.extract_category_information(category_object.slug)
-            entries = blogpage.get_entries(context)
+            try:
+                # verify this category exists
+                category_object = BlogPageCategory.objects.get(name=category)
+                blogpage.extract_category_information(category_object.slug)
+                entries = blogpage.get_entries(context)
+            except BlogPageCategory.DoesNotExist:
+                # if it doesn't, entries stays an empty list
+                pass
 
         # Updates the href for the 'More from our blog' button
         url = f"/{blogpage.slug}/{type}/{query}"
