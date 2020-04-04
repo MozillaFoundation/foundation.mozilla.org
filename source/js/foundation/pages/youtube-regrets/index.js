@@ -1,5 +1,5 @@
-import utility from "./utility";
-import navNewsletter from "./nav-newsletter.js";
+import utility from "../../../utility.js";
+import navNewsletter from "../../../nav-newsletter.js";
 
 // factor for bringing image blocks closer to perspective origin
 const ZOOM_FACTOR = 2.5;
@@ -257,4 +257,4 @@ class YouTubeRegretsTunnel {
 
 const youTubeRegretsTunnel = new YouTubeRegretsTunnel();
 
-export default youTubeRegretsTunnel;
+youTubeRegretsTunnel.init();

@@ -1,4 +1,4 @@
-import { ReactGA } from "../../common";
+import { ReactGA } from "../../../../common";
 
 /**
  * Bind handler to social buttons on MozFest footer

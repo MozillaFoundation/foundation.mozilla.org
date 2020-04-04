@@ -1,4 +1,4 @@
-import { ReactGA } from "../../common";
+import { ReactGA } from "../../../../common";
 
 /**
  * Bind handler to primary buttons on MozFest

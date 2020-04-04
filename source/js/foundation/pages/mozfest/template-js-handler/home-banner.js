@@ -1,4 +1,4 @@
-import { ReactGA } from "../../common";
+import { ReactGA } from "../../../../common";
 
 const watchVideoButtonHandler = () => {
   let homeWatchVideoButton = document.querySelector(

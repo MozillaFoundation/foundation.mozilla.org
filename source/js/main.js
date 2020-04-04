@@ -16,10 +16,7 @@ import {
   injectReactComponents
 } from "./foundation";
 
-import { bindEventHandlers as bindMozFestEventHandlers } from "./mozfest";
-
 import primaryNav from "./primary-nav.js";
-import youTubeRegretsTunnel from "./youtube-regrets.js";
 
 // Initializing component a11y browser console logging
 if (
@@ -67,16 +64,6 @@ let main = {
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
-
-      // bind MozFest specific script if on MozFest pages
-      if (document.querySelector("body").classList.contains("mozfest")) {
-        bindMozFestEventHandlers();
-      }
-
-      // initialize YouTube Regret interactive tunnel if on YouTube Regrets page
-      if (document.querySelector("#view-youtube-regrets")) {
-        youTubeRegretsTunnel.init();
-      }
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
