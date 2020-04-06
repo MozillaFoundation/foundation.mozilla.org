@@ -31,7 +31,7 @@ class BlogPageCategory(models.Model):
         """
         choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
         choices.sort(key=lambda c: c[1])
-        choices.insert(0, ('all', 'All'))
+        choices.insert(0, ('All', 'All'))
         return choices
 
     @property

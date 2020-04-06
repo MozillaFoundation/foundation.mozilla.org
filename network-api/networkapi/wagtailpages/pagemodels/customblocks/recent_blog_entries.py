@@ -63,17 +63,19 @@ class RecentBlogEntries(blocks.StructBlock):
         the prioritization of category and instead notify the user that they must/can
         only choose one filter option.
         '''
-        if category:
+        if category and category != "All":
             type = "category"
             query = slugify(category)
             try:
-                # verify this category exists
+                # verify this category exists, and set up a filter for it
                 category_object = BlogPageCategory.objects.get(name=category)
                 blogpage.extract_category_information(category_object.slug)
-                entries = blogpage.get_entries(context)
             except BlogPageCategory.DoesNotExist:
-                # if it doesn't, entries stays an empty list
+                # do nothing 
                 pass
+
+        # get the entries based on prefiltering
+        entries = blogpage.get_entries(context)
 
         # Updates the href for the 'More from our blog' button
         url = f"/{blogpage.slug}/{type}/{query}"
