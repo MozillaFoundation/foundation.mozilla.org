@@ -103,7 +103,13 @@ if SENTRY_DSN:
         dsn=SENTRY_DSN,
         integrations=[DjangoIntegration()],
         release=HEROKU_RELEASE_VERSION,
-        environment=SENTRY_ENVIRONMENT
+        environment=SENTRY_ENVIRONMENT,
+        ignore_errors=[
+            # Ignore security scan spam
+            'DisallowedHost',
+            # Ignore failing gunicorn threads
+            'SystemExit'
+        ]
     )
 
 # At True when running on a review app
