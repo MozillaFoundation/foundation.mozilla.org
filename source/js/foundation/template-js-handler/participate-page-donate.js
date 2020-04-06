@@ -1,3 +1,5 @@
+import { ReactGA } from "../../common";
+
 /**
  * Bind click handler to "#view-participate .card-cta .btn[href*="donate.mozilla.org"]"
  * (the Donate CTA button on participate page)
