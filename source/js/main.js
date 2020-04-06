@@ -44,7 +44,11 @@ let main = {
 
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting
-        initializeSentry(env.SENTRY_DSN, env.RELEASE_VERSION, env.SENTRY_ENVIRONMENT);
+        initializeSentry(
+          env.SENTRY_DSN,
+          env.RELEASE_VERSION,
+          env.SENTRY_ENVIRONMENT
+        );
       }
 
       csrfToken = document.querySelector(`meta[name="csrf-token"]`);
