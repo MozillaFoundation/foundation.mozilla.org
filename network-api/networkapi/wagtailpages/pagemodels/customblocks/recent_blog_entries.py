@@ -17,7 +17,7 @@ def get_categories():
     will throw errors, compared to update-only migrations.
     """
     choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
-    choices.sort()
+    choices.sort(key=lambda c: c[1])
     choices.insert(0, ('all', 'All'))
     return choices
 
