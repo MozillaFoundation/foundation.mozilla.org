@@ -2,7 +2,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import * as Sentry from "@sentry/browser";
 import {
   bindCommonEventHandlers,
   GoogleAnalytics,
@@ -17,6 +16,7 @@ import {
 } from "./foundation";
 
 import primaryNav from "./primary-nav.js";
+import initializeSentry from "./common/sentry-config.js";
 
 // Initializing component a11y browser console logging
 if (
@@ -46,11 +46,11 @@ let main = {
 
       if (env.SENTRY_DSN) {
         // Initialize Sentry error reporting
-        Sentry.init({
-          dsn: env.SENTRY_DSN,
-          release: env.RELEASE_VERSION,
-          environment: env.SENTRY_ENVIRONMENT
-        });
+        initializeSentry(
+          env.SENTRY_DSN,
+          env.RELEASE_VERSION,
+          env.SENTRY_ENVIRONMENT
+        );
       }
 
       csrfToken = document.querySelector(`meta[name="csrf-token"]`);
