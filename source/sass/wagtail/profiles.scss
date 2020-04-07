@@ -1,22 +1,23 @@
 .person-card {
+  $breakpoint: $bp-md;
   $headshot-width: 92px;
   $headshot-height: 92px;
-  $headshot-width-lg: 160px;
-  $headshot-height-lg: 160px;
+  $headshot-width-larger: 160px;
+  $headshot-height-larger: 160px;
   $gutter: 14px;
   $card-padding-top: 10px;
 
   border-top: 1px solid $black;
 
-  @media screen and (min-width: $bp-lg) {
+  @media screen and (min-width: $breakpoint) {
     position: relative;
-    min-height: $headshot-height-lg;
+    min-height: $headshot-height-larger;
   }
 
   .thumbnail-wrapper {
     float: left;
 
-    @media screen and (min-width: $bp-lg) {
+    @media screen and (min-width: $breakpoint) {
       position: absolute;
     }
   }
@@ -27,9 +28,9 @@
     margin-right: $gutter;
     margin-bottom: $gutter;
 
-    @media screen and (min-width: $bp-lg) {
-      width: $headshot-width-lg;
-      height: $headshot-height-lg;
+    @media screen and (min-width: $breakpoint) {
+      width: $headshot-width-larger;
+      height: $headshot-height-larger;
       margin-right: 0;
       margin-bottom: 0;
     }
@@ -44,13 +45,13 @@
 
   .short-meta-wrapper {
     padding-top: $card-padding-top;
-    @media screen and (min-width: $bp-lg) {
-      margin-left: $headshot-width-lg + $gutter;
+    @media screen and (min-width: $breakpoint) {
+      margin-left: $headshot-width-larger + $gutter;
     }
   }
 
   .meta-block-name {
-    @media screen and (min-width: $bp-lg) {
+    @media screen and (min-width: $breakpoint) {
       width: calc(100% - 70px);
     }
   }
@@ -58,13 +59,13 @@
   .bio-wrapper {
     clear: both;
 
-    @media screen and (min-width: $bp-lg) {
-      margin-left: $headshot-width-lg + $gutter;
+    @media screen and (min-width: $breakpoint) {
+      margin-left: $headshot-width-larger + $gutter;
     }
   }
 
   .social-icons {
-    @media screen and (min-width: $bp-lg) {
+    @media screen and (min-width: $breakpoint) {
       position: absolute;
       top: calc(#{$card-padding-top} + 5px);
       right: 0;
