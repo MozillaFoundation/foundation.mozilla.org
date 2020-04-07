@@ -158,7 +158,6 @@ export default class CreepVote extends React.Component {
         <div className="what-you-think-label h5-heading">
           Tell us what you think
         </div>
-        ,
         <form
           method="post"
           id="creep-vote"
