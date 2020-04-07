@@ -1,3 +1,3 @@
-export { bindEventHandlers } from "./template-js-handler";
+import { bindEventHandlers } from "./template-js-handler";
 
 bindEventHandlers();
