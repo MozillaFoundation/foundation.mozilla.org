@@ -4,12 +4,9 @@ import { ReactGA } from "../../../../common";
  * Bind handler to primary buttons on MozFest
  */
 export default () => {
-  let cmsPrimaryButtons = document.querySelectorAll(
-    `body.mozfest .cms a.btn.btn-primary`
-  );
-
-  if (cmsPrimaryButtons) {
-    cmsPrimaryButtons.forEach(button => {
+  document
+    .querySelectorAll(`body.mozfest .cms a.btn.btn-primary`)
+    .forEach(button => {
       button.addEventListener(`click`, () => {
         ReactGA.event({
           category: `CTA`,
@@ -18,5 +15,4 @@ export default () => {
         });
       });
     });
-  }
 };
