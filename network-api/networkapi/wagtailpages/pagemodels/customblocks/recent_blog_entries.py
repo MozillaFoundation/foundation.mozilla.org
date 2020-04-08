@@ -1,6 +1,7 @@
 from django.apps import apps
 from wagtail.core import blocks
 
+from ..blog.blog_category import BlogPageCategory
 from django.template.defaultfilters import slugify
 
 
@@ -18,14 +19,7 @@ class RecentBlogEntries(blocks.StructBlock):
     category_filter = blocks.ChoiceBlock(
         label='Filter by Category',
         required=False,
-        choices=[
-            ('all', 'All'),
-            ('Mozilla Festival', 'Mozilla Festival'),
-            ('Open Leadership & Events', 'Open Leadership & Events'),
-            ('Internet Health Report', 'Internet Health Report'),
-            ('Fellowships & Awards', 'Fellowships & Awards'),
-            ('Advocacy', 'Advocacy'),
-        ],
+        choices=BlogPageCategory.get_categories,
         help_text='Test this filter at foundation.mozilla.org/blog/category/',
     )
 
@@ -69,13 +63,19 @@ class RecentBlogEntries(blocks.StructBlock):
         the prioritization of category and instead notify the user that they must/can
         only choose one filter option.
         '''
-        if category:
+        if category and category != "All":
             type = "category"
             query = slugify(category)
-            BlogPageCategory = apps.get_model('wagtailpages.BlogPageCategory')
-            category_object = BlogPageCategory.objects.get(name=category)
-            blogpage.extract_category_information(category_object.slug)
-            entries = blogpage.get_entries(context)
+            try:
+                # verify this category exists, and set up a filter for it
+                category_object = BlogPageCategory.objects.get(name=category)
+                blogpage.extract_category_information(category_object.slug)
+            except BlogPageCategory.DoesNotExist:
+                # do nothing
+                pass
+
+        # get the entries based on prefiltering
+        entries = blogpage.get_entries(context)
 
         # Updates the href for the 'More from our blog' button
         url = f"/{blogpage.slug}/{type}/{query}"
