@@ -44,5 +44,3 @@ class BlogPageCategory(models.Model):
     class Meta:
         verbose_name = "Blog Page Category"
         verbose_name_plural = "Blog Page Categories"
-
-

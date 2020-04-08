@@ -71,7 +71,7 @@ class RecentBlogEntries(blocks.StructBlock):
                 category_object = BlogPageCategory.objects.get(name=category)
                 blogpage.extract_category_information(category_object.slug)
             except BlogPageCategory.DoesNotExist:
-                # do nothing 
+                # do nothing
                 pass
 
         # get the entries based on prefiltering
