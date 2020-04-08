@@ -247,11 +247,15 @@ class YouTubeRegretsTunnel {
     this.setObjectsOpacity();
     this.toggleScrollHint();
 
-    window.addEventListener(`scroll`, event => {
-      this.moveObjects();
-      this.setObjectsOpacity();
-      this.toggleScrollHint();
-    });
+    window.addEventListener(
+      `scroll`,
+      () => {
+        this.moveObjects();
+        this.setObjectsOpacity();
+        this.toggleScrollHint();
+      },
+      { passive: true }
+    );
   }
 }
 

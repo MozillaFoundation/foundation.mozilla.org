@@ -24,7 +24,7 @@ export default () => {
       }
     };
 
-    window.addEventListener(`scroll`, toggleStickyButtons);
+    window.addEventListener(`scroll`, toggleStickyButtons, { passive: true });
 
     toggleStickyButtons();
   }

@@ -72,11 +72,15 @@ let main = {
     });
   },
 
-  fetchEnv(callback) {
+  fetchEnv(processEnv) {
     let envReq = new XMLHttpRequest();
 
     envReq.addEventListener(`load`, () => {
-      callback(JSON.parse(envReq.response));
+      try {
+        processEnv(JSON.parse(envReq.response));
+      } catch (e) {
+        processEnv({});
+      }
     });
 
     envReq.open(`GET`, `/environment.json`);
