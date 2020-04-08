@@ -1,7 +1,7 @@
 import stickyCtaHandler from "./window/sticky-cta";
 import stickyShareButtonGroupHandler from "./window/sticky-share-button-group";
 
-import internetHealthSeeMoreHanlder from "./internet-health-see-more.js";
+import internetHealthSeeMoreHandler from "./internet-health-see-more.js";
 import loadMoreEntriesHandler from "./load-more-entries.js";
 import participatePageDonateHandler from "./participate-page-donate.js";
 import pulseProfileCardHandler from "./pulse-profile-card.js";
@@ -20,7 +20,7 @@ export const bindWindowEventHandlers = () => {
  * Bind event handlers
  */
 export const bindEventHandlers = () => {
-  internetHealthSeeMoreHanlder();
+  internetHealthSeeMoreHandler();
   loadMoreEntriesHandler();
   participatePageDonateHandler();
   pulseProfileCardHandler();
