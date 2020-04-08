@@ -26,6 +26,8 @@ class YouTubeRegretsTunnel {
     this.introScrollHeight = 0;
     this.sceneDepth = 0;
     this.lastPageYOffset = 0;
+
+    this.init();
   }
 
   /**
@@ -260,5 +262,3 @@ class YouTubeRegretsTunnel {
 }
 
 const youTubeRegretsTunnel = new YouTubeRegretsTunnel();
-
-youTubeRegretsTunnel.init();
