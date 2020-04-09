@@ -13,8 +13,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
-from networkapi.buyersguide.models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
-from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
+from .models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
+from .throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.utility.redirects import redirect_to_default_cms_site
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
