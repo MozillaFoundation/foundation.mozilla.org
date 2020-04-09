@@ -1,4 +1,22 @@
-const bindHomeBannerHandlers = () => {
+import { ReactGA } from "../../../../common";
+
+const watchVideoButtonHandler = () => {
+  let homeWatchVideoButton = document.querySelector(
+    `#mozfest-home-watch-video-button`
+  );
+
+  if (homeWatchVideoButton) {
+    homeWatchVideoButton.addEventListener(`click`, () => {
+      ReactGA.event({
+        category: `CTA`,
+        action: `watch video tap`,
+        label: `watch video button tap`
+      });
+    });
+  }
+};
+
+const backgroundVideoHandler = () => {
   let homepageBanner = document.querySelector(
     "#view-mozfest-home #hero .banner"
   );
@@ -46,6 +64,10 @@ const bindHomeBannerHandlers = () => {
   }
 };
 
+/**
+ * Bind handlers to MozFest homepage banner
+ */
 export default () => {
-  bindHomeBannerHandlers();
+  watchVideoButtonHandler();
+  backgroundVideoHandler();
 };

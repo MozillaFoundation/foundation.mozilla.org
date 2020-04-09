@@ -13,6 +13,6 @@
 
   {% if filters|length > 0 %}
   <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
-  <script src="{% static 'js/directory-listing-filters.js' %}" async defer></script>
+  <script src="{% static '_js/directory-listing-filters.compiled.js' %}" async defer></script>
   {% endif %}
 </div>
