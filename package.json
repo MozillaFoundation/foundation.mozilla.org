@@ -32,7 +32,7 @@
     "server": "pipenv run python network-api/manage.py runserver",
     "start": "run-p build-uncompressed server watch:**",
     "test:procfile": "node test/test-procfile.js",
-    "test:eslint:js": "eslint --config ./.eslintrc.json \"cypress/integration/*.js\" \"network-api/networkapi/{,!(frontend)/**/}*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
+    "test:eslint:js": "eslint --config ./.eslintrc.json \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
     "test:eslint:a11y": "eslint --config ./.eslintrc.a11y.json \"source/js/**/*.jsx\"",
     "test:scss": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" --syntax scss",
     "test:scss:styleguide:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" --syntax scss --config .stylelintrc-colors.js",
