@@ -1,8 +1,11 @@
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, modeladmin_register)
-from networkapi.buyersguide.models import Product
-from networkapi.buyersguide.models import BuyersGuideProductCategory
-from networkapi.buyersguide.models import Update
+
+from networkapi.buyersguide.models import (
+    Update,
+    Product,
+    BuyersGuideProductCategory
+)
 
 
 # Wagtail admin
