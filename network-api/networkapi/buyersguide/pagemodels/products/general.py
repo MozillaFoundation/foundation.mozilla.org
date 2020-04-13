@@ -54,16 +54,6 @@ class GeneralProduct(BaseProduct):
         blank=True
     )
 
-    share_data = models.BooleanField(  # TO BE REMOVED
-        null=True,
-        help_text='Does the maker share data with other companies?',
-    )
-
-    share_data_helptext = models.TextField(  # TO BE REMOVED
-        max_length=5000,
-        blank=True
-    )
-
     # It uses your...
 
     camera_device = ExtendedYesNoField(

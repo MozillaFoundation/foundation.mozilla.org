@@ -9,11 +9,8 @@ def convertProducts(apps, schema_editor):
     Product = apps.get_model("buyersguide", "Product")
     BaseProduct = apps.get_model("buyersguide", "BaseProduct")
     GeneralProduct = apps.get_model("buyersguide", "GeneralProduct")
-
     ProductPrivacyPolicyLink = apps.get_model("buyersguide", "ProductPrivacyPolicyLink")
     BaseProductPrivacyPolicyLink = apps.get_model("buyersguide", "BaseProductPrivacyPolicyLink")
-
-    LUT = dict()
 
     # Recreate products
     for product in Product.objects.all():
@@ -31,6 +28,8 @@ def convertProducts(apps, schema_editor):
             image=product.image,
             cloudinary_image=product.cloudinary_image,
             meets_minimum_security_standards=product.meets_minimum_security_standards,
+            share_data=product.share_data,
+            share_data_helptext=product.share_data_helptext,
             how_does_it_share=product.how_does_it_share,
             user_friendly_privacy_policy=product.user_friendly_privacy_policy,
             user_friendly_privacy_policy_helptext=product.user_friendly_privacy_policy_helptext,
@@ -50,8 +49,6 @@ def convertProducts(apps, schema_editor):
             manage_vulnerabilities_helptext=product.manage_vulnerabilities_helptext,
             privacy_policy=product.privacy_policy,
             privacy_policy_helptext=product.privacy_policy_helptext,
-            share_data=product.share_data,
-            share_data_helptext=product.share_data_helptext,
             camera_device=product.camera_device,
             camera_app=product.camera_app,
             microphone_device=product.microphone_device,
@@ -67,24 +64,25 @@ def convertProducts(apps, schema_editor):
         )
 
         if created:
-            general.product_category.add(*product.product_category.all())
-            general.updates.add(*product.updates.all())
-            general.save()
+            for cat in product.product_category.all():
+                general.product_category.add(cat)
 
-        LUT[product.pk] = general.pk
+            for update in product.updates.all():
+                general.updates.add(update)
+
+            general.save()
 
     # After performing all the conversions, cross-link the related products
     for product in Product.objects.all():
-        pid = product.pk
-        general = GeneralProduct.objects.get(pk = LUT[pid])
+        base = BaseProduct.objects.get(name=product.name)
         for related in product.related_products.all():
-            related_general_product = GeneralProduct.objects.get(pk=LUT[related.pk])
-            general.related_products.add(related_general_product)
+            related_base_product = BaseProduct.objects.get(name=related.name)
+            base.related_products.add(related_base_product)
 
     # Recreate the privacy link objects
     for link in ProductPrivacyPolicyLink.objects.all():
         product = Product.objects.get(pk=link.product.pk)
-        general = BaseProduct.objects.get(pk=LUT[product.pk])
+        general = BaseProduct.objects.get(name=product.name)
         (newlink, created) = BaseProductPrivacyPolicyLink.objects.get_or_create(
             product=general,
             label=link.label,
