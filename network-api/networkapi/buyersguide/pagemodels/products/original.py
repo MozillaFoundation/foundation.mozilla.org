@@ -16,10 +16,10 @@ from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 
-from .get_product_image_upload_path import get_product_image_upload_path
-from .get_product_vote_information import get_product_vote_information
+from ..get_product_image_upload_path import get_product_image_upload_path
+from ..get_product_vote_information import get_product_vote_information
 
-from ..utils import tri_to_quad
+from ...utils import tri_to_quad
 
 
 # Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary

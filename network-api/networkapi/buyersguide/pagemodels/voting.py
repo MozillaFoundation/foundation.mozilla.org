@@ -3,7 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from networkapi.buyersguide.validators import ValueListValidator
 
-from .product import Product
+from .products.original import Product
 
 
 class ProductVote(models.Model):

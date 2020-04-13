@@ -5,7 +5,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.models import Orderable
 from wagtail.snippets.models import register_snippet
 
-from .product import Product
+from .products.original import Product
 
 
 @register_snippet

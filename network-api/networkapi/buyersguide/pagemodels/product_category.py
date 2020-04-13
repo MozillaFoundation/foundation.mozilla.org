@@ -3,7 +3,7 @@ from django.utils.text import slugify
 
 from wagtail.snippets.models import register_snippet
 
-from .product import Product
+from .products.original import Product
 
 
 @register_snippet
