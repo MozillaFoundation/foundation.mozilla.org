@@ -16,13 +16,29 @@ from .pagemodels.voting import (
     RangeVote,
 )
 
+from .pagemodels.cloudinary_image_field import (
+    CloudinaryImageField
+)
+
 from .pagemodels.products.original import (
-    CloudinaryImageField,
     Product,
 )
 
+from .pagemodels.products.base import (
+    BaseProduct,
+)
+
+from .pagemodels.products.general import (
+    GeneralProduct,
+)
+
+from .pagemodels.products.software import (
+    SoftwareProduct,
+)
+
 from .pagemodels.privacy import (
-    ProductPrivacyPolicyLink
+    ProductPrivacyPolicyLink,
+    BaseProductPrivacyPolicyLink,
 )
 
 from .pagemodels.product_category import (
@@ -58,17 +74,20 @@ class Update(models.Model):
 
 __all__ = [
     get_product_image_upload_path,
+    BaseProduct,
     BooleanProductVote,
     BooleanVote,
     BooleanVoteBreakdown,
     BuyersGuideProductCategory,
     CloudinaryImageField,
+    GeneralProduct,
     Product,
     ProductPrivacyPolicyLink,
     ProductVote,
     RangeProductVote,
     RangeVote,
     RangeVoteBreakdown,
+    SoftwareProduct,
     Update,
     Vote,
     VoteBreakdown,
