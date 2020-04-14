@@ -13,7 +13,14 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
-from .models import Product, BuyersGuideProductCategory, BooleanVote, RangeVote
+from .models import (
+    Product,
+    BaseProduct,
+    BuyersGuideProductCategory,
+    BooleanVote,
+    RangeVote
+)
+
 from .throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.utility.redirects import redirect_to_default_cms_site
 
@@ -28,14 +35,17 @@ else:
     MEDIA_URL = settings.MEDIA_URL
 
 
-def get_average_creepiness(product):
+def get_average_creepiness(product_dict):
     try:
-        votes = product['votes']
+        votes = product_dict['votes']
         creepiness = votes['creepiness']
         avg = creepiness['average']
         return avg
 
     except TypeError:
+        pass
+
+    except AttributeError:
         pass
 
     return 50
@@ -53,7 +63,7 @@ def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
 
     if not products:
-        products = [p.to_dict() for p in Product.objects.all()]
+        products = [p.to_dict() for p in BaseProduct.objects.all()]
         products.sort(key=lambda p: get_average_creepiness(p))
         cache.set('sorted_product_dicts', products, 86400)
 
@@ -78,7 +88,7 @@ def category_view(request, slug):
         category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
     if not products:
-        products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
+        products = [p.to_dict() for p in BaseProduct.objects.filter(product_category__in=[category]).distinct()]
         cache.set(key, products, 86400)
 
     products = filter_draft_products(request, products)
@@ -93,7 +103,7 @@ def category_view(request, slug):
 
 @redirect_to_default_cms_site
 def product_view(request, slug):
-    product = get_object_or_404(Product, slug=slug)
+    product = get_object_or_404(BaseProduct, slug=slug)
 
     if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")
@@ -163,7 +173,7 @@ def product_vote(request):
         return Response('Invalid payload - check data types', status=400, content_type='text/plain')
 
     try:
-        product = Product.objects.get(id=product_id)
+        product = BaseProduct.objects.get(id=product_id)
 
         if product.draft and not request.user.is_authenticated:
             raise Http404("Product does not exist")

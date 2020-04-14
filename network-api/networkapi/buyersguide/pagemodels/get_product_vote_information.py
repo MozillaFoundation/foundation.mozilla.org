@@ -31,3 +31,7 @@ def get_product_vote_information(product):
     except ObjectDoesNotExist:
         # There's no aggregate data available yet, return None
         return None
+
+    except AttributeError:
+        # FIXME: This is a new general/software product that doesn't have voting hooked up yet
+        return None

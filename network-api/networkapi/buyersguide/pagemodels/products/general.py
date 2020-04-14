@@ -9,51 +9,6 @@ from ...utils import tri_to_quad
 class GeneralProduct(BaseProduct):
     product_type = "general"
 
-    # Minimum security standards (stars)
-
-    uses_encryption = ExtendedYesNoField(
-        help_text='Does the product use encryption?',
-    )
-
-    uses_encryption_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    security_updates = ExtendedYesNoField(
-        help_text='Security updates?',
-    )
-
-    security_updates_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    strong_password = ExtendedYesNoField()
-
-    strong_password_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    manage_vulnerabilities = ExtendedYesNoField(
-        help_text='Manages security vulnerabilities?',
-    )
-
-    manage_vulnerabilities_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
-    privacy_policy = ExtendedYesNoField(
-        help_text='Does this product have a privacy policy?'
-    )
-
-    privacy_policy_helptext = models.TextField(  # REPURPOSED: WILL REQUIRE A 'clear' MIGRATION
-        max_length=5000,
-        blank=True
-    )
-
     # It uses your...
 
     camera_device = ExtendedYesNoField(
@@ -115,22 +70,6 @@ class GeneralProduct(BaseProduct):
 
     # TODO: make these fit in the right place
     panels = BaseProduct.panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel('uses_encryption'),
-                FieldPanel('uses_encryption_helptext'),
-                FieldPanel('security_updates'),
-                FieldPanel('security_updates_helptext'),
-                FieldPanel('strong_password'),
-                FieldPanel('strong_password_helptext'),
-                FieldPanel('manage_vulnerabilities'),
-                FieldPanel('manage_vulnerabilities_helptext'),
-                FieldPanel('privacy_policy'),
-                FieldPanel('privacy_policy_helptext'),  # NEED A "clear" MIGRATION
-            ],
-            heading="Minimum Security Standards for general products",
-            classname="collapsible"
-        ),
         MultiFieldPanel(
             [
                 FieldPanel('camera_device'),
