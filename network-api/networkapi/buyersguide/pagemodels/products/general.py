@@ -7,7 +7,7 @@ from ...utils import tri_to_quad
 
 
 class GeneralProduct(BaseProduct):
-    product_type = "general"
+    product_type = 'general'
 
     # It uses your...
 
@@ -37,12 +37,12 @@ class GeneralProduct(BaseProduct):
 
     # how it handles privacy
 
-    delete_data = models.BooleanField(  # TO BE REMOVED
+    delete_data = models.BooleanField(  # TO BE REMOVED?
         null=True,
         help_text='Can you request data be deleted?',
     )
 
-    delete_data_helptext = models.TextField(  # TO BE REMOVED
+    delete_data_helptext = models.TextField(  # TO BE REMOVED?
         max_length=5000,
         blank=True
     )
@@ -52,7 +52,7 @@ class GeneralProduct(BaseProduct):
         help_text='Are there rules for children?',
     )
 
-    child_rules_helptext = models.TextField(  # TO BE REMOVED
+    child_rules_helptext = models.TextField(  # TO BE REMOVED?
         max_length=5000,
         blank=True
     )
@@ -79,8 +79,8 @@ class GeneralProduct(BaseProduct):
                 FieldPanel('location_device'),
                 FieldPanel('location_app'),
             ],
-            heading="Can it snoop?",
-            classname="collapsible"
+            heading='Can it snoop?',
+            classname='collapsible'
         ),
         MultiFieldPanel(
             [
@@ -92,8 +92,8 @@ class GeneralProduct(BaseProduct):
                 FieldPanel('user_friendly_privacy_policy'),
                 FieldPanel('user_friendly_privacy_policy_helptext'),
             ],
-            heading="How does it handle privacy (general products)",
-            classname="collapsible"
+            heading='How does it handle privacy (general products)',
+            classname='collapsible'
         ),
     ]
 

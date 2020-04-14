@@ -14,7 +14,6 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
 from .models import (
-    Product,
     BaseProduct,
     BuyersGuideProductCategory,
     BooleanVote,

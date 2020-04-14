@@ -63,7 +63,6 @@
             </div>
           </div>
 
-          {% if product_type == 'general' %}
           <div class="details mt-2">
             <div class="criterion rating">
               {% trans "Overall Security Rating" as overall_security_rating %}
@@ -85,9 +84,6 @@
             {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities   %}
             {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label=privacy_policy            %}
           </div>
-          {% elif product_type == 'software' %}
-            <!-- code goes here -->
-          {% endif %}
         </div>
       </div>
 

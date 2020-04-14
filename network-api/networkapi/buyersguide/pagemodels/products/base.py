@@ -15,8 +15,6 @@ from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 
-from .original import Product
-
 from ..cloudinary_image_field import CloudinaryField
 from ..get_product_image_upload_path import get_product_image_upload_path
 from ..get_product_vote_information import get_product_vote_information
