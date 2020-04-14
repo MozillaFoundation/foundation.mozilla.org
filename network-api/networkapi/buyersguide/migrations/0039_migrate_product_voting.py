@@ -22,7 +22,7 @@ def convertVotes(apps, schema_editor):
     BaseBooleanVoteBreakdown = apps.get_model("buyersguide", "BaseBooleanVoteBreakdown")
     BaseRangeVoteBreakdown = apps.get_model("buyersguide", "BaseRangeVoteBreakdown")
     BaseBooleanVote = apps.get_model("buyersguide", "BaseBooleanVote")
-    BaseRangeVote = apps.get_model("buyersguide", "BaseRangeVote"),
+    BaseRangeVote = apps.get_model("buyersguide", "BaseRangeVote")
 
     for product in Product.objects.all():
         base_product = BaseProduct.objects.get(name=product.name)
@@ -31,18 +31,18 @@ def convertVotes(apps, schema_editor):
 
         for vote in RangeVote.objects.filter(product=product):
             BaseRangeVote.objects.create(
-                created_at=vote.created_at,
                 product=base_product,
+                created_at=vote.created_at,
                 attribute=vote.attribute,
-                bucket=vote.bucket
+                value=vote.value
             )
 
         for vote in BooleanVote.objects.filter(product=product):
             BaseBooleanVote.objects.create(
-                created_at=vote.created_at,
                 product=base_product,
+                created_at=vote.created_at,
                 attribute=vote.attribute,
-                bucket=vote.bucket
+                value=vote.value
             )
 
         # Then regenerate the statistical records:
@@ -55,11 +55,12 @@ def convertVotes(apps, schema_editor):
             product=base_product,
         )
 
-        range_breakdown = RangeVoteBreakdown.objects.get(product=product)
-        (base_range_breakdown, brb_created) = BaseRangeVoteBreakdown.objects.get_or_create(
-            product_vote=base_range_vote,
-            bucket=base_range_breakdown.bucket
-        )
+        for breakdown in RangeVoteBreakdown.objects.filter(product_vote=range_vote):
+            BaseRangeVoteBreakdown.objects.get_or_create(
+                count=breakdown.count,
+                product_vote=base_range_vote,
+                bucket=breakdown.bucket,
+            )
 
         boolean_vote = BooleanProductVote.objects.get(product=product)
         (base_boolean_vote, bbv_created) = BaseBooleanProductVote.objects.get_or_create(
@@ -68,11 +69,12 @@ def convertVotes(apps, schema_editor):
             product=base_product,
         )
 
-        boolean_breakdown = BooleanVoteBreakdown.objects.get(product=product)
-        (base_boolean_breakdown, bbb_created) = BaseBooleanVoteBreakdown.objects.get_or_create(
-            product_vote=base_boolean_vote,
-            bucket=base_boolean_breakdown.bucket
-        )
+        for breakdown in BooleanVoteBreakdown.objects.filter(product_vote=boolean_vote):
+            BaseBooleanVoteBreakdown.objects.get_or_create(
+                count=breakdown.count,
+                product_vote=base_boolean_vote,
+                bucket=breakdown.bucket,
+            )
 
 
 class Migration(migrations.Migration):

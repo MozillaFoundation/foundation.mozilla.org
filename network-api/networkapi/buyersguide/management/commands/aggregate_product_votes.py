@@ -80,7 +80,7 @@ class Command(BaseCommand):
                     )
 
             # update VoteBreakdown records with per bucket vote totals
-            for vote_breakdown in creepiness_product_vote.rangevotebreakdown_set.all():
+            for vote_breakdown in creepiness_product_vote.baserangevotebreakdown_set.all():
                 vote_breakdown.count = creepiness_bucket_totals[str(vote_breakdown.bucket)]
                 vote_breakdown.save()
 
@@ -115,6 +115,6 @@ class Command(BaseCommand):
                         count=0
                     )
 
-            for vote_breakdown in confidence_product_vote.booleanvotebreakdown_set.all():
+            for vote_breakdown in confidence_product_vote.basebooleanvotebreakdown_set.all():
                 vote_breakdown.count = true_total if vote_breakdown.bucket == 1 else false_total
                 vote_breakdown.save()
