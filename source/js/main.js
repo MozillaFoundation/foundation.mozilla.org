@@ -6,16 +6,16 @@ import {
   bindCommonEventHandlers,
   GoogleAnalytics,
   initializePrimaryNav,
-  injectCommonReactComponents,
-  ReactGA
+  injectCommonReactComponents
 } from "./common";
 
-import { bindEventHandlers, injectReactComponents } from "./foundation";
+import {
+  bindWindowEventHandlers,
+  bindEventHandlers,
+  injectReactComponents
+} from "./foundation";
 
 import primaryNav from "./primary-nav.js";
-import bindMozFestGA from "./mozfest-ga.js";
-import bindMozFestEventHandlers from "./mozfest-event-handlers.js";
-import youTubeRegretsTunnel from "./youtube-regrets.js";
 import initializeSentry from "./common/sentry-config.js";
 
 // Initializing component a11y browser console logging
@@ -38,6 +38,8 @@ const apps = [];
 
 let main = {
   init() {
+    GoogleAnalytics.init();
+
     this.fetchEnv(envData => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
@@ -59,11 +61,9 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      GoogleAnalytics.init();
-
       this.injectReactComponents();
-      this.bindGlobalHandlers();
-      this.bindGAEventTrackers();
+      this.bindHandlers();
+      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
@@ -72,165 +72,31 @@ let main = {
     });
   },
 
-  fetchEnv(callback) {
+  fetchEnv(processEnv) {
     let envReq = new XMLHttpRequest();
 
     envReq.addEventListener(`load`, () => {
-      callback.call(this, JSON.parse(envReq.response));
+      try {
+        processEnv(JSON.parse(envReq.response));
+      } catch (e) {
+        processEnv({});
+      }
     });
 
     envReq.open(`GET`, `/environment.json`);
     envReq.send();
   },
 
-  fetchHomeDataIfNeeded(callback) {
-    // Only fetch data if you're on the homepage
-    if (document.querySelector(`#view-home`)) {
-      let homepageReq = new XMLHttpRequest();
-
-      homepageReq.addEventListener(`load`, () => {
-        callback.call(this, JSON.parse(homepageReq.response));
-      });
-
-      homepageReq.open(`GET`, `${networkSiteURL}/api/homepage/`);
-      homepageReq.send();
-    } else {
-      callback.call(this, {});
-    }
-  },
-
-  bindGlobalHandlers() {
-    // Track window scroll position and add/remove class to change sticky header appearance
-
-    let lastKnownScrollPosition = 0;
-    let ticking = false;
-    let elBurgerWrapper = document.querySelector(`.wrapper-burger`);
-
-    let adjustNavbar = scrollPosition => {
-      if (scrollPosition > 0) {
-        elBurgerWrapper.classList.add(`scrolled`);
-      } else {
-        elBurgerWrapper.classList.remove(`scrolled`);
-      }
-    };
-
-    let elCtaAnchor = document.querySelector(`#cta-anchor`);
-    let elStickyButton = document.querySelector(
-      `.narrow-sticky-button-container`
-    );
-    let noopCtaButton = () => {};
-    let adjustCtaButton = noopCtaButton;
-
-    if (elCtaAnchor && elStickyButton) {
-      let getAnchorPosition = () => {
-        return (
-          elCtaAnchor.getBoundingClientRect().top +
-          window.scrollY -
-          window.innerHeight
-        );
-      };
-
-      let ctaAnchorPosition = getAnchorPosition();
-
-      window.addEventListener(`resize`, () => {
-        ctaAnchorPosition = getAnchorPosition();
-      });
-
-      let scrollCtaButton = scrollPosition => {
-        if (scrollPosition > ctaAnchorPosition) {
-          elStickyButton.classList.add(`hidden`);
-          adjustCtaButton = noopCtaButton;
-        }
-      };
-
-      let initCtaButton = scrollPosition => {
-        if (scrollPosition <= ctaAnchorPosition) {
-          elStickyButton.classList.remove(`hidden`);
-          adjustCtaButton = scrollCtaButton;
-        }
-      };
-
-      adjustCtaButton = initCtaButton;
-    }
-
-    let onScroll = () => {
-      lastKnownScrollPosition = window.scrollY;
-
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          adjustNavbar(lastKnownScrollPosition);
-          adjustCtaButton(lastKnownScrollPosition);
-          ticking = false;
-        });
-      }
-
-      ticking = true;
-    };
-
-    window.addEventListener(`scroll`, onScroll);
-
-    // Toggle sticky share buttons on blog page
-
-    let blogPageStickyButtons = document.querySelector(
-      `#view-blog .blog-sticky-side .share-button-group`
-    );
-    let blogPageFullButtons = document.querySelector(
-      `#view-blog .blog-body .share-button-group`
-    );
-
-    if (blogPageStickyButtons && blogPageFullButtons) {
-      const isInViewport = element => {
-        let box = element.getBoundingClientRect();
-
-        return box.top <= window.innerHeight && box.top + box.height >= 0;
-      };
-
-      const toggleStickyButtons = () => {
-        if (isInViewport(blogPageFullButtons)) {
-          blogPageStickyButtons.classList.add(`faded`);
-        } else {
-          blogPageStickyButtons.classList.remove(`faded`);
-        }
-      };
-
-      window.addEventListener(`scroll`, toggleStickyButtons);
-      toggleStickyButtons();
-    }
-
-    // Call once to get scroll position on initial page load.
-    onScroll();
-
-    initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
-    youTubeRegretsTunnel.init();
-
-    // Extra tracking
-
-    let donateHeaderBtn = document.getElementById(`donate-header-btn`);
-    if (donateHeaderBtn) {
-      donateHeaderBtn.addEventListener(`click`, () => {
-        ReactGA.event({
-          category: `donate`,
-          action: `donate button tap`,
-          label: `${document.title} header`
-        });
-      });
-    }
-
+  bindHandlers() {
     bindCommonEventHandlers();
-  },
-
-  bindGAEventTrackers() {
-    // MozFest specific scripts
-    bindMozFestGA();
-    bindMozFestEventHandlers();
+    bindWindowEventHandlers();
+    bindEventHandlers();
   },
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL, csrfToken);
     injectReactComponents(apps, networkSiteURL, env);
-
-    bindEventHandlers();
   }
 };
 
