@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='softwareproduct',
             name='medical_pricavy_compliant',
-            field=networkapi.buyersguide.fields.ExtendedYesNoField(help_text='Compliant with US medical privacy laws?'),
+            field=models.BooleanField(help_text='Compliant with US medical privacy laws?'),
         ),
         migrations.AddField(
             model_name='softwareproduct',

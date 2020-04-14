@@ -36,7 +36,7 @@ class SoftwareProduct(BaseProduct):
         blank=True
     )
 
-    medical_pricavy_compliant = ExtendedYesNoField(
+    medical_pricavy_compliant = models.BooleanField(
         help_text='Compliant with US medical privacy laws?'
     )
 
