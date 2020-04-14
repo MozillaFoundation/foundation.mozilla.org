@@ -48,6 +48,7 @@ class WagtailBuyersGuideGeneralProductAdmin(ModelAdmin):
     search_fields = ('name', 'company')
     index_template_name = 'admin/index_view.html'
 
+
 class WagtailBuyersGuideSoftwareProductAdmin(ModelAdmin):
     model = SoftwareProduct
     menu_label = 'Products: software'

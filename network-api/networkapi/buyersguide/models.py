@@ -75,6 +75,7 @@ class Update(models.Model):
 __all__ = [
     get_product_image_upload_path,
     BaseProduct,
+    BaseProductPrivacyPolicyLink,
     BooleanProductVote,
     BooleanVote,
     BooleanVoteBreakdown,
