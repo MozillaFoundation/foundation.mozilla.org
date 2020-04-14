@@ -16,6 +16,19 @@ from .pagemodels.voting import (
     RangeVote,
 )
 
+from .pagemodels.base_voting import (
+    BaseProductVote,
+    BaseRangeProductVote,
+    BaseBooleanProductVote,
+    BaseVoteBreakdown,
+    BaseBooleanVoteBreakdown,
+    BaseRangeVoteBreakdown,
+    BaseVote,
+    BaseBooleanVote,
+    BaseRangeVote,
+)
+
+
 from .pagemodels.cloudinary_image_field import (
     CloudinaryImageField
 )
@@ -92,4 +105,14 @@ __all__ = [
     Update,
     Vote,
     VoteBreakdown,
+    # Updated voting for new product models
+    BaseProductVote,
+    BaseRangeProductVote,
+    BaseBooleanProductVote,
+    BaseVoteBreakdown,
+    BaseBooleanVoteBreakdown,
+    BaseRangeVoteBreakdown,
+    BaseVote,
+    BaseBooleanVote,
+    BaseRangeVote,
 ]

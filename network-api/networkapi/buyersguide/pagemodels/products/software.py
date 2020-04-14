@@ -1,5 +1,4 @@
 from django.db import models
-from networkapi.buyersguide.fields import ExtendedYesNoField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
 from .base import BaseProduct
@@ -87,6 +86,3 @@ class SoftwareProduct(BaseProduct):
             classname='collapsible'
         ),
     ]
-
-
-

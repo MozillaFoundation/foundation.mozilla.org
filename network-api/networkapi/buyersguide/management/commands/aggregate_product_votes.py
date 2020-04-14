@@ -5,12 +5,14 @@ from django.db.models import (
 )
 
 from networkapi.buyersguide.models import (
-    Product,
-    RangeVote,
-    BooleanVote,
-    RangeProductVote,
-    BooleanProductVote,
-    RangeVoteBreakdown, BooleanVoteBreakdown)
+    BaseProduct,
+    BaseRangeVote,
+    BaseBooleanVote,
+    BaseRangeProductVote,
+    BaseBooleanProductVote,
+    BaseRangeVoteBreakdown,
+    BaseBooleanVoteBreakdown,
+)
 
 
 class Command(BaseCommand):
@@ -27,11 +29,11 @@ class Command(BaseCommand):
     }
 
     def handle(self, *args, **options):
-        products = Product.objects.all()
+        products = BaseProduct.objects.all()
 
         for product in products:
             # generate a QuerySet for this product's creepiness votes
-            creepiness_query_set = RangeVote.objects.filter(
+            creepiness_query_set = BaseRangeVote.objects.filter(
                 attribute='creepiness',
                 product_id=product.id
             )
@@ -57,7 +59,7 @@ class Command(BaseCommand):
                 creepiness_bucket_totals[creepiness_bucket] = vote_count
 
             # get or create the ProductVote record for creepiness
-            creepiness_product_vote, created = RangeProductVote.objects.get_or_create(
+            creepiness_product_vote, created = BaseRangeProductVote.objects.get_or_create(
                 product=product,
                 attribute='creepiness',
                 defaults={'votes': 0, 'average': 50}
@@ -71,7 +73,7 @@ class Command(BaseCommand):
             # if this is a new product, create some VoteBreakdown records for it
             if created:
                 for bucket in creepiness_bucket_totals.keys():
-                    RangeVoteBreakdown.objects.create(
+                    BaseRangeVoteBreakdown.objects.create(
                         product_vote=creepiness_product_vote,
                         bucket=bucket,
                         count=0
@@ -84,7 +86,7 @@ class Command(BaseCommand):
 
             # Confidence
             # Define a QuerySet for confidence votes
-            confidence_query_set = BooleanVote.objects.filter(
+            confidence_query_set = BaseBooleanVote.objects.filter(
                 attribute='confidence',
                 product_id=product.id
             )
@@ -95,7 +97,7 @@ class Command(BaseCommand):
             confidence_vote_count = true_total + false_total
 
             # get or create the ProductVote record for creepiness
-            confidence_product_vote, created = BooleanProductVote.objects.get_or_create(
+            confidence_product_vote, created = BaseBooleanProductVote.objects.get_or_create(
                 product=product,
                 attribute='confidence',
                 defaults={'votes': 0}
@@ -107,7 +109,7 @@ class Command(BaseCommand):
             # if this is a new product, create some VoteBreakdown records for it
             if created:
                 for bucket in (0, 1):
-                    BooleanVoteBreakdown.objects.create(
+                    BaseBooleanVoteBreakdown.objects.create(
                         product_vote=confidence_product_vote,
                         bucket=bucket,
                         count=0
