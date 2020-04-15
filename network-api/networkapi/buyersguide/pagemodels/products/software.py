@@ -86,3 +86,9 @@ class SoftwareProduct(BaseProduct):
             classname='collapsible'
         ),
     ]
+
+    # todict function
+    def to_dict(self):
+        model_dict = super.to_dict()
+        model_dict['product_type'] = self.product_type
+        return model_dict
