@@ -102,7 +102,7 @@ def category_view(request, slug):
 
 @redirect_to_default_cms_site
 def product_view(request, slug):
-    product = get_object_or_404(BaseProduct, slug=slug)
+    product = get_object_or_404(BaseProduct, slug=slug).specific
 
     if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")

@@ -3,6 +3,7 @@ from datetime import datetime
 from cloudinary import uploader
 
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
@@ -107,13 +108,25 @@ product_panels = [
     FieldPanel('related_products'),
 ]
 
+types = list()
+
+
+def register_product_type(ModelClass):
+    types.append(ModelClass)
+
 
 class BaseProduct(ClusterableModel):
     """
     A thing you can buy in stores and our review of it
     """
-
-    product_type = 'base'
+    @property
+    def specific(self):
+        for Type in types:
+            try:
+                return Type.objects.get(slug=self.slug)
+            except ObjectDoesNotExist:
+                pass
+        return self
 
     draft = models.BooleanField(
         help_text='When checked, this product will only show for CMS-authenticated users',
@@ -341,7 +354,6 @@ class BaseProduct(ClusterableModel):
               @property definitions, those needs to be added!
         """
         model_dict = model_to_dict(self)
-        model_dict['product_type'] = self.product_type
         model_dict['votes'] = self.votes
         model_dict['slug'] = self.slug
 

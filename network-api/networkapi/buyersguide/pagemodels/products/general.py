@@ -2,12 +2,14 @@ from django.db import models
 from networkapi.buyersguide.fields import ExtendedYesNoField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
-from .base import BaseProduct
+from .base import BaseProduct, register_product_type
 from ...utils import tri_to_quad
 
 
 class GeneralProduct(BaseProduct):
-    product_type = 'general'
+    """
+    A thing you can buy in stores and our review of it
+    """
 
     # It uses your...
 
@@ -99,6 +101,11 @@ class GeneralProduct(BaseProduct):
 
     # todict function
     def to_dict(self):
-        model_dict = super.to_dict()
+        model_dict = super().to_dict()
         model_dict['delete_data'] = tri_to_quad(self.delete_data)
+        model_dict['product_type'] = 'general'
         return model_dict
+
+
+# Register this model class so that BaseProduct can "cast" properly
+register_product_type(GeneralProduct)

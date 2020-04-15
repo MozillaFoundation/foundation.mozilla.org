@@ -100,7 +100,7 @@
 
         <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
 
-        {% if product_type == 'general' %}
+        {% if product.product_type == 'general' %}
         <div class="row criterion mb-5 no-gutters pb-3 d-flex flex-column flex-xl-row justify-content-between">
           {% trans "Camera"          as camera %}
           {% trans "Microphone"      as microphone %}
@@ -110,8 +110,9 @@
           {% include "fragments/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app  %}
           {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
         </div>
-        {% elif product_type == 'software' %}
-          <!-- code goes here -->
+        {% elif product.product_type == 'software' %}
+        <!-- code goes here -->
+        <div>SOFTWARE</div>
         {% endif %}
 
         <h3 class="h3-heading">{% trans "How does it handle privacy?" %}</h3>
@@ -119,7 +120,7 @@
         <div>
           {% trans "How does it share data?"      as how_does_it_share %}
 
-          {% if product_type == 'general' %}
+          {% if product.product_type == 'general' %}
             {% trans "Can you delete your data?"    as delete_data %}
             {% trans "Parental controls?"           as parental_controls %}
             {% trans "Collects biometrics data?"    as collects_biometrics %}
@@ -132,8 +133,9 @@
             {% include "fragments/product_criterion.html"  with  label=collects_biometrics          value=product.collects_biometrics  hide_value="NA" help=product.collects_biometrics_helptext           %}
             {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy value=product.user_friendly_privacy_policy         help=product.user_friendly_privacy_policy_helptext  %}
             {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
-          {% elif product_type == 'software' %}
+          {% elif product.product_type == 'software' %}
             <!-- code goes here -->
+            <div>SOFTWARE</div>
           {% endif %}
           </div>
 

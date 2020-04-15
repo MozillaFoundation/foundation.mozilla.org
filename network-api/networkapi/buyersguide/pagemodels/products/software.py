@@ -1,13 +1,15 @@
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
-from .base import BaseProduct
+from .base import BaseProduct, register_product_type
 
 
 class SoftwareProduct(BaseProduct):
-    product_type = 'software'
+    """
+    A thing you can install on your computer and our review of it
+    """
 
-    # HOW DOES IT HANDLE PRIVACY?
+    # How does it handle privacy?
 
     handles_recordings_how = models.TextField(
         max_length=5000,
@@ -44,7 +46,7 @@ class SoftwareProduct(BaseProduct):
         blank=True
     )
 
-    # CAN I CONTROL IT?
+    # Can I control it?
 
     host_controls = models.TextField(
         max_length=5000,
@@ -89,6 +91,10 @@ class SoftwareProduct(BaseProduct):
 
     # todict function
     def to_dict(self):
-        model_dict = super.to_dict()
-        model_dict['product_type'] = self.product_type
+        model_dict = super().to_dict()
+        model_dict['product_type'] = 'software'
         return model_dict
+
+
+# Register this model class so that BaseProduct can "cast" properly
+register_product_type(SoftwareProduct)
