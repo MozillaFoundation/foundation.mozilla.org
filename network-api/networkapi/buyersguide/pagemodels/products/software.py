@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
+from networkapi.buyersguide.fields import ExtendedYesNoField
 from .base import BaseProduct, register_product_type
 
 
@@ -17,7 +18,7 @@ class SoftwareProduct(BaseProduct):
         help_text='How does this software handle your recordings'
     )
 
-    recording_alert = models.BooleanField(
+    recording_alert = ExtendedYesNoField(
         null=True,
         help_text='Alerts when calls are being recorded?',
     )
