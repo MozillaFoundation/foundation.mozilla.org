@@ -108,11 +108,11 @@ product_panels = [
     FieldPanel('related_products'),
 ]
 
-types = list()
+registered_product_types = list()
 
 
 def register_product_type(ModelClass):
-    types.append(ModelClass)
+    registered_product_types.append(ModelClass)
 
 
 class BaseProduct(ClusterableModel):
@@ -121,7 +121,7 @@ class BaseProduct(ClusterableModel):
     """
     @property
     def specific(self):
-        for Type in types:
+        for Type in registered_product_types:
             try:
                 return Type.objects.get(slug=self.slug)
             except ObjectDoesNotExist:
