@@ -53,7 +53,7 @@ urlpatterns = list(filter(None, [
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     url(r'^documents/', include(wagtaildocs_urls)),
-    url('^sitemap.xml$', sitemap) if settings.DEBUG else None,
+    url('^sitemap.xml$', sitemap),
 
     # Sentry test url
     path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,

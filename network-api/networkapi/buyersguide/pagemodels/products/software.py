@@ -28,14 +28,25 @@ class SoftwareProduct(BaseProduct):
         blank=True
     )
 
-    signup_with_contact_info = models.BooleanField(
+    signup_with_email = models.BooleanField(
         null=True,
-        help_text='Email or phone number required to sign up? Email/Phone = Yes, Third Party Acount = No',
+        help_text='Email required to sign up?',
     )
 
-    signup_with_contact_info_helptext = models.TextField(
+    signup_with_phone = models.BooleanField(
+        null=True,
+        help_text='Phone number required to sign up?',
+    )
+
+    signup_with_third_party = models.BooleanField(
+        null=True,
+        help_text='Third Party account required to sign up?',
+    )
+
+    signup_methods_helptext = models.TextField(
         max_length=5000,
-        blank=True
+        blank=True,
+        help_text='Describe the kind of contact information requirements for signing up for this product'
     )
 
     medical_privacy_compliant = models.BooleanField(
@@ -71,8 +82,10 @@ class SoftwareProduct(BaseProduct):
                 FieldPanel('handles_recordings_how'),
                 FieldPanel('recording_alert'),
                 FieldPanel('recording_alert_helptext'),
-                FieldPanel('signup_with_contact_info'),
-                FieldPanel('signup_with_contact_info_helptext'),
+                FieldPanel('signup_with_email'),
+                FieldPanel('signup_with_phone'),
+                FieldPanel('signup_with_third_party'),
+                FieldPanel('signup_methods_helptext'),
                 FieldPanel('medical_privacy_compliant'),
                 FieldPanel('medical_privacy_compliant_helptext'),
             ],
