@@ -141,8 +141,8 @@
 
             {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
             {% include "fragments/product_criterion.html"  with  label=handles_recordings_how       value=""                                           help=product.handles_recordings_how                 %}
-            {% include "fragments/product_criterion.html"  with  label=recording_alert              value=product.recording_alert                      help=product.recording_alert_helptext               %}
-            {% include "fragments/product_criterion.html"  with  label=medical_privacy_compliant    value=product.medical_privacy_compliant            help=product.medical_privacy_compliant_helptext     %}
+            {% include "fragments/product_criterion.html"  with  label=recording_alert              value=product.recording_alert|yes_no                      help=product.recording_alert_helptext               %}
+            {% include "fragments/product_criterion.html"  with  label=medical_privacy_compliant    value=product.medical_privacy_compliant|yes_no            help=product.medical_privacy_compliant_helptext     %}
             {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
           {% endif %}
         </div>
@@ -155,7 +155,7 @@
           {% trans "Is it easy to learn and use the features?" as easy_to_learn_and_use %}
 
           {% include "fragments/product_criterion.html"  with  label=host_controls            value=""                               help=product.host_controls                      %}
-          {% include "fragments/product_criterion.html"  with  label=easy_to_learn_and_use    value=product.easy_to_learn_and_use    help=product.easy_to_learn_and_use_helptext     %}
+          {% include "fragments/product_criterion.html"  with  label=easy_to_learn_and_use    value=product.easy_to_learn_and_use|yes_no    help=product.easy_to_learn_and_use_helptext     %}
         </div>
 
         {% endif %}
