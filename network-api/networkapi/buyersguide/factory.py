@@ -14,10 +14,11 @@ from factory import (
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
-    Product,
+    BaseProduct,
+    GeneralProduct,
     BuyersGuideProductCategory,
-    RangeVote,
-    BooleanVote
+    BaseRangeVote,
+    BaseBooleanVote
 )
 
 Faker.add_provider(ImageProvider)
@@ -31,7 +32,7 @@ def get_extended_yes_no_value():
 class ProductFactory(DjangoModelFactory):
 
     class Meta:
-        model = Product
+        model = GeneralProduct
         exclude = (
             'product_words'
         )
@@ -78,8 +79,6 @@ class ProductFactory(DjangoModelFactory):
     parental_controls = LazyFunction(get_extended_yes_no_value)
     phone_number = Faker('phone_number')
     price = LazyAttribute(lambda _: randint(49, 1500))
-    privacy_policy_reading_level = LazyAttribute(lambda _: str(randint(7, 15)))
-    privacy_policy_reading_level_url = Faker('url')
     security_updates = LazyFunction(get_extended_yes_no_value)
     share_data = Faker('boolean')
     strong_password = LazyFunction(get_extended_yes_no_value)
@@ -121,8 +120,6 @@ def generate(seed):
         parental_controls='NA',
         phone_number='1-555-555-5555',
         price=350,
-        privacy_policy_reading_level_url='https://vrt.example.com/pprl',
-        privacy_policy_reading_level='7',
         product_words=['Percy', 'Cypress'],
         security_updates='No',
         share_data=False,
@@ -140,17 +137,17 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Randomised Buyer\'s Guide Products Votes')
-    for p in Product.objects.all():
+    for p in BaseProduct.objects.all():
         for _ in range(1, 15):
             value = randint(1, 100)
-            RangeVote.objects.create(
+            BaseRangeVote.objects.create(
                 product=p,
                 attribute='creepiness',
                 value=value
             )
 
             value = (random() < 0.5)
-            BooleanVote.objects.create(
+            BaseBooleanVote.objects.create(
                 product=p,
                 attribute='confidence',
                 value=value

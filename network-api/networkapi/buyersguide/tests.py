@@ -10,7 +10,12 @@ from django.test import TestCase, RequestFactory
 from datetime import date
 
 from networkapi.buyersguide.factory import ProductFactory
-from networkapi.buyersguide.models import RangeVote, BooleanVote, Product, BuyersGuideProductCategory
+from networkapi.buyersguide.models import (
+    BaseRangeVote,
+    BaseBooleanVote,
+    GeneralProduct,
+    BuyersGuideProductCategory
+)
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 from django.core.management import call_command
 
@@ -117,7 +122,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        latest_vote = RangeVote.objects.last()
+        latest_vote = BaseRangeVote.objects.last()
 
         self.assertEqual(latest_vote.value, vote_value)
         self.assertEqual(latest_vote.product.id, test_product_id)
@@ -134,7 +139,7 @@ class BuyersGuideVoteTest(APITestCase):
             'value': vote_value,
             'productID': test_product_id
         }, format='json')
-        latest_vote = BooleanVote.objects.last()
+        latest_vote = BaseBooleanVote.objects.last()
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(latest_vote.value, vote_value)
@@ -362,7 +367,7 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the product view returns a 200
         """
-        p = Product.objects.create(name='test product view', review_date=date.today())
+        p = GeneralProduct.objects.create(name='test product view', review_date=date.today())
 
         logger = logging.getLogger('django.request')
         previous_level = logger.getEffectiveLevel()
@@ -398,11 +403,11 @@ class BuyersGuideViewTest(TestCase):
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class ProductTests(TestCase):
     def test_product_slug(self):
-        p = Product.objects.create(name='this name should get slugified', review_date=date.today())
+        p = GeneralProduct.objects.create(name='this name should get slugified', review_date=date.today())
         self.assertEqual(p.slug, slugify(p.name))
 
     def name_change_changes_slug(self):
-        p = Product.objects.create(name='this will change', review_date=date.today())
+        p = GeneralProduct.objects.create(name='this will change', review_date=date.today())
         p.name = 'name changed'
         p.save()
         self.assertEqual(p.slug, slugify(p.name))
