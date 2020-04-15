@@ -117,7 +117,7 @@ def register_product_type(ModelClass):
 
 class BaseProduct(ClusterableModel):
     """
-    A thing you can buy in stores and our review of it
+    A product that may not have privacy included.
     """
     @property
     def specific(self):
