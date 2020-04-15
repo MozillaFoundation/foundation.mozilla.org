@@ -90,7 +90,7 @@
       <div id="product-research" class="mt-5">
         <div class="row">
           <div class="col-12">
-            <div class="creep-vote-target mb-5 mt-3 mt-md-4" data-product-name="{{product.name}}">
+            <div class="creep-vote-target mb-5 mt-3 mt-md-4" data-product-name="{{product.name}}" data-product-type="{{product.product_type}}">
               {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value="{{ product.votes | safe }}">
@@ -100,7 +100,7 @@
 
         {% if product.product_type == 'general' %}
         <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
-        <div class="row criterion mb-5 no-gutters pb-3 d-flex flex-column flex-xl-row justify-content-between">
+        <div class="row criterion mb-5 no-gutters d-flex flex-column flex-xl-row justify-content-between">
           {% trans "Camera"          as camera %}
           {% trans "Microphone"      as microphone %}
           {% trans "Tracks Location" as tracks_location %}
@@ -118,7 +118,7 @@
 
         <h3 class="h3-heading">{% trans "How does it handle privacy?" %}</h3>
 
-        <div class="mb-5 pb-3">
+        <div class="mb-5">
           {% trans "How does it share data?"      as how_does_it_share %}
           {% trans "Links to privacy information" as privacy_policy_links %}
 
@@ -150,7 +150,7 @@
         {% if product.product_type == 'software' %}
         <h3 class="h3-heading">{% trans "Can I control it?" %}</h3>
 
-        <div class="mb-5 pb-3">
+        <div class="mb-5">
           {% trans "Host controls" as host_controls %}
           {% trans "Is it easy to learn and use the features?" as easy_to_learn_and_use %}
 
