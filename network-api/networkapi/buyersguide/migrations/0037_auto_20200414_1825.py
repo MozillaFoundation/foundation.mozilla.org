@@ -33,12 +33,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='softwareproduct',
-            name='medical_pricavy_compliant',
+            name='medical_privacy_compliant',
             field=models.BooleanField(help_text='Compliant with US medical privacy laws?'),
         ),
         migrations.AddField(
             model_name='softwareproduct',
-            name='medical_pricavy_compliant_helptext',
+            name='medical_privacy_compliant_helptext',
             field=models.TextField(blank=True, max_length=5000),
         ),
         migrations.AddField(

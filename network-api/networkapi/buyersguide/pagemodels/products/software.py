@@ -37,11 +37,11 @@ class SoftwareProduct(BaseProduct):
         blank=True
     )
 
-    medical_pricavy_compliant = models.BooleanField(
+    medical_privacy_compliant = models.BooleanField(
         help_text='Compliant with US medical privacy laws?'
     )
 
-    medical_pricavy_compliant_helptext = models.TextField(
+    medical_privacy_compliant_helptext = models.TextField(
         max_length=5000,
         blank=True
     )
@@ -72,8 +72,8 @@ class SoftwareProduct(BaseProduct):
                 FieldPanel('recording_alert_helptext'),
                 FieldPanel('signup_with_contact_info'),
                 FieldPanel('signup_with_contact_info_helptext'),
-                FieldPanel('medical_pricavy_compliant'),
-                FieldPanel('medical_pricavy_compliant_helptext'),
+                FieldPanel('medical_privacy_compliant'),
+                FieldPanel('medical_privacy_compliant_helptext'),
             ],
             heading='how does it handle privacy?',
             classname='collapsible'
