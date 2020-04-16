@@ -177,11 +177,12 @@
           <p>{{product.worst_case}}</p>
         </div>
 
+        {% if product.product_type == 'general' %}
         <h3 class="body mb-2">{% trans "How to contact the company" %}</h3>
-
         <div>
           {% include "fragments/product_contact.html" with product=product %}
         </div>
+        {% endif %}
       </div>
     </div>
   </div>
