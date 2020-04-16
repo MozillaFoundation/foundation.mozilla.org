@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
+from wagtail.core.fields import RichTextField
 from wagtail.snippets.models import register_snippet
 
 from .products.base import BaseProduct
@@ -14,9 +15,15 @@ class BuyersGuideProductCategory(models.Model):
     when necessary.
     """
     name = models.CharField(max_length=100)
+
     description = models.TextField(
         max_length=300,
         help_text='Description of the product category. Max. 300 characters.',
+        blank=True
+    )
+
+    long_description = RichTextField(
+        help_text='The long description for this product category, if necessary.',
         blank=True
     )
 
