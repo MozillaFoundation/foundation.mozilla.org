@@ -10,7 +10,11 @@ export default class LikelyhoodChart extends React.Component {
   render() {
     let values = this.props.values;
     let total = values[0] + values[1];
-    let perc = Math.round((100 * values[0]) / total, 10);
+    let perc = 50;
+
+    if (total > 0) {
+      perc = Math.round((100 * values[0]) / total, 10);
+    }
 
     return (
       <div>
