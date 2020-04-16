@@ -58,7 +58,7 @@
 
     let cards = profiles.map(profile => {
       return `
-      <div class="col-md-6 col-12 mb-5">
+      <div class="col-lg-6 col-12 mb-5">
         <div class="person-card">
           <div class="thumbnail-wrapper">
             <a href="https://www.mozillapulse.org/profile/${

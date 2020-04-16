@@ -1,5 +1,5 @@
-import utility from "./utility";
-import navNewsletter from "./nav-newsletter.js";
+import utility from "../../../utility.js";
+import navNewsletter from "../../../nav-newsletter.js";
 
 // factor for bringing image blocks closer to perspective origin
 const ZOOM_FACTOR = 2.5;
@@ -26,6 +26,8 @@ class YouTubeRegretsTunnel {
     this.introScrollHeight = 0;
     this.sceneDepth = 0;
     this.lastPageYOffset = 0;
+
+    this.init();
   }
 
   /**
@@ -247,14 +249,16 @@ class YouTubeRegretsTunnel {
     this.setObjectsOpacity();
     this.toggleScrollHint();
 
-    window.addEventListener(`scroll`, event => {
-      this.moveObjects();
-      this.setObjectsOpacity();
-      this.toggleScrollHint();
-    });
+    window.addEventListener(
+      `scroll`,
+      () => {
+        this.moveObjects();
+        this.setObjectsOpacity();
+        this.toggleScrollHint();
+      },
+      { passive: true }
+    );
   }
 }
 
 const youTubeRegretsTunnel = new YouTubeRegretsTunnel();
-
-export default youTubeRegretsTunnel;

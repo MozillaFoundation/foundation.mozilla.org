@@ -17,6 +17,23 @@ class BlogPageCategory(models.Model):
         blank=True,
     )
 
+    def get_categories():
+        """
+        WARNING: this function is referenced by two migrations:
+
+        - mozfest/0014_auto_20200406_2109.py
+        - wagtailpages/0095_auto_20200406_2109.py
+
+        This means that renaming/(re)moving this function will require
+        back-updating those two migrations, as "from scratch" migrations
+        (compared to update-only migrations) will throw errors when trying
+        to apply this function from its original location.
+        """
+        choices = [(cat.name, cat.name) for cat in BlogPageCategory.objects.all()]
+        choices.sort(key=lambda c: c[1])
+        choices.insert(0, ('All', 'All'))
+        return choices
+
     @property
     def slug(self):
         return slugify(self.name)
