@@ -1,7 +1,13 @@
+# =====================================================
+#
+# THIS WILL GET REPLACED BY THE NEW MODEL IN general.py
+#
+# =====================================================
+
 from datetime import datetime
 
 from cloudinary import uploader
-from cloudinary.models import CloudinaryField
+
 
 from django.conf import settings
 from django.db import models
@@ -16,20 +22,12 @@ from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 
-from .get_product_image_upload_path import get_product_image_upload_path
-from .get_product_vote_information import get_product_vote_information
+from ..cloudinary_image_field import CloudinaryField
 
-from ..utils import tri_to_quad
+from ..get_product_image_upload_path import get_product_image_upload_path
+from ..get_product_vote_information import get_product_vote_information
 
-
-# Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
-# TODO: this is not needed anymore and needs to be removed.
-class CloudinaryImageField(CloudinaryField):
-    def upload_options(self, model_instance):
-        return {
-            'folder': 'foundationsite/buyersguide',
-            'use_filename': True,
-        }
+from ...utils import tri_to_quad
 
 
 class Product(ClusterableModel):

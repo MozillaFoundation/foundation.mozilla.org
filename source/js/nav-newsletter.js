@@ -58,7 +58,9 @@ class NavNewsletter {
     elements.container.classList.add("expanded");
     elements.buttonDesktop.classList.add("active");
     document.addEventListener(`click`, this.closeFormClickHandler);
-    document.addEventListener("scroll", this.closeFormClickHandler);
+    document.addEventListener(`scroll`, this.closeFormClickHandler, {
+      passive: true
+    });
     this.isShown = true;
   }
 
