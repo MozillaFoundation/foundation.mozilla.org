@@ -34,6 +34,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/commitment";
 @import "./components/card";
 @import "./components/airtable-block";
+@import "./components/typeform-block";
 @import "./components/image-text-mini";
 @import "./components/select-dropdown";
 
