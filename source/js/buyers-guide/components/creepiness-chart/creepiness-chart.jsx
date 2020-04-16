@@ -44,7 +44,7 @@ export default class CreepChart extends React.Component {
     let sum = data.reduce((tally, v) => tally + v.value, 0);
 
     return {
-      totalCreepiness: sum,
+      totalCreepiness: sum < 1 ? 1 : sum,
       creepinessData: data
     };
   }
