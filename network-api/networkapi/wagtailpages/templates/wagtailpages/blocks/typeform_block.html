@@ -1,0 +1,21 @@
+<script
+  src="https://embed.typeform.com/embed.js"
+  type="text/javascript"
+></script>
+
+<div
+  id="typeform-embed"
+  class="typeform-embed"
+  style="height: {{ value.height }}px;"
+></div>
+
+<script type="text/javascript">
+  window.addEventListener("DOMContentLoaded", () => {
+    let el = document.querySelector("div#typeform-embed");
+    window.typeformEmbed.makeWidget(el, "{{ value.url }}", {
+      hideFooter: true,
+      hideHeader: true,
+      opacity: 0
+    });
+  });
+</script>

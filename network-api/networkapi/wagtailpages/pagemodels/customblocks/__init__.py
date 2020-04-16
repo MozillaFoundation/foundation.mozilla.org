@@ -12,6 +12,7 @@ from .profile_by_id import ProfileById
 from .profile_directory import ProfileDirectory
 from .pulse_project_list import PulseProjectList
 from .recent_blog_entries import RecentBlogEntries
+from .typeform_block import TypeFormBlock
 from .quote_block import QuoteBlock
 from .video_block import VideoBlock
 from .youtube_regret_block import YoutubeRegretBlock
@@ -33,6 +34,7 @@ __all__ = [
     PulseProjectList,
     QuoteBlock,
     RecentBlogEntries,
+    TypeFormBlock,
     VideoBlock,
     YoutubeRegretBlock,
 ]
