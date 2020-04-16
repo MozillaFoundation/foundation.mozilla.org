@@ -3,7 +3,7 @@
   {% include "./product_criterion_primary_info.html"  with  label=label  value=value %}
 
   {% if links|length > 0 %}
-  <ul class="mb-0">
+  <ul class="list-unstyled mb-0">
     {% for link in product.privacy_policy_links reversed %}
       <li class="helptext">
         {% if link.url != "" %}

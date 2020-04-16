@@ -130,15 +130,15 @@ $product-detail-padding-x: (
   }
 
   .it-uses,
-  .signup_requirement {
-    margin-top: $spacer;
+  .signup-requirement {
+    margin-bottom: $spacer;
+
+    @media (min-width: $bp-md) {
+      margin-bottom: $spacer * 1.5;
+    }
 
     .separator {
       color: $gray-20;
-    }
-
-    &:last-child() {
-      margin-bottom: $spacer;
     }
   }
 }

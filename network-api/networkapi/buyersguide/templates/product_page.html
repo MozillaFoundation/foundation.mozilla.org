@@ -100,7 +100,7 @@
 
         {% if product.product_type == 'general' %}
         <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
-        <div class="row criterion mb-5 no-gutters d-flex flex-column flex-xl-row justify-content-between">
+        <div class="row criterion pb-0 mb-5 no-gutters d-flex flex-column flex-xl-row justify-content-between">
           {% trans "Camera"          as camera %}
           {% trans "Microphone"      as microphone %}
           {% trans "Tracks Location" as tracks_location %}
@@ -111,7 +111,7 @@
         </div>
         {% elif product.product_type == 'software' %}
         <h3 class="h3-heading">{% trans "What is required to sign up?" %}</h3>
-        <div class="row criterion no-gutters d-flex flex-column flex-xl-row justify-content-between">
+        <div class="row criterion pb-0 no-gutters d-flex flex-column flex-xl-row justify-content-between">
           {% trans "Email"               as email %}
           {% trans "Phone"               as phone %}
           {% trans "Third party account" as third_party_account %}
@@ -121,7 +121,7 @@
           {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_with_third_party    %}
         </div>
         {% if product.signup_methods_helptext %}
-          <p class="mb-5 font-italic">*{{product.signup_methods_helptext}}</p>
+          <p class="mb-5 font-italic">{{product.signup_methods_helptext}}</p>
         {% endif %}
         {% endif %}
 
