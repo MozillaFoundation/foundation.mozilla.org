@@ -16,7 +16,6 @@ services:
     command: npm run watch
     volumes:
       - .:/app:delegated
-      - node_dependencies:/app/node_modules/:delegated
 
   postgres:
     image: postgres:9.6
@@ -35,7 +34,7 @@ services:
       dockerfile: ./dockerfiles/Dockerfile.python
     env_file:
       - ".env"
-    command: pipenv run python network-api/manage.py runserver 0.0.0.0:8000
+    command: dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     volumes:
@@ -46,4 +45,3 @@ services:
 
 volumes:
   postgres_data:
-  node_dependencies:
