@@ -131,6 +131,7 @@ let main = {
 
     document.querySelectorAll(`.creep-vote-target`).forEach(element => {
       let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
+      let productType = element.dataset.productType;
       let productName = element.dataset.productName;
       let productID = element.querySelector(`input[name=productID]`).value;
       let votesValue = element.querySelector(`input[name=votes]`).value;
@@ -157,6 +158,7 @@ let main = {
           ReactDOM.render(
             <CreepVote
               csrf={csrf.value}
+              productType={productType}
               productName={productName}
               productID={parseInt(productID, 10)}
               votes={votes}

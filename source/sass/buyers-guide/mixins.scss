@@ -43,3 +43,26 @@
     }
   }
 }
+
+@mixin category-nav-link-with-icon($background-image-url) {
+  @if $background-image-url != false and $background-image-url != "" {
+    $icon-width: 18px;
+
+    position: relative;
+    padding-left: calc(#{$icon-width} + 5px);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      background: url($background-image-url)
+        no-repeat
+        center
+        calc(50% + 2px) /
+        contain;
+      width: $icon-width;
+      height: 100%;
+    }
+  }
+}

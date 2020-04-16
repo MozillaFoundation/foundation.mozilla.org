@@ -13,6 +13,7 @@ export default class CreepVote extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
+    this.buyOrUse = this.props.productType === "software" ? "use" : "buy";
   }
 
   getInitialState() {
@@ -178,7 +179,7 @@ export default class CreepVote extends React.Component {
             <div className="col-12 col-md-6 mt-5 mt-md-0">
               <div className="mb-4 text-center">
                 <h3 className="h5-heading mb-2">
-                  How likely are you to buy it?
+                  {`How likely are you to ${this.buyOrUse} it?`}
                 </h3>
               </div>
               <div className="text-center">
@@ -297,7 +298,10 @@ export default class CreepVote extends React.Component {
                 />
               </div>
               <div className="col likelyhood-chart d-flex justify-content-center">
-                <LikelyhoodChart values={this.props.votes.confidence} />
+                <LikelyhoodChart
+                  values={this.props.votes.confidence}
+                  buyOrUse={this.buyOrUse}
+                />
               </div>
             </div>
           </div>

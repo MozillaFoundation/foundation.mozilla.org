@@ -31,21 +31,15 @@ $category-nav-border-bottom-thickness: 4px;
     }
 
     &.featured[data-name="Valentine's Day"] {
-      $icon-width: 18px;
+      @include category-nav-link-with-icon(
+        "../_images/buyers-guide/icon-heart.svg"
+      );
+    }
 
-      position: relative;
-      padding-left: calc(#{$icon-width} + 5px);
-
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        background: url(../_images/buyers-guide/icon-heart.svg) no-repeat center
-          calc(50% + 2px) / contain;
-        width: $icon-width;
-        height: 100%;
-      }
+    &.featured[data-name="Video Call Apps"] {
+      @include category-nav-link-with-icon(
+        "../_images/buyers-guide/icon-video-app.svg"
+      );
     }
   }
 }

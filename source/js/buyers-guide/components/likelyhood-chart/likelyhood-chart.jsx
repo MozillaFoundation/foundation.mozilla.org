@@ -27,7 +27,7 @@ export default class LikelyhoodChart extends React.Component {
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${100 - perc}%` }} />
                 <span className="likelyhood-words">
-                  {100 - perc}% likely to buy it
+                  {100 - perc}% likely to {this.props.buyOrUse} it
                 </span>
               </td>
             </tr>
@@ -38,7 +38,7 @@ export default class LikelyhoodChart extends React.Component {
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${perc}%` }} />
                 <span className="likelyhood-words">
-                  {perc}% not likely to buy it
+                  {perc}% not likely to {this.props.buyOrUse} it
                 </span>
               </td>
             </tr>
