@@ -1,46 +1,51 @@
-# Docker for Local Dev Documentation
+# Local Dev Documentation
 
 This documentation is composed of three main sections:
-- [How to install and use Docker for local development](./local_development_with_docker.md#how-to-use)
-- [Connecting Docker to your code editor](./local_development_with_docker.md#connecting-docker-to-your-code-editor)
-- [Docker 101 and how we use it with the foundation site](./local_development_with_docker.md#docker-vocabulary-and-overview). Start here if you're new to Docker
-- [FAQ](./local_development_with_docker.md#faq)
+- [How to install and use Docker for local development](./local_development.md#how-to-use)
+- [Connecting Docker to your code editor](./local_development.md#connecting-docker-to-your-code-editor)
+- [Docker 101 and how we use it with the foundation site](./local_development.md#docker-vocabulary-and-overview). Start here if you're new to Docker
+- [FAQ](./local_development.md#faq)
 
 ## How to use
 
 To interact with the project, you can use [docker](https://docs.docker.com/engine/reference/commandline/cli/) and [docker-compose](https://docs.docker.com/compose/reference/overview/) CLIs or use shortcuts with invoke.
 
 The general workflow is:
-- Install the project with `invoke docker-new-env`,
+- Install the project with `invoke new-env`,
 - Run the project with `docker-compose up`,
 - Log into the admin site with username `admin` and password `admin`,
 - Use invoke commands for frequent development tasks (database migrations, dependencies install, run tests, etc),
-- After doing a `git pull`, keep your clone up to date by running `invoke docker-catchup`.
+- After doing a `git pull`, keep your clone up to date by running `invoke catchup`.
 
 ### Invoke commands
 
  To get a list of invoke commands available, run `invoke -l`:
 
 ```
-  docker-catch-up (docker-catchup)   Rebuild images and apply migrations
-  docker-l10n-sync                   Sync localizable fields in the database
-  docker-l10n-update                 Update localizable field data (copies from original unlocalized to default localized field)
-  docker-makemigrations              Creates new migration(s) for apps
-  docker-manage                      Shorthand to manage.py. inv docker.manage "[COMMAND] [ARG]"
-  docker-migrate                     Updates database schema
-  docker-new-db                      Delete your database and create a new one with fake data
-  docker-new-env                     Get a new dev environment and a new database with fake data
-  docker-npm                         Shorthand to npm. inv docker.npm "[COMMAND] [ARG]"
-  docker-pipenv                      Shorthand to pipenv. inv docker.pipenv "[COMMAND] [ARG]"
-  docker-test-node                   Run node tests
-  docker-test-python                 Run python tests
+  catch-up (catchup, docker-catchup)           Rebuild images, install dependencies, and apply migrations
+  compilemessages (docker-compilemessages)     Compile the latest translations
+  l10n-sync (docker-l10n-sync)                 Sync localizable fields in the database
+  l10n-update (docker-l10n-update)             Update localizable field data (copies from original unlocalized to
+                                               default localized field)
+  makemessages (docker-makemessages)           Extract all template messages in .po files for localization
+  makemigrations (docker-makemigrations)       Creates new migration(s) for apps
+  manage (docker-manage)                       Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
+  migrate (docker-migrate)                     Updates database schema
+  new-db (docker-new-db)                       Delete your database and create a new one with fake data
+  new-env (docker-new-env)                     Get a new dev environment and a new database with fake data
+  npm (docker-npm)                             Shorthand to npm. inv docker-npm "[COMMAND] [ARG]"
+  npm-install (docker-npm-install)             Install Node dependencies
+  pip-compile (docker-pip-compile)             Shorthand to pip-tools. inv pip-compile "[COMMAND] [ARG]"
+  pip-compile-lock (docker-pip-compile-lock)   Lock prod and dev dependencies
+  pip-sync (docker-pip-sync)                   Sync your python virtualenv
+  test (docker-test)                           Run both Node and Python tests
+  test-node (docker-test-node)                 Run node tests
+  test-python (docker-test-python)             Run python tests
 ```
 
-`docker-` prefixes all Docker commands. Note the double quotes to pass multiples arguments to `docker-manage`, `docker-pipenv` and `docker-npm` commands. There's no `invoke docker-runserver` command: use `docker-compose up` instead.
-
-**A few examples:** `invoke docker-pipenv "install requests""`: add requests to your `Pipfile` and lock it. :rotating_light: The package won't be installed: you need to [rebuild your image](./local_development_with_docker.md#python).
-- `invoke docker-manage load_fake_data`: add more fake data to your project,
-- `invoke docker-npm "install moment"`: install moment, add it to your `package.json` and lock it.
+**A few examples:**
+- `invoke manage load_fake_data`: add more fake data to your project,
+- `invoke npm "install moment"`: install moment, add it to your `package.json` and lock it.
 
 ### Docker and docker-compose CLIs
 
@@ -61,32 +66,71 @@ We strongly recommend you to check at least the [docker-compose CLI](https://doc
 
 ### How to install or update dependencies?
 
-The significant difference between the two is that python dependencies are "baked" into the image, while JS dependencies are stored in a volume.
-
 #### Python
+
+**Note on [pip-tools](https://github.com/jazzband/pip-tools)**:
+- Only edit the `.in` files and use `invoke pip-compile-lock` to generate `.txt` files.
+- Both `(dev-)requirements.txt` and `(dev-)requirements.in` files need to be pushed to Github.
+- `.txt` files act as lockfiles, where dependencies are pined to a precise version.
+
+Dependencies live on your filesystem: you don't need to rebuild the `backend` image when installing or updating dependencies. 
 
 **Install packages:**
 
-Use `invoke docker-pipenv "install [PACKAGE]"`.
-
-:rotating_light: Important note! :rotating_light: This **only** add the dependency to your `Pipfile` and lock-it: it doesn't install your dependency! After running this command, run `docker-compose build backend` to create a new and updated backend image to use.
+- Modify the `requirements.in` or `dev-requirements.in` to add the dependency you want to install.
+- Run `invoke pip-compile-lock`.
+- Run `invoke pip-sync`.
 
 **Update packages:**
 
-To update your dependencies, do `invoke docker-pipenv update`, then build the new image with `docker-compose build backend`.
+- `invoke pip-compile "-U (dev-)requirements.in"`: update all (the dev) dependencies.
+- `invoke pip-compile "-P [PACKAGE](==x.x.x)"`: update the specified dependency. To update multiple dependencies, you always need to add the `-P` flag.
+
 
 #### JS
 
+Dependencies live on your filesystem: you don't need to rebuild the `watch-static-files` image when installing or updating dependencies.
+
 **Install packages:**
 
-Use `invoke docker-npm "install [PACKAGE]"`.
+Use `invoke npm "install [PACKAGE]"`.
 
 **Update packages:**
 
-Use `invoke docker-npm update`.
+Use `invoke npm update`.
 
-You don't need to rebuild the `watch-static-files` image.
 
+### Using a copy of the staging database for critical testing
+
+Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
+
+The steps involved in cloning the database for local use are as follows:
+
+1) grab a copy of the staging database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and needs to be replaced with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the staging instance.
+
+_If you are unsure how to get to this value, or how to get to the heroku staging settings, ask someone in the engineering team._
+
+This will take a little while, but once the operation  finishes, open `foundation.psql` in your favourite text/code editor and take note of who the owner is by looking for the following statements:
+
+```
+SET search_path = public, pg_catalog;
+
+--
+-- Name: clean_user_data(); Type: FUNCTION; Schema: public; Owner: ...... <= we want to know this string
+--
+```
+
+2) Run `docker-compose up`. In another terminal, run `createdb foundation  -p 5678 -h localhost -U foundation` on the command line so that you have a postgresql database to work with. If you get an error that you already have a database called `foundation`, either create a new database with a new name (and then use that name in the next steps) or delete the old database using `dropdb foundation  -p 5678 -h localhost -U foundation` before issuing `createdb foundation`.
+
+3) Run `psql foundation  -p 5678 -h localhost -U foundation` on the command line to connect to that database.
+
+4) Run `CREATE ROLE TheOwnerNameFromTheDBdump WITH SUPERUSER;` in the postgresql command line interface, making sure to have that semi-colon at the end, and making sure NOT to quote the owner name string.
+
+5) Run `\i foundation.psql` in the postgresql command line interface to import the `foundation` database content. Once this finishes you will have an exact copy of the production database set up for local testing.
+
+You will now also need to update your `.env` file to make sure you're using this database, setting `DATABASE_URL=postgresql://foundation:mozilla@postgres:5432/foundation`.
+
+If you need to reset this database, rerun step 2 (with `dropdb foundation  -p 5678 -h localhost -U foundation` as first command) through 5 to get back to a clean copy of the production database.
 
 ---
 
@@ -165,13 +209,11 @@ Static files are automatically built when starting the `watch-static-files` cont
 Let's do a quick overview of all the tools you're currently using to run the foundation site on your computer:
 
 - `npm`: use to manage javascript dependencies (`packages.json`, `packages-lock.json`). Also used to launch commands like `npm run start`.
-- `pipenv`: use to manage python dependencies (`pipfile`, `pipfile.lock`). Also manage a python virtual environment, which isolates the foundation site's python packages from the rest of your system.
-- `invoke`/`inv`: use as a cli tool to provide shortcuts for most used commands. ex: `inv runserver` is a shortcut for `pipenv run python network-api/manage.py runserver`.
+- `pip-tools`: use to manage python dependencies (`(dev-)requirements.in` and `(dev-)requirements.txt`).
+- `invoke`/`inv`: use as a cli tool to provide shortcuts for most used commands. ex: `inv migrate` is a shortcut for `docker-compose run --rm backend ./dockerpythonvenv/bin/python network-api/manage.py migrate`.
 
-We still use all those tools with Docker. The major difference is that `npm` and `pipenv` is now running inside a container, while invoke continues to run as before.
+We still use all those tools with Docker. The major difference is that `npm` and `python` are now running inside a container, while invoke continues to run outside of it.
 
 ### Can I use Docker in parallel with the old way of running the foundation site?
 
-Short answer is yes but:
-- you will have two different databases.
-- those two environment won't share their dependencies: you will have to maintain and update both of them.
+Short answer is yes, but those two environments won't share their dependencies: you will have to maintain and update both of them.
