@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
-
-from bs4 import BeautifulSoup
+from django.utils.text import Truncator
 
 from .models import BlogIndexPage
 
@@ -37,10 +36,7 @@ class RSSFeed(Feed):
     def item_description(self, item):
         page = item.specific
         html = str(page.body)
-        parsed = BeautifulSoup(html, 'html.parser')
-        text = parsed.get_text()[:1000]
-        if len(text) == 1000:
-            text = f'{text}[...]'
+        text = Truncator(html).chars(1000, html=True)
         return text
 
     def item_pubdate(self, item):

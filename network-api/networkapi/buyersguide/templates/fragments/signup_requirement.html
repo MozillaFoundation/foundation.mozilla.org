@@ -1,0 +1,10 @@
+{% load yes_no i18n %}
+
+<div class="signup-requirement d-flex flex-column">
+  <div class="title">
+    <strong class="d-block">{{ title }}</strong>
+  </div>
+  <div class="explanation text-nowrap">
+    <span class="font-italic">{{ value|yes_no }}</span>
+  </div>
+</div>

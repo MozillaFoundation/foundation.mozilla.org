@@ -36,7 +36,7 @@
   <div class="row">
     <div class="product-detail bg-white py-3 py-md-4 px-md-5 {{section_class}}">
       <div class="row intro d-flex justify-content-between align-items-center">
-        <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} ${{product.price}}</a>
+        <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
           <button id="product-copy-link-button" class="copy-link small-link" data-url="{{product.url}}" data-success-text='{% trans "link copied!" %}'>{% trans "copy & share link" %}</button>
         </div>
@@ -90,7 +90,7 @@
       <div id="product-research" class="mt-5">
         <div class="row">
           <div class="col-12">
-            <div class="creep-vote-target mb-5 mt-3 mt-md-4" data-product-name="{{product.name}}">
+            <div class="creep-vote-target mb-5 mt-3 mt-md-4" data-product-name="{{product.name}}" data-product-type="{{product.product_type}}">
               {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value="{{ product.votes | safe }}">
@@ -98,10 +98,9 @@
           </div>
         </div>
 
-        <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
-
         {% if product.product_type == 'general' %}
-        <div class="row criterion mb-5 no-gutters pb-3 d-flex flex-column flex-xl-row justify-content-between">
+        <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
+        <div class="row criterion pb-0 mb-5 no-gutters d-flex flex-column flex-xl-row justify-content-between">
           {% trans "Camera"          as camera %}
           {% trans "Microphone"      as microphone %}
           {% trans "Tracks Location" as tracks_location %}
@@ -111,21 +110,32 @@
           {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
         </div>
         {% elif product.product_type == 'software' %}
-        <!-- code goes here -->
-        <div>SOFTWARE</div>
+        <h3 class="h3-heading">{% trans "What is required to sign up?" %}</h3>
+        <div class="row criterion pb-0 no-gutters d-flex flex-column flex-xl-row justify-content-between">
+          {% trans "Email"               as email %}
+          {% trans "Phone"               as phone %}
+          {% trans "Third party account" as third_party_account %}
+
+          {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_with_email          %}
+          {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_with_phone          %}
+          {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_with_third_party    %}
+        </div>
+        {% if product.signup_methods_helptext %}
+          <p class="mb-5 font-italic">{{product.signup_methods_helptext}}</p>
+        {% endif %}
         {% endif %}
 
         <h3 class="h3-heading">{% trans "How does it handle privacy?" %}</h3>
 
-        <div>
+        <div class="mb-5">
           {% trans "How does it share data?"      as how_does_it_share %}
+          {% trans "Links to privacy information" as privacy_policy_links %}
 
           {% if product.product_type == 'general' %}
             {% trans "Can you delete your data?"    as delete_data %}
             {% trans "Parental controls?"           as parental_controls %}
             {% trans "Collects biometrics data?"    as collects_biometrics %}
             {% trans "User friendly privacy info?"  as user_friendly_privacy_policy %}
-            {% trans "Links to privacy information" as privacy_policy_links %}
 
             {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
             {% include "fragments/product_criterion.html"  with  label=delete_data                  value=product.delete_data                          help=product.delete_data_helptext                   %}
@@ -134,10 +144,30 @@
             {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy value=product.user_friendly_privacy_policy         help=product.user_friendly_privacy_policy_helptext  %}
             {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
           {% elif product.product_type == 'software' %}
-            <!-- code goes here -->
-            <div>SOFTWARE</div>
+            {% trans "How are your recordings handled?" as handles_recordings_how %}
+            {% trans "Alerts when calls are being recorded?" as recording_alert %}
+            {% trans "Compliant with US medical privacy laws?" as medical_privacy_compliant %}
+
+            {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
+            {% include "fragments/product_criterion.html"  with  label=handles_recordings_how       value=""                                           help=product.handles_recordings_how                 %}
+            {% include "fragments/product_criterion.html"  with  label=recording_alert              value=product.recording_alert|extended_yes_no                      help=product.recording_alert_helptext               %}
+            {% include "fragments/product_criterion.html"  with  label=medical_privacy_compliant    value=product.medical_privacy_compliant|yes_no            help=product.medical_privacy_compliant_helptext     %}
+            {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
           {% endif %}
-          </div>
+        </div>
+
+        {% if product.product_type == 'software' %}
+        <h3 class="h3-heading">{% trans "Can I control it?" %}</h3>
+
+        <div class="mb-5">
+          {% trans "Host controls" as host_controls %}
+          {% trans "Is it easy to learn and use the features?" as easy_to_learn_and_use %}
+
+          {% include "fragments/product_criterion.html"  with  label=host_controls            value=""                               help=product.host_controls                      %}
+          {% include "fragments/product_criterion.html"  with  label=easy_to_learn_and_use    value=product.easy_to_learn_and_use|yes_no    help=product.easy_to_learn_and_use_helptext     %}
+        </div>
+
+        {% endif %}
 
         <div class="worst-case-box px-4 px-md-5 pt-5 pb-2 pb-md-4 mb-5 text-center">
           <div class="creep-face-emoji-wrapper d-inline-block">
@@ -147,11 +177,12 @@
           <p>{{product.worst_case}}</p>
         </div>
 
+        {% if product.product_type == 'general' %}
         <h3 class="body mb-2">{% trans "How to contact the company" %}</h3>
-
         <div>
           {% include "fragments/product_contact.html" with product=product %}
         </div>
+        {% endif %}
       </div>
     </div>
   </div>

@@ -50,6 +50,7 @@ class SoftwareProduct(BaseProduct):
     )
 
     medical_privacy_compliant = models.BooleanField(
+        null=True,
         help_text='Compliant with US medical privacy laws?'
     )
 

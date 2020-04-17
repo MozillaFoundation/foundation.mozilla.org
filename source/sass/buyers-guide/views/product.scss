@@ -129,15 +129,16 @@ $product-detail-padding-x: (
     }
   }
 
-  .it-uses {
-    margin-top: $spacer;
+  .it-uses,
+  .signup-requirement {
+    margin-bottom: $spacer;
+
+    @media (min-width: $bp-md) {
+      margin-bottom: $spacer * 1.5;
+    }
 
     .separator {
       color: $gray-20;
-    }
-
-    &:last-child() {
-      margin-bottom: $spacer;
     }
   }
 }
@@ -267,6 +268,13 @@ $product-detail-padding-x: (
     &.open {
       transform: rotate(45deg);
     }
+  }
+
+  + p,
+  ul {
+    // have to override this since PNI does not follow Foundation style guide
+    @include body-text(null, 300, $black, $white);
+    @include scaleText(16px, 24px);
   }
 }
 

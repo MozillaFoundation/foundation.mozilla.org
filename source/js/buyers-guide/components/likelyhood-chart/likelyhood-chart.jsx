@@ -10,7 +10,11 @@ export default class LikelyhoodChart extends React.Component {
   render() {
     let values = this.props.values;
     let total = values[0] + values[1];
-    let perc = Math.round((100 * values[0]) / total, 10);
+    let perc = 50;
+
+    if (total > 0) {
+      perc = Math.round((100 * values[0]) / total, 10);
+    }
 
     return (
       <div>
@@ -23,7 +27,7 @@ export default class LikelyhoodChart extends React.Component {
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${100 - perc}%` }} />
                 <span className="likelyhood-words">
-                  {100 - perc}% likely to buy it
+                  {100 - perc}% likely to {this.props.buyOrUse} it
                 </span>
               </td>
             </tr>
@@ -34,7 +38,7 @@ export default class LikelyhoodChart extends React.Component {
               <td className="likelyhood">
                 <span className="bar" style={{ width: `${perc}%` }} />
                 <span className="likelyhood-words">
-                  {perc}% not likely to buy it
+                  {perc}% not likely to {this.props.buyOrUse} it
                 </span>
               </td>
             </tr>
