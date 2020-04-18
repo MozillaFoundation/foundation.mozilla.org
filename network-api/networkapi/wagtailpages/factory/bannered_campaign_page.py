@@ -35,11 +35,11 @@ def generate(seed):
     reseed(seed)
 
     try:
-        bannered_campaign_namespace = WagtailPage.objects.get(title='campaigns')
-        print('Campaigns namespace exists')
+        bannered_campaign_index_page = WagtailPage.objects.get(title='campaigns')
+        print('campaign index page exists')
     except WagtailPage.DoesNotExist:
-        print('Generating campaigns namespace')
-        bannered_campaign_namespace = MiniSiteNamespaceFactory.create(
+        print('Generating a campaign index page')
+        bannered_campaign_index_page = MiniSiteNamespaceFactory.create(
             parent=home_page,
             title='campaigns',
             live=False
@@ -54,7 +54,7 @@ def generate(seed):
     try:
         post = BanneredCampaignPage.objects.get(title=title)
     except BanneredCampaignPage.DoesNotExist:
-        post = BanneredCampaignPageFactory.create(parent=bannered_campaign_namespace, title=title)
+        post = BanneredCampaignPageFactory.create(parent=bannered_campaign_index_page, title=title)
 
     add_tags(post)
 
@@ -65,6 +65,6 @@ def generate(seed):
         try:
             post = BanneredCampaignPage.objects.get(title=title)
         except BanneredCampaignPage.DoesNotExist:
-            post = BanneredCampaignPageFactory.create(parent=bannered_campaign_namespace, title=title)
+            post = BanneredCampaignPageFactory.create(parent=bannered_campaign_index_page, title=title)
 
         add_tags(post)
