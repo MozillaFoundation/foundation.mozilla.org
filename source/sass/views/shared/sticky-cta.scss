@@ -3,10 +3,13 @@
 }
 
 .cta {
+  /* we need a z-index due to the header also being sticky, our header is 1030 (bootstrap) */
+  $sticky-cta-z-index: 1029;
+
   .sticky-cta {
     position: sticky;
     top: 5rem;
-    z-index: 1029; /* we need a z-index due to the header also being sticky, our header is 1030 (bootstrap) */
+    z-index: $sticky-cta-z-index;
     overflow: hidden;
   }
 
@@ -22,6 +25,7 @@
     left: 0;
     right: 0;
     transition: margin-bottom 0.3s ease-in-out;
+    z-index: calc(#{$sticky-cta-z-index} + 1);
 
     &.hidden {
       margin-bottom: -308px;
