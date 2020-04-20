@@ -4,11 +4,15 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 def deduplicate(apps, schema_editor):
-    BaseRangeProductVote = apps.get_model("buyersguide", "BaseRangeProductVote")
-    BaseRangeProductVote.objects.filter(votes=0).delete()
+    models = [
+        apps.get_model("buyersguide", "BaseRangeProductVote"),
+        apps.get_model("buyersguide", "BaseBooleanProductVote"),
+    ]
 
-    BaseBooleanProductVote = apps.get_model("buyersguide", "BaseBooleanProductVote")
-    BaseBooleanProductVote.objects.filter(votes=0).delete()
+    for Model in models:
+        for instance in Model.objects.filter(votes=0):
+            if Model.objects.get(product=instance.product).count() > 1:
+                instance.delete()
 
 
 class Migration(migrations.Migration):
