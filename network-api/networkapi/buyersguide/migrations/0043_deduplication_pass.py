@@ -11,7 +11,7 @@ def deduplicate(apps, schema_editor):
 
     for Model in models:
         for instance in Model.objects.filter(votes=0):
-            if Model.objects.get(product=instance.product).count() > 1:
+            if Model.objects.filter(product=instance.product).count() > 1:
                 instance.delete()
 
 
