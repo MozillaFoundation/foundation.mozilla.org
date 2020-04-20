@@ -19,7 +19,7 @@ services:
       - node_dependencies:/app/node_modules/:delegated
 
   postgres:
-    image: postgres:9.6
+    image: postgres:10.12
     ports:
       - "5678:5432"
     environment:
