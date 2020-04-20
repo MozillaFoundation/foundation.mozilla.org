@@ -48,26 +48,41 @@ def convertVotes(apps, schema_editor):
         # Then regenerate the statistical records:
 
         range_vote = RangeProductVote.objects.get(product=product)
-        (base_range_vote, brv_created) = BaseRangeProductVote.objects.get_or_create(product=base_product)
+        (base_range_vote, brv_created) = BaseRangeProductVote.objects.get_or_create(
+            product=base_product,
+            attribute='creepiness',
+            defaults={
+                'votes': 0,
+                'average': 50
+            }
+        )
         base_range_vote.votes = range_vote.votes
-        base_range_vote.attribute = range_vote.attribute
         base_range_vote.average = range_vote.average
         base_range_vote.save()
 
         for breakdown in RangeVoteBreakdown.objects.filter(product_vote=range_vote):
-            (new_breakdown, created) = BaseRangeVoteBreakdown.objects.get_or_create(product_vote=base_range_vote)
+            (new_breakdown, created) = BaseRangeVoteBreakdown.objects.get_or_create(
+                product_vote=base_range_vote
+                )
             new_breakdown.count = breakdown.count
             new_breakdown.bucket = breakdown.bucket
             new_breakdown.save()
 
         boolean_vote = BooleanProductVote.objects.get(product=product)
-        (base_boolean_vote, bbv_created) = BaseBooleanProductVote.objects.get_or_create(product=base_product)
+        (base_boolean_vote, bbv_created) = BaseBooleanProductVote.objects.get_or_create(
+            product=base_product
+            attribute='confidence',
+            defaults={
+                'votes': 0
+            }
+        )
         base_boolean_vote.votes = boolean_vote.votes
-        base_boolean_vote.attribute = boolean_vote.attribute
         base_boolean_vote.save()
 
         for breakdown in BooleanVoteBreakdown.objects.filter(product_vote=boolean_vote):
-            (new_breakdown, created) = BaseBooleanVoteBreakdown.objects.get_or_create(product_vote=base_boolean_vote)
+            (new_breakdown, created) = BaseBooleanVoteBreakdown.objects.get_or_create(
+                product_vote=base_boolean_vote
+            )
             new_breakdown.count = breakdown.count
             new_breakdown.bucket = breakdown.bucket
             new_breakdown.save()
