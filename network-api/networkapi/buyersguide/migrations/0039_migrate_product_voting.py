@@ -64,7 +64,7 @@ def convertVotes(apps, schema_editor):
         for breakdown in RangeVoteBreakdown.objects.filter(product_vote=range_vote):
             (new_breakdown, created) = BaseRangeVoteBreakdown.objects.get_or_create(
                 product_vote=base_range_vote
-                )
+            )
             new_breakdown.count = breakdown.count
             new_breakdown.bucket = breakdown.bucket
             new_breakdown.save()
