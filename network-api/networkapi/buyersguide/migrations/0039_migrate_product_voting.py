@@ -77,7 +77,7 @@ def convertVotes(apps, schema_editor):
                 'votes': 0
             }
         )
-        base_boolean_vote.attributes = boolean_vote.attributes
+        base_boolean_vote.attribute = boolean_vote.attribute
         base_boolean_vote.votes = boolean_vote.votes
         base_boolean_vote.save()
 
