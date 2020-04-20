@@ -50,12 +50,13 @@ def convertVotes(apps, schema_editor):
         range_vote = RangeProductVote.objects.get(product=product)
         (base_range_vote, brv_created) = BaseRangeProductVote.objects.get_or_create(
             product=base_product,
-            attribute='creepiness',
             defaults={
+                'attribute': 'creepiness',
                 'votes': 0,
                 'average': 50
             }
         )
+        base_range_vote.attribute = range_vote.attribute
         base_range_vote.votes = range_vote.votes
         base_range_vote.average = range_vote.average
         base_range_vote.save()
@@ -70,12 +71,13 @@ def convertVotes(apps, schema_editor):
 
         boolean_vote = BooleanProductVote.objects.get(product=product)
         (base_boolean_vote, bbv_created) = BaseBooleanProductVote.objects.get_or_create(
-            product=base_product
-            attribute='confidence',
+            product=base_product,
             defaults={
+                'attribute': 'confidence',
                 'votes': 0
             }
         )
+        base_boolean_vote.attributes = boolean_vote.attributes
         base_boolean_vote.votes = boolean_vote.votes
         base_boolean_vote.save()
 
