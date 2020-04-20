@@ -146,7 +146,7 @@
           {% elif product.product_type == 'software' %}
             {% trans "How are your recordings handled?" as handles_recordings_how %}
             {% trans "Alerts when calls are being recorded?" as recording_alert %}
-            {% trans "Compliant with US medical privacy laws?" as medical_privacy_compliant %}
+            {% trans "Does the platform say it is compliant with US medical privacy laws?" as medical_privacy_compliant %}
 
             {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
             {% include "fragments/product_criterion.html"  with  label=handles_recordings_how       value=""                                           help=product.handles_recordings_how                 %}
