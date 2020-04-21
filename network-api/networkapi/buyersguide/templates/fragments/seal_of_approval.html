@@ -1,9 +1,16 @@
 {% load i18n static %}
 
 {% if product.meets_minimum_security_standards is True %}
+{% if request.LANGUAGE_CODE == "de" %}
+  {% static "_images/buyers-guide/badge-star-de.svg" as localized_badge_url %}
+{% elif request.LANGUAGE_CODE == "fr" %}
+  {% static "_images/buyers-guide/badge-star-fr.svg" as localized_badge_url %}
+{% else %}
+  {% static "_images/buyers-guide/badge-star.svg" as localized_badge_url %}
+{% endif %}
 <img
   class="seal-of-approval"
-  src="{% if full_badge is True %}{% static "_images/buyers-guide/badge-star.svg" %}{% else %}{% static "_images/buyers-guide/badge-star-mini.svg" %}{% endif %}"
+  src="{% if full_badge is True %}{{ localized_badge_url }}{% else %}{% static "_images/buyers-guide/badge-star-mini.svg" %}{% endif %}"
   title="{% if is_related_product is True %}{% trans "this related product meets our minimum security standards" %}{% else %}{% trans "this product meets our minimum security standards" %}{% endif %}"
   alt="{% if is_related_product is True %}{% trans "this related product meets our minimum security standards" %}{% else %}{% trans "this product meets our minimum security standards" %}{% endif %}"
 >
