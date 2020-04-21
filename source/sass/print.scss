@@ -1,0 +1,44 @@
+@media print {
+  .sticky-top,
+  footer {
+    display: none;
+  }
+
+  .print-full-width {
+    width: 100%;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .print-display-none {
+    display: none;
+  }
+
+  .block-image_text,
+  .block-image_text_mini {
+    page-break-inside: avoid;
+  }
+
+  #view-blog {
+    .share-button-group-wrapper {
+      display: none;
+    }
+
+    .container {
+      width: 100%;
+    }
+
+    .blog-body,
+    .blog-body * {
+      // page-break-before: always;
+      // overflow: visible;
+      // float: none;
+      // position: static;
+    }
+
+    img {
+      // max-height: 3cm;
+
+    }
+  }
+}
