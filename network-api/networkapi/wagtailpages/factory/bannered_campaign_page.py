@@ -12,7 +12,7 @@ from networkapi.utility.faker.helpers import (
 )
 from .petition import PetitionFactory
 from .signup import SignupFactory
-from .mini_site_namespace import MiniSiteNamespaceFactory
+from .campaign_page import CampaignIndexPageFactory
 from .abstract import CMSPageFactory
 
 from .tagging import add_tags
@@ -35,14 +35,14 @@ def generate(seed):
     reseed(seed)
 
     try:
-        bannered_campaign_index_page = WagtailPage.objects.get(title='campaigns')
+        campaign_index_page = WagtailPage.objects.get(title='campaigns')
         print('campaign index page exists')
     except WagtailPage.DoesNotExist:
         print('Generating a campaign index page')
-        bannered_campaign_index_page = MiniSiteNamespaceFactory.create(
+        campaign_index_page = CampaignIndexPageFactory.create(
             parent=home_page,
             title='campaigns',
-            live=False
+            live=True
         )
 
     reseed(seed)
@@ -54,7 +54,7 @@ def generate(seed):
     try:
         post = BanneredCampaignPage.objects.get(title=title)
     except BanneredCampaignPage.DoesNotExist:
-        post = BanneredCampaignPageFactory.create(parent=bannered_campaign_index_page, title=title)
+        post = BanneredCampaignPageFactory.create(parent=campaign_index_page, title=title)
 
     add_tags(post)
 
@@ -65,6 +65,6 @@ def generate(seed):
         try:
             post = BanneredCampaignPage.objects.get(title=title)
         except BanneredCampaignPage.DoesNotExist:
-            post = BanneredCampaignPageFactory.create(parent=bannered_campaign_index_page, title=title)
+            post = BanneredCampaignPageFactory.create(parent=campaign_index_page, title=title)
 
         add_tags(post)
