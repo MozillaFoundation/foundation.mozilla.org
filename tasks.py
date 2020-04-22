@@ -112,8 +112,8 @@ def catch_up(ctx):
     print("\n* Start your dev server with:\n docker-compose up")
 
 
-@task(aliases=["docker-new-env"])
-def new_env(ctx):
+@task(aliases=["new-env", "docker-new-env"])
+def setup(ctx):
     """Get a new dev environment and a new database with fake data"""
     with ctx.cd(ROOT):
         print("* Setting default environment variables")
