@@ -72,6 +72,10 @@ Opening a PR will trigger [Travis](https://travis-ci.org) continuous integration
 
 It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the commit message title. If you only want to skip Travis, use `[skip travis]` or `[travis skip]`. Note: since Travis is a required check on GitHub, your last commit needs to run the CI.
 
+#### Mergify
+
+Mergify is a bot that automatically merges PRs under certain conditions defined in `.mergify.yml`. If you want your PR to be automatically merged, add the `ready-to-merge` label to your PR. Once it's reviewed and the tests are green, Mergify takes care of rebasing to the latest `master` and merges it for you.
+
 ### Visual regression testing
 
 The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
