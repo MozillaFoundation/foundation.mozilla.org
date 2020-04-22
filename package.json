@@ -83,7 +83,7 @@
     "node": "12.x"
   },
   "devDependencies": {
-    "browserslist": "^4.11.1",
+    "browserslist": "^4.12.0",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
