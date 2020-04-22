@@ -67,14 +67,14 @@
   border-color: $color;
 
   @include hover {
-    color: #ffffff;
+    color: $white;
     background-color: $color;
     border-color: darken($color, 10%);
   }
 
   &:focus,
   &.focus {
-    color: #ffffff;
+    color: $white;
     background-color: $color;
     border-color: darken($color, 10%);
   }
@@ -82,14 +82,14 @@
   &:active,
   &.active,
   .open > &.dropdown-toggle {
-    color: #ffffff;
+    color: $white;
     background-color: $color;
     border-color: $color;
 
     &:hover,
     &:focus,
     &.focus {
-      color: #ffffff;
+      color: $white;
       background-color: darken($color, 17%);
       border-color: darken($color, 25%);
     }
