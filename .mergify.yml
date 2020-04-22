@@ -10,3 +10,14 @@ pull_request_rules:
         method: merge
         strict_method: rebase
         strict: true
+  - name: Automatic merge for PRs labelled "ready to merge"
+    conditions:
+      - "#approved-reviews-by>=1"
+      - "status-success=percy/foundation.mozilla.org"
+      - "status-success=continuous-integration/travis-ci/pr"
+      - "label=ready-to-merge"
+    actions:
+      merge:
+        method: merge
+        strict_method: rebase
+        strict: true
