@@ -71,7 +71,7 @@ We strongly recommend you to check at least the [docker-compose CLI](https://doc
 **Note on [pip-tools](https://github.com/jazzband/pip-tools)**:
 - Only edit the `.in` files and use `invoke pip-compile-lock` to generate `.txt` files.
 - Both `(dev-)requirements.txt` and `(dev-)requirements.in` files need to be pushed to Github.
-- `.txt` files act as lockfiles, where dependencies are pined to a precise version.
+- `.txt` files act as lockfiles, where dependencies are pinned to a precise version.
 
 Dependencies live on your filesystem: you don't need to rebuild the `backend` image when installing or updating dependencies. 
 
