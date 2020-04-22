@@ -1,7 +1,10 @@
+// mofo-bootstrap
+
+@import "./mofo-bootstrap/mofo-bootstrap";
+@import "./mofo-bootstrap/custom/_colors";
+
 // Bootstrap
 
-@import "../../node_modules/mofo-bootstrap/dest/css/mofo-bootstrap";
-@import "../../node_modules/mofo-bootstrap/src/scss/custom/_colors";
 @import "../../node_modules/bootstrap/scss/_variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
