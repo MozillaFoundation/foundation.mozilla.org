@@ -40,20 +40,20 @@ def generate(seed):
     reseed(seed)
 
     try:
-        campaign_namespace = WagtailPage.objects.get(title='campaigns')
-        print('campaigns namespace exists')
+        campaign_index_page = WagtailPage.objects.get(title='campaigns')
+        print('campaign index page exists')
     except WagtailPage.DoesNotExist:
-        print('Generating a campaigns namespace')
-        campaign_namespace = CampaignIndexPageFactory.create(
+        print('Generating a campaign index page')
+        campaign_index_page = CampaignIndexPageFactory.create(
             parent=home_page,
             title='campaigns',
-            live=False
+            live=True
         )
 
     reseed(seed)
 
     print('Generating Campaign Pages under namespace')
-    campaigns = [CampaignPageFactory.create(parent=campaign_namespace) for i in range(5)]
+    campaigns = [CampaignPageFactory.create(parent=campaign_index_page) for i in range(5)]
 
     reseed(seed)
 
@@ -67,7 +67,7 @@ def generate(seed):
         print('single-page CampaignPage already exists')
     except CampaignPage.DoesNotExist:
         print('Generating single-page CampaignPage')
-        CampaignPageFactory.create(parent=campaign_namespace, title='single-page')
+        CampaignPageFactory.create(parent=campaign_index_page, title='single-page')
 
     reseed(seed)
 
@@ -76,7 +76,7 @@ def generate(seed):
         print('multi-page CampaignPage already exists.')
     except CampaignPage.DoesNotExist:
         print('Generating multi-page CampaignPage')
-        multi_page_campaign = CampaignPageFactory(parent=campaign_namespace, title='multi-page')
+        multi_page_campaign = CampaignPageFactory(parent=campaign_index_page, title='multi-page')
         [CampaignPageFactory(parent=multi_page_campaign) for k in range(3)]
 
     reseed(seed)

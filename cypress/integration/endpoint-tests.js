@@ -117,6 +117,17 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  // Campaign index page test
+
+  it(`Campaign index page`, function() {
+    cy.visit(`/en/campaigns`);
+    cy.window()
+      .its(`main-js:react:finished`)
+      .should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
   // Campaign page tests (single and multi-page)
 
   it(`Single-page campaign`, function() {
