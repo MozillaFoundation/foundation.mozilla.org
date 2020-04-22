@@ -3,14 +3,13 @@
 }
 
 .cta {
-  /* we need a z-index due to the header also being sticky, our header is 1030 (bootstrap) */
-  $sticky-cta-z-index: 1029;
+  $sticky-cta-z-index: $zindex-sticky;
 
   .sticky-cta {
     position: sticky;
     top: 5rem;
-    z-index: $sticky-cta-z-index;
     overflow: hidden;
+    z-index: $sticky-cta-z-index;
   }
 
   .narrow-sticky-button-container {
