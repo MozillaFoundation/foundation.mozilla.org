@@ -399,6 +399,33 @@ class BuyersGuideViewTest(TestCase):
         response = self.client.get(f'/en/privacynotincluded/categories/smart-home/')
         self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
 
+    def test_drive_by_clear_cache(self):
+        """
+        regular users should not be able to trigger clear_cache
+        """
+        authenticated = self.user.is_authenticated
+
+        self.client.logout()
+        response = self.client.post('/api/buyersguide/clear-cache/')
+        self.assertEqual(response.status_code, 403, 'standard user is not permitted to clear BG cache')
+
+        if authenticated is True:
+            self.client.force_login(self.user)
+
+    def test_authenticated_clear_cache(self):
+        """
+        authenticated users can trigger clear_cache
+        """
+        authenticated = self.user.is_authenticated
+
+        self.client.force_login(self.user)
+        response = self.client.post('/api/buyersguide/clear-cache/')
+        self.assertEqual(response.status_code, 302, 'authenticated user is permitted to clear BG cache')
+        self.assertEqual(response.url, '/cms/buyersguide/product/', 'clearing sends users to product page')
+
+        if authenticated is False:
+            self.client.logout()
+
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class ProductTests(TestCase):
