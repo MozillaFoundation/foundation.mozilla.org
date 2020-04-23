@@ -28,8 +28,7 @@
   }
 
   &:active,
-  &.active,
-  .open > &.dropdown-toggle {
+  &.active {
     color: $color;
     background-color: $active-background;
     border-color: $active-border;
@@ -80,8 +79,7 @@
   }
 
   &:active,
-  &.active,
-  .open > &.dropdown-toggle {
+  &.active {
     color: $white;
     background-color: $color;
     border-color: $color;
