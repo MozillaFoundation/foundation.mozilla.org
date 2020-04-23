@@ -368,7 +368,10 @@ class BaseProduct(ClusterableModel):
         models.Model.save(self, *args, **kwargs)
 
     def __str__(self):
-        return str(self.name)
+        return f'{self.name} ({self.company})'
+
+    class Meta:
+        ordering = ['name']
 
 
 # We want to delete the product image when the product is removed
