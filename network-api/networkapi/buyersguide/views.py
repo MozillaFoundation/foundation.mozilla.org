@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
 from rest_framework.parsers import JSONParser
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import (
@@ -207,7 +207,7 @@ def product_vote(request):
 
 
 @api_view(['POST'])
-@permission_classes((IsAdminUser,))
+@permission_classes((IsAuthenticated,))
 def clear_cache(request):
     cache.clear()
     return redirect('/cms/buyersguide/product/')
