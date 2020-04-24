@@ -92,6 +92,8 @@ def category_view(request, slug):
 
     products = filter_draft_products(request, products)
 
+    print([p['name'] for p in products])
+
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
@@ -210,4 +212,4 @@ def product_vote(request):
 @permission_classes((IsAuthenticated,))
 def clear_cache(request):
     cache.clear()
-    return redirect('/cms/buyersguide/product/')
+    return redirect('/cms/')

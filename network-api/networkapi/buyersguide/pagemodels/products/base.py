@@ -371,7 +371,10 @@ class BaseProduct(ClusterableModel):
         return f'{self.name} ({self.company})'
 
     class Meta:
-        ordering = ['name']
+        # use newest-first ordering
+        ordering = [
+            'id'
+        ]
 
 
 # We want to delete the product image when the product is removed
