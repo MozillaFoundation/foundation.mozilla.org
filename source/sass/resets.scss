@@ -6,10 +6,17 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 }
 
 img {
   max-width: 100%;
   height: auto;
+}
+
+// This undoes setting of these elements' font to sans-serif by normalize
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
 }
