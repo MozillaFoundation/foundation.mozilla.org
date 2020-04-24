@@ -371,7 +371,7 @@ class BaseProduct(ClusterableModel):
         return f'{self.name} ({self.company})'
 
     class Meta:
-        # use newest-first ordering
+        # use oldest-first ordering
         ordering = [
             'id'
         ]
