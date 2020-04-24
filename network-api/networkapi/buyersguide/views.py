@@ -92,8 +92,6 @@ def category_view(request, slug):
 
     products = filter_draft_products(request, products)
 
-    print([p['name'] for p in products])
-
     return render(request, 'category_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
