@@ -210,4 +210,4 @@ def product_vote(request):
 @permission_classes((IsAuthenticated,))
 def clear_cache(request):
     cache.clear()
-    return redirect('/cms/buyersguide/product/')
+    return redirect('/cms/')

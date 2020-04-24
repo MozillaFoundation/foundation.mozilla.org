@@ -421,7 +421,7 @@ class BuyersGuideViewTest(TestCase):
         self.client.force_login(self.user)
         response = self.client.post('/api/buyersguide/clear-cache/')
         self.assertEqual(response.status_code, 302, 'authenticated user is permitted to clear BG cache')
-        self.assertEqual(response.url, '/cms/buyersguide/product/', 'clearing sends users to product page')
+        self.assertEqual(response.url, '/cms/', 'clearing sends users to product page')
 
         if authenticated is False:
             self.client.logout()
