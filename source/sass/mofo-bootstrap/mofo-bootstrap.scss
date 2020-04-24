@@ -9,6 +9,7 @@
 
 // Core variables and mixins
 @import "../../../node_modules/bootstrap/scss/variables";
+@import "./colors"; // Foundation brand colors
 @import "./overrides/variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
 @import "./overrides/mixins";
