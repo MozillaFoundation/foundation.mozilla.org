@@ -4,8 +4,6 @@ from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.conf import settings
 from django.db import Error
-from django.db.models import F
-from django.forms import model_to_dict
 from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, get_object_or_404, redirect
@@ -129,12 +127,12 @@ def product_view(request, slug):
             total_score += 0.5
 
     # make sure featured updates come first
-    product_dict['updates'] = [
-        u for u in product.updates.all().order_by(
+    product_dict['updates'] = list(
+        product.updates.all().order_by(
             '-featured',
             'pk'
         )
-    ]
+    )
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
