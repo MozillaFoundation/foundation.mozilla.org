@@ -257,7 +257,6 @@ export default class CreepVote extends React.Component {
         >
           Close
         </button>
-        ,
         <JoinUs
           formPosition="flow"
           flowHeading={getText(`You Voted! You Rock!`)}
