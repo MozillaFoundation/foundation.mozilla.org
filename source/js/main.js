@@ -16,6 +16,7 @@ import {
 } from "./foundation";
 
 import primaryNav from "./primary-nav.js";
+import EmbedTF from "./embed-tf.js";
 import initializeSentry from "./common/sentry-config.js";
 
 // Initializing component a11y browser console logging
@@ -39,6 +40,7 @@ const apps = [];
 let main = {
   init() {
     GoogleAnalytics.init();
+    EmbedTF.init();
 
     this.fetchEnv(envData => {
       env = envData;
