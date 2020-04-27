@@ -5,12 +5,10 @@ class Update(models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
-        blank=True,
     )
 
     title = models.CharField(
         max_length=256,
-        blank=True,
     )
 
     author = models.CharField(
