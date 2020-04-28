@@ -16,7 +16,7 @@ class ProfileById(blocks.StructBlock):
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
-        ids = context['block'].value['ids'].replace(' ','')
+        ids = context['block'].value['ids'].replace(' ', '')
         profiles = list()
 
         # FIXME: the protocol should be part of the pulse api variable.
@@ -37,7 +37,6 @@ class ProfileById(blocks.StructBlock):
                 as_dict[str(profile['profile_id'])] = profile
 
             profiles = [as_dict[id] for id in ids.split(',')]
-
 
         except (IOError, ValueError) as exception:
             print(str(exception))
