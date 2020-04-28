@@ -95,3 +95,54 @@
   margin-top: -$offset;
   padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
 }
+
+@mixin button-basic-style(
+  $default,
+  $default-hover,
+  $dark-theme-default,
+  $dark-theme-hover
+) {
+  color: map-get($default, "color");
+  background-color: map-get($default, "background-color");
+  border-color: map-get($default, "border-color");
+
+  &.active {
+    color: map-get($default-hover, "color");
+    background-color: map-get($default-hover, "background-color");
+    border-color: map-get($default-hover, "border-color");
+  }
+
+  @include hover-focus-active {
+    @extend .active;
+  }
+
+  &.disabled,
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: map-get($default, "background-color");
+    border-color: map-get($default, "border-color");
+    opacity: 0.3;
+  }
+
+  @at-root .dark-theme & {
+    color: map-get($dark-theme-default, "color");
+    background-color: map-get($dark-theme-default, "background-color");
+    border-color: map-get($dark-theme-default, "border-color");
+
+    @include hover-focus-active {
+      color: map-get($dark-theme-hover, "color");
+      background-color: map-get($dark-theme-hover, "background-color");
+      border-color: map-get($dark-theme-hover, "border-color");
+    }
+
+    &.disabled,
+    &:disabled,
+    &[disabled] {
+      opacity: 0.5;
+      background-color: map-get($dark-theme-default, "background-color");
+      border-color: map-get($dark-theme-default, "border-color");
+    }
+  }
+}
