@@ -16,8 +16,8 @@ class ProfileById(blocks.StructBlock):
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
-        ids = context['block'].value['ids']
-        data = list()
+        ids = context['block'].value['ids'].replace(' ', '')
+        profiles = list()
 
         # FIXME: the protocol should be part of the pulse api variable.
         #   see: https://github.com/mozilla/foundation.mozilla.org/issues/1824
@@ -32,11 +32,17 @@ class ProfileById(blocks.StructBlock):
             response_data = response.read()
             data = json.loads(response_data)
 
+            as_dict = {}
+            for profile in data:
+                as_dict[str(profile['profile_id'])] = profile
+
+            profiles = [as_dict[id] for id in ids.split(',')]
+
         except (IOError, ValueError) as exception:
             print(str(exception))
             pass
 
-        context['profiles'] = data
+        context['profiles'] = profiles
         return context
 
     class Meta:

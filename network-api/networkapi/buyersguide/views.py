@@ -118,12 +118,21 @@ def product_view(request, slug):
     total_score = 0
     num_criteria = len(criteria)
 
+    # Calculate the minimum security score
     for i in range(num_criteria):
         value = product_dict[criteria[i]]
         if value == 'Yes':
             total_score += 1
         if value == 'NA':
             total_score += 0.5
+
+    # make sure featured updates come first
+    product_dict['updates'] = list(
+        product.updates.all().order_by(
+            '-featured',
+            'pk'
+        )
+    )
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
