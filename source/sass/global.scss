@@ -18,6 +18,12 @@ button:hover {
   cursor: pointer;
 }
 
+// TODO: check with designers to see if we wanna keep this overrides
+.intro {
+  font-weight: 200;
+  font-size: 1.6rem;
+}
+
 #hero {
   $bg-pattern-height: 144px;
 

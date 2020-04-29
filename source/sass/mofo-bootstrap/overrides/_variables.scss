@@ -1,25 +1,10 @@
-html {
-  font-weight: 300;
-}
-
-$list-item-vertical-margin: 0.25em;
-
 $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
 
 $enable-flex: true; // Turn on Flexbox support
 $enable-transitions: true;
 
-$font-size-h1: 3.8rem;
-$font-size-h2: 3.5rem;
-$font-size-h3: 2.6rem;
-$font-size-h4: 1.8rem;
-$font-size-h5: 1.25rem;
-$font-size-h6: 1rem;
-
 $body-color: $black;
-$headings-color: $black;
-$headings-line-height: 1;
 $headings-font-weight: 400;
 $headings-margin-bottom: 1.25rem;
 

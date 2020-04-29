@@ -2,11 +2,6 @@
 
 @import "./mofo-bootstrap/mofo-bootstrap";
 
-// Bootstrap
-
-@import "../../node_modules/bootstrap/scss/_variables";
-@import "../../node_modules/bootstrap/scss/mixins";
-
 // Breakpoints (imported from Bootstrap)
 
 $bp-xs: #{map-get($grid-breakpoints, xs)}; // < 576px
