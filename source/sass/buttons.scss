@@ -115,9 +115,9 @@ button,
   );
 
   $dark-theme-hover: (
-    "color": $white,
-    "background-color": transparent,
-    "border-color": $white
+    "color": $black,
+    "background-color": $white,
+    "border-color": none
   );
 
   @include button-basic-style(
