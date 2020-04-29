@@ -67,3 +67,29 @@ class PostRouteTests(TestCase):
 
         response = self.client.post(url, post_data, content_type='application/json')
         self.assertEqual(response.status_code, 201)
+
+    def test_bad_signup_post(self):
+        """
+        Tests the signup posting route
+        """
+
+        signup = Signup.objects.create()
+        url = reverse('signup-submission', kwargs={'pk': signup.id})
+
+        # no email
+
+        post_data = json.dumps({
+            'source': 'http://localhost/testing/signup',
+        })
+
+        response = self.client.post(url, post_data, content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+        # no source
+
+        post_data = json.dumps({
+            'email': 'user_test@example.org',
+        })
+
+        response = self.client.post(url, post_data, content_type='application/json')
+        self.assertEqual(response.status_code, 400)

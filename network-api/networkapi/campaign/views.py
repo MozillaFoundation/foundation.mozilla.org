@@ -84,18 +84,37 @@ def petition_submission_view(request, pk):
 
 # handle Salesforce petition data
 def signup_submission(request, signup):
+    rq = request.data
+
+    # payload validation
+    email = rq.get('email')
+    if email is None:
+        return Response(
+            {'error': 'Signup requires an email address'},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    source = rq.get('source')
+    if source is None:
+        return Response(
+            {'error': 'Unknown source'},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # rewrite payload for basket
     data = {
-        "email": request.data['email'],
+        "email": email,
         "format": "html",
-        "source_url": request.data['source'],
+        "source_url": source,
         "newsletters": signup.newsletter,
-        "lang": request.data.get('lang', 'en'),
-        "country": request.data.get('country', ''),
+        "lang": rq.get('lang', 'en'),
+        "country": rq.get('country', ''),
         # Empty string instead of None due to Basket issues
-        "first_name": request.data.get('givenNames', ''),
-        "last_name": request.data.get('surname', '')
+        "first_name": rq.get('givenNames', ''),
+        "last_name": rq.get('surname', '')
     }
 
+    # pack up as a basket message
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
         'timestamp': datetime.now().isoformat(),
