@@ -188,3 +188,22 @@ def get_content_related_by_tag(page, result_count=3):
         capture_exception(err)
 
     return result_list[:result_count]
+
+
+def insert_panels_after(panels, more, after_label):
+    """
+    Insert wagtail panels somewhere in another set of panels
+    """
+    position = next(
+        (i for i, item in enumerate(panels) if item.heading == after_label),
+        None
+    )
+
+    if position is not None:
+        for entry in more:
+            position = position + 1
+            panels.insert(position, entry)
+    else:
+        panels = panels + more
+
+    return panels

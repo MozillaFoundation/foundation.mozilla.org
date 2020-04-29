@@ -4,6 +4,8 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from networkapi.buyersguide.fields import ExtendedYesNoField
 from .base import BaseProduct, register_product_type
 
+from networkapi.wagtailpages.utils import insert_panels_after
+
 
 class SoftwareProduct(BaseProduct):
     """
@@ -76,35 +78,61 @@ class SoftwareProduct(BaseProduct):
         blank=True
     )
 
-    # TODO: make these fit in the right place
-    panels = BaseProduct.panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel('handles_recordings_how'),
-                FieldPanel('recording_alert'),
-                FieldPanel('recording_alert_helptext'),
-                FieldPanel('signup_with_email'),
-                FieldPanel('signup_with_phone'),
-                FieldPanel('signup_with_third_party'),
-                FieldPanel('signup_methods_helptext'),
-                FieldPanel('medical_privacy_compliant'),
-                FieldPanel('medical_privacy_compliant_helptext'),
-            ],
-            heading='how does it handle privacy?',
-            classname='collapsible'
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel('host_controls'),
-                FieldPanel('easy_to_learn_and_use'),
-                FieldPanel('easy_to_learn_and_use_helptext'),
-            ],
-            heading='can I control it',
-            classname='collapsible'
-        ),
-    ]
+    # administrative panels
 
-    # todict function
+    panels = BaseProduct.panels.copy()
+
+    panels = insert_panels_after(
+        panels,
+        [
+             MultiFieldPanel(
+                [
+                    FieldPanel('signup_with_email'),
+                    FieldPanel('signup_with_phone'),
+                    FieldPanel('signup_with_third_party'),
+                    FieldPanel('signup_methods_helptext'),
+                ],
+                heading='How does it handle signup?',
+                classname='collapsible'
+             ),
+        ],
+        'Minimum Security Standards for general products'
+    )
+
+    panels = insert_panels_after(
+        panels,
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('handles_recordings_how'),
+                    FieldPanel('recording_alert'),
+                    FieldPanel('recording_alert_helptext'),
+                    FieldPanel('medical_privacy_compliant'),
+                    FieldPanel('medical_privacy_compliant_helptext'),
+                ],
+                heading='How does it handle privacy?',
+                classname='collapsible'
+            ),
+        ],
+        'How does it handle data sharing'
+    )
+
+    panels = insert_panels_after(
+        panels,
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('host_controls'),
+                    FieldPanel('easy_to_learn_and_use'),
+                    FieldPanel('easy_to_learn_and_use_helptext'),
+                ],
+                heading='Can I control it',
+                classname='collapsible'
+            ),
+        ],
+        'How does it handle privacy?'
+    )
+
     def to_dict(self):
         model_dict = super().to_dict()
         model_dict['product_type'] = 'software'
