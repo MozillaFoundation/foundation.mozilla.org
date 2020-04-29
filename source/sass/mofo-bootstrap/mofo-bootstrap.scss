@@ -6,17 +6,15 @@
 
 // Non-Bootstrap Modules
 // These are modules that contain code that isn't standard in Bootstrap
-@import "custom/colors";
 
 // Core variables and mixins
 @import "../../../node_modules/bootstrap/scss/variables";
+@import "./colors"; // Foundation brand colors
 @import "./overrides/variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
-@import "./overrides/mixins";
 
 // Reset and dependencies
 @import "../../../node_modules/bootstrap/scss/normalize";
-@import "./overrides/normalize";
 @import "../../../node_modules/bootstrap/scss/print";
 
 // Core CSS

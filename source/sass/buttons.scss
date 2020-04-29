@@ -1,3 +1,4 @@
+button,
 .btn {
   font-family: "Nunito Sans";
   font-weight: $btn-font-weight;
@@ -9,101 +10,122 @@
 }
 
 .btn-pop {
+  $default: (
+    "color": $black,
+    "background-color": transparent,
+    "border-color": $black
+  );
+
+  $default-hover: $default;
+
+  $dark-theme-default: (
+    "color": $white,
+    "background-color": transparent,
+    "border-color": $white
+  );
+
+  $dark-theme-hover: $dark-theme-default;
+
+  @include button-basic-style(
+    $default,
+    $default-hover,
+    $dark-theme-default,
+    $dark-theme-hover
+  );
+
   $offset: 4px;
 
-  background: transparent;
-  color: $black;
   box-shadow: $offset $offset $black;
-  border: 2px solid $black;
+  border-width: 2px;
+  border-style: solid;
   position: relative;
   top: -$offset / 2;
   transition: all 0.08s ease;
 
   @include hover-focus-active {
     transform: translate($offset, $offset);
-    color: $black;
     box-shadow: none;
   }
 
   @at-root .dark-theme & {
-    background: transparent;
-    color: $white;
     box-shadow: $offset $offset $white;
-    border-color: $white;
 
     @include hover-focus-active {
       transform: translate($offset, $offset);
-      color: $white;
       box-shadow: none;
     }
   }
 }
 
 .btn-primary {
-  color: $white;
-  background: $blue;
   border: none;
 
-  @include hover-focus-active {
-    color: $white;
-    background: $dark-blue;
-    border: none;
-  }
+  $default: (
+    "color": $white,
+    "background-color": $blue,
+    "border-color": none
+  );
 
-  @at-root .dark-theme & {
-    color: $white;
-    background: $blue;
+  $default-hover: (
+    "color": $white,
+    "background-color": $dark-blue,
+    "border-color": none
+  );
 
-    @include hover-focus-active {
-      color: $black;
-      background: $light-blue;
-    }
-  }
+  $dark-theme-default: (
+    "color": $white,
+    "background-color": $blue,
+    "border-color": none
+  );
+
+  $dark-theme-hover: (
+    "color": $black,
+    "background-color": $light-blue,
+    "border-color": none
+  );
+
+  @include button-basic-style(
+    $default,
+    $default-hover,
+    $dark-theme-default,
+    $dark-theme-hover
+  );
 }
 
 .btn-secondary {
-  color: $black;
-  background: transparent;
-  border: 2px solid $black;
+  border-width: 2px;
+  border-style: solid;
 
-  /*
-  *  TODO:FIXME:
-  *  talk to designers and see if we need to create a new button type
-  *  & find a smarter way to do this
-  */
-  &:hover,
-  &:focus,
-  &:active,
-  &.active,
-  &.active:hover,
-  &.active:focus,
-  &.active:active {
-    background-color: $black;
-    color: $white;
-    border: 2px solid $black;
-  }
+  $default: (
+    "color": $black,
+    "background-color": transparent,
+    "border-color": $black
+  );
 
-  @at-root .dark-theme & {
-    color: $white;
-    background: transparent;
-    border: 2px solid $white;
+  $default-hover: (
+    "color": $white,
+    "background-color": $black,
+    "border-color": $black
+  );
 
-    /*
-    *  TODO:FIXME:
-    *  talk to designers and see if we need to create a new button type
-    *  & find a smarter way to do this
-    */
-    &:hover,
-    &:focus,
-    &:active,
-    &.active,
-    &.active:hover,
-    &.active:focus,
-    &.active:active {
-      color: $black;
-      background: $white;
-    }
-  }
+  $dark-theme-default: (
+    "color": $white,
+    "background-color": transparent,
+    "border-color": $white
+  );
+
+  $dark-theme-hover: (
+    "color": $black,
+    "background-color": $white,
+    "border-color": none
+  );
+
+  @include button-basic-style(
+    $default,
+    $default-hover,
+    $dark-theme-default,
+    $dark-theme-hover
+  );
 }
 
 // append external link glyph
@@ -140,17 +162,6 @@
         filter: brightness(0);
       }
     }
-  }
-}
-
-button[disabled],
-.btn[disabled] {
-  cursor: not-allowed;
-  pointer-events: none;
-  opacity: 0.3;
-
-  @at-root .dark-theme & {
-    opacity: 0.5;
   }
 }
 

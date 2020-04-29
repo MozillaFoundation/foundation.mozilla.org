@@ -4,9 +4,8 @@ html {
 
 $list-item-vertical-margin: 0.25em;
 
-$font-family-sans-serif: "Zilla Slab", "Open Sans", X-LocaleSpecific, sans-serif;
+$font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
-$link-color: $developer-blue;
 
 $enable-flex: true; // Turn on Flexbox support
 $enable-transitions: true;
@@ -18,11 +17,13 @@ $font-size-h4: 1.8rem;
 $font-size-h5: 1.25rem;
 $font-size-h6: 1rem;
 
-$body-color: $charcoal;
-$headings-color: $charcoal;
+$body-color: $black;
+$headings-color: $black;
 $headings-line-height: 1;
 $headings-font-weight: 400;
 $headings-margin-bottom: 1.25rem;
+
+$input-color-placeholder: $gray-60;
 
 $display1-size: 4.5rem;
 $display1-weight: 600;
@@ -33,17 +34,8 @@ $btn-border-radius: 0;
 $btn-border-radius-sm: 0;
 $btn-border-radius-lg: 0;
 
-$btn-font-weight: 300;
-$btn-primary-bg: $nightly-blue;
-$btn-primary-border: darken($btn-primary-bg, 10%);
-$btn-secondary-bg: $aurora-purple;
-$btn-secondary-border: darken($btn-secondary-bg, 10%);
 $btn-secondary-color: $white;
-$btn-success-bg: $gecko-green;
-$btn-success-border: darken($btn-success-bg, 10%);
-$btn-info-bg: $mobile-blue;
-$btn-info-border: darken($btn-info-bg, 10%);
-$btn-warning-bg: $market-orange;
-$btn-warning-border: darken($btn-warning-bg, 10%);
-$btn-danger-bg: $dino-red;
-$btn-danger-border: darken($btn-danger-bg, 10%);
+
+// Foundation site brand
+$btn-font-weight: 700;
+$border-shadow-color: transparentize($black, 0.85);

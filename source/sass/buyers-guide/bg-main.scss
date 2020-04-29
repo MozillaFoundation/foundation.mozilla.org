@@ -6,7 +6,6 @@ html {
 // mofo-bootstrap
 
 @import "../mofo-bootstrap/mofo-bootstrap";
-@import "../mofo-bootstrap/custom/_colors";
 
 // Bootstrap
 
@@ -23,7 +22,6 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 //Site-wide
 
-@import "../_variables";
 @import "../glyphs";
 @import "../mixins";
 @import "./mixins"; // Buyer's Guide specific mixins
