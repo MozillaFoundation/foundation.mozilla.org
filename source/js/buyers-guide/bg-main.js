@@ -70,7 +70,6 @@ let main = {
       }
 
       GoogleAnalytics.init();
-      AnalyticsEvents.init();
 
       this.enableCopyLinks();
       this.injectReactComponents();
@@ -85,6 +84,9 @@ let main = {
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
         window[`bg-main-js:react:finished`] = true;
+
+        // bind custom analytics only once everything's up and loaded
+        AnalyticsEvents.init();
       });
     });
   },
