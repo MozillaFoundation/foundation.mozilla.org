@@ -18,6 +18,17 @@ button:hover {
   cursor: pointer;
 }
 
+li {
+  $list-item-vertical-margin: 0.25em;
+
+  margin-bottom: $list-item-vertical-margin;
+
+  ol,
+  ul {
+    margin-top: $list-item-vertical-margin;
+  }
+}
+
 #hero {
   $bg-pattern-height: 144px;
 
