@@ -66,11 +66,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
 }
 
 function setupElementGA(element, eventData) {
-  element.addEventListener(
-    "click",
-    () => ReactGA.event(eventData),
-    true
-  );
+  element.addEventListener("click", () => ReactGA.event(eventData), true);
 }
 
 const ProductGA = {
