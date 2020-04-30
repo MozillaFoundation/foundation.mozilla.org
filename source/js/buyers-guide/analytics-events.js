@@ -66,9 +66,9 @@ function getQuerySelectorEvents(pageTitle, productName) {
 }
 
 function setupElementGA(element, eventData) {
-  element.onclick = () => {
+  element.addEventListener("click", () => {
     ReactGA.event(eventData);
-  };
+  }, true);
 }
 
 const ProductGA = {
@@ -111,7 +111,7 @@ const ProductGA = {
           category: baseData.category,
           action: baseData.action,
           label: baseData.label,
-          transpory: baseData.transpory
+          transport: baseData.transport
         };
 
         elements.forEach(e => setupElementGA(e, eventData));
