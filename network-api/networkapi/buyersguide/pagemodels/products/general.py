@@ -76,6 +76,7 @@ class GeneralProduct(BaseProduct):
 
     panels = insert_panels_after(
         panels,
+        'Minimum Security Standards for general products',
         [
             MultiFieldPanel(
                 [
@@ -90,11 +91,11 @@ class GeneralProduct(BaseProduct):
                 classname='collapsible'
             ),
         ],
-        'Minimum Security Standards for general products'
     )
 
     panels = insert_panels_after(
         panels,
+        'How does it handle data sharing',
         [
             MultiFieldPanel(
                 [
@@ -110,7 +111,6 @@ class GeneralProduct(BaseProduct):
                 classname='collapsible'
             ),
         ],
-        'How does it handle data sharing'
     )
 
     def to_dict(self):

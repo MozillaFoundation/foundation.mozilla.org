@@ -190,7 +190,7 @@ def get_content_related_by_tag(page, result_count=3):
     return result_list[:result_count]
 
 
-def insert_panels_after(panels, more, after_label):
+def insert_panels_after(panels, after_label, additional_panels):
     """
     Insert wagtail panels somewhere in another set of panels
     """
@@ -200,10 +200,9 @@ def insert_panels_after(panels, more, after_label):
     )
 
     if position is not None:
-        for entry in more:
-            position = position + 1
-            panels.insert(position, entry)
+        cut = position + 2
+        panels = panels[0:cut] + additional_panels + panels[cut:]
     else:
-        panels = panels + more
+        raise ValueError(f'No panel with heading "{after_label}" in panel list')
 
     return panels
