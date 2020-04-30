@@ -94,7 +94,7 @@ let main = {
   },
 
   // Embed various React components based on the existence of containers within the current page
-  injectReactComponents() {
+  injectReactComponents(apps) {
     injectCommonReactComponents(apps, networkSiteURL, csrfToken);
     injectReactComponents(apps, networkSiteURL, env);
   }
