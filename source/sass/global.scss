@@ -18,13 +18,6 @@ button:hover {
   cursor: pointer;
 }
 
-// .intro overrides from 'mofo-bootstrap' that are currently in use
-// TODO: these rules look odd so check with designers to see if we wanna keep them
-.intro {
-  font-weight: 200;
-  font-size: 1.6rem;
-}
-
 li {
   $list-item-vertical-margin: 0.25em;
 
