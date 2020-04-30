@@ -67,9 +67,3 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 // MozFest
 
 @import "./mozfest";
-
-// Bootstrap or mofo-bootstrap overrides
-
-hr {
-  border-color: $gray-20;
-}
