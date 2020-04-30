@@ -214,7 +214,7 @@
       height: 100vh;
       top: 0;
       left: 0;
-      width: 100vw;
+      right: 0;
       transition: opacity 0.2s, height 0s;
 
       &.hidden {
