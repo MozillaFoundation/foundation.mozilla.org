@@ -54,7 +54,9 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `update article link tap`,
       label: `update article link for ${productName}`,
       transport: `beacon`,
-      optional: true
+      // Not every product will have updates. Note that
+      // this value will not be sent on as GA payload.
+      optional_element: true
     }
   };
 }
@@ -84,10 +86,15 @@ const ProductGA = {
       let elements = document.querySelectorAll(querySelector);
 
       if (elements.length > 0) {
-        let eventData = querySelectorEvents[querySelector];
+        const eventData = ({
+          category,
+          action,
+          label,
+          transport
+        } = querySelectorEvents[querySelector]);
 
         elements.forEach(e => setupElementGA(e, eventData));
-      } else if (!querySelectorEvents[querySelector].optional) {
+      } else if (!querySelectorEvents[querySelector].optional_element) {
         console.error(`cannot find ${querySelector}`);
       }
     });
