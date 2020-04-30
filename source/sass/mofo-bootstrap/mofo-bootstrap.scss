@@ -20,7 +20,6 @@
 // Core CSS
 @import "../../../node_modules/bootstrap/scss/reboot";
 @import "../../../node_modules/bootstrap/scss/type";
-@import "./overrides/type";
 @import "../../../node_modules/bootstrap/scss/images";
 @import "../../../node_modules/bootstrap/scss/code";
 @import "../../../node_modules/bootstrap/scss/grid";
@@ -29,8 +28,6 @@
 
 // Components
 @import "../../../node_modules/bootstrap/scss/transitions";
-@import "../../../node_modules/bootstrap/scss/button-group";
-@import "../../../node_modules/bootstrap/scss/custom-forms";
 @import "../../../node_modules/bootstrap/scss/nav";
 @import "../../../node_modules/bootstrap/scss/navbar";
 // TODO: utilizing Bootstrap's 'card' rules instead of writing our own custom SCSS for cards on fo.mo
