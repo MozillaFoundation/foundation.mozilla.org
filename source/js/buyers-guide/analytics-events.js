@@ -8,51 +8,15 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `donate tap`,
       label: `${pageTitle} donate header`
     },
-    "#donate-button-main": {
+    "#donate-header-btn": {
       category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate header`
     },
-    "#donate-button-footer": {
+    ".donate-banner a.btn.btn-secondary": {
       category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate footer`
-    },
-    "#nav-social-button-fb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Facebook`,
-      transport: `beacon`
-    },
-    "#nav-social-button-twitter": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Twitter`,
-      transport: `beacon`
-    },
-    "#nav-social-button-email": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Email`,
-      transport: `beacon`
-    },
-    "#nav-social-button-fb-mb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Facebook`,
-      transport: `beacon`
-    },
-    "#nav-social-button-twitter-mb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Twitter`,
-      transport: `beacon`
-    },
-    "#nav-social-button-email-mb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Email`,
-      transport: `beacon`
     },
 
     // product events
@@ -77,34 +41,10 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `opinion submitted`,
       label: `opinion on ${productName}`
     },
-    "#product-social-button-fb": {
-      category: `product`,
-      action: `share tap`,
-      label: `share ${productName} to Facebook`,
-      transport: `beacon`
-    },
-    "#product-social-button-twitter": {
-      category: `product`,
-      action: `share tap`,
-      label: `share ${productName} to Twitter`,
-      transport: `beacon`
-    },
-    "#product-social-button-email": {
-      category: `product`,
-      action: `share tap`,
-      label: `share ${productName} to Email`,
-      transport: `beacon`
-    },
-    "#privacy-policy-link": {
+    "a.privacy-policy-link": {
       category: `product`,
       action: `privacy policy link tap`,
       label: `policy link for ${productName}`,
-      transport: `beacon`
-    },
-    "#reading-level-link": {
-      category: `product`,
-      action: `carnegie mellon reading level links`,
-      label: `reading level link for ${productName}`,
       transport: `beacon`
     },
 
@@ -113,7 +53,8 @@ function getQuerySelectorEvents(pageTitle, productName) {
       category: `product`,
       action: `update article link tap`,
       label: `update article link for ${productName}`,
-      transport: `beacon`
+      transport: `beacon`,
+      optional: true
     }
   };
 }
@@ -146,6 +87,8 @@ const ProductGA = {
         let eventData = querySelectorEvents[querySelector];
 
         elements.forEach(e => setupElementGA(e, eventData));
+      } else if (!querySelectorEvents[querySelector].optional) {
+        console.error(`cannot find ${querySelector}`);
       }
     });
   }
