@@ -1,10 +1,6 @@
 body {
   scroll-behavior: smooth;
 
-  & > .wrapper {
-    background: $white;
-  }
-
   .noselect {
     -webkit-touch-callout: none; /* iOS */
     -webkit-user-select: none; /* Webkit */
@@ -22,6 +18,14 @@ li {
   ol,
   ul {
     margin-top: $list-item-vertical-margin;
+  }
+}
+
+hr {
+  border-color: $gray-20;
+
+  &.intro-and-content-divider {
+    @include intro-and-content-spacing(true);
   }
 }
 
@@ -103,8 +107,4 @@ footer.site-footer {
       }
     }
   }
-}
-
-hr.intro-and-content-divider {
-  @include intro-and-content-spacing(true);
 }
