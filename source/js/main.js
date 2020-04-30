@@ -31,6 +31,11 @@ if (
 // To be populated via XHR and querySelector
 let env, networkSiteURL, csrfToken;
 
+// Track all ReactDOM.render calls so we can use a Promise.all()
+// all the way at the end to make sure we don't report "we are done"
+// until all the React stuff is _actually_ done.
+const apps = [];
+
 let main = {
   init() {
     GoogleAnalytics.init();
@@ -56,22 +61,9 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-<<<<<<< HEAD
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
-=======
-      GoogleAnalytics.init();
-
-      // Track all ReactDOM.render calls so we can use a Promise.all()
-      // all the way at the end to make sure we don't report "we are done"
-      // until all the React stuff is _actually_ done.
-      const apps = [];
-
-      this.injectReactComponents(apps);
-      this.bindGlobalHandlers();
-      this.bindGAEventTrackers();
->>>>>>> 007c3a59... .
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
