@@ -18,7 +18,7 @@ let elements = {
   scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
   newsletterButtons: `#view-youtube-regrets .intro-viewport .btn-newsletter`,
   newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.hidden-lg-up`,
-  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.hidden-md-down`
+  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.d-none.d-lg-block`
 };
 
 class YouTubeRegretsTunnel {
