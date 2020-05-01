@@ -98,7 +98,7 @@ export default class MemberNotice extends React.Component {
                 it grow. This is a barn raising.
               </p>
             </div>
-            <div className="hidden-md-up">
+            <div className="d-md-none">
               <h3 className="h5-heading">This is a Movement</h3>
               <p className="mb-0">
                 We're building a home for people who care about the health of
