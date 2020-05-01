@@ -20,10 +20,6 @@
   position: relative;
 }
 
-.full-bleed {
-  @include full-bleed;
-}
-
 @include full-bleed-bp("xs");
 @include full-bleed-bp("sm");
 @include full-bleed-bp("md");

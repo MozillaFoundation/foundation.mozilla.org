@@ -1,21 +1,20 @@
 // Break the constraints of parent container(s) to span the entire viewport width
-@mixin full-bleed {
-  width: 100vw;
-  max-width: none;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-// Mixin to create ".full-bleed-breakpoint" utility classes
 @mixin full-bleed-bp($breakpoint) {
   @include media-breakpoint-only($breakpoint) {
     .full-bleed-#{$breakpoint} {
-      @include full-bleed;
+      $gutter: map-get($grid-gutter-widths, $breakpoint);
+      $margin: calc(-50vw + #{$gutter}/ 4);
+      $position-offset: calc(50% - #{$gutter} / 2);
+
+      width: 100vw;
+      max-width: none;
+      position: relative;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: $margin;
+      margin-right: $margin;
+      left: $position-offset;
+      right: $position-offset;
     }
   }
 }
