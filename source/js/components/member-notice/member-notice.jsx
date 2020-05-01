@@ -79,7 +79,7 @@ export default class MemberNotice extends React.Component {
             </p>
           </div>
           <div ref="pane2" className="pane pane-hidden">
-            <div className="hidden-sm-down">
+            <div className="d-none d-md-block">
               <h3 className="h5-heading">This is a Barn Raising</h3>
               <p>
                 There is a movement to keep the Internet healthy taking root
