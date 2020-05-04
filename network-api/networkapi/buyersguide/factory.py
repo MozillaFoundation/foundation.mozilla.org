@@ -15,10 +15,11 @@ from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
     BaseProduct,
+    BaseProductPrivacyPolicyLink,
     GeneralProduct,
     BuyersGuideProductCategory,
     BaseRangeVote,
-    BaseBooleanVote
+    BaseBooleanVote,
 )
 
 Faker.add_provider(ImageProvider)
@@ -27,6 +28,14 @@ Faker.add_provider(ImageProvider)
 def get_extended_yes_no_value():
     options = ['Yes', 'No', 'NA', 'U']
     return choice(options)
+
+
+class BaseProductPrivacyPolicyLinkFactory(DjangoModelFactory):
+    class Meta:
+        model = BaseProductPrivacyPolicyLink
+
+    label = Faker('sentence')
+    url = Faker('url')
 
 
 class ProductFactory(DjangoModelFactory):
@@ -44,22 +53,6 @@ class ProductFactory(DjangoModelFactory):
     review_date = Faker('date_time_between_dates',
                         datetime_start=date(year=2018, month=11, day=1), datetime_end=None, tzinfo=timezone.utc)
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
-
-    @post_generation
-    def product_category(self, create, extracted, **kwargs):
-        """
-        After model generation, Relate this product to one or more product categories.
-        Do this in a way that will assign some products 2 or more categories.
-        """
-        ceiling = 1.0
-        while True:
-            odds = random()
-            if odds < ceiling:
-                category = choice(BuyersGuideProductCategory.objects.all())
-                self.product_category.add(category)
-                ceiling = ceiling / 5
-            else:
-                return
 
     blurb = Faker('sentence')
 
@@ -92,6 +85,26 @@ class ProductFactory(DjangoModelFactory):
             self.cloudinary_image = Faker('product_image').generate({})
         else:
             self.image.name = Faker('product_image').generate({})
+
+    @post_generation
+    def product_category(self, create, extracted, **kwargs):
+        """
+        After model generation, Relate this product to one or more product categories.
+        Do this in a way that will assign some products 2 or more categories.
+        """
+        ceiling = 1.0
+        while True:
+            odds = random()
+            if odds < ceiling:
+                category = choice(BuyersGuideProductCategory.objects.all())
+                self.product_category.add(category)
+                ceiling = ceiling / 5
+            else:
+                return
+
+    @post_generation
+    def set_privacy_policy_link(self, create, extracted, **kwargs):
+        BaseProductPrivacyPolicyLinkFactory.create(product=self)
 
 
 def generate(seed):

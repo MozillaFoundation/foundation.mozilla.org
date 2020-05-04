@@ -117,34 +117,18 @@ body.mozfest {
 
         video,
         picture {
+          width: 100%;
+          height: 100%;
           display: flex;
           position: absolute;
           z-index: $banner-background-z-index;
           top: 0;
           left: 0;
-        }
-
-        video {
-          // TODO:FIXME. Ratio will be adjusted once Mavis receives the final video file.
-          $screen-ratio: "1/1";
-
-          // when screen is wide
-          @media (min-aspect-ratio: $screen-ratio) {
-            width: 100%;
-            height: auto;
-          }
-
-          // when screen ratio is narrow
-          @media (max-aspect-ratio: $screen-ratio) {
-            width: auto;
-            height: 100%;
-          }
+          object-fit: cover;
+          object-position: center center;
         }
 
         picture {
-          width: 100%;
-          height: 100%;
-
           img {
             position: static;
             top: 0;
