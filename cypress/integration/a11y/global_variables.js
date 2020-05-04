@@ -1,4 +1,6 @@
-const viewports = ['iphone-5', 'macbook-13']
+const MOBILE = 'iphone-6';
+const DESKTOP = 'macbook-13';
+const viewports = [MOBILE, DESKTOP]
 
 const A11Y_CONFIG = {
   reporter: "v2"
@@ -17,4 +19,4 @@ const EXCLUDE_PNI_CONSTANTS = EXCLUDE_CONSTANTS.concat([
     ['#coral-talk-stream', 'iframe'] // Commenting
   ])
 
-export { viewports, A11Y_CONFIG, EXCLUDE_CONSTANTS, EXCLUDE_PNI_CONSTANTS }
+export { viewports, MOBILE, DESKTOP, A11Y_CONFIG, EXCLUDE_CONSTANTS, EXCLUDE_PNI_CONSTANTS }
