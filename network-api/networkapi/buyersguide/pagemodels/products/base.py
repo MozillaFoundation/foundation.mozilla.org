@@ -34,6 +34,8 @@ product_panels = [
         heading="Publication status",
         classname="collapsible"
     ),
+
+    # core information
     MultiFieldPanel(
         [
             FieldPanel('adult_content'),
@@ -50,6 +52,8 @@ product_panels = [
         heading="General Product Details",
         classname="collapsible"
     ),
+
+    # minimum security standard
     MultiFieldPanel(
         [
             FieldPanel('uses_encryption'),
@@ -66,20 +70,14 @@ product_panels = [
         heading="Minimum Security Standards for general products",
         classname="collapsible"
     ),
+    # Data sharing
     MultiFieldPanel(
         [
             FieldPanel('share_data'),
             FieldPanel('share_data_helptext'),
-        ],
-        heading="Minimum Security Standards",
-        classname="collapsible"
-    ),
-    MultiFieldPanel(
-        [
             FieldPanel('how_does_it_share'),
-            FieldPanel('worst_case'),
         ],
-        heading="How does it handle privacy",
+        heading="How does it handle data sharing",
         classname="collapsible"
     ),
     MultiFieldPanel(
@@ -92,6 +90,13 @@ product_panels = [
             ),
         ],
         heading="Privacy policy links",
+        classname="collapsible"
+    ),
+    MultiFieldPanel(
+        [
+            FieldPanel('worst_case'),
+        ],
+        heading="What's the worst that could happen",
         classname="collapsible"
     ),
     MultiFieldPanel(
