@@ -1,3 +1,15 @@
+// adding this Bootstrap v4.0.0-alpha.6 utility class back
+.has-danger {
+  .form-control-feedback,
+  .form-control-danger {
+    color: $danger;
+
+    @at-root .dark-theme & {
+      color: $dark-theme-danger;
+    }
+  }
+}
+
 .form-control,
 .form-control-sm,
 .form-control-lg {

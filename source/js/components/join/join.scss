@@ -8,12 +8,16 @@
       "width": 13px
     );
 
-    color: $dark-red;
+    color: $danger;
 
     .form-control {
-      border: 2px solid $dark-red;
+      border: 2px solid $danger;
       padding-right: map-get($glyph-container, "margin-x") * 2 +
         map-get($glyph-container, "width");
+
+      @at-root .dark-theme & {
+        border-color: $dark-theme-danger;
+      }
     }
 
     .glyph-container {
@@ -37,6 +41,12 @@
     }
   }
 
+  .form-check {
+    .form-control-feedback {
+      margin-left: -$form-check-input-gutter;
+    }
+  }
+
   .form-control {
     font-weight: 400;
     color: $black;
@@ -44,15 +54,5 @@
 
   .fields-wrapper {
     flex: 1 1 auto;
-  }
-
-  @at-root .dark-theme & {
-    .form-control-feedback {
-      color: $red;
-    }
-
-    .has-danger .form-control {
-      border-color: $red;
-    }
   }
 }
