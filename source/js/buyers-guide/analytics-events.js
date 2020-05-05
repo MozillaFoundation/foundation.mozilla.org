@@ -66,9 +66,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
 }
 
 function setupElementGA(element, eventData) {
-  element.onclick = () => {
-    ReactGA.event(eventData);
-  };
+  element.addEventListener("click", () => ReactGA.event(eventData), true);
 }
 
 const ProductGA = {
@@ -111,11 +109,11 @@ const ProductGA = {
           category: baseData.category,
           action: baseData.action,
           label: baseData.label,
-          transpory: baseData.transpory
+          transport: baseData.transport
         };
 
         elements.forEach(e => setupElementGA(e, eventData));
-      } else if (!querySelectorEvents[querySelector].optional_element) {\
+      } else if (!querySelectorEvents[querySelector].optional_element) {
         // If we're on the right page, but the event's query selector
         // does not result in any elements, that's a bug and should
         // log an error so we can fix that.
