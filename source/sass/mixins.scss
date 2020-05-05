@@ -118,6 +118,7 @@
   padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
 }
 
+// TODO: override Bootstrap's "@mixin button-outline-variant" so we can reduce our overrides for buttons
 @mixin button-basic-style(
   $default,
   $default-hover,
@@ -148,6 +149,14 @@
     opacity: 0.3;
   }
 
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: map-get($default-hover, "color");
+    background-color: map-get($default-hover, "background-color");
+    border-color: map-get($default-hover, "border-color");
+  }
+
   @at-root .dark-theme & {
     color: map-get($dark-theme-default, "color");
     background-color: map-get($dark-theme-default, "background-color");
@@ -165,6 +174,20 @@
       opacity: 0.5;
       background-color: map-get($dark-theme-default, "background-color");
       border-color: map-get($dark-theme-default, "border-color");
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    .show > &.dropdown-toggle {
+      color: map-get($dark-theme-default, "color");
+      background-color: map-get($dark-theme-default, "background-color");
+      border-color: map-get($dark-theme-default, "border-color");
+
+      @include hover-focus-active {
+        color: map-get($dark-theme-hover, "color");
+        background-color: map-get($dark-theme-hover, "background-color");
+        border-color: map-get($dark-theme-hover, "border-color");
+      }
     }
   }
 }
