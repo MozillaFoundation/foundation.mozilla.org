@@ -541,7 +541,7 @@ export default class Petition extends React.Component {
       "has-danger": this.state.userTriedSubmitting && !this.refs.privacy.checked
     });
 
-    let errorMessageClass = `body-small form-control-feedback mb-3`;
+    let errorMessageClass = `body-small form-control-feedback`;
 
     let checkboxes = this.generateCheckboxes(disableFields);
 
@@ -681,7 +681,7 @@ export default class Petition extends React.Component {
             )}
           </div>
           <div className={privacyClass}>
-            <div>
+            <div className="my-2">
               <label className="form-check-label">
                 <input
                   disabled={disableFields}
@@ -704,7 +704,7 @@ export default class Petition extends React.Component {
               </label>
             </div>
             {this.props.subscribed ? null : (
-              <div>
+              <div className="my-2">
                 <label className="form-check-label">
                   <input
                     disabled={disableFields}
