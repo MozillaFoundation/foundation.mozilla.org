@@ -1,13 +1,41 @@
+from django import forms
+from wagtail.admin.forms import WagtailAdminModelForm
+
 from wagtail.contrib.modeladmin.options import (
-    ModelAdmin, ModelAdminGroup, modeladmin_register)
+    ModelAdmin,
+    ModelAdminGroup,
+    modeladmin_register
+)
 
 from networkapi.buyersguide.models import (
     Update,
     Product,
+    BaseProduct,
     GeneralProduct,
     SoftwareProduct,
     BuyersGuideProductCategory
 )
+
+
+# Effect custom ordering (in the admin only) for
+# the many-to-many fields in Products
+class BaseProductForm(WagtailAdminModelForm):
+    """
+    See https://stackoverflow.com/a/61525965/740553
+    """
+
+    updates = forms.ModelMultipleChoiceField(
+        queryset=Update.objects.order_by('title'),
+        required=False
+    )
+
+    related_products = forms.ModelMultipleChoiceField(
+        queryset=BaseProduct.objects.order_by('name'),
+        required=False
+    )
+
+
+BaseProduct.base_form_class = BaseProductForm
 
 
 # Wagtail admin
