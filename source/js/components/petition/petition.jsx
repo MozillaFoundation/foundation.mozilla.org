@@ -723,7 +723,7 @@ export default class Petition extends React.Component {
             )}
             {checkboxes.length > 0 ? <div>{checkboxes}</div> : null}
           </div>
-          <div className="mt-3">
+          <div className="my-3">
             <button
               disabled={disableFields}
               className="col-12 btn btn-primary petition-btn"
