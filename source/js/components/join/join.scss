@@ -11,12 +11,11 @@
     color: $danger;
 
     .form-control {
-      border: 2px solid $danger;
       padding-right: map-get($glyph-container, "margin-x") * 2 +
         map-get($glyph-container, "width");
 
       @at-root .dark-theme & {
-        border-color: $dark-theme-danger;
+        border-width: 2px;
       }
     }
 
@@ -38,12 +37,6 @@
       @media (min-width: $bp-md) {
         margin-left: 0;
       }
-    }
-  }
-
-  .form-check {
-    .form-control-feedback {
-      margin-left: -$form-check-input-gutter;
     }
   }
 
