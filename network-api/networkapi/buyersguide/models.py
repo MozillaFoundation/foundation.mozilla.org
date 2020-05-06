@@ -31,10 +31,6 @@ from .pagemodels.cloudinary_image_field import (
     CloudinaryImageField
 )
 
-from .pagemodels.products.original import (
-    Product,
-)
-
 from .pagemodels.products.base import (
     BaseProduct,
 )
@@ -71,7 +67,6 @@ __all__ = [
     BuyersGuideProductCategory,
     CloudinaryImageField,
     GeneralProduct,
-    Product,
     ProductPrivacyPolicyLink,
     ProductVote,
     RangeProductVote,
