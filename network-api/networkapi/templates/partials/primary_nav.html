@@ -34,7 +34,7 @@
                 <div class="d-flex align-items-center flex-wrap">
 
                   {% block burger_and_logo %}
-                    <button class="burger {% if page.zen_nav is not True %} hidden-lg-up ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
+                    <button class="burger {% if page.zen_nav is not True %} d-lg-none ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
                       <div class="burger-bar burger-bar-top"></div>
                       <div class="burger-bar burger-bar-middle"></div>
                       <div class="burger-bar burger-bar-bottom"></div>
@@ -61,7 +61,7 @@
               {% block donate_and_newsletter %}
               <div class="d-flex align-items-center">
                 <a id="donate-header-btn" class="heart-glyph" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
-                {% if page.signup == None %}<button class="btn btn-secondary btn-newsletter hidden-md-down ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
+                {% if page.signup == None %}<button class="btn btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
               </div>
               {% endblock %}
 
@@ -80,7 +80,7 @@
     <div class="row">
       <div class="col-12">
         <div class="join-us pt-5 on-nav" data-layout="2-column" data-form-position="header" data-button-position="side"></div>
-        <div class="text-center mt-3 hidden-lg-up">
+        <div class="text-center mt-3 d-lg-none">
           <button class="btn form-dismiss">{% trans "No thanks" %}</button>
         </div>
       </div>

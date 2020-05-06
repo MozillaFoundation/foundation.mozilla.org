@@ -80,7 +80,7 @@
             {% else %}
             <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="{% blocktrans with product_name=product.name %}link to {{product_name}}{% endblocktrans %}">
             {% endif %}
-            <figcaption class="hidden-sm-down mt-md-2 text-left">
+            <figcaption class="d-none d-md-block mt-md-2 text-left">
             <div class="body-small">{{product.company}}</div>
             <div class="body">{{product.name}}</div>
             </figcaption>

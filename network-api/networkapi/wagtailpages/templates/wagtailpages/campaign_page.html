@@ -27,7 +27,7 @@
         {% endif %}"
       >
       {% block campaign_page_header %}
-        <h1 class="h1-heading {% if uses_menu %}hidden-sm-down{% endif %}">
+        <h1 class="h1-heading {% if uses_menu %}d-none d-md-block{% endif %}">
           {% if uses_menu %}
             {{ mini_site_title }}
           {% elif page.header %}
@@ -38,7 +38,7 @@
         </h1>
       {% endblock %}
       {% block campaign_page_menu %}
-        <div class="mb-4 hidden-sm-down">
+        <div class="mb-4 d-none d-md-block">
         {% mini_site_horizontal_nav page %}
         </div>
       {% endblock %}
