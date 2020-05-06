@@ -4,6 +4,7 @@
   {{ block.super }}
   <div class="right">
     <form action="/api/buyersguide/clear-cache/" method="post">
+      <input type="hidden" name="redirectUrl" value="{{ request.path }}">
       <button class="button bicolor icon icon-cog" style="height: 2.9em;" type="submit">Clear Homepage Cache</button>
       {% csrf_token %}
     </form>
