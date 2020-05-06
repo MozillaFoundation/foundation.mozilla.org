@@ -114,6 +114,7 @@ A few things to keep in mind when using that setup:
 
 #### Debugging
 
+Ensure you have the official [python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) for Visual Studio Code installed. It provides the debugging type required for the run configuration to work.
 
 1. Set the `VSCODE_DEBUGGER` value to `True` in your .env
 
