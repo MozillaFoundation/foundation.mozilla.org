@@ -382,8 +382,12 @@ class BaseProduct(ClusterableModel):
         ]
 
 
+# FOR REFACTORING PURPOSES, WE FIRST ALIAS THIS:
+
+Product = BaseProduct
+
 # We want to delete the product image when the product is removed
-@receiver(pre_delete, sender=BaseProduct)
+@receiver(pre_delete, sender=Product)
 def delete_image(sender, instance, **kwargs):
     # We want to keep our review app placeholders
     if settings.REVIEW_APP:
@@ -391,8 +395,3 @@ def delete_image(sender, instance, **kwargs):
     else:
         if instance.cloudinary_image:
             uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
-
-
-# FOR REFACTORING PURPOSES, WE FIRST ALIAS THIS:
-
-Product = BaseProduct
