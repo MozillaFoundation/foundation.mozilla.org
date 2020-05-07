@@ -15,6 +15,7 @@ from networkapi.buyersguide.models import (
     BuyersGuideProductCategory
 )
 
+
 # Effect custom ordering (in the admin only) for
 # the many-to-many fields in Products
 class BaseProductForm(WagtailAdminModelForm):
