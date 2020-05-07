@@ -9,7 +9,7 @@ from .products.base import BaseProduct
 
 
 @register_snippet
-class BaseProductPrivacyPolicyLink(Orderable, models.Model):
+class ProductPrivacyPolicyLink(Orderable, models.Model):
     product = ParentalKey(
         BaseProduct,
         related_name='privacy_policy_links',

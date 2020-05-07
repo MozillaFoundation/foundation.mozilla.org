@@ -15,8 +15,8 @@ from rest_framework.response import Response
 
 from .models import (
     BaseProduct,
-    BaseBooleanVote,
-    BaseRangeVote,
+    BooleanVote,
+    RangeVote,
     BuyersGuideProductCategory,
 )
 
@@ -186,11 +186,11 @@ def product_vote(request):
         if product.draft and not request.user.is_authenticated:
             raise Http404("Product does not exist")
 
-        VoteClass = BaseRangeVote
+        VoteClass = RangeVote
 
         # Check if this vote is a boolean (yes/no) vote, and switch the model if it is
         if isinstance(value, bool):
-            VoteClass = BaseBooleanVote
+            VoteClass = BooleanVote
 
         # Build the model instance
         vote = VoteClass(
