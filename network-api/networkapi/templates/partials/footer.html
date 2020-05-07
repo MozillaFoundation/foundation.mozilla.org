@@ -4,7 +4,7 @@
 
 {% if skip_donate != True %}
 {% block footer_donate %}
-<div class="donate-banner dark-theme {{wrapper_class}}">
+<div class="donate-banner dark-theme d-print-none {{wrapper_class}}">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -20,7 +20,7 @@
 {% endblock %}
 {% endif %}
 
-<footer class="site-footer dark-theme {{wrapper_class}}">
+<footer class="site-footer dark-theme {{wrapper_class}} d-print-none">
   <div class="container">
     <div class="row">
 

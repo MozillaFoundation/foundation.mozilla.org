@@ -1,0 +1,9 @@
+@media print {
+  .container {
+    width: auto;
+
+    .row {
+      @extend .d-print-block;
+    }
+  }
+}
