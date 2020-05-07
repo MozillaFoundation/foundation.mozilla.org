@@ -87,6 +87,7 @@ class RangeVoteBreakdown(VoteBreakdown):
 
 
 class Vote(models.Model):
+    # This is the only "BaseProduct" left, as "Product" is just a code alias for now.
     product = models.ForeignKey('BaseProduct', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
