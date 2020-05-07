@@ -8,6 +8,7 @@ import CountrySelect from "./country-select.jsx";
 import { getText, getCurrentLanguage } from "./locales";
 import copyToClipboard from "../../copy-to-clipboard";
 const SALESFORCE_COMMENT_LIMIT = 500;
+const CHECKBOX_LABEL_CLASS = `body-small`;
 
 export default class Petition extends React.Component {
   constructor(props) {
@@ -78,8 +79,8 @@ export default class Petition extends React.Component {
                 type="checkbox"
                 ref={name}
               />
-              <span
-                className="body-small form-text"
+              <div
+                className={CHECKBOX_LABEL_CLASS}
                 dangerouslySetInnerHTML={{ __html: label }}
               />
             </label>
@@ -540,12 +541,14 @@ export default class Petition extends React.Component {
       "has-danger": this.state.userTriedSubmitting && !this.refs.privacy.checked
     });
 
+    let errorMessageClass = `body-small form-control-feedback`;
+
     let checkboxes = this.generateCheckboxes(disableFields);
 
     return (
       <div className="col petition-form" id="petition-form">
         <form onSubmit={e => this.processFormData(e)} noValidate={true}>
-          <div className="mb-2">
+          <div className="mb-3">
             <div className={givenGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
@@ -560,9 +563,9 @@ export default class Petition extends React.Component {
               />
               {this.state.userTriedSubmitting &&
                 !this.givenNames.element.value && (
-                  <small className="form-check form-control-feedback">
+                  <p className={errorMessageClass}>
                     {getText(`Please enter your given name(s)`)}
-                  </small>
+                  </p>
                 )}
             </div>
             <div className={surGroupClass}>
@@ -579,9 +582,9 @@ export default class Petition extends React.Component {
               />
               {this.state.userTriedSubmitting &&
                 !this.surname.element.value && (
-                  <small className="form-check form-control-feedback">
+                  <p className={errorMessageClass}>
                     {getText(`Please enter your surname`)}
-                  </small>
+                  </p>
                 )}
             </div>
             <div className={emailGroupClass}>
@@ -599,9 +602,9 @@ export default class Petition extends React.Component {
               {this.state.userTriedSubmitting &&
                 (!this.email.element.value ||
                   !this.validatesAsEmail(this.email.element.value)) && (
-                  <small className="form-check form-control-feedback">
+                  <p className={errorMessageClass}>
                     {getText(`Please enter your email`)}
-                  </small>
+                  </p>
                 )}
             </div>
             <div className={countryGroupClass}>
@@ -617,9 +620,9 @@ export default class Petition extends React.Component {
               {this.props.requiresCountryCode === `True` &&
                 this.state.userTriedSubmitting &&
                 !this.country.element.value && (
-                  <small className="form-check form-control-feedback">
+                  <p className={errorMessageClass}>
                     {getText(`Please enter your country`)}
-                  </small>
+                  </p>
                 )}
             </div>
 
@@ -638,9 +641,9 @@ export default class Petition extends React.Component {
                 />
                 {this.state.userTriedSubmitting &&
                   !this.postalCode.element.value && (
-                    <small className="form-check form-control-feedback">
+                    <p className={errorMessageClass}>
                       {getText(`Please enter your postal code`)}
-                    </small>
+                    </p>
                   )}
               </div>
             )}
@@ -660,19 +663,19 @@ export default class Petition extends React.Component {
                 {this.props.commentRequirements === `required` &&
                   this.state.userTriedSubmitting &&
                   !this.comment.element.value && (
-                    <small className="form-check form-control-feedback">
+                    <p className={errorMessageClass}>
                       Please include a comment
-                    </small>
+                    </p>
                   )}
                 {this.state.userTriedSubmitting &&
                   this.comment &&
                   this.comment.element.value &&
                   this.comment.element.value.length >=
                     SALESFORCE_COMMENT_LIMIT && (
-                    <small className="form-check form-control-feedback">
+                    <p className={errorMessageClass}>
                       Comments cannot be longer than {SALESFORCE_COMMENT_LIMIT}{" "}
                       characters
-                    </small>
+                    </p>
                   )}
               </div>
             )}
@@ -687,16 +690,16 @@ export default class Petition extends React.Component {
                   id="PrivacyCheckbox"
                   ref="privacy"
                 />
-                <span className="body-small form-text">
+                <div className={CHECKBOX_LABEL_CLASS}>
                   {getText(
                     `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
                   )}
-                </span>
+                </div>
                 {this.state.userTriedSubmitting &&
                   !this.refs.privacy.checked && (
-                    <small className="has-danger">
+                    <p className={errorMessageClass}>
                       {getText(`Please check this box if you want to proceed`)}
-                    </small>
+                    </p>
                   )}
               </label>
             </div>
@@ -710,25 +713,23 @@ export default class Petition extends React.Component {
                     id="NewsletterSignup"
                     ref="newsletterSignup"
                   />
-                  <span className="body-small form-text">
+                  <div className={CHECKBOX_LABEL_CLASS}>
                     {getText(
                       `Yes, I want to receive email updates about Mozilla's campaigns.`
                     )}
-                  </span>
+                  </div>
                 </label>
               </div>
             )}
-            {checkboxes.length > 0 ? (
-              <div className="my-2">{checkboxes}</div>
-            ) : null}
-            <div className="mt-3">
-              <button
-                disabled={disableFields}
-                className="col-12 btn btn-primary petition-btn"
-              >
-                {getText(`Add my name`)}
-              </button>
-            </div>
+            {checkboxes.length > 0 ? <div>{checkboxes}</div> : null}
+          </div>
+          <div className="my-3">
+            <button
+              disabled={disableFields}
+              className="col-12 btn btn-primary petition-btn"
+            >
+              {getText(`Add my name`)}
+            </button>
           </div>
         </form>
       </div>

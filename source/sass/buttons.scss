@@ -1,7 +1,9 @@
+// TODO: override Bootstrap's "@mixin button-outline-variant" so we can reduce our overrides for buttons
 button,
 .btn {
   font-family: "Nunito Sans";
   font-weight: $btn-font-weight;
+
   @include scaleText(18px, 22px);
 
   &:hover {
@@ -126,6 +128,15 @@ button,
     $dark-theme-default,
     $dark-theme-hover
   );
+
+  &.disabled,
+  &:disabled {
+    color: map-get($default, "color");
+
+    @at-root .dark-theme & {
+      color: map-get($dark-theme-default, "color");
+    }
+  }
 }
 
 // append external link glyph

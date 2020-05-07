@@ -1,7 +1,7 @@
 {% load wagtailcore_tags nav_tags %}
 
 {% if singleton_page == False %}
-<div id="multipage-horizontal-nav-wrapper" class="hidden-sm-down full-width">
+<div id="multipage-horizontal-nav-wrapper" class="d-none d-md-block full-width">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -11,5 +11,5 @@
   </div>
 </div>
 {% else %}
-  {% include "partials/intro_and_content_divider.html" with wrapper_class="hidden-sm-down" %}
+  {% include "partials/intro_and_content_divider.html" with wrapper_class="d-none d-md-block" %}
 {% endif %}

@@ -79,7 +79,7 @@ export default class MemberNotice extends React.Component {
             </p>
           </div>
           <div ref="pane2" className="pane pane-hidden">
-            <div className="hidden-sm-down">
+            <div className="d-none d-md-block">
               <h3 className="h5-heading">This is a Barn Raising</h3>
               <p>
                 There is a movement to keep the Internet healthy taking root
@@ -98,7 +98,7 @@ export default class MemberNotice extends React.Component {
                 it grow. This is a barn raising.
               </p>
             </div>
-            <div className="hidden-md-up">
+            <div className="d-md-none">
               <h3 className="h5-heading">This is a Movement</h3>
               <p className="mb-0">
                 We're building a home for people who care about the health of

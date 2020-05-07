@@ -16,7 +16,7 @@
 Note: Wrapper HTML elements are copied from primary_page_menu.html as we want menu on BanneredCampaignPage to look exactly the same as PrimaryPage's.
 
 {% block minisite_title %}
-  <div id="multipage-horizontal-nav-wrapper" class="hidden-sm-down full-width">
+  <div id="multipage-horizontal-nav-wrapper" class="d-none d-md-block full-width">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -28,7 +28,7 @@ Note: Wrapper HTML elements are copied from primary_page_menu.html as we want me
 {% endblock %}
 
 {% block minisite_no_menu %}
-  {% include "partials/intro_and_content_divider.html" with wrapper_class="hidden-sm-down" %}
+  {% include "partials/intro_and_content_divider.html" with wrapper_class="d-none d-md-block" %}
 {% endblock %}
 
 The following block has been borrowed from the templates/tags/cta/petition.html file,

@@ -4,14 +4,25 @@ $font-family-base: $font-family-sans-serif;
 $enable-flex: true; // Turn on Flexbox support
 $enable-transitions: true;
 
+$font-size-base: 1rem;
 $body-color: $black;
+$danger: $dark-red;
+$dark-theme-danger: $red;
 
-$input-color-placeholder: $gray-60;
+$input-placeholder-color: $gray-60;
+$input-line-height: 1.25;
+$input-line-height-sm: $input-line-height;
+$input-line-height-lg: $input-line-height;
+
+$input-btn-padding-x: 1rem;
+$input-btn-padding-y: 0.5rem;
+$btn-padding-y: $input-btn-padding-y;
+$btn-padding-x: $input-btn-padding-x;
 
 $btn-border-radius: 0;
 $btn-border-radius-sm: 0;
 $btn-border-radius-lg: 0;
-
-// Foundation site brand
 $btn-font-weight: 700;
 $border-shadow-color: transparentize($black, 0.85);
+
+$form-check-input-margin-y: 0;
