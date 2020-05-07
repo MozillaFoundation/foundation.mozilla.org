@@ -9,7 +9,6 @@ from wagtail.contrib.modeladmin.options import (
 
 from networkapi.buyersguide.models import (
     Update,
-    Product,
     BaseProduct,
     GeneralProduct,
     SoftwareProduct,
@@ -36,26 +35,6 @@ class BaseProductForm(WagtailAdminModelForm):
 
 
 BaseProduct.base_form_class = BaseProductForm
-
-
-# Wagtail admin
-class WagtailBuyersGuideAdmin(ModelAdmin):
-    model = Product
-    menu_label = 'Products: old'
-    menu_icon = 'pick'  # change as required
-    add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
-    exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
-
-    def get_published(self, obj):
-        return not obj.draft
-
-    get_published.short_description = 'Published'
-    get_published.boolean = True
-    get_published.admin_order_field = 'draft'
-
-    list_display = ('get_published', 'review_date', 'name', 'company', 'url')
-    search_fields = ('name', 'company')
-    index_template_name = 'admin/index_view.html'
 
 
 class WagtailBuyersGuideGeneralProductAdmin(ModelAdmin):
@@ -120,7 +99,6 @@ class WagtailBuyersGuideUpdateAdmin(ModelAdmin):
 
 class WagtailBuyersGuideAdminGroup(ModelAdminGroup):
     items = (
-        WagtailBuyersGuideAdmin,
         WagtailBuyersGuideGeneralProductAdmin,
         WagtailBuyersGuideSoftwareProductAdmin,
         WagtailBuyersGuideCategoryAdmin,

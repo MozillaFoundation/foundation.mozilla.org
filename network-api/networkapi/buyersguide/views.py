@@ -219,4 +219,5 @@ def product_vote(request):
 @permission_classes((IsAuthenticated,))
 def clear_cache(request):
     cache.clear()
-    return redirect('/cms/')
+    redirect_url = request.POST.get('redirectUrl', '/cms/')
+    return redirect(redirect_url)
