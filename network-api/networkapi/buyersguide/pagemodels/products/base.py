@@ -391,3 +391,8 @@ def delete_image(sender, instance, **kwargs):
     else:
         if instance.cloudinary_image:
             uploader.destroy(instance.cloudinary_image.public_id, invalidate=True)
+
+
+# FOR REFACTORING PURPOSES, WE FIRST ALIAS THIS:
+
+Product = BaseProduct

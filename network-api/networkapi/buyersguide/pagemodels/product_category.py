@@ -3,7 +3,7 @@ from django.utils.text import slugify
 
 from wagtail.snippets.models import register_snippet
 
-from .products.base import BaseProduct
+from .products.base import Product
 
 
 @register_snippet
@@ -37,7 +37,7 @@ class BuyersGuideProductCategory(models.Model):
 
     @property
     def published_product_count(self):
-        return BaseProduct.objects.filter(product_category=self, draft=False).count()
+        return Product.objects.filter(product_category=self, draft=False).count()
 
     def __str__(self):
         return self.name

@@ -5,7 +5,7 @@ from django.db.models import (
 )
 
 from networkapi.buyersguide.models import (
-    BaseProduct,
+    Product,
     RangeVote,
     BooleanVote,
     RangeProductVote,
@@ -29,7 +29,7 @@ class Command(BaseCommand):
     }
 
     def handle(self, *args, **options):
-        products = BaseProduct.objects.all()
+        products = Product.objects.all()
 
         for product in products:
             # generate a QuerySet for this product's creepiness votes

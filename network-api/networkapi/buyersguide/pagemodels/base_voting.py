@@ -3,7 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from networkapi.buyersguide.validators import ValueListValidator
 
-from .products.base import BaseProduct
+from .products.base import Product
 
 
 class ProductVote(models.Model):
@@ -29,7 +29,7 @@ class RangeProductVote(ProductVote):
         )
     )
     product = models.ForeignKey(
-        BaseProduct,
+        Product,
         on_delete=models.CASCADE,
         related_name='range_product_votes',
     )
@@ -43,7 +43,7 @@ class BooleanProductVote(ProductVote):
         ]
     )
     product = models.ForeignKey(
-        BaseProduct,
+        Product,
         on_delete=models.CASCADE,
         related_name='boolean_product_votes'
     )

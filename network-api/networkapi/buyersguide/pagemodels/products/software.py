@@ -2,12 +2,12 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
 from networkapi.buyersguide.fields import ExtendedYesNoField
-from .base import BaseProduct, register_product_type
+from .base import Product, register_product_type
 
 from networkapi.wagtailpages.utils import insert_panels_after
 
 
-class SoftwareProduct(BaseProduct):
+class SoftwareProduct(Product):
     """
     A thing you can install on your computer and our review of it
     """
@@ -80,7 +80,7 @@ class SoftwareProduct(BaseProduct):
 
     # administrative panels
 
-    panels = BaseProduct.panels.copy()
+    panels = Product.panels.copy()
 
     panels = insert_panels_after(
         panels,

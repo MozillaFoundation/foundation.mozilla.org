@@ -14,7 +14,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import (
-    BaseProduct,
+    Product,
     BooleanVote,
     RangeVote,
     BuyersGuideProductCategory,
@@ -62,7 +62,7 @@ def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
 
     if not products:
-        products = [p.to_dict() for p in BaseProduct.objects.all()]
+        products = [p.to_dict() for p in Product.objects.all()]
         products.sort(key=lambda p: get_average_creepiness(p))
         cache.set('sorted_product_dicts', products, 86400)
 
@@ -87,7 +87,7 @@ def category_view(request, slug):
         category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
     if not products:
-        products = [p.to_dict() for p in BaseProduct.objects.filter(product_category__in=[category]).distinct()]
+        products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
         cache.set(key, products, 86400)
 
     products = filter_draft_products(request, products)
@@ -102,7 +102,7 @@ def category_view(request, slug):
 
 @redirect_to_default_cms_site
 def product_view(request, slug):
-    product = get_object_or_404(BaseProduct, slug=slug).specific
+    product = get_object_or_404(Product, slug=slug).specific
 
     if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")
@@ -181,7 +181,7 @@ def product_vote(request):
         return Response('Invalid payload - check data types', status=400, content_type='text/plain')
 
     try:
-        product = BaseProduct.objects.get(id=product_id)
+        product = Product.objects.get(id=product_id)
 
         if product.draft and not request.user.is_authenticated:
             raise Http404("Product does not exist")

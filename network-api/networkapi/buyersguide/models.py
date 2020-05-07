@@ -20,6 +20,7 @@ from .pagemodels.cloudinary_image_field import (
 
 from .pagemodels.products.base import (
     BaseProduct,
+    Product,
 )
 
 from .pagemodels.products.general import (
@@ -45,6 +46,7 @@ from .pagemodels.product_update import (
 
 __all__ = [
     get_product_image_upload_path,
+    Product,
     BaseProduct,
     GeneralProduct,
     SoftwareProduct,
