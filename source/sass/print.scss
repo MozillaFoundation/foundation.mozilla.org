@@ -1,9 +1,58 @@
 @media print {
+  @page {
+    margin: 2cm;
+  }
+
+  body {
+    color: $black;
+    background: $white;
+    width: 100%;
+  }
+
+  video {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol,
+  img {
+    page-break-after: avoid;
+  }
+
   .container {
     width: auto;
 
     .row {
       @extend .d-print-block;
+    }
+  }
+
+  a {
+    &:not(.btn) {
+      text-decoration: none;
+    }
+
+    &[href]:after {
+      content: " (" attr(href) ")";
+    }
+
+    &.btn {
+      padding: 0;
+      color: $black;
+      background: none;
+    }
+  }
+
+  // prevent each CMS streamfield component from spliting across multiple pages
+  div[class^="block-"] {
+    &:not(.block-paragraph) {
+      page-break-inside: avoid;
     }
   }
 }
