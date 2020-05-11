@@ -9,7 +9,7 @@ from wagtail.contrib.modeladmin.options import (
 
 from networkapi.buyersguide.models import (
     Update,
-    BaseProduct,
+    Product,
     GeneralProduct,
     SoftwareProduct,
     BuyersGuideProductCategory
@@ -18,7 +18,7 @@ from networkapi.buyersguide.models import (
 
 # Effect custom ordering (in the admin only) for
 # the many-to-many fields in Products
-class BaseProductForm(WagtailAdminModelForm):
+class ProductForm(WagtailAdminModelForm):
     """
     See https://stackoverflow.com/a/61525965/740553
     """
@@ -29,12 +29,12 @@ class BaseProductForm(WagtailAdminModelForm):
     )
 
     related_products = forms.ModelMultipleChoiceField(
-        queryset=BaseProduct.objects.order_by('name'),
+        queryset=Product.objects.order_by('name'),
         required=False
     )
 
 
-BaseProduct.base_form_class = BaseProductForm
+Product.base_form_class = ProductForm
 
 
 class WagtailBuyersGuideGeneralProductAdmin(ModelAdmin):

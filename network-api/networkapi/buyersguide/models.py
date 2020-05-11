@@ -19,7 +19,7 @@ from .pagemodels.cloudinary_image_field import (
 )
 
 from .pagemodels.products.base import (
-    BaseProduct,
+    Product,
 )
 
 from .pagemodels.products.general import (
@@ -45,21 +45,20 @@ from .pagemodels.product_update import (
 
 __all__ = [
     get_product_image_upload_path,
-    BaseProduct,
-    GeneralProduct,
-    SoftwareProduct,
-    ProductPrivacyPolicyLink,
+    BooleanProductVote,
+    BooleanVote,
+    BooleanVoteBreakdown,
     BuyersGuideProductCategory,
     CloudinaryImageField,
-    Update,
-    # Updated voting for new product models
+    GeneralProduct,
+    Product,
+    ProductPrivacyPolicyLink,
     ProductVote,
     RangeProductVote,
-    BooleanProductVote,
-    VoteBreakdown,
-    BooleanVoteBreakdown,
-    RangeVoteBreakdown,
-    Vote,
-    BooleanVote,
     RangeVote,
+    RangeVoteBreakdown,
+    SoftwareProduct,
+    Update,
+    Vote,
+    VoteBreakdown,
 ]

@@ -16,7 +16,7 @@ from networkapi.people.models import (
     InternetHealthIssue,
 )
 from networkapi.wagtailpages.models import CTA
-from networkapi.buyersguide.models import BaseProduct
+from networkapi.buyersguide.models import Product
 
 
 class Command(BaseCommand):
@@ -54,7 +54,7 @@ class Command(BaseCommand):
         WagtailPage.objects.exclude(id=1).delete()
 
         self.stdout.write('Dropping all Products...')
-        BaseProduct.objects.all().delete()
+        Product.objects.all().delete()
 
         try:
             print('Dropping Mozfest Site...')

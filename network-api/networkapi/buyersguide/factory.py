@@ -14,7 +14,7 @@ from factory import (
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
-    BaseProduct,
+    Product,
     ProductPrivacyPolicyLink,
     GeneralProduct,
     BuyersGuideProductCategory,
@@ -150,7 +150,7 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Randomised Buyer\'s Guide Products Votes')
-    for p in BaseProduct.objects.all():
+    for p in Product.objects.all():
         for _ in range(1, 15):
             value = randint(1, 100)
             RangeVote.objects.create(
