@@ -2,13 +2,13 @@ from django.db import models
 from networkapi.buyersguide.fields import ExtendedYesNoField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
-from .base import BaseProduct, register_product_type
+from .base import Product, register_product_type
 from ...utils import tri_to_quad
 
 from networkapi.wagtailpages.utils import insert_panels_after
 
 
-class GeneralProduct(BaseProduct):
+class GeneralProduct(Product):
     """
     A thing you can buy in stores and our review of it
     """
@@ -72,7 +72,7 @@ class GeneralProduct(BaseProduct):
 
     # administrative panels
 
-    panels = BaseProduct.panels.copy()
+    panels = Product.panels.copy()
 
     panels = insert_panels_after(
         panels,

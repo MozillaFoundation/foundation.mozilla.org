@@ -5,13 +5,13 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.models import Orderable
 from wagtail.snippets.models import register_snippet
 
-from .products.base import BaseProduct
+from .products.base import Product
 
 
 @register_snippet
 class ProductPrivacyPolicyLink(Orderable, models.Model):
     product = ParentalKey(
-        BaseProduct,
+        Product,
         related_name='privacy_policy_links',
         on_delete=models.CASCADE
     )

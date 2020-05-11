@@ -1,7 +1,7 @@
 from django.core.files.uploadedfile import UploadedFile
 from django.core.management.base import BaseCommand
 
-from networkapi.buyersguide.models import BaseProduct
+from networkapi.buyersguide.models import Product
 
 
 class Command(BaseCommand):
@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        all_products = BaseProduct.objects.all()
+        all_products = Product.objects.all()
 
         for product in all_products:
             if product.image:
