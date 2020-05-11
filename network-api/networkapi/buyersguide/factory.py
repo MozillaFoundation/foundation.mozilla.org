@@ -14,12 +14,12 @@ from factory import (
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
-    BaseProduct,
-    BaseProductPrivacyPolicyLink,
+    Product,
+    ProductPrivacyPolicyLink,
     GeneralProduct,
     BuyersGuideProductCategory,
-    BaseRangeVote,
-    BaseBooleanVote,
+    RangeVote,
+    BooleanVote,
 )
 
 Faker.add_provider(ImageProvider)
@@ -30,9 +30,9 @@ def get_extended_yes_no_value():
     return choice(options)
 
 
-class BaseProductPrivacyPolicyLinkFactory(DjangoModelFactory):
+class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
     class Meta:
-        model = BaseProductPrivacyPolicyLink
+        model = ProductPrivacyPolicyLink
 
     label = Faker('sentence')
     url = Faker('url')
@@ -104,7 +104,7 @@ class ProductFactory(DjangoModelFactory):
 
     @post_generation
     def set_privacy_policy_link(self, create, extracted, **kwargs):
-        BaseProductPrivacyPolicyLinkFactory.create(product=self)
+        ProductPrivacyPolicyLinkFactory.create(product=self)
 
 
 def generate(seed):
@@ -150,17 +150,17 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Randomised Buyer\'s Guide Products Votes')
-    for p in BaseProduct.objects.all():
+    for p in Product.objects.all():
         for _ in range(1, 15):
             value = randint(1, 100)
-            BaseRangeVote.objects.create(
+            RangeVote.objects.create(
                 product=p,
                 attribute='creepiness',
                 value=value
             )
 
             value = (random() < 0.5)
-            BaseBooleanVote.objects.create(
+            BooleanVote.objects.create(
                 product=p,
                 attribute='confidence',
                 value=value

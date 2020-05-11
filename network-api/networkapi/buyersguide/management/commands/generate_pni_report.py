@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
-from networkapi.buyersguide.models import BaseProduct
+from networkapi.buyersguide.models import Product
 
 LOCALE_REGEX = '/([a-z]{2}(?:-[A-Z]{2})?/)'
 
@@ -29,7 +29,7 @@ class Command(BaseCommand):
     @staticmethod
     def fetch_stats():
         stats = []
-        for product in BaseProduct.objects.all():
+        for product in Product.objects.all():
             votes = product.votes
 
             creepiness_votes = 0

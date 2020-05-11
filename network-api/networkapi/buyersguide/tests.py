@@ -11,8 +11,8 @@ from datetime import date
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import (
-    BaseRangeVote,
-    BaseBooleanVote,
+    RangeVote,
+    BooleanVote,
     GeneralProduct,
     BuyersGuideProductCategory
 )
@@ -122,7 +122,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        latest_vote = BaseRangeVote.objects.last()
+        latest_vote = RangeVote.objects.last()
 
         self.assertEqual(latest_vote.value, vote_value)
         self.assertEqual(latest_vote.product.id, test_product_id)
@@ -139,7 +139,7 @@ class BuyersGuideVoteTest(APITestCase):
             'value': vote_value,
             'productID': test_product_id
         }, format='json')
-        latest_vote = BaseBooleanVote.objects.last()
+        latest_vote = BooleanVote.objects.last()
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(latest_vote.value, vote_value)

@@ -3,10 +3,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from networkapi.buyersguide.validators import ValueListValidator
 
-from .products.base import BaseProduct
+from .products.base import Product
 
 
-class BaseProductVote(models.Model):
+class ProductVote(models.Model):
     votes = models.IntegerField(
         default=0
     )
@@ -15,7 +15,7 @@ class BaseProductVote(models.Model):
         abstract = True
 
 
-class BaseRangeProductVote(BaseProductVote):
+class RangeProductVote(ProductVote):
     attribute = models.CharField(
         max_length=100,
         validators=[
@@ -29,13 +29,13 @@ class BaseRangeProductVote(BaseProductVote):
         )
     )
     product = models.ForeignKey(
-        BaseProduct,
+        Product,
         on_delete=models.CASCADE,
         related_name='range_product_votes',
     )
 
 
-class BaseBooleanProductVote(BaseProductVote):
+class BooleanProductVote(ProductVote):
     attribute = models.CharField(
         max_length=100,
         validators=[
@@ -43,13 +43,13 @@ class BaseBooleanProductVote(BaseProductVote):
         ]
     )
     product = models.ForeignKey(
-        BaseProduct,
+        Product,
         on_delete=models.CASCADE,
         related_name='boolean_product_votes'
     )
 
 
-class BaseVoteBreakdown(models.Model):
+class VoteBreakdown(models.Model):
     count = models.IntegerField(
         default=0
     )
@@ -58,9 +58,9 @@ class BaseVoteBreakdown(models.Model):
         abstract = True
 
 
-class BaseBooleanVoteBreakdown(BaseVoteBreakdown):
+class BooleanVoteBreakdown(VoteBreakdown):
     product_vote = models.ForeignKey(
-        BaseBooleanProductVote,
+        BooleanProductVote,
         on_delete=models.CASCADE
     )
     bucket = models.IntegerField(
@@ -72,9 +72,9 @@ class BaseBooleanVoteBreakdown(BaseVoteBreakdown):
     )
 
 
-class BaseRangeVoteBreakdown(BaseVoteBreakdown):
+class RangeVoteBreakdown(VoteBreakdown):
     product_vote = models.ForeignKey(
-        BaseRangeProductVote,
+        RangeProductVote,
         on_delete=models.CASCADE
     )
     bucket = models.IntegerField(
@@ -86,7 +86,8 @@ class BaseRangeVoteBreakdown(BaseVoteBreakdown):
     )
 
 
-class BaseVote(models.Model):
+class Vote(models.Model):
+    # This is the only "BaseProduct" left, as "Product" is just a code alias for now.
     product = models.ForeignKey('BaseProduct', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -94,7 +95,7 @@ class BaseVote(models.Model):
         abstract = True
 
 
-class BaseBooleanVote(BaseVote):
+class BooleanVote(Vote):
     attribute = models.CharField(
         max_length=100,
         validators=[
@@ -104,7 +105,7 @@ class BaseBooleanVote(BaseVote):
     value = models.BooleanField()
 
 
-class BaseRangeVote(BaseVote):
+class RangeVote(Vote):
     attribute = models.CharField(
         max_length=100,
         validators=[

@@ -2,7 +2,7 @@ from .pagemodels.get_product_image_upload_path import (
     get_product_image_upload_path
 )
 
-from .pagemodels.voting import (
+from .pagemodels.base_voting import (
     ProductVote,
     RangeProductVote,
     BooleanProductVote,
@@ -14,29 +14,12 @@ from .pagemodels.voting import (
     RangeVote,
 )
 
-from .pagemodels.base_voting import (
-    BaseProductVote,
-    BaseRangeProductVote,
-    BaseBooleanProductVote,
-    BaseVoteBreakdown,
-    BaseBooleanVoteBreakdown,
-    BaseRangeVoteBreakdown,
-    BaseVote,
-    BaseBooleanVote,
-    BaseRangeVote,
-)
-
-
 from .pagemodels.cloudinary_image_field import (
     CloudinaryImageField
 )
 
-from .pagemodels.products.original import (
-    Product,
-)
-
 from .pagemodels.products.base import (
-    BaseProduct,
+    Product,
 )
 
 from .pagemodels.products.general import (
@@ -49,7 +32,6 @@ from .pagemodels.products.software import (
 
 from .pagemodels.privacy import (
     ProductPrivacyPolicyLink,
-    BaseProductPrivacyPolicyLink,
 )
 
 from .pagemodels.product_category import (
@@ -63,8 +45,6 @@ from .pagemodels.product_update import (
 
 __all__ = [
     get_product_image_upload_path,
-    BaseProduct,
-    BaseProductPrivacyPolicyLink,
     BooleanProductVote,
     BooleanVote,
     BooleanVoteBreakdown,
@@ -81,14 +61,4 @@ __all__ = [
     Update,
     Vote,
     VoteBreakdown,
-    # Updated voting for new product models
-    BaseProductVote,
-    BaseRangeProductVote,
-    BaseBooleanProductVote,
-    BaseVoteBreakdown,
-    BaseBooleanVoteBreakdown,
-    BaseRangeVoteBreakdown,
-    BaseVote,
-    BaseBooleanVote,
-    BaseRangeVote,
 ]
