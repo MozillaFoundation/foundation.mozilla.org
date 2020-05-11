@@ -16,6 +16,7 @@ services:
     command: npm run watch
     volumes:
       - .:/app:delegated
+      - node_modules:/app/node_modules/:delegated
 
   postgres:
     image: postgres:10.12
@@ -39,9 +40,12 @@ services:
       - "8000:8000"
     volumes:
       - .:/app:delegated
+      - dockerpythonvenv:/app/dockerpythonvenv/:delegated
     depends_on:
       - postgres
       - watch-static-files
 
 volumes:
   postgres_data:
+  node_modules:
+  dockerpythonvenv:

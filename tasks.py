@@ -131,24 +131,22 @@ def setup(ctx):
         ctx.run("docker-compose build")
         print("* Install Node dependencies")
         npm_install(ctx)
-        # Create a python virtualenv if necessary
-        if not os.path.isdir("dockerpythonvenv"):
-            print("* Creating a Python virtualenv")
-            ctx.run(
-                "docker-compose run --rm backend python -m venv dockerpythonvenv",
-                **PLATFORM_ARG,
-            )
-            print("Done!")
-            print("* Updating pip")
-            ctx.run(
-                "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install -U pip==20.0.2",
-                **PLATFORM_ARG,
-            )
-            print("* Installing pip-tools")
-            ctx.run(
-                "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install pip-tools",
-                **PLATFORM_ARG,
-            )
+        print("* Creating a Python virtualenv")
+        ctx.run(
+            "docker-compose run --rm backend python -m venv dockerpythonvenv",
+            **PLATFORM_ARG,
+        )
+        print("Done!")
+        print("* Updating pip")
+        ctx.run(
+            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install -U pip==20.0.2",
+            **PLATFORM_ARG,
+        )
+        print("* Installing pip-tools")
+        ctx.run(
+            "docker-compose run --rm backend ./dockerpythonvenv/bin/pip install pip-tools",
+            **PLATFORM_ARG,
+        )
         print("* Sync Python dependencies")
         pip_sync(ctx)
         print("* Applying database migrations.")
