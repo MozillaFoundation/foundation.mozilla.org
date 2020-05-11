@@ -8,6 +8,7 @@ from networkapi.wagtailpages.utils import insert_panels_after
 
 
 class SoftwareProduct(Product):
+
     """
     A thing you can install on your computer and our review of it
     """

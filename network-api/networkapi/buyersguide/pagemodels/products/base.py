@@ -120,7 +120,7 @@ def register_product_type(ModelClass):
     registered_product_types.append(ModelClass)
 
 
-class BaseProduct(ClusterableModel):
+class Product(ClusterableModel):
     """
     A product that may not have privacy included.
     """
@@ -380,11 +380,6 @@ class BaseProduct(ClusterableModel):
         ordering = [
             'id'
         ]
-
-
-# FOR REFACTORING PURPOSES, WE FIRST ALIAS THIS:
-
-Product = BaseProduct
 
 # We want to delete the product image when the product is removed
 @receiver(pre_delete, sender=Product)
