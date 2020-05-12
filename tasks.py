@@ -84,14 +84,20 @@ def create_super_user(ctx):
 @task(aliases=["docker-new-db"])
 def new_db(ctx):
     """Delete your database and create a new one with fake data"""
-    print("* Stopping services and deleting volumes first")
-    ctx.run("docker-compose down --volumes")
+    print("* Starting the postgres service")
+    ctx.run("docker-compose up -d postgres")
+    print("* Delete the database")
+    ctx.run("docker-compose run --rm postgres dropdb --if-exists wagtail -h postgres -U foundation")
+    print("* Create the database")
+    ctx.run("docker-compose run --rm postgres createdb wagtail -h postgres -U foundation")
     print("* Applying database migrations.")
     migrate(ctx)
     print("* Creating fake data")
     manage(ctx, "load_fake_data")
     l10n_block_inventory(ctx)
     create_super_user(ctx)
+    print("Stop postgres service")
+    ctx.run("docker-compose down postgres")
 
 
 @task(aliases=["docker-catchup", "catchup"])

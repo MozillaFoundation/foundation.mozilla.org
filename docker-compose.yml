@@ -25,7 +25,8 @@ services:
     environment:
       - POSTGRES_DB=wagtail
       - POSTGRES_USER=foundation
-      - POSTGRES_PASSWORD=mozilla
+      # We're not using this setup in prod!
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - postgres_data:/var/lib/postgresql/data/:delegated
 
