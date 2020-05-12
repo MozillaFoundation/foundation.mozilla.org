@@ -9,7 +9,8 @@
     width: 100%;
   }
 
-  video {
+  video,
+  iframe {
     display: none;
   }
 
@@ -19,8 +20,6 @@
   h4,
   h5,
   h6,
-  ul,
-  ol,
   img {
     page-break-after: avoid;
   }
