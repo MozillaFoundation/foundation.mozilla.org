@@ -120,5 +120,5 @@ class GeneralProduct(Product):
         return model_dict
 
 
-# Register this model class so that BaseProduct can "cast" properly
+# Register this model class so that Product can "cast" properly
 register_product_type(GeneralProduct)
