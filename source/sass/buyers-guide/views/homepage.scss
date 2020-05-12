@@ -1,10 +1,12 @@
 #view-home {
+  $breakpoint-larger: $bp-md;
+
   .page-header {
     background: url(../_images/buyers-guide/evergreen-header.jpg) center center /
       cover no-repeat;
     height: 200px;
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $breakpoint-larger) {
       height: 304px;
     }
   }
@@ -18,7 +20,7 @@
       color: $gray-40;
       font-style: italic;
 
-      @media screen and (min-width: 750px) {
+      @media screen and (min-width: $breakpoint-larger) {
         font-size: 20px;
       }
     }
@@ -113,7 +115,7 @@
           img {
             margin: 0 auto;
 
-            @media (min-width: $bp-md) {
+            @media (min-width: $breakpoint-larger) {
               max-width: 78%;
             }
           }
@@ -164,7 +166,7 @@
     padding-top: 40px;
     padding-bottom: 9px;
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $breakpoint-larger) {
       top: 20px;
     }
 
@@ -183,7 +185,7 @@
       position: relative;
       transform: scale($scale-down-ratio);
 
-      @media (min-width: $bp-md) {
+      @media (min-width: $breakpoint-larger) {
         transform: scale(1);
       }
 
