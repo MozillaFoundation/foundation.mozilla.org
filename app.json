@@ -33,7 +33,8 @@
     "CSP_SCRIPT_SRC": "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdn.syndication.twimg.com",
     "CSP_STYLE_SRC": "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://fonts.googleapis.com  https://platform.twitter.com",
     "NPM_CONFIG_PRODUCTION": "true",
-    "REVIEW_APP": "True"
+    "REVIEW_APP": "True",
+    "XROBOTSTAG_ENABLED": "True"
   },
   "buildpacks": [
     {
