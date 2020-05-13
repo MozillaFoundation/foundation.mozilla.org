@@ -254,8 +254,8 @@ def compilemessages(ctx):
     """Compile the latest translations"""
     with ctx.cd(ROOT):
         ctx.run(
-            f"docker-compose run --rm -w /app/network-api backend "
-            f"../dockerpythonvenv/bin/python manage.py compilemessages",
+            "docker-compose run --rm -w /app/network-api backend "
+            "../dockerpythonvenv/bin/python manage.py compilemessages",
             **PLATFORM_ARG,
         )
 

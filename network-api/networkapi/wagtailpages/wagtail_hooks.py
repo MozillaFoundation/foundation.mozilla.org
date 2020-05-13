@@ -6,6 +6,7 @@ import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
 
+
 # Extended rich text features for our site
 @hooks.register('register_rich_text_features')
 def register_large_feature(features):
@@ -65,6 +66,7 @@ def register_large_feature(features):
     # 6. (optional) Add the feature to the default features list to make it available
     # on rich text fields that do not specify an explicit 'features' list
     features.default_features.append('large')
+
 
 # Ensure that pages in the PageChooserPanel listings are ordered on most-recent-ness
 @hooks.register('construct_page_chooser_queryset')
