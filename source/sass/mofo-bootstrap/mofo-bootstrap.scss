@@ -1,0 +1,40 @@
+// Non-Bootstrap Modules
+// These are modules that contain code that isn't standard in Bootstrap
+
+// Core variables and mixins
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "./colors"; // Foundation brand colors
+@import "./overrides/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+
+// Reset and dependencies
+@import "../../../node_modules/bootstrap/scss/print";
+
+// Core CSS
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
+@import "../../../node_modules/bootstrap/scss/code";
+@import "../../../node_modules/bootstrap/scss/grid";
+@import "../../../node_modules/bootstrap/scss/forms";
+@import "../../../node_modules/bootstrap/scss/buttons";
+
+// Components
+@import "../../../node_modules/bootstrap/scss/transitions";
+@import "../../../node_modules/bootstrap/scss/nav";
+@import "../../../node_modules/bootstrap/scss/navbar";
+// TODO: utilizing Bootstrap's 'card' rules instead of writing our own custom SCSS for cards on fo.mo
+@import "../../../node_modules/bootstrap/scss/card";
+@import "../../../node_modules/bootstrap/scss/utilities/embed";
+@import "../../../node_modules/bootstrap/scss/close";
+
+// Components w/ JavaScript
+@import "../../../node_modules/bootstrap/scss/modal";
+
+// Utility classes
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+// Bootstrap overrides
+
+@import "./overrides/forms";

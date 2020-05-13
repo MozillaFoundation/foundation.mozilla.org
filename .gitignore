@@ -114,7 +114,6 @@ network-api/media/
 
 # Compiled Frontend
 network-api/networkapi/frontend/*
-/.vscode
 
 # PyCharm
 .idea/
@@ -126,3 +125,6 @@ cypress/screenshots
 # Translations
 translations.tar
 translations_github_commit_*
+
+# VSCode  project config
+.vscode/settings.json

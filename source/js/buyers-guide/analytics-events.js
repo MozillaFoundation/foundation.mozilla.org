@@ -8,51 +8,15 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `donate tap`,
       label: `${pageTitle} donate header`
     },
-    "#donate-button-main": {
+    "#donate-header-btn": {
       category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate header`
     },
-    "#donate-button-footer": {
+    ".donate-banner a.btn.btn-secondary": {
       category: `buyersguide`,
       action: `donate tap`,
       label: `${pageTitle} donate footer`
-    },
-    "#nav-social-button-fb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Facebook`,
-      transport: `beacon`
-    },
-    "#nav-social-button-twitter": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Twitter`,
-      transport: `beacon`
-    },
-    "#nav-social-button-email": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Email`,
-      transport: `beacon`
-    },
-    "#nav-social-button-fb-mb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Facebook`,
-      transport: `beacon`
-    },
-    "#nav-social-button-twitter-mb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Twitter`,
-      transport: `beacon`
-    },
-    "#nav-social-button-email-mb": {
-      category: `buyersguide`,
-      action: `share tap`,
-      label: `share site to Email`,
-      transport: `beacon`
     },
 
     // product events
@@ -60,68 +24,49 @@ function getQuerySelectorEvents(pageTitle, productName) {
       category: `product`,
       action: `company link tap`,
       label: `company link for ${productName}`,
-      transport: `beacon`
+      transport: `beacon`,
+      conditionalQuery: `#view-product-page`
     },
     "#product-copy-link-button": {
       category: `product`,
       action: `copy link tap`,
-      label: `copy link ${productName}`
+      label: `copy link ${productName}`,
+      conditionalQuery: `#view-product-page`
     },
     "#product-live-chat": {
       category: `product`,
       action: `customer support link tap`,
-      label: `support link for ${productName}`
+      label: `support link for ${productName}`,
+      conditionalQuery: `#view-product-page`
     },
     "#creep-vote-btn": {
       category: `product`,
       action: `opinion submitted`,
-      label: `opinion on ${productName}`
+      label: `opinion on ${productName}`,
+      conditionalQuery: `#view-product-page`
     },
-    "#product-social-button-fb": {
-      category: `product`,
-      action: `share tap`,
-      label: `share ${productName} to Facebook`,
-      transport: `beacon`
-    },
-    "#product-social-button-twitter": {
-      category: `product`,
-      action: `share tap`,
-      label: `share ${productName} to Twitter`,
-      transport: `beacon`
-    },
-    "#product-social-button-email": {
-      category: `product`,
-      action: `share tap`,
-      label: `share ${productName} to Email`,
-      transport: `beacon`
-    },
-    "#privacy-policy-link": {
+    "a.privacy-policy-link": {
       category: `product`,
       action: `privacy policy link tap`,
       label: `policy link for ${productName}`,
-      transport: `beacon`
+      transport: `beacon`,
+      conditionalQuery: `#view-product-page`
     },
-    "#reading-level-link": {
-      category: `product`,
-      action: `carnegie mellon reading level links`,
-      label: `reading level link for ${productName}`,
-      transport: `beacon`
-    },
-
-    // product updates
     ".product-update-link": {
       category: `product`,
       action: `update article link tap`,
       label: `update article link for ${productName}`,
-      transport: `beacon`
+      transport: `beacon`,
+      // Not every product will have updates. Note that
+      // this value will not be sent on as GA payload.
+      optional_element: true,
+      conditionalQuery: `#view-product-page`
     }
   };
 }
 
 function setupElementGA(element, eventData) {
-  element.onclick = () => {
-    ReactGA.event(eventData);
-  };
+  element.addEventListener("click", () => ReactGA.event(eventData), true);
 }
 
 const ProductGA = {
@@ -140,12 +85,39 @@ const ProductGA = {
     let querySelectorEvents = getQuerySelectorEvents(pageTitle, productName);
 
     Object.keys(querySelectorEvents).forEach(querySelector => {
-      let elements = document.querySelectorAll(querySelector);
+      let target = document;
+
+      // Some events should only get bound on specific page(s),
+      // so we need to test to see what our query target is:
+      const baseData = querySelectorEvents[querySelector];
+      const conditionalQuery = baseData.conditionalQuery;
+
+      if (conditionalQuery) {
+        // Are we on the right page for this event binding?
+        target = document.querySelector(conditionalQuery);
+        if (!target) {
+          // We are not.
+          return;
+        }
+      }
+
+      // If we get here, we're on the right page for this event binding.
+      let elements = target.querySelectorAll(querySelector);
 
       if (elements.length > 0) {
-        let eventData = querySelectorEvents[querySelector];
+        const eventData = {
+          category: baseData.category,
+          action: baseData.action,
+          label: baseData.label,
+          transport: baseData.transport
+        };
 
         elements.forEach(e => setupElementGA(e, eventData));
+      } else if (!querySelectorEvents[querySelector].optional_element) {
+        // If we're on the right page, but the event's query selector
+        // does not result in any elements, that's a bug and should
+        // log an error so we can fix that.
+        console.error(`cannot find ${querySelector}`);
       }
     });
   }

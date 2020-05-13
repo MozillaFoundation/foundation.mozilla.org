@@ -149,10 +149,7 @@
       // on extra large screen we want project-list-section's width to match
       // Bootstrap's .container's width
       width: calc(
-        #{map-get($container-max-widths, xl)} - #{map-get(
-            $grid-gutter-widths,
-            xl
-          )}
+        #{map-get($container-max-widths, xl)} - #{$grid-gutter-width}
       );
       max-width: 100%;
       margin: 0 auto;

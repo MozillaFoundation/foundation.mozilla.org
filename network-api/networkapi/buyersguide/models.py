@@ -1,44 +1,25 @@
-from django.db import models
-
 from .pagemodels.get_product_image_upload_path import (
     get_product_image_upload_path
 )
 
-from .pagemodels.voting import (
+from .pagemodels.base_voting import (
+    BooleanProductVote,
+    BooleanVote,
+    BooleanVoteBreakdown,
     ProductVote,
     RangeProductVote,
-    BooleanProductVote,
-    VoteBreakdown,
-    BooleanVoteBreakdown,
+    RangeVote,
     RangeVoteBreakdown,
     Vote,
-    BooleanVote,
-    RangeVote,
+    VoteBreakdown,
 )
-
-from .pagemodels.base_voting import (
-    BaseProductVote,
-    BaseRangeProductVote,
-    BaseBooleanProductVote,
-    BaseVoteBreakdown,
-    BaseBooleanVoteBreakdown,
-    BaseRangeVoteBreakdown,
-    BaseVote,
-    BaseBooleanVote,
-    BaseRangeVote,
-)
-
 
 from .pagemodels.cloudinary_image_field import (
     CloudinaryImageField
 )
 
-from .pagemodels.products.original import (
-    Product,
-)
-
 from .pagemodels.products.base import (
-    BaseProduct,
+    Product,
 )
 
 from .pagemodels.products.general import (
@@ -51,44 +32,19 @@ from .pagemodels.products.software import (
 
 from .pagemodels.privacy import (
     ProductPrivacyPolicyLink,
-    BaseProductPrivacyPolicyLink,
 )
 
 from .pagemodels.product_category import (
     BuyersGuideProductCategory
 )
 
-
-class Update(models.Model):
-    source = models.URLField(
-        max_length=2048,
-        help_text='Link to source',
-        blank=True,
-    )
-
-    title = models.CharField(
-        max_length=256,
-        blank=True,
-    )
-
-    author = models.CharField(
-        max_length=256,
-        blank=True,
-    )
-
-    snippet = models.TextField(
-        max_length=5000,
-        blank=True,
-    )
-
-    def __str__(self):
-        return self.title
+from .pagemodels.product_update import (
+    Update
+)
 
 
 __all__ = [
     get_product_image_upload_path,
-    BaseProduct,
-    BaseProductPrivacyPolicyLink,
     BooleanProductVote,
     BooleanVote,
     BooleanVoteBreakdown,
@@ -105,14 +61,4 @@ __all__ = [
     Update,
     Vote,
     VoteBreakdown,
-    # Updated voting for new product models
-    BaseProductVote,
-    BaseRangeProductVote,
-    BaseBooleanProductVote,
-    BaseVoteBreakdown,
-    BaseBooleanVoteBreakdown,
-    BaseRangeVoteBreakdown,
-    BaseVote,
-    BaseBooleanVote,
-    BaseRangeVote,
 ]

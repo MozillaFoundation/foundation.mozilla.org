@@ -22,6 +22,18 @@ class ReferrerMiddleware:
         return response
 
 
+class XRobotsTagMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # Do not index this page in public search engine results
+        # https://developers.google.com/search/reference/robots_meta_tag#xrobotstag
+        response = self.get_response(request)
+        response['X-Robots-Tag'] = 'noindex'
+        return response
+
+
 class TargetDomainRedirectMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response

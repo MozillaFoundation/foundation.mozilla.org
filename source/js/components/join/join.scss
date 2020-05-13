@@ -8,12 +8,15 @@
       "width": 13px
     );
 
-    color: $dark-red;
+    color: $danger;
 
     .form-control {
-      border: 2px solid $dark-red;
       padding-right: map-get($glyph-container, "margin-x") * 2 +
         map-get($glyph-container, "width");
+
+      @at-root .dark-theme & {
+        border-width: 2px;
+      }
     }
 
     .glyph-container {
@@ -38,22 +41,11 @@
   }
 
   .form-control {
-    font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
     color: $black;
   }
 
   .fields-wrapper {
     flex: 1 1 auto;
-  }
-
-  @at-root .dark-theme & {
-    .form-control-feedback {
-      color: $red;
-    }
-
-    .has-danger .form-control {
-      border-color: $red;
-    }
   }
 }

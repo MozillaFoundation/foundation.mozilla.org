@@ -3,10 +3,43 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from networkapi.buyersguide.validators import ValueListValidator
 
-from .products.base import BaseProduct
+from .products.base import Product
 
 
-class BaseProductVote(models.Model):
+class Vote(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.deletion.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
+
+class BooleanVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    value = models.BooleanField()
+
+
+class RangeVote(Vote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['creepiness'])
+        ]
+    )
+    value = models.IntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        ]
+    )
+
+
+class ProductVote(models.Model):
     votes = models.IntegerField(
         default=0
     )
@@ -15,7 +48,21 @@ class BaseProductVote(models.Model):
         abstract = True
 
 
-class BaseRangeProductVote(BaseProductVote):
+class BooleanProductVote(ProductVote):
+    attribute = models.CharField(
+        max_length=100,
+        validators=[
+            ValueListValidator(valid_values=['confidence'])
+        ]
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='boolean_product_votes'
+    )
+
+
+class RangeProductVote(ProductVote):
     attribute = models.CharField(
         max_length=100,
         validators=[
@@ -29,27 +76,13 @@ class BaseRangeProductVote(BaseProductVote):
         )
     )
     product = models.ForeignKey(
-        BaseProduct,
+        Product,
         on_delete=models.CASCADE,
         related_name='range_product_votes',
     )
 
 
-class BaseBooleanProductVote(BaseProductVote):
-    attribute = models.CharField(
-        max_length=100,
-        validators=[
-            ValueListValidator(valid_values=['confidence'])
-        ]
-    )
-    product = models.ForeignKey(
-        BaseProduct,
-        on_delete=models.CASCADE,
-        related_name='boolean_product_votes'
-    )
-
-
-class BaseVoteBreakdown(models.Model):
+class VoteBreakdown(models.Model):
     count = models.IntegerField(
         default=0
     )
@@ -58,9 +91,9 @@ class BaseVoteBreakdown(models.Model):
         abstract = True
 
 
-class BaseBooleanVoteBreakdown(BaseVoteBreakdown):
+class BooleanVoteBreakdown(VoteBreakdown):
     product_vote = models.ForeignKey(
-        BaseBooleanProductVote,
+        BooleanProductVote,
         on_delete=models.CASCADE
     )
     bucket = models.IntegerField(
@@ -72,9 +105,9 @@ class BaseBooleanVoteBreakdown(BaseVoteBreakdown):
     )
 
 
-class BaseRangeVoteBreakdown(BaseVoteBreakdown):
+class RangeVoteBreakdown(VoteBreakdown):
     product_vote = models.ForeignKey(
-        BaseRangeProductVote,
+        RangeProductVote,
         on_delete=models.CASCADE
     )
     bucket = models.IntegerField(
@@ -82,38 +115,5 @@ class BaseRangeVoteBreakdown(BaseVoteBreakdown):
             ValueListValidator(
                 valid_values=[0, 1, 2, 3, 4]
             )
-        ]
-    )
-
-
-class BaseVote(models.Model):
-    product = models.ForeignKey('BaseProduct', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        abstract = True
-
-
-class BaseBooleanVote(BaseVote):
-    attribute = models.CharField(
-        max_length=100,
-        validators=[
-            ValueListValidator(valid_values=['confidence'])
-        ]
-    )
-    value = models.BooleanField()
-
-
-class BaseRangeVote(BaseVote):
-    attribute = models.CharField(
-        max_length=100,
-        validators=[
-            ValueListValidator(valid_values=['creepiness'])
-        ]
-    )
-    value = models.IntegerField(
-        validators=[
-            MinValueValidator(1),
-            MaxValueValidator(100)
         ]
     )

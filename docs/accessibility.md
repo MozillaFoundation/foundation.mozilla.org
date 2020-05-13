@@ -27,6 +27,10 @@ npm run cypress:a11y
 
 Provided that all the Cypress dependencies are installed, this kicks off an automated test run for all tests in the a11y test script using your locally instapped cypress, connecting to the server running inside of Docker.
 
+#### Failures
+
+When tests fail, the `./cypress/screenshots` directory will contain one screenshot per failed test, with information on what actually went wrong, compared to the summar error stack trace on the console.
+
 #### Tests that use `it.skip(...)`
 
 Some tests may be set to "skip", which means that there is a test, but Cypress is instructed to pass over it rather than running it. In the Cypress UI this will look like the test has stalled: it probably hasn't. Look in the `./cypress/integration/a11y-tests.js` file to see if the test(s) in question is/are marked as skipped.

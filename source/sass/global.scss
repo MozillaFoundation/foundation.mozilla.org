@@ -1,10 +1,5 @@
 body {
-  color: $black;
   scroll-behavior: smooth;
-
-  & > .wrapper {
-    background: $white;
-  }
 
   .noselect {
     -webkit-touch-callout: none; /* iOS */
@@ -15,8 +10,23 @@ body {
   }
 }
 
-button:hover {
-  cursor: pointer;
+li {
+  $list-item-vertical-margin: 0.25em;
+
+  margin-bottom: $list-item-vertical-margin;
+
+  ol,
+  ul {
+    margin-top: $list-item-vertical-margin;
+  }
+}
+
+hr {
+  border-color: $gray-20;
+
+  &.intro-and-content-divider {
+    @include intro-and-content-spacing(true);
+  }
 }
 
 #hero {
@@ -60,15 +70,6 @@ button:hover {
   }
 }
 
-.mofo-footer {
-  background: $black;
-  letter-spacing: 0.02rem;
-
-  p {
-    color: transparentize($white, 0.5);
-  }
-}
-
 .ih-cta {
   border-bottom: 1px solid $black;
   border-top: 1px solid $black;
@@ -106,8 +107,4 @@ footer.site-footer {
       }
     }
   }
-}
-
-hr.intro-and-content-divider {
-  @include intro-and-content-spacing(true);
 }

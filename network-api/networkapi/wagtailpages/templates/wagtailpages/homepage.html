@@ -48,7 +48,7 @@
     </div>
     {% for highlight in page.featured_highlights.all %} {% if forloop.counter > 2 %}
     <div class="row my-3">
-      <div class="col-sm-12 col-md-4 pt-3 hidden-sm-down">
+      <div class="col-sm-12 col-md-4 pt-3 d-none d-md-block">
         {% homepage_image highlight.highlight.image %}
       </div>
       <div class="col-sm-12 col-md-8 pt-3">

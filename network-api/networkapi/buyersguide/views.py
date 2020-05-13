@@ -10,13 +10,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
 from rest_framework.parsers import JSONParser
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import (
-    BaseProduct,
-    BaseBooleanVote,
-    BaseRangeVote,
+    Product,
+    BooleanVote,
+    RangeVote,
     BuyersGuideProductCategory,
 )
 
@@ -62,7 +62,7 @@ def buyersguide_home(request):
     products = cache.get('sorted_product_dicts')
 
     if not products:
-        products = [p.to_dict() for p in BaseProduct.objects.all()]
+        products = [p.to_dict() for p in Product.objects.all()]
         products.sort(key=lambda p: get_average_creepiness(p))
         cache.set('sorted_product_dicts', products, 86400)
 
@@ -87,7 +87,7 @@ def category_view(request, slug):
         category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
     if not products:
-        products = [p.to_dict() for p in BaseProduct.objects.filter(product_category__in=[category]).distinct()]
+        products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
         cache.set(key, products, 86400)
 
     products = filter_draft_products(request, products)
@@ -102,7 +102,7 @@ def category_view(request, slug):
 
 @redirect_to_default_cms_site
 def product_view(request, slug):
-    product = get_object_or_404(BaseProduct, slug=slug).specific
+    product = get_object_or_404(Product, slug=slug).specific
 
     if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")
@@ -118,12 +118,21 @@ def product_view(request, slug):
     total_score = 0
     num_criteria = len(criteria)
 
+    # Calculate the minimum security score
     for i in range(num_criteria):
         value = product_dict[criteria[i]]
         if value == 'Yes':
             total_score += 1
         if value == 'NA':
             total_score += 0.5
+
+    # make sure featured updates come first
+    product_dict['updates'] = list(
+        product.updates.all().order_by(
+            '-featured',
+            'pk'
+        )
+    )
 
     return render(request, 'product_page.html', {
         'categories': BuyersGuideProductCategory.objects.all(),
@@ -172,16 +181,16 @@ def product_vote(request):
         return Response('Invalid payload - check data types', status=400, content_type='text/plain')
 
     try:
-        product = BaseProduct.objects.get(id=product_id)
+        product = Product.objects.get(id=product_id)
 
         if product.draft and not request.user.is_authenticated:
             raise Http404("Product does not exist")
 
-        VoteClass = BaseRangeVote
+        VoteClass = RangeVote
 
         # Check if this vote is a boolean (yes/no) vote, and switch the model if it is
         if isinstance(value, bool):
-            VoteClass = BaseBooleanVote
+            VoteClass = BooleanVote
 
         # Build the model instance
         vote = VoteClass(
@@ -207,7 +216,8 @@ def product_vote(request):
 
 
 @api_view(['POST'])
-@permission_classes((IsAdminUser,))
+@permission_classes((IsAuthenticated,))
 def clear_cache(request):
     cache.clear()
-    return redirect('/cms/buyersguide/product/')
+    redirect_url = request.POST.get('redirectUrl', '/cms/')
+    return redirect(redirect_url)

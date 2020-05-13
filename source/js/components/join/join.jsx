@@ -346,12 +346,12 @@ export default class JoinUs extends React.Component {
           )}
         </div>
         {this.state.userTriedSubmitting && !emailValidation.valid && (
-          <p className="body-small form-check form-control-feedback">
+          <p className="body-small form-control-feedback">
             {emailValidation.errorMessage}
           </p>
         )}
         {this.state.signupFailed && (
-          <small className="form-check form-control-feedback">
+          <small className="form-control-feedback">
             Something went wrong. Please check your email address and try again
           </small>
         )}
@@ -423,8 +423,7 @@ export default class JoinUs extends React.Component {
    * Render the privacy field in signup CTA.
    */
   renderPrivacyField() {
-    let classes = classNames(`my-3`, {
-      "form-check": true,
+    let classes = classNames(`my-3 form-check form-group`, {
       "has-danger":
         !this.state.apiSuccess &&
         this.state.userTriedSubmitting &&
@@ -433,32 +432,31 @@ export default class JoinUs extends React.Component {
 
     return (
       <div className={classes}>
-        <div className="d-flex align-items-start">
-          <div className="mb-0 form-check d-flex align-items-start">
-            <label className="form-check-label d-flex align-items-start">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id={this.id.privacyCheckbox}
-                ref={el => (this.privacy = el)}
-                required
-              />
-              <p className="d-inline-block body-small form-text mb-0">
-                {getText(
-                  `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
-                )}
-              </p>
-              {this.state.userTriedSubmitting &&
-                !this.state.apiSubmitted &&
-                !this.privacy.checked &&
-                !this.isFlowForm() && (
-                  <span className="form-error-glyph privacy-error d-flex" />
-                )}
-            </label>
-          </div>
+        <div class="d-flex align-items-start">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id={this.id.privacyCheckbox}
+            ref={el => (this.privacy = el)}
+            required
+          />
+          <label
+            className="form-check-label body-small"
+            for={this.id.privacyCheckbox}
+          >
+            {getText(
+              `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
+            )}
+          </label>
+          {this.state.userTriedSubmitting &&
+            !this.state.apiSubmitted &&
+            !this.privacy.checked &&
+            !this.isFlowForm() && (
+              <span className="form-error-glyph privacy-error d-flex" />
+            )}
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
-          <p className="body-small form-check form-control-feedback mt-0 mb-3">
+          <p className="body-small form-control-feedback mt-0 mb-3">
             Please check this box if you want to proceed.
           </p>
         )}

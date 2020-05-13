@@ -76,6 +76,7 @@ Accessibility tests are not part of the standard tests covered by `inv test`. Yo
 
 - `npm run cypress:a11y`
 
+Note that when tests fail, the `./cypress/screenshots` directory will contain one screenshot for each failed test.
 
 ## Mozilla Festival
 

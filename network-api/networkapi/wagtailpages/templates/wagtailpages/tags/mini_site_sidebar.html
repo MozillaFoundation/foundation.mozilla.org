@@ -2,7 +2,7 @@
 
 {% if menu_pages %}
 {% pageurl current as current_page_url %}
-<div class="py-5 col-md-3 mb-3 hidden-sm-down">
+<div class="py-5 col-md-3 mb-3 d-none d-md-block">
   <div class="vertical-nav" id="multipage-nav">
     {% for entry in menu_pages %}
     {% pageurl entry.page as entry_page_url %}

@@ -8,14 +8,13 @@
       &::after {
         content: "|";
         display: inline-block;
-        color: $gray-light;
+        color: $gray-60;
       }
     }
 
     button {
       background: inherit;
       border: none;
-      cursor: pointer;
       font-family: inherit;
       padding: 0.5rem;
       margin: 0;

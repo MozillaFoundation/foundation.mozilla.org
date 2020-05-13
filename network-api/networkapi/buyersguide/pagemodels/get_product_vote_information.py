@@ -14,18 +14,18 @@ def get_product_vote_information(product):
 
         # Aggregate the Creepiness votes
         creepiness['average'] = creepiness_votes.average
-        for vote_breakdown in creepiness_votes.baserangevotebreakdown_set.all():
+        for vote_breakdown in creepiness_votes.rangevotebreakdown_set.all():
             creepiness['vote_breakdown'][str(vote_breakdown.bucket)] = vote_breakdown.count
 
         # Aggregate the confidence votes
-        for boolean_vote_breakdown in confidence_votes.basebooleanvotebreakdown_set.all():
+        for boolean_vote_breakdown in confidence_votes.booleanvotebreakdown_set.all():
             confidence_vote_breakdown[str(boolean_vote_breakdown.bucket)] = boolean_vote_breakdown.count
 
         # Build + return the votes dict
         votes['creepiness'] = creepiness
         votes['confidence'] = confidence_vote_breakdown
-        BaseBooleanVote = apps.get_model('buyersguide', 'BaseBooleanVote')
-        votes['total'] = BaseBooleanVote.objects.filter(product=product).count()
+        BooleanVote = apps.get_model('buyersguide', 'BooleanVote')
+        votes['total'] = BooleanVote.objects.filter(product=product).count()
         return votes
 
     except ObjectDoesNotExist:

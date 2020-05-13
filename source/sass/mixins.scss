@@ -1,3 +1,25 @@
+// Break the constraints of parent container(s) to span the entire viewport width
+@mixin full-bleed {
+  width: 100vw;
+  max-width: none;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Mixin to create ".full-bleed-breakpoint" utility classes
+@mixin full-bleed-bp($breakpoint) {
+  @include media-breakpoint-only($breakpoint) {
+    .full-bleed-#{$breakpoint} {
+      @include full-bleed;
+    }
+  }
+}
+
 @mixin heading(
   $font-family,
   $font-weight,
@@ -94,4 +116,78 @@
 
   margin-top: -$offset;
   padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
+}
+
+// TODO: override Bootstrap's "@mixin button-outline-variant" so we can reduce our overrides for buttons
+@mixin button-basic-style(
+  $default,
+  $default-hover,
+  $dark-theme-default,
+  $dark-theme-hover
+) {
+  color: map-get($default, "color");
+  background-color: map-get($default, "background-color");
+  border-color: map-get($default, "border-color");
+
+  &.active {
+    color: map-get($default-hover, "color");
+    background-color: map-get($default-hover, "background-color");
+    border-color: map-get($default-hover, "border-color");
+  }
+
+  @include hover-focus-active {
+    @extend .active;
+  }
+
+  &.disabled,
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: map-get($default, "background-color");
+    border-color: map-get($default, "border-color");
+    opacity: 0.3;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: map-get($default-hover, "color");
+    background-color: map-get($default-hover, "background-color");
+    border-color: map-get($default-hover, "border-color");
+  }
+
+  @at-root .dark-theme & {
+    color: map-get($dark-theme-default, "color");
+    background-color: map-get($dark-theme-default, "background-color");
+    border-color: map-get($dark-theme-default, "border-color");
+
+    @include hover-focus-active {
+      color: map-get($dark-theme-hover, "color");
+      background-color: map-get($dark-theme-hover, "background-color");
+      border-color: map-get($dark-theme-hover, "border-color");
+    }
+
+    &.disabled,
+    &:disabled,
+    &[disabled] {
+      opacity: 0.5;
+      background-color: map-get($dark-theme-default, "background-color");
+      border-color: map-get($dark-theme-default, "border-color");
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    .show > &.dropdown-toggle {
+      color: map-get($dark-theme-default, "color");
+      background-color: map-get($dark-theme-default, "background-color");
+      border-color: map-get($dark-theme-default, "border-color");
+
+      @include hover-focus-active {
+        color: map-get($dark-theme-hover, "color");
+        background-color: map-get($dark-theme-hover, "background-color");
+        border-color: map-get($dark-theme-hover, "border-color");
+      }
+    }
+  }
 }

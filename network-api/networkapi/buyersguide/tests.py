@@ -11,8 +11,8 @@ from datetime import date
 
 from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import (
-    BaseRangeVote,
-    BaseBooleanVote,
+    RangeVote,
+    BooleanVote,
     GeneralProduct,
     BuyersGuideProductCategory
 )
@@ -122,7 +122,7 @@ class BuyersGuideVoteTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        latest_vote = BaseRangeVote.objects.last()
+        latest_vote = RangeVote.objects.last()
 
         self.assertEqual(latest_vote.value, vote_value)
         self.assertEqual(latest_vote.product.id, test_product_id)
@@ -139,7 +139,7 @@ class BuyersGuideVoteTest(APITestCase):
             'value': vote_value,
             'productID': test_product_id
         }, format='json')
-        latest_vote = BaseBooleanVote.objects.last()
+        latest_vote = BooleanVote.objects.last()
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(latest_vote.value, vote_value)
@@ -398,6 +398,33 @@ class BuyersGuideViewTest(TestCase):
 
         response = self.client.get(f'/en/privacynotincluded/categories/smart-home/')
         self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
+
+    def test_drive_by_clear_cache(self):
+        """
+        regular users should not be able to trigger clear_cache
+        """
+        authenticated = self.user.is_authenticated
+
+        self.client.logout()
+        response = self.client.post('/api/buyersguide/clear-cache/')
+        self.assertEqual(response.status_code, 403, 'standard user is not permitted to clear BG cache')
+
+        if authenticated is True:
+            self.client.force_login(self.user)
+
+    def test_authenticated_clear_cache(self):
+        """
+        authenticated users can trigger clear_cache
+        """
+        authenticated = self.user.is_authenticated
+
+        self.client.force_login(self.user)
+        response = self.client.post('/api/buyersguide/clear-cache/')
+        self.assertEqual(response.status_code, 302, 'authenticated user is permitted to clear BG cache')
+        self.assertEqual(response.url, '/cms/', 'clearing sends users to product page')
+
+        if authenticated is False:
+            self.client.logout()
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")

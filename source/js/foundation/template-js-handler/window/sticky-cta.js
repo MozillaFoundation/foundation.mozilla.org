@@ -36,15 +36,18 @@ export default () => {
       ctaAnchorPosition = getAnchorPosition();
     });
 
+    let bufferOffset = window.innerHeight / 2;
+    let positionToHideButton = ctaAnchorPosition + bufferOffset;
+
     let scrollCtaButton = scrollPosition => {
-      if (scrollPosition > ctaAnchorPosition) {
+      if (scrollPosition > positionToHideButton) {
         elStickyButton.classList.add(`hidden`);
         adjustCtaButton = noopCtaButton;
       }
     };
 
     let initCtaButton = scrollPosition => {
-      if (scrollPosition <= ctaAnchorPosition) {
+      if (scrollPosition <= positionToHideButton) {
         elStickyButton.classList.remove(`hidden`);
         adjustCtaButton = scrollCtaButton;
       }

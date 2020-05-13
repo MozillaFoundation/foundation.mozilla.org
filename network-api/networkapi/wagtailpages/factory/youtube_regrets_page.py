@@ -6,7 +6,7 @@ from networkapi.wagtailpages.models import YoutubeRegretsPage
 from wagtail_factories import (
     PageFactory
 )
-from .mini_site_namespace import MiniSiteNamespaceFactory
+from .campaign_page import CampaignIndexPageFactory
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
@@ -35,14 +35,14 @@ def generate(seed):
     reseed(seed)
 
     try:
-        campaign_namespace = WagtailPage.objects.get(title='campaigns')
-        print('campaigns namespace exists')
+        campaign_index_page = WagtailPage.objects.get(title='campaigns')
+        print('campaign index page exists')
     except WagtailPage.DoesNotExist:
-        print('Generating a campaigns namespace')
-        campaign_namespace = MiniSiteNamespaceFactory.create(
+        print('Generating a campaign index page')
+        campaign_index_page = CampaignIndexPageFactory.create(
             parent=home_page,
             title='campaigns',
-            live=False
+            live=True
         )
 
     reseed(seed)
@@ -54,6 +54,6 @@ def generate(seed):
         print('YouTube Regrets page exists')
     except YoutubeRegretsPage.DoesNotExist:
         print('Generating YouTube Regrets Page under campaigns namespace')
-        YoutubeRegretsPageFactory.create(parent=campaign_namespace, title=title)
+        YoutubeRegretsPageFactory.create(parent=campaign_index_page, title=title)
 
     reseed(seed)

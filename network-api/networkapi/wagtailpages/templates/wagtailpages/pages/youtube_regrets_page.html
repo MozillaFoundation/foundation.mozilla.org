@@ -33,8 +33,8 @@
       {% endfor %}
     </div>
     <div class="intro-button-wrapper">
-      <button class="btn btn-primary btn-newsletter hidden-lg-up mx-auto d-none">{% trans "Join Mozilla" %}</button>
-      <button class="btn btn-primary btn-newsletter hidden-md-down mx-auto d-none">{% trans "Join Mozilla" %}</button>
+      <button class="btn btn-primary btn-newsletter d-lg-none mx-auto d-none">{% trans "Join Mozilla" %}</button>
+      <button class="btn btn-primary btn-newsletter d-none d-lg-block mx-auto d-none">{% trans "Join Mozilla" %}</button>
     </div>
   </div>
 
@@ -46,7 +46,7 @@
 
 {% trans "28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths" as share_text %}
 <main class="container">
-  <div class="row hidden-md-up my-3">
+  <div class="row d-md-none my-3">
     <div class="col-12">
       <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{share_text}}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
     </div>
@@ -61,7 +61,7 @@
   {% endif %}
 
   <div class="row">
-    <div class="offset-md-1 col-md-1 text-center pb-md-5 hidden-sm-down">
+    <div class="offset-md-1 col-md-1 text-center pb-md-5 d-none d-md-block">
       <div class="sticky-side">
         <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{{share_text}}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>

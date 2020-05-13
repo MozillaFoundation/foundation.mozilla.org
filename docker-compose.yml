@@ -39,6 +39,7 @@ services:
     command: dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
+      - "8001:8001" # ptvsd port for debugging
     volumes:
       - .:/app:delegated
       - dockerpythonvenv:/app/dockerpythonvenv/:delegated

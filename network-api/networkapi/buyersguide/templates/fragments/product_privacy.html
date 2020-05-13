@@ -7,7 +7,7 @@
     {% for link in product.privacy_policy_links reversed %}
       <li class="helptext">
         {% if link.url != "" %}
-        <a href="{{ link.url }}">{{ link.label }}</a>
+        <a class="privacy-policy-link" href="{{ link.url }}">{{ link.label }}</a>
         {% else %}
         <span>{{ link.label }}</span>
         {% endif %}

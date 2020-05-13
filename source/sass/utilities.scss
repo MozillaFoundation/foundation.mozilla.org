@@ -1,15 +1,8 @@
-@import "../../node_modules/bootstrap/scss/_variables";
-
 // default for vertical margins ($spacer = 1rem = 16px)
 .my-default {
   margin-top: $spacer;
   margin-bottom: $spacer;
 }
-
-.flex-grow-0 {
-  flex-grow: 0;
-}
-
 .flex-1 {
   flex: 1;
 }
@@ -18,52 +11,11 @@
   position: relative;
 }
 
-.big-section {
-  margin-bottom: 5rem;
-}
-
 .key-item {
   border-bottom: 4px solid $gray-20;
   margin-top: -1.5em;
   background: $white;
   position: relative;
-}
-
-.play-button-wrapper {
-  position: relative;
-}
-
-.play-button-overlay {
-  background-image: url(../_images/line-art/play-icon.svg);
-  position: absolute;
-  top: calc(50% - 3em);
-  left: calc(50% - 3em);
-  width: 6em;
-  height: 6em;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-// Break the constraints of parent container(s) to span the entire viewport width
-
-@mixin full-bleed {
-  width: 100vw;
-  max-width: none;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-@mixin full-bleed-bp($breakpoint) {
-  @include media-breakpoint-only($breakpoint) {
-    .full-bleed-#{$breakpoint} {
-      @include full-bleed;
-    }
-  }
 }
 
 .full-bleed {

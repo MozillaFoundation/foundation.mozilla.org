@@ -2,11 +2,13 @@ from django.db import models
 from networkapi.buyersguide.fields import ExtendedYesNoField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
-from .base import BaseProduct, register_product_type
+from .base import Product, register_product_type
 from ...utils import tri_to_quad
 
+from networkapi.wagtailpages.utils import insert_panels_after
 
-class GeneralProduct(BaseProduct):
+
+class GeneralProduct(Product):
     """
     A thing you can buy in stores and our review of it
     """
@@ -70,36 +72,47 @@ class GeneralProduct(BaseProduct):
 
     # administrative panels
 
-    # TODO: make these fit in the right place
-    panels = BaseProduct.panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel('camera_device'),
-                FieldPanel('camera_app'),
-                FieldPanel('microphone_device'),
-                FieldPanel('microphone_app'),
-                FieldPanel('location_device'),
-                FieldPanel('location_app'),
-            ],
-            heading='Can it snoop?',
-            classname='collapsible'
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel('delete_data'),
-                FieldPanel('delete_data_helptext'),
-                FieldPanel('parental_controls'),
-                FieldPanel('collects_biometrics'),
-                FieldPanel('collects_biometrics_helptext'),
-                FieldPanel('user_friendly_privacy_policy'),
-                FieldPanel('user_friendly_privacy_policy_helptext'),
-            ],
-            heading='How does it handle privacy (general products)',
-            classname='collapsible'
-        ),
-    ]
+    panels = Product.panels.copy()
 
-    # todict function
+    panels = insert_panels_after(
+        panels,
+        'Minimum Security Standards for general products',
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('camera_device'),
+                    FieldPanel('camera_app'),
+                    FieldPanel('microphone_device'),
+                    FieldPanel('microphone_app'),
+                    FieldPanel('location_device'),
+                    FieldPanel('location_app'),
+                ],
+                heading='Can it snoop?',
+                classname='collapsible'
+            ),
+        ],
+    )
+
+    panels = insert_panels_after(
+        panels,
+        'How does it handle data sharing',
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('delete_data'),
+                    FieldPanel('delete_data_helptext'),
+                    FieldPanel('parental_controls'),
+                    FieldPanel('collects_biometrics'),
+                    FieldPanel('collects_biometrics_helptext'),
+                    FieldPanel('user_friendly_privacy_policy'),
+                    FieldPanel('user_friendly_privacy_policy_helptext'),
+                ],
+                heading='How does it handle privacy',
+                classname='collapsible'
+            ),
+        ],
+    )
+
     def to_dict(self):
         model_dict = super().to_dict()
         model_dict['delete_data'] = tri_to_quad(self.delete_data)
@@ -107,5 +120,5 @@ class GeneralProduct(BaseProduct):
         return model_dict
 
 
-# Register this model class so that BaseProduct can "cast" properly
+# Register this model class so that Product can "cast" properly
 register_product_type(GeneralProduct)
