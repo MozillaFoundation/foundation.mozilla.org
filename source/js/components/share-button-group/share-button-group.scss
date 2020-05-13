@@ -1,13 +1,12 @@
 .share-button-group {
+  $margin: 16px;
+
   @mixin stacked-rectangle() {
     flex-direction: column;
 
     .subgroup:not(:last-child) {
-      margin-bottom: 16px;
-    }
-
-    .btn:last-child {
       margin-right: 0;
+      margin-bottom: $margin;
     }
 
     .subgroup {
@@ -22,6 +21,10 @@
     .subgroup {
       display: flex;
       flex: 1;
+
+      &:not(:last-child) {
+        margin-right: $margin;
+      }
 
       &:last-child {
         .btn:last-child {
@@ -60,7 +63,7 @@
         margin-right: 0;
 
         &:not(:last-child) {
-          margin-bottom: 16px;
+          margin-bottom: $margin;
         }
       }
     }
@@ -77,7 +80,11 @@
   }
 
   .btn {
-    margin-right: 16px;
+    margin-right: $margin;
+
+    &:last-child {
+      margin-right: 0;
+    }
 
     @include hover-focus-active {
       &::before {
