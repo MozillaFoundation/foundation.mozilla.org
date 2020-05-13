@@ -1,4 +1,6 @@
 import {
+  MOBILE,
+  DESKTOP,
   viewports,
   A11Y_CONFIG,
   EXCLUDE_PNI_CONSTANTS
@@ -9,14 +11,23 @@ let dimension;
 const PNI_A11Y = () => {
   viewports.forEach(viewport => {
     if (viewport === "iphone-5") {
-      dimension = "Mobile";
+      dimension = MOBILE;
     } else {
-      dimension = "Desktop";
+      dimension = DESKTOP;
     }
 
     context(`${dimension} Assessments`, () => {
-      it.skip("PNI homepage Accessibility ", () => {
+      beforeEach(() => {
         cy.viewport(viewport);
+        cy.visit(`/`);
+        cy.window()
+          .its(`main-js:react:finished`)
+          .should(`equal`, true);
+        cy.wait(500);
+        cy.injectAxe().configureAxe(A11Y_CONFIG);
+      });
+
+      it("PNI homepage Accessibility ", () => {
         cy.visit("en/privacynotincluded/");
         cy.window()
           .its(`bg-main-js:react:finished`)
@@ -27,8 +38,7 @@ const PNI_A11Y = () => {
           .checkA11y({ exclude: EXCLUDE_PNI_CONSTANTS });
       });
 
-      it.skip("PNI Category Page", () => {
-        cy.viewport(viewport);
+      it("PNI Category Page", () => {
         cy.visit("/en/privacynotincluded/categories/toys-games/");
         cy.window()
           .its(`bg-main-js:react:finished`)
@@ -39,8 +49,7 @@ const PNI_A11Y = () => {
           .checkA11y({ exclude: EXCLUDE_PNI_CONSTANTS });
       });
 
-      it.skip("PNI Product Page ", () => {
-        cy.viewport(viewport);
+      it("PNI Product Page ", () => {
         cy.visit("/en/privacynotincluded/products/percy-cypress/");
         cy.window()
           .its(`bg-main-js:react:finished`)
@@ -51,8 +60,7 @@ const PNI_A11Y = () => {
           .checkA11y({ exclude: EXCLUDE_PNI_CONSTANTS });
       });
 
-      it.skip("PNI About Page ", () => {
-        cy.viewport(viewport);
+      it("PNI About Page ", () => {
         cy.visit("/en/privacynotincluded/about/");
         cy.window()
           .its(`bg-main-js:react:finished`)
