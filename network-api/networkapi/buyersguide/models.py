@@ -3,15 +3,15 @@ from .pagemodels.get_product_image_upload_path import (
 )
 
 from .pagemodels.base_voting import (
+    BooleanProductVote,
+    BooleanVote,
+    BooleanVoteBreakdown,
     ProductVote,
     RangeProductVote,
-    BooleanProductVote,
-    VoteBreakdown,
-    BooleanVoteBreakdown,
+    RangeVote,
     RangeVoteBreakdown,
     Vote,
-    BooleanVote,
-    RangeVote,
+    VoteBreakdown,
 )
 
 from .pagemodels.cloudinary_image_field import (
