@@ -65,11 +65,11 @@ let main = {
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
-      this.initPageSpecificScript();
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
         window[`main-js:react:finished`] = true;
+        this.initPageSpecificScript();
       });
     });
   },
