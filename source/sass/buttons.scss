@@ -3,6 +3,7 @@ button,
 .btn {
   font-family: "Nunito Sans";
   font-weight: $btn-font-weight;
+  white-space: nowrap;
 
   @include scaleText(18px, 22px);
 
