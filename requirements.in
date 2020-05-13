@@ -1,6 +1,6 @@
 beautifulsoup4
 boto3
-Django==2.2.11
+Django==2.2.12
 dj-database-url
 djangorestframework
 django-admin-sortable==2.2.3
@@ -10,6 +10,7 @@ django-environ
 django-filter
 django-redis
 django-storages
+factory_boy
 Faker
 filebrowser-safe
 future

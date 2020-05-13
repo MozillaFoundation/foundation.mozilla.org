@@ -83,9 +83,10 @@ Dependencies live on your filesystem: you don't need to rebuild the `backend` im
 
 **Update packages:**
 
-- `invoke pip-compile "-U (dev-)requirements.in"`: update all (the dev) dependencies.
-- `invoke pip-compile "-P [PACKAGE](==x.x.x)"`: update the specified dependency. To update multiple dependencies, you always need to add the `-P` flag.
+- `invoke pip-compile "-upgrade (dev-)requirements.in"`: update all (the dev) dependencies.
+- `invoke pip-compile "--upgrade-package [PACKAGE](==x.x.x)"`: update the specified dependency. To update multiple dependencies, you always need to add the `-P` flag.
 
+When it's done, run `inv pip-sync`.
 
 #### JS
 
