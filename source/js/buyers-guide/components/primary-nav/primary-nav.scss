@@ -1,4 +1,4 @@
-$pni-primary-nav-breakpoint-larger: $bp-sm;
+$pni-primary-nav-breakpoint: $bp-sm;
 
 .moz-logo {
   background-image: url("../_images/mozilla-m.svg");
@@ -38,7 +38,7 @@ $pni-primary-nav-breakpoint-larger: $bp-sm;
     font-weight: 600;
     max-width: 85px;
 
-    @media (min-width: $pni-primary-nav-breakpoint-larger) {
+    @media (min-width: $pni-primary-nav-breakpoint) {
       font-size: 22px;
       max-width: none;
     }
@@ -54,7 +54,7 @@ $pni-primary-nav-breakpoint-larger: $bp-sm;
   position: absolute;
   padding-top: 62px;
 
-  @media (min-width: $pni-primary-nav-breakpoint-larger) {
+  @media (min-width: $pni-primary-nav-breakpoint) {
     padding-top: 72px;
   }
 
@@ -139,7 +139,7 @@ $pni-primary-nav-breakpoint-larger: $bp-sm;
     display: none;
   }
 
-  @media (min-width: $pni-primary-nav-breakpoint-larger) {
+  @media (min-width: $pni-primary-nav-breakpoint) {
     &.menu-open {
       display: initial;
     }

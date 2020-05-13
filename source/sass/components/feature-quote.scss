@@ -1,10 +1,10 @@
 .feature-quote {
-  $breakpoint-larger: $bp-md;
+  $breakpoint: $bp-md;
 
   text-align: center;
   padding: 0;
 
-  @media screen and (min-width: $breakpoint-larger) {
+  @media screen and (min-width: $breakpoint) {
     padding: 0 10%;
   }
 
@@ -24,7 +24,7 @@
     line-height: 1.333333;
     font-style: italic;
 
-    @media screen and (min-width: $breakpoint-larger) {
+    @media screen and (min-width: $breakpoint) {
       font-size: 30px;
     }
   }
