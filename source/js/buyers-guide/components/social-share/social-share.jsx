@@ -78,20 +78,18 @@ const SocialShareLink = props => {
 
 const SocialShare = props => {
   return (
-    <div className="row">
-      <div className="col-xl-10 m-auto px-2 px-sm-3">
-        <div className="share-button-group rectangle flex-lg-nowrap">
-          <div className="subgroup">
-            <SocialShareLink type="facebook" {...props} />
-            <SocialShareLink type="twitter" {...props} />
-          </div>
-          <div className="subgroup">
-            <SocialShareLink type="email" {...props} />
-            <SocialShareLink type="link" {...props} />
-          </div>
+    <React.Fragment>
+      <div className="share-button-group rectangle">
+        <div className="subgroup">
+          <SocialShareLink type="facebook" {...props} />
+          <SocialShareLink type="twitter" {...props} />
+        </div>
+        <div className="subgroup">
+          <SocialShareLink type="email" {...props} />
+          <SocialShareLink type="link" {...props} />
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
