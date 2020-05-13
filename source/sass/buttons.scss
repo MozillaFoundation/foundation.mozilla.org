@@ -3,6 +3,7 @@ button,
 .btn {
   font-family: "Nunito Sans";
   font-weight: $btn-font-weight;
+  white-space: nowrap;
 
   @include scaleText(18px, 22px);
 
@@ -12,28 +13,43 @@ button,
 }
 
 .btn-pop {
-  $default: (
-    "color": $black,
-    "background-color": transparent,
-    "border-color": $black
+  $regular-mode: (
+    "default": (
+      "color": $black,
+      "background-color": transparent,
+      "border-color": $black
+    ),
+    "hover-focus": (
+      "color": $black,
+      "background-color": transparent,
+      "border-color": $black
+    ),
+    "active": (
+      "color": $white,
+      "background-color": $black,
+      "border-color": transparent
+    )
   );
 
-  $default-hover: $default;
-
-  $dark-theme-default: (
-    "color": $white,
-    "background-color": transparent,
-    "border-color": $white
+  $dark-mode: (
+    "default": (
+      "color": $white,
+      "background-color": transparent,
+      "border-color": $white
+    ),
+    "hover-focus": (
+      "color": $white,
+      "background-color": transparent,
+      "border-color": $white
+    ),
+    "active": (
+      "color": $black,
+      "background-color": $white,
+      "border-color": $white
+    )
   );
 
-  $dark-theme-hover: $dark-theme-default;
-
-  @include button-basic-style(
-    $default,
-    $default-hover,
-    $dark-theme-default,
-    $dark-theme-hover
-  );
+  @include button-basic-style($regular-mode, $dark-mode);
 
   $offset: 4px;
 
@@ -62,81 +78,86 @@ button,
 .btn-primary {
   border: none;
 
-  $default: (
-    "color": $white,
-    "background-color": $blue,
-    "border-color": none
+  $regular-mode: (
+    "default": (
+      "color": $white,
+      "background-color": $blue,
+      "border-color": transparent
+    ),
+    "hover-focus": (
+      "color": $white,
+      "background-color": $dark-blue,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $white,
+      "background-color": $light-blue,
+      "border-color": transparent
+    )
   );
 
-  $default-hover: (
-    "color": $white,
-    "background-color": $dark-blue,
-    "border-color": none
+  $dark-mode: (
+    "default": (
+      "color": $white,
+      "background-color": $blue,
+      "border-color": transparent
+    ),
+    "hover-focus": (
+      "color": $black,
+      "background-color": $light-blue,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $black,
+      "background-color": $dark-blue,
+      "border-color": transparent
+    )
   );
 
-  $dark-theme-default: (
-    "color": $white,
-    "background-color": $blue,
-    "border-color": none
-  );
-
-  $dark-theme-hover: (
-    "color": $black,
-    "background-color": $light-blue,
-    "border-color": none
-  );
-
-  @include button-basic-style(
-    $default,
-    $default-hover,
-    $dark-theme-default,
-    $dark-theme-hover
-  );
+  @include button-basic-style($regular-mode, $dark-mode);
 }
 
 .btn-secondary {
   border-width: 2px;
   border-style: solid;
 
-  $default: (
-    "color": $black,
-    "background-color": transparent,
-    "border-color": $black
+  $regular-mode: (
+    "default": (
+      "color": $black,
+      "background-color": transparent,
+      "border-color": $black
+    ),
+    "hover-focus": (
+      "color": $white,
+      "background-color": $black,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $white,
+      "background-color": $blue,
+      "border-color": transparent
+    )
   );
 
-  $default-hover: (
-    "color": $white,
-    "background-color": $black,
-    "border-color": $black
+  $dark-mode: (
+    "default": (
+      "color": $white,
+      "background-color": transparent,
+      "border-color": $white
+    ),
+    "hover-focus": (
+      "color": $black,
+      "background-color": $white,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $black,
+      "background-color": $blue,
+      "border-color": transparent
+    )
   );
 
-  $dark-theme-default: (
-    "color": $white,
-    "background-color": transparent,
-    "border-color": $white
-  );
-
-  $dark-theme-hover: (
-    "color": $black,
-    "background-color": $white,
-    "border-color": none
-  );
-
-  @include button-basic-style(
-    $default,
-    $default-hover,
-    $dark-theme-default,
-    $dark-theme-hover
-  );
-
-  &.disabled,
-  &:disabled {
-    color: map-get($default, "color");
-
-    @at-root .dark-theme & {
-      color: map-get($dark-theme-default, "color");
-    }
-  }
+  @include button-basic-style($regular-mode, $dark-mode);
 }
 
 // append external link glyph
