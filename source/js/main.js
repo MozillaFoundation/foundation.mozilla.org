@@ -17,6 +17,7 @@ import {
 
 import primaryNav from "./primary-nav.js";
 import initializeSentry from "./common/sentry-config.js";
+import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/index";
 
 // Initializing component a11y browser console logging
 if (
@@ -64,6 +65,7 @@ let main = {
       this.injectReactComponents();
       this.bindHandlers();
       initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+      this.initPageSpecificScript();
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
@@ -97,6 +99,13 @@ let main = {
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL, csrfToken);
     injectReactComponents(apps, networkSiteURL, env);
+  },
+
+  initPageSpecificScript() {
+    // YouTube Regrets page
+    if (document.querySelector("#view-youtube-regrets")) {
+      new YouTubeRegretsTunnel();
+    }
   }
 };
 
