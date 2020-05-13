@@ -25,7 +25,7 @@ services:
     environment:
       - POSTGRES_DB=wagtail
       - POSTGRES_USER=foundation
-      # We're not using this setup in prod!
+      # We're only using this setting for local dev!
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - postgres_data:/var/lib/postgresql/data/:delegated
