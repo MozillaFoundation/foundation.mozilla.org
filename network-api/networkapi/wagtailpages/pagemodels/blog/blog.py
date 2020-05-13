@@ -36,8 +36,9 @@ base_fields = [
     ('image_text_mini', customblocks.ImageTextMini()),
     ('video', customblocks.VideoBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
-    ('spacer', customblocks.BootstrapSpacerBlock()),
+    ('pulse_listing', customblocks.PulseProjectList()),
     ('quote', customblocks.QuoteBlock()),
+    ('spacer', customblocks.BootstrapSpacerBlock()),
 ]
 
 
