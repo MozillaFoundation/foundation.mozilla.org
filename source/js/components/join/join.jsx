@@ -432,7 +432,7 @@ export default class JoinUs extends React.Component {
 
     return (
       <div className={classes}>
-        <div class="d-flex align-items-start">
+        <div className="d-flex align-items-start">
           <input
             type="checkbox"
             className="form-check-input"
@@ -442,7 +442,7 @@ export default class JoinUs extends React.Component {
           />
           <label
             className="form-check-label body-small"
-            for={this.id.privacyCheckbox}
+            htmlFor={this.id.privacyCheckbox}
           >
             {getText(
               `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
