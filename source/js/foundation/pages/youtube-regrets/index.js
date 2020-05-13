@@ -17,8 +17,8 @@ let elements = {
   introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
   scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
   newsletterButtons: `#view-youtube-regrets .intro-viewport .btn-newsletter`,
-  newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.d-lg-none`,
-  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.d-none.d-lg-block`
+  newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-mobile`,
+  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-desktop`
 };
 
 class YouTubeRegretsTunnel {
@@ -261,4 +261,4 @@ class YouTubeRegretsTunnel {
   }
 }
 
-const youTubeRegretsTunnel = new YouTubeRegretsTunnel();
+export default YouTubeRegretsTunnel;
