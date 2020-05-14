@@ -19,6 +19,7 @@ body.mozfest {
 
   &#view-mozfest-home {
     #hero {
+      $breakpoint: $bp-md;
       $banner-height-mobile: 400px;
       $banner-height-desktop: 480px;
       $banner-background-z-index: 1;
@@ -31,7 +32,7 @@ body.mozfest {
         width: 100%;
         bottom: 1rem;
 
-        @media screen and (min-width: $bp-md) {
+        @media screen and (min-width: $breakpoint) {
           bottom: calc(#{$cutoff-offset} + 1rem);
         }
 
@@ -76,7 +77,7 @@ body.mozfest {
         flex-direction: column;
         justify-content: center;
 
-        @media screen and (min-width: $bp-md) {
+        @media screen and (min-width: $breakpoint) {
           height: $banner-height-desktop;
         }
       }
@@ -84,11 +85,7 @@ body.mozfest {
       .homepage-banner-content.container {
         z-index: $banner-background-z-index + 3;
 
-        @media screen and (max-width: $bp-sm) {
-          width: 100%;
-        }
-
-        @media screen and (min-width: $bp-md) {
+        @media screen and (min-width: $breakpoint) {
           padding-bottom: $cutoff-offset;
         }
       }
@@ -96,7 +93,7 @@ body.mozfest {
       .cutout {
         z-index: $banner-background-z-index + 2;
         margin-top: 0;
-        @media screen and (min-width: $bp-md) {
+        @media screen and (min-width: $breakpoint) {
           margin-top: -$cutoff-offset;
         }
       }

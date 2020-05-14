@@ -381,6 +381,7 @@ class Product(ClusterableModel):
             'id'
         ]
 
+
 # We want to delete the product image when the product is removed
 @receiver(pre_delete, sender=Product)
 def delete_image(sender, instance, **kwargs):

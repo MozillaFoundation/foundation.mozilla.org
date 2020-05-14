@@ -1,7 +1,4 @@
-$product-detail-padding-x: (
-  xs: 18px,
-  md: 5rem
-);
+$pni-product-breakpoint-larger: $bp-md;
 
 .product-header {
   padding-bottom: 88px;
@@ -32,12 +29,12 @@ $product-detail-padding-x: (
 }
 
 .product-section-padding-x {
-  padding-left: map-get($product-detail-padding-x, xs);
-  padding-right: map-get($product-detail-padding-x, xs);
+  padding-left: 18px;
+  padding-right: 18px;
 
-  @media (min-width: $bp-md) {
-    padding-left: map-get($product-detail-padding-x, md);
-    padding-right: map-get($product-detail-padding-x, md);
+  @media (min-width: $pni-product-breakpoint-larger) {
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 }
 
@@ -67,7 +64,7 @@ $product-detail-padding-x: (
   .copy-link-wrapper {
     order: 4;
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $pni-product-breakpoint-larger) {
       order: unset;
     }
 
@@ -132,7 +129,7 @@ $product-detail-padding-x: (
   .signup-requirement {
     margin-bottom: $spacer;
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $pni-product-breakpoint-larger) {
       margin-bottom: $spacer * 1.5;
     }
 
@@ -153,7 +150,7 @@ $product-detail-padding-x: (
   word-break: break-word;
   margin-bottom: 1rem;
 
-  @media (min-width: $bp-md) {
+  @media (min-width: $pni-product-breakpoint-larger) {
     margin-bottom: 0;
   }
 
@@ -178,7 +175,7 @@ $product-detail-padding-x: (
     position: relative;
     padding-left: calc(#{$badge-width-mobile} + 8px);
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $pni-product-breakpoint-larger) {
       padding-left: calc(#{$badge-width} + 6px);
     }
 
@@ -192,7 +189,7 @@ $product-detail-padding-x: (
       width: $badge-width-mobile;
       height: 100%;
 
-      @media (min-width: $bp-md) {
+      @media (min-width: $pni-product-breakpoint-larger) {
         width: $badge-width;
       }
     }
@@ -320,7 +317,7 @@ $product-detail-padding-x: (
   padding-left: 1rem;
   padding-right: 1rem;
 
-  @media (min-width: $bp-md) {
+  @media (min-width: $pni-product-breakpoint-larger) {
     margin-left: -0.5rem;
     margin-right: -0.5rem;
     padding: 1.5rem 3.75rem;
@@ -345,7 +342,7 @@ $product-detail-padding-x: (
       color: $white;
     }
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $pni-product-breakpoint-larger) {
       left: calc(#{$shadow-width} * -1);
 
       &::before {

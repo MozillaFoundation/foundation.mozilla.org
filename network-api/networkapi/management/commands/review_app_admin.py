@@ -49,8 +49,8 @@ class Command(BaseCommand):
                 except KeyError:
                     pr_title = ''
 
-                for l in r.json()['labels']:
-                    if l['name'] == 'dependencies':
+                for label in r.json()['labels']:
+                    if label['name'] == 'dependencies':
                         color = '#BA55D3'
                         break
                 else:
