@@ -59,20 +59,20 @@ h6,
 }
 
 .quote {
-  @include body-text("Zilla Slab", 300, $black, $white);
+  @include text-base-style("Zilla Slab", 300, $black, $white);
   @include scaleText(24px, 32px, 30px, 40px);
 
   font-style: italic;
 }
 
 .type-accent {
-  @include body-text("Zilla Slab", 400, $gray-20, $gray-20);
+  @include text-base-style("Zilla Slab", 400, $gray-20, $gray-20);
   @include scaleText(56px, 64px, 72px, 88px);
 }
 
 .body-large,
 .body-large p {
-  @include body-text(null, 300, $black, $white);
+  @include text-base-style(null, 300, $black, $white);
   @include scaleText(18px, 27px, 20px, 30px);
 }
 
@@ -80,17 +80,16 @@ ul,
 ol,
 p,
 .body {
-  @include body-text(null, 400, $black, $white);
-  @include scaleText(18px, 27px);
+  @include body-text-style();
 }
 
 .body-small {
-  @include body-text("Nunito Sans", 400, $gray-60, $gray-40);
+  @include text-base-style("Nunito Sans", 400, $gray-60, $gray-40);
   @include scaleText(12px, 16px);
 }
 
 .cta-link {
-  @include body-text(null, 700, null, $light-blue);
+  @include text-base-style(null, 700, null, $light-blue);
   @include scaleText(18px, 27px);
 
   display: inline-block;

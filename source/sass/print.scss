@@ -35,6 +35,7 @@
   a {
     &[href]:after {
       content: " (" attr(href) ")";
+      text-decoration: underline;
     }
   }
 
@@ -58,9 +59,17 @@
 
   .block-video {
     .caption-wrapper {
+      @include body-text-style();
+
       &:before {
         content: "Video: ";
       }
+    }
+  }
+
+  .block-linkbutton {
+    .btn-primary {
+      @include btn-secondary-style();
     }
   }
 
@@ -79,6 +88,12 @@
           content: "”";
         }
       }
+    }
+  }
+
+  .block-pulse_listing {
+    a.pulse-project {
+      text-decoration: none;
     }
   }
 }
