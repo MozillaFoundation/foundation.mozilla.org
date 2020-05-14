@@ -16,7 +16,7 @@ services:
     command: npm run watch
     volumes:
       - .:/app:delegated
-      - node_dependencies:/app/node_modules/:delegated
+      - node_modules:/app/node_modules/:delegated
 
   postgres:
     image: postgres:10.12
@@ -25,7 +25,8 @@ services:
     environment:
       - POSTGRES_DB=wagtail
       - POSTGRES_USER=foundation
-      - POSTGRES_PASSWORD=mozilla
+      # We're only using this setting for local dev!
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - postgres_data:/var/lib/postgresql/data/:delegated
 
@@ -35,16 +36,18 @@ services:
       dockerfile: ./dockerfiles/Dockerfile.python
     env_file:
       - ".env"
-    command: pipenv run python network-api/manage.py runserver 0.0.0.0:8000
+    command: dockerpythonvenv/bin/python network-api/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
       - "8001:8001" # ptvsd port for debugging
     volumes:
       - .:/app:delegated
+      - dockerpythonvenv:/app/dockerpythonvenv/:delegated
     depends_on:
       - postgres
       - watch-static-files
 
 volumes:
   postgres_data:
-  node_dependencies:
+  node_modules:
+  dockerpythonvenv:

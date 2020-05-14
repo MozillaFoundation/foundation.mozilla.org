@@ -1,3 +1,5 @@
+$pni-primary-nav-breakpoint: $bp-sm;
+
 .moz-logo {
   background-image: url("../_images/mozilla-m.svg");
   flex-shrink: 0;
@@ -36,7 +38,7 @@
     font-weight: 600;
     max-width: 85px;
 
-    @media (min-width: $bp-sm) {
+    @media (min-width: $pni-primary-nav-breakpoint) {
       font-size: 22px;
       max-width: none;
     }
@@ -52,7 +54,7 @@
   position: absolute;
   padding-top: 62px;
 
-  @media (min-width: $bp-sm) {
+  @media (min-width: $pni-primary-nav-breakpoint) {
     padding-top: 72px;
   }
 
@@ -117,10 +119,6 @@
     background: $white;
     height: 100%;
   }
-
-  @media (min-width: $bp-md) {
-    display: none;
-  }
 }
 
 .btn-donate {
@@ -141,7 +139,7 @@
     display: none;
   }
 
-  @media (min-width: $bp-sm) {
+  @media (min-width: $pni-primary-nav-breakpoint) {
     &.menu-open {
       display: initial;
     }
