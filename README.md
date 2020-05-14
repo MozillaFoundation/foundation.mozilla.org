@@ -12,9 +12,7 @@
 
 [Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
 
-[Local development with invoke and pipenv](docs/local_development_with_invoke_pipenv.md)
-
-[Local development with Docker](docs/local_development_with_docker.md)
+[Local development](docs/local_development.md)
 
 [Engineer Workflow](docs/workflow.md)
 
@@ -24,18 +22,18 @@
 
 [Stack](docs/stack.md)
 
-## How to Setup your Dev Environment with Pipenv and Invoke
+## How to Setup your Dev Environment with Docker
 
-**Requirements**: [Node](https://nodejs.org), [npm](https://www.npmjs.com/), [git](https://git-scm.com/), [python3.6 or later](https://www.python.org/), [pip](https://pypi.python.org/pypi), [pipenv](https://docs.pipenv.org/), [invoke](https://www.pyinvoke.org/installing.html), [gettext](https://www.gnu.org/software/gettext/).
+**Requirements**: [Docker Desktop](https://www.docker.com/products/docker-desktop) (macOS and Windows) or [Docker CE](https://docs.docker.com/install/#supported-platforms) and [Docker Compose](https://docs.docker.com/compose/install/) (Linux), [invoke](https://www.pyinvoke.org/installing.html), and [git](https://git-scm.com/).
 
-If you installed [Python with Homebrew](https://docs.brew.sh/Homebrew-and-Python), use `pip3 install` instead of `pip install` when installing the relevant requirements.
+### Installing Invoke
+
+We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/).
 
 ### Check your environment
 
-- `python --version` should return 3.7 or higher,
-- `pipenv --version` should return 11.10 or higher,
-- `invoke --version` should return 0.22.1 or higher,
-- `gettext --version` should return 0.20.1 or higher.
+- `docker run hello-world`.
+- `invoke --version` should return 0.22.1 or higher.
 
 ### Setup steps
 
@@ -43,24 +41,30 @@ Run the following terminal commands to get started:
 
 - `git clone https://github.com/mozilla/foundation.mozilla.org.git`
 - `cd foundation.mozilla.org`
-- `inv setup`
-
-If you're on windows, you need an extra step: run `inv manage createsuperuser` to create an admin user.
+- `inv new-env`
 
 You're done :tada:
 
-To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command.
+This task creates a `.env` that is in charge of managing your environment variables while running Docker. The installation will take a few minutes: you need to download images from the Docker Hub, install JS and Python dependencies, create fake data, migrate your database, etc.
 
-For more information on how to run this project, check the [local development with invoke and pipenv](docs/local_development_with_invoke_pipenv.md) documentation.
+When it's done, run `docker-compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
+
+To log into the admin site, a superuser will have been created with username `admin` with password `admin`.
+
+To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again. 
+
+Use `inv -l` to get a list of all the available invoke commands.
+
+More information on how to work with Docker and how to manage Python dependencies are available in the [local development](docs/local_development.md) part of the documentation.
 
 ## Testing
 
 ### Code tests
 
-When relevant, we encourage you to write tests. You can run the tests using `inv docker-test`, or you can run the Node and Python testing suites separately:
+When relevant, we encourage you to write tests. You can run the tests using `inv test`, or you can run the Node and Python testing suites separately:
 
-- Run Node tests: `inv docker-test-node`
-- Run Python tests: `inv docker-test-python`
+- Run Node tests: `inv test-node`
+- Run Python tests: `inv test-python`
 
 ### Visual regression tests
 
@@ -73,21 +77,6 @@ Accessibility tests are not part of the standard tests covered by `inv test`. Yo
 - `npm run cypress:a11y`
 
 Note that when tests fail, the `./cypress/screenshots` directory will contain one screenshot for each failed test.
-
-## How to Setup your Dev Environment with Docker
-
-- Install [Docker Desktop](https://www.docker.com/products/docker-desktop) (macOS and Windows). For Linux users: install [Docker CE](https://docs.docker.com/install/#supported-platforms) and [Docker Compose](https://docs.docker.com/compose/install/). If you don't want to create a Docker account, direct links to download can be found [in this issue](https://github.com/docker/docker.github.io/issues/6910),
-- [Check your install](https://docs.docker.com/get-started/#test-docker-version) by running `docker run hello-world`,
-- If relevant: delete your node_modules directory (`rm -rf node_modules`). It's not necessary, but it speeds up the install.
-- Run `invoke docker-new-env` ([install invoke](http://www.pyinvoke.org/installing.html) if you don't have it yet).
-
-This task creates a `.env` that is in charge of managing your environment variables while running Docker. The installation will take a few minutes: you need to download images from the Docker Hub, install JS and Python dependencies, create fake data, migrate your database, etc.
-
-When it's done, run `docker-compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
-
-To log into the admin site, a superuser will have been created with username `admin` with password `admin`.
-
-For more information on how to run the project with Docker, check the [local development with Docker](docs/local_development_with_docker.md) documentation.
 
 ## Mozilla Festival
 

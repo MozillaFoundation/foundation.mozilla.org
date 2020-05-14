@@ -29,9 +29,9 @@ def generate_paragraph_field():
         f'<a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a> ',
         f'{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}</p>',
         f'<p>{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}</p>',
-        f'<ul>',
+        '<ul>',
         ''.join([f'<li>{fake.word()}</li>' for i in range(10)]),
-        f'</ul><br />',
+        '</ul><br />',
         f'<p><a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a></p>',
     )
 
