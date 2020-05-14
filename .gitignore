@@ -91,6 +91,7 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
+dockerpythonvenv/
 
 # Spyder project settings
 .spyderproject
@@ -107,8 +108,9 @@ network-api/staticfiles/
 # Storage for user generated files
 network-api/media/
 
-# SQLite3 databases for local development
+# Databases for local development
 **/*.sqlite3
+*.psql
 
 # Compiled Frontend
 network-api/networkapi/frontend/*

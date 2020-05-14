@@ -1,0 +1,4 @@
+-c requirements.txt
+flake8
+coveralls
+ptvsd

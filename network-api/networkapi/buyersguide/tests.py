@@ -393,10 +393,10 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the category view returns a 200 for both slug and name URLs
         """
-        response = self.client.get(f'/en/privacynotincluded/categories/Smart%20Home/')
+        response = self.client.get('/en/privacynotincluded/categories/Smart%20Home/')
         self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by name')
 
-        response = self.client.get(f'/en/privacynotincluded/categories/smart-home/')
+        response = self.client.get('/en/privacynotincluded/categories/smart-home/')
         self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
 
     def test_drive_by_clear_cache(self):
@@ -452,6 +452,6 @@ class CategoryViewTest(TestCase):
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class AboutViewTest(TestCase):
     def test_localised_about(self):
-        url = f'/fr/privacynotincluded/about/'
+        url = '/fr/privacynotincluded/about/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
