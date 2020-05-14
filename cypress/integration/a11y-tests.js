@@ -4,7 +4,7 @@ import GLOBAL_COMPONENT_A11Y from "./a11y/global_component_assessments";
 
 describe(`Accessibility Tests`, () => {
   describe(`FoMo Page Assessments`, () => {
-    //FOMO_A11Y();
+    FOMO_A11Y();
   });
 
   describe(`PNI Page Assessments`, () => {
@@ -12,6 +12,6 @@ describe(`Accessibility Tests`, () => {
   });
 
   describe(`Global Component Assessments`, () => {
-    //GLOBAL_COMPONENT_A11Y();
+    GLOBAL_COMPONENT_A11Y();
   });
 });
