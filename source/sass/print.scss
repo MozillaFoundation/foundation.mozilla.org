@@ -33,18 +33,8 @@
   }
 
   a {
-    &:not(.btn) {
-      text-decoration: none;
-    }
-
     &[href]:after {
       content: " (" attr(href) ")";
-    }
-
-    &.btn {
-      padding: 0;
-      color: $black;
-      background: none;
     }
   }
 
@@ -52,6 +42,43 @@
   div[class^="block-"] {
     &:not(.block-paragraph) {
       page-break-inside: avoid;
+    }
+  }
+
+  .block-image {
+    text-align: center;
+
+    img {
+      // this is to override
+      // the styling of .w-100 class added in the image_block.html template
+      // from Bootstrap, .w-100 { width: 100% important! }
+      width: 50% !important;
+    }
+  }
+
+  .block-video {
+    .caption-wrapper {
+      &:before {
+        content: "Video: ";
+      }
+    }
+  }
+
+  .block-quote {
+    .feature-quote {
+      &:before {
+        content: "";
+        background: none;
+      }
+
+      h3 {
+        &:before {
+          content: "“";
+        }
+        &:after {
+          content: "”";
+        }
+      }
     }
   }
 }
