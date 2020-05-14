@@ -1,3 +1,18 @@
+@mixin active() {
+  &:active,
+  &.active {
+    @content;
+  }
+}
+
+@mixin disabled() {
+  &.disabled,
+  &:disabled,
+  &[disabled] {
+    @content;
+  }
+}
+
 // Break the constraints of parent container(s) to span the entire viewport width
 @mixin full-bleed {
   width: 100vw;
@@ -118,76 +133,50 @@
   padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
 }
 
-// TODO: override Bootstrap's "@mixin button-outline-variant" so we can reduce our overrides for buttons
-@mixin button-basic-style(
-  $default,
-  $default-hover,
-  $dark-theme-default,
-  $dark-theme-hover
-) {
-  color: map-get($default, "color");
-  background-color: map-get($default, "background-color");
-  border-color: map-get($default, "border-color");
+@mixin button-base-colors($styles) {
+  color: map-get($styles, "color");
+  background-color: map-get($styles, "background-color");
+  border-color: map-get($styles, "border-color");
+}
 
-  &.active {
-    color: map-get($default-hover, "color");
-    background-color: map-get($default-hover, "background-color");
-    border-color: map-get($default-hover, "border-color");
+@mixin button-colors-by-mode($mode-colors) {
+  $default-colors: map-get($mode-colors, "default");
+  $hover-colors: map-get($mode-colors, "hover-focus");
+  $active-colors: map-get($mode-colors, "active");
+
+  @include button-base-colors($default-colors);
+
+  @include hover-focus {
+    @include button-base-colors($hover-colors);
   }
 
-  @include hover-focus-active {
-    @extend .active;
+  @include active {
+    @include button-base-colors($active-colors);
   }
 
-  &.disabled,
-  &:disabled,
-  &[disabled] {
+  @include disabled {
+    @include button-base-colors($default-colors);
+  }
+
+  &:not(:disabled):not(.disabled) {
+    @include active {
+      @include button-base-colors($active-colors);
+    }
+  }
+}
+
+@mixin button-basic-style($regular-mode, $dark-mode) {
+  @include disabled {
     cursor: not-allowed;
     pointer-events: none;
-    background-color: map-get($default, "background-color");
-    border-color: map-get($default, "border-color");
     opacity: 0.3;
   }
-
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled).active,
-  .show > &.dropdown-toggle {
-    color: map-get($default-hover, "color");
-    background-color: map-get($default-hover, "background-color");
-    border-color: map-get($default-hover, "border-color");
-  }
+  @include button-colors-by-mode($regular-mode);
 
   @at-root .dark-theme & {
-    color: map-get($dark-theme-default, "color");
-    background-color: map-get($dark-theme-default, "background-color");
-    border-color: map-get($dark-theme-default, "border-color");
-
-    @include hover-focus-active {
-      color: map-get($dark-theme-hover, "color");
-      background-color: map-get($dark-theme-hover, "background-color");
-      border-color: map-get($dark-theme-hover, "border-color");
-    }
-
-    &.disabled,
-    &:disabled,
-    &[disabled] {
+    @include button-colors-by-mode($dark-mode);
+    @include disabled {
       opacity: 0.5;
-      background-color: map-get($dark-theme-default, "background-color");
-      border-color: map-get($dark-theme-default, "border-color");
-    }
-
-    &:not(:disabled):not(.disabled):active,
-    &:not(:disabled):not(.disabled).active,
-    .show > &.dropdown-toggle {
-      color: map-get($dark-theme-default, "color");
-      background-color: map-get($dark-theme-default, "background-color");
-      border-color: map-get($dark-theme-default, "border-color");
-
-      @include hover-focus-active {
-        color: map-get($dark-theme-hover, "color");
-        background-color: map-get($dark-theme-hover, "background-color");
-        border-color: map-get($dark-theme-hover, "border-color");
-      }
     }
   }
 }
