@@ -215,6 +215,24 @@
           color: $white;
         }
       }
+
+      .btn-newsletter {
+        $breakpoint: $bp-lg;
+
+        &.for-desktop {
+          display: none;
+        }
+
+        @media (min-width: $bp-md) {
+          &.for-mobile {
+            display: none;
+          }
+
+          &.for-desktop {
+            display: block;
+          }
+        }
+      }
     }
   }
 
