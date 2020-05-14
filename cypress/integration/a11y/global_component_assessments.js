@@ -6,9 +6,9 @@ const INERT_CODE_PATH = false;
 const GLOBAL_COMPONENT_A11Y = () => {
   viewports.forEach(viewport => {
     if (viewport === "iphone-5") {
-      dimension = "Mobile";
+      dimension = MOBILE;
     } else {
-      dimension = "Desktop";
+      dimension = DESKTOP;
     }
 
     context(`${dimension} Assessments`, () => {
@@ -175,7 +175,8 @@ const GLOBAL_COMPONENT_A11Y = () => {
 
           // test general a11y for this form
 
-          if (INERT_CODE_PATH) { // KNOWN FAILURE: COLOR CONTRAST TOO LOW
+          if (INERT_CODE_PATH) {
+            // KNOWN FAILURE: COLOR CONTRAST TOO LOW
             cy.checkA11y(".sign-petition form");
           }
         });
@@ -190,7 +191,8 @@ const GLOBAL_COMPONENT_A11Y = () => {
 
           // test a11y again, but only .has-danger containers
 
-          if (INERT_CODE_PATH) { // KNOWN FAILURE: COLOR CONTRAST TOO LOW
+          if (INERT_CODE_PATH) {
+            // KNOWN FAILURE: COLOR CONTRAST TOO LOW
             cy.checkA11y(".sign-petition form .has-danger");
           }
         });

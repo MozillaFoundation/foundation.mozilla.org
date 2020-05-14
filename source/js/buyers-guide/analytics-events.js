@@ -25,24 +25,30 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `company link tap`,
       label: `company link for ${productName}`,
       transport: `beacon`,
+      // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`
     },
     "#product-copy-link-button": {
       category: `product`,
       action: `copy link tap`,
       label: `copy link ${productName}`,
+      // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`
     },
     "#product-live-chat": {
       category: `product`,
       action: `customer support link tap`,
       label: `support link for ${productName}`,
-      conditionalQuery: `#view-product-page`
+      // Custom properties (not sent to GA)
+      conditionalQuery: `#view-product-page`,
+      // Not all products have live-chat
+      optional_element: true
     },
     "#creep-vote-btn": {
       category: `product`,
       action: `opinion submitted`,
       label: `opinion on ${productName}`,
+      // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`
     },
     "a.privacy-policy-link": {
@@ -50,6 +56,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `privacy policy link tap`,
       label: `policy link for ${productName}`,
       transport: `beacon`,
+      // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`
     },
     ".product-update-link": {
@@ -57,10 +64,10 @@ function getQuerySelectorEvents(pageTitle, productName) {
       action: `update article link tap`,
       label: `update article link for ${productName}`,
       transport: `beacon`,
-      // Not every product will have updates. Note that
-      // this value will not be sent on as GA payload.
-      optional_element: true,
-      conditionalQuery: `#view-product-page`
+      // Custom properties (not sent to GA)
+      conditionalQuery: `#view-product-page`,
+      // Note all products have updates
+      optional_element: true
     }
   };
 }

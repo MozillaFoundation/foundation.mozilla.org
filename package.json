@@ -24,14 +24,13 @@
     "cypress:test:a11y": "npm run cypress:clean && wait-on tcp:8000 && cypress run --spec ./cypress/integration/a11y-tests.js",
     "cypress:test:manual": "cypress open",
     "heroku-postbuild": "npm run build",
-    "migrate": "pipenv run python network-api/manage.py migrate",
     "optimize:svg": "find source/images -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
     "optimize:jpg": "find source/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "optimize": "run-p optimize:**",
     "percy": "percy exec -t 800 -- npm run cypress:ci",
-    "server": "pipenv run python network-api/manage.py runserver",
-    "start": "run-p build-uncompressed server watch:**",
+    "server": "python network-api/manage.py runserver",
+    "start": "docker-compose up",
     "test:procfile": "node test/test-procfile.js",
     "test:eslint:js": "eslint --config ./.eslintrc.json \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js",
     "test:eslint:a11y": "eslint --config ./.eslintrc.a11y.json \"source/js/**/*.jsx\"",
@@ -80,7 +79,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
-    "node": "12.x"
+    "node": "12.16.*"
   },
   "devDependencies": {
     "browserslist": "^4.12.0",

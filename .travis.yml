@@ -40,7 +40,6 @@ cache:
   pip: true
   directories:
     - "$HOME/.npm"
-    - "$HOME/.cache/pipenv"
 
 branches:
   only:
@@ -58,10 +57,10 @@ jobs:
       before_script:
         - psql -c 'create database network;' -U postgres
         - npm run build
-        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity 0
+        - python network-api/manage.py collectstatic --no-input --verbosity 0
       script:
-        - pipenv run flake8 tasks.py network-api/
-        - pipenv run coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+        - flake8 tasks.py network-api/
+        - coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
       after_success:
         - coveralls
     - name: npm tests
@@ -83,13 +82,13 @@ jobs:
       before_script:
         - psql -c 'create database network;' -U postgres
         - npm run build
-        - pipenv run python network-api/manage.py collectstatic --no-input --verbosity 0
-        - pipenv run python network-api/manage.py migrate --no-input
-        - pipenv run python network-api/manage.py block_inventory
-        - pipenv run python network-api/manage.py sync_page_translation_fields
-        - pipenv run python network-api/manage.py update_translation_fields
-        - pipenv run python network-api/manage.py load_fake_data
-        - pipenv run python network-api/manage.py compilemessages
+        - python network-api/manage.py collectstatic --no-input --verbosity 0
+        - python network-api/manage.py migrate --no-input
+        - python network-api/manage.py block_inventory
+        - python network-api/manage.py sync_page_translation_fields
+        - python network-api/manage.py update_translation_fields
+        - python network-api/manage.py load_fake_data
+        - python network-api/manage.py compilemessages
       script: npm run percy
     - stage: Deploy
       name: Deploy Maintenance page to S3
