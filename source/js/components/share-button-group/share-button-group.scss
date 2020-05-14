@@ -33,8 +33,14 @@
       }
     }
 
-    @media (max-width: $bp-md) {
+    @include media-breakpoint-down("sm") {
       @include stacked-rectangle();
+    }
+
+    &.stacked-lg-and-down {
+      @include media-breakpoint-down("lg") {
+        @include stacked-rectangle();
+      }
     }
 
     &.stacked {
