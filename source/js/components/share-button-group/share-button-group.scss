@@ -1,13 +1,12 @@
 .share-button-group {
+  $margin: 16px;
+
   @mixin stacked-rectangle() {
     flex-direction: column;
 
     .subgroup:not(:last-child) {
-      margin-bottom: 16px;
-    }
-
-    .btn:last-child {
       margin-right: 0;
+      margin-bottom: $margin;
     }
 
     .subgroup {
@@ -23,6 +22,10 @@
       display: flex;
       flex: 1;
 
+      &:not(:last-child) {
+        margin-right: $margin;
+      }
+
       &:last-child {
         .btn:last-child {
           margin-right: 0;
@@ -30,8 +33,14 @@
       }
     }
 
-    @media (max-width: $bp-md) {
+    @include media-breakpoint-down("sm") {
       @include stacked-rectangle();
+    }
+
+    &.stacked-lg-and-down {
+      @include media-breakpoint-down("lg") {
+        @include stacked-rectangle();
+      }
     }
 
     &.stacked {
@@ -39,8 +48,9 @@
     }
 
     .btn {
-      min-width: 130px;
-      flex: 1;
+      display: flex;
+      justify-content: center;
+      flex: 1 1 0;
 
       &::before {
         position: relative;
@@ -59,7 +69,7 @@
         margin-right: 0;
 
         &:not(:last-child) {
-          margin-bottom: 16px;
+          margin-bottom: $margin;
         }
       }
     }
@@ -76,7 +86,11 @@
   }
 
   .btn {
-    margin-right: 16px;
+    margin-right: $margin;
+
+    &:last-child {
+      margin-right: 0;
+    }
 
     @include hover-focus-active {
       &::before {

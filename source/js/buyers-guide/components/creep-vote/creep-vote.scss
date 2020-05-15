@@ -106,20 +106,4 @@ $btn-shadow-width: 3px;
 
     background-color: $gray-40;
   }
-
-  .share-button-group.rectangle {
-    @media (min-width: $bp-md) and (max-width: $bp-lg) {
-      .subgroup {
-        .btn:last-child {
-          margin-right: 0;
-        }
-        &:not(:last-child) {
-          margin-bottom: 16px;
-        }
-      }
-    }
-    .btn {
-      min-width: 120px;
-    }
-  }
 }
