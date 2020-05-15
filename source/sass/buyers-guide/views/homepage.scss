@@ -37,7 +37,7 @@
         margin-left: -$box-margin;
       }
 
-      figure.product-box {
+      a.product-box {
         $padding-x: 12px;
         $padding-y: 12px;
         $seal-of-approval-width: 30px;
@@ -130,6 +130,9 @@
             font-weight: initial;
           }
         }
+      }
+      a.product-box:hover{
+        text-decoration:none;
       }
     }
 
