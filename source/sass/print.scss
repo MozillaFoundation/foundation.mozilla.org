@@ -34,8 +34,13 @@
 
   a {
     &[href]:after {
-      content: " (" attr(href) ")";
-      text-decoration: underline;
+      content: "(" attr(href) ")";
+      text-transform: initial;
+      text-decoration: none;
+      // need to set "display" to something other than "inline"
+      // for link's pseudo element's "text-decoration: none" to work
+      display: inline-block;
+      margin-left: 0.2em;
     }
   }
 
@@ -91,9 +96,9 @@
     }
   }
 
-  .block-pulse_listing {
-    a.pulse-project {
-      text-decoration: none;
+  .pulse-project-list {
+    .pulse-project {
+      vertical-align: top;
     }
   }
 }
