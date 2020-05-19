@@ -24,16 +24,16 @@
                     {% include "fragments/seal_of_approval.html" with product=product %}
                     {% include "fragments/adult_content_badge.html" with product=product %}
 
-                    {% if USE_CLOUDINARY %}
                     <img
                       class="product-thumbnail thumb-border"
                       width="300"
-                      src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+                      {% if USE_CLOUDINARY %}
+                        src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+                      {% else %}
+                        src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}"
+                      {% endif %}
                       alt="{{ product.name }}"
                     >
-                    {% else %}
-                    <img class="product-thumbnail" src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
-                    {% endif %}
                   </div>
                   <h3 class="mb-1 body-small">{{ product.company }}</h3>
                   <h3 class="mb-5 h5-heading">{{ product.name }}</h3>
