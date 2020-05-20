@@ -222,17 +222,21 @@
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
               <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="{% url 'product-view' product.slug %}">
                 <div class="img-container">
-                  <img
-                    class="product-thumbnail thumb-border"
-                    {% if USE_CLOUDINARY %}
-                      src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+                  {% if USE_CLOUDINARY %}
+                    <img
+                      class="product-thumbnail thumb-border"
                       width="300"
-                    {% else %}
-                      src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+                      src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+                      alt="{{product.name}}"
+                    >
+                  {% else %}
+                    <img
+                      class="product-thumbnail"
                       width="600"
-                    {% endif %}
-                    alt="{{product.name}}"
-                  >
+                      src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+                      alt="{{product.name}}"
+                    >
+                  {% endif %}
                 </div>
                 <p class="body-small mt-3 mb-1">{{product.company}}</p>
                 <p>{{product.name}}</p>
