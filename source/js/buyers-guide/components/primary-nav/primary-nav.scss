@@ -71,54 +71,6 @@ $pni-primary-nav-breakpoint: $bp-sm;
     overflow: hidden;
     transition: opacity 0.2s, height 0s linear 0.2s;
   }
-
-  .narrow-screen-menu-container {
-    .social-button {
-      width: auto;
-      height: auto;
-      border-bottom: 1px solid $white;
-      margin: 0;
-      padding: 1rem 1rem 1rem 4rem;
-      background-color: $gray-05;
-      background-position: 20px center;
-      color: $black;
-      font-weight: 300;
-
-      @include hover-focus-active {
-        text-decoration: none;
-      }
-
-      &.social-button-fb {
-        background-position: 24px center;
-        background-size: auto 20px;
-      }
-
-      &.social-button-twitter {
-        background-size: auto 18px;
-      }
-
-      &.social-button-email {
-        background-size: auto 17px;
-      }
-    }
-
-    .donate {
-      background: $black;
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-
-      h3,
-      p {
-        color: $white;
-        font-weight: 300;
-      }
-    }
-  }
-
-  .narrow-screen-menu-background {
-    background: $white;
-    height: 100%;
-  }
 }
 
 .btn-donate {
