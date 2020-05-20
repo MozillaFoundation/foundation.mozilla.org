@@ -140,19 +140,19 @@ class Petition(CTA):
 
     share_twitter = models.CharField(
         max_length=20,
-        help_text='Share Progress id for twitter button',
+        help_text='Share Progress id for twitter button, including the sp_... prefix',
         blank=True,
     )
 
     share_facebook = models.CharField(
         max_length=20,
-        help_text='Share Progress id for facebook button',
+        help_text='Share Progress id for facebook button, including the sp_... prefix',
         blank=True,
     )
 
     share_email = models.CharField(
         max_length=20,
-        help_text='Share Progress id for email button',
+        help_text='Share Progress id for email button, including the sp_... prefix',
         blank=True,
     )
 
