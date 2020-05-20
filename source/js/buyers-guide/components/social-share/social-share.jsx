@@ -79,8 +79,8 @@ const SocialShareLink = props => {
 const SocialShare = props => {
   return (
     <div className="row">
-      <div className="col-xl-10 m-auto px-2 px-sm-3">
-        <div className="share-button-group rectangle flex-lg-nowrap">
+      <div className="col-lg-10 m-auto">
+        <div className="share-button-group rectangle stacked-lg-and-down">
           <div className="subgroup">
             <SocialShareLink type="facebook" {...props} />
             <SocialShareLink type="twitter" {...props} />
