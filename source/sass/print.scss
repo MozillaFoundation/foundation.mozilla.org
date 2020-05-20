@@ -1,10 +1,12 @@
 @media print {
+  $text-color: $black;
+
   @page {
     margin: 2cm;
   }
 
   body {
-    color: $black;
+    color: $text-color;
     background: $white;
     width: 100%;
   }
@@ -33,6 +35,12 @@
   }
 
   a {
+    color: $text-color;
+
+    &:not(.btn) {
+      text-decoration-style: dotted;
+    }
+
     &[href]:after {
       content: "(" attr(href) ")";
       text-transform: initial;
@@ -59,6 +67,15 @@
       // the styling of .w-100 class added in the image_block.html template
       // from Bootstrap, .w-100 { width: 100% important! }
       width: 50% !important;
+    }
+
+    figurecaption {
+      display: block;
+
+      &:before {
+        content: "Caption: ";
+        color: $text-color;
+      }
     }
   }
 
