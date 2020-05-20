@@ -70,8 +70,6 @@
     }
 
     figurecaption {
-      display: block;
-
       &:before {
         content: "Caption: ";
         color: $text-color;
