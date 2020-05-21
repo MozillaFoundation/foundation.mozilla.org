@@ -17,18 +17,6 @@ $pni-primary-nav-breakpoint: $bp-sm;
     padding: 0;
     position: relative;
     z-index: 30;
-
-    .burger {
-      width: 18px;
-      height: 18px;
-      background-image: url("../_images/buyers-guide/icon-share.svg");
-      background-size: contain;
-      background-repeat: no-repeat;
-
-      &.menu-open {
-        background-image: url("../_images/buyers-guide/icon-close.svg");
-      }
-    }
   }
 }
 
@@ -47,54 +35,6 @@ $pni-primary-nav-breakpoint: $bp-sm;
   a.link-back {
     color: inherit;
     text-decoration: none;
-  }
-}
-
-.narrow-screen-menu {
-  position: absolute;
-  padding-top: 62px;
-
-  @media (min-width: $pni-primary-nav-breakpoint) {
-    padding-top: 72px;
-  }
-
-  height: 100vh;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  background: $white;
-  transition: opacity 0.2s, height 0s;
-
-  &:not(.menu-open) {
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition: opacity 0.2s, height 0s linear 0.2s;
-  }
-}
-
-.btn-donate {
-  background: $red;
-  border-radius: 14px;
-  color: $white;
-  padding: 4px 12px;
-  font-size: 14px;
-
-  @include hover-focus-active {
-    background: $dark-red;
-    color: $white;
-  }
-}
-
-.underneath-screen-overlay {
-  &.menu-open {
-    display: none;
-  }
-
-  @media (min-width: $pni-primary-nav-breakpoint) {
-    &.menu-open {
-      display: initial;
-    }
   }
 }
 
