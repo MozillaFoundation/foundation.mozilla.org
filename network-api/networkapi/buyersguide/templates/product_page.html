@@ -39,7 +39,7 @@
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
           <button id="product-copy-link-button" class="copy-link small-link" data-url="{{product.url}}" data-success-text='{% trans "link copied!" %}'>{% trans "copy & share link" %}</button>
         </div>
-        <h2 class="h1-heading col-md-10">{{product.name}}</h2>
+        <h1 class="h1-heading col-md-10">{{product.name}}</h1>
         <div class="col-12">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
         </div>

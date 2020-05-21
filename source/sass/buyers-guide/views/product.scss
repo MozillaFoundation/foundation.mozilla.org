@@ -268,7 +268,7 @@ $pni-product-breakpoint-larger: $bp-md;
   + p,
   ul {
     // have to override this since PNI does not follow Foundation style guide
-    @include body-text(null, 300, $black, $white);
+    @include text-base-style(null, 300, $black, $white);
     @include scaleText(16px, 24px);
   }
 }
