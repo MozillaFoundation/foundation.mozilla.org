@@ -118,64 +118,27 @@ button,
 }
 
 .btn-secondary {
-  border-width: 2px;
-  border-style: solid;
-
-  $regular-mode: (
-    "default": (
-      "color": $black,
-      "background-color": transparent,
-      "border-color": $black
-    ),
-    "hover-focus": (
-      "color": $white,
-      "background-color": $black,
-      "border-color": transparent
-    ),
-    "active": (
-      "color": $white,
-      "background-color": $blue,
-      "border-color": transparent
-    )
-  );
-
-  $dark-mode: (
-    "default": (
-      "color": $white,
-      "background-color": transparent,
-      "border-color": $white
-    ),
-    "hover-focus": (
-      "color": $black,
-      "background-color": $white,
-      "border-color": transparent
-    ),
-    "active": (
-      "color": $black,
-      "background-color": $blue,
-      "border-color": transparent
-    )
-  );
-
-  @include button-basic-style($regular-mode, $dark-mode);
+  @include btn-secondary-style();
 }
 
 // append external link glyph
 .btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]):not([href*="donate.mozilla.org"]):not(.btn-share):not(.btn-recommend) {
-  display: inline-flex;
-  align-items: center;
+  @media screen {
+    display: inline-flex;
+    align-items: center;
 
-  &::after {
-    filter: brightness(0);
-    content: " ";
-    display: block;
-    width: 16px;
-    height: 14px;
-    background: url(../_images/glyphs/external.svg) no-repeat;
-    margin-left: 8px;
-    position: relative;
-    bottom: 1px;
-    transition: filter 0.2s ease-in-out;
+    &::after {
+      filter: brightness(0);
+      content: " ";
+      display: block;
+      width: 16px;
+      height: 14px;
+      background: url(../_images/glyphs/external.svg) no-repeat;
+      margin-left: 8px;
+      position: relative;
+      bottom: 1px;
+      transition: filter 0.2s ease-in-out;
+    }
   }
 
   @include hover-focus-active {
