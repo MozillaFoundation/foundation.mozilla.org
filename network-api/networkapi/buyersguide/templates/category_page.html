@@ -32,7 +32,11 @@
                       alt="{{ product.name }}"
                     >
                     {% else %}
-                    <img class="product-thumbnail" src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}">
+                    <img
+                      class="product-thumbnail"
+                      src="{{ mediaUrl }}{{ "AWS_LOCATION" | env }}/{{ product.image }}"
+                      alt="{{ product.name }}"
+                    >
                     {% endif %}
                   </div>
                   <h3 class="mb-1 body-small">{{ product.company }}</h3>
