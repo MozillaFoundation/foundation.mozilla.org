@@ -67,7 +67,7 @@
   }
 }
 
-@mixin body-text($font-family, $font-weight, $color, $dark-theme-color) {
+@mixin text-base-style($font-family, $font-weight, $color, $dark-theme-color) {
   font-family: $font-family;
   font-weight: $font-weight;
   color: $color;
@@ -102,6 +102,11 @@
       }
     }
   }
+}
+
+@mixin body-text-style() {
+  @include text-base-style(null, 400, $black, $white);
+  @include scaleText(18px, 27px);
 }
 
 @mixin dark-theme-inline-anchor($color: inherit) {
@@ -179,4 +184,47 @@
       opacity: 0.5;
     }
   }
+}
+
+@mixin btn-secondary-style() {
+  border-width: 2px;
+  border-style: solid;
+
+  $regular-mode: (
+    "default": (
+      "color": $black,
+      "background-color": transparent,
+      "border-color": $black
+    ),
+    "hover-focus": (
+      "color": $white,
+      "background-color": $black,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $white,
+      "background-color": $blue,
+      "border-color": transparent
+    )
+  );
+
+  $dark-mode: (
+    "default": (
+      "color": $white,
+      "background-color": transparent,
+      "border-color": $white
+    ),
+    "hover-focus": (
+      "color": $black,
+      "background-color": $white,
+      "border-color": transparent
+    ),
+    "active": (
+      "color": $black,
+      "background-color": $blue,
+      "border-color": transparent
+    )
+  );
+
+  @include button-basic-style($regular-mode, $dark-mode);
 }
