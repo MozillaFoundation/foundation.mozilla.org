@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 <div class="my-default">
-  <div class="embed-responsive embed-responsive-16by9">
+  <div class="embed-responsive embed-responsive-16by9 d-print-none">
     <iframe
       src="{{ value.url }}"
       frameborder="0"
@@ -11,7 +11,7 @@
     </iframe>
   </div>
   {% if value.caption %}
-  <p class="body-small mt-2">
+  <p class="caption-wrapper body-small mt-2">
     {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
     {{ value.caption }}
     {% if value.captionURL %}</a>{% endif %}

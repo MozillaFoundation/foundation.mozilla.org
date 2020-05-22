@@ -1,0 +1,119 @@
+@media print {
+  $text-color: $black;
+
+  @page {
+    margin: 2cm;
+  }
+
+  body {
+    color: $text-color;
+    background: $white;
+    width: 100%;
+  }
+
+  video,
+  iframe {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  img {
+    page-break-after: avoid;
+  }
+
+  .container {
+    width: auto;
+
+    .row {
+      @extend .d-print-block;
+    }
+  }
+
+  a {
+    color: $text-color;
+
+    &:not(.btn) {
+      text-decoration-style: dotted;
+    }
+
+    &[href]:after {
+      content: "(" attr(href) ")";
+      text-transform: initial;
+      text-decoration: none;
+      // need to set "display" to something other than "inline"
+      // for link's pseudo element's "text-decoration: none" to work
+      display: inline-block;
+      margin-left: 0.2em;
+    }
+  }
+
+  // prevent each CMS streamfield component from spliting across multiple pages
+  div[class^="block-"] {
+    &:not(.block-paragraph) {
+      page-break-inside: avoid;
+    }
+  }
+
+  .block-image {
+    text-align: center;
+
+    img {
+      // this is to override
+      // the styling of .w-100 class added in the image_block.html template
+      // from Bootstrap, .w-100 { width: 100% important! }
+      width: 50% !important;
+    }
+
+    figurecaption {
+      &:before {
+        content: "Caption: ";
+        color: $text-color;
+      }
+    }
+  }
+
+  .block-video {
+    .caption-wrapper {
+      @include body-text-style();
+
+      &:before {
+        content: "Video: ";
+      }
+    }
+  }
+
+  .block-linkbutton {
+    .btn-primary {
+      @include btn-secondary-style();
+    }
+  }
+
+  .block-quote {
+    .feature-quote {
+      &:before {
+        content: "";
+        background: none;
+      }
+
+      h3 {
+        &:before {
+          content: "“";
+        }
+        &:after {
+          content: "”";
+        }
+      }
+    }
+  }
+
+  .pulse-project-list {
+    .pulse-project-wrapper {
+      vertical-align: top;
+    }
+  }
+}

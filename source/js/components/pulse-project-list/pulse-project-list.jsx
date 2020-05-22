@@ -79,7 +79,10 @@ export default class PulseProjectList extends React.Component {
       }
 
       return (
-        <div className="col-6 col-md-4 my-4" key={`pulse-project-${index}`}>
+        <div
+          className="pulse-project-wrapper col-6 col-md-4 my-4 d-print-inline-block"
+          key={`pulse-project-${index}`}
+        >
           <a
             className="pulse-project"
             href={url}
