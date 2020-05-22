@@ -7,7 +7,7 @@ import navNewsletter from "../nav-newsletter.js";
  * @param {Object} primaryNavModule primary nav module to initiate
  */
 export const initializePrimaryNav = (siteUrl, csrfToken, primaryNavModule) => {
-  if (primaryNavModule && typeof primaryNavModule.init === `function`) {
+  if (primaryNavModule) {
     primaryNavModule.init();
   }
   navNewsletter.init(siteUrl, csrfToken);
