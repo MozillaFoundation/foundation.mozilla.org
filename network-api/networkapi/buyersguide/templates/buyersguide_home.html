@@ -71,15 +71,15 @@
         {% include "fragments/adult_content_badge.html" with product=product %}
 
         <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% url 'product-view' product.slug %}">
-            {% if USE_CLOUDINARY %}
             <img
-            class="product-thumbnail"
-            src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-            alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
+              class="product-thumbnail"
+              {% if USE_CLOUDINARY %}
+                src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+              {% else %}
+                src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+              {% endif %}
+              alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
             >
-            {% else %}
-            <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="{% blocktrans with product_name=product.name %}link to {{product_name}}{% endblocktrans %}">
-            {% endif %}
             <figcaption class="d-none d-md-block mt-md-2 text-left">
             <div class="body-small">{{product.company}}</div>
             <div class="body">{{product.name}}</div>
