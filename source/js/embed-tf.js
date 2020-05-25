@@ -11,15 +11,21 @@ let EmbedTF = {
 
     let formElement = document.querySelector("div#typeform-embed");
 
-    window.typeformEmbed.makeWidget(
-      formElement,
+    let popup = window.typeformEmbed.makePopup(
+      // formElement,
       formMeta.getAttribute("content"),
       {
         hideFooter: true,
-        hideHeader: true,
-        opacity: 0
+        hideHeaders: true,
+        opacity: 0,
+        mode: "popup",
+        // autoOpen: true
       }
     );
+
+    document.querySelector("#btn-typeform-popup").addEventListener("click", () => {
+      popup.open();
+    });
   }
 };
 
