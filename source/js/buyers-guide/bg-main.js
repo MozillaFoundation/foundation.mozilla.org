@@ -9,7 +9,6 @@ import {
   ReactGA
 } from "../common";
 
-import primaryNav from "./components/primary-nav/primary-nav.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
 
@@ -75,7 +74,7 @@ let main = {
       this.injectReactComponents();
 
       bindCommonEventHandlers();
-      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+      initializePrimaryNav(networkSiteURL, csrfToken);
 
       if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
