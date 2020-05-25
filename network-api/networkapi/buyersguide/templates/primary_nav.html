@@ -3,22 +3,15 @@
 {% load i18n %}
 
 {% block narrow_screen_menu %}
+  {% comment %}
+    This block can actually be empty becasue PNI doesn't show nav newsletter form on mobile.
+    However, our current implementation of nav-newsletters.js requires the following DOM nodes
+    to exist in order for desktop nav newsletter form to kick off properly.
+    Clean-up ticket filed: https://github.com/mozilla/foundation.mozilla.org/issues/4686
+  {% endcomment %}
   <div class="narrow-screen-menu-background">
     <div class="narrow-screen-menu-container d-md-none">
-
-      <div class="container text-center">
-        <div class="row">
-          <div class="col">
-            <div class="nav-links">
-              <h3 class="h2-heading">{% trans "Help us keep the Internet healthy" %}</h3>
-              <p>{% trans "Mozilla is a nonprofit organization fighting for a healthy internet." %}</p>
-              <a class="btn btn-donate m-0 w-100" id="donate-button" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=buyersguide&utm_campaign=buyersguide2019&utm_content=headerbutton">{% trans "Donate" %}</a>
-              <button class="btn btn-secondary btn-newsletter">{% trans "Newsletter" %}</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <button class="btn btn-secondary btn-newsletter">{% trans "Newsletter" %}</button>
     </div>
   </div>
 {% endblock %}
