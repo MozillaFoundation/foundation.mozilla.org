@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route
-from wagtail.core.models import Page, Orderable as WagtailOrderable
+from wagtail.core.models import Orderable as WagtailOrderable
 
 from modelcluster.fields import ParentalKey
 from networkapi.wagtailpages.utils import titlecase
