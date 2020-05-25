@@ -30,3 +30,39 @@
     <g transform="translate(33.6,54.1)"><use href="#p-ns" class="p-ns"/></g>
   </svg>
 {% endblock %}
+
+
+Also, we ALWAYS want to show help texts. The fact that Wagtail hides these
+until there's a mouse over is just ludicrous:
+
+{% block extra_css %}
+  {{ block.super }}
+  <style>
+    body.ready .help {
+      opacity: unset!important;
+    }
+    body.ready .help .icon-help-inverse {
+      display: none;
+    }
+    .object .object-help {
+      padding-top: 10px!important;
+      padding-left: 0!important;
+    }
+    @media screen and (min-width: 50em) {
+      body.ready .help {
+        min-width: 14em;
+      }
+      .field-content {
+        width: 100%!important;
+      }
+      .object fieldset {
+        max-width: unset!important;
+      }
+      .object .object-help {
+        padding-bottom: 40px;
+        margin-left: 10px;
+        padding-left: 3em!important;
+      }
+    }
+  </style>
+{% endblock %}
