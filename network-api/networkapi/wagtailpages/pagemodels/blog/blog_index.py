@@ -1,12 +1,39 @@
-from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
 from django.shortcuts import redirect
+from django.core.exceptions import ObjectDoesNotExist
 
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route
+from wagtail.core.models import Page, Orderable as WagtailOrderable
 
+from modelcluster.fields import ParentalKey
 from networkapi.wagtailpages.utils import titlecase
 
 from ..index import IndexPage
 from .blog_category import BlogPageCategory
+
+
+class FeaturedBlogPages(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.BlogIndexPage',
+        related_name='featured_pages',
+    )
+
+    blog = models.ForeignKey(
+        'wagtailpages.BlogPage',
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+
+    panels = [
+        PageChooserPanel('blog', 'wagtailpages.BlogPage'),
+    ]
+
+    class Meta:
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
 
 
 class BlogIndexPage(IndexPage):
@@ -19,7 +46,28 @@ class BlogIndexPage(IndexPage):
         'BlogPage',
     ]
 
-    template = 'wagtailpages/index_page.html'
+    content_panels = IndexPage.content_panels + [
+        InlinePanel(
+            'featured_pages',
+            label='Featured',
+            help_text='Choose two blog pages to feature',
+            min_num=2,
+            max_num=2,
+        )
+    ]
+
+    template = 'wagtailpages/blog_index_page.html'
+
+    def get_all_entries(self):
+        """
+        Do we need to filter the featured blog entries
+        out, so they don't show up twice?
+        """
+        if hasattr(self, 'filtered'):
+            return super().get_all_entries()
+
+        featured = [entry.blog.pk for entry in self.featured_pages.all()]
+        return super().get_all_entries().exclude(pk__in=featured)
 
     def filter_entries(self, entries, context):
         entries = super().filter_entries(entries, context)

@@ -1,0 +1,15 @@
+{% extends "./index_page.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags i18n %}
+
+{% block featured %}
+  {% if not filtered %}
+    <div class="row">
+      {%  for feature in page.specific.featured_pages.all %}
+      <div class="col-6 mb-5">
+        {% include "./fragments/featured_blog.html" with blog=feature %}
+      </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

@@ -12,30 +12,7 @@
   {% for blog in featured_blogs %}
   {% if forloop.counter is 1 %}
   <div class="col-md-6 mb-0 pb-4">
-    <div>
-      {% image blog.blog.specific.get_meta_image width-540 %}
-    </div>
-    <div class="row">
-      <div class="col-12 full-bleed-xs">
-        <div class="key-item mx-2 mx-md-4 p-3">
-          <p class="h6-heading mb-2">
-            {% for category in blog.blog.specific.category.all %}
-            <a href="/blog/category/{{category.slug}}">{{ category }}</a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-          </p>
-          <h5 class="mb-2 h3-heading">
-            <a href="{{blog.blog.url}}">{{blog.blog.title}}</a>
-          </h5>
-          <p class="body-small mb-2">
-            {% if blog.blog.author %}
-              {% blocktrans with author=blog.blog.author %}by {{author}}{% endblocktrans %}
-            {% endif %}
-            {% if blog.blog.first_published_at %} {% blocktrans with date=blog.blog.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
-          </p>
-          <p>{{blog.blog.search_description}}</p>
-        </div>
-      </div>
-    </div>
+    {% include "./featured_blog.html" with blog=blog %}
   </div>
   {% endif %}
   {% endfor %}
