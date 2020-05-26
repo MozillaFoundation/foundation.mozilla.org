@@ -15,8 +15,7 @@ class TypeFormBlock(blocks.StructBlock):
     )
 
     button_text = blocks.CharBlock(
-        required=True,
-        help_text='Button Text'
+        required=True
     )
 
     class Meta:
