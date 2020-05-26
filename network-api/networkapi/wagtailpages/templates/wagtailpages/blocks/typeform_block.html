@@ -3,9 +3,8 @@
 <div
   id="typeform-embed"
   class="typeform-embed"
-  style="height: {{ value.height }}px;"
 ></div>
 
-<button id="btn-typeform-popup" class="btn btn-primary">View Form (as popup)</button>
+<button id="btn-typeform-popup" class="btn {{ value.button_type }}">{{ value.button_text }}</button>
 
 <meta name="typeform-formurl" content="{{ value.url }}">

@@ -6,9 +6,17 @@ class TypeFormBlock(blocks.StructBlock):
         help_text="The URL of the published typeform"
     )
 
-    height = blocks.IntegerBlock(
-        default=500,
-        help_text="The height of the view on a desktop"
+    button_type = blocks.ChoiceBlock(
+        choices=[
+            ('btn-primary', 'Primary button'),
+            ('btn-secondary', 'Secondary button'),
+        ],
+        default='btn-primary',
+    )
+
+    button_text = blocks.CharBlock(
+        required=True,
+        help_text='Button Text'
     )
 
     class Meta:
