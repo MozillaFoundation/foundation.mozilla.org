@@ -15,7 +15,7 @@ cryptography==2.9.2       # via social-auth-core
 defusedxml==0.6.0         # via python3-openid, social-auth-core
 dj-database-url==0.5.0    # via -r requirements.in
 django-admin-sortable==2.2.3  # via -r requirements.in
-django-cors-headers==3.2.1  # via -r requirements.in
+django-cors-headers==3.3.0  # via -r requirements.in
 django-csp==3.6           # via -r requirements.in
 django-environ==0.4.5     # via -r requirements.in
 django-filter==2.2.0      # via -r requirements.in
