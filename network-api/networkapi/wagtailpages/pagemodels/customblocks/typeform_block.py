@@ -3,7 +3,7 @@ from wagtail.core import blocks
 
 class TypeFormBlock(blocks.StructBlock):
     url = blocks.URLBlock(
-        help_text="The URL of the published typeform"
+        help_text="The URL of the published Typeform"
     )
 
     button_type = blocks.ChoiceBlock(
@@ -21,3 +21,4 @@ class TypeFormBlock(blocks.StructBlock):
     class Meta:
         icon = 'placeholder'
         template = 'wagtailpages/blocks/typeform_block.html'
+        help_text = 'We only support a single Typeform per page'
