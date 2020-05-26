@@ -58,7 +58,7 @@
     "axe-core": "^3.5.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "classnames": "2.2.6",
     "event-stream": "3.3.4",
     "js-cookie": "2.2.1",
