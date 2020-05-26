@@ -6,7 +6,7 @@
   {% if not filtered %}
     <div class="row">
       {%  for feature in page.specific.featured_pages.all %}
-      <div class="col-6 mb-5">
+      <div class="col-12 col-md-6 mb-5">
         {% include "./fragments/featured_blog.html" with blog=feature %}
       </div>
       {% endfor %}
