@@ -1,7 +1,7 @@
 from wagtail.core import blocks
 
 
-class TypeFormBlock(blocks.StructBlock):
+class TypeformBlock(blocks.StructBlock):
     url = blocks.URLBlock(
         help_text="The URL of the published Typeform"
     )

@@ -31,5 +31,5 @@ base_fields = [
     ('profile_directory', customblocks.ProfileDirectory()),
     ('recent_blog_entries', customblocks.RecentBlogEntries()),
     ('airtable', customblocks.AirTableBlock()),
-    ('typeform', customblocks.TypeFormBlock()),
+    ('typeform', customblocks.TypeformBlock()),
 ]
