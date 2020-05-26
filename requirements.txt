@@ -67,7 +67,7 @@ wagtail-metadata==3.0.0   # via -r requirements.in
 wagtail-modeltranslation==0.10.13  # via -r requirements.in
 wagtail==2.8.2            # via -r requirements.in, wagtail-factories, wagtail-inventory, wagtail-metadata, wagtail-modeltranslation
 webencodings==0.5.1       # via html5lib
-whitenoise==5.0.1         # via -r requirements.in
+whitenoise==5.1.0         # via -r requirements.in
 willow==1.3               # via wagtail
 
 # The following packages are considered to be unsafe in a requirements file:
