@@ -9,10 +9,7 @@ let EmbedTF = {
       return;
     }
 
-    let formElement = document.querySelector("div#typeform-embed");
-
     let popup = window.typeformEmbed.makePopup(
-      // formElement,
       formMeta.getAttribute("content"),
       {
         hideFooter: true,
