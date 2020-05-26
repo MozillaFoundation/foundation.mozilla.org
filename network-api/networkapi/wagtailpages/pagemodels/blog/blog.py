@@ -87,12 +87,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         FieldPanel('first_published_at'),
     ]
 
-    def get_meta_image(self):
-        search_image = super().get_meta_image();
-        print(type(search_image))
-        return search_image
-
-
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
