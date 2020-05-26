@@ -12,17 +12,17 @@ let EmbedTF = {
     let popup = window.typeformEmbed.makePopup(
       formMeta.getAttribute("content"),
       {
-        hideFooter: true,
-        hideHeaders: true,
-        opacity: 0,
         mode: "popup",
-        // autoOpen: true
+        hideHeaders: true,
+        hideFooter: true
       }
     );
 
-    document.querySelector("#btn-typeform-popup").addEventListener("click", () => {
-      popup.open();
-    });
+    document
+      .querySelector("#btn-typeform-popup")
+      .addEventListener("click", () => {
+        popup.open();
+      });
   }
 };
 
