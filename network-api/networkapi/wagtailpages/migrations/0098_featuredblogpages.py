@@ -8,7 +8,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0096_auto_20200513_2217'),
+        ('wagtailpages', '0097_auto_20200520_1936'),
     ]
 
     operations = [
