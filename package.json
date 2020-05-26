@@ -73,7 +73,7 @@
     "react-dom": "^16.13.0",
     "react-ga": "2.7.0",
     "shx": "^0.3.2",
-    "uuid": "^7.0.3",
+    "uuid": "^8.1.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "whatwg-fetch": "^3.0.0"
