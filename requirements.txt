@@ -51,7 +51,7 @@ redis==3.5.1              # via django-redis
 requests-oauthlib==1.3.0  # via social-auth-core
 requests==2.23.0          # via -r requirements.in, requests-oauthlib, social-auth-core, wagtail
 s3transfer==0.3.3         # via boto3
-sentry-sdk==0.14.3        # via -r requirements.in
+sentry-sdk==0.14.4        # via -r requirements.in
 six==1.14.0               # via cloudinary, cryptography, django-modeltranslation, html5lib, l18n, python-dateutil, social-auth-app-django, social-auth-core
 social-auth-app-django==3.1.0  # via -r requirements.in
 social-auth-core==3.3.3   # via social-auth-app-django
