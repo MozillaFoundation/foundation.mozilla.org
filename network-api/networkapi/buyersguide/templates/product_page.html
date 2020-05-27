@@ -14,17 +14,17 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
-        {% if USE_CLOUDINARY %}
-          <img class="thumb-border"
-               width="250"
-               src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
-               alt="{{product.name}}">
-        {% else %}
-           <img class="thumb-border"
-                width="250"
-                src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
-        {% endif %}
-
+        <img
+          class="thumb-border"
+          {% if USE_CLOUDINARY %}
+            width="250"
+            src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
+          {% else %}
+           width="250"
+            src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+          {% endif %}
+          alt="{{product.name}}"
+        >
         {% include "fragments/seal_of_approval.html" with product=product full_badge=True %}
       </div>
     </div>
