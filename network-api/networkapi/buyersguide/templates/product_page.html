@@ -51,7 +51,7 @@
           <div class="d-block primary-info">
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
-                <h3 class="h3-heading">{% trans "Minimum Security Standards" %}</h3>
+                <h2 class="h3-heading">{% trans "Minimum Security Standards" %}</h2>
               </div>
             </div>
             <div class="primary-info-description mb-3">
@@ -103,7 +103,7 @@
         </div>
 
         {% if product.product_type == 'general' %}
-        <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
+        <h2 class="h3-heading">{% trans "Can it snoop on me?" %}</h2>
         <div class="row criterion pb-0 mb-5 no-gutters d-flex flex-column flex-xl-row justify-content-between">
           {% trans "Camera"          as camera %}
           {% trans "Microphone"      as microphone %}
@@ -114,7 +114,7 @@
           {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
         </div>
         {% elif product.product_type == 'software' %}
-        <h3 class="h3-heading">{% trans "What is required to sign up?" %}</h3>
+        <h2 class="h3-heading">{% trans "What is required to sign up?" %}</h2>
         <div class="row criterion pb-0 no-gutters d-flex flex-column flex-xl-row justify-content-between">
           {% trans "Email"               as email %}
           {% trans "Phone"               as phone %}
@@ -129,7 +129,7 @@
         {% endif %}
         {% endif %}
 
-        <h3 class="h3-heading">{% trans "How does it handle privacy?" %}</h3>
+        <h2 class="h3-heading">{% trans "How does it handle privacy?" %}</h2>
 
         <div class="mb-5">
           {% trans "How does it share data?"      as how_does_it_share %}
@@ -161,7 +161,7 @@
         </div>
 
         {% if product.product_type == 'software' %}
-        <h3 class="h3-heading">{% trans "Can I control it?" %}</h3>
+        <h2 class="h3-heading">{% trans "Can I control it?" %}</h2>
 
         <div class="mb-5">
           {% trans "Host controls" as host_controls %}
@@ -177,7 +177,7 @@
           <div class="creep-face-emoji-wrapper d-inline-block">
             <span class="creep-face-emoji">😮</span>
           </div>
-          <h3 class="h3-heading">{% trans "What could happen if something went wrong" %}</h3>
+          <h2 class="h3-heading">{% trans "What could happen if something went wrong" %}</h2>
           <p>{{product.worst_case}}</p>
         </div>
 
