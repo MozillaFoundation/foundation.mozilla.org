@@ -110,17 +110,6 @@ let main = {
       element.addEventListener(`click`, event => {
         event.preventDefault();
 
-        let productBox = document.querySelector(`.product-detail .h1-heading`);
-        let productTitle = productBox
-          ? productBox.textContent
-          : `unknown product`;
-
-        ReactGA.event({
-          category: `product`,
-          action: `copy link tap`,
-          label: `copy link ${productTitle}`
-        });
-
         copyToClipboard(event.target, window.location.href);
       });
     });
