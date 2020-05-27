@@ -8549,31 +8549,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 #multipage-nav .multipage-draft::after {
   content: "🐣"; }
 
-.commitment {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  z-index: 1; }
-  .commitment::before {
-    content: "";
-    background: url(../_images/hand.svg) no-repeat;
-    width: 14px;
-    height: 20px;
-    display: block;
-    margin-right: 6px; }
-
 .card-regular {
   position: relative; }
-  .card-regular .commitment {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    background: #ffffff;
-    border: 1px solid #cccccc;
-    padding: 4px 8px; }
   .card-regular .key-item .rich-text {
     -webkit-box-flex: 1;
         -ms-flex: 1;
