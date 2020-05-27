@@ -71,10 +71,12 @@
 
 {% block body_wrapped %}
 
+  <header>
   {% include "./primary_nav.html" %}
+  </header>
 
   <div class="underneath-screen-overlay">
-    <div class="category-nav">
+    <nav class="category-nav" title="category navigation">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -86,7 +88,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </nav>
 
     <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
       {% block guts %}{% endblock %}
