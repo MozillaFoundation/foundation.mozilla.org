@@ -23,7 +23,7 @@ env:
     - DJANGO_SECRET_KEY=secret
     - NETWORK_SITE_URL=https://foundation.mozilla.org
     - PULSE_API_DOMAIN=https://network-pulse-api-production.herokuapp.com
-    - PULSE_DOMAIN=www.mozillapulse.org
+    - PULSE_DOMAIN=https://www.mozillapulse.org
     - RANDOM_SEED=530910203
     - SET_HSTS=False
     - SSL_REDIRECT=False
