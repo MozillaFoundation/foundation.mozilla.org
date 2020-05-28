@@ -1,5 +1,5 @@
 const EmbedTypeform = {
-  init: function() {
+  init: function () {
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", () =>
         EmbedTypeform.setup()
@@ -8,7 +8,7 @@ const EmbedTypeform = {
       EmbedTypeform.setup();
     }
   },
-  setup: function() {
+  setup: function () {
     const formMeta = document.querySelector("meta[name=typeform-formurl]");
 
     if (!formMeta) {
@@ -22,7 +22,7 @@ const EmbedTypeform = {
           mode: "popup",
           hideHeaders: true,
           hideFooter: true,
-          autoOpen: false
+          autoOpen: false,
         }
       );
 
@@ -30,7 +30,7 @@ const EmbedTypeform = {
         .querySelector("#btn-typeform-popup")
         .addEventListener("click", () => popup.open());
     }
-  }
+  },
 };
 
 export default EmbedTypeform;
