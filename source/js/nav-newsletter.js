@@ -42,8 +42,13 @@ class NavNewsletter {
   // remove the global 'closeFormClickHandler' click event handler
   // and reset the form
   closeDesktopNewsletter(event) {
-    elements.container.classList.remove("expanded");
+    const wrapper = elements.container;
+    wrapper.classList.remove("expanded");
     elements.buttonDesktop.classList.remove("active");
+    setTimeout(() => {
+      if (wrapper.classList.contains("expanded")) return;
+      wrapper.classList.add("d-none");
+    }, 500);
     // Make sure we don't leak event listeners
     document.removeEventListener("click", this.closeFormClickHandler);
     document.removeEventListener("scroll", this.closeFormClickHandler);
@@ -54,8 +59,10 @@ class NavNewsletter {
   // For desktop+ version:
   // transition newsletter section to its expanded state
   expandDesktopNewsletter(event) {
-    elements.container.style.top = `${elements.primaryNav.offsetHeight}px`;
-    elements.container.classList.add("expanded");
+    const wrapper = elements.container;
+    wrapper.classList.remove("d-none");
+    wrapper.style.top = `${elements.primaryNav.offsetHeight}px`;
+    wrapper.classList.add("expanded");
     elements.buttonDesktop.classList.add("active");
     document.addEventListener(`click`, this.closeFormClickHandler);
     document.addEventListener(`scroll`, this.closeFormClickHandler, {
@@ -69,8 +76,13 @@ class NavNewsletter {
   // remove the global 'closeFormClickHandler' click event handler,
   // and reset the form
   closeMobileNewsletter() {
+    const wrapper = elements.container;
     elements.narrowMenuContainer.classList.remove("d-none");
-    elements.container.classList.remove("faded-in");
+    wrapper.classList.remove("faded-in");
+    setTimeout(() => {
+      if (wrapper.classList.contains("expanded")) return;
+      wrapper.classList.add("d-none");
+    }, 500);
     this.resetForm();
     this.isShown = false;
   }
@@ -78,8 +90,10 @@ class NavNewsletter {
   // For mobile version:
   // transition section to its expanded state
   expandMobileNewsletter() {
+    const wrapper = elements.container;
     elements.narrowMenuContainer.classList.add(`d-none`);
-    elements.container.classList.add("faded-in");
+    wrapper.classList.remove("d-none");
+    wrapper.classList.add("faded-in");
     this.isShown = true;
   }
 
