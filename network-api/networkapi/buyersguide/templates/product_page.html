@@ -14,17 +14,16 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
-        {% if USE_CLOUDINARY %}
-          <img class="thumb-border"
-               width="250"
-               src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
-               alt="{{product.name}}">
-        {% else %}
-           <img class="thumb-border"
-                width="250"
-                src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}">
-        {% endif %}
-
+          <img
+            class="thumb-border"
+            width="250"
+            {% if USE_CLOUDINARY %}
+              src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
+            {% else %}
+              src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+            {% endif %}
+            alt="{{product.name}}"
+          >
         {% include "fragments/seal_of_approval.html" with product=product full_badge=True %}
       </div>
     </div>
@@ -40,7 +39,7 @@
         <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
           <button id="product-copy-link-button" class="copy-link small-link" data-url="{{product.url}}" data-success-text='{% trans "link copied!" %}'>{% trans "copy & share link" %}</button>
         </div>
-        <h2 class="h1-heading col-md-10">{{product.name}}</h2>
+        <h1 class="h1-heading col-md-10">{{product.name}}</h1>
         <div class="col-12">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
         </div>
@@ -69,7 +68,12 @@
               {% include "fragments/product_criterion_primary_info.html"  with label=overall_security_rating %}
               <div>
                 <span class="security-score mb-0">{{security_score|localize}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
-                <img src="{% static "_images/buyers-guide/score/icon-star.svg" %}" width="20" height="20" alt="{% trans "star" context "Used as a noun. Accessibility label for star image" %}">
+                <img
+                  src="{% static "_images/buyers-guide/score/icon-star.svg" %}"
+                  width="20"
+                  height="20"
+                  alt="{% trans "star" context "Used as a noun. Accessibility label for star image" %}"
+                >
               </div>
             </div>
             {% trans "Encryption"              as encryption %}
@@ -219,12 +223,19 @@
               <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="{% url 'product-view' product.slug %}">
                 <div class="img-container">
                   {% if USE_CLOUDINARY %}
-                    <img class="product-thumbnail thumb-border"
-                    width="300"
-                    src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
-                    alt="{{product.name}}">
+                    <img
+                      class="product-thumbnail thumb-border"
+                      width="300"
+                      src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+                      alt="{{product.name}}"
+                    >
                   {% else %}
-                    <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" width="600">
+                    <img
+                      class="product-thumbnail"
+                      width="600"
+                      src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+                      alt="{{product.name}}"
+                    >
                   {% endif %}
                 </div>
                 <p class="body-small mt-3 mb-1">{{product.company}}</p>

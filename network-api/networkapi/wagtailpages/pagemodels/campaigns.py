@@ -76,6 +76,10 @@ class OpportunityPage(MiniSiteNameSpace):
         'RedirectingPage',
     ]
 
+    class Meta:
+        verbose_name = "Default Page"
+        verbose_name_plural = "Default pages"
+
 
 @register_snippet
 class Petition(CTA):
@@ -140,19 +144,19 @@ class Petition(CTA):
 
     share_twitter = models.CharField(
         max_length=20,
-        help_text='Share Progress id for twitter button',
+        help_text='Share Progress id for twitter button, including the sp_... prefix',
         blank=True,
     )
 
     share_facebook = models.CharField(
         max_length=20,
-        help_text='Share Progress id for facebook button',
+        help_text='Share Progress id for facebook button, including the sp_... prefix',
         blank=True,
     )
 
     share_email = models.CharField(
         max_length=20,
-        help_text='Share Progress id for email button',
+        help_text='Share Progress id for email button, including the sp_... prefix',
         blank=True,
     )
 
@@ -259,3 +263,7 @@ class BanneredCampaignPage(PrimaryPage):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
         return get_page_tree_information(self, context)
+
+    class Meta:
+        verbose_name = "Banner Page"
+        verbose_name_plural = "Banner pages"

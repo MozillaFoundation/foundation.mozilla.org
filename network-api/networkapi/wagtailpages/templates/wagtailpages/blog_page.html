@@ -22,7 +22,7 @@
 {% block body_id %}blog{% endblock %}
 
 {% block subcontent %}
-  <div class="offset-lg-1 col-lg-1 py-4 py-md-5 text-center">
+  <div class="offset-lg-1 col-lg-1 py-4 py-md-5 text-center d-print-none">
     <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end">
       <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
     </div>
@@ -41,7 +41,7 @@
       </p>
       <div class="blog-body">
         {{ page.body }}
-        <div class="share-button-group-wrapper mt-5" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+        <div class="share-button-group-wrapper mt-5 d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>
     </div>
 

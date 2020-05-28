@@ -1,13 +1,13 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% image value.image original as img %}
-<div class="my-default">
+<figure class="my-default">
   <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
   {% if value.caption %}
-  <p class="body-small mt-2">
+  <figurecaption class="body-small d-block mt-2">
     {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
     {{ value.caption }}
     {% if value.captionURL %}</a>{% endif %}
-  </p>
+  </figurecaption>
   {% endif %}
-</div>
+</figure>

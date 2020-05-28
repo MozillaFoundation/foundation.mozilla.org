@@ -5,8 +5,8 @@
 #    pip-compile
 #
 beautifulsoup4==4.6.0     # via -r requirements.in, wagtail
-boto3==1.13.8             # via -r requirements.in
-botocore==1.16.8          # via boto3, s3transfer
+boto3==1.13.16            # via -r requirements.in
+botocore==1.16.16         # via boto3, s3transfer
 certifi==2020.4.5.1       # via cloudinary, requests, sentry-sdk
 cffi==1.14.0              # via cryptography
 chardet==3.0.4            # via requests
@@ -15,7 +15,7 @@ cryptography==2.9.2       # via social-auth-core
 defusedxml==0.6.0         # via python3-openid, social-auth-core
 dj-database-url==0.5.0    # via -r requirements.in
 django-admin-sortable==2.2.3  # via -r requirements.in
-django-cors-headers==3.2.1  # via -r requirements.in
+django-cors-headers==3.3.0  # via -r requirements.in
 django-csp==3.6           # via -r requirements.in
 django-environ==0.4.5     # via -r requirements.in
 django-filter==2.2.0      # via -r requirements.in
@@ -51,7 +51,7 @@ redis==3.5.1              # via django-redis
 requests-oauthlib==1.3.0  # via social-auth-core
 requests==2.23.0          # via -r requirements.in, requests-oauthlib, social-auth-core, wagtail
 s3transfer==0.3.3         # via boto3
-sentry-sdk==0.14.3        # via -r requirements.in
+sentry-sdk==0.14.4        # via -r requirements.in
 six==1.14.0               # via cloudinary, cryptography, django-modeltranslation, html5lib, l18n, python-dateutil, social-auth-app-django, social-auth-core
 social-auth-app-django==3.1.0  # via -r requirements.in
 social-auth-core==3.3.3   # via social-auth-app-django
@@ -67,7 +67,7 @@ wagtail-metadata==3.0.0   # via -r requirements.in
 wagtail-modeltranslation==0.10.13  # via -r requirements.in
 wagtail==2.8.2            # via -r requirements.in, wagtail-factories, wagtail-inventory, wagtail-metadata, wagtail-modeltranslation
 webencodings==0.5.1       # via html5lib
-whitenoise==5.0.1         # via -r requirements.in
+whitenoise==5.1.0         # via -r requirements.in
 willow==1.3               # via wagtail
 
 # The following packages are considered to be unsafe in a requirements file:

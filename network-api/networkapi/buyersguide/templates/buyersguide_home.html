@@ -57,34 +57,37 @@
         {% if product.is_current %}
 
         <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
-        <div class="top-left-badge-container">
-            {% include "fragments/seal_of_approval.html" with product=product %}
-            {% if product.votes.confidence %}
-                {% if product.votes.confidence.1 > product.votes.confidence.0 %}
-                    <div class="d-none recommendation positive"></div>
+          <div class="top-left-badge-container">
+              {% include "fragments/seal_of_approval.html" with product=product %}
+              {% if product.votes.confidence %}
+                  {% if product.votes.confidence.1 > product.votes.confidence.0 %}
+                      <div class="d-none recommendation positive"></div>
+                  {% else %}
+                      <div class="d-none recommendation negative"></div>
+                  {% endif %}
+              {% endif %}
+          </div>
+
+          {% include "fragments/adult_content_badge.html" with product=product %}
+
+          <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% url 'product-view' product.slug %}">
+              <img
+                class="product-thumbnail"
+                {% if USE_CLOUDINARY %}
+                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
                 {% else %}
-                    <div class="d-none recommendation negative"></div>
+                  src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
                 {% endif %}
-            {% endif %}
-        </div>
+                alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
+              >
+          </a>
 
-        {% include "fragments/adult_content_badge.html" with product=product %}
-
-        <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% url 'product-view' product.slug %}">
-            {% if USE_CLOUDINARY %}
-            <img
-            class="product-thumbnail"
-            src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-            alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
-            >
-            {% else %}
-            <img class="product-thumbnail" src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}" alt="{% blocktrans with product_name=product.name %}link to {{product_name}}{% endblocktrans %}">
-            {% endif %}
-            <figcaption class="d-none d-md-block mt-md-2 text-left">
-            <div class="body-small">{{product.company}}</div>
-            <div class="body">{{product.name}}</div>
-            </figcaption>
-        </a>
+          <figcaption class="d-none d-md-block mt-md-2 text-left">
+            <a class="product-image" href="{% url 'product-view' product.slug %}">
+              <div class="body-small">{{product.company}}</div>
+              <div class="body">{{product.name}}</div>
+            </a>
+          </figcaption>
         </figure>
         {% endif %}
       {% endfor %}
@@ -93,7 +96,7 @@
 </div>
 <div class="recommend-product">
  <div class="container text-center my-5">
-  <h3 class="h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h3>
+  <h2 class="h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h2>
   <p class="body">{% trans "Let us know what product you would like reviewed in the guide." %}</p>
   <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">{% trans "Submit a product" %}</a>
  </div>

@@ -9,7 +9,6 @@ import {
   ReactGA
 } from "../common";
 
-import primaryNav from "./components/primary-nav/primary-nav.js";
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
 import Creepometer from "./components/creepometer/creepometer.jsx";
 
@@ -75,7 +74,7 @@ let main = {
       this.injectReactComponents();
 
       bindCommonEventHandlers();
-      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+      initializePrimaryNav(networkSiteURL, csrfToken);
 
       if (document.getElementById(`view-home`)) {
         HomepageSlider.init();
@@ -110,17 +109,6 @@ let main = {
     document.querySelectorAll(`.copy-link`).forEach(element => {
       element.addEventListener(`click`, event => {
         event.preventDefault();
-
-        let productBox = document.querySelector(`.product-detail .h1-heading`);
-        let productTitle = productBox
-          ? productBox.textContent
-          : `unknown product`;
-
-        ReactGA.event({
-          category: `product`,
-          action: `copy link tap`,
-          label: `copy link ${productTitle}`
-        });
 
         copyToClipboard(event.target, window.location.href);
       });
