@@ -7,14 +7,14 @@ export default class MemberNotice extends React.Component {
     this.toggle = this.toggle.bind(this);
 
     this.state = {
-      isExpanded: false
+      isExpanded: false,
     };
   }
 
   toggle() {
     // Just controls animation on +/x indicator
     this.setState({
-      isExpanded: !this.state.isExpanded
+      isExpanded: !this.state.isExpanded,
     });
 
     let onTransitionEnd = () => {

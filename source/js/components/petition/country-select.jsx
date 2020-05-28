@@ -13,7 +13,7 @@ export default class CountrySelect extends React.Component {
       this.props.className
     );
     let codes = Object.keys(SALESFORCE_COUNTRY_LIST);
-    let options = codes.map(code => {
+    let options = codes.map((code) => {
       return (
         <option key={code} value={code}>
           {SALESFORCE_COUNTRY_LIST[code]}
@@ -25,7 +25,7 @@ export default class CountrySelect extends React.Component {
       <select
         className={classes}
         disabled={this.props.disabled}
-        ref={element => {
+        ref={(element) => {
           this.element = element;
         }}
         onFocus={this.props.onFocus}

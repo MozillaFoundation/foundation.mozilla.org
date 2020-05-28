@@ -53,7 +53,7 @@ export default {
         </a>{" "}
         and update your email preferences.
       </React.Fragment>
-    )
+    ),
   },
 
   // German
@@ -104,7 +104,7 @@ export default {
         </a>{" "}
         und Ihre E-Mail-Einstellungen aktualisieren.
       </React.Fragment>
-    )
+    ),
   },
 
   // Spanish
@@ -155,7 +155,7 @@ export default {
         </a>{" "}
         and update your email preferences.
       </React.Fragment>
-    )
+    ),
   },
 
   // French
@@ -205,7 +205,7 @@ export default {
         </a>{" "}
         et modifier vos préférences de messagerie.
       </React.Fragment>
-    )
+    ),
   },
 
   // Polish
@@ -254,7 +254,7 @@ export default {
         </a>{" "}
         i zaktualizować preferencje.
       </React.Fragment>
-    )
+    ),
   },
 
   // Portuguese
@@ -304,6 +304,6 @@ export default {
         </a>{" "}
         e atualizar suas preferências de e-mail.
       </React.Fragment>
-    )
-  }
+    ),
+  },
 };

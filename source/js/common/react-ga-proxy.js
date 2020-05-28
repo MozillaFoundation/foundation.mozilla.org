@@ -6,7 +6,7 @@ import { GoogleAnalytics } from "./google-analytics.js";
 const noop = {
   initialize: () => {},
   pageview: () => {},
-  event: () => {}
+  event: () => {},
 };
 
 const TrackingObject = GoogleAnalytics.doNotTrack ? noop : ReactGA;

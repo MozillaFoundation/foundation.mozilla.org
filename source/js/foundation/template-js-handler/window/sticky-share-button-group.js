@@ -10,7 +10,7 @@ export default () => {
   );
 
   if (blogPageStickyButtons && blogPageFullButtons) {
-    const isInViewport = element => {
+    const isInViewport = (element) => {
       let box = element.getBoundingClientRect();
 
       return box.top <= window.innerHeight && box.top + box.height >= 0;
