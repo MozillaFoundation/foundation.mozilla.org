@@ -33,10 +33,10 @@
     </p>
   </div>
 
-  <article class="mt-5 mb-4 about-methodology">
-    <h3>
+  <div class="mt-5 mb-4 about-methodology">
+    <h2 class="h3-heading">
       {% trans "Methodology" %}
-    </h3>
+    </h2>
 
     <section aria-labelledby="product-selection">
       <p id="product-selection"><b>{% trans "Product Selection" %}</b></p>
@@ -57,12 +57,12 @@
         {% endblocktrans %}
       </p>
     </section>
-  </article>
+  </div>
 
-  <article class="mt-5 mb-4 about-minimum-security">
-    <h3>
+  <div class="mt-5 mb-4 about-minimum-security">
+    <h2 class="h3-heading">
       {% trans "Minimum Security Requirements" %}
-    </h3>
+    </h2>
 
     <p>
       {% blocktrans with sec_standards="https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards" trimmed %}
@@ -124,12 +124,12 @@
         {% endblocktrans %}
       </p>
     </section>
-  </article>
+  </div>
 
-  <article class="mt-5 mb-4 about-privacy">
-    <h3>
+  <div class="mt-5 mb-4 about-privacy">
+    <h2 class="h3-heading">
       {% trans "Privacy" %}
-    </h3>
+    </h2>
 
     <p>
       {% blocktrans trimmed %}
@@ -198,12 +198,12 @@
         {% trans "For products that are intended for children, can parents change and control the settings of the device?" %}
       </p>
     </section>
-  </article>
+  </div>
 
-  <article class="mt-5 mb-4 about-permissions">
-    <h3>
+  <div class="mt-5 mb-4 about-permissions">
+    <h2 class="h3-heading">
       {% trans "Permissions" %}
-    </h3>
+    </h2>
 
     <p>
       {% trans "We looked into a set of criteria for each product across five questions." %}
@@ -231,12 +231,12 @@
         {% endblocktrans %}
       </p>
     </section>
-  </article>
+  </div>
 
-  <article class="mt-5 mb-4 worst-case-scenario">
-    <h3>
+  <div class="mt-5 mb-4 worst-case-scenario">
+    <h2 class="h3-heading">
       {% trans "Worst-case scenario" %}
-    </h3>
+    </h2>
 
     <section aria-labelledby="goes-wrong">
       <p id="goes-wrong"><b>{% trans "What could happen if something goes wrong?" %}</b></p>
@@ -250,6 +250,6 @@
         {% endblocktrans %}
       </p>
     </section>
-  </article>
+  </div>
 
 {% endblock %}
