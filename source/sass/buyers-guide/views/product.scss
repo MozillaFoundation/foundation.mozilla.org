@@ -53,7 +53,7 @@ $pni-product-breakpoint-larger: $bp-md;
   .small-link {
     font-size: 18px;
     font-weight: 400;
-    color: $gray-40;
+    color: $gray-60;
   }
 
   button.small-link {
@@ -168,7 +168,7 @@ $pni-product-breakpoint-larger: $bp-md;
 .minimum-security {
   background: $gray-05;
 
-  h3 {
+  h2 {
     $badge-width-mobile: 40px;
     $badge-width: 30px;
 
