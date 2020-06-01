@@ -16,10 +16,10 @@ let rules = [
     query: {
       presets: [
         [`@babel/preset-env`, { targets: `> 1%, last 2 versions` }],
-        [`@babel/preset-react`]
-      ]
-    }
-  }
+        [`@babel/preset-react`],
+      ],
+    },
+  },
 ];
 
 let main = {
@@ -28,31 +28,31 @@ let main = {
     main: `./source/js/main.js`,
     mozfest: `./source/js/foundation/pages/mozfest/index.js`,
     "youtube-regrets": `./source/js/foundation/pages/youtube-regrets/index.js`,
-    "directory-listing-filters": `./source/js/foundation/pages/directory-listing-filters.js`
+    "directory-listing-filters": `./source/js/foundation/pages/directory-listing-filters.js`,
   },
   output: {
     path: frontendPath,
-    filename: `[name].compiled.js`
+    filename: `[name].compiled.js`,
   },
   module: {
-    rules
+    rules,
   },
-  plugins: [new webpack.EnvironmentPlugin(["NODE_ENV"])]
+  plugins: [new webpack.EnvironmentPlugin(["NODE_ENV"])],
 };
 
 let bgMain = {
   devtool: false,
   entry: {
     "bg-main": `./source/js/buyers-guide/bg-main.js`,
-    polyfills: `./source/js/polyfills.js`
+    polyfills: `./source/js/polyfills.js`,
   },
   output: {
     path: frontendPath,
-    filename: `[name].compiled.js`
+    filename: `[name].compiled.js`,
   },
   module: {
-    rules
-  }
+    rules,
+  },
 };
 
 let config = [main, bgMain];

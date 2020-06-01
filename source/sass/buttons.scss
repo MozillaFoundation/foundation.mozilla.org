@@ -17,36 +17,36 @@ button,
     "default": (
       "color": $black,
       "background-color": transparent,
-      "border-color": $black
+      "border-color": $black,
     ),
     "hover-focus": (
       "color": $black,
       "background-color": transparent,
-      "border-color": $black
+      "border-color": $black,
     ),
     "active": (
       "color": $white,
       "background-color": $black,
-      "border-color": transparent
-    )
+      "border-color": transparent,
+    ),
   );
 
   $dark-mode: (
     "default": (
       "color": $white,
       "background-color": transparent,
-      "border-color": $white
+      "border-color": $white,
     ),
     "hover-focus": (
       "color": $white,
       "background-color": transparent,
-      "border-color": $white
+      "border-color": $white,
     ),
     "active": (
       "color": $black,
       "background-color": $white,
-      "border-color": $white
-    )
+      "border-color": $white,
+    ),
   );
 
   @include button-basic-style($regular-mode, $dark-mode);
@@ -82,36 +82,36 @@ button,
     "default": (
       "color": $white,
       "background-color": $blue,
-      "border-color": transparent
+      "border-color": transparent,
     ),
     "hover-focus": (
       "color": $white,
       "background-color": $dark-blue,
-      "border-color": transparent
+      "border-color": transparent,
     ),
     "active": (
       "color": $white,
       "background-color": $light-blue,
-      "border-color": transparent
-    )
+      "border-color": transparent,
+    ),
   );
 
   $dark-mode: (
     "default": (
       "color": $white,
       "background-color": $blue,
-      "border-color": transparent
+      "border-color": transparent,
     ),
     "hover-focus": (
       "color": $black,
       "background-color": $light-blue,
-      "border-color": transparent
+      "border-color": transparent,
     ),
     "active": (
       "color": $black,
       "background-color": $dark-blue,
-      "border-color": transparent
-    )
+      "border-color": transparent,
+    ),
   );
 
   @include button-basic-style($regular-mode, $dark-mode);
@@ -122,7 +122,8 @@ button,
 }
 
 // append external link glyph
-.btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]):not([href*="donate.mozilla.org"]):not(.btn-share):not(.btn-recommend) {
+.btn-secondary[href*="//"]:not([href*="foundation.mozilla.org"]):not([href*="donate.mozilla.org"]):not(.btn-share):not(.btn-recommend)
+{
   @media screen {
     display: inline-flex;
     align-items: center;

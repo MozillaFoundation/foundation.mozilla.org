@@ -15,13 +15,13 @@ export default (apps, siteUrl) => {
     subscribed = true;
   }
 
-  document.querySelectorAll(`.sign-petition`).forEach(element => {
+  document.querySelectorAll(`.sign-petition`).forEach((element) => {
     var props = element.dataset;
 
     props.apiUrl = `${siteUrl}/api/campaign/petitions/${props.petitionId}/`;
 
     apps.push(
-      new Promise(resolve => {
+      new Promise((resolve) => {
         ReactDOM.render(
           <Petition
             {...props}

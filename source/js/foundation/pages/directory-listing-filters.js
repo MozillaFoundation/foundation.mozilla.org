@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // start of function
 
   const profileCache = {};
@@ -24,9 +24,9 @@
     let query = [
       profileType ? `profile_type=${profileType}` : false,
       programType ? `program_type=${programType}` : false,
-      programYear ? `program_year=${programYear}` : false
+      programYear ? `program_year=${programYear}` : false,
     ]
-      .filter(v => v)
+      .filter((v) => v)
       .join("&");
 
     // and then perform our API call using the Fetch API
@@ -34,11 +34,11 @@
       return (
         fetch(`${url}&${query}`)
           // conver the resonse from JSON to real data
-          .then(response => response.json())
+          .then((response) => response.json())
           // all went well? resolve.
-          .then(obj => resolve(obj))
+          .then((obj) => resolve(obj))
           // errors? reject.
-          .catch(error => reject(error))
+          .catch((error) => reject(error))
       );
     });
   }
@@ -56,7 +56,7 @@
       history.pushState({ year: year }, document.title);
     }
 
-    let cards = profiles.map(profile => {
+    let cards = profiles.map((profile) => {
       return `
       <div class="col-lg-6 col-12 mb-5">
         <div class="person-card">
@@ -82,8 +82,10 @@
                 }">
                   ${profile.name}
             </a>
-            ${profile.location &&
-              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`}
+            ${
+              profile.location &&
+              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`
+            }
             <div class="social-icons">
               ${
                 profile.twitter
@@ -131,12 +133,12 @@
       // associated with a particular year:
       showLoadSpinner();
       getData(year)
-        .then(data => {
+        .then((data) => {
           // catch that data, and then load the results.
           profileCache[year] = data;
           loadResults(year, bypassState);
         })
-        .catch(error => {
+        .catch((error) => {
           // TODO: what do we want to do in this case?
           console.error(error);
         });
@@ -150,7 +152,7 @@
    * Set focus and class-mark as active.
    */
   function selectLabel(label) {
-    labels.forEach(label => label.classList.remove("active"));
+    labels.forEach((label) => label.classList.remove("active"));
     label.classList.add("active");
     label.focus();
   }
@@ -161,8 +163,8 @@
    * associated year (for now)
    */
   function bindEventsToLabels() {
-    labels.forEach(label => {
-      label.addEventListener("click", evt => {
+    labels.forEach((label) => {
+      label.addEventListener("click", (evt) => {
         let year = label.textContent;
         selectLabel(label);
         loadForYear(year);
@@ -171,10 +173,10 @@
   }
 
   // make sure that "back" does the right thing.
-  window.addEventListener("popstate", evt => {
+  window.addEventListener("popstate", (evt) => {
     const state = evt.state || { year: labels[0].textContent };
     const year = state.year;
-    const label = Array.from(labels).find(l => l.textContent == year);
+    const label = Array.from(labels).find((l) => l.textContent == year);
     selectLabel(label);
     loadForYear(year, true);
   });

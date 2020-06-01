@@ -18,7 +18,7 @@ let elements = {
   scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
   newsletterButtons: `#view-youtube-regrets .intro-viewport .btn-newsletter`,
   newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-mobile`,
-  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-desktop`
+  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-desktop`,
 };
 
 class YouTubeRegretsTunnel {
@@ -69,7 +69,7 @@ class YouTubeRegretsTunnel {
   setNewsletterButtonVisibility(positionTohide) {
     let buttons = elements.newsletterButtons;
 
-    buttons.forEach(button => {
+    buttons.forEach((button) => {
       if (window.pageYOffset >= positionTohide) {
         button.classList.add(`d-none`);
       } else {
@@ -87,7 +87,7 @@ class YouTubeRegretsTunnel {
       this.scenePerspective - baseGap * Math.ceil(objects.length / 2);
     let opacity = 1;
 
-    objects.forEach(item => {
+    objects.forEach((item) => {
       let matrix = window.getComputedStyle(item).transform;
       let coord = this.getCoordinatefromMatrix3d(matrix);
 
@@ -155,7 +155,7 @@ class YouTubeRegretsTunnel {
       ? {
           x: matrix3d.m41,
           y: matrix3d.m42,
-          z: matrix3d.m43
+          z: matrix3d.m43,
         }
       : false;
   }
@@ -233,11 +233,11 @@ class YouTubeRegretsTunnel {
       return;
     }
 
-    elements.newsletterButtonDesktop[0].addEventListener(`click`, event =>
+    elements.newsletterButtonDesktop[0].addEventListener(`click`, (event) =>
       navNewsletter.buttonDesktopClickHandler(event)
     );
 
-    elements.newsletterButtonMobile[0].addEventListener(`click`, event => {
+    elements.newsletterButtonMobile[0].addEventListener(`click`, (event) => {
       if (navNewsletter.getShownState()) {
         navNewsletter.closeMobileNewsletter(event);
       } else {

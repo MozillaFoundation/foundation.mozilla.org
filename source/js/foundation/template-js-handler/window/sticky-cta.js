@@ -6,7 +6,7 @@ export default () => {
   let ticking = false;
   let elBurgerWrapper = document.querySelector(`.wrapper-burger`);
 
-  let adjustNavbar = scrollPosition => {
+  let adjustNavbar = (scrollPosition) => {
     if (scrollPosition > 0) {
       elBurgerWrapper.classList.add(`scrolled`);
     } else {
@@ -39,14 +39,14 @@ export default () => {
     let bufferOffset = window.innerHeight / 2;
     let positionToHideButton = ctaAnchorPosition + bufferOffset;
 
-    let scrollCtaButton = scrollPosition => {
+    let scrollCtaButton = (scrollPosition) => {
       if (scrollPosition > positionToHideButton) {
         elStickyButton.classList.add(`hidden`);
         adjustCtaButton = noopCtaButton;
       }
     };
 
-    let initCtaButton = scrollPosition => {
+    let initCtaButton = (scrollPosition) => {
       if (scrollPosition <= positionToHideButton) {
         elStickyButton.classList.remove(`hidden`);
         adjustCtaButton = scrollCtaButton;
