@@ -49,5 +49,5 @@ const init = () => {
  */
 export const GoogleAnalytics = {
   doNotTrack: DO_NOT_TRACK,
-  init: init
+  init: init,
 };

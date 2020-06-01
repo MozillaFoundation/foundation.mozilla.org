@@ -41,8 +41,8 @@ class DonationModal extends React.Component {
 
   render() {
     return (
-      <div ref={e => (this.domLocation = e)}>
-        <div className="modal-underlay" ref={e => (this.fragment = e)}>
+      <div ref={(e) => (this.domLocation = e)}>
+        <div className="modal-underlay" ref={(e) => (this.fragment = e)}>
           <div className="modal show" role="dialog">
             <div className="modal-dialog modal-lg" role="document">
               {this.getModalContent()}
@@ -60,7 +60,7 @@ class DonationModal extends React.Component {
           `utm_source=foundation.mozilla.org`,
           `utm_medium=petitionmodal`,
           `utm_campaign=${this.props.slug}`,
-          `utm_content=${this.props.name}`
+          `utm_content=${this.props.name}`,
         ].join(`&`);
 
       this.donateURL = `${base}${query}`;
@@ -72,7 +72,7 @@ class DonationModal extends React.Component {
             className="close"
             data-dismiss="modal"
             aria-label="Close"
-            onClick={e => this.props.onClose(e)}
+            onClick={(e) => this.props.onClose(e)}
             tabIndex="0"
           >
             <span aria-hidden="true">&times;</span>
@@ -93,7 +93,7 @@ class DonationModal extends React.Component {
             className="btn btn-primary"
             href={this.donateURL}
             target="_blank"
-            onClick={e => this.userElectedToDonate(e)}
+            onClick={(e) => this.userElectedToDonate(e)}
             tabIndex="0"
           >
             {this.props.donateText}
@@ -104,7 +104,7 @@ class DonationModal extends React.Component {
           <button
             className="text dismiss"
             data-dismiss="modal"
-            onClick={e => this.userElectedToShare(e)}
+            onClick={(e) => this.userElectedToShare(e)}
             tabIndex="0"
           >
             {this.props.shareText}

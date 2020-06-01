@@ -10,8 +10,8 @@ function initializeSentry(dsn, release, environment) {
       "Unexpected token 'else'",
       "Object doesn't support property or method 'forEach'",
       /Cannot redefine non-configurable property '[a-zA-Z\d_]+'/,
-      /^An invalid or illegal selector was specified.+$/
-    ]
+      /^An invalid or illegal selector was specified.+$/,
+    ],
   });
 }
 

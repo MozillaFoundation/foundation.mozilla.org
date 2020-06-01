@@ -10,7 +10,7 @@ const watchVideoButtonHandler = () => {
       ReactGA.event({
         category: `CTA`,
         action: `watch video tap`,
-        label: `watch video button tap`
+        label: `watch video button tap`,
       });
     });
   }

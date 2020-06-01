@@ -7,7 +7,7 @@ export default class ShareButtonGroup extends React.Component {
     super(props);
 
     this.state = {
-      linkCopied: false
+      linkCopied: false,
     };
   }
 
@@ -88,7 +88,7 @@ export default class ShareButtonGroup extends React.Component {
 
     copyToClipboard(event.target, window.location.href);
     this.setState({
-      linkCopied: true
+      linkCopied: true,
     });
   }
 
@@ -105,13 +105,13 @@ export default class ShareButtonGroup extends React.Component {
       );
 
     let classes = classNames(`btn btn-secondary btn-share link-share`, {
-      copied: this.state.linkCopied
+      copied: this.state.linkCopied,
     });
 
     return (
       <button
         className={classes}
-        onClick={event => this.handleLinkButtonClick(event)}
+        onClick={(event) => this.handleLinkButtonClick(event)}
         title={tooltip}
       >
         {label}
@@ -121,7 +121,7 @@ export default class ShareButtonGroup extends React.Component {
 
   renderRectangleButtons() {
     let classes = classNames(`share-button-group rectangle`, {
-      stacked: this.props.layout === `stacked`
+      stacked: this.props.layout === `stacked`,
     });
 
     return (
@@ -140,7 +140,7 @@ export default class ShareButtonGroup extends React.Component {
 
   renderCircleButtons() {
     let classes = classNames(`share-button-group circle`, {
-      stacked: this.props.layout === `stacked`
+      stacked: this.props.layout === `stacked`,
     });
 
     return (

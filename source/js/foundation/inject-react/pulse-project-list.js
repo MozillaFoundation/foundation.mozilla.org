@@ -8,9 +8,9 @@ import PulseProjectList from "../../components/pulse-project-list/pulse-project-
  * @param {Object} env Object of environment variables
  */
 export default (apps, env) => {
-  document.querySelectorAll(`.pulse-project-list`).forEach(target => {
+  document.querySelectorAll(`.pulse-project-list`).forEach((target) => {
     apps.push(
-      new Promise(resolve => {
+      new Promise((resolve) => {
         ReactDOM.render(
           <PulseProjectList
             env={env}

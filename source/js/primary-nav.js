@@ -2,7 +2,7 @@ import { ReactGA } from "./common";
 import navNewsletter from "./nav-newsletter.js";
 
 let primaryNav = {
-  init: function() {
+  init: function () {
     let elBurger = document.querySelector(`.burger`);
     let elWideMenu = document.querySelector(`.wide-screen-menu`);
     let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
@@ -43,13 +43,13 @@ let primaryNav = {
         ReactGA.event({
           category: `navigation`,
           action: `show menu`,
-          label: `Show navigation menu`
+          label: `Show navigation menu`,
         });
       } else {
         ReactGA.event({
           category: `navigation`,
           action: `hide menu`,
-          label: `Hide navigation menu`
+          label: `Hide navigation menu`,
         });
       }
     }
@@ -61,7 +61,7 @@ let primaryNav = {
       trackMenuState(openMenu);
     }
 
-    document.addEventListener(`keyup`, e => {
+    document.addEventListener(`keyup`, (e) => {
       if (e.keyCode === 27) {
         menuOpen = false;
         setMenuState(menuOpen);
@@ -77,7 +77,7 @@ let primaryNav = {
         setMenuState(menuOpen);
       }
     });
-  }
+  },
 };
 
 export default primaryNav;

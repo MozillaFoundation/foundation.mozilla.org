@@ -23,20 +23,20 @@ export default () => {
 
       // And then fetch the results and render them into the page.
       fetch(url)
-        .then(result => result.json())
-        .then(data => {
+        .then((result) => result.json())
+        .then((data) => {
           if (!data.has_next) {
             loadMoreButton.removeEventListener(`click`, loadMoreResults);
             loadMoreButton.parentNode.removeChild(loadMoreButton);
           }
           return data.entries_html;
         })
-        .then(entries_html => {
+        .then((entries_html) => {
           const div = document.createElement(`div`);
           div.innerHTML = entries_html;
-          Array.from(div.children).forEach(c => entries.appendChild(c));
+          Array.from(div.children).forEach((c) => entries.appendChild(c));
         })
-        .catch(err => {
+        .catch((err) => {
           // TODO: what do we want to do in this case?
           console.error(err);
         })

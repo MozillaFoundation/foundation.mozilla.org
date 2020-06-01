@@ -7,7 +7,7 @@ export default class News extends React.Component {
     super(props);
 
     this.state = {
-      news: []
+      news: [],
     };
   }
 
@@ -24,7 +24,7 @@ export default class News extends React.Component {
     xhr.addEventListener(`load`, () => {
       this.setState(
         {
-          news: JSON.parse(xhr.response)
+          news: JSON.parse(xhr.response),
         },
         () => {
           if (this.props.whenLoaded) {
@@ -64,8 +64,8 @@ export default class News extends React.Component {
       );
     };
 
-    let newsForYear = year => {
-      let filteredNews = this.state.news.filter(item => {
+    let newsForYear = (year) => {
+      let filteredNews = this.state.news.filter((item) => {
         return item.date.match(year);
       });
 
@@ -99,9 +99,9 @@ export default class News extends React.Component {
 }
 
 News.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
 };
 
 News.defaultProps = {
-  data: []
+  data: [],
 };

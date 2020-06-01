@@ -9,7 +9,7 @@ const Utility = {
    *                    Returns false otherwise.
    */
   checkAndBindDomNodes(elements, findAllMatched) {
-    let allFound = Object.keys(elements).every(key => {
+    let allFound = Object.keys(elements).every((key) => {
       // if this element already resolved to a DOM node, move on to the next
       let selector = elements[key];
       if (typeof selector !== "string") return true;
@@ -38,7 +38,7 @@ const Utility = {
    */
   generateUniqueId(idPrefix) {
     return idPrefix ? `${idPrefix}-${uuidv4()}` : uuidv4();
-  }
+  },
 };
 
 export default Utility;
