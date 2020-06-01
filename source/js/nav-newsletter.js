@@ -10,7 +10,7 @@ const elements = {
   buttonDesktop: `#primary-nav-container .wide-screen-menu-container .btn-newsletter`,
   container: `#nav-newsletter-form-wrapper`,
   joinUs: `#nav-newsletter-form-wrapper .join-us.on-nav`,
-  buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`
+  buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`,
 };
 
 class NavNewsletter {
@@ -59,7 +59,7 @@ class NavNewsletter {
     elements.buttonDesktop.classList.add("active");
     document.addEventListener(`click`, this.closeFormClickHandler);
     document.addEventListener(`scroll`, this.closeFormClickHandler, {
-      passive: true
+      passive: true,
     });
     this.isShown = true;
   }
@@ -102,7 +102,7 @@ class NavNewsletter {
    * Find and bind all necessary DOM nodes, returning "false" if not all DOM nodes were found.
    */
   checkDomNodes() {
-    return Object.keys(elements).every(key => {
+    return Object.keys(elements).every((key) => {
       // if this element already resolved to a DOM node, move on to the next
       let value = elements[key];
       if (typeof value !== "string") return true;
@@ -129,15 +129,16 @@ class NavNewsletter {
     if (!this.checkDomNodes()) return;
 
     var props = elements.joinUs.dataset;
-    props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${props.signupId ||
-      0}/`;
+    props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${
+      props.signupId || 0
+    }/`;
     props.csrfToken = props.csrfToken || csrfToken;
     props.isHidden = false;
     this.form = ReactDOM.render(<JoinUs {...props} />, elements.joinUs);
 
     // For desktop+ version:
     // make 'buttonDesktop' the trigger to open newsletter section
-    elements.buttonDesktop.addEventListener(`click`, event => {
+    elements.buttonDesktop.addEventListener(`click`, (event) => {
       this.buttonDesktopClickHandler(event);
     });
 

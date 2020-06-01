@@ -15,7 +15,7 @@ function getCurrentLanguage() {
   }
 
   if (!currentLocale) {
-    var pathsegments = window.location.pathname.split(`/`).filter(v => v);
+    var pathsegments = window.location.pathname.split(`/`).filter((v) => v);
 
     currentLocale = pathsegments.length > 0 ? pathsegments[0] : DEFAULT_LOCALE;
   }

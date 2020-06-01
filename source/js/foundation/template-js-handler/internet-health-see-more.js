@@ -18,7 +18,7 @@ export default () => {
       ReactGA.event({
         category: `navigation`,
         action: `page footer cta`,
-        label: label
+        label: label,
       });
     });
   }

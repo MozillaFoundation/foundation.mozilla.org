@@ -248,7 +248,7 @@ const SALESFORCE_COUNTRY_LIST = {
   EH: `Western Sahara`,
   YE: `Yemen`,
   ZM: `Zambia`,
-  ZW: `Zimbabwe`
+  ZW: `Zimbabwe`,
 };
 
 export default SALESFORCE_COUNTRY_LIST;

@@ -2,7 +2,7 @@ import React from "react";
 import { ReactGA } from "../../../common";
 import copyToClipboard from "../../../../js/copy-to-clipboard.js";
 
-const SocialShareLink = props => {
+const SocialShareLink = (props) => {
   let classes = ``;
   let srLabel = ``;
   let link = `PrivacyNotIncluded.org`;
@@ -13,7 +13,7 @@ const SocialShareLink = props => {
     category: `product`,
     action: `share tap`,
     label: `share vote `,
-    transport: `beacon`
+    transport: `beacon`,
   };
 
   if (props.type === `facebook`) {
@@ -55,7 +55,7 @@ const SocialShareLink = props => {
   if (props.type === `link`) {
     let _trackShareAction = trackShareAction;
 
-    trackShareAction = evt => {
+    trackShareAction = (evt) => {
       evt.preventDefault();
       copyToClipboard(evt.target, window.location.href);
       evt.target.innerHTML = evt.target.innerHTML.replace(srLabel, `Copied`);
@@ -76,7 +76,7 @@ const SocialShareLink = props => {
   );
 };
 
-const SocialShare = props => {
+const SocialShare = (props) => {
   return (
     <div className="row">
       <div className="col-lg-10 m-auto">

@@ -3,7 +3,7 @@ const CREEPINESS_LABELS = [
   `A little creepy`,
   `Somewhat creepy`,
   `Very creepy`,
-  `Super creepy`
+  `Super creepy`,
 ];
 
 export default CREEPINESS_LABELS;

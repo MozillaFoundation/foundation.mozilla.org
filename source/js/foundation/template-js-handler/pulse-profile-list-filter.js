@@ -10,13 +10,13 @@ export default () => {
     .querySelectorAll(
       `.profile-directory .fellowships-directory-filter .filter-option button`
     )
-    .forEach(filter => {
+    .forEach((filter) => {
       let year = filter.textContent.trim();
       filter.addEventListener(`click`, () => {
         ReactGA.event({
           category: `profiles`,
           action: `directory filter`,
-          label: `${document.title} ${year}`
+          label: `${document.title} ${year}`,
         });
       });
     });

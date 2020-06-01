@@ -14,38 +14,38 @@ export default class CreepChart extends React.Component {
         c: `no-creep`,
         label: CREEPINESS_LABELS[0],
         value: values[0],
-        offset: 0
+        offset: 0,
       },
       {
         c: `little-creep`,
         label: CREEPINESS_LABELS[1],
         value: values[1],
-        offset: 225
+        offset: 225,
       },
       {
         c: `somewhat-creep`,
         label: CREEPINESS_LABELS[2],
         value: values[2],
-        offset: 475
+        offset: 475,
       },
       {
         c: `very-creep`,
         label: CREEPINESS_LABELS[3],
         value: values[3],
-        offset: 725
+        offset: 725,
       },
       {
         c: `super-creep`,
         label: CREEPINESS_LABELS[4],
         value: values[4],
-        offset: 975
-      }
+        offset: 975,
+      },
     ];
     let sum = data.reduce((tally, v) => tally + v.value, 0);
 
     return {
       totalCreepiness: sum < 1 ? 1 : sum,
-      creepinessData: data
+      creepinessData: data,
     };
   }
 

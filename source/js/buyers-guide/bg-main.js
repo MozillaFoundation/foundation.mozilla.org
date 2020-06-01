@@ -6,7 +6,7 @@ import {
   GoogleAnalytics,
   initializePrimaryNav,
   injectCommonReactComponents,
-  ReactGA
+  ReactGA,
 } from "../common";
 
 import CreepVote from "./components/creep-vote/creep-vote.jsx";
@@ -36,7 +36,7 @@ let env, networkSiteURL, csrfToken;
 
 let main = {
   init() {
-    this.fetchEnv(envData => {
+    this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
 
@@ -106,8 +106,8 @@ let main = {
   },
 
   enableCopyLinks() {
-    document.querySelectorAll(`.copy-link`).forEach(element => {
-      element.addEventListener(`click`, event => {
+    document.querySelectorAll(`.copy-link`).forEach((element) => {
+      element.addEventListener(`click`, (event) => {
         event.preventDefault();
 
         copyToClipboard(event.target, window.location.href);
@@ -119,7 +119,7 @@ let main = {
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL, csrfToken);
 
-    document.querySelectorAll(`.creep-vote-target`).forEach(element => {
+    document.querySelectorAll(`.creep-vote-target`).forEach((element) => {
       let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
       let productType = element.dataset.productType;
       let productName = element.dataset.productName;
@@ -130,9 +130,9 @@ let main = {
         total: 0,
         creepiness: {
           average: 50,
-          vote_breakdown: { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0 }
+          vote_breakdown: { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0 },
         },
-        confidence: { "0": 0, "1": 0 }
+        confidence: { "0": 0, "1": 0 },
       };
 
       if (votesValue !== "None") {
@@ -144,7 +144,7 @@ let main = {
       }
 
       apps.push(
-        new Promise(resolve => {
+        new Promise((resolve) => {
           ReactDOM.render(
             <CreepVote
               csrf={csrf.value}
@@ -162,10 +162,10 @@ let main = {
       );
     });
 
-    document.querySelectorAll(`.creepometer-target`).forEach(element => {
+    document.querySelectorAll(`.creepometer-target`).forEach((element) => {
       let initialValue = element.dataset.initialValue;
       apps.push(
-        new Promise(resolve => {
+        new Promise((resolve) => {
           ReactDOM.render(
             <Creepometer
               initialValue={initialValue}
@@ -176,7 +176,7 @@ let main = {
         })
       );
     });
-  }
+  },
 };
 
 main.init();

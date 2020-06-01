@@ -194,36 +194,36 @@
     "default": (
       "color": $black,
       "background-color": transparent,
-      "border-color": $black
+      "border-color": $black,
     ),
     "hover-focus": (
       "color": $white,
       "background-color": $black,
-      "border-color": transparent
+      "border-color": transparent,
     ),
     "active": (
       "color": $white,
       "background-color": $blue,
-      "border-color": transparent
-    )
+      "border-color": transparent,
+    ),
   );
 
   $dark-mode: (
     "default": (
       "color": $white,
       "background-color": transparent,
-      "border-color": $white
+      "border-color": $white,
     ),
     "hover-focus": (
       "color": $black,
       "background-color": $white,
-      "border-color": transparent
+      "border-color": transparent,
     ),
     "active": (
       "color": $black,
       "background-color": $blue,
-      "border-color": transparent
-    )
+      "border-color": transparent,
+    ),
   );
 
   @include button-basic-style($regular-mode, $dark-mode);

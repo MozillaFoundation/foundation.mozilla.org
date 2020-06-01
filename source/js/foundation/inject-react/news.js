@@ -10,7 +10,7 @@ import News from "../../components/news/news.jsx";
 export default (apps, env) => {
   if (document.querySelector(`#news`)) {
     apps.push(
-      new Promise(resolve => {
+      new Promise((resolve) => {
         ReactDOM.render(
           <News env={env} whenLoaded={() => resolve()} />,
           document.querySelector(`#news`)

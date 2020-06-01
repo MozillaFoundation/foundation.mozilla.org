@@ -6,13 +6,13 @@ import {
   bindCommonEventHandlers,
   GoogleAnalytics,
   initializePrimaryNav,
-  injectCommonReactComponents
+  injectCommonReactComponents,
 } from "./common";
 
 import {
   bindWindowEventHandlers,
   bindEventHandlers,
-  injectReactComponents
+  injectReactComponents,
 } from "./foundation";
 
 import primaryNav from "./primary-nav.js";
@@ -43,7 +43,7 @@ let main = {
     GoogleAnalytics.init();
     EmbedTypeform.init();
 
-    this.fetchEnv(envData => {
+    this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
 
@@ -108,7 +108,7 @@ let main = {
     if (document.querySelector("#view-youtube-regrets")) {
       new YouTubeRegretsTunnel();
     }
-  }
+  },
 };
 
 main.init();

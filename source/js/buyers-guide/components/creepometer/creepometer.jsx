@@ -10,7 +10,7 @@ export default class Creepometer extends React.Component {
 
     this.state = {
       dragging: false,
-      percentage: 50
+      percentage: 50,
     };
 
     this.setupDocumentListeners();
@@ -23,13 +23,13 @@ export default class Creepometer extends React.Component {
   }
 
   setupDocumentListeners() {
-    this.moveListener = evt => {
+    this.moveListener = (evt) => {
       evt.preventDefault();
       evt.stopPropagation();
       this.slideMove(evt);
     };
 
-    this.releaseListener = evt => {
+    this.releaseListener = (evt) => {
       evt.preventDefault();
       evt.stopPropagation();
       this.slideReleased(evt);
@@ -57,7 +57,7 @@ export default class Creepometer extends React.Component {
 
     this.setState({
       parentBBox: this.sliderElement.getBoundingClientRect(),
-      dragging: true
+      dragging: true,
     });
 
     // The "move" and "release" events have to be handled at
@@ -68,7 +68,7 @@ export default class Creepometer extends React.Component {
 
   slideReleased() {
     this.setState({
-      dragging: false
+      dragging: false,
     });
   }
 
@@ -136,8 +136,8 @@ export default class Creepometer extends React.Component {
 
     let trackheadOpts = {
       style: {
-        left: `${this.state.percentage}%`
-      }
+        left: `${this.state.percentage}%`,
+      },
     };
 
     let faceOpts = {
@@ -146,13 +146,13 @@ export default class Creepometer extends React.Component {
         backgroundSize: `70px`,
         backgroundPositionX: 0,
         backgroundPositionY: `-${frameOffset * this.faceHeight}px`,
-        backgroundRepeat: `no-repeat`
-      }
+        backgroundRepeat: `no-repeat`,
+      },
     };
 
     let mouseOpts = {
-      onMouseDown: evt => this.slideStart(evt),
-      onTouchStart: evt => this.slideStart(evt)
+      onMouseDown: (evt) => this.slideStart(evt),
+      onTouchStart: (evt) => this.slideStart(evt),
     };
 
     return (
@@ -160,11 +160,11 @@ export default class Creepometer extends React.Component {
         <div className="slider-container p-2">
           <div
             className="slider"
-            ref={e => (this.sliderElement = e)}
+            ref={(e) => (this.sliderElement = e)}
             tabIndex="0"
             role="slider"
-            onClick={evt => this.slideFromClick(evt)}
-            onKeyDown={evt => this.slideFromKey(evt)}
+            onClick={(evt) => this.slideFromClick(evt)}
+            onKeyDown={(evt) => this.slideFromKey(evt)}
             aria-valuemax={100}
             aria-valuemin={1}
             aria-valuenow={this.state.percentage}

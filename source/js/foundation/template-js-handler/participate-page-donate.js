@@ -14,7 +14,7 @@ export default () => {
       ReactGA.event({
         category: `donate`,
         action: `donate button tap`,
-        label: document.title
+        label: document.title,
       });
     });
   }
