@@ -79,6 +79,8 @@ class NavNewsletter {
     const wrapper = elements.container;
     elements.narrowMenuContainer.classList.remove("d-none");
     wrapper.classList.remove("faded-in");
+    // Schedule a "display:none" to happen after the `expanded` animation finishes.
+    // See `#nav-newsletter-form-wrapper` transition in ./source/sass/components/primary-nav.scss 
     setTimeout(() => {
       if (wrapper.classList.contains("expanded")) return;
       wrapper.classList.add("d-none");
