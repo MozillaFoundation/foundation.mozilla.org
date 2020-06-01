@@ -76,6 +76,10 @@ class OpportunityPage(MiniSiteNameSpace):
         'RedirectingPage',
     ]
 
+    class Meta:
+        verbose_name = "Default Page"
+        verbose_name_plural = "Default pages"
+
 
 @register_snippet
 class Petition(CTA):
@@ -259,3 +263,7 @@ class BanneredCampaignPage(PrimaryPage):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
         return get_page_tree_information(self, context)
+
+    class Meta:
+        verbose_name = "Banner Page"
+        verbose_name_plural = "Banner pages"

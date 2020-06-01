@@ -22,7 +22,7 @@
     "X_FRAME_OPTIONS": "DENY",
     "USE_S3": "True",
     "PULSE_API_DOMAIN": "https://network-pulse-api-production.herokuapp.com",
-    "PULSE_DOMAIN": "www.mozillapulse.org",
+    "PULSE_DOMAIN": "https://www.mozillapulse.org",
     "CSP_CHILD_SRC": "'self' https://www.youtube.com https://www.youtube-nocookie.com",
     "CSP_CONNECT_SRC": "*",
     "CSP_DEFAULT_SRC": "'none'",
