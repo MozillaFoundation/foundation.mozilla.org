@@ -45,6 +45,8 @@ class NavNewsletter {
     const wrapper = elements.container;
     wrapper.classList.remove("expanded");
     elements.buttonDesktop.classList.remove("active");
+    // Schedule a "display:none" to happen after the `expanded` animation finishes.
+    // See `#nav-newsletter-form-wrapper` transition in ./source/sass/components/primary-nav.scss 
     setTimeout(() => {
       if (wrapper.classList.contains("expanded")) return;
       wrapper.classList.add("d-none");
