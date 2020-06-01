@@ -77,7 +77,7 @@ export default class PulseProjectList extends React.Component {
       if (this.props.directLink) {
         url = project.content_url;
       } else {
-        url = `https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`;
+        url = `${this.props.env.PULSE_DOMAIN}/entry/${project.id}`;
       }
 
       return (
