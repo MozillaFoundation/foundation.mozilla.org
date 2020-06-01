@@ -30,6 +30,9 @@
   &.vertical-nav {
     .multipage-link-wrapper {
       margin-bottom: 24px;
+      .multipage-link:not(:active):not(.active) {
+        color: $gray-60;
+      }
     }
   }
 
