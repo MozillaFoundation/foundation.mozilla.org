@@ -9,7 +9,7 @@
 {% url 'press-view' as press_url %}
 
 <div class="col-lg-3">
-  <nav class="vertical-nav mt-5 pt-sm-2" id="multipage-nav" title="about sections">
+  <nav class="vertical-nav mt-5 pt-sm-2" id="multipage-nav" title="{% trans "about sections" context "Tooltip on menu items" %}">
     <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url why_url %}" href="{{ why_url }}">{% trans "Why we made this guide" %}</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url how_to_use_url %}" href="{{ how_to_use_url }}">{% trans "How to use this guide" %}</a></div>
     <div class="multipage-link-wrapper"><a class="multipage-link {% bg_active_nav current_url minimum_security_url %}" href="{{ minimum_security_url }}">{% trans "Minimum Security Standards explained" %}</a></div>
