@@ -26,14 +26,12 @@ class ParticipatePage2Factory(PageFactory):
     # first block
     ctaHero = SubFactory(ImageFactory)
     ctaHeroHeader = Faker('text', max_nb_chars=50)
-    ctaCommitment = Faker('text', max_nb_chars=10)
     ctaButtonTitle = Faker('text', max_nb_chars=50)
     ctaButtonURL = Faker('url')
 
     # second block
     ctaHero2 = SubFactory(ImageFactory)
     ctaHeroHeader2 = Faker('text', max_nb_chars=50)
-    ctaCommitment2 = Faker('text', max_nb_chars=10)
     ctaButtonTitle2 = Faker('text', max_nb_chars=50)
     ctaButtonURL2 = Faker('url')
 
@@ -41,7 +39,6 @@ class ParticipatePage2Factory(PageFactory):
     ctaHero3 = SubFactory(ImageFactory)
     ctaHeroHeader3 = Faker('text', max_nb_chars=50)
     ctaHeroSubhead3 = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
-    ctaCommitment3 = Faker('text', max_nb_chars=10)
     ctaFacebook3 = Faker('text', max_nb_chars=20)
     ctaTwitter3 = Faker('text', max_nb_chars=20)
     ctaEmailShareBody3 = Faker('text', max_nb_chars=20)
