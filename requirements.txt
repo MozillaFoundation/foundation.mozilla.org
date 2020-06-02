@@ -5,8 +5,8 @@
 #    pip-compile
 #
 beautifulsoup4==4.6.0     # via -r requirements.in, wagtail
-boto3==1.13.16            # via -r requirements.in
-botocore==1.16.16         # via boto3, s3transfer
+boto3==1.13.20            # via -r requirements.in
+botocore==1.16.20         # via boto3, s3transfer
 certifi==2020.4.5.1       # via cloudinary, requests, sentry-sdk
 cffi==1.14.0              # via cryptography
 chardet==3.0.4            # via requests
@@ -63,7 +63,7 @@ urllib3==1.25.9           # via botocore, cloudinary, requests, sentry-sdk
 wagtail-experiments==0.2  # via -r requirements.in
 wagtail-factories==2.0.0  # via -r requirements.in
 wagtail-inventory==1.0    # via -r requirements.in
-wagtail-metadata==3.0.0   # via -r requirements.in
+wagtail-metadata==3.1.0   # via -r requirements.in
 wagtail-modeltranslation==0.10.13  # via -r requirements.in
 wagtail==2.8.2            # via -r requirements.in, wagtail-factories, wagtail-inventory, wagtail-metadata, wagtail-modeltranslation
 webencodings==0.5.1       # via html5lib
