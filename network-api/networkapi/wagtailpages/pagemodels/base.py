@@ -156,10 +156,6 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
-    ctaCommitment = models.TextField(
-        blank=True,
-    )
-
     ctaButtonTitle = models.CharField(
         verbose_name='Button Text',
         max_length=250,
@@ -188,10 +184,6 @@ class ParticipatePage2(PrimaryPage):
         features=[
             'bold', 'italic', 'link',
         ],
-        blank=True,
-    )
-
-    ctaCommitment2 = models.TextField(
         blank=True,
     )
 
@@ -226,10 +218,6 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
-    ctaCommitment3 = models.TextField(
-        blank=True,
-    )
-
     ctaFacebook3 = models.TextField(
         blank=True,
     )
@@ -261,7 +249,6 @@ class ParticipatePage2(PrimaryPage):
             ImageChooserPanel('ctaHero'),
             FieldPanel('ctaHeroHeader'),
             FieldPanel('ctaHeroSubhead'),
-            FieldPanel('ctaCommitment'),
             FieldPanel('ctaButtonTitle'),
             FieldPanel('ctaButtonURL'),
           ],
@@ -276,7 +263,6 @@ class ParticipatePage2(PrimaryPage):
             ImageChooserPanel('ctaHero2'),
             FieldPanel('ctaHeroHeader2'),
             FieldPanel('ctaHeroSubhead2'),
-            FieldPanel('ctaCommitment2'),
             FieldPanel('ctaButtonTitle2'),
             FieldPanel('ctaButtonURL2'),
           ],
@@ -289,7 +275,6 @@ class ParticipatePage2(PrimaryPage):
             ImageChooserPanel('ctaHero3'),
             FieldPanel('ctaHeroHeader3'),
             FieldPanel('ctaHeroSubhead3'),
-            FieldPanel('ctaCommitment3'),
             FieldPanel('ctaFacebook3'),
             FieldPanel('ctaTwitter3'),
             FieldPanel('ctaEmailShareSubject3'),
@@ -408,12 +393,6 @@ class CTABase(WagtailOrderable, models.Model):
         blank=True,
     )
 
-    commitment = models.CharField(
-        blank=True,
-        max_length=256,
-        help_text='Amount of time required (eg: "30 min commitment")',
-    )
-
     buttonTitle = models.CharField(
         verbose_name='Button Text',
         max_length=250,
@@ -429,7 +408,6 @@ class CTABase(WagtailOrderable, models.Model):
         ImageChooserPanel('hero'),
         FieldPanel('header'),
         FieldPanel('subhead'),
-        FieldPanel('commitment'),
         FieldPanel('buttonTitle'),
         FieldPanel('buttonURL'),
     ]
@@ -457,14 +435,8 @@ class ParticipateHighlightsBase(WagtailOrderable, models.Model):
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
-    commitment = models.CharField(
-        blank=True,
-        max_length=256,
-        help_text='Amount of time required (eg: "30 min commitment")',
-    )
     panels = [
         SnippetChooserPanel('highlight'),
-        FieldPanel('commitment'),
     ]
 
     class Meta:
