@@ -121,6 +121,26 @@
           }
         }
 
+        .product-links {
+          @include hover-focus-active {
+            text-decoration: none;
+          }
+
+          @media screen and (max-width: $breakpoint) {
+            .product-company {
+              color: $gray-80;
+              font-size: 9px;
+              line-height: 14px;
+            }
+
+            .product-name {
+              color: $black;
+              font-size: 11px;
+              line-height: 14px;
+            }
+          }
+        }
+
         figcaption {
           color: $gray-40;
           position: relative;
