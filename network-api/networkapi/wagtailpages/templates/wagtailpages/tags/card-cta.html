@@ -5,10 +5,6 @@
     <h3 class="">{{ title }}</h3>
     <div class="body-large">{{ description | richtext }}</div>
 
-    {% if commitment %}
-    <div class="h6-heading commitment mb-3">{{ commitment }}</div>
-    {% endif %}
-
     {% if link_url %}
     <a class="btn btn-secondary" href="{{ link_url }}">{{ link_label }}</a>
     {% endif %}
