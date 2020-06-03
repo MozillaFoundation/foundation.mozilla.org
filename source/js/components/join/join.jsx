@@ -264,9 +264,9 @@ export default class JoinUs extends React.Component {
   renderSnippetHeading() {
     return (
       <React.Fragment>
-        <h5 className="h5-heading">
+        <p className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
-        </h5>
+        </p>
         {!this.state.apiSuccess ? (
           <div
             dangerouslySetInnerHTML={{
