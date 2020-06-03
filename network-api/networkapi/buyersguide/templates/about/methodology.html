@@ -9,7 +9,7 @@
     {% trans "About our Methodology" %}
   </h1>
 
-  <div class="methodology-intro">
+  <section class="methodology-intro">
     <p class="body">
       {% blocktrans trimmed %}
       The goal of Mozilla’s <em>*Privacy Not Included</em> buyer’s guide is to help consumers shop smart — and safe — for
@@ -31,21 +31,25 @@
     <p class="body">
       {% trans "Here is the methodology we used to develop this guide." %}
     </p>
-  </div>
+  </section>
 
-  <div class="mt-5 mb-4 about-methodology">
+  <section class="mt-5 mb-4 about-methodology">
     <h2 class="h3-heading">
       {% trans "Methodology" %}
     </h2>
 
     <section aria-labelledby="product-selection">
-      <p id="product-selection"><b>{% trans "Product Selection" %}</b></p>
+      <h3 id="product-selection" class="body-large">
+        {% trans "Product Selection" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         There are 76 products in the 2019 version of our <em>*Privacy Not Included</em> buyer’s guide. These products
         fit into six categories — Toys & Games, Smart Home, Entertainment, Wearables, Health & Exercise, and Pets.
         {% endblocktrans %}
       </p>
+
       <p class="body">
         {% blocktrans with amazon="http://smile.amazon.com" targetopenhouse="https://targetopenhouse.com/" wirecutter="https://thewirecutter.com/" toyinsider="https://www.thetoyinsider.com/" pcmag="https://www.pcmag.com/" techradar="https://www.techradar.com/" gearbrain="https://www.gearbrain.com/" trimmed %}
         The goal was to select connected products that were likely to be popular during the holiday season and beyond.
@@ -57,9 +61,9 @@
         {% endblocktrans %}
       </p>
     </section>
-  </div>
+  </section>
 
-  <div class="mt-5 mb-4 about-minimum-security">
+  <section class="mt-5 mb-4 about-minimum-security">
     <h2 class="h3-heading">
       {% trans "Minimum Security Requirements" %}
     </h2>
@@ -71,7 +75,10 @@
     </p>
 
     <section aria-labelledby="encryption">
-      <p id="encryption"><b>{% trans "Encryption" %}</b></p>
+      <h3 id="encryption" class="body-large">
+        {% trans "Encryption" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         Device should use encryption in transit and at rest (where applicable). The product must use encryption for all
@@ -82,7 +89,10 @@
     </section>
 
     <section aria-labelledby="security-updates">
-      <p id="security-updates"><b>{% trans "Security updates" %}</b></p>
+      <h3 id="security-updates" class="body-large">
+        {% trans "Security updates" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         The product must support automatic security updates for a reasonable period after sale, and be enabled by
@@ -93,7 +103,10 @@
     </section>
 
     <section aria-labelledby="strong-passwords">
-      <p id="strong-passwords"><b>{% trans "Strong passwords" %}</b></p>
+      <h3 id="strong-passwords" class="body-large">
+        {% trans "Strong passwords" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         If the product uses passwords for remote authentication, it must require that strong passwords are used,
@@ -105,7 +118,10 @@
     </section>
 
     <section aria-labelledby="vulnerability-management">
-      <p id="vulnerability-management"><b>{% trans "Vulnerability management" %}</b></p>
+      <h3 id="vulnerability-management" class="body-large">
+        {% trans "Vulnerability management" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         The vendor must have a system in place to manage vulnerabilities in the product. This must also include a point
@@ -116,7 +132,10 @@
     </section>
 
     <section aria-labelledby="privacy-policy">
-      <p id="privacy-policy"><b>{% trans "Privacy Policy" %}</b></p>
+      <h3 id="privacy-policy" class="body-large">
+        {% trans "Privacy Policy" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         The product must have a privacy policy and/or another privacy page that applies to the device, app, or service
@@ -124,9 +143,9 @@
         {% endblocktrans %}
       </p>
     </section>
-  </div>
+  </section>
 
-  <div class="mt-5 mb-4 about-privacy">
+  <section class="mt-5 mb-4 about-privacy">
     <h2 class="h3-heading">
       {% trans "Privacy" %}
     </h2>
@@ -141,7 +160,10 @@
     </p>
 
     <section aria-labelledby="share-data">
-      <p id="share-data"><b>{% trans "1) How does it share data?" %}</b></p>
+      <h3 id="share-data" class="body-large">
+        {% trans "1) How does it share data?" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         How do companies collect and share customer data with third parties? For this question, we analyzed the privacy
@@ -149,6 +171,7 @@
         than standard vendors.
         {% endblocktrans %}
       </p>
+
       <p class="body">
         {% blocktrans trimmed %}
         For instance, if a company can share or sell personal customer data with third parties, use  data for targeted
@@ -160,7 +183,10 @@
     </section>
 
     <section aria-labelledby="delete-data">
-      <p id="delete-data"><b>{% trans "2) Can you delete your data?" %}</b></p>
+      <h3 id="delete-data" class="body-large">
+        {% trans "2) Can you delete your data?" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         Does the company provide a way for users to request deletion of their data? We looked for language around this
@@ -170,7 +196,10 @@
     </section>
 
     <section aria-labelledby="user-friendly-privacy">
-      <p id="user-friendly-privacy"><b>{% trans "3) User-friendly privacy information" %}</b></p>
+      <h3 id="user-friendly-privacy" class="body-large">
+        {% trans "3) User-friendly privacy information" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         How easy is it to find clear information about a device’s privacy? How clearly is that information stated?
@@ -182,7 +211,10 @@
     </section>
 
     <section aria-labelledby="biometric-information">
-      <p id="biometric-information"><b>{% trans "4) Biometric information" %}</b></p>
+      <h3 id="biometric-information" class="body-large">
+        {% trans "4) Biometric information" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         Biometric data is data that describes our bodies and distinctive personal characteristics. Many devices collect
@@ -193,14 +225,17 @@
     </section>
 
     <section aria-labelledby="parental-control">
-      <p id="parental-control"><b>{% trans "5) Parental controls?" %}</b></p>
+      <h3 id="parental-control" class="body-large">
+        {% trans "5) Parental controls?" %}
+      </h3>
+
       <p class="body">
         {% trans "For products that are intended for children, can parents change and control the settings of the device?" %}
       </p>
     </section>
-  </div>
+  </section>
 
-  <div class="mt-5 mb-4 about-permissions">
+  <section class="mt-5 mb-4 about-permissions">
     <h2 class="h3-heading">
       {% trans "Permissions" %}
     </h2>
@@ -210,10 +245,14 @@
     </p>
 
     <section aria-labelledby="device-uses">
-      <p id="device-uses"><b>{% trans "The device/app uses:" %}</b></p>
+      <h3 id="device-uses" class="body-large">
+        {% trans "The device/app uses:" %}
+      </h3>
+
       <p class="body">
         {% trans "This looks at whether a device or app uses a camera, microphone, or location tracking." %}
       </p>
+
       <p class="body">
         {% blocktrans trimmed %}
         For you to set up your new device, you will probably need to download an app. Both of these (the device and the
@@ -221,6 +260,7 @@
         to access your more sensitive data.
         {% endblocktrans %}
       </p>
+
       <p class="body">
         {% blocktrans with url="https://play.google.com/store/apps" trimmed %}
         In our ratings, we evaluated if the device or the app required access to the <b>camera</b>, <b>microphone</b>,
@@ -231,15 +271,18 @@
         {% endblocktrans %}
       </p>
     </section>
-  </div>
+  </section>
 
-  <div class="mt-5 mb-4 worst-case-scenario">
+  <section class="mt-5 mb-4 worst-case-scenario">
     <h2 class="h3-heading">
       {% trans "Worst-case scenario" %}
     </h2>
 
     <section aria-labelledby="goes-wrong">
-      <p id="goes-wrong"><b>{% trans "What could happen if something goes wrong?" %}</b></p>
+      <h3 id="goes-wrong" class="body-large">
+        {% trans "What could happen if something goes wrong?" %}
+      </h3>
+
       <p class="body">
         {% blocktrans trimmed %}
         We included this section to help people understand risk scenarios related to their privacy and each particular
@@ -250,6 +293,6 @@
         {% endblocktrans %}
       </p>
     </section>
-  </div>
+  </section>
 
 {% endblock %}
