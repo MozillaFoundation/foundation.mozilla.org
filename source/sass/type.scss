@@ -58,6 +58,11 @@ h6,
   text-transform: uppercase;
 }
 
+.p-heading {
+  @include heading("Nunito Sans", 700, 0, inherit, inherit);
+  @include scaleText(18px, 18px);
+}
+
 .quote {
   @include text-base-style("Zilla Slab", 300, $black, $white);
   @include scaleText(24px, 32px, 30px, 40px);
