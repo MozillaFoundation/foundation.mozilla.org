@@ -51,7 +51,7 @@ When it's done, run `docker-compose up`, wait until the static files to be built
 
 To log into the admin site, a superuser will have been created with username `admin` with password `admin`.
 
-To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again. 
+To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again.
 
 Use `inv -l` to get a list of all the available invoke commands.
 
@@ -65,6 +65,10 @@ When relevant, we encourage you to write tests. You can run the tests using `inv
 
 - Run Node tests: `inv test-node`
 - Run Python tests: `inv test-python`
+
+#### Fixing linting errors
+
+If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can run the `npm run fix` command to have `prettier` automatically fix any linting errors it knows how to fix. This will almost always be the only step required to ensure the linting phase of testing passes.
 
 ### Visual regression tests
 
