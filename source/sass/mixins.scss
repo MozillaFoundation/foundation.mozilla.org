@@ -16,8 +16,8 @@
 // Break the constraints of parent container(s) to span the entire viewport width
 @mixin full-bleed {
   $offset: $grid-gutter-width / 2;
-  width: calc(100% + #{2*$offset});
-  max-width: calc(100% + #{2*$offset});
+  width: calc(100% + #{2 * $offset});
+  max-width: calc(100% + #{2 * $offset});
   position: relative;
   margin-left: -#{$offset};
 }
