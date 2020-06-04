@@ -98,6 +98,7 @@
   .wrapper-burger {
     $full-logo-breakpoint: $bp-sm;
 
+    position: relative;
     transition: background 200ms ease-in-out;
     background: $white;
     border-bottom: 1px solid $gray-20;
@@ -216,7 +217,7 @@
       height: 100vh;
       top: 0;
       left: 0;
-      width: 100vw;
+      width: 100%;
       transition: opacity 0.2s, height 0s;
 
       &.hidden {
