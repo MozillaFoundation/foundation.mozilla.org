@@ -24,6 +24,6 @@
   }
 
   @at-root .vertical-nav #{&} {
-    @include setTextSize(17px, 17px * 1.6);
+    @include set-text-size(17px, 17px * 1.6);
   }
 }

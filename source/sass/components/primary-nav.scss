@@ -29,7 +29,7 @@
   }
 
   #donate-header-btn {
-    @include setTextSize(17px, 23px);
+    @include set-text-size(17px, 23px);
     color: $black;
     font-weight: $btn-font-weight;
 
@@ -82,7 +82,7 @@
         @include padding-bottom(md);
       }
 
-      @include setTextSize(17px, 23px);
+      @include set-text-size(17px, 23px);
 
       @include hover-focus-active {
         text-decoration: none;

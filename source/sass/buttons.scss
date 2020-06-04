@@ -5,7 +5,7 @@ button,
   font-weight: $btn-font-weight;
   white-space: nowrap;
 
-  @include setTextSize(18px, 22px);
+  @include set-text-size(18px, 22px);
 
   &:hover {
     cursor: pointer;

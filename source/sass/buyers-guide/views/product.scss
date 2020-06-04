@@ -202,12 +202,12 @@ $pni-product-breakpoint-larger: $bp-md;
   .rating {
     .security-score {
       @include heading("Zilla Slab", 300, 0, $black, $white);
-      @include setTextSize(40px, 46px);
+      @include set-text-size(40px, 46px);
     }
 
     .full-security-score {
       @include heading("Zilla Slab", 300, 0, $black, $white);
-      @include setTextSize(20px, 46px);
+      @include set-text-size(20px, 46px);
     }
   }
 }
@@ -269,7 +269,7 @@ $pni-product-breakpoint-larger: $bp-md;
   ul {
     // have to override this since PNI does not follow Foundation style guide
     @include text-base-style(null, 300, $black, $white);
-    @include setTextSize(16px, 24px);
+    @include set-text-size(16px, 24px);
   }
 }
 
