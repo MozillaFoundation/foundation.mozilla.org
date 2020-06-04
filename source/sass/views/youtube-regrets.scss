@@ -202,7 +202,7 @@
         padding: 0 1rem;
         opacity: 0;
 
-        @include scaleText(30px, 38px, 50px, 56px);
+        @include setTextSize(30px, 38px, 50px, 56px);
       }
     }
 
@@ -247,14 +247,14 @@
     h2 {
       font-family: "Changa", sans-serif;
 
-      @include scaleText(30px, 36px, 38px, 42px);
+      @include setTextSize(30px, 36px, 38px, 42px);
     }
 
     p {
       font-family: "Zilla Slab";
       font-weight: 500;
 
-      @include scaleText(18px, 24px, 22px, 32px);
+      @include setTextSize(18px, 24px, 22px, 32px);
     }
 
     .btn.btn-secondary {

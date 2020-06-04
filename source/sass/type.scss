@@ -23,57 +23,57 @@ a {
 h1,
 .h1-heading {
   @include heading("Zilla Slab", 400, 0, $black, $white);
-  @include scaleText(36px, 40px, 48px, 56px);
+  @include setTextSize(36px, 40px, 48px, 56px);
 }
 
 h2,
 .h2-heading {
   @include heading("Zilla Slab", 300, 0, $black, $white);
-  @include scaleText(28px, 32px, 40px, 48px);
+  @include setTextSize(28px, 32px, 40px, 48px);
 }
 
 h3,
 .h3-heading {
   @include heading("Zilla Slab", 400, 0, $black, $white);
-  @include scaleText(24px, 28px, 28px, 36px);
+  @include setTextSize(24px, 28px, 28px, 36px);
 }
 
 h4,
 .h4-heading {
   @include heading("Zilla Slab", 400, 0, $black, $white);
-  @include scaleText(22px, 28px, 24px, 30px);
+  @include setTextSize(22px, 28px, 24px, 30px);
 }
 
 h5,
 .h5-heading {
   @include heading("Zilla Slab", 600, 0, $black, $white);
-  @include scaleText(20px, 24px, 22px, 28px);
+  @include setTextSize(20px, 24px, 22px, 28px);
 }
 
 h6,
 .h6-heading {
   @include heading("Nunito Sans", 400, 0.5px, $gray-60, $gray-40);
-  @include scaleText(12px, 16px);
+  @include setTextSize(12px, 16px);
 
   text-transform: uppercase;
 }
 
 .quote {
   @include text-base-style("Zilla Slab", 300, $black, $white);
-  @include scaleText(24px, 32px, 30px, 40px);
+  @include setTextSize(24px, 32px, 30px, 40px);
 
   font-style: italic;
 }
 
 .type-accent {
   @include text-base-style("Zilla Slab", 400, $gray-20, $gray-20);
-  @include scaleText(56px, 64px, 72px, 88px);
+  @include setTextSize(56px, 64px, 72px, 88px);
 }
 
 .body-large,
 .body-large p {
   @include text-base-style(null, 300, $black, $white);
-  @include scaleText(18px, 27px, 20px, 30px);
+  @include setTextSize(18px, 27px, 20px, 30px);
 }
 
 ul,
@@ -85,12 +85,12 @@ p,
 
 .body-small {
   @include text-base-style("Nunito Sans", 400, $gray-60, $gray-40);
-  @include scaleText(12px, 16px);
+  @include setTextSize(12px, 16px);
 }
 
 .cta-link {
   @include text-base-style(null, 700, null, $light-blue);
-  @include scaleText(18px, 27px);
+  @include setTextSize(18px, 27px);
 
   display: inline-block;
 
