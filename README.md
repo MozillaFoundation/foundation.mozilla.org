@@ -68,7 +68,7 @@ When relevant, we encourage you to write tests. You can run the tests using `inv
 
 #### Fixing linting errors
 
-If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can run the `inv npm "run fix"` command to have `prettier` automatically fix any linting errors it knows how to fix. This will almost always be the only step required to ensure the linting phase of testing passes.
+If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can run the `inv npm "run fix"` command to make the linting utilities automatically fix (or at least try to fix) any errors they knows how to fix. This will almost always be the only step required to ensure the linting phase of testing passes.
 
 ### Visual regression tests
 
