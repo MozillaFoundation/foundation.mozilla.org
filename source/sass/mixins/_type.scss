@@ -44,7 +44,7 @@
   }
 }
 
-@mixin scaleText(
+@mixin set-text-size(
   $base-font-size,
   $base-line-height: null,
   $large-font-size: null,
