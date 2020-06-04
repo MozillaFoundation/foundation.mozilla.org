@@ -81,7 +81,7 @@
   }
 }
 
-@mixin scaleText(
+@mixin set-text-size(
   $base-font-size,
   $base-line-height: null,
   $large-font-size: null,
@@ -106,7 +106,7 @@
 
 @mixin body-text-style() {
   @include text-base-style(null, 400, $black, $white);
-  @include scaleText(18px, 27px);
+  @include set-text-size(18px, 27px);
 }
 
 @mixin dark-theme-inline-anchor($color: inherit) {
