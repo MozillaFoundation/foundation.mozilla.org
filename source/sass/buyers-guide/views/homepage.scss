@@ -125,14 +125,12 @@
           @media screen and (max-width: $breakpoint) {
             .product-company {
               color: $gray-80;
-              font-size: 9px;
-              line-height: 14px;
+              @include setTextSize(9px, 14px);
             }
 
             .product-name {
               color: $black;
-              font-size: 11px;
-              line-height: 14px;
+              @include setTextSize(11px, 14px);
             }
           }
         }
