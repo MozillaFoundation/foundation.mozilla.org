@@ -7,6 +7,7 @@ from django.db import Error
 from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.translation import pgettext
 
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
 from rest_framework.parsers import JSONParser
@@ -139,7 +140,9 @@ def product_view(request, slug):
         'product': product_dict,
         'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
-        'pageTitle': f'*privacy not included - {product.name}',
+        'pageTitle': pgettext(
+            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+            '*privacy not included') + f' - {product.name}',
         'security_score': total_score,
         'full_security_score': num_criteria
     })
