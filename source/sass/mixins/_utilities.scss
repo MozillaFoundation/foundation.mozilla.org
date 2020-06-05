@@ -1,0 +1,55 @@
+@mixin active() {
+  &:active,
+  &.active {
+    @content;
+  }
+}
+
+@mixin disabled() {
+  &.disabled,
+  &:disabled,
+  &[disabled] {
+    @content;
+  }
+}
+
+// Break the constraints of parent container(s) to span the entire viewport width
+@mixin full-bleed {
+  width: 100vw;
+  max-width: none;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Mixin to create ".full-bleed-breakpoint" utility classes
+@mixin full-bleed-bp($breakpoint) {
+  @include media-breakpoint-only($breakpoint) {
+    .full-bleed-#{$breakpoint} {
+      @include full-bleed;
+    }
+  }
+}
+
+@mixin intro-and-content-spacing($adjust-spacing-for-md: null) {
+  margin-top: 24px;
+  margin-bottom: 24px;
+
+  @if ($adjust-spacing-for-md) {
+    @media (min-width: $bp-md) {
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+  }
+}
+
+@mixin cta-anchor-position($extra-vertical-spacing: 0px) {
+  $offset: 80px;
+
+  margin-top: -$offset;
+  padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
+}
