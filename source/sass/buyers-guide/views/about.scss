@@ -46,5 +46,5 @@
 */
 .p-heading {
   @include heading("Nunito Sans", 700, 0, inherit, inherit);
-  @include scaleText(18px, 18px);
+  @include set-text-size(18px, 18px);
 }
