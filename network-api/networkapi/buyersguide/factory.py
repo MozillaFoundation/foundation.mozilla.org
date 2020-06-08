@@ -29,6 +29,7 @@ def get_extended_yes_no_value():
     options = ['Yes', 'No', 'NA', 'U']
     return choice(options)
 
+
 def get_lowest_content_category():
     return sorted(
         [
