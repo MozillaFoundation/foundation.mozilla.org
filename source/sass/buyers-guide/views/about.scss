@@ -34,3 +34,17 @@
     margin-bottom: 1rem;
   }
 }
+
+/*
+  This is a temporary "heading" style, allowing the about page to use
+  proper heading markup while preserving the old <p><b>...</b></p> styling.
+
+  A design issue is currently open for determining how best to change the
+  current markup and style rules to reflect the styleguide.
+
+  See https://github.com/MozillaFoundation/Design/issues/585
+*/
+.p-heading {
+  @include heading("Nunito Sans", 700, 0, inherit, inherit);
+  @include scaleText(18px, 18px);
+}
