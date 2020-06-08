@@ -30,9 +30,13 @@ def get_extended_yes_no_value():
     return choice(options)
 
 def get_lowest_content_category():
-    counts = [(c.published_product_count(), c) for c in BuyersGuideProductCategory.objects.all()]
-    counts.sort();
-    return counts[0][1]
+    return sorted(
+        [
+            (cat.published_product_count, cat)
+            for cat in BuyersGuideProductCategory.objects.all()
+        ],
+        key=lambda t: t[0]
+    )[0][1]
 
 
 class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
