@@ -6,13 +6,10 @@ import {
   GoogleAnalytics,
   initializePrimaryNav,
   injectCommonReactComponents,
-  ReactGA,
 } from "../common";
 
-import CreepVote from "./components/creep-vote/creep-vote.jsx";
-import Creepometer from "./components/creepometer/creepometer.jsx";
+import { bindEventHandlers, injectReactComponents } from "./index";
 
-import copyToClipboard from "../../js/copy-to-clipboard.js";
 import HomepageSlider from "./homepage-c-slider.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
@@ -36,6 +33,8 @@ let env, networkSiteURL, csrfToken;
 
 let main = {
   init() {
+    GoogleAnalytics.init();
+
     this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
@@ -68,22 +67,14 @@ let main = {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
       }
 
-      GoogleAnalytics.init();
-
-      this.enableCopyLinks();
       this.injectReactComponents();
-
-      bindCommonEventHandlers();
+      this.bindHandlers();
       initializePrimaryNav(networkSiteURL, csrfToken);
-
-      if (document.getElementById(`view-home`)) {
-        HomepageSlider.init();
-      }
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
         window[`bg-main-js:react:finished`] = true;
-
+        this.initPageSpecificScript();
         // bind custom analytics only once everything's up and loaded
         AnalyticsEvents.init();
       });
@@ -105,77 +96,22 @@ let main = {
     envReq.send();
   },
 
-  enableCopyLinks() {
-    document.querySelectorAll(`.copy-link`).forEach((element) => {
-      element.addEventListener(`click`, (event) => {
-        event.preventDefault();
-
-        copyToClipboard(event.target, window.location.href);
-      });
-    });
+  bindHandlers() {
+    bindCommonEventHandlers();
+    bindEventHandlers();
   },
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL, csrfToken);
+    injectReactComponents(apps, networkSiteURL, csrfToken);
+  },
 
-    document.querySelectorAll(`.creep-vote-target`).forEach((element) => {
-      let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
-      let productType = element.dataset.productType;
-      let productName = element.dataset.productName;
-      let productID = element.querySelector(`input[name=productID]`).value;
-      let votesValue = element.querySelector(`input[name=votes]`).value;
-
-      let votes = {
-        total: 0,
-        creepiness: {
-          average: 50,
-          vote_breakdown: { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0 },
-        },
-        confidence: { "0": 0, "1": 0 },
-      };
-
-      if (votesValue !== "None") {
-        try {
-          votes = JSON.parse(votesValue.replace(/'/g, `"`));
-        } catch (e) {
-          // if this fails, we just use the defaults
-        }
-      }
-
-      apps.push(
-        new Promise((resolve) => {
-          ReactDOM.render(
-            <CreepVote
-              csrf={csrf.value}
-              productType={productType}
-              productName={productName}
-              productID={parseInt(productID, 10)}
-              votes={votes}
-              whenLoaded={() => resolve()}
-              joinUsCSRF={csrfToken}
-              joinUsApiUrl={`${networkSiteURL}/api/campaign/signups/0/`}
-            />,
-            element
-          );
-        })
-      );
-    });
-
-    document.querySelectorAll(`.creepometer-target`).forEach((element) => {
-      let initialValue = element.dataset.initialValue;
-      apps.push(
-        new Promise((resolve) => {
-          ReactDOM.render(
-            <Creepometer
-              initialValue={initialValue}
-              whenLoaded={() => resolve()}
-            />,
-            element
-          );
-        })
-      );
-    });
+  initPageSpecificScript() {
+    // PNI homepage
+    if (document.getElementById(`view-home`)) {
+      HomepageSlider.init();
+    }
   },
 };
 
