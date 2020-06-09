@@ -126,12 +126,6 @@ class InitiativesPage(PrimaryPage):
     ]
 
 
-# TODO: Remove this model after ParticipatePage2 is in use
-class ParticipatePage(PrimaryPage):
-    parent_page_types = ['Homepage']
-    template = 'wagtailpages/static/participate_page.html'
-
-
 class ParticipatePage2(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page2.html'
@@ -520,7 +514,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'MiniSiteNameSpace',
         'NewsPage',
         'OpportunityPage',
-        'ParticipatePage',
         'ParticipatePage2',
         'PeoplePage',
         'PrimaryPage',
