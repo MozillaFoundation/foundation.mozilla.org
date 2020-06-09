@@ -7,6 +7,7 @@ from django.db import Error
 from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.translation import pgettext
 
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
 from rest_framework.parsers import JSONParser
@@ -59,12 +60,11 @@ def filter_draft_products(request, products):
 
 @redirect_to_default_cms_site
 def buyersguide_home(request):
-    products = cache.get('sorted_product_dicts')
-
-    if not products:
-        products = [p.to_dict() for p in Product.objects.all()]
-        products.sort(key=lambda p: get_average_creepiness(p))
-        cache.set('sorted_product_dicts', products, 86400)
+    products = cache.get_or_set(
+        'sorted_product_dicts',
+        lambda: sorted([p.to_dict() for p in Product.objects.all()], key=get_average_creepiness),
+        86400
+    )
 
     products = filter_draft_products(request, products)
 
@@ -77,18 +77,18 @@ def buyersguide_home(request):
 
 @redirect_to_default_cms_site
 def category_view(request, slug):
-    key = f'products_category__{slug}'
-    products = cache.get(key)
-
     # If getting by slug fails, also try to get it by name.
     try:
         category = BuyersGuideProductCategory.objects.get(slug=slug)
     except ObjectDoesNotExist:
         category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
-    if not products:
-        products = [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
-        cache.set(key, products, 86400)
+    key = f'products_category__{slug.replace(" ", "_")}'
+    products = cache.get_or_set(
+        key,
+        lambda: [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()],
+        86400
+    )
 
     products = filter_draft_products(request, products)
 
@@ -139,7 +139,9 @@ def product_view(request, slug):
         'product': product_dict,
         'mediaUrl': MEDIA_URL,
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
-        'pageTitle': f'*privacy not included - {product.name}',
+        'pageTitle': pgettext(
+            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+            '*privacy not included') + f' - {product.name}',
         'security_score': total_score,
         'full_security_score': num_criteria
     })
@@ -149,11 +151,11 @@ def bg_about_page(template_name):
     @redirect_to_default_cms_site
     def render_view(request):
         key = 'categories'
-        categories = cache.get(key)
-
-        if not categories:
-            categories = BuyersGuideProductCategory.objects.all()
-            cache.set(key, categories, 86400)
+        categories = cache.get_or_set(
+            key,
+            lambda: BuyersGuideProductCategory.objects.all(),
+            86400
+        )
 
         return render(request, f"about/{template_name}.html", {
             'categories': categories,
