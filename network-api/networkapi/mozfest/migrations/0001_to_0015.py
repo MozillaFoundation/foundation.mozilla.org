@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
         ('wagtailimages', '0001_squashed_0021'),
-        ('wagtailpages', '0101_auto_20200527_2031'),
+        ('wagtailpages', '0001_to_0101'),
     ]
 
     operations = [
