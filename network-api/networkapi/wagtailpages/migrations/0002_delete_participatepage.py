@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
         ('wagtailforms', '0004_add_verbose_name_plural'),
         ('wagtailinventory', '0001_initial'),
         ('wagtailredirects', '0006_redirect_increase_max_length'),
-        ('wagtailpages', '0101_auto_20200527_2031'),
+        ('wagtailpages', '0001_to_0101'),
     ]
 
     operations = [
