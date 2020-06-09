@@ -25,24 +25,6 @@ def ensure_mozfest_signup(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    replaces = [
-        ('mozfest', '0001_initial'),
-        ('mozfest', '0002_auto_20190516_1558'),
-        ('mozfest', '0003_ensure_mozfest_signup'),
-        ('mozfest', '0004_mozfestprimarypage_use_wide_template'),
-        ('mozfest', '0005_custom_cta_label_and_destination'),
-        ('mozfest', '0006_auto_20190910_2338'),
-        ('mozfest', '0007_auto_20191105_2345'),
-        ('mozfest', '0008_auto_20191128_2137'),
-        ('mozfest', '0009_mozfestprimarypage_signup'),
-        ('mozfest', '0010_auto_20200213_1550'),
-        ('mozfest', '0011_auto_20200220_0027'),
-        ('mozfest', '0012_auto_20200302_2350'),
-        ('mozfest', '0013_auto_20200305_1725'),
-        ('mozfest', '0014_auto_20200406_2109'),
-        ('mozfest', '0015_auto_20200527_1836'),
-    ]
-
     initial = True
 
     dependencies = [

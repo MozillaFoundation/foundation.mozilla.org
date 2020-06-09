@@ -6,36 +6,6 @@ import networkapi.people.models
 
 
 class Migration(migrations.Migration):
-    replaces = [
-        ('people', '0001_initial'),
-        ('people', '0002_auto_20170303_1823'),
-        ('people', '0003_auto_20170303_2206'),
-        ('people', '0004_auto_20170306_0121'),
-        ('people', '0005_auto_20170307_1707'),
-        ('people', '0006_auto_20170309_2250'),
-        ('people', '0007_auto_20170309_2252'),
-        ('people', '0008_auto_20170309_2326'),
-        ('people', '0009_auto_20170310_2151'),
-        ('people', '0010_auto_20170313_2110'),
-        ('people', '0011_auto_20170313_2218'),
-        ('people', '0012_auto_20170314_1821'),
-        ('people', '0013_auto_20170314_1826'),
-        ('people', '0014_auto_20170314_1850'),
-        ('people', '0015_auto_20170314_1910'),
-        ('people', '0016_auto_20170314_1955'),
-        ('people', '0017_auto_20170320_0603'),
-        ('people', '0018_auto_20170327_2115'),
-        ('people', '0018_auto_20170327_1752'),
-        ('people', '0019_merge_20170327_2124'),
-        ('people', '0020_auto_20170330_2201'),
-        ('people', '0021_auto_20170404_2004'),
-        ('people', '0021_auto_20170404_1413'),
-        ('people', '0022_merge_20170405_2110'),
-        ('people', '0023_auto_20170504_2327'),
-        ('people', '0024_person_homepage'),
-        ('people', '0025_remove_person_homepage'),
-        ('people', '0026_nullify_homepage'),
-    ]
 
     initial = True
 
