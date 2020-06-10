@@ -37,6 +37,15 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
         help_text='Choose an image that\'s bigger than 4032px x 1152px with aspect ratio 3.5:1',
     )
 
+    def get_banner(self):
+        if self.banner is None:
+            ancestors = self.get_ancestors().reverse()
+            for page in ancestors:
+                if isinstance(page.specific, PrimaryPage) and page.specific.banner is not None:
+                    return page.specific.banner
+
+        return self.banner
+
     intro = models.CharField(
         max_length=250,
         blank=True,
