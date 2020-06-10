@@ -39,10 +39,16 @@ class PrimaryPage(FoundationMetadataPageMixin, Page):
 
     def get_banner(self):
         if self.banner is None:
+            # note: we need to reverse get_ancestors, because by default
+            # this gives a list that starts at the root, and then gets more
+            # specific, ending in the direct parent. We want to check in the
+            # opposite direction: start at the parent until we hit the root.
             ancestors = self.get_ancestors().reverse()
             for page in ancestors:
-                if isinstance(page.specific, PrimaryPage) and page.specific.banner is not None:
-                    return page.specific.banner
+                page = page.specific
+                valid = isinstance(page, PrimaryPage)
+                if valid and page.banner is not None:
+                    return page.banner
 
         return self.banner
 
