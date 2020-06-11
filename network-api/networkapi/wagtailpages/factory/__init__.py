@@ -16,8 +16,9 @@ from . import (
 
 def generate(seed):
     homepage.generate(seed)
-    homepage_features.generate(seed)
     blog.generate(seed)
+    # homepage_features.generate requires blog pages to exist first
+    homepage_features.generate(seed)
     campaign_page.generate(seed)
     bannered_campaign_page.generate(seed)
     initiatives_page.generate(seed)
