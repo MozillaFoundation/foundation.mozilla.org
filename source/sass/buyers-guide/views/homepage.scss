@@ -1,5 +1,6 @@
 #view-home {
   $breakpoint: $bp-md;
+  // cutoff value is set to 88px in Sketch file
   $cutoff-offset: 88px;
 
   .page-header {
