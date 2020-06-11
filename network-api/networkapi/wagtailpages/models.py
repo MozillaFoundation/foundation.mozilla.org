@@ -12,6 +12,7 @@ from .pagemodels.base import (
     PeoplePage,
     HomepageFeaturedBlogs,
     HomepageFeaturedHighlights,
+    HomepageFeaturedNews,
     ParticipateHighlights,
     ParticipateHighlights2,
 )
@@ -75,6 +76,7 @@ __all__ = [
     Homepage,
     HomepageFeaturedBlogs,
     HomepageFeaturedHighlights,
+    HomepageFeaturedNews,
     IndexPage,
     InitiativesPage,
     MiniSiteNameSpace,

@@ -46,14 +46,18 @@ def generate(seed):
     NUM_BLOGS = 4
     NUM_HIGHLIGHTS = 5
 
-    featured_blogs = BlogPage.objects.all()[:NUM_BLOGS]
-    featured_highlights = [HighlightFactory.create() for i in range(NUM_HIGHLIGHTS)]
-
     home_page.featured_blogs = [
-        HomepageFeaturedBlogsFactory.build(blog=featured_blogs[i]) for i in range(NUM_BLOGS)
+        HomepageFeaturedBlogsFactory.build(
+            blog=BlogPage.objects.all()[i]
+        )
+        for i in range(NUM_BLOGS)
     ]
+
     home_page.featured_highlights = [
-        HomepageFeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(NUM_HIGHLIGHTS)
+        HomepageFeaturedHighlightsFactory.build(
+            highlight=HighlightFactory.create()
+        )
+        for i in range(NUM_HIGHLIGHTS)
     ]
 
     home_page.save()
