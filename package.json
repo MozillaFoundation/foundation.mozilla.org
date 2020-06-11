@@ -74,7 +74,7 @@
     "react": "^16.13.0",
     "react-axe": "^3.4.1",
     "react-dom": "^16.13.0",
-    "react-ga": "2.7.0",
+    "react-ga": "3.0.0",
     "shx": "^0.3.2",
     "uuid": "^8.1.0",
     "webpack": "^4.43.0",
@@ -82,7 +82,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "engines": {
-    "node": "12.16.*"
+    "node": "14.4.*"
   },
   "devDependencies": {
     "browserslist": "^4.12.0",
