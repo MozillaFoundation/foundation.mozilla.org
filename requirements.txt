@@ -30,7 +30,7 @@ djangorestframework==3.11.0  # via -r requirements.in, wagtail
 docutils==0.15.2          # via botocore
 draftjs-exporter==2.1.7   # via wagtail
 factory-boy==2.12.0       # via -r requirements.in, wagtail-factories
-faker==4.1.0              # via -r requirements.in, factory-boy
+faker==4.1.1              # via -r requirements.in, factory-boy
 filebrowser-safe==0.5.0   # via -r requirements.in
 future==0.18.2            # via -r requirements.in
 gunicorn==20.0.4          # via -r requirements.in
