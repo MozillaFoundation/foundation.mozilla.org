@@ -27,7 +27,7 @@
         if (!profile[type]) return;
         try {
           let a = document.createElement(`a`);
-          a.href = profile.thumbnail;
+          a.href = profile[type];
           let url = new URL(a);
           let protocol = url.protocol;
           if (protocol.indexOf(`http`) !== 0) {
