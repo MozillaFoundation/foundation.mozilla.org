@@ -25,9 +25,11 @@
       // URL fields should be actual URLs
       [`thumbnail`, `twitter`, `linkedin`].forEach((type) => {
         if (!profile[type]) return;
+
+        let a = document.createElement(`a`);
+        a.href = profile[type];
+
         try {
-          let a = document.createElement(`a`);
-          a.href = profile[type];
           let url = new URL(a);
           let protocol = url.protocol;
           if (protocol.indexOf(`http`) !== 0) {
