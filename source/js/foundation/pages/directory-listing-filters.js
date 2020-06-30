@@ -13,6 +13,45 @@
     .apiEndpoint;
 
   /**
+   * We're reasonably sure that profiles are sane already, but
+   * let's make sure we're _absolutely_ sure because we're relying
+   * on innerHTML for this code to work.
+   */
+  function preprocessProfiles(profiles) {
+    profiles.forEach((profile) => {
+      // the id has to be an int
+      profile.profile_id = parseInt(profile.profile_id);
+
+      // URL fields should be actual URLs
+      [`thumbnail`, `twitter`, `linkedin`].forEach((type) => {
+        if (!profile[type]) return;
+        try {
+          let a = document.createElement(`a`);
+          a.href = profile.thumbnail;
+          let url = new URL(a);
+          let protocol = url.protocol;
+          if (protocol.indexOf(`http`) !== 0) {
+            throw new Error(`non-web link found for profile.${type}`);
+          }
+          profile[type] = url.toString();
+        } catch (e) {
+          profile[type] = false;
+        }
+      });
+
+      let sanitizer = document.createElement(`div`);
+
+      // Freeform fields may not contain HTML
+      [`name`, `location`, `user_bio`].forEach((type) => {
+        sanitizer.textContent = profile[type];
+        profile[type] = sanitizer.innerHTML;
+      });
+    });
+
+    return profiles;
+  }
+
+  /**
    * After initial page load, the filter buttons are responsible for
    * fetching results "per filter entry".
    */
@@ -123,7 +162,8 @@
           <div class="dot"></div>
           <div class="dot"></div>
         </div>
-      </div>`;
+      </div>
+    `;
   }
 
   function loadForYear(year, bypassState) {
@@ -135,7 +175,7 @@
       getData(year)
         .then((data) => {
           // catch that data, and then load the results.
-          profileCache[year] = data;
+          profileCache[year] = preprocessProfiles(data);
           loadResults(year, bypassState);
         })
         .catch((error) => {
