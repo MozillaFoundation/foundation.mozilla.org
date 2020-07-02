@@ -126,7 +126,7 @@ class InitiativesPage(PrimaryPage):
     ]
 
 
-class ParticipatePage2(PrimaryPage):
+class ParticipatePage(PrimaryPage):
     parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page2.html'
 
@@ -399,14 +399,14 @@ class CTABase(WagtailOrderable, models.Model):
 
 class CTA4(CTABase):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='cta4',
     )
 
 
 class ParticipateHighlightsBase(WagtailOrderable, models.Model):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
@@ -426,14 +426,14 @@ class ParticipateHighlightsBase(WagtailOrderable, models.Model):
 
 class ParticipateHighlights(ParticipateHighlightsBase):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='featured_highlights',
     )
 
 
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
-        'wagtailpages.ParticipatePage2',
+        'wagtailpages.ParticipatePage',
         related_name='featured_highlights2',
     )
 
@@ -495,7 +495,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'MiniSiteNameSpace',
         'NewsPage',
         'OpportunityPage',
-        'ParticipatePage2',
+        'ParticipatePage',
         'PeoplePage',
         'PrimaryPage',
         'RedirectingPage',

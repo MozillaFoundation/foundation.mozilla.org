@@ -8,16 +8,16 @@ from factory import (
 )
 from wagtail.core.models import Page as WagtailPage
 
-from networkapi.wagtailpages.models import ParticipatePage2
+from networkapi.wagtailpages.models import ParticipatePage
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
 )
 
 
-class ParticipatePage2Factory(PageFactory):
+class ParticipatePageFactory(PageFactory):
     class Meta:
-        model = ParticipatePage2
+        model = ParticipatePage
 
     title = 'participate'
     h2 = Faker('text', max_nb_chars=20)
@@ -56,4 +56,4 @@ def generate(seed):
         print('participate page exists')
     except WagtailPage.DoesNotExist:
         print('Generating an empty Participate Page')
-        ParticipatePage2Factory.create(parent=home_page)
+        ParticipatePageFactory.create(parent=home_page)
