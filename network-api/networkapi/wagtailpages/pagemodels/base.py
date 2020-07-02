@@ -279,6 +279,7 @@ class ParticipatePage2(PrimaryPage):
 
 
 class PeoplePage(PrimaryPage):
+    pass
 
 
 class Styleguide(PrimaryPage):
