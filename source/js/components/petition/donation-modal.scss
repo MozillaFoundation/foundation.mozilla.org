@@ -23,23 +23,17 @@
       padding: 0 2em 2em;
     }
 
-    .modal-header {
-      display: block;
-      border: none;
-      margin: 0;
-      padding: 0.5rem 0.5rem 0 0;
-
-      .close {
-        position: absolute;
-        right: 0.5rem;
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: normal;
-        line-height: 1;
-        color: $black;
-        text-shadow: 0 1px 0 $white;
-        opacity: 1;
-      }
+    .close {
+      position: absolute;
+      right: 0;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: normal;
+      line-height: 1;
+      color: $black;
+      text-shadow: 0 1px 0 $white;
+      opacity: 1;
+      padding: 0.5rem 1rem;
     }
 
     .modal-body {
