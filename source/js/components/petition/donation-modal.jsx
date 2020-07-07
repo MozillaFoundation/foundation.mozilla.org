@@ -67,17 +67,15 @@ class DonationModal extends React.Component {
     }
     return (
       <div className="modal-content" role="dialog">
-        <div className="modal-header text-right">
-          <button
-            className="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            onClick={(e) => this.props.onClose(e)}
-            tabIndex="0"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+        <button
+          className="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          onClick={(e) => this.props.onClose(e)}
+          tabIndex="0"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
 
         <div className="modal-body">
           <h3 className={classNames(`h2-heading`, `text-center`)}>
