@@ -8,7 +8,6 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from .base_fields import base_fields
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
-
 from ..utils import (
     set_main_site_nav_information,
     get_page_tree_information,
