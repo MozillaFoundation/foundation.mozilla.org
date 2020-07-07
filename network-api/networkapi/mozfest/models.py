@@ -13,11 +13,12 @@ from networkapi.wagtailpages.utils import (
 from networkapi.wagtailpages.models import (
     base_fields,
     FoundationMetadataPageMixin,
+    FoundationBannerInheritanceMixin,
     Signup
 )
 
 
-class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
+class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
     header = models.CharField(
         max_length=250,
         blank=True
@@ -32,21 +33,6 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
         verbose_name='Hero Image',
         help_text='Choose an image that\'s bigger than 4032px x 1152px with aspect ratio 3.5:1',
     )
-
-    def get_banner(self):
-        if self.banner is None:
-            # note: we need to reverse get_ancestors, because by default
-            # this gives a list that starts at the root, and then gets more
-            # specific, ending in the direct parent. We want to check in the
-            # opposite direction: start at the parent until we hit the root.
-            ancestors = self.get_ancestors().reverse()
-            for page in ancestors:
-                page = page.specific
-                valid = isinstance(page, MozfestPrimaryPage)
-                if valid and page.banner is not None:
-                    return page.banner
-
-        return self.banner
 
     intro = RichTextField(
         help_text='Page intro content',
