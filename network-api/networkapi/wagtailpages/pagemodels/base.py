@@ -468,6 +468,30 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    quote_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='quote_image',
+    )
+
+    quote_text = models.CharField(
+        max_length=500,
+    )
+
+    quote_source_name = models.CharField(
+        max_length=100,
+    )
+
+    quote_source_job_title = models.CharField(
+        max_length=100,
+    )
+
+    quote_source_link = models.URLField(
+        blank=True
+    )
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
@@ -485,6 +509,17 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('quote_image'),
+            FieldPanel('quote_text'),
+            FieldPanel('quote_source_name'),
+            FieldPanel('quote_source_job_title'),
+            FieldPanel('quote_source_link'),
+          ],
+          heading='quote',
+          classname='collapsible'
+        ),
     ]
 
     subpage_types = [
