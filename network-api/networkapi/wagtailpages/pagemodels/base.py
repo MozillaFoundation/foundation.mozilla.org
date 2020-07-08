@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.conf import settings
 
@@ -438,6 +439,25 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
+class PartnerLogos(WagtailOrderable,):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='partner_logos',
+    )
+    logo = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    panels = [
+        ImageChooserPanel('logo'),
+    ]
+
+    class Meta:
+        verbose_name = 'Partner Logo'
+
+
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
         max_length=140,
@@ -468,6 +488,25 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    # Partner Section
+    partner_heading = models.CharField(max_length=75, default='Partner with us')
+    partner_intro_text = models.TextField(blank=True)
+    partner_link_text = models.CharField(max_length=35, default="Let's work together")
+    partner_internal_link = models.ForeignKey(
+        'wagtailcore.Page',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='parnter_internal_link',
+    )
+    partner_external_link = models.URLField(blank=True)
+    partner_background_image = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
@@ -485,6 +524,19 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
+        MultiFieldPanel(
+          [
+            FieldPanel('partner_heading'),
+            FieldPanel('partner_intro_text'),
+            FieldPanel('partner_link_text'),
+            PageChooserPanel('partner_internal_link'),
+            FieldPanel('partner_external_link'),
+            ImageChooserPanel('partner_background_image'),
+            InlinePanel('partner_logos', label='Partner Logo', max_num=7),
+          ],
+          heading='Partner Section',
+          classname='collapsible'
+        ),
     ]
 
     subpage_types = [
@@ -501,6 +553,33 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'RedirectingPage',
         'Styleguide',
     ]
+
+    @property
+    def get_partner_link(self):
+        # Return internal link if it was set, or the
+        # the external link.
+        if self.partner_internal_link:
+            return self.partner_internal_link.url
+        return self.partner_external_link
+
+    def clean(self):
+        super().clean()
+
+        # Validation to ensure both internal or external links have been added
+        # to the partners section.
+        if self.partner_internal_link and self.partner_external_link:
+            # Both fields are filled out
+            message = "Please only select a page OR enter an external URL"
+            raise ValidationError({
+                'partner_internal_link': ValidationError(message),
+                'partner_external_link': ValidationError(message),
+            })
+        if not self.partner_internal_link and not self.partner_external_link:
+            message = "You must always select a page OR enter an external URL"
+            raise ValidationError({
+                'partner_internal_link': ValidationError(message),
+                'partner_external_link': ValidationError(message),
+            })
 
     def get_context(self, request):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
