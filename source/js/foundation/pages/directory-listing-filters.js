@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // start of function
 
   const profileCache = {};
@@ -13,6 +13,47 @@
     .apiEndpoint;
 
   /**
+   * We're reasonably sure that profiles are sane already, but
+   * let's make sure we're _absolutely_ sure because we're relying
+   * on innerHTML for this code to work.
+   */
+  function preprocessProfiles(profiles) {
+    profiles.forEach((profile) => {
+      // the id has to be an int
+      profile.profile_id = parseInt(profile.profile_id);
+
+      // URL fields should be actual URLs
+      [`thumbnail`, `twitter`, `linkedin`].forEach((type) => {
+        if (!profile[type]) return;
+
+        let a = document.createElement(`a`);
+        a.href = profile[type];
+
+        try {
+          let url = new URL(a);
+          let protocol = url.protocol;
+          if (protocol.indexOf(`http`) !== 0) {
+            throw new Error(`non-web link found for profile.${type}`);
+          }
+          profile[type] = url.toString();
+        } catch (e) {
+          profile[type] = false;
+        }
+      });
+
+      let sanitizer = document.createElement(`div`);
+
+      // Freeform fields may not contain HTML
+      [`name`, `location`, `user_bio`].forEach((type) => {
+        sanitizer.textContent = profile[type];
+        profile[type] = sanitizer.innerHTML;
+      });
+    });
+
+    return profiles;
+  }
+
+  /**
    * After initial page load, the filter buttons are responsible for
    * fetching results "per filter entry".
    */
@@ -24,9 +65,9 @@
     let query = [
       profileType ? `profile_type=${profileType}` : false,
       programType ? `program_type=${programType}` : false,
-      programYear ? `program_year=${programYear}` : false
+      programYear ? `program_year=${programYear}` : false,
     ]
-      .filter(v => v)
+      .filter((v) => v)
       .join("&");
 
     // and then perform our API call using the Fetch API
@@ -34,11 +75,11 @@
       return (
         fetch(`${url}&${query}`)
           // conver the resonse from JSON to real data
-          .then(response => response.json())
+          .then((response) => response.json())
           // all went well? resolve.
-          .then(obj => resolve(obj))
+          .then((obj) => resolve(obj))
           // errors? reject.
-          .catch(error => reject(error))
+          .catch((error) => reject(error))
       );
     });
   }
@@ -56,7 +97,7 @@
       history.pushState({ year: year }, document.title);
     }
 
-    let cards = profiles.map(profile => {
+    let cards = profiles.map((profile) => {
       return `
       <div class="col-lg-6 col-12 mb-5">
         <div class="person-card">
@@ -82,8 +123,10 @@
                 }">
                   ${profile.name}
             </a>
-            ${profile.location &&
-              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`}
+            ${
+              profile.location &&
+              `<p class="d-flex align-items-center meta-block-location body-small my-2">${profile.location}</p>`
+            }
             <div class="social-icons">
               ${
                 profile.twitter
@@ -121,7 +164,8 @@
           <div class="dot"></div>
           <div class="dot"></div>
         </div>
-      </div>`;
+      </div>
+    `;
   }
 
   function loadForYear(year, bypassState) {
@@ -131,12 +175,12 @@
       // associated with a particular year:
       showLoadSpinner();
       getData(year)
-        .then(data => {
+        .then((data) => {
           // catch that data, and then load the results.
-          profileCache[year] = data;
+          profileCache[year] = preprocessProfiles(data);
           loadResults(year, bypassState);
         })
-        .catch(error => {
+        .catch((error) => {
           // TODO: what do we want to do in this case?
           console.error(error);
         });
@@ -150,7 +194,7 @@
    * Set focus and class-mark as active.
    */
   function selectLabel(label) {
-    labels.forEach(label => label.classList.remove("active"));
+    labels.forEach((label) => label.classList.remove("active"));
     label.classList.add("active");
     label.focus();
   }
@@ -161,8 +205,8 @@
    * associated year (for now)
    */
   function bindEventsToLabels() {
-    labels.forEach(label => {
-      label.addEventListener("click", evt => {
+    labels.forEach((label) => {
+      label.addEventListener("click", (evt) => {
         let year = label.textContent;
         selectLabel(label);
         loadForYear(year);
@@ -171,10 +215,10 @@
   }
 
   // make sure that "back" does the right thing.
-  window.addEventListener("popstate", evt => {
+  window.addEventListener("popstate", (evt) => {
     const state = evt.state || { year: labels[0].textContent };
     const year = state.year;
-    const label = Array.from(labels).find(l => l.textContent == year);
+    const label = Array.from(labels).find((l) => l.textContent == year);
     selectLabel(label);
     loadForYear(year, true);
   });

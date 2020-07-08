@@ -23,7 +23,7 @@ env:
     - DJANGO_SECRET_KEY=secret
     - NETWORK_SITE_URL=https://foundation.mozilla.org
     - PULSE_API_DOMAIN=https://network-pulse-api-production.herokuapp.com
-    - PULSE_DOMAIN=www.mozillapulse.org
+    - PULSE_DOMAIN=https://www.mozillapulse.org
     - RANDOM_SEED=530910203
     - SET_HSTS=False
     - SSL_REDIRECT=False
@@ -49,8 +49,8 @@ jobs:
   include:
     - name: Python tests
       before_install:
-        - nvm install --lts=erbium
-        - nvm use --lts=erbium
+        - nvm install 14.4.0
+        - nvm use 14.4.0
       install:
       - "./travis-scripts/python-install.sh"
       - "./travis-scripts/npm-install.sh"
@@ -65,16 +65,16 @@ jobs:
         - coveralls
     - name: npm tests
       before_install:
-        - nvm install --lts=erbium
-        - nvm use --lts=erbium
+        - nvm install 14.4.0
+        - nvm use 14.4.0
       install: "./travis-scripts/npm-install.sh"
       script: npm test
     - name: Percy tests
       before_install:
         # libgconf is required by cypress
         - sudo apt-get install -y libgconf-2-4
-        - nvm install --lts=erbium
-        - nvm use --lts=erbium
+        - nvm install 14.4.0
+        - nvm use 14.4.0
       install:
         - "./travis-scripts/python-install.sh"
         - "./travis-scripts/npm-install.sh"

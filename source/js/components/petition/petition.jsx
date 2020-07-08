@@ -48,7 +48,7 @@ export default class Petition extends React.Component {
       apiSuccess: false,
       apiFailed: false,
       userTriedSubmitting: false,
-      showDonationModal: false
+      showDonationModal: false,
     };
   }
 
@@ -57,14 +57,14 @@ export default class Petition extends React.Component {
     ReactGA.event({
       category: `petition`,
       action: `form focus`,
-      label: `Petition form input focused`
+      label: `Petition form input focused`,
     });
   }
 
   // helper function for auto-generating checkboxes off of the passed props.
   generateCheckboxes(disabled) {
     return [`checkbox1`, `checkbox2`]
-      .map(name => {
+      .map((name) => {
         let label = this[name];
 
         if (!label) {
@@ -87,13 +87,13 @@ export default class Petition extends React.Component {
           </div>
         );
       })
-      .filter(v => v);
+      .filter((v) => v);
   }
 
   // state update function
   apiSubmissionSuccessful() {
     let update = {
-      apiSuccess: true
+      apiSuccess: true,
     };
 
     if (this.props.modals && this.props.modals.length > 0) {
@@ -121,7 +121,7 @@ export default class Petition extends React.Component {
     ReactGA.event({
       category: `petition`,
       action: `share tap`,
-      label: `${document.title} - share tap`
+      label: `${document.title} - share tap`,
     });
 
     if (shareProgressButtonId) {
@@ -191,7 +191,7 @@ export default class Petition extends React.Component {
         lang,
         postalCode,
         comment,
-        source: window.location.toString()
+        source: window.location.toString(),
       };
 
       let xhr = new XMLHttpRequest();
@@ -264,13 +264,13 @@ export default class Petition extends React.Component {
         .then(() => {
           this.apiSubmissionSuccessful();
         })
-        .catch(e => this.apiSubmissionFailure(e));
+        .catch((e) => this.apiSubmissionFailure(e));
     }
 
     ReactGA.event({
       category: `petition`,
       action: `form submit tap`,
-      label: `Petition form submitted`
+      label: `Petition form submitted`,
     });
   }
 
@@ -330,7 +330,7 @@ export default class Petition extends React.Component {
     let signupState = classNames({
       row: true,
       "sign-success": success,
-      "sign-failure": signingIsDone && this.state.apiFailed
+      "sign-failure": signingIsDone && this.state.apiFailed,
     });
 
     let unrecoverableError =
@@ -411,13 +411,13 @@ export default class Petition extends React.Component {
             <div className="subgroup">
               <button
                 className="btn btn-secondary btn-share facebook-share"
-                onClick={e => this.shareButtonClicked(e, `share-progress-fb`)}
+                onClick={(e) => this.shareButtonClicked(e, `share-progress-fb`)}
               >
                 Facebook
               </button>
               <button
                 className="btn btn-secondary btn-share twitter-share"
-                onClick={e => this.shareButtonClicked(e, `share-progress-tw`)}
+                onClick={(e) => this.shareButtonClicked(e, `share-progress-tw`)}
               >
                 Twitter
               </button>
@@ -425,13 +425,13 @@ export default class Petition extends React.Component {
             <div className="subgroup">
               <button
                 className="btn btn-secondary btn-share email-share"
-                onClick={e => this.shareButtonClicked(e, `share-progress-em`)}
+                onClick={(e) => this.shareButtonClicked(e, `share-progress-em`)}
               >
                 Email
               </button>
               <button
                 className="btn btn-secondary btn-share link-share"
-                onClick={e => this.shareButtonClicked(e)}
+                onClick={(e) => this.shareButtonClicked(e)}
                 data-success-text="Copied"
               >
                 Copy
@@ -496,33 +496,33 @@ export default class Petition extends React.Component {
 
     let givenGroupClass = classNames({
       "has-danger":
-        this.state.userTriedSubmitting && !this.givenNames.element.value
+        this.state.userTriedSubmitting && !this.givenNames.element.value,
     });
 
     let surGroupClass = classNames({
       "has-danger":
-        this.state.userTriedSubmitting && !this.surname.element.value
+        this.state.userTriedSubmitting && !this.surname.element.value,
     });
 
     let emailGroupClass = classNames({
       "has-danger":
         this.state.userTriedSubmitting &&
         (!this.email.element.value ||
-          !this.validatesAsEmail(this.email.element.value))
+          !this.validatesAsEmail(this.email.element.value)),
     });
 
     let countryGroupClass = classNames({
       "has-danger":
         this.props.requiresCountryCode === `True` &&
         this.state.userTriedSubmitting &&
-        !this.country.element.value
+        !this.country.element.value,
     });
 
     let postalCodeGroupClass = classNames({
       "has-danger":
         this.props.requiresPostalCode === `True` &&
         this.state.userTriedSubmitting &&
-        !this.postalCode.element.value
+        !this.postalCode.element.value,
     });
 
     let commentGroupClass = classNames({
@@ -533,12 +533,13 @@ export default class Petition extends React.Component {
         (this.state.userTriedSubmitting &&
           this.comment &&
           this.comment.element.value &&
-          this.comment.element.value.length >= SALESFORCE_COMMENT_LIMIT)
+          this.comment.element.value.length >= SALESFORCE_COMMENT_LIMIT),
     });
 
     let privacyClass = classNames(`my-3`, {
       "form-check": true,
-      "has-danger": this.state.userTriedSubmitting && !this.refs.privacy.checked
+      "has-danger":
+        this.state.userTriedSubmitting && !this.refs.privacy.checked,
     });
 
     let errorMessageClass = `body-small form-control-feedback`;
@@ -547,12 +548,12 @@ export default class Petition extends React.Component {
 
     return (
       <div className="col petition-form" id="petition-form">
-        <form onSubmit={e => this.processFormData(e)} noValidate={true}>
+        <form onSubmit={(e) => this.processFormData(e)} noValidate={true}>
           <div className="mb-3">
             <div className={givenGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
-                ref={element => {
+                ref={(element) => {
                   this.givenNames = element;
                 }}
                 id="givenNames"
@@ -571,7 +572,7 @@ export default class Petition extends React.Component {
             <div className={surGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
-                ref={element => {
+                ref={(element) => {
                   this.surname = element;
                 }}
                 id="surname"
@@ -590,7 +591,7 @@ export default class Petition extends React.Component {
             <div className={emailGroupClass}>
               <FloatingLabelInput
                 className="mb-1 w-100"
-                ref={element => {
+                ref={(element) => {
                   this.email = element;
                 }}
                 id="emailInput"
@@ -610,7 +611,7 @@ export default class Petition extends React.Component {
             <div className={countryGroupClass}>
               <CountrySelect
                 className="form-control-lg mb-1 w-100"
-                ref={element => {
+                ref={(element) => {
                   this.country = element;
                 }}
                 label={getText(`Your country`)}
@@ -630,7 +631,7 @@ export default class Petition extends React.Component {
               <div className={postalCodeGroupClass}>
                 <FloatingLabelInput
                   className="mb-1 w-100"
-                  ref={element => {
+                  ref={(element) => {
                     this.postalCode = element;
                   }}
                   id="postalCodeInput"
@@ -651,7 +652,7 @@ export default class Petition extends React.Component {
               <div className={commentGroupClass}>
                 <FloatingLabelTextarea
                   className="mb-1 w-100"
-                  ref={element => {
+                  ref={(element) => {
                     this.comment = element;
                   }}
                   id="commentInput"
@@ -740,5 +741,5 @@ export default class Petition extends React.Component {
 Petition.defaultProps = {
   ctaDescription: <p>{getText(`Add my name`)}</p>,
   ctaHeader: ``,
-  newsletter: `mozilla-foundation`
+  newsletter: `mozilla-foundation`,
 };

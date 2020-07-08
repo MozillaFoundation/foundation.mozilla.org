@@ -58,7 +58,7 @@ export default {
       `scroll`,
       () => {
         // Figure out which face to show while scrolling:
-        let visible = Array.from(products).filter(v => {
+        let visible = Array.from(products).filter((v) => {
           return isElementInViewport(v) && !v.classList.contains(`d-none`);
         });
 
@@ -111,8 +111,8 @@ export default {
         }
       },
       {
-        passive: true // remember not to bog down the UI thread.
+        passive: true, // remember not to bog down the UI thread.
       }
     );
-  }
+  },
 };

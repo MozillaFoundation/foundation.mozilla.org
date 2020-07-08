@@ -1,13 +1,13 @@
 // TODO: make this dynamic based on env. Staging is allizom.org. https://github.com/mozilla/network/issues/118
 var url = `https://www.mozilla.org/en-US/newsletter/`;
 
-var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
+var basketSignup = function (transaction, onSuccessCallback, onFailCallback) {
   var payload = {
     format: `H`, // HTML emails
     newsletter: transaction.newsletter,
     triggerWelcome: `N`,
     email: transaction.email,
-    privacy: transaction.privacy || false
+    privacy: transaction.privacy || false,
   };
 
   var errorArray = [];
@@ -31,7 +31,7 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
 
   var xhr = new XMLHttpRequest();
 
-  xhr.onload = function(r) {
+  xhr.onload = function (r) {
     if (r.target.status >= 200 && r.target.status < 300) {
       var response = r.target.response;
 
@@ -55,7 +55,7 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
     }
   };
 
-  xhr.onerror = function(e) {
+  xhr.onerror = function (e) {
     onFailCallback(e);
   };
 

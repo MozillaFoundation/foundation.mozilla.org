@@ -28,9 +28,6 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
-    AWS_SQS_ACCESS_KEY_ID=(str, None),
-    AWS_SQS_REGION=(str, None),
-    AWS_SQS_SECRET_ACCESS_KEY=(str, None),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CLOUDINARY_API_KEY=(str, ''),
     CLOUDINARY_API_SECRET=(str, ''),
@@ -59,7 +56,6 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     NETWORK_SITE_URL=(str, ''),
-    PETITION_SQS_QUEUE_URL=(str, None),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
@@ -446,12 +442,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ]
 }
-
-# SQS information (if any) for google sheet petition data
-AWS_SQS_ACCESS_KEY_ID = env('AWS_SQS_ACCESS_KEY_ID')
-AWS_SQS_SECRET_ACCESS_KEY = env('AWS_SQS_SECRET_ACCESS_KEY')
-AWS_SQS_REGION = env('AWS_SQS_REGION')
-PETITION_SQS_QUEUE_URL = env('PETITION_SQS_QUEUE_URL')
 
 # SQS information (if any) for CRM petition data
 CRM_AWS_SQS_ACCESS_KEY_ID = env('CRM_AWS_SQS_ACCESS_KEY_ID')

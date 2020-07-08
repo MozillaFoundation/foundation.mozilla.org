@@ -17,7 +17,7 @@ export default () => {
           category: `profiles`,
           action: `profile tap`,
           label: `${document.title} ${profileName} twitter`,
-          transport: `beacon`
+          transport: `beacon`,
         });
       });
     }
@@ -28,7 +28,7 @@ export default () => {
           category: `profiles`,
           action: `profile tap`,
           label: `${document.title} ${profileName} linkedin`,
-          transport: `beacon`
+          transport: `beacon`,
         });
       });
     }
@@ -44,18 +44,18 @@ export default () => {
           category: `profiles`,
           action: `profile tap`,
           label: `${document.title} ${profileName} pulse profile`,
-          transport: `beacon`
+          transport: `beacon`,
         });
       });
     };
 
     // adding event listener for each headshot & name
-    profileCards.forEach(card => {
+    profileCards.forEach((card) => {
       let profileHeadshotElement = card.querySelector(`.headshot-container`);
       let profileNameElement = card.querySelector(`.meta-block-name`);
       let profileName = profileNameElement.textContent.trim();
 
-      [(profileNameElement, profileHeadshotElement)].forEach(target =>
+      [(profileNameElement, profileHeadshotElement)].forEach((target) =>
         bindAnalytics(target, profileName)
       );
 

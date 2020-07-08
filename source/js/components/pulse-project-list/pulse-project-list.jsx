@@ -6,7 +6,7 @@ export default class PulseProjectList extends React.Component {
     super(props);
 
     this.state = {
-      projects: []
+      projects: [],
     };
   }
 
@@ -20,7 +20,7 @@ export default class PulseProjectList extends React.Component {
         {
           projects: this.props.max
             ? projects.results.slice(0, this.props.max)
-            : projects.results
+            : projects.results,
         },
         () => {
           if (this.props.whenLoaded) {
@@ -43,13 +43,13 @@ export default class PulseProjectList extends React.Component {
       page_size: this.props.max ? this.props.max : 12,
       search: this.props.query,
       featured: this.props.featured && `True`,
-      ordering: this.props.reverseChronological ? `-created` : `created`
+      ordering: this.props.reverseChronological ? `-created` : `created`,
     };
 
     // Serialize parameters into a query string
     const serializedParams = Object.keys(params)
-      .filter(key => params[key])
-      .map(key => {
+      .filter((key) => params[key])
+      .map((key) => {
         return `${key}=${encodeURIComponent(params[key])}`;
       });
 
@@ -69,13 +69,15 @@ export default class PulseProjectList extends React.Component {
       let url;
 
       if (project.related_creators.length) {
-        byline = `By ${project.related_creators.map(rc => rc.name).join(`, `)}`;
+        byline = `By ${project.related_creators
+          .map((rc) => rc.name)
+          .join(`, `)}`;
       }
 
       if (this.props.directLink) {
         url = project.content_url;
       } else {
-        url = `https://${this.props.env.PULSE_DOMAIN}/entry/${project.id}`;
+        url = `${this.props.env.PULSE_DOMAIN}/entry/${project.id}`;
       }
 
       return (
@@ -123,5 +125,5 @@ PulseProjectList.propTypes = {
   issues: PropTypes.string,
   max: PropTypes.number,
   query: PropTypes.string.isRequired,
-  reverseChronological: PropTypes.bool
+  reverseChronological: PropTypes.bool,
 };

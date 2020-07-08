@@ -6,12 +6,12 @@ import { ReactGA } from "../../../../common";
 export default () => {
   document
     .querySelectorAll(`body.mozfest .cms a.btn.btn-primary`)
-    .forEach(button => {
+    .forEach((button) => {
       button.addEventListener(`click`, () => {
         ReactGA.event({
           category: `CTA`,
           action: `button tap`,
-          label: button.innerText
+          label: button.innerText,
         });
       });
     });

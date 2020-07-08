@@ -13,7 +13,7 @@ export default class JoinUs extends React.Component {
     super(props);
     this.id = {
       userEmail: utility.generateUniqueId(`join-user-email`),
-      privacyCheckbox: utility.generateUniqueId(`join-privacy-checkbox`)
+      privacyCheckbox: utility.generateUniqueId(`join-privacy-checkbox`),
     };
     this.state = this.getInitialState(props);
   }
@@ -34,7 +34,7 @@ export default class JoinUs extends React.Component {
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
       hideLocaleFields:
-        props.formPosition === `header` || props.formPosition === `footer`
+        props.formPosition === `header` || props.formPosition === `footer`,
     };
   }
 
@@ -67,7 +67,7 @@ export default class JoinUs extends React.Component {
   // state update function
   apiSubmissionSuccessful() {
     this.setState({
-      apiSuccess: true
+      apiSuccess: true,
     });
   }
 
@@ -75,7 +75,7 @@ export default class JoinUs extends React.Component {
   apiSubmissionFailure(e) {
     if (e && e instanceof Error) {
       this.setState({
-        apiFailed: true
+        apiFailed: true,
       });
     }
   }
@@ -96,7 +96,7 @@ export default class JoinUs extends React.Component {
     if (!input) {
       return {
         valid: false,
-        errorMessage: `This is a required section.`
+        errorMessage: `This is a required section.`,
       };
     }
 
@@ -105,12 +105,12 @@ export default class JoinUs extends React.Component {
     if (!valid) {
       return {
         valid: false,
-        errorMessage: `Please enter a valid email address.`
+        errorMessage: `Please enter a valid email address.`,
       };
     }
 
     return {
-      valid: true
+      valid: true,
     };
   }
 
@@ -124,7 +124,7 @@ export default class JoinUs extends React.Component {
       let payload = {
         email: this.email.value,
         /* keeping query params in source url for newsletter signups: https://github.com/mozilla/foundation.mozilla.org/issues/4102#issuecomment-590973606 */
-        source: window.location.href
+        source: window.location.href,
       };
 
       if (this.givenNames) {
@@ -185,7 +185,7 @@ export default class JoinUs extends React.Component {
         .then(() => {
           this.apiSubmissionSuccessful();
         })
-        .catch(e => this.apiSubmissionFailure(e));
+        .catch((e) => this.apiSubmissionFailure(e));
     }
 
     ReactGA.event({
@@ -193,7 +193,7 @@ export default class JoinUs extends React.Component {
       action: `form submit tap`,
       label: `Signup submitted from ${
         this.props.formPosition ? this.props.formPosition : document.title
-      }`
+      }`,
     });
   }
 
@@ -206,12 +206,12 @@ export default class JoinUs extends React.Component {
     ReactGA.event({
       category: `signup`,
       action: `form focus`,
-      label: `Signup form input focused`
+      label: `Signup form input focused`,
     });
 
     if (this.state.hideLocaleFields) {
       this.setState({
-        hideLocaleFields: false
+        hideLocaleFields: false,
       });
     }
   }
@@ -226,14 +226,14 @@ export default class JoinUs extends React.Component {
 
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
-      "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
+      "signup-fail": !this.state.apiFailed && this.state.apiSubmitted,
     });
 
     let layoutClasses = classNames(`col-12`, {
       "col-md-6": this.props.layout === `2-column` && !this.state.apiSuccess,
       "col-sm-12 col-md-8":
         this.props.layout === `2-column` && this.state.apiSuccess,
-      "col-md-11 m-auto": this.isFlowForm()
+      "col-md-11 m-auto": this.isFlowForm(),
     });
 
     return (
@@ -254,7 +254,7 @@ export default class JoinUs extends React.Component {
   renderFlowHeading() {
     return [
       <h2 className="text-center">{this.props.flowHeading}</h2>,
-      <p className="text-center">{this.props.flowText}</p>
+      <p className="text-center">{this.props.flowText}</p>,
     ];
   }
 
@@ -264,13 +264,13 @@ export default class JoinUs extends React.Component {
   renderSnippetHeading() {
     return (
       <React.Fragment>
-        <h5 className="h5-heading">
+        <p className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
-        </h5>
+        </p>
         {!this.state.apiSuccess ? (
           <div
             dangerouslySetInnerHTML={{
-              __html: this.props.ctaDescription
+              __html: this.props.ctaDescription,
             }}
           />
         ) : (
@@ -310,15 +310,15 @@ export default class JoinUs extends React.Component {
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
           !emailValidation.valid) ||
-        this.state.signupFailed
+        this.state.signupFailed,
     });
 
     let classes = classNames(`mb-2`, {
-      "position-relative": wrapperClasses !== ``
+      "position-relative": wrapperClasses !== ``,
     });
 
     let errorWrapperClasses = classNames("glyph-container", {
-      "d-none": this.isFlowForm()
+      "d-none": this.isFlowForm(),
     });
 
     return (
@@ -334,8 +334,8 @@ export default class JoinUs extends React.Component {
             type="email"
             className="form-control"
             placeholder={getText(`Please enter your email`)}
-            ref={el => (this.email = el)}
-            onFocus={evt => this.onInputFocus(evt)}
+            ref={(el) => (this.email = el)}
+            onFocus={(evt) => this.onInputFocus(evt)}
             aria-label={!this.isFlowForm() ? "Email" : ""}
             id={this.id.userEmail}
           />
@@ -372,7 +372,7 @@ export default class JoinUs extends React.Component {
       <div hidden={this.state.hideLocaleFields}>
         <div className="mb-2">
           <CountrySelect
-            ref={element => {
+            ref={(element) => {
               this.country = element;
             }}
             label={getText(`Your country`)}
@@ -383,7 +383,7 @@ export default class JoinUs extends React.Component {
         <div>
           <LanguageSelect
             className="w-100"
-            handleLangChange={e => this.setLang(e)}
+            handleLangChange={(e) => this.setLang(e)}
             selectedLang={this.state.lang}
             formPosition={this.props.formPosition}
           />
@@ -403,8 +403,8 @@ export default class JoinUs extends React.Component {
             type="text"
             className="form-control"
             placeholder="First name"
-            ref={el => (this.givenNames = el)}
-            onFocus={evt => this.onInputFocus(evt)}
+            ref={(el) => (this.givenNames = el)}
+            onFocus={(evt) => this.onInputFocus(evt)}
           />
         </div>
         <div className="mb-2">
@@ -412,8 +412,8 @@ export default class JoinUs extends React.Component {
             type="text"
             className="form-control"
             placeholder="Last name"
-            ref={el => (this.surname = el)}
-            onFocus={evt => this.onInputFocus(evt)}
+            ref={(el) => (this.surname = el)}
+            onFocus={(evt) => this.onInputFocus(evt)}
           />
         </div>
       </div>
@@ -427,7 +427,7 @@ export default class JoinUs extends React.Component {
       "has-danger":
         !this.state.apiSuccess &&
         this.state.userTriedSubmitting &&
-        !this.privacy.checked
+        !this.privacy.checked,
     });
 
     return (
@@ -437,7 +437,7 @@ export default class JoinUs extends React.Component {
             type="checkbox"
             className="form-check-input"
             id={this.id.privacyCheckbox}
-            ref={el => (this.privacy = el)}
+            ref={(el) => (this.privacy = el)}
             required
           />
           <label
@@ -470,7 +470,7 @@ export default class JoinUs extends React.Component {
   renderSubmitButton() {
     let classnames = classNames("btn btn-primary", {
       "w-100": !this.isFlowForm(),
-      "flex-1 mr-3": this.isFlowForm()
+      "flex-1 mr-3": this.isFlowForm(),
     });
     return <button className={classnames}>{getText(`Sign up`)}</button>;
   }
@@ -499,7 +499,7 @@ export default class JoinUs extends React.Component {
     return (
       <form
         noValidate
-        onSubmit={evt => this.processFormData(evt)}
+        onSubmit={(evt) => this.processFormData(evt)}
         className={formClass}
       >
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
@@ -530,5 +530,5 @@ JoinUs.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
   ctaDescription: `<p>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>`,
   newsletter: `mozilla-foundation`,
-  askName: false
+  askName: false,
 };

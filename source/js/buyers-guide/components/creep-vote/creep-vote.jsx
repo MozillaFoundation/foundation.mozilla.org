@@ -24,7 +24,7 @@ export default class CreepVote extends React.Component {
     let creepiness = 0;
     let creepinessId = 0;
 
-    Object.keys(creepBreakdown).forEach(id => {
+    Object.keys(creepBreakdown).forEach((id) => {
       let v = creepBreakdown[id];
 
       if (v > creepiness) {
@@ -51,11 +51,11 @@ export default class CreepVote extends React.Component {
       didVote: false,
       majority: {
         creepiness: creepinessId,
-        confidence: confidence[0] > confidence[1] ? 0 : 1
+        confidence: confidence[0] > confidence[1] ? 0 : 1,
       },
       subscribed,
       showNewsletter: false,
-      voteCount
+      voteCount,
     };
   }
 
@@ -71,7 +71,7 @@ export default class CreepVote extends React.Component {
     if (creepinessSubmitted && confidenceSubmitted) {
       this.setState({
         showNewsletter: voteCount === 2 || voteCount === 3,
-        didVote: true
+        didVote: true,
       });
     }
   }
@@ -83,14 +83,14 @@ export default class CreepVote extends React.Component {
     let credentials = `same-origin`;
     let headers = {
       "X-CSRFToken": this.props.csrf,
-      "Content-Type": `application/json`
+      "Content-Type": `application/json`,
     };
 
     fetch(url, {
       method,
       credentials,
       headers,
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     })
       .then(() => {
         let update = {};
@@ -100,7 +100,7 @@ export default class CreepVote extends React.Component {
           this.showVoteResult();
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.warn(e);
       });
   }
@@ -118,13 +118,13 @@ export default class CreepVote extends React.Component {
     this.sendVoteFor({
       attribute: `confidence`,
       productID,
-      value: confidence
+      value: confidence,
     });
 
     this.sendVoteFor({
       attribute: `creepiness`,
       productID,
-      value: this.state.creepiness
+      value: this.state.creepiness,
     });
   }
 
@@ -147,11 +147,11 @@ export default class CreepVote extends React.Component {
    */
   renderVoteAsk() {
     let unlikelyClasses = classNames("unlikely-glyph btn btn-secondary", {
-      selected: this.state.confidence == false
+      selected: this.state.confidence == false,
     });
 
     let likelyClasses = classNames("likely-glyph btn btn-secondary", {
-      selected: this.state.confidence == true
+      selected: this.state.confidence == true,
     });
 
     return (
@@ -162,7 +162,7 @@ export default class CreepVote extends React.Component {
         <form
           method="post"
           id="creep-vote"
-          onSubmit={evt => this.submitVote(evt)}
+          onSubmit={(evt) => this.submitVote(evt)}
         >
           <div className="row mb-5">
             <div className="col-12 col-md-6">
@@ -173,7 +173,7 @@ export default class CreepVote extends React.Component {
               </div>
               <Creepometer
                 initialValue={this.state.creepiness}
-                onChange={value => this.setCreepiness(value)}
+                onChange={(value) => this.setCreepiness(value)}
               />
             </div>
             <div className="col-12 col-md-6 mt-5 mt-md-0">
@@ -197,7 +197,7 @@ export default class CreepVote extends React.Component {
                     <span
                       className={likelyClasses}
                       onClick={() => this.setConfidence(true)}
-                      onKeyPress={evt => this.setConfidence(true, evt.key)}
+                      onKeyPress={(evt) => this.setConfidence(true, evt.key)}
                       tabIndex="0"
                       role="button"
                     >
@@ -214,7 +214,7 @@ export default class CreepVote extends React.Component {
                     <span
                       className={unlikelyClasses}
                       onClick={() => this.setConfidence(false)}
-                      onKeyPress={evt => this.setConfidence(false, evt.key)}
+                      onKeyPress={(evt) => this.setConfidence(false, evt.key)}
                       tabIndex="0"
                       role="button"
                     >
@@ -265,7 +265,7 @@ export default class CreepVote extends React.Component {
           )}
           csrfToken={this.props.joinUsCSRF}
           apiUrl={this.props.joinUsApiUrl}
-          handleSignUp={successState => this.handleSignUp(successState)}
+          handleSignUp={(successState) => this.handleSignUp(successState)}
         />
       </React.Fragment>
     );

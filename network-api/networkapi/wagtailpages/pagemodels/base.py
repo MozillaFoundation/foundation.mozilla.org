@@ -18,7 +18,6 @@ from ..donation_modal import DonationModals  # noqa: F401
 
 
 class NewsPage(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/news_page.html'
 
 
@@ -78,7 +77,6 @@ class InitiativeSection(models.Model):
 
 
 class InitiativesPage(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/initiatives_page.html'
 
     subpage_types = [
@@ -126,14 +124,7 @@ class InitiativesPage(PrimaryPage):
     ]
 
 
-# TODO: Remove this model after ParticipatePage2 is in use
-class ParticipatePage(PrimaryPage):
-    parent_page_types = ['Homepage']
-    template = 'wagtailpages/static/participate_page.html'
-
-
 class ParticipatePage2(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page2.html'
 
     ctaHero = models.ForeignKey(
@@ -153,10 +144,6 @@ class ParticipatePage2(PrimaryPage):
         features=[
             'bold', 'italic', 'link',
         ],
-        blank=True,
-    )
-
-    ctaCommitment = models.TextField(
         blank=True,
     )
 
@@ -191,10 +178,6 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
-    ctaCommitment2 = models.TextField(
-        blank=True,
-    )
-
     ctaButtonTitle2 = models.CharField(
         verbose_name='Button Text',
         max_length=250,
@@ -223,10 +206,6 @@ class ParticipatePage2(PrimaryPage):
         features=[
             'bold', 'italic', 'link',
         ],
-        blank=True,
-    )
-
-    ctaCommitment3 = models.TextField(
         blank=True,
     )
 
@@ -261,7 +240,6 @@ class ParticipatePage2(PrimaryPage):
             ImageChooserPanel('ctaHero'),
             FieldPanel('ctaHeroHeader'),
             FieldPanel('ctaHeroSubhead'),
-            FieldPanel('ctaCommitment'),
             FieldPanel('ctaButtonTitle'),
             FieldPanel('ctaButtonURL'),
           ],
@@ -276,7 +254,6 @@ class ParticipatePage2(PrimaryPage):
             ImageChooserPanel('ctaHero2'),
             FieldPanel('ctaHeroHeader2'),
             FieldPanel('ctaHeroSubhead2'),
-            FieldPanel('ctaCommitment2'),
             FieldPanel('ctaButtonTitle2'),
             FieldPanel('ctaButtonURL2'),
           ],
@@ -289,7 +266,6 @@ class ParticipatePage2(PrimaryPage):
             ImageChooserPanel('ctaHero3'),
             FieldPanel('ctaHeroHeader3'),
             FieldPanel('ctaHeroSubhead3'),
-            FieldPanel('ctaCommitment3'),
             FieldPanel('ctaFacebook3'),
             FieldPanel('ctaTwitter3'),
             FieldPanel('ctaEmailShareSubject3'),
@@ -303,31 +279,11 @@ class ParticipatePage2(PrimaryPage):
 
 
 class PeoplePage(PrimaryPage):
-    parent_page_types = ['Homepage']
+    pass
 
 
 class Styleguide(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/styleguide.html'
-
-
-class HomepageFeaturedNews(WagtailOrderable, models.Model):
-    page = ParentalKey(
-        'wagtailpages.Homepage',
-        related_name='featured_news',
-    )
-    news = models.ForeignKey('news.News', on_delete=models.CASCADE, related_name='+')
-    panels = [
-        SnippetChooserPanel('news'),
-    ]
-
-    class Meta:
-        verbose_name = 'news'
-        verbose_name_plural = 'news'
-        ordering = ['sort_order']  # not automatically inherited!
-
-    def __str__(self):
-        return self.page.title + '->' + self.news.headline
 
 
 class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
@@ -408,12 +364,6 @@ class CTABase(WagtailOrderable, models.Model):
         blank=True,
     )
 
-    commitment = models.CharField(
-        blank=True,
-        max_length=256,
-        help_text='Amount of time required (eg: "30 min commitment")',
-    )
-
     buttonTitle = models.CharField(
         verbose_name='Button Text',
         max_length=250,
@@ -429,7 +379,6 @@ class CTABase(WagtailOrderable, models.Model):
         ImageChooserPanel('hero'),
         FieldPanel('header'),
         FieldPanel('subhead'),
-        FieldPanel('commitment'),
         FieldPanel('buttonTitle'),
         FieldPanel('buttonURL'),
     ]
@@ -457,14 +406,8 @@ class ParticipateHighlightsBase(WagtailOrderable, models.Model):
         related_name='featured_highlights',
     )
     highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
-    commitment = models.CharField(
-        blank=True,
-        max_length=256,
-        help_text='Amount of time required (eg: "30 min commitment")',
-    )
     panels = [
         SnippetChooserPanel('highlight'),
-        FieldPanel('commitment'),
     ]
 
     class Meta:
@@ -548,7 +491,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'MiniSiteNameSpace',
         'NewsPage',
         'OpportunityPage',
-        'ParticipatePage',
         'ParticipatePage2',
         'PeoplePage',
         'PrimaryPage',

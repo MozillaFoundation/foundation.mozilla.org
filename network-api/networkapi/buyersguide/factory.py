@@ -30,6 +30,16 @@ def get_extended_yes_no_value():
     return choice(options)
 
 
+def get_lowest_content_category():
+    return sorted(
+        [
+            (cat.published_product_count, cat)
+            for cat in BuyersGuideProductCategory.objects.all()
+        ],
+        key=lambda t: t[0]
+    )[0][1]
+
+
 class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
     class Meta:
         model = ProductPrivacyPolicyLink
@@ -96,7 +106,7 @@ class ProductFactory(DjangoModelFactory):
         while True:
             odds = random()
             if odds < ceiling:
-                category = choice(BuyersGuideProductCategory.objects.all())
+                category = get_lowest_content_category()
                 self.product_category.add(category)
                 ceiling = ceiling / 5
             else:

@@ -10,7 +10,7 @@ export default class FloatingLabelInput extends React.Component {
         <input
           className="form-control"
           disabled={this.props.disabled}
-          ref={element => {
+          ref={(element) => {
             this.element = element;
           }}
           id={this.props.id}

@@ -10,7 +10,7 @@ import JoinUs from "../../components/join/join.jsx";
  */
 export default (apps, siteUrl, csrfToken) => {
   // excluding `.join-us.on-nav` because it's taken care of by nav-newsletter.js
-  document.querySelectorAll(`.join-us:not(.on-nav)`).forEach(element => {
+  document.querySelectorAll(`.join-us:not(.on-nav)`).forEach((element) => {
     const props = element.dataset;
     const sid = props.signupId || 0;
 
@@ -19,7 +19,7 @@ export default (apps, siteUrl, csrfToken) => {
     props.isHidden = false;
 
     apps.push(
-      new Promise(resolve => {
+      new Promise((resolve) => {
         ReactDOM.render(
           <JoinUs {...props} whenLoaded={() => resolve()} />,
           element

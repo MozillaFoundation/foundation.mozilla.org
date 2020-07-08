@@ -5,7 +5,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('wagtailpages/tags/card.html')
-def card(image, title, description, link_url, link_label, commitment=None):
+def card(image, title, description, link_url, link_label):
     parsedDescription = BeautifulSoup(description, 'html.parser')
 
     return {
@@ -15,7 +15,6 @@ def card(image, title, description, link_url, link_label, commitment=None):
         'description_is_rich_text': len(parsedDescription.find_all(True)) > 0,
         'link_url': link_url,
         'link_label': link_label,
-        'commitment': commitment,
     }
 
 
@@ -26,7 +25,6 @@ def cardCTA(
     description,
     link_url,
     link_label,
-    commitment=None,
     facebook=None,
     twitter=None,
     email_subject=None,
@@ -38,7 +36,6 @@ def cardCTA(
         'description': description,
         'link_url': link_url,
         'link_label': link_label,
-        'commitment': commitment,
         'facebook': facebook,
         'twitter': twitter,
         'email_subject': email_subject,
@@ -47,12 +44,11 @@ def cardCTA(
 
 
 @register.inclusion_tag('wagtailpages/tags/card-large.html')
-def cardLarge(image, title, description, link_url, link_label, commitment=None):
+def cardLarge(image, title, description, link_url, link_label):
     return {
         'image': image,
         'title': title,
         'description': description,
         'link_url': link_url,
         'link_label': link_label,
-        'commitment': commitment,
     }

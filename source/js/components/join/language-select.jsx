@@ -17,14 +17,14 @@ export default class LanguageSelect extends React.Component {
       es: `Español`,
       fr: `Français`,
       pl: `Polski`,
-      pt: `Português`
+      pt: `Português`,
     };
 
     let lang_codes = Object.keys(languages);
-    let options = lang_codes.map(lang_code => {
+    let options = lang_codes.map((lang_code) => {
       const optionAttributes = {
         key: lang_code,
-        value: lang_code
+        value: lang_code,
       };
       return <option {...optionAttributes}>{languages[lang_code]}</option>;
     });
@@ -40,8 +40,8 @@ export default class LanguageSelect extends React.Component {
         className={classes}
         id={`userLanguage-${this.props.formPosition}`}
         value={this.props.selectedLang}
-        onBlur={evt => this.handleChange(evt)}
-        onChange={evt => this.handleChange(evt)}
+        onBlur={(evt) => this.handleChange(evt)}
+        onChange={(evt) => this.handleChange(evt)}
         aria-label="Please select your preferred language"
       >
         {this.renderOptions()}

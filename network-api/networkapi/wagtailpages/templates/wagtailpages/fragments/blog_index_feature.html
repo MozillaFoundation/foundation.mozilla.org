@@ -1,0 +1,32 @@
+{% load wagtailimages_tags i18n %}
+
+{% comment %}
+  This template is similar to the featured_blogs.html code *and* the card.html
+  code, because it kind of needs to look like the first, while proportioning
+  itself similar to the second.
+
+  TODO: figure out if we can unify the three templates.
+{% endcomment %}
+
+<div>
+  {% image blog.specific.get_meta_image width-540 %}
+</div>
+
+<div class="d-flex flex-column flex-1 key-item mx-2 mx-md-4 p-3">
+  <p class="h6-heading mb-2">
+    {% for category in blog.specific.category.all %}
+    <a href="/blog/category/{{category.slug}}">{{ category }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  </p>
+  <h5 class="mb-2 h3-heading">
+    <a href="{{blog.url}}">{{blog.title}}</a>
+  </h5>
+  <p class="body-small mb-2">
+    {% if blog.author %}
+      {% blocktrans with author=blog.author %}by {{author}}{% endblocktrans %}
+    {% endif %}
+    {% if blog.first_published_at %} {% blocktrans with date=blog.first_published_at|date:"DATE_FORMAT" %}on {{date}}{% endblocktrans %}{% else %}not published yet{% endif %}
+  </p>
+  <p>{{blog.search_description}}</p>
+</div>
+

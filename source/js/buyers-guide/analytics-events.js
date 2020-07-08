@@ -6,12 +6,12 @@ function getQuerySelectorEvents(pageTitle, productName) {
     "#donate-header-btn": {
       category: `buyersguide`,
       action: `donate tap`,
-      label: `${pageTitle} donate header`
+      label: `${pageTitle} donate header`,
     },
     ".donate-banner a.btn.btn-secondary": {
       category: `buyersguide`,
       action: `donate tap`,
-      label: `${pageTitle} donate footer`
+      label: `${pageTitle} donate footer`,
     },
 
     // product events
@@ -21,14 +21,14 @@ function getQuerySelectorEvents(pageTitle, productName) {
       label: `company link for ${productName}`,
       transport: `beacon`,
       // Custom properties (not sent to GA)
-      conditionalQuery: `#view-product-page`
+      conditionalQuery: `#view-product-page`,
     },
     "#product-copy-link-button": {
       category: `product`,
       action: `copy link tap`,
       label: `copy link ${productName}`,
       // Custom properties (not sent to GA)
-      conditionalQuery: `#view-product-page`
+      conditionalQuery: `#view-product-page`,
     },
     "#product-live-chat": {
       category: `product`,
@@ -37,14 +37,14 @@ function getQuerySelectorEvents(pageTitle, productName) {
       // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`,
       // Not all products have live-chat
-      optional_element: true
+      optional_element: true,
     },
     "#creep-vote-btn": {
       category: `product`,
       action: `opinion submitted`,
       label: `opinion on ${productName}`,
       // Custom properties (not sent to GA)
-      conditionalQuery: `#view-product-page`
+      conditionalQuery: `#view-product-page`,
     },
     "a.privacy-policy-link": {
       category: `product`,
@@ -52,7 +52,7 @@ function getQuerySelectorEvents(pageTitle, productName) {
       label: `policy link for ${productName}`,
       transport: `beacon`,
       // Custom properties (not sent to GA)
-      conditionalQuery: `#view-product-page`
+      conditionalQuery: `#view-product-page`,
     },
     ".product-update-link": {
       category: `product`,
@@ -62,8 +62,8 @@ function getQuerySelectorEvents(pageTitle, productName) {
       // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`,
       // Note all products have updates
-      optional_element: true
-    }
+      optional_element: true,
+    },
   };
 }
 
@@ -86,7 +86,7 @@ const ProductGA = {
       .getAttribute(`content`);
     let querySelectorEvents = getQuerySelectorEvents(pageTitle, productName);
 
-    Object.keys(querySelectorEvents).forEach(querySelector => {
+    Object.keys(querySelectorEvents).forEach((querySelector) => {
       let target = document;
 
       // Some events should only get bound on specific page(s),
@@ -111,10 +111,10 @@ const ProductGA = {
           category: baseData.category,
           action: baseData.action,
           label: baseData.label,
-          transport: baseData.transport
+          transport: baseData.transport,
         };
 
-        elements.forEach(e => setupElementGA(e, eventData));
+        elements.forEach((e) => setupElementGA(e, eventData));
       } else if (!querySelectorEvents[querySelector].optional_element) {
         // If we're on the right page, but the event's query selector
         // does not result in any elements, that's a bug and should
@@ -122,7 +122,7 @@ const ProductGA = {
         console.error(`cannot find ${querySelector}`);
       }
     });
-  }
+  },
 };
 
 export default ProductGA;

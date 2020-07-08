@@ -3,13 +3,14 @@ from factory.django import DjangoModelFactory
 
 from networkapi.wagtailpages.models import (
     HomepageFeaturedHighlights,
-    HomepageFeaturedNews
+    HomepageFeaturedBlogs,
+    BlogPage
 )
-from networkapi.news.factory import NewsFactory
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
 )
+from .blog import BlogPageFactory
 from networkapi.highlights.factory import HighlightFactory
 from .homepage import WagtailHomepageFactory
 
@@ -21,6 +22,13 @@ class FeaturedFactory(DjangoModelFactory):
     page = SubFactory(WagtailHomepageFactory)
 
 
+class HomepageFeaturedBlogsFactory(FeaturedFactory):
+    class Meta:
+        model = HomepageFeaturedBlogs
+
+    blog = SubFactory(BlogPageFactory)
+
+
 class HomepageFeaturedHighlightsFactory(FeaturedFactory):
     class Meta:
         model = HomepageFeaturedHighlights
@@ -28,28 +36,28 @@ class HomepageFeaturedHighlightsFactory(FeaturedFactory):
     highlight = SubFactory(HighlightFactory)
 
 
-class HomepageFeaturedNewsFactory(FeaturedFactory):
-    class Meta:
-        model = HomepageFeaturedNews
-
-    news = SubFactory(NewsFactory)
-
-
 def generate(seed):
-    print('Generating Homepage Highlights and News')
+    print('Generating Homepage Blogs and Highlights')
 
     home_page = get_homepage()
 
     reseed(seed)
 
-    featured_highlights = [HighlightFactory.create() for i in range(6)]
-    featured_news = [NewsFactory.create() for i in range(6)]
+    NUM_BLOGS = 4
+    NUM_HIGHLIGHTS = 5
+
+    home_page.featured_blogs = [
+        HomepageFeaturedBlogsFactory.build(
+            blog=BlogPage.objects.all()[i]
+        )
+        for i in range(NUM_BLOGS)
+    ]
 
     home_page.featured_highlights = [
-        HomepageFeaturedHighlightsFactory.build(highlight=featured_highlights[i]) for i in range(6)
-    ]
-    home_page.featured_news = [
-        HomepageFeaturedNewsFactory.build(news=featured_news[i]) for i in range(6)
+        HomepageFeaturedHighlightsFactory.build(
+            highlight=HighlightFactory.create()
+        )
+        for i in range(NUM_HIGHLIGHTS)
     ]
 
     home_page.save()

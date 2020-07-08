@@ -1,5 +1,7 @@
 #view-home {
   $breakpoint: $bp-md;
+  // cutoff value is set to 88px in Sketch file
+  $cutoff-offset: 88px;
 
   .page-header {
     background: url(../_images/buyers-guide/evergreen-header.jpg) center center /
@@ -9,15 +11,34 @@
     @media (min-width: $breakpoint) {
       height: 304px;
     }
+
+    .container.badge-container {
+      height: calc(100% - #{$cutoff-offset});
+    }
+
+    .webby-award-badge {
+      position: relative;
+      right: -$grid-gutter-width/2;
+      width: 100px;
+      height: auto;
+
+      @media (min-width: $breakpoint) {
+        width: 148px;
+      }
+
+      @media (min-width: $bp-xl) {
+        right: 0;
+      }
+    }
   }
 
   .product-listing {
-    margin-top: -88px;
+    margin-top: -$cutoff-offset;
 
     .user-rated {
       font-family: "Zilla Slab";
       font-size: 18px;
-      color: $gray-40;
+      color: $gray-60;
       font-style: italic;
 
       @media screen and (min-width: $breakpoint) {
@@ -108,15 +129,29 @@
         }
 
         .product-image {
-          @include hover-focus-active {
-            text-decoration: none;
-          }
-
           img {
             margin: 0 auto;
 
             @media (min-width: $breakpoint) {
               max-width: 78%;
+            }
+          }
+        }
+
+        .product-links {
+          @include hover-focus-active {
+            text-decoration: none;
+          }
+
+          @media screen and (max-width: $breakpoint) {
+            .product-company {
+              color: $gray-80;
+              @include set-text-size(9px, 14px);
+            }
+
+            .product-name {
+              color: $black;
+              @include set-text-size(11px, 14px);
             }
           }
         }
