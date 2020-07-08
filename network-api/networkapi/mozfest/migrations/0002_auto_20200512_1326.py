@@ -11,7 +11,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0014_auto_20200406_2109'),
+        ('mozfest', '0001_to_0015'),
     ]
 
     operations = [
