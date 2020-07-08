@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailimages', '0001_squashed_0021'),
-        ('wagtailpages', '0095_auto_20200406_2109'),
+        ('wagtailpages', '0003_delete_homepagefeaturednews'),
     ]
 
     operations = [
