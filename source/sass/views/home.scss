@@ -1,5 +1,26 @@
-.cta {
-  min-height: 350px;
+#view-home {
+  $section-padding-y: 5rem;
+
+  .section-quote {
+    padding-top: $section-padding-y;
+    padding-bottom: $section-padding-y;
+
+    .quote {
+      @include set-text-size(18px, 27px, 24px, 34px);
+
+      font-family: "Nunito Sans";
+      font-style: normal;
+    }
+
+    footer {
+      @include set-text-size(16px, 24px, 20px, 30px);
+
+      cite {
+        font-weight: 800;
+        font-style: normal;
+      }
+    }
+  }
 }
 
 .highlights-card {

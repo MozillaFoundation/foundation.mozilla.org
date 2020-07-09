@@ -99,6 +99,28 @@
       </div>
     </div>
   </div>
+  <div class="row section-quote">
+    {% if page.quote_image %}
+    <div class="col-md-6 mb-5 mb-md-0">
+      {% optimize_images page.quote_image %}
+    </div>
+    {% endif %}
+    <div class="col-md-6">
+      <blockquote {% if page.quote_source_link %}cite="{{page.quote_source_link}}"{% endif %}>
+        <p class="quote">{{ page.quote_text }}</p>
+        <footer>
+          {% if page.quote_source_link %}
+            <a href="{{page.quote_source_link}}" target="_blank">
+              <cite>{{ page.quote_source_name }}</cite>
+            </a>
+          {% else %}
+          <cite>{{ page.quote_source_name }}</cite>
+          {% endif %}
+          <p>{{ page.quote_source_job_title }}</p>
+        </footer>
+      </blockquote>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
