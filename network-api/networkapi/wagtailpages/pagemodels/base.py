@@ -478,19 +478,16 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     quote_text = models.CharField(
         max_length=500,
-        blank=False,
         default='',
     )
 
     quote_source_name = models.CharField(
         max_length=100,
-        blank=False,
         default='',
     )
 
     quote_source_job_title = models.CharField(
         max_length=100,
-        blank=False,
         default='',
     )
 
