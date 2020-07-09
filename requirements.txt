@@ -44,7 +44,7 @@ psycopg2-binary==2.8.5    # via -r requirements.in
 pycparser==2.20           # via cffi
 pyjwt==1.7.1              # via social-auth-core
 python-dateutil==2.8.1    # via botocore, faker
-python-slugify==4.0.0     # via -r requirements.in
+python-slugify==4.0.1     # via -r requirements.in
 python3-openid==3.1.0     # via social-auth-core
 pytz==2020.1              # via django, django-modelcluster, l18n
 redis==3.5.1              # via django-redis
