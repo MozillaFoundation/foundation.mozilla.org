@@ -34,7 +34,7 @@ def language_code_to_iso_3166(language):
     """Turn a language name (en-us) into an ISO 3166 format (en-US)."""
     language, _, country = language.lower().partition('-')
     if country:
-        return language + '-' + country.upper()
+        return f'{language}-{country.upper()}'
     return language
 
 
