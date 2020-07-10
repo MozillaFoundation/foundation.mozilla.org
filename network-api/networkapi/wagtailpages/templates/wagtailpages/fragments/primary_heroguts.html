@@ -1,34 +1,41 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 <div id="hero">
-  <div class="banner">
-    {% with banner=page.specific.get_banner %}
-    {% if banner %}
-    <picture>
-      {% image banner fill-4032x1152 as image_xl %}
-      {% image banner fill-2400x686 as image_lg %}
-      {% image banner fill-1984x567 as image_md %}
-      {% image banner fill-1536x439 as image_sm %}
-      <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
-      <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
-      <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
-      <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
-      {# Fallback Image #}
-      {% image banner fill-1008x288 alt="" %}
-    </picture>
-    {% else %}
-    <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+  <div class="banner{% if homepage %} homepage{% endif %}">
+    {% if homepage %}
+      <div class="content dark-theme">
+        <h1 class="h1-heading mb-0">{{ page.hero_headline }}</h1>
+        <a href="..." class="btn btn-secondary">Button Label</a>
+      </div>
     {% endif %}
+
+    {% with banner=page.specific.get_banner %}
+      {% if banner %}
+        <picture>
+          {% image banner fill-4032x1152 as image_xl %}
+          {% image banner fill-2400x686 as image_lg %}
+          {% image banner fill-1984x567 as image_md %}
+          {% image banner fill-1536x439 as image_sm %}
+          <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
+          <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
+          <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
+          <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
+          {# Fallback Image #}
+          {% image banner fill-1008x288 alt="" %}
+        </picture>
+      {% else %}
+        <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+      {% endif %}
     {% endwith %}
   </div>
 
+
+
   <div class="container">
     <div class="row cutout-wrapper-row">
-      <div class="cutout col-12 col-lg-8 pt-4">
-        <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-        {% if page.intro %}
-        <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
-        {% endif %}
+      <div class="cutout col-12 pt-4">
+        <h1 class="h1-heading mb-0">cutout text goes here</h1>
+        <p class="body-large mt-3 mb-0">link button</p>
       </div>
     </div>
   </div>

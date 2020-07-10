@@ -38,6 +38,26 @@ hr {
     width: 100%;
     overflow: hidden;
 
+    &.homepage {
+      $bg-pattern-height: 400px;
+      height: $bg-pattern-height;
+
+      .content {
+        position: relative;
+        z-index: 1;
+
+        h1,h2,h3 {
+          color: $white;
+        }
+      }
+
+      .cutout-wrapper-row {
+        .cutout {
+          margin-top: calc(#{$bg-pattern-height} - 40px);
+        }
+      }
+    }
+
     img {
       position: absolute;
       top: 0;
