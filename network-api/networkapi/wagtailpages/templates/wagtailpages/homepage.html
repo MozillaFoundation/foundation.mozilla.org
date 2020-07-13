@@ -108,12 +108,13 @@
 <div class="container">
 
 <div class="row">
-  <div class="col">
+  <div class="col-12">
     <h2>{{ page.take_action_title }}</h2>
-
+  </div>
+  <div class="col-8">
     <div class="row">
       {% for item in page.take_action_cards.all %}
-        <a href="{{ item.link }}" class="col" style='display: inline-block;'>
+        <a href="{{ item.link }}" class="col-6">
           {% image item.image fill-400x200 as img %}
           <img src="{{ img.url }}" alt="" />
           <div>
@@ -121,13 +122,15 @@
           </div>
         </a>
       {% endfor %}
-
-      <div class="col">
-        Signup form goes here:
-        {{ page.signup_cta }}
-      </div>
-
     </div>
+  </div>
+  <div class="col-4">
+      <div
+        class="join-us mb-5"
+        data-cta-header="{{ cta.header | escape }}"
+        data-cta-description="{{ cta.description | escape }}"
+        data-newsletter="{{ cta.newsletter }}">
+      </div>
   </div>
 </div>
 <div class="row">
