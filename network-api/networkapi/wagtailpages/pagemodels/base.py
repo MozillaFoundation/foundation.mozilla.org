@@ -19,7 +19,6 @@ from ..donation_modal import DonationModals  # noqa: F401
 
 
 class NewsPage(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/news_page.html'
 
 
@@ -79,7 +78,6 @@ class InitiativeSection(models.Model):
 
 
 class InitiativesPage(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/initiatives_page.html'
 
     subpage_types = [
@@ -128,7 +126,6 @@ class InitiativesPage(PrimaryPage):
 
 
 class ParticipatePage2(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/participate_page2.html'
 
     ctaHero = models.ForeignKey(
@@ -283,11 +280,10 @@ class ParticipatePage2(PrimaryPage):
 
 
 class PeoplePage(PrimaryPage):
-    parent_page_types = ['Homepage']
+    pass
 
 
 class Styleguide(PrimaryPage):
-    parent_page_types = ['Homepage']
     template = 'wagtailpages/static/styleguide.html'
 
 
