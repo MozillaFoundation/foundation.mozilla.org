@@ -5,19 +5,33 @@
     padding-top: $section-padding-y;
     padding-bottom: $section-padding-y;
 
-    .quote {
-      @include set-text-size(18px, 27px, 24px, 34px);
+    blockquote {
+      &::before {
+        display: block;
+        content: "";
+        background: url(../_images/homepage/open-quote.svg);
+        width: 49px;
+        height: 41px;
+        margin-bottom: 1.5rem;
+      }
 
-      font-family: "Nunito Sans";
-      font-style: normal;
-    }
+      .quote-text {
+        @include set-text-size(18px, 27px, 24px, 34px);
 
-    footer {
-      @include set-text-size(16px, 24px, 20px, 30px);
-
-      cite {
-        font-weight: 800;
+        font-family: "Nunito Sans";
         font-style: normal;
+      }
+
+      footer {
+        cite,
+        p {
+          @include set-text-size(16px, 24px, 20px, 30px);
+        }
+
+        cite {
+          font-weight: 800;
+          font-style: normal;
+        }
       }
     }
   }

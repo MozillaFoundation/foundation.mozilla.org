@@ -86,19 +86,6 @@
       <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <hr class="hr-emphasis mb-5">
-      <div class="row mb-5">
-        <div class="col">
-          <div class="feature-quote">
-            <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
-            <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="row section-quote">
     {% if page.quote_image %}
     <div class="col-md-6 mb-5 mb-md-0">
@@ -106,16 +93,10 @@
     </div>
     {% endif %}
     <div class="col-md-6">
-      <blockquote {% if page.quote_source_link %}cite="{{page.quote_source_link}}"{% endif %}>
-        <p class="quote">{{ page.quote_text }}</p>
+      <blockquote>
+        <p class="quote-text">{{ page.quote_text }}</p>
         <footer>
-          {% if page.quote_source_link %}
-            <a href="{{page.quote_source_link}}" target="_blank">
-              <cite>{{ page.quote_source_name }}</cite>
-            </a>
-          {% else %}
           <cite>{{ page.quote_source_name }}</cite>
-          {% endif %}
           <p>{{ page.quote_source_job_title }}</p>
         </footer>
       </blockquote>

@@ -162,7 +162,6 @@ class HomepageTR(TranslationOptions):
         'quote_text',
         'quote_source_name',
         'quote_source_job_title',
-        'quote_source_link',
     )
 
 

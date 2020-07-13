@@ -491,10 +491,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         default='',
     )
 
-    quote_source_link = models.URLField(
-        blank=True
-    )
-
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
@@ -518,7 +514,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
             FieldPanel('quote_text'),
             FieldPanel('quote_source_name'),
             FieldPanel('quote_source_job_title'),
-            FieldPanel('quote_source_link'),
           ],
           heading='quote',
           classname='collapsible'

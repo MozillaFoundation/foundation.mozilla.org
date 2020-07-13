@@ -37,7 +37,6 @@ class WagtailHomepageFactory(PageFactory):
     quote_text = Faker('text', max_nb_chars=300)
     quote_source_name = Faker('text', max_nb_chars=40)
     quote_source_job_title = Faker('text', max_nb_chars=100)
-    quote_source_link = Faker('url')
 
 
 def generate(seed):
