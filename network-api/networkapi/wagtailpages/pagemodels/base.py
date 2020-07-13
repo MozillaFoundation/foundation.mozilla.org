@@ -732,12 +732,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
     )
     # Take Action Section
     take_action_title = models.CharField(default='Take action', max_length=50)
-    signup_cta = models.ForeignKey(
-        'wagtailpages.Signup',
-        blank=False,
-        null=True,
-        on_delete=models.SET_NULL,
-    )
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -807,7 +801,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel('take_action_title'),
-                SnippetChooserPanel('signup_cta'),
                 InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
             ],
             heading='Take Action Section',
