@@ -439,11 +439,12 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
-class PartnerLogos(WagtailOrderable,):
+class PartnerLogos(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='partner_logos',
     )
+    partner_link = models.URLField(blank=True)
     logo = models.ForeignKey(
         'wagtailimages.Image',
         blank=False,
@@ -452,6 +453,7 @@ class PartnerLogos(WagtailOrderable,):
     )
     panels = [
         ImageChooserPanel('logo'),
+        FieldPanel('partner_link'),
     ]
 
     class Meta:
