@@ -2,8 +2,8 @@
 
 let webpack = require(`webpack`);
 let TerserJSPlugin = require("terser-webpack-plugin");
+let OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
-let OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 let path = require(`path`);
 let frontendPath = path.resolve(
   __dirname,
