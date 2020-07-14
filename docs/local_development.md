@@ -105,6 +105,8 @@ Use `invoke npm update`.
 
 Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
 
+*note*: your postgres version must be compatible with the version that is used on heroku in order for the `pg_dump` command to work.
+
 The steps involved in cloning the database for local use are as follows:
 
 1) grab a copy of the staging database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and needs to be replaced with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the staging instance.
