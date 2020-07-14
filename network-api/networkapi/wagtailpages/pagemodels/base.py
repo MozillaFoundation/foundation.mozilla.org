@@ -468,6 +468,24 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    cause_statement = models.CharField(
+        max_length=250,
+        default="",
+    )
+
+    cause_statement_link_text = models.CharField(
+        max_length=80,
+        default="",
+    )
+
+    cause_statement_link_page = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='cause_statement_link'
+    )
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
@@ -481,6 +499,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
             ImageChooserPanel('hero_image'),
           ],
           heading='hero',
+          classname='collapsible'
+        ),
+        MultiFieldPanel(
+          [
+            FieldPanel('cause_statement'),
+            FieldPanel('cause_statement_link_text'),
+            PageChooserPanel('cause_statement_link_page'),
+          ],
+          heading='cause statement',
           classname='collapsible'
         ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),

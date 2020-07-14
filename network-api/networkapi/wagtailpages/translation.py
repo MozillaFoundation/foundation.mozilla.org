@@ -158,6 +158,9 @@ class HomepageTR(TranslationOptions):
         'hero_button_text',
         'hero_button_url',
         'hero_image',
+        'cause_statement',
+        'cause_statement_link_text',
+
     )
 
 
