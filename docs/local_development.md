@@ -109,7 +109,7 @@ The steps involved in cloning the database for local use are as follows:
 
 1) grab a copy of the staging database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and needs to be replaced with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the staging instance.
 
-2) Run `docker-compose up`. In another terminal, run `createdb foundation  -p 5678 -h localhost -U foundation` on the command line so that you have a postgresql database to work with. If you get an error that you already have a database called `foundation`, either create a new database with a new name (and then use that name in the next steps) or delete the old database using `dropdb foundation  -p 5678 -h localhost -U foundation` before issuing `createdb foundation`.
+2) Run `docker-compose up`. In another terminal, run `createdb foundation  -p 5678 -h localhost -U foundation` on the command line so that you have a postgresql database to work with. If you get an error that you already have a database called `foundation`, either create a new database with a new name (and then use that name in the next steps) or delete the old database using `dropdb foundation  -p 5678 -h localhost -U foundation` before issuing the `createdb` command.
 
 3) Run `psql foundation  -p 5678 -h localhost -U foundation` on the command line to connect to that database.
 
