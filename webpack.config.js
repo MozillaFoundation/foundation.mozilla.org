@@ -24,12 +24,10 @@ let rules = [
         [`@babel/preset-react`],
       ],
     },
-    rules: [
-      {
-        test: /\.css$/,
-        use: ["css-loader"],
-      },
-    ],
+  },
+  {
+    test: /\.css$/,
+    loader: [MiniCssExtractPlugin.loader, "css-loader"],
   },
 ];
 
