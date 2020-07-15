@@ -47,7 +47,7 @@
   textarea:placeholder-shown,
   textarea:not(:placeholder-shown) {
     &::placeholder {
-      color: transparent;
+      opacity: 0;
     }
   }
 
