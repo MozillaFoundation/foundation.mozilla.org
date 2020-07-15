@@ -24,7 +24,7 @@ class HTMLCleanUpMiddleware:
         response = self.get_response(request)
         if response.status_code == 200:
             if response["content-type"].startswith("text/html"):
-                beauty = BeautifulSoup(response.content)
+                beauty = BeautifulSoup(response.content, "html5")
                 response.content = beauty.prettify()
         return response
 
