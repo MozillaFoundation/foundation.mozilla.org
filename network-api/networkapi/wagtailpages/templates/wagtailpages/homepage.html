@@ -30,43 +30,14 @@
 
   {% include "./fragments/featured_blogs.html" %}
 
-  <div class="row">
-    <div class="col mb-4">
-      <hr class="hr-emphasis mb-4">
-      <h2 class="h4-heading">{% trans "Featured stories" %}</h2>
-    </div>
-  </div>
-  <div id="home-highlights-wagtail">
-    <div class="highlights mb-5">
-      <div class="row pb-md-5 mb-md-2">
-        {% for highlight in page.featured_highlights.all %}
-        {% if forloop.counter <= 2 %}
-        <div class="col-md-6 highlights-card">
-          {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
-        </div>
-      {% endif %} {% endfor %}
-    </div>
-    {% for highlight in page.featured_highlights.all %} {% if forloop.counter > 2 %}
-    <div class="row my-3">
-      <div class="col-sm-12 col-md-4 pt-3 d-none d-md-block">
-        {% homepage_image highlight.highlight.image %}
-      </div>
-      <div class="col-sm-12 col-md-8 pt-3">
-        <hr class="mt-0 mb-4">
-        <h4 class="h5-heading mb-3">
-          <a href="{{highlight.highlight.link_url}}">{{highlight.highlight.title}}</a>
-        </h4>
-        <p>{{highlight.highlight.description}}</p>
-      </div>
-    </div>
-    {% endif %} {% endfor %}
-  </div>
-</div>
+  {% include "./fragments/news_you_can_use.html" %}
+
 <div class="row">
   <div class="col">
     <hr class="hr-emphasis mb-4">
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-6">
     <h2 class="h4-heading">{% trans "Trending projects" %}</h2>
