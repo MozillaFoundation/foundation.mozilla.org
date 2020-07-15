@@ -242,8 +242,6 @@ MIDDLEWARE = list(filter(None, [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'networkapi.utility.middleware.TargetDomainRedirectMiddleware',
-    'networkapi.utility.middleware.HTMLCleanUpMiddleware' if DEBUG else None,
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
     'django.middleware.common.CommonMiddleware',

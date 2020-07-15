@@ -1,6 +1,5 @@
-from bs4 import BeautifulSoup
-from django.conf import settings
 from django.http.response import HttpResponseRedirectBase
+from django.conf import settings
 
 hostnames = settings.TARGET_DOMAINS
 referrer_value = 'same-origin'
@@ -11,22 +10,6 @@ if settings.REFERRER_HEADER_VALUE:
 
 class HttpResponseTemporaryRedirect(HttpResponseRedirectBase):
     status_code = 307
-
-
-class HTMLCleanUpMiddleware:
-    """
-    See http://blog.christianperone.com/2009/10/beautiful-django/
-    """
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        response = self.get_response(request)
-        if response.status_code == 200:
-            if response["content-type"].startswith("text/html"):
-                beauty = BeautifulSoup(response.content)
-                response.content = beauty.prettify()
-        return response
 
 
 class ReferrerMiddleware:
