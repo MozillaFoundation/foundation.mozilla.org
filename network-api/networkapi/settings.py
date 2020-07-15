@@ -237,7 +237,6 @@ MIDDLEWARE = list(filter(None, [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'networkapi.utility.middleware.ReferrerMiddleware',
-    'networkapi.utility.middleware.HTMLCleanUpMiddleware' if DEBUG else None,
     'networkapi.utility.middleware.XRobotsTagMiddleware' if XROBOTSTAG_ENABLED else None,
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -252,6 +251,8 @@ MIDDLEWARE = list(filter(None, [
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+    'networkapi.utility.middleware.HTMLCleanUpMiddleware' if DEBUG else None,
 ]))
 
 if SOCIAL_SIGNIN:
