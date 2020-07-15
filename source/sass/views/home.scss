@@ -2,17 +2,31 @@
   $section-padding-y: 5rem;
 
   .section-quote {
+    $icon-height: 41px;
+    $icon-width: 49px;
+    $icon-margin-bottom: 1.5rem;
+
     padding-top: $section-padding-y;
     padding-bottom: $section-padding-y;
+
+    picture {
+      display: block;
+      overflow: hidden;
+
+      @include media-breakpoint-only(md) {
+        // tablet only
+        margin-top: calc(#{$icon-height} + #{$icon-margin-bottom});
+      }
+    }
 
     blockquote {
       &::before {
         display: block;
         content: "";
         background: url(../_images/homepage/open-quote.svg);
-        width: 49px;
-        height: 41px;
-        margin-bottom: 1.5rem;
+        height: $icon-height;
+        width: $icon-width;
+        margin-bottom: $icon-margin-bottom;
       }
 
       .quote-text {
@@ -20,6 +34,7 @@
 
         font-family: "Nunito Sans";
         font-style: normal;
+        font-weight: 300;
       }
 
       footer {

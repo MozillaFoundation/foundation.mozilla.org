@@ -477,7 +477,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     )
 
     quote_text = models.CharField(
-        max_length=500,
+        max_length=450,
         default='',
     )
 

@@ -35,8 +35,8 @@ class WagtailHomepageFactory(PageFactory):
     hero_image = SubFactory(ImageFactory)
     quote_image = SubFactory(ImageFactory)
     quote_text = Faker('text', max_nb_chars=300)
-    quote_source_name = Faker('text', max_nb_chars=40)
-    quote_source_job_title = Faker('text', max_nb_chars=100)
+    quote_source_name = Faker('text', max_nb_chars=30)
+    quote_source_job_title = Faker('text', max_nb_chars=50)
 
 
 def generate(seed):
