@@ -1,4 +1,5 @@
 let webpack = require(`webpack`);
+let OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 let path = require(`path`);
 let frontendPath = path.resolve(
   __dirname,
