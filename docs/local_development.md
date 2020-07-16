@@ -103,6 +103,10 @@ Use `invoke npm update`.
 
 ### Using a copy of the staging database for critical testing
 
+Requirements:
+* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+* Heroku Account with membership on the Mozilla team (ask in #mofo-engineering on Slack)
+
 Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
 
 **Note**: your postgres version must be compatible with the version that is used on heroku in order for the `pg_dump` command to work. In general, this means that the result of `psql --version` must be **greater or equal to** the version found when running `heroku pg:info -a foundation-mofostaging-net` (look for "PG Version")
