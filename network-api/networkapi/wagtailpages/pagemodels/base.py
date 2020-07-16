@@ -803,7 +803,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 FieldPanel('take_action_title'),
                 InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
             ],
-            heading='Take Action Section',
+            heading='Take Action',
             classname='collapsible',
         ),
     ]
