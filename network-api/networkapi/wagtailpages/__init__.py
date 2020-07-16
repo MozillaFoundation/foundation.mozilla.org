@@ -27,7 +27,7 @@ def register_howto_menu_item():
 # We have to modify the core Django method, because we have no way to replace
 # all the core functionality that relies on this - e.g., url resolvers that
 # the Django admin and third party apps use.
-# This is pretty ugly, and ideally this should be fixed upstream.
+# A fix upstream has been asked in https://code.djangoproject.com/ticket/31795
 
 
 def language_code_to_iso_3166(language):
