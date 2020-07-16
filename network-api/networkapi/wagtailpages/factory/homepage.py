@@ -33,6 +33,8 @@ class WagtailHomepageFactory(PageFactory):
     hero_button_text = Faker('text', max_nb_chars=25)
     hero_button_url = Faker('url')
     hero_image = SubFactory(ImageFactory)
+    partner_background_image = SubFactory(ImageFactory)
+    partner_external_link = Faker('url')
 
 
 def generate(seed):
