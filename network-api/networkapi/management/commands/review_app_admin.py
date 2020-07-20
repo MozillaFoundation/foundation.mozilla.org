@@ -49,7 +49,7 @@ class Command(BaseCommand):
                     pre_title = ':robot_face: *[Dependabot]*'
                     break
             else:
-                pre_title = f':computer: *[Devs]*'
+                pre_title = ':computer: *[Devs]*'
 
             message_title = f'*PR {pr_number}{pr_title}*\n'
             github_url = f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
@@ -61,7 +61,7 @@ class Command(BaseCommand):
                         'text': {
                             'type': 'mrkdwn',
                             'text': f'{pre_title} {message_title}'
-                                    f'This new review app will be ready in a minute!\n'
+                                    'This new review app will be ready in a minute!\n'
                                     '*Login:* admin\n'
                                     f'*Password:* {password}\n'
                         }
