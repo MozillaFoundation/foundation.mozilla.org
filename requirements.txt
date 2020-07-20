@@ -5,8 +5,8 @@
 #    pip-compile
 #
 beautifulsoup4==4.8.2     # via -r requirements.in, wagtail
-boto3==1.14.18            # via -r requirements.in
-botocore==1.17.18         # via boto3, s3transfer
+boto3==1.14.23            # via -r requirements.in
+botocore==1.17.23         # via boto3, s3transfer
 certifi==2020.4.5.1       # via cloudinary, requests, sentry-sdk
 cffi==1.14.0              # via cryptography
 chardet==3.0.4            # via requests
