@@ -31,28 +31,38 @@ class Command(BaseCommand):
 
             reviewapp_name = settings.HEROKU_APP_NAME
             pr_number = settings.HEROKU_PR_NUMBER
+            branch_name = settings.HEROKU_BRANCH
 
-            # Get PR's title from Github
-            token = settings.GITHUB_TOKEN
-            org = 'mozilla'
-            repo = 'foundation.mozilla.org'
-            headers = {'Authorization': f'token {token}'}
-            r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}', headers=headers)
-            r.raise_for_status()
-            try:
-                pr_title = ' - ' + r.json()['title']
-            except KeyError:
-                pr_title = ''
+            # Review apps created when opening a PR
+            if pr_number:
+                # Get PR's title from Github
+                token = settings.GITHUB_TOKEN
+                org = 'mozilla'
+                repo = 'foundation.mozilla.org'
+                headers = {'Authorization': f'token {token}'}
+                r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}', headers=headers)
+                r.raise_for_status()
+                try:
+                    pr_title = ' - ' + r.json()['title']
+                except KeyError:
+                    pr_title = ''
 
-            for label in r.json()['labels']:
-                if label['name'] == 'dependencies':
-                    pre_title = ':robot_face: *[Dependabot]*'
-                    break
+                for label in r.json()['labels']:
+                    if label['name'] == 'dependencies':
+                        pre_title = ':robot_face: *[Dependabot]*'
+                        break
+                else:
+                    pre_title = ':computer: *[Devs]*'
+                message_title = f'*PR {pr_number}{pr_title}*\n'
+                github_url = f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
+                github_button_text = 'View PR on Github'
+
+            # Review apps created from Heroku to deploy a branch
             else:
                 pre_title = ':computer: *[Devs]*'
-
-            message_title = f'*PR {pr_number}{pr_title}*\n'
-            github_url = f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
+                message_title = f'Branch: {branch_name}\n'
+                github_url = f'https://github.com/mozilla/foundation.mozilla.org/tree/{branch_name}'
+                github_button_text = 'View branch on Github'
 
             slack_payload = {
                 'blocks': [
@@ -81,7 +91,7 @@ class Command(BaseCommand):
                                 'type': 'button',
                                 'text': {
                                     'type': 'plain_text',
-                                    'text': 'View PR on Github',
+                                    'text': f'{github_button_text}',
                                 },
                                 'url': f'{github_url}'
                             }
