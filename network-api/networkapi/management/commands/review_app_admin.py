@@ -31,68 +31,58 @@ class Command(BaseCommand):
 
             reviewapp_name = settings.HEROKU_APP_NAME
             pr_number = settings.HEROKU_PR_NUMBER
-            branch_name = settings.HEROKU_BRANCH
 
-            # As of 01/2020 we can only get the PR number if the review app was automatically created
-            # (https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables).
-            # For review app manually created, we have to use the branch name instead.
-            if pr_number:
-                # Get PR's title from Github
-                token = settings.GITHUB_TOKEN
-                org = 'mozilla'
-                repo = 'foundation.mozilla.org'
-                headers = {'Authorization': f'token {token}'}
-                r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}', headers=headers)
-                r.raise_for_status()
-                try:
-                    pr_title = ': ' + r.json()['title']
-                except KeyError:
-                    pr_title = ''
+            # Get PR's title from Github
+            token = settings.GITHUB_TOKEN
+            org = 'mozilla'
+            repo = 'foundation.mozilla.org'
+            headers = {'Authorization': f'token {token}'}
+            r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}', headers=headers)
+            r.raise_for_status()
+            try:
+                pr_title = ' - ' + r.json()['title']
+            except KeyError:
+                pr_title = ''
 
-                for label in r.json()['labels']:
-                    if label['name'] == 'dependencies':
-                        color = '#BA55D3'
-                        break
-                else:
-                    color = '#7CD197'
-                fallback_text = f'''New review app deployed: It will be ready in a minute!\n
-                                                PR {pr_number}{pr_title}\n
-                                                Login: admin\n
-                                                Password: {password}\n
-                                                URL: https://{reviewapp_name}.herokuapp.com'''
-                message_title = f'PR {pr_number}{pr_title}\n'
-                github_url = f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
-                github_button_text = 'View PR on Github'
-
+            for label in r.json()['labels']:
+                if label['name'] == 'dependencies':
+                    pre_title = ':robot_face: *[Dependabot]*'
+                    break
             else:
-                color = '#7CD197'
-                fallback_text = f'''New review app deployed: It will be ready in a minute!\n
-                                                Branch: {branch_name}\n
-                                                Login: admin\n
-                                                Password: {password}\n
-                                                URL: https://{reviewapp_name}.herokuapp.com'''
-                message_title = f'Branch: {branch_name}\n'
-                github_url = f'https://github.com/mozilla/foundation.mozilla.org/tree/{branch_name}'
-                github_button_text = 'View branch on Github'
+                pre_title = f':computer: *[Devs]*'
+
+            message_title = f'*PR {pr_number}{pr_title}*\n'
+            github_url = f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
 
             slack_payload = {
-                'attachments': [
+                'blocks': [
                     {
-                        'fallback': f'{fallback_text}',
-                        'pretext':  'New review app deployed. It will be ready in a minute!',
-                        'title':    f'{message_title}',
-                        'text':     'Login: admin\n'
-                                    f'Password: {password}\n',
-                        'color':    f'{color}',
-                        'actions': [
+                        'type': 'section',
+                        'text': {
+                            'type': 'mrkdwn',
+                            'text': f'{pre_title} {message_title}'
+                                    f'This new review app will be ready in a minute!\n'
+                                    '*Login:* admin\n'
+                                    f'*Password:* {password}\n'
+                        }
+                    },
+                    {
+                        'type': 'actions',
+                        'elements': [
                             {
                                 'type': 'button',
-                                'text': 'View review app',
+                                'text': {
+                                    'type': "plain_text",
+                                    'text': 'View review app'
+                                },
                                 'url': f'https://{reviewapp_name}.herokuapp.com'
                             },
                             {
                                 'type': 'button',
-                                'text': f'{github_button_text}',
+                                'text': {
+                                    'type': 'plain_text',
+                                    'text': 'View PR on Github',
+                                },
                                 'url': f'{github_url}'
                             }
                         ]
