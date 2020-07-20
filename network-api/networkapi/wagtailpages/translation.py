@@ -184,7 +184,6 @@ class PeoplePageTR(TranslationOptions):
 @register(BlogPage)
 class BlogPageTR(TranslationOptions):
     fields = (
-        'author',
         'body',
     )
 
