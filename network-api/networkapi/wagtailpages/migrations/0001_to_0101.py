@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
             name='BlogPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('author', models.CharField(max_length=70, verbose_name='Author')),
+                ('author', models.CharField(max_length=70, null=True, verbose_name='Author')),
                 ('author_en', models.CharField(max_length=70, null=True, verbose_name='Author')),
                 ('author_de', models.CharField(max_length=70, null=True, verbose_name='Author')),
                 ('author_pt', models.CharField(max_length=70, null=True, verbose_name='Author')),
