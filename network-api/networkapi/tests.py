@@ -3,12 +3,19 @@ from io import StringIO
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.test import TestCase, RequestFactory
+from django.urls import reverse
+from django.utils import translation
+from django.utils.translation.trans_real import (
+    to_language as django_to_language,
+    parse_accept_lang_header as django_parse_accept_lang_header
+)
 from unittest.mock import MagicMock
 
 from wagtail_factories import SiteFactory
 
 from networkapi.utility.redirects import redirect_to_default_cms_site
 from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware
+from networkapi.wagtailpages import language_code_to_iso_3166, parse_accept_lang_header, to_language
 
 
 class ReferrerMiddlewareTests(TestCase):
@@ -134,16 +141,55 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
             fetch_redirect_response=False
         )
 
-    class XRobotsTagMiddlewareTest(TestCase):
-        def test_returns_response(self):
-            xrobotstag_middleware = XRobotsTagMiddleware('response')
-            self.assertEqual(xrobotstag_middleware.get_response, 'response')
 
-        def test_sends_x_robots_tag(self):
-            """
-            Ensure that the middleware assigns an X-Robots-Tag to the response
-            """
+class WagtailPagesTestCase(TestCase):
 
-            xrobotstag_middleware = XRobotsTagMiddleware(MagicMock())
-            response = xrobotstag_middleware(MagicMock())
-            response.__setitem__.assert_called_with('X-Robots-Tag', 'noindex')
+    def test_get_language_code_to_iso_3166(self):
+        self.assertEqual(language_code_to_iso_3166('en-gb'), 'en-GB')
+        self.assertEqual(language_code_to_iso_3166('en-us'), 'en-US')
+        self.assertEqual(language_code_to_iso_3166('fr'), 'fr')
+
+    def test_to_language(self):
+        self.assertEqual(to_language('en_US'), 'en-US')
+
+    def test_parse_accept_lang_header_returns_iso_3166_language(self):
+        self.assertEqual(
+            parse_accept_lang_header('en-GB,en;q=0.5'),
+            (('en-GB', 1.0), ('en', 0.5)),
+        )
+
+
+class WagtailPagesIntegrationTestCase(TestCase):
+
+    """
+    Test that our overrides to Django translation functions work.
+    """
+    def test_to_language(self):
+        self.assertEqual(django_to_language('fy_NL'), 'fy-NL')
+
+    def test_parse_accept_lang_header_returns_iso_3166_language(self):
+        self.assertEqual(
+            django_parse_accept_lang_header('fy-NL,fy;q=0.5'),
+            (('fy-NL', 1.0), ('fy', 0.5)),
+        )
+
+    def test_reverse_produces_correct_url_prefix(self):
+        translation.activate('fy-NL')
+        url = reverse('buyersguide-home')
+        self.assertTrue(url.startswith('/fy-NL/'))
+        translation.deactivate()
+
+
+class XRobotsTagMiddlewareTest(TestCase):
+    def test_returns_response(self):
+        xrobotstag_middleware = XRobotsTagMiddleware('response')
+        self.assertEqual(xrobotstag_middleware.get_response, 'response')
+
+    def test_sends_x_robots_tag(self):
+        """
+        Ensure that the middleware assigns an X-Robots-Tag to the response
+        """
+
+        xrobotstag_middleware = XRobotsTagMiddleware(MagicMock())
+        response = xrobotstag_middleware(MagicMock())
+        response.__setitem__.assert_called_with('X-Robots-Tag', 'noindex')

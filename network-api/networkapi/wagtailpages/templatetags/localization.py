@@ -6,9 +6,10 @@ DEFAULT_LOCALE = 'en_US'
 
 mappings = {
     'en': 'en_US',
-    'fr': 'fr_FR',
-    'es': 'es_ES',
     'de': 'de_DE',
+    'es': 'es_ES',
+    'fr': 'fr_FR',
+    'fy-NL': 'fy_NL',
     'nl': 'nl_NL',
     'pl': 'pl_PL',
     'pt': 'pt_BR',  # our main focus is Brazilian Portuguese
