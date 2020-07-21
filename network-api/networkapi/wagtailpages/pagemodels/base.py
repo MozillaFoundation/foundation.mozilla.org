@@ -459,6 +459,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         related_name='hero_image'
     )
 
+    def get_banner(self):
+        return self.hero_image
+
     hero_button_text = models.CharField(
         max_length=50,
         blank=True
