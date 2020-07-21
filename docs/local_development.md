@@ -103,27 +103,21 @@ Use `invoke npm update`.
 
 ### Using a copy of the staging database for critical testing
 
+Requirements:
+* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+* Heroku Account with membership on the Mozilla team (ask in #mofo-engineering on Slack)
+
 Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
 
-**Note**: your postgres version must be compatible with the version that is used on heroku in order for the `pg_dump` command to work.
+**Note**: your postgres version must be compatible with the version that is used on heroku in order for the `pg_dump` command to work. In general, this means that the result of `psql --version` must be **greater or equal to** the version found when running `heroku pg:info -a foundation-mofostaging-net` (look for "PG Version")
 
 The steps involved in cloning the database for local use are as follows:
 
-1) grab a copy of the staging database by running `pg_dump DATABASE_URL > foundation.psql` on the commandline. In this, `DATABASE_URL` is a placeholder, and needs to be replaced with the value found for the `DATABASE_URL` environment variable that is used on heroku, for the staging instance.
+1. Run `docker-compose up postgres` to start the `postgres` service without starting the rest of the server setup (note that if you want to detach stdout, add the `-d` flag to the command)
+2. Drop the existing `wagtail` database in the PostgreSQL server inside your docker environment with `dropdb -h localhost -p 5678 -U foundation wagtail --if-exists`
+3. Use the Heroku CLI to pull the remote database into your local docker PostgreSQL server with `heroku pg:pull -a foundation-mofostaging-net DATABASE_URL postgresql://foundation@localhost:5678/wagtail`
 
-2) Run `docker-compose up`. In another terminal, run `createdb foundation  -p 5678 -h localhost -U foundation` on the command line so that you have a postgresql database to work with. If you get an error that you already have a database called `foundation`, either create a new database with a new name (and then use that name in the next steps) or delete the old database using `dropdb foundation  -p 5678 -h localhost -U foundation` before issuing the `createdb` command.
-
-3) Run `psql foundation  -p 5678 -h localhost -U foundation` on the command line to connect to that database.
-
-4) Run `CREATE ROLE datastudio WITH SUPERUSER;` making sure to have that semi-colon at the end, and making sure *not* to quote the owner name string.
-
-5) Run `CREATE ROLE ... WITH SUPERUSER;` (`...` is the username used in the DATABASE_URL you used) again making sure to have that semi-colon at the end, and making sure not to quote the owner name string.
-
-6) Run `\i foundation.psql` in the postgresql command line interface to import the `foundation` database content. Once this finishes you will have an exact copy of the production database set up for local testing.
-
-You will now also need to update your `.env` file to make sure you're using this database, setting `DATABASE_URL=postgresql://foundation:mozilla@postgres:5432/foundation`.
-
-If you need to reset this database, rerun step 2 (with `dropdb foundation  -p 5678 -h localhost -U foundation` as first command) through 5 to get back to a clean copy of the production database.
+If you need to reset this database, running through these steps again will get you back into sync with staging.
 
 ---
 
