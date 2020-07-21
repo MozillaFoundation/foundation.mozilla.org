@@ -13,5 +13,5 @@ let prodPlugins = [
 ];
 
 module.exports = {
-  plugins: process.env.NODE_ENV !== 'production' ? commonPlugins.concat(prodPlugins) : commonPlugins
+  plugins: process.env.NODE_ENV === 'production' ? commonPlugins.concat(prodPlugins) : commonPlugins
 };
