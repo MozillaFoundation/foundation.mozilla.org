@@ -1,4 +1,4 @@
-{% load wagtailimages_tags i18n %}
+{% load wagtailimages_tags i18n homepage_tags %}
 
 {% if page.featured_blogs.all.count > 0 %}
 {% with page.featured_blogs.all as featured_blogs %}
@@ -28,37 +28,49 @@
   {% endif %}
   {% endfor %}
 
+
   {% if featured_blogs|length > 1 %}
   <div class="col-md-6 mb-0 pb-4">
     {% for blog in featured_blogs %}
+    {% get_authors blog as authors %}
+
     {% if forloop.counter > 1 %}
     <div>
       <h5 class="mb-2">
         <a href="{{blog.blog.url}}">{{blog.blog.title}}</a>
       </h5>
       <div class="body-small mb-2">
-        {% with authors=blog.blog.authors %}
-          {% if authors.count %}
-            {% for author_orderable in authors.all %}
-              {% with author=author_orderable.author %}
-                {% if author.image %}
-                  {% image author.image fill-50x50 as img %}
-                  <div style='display: inline-block; width: 50px; height: 50px; position: relative; margin-left: -16px; border-radius: 50%; text-align: center; text-transform: uppercase; z-index: {{ forloop.counter }}; background-color: orange; border: 2px solid #fff;'>
-                    <img src="{{ img.url }}" class="rounded-circle" alt="{{ author.name }}" style='display: inline-block;  border: 2px solid #fff;' />
-                  </div>
-                {% else %}
-                  <div style='display: inline-block; width: 50px; height: 50px; position: relative; margin-left: -16px; border-radius: 50%; text-align: center; text-transform: uppercase; z-index: {{ forloop.counter }}; background-color: orange; border: 2px solid #fff;'>
-                    {{ author.name|make_list|first }}
-                  </div>
-                {% endif %}
-              {% endwith %}
-            {% endfor %}
 
-            {% for author in authors.all %}
-              {% if forloop.last %} {% trans "and" %} {% endif %}<strong>{{ author.author.name }}{% if not forloop.last %}, {% endif %}</strong>
-            {% endfor %}
+{# TODO: Export this internal CSS to .scss #}
+<style>
+  .featured-blog-author-image {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    margin-left: -16px;
+    border-radius: 50%;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: orange;
+    display: inline-block;
+    border: 2px solid #fff;
+  }
+</style>
+        {% for author in authors %}
+          {% if author.image %}
+            {% image author.image fill-50x50 as img %}
+            <img src="{{ img.url }}" class="featured-blog-author-image" alt="{{ author.name }}" />
+          {% else %}
+            <div class="featured-blog-author-image" style='z-index: {{ forloop.counter }};'>
+              {{ author.name|make_list|first }}
+            </div>
           {% endif %}
-        {% endwith %}
+        {% endfor %}
+
+        {% for author in authors %}
+          {% if forloop.last %} {% trans "and" %} {% endif %}<strong>{{ author.name }}{% if not forloop.last %}, {% endif %}</strong>
+        {% endfor %}
       </div>
       <hr>
     </div>
