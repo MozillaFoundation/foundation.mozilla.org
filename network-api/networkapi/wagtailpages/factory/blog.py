@@ -61,7 +61,6 @@ class BlogPageFactory(PageFactory):
         )
 
     title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
-    author = Faker('name')
     body = Faker('streamfield', fields=blog_body_streamfield_fields)
     first_published_at = (Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED and not TESTING
                           else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))

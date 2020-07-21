@@ -109,7 +109,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                InlinePanel("authors", label="Author", min_num=1, max_num=5)
+                InlinePanel("authors", label="Author", min_num=1)
             ],
             heading="Author(s)"
         ),

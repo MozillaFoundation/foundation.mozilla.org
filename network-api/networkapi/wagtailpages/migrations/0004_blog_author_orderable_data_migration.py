@@ -7,7 +7,8 @@ import modelcluster.fields
 
 def create_authors(apps, schema_editor):
     """
-    Convert text-based authors to snippet authors.
+    Convert text-based authors to snippet authors and assigns each author
+    to the BlogPage
     """
     BlogPage = apps.get_model('wagtailpages', 'BlogPage')
     BlogAuthor = apps.get_model('wagtailpages', 'BlogAuthor')
@@ -16,6 +17,7 @@ def create_authors(apps, schema_editor):
     for post in BlogPage.objects.all():
         author, _ = BlogAuthor.objects.get_or_create(name=post.author)
         BlogAuthorsOrderable.objects.create(page=post, author=author)
+
 
 def remove_authors(apps, schema_editor):
     """
