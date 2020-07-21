@@ -15,6 +15,10 @@
   </script>
 {% endblock %}
 
+{% block hero_guts %}
+  {% include "./fragments/primary_heroguts.html" with root=root page=page homepage=True %}
+{% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center flex-sm-row-reverse homepage-feature">
