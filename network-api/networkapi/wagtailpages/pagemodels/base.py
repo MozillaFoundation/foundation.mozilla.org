@@ -478,6 +478,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         related_name='hero_image'
     )
 
+    def get_banner(self):
+        return self.hero_image
+
     hero_button_text = models.CharField(
         max_length=50,
         blank=True
@@ -485,6 +488,47 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     hero_button_url = models.URLField(
         blank=True
+    )
+
+    cause_statement = models.CharField(
+        max_length=250,
+        default="",
+    )
+
+    cause_statement_link_text = models.CharField(
+        max_length=80,
+        blank=True,
+    )
+
+    cause_statement_link_page = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='cause_statement_link'
+    )
+
+    quote_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='quote_image',
+    )
+
+    quote_text = models.CharField(
+        max_length=450,
+        default='',
+    )
+
+    quote_source_name = models.CharField(
+        max_length=100,
+        default='',
+    )
+
+    quote_source_job_title = models.CharField(
+        max_length=100,
+        default='',
     )
 
     content_panels = Page.content_panels + [
@@ -502,6 +546,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='hero',
           classname='collapsible'
         ),
+        MultiFieldPanel(
+          [
+            FieldPanel('cause_statement'),
+            FieldPanel('cause_statement_link_text'),
+            PageChooserPanel('cause_statement_link_page'),
+          ],
+          heading='cause statement',
+          classname='collapsible'
+        ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         MultiFieldPanel(
             [
@@ -511,6 +564,16 @@ class Homepage(FoundationMetadataPageMixin, Page):
             classname='collapsible'
         ),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('quote_image'),
+            FieldPanel('quote_text'),
+            FieldPanel('quote_source_name'),
+            FieldPanel('quote_source_job_title'),
+          ],
+          heading='quote',
+          classname='collapsible'
+        ),
     ]
 
     subpage_types = [

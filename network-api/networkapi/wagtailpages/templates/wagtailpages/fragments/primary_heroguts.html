@@ -1,24 +1,30 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 <div id="hero">
-  <div class="banner">
-    {% with banner=page.specific.get_banner %}
-    {% if banner %}
-    <picture>
-      {% image banner fill-4032x1152 as image_xl %}
-      {% image banner fill-2400x686 as image_lg %}
-      {% image banner fill-1984x567 as image_md %}
-      {% image banner fill-1536x439 as image_sm %}
-      <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
-      <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
-      <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
-      <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
-      {# Fallback Image #}
-      {% image banner fill-1008x288 alt="" %}
-    </picture>
-    {% else %}
-    <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+  <div class="banner{% if homepage %} homepage{% endif %}">
+    {% if homepage %}
+      {% comment %}
+        ...homepage-only templating code...
+      {% endcomment %}
     {% endif %}
+
+    {% with banner=page.specific.get_banner %}
+      {% if banner %}
+        <picture>
+          {% image banner fill-4032x1152 as image_xl %}
+          {% image banner fill-2400x686 as image_lg %}
+          {% image banner fill-1984x567 as image_md %}
+          {% image banner fill-1536x439 as image_sm %}
+          <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
+          <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
+          <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
+          <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
+          {# Fallback Image #}
+          {% image banner fill-1008x288 alt="" %}
+        </picture>
+      {% else %}
+        <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
+      {% endif %}
     {% endwith %}
   </div>
 
