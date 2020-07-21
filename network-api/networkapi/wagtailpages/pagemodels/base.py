@@ -516,7 +516,7 @@ class FocusArea(models.Model):
         verbose_name_plural = 'Areas of focus'
 
 
-class AreaOfFocus(WagtailOrderable, models.Model):
+class AreaOfFocus(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='areas_of_focus',
