@@ -3,6 +3,8 @@ from random import choice
 
 from django.conf import settings
 
+from factory import DjangoModelFactory
+
 from wagtail.core.models import Page as WagtailPage
 
 from wagtail_factories import PageFactory
@@ -13,11 +15,13 @@ from factory import (
 )
 
 from networkapi.wagtailpages.models import (
+    BlogAuthor,
     BlogPage,
     BlogPageCategory,
     BlogIndexPage
 )
 
+from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
@@ -71,6 +75,14 @@ class BlogPageFactory(PageFactory):
     title_text = Faker('sentence', nb_words=3, variable_nb_words=False)
 
 
+class BlogAuthorFactory(DjangoModelFactory):
+
+    class Meta:
+        model = BlogAuthor
+
+    name = Faker('name')
+
+
 def generate(seed):
     reseed(seed)
     home_page = get_homepage()
@@ -110,3 +122,6 @@ def generate(seed):
 
         add_tags(post)
         add_category(post)
+
+    print('Generating Blog Authors')
+    generate_fake_data(BlogAuthorFactory, 10)
