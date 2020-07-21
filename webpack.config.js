@@ -1,9 +1,4 @@
-// adding this line for testing purposes. will remove this line soon.
-
 let webpack = require(`webpack`);
-let OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-let MiniCssExtractPlugin = require("mini-css-extract-plugin");
-let TerserJSPlugin = require("terser-webpack-plugin");
 let path = require(`path`);
 let frontendPath = path.resolve(
   __dirname,
@@ -25,10 +20,6 @@ let rules = [
       ],
     },
   },
-  {
-    test: /\.css$/,
-    loader: [MiniCssExtractPlugin.loader, "css-loader"],
-  },
 ];
 
 let main = {
@@ -46,16 +37,7 @@ let main = {
   module: {
     rules,
   },
-  plugins: [
-    new webpack.EnvironmentPlugin(["NODE_ENV"]),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
-    }),
-  ],
-  optimization: {
-    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-  },
+  plugins: [new webpack.EnvironmentPlugin(["NODE_ENV"])],
 };
 
 let bgMain = {
@@ -71,15 +53,6 @@ let bgMain = {
   module: {
     rules,
   },
-  optimization: {
-    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
-    }),
-  ],
 };
 
 let config = [main, bgMain];
