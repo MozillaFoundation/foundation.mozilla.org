@@ -158,6 +158,10 @@ class HomepageTR(TranslationOptions):
         'hero_button_text',
         'hero_button_url',
         'hero_image',
+        'quote_image',
+        'quote_text',
+        'quote_source_name',
+        'quote_source_job_title',
     )
 
 
