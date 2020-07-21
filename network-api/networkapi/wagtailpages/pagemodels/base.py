@@ -475,7 +475,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     cause_statement_link_text = models.CharField(
         max_length=80,
-        default="",
+        blank=True,
     )
 
     cause_statement_link_page = models.ForeignKey(
