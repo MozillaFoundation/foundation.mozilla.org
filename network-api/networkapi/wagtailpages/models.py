@@ -39,7 +39,8 @@ from .pagemodels.index import (
 )
 
 from .pagemodels.blog.blog import (
-    BlogPage
+    BlogPage,
+    BlogAuthor
 )
 
 from .pagemodels.blog.blog_category import (
