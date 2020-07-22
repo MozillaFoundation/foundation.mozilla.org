@@ -309,7 +309,7 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
-class HomepageNewsYouCanUse(WagtailOrderable, models.Model):
+class HomepageNewsYouCanUse(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='news_you_can_use',
