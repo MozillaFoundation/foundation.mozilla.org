@@ -290,6 +290,25 @@ class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
 
+class HomepageSpotlightPosts(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='spotlight_posts',
+    )
+    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
+    panels = [
+        PageChooserPanel('blog'),
+    ]
+
+    class Meta:
+        verbose_name = 'blog'
+        verbose_name_plural = 'blogs'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
+
+
 class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -490,6 +509,20 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    spotlight_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='spotlight_image',
+    )
+
+    spotlight_headline = models.CharField(
+        max_length=140,
+        help_text='Spotlight headline',
+        blank=True,
+    )
+
     cause_statement = models.CharField(
         max_length=250,
         default="",
@@ -544,6 +577,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
             ImageChooserPanel('hero_image'),
           ],
           heading='hero',
+          classname='collapsible'
+        ),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('spotlight_image'),
+            FieldPanel('spotlight_headline'),
+            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
+          ],
+          heading='spotlight',
           classname='collapsible'
         ),
         MultiFieldPanel(

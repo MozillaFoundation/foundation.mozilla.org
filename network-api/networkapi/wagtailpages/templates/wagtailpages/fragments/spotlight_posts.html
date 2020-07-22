@@ -1,0 +1,24 @@
+{% load wagtailimages_tags i18n %}
+
+<div class="row">
+
+  <div class="col-12 col-md-6">
+    <span class="bubble">{% trans "spotlight" %}</span>
+    {% image page.spotlight_image width-540 %}
+    <h2 class="h2-heading">{{ page.spotlight_headline }}</h2>
+  </div>
+
+  <div class="col-12 col-md-6">
+    {% for post in page.spotlight_posts.all %}
+    <div class="row">
+      <div class="col-12">
+        <h3 class="h3-heading">{{ post.blog.title }}</h3>
+        <div class="authors">
+          <!-- authors go here -->
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
