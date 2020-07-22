@@ -25,6 +25,11 @@ from .pagemodels.campaigns import (
     Petition,
 )
 
+from .pagemodels.link import (
+    UniversalLink
+)
+
+
 from .pagemodels.modular import (
     ModularPage,
     MiniSiteNameSpace
@@ -90,5 +95,6 @@ __all__ = [
     RedirectingPage,
     Signup,
     Styleguide,
+    UniversalLink
     YoutubeRegretsPage,
 ]
