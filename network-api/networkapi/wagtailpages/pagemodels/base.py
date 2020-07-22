@@ -804,7 +804,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
             ],
             heading='Take Action',
-            classname='collapsible',
+            classname='collapsible collapsed',
         ),
     ]
 
