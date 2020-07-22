@@ -309,6 +309,25 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
+class HomepageNewsYouCanUse(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='news_you_can_use',
+    )
+    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
+    panels = [
+        PageChooserPanel('blog'),
+    ]
+
+    class Meta:
+        verbose_name = 'blog'
+        verbose_name_plural = 'blogs'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
+
+
 class HomepageFeaturedBlogs(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -537,6 +556,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
           classname='collapsible'
         ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
+        MultiFieldPanel(
+            [
+                InlinePanel('news_you_can_use', min_num=4, max_num=4),
+            ],
+            heading='News you can use',
+            classname='collapsible'
+        ),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
         MultiFieldPanel(
           [

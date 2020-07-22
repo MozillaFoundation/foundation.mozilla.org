@@ -1,0 +1,41 @@
+{% load wagtailimages_tags i18n %}
+
+<div class="row" id="home-read-more-news">
+    <div class="col-12">
+      <h2 class="h4-heading">{% trans "News you can use" %}</h2>
+      <span>{% trans "Read more news →" %}</span>
+    </div>
+  </div>
+
+  <div>
+    {% for item in page.news_you_can_use.all %}
+    {% if forloop.counter == 1 %}
+      <div class="row">
+        <div class="col-12">
+            {{ forloop.counter }}
+            <!--
+                image
+                title
+                blog category
+                content snippet
+                authors
+            -->
+        </div>
+      </div>
+    {% else %}
+     <div class="row">
+        <div class="col-12 col-md-4">
+            {{ forloop.counter }}
+            <!--
+                image
+                title
+                blog category
+                content snippet
+                authors
+            -->
+        </div>
+      </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
