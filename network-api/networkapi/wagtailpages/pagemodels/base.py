@@ -583,7 +583,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
           [
             ImageChooserPanel('spotlight_image'),
             FieldPanel('spotlight_headline'),
-            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=4),
+            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
           ],
           heading='spotlight',
           classname='collapsible'
