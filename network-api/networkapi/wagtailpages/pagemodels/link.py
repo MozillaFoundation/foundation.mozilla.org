@@ -4,7 +4,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
 
 
-class UniversalLink(models.model):
+class UniversalLink(models.Model):
     """
     A model that can be used by other models for specifying
     a link that is either an internal Wagtail page, or an

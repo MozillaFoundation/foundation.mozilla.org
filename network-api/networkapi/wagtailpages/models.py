@@ -95,6 +95,6 @@ __all__ = [
     RedirectingPage,
     Signup,
     Styleguide,
-    UniversalLink
+    UniversalLink,
     YoutubeRegretsPage,
 ]
