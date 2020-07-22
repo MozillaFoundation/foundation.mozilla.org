@@ -19,7 +19,7 @@
       data-newsletter="{{ mozfest_footer.newsletter }}">
     </div>
 
-    <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="{% static "_images/mozilla-block-white.svg" %}"></a>
+    <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="{% static "_images/mozilla-block-white.svg" %}" width="96"></a>
   </div>
 {% endblock %}
 
@@ -31,10 +31,9 @@
 
 {% block general_links %}
   <li><a id="donate-footer-btn" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer" class="dark-theme">{% trans "Donate" %}</a></li>
-  <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">{% trans "Legal" %}</a></li>
-  <li><a href="https://creativecommons.org/licenses/by/4.0" class="dark-theme">{% trans "License" %}</a></li>
-  <li><a href="/guidelines" class="dark-theme">{% trans "Participation Guidelines" %}</a></li>
-  <li><a href="/media" class="dark-theme">{% trans "Media Center" %}</a></li>
-  <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">{% trans "Privacy" %}</a></li>
   <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">{% trans "Cookies" %}</a></li>
+  <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">{% trans "Legal" %}</a></li>
+  <li><a href="/guidelines" class="dark-theme">{% trans "Participation Guidelines" %}</a></li>
+  <li><a href="/media" class="dark-theme">{% trans "Press Center" %}</a></li>
+  <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">{% trans "Privacy" %}</a></li>
 {% endblock %}
