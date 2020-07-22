@@ -328,6 +328,25 @@ class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
         return self.page.title + '->' + self.highlight.title
 
 
+class HomepageNewsYouCanUse(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='news_you_can_use',
+    )
+    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
+    panels = [
+        PageChooserPanel('blog'),
+    ]
+
+    class Meta:
+        verbose_name = 'blog'
+        verbose_name_plural = 'blogs'
+        ordering = ['sort_order']  # not automatically inherited!
+
+    def __str__(self):
+        return self.page.title + '->' + self.blog.title
+
+
 class HomepageFeaturedBlogs(WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -478,6 +497,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         related_name='hero_image'
     )
 
+    def get_banner(self):
+        return self.hero_image
+
     hero_button_text = models.CharField(
         max_length=50,
         blank=True
@@ -499,6 +521,46 @@ class Homepage(FoundationMetadataPageMixin, Page):
         max_length=140,
         help_text='Spotlight headline',
         blank=True,
+
+    cause_statement = models.CharField(
+        max_length=250,
+        default="",
+    )
+
+    cause_statement_link_text = models.CharField(
+        max_length=80,
+        blank=True,
+    )
+
+    cause_statement_link_page = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='cause_statement_link'
+    )
+
+    quote_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='quote_image',
+    )
+
+    quote_text = models.CharField(
+        max_length=450,
+        default='',
+    )
+
+    quote_source_name = models.CharField(
+        max_length=100,
+        default='',
+    )
+
+    quote_source_job_title = models.CharField(
+        max_length=100,
+        default='',
     )
 
     content_panels = Page.content_panels + [
@@ -525,8 +587,34 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='spotlight',
           classname='collapsible'
         ),
+        MultiFieldPanel(
+          [
+            FieldPanel('cause_statement'),
+            FieldPanel('cause_statement_link_text'),
+            PageChooserPanel('cause_statement_link_page'),
+          ],
+          heading='cause statement',
+          classname='collapsible'
+        ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
+        MultiFieldPanel(
+            [
+                InlinePanel('news_you_can_use', min_num=4, max_num=4),
+            ],
+            heading='News you can use',
+            classname='collapsible'
+        ),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('quote_image'),
+            FieldPanel('quote_text'),
+            FieldPanel('quote_source_name'),
+            FieldPanel('quote_source_job_title'),
+          ],
+          heading='quote',
+          classname='collapsible'
+        ),
     ]
 
     subpage_types = [
