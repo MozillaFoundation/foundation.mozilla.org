@@ -514,13 +514,14 @@ class Homepage(FoundationMetadataPageMixin, Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='spotlight_image'
+        related_name='spotlight_image',
     )
 
     spotlight_headline = models.CharField(
         max_length=140,
         help_text='Spotlight headline',
         blank=True,
+    )
 
     cause_statement = models.CharField(
         max_length=250,
