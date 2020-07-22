@@ -290,7 +290,7 @@ class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
 
-class HomepageSpotlightPosts(WagtailOrderable, models.Model):
+class HomepageSpotlightPosts(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='spotlight_posts',
