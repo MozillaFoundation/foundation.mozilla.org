@@ -5,6 +5,7 @@ from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, 
 from wagtail.core.models import Page, Orderable as WagtailOrderable
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
 
@@ -12,6 +13,7 @@ from modelcluster.fields import ParentalKey
 
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
+from ..utils import ensure_internal_or_external_url
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
@@ -472,6 +474,83 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
+@register_snippet
+class FocusArea(models.Model):
+    interest_icon = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='interest_icon'
+    )
+
+    name = models.CharField(
+        max_length=100,
+        help_text='The name of this area of focus. Max. 100 characters.',
+    )
+
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of this area of focus. Max. 300 characters.',
+    )
+
+    # The link here is handled as a dual field with custom validation, rather
+    # than a single field that lets users pick either an internal page or
+    # external URL, due to the diffuculties associated with doing that latter
+    # in a clean way. See https://github.com/mozilla/foundation.mozilla.org/issues/4936
+    # for a more detailed explanation
+
+    external_link = models.URLField(
+        blank=True
+    )
+
+    internal_link = models.ForeignKey(
+        'wagtailcore.Page',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='internal_link',
+    )
+
+    @property
+    def url(self):
+        print (self.internal_link, self.external_link)
+        if self.internal_link:
+            return self.internal_link.url
+        return self.external_link
+
+    panels = [
+        ImageChooserPanel('interest_icon'),
+        FieldPanel('name'),
+        FieldPanel('description'),
+        FieldPanel('external_link'),
+        PageChooserPanel('internal_link'),
+    ]
+
+    def clean(self):
+        super().clean()
+        ensure_internal_or_external_url(self)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Area of focus'
+        verbose_name_plural = 'Areas of focus'
+
+
+class AreaOfFocus(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='areas_of_focus',
+    )
+
+    area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
+
+    panels = [
+        SnippetChooserPanel('area'),
+    ]
+
+    
 class PartnerLogos(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -632,6 +711,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='cause statement',
           classname='collapsible'
         ),
+        InlinePanel('areas_of_focus', label='Areas of focus', min_num=3, max_num=3),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         MultiFieldPanel(
             [
