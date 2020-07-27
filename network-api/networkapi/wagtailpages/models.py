@@ -68,6 +68,7 @@ __all__ = [
     BanneredCampaignPage,
     BlogIndexPage,
     BlogPage,
+    BlogAuthor,
     BlogPageCategory,
     CTA,
     CampaignIndexPage,
