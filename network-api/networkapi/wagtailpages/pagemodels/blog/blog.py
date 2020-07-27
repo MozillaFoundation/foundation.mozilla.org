@@ -69,7 +69,7 @@ class BlogAuthor(models.Model):
         return self.name
 
 
-class BlogAuthorsOrderable(Orderable):
+class BlogAuthors(Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.BlogPage", related_name="authors")
