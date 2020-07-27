@@ -94,6 +94,41 @@
       <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
     </div>
   </div>
+</div>
+
+{% image page.partner_background_image fill-1200x600 as partner_img %}
+<img src="{{ partner_img.url }}" alt="{{ partner_img.alt }}">
+<div class="py-5">
+  <div class="container">
+      <div class="row">
+        <div class="col-12 mb-5">
+          <h2>{{ page.partner_heading }}</h2>
+          {% if page.partner_intro_text %}
+            <p>
+              {{ page.partner_intro_text }}
+            </p>
+          {% endif %}
+          <a href="{{ page.partner_page.url }}">
+            {{ page.partner_page_text }}
+          </a>
+        </div>
+        {% for orderable in page.partner_logos.all %}
+          {% image orderable.logo width-200 as logo_img %}
+          <div class="col-2">
+            {% if orderable.link %}
+              <a href="{{ orderable.link }}">
+                <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
+              </a>
+            {% else %}
+              <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+<div class="container">
+
   <div class="row section-quote">
     {% with quote_image=page.quote_image %}
     {% if quote_image %}
