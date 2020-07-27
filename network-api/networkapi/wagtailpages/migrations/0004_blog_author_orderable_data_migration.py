@@ -12,11 +12,11 @@ def create_authors(apps, schema_editor):
     """
     BlogPage = apps.get_model('wagtailpages', 'BlogPage')
     BlogAuthor = apps.get_model('wagtailpages', 'BlogAuthor')
-    BlogAuthorsOrderable = apps.get_model('wagtailpages', 'BlogAuthorsOrderable')
+    BlogAuthors = apps.get_model('wagtailpages', 'BlogAuthors')
 
     for post in BlogPage.objects.all():
         author, _ = BlogAuthor.objects.get_or_create(name=post.author)
-        BlogAuthorsOrderable.objects.create(page=post, author=author)
+        BlogAuthors.objects.create(page=post, author=author)
 
 
 def remove_authors(apps, schema_editor):
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='BlogAuthorsOrderable',
+            name='BlogAuthors',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
