@@ -513,7 +513,6 @@ class FocusArea(models.Model):
 
     @property
     def url(self):
-        print (self.internal_link, self.external_link)
         if self.internal_link:
             return self.internal_link.url
         return self.external_link
@@ -550,7 +549,7 @@ class AreaOfFocus(WagtailOrderable):
         SnippetChooserPanel('area'),
     ]
 
-    
+
 class PartnerLogos(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
