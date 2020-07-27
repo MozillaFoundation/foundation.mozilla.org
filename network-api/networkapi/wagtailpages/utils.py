@@ -222,7 +222,6 @@ def ensure_internal_or_external_url(model):
     # for a more detailed explanation
 
     if model.internal_link and model.external_link:
-        # Both fields are filled out
         message = "Please ensure only one field has a value."
         raise ValidationError({
             'external_link': ValidationError(message),
