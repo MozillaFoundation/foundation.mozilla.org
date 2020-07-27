@@ -26,6 +26,9 @@ class UniversalLink(models.Model):
             InlinePanel('field_name', label='link')
         ]
 
+    And a use in templates as:
+    
+        {{ page.field_name.url }}
     """
 
     external_link = models.URLField(
