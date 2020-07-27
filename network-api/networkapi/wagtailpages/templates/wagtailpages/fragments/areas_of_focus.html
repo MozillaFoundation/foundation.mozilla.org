@@ -4,18 +4,16 @@
   <div class="col mb-4">
     <h2 class="h4-heading">{% trans "Our areas of focus" %}</h4>
     <div class="row">
-      {% with page.areas_of_focus.all as areas %}
-        {% for focus in areas %}
-          {% with focus.area as area %}
-            <div class="col-12 col-md-4">
-              {% image area.interest_icon width-100 %}
-              <h2 class="h2-heading">{{ area.name }}</h2>
-              <p class="...">{{ area.description }}</p>
-              <a href="{{ area.url }}" class="...">{% trans "Learn more →" %}</a>
-            </div>
-          {% endwith %}
-        {% endfor %}
-      {% endwith %}
+      {% for focus in page.areas_of_focus.all %}
+        {% with focus.area as area %}
+          <div class="col-12 col-md-4">
+            {% image area.interest_icon width-100 %}
+            <h2 class="h2-heading">{{ area.name }}</h2>
+            <p class="...">{{ area.description }}</p>
+            <a href="{{ area.url }}" class="...">{% trans "Learn more →" %}</a>
+          </div>
+        {% endwith %}
+      {% endfor %}
     </div>
   </div>
 </div>
