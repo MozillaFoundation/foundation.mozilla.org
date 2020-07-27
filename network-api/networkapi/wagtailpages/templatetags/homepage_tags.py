@@ -32,7 +32,7 @@ def homepage_image_with_class(context, path, classname):
 
 
 @register.simple_tag
-def get_authors(blog_post):
+def get_all_authors(blog_post):
     """
     Takes a Homepage features_blog post, gets all authors, traverses to the BlogPage
     and returns a list of dicts with the author.
