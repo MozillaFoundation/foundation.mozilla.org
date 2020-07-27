@@ -82,7 +82,7 @@ class Command(BaseCommand):
                             {
                                 'type': 'button',
                                 'text': {
-                                    'type': "plain_text",
+                                    'type': 'plain_text',
                                     'text': 'View review app'
                                 },
                                 'url': f'https://{reviewapp_name}.herokuapp.com'
@@ -98,7 +98,7 @@ class Command(BaseCommand):
                         ]
                     },
                     {
-                        type: "divider",
+                        'type': 'divider',
                     }
                 ]
             }
