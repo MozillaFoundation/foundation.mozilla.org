@@ -13,6 +13,7 @@ from modelcluster.fields import ParentalKey
 
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
+from ..utils import ensure_internal_or_external_url
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
@@ -496,17 +497,42 @@ class FocusArea(models.Model):
         help_text='Description of this area of focus. Max. 300 characters.',
     )
 
-    url = models.URLField(
-        max_length=2048,
-        help_text='URL for this area of focus\' dedicated page.',
+    # The link here is handled as a dual field with custom validation, rather
+    # than a single field that lets users pick either an internal page or
+    # external URL, due to the diffuculties associated with doing that latter
+    # in a clean way. See https://github.com/mozilla/foundation.mozilla.org/issues/4936
+    # for a more detailed explanation
+
+    external_link = models.URLField(
+        blank=True
     )
+
+    internal_link = models.ForeignKey(
+        'wagtailcore.Page',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='internal_link',
+    )
+
+    @property
+    def url(self):
+        print (self.internal_link, self.external_link)
+        if self.internal_link:
+            return self.internal_link.url
+        return self.external_link
 
     panels = [
         ImageChooserPanel('interest_icon'),
         FieldPanel('name'),
         FieldPanel('description'),
-        FieldPanel('url'),
+        FieldPanel('external_link'),
+        PageChooserPanel('internal_link'),
     ]
+
+    def clean(self):
+        super().clean()
+        ensure_internal_or_external_url(self)
 
     def __str__(self):
         return self.name
