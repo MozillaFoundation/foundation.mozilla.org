@@ -98,7 +98,7 @@ class Command(BaseCommand):
                         ]
                     },
                     {
-                        type: "divider",
+                        'type': "divider",
                     }
                 ]
             }
