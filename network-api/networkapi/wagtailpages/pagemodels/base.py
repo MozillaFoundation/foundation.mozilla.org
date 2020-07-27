@@ -588,8 +588,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
     # Partner Section
     partner_heading = models.CharField(max_length=75, default='Partner with us')
     partner_intro_text = models.TextField(blank=True)
-    partner_link_text = models.CharField(max_length=35, default="Let's work together")
-    partner_link = models.ForeignKey(
+    partner_page_text = models.CharField(max_length=35, default="Let's work together")
+    partner_page = models.ForeignKey(
         'wagtailcore.Page',
         blank=True,
         null=True,
@@ -649,8 +649,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
           [
             FieldPanel('partner_heading'),
             FieldPanel('partner_intro_text'),
-            FieldPanel('partner_link_text'),
-            PageChooserPanel('partner_link'),
+            FieldPanel('partner_page_text'),
+            PageChooserPanel('partner_page'),
             ImageChooserPanel('partner_background_image'),
             InlinePanel('partner_logos', label='Partner Logo', max_num=7),
           ],

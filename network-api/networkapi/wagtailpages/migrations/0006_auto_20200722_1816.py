@@ -31,12 +31,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='homepage',
-            name='partner_link',
+            name='partner_page',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='parnter_internal_link', to='wagtailcore.Page'),
         ),
         migrations.AddField(
             model_name='homepage',
-            name='partner_link_text',
+            name='partner_page_text',
             field=models.CharField(default="Let's work together", max_length=35),
         ),
         migrations.CreateModel(
