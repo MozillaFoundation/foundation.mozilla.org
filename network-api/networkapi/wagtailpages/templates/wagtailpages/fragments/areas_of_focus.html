@@ -1,0 +1,19 @@
+{% load wagtailimages_tags i18n %}
+
+<div class="row areas-of-focus">
+  <div class="col mb-4">
+    <h2 class="h4-heading">{% trans "Our areas of focus" %}</h4>
+    <div class="row">
+        {% with page.areas_of_focus.all as areas %}
+        {% for focus in areas %}
+            <div class="col-12 col-md-4">
+                {% image focus.area.interest_icon width-100 %}
+                <h2 class="h2-heading">{{ focus.area.name }}</h2>
+                <p class="...">{{ focus.area.description }}</p>
+                <a href="{{ focus.url }}" class="...">{% trans "Learn more →" %}</a>
+            </div>
+        {% endfor %}
+        {% endwith %}
+    </div>
+  </div>
+</div>

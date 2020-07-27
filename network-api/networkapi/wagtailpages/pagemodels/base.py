@@ -5,6 +5,7 @@ from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, 
 from wagtail.core.models import Page, Orderable as WagtailOrderable
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
 
@@ -476,6 +477,59 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
+@register_snippet
+class FocusArea(models.Model):
+    interest_icon = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='interest_icon'
+    )
+
+    name = models.CharField(
+        max_length=100,
+        help_text='The name of this area of focus. Max. 100 characters.',
+    )
+
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of this area of focus. Max. 300 characters.',
+    )
+
+    url = models.URLField(
+        max_length=2048,
+        help_text='URL for this area of focus\' dedicated page.',
+    )
+
+    panels = [
+        ImageChooserPanel('interest_icon'),
+        FieldPanel('name'),
+        FieldPanel('description'),
+        FieldPanel('url'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Area of focus'
+        verbose_name_plural = 'Areas of focus'
+
+
+
+class AreaOfFocus(WagtailOrderable, models.Model):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='areas_of_focus',
+    )
+
+    area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
+
+    panels = [
+        SnippetChooserPanel('area'),
+    ]
+
+
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
         max_length=140,
@@ -597,6 +651,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='cause statement',
           classname='collapsible'
         ),
+        InlinePanel('areas_of_focus', label='Areas of focus', min_num=3, max_num=3),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         MultiFieldPanel(
             [
