@@ -554,6 +554,27 @@ class AreaOfFocus(WagtailOrderable):
         SnippetChooserPanel('area'),
     ]
 
+    
+class PartnerLogos(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='partner_logos',
+    )
+    link = models.URLField(blank=True)
+    logo = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    panels = [
+        ImageChooserPanel('logo'),
+        FieldPanel('link'),
+    ]
+
+    class Meta:
+        verbose_name = 'Partner Logo'
+
 
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
@@ -643,6 +664,24 @@ class Homepage(FoundationMetadataPageMixin, Page):
         default='',
     )
 
+    # Partner Section
+    partner_heading = models.CharField(max_length=75, default='Partner with us')
+    partner_intro_text = models.TextField(blank=True)
+    partner_page_text = models.CharField(max_length=35, default="Let's work together")
+    partner_page = models.ForeignKey(
+        'wagtailcore.Page',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='parnter_internal_link',
+    )
+    partner_background_image = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
@@ -686,6 +725,18 @@ class Homepage(FoundationMetadataPageMixin, Page):
             classname='collapsible'
         ),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
+        MultiFieldPanel(
+          [
+            FieldPanel('partner_heading'),
+            FieldPanel('partner_intro_text'),
+            FieldPanel('partner_page_text'),
+            PageChooserPanel('partner_page'),
+            ImageChooserPanel('partner_background_image'),
+            InlinePanel('partner_logos', label='Partner Logo', max_num=7),
+          ],
+          heading='Partner',
+          classname='collapsible'
+        ),
         MultiFieldPanel(
           [
             ImageChooserPanel('quote_image'),
