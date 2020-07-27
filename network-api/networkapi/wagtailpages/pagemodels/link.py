@@ -22,7 +22,7 @@ class UniversalLink(models.Model):
 
     With an inline panel to surface its admin UI:
 
-        panels = [
+        content_panels = Page.content_panels + [
             InlinePanel('field_name', label='link')
         ]
 
