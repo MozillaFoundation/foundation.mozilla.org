@@ -32,7 +32,7 @@
   {% if featured_blogs|length > 1 %}
   <div class="col-md-6 mb-0 pb-4">
     {% for blog in featured_blogs %}
-    {% get_authors blog as authors %}
+    {% get_all_authors blog as authors %}
 
     {% if forloop.counter > 1 %}
     <div>
