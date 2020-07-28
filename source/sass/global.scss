@@ -32,6 +32,10 @@ hr {
 #hero {
   $bg-pattern-height: 144px;
 
+  &.homepage {
+    $bg-pattern-height: 480px;
+  }  
+
   .banner {
     position: absolute;
     height: $bg-pattern-height;

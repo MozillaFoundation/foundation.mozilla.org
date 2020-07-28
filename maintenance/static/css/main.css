@@ -9115,7 +9115,13 @@ button:hover {
   position: absolute;
   height: 144px;
   width: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+
+  & .homepage {
+    color: white;
+    height: 480px;
+  }
+
   #hero .banner img {
     position: absolute;
     top: 0;

@@ -1,27 +1,45 @@
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
 
-<div id="hero">
-  <div class="banner{% if homepage %} homepage{% endif %}">
-    {% if homepage %}
-      {% comment %}
-        ...homepage-only templating code...
-      {% endcomment %}
-    {% endif %}
-
-    {% with banner=page.specific.get_banner %}
+<div id="hero" class="{% if homepage %}homepage{% endif %}">
+  <div class="banner">
+     {% with banner=page.specific.get_banner %}
       {% if banner %}
         <picture>
-          {% image banner fill-4032x1152 as image_xl %}
-          {% image banner fill-2400x686 as image_lg %}
-          {% image banner fill-1984x567 as image_md %}
-          {% image banner fill-1536x439 as image_sm %}
+          {% if homepage %}
+            {% image banner fill-4032x1440 as image_xl %}
+            {% image banner fill-2400x960 as image_lg %}
+            {% image banner fill-1984x720 as image_md %}
+            {% image banner fill-1536x480 as image_sm %}          
+          {% else %}
+            {% image banner fill-4032x1152 as image_xl %}
+            {% image banner fill-2400x686 as image_lg %}
+            {% image banner fill-1984x567 as image_md %}
+            {% image banner fill-1536x439 as image_sm %}
+          {% endif %}
+
           <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
           <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
           <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
           <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
-          {# Fallback Image #}
-          {% image banner fill-1008x288 alt="" %}
+
+            {# Fallback Image #}
+          {% if homepage %}
+            {% image banner fill-1008x480 alt="" %}
+          {% else %}
+            {% image banner fill-1008x288 alt="" %}
+          {% endif %}
         </picture>
+
+        {% if homepage %}
+        <div class="container dark-theme position-relative h-100">
+          <div class="row h-100">
+            <div class="col-12 col-lg-6 pt-4 d-flex flex-column justify-content-center align-items-start">
+              <h1 class="h1-heading">{{ page.hero_headline }}</h1>
+              <a class="d-block btn btn-secondary" href="{{ page.hero_button_url }}">{{ page.hero_button_text }}</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
       {% else %}
         <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
       {% endif %}
@@ -31,9 +49,14 @@
   <div class="container">
     <div class="row cutout-wrapper-row">
       <div class="cutout col-12 col-lg-8 pt-4">
-        <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
-        {% if page.intro %}
-        <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
+        {% if homepage %}
+          <!-- cutout cause statement here -->
+          <p class="body-large mt-3 mb-0">Mozilla has a cause statement that will lemon bacon creamcheese bagel</p>
+        {% else %}
+          <h1 class="h1-heading mb-0">{% if root.title %}{{ root.title }}{% elif page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+          {% if page.intro %}
+          <p class="body-large mt-3 mb-0">{{ page.intro }}</p>
+          {% endif %}
         {% endif %}
       </div>
     </div>
