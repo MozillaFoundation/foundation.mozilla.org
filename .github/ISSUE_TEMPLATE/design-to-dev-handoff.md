@@ -15,7 +15,7 @@ Enter actual ticket description here
 
 ---
 
-**🗒  Design -> Dev Handoff Checklist**
+###  Design -> Dev Handoff Checklist
 (Feel free to remove items that are not applicable.)
 
 - [ ] Design has been finalized
