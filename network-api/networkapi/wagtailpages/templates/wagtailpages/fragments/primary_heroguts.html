@@ -22,7 +22,7 @@
           <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
           <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
 
-            {# Fallback Image #}
+          {# Fallback Image: #}
           {% if homepage %}
             {% image banner fill-1008x480 alt="" %}
           {% else %}
@@ -40,6 +40,7 @@
           </div>
         </div>
         {% endif %}
+
       {% else %}
         <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
       {% endif %}

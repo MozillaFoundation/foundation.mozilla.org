@@ -34,6 +34,11 @@ hr {
 
   &.homepage {
     $bg-pattern-height: 480px;
+
+    .banner img {
+      min-height: $bg-pattern-height;
+      object-fit: cover;
+    }
   }  
 
   .banner {
