@@ -10,9 +10,10 @@
     </div>
   </div>
 
-  <div class="row feature mb-4">
+  <div class="row d-flex flex-row mb-4">
     {% with items=page.news_you_can_use.all %}
     {% with first=items.first.blog %}
+    <div class="col-12 col-md-6 col-xl-12 feature mb-xl-4">
       <div class="feature-image">
         {% image first.get_meta_image fill-1000x500 %}
       </div>
@@ -22,28 +23,27 @@
           <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
         {% endwith %}
         <h3>{{ first.title }}</h3>
-        <p class="body-large">{{ first.search_description }}</p>
+        <p class="body-large d-none d-xl-block">{{ first.search_description }}</p>
         <p>authors go here {{ first.authors.all }}</p>
       </div>
       {% endwith %}
     </div>
 
-    <div class="row">
-      {% for item in items %}
-        {% if forloop.counter > 1 %}
-          <div class="col-4">
-            <div class="bg-white">
-              {% image item.blog.get_meta_image fill-500x300 %}
-              {% with category=item.blog.category.first %}
-                <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
-              {% endwith %}
-              <h3>{{ item.blog.title }}</h3>
-              <p>authors go here {{ item.blog.authors.all }}</p>
-            </div>
+    {% for item in items %}
+      {% if forloop.counter > 1 %}
+        <div class="col-12 col-md-6 col-xl-4 px-0">
+          <div class="bg-white">
+            {% image item.blog.get_meta_image fill-500x300 %}
+            {% with category=item.blog.category.first %}
+              <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+            {% endwith %}
+            <h3>{{ item.blog.title }}</h3>
+            <p>authors go here {{ item.blog.authors.all }}</p>
           </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
   {% endwith %}
   </div>
 </div>

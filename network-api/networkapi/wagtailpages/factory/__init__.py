@@ -3,6 +3,7 @@ from . import (
     campaign_page,
     bannered_campaign_page,
     homepage_features,
+    homepage_usable_news,
     homepage,
     initiatives_page,
     news_page,
@@ -19,6 +20,7 @@ def generate(seed):
     blog.generate(seed)
     # homepage_features.generate requires blog pages to exist first
     homepage_features.generate(seed)
+    homepage_usable_news.generate(seed)
     campaign_page.generate(seed)
     bannered_campaign_page.generate(seed)
     initiatives_page.generate(seed)
