@@ -125,6 +125,23 @@
       }
     }
   }
+
+
+  .areas-of-focus {
+    background: lightgrey;
+
+    h2.focus-heading {
+      font-family: "Nunito Sans";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1.5em;
+    }
+
+    .icon {
+      max-width: 4em;
+      max-height: 4em;
+    }
+  }
 }
 
 .highlights-card {
