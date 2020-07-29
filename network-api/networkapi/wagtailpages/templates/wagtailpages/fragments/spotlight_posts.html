@@ -1,23 +1,27 @@
-{% load wagtailimages_tags i18n %}
+{% load wagtailimages_tags i18n homepage_tags %}
 
-<div class="row">
+<div class="row section-spotlight">
 
-  <div class="col-12 col-md-6">
-    <span class="bubble">{% trans "spotlight" %}</span>
-    {% image page.spotlight_image width-540 %}
-    <h2 class="h2-heading">{{ page.spotlight_headline }}</h2>
+  <div class="col-12">
+    <h2 class="h4-heading">{% trans "Spotlight" %}</h2>
+  </div>
+  {% image page.spotlight_image width-540 as spotlight_image %}
+  <div class="col-12 col-md-6 dark-theme">
+    <div class="spotlight-banner d-flex align-items-end p-3" style="background-image: linear-gradient(180deg, rgba(238,238,238,0) 14%, #000000 100%), url({{spotlight_image.url}});">
+      <h3 class="h2-heading spotlight-headline mb-0">{{ page.spotlight_headline }}</h3>
+    </div>
   </div>
 
   <div class="col-12 col-md-6">
     {% for post in page.spotlight_posts.all %}
-    <div class="row">
-      <div class="col-12">
-        <h3 class="h3-heading">{{ post.blog.title }}</h3>
-        <div class="authors">
-          <!-- authors go here -->
-        </div>
+      {% get_all_authors post as authors %}
+
+      <div class="spotlight-post">
+        <h5 class="mb-2">
+          <a href="{{postt.blog.url}}">{{post.blog.title}}</a>
+        </h5>
+        {% include "./blog_authors.html" %}
       </div>
-    </div>
     {% endfor %}
   </div>
 

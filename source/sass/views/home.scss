@@ -1,6 +1,45 @@
 #view-home {
   $section-padding-y: 5rem;
 
+  .section-spotlight {
+    padding-top: $section-padding-y;
+    padding-bottom: $section-padding-y;
+
+    .spotlight-banner {
+      background-size: cover;
+      background-position: center;
+      height: 240px;
+
+      @media (min-width: $bp-md) {
+        height: 255px;
+      }
+
+      @media (min-width: $bp-lg) {
+        height: 400px;
+      }
+    }
+
+    .spotlight-headline {
+      font-weight: 700;
+    }
+
+    .spotlight-post {
+      $vertical-spacing: 1.5rem;
+
+      &:first-child {
+        @include media-breakpoint-down(sm) {
+          margin-top: $vertical-spacing;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $black;
+        padding-bottom: $vertical-spacing;
+        margin-bottom: $vertical-spacing;
+      }
+    }
+  }
+
   .section-quote {
     $icon-height: 41px;
     $icon-width: 49px;

@@ -1,0 +1,28 @@
+.blog-authors {
+  .author-image {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $gray-80;
+    border: 2px solid #fff;
+    color: $gray-40;
+    overflow: hidden;
+
+    &:not(:first-of-type) {
+      margin-left: -1rem;
+    }
+
+    &:last-of-type {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .body-small {
+    color: $black;
+  }
+
+  strong {
+    font-weight: 800;
+  }
+}
