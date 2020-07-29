@@ -12,12 +12,24 @@
 
   <div class="row d-flex flex-row mb-4">
     {% with items=page.news_you_can_use.all %}
+
+{% comment %}
+
+  Note that the "feature" element is ONLY visible at xl sizes, because it is too different
+  from the standard layout. Instead, this is basically a duplicated "card", with display:
+
+            \     xs    sm    md    lg    xl
+            \-------------------------------
+      custom|  none  none  none  none block
+      normal| block block block block  none
+
+{% endcomment %}
+
     {% with first=items.first.blog %}
-    <div class="col-12 col-md-6 col-xl-12 feature mb-xl-4">
+    <div class="d-none d-xl-block col-xl-12 feature mb-xl-4">
       <div class="feature-image">
         {% image first.get_meta_image fill-1000x500 %}
       </div>
-
       <div class="left-cut-in">
         {% with category=first.category.first %}
           <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
@@ -29,19 +41,25 @@
       {% endwith %}
     </div>
 
+{% comment %}
+
+  Again, note that the following loop generates cards for _all_ items, including the featured
+  item. It will simply hide that first card on sizes that show the feature layout instead.
+
+{% endcomment %}
+
+
     {% for item in items %}
-      {% if forloop.counter > 1 %}
-        <div class="col-12 col-md-6 col-xl-4 px-0">
-          <div class="bg-white">
-            {% image item.blog.get_meta_image fill-500x300 %}
-            {% with category=item.blog.category.first %}
-              <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
-            {% endwith %}
-            <h3>{{ item.blog.title }}</h3>
-            <p>authors go here {{ item.blog.authors.all }}</p>
-          </div>
-        </div>
-      {% endif %}
+    <div class="{% if forloop.counter == 1 %}d-xl-none {% endif %}col-12 col-md-6 col-xl-4">
+      <div class="bg-white">
+        {% image item.blog.get_meta_image fill-500x300 %}
+        {% with category=item.blog.category.first %}
+          <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+        {% endwith %}
+        <h3>{{ item.blog.title }}</h3>
+        <p>authors go here {{ item.blog.authors.all }}</p>
+      </div>
+    </div>
     {% endfor %}
 
   {% endwith %}
