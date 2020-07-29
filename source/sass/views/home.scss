@@ -49,6 +49,44 @@
       }
     }
   }
+
+  .read-more-news {
+    background: $gray-05;
+
+    h2.custom-heading {
+      font-family: "Nunito Sans";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1.5em;
+      margin-left: 0;
+    }
+
+    .feature {
+      position: relative;
+      height: 400px; 
+
+      .feature-image {
+        position: absolute;
+        left: 0;
+        width: 70%;
+        height: 100%;
+      }
+      
+      .left-cut-in {
+        $border-width: 3px;
+        $margin: 40px;
+
+        position:absolute;
+        top: $margin;
+        bottom: calc(#{$margin} + #{$border-width});
+        right: 0;
+        width: 50%;
+        padding: 2em;
+        background: $white;
+        border-bottom: $border-width solid $black;
+      }
+    }
+  }
 }
 
 .highlights-card {
