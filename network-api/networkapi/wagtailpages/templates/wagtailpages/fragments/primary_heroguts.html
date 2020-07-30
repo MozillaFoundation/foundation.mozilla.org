@@ -2,14 +2,14 @@
 
 <div id="hero" class="{% if homepage %}homepage{% endif %}">
   <div class="banner">
-     {% with banner=page.specific.get_banner %}
+    {% with banner=page.specific.get_banner %}
       {% if banner %}
         <picture>
           {% if homepage %}
             {% image banner fill-4032x1440 as image_xl %}
             {% image banner fill-2400x960 as image_lg %}
             {% image banner fill-1984x720 as image_md %}
-            {% image banner fill-1536x480 as image_sm %}          
+            {% image banner fill-1536x480 as image_sm %}
           {% else %}
             {% image banner fill-4032x1152 as image_xl %}
             {% image banner fill-2400x686 as image_lg %}

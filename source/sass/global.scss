@@ -38,8 +38,9 @@ hr {
     .banner img {
       min-height: $bg-pattern-height;
       object-fit: cover;
+      filter: brightness(55%);
     }
-  }  
+  }
 
   .banner {
     position: absolute;

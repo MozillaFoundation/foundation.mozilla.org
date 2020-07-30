@@ -1,6 +1,12 @@
 #view-home {
   $section-padding-y: 5rem;
 
+  .banner {
+    h1 {
+      font-weight: 700;
+    }
+  }
+
   .section-quote {
     $icon-height: 41px;
     $icon-width: 49px;
