@@ -8,7 +8,7 @@
     <div class="{{author_class}}">
     {% if author.image %}
       {% image author.image fill-100x100 as img %}
-      <img src="{{ img.url }}" alt="{{ author.name }}" />
+      <img src="{{ img.url }}" alt="{{ author.name }}" title="{{ author.name }}" />
     {% endif %}
     </div>
   {% endfor %}
