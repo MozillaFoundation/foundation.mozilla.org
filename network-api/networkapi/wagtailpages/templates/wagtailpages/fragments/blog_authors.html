@@ -19,7 +19,7 @@
     {% with authors_length=authors|length %}
     {% spaceless %}
     {% for author in authors %}
-    <span>{% if forloop.last %}{% trans "and" %} {% endif %}<b>{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
+    <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
     {% endfor %}
     {% endspaceless%}
     {% endwith %}
