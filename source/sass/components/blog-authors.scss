@@ -8,6 +8,8 @@
     border: 2px solid $white;
     color: $gray-40;
     overflow: hidden;
+    background: url(../_images/blog-author-placeholder.jpg) $gray-80;
+    background-size: cover;
 
     &:not(:first-of-type) {
       margin-left: -1rem;
