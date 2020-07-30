@@ -5,7 +5,7 @@
     height: 50px;
     border-radius: 50%;
     background-color: $gray-80;
-    border: 2px solid #fff;
+    border: 2px solid $white;
     color: $gray-40;
     overflow: hidden;
 
@@ -22,7 +22,7 @@
     color: $black;
   }
 
-  strong {
+  b {
     font-weight: 800;
   }
 }

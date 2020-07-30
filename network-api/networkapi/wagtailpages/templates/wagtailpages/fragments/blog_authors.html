@@ -1,7 +1,7 @@
 {% load wagtailimages_tags i18n homepage_tags %}
 
 <div class="blog-authors d-flex align-items-center flex-wrap">
-  <div class="author-images d-flex">
+  <div class="author-images d-flex mb-2">
   {% with "author-image d-flex align-items-center justify-content-center" as author_class %}
   {% for author in authors %}
     <div class="{{author_class}}">
@@ -14,11 +14,11 @@
   {% endwith %}
   </div>
 
-  <p class="body-small mt-2 mb-0">
+  <p class="body-small mb-0">
     {% with authors_length=authors|length %}
     {% spaceless %}
     {% for author in authors %}
-    <span>{% if forloop.last %}{% trans "and" %} {% endif %}<strong>{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</strong></span>
+    <span>{% if forloop.last %}{% trans "and" %} {% endif %}<b>{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
     {% endfor %}
     {% endspaceless%}
     {% endwith %}
