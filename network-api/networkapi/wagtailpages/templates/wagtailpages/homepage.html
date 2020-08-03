@@ -31,7 +31,6 @@
       <a class="btn btn-primary d-block d-sm-inline" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
     </div>
   </div>
-
   {% include "./fragments/areas_of_focus.html" %}
 
   {% include "./fragments/spotlight_posts.html" %}
@@ -72,38 +71,16 @@
   </div>
 </div>
 
-{% image page.partner_background_image fill-1200x600 as partner_img %}
-<img src="{{ partner_img.url }}" alt="{{ partner_img.alt }}">
-<div class="py-5">
+<div class="bg-light py-5">
   <div class="container">
-      <div class="row">
-        <div class="col-12 mb-5">
-          <h2>{{ page.partner_heading }}</h2>
-          {% if page.partner_intro_text %}
-            <p>
-              {{ page.partner_intro_text }}
-            </p>
-          {% endif %}
-          <a href="{{ page.partner_page.url }}">
-            {{ page.partner_page_text }}
-          </a>
-        </div>
-        {% for orderable in page.partner_logos.all %}
-          {% image orderable.logo width-200 as logo_img %}
-          <div class="col-2">
-            {% if orderable.link %}
-              <a href="{{ orderable.link }}">
-                <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-              </a>
-            {% else %}
-              <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    </div>
+    {% include "./fragments/news_you_can_use.html" %}
   </div>
+</div>
 <div class="container">
+  {% include "./fragments/spotlight_posts.html" %}
+  {% include "./fragments/featured_blogs.html" %}
+  {% include "./fragments/featured_stories.html" %}
+</div>
 
 <div class="row">
   <div class="col-12">
@@ -131,70 +108,11 @@
       </div>
   </div>
 </div>
-<div class="row">
-  <div class="col">
-    <hr class="hr-emphasis mb-5">
-    <div class="row mb-5">
-      <div class="col">
-        <div class="feature-quote">
-          <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
-          <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
 
-
-        </div>
-        {% for orderable in page.partner_logos.all %}
-          {% image orderable.logo width-200 as logo_img %}
-          <div class="col-2">
-            {% if orderable.link %}
-              <a href="{{ orderable.link }}">
-                <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-              </a>
-            {% else %}
-              <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
 <div class="container">
-
-  <div class="row section-quote">
-    {% with quote_image=page.quote_image %}
-    {% if quote_image %}
-    <div class="col-md-4 col-lg-6 mb-5 mb-md-0">
-      {% with alt_text=quote_image.alt %}
-
-      <picture class="cms-image">
-          {% image quote_image width-540 as image_large %}
-          {% image quote_image width-1080 as image_large_2x %}
-          <source media="(min-width: 992px)" srcset="{{ image_large.url }}, {{ image_large_2x.url }} 2x"  alt="{{ alt_text }}">
-
-          {% image quote_image width-210 as image_medium %}
-          {% image quote_image width-420 as image_medium_2x %}
-          <source media="(min-width: 768px)" srcset="{{ image_medium.url }}, {{ image_medium_2x.url }} 2x" alt="{{ alt_text }}">
-
-          {% image quote_image width-510 as image_small %}
-          {% image quote_image width-1020 as image_small_2x %}
-          <source srcset="{{ image_small.url }}, {{ image_small_2x.url }} 2x" alt="{{ alt_text }}">
-
-          <img src="{{ image_large.url }}" class="wagtail-image" srcset="{{image_small.url}} 510w, {{ image_medium.url }} 210w, {{ image_large.url }} 540w" alt="{{ alt_text }}"/>
-      </picture>
-      {% endwith %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    <div class="col-md-8 col-lg-6">
-      <blockquote>
-        <p class="quote-text">{{ page.quote_text }}</p>
-        <footer>
-          <cite>{{ page.quote_source_name }}</cite>
-          <p>{{ page.quote_source_job_title }}</p>
-        </footer>
-      </blockquote>
-    </div>
-  </div>
-
+  {% include "./fragments/quote.html" %}
 </div>
+
+{% include "./fragments/partner.html" %}
 
 {% endblock %}
