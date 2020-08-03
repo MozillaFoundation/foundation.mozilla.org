@@ -24,19 +24,66 @@
   {% include "./fragments/cause_statement.html" %}
   {% include "./fragments/focus_areas.html" %}
 </div>
-<div class="bg-gray py-5">
+
+{% image page.partner_background_image fill-1200x600 as partner_img %}
+<div class="bg-secondary partner-section" style='background-image: url("{{ partner_img.url }}");'>
   <div class="container">
-    {% include "./fragments/news_you_can_use.html" %}
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-white">{{ page.partner_heading }}</h2>
+        {% if page.partner_intro_text %}
+          <p class="text-white partner-section-text">
+            {{ page.partner_intro_text }}
+          </p>
+        {% endif %}
+        <a href="{{ page.partner_page.url }}" class="text-white partner-section-button">
+          {{ page.partner_page_text }} →
+        </a>
+      </div>
+      <div class="partner-section-logos">
+        {% for orderable in page.partner_logos.all %}
+          <div class="partner-section-logo">
+            {% if orderable.link %}
+              <a href="{{ orderable.link }}">
+                <img src="{{ orderable.image_rendition.url }}" alt="{{ logo_img.alt }}">
+              </a>
+            {% else %}
+              <img src="{{ orderable.image_rendition.url }}" alt="{{ logo_img.alt }}">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
+
 <div class="container">
 
-  {% include "./fragments/spotlight_posts.html" %}
-
-</div>
-<div class="bg-gray py-5">
-  <div class="container">
-    {% include "./fragments/take_action.html" %}
+  <div class="row">
+    <div class="col-12">
+      <h2>{{ page.take_action_title }}</h2>
+    </div>
+    <div class="col-8">
+      <div class="row">
+        {% for item in page.take_action_cards.all %}
+          <a href="{{ item.link }}" class="col-6">
+            {% image item.image fill-400x200 as img %}
+            <img src="{{ img.url }}" alt="" />
+            <div>
+              {{ item.text }}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-4">
+        <div
+          class="join-us mb-5"
+          data-cta-header="{{ cta.header | escape }}"
+          data-cta-description="{{ cta.description | escape }}"
+          data-newsletter="{{ cta.newsletter }}">
+        </div>
+    </div>
   </div>
 </div>
 

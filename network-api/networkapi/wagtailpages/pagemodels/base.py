@@ -546,6 +546,7 @@ class HomepageTakeActionCards(WagtailOrderable):
 
     class Meta:
         verbose_name = "Take Action Card"
+        ordering = ['sort_order']  # not automatically inherited!
 
 
 class HomepageFocusAreas(WagtailOrderable):
@@ -560,6 +561,10 @@ class HomepageFocusAreas(WagtailOrderable):
         SnippetChooserPanel('area'),
     ]
 
+    class Meta:
+        verbose_name = 'Area of focus'
+        verbose_name_plural = 'Areas of focus'
+
 
 class PartnerLogos(WagtailOrderable):
     page = ParentalKey(
@@ -573,27 +578,18 @@ class PartnerLogos(WagtailOrderable):
         null=True,
         on_delete=models.SET_NULL,
     )
+    width = models.PositiveSmallIntegerField(
+        help_text='The width of the image. Height will automatically be applied.'
+    )
     panels = [
         ImageChooserPanel('logo'),
         FieldPanel('link'),
+        FieldPanel('width'),
     ]
 
-    def clean(self):
-        # Validate internal and external links. Make sure one is always applied
-        # in each Orderable item.
-        super().clean()
-        if self.internal_link and self.external_link:
-            message = "Please only select a page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
-        if not self.internal_link and not self.external_link:
-            message = "Please select either page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
+    @property
+    def image_rendition(self):
+        return self.logo.get_rendition(f'width-{self.width}')
 
     class Meta:
         verbose_name = 'Partner Logo'
