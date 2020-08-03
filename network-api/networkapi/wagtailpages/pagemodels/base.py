@@ -593,6 +593,7 @@ class PartnerLogos(WagtailOrderable):
 
     class Meta:
         verbose_name = 'Partner Logo'
+        ordering = ['sort_order']  # not automatically inherited!
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
@@ -743,7 +744,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             FieldPanel('partner_page_text'),
             PageChooserPanel('partner_page'),
             ImageChooserPanel('partner_background_image'),
-            InlinePanel('partner_logos', label='Partner Logo', max_num=7),
+            InlinePanel('partner_logos', label='Partner Logo', max_num=7, min_num=1),
           ],
           heading='Partner',
           classname='collapsible'

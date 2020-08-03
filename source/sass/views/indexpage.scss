@@ -52,17 +52,18 @@
   font-weight: bold;
   line-height: 1.5;
   display: inline-block;
-  margin-bottom: 75px;
 }
 
 .partner-section-logos {
   position: relative;
   z-index: 1;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .partner-section-logo {
   margin-right: 48px;
+  margin-top: 75px;
 }
 
 @media(max-width: $bp-md) {
@@ -70,7 +71,7 @@
     display: none;
   }
 
-  .partner-section-button {
-    margin-bottom: 0;
+  .partner-section-logo {
+    margin-top: 0;
   }
 }
