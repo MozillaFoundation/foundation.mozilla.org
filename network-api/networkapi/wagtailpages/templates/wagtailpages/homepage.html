@@ -78,34 +78,16 @@
 </div>
 <div class="container">
   {% include "./fragments/spotlight_posts.html" %}
-  {% include "./fragments/featured_blogs.html" %}
-  {% include "./fragments/featured_stories.html" %}
+  {# @TODO Confirm these are no longer required in the template. #}
+  {% comment %} {% include "./fragments/featured_blogs.html" %} {% endcomment %}
+  {% comment %} {% include "./fragments/featured_stories.html" %} {% endcomment %}
+  {# END @TODO #}
 </div>
 
-<div class="row">
-  <div class="col-12">
-    <h2>{{ page.take_action_title }}</h2>
-  </div>
-  <div class="col-8">
-    <div class="row">
-      {% for item in page.take_action_cards.all %}
-        <a href="{{ item.link }}" class="col-6">
-          {% image item.image fill-400x200 as img %}
-          <img src="{{ img.url }}" alt="" />
-          <div>
-            {{ item.text }}
-          </div>
-        </a>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="col-4">
-      <div
-        class="join-us mb-5"
-        data-cta-header="{{ cta.header | escape }}"
-        data-cta-description="{{ cta.description | escape }}"
-        data-newsletter="{{ cta.newsletter }}">
-      </div>
+
+<div class="bg-light py-5">
+  <div class="container">
+    {% include "./fragments/take_action.html" %}
   </div>
 </div>
 
