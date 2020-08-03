@@ -107,6 +107,60 @@
   </div>
 <div class="container">
 
+<div class="row">
+  <div class="col-12">
+    <h2>{{ page.take_action_title }}</h2>
+  </div>
+  <div class="col-8">
+    <div class="row">
+      {% for item in page.take_action_cards.all %}
+        <a href="{{ item.link }}" class="col-6">
+          {% image item.image fill-400x200 as img %}
+          <img src="{{ img.url }}" alt="" />
+          <div>
+            {{ item.text }}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-4">
+      <div
+        class="join-us mb-5"
+        data-cta-header="{{ cta.header | escape }}"
+        data-cta-description="{{ cta.description | escape }}"
+        data-newsletter="{{ cta.newsletter }}">
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <hr class="hr-emphasis mb-5">
+    <div class="row mb-5">
+      <div class="col">
+        <div class="feature-quote">
+          <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
+          <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
+
+
+        </div>
+        {% for orderable in page.partner_logos.all %}
+          {% image orderable.logo width-200 as logo_img %}
+          <div class="col-2">
+            {% if orderable.link %}
+              <a href="{{ orderable.link }}">
+                <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
+              </a>
+            {% else %}
+              <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+<div class="container">
+
   <div class="row section-quote">
     {% with quote_image=page.quote_image %}
     {% if quote_image %}
