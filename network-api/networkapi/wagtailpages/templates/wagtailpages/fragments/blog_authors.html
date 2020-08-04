@@ -1,8 +1,7 @@
 {% load wagtailimages_tags i18n homepage_tags %}
 
-{% with inner_section_class="mb-2" %}
 <div class="blog-authors d-flex align-items-center flex-wrap">
-  <div class="author-images d-flex {{inner_section_class}}">
+  <div class="author-images d-flex">
   {% with "author-image d-flex align-items-center justify-content-center" as author_class %}
   {% for author in authors %}
     <div class="{{author_class}}">
@@ -15,7 +14,7 @@
   {% endwith %}
   </div>
 
-  <p class="body-small {{inner_section_class}}">
+  <p class="body-small my-2">
     {% with authors_length=authors|length %}
     {% spaceless %}
     {% for author in authors %}
@@ -25,4 +24,3 @@
     {% endwith %}
   </p>
 </div>
-{% endwith %}
