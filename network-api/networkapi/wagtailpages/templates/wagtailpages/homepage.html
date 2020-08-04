@@ -40,6 +40,11 @@
 
   {% include "./fragments/news_you_can_use.html" %}
 
+  {% comment %}
+  TODO: 
+  Commenting this section out for now to make the front-end work less distracting.
+  This section and its related backend / CSS code needs to be removed.
+  
   <div class="row">
     <div class="col mb-4">
       <hr class="hr-emphasis mb-4">
@@ -73,6 +78,8 @@
     </div>
   </div>
 </div>
+{% endcomment %}
+
 
 {% image page.partner_background_image fill-1200x600 as partner_img %}
 <img src="{{ partner_img.url }}" alt="{{ partner_img.alt }}">
