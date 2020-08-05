@@ -9,6 +9,18 @@
     @media (min-width: $bp-md) {
       margin-top: -48px;
     }
+
+    .h4-heading {
+      font-weight: 600;
+
+      @media (min-width: $bp-md) {
+        font-weight: 500;
+      }
+    }
+
+    .cta-link {
+      font-size: 700;
+    }
   }
 
   .section-spotlight {
