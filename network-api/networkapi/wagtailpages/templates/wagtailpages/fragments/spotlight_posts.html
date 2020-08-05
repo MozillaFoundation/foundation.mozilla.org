@@ -1,4 +1,4 @@
-{% load wagtailimages_tags i18n homepage_tags %}
+{% load wagtailimages_tags i18n %}
 
 <div class="row section-spotlight">
 
@@ -14,13 +14,11 @@
 
   <div class="col-12 col-lg-6">
     {% for post in page.spotlight_posts.all %}
-      {% get_all_authors post as authors %}
-
       <div class="spotlight-post">
         <h5 class="mb-2">
           <a href="{{post.blog.url}}">{{post.blog.title}}</a>
         </h5>
-        {% include "./blog_authors.html" %}
+        {% include "./blog_authors.html" with post=post %}
       </div>
     {% endfor %}
   </div>

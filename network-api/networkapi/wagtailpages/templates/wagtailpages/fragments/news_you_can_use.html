@@ -1,67 +1,72 @@
 {% load wagtailimages_tags i18n class_tags blog_tags wagtailroutablepage_tags %}
 
-  
-<div class="container read-more-news">
-  <div class="row">
-    <div class="col-12 d-flex flex-row justify-content-between p-0">
-      <h2 class="custom-heading">{% trans "News you can use" %}</h2>
-      {# this should not be a hardcoded route... #}
-      <a href="/blog">{% trans "Read more news →" %}</a>
-    </div>
+<div class="row read-more-news">
+  <div class="col-12 d-flex flex-row justify-content-between">
+    <h2 class="custom-heading">{% trans "News you can use" %}</h2>
+    {# this should not be a hardcoded route... #}
+    <a href="/blog" class="cta-link">{% trans "Read more news" %}</a>
   </div>
 
-  <div class="row d-flex flex-row mb-4">
-    {% with items=page.news_you_can_use.all %}
+  <div class="col-12">
+    <div class="row d-flex flex-row mb-4">
+      {% with items=page.news_you_can_use.all %}
 
-{% comment %}
+  {% comment %}
 
-  Note that the "feature" element is ONLY visible at xl sizes, because it is too different
-  from the standard layout. Instead, this is basically a duplicated "card", with display:
+    Note that the "feature" element is ONLY visible at xl sizes, because it is too different
+    from the standard layout. Instead, this is basically a duplicated "card", with display:
 
-            \     xs    sm    md    lg    xl
-            \-------------------------------
-      custom|  none  none  none  none block
-      normal| block block block block  none
+              \     xs    sm    md    lg    xl
+              \-------------------------------
+        custom|  none  none  none  none block
+        normal| block block block block  none
 
-{% endcomment %}
+  {% endcomment %}
 
-    {% with first=items.first.blog %}
-    <div class="d-none d-xl-block col-xl-12 feature mb-xl-4">
-      <div class="feature-image">
-        {% image first.get_meta_image fill-1000x500 %}
-      </div>
-      <div class="left-cut-in">
-        {% with category=first.category.first %}
-          <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
-        {% endwith %}
-        <h3>{{ first.title }}</h3>
-        <p class="body-large d-none d-xl-block">{{ first.search_description }}</p>
-        <p>authors go here {{ first.authors.all }}</p>
+      {% with first=items.first.blog %}
+      <div class="d-none d-xl-block col-xl-12 feature mb-xl-4">
+        <div class="position-relative h-100">
+          <div class="feature-image">
+            {% image first.get_meta_image fill-1000x500 %}
+          </div>
+          <div class="left-cut-in">
+            <p style="color: red;">TODO: Content here can outgrow the white box container. Figure out height restrictions and alignments.</p>
+            {% with category=first.category.first %}
+              <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}<span style="color: red;"> ← what color should this be?</span></a>
+            {% endwith %}
+            <h3>{{ first.title }}</h3>
+            <p class="body-large d-none d-xl-block">{{ first.search_description }}</p>
+            {% include "./blog_authors.html" with post=items.first %}
+          </div>
+        </div>
       </div>
       {% endwith %}
-    </div>
 
-{% comment %}
+  {% comment %}
 
-  Again, note that the following loop generates cards for _all_ items, including the featured
-  item. It will simply hide that first card on sizes that show the feature layout instead.
+    Again, note that the following loop generates cards for _all_ items, including the featured
+    item. It will simply hide that first card on sizes that show the feature layout instead.
 
-{% endcomment %}
+  {% endcomment %}
 
 
-    {% for item in items %}
-    <div class="{% if forloop.counter == 1 %}d-xl-none {% endif %}col-12 col-md-6 col-xl-4">
-      <div class="bg-white">
-        {% image item.blog.get_meta_image fill-500x300 %}
-        {% with category=item.blog.category.first %}
-          <a class="h6-heading d-block mt-3 mb-0" href="/blog/category/{{ category.slug }}">{{ category }}</a>
-        {% endwith %}
-        <h3>{{ item.blog.title }}</h3>
-        <p>authors go here {{ item.blog.authors.all }}</p>
+      {% for item in items %}
+      <div class="{% if forloop.counter == 1 %}d-xl-none {% endif %}col-12 col-md-6 col-xl-4 d-flex mb-4 mb-xl-0">
+        <div class="bg-white">
+          {% image item.blog.get_meta_image fill-500x300 %}
+          <div class="p-4">
+            {% with category=item.blog.category.first %}
+            <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+            {% endwith %}
+            <h3>{{ item.blog.title }}</h3>
+            {% include "./blog_authors.html" with post=item %}
+          </div>
+        </div>
       </div>
-    </div>
-    {% endfor %}
+      {% endfor %}
 
-  {% endwith %}
+    {% endwith %}
+    </div>
   </div>
+
 </div>
