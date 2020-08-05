@@ -264,7 +264,7 @@ export default class JoinUs extends React.Component {
   renderSnippetHeading() {
     return (
       <React.Fragment>
-        <p className="h4-heading text-white mt-4">
+        <p className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </p>
         {!this.state.apiSuccess ? (
@@ -275,8 +275,8 @@ export default class JoinUs extends React.Component {
           />
         ) : (
           <React.Fragment>
-            <p class="text-white">{getText(`confirm your email opt-in`)}</p>
-            <p class="text-white">{getText(`manage your subscriptions`)}</p>
+            <p>{getText(`confirm your email opt-in`)}</p>
+            <p>{getText(`manage your subscriptions`)}</p>
           </React.Fragment>
         )}
       </React.Fragment>
@@ -468,7 +468,10 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    return <button className="btn btn-black px-4">{getText(`Sign up`)}</button>;
+    let classnames = classNames("btn btn-secondary", {
+      "flex-1 mr-3": this.isFlowForm(),
+    });
+    return <button className={classnames}>{getText(`Sign up`)}</button>;
   }
 
   /**
