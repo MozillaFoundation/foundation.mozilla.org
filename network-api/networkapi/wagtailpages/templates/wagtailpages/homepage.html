@@ -36,8 +36,6 @@
 
   {% include "./fragments/spotlight_posts.html" %}
 
-  {% include "./fragments/featured_blogs.html" %}
-
   {% include "./fragments/news_you_can_use.html" %}
 
   <div class="row">
@@ -70,30 +68,6 @@
         </div>
       </div>
       {% endif %} {% endfor %}
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <hr class="hr-emphasis mb-4">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <h2 class="h4-heading">{% trans "Trending projects" %}</h2>
-    </div>
-    <div class="col-md-6 d-none d-md-flex justify-content-end">
-      <a class="cta-link" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="pulse-project-list" data-query="" data-max="6" data-featured="True" data-reversed="True"></div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col text-center mb-5">
-      <a class="btn btn-secondary mb-4" href="https://www.mozillapulse.org">{% trans "More from our network" %}</a>
-      <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
     </div>
   </div>
 </div>
@@ -131,17 +105,67 @@
   </div>
 <div class="container">
 
+<div class="row">
+  <div class="col-12">
+    <h2>{{ page.take_action_title }}</h2>
+  </div>
+  <div class="col-8">
+    <div class="row">
+      {% for item in page.take_action_cards.all %}
+        <a href="{{ item.link }}" class="col-6">
+          {% image item.image fill-400x200 as img %}
+          <img src="{{ img.url }}" alt="" />
+          <div>
+            {{ item.text }}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-4">
+      <div
+        class="join-us mb-5"
+        data-cta-header="{{ cta.header | escape }}"
+        data-cta-description="{{ cta.description | escape }}"
+        data-newsletter="{{ cta.newsletter }}">
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <hr class="hr-emphasis mb-5">
+    <div class="row mb-5">
+      <div class="col">
+        <div class="feature-quote">
+          <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
+          <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
+
+
+        </div>
+        {% for orderable in page.partner_logos.all %}
+          {% image orderable.logo width-200 as logo_img %}
+          <div class="col-2">
+            {% if orderable.link %}
+              <a href="{{ orderable.link }}">
+                <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
+              </a>
+            {% else %}
+              <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+<div class="container">
+
   <div class="row section-quote">
     {% with quote_image=page.quote_image %}
     {% if quote_image %}
     <div class="col-md-4 col-lg-6 mb-5 mb-md-0">
-      {% comment %}
-        To-do:
-        1) Update picture_ratios.html so image sizes are passed as arguments instead of hard-corded.
-        2) Replace the following "picture" code with {% optimize_images page.quote_image %}
-      {% endcomment %}
       {% with alt_text=quote_image.alt %}
-      <picture class="cms-image {{class_names}}">
+
+      <picture class="cms-image">
           {% image quote_image width-540 as image_large %}
           {% image quote_image width-1080 as image_large_2x %}
           <source media="(min-width: 992px)" srcset="{{ image_large.url }}, {{ image_large_2x.url }} 2x"  alt="{{ alt_text }}">

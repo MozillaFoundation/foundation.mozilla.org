@@ -1,6 +1,60 @@
 #view-home {
   $section-padding-y: 5rem;
 
+  .section-spotlight {
+    padding-top: $section-padding-y;
+    padding-bottom: $section-padding-y;
+
+    .capsule-label {
+      @include set-text-size(14px, 16px);
+
+      font-family: "Nunito Sans";
+      font-weight: 800;
+      display: inline-block;
+      background: $black;
+      color: $white;
+      padding: 0.5rem 1rem;
+      border-radius: 1000px; // any big random number should work
+      z-index: 2;
+      position: relative;
+      bottom: -50%;
+    }
+
+    .spotlight-banner {
+      background-size: cover;
+      background-position: center;
+      height: 240px;
+
+      @media (min-width: $bp-md) {
+        height: 255px;
+      }
+
+      @media (min-width: $bp-lg) {
+        height: 400px;
+      }
+    }
+
+    .spotlight-headline {
+      font-weight: 700;
+    }
+
+    .spotlight-post {
+      $vertical-spacing: 1.5rem;
+
+      &:first-child {
+        @include media-breakpoint-down(sm) {
+          margin-top: $vertical-spacing;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $black;
+        padding-bottom: $vertical-spacing;
+        margin-bottom: $vertical-spacing;
+      }
+    }
+  }
+
   .section-quote {
     $icon-height: 41px;
     $icon-width: 49px;
