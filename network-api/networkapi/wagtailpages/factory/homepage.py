@@ -29,7 +29,6 @@ class WagtailHomepageFactory(PageFactory):
         model = Homepage
 
     hero_headline = Faker('text', max_nb_chars=140)
-    hero_story_description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
     hero_button_text = Faker('text', max_nb_chars=25)
     hero_button_url = Faker('url')
     hero_image = SubFactory(ImageFactory)

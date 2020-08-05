@@ -632,12 +632,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True,
     )
 
-    hero_story_description = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ]
-    )
-
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -737,7 +731,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
           [
             FieldPanel('hero_headline'),
-            FieldPanel('hero_story_description'),
             FieldRowPanel([
               FieldPanel('hero_button_text'),
               FieldPanel('hero_button_url'),
@@ -750,20 +743,20 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
           [
-            ImageChooserPanel('spotlight_image'),
-            FieldPanel('spotlight_headline'),
-            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
-          ],
-          heading='spotlight',
-          classname='collapsible'
-        ),
-        MultiFieldPanel(
-          [
             FieldPanel('cause_statement'),
             FieldPanel('cause_statement_link_text'),
             PageChooserPanel('cause_statement_link_page'),
           ],
           heading='cause statement',
+          classname='collapsible'
+        ),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('spotlight_image'),
+            FieldPanel('spotlight_headline'),
+            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
+          ],
+          heading='spotlight',
           classname='collapsible'
         ),
         InlinePanel('areas_of_focus', label='Areas of focus', min_num=3, max_num=3),

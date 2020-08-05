@@ -1,6 +1,16 @@
 #view-home {
   $section-padding-y: 5rem;
 
+  .section-cause-statement {
+    background: $black;
+    margin-bottom: $section-padding-y;
+    margin-top: -28px;
+
+    @media (min-width: $bp-md) {
+      margin-top: -48px;
+    }
+  }
+
   .section-spotlight {
     padding-top: $section-padding-y;
     padding-bottom: $section-padding-y;

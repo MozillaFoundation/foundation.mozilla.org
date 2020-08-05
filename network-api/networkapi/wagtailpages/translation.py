@@ -154,7 +154,6 @@ class StyleguideTR(TranslationOptions):
 class HomepageTR(TranslationOptions):
     fields = (
         'hero_headline',
-        'hero_story_description',
         'hero_button_text',
         'hero_button_url',
         'hero_image',
