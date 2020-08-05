@@ -4,7 +4,8 @@ from factory.django import DjangoModelFactory
 from networkapi.wagtailpages.models import (
     HomepageFeaturedHighlights,
     HomepageFeaturedBlogs,
-    BlogPage
+    HomepageSpotlightPosts,
+    BlogPage,
 )
 from networkapi.utility.faker.helpers import (
     reseed,
@@ -37,7 +38,7 @@ class HomepageFeaturedHighlightsFactory(FeaturedFactory):
 
 
 def generate(seed):
-    print('Generating Homepage Blogs and Highlights')
+    print('Generating Homepage Blogs, Highlights and Spotlights')
 
     home_page = get_homepage()
 
@@ -58,6 +59,14 @@ def generate(seed):
             highlight=HighlightFactory.create()
         )
         for i in range(NUM_HIGHLIGHTS)
+    ]
+
+    home_page.spotlight_posts = [
+        HomepageSpotlightPosts.objects.create(
+            page=home_page,
+            blog=BlogPage.objects.order_by("?").first()
+        )
+        for i in range(3)
     ]
 
     home_page.save()

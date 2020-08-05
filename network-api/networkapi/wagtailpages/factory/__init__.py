@@ -1,7 +1,10 @@
 from . import (
+    areas_of_focus,
     blog,
     campaign_page,
     bannered_campaign_page,
+    homepage_areas_of_focus,
+    homepage_take_action,
     homepage_features,
     homepage,
     initiatives_page,
@@ -28,7 +31,9 @@ def generate(seed):
     participate_page_featured_highlights.generate(seed)
     styleguide.generate(seed)
     youtube_regrets_page.generate(seed)
-
+    areas_of_focus.generate(seed)
+    homepage_areas_of_focus.generate(seed)
+    homepage_take_action.generate(seed)
 
 __all__ = [
     'generate'

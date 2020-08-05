@@ -3,8 +3,10 @@ from .pagemodels.base_fields import (
 )
 
 from .pagemodels.base import (
+    AreaOfFocus,
     FoundationMetadataPageMixin,
     NewsPage,
+    FocusArea,
     InitiativesPage,
     ParticipatePage2,
     Styleguide,
@@ -12,6 +14,7 @@ from .pagemodels.base import (
     PeoplePage,
     HomepageFeaturedBlogs,
     HomepageFeaturedHighlights,
+    HomepageSpotlightPosts,
     ParticipateHighlights,
     ParticipateHighlights2,
 )
@@ -65,6 +68,7 @@ from .pagemodels.youtube import (
 
 __all__ = [
     base_fields,
+    AreaOfFocus,
     BanneredCampaignPage,
     BlogIndexPage,
     BlogPage,
@@ -73,10 +77,12 @@ __all__ = [
     CTA,
     CampaignIndexPage,
     CampaignPage,
+    FocusArea,
     FoundationMetadataPageMixin,
     Homepage,
     HomepageFeaturedBlogs,
     HomepageFeaturedHighlights,
+    HomepageSpotlightPosts,
     IndexPage,
     InitiativesPage,
     MiniSiteNameSpace,
