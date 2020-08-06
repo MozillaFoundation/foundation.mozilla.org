@@ -31,170 +31,35 @@
       <a class="btn btn-primary d-block d-sm-inline" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
     </div>
   </div>
-
   {% include "./fragments/areas_of_focus.html" %}
+</div>
+<div class="bg-gray py-5">
+  <div class="container">
+    {% include "./fragments/news_you_can_use.html" %}
+  </div>
+</div>
+<div class="container">
 
   {% include "./fragments/spotlight_posts.html" %}
 
-  {% include "./fragments/news_you_can_use.html" %}
-
-  <div class="row">
-    <div class="col mb-4">
-      <hr class="hr-emphasis mb-4">
-      <h2 class="h4-heading">{% trans "Featured stories" %}</h2>
-    </div>
-  </div>
-  <div id="home-highlights-wagtail">
-    <div class="highlights mb-5">
-      <div class="row pb-md-5 mb-md-2">
-        {% for highlight in page.featured_highlights.all %}
-        {% if forloop.counter <= 2 %}
-        <div class="col-md-6 highlights-card">
-          {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
-        </div>
-      {% endif %} {% endfor %}
-      </div>
-      {% for highlight in page.featured_highlights.all %} {% if forloop.counter > 2 %}
-      <div class="row my-3">
-        <div class="col-sm-12 col-md-4 pt-3 d-none d-md-block">
-          {% homepage_image highlight.highlight.image %}
-        </div>
-        <div class="col-sm-12 col-md-8 pt-3">
-          <hr class="mt-0 mb-4">
-          <h4 class="h5-heading mb-3">
-            <a href="{{highlight.highlight.link_url}}">{{highlight.highlight.title}}</a>
-          </h4>
-          <p>{{highlight.highlight.description}}</p>
-        </div>
-      </div>
-      {% endif %} {% endfor %}
-    </div>
-  </div>
 </div>
-
-{% image page.partner_background_image fill-1200x600 as partner_img %}
-<img src="{{ partner_img.url }}" alt="{{ partner_img.alt }}">
-<div class="py-5">
+<div class="bg-gray py-5">
   <div class="container">
-      <div class="row">
-        <div class="col-12 mb-5">
-          <h2>{{ page.partner_heading }}</h2>
-          {% if page.partner_intro_text %}
-            <p>
-              {{ page.partner_intro_text }}
-            </p>
-          {% endif %}
-          <a href="{{ page.partner_page.url }}">
-            {{ page.partner_page_text }}
-          </a>
-        </div>
-        {% for orderable in page.partner_logos.all %}
-          {% image orderable.logo width-200 as logo_img %}
-          <div class="col-2">
-            {% if orderable.link %}
-              <a href="{{ orderable.link }}">
-                <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-              </a>
-            {% else %}
-              <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-<div class="container">
-
-<div class="row">
-  <div class="col-12">
-    <h2>{{ page.take_action_title }}</h2>
-  </div>
-  <div class="col-8">
-    <div class="row">
-      {% for item in page.take_action_cards.all %}
-        <a href="{{ item.link }}" class="col-6">
-          {% image item.image fill-400x200 as img %}
-          <img src="{{ img.url }}" alt="" />
-          <div>
-            {{ item.text }}
-          </div>
-        </a>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="col-4">
-      <div
-        class="join-us mb-5"
-        data-cta-header="{{ cta.header | escape }}"
-        data-cta-description="{{ cta.description | escape }}"
-        data-newsletter="{{ cta.newsletter }}">
-      </div>
+    {% include "./fragments/take_action.html" %}
   </div>
 </div>
-<div class="row">
-  <div class="col">
-    <hr class="hr-emphasis mb-5">
-    <div class="row mb-5">
-      <div class="col">
-        <div class="feature-quote">
-          <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
-          <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
 
-
-        </div>
-        {% for orderable in page.partner_logos.all %}
-          {% image orderable.logo width-200 as logo_img %}
-          <div class="col-2">
-            {% if orderable.link %}
-              <a href="{{ orderable.link }}">
-                <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-              </a>
-            {% else %}
-              <img src="{{ logo_img.url }}" alt="{{ logo_img.alt }}">
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
 <div class="container">
-
-  <div class="row section-quote">
-    {% with quote_image=page.quote_image %}
-    {% if quote_image %}
-    <div class="col-md-4 col-lg-6 mb-5 mb-md-0">
-      {% with alt_text=quote_image.alt %}
-
-      <picture class="cms-image">
-          {% image quote_image width-540 as image_large %}
-          {% image quote_image width-1080 as image_large_2x %}
-          <source media="(min-width: 992px)" srcset="{{ image_large.url }}, {{ image_large_2x.url }} 2x"  alt="{{ alt_text }}">
-
-          {% image quote_image width-210 as image_medium %}
-          {% image quote_image width-420 as image_medium_2x %}
-          <source media="(min-width: 768px)" srcset="{{ image_medium.url }}, {{ image_medium_2x.url }} 2x" alt="{{ alt_text }}">
-
-          {% image quote_image width-510 as image_small %}
-          {% image quote_image width-1020 as image_small_2x %}
-          <source srcset="{{ image_small.url }}, {{ image_small_2x.url }} 2x" alt="{{ alt_text }}">
-
-          <img src="{{ image_large.url }}" class="wagtail-image" srcset="{{image_small.url}} 510w, {{ image_medium.url }} 210w, {{ image_large.url }} 540w" alt="{{ alt_text }}"/>
-      </picture>
-      {% endwith %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    <div class="col-md-8 col-lg-6">
-      <blockquote>
-        <p class="quote-text">{{ page.quote_text }}</p>
-        <footer>
-          <cite>{{ page.quote_source_name }}</cite>
-          <p>{{ page.quote_source_job_title }}</p>
-        </footer>
-      </blockquote>
-    </div>
-  </div>
-
+  {% include "./fragments/quote.html" %}c
+  {% include "./fragments/partner.html" %}
 </div>
+
+{% comment %}
+TODO: Remove this and the backend
+<div class="container">
+  {% include "./fragments/featured_blogs.html" %}
+  {% include "./fragments/featured_stories.html" %}
+</div>
+{% endcomment %}
 
 {% endblock %}

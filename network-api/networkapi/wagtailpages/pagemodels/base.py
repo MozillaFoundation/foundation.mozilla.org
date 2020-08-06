@@ -789,6 +789,14 @@ class Homepage(FoundationMetadataPageMixin, Page):
           classname='collapsible'
         ),
         MultiFieldPanel(
+            [
+                FieldPanel('take_action_title'),
+                InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
+            ],
+            heading='Take Action',
+            classname='collapsible collapsed',
+        ),
+        MultiFieldPanel(
           [
             ImageChooserPanel('quote_image'),
             FieldPanel('quote_text'),
@@ -797,14 +805,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
           ],
           heading='quote',
           classname='collapsible',
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel('take_action_title'),
-                InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
-            ],
-            heading='Take Action',
-            classname='collapsible collapsed',
         ),
     ]
 
