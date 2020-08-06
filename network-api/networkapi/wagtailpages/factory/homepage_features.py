@@ -46,6 +46,7 @@ def generate(seed):
 
     NUM_BLOGS = 4
     NUM_HIGHLIGHTS = 5
+    NUM_SPOTLIGHT_POSTS = 3
 
     home_page.featured_blogs = [
         HomepageFeaturedBlogsFactory.build(
@@ -66,7 +67,7 @@ def generate(seed):
             page=home_page,
             blog=BlogPage.objects.order_by("?").first()
         )
-        for i in range(3)
+        for i in range(NUM_SPOTLIGHT_POSTS)
     ]
 
     home_page.save()
