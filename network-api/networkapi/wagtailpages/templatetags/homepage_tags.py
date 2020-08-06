@@ -41,5 +41,8 @@ def get_all_authors(blog_post):
     Homepage Orderable -> Blog Orderable -> Author (with .name and .image)
     """
 
-    all_authors = blog_post.blog.authors.all()
-    return [{"image": author.author.image, "name": author.author.name} for author in all_authors]
+    if blog_post:
+        all_authors = blog_post.blog.authors.all()
+        return [{"image": author.author.image, "name": author.author.name} for author in all_authors]
+    else:
+        return []
