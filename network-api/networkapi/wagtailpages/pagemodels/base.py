@@ -731,11 +731,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
           [
             FieldPanel('hero_headline'),
-            FieldRowPanel([
-              FieldPanel('hero_button_text'),
-              FieldPanel('hero_button_url'),
-            ],
-            ),
+            FieldPanel('hero_button_text'),
+            FieldPanel('hero_button_url'),
             ImageChooserPanel('hero_image'),
           ],
           heading='hero',

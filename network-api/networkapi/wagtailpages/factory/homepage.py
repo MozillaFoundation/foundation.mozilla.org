@@ -33,6 +33,7 @@ class WagtailHomepageFactory(PageFactory):
     hero_button_url = Faker('url')
     hero_image = SubFactory(ImageFactory)
     cause_statement = Faker('text', max_nb_chars=150)
+    # cause_statement_link_text and cause_statement_link_page are created at a later state
     quote_image = SubFactory(ImageFactory)
     quote_text = Faker('text', max_nb_chars=300)
     quote_source_name = Faker('text', max_nb_chars=30)
