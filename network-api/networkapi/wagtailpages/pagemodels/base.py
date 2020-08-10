@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.db import models
-from django.forms.utils import ErrorList
 
 from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable as WagtailOrderable
@@ -568,8 +567,7 @@ class HomepageTakeActionCards(WagtailOrderable):
         return self.name
 
     class Meta:
-        verbose_name = 'Area of focus'
-        verbose_name_plural = 'Areas of focus'
+        verbose_name = "Take Action Card"
 
 
 class AreaOfFocus(WagtailOrderable):
@@ -583,6 +581,10 @@ class AreaOfFocus(WagtailOrderable):
     panels = [
         SnippetChooserPanel('area'),
     ]
+
+    class Meta:
+        verbose_name = 'Area of focus'
+        verbose_name_plural = 'Areas of focus'
 
 
 class PartnerLogos(WagtailOrderable):
@@ -604,6 +606,7 @@ class PartnerLogos(WagtailOrderable):
 
     class Meta:
         verbose_name = 'Partner Logo'
+
     def clean(self):
         # Validate internal and external links. Make sure one is always applied
         # in each Orderable item.
@@ -620,9 +623,6 @@ class PartnerLogos(WagtailOrderable):
                 'internal_link': ValidationError(message),
                 'external_link': ValidationError(message),
             })
-
-    class Meta:
-        verbose_name = "Take Action Card"
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
