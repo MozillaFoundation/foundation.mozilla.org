@@ -39,6 +39,9 @@ class WagtailHomepageFactory(PageFactory):
     quote_source_name = Faker('text', max_nb_chars=30)
     quote_source_job_title = Faker('text', max_nb_chars=50)
     partner_background_image = SubFactory(ImageFactory)
+    partner_intro_text = Faker('text', max_nb_chars=80)
+    spotlight_headline = Faker('text', max_nb_chars=100)
+    spotlight_image = SubFactory(ImageFactory)
 
 
 def generate(seed):
