@@ -1,28 +1,41 @@
 {% load wagtailimages_tags %}
 
-<div class="row">
-  <div class="col-12">
-    <h2>{{ page.take_action_title }}</h2>
-  </div>
-  <div class="col-8">
+
+<div class="take-action-section">
+  <div class="container">
     <div class="row">
-      {% for item in page.take_action_cards.all %}
-        <a href="{{ item.link }}" class="col-6">
-          {% image item.image fill-400x200 as img %}
-          <img src="{{ img.url }}" alt="" />
-          <div>
-            {{ item.text }}
-          </div>
-        </a>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="col-4">
-      <div
-        class="join-us mb-5"
-        data-cta-header="{{ cta.header | escape }}"
-        data-cta-description="{{ cta.description | escape }}"
-        data-newsletter="{{ cta.newsletter }}">
+      <div class="col-12">
+        <h4 class="take-action-title mb-4">{{ page.take_action_title }}</h4>
       </div>
+      <div class="col-md-8">
+        <div class="row">
+          {% for item in page.take_action_cards.all %}
+            <div class="col-lg-6 d-flex align-items-stretch">
+              <div class="card mb-4">
+                {% image item.image fill-350x130 as img %}
+                  <a href="{{ item.internal_link.url }}">
+                    <img src="{{ img.url }}" class="card-img-top" alt="{{ img.alt }}">
+                  </a>
+                  <div class="card-body">
+                    <a href="{{ item.internal_link.url }}" class="h4-heading d-inline-block my-2">
+                      {{ item.text }}
+                    </a>
+                  </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-4 mb-md-4 d-flex align-items-stretch">
+        <div class="bg-black p-4 text-white">
+          <div
+            class="join-us dark-theme"
+            data-cta-header="Support a healthy web."
+            data-cta-description="<p class='text-white mb-3'>Join out movement by signing up for our newsletter.</p>"
+            data-newsletter="{{ cta.newsletter }}">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
