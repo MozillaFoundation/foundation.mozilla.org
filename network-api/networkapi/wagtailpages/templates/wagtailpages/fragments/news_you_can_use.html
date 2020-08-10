@@ -30,9 +30,9 @@
             {% image first.get_meta_image fill-1000x500 %}
           </div>
           <div class="left-cut-in">
-            <p style="color: red;">TODO: Content here can outgrow the white box container. Figure out height restrictions and alignments.</p>
+            <p style="color: MediumOrchid;">TODO: Content here can outgrow the white box container. Figure out height restrictions and alignments.</p>
             {% with category=first.category.first %}
-              <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}<span style="color: red;"> ← what color should this be?</span></a>
+              <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}<span style="text-transform: initial; color: MediumOrchid;"> ← Can blog category be in #666 (the same as what we have on /blog & our standard .h6-heading style) instead of adding overrides #000 (as designed in Sketch)?</span></a>
             {% endwith %}
             <h3>{{ first.title }}</h3>
             <p class="body-large d-none d-xl-block">{{ first.search_description }}</p>
