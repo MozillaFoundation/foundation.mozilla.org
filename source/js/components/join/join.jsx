@@ -468,7 +468,8 @@ export default class JoinUs extends React.Component {
    * Render the submit button in signup CTA.
    */
   renderSubmitButton() {
-    let classnames = classNames("btn btn-secondary", {
+    let classnames = classNames("btn btn-primary", {
+      "w-100": !this.isFlowForm(),
       "flex-1 mr-3": this.isFlowForm(),
     });
     return <button className={classnames}>{getText(`Sign up`)}</button>;
