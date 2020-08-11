@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import choice
+from random import choice, randint
 
 from django.conf import settings
 
@@ -51,6 +51,18 @@ def add_category(post):
     post.save()
 
 
+def add_authors(post):
+    # all_authors = BlogAuthor.objects.order_by("?").all()
+    # post.author = all_authors[:randint(1, authall_authorsors.count())]
+    post.authors.add(BlogAuthor.objects.first())
+    post.save()
+
+    print("\n\n\n\n\n\n\n")
+    print(post.title)
+    print(post.authors)
+    print("---------------\n\n\n\n\n\n\n")
+
+
 class BlogIndexPageFactory(IndexPageFactory):
     class Meta:
         model = BlogIndexPage
@@ -99,6 +111,9 @@ def generate(seed):
             live=True
         )
 
+    print('Generating Blog Authors')
+    generate_fake_data(BlogAuthorFactory, 10)
+
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'
     post = None
@@ -110,6 +125,7 @@ def generate(seed):
 
     add_tags(post)
     add_category(post)
+    add_authors(post)
 
     for i in range(6):
         title = Faker('sentence', nb_words=6, variable_nb_words=False)
@@ -122,6 +138,3 @@ def generate(seed):
 
         add_tags(post)
         add_category(post)
-
-    print('Generating Blog Authors')
-    generate_fake_data(BlogAuthorFactory, 10)
