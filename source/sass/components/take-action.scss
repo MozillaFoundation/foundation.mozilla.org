@@ -5,7 +5,6 @@
 
 .take-action-title {
   font-family: $font-family-sans-serif;
-  @include set-text-size(23px, 27px);
+  @include set-text-size(23px, 30px);
   font-weight: bold;
-  line-height: 1.3;
 }

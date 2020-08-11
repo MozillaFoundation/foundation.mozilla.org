@@ -48,11 +48,9 @@ export default {
       <React.Fragment>
         If you have already confirmed your opt-in to receive Mozilla-related
         emails, you can now{" "}
-        <strong>
-          <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank" class="text-white">
-            manage your subscriptions
-          </a>{" "}
-        </strong>
+        <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
+          manage your subscriptions
+        </a>{" "}
         and update your email preferences.
       </React.Fragment>
     ),

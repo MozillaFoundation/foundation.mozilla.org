@@ -43,16 +43,6 @@
   .form-control {
     font-weight: 400;
     color: $black;
-    border: 1px solid $white;
-  }
-
-  select.form-control {
-    background-color: $black;
-    color: $white;
-    border-color: $white;
-    font-weight: 300;
-    background-image: url("../_images/glyphs/down-chevron-dark-theme.svg");
-
   }
 
   .fields-wrapper {
