@@ -177,26 +177,15 @@
 }
 
 .partner-section-text {
-  font-family: $font-family-sans-serif;
+  @include text-base-style("Nunito Sans", 300, $black, $white);
+  @include set-text-size(20px, 30px);
   font-size: 20px;
-  font-weight: 300;
-  line-height: 1.5;
   max-width: 450px;
-}
-
-.partner-section-button {
-  font-family: $font-family-sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 1.5;
-  display: inline-block;
 }
 
 .partner-section-logos {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .partner-section-logo {
@@ -205,10 +194,6 @@
 }
 
 @media(max-width: $bp-md) {
-  .partner-section-logos {
-    display: none;
-  }
-
   .partner-section-logo {
     margin-top: 0;
   }
