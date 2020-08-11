@@ -19,6 +19,7 @@ from .homepage import (
     WagtailHomepageFactory
 )
 
+
 class FeaturedFactory(DjangoModelFactory):
     class Meta:
         abstract = True
@@ -61,7 +62,6 @@ def generate(seed):
         page=home_page,
         area=FocusArea.objects.get(name='Investigate & Research')
     )
-
 
     NUM_BLOGS = 4
     NUM_HIGHLIGHTS = 5

@@ -15,7 +15,6 @@ from modelcluster.fields import ParentalKey
 
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from ..utils import ensure_internal_or_external_url
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
