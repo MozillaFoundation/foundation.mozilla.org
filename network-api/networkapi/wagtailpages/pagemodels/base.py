@@ -495,41 +495,20 @@ class FocusArea(models.Model):
         help_text='Description of this area of focus. Max. 300 characters.',
     )
 
-    # The link here is handled as a dual field with custom validation, rather
-    # than a single field that lets users pick either an internal page or
-    # external URL, due to the diffuculties associated with doing that latter
-    # in a clean way. See https://github.com/mozilla/foundation.mozilla.org/issues/4936
-    # for a more detailed explanation
-
-    external_link = models.URLField(
-        blank=True
-    )
-
-    internal_link = models.ForeignKey(
+    page = models.ForeignKey(
         'wagtailcore.Page',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='internal_link',
+        related_name='+',
     )
-
-    @property
-    def url(self):
-        if self.internal_link:
-            return self.internal_link.url
-        return self.external_link
 
     panels = [
         ImageChooserPanel('interest_icon'),
         FieldPanel('name'),
         FieldPanel('description'),
-        FieldPanel('external_link'),
-        PageChooserPanel('internal_link'),
+        PageChooserPanel('page'),
     ]
-
-    def clean(self):
-        super().clean()
-        ensure_internal_or_external_url(self)
 
     def __str__(self):
         return self.name
@@ -572,7 +551,7 @@ class HomepageTakeActionCards(WagtailOrderable):
         verbose_name_plural = 'Areas of focus'
 
 
-class AreaOfFocus(WagtailOrderable):
+class HomepageFocusAreas(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='areas_of_focus',
