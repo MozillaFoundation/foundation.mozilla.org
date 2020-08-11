@@ -4,7 +4,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 class ImageGrid(blocks.StructBlock):
     image = ImageChooserBlock()
-    alt_text= blocks.CharBlock(
+    alt_text = blocks.CharBlock(
         required=False,
         help_text='Alt text for this image.'
     )
