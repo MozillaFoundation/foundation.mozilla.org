@@ -33,9 +33,7 @@ class Command(BaseCommand):
             pr_number = settings.HEROKU_PR_NUMBER
             branch_name = settings.HEROKU_BRANCH
 
-            # As of 01/2020 we can only get the PR number if the review app was automatically created
-            # (https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables).
-            # For review app manually created, we have to use the branch name instead.
+            # Review apps created when opening a PR
             if pr_number:
                 # Get PR's title from Github
                 token = settings.GITHUB_TOKEN
@@ -45,57 +43,62 @@ class Command(BaseCommand):
                 r = requests.get(f'https://api.github.com/repos/{org}/{repo}/pulls/{pr_number}', headers=headers)
                 r.raise_for_status()
                 try:
-                    pr_title = ': ' + r.json()['title']
+                    pr_title = ' - ' + r.json()['title']
                 except KeyError:
                     pr_title = ''
 
                 for label in r.json()['labels']:
                     if label['name'] == 'dependencies':
-                        color = '#BA55D3'
+                        pre_title = ':robot_face: *[Dependabot]*'
                         break
                 else:
-                    color = '#7CD197'
-                fallback_text = f'''New review app deployed: It will be ready in a minute!\n
-                                                PR {pr_number}{pr_title}\n
-                                                Login: admin\n
-                                                Password: {password}\n
-                                                URL: https://{reviewapp_name}.herokuapp.com'''
-                message_title = f'PR {pr_number}{pr_title}\n'
+                    pre_title = ':computer: *[Devs]*'
+                message_title = f'*PR {pr_number}{pr_title}*\n'
                 github_url = f'https://github.com/mozilla/foundation.mozilla.org/pull/{pr_number}'
                 github_button_text = 'View PR on Github'
 
+            # Review apps created from Heroku to deploy a branch
             else:
-                color = '#7CD197'
-                fallback_text = f'''New review app deployed: It will be ready in a minute!\n
-                                                Branch: {branch_name}\n
-                                                Login: admin\n
-                                                Password: {password}\n
-                                                URL: https://{reviewapp_name}.herokuapp.com'''
+                pre_title = ':computer: *[Devs]*'
                 message_title = f'Branch: {branch_name}\n'
                 github_url = f'https://github.com/mozilla/foundation.mozilla.org/tree/{branch_name}'
                 github_button_text = 'View branch on Github'
 
             slack_payload = {
-                'attachments': [
+                'blocks': [
                     {
-                        'fallback': f'{fallback_text}',
-                        'pretext':  'New review app deployed. It will be ready in a minute!',
-                        'title':    f'{message_title}',
-                        'text':     'Login: admin\n'
-                                    f'Password: {password}\n',
-                        'color':    f'{color}',
-                        'actions': [
+                        'type': 'section',
+                        'text': {
+                            'type': 'mrkdwn',
+                            'text': f'{pre_title} {message_title}'
+                                    'This new review app will be ready in a minute!\n'
+                                    '*Login:* admin\n'
+                                    f'*Password:* {password}\n'
+                        }
+                    },
+                    {
+                        'type': 'actions',
+                        'elements': [
                             {
                                 'type': 'button',
-                                'text': 'View review app',
+                                'text': {
+                                    'type': 'plain_text',
+                                    'text': 'View review app'
+                                },
                                 'url': f'https://{reviewapp_name}.herokuapp.com'
                             },
                             {
                                 'type': 'button',
-                                'text': f'{github_button_text}',
+                                'text': {
+                                    'type': 'plain_text',
+                                    'text': f'{github_button_text}',
+                                },
                                 'url': f'{github_url}'
                             }
                         ]
+                    },
+                    {
+                        'type': 'divider',
                     }
                 ]
             }
