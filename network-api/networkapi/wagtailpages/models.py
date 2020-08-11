@@ -9,7 +9,6 @@ from .pagemodels.base import (
     InitiativesPage,
     ParticipatePage2,
     Styleguide,
-    FocusArea,
     HomepageFocusAreas,
     Homepage,
     PeoplePage,
