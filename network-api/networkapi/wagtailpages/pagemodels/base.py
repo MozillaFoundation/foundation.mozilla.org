@@ -627,7 +627,7 @@ class PartnerLogos(WagtailOrderable):
 
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
-        max_length=140,
+        max_length=80,
         help_text='Hero story headline',
         blank=True,
     )

@@ -28,8 +28,8 @@ class WagtailHomepageFactory(PageFactory):
     class Meta:
         model = Homepage
 
-    hero_headline = Faker('text', max_nb_chars=140)
-    hero_button_text = Faker('text', max_nb_chars=25)
+    hero_headline = Faker('text', max_nb_chars=80)
+    hero_button_text = Faker('text', max_nb_chars=50)
     hero_button_url = Faker('url')
     hero_image = SubFactory(ImageFactory)
     cause_statement = Faker('text', max_nb_chars=150)
