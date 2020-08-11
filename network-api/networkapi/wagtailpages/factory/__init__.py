@@ -4,6 +4,7 @@ from . import (
     campaign_page,
     bannered_campaign_page,
     homepage_areas_of_focus,
+    homepage_cause_statement_link,
     homepage_take_action,
     homepage_features,
     homepage,
@@ -35,6 +36,8 @@ def generate(seed):
     participate_page_featured_highlights.generate(seed)
     styleguide.generate(seed)
     youtube_regrets_page.generate(seed)
+    # homepage_cause_statement_link requires child pages of homepage to exist first
+    homepage_cause_statement_link.generate(seed)
 
 __all__ = [
     'generate'

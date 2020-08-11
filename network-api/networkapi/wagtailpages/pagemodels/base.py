@@ -627,15 +627,9 @@ class PartnerLogos(WagtailOrderable):
 
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
-        max_length=140,
+        max_length=80,
         help_text='Hero story headline',
         blank=True,
-    )
-
-    hero_story_description = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ]
     )
 
     hero_image = models.ForeignKey(
@@ -737,24 +731,11 @@ class Homepage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
           [
             FieldPanel('hero_headline'),
-            FieldPanel('hero_story_description'),
-            FieldRowPanel([
-              FieldPanel('hero_button_text'),
-              FieldPanel('hero_button_url'),
-            ],
-            ),
+            FieldPanel('hero_button_text'),
+            FieldPanel('hero_button_url'),
             ImageChooserPanel('hero_image'),
           ],
           heading='hero',
-          classname='collapsible'
-        ),
-        MultiFieldPanel(
-          [
-            ImageChooserPanel('spotlight_image'),
-            FieldPanel('spotlight_headline'),
-            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
-          ],
-          heading='spotlight',
           classname='collapsible'
         ),
         MultiFieldPanel(
@@ -764,6 +745,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
             PageChooserPanel('cause_statement_link_page'),
           ],
           heading='cause statement',
+          classname='collapsible'
+        ),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('spotlight_image'),
+            FieldPanel('spotlight_headline'),
+            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
+          ],
+          heading='spotlight',
           classname='collapsible'
         ),
         InlinePanel('areas_of_focus', label='Areas of focus', min_num=3, max_num=3),
