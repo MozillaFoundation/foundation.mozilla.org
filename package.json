@@ -86,7 +86,7 @@
     "node": "14.4.*"
   },
   "devDependencies": {
-    "browserslist": "^4.13.0",
+    "browserslist": "^4.14.0",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.6.0",
@@ -100,6 +100,6 @@
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.1.2",
     "svgo": "^1.3.2",
-    "wait-on": "^5.1.0"
+    "wait-on": "^5.2.0"
   }
 }
