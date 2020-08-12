@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.db import models
-from django.forms.utils import ErrorList
 
 from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable as WagtailOrderable
@@ -15,7 +14,6 @@ from modelcluster.fields import ParentalKey
 
 from .primary import PrimaryPage
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
-from ..utils import ensure_internal_or_external_url
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
@@ -495,41 +493,20 @@ class FocusArea(models.Model):
         help_text='Description of this area of focus. Max. 300 characters.',
     )
 
-    # The link here is handled as a dual field with custom validation, rather
-    # than a single field that lets users pick either an internal page or
-    # external URL, due to the diffuculties associated with doing that latter
-    # in a clean way. See https://github.com/mozilla/foundation.mozilla.org/issues/4936
-    # for a more detailed explanation
-
-    external_link = models.URLField(
-        blank=True
-    )
-
-    internal_link = models.ForeignKey(
+    page = models.ForeignKey(
         'wagtailcore.Page',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='internal_link',
+        related_name='+',
     )
-
-    @property
-    def url(self):
-        if self.internal_link:
-            return self.internal_link.url
-        return self.external_link
 
     panels = [
         ImageChooserPanel('interest_icon'),
         FieldPanel('name'),
         FieldPanel('description'),
-        FieldPanel('external_link'),
-        PageChooserPanel('internal_link'),
+        PageChooserPanel('page'),
     ]
-
-    def clean(self):
-        super().clean()
-        ensure_internal_or_external_url(self)
 
     def __str__(self):
         return self.name
@@ -568,14 +545,13 @@ class HomepageTakeActionCards(WagtailOrderable):
         return self.name
 
     class Meta:
-        verbose_name = 'Area of focus'
-        verbose_name_plural = 'Areas of focus'
+        verbose_name = "Take Action Card"
 
 
-class AreaOfFocus(WagtailOrderable):
+class HomepageFocusAreas(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
-        related_name='areas_of_focus',
+        related_name='focus_areas',
     )
 
     area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
@@ -602,8 +578,6 @@ class PartnerLogos(WagtailOrderable):
         FieldPanel('link'),
     ]
 
-    class Meta:
-        verbose_name = 'Partner Logo'
     def clean(self):
         # Validate internal and external links. Make sure one is always applied
         # in each Orderable item.
@@ -622,7 +596,7 @@ class PartnerLogos(WagtailOrderable):
             })
 
     class Meta:
-        verbose_name = "Take Action Card"
+        verbose_name = 'Partner Logo'
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
@@ -747,6 +721,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='cause statement',
           classname='collapsible'
         ),
+        InlinePanel('focus_areas', label='Areas of focus', min_num=3, max_num=3),
         MultiFieldPanel(
           [
             ImageChooserPanel('spotlight_image'),
@@ -756,7 +731,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='spotlight',
           classname='collapsible'
         ),
-        InlinePanel('areas_of_focus', label='Areas of focus', min_num=3, max_num=3),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         MultiFieldPanel(
             [
