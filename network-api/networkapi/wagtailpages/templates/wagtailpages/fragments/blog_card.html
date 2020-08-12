@@ -34,5 +34,5 @@ each blog page's dominant tag)
 {% endblock %}
 
 {% block byline %}
-{% blocktrans with author=page.specific.author date=page.first_published_at|date:"DATE_FORMAT" %}By {{ author }} on {{ date }}{% endblocktrans %}
+{% include "./blog_authors.html" with blog_page=page.specific %}
 {% endblock %}
