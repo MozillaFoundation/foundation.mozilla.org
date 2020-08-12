@@ -13,11 +13,12 @@ from networkapi.wagtailpages.utils import (
 from networkapi.wagtailpages.models import (
     base_fields,
     FoundationMetadataPageMixin,
+    FoundationBannerInheritanceMixin,
     Signup
 )
 
 
-class MozfestPrimaryPage(FoundationMetadataPageMixin, Page):
+class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
     header = models.CharField(
         max_length=250,
         blank=True
