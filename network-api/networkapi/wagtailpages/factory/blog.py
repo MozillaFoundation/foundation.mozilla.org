@@ -15,6 +15,7 @@ from factory import (
 )
 
 from networkapi.wagtailpages.models import (
+    BlogAuthors,
     BlogAuthor,
     BlogPage,
     BlogPageCategory,
@@ -33,6 +34,7 @@ from .tagging import add_tags
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
+NUM_BLOG_AUTHORS = 10
 blog_body_streamfield_fields = [
     'paragraph',
     'image',
@@ -52,15 +54,14 @@ def add_category(post):
 
 
 def add_authors(post):
-    # all_authors = BlogAuthor.objects.order_by("?").all()
-    # post.author = all_authors[:randint(1, authall_authorsors.count())]
-    post.authors.add(BlogAuthor.objects.first())
-    post.save()
+    authors = list(BlogAuthor.objects.order_by("?").all())
+    count = len(authors)
 
-    print("\n\n\n\n\n\n\n")
-    print(post.title)
-    print(post.authors)
-    print("---------------\n\n\n\n\n\n\n")
+    for i in range(0, randint(1, min(count, 5))):
+        author_orderable = BlogAuthors.objects.create(page=post, author=authors[i])
+        post.authors.add(author_orderable)
+
+    post.save()
 
 
 class BlogIndexPageFactory(IndexPageFactory):
@@ -112,7 +113,7 @@ def generate(seed):
         )
 
     print('Generating Blog Authors')
-    generate_fake_data(BlogAuthorFactory, 10)
+    generate_fake_data(BlogAuthorFactory, NUM_BLOG_AUTHORS)
 
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'
@@ -138,3 +139,4 @@ def generate(seed):
 
         add_tags(post)
         add_category(post)
+        add_authors(post)
