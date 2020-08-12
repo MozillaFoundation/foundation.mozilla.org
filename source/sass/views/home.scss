@@ -1,6 +1,28 @@
 #view-home {
   $section-padding-y: 5rem;
 
+  .section-cause-statement {
+    background: $black;
+    margin-bottom: $section-padding-y;
+    margin-top: -28px;
+
+    @media (min-width: $bp-md) {
+      margin-top: -48px;
+    }
+
+    .h4-heading {
+      font-weight: 600;
+
+      @media (min-width: $bp-md) {
+        font-weight: 500;
+      }
+    }
+
+    .cta-link {
+      font-weight: 700;
+    }
+  }
+
   .section-spotlight {
     padding-top: $section-padding-y;
     padding-bottom: $section-padding-y;

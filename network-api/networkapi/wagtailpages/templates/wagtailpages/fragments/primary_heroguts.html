@@ -1,15 +1,23 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 <div id="hero">
-  <div class="banner{% if homepage %} homepage{% endif %}">
-    {% if homepage %}
-      {% comment %}
-        ...homepage-only templating code...
-      {% endcomment %}
-    {% endif %}
-
+  <div class="banner">
     {% with banner=page.specific.get_banner %}
       {% if banner %}
+        {% if homepage %}
+        <picture>
+          {% image banner fill-4032x480 as image_xl %}
+          {% image banner fill-2400x480 as image_lg %}
+          {% image banner fill-1984x480 as image_md %}
+          {% image banner fill-1536x390 as image_sm %}
+          <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
+          <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
+          <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
+          <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
+          {# Fallback Image #}
+          <img src="{{ image_sm.url }}" alt="">
+        </picture>
+        {% else %}
         <picture>
           {% image banner fill-4032x1152 as image_xl %}
           {% image banner fill-2400x686 as image_lg %}
@@ -22,12 +30,27 @@
           {# Fallback Image #}
           {% image banner fill-1008x288 alt="" %}
         </picture>
+        {% endif %}
       {% else %}
         <img src="{% static "_images/banner-black-white-marble.jpg" %}" alt="">
       {% endif %}
     {% endwith %}
+
+    {% if homepage %}
+    <div class="container h-100 dark-theme">
+      <div class="row h-100">
+        <div class="col-12 col-md-9 col-xl-6 d-flex flex-column justify-content-end banner-content">
+          <h1 class="h1-heading">{{ page.hero_headline }}</h1>
+          <div>
+            <a href="{{page.hero_button_url}}" class="btn btn-secondary">{{page.hero_button_text}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
   </div>
 
+  {% if not homepage %}
   <div class="container">
     <div class="row cutout-wrapper-row">
       <div class="cutout col-12 col-lg-8 pt-4">
@@ -38,6 +61,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   {% if singleton_page == True %}
     {% include "partials/intro_and_content_divider.html" with wrapper_class="d-md-none" %}
