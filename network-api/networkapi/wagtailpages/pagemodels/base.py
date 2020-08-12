@@ -551,7 +551,7 @@ class HomepageTakeActionCards(WagtailOrderable):
 class HomepageFocusAreas(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
-        related_name='areas_of_focus',
+        related_name='focus_areas',
     )
 
     area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
@@ -721,6 +721,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='cause statement',
           classname='collapsible'
         ),
+        InlinePanel('focus_areas', label='Areas of focus', min_num=3, max_num=3),
         MultiFieldPanel(
           [
             ImageChooserPanel('spotlight_image'),
@@ -730,7 +731,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='spotlight',
           classname='collapsible'
         ),
-        InlinePanel('areas_of_focus', label='Areas of focus', min_num=3, max_num=3),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         MultiFieldPanel(
             [
