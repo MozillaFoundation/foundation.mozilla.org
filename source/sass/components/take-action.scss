@@ -5,6 +5,12 @@
 
 .take-action-title {
   font-family: $font-family-sans-serif;
-  @include set-text-size(23px, 30px);
+  @include set-text-size(24px, 30px);
   font-weight: bold;
+}
+
+@media screen and (max-width: $bp-md) {
+  .take-action-title {
+    @include set-text-size(22px, 30px);
+  }
 }
