@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
-        ('wagtailpages', '0006_homepage_take_action_cards'),
+        ('wagtailpages', '0008_auto_20200811_1646'),
     ]
 
     operations = [

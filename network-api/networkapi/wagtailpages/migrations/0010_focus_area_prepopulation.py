@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
-        ('wagtailpages', '0007_auto_20200810_2208'),
+        ('wagtailpages', '0009_areas_of_focus_fixes'),
     ]
 
     operations = [
