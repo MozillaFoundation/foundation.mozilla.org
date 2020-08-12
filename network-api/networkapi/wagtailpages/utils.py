@@ -3,7 +3,6 @@ import re
 from itertools import chain
 from django.apps import apps
 from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.db.models import Count
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.translation import gettext
@@ -288,30 +287,3 @@ def get_language_from_request(request, check_path=False):
         return get_supported_language_variant(settings.LANGUAGE_CODE)
     except LookupError:
         return settings.LANGUAGE_CODE
-
-
-def ensure_internal_or_external_url(model):
-    """
-    Validation to ensure that either an internal or external
-    link has been specified, but not both at the same time.
-    """
-
-    # The link here is handled as a dual field with custom validation, rather
-    # than a single field that lets users pick either an internal page or
-    # external URL, due to the diffuculties associated with doing that latter
-    # in a clean way. See https://github.com/mozilla/foundation.mozilla.org/issues/4936
-    # for a more detailed explanation
-
-    if model.internal_link and model.external_link:
-        message = "Please ensure only one field has a value."
-        raise ValidationError({
-            'external_link': ValidationError(message),
-            'internal_link': ValidationError(message),
-        })
-
-    if not model.internal_link and not model.external_link:
-        message = "Please pick either a page or specify an external URL"
-        raise ValidationError({
-            'external_link': ValidationError(message),
-            'internal_link': ValidationError(message),
-        })

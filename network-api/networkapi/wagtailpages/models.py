@@ -3,13 +3,13 @@ from .pagemodels.base_fields import (
 )
 
 from .pagemodels.base import (
-    AreaOfFocus,
     FoundationMetadataPageMixin,
     NewsPage,
     FocusArea,
     InitiativesPage,
     ParticipatePage2,
     Styleguide,
+    HomepageFocusAreas,
     Homepage,
     PeoplePage,
     HomepageFeaturedBlogs,
@@ -69,7 +69,6 @@ from .pagemodels.youtube import (
 
 __all__ = [
     base_fields,
-    AreaOfFocus,
     BanneredCampaignPage,
     BlogIndexPage,
     BlogPage,
@@ -85,6 +84,7 @@ __all__ = [
     HomepageFeaturedHighlights,
     HomepageNewsYouCanUse,
     HomepageSpotlightPosts,
+    HomepageFocusAreas,
     IndexPage,
     InitiativesPage,
     MiniSiteNameSpace,

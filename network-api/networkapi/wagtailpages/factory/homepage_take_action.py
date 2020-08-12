@@ -1,5 +1,4 @@
 from factory import Faker
-from wagtail_factories import ImageFactory
 from wagtail.images.models import Image
 from wagtail.core.models import Page
 

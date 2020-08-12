@@ -2,6 +2,8 @@ from factory import SubFactory
 from factory.django import DjangoModelFactory
 
 from networkapi.wagtailpages.models import (
+    FocusArea,
+    HomepageFocusAreas,
     HomepageFeaturedHighlights,
     HomepageFeaturedBlogs,
     HomepageSpotlightPosts,
@@ -13,7 +15,9 @@ from networkapi.utility.faker.helpers import (
 )
 from .blog import BlogPageFactory
 from networkapi.highlights.factory import HighlightFactory
-from .homepage import WagtailHomepageFactory
+from .homepage import (
+    WagtailHomepageFactory
+)
 
 
 class FeaturedFactory(DjangoModelFactory):
@@ -43,6 +47,21 @@ def generate(seed):
     home_page = get_homepage()
 
     reseed(seed)
+
+    HomepageFocusAreas.objects.create(
+        page=home_page,
+        area=FocusArea.objects.get(name='Empower Action')
+    )
+
+    HomepageFocusAreas.objects.create(
+        page=home_page,
+        area=FocusArea.objects.get(name='Connect Leaders')
+    )
+
+    HomepageFocusAreas.objects.create(
+        page=home_page,
+        area=FocusArea.objects.get(name='Investigate & Research')
+    )
 
     NUM_BLOGS = 4
     NUM_HIGHLIGHTS = 5

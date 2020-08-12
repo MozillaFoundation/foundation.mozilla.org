@@ -1,0 +1,16 @@
+{% load wagtailimages_tags i18n %}
+          
+<div class="col-12 col-lg-4 d-block d-sm-flex flex-sm-row flex-lg-column">
+    {% image area.interest_icon width-100 class="icon mr-sm-5 align-self-sm-center align-self-lg-start" %}
+    <div class="focus-content">
+        <h2 class="h3-heading">{{ area.name }}</h2>
+        <p>{{ area.description }}</p>
+
+        {# The following code is based on the requirements noted in https://github.com/mozilla/foundation.mozilla.org/issues/4989 #}
+
+        {% if area.page %}
+            <a href="{{ area.page.url }}">{% trans "Learn more →" %}</a>
+        {% endif %}
+    </div>
+</div>
+
