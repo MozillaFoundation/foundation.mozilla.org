@@ -10,7 +10,7 @@ botocore==1.17.18         # via boto3, s3transfer
 certifi==2020.4.5.1       # via cloudinary, requests, sentry-sdk
 cffi==1.14.0              # via cryptography
 chardet==3.0.4            # via requests
-cloudinary==1.21.1        # via -r requirements.in
+cloudinary==1.22.0        # via -r requirements.in
 cryptography==2.9.2       # via social-auth-core
 defusedxml==0.6.0         # via python3-openid, social-auth-core
 dj-database-url==0.5.0    # via -r requirements.in
