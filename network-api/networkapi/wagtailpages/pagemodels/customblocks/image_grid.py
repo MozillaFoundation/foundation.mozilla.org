@@ -2,8 +2,23 @@ from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 
+class ImageGridAltText(blocks.StructValue):
+    """Get alt_text or default to image title."""
+
+    def alt(self):
+        alt_text = self.get('alt_text')
+        image = self.get('image')
+        if alt_text:
+            return alt_text
+        return image.title
+
+
 class ImageGrid(blocks.StructBlock):
     image = ImageChooserBlock()
+    alt_text = blocks.CharBlock(
+        required=False,
+        help_text='Alt text for this image.'
+    )
     caption = blocks.CharBlock(
         required=False,
         help_text='Please remember to properly attribute any images we use.'
@@ -17,6 +32,9 @@ class ImageGrid(blocks.StructBlock):
         required=False,
         help_text='If left checked, the image will be cropped to be square.'
     )
+
+    class Meta:
+        value_class = ImageGridAltText
 
 
 class ImageGridBlock(blocks.StructBlock):
