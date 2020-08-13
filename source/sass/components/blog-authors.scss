@@ -12,7 +12,7 @@
     background-size: cover;
 
     &:not(:first-of-type) {
-      margin-left: -1rem;
+      margin-left: -0.7rem;
     }
 
     &:last-of-type {
@@ -23,7 +23,7 @@
   .body-small {
     color: $black;
 
-    @include set-text-size(14px, 16px);
+    @include set-text-size(14px, 18px);
   }
 
   b {
