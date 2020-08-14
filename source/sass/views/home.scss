@@ -30,7 +30,7 @@
     .capsule-label {
       @include set-text-size(14px, 16px);
 
-      font-family: "Nunito Sans";
+      font-family: $font-family-sans-serif;
       font-weight: 800;
       display: inline-block;
       background: $black;
@@ -107,7 +107,7 @@
       .quote-text {
         @include set-text-size(18px, 27px, 24px, 34px);
 
-        font-family: "Nunito Sans";
+        font-family: $font-family-sans-serif;
         font-style: normal;
         font-weight: 300;
       }
@@ -129,36 +129,39 @@
   .read-more-news {
     background: $gray-05;
 
-    h2.custom-heading {
-      font-family: "Nunito Sans";
-      font-style: normal;
+    h2.h4-heading {
+      @include set-text-size(22px, 30px, 24px, 30px);
+
+      font-family: $font-family-sans-serif;
       font-weight: 700;
-      font-size: 1.5em;
+    }
+
+    .h6-heading {
+      color: $black;
     }
 
     .feature {
-      position: relative;
-      height: 400px;
+      min-height: 400px;
 
       .feature-image {
         position: absolute;
         left: 0;
         width: 70%;
         height: 100%;
+
+        img {
+          height: inherit;
+          object-fit: cover;
+        }
       }
 
-      .left-cut-in {
-        $border-width: 3px;
-        $margin: 40px;
-
-        position:absolute;
-        top: $margin;
-        bottom: calc(#{$margin} + #{$border-width});
-        right: 0;
+      .feature-content {
         width: 50%;
-        padding: 2em;
+        padding: 2.5rem;
+        margin: 10px 0;
         background: $white;
-        border-bottom: $border-width solid $black;
+        border-bottom: 4px solid $black;
+        z-index: 2;
       }
     }
   }
@@ -167,7 +170,7 @@
     background: $gray-05;
 
     h2.focus-heading {
-      font-family: "Nunito Sans";
+      font-family: $font-family-sans-serif;
       font-style: normal;
       font-weight: 700;
       font-size: 1.5em;
