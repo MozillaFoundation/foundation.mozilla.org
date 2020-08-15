@@ -126,7 +126,7 @@
     }
   }
 
-  .read-more-news {
+  .news-you-can-use {
     background: $gray-05;
 
     h2.h4-heading {
@@ -146,7 +146,7 @@
       .feature-image {
         position: absolute;
         left: 0;
-        width: 70%;
+        width: 65%;
         height: 100%;
 
         img {
@@ -156,11 +156,15 @@
       }
 
       .feature-content {
+        $border-thickness: 4px;
+
         width: 50%;
         padding: 2.5rem;
         margin: 10px 0;
         background: $white;
-        border-bottom: 4px solid $black;
+        border-bottom: $border-thickness solid $black;
+        position: relative;
+        top: $border-thickness / 2;
         z-index: 2;
       }
     }
