@@ -528,7 +528,7 @@ export default class JoinUs extends React.Component {
 
 JoinUs.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
-  ctaDescription: `<p>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>`,
+  ctaDescription: `<p>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>`, // todo: make Mozilla News appear bold
   newsletter: `mozilla-foundation`,
   askName: false,
 };
