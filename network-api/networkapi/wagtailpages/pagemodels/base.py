@@ -589,7 +589,8 @@ class PartnerLogos(WagtailOrderable):
 
     @property
     def image_rendition(self):
-        return self.logo.get_rendition(f'width-{self.width}')
+        width = self.width * 2
+        return self.logo.get_rendition(f'width-{width}')
 
     class Meta:
         verbose_name = 'Partner Logo'
