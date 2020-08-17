@@ -582,35 +582,9 @@ class PartnerLogos(WagtailOrderable):
         FieldPanel('link'),
     ]
 
-<<<<<<< HEAD
-=======
     class Meta:
         verbose_name = 'Partner Logo'
 
->>>>>>> 1161da75... Pass tests
-    def clean(self):
-        # Validate internal and external links. Make sure one is always applied
-        # in each Orderable item.
-        super().clean()
-        if self.internal_link and self.external_link:
-            message = "Please only select a page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
-        if not self.internal_link and not self.external_link:
-            message = "Please select either page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
-
-<<<<<<< HEAD
-    class Meta:
-        verbose_name = 'Partner Logo'
-
-=======
->>>>>>> 1161da75... Pass tests
 
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
