@@ -158,7 +158,8 @@
 */
 .partner-section {
   background-size: cover;
-  background-position: center center;
+  background-position-y: top;
+  background-position-x: right;
   position: relative;
   z-index: 10;
   padding-top: 80px;
@@ -195,6 +196,13 @@
 
 @media(max-width: $bp-md) {
   .partner-section-logo {
-    margin-top: 0;
+    margin-top: 63px;
+  }
+}
+
+@media(max-width: $bp-sm) {
+  .partner-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
 }
