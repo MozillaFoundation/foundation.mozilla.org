@@ -560,6 +560,10 @@ class HomepageFocusAreas(WagtailOrderable):
         SnippetChooserPanel('area'),
     ]
 
+    class Meta:
+        verbose_name = 'Area of focus'
+        verbose_name_plural = 'Areas of focus'
+
 
 class PartnerLogos(WagtailOrderable):
     page = ParentalKey(
@@ -578,6 +582,12 @@ class PartnerLogos(WagtailOrderable):
         FieldPanel('link'),
     ]
 
+<<<<<<< HEAD
+=======
+    class Meta:
+        verbose_name = 'Partner Logo'
+
+>>>>>>> 1161da75... Pass tests
     def clean(self):
         # Validate internal and external links. Make sure one is always applied
         # in each Orderable item.
@@ -595,9 +605,12 @@ class PartnerLogos(WagtailOrderable):
                 'external_link': ValidationError(message),
             })
 
+<<<<<<< HEAD
     class Meta:
         verbose_name = 'Partner Logo'
 
+=======
+>>>>>>> 1161da75... Pass tests
 
 class Homepage(FoundationMetadataPageMixin, Page):
     hero_headline = models.CharField(
