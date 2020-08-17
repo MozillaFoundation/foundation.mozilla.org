@@ -19,5 +19,6 @@ def canonical_path(request):
     print(re.sub(r'^/' + lang, '', url))
     return {'CANONICAL_PATH': re.sub(r'^/' + lang, '', url)}
 
+
 def canonical_site_url(request):
     return {'CANONICAL_SITE_URL': request.scheme + '://' + request.get_host()}
