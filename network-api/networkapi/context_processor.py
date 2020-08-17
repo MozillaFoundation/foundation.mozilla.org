@@ -20,4 +20,4 @@ def canonical_path(request):
     return {'CANONICAL_PATH': re.sub(r'^/' + lang, '', url)}
 
 def canonical_site_url(request):
-    return {'CANONICAL_SITE_URL': settings.NETWORK_SITE_URL}
+    return {'CANONICAL_SITE_URL': request.scheme + '://' + request.get_host()}
