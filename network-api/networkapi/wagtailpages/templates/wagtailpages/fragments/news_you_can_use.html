@@ -48,13 +48,11 @@
 
   {% endcomment %}
 
-
+      {% with item_1_class="d-xl-none mb-5 mb-xl-0" item_2_class="mb-5 mb-xl-0" item_3_class="mb-5 mb-md-0"  %}
       {% for item in items %}
-      <div class="{% if forloop.counter == 1 %}d-xl-none {% endif %}col-12 col-md-6 col-xl-4 d-flex {% if forloop.counter == 1 or forloop.counter == 2 %}mb-5 mb-xl-0{% endif %}">
+      <div class="col-12 col-md-6 col-xl-4 d-flex {% if forloop.counter == 1 %} {{item_1_class}}{% endif %} {% if forloop.counter == 2 %} {{item_2_class}}{% endif %} {% if forloop.counter == 3 %} {{item_3_class}}{% endif %}">
         <div class="bg-white">
-          <div class="embed-responsive embed-responsive-16by9">
-            {% image item.blog.get_meta_image fill-700x394 class="embed-responsive-item" %}
-          </div>
+          {% image item.blog.get_meta_image fill-700x394 class="embed-responsive-item" %}
           <div class="p-4">
             {% with category=item.blog.category.first %}
             <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
@@ -65,10 +63,11 @@
         </div>
       </div>
       {% endfor %}
+      {% endwith %}
 
     {% endwith %}
     </div>
-    <a href="/blog" class="cta-link d-inline-block d-md-none">{% trans "Read more news" %}</a>
+    <a href="/blog" class="cta-link d-block d-md-none text-right">{% trans "Read more news" %}</a>
   </div>
 
 </div>
