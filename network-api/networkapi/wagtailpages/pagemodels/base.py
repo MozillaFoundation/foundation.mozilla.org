@@ -546,6 +546,7 @@ class HomepageTakeActionCards(WagtailOrderable):
 
     class Meta:
         verbose_name = "Take Action Card"
+        ordering = ['sort_order']  # not automatically inherited!
 
 
 class HomepageFocusAreas(WagtailOrderable):
@@ -560,6 +561,10 @@ class HomepageFocusAreas(WagtailOrderable):
         SnippetChooserPanel('area'),
     ]
 
+    class Meta:
+        verbose_name = 'Area of focus'
+        verbose_name_plural = 'Areas of focus'
+
 
 class PartnerLogos(WagtailOrderable):
     page = ParentalKey(
@@ -573,30 +578,25 @@ class PartnerLogos(WagtailOrderable):
         null=True,
         on_delete=models.SET_NULL,
     )
+    name = models.CharField(blank=False, max_length=100, help_text='Alt text for the logo image.')
+    width = models.PositiveSmallIntegerField(
+        help_text='The width of the image. Height will automatically be applied.'
+    )
     panels = [
         ImageChooserPanel('logo'),
+        FieldPanel('name'),
         FieldPanel('link'),
+        FieldPanel('width'),
     ]
 
-    def clean(self):
-        # Validate internal and external links. Make sure one is always applied
-        # in each Orderable item.
-        super().clean()
-        if self.internal_link and self.external_link:
-            message = "Please only select a page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
-        if not self.internal_link and not self.external_link:
-            message = "Please select either page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
+    @property
+    def image_rendition(self):
+        width = self.width * 2
+        return self.logo.get_rendition(f'width-{width}')
 
     class Meta:
         verbose_name = 'Partner Logo'
+        ordering = ['sort_order']  # not automatically inherited!
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
@@ -747,7 +747,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             FieldPanel('partner_page_text'),
             PageChooserPanel('partner_page'),
             ImageChooserPanel('partner_background_image'),
-            InlinePanel('partner_logos', label='Partner Logo', max_num=7),
+            InlinePanel('partner_logos', label='Partner Logo', max_num=7, min_num=1),
           ],
           heading='Partner',
           classname='collapsible'

@@ -152,3 +152,57 @@
     }
   }
 }
+
+/**
+* Partner section
+*/
+.partner-section {
+  background-size: cover;
+  background-position-y: top;
+  background-position-x: right;
+  position: relative;
+  z-index: 10;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.partner-section::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.partner-section-text {
+  @include text-base-style("Nunito Sans", 300, $black, $white);
+  @include set-text-size(20px, 30px);
+  font-size: 20px;
+  max-width: 450px;
+}
+
+.partner-section-logos {
+  position: relative;
+  z-index: 1;
+}
+
+.partner-section-logo {
+  margin-right: 48px;
+  margin-top: 75px;
+}
+
+@media(max-width: $bp-md) {
+  .partner-section-logo {
+    margin-top: 63px;
+  }
+}
+
+@media(max-width: $bp-sm) {
+  .partner-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
