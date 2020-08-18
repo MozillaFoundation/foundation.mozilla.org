@@ -44,7 +44,9 @@ from .pagemodels.index import (
 
 from .pagemodels.blog.blog import (
     BlogPage,
-    BlogAuthor
+    BlogAuthor,
+    BlogAuthors
+
 )
 
 from .pagemodels.blog.blog_category import (
@@ -73,6 +75,7 @@ __all__ = [
     BlogIndexPage,
     BlogPage,
     BlogAuthor,
+    BlogAuthors,
     BlogPageCategory,
     CTA,
     CampaignIndexPage,

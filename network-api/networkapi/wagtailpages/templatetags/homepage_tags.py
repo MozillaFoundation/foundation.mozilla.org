@@ -1,5 +1,8 @@
 from django import template
 from django.conf import settings
+from networkapi.wagtailpages.models import (
+    BlogPage
+)
 
 register = template.Library()
 
@@ -32,17 +35,17 @@ def homepage_image_with_class(context, path, classname):
 
 
 @register.simple_tag
-def get_all_authors(blog_post):
+def get_blog_page_authors(blog_page):
     """
-    Takes a Homepage features_blog post, gets all authors, traverses to the BlogPage
+    Gets all authors of a BlogPage
     and returns a list of dicts with the author.
 
     Graphically, this looks like:
-    Homepage Orderable -> Blog Orderable -> Author (with .name and .image)
+    Blog Orderable -> Author (with .name and .image)
     """
 
-    if blog_post:
-        all_authors = blog_post.blog.authors.all()
-        return [{"image": author.author.image, "name": author.author.name} for author in all_authors]
-    else:
+    if blog_page is None:
         return []
+    else:
+        all_authors = blog_page.authors.all()
+        return [{"image": author.author.image, "name": author.author.name} for author in all_authors]

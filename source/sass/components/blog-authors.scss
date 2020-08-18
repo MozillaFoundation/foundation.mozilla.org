@@ -1,6 +1,5 @@
 .blog-authors {
 
-
   .author-images {
     $image-offset: 0.7rem;
 
@@ -29,6 +28,12 @@
     @include set-text-size(14px, 18px);
 
     color: $black;
+
+    @include set-text-size(14px, 18px);
+
+    a {
+      color: inherit;
+    }
   }
 
   b {

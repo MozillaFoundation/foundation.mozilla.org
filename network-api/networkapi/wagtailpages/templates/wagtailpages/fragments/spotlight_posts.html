@@ -18,7 +18,7 @@
         <h5 class="mb-2">
           <a href="{{post.blog.url}}">{{post.blog.title}}</a>
         </h5>
-        {% include "./blog_authors.html" with post=post %}
+        {% include "./blog_authors.html" with blog_page=post.blog %}
       </div>
     {% endfor %}
   </div>

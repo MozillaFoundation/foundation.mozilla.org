@@ -35,7 +35,7 @@
             {% endwith %}
             <h3 class="mb-2 pb-1"><a href="{{first.url}}">{{ first.title }}</a></h3>
             <p class="d-none d-xl-block">{{ first.search_description|truncatechars:156 }}</p>
-            {% include "./blog_authors.html" with post=items.first %}
+            {% include "./blog_authors.html" with blog_page=items.first.blog %}
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
             <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
             {% endwith %}
             <h3 class="h4-heading"><a href="{{item.blog.url}}">{{ item.blog.title }}</a></h3>
-            {% include "./blog_authors.html" with post=item %}
+            {% include "./blog_authors.html" with blog_page=item.blog %}
           </div>
         </div>
       </div>
