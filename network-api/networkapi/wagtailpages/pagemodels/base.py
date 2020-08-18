@@ -516,6 +516,19 @@ class FocusArea(models.Model):
         verbose_name_plural = 'Areas of focus'
 
 
+class HomepageFocusAreas(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='focus_areas',
+    )
+
+    area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
+
+    panels = [
+        SnippetChooserPanel('area'),
+    ]
+
+
 class HomepageTakeActionCards(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -548,19 +561,6 @@ class HomepageTakeActionCards(WagtailOrderable):
         verbose_name = "Take Action Card"
 
 
-class HomepageFocusAreas(WagtailOrderable):
-    page = ParentalKey(
-        'wagtailpages.Homepage',
-        related_name='focus_areas',
-    )
-
-    area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
-
-    panels = [
-        SnippetChooserPanel('area'),
-    ]
-
-
 class PartnerLogos(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -577,23 +577,6 @@ class PartnerLogos(WagtailOrderable):
         ImageChooserPanel('logo'),
         FieldPanel('link'),
     ]
-
-    def clean(self):
-        # Validate internal and external links. Make sure one is always applied
-        # in each Orderable item.
-        super().clean()
-        if self.internal_link and self.external_link:
-            message = "Please only select a page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
-        if not self.internal_link and not self.external_link:
-            message = "Please select either page OR enter an external URL"
-            raise ValidationError({
-                'internal_link': ValidationError(message),
-                'external_link': ValidationError(message),
-            })
 
     class Meta:
         verbose_name = 'Partner Logo'
