@@ -578,11 +578,13 @@ class PartnerLogos(WagtailOrderable):
         null=True,
         on_delete=models.SET_NULL,
     )
+    name = models.CharField(blank=False, max_length=100, help_text='Alt text for the logo image.')
     width = models.PositiveSmallIntegerField(
         help_text='The width of the image. Height will automatically be applied.'
     )
     panels = [
         ImageChooserPanel('logo'),
+        FieldPanel('name'),
         FieldPanel('link'),
         FieldPanel('width'),
     ]

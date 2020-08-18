@@ -21,10 +21,10 @@
           <div class="partner-section-logo {% if forloop.counter > 4 %}d-none d-md-inline-block{% endif %}">
             {% if orderable.link %}
               <a href="{{ orderable.link }}">
-                <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ logo_img.alt }}">
+                <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ orderable.name }}">
               </a>
             {% else %}
-              <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ logo_img.alt }}">
+              <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ orderable.name }}">
             {% endif %}
           </div>
         {% endfor %}
