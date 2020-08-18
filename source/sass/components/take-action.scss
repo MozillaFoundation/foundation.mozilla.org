@@ -1,6 +1,11 @@
 .take-action-section {
   padding-top: 80px;
   padding-bottom: 80px;
+
+  .dark-theme .btn {
+    display: block;
+    width: 100%;
+  }
 }
 
 .take-action-title {
@@ -9,10 +14,18 @@
   font-weight: bold;
 }
 
+@media screen and (max-width: $bp-lg) and (min-width: $bp-md) {
+  .take-action-section .dark-theme .btn {
+    display: inline;
+    width: auto !important;
+  }
+}
+
 @media screen and (max-width: $bp-md) {
   .take-action-title {
     @include set-text-size(22px, 30px);
   }
+
   .take-action-section {
     padding-top: 48px;
     padding-bottom: 48px;
