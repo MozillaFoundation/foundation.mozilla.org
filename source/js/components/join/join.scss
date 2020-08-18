@@ -43,9 +43,31 @@
   .form-control {
     font-weight: 400;
     color: $black;
+    border: 1px solid $white;
+  }
+
+  select.form-control {
+    background-color: $black;
+    color: $white;
+    border-color: $white;
+    font-weight: 300;
+    background-image: url("../_images/glyphs/down-chevron-dark-theme.svg");
+
   }
 
   .fields-wrapper {
     flex: 1 1 auto;
+  }
+
+  .form-check-label {
+    &, a {
+      color: #999;
+    }
+  }
+
+  .btn-black {
+    background-color: $black;
+    border: 2px solid $white;
+    color: $white;
   }
 }
