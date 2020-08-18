@@ -723,6 +723,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         InlinePanel('focus_areas', label='Areas of focus', min_num=3, max_num=3),
         MultiFieldPanel(
+            [
+                InlinePanel('news_you_can_use', min_num=4, max_num=4),
+            ],
+            heading='News you can use',
+            classname='collapsible'
+        ),
+        MultiFieldPanel(
           [
             ImageChooserPanel('spotlight_image'),
             FieldPanel('spotlight_headline'),
@@ -732,13 +739,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
           classname='collapsible'
         ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
-        MultiFieldPanel(
-            [
-                InlinePanel('news_you_can_use', min_num=4, max_num=4),
-            ],
-            heading='News you can use',
-            classname='collapsible'
-        ),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),
         MultiFieldPanel(
           [
