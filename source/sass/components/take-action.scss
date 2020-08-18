@@ -13,4 +13,8 @@
   .take-action-title {
     @include set-text-size(22px, 30px);
   }
+  .take-action-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
 }
