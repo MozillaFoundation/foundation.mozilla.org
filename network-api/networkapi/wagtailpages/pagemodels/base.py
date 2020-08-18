@@ -516,6 +516,19 @@ class FocusArea(models.Model):
         verbose_name_plural = 'Areas of focus'
 
 
+class HomepageFocusAreas(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='focus_areas',
+    )
+
+    area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
+
+    panels = [
+        SnippetChooserPanel('area'),
+    ]
+
+
 class HomepageTakeActionCards(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -547,23 +560,6 @@ class HomepageTakeActionCards(WagtailOrderable):
     class Meta:
         verbose_name = "Take Action Card"
         ordering = ['sort_order']  # not automatically inherited!
-
-
-class HomepageFocusAreas(WagtailOrderable):
-    page = ParentalKey(
-        'wagtailpages.Homepage',
-        related_name='focus_areas',
-    )
-
-    area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
-
-    panels = [
-        SnippetChooserPanel('area'),
-    ]
-
-    class Meta:
-        verbose_name = 'Area of focus'
-        verbose_name_plural = 'Areas of focus'
 
 
 class PartnerLogos(WagtailOrderable):
