@@ -1,5 +1,4 @@
 from . import (
-    focus_areas,
     blog,
     campaign_page,
     bannered_campaign_page,
@@ -18,7 +17,6 @@ from . import (
 
 
 def generate(seed):
-    focus_areas.generate(seed)
     homepage.generate(seed)
     blog.generate(seed)
     bannered_campaign_page.generate(seed)
