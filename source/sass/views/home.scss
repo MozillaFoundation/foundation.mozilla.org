@@ -3,7 +3,6 @@
 
   .section-cause-statement {
     background: $black;
-    margin-bottom: $section-padding-y;
     margin-top: -28px;
 
     @media (min-width: $bp-md) {
@@ -137,6 +136,11 @@
     .icon {
       max-width: 4em;
       max-height: 4em;
+    }
+
+    .learn-more-link {
+      font-size: 18px;
+      font-weight: 700;
     }
   }
 }
