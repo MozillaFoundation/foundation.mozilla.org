@@ -1,6 +1,12 @@
 #view-home {
   $section-padding-y: 5rem;
 
+  .section-margin {
+    padding-top: $section-padding-y;
+    padding-bottom: $section-padding-y;
+
+  }
+
   .section-cause-statement {
     background: $black;
     margin-bottom: $section-padding-y;
@@ -24,9 +30,6 @@
   }
 
   .section-spotlight {
-    padding-top: $section-padding-y;
-    padding-bottom: $section-padding-y;
-
     .capsule-label {
       @include set-text-size(14px, 16px);
 
@@ -82,9 +85,6 @@
     $icon-width: 49px;
     $icon-margin-bottom: 1.5rem;
 
-    padding-top: $section-padding-y;
-    padding-bottom: $section-padding-y;
-
     picture {
       display: block;
 
@@ -126,7 +126,7 @@
     }
   }
 
-  .news-you-can-use {
+  .section-news-you-can-use {
     background: $gray-05;
 
     h2.h4-heading {
@@ -134,10 +134,6 @@
 
       font-family: $font-family-sans-serif;
       font-weight: 700;
-    }
-
-    .h6-heading {
-      color: $black;
     }
 
     .feature {

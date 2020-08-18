@@ -2,7 +2,7 @@
 
 {% get_all_authors post as authors %}
 <div class="blog-authors d-flex align-items-center flex-wrap">
-  <div class="author-images d-flex">
+  <div class="author-images d-flex flex-wrap">
   {% with "author-image d-flex align-items-center justify-content-center" as author_class %}
   {% for author in authors %}
     <div class="{{author_class}}">
