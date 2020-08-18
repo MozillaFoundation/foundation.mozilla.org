@@ -24,6 +24,10 @@
     color: $black;
 
     @include set-text-size(14px, 18px);
+
+    a {
+      color: inherit;
+    }
   }
 
   b {

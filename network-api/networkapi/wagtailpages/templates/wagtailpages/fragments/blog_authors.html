@@ -24,6 +24,11 @@
     {% if show_full_info %}
       | {% if blog_page.first_published_at %}{{ blog_page.first_published_at|date:"DATE_FORMAT" }}
         {% else %}{% blocktrans %}not published yet{% endblocktrans %}{% endif %}
+      {% with category=page.specific.category.first %}
+      {% if category and blog_index %}
+        | <a class="category" href="{{blog_index.url}}category/{{category.slug}}">{{ category }}</a>
+      {% endif %}
+      {% endwith %}
     {% endif %}
     {% endspaceless%}
     {% endwith %}
