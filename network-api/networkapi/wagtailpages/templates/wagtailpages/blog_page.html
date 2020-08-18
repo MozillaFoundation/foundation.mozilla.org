@@ -28,15 +28,7 @@
   <div class="py-4 py-md-5 col-lg-8">
     <div class="cms {% if coral_talk %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
-      <p class="h6-heading mb-5">
-        {% blocktrans with author=page.author %}By {{ author }}{% endblocktrans %} | {% if page.first_published_at %}{{ page.first_published_at|date:"DATE_FORMAT" }}{% else %}not
-        published yet{% endif %}
-        {% with category=page.specific.category.first %}
-        {% if category and blog_index %}
-          | <a class="category" href="{{blog_index.url}}category/{{category.slug}}">{{ category }}</a>
-        {% endif %}
-        {% endwith %}
-      </p>
+      {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
       <div class="blog-body">
         {{ page.body }}
         <div class="share-button-group-wrapper mt-5 d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>

@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import choice
+from random import choice, randint
 
 from django.conf import settings
 
@@ -15,6 +15,7 @@ from factory import (
 )
 
 from networkapi.wagtailpages.models import (
+    BlogAuthors,
     BlogAuthor,
     BlogPage,
     BlogPageCategory,
@@ -33,6 +34,7 @@ from .tagging import add_tags
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
+NUM_BLOG_AUTHORS = 10
 blog_body_streamfield_fields = [
     'paragraph',
     'image',
@@ -48,6 +50,17 @@ blog_body_streamfield_fields = [
 def add_category(post):
     categories = BlogPageCategory.objects.all()
     post.category.add(choice(categories))
+    post.save()
+
+
+def add_authors(post):
+    authors = list(BlogAuthor.objects.order_by("?").all())
+    count = len(authors)
+
+    for i in range(0, randint(1, min(count, 5))):
+        author_orderable = BlogAuthors.objects.create(page=post, author=authors[i])
+        post.authors.add(author_orderable)
+
     post.save()
 
 
@@ -99,6 +112,9 @@ def generate(seed):
             live=True
         )
 
+    print('Generating Blog Authors')
+    generate_fake_data(BlogAuthorFactory, NUM_BLOG_AUTHORS)
+
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'
     post = None
@@ -110,6 +126,7 @@ def generate(seed):
 
     add_tags(post)
     add_category(post)
+    add_authors(post)
 
     for i in range(6):
         title = Faker('sentence', nb_words=6, variable_nb_words=False)
@@ -122,6 +139,4 @@ def generate(seed):
 
         add_tags(post)
         add_category(post)
-
-    print('Generating Blog Authors')
-    generate_fake_data(BlogAuthorFactory, 10)
+        add_authors(post)
