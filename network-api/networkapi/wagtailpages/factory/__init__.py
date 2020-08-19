@@ -9,9 +9,9 @@ from . import (
     opportunity,
     participate_page_featured_highlights,
     participate_page,
+    publication,
     styleguide,
     youtube_regrets_page,
-    publication,
 )
 
 

@@ -130,7 +130,7 @@ This feature is only available for the professional version of Pycharm. Follow t
 
 ### Visual Studio Code
 
-Visual Studio Code use a feature called Dev Container to run Docker projects. The configuration files are in the `.devconatainer` directory. This feature is only available starting VSCode 1.35 stable. For now, we're only creating a python container to get Intellisense, we're not running the full project inside VSCode. We may revisit this in the future if Docker support in VSCode improves.
+Visual Studio Code uses a feature called Dev Container to run Docker projects. The configuration files are in the `.devconatainer` directory. This feature is only available starting VSCode 1.35 stable. For now, we're only creating a python container to get Intellisense, we're not running the full project inside VSCode. We may revisit this in the future if Docker support in VSCode improves.
 
 A few things to keep in mind when using that setup:
 - Do not use the terminal in VSCode when running `invoke docker-` commands: use a local terminal instead,
