@@ -4,7 +4,6 @@ from django.db import models
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.documents.models import Document
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.core.fields import RichTextField
 
@@ -70,5 +69,6 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         FieldPanel('publication_date'),
         ImageChooserPanel('hero_image'),
         DocumentChooserPanel('publication_file'),
-        FieldPanel('contents_title')
+        FieldPanel('contents_title'),
+        FieldPanel('notes')
     ]
