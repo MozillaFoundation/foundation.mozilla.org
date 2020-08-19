@@ -20,7 +20,7 @@ def create_default_focus_areas(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0006_homepage_refresh'),
+        ('wagtailpages', '0005_homepage_refresh'),
     ]
 
     operations = [
