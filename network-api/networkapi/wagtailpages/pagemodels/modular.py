@@ -15,7 +15,8 @@ from ..utils import (
 class ModularPage(FoundationMetadataPageMixin, Page):
     """
     This base class offers universal component picking.
-    Note: this is a legacy class, see https://github.com/mozilla/foundation.mozilla.org/issues/5071#issuecomment-675720719
+    Note: this is a legacy class, see
+    https://github.com/mozilla/foundation.mozilla.org/issues/5071#issuecomment-675720719
     """
 
     header = models.CharField(
