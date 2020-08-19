@@ -71,6 +71,10 @@ from .pagemodels.youtube import (
     YoutubeRegretsPage
 )
 
+from .pagemodels.publications.publication import (
+    PublicationPage
+)
+
 __all__ = [
     base_fields,
     BanneredCampaignPage,
@@ -101,6 +105,7 @@ __all__ = [
     PeoplePage,
     Petition,
     PrimaryPage,
+    PublicationPage,
     RedirectingPage,
     Signup,
     Styleguide,

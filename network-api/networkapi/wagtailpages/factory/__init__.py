@@ -13,7 +13,8 @@ from . import (
     participate_page_featured_highlights,
     participate_page,
     styleguide,
-    youtube_regrets_page
+    youtube_regrets_page,
+    publication,
 )
 
 
@@ -31,6 +32,7 @@ def generate(seed):
     opportunity.generate(seed)
     participate_page.generate(seed)
     participate_page_featured_highlights.generate(seed)
+    publication.generate(seed)
     styleguide.generate(seed)
     youtube_regrets_page.generate(seed)
     # homepage_cause_statement_link requires child pages of homepage to exist first
