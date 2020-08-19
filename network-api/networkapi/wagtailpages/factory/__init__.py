@@ -15,7 +15,6 @@ from . import (
     publication,
     styleguide,
     youtube_regrets_page,
-    publication,
 )
 
 
