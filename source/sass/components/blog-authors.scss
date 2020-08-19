@@ -1,29 +1,33 @@
 .blog-authors {
-  .author-image {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: $gray-80;
-    border: 2px solid $white;
-    color: $gray-40;
-    overflow: hidden;
-    background: url(../_images/blog-author-placeholder.jpg) $gray-80;
-    background-size: cover;
 
-    &:not(:first-of-type) {
-      margin-left: -0.7rem;
-    }
+  .author-images {
+    $image-offset: 0.7rem;
 
-    &:last-of-type {
-      margin-right: 0.5rem;
+    padding-left: $image-offset;
+
+    .author-image {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: $gray-80;
+      border: 2px solid $white;
+      color: $gray-40;
+      overflow: hidden;
+      background: url(../_images/blog-author-placeholder.jpg) $gray-80;
+      background-size: cover;
+      margin-left: -$image-offset;
+
+      &:last-of-type {
+        margin-right: 0.5rem;
+      }
     }
   }
 
   .body-small {
-    color: $black;
-
     @include set-text-size(14px, 18px);
+
+    color: $black;
 
     a {
       color: inherit;

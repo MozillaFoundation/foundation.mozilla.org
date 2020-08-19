@@ -1,11 +1,11 @@
 from . import (
-    focus_areas,
     blog,
     campaign_page,
     bannered_campaign_page,
     homepage_cause_statement_link,
     homepage_take_action,
     homepage_features,
+    homepage_usable_news,
     homepage,
     initiatives_page,
     news_page,
@@ -18,13 +18,13 @@ from . import (
 
 
 def generate(seed):
-    focus_areas.generate(seed)
     homepage.generate(seed)
     blog.generate(seed)
     bannered_campaign_page.generate(seed)
     campaign_page.generate(seed)
     # homepage_features.generate requires blog pages to exist first
     homepage_features.generate(seed)
+    homepage_usable_news.generate(seed)
     homepage_take_action.generate(seed)
     initiatives_page.generate(seed)
     news_page.generate(seed)

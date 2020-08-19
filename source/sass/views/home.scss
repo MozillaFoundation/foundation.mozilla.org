@@ -1,9 +1,16 @@
 #view-home {
-  $section-padding-y: 5rem;
+  .section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    @media (min-width: $bp-md) {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
 
   .section-cause-statement {
     background: $black;
-    margin-bottom: $section-padding-y;
     margin-top: -28px;
 
     @media (min-width: $bp-md) {
@@ -24,13 +31,10 @@
   }
 
   .section-spotlight {
-    padding-top: $section-padding-y;
-    padding-bottom: $section-padding-y;
-
     .capsule-label {
       @include set-text-size(14px, 16px);
 
-      font-family: "Nunito Sans";
+      font-family: $font-family-sans-serif;
       font-weight: 800;
       display: inline-block;
       background: $black;
@@ -82,9 +86,6 @@
     $icon-width: 49px;
     $icon-margin-bottom: 1.5rem;
 
-    padding-top: $section-padding-y;
-    padding-bottom: $section-padding-y;
-
     picture {
       display: block;
 
@@ -107,7 +108,7 @@
       .quote-text {
         @include set-text-size(18px, 27px, 24px, 34px);
 
-        font-family: "Nunito Sans";
+        font-family: $font-family-sans-serif;
         font-style: normal;
         font-weight: 300;
       }
@@ -126,11 +127,49 @@
     }
   }
 
-  .areas-of-focus {
+  .section-news-you-can-use {
     background: $gray-05;
 
+    h2.h4-heading {
+      @include set-text-size(22px, 30px, 24px, 30px);
+
+      font-family: $font-family-sans-serif;
+      font-weight: 700;
+    }
+
+    .feature {
+      min-height: 400px;
+
+      .feature-image {
+        position: absolute;
+        left: 0;
+        width: 65%;
+        height: 100%;
+
+        img {
+          height: inherit;
+          object-fit: cover;
+        }
+      }
+
+      .feature-content {
+        $border-thickness: 4px;
+
+        width: 50%;
+        padding: 2.5rem;
+        margin: 10px 0;
+        background: $white;
+        border-bottom: $border-thickness solid $black;
+        position: relative;
+        top: $border-thickness / 2;
+        z-index: 2;
+      }
+    }
+  }
+
+  .areas-of-focus {
     h2.focus-heading {
-      font-family: "Nunito Sans";
+      font-family: $font-family-sans-serif;
       font-style: normal;
       font-weight: 700;
       font-size: 1.5em;
@@ -139,6 +178,11 @@
     .icon {
       max-width: 4em;
       max-height: 4em;
+    }
+
+    .learn-more-link {
+      font-size: 18px;
+      font-weight: 700;
     }
   }
 }
