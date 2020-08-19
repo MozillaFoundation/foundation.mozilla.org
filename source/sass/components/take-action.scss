@@ -21,7 +21,7 @@
   }
 }
 
-@media screen and (max-width: $bp-md) {
+@media screen and (max-width: $bp-sm) {
   .take-action-title {
     @include set-text-size(22px, 30px);
   }
