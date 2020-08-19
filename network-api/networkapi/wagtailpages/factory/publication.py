@@ -49,6 +49,12 @@ class PublicationPageFactory(PageFactory):
     publication_date = Faker('date_object')
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
+    Faker
+)
+
+
+class PublicationPageFactory(PageFactory):
+    title = Faker('text', max_nb_chars=255)
 
     class Meta:
         model = PublicationPage
