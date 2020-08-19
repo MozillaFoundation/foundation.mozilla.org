@@ -15,8 +15,7 @@ from ..utils import (
 class ModularPage(FoundationMetadataPageMixin, Page):
     """
     This base class offers universal component picking.
-    Note: this is a legacy class, see
-    https://github.com/mozilla/foundation.mozilla.org/issues/5071#issuecomment-675720719
+    Note: this is a legacy class, see https://github.com/mozilla/foundation.mozilla.org/issues/5071#issuecomment-675720719
     """
 
     header = models.CharField(
@@ -38,16 +37,16 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel(
-          [
-            FieldPanel('narrowed_page_content'),
-          ],
-          classname="collapsible"
+            [
+                FieldPanel('narrowed_page_content'),
+            ],
+            classname="collapsible"
         ),
         MultiFieldPanel(
-          [
-            FieldPanel('zen_nav'),
-          ],
-          classname="collapsible"
+            [
+                FieldPanel('zen_nav'),
+            ],
+            classname="collapsible"
         )
     ]
 

@@ -4,6 +4,8 @@ from networkapi.wagtailpages.models import (
     ArticlePage,
     PublicationPage
 )
+from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
+from wagtail_factories import PageFactory
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
@@ -49,41 +51,21 @@ class PublicationPageFactory(PageFactory):
     publication_date = Faker('date_object')
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
+    Faker
+
+
+)
+
+
+class PublicationPageFactory(PageFactory):
+    title=Faker('text', max_nb_chars = 255)
 
     class Meta:
-        model = PublicationPage
-
-
-class ArticlePageFactory(PageFactory):
-    title = Faker('text', max_nb_chars=120)
-
-    class Meta:
-        model = ArticlePage
+        model=PublicationPage
 
 
 def generate(seed):
-    """
-    makes a batch of 3 publication pages
-    eventually I'd like to add a post_generation hooks that gives each of these pages an arbitrary number of chapters
-    and chapters an arbitrary number of articles
-    """
     reseed(seed)
-    home_page = get_homepage()
-    """
-    Create a couple scenarios that will be best for testing: 
-    * A PublicationPage with several child ArticlePages
-    * A PublicationPage with child PublicationPages, each of which has their own ArticlePages
-        * perhaps nested at random levels of depth?
-    """
+    home_page=get_homepage()
 
-    pub_page_with_child_articles = PublicationPageFactory.create(
-        parent=home_page, title="Publication Page with child Article Pages")
-    pub_page_with_chapters = PublicationPageFactory.create(
-        parent=home_page, title="Publication Page with chapter pages")
-
-    ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
-
-    PublicationPageFactory.create_batch(parent=pub_page_with_chapters, size=3)
-
-    for chapter in pub_page_with_chapters.get_children():
-        ArticlePageFactory.create_batch(parent=chapter, size=8)
+    PublicationPageFactory.create_batch(parent = home_page, size = 3)
