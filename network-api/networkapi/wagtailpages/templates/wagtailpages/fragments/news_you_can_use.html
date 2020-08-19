@@ -1,41 +1,73 @@
-{% load wagtailimages_tags i18n %}
+{% load wagtailimages_tags i18n class_tags blog_tags wagtailroutablepage_tags %}
 
-<div class="row" id="home-read-more-news">
-    <div class="col-12">
-      <h2 class="h4-heading">{% trans "News you can use" %}</h2>
-      <span>{% trans "Read more news →" %}</span>
+<div class="row section-news-you-can-use section-padding">
+  <div class="col-12 d-flex flex-row justify-content-between">
+    <h2 class="h4-heading mb-4">{% trans "News you can use" %}</h2>
+    {# this should not be a hardcoded route... #}
+    <a href="/blog" class="cta-link d-none d-md-inline-block">{% trans "Read more news" %}</a>
+  </div>
+
+  <div class="col-12">
+    <div class="row d-flex flex-row mb-4">
+      {% with items=page.news_you_can_use.all %}
+
+  {% comment %}
+
+    Note that the "feature" element is ONLY visible at xl sizes, because it is too different
+    from the standard layout. Instead, this is basically a duplicated "card", with display:
+
+              \     xs    sm    md    lg    xl
+              \-------------------------------
+        custom|  none  none  none  none block
+        normal| block block block block  none
+
+  {% endcomment %}
+
+      {% with first=items.first.blog %}
+      <div class="d-none d-xl-block col-xl-12 feature mb-md-5">
+        <div class="position-relative h-100 d-flex justify-content-end">
+          <div class="feature-image">
+            {% image first.get_meta_image fill-1000x500 %}
+          </div>
+          <div class="feature-content align-self-center">
+            {% with category=first.category.first %}
+              <a class="h6-heading d-block mb-2" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+            {% endwith %}
+            <h3 class="mb-2 pb-1"><a href="{{first.url}}">{{ first.title }}</a></h3>
+            <p class="d-none d-xl-block">{{ first.search_description|truncatechars:156 }}</p>
+            {% include "./blog_authors.html" with blog_page=items.first.blog %}
+          </div>
+        </div>
+      </div>
+      {% endwith %}
+
+  {% comment %}
+
+    Again, note that the following loop generates cards for _all_ items, including the featured
+    item. It will simply hide that first card on sizes that show the feature layout instead.
+
+  {% endcomment %}
+
+      {% with item_1_class="d-xl-none mb-5 mb-xl-0" item_2_class="mb-5 mb-xl-0" item_3_class="mb-5 mb-md-0"  %}
+      {% for item in items %}
+      <div class="col-12 col-md-6 col-xl-4 d-flex {% if forloop.counter == 1 %} {{item_1_class}}{% endif %} {% if forloop.counter == 2 %} {{item_2_class}}{% endif %} {% if forloop.counter == 3 %} {{item_3_class}}{% endif %}">
+        <div class="bg-white">
+          {% image item.blog.get_meta_image fill-700x394 class="embed-responsive-item" %}
+          <div class="p-4">
+            {% with category=item.blog.category.first %}
+            <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+            {% endwith %}
+            <h3 class="h4-heading"><a href="{{item.blog.url}}">{{ item.blog.title }}</a></h3>
+            {% include "./blog_authors.html" with blog_page=item.blog %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endwith %}
+
+    {% endwith %}
     </div>
+    <a href="/blog" class="cta-link d-block d-md-none text-right">{% trans "Read more news" %}</a>
   </div>
 
-  <div>
-    {% for item in page.news_you_can_use.all %}
-    {% if forloop.counter == 1 %}
-      <div class="row">
-        <div class="col-12">
-            {{ forloop.counter }}
-            <!--
-                image
-                title
-                blog category
-                content snippet
-                authors
-            -->
-        </div>
-      </div>
-    {% else %}
-     <div class="row">
-        <div class="col-12 col-md-4">
-            {{ forloop.counter }}
-            <!--
-                image
-                title
-                blog category
-                content snippet
-                authors
-            -->
-        </div>
-      </div>
-    {% endif %}
-    {% endfor %}
-  </div>
 </div>
