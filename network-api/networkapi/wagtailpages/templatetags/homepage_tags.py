@@ -1,8 +1,5 @@
 from django import template
 from django.conf import settings
-from networkapi.wagtailpages.models import (
-    BlogPage
-)
 
 register = template.Library()
 
