@@ -20,6 +20,7 @@ class HighlightQuerySet(models.query.QuerySet):
     """
     A QuerySet for highlights that filters for published highlights.
     """
+
     def published(self):
         now = timezone.now()
         return self.filter(

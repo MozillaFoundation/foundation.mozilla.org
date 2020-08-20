@@ -30,6 +30,7 @@ class PeopleQuerySet(models.query.QuerySet):
     """
     A QuerySet for people that filters for published people records
     """
+
     def published(self):
         now = timezone.now()
 

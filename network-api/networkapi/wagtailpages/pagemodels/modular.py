@@ -36,16 +36,16 @@ class ModularPage(FoundationMetadataPageMixin, Page):
 
     settings_panels = Page.settings_panels + [
         MultiFieldPanel(
-          [
-            FieldPanel('narrowed_page_content'),
-          ],
-          classname="collapsible"
+            [
+                FieldPanel('narrowed_page_content'),
+            ],
+            classname="collapsible"
         ),
         MultiFieldPanel(
-          [
-            FieldPanel('zen_nav'),
-          ],
-          classname="collapsible"
+            [
+                FieldPanel('zen_nav'),
+            ],
+            classname="collapsible"
         )
     ]
 

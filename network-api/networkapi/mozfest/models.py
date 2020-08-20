@@ -70,7 +70,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     )
 
     settings_panels = Page.settings_panels + [
-       FieldPanel('use_wide_template')
+        FieldPanel('use_wide_template')
     ]
 
     def get_template(self, request):

@@ -164,6 +164,7 @@ class WagtailPagesIntegrationTestCase(TestCase):
     """
     Test that our overrides to Django translation functions work.
     """
+
     def test_to_language(self):
         self.assertEqual(django_to_language('fy_NL'), 'fy-NL')
 

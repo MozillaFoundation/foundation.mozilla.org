@@ -20,6 +20,7 @@ class NewsQuerySet(models.query.QuerySet):
     """
     A QuerySet for news that filters for published records
     """
+
     def published(self):
         now = timezone.now()
         return self.filter(

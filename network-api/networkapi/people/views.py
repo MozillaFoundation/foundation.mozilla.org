@@ -9,6 +9,7 @@ class PeopleListView(ListAPIView):
     A view that permits a GET to allow listing all the People
     in the database
     """
+
     def get_queryset(self):
         return Person.objects.published()
 
@@ -20,6 +21,7 @@ class PersonView(RetrieveAPIView):
     A view that permits a GET to allow listing a person
     in the database
     """
+
     def get_queryset(self):
         return Person.objects.published()
 

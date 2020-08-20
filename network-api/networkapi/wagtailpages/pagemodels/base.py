@@ -236,43 +236,43 @@ class ParticipatePage2(PrimaryPage):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
-          [
-            ImageChooserPanel('ctaHero'),
-            FieldPanel('ctaHeroHeader'),
-            FieldPanel('ctaHeroSubhead'),
-            FieldPanel('ctaButtonTitle'),
-            FieldPanel('ctaButtonURL'),
-          ],
-          heading="Primary CTA",
-          classname="collapsible"
+            [
+                ImageChooserPanel('ctaHero'),
+                FieldPanel('ctaHeroHeader'),
+                FieldPanel('ctaHeroSubhead'),
+                FieldPanel('ctaButtonTitle'),
+                FieldPanel('ctaButtonURL'),
+            ],
+            heading="Primary CTA",
+            classname="collapsible"
         ),
         FieldPanel('h2'),
         FieldPanel('h2Subheader'),
         InlinePanel('featured_highlights', label='Highlights Group 1', max_num=3),
         MultiFieldPanel(
-          [
-            ImageChooserPanel('ctaHero2'),
-            FieldPanel('ctaHeroHeader2'),
-            FieldPanel('ctaHeroSubhead2'),
-            FieldPanel('ctaButtonTitle2'),
-            FieldPanel('ctaButtonURL2'),
-          ],
-          heading="CTA 2",
-          classname="collapsible"
+            [
+                ImageChooserPanel('ctaHero2'),
+                FieldPanel('ctaHeroHeader2'),
+                FieldPanel('ctaHeroSubhead2'),
+                FieldPanel('ctaButtonTitle2'),
+                FieldPanel('ctaButtonURL2'),
+            ],
+            heading="CTA 2",
+            classname="collapsible"
         ),
         InlinePanel('featured_highlights2', label='Highlights Group 2', max_num=6),
         MultiFieldPanel(
-          [
-            ImageChooserPanel('ctaHero3'),
-            FieldPanel('ctaHeroHeader3'),
-            FieldPanel('ctaHeroSubhead3'),
-            FieldPanel('ctaFacebook3'),
-            FieldPanel('ctaTwitter3'),
-            FieldPanel('ctaEmailShareSubject3'),
-            FieldPanel('ctaEmailShareBody3'),
-          ],
-          heading="CTA 3",
-          classname="collapsible"
+            [
+                ImageChooserPanel('ctaHero3'),
+                FieldPanel('ctaHeroHeader3'),
+                FieldPanel('ctaHeroSubhead3'),
+                FieldPanel('ctaFacebook3'),
+                FieldPanel('ctaTwitter3'),
+                FieldPanel('ctaEmailShareSubject3'),
+                FieldPanel('ctaEmailShareBody3'),
+            ],
+            heading="CTA 3",
+            classname="collapsible"
         ),
         InlinePanel('cta4', label='CTA Group 4', max_num=3),
     ]
@@ -466,18 +466,18 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
-          [
-            FieldPanel('hero_headline'),
-            FieldPanel('hero_story_description'),
-            FieldRowPanel([
-              FieldPanel('hero_button_text'),
-              FieldPanel('hero_button_url'),
+            [
+                FieldPanel('hero_headline'),
+                FieldPanel('hero_story_description'),
+                FieldRowPanel([
+                    FieldPanel('hero_button_text'),
+                    FieldPanel('hero_button_url'),
+                ],
+                ),
+                ImageChooserPanel('hero_image'),
             ],
-            ),
-            ImageChooserPanel('hero_image'),
-          ],
-          heading='hero',
-          classname='collapsible'
+            heading='hero',
+            classname='collapsible'
         ),
         InlinePanel('featured_blogs', label='Blogs', max_num=4),
         InlinePanel('featured_highlights', label='Highlights', max_num=5),

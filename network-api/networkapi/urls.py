@@ -25,8 +25,8 @@ urlpatterns = list(filter(None, [
     path('robots.txt', lambda x: HttpResponse(
         "User-Agent: *\nDisallow: /*artifacts/thimble",
         content_type="text/plain; charset=utf-8"),
-         name="robots_file"
-         ),
+        name="robots_file"
+    ),
 
     # social-sign-on routes so that Google auth works
     url(r'^soc/', include('social_django.urls', namespace='social')),

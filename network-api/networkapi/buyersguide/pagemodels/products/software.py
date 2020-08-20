@@ -86,7 +86,7 @@ class SoftwareProduct(Product):
         panels,
         'Minimum Security Standards for general products',
         [
-             MultiFieldPanel(
+            MultiFieldPanel(
                 [
                     FieldPanel('signup_with_email'),
                     FieldPanel('signup_with_phone'),
@@ -95,7 +95,7 @@ class SoftwareProduct(Product):
                 ],
                 heading='How does it handle signup?',
                 classname='collapsible'
-             ),
+            ),
         ],
     )
 

@@ -9,6 +9,7 @@ class MilestoneListView(ListAPIView):
     A view that permits a GET to allow listing of milestones
     in the database
     """
+
     def get_queryset(self):
         return Milestone.objects.all()
 
@@ -20,6 +21,7 @@ class MilestoneView(RetrieveAPIView):
     """
     A view that permits a GET request for a Milestone in the database
     """
+
     def get_queryset(self):
         return Milestone.objects.all()
 
