@@ -494,6 +494,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'ParticipatePage2',
         'PeoplePage',
         'PrimaryPage',
+        'PublicationPage',
         'RedirectingPage',
         'Styleguide',
     ]
