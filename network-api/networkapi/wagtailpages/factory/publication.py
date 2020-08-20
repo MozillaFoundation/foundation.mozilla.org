@@ -79,7 +79,7 @@ class DocumentFactory(CollectionMemberFactory):
 
 
 class PublicationPageFactory(PageFactory):
-    title = Faker('text', max_nb_chars=255)
+    title = Faker('text', max_nb_chars=120)
     subtitle = Faker('text', max_nb_chars=255)
     secondary_subtitle = Faker('text', max_nb_chars=255)
     publication_date = Faker('date_object')
