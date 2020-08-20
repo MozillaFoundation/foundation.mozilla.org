@@ -35,7 +35,9 @@
             {% endwith %}
             <h3 class="mb-2 pb-1"><a href="{{first.url}}">{{ first.title }}</a></h3>
             <p class="d-none d-xl-block">{{ first.search_description|truncatechars:156 }}</p>
-            {% include "./blog_authors.html" with blog_page=items.first.blog %}
+            {% if items.first %}
+              {% include "./blog_authors.html" with blog_page=items.first.blog %}
+            {% endif %}
           </div>
         </div>
       </div>

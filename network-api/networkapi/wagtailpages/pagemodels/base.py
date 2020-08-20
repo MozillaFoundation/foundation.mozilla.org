@@ -1,8 +1,7 @@
-from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable as WagtailOrderable
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -307,48 +306,10 @@ class HomepageSpotlightPosts(WagtailOrderable):
         return self.page.title + '->' + self.blog.title
 
 
-class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
-    page = ParentalKey(
-        'wagtailpages.Homepage',
-        related_name='featured_highlights',
-    )
-    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
-    panels = [
-        SnippetChooserPanel('highlight'),
-    ]
-
-    class Meta:
-        verbose_name = 'highlight'
-        verbose_name_plural = 'highlights'
-        ordering = ['sort_order']  # not automatically inherited!
-
-    def __str__(self):
-        return self.page.title + '->' + self.highlight.title
-
-
 class HomepageNewsYouCanUse(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='news_you_can_use',
-    )
-    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
-    panels = [
-        PageChooserPanel('blog'),
-    ]
-
-    class Meta:
-        verbose_name = 'blog'
-        verbose_name_plural = 'blogs'
-        ordering = ['sort_order']  # not automatically inherited!
-
-    def __str__(self):
-        return self.page.title + '->' + self.blog.title
-
-
-class HomepageFeaturedBlogs(WagtailOrderable, models.Model):
-    page = ParentalKey(
-        'wagtailpages.Homepage',
-        related_name='featured_blogs',
     )
     blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
     panels = [
@@ -574,8 +535,14 @@ class PartnerLogos(WagtailOrderable):
         null=True,
         on_delete=models.SET_NULL,
     )
-    name = models.CharField(blank=False, max_length=100, help_text='Alt text for the logo image.')
+    name = models.CharField(
+        default='Partner Name',
+        blank=False,
+        max_length=100,
+        help_text='Alt text for the logo image.'
+    )
     width = models.PositiveSmallIntegerField(
+        default=100,
         help_text='The width of the image. Height will automatically be applied.'
     )
     panels = [
@@ -734,8 +701,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='spotlight',
           classname='collapsible'
         ),
-        InlinePanel('featured_blogs', label='Blogs', max_num=4),
-        InlinePanel('featured_highlights', label='Highlights', max_num=5),
         MultiFieldPanel(
           [
             FieldPanel('partner_heading'),

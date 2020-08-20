@@ -1,8 +1,7 @@
 from django.db import migrations, models
-import django.db.models.deletion
 
 
-def create_focus_areas(apps, schema_editor):
+def create_default_focus_areas(apps, schema_editor):
     FocusArea = apps.get_model("wagtailpages", "FocusArea")
     FocusArea.objects.get_or_create(
         name='Empower Action',
@@ -21,10 +20,11 @@ def create_focus_areas(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
-        ('wagtailpages', '0009_areas_of_focus_fixes'),
+        ('wagtailpages', '0005_homepage_refresh'),
     ]
 
     operations = [
-        migrations.RunPython(create_focus_areas),
+        migrations.RunPython(create_default_focus_areas),
     ]
+
+

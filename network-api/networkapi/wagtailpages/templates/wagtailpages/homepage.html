@@ -1,7 +1,9 @@
 {% extends "pages/base.html" %}
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n  %}
 
+
 {% block body_id %}home{% endblock %}
+
 
 {% block org_schema %}
   <script type="application/ld+json">
@@ -15,43 +17,37 @@
   </script>
 {% endblock %}
 
+
 {% block hero_guts %}
   {% include "./fragments/primary_heroguts.html" with root=root page=page homepage=True %}
 {% endblock %}
 
+
 {% block content %}
-<div class="container">
-  {% include "./fragments/cause_statement.html" %}
-  {% include "./fragments/focus_areas.html" %}
-</div>
-
-<div class="bg-gray">
   <div class="container">
-    {% include "./fragments/news_you_can_use.html" %}
+    {% include "./fragments/cause_statement.html" %}
+    {% include "./fragments/focus_areas.html" %}
   </div>
-</div>
 
-<div class="container">
-  {% include "./fragments/spotlight_posts.html" %}
-</div>
+  <div class="bg-gray">
+    <div class="container">
+      {% include "./fragments/news_you_can_use.html" %}
+    </div>
+  </div>
 
-<div class="bg-gray">
   <div class="container">
-    {% include "./fragments/take_action.html" %}
+    {% include "./fragments/spotlight_posts.html" %}
   </div>
-</div>
 
-<div class="container">
-  {% include "./fragments/quote.html" %}
-</div>
+  <div class="bg-gray">
+    <div class="container">
+      {% include "./fragments/take_action.html" %}
+    </div>
+  </div>
 
-{% include "./fragments/partner.html" %}
-{% comment %}
-TODO: Remove this and the backend
-<div class="container">
-  {% include "./fragments/featured_blogs.html" %}
-  {% include "./fragments/featured_stories.html" %}
-</div>
-{% endcomment %}
+  <div class="container">
+    {% include "./fragments/quote.html" %}
+  </div>
 
+  {% include "./fragments/partner.html" %}
 {% endblock %}
