@@ -70,7 +70,15 @@ from .pagemodels.publications.publication import (
     PublicationPage
 )
 
+from .pagemodels.publications.publication import (
+    ArticlePage
+)
+
+
+
+
 __all__ = [
+    ArticlePage,
     base_fields,
     BanneredCampaignPage,
     BlogIndexPage,
