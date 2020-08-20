@@ -70,11 +70,9 @@ from .pagemodels.publications.publication import (
     PublicationPage
 )
 
-from .pagemodels.publications.publication import (
+from .pagemodels.publications.article import (
     ArticlePage
 )
-
-
 
 
 __all__ = [

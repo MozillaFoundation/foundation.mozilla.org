@@ -1,6 +1,9 @@
 from wagtail.core.models import Collection
-from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
 from wagtail_factories import PageFactory, ImageFactory
+from networkapi.wagtailpages.models import (
+    ArticlePage,
+    PublicationPage
+)
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
@@ -40,7 +43,7 @@ class DocumentFactory(CollectionMemberFactory):
 
 
 class PublicationPageFactory(PageFactory):
-    title = Faker('text', max_nb_chars=255)
+    title = Faker('text', max_nb_chars=120)
     subtitle = Faker('text', max_nb_chars=255)
     secondary_subtitle = Faker('text', max_nb_chars=255)
     publication_date = Faker('date_object')
@@ -51,6 +54,13 @@ class PublicationPageFactory(PageFactory):
         model = PublicationPage
 
 
+class ArticlePageFactory(PageFactory):
+    title = Faker('text', max_nb_chars=120)
+
+    class Meta:
+        model = ArticlePage
+
+
 def generate(seed):
     """
     makes a batch of 3 publication pages
@@ -59,5 +69,21 @@ def generate(seed):
     """
     reseed(seed)
     home_page = get_homepage()
+    """
+    Ceate a couple scenarios that will be best for testing: 
+    * A PublicationPage with several child ArticlePages
+    * A PublicationPage with child PublicationPages, each of which has their own ArticlePages
+        * perhaps nested at random levels of depth?
+    """
 
     PublicationPageFactory.create_batch(parent=home_page, size=3)
+
+    pub_page_with_child_articles = PublicationPage.objects.all()[0]
+    pub_page_with_chapters = PublicationPage.objects.all()[1]
+
+    ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
+
+    PublicationPageFactory.create_batch(parent=pub_page_with_chapters, size=3)
+
+    for chapter in pub_page_with_chapters.get_children():
+        ArticlePageFactory.create_batch(parent=chapter, size=8)
