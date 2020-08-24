@@ -1,0 +1,112 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n static %}
+
+{% block body_id %}youtube-regrets-extension{% endblock %}
+
+{% block extended_head %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="youtube-regrets-intro-viewport">
+  <div class="scene-container">
+    <div class="scene">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+    <div class="scene">
+      {% for image in page.intro_images %}
+      <div class="block">
+        {% image image.value.image width-500 class="mb-3" alt=image.value.altText %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="intro-text-container">
+    <div class="intro-text">
+      {% for text in page.intro_text %}
+      <p>{{text}}</p>
+      {% endfor %}
+    </div>
+    <div class="intro-button-wrapper">
+      <button class="btn btn-primary btn-newsletter mx-auto for-mobile">{% trans "Join Mozilla" %}</button>
+      <button class="btn btn-primary btn-newsletter mx-auto for-desktop">{% trans "Join Mozilla" %}</button>
+    </div>
+  </div>
+
+  <figure class="scroll-hint text-center d-none">
+    <img src="{% static "_images/youtube-regrets/scroll.svg" %}" width="28" height="85" />
+    <figcaption>{% trans "Scroll" %}</figcaption>
+  </figure>
+</div>
+
+<main class="container">
+  <div class="row">
+    <div class="col-12 dark-theme text-center">
+      <h2>{% trans "How it Works" %}</h2>
+      <p>{% trans "When you send a YouTube regret, the video and recommendations that led you to it are submitted anonymously to Mozilla researchers." %}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <p>1. Click the frowning extension icon in the browser bar</p>
+    </div>
+    <div class="col-md-4">
+      <p>2. Report the video and recommendations that led you to it</p>
+    </div>
+    <div class="col-md-4">
+      <p>3. Send any extra details you would like Mozilla to know</p>
+    </div>
+  </div>
+
+  <div class="row my-5">
+    <div class="offset-md-2 col-md-8 offset-xl-2 col-xl-8">
+      <p class="body-large">With the RegretsReporter extension, you can immediately take action to report recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content.</p>
+      <p>
+        The report form will ask you to tell us more about your YouTube Regret and collect information about the recommendations that led you to the video. By sharing your experiences, you can help us answer questions like: what kinds of recommended videos do users regret watching? Are there usage patterns that lead to more regrettable content being recommended? What does a YouTube rabbit hole look like, and at what point does it become something you wish you never clicked on?
+      </p>
+    </div>
+  </div>
+
+  <div class="row my-5">
+    <div class="col-12" style="border: 2px solid palevioletred; height: 200px;">
+      sign-up form section
+    </div>
+  </div>
+
+  <div class="row my-5 text-center">
+    <div class="col-12">
+      <p class="h1-heading">Let's work together to make recommendation engines on the internet more trustworthy.</p>
+    </div>
+  </div>
+
+  <div class="row my-5 text-center">
+    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+      <p class="h6-heading mb-1">Mozilla</p>
+      <a class="d-block" href="" target="_blank">28 Reasons Why YouTube Must Change</a>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+      <p class="h6-heading mb-1">The New York Times</p>
+      <a class="d-block" href="" target="_blank">Can YouTube Quiet Its Conspiracy Theorists?</a>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+      <p class="h6-heading mb-1">MIT Tech Review</p>
+      <a class="d-block" href="" target="_blank">YouTube’s algorithm seems to be funneling people to alt-right videos</a>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+      <p class="h6-heading mb-1">Bloomberg</p>
+      <a class="d-block" href="" target="_blank">YouTube Executives Ignored Warnings, Letting Toxic Videos Run Rampant</a>
+    </div>
+  </div>
+
+</main>
+{% endblock %}
+
+{% block footer_block %}
+{% include "partials/footer.html" %}
+{% endblock %}

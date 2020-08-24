@@ -2,7 +2,7 @@ from factory import (
     Faker
 )
 from wagtail.core.models import Page as WagtailPage
-from networkapi.wagtailpages.models import YoutubeRegretsPage
+from networkapi.wagtailpages.models import YoutubeRegretsPage, YoutubeRegretsExtensionPage
 from wagtail_factories import (
     PageFactory
 )
@@ -30,6 +30,21 @@ class YoutubeRegretsPageFactory(PageFactory):
     regret_stories = Faker('streamfield', fields=['regret_story']*28)
 
 
+class YoutubeRegretsExtensionPageFactory(PageFactory):
+    class Meta:
+        model = YoutubeRegretsExtensionPage
+        exclude = (
+            'title_text',
+            'header_text',
+            'header',
+        )
+
+    title = 'YouTube Regrets'
+    headline = Faker('text', max_nb_chars=50)
+    intro_text = Faker('streamfield', fields=['text']*5)
+    intro_images = Faker('streamfield', fields=['basic_image']*10)
+
+
 def generate(seed):
     home_page = get_homepage()
     reseed(seed)
@@ -55,5 +70,16 @@ def generate(seed):
     except YoutubeRegretsPage.DoesNotExist:
         print('Generating YouTube Regrets Page under campaigns namespace')
         YoutubeRegretsPageFactory.create(parent=campaign_index_page, title=title)
+
+    reseed(seed)
+
+    extension_page_title = 'YouTube Regrets Extension'
+
+    try:
+        YoutubeRegretsExtensionPage.objects.get(title=extension_page_title)
+        print('YouTube Regrets Extension page exists')
+    except YoutubeRegretsExtensionPage.DoesNotExist:
+        print('Generating YouTube Regrets Extension Page under campaigns namespace')
+        YoutubeRegretsExtensionPageFactory.create(parent=campaign_index_page, title=extension_page_title)
 
     reseed(seed)

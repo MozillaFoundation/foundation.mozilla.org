@@ -11,14 +11,14 @@ const BLOCK_SPEED_FACTOR = 0.8;
 const RING_SPEED_FACTOR = 0.6;
 
 let elements = {
-  introViewport: `#view-youtube-regrets .intro-viewport`,
-  blocks: `#view-youtube-regrets .intro-viewport .block`,
-  rings: `#view-youtube-regrets .intro-viewport .ring`,
-  introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
-  scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
-  newsletterButtons: `#view-youtube-regrets .intro-viewport .btn-newsletter`,
-  newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-mobile`,
-  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-desktop`,
+  introViewport: `.youtube-regrets-intro-viewport`,
+  blocks: `.youtube-regrets-intro-viewport .block`,
+  rings: `.youtube-regrets-intro-viewport .ring`,
+  introText: `.youtube-regrets-intro-viewport .intro-text p`,
+  scrollHint: `.youtube-regrets-intro-viewport .scroll-hint`,
+  newsletterButtons: `.youtube-regrets-intro-viewport .btn-newsletter`,
+  newsletterButtonMobile: `.youtube-regrets-intro-viewport .btn-newsletter.for-mobile`,
+  newsletterButtonDesktop: `.youtube-regrets-intro-viewport .btn-newsletter.for-desktop`,
 };
 
 class YouTubeRegretsTunnel {
