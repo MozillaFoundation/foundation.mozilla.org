@@ -72,9 +72,10 @@
 
           @function get-block-z-translate($block-index) {
             @return calc(
-              var(--blockZTranslate) * 1px -
-                calc(var(--baseBlockGap) * #{$block-index}) * 1px +
-                var(--scenePerspective) * 1px
+              calc(
+                  var(--blockZTranslate) - var(--baseBlockGap) * #{$block-index} +
+                    var(--scenePerspective)
+                ) * 1px
             );
           }
 
