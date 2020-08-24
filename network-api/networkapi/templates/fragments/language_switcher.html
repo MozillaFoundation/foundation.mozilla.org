@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n localization %}
 
 <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
   <input name="next" type="hidden" value="{{ request.path }}">
@@ -6,11 +6,10 @@
     <label class="h5-heading mb-0 d-flex align-items-center globe-glyph medium" for="language-switcher">{% trans "Language" %}</label>
     <select name="language" id="language-switcher" class="mt-3 mt-md-0 ml-md-3 w-100 form-control" onchange="this.form.submit()">
       {% get_current_language as LANGUAGE_CODE %}
-      {% get_available_languages as LANGUAGES %}
+      {% get_local_language_names as LANGUAGES %}
       {% for CODE, NAME in LANGUAGES %}
-        {% get_language_info for CODE as lang %}
         <option value="{{ CODE }}"{% if CODE == LANGUAGE_CODE %} selected{% endif %}>
-          {{ lang.name_local | capfirst }}
+          {{ NAME | capfirst }}
         </option>
       {% endfor %}
     </select>
