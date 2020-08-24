@@ -13,12 +13,20 @@ from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 class PublicationPage(FoundationMetadataPageMixin, Page):
     """
-    This is the root page of a publication. From here the user can browse to the various sections (called chapters).
+    This is the root page of a publication. 
+
+    From here the user can browse to the various sections (called chapters).
     It will have information on the publication, its authors, and metadata from it's children
+
+    TODO: this poem is beautiful, but it may not belong here
+    Publications are collections of Articles
+    Publications can also be broken down into Chapters, which are really just child publication pages
+    Each of those Chapters may have several Articles
+    An Article can only belong to one Chapter/Publication Page
+
     """
 
-    # TODO: once we make chapter pages, add that as a subpage type
-    subpage_types = []
+    subpage_types = ['ArticlePage', 'PublicationPage']
 
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
