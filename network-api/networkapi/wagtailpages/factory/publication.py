@@ -38,14 +38,14 @@ class CollectionMemberFactory(DjangoModelFactory):
 class DocumentFactory(CollectionMemberFactory):
     class Meta:
         model = get_document_model()
-    title = Faker('text', max_nb_chars=255)
+    title = Faker('text', max_nb_chars=250)
     file = django.FileField(filename=Faker('file_name', category="text"), file_extension="pdf")
 
 
 class PublicationPageFactory(PageFactory):
     title = Faker('text', max_nb_chars=120)
-    subtitle = Faker('text', max_nb_chars=255)
-    secondary_subtitle = Faker('text', max_nb_chars=255)
+    subtitle = Faker('text', max_nb_chars=250)
+    secondary_subtitle = Faker('text', max_nb_chars=250)
     publication_date = Faker('date_object')
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
