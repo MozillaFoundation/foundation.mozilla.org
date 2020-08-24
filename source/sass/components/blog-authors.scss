@@ -13,7 +13,7 @@
       overflow: hidden;
       margin-left: -$image-offset;
 
-      &:not(.no-background) {
+      &.no-avatar {
         background: url(../_images/blog-author-placeholder.jpg) $gray-80;
         background-size: cover;
       }
