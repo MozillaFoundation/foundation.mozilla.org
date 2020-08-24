@@ -134,10 +134,8 @@
           @function get-ring-z-translate($ring-index) {
             @return calc(
               calc(
-                  var(--ringZTranslate)
-                  - var(--baseRingGap) * #{$ring-index}
-                  + var(--scenePerspective)
-              ) * 1px
+                  var(--ringZTranslate) - var(--baseRingGap) * #{$ring-index} + var(--scenePerspective)
+                ) * 1px
             );
           }
 
