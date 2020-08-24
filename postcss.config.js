@@ -7,7 +7,7 @@ let prodPlugins = [
     preset: ['default', {
         discardComments: {
             removeAll: true,
-        }
+        },
     }]
   })
 ];
