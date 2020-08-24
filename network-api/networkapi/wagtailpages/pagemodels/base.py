@@ -696,7 +696,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 InlinePanel('news_you_can_use', min_num=4, max_num=4),
             ],
             heading='News you can use',
-            classname='collapsible collapsed'
+            classname='collapsible'
         ),
         MultiFieldPanel(
           [
@@ -705,7 +705,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
             InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
           ],
           heading='spotlight',
-          classname='collapsible collapsed'
+          classname='collapsible'
         ),
         MultiFieldPanel(
             [
@@ -713,7 +713,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
                 InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
             ],
             heading='Take Action',
-            classname='collapsible collapsed',
+            classname='collapsible',
         ),
         MultiFieldPanel(
           [
