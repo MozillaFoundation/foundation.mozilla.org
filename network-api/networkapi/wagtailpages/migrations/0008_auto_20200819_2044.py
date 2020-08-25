@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtailimages', '0022_uploadedimage'),
         ('wagtaildocs', '0010_document_file_hash'),
-        ('wagtailpages', '0006_publicationpage'),
+        ('wagtailpages', '0007_articlepage'),
     ]
 
     operations = [

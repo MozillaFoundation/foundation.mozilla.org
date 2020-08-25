@@ -44,8 +44,8 @@ class DocumentFactory(CollectionMemberFactory):
 
 class PublicationPageFactory(PageFactory):
     title = Faker('text', max_nb_chars=120)
-    subtitle = Faker('text', max_nb_chars=255)
-    secondary_subtitle = Faker('text', max_nb_chars=255)
+    subtitle = Faker('text', max_nb_chars=250)
+    secondary_subtitle = Faker('text', max_nb_chars=250)
     publication_date = Faker('date_object')
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
@@ -70,7 +70,7 @@ def generate(seed):
     reseed(seed)
     home_page = get_homepage()
     """
-    Create a couple scenarios that will be best for testing: 
+    Create a couple scenarios that will be best for testing:
     * A PublicationPage with several child ArticlePages
     * A PublicationPage with child PublicationPages, each of which has their own ArticlePages
         * perhaps nested at random levels of depth?
