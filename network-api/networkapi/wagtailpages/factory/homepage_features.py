@@ -1,18 +1,14 @@
-from factory import SubFactory
-from factory.django import DjangoModelFactory
-
 from networkapi.wagtailpages.models import (
     FocusArea,
     HomepageFocusAreas,
     HomepageSpotlightPosts,
     BlogPage,
 )
+
 from networkapi.utility.faker.helpers import (
     reseed,
     get_homepage
 )
-from .blog import BlogPageFactory
-from .homepage import WagtailHomepageFactory
 
 
 def generate(seed):
