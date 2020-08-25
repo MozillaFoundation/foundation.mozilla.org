@@ -9,7 +9,7 @@
       <div class="col-lg-8 col-md-12">
         <div class="row">
           {% for item in page.take_action_cards.all %}
-            <div class="col-md-6 d-flex align-items-stretch">
+            <div class="col-md-6 d-flex">
               <div class="card mb-4">
                 {% image item.image fill-350x130 as img %}
                   <a href="{{ item.internal_link.url }}">
