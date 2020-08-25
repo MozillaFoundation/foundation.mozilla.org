@@ -1,5 +1,13 @@
 {% extends "pages/base.html" %}
+{% load wagtailimages_tags %}
 
 {% block content %}
+    {% image page.hero_image fill-1240x625 %}
     {{ page.title }}
+    {{ page.subtitle }}
+    {{ page.secondary_subtitle }}
+    {{ page.publication_date }}
+    {{ page.publication_file }}
+
+    {{ page.contents_title }}
 {% endblock %}
