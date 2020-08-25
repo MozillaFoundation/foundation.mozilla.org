@@ -8,6 +8,7 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.core.fields import RichTextField
 
 from networkapi.wagtailpages.models import base_fields
+from networkapi.wagtailpages.pagemodels.publications.article import ArticlePage
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
@@ -86,28 +87,20 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
 
     @property
     def is_chapter_page(self) -> bool:
+        """Is this a chapter page (child-Publicationpage). Returns a bool."""
         parent = self.get_parent().specific
         return parent.__class__.__name__ == 'PublicationPage'
 
     def get_chapter_pages(self) -> list:
+        pages = []
         if self.is_chapter_page:
-            # parent = self.get_parent()
-            parent = self
-            chapters = list(parent.get_siblings().specific())
-            print(chapters)
-            print(parent)
-            print("===")
-            print(chapters)
-            print(parent)
-            print("===")
-            print(chapters)
-            print(parent)
-            print("===")
-            _pages = []
-            for page in self.get_children().live().specific():
-                _pages.append({
-                    'page': page,
-                    'parent_chapter_number': chapters.index(parent) + 1,
+            # Get all the chapter page siblings. Used for finding the number
+            # of the Chapter. ie. Chapter 3.
+            _chapters = list(self.get_siblings().specific())
+            for _page in self.get_children().type(ArticlePage).live().specific():
+                pages.append({
+                    'page': _page,
+                    'parent_chapter_number': _chapters.index(self) + 1,
                 })
-            return _pages
-        return []
+            return pages
+        return pages
