@@ -1,16 +1,50 @@
 {% extends "pages/base.html" %}
 {% load wagtailimages_tags %}
 
-{% block content %}
-    {% image page.hero_image fill-1240x625 %}
-    {{ page.title }}
-    {{ page.subtitle }}
-    {{ page.secondary_subtitle }}
-    {{ page.publication_date }}
-    <a href="{{ page.publication_file.url }}">Download Full PDF</a> 
-    {% if page.publication_file.file_size is not None %}
-    {{page.publication_file.file_size}}
-    {% endif %}
-  
-    {{ page.contents_title }}
-{% endblock %}
+{% block content%}
+    <div class="container">
+
+        <div
+        class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
+            {% comment %} <div class="col-sm-6 mb-3 mb-sm-0">
+                {% image page.hero_image fill-1240x625 %}
+            </div> {% endcomment %}
+
+            <div class="col-sm-10">
+
+                <h1 class="h1-heading">
+                    {{ page.title }}
+                </h1>
+
+                <div class="body-large mb-4">
+                    {% if page.subtitle %}
+                        {{ page.subtitle }}
+                    {% endif %}
+                </div>
+
+                <div class="body-large mb-4">
+
+                    {% if page.secondary_subtitle %}
+                        {{ page.secondary_subtitle }}
+                        {% endif%}
+                    </div>
+                    {% if page.publication_date %}
+                        {{ page.publication_date }}
+                    {% endif %}
+
+                    {% if page.publication_file %}
+
+                        <a
+                        class="btn btn-primary d-block"
+                        href="{{ page.publication_file.url }}">
+                        Download Full PDF
+                        </a>
+                        {% if page.publication_file.file_size %}
+                            {{page.publication_file.file_size}}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {{ page.contents_title }}
+    {% endblock %}
