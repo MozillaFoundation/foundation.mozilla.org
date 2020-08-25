@@ -4,7 +4,7 @@
 */
 
 #view-youtube-regrets,
-#view-youtube-regrets-extension {
+#view-youtube-regrets-reporter {
   // .wrapper {
   //   background: linear-gradient(
   //     $youtube-regrets-light-red 100vh,
@@ -124,19 +124,16 @@
   }
 }
 
+#view-youtube-regrets-reporter {
+  main {
+    a {
+      color: $youtube-regrets-red;
+    }
+  }
 
-
-
-#view-youtube-regrets-extension {
   .wrapper {
-    background-image:
-      url(../_images/youtube-regrets/regrets-reporter/noise.svg),
-      linear-gradient(
-        $black 230vh,
-        $gray-80 270vh,
-        $white 350vh,
-        $white
-      );
+    background-image: url(../_images/youtube-regrets/regrets-reporter/noise.svg),
+      linear-gradient($black 320vh, $white 360vh, $white);
     background-repeat: repeat-y, repeat;
     background-size: 100vw 500px, cover;
   }
@@ -153,7 +150,25 @@
     }
   }
 
-  .timeline {
+  .section-articles {
+    .h6-heading {
+      @include heading($font-family-sans-serif, 700, 1px, $black, $black);
+      @include set-text-size(14px, 28px);
+    }
+
+    a {
+      @include set-text-size(18px, 26px, 24px, 31px);
+    }
+  }
+
+  .section-for-years {
+    .body-large {
+      @include set-text-size(38px, 42px, 30px, 34px);
+      letter-spacing: -2px;
+    }
+  }
+
+  .section-timeline {
     background: $black;
   }
 }

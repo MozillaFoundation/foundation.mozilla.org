@@ -64,7 +64,7 @@ from .pagemodels.redirect import (
 
 from .pagemodels.youtube import (
     YoutubeRegretsPage,
-    YoutubeRegretsExtensionPage
+    YoutubeRegretsReporterPage
 )
 
 __all__ = [
@@ -97,5 +97,5 @@ __all__ = [
     Signup,
     Styleguide,
     YoutubeRegretsPage,
-    YoutubeRegretsExtensionPage,
+    YoutubeRegretsReporterPage,
 ]

@@ -60,7 +60,7 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
     template = 'wagtailpages/pages/youtube_regrets_page.html'
 
 
-class YoutubeRegretsExtensionPage(FoundationMetadataPageMixin, Page):
+class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
     headline = models.CharField(
         max_length=500,
         help_text='Page headline',
@@ -87,4 +87,4 @@ class YoutubeRegretsExtensionPage(FoundationMetadataPageMixin, Page):
         context = super().get_context(request)
         return set_main_site_nav_information(self, context, 'Homepage')
 
-    template = 'wagtailpages/pages/youtube_regrets_extension_page.html'
+    template = 'wagtailpages/pages/youtube_regrets_reporter_page.html'

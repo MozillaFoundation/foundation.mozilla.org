@@ -19,7 +19,7 @@ from .models import (
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
-    YoutubeRegretsExtensionPage,
+    YoutubeRegretsReporterPage,
 
     CTA,
     Petition,
@@ -195,8 +195,8 @@ class YoutubeRegretsPageTR(TranslationOptions):
     }
 
 
-@register(YoutubeRegretsExtensionPage)
-class YoutubeRegretsExtensionPageTR(TranslationOptions):
+@register(YoutubeRegretsReporterPage)
+class YoutubeRegretsReporterPageTR(TranslationOptions):
     fields = {
         'headline',
         'intro_text',

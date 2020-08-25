@@ -109,8 +109,8 @@ let main = {
       new YouTubeRegretsTunnel();
     }
 
-    // YouTube Regrets Extension page
-    if (document.querySelector("#view-youtube-regrets-extension")) {
+    // YouTube Regrets Reporter page
+    if (document.querySelector("#view-youtube-regrets-reporter")) {
       new YouTubeRegretsTunnel();
     }
   },
