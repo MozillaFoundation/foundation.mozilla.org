@@ -4,13 +4,17 @@
 
 HTML for the majority of the site is generated from Django/Wagtail templates and components.
 
+### Frontend styleguide
+
+This site has a [styleguide](https://foundation.mozilla.org/en/style-guide/), which can be refrenced for frontend development to note intended usage of exisitng styles and components.
+
 ### CSS
 
-CSS is generated from [Sass](http://sass-lang.com/). The [Mofo Bootstrap](https://github.com/mozilla/mofo-bootstrap) theme is pulled in by default.
+CSS is generated from [Sass](http://sass-lang.com/). Styles are based on the mofo-bootstrap theme found under `source/sass/mofo-bootstrap`.
 
 ### React
 
-React is used _à la carte_ for isolated component instances (eg: a tab switcher) since this is not a single page application, but rather a static generated website. This precludes the need for Flux architecture, or such libraries as React Router.
+React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
 
 To add a React component, you can target a container element from `/source/js/main.js` and inject it.
 
@@ -31,7 +35,6 @@ We use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) fo
 ### S3 and Cloudinary
 
 Most assets are stored on S3. Buyers Guide images are hosted on Cloudinary.
-
 
 ### File Structure
 
