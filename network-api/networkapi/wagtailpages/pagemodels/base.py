@@ -682,9 +682,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
             PageChooserPanel('cause_statement_link_page'),
           ],
           heading='cause statement',
-          classname='collapsible'
+          classname='collapsible collapsed'
         ),
-        InlinePanel('focus_areas', label='Areas of focus', min_num=3, max_num=3),
+        MultiFieldPanel(
+            [
+                InlinePanel('focus_areas', min_num=3, max_num=3),
+            ],
+            heading='Areas of focus',
+            classname='collapsible collapsed',
+        ),
         MultiFieldPanel(
             [
                 InlinePanel('news_you_can_use', min_num=4, max_num=4),
@@ -702,24 +708,12 @@ class Homepage(FoundationMetadataPageMixin, Page):
           classname='collapsible'
         ),
         MultiFieldPanel(
-          [
-            FieldPanel('partner_heading'),
-            FieldPanel('partner_intro_text'),
-            FieldPanel('partner_page_text'),
-            PageChooserPanel('partner_page'),
-            ImageChooserPanel('partner_background_image'),
-            InlinePanel('partner_logos', label='Partner Logo', max_num=7, min_num=1),
-          ],
-          heading='Partner',
-          classname='collapsible'
-        ),
-        MultiFieldPanel(
             [
                 FieldPanel('take_action_title'),
                 InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
             ],
             heading='Take Action',
-            classname='collapsible collapsed',
+            classname='collapsible',
         ),
         MultiFieldPanel(
           [
@@ -729,7 +723,19 @@ class Homepage(FoundationMetadataPageMixin, Page):
             FieldPanel('quote_source_job_title'),
           ],
           heading='quote',
-          classname='collapsible',
+          classname='collapsible collapsed',
+        ),
+        MultiFieldPanel(
+          [
+            FieldPanel('partner_heading'),
+            FieldPanel('partner_intro_text'),
+            FieldPanel('partner_page_text'),
+            PageChooserPanel('partner_page'),
+            ImageChooserPanel('partner_background_image'),
+            InlinePanel('partner_logos', label='Partner Logo', max_num=7, min_num=1),
+          ],
+          heading='Partner',
+          classname='collapsible collapsed'
         ),
     ]
 
