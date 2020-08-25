@@ -195,7 +195,11 @@
       font-family: $font-family-sans-serif;
       font-style: normal;
       font-weight: 700;
-      font-size: 1.5em;
+      font-size: 22px;
+
+      @media (min-width: $bp-md) {
+        font-size: 24px;
+      }
     }
 
     .icon {
