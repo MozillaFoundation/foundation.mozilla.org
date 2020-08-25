@@ -20,6 +20,8 @@ from .models import (
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
+    PublicationPage,
+    ArticlePage,
 
     ArticlePage,
     PublicationPage,
