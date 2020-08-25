@@ -104,3 +104,31 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         FieldPanel('contents_title'),
         FieldPanel('notes')
     ]
+
+    @property
+    def is_chapter_page(self) -> bool:
+        parent = self.get_parent().specific
+        return parent.__class__.__name__ == 'PublicationPage'
+
+    def get_chapter_pages(self) -> list:
+        if self.is_chapter_page:
+            # parent = self.get_parent()
+            parent = self
+            chapters = list(parent.get_siblings().specific())
+            print(chapters)
+            print(parent)
+            print("===")
+            print(chapters)
+            print(parent)
+            print("===")
+            print(chapters)
+            print(parent)
+            print("===")
+            _pages = []
+            for page in self.get_children().live().specific():
+                _pages.append({
+                    'page': page,
+                    'parent_chapter_number': chapters.index(parent) + 1,
+                })
+            return _pages
+        return []
