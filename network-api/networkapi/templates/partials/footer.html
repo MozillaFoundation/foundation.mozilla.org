@@ -28,7 +28,7 @@
         {% block left_footer_column %}
         <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
           <div class="join-us" data-form-position="footer" data-button-position="side"></div>
-          <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}"></a>
+          <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
         </div>
         {% endblock %}
 
@@ -49,11 +49,11 @@
               <ul class="link-list list-unstyled mb-0">
                 {% block general_links %}
                 <li><a id="donate-footer-btn" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer" class="dark-theme">{% trans "Donate" %}</a></li>
-                <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">{% trans "Legal" %}</a></li>
-                <li><a href="https://creativecommons.org/licenses/by/4.0" class="dark-theme">{% trans "License" %}</a></li>
-                <li><a href="https://www.mozilla.org/about/governance/policies/participation/" class="dark-theme">{% trans "Participation Guidelines" %}</a></li>
-                <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">{% trans "Privacy" %}</a></li>
                 <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">{% trans "Cookies" %}</a></li>
+                <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">{% trans "Legal" %}</a></li>
+                <li><a href="https://www.mozilla.org/about/governance/policies/participation/" class="dark-theme">{% trans "Participation Guidelines" %}</a></li>
+                <li><a href="https://foundation.mozilla.org/en/press-center/" class="dark-theme">{% trans "Press Center" %}</a></li>
+                <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">{% trans "Privacy" %}</a></li>
                 {% endblock %}
               </ul>
             </div>
@@ -62,15 +62,17 @@
           {% block language_switcher %}
           <div class="row mt-5">
             <div class="col-12">
-              {% include "../fragments/language_switcher.html %}
+              {% include "../fragments/language_switcher.html" %}
             </div>
           </div>
           {% endblock %}
           {% endif %}
           <div class="row">
             <div class="col-12">
-              <hr class="my-5" />
-              <p class="dark-theme body-small mb-0">{% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{foundation_website_url}}">{{foundation_website}}</a>{% endblocktrans %}</p>
+              <hr class="mt-5 mb-3" />
+              <p class="dark-theme body-small mb-0">
+                {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{foundation_website_url}}">{{foundation_website}}</a>. Most content available under a <a href="{{cc_website_url}}">Creative Commons license</a>.{% endblocktrans %}
+              </p>
             </div>
           </div>
         </div>

@@ -32,6 +32,10 @@ from .pagemodels.modular import (
     MiniSiteNameSpace
 )
 
+from .pagemodels.mixin.foundation_banner_inheritance import (
+    FoundationBannerInheritanceMixin
+)
+
 from .pagemodels.primary import (
     PrimaryPage
 )
@@ -79,6 +83,7 @@ __all__ = [
     CampaignIndexPage,
     CampaignPage,
     FocusArea,
+    FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
     Homepage,
     HomepageNewsYouCanUse,

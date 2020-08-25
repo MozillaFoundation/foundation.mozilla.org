@@ -145,11 +145,17 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
 
         page = 1
         if 'page' in request.GET:
-            page = int(request.GET['page'])
+            try:
+                page = int(request.GET['page'])
+            except ValueError:
+                pass
 
         page_size = self.page_size
         if 'page_size' in request.GET:
-            page_size = int(request.GET['page_size'])
+            try:
+                page_size = int(request.GET['page_size'])
+            except ValueError:
+                pass
 
         start = page * page_size
         end = start + page_size
