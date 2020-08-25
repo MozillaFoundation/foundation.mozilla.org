@@ -1,7 +1,9 @@
 from datetime import timezone
-from random import choice
+from random import choice, randint
 
 from django.conf import settings
+
+from factory import DjangoModelFactory
 
 from wagtail.core.models import Page as WagtailPage
 
@@ -13,11 +15,14 @@ from factory import (
 )
 
 from networkapi.wagtailpages.models import (
+    BlogAuthors,
+    BlogAuthor,
     BlogPage,
     BlogPageCategory,
     BlogIndexPage
 )
 
+from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
@@ -29,6 +34,7 @@ from .tagging import add_tags
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
+NUM_BLOG_AUTHORS = 10
 blog_body_streamfield_fields = [
     'paragraph',
     'image',
@@ -47,6 +53,17 @@ def add_category(post):
     post.save()
 
 
+def add_authors(post):
+    authors = list(BlogAuthor.objects.order_by("?").all())
+    count = len(authors)
+
+    for i in range(0, randint(1, min(count, 5))):
+        author_orderable = BlogAuthors.objects.create(page=post, author=authors[i])
+        post.authors.add(author_orderable)
+
+    post.save()
+
+
 class BlogIndexPageFactory(IndexPageFactory):
     class Meta:
         model = BlogIndexPage
@@ -61,7 +78,6 @@ class BlogPageFactory(PageFactory):
         )
 
     title = LazyAttribute(lambda o: o.title_text.rstrip('.'))
-    author = Faker('name')
     body = Faker('streamfield', fields=blog_body_streamfield_fields)
     first_published_at = (Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED and not TESTING
                           else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
@@ -70,6 +86,14 @@ class BlogPageFactory(PageFactory):
 
     # Lazy Values
     title_text = Faker('sentence', nb_words=3, variable_nb_words=False)
+
+
+class BlogAuthorFactory(DjangoModelFactory):
+
+    class Meta:
+        model = BlogAuthor
+
+    name = Faker('name')
 
 
 def generate(seed):
@@ -88,6 +112,9 @@ def generate(seed):
             live=True
         )
 
+    print('Generating Blog Authors')
+    generate_fake_data(BlogAuthorFactory, NUM_BLOG_AUTHORS)
+
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'
     post = None
@@ -99,6 +126,7 @@ def generate(seed):
 
     add_tags(post)
     add_category(post)
+    add_authors(post)
 
     for i in range(6):
         title = Faker('sentence', nb_words=6, variable_nb_words=False)
@@ -111,3 +139,4 @@ def generate(seed):
 
         add_tags(post)
         add_category(post)
+        add_authors(post)

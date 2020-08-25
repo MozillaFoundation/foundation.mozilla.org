@@ -1,0 +1,41 @@
+{% load wagtailimages_tags %}
+
+<div class="row section-quote section-padding">
+  {% with quote_image=page.quote_image %}
+  {% if quote_image %}
+  <div class="col-md-4 col-lg-6 mb-5 mb-md-0">
+    {% comment %}
+      To-do:
+      1) Update picture_ratios.html so image sizes are passed as arguments instead of hard-corded.
+      2) Replace the following "picture" code with {% optimize_images page.quote_image %}
+    {% endcomment %}
+    {% with alt_text=quote_image.alt %}
+    <picture class="cms-image {{class_names}}">
+        {% image quote_image width-540 as image_large %}
+        {% image quote_image width-1080 as image_large_2x %}
+        <source media="(min-width: 992px)" srcset="{{ image_large.url }}, {{ image_large_2x.url }} 2x"  alt="{{ alt_text }}">
+
+        {% image quote_image width-210 as image_medium %}
+        {% image quote_image width-420 as image_medium_2x %}
+        <source media="(min-width: 768px)" srcset="{{ image_medium.url }}, {{ image_medium_2x.url }} 2x" alt="{{ alt_text }}">
+
+        {% image quote_image width-510 as image_small %}
+        {% image quote_image width-1020 as image_small_2x %}
+        <source srcset="{{ image_small.url }}, {{ image_small_2x.url }} 2x" alt="{{ alt_text }}">
+
+        <img src="{{ image_large.url }}" class="wagtail-image w-100" srcset="{{image_small.url}} 510w, {{ image_medium.url }} 210w, {{ image_large.url }} 540w" alt="{{ alt_text }}"/>
+    </picture>
+    {% endwith %}
+  </div>
+  {% endif %}
+  {% endwith %}
+  <div class="col-md-8 col-lg-6">
+    <blockquote>
+      <p class="quote-text">{{ page.quote_text }}</p>
+      <footer>
+        <cite>{{ page.quote_source_name }}</cite>
+        <p>{{ page.quote_source_job_title }}</p>
+      </footer>
+    </blockquote>
+  </div>
+</div>

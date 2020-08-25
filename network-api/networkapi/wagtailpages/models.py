@@ -5,13 +5,15 @@ from .pagemodels.base_fields import (
 from .pagemodels.base import (
     FoundationMetadataPageMixin,
     NewsPage,
+    FocusArea,
     InitiativesPage,
     ParticipatePage2,
     Styleguide,
+    HomepageFocusAreas,
     Homepage,
     PeoplePage,
-    HomepageFeaturedBlogs,
-    HomepageFeaturedHighlights,
+    HomepageNewsYouCanUse,
+    HomepageSpotlightPosts,
     ParticipateHighlights,
     ParticipateHighlights2,
 )
@@ -43,7 +45,10 @@ from .pagemodels.index import (
 )
 
 from .pagemodels.blog.blog import (
-    BlogPage
+    BlogPage,
+    BlogAuthor,
+    BlogAuthors
+
 )
 
 from .pagemodels.blog.blog_category import (
@@ -71,15 +76,19 @@ __all__ = [
     BanneredCampaignPage,
     BlogIndexPage,
     BlogPage,
+    BlogAuthor,
+    BlogAuthors,
     BlogPageCategory,
     CTA,
     CampaignIndexPage,
     CampaignPage,
+    FocusArea,
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
     Homepage,
-    HomepageFeaturedBlogs,
-    HomepageFeaturedHighlights,
+    HomepageNewsYouCanUse,
+    HomepageSpotlightPosts,
+    HomepageFocusAreas,
     IndexPage,
     InitiativesPage,
     MiniSiteNameSpace,

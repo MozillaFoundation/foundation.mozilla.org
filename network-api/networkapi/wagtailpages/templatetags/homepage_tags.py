@@ -29,3 +29,20 @@ def homepage_image_with_class(context, path, classname):
         'url': url,
         'classname': classname,
     }
+
+
+@register.simple_tag
+def get_blog_page_authors(blog_page):
+    """
+    Gets all authors of a BlogPage
+    and returns a list of dicts with the author.
+
+    Graphically, this looks like:
+    Blog Orderable -> Author (with .name and .image)
+    """
+
+    if blog_page is None:
+        return []
+    else:
+        all_authors = blog_page.authors.all()
+        return [{"image": author.author.image, "name": author.author.name} for author in all_authors]

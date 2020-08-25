@@ -1,7 +1,9 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n  %}
+
 
 {% block body_id %}home{% endblock %}
+
 
 {% block org_schema %}
   <script type="application/ld+json">
@@ -15,90 +17,37 @@
   </script>
 {% endblock %}
 
+
+{% block hero_guts %}
+  {% include "./fragments/primary_heroguts.html" with root=root page=page homepage=True %}
+{% endblock %}
+
+
 {% block content %}
-<div class="container">
-  <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center flex-sm-row-reverse homepage-feature">
-    <div class="col-sm-6 mb-3 mb-sm-0">
-      {% optimize_images page.hero_image %}
-    </div>
-    <div class="col-sm-6">
-      <h1 class="h1-heading">{{ page.hero_headline }}</h1>
-      <div class="body-large mb-4">{{ page.hero_story_description | richtext }}</div>
-      <a class="btn btn-primary d-block d-sm-inline" href="{{page.hero_button_url}}">{{ page.hero_button_text }}</a>
+  <div class="container">
+    {% include "./fragments/cause_statement.html" %}
+    {% include "./fragments/focus_areas.html" %}
+  </div>
+
+  <div class="bg-gray">
+    <div class="container">
+      {% include "./fragments/news_you_can_use.html" %}
     </div>
   </div>
 
-  {% include "./fragments/featured_blogs.html" %}
+  <div class="container">
+    {% include "./fragments/spotlight_posts.html" %}
+  </div>
 
-  <div class="row">
-    <div class="col mb-4">
-      <hr class="hr-emphasis mb-4">
-      <h2 class="h4-heading">{% trans "Featured stories" %}</h2>
+  <div class="bg-gray">
+    <div class="container">
+      {% include "./fragments/take_action.html" %}
     </div>
   </div>
-  <div id="home-highlights-wagtail">
-    <div class="highlights mb-5">
-      <div class="row pb-md-5 mb-md-2">
-        {% for highlight in page.featured_highlights.all %}
-        {% if forloop.counter <= 2 %}
-        <div class="col-md-6 highlights-card">
-          {% card highlight.highlight.image.url highlight.highlight.title highlight.highlight.description highlight.highlight.link_url highlight.highlight.link_label %}
-        </div>
-      {% endif %} {% endfor %}
-    </div>
-    {% for highlight in page.featured_highlights.all %} {% if forloop.counter > 2 %}
-    <div class="row my-3">
-      <div class="col-sm-12 col-md-4 pt-3 d-none d-md-block">
-        {% homepage_image highlight.highlight.image %}
-      </div>
-      <div class="col-sm-12 col-md-8 pt-3">
-        <hr class="mt-0 mb-4">
-        <h4 class="h5-heading mb-3">
-          <a href="{{highlight.highlight.link_url}}">{{highlight.highlight.title}}</a>
-        </h4>
-        <p>{{highlight.highlight.description}}</p>
-      </div>
-    </div>
-    {% endif %} {% endfor %}
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <hr class="hr-emphasis mb-4">
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <h2 class="h4-heading">{% trans "Trending projects" %}</h2>
-  </div>
-  <div class="col-md-6 d-none d-md-flex justify-content-end">
-    <a class="cta-link" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <div class="pulse-project-list" data-query="" data-max="6" data-featured="True" data-reversed="True"></div>
-  </div>
-</div>
-<div class="row">
-  <div class="col text-center mb-5">
-    <a class="btn btn-secondary mb-4" href="https://www.mozillapulse.org">{% trans "More from our network" %}</a>
-    <a class="cta-link d-block d-md-none" href="https://www.mozillapulse.org/add">{% trans "Add your project" %}</a>
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <hr class="hr-emphasis mb-5">
-    <div class="row mb-5">
-      <div class="col">
-        <div class="feature-quote">
-          <h3>{% trans "We want to give users the knowledge and the power to make informed decisions by themselves to prevent abusive practices." %}</h3>
-          <p class="h6-heading">{% trans "Rishab Nithyanand, Mozilla Fellow" %}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
+  <div class="container">
+    {% include "./fragments/quote.html" %}
+  </div>
+
+  {% include "./fragments/partner.html" %}
 {% endblock %}

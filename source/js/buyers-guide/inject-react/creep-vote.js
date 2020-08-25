@@ -20,9 +20,9 @@ export default (apps, siteUrl, csrfToken) => {
       total: 0,
       creepiness: {
         average: 50,
-        vote_breakdown: { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0 },
+        vote_breakdown: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 },
       },
-      confidence: { "0": 0, "1": 0 },
+      confidence: { 0: 0, 1: 0 },
     };
 
     if (votesValue !== "None") {

@@ -1,0 +1,40 @@
+{% load wagtailimages_tags %}
+
+
+<div class="section-take-action section-padding">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="take-action-title mb-4">{{ page.take_action_title }}</h4>
+      </div>
+      <div class="col-lg-8 col-md-12">
+        <div class="row">
+          {% for item in page.take_action_cards.all %}
+            <div class="col-md-6 d-flex">
+              <div class="card flex-grow-1 mb-4">
+                {% image item.image fill-350x130 as img %}
+                  <a href="{{ item.internal_link.url }}">
+                    <img src="{{ img.url }}" class="card-img-top" alt="{{ img.alt }}">
+                  </a>
+                  <div class="card-body">
+                    <a href="{{ item.internal_link.url }}" class="h5-heading d-inline-block my-2">
+                      {{ item.text }}
+                    </a>
+                  </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-lg-4 mb-md-4 mt-md-4 mt-lg-0 d-flex align-items-stretch">
+        <div class="bg-black p-4 dark-theme">
+          <div
+            class="join-us"
+            data-form-position="header"
+            data-cta-header="Protect the internet as a global public resource"
+            data-cta-description="<p class='mb-3'>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>"
+            data-newsletter="{{ cta.newsletter }}">
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
