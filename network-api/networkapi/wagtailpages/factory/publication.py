@@ -76,10 +76,10 @@ def generate(seed):
         * perhaps nested at random levels of depth?
     """
 
-    PublicationPageFactory.create_batch(parent=home_page, size=3)
-
-    pub_page_with_child_articles = PublicationPage.objects.all()[0]
-    pub_page_with_chapters = PublicationPage.objects.all()[1]
+    pub_page_with_child_articles = PublicationPageFactory.create(
+        parent=home_page, title="Publication Page with child Article Pages")
+    pub_page_with_chapters = PublicationPageFactory.create(
+        parent=home_page, title="Publication Page with chapter pages")
 
     ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
 
