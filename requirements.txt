@@ -63,7 +63,7 @@ unidecode==1.1.1          # via wagtail
 urllib3==1.25.9           # via botocore, cloudinary, requests, sentry-sdk
 wagtail-experiments==0.2  # via -r requirements.in
 wagtail-factories==2.0.0  # via -r requirements.in
-wagtail-inventory==1.1    # via -r requirements.in
+wagtail-inventory==1.1.1  # via -r requirements.in
 wagtail-metadata==3.3.0   # via -r requirements.in
 wagtail-modeltranslation==0.10.13  # via -r requirements.in
 wagtail==2.9.3            # via -r requirements.in, wagtail-factories, wagtail-inventory, wagtail-metadata, wagtail-modeltranslation
