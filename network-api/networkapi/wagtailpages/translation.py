@@ -246,3 +246,20 @@ class YoutubeRegretsPageTR(TranslationOptions):
         'faq',
         'regret_stories',
     }
+
+
+@register(PublicationPage)
+class PublicationPageTR(TranslationOptions):
+    fields = (
+        'subtitle',
+        'secondary_subtitle',
+        'notes',
+    )
+
+
+@register(ArticlePage)
+class ArticlePageTR(TranslationOptions):
+    fields = (
+        'sidebar_summary_title',
+    )
+
