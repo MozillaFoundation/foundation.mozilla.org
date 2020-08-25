@@ -23,7 +23,7 @@
         {% image quote_image width-1020 as image_small_2x %}
         <source srcset="{{ image_small.url }}, {{ image_small_2x.url }} 2x" alt="{{ alt_text }}">
 
-        <img src="{{ image_large.url }}" class="wagtail-image" srcset="{{image_small.url}} 510w, {{ image_medium.url }} 210w, {{ image_large.url }} 540w" alt="{{ alt_text }}"/>
+        <img src="{{ image_large.url }}" class="wagtail-image w-100" srcset="{{image_small.url}} 510w, {{ image_medium.url }} 210w, {{ image_large.url }} 540w" alt="{{ alt_text }}"/>
     </picture>
     {% endwith %}
   </div>
