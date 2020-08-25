@@ -7,7 +7,10 @@
     {{ page.subtitle }}
     {{ page.secondary_subtitle }}
     {{ page.publication_date }}
-    <a href="{{ page.publication_file.url }}">Download Full PDF</a> {{page.publication_file.size}}
+    <a href="{{ page.publication_file.url }}">Download Full PDF</a> 
+    {% if page.publication_file.file_size is not None %}
+    {{page.publication_file.file_size}}
+    {% endif %}
   
     {{ page.contents_title }}
 {% endblock %}
