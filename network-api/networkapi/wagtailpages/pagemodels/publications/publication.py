@@ -1,5 +1,7 @@
 
 from django.db import models
+from django.db.models import QuerySet
+from typing import Union
 
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel
@@ -20,12 +22,10 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     From here the user can browse to the various sections (called chapters).
     It will have information on the publication, its authors, and metadata from it's children
 
-    TODO: this poem is beautiful, but it may not belong here
     Publications are collections of Articles
     Publications can also be broken down into Chapters, which are really just child publication pages
     Each of those Chapters may have several Articles
     An Article can only belong to one Chapter/Publication Page
-
     """
 
     subpage_types = ['ArticlePage', 'PublicationPage']
@@ -89,18 +89,26 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     def is_chapter_page(self) -> bool:
         """Is this a chapter page (child-Publicationpage). Returns a bool."""
         parent = self.get_parent().specific
-        return parent.__class__.__name__ == 'PublicationPage'
+        return parent.__class__.__name__ == self.__class__.__name__
 
-    def get_chapter_pages(self) -> list:
-        pages = []
+    def get_chapter_number_or_none(self) -> Union[int, None]:
+        """Return the chapter page number or None."""
         if self.is_chapter_page:
-            # Get all the chapter page siblings. Used for finding the number
-            # of the Chapter. ie. Chapter 3.
-            _chapters = list(self.get_siblings().specific())
-            for _page in self.get_children().type(ArticlePage).live().specific():
-                pages.append({
-                    'page': _page,
-                    'parent_chapter_number': _chapters.index(self) + 1,
-                })
-            return pages
-        return pages
+            chapter_pages = list(self.get_siblings().specific())
+            return chapter_pages.index(self) + 1
+        return None
+
+    def get_child_article_pages(self) -> Union[QuerySet, list]:
+        """
+        Returns all the live Article pages under this page type.
+
+        If this is a ChapterPage (second level or deeper PublicationPage) return
+        a QuerySet of child pages. Otherwise return none.
+        """
+        return self.get_children().type(ArticlePage).live() if self.is_chapter_page else []
+
+    def get_child_chapter_pages(self) -> Union[QuerySet, list]:
+        """
+        If the page is a first-level PublicationPage (not a Chapter Page), get child chapters.
+        """
+        return self.get_children().type(PublicationPage).live() if not self.is_chapter_page else []

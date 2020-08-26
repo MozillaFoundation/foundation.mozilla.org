@@ -47,33 +47,36 @@
             </div>
         </div>
         {{ page.contents_title }}
-    {% endblock %}
-{% block content %}
-    {% image page.hero_image fill-1240x625 %}
-    {{ page.title }}
-    {{ page.subtitle }}
-    {{ page.secondary_subtitle }}
-    {{ page.publication_date }}
-    <a href="{{ page.publication_file.url }}">Download Full PDF</a>
-    {% if page.publication_file.file_size is not None %}
-    {{page.publication_file.file_size}}
-    {% endif %}
-
-    {{ page.contents_title }}
 
     {% if page.is_chapter_page %}
-      {# Chapter index page #}
-      <h1>is chapter page</h1>
-      {{ page.contents_title }}
-
-        {% for child in page.get_chapter_pages %}
-          <br />
-          {{ child.parent_chapter_number }}.{{ forloop.counter }}.
-          <a href="{{ child.page.url }}">{{ child.page.title }}</a>
+      {# Chapter index page; display child article pages #}
+      <div class="container-sm background-white chapter-body">
+        {% for child in page.get_child_article_pages %}
+          <div class="row d-flex align-items-center">
+            <div class="col">
+              <div class="chapter-number">
+                <div>
+                  {{ page.get_chapter_number_or_none }}.{{ forloop.counter }}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-11">
+              <a href="{{ child.url }}" class="d-block w-100 h3 chapter-article-link">
+                {{ child.title }}
+              </a>
+            </div>
+            {% if not forloop.last %}
+              <div class="col-12 my-3">
+                <hr>
+              </div>
+            {% endif %}
+          </div>
         {% endfor %}
+      </div>
     {% else %}
       {# Publication page #}
       <h1>is publication page</h1>
+      <p>Show the chapters and article children in here</p>
     {% endif %}
 
 {% endblock %}
