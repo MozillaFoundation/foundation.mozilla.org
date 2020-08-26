@@ -11,10 +11,7 @@ import wagtailmetadata.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
-        ('wagtailimages', '0022_uploadedimage'),
-        ('wagtaildocs', '0010_document_file_hash'),
-        ('wagtailpages', '0005_auto_20200811_1657'),
+        ('wagtailpages', '0007_default_focus_areas'),
     ]
 
     operations = [
