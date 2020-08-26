@@ -32,9 +32,12 @@
       <p>{{text}}</p>
       {% endfor %}
     </div>
-    <div class="intro-button-wrapper">
-      <button class="btn btn-primary btn-newsletter mx-auto for-mobile">{% trans "Join Mozilla" %}</button>
-      <button class="btn btn-primary btn-newsletter mx-auto for-desktop">{% trans "Join Mozilla" %}</button>
+    <div class="intro-stationary-wrapper dark-theme">
+      <p class="body-large">Download RegretsReporter today.</p>
+      <div>
+        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="" target="_blank">Add to Firefox</a>
+        <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="" target="_blank">Add to Chrome</a>
+      </div>
     </div>
   </div>
 
@@ -47,37 +50,49 @@
 <main>
   <div class="container">
     <div class="row">
-      <div class="col-12 dark-theme text-center">
+      <div class="offset-md-2 col-md-8 dark-theme text-center">
         <h2 class="font-changa">{% trans "How it Works" %}</h2>
         <p>{% trans "When you send a YouTube regret, the video and recommendations that led you to it are submitted anonymously to Mozilla researchers." %}</p>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-4">
+        <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step1.png" %}" />
         <p>1. Click the frowning extension icon in the browser bar</p>
       </div>
       <div class="col-md-4">
+        <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step2.png" %}" />
         <p>2. Report the video and recommendations that led you to it</p>
       </div>
       <div class="col-md-4">
+        <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step3.png" %}" />
         <p>3. Send any extra details you would like Mozilla to know</p>
       </div>
     </div>
 
-    <div class="row my-5">
+    <div class="row my-5 section-with-regrets-reporter">
       <div class="offset-md-2 col-md-8 offset-xl-2 col-xl-8">
-        <p class="body-large">With the RegretsReporter extension, you can immediately take action to report recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content.</p>
+        <p class="h2-heading">With the RegretsReporter extension, you can immediately take action to report recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content.</p>
         <p>
           The report form will ask you to tell us more about your YouTube Regret and collect information about the recommendations that led you to the video. By sharing your experiences, you can help us answer questions like: what kinds of recommended videos do users regret watching? Are there usage patterns that lead to more regrettable content being recommended? What does a YouTube rabbit hole look like, and at what point does it become something you wish you never clicked on?
         </p>
       </div>
     </div>
 
-    <div class="row my-5">
-      <div class="col-12" style="border: 2px solid palevioletred; height: 200px;">
-        sign-up form section
+    <div class="row my-5 section-newsletter">
+      <hr class="offset-md-2 col-md-8">
+      <div class="col-12">
+        <div
+          class="join-us my-5"
+          data-form-position="youtube-regrets-reporter"
+          data-button-position="side"
+          data-layout="2-column"
+          data-cta-header="To stay updated on this campaign and our other work, sign up for Mozilla’s newsletter."
+          data-cta-description=""
+        >
+        </div>
       </div>
+      <hr class="offset-md-2 col-md-8">
     </div>
 
     <div class="row my-5 text-center">
@@ -112,6 +127,10 @@
       <div class="col-12 col-md-7">
         <p>YouTube <a href="">(NEED LINK)claims</a> to be fixing this problem, but it’s all happening behind closed doors, without any way for the public to tell if it’s actually working. Last year, Mozilla told YouTube three simple ways to address this problem in a more open and transparent way. So far, YouTube has not answered that call.</p>
         <p><strong>That’s where you come in. Mozilla’s RegretsReporter browser extension transforms everyday YouTube users into YouTube watchdogs.</strong> We can use our own data to answer questions about regrettable recommendations that can go a long way towards helping journalists who investigate these problems, other groups like Mozilla who push for more accountability, and engineers and designers who build this technology. </p>
+      </div>
+      <div class="col-12 text-center">
+        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="" target="_blank">Add to Firefox</a>
+        <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="" target="_blank">Add to Chrome</a>
       </div>
     </div>
   </div>
