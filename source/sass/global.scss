@@ -96,7 +96,7 @@ hr {
       }
 
       .banner-content {
-        align-self: end;
+        align-self: flex-end;
         margin-bottom: 72px;
 
         @media screen and (min-width: $bp-md) {
