@@ -111,6 +111,18 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         parent = self.get_parent().specific
         return parent.__class__.__name__ == self.__class__.__name__
 
+    @property
+    def my_children(self):
+        """
+        See: https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list
+        This works almost perfectly for us except design spec has us exclude the parent
+        from the list, hence the pop()
+        """
+
+        children_summary = self.get_annotated_list(parent=self)
+        children_summary.pop(0)
+        return children_summary
+
     def get_chapter_number_or_none(self) -> Union[int, None]:
         """Return the chapter page number or None."""
         if self.is_chapter_page:

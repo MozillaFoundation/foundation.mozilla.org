@@ -18,3 +18,28 @@
 }
 
 // .chapter-article-link {}
+
+.child-pages-summary ol {
+  counter-reset: item;
+}
+.child-pages-summary li {
+  display: block;
+}
+.child-pages-summary li:before {
+  content: counters(item, ".") " ";
+  counter-increment: item;
+}
+
+// just the first level of summary
+// style copied from chapter number above
+.child-pages-summary > ol > li::before {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  background-color: purple;
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
