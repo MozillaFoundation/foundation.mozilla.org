@@ -1,0 +1,20 @@
+// @TODO: This component needs design polish
+// @TODO: Add responsive design to this component
+
+.chapter-body {
+  margin-top: -50px;
+}
+
+.chapter-number {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  background-color: purple;
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+// .chapter-article-link {}
