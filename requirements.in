@@ -1,6 +1,6 @@
 beautifulsoup4
 boto3
-Django==2.2.14
+Django==2.2.15
 dj-database-url
 djangorestframework
 django-admin-sortable==2.2.3
@@ -18,7 +18,7 @@ gunicorn
 python-slugify
 requests
 social-auth-app-django
-wagtail
+wagtail==2.10.1
 wagtail-factories
 wagtail-inventory
 wagtail-metadata
