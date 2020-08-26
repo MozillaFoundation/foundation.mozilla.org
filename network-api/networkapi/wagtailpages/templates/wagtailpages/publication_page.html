@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags i18n %}
 
 {% block content%}
     <div class="container">
@@ -32,8 +32,29 @@
                         {{ page.publication_date }}
                     {% endif %}
 
-                    {% if page.publication_file %}
 
+                    <div class="blog-authors d-flex flex-wrap align-items-center">
+                      <div class="author-images d-flex flex-wrap">
+                      {% for author in page.get_authors %}
+                        <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}">
+                        {% if author.image %}
+                          {% image author.image fill-100x100 as img %}
+                          <img src="{{ img.url }}" alt="{{ author.name }}" title="{{ author.name }}" />
+                        {% endif %}
+                        </div>
+                      {% endfor %}
+                      </div>
+                    </div>
+
+                    {% with authors_length=page.get_authors|length %}
+                      {% blocktrans %}Written by {% endblocktrans %}
+                      {% for author in page.get_authors %}
+                        <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
+                      {% endfor %}
+                      {% blocktrans %}with contributing authors.{% endblocktrans %}
+                    {% endwith %}
+
+                    {% if page.publication_file %}
                         <a
                         class="btn btn-primary d-block"
                         href="{{ page.publication_file.url }}">
