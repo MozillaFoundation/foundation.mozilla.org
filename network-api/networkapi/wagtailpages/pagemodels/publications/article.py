@@ -67,12 +67,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel(
-            [
-                InlinePanel("authors", label="Author", min_num=1)
-            ],
-            heading="Author(s)"
-        ),
+        MultiFieldPanel([
+            InlinePanel("authors", label="Author", min_num=1)
+        ], heading="Author(s)"),
         StreamFieldPanel('body'),
         FieldPanel('sidebar_summary_title'),
     ]
