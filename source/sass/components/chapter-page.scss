@@ -1,0 +1,47 @@
+// @TODO: This component needs design polish
+// @TODO: Add responsive design to this component
+
+.chapter-body {
+  margin-top: -50px;
+}
+
+.chapter-number {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  background-color: purple;
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+// .chapter-article-link {}
+
+// css magic lives here!
+// https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters
+.child-pages-summary ol {
+  counter-reset: item;
+}
+.child-pages-summary li {
+  display: block;
+}
+.child-pages-summary li:before {
+  content: attr(data-chapter) counters(item, ".");
+  counter-increment: item;
+}
+
+// just the first level of summary
+// style copied from chapter number above
+.child-pages-summary > ol > li::before {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  background-color: purple;
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}

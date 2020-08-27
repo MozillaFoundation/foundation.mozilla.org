@@ -19,12 +19,15 @@ from .models import (
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
-    PublicationPage,
+
     ArticlePage,
+    PublicationPage,
 
     CTA,
     Petition,
     Signup,
+
+
 
     # DEPRECATED
     PeoplePage,

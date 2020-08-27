@@ -7,7 +7,7 @@
         <div
         class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
             {% comment %} <div class="col-sm-6 mb-3 mb-sm-0">
-                {% image page.hero_image fill-1240x625 %}
+                {% image page.hero_image fill-1240x625 %}1
             </div> {% endcomment %}
 
             <div class="col-sm-10">
@@ -47,4 +47,26 @@
             </div>
         </div>
         {{ page.contents_title }}
-    {% endblock %}
+
+      {# page summary #}
+      <div class="child-pages-summary">
+      {% comment %} https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list {% endcomment %}
+        {% for child, node_info in page.my_children %}
+            {% comment %} 'open' means 'there are siblings so open the list tag' {% endcomment %}
+            {% if node_info.open %}
+                <ol><li data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
+            {% else %}
+                </li><li data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
+            {% endif %}
+            
+            <a href="{{ child.url }}" class="d-block w-100 h3 chapter-article-link">
+            {{ child.title }}
+            </a>
+
+            {% comment %} these are the 'last' elements in the tree {% endcomment %}
+            {% for close in node_info.close %}
+                </li></ol>
+            {% endfor %}
+        {% endfor %}
+      </div>
+{% endblock %}
