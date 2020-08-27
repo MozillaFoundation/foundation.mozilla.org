@@ -107,7 +107,8 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         """Return the chapter page number or None."""
         if self.is_chapter_page:
             chapter_pages = list(self.get_siblings().specific())
-            return chapter_pages.index(self) + 1
+            # note the dot at the end; so the numbers can stay dynamically formatted with css
+            return f"{chapter_pages.index(self) + 1}."
         return None
 
     def get_child_article_pages(self) -> Union[QuerySet, list]:

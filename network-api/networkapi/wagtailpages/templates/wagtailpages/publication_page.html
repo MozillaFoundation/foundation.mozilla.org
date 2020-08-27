@@ -48,42 +48,17 @@
         </div>
         {{ page.contents_title }}
 
-    {% if page.is_chapter_page %}
-      {# Chapter index page; display child article pages #}
-      <div class="container-sm background-white chapter-body">
-        {% for child in page.get_child_article_pages %}
-          <div class="row d-flex align-items-center">
-            <div class="col">
-              <div class="chapter-number">
-                <div>
-                  {{ page.get_chapter_number_or_none }}.{{ forloop.counter }}
-                </div>
-              </div>
-            </div>
-            <div class="col-md-11">
-              <a href="{{ child.url }}" class="d-block w-100 h3 chapter-article-link">
-                {{ child.title }}
-              </a>
-            </div>
-            {% if not forloop.last %}
-              <div class="col-12 my-3">
-                <hr>
-              </div>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      {# Publication page #}
+      {# page summary #}
       <div class="child-pages-summary">
       {% comment %} https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list {% endcomment %}
         {% for child, node_info in page.my_children %}
             {% comment %} 'open' means 'there are siblings so open the list tag' {% endcomment %}
             {% if node_info.open %}
-                <ol><li>
+                <ol><li data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
             {% else %}
-                </li><li>
+                </li><li data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
             {% endif %}
+            
             <a href="{{ child.url }}" class="d-block w-100 h3 chapter-article-link">
             {{ child.title }}
             </a>
@@ -94,6 +69,4 @@
             {% endfor %}
         {% endfor %}
       </div>
-    {% endif %}
-
 {% endblock %}
