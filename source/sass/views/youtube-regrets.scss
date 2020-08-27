@@ -214,7 +214,8 @@
     padding-bottom: 0.8rem;
     border-radius: 3px;
 
-    &:before {
+    &:before,
+    &:after {
       content: "";
       display: inline-block;
       position: absolute;
@@ -222,9 +223,31 @@
       top: 0;
       bottom: 0;
       left: 0;
+    }
+
+    &:before {
       background-repeat: no-repeat;
       background-position: center;
+      filter: brightness(0) invert(100%);
+    }
+
+    &:after {
       border-right: 1px solid $youtube-regrets-lighter-red;
+    }
+
+    &.btn-firefox-download {
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/firefox-logo-red.svg);
+      }
+    }
+
+    &.btn-chrome-download {
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/chrome-logo-red.svg);
+      }
+    }
+
+    @include hover-focus-active {
     }
   }
 
@@ -234,19 +257,11 @@
       color: $youtube-regrets-red;
 
       &:before {
+        filter: none;
+      }
+
+      &:after {
         border-color: $gray-20;
-      }
-
-      &.btn-firefox-download {
-        &:before {
-          background-image: url(../_images/youtube-regrets/regrets-reporter/firefox-logo-red.svg);
-        }
-      }
-
-      &.btn-chrome-download {
-        &:before {
-          background-image: url(../_images/youtube-regrets/regrets-reporter/chrome-logo-red.svg);
-        }
       }
     }
   }
