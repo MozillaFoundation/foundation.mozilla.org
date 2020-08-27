@@ -68,6 +68,47 @@ hr {
       }
     }
   }
+
+  @at-root #view-home & {
+    $banner-min-height-mobile: 390px;
+    $banner-min-height: 480px;
+
+    min-height: $banner-min-height-mobile;
+
+    @media screen and (min-width: $bp-md) {
+      min-height: $banner-min-height;
+    }
+
+    .banner {
+      min-height: $banner-min-height-mobile;
+      height: auto;
+      position: relative;
+      display: flex;
+
+      @media screen and (min-width: $bp-md) {
+        min-height: $banner-min-height;
+      }
+
+      img {
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(55%);
+      }
+
+      .banner-content {
+        align-self: flex-end;
+        margin-bottom: 72px;
+
+        @media screen and (min-width: $bp-md) {
+          margin-bottom: 128px;
+        }
+
+        h1 {
+          font-weight: 700;
+        }
+      }
+    }
+  }
 }
 
 .ih-cta {
@@ -107,4 +148,8 @@ hr {
       }
     }
   }
+}
+
+.bg-gray {
+  background: $gray-05;
 }

@@ -1,0 +1,34 @@
+{% load wagtailimages_tags %}
+
+
+{% image page.partner_background_image fill-1200x600 as partner_img %}
+<div class="bg-secondary partner-section dark-theme" style='background-image: url("{{ partner_img.url }}");'>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3>{{ page.partner_heading }}</h3>
+        {% if page.partner_intro_text %}
+          <p class="partner-section-text">
+            {{ page.partner_intro_text }}
+          </p>
+        {% endif %}
+        <a href="{{ page.partner_page.url }}" class="text-white cta-link font-weight-bold">
+          {{ page.partner_page_text }}
+        </a>
+      </div>
+      <div class="partner-section-logos d-sm-flex flex-wrap d-none container">
+        {% for orderable in page.partner_logos.all %}
+          <div class="partner-section-logo {% if forloop.counter > 4 %}d-none d-md-inline-block{% endif %}">
+            {% if orderable.link %}
+              <a href="{{ orderable.link }}">
+                <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ orderable.name }}">
+              </a>
+            {% else %}
+              <img src="{{ orderable.image_rendition.url }}" width="{{ orderable.width }}" alt="{{ orderable.name }}">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

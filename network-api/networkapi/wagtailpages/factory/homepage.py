@@ -28,11 +28,20 @@ class WagtailHomepageFactory(PageFactory):
     class Meta:
         model = Homepage
 
-    hero_headline = Faker('text', max_nb_chars=140)
-    hero_story_description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
-    hero_button_text = Faker('text', max_nb_chars=25)
+    hero_headline = Faker('text', max_nb_chars=80)
+    hero_button_text = Faker('text', max_nb_chars=50)
     hero_button_url = Faker('url')
     hero_image = SubFactory(ImageFactory)
+    cause_statement = Faker('text', max_nb_chars=150)
+    # cause_statement_link_text and cause_statement_link_page are created at a later state
+    quote_image = SubFactory(ImageFactory)
+    quote_text = Faker('text', max_nb_chars=300)
+    quote_source_name = Faker('text', max_nb_chars=30)
+    quote_source_job_title = Faker('text', max_nb_chars=50)
+    partner_background_image = SubFactory(ImageFactory)
+    partner_intro_text = Faker('text', max_nb_chars=80)
+    spotlight_headline = Faker('text', max_nb_chars=100)
+    spotlight_image = SubFactory(ImageFactory)
 
 
 def generate(seed):

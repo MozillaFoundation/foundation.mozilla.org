@@ -16,7 +16,10 @@ const checkDoNotTrack = () => {
     _dntStatus = `Unspecified`;
   } else {
     _dntStatus =
-      { "0": `Disabled`, "1": `Enabled` }[_dntStatus] || `Unspecified`;
+      {
+        0: `Disabled`,
+        1: `Enabled`,
+      }[_dntStatus] || `Unspecified`;
   }
 
   return _dntStatus === `Enabled`;

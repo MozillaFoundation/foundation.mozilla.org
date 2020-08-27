@@ -1,10 +1,13 @@
 from django.db import models
 from django.conf import settings
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.core import blocks
-from wagtail.core.models import Page
+from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -46,13 +49,44 @@ class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('wagtailpages.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
 
-class BlogPage(FoundationMetadataPageMixin, Page):
+@register_snippet
+class BlogAuthor(models.Model):
 
-    author = models.CharField(
-        verbose_name='Author',
-        max_length=70,
-        blank=False,
+    name = models.CharField(max_length=70, blank=False)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
+
+    panels = [
+        FieldPanel("name"),
+        ImageChooserPanel("image"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+class BlogAuthors(Orderable):
+    """This allows us to select one or more blog authors from Snippets."""
+
+    page = ParentalKey("wagtailpages.BlogPage", related_name="authors")
+    author = models.ForeignKey(
+        BlogAuthor,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("author"),
+    ]
+
+    def __str__(self):
+        return self.author.name
+
+
+class BlogPage(FoundationMetadataPageMixin, Page):
 
     body = StreamField(base_fields)
 
@@ -73,7 +107,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('author'),
+        MultiFieldPanel(
+            [
+                InlinePanel("authors", label="Author", min_num=1)
+            ],
+            heading="Author(s)"
+        ),
         FieldPanel('category'),
         StreamFieldPanel('body'),
         FieldPanel('feature_comments'),

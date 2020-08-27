@@ -1,10 +1,11 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable as WagtailOrderable
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
 
@@ -286,29 +287,29 @@ class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
 
-class HomepageFeaturedHighlights(WagtailOrderable, models.Model):
+class HomepageSpotlightPosts(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
-        related_name='featured_highlights',
+        related_name='spotlight_posts',
     )
-    highlight = models.ForeignKey('highlights.Highlight', on_delete=models.CASCADE, related_name='+')
+    blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
     panels = [
-        SnippetChooserPanel('highlight'),
+        PageChooserPanel('blog'),
     ]
 
     class Meta:
-        verbose_name = 'highlight'
-        verbose_name_plural = 'highlights'
+        verbose_name = 'blog'
+        verbose_name_plural = 'blogs'
         ordering = ['sort_order']  # not automatically inherited!
 
     def __str__(self):
-        return self.page.title + '->' + self.highlight.title
+        return self.page.title + '->' + self.blog.title
 
 
-class HomepageFeaturedBlogs(WagtailOrderable, models.Model):
+class HomepageNewsYouCanUse(WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
-        related_name='featured_blogs',
+        related_name='news_you_can_use',
     )
     blog = models.ForeignKey('BlogPage', on_delete=models.CASCADE, related_name='+')
     panels = [
@@ -434,17 +435,138 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
     )
 
 
-class Homepage(FoundationMetadataPageMixin, Page):
-    hero_headline = models.CharField(
-        max_length=140,
-        help_text='Hero story headline',
-        blank=True,
+@register_snippet
+class FocusArea(models.Model):
+    interest_icon = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='interest_icon'
     )
 
-    hero_story_description = RichTextField(
-        features=[
-            'bold', 'italic', 'link',
-        ]
+    name = models.CharField(
+        max_length=100,
+        help_text='The name of this area of focus. Max. 100 characters.',
+    )
+
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of this area of focus. Max. 300 characters.',
+    )
+
+    page = models.ForeignKey(
+        'wagtailcore.Page',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    panels = [
+        ImageChooserPanel('interest_icon'),
+        FieldPanel('name'),
+        FieldPanel('description'),
+        PageChooserPanel('page'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Area of focus'
+        verbose_name_plural = 'Areas of focus'
+
+
+class HomepageFocusAreas(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='focus_areas',
+    )
+
+    area = models.ForeignKey(FocusArea, on_delete=models.CASCADE, related_name='+')
+
+    panels = [
+        SnippetChooserPanel('area'),
+    ]
+
+
+class HomepageTakeActionCards(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='take_action_cards',
+    )
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+    )
+    text = models.CharField(max_length=255)
+    internal_link = models.ForeignKey(
+        'wagtailcore.Page',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('text'),
+        PageChooserPanel('internal_link'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Take Action Card"
+        ordering = ['sort_order']  # not automatically inherited!
+
+
+class PartnerLogos(WagtailOrderable):
+    page = ParentalKey(
+        'wagtailpages.Homepage',
+        related_name='partner_logos',
+    )
+    link = models.URLField(blank=True)
+    logo = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    name = models.CharField(
+        default='Partner Name',
+        blank=False,
+        max_length=100,
+        help_text='Alt text for the logo image.'
+    )
+    width = models.PositiveSmallIntegerField(
+        default=100,
+        help_text='The width of the image. Height will automatically be applied.'
+    )
+    panels = [
+        ImageChooserPanel('logo'),
+        FieldPanel('name'),
+        FieldPanel('link'),
+        FieldPanel('width'),
+    ]
+
+    @property
+    def image_rendition(self):
+        width = self.width * 2
+        return self.logo.get_rendition(f'width-{width}')
+
+    class Meta:
+        verbose_name = 'Partner Logo'
+        ordering = ['sort_order']  # not automatically inherited!
+
+
+class Homepage(FoundationMetadataPageMixin, Page):
+    hero_headline = models.CharField(
+        max_length=80,
+        help_text='Hero story headline',
+        blank=True,
     )
 
     hero_image = models.ForeignKey(
@@ -455,6 +577,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         related_name='hero_image'
     )
 
+    def get_banner(self):
+        return self.hero_image
+
     hero_button_text = models.CharField(
         max_length=50,
         blank=True
@@ -464,23 +589,154 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True
     )
 
+    spotlight_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='spotlight_image',
+    )
+
+    spotlight_headline = models.CharField(
+        max_length=140,
+        help_text='Spotlight headline',
+        blank=True,
+    )
+
+    cause_statement = models.CharField(
+        max_length=250,
+        default="",
+    )
+
+    cause_statement_link_text = models.CharField(
+        max_length=80,
+        blank=True,
+    )
+
+    cause_statement_link_page = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='cause_statement_link'
+    )
+
+    quote_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='quote_image',
+    )
+
+    quote_text = models.CharField(
+        max_length=450,
+        default='',
+    )
+
+    quote_source_name = models.CharField(
+        max_length=100,
+        default='',
+    )
+
+    quote_source_job_title = models.CharField(
+        max_length=100,
+        default='',
+    )
+
+    # Partner Section
+    partner_heading = models.CharField(max_length=75, default='Partner with us')
+    partner_intro_text = models.TextField(blank=True)
+    partner_page_text = models.CharField(max_length=35, default="Let's work together")
+    partner_page = models.ForeignKey(
+        'wagtailcore.Page',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='parnter_internal_link',
+    )
+    partner_background_image = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    # Take Action Section
+    take_action_title = models.CharField(default='Take action', max_length=50)
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
             FieldPanel('hero_headline'),
-            FieldPanel('hero_story_description'),
-            FieldRowPanel([
-              FieldPanel('hero_button_text'),
-              FieldPanel('hero_button_url'),
-            ],
-            ),
+            FieldPanel('hero_button_text'),
+            FieldPanel('hero_button_url'),
             ImageChooserPanel('hero_image'),
           ],
           heading='hero',
           classname='collapsible'
         ),
-        InlinePanel('featured_blogs', label='Blogs', max_num=4),
-        InlinePanel('featured_highlights', label='Highlights', max_num=5),
+        MultiFieldPanel(
+          [
+            FieldPanel('cause_statement'),
+            FieldPanel('cause_statement_link_text'),
+            PageChooserPanel('cause_statement_link_page'),
+          ],
+          heading='cause statement',
+          classname='collapsible collapsed'
+        ),
+        MultiFieldPanel(
+            [
+                InlinePanel('focus_areas', min_num=3, max_num=3),
+            ],
+            heading='Areas of focus',
+            classname='collapsible collapsed',
+        ),
+        MultiFieldPanel(
+            [
+                InlinePanel('news_you_can_use', min_num=4, max_num=4),
+            ],
+            heading='News you can use',
+            classname='collapsible'
+        ),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('spotlight_image'),
+            FieldPanel('spotlight_headline'),
+            InlinePanel('spotlight_posts', label='Posts', min_num=3, max_num=3),
+          ],
+          heading='spotlight',
+          classname='collapsible'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('take_action_title'),
+                InlinePanel('take_action_cards', label='Take Action Cards', max_num=4),
+            ],
+            heading='Take Action',
+            classname='collapsible',
+        ),
+        MultiFieldPanel(
+          [
+            ImageChooserPanel('quote_image'),
+            FieldPanel('quote_text'),
+            FieldPanel('quote_source_name'),
+            FieldPanel('quote_source_job_title'),
+          ],
+          heading='quote',
+          classname='collapsible collapsed',
+        ),
+        MultiFieldPanel(
+          [
+            FieldPanel('partner_heading'),
+            FieldPanel('partner_intro_text'),
+            FieldPanel('partner_page_text'),
+            PageChooserPanel('partner_page'),
+            ImageChooserPanel('partner_background_image'),
+            InlinePanel('partner_logos', label='Partner Logo', max_num=7, min_num=1),
+          ],
+          heading='Partner',
+          classname='collapsible collapsed'
+        ),
     ]
 
     subpage_types = [

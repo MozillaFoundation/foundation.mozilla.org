@@ -155,10 +155,15 @@ class StyleguideTR(TranslationOptions):
 class HomepageTR(TranslationOptions):
     fields = (
         'hero_headline',
-        'hero_story_description',
         'hero_button_text',
         'hero_button_url',
         'hero_image',
+        'cause_statement',
+        'cause_statement_link_text',
+        'quote_image',
+        'quote_text',
+        'quote_source_name',
+        'quote_source_job_title',
     )
 
 
@@ -179,7 +184,6 @@ class PeoplePageTR(TranslationOptions):
 @register(BlogPage)
 class BlogPageTR(TranslationOptions):
     fields = (
-        'author',
         'body',
     )
 

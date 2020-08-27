@@ -35,6 +35,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./components/airtable-block";
 @import "./components/image-text-mini";
 @import "./components/select-dropdown";
+@import "./components/blog-authors";
 
 // Misc
 
