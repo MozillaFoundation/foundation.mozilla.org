@@ -73,13 +73,13 @@ def generate(seed):
 
     reseed(seed)
 
-    reporter_page_title = 'YouTube Regrets Reporter'
+    reporter_page_title = 'Regrets Reporter'
 
     try:
         YoutubeRegretsReporterPage.objects.get(title=reporter_page_title)
-        print('YouTube Regrets Reporter page exists')
+        print('Regrets Reporter page exists')
     except YoutubeRegretsReporterPage.DoesNotExist:
-        print('Generating YouTube Regrets Reporter Page under campaigns namespace')
+        print('Generating Regrets Reporter Page under campaigns namespace')
         YoutubeRegretsReporterPageFactory.create(parent=campaign_index_page, title=reporter_page_title)
 
     reseed(seed)
