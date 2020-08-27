@@ -26,7 +26,7 @@
   display: block;
 }
 .child-pages-summary li:before {
-  content: counters(item, ".") " ";
+  content: attr(data-chapter) counters(item, ".");
   counter-increment: item;
 }
 
