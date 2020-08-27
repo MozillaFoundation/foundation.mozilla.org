@@ -152,6 +152,28 @@
     }
   }
 
+  .section-how-it-works {
+    .steps {
+      p {
+        @include set-text-size(18px, 21px, 26px, 30px);
+        font-family: "Zilla Slab";
+
+        .step-number {
+          @include heading($font-family-sans-serif, 700, 0, $white, $white);
+          @include set-text-size(32px, 45px);
+
+          border-radius: 50%;
+          background: $youtube-regrets-red;
+          height: 45px;
+          width: 45px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+
   .section-with-regrets-reporter {
     .h2-heading {
       @include heading($font-changa, 400, -2px, $black, $black);
@@ -176,6 +198,12 @@
         border: 0;
         border-bottom: 2px solid $youtube-regrets-red;
         background: none;
+      }
+
+      .btn-primary {
+        background: transparent;
+        color: $youtube-regrets-red;
+        border: 2px solid $youtube-regrets-red;
       }
     }
   }
@@ -202,6 +230,10 @@
     background: $black;
   }
 
+  .btn-primary {
+    border-radius: 3px;
+  }
+
   .btn-download {
     $icon-width: 50px;
 
@@ -212,7 +244,6 @@
     padding-right: $icon-width * 0.3;
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
-    border-radius: 3px;
 
     &:before,
     &:after {

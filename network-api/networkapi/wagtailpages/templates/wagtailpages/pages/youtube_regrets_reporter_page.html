@@ -49,28 +49,39 @@
 
 <main>
   <div class="container">
-    <div class="row">
+    <div class="row section-how-it-works py-5">
       <div class="offset-md-2 col-md-8 dark-theme text-center">
         <h2 class="font-changa">{% trans "How it Works" %}</h2>
         <p>{% trans "When you send a YouTube regret, the video and recommendations that led you to it are submitted anonymously to Mozilla researchers." %}</p>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step1.png" %}" />
-        <p>1. Click the frowning extension icon in the browser bar</p>
-      </div>
-      <div class="col-md-4">
-        <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step2.png" %}" />
-        <p>2. Report the video and recommendations that led you to it</p>
-      </div>
-      <div class="col-md-4">
-        <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step3.png" %}" />
-        <p>3. Send any extra details you would like Mozilla to know</p>
+      <div class="col-12">
+        <div class="row steps">
+          <div class="col-md-4">
+            <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step1.png" %}" />
+            <p class="d-flex flex-column align-items-center">
+              <span class="step-number my-4">1</span>
+              Click the frowning extension icon in the browser bar
+            </p>
+          </div>
+          <div class="col-md-4">
+            <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step2.png" %}" />
+            <p class="d-flex flex-column align-items-center">
+              <span class="step-number my-4">2</span>
+              Report the video and recommendations that led you to it
+            </p>
+          </div>
+          <div class="col-md-4">
+            <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step3.png" %}" />
+            <p class="d-flex flex-column align-items-center">
+              <span class="step-number my-4">3</span>
+              Send any extra details you would like Mozilla to know
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="row my-5 section-with-regrets-reporter">
+    <div class="row py-5 section-with-regrets-reporter">
       <div class="offset-md-2 col-md-8 offset-xl-2 col-xl-8">
         <p class="h2-heading">With the RegretsReporter extension, you can immediately take action to report recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content.</p>
         <p>
@@ -79,11 +90,11 @@
       </div>
     </div>
 
-    <div class="row my-5 section-newsletter">
+    <div class="row py-5 section-newsletter">
       <hr class="offset-md-2 col-md-8">
       <div class="col-12">
         <div
-          class="join-us my-5"
+          class="join-us py-5"
           data-form-position="youtube-regrets-reporter"
           data-button-position="side"
           data-layout="2-column"
@@ -95,13 +106,13 @@
       <hr class="offset-md-2 col-md-8">
     </div>
 
-    <div class="row my-5 text-center">
+    <div class="row py-5 text-center">
       <div class="offset-md-1 col-md-10">
         <p class="h1-heading font-changa">Let's work together to make recommendation engines on the internet more trustworthy.</p>
       </div>
     </div>
 
-    <div class="row my-5 text-center section-articles">
+    <div class="row py-5 text-center section-articles">
       <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
         <p class="h6-heading mb-1">Mozilla</p>
         <a class="d-block" href="" target="_blank">28 Reasons Why YouTube Must Change</a>
@@ -120,7 +131,7 @@
       </div>
     </div>
 
-    <div class="row my-5 section-for-years">
+    <div class="row py-5 section-for-years">
       <div class="col-12 col-md-5">
         <p class="body-large font-changa">For years, journalists, researchers, and even former YouTube employees have been telling YouTube that they need to stop their recommendation engine from sending users down racist, conspiratorial, and other regrettable rabbit holes.</p>
       </div>
@@ -128,7 +139,7 @@
         <p>YouTube <a href="">(NEED LINK)claims</a> to be fixing this problem, but it’s all happening behind closed doors, without any way for the public to tell if it’s actually working. Last year, Mozilla told YouTube three simple ways to address this problem in a more open and transparent way. So far, YouTube has not answered that call.</p>
         <p><strong>That’s where you come in. Mozilla’s RegretsReporter browser extension transforms everyday YouTube users into YouTube watchdogs.</strong> We can use our own data to answer questions about regrettable recommendations that can go a long way towards helping journalists who investigate these problems, other groups like Mozilla who push for more accountability, and engineers and designers who build this technology. </p>
       </div>
-      <div class="col-12 text-center">
+      <div class="col-12 py-5 text-center">
         <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="" target="_blank">Add to Firefox</a>
         <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="" target="_blank">Add to Chrome</a>
       </div>
