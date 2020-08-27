@@ -198,6 +198,7 @@ class PartnerLogosTR(TranslationOptions):
         'name',
     )
 
+
 @register(RedirectingPage)
 class RedirectingPageTR(TranslationOptions):
     fields = (
