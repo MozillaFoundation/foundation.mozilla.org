@@ -12,6 +12,7 @@ from .models import (
     ParticipatePage2,
     Styleguide,
     Homepage,
+    FocusArea,
     RedirectingPage,
 
     BanneredCampaignPage,
@@ -26,6 +27,11 @@ from .models import (
 
     # DEPRECATED
     PeoplePage,
+)
+
+from .pagemodels.base import (
+    HomepageTakeActionCards,
+    PartnerLogos,
 )
 
 from .donation_modal import DonationModal
@@ -163,6 +169,33 @@ class HomepageTR(TranslationOptions):
         'quote_text',
         'quote_source_name',
         'quote_source_job_title',
+        'partner_heading',
+        'partner_intro_text',
+        'partner_page_text',
+        'take_action_title',
+        'spotlight_headline',
+    )
+
+
+@register(FocusArea)
+class FocusAreaTR(TranslationOptions):
+    fields = (
+        'name',
+        'description',
+    )
+
+
+@register(HomepageTakeActionCards)
+class HomepageTakeActionCardsTR(TranslationOptions):
+    fields = (
+        'text',
+    )
+
+
+@register(PartnerLogos)
+class PartnerLogosTR(TranslationOptions):
+    fields = (
+        'name',
     )
 
 
