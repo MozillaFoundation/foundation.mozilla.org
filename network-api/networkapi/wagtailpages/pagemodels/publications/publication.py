@@ -91,24 +91,22 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         parent = self.get_parent().specific
         return parent.__class__.__name__ == self.__class__.__name__
 
+    @property
+    def my_children(self):
+        """
+        See: https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list
+        This works almost perfectly for us except design spec has us exclude the parent
+        from the list, hence the pop()
+        """
+
+        children_summary = self.get_annotated_list(parent=self)
+        children_summary.pop(0)
+        return children_summary
+
     def get_chapter_number_or_none(self) -> Union[int, None]:
         """Return the chapter page number or None."""
         if self.is_chapter_page:
             chapter_pages = list(self.get_siblings().specific())
-            return chapter_pages.index(self) + 1
+            # note the dot at the end; so the numbers can stay dynamically formatted with css
+            return f"{chapter_pages.index(self) + 1}."
         return None
-
-    def get_child_article_pages(self) -> Union[QuerySet, list]:
-        """
-        Returns all the live Article pages under this page type.
-
-        If this is a ChapterPage (second level or deeper PublicationPage) return
-        a QuerySet of child pages. Otherwise return none.
-        """
-        return self.get_children().type(ArticlePage).live() if self.is_chapter_page else []
-
-    def get_child_chapter_pages(self) -> Union[QuerySet, list]:
-        """
-        If the page is a first-level PublicationPage (not a Chapter Page), get child chapters.
-        """
-        return self.get_children().type(PublicationPage).live() if not self.is_chapter_page else []
