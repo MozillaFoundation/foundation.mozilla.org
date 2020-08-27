@@ -130,18 +130,3 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
             # note the dot at the end; so the numbers can stay dynamically formatted with css
             return f"{chapter_pages.index(self) + 1}."
         return None
-
-    def get_child_article_pages(self) -> Union[QuerySet, list]:
-        """
-        Returns all the live Article pages under this page type.
-
-        If this is a ChapterPage (second level or deeper PublicationPage) return
-        a QuerySet of child pages. Otherwise return none.
-        """
-        return self.get_children().type(ArticlePage).live() if self.is_chapter_page else []
-
-    def get_child_chapter_pages(self) -> Union[QuerySet, list]:
-        """
-        If the page is a first-level PublicationPage (not a Chapter Page), get child chapters.
-        """
-        return self.get_children().type(PublicationPage).live() if not self.is_chapter_page else []
