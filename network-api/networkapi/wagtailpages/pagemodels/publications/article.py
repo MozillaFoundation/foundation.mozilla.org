@@ -1,19 +1,23 @@
 
 from django.db import models
 
-from wagtail.core.models import Page
+from modelcluster.fields import ParentalKey
+
+from wagtail.core.models import Orderable, Page
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from networkapi.wagtailpages.models import BlogAuthor
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 """
-TODO: 
+TODO:
 agree on featureset for content
-callout may have different featureset, but we mainly want the ability to distinguish it for styling? 
-it was implied we might want to include links/call to actions in a callout, but maybe that would not be good, 
+callout may have different featureset, but we mainly want the ability to distinguish it for styling?
+it was implied we might want to include links/call to actions in a callout, but maybe that would not be good,
 in which case we could just use a BlockQuoteBlock
 """
 article_blocks = [
@@ -21,6 +25,25 @@ article_blocks = [
     ('callout', blocks.BlockQuoteBlock()),
     ('table', TableBlock()),
 ]
+
+
+class ArticleAuthors(Orderable):
+    """This allows us to select one or more blog authors from Snippets."""
+
+    page = ParentalKey("wagtailpages.ArticlePage", related_name="authors")
+    author = models.ForeignKey(
+        BlogAuthor,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=False
+    )
+
+    panels = [
+        SnippetChooserPanel("author"),
+    ]
+
+    def __str__(self):
+        return self.author.name
 
 
 class ArticlePage(FoundationMetadataPageMixin, Page):
@@ -44,6 +67,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            InlinePanel("authors", label="Author", min_num=0)
+        ], heading="Author(s)"),
         StreamFieldPanel('body'),
         FieldPanel('sidebar_summary_title'),
     ]
