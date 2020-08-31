@@ -67,5 +67,6 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             InlinePanel("authors", label="Author", min_num=0)
         ], heading="Author(s)"),
         StreamFieldPanel('body'),
+        InlinePanel("footnotes", label="Footnotes"),
         FieldPanel('sidebar_summary_title'),
     ]

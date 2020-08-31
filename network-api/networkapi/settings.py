@@ -197,6 +197,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.modeladmin',
     'experiments',
     'wagtailinventory',
+    'wagtail_footnotes',
 
     'modelcluster',
     'taggit',

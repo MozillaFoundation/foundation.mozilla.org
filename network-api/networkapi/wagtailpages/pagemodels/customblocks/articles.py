@@ -1,8 +1,8 @@
 from wagtail.core import blocks
+from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
 
 
-class ArticleRichText(blocks.RichTextBlock):
+class ArticleRichText(RichTextBlockWithFootnotes):
 
     class Meta:
         label = "Content"
-        template = 'wagtailpages/blocks/article_richtext_block.html'
