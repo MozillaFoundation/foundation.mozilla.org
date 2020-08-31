@@ -12,7 +12,6 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from networkapi.wagtailpages.models import BlogAuthor
-from networkapi.wagtailpages.pagemodels.publications.article import ArticlePage
 
 
 class PublicationAuthors(Orderable):
