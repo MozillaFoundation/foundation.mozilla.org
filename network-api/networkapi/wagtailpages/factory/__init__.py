@@ -23,7 +23,8 @@ def generate(seed):
     bannered_campaign_page.generate(seed)
     campaign_page.generate(seed)
     # homepage_features.generate requires blog pages to exist first
-    homepage_features.generate(seed)
+    # Bug in homepage_features.generate(seed). Commented this out for now.
+    # homepage_features.generate(seed)
     homepage_usable_news.generate(seed)
     homepage_take_action.generate(seed)
     initiatives_page.generate(seed)
