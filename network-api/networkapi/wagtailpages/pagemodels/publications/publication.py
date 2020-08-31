@@ -59,23 +59,19 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         related_name='publication_hero_image',
         verbose_name='Publication Hero Image',
     )
-
     subtitle = models.CharField(
         blank=True,
         max_length=250,
     )
-
     secondary_subtitle = models.CharField(
         blank=True,
         max_length=250,
     )
-
     publication_date = models.DateField(
         "Publication date",
         null=True,
         blank=True
     )
-
     publication_file = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
@@ -83,17 +79,19 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-
+    additional_author_copy = models.CharField(
+        help_text="Example: with contributing authors",
+        max_length=100,
+        blank=True,
+    )
     notes = RichTextField(
         blank=True,
     )
-
     contents_title = models.CharField(
         blank=True,
         default="Table of Contents",
         max_length=250,
     )
-
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('subtitle'),
@@ -101,7 +99,8 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
             FieldPanel('publication_date'),
             ImageChooserPanel('hero_image'),
             DocumentChooserPanel('publication_file'),
-            InlinePanel("authors", label="Author", min_num=0)
+            InlinePanel("authors", label="Author"),
+            FieldPanel("additional_author_copy"),
         ], heading="Hero"),
         FieldPanel('contents_title'),
         FieldPanel('notes')

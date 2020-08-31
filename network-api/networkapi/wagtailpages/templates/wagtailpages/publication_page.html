@@ -47,11 +47,12 @@
                     </div>
 
                     {% with authors_length=page.authors.count %}
-                      {% blocktrans %}Written by {% endblocktrans %}
                       {% for orderable in page.authors.all %}
                         <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ orderable.author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
                       {% endfor %}
-                      {% blocktrans %}with contributing authors.{% endblocktrans %}
+                      {% if page.additional_author_copy %}
+                        {{ page.additional_author_copy }}
+                      {% endif %}
                     {% endwith %}
 
                     {% if page.publication_file %}
