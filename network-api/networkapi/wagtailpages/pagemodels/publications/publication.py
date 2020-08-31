@@ -3,16 +3,42 @@ from django.db import models
 from django.db.models import QuerySet
 from typing import Union
 
-from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.core.fields import RichTextField
+from modelcluster.fields import ParentalKey
+
 
 from networkapi.wagtailpages.models import base_fields
 from networkapi.wagtailpages.pagemodels.publications.article import ArticlePage
 
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, Page
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
+from networkapi.wagtailpages.models import BlogAuthor
+from networkapi.wagtailpages.pagemodels.publications.article import ArticlePage
+
+
+class PublicationAuthors(Orderable):
+    """This allows us to select one or more blog authors from Snippets."""
+
+    page = ParentalKey("wagtailpages.PublicationPage", related_name="authors")
+    author = models.ForeignKey(
+        BlogAuthor,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=False
+    )
+
+    panels = [
+        SnippetChooserPanel("author"),
+    ]
+
+    def __str__(self):
+        return f"Author: {self.author.name}"
 
 
 class PublicationPage(FoundationMetadataPageMixin, Page):
@@ -38,23 +64,19 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         related_name='publication_hero_image',
         verbose_name='Publication Hero Image',
     )
-
     subtitle = models.CharField(
         blank=True,
         max_length=250,
     )
-
     secondary_subtitle = models.CharField(
         blank=True,
         max_length=250,
     )
-
     publication_date = models.DateField(
         "Publication date",
         null=True,
         blank=True
     )
-
     publication_file = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
@@ -62,25 +84,30 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-
+    additional_author_copy = models.CharField(
+        help_text="Example: with contributing authors",
+        max_length=100,
+        blank=True,
+    )
     notes = RichTextField(
         blank=True,
     )
-
     contents_title = models.CharField(
         blank=True,
         default="Table of Contents",
         max_length=250,
     )
 
-    # body = StreamField(base_fields)
-
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('secondary_subtitle'),
-        FieldPanel('publication_date'),
-        ImageChooserPanel('hero_image'),
-        DocumentChooserPanel('publication_file'),
+        MultiFieldPanel([
+            FieldPanel('subtitle'),
+            FieldPanel('secondary_subtitle'),
+            FieldPanel('publication_date'),
+            ImageChooserPanel('hero_image'),
+            DocumentChooserPanel('publication_file'),
+            InlinePanel("authors", label="Author"),
+            FieldPanel("additional_author_copy"),
+        ], heading="Hero"),
         FieldPanel('contents_title'),
         FieldPanel('notes')
     ]
