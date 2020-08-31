@@ -8,7 +8,6 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.models import BlogAuthor

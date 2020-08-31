@@ -87,7 +87,6 @@
 .article-blocks .rich-text {
   max-width: 92%;
   margin: 0 auto;
-  border: 1px solid red;
 }
 
 .article-blockquote-block {
@@ -108,5 +107,41 @@
     font-weight: normal;
     letter-spacing: 0px;
     line-height: 27px;
+  }
+}
+
+.article-table-block .table {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  background-color: $white;
+
+  td, th {
+    border-bottom: 1px solid rgb(160, 162, 248);
+    color: rgb(51, 51, 51);
+    font-size: 16px;
+    font-family: "Nunito Sans";
+    font-weight: normal;
+    letter-spacing: 0px;
+    line-height: 24px;
+  }
+
+  thead td, thead th {
+    background: rgb(89, 92, 243);
+    color: $white;
+    font-size: 16px;
+    font-family: "Nunito Sans";
+    font-weight: 600;
+    letter-spacing: 0px;
+    line-height: 24px;
+  }
+  caption {
+    color: rgb(102, 102, 102);
+    font-size: 12px;
+    font-family: "Nunito Sans";
+    font-weight: normal;
+    letter-spacing: 0px;
+    line-height: 16px;
+    margin-top: 16px;
+    padding: 0;
   }
 }
