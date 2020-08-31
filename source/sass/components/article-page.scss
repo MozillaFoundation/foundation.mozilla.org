@@ -37,3 +37,46 @@
   letter-spacing: 0px;
   line-height: 27px;
 }
+
+.article-prev-next {
+  background: rgb(242, 242, 242);
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.article-prev {
+  border-right: 1px solid rgb(204, 204, 204);
+  padding-right: 110px;
+  min-height: 83px;
+}
+
+.article-next {
+  padding-left: 110px;
+  min-height: 83px;
+}
+
+.prev-next-text {
+  color: rgb(153, 153, 153);
+  font-size: 12px;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  letter-spacing: 0px;
+  line-height: 16px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.article-prev-next-link {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  font-family: "Nunito Sans";
+  font-weight: 300;
+  text-decoration: underline;
+  letter-spacing: 0px;
+  line-height: 30px;
+  display: inline-block;
+}
+
+// .article-prev-arrow { }
+
+// .article-next-arrow { }

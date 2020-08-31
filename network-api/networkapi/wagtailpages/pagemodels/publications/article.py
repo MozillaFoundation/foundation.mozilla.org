@@ -1,5 +1,6 @@
 
 from django.db import models
+from typing import Union
 
 from modelcluster.fields import ParentalKey
 
@@ -70,3 +71,37 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         InlinePanel("footnotes", label="Footnotes"),
         FieldPanel('sidebar_summary_title'),
     ]
+
+    @property
+    def next_page(self) -> Union[Page, None]:
+        # Try to get the next sibling page
+        next_page = self.get_next_sibling()
+        if next_page:
+            return next_page
+        # No next sibling page exists,
+        # Get the parent page and check if it's an ArticlePage
+        parent_sibling = self.get_parent().get_next_sibling()
+        if parent_sibling:
+            # Check if parenet page is an ArticlePage
+            if isinstance(parent_sibling.specific, ArticlePage):
+                return parent_sibling
+            # Parent page was not an ArticlePage, return the first
+            # live child, or None
+            return parent_sibling.get_children().live().first()
+
+    @property
+    def prev_page(self) -> Union[Page, None]:
+        # Try to get the prev sibling page
+        prev_page = self.get_prev_sibling()
+        if prev_page:
+            return prev_page
+        # No prev sibling page exists,
+        # Get the parent page and check if it's an ArticlePage
+        parent_sibling = self.get_parent().get_prev_sibling()
+        if parent_sibling:
+            # Check if parenet page is an ArticlePage
+            if isinstance(parent_sibling.specific, ArticlePage):
+                return parent_sibling
+            # Parent page was not an ArticlePage, return the first
+            # live child, or None
+            return parent_sibling.get_children().live().last()

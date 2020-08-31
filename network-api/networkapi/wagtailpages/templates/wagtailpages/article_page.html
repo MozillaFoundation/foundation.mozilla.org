@@ -36,4 +36,28 @@
     </div>
   {% endif %}
 
+  <div class="article-prev-next">
+    <div class="container">
+      <div class="row d-flex">
+        <div class="col-sm-6 text-sm-right article-prev article-prev-arrow">
+          {% if page.prev_page %}
+            <small class="prev-next-text">Previous</small>
+            <a href="{{ page.prev_page.url }}" class="article-prev-next-link">
+              {{ page.prev_page.title }}
+            </a>
+          {% endif %}
+        </div>
+        <div class="col-sm-6 article-next article-next-arrow">
+          {% if page.next_page %}
+            <small class="prev-next-text">Next</small>
+            <a href="{{ page.next_page.url }}" class="article-prev-next-link">
+              {{ page.next_page.title }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 {% endblock %}
