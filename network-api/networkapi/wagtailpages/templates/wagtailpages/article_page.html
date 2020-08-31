@@ -11,23 +11,29 @@
           {% include_block block %}
         {% endfor %}
         {% comment %} {{ page.body }} {% endcomment %}
-
-        <hr>
-
-        <style>
-          .footnotes-title {
-            color: rgb(0, 0, 0);
-            font-size: 20px;
-            font-family: NunitoSans-Bold;
-            font-weight: bold;
-            letter-spacing: 0px;
-            line-height: 30px;
-          }
-        </style>
-        <h3 style="footnotes-title">Footnotes</h3>
-        {% include "wagtail_footnotes/includes/footnotes.html" %}
-
       </div>
     </div>
   </div>
+
+  {% if page.footnotes_list %}
+    <div class="container footnotes">
+      <div class="row">
+        <div class="col-sm-8 offset-2">
+          <h3 class="footnotes-title">Footnotes</h3>
+          {% for footnote in page.footnotes_list %}
+            <div class="footnote-row d-flex" id="footnote-{{ forloop.counter }}">
+
+                <a href="#footnote-source-{{ forloop.counter }}" class="footnote-number mr-3" aria-label="Back to content">
+                  [{{ forloop.counter }}]
+                </a>
+                <a href="#footnote-source-{{ forloop.counter }}" class="footnote-text" aria-label="Back to content">
+                  {{ footnote.text|richtext }}
+                </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
 {% endblock %}
