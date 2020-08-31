@@ -96,14 +96,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            InlinePanel("authors", label="Author", min_num=1)
-        ], heading="Author(s)"),
-        MultiFieldPanel([
             FieldPanel('subtitle'),
             FieldPanel('secondary_subtitle'),
             FieldPanel('publication_date'),
             ImageChooserPanel('hero_image'),
             DocumentChooserPanel('publication_file'),
+            InlinePanel("authors", label="Author", min_num=0)
         ], heading="Hero"),
         FieldPanel('contents_title'),
         FieldPanel('notes')
