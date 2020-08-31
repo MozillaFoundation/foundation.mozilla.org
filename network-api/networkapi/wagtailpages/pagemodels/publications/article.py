@@ -12,6 +12,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.models import BlogAuthor
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
+from ..article_fields import article_fields
 
 """
 TODO:
@@ -20,11 +21,6 @@ callout may have different featureset, but we mainly want the ability to disting
 it was implied we might want to include links/call to actions in a callout, but maybe that would not be good,
 in which case we could just use a BlockQuoteBlock
 """
-article_blocks = [
-    ('content', blocks.RichTextBlock()),
-    ('callout', blocks.BlockQuoteBlock()),
-    ('table', TableBlock()),
-]
 
 
 class ArticleAuthors(Orderable):
@@ -58,7 +54,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     """
     parent_page_types = ['PublicationPage']
     subpage_types = []
-    body = StreamField(article_blocks)
+    body = StreamField(article_fields)
 
     sidebar_summary_title = models.CharField(
         blank=True,

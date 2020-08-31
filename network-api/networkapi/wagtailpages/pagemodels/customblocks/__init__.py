@@ -16,10 +16,13 @@ from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .video_block import VideoBlock
 from .youtube_regret_block import YoutubeRegretBlock
+from .articles import ArticleRichText
+
 
 __all__ = [
     AnnotatedImageBlock,
     AirTableBlock,
+    ArticleRichText,
     BootstrapSpacerBlock,
     iFrameBlock,
     ImageBlock,

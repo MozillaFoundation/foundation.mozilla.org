@@ -1,6 +1,17 @@
 {% extends "pages/base.html" %}
+{% load wagtailcore_tags %}
 
 {% block content %}
-    {{ page.title }}
-    {{ page.body }}
+
+  {{ page.title }}
+  <div class="container">
+    <div class="row">
+      <div class="offset-sm-2 col-sm-8 col-12">
+        {% for block in page.body %}
+          {% include_block block %}
+        {% endfor %}
+        {% comment %} {{ page.body }} {% endcomment %}
+      </div>
+    </div>
+  </div>
 {% endblock %}
