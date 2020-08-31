@@ -35,9 +35,9 @@
 // just the first level of summary
 // style copied from chapter number above
 .child-pages-summary > ol > li::before {
-  display: flex;
-  width: 80px;
-  height: 80px;
+  display: inline-flex;
+  width: 160px;
+  height: 160px;
   background-color: purple;
   color: #fff;
   flex-direction: column;
@@ -45,3 +45,13 @@
   align-items: center;
   font-size: 30px;
 }
+
+// list that is the child of a list; aka the list of child pages
+.child-pages-summary > ol > li > ol {
+  margin-left: 120px;
+}
+
+// this is essentially the 'container' that holds a section of content summary
+// .child-pages-summary > ol > li {
+
+// }

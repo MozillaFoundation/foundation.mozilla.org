@@ -74,18 +74,20 @@
             </div>
         </div>
       {# page summary #}
+      <div class="content-summary container">
       {{ page.contents_title }}
-      <div class="child-pages-summary">
+      <div class="child-pages-summary row">
       {% comment %} https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list {% endcomment %}
         {% for child, node_info in page.my_children %}
             {% comment %} 'open' means 'there are siblings so open the list tag' {% endcomment %}
+            
             {% if node_info.open %}
-                <ol><li data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
+                <ol ><li class=""" data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
             {% else %}
-                </li><li data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
+                </li><li class="" data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
             {% endif %}
             
-            <a href="{{ child.url }}" class="d-block w-100 h3 chapter-article-link">
+            <a href="{{ child.url }}" class="chapter-article-link">
             {{ child.title }}
             </a>
 
@@ -94,6 +96,7 @@
                 </li></ol>
             {% endfor %}
         {% endfor %}
+      </div>
       </div>
     {% endblock %}
 
