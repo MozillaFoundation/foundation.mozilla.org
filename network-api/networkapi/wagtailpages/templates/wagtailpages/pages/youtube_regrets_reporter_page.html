@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n static %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags wagtailmetadata_tags multi_image_tags i18n static %}
 
 {% block body_id %}youtube-regrets-reporter{% endblock %}
 
@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-{% with firefox_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" chrome_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" %}
+{% with firefox_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" firefox_download_text="Add to Firefox" chrome_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" chrome_download_text="Add to Chrome" %}
 <div class="youtube-regrets-intro-viewport">
   <div class="scene-container">
     <div class="scene">
@@ -34,10 +34,10 @@
       {% endfor %}
     </div>
     <div class="intro-stationary-wrapper dark-theme">
-      <p class="body-large">Download RegretsReporter today.</p>
+      <p class="body-large">{% trans "Download RegretsReporter today." %}</p>
       <div>
-        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="{{firefox_download_link}}" target="_blank">Add to Firefox</a>
-        <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="{{chrome_download_link}}" target="_blank">Add to Chrome</a>
+        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="{{firefox_download_link}}" target="_blank">{% trans firefox_download_text %}</a>
+        <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="{{chrome_download_link}}" target="_blank">{% trans chrome_download_text %}</a>
       </div>
     </div>
   </div>
@@ -61,21 +61,21 @@
             <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step1.png" %}" />
             <p class="d-flex flex-column align-items-center">
               <span class="step-number my-4">1</span>
-              Click the frowning extension icon in the browser bar
+              {% trans "Click the frowning extension icon in the browser bar" %}
             </p>
           </div>
           <div class="col-md-4">
             <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step2.png" %}" />
             <p class="d-flex flex-column align-items-center">
               <span class="step-number my-4">2</span>
-              Report the video and recommendations that led you to it
+              {% trans "Report the video and recommendations that led you to it" %}
             </p>
           </div>
           <div class="col-md-4">
             <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step3.png" %}" />
             <p class="d-flex flex-column align-items-center">
               <span class="step-number my-4">3</span>
-              Send any extra details you would like Mozilla to know
+              {% trans "Send any extra details you would like Mozilla to know" %}
             </p>
           </div>
         </div>
@@ -84,9 +84,9 @@
 
     <div class="row py-5 section-with-regrets-reporter">
       <div class="offset-md-2 col-md-8 offset-xl-2 col-xl-8">
-        <p class="h2-heading">With the RegretsReporter extension, you can immediately take action to report recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content.</p>
+        <p class="h2-heading">{% trans "With the RegretsReporter extension, you can immediately take action to send us recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content." %}</p>
         <p>
-          The report form will ask you to tell us more about your YouTube Regret and collect information about the recommendations that led you to the video. By sharing your experiences, you can help us answer questions like: what kinds of recommended videos do users regret watching? Are there usage patterns that lead to more regrettable content being recommended? What does a YouTube rabbit hole look like, and at what point does it become something you wish you never clicked on?
+          {% trans "The report form will ask you to tell us more about your YouTube Regret and collect information about the recommendations that led you to the video. By sharing your experiences, you can help us answer questions like: what kinds of recommended videos do users regret watching? Are there usage patterns that lead to more regrettable content being recommended? What does at YouTube rabbit hole look like, and at what point does it become something you wish you never clicked on?" %}
         </p>
       </div>
     </div>
@@ -109,40 +109,51 @@
 
     <div class="row py-5 text-center">
       <div class="offset-md-1 col-md-10">
-        <p class="h1-heading font-changa">Let's work together to make recommendation engines on the internet more trustworthy.</p>
+        <p class="h1-heading font-changa">{% trans "Let's work together to make recommendation engines on the internet more trustworthy." %}</p>
       </div>
     </div>
 
     <div class="row py-5 text-center section-articles">
       <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-        <p class="h6-heading mb-1">Mozilla</p>
-        <a class="d-block" href="" target="_blank">28 Reasons Why YouTube Must Change</a>
+        <p class="h6-heading mb-1">{% trans "Mozilla" %}</p>
+        <a class="d-block" href="https://foundation.mozilla.org/en/blog/28-reasons-why-youtube-must-change/" target="_blank">{% trans "28 Reasons Why YouTube Must Change" %}</a>
       </div>
       <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-        <p class="h6-heading mb-1">The New York Times</p>
-        <a class="d-block" href="" target="_blank">Can YouTube Quiet Its Conspiracy Theorists?</a>
+        <p class="h6-heading mb-1">{% trans "The New York Times" %}</p>
+        <a class="d-block" href="https://www.nytimes.com/interactive/2020/03/02/technology/youtube-conspiracy-theory.html" target="_blank">{% trans "Can YouTube Quiet Its Conspiracy Theorists?" %}</a>
       </div>
       <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-        <p class="h6-heading mb-1">MIT Tech Review</p>
-        <a class="d-block" href="" target="_blank">YouTube’s algorithm seems to be funneling people to alt-right videos</a>
+        <p class="h6-heading mb-1">{% trans "MIT Tech Review" %}</p>
+        <a class="d-block" href="https://www.technologyreview.com/2020/01/29/276000/a-study-of-youtube-comments-shows-how-its-turning-people-onto-the-alt-right/" target="_blank">{% trans "YouTube’s algorithm seems to be funneling people to alt-right videos" %}</a>
       </div>
       <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-        <p class="h6-heading mb-1">Bloomberg</p>
-        <a class="d-block" href="" target="_blank">YouTube Executives Ignored Warnings, Letting Toxic Videos Run Rampant</a>
+        <p class="h6-heading mb-1">{% trans "Bloomberg" %}</p>
+        <a class="d-block" href="https://www.bloomberg.com/news/features/2019-04-02/youtube-executives-ignored-warnings-letting-toxic-videos-run-rampant" target="_blank">{% trans "YouTube Executives Ignored Warnings, Letting Toxic Videos Run Rampant" %}</a>
       </div>
     </div>
 
     <div class="row py-5 section-for-years">
       <div class="col-12 col-md-5">
-        <p class="body-large font-changa">For years, journalists, researchers, and even former YouTube employees have been telling YouTube that they need to stop their recommendation engine from sending users down racist, conspiratorial, and other regrettable rabbit holes.</p>
+        <p class="body-large font-changa">{% trans "For years, journalists, researchers, and even former YouTube employees have been telling YouTube that they need to stop their recommendation engine from sending users down racist, conspiratorial, and other regrettable rabbit holes." %}</p>
       </div>
       <div class="col-12 col-md-7">
-        <p>YouTube <a href="">(NEED LINK)claims</a> to be fixing this problem, but it’s all happening behind closed doors, without any way for the public to tell if it’s actually working. Last year, Mozilla told YouTube three simple ways to address this problem in a more open and transparent way. So far, YouTube has not answered that call.</p>
-        <p><strong>That’s where you come in. Mozilla’s RegretsReporter browser extension transforms everyday YouTube users into YouTube watchdogs.</strong> We can use our own data to answer questions about regrettable recommendations that can go a long way towards helping journalists who investigate these problems, other groups like Mozilla who push for more accountability, and engineers and designers who build this technology. </p>
+        <p>
+          {% blocktrans with claims_link="https://foundation.mozilla.org/en/blog/congratulations-youtube-now-show-your-work/" ways_link="https://foundation.mozilla.org/en/blog/our-recommendation-youtube/" trimmed %}
+          YouTube <a href="{{claims_link}}" target="_blank">claims</a> to be fixing this problem, but it’s all happening behind closed doors, without any way for the public to tell if it’s actually working. Last year, Mozilla told YouTube three simple ways to address this problem in a more open and transparent way. So far, YouTube has not answered that call.
+          {% endblocktrans %}
+        </p>
+
+        <p>
+          {% blocktrans trimmed %}
+          <strong>That’s where you come in. Mozilla’s RegretsReporter browser extension transforms everyday YouTube users into YouTube watchdogs.</strong>
+          We can use our own data to answer questions about regrettable recommendations that can go a long way towards helping journalists who investigate these problems, other groups like Mozilla who push for more accountability, and engineers and designers who build this technology.
+          {% endblocktrans %}
+        </p>
+
       </div>
       <div class="col-12 py-5 text-center">
-        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="{{firefox_download_link}}" target="_blank">Add to Firefox</a>
-        <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="{{chrome_download_link}}" target="_blank">Add to Chrome</a>
+        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="{{firefox_download_link}}" target="_blank">{% trans firefox_download_text %}</a>
+        <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="{{chrome_download_link}}" target="_blank">{% trans chrome_download_text %}</a>
       </div>
     </div>
   </div>
@@ -166,56 +177,77 @@
     <div class="timeline-wrapper">
       <ol class="timeline">
         <li class="segment">
-          <h4>{% trans "July 2019" %}</h4>
+          {% blocktrans with date="July 2019" trimmed %}
+          <h4>{{date}}</h4>
           <p>Mozilla awards Guillaume Chaslot, a former YouTube engineer, a fellowship to support his work investigating AI systems, including the impacts of YouTube’s recommendation engine.</p>
+          {% endblocktrans %}
         </li>
         <li class="segment">
-          <h4>{% trans "August 7, 2019" %}</h4>
-          <p>Mozilla <a href="https://foundation.mozilla.org/en/blog/youtubes-recommendations/" target="_blank">announced</a> our intentions to investigate YouTube’s harmful recommendations, and to begin a dialogue with the company about making improvements.
+          {% blocktrans with date="August 7, 2019" link="https://foundation.mozilla.org/en/blog/youtubes-recommendations/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>Mozilla <a href="{{link}}" target="_blank">announced</a> our intentions to investigate YouTube’s harmful recommendations, and to begin a dialogue with the company about making improvements.
+            {% endblocktrans %}
           </p>
         </li>
         <li class="segment">
-          <h4>{% trans "August 14, 2019" %}</h4>
-          <p>Mozilla <a href="https://foundation.mozilla.org/en/blog/what-can-you-trust-internet/" target="_blank">published</a> a reading list for our community detailing the ways recommendation AI — including YouTube’s — can manipulate consumers.
+          {% blocktrans with date="August 14, 2019" link="https://foundation.mozilla.org/en/blog/what-can-you-trust-internet/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>Mozilla <a href="{{link}}" target="_blank">published</a> a reading list for our community detailing the ways recommendation AI — including YouTube’s — can manipulate consumers.
+            {% endblocktrans %}
           </p>
         </li>
         <li class="segment">
-          <h4>September 3, 2019</h4>
-          <p>Mozilla <a href="https://foundation.mozilla.org/en/blog/answers-your-questions-about-dark-side-internet/" target="_blank">hosted</a> a Q&A with a teenager who was radicalized online, partially due to YouTube’s recommendation AI.</p>
+          {% blocktrans with date="September 3, 2019" link="https://foundation.mozilla.org/en/blog/answers-your-questions-about-dark-side-internet/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>Mozilla <a href="{{link}}" target="_blank">hosted</a> a Q&A with a teenager who was radicalized online, partially due to YouTube’s recommendation AI.</p>
+          {% endblocktrans %}
         </li>
         <li class="segment">
-          <h4>{% trans "September 10, 2019" %}</h4>
-          <p>Mozilla <a href="https://foundation.mozilla.org/en/blog/youtube-regrets/" target="_blank">launched</a> its #YouTubeRegrets campaign, urging users to share stories about harmful recommendations they encounter.</p>
+          {% blocktrans with date="September 10, 2019" link="https://foundation.mozilla.org/en/blog/youtube-regrets/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>Mozilla <a href="{{link}}" target="_blank">launched</a> its #YouTubeRegrets campaign, urging users to share stories about harmful recommendations they encounter.</p>
+          {% endblocktrans %}
         </li>
         <li class="segment">
-          <h4>{% trans "October 14, 2019" %}</h4>
-          <p>After meeting with YouTube staff, Mozilla <a href="https://foundation.mozilla.org/en/blog/our-recommendation-youtube/" target="_blank">published</a> three concrete actions the platform could take to help address its recommendation problem. These changes entail making YouTube’s recommendation data more transparent.</p>
+          {% blocktrans with date="October 14, 2019" link="https://foundation.mozilla.org/en/blog/our-recommendation-youtube/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>After meeting with YouTube staff, Mozilla <a href="{{link}}" target="_blank">published</a> three concrete actions the platform could take to help address its recommendation problem. These changes entail making YouTube’s recommendation data more transparent.</p>
+          {% endblocktrans %}
         </li>
         <li class="segment">
-          <h4>{% trans "October 15, 2019" %}</h4>
-          <p>Mozilla <a href="https://foundation.mozilla.org/en/blog/28-reasons-why-youtube-must-change/" target="_blank">published</a> findings from our #YouTubeRegrets research, highlighting how users are recommended anti-science content, anti-LGBT content, and other harmful videos.</p>
+          {% blocktrans with date="October 15, 2019" link="https://foundation.mozilla.org/en/blog/28-reasons-why-youtube-must-change/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>Mozilla <a href="{{link}}" target="_blank">published</a> findings from our #YouTubeRegrets research, highlighting how users are recommended anti-science content, anti-LGBT content, and other harmful videos.</p>
+          {% endblocktrans %}
         </li>
         <li class="segment">
-          <h4>{% trans "October 26, 2019" %}</h4>
-          <p>At MozFest 2020, Mozilla <a href="https://www.mozillafestival.org/en/speakers/2019/algorithmic-gaze/" target="_blank">hosted</a> “The Algorithmic Gaze,” a panel exploring the dangers of untrustworthy AI like YouTube’s recommendation engine.</p>
+          {% blocktrans with date="October 26, 2019" link="https://www.mozillafestival.org/en/speakers/2019/algorithmic-gaze/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>At MozFest 2020, Mozilla <a href="{{link}}" target="_blank">hosted</a> “The Algorithmic Gaze,” a panel exploring the dangers of untrustworthy AI like YouTube’s recommendation engine.</p>
+          {% endblocktrans %}
         </li>
         <li class="segment">
-          <h4>{% trans "December 25, 2019" %}</h4>
-          <p>Mozilla <a href="https://foundation.mozilla.org/en/blog/congratulations-youtube-now-show-your-work/" target="_blank">published</a> a running list of YouTube’s deflections, denials, and misdirections related to its recommendation problem.</p>
+          {% blocktrans with date="December 25, 2019" link="https://foundation.mozilla.org/en/blog/congratulations-youtube-now-show-your-work/" trimmed %}
+          <h4>{{date}}</h4>
+          <p>Mozilla <a href="{{link}}" target="_blank">published</a> a running list of YouTube’s deflections, denials, and misdirections related to its recommendation problem.</p>
+          {% endblocktrans %}
         </li>
         <li class="segment">
-          <h4>{% trans "September 2020" %}</h4>
+          {% blocktrans with date="September 2020" trimmed %}
+          <h4>{{date}}</h4>
           <p>Mozilla launches the RegretsReporter browser extension to more deeply interrogate YouTube’s recommendation problem.</p>
+          {% endblocktrans %}
         </li>
       </ol>
       <div class="control-next">
-        <button class="btn btn-timeline-next"><span class="sr-only">next</span></button>
+        <button class="btn btn-timeline-next"><span class="sr-only">next timeline segament</span></button>
       </div>
     </div>
   </div>
 </main>
 {% endwith %}
 {% endblock %}
+
 
 {% block footer_block %}
 {% include "partials/footer.html" %}

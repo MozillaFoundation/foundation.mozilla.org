@@ -4,7 +4,7 @@ from . import (
     bannered_campaign_page,
     homepage_cause_statement_link,
     homepage_take_action,
-    homepage_features,
+    # homepage_features,
     homepage_usable_news,
     homepage,
     initiatives_page,
