@@ -48,7 +48,13 @@
 
 // list that is the child of a list; aka the list of child pages
 .child-pages-summary > ol > li > ol {
-  margin-left: 120px;
+  margin-left: 136px;
+  color: #6c757d;
+}
+
+.child-pages-children-title {
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
 }
 
 // this is essentially the 'container' that holds a section of content summary
