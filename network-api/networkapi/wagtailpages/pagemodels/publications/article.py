@@ -1,7 +1,8 @@
 
+from bs4 import BeautifulSoup
 from django.db import models
+from django.utils.text import slugify
 from typing import Union
-
 from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable, Page
@@ -104,3 +105,17 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             # Parent page was not an ArticlePage, return the first
             # live child, or None
             return parent_sibling.get_children().live().last()
+
+    def get_titles(self):
+        body = self.body.__dict__['stream_data']
+        headers = []
+        for block in body:
+            if block['type'] == "content":
+                soup = BeautifulSoup(block['value'], 'html.parser')
+                _headers = soup.findAll('h2')
+                for _h in _headers:
+                    headers.append(_h.contents[0])
+        data = {
+            slugify(header): header for header in headers
+        }
+        return tuple(data.items())

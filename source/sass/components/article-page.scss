@@ -1,3 +1,47 @@
+.article-summary {
+  background: rgb(231, 231, 252);
+  padding: 32px 30px;
+  width: calc(80% + 60px);
+  margin: -48px auto 48px;
+}
+
+.article-summary,
+.article-summary-link {
+  color: rgb(102, 102, 102);
+  font-size: 16px;
+  font-family: "Nunito Sans";
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 24px;
+}
+
+.article-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.article-summary-link {
+  margin-bottom: 17px;
+  flex-basis: 50%;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  &:hover {
+    color: rgb(102, 102, 102);
+  }
+}
+
+.article-summary-title {
+  color: $black;
+  font-size: 12px;
+  font-family: "Nunito Sans";
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 16px;
+  margin-bottom: 17px;
+}
+
 .footnotes {
   border-top: 1px solid rgb(204, 204, 204);
   padding-top: 47px;
@@ -80,6 +124,10 @@
 
 // StreamBlocks
 .article-blocks .rich-text {
+  a {
+    text-decoration: underline;
+  }
+
   p, h2, h3, h4, h5, ol, ul {
     max-width: 80%;
     margin: 0 auto;

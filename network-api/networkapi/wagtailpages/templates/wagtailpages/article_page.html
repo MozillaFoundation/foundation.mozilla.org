@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 {% block content %}
 
@@ -7,13 +7,25 @@
   <div class="container">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+
+        <div class="article-summary">
+          <div class="article-summary-title">{% trans 'SUMMARY' %}</div>
+          <div class="article-links">
+            {% for slug, header in page.get_titles %}
+              <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
+            {% endfor %}
+          </div>
+        </div>
+
         {% for block in page.body %}
           {% include_block block with is_last=forloop.last %}
         {% endfor %}
-        {% comment %} {{ page.body }} {% endcomment %}
       </div>
     </div>
   </div>
+
+
+
 
   {% if page.footnotes_list %}
     <div class="container footnotes"> {# TODO: Needs better border-top alignment #}
