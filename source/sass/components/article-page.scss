@@ -120,6 +120,35 @@
   letter-spacing: 0px;
   line-height: 30px;
   display: inline-block;
+  width: 80%;
+}
+
+.article-nav-arrow,
+.article-nav-arrow--left {
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 24px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url('../_images/left-chevron.svg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+}
+
+.article-nav-arrow--right {
+  &::before {
+    left: initial;
+    right: 0;
+    background-image: url('../_images/right-chevron.svg');
+  }
 }
 
 // StreamBlocks
