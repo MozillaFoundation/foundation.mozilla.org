@@ -1,9 +1,45 @@
 {% extends "pages/base.html" %}
 {% load wagtailcore_tags i18n %}
 
+{% block primary_nav %}
+  {{ block.super }}
+
+  {# TODO Move this subnav to a fragment #}
+  <div class="article-navbar">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex flex-row justify-content-between ">
+            <div class="article-navbar-title">{{ page.title }}</div>
+            <div class="article-navbar-summary">
+
+
+              {# TODO: Needs dropdown. Must loop through page.get_titles #}
+              <div class="dropdown">
+                <a class="btn btn-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Summary
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="#">TODO Sample link. Remove me.</a>
+                  {% for slug, header in page.get_titles %}
+                    <a class="dropdown-item" href="#{{ slug }}">{{ header }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
 {% block content %}
 
-  {{ page.title }}
   <div class="container">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
@@ -24,23 +60,19 @@
     </div>
   </div>
 
-
-
-
   {% if page.footnotes_list %}
-    <div class="container footnotes"> {# TODO: Needs better border-top alignment #}
+    <div class="container footnotes">
       <div class="row">
         <div class="col-sm-10 offset-1">
           <h3 class="footnotes-title">Footnotes</h3>
           {% for footnote in page.footnotes_list %}
             <div class="footnote-row d-flex" id="footnote-{{ forloop.counter }}">
-
-                <a href="#footnote-source-{{ forloop.counter }}" class="footnote-number mr-3" aria-label="Back to content">
-                  [{{ forloop.counter }}]
-                </a>
-                <a href="#footnote-source-{{ forloop.counter }}" class="footnote-text" aria-label="Back to content">
-                  {{ footnote.text|richtext }}
-                </a>
+              <a href="#footnote-source-{{ forloop.counter }}" class="footnote-number mr-3" aria-label="Back to content">
+                [{{ forloop.counter }}]
+              </a>
+              <a href="#footnote-source-{{ forloop.counter }}" class="footnote-text" aria-label="Back to content">
+                {{ footnote.text|richtext }}
+              </a>
             </div>
           {% endfor %}
         </div>
@@ -69,7 +101,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
 {% endblock %}

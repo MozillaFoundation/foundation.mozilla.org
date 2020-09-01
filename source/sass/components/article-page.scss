@@ -301,3 +301,16 @@
     margin-top: 18px;
   }
 }
+
+.article-navbar {
+  background: rgb(231, 231, 252);
+  padding: 9px 0;
+}
+.article-navbar-title {
+  color: $black;
+  font-size: 20px;
+  font-family: "Nunito Sans";
+  font-weight: 300;
+  letter-spacing: 0px;
+  line-height: 30px;
+}
