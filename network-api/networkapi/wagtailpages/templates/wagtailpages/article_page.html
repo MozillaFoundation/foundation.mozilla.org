@@ -16,9 +16,9 @@
   </div>
 
   {% if page.footnotes_list %}
-    <div class="container footnotes">
+    <div class="container footnotes"> {# TODO: Needs better border-top alignment #}
       <div class="row">
-        <div class="col-sm-8 offset-2">
+        <div class="col-sm-10 offset-1">
           <h3 class="footnotes-title">Footnotes</h3>
           {% for footnote in page.footnotes_list %}
             <div class="footnote-row d-flex" id="footnote-{{ forloop.counter }}">
