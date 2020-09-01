@@ -131,6 +131,14 @@
     a {
       color: $youtube-regrets-red;
     }
+
+    .h2-heading {
+      @include set-text-size(26px, 35px, 38px, 42px);
+
+      font-family: $font-changa;
+      font-weight: 400;
+      letter-spacing: -2px;
+    }
   }
 
   .wrapper {
@@ -171,13 +179,6 @@
           align-items: center;
         }
       }
-    }
-  }
-
-  .section-with-regrets-reporter {
-    .h2-heading {
-      @include heading($font-changa, 400, -2px, $black, $black);
-      @include set-text-size(26px, 35px, 38px, 42px);
     }
   }
 
@@ -228,6 +229,117 @@
 
   .section-timeline {
     background: $black;
+
+    .timeline-wrapper {
+      // display: grid;
+      // grid-template-columns: repeat(3, 100%);
+      overflow: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+
+      h4 {
+        @include set-text-size(18px, 32px);
+
+        font-family: $font-changa;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+
+      .timeline {
+        $num-item: 10;
+        $width-mobile: 80%;
+        $width-tablet: 40%;
+        $width-desktop: 28%;
+        $width-desktop-xl: 22%;
+        $padding-x: 30px;
+
+        margin: 20px 0;
+        padding: 0 $padding-x;
+        border-top: 1px solid $gray-05;
+        counter-reset: segment;
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+
+        @mixin set-timeline-width($item-width) {
+          width: calc(#{$num-item} * #{$item-width} - #{$padding-x} * 2);
+
+          li {
+            width: $item-width;
+          }
+        }
+
+        @include set-timeline-width($width-mobile);
+
+        @media screen and (min-width: $bp-md) {
+          @include set-timeline-width($width-tablet);
+        }
+
+        @media screen and (min-width: $bp-lg) {
+          @include set-timeline-width($width-desktop);
+        }
+
+        @media screen and (min-width: $bp-xl) {
+          @include set-timeline-width($width-desktop-xl);
+        }
+
+        li {
+          $pointer-height: 1.5rem;
+          $pointer-radius: 4.5px;
+          $padding-top: 0.5rem;
+
+          display: inline-block;
+          padding-top: calc(#{$pointer-height} + #{$padding-top});
+          padding-right: 2rem;
+          position: relative;
+          opacity: 1;
+          transition: opacity 0.1s ease-in;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: -$pointer-radius;
+            left: $pointer-radius;
+            width: $pointer-radius * 2;
+            height: $pointer-radius * 2;
+            border-radius: 50%;
+            background: $blue;
+          }
+
+          &::after {
+            $border-thickness: 1px;
+
+            content: "";
+            position: absolute;
+            top: 0;
+            left: calc(#{$pointer-radius * 2} - #{$border-thickness});
+            height: $pointer-height;
+            border: $border-thickness solid $blue;
+          }
+
+          p {
+            @include set-text-size(16px, 21px);
+          }
+        }
+      }
+
+      .control-next {
+        position: absolute;
+        top: 40%;
+        right: 20px;
+
+        .btn {
+          cursor: pointer;
+
+          &:after {
+            content: "";
+            display: inline-block;
+            border-style: solid;
+            border-width: 20px 0 20px 40px;
+            border-color: transparent transparent transparent $blue;
+          }
+        }
+      }
+    }
   }
 
   .btn-primary {

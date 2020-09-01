@@ -19,6 +19,7 @@ import primaryNav from "./primary-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/index";
+import RegretsReporterTimelineHanlder from "./foundation/pages/youtube-regrets/regrets-reporter-timeline";
 
 // Initializing component a11y browser console logging
 if (
@@ -112,6 +113,7 @@ let main = {
     // YouTube Regrets Reporter page
     if (document.querySelector("#view-youtube-regrets-reporter")) {
       new YouTubeRegretsTunnel();
+      RegretsReporterTimelineHanlder();
     }
   },
 };
