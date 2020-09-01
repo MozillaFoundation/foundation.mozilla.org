@@ -127,6 +127,12 @@
 #view-youtube-regrets-reporter {
   $font-changa: "Changa", sans-serif;
 
+  .intro-stationary-wrapper {
+    .body-large {
+      @include set-text-size(32px, 40px);
+    }
+  }
+
   main {
     a {
       color: $youtube-regrets-red;
@@ -142,10 +148,12 @@
   }
 
   .wrapper {
+    $noise-bg-stop-point: 360vh;
+
     background-image: url(../_images/youtube-regrets/regrets-reporter/noise.svg),
-      linear-gradient($black 320vh, $white 360vh, $white);
+      linear-gradient($black 320vh, $white $noise-bg-stop-point, $white);
     background-repeat: repeat-y, repeat;
-    background-size: 100vw 500px, cover;
+    background-size: 100vw 800px, cover;
   }
 
   .youtube-regrets-intro-viewport {
@@ -205,6 +213,9 @@
         background: transparent;
         color: $youtube-regrets-red;
         border: 2px solid $youtube-regrets-red;
+        width: auto !important;
+        margin: 0 auto;
+        display: block;
       }
     }
   }
@@ -222,7 +233,7 @@
 
   .section-for-years {
     .body-large {
-      @include set-text-size(38px, 42px, 30px, 34px);
+      @include set-text-size(26px, 30px, 38px, 42px);
       letter-spacing: -2px;
     }
   }
@@ -231,8 +242,6 @@
     background: $black;
 
     .timeline-wrapper {
-      // display: grid;
-      // grid-template-columns: repeat(3, 100%);
       overflow: hidden;
       scroll-behavior: smooth;
       position: relative;
@@ -247,13 +256,12 @@
 
       .timeline {
         $num-item: 10;
-        $width-mobile: 80%;
+        $width-mobile: 70%;
         $width-tablet: 40%;
         $width-desktop: 28%;
         $width-desktop-xl: 22%;
         $padding-x: 30px;
 
-        margin: 20px 0;
         padding: 0 $padding-x;
         border-top: 1px solid $gray-05;
         counter-reset: segment;

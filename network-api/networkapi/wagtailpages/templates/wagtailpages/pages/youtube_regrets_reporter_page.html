@@ -36,7 +36,7 @@
     <div class="intro-stationary-wrapper dark-theme">
       <p class="body-large">{% trans "Download RegretsReporter today." %}</p>
       <div>
-        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="{{firefox_download_link}}" target="_blank">{% trans firefox_download_text %}</a>
+        <a class="btn btn-primary btn-download btn-firefox-download mt-2 mt-md-0 mr-md-3" href="{{firefox_download_link}}" target="_blank">{% trans firefox_download_text %}</a>
         <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="{{chrome_download_link}}" target="_blank">{% trans chrome_download_text %}</a>
       </div>
     </div>
@@ -50,31 +50,31 @@
 
 <main>
   <div class="container">
-    <div class="row section-how-it-works py-5">
+    <div class="row section-how-it-works py-3 py-md-5">
       <div class="offset-md-2 col-md-8 dark-theme text-center">
         <h2 class="font-changa">{% trans "How it Works" %}</h2>
         <p>{% trans "When you send a YouTube regret, the video and recommendations that led you to it are submitted anonymously to Mozilla researchers." %}</p>
       </div>
       <div class="col-12">
         <div class="row steps">
-          <div class="col-md-4">
+          <div class="col-md-4 mb-3 mb-md-0">
             <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step1.png" %}" />
             <p class="d-flex flex-column align-items-center">
-              <span class="step-number my-4">1</span>
+              <span class="step-number my-3">1</span>
               {% trans "Click the frowning extension icon in the browser bar" %}
             </p>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 mb-3 mb-md-0">
             <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step2.png" %}" />
             <p class="d-flex flex-column align-items-center">
-              <span class="step-number my-4">2</span>
+              <span class="step-number my-3">2</span>
               {% trans "Report the video and recommendations that led you to it" %}
             </p>
           </div>
           <div class="col-md-4">
             <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step3.png" %}" />
             <p class="d-flex flex-column align-items-center">
-              <span class="step-number my-4">3</span>
+              <span class="step-number my-3">3</span>
               {% trans "Send any extra details you would like Mozilla to know" %}
             </p>
           </div>
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="row py-5 section-with-regrets-reporter">
+    <div class="row py-3 py-md-5 section-with-regrets-reporter">
       <div class="offset-md-2 col-md-8 offset-xl-2 col-xl-8">
         <p class="h2-heading">{% trans "With the RegretsReporter extension, you can immediately take action to send us recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content." %}</p>
         <p>
@@ -91,11 +91,13 @@
       </div>
     </div>
 
-    <div class="row py-5 section-newsletter">
-      <hr class="offset-md-2 col-md-8">
+    <div class="row py-3 py-md-5 section-newsletter">
+      <div class="offset-md-2 col-md-8">
+        <hr>
+      </div>
       <div class="col-12">
         <div
-          class="join-us py-5"
+          class="join-us py-3 py-md-5"
           data-form-position="youtube-regrets-reporter"
           data-button-position="side"
           data-layout="2-column"
@@ -104,16 +106,18 @@
         >
         </div>
       </div>
-      <hr class="offset-md-2 col-md-8">
+      <div class="offset-md-2 col-md-8">
+        <hr>
+      </div>
     </div>
 
-    <div class="row py-5 text-center">
+    <div class="row py-3 py-md-5 text-center">
       <div class="offset-md-1 col-md-10">
         <p class="h1-heading font-changa">{% trans "Let's work together to make recommendation engines on the internet more trustworthy." %}</p>
       </div>
     </div>
 
-    <div class="row py-5 text-center section-articles">
+    <div class="row py-3 py-md-5 text-center section-articles">
       <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
         <p class="h6-heading mb-1">{% trans "Mozilla" %}</p>
         <a class="d-block" href="https://foundation.mozilla.org/en/blog/28-reasons-why-youtube-must-change/" target="_blank">{% trans "28 Reasons Why YouTube Must Change" %}</a>
@@ -122,17 +126,17 @@
         <p class="h6-heading mb-1">{% trans "The New York Times" %}</p>
         <a class="d-block" href="https://www.nytimes.com/interactive/2020/03/02/technology/youtube-conspiracy-theory.html" target="_blank">{% trans "Can YouTube Quiet Its Conspiracy Theorists?" %}</a>
       </div>
-      <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+      <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0 mt-md-3 mt-lg-0">
         <p class="h6-heading mb-1">{% trans "MIT Tech Review" %}</p>
         <a class="d-block" href="https://www.technologyreview.com/2020/01/29/276000/a-study-of-youtube-comments-shows-how-its-turning-people-onto-the-alt-right/" target="_blank">{% trans "YouTube’s algorithm seems to be funneling people to alt-right videos" %}</a>
       </div>
-      <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+      <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0 mt-md-3 mt-lg-0">
         <p class="h6-heading mb-1">{% trans "Bloomberg" %}</p>
         <a class="d-block" href="https://www.bloomberg.com/news/features/2019-04-02/youtube-executives-ignored-warnings-letting-toxic-videos-run-rampant" target="_blank">{% trans "YouTube Executives Ignored Warnings, Letting Toxic Videos Run Rampant" %}</a>
       </div>
     </div>
 
-    <div class="row py-5 section-for-years">
+    <div class="row py-3 py-md-5 section-for-years">
       <div class="col-12 col-md-5">
         <p class="body-large font-changa">{% trans "For years, journalists, researchers, and even former YouTube employees have been telling YouTube that they need to stop their recommendation engine from sending users down racist, conspiratorial, and other regrettable rabbit holes." %}</p>
       </div>
@@ -149,10 +153,9 @@
           We can use our own data to answer questions about regrettable recommendations that can go a long way towards helping journalists who investigate these problems, other groups like Mozilla who push for more accountability, and engineers and designers who build this technology.
           {% endblocktrans %}
         </p>
-
       </div>
-      <div class="col-12 py-5 text-center">
-        <a class="btn btn-primary btn-download btn-firefox-download mr-md-3" href="{{firefox_download_link}}" target="_blank">{% trans firefox_download_text %}</a>
+      <div class="col-12 pt-2 pt-md-5 pb-5 text-center">
+        <a class="btn btn-primary btn-download btn-firefox-download mt-2 mt-md-0 mr-md-3" href="{{firefox_download_link}}" target="_blank">{% trans firefox_download_text %}</a>
         <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0" href="{{chrome_download_link}}" target="_blank">{% trans chrome_download_text %}</a>
       </div>
     </div>
@@ -175,7 +178,7 @@
       </div>
     </div>
     <div class="timeline-wrapper">
-      <ol class="timeline">
+      <ol class="timeline mb-4 mt-3 mt-md-4">
         <li class="segment">
           {% blocktrans with date="July 2019" trimmed %}
           <h4>{{date}}</h4>
