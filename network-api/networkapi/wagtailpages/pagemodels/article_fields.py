@@ -16,4 +16,5 @@ article_fields = [
         template="wagtailpages/blocks/article_table_block.html"
     )),
     ('double_image', customblocks.ArticleDoubleImageBlock()),
+    ('full_width_image', customblocks.ArticleFullWidthImageBlock()),
 ]

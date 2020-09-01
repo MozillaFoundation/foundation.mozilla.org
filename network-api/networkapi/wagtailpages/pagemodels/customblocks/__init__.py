@@ -16,13 +16,14 @@ from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .video_block import VideoBlock
 from .youtube_regret_block import YoutubeRegretBlock
-from .articles import ArticleRichText, ArticleDoubleImageBlock
+from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock
 
 
 __all__ = [
     AnnotatedImageBlock,
     AirTableBlock,
     ArticleDoubleImageBlock,
+    ArticleFullWidthImageBlock,
     ArticleRichText,
     BootstrapSpacerBlock,
     iFrameBlock,

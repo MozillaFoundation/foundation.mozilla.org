@@ -31,5 +31,7 @@
       </div>
     </div>
   </div>
-{# Re-start the same containing row thats on the main article_page.html file #}
-<div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+{% if not is_last %}
+  {# Re-start the same containing row thats on the main article_page.html file #}
+  <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+{% endif %}
