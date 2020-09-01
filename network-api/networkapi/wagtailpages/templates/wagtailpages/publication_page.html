@@ -1,16 +1,17 @@
 {% extends "pages/base.html" %}
-{% load wagtailimages_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block content%}
-    <div class="container">
-
+<div class="container">
+<div class="row">
+    <div class="py-4 py-md-5 col-lg-10 justify-content-center">
         <div
         class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
             {% comment %} <div class="col-sm-6 mb-3 mb-sm-0">
                 {% image page.hero_image fill-1240x625 %}1
             </div> {% endcomment %}
 
-            <div class="col-sm-10">
+            
 
                 <h1 class="h1-heading">
                     {{ page.title }}
@@ -71,11 +72,12 @@
                         {% endif %}
                     {% endif %}
                 </div>
-            </div>
-        </div>
+            
+        
       {# page summary #}
-      <div class="content-summary container">
-      <div class="col-sm-10">
+      <div class="content-summary">
+
+
       <h2>{{ page.contents_title }}</h2>
       <div class="child-pages-summary row">
       {% comment %} https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list {% endcomment %}
@@ -112,6 +114,11 @@
         {% endfor %}
         
         </div>
+      </div>
+      <hr class="hr-emphasis">
+      {{ page.notes|richtext }}
+      </div>
+      </div>
       </div>
       </div>
     {% endblock %}
