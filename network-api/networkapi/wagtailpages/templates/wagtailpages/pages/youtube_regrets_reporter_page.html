@@ -37,7 +37,11 @@
           <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step2.png" %}" />
           <p class="d-flex flex-column align-items-center">
             <span class="step-number my-3">2</span>
-            {% trans "Report the video and recommendations that led you to it" %}
+            {% if request.LANGUAGE_CODE == "en" %}
+              {% trans "Report the video and recommendations that led you to it" %}
+            {% else %}
+              {% trans "Report the video* and recommendations that led you to it" %}
+            {% endif %}
           </p>
         </div>
         <div class="col-md-4">
@@ -48,6 +52,10 @@
           </p>
         </div>
       </div>
+      {% if request.LANGUAGE_CODE != "en" %}
+        <div class="row py-md-4">{% trans "* Please note that only English-language videos will be included in our analysis." %}
+        </div>
+      {% endif %}
     </div>
   </div>
 
@@ -70,7 +78,7 @@
         data-form-position="youtube-regrets-reporter"
         data-button-position="side"
         data-layout="2-column"
-        data-cta-header="{% trans "To stay updated on this campaign and our other work, sign up for Mozilla’s newsletter."" %}
+        data-cta-header="{% trans "To stay updated on this campaign and our other work, sign up for Mozilla’s newsletter." %}"
         data-cta-description=""
       >
       </div>
