@@ -38,7 +38,7 @@
           <p class="d-flex flex-column align-items-center">
             <span class="step-number my-3">2</span>
             {% if request.LANGUAGE_CODE == "en" %}
-              {% trans "Report the video and recommendations that led you to it" %}
+              Report the video and recommendations that led you to it
             {% else %}
               {% trans "Report the video* and recommendations that led you to it" %}
             {% endif %}
@@ -53,7 +53,7 @@
         </div>
       </div>
       {% if request.LANGUAGE_CODE != "en" %}
-        <div class="row py-md-4">{% trans "* Please note that only English-language videos will be included in our analysis." %}
+        <div class="row py-md-4">{% trans "*Please note that only English-language videos will be included in our analysis." %}
         </div>
       {% endif %}
     </div>
