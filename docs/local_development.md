@@ -45,6 +45,10 @@ To get a list of invoke commands available, run `invoke -l`:
   test-python (docker-test-python)             Run python tests
 ```
 
+Note the above commands carefully, as they should cover the majority of what you'd need for local development.
+
+For instance, you can run also run common Django commands via invoke, such as `inv manage "makemigrations --merge"` or `inv manage shell`.
+
 **A few examples:**
 
 - `invoke manage load_fake_data`: add more fake data to your project,
