@@ -46,6 +46,20 @@
         color: $white;
       }
     }
+
+    .scroll-hint {
+      $color: $white;
+
+      svg {
+        path {
+          stroke: $color;
+        }
+      }
+
+      figcaption {
+        color: $color;
+      }
+    }
   }
 
   .section-how-it-works {
