@@ -18,21 +18,43 @@ def generate(seed):
 
     reseed(seed)
 
-    # These are "guaranteed" to exist as they are created as
-    # part of the wagtailpages migrations:
+    empower_action, created = FocusArea.objects.get_or_create(
+        name='Empower Action',
+        defaults={
+            'name': 'Empower Action #2',
+            'description': 'Lorem',
+            'page': home_page,
+        }
+    )
+    connect_leaders, created = FocusArea.objects.get_or_create(
+        name='Connect Leaders',
+        defaults={
+            'name': 'Connect Leaders #2',
+            'description': 'Lorem',
+            'page': home_page,
+        }
+    )
+    investigate_and_research, created = FocusArea.objects.get_or_create(
+        name='Investigate & Research',
+        defaults={
+            'name': 'Investigate & Research #2',
+            'description': 'Lorem',
+            'page': home_page,
+        }
+    )
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=FocusArea.objects.get(name='Empower Action')
+        area=empower_action
     )
 
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=FocusArea.objects.get(name='Connect Leaders')
+        area=connect_leaders
     )
 
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=FocusArea.objects.get(name='Investigate & Research')
+        area=investigate_and_research
     )
 
     NUM_SPOTLIGHT_POSTS = 3

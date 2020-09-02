@@ -49,8 +49,7 @@ class PublicationPageFactory(PageFactory):
     publication_date = Faker('date_object')
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
-    Faker
-)
+
 
 # UGLY COPYPASTE FROM latest
 # https://github.com/mvantellingen/wagtail-factories/blob/master/src/wagtail_factories/factories.py
