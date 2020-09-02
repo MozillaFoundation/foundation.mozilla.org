@@ -8,12 +8,14 @@
 {% endblock %}
 
 {% block intro_stationary_wrapper %}
-<p class="body-large text-white mb-0 mb-md-3">{% trans "Download RegretsReporter today." %}</p>
-<div class="d-flex flex-wrap justify-content-center">
-  {% blocktrans with firefox_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" firefox_download_text="Add to Firefox" chrome_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" chrome_download_text="Add to Chrome" %}
-  <a class="btn btn-primary btn-download btn-firefox-download mt-2 mt-md-0 mx-2" href="{{firefox_download_link}}" target="_blank">{{ firefox_download_text }}</a>
-  <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0 mx-2" href="{{chrome_download_link}}" target="_blank">{{ chrome_download_text }}</a>
-  {% endblocktrans %}
+<div class="dark-theme">
+  <p class="body-large mb-0 mb-md-3">{% trans "Download RegretsReporter today." %}</p>
+  <div class="d-flex flex-wrap justify-content-center">
+    {% blocktrans with firefox_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" firefox_download_text="Add to Firefox" chrome_download_link="https://sites.google.com/mozillafoundation.org/regrets-reporter-staff-test/" chrome_download_text="Add to Chrome" %}
+    <a class="btn btn-primary btn-download btn-firefox-download mt-2 mt-md-0 mx-2" href="{{firefox_download_link}}" target="_blank">{{ firefox_download_text }}</a>
+    <a class="btn btn-primary btn-download btn-chrome-download mt-2 mt-md-0 mx-2" href="{{chrome_download_link}}" target="_blank">{{ chrome_download_text }}</a>
+    {% endblocktrans %}
+  </div>
 </div>
 {% endblock %}
 

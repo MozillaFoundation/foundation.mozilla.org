@@ -21,7 +21,7 @@
     background-image: url(../_images/youtube-regrets/regrets-reporter/noise.svg),
       linear-gradient($black 320vh, $white $noise-bg-stop-point, $white);
     background-repeat: repeat-y, repeat;
-    background-size: 100vw 800px, cover;
+    background-size: 100vw auto, cover;
   }
 
   .youtube-regrets-intro-viewport {
