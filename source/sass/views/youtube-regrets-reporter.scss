@@ -38,7 +38,7 @@
 
     .intro-text-container .intro-text {
       @include media-breakpoint-down("sm") {
-        height: 45%;
+        height: 50%;
       }
 
       p {
