@@ -1,0 +1,57 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags wagtailmetadata_tags multi_image_tags i18n static %}
+
+{% block body_id %}youtube-regrets-reporter{% endblock %}
+{% block bodyclass %}has-regrets-intro{% endblock %}
+
+{% block extended_head %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="youtube-regrets-intro-viewport">
+  <div class="scene-container">
+    <div class="scene">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+    <div class="scene">
+      {% for image in page.intro_images %}
+      <div class="block">
+        {% image image.value.image width-500 class="mb-3" alt=image.value.altText %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="intro-text-container">
+    <div class="intro-text">
+      {% for text in page.intro_text %}
+      <p>{{text}}</p>
+      {% endfor %}
+    </div>
+    <div class="intro-stationary-wrapper">
+      {% block intro_stationary_wrapper %}
+      {% endblock %}
+    </div>
+  </div>
+
+  <figure class="scroll-hint text-center d-none">
+    <img src="{% static "_images/youtube-regrets/scroll.svg" %}" width="28" height="85" />
+    <figcaption>{% trans "Scroll" %}</figcaption>
+  </figure>
+</div>
+
+<main>
+  {% block main %}
+  {% endblock %}
+</main>
+{% endblock %}
+
+
+{% block footer_block %}
+{% include "partials/footer.html" %}
+{% endblock %}

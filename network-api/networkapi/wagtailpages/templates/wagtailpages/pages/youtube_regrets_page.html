@@ -1,4 +1,4 @@
-{% extends "pages/base.html" %}
+{% extends "./youtube_regrets_base.html" %}
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n static %}
 
 {% block body_id %}youtube-regrets{% endblock %}
@@ -7,45 +7,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
 {% endblock %}
 
-{% block content %}
-<div class="youtube-regrets-intro-viewport">
-  <div class="scene-container">
-    <div class="scene">
-      <div class="ring"></div>
-      <div class="ring"></div>
-      <div class="ring"></div>
-      <div class="ring"></div>
-      <div class="ring"></div>
-    </div>
-    <div class="scene">
-      {% for image in page.intro_images %}
-      <div class="block">
-        {% image image.value.image width-500 class="mb-3" alt=image.value.altText %}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+{% block intro_stationary_wrapper %}
+<button class="btn btn-primary btn-newsletter mx-auto for-mobile">{% trans "Join Mozilla" %}</button>
+<button class="btn btn-primary btn-newsletter mx-auto for-desktop">{% trans "Join Mozilla" %}</button>
+{% endblock %}
 
-  <div class="intro-text-container">
-    <div class="intro-text">
-      {% for text in page.intro_text %}
-      <p>{{text}}</p>
-      {% endfor %}
-    </div>
-    <div class="intro-stationary-wrapper">
-      <button class="btn btn-primary btn-newsletter mx-auto for-mobile">{% trans "Join Mozilla" %}</button>
-      <button class="btn btn-primary btn-newsletter mx-auto for-desktop">{% trans "Join Mozilla" %}</button>
-    </div>
-  </div>
-
-  <figure class="scroll-hint text-center d-none">
-    <img src="{% static "_images/youtube-regrets/scroll.svg" %}" width="28" height="85" />
-    <figcaption>{% trans "Scroll" %}</figcaption>
-  </figure>
-</div>
-
+{% block main %}
 {% trans "28 reasons why YouTube must change: startling stories of YouTube’s recommendations leading people down bizarre and dangerous paths" as share_text %}
-<main class="container">
+<div class="container">
   <div class="row d-md-none my-3">
     <div class="col-12">
       <div class="share-button-group-wrapper" data-version="mini" data-share-text="{{share_text}}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
@@ -81,7 +50,7 @@
       {% include "./load-more-regrets.html" %}
     </div>
   </div>
-</main>
+</div>
 {% endblock %}
 
 {% block footer_block %}

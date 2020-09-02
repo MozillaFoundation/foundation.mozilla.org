@@ -1,0 +1,299 @@
+#view-youtube-regrets-reporter {
+  $font-changa: "Changa", sans-serif;
+
+  main {
+    a {
+      color: $youtube-regrets-red;
+    }
+
+    .h2-heading {
+      @include set-text-size(26px, 35px, 38px, 42px);
+
+      font-family: $font-changa;
+      font-weight: 400;
+      letter-spacing: -2px;
+    }
+  }
+
+  .wrapper {
+    $noise-bg-stop-point: 360vh;
+
+    background-image: url(../_images/youtube-regrets/regrets-reporter/noise.svg),
+      linear-gradient($black 320vh, $white $noise-bg-stop-point, $white);
+    background-repeat: repeat-y, repeat;
+    background-size: 100vw 800px, cover;
+  }
+
+  .youtube-regrets-intro-viewport {
+    .scene-container .scene .ring {
+      filter: drop-shadow(0 0 8px $white);
+      box-shadow: none;
+      border: 4px solid $gray-40;
+    }
+
+    .intro-stationary-wrapper {
+      .body-large {
+        @include set-text-size(20px, 26px, 32px, 40px);
+      }
+    }
+
+    .intro-text-container .intro-text {
+      @include media-breakpoint-down("sm") {
+        height: 45%;
+      }
+
+      p {
+        color: $white;
+      }
+    }
+  }
+
+  .section-how-it-works {
+    .steps {
+      p {
+        @include set-text-size(18px, 21px, 26px, 30px);
+        font-family: "Zilla Slab";
+
+        .step-number {
+          @include heading($font-family-sans-serif, 700, 0, $white, $white);
+          @include set-text-size(32px, 45px);
+
+          border-radius: 50%;
+          background: $youtube-regrets-red;
+          height: 45px;
+          width: 45px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .section-newsletter {
+    .join-us {
+      .h5-heading {
+        @include heading(
+          $font-changa,
+          400,
+          0,
+          $youtube-regrets-red,
+          $youtube-regrets-red
+        );
+        @include set-text-size(26px, 30px, 38px, 42px);
+      }
+
+      .form-control {
+        border: 0;
+        border-bottom: 2px solid $youtube-regrets-red;
+        background: none;
+      }
+
+      .btn-primary {
+        background: transparent;
+        color: $youtube-regrets-red;
+        border: 2px solid $youtube-regrets-red;
+        width: auto !important;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+
+  .section-articles {
+    .h6-heading {
+      @include heading($font-family-sans-serif, 700, 1px, $black, $black);
+      @include set-text-size(14px, 28px);
+    }
+
+    a {
+      @include set-text-size(18px, 26px, 24px, 31px);
+    }
+  }
+
+  .section-for-years {
+    .body-large {
+      @include set-text-size(26px, 30px, 38px, 42px);
+      letter-spacing: -2px;
+    }
+  }
+
+  .section-timeline {
+    background: $black;
+
+    .timeline-wrapper {
+      overflow: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+
+      h4 {
+        @include set-text-size(18px, 32px);
+
+        font-family: $font-changa;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+
+      .timeline {
+        $num-item: 10;
+        $width-mobile: 70%;
+        $width-tablet: 40%;
+        $width-desktop: 28%;
+        $width-desktop-xl: 22%;
+        $padding-x: 30px;
+
+        padding: 0 $padding-x;
+        border-top: 1px solid $gray-05;
+        counter-reset: segment;
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+
+        @mixin set-timeline-width($item-width) {
+          width: calc(#{$num-item} * #{$item-width} - #{$padding-x} * 2);
+
+          li {
+            width: $item-width;
+          }
+        }
+
+        @include set-timeline-width($width-mobile);
+
+        @media screen and (min-width: $bp-md) {
+          @include set-timeline-width($width-tablet);
+        }
+
+        @media screen and (min-width: $bp-lg) {
+          @include set-timeline-width($width-desktop);
+        }
+
+        @media screen and (min-width: $bp-xl) {
+          @include set-timeline-width($width-desktop-xl);
+        }
+
+        li {
+          $pointer-height: 1.5rem;
+          $pointer-radius: 4.5px;
+          $padding-top: 0.5rem;
+
+          display: inline-block;
+          padding-top: calc(#{$pointer-height} + #{$padding-top});
+          padding-right: 2rem;
+          position: relative;
+          opacity: 1;
+          transition: opacity 0.1s ease-in;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: -$pointer-radius;
+            left: $pointer-radius;
+            width: $pointer-radius * 2;
+            height: $pointer-radius * 2;
+            border-radius: 50%;
+            background: $blue;
+          }
+
+          &::after {
+            $border-thickness: 1px;
+
+            content: "";
+            position: absolute;
+            top: 0;
+            left: calc(#{$pointer-radius * 2} - #{$border-thickness});
+            height: $pointer-height;
+            border: $border-thickness solid $blue;
+          }
+
+          p {
+            @include set-text-size(16px, 21px);
+          }
+        }
+      }
+
+      .control-next {
+        position: absolute;
+        top: 40%;
+        right: 20px;
+
+        .btn {
+          cursor: pointer;
+
+          &:after {
+            content: "";
+            display: inline-block;
+            border-style: solid;
+            border-width: 20px 0 20px 40px;
+            border-color: transparent transparent transparent $blue;
+          }
+        }
+      }
+    }
+  }
+
+  .btn-primary {
+    border-radius: 3px;
+  }
+
+  .btn-download {
+    $icon-width: 50px;
+
+    position: relative;
+    background: $youtube-regrets-red;
+    color: $white;
+    padding-left: $icon-width * 1.3;
+    padding-right: $icon-width * 0.3;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+
+    &:before,
+    &:after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: $icon-width;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &:before {
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: brightness(0) invert(100%);
+    }
+
+    &:after {
+      border-right: 1px solid $youtube-regrets-lighter-red;
+    }
+
+    &.btn-firefox-download {
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/firefox-logo-red.svg);
+      }
+    }
+
+    &.btn-chrome-download {
+      &:before {
+        background-image: url(../_images/youtube-regrets/regrets-reporter/chrome-logo-red.svg);
+      }
+    }
+
+    @include hover-focus-active {
+    }
+  }
+
+  .dark-theme {
+    .btn-download {
+      background: $white;
+      color: $youtube-regrets-red;
+
+      &:before {
+        filter: none;
+      }
+
+      &:after {
+        border-color: $gray-20;
+      }
+    }
+  }
+}
