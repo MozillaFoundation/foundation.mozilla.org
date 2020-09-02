@@ -20,6 +20,8 @@ from .models import (
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
+    PublicationPage,
+    ArticlePage,
 
     CTA,
     Petition,
@@ -204,6 +206,16 @@ class RedirectingPageTR(TranslationOptions):
     fields = (
         'URL',
     )
+
+
+@register(PublicationPage)
+class PublicationPageTR(TranslationOptions):
+    fields = ()
+
+
+@register(ArticlePage)
+class ArticlePageTR(TranslationOptions):
+    fields = ()
 
 # The following bindings are obsolete and require cleanup
 
