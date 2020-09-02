@@ -1,77 +1,134 @@
 {% extends "pages/base.html" %}
-{% load wagtailimages_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block content%}
-    <div class="container">
+<div class="container">
+  <div class="row">
 
-        <div
-        class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
-            {% comment %} <div class="col-sm-6 mb-3 mb-sm-0">
-                {% image page.hero_image fill-1240x625 %}1
-            </div> {% endcomment %}
+      <div class="py-4 py-md-5 col-lg-10 justify-content-center">
+          <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
 
-            <div class="col-sm-10">
+                  <h1 class="h1-heading">
+                      {{ page.title }}
+                  </h1>
 
-                <h1 class="h1-heading">
-                    {{ page.title }}
-                </h1>
+                  <div class="body-large mb-4">
+                      {% if page.subtitle %}
+                          {{ page.subtitle }}
+                      {% endif %}
+                  </div>
 
-                <div class="body-large mb-4">
-                    {% if page.subtitle %}
-                        {{ page.subtitle }}
-                    {% endif %}
-                </div>
+                  <div class="body-large mb-4">
 
-                <div class="body-large mb-4">
-
-                    {% if page.secondary_subtitle %}
-                        {{ page.secondary_subtitle }}
-                        {% endif%}
-                    </div>
-                    {% if page.publication_date %}
-                        {{ page.publication_date }}
-                    {% endif %}
-
-
-                    <div class="blog-authors d-flex flex-wrap align-items-center">
-                      <div class="author-images d-flex flex-wrap">
-                      {% for author in page.authors.all %}
-                        <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}">
-                        {% if author.author.image %}
-                          {% image author.author.image fill-100x100 as img %}
-                          <img src="{{ img.url }}" alt="{{ author.author.name }}" title="{{ author.author.name }}" />
-                        {% endif %}
-                        </div>
-                      {% endfor %}
+                      {% if page.secondary_subtitle %}
+                          {{ page.secondary_subtitle }}
+                          {% endif%}
                       </div>
-                    </div>
+                      {% if page.publication_date %}
+                          {{ page.publication_date }}
+                      {% endif %}
 
-                    {% if page.authors.count %}
-                      {% with authors_length=page.authors.count %}
-                        {% for orderable in page.authors.all %}
-                          <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ orderable.author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
+
+                      <div class="blog-authors d-flex flex-wrap align-items-center">
+                        <div class="author-images d-flex flex-wrap">
+                        {% for author in page.authors.all %}
+                          <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}">
+                          {% if author.author.image %}
+                            {% image author.author.image fill-100x100 as img %}
+                            <img src="{{ img.url }}" alt="{{ author.author.name }}" title="{{ author.author.name }}" />
+                          {% endif %}
+                          </div>
                         {% endfor %}
-                        {% if page.additional_author_copy %}
-                          {{ page.additional_author_copy }}
-                        {% endif %}
-                      {% endwith %}
-                    {% else %}
-                      TODO Frontend: Either remove this `else` statement, or work with this section if
-                      there are no authors to display.
-                    {% endif %}
+                        </div>
+                      </div>
 
-                    {% if page.publication_file %}
-                        <a
-                        class="btn btn-primary d-block"
-                        href="{{ page.publication_file.url }}">
-                        Download Full PDF
-                        </a>
-                        {% if page.publication_file.file_size %}
-                            {{page.publication_file.file_size}}
-                        {% endif %}
-                    {% endif %}
-                </div>
-            </div>
+                      {% if page.authors.count %}
+                        {% with authors_length=page.authors.count %}
+                          {% for orderable in page.authors.all %}
+                            <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ orderable.author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
+                          {% endfor %}
+                          {% if page.additional_author_copy %}
+                            {{ page.additional_author_copy }}
+                          {% endif %}
+                        {% endwith %}
+                      {% else %}
+                        TODO Frontend: Either remove this `else` statement, or work with this section if
+                        there are no authors to display.
+                      {% endif %}
+
+                      {% if page.publication_file %}
+                          <a
+                          class="btn btn-primary d-block"
+                          href="{{ page.publication_file.url }}">
+                          Download Full PDF
+                          </a>
+                          {% if page.publication_file.file_size %}
+                              {{page.publication_file.file_size}}
+                          {% endif %}
+                      {% endif %}
+                  </div>
+              
+          
+        {# page summary #}
+        <div class="content-summary">
+
+
+        <h2>{{ page.contents_title }}</h2>
+        <div class="child-pages-summary row">
+        {% comment %} https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list {% endcomment %}
+          
+          {% for child, node_info in page.my_children %}
+              {% comment %} 'open' means 'there are siblings so open the list tag' {% endcomment %}
+              
+              {% if node_info.open %}
+                  <ol ><li data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
+              {% else %}
+
+              {% if node_info.level == 1 %}<hr/>{% endif %}
+
+              </li><li class="" data-chapter="{{page.get_chapter_number_or_none|default_if_none:''}}">
+              {% endif %}
+              
+              {% comment %} style for first level of node {% endcomment %}
+              {% if node_info.level == 1 %}
+                <h3 class="d-inline-flex w-75 pl-3">
+                  <a href="{{ child.url }}" class="chapter-article-link">
+                    {{ child.title }}
+                  </a>
+                </h3>
+              {% else %}
+              {% comment %}
+              TECH/Design debt: 
+              semantically these should be h4; but specs have the font be sans-serif. 
+              Might be best to update the styleguide for the site accordingly rather 
+              than have the extra class
+              {% endcomment %}
+
+              <h4 class="d-inline-flex w-75 child-pages-children-title">
+                <a href="{{ child.url }}" class="chapter-article-link">
+                {{ child.title }}
+                </a>
+              </h4>
+              {% endif %}
+
+
+
+              {% comment %} 
+              these are the 'last' elements in the tree, 
+              and we need to close the tags made above
+              {% endcomment %}
+              {% for close in node_info.close %}
+                  </li></ol>
+              {% endfor %}
+                          
+          {% endfor %}
+          
+          </div>
+        </div>
+        
+        <hr class="hr-emphasis">
+        {{ page.notes|richtext }}
+        
         </div>
         {{ page.contents_title }}
     {% endblock %}

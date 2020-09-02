@@ -98,18 +98,13 @@ class ArticlePageFactory(PageFactory):
 
 
 def generate(seed):
-    """
-    makes a batch of 3 publication pages
-    eventually I'd like to add a post_generation hooks that gives each of these pages an arbitrary number of chapters
-    and chapters an arbitrary number of articles
-    """
     reseed(seed)
     home_page = get_homepage()
     """
     Create a couple scenarios that will be best for testing:
     * A PublicationPage with several child ArticlePages
     * A PublicationPage with child PublicationPages, each of which has their own ArticlePages
-        * perhaps nested at random levels of depth?
+        * future: perhaps nested at random levels of depth?
     """
 
     pub_page_with_child_articles = PublicationPageFactory.create(
