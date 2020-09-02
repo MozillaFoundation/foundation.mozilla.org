@@ -62,7 +62,6 @@ jobs:
         - python network-api/manage.py block_inventory
         - python network-api/manage.py sync_page_translation_fields
         - python network-api/manage.py update_translation_fields
-        - python network-api/manage.py load_fake_data
         - python network-api/manage.py compilemessages
       script:
         - flake8 tasks.py network-api/
