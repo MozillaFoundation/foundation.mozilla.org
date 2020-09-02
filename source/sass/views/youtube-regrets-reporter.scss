@@ -215,6 +215,10 @@
             border: $border-thickness solid $blue;
           }
 
+          &.faded {
+            opacity: 0.3;
+          }
+
           p {
             @include set-text-size(16px, 21px);
           }

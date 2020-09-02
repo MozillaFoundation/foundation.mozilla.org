@@ -1,59 +1,91 @@
-export default () => {
-  let timeline = document.querySelector(".timeline");
-  let segment = document.querySelector(".timeline .segment");
-  let button = document.querySelector(".btn-timeline-next");
+import utility from "../../../utility.js";
 
-  if (!(timeline && segment && button)) {
-    return;
+let elements = {
+  timeline: `#view-youtube-regrets-reporter .timeline-wrapper .timeline`,
+  segments: `#view-youtube-regrets-reporter .timeline-wrapper .timeline .segment`,
+  button: `#view-youtube-regrets-reporter .timeline-wrapper .btn-timeline-next`,
+};
+
+class RegretsReporterTimeline {
+  constructor() {
+    this.buttonClickCounter = 0;
+
+    this.init();
   }
 
-  let segmentWidth = segment.offsetWidth;
-  let segements = document.querySelectorAll(".timeline .segment");
-  let counter = 0;
-
-  let checkIfInView = (elem) => {
+  /**
+   * Check if segment is fully shown in current viewport
+   */
+  checkIfInView(seg) {
     let windowWidth = window.innerWidth || document.documentElement.clientWidth;
 
-    return elem.getBoundingClientRect().right <= windowWidth;
-  };
+    return seg.getBoundingClientRect().right <= windowWidth;
+  }
 
-  let updateOpacity = () => {
-    segements.forEach((seg, i) => {
-      seg.style.opacity = checkIfInView(seg) ? 1 : 0.3;
-    });
-  };
-
-  updateOpacity();
-
-  timeline.addEventListener("transitionend", () => {
-    updateOpacity();
-  });
-
-  window.addEventListener("resize", () => {
-    updateOpacity();
-  });
-
-  button.addEventListener("click", () => {
-    let windowWidth = window.innerWidth || document.documentElement.clientWidth;
-    let lastItemShown = checkIfInView(
-      document.querySelector(".timeline .segment:last-of-type")
-    );
-    let offset;
-
-    if (lastItemShown) {
-      // move back to first item
-      offset = 0;
-      counter = 0;
-    } else {
-      counter++;
-      offset = segmentWidth * counter;
-
-      if (windowWidth + offset >= timeline.offsetWidth) {
-        // show the last item
-        offset = timeline.offsetWidth - windowWidth;
+  /**
+   * Update each timeline segment's opacity
+   */
+  updateOpacity() {
+    elements.segments.forEach((seg) => {
+      if (this.checkIfInView(seg)) {
+        seg.classList.remove(`faded`);
+      } else {
+        seg.classList.add(`faded`);
       }
+    });
+  }
+
+  /**
+   * Initiate RegretsReporter timeline
+   */
+  init() {
+    this.loadAttempt = this.loadAttempt || 1;
+
+    if (!utility.checkAndBindDomNodes(elements, true)) {
+      if (this.loadAttempt++ < 5) {
+        setTimeout(() => this.init(), 200);
+      }
+      return;
     }
 
-    timeline.style.transform = `translateX(-${offset}px)`;
-  });
-};
+    this.timeline = elements.timeline[0];
+
+    this.updateOpacity();
+
+    this.timeline.addEventListener("transitionend", () => {
+      this.updateOpacity();
+    });
+
+    window.addEventListener("resize", () => {
+      this.updateOpacity();
+    });
+
+    elements.button[0].addEventListener("click", () => {
+      let segmentWidth = elements.segments[0].offsetWidth;
+      let windowWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+      let lastItemShown = this.checkIfInView(
+        document.querySelector(".timeline .segment:last-of-type")
+      );
+      let offset;
+
+      if (lastItemShown) {
+        // move back to first item
+        offset = 0;
+        this.buttonClickCounter = 0;
+      } else {
+        this.buttonClickCounter++;
+        offset = segmentWidth * this.buttonClickCounter;
+
+        if (windowWidth + offset >= this.timeline.offsetWidth) {
+          // show the last item
+          offset = this.timeline.offsetWidth - windowWidth;
+        }
+      }
+
+      this.timeline.style.transform = `translateX(-${offset}px)`;
+    });
+  }
+}
+
+export default RegretsReporterTimeline;
