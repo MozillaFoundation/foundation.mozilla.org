@@ -148,11 +148,7 @@
       }
 
       .timeline {
-        $num-item: 10;
-        $width-mobile: 70%;
-        $width-tablet: 40%;
-        $width-desktop: 28%;
-        $width-desktop-xl: 22%;
+        $totoal-num-items: 10;
         $padding-x: 30px;
 
         padding: 0 $padding-x;
@@ -161,26 +157,28 @@
         display: flex;
         transition: transform 0.5s ease-in-out;
 
-        @mixin set-timeline-width($item-width) {
-          width: calc(#{$num-item} * #{$item-width} - #{$padding-x} * 2);
+        @mixin set-timeline-width($items-per-viewport) {
+          $item-width: calc(
+            (100% - #{$padding-x} * 2) / (#{$items-per-viewport} + 0.5)
+          );
+
+          width: calc(
+            #{$totoal-num-items} * #{$item-width} + #{$padding-x} * 2
+          );
 
           li {
             width: $item-width;
           }
         }
 
-        @include set-timeline-width($width-mobile);
+        @include set-timeline-width(1);
 
         @media screen and (min-width: $bp-md) {
-          @include set-timeline-width($width-tablet);
+          @include set-timeline-width(3);
         }
 
         @media screen and (min-width: $bp-lg) {
-          @include set-timeline-width($width-desktop);
-        }
-
-        @media screen and (min-width: $bp-xl) {
-          @include set-timeline-width($width-desktop-xl);
+          @include set-timeline-width(4);
         }
 
         li {
