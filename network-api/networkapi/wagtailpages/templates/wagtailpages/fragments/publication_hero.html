@@ -2,21 +2,26 @@
 
 {% if page.hero_image %}
   {% image page.hero_image fill-1400x675 as bg_img %}
-  <div class="d-flex align-items-center publication-hero-container" style='background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{{ bg_img.url }}")'>
+  <div 
+    class="d-flex align-items-center publication-hero-container" 
+    style='background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{{ bg_img.url }}")'>
 {% else %}
-  <div class="d-flex align-items-center publication-hero-container" style='background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75))'>
+  <div 
+    class="d-flex align-items-center publication-hero-container" 
+    style='background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75))'>
 {% endif %}
   <div class="container">
     <div class="row">
-      <div class="{% if page.is_chapter_page %}col-lg-8 offset-lg-2{% else %}col-lg-10 offset-lg-1{% endif %}">
+      <div>
         {# TODO: Add breadcrumb #}
-        <div class="publication-hero-title text-white">
+
+        <h1 class="publication-hero-title text-white">
           {{ page.title }}
-        </div>
+        </h1>
         {% if page.subtitle %}
-          <div class="publication-hero-subtitle text-white mt-2">
+          <h2 class="publication-hero-subtitle text-white h3-heading">
             {{ page.subtitle }}
-          </div>
+          </h2>
         {% endif %}
         {% if page.secondary_subtitle or page.publication_date %}
           <div class="publication-hero-secondary-subtitle mt-2 mb-4">
@@ -61,17 +66,16 @@
           </div>
         {% endif %}
         {% if page.publication_file %}
-          <div class="mt-5">
-            <a class="btn btn-primary" href="{{ page.publication_file.url }}">
+          <button class="mt-3 btn btn-primary download-button" download="{{ page.publication_file.url }}">
+
               {# TODO: Needs the download icon #}
               {% trans 'Download Full PDF' %}
-            </a>
             {% if page.publication_file.file_size %}
               <span class="d-inline-block ml-4 publication-hero-file-size">
                 {{ page.publication_file.file_size|filesizeformat }}
               </span>
             {% endif %}
-          </div>
+          </button>
         {% endif %}
       </div>
     </div>
