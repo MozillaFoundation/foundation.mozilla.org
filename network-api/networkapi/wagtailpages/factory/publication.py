@@ -9,8 +9,6 @@ from factory import (
     DjangoModelFactory,
 )
 
-from ..pagemodels.publications.publication import PublicationAuthors
-
 # UGLY COPYPASTE FROM latest
 # https://github.com/mvantellingen/wagtail-factories/blob/master/src/wagtail_factories/factories.py
 
@@ -38,11 +36,6 @@ class DocumentFactory(CollectionMemberFactory):
     file = django.FileField(
         filename=Faker("file_name", category="text"), file_extension="pdf"
     )
-
-
-class PublicationAuthorsFactory(DjangoModelFactory):
-    class Meta:
-        model = PublicationAuthors
 
 
 class PublicationPageFactory(PageFactory):
