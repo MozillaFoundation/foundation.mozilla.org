@@ -194,6 +194,8 @@ def manage(ctx, command):
 def migrate(ctx):
     """Updates database schema"""
     manage(ctx, "migrate --no-input")
+    l10n_sync(ctx)
+    l10n_update(ctx)
 
 
 @task(aliases=["docker-makemigrations"])

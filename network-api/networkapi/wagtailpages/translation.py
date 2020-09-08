@@ -22,6 +22,9 @@ from .models import (
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
 
+    PublicationPage,
+    ArticlePage,
+
     CTA,
     Petition,
     Signup,
@@ -205,6 +208,16 @@ class RedirectingPageTR(TranslationOptions):
     fields = (
         'URL',
     )
+
+
+@register(PublicationPage)
+class PublicationPageTR(TranslationOptions):
+    fields = ()
+
+
+@register(ArticlePage)
+class ArticlePageTR(TranslationOptions):
+    fields = ()
 
 # The following bindings are obsolete and require cleanup
 
