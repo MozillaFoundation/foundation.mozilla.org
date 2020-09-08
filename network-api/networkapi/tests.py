@@ -11,6 +11,7 @@ from django.utils.translation.trans_real import (
 )
 from unittest.mock import MagicMock
 
+from wagtail.core.models import Site
 from wagtail_factories import SiteFactory
 
 from networkapi.utility.redirects import redirect_to_default_cms_site
@@ -109,8 +110,14 @@ class MozillaFoundationUsersNotDeletedTest(TestCase):
 
 
 class RedirectDefaultSiteDecoratorTests(TestCase):
+
     def setUp(self):
         self.factory = RequestFactory()
+        # Change the default site away from localhost
+        self.original_default_site = Site.objects.get(is_default_site=True, hostname='localhost')
+        self.original_default_site.is_default_site = False
+        self.original_default_site.save()
+        # Add a default site, and a secondary site.
         self.default_site = SiteFactory(hostname='default-site.com', is_default_site=True)
         self.secondary_site = SiteFactory(hostname="secondary-site.com")
 
@@ -140,6 +147,15 @@ class RedirectDefaultSiteDecoratorTests(TestCase):
             "https://default-site.com/en/privacynotincluded/",
             fetch_redirect_response=False
         )
+
+    def tearDown(self):
+        # Re-instante localhost as the default site
+        self.original_default_site.is_default_site = True
+        self.original_default_site.save()
+
+        # Remove the Site Factories
+        self.default_site.delete()
+        self.secondary_site.delete()
 
 
 class WagtailPagesTestCase(TestCase):
