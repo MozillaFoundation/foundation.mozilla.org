@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import choice, randint
+from random import choice, randint, shuffle
 
 from django.conf import settings
 
@@ -54,8 +54,10 @@ def add_category(post):
 
 
 def add_authors(post):
-    authors = list(BlogAuthor.objects.order_by("?").all())
+    authors = list(BlogAuthor.objects.all())
     count = len(authors)
+
+    shuffle(authors)
 
     for i in range(0, randint(1, min(count, 5))):
         author_orderable = BlogAuthors.objects.create(page=post, author=authors[i])
