@@ -16,6 +16,8 @@ from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from networkapi.wagtailpages.models import BlogAuthor
 
 
+
+
 class PublicationAuthors(Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
@@ -98,8 +100,8 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
             FieldPanel('publication_date'),
             ImageChooserPanel('hero_image'),
             DocumentChooserPanel('publication_file'),
-            InlinePanel("authors", label="Author"),
-            FieldPanel("additional_author_copy"),
+            InlinePanel('authors', label="Author"),
+            FieldPanel('additional_author_copy'),
         ], heading="Hero"),
         FieldPanel('contents_title'),
         FieldPanel('notes')
