@@ -1,6 +1,4 @@
-
 from django.db import models
-from django.db.models import QuerySet
 from typing import Union
 
 from modelcluster.fields import ParentalKey
@@ -16,17 +14,12 @@ from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from networkapi.wagtailpages.models import BlogAuthor
 
 
-
-
 class PublicationAuthors(Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.PublicationPage", related_name="authors")
     author = models.ForeignKey(
-        BlogAuthor,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=False
+        BlogAuthor, on_delete=models.SET_NULL, null=True, blank=False
     )
 
     panels = [
@@ -50,15 +43,15 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     An Article can only belong to one Chapter/Publication Page
     """
 
-    subpage_types = ['ArticlePage', 'PublicationPage']
+    subpage_types = ["ArticlePage", "PublicationPage"]
 
     hero_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='publication_hero_image',
-        verbose_name='Publication Hero Image',
+        related_name="publication_hero_image",
+        verbose_name="Publication Hero Image",
     )
     subtitle = models.CharField(
         blank=True,
@@ -68,17 +61,13 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         blank=True,
         max_length=250,
     )
-    publication_date = models.DateField(
-        "Publication date",
-        null=True,
-        blank=True
-    )
+    publication_date = models.DateField("Publication date", null=True, blank=True)
     publication_file = models.ForeignKey(
-        'wagtaildocs.Document',
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     additional_author_copy = models.CharField(
         help_text="Example: with contributing authors",
@@ -94,17 +83,20 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         max_length=250,
     )
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('subtitle'),
-            FieldPanel('secondary_subtitle'),
-            FieldPanel('publication_date'),
-            ImageChooserPanel('hero_image'),
-            DocumentChooserPanel('publication_file'),
-            InlinePanel('authors', label="Author"),
-            FieldPanel('additional_author_copy'),
-        ], heading="Hero"),
-        FieldPanel('contents_title'),
-        FieldPanel('notes')
+        MultiFieldPanel(
+            [
+                FieldPanel("subtitle"),
+                FieldPanel("secondary_subtitle"),
+                FieldPanel("publication_date"),
+                ImageChooserPanel("hero_image"),
+                DocumentChooserPanel("publication_file"),
+                InlinePanel("authors", label="Author"),
+                FieldPanel("additional_author_copy"),
+            ],
+            heading="Hero",
+        ),
+        FieldPanel("contents_title"),
+        FieldPanel("notes"),
     ]
 
     @property

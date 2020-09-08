@@ -20,17 +20,17 @@ def generate(seed):
 
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=empower_action
+        area=FocusArea.objects.get(name='Empower Action')
     )
 
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=connect_leaders
+        area=FocusArea.objects.get(name='Connect Leaders')
     )
 
     HomepageFocusAreas.objects.create(
         page=home_page,
-        area=investigate_and_research
+        area=FocusArea.objects.get(name='Investigate & Research')
     )
 
     NUM_SPOTLIGHT_POSTS = 3

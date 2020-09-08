@@ -1,15 +1,14 @@
 from wagtail.core.models import Collection
 from wagtail_factories import PageFactory, ImageFactory
-from networkapi.wagtailpages.models import ArticlePage, PublicationPage, BlogAuthor
+from networkapi.wagtailpages.models import ArticlePage, PublicationPage
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from factory import (
     Faker,
     SubFactory,
     django,
     DjangoModelFactory,
-    Iterator,
 )
-from .blog import BlogAuthorFactory
+
 from ..pagemodels.publications.publication import PublicationAuthors
 
 # UGLY COPYPASTE FROM latest
@@ -40,9 +39,11 @@ class DocumentFactory(CollectionMemberFactory):
         filename=Faker("file_name", category="text"), file_extension="pdf"
     )
 
+
 class PublicationAuthorsFactory(DjangoModelFactory):
     class Meta:
         model = PublicationAuthors
+
 
 class PublicationPageFactory(PageFactory):
     title = Faker("text", max_nb_chars=120)
@@ -54,7 +55,6 @@ class PublicationPageFactory(PageFactory):
 
     class Meta:
         model = PublicationPage
-
 
 
 # this is actually just a blog author factory, hello tech debt
@@ -74,7 +74,6 @@ def generate(seed):
     * A PublicationPage with child PublicationPages, each of which has their own ArticlePages
         * future: perhaps nested at random levels of depth?
     """
-
 
     pub_page_with_child_articles = PublicationPageFactory.create(
         parent=home_page, title="Publication Page with child Article Pages"
