@@ -18,30 +18,6 @@ def generate(seed):
 
     reseed(seed)
 
-    empower_action, created = FocusArea.objects.get_or_create(
-        name='Empower Action',
-        defaults={
-            'name': 'Empower Action #2',
-            'description': 'Lorem',
-            'page': home_page,
-        }
-    )
-    connect_leaders, created = FocusArea.objects.get_or_create(
-        name='Connect Leaders',
-        defaults={
-            'name': 'Connect Leaders #2',
-            'description': 'Lorem',
-            'page': home_page,
-        }
-    )
-    investigate_and_research, created = FocusArea.objects.get_or_create(
-        name='Investigate & Research',
-        defaults={
-            'name': 'Investigate & Research #2',
-            'description': 'Lorem',
-            'page': home_page,
-        }
-    )
     HomepageFocusAreas.objects.create(
         page=home_page,
         area=empower_action
