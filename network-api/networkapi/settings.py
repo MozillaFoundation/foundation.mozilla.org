@@ -152,7 +152,7 @@ SITE_ID = 1
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
-                    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
 
 USE_S3 = env('USE_S3')
 USE_CLOUDINARY = env('USE_CLOUDINARY')
@@ -193,6 +193,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.redirects',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.styleguide' if DEBUG else None,
+    'wagtail.contrib.table_block',
     'wagtail.contrib.modeladmin',
     'experiments',
     'wagtailinventory',

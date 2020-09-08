@@ -17,13 +17,13 @@
   <p class="body-small my-2">
     {% with authors_length=authors|length %}
     {% spaceless %}
-    {% if show_full_info %}{% blocktrans %}By {% endblocktrans %}{% endif %}
+    {% if show_full_info %}{% trans "By" %} {% endif %}
     {% for author in authors %}
     <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
     {% endfor %}
     {% if show_full_info %}
       | {% if blog_page.first_published_at %}{{ blog_page.first_published_at|date:"DATE_FORMAT" }}
-        {% else %}{% blocktrans %}not published yet{% endblocktrans %}{% endif %}
+        {% else %}not published yet{% endif %}
       {% with category=page.specific.category.first %}
       {% if category and blog_index %}
         | <a class="category" href="{{blog_index.url}}category/{{category.slug}}">{{ category }}</a>

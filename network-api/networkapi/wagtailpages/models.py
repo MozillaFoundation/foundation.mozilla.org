@@ -71,7 +71,17 @@ from .pagemodels.youtube import (
     YoutubeRegretsPage
 )
 
+from .pagemodels.publications.publication import (
+    PublicationPage
+)
+
+from .pagemodels.publications.article import (
+    ArticlePage
+)
+
+
 __all__ = [
+    ArticlePage,
     base_fields,
     BanneredCampaignPage,
     BlogIndexPage,
@@ -101,6 +111,7 @@ __all__ = [
     PeoplePage,
     Petition,
     PrimaryPage,
+    PublicationPage,
     RedirectingPage,
     Signup,
     Styleguide,

@@ -165,7 +165,7 @@ export default {
     "Last name": `Nom`,
     "Please enter your surname": `Veuillez saisir votre nom de famille`,
     "Email address": `Adresse électronique`,
-    "Please enter your email": `Veuillez saisir votre adresse électronique`,
+    "Please enter your email": `Saisissez votre adresse électronique`,
     "Your country": `Votre pays`,
     "Please enter your country": `Veuillez sélectionner votre pays`,
     "Postal code": `Code postal`,
