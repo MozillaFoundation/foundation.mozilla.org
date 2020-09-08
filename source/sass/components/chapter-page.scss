@@ -9,8 +9,8 @@
   display: flex;
   width: 80px;
   height: 80px;
-  background-color: purple;
-  color: #fff;
+  background-color: $light-blue;
+  color: $white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -40,7 +40,7 @@
   width: 160px;
   height: 160px;
   background-color: $light-blue;
-  color: #fff;
+  color: $white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -52,7 +52,7 @@
 // the margin-left is to help it line up per design spec..probably a better way to do this
 .child-pages-summary > ol > li > ol {
   margin-left: 161px;
-  color: #6c757d;
+  color: $gray-40;
 }
 
 .child-pages-children-title {
@@ -60,12 +60,10 @@
   font-size: $font-size-base;
 }
 
-// this is essentially the 'container' that holds a section of content summary
-// .child-pages-summary > ol > li {
+/* this is essentially the 'container' that holds a section of content summary
+.child-pages-summary > ol > li {
 
-// }
-
-
+ } */
 
 .publication-hero-subtitle {
   font-family: $font-family-sans-serif !important;
@@ -73,7 +71,7 @@
 
 .publication-hero-secondary-subtitle,
 .publication-hero-file-size {
-  color: rgb(153, 153, 153);
+  color: $gray-40;
   font-size: 12px;
   font-family: "Nunito Sans";
   font-weight: normal;
@@ -94,13 +92,12 @@
   width: 18px;
   height: 18px;
   margin-right: 10px;
-  background-image: url('../_images/glyphs/download-file.svg');
+  background-image: url(../_images/glyphs/download-file.svg);
 }
 
-@media(max-width: $bp-md) {
+@media (max-width: $bp-md) {
   .publication-hero-container {
     padding-top: 100px;
     padding-bottom: 125px;
   }
 }
-
