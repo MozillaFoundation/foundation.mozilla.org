@@ -1,5 +1,5 @@
 .article-summary {
-  background: rgb(231, 231, 252);
+  background: rgb(231, 231, 252); // One-off colors; no variable exists for this
   padding: 32px 30px;
   width: calc(80% + 60px);
   margin: -48px auto 48px;
@@ -7,9 +7,9 @@
 
 .article-summary,
 .article-summary-link {
-  color: rgb(102, 102, 102);
+  color: $gray-60;
   font-size: 16px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: normal;
   letter-spacing: 0px;
   line-height: 24px;
@@ -28,14 +28,14 @@
   flex-shrink: 0;
 
   &:hover {
-    color: rgb(102, 102, 102);
+    color: $gray-60;
   }
 }
 
 .article-summary-title {
   color: $black;
   font-size: 12px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: normal;
   letter-spacing: 0px;
   line-height: 16px;
@@ -43,7 +43,7 @@
 }
 
 .footnotes {
-  border-top: 1px solid rgb(204, 204, 204);
+  border-top: 1px solid $gray-20;
   padding-top: 47px;
   margin-top: 48px;
   margin-bottom: 96px;
@@ -51,9 +51,9 @@
 }
 
 .footnotes-title {
-  color: rgb(0, 0, 0);
+  color: $black;
   font-size: 20px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: bold;
   letter-spacing: 0px;
   line-height: 30px;
@@ -64,9 +64,9 @@
 }
 
 .footnote-number {
-  color: rgb(89, 92, 243);
+  color: $blue;
   font-size: 18px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: normal;
   letter-spacing: 0px;
   line-height: 27px;
@@ -74,9 +74,9 @@
 }
 
 .footnote-row a.footnote-text * {
-  color: rgb(102, 102, 102);
+  color: $gray-60;
   font-size: 18px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: normal;
   text-decoration: underline;
   letter-spacing: 0px;
@@ -84,13 +84,13 @@
 }
 
 .article-prev-next {
-  background: rgb(242, 242, 242);
+  background: $gray-05;
   padding-top: 24px;
   padding-bottom: 24px;
 }
 
 .article-prev {
-  border-right: 1px solid rgb(204, 204, 204);
+  border-right: 1px solid $gray-20;
   padding-right: 110px;
   min-height: 83px;
 }
@@ -101,10 +101,10 @@
 }
 
 .prev-next-text {
-  color: rgb(153, 153, 153);
+  color: $gray-40;
   font-size: 12px;
   font-weight: normal;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   letter-spacing: 0px;
   line-height: 16px;
   display: block;
@@ -112,9 +112,9 @@
 }
 
 .article-prev-next-link {
-  color: rgb(0, 0, 0);
+  color: $black;
   font-size: 20px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: 300;
   text-decoration: underline;
   letter-spacing: 0px;
@@ -173,7 +173,7 @@
   hr {
     width: 100%;
     height: 1px;
-    border-top: 1px solid rgb(204, 204, 204);
+    border-top: 1px solid $gray-20;
     margin-bottom: 48px;
     margin-top: 47px;
   }
@@ -236,11 +236,11 @@
 .article-blockquote-block {
   color: $black;
   font-size: 20px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: 300;
   letter-spacing: 0px;
   line-height: 30px;
-  background: rgb(242, 242, 242);
+  background: $gray-05;
   margin: 24px auto;
   padding: 24px 30px;
   width: calc(80% + 60px);
@@ -260,28 +260,28 @@
   background-color: $white;
 
   td, th {
-    border-bottom: 1px solid rgb(160, 162, 248);
-    color: rgb(51, 51, 51);
+    border-bottom: 1px solid rgb(160, 162, 248); // One-off colors; no variable exists for this
+    color: $gray-80;
     font-size: 16px;
-    font-family: "Nunito Sans";
+    font-family: $font-family-sans-serif;
     font-weight: normal;
     letter-spacing: 0px;
     line-height: 24px;
   }
 
   thead td, thead th {
-    background: rgb(89, 92, 243);
+    background: $blue;
     color: $white;
     font-size: 16px;
-    font-family: "Nunito Sans";
+    font-family: $font-family-sans-serif;
     font-weight: 600;
     letter-spacing: 0px;
     line-height: 24px;
   }
   caption {
-    color: rgb(102, 102, 102);
+    color: $gray-60;
     font-size: 12px;
-    font-family: "Nunito Sans";
+    font-family: $font-family-sans-serif;
     font-weight: normal;
     letter-spacing: 0px;
     line-height: 16px;
@@ -292,9 +292,9 @@
 
 .double-image-block, .full-width-image-block {
   figurecaption p {
-    color: rgb(102, 102, 102);
+    color: $gray-60;
     font-size: 12px;
-    font-family: "Nunito Sans";
+    font-family: $font-family-sans-serif;
     font-weight: normal;
     letter-spacing: 0px;
     line-height: 16px;
@@ -303,13 +303,13 @@
 }
 
 .article-navbar {
-  background: rgb(231, 231, 252);
+  background: rgb(231, 231, 252); // One-off colors; no variable exists for this
   padding: 9px 0;
 }
 .article-navbar-title {
   color: $black;
   font-size: 20px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: 300;
   letter-spacing: 0px;
   line-height: 30px;
