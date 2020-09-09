@@ -75,19 +75,20 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     @property
     def next_page(self) -> Union[Page, None]:
         # Try to get the next sibling page.
-        next_page = self.get_next_sibling()
-        next_page = self.get_siblings().filter(path__gt=self.path, live=True)[0]
-        if next_page:
-            return next_page
-        return self.get_parent()
+        try:
+            next_page = self.get_siblings().filter(path__gt=self.path, live=True)[0]
+        except IndexError:
+            next_page = self.get_parent()
+        return next_page
 
     @property
     def prev_page(self) -> Union[Page, None]:
         # Try to get the prev sibling page.
-        prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse()[0]
-        if prev_page:
-            return prev_page
-        return self.get_parent()
+        try:
+            prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse()[0]
+        except IndexError:
+            prev_page = self.get_parent()
+        return prev_page
 
     def get_titles(self):
         body = self.body.__dict__['stream_data']
