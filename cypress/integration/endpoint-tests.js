@@ -166,6 +166,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  it(`YouTube RegretsReporter page`, function () {
+    cy.visit(`/en/campaigns/regrets-reporter/`);
+    cy.wait(1000);
+    cy.percySnapshot();
+  });
+
   // Pages specific to MozFest
 
   it(`MozFest homepage`, function () {
