@@ -52,8 +52,8 @@ def generate(seed):
     reseed(seed)
 
     try:
-        WagtailPage.objects.get(title='participate')
+        WagtailPage.objects.get(title='What you can do')
         print('participate page exists')
     except WagtailPage.DoesNotExist:
         print('Generating an empty Participate Page')
-        ParticipatePage2Factory.create(parent=home_page)
+        ParticipatePage2Factory.create(parent=home_page, title='What you can do')
