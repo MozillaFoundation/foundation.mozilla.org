@@ -33,10 +33,11 @@ export default class JoinUs extends React.Component {
       apiFailed: false,
       userTriedSubmitting: false,
       lang: getCurrentLanguage(),
-      hideLocaleFields:
-        props.formPosition === `header` ||
-        props.formPosition === `footer` ||
-        props.formPosition === `youtube-regrets-reporter`,
+      hideLocaleFields: [
+        `header`,
+        `footer`,
+        `youtube-regrets-reporter`,
+      ].includes(props.formPosition),
     };
   }
 

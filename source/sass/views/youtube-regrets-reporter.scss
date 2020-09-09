@@ -156,6 +156,9 @@
     background: $black;
 
     .timeline-wrapper {
+      $button-right-offset: 20px;
+      $button-width: 40px;
+
       overflow: hidden;
       scroll-behavior: smooth;
       position: relative;
@@ -170,9 +173,10 @@
 
       .timeline {
         $totoal-num-items: 10;
-        $padding-x: 30px;
+        $padding-left: 30px;
+        $padding-right: $padding-left + $button-right-offset + $button-width;
 
-        padding: 0 $padding-x;
+        padding: 0 $padding-right 0 $padding-left;
         border-top: 1px solid $gray-05;
         counter-reset: segment;
         display: flex;
@@ -180,11 +184,12 @@
 
         @mixin set-timeline-width($items-per-viewport) {
           $item-width: calc(
-            (100% - #{$padding-x} * 2) / (#{$items-per-viewport} + 0.5)
+            (100% - #{$padding-left} - #{$padding-left}) /
+              (#{$items-per-viewport} + 0.5)
           );
 
           width: calc(
-            #{$totoal-num-items} * #{$item-width} + #{$padding-x} * 2
+            #{$totoal-num-items} * #{$item-width} + #{$padding-left} + #{$padding-right}
           );
 
           li {
@@ -249,16 +254,17 @@
       .control-next {
         position: absolute;
         top: 40%;
-        right: 20px;
+        right: $button-right-offset;
 
         .btn {
           cursor: pointer;
+          padding: 0;
 
           &:after {
             content: "";
             display: inline-block;
             border-style: solid;
-            border-width: 20px 0 20px 40px;
+            border-width: $button-width/2 0 $button-width/2 $button-width;
             border-color: transparent transparent transparent $blue;
           }
         }

@@ -49,6 +49,7 @@ class RegretsReporterTimeline {
     }
 
     this.timeline = elements.timeline[0];
+    const last = this.timeline.querySelector(".timeline .segment:last-of-type");
 
     this.updateOpacity();
 
@@ -64,9 +65,7 @@ class RegretsReporterTimeline {
       let segmentWidth = elements.segments[0].offsetWidth;
       let windowWidth =
         window.innerWidth || document.documentElement.clientWidth;
-      let lastItemShown = this.checkIfInView(
-        document.querySelector(".timeline .segment:last-of-type")
-      );
+      let lastItemShown = this.checkIfInView(last);
       let offset;
 
       if (lastItemShown) {
