@@ -151,6 +151,50 @@
   }
 }
 
+// Custom dropdown
+.article-summary-toggle {
+  color: rgb(51, 51, 51) !important;
+  font-size: 12px !important;
+  font-family: "Nunito Sans";
+  font-weight: normal !important;
+  line-height: 16px;
+  text-transform: uppercase;
+  padding-top: 0.5rem;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    top: 7px;
+    border: 0;
+    background-image: url('../_images/glyphs/down-chevron.svg');
+    background-size: cover;
+    background-position: center center;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.article-summary-menu {
+  margin-top: 11px;
+  border-radius: 0;
+  border-top: 0;
+  padding-top: 29px;
+  padding-bottom: 22px;
+
+  .dropdown-item {
+    color: rgb(102, 102, 102);
+    font-size: 18px;
+    font-family: "Nunito Sans";
+    line-height: 27px;
+    padding: 5px 40px 5px 30px;
+
+    &:hover {
+      background: rgb(242, 242, 242);
+      color: $black;
+    }
+  }
+}
+
 // StreamBlocks
 .article-blocks .rich-text {
   a {
