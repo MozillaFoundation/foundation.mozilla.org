@@ -37,12 +37,12 @@
           <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step2.png" %}" />
           <p class="d-flex flex-column align-items-center">
             <span class="step-number my-3">2</span>
-            {% if request.LANGUAGE_CODE == "en" %}
-              Report the video and recommendations that led you to it
-            {% else %}
-              {% trans "Report the video* and recommendations that led you to it" %}
-            {% endif %}
+            {% trans "Report the video and recommendations that led you to it" %}
           </p>
+          {% if request.LANGUAGE_CODE == "en" %}
+          <p class="h6-heading">{% trans "*Please note that only English-language videos will be included in our analysis." %}
+          </p>
+        {% endif %}
         </div>
         <div class="col-md-4">
           <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step3.png" %}" />
@@ -52,10 +52,6 @@
           </p>
         </div>
       </div>
-      {% if request.LANGUAGE_CODE != "en" %}
-        <div class="row py-md-4">{% trans "*Please note that only English-language videos will be included in our analysis." %}
-        </div>
-      {% endif %}
     </div>
   </div>
 </div>

@@ -74,6 +74,13 @@
           justify-content: center;
           align-items: center;
         }
+
+        &.h6-heading {
+          @include set-text-size(14px, 14px);
+
+          font-family: $font-family-sans-serif;
+          text-transform: initial;
+        }
       }
     }
   }
@@ -149,6 +156,10 @@
     .body-large {
       @include set-text-size(26px, 30px, 38px, 42px);
       letter-spacing: -2px;
+    }
+
+    p {
+      @include set-text-size(20px, 28px);
     }
   }
 
