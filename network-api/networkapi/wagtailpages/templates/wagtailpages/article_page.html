@@ -44,14 +44,16 @@
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
 
-        <div class="article-summary">
-          <div class="article-summary-title">{% trans 'SUMMARY' %}</div>
-          <div class="article-links">
-            {% for slug, header in page.get_titles %}
-              <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
-            {% endfor %}
+        {% if page.get_titles %}
+          <div class="article-summary">
+            <div class="article-summary-title">{% trans 'SUMMARY' %}</div>
+            <div class="article-links">
+              {% for slug, header in page.get_titles %}
+                <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
+              {% endfor %}
+            </div>
           </div>
-        </div>
+        {% endif %}
 
         {% for block in page.body %}
           {% include_block block with is_last=forloop.last %}
