@@ -25,7 +25,7 @@
       <p>{% trans "When you send a YouTube Regret, the video and recommendations that led you to it are submitted to Mozilla researchers privately." %}</p>
     </div>
     <div class="col-12">
-      <div class="row steps">
+      <div class="row steps text-center">
         <div class="col-md-4 mb-3 mb-md-0">
           <img src="{% static "_images/youtube-regrets/regrets-reporter/how-it-works-step1.png" %}" />
           <p class="d-flex flex-column align-items-center">
@@ -58,10 +58,12 @@
       {% endif %}
     </div>
   </div>
+</div>
 
+<div class="container-fluid">
   <div class="row py-3 py-md-5 section-with-regrets-reporter">
     <div class="offset-md-2 col-md-8 offset-xl-2 col-xl-8">
-      <p class="h2-heading">{% trans "With the RegretsReporter extension, you can immediately take action to send us recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content." %}</p>
+      <h2 class="h2-heading">{% trans "With the RegretsReporter extension, you can immediately take action to send us recommended videos that you regret watching—like pseudoscience or anti-LGBTQ+ content." %}</h2>
       <p>
         {% trans "The report form will ask you to tell us more about your YouTube Regret and collect information about the recommendations that led you to the video. By sharing your experiences, you can help us answer questions like: what kinds of recommended videos do users regret watching? Are there usage patterns that lead to more regrettable content being recommended? What does a YouTube rabbit hole look like, and at what point does it become something you wish you never clicked on?" %}
       </p>
@@ -72,9 +74,9 @@
     <div class="offset-md-2 col-md-8">
       <hr>
     </div>
-    <div class="col-12">
+    <div class="offset-md-1 col-md-10 offset-xl-1 col-xl-10">
       <div
-        class="join-us py-3 py-md-5"
+        class="join-us"
         data-form-position="youtube-regrets-reporter"
         data-button-position="side"
         data-layout="2-column"
@@ -87,10 +89,12 @@
       <hr>
     </div>
   </div>
+</div>
 
+<div class="container">
   <div class="row py-3 py-md-5 text-center">
     <div class="offset-md-1 col-md-10">
-      <p class="h1-heading font-changa">{% trans "Let’s work together to make recommendation engines on the internet more trustworthy." %}</p>
+      <h2 class="h1-heading font-changa">{% trans "Let’s work together to make recommendation engines on the internet more trustworthy." %}</h2>
     </div>
   </div>
 

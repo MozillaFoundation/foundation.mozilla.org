@@ -16,12 +16,7 @@
   }
 
   .wrapper {
-    $noise-bg-stop-point: 360vh;
-
-    background-image: url(../_images/youtube-regrets/regrets-reporter/noise.svg),
-      linear-gradient($black 320vh, $white $noise-bg-stop-point, $white);
-    background-repeat: repeat-y, repeat;
-    background-size: 100vw auto, cover;
+    background-image: linear-gradient($black 280vh, $white 360vh, $white);
   }
 
   .youtube-regrets-intro-viewport {
@@ -83,8 +78,34 @@
     }
   }
 
+  .section-with-regrets-reporter {
+    @media screen and (min-width: $bp-lg) {
+      background-image: url(../_images/youtube-regrets/regrets-reporter/icon-eye-purple.svg),
+        url(../_images/youtube-regrets/regrets-reporter/icon-play-purple.svg);
+      background-position: 102% top, 4% 60%;
+      background-repeat: no-repeat;
+    }
+
+    p {
+      @include set-text-size(20px, 28px);
+    }
+  }
+
   .section-newsletter {
+    @media screen and (min-width: $bp-lg) {
+      background-image: url(../_images/youtube-regrets/regrets-reporter/icon-ff-purple.svg),
+        url(../_images/youtube-regrets/regrets-reporter/icon-sound-purple.svg);
+      background-position: 90% 19%, 1% 70%;
+      background-repeat: no-repeat;
+    }
+
     .join-us {
+      padding: 2.2rem 0;
+
+      @media screen and (min-width: $bp-lg) {
+        padding: 5.5rem 0;
+      }
+
       .h5-heading {
         @include heading(
           $font-changa,
