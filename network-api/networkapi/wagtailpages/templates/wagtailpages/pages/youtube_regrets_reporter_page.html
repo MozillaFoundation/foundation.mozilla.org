@@ -39,7 +39,7 @@
             <span class="step-number my-3">2</span>
             {% trans "Report the video and recommendations that led you to it" %}
           </p>
-          {% if request.LANGUAGE_CODE == "en" %}
+          {% if request.LANGUAGE_CODE != "en" %}
           <p class="h6-heading">{% trans "*Please note that only English-language videos will be included in our analysis." %}
           </p>
         {% endif %}
