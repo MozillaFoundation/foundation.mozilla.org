@@ -126,9 +126,26 @@
   font-size: 72px;
   font-family: "Zilla Slab";
   line-height: 88px;
+
+  &--small {
+    width: 64px;
+    height: 64px;
+    color: $white;
+    font-size: 30px;
+    line-height: 44px;
+  }
 }
 .publication-chapter-title {
   margin-top: 64px;
+
+  &--small {
+    color: $black;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 30px;
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
 }
 @media(max-width: $bp-sm) {
   .publication-chapter-number {
@@ -136,6 +153,11 @@
     width: 76px;
     font-size: 56px;
     line-height: 64px;
+
+    &--small {
+      font-size: 30px;
+      line-height: 44px;
+    }
   }
   .publication-chapter-title {
     margin-top: 29px;
@@ -153,7 +175,7 @@
   line-height: 22px;
 }
 .publication-chapter-link {
-  color: rgb(0, 0, 0);
+  color: $black;
   font-size: 18px;
   font-family: "Nunito Sans";
   line-height: 24px;

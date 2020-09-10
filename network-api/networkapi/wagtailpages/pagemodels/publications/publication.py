@@ -104,3 +104,5 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         """Is this a chapter page (child-Publicationpage). Returns a bool."""
         parent = self.get_parent().specific
         return parent.__class__.__name__ == self.__class__.__name__
+
+    # TODO Need the parent chapter index number

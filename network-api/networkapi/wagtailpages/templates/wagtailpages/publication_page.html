@@ -5,47 +5,50 @@
 
   {% include "./fragments/publication_hero.html" %}
 
-<div class="container">
-  <div class="row">
-    <div class="py-4 py-md-5 col-lg-8 offset-lg-2 justify-content-center">
-      <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
-        <div class="">
-          <div class="col">
-            <h2>{{ page.contents_title }}</h2>
-          </div>
-          <div class="col-12">
-            {% for child in page.get_children %}
-              <div class="row publication-row pt-3 pb-sm-4 pb-0">
-                <div class="col-auto">
-                  <div class="publication-chapter-number">
-                    {{ forloop.counter }}
+{% if not page.is_chapter_page %}
+  {# Publication Page #}
+  <div class="container">
+    <div class="row">
+      <div class="py-4 py-md-5 col-lg-8 offset-lg-2 justify-content-center">
+        <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
+          <div>
+            <div class="col">
+              <h2>{{ page.contents_title }}</h2>
+            </div>
+            <div class="col-12">
+              {% for child in page.get_children %}
+                <div class="row publication-row pt-3 pb-sm-4 pb-0">
+                  <div class="col-auto">
+                    <div class="publication-chapter-number">
+                      {{ forloop.counter }}
+                    </div>
+                  </div>
+                  <div class="col-sm col-8 ml-sm-3">
+                    <h3 class="publication-chapter-title">
+                      <a href="{{ child.url }}" class="d-block mb-4">
+                        {{ child.title }}
+                      </a>
+                    </h3>
+                    {% if child.get_children_count %}
+                      {% for grandchild in child.get_children %}
+                        <div class="row d-sm-flex d-none">
+                          <div class="col-auto publication-chapter-list-number">
+                            {{ forloop.parentloop.counter }}.{{ forloop.counter}}
+                          </div>
+                          <div class="col">
+                            <h4 class="w-100 child-pages-children-title">
+                              <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
+                                {{ grandchild.title }}
+                              </a>
+                            </h4>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
                   </div>
                 </div>
-                <div class="col-sm col-8 ml-sm-3">
-                  <h3 class="publication-chapter-title">
-                    <a href="{{ child.url }}" class="d-block mb-4">
-                      {{ child.title }}
-                    </a>
-                  </h3>
-                  {% if child.get_children_count %}
-                    {% for grandchild in child.get_children %}
-                      <div class="row d-sm-flex d-none">
-                        <div class="col-auto publication-chapter-list-number">
-                          {{ forloop.parentloop.counter }}.{{ forloop.counter}}
-                        </div>
-                        <div class="col">
-                          <h4 class="w-100 child-pages-children-title">
-                            <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
-                              {{ grandchild.title }}
-                            </a>
-                          </h4>
-                        </div>
-                      </div>
-                    {% endfor %}
-                  {% endif %}
-                </div>
-              </div>
                 {% if child.get_children_count %}
+                  {# Child listings on mobile. #}
                   <div class="pt-2 d-sm-none d-block">
                     {% for grandchild in child.get_children %}
                       <div class="row d-flex">
@@ -63,14 +66,49 @@
                     {% endfor %}
                   </div>
                 {% endif %}
-              {% if not forloop.last %}
-                <hr/>
-              {% endif %}
-            {% endfor %}
+                {% if not forloop.last %}
+                  <hr/>
+                {% endif %}
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+{% else %}
+  {# Chapter page #}
+  <div class="container">
+    <div class="row">
+      <div class="py-4 py-md-5 col-lg-8 offset-lg-2 justify-content-center">
+        <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
+          <div>
+            <div class="col-12">
+              {% for child in page.get_children %}
+                <div class="row publication-row pt-3 pb-3">
+                  <div class="col-auto">
+                    <div class="publication-chapter-number publication-chapter-number--small">
+                      {{ forloop.counter }}
+                    </div>
+                  </div>
+                  <div class="col-sm col-8">
+                    <h3 class="publication-chapter-title publication-chapter-title--small">
+                      <a href="{{ child.url }}" class="d-block">
+                        {{ child.title }}
+                      </a>
+                    </h3>
+                  </div>
+                </div>
+                {% if not forloop.last %}
+                  <hr/>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
 {% endblock %}
+
