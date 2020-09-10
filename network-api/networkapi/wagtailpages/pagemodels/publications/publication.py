@@ -104,23 +104,3 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         """Is this a chapter page (child-Publicationpage). Returns a bool."""
         parent = self.get_parent().specific
         return parent.__class__.__name__ == self.__class__.__name__
-
-    @property
-    def my_children(self):
-        """
-        See: https://django-treebeard.readthedocs.io/en/stable/api.html#treebeard.models.Node.get_annotated_list
-        This works almost perfectly for us except design spec has us exclude the parent
-        from the list, hence the pop()
-        """
-
-        children_summary = self.get_annotated_list(parent=self)
-        children_summary.pop(0)
-        return children_summary
-
-    def get_chapter_number_or_none(self) -> Union[int, None]:
-        """Return the chapter page number or None."""
-        if self.is_chapter_page:
-            chapter_pages = list(self.get_siblings().specific())
-            # note the dot at the end; so the numbers can stay dynamically formatted with css
-            return f"{chapter_pages.index(self) + 1}."
-        return None

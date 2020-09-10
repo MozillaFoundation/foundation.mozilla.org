@@ -4,77 +4,65 @@
 {% block content%}
 
   {% include "./fragments/publication_hero.html" %}
-<style>
-.publication-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-.publication-chapter-number {
-  width: 161px;
-  height: 161px;
-  background: rgb(183, 185, 250);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(255, 255, 255);
-  font-size: 72px;
-  font-family: "Zilla Slab";
-  line-height: 88px;
-}
-.publication-chapter-list-number {
-  color: rgb(102, 102, 102);
-  font-size: 12px;
-  font-family: "Nunito Sans";
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 22px;
-}
-.publication-chapter-link {
-  color: rgb(0, 0, 0);
-  font-size: 18px;
-  font-family: "Nunito Sans";
-  line-height: 24px;
-}
-</style>
+
 <div class="container">
   <div class="row">
-    <div class="py-4 py-md-5 col-lg-10 justify-content-center">
+    <div class="py-4 py-md-5 col-lg-8 offset-lg-2 justify-content-center">
       <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
-        <div class="content-summary">
-          <h2>{{ page.contents_title }}</h2>
-          <div class="child-pages-summary">
+        <div class="">
+          <div class="col">
+            <h2>{{ page.contents_title }}</h2>
+          </div>
+          <div class="col-12">
             {% for child in page.get_children %}
-              <div class="row publication-row py-4">
+              <div class="row publication-row pt-3 pb-sm-4 pb-0">
                 <div class="col-auto">
                   <div class="publication-chapter-number">
                     {{ forloop.counter }}
                   </div>
                 </div>
-                <div class="col ml-3">
-                  <h3 style='margin-top: 64px'>
+                <div class="col-sm col-8 ml-sm-3">
+                  <h3 class="publication-chapter-title">
                     <a href="{{ child.url }}" class="d-block mb-4">
                       {{ child.title }}
                     </a>
                   </h3>
                   {% if child.get_children_count %}
-                      {% for grandchild in child.get_children %}
-                      <div class="row d-flex">
+                    {% for grandchild in child.get_children %}
+                      <div class="row d-sm-flex d-none">
                         <div class="col-auto publication-chapter-list-number">
                           {{ forloop.parentloop.counter }}.{{ forloop.counter}}
                         </div>
                         <div class="col">
                           <h4 class="w-100 child-pages-children-title">
                             <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
-                                {{ grandchild.title }}
+                              {{ grandchild.title }}
                             </a>
                           </h4>
                         </div>
                       </div>
-                      {% endfor %}
+                    {% endfor %}
                   {% endif %}
                 </div>
               </div>
+                {% if child.get_children_count %}
+                  <div class="pt-2 d-sm-none d-block">
+                    {% for grandchild in child.get_children %}
+                      <div class="row d-flex">
+                        <div class="col-auto publication-chapter-list-number">
+                          {{ forloop.parentloop.counter }}.{{ forloop.counter}}
+                        </div>
+                        <div class="col">
+                          <h4 class="w-100 child-pages-children-title">
+                            <a href="{{ grandchild.url }}" class="d-block chapter-article-link">
+                              {{ grandchild.title }}
+                            </a>
+                          </h4>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
               {% if not forloop.last %}
                 <hr/>
               {% endif %}

@@ -1,6 +1,7 @@
 // @TODO: This component needs design polish
 // @TODO: Add responsive design to this component
-
+// @TODO: Before "launch" lets make sure all these classes are being used.
+//        Check after all branches have been merged. Remove unused styling.
 .chapter-body {
   margin-top: -50px;
 }
@@ -100,4 +101,60 @@
     padding-top: 100px;
     padding-bottom: 125px;
   }
+}
+
+
+
+
+
+
+
+
+.publication-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.publication-chapter-number {
+  width: 161px;
+  height: 161px;
+  background: rgb(183, 185, 250);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+  font-size: 72px;
+  font-family: "Zilla Slab";
+  line-height: 88px;
+}
+.publication-chapter-title {
+  margin-top: 64px;
+}
+@media(max-width: $bp-sm) {
+  .publication-chapter-number {
+    height: 76px;
+    width: 76px;
+    font-size: 56px;
+    line-height: 64px;
+  }
+  .publication-chapter-title {
+    margin-top: 29px;
+  }
+  .chapter-article-link {
+    line-height: 24px;
+  }
+}
+.publication-chapter-list-number {
+  color: rgb(102, 102, 102);
+  font-size: 12px;
+  font-family: "Nunito Sans";
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 22px;
+}
+.publication-chapter-link {
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  font-family: "Nunito Sans";
+  line-height: 24px;
 }
