@@ -147,6 +147,29 @@
     margin-bottom: 0;
   }
 }
+
+.publication-chapter-list-number {
+  color: rgb(102, 102, 102);
+  font-size: 12px;
+  font-family: "Nunito Sans";
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 22px;
+}
+.publication-chapter-link {
+  color: $black;
+  font-size: 18px;
+  font-family: "Nunito Sans";
+  line-height: 24px;
+}
+
+.publication-notes .rich-text {
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 96px;
+  margin-top: 49px;
+}
+
 @media(max-width: $bp-sm) {
   .publication-chapter-number {
     height: 76px;
@@ -165,18 +188,7 @@
   .chapter-article-link {
     line-height: 24px;
   }
-}
-.publication-chapter-list-number {
-  color: rgb(102, 102, 102);
-  font-size: 12px;
-  font-family: "Nunito Sans";
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 22px;
-}
-.publication-chapter-link {
-  color: $black;
-  font-size: 18px;
-  font-family: "Nunito Sans";
-  line-height: 24px;
+  .publication-notes .rich-text p {
+    font-weight: 300;
+  }
 }

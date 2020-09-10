@@ -9,8 +9,8 @@
   {# Publication Page #}
   <div class="container">
     <div class="row">
-      <div class="py-4 py-md-5 col-lg-8 offset-lg-2 justify-content-center">
-        <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
+      <div class="pt-4 pt-md-5 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center">
+        <div class="row mt-0 mt-sm-5 d-flex align-items-center">
           <div>
             <div class="col">
               <h2>{{ page.contents_title }}</h2>
@@ -80,7 +80,7 @@
   {# Chapter page #}
   <div class="container">
     <div class="row">
-      <div class="py-4 py-md-5 col-lg-8 offset-lg-2 justify-content-center">
+      <div class="pt-4 pt-md-5 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center">
         <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
           <div>
             <div class="col-12">
@@ -106,6 +106,19 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if page.notes %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <hr style='height: 0px; border: 2px solid rgb(0, 0, 0); margin-top: 97px;'>
+      </div>
+      <div class="col-lg-8 offset-lg-2 publication-notes">
+        {{ page.notes|richtext }}
       </div>
     </div>
   </div>
