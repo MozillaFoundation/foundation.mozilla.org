@@ -11,6 +11,7 @@ class CampaignIndexPage(IndexPage):
         'CampaignPage',
         'OpportunityPage',
         'YoutubeRegretsPage',
+        'YoutubeRegretsReporterPage',
     ]
 
     template = 'wagtailpages/index_page.html'
