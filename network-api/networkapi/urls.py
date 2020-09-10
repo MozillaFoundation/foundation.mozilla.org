@@ -15,11 +15,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.buyersguide import views as buyersguide_views
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
-from networkapi.wagtailpages.views import (
-    redirect_to_initiatives,
-    redirect_to_whoweare,
-    redirect_to_whatyoucando,
-)
+from networkapi.redirects import foundation_redirects
 from experiments import views as experiment_views
 
 admin.autodiscover()
@@ -77,15 +73,8 @@ urlpatterns += i18n_patterns(
     path('blog/rss/', RSSFeed()),
     path('blog/atom/', AtomFeed()),
 
-    # redirect /opportunity Wagtail pages to /initiatives
-    # see https://github.com/mozilla/foundation.mozilla.org/issues/2971 for context
-    url(r'^opportunity/(?P<subpath>.*)', redirect_to_initiatives),
-
-    # redirect /about Wagtail pages to /who-we-are
-    url(r'^about/(?P<subpath>.*)', redirect_to_whoweare),
-
-    # redirect /participate Wagtail pages to /what-you-can-do
-    url(r'^participate/(?P<subpath>.*)', redirect_to_whatyoucando),
+    # Redirects
+    *foundation_redirects(),
 
     # wagtail-managed data
     url(r'', include(wagtail_urls)),

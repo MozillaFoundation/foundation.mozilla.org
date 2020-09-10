@@ -35,15 +35,3 @@ def localized_redirect(request, subpath, destination_path):
         query_string = f'?{request.META["QUERY_STRING"]}'
 
     return redirect(f'/{request.LANGUAGE_CODE}/{destination_path}/{subpath}{query_string}')
-
-
-def redirect_to_whoweare(request, subpath):
-    return localized_redirect(request, subpath, 'who-we-are')
-
-
-def redirect_to_initiatives(request, subpath):
-    return localized_redirect(request, subpath, 'initiatives')
-
-
-def redirect_to_whatyoucando(request, subpath):
-    return localized_redirect(request, subpath, 'what-you-can-do')
