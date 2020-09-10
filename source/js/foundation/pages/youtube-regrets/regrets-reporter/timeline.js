@@ -1,4 +1,4 @@
-import utility from "../../../utility.js";
+import utility from "../../../../utility.js";
 
 let elements = {
   timeline: `#view-youtube-regrets-reporter .timeline-wrapper .timeline`,
