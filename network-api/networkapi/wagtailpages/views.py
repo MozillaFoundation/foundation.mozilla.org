@@ -2,6 +2,8 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.utils import translation
 
+from wagtail.core.models import Site
+
 
 def custom404_view(request, exception):
     """
@@ -17,7 +19,7 @@ def custom404_view(request, exception):
     belongs to which site, as "a site" is not tied to "a django
     app" in the wagtail way of things.
     """
-    if request.site.hostname == 'www.mozillafestival.org':
+    if Site.find_for_request(request).hostname == 'www.mozillafestival.org':
         html = render(request, 'mozfest/404.html')
         return HttpResponseNotFound(html.content)
     else:

@@ -14,9 +14,8 @@ import networkapi.wagtailpages.factory as wagtailpages_factory
 import networkapi.buyersguide.factory as buyersguide_factory
 import networkapi.mozfest.factory as mozfest_factory
 
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.utility.faker.helpers import reseed
-
-from wagtail_factories import ImageFactory
 
 
 class Command(BaseCommand):

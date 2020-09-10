@@ -3,15 +3,13 @@ from wagtail.core.models import (
     Page as WagtailPage,
     Site as WagtailSite
 )
-from wagtail_factories import (
-    PageFactory,
-    ImageFactory
-)
+from wagtail_factories import PageFactory
 from factory import (
     Faker,
     SubFactory,
     LazyAttribute
 )
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.signup import SignupFactory
 from .models import (
     MozfestHomepage,
