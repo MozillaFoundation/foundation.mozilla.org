@@ -28,7 +28,7 @@
   display: block;
 }
 .child-pages-summary li:before {
-  content: attr(data-chapter) counters(item, ".");
+  content: attr(data-chapter);
   counter-increment: item;
   margin-right: 25px;
 }
