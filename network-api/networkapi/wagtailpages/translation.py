@@ -20,6 +20,10 @@ from .models import (
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
+    YoutubeRegretsReporterPage,
+
+    PublicationPage,
+    ArticlePage,
 
     CTA,
     Petition,
@@ -205,6 +209,16 @@ class RedirectingPageTR(TranslationOptions):
         'URL',
     )
 
+
+@register(PublicationPage)
+class PublicationPageTR(TranslationOptions):
+    fields = ()
+
+
+@register(ArticlePage)
+class ArticlePageTR(TranslationOptions):
+    fields = ()
+
 # The following bindings are obsolete and require cleanup
 
 
@@ -228,4 +242,13 @@ class YoutubeRegretsPageTR(TranslationOptions):
         'intro_images',
         'faq',
         'regret_stories',
+    }
+
+
+@register(YoutubeRegretsReporterPage)
+class YoutubeRegretsReporterPageTR(TranslationOptions):
+    fields = {
+        'headline',
+        'intro_text',
+        'intro_images',
     }

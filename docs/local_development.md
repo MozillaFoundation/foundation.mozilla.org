@@ -1,6 +1,7 @@
 # Local Dev Documentation
 
 This documentation is composed of three main sections:
+
 - [How to install and use Docker for local development](./local_development.md#how-to-use)
 - [Connecting Docker to your code editor](./local_development.md#connecting-docker-to-your-code-editor)
 - [Docker 101 and how we use it with the foundation site](./local_development.md#docker-vocabulary-and-overview). Start here if you're new to Docker
@@ -11,6 +12,7 @@ This documentation is composed of three main sections:
 To interact with the project, you can use [docker](https://docs.docker.com/engine/reference/commandline/cli/) and [docker-compose](https://docs.docker.com/compose/reference/overview/) CLIs or use shortcuts with invoke.
 
 The general workflow is:
+
 - Install the project with `invoke new-env`,
 - Run the project with `docker-compose up`,
 - Log into the admin site with username `admin` and password `admin`,
@@ -19,7 +21,7 @@ The general workflow is:
 
 ### Invoke commands
 
- To get a list of invoke commands available, run `invoke -l`:
+To get a list of invoke commands available, run `invoke -l`:
 
 ```
   catch-up (catchup, docker-catchup)           Rebuild images, install dependencies, and apply migrations
@@ -43,7 +45,12 @@ The general workflow is:
   test-python (docker-test-python)             Run python tests
 ```
 
+Note the above commands carefully, as they should cover the majority of what you'd need for local development.
+
+For instance, you can run also run common Django commands via invoke, such as `inv manage "makemigrations --merge"` or `inv manage shell`.
+
 **A few examples:**
+
 - `invoke manage load_fake_data`: add more fake data to your project,
 - `invoke npm "install moment"`: install moment, add it to your `package.json` and lock it.
 
@@ -52,6 +59,7 @@ The general workflow is:
 We strongly recommend you to check at least the [docker-compose CLI](https://docs.docker.com/compose/reference/overview/) documentation since we're using it a lot. Meanwhile, here are the commands you will use the most:
 
 **docker-compose:**
+
 - [docker-compose up](https://docs.docker.com/compose/reference/up/): start the services and the project. Stop them with `^C`. If you want to rebuild your images, for example after a python dependencies update, add the `--build` flag. If you want to run the services in detached mode, use `--detached`. To get logs, use `docker-compose logs --follow [SERVICE]`,
 - [docker-compose down](): stop and remove the services,
 - [docker-compose run (--rm) [SERVICE NAME] [COMMAND]](https://docs.docker.com/compose/reference/run/): run a command against a service. `--rm` removes your container when you're done,
@@ -59,6 +67,7 @@ We strongly recommend you to check at least the [docker-compose CLI](https://doc
 - [docker-compose ps](https://docs.docker.com/compose/reference/ps/): list the services running.
 
 **docker:**
+
 - [docker image](https://docs.docker.com/engine/reference/commandline/image/): interact with images,
 - [docker container](https://docs.docker.com/engine/reference/commandline/container/): interact with containers,
 - [docker volume](https://docs.docker.com/engine/reference/commandline/volume_create/): interact with volumes.
@@ -69,11 +78,12 @@ We strongly recommend you to check at least the [docker-compose CLI](https://doc
 #### Python
 
 **Note on [pip-tools](https://github.com/jazzband/pip-tools)**:
+
 - Only edit the `.in` files and use `invoke pip-compile-lock` to generate `.txt` files.
 - Both `(dev-)requirements.txt` and `(dev-)requirements.in` files need to be pushed to Github.
 - `.txt` files act as lockfiles, where dependencies are pinned to a precise version.
 
-Dependencies live on your filesystem: you don't need to rebuild the `backend` image when installing or updating dependencies. 
+Dependencies live on your filesystem: you don't need to rebuild the `backend` image when installing or updating dependencies.
 
 **Install packages:**
 
@@ -100,12 +110,12 @@ Use `invoke npm "install [PACKAGE]"`.
 
 Use `invoke npm update`.
 
-
 ### Using a copy of the staging database for critical testing
 
 Requirements:
-* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-* Heroku Account with membership on the Mozilla team (ask in #mofo-engineering on Slack)
+
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+- Heroku Account with membership on the Mozilla team (ask in #mofo-engineering on Slack)
 
 Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
 
@@ -123,16 +133,16 @@ If you need to reset this database, running through these steps again will get y
 
 ## Connecting Docker to your code editor
 
-
 ### Pycharm
 
 This feature is only available for the professional version of Pycharm. Follow the official instructions [available here](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#config-docker)
 
 ### Visual Studio Code
 
-Visual Studio Code use a feature called Dev Container to run Docker projects. The configuration files are in the `.devconatainer` directory. This feature is only available starting VSCode 1.35 stable. For now, we're only creating a python container to get Intellisense, we're not running the full project inside VSCode. We may revisit this in the future if Docker support in VSCode improves.
+Visual Studio Code uses a feature called Dev Container to run Docker projects. The configuration files are in the `.devconatainer` directory. This feature is only available starting VSCode 1.35 stable. For now, we're only creating a python container to get Intellisense, we're not running the full project inside VSCode. We may revisit this in the future if Docker support in VSCode improves.
 
 A few things to keep in mind when using that setup:
+
 - Do not use the terminal in VSCode when running `invoke docker-` commands: use a local terminal instead,
 - when running `inv docker-catchup` or installing python dependencies, you will need to rebuild the Dev Container. To do that, press `F1` and look for `Rebuild Container`.
 
@@ -194,11 +204,13 @@ I would recommend watching [An Intro to Docker for Djangonauts](https://www.yout
 All our containers run on Linux.
 
 For local development, we have two Dockerfiles that define our images:
+
 - `Dockerfile.node`: use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
 - `Dockerfile.python`: use a python3.7 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
-We don't have a custom image for running postgres and use one from the Docker Hub.
+  We don't have a custom image for running postgres and use one from the Docker Hub.
 
 The `docker-compose.yml` file describes the 3 services that the project needs to run:
+
 - `watch-static-files`: rebuilds static files when they're modified,
 - `postgres`: contains a postgres database,
 - `backend`: runs Django. Starting this one automatically starts the two other ones.
@@ -208,6 +220,17 @@ The `docker-compose.yml` file describes the 3 services that the project needs to
 - [Docker](https://docs.docker.com/) and [Docker-compose](https://docs.docker.com/compose/overview/) documentations,
 - [Intro to Docker](https://www.revsys.com/tidbits/brief-intro-docker-djangonauts/): Lacey wrote a good intro tutorial to Docker and Django, without Harry Potter metaphors this time :),
 - [Jérôme Petazzoni's training slides and talks](https://container.training/): presentations and slides if you want to dive into Docker.
+
+#### Useful commands using Django with Docker
+
+To open a terminal session inside the docker container (`docker container ls` to see active docker container ids):
+`docker exec it {docker-container-id} bash`
+Activate the python environment:
+`source dockerpythonvenv/bin/activate`
+
+Then you can do Django stuff like:
+`cd network-api/ && python manage.py makemigrations --merge`
+or run Django shell, etc.
 
 ---
 

@@ -11,21 +11,28 @@ const BLOCK_SPEED_FACTOR = 0.8;
 const RING_SPEED_FACTOR = 0.6;
 
 let elements = {
-  introViewport: `#view-youtube-regrets .intro-viewport`,
-  blocks: `#view-youtube-regrets .intro-viewport .block`,
-  rings: `#view-youtube-regrets .intro-viewport .ring`,
-  introText: `#view-youtube-regrets .intro-viewport .intro-text p`,
-  scrollHint: `#view-youtube-regrets .intro-viewport .scroll-hint`,
-  newsletterButtons: `#view-youtube-regrets .intro-viewport .btn-newsletter`,
-  newsletterButtonMobile: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-mobile`,
-  newsletterButtonDesktop: `#view-youtube-regrets .intro-viewport .btn-newsletter.for-desktop`,
+  introViewport: `.youtube-regrets-intro-viewport`,
+  blocks: `.youtube-regrets-intro-viewport .block`,
+  rings: `.youtube-regrets-intro-viewport .ring`,
+  introText: `.youtube-regrets-intro-viewport .intro-text p`,
+  scrollHint: `.youtube-regrets-intro-viewport .scroll-hint`,
+  stationaryWrapper: `.youtube-regrets-intro-viewport .intro-stationary-wrapper`,
 };
 
 class YouTubeRegretsTunnel {
   constructor() {
+    this.includeNewsletterButtons = !!document.querySelector(
+      "#view-youtube-regrets"
+    );
     this.introScrollHeight = 0;
     this.sceneDepth = 0;
     this.lastPageYOffset = 0;
+
+    if (this.includeNewsletterButtons) {
+      elements.newsletterButtons = `.youtube-regrets-intro-viewport .btn-newsletter`;
+      elements.newsletterButtonMobile = `.youtube-regrets-intro-viewport .btn-newsletter.for-mobile`;
+      elements.newsletterButtonDesktop = `.youtube-regrets-intro-viewport .btn-newsletter.for-desktop`;
+    }
 
     this.init();
   }
@@ -59,21 +66,21 @@ class YouTubeRegretsTunnel {
       }
     });
 
-    this.setNewsletterButtonVisibility(totalScrollDistance);
+    this.setStationaryWrapperVisibility(totalScrollDistance);
   }
 
   /**
-   * Show newsletter signup button if intro is in current viewport.
+   * Show stationary wrapper if intro is in current viewport.
    * Hide it otherwise.
    */
-  setNewsletterButtonVisibility(positionTohide) {
-    let buttons = elements.newsletterButtons;
+  setStationaryWrapperVisibility(positionTohide) {
+    let stationaryWrappers = elements.stationaryWrapper;
 
-    buttons.forEach((button) => {
+    stationaryWrappers.forEach((wrapper) => {
       if (window.pageYOffset >= positionTohide) {
-        button.classList.add(`d-none`);
+        wrapper.classList.add(`d-none`);
       } else {
-        button.classList.remove(`d-none`);
+        wrapper.classList.remove(`d-none`);
       }
     });
   }
@@ -233,17 +240,19 @@ class YouTubeRegretsTunnel {
       return;
     }
 
-    elements.newsletterButtonDesktop[0].addEventListener(`click`, (event) =>
-      navNewsletter.buttonDesktopClickHandler(event)
-    );
+    if (this.includeNewsletterButtons) {
+      elements.newsletterButtonDesktop[0].addEventListener(`click`, (event) =>
+        navNewsletter.buttonDesktopClickHandler(event)
+      );
 
-    elements.newsletterButtonMobile[0].addEventListener(`click`, (event) => {
-      if (navNewsletter.getShownState()) {
-        navNewsletter.closeMobileNewsletter(event);
-      } else {
-        navNewsletter.expandMobileNewsletter(event);
-      }
-    });
+      elements.newsletterButtonMobile[0].addEventListener(`click`, (event) => {
+        if (navNewsletter.getShownState()) {
+          navNewsletter.closeMobileNewsletter(event);
+        } else {
+          navNewsletter.expandMobileNewsletter(event);
+        }
+      });
+    }
 
     this.setSceneDepth();
     this.setObjectsOpacity();
