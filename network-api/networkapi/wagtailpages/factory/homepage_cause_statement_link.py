@@ -1,6 +1,5 @@
-from factory import (
-    Faker
-)
+from random import choice
+from factory import Faker
 from networkapi.utility.faker.helpers import reseed, get_homepage
 
 
@@ -12,5 +11,8 @@ def generate(seed):
     reseed(seed)
 
     home_page.cause_statement_link_text = Faker('text', max_nb_chars=80).generate()
-    home_page.cause_statement_link_page = home_page.get_descendants().order_by("?").first()
+
+    all_children = list(home_page.get_descendants())
+
+    home_page.cause_statement_link_page = choice(all_children)
     home_page.save()
