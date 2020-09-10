@@ -62,7 +62,9 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 @import "./views/indexpage";
 @import "./views/blog";
 @import "./views/style-guide";
+@import "./views/youtube-regrets-intro";
 @import "./views/youtube-regrets";
+@import "./views/youtube-regrets-reporter";
 
 // MozFest
 

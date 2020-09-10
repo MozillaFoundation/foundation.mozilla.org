@@ -3,15 +3,12 @@ from factory import (
     Faker,
     SubFactory
 )
-from wagtail_factories import (
-    PageFactory,
-    ImageFactory
-)
+from wagtail_factories import PageFactory
 from wagtail.core.models import (
     Site as WagtailSite,
     Page as WagtailPage
 )
-
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import Homepage
 from networkapi.utility.faker.helpers import (
     reseed,
