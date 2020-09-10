@@ -16,6 +16,7 @@ defusedxml==0.6.0         # via python3-openid, social-auth-core
 dj-database-url==0.5.0    # via -r requirements.in
 django-admin-sortable==2.2.3  # via -r requirements.in
 django-cors-headers==3.4.0  # via -r requirements.in
+django-csp==3.7           # via -r requirements.in
 django-environ==0.4.5     # via -r requirements.in
 django-filter==2.3.0      # via -r requirements.in, wagtail
 django-modelcluster==5.0.2  # via wagtail
@@ -25,13 +26,12 @@ django-storages==1.9.1    # via -r requirements.in
 django-taggit==1.2.0      # via wagtail
 django-treebeard==4.3.1   # via wagtail
 django==2.2.16            # via -r requirements.in, django-admin-sortable, django-cors-headers, django-csp, django-filter, django-modeltranslation, django-redis, django-storages, django-taggit, django-treebeard, djangorestframework, wagtail
-django_csp==3.7           # via -r requirements.in
 djangorestframework==3.11.1  # via -r requirements.in, wagtail
 docutils==0.15.2          # via botocore
 draftjs-exporter==2.1.7   # via wagtail
 et-xmlfile==1.0.1         # via openpyxl
 factory-boy==2.12.0       # via -r requirements.in, wagtail-factories
-faker==4.1.1              # via -r requirements.in, factory-boy
+faker==4.1.2              # via -r requirements.in, factory-boy
 filebrowser-safe==0.5.0   # via -r requirements.in
 future==0.18.2            # via -r requirements.in
 gunicorn==20.0.4          # via -r requirements.in
