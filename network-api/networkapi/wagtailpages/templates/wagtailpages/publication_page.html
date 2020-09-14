@@ -1,127 +1,29 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags i18n %}
+{% load wagtailcore_tags %}
 
 {% block content%}
 
   {% include "./fragments/publication_hero.html" %}
 
-{% if not page.is_chapter_page %}
-  {# Publication Page #}
-  <div class="container">
-    <div class="row">
-      <div class="pt-4 pt-md-5 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center">
-        <div class="row mt-0 mt-sm-5 d-flex align-items-center">
-          <div>
-            <div class="col">
-              <h2>{{ page.contents_title }}</h2>
-            </div>
-            <div class="col-12">
-              {% for child in page.get_children %}
-                <div class="row publication-row pt-3 pb-sm-4 pb-0">
-                  <div class="col-auto">
-                    <div class="publication-chapter-number">
-                      {{ forloop.counter }}
-                    </div>
-                  </div>
-                  <div class="col-sm col-8 ml-sm-3">
-                    <h3 class="publication-chapter-title">
-                      <a href="{{ child.url }}" class="d-block mb-4">
-                        {{ child.title }}
-                      </a>
-                    </h3>
-                    {% if child.get_children_count %}
-                      {% for grandchild in child.get_children %}
-                        <div class="row d-sm-flex d-none">
-                          <div class="col-auto publication-chapter-list-number">
-                            {{ forloop.parentloop.counter }}.{{ forloop.counter}}
-                          </div>
-                          <div class="col">
-                            <h4 class="w-100 child-pages-children-title">
-                              <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
-                                {{ grandchild.title }}
-                              </a>
-                            </h4>
-                          </div>
-                        </div>
-                      {% endfor %}
-                    {% endif %}
-                  </div>
-                </div>
-                {% if child.get_children_count %}
-                  {# Child listings on mobile. #}
-                  <div class="pt-2 d-sm-none d-block">
-                    {% for grandchild in child.get_children %}
-                      <div class="row d-flex">
-                        <div class="col-auto publication-chapter-list-number">
-                          {{ forloop.parentloop.counter }}.{{ forloop.counter}}
-                        </div>
-                        <div class="col">
-                          <h4 class="w-100 child-pages-children-title">
-                            <a href="{{ grandchild.url }}" class="d-block chapter-article-link">
-                              {{ grandchild.title }}
-                            </a>
-                          </h4>
-                        </div>
-                      </div>
-                    {% endfor %}
-                  </div>
-                {% endif %}
-                {% if not forloop.last %}
-                  <hr/>
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{% else %}
-  {# Chapter page #}
-  <div class="container">
-    <div class="row">
-      <div class="pt-4 pt-md-5 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center">
-        <div class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
-          <div>
-            <div class="col-12">
-              {% for child in page.get_children %}
-                <div class="row publication-row pt-3 pb-3">
-                  <div class="col-auto">
-                    <div class="publication-chapter-number publication-chapter-number--small">
-                      {{ forloop.counter }}
-                    </div>
-                  </div>
-                  <div class="col-sm col-8">
-                    <h3 class="publication-chapter-title publication-chapter-title--small">
-                      <a href="{{ child.url }}" class="d-block">
-                        {{ child.title }}
-                      </a>
-                    </h3>
-                  </div>
-                </div>
-                {% if not forloop.last %}
-                  <hr/>
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endif %}
+  {% if not page.is_chapter_page %}
+    {# Publication Page #}
+    {% include "fragments/publication_table_of_contents.html" %}
+  {% else %}
+    {# Chapter page #}
+    {% include "fragments/chapter_table_of_contents.html" %}
+  {% endif %}
 
-{% if page.notes %}
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <hr style='height: 0px; border: 2px solid rgb(0, 0, 0); margin-top: 97px;'>
-      </div>
-      <div class="col-lg-8 offset-lg-2 publication-notes">
-        {{ page.notes|richtext }}
+  {% if page.notes %}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <hr style='height: 0px; border: 2px solid rgb(0, 0, 0); margin-top: 97px;'>
+        </div>
+        <div class="col-lg-8 offset-lg-2 publication-notes">
+          {{ page.notes|richtext }}
+        </div>
       </div>
     </div>
-  </div>
-{% endif %}
+  {% endif %}
 {% endblock %}
 
