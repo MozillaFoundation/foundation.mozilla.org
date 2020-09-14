@@ -93,11 +93,11 @@ def generate(seed):
     reseed(seed)
 
     try:
-        about_page = WagtailPage.objects.get(title='about')
+        about_page = WagtailPage.objects.get(title='Who we are')
         print('about page exists')
     except WagtailPage.DoesNotExist:
         print('Generating an about Page (PrimaryPage)')
-        about_page = PrimaryPageFactory.create(parent=home_page, title='about')
+        about_page = PrimaryPageFactory.create(parent=home_page, title='Who we are')
 
     reseed(seed)
 
