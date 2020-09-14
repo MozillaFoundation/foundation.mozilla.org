@@ -10,8 +10,8 @@
       <div class="row">
         <div class="col">
           <div class="d-flex flex-row justify-content-between">
-            <div class="article-navbar-title col-sm-8">{{ page.title|truncatechars:60 }}</div>
-            <div class="article-navbar-summary col-sm-4">
+            <div class="article-navbar-title d-md-flex d-none col-md-8">{{ page.title|truncatechars:60 }}</div>
+            <div class="article-navbar-summary col-md-4 col-12">
 
               {% if page.get_titles %}
                 <div class="dropdown">
@@ -83,7 +83,7 @@
   <div class="article-prev-next">
     <div class="container">
       <div class="row d-flex">
-        <div class="col-sm-6 text-sm-right article-prev article-nav-arrow article-nav-arrow--left">
+        <div class="col-sm-6 text-right article-prev article-nav-arrow article-nav-arrow--left">
           {% if page.prev_page %}
             <small class="prev-next-text">Previous</small>
             <a href="{{ page.prev_page.url }}" class="article-prev-next-link">
