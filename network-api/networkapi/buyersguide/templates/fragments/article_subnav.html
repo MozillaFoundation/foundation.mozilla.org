@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<div class="article-navbar">
+  <div class="container">
+    <div class="row">
+      <div class="col px-lg-3 px-0">
+        <div class="d-flex flex-row justify-content-between">
+          <div class="article-navbar-title d-lg-flex d-none col-lg-8">{{ page.title|truncatechars:60 }}</div>
+          <div class="col-lg-4 col-12 px-lg-3 pl-0 pr-2">
+
+            {% if page.get_titles %}
+              <div class="pl-lg-5">
+                <div class="dropdown">
+                  <a class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block text-left" href="#" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% trans 'Summary' %}
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
+                    {% for slug, header in page.get_titles %}
+                      <a class="dropdown-item" href="#{{ slug }}">{{ header }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
