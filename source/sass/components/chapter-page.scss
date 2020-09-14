@@ -2,10 +2,6 @@
 // @TODO: Add responsive design to this component
 // @TODO: Before "launch" lets make sure all these classes are being used.
 //        Check after all branches have been merged. Remove unused styling.
-.chapter-body {
-  margin-top: -50px;
-}
-
 .chapter-number {
   display: flex;
   width: 80px;
@@ -18,53 +14,10 @@
   font-size: 30px;
 }
 
-// .chapter-article-link {}
-
-// css magic lives here!
-// https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters
-.child-pages-summary ol {
-  counter-reset: item;
-}
-.child-pages-summary li {
-  display: block;
-}
-.child-pages-summary li:before {
-  content: attr(data-chapter);
-  counter-increment: item;
-  margin-right: 25px;
-}
-
-// just the first level of summary
-// style copied from chapter number above
-.child-pages-summary > ol > li::before {
-  display: inline-flex;
-  width: 160px;
-  height: 160px;
-  background-color: $light-blue;
-  color: $white;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 72px;
-  font-family: "ZillaSlab";
-}
-
-// list that is the child of a list; aka the list of child pages
-// the margin-left is to help it line up per design spec..probably a better way to do this
-.child-pages-summary > ol > li > ol {
-  margin-left: 161px;
-  color: $gray-40;
-}
-
 .child-pages-children-title {
   font-family: $font-family-sans-serif;
   font-size: $font-size-base;
 }
-
-/* this is essentially the 'container' that holds a section of content summary
-.child-pages-summary > ol > li {
-
- } */
 
 .publication-hero-subtitle {
   font-family: $font-family-sans-serif !important;
@@ -74,7 +27,7 @@
 .publication-hero-file-size {
   color: $gray-40;
   font-size: 12px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   font-weight: normal;
   letter-spacing: 0px;
   line-height: 16px;
@@ -103,26 +56,20 @@
   }
 }
 
-
-
-
-
-
-
-
 .publication-row {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
 }
+
 .publication-chapter-number {
   width: 161px;
   height: 161px;
-  background: rgb(183, 185, 250);
+  background: $light-blue;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(255, 255, 255);
+  color: $white;
   font-size: 72px;
   font-family: "Zilla Slab";
   line-height: 88px;
@@ -135,6 +82,7 @@
     line-height: 44px;
   }
 }
+
 .publication-chapter-title {
   margin-top: 64px;
 
@@ -149,20 +97,26 @@
 }
 
 .publication-chapter-list-number {
-  color: rgb(102, 102, 102);
+  color: $gray-60;
   font-size: 12px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   line-height: 22px;
 }
+
 .publication-chapter-link {
   color: $black;
   font-size: 18px;
-  font-family: "Nunito Sans";
+  font-family: $font-family-sans-serif;
   line-height: 24px;
 }
 
+.publication-notes-hr {
+  height: 0px;
+  border: 2px solid $black;
+  margin-top: 97px;
+}
 .publication-notes .rich-text {
   font-size: 16px;
   line-height: 24px;
@@ -182,12 +136,15 @@
       line-height: 44px;
     }
   }
+
   .publication-chapter-title {
     margin-top: 29px;
   }
+
   .chapter-article-link {
     line-height: 24px;
   }
+
   .publication-notes .rich-text p {
     font-weight: 300;
   }

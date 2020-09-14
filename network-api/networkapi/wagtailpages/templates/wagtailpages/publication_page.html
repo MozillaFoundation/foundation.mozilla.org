@@ -1,6 +1,9 @@
 {% extends "pages/base.html" %}
 {% load wagtailcore_tags %}
 
+{% comment %}
+  TODO: Breadcrumbs, Factory generation for authors
+{% endcomment %}
 {% block content%}
 
   {% include "./fragments/publication_hero.html" %}
@@ -17,7 +20,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <hr style='height: 0px; border: 2px solid rgb(0, 0, 0); margin-top: 97px;'>
+          <hr class="publication-notes-hr">
         </div>
         <div class="col-lg-8 offset-lg-2 publication-notes">
           {{ page.notes|richtext }}
@@ -25,5 +28,6 @@
       </div>
     </div>
   {% endif %}
+
 {% endblock %}
 
