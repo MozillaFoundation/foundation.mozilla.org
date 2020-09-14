@@ -27,7 +27,6 @@ let main = {
   entry: {
     main: `./source/js/main.js`,
     mozfest: `./source/js/foundation/pages/mozfest/index.js`,
-    "youtube-regrets": `./source/js/foundation/pages/youtube-regrets/index.js`,
     "directory-listing-filters": `./source/js/foundation/pages/directory-listing-filters.js`,
   },
   output: {

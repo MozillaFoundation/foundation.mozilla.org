@@ -18,8 +18,9 @@ import {
 import primaryNav from "./primary-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import initializeSentry from "./common/sentry-config.js";
-import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/index";
-import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter-timeline";
+import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
+import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
+import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 
 // Initializing component a11y browser console logging
 if (
@@ -114,6 +115,7 @@ let main = {
     if (document.querySelector("#view-youtube-regrets-reporter")) {
       new YouTubeRegretsTunnel();
       new RegretsReporterTimeline();
+      bindRegretsReporterEventHandlers();
     }
   },
 };
