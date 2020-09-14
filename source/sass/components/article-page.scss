@@ -172,6 +172,10 @@
     width: 16px;
     height: 16px;
   }
+
+  &.show::after {
+    transform: rotate(180deg);
+  }
 }
 
 .article-summary-menu {
@@ -392,5 +396,11 @@
   .article-next {
     padding-left: 15px;
     padding-top: 40px;
+  }
+}
+
+@media(max-width: $bp-lg) {
+  .article-summary-menu {
+    margin-top: 9px;
   }
 }
