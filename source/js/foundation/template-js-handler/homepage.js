@@ -10,7 +10,7 @@ export default () => {
     if (element) {
       element.addEventListener(`click`, () => {
         ReactGA.event({
-          category: `cta read more`,
+          category: `CTA read more`,
           action: eventAction,
           label: `${DOC_TITLE} - ${element.innerText}`,
         });
