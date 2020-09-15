@@ -3,15 +3,12 @@ from factory import (
     Faker,
     SubFactory
 )
-from wagtail_factories import (
-    PageFactory,
-    ImageFactory
-)
+from wagtail_factories import PageFactory
 from wagtail.core.models import (
     Site as WagtailSite,
     Page as WagtailPage
 )
-
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import Homepage
 from networkapi.utility.faker.helpers import (
     reseed,
@@ -96,11 +93,11 @@ def generate(seed):
     reseed(seed)
 
     try:
-        about_page = WagtailPage.objects.get(title='about')
+        about_page = WagtailPage.objects.get(title='Who we are')
         print('about page exists')
     except WagtailPage.DoesNotExist:
         print('Generating an about Page (PrimaryPage)')
-        about_page = PrimaryPageFactory.create(parent=home_page, title='about')
+        about_page = PrimaryPageFactory.create(parent=home_page, title='Who we are')
 
     reseed(seed)
 

@@ -15,15 +15,15 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`Participate page`, function () {
-    cy.visit(`/en/participate/`);
+  it(`What can you do page`, function () {
+    cy.visit(`/en/what-you-can-do/`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
     cy.percySnapshot();
   });
 
-  it(`About page`, function () {
-    cy.visit(`/en/about`);
+  it(`Who We Are page`, function () {
+    cy.visit(`/en/who-we-are`);
     cy.window().its(`main-js:react:finished`).should(`equal`, true);
     cy.wait(500);
     cy.percySnapshot();
@@ -162,6 +162,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   it(`YouTube Regrets page`, function () {
     cy.visit(`/en/campaigns/youtube-regrets/`);
+    cy.wait(1000);
+    cy.percySnapshot();
+  });
+
+  it(`YouTube RegretsReporter page`, function () {
+    cy.visit(`/en/campaigns/regrets-reporter/`);
     cy.wait(1000);
     cy.percySnapshot();
   });

@@ -1,13 +1,11 @@
-from wagtail_factories import (
-    PageFactory,
-    ImageFactory
-)
+from wagtail_factories import PageFactory
 from factory import (
     Faker,
     SubFactory
 )
 from wagtail.core.models import Page as WagtailPage
 
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import ParticipatePage2
 from networkapi.utility.faker.helpers import (
     reseed,
@@ -52,8 +50,8 @@ def generate(seed):
     reseed(seed)
 
     try:
-        WagtailPage.objects.get(title='participate')
+        WagtailPage.objects.get(title='What you can do')
         print('participate page exists')
     except WagtailPage.DoesNotExist:
         print('Generating an empty Participate Page')
-        ParticipatePage2Factory.create(parent=home_page)
+        ParticipatePage2Factory.create(parent=home_page, title='What you can do')
