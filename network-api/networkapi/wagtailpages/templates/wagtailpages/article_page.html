@@ -42,26 +42,7 @@
   </div>
 
   {% if page.footnotes_list %}
-    <div class="container mt-5 py-4">
-      <div class="row">
-        <div class="col-sm-10 offset-sm-1">
-          <hr>
-        </div>
-        <div class="col-sm-8 offset-sm-2 mt-5">
-          <h3 class="footnotes-title">{% trans 'Footnotes' %}</h3>
-          {% for footnote in page.footnotes_list %}
-            <div class="footnote-row d-flex" id="footnote-{{ forloop.counter }}">
-              <a href="#footnote-source-{{ forloop.counter }}" class="footnote-number mr-3" aria-label="Back to content">
-                [{{ forloop.counter }}]
-              </a>
-              <a href="#footnote-source-{{ forloop.counter }}" class="footnote-text" aria-label="Back to content">
-                {{ footnote.text|richtext }}
-              </a>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+    {% include "fragments/footnotes.html" %}
   {% endif %}
 
   <div class="container mt-3 mb-5">
@@ -74,26 +55,5 @@
     </div>
   </div>
 
-  <div class="article-prev-next">
-    <div class="container">
-      <div class="row d-flex">
-        <div class="col-sm-6 text-right article-prev article-nav-arrow article-nav-arrow--left">
-          {% if page.prev_page %}
-            <small class="prev-next-text">{% trans 'Previous' %}</small>
-            <a href="{{ page.prev_page.url }}" class="article-prev-next-link">
-              {{ page.prev_page.title }}
-            </a>
-          {% endif %}
-        </div>
-        <div class="col-sm-6 article-next article-next-arrow article-nav-arrow article-nav-arrow--right">
-          {% if page.next_page %}
-            <small class="prev-next-text">{% trans 'Next' %}</small>
-            <a href="{{ page.next_page.url }}" class="article-prev-next-link">
-              {{ page.next_page.title }}
-            </a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include "fragments/article_prev_next.html" %}
 {% endblock %}
