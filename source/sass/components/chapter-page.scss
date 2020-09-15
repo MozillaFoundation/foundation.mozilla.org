@@ -38,6 +38,11 @@
   padding-bottom: 250px;
   background-size: cover !important;
   background-position: center center;
+
+  &--small {
+    padding-top: 105px;
+    padding-bottom: 140px;
+  }
 }
 
 .download-button::before {

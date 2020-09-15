@@ -2,17 +2,17 @@
 
 {% if page.hero_image %}
   {% image page.hero_image fill-1400x675 as bg_img %}
-  <div 
-    class="d-flex align-items-center publication-hero-container" 
+  <div
+    class="d-flex align-items-center publication-hero-container{% if size %} publication-hero-container--small{% endif %}"
     style='background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{{ bg_img.url }}")'>
 {% else %}
-  <div 
-    class="d-flex align-items-center publication-hero-container" 
+  <div
+    class="d-flex align-items-center publication-hero-container{% if size %} publication-hero-container--small{% endif %}"
     style='background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75))'>
 {% endif %}
   <div class="container">
     <div class="row">
-      <div class="col-lg-10">
+      <div class="{% if not size %}col-lg-10{% else %}col-lg-8 offset-lg-2{% endif %}">
         {# TODO: Add breadcrumb #}
 
         <h1 class="publication-hero-title text-white">
