@@ -17,9 +17,9 @@
             <div class="col-lg-4 col-12 px-lg-3 pl-0 pr-2">
               <div class="pl-lg-5">
                 <div class="dropdown">
-                  <a class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block text-left" href="#" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block w-100 text-left" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% trans 'Summary' %}
-                  </a>
+                  </button>
 
                   <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
                     {% for slug, header in page.get_titles %}

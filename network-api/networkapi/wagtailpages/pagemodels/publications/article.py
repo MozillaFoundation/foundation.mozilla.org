@@ -2,7 +2,6 @@
 from bs4 import BeautifulSoup
 from django.db import models
 from django.utils.text import slugify
-from typing import Union
 from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable, Page
@@ -14,14 +13,6 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from networkapi.wagtailpages.models import BlogAuthor
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..article_fields import article_fields
-
-"""
-TODO:
-agree on featureset for content
-callout may have different featureset, but we mainly want the ability to distinguish it for styling?
-it was implied we might want to include links/call to actions in a callout, but maybe that would not be good,
-in which case we could just use a BlockQuoteBlock
-"""
 
 
 class ArticleAuthors(Orderable):
@@ -73,7 +64,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     ]
 
     @property
-    def next_page(self) -> Union[Page, None]:
+    def next_page(self):
         # Try to get the next sibling page.
         try:
             next_page = self.get_siblings().filter(path__gt=self.path, live=True)[0]
@@ -82,7 +73,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         return next_page
 
     @property
-    def prev_page(self) -> Union[Page, None]:
+    def prev_page(self):
         # Try to get the prev sibling page.
         try:
             prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse()[0]

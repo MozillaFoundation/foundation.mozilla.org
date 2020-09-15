@@ -98,10 +98,9 @@ class ArticlePageFactory(PageFactory):
 
 def generate(seed):
     """
-    makes a batch of 3 publication pages
-    eventually I'd like to add a post_generation hooks that gives each of these pages an arbitrary number of chapters
-    and chapters an arbitrary number of articles
+    Makes a batch of 3 publication pages.
     """
+
     reseed(seed)
     home_page = get_homepage()
     """
