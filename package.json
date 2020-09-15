@@ -58,7 +58,7 @@
     "@babel/preset-react": "^7.10.4",
     "@sentry/browser": "^5.21.4",
     "autoprefixer": "^9.8.6",
-    "axe-core": "^4.0.1",
+    "axe-core": "^4.0.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "bootstrap": "^4.5.2",
