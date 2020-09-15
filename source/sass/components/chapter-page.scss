@@ -19,6 +19,11 @@
   font-size: $font-size-base;
 }
 
+.publication-container {
+  margin-top: -50px;
+  background-color: $white;
+}
+
 .publication-hero-subtitle {
   font-family: $font-family-sans-serif !important;
 }
@@ -34,8 +39,8 @@
 }
 
 .publication-hero-container {
-  padding-top: 200px;
-  padding-bottom: 250px;
+  padding-top: 137px;
+  padding-bottom: 184px;
   background-size: cover !important;
   background-position: center center;
 
