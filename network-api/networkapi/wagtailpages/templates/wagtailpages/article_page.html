@@ -18,8 +18,8 @@
         {% if page.get_titles %}
           {# If there are h2s in the body of this page, show the article "table of contents" #}
           <div class="article-summary p-rel">
-            <div class="article-summary-share-links d-md-block d-none">
-              <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked"></div>
+            <div class="article-summary-share-links d-lg-block d-none">
+              <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
             </div>
             <div class="article-summary-title">{% trans 'SUMMARY' %}</div>
             <div class="article-links">
@@ -42,9 +42,12 @@
   </div>
 
   {% if page.footnotes_list %}
-    <div class="container footnotes">
+    <div class="container mt-5 py-4">
       <div class="row">
-        <div class="col-sm-10 offset-1">
+        <div class="col-sm-10 offset-sm-1">
+          <hr>
+        </div>
+        <div class="col-sm-8 offset-sm-2 mt-5">
           <h3 class="footnotes-title">{% trans 'Footnotes' %}</h3>
           {% for footnote in page.footnotes_list %}
             <div class="footnote-row d-flex" id="footnote-{{ forloop.counter }}">
@@ -60,6 +63,16 @@
       </div>
     </div>
   {% endif %}
+
+  <div class="container mt-3 mb-5">
+    <div class="row">
+      <div class="col-sm-8 offset-sm-2">
+        <div class="pb-4 share-button-group-wrapper">
+          <div class="share-button-group-wrapper d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="article-prev-next">
     <div class="container">
