@@ -59,6 +59,10 @@ class ArticlePageFactory(PageFactory):
 
 
 def generate(seed):
+    """
+    Makes a batch of 3 publication pages.
+    """
+
     reseed(seed)
     home_page = get_homepage()
     """

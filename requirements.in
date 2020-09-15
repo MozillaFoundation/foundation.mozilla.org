@@ -28,3 +28,4 @@ psycopg2-binary
 cloudinary
 wagtail-experiments
 sentry-sdk
+wagtail-footnotes
