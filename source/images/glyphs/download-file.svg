@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
-    <title>24px - Download</title>
-    <desc>Created with Sketch.</desc>
-    <g id="24px---Download" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="Iconography-/-Small-/-Stroke-/-Download" stroke="#fff">
-            <g id="Group" transform="translate(1.000000, 0.500000)">
-                <path d="M0.00574549473,15.4806719 L0.00574549473,20.4559732 C0.00574549473,21.5605427 0.901175995,22.4559732 2.00574549,22.4559732 L19.9942545,22.4559732 C21.098824,22.4559732 21.9942545,21.5605427 21.9942545,20.4559732 L21.9942545,15.4806719" id="Line-7" stroke-width="2"></path>
-                <path d="M8.50289749,17.1338362 L8.50289749,10.0907801" id="Line-2" stroke-width="2" transform="translate(8.502897, 13.612308) rotate(-225.000000) translate(-8.502897, -13.612308) "></path>
-                <path d="M10.0000734,13.6170188 L17.0298058,13.6170188" id="Line" stroke-width="2" transform="translate(13.514940, 13.617019) rotate(-225.000000) translate(-13.514940, -13.617019) "></path>
-                <path d="M5.00126063,15 L16.0443168,3.95694385" id="Line-6" stroke-width="2" transform="translate(11.000000, 9.000000) rotate(-225.000000) translate(-11.000000, -9.000000) "></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-width="2" stroke="#fff" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M1.006 15.98v4.976a2 2 0 002 2h17.988a2 2 0 002-2v-4.975M7.013 11.622l4.98 4.98M17 11.632l-4.97 4.97M12 1.016v15.617"/></g></svg>

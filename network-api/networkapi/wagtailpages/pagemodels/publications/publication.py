@@ -101,9 +101,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     ]
 
     @property
-    def is_chapter_page(self) -> bool:
-        """Is this a chapter page (child-Publicationpage). Returns a bool."""
-        parent = self.get_parent().specific
-        return parent.__class__.__name__ == self.__class__.__name__
+    def is_chapter_page(self):
+        """
+        A PublicationPage nested under a PublicationPage is considered to be a
+        "ChapterPage". The templates used very similar logic and structure, and
+        all the fields are the same.
 
-    # TODO Need the parent chapter index number
+        """
+        parent = self.get_parent().specific
+        return parent.__class__ == PublicationPage

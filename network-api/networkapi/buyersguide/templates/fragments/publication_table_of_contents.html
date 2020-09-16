@@ -6,7 +6,7 @@
           <h2>{{ page.contents_title }}</h2>
         </div>
         <div class="col-12">
-          {% for child in page.get_children %}
+          {% for child in page.get_children.live %}
             <div class="row publication-row pt-3 pb-sm-4 pb-0">
               <div class="col-auto">
                 <div class="publication-chapter-number">
@@ -19,22 +19,20 @@
                     {{ child.title }}
                   </a>
                 </h3>
-                {% if child.get_children_count %}
-                  {% for grandchild in child.get_children %}
-                    <div class="row d-sm-flex d-none">
-                      <div class="col-auto publication-chapter-list-number">
-                        {{ forloop.parentloop.counter }}.{{ forloop.counter}}
-                      </div>
-                      <div class="col">
-                        <h4 class="w-100 child-pages-children-title">
-                          <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
-                            {{ grandchild.title }}
-                          </a>
-                        </h4>
-                      </div>
+                {% for grandchild in child.get_children.live %}
+                  <div class="row d-sm-flex d-none">
+                    <div class="col-auto publication-chapter-list-number">
+                      {{ forloop.parentloop.counter }}.{{ forloop.counter}}
                     </div>
-                  {% endfor %}
-                {% endif %}
+                    <div class="col">
+                      <h4 class="w-100 child-pages-children-title">
+                        <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
+                          {{ grandchild.title }}
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                {% endfor %}
               </div>
             </div>
             {% if child.get_children_count %}

@@ -28,8 +28,6 @@ from .models import (
     Petition,
     Signup,
 
-
-
     # DEPRECATED
     PeoplePage,
 )
@@ -221,8 +219,6 @@ class ArticlePageTR(TranslationOptions):
     fields = ()
 
 # The following bindings are obsolete and require cleanup
-
-
 @register(PeoplePage)
 class PeoplePageTR(TranslationOptions):
     fields = ()

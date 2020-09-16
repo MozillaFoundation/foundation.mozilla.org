@@ -8,12 +8,12 @@
 
   {% include "./fragments/publication_hero.html" %}
 
-  {% if not page.is_chapter_page %}
-    {# Publication Page #}
-    {% include "fragments/publication_table_of_contents.html" %}
-  {% else %}
+  {% if page.is_chapter_page %}
     {# Chapter page #}
     {% include "fragments/chapter_table_of_contents.html" %}
+  {% else %}
+    {# Publication Page #}
+    {% include "fragments/publication_table_of_contents.html" %}
   {% endif %}
 
   {% if page.notes %}
