@@ -1,7 +1,4 @@
 // @TODO: This component needs design polish
-// @TODO: Add responsive design to this component
-// @TODO: Before "launch" lets make sure all these classes are being used.
-//        Check after all branches have been merged. Remove unused styling.
 .chapter-number {
   display: flex;
   width: 80px;
@@ -113,13 +110,6 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   line-height: 22px;
-}
-
-.publication-chapter-link {
-  color: $black;
-  font-size: 18px;
-  font-family: $font-family-sans-serif;
-  line-height: 24px;
 }
 
 .publication-notes-hr {
