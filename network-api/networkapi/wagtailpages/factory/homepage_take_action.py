@@ -1,3 +1,4 @@
+from random import choice
 from factory import Faker
 from wagtail.images.models import Image
 from wagtail.core.models import Page
@@ -13,12 +14,15 @@ def generate(seed):
 
     reseed(seed)
 
+    all_images = list(Image.objects.all())
+    all_pages = list(Page.objects.all())
+
     for i in range(4):
         take_action_orderable = HomepageTakeActionCards.objects.create(
             page=home_page,
-            image=Image.objects.order_by("?").first(),
+            image=choice(all_images),
             text=Faker('text', max_nb_chars=255).generate(),
-            internal_link=Page.objects.order_by("?").first(),
+            internal_link=choice(all_pages),
         )
         home_page.take_action_cards.add(take_action_orderable)
 
