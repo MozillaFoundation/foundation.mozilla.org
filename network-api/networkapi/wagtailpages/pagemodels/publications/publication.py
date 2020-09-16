@@ -1,5 +1,4 @@
 from django.db import models
-from typing import Union
 
 from modelcluster.fields import ParentalKey
 
@@ -43,15 +42,15 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     An Article can only belong to one Chapter/Publication Page
     """
 
-    subpage_types = ["ArticlePage", "PublicationPage"]
+    subpage_types = ['ArticlePage', 'PublicationPage']
 
     hero_image = models.ForeignKey(
-        "wagtailimages.Image",
+        'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="publication_hero_image",
-        verbose_name="Publication Hero Image",
+        related_name='publication_hero_image',
+        verbose_name='Publication Hero Image',
     )
     subtitle = models.CharField(
         blank=True,
@@ -63,11 +62,11 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     )
     publication_date = models.DateField("Publication date", null=True, blank=True)
     publication_file = models.ForeignKey(
-        "wagtaildocs.Document",
+        'wagtaildocs.Document',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="+",
+        related_name='+',
     )
     additional_author_copy = models.CharField(
         help_text="Example: with contributing authors",

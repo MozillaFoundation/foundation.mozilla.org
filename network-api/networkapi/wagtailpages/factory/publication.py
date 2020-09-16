@@ -18,7 +18,7 @@ from wagtail.documents import get_document_model
 
 
 class CollectionFactory(MP_NodeFactory):
-    name = Faker("text", max_nb_chars=60)
+    name = Faker('text', max_nb_chars=60)
 
     class Meta:
         model = Collection
@@ -32,16 +32,16 @@ class DocumentFactory(CollectionMemberFactory):
     class Meta:
         model = get_document_model()
 
-    title = Faker("text", max_nb_chars=250)
+    title = Faker('text', max_nb_chars=250)
     file = django.FileField(
-        filename=Faker("file_name", category="text"), file_extension="pdf"
+        filename=Faker("file_name", category='text'), file_extension="pdf"
     )
 
 
 class PublicationPageFactory(PageFactory):
-    title = Faker("text", max_nb_chars=120)
-    subtitle = Faker("text", max_nb_chars=250)
-    secondary_subtitle = Faker("text", max_nb_chars=250)
+    title = Faker('text', max_nb_chars=120)
+    subtitle = Faker('text', max_nb_chars=250)
+    secondary_subtitle = Faker('text', max_nb_chars=250)
     publication_date = Faker("date_object")
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
@@ -52,7 +52,7 @@ class PublicationPageFactory(PageFactory):
 
 # this is actually just a blog author factory, hello tech debt
 class ArticlePageFactory(PageFactory):
-    title = Faker("text", max_nb_chars=120)
+    title = Faker('text', max_nb_chars=120)
 
     class Meta:
         model = ArticlePage
