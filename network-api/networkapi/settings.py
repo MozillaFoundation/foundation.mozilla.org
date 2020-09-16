@@ -299,6 +299,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'networkapi.context_processor.review_app',
                 'networkapi.context_processor.cloudinary',
+                'networkapi.context_processor.canonical_path',
+                'networkapi.context_processor.canonical_site_url',
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
