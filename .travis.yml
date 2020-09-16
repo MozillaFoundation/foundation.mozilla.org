@@ -17,7 +17,7 @@ env:
   global:
     - ALLOWED_HOSTS=localhost,mozfest.localhost,default-site.com,secondary-site.com
     - CONTENT_TYPE_NO_SNIFF=True
-    - CORS_WHITELIST="*"
+    - CORS_ALLOWED_ORIGINS="*"
     - DATABASE_URL=postgres://postgres@localhost:5432/network
     - DEBUG=True
     - DJANGO_SECRET_KEY=secret

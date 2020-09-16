@@ -14,7 +14,7 @@
       "generator": "secret"
     },
     "DEBUG": "False",
-    "CORS_WHITELIST": "*",
+    "CORS_ALLOWED_ORIGINS": "*",
     "XSS_PROTECTION": "True",
     "CONTENT_TYPE_NO_SNIFF": "True",
     "SET_HSTS": "True",
