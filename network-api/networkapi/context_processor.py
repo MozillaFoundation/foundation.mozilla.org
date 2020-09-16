@@ -16,7 +16,6 @@ def cloudinary(request):
 def canonical_path(request):
     lang = getattr(request, 'locale', translation.get_language())
     url = getattr(request, 'path', '/')
-    print(re.sub(r'^/' + lang, '', url))
     return {'CANONICAL_PATH': re.sub(r'^/' + lang, '', url)}
 
 
