@@ -11,7 +11,7 @@
 
   {% include "./fragments/publication_hero.html" with size="small" %}
 
-  <div class="container">
+  <div class="container{% if not page.get_titles %} mt-5{% endif %}">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
 
