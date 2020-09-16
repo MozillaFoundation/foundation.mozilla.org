@@ -13,9 +13,9 @@
   <div class="container">
     <div class="row">
       <div class="{% if not size %}col-lg-10{% else %}col-lg-8 offset-lg-2{% endif %}">
-        <div class="mb-2 publication-breadcrumb">
+        <div class="mb-2 body-small dark-theme">
           {% for parent_page in self.breadcrumb_list %}
-            <a href="{{ parent_page.url }}">{{ parent_page.title }}</a> ›
+            <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a> ›
           {% endfor %}
         </div>
         <h1 class="publication-hero-title text-white">
