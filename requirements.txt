@@ -43,7 +43,7 @@ l18n==2018.5              # via wagtail
 oauthlib==3.1.0           # via requests-oauthlib, social-auth-core
 openpyxl==3.0.5           # via tablib
 pillow==6.2.2             # via wagtail
-psycopg2-binary==2.8.5    # via -r requirements.in
+psycopg2-binary==2.8.6    # via -r requirements.in
 pycparser==2.20           # via cffi
 pyjwt==1.7.1              # via social-auth-core
 python-dateutil==2.8.1    # via botocore, faker
