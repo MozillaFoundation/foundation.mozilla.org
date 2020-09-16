@@ -13,8 +13,11 @@
   <div class="container">
     <div class="row">
       <div class="{% if not size %}col-lg-10{% else %}col-lg-8 offset-lg-2{% endif %}">
-        {# TODO: Add breadcrumb #}
-
+        <div class="mb-2 publication-breadcrumb">
+          {% for parent_page in self.breadcrumb_list %}
+            <a href="{{ parent_page.url }}">{{ parent_page.title }}</a> ›
+          {% endfor %}
+        </div>
         <h1 class="publication-hero-title text-white">
           {{ page.title }}
         </h1>

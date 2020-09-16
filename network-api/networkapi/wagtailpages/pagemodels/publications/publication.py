@@ -106,7 +106,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         A PublicationPage nested under a PublicationPage is considered to be a
         "ChapterPage". The templates used very similar logic and structure, and
         all the fields are the same.
-
         """
         parent = self.get_parent().specific
         return parent.__class__ == PublicationPage
+
+    def breadcrumb_list(self):
+        """
+        Get all the parent PublicationPages and return a QuerySet
+        """
+        return Page.objects.ancestor_of(self).type(PublicationPage).live()

@@ -10,7 +10,7 @@ from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from networkapi.wagtailpages.models import BlogAuthor
+from networkapi.wagtailpages.models import BlogAuthor, PublicationPage
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..article_fields import article_fields
 
@@ -94,3 +94,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             slugify(header): header for header in headers
         }
         return tuple(data.items())
+
+    def breadcrumb_list(self):
+        """
+        Get all the parent PublicationPages and return a QuerySet
+        """
+        return Page.objects.ancestor_of(self).type(PublicationPage).live()

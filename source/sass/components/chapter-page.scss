@@ -21,6 +21,19 @@
   background-color: $white;
 }
 
+.publication-breadcrumb {
+  color: $gray-40;
+  font-family: $font-family-sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: 16px;
+
+  a, a:hover {
+    color: $gray-40;
+  }
+}
+
 .publication-hero-subtitle {
   font-family: $font-family-sans-serif !important;
 }
