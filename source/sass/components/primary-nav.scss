@@ -96,8 +96,6 @@
   }
 
   .wrapper-burger {
-    $full-logo-breakpoint: $bp-sm;
-
     transition: background 200ms ease-in-out;
     background: $white;
     border-bottom: 1px solid $gray-20;
@@ -195,7 +193,7 @@
       position: relative;
       z-index: 1;
 
-      @media (min-width: $full-logo-breakpoint) {
+      @media (min-width: $nav-full-logo-breakpoint) {
         width: 97px;
         background: url(../_images/mozilla-on-black.svg) no-repeat;
       }
@@ -209,7 +207,7 @@
       position: absolute;
       padding-top: 64px;
 
-      @media (min-width: $full-logo-breakpoint) {
+      @media (min-width: $nav-full-logo-breakpoint) {
         padding-top: 72px;
       }
 
