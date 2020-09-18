@@ -29,15 +29,6 @@ $btn-shadow-width: 3px;
       }
     }
   }
-
-  input[name="wouldbuy"] {
-    transition: all 0.1s ease-in-out;
-
-    &:checked + span {
-      background: $black;
-      color: $white;
-    }
-  }
 }
 
 .creep-vote {
@@ -57,37 +48,6 @@ $btn-shadow-width: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .btn-group {
-    display: flex;
-    justify-content: center;
-    max-width: 300px;
-    margin: 0 auto;
-
-    label {
-      flex: 1;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      width: 100%;
-    }
-
-    .likely-glyph {
-      border-right-width: 0;
-    }
-
-    input {
-      display: none;
-    }
-
-    img {
-      height: 1em;
-    }
   }
 
   .help-text {

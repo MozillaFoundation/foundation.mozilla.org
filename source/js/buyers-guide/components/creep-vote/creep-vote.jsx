@@ -2,7 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
-import LikelyhoodChart from "../likelyhood-chart/likelyhood-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
 import JoinUs from "../../../components/join/join.jsx";
 import { getText } from "../../../components/petition/locales";
@@ -13,7 +12,6 @@ export default class CreepVote extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
-    this.buyOrUse = this.props.productType === "software" ? "use" : "buy";
   }
 
   getInitialState() {
@@ -33,8 +31,6 @@ export default class CreepVote extends React.Component {
       }
     });
 
-    let confidence = votes.confidence;
-
     let subscribed = sessionStorage.subscribed === "true";
     let voteCount = parseInt(sessionStorage.getItem(`voteCount`) || 0);
 
@@ -47,11 +43,9 @@ export default class CreepVote extends React.Component {
     return {
       totalVotes,
       creepiness: 50,
-      confidence: undefined,
       didVote: false,
       majority: {
         creepiness: creepinessId,
-        confidence: confidence[0] > confidence[1] ? 0 : 1,
       },
       subscribed,
       showNewsletter: false,
@@ -66,9 +60,9 @@ export default class CreepVote extends React.Component {
   }
 
   showVoteResult() {
-    const { creepinessSubmitted, confidenceSubmitted, voteCount } = this.state;
+    const { creepinessSubmitted, voteCount } = this.state;
 
-    if (creepinessSubmitted && confidenceSubmitted) {
+    if (creepinessSubmitted) {
       this.setState({
         showNewsletter: voteCount === 2 || voteCount === 3,
         didVote: true,
@@ -112,14 +106,7 @@ export default class CreepVote extends React.Component {
     sessionStorage.setItem("voteCount", voteCount);
     this.setState({ voteCount });
 
-    let confidence = this.state.confidence;
     let productID = this.props.productID;
-
-    this.sendVoteFor({
-      attribute: `confidence`,
-      productID,
-      value: confidence,
-    });
 
     this.sendVoteFor({
       attribute: `creepiness`,
@@ -132,11 +119,6 @@ export default class CreepVote extends React.Component {
     this.setState({ creepiness });
   }
 
-  setConfidence(confidence, key) {
-    if (key && key === "Tab") return;
-    this.setState({ confidence });
-  }
-
   handleSignUp(successState) {
     sessionStorage.setItem("subscribed", successState);
     this.setState({ showNewsletter: false, subscribed: successState });
@@ -146,14 +128,6 @@ export default class CreepVote extends React.Component {
    * @returns {jsx} What users see when they haven't voted on this product yet.
    */
   renderVoteAsk() {
-    let unlikelyClasses = classNames("unlikely-glyph btn btn-secondary", {
-      selected: this.state.confidence == false,
-    });
-
-    let likelyClasses = classNames("likely-glyph btn btn-secondary", {
-      selected: this.state.confidence == true,
-    });
-
     return (
       <React.Fragment>
         <div className="what-you-think-label h5-heading">
@@ -165,7 +139,7 @@ export default class CreepVote extends React.Component {
           onSubmit={(evt) => this.submitVote(evt)}
         >
           <div className="row mb-5">
-            <div className="col-12 col-md-6">
+            <div className="col-12">
               <div className="mb-4 text-center">
                 <h3 className="h5-heading mb-2">
                   How creepy do you think this is?
@@ -175,54 +149,6 @@ export default class CreepVote extends React.Component {
                 initialValue={this.state.creepiness}
                 onChange={(value) => this.setCreepiness(value)}
               />
-            </div>
-            <div className="col-12 col-md-6 mt-5 mt-md-0">
-              <div className="mb-4 text-center">
-                <h3 className="h5-heading mb-2">
-                  {`How likely are you to ${this.buyOrUse} it?`}
-                </h3>
-              </div>
-              <div className="text-center">
-                <div
-                  className="btn-group btn-group-toggle mt-3 mt-md-5"
-                  data-toggle="buttons"
-                >
-                  <label htmlFor="likely">
-                    <input
-                      type="radio"
-                      name="wouldbuy"
-                      id="likely"
-                      autoComplete="off"
-                    />
-                    <span
-                      className={likelyClasses}
-                      onClick={() => this.setConfidence(true)}
-                      onKeyPress={(evt) => this.setConfidence(true, evt.key)}
-                      tabIndex="0"
-                      role="button"
-                    >
-                      Likely
-                    </span>
-                  </label>
-                  <label htmlFor="unlikely">
-                    <input
-                      type="radio"
-                      name="wouldbuy"
-                      id="unlikely"
-                      autoComplete="off"
-                    />
-                    <span
-                      className={unlikelyClasses}
-                      onClick={() => this.setConfidence(false)}
-                      onKeyPress={(evt) => this.setConfidence(false, evt.key)}
-                      tabIndex="0"
-                      role="button"
-                    >
-                      Not likely
-                    </span>
-                  </label>
-                </div>
-              </div>
             </div>
           </div>
           <div className="row">
@@ -294,12 +220,6 @@ export default class CreepVote extends React.Component {
                 <CreepChart
                   userVoteGroup={userVoteGroup}
                   values={this.props.votes.creepiness.vote_breakdown}
-                />
-              </div>
-              <div className="col likelyhood-chart d-flex justify-content-center">
-                <LikelyhoodChart
-                  values={this.props.votes.confidence}
-                  buyOrUse={this.buyOrUse}
                 />
               </div>
             </div>
