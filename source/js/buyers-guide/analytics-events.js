@@ -23,13 +23,6 @@ function getQuerySelectorEvents(pageTitle, productName) {
       // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`,
     },
-    "#product-copy-link-button": {
-      category: `product`,
-      action: `copy link tap`,
-      label: `copy link ${productName}`,
-      // Custom properties (not sent to GA)
-      conditionalQuery: `#view-product-page`,
-    },
     "#product-live-chat": {
       category: `product`,
       action: `customer support link tap`,
