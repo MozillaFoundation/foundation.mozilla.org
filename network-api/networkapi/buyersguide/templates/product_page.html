@@ -43,7 +43,7 @@
         <div class="col-12">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
         </div>
-        <div class="body-large mb-2 mb-md-4 col-12">{{product.blurb}}</div>
+        <div class="col-12"><p class="body mb-2 mb-md-4">{{product.blurb}}</p></div>
       </div>
 
       <div class="minimum-security row py-5 px-3 px-md-5">
