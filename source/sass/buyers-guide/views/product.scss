@@ -310,6 +310,7 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .creep-vote-target {
+  position: relative;
   min-height: 380px;
   min-width: 290px;
   background: $pni-product-image-background;
