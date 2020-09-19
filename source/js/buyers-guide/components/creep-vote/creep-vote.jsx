@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
@@ -130,9 +129,6 @@ export default class CreepVote extends React.Component {
   renderVoteAsk() {
     return (
       <React.Fragment>
-        <div className="what-you-think-label h5-heading">
-          Tell us what you think
-        </div>
         <form
           method="post"
           id="creep-vote"
@@ -141,7 +137,7 @@ export default class CreepVote extends React.Component {
           <div className="row mb-5">
             <div className="col-12">
               <div className="mb-4 text-center">
-                <h3 className="h5-heading mb-2">
+                <h3 className="h3-heading mb-2">
                   How creepy do you think this is?
                 </h3>
               </div>
@@ -156,7 +152,7 @@ export default class CreepVote extends React.Component {
               <button
                 id="creep-vote-btn"
                 type="submit"
-                className="btn btn-secondary mb-2"
+                className="btn btn-pop mb-2"
               >
                 Vote & See Results
               </button>
@@ -215,13 +211,11 @@ export default class CreepVote extends React.Component {
             <div className="h6-heading text-muted" />
           </div>
           <div className="row mt-4">
-            <div className="col-12 col-lg-11 d-md-flex m-md-auto align-items-md-center">
-              <div className="px-0 px-lg-3 col-lg-7 mb-5 mb-md-0 creep-chart">
-                <CreepChart
-                  userVoteGroup={userVoteGroup}
-                  values={this.props.votes.creepiness.vote_breakdown}
-                />
-              </div>
+            <div className="col-12">
+              <CreepChart
+                userVoteGroup={userVoteGroup}
+                values={this.props.votes.creepiness.vote_breakdown}
+              />
             </div>
           </div>
         </div>
@@ -245,6 +239,6 @@ export default class CreepVote extends React.Component {
       }
     }
 
-    return <div className="creep-vote my-5">{content}</div>;
+    return <div className="creep-vote">{content}</div>;
   }
 }

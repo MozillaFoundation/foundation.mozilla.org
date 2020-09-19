@@ -310,54 +310,9 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .creep-vote-target {
-  position: relative;
   min-height: 380px;
   min-width: 290px;
-  border: 1px solid $gray-20;
-  padding-left: 1rem;
-  padding-right: 1rem;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    padding: 1.5rem 3.75rem;
-  }
-}
-
-.creep-vote {
-  .what-you-think-label {
-    $line-height: 24px;
-    $padding-x: 1rem;
-    $padding-y: 0.5rem;
-    $shadow-width: calc(#{$padding-x} + 10px);
-
-    position: absolute;
-    top: 0;
-    left: 1rem;
-    transform: translateY(-50%);
-    background: $gray-60;
-    padding: $padding-y 1rem;
-
-    &.h5-heading {
-      color: $white;
-    }
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      left: calc(#{$shadow-width} * -1);
-
-      &::before {
-        position: absolute;
-        left: 0;
-        top: 100%;
-        content: "";
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 $shadow-width $shadow-width 0;
-        border-color: transparent $black transparent transparent;
-      }
-    }
-  }
+  background: $pni-product-image-background;
 }
 
 .helptext {

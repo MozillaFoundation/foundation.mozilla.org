@@ -51,8 +51,8 @@ export default class CreepChart extends React.Component {
 
   render() {
     return (
-      <div>
-        <table id="creepiness-score">
+      <React.Fragment>
+        <table id="creepiness-score" className="w-100">
           <tbody>
             {this.state.creepinessData.map((data, index) => {
               let percent = Math.round(
@@ -74,11 +74,11 @@ export default class CreepChart extends React.Component {
             })}
           </tbody>
         </table>
-        <div className="row">
-          <div className="col text-left text-muted">Not creepy</div>
-          <div className="col text-right text-muted">Super creepy</div>
+        <div className="d-flex justify-content-between">
+          <div className="text-muted">Not creepy</div>
+          <div className="text-muted">Super creepy</div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
