@@ -635,5 +635,5 @@ FEED_LIMIT = env('FEED_LIMIT')
 # Support pages with a large number of fields
 DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')
 
-# Web Monetization
+# Web Monetization: https://webmonetization.org/
 WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
