@@ -101,7 +101,7 @@ class SoftwareProduct(Product):
 
     panels = insert_panels_after(
         panels,
-        'How does it handle data sharing',
+        'What is the worst that could happen',
         [
             MultiFieldPanel(
                 [
@@ -114,13 +114,6 @@ class SoftwareProduct(Product):
                 heading='How does it handle privacy?',
                 classname='collapsible'
             ),
-        ],
-    )
-
-    panels = insert_panels_after(
-        panels,
-        'How does it handle privacy?',
-        [
             MultiFieldPanel(
                 [
                     FieldPanel('host_controls'),
