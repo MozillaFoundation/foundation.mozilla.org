@@ -2,6 +2,11 @@
 {% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags multi_image_tags i18n  %}
 
 
+{% block rss_metadata %}
+  <link rel="alternate" type="application/rss+xml" href="https://foundation.mozilla.org/blog/rss/" />
+{% endblock %}
+
+
 {% block body_id %}home{% endblock %}
 
 
