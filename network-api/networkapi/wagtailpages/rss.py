@@ -36,8 +36,7 @@ class RSSFeed(Feed):
     def item_description(self, item):
         page = item.specific
         html = str(page.body)
-        text = Truncator(html).chars(1000, html=True)
-        return text
+        return html
 
     def item_pubdate(self, item):
         return item.first_published_at
