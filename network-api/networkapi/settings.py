@@ -76,6 +76,7 @@ env = environ.Env(
     USE_CLOUDINARY=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
+    WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
 )
@@ -633,3 +634,6 @@ FEED_LIMIT = env('FEED_LIMIT')
 
 # Support pages with a large number of fields
 DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')
+
+# Web Monetization
+WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
