@@ -1,8 +1,7 @@
 body.mozfest {
   #primary-nav-container {
     // The following overrides are to make sure
-    // 1) MozFest logo shows up larger than
-    //    the default Mozilla logo that we have on the main site
+    // 1) MozFest logo shows up larger than the default Mozilla logo that we have on the main site
     // 2) MozFest primary nav and main Foundation site's primary nav have the same height
 
     @media (min-width: $nav-full-logo-breakpoint) {
