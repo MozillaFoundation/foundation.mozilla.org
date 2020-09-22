@@ -42,6 +42,10 @@
       <link rel="shortcut icon" href="{% static "_images/favicons/favicon.ico" %}">
     {% endblock %}
 
+    {% block hreflang %}
+      {% include "fragments/canonical_url.html" %}
+    {% endblock %}
+
     {% block org_schema%}{% endblock %}
 
     {% block additional_head_elements %}{% endblock %}

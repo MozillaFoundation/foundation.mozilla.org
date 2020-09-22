@@ -20,10 +20,11 @@ from .models import (
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
-
+    YoutubeRegretsReporterPage,
+  
     ArticlePage,
     PublicationPage,
-
+  
     CTA,
     Petition,
     Signup,
@@ -239,4 +240,13 @@ class YoutubeRegretsPageTR(TranslationOptions):
         'intro_images',
         'faq',
         'regret_stories',
+    }
+
+
+@register(YoutubeRegretsReporterPage)
+class YoutubeRegretsReporterPageTR(TranslationOptions):
+    fields = {
+        'headline',
+        'intro_text',
+        'intro_images',
     }

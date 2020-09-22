@@ -72,6 +72,7 @@ def buyersguide_home(request):
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
         'mediaUrl': MEDIA_URL,
+        'web_monetization_pointer': settings.WEB_MONETIZATION_POINTER,
     })
 
 

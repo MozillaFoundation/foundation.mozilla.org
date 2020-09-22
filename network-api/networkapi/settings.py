@@ -35,8 +35,8 @@ env = environ.Env(
     CONTENT_TYPE_NO_SNIFF=bool,
     CORAL_TALK_API_TOKEN=(str, None),
     CORAL_TALK_SERVER_URL=(str, None),
-    CORS_REGEX_WHITELIST=(tuple, ()),
-    CORS_WHITELIST=(tuple, ()),
+    CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
+    CORS_ALLOWED_ORIGINS=(tuple, ()),
     CRM_AWS_SQS_ACCESS_KEY_ID=(str, None),
     CRM_AWS_SQS_REGION=(str, None),
     CRM_AWS_SQS_SECRET_ACCESS_KEY=(str, None),
@@ -76,6 +76,7 @@ env = environ.Env(
     USE_CLOUDINARY=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
+    WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
 )
@@ -251,7 +252,6 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]))
 
@@ -301,6 +301,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'networkapi.context_processor.review_app',
                 'networkapi.context_processor.cloudinary',
+                'networkapi.context_processor.canonical_path',
+                'networkapi.context_processor.canonical_site_url',
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
@@ -482,11 +484,11 @@ else:
 # CORS
 CORS_ALLOW_CREDENTIALS = False
 
-if '*' in env('CORS_WHITELIST'):
-    CORS_ORIGIN_ALLOW_ALL = True
+if '*' in env('CORS_ALLOWED_ORIGINS'):
+    CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ORIGIN_WHITELIST = env('CORS_WHITELIST')
-    CORS_ORIGIN_REGEX_WHITELIST = env('CORS_REGEX_WHITELIST')
+    CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS')
+    CORS_ALLOWED_ORIGIN_REGEXES = env('CORS_ALLOWED_ORIGIN_REGEXES')
 
 # CSP
 CSP_DEFAULT = (
@@ -633,3 +635,6 @@ FEED_LIMIT = env('FEED_LIMIT')
 
 # Support pages with a large number of fields
 DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')
+
+# Web Monetization: https://webmonetization.org/
+WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')

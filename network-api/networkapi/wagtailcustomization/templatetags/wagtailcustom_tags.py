@@ -2,6 +2,7 @@ import re
 from django import template
 from django.utils.text import slugify
 from django.utils.html import strip_tags
+from django.utils.safestring import SafeText
 from wagtail.core.rich_text import RichText
 
 # We don't actually register any tags: the idea is to tap into
@@ -75,8 +76,8 @@ def with_heading_ids(self):
     # component's __html__ serializer function generates plain text
     # HTML source code, that assumption might be invalidated at some
     # point in time, so in order to make sure we can safely perform
-    # text replacement, we need to verify `html` has a string type.
-    if type(html) is not str:
+    # text replacement, we need to verify `html` is an instance of SafeText.
+    if type(html) is not SafeText:
         return html
 
     return re.sub(heading_re, add_id_attribute, html)

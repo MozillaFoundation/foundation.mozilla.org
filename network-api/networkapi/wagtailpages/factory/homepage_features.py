@@ -1,3 +1,5 @@
+from random import choice
+
 from networkapi.wagtailpages.models import (
     FocusArea,
     HomepageFocusAreas,
@@ -35,10 +37,12 @@ def generate(seed):
 
     NUM_SPOTLIGHT_POSTS = 3
 
+    all_blogs = list(BlogPage.objects.all())
+
     home_page.spotlight_posts = [
         HomepageSpotlightPosts.objects.create(
             page=home_page,
-            blog=BlogPage.objects.order_by("?").first()
+            blog=choice(all_blogs)
         )
         for i in range(NUM_SPOTLIGHT_POSTS)
     ]

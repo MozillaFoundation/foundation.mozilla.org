@@ -1,0 +1,44 @@
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+
+<link rel="canonical" href="{{ CANONICAL_SITE_URL }}/{{ LANGUAGE_CODE }}{{ CANONICAL_PATH }}">
+<link rel="alternate" hreflang="x-default" href="{{ CANONICAL_SITE_URL }}{{ CANONICAL_PATH }}">
+{% for CODE, NAME in LANGUAGES %}
+  {% get_language_info for CODE as lang %}
+  {% if CODE == 'es' %}
+  <link rel="alternate" hreflang="es" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="es-AR" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="es-CL" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="es-ES" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="es-MX" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'fy-NL' %}
+  <link rel="alternate" hreflang="fy" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="fy-NL" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'gu-IN' %}
+  <link rel="alternate" hreflang="gu" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="gu-IN" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'hi-IN' %}
+  <link rel="alternate" hreflang="hi" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="hi-IN" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'hy-AM' %}
+  <link rel="alternate" hreflang="hy" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="hy-AM" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'pa-IN' %}
+  <link rel="alternate" hreflang="pa" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="pa-IN" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'pt' %}
+  <link rel="alternate" hreflang="pt" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="pt-PT" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="pt-BR" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'sv-SE' %}
+  <link rel="alternate" hreflang="sv" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  <link rel="alternate" hreflang="sv-SE" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE == 'zh-CN' %}
+    <link rel="alternate" hreflang="zh" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+    <link rel="alternate" hreflang="zh-CN" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% elif CODE|length != 3 %}{# Exclude ISO 639-2 and -3 locales not supported by Google #}
+  <link rel="alternate" hreflang="{{ CODE }}" href="{{ CANONICAL_SITE_URL }}/{{ CODE }}{{ CANONICAL_PATH }}" title="{{ lang.name_local|safe }}">
+  {% endif %}
+{% endfor %}
