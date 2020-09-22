@@ -61,39 +61,6 @@ $pni-product-breakpoint-larger: $bp-md;
     background: none;
   }
 
-  .copy-link-wrapper {
-    order: 4;
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      order: unset;
-    }
-
-    .copy-link {
-      position: relative;
-      padding-left: 20px;
-
-      &.copied {
-        cursor: auto;
-        color: $blue;
-        text-decoration: none;
-      }
-
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        background-image: url(../_images/buyers-guide/icon-product-link.svg);
-        background-repeat: no-repeat;
-        background-position: center 65%;
-        background-size: contain;
-        width: 15px;
-        height: 100%;
-        display: block;
-      }
-    }
-  }
-
   h3.body,
   h4 {
     font-family: "Nunito Sans";
@@ -137,11 +104,6 @@ $pni-product-breakpoint-larger: $bp-md;
       color: $gray-20;
     }
   }
-}
-
-.copy-link {
-  font-size: 16px;
-  color: $black;
 }
 
 .spy {

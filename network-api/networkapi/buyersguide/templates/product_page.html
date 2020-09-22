@@ -34,16 +34,14 @@
 <div class="container">
   <div class="row">
     <div class="product-detail bg-white py-3 py-md-4 px-md-5 {{section_class}}">
-      <div class="row intro d-flex justify-content-between align-items-center">
-        <a id="product-company-url" class="product-price small-link col-md-8 mb-3" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
-        <div class="copy-link-wrapper col-md-4 mb-3 text-md-right">
-          <button id="product-copy-link-button" class="copy-link small-link" data-url="{{product.url}}" data-success-text='{% trans "link copied!" %}'>{% trans "copy & share link" %}</button>
-        </div>
-        <h1 class="h1-heading col-md-10">{{product.name}}</h1>
-        <div class="col-12">
+      <div class="row intro">
+        <h1 class="h1-heading col-12">{{product.name}}</h1>
+        <a id="product-company-url" class="product-price small-link col-md-8 mb-1 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
+        <div class="col-md-4 text-md-right">TODO: wifi and bluetooth</div>
+        <div class="col-12 mt-3">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
         </div>
-        <div class="body-large mb-2 mb-md-4 col-12">{{product.blurb}}</div>
+        <div class="col-12"><p class="body mb-2 mb-md-4">{{product.blurb}}</p></div>
       </div>
 
       <div class="minimum-security row py-5 px-3 px-md-5">
