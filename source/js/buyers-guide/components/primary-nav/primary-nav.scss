@@ -6,7 +6,7 @@ $pni-primary-nav-breakpoint: $bp-sm;
   width: 28px;
   height: 28px;
 
-  @include media-breakpoint-up(md) {
+  @media (min-width: $nav-full-logo-breakpoint) {
     width: 97px;
     background-image: url("../_images/mozilla-on-black.svg");
   }

@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
-from django.utils.text import Truncator
 
 from .models import IndexPage
 
@@ -39,8 +38,7 @@ class RSSFeed(Feed):
     def item_description(self, item):
         page = item.specific
         html = str(page.body)
-        text = Truncator(html).chars(1000, html=True)
-        return text
+        return html
 
     def item_pubdate(self, item):
         return item.first_published_at

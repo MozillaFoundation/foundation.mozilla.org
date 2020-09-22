@@ -1,18 +1,20 @@
 body.mozfest {
   #primary-nav-container {
-    @media (min-width: $bp-md) {
-      // The following overrides are to make sure
-      // 1) MozFest logo shows up larger than
-      //    the default Mozilla logo that we have on the main site
-      // 2) MozFest primary nav and main Foundation site's primary nav have the same height
-      .menu-container {
-        padding-top: 12px;
-        padding-bottom: 12px;
-      }
+    // The following overrides are to make sure
+    // 1) MozFest logo shows up larger than the default Mozilla logo that we have on the main site
+    // 2) MozFest primary nav and main Foundation site's primary nav have the same height
 
+    @media (min-width: $nav-full-logo-breakpoint) {
       .wrapper-burger .logo {
         height: 36px;
         background-image: url(../_images/mozfest/logo.svg);
+      }
+    }
+
+    @media (min-width: $bp-md) {
+      .menu-container {
+        padding-top: 12px;
+        padding-bottom: 12px;
       }
     }
   }
