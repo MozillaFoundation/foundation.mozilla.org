@@ -9,7 +9,17 @@ def remove_wrapping(content=None):
     Removes the .rich-text wrapper around richtext elements.
     Returns a string of all paragraphs.
 
-    Note: This can be removed in Wagtail 2.11.
+    In Wagtail 2.10 the .rich-text class that typically wraps around
+    any richtext area from the |richtext template filter is removed.
+
+    We've re-enabled it by installing `wagtail.contrib.legacy.richtext`.
+
+    However, for image captions where we want to support bold, italics
+    and links, we still require a richtext field but don't want to inherit
+    any other .rich-text styling.
+
+    This filter removes .rich-text from wrapping around the content
+    allowing us to style the image captions easier.
     """
     if content:
         soup = BeautifulSoup(str(content), 'html.parser')
