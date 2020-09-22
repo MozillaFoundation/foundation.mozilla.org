@@ -28,9 +28,9 @@ Faker.add_provider(ImageProvider)
 def get_random_option(options=[]):
     return choice(options)
 
+
 def get_extended_yes_no_value():
-    options = ['Yes', 'No', 'NA', 'U']
-    return choice(options)
+    return get_random_option(['Yes', 'No', 'NA', 'U'])
 
 
 def get_lowest_content_category():
@@ -125,7 +125,7 @@ class ProductFactory(DjangoModelFactory):
     track_record_is_bad = Faker('boolean')
     track_record_details = Faker('sentence')
 
-    offline_capable = Faker('boolean')
+    offline_capable = LazyFunction(get_extended_yes_no_value)
     offline_use_description = Faker('sentence')
 
     meets_minimum_security_standards = Faker('boolean')
@@ -173,7 +173,7 @@ def generate(seed):
         price=350,
         product_words=['Percy', 'Cypress'],
         url='https://example.com/percy',
-        worst_case='Duplicate work that burns through screenshots',
+        worst_case='Duplicate work that burns through screenshots'
     )
 
     reseed(seed)

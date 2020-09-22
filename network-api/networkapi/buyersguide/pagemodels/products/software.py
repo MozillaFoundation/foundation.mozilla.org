@@ -84,7 +84,7 @@ class SoftwareProduct(Product):
 
     panels = insert_panels_after(
         panels,
-        'Minimum Security Standards for general products',
+        'Security',
         [
              MultiFieldPanel(
                 [

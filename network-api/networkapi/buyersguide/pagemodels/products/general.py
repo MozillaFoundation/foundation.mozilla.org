@@ -3,7 +3,6 @@ from networkapi.buyersguide.fields import ExtendedYesNoField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
 from .base import Product, register_product_type
-from ...utils import tri_to_quad
 
 from networkapi.wagtailpages.utils import insert_panels_after
 

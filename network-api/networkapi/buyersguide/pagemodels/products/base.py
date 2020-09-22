@@ -103,9 +103,6 @@ product_panels = [
     MultiFieldPanel(
         [
             FieldPanel('user_friendly_privacy_policy'),
-            FieldPanel('user_friendly_privacy_policy_helptext'),
-            FieldPanel('privacy_policy'),
-            FieldPanel('privacy_policy_helptext'),
         ],
         heading='Privacy policy',
         classname='collapsible'
@@ -134,8 +131,10 @@ product_panels = [
             FieldPanel('strong_password_helptext'),
             FieldPanel('manage_vulnerabilities'),
             FieldPanel('manage_vulnerabilities_helptext'),
+            FieldPanel('privacy_policy'),
+            FieldPanel('privacy_policy_helptext'),
         ],
-        heading='Minimum Security Standards for general products',
+        heading='Security',
         classname='collapsible'
     ),
     MultiFieldPanel(
@@ -296,7 +295,6 @@ class Product(ClusterableModel):
         help_text='Describe the particulars around sign-up requirements here.'
     )
 
-
     # What data does it collect?
 
     personal_data_collected = models.TextField(
@@ -351,6 +349,7 @@ class Product(ClusterableModel):
     company_track_record = models.CharField(
         choices=track_record_choices,
         default='Average',
+        help_text='This company has a ... track record',
         max_length=20
     )
 
@@ -366,8 +365,7 @@ class Product(ClusterableModel):
 
     # Offline use
 
-    offline_capable = models.BooleanField(
-        default=False,
+    offline_capable = ExtendedYesNoField(
         help_text='Can this product be used offline?',
     )
 
@@ -382,12 +380,6 @@ class Product(ClusterableModel):
     user_friendly_privacy_policy = ExtendedYesNoField(
         help_text='Does this product have a user-friendly privacy policy?'
     )
-
-    user_friendly_privacy_policy_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
 
     # Minimum security standards
 
@@ -444,24 +436,24 @@ class Product(ClusterableModel):
     )
 
     """
-    privacy_policy_links =  one to many, defined in PrivacyPolicyLink
+    privacy_policy_links = one to many, defined in PrivacyPolicyLink
     """
 
     # Artificial Intelligence
 
-    uses_ai =  ExtendedYesNoField(
+    uses_ai = ExtendedYesNoField(
         help_text='Does the product use AI?',
     )
 
-    ai_uses_personal_data =  ExtendedYesNoField(
+    ai_uses_personal_data = ExtendedYesNoField(
         help_text='Does the AI use your personal data to make decisions about you?',
     )
 
-    ai_is_transparent =  ExtendedYesNoField(
+    ai_is_transparent = ExtendedYesNoField(
         help_text='Does the company allow users to see how the AI works?',
     )
 
-    ai_helptext =  models.TextField(
+    ai_helptext = models.TextField(
         max_length=5000,
         blank=True,
         help_text='Helpful text around AI to show on the product page',
