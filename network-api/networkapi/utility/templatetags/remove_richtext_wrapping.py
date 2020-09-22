@@ -14,6 +14,8 @@ def remove_wrapping(content=None):
     if content:
         soup = BeautifulSoup(str(content), 'html.parser')
         richtext = soup.find('div', attrs={"class": "rich-text"})
-        paragraphs = richtext.findAll('p')
-        return ' '.join([str(x) for x in paragraphs])
+        if richtext:
+            paragraphs = richtext.findAll('p')
+            return ' '.join([str(x) for x in paragraphs])
+        return content
 
