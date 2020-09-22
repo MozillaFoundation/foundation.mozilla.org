@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from cloudinary import uploader
 
@@ -24,6 +24,21 @@ if settings.USE_CLOUDINARY:
     image_field = FieldPanel('cloudinary_image')
 else:
     image_field = FieldPanel('image')
+
+
+class RelatedProductFieldPanel(FieldPanel):
+    """
+    This is a custom field panel for listing related products in a regular
+    product's admin view - rather than showing all entries, a large number
+    of products should be ignored for cross-linking purposes. See the
+    "def get_related_products(self):" function in the Product class, below,
+    for more details on the queryset it returns.
+    """
+    def on_form_bound(self):
+        instance = self.model
+        self.form.fields['related_products'].queryset = instance.get_related_products(instance)
+        super().on_form_bound()
+
 
 # Let's figure out whether we can refactor this to its own file.
 product_panels = [
@@ -110,7 +125,7 @@ product_panels = [
         classname="collapsible"
     ),
     FieldPanel('updates'),
-    FieldPanel('related_products'),
+    RelatedProductFieldPanel('related_products'),
 ]
 
 registered_product_types = list()
@@ -333,6 +348,15 @@ class Product(ClusterableModel):
         blank=True,
         symmetrical=False
     )
+
+    def get_related_products(self):
+        """
+        This function is used by our custom RelatedProductFieldPanel, to make sure
+        we don't list every single PNI product ever entered into the system, but only
+        products added in recent iterations of PNI. For PNI v4 this has been set to
+        "any product entered after 2019".
+        """
+        return Product.objects.filter(review_date__gte=date(2020, 1, 1)).order_by('name')
 
     # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better way to do
     # this using `_meta.get_fields()`. To be refactored in the future.
