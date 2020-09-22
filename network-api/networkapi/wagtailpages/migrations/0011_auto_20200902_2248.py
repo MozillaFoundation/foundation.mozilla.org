@@ -11,7 +11,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0009_articleauthors_articlepage_publicationauthors_publicationpage'),
+        ('wagtailpages', '0010_youtuberegretsreporterpage'),
     ]
 
     operations = [
