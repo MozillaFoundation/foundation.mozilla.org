@@ -154,7 +154,7 @@ export default class CreepVote extends React.Component {
                 type="submit"
                 className="btn btn-pop mb-2"
               >
-                Vote & See Results
+                Vote & see results
               </button>
               <p className="h6-heading mb-0">{this.state.totalVotes} votes</p>
             </div>
@@ -181,7 +181,7 @@ export default class CreepVote extends React.Component {
         </button>
         <JoinUs
           formPosition="flow"
-          flowHeading={getText(`You Voted! You Rock!`)}
+          flowHeading={getText(`You voted! You rock!`)}
           flowText={getText(
             `Now that you’re on a roll, why not join Mozilla? We’re not creepy (we promise). We actually fight back against creepy. And we need more people like you.`
           )}
@@ -205,7 +205,7 @@ export default class CreepVote extends React.Component {
       <div>
         <div className="mb-5">
           <div className="col-12 text-center">
-            <h3 className="h2-heading mb-1">
+            <h3 className="h3-heading mb-1">
               {this.state.totalVotes + 1} Votes — invite your friends!
             </h3>
             <div className="h6-heading text-muted" />
