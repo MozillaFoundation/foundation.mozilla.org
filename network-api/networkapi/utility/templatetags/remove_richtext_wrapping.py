@@ -28,4 +28,3 @@ def remove_wrapping(content=None):
             paragraphs = richtext.findAll('p')
             return ' '.join([str(x) for x in paragraphs])
         return content
-

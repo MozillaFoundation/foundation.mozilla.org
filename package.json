@@ -78,7 +78,7 @@
     "react-ga": "3.1.2",
     "shx": "^0.3.2",
     "uuid": "^8.3.0",
-    "webpack": "^4.44.1",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "whatwg-fetch": "^3.4.1"
   },
@@ -86,7 +86,7 @@
     "node": "14.4.*"
   },
   "devDependencies": {
-    "browserslist": "^4.14.2",
+    "browserslist": "^4.14.3",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.9.0",
@@ -95,7 +95,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
     "optipng-bin": "^7.0.0",
-    "prettier": "^2.1.1",
+    "prettier": "^2.1.2",
     "stylelint": "^13.7.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.1.2",

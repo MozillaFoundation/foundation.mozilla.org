@@ -74,7 +74,7 @@ urlpatterns += i18n_patterns(
     url(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
 
     # Blog RSS feed
-    path('blog/rss/', RSSFeed()),
+    path('blog/rss/', RSSFeed(), name='rss-feed'),
     path('blog/atom/', AtomFeed()),
 
     # Redirects
