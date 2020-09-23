@@ -154,27 +154,16 @@
         <h2 class="h3-heading">{% trans "How does it handle privacy?" %}</h2>
 
         <div class="mb-5">
-          {% trans "How does it share data?"      as how_does_it_share %}
           {% trans "Links to privacy information" as privacy_policy_links %}
 
           {% if product.product_type == 'general' %}
-            {% trans "Can you delete your data?"    as delete_data %}
-            {% trans "Parental controls?"           as parental_controls %}
-            {% trans "Collects biometrics data?"    as collects_biometrics %}
-            {% trans "User friendly privacy info?"  as user_friendly_privacy_policy %}
 
-            {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
-            {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy value=product.user_friendly_privacy_policy         help=product.user_friendly_privacy_policy_helptext  %}
-            {% include "fragments/product_criterion.html"  with  label=delete_data                  value=product.delete_data                          help=product.delete_data_helptext                   %}
-            {% include "fragments/product_criterion.html"  with  label=parental_controls            value=product.parental_controls    hide_value="NA" help=product.child_rules_helptext                   %}
-            {% include "fragments/product_criterion.html"  with  label=collects_biometrics          value=product.collects_biometrics  hide_value="NA" help=product.collects_biometrics_helptext           %}
             {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
           {% elif product.product_type == 'software' %}
             {% trans "How are your recordings handled?" as handles_recordings_how %}
             {% trans "Alerts when calls are being recorded?" as recording_alert %}
             {% trans "Does the platform say it is compliant with US medical privacy laws?" as medical_privacy_compliant %}
 
-            {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
             {% include "fragments/product_criterion.html"  with  label=handles_recordings_how       value=""                                           help=product.handles_recordings_how                 %}
             {% include "fragments/product_criterion.html"  with  label=recording_alert              value=product.recording_alert|extended_yes_no                      help=product.recording_alert_helptext               %}
             {% include "fragments/product_criterion.html"  with  label=medical_privacy_compliant    value=product.medical_privacy_compliant|yes_no            help=product.medical_privacy_compliant_helptext     %}
