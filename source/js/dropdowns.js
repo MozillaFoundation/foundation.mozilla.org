@@ -1,8 +1,8 @@
 const Dropdowns = {
-  init: function() {
+  init: function () {
     // Toggle dropdowns when dropdown is clicked
-    document.querySelectorAll(".dropdown-toggle").forEach(element =>
-      element.addEventListener("click", _ => {
+    document.querySelectorAll(".dropdown-toggle").forEach((element) =>
+      element.addEventListener("click", (_) => {
         element.classList.toggle("show");
         const target = document.querySelector(
           `[aria-labelledby="${element.id}"]`
@@ -12,12 +12,12 @@ const Dropdowns = {
     );
 
     // Close dropdowns when item is clicked
-    document.querySelectorAll(".dropdown-item").forEach(element => {
-      element.addEventListener("click", _ => {
+    document.querySelectorAll(".dropdown-item").forEach((element) => {
+      element.addEventListener("click", (_) => {
         element.parentElement.classList.remove("d-block", "show");
       });
     });
-  }
+  },
 };
 
 export default Dropdowns;

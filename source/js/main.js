@@ -47,7 +47,6 @@ let main = {
     EmbedTypeform.init();
     Dropdowns.init();
 
-
     this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = env.NETWORK_SITE_URL;
