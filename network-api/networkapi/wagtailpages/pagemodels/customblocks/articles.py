@@ -41,4 +41,3 @@ class ArticleFullWidthImageBlock(blocks.StructBlock):
     class Meta:
         label = "Wide Image"
         template = "wagtailpages/blocks/article_full_width_image_block.html"
-
