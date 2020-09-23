@@ -44,51 +44,6 @@
         <div class="col-12"><p class="body mb-2 mb-md-4">{{product.blurb}}</p></div>
       </div>
 
-      <div class="minimum-security row py-5 px-3 px-md-5">
-        <div class="criterion bottom-border-only py-0 col-12">
-          <div class="d-block primary-info">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
-                <h2 class="h3-heading">{% trans "Minimum Security Standards" %}</h2>
-              </div>
-            </div>
-            <div class="primary-info-description mb-3">
-              <p class="body">
-                {% trans "Five basic steps every company should take to protect consumer privacy." %}
-                <a href="/privacynotincluded/about/meets-minimum-security-standards">{% trans "Learn more." %}</a>
-              </p>
-            </div>
-          </div>
-
-          <div class="details mt-2">
-            <div class="criterion rating">
-              {% trans "Overall Security Rating" as overall_security_rating %}
-              {% include "fragments/product_criterion_primary_info.html"  with label=overall_security_rating %}
-              <div>
-                <span class="security-score mb-0">{{security_score|localize}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
-                <img
-                  src="{% static "_images/buyers-guide/score/icon-star.svg" %}"
-                  width="20"
-                  height="20"
-                  alt="{% trans "star" context "Used as a noun. Accessibility label for star image" %}"
-                >
-              </div>
-            </div>
-            {% trans "Encryption"              as encryption %}
-            {% trans "Security updates"        as security_updates %}
-            {% trans "Strong password"         as strong_password %}
-            {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
-            {% trans "Privacy policy"          as privacy_policy %}
-
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label=encryption                %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label=security_updates          %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label=strong_password           %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities   %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label=privacy_policy            %}
-          </div>
-        </div>
-      </div>
-
       <div id="product-research" class="mt-5">
         <div class="row">
           <div class="col-12">
@@ -140,10 +95,10 @@
             {% trans "User friendly privacy info?"  as user_friendly_privacy_policy %}
 
             {% include "fragments/product_criterion.html"  with  label=how_does_it_share            value=""                                           help=product.how_does_it_share                      %}
+            {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy value=product.user_friendly_privacy_policy         help=product.user_friendly_privacy_policy_helptext  %}
             {% include "fragments/product_criterion.html"  with  label=delete_data                  value=product.delete_data                          help=product.delete_data_helptext                   %}
             {% include "fragments/product_criterion.html"  with  label=parental_controls            value=product.parental_controls    hide_value="NA" help=product.child_rules_helptext                   %}
             {% include "fragments/product_criterion.html"  with  label=collects_biometrics          value=product.collects_biometrics  hide_value="NA" help=product.collects_biometrics_helptext           %}
-            {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy value=product.user_friendly_privacy_policy         help=product.user_friendly_privacy_policy_helptext  %}
             {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
           {% elif product.product_type == 'software' %}
             {% trans "How are your recordings handled?" as handles_recordings_how %}
@@ -170,6 +125,52 @@
         </div>
 
         {% endif %}
+
+
+      <div class="minimum-security row py-5 px-3 px-md-5">
+        <div class="criterion bottom-border-only py-0 col-12">
+          <div class="d-block primary-info">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
+                <h2 class="h3-heading">{% trans "Minimum Security Standards" %}</h2>
+              </div>
+            </div>
+            <div class="primary-info-description mb-3">
+              <p class="body">
+                {% trans "Five basic steps every company should take to protect consumer privacy." %}
+                <a href="/privacynotincluded/about/meets-minimum-security-standards">{% trans "Learn more." %}</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="details mt-2">
+            <div class="criterion rating">
+              {% trans "Overall Security Rating" as overall_security_rating %}
+              {% include "fragments/product_criterion_primary_info.html"  with label=overall_security_rating %}
+              <div>
+                <span class="security-score mb-0">{{security_score|localize}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
+                <img
+                  src="{% static "_images/buyers-guide/score/icon-star.svg" %}"
+                  width="20"
+                  height="20"
+                  alt="{% trans "star" context "Used as a noun. Accessibility label for star image" %}"
+                >
+              </div>
+            </div>
+            {% trans "Encryption"              as encryption %}
+            {% trans "Security updates"        as security_updates %}
+            {% trans "Strong password"         as strong_password %}
+            {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
+            {% trans "Privacy policy"          as privacy_policy %}
+
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label=encryption                %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label=strong_password           %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label=security_updates          %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities   %}
+            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label=privacy_policy            %}
+          </div>
+        </div>
+      </div>
 
         <div class="worst-case-box px-4 px-md-5 pt-5 pb-2 pb-md-4 mb-5 text-center">
           <div class="creep-face-emoji-wrapper d-inline-block">
