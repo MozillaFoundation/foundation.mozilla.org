@@ -30,27 +30,6 @@ class SoftwareProduct(Product):
         blank=True
     )
 
-    signup_with_email = models.BooleanField(
-        null=True,
-        help_text='Email required to sign up?',
-    )
-
-    signup_with_phone = models.BooleanField(
-        null=True,
-        help_text='Phone number required to sign up?',
-    )
-
-    signup_with_third_party = models.BooleanField(
-        null=True,
-        help_text='Third Party account required to sign up?',
-    )
-
-    signup_methods_helptext = models.TextField(
-        max_length=5000,
-        blank=True,
-        help_text='Describe the kind of contact information requirements for signing up for this product'
-    )
-
     medical_privacy_compliant = models.BooleanField(
         null=True,
         help_text='Compliant with US medical privacy laws?'
@@ -81,23 +60,6 @@ class SoftwareProduct(Product):
     # administrative panels
 
     panels = Product.panels.copy()
-
-    panels = insert_panels_after(
-        panels,
-        'Security',
-        [
-             MultiFieldPanel(
-                [
-                    FieldPanel('signup_with_email'),
-                    FieldPanel('signup_with_phone'),
-                    FieldPanel('signup_with_third_party'),
-                    FieldPanel('signup_methods_helptext'),
-                ],
-                heading='How does it handle signup?',
-                classname='collapsible'
-             ),
-        ],
-    )
 
     panels = insert_panels_after(
         panels,
