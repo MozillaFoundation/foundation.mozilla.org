@@ -9,7 +9,7 @@
   width: calc(80% + 60px);
   margin: -48px auto 48px;
 
-  @media(max-width: $bp-md) {
+  @media (max-width: $bp-md) {
     max-width: 100%;
     width: 100%;
   }
@@ -143,7 +143,7 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    background-image: url('../_images/left-chevron.svg');
+    background-image: url("../_images/left-chevron.svg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -154,7 +154,7 @@
   &::before {
     left: initial;
     right: 0;
-    background-image: url('../_images/glyphs/right-chevron.svg');
+    background-image: url("../_images/glyphs/right-chevron.svg");
   }
 }
 
@@ -173,7 +173,7 @@
     right: 0;
     top: 7px;
     border: 0;
-    background-image: url('../_images/glyphs/down-chevron.svg');
+    background-image: url("../_images/glyphs/down-chevron.svg");
     background-size: cover;
     background-position: center center;
     width: 16px;
@@ -212,16 +212,25 @@
     text-decoration: underline;
   }
 
-  p, h2, h3, h4, h5, ol, ul {
+  p,
+  h2,
+  h3,
+  h4,
+  h5,
+  ol,
+  ul {
     max-width: 80%;
     margin: 0 auto;
 
-    @media(max-width: $bp-md) {
+    @media (max-width: $bp-md) {
       max-width: 100%;
     }
   }
 
-  h2, h3, h4, h5 {
+  h2,
+  h3,
+  h4,
+  h5 {
     margin-bottom: 4px;
   }
 
@@ -241,11 +250,15 @@
     margin-top: 0 !important;
   }
 
-  p, ul, ol, li {
+  p,
+  ul,
+  ol,
+  li {
     margin-bottom: 24px;
   }
 
-  ol, ul {
+  ol,
+  ul {
     padding-left: 25px;
   }
 
@@ -310,7 +323,8 @@
   margin-bottom: 24px;
   background-color: $white;
 
-  td, th {
+  td,
+  th {
     border-bottom: 1px solid rgb(160, 162, 248); // One-off colors; no variable exists for this
     color: $gray-80;
     font-size: 16px;
@@ -320,7 +334,8 @@
     line-height: 24px;
   }
 
-  thead td, thead th {
+  thead td,
+  thead th {
     background: $blue;
     color: $white;
     font-size: 16px;
@@ -341,7 +356,8 @@
   }
 }
 
-.double-image-block, .full-width-image-block {
+.double-image-block,
+.full-width-image-block {
   figurecaption p {
     color: $gray-60;
     font-size: 12px;
@@ -366,8 +382,8 @@
   line-height: 30px;
 }
 
-@media(max-width: $bp-md) {
-  .article-summary-link{
+@media (max-width: $bp-md) {
+  .article-summary-link {
     flex-basis: 100%;
 
     &:last-child {
@@ -385,7 +401,7 @@
   }
 }
 
-@media(max-width: $bp-sm) {
+@media (max-width: $bp-sm) {
   .article-prev-next-link {
     margin-bottom: 30px;
   }
@@ -410,7 +426,7 @@
   }
 }
 
-@media(max-width: $bp-lg) {
+@media (max-width: $bp-lg) {
   .article-summary-menu {
     margin-top: 9px;
   }
