@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
-from django.utils.text import Truncator
 
-from .models import BlogIndexPage
+from .models import IndexPage
 
 
 class RSSFeed(Feed):
@@ -17,14 +16,17 @@ class RSSFeed(Feed):
     description = 'The Mozilla Foundation Blog'
 
     def items(self):
-        # Pull this object specifically using the English page title
-        blog_index = BlogIndexPage.objects.get(title_en__iexact='Blog')
+        # Pull this object specifically using the English page title, as an IndexPage
+        # rather than a BlogIndexPage, to make sure we're not filtering out all the
+        # "featured" posts (which we need to do for site content purposes))
+        index = IndexPage.objects.get(title_en__iexact='Blog')
 
         # If that doesn't yield the blog page, pull using the universal title
-        if blog_index is None:
-            blog_index = BlogIndexPage.objects.get(title__iexact='Blog')
+        if index is None:
+            index = IndexPage.objects.get(title__iexact='Blog')
 
-        blog_pages = blog_index.get_all_entries()
+        blog_pages = index.get_all_entries().order_by('-first_published_at')
+
         return blog_pages[:settings.FEED_LIMIT]
 
     def item_title(self, item):
@@ -36,8 +38,7 @@ class RSSFeed(Feed):
     def item_description(self, item):
         page = item.specific
         html = str(page.body)
-        text = Truncator(html).chars(1000, html=True)
-        return text
+        return html
 
     def item_pubdate(self, item):
         return item.first_published_at
