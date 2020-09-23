@@ -14,6 +14,10 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1">
+          {% if product.privacy_ding %}
+            {# TODO: Add the privacy-not-included ding image #}
+            <img src="" alt="Privacy not included" />
+          {% endif %}
           <img
             class="thumb-border"
             width="250"
@@ -29,7 +33,6 @@
     </div>
   </div>
 </div>
-
 {% with section_class="col-12 col-lg-10 offset-lg-1" %}
 <div class="container">
   <div class="row">
@@ -37,7 +40,18 @@
       <div class="row intro">
         <h1 class="h1-heading col-12">{{product.name}}</h1>
         <a id="product-company-url" class="product-price small-link col-md-8 mb-1 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
-        <div class="col-md-4 text-md-right">TODO: wifi and bluetooth</div>
+        {% if product.uses_wifi or product.uses_bluetooth %}
+            <div class="col-md-4 text-md-right">
+              {% if product.uses_wifi %}
+                {# TODO: Add the wifi icon #}
+                <img src="" alt="Uses wi-fi" /> Wi-Fi
+              {% endif %}
+              {% if product.uses_bluetooth %}
+                {# TODO: Add the bluetooth icon #}
+                <img src="" alt="Uses Bluetooth" /> Bluetooth
+              {% endif %}
+            </div>
+        {% endif %}
         <div class="col-12 mt-3">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
         </div>
@@ -73,13 +87,68 @@
           {% trans "Phone"               as phone %}
           {% trans "Third party account" as third_party_account %}
 
-          {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_with_email          %}
-          {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_with_phone          %}
-          {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_with_third_party    %}
+          {% if product.signup_requires_email %}
+            {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_with_email          %}
+          {% endif %}
+          {% if product.signup_requires_phone %}
+            {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_with_phone          %}
+          {% endif %}
+          {% if product.signup_requires_third_party_account %}
+            {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_with_third_party    %}
+          {% endif %}
         </div>
         {% if product.signup_methods_helptext %}
           <p class="mb-5 font-italic">{{product.signup_methods_helptext}}</p>
         {% endif %}
+
+        <h2 class="h3-heading">{% trans "What is required to sign up?" %}</h2>
+        {% if product.personal_data_collected %}
+          {% trans "Personal" %}
+          {{ product.personal_data_collected }}
+        {% endif %}
+        {% if product.biometric_data_collected %}
+          {% trans "Biometric" %}
+          {{ product.biometric_data_collected }}
+        {% endif %}
+        {% if product.social_data_collected %}
+          {% trans "Social" %}
+          {{ product.social_data_collected }}
+        {% endif %}
+
+        {% if product.how_does_it_use_data_collected %}
+          <h2 class="h3-heading">{% trans "How does it use this data?" %}</h2>
+          {% if product.data_collection_policy_is_bad %}
+            <img src="" alt="This product has a bad data collection policy" />
+          {% endif %}
+          {{ product.how_does_it_use_data_collected }}
+        {% endif %}
+
+        {% if product.how_can_you_control_your_data %}
+          <h2 class="h3-heading">{% trans "How can you control your data?" %}</h2>
+          {% if product.data_control_policy_is_bad %}
+            <img src="" alt="This product has bad data control policies" />
+          {% endif %}
+          {{ product.how_can_you_control_your_data }}
+        {% endif %}
+
+        <h2 class="h3-heading">{% trans "What is the company's known track record for protecting users' data?" %}</h2>
+        {% if product.track_record_is_bad %}
+          <img src="" alt="This company has a poor track record of protecting user data" />
+        {% endif %}
+        {{ product.company_track_record }}
+        {% if product.track_record_details %}
+          {{ product.track_record_details }}
+        {% endif %}
+
+        <h2 class="h3-heading">{% trans "Can this product be used offline?" %}</h2>
+        {{ product.offline_capable }}
+        {% if product.offline_use_description %}
+          {{ product.offline_use_description }}
+        {% endif %}
+
+        <h2 class="h3-heading">{% trans "User friendly privacy information?" %}</h2>
+        {{ product.user_friendly_privacy_policy }}
+
         {% endif %}
 
         <h2 class="h3-heading">{% trans "How does it handle privacy?" %}</h2>
@@ -145,6 +214,11 @@
 
           <div class="details mt-2">
             <div class="criterion rating">
+              {% if product.show_ding_for_minimum_security_standards %}
+                {# TODO: Add the privacy ding here #}
+                <img src="" alt="This product does not meet our minimum security standards" />
+              {% endif %}
+
               {% trans "Overall Security Rating" as overall_security_rating %}
               {% include "fragments/product_criterion_primary_info.html"  with label=overall_security_rating %}
               <div>
@@ -171,6 +245,18 @@
           </div>
         </div>
       </div>
+
+        <h2 class="h3-heading">{% trans "Does the product use AI?" %}</h2>
+        {{ product.uses_ai }}
+
+        <h2 class="h3-heading">{% trans "Does the AI use your personal data to make decisions about you?" %}</h2>
+        {{ product.ai_uses_personal_data }}
+
+        <h2 class="h3-heading">{% trans "Does the company allow users to see how the AI works?" %}</h2>
+        {{ product.ai_is_transparent }}
+        {% if product.ai_helptext %}
+          {{ product.ai_helptext }}
+        {% endif %}
 
         <div class="worst-case-box px-4 px-md-5 pt-5 pb-2 pb-md-4 mb-5 text-center">
           <div class="creep-face-emoji-wrapper d-inline-block">
