@@ -155,7 +155,7 @@ class ProductFactory(DjangoModelFactory):
     email = Faker('email')
 
     if random() > 0.5:
-        twitter = '​@​' + Faker('word')  # NOTE: contains "zero width non-breaking space" characters (\u200B)
+        twitter = '​@​Twitter​Handle',  # NOTE: contains "zero width non-breaking space" characters (\u200B)
 
     # updates...
 
