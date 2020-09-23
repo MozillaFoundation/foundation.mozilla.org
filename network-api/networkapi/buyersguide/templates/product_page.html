@@ -16,7 +16,7 @@
       <div class="col-12 col-md-10 offset-md-1">
           {% if product.privacy_ding %}
             {# TODO: Add the privacy-not-included ding image #}
-            <img src="" alt="Privacy not included" />
+            <img src="" alt="{% trans 'Privacy not included' %}" />
           {% endif %}
           <img
             class="thumb-border"
@@ -44,11 +44,11 @@
             <div class="col-md-4 text-md-right">
               {% if product.uses_wifi %}
                 {# TODO: Add the wifi icon #}
-                <img src="" alt="Uses wi-fi" /> Wi-Fi
+                <img src="" alt="{% trans 'Uses wi-fi' %}" /> Wi-Fi
               {% endif %}
               {% if product.uses_bluetooth %}
                 {# TODO: Add the bluetooth icon #}
-                <img src="" alt="Uses Bluetooth" /> Bluetooth
+                <img src="" alt="{% trans 'Uses Bluetooth' %}" /> Bluetooth
               {% endif %}
             </div>
         {% endif %}
@@ -118,7 +118,7 @@
         {% if product.how_does_it_use_data_collected %}
           <h2 class="h3-heading">{% trans "How does it use this data?" %}</h2>
           {% if product.data_collection_policy_is_bad %}
-            <img src="" alt="This product has a bad data collection policy" />
+            <img src="" alt="{% trans 'This product has a bad data collection policy' %}" />
           {% endif %}
           {{ product.how_does_it_use_data_collected }}
         {% endif %}
@@ -126,14 +126,14 @@
         {% if product.how_can_you_control_your_data %}
           <h2 class="h3-heading">{% trans "How can you control your data?" %}</h2>
           {% if product.data_control_policy_is_bad %}
-            <img src="" alt="This product has bad data control policies" />
+            <img src="" alt="{% trans 'This product has bad data control policies' %}" />
           {% endif %}
           {{ product.how_can_you_control_your_data }}
         {% endif %}
 
         <h2 class="h3-heading">{% trans "What is the company's known track record for protecting users' data?" %}</h2>
         {% if product.track_record_is_bad %}
-          <img src="" alt="This company has a poor track record of protecting user data" />
+          <img src="" alt="{% trans 'This company has a poor track record of protecting user data' %}" />
         {% endif %}
         {{ product.company_track_record }}
         {% if product.track_record_details %}
@@ -205,7 +205,7 @@
             <div class="criterion rating">
               {% if product.show_ding_for_minimum_security_standards %}
                 {# TODO: Add the privacy ding here #}
-                <img src="" alt="This product does not meet our minimum security standards" />
+                <img src="" alt="{% trans 'This product does not meet our minimum security standards' %}" />
               {% endif %}
 
               {% trans "Overall Security Rating" as overall_security_rating %}
