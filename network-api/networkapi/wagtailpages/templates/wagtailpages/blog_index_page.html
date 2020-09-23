@@ -2,6 +2,12 @@
 
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
+
+{% block rss_metadata %}
+  <link rel="alternate" type="application/rss+xml" href="{% url 'rss-feed' %}" />
+{% endblock %}
+
+
 {% block featured %}
   {% if not filtered %}
     <div class="row">
