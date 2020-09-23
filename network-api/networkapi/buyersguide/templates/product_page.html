@@ -44,10 +44,10 @@
         <div class="col-12"><p class="body mb-2 mb-md-4">{{product.blurb}}</p></div>
       </div>
 
-      <div id="product-research" class="mt-5">
+      <div id="product-research">
         <div class="row">
           <div class="col-12">
-            <div class="creep-vote-target mb-5 mt-3 mt-md-4" data-product-name="{{product.name}}" data-product-type="{{product.product_type}}">
+            <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.name}}" data-product-type="{{product.product_type}}">
               {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value="{{ product.votes | safe }}">
