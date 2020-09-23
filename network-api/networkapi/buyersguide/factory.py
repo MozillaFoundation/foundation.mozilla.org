@@ -155,7 +155,7 @@ class ProductFactory(DjangoModelFactory):
     email = Faker('email')
 
     if random() > 0.5:
-        twitter = '​@​Twitter​Handle',  # NOTE: contains "zero width non-breaking space" characters (\u200B)
+        twitter = '@TwitterHandle',
 
     # updates...
 
@@ -175,7 +175,7 @@ def generate(seed):
         price=350,
         product_words=['Percy', 'Cypress'],
         url='https://example.com/percy',
-        twitter='​@​Twitter​Handle',  # NOTE: contains "zero width non-breaking space" characters (\u200B)
+        twitter='@TwitterHandle',
         worst_case='Duplicate work that burns through screenshots'
     )
 
