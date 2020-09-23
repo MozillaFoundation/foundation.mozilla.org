@@ -189,6 +189,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
+    'wagtail.contrib.legacy.richtext',
     'wagtail.core',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
