@@ -1,0 +1,7 @@
+/*
+  This is 16% by default, which is absolutely ridiculous.
+*/
+fieldset ul li div label {
+  display: block;
+  width: auto;
+}

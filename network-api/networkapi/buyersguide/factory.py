@@ -25,9 +25,12 @@ from networkapi.buyersguide.models import (
 Faker.add_provider(ImageProvider)
 
 
-def get_extended_yes_no_value():
-    options = ['Yes', 'No', 'NA', 'U']
+def get_random_option(options=[]):
     return choice(options)
+
+
+def get_extended_yes_no_value():
+    return get_random_option(['Yes', 'No', 'NA', 'U'])
 
 
 def get_lowest_content_category():
@@ -59,42 +62,14 @@ class ProductFactory(DjangoModelFactory):
     product_words = Faker('words', nb=2)
 
     draft = Faker('boolean')
+    privacy_ding = Faker('boolean')
     adult_content = Faker('boolean')
+    uses_wifi = Faker('boolean')
+    uses_bluetooth = Faker('boolean')
     review_date = Faker('date_time_between_dates',
                         datetime_start=date(year=2018, month=11, day=1), datetime_end=None, tzinfo=timezone.utc)
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
-
-    blurb = Faker('sentence')
-
-    camera_app = LazyFunction(get_extended_yes_no_value)
-    camera_device = LazyFunction(get_extended_yes_no_value)
-    microphone_app = LazyFunction(get_extended_yes_no_value)
-    microphone_device = LazyFunction(get_extended_yes_no_value)
-    location_app = LazyFunction(get_extended_yes_no_value)
-    location_device = LazyFunction(get_extended_yes_no_value)
-
     company = Faker('company')
-    delete_data = Faker('boolean')
-    email = Faker('email')
-    live_chat = Faker('url')
-    manage_vulnerabilities = LazyFunction(get_extended_yes_no_value)
-    meets_minimum_security_standards = Faker('boolean')
-    parental_controls = LazyFunction(get_extended_yes_no_value)
-    phone_number = Faker('phone_number')
-    price = LazyAttribute(lambda _: randint(49, 1500))
-    security_updates = LazyFunction(get_extended_yes_no_value)
-    share_data = Faker('boolean')
-    strong_password = LazyFunction(get_extended_yes_no_value)
-    url = Faker('url')
-    uses_encryption = LazyFunction(get_extended_yes_no_value)
-    worst_case = Faker('sentence')
-
-    @post_generation
-    def set_image(self, create, extracted, **kwargs):
-        if settings.USE_CLOUDINARY:
-            self.cloudinary_image = Faker('product_image').generate({})
-        else:
-            self.image.name = Faker('product_image').generate({})
 
     @post_generation
     def product_category(self, create, extracted, **kwargs):
@@ -112,9 +87,77 @@ class ProductFactory(DjangoModelFactory):
             else:
                 return
 
+    blurb = Faker('sentence')
+    url = Faker('url')
+    price = LazyAttribute(lambda _: randint(49, 1500))
+
+    @post_generation
+    def set_image(self, create, extracted, **kwargs):
+        if settings.USE_CLOUDINARY:
+            self.cloudinary_image = Faker('product_image').generate({})
+        else:
+            self.image.name = Faker('product_image').generate({})
+
+    worst_case = Faker('sentence')
+
+    camera_app = LazyFunction(get_extended_yes_no_value)
+    camera_device = LazyFunction(get_extended_yes_no_value)
+    microphone_app = LazyFunction(get_extended_yes_no_value)
+    microphone_device = LazyFunction(get_extended_yes_no_value)
+    location_app = LazyFunction(get_extended_yes_no_value)
+    location_device = LazyFunction(get_extended_yes_no_value)
+
+    signup_requires_email = LazyFunction(get_extended_yes_no_value)
+    signup_requires_phone = LazyFunction(get_extended_yes_no_value)
+    signup_requires_third_party_account = LazyFunction(get_extended_yes_no_value)
+    signup_requirement_explanation = Faker('sentence')
+
+    personal_data_collected = Faker('sentence')
+    biometric_data_collected = Faker('sentence')
+    social_data_collected = Faker('sentence')
+
+    how_does_it_use_data_collected = Faker('sentence')
+    data_collection_policy_is_bad = Faker('boolean')
+    how_can_you_control_your_data = Faker('sentence')
+    data_control_policy_is_bad = Faker('boolean')
+
+    company_track_record = get_random_option(['Great', 'Average', 'Needs Improvement', 'Bad'])
+    track_record_is_bad = Faker('boolean')
+    track_record_details = Faker('sentence')
+
+    offline_capable = LazyFunction(get_extended_yes_no_value)
+    offline_use_description = Faker('sentence')
+
+    meets_minimum_security_standards = Faker('boolean')
+    show_ding_for_minimum_security_standards = Faker('boolean')
+    uses_encryption = LazyFunction(get_extended_yes_no_value)
+    uses_encryption_helptext = Faker('sentence')
+    security_updates = LazyFunction(get_extended_yes_no_value)
+    security_updates_helptext = Faker('sentence')
+    strong_password = LazyFunction(get_extended_yes_no_value)
+    strong_password_helptext = Faker('sentence')
+    manage_vulnerabilities = LazyFunction(get_extended_yes_no_value)
+    manage_vulnerabilities_helptext = Faker('sentence')
+    privacy_policy = LazyFunction(get_extended_yes_no_value)
+    privacy_policy_helptext = Faker('sentence')
+
     @post_generation
     def set_privacy_policy_link(self, create, extracted, **kwargs):
         ProductPrivacyPolicyLinkFactory.create(product=self)
+
+    uses_ai = LazyFunction(get_extended_yes_no_value)
+    ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
+    ai_is_transparent = LazyFunction(get_extended_yes_no_value)
+    ai_helptext = Faker('sentence')
+
+    phone_number = Faker('phone_number')
+    live_chat = Faker('url')
+    email = Faker('email')
+
+    if random() > 0.5:
+        twitter = '@TwitterHandle',
+
+    # updates...
 
 
 def generate(seed):
@@ -122,34 +165,18 @@ def generate(seed):
 
     print('Generating fixed Buyer\'s Guide Product for visual regression testing')
     ProductFactory.create(
-        adult_content=False,
         blurb='Visual Regression Testing',
-        camera_app='Yes',
-        camera_device='No',
-        collects_biometrics='Yes',
-        collects_biometrics_helptext='biometrics help text',
         company='Percy',
-        delete_data=True,
         draft=False,
-        email='vrt@example.com',
-        live_chat='https://example.com/chat',
-        location_app='U',
-        location_device='NA',
-        manage_vulnerabilities='Yes',
-        meets_minimum_security_standards=True,
-        microphone_app='Yes',
-        microphone_device='No',
+        email='percy@example.com',
+        live_chat='https://example.com/percy/chat',
         name='percy cypress',
-        parental_controls='NA',
         phone_number='1-555-555-5555',
         price=350,
         product_words=['Percy', 'Cypress'],
-        security_updates='No',
-        share_data=False,
-        strong_password='No',
-        url='https://vrt.example.com',
-        uses_encryption='Yes',
-        worst_case='Duplicate work that burns through screenshots',
+        url='https://example.com/percy',
+        twitter='@TwitterHandle',
+        worst_case='Duplicate work that burns through screenshots'
     )
 
     reseed(seed)

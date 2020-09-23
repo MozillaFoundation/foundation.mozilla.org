@@ -73,9 +73,9 @@
           {% trans "Phone"               as phone %}
           {% trans "Third party account" as third_party_account %}
 
-          {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_with_email          %}
-          {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_with_phone          %}
-          {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_with_third_party    %}
+          {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
+          {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
+          {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
         </div>
         {% if product.signup_methods_helptext %}
           <p class="mb-5 font-italic">{{product.signup_methods_helptext}}</p>

@@ -3,7 +3,6 @@ from networkapi.buyersguide.fields import ExtendedYesNoField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
 from .base import Product, register_product_type
-from ...utils import tri_to_quad
 
 from networkapi.wagtailpages.utils import insert_panels_after
 
@@ -41,31 +40,7 @@ class GeneralProduct(Product):
 
     # how it handles privacy
 
-    delete_data = models.BooleanField(  # TO BE REMOVED?
-        null=True,
-        help_text='Can you request data be deleted?',
-    )
-
-    delete_data_helptext = models.TextField(  # TO BE REMOVED?
-        max_length=5000,
-        blank=True
-    )
-
-    parental_controls = ExtendedYesNoField(
-        null=True,
-        help_text='Are there rules for children?',
-    )
-
     child_rules_helptext = models.TextField(  # TO BE REMOVED?
-        max_length=5000,
-        blank=True
-    )
-
-    collects_biometrics = ExtendedYesNoField(
-        help_text='Does this product collect biometric data?',
-    )
-
-    collects_biometrics_helptext = models.TextField(
         max_length=5000,
         blank=True
     )
@@ -76,7 +51,7 @@ class GeneralProduct(Product):
 
     panels = insert_panels_after(
         panels,
-        'Minimum Security Standards for general products',
+        'What is the worst that could happen',
         [
             MultiFieldPanel(
                 [
@@ -93,29 +68,8 @@ class GeneralProduct(Product):
         ],
     )
 
-    panels = insert_panels_after(
-        panels,
-        'How does it handle data sharing',
-        [
-            MultiFieldPanel(
-                [
-                    FieldPanel('delete_data'),
-                    FieldPanel('delete_data_helptext'),
-                    FieldPanel('parental_controls'),
-                    FieldPanel('collects_biometrics'),
-                    FieldPanel('collects_biometrics_helptext'),
-                    FieldPanel('user_friendly_privacy_policy'),
-                    FieldPanel('user_friendly_privacy_policy_helptext'),
-                ],
-                heading='How does it handle privacy',
-                classname='collapsible'
-            ),
-        ],
-    )
-
     def to_dict(self):
         model_dict = super().to_dict()
-        model_dict['delete_data'] = tri_to_quad(self.delete_data)
         model_dict['product_type'] = 'general'
         return model_dict
 

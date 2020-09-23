@@ -206,7 +206,7 @@ def insert_panels_after(panels, after_label, additional_panels):
     )
 
     if position is not None:
-        cut = position + 2
+        cut = position + 1
         panels = panels[0:cut] + additional_panels + panels[cut:]
     else:
         raise ValueError(f'No panel with heading "{after_label}" in panel list')
