@@ -226,6 +226,9 @@
             {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
             {% trans "Privacy policy"          as privacy_policy %}
 
+            <h2 class="h3-heading">Does this product meet our <u>Minimum Security Standards?</u></h2>
+            {% if product.meets_minimum_security_standards %}Yes{% else %}No{% endif %}
+
             {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label=encryption                %}
             {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label=strong_password           %}
             {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label=security_updates          %}
