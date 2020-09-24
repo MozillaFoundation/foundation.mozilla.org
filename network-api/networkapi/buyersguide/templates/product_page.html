@@ -34,7 +34,7 @@
 <div class="container">
   <div class="row">
     <div class="product-detail bg-white py-3 py-md-4 px-md-5 {{section_class}}">
-      <div class="row intro">
+      <div class="row intro mb-4">
         <h1 class="h1-heading col-12">{{product.name}}</h1>
         <div class="col-12 d-flex flex-column flex-md-row justify-content-between">
           <a id="product-company-url" class="product-price pni-product-intro-large mb-2 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
@@ -48,9 +48,16 @@
           </div>
         </div>
         <div class="col-12 mt-3">
-          <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
+          <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review date: {{ date }}{% endblocktrans %}</p>
         </div>
-        <div class="col-12"><p class="body mb-2 mb-md-4">{{product.blurb}}</p></div>
+        <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-12 worst-case">
+          <h2 class="h3-heading">{% trans "What could happen if something went wrong" %}</h2>
+          <p class="mb-0">{{product.worst_case}}</p>
+        </div>
       </div>
 
       <div id="product-research">
@@ -181,14 +188,6 @@
         </div>
       </div>
 
-        <div class="worst-case-box px-4 px-md-5 pt-5 pb-2 pb-md-4 mb-5 text-center">
-          <div class="creep-face-emoji-wrapper d-inline-block">
-            <span class="creep-face-emoji">😮</span>
-          </div>
-          <h2 class="h3-heading">{% trans "What could happen if something went wrong" %}</h2>
-          <p>{{product.worst_case}}</p>
-        </div>
-
         {% if product.product_type == 'general' %}
         <h3 class="body mb-2">{% trans "How to contact the company" %}</h3>
         <div>
@@ -224,7 +223,7 @@
           <div id="coral-talk-stream"></div>
           {% endif %}
 
-          <h3 class="h2-heading mb-4">{% trans "Compare products" %}</h3>
+          <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
             {% for product in product.related_products %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
