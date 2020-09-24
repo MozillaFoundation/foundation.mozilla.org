@@ -5,7 +5,7 @@
     <div class="row d-flex">
       <div class="col-sm-6 text-right article-prev article-nav-arrow article-nav-arrow--left">
         {% if page.prev_page %}
-          <small class="prev-next-text">{% trans 'Previous' %}</small>
+          <small class="prev-next-text">{% trans "Previous" %}</small>
           <a href="{{ page.prev_page.url }}" class="article-prev-next-link">
             {{ page.prev_page.title }}
           </a>
@@ -13,7 +13,7 @@
       </div>
       <div class="col-sm-6 article-next article-next-arrow article-nav-arrow article-nav-arrow--right">
         {% if page.next_page %}
-          <small class="prev-next-text">{% trans 'Next' %}</small>
+          <small class="prev-next-text">{% trans "Next" %}</small>
           <a href="{{ page.next_page.url }}" class="article-prev-next-link">
             {{ page.next_page.title }}
           </a>

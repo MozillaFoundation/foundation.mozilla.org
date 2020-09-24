@@ -53,7 +53,7 @@
         </div>
         {% if page.authors.count %}
           <div class="text-white mt-2">
-            {% trans 'Written by' %}
+            {% trans "Written by" %}
             {% with authors_length=page.authors.count %}
               {% for orderable in page.authors.all %}
                 <span>
@@ -70,9 +70,7 @@
         {% endif %}
         {% if page.publication_file %}
           <button class="mt-3 btn btn-primary download-button" download="{{ page.publication_file.url }}">
-
-              {# TODO: Needs the download icon #}
-              {% trans 'Download Full PDF' %}
+            {% trans "Download Full PDF" %}
             {% if page.publication_file.file_size %}
               <span class="d-inline-block ml-4 publication-hero-file-size">
                 {{ page.publication_file.file_size|filesizeformat }}
