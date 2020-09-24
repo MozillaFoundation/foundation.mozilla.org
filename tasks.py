@@ -1,7 +1,6 @@
 import os
 import re
 from sys import platform
-
 from invoke import task
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -72,6 +71,7 @@ def l10n_block_inventory(ctx):
     manage(ctx, "block_inventory")
 
 
+@task
 def create_super_user(ctx):
     preamble = "from django.contrib.auth.models import User;"
     create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
