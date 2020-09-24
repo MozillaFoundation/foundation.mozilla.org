@@ -198,13 +198,13 @@ def generate_regret_story_field():
 
 
 def generate_callout_field():
-    value = Faker('sentence', nb_words=10)
+    value = fake.sentence(nb_words=10)
     return generate_field('callout', value)
 
 
 def generate_full_width_image_field():
     image = choice(Image.objects.all()).id
-    caption = Faker('sentence', nb_words=5)
+    caption = fake.sentence(nb_words=10)
 
     return generate_field('full_width_image', {
         'image': image,
