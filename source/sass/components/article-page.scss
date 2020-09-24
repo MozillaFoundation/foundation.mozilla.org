@@ -116,6 +116,11 @@
   line-height: 16px;
   display: block;
   margin-bottom: 6px;
+  text-decoration: none !important;
+
+  &:hover {
+    text-decoration: none !important;
+  }
 }
 
 .article-prev-next-link {
@@ -133,6 +138,7 @@
 .article-nav-arrow,
 .article-nav-arrow--left {
   position: relative;
+  text-decoration: none !important; // !important to overwrite hover/active/visited states
 
   &::before {
     content: "";
