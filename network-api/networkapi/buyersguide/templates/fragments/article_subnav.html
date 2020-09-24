@@ -1,11 +1,11 @@
 {% load i18n %}
 
-<div class="article-navbar d-md-block d-none">
+<div class="article-navbar d-lg-block d-none">
   <div class="container">
     <div class="row">
       <div class="col px-lg-3 px-0">
         <div class="d-flex flex-row justify-content-between">
-          <div class="article-navbar-title d-lg-flex d-none {% if page.get_titles %}col-lg-8{% else %}col-lg-12{% endif %}">
+          <div class="article-navbar-title d-lg-flex d-none pl-0 {% if page.get_titles %}col-lg-8{% else %}col-lg-12{% endif %}">
             {% if page.get_titles %}
               {{ page.title|truncatechars:60 }}
             {% else %}

@@ -146,7 +146,7 @@
     width: 16px;
     height: 24px;
     position: absolute;
-    left: 0;
+    left: -16px;
     top: 50%;
     transform: translateY(-50%);
     background-image: url("../_images/left-chevron.svg");
@@ -159,7 +159,7 @@
 .article-nav-arrow--right {
   &::before {
     left: initial;
-    right: 0;
+    right: -16px;
     background-image: url("../_images/glyphs/right-chevron.svg");
   }
 }

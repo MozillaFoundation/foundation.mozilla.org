@@ -12,22 +12,22 @@
 {% endif %}
   <div class="container">
     <div class="row">
-      <div class="{% if not size %}col-lg-10{% else %}col-lg-8 offset-lg-2{% endif %}">
-        <div class="mb-2 body-small dark-theme">
+      <div class="col-lg-8 offset-lg-2 dark-theme">
+        <div class="mb-2 body-small">
           {% for parent_page in self.breadcrumb_list %}
             <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a> ›
           {% endfor %}
         </div>
-        <h1 class="publication-hero-title text-white">
+        <h1 class="publication-hero-title">
           {{ page.title }}
         </h1>
         {% if page.subtitle %}
-          <h2 class="mt-4 publication-hero-subtitle text-white h3-heading">
+          <h2 class="mt-4 publication-hero-subtitle h3-heading">
             {{ page.subtitle }}
           </h2>
         {% endif %}
         {% if page.secondary_subtitle or page.publication_date %}
-          <div class="publication-hero-secondary-subtitle mt-2 mb-4">
+          <div class="mt-2 mb-4 body-small">
             {% if page.secondary_subtitle %}
               {{ page.secondary_subtitle }}
             {% endif %}
@@ -52,7 +52,8 @@
           </div>
         </div>
         {% if page.authors.count %}
-          <div class="text-white mt-2">
+          <div class="mt-2 dark-theme">
+            <p>
             {% trans "Written by" %}
             {% with authors_length=page.authors.count %}
               {% for orderable in page.authors.all %}
@@ -66,6 +67,7 @@
                 {{ page.additional_author_copy }}
               {% endif %}
             {% endwith %}
+            </p>
           </div>
         {% endif %}
         {% if page.publication_file %}
