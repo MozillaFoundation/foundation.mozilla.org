@@ -39,7 +39,7 @@
         <a id="product-company-url" class="product-price small-link col-md-8 mb-1 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
         <div class="col-md-4 text-md-right">TODO: wifi and bluetooth</div>
         <div class="col-12 mt-3">
-          <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
+          <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review date: {{ date }}{% endblocktrans %}</p>
         </div>
         <div class="col-12"><p class="body mb-2 mb-md-4">{{product.blurb}}</p></div>
       </div>
@@ -215,7 +215,7 @@
           <div id="coral-talk-stream"></div>
           {% endif %}
 
-          <h3 class="h2-heading mb-4">{% trans "Compare products" %}</h3>
+          <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
             {% for product in product.related_products %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
