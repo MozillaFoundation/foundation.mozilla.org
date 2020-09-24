@@ -24,8 +24,9 @@ def get_product_vote_information(product):
         # Build + return the votes dict
         votes['creepiness'] = creepiness
         votes['confidence'] = confidence_vote_breakdown
-        BooleanVote = apps.get_model('buyersguide', 'BooleanVote')
-        votes['total'] = BooleanVote.objects.filter(product=product).count()
+        # Total votes is based on votes on creepiness
+        RangeVote = apps.get_model('buyersguide', 'RangeVote')
+        votes['total'] = RangeVote.objects.filter(product=product).count()
         return votes
 
     except ObjectDoesNotExist:
