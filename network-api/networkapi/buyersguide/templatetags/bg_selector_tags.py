@@ -27,3 +27,22 @@ def extended_yes_no(value):
     if value == 'No':
         return gettext('No')
     return value
+
+
+@register.filter
+def track_record(value):
+    """
+    effects localization for company track records. While it might
+    seem easier to just return gettext(value), we want to be explicit
+    about the possible options, and the context in which to apply
+    this tag, rather than a generic "localize" tag.
+    """
+    if value == 'Great':
+        return gettext('Great')
+    if value == 'Average':
+        return gettext('Average')
+    if value == 'Needs Improvement':
+        return gettext('Needs Improvement')
+    if value == 'Bad':
+        return gettext('Bad')
+    return value

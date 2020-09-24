@@ -1,6 +1,6 @@
 {% extends "./bg_base.html" %}
 
-{% load yes_no env cloudinary l10n i18n static %}
+{% load bg_selector_tags env cloudinary l10n i18n static %}
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.name }}{% endblocktrans %}" />
