@@ -4,7 +4,7 @@
 */
 
 body.ready .help {
-  opacity: unset!important;
+  opacity: unset !important;
 }
 
 body.ready .help .icon-help-inverse {
@@ -12,8 +12,8 @@ body.ready .help .icon-help-inverse {
 }
 
 .object .object-help {
-  padding-top: 10px!important;
-  padding-left: 0!important;
+  padding-top: 10px !important;
+  padding-left: 0 !important;
 }
 
 @media screen and (min-width: 50em) {
@@ -21,15 +21,15 @@ body.ready .help .icon-help-inverse {
     min-width: 14em;
   }
   .field-content {
-    width: 100%!important;
+    width: 100% !important;
   }
   .object fieldset {
-    max-width: unset!important;
+    max-width: unset !important;
   }
   .object .object-help {
     padding-bottom: 40px;
     margin-left: 10px;
-    padding-left: 3em!important;
+    padding-left: 3em !important;
   }
 }
 
