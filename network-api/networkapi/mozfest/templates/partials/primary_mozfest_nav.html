@@ -1,6 +1,7 @@
-{% load primary_active_nav %}
+{% load i18n primary_active_nav %}
 
-{% with root_name="Home" %}
+{% trans "Home" as translated_root_name %}
+{% with root_name=translated_root_name %}
 <div id="primary-nav-container">
   <div class="wrapper-burger">
     <div class="menu-container">
