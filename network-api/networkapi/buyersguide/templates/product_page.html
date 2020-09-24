@@ -36,8 +36,17 @@
     <div class="product-detail bg-white py-3 py-md-4 px-md-5 {{section_class}}">
       <div class="row intro">
         <h1 class="h1-heading col-12">{{product.name}}</h1>
-        <a id="product-company-url" class="product-price small-link col-md-8 mb-1 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
-        <div class="col-md-4 text-md-right">TODO: wifi and bluetooth</div>
+        <div class="col-12 d-flex flex-column flex-md-row justify-content-between">
+          <a id="product-company-url" class="product-price pni-product-intro-large mb-2 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
+          <div>
+            {% if product.uses_wifi %}
+              <div class="connectivity-requirement use-wifi pni-product-intro-large">{% trans "WiFi" %}</div>
+            {% endif %}
+            {% if product.uses_bluetooth %}
+              <div class="connectivity-requirement use-bluetooth pni-product-intro-large">{% trans "Bluetooth" %}</div>
+            {% endif %}
+          </div>
+        </div>
         <div class="col-12 mt-3">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review Date {{ date }}{% endblocktrans %}</p>
         </div>

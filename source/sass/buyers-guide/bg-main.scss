@@ -47,6 +47,10 @@ html {
 @import "../global";
 @import "../utilities";
 
+// PNI specific
+
+@import "./type.scss";
+
 // Header
 
 @import "./components/header.scss";
