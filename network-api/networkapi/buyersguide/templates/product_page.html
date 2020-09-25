@@ -40,10 +40,10 @@
           <a id="product-company-url" class="product-price pni-product-intro-large mb-2 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
           <div>
             {% if product.uses_wifi %}
-              <div class="connectivity-requirement use-wifi pni-product-intro-large">{% trans "WiFi" %}</div>
+              <span class="connectivity-requirement use-wifi pni-product-intro-large">{% trans "Wi-Fi" %}</span>
             {% endif %}
             {% if product.uses_bluetooth %}
-              <div class="connectivity-requirement use-bluetooth pni-product-intro-large">{% trans "Bluetooth" %}</div>
+              <span class="connectivity-requirement use-bluetooth pni-product-intro-large">{% trans "Bluetooth" %}</span>
             {% endif %}
           </div>
         </div>

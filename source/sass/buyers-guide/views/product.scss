@@ -56,7 +56,8 @@ $pni-product-breakpoint-larger: $bp-md;
   }
 
   .connectivity-requirement {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     color: $gray-60;
 
     &:not(:last-child) {
