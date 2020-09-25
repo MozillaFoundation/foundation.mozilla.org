@@ -50,20 +50,42 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  .small-link {
-    font-size: 18px;
-    font-weight: 400;
-    color: $gray-60;
-  }
-
-  button.small-link {
-    border: none;
-    background: none;
-  }
-
   h3.body,
   h4 {
     font-family: "Nunito Sans";
+  }
+
+  .connectivity-requirement {
+    display: inline-flex;
+    align-items: center;
+    color: $gray-60;
+
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 18px;
+      margin-right: 6px;
+    }
+
+    &.use-wifi {
+      &:before {
+        background: url(../_images/buyers-guide/icon-wifi.svg) center / contain
+          no-repeat;
+        width: 25px;
+      }
+    }
+
+    &.use-bluetooth {
+      &:before {
+        background: url(../_images/buyers-guide/icon-bluetooth.svg) center /
+          contain no-repeat;
+        width: 10px;
+      }
+    }
   }
 
   .worst-case {
