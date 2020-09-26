@@ -19,7 +19,7 @@ $pni-product-breakpoint-larger: $bp-md;
       content: "";
       position: absolute;
       top: 24px;
-      right: 9px;
+      right: 24px;
       background: url(../_images/buyers-guide/icon-privacy-ding.svg) center /
         contain no-repeat;
       width: 47px;
@@ -27,7 +27,6 @@ $pni-product-breakpoint-larger: $bp-md;
 
       @media (min-width: $pni-product-breakpoint-larger) {
         top: 40px;
-        right: 24px;
         width: 63px;
         height: 80px;
       }
