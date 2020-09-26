@@ -10,10 +10,10 @@
 {% block body_id %}product-page{% endblock %}
 
 {% block guts %}
-<div class="container-fluid text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
+<div class="text-center product-header bg-product-image{% if product.draft %} draft-product{% endif %}">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-10 offset-md-1">
+      <div class="col-12 col-lg-10 offset-lg-1 product-header-content {% if product.privacy_ding %}show-privacy-ding{% endif %}">
           <img
             class="thumb-border"
             width="250"
@@ -31,9 +31,16 @@
 </div>
 
 {% with section_class="col-12 col-lg-10 offset-lg-1" %}
-<div class="container">
+<div class="container product-detail">
   <div class="row">
-    <div class="product-detail bg-white py-3 py-md-4 px-md-5 {{section_class}}">
+    {% if product.privacy_ding %}
+    <div class="privacy-ding-band px-md-5 {{section_class}}">
+      {% blocktrans %}
+      <p class="mb-0 py-2"><strong>Warning</strong>: *privacy not included with this product</p>
+      {% endblocktrans %}
+    </div>
+    {% endif %}
+    <div class="bg-white py-3 py-md-4 px-md-5 {{section_class}}">
       <div class="row intro mb-4">
         <h1 class="h1-heading col-12">{{product.name}}</h1>
         <div class="col-12 d-flex flex-column flex-md-row justify-content-between">

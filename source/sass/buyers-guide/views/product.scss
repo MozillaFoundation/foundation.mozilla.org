@@ -11,6 +11,28 @@ $pni-product-breakpoint-larger: $bp-md;
   .seal-of-approval {
     @include seal-of-approval(1rem, 0, 76px, 76px, 140px, 140px);
   }
+
+  .product-header-content.show-privacy-ding {
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 24px;
+      right: 9px;
+      background: url(../_images/buyers-guide/icon-privacy-ding.svg) center /
+        contain no-repeat;
+      width: 47px;
+      height: 61px;
+
+      @media (min-width: $pni-product-breakpoint-larger) {
+        top: 40px;
+        right: 24px;
+        width: 63px;
+        height: 80px;
+      }
+    }
+  }
 }
 
 .related-product {
@@ -36,6 +58,10 @@ $pni-product-breakpoint-larger: $bp-md;
     padding-left: 5rem;
     padding-right: 5rem;
   }
+}
+
+.privacy-ding-band {
+  background: $pni-warning-yellow;
 }
 
 .product-detail {
