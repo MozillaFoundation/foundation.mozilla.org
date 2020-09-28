@@ -11,11 +11,8 @@
 
 .publication-hero-file-size {
   color: $gray-40;
-  font-size: 12px;
+  @include set-text-size(12px, 16px);
   font-family: $font-family-sans-serif;
-  font-weight: normal;
-  letter-spacing: 0px;
-  line-height: 16px;
   top: 10px;
 }
 
@@ -61,16 +58,14 @@
   align-items: center;
   justify-content: center;
   color: $white;
-  font-size: 72px;
+  @include set-text-size(72px, 88px);
   font-family: "Zilla Slab";
-  line-height: 88px;
 
   &--small {
     width: 64px;
     height: 64px;
     color: $white;
-    font-size: 30px;
-    line-height: 44px;
+    @include set-text-size(30px, 44px);
   }
 }
 
@@ -79,21 +74,16 @@
 
   &--small {
     color: $black;
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 30px;
-    margin-top: 20px;
-    margin-bottom: 0;
+    @include set-text-size(24px, 30px);
   }
 }
 
 .publication-chapter-list-number {
   color: $gray-60;
-  font-size: 12px;
+  @include set-text-size(12px, 22px);
   font-family: $font-family-sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  line-height: 22px;
 }
 
 .publication-notes-hr {
@@ -103,8 +93,7 @@
 }
 
 .publication-notes .rich-text {
-  font-size: 16px;
-  line-height: 24px;
+  @include set-text-size(16px, 24px);
   margin-bottom: 96px;
   margin-top: 49px;
 }
@@ -113,12 +102,10 @@
   .publication-chapter-number {
     height: 76px;
     width: 76px;
-    font-size: 56px;
-    line-height: 64px;
+    @include set-text-size(56px, 64px);
 
     &--small {
-      font-size: 30px;
-      line-height: 44px;
+      @include set-text-size(30px, 44px);
     }
   }
 
