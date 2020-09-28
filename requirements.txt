@@ -5,8 +5,8 @@
 #    pip-compile
 #
 beautifulsoup4==4.8.2     # via -r requirements.in, wagtail
-boto3==1.14.61            # via -r requirements.in
-botocore==1.17.61         # via boto3, s3transfer
+boto3==1.15.6             # via -r requirements.in
+botocore==1.18.6          # via boto3, s3transfer
 certifi==2020.4.5.1       # via cloudinary, requests, sentry-sdk
 cffi==1.14.0              # via cryptography
 chardet==3.0.4            # via requests
@@ -27,7 +27,6 @@ django-taggit==1.2.0      # via wagtail
 django-treebeard==4.3.1   # via wagtail
 django==2.2.16            # via -r requirements.in, django-admin-sortable, django-cors-headers, django-csp, django-filter, django-modeltranslation, django-redis, django-storages, django-taggit, django-treebeard, djangorestframework, wagtail
 djangorestframework==3.11.1  # via -r requirements.in, wagtail
-docutils==0.15.2          # via botocore
 draftjs-exporter==2.1.7   # via wagtail
 et-xmlfile==1.0.1         # via openpyxl
 factory-boy==2.12.0       # via -r requirements.in, wagtail-factories
