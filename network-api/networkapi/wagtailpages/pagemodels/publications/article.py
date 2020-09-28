@@ -6,7 +6,8 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.models import BlogAuthor, PublicationPage
@@ -47,19 +48,24 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     subpage_types = []
     body = StreamField(article_fields)
 
-    sidebar_summary_title = models.CharField(
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
         blank=True,
-        default="Article Summary",
-        max_length=250,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Publication Hero Image',
     )
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             InlinePanel("authors", label="Author", min_num=0)
         ], heading="Author(s)"),
+        MultiFieldPanel([
+            ImageChooserPanel("hero_image"),
+        ], heading="Hero"),
         StreamFieldPanel('body'),
         InlinePanel("footnotes", label="Footnotes"),
-        FieldPanel('sidebar_summary_title'),
     ]
 
     @property
