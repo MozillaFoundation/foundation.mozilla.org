@@ -72,6 +72,7 @@ def l10n_block_inventory(ctx):
     manage(ctx, "block_inventory")
 
 
+@task
 def create_super_user(ctx):
     preamble = "from django.contrib.auth.models import User;"
     create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"

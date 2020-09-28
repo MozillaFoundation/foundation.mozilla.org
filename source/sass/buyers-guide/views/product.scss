@@ -50,44 +50,62 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  .small-link {
-    font-size: 18px;
-    font-weight: 400;
-    color: $gray-60;
-  }
-
-  button.small-link {
-    border: none;
-    background: none;
-  }
-
   h3.body,
   h4 {
     font-family: "Nunito Sans";
   }
 
-  .worst-case-box {
-    position: relative;
-    border-style: solid;
-    border-width: 1px;
-    border-image: linear-gradient(to left, $pni-pink 0%, $pni-blue 100%) 1 /
-      auto;
-    margin-top: 3.5rem;
+  .connectivity-requirement {
+    display: inline-flex;
+    align-items: center;
+    color: $gray-60;
 
-    .creep-face-emoji-wrapper {
-      $font-size: 3rem;
-      $padding-x: 1rem;
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
 
-      background: $white;
-      position: absolute;
-      top: -$font-size / 2;
-      left: calc(50% - #{$font-size} / 2 - #{$padding-x});
-      font-size: $font-size;
-      padding: 0 $padding-x;
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 18px;
+      margin-right: 6px;
+    }
 
-      .creep-face-emoji {
-        top: 0;
-        margin: 0;
+    &.use-wifi {
+      &:before {
+        background: url(../_images/buyers-guide/icon-wifi.svg) center / contain
+          no-repeat;
+        width: 25px;
+      }
+    }
+
+    &.use-bluetooth {
+      &:before {
+        background: url(../_images/buyers-guide/icon-bluetooth.svg) center /
+          contain no-repeat;
+        width: 10px;
+      }
+    }
+  }
+
+  .worst-case {
+    h2 {
+      display: inline-block;
+
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 29px;
+        height: 27px;
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        position: relative;
+        top: 4px;
+        margin-right: 0.5rem;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          margin-right: 1rem;
+        }
       }
     }
   }
@@ -275,51 +293,7 @@ $pni-product-breakpoint-larger: $bp-md;
   position: relative;
   min-height: 380px;
   min-width: 290px;
-  border: 1px solid $gray-20;
-  padding-left: 1rem;
-  padding-right: 1rem;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    padding: 1.5rem 3.75rem;
-  }
-}
-
-.creep-vote {
-  .what-you-think-label {
-    $line-height: 24px;
-    $padding-x: 1rem;
-    $padding-y: 0.5rem;
-    $shadow-width: calc(#{$padding-x} + 10px);
-
-    position: absolute;
-    top: 0;
-    left: 1rem;
-    transform: translateY(-50%);
-    background: $gray-60;
-    padding: $padding-y 1rem;
-
-    &.h5-heading {
-      color: $white;
-    }
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      left: calc(#{$shadow-width} * -1);
-
-      &::before {
-        position: absolute;
-        left: 0;
-        top: 100%;
-        content: "";
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 $shadow-width $shadow-width 0;
-        border-color: transparent $black transparent transparent;
-      }
-    }
-  }
+  background: $pni-product-image-background;
 }
 
 .helptext {

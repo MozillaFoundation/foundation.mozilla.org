@@ -1,0 +1,6 @@
+// unoffiical text styles used only on PNI pages
+
+.pni-product-intro-large {
+  @include text-base-style($font-family-sans-serif, 400, $gray-60, $gray-60);
+  @include set-text-size(18px, 27px);
+}

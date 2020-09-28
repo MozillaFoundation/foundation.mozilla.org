@@ -257,7 +257,7 @@ export default class JoinUs extends React.Component {
    */
   renderFlowHeading() {
     return [
-      <h2 className="text-center">{this.props.flowHeading}</h2>,
+      <h2 className="h3-heading text-center">{this.props.flowHeading}</h2>,
       <p className="text-center">{this.props.flowText}</p>,
     ];
   }
@@ -521,7 +521,7 @@ export default class JoinUs extends React.Component {
               onClick={() => this.props.handleSignUp(false)}
               type="button"
             >
-              No Thanks
+              No thanks
             </button>
           )}
         </div>

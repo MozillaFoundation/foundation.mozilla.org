@@ -29,7 +29,6 @@ html {
 @import "../../js/buyers-guide/components/primary-nav/primary-nav";
 
 @import "../../js/buyers-guide/components/creepiness-chart/creepiness-chart";
-@import "../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart";
 @import "../../js/components/share-button-group/share-button-group";
 @import "../../js/components/join/join";
 
@@ -47,6 +46,10 @@ html {
 @import "../buttons";
 @import "../global";
 @import "../utilities";
+
+// PNI specific
+
+@import "./type.scss";
 
 // Header
 
