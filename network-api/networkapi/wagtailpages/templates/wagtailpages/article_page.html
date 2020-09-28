@@ -17,7 +17,7 @@
 
         {% if page.get_titles %}
           {# If there are h2s in the body of this page, show the article "table of contents" #}
-          <div class="article-summary p-rel">
+          <div class="article-summary">
             <div class="article-summary-share-links d-lg-block d-none">
               <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
             </div>
