@@ -237,7 +237,7 @@
   h3,
   h4,
   h5 {
-    margin-bottom: 4px;
+    margin-bottom: 12px;
   }
 
   h3 {
@@ -281,21 +281,27 @@
     display: none;
   }
 
+  p ~ .richtext-image {
+    margin-top: 0;
+    margin-bottom: 0px;
+  }
+
+
   .richtext-image {
     max-width: 350px;
   }
 
-  .richtext-image.left {
+  .left {
     float: left;
     margin: 24px 30px 24px 0;
   }
 
-  .richtext-image.right {
+  .right {
     float: right;
     margin: 24px 0 24px 30px;
   }
 
-  .richtext-image.full-width {
+  .full-width {
     margin: 24px 0;
     width: 100%;
     max-width: 100%;
@@ -321,6 +327,14 @@
     font-weight: normal;
     letter-spacing: 0px;
     line-height: 27px;
+  }
+}
+
+@media(max-width: $bp-md) {
+  .article-blockquote-block {
+    padding: 18px 22px;
+    font-size: 18px;
+    width: 100%;
   }
 }
 
@@ -397,9 +411,10 @@
     }
   }
 
+  .article-blocks .rich-text .richtext-image.full-width,
   .article-blocks .rich-text .richtext-image.right,
   .article-blocks .rich-text .richtext-image.left {
-    margin: 24px 0;
+    margin: 0 0 24px 0;
     width: 100%;
     max-width: 100%;
     position: relative;
