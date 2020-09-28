@@ -1,5 +1,5 @@
 from django import template
-from django.utils.translation import gettext
+from django.utils.translation import gettext, pgettext
 
 register = template.Library()
 
@@ -37,12 +37,13 @@ def track_record(value):
     about the possible options, and the context in which to apply
     this tag, rather than a generic "localize" tag.
     """
+    lcontext = "This can be localized. This is a rating for a company's history concerning privacy"
     if value == 'Great':
-        return gettext('Great')
+        return pgettext(lcontext, 'Great')
     if value == 'Average':
-        return gettext('Average')
+        return pgettext(lcontext, 'Average')
     if value == 'Needs Improvement':
-        return gettext('Needs Improvement')
+        return pgettext(lcontext, 'Needs Improvement')
     if value == 'Bad':
-        return gettext('Bad')
+        return pgettext(lcontext, 'Bad')
     return value
