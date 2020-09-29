@@ -28,7 +28,7 @@ const sync = document.querySelector(`.synchronize.helper.button`);
 sync.addEventListener(`click`, () => {
   Object.values(fields).forEach((field) => {
     const name = field.getAttribute(`name`);
-    let code = languages.find((v) => name.includes(`_${v}`));
+    const code = languages.find((v) => name.includes(`_${v}`));
     if (code === main) return;
     field.value = fields[name.replace(`_${code}`, `_${main}`)].value;
   });
