@@ -1,5 +1,5 @@
 {% if value != hide_value %}
-<div class="criterion value-{{value|lower}}">
+<div class="criterion value-{{value|lower}} {% if no_border %}no-border{% endif%}">
   {% include "./product_criterion_primary_info.html"  with  show_value_as_symbol=show_value_as_symbol  label=label  value=value %}
 
   {% if help != None and help != "" %}

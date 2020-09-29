@@ -188,62 +188,30 @@
         {% endif %}
 
 
-      <div class="minimum-security row py-5 px-3 px-md-5">
-        <div class="criterion bottom-border-only py-0 col-12">
-          <div class="d-block primary-info">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex flex-column flex-md-row justify-content-md-between w-100">
-                <h2 class="h3-heading">{% trans "Minimum Security Standards" %}</h2>
-              </div>
-            </div>
-            <div class="primary-info-description mb-3">
-              <p class="body">
-                {% trans "Five basic steps every company should take to protect consumer privacy." %}
-                <a href="/privacynotincluded/about/meets-minimum-security-standards">{% trans "Learn more." %}</a>
-              </p>
-            </div>
-          </div>
+        <div class="minimum-security">
+          <h2 class="h3-heading">{% trans "Security" %}</h2>
 
-          <div class="details mt-2">
-            <div class="criterion rating">
+            <div class="criterion-group">
               {% if product.show_ding_for_minimum_security_standards %}
                 {# TODO: Add the privacy ding here #}
-                <img src="" alt="{% trans 'This product does not meet our minimum security standards' %}" />
               {% endif %}
 
-              {% trans "Overall Security Rating" as overall_security_rating %}
-              {% include "fragments/product_criterion_primary_info.html"  with label=overall_security_rating %}
-              <div>
-                <span class="security-score mb-0">{{security_score|localize}}</span><span class="full-security-score mb-0">/{{full_security_score}}</span>
-                <img
-                  src="{% static "_images/buyers-guide/score/icon-star.svg" %}"
-                  width="20"
-                  height="20"
-                  alt="{% trans "star" context "Used as a noun. Accessibility label for star image" %}"
-                >
-              </div>
+              {% trans "Does this product meet our <a href='https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards'>Minimum Security Standards</a>?" as minimum_security_standards %}
+              {% trans "Encryption"              as encryption %}
+              {% trans "Security updates"        as security_updates %}
+              {% trans "Strong password"         as strong_password %}
+              {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
+              {% trans "Privacy policy"          as privacy_policy %}
+
+              {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards  no_border=True %}
+              {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption                  no_border=True %}
+              {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password             no_border=True %}
+              {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates            no_border=True %}
+              {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities     no_border=True %}
+              {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy              no_border=True %}
             </div>
-            {% trans "Encryption"              as encryption %}
-            {% trans "Security updates"        as security_updates %}
-            {% trans "Strong password"         as strong_password %}
-            {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
-            {% trans "Privacy policy"          as privacy_policy %}
-
-            <h2 class="h3-heading">Does this product meet our <u>Minimum Security Standards?</u></h2>
-            {% if product.meets_minimum_security_standards %}
-              {% trans "Yes" %}
-            {% else %}
-              {% trans "No" %}
-            {% endif %}
-
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.uses_encryption         help=product.uses_encryption_helptext         label=encryption                %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.strong_password         help=product.strong_password_helptext         label=strong_password           %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.security_updates        help=product.security_updates_helptext        label=security_updates          %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.manage_vulnerabilities  help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities   %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=True  value=product.privacy_policy          help=product.privacy_policy_helptext          label=privacy_policy            %}
           </div>
         </div>
-      </div>
 
         <h2 class="h3-heading">{% trans "Does the product use AI?" %}</h2>
         {{ product.uses_ai }}

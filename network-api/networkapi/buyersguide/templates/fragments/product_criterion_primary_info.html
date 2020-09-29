@@ -1,20 +1,17 @@
 {% load i18n static %}
 
 <div class="primary-info">
-  <div class="d-flex align-items-center">
-    <span><strong>{{ label }}</strong></span>
-  </div>
+  <h3 class="criterion-label pni-product-smaller-body-bold">{{ label }}</h3>
 
-  <div class="rating">
-    <span><strong>
+  <p class="rating pni-product-smaller-body">
     {% if value == "U" %}
       {% if show_value_as_symbol %}
-      <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Unknown" context "Unknown rating" %}">
+      <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Can't determine" context "Unknown rating" %}">
       {% else %}
       {% trans "Unknown" context "Unknown rating" %}
       {% endif %}
     {% elif value == "NA" %}
-      {% trans "N/A" %}
+      {% trans "Not applicable" %}
     {% elif value == "Yes" %}
       {% if show_value_as_symbol %}
       <img src="{% static "_images/buyers-guide/score/icon-yes.svg" %}" alt="{% trans "Yes" %}">
@@ -34,6 +31,5 @@
       {{ value }}
       {% endif %}
     {% endif %}
-    </strong></span>
-  </div>
+  </p>
 </div>

@@ -9,3 +9,9 @@
   @include text-base-style($font-family-sans-serif, 400, $black, $white);
   @include set-text-size(16px, 24px);
 }
+
+.pni-product-smaller-body-bold {
+  @extend .pni-product-smaller-body;
+
+  font-weight: 700;
+}
