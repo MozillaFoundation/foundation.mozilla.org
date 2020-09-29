@@ -85,7 +85,7 @@
 
           {% if product.product_type == 'general' %}
           <section>
-            <h3 class="h3-heading">{% trans "Can it snoop on me?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "Can it snoop on me?" %}</h3>
 
             <div class="row criterion pb-0 mb-5 no-gutters d-flex flex-column flex-xl-row justify-content-between">
               {% trans "Camera"          as camera %}
@@ -100,7 +100,7 @@
           {% endif %}
 
           <section>
-            <h3 class="h3-heading">{% trans "What is required to sign up?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "What is required to sign up?" %}</h3>
 
             <div class="row criterion pb-0 no-gutters d-flex flex-column flex-xl-row justify-content-between">
               {% trans "Email"               as email %}
@@ -118,7 +118,7 @@
           </section>
 
           <section>
-            <h3 class="h3-heading">{% trans "What data does it collect" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "What data does it collect" %}</h3>
             {% if product.personal_data_collected %}
               {% trans "Personal" %}
               {{ product.personal_data_collected }}
@@ -137,7 +137,7 @@
 
           {% if product.how_does_it_use_data_collected %}
           <section>
-            <h3 class="h3-heading">{% trans "How does it use this data?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "How does it use this data?" %}</h3>
 
             {% if product.data_collection_policy_is_bad %}
               <img src="" alt="{% trans 'This product has a bad data collection policy' %}" />
@@ -149,7 +149,7 @@
 
           {% if product.how_can_you_control_your_data %}
           <section>
-            <h3 class="h3-heading">{% trans "How can you control your data?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "How can you control your data?" %}</h3>
 
             {% if product.data_control_policy_is_bad %}
               <img src="" alt="{% trans 'This product has bad data control policies' %}" />
@@ -160,7 +160,7 @@
           {% endif %}
 
           <section>
-            <h3 class="h3-heading">{% trans "What is the company's known track record for protecting users' data?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "What is the company's known track record for protecting users' data?" %}</h3>
 
             {% if product.track_record_is_bad %}
               <img src="" alt="{% trans 'This company has a poor track record of protecting user data' %}" />
@@ -174,7 +174,7 @@
           </section>
 
           <section>
-            <h3 class="h3-heading">{% trans "Can this product be used offline?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "Can this product be used offline?" %}</h3>
 
             {{ product.offline_capable }}
 
@@ -184,13 +184,13 @@
           </section>
 
           <section>
-            <h3 class="h3-heading">{% trans "User friendly privacy information?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "User friendly privacy information?" %}</h3>
 
             {{ product.user_friendly_privacy_policy | extended_yes_no }}
           </section>
 
           <section>
-            <h3 class="h3-heading">{% trans "How does it handle privacy?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "How does it handle privacy?" %}</h3>
 
             <div class="mb-5">
               {% trans "Links to privacy information" as privacy_policy_links %}
@@ -213,7 +213,7 @@
 
           {% if product.product_type == 'software' %}
           <section>
-            <h3 class="h3-heading">{% trans "Can I control it?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "Can I control it?" %}</h3>
 
             <div class="mb-5">
               {% trans "Host controls" as host_controls %}
@@ -230,25 +230,24 @@
 
       <section class="minimum-security">
         <h2 class="h3-heading">{% trans "Security" %}</h2>
-          <div class="criterion-group">
-            {% if product.show_ding_for_minimum_security_standards %}
-              {# TODO: Add the privacy ding here #}
-            {% endif %}
+        <div class="criterion-group">
+          {% if product.show_ding_for_minimum_security_standards %}
+            {# TODO: Add the privacy ding here #}
+          {% endif %}
 
-            {% trans "Does this product meet our <a href='https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards'>Minimum Security Standards</a>?" as minimum_security_standards %}
-            {% trans "Encryption"              as encryption %}
-            {% trans "Security updates"        as security_updates %}
-            {% trans "Strong password"         as strong_password %}
-            {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
-            {% trans "Privacy policy"          as privacy_policy %}
+          {% trans "Does this product meet our <a href='https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards'>Minimum Security Standards</a>?" as minimum_security_standards %}
+          {% trans "Encryption"              as encryption %}
+          {% trans "Security updates"        as security_updates %}
+          {% trans "Strong password"         as strong_password %}
+          {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
+          {% trans "Privacy policy"          as privacy_policy %}
 
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards  no_border=True %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption                  no_border=True %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password             no_border=True %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates            no_border=True %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities     no_border=True %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy              no_border=True %}
-          </div>
+          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards  no_border=True %}
+          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption                  no_border=True %}
+          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password             no_border=True %}
+          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates            no_border=True %}
+          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities     no_border=True %}
+          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy              no_border=True %}
         </div>
       </section>
 
@@ -257,19 +256,19 @@
         <h2 class="h3-heading">{% trans "Artificial Intelligence" %}</h2>
 
         <section>
-          <h3 class="h3-heading">{% trans "Does the product use AI?" %}</h3>
+          <h3 class="pni-product-smaller-body-bold">{% trans "Does the product use AI?" %}</h3>
 
           {{ product.uses_ai | extended_yes_no }}
         </section>
 
         <section>
-          <h3 class="h3-heading">{% trans "Does the AI use your personal data to make decisions about you?" %}</h3>
+          <h3 class="pni-product-smaller-body-bold">{% trans "Does the AI use your personal data to make decisions about you?" %}</h3>
 
           {{ product.ai_uses_personal_data | extended_yes_no }}
         </section>
 
         <section>
-          <h3 class="h3-heading">{% trans "Does the company allow users to see how the AI works?" %}</h3>
+          <h3 class="pni-product-smaller-body-bold">{% trans "Does the company allow users to see how the AI works?" %}</h3>
 
           {{ product.ai_is_transparent | extended_yes_no }}
 
@@ -298,7 +297,7 @@
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
           {% if product.updates|length > 0 or coralTalkServerUrl %}
-          <h3 class="h2-heading mb-4 mb-md-5">{% trans "Updates" %}</h3>
+          <h3 class="pni-product-smaller-body-bold mb-4 mb-md-5">{% trans "Updates" %}</h3>
           {% endif %}
           {% if product.updates|length > 0 %}
           <div class="mb-5">
