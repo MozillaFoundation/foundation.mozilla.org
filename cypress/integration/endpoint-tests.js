@@ -155,7 +155,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Styleguide page`, function () {
-    cy.visit(`/en/styleguide/`);
+    cy.visit(`/en/style-guide/`);
     cy.wait(1000);
     cy.percySnapshot();
   });
