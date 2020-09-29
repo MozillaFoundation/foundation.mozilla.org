@@ -1,10 +1,7 @@
-
 from .pagemodels.products.base import Product
 from .pagemodels.products.general import GeneralProduct
 from .pagemodels.products.software import SoftwareProduct
-from .pagemodels.product_update import Update
 from .pagemodels.product_category import BuyersGuideProductCategory
-from .pagemodels.privacy import ProductPrivacyPolicyLink
 
 from modeltranslation.translator import TranslationOptions
 from modeltranslation.decorators import register
