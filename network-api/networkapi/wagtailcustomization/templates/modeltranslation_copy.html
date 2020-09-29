@@ -11,6 +11,11 @@
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}" />
 
+            {% comment %}
+                There is unfortunately no block that we can use to inject content in the right place here,
+                so instead we've copied the entirety of https://github.com/infoportugal/wagtail-modeltranslation's
+                templates/modeltranslation_copy.html so that we can add these buttons for staff to click:
+            {% endcomment %}
             <div>
                 <p><h2>{% trans "Locale synchronization options:" %}</h2></p>
                 <p>
