@@ -431,13 +431,13 @@ class BuyersGuideViewTest(TestCase):
 class ProductTests(TestCase):
     def test_product_slug(self):
         p = GeneralProduct.objects.create(name='this name should get slugified', review_date=date.today())
-        self.assertEqual(p.slug, slugify(p.name))
+        self.assertEqual(p.slug, slugify(p.name_en))
 
     def name_change_changes_slug(self):
         p = GeneralProduct.objects.create(name='this will change', review_date=date.today())
         p.name = 'name changed'
         p.save()
-        self.assertEqual(p.slug, slugify(p.name))
+        self.assertEqual(p.slug, slugify(p.name_en))
 
 
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")

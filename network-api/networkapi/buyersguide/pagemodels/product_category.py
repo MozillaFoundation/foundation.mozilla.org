@@ -43,7 +43,7 @@ class BuyersGuideProductCategory(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name_en)
         super(BuyersGuideProductCategory, self).save(*args, **kwargs)
 
     class Meta:
