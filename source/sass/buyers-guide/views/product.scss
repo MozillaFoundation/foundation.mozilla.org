@@ -205,19 +205,19 @@ $pni-product-breakpoint-larger: $bp-md;
   }
 
   &.show-ding {
+    $ding-width: 29px;
+    $ding-height: 27px;
+
     @media (min-width: $pni-product-breakpoint-larger) {
       &:after {
-        $width: 29px;
-        $height: 27px;
-
         content: "";
         position: absolute;
         top: $criterion-padding-y;
-        left: calc(-#{$width} - 1rem);
+        left: calc(-#{$ding-width} - 1rem);
         background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
           center / contain no-repeat;
-        width: $width;
-        height: $height;
+        width: $ding-width;
+        height: $ding-height;
       }
     }
 
@@ -227,15 +227,12 @@ $pni-product-breakpoint-larger: $bp-md;
       flex-direction: column;
 
       &:before {
-        $width: 29px;
-        $height: 27px;
-
         content: "";
         display: block;
         background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
           center / contain no-repeat;
-        width: $width;
-        height: $height;
+        width: $ding-width;
+        height: $ding-height;
         margin-bottom: 0.5rem;
 
         @media (min-width: $pni-product-breakpoint-larger) {
