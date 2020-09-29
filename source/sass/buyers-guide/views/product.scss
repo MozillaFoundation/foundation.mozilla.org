@@ -181,10 +181,13 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .criterion {
-  padding: 1.5rem 0;
+  $criterion-padding-y: 0.75rem;
+
+  position: relative;
+  padding: $criterion-padding-y 0;
 
   &:first-child {
-    margin-top: 0;
+    padding-top: 0;
   }
 
   &:not(.no-border) {
@@ -199,6 +202,47 @@ $pni-product-breakpoint-larger: $bp-md;
 
   &.bottom-border-only {
     border-top: 0;
+  }
+
+  &.show-ding {
+    @media (min-width: $pni-product-breakpoint-larger) {
+      &:after {
+        $width: 29px;
+        $height: 27px;
+
+        content: "";
+        position: absolute;
+        top: $criterion-padding-y;
+        left: calc(-#{$width} - 1rem);
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        width: $width;
+        height: $height;
+      }
+    }
+
+    .rating {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      &:before {
+        $width: 29px;
+        $height: 27px;
+
+        content: "";
+        display: block;
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        width: $width;
+        height: $height;
+        margin-bottom: 0.5rem;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          display: none;
+        }
+      }
+    }
   }
 
   p.criterion-label {

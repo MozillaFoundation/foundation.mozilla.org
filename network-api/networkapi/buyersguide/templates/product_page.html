@@ -80,7 +80,7 @@
           </div>
         </div>
 
-        <section>
+        <section class="criterion-group">
           <h2 class="h3-heading">{% trans "Privacy" %}</h2>
 
           {% if product.product_type == 'general' %}
@@ -228,31 +228,25 @@
       </div>
 
 
-      <section class="minimum-security">
+      <section class="minimum-security criterion-group">
         <h2 class="h3-heading">{% trans "Security" %}</h2>
-        <div class="criterion-group">
-          {% if product.show_ding_for_minimum_security_standards %}
-            {# TODO: Add the privacy ding here #}
-          {% endif %}
+        {% trans "Does this product meet our <a href='https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards'>Minimum Security Standards</a>?" as minimum_security_standards %}
+        {% trans "Encryption"              as encryption %}
+        {% trans "Security updates"        as security_updates %}
+        {% trans "Strong password"         as strong_password %}
+        {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
+        {% trans "Privacy policy"          as privacy_policy %}
 
-          {% trans "Does this product meet our <a href='https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards'>Minimum Security Standards</a>?" as minimum_security_standards %}
-          {% trans "Encryption"              as encryption %}
-          {% trans "Security updates"        as security_updates %}
-          {% trans "Strong password"         as strong_password %}
-          {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
-          {% trans "Privacy policy"          as privacy_policy %}
-
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards  no_border=True %}
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption                  no_border=True %}
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password             no_border=True %}
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates            no_border=True %}
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities     no_border=True %}
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy              no_border=True %}
-        </div>
+        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards  no_border=True    ding_control=product.show_ding_for_minimum_security_standards %}
+        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption                  no_border=True %}
+        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password             no_border=True %}
+        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates            no_border=True %}
+        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities     no_border=True %}
+        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy              no_border=True %}
       </section>
 
 
-      <section>
+      <section class="criterion-group">
         <h2 class="h3-heading">{% trans "Artificial Intelligence" %}</h2>
 
         <section>
@@ -279,7 +273,7 @@
       </section>
 
 
-      <section>
+      <section class="criterion-group">
         <h2 class="h3-heading">{% trans "Company contact info" %}</h3>
 
         <div>
