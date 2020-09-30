@@ -49,7 +49,7 @@ This task creates a `.env` that is in charge of managing your environment variab
 
 When it's done, run `docker-compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
 
-To log into the admin site, a superuser will have been created with username `admin` with password `admin`.
+To log into the admin site, a superuser will have been created with the username `admin` with password `admin`.
 
 To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again.
 
