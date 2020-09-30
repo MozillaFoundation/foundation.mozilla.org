@@ -21,9 +21,9 @@
                   {{ forloop.counter }}
                 </div>
               </div>
-              <div class="col-8 ml-sm-3">
-                <h3 class="publication-chapter-title">
-                  <a href="{{ child.url }}" class="d-block mb-4">
+              <div class="col-8 ml-sm-3{% if not child.get_children_count %} d-flex align-items-center{% endif %}">
+                <h3 class="{% if child.get_children_count %}publication-chapter-title{% else %}m-0 {% endif %}">
+                  <a href="{{ child.url }}" class="d-block {% if child.get_children_count %}mb-4{% endif %}">
                     {{ child.title }}
                   </a>
                 </h3>
