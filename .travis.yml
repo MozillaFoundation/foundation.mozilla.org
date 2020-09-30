@@ -76,6 +76,8 @@ jobs:
       install: "./travis-scripts/npm-install.sh"
       script: npm test
     - name: Percy tests
+      exclude:
+        - if: branch = pni-v4-2020
       before_install:
         # libgconf is required by cypress
         - sudo apt-get install -y libgconf-2-4
