@@ -230,14 +230,16 @@
 
       <section class="minimum-security criterion-group">
         <h2 class="h3-heading">{% trans "Security" %}</h2>
-        {% trans "Does this product meet our <a href='https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards'>Minimum Security Standards</a>?" as minimum_security_standards %}
+        {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards" asvar minimum_security_standards trimmed %}
+          Does this product meet our <a href="{{ url }}">Minimum Security Standards</a>?
+        {% endblocktrans %}
         {% trans "Encryption"              as encryption %}
         {% trans "Security updates"        as security_updates %}
         {% trans "Strong password"         as strong_password %}
         {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
         {% trans "Privacy policy"          as privacy_policy %}
 
-        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards  no_border=True    ding_control=product.show_ding_for_minimum_security_standards %}
+        {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards|safe  no_border=True    ding_control=product.show_ding_for_minimum_security_standards %}
         {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption                  no_border=True %}
         {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password             no_border=True %}
         {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates            no_border=True %}
