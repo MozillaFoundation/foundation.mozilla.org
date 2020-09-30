@@ -75,7 +75,8 @@ jobs:
         - nvm use 14.4.0
       install: "./travis-scripts/npm-install.sh"
       script: npm test
-    - name: Percy tests
+    - name: Percy Tests
+      if: branch = master
       before_install:
         # libgconf is required by cypress
         - sudo apt-get install -y libgconf-2-4
