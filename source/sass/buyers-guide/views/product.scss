@@ -171,54 +171,24 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .minimum-security {
-  background: $gray-05;
-
-  h2 {
-    $badge-width-mobile: 40px;
-    $badge-width: 30px;
-
-    position: relative;
-    padding-left: calc(#{$badge-width-mobile} + 8px);
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      padding-left: calc(#{$badge-width} + 6px);
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: url(../_images/buyers-guide/badge-star-mini.svg) center /
-        contain no-repeat;
-      width: $badge-width-mobile;
-      height: 100%;
-
-      @media (min-width: $pni-product-breakpoint-larger) {
-        width: $badge-width;
-      }
-    }
-  }
-
   .criterion:last-child {
     border-bottom: none;
   }
+}
 
-  .rating {
-    .security-score {
-      @include heading("Zilla Slab", 300, 0, $black, $white);
-      @include set-text-size(40px, 46px);
-    }
-
-    .full-security-score {
-      @include heading("Zilla Slab", 300, 0, $black, $white);
-      @include set-text-size(20px, 46px);
-    }
-  }
+.criterion-group {
+  margin-bottom: 3rem;
 }
 
 .criterion {
-  padding: 1rem 0;
+  $criterion-padding-y: 0.75rem;
+
+  position: relative;
+  padding: $criterion-padding-y 0;
+
+  &:first-child {
+    padding-top: 0;
+  }
 
   &:not(.no-border) {
     border-color: $gray-20;
@@ -234,23 +204,46 @@ $pni-product-breakpoint-larger: $bp-md;
     border-top: 0;
   }
 
-  .primary-info {
-    display: flex;
-    justify-content: space-between;
+  &.show-ding {
+    $ding-width: 29px;
+    $ding-height: 27px;
 
-    strong {
-      font-weight: 700;
+    @media (min-width: $pni-product-breakpoint-larger) {
+      &:after {
+        content: "";
+        position: absolute;
+        top: $criterion-padding-y;
+        left: calc(-#{$ding-width} - 1rem);
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        width: $ding-width;
+        height: $ding-height;
+      }
+    }
+
+    .rating {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      &:before {
+        content: "";
+        display: block;
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        width: $ding-width;
+        height: $ding-height;
+        margin-bottom: 0.5rem;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          display: none;
+        }
+      }
     }
   }
 
-  a {
-    text-decoration: underline;
-    color: $black;
-    font-weight: 400;
-  }
-
-  p {
-    margin-bottom: 0;
+  p.criterion-label {
+    margin-bottom: 0.75rem;
   }
 
   button.toggle {
@@ -323,8 +316,13 @@ $pni-product-breakpoint-larger: $bp-md;
 
 .helptext {
   font-style: italic;
-  margin-top: 0.5rem;
-  margin-right: 5rem;
+  font-weight: 300;
+
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
 }
 
 // Coral Embed
