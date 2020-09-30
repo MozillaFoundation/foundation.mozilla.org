@@ -71,18 +71,16 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     @property
     def next_page(self):
         # Try to get the next sibling page.
-        try:
-            next_page = self.get_siblings().filter(path__gt=self.path, live=True)[0]
-        except IndexError:
+        next_page = self.get_siblings().filter(path__gt=self.path, live=True).first()
+        if not next_page:
             next_page = self.get_parent()
         return next_page
 
     @property
     def prev_page(self):
         # Try to get the prev sibling page.
-        try:
-            prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse()[0]
-        except IndexError:
+        prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
+        if not prev_page:
             prev_page = self.get_parent()
         return prev_page
 

@@ -86,18 +86,18 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("subtitle"),
-                FieldPanel("secondary_subtitle"),
-                FieldPanel("publication_date"),
-                ImageChooserPanel("hero_image"),
-                DocumentChooserPanel("publication_file"),
-                InlinePanel("authors", label="Author"),
-                FieldPanel("additional_author_copy"),
+                FieldPanel('subtitle'),
+                FieldPanel('secondary_subtitle'),
+                FieldPanel('publication_date'),
+                ImageChooserPanel('hero_image'),
+                DocumentChooserPanel('publication_file'),
+                InlinePanel('authors', label='Author'),
+                FieldPanel('additional_author_copy'),
             ],
-            heading="Hero",
+            heading='Hero',
         ),
-        FieldPanel("contents_title"),
-        FieldPanel("notes"),
+        FieldPanel('contents_title'),
+        FieldPanel('notes'),
     ]
 
     @property
@@ -108,7 +108,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         all the fields are the same.
         """
         parent = self.get_parent().specific
-        return parent.__class__ == PublicationPage
+        return parent.__class__ is PublicationPage
 
     def breadcrumb_list(self):
         """

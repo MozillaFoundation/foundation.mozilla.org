@@ -107,10 +107,10 @@ def generate(seed):
     """
 
     pub_page_with_child_articles = PublicationPageFactory.create(
-        parent=home_page, title="Publication Page with child Article Pages"
+        parent=home_page, title='Publication Page with child Article Pages'
     )
     pub_page_with_chapters = PublicationPageFactory.create(
-        parent=home_page, title="Publication Page with chapter pages"
+        parent=home_page, title='Publication Page with chapter pages'
     )
 
     ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)

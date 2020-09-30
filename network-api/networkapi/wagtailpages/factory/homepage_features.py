@@ -20,6 +20,8 @@ def generate(seed):
 
     reseed(seed)
 
+    # These are "guaranteed" to exist as they are created as
+    # part of the wagtailpages migrations:
     HomepageFocusAreas.objects.create(
         page=home_page,
         area=FocusArea.objects.get(name='Empower Action')

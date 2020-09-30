@@ -21,7 +21,7 @@
             <div class="article-summary-share-links d-lg-block d-none">
               <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
             </div>
-            <div class="article-summary-title">{% trans 'SUMMARY' %}</div>
+            <div class="article-summary-title">{% trans "SUMMARY" %}</div>
             <div class="article-links">
               {% for slug, header in page.get_titles %}
                 <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
