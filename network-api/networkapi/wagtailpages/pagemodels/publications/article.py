@@ -1,7 +1,4 @@
-
-from bs4 import BeautifulSoup
 from django.db import models
-from django.utils.text import slugify
 from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable, Page
@@ -11,6 +8,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.models import BlogAuthor, PublicationPage
+from networkapi.wagtailpages.utils import get_richtext_titles
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..article_fields import article_fields
 
@@ -85,18 +83,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         return prev_page
 
     def get_titles(self):
-        body = self.body.__dict__['stream_data']
-        headers = []
-        for block in body:
-            if block['type'] == "content":
-                soup = BeautifulSoup(block['value'], 'html.parser')
-                _headers = soup.findAll('h2')
-                for _h in _headers:
-                    headers.append(_h.contents[0])
-        data = {
-            slugify(header): header for header in headers
-        }
-        return tuple(data.items())
+        return get_richtext_titles(self.body, "content")
 
     def breadcrumb_list(self):
         """

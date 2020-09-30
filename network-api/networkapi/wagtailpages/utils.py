@@ -1,10 +1,13 @@
 import re
 
+from bs4 import BeautifulSoup
+
 from itertools import chain
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Count
 from django.urls import LocalePrefixPattern, URLResolver
+from django.utils.text import slugify
 from django.utils.translation import gettext
 from django.utils.translation.trans_real import (
     check_for_language, get_languages, get_language_from_path,
@@ -287,3 +290,33 @@ def get_language_from_request(request, check_path=False):
         return get_supported_language_variant(settings.LANGUAGE_CODE)
     except LookupError:
         return settings.LANGUAGE_CODE
+
+
+def get_richtext_titles(stream_data, stream_block_name):
+    """
+    Accepts a StreamField and the name of a streamblock to look for,
+    parses the data for <h2> elements, and returns a dictionary
+    of slugs to headers.
+
+    :stream_data is the StreamField object (not the raw json that's stored)
+    :stream_block_name is the name of the StreamField block associated with
+                        the richtext field.
+
+    Example return:
+    {
+        'hello-world': 'Hello World',
+        'second-title-here': 'Second Title Here',
+    }
+    """
+    body = stream_data.__dict__['stream_data']
+    headers = []
+    for block in body:
+        if block['type'] == stream_block_name:
+            soup = BeautifulSoup(block['value'], 'html.parser')
+            _headers = soup.findAll('h2')
+            for _h in _headers:
+                headers.append(_h.contents[0])
+    data = {
+        slugify(header): header for header in headers
+    }
+    return tuple(data.items())
