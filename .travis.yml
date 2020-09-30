@@ -83,21 +83,21 @@ jobs:
         - sudo apt-get install -y libgconf-2-4
         - nvm install 14.4.0
         - nvm use 14.4.0
-        install:
-          - "./travis-scripts/python-install.sh"
-          - "./travis-scripts/npm-install.sh"
-          - npm run cypress:install
-        before_script:
-          - psql -c 'create database network;' -U postgres
-          - npm run build
-          - python network-api/manage.py collectstatic --no-input --verbosity 0
-          - python network-api/manage.py migrate --no-input
-          - python network-api/manage.py block_inventory
-          - python network-api/manage.py sync_page_translation_fields
-          - python network-api/manage.py update_translation_fields
-          - python network-api/manage.py load_fake_data
-          - python network-api/manage.py compilemessages
-        script: npm run percy
+      install:
+        - "./travis-scripts/python-install.sh"
+        - "./travis-scripts/npm-install.sh"
+        - npm run cypress:install
+      before_script:
+        - psql -c 'create database network;' -U postgres
+        - npm run build
+        - python network-api/manage.py collectstatic --no-input --verbosity 0
+        - python network-api/manage.py migrate --no-input
+        - python network-api/manage.py block_inventory
+        - python network-api/manage.py sync_page_translation_fields
+        - python network-api/manage.py update_translation_fields
+        - python network-api/manage.py load_fake_data
+        - python network-api/manage.py compilemessages
+      script: npm run percy
     - stage: Deploy
       name: Deploy Maintenance page to S3
       script: skip
