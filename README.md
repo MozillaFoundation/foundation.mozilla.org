@@ -51,7 +51,7 @@ When it's done, run `docker-compose up`, wait until the static files to be built
 
 To log into the admin site, a superuser will have been created with the username `admin` with password `admin`.
 
-To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again.
+To catch up on new dependencies, migrations, etc. after the initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again.
 
 Use `inv -l` to get a list of all the available invoke commands.
 
@@ -68,7 +68,7 @@ When relevant, we encourage you to write tests. You can run the tests using `inv
 
 #### Fixing linting errors
 
-If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can run the `inv npm "run fix"` command to make the linting utilities automatically fix (or at least try to fix) any errors they knows how to fix. This will almost always be the only step required to ensure the linting phase of testing passes.
+If `inv test-node` shows linting errors for either JS/JSX or CSS/SCSS, you can run the `inv npm "run fix"` command to make the linting utilities automatically fix (or at least try to fix) any errors they know how to fix. This will almost always be the only step required to ensure the linting phase of testing passes.
 
 ### Visual regression tests
 
@@ -110,20 +110,20 @@ The latest source strings are regularly exposed to Pontoon by a Localization PM 
 - Clone the `fomo-l10n` repository locally.
 - Set the `LOCAL_PATH_TO_L10N_REPO` variable in your `.env` file. Use the absolute path to your copy of the `fomo-l10n` repository and include the trailing slash. E.g. `LOCAL_PATH_TO_L10N_REPO=/Users/username/Documents/GitHub/fomo-l10n/`
 
-### Exposing latest source strings:
+### Exposing the latest source strings:
 - Make sure your local repositories of `fomo-l10n` and `foundation.mozilla.org` are matching the latest revision from master.
 - Run `inv docker-makemessages` from your `foundation.mozilla.org` repository.
 - Files should have been updated in your `fomo-l10n` repository. You can now create a pull-request.
 
 ### Getting the latest translations for local dev
 
-Latest translations are uploaded to S3. To get them, run:
+The latest translations are uploaded to S3. To get them, run:
 - `curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar`
 - `tar -C network-api -xvf translations.tar`
 
 You don't need to run `compilemessages` and it works for both pipenv or docker workflows.
 
-The `translations_github_commit_[...]` file from the archive is only used for debug purposes on Heroku. It can be safely deleted if needed.
+The `translations_github_commit_[...]` file from the archive is only used for debugging purposes on Heroku. It can be safely deleted if needed.
 
 ## Contributing
 
