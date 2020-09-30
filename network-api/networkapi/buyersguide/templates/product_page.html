@@ -34,9 +34,7 @@
 
     {% if product.privacy_ding %}
     <div class="privacy-ding-band px-md-5 {{section_class}}">
-      {% blocktrans %}
-      <p class="pni-product-smaller-body mb-0 py-2"><strong>Warning</strong>: *privacy not included with this product</p>
-      {% endblocktrans %}
+      <p class="pni-product-smaller-body mb-0 py-2">{% blocktrans %}<strong>Warning</strong>: *privacy not included with this product{% endblocktrans %}</p>
     </div>
     {% endif %}
 
@@ -160,7 +158,7 @@
           {% endif %}
 
           <section>
-            <h3 class="pni-product-smaller-body-bold">{% trans "What is the company's known track record for protecting users' data?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold">{% trans "What is the company’s known track record for protecting users’ data?" %}</h3>
 
             {% if product.track_record_is_bad %}
               <img src="" alt="{% trans 'This company has a poor track record of protecting user data' %}" />
