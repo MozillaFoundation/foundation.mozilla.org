@@ -79,14 +79,6 @@
   }
 }
 
-.publication-chapter-list-number {
-  color: $gray-60;
-  @include set-text-size(12px, 22px);
-  font-family: $font-family-sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
 .publication-notes-hr {
   height: 0px;
   border: 2px solid $black;
