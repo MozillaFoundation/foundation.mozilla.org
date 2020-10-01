@@ -124,7 +124,7 @@ Some development work requires testing changes against "whatever the current pro
 The steps involved in cloning the database for local use are as follows:
 
 1. Run `docker-compose up postgres` to start the `postgres` service without starting the rest of the server setup (note that if you want to detach stdout, add the `-d` flag to the command)
-2. Drop the existing `wagtail` database in the PostgreSQL server inside your docker environment with `dropdb -h localhost -p 5678 -U foundation wagtail --if-exists`
+2. Drop the existing `wagtail` database in the PostgreSQL server inside your docker environment with `dropdb --if-exists -h localhost -p 5678 -U foundation wagtail`
 3. Use the Heroku CLI to pull the remote database into your local docker PostgreSQL server with `heroku pg:pull -a foundation-mofostaging-net DATABASE_URL postgresql://foundation@localhost:5678/wagtail`
 
 If you need to reset this database, running through these steps again will get you back into sync with staging.
