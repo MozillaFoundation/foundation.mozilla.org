@@ -1,10 +1,8 @@
 {% load bg_selector_tags i18n %}
 
 <div class="it-uses d-flex flex-column">
-  <div class="title">
-    <strong class="d-block">{{ title }}</strong>
-  </div>
-  <div class="explanation text-nowrap">
+  <h4 class="pni-product-smaller-body-bold">{{ title }}</h4>
+  <div class="explanation">
     <p class="pni-product-smaller-body mb-0">{% trans "Device:" %} <span class="font-italic">{{ device|extended_yes_no }}</span></p>
     <p class="pni-product-smaller-body mb-0">{% trans "App:" %} <span class="font-italic">{{ app|extended_yes_no }}</span></p>
   </div>

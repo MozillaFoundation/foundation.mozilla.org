@@ -1,10 +1,8 @@
 {% load bg_selector_tags i18n %}
 
 <div class="signup-requirement d-flex flex-column">
-  <div class="title">
-    <strong class="d-block">{{ title }}</strong>
-  </div>
-  <div class="explanation text-nowrap">
-    <span class="font-italic">{{ value | extended_yes_no }}</span>
+  <h4 class="pni-product-smaller-body-bold">{{ title }}</h4>
+  <div class="explanation">
+    <p class="pni-product-smaller-body mb-0">{{ value | extended_yes_no }}</p>
   </div>
 </div>

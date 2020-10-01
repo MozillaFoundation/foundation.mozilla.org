@@ -124,7 +124,7 @@
             </div>
 
             {% if product.signup_requirement_explanation %}
-              <p class="mb-5 font-italic">{{product.signup_requirement_explanation}}</p>
+            <p class="pni-product-helptext mb-0">{{product.signup_requirement_explanation}}</p>
             {% endif %}
           </section>
 
@@ -133,16 +133,23 @@
           <section class="criterion">
             <h3 class="pni-product-smaller-body-bold">{% trans "What data does it collect" %}</h3>
 
-            <div class="row criterion pb-0 no-gutters d-flex flex-column flex-xl-row justify-content-between">
+            <div class="row">
               {% trans "Personal"      as personal_data_collected %}
               {% trans "Biometric"     as biometric_data_collected %}
               {% trans "Social"        as social_data_collected %}
 
-              {% include "fragments/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected          %}
-              {% include "fragments/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected          %}
-              {% include "fragments/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected    %}
+              <div class="col-12 col-md-4">
+                {% include "fragments/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected          %}
+              </div>
+              <div class="col-12 col-md-4">
+                {% include "fragments/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected          %}
+              </div>
+              <div class="col-12 col-md-4">
+                {% include "fragments/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected    %}
+              </div>
             </div>
           </section>
+
 
 
 
