@@ -166,13 +166,7 @@
           {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description %}
 
 
-          {% trans "User friendly privacy information?" as user_friendly_privacy_policy %}
-          {% trans "Links to privacy information" as privacy_policy_links %}
-          {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no  %}
-
-          {% if product.product_type == 'general' %}
-            {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
-          {% elif product.product_type == 'software' %}
+          {% if product.product_type == 'software' %}
             {% trans "How are your recordings handled?" as handles_recordings_how %}
             {% trans "Alerts when calls are being recorded?" as recording_alert %}
             {% trans "Does the platform say it is compliant with US medical privacy laws?" as medical_privacy_compliant %}
@@ -182,8 +176,13 @@
             {% endif %}
             {% include "fragments/product_criterion.html"  with  label=recording_alert              value=product.recording_alert|extended_yes_no      help=product.recording_alert_helptext               %}
             {% include "fragments/product_criterion.html"  with  label=medical_privacy_compliant    value=product.medical_privacy_compliant|yes_no     help=product.medical_privacy_compliant_helptext     %}
-            {% include "fragments/product_privacy.html"    with  label=privacy_policy_links         value=""                                           links=product.privacy_policy_links                  %}
           {% endif %}
+
+
+          {% trans "User friendly privacy information?" as user_friendly_privacy_policy %}
+          {% trans "Links to privacy information" as privacy_policy_links %}
+          {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no  %}
+          {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links                  %}
         </section>
 
 
