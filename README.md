@@ -1,4 +1,4 @@
-# foundation.mozilla.org
+# foundation.mozilla.org - an amazing project
 
 [![Build Status](https://travis-ci.org/mozilla/foundation.mozilla.org.svg?branch=master)](https://travis-ci.org/mozilla/foundation.mozilla.org)
 [![Dependency Status](https://david-dm.org/mozilla/network.svg)](https://david-dm.org/mozilla/network)
