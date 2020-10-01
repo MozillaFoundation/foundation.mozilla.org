@@ -65,7 +65,7 @@
                 <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
               {% endwith %}
             {% else %}
-                <div class="h6-heading d-md-block d-none mb-2">&nbsp;</div>
+                <div class="h6-heading d-md-block d-none mb-1">&nbsp;</div>
             {% endif %}
             <h3 class="h4-heading"><a href="{{item.blog.url}}">{{ item.blog.title }}</a></h3>
             {% include "./blog_authors.html" with blog_page=item.blog %}
