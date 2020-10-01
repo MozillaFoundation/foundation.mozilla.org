@@ -6,5 +6,20 @@
 #wagtail .wrapper input[type=checkbox]:before {
     top: calc(50% - 10px);
     left: calc(50% - 10px);
+    background: #fafafa;
+    color: #fafafa;
+}
+
+#wagtail .wrapper input[type=checkbox]:checked:before {
+    color: #007d7e;
+}
+
+
+#wagtail .wrapper li.focused input[type=checkbox]:before {
+    background: unset;
+}
+
+#wagtail .wrapper li.focused input[type=checkbox]:not(:checked):before {
+    color: transparent;
 }
 
