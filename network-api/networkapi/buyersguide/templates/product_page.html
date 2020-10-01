@@ -82,34 +82,45 @@
           <h2 class="h3-heading">{% trans "Privacy" %}</h2>
 
           {% if product.product_type == 'general' %}
-          <section>
+          <section class="criterion">
             <h3 class="pni-product-smaller-body-bold">{% trans "Can it snoop on me?" %}</h3>
-
-            <div class="row criterion pb-0 mb-5 no-gutters d-flex flex-column flex-xl-row justify-content-between">
+            <div class="row">
               {% trans "Camera"          as camera %}
               {% trans "Microphone"      as microphone %}
               {% trans "Tracks Location" as tracks_location %}
 
-              {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
-              {% include "fragments/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app  %}
-              {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
+              <div class="col-12 col-md-4">
+                {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
+              </div>
+              <div class="col-12 col-md-4">
+                {% include "fragments/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app  %}
+              </div>
+              <div class="col-12 col-md-4">
+                {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
+              </div>
             </div>
           </section>
           {% endif %}
 
 
 
-          <section>
+          <section class="criterion">
             <h3 class="pni-product-smaller-body-bold">{% trans "What is required to sign up?" %}</h3>
 
-            <div class="row criterion pb-0 no-gutters d-flex flex-column flex-xl-row justify-content-between">
+            <div class="row">
               {% trans "Email"               as email %}
               {% trans "Phone"               as phone %}
               {% trans "Third party account" as third_party_account %}
 
-              {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
-              {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
-              {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
+              <div class="col-12 col-md-4">
+                {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
+              </div>
+              <div class="col-12 col-md-4">
+                {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
+              </div>
+              <div class="col-12 col-md-4">
+                {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
+              </div>
             </div>
 
             {% if product.signup_requirement_explanation %}
@@ -119,7 +130,7 @@
 
 
 
-          <section>
+          <section class="criterion">
             <h3 class="pni-product-smaller-body-bold">{% trans "What data does it collect" %}</h3>
 
             <div class="row criterion pb-0 no-gutters d-flex flex-column flex-xl-row justify-content-between">

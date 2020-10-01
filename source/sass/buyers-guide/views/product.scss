@@ -186,7 +186,7 @@ $pni-product-breakpoint-larger: $bp-md;
   position: relative;
   padding: $criterion-padding-y 0;
 
-  &:first-child {
+  &:first-of-type {
     padding-top: 0;
   }
 
@@ -195,8 +195,8 @@ $pni-product-breakpoint-larger: $bp-md;
     border-style: solid;
     border-width: 1px 0 0 0;
 
-    &:last-child {
-      border-bottom-width: 1px;
+    &:first-of-type {
+      border-top-width: 0;
     }
   }
 

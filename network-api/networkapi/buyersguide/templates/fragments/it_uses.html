@@ -5,8 +5,7 @@
     <strong class="d-block">{{ title }}</strong>
   </div>
   <div class="explanation text-nowrap">
-    {% trans "Device:" %} <span class="font-italic">{{ device|extended_yes_no }}</span>
-    <span class="separator">|</span>
-    {% trans "App:" %} <span class="font-italic">{{ app|extended_yes_no }}</span>
+    <p class="pni-product-smaller-body mb-0">{% trans "Device:" %} <span class="font-italic">{{ device|extended_yes_no }}</span></p>
+    <p class="pni-product-smaller-body mb-0">{% trans "App:" %} <span class="font-italic">{{ app|extended_yes_no }}</span></p>
   </div>
 </div>
