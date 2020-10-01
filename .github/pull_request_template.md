@@ -1,6 +1,6 @@
 :warning: :warning: :warning:
 
-**HACKTOBER USERS:** PRs WILL NOT BE ACCEPTED unless you follow proper PR procedures.
+**HACKTOBER USERS:** PRs WILL BE CLOSED AS SPAM unless you follow proper PR procedures.
 
 - If there is no issue filed, your PR does not fix a documented problem, and will immediately get closed. If there is no issue, and your PR _actually_ fixes something (code or documentation, either is fine), file an issue first.
 - If you do not fill out the template, your PR will immediately get closed
