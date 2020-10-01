@@ -104,7 +104,6 @@
           {% endif %}
 
 
-
           <section class="criterion">
             <h3 class="pni-product-smaller-body-bold mb-2">{% trans "What is required to sign up?" %}</h3>
 
@@ -130,7 +129,6 @@
           </section>
 
 
-
           <section class="criterion">
             <h3 class="pni-product-smaller-body-bold mb-2">{% trans "What data does it collect" %}</h3>
 
@@ -140,36 +138,32 @@
               {% trans "Social"        as social_data_collected %}
 
               <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected          %}
+                {% include "fragments/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected    %}
               </div>
               <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected          %}
+                {% include "fragments/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected   %}
               </div>
               <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected    %}
+                {% include "fragments/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected      %}
               </div>
             </div>
           </section>
 
 
-
           {% trans "How does it use this data?" as how_does_it_use_data_collected %}
-          {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected   help="" %}
-
+          {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  %}
 
 
           {% trans "How can you control your data?" as how_can_you_control_your_data %}
-          {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data   help="" %}
+          {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data   %}
 
 
           {% trans "What is the company’s known track record for protecting users’ data?" as company_track_record_label %}
           {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record   help=product.track_record_details %}
 
 
-
           {% trans "Can this product be used offline?" as offline_capable %}
           {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description %}
-
 
 
           {% trans "User friendly privacy information?" as user_friendly_privacy_policy %}
@@ -193,7 +187,6 @@
         </section>
 
 
-
         {% if product.product_type == 'software' %}
         <section class="criterion-group">
           <h2 class="h3-heading">{% trans "Can I control it?" %}</h2>
@@ -207,7 +200,6 @@
           {% include "fragments/product_criterion.html"  with  label=easy_to_learn_and_use    value=product.easy_to_learn_and_use|yes_no    help=product.easy_to_learn_and_use_helptext     %}
         </section>
         {% endif %}
-
 
 
         <section class="minimum-security criterion-group">
