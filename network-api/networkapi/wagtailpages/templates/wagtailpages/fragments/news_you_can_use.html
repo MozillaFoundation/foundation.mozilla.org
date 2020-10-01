@@ -30,7 +30,7 @@
             {% image first.get_meta_image fill-1000x500 %}
           </div>
           <div class="feature-content align-self-center">
-            {% if item.blog.category.count %}
+            {% if first.category.count %}
               {% with category=first.category.first %}
                 <a class="h6-heading d-block mb-2" href="/blog/category/{{ category.slug }}">{{ category }}</a>
               {% endwith %}
