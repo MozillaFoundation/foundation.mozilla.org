@@ -192,6 +192,7 @@ $pni-product-breakpoint-larger: $bp-md;
     padding: $criterion-padding-y 0;
 
     &:first-of-type {
+      padding-top: 0;
       border-top-width: 0;
     }
   }
