@@ -78,6 +78,7 @@
           </div>
         </div>
 
+
         <section class="criterion-group">
           <h2 class="h3-heading">{% trans "Privacy" %}</h2>
 
@@ -159,7 +160,6 @@
 
           {% trans "How does it use this data?" as how_does_it_use_data_collected %}
           {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected   help="" %}
-
 
 
 
@@ -247,15 +247,18 @@
 
       <section class="criterion-group">
         <h2 class="h3-heading">{% trans "Artificial Intelligence" %}</h2>
+        {% with product.uses_ai|extended_yes_no as uses_ai %}
+        {% trans "Does the product use AI?" as uses_ai_label %}
+        {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai   %}
 
-        {% trans "Does the product use AI?" as uses_ai %}
-        {% include "fragments/product_criterion.html"  with  label=uses_ai  value=product.uses_ai|extended_yes_no   %}
+        {% if uses_ai != "No" %}
+          {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
+          {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
 
-        {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
-        {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
-
-        {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
-        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no   help=product.ai_helptext %}
+          {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
+          {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no   help=product.ai_helptext %}
+        {% endif %}
+        {% endwith %}
       </section>
 
 
