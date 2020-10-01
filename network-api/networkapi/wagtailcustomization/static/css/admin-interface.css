@@ -1,4 +1,9 @@
 #wagtail .wrapper input[type=checkbox] {
+  --admin-interface-fg-green: #007d7e;
+  --admin-interface-bg-grey: #fafafa
+}
+
+#wagtail .wrapper input[type=checkbox] {
     vertical-align: middle;
     background: unset;
 }
@@ -6,12 +11,12 @@
 #wagtail .wrapper input[type=checkbox]:before {
     top: calc(50% - 10px);
     left: calc(50% - 10px);
-    background: #fafafa;
-    color: #fafafa;
+    background: var(--admin-interface-bg-grey);
+    color: var(--admin-interface-bg-grey);
 }
 
 #wagtail .wrapper input[type=checkbox]:checked:before {
-    color: #007d7e;
+    color: var(--admin-interface-fg-green);
 }
 
 
