@@ -394,10 +394,10 @@ class BuyersGuideViewTest(TestCase):
         Test that the category view returns a 200 for both slug and name URLs
         """
         response = self.client.get('/en/privacynotincluded/categories/Smart%20Home/')
-        self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by name')
+        self.assertEqual(response.status_code, 200, 'The category "Smart Home" should work by name')
 
         response = self.client.get('/en/privacynotincluded/categories/smart-home/')
-        self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
+        self.assertEqual(response.status_code, 200, 'The category "Smart Home" should work by slug')
 
     def test_drive_by_clear_cache(self):
         """
