@@ -22,7 +22,7 @@
       display: flex;
       flex: 1;
 
-      @media(max-width: $bp-lg) and (min-width: $bp-md){
+      @media (max-width: $bp-lg) and (min-width: $bp-md) {
         &:first-child {
           margin-bottom: 16px;
         }

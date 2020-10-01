@@ -21,7 +21,9 @@
   padding-bottom: 184px;
   background-size: cover !important;
   background-position: center center;
+  /* stylelint-disable */
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75));
+  /* stylelint-enable */
 
   &--small {
     padding-top: 105px;

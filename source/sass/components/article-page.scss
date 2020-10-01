@@ -4,7 +4,9 @@
  */
 
 .article-summary {
+  /* stylelint-disable */
   background: rgb(231, 231, 252); // One-off colors; no variable exists for this
+  /* stylelint-enable */
   padding: 32px 30px;
   width: calc(80% + 60px);
   margin: -48px auto 48px;
@@ -189,7 +191,9 @@
     padding: 5px 40px 5px 30px;
 
     &:hover {
+      /* stylelint-disable */
       background: rgb(242, 242, 242);
+      /* stylelint-enable */
       color: $black;
     }
   }
@@ -270,7 +274,7 @@
     display: none;
   }
 
-  @media(min-width: $bp-sm) {
+  @media (min-width: $bp-sm) {
     p ~ .richtext-image:not(.full-width) {
       margin-top: 0px;
       margin-bottom: 0px;
@@ -315,7 +319,7 @@
   }
 }
 
-@media(max-width: $bp-md) {
+@media (max-width: $bp-md) {
   .article-blockquote-block {
     padding: 18px 22px;
     @include set-text-size(18px, 27px);
@@ -330,7 +334,9 @@
 
   td,
   th {
+    /* stylelint-disable */
     border-bottom: 1px solid rgb(160, 162, 248); // One-off colors; no variable exists for this
+    /* stylelint-enable */
     color: $gray-80;
     @include set-text-size(16px, 24px);
     font-family: $font-family-sans-serif;
@@ -365,7 +371,9 @@
 }
 
 .article-navbar {
+  /* stylelint-disable */
   background: rgb(231, 231, 252); // One-off colors; no variable exists for this
+  /* stylelint-enable */
   padding: 9px 0;
 }
 .article-navbar-title {
@@ -385,9 +393,9 @@
   }
 
   .article-blocks .rich-text .richtext-image {
-      &.full-width,
-      &.right,
-      &.left {
+    &.full-width,
+    &.right,
+    &.left {
       margin: 0 0 24px 0;
       width: 100%;
       max-width: 100%;
