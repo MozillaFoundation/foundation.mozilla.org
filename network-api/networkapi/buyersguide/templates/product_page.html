@@ -153,26 +153,15 @@
 
 
 
-
-          {% if product.data_collection_policy_is_bad %}
-            <img src="" alt="{% trans 'This product has a bad data collection policy' %}" />
-          {% endif %}
           {% trans "How does it use this data?" as how_does_it_use_data_collected %}
           {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected   help="" %}
 
 
 
-          {% if product.data_control_policy_is_bad %}
-            <img src="" alt="{% trans 'This product has bad data control policies' %}" />
-          {% endif %}
           {% trans "How can you control your data?" as how_can_you_control_your_data %}
           {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data   help="" %}
 
 
-
-          {% if product.track_record_is_bad %}
-            <img src="" alt="{% trans 'This company has a poor track record of protecting user data' %}" />
-          {% endif %}
           {% trans "What is the company’s known track record for protecting users’ data?" as company_track_record_label %}
           {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record   help=product.track_record_details %}
 
