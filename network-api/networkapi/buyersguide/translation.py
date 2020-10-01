@@ -6,6 +6,8 @@ from .pagemodels.product_category import BuyersGuideProductCategory
 from modeltranslation.translator import TranslationOptions
 from modeltranslation.decorators import register
 
+from networkapi.buyersguide.pagemodels.privacy import ProductPrivacyPolicyLink
+
 
 @register(Product)
 class ProductTR(TranslationOptions):
@@ -55,3 +57,8 @@ class BuyersGuideProductCategoryTR(TranslationOptions):
         'name',
         'description',
     )
+
+
+@register(ProductPrivacyPolicyLink)
+class ProductPrivacyPolicyLinkTR(TranslationOptions):
+    fields = ('label',)
