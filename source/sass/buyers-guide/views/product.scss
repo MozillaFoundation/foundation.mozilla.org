@@ -75,11 +75,6 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  h3.body,
-  h4 {
-    font-family: "Nunito Sans";
-  }
-
   .connectivity-requirement {
     display: inline-flex;
     align-items: center;
@@ -137,12 +132,6 @@ $pni-product-breakpoint-larger: $bp-md;
 
   .it-uses,
   .signup-requirement {
-    margin-bottom: $spacer;
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      margin-bottom: $spacer * 1.5;
-    }
-
     .separator {
       color: $gray-20;
     }
@@ -181,12 +170,13 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .criterion {
-  $criterion-padding-y: 0.75rem;
+  $criterion-padding-y: 1.5rem;
+  $criterion-no-border-padding-y: 0.75rem;
 
   position: relative;
-  padding: $criterion-padding-y 0;
+  padding: $criterion-no-border-padding-y 0;
 
-  &:first-child {
+  &:first-of-type {
     padding-top: 0;
   }
 
@@ -194,9 +184,11 @@ $pni-product-breakpoint-larger: $bp-md;
     border-color: $gray-20;
     border-style: solid;
     border-width: 1px 0 0 0;
+    padding: $criterion-padding-y 0;
 
-    &:last-child {
-      border-bottom-width: 1px;
+    &:first-of-type {
+      padding-top: 0;
+      border-top-width: 0;
     }
   }
 
@@ -212,7 +204,7 @@ $pni-product-breakpoint-larger: $bp-md;
       &:after {
         content: "";
         position: absolute;
-        top: $criterion-padding-y;
+        top: 0;
         left: calc(-#{$ding-width} - 1rem);
         background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
           center / contain no-repeat;
@@ -263,11 +255,14 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  + p,
-  ul {
-    // have to override this since PNI does not follow Foundation style guide
-    @include text-base-style(null, 300, $black, $white);
-    @include set-text-size(16px, 24px);
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+
+  h4.pni-product-smaller-body-bold {
+    margin-bottom: 0.75rem;
   }
 }
 
@@ -312,17 +307,6 @@ $pni-product-breakpoint-larger: $bp-md;
   min-height: 380px;
   min-width: 290px;
   background: $pni-product-image-background;
-}
-
-.helptext {
-  font-style: italic;
-  font-weight: 300;
-
-  a {
-    text-decoration: underline;
-    color: $black;
-    font-weight: 400;
-  }
 }
 
 // Coral Embed
