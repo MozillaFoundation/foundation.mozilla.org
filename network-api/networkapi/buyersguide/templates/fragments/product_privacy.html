@@ -1,11 +1,11 @@
 {% if value != hide_value %}
-<div class="criterion value-{{value|lower}}">
+<section class="criterion value-{{value|lower}}">
   {% include "./product_criterion_primary_info.html"  with  label=label  value=value %}
 
   {% if links|length > 0 %}
   <ul class="list-unstyled mb-0">
     {% for link in product.privacy_policy_links reversed %}
-      <li class="helptext">
+      <li class="pni-product-helptext">
         {% if link.url != "" %}
         <a class="privacy-policy-link" href="{{ link.url }}">{{ link.label }}</a>
         {% else %}
@@ -16,5 +16,5 @@
   </ul>
 
   {% endif %}
-</div>
+</section>
 {% endif %}

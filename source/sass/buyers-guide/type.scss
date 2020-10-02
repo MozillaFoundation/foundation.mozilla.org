@@ -19,3 +19,10 @@
     margin-bottom: 0.75rem;
   }
 }
+
+.pni-product-helptext {
+  @extend .pni-product-smaller-body;
+
+  font-style: italic;
+  font-weight: 300;
+}
