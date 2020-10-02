@@ -151,15 +151,15 @@
 
 
           {% trans "How does it use this data?" as how_does_it_use_data_collected %}
-          {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  %}
+          {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding_control=product.data_collection_policy_is_bad %}
 
 
           {% trans "How can you control your data?" as how_can_you_control_your_data %}
-          {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data   %}
+          {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding_control=product.data_control_policy_is_bad   %}
 
 
           {% trans "What is the company’s known track record for protecting users’ data?" as company_track_record_label %}
-          {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record   help=product.track_record_details %}
+          {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record   help=product.track_record_details  ding_control=product.track_record_is_bad %}
 
 
           {% trans "Can this product be used offline?" as offline_capable %}

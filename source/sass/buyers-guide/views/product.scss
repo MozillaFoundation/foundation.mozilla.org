@@ -204,12 +204,18 @@ $pni-product-breakpoint-larger: $bp-md;
       &:after {
         content: "";
         position: absolute;
-        top: 0;
+        top: $criterion-padding-y;
         left: calc(-#{$ding-width} - 1rem);
         background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
           center / contain no-repeat;
         width: $ding-width;
         height: $ding-height;
+      }
+
+      &.no-border {
+        &:after {
+          top: 0;
+        }
       }
     }
 
