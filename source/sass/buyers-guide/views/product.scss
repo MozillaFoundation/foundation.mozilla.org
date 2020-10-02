@@ -75,11 +75,6 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  h3.body,
-  h4 {
-    font-family: "Nunito Sans";
-  }
-
   .connectivity-requirement {
     display: inline-flex;
     align-items: center;
@@ -260,11 +255,14 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  + p,
-  ul {
-    // have to override this since PNI does not follow Foundation style guide
-    @include text-base-style(null, 300, $black, $white);
-    @include set-text-size(16px, 24px);
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+
+  h4.pni-product-smaller-body-bold {
+    margin-bottom: 0.75rem;
   }
 }
 

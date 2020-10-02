@@ -130,7 +130,7 @@
 
 
           <section class="criterion">
-            <h3 class="pni-product-smaller-body-bold mb-2">{% trans "What data does it collect" %}</h3>
+            <h3 class="pni-product-smaller-body-bold mb-2">{% trans "What data does it collect?" %}</h3>
 
             <div class="row">
               {% trans "Personal"      as personal_data_collected %}
@@ -224,7 +224,9 @@
             {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
 
             {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
-            {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no   help=product.ai_helptext %}
+            {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
+
+            <p class="pni-product-smaller-body mb-0">{{product.ai_helptext}}</p>
           {% endif %}
           {% endwith %}
         </section>
