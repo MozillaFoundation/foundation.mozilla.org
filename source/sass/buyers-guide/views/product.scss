@@ -129,13 +129,6 @@ $pni-product-breakpoint-larger: $bp-md;
       }
     }
   }
-
-  .it-uses,
-  .signup-requirement {
-    .separator {
-      color: $gray-20;
-    }
-  }
 }
 
 .spy {
@@ -167,6 +160,20 @@ $pni-product-breakpoint-larger: $bp-md;
 
 .criterion-group {
   margin-bottom: 3rem;
+
+  &.privacy {
+    [class^="col"]:not(:last-child) > * {
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid $gray-05;
+
+      @media (min-width: $pni-product-breakpoint-larger) {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0;
+      }
+    }
+  }
 }
 
 .criterion {
@@ -268,7 +275,11 @@ $pni-product-breakpoint-larger: $bp-md;
   }
 
   h4.pni-product-smaller-body-bold {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
+
+    @media (min-width: $pni-product-breakpoint-larger) {
+      margin-bottom: 0.75rem;
+    }
   }
 }
 
