@@ -38,10 +38,12 @@ sync.addEventListener(`click`, () => {
 // there any errors? If so, we need to immediately reveal all fields.
 if (document.querySelectorAll(`p.error-message`).length !== 0) {
   showAll.click();
+  document.dispatchEvent(new CustomEvent(`wagtailcustomization:copy-helper:done`));
 }
 
 // If we kicked in before the localization interface JS kicked in: listen for
 // its "I am done" event so we can reveal fields once it's safe to do so.
 document.addEventListener(`wagtail-modeltranslation:buildSets:done`, evt => {
   showAll.click();
+  document.dispatchEvent(new CustomEvent(`wagtailcustomization:copy-helper:done`));
 });
