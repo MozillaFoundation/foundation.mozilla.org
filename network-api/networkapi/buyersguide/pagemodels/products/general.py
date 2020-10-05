@@ -139,30 +139,11 @@ class GeneralProduct(Product):
         help_text='Helpful text around AI to show on the product page',
     )
 
-    # How to contact the company
+    # how it handles privacy
 
-    phone_number = models.CharField(
-        max_length=100,
-        help_text='Phone Number',
-        blank=True,
-    )
-
-    live_chat = models.CharField(
-        max_length=100,
-        help_text='Live Chat',
-        blank=True,
-    )
-
-    email = models.CharField(
-        max_length=100,
-        help_text='Email',
-        blank=True,
-    )
-
-    twitter = models.CharField(
-        max_length=100,
-        help_text='Twitter username',
-        blank=True,
+    child_rules_helptext = models.TextField(  # TO BE REMOVED?
+        max_length=5000,
+        blank=True
     )
 
     # administrative panels
@@ -237,16 +218,6 @@ class GeneralProduct(Product):
                     FieldPanel('ai_helptext'),
                 ],
                 heading='Artificial Intelligence',
-                classname='collapsible'
-            ),
-            MultiFieldPanel(
-                [
-                    FieldPanel('phone_number'),
-                    FieldPanel('live_chat'),
-                    FieldPanel('email'),
-                    FieldPanel('twitter'),
-                ],
-                heading='Ways to contact the company',
                 classname='collapsible'
             ),
         ],

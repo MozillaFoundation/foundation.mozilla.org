@@ -122,6 +122,16 @@ product_panels = [
         heading='Security',
         classname='collapsible'
     ),
+    MultiFieldPanel(
+        [
+            FieldPanel('phone_number'),
+            FieldPanel('live_chat'),
+            FieldPanel('email'),
+            FieldPanel('twitter'),
+        ],
+        heading='Ways to contact the company',
+        classname='collapsible'
+    ),
     FieldPanel('updates'),
     RelatedProductFieldPanel('related_products'),
 ]
@@ -324,6 +334,33 @@ class Product(ClusterableModel):
     """
     privacy_policy_links = one to many, defined in PrivacyPolicyLink
     """
+
+
+    # How to contact the company
+
+    phone_number = models.CharField(
+        max_length=100,
+        help_text='Phone Number',
+        blank=True,
+    )
+
+    live_chat = models.CharField(
+        max_length=100,
+        help_text='Live Chat',
+        blank=True,
+    )
+
+    email = models.CharField(
+        max_length=100,
+        help_text='Email',
+        blank=True,
+    )
+
+    twitter = models.CharField(
+        max_length=100,
+        help_text='Twitter username',
+        blank=True,
+    )
 
     updates = models.ManyToManyField(
         'buyersguide.Update',
