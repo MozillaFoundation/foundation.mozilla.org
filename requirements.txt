@@ -18,7 +18,7 @@ django-admin-sortable==2.2.3  # via -r requirements.in
 django-cors-headers==3.5.0  # via -r requirements.in
 django-csp==3.7           # via -r requirements.in
 django-environ==0.4.5     # via -r requirements.in
-django-filter==2.3.0      # via -r requirements.in, wagtail
+django-filter==2.4.0      # via -r requirements.in, wagtail
 django-modelcluster==5.0.2  # via wagtail
 django-modeltranslation==0.15  # via wagtail-modeltranslation
 django-redis==4.12.1      # via -r requirements.in
