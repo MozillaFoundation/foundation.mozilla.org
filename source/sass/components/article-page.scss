@@ -211,6 +211,18 @@
     text-decoration: underline;
   }
 
+  // Used for offsetting footnote links so when the footnote at the bottom of the page
+  // is clicked, the page will jump to the footnote, minus 160px (the _very_ rough height
+  // of the navigation)
+  a[id^="footnote-source"]::before {
+    content: '';
+    display: block;
+    height:      160px;
+    margin-top: -160px;
+    visibility: hidden;  // Hides the block but keeps its width and margin in tact
+    pointer-events: none;  // Allows the block to be clicked through
+  }
+
   p,
   h2,
   h3,
@@ -231,6 +243,13 @@
   h4,
   h5 {
     margin-bottom: 12px;
+    position: relative;
+
+    // Used for offsetting anchor tags in the .rich-text area on Article Pages
+    a.fragment-id {
+      position: absolute;
+      top: -160px;
+    }
   }
 
   h3 {
