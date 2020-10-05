@@ -30,9 +30,13 @@
             {% image first.get_meta_image fill-1000x500 %}
           </div>
           <div class="feature-content align-self-center">
-            {% with category=first.category.first %}
-              <a class="h6-heading d-block mb-2" href="/blog/category/{{ category.slug }}">{{ category }}</a>
-            {% endwith %}
+            {% if first.category.count %}
+              {% with category=first.category.first %}
+                <a class="h6-heading d-block mb-2" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+              {% endwith %}
+            {% else %}
+                <div class="h6-heading d-md-block d-none mb-2">&nbsp;</div>
+            {% endif %}
             <h3 class="mb-2 pb-1"><a href="{{first.url}}">{{ first.title }}</a></h3>
             <p class="d-none d-xl-block">{{ first.search_description|truncatechars:156 }}</p>
             {% if items.first %}
@@ -56,9 +60,13 @@
         <div class="bg-white">
           {% image item.blog.get_meta_image fill-700x394 class="embed-responsive-item" %}
           <div class="p-4">
-            {% with category=item.blog.category.first %}
-            <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
-            {% endwith %}
+            {% if item.blog.category.count %}
+              {% with category=item.blog.category.first %}
+                <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+              {% endwith %}
+            {% else %}
+                <div class="h6-heading d-md-block d-none mb-1">&nbsp;</div>
+            {% endif %}
             <h3 class="h4-heading"><a href="{{item.blog.url}}">{{ item.blog.title }}</a></h3>
             {% include "./blog_authors.html" with blog_page=item.blog %}
           </div>

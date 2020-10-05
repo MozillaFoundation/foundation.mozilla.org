@@ -56,7 +56,6 @@ class Highlight(SortableMixin):
         max_length=2048,
         help_text='Image representing this highlight',
         upload_to=get_highlights_image_upload_path,
-        blank=True,
     )
     footer = RichTextField(
         "footer",
