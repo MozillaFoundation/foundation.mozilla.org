@@ -9,7 +9,7 @@ chardet==3.0.4            # via -c requirements.txt, requests
 coverage==5.1             # via coveralls
 coveralls==2.0.0          # via -r dev-requirements.in
 docopt==0.6.2             # via coveralls
-flake8==3.8.3             # via -r dev-requirements.in
+flake8==3.8.4             # via -r dev-requirements.in
 idna==2.9                 # via -c requirements.txt, requests
 importlib-metadata==1.6.0  # via flake8
 mccabe==0.6.1             # via flake8
