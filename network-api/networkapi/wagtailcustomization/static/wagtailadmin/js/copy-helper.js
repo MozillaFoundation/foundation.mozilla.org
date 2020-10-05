@@ -13,9 +13,9 @@ const fields = Object.fromEntries(
 
 // 1: Give staff a button that lets them reveal all locale fields, so they can
 // manually edit any field to be any value they want.
-const toggle = document.querySelector(`.locale.helper.button`);
+const showAll = document.querySelector(`.locale.helper.button`);
 
-toggle.addEventListener(`click`, () => {
+showAll.addEventListener(`click`, () => {
   document.querySelectorAll(`.locale-picker .locale-toggle`).forEach((btn) => {
     if (!btn.classList.contains(`showing-locale`)) btn.click();
   });
@@ -34,7 +34,14 @@ sync.addEventListener(`click`, () => {
   });
 });
 
-// Are there any errors? If so, we need to immediately reveal all fields
+// If we kick in after the localization interface JS kicked in: are
+// there any errors? If so, we need to immediately reveal all fields.
 if (document.querySelectorAll(`p.error-message`).length !== 0) {
-  toggle.click();
+  showAll.click();
 }
+
+// If we kicked in before the localization interface JS kicked in: listen for
+// its "I am done" event so we can reveal fields once it's safe to do so.
+document.addEventListener(`wagtail-modeltranslation:buildSets:done`, evt => {
+  showAll.click();
+});
