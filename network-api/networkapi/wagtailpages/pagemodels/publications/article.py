@@ -82,11 +82,15 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             prev_page = self.get_parent()
         return prev_page
 
-    def get_titles(self):
-        return get_richtext_titles(self.body, "content")
-
     def breadcrumb_list(self):
         """
         Get all the parent PublicationPages and return a QuerySet
         """
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        # Add get_titles to the page context. This is in get_context() because
+        # we need access to the `request` object
+        context['get_titles'] = get_richtext_titles(request, self.body, "content")
+        return context

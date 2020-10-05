@@ -11,11 +11,11 @@
 
   {% include "./fragments/publication_hero.html" with size="small" %}
 
-  <div class="container{% if not page.get_titles %} mt-5{% endif %}">
+  <div class="container{% if not get_titles %} mt-5{% endif %}">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
 
-        {% if page.get_titles %}
+        {% if get_titles %}
           {# If there are h2s in the body of this page, show the article "table of contents" #}
           <div class="article-summary">
             <div class="article-summary-share-links d-lg-block d-none">
@@ -23,7 +23,7 @@
             </div>
             <div class="article-summary-title">{% trans "SUMMARY" %}</div>
             <div class="article-links">
-              {% for slug, header in page.get_titles %}
+              {% for slug, header in get_titles %}
                 <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
               {% endfor %}
             </div>

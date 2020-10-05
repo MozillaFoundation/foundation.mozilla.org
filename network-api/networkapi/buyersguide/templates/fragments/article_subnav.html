@@ -5,15 +5,15 @@
     <div class="row">
       <div class="col px-lg-3 px-0">
         <div class="d-flex flex-row justify-content-between">
-          <div class="article-navbar-title d-lg-flex d-none pl-0 {% if page.get_titles %}col-lg-8{% else %}col-lg-12{% endif %}">
-            {% if page.get_titles %}
+          <div class="article-navbar-title d-lg-flex d-none pl-0 {% if get_titles %}col-lg-8{% else %}col-lg-12{% endif %}">
+            {% if get_titles %}
               {{ page.title|truncatechars:60 }}
             {% else %}
               {{ page.title|truncatechars:120 }}
             {% endif %}
           </div>
 
-          {% if page.get_titles %}
+          {% if get_titles %}
             <div class="col-lg-4 col-12 px-lg-3 pl-0 pr-2">
               <div class="pl-lg-5">
                 <div class="dropdown">
@@ -22,7 +22,7 @@
                   </button>
 
                   <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
-                    {% for slug, header in page.get_titles %}
+                    {% for slug, header in get_titles %}
                       <a class="dropdown-item text-wrap" href="#{{ slug }}">{{ header }}</a>
                     {% endfor %}
                   </div>
