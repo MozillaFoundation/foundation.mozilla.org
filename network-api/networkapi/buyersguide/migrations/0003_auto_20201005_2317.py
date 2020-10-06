@@ -26,22 +26,22 @@ def restore_products(apps, schema_editor):
         updated = GeneralProduct.objects.get(id=product.id)
 
         # restore every field we moved from base class to general class
-        update.ai_helptext = product.ai_helptext
-        update.ai_is_transparent = product.ai_is_transparent
-        update.ai_uses_personal_data = product.ai_uses_personal_data
-        update.biometric_data_collected = product.biometric_data_collected
-        update.company_track_record = product.company_track_record
-        update.data_collection_policy_is_bad = product.data_collection_policy_is_bad
-        update.data_control_policy_is_bad = product.data_control_policy_is_bad
-        update.how_can_you_control_your_data = product.how_can_you_control_your_data
-        update.how_does_it_use_data_collected = product.how_does_it_use_data_collected
-        update.offline_capable = product.offline_capable
-        update.offline_use_description = product.offline_use_description
-        update.personal_data_collected = product.personal_data_collected
-        update.social_data_collected = product.social_data_collected
-        update.track_record_details = product.track_record_details
-        update.track_record_is_bad = product.track_record_is_bad
-        update.uses_ai = product.uses_ai
+        updated.ai_helptext = product.ai_helptext
+        updated.ai_is_transparent = product.ai_is_transparent
+        updated.ai_uses_personal_data = product.ai_uses_personal_data
+        updated.biometric_data_collected = product.biometric_data_collected
+        updated.company_track_record = product.company_track_record
+        updated.data_collection_policy_is_bad = product.data_collection_policy_is_bad
+        updated.data_control_policy_is_bad = product.data_control_policy_is_bad
+        updated.how_can_you_control_your_data = product.how_can_you_control_your_data
+        updated.how_does_it_use_data_collected = product.how_does_it_use_data_collected
+        updated.offline_capable = product.offline_capable
+        updated.offline_use_description = product.offline_use_description
+        updated.personal_data_collected = product.personal_data_collected
+        updated.social_data_collected = product.social_data_collected
+        updated.track_record_details = product.track_record_details
+        updated.track_record_is_bad = product.track_record_is_bad
+        updated.uses_ai = product.uses_ai
 
         # make sure we save these updates!
         updated.save()
@@ -57,11 +57,14 @@ class Migration(migrations.Migration):
         # cache all fields so that we won't lose their values in the destructive relocation
         migrations.RunPython(cache_products),
 
-        # Remove the fields from their incorrect classes
+        # first, remove a dead field that should have been removed already.
+        # We don't care about this field, get out of here, you.
         migrations.RemoveField(
             model_name='generalproduct',
             name='child_rules_helptext',
         ),
+
+        # Then, remove the fields from their incorrect classes
         migrations.RemoveField(
             model_name='product',
             name='ai_helptext',

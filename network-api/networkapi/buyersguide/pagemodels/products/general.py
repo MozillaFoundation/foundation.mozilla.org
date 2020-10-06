@@ -139,13 +139,6 @@ class GeneralProduct(Product):
         help_text='Helpful text around AI to show on the product page',
     )
 
-    # how it handles privacy
-
-    child_rules_helptext = models.TextField(  # TO BE REMOVED?
-        max_length=5000,
-        blank=True
-    )
-
     # administrative panels
 
     panels = Product.panels.copy()
