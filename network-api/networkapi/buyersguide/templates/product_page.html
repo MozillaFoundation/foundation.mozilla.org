@@ -79,12 +79,12 @@
         </div>
 
 
-        <section class="criterion-group">
+        <section class="privacy criterion-group">
           <h2 class="h3-heading">{% trans "Privacy" %}</h2>
 
           {% if product.product_type == 'general' %}
           <section class="criterion">
-            <h3 class="pni-product-smaller-body-bold mb-2">{% trans "Can it snoop on me?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold mb-1 mb-md-2">{% trans "Can it snoop on me?" %}</h3>
             <div class="row">
               {% trans "Camera"          as camera %}
               {% trans "Microphone"      as microphone %}
@@ -105,7 +105,7 @@
 
 
           <section class="criterion">
-            <h3 class="pni-product-smaller-body-bold mb-2">{% trans "What is required to sign up?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold mb-1 mb-md-2">{% trans "What is required to sign up?" %}</h3>
 
             <div class="row">
               {% trans "Email"               as email %}
@@ -130,7 +130,7 @@
 
 
           <section class="criterion">
-            <h3 class="pni-product-smaller-body-bold mb-2">{% trans "What data does it collect?" %}</h3>
+            <h3 class="pni-product-smaller-body-bold mb-1 mb-md-2">{% trans "What data does it collect?" %}</h3>
 
             <div class="row">
               {% trans "Personal"      as personal_data_collected %}
@@ -151,15 +151,15 @@
 
 
           {% trans "How does it use this data?" as how_does_it_use_data_collected %}
-          {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  %}
+          {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding=product.data_collection_policy_is_bad %}
 
 
           {% trans "How can you control your data?" as how_can_you_control_your_data %}
-          {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data   %}
+          {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad   %}
 
 
           {% trans "What is the company’s known track record for protecting users’ data?" as company_track_record_label %}
-          {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record   help=product.track_record_details %}
+          {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record   help=product.track_record_details  ding=product.track_record_is_bad %}
 
 
           {% trans "Can this product be used offline?" as offline_capable %}
@@ -204,7 +204,7 @@
           {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
           {% trans "Privacy policy"          as privacy_policy %}
 
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards|safe  no_border=True    ding_control=product.show_ding_for_minimum_security_standards %}
+          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards|safe  no_border=True    ding=product.show_ding_for_minimum_security_standards %}
           {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption                  no_border=True %}
           {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password             no_border=True %}
           {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates            no_border=True %}
