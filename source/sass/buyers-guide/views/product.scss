@@ -309,6 +309,8 @@ $pni-product-breakpoint-larger: $bp-md;
   }
 
   &.meets-minimum-security-standards {
+    padding-bottom: $criterion-no-border-padding-y * 2;
+
     h3 {
       padding-right: 40px;
 
