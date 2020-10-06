@@ -169,6 +169,7 @@ $pni-product-breakpoint-larger: $bp-md;
       ~ #mss-expandable {
         max-height: 2000px; // arbitrary number that's large enough for all content in #mss-expandable to show
         opacity: 1;
+        display: block;
       }
 
       + label[for="mss-accordion-toggle"] {
@@ -192,6 +193,7 @@ $pni-product-breakpoint-larger: $bp-md;
     opacity: 0;
     overflow-y: hidden;
     max-height: 0;
+    display: none;
   }
 
   label[for="mss-accordion-toggle"] {
