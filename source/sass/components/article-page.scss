@@ -216,11 +216,12 @@
   // of the navigation)
   a[id^="footnote-source"]::before {
     content: '';
-    display: block;
-    height:      160px;
+    display: inline-block;
+    height: 160px;
     margin-top: -160px;
     visibility: hidden;  // Hides the block but keeps its width and margin in tact
     pointer-events: none;  // Allows the block to be clicked through
+    width: 1px;
   }
 
   p,
