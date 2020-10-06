@@ -118,7 +118,6 @@ class GeneralProduct(Product):
         help_text='Describe how this product can be used offline.'
     )
 
-
     # Artificial Intelligence
 
     uses_ai = ExtendedYesNoField(

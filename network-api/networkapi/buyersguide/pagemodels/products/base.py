@@ -270,7 +270,6 @@ class Product(ClusterableModel):
         help_text='Describe the particulars around sign-up requirements here.'
     )
 
-
     # Privacy policy
 
     user_friendly_privacy_policy = ExtendedYesNoField(
@@ -334,7 +333,6 @@ class Product(ClusterableModel):
     """
     privacy_policy_links = one to many, defined in PrivacyPolicyLink
     """
-
 
     # How to contact the company
 
