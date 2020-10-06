@@ -1,5 +1,5 @@
 {% if value != hide_value %}
-<section class="criterion value-{{value|lower}} {% if no_border %}no-border{% endif%} {% if ding_control %}show-ding{% endif %} {% if class %}{{class}}{% endif %}">
+<section class="criterion value-{{value|lower}} {% if no_border %}no-border{% endif%} {% if ding %}show-ding{% endif %} {% if class %}{{class}}{% endif %}" {% if ding %}aria-label="This  section requires attention."{% endif %}>
   {% include "./product_criterion_primary_info.html"  with  show_value_as_symbol=show_value_as_symbol  label=label  value=value %}
 
   {% if help != None and help != "" %}
