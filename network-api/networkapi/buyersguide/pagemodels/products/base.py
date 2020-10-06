@@ -87,6 +87,15 @@ product_panels = [
     ),
     MultiFieldPanel(
         [
+
+            FieldPanel('how_does_it_use_data_collected'),
+            FieldPanel('data_collection_policy_is_bad'),
+        ],
+        heading='How does it use this data',
+        classname='collapsible',
+    ),
+    MultiFieldPanel(
+        [
             FieldPanel('user_friendly_privacy_policy'),
         ],
         heading='Privacy policy',
@@ -268,6 +277,18 @@ class Product(ClusterableModel):
         max_length=5000,
         blank=True,
         help_text='Describe the particulars around sign-up requirements here.'
+    )
+
+    # How does it use this data?
+
+    how_does_it_use_data_collected = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='How does this product use the data collected?'
+    )
+
+    data_collection_policy_is_bad = models.BooleanField(
+        default=False,
     )
 
     # Privacy policy

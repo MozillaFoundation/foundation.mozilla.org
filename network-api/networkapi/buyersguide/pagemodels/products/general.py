@@ -58,17 +58,7 @@ class GeneralProduct(Product):
         help_text='What kind of social data does this product collect?'
     )
 
-    # How does it use this data?
-
-    how_does_it_use_data_collected = models.TextField(
-        max_length=5000,
-        blank=True,
-        help_text='How does this product use the data collected?'
-    )
-
-    data_collection_policy_is_bad = models.BooleanField(
-        default=False,
-    )
+    # How can you control your data
 
     how_can_you_control_your_data = models.TextField(
         max_length=5000,
@@ -170,12 +160,23 @@ class GeneralProduct(Product):
                     FieldPanel('personal_data_collected'),
                     FieldPanel('biometric_data_collected'),
                     FieldPanel('social_data_collected'),
-                    FieldPanel('how_does_it_use_data_collected'),
-                    FieldPanel('data_collection_policy_is_bad'),
+                ],
+                heading='What data does it collect',
+                classname='collapsible',
+            ),
+        ]
+    )
+
+    panels = insert_panels_after(
+        panels,
+        'How does it use this data',
+        [
+            MultiFieldPanel(
+                [
                     FieldPanel('how_can_you_control_your_data'),
                     FieldPanel('data_control_policy_is_bad'),
                 ],
-                heading='Data collection and control',
+                heading='How can you control your data',
                 classname='collapsible',
             ),
             MultiFieldPanel(

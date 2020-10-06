@@ -31,10 +31,8 @@ def restore_products(apps, schema_editor):
         updated.ai_uses_personal_data = product.ai_uses_personal_data
         updated.biometric_data_collected = product.biometric_data_collected
         updated.company_track_record = product.company_track_record
-        updated.data_collection_policy_is_bad = product.data_collection_policy_is_bad
         updated.data_control_policy_is_bad = product.data_control_policy_is_bad
         updated.how_can_you_control_your_data = product.how_can_you_control_your_data
-        updated.how_does_it_use_data_collected = product.how_does_it_use_data_collected
         updated.offline_capable = product.offline_capable
         updated.offline_use_description = product.offline_use_description
         updated.personal_data_collected = product.personal_data_collected
@@ -87,19 +85,11 @@ class Migration(migrations.Migration):
         ),
         migrations.RemoveField(
             model_name='product',
-            name='data_collection_policy_is_bad',
-        ),
-        migrations.RemoveField(
-            model_name='product',
             name='data_control_policy_is_bad',
         ),
         migrations.RemoveField(
             model_name='product',
             name='how_can_you_control_your_data',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='how_does_it_use_data_collected',
         ),
         migrations.RemoveField(
             model_name='product',
@@ -158,11 +148,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='generalproduct',
-            name='data_collection_policy_is_bad',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AddField(
-            model_name='generalproduct',
             name='data_control_policy_is_bad',
             field=models.BooleanField(default=False),
         ),
@@ -170,11 +155,6 @@ class Migration(migrations.Migration):
             model_name='generalproduct',
             name='how_can_you_control_your_data',
             field=models.TextField(blank=True, help_text='How does this product let you control your data?', max_length=5000),
-        ),
-        migrations.AddField(
-            model_name='generalproduct',
-            name='how_does_it_use_data_collected',
-            field=models.TextField(blank=True, help_text='How does this product use the data collected?', max_length=5000),
         ),
         migrations.AddField(
             model_name='generalproduct',
