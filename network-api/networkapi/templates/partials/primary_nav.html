@@ -1,7 +1,7 @@
 {% load primary_active_nav i18n %}
 
-{% if page.zen_nav == True %}<div id="primary-nav-container" data-nav-mode="zen" class="zen-mode">
-{% else %}<div id="primary-nav-container">
+{% if page.zen_nav == True %}<nav id="primary-nav-container" data-nav-mode="zen" class="zen-mode" role="navigation">
+{% else %}<nav id="primary-nav-container" role="navigation">
 {% endif %}
   <div class="wrapper-burger">
     <div class="menu-container">
@@ -72,7 +72,7 @@
 
     </div>
   </div>
-</div>
+</nav>
 
 
 <div id="nav-newsletter-form-wrapper" class="d-none">

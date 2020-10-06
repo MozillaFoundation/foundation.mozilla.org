@@ -70,9 +70,13 @@
           {% include "partials/primary_nav.html" with background="simple-background" %}
         {% endblock %}
       </div>
-      {% block hero_guts %}{% endblock %}
 
-      {% block content %}{% endblock %}
+
+      <main role="main">
+        {% block hero_guts %}{% endblock %}
+
+        {% block content %}{% endblock %}
+      </main>
 
       {% block prefooter %}{% endblock %}
 
