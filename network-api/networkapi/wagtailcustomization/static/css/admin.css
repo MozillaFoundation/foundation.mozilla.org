@@ -15,7 +15,7 @@
   color: var(--admin-interface-field-bg);
 }
 
-#wagtail .wrapper input[type="checkbox"]:checked:before {
+#wagtail .wrapper li:not(.focused) input[type="checkbox"]:checked:before {
   color: var(-admin-interface-field-fg);
 }
 
