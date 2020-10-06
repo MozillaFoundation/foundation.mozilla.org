@@ -160,8 +160,67 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .minimum-security {
+  position: relative;
+
   .criterion:last-child {
     border-bottom: none;
+  }
+
+  #mss-accordion-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+
+    &:checked {
+      ~ #mss-expandable {
+        max-height: 2000px; // arbitrary number that's large enough for all content in #mss-expandable to show
+        opacity: 1;
+      }
+
+      + label[for="mss-accordion-toggle"] {
+        &::after {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &:focus {
+      + label[for="mss-accordion-toggle"] {
+        outline-width: 1px;
+        outline-style: auto;
+        outline-color: Highlight;
+      }
+    }
+  }
+
+  #mss-expandable {
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    overflow-y: hidden;
+    max-height: 0;
+  }
+
+  label[for="mss-accordion-toggle"] {
+    $icon-size: 24px;
+
+    position: absolute;
+    top: 3em;
+    right: 0;
+    width: $icon-size;
+    height: $icon-size;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: url(../_images/buyers-guide/icon-accordion-toggle.svg) center /
+        contain no-repeat;
+      width: $icon-size;
+      height: $icon-size;
+      transition: all 0.5s ease-in-out;
+    }
   }
 }
 
@@ -230,6 +289,16 @@ $pni-product-breakpoint-larger: $bp-md;
         @media (min-width: $pni-product-breakpoint-larger) {
           display: none;
         }
+      }
+    }
+  }
+
+  &.meets-minimum-security-standards {
+    h3 {
+      padding-right: 40px;
+
+      @media (min-width: $pni-product-breakpoint-larger) {
+        padding-right: 0;
       }
     }
   }
