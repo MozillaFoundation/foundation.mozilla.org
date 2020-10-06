@@ -1,28 +1,8 @@
 #wagtail .wrapper input[type="checkbox"] {
-  --admin-interface-field-fg: #007d7e;
-  --admin-interface-field-bg: #fafafa;
-}
-
-#wagtail .wrapper input[type="checkbox"] {
   vertical-align: middle;
-  background: unset;
 }
 
 #wagtail .wrapper input[type="checkbox"]:before {
   top: calc(50% - 10px);
   left: calc(50% - 10px);
-  background: var(--admin-interface-field-bg);
-  color: var(--admin-interface-field-bg);
-}
-
-#wagtail .wrapper li:not(.focused) input[type="checkbox"]:checked:before {
-  color: var(-admin-interface-field-fg);
-}
-
-#wagtail .wrapper li.focused input[type="checkbox"]:before {
-  background: unset;
-}
-
-#wagtail .wrapper li.focused input[type="checkbox"]:not(:checked):before {
-  color: transparent;
 }
