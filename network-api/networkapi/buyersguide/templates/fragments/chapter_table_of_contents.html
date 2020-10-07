@@ -1,0 +1,39 @@
+<div class="container">
+  {% comment %}
+    This first .row is the white "top" to the Table of Contents section.
+    It will disappear for non-desktop views.
+    This is somewhat of an HTML display "hack"
+  {% endcomment %}
+  <div class="row d-lg-flex justify-content-center no-gutters d-none">
+    <div class="col-lg-8 bg-white mt-minus-50"></div>
+  </div>
+  <div class="row">
+    <div class="pt-4 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center publication-container">
+      <div class="row mb-5">
+        <div class="col-12">
+          {% for child in page.get_children.live %}
+            <div class="row publication-row pt-3 pb-3 d-flex align-items-center">
+              <div class="col-sm-1 d-md-block d-none">&nbsp;</div>
+              <div class="col-auto">
+                <div class="publication-chapter-number publication-chapter-number--small">
+                  {{ forloop.counter }}
+                </div>
+              </div>
+              <div class="col-sm col-8 d-flex align-items-center">
+                <h3 class="publication-chapter-title publication-chapter-title--small my-0">
+                  <a href="{{ child.url }}" class="d-block">
+                    {{ child.title }}
+                  </a>
+                </h3>
+              </div>
+              <div class="col-sm-1 d-md-block d-none">&nbsp;</div>
+            </div>
+            {% if not forloop.last %}
+              <hr/>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

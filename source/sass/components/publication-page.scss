@@ -1,0 +1,114 @@
+/**
+ * PublicationPage-specific styling.
+ * Also see chapter-page.scss and article-page.scss
+ * "ChapterPage" is a child PublicationPage.
+ * PublicationPage is the most parent PublicationPage
+ */
+
+.publication-hero-subtitle {
+  font-family: $font-family-sans-serif !important;
+}
+
+.publication-hero-file-size {
+  color: $gray-40;
+  @include set-text-size(12px, 16px);
+  font-family: $font-family-sans-serif;
+  top: 10px;
+}
+
+.publication-hero-container {
+  padding-top: 137px;
+  padding-bottom: 184px;
+  background-size: cover !important;
+  background-position: center center;
+  /* stylelint-disable */
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75));
+  /* stylelint-enable */
+
+  &--small {
+    padding-top: 105px;
+    padding-bottom: 140px;
+  }
+}
+
+.download-button::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  background-image: url(../_images/glyphs/download-file.svg);
+}
+
+@media (max-width: $bp-md) {
+  .publication-hero-container {
+    padding-top: 100px;
+    padding-bottom: 125px;
+  }
+}
+
+.publication-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.publication-chapter-number {
+  width: 161px;
+  height: 161px;
+  background: $light-blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  @include set-text-size(72px, 88px);
+  font-family: "Zilla Slab";
+
+  &--small {
+    width: 64px;
+    height: 64px;
+    color: $white;
+    @include set-text-size(30px, 44px);
+  }
+}
+
+.publication-chapter-title {
+  margin-top: 64px;
+
+  &--small {
+    color: $black;
+    @include set-text-size(24px, 30px);
+  }
+}
+
+.publication-notes-hr {
+  height: 0px;
+  border: 2px solid $black;
+  margin-top: 97px;
+}
+
+.publication-notes .rich-text {
+  @include set-text-size(16px, 24px);
+  margin-bottom: 96px;
+  margin-top: 49px;
+}
+
+@media (max-width: $bp-sm) {
+  .publication-chapter-number {
+    height: 76px;
+    width: 76px;
+    @include set-text-size(56px, 64px);
+
+    &--small {
+      @include set-text-size(30px, 44px);
+    }
+  }
+
+  .publication-chapter-title {
+    margin-top: 29px;
+  }
+
+  .publication-notes .rich-text p {
+    font-weight: 300;
+  }
+}

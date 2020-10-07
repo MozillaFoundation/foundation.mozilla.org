@@ -48,7 +48,6 @@ from .pagemodels.blog.blog import (
     BlogPage,
     BlogAuthor,
     BlogAuthors
-
 )
 
 from .pagemodels.blog.blog_category import (

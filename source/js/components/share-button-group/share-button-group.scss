@@ -22,6 +22,12 @@
       display: flex;
       flex: 1;
 
+      @media (max-width: $bp-lg) and (min-width: $bp-md) {
+        &:first-child {
+          margin-bottom: 16px;
+        }
+      }
+
       &:not(:last-child) {
         margin-right: $margin;
       }
