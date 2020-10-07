@@ -1050,4 +1050,44 @@ class Migration(migrations.Migration):
             name='recording_alert_helptext_pt',
             field=models.TextField(blank=True, max_length=5000, null=True),
         ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_de',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_en',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_es',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_fr',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_fy_NL',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_nl',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_pl',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productprivacypolicylink',
+            name='label_pt',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
     ]
