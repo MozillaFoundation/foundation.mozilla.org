@@ -1,10 +1,13 @@
 import re
 
+from bs4 import BeautifulSoup
+
 from itertools import chain
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Count
 from django.urls import LocalePrefixPattern, URLResolver
+from django.utils.text import slugify
 from django.utils.translation import gettext
 from django.utils.translation.trans_real import (
     check_for_language, get_languages, get_language_from_path,
@@ -287,3 +290,57 @@ def get_language_from_request(request, check_path=False):
         return get_supported_language_variant(settings.LANGUAGE_CODE)
     except LookupError:
         return settings.LANGUAGE_CODE
+
+
+def get_richtext_titles(request, stream_data, stream_block_name):
+    """
+    Accepts a StreamField and the name of a streamblock to look for,
+    parses the data for <h2> elements, and creates a dictionary
+    of slugs to headers.
+
+    :stream_data is the StreamField object (not the raw json that's stored)
+    :stream_block_name is the name of the StreamField block associated with
+                        the richtext field.
+
+    Example dictionary that's created:
+    {
+        'hello-world': 'Hello World',
+        'second-title-here': 'Second Title Here',
+    }
+
+    Example return output:
+    (
+        ('hello-world', 'Hello World'),
+        ('second-title-here', 'Second Title Here')
+    )
+    """
+    body = stream_data.__dict__['stream_data']
+    data = {}
+    headers = []
+    for block in body:
+        if not request.is_preview:
+            # Check for live versions of the page first because these will be served
+            # much more frequently than preview pages.
+            # In live pages (not previewed) we have a block `type` and block `value`.
+            # In preview pages, we have a tuple where the first value is the block['type']
+            # and the second value is the block['value']
+            for block in body:
+                if block['type'] == stream_block_name:
+                    soup = BeautifulSoup(block['value'], 'html.parser')
+                    _headers = soup.findAll('h2')
+                    for _h in _headers:
+                        headers.append(_h.contents[0])
+        else:
+            # If the page is a preview, look for live streamfield data.
+            # Previewed streamfield is stored differently than live streamfield data; as a tuple
+            # And thus we check if the first value is the block name, and the second value in
+            # the tuple is going to be the actual block data.
+            if block[0] == stream_block_name:
+                soup = BeautifulSoup(str(block[1]), 'html.parser')
+                _headers = soup.findAll('h2')
+                for _h in _headers:
+                    headers.append(_h.text)
+    data = {
+        slugify(header): header for header in headers
+    }
+    return tuple(data.items())

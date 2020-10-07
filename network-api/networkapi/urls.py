@@ -11,6 +11,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
+from wagtail_footnotes import urls as footnotes_urls
 
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.buyersguide import views as buyersguide_views
@@ -60,6 +61,9 @@ urlpatterns = list(filter(None, [
 
     # set up set language redirect view
     url('i18n/', include('django.conf.urls.i18n')),
+
+    # Wagtail Footnotes package
+    path("footnotes/", include(footnotes_urls)),
 ]))
 
 # Anything that needs to respect the localised

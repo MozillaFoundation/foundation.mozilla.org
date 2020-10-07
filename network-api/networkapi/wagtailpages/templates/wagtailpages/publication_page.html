@@ -1,77 +1,30 @@
 {% extends "pages/base.html" %}
-{% load wagtailimages_tags i18n %}
+{% load wagtailcore_tags %}
 
 {% block content%}
+
+  {% include "./fragments/publication_hero.html" %}
+
+  {% if page.is_chapter_page %}
+    {# Chapter page #}
+    {% include "fragments/chapter_table_of_contents.html" %}
+  {% else %}
+    {# Publication Page #}
+    {% include "fragments/publication_table_of_contents.html" %}
+  {% endif %}
+
+  {% if page.notes %}
     <div class="container">
-
-        <div
-        class="row mb-5 mt-0 mt-sm-5 d-flex align-items-center">
-            {% comment %} <div class="col-sm-6 mb-3 mb-sm-0">
-                {% image page.hero_image fill-1240x625 %}
-            </div> {% endcomment %}
-
-            <div class="col-sm-10">
-
-                <h1 class="h1-heading">
-                    {{ page.title }}
-                </h1>
-
-                <div class="body-large mb-4">
-                    {% if page.subtitle %}
-                        {{ page.subtitle }}
-                    {% endif %}
-                </div>
-
-                <div class="body-large mb-4">
-
-                    {% if page.secondary_subtitle %}
-                        {{ page.secondary_subtitle }}
-                        {% endif%}
-                    </div>
-                    {% if page.publication_date %}
-                        {{ page.publication_date }}
-                    {% endif %}
-
-
-                    <div class="blog-authors d-flex flex-wrap align-items-center">
-                      <div class="author-images d-flex flex-wrap">
-                      {% for author in page.authors.all %}
-                        <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}">
-                        {% if author.author.image %}
-                          {% image author.author.image fill-100x100 as img %}
-                          <img src="{{ img.url }}" alt="{{ author.author.name }}" title="{{ author.author.name }}" />
-                        {% endif %}
-                        </div>
-                      {% endfor %}
-                      </div>
-                    </div>
-
-                    {% if page.authors.count %}
-                      {% with authors_length=page.authors.count %}
-                        {% for orderable in page.authors.all %}
-                          <span>{% if authors_length > 1 and forloop.last %}{% trans "and" %} {% endif %}<b>{{ orderable.author.name }}{% if not forloop.last %}{% if forloop.counter != authors_length|add:-1%},{% endif %} {% endif %}</b></span>
-                        {% endfor %}
-                        {% if page.additional_author_copy %}
-                          {{ page.additional_author_copy }}
-                        {% endif %}
-                      {% endwith %}
-                    {% else %}
-                      TODO Frontend: Either remove this `else` statement, or work with this section if
-                      there are no authors to display.
-                    {% endif %}
-
-                    {% if page.publication_file %}
-                        <a
-                        class="btn btn-primary d-block"
-                        href="{{ page.publication_file.url }}">
-                        Download Full PDF
-                        </a>
-                        {% if page.publication_file.file_size %}
-                            {{page.publication_file.file_size}}
-                        {% endif %}
-                    {% endif %}
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-12">
+          <hr class="publication-notes-hr">
         </div>
-        {{ page.contents_title }}
-    {% endblock %}
+        <div class="col-lg-8 offset-lg-2 publication-notes">
+          {{ page.notes|richtext }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+{% endblock %}
+

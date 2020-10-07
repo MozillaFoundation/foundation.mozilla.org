@@ -22,6 +22,10 @@
   @include full-bleed;
 }
 
+.mt-minus-50 {
+  margin-top: -50px;
+}
+
 @include full-bleed-bp("xs");
 @include full-bleed-bp("sm");
 @include full-bleed-bp("md");

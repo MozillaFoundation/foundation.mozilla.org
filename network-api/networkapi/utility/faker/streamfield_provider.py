@@ -38,6 +38,25 @@ def generate_paragraph_field():
     return generate_field('paragraph', ''.join(paragraphs))
 
 
+def generate_content_field():
+    image_id = choice(Image.objects.all()).id
+
+    paragraphs = (
+        f'<h2>{fake.sentence()}</h2>',
+        f'<p>{fake.text(max_nb_chars=200)} <b>This sentence is in bold text.</b> {fake.text(max_nb_chars=200)} ',
+        f'<a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a></p>',
+        f'<embed alt="An image" embedtype="image" format="right" id="{image_id}"/>',
+        f'<p>{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}</p>',
+        f'<embed alt="An image" embedtype="image" format="left" id="{image_id}"/>',
+        f'<p>{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}</p>',
+        f'<embed alt="An image" embedtype="image" format="fullwidth" id="{image_id}"/>',
+        f'<p>{fake.paragraph(nb_sentences=20, variable_nb_sentences=True)}</p>',
+        f'<p><a href="{fake.url(schemes=["https"])}">This is a link to a fake url!</a></p>',
+    )
+
+    return generate_field('content', ''.join(paragraphs))
+
+
 def generate_header_field():
     value = ' '.join(fake.words())
 
@@ -97,6 +116,18 @@ def generate_image_text_mini_field():
         'image': image_id,
         'text': image_text,
         'altText': alt_text,
+    })
+
+
+def generate_double_image_field():
+    image_1 = choice(Image.objects.all()).id
+    image_1_caption = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+    image_2 = choice(Image.objects.all()).id
+
+    return generate_field('double_image', {
+        'image_1': image_1,
+        'image_1_caption': image_1_caption,
+        'image_2': image_2,
     })
 
 
@@ -166,6 +197,21 @@ def generate_regret_story_field():
     })
 
 
+def generate_callout_field():
+    value = fake.sentence(nb_words=10)
+    return generate_field('callout', value)
+
+
+def generate_full_width_image_field():
+    image = choice(Image.objects.all()).id
+    caption = fake.sentence(nb_words=10)
+
+    return generate_field('full_width_image', {
+        'image': image,
+        'caption': caption,
+    })
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -191,10 +237,14 @@ class StreamfieldProvider(BaseProvider):
             'basic_image': generate_basic_image_field,
             'image_text': generate_image_text_field,
             'image_text_mini': generate_image_text_mini_field,
+            'double_image': generate_double_image_field,
             'video': generate_video_field,
             'linkbutton': generate_linkbutton_field,
             'text': generate_text_field,
             'regret_story': generate_regret_story_field,
+            'content': generate_content_field,
+            'callout': generate_callout_field,
+            'full_width_image': generate_full_width_image_field,
         }
 
         streamfield_data = []

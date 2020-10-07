@@ -1,0 +1,29 @@
+/**
+ * ChapterPage-specific styling.
+ * Also see publication-page.scss and article-page.scss
+ * "ChapterPage" is a child PublicationPage
+ * PublicationPage is the most parent PublicationPage
+ */
+
+.chapter-number {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  background-color: $light-blue;
+  color: $white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.child-pages-children-title {
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+}
+
+@media (max-width: $bp-sm) {
+  .chapter-article-link {
+    line-height: 24px;
+  }
+}

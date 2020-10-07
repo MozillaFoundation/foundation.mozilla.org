@@ -1,0 +1,73 @@
+<div class="container">
+  {% comment %}
+    This first .row is the white "top" to the Table of Contents section.
+    It will disappear for non-desktop views.
+    This is somewhat of an HTML display "hack"
+  {% endcomment %}
+  <div class="row d-lg-flex justify-content-center no-gutters d-none">
+    <div class="col-lg-9 bg-white mt-minus-50"></div>
+  </div>
+  <div class="row">
+    <div class="pt-lg-0 pt-5 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center col-12 bg-white">
+      <div class="row d-flex align-items-center">
+        <div class="col">
+          <h2>{{ page.contents_title }}</h2>
+        </div>
+        <div class="col-12">
+          {% for child in page.get_children.live %}
+            <div class="row publication-row pt-3 pb-sm-4 pb-0">
+              <div class="col-auto">
+                <div class="publication-chapter-number">
+                  {{ forloop.counter }}
+                </div>
+              </div>
+              <div class="col-8 ml-sm-3{% if not child.get_children_count %} d-flex align-items-center{% endif %}">
+                <h3 class="{% if child.get_children_count %}publication-chapter-title{% else %}m-0 {% endif %}">
+                  <a href="{{ child.url }}" class="d-block {% if child.get_children_count %}mb-4{% endif %}">
+                    {{ child.title }}
+                  </a>
+                </h3>
+                {% for grandchild in child.get_children.live %}
+                  <div class="row d-sm-flex d-none">
+                    <div class="col-auto h6-heading">
+                      {{ forloop.parentloop.counter }}.{{ forloop.counter}}
+                    </div>
+                    <div class="col">
+                      <h4 class="col-12 child-pages-children-title">
+                        <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
+                          {{ grandchild.title }}
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% if child.get_children_count %}
+              {# Child listings on mobile. #}
+              <div class="pt-2 d-sm-none d-block">
+                {% for grandchild in child.get_children %}
+                  <div class="row d-flex">
+                    <div class="col-auto publication-chapter-list-number">
+                      {{ forloop.parentloop.counter }}.{{ forloop.counter}}
+                    </div>
+                    <div class="col">
+                      <h4 class="col-12 child-pages-children-title">
+                        <a href="{{ grandchild.url }}" class="d-block chapter-article-link">
+                          {{ grandchild.title }}
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if not forloop.last %}
+              <hr/>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

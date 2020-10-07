@@ -21,10 +21,8 @@ from .models import (
     BlogPage,
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
-
-    PublicationPage,
     ArticlePage,
-
+    PublicationPage,
     CTA,
     Petition,
     Signup,
@@ -219,9 +217,8 @@ class PublicationPageTR(TranslationOptions):
 class ArticlePageTR(TranslationOptions):
     fields = ()
 
+
 # The following bindings are obsolete and require cleanup
-
-
 @register(PeoplePage)
 class PeoplePageTR(TranslationOptions):
     fields = ()

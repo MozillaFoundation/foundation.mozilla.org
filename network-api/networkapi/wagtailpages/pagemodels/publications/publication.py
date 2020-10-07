@@ -1,4 +1,4 @@
-
+from django.conf import settings
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -19,10 +19,7 @@ class PublicationAuthors(Orderable):
 
     page = ParentalKey("wagtailpages.PublicationPage", related_name="authors")
     author = models.ForeignKey(
-        BlogAuthor,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=False
+        BlogAuthor, on_delete=models.SET_NULL, null=True, blank=False
     )
 
     panels = [
@@ -40,12 +37,10 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     From here the user can browse to the various sections (called chapters).
     It will have information on the publication, its authors, and metadata from it's children
 
-    TODO: this poem is beautiful, but it may not belong here
     Publications are collections of Articles
     Publications can also be broken down into Chapters, which are really just child publication pages
     Each of those Chapters may have several Articles
     An Article can only belong to one Chapter/Publication Page
-
     """
 
     subpage_types = ['ArticlePage', 'PublicationPage']
@@ -66,17 +61,13 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         blank=True,
         max_length=250,
     )
-    publication_date = models.DateField(
-        "Publication date",
-        null=True,
-        blank=True
-    )
+    publication_date = models.DateField("Publication date", null=True, blank=True)
     publication_file = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
     additional_author_copy = models.CharField(
         help_text="Example: with contributing authors",
@@ -85,6 +76,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     )
     notes = RichTextField(
         blank=True,
+        features=['link', 'bold', 'italic']
     )
     contents_title = models.CharField(
         blank=True,
@@ -92,15 +84,38 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         max_length=250,
     )
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('subtitle'),
-            FieldPanel('secondary_subtitle'),
-            FieldPanel('publication_date'),
-            ImageChooserPanel('hero_image'),
-            DocumentChooserPanel('publication_file'),
-            InlinePanel("authors", label="Author"),
-            FieldPanel("additional_author_copy"),
-        ], heading="Hero"),
+        MultiFieldPanel(
+            [
+                FieldPanel('subtitle'),
+                FieldPanel('secondary_subtitle'),
+                FieldPanel('publication_date'),
+                ImageChooserPanel('hero_image'),
+                DocumentChooserPanel('publication_file'),
+                InlinePanel('authors', label='Author'),
+                FieldPanel('additional_author_copy'),
+            ],
+            heading='Hero',
+        ),
         FieldPanel('contents_title'),
-        FieldPanel('notes')
+        FieldPanel('notes'),
     ]
+
+    @property
+    def is_chapter_page(self):
+        """
+        A PublicationPage nested under a PublicationPage is considered to be a
+        "ChapterPage". The templates used very similar logic and structure, and
+        all the fields are the same.
+        """
+        parent = self.get_parent().specific
+        return parent.__class__ is PublicationPage
+
+    def breadcrumb_list(self):
+        """
+        Get all the parent PublicationPages and return a QuerySet
+        """
+        return Page.objects.ancestor_of(self).type(PublicationPage).live()
+
+
+if not settings.LOAD_PUBLICATION_MODELS:
+    PublicationPage.parent_page_types = []
