@@ -1090,4 +1090,204 @@ class Migration(migrations.Migration):
             name='label_pt',
             field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
         ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_de',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_en',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_es',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_fr',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_fy_NL',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_nl',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_pl',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='company_track_record_pt',
+            field=models.CharField(choices=[('Great', 'Great'), ('Average', 'Average'), ('Needs Improvement', 'Needs Improvement'), ('Bad', 'Bad')], default='Average', help_text='This company has a ... track record', max_length=20, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_de',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_en',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_es',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_fr',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_fy_NL',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_nl',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_pl',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='email_pt',
+            field=models.CharField(blank=True, help_text='Email', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_de',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_en',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_es',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_fr',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_fy_NL',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_nl',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_pl',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='live_chat_pt',
+            field=models.CharField(blank=True, help_text='Live Chat', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_de',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_en',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_es',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_fr',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_fy_NL',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_nl',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_pl',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='phone_number_pt',
+            field=models.CharField(blank=True, help_text='Phone Number', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_de',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_en',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_es',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_fr',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_fy_NL',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_nl',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_pl',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='price_pt',
+            field=models.CharField(blank=True, help_text='Price', max_length=100, null=True),
+        ),
     ]

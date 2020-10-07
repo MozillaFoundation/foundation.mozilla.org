@@ -30,6 +30,11 @@ class ProductTR(TranslationOptions):
         'manage_vulnerabilities_helptext',
         'privacy_policy_helptext',
         'ai_helptext',
+        'price',
+        'company_track_record',
+        'phone_number',
+        'live_chat',
+        'email',
     )
 
 
