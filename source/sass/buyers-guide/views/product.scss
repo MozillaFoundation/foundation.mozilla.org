@@ -153,8 +153,67 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .minimum-security {
+  position: relative;
+
   .criterion:last-child {
     border-bottom: none;
+  }
+
+  #mss-accordion-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+
+    &:checked {
+      ~ #mss-expandable {
+        max-height: 100%;
+        visibility: visible;
+      }
+
+      + label[for="mss-accordion-toggle"] {
+        &::after {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &:focus {
+      + label[for="mss-accordion-toggle"] {
+        outline-width: 1px;
+        outline-style: auto;
+        outline-color: Highlight;
+      }
+    }
+  }
+
+  #mss-expandable {
+    transition: all 0.2s ease-in-out;
+    overflow-y: hidden;
+    max-height: 0;
+    visibility: hidden;
+  }
+
+  label[for="mss-accordion-toggle"] {
+    $icon-size: 24px;
+
+    position: absolute;
+    top: 3em;
+    right: 0;
+    width: $icon-size;
+    height: $icon-size;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: url(../_images/buyers-guide/icon-accordion-toggle.svg) center /
+        contain no-repeat;
+      width: $icon-size;
+      height: $icon-size;
+      transition: all 0.2s ease-in-out;
+    }
   }
 }
 
@@ -243,6 +302,18 @@ $pni-product-breakpoint-larger: $bp-md;
         @media (min-width: $pni-product-breakpoint-larger) {
           display: none;
         }
+      }
+    }
+  }
+
+  &.meets-minimum-security-standards {
+    padding-bottom: $criterion-no-border-padding-y * 2;
+
+    h3 {
+      padding-right: 40px;
+
+      @media (min-width: $pni-product-breakpoint-larger) {
+        padding-right: 0;
       }
     }
   }
