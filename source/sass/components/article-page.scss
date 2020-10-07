@@ -215,12 +215,12 @@
   // is clicked, the page will jump to the footnote, minus 160px (the _very_ rough height
   // of the navigation)
   a[id^="footnote-source"]::before {
-    content: '';
+    content: "";
     display: inline-block;
     height: 160px;
     margin-top: -160px;
-    visibility: hidden;  // Hides the block but keeps its width and margin in tact
-    pointer-events: none;  // Allows the block to be clicked through
+    visibility: hidden;
+    pointer-events: none;
     width: 1px;
   }
 
