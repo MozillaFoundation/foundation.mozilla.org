@@ -167,9 +167,8 @@ $pni-product-breakpoint-larger: $bp-md;
 
     &:checked {
       ~ #mss-expandable {
-        max-height: 2000px; // arbitrary number that's large enough for all content in #mss-expandable to show
-        opacity: 1;
-        display: block;
+        max-height: 100%;
+        visibility: visible;
       }
 
       + label[for="mss-accordion-toggle"] {
@@ -189,11 +188,10 @@ $pni-product-breakpoint-larger: $bp-md;
   }
 
   #mss-expandable {
-    transition: all 0.5s ease-in-out;
-    opacity: 0;
+    transition: all 0.2s ease-in-out;
     overflow-y: hidden;
     max-height: 0;
-    display: none;
+    visibility: hidden;
   }
 
   label[for="mss-accordion-toggle"] {
@@ -214,7 +212,7 @@ $pni-product-breakpoint-larger: $bp-md;
         contain no-repeat;
       width: $icon-size;
       height: $icon-size;
-      transition: all 0.5s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
   }
 }
