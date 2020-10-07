@@ -1,7 +1,14 @@
 from django.db import models
 from django.conf import settings
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PrivacyModalPanel,
+    PublishingPanel,
+    StreamFieldPanel,
+)
 from wagtail.core import blocks
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
@@ -122,8 +129,10 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         FieldPanel('tags'),
     ]
 
-    settings_panels = Page.settings_panels + [
+    settings_panels = [
+        PublishingPanel(),
         FieldPanel('first_published_at'),
+        PrivacyModalPanel(),
     ]
 
     def get_context(self, request):
