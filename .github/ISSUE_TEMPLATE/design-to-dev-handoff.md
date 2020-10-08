@@ -21,7 +21,6 @@ Enter actual ticket description here
 - [ ] Design has been finalized
 - [ ] Link to original design ticket
 - [ ] Link to related ticket
-- [ ] Link to Redpen
 - [ ] Link to Abstract (make sure it can be viewed by anyone)
 - [ ] Design changes been merged into the master Sketch file
 - [ ] Desktop and mobile mockups are included
