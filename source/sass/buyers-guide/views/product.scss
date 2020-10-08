@@ -36,12 +36,12 @@ $pni-product-breakpoint-larger: $bp-md;
 
 html[lang="de"] .product-header-content.show-privacy-ding::after {
   background-image: url(../_images/buyers-guide/icon-privacy-ding-de.svg);
-  width: 53px;
-  height: 73px;
+  width: 50px;
+  height: 70px;
 
   @media (min-width: $pni-product-breakpoint-larger) {
-    width: 69px;
-    height: 94px;
+    width: 67px;
+    height: 92px;
   }
 }
 
