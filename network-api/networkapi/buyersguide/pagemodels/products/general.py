@@ -128,7 +128,6 @@ class GeneralProduct(Product):
         max_length=5000,
         blank=True,
         help_text='Helpful text around AI to show on the product page',
-
     )
 
     # administrative panels
