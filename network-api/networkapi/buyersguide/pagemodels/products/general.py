@@ -68,6 +68,7 @@ class GeneralProduct(Product):
 
     data_control_policy_is_bad = models.BooleanField(
         default=False,
+        verbose_name='Privacy ding'
     )
 
     # Company track record
@@ -88,6 +89,7 @@ class GeneralProduct(Product):
 
     track_record_is_bad = models.BooleanField(
         default=False,
+        verbose_name='Privacy ding'
     )
 
     track_record_details = models.TextField(
@@ -111,21 +113,22 @@ class GeneralProduct(Product):
     # Artificial Intelligence
 
     uses_ai = ExtendedYesNoField(
-        help_text='Does the product use AI?',
+        help_text='Does the product use AI?'
     )
 
     ai_uses_personal_data = ExtendedYesNoField(
-        help_text='Does the AI use your personal data to make decisions about you?',
+        help_text='Does the AI use your personal data to make decisions about you?'
     )
 
     ai_is_transparent = ExtendedYesNoField(
-        help_text='Does the company allow users to see how the AI works?',
+        help_text='Does the company allow users to see how the AI works?'
     )
 
     ai_helptext = models.TextField(
         max_length=5000,
         blank=True,
         help_text='Helpful text around AI to show on the product page',
+
     )
 
     # administrative panels
@@ -134,7 +137,7 @@ class GeneralProduct(Product):
 
     panels = insert_panels_after(
         panels,
-        'What is the worst that could happen',
+        'General Product Details',
         [
             MultiFieldPanel(
                 [
