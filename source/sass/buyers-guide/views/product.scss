@@ -25,6 +25,12 @@ $pni-product-breakpoint-larger: $bp-md;
       width: 47px;
       height: 61px;
 
+      @media (min-width: $pni-product-breakpoint-larger) {
+        top: 40px;
+        width: 63px;
+        height: 80px;
+      }
+
       @at-root html[lang="de"] & {
         background-image: url(../_images/buyers-guide/icon-privacy-ding-de.svg);
         width: 50px;
@@ -74,11 +80,6 @@ $pni-product-breakpoint-larger: $bp-md;
         @media (min-width: $pni-product-breakpoint-larger) {
           width: 69px;
         }
-      }
-      @media (min-width: $pni-product-breakpoint-larger) {
-        top: 40px;
-        width: 63px;
-        height: 80px;
       }
     }
   }
