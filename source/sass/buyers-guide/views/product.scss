@@ -25,63 +25,62 @@ $pni-product-breakpoint-larger: $bp-md;
       width: 47px;
       height: 61px;
 
+      @at-root html[lang="de"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-de.svg);
+        width: 50px;
+        height: 70px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 67px;
+          height: 92px;
+        }
+      }
+
+      @at-root html[lang="es"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-es.svg);
+        width: 45px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 61px;
+        }
+      }
+
+      @at-root html[lang="fr"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-fr.svg);
+        width: 62px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 84px;
+        }
+      }
+
+      @at-root html[lang="fy-NL"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-fy-nl.svg);
+      }
+
+      @at-root html[lang="nl"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-nl.svg);
+        width: 49px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 66px;
+        }
+      }
+
+      @at-root html[lang="pt"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-pt.svg);
+        width: 53px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 69px;
+        }
+      }
       @media (min-width: $pni-product-breakpoint-larger) {
         top: 40px;
         width: 63px;
         height: 80px;
       }
     }
-  }
-}
-
-html[lang="de"] .product-header-content.show-privacy-ding::after {
-  background-image: url(../_images/buyers-guide/icon-privacy-ding-de.svg);
-  width: 50px;
-  height: 70px;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    width: 67px;
-    height: 92px;
-  }
-}
-
-html[lang="es"] .product-header-content.show-privacy-ding::after {
-  background-image: url(../_images/buyers-guide/icon-privacy-ding-es.svg);
-  width: 45px;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    width: 61px;
-  }
-}
-
-html[lang="fr"] .product-header-content.show-privacy-ding::after {
-  background-image: url(../_images/buyers-guide/icon-privacy-ding-fr.svg);
-  width: 62px;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    width: 84px;
-  }
-}
-
-html[lang="fy-NL"] .product-header-content.show-privacy-ding::after {
-  background-image: url(../_images/buyers-guide/icon-privacy-ding-fy-nl.svg);
-}
-
-html[lang="nl"] .product-header-content.show-privacy-ding::after {
-  background-image: url(../_images/buyers-guide/icon-privacy-ding-nl.svg);
-  width: 49px;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    width: 66px;
-  }
-}
-
-html[lang="pt"] .product-header-content.show-privacy-ding::after {
-  background-image: url(../_images/buyers-guide/icon-privacy-ding-pt.svg);
-  width: 53px;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    width: 69px;
   }
 }
 
