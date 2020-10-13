@@ -20,6 +20,8 @@ from ..cloudinary_image_field import CloudinaryField
 from ..get_product_image_upload_path import get_product_image_upload_path
 from ..get_product_vote_information import get_product_vote_information
 
+# TODO: FIXME: Can we replace this with an ImageChooserPanel, to make the UI better?
+#              https://github.com/mozilla/foundation.mozilla.org/issues/5402
 if settings.USE_CLOUDINARY:
     image_field = FieldPanel('cloudinary_image')
 else:
@@ -52,27 +54,21 @@ product_panels = [
     # core information
     MultiFieldPanel(
         [
+            FieldPanel('review_date'),
             FieldPanel('privacy_ding'),
             FieldPanel('adult_content'),
-            FieldPanel('uses_wifi'),
-            FieldPanel('uses_bluetooth'),
-            FieldPanel('review_date'),
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),
-            FieldPanel('blurb'),
             FieldPanel('url'),
             FieldPanel('price'),
+            FieldPanel('uses_wifi'),
+            FieldPanel('uses_bluetooth'),
+            FieldPanel('blurb'),
             image_field,
-        ],
-        heading='General Product Details',
-        classname='collapsible'
-    ),
-    MultiFieldPanel(
-        [
             FieldPanel('worst_case'),
         ],
-        heading='What is the worst that could happen',
+        heading='General Product Details',
         classname='collapsible'
     ),
     MultiFieldPanel(
@@ -115,8 +111,8 @@ product_panels = [
     ),
     MultiFieldPanel(
         [
-            FieldPanel('meets_minimum_security_standards'),
             FieldPanel('show_ding_for_minimum_security_standards'),
+            FieldPanel('meets_minimum_security_standards'),
             FieldPanel('uses_encryption'),
             FieldPanel('uses_encryption_helptext'),
             FieldPanel('security_updates'),
@@ -289,6 +285,7 @@ class Product(ClusterableModel):
 
     data_collection_policy_is_bad = models.BooleanField(
         default=False,
+        verbose_name='Privacy ding'
     )
 
     # Privacy policy
@@ -299,13 +296,14 @@ class Product(ClusterableModel):
 
     # Minimum security standards
 
+    show_ding_for_minimum_security_standards = models.BooleanField(
+        default=False,
+        verbose_name="Privacy ding"
+    )
+
     meets_minimum_security_standards = models.BooleanField(
         null=True,
         help_text='Does this product meet our minimum security standards?',
-    )
-
-    show_ding_for_minimum_security_standards = models.BooleanField(
-        default=False,
     )
 
     uses_encryption = ExtendedYesNoField(
