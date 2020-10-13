@@ -63,7 +63,7 @@ class SoftwareProduct(Product):
 
     panels = insert_panels_after(
         panels,
-        'What is the worst that could happen',
+        'General Product Details',
         [
             MultiFieldPanel(
                 [
