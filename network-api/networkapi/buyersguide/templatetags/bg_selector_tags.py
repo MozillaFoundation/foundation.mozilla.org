@@ -37,13 +37,12 @@ def track_record(value):
     about the possible options, and the context in which to apply
     this tag, rather than a generic "localize" tag.
     """
-    lcontext = "This is a rating for a company's history concerning privacy"
     if value == 'Great':
-        return pgettext(lcontext, 'Great')
+        return pgettext("This is a rating for a company's history concerning privacy", 'Great')
     if value == 'Average':
-        return pgettext(lcontext, 'Average')
+        return pgettext("This is a rating for a company's history concerning privacy", 'Average')
     if value == 'Needs Improvement':
-        return pgettext(lcontext, 'Needs Improvement')
+        return pgettext("This is a rating for a company's history concerning privacy", 'Needs Improvement')
     if value == 'Bad':
-        return pgettext(lcontext, 'Bad')
+        return pgettext("This is a rating for a company's history concerning privacy", 'Bad')
     return value
