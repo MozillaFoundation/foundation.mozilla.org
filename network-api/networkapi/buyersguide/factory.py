@@ -15,6 +15,7 @@ from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
     Product,
+    Update,
     ProductPrivacyPolicyLink,
     GeneralProduct,
     BuyersGuideProductCategory,
@@ -51,8 +52,18 @@ class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
     url = Faker('url')
 
 
-class ProductFactory(DjangoModelFactory):
+class ProductUpdateFactory(DjangoModelFactory):
+    class Meta:
+        model = Update
 
+    source = Faker('url')
+    title = Faker('sentence')
+    author = Faker('sentence')
+    featured = Faker('boolean')
+    snippet = Faker('sentence')
+
+
+class ProductFactory(DjangoModelFactory):
     class Meta:
         model = GeneralProduct
         exclude = (
@@ -178,6 +189,11 @@ def generate(seed):
         twitter='@TwitterHandle',
         worst_case='Duplicate work that burns through screenshots'
     )
+
+    reseed(seed)
+
+    print('Generating Buyer\'s Guide product updates')
+    generate_fake_data(ProductUpdateFactory, 15)
 
     reseed(seed)
 
