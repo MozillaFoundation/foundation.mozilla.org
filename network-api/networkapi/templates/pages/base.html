@@ -71,9 +71,11 @@
         {% endblock %}
       </div>
 
-      <header role="banner">
-        {% block hero_guts %}{% endblock %}
-      </header>
+      {% block header_wrapped %}
+        <header role="banner">
+          {% block hero_guts %}{% endblock %}
+        </header>
+      {% endblock header_wrapped %}
 
       {% block content_wrapped %}
         <main role="main">
