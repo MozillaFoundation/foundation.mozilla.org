@@ -11,6 +11,7 @@ from django.forms import model_to_dict
 from django.utils.text import slugify
 
 from networkapi.buyersguide.fields import ExtendedYesNoField
+from ..product_update import Update as ProductUpdate
 
 from modelcluster.models import ClusterableModel
 
@@ -26,6 +27,18 @@ if settings.USE_CLOUDINARY:
     image_field = FieldPanel('cloudinary_image')
 else:
     image_field = FieldPanel('image')
+
+
+class ProductUpdatesFieldPanel(FieldPanel):
+    """
+    This is a custom field panel for listing product updates in a regular
+    product's admin view - the list is populated by the result from
+    calling BaseProduct.get_product_updates, below.
+    """
+    def on_form_bound(self):
+        instance = self.model
+        self.form.fields['updates'].queryset = instance.get_product_updates(instance)
+        super().on_form_bound()
 
 
 class RelatedProductFieldPanel(FieldPanel):
@@ -137,7 +150,7 @@ product_panels = [
         heading='Ways to contact the company',
         classname='collapsible'
     ),
-    FieldPanel('updates'),
+    ProductUpdatesFieldPanel('updates'),
     RelatedProductFieldPanel('related_products'),
 ]
 
@@ -384,6 +397,15 @@ class Product(ClusterableModel):
         related_name='pniproduct',
         blank=True
     )
+
+    def get_product_updates(self):
+        """
+        This function is used by our custom ProductUpdatesFieldPanel, to make sure
+        updates are alphabetically listed. Eventually we want to replace this with
+        "that, but also nothing older than 2 years". We can't do that yet, though,
+        as product updates currently do not record their creation_date.
+        """
+        return ProductUpdate.objects.all().order_by('title')
 
     # comments are not a model field, but are "injected" on the product page instead
 
