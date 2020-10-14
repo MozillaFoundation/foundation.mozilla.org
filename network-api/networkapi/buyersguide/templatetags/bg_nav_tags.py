@@ -22,5 +22,5 @@ def category_nav(context, current_url, current_category, all_categories):
     return {
         'current_url': current_url,
         'current_category': current_category,
-        'sorted_categories': all_categories.order_by('-featured', 'id'),  # featured categories first
+        'sorted_categories': all_categories.order_by('-featured', 'sort_order', 'name'),  # featured categories first
     }
