@@ -75,9 +75,11 @@
         {% block hero_guts %}{% endblock %}
       </header>
 
-      <main role="main">
-        {% block content %}{% endblock %}
-      </main>
+      {% block content_wrapped %}
+        <main role="main">
+          {% block content %}{% endblock %}
+        </main>
+      {% endblock content_wrapped %}
 
       {% block prefooter %}{% endblock %}
 
