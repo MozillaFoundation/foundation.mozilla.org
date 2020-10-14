@@ -31,7 +31,9 @@ else:
 
 class ProductUpdatesFieldPanel(FieldPanel):
     """
-    ...docs go here...
+    This is a custom field panel for listing product updates in a regular
+    product's admin view - the list is populated by the result from
+    calling BaseProduct.get_product_updates, below.
     """
     def on_form_bound(self):
         instance = self.model
@@ -398,7 +400,10 @@ class Product(ClusterableModel):
 
     def get_product_updates(self):
         """
-        ...docs go here...
+        This function is used by our custom ProductUpdatesFieldPanel, to make sure
+        updates are alphabetically listed. Eventually we want to replace this with
+        "that, but also nothing older than 2 years". We can't do that yet, though,
+        as product updates currently do not record their creation_date.
         """
         return ProductUpdate.objects.all().order_by('title')
 
