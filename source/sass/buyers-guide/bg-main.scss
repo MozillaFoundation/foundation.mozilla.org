@@ -10,11 +10,16 @@ html {
 // Custom variables
 @import "../variables";
 
-//Site-wide
+// Site-wide
 
 @import "../glyphs";
 @import "../mixins";
 @import "./mixins"; // Buyer's Guide specific mixins
+
+// PNI specific
+
+@import "./colors.scss";
+@import "./type.scss";
 
 // includes
 @import "./includes/draft-product";
@@ -46,10 +51,6 @@ html {
 @import "../buttons";
 @import "../global";
 @import "../utilities";
-
-// PNI specific
-
-@import "./type.scss";
 
 // Header
 
