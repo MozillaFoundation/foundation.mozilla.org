@@ -55,4 +55,4 @@ class BuyersGuideProductCategory(models.Model):
     class Meta:
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
-        ordering = [ 'sort_order', 'name', ]
+        ordering = ['sort_order', 'name', ]
