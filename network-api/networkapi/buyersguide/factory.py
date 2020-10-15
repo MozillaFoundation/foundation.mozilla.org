@@ -223,7 +223,7 @@ def generate(seed):
         live_chat='https://example.com/percy/chat',
         name='percy cypress app',
         phone_number='1-555-555-5555',
-        price=350,
+        price='| Free',
         product_words=['Percy', 'Cypress'],
         url='https://example.com/percy',
         twitter='@TwitterHandle',
