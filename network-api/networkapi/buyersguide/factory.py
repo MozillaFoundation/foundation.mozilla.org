@@ -117,6 +117,10 @@ class ProductFactory(DjangoModelFactory):
     signup_requires_third_party_account = LazyFunction(get_extended_yes_no_value)
     signup_requirement_explanation = Faker('sentence')
 
+    how_does_it_use_data_collected = Faker('sentence')
+    data_collection_policy_is_bad = Faker('boolean')
+    user_friendly_privacy_policy = LazyFunction(get_extended_yes_no_value)
+
     meets_minimum_security_standards = Faker('boolean')
     show_ding_for_minimum_security_standards = Faker('boolean')
     uses_encryption = LazyFunction(get_extended_yes_no_value)
@@ -159,8 +163,6 @@ class GeneralProductFactory(ProductFactory):
     biometric_data_collected = Faker('sentence')
     social_data_collected = Faker('sentence')
 
-    how_does_it_use_data_collected = Faker('sentence')
-    data_collection_policy_is_bad = Faker('boolean')
     how_can_you_control_your_data = Faker('sentence')
     data_control_policy_is_bad = Faker('boolean')
 
