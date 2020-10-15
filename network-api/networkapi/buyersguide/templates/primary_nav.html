@@ -30,3 +30,12 @@
     </div>
   </div>
 {% endblock %}
+
+{% block donate_and_newsletter %}
+<div class="d-flex align-items-center">
+  {% url 'why-view' as why_url %}
+  <a class="primary-nav-special-link" href="{{ why_url }}">{% trans "About the Guide" %}</a>
+  <a id="donate-header-btn" class="primary-nav-special-link heart-glyph" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
+  {% if page.signup == None %}<button class="btn btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
+</div>
+{% endblock %}
