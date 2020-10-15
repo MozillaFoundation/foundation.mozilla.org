@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from networkapi.milestones.views import (
     MilestoneListView,
@@ -6,6 +6,6 @@ from networkapi.milestones.views import (
 )
 
 urlpatterns = [
-    url('^$', MilestoneListView.as_view(), name='milestone-list'),
-    url(r'^(?P<pk>[0-9]+)/', MilestoneView.as_view(), name='milestone'),
+    re_path('^$', MilestoneListView.as_view(), name='milestone-list'),
+    re_path(r'^(?P<pk>[0-9]+)/', MilestoneView.as_view(), name='milestone'),
 ]

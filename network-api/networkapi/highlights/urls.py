@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from networkapi.highlights.views import (
     HighlightListView,
@@ -6,6 +6,6 @@ from networkapi.highlights.views import (
 )
 
 urlpatterns = [
-    url('^$', HighlightListView.as_view(), name='highlight-list'),
-    url(r'^(?P<pk>[0-9]+)/', HighlightView.as_view(), name='highlight'),
+    re_path('^$', HighlightListView.as_view(), name='highlight-list'),
+    re_path(r'^(?P<pk>[0-9]+)/', HighlightView.as_view(), name='highlight'),
 ]
