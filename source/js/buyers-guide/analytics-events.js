@@ -75,6 +75,13 @@ function getQuerySelectorEvents(pageTitle, productName) {
       // Note all products have updates
       optional_element: true,
     },
+    "#mss-link": {
+      category: `product`,
+      action: `minimum security standards link tap`,
+      label: `mss link for ${productName}`,
+      // Custom properties (not sent to GA)
+      conditionalQuery: `#view-product-page`,
+    },
   };
 }
 
@@ -159,7 +166,7 @@ const ProductGA = {
 
     // bind GA events that have special conditions
 
-    bindAccordionExpandGA();
+    bindAccordionExpandGA(productName);
   },
 };
 

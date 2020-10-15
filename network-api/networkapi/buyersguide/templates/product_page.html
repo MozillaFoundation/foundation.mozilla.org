@@ -201,7 +201,7 @@
         <section class="minimum-security criterion-group">
           <h2 class="h3-heading">{% trans "Security" %}</h2>
           {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/meets-minimum-security-standards" asvar minimum_security_standards trimmed %}
-            Does this product meet our <a href="{{ url }}">Minimum Security Standards</a>?
+            Does this product meet our <a id="mss-link" href="{{ url }}">Minimum Security Standards</a>?
           {% endblocktrans %}
           {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.meets_minimum_security_standards|yes_no  help=product.uses_encryption_helptext         label=minimum_security_standards|safe  no_border=True    ding_control=product.show_ding_for_minimum_security_standards   class="meets-minimum-security-standards" %}
           <input type="checkbox" id="mss-accordion-toggle">
@@ -263,7 +263,7 @@
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
           {% if product.updates|length > 0 or coralTalkServerUrl %}
-          <h3 class="pni-product-smaller-body-bold mb-4 mb-md-5">{% trans "Updates" %}</h3>
+          <h3 class="h2-heading mb-4 mb-md-5">{% trans "Updates" %}</h3>
           {% endif %}
           {% if product.updates|length > 0 %}
           <div class="mb-5">
