@@ -15,8 +15,10 @@ from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
     Product,
+    Update,
     ProductPrivacyPolicyLink,
     GeneralProduct,
+    SoftwareProduct,
     BuyersGuideProductCategory,
     RangeVote,
     BooleanVote,
@@ -51,8 +53,18 @@ class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
     url = Faker('url')
 
 
-class ProductFactory(DjangoModelFactory):
+class ProductUpdateFactory(DjangoModelFactory):
+    class Meta:
+        model = Update
 
+    source = Faker('url')
+    title = Faker('sentence')
+    author = Faker('sentence')
+    featured = Faker('boolean')
+    snippet = Faker('sentence')
+
+
+class ProductFactory(DjangoModelFactory):
     class Meta:
         model = GeneralProduct
         exclude = (
@@ -100,33 +112,14 @@ class ProductFactory(DjangoModelFactory):
 
     worst_case = Faker('sentence')
 
-    camera_app = LazyFunction(get_extended_yes_no_value)
-    camera_device = LazyFunction(get_extended_yes_no_value)
-    microphone_app = LazyFunction(get_extended_yes_no_value)
-    microphone_device = LazyFunction(get_extended_yes_no_value)
-    location_app = LazyFunction(get_extended_yes_no_value)
-    location_device = LazyFunction(get_extended_yes_no_value)
-
     signup_requires_email = LazyFunction(get_extended_yes_no_value)
     signup_requires_phone = LazyFunction(get_extended_yes_no_value)
     signup_requires_third_party_account = LazyFunction(get_extended_yes_no_value)
     signup_requirement_explanation = Faker('sentence')
 
-    personal_data_collected = Faker('sentence')
-    biometric_data_collected = Faker('sentence')
-    social_data_collected = Faker('sentence')
-
     how_does_it_use_data_collected = Faker('sentence')
     data_collection_policy_is_bad = Faker('boolean')
-    how_can_you_control_your_data = Faker('sentence')
-    data_control_policy_is_bad = Faker('boolean')
-
-    company_track_record = get_random_option(['Great', 'Average', 'Needs Improvement', 'Bad'])
-    track_record_is_bad = Faker('boolean')
-    track_record_details = Faker('sentence')
-
-    offline_capable = LazyFunction(get_extended_yes_no_value)
-    offline_use_description = Faker('sentence')
+    user_friendly_privacy_policy = LazyFunction(get_extended_yes_no_value)
 
     meets_minimum_security_standards = Faker('boolean')
     show_ding_for_minimum_security_standards = Faker('boolean')
@@ -145,11 +138,6 @@ class ProductFactory(DjangoModelFactory):
     def set_privacy_policy_link(self, create, extracted, **kwargs):
         ProductPrivacyPolicyLinkFactory.create(product=self)
 
-    uses_ai = LazyFunction(get_extended_yes_no_value)
-    ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
-    ai_is_transparent = LazyFunction(get_extended_yes_no_value)
-    ai_helptext = Faker('sentence')
-
     phone_number = Faker('phone_number')
     live_chat = Faker('url')
     email = Faker('email')
@@ -160,11 +148,60 @@ class ProductFactory(DjangoModelFactory):
     # updates...
 
 
+class GeneralProductFactory(ProductFactory):
+    class Meta:
+        model = GeneralProduct
+
+    camera_app = LazyFunction(get_extended_yes_no_value)
+    camera_device = LazyFunction(get_extended_yes_no_value)
+    microphone_app = LazyFunction(get_extended_yes_no_value)
+    microphone_device = LazyFunction(get_extended_yes_no_value)
+    location_app = LazyFunction(get_extended_yes_no_value)
+    location_device = LazyFunction(get_extended_yes_no_value)
+
+    personal_data_collected = Faker('sentence')
+    biometric_data_collected = Faker('sentence')
+    social_data_collected = Faker('sentence')
+
+    how_can_you_control_your_data = Faker('sentence')
+    data_control_policy_is_bad = Faker('boolean')
+
+    company_track_record = get_random_option(['Great', 'Average', 'Needs Improvement', 'Bad'])
+    track_record_is_bad = Faker('boolean')
+    track_record_details = Faker('sentence')
+
+    offline_capable = LazyFunction(get_extended_yes_no_value)
+    offline_use_description = Faker('sentence')
+
+    @post_generation
+    def set_privacy_policy_link(self, create, extracted, **kwargs):
+        ProductPrivacyPolicyLinkFactory.create(product=self)
+
+    uses_ai = LazyFunction(get_extended_yes_no_value)
+    ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
+    ai_is_transparent = LazyFunction(get_extended_yes_no_value)
+    ai_helptext = Faker('sentence')
+
+
+class SoftwareProductFactory(ProductFactory):
+    class Meta:
+        model = SoftwareProduct
+
+    handles_recordings_how = Faker('sentence')
+    recording_alert = LazyFunction(get_extended_yes_no_value)
+    recording_alert_helptext = Faker('sentence')
+    medical_privacy_compliant = Faker('boolean')
+    medical_privacy_compliant_helptext = Faker('sentence')
+    host_controls = Faker('sentence')
+    easy_to_learn_and_use = Faker('boolean')
+    easy_to_learn_and_use_helptext = Faker('sentence')
+
+
 def generate(seed):
     reseed(seed)
 
-    print('Generating fixed Buyer\'s Guide Product for visual regression testing')
-    ProductFactory.create(
+    print('Generating fixed Buyer\'s Guide GeneralProduct for visual regression testing')
+    GeneralProductFactory.create(
         blurb='Visual Regression Testing',
         company='Percy',
         draft=False,
@@ -179,10 +216,31 @@ def generate(seed):
         worst_case='Duplicate work that burns through screenshots'
     )
 
+    print('Generating fixed Buyer\'s Guide SoftwareProduct for visual regression testing')
+    SoftwareProductFactory.create(
+        blurb='Visual Regression Testing',
+        company='Percy',
+        draft=False,
+        email='percy@example.com',
+        live_chat='https://example.com/percy/chat',
+        name='percy cypress app',
+        phone_number='1-555-555-5555',
+        price='| Free',
+        product_words=['Percy', 'Cypress'],
+        url='https://example.com/percy',
+        twitter='@TwitterHandle',
+        worst_case='Duplicate work that burns through screenshots'
+    )
+
+    reseed(seed)
+
+    print('Generating Buyer\'s Guide product updates')
+    generate_fake_data(ProductUpdateFactory, 15)
+
     reseed(seed)
 
     print('Generating Buyer\'s Guide Products')
-    generate_fake_data(ProductFactory, 70)
+    generate_fake_data(GeneralProductFactory, 70)
 
     reseed(seed)
 
