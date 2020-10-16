@@ -3,6 +3,7 @@
 {% load env cloudinary i18n static %}
 
 {% block body_id %}home{% endblock %}
+{% block bodyclass %}pni catalog{% endblock %}
 
 {% block main_content_class %}{% endblock %}
 
@@ -22,7 +23,6 @@
     <div class="row mx-xl-0">
       <div class="product-listing bg-white col-12 col-md-10 offset-md-1 col-xl-12 offset-xl-0">
         <h1 class="h1-heading text-center mt-4">{% trans "Be Smart. Shop Safe." %}</h1>
-
         <div class="row justify-content-center">
           <p class="col col-lg-9 col-xl-10 body-large text-center">
             {% static '_images/buyers-guide/badge-star-mini.svg' as image_src %}
