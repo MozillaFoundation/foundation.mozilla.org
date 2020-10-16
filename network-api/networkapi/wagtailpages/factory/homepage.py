@@ -93,13 +93,30 @@ def generate(seed):
     reseed(seed)
 
     try:
-        about_page = WagtailPage.objects.get(title='Who we are')
-        print('about page exists')
+        wwa_page = WagtailPage.objects.get(title='Who we are')
+        print('"who we are" page exists')
     except WagtailPage.DoesNotExist:
-        print('Generating an about Page (PrimaryPage)')
-        about_page = PrimaryPageFactory.create(parent=home_page, title='Who we are')
+        print('Generating "who we are" Page (PrimaryPage)')
+        wwa_page = PrimaryPageFactory.create(
+            parent=home_page,
+            title='Who we are',
+            show_in_menus=True
+        )
 
     reseed(seed)
 
-    print('Generating child pages for about page')
-    [PrimaryPageFactory.create(parent=about_page) for i in range(5)]
+    print('Generating child pages for "who we are" page')
+    [PrimaryPageFactory.create(parent=wwa_page) for i in range(5)]
+
+    reseed(seed)
+
+    try:
+        wwd_page = WagtailPage.objects.get(title='What we do')
+        print('"what we do" page exists')
+    except WagtailPage.DoesNotExist:
+        print('Generating "what we do" Page (PrimaryPage)')
+        wwd_page = PrimaryPageFactory.create(
+            parent=home_page,
+            title='What we do',
+            show_in_menus=True
+        )
