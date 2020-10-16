@@ -32,8 +32,6 @@
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "optimize": "run-p optimize:**",
     "percy": "percy exec -t 800 -- npm run cypress:ci",
-    "precommit": "prettier  \"source/js/**/*.js\" \"source/js/**/*.jsx\" webpack.config.js --write",
-    "prestatus": "echo test",
     "server": "python network-api/manage.py runserver",
     "start": "docker-compose up",
     "test:procfile": "node test/test-procfile.js",
