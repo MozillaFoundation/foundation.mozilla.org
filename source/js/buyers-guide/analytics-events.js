@@ -32,6 +32,24 @@ function getQuerySelectorEvents(pageTitle, productName) {
       // Not all products have live-chat
       optional_element: true,
     },
+    "#product-email": {
+      category: `product`,
+      action: `email link tap`,
+      label: `email link for ${productName}`,
+      // Custom properties (not sent to GA)
+      conditionalQuery: `#view-product-page`,
+      // Not all products have email
+      optional_element: true,
+    },
+    "#product-twitter": {
+      category: `product`,
+      action: `twitter link tap`,
+      label: `twitter link for ${productName}`,
+      // Custom properties (not sent to GA)
+      conditionalQuery: `#view-product-page`,
+      // Not all products have Twitter
+      optional_element: true,
+    },
     "#creep-vote-btn": {
       category: `product`,
       action: `opinion submitted`,
@@ -57,11 +75,41 @@ function getQuerySelectorEvents(pageTitle, productName) {
       // Note all products have updates
       optional_element: true,
     },
+    "#mss-link": {
+      category: `product`,
+      action: `minimum security standards link tap`,
+      label: `mss link for ${productName}`,
+      // Custom properties (not sent to GA)
+      conditionalQuery: `#view-product-page`,
+    },
   };
 }
 
 function setupElementGA(element, eventData) {
   element.addEventListener("click", () => ReactGA.event(eventData), true);
+}
+
+function bindAccordionExpandGA(productName) {
+  const checkbox = document.querySelector(
+    "#view-product-page #mss-accordion-toggle"
+  );
+
+  if (!checkbox) return;
+
+  checkbox.addEventListener(
+    "change",
+    () => {
+      if (checkbox.checked) {
+        // we only care about if users are interested in learning more about content in the accordion
+        ReactGA.event({
+          category: `product`,
+          action: `security expand accordion tap`,
+          label: `detail view for MSS on for ${productName}`,
+        });
+      }
+    },
+    true
+  );
 }
 
 const ProductGA = {
@@ -115,6 +163,10 @@ const ProductGA = {
         console.error(`cannot find ${querySelector}`);
       }
     });
+
+    // bind GA events that have special conditions
+
+    bindAccordionExpandGA(productName);
   },
 };
 
