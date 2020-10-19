@@ -11,7 +11,7 @@ class StyleguideFactory(PageFactory):
     class Meta:
         model = Styleguide
 
-    title = 'style-guide'
+    title = 'Style-guide'
 
 
 def generate(seed):
@@ -19,8 +19,11 @@ def generate(seed):
     reseed(seed)
 
     try:
-        WagtailPage.objects.get(title='style-guide')
+        WagtailPage.objects.get(title='Style-guide')
         print('styleguide page exists')
     except WagtailPage.DoesNotExist:
         print('Generating a Styleguide Page')
-        StyleguideFactory.create(parent=home_page)
+        StyleguideFactory.create(
+            parent=home_page,
+            show_in_menus=True
+        )
