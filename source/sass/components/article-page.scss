@@ -20,7 +20,6 @@
 .article-summary,
 .article-summary-link {
   color: $gray-60;
-  @include set-text-size(16px, 24px);
   font-family: $font-family-sans-serif;
 }
 
