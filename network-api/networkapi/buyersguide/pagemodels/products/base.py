@@ -46,14 +46,16 @@ product_panels = [
         [
             FieldPanel('draft'),
         ],
-        heading="Publication status",
-        classname="collapsible"
+        heading='Publication status',
+        classname='collapsible'
     ),
-
     # core information
     MultiFieldPanel(
         [
+            FieldPanel('privacy_ding'),
             FieldPanel('adult_content'),
+            FieldPanel('uses_wifi'),
+            FieldPanel('uses_bluetooth'),
             FieldPanel('review_date'),
             FieldPanel('name'),
             FieldPanel('company'),
@@ -62,38 +64,63 @@ product_panels = [
             FieldPanel('url'),
             FieldPanel('price'),
             image_field,
-            FieldPanel('meets_minimum_security_standards')
         ],
-        heading="General Product Details",
-        classname="collapsible"
+        heading='General Product Details',
+        classname='collapsible'
     ),
-
-    # minimum security standard
     MultiFieldPanel(
         [
-            FieldPanel('uses_encryption'),
-            FieldPanel('uses_encryption_helptext'),
-            FieldPanel('security_updates'),
-            FieldPanel('security_updates_helptext'),
-            FieldPanel('strong_password'),
-            FieldPanel('strong_password_helptext'),
-            FieldPanel('manage_vulnerabilities'),
-            FieldPanel('manage_vulnerabilities_helptext'),
-            FieldPanel('privacy_policy'),
-            FieldPanel('privacy_policy_helptext'),  # NEED A "clear" MIGRATION
+            FieldPanel('worst_case'),
         ],
-        heading="Minimum Security Standards for general products",
-        classname="collapsible"
+        heading='What is the worst that could happen',
+        classname='collapsible'
     ),
-    # Data sharing
     MultiFieldPanel(
         [
-            FieldPanel('share_data'),
-            FieldPanel('share_data_helptext'),
-            FieldPanel('how_does_it_share'),
+            FieldPanel('signup_requires_email'),
+            FieldPanel('signup_requires_phone'),
+            FieldPanel('signup_requires_third_party_account'),
+            FieldPanel('signup_requirement_explanation'),
         ],
-        heading="How does it handle data sharing",
-        classname="collapsible"
+        heading='What is required to sign up',
+        classname='collapsible'
+    ),
+    MultiFieldPanel(
+        [
+            FieldPanel('personal_data_collected'),
+            FieldPanel('biometric_data_collected'),
+            FieldPanel('social_data_collected'),
+            FieldPanel('how_does_it_use_data_collected'),
+            FieldPanel('data_collection_policy_is_bad'),
+            FieldPanel('how_can_you_control_your_data'),
+            FieldPanel('data_control_policy_is_bad'),
+        ],
+        heading='Data collection and control',
+        classname='collapsible',
+    ),
+    MultiFieldPanel(
+        [
+            FieldPanel('company_track_record'),
+            FieldPanel('track_record_is_bad'),
+            FieldPanel('track_record_details'),
+        ],
+        heading='Company track record',
+        classname='collapsible'
+    ),
+    MultiFieldPanel(
+        [
+            FieldPanel('offline_capable'),
+            FieldPanel('offline_use_description'),
+        ],
+        heading='Offline use',
+        classname='collapsible'
+    ),
+    MultiFieldPanel(
+        [
+            FieldPanel('user_friendly_privacy_policy'),
+        ],
+        heading='Privacy policy',
+        classname='collapsible'
     ),
     MultiFieldPanel(
         [
@@ -104,15 +131,36 @@ product_panels = [
                 max_num=3,
             ),
         ],
-        heading="Privacy policy links",
-        classname="collapsible"
+        heading='Privacy policy links',
+        classname='collapsible'
     ),
     MultiFieldPanel(
         [
-            FieldPanel('worst_case'),
+            FieldPanel('meets_minimum_security_standards'),
+            FieldPanel('show_ding_for_minimum_security_standards'),
+            FieldPanel('uses_encryption'),
+            FieldPanel('uses_encryption_helptext'),
+            FieldPanel('security_updates'),
+            FieldPanel('security_updates_helptext'),
+            FieldPanel('strong_password'),
+            FieldPanel('strong_password_helptext'),
+            FieldPanel('manage_vulnerabilities'),
+            FieldPanel('manage_vulnerabilities_helptext'),
+            FieldPanel('privacy_policy'),
+            FieldPanel('privacy_policy_helptext'),
         ],
-        heading="What's the worst that could happen",
-        classname="collapsible"
+        heading='Security',
+        classname='collapsible'
+    ),
+    MultiFieldPanel(
+        [
+            FieldPanel('uses_ai'),
+            FieldPanel('ai_uses_personal_data'),
+            FieldPanel('ai_is_transparent'),
+            FieldPanel('ai_helptext'),
+        ],
+        heading='Artificial Intelligence',
+        classname='collapsible'
     ),
     MultiFieldPanel(
         [
@@ -121,8 +169,8 @@ product_panels = [
             FieldPanel('email'),
             FieldPanel('twitter'),
         ],
-        heading="Ways to contact the company",
-        classname="collapsible"
+        heading='Ways to contact the company',
+        classname='collapsible'
     ),
     FieldPanel('updates'),
     RelatedProductFieldPanel('related_products'),
@@ -153,8 +201,23 @@ class Product(ClusterableModel):
         default=True,
     )
 
+    privacy_ding = models.BooleanField(
+        help_text='Tick this box if privacy is not included for this product',
+        default=False,
+    )
+
     adult_content = models.BooleanField(
         help_text='When checked, product thumbnail will appear blurred as well as have an 18+ badge on it',
+        default=False,
+    )
+
+    uses_wifi = models.BooleanField(
+        help_text='Does this product rely on WiFi connectivity?',
+        default=False,
+    )
+
+    uses_bluetooth = models.BooleanField(
+        help_text='Does this product rely on Bluetooth connectivity?',
         default=False,
     )
 
@@ -221,12 +284,128 @@ class Product(ClusterableModel):
         use_filename=True
     )
 
-    meets_minimum_security_standards = models.BooleanField(
-        null=True,
-        help_text='Does this product meet minimum security standards?',
+    worst_case = models.CharField(
+        max_length=5000,
+        help_text="What's the worst thing that could happen by using this product?",
+        blank=True,
     )
 
-    # Minimum security standards (stars)
+    # What is required to sign up?
+
+    signup_requires_email = ExtendedYesNoField(
+        help_text='Does this product requires providing an email address in order to sign up?'
+    )
+
+    signup_requires_phone = ExtendedYesNoField(
+        help_text='Does this product requires providing a phone number in order to sign up?'
+    )
+
+    signup_requires_third_party_account = ExtendedYesNoField(
+        help_text='Does this product require a third party account in order to sign up?'
+    )
+
+    signup_requirement_explanation = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Describe the particulars around sign-up requirements here.'
+    )
+
+    # What data does it collect?
+
+    personal_data_collected = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='What kind of personal data does this product collect?'
+    )
+
+    biometric_data_collected = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='What kind of biometric data does this product collect?'
+    )
+
+    social_data_collected = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='What kind of social data does this product collect?'
+    )
+
+    # How does it use this data?
+
+    how_does_it_use_data_collected = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='How does this product use the data collected?'
+    )
+
+    data_collection_policy_is_bad = models.BooleanField(
+        default=False,
+    )
+
+    how_can_you_control_your_data = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='How does this product let you control your data?'
+    )
+
+    data_control_policy_is_bad = models.BooleanField(
+        default=False,
+    )
+
+    # Company track record
+
+    track_record_choices = [
+        ('Great', 'Great'),
+        ('Average', 'Average'),
+        ('Needs Improvement', 'Needs Improvement'),
+        ('Bad', 'Bad')
+    ]
+
+    company_track_record = models.CharField(
+        choices=track_record_choices,
+        default='Average',
+        help_text='This company has a ... track record',
+        max_length=20
+    )
+
+    track_record_is_bad = models.BooleanField(
+        default=False,
+    )
+
+    track_record_details = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Describe the track record of this company here.'
+    )
+
+    # Offline use
+
+    offline_capable = ExtendedYesNoField(
+        help_text='Can this product be used offline?',
+    )
+
+    offline_use_description = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Describe how this product can be used offline.'
+    )
+
+    # Privacy policy
+
+    user_friendly_privacy_policy = ExtendedYesNoField(
+        help_text='Does this product have a user-friendly privacy policy?'
+    )
+
+    # Minimum security standards
+
+    meets_minimum_security_standards = models.BooleanField(
+        null=True,
+        help_text='Does this product meet our minimum security standards?',
+    )
+
+    show_ding_for_minimum_security_standards = models.BooleanField(
+        default=False,
+    )
 
     uses_encryption = ExtendedYesNoField(
         help_text='Does the product use encryption?',
@@ -271,41 +450,28 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    # How it handles privacy
-
-    share_data = models.BooleanField(  # TO BE REMOVED?
-        null=True,
-        help_text='Does the maker share data with other companies?',
-    )
-
-    share_data_helptext = models.TextField(  # TO BE REMOVED?
-        max_length=5000,
-        blank=True
-    )
-
-    how_does_it_share = models.CharField(
-        max_length=5000,
-        help_text='How does this product handle data?',
-        blank=True
-    )
-
-    user_friendly_privacy_policy = ExtendedYesNoField(
-        help_text='Does this product have a user-friendly privacy policy?'
-    )
-
-    user_friendly_privacy_policy_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
     """
-    privacy_policy_links =  one to many, defined in PrivacyPolicyLink
+    privacy_policy_links = one to many, defined in PrivacyPolicyLink
     """
 
-    worst_case = models.CharField(
+    # Artificial Intelligence
+
+    uses_ai = ExtendedYesNoField(
+        help_text='Does the product use AI?',
+    )
+
+    ai_uses_personal_data = ExtendedYesNoField(
+        help_text='Does the AI use your personal data to make decisions about you?',
+    )
+
+    ai_is_transparent = ExtendedYesNoField(
+        help_text='Does the company allow users to see how the AI works?',
+    )
+
+    ai_helptext = models.TextField(
         max_length=5000,
-        help_text="What's the worst thing that could happen by using this product?",
         blank=True,
+        help_text='Helpful text around AI to show on the product page',
     )
 
     # How to contact the company
