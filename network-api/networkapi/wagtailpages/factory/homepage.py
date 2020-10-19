@@ -111,11 +111,11 @@ def generate(seed):
     reseed(seed)
 
     try:
-        wwd_page = WagtailPage.objects.get(title='What we do')
+        WagtailPage.objects.get(title='What we do')
         print('"what we do" page exists')
     except WagtailPage.DoesNotExist:
         print('Generating "what we do" Page (PrimaryPage)')
-        wwd_page = PrimaryPageFactory.create(
+        PrimaryPageFactory.create(
             parent=home_page,
             title='What we do',
             show_in_menus=True
