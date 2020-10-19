@@ -24,4 +24,7 @@ def generate(seed):
         print('news page exists')
     except WagtailPage.DoesNotExist:
         print('Generating an empty News Page')
-        NewsPageFactory.create(parent=home_page)
+        NewsPageFactory.create(
+            parent=home_page,
+            show_in_menus=False
+        )

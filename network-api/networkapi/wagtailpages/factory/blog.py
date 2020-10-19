@@ -111,6 +111,7 @@ def generate(seed):
             parent=home_page,
             title='Blog',
             header='Blog',
+            show_in_menus=True,
             live=True
         )
 

@@ -24,4 +24,7 @@ def generate(seed):
         print('initiatives page exists')
     except WagtailPage.DoesNotExist:
         print('Generating an empty Initiatives Page')
-        InitiativesPageFactory.create(parent=home_page)
+        InitiativesPageFactory.create(
+            parent=home_page,
+            show_in_menus=False
+        )
