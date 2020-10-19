@@ -253,6 +253,7 @@ $pni-product-breakpoint-larger: $bp-md;
     right: 0;
     width: $icon-size;
     height: $icon-size;
+    cursor: pointer;
 
     &:after {
       content: "";
