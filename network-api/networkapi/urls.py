@@ -4,6 +4,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
+from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from django.urls import path
 
@@ -88,6 +89,11 @@ if settings.USE_S3 is not True:
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
+    )
+
+if settings.DEBUG:
+    urlpatterns += (
+        path('maintenance/', TemplateView.as_view(template_name="maintenance/maintenance.html")),
     )
 
 # Use a custom 404 handler so that we can serve distinct 404
