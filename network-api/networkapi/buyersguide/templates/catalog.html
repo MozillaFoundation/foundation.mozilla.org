@@ -1,0 +1,110 @@
+{% extends "./bg_base.html" %}
+
+{% load env cloudinary i18n static %}
+
+{% block bodyclass %}pni catalog{% endblock %}
+
+{% block main_content_class %}{% endblock %}
+
+{% block guts %}
+<div class="container-fluid text-center page-header bg-gray">
+  <!-- home banner as css background -->
+  <div class="container badge-container">
+    <div class="row h-100">
+      <div class="col-12 col-md-10 offset-md-1 col-xl-12 offset-xl-0 d-flex justify-content-end">
+        <img class="webby-award-badge" src="{% static '_images/buyers-guide/webby-award-badge.svg' %}" alt="{% trans "2020 Webby Award Winner Badge" %}">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="row mx-xl-0">
+      <div class="product-listing bg-white col-12 col-md-10 offset-md-1 col-xl-12 offset-xl-0">
+        <h1 class="h1-heading text-center mt-4">{% trans "Be Smart. Shop Safe." %}</h1>
+        <div class="row justify-content-center">
+          <p class="col col-lg-9 col-xl-10 body-large text-center">
+            {% static '_images/buyers-guide/badge-star-mini.svg' as image_src %}
+            {% trans "minimum security standards badge" as badge_alt %}
+            {% url 'min-security-view' as min_sec_url %}
+            {% blocktrans trimmed with url=min_sec_url image='<img src="'|add:image_src|add:'" width="24" height="20" alt="'|add:badge_alt|add:'">' %}
+            How creepy is that smart speaker, that fitness tracker, those wireless headphones?
+            We created this guide to help you shop for safe, secure connected products.
+            Look for this symbol {{image}} for products that meet our <a href="{{url}}">Minimum Security Standards</a>.
+            {% endblocktrans %}
+          </p>
+        </div>
+
+        <div class="row justify-content-center">
+          <p class="col col-lg-9 col-xl-10 text-center user-rated">
+            {% blocktrans with emoji='<span class="creep-face-emoji">😮</span>' trimmed %}
+              The {{emoji}} below shows how creepy users find these products.
+            {% endblocktrans %}
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="project-list-section">
+  <div class="creepiness-slider bg-white text-center">
+    <span class="current-creepiness">
+      <span class="speech-bubble d-none">
+        <span class="text"></span>
+        <span class="hook"></span>
+      </span>
+    </span>
+  </div>
+
+  <div class="product-box-list-wrapper">
+    <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
+
+      {% for product in products %}
+        {% if product.is_current %}
+
+        <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
+          <div class="top-left-badge-container">
+              {% include "fragments/seal_of_approval.html" with product=product %}
+              {% if product.votes.confidence %}
+                  {% if product.votes.confidence.1 > product.votes.confidence.0 %}
+                      <div class="d-none recommendation positive"></div>
+                  {% else %}
+                      <div class="d-none recommendation negative"></div>
+                  {% endif %}
+              {% endif %}
+          </div>
+
+          {% include "fragments/adult_content_badge.html" with product=product %}
+
+          <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% url 'product-view' product.slug %}">
+              <img
+                class="product-thumbnail"
+                {% if USE_CLOUDINARY %}
+                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+                {% else %}
+                  src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+                {% endif %}
+                alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
+              >
+          </a>
+
+          <figcaption class="d-block mt-md-2 text-left">
+            <a class="product-links" href="{% url 'product-view' product.slug %}">
+              <div class="product-company body-small">{{product.company}}</div>
+              <div class="product-name body">{{product.name}}</div>
+            </a>
+          </figcaption>
+        </figure>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="recommend-product">
+ <div class="container text-center my-5">
+  <h2 class="h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h2>
+  <p class="body">{% trans "Let us know what product you would like reviewed in the guide." %}</p>
+  <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">{% trans "Submit a product" %}</a>
+ </div>
+</div>
+{% endblock %}
