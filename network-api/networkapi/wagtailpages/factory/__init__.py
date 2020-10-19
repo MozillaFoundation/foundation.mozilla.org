@@ -19,7 +19,9 @@ from . import (
 
 
 def generate(seed):
+    # the first three entries are ordered the way they are to ensure correct nav ordering
     homepage.generate(seed)
+    participate_page.generate(seed)
     blog.generate(seed)
     bannered_campaign_page.generate(seed)
     campaign_page.generate(seed)
@@ -30,7 +32,6 @@ def generate(seed):
     initiatives_page.generate(seed)
     news_page.generate(seed)
     opportunity.generate(seed)
-    participate_page.generate(seed)
     participate_page_featured_highlights.generate(seed)
     publication.generate(seed)
     styleguide.generate(seed)
