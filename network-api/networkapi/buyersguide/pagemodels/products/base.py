@@ -68,7 +68,6 @@ product_panels = [
     MultiFieldPanel(
         [
             FieldPanel('review_date'),
-            FieldPanel('created_date'),
             FieldPanel('privacy_ding'),
             FieldPanel('adult_content'),
             FieldPanel('name'),
@@ -397,12 +396,6 @@ class Product(ClusterableModel):
         'buyersguide.Update',
         related_name='pniproduct',
         blank=True
-    )
-
-    created_date = models.DateField(
-        blank=True,
-        null=True,
-        help_text='The date this product was created',
     )
 
     def get_product_updates(self):
