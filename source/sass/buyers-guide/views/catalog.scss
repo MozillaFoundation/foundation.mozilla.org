@@ -1,48 +1,35 @@
 body.catalog {
+  $hero-breakpoint: $bp-lg;
   $breakpoint: $bp-md;
-  // cutoff value is set to 88px in Sketch file
-  $cutoff-offset: 88px;
 
   .page-header {
-    background: url(../_images/buyers-guide/evergreen-header.jpg) center center /
-      cover no-repeat;
-    height: 200px;
+    background: url(../_images/buyers-guide/evergreen-header-light.jpg) center
+      center / cover no-repeat;
 
-    @media (min-width: $breakpoint) {
-      height: 304px;
+    .intro-text {
+      padding-top: 12px;
+      padding-bottom: 28px;
+
+      @media (min-width: $hero-breakpoint) {
+        padding-top: 90px;
+        padding-bottom: 90px;
+      }
     }
 
-    .container.badge-container {
-      height: calc(100% - #{$cutoff-offset});
+    .badge-container {
+      margin-top: 12px;
+
+      @media (min-width: $hero-breakpoint) {
+        margin-top: 32px;
+      }
     }
 
     .webby-award-badge {
-      position: relative;
-      right: -$grid-gutter-width/2;
-      width: 100px;
+      width: 76px;
       height: auto;
 
-      @media (min-width: $breakpoint) {
-        width: 148px;
-      }
-
-      @media (min-width: $bp-xl) {
-        right: 0;
-      }
-    }
-  }
-
-  .product-listing {
-    margin-top: -$cutoff-offset;
-
-    .user-rated {
-      font-family: "Zilla Slab";
-      font-size: 18px;
-      color: $gray-60;
-      font-style: italic;
-
-      @media screen and (min-width: $breakpoint) {
-        font-size: 20px;
+      @media (min-width: $hero-breakpoint) {
+        width: 125px;
       }
     }
   }
