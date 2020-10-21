@@ -31,7 +31,8 @@ class Update(models.Model):
     )
 
     created_date = models.DateField(
-        default=datetime.strptime('2020-01-01', '%Y-%m-%d'),
+        auto_now=True,
+        null=True,
         help_text='The date this product was created',
     )
 
@@ -41,7 +42,6 @@ class Update(models.Model):
         FieldPanel('author'),
         FieldPanel('featured'),
         FieldPanel('snippet'),
-        FieldPanel('created_date'),
     ]
 
     def __str__(self):
