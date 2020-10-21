@@ -1,7 +1,7 @@
 {% load primary_active_nav i18n %}
 
-{% if page.zen_nav == True %}<div id="primary-nav-container" data-nav-mode="zen" class="zen-mode">
-{% else %}<div id="primary-nav-container">
+{% if page.zen_nav == True %}<div data-nav-mode="zen" class="zen-mode primary-nav-container">
+{% else %}<div class="primary-nav-container">
 {% endif %}
   <div class="wrapper-burger">
     <div class="menu-container">
@@ -10,7 +10,7 @@
         {% block narrow_screen_menu %}
         <div class="narrow-screen-menu-background dark-theme">
           <div class="narrow-screen-menu-container">
-            <nav class="container">
+            <div class="container" role="navigation">
               <div class="row">
                 <div class="col">
                   <div class="nav-links pt-3">
@@ -20,7 +20,7 @@
                   </div>
                 </div>
               </div>
-            </nav>
+            </div>
           </div>
         </div>
         {% endblock %}
@@ -39,7 +39,7 @@
                       <div class="burger-bar burger-bar-middle"></div>
                       <div class="burger-bar burger-bar-bottom"></div>
                     </button>
-                    <a class="logo text-hide" href="/">{% trans "Mozilla Foundation" %}</a>
+                    <a class="logo text-hide" href="/" aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
                   {% endblock %}
 
                   {% if page.zen_nav == True %}
@@ -60,7 +60,7 @@
 
               {% block donate_and_newsletter %}
               <div class="d-flex align-items-center">
-                <a id="donate-header-btn" class="heart-glyph" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
+                <a id="donate-header-btn" class="heart-glyph" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer" aria-label="{% trans "Donate" %}">{% trans "Donate" %}</a>
                 {% if page.signup == None %}<button class="btn btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
               </div>
               {% endblock %}

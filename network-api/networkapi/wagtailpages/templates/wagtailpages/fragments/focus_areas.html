@@ -2,7 +2,7 @@
 
 <div class="row areas-of-focus">
   <div class="col my-3 my-sm-5">
-    <h2 class="focus-heading text-center mb-4">{% trans "Our areas of focus" %}</h4>
+    <h2 class="focus-heading text-center mb-4">{% trans "Our areas of focus" %}</h2>
     <div class="row">
       {% for focus in page.focus_areas.all %}
         {% include "./focus_area.html" with area=focus.area %}
