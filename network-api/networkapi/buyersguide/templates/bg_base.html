@@ -74,11 +74,9 @@
 {% block body_wrapped %}
 
   <header>
-  {% include "./primary_nav.html" %}
-  </header>
-
-  <div class="underneath-screen-overlay">
-    <nav class="category-nav" title="{% trans "site navigation" context "Tooltip on menu items" %}">
+    {% include "./primary_nav.html" %}
+    {% block hero %}{% endblock %}
+    <nav class="category-nav text-center" title="{% trans "site navigation" context "Tooltip on menu items" %}">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -89,7 +87,9 @@
         </div>
       </div>
     </nav>
+  </header>
 
+  <div class="underneath-screen-overlay">
     <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
       {% block guts %}{% endblock %}
     </main>
