@@ -4,7 +4,7 @@
 <div class="section-take-action section-padding">
     <div class="row">
       <div class="col-12">
-        <h4 class="take-action-title mb-4">{{ page.take_action_title }}</h4>
+        <h2 class="take-action-title mb-4">{{ page.take_action_title }}</h2>
       </div>
       <div class="col-lg-8 col-md-12">
         <div class="row">
@@ -13,7 +13,7 @@
               <div class="card flex-grow-1 mb-4">
                 {% image item.image fill-350x130 as img %}
                   <a href="{{ item.internal_link.url }}">
-                    <img src="{{ img.url }}" class="card-img-top" alt="{{ img.alt }}">
+                    <img src="{{ img.url }}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ item.text }}">
                   </a>
                   <div class="card-body">
                     <a href="{{ item.internal_link.url }}" class="h5-heading d-inline-block my-2">

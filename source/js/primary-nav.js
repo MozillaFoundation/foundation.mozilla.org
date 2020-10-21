@@ -6,7 +6,7 @@ let primaryNav = {
     let elBurger = document.querySelector(`.burger`);
     let elWideMenu = document.querySelector(`.wide-screen-menu`);
     let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
-    let primaryNavContainer = document.getElementById(`primary-nav-container`);
+    let primaryNavContainer = document.querySelector(`.primary-nav-container`);
     let navMode = primaryNavContainer.dataset.navMode;
     let menuOpen = false;
 
