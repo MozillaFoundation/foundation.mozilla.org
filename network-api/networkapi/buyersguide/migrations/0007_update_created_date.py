@@ -26,4 +26,9 @@ class Migration(migrations.Migration):
             field=models.DateField(auto_now=True, null=True, help_text='The date this product was created'),
         ),
         migrations.RunPython(set_default_created_date),
+        migrations.AlterField(
+            model_name='update',
+            name='created_date',
+            field=models.DateField(auto_now=True, help_text='The date this product was created'),
+        ),
     ]
