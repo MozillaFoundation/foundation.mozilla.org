@@ -9,41 +9,22 @@
 {% block guts %}
 <div class="container-fluid text-center page-header bg-gray">
   <!-- home banner as css background -->
-  <div class="container badge-container">
-    <div class="row h-100">
-      <div class="col-12 col-md-10 offset-md-1 col-xl-12 offset-xl-0 d-flex justify-content-end">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1">
+        <h1 class="h1-heading text-center mt-0">{% trans "Be Smart. Shop Safe." %}</h1>
+        <p class="body-large mb-0">
+          {% blocktrans trimmed %}
+          How creepy is that smart speaker, that fitness tracker, those wireless headphones?
+          We created this guide to help you shop for safe, secure connected products.
+          {% endblocktrans %}
+        </p>
+      </div>
+      <div class="col-12 col-lg-2 badge-container text-right order-1 order-lg-2">
         <img class="webby-award-badge" src="{% static '_images/buyers-guide/webby-award-badge.svg' %}" alt="{% trans "2020 Webby Award Winner Badge" %}">
       </div>
     </div>
   </div>
-</div>
-
-<div class="container">
-    <div class="row mx-xl-0">
-      <div class="product-listing bg-white col-12 col-md-10 offset-md-1 col-xl-12 offset-xl-0">
-        <h1 class="h1-heading text-center mt-4">{% trans "Be Smart. Shop Safe." %}</h1>
-        <div class="row justify-content-center">
-          <p class="col col-lg-9 col-xl-10 body-large text-center">
-            {% static '_images/buyers-guide/badge-star-mini.svg' as image_src %}
-            {% trans "minimum security standards badge" as badge_alt %}
-            {% url 'min-security-view' as min_sec_url %}
-            {% blocktrans trimmed with url=min_sec_url image='<img src="'|add:image_src|add:'" width="24" height="20" alt="'|add:badge_alt|add:'">' %}
-            How creepy is that smart speaker, that fitness tracker, those wireless headphones?
-            We created this guide to help you shop for safe, secure connected products.
-            Look for this symbol {{image}} for products that meet our <a href="{{url}}">Minimum Security Standards</a>.
-            {% endblocktrans %}
-          </p>
-        </div>
-
-        <div class="row justify-content-center">
-          <p class="col col-lg-9 col-xl-10 text-center user-rated">
-            {% blocktrans with emoji='<span class="creep-face-emoji">😮</span>' trimmed %}
-              The {{emoji}} below shows how creepy users find these products.
-            {% endblocktrans %}
-          </p>
-        </div>
-      </div>
-    </div>
 </div>
 
 <div class="project-list-section">
