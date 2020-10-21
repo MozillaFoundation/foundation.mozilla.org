@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
 
 const elements = {
-  primaryNav: `#primary-nav-container`,
-  narrowMenuContainer: `#primary-nav-container .narrow-screen-menu-container`,
-  wideMenuContainer: `#primary-nav-container .wide-screen-menu-container`,
-  buttonMobile: `#primary-nav-container .narrow-screen-menu-container .btn-newsletter`,
-  buttonDesktop: `#primary-nav-container .wide-screen-menu-container .btn-newsletter`,
+  primaryNav: `.primary-nav-container`,
+  narrowMenuContainer: `.primary-nav-container .narrow-screen-menu-container`,
+  wideMenuContainer: `.primary-nav-container .wide-screen-menu-container`,
+  buttonMobile: `.primary-nav-container .narrow-screen-menu-container .btn-newsletter`,
+  buttonDesktop: `.primary-nav-container .wide-screen-menu-container .btn-newsletter`,
   container: `#nav-newsletter-form-wrapper`,
   joinUs: `#nav-newsletter-form-wrapper .join-us.on-nav`,
   buttonDismiss: `#nav-newsletter-form-wrapper .form-dismiss`,

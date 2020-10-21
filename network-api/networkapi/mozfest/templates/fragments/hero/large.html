@@ -33,10 +33,10 @@
         {% image banner fill-2480x1500 as image_lg %}
         {% image banner fill-1984x1200 as image_md %}
         {% image banner fill-1536x929 as image_sm %}
-        <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}" alt="">
-        <source media="(min-width: 992px)" srcset="{{ image_lg.url }}" alt="">
-        <source media="(min-width: 768px)" srcset="{{ image_md.url }}" alt="">
-        <source media="(min-width: 576px)" srcset="{{ image_sm.url }}" alt="">
+        <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}">
+        <source media="(min-width: 992px)" srcset="{{ image_lg.url }}">
+        <source media="(min-width: 768px)" srcset="{{ image_md.url }}">
+        <source media="(min-width: 576px)" srcset="{{ image_sm.url }}">
         {# Fallback Image #}
         {% image banner fill-1536x929 alt="" %}
       </picture>
