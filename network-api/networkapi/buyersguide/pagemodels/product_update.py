@@ -32,7 +32,6 @@ class Update(models.Model):
 
     created_date = models.DateField(
         auto_now=True,
-        null=True,
         help_text='The date this product was created',
     )
 
