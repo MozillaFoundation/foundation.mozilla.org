@@ -283,6 +283,7 @@
   &.expanded {
     opacity: 1;
     height: 300px;
+    z-index: 100;
   }
 
   &.faded-in {

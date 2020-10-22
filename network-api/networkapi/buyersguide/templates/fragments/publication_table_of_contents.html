@@ -29,11 +29,11 @@
                 </h3>
                 {% for grandchild in child.get_children.live %}
                   <div class="row d-sm-flex d-none">
-                    <div class="col-auto h6-heading">
+                    <div class="col-auto h6-heading pt-1">
                       {{ forloop.parentloop.counter }}.{{ forloop.counter}}
                     </div>
                     <div class="col">
-                      <h4 class="col-12 child-pages-children-title">
+                      <h4 class="col-12 child-pages-children-title body">
                         <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
                           {{ grandchild.title }}
                         </a>
@@ -52,7 +52,7 @@
                       {{ forloop.parentloop.counter }}.{{ forloop.counter}}
                     </div>
                     <div class="col">
-                      <h4 class="col-12 child-pages-children-title">
+                      <h4 class="col-12 child-pages-children-title body">
                         <a href="{{ grandchild.url }}" class="d-block chapter-article-link">
                           {{ grandchild.title }}
                         </a>
