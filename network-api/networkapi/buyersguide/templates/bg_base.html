@@ -92,9 +92,11 @@
       </div>
     </nav>
 
-    <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
-      {% block guts %}{% endblock %}
-    </main>
+    {% block content_wrapped %}
+      <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
+        {% block guts %}{% endblock %}
+      </main>
+    {% endblock content_wrapped %}
 
     {% include "partials/footer.html" %}
   </div>

@@ -1,14 +1,14 @@
 {% load wagtailimages_tags i18n %}
 
 <div class="col-12 col-lg-4 mb-3 mb-lg-0 d-block d-sm-flex flex-sm-row flex-lg-column">
-    {% image area.interest_icon width-100 class="icon flex-shrink-0 mb-3 mb-sm-0 mb-lg-3 mr-sm-5 align-self-start" %}
+    {% image area.interest_icon width-100 class="icon flex-shrink-0 mb-3 mb-sm-0 mb-lg-3 mr-sm-5 align-self-start" alt=area.interest_icon.title %}
 
     <div class="focus-content">
         <h2 class="h4-heading">{{ area.name }}</h2>
         <p>{{ area.description }}</p>
 
         {% if area.page %}<div class="mb-4 learn-more-link">
-            <a href="{{ area.page.url }}">{% trans "Learn more →" %}</a>
+            <a href="{{ area.page.url }}" aria-label="{% blocktrans with name=area.name %}Learn more about: {{ name }}{% endblocktrans %}">{% trans "Learn more →" %}</a>
         </div>{% endif %}
     </div>
 </div>

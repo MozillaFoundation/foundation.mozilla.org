@@ -8,7 +8,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
 {% endblock %}
 
-{% block content %}
+{# Empty header; Do not add <header role="banner"> to the page #}
+{% block header_wrapped %}{% endblock %}
+
+{% block content_wrapped %}
 <div class="youtube-regrets-intro-viewport">
   <div class="scene-container">
     <div class="scene">
@@ -45,7 +48,7 @@
   </figure>
 </div>
 
-<main>
+<main role="main">
   {% block main %}
   {% endblock %}
 </main>
