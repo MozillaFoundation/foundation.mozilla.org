@@ -96,25 +96,6 @@ body.catalog {
           justify-content: space-between;
         }
 
-        .recommendation {
-          width: $recommendation-width;
-          height: $recommendation-height;
-
-          &.positive {
-            background-image: url(../_images/buyers-guide/icon-thumb-up.svg);
-            background-position: 0 0;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-          }
-
-          &.negative {
-            background-image: url(../_images/buyers-guide/icon-thumb-down.svg);
-            background-position: 0 0;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-          }
-        }
-
         .product-image {
           img {
             margin: 0 auto;

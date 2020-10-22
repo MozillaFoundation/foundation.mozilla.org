@@ -47,20 +47,11 @@
           <div class="top-left-badge-container">
               {% if product.privacy_ding %}
               <img
-                class="ding-icon"
                 src="{% static "_images/buyers-guide/icon-privacy-ding-mini.svg" %}"
                 title="{% trans "*privacy not included with this product" %}"
                 alt="{% trans " *privacy not included with this product" %}"
                 width="24"
-                height="23"
               >
-              {% endif %}
-              {% if product.votes.confidence %}
-                  {% if product.votes.confidence.1 > product.votes.confidence.0 %}
-                      <div class="d-none recommendation positive"></div>
-                  {% else %}
-                      <div class="d-none recommendation negative"></div>
-                  {% endif %}
               {% endif %}
           </div>
 
