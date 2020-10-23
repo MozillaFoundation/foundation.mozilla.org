@@ -34,6 +34,65 @@ body.catalog {
     }
   }
 
+  #product-filter-search {
+    --initial-width: 0em;
+    --expanded-width: 10em;
+
+    position: absolute;
+    left: 0;
+    padding: 0.5em;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+
+    &:focus-within,
+    &.has-content {
+      border-color: $black;
+    }
+
+    .search-icon {
+      display: inline-block;
+      height: 1.2em;
+      width: 1.2em;
+      background: url(../_images/buyers-guide/search.svg);
+      background-size: 100% 100%;
+      vertical-align: middle;
+    }
+
+    input {
+      border: none;
+      width: var(--initial-width);
+      transition: width 0.2s;
+      outline: 0;
+
+      &:valid,
+      &:focus {
+        width: var(--expanded-width);
+      }
+
+      & + .clear-icon {
+        display: none;
+        cursor: pointer;
+        outline: 0;
+        margin-top: 0.2em;
+        height: 0.8em;
+        width: 0.8em;
+        background: url(../_images/buyers-guide/dismiss.svg);
+        background-size: 100% 100%;
+        vertical-align: middle;
+      }
+
+      &:valid + .clear-icon {
+        display: inline-block;
+      }
+    }
+  }
+
+  #product-filter-pni {
+    position: absolute;
+    right: 0;
+  }
+
   .product-box-list-wrapper {
     @mixin product-box-size($box-margin: 1px, $items-per-row: 2) {
       $num-of-gutter: $items-per-row;
@@ -61,6 +120,11 @@ body.catalog {
         padding: $padding-y $padding-x;
         width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
         background: $pni-product-list-background;
+
+        &.show-ding-only:not(.privacy-ding) {
+          /* this is a special universal show/hide toggle for products without the privacy ding when "show pni only" is on */
+          display: none !important;
+        }
 
         &.d-flex.d-none {
           /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */

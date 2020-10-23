@@ -11,6 +11,7 @@ import {
 import { injectReactComponents } from "./index";
 
 import HomepageSlider from "./homepage-c-slider.js";
+import { SearchFilter, PNIToggle } from "./search.js";
 import AnalyticsEvents from "./analytics-events.js";
 import initializeSentry from "../common/sentry-config.js";
 
@@ -107,9 +108,10 @@ let main = {
   },
 
   initPageSpecificScript() {
-    // PNI homepage
-    if (document.getElementById(`view-home`)) {
+    if (document.querySelector(`body.pni.catalog`)) {
       HomepageSlider.init();
+      SearchFilter.init();
+      PNIToggle.init();
     }
   },
 };
