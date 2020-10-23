@@ -6,8 +6,8 @@
 
 {% block main_content_class %}{% endblock %}
 
-{% block guts %}
-<div class="container-fluid text-center page-header bg-gray">
+{% block hero %}
+<header class="container-fluid text-center page-header bg-gray" role="banner">
   <!-- home banner as css background -->
   <div class="container">
     <div class="row">
@@ -25,8 +25,10 @@
       </div>
     </div>
   </div>
-</div>
+</header>
+{% endblock %}
 
+{% block guts %}
 <div class="project-list-section">
   <div class="creepiness-slider bg-white text-center">
     <span class="current-creepiness">

@@ -73,23 +73,21 @@
 
 {% block body_wrapped %}
 
-  <header>
   {% include "./primary_nav.html" %}
-  </header>
-
-  <div class="underneath-screen-overlay">
-    <nav class="category-nav" title="{% trans "site navigation" context "Tooltip on menu items" %}">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            {% url 'buyersguide-home' as home_url %}
-            <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">{% trans "All" %}</a>
-            {% category_nav request.get_full_path category categories %}
-          </div>
+  {% block hero %}{% endblock %}
+  <nav class="category-nav text-center" title="{% trans "site navigation" context "Tooltip on menu items" %}">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          {% url 'buyersguide-home' as home_url %}
+          <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">{% trans "All" %}</a>
+          {% category_nav request.get_full_path category categories %}
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
+  <div class="underneath-screen-overlay">
     <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
       {% block guts %}{% endblock %}
     </main>
