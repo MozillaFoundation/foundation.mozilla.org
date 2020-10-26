@@ -1,12 +1,6 @@
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
 
-const FILTERS = [
-  `company`,
-  `name`,
-  `blurb`,
-  `worst-case`,
-  // `categories`
-];
+const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 
 const SearchFilter = {
   init: () => {
@@ -93,13 +87,11 @@ const PNIToggle = {
     toggle.addEventListener(`change`, (evt) => {
       const filter = evt.target.checked;
 
-      ALL_PRODUCTS.forEach((product) => {
-        if (filter) {
-          product.classList.add(`show-ding-only`);
-        } else {
-          product.classList.remove(`show-ding-only`);
-        }
-      });
+      if (filter) {
+        document.body.classList.add(`show-ding-only`);
+      } else {
+        document.body.classList.remove(`show-ding-only`);
+      }
     });
   },
 };

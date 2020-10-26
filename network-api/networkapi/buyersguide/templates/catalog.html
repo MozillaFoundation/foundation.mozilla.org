@@ -93,9 +93,6 @@
 
           <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
           <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
-          <!--
-            <input type="hidden" class="product-categories" value="{% for cat in product.product_category %}{{ cat.name }}{% if not forloop.last %},{% endif %}{% endfor %}">
-          -->
         </figure>
         {% endif %}
       {% endfor %}
