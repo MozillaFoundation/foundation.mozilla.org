@@ -28,10 +28,16 @@
     }
   }
 
-  #donate-header-btn {
+  .primary-nav-special-link {
     @include set-text-size(17px, 23px);
     color: $black;
     font-weight: $btn-font-weight;
+
+    @media (min-width: $bp-md) {
+      &:not(:last-of-type) {
+        margin-right: 1rem;
+      }
+    }
 
     &:hover {
       color: $dark-blue;
