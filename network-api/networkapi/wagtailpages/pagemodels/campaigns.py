@@ -74,6 +74,7 @@ class OpportunityPage(MiniSiteNameSpace):
     subpage_types = [
         'OpportunityPage',
         'RedirectingPage',
+        'PublicationPage',
     ]
 
     class Meta:
@@ -202,6 +203,7 @@ class CampaignPage(MiniSiteNameSpace):
     subpage_types = [
         'CampaignPage',
         'RedirectingPage',
+        'PublicationPage',
     ]
 
 
@@ -255,6 +257,7 @@ class BanneredCampaignPage(PrimaryPage):
     subpage_types = [
         'BanneredCampaignPage',
         'RedirectingPage',
+        'PublicationPage',
     ]
 
     show_in_menus_default = True
