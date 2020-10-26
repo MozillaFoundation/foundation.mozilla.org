@@ -11,6 +11,78 @@ $pni-product-breakpoint-larger: $bp-md;
   .seal-of-approval {
     @include seal-of-approval(1rem, 0, 76px, 76px, 140px, 140px);
   }
+
+  .product-header-content.show-privacy-ding {
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: url(../_images/buyers-guide/icon-privacy-ding.svg) center /
+        contain no-repeat;
+      width: 47px;
+      height: 61px;
+
+      @media (min-width: $pni-product-breakpoint-larger) {
+        top: 40px;
+        width: 63px;
+        height: 80px;
+      }
+
+      @at-root html[lang="de"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-de.svg);
+        width: 50px;
+        height: 70px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 67px;
+          height: 92px;
+        }
+      }
+
+      @at-root html[lang="es"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-es.svg);
+        width: 45px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 61px;
+        }
+      }
+
+      @at-root html[lang="fr"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-fr.svg);
+        width: 62px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 84px;
+        }
+      }
+
+      @at-root html[lang="fy-NL"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-fy-nl.svg);
+      }
+
+      @at-root html[lang="nl"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-nl.svg);
+        width: 49px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 66px;
+        }
+      }
+
+      @at-root html[lang="pt"] & {
+        background-image: url(../_images/buyers-guide/icon-privacy-ding-pt.svg);
+        width: 53px;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          width: 69px;
+        }
+      }
+    }
+  }
 }
 
 .related-product {
@@ -38,6 +110,10 @@ $pni-product-breakpoint-larger: $bp-md;
   }
 }
 
+.privacy-ding-band {
+  background: $pni-warning-yellow;
+}
+
 .product-detail {
   margin-top: -88px;
 
@@ -50,98 +126,60 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  .small-link {
-    font-size: 18px;
-    font-weight: 400;
+  .connectivity-requirement {
+    display: inline-flex;
+    align-items: center;
     color: $gray-60;
-  }
 
-  button.small-link {
-    border: none;
-    background: none;
-  }
-
-  .copy-link-wrapper {
-    order: 4;
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      order: unset;
+    &:not(:last-child) {
+      margin-right: 0.5rem;
     }
 
-    .copy-link {
-      position: relative;
-      padding-left: 20px;
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 18px;
+      margin-right: 6px;
+    }
 
-      &.copied {
-        cursor: auto;
-        color: $blue;
-        text-decoration: none;
+    &.use-wifi {
+      &:before {
+        background: url(../_images/buyers-guide/icon-wifi.svg) center / contain
+          no-repeat;
+        width: 25px;
       }
+    }
 
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
+    &.use-bluetooth {
+      &:before {
+        background: url(../_images/buyers-guide/icon-bluetooth.svg) center /
+          contain no-repeat;
+        width: 10px;
+      }
+    }
+  }
+
+  .worst-case {
+    h2 {
+      display: inline-block;
+
+      &:before {
         content: "";
-        background-image: url(../_images/buyers-guide/icon-product-link.svg);
-        background-repeat: no-repeat;
-        background-position: center 65%;
-        background-size: contain;
-        width: 15px;
-        height: 100%;
-        display: block;
+        display: inline-block;
+        width: 29px;
+        height: 27px;
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        position: relative;
+        top: 4px;
+        margin-right: 0.5rem;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          margin-right: 1rem;
+        }
       }
     }
   }
-
-  h3.body,
-  h4 {
-    font-family: "Nunito Sans";
-  }
-
-  .worst-case-box {
-    position: relative;
-    border-style: solid;
-    border-width: 1px;
-    border-image: linear-gradient(to left, $pni-pink 0%, $pni-blue 100%) 1 /
-      auto;
-    margin-top: 3.5rem;
-
-    .creep-face-emoji-wrapper {
-      $font-size: 3rem;
-      $padding-x: 1rem;
-
-      background: $white;
-      position: absolute;
-      top: -$font-size / 2;
-      left: calc(50% - #{$font-size} / 2 - #{$padding-x});
-      font-size: $font-size;
-      padding: 0 $padding-x;
-
-      .creep-face-emoji {
-        top: 0;
-        margin: 0;
-      }
-    }
-  }
-
-  .it-uses,
-  .signup-requirement {
-    margin-bottom: $spacer;
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      margin-bottom: $spacer * 1.5;
-    }
-
-    .separator {
-      color: $gray-20;
-    }
-  }
-}
-
-.copy-link {
-  font-size: 16px;
-  color: $black;
 }
 
 .spy {
@@ -166,62 +204,109 @@ $pni-product-breakpoint-larger: $bp-md;
 }
 
 .minimum-security {
-  background: $gray-05;
-
-  h2 {
-    $badge-width-mobile: 40px;
-    $badge-width: 30px;
-
-    position: relative;
-    padding-left: calc(#{$badge-width-mobile} + 8px);
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      padding-left: calc(#{$badge-width} + 6px);
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: url(../_images/buyers-guide/badge-star-mini.svg) center /
-        contain no-repeat;
-      width: $badge-width-mobile;
-      height: 100%;
-
-      @media (min-width: $pni-product-breakpoint-larger) {
-        width: $badge-width;
-      }
-    }
-  }
+  position: relative;
 
   .criterion:last-child {
     border-bottom: none;
   }
 
-  .rating {
-    .security-score {
-      @include heading("Zilla Slab", 300, 0, $black, $white);
-      @include set-text-size(40px, 46px);
+  #mss-accordion-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+
+    &:checked {
+      ~ #mss-expandable {
+        max-height: 100%;
+        visibility: visible;
+      }
+
+      + label[for="mss-accordion-toggle"] {
+        &::after {
+          transform: rotate(180deg);
+        }
+      }
     }
 
-    .full-security-score {
-      @include heading("Zilla Slab", 300, 0, $black, $white);
-      @include set-text-size(20px, 46px);
+    &:focus {
+      + label[for="mss-accordion-toggle"] {
+        outline-width: 1px;
+        outline-style: auto;
+        outline-color: Highlight;
+      }
+    }
+  }
+
+  #mss-expandable {
+    transition: all 0.2s ease-in-out;
+    overflow-y: hidden;
+    max-height: 0;
+    visibility: hidden;
+  }
+
+  label[for="mss-accordion-toggle"] {
+    $icon-size: 24px;
+
+    position: absolute;
+    top: 3em;
+    right: 0;
+    width: $icon-size;
+    height: $icon-size;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: url(../_images/buyers-guide/icon-accordion-toggle.svg) center /
+        contain no-repeat;
+      width: $icon-size;
+      height: $icon-size;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+}
+
+.criterion-group {
+  margin-bottom: 3rem;
+
+  &.privacy {
+    [class^="col"]:not(:last-child) > * {
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid $gray-05;
+
+      @media (min-width: $pni-product-breakpoint-larger) {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0;
+      }
     }
   }
 }
 
 .criterion {
-  padding: 1rem 0;
+  $criterion-padding-y: 1.5rem;
+  $criterion-no-border-padding-y: 0.75rem;
+
+  position: relative;
+  padding: $criterion-no-border-padding-y 0;
+
+  &:first-of-type {
+    padding-top: 0;
+  }
 
   &:not(.no-border) {
     border-color: $gray-20;
     border-style: solid;
     border-width: 1px 0 0 0;
+    padding: $criterion-padding-y 0;
 
-    &:last-child {
-      border-bottom-width: 1px;
+    &:first-of-type {
+      padding-top: 0;
+      border-top-width: 0;
     }
   }
 
@@ -229,23 +314,64 @@ $pni-product-breakpoint-larger: $bp-md;
     border-top: 0;
   }
 
-  .primary-info {
-    display: flex;
-    justify-content: space-between;
+  &.show-ding {
+    $ding-width: 29px;
+    $ding-height: 27px;
 
-    strong {
-      font-weight: 700;
+    @media (min-width: $pni-product-breakpoint-larger) {
+      &:after {
+        content: "";
+        position: absolute;
+        top: $criterion-padding-y;
+        left: calc(-#{$ding-width} - 1rem);
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        width: $ding-width;
+        height: $ding-height;
+      }
+
+      &.no-border {
+        &:after {
+          top: 0;
+        }
+      }
+    }
+
+    .rating {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      &:before {
+        content: "";
+        display: block;
+        background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg)
+          center / contain no-repeat;
+        width: $ding-width;
+        height: $ding-height;
+        margin-bottom: 0.5rem;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          display: none;
+        }
+      }
     }
   }
 
-  a {
-    text-decoration: underline;
-    color: $black;
-    font-weight: 400;
+  &.meets-minimum-security-standards {
+    padding-bottom: $criterion-no-border-padding-y * 2;
+
+    h3 {
+      padding-right: 40px;
+
+      @media (min-width: $pni-product-breakpoint-larger) {
+        padding-right: 0;
+      }
+    }
   }
 
-  p {
-    margin-bottom: 0;
+  p.criterion-label {
+    margin-bottom: 0.75rem;
   }
 
   button.toggle {
@@ -265,11 +391,18 @@ $pni-product-breakpoint-larger: $bp-md;
     }
   }
 
-  + p,
-  ul {
-    // have to override this since PNI does not follow Foundation style guide
-    @include text-base-style(null, 300, $black, $white);
-    @include set-text-size(16px, 24px);
+  a {
+    text-decoration: underline;
+    color: $black;
+    font-weight: 400;
+  }
+
+  h4.pni-product-smaller-body-bold {
+    margin-bottom: 0;
+
+    @media (min-width: $pni-product-breakpoint-larger) {
+      margin-bottom: 0.75rem;
+    }
   }
 }
 
@@ -313,57 +446,7 @@ $pni-product-breakpoint-larger: $bp-md;
   position: relative;
   min-height: 380px;
   min-width: 290px;
-  border: 1px solid $gray-20;
-  padding-left: 1rem;
-  padding-right: 1rem;
-
-  @media (min-width: $pni-product-breakpoint-larger) {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    padding: 1.5rem 3.75rem;
-  }
-}
-
-.creep-vote {
-  .what-you-think-label {
-    $line-height: 24px;
-    $padding-x: 1rem;
-    $padding-y: 0.5rem;
-    $shadow-width: calc(#{$padding-x} + 10px);
-
-    position: absolute;
-    top: 0;
-    left: 1rem;
-    transform: translateY(-50%);
-    background: $gray-60;
-    padding: $padding-y 1rem;
-
-    &.h5-heading {
-      color: $white;
-    }
-
-    @media (min-width: $pni-product-breakpoint-larger) {
-      left: calc(#{$shadow-width} * -1);
-
-      &::before {
-        position: absolute;
-        left: 0;
-        top: 100%;
-        content: "";
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 $shadow-width $shadow-width 0;
-        border-color: transparent $black transparent transparent;
-      }
-    }
-  }
-}
-
-.helptext {
-  font-style: italic;
-  margin-top: 0.5rem;
-  margin-right: 5rem;
+  background: $pni-product-image-background;
 }
 
 // Coral Embed

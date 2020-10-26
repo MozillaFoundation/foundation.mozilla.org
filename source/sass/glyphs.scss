@@ -87,16 +87,6 @@ $bg-glyph-path: "../_images/buyers-guide";
   @include compositeGlyph("form-error");
 }
 
-.likely-glyph {
-  @include compositeGlyph("icon-thumb-up-black", $bg-glyph-path);
-  @include hoverGlyph("icon-thumb-up-white", $bg-glyph-path);
-}
-
-.unlikely-glyph {
-  @include compositeGlyph("icon-thumb-down-black", $bg-glyph-path);
-  @include hoverGlyph("icon-thumb-down-white", $bg-glyph-path);
-}
-
 .dark-theme {
   .twitter-glyph {
     @include compositeGlyph("twitter-dark-theme");
@@ -139,15 +129,5 @@ $bg-glyph-path: "../_images/buyers-guide";
       margin-right: 10px;
       min-width: 24px;
     }
-  }
-}
-
-.selected {
-  &.likely-glyph {
-    @include compositeGlyph("icon-thumb-up-white", $bg-glyph-path);
-  }
-
-  &.unlikely-glyph {
-    @include compositeGlyph("icon-thumb-down-white", $bg-glyph-path);
   }
 }

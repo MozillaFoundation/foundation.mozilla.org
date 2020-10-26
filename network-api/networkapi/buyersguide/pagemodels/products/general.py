@@ -3,7 +3,6 @@ from networkapi.buyersguide.fields import ExtendedYesNoField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
 from .base import Product, register_product_type
-from ...utils import tri_to_quad
 
 from networkapi.wagtailpages.utils import insert_panels_after
 
@@ -13,7 +12,7 @@ class GeneralProduct(Product):
     A thing you can buy in stores and our review of it
     """
 
-    # It uses your...
+    # Can it snoop on me
 
     camera_device = ExtendedYesNoField(
         help_text='Does this device have or access a camera?',
@@ -39,35 +38,96 @@ class GeneralProduct(Product):
         help_text='Does this app access your location?',
     )
 
-    # how it handles privacy
+    # What data does it collect?
 
-    delete_data = models.BooleanField(  # TO BE REMOVED?
-        null=True,
-        help_text='Can you request data be deleted?',
-    )
-
-    delete_data_helptext = models.TextField(  # TO BE REMOVED?
+    personal_data_collected = models.TextField(
         max_length=5000,
-        blank=True
+        blank=True,
+        help_text='What kind of personal data does this product collect?'
     )
 
-    parental_controls = ExtendedYesNoField(
-        null=True,
-        help_text='Are there rules for children?',
-    )
-
-    child_rules_helptext = models.TextField(  # TO BE REMOVED?
+    biometric_data_collected = models.TextField(
         max_length=5000,
-        blank=True
+        blank=True,
+        help_text='What kind of biometric data does this product collect?'
     )
 
-    collects_biometrics = ExtendedYesNoField(
-        help_text='Does this product collect biometric data?',
-    )
-
-    collects_biometrics_helptext = models.TextField(
+    social_data_collected = models.TextField(
         max_length=5000,
-        blank=True
+        blank=True,
+        help_text='What kind of social data does this product collect?'
+    )
+
+    # How can you control your data
+
+    how_can_you_control_your_data = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='How does this product let you control your data?'
+    )
+
+    data_control_policy_is_bad = models.BooleanField(
+        default=False,
+        verbose_name='Privacy ding'
+    )
+
+    # Company track record
+
+    track_record_choices = [
+        ('Great', 'Great'),
+        ('Average', 'Average'),
+        ('Needs Improvement', 'Needs Improvement'),
+        ('Bad', 'Bad')
+    ]
+
+    company_track_record = models.CharField(
+        choices=track_record_choices,
+        default='Average',
+        help_text='This company has a ... track record',
+        max_length=20
+    )
+
+    track_record_is_bad = models.BooleanField(
+        default=False,
+        verbose_name='Privacy ding'
+    )
+
+    track_record_details = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Describe the track record of this company here.'
+    )
+
+    # Offline use
+
+    offline_capable = ExtendedYesNoField(
+        help_text='Can this product be used offline?',
+    )
+
+    offline_use_description = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Describe how this product can be used offline.'
+    )
+
+    # Artificial Intelligence
+
+    uses_ai = ExtendedYesNoField(
+        help_text='Does the product use AI?'
+    )
+
+    ai_uses_personal_data = ExtendedYesNoField(
+        help_text='Does the AI use your personal data to make decisions about you?'
+    )
+
+    ai_is_transparent = ExtendedYesNoField(
+        help_text='Does the company allow users to see how the AI works?'
+    )
+
+    ai_helptext = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Helpful text around AI to show on the product page',
     )
 
     # administrative panels
@@ -76,7 +136,7 @@ class GeneralProduct(Product):
 
     panels = insert_panels_after(
         panels,
-        'Minimum Security Standards for general products',
+        'General Product Details',
         [
             MultiFieldPanel(
                 [
@@ -95,19 +155,64 @@ class GeneralProduct(Product):
 
     panels = insert_panels_after(
         panels,
-        'How does it handle data sharing',
+        'What is required to sign up',
         [
             MultiFieldPanel(
                 [
-                    FieldPanel('delete_data'),
-                    FieldPanel('delete_data_helptext'),
-                    FieldPanel('parental_controls'),
-                    FieldPanel('collects_biometrics'),
-                    FieldPanel('collects_biometrics_helptext'),
-                    FieldPanel('user_friendly_privacy_policy'),
-                    FieldPanel('user_friendly_privacy_policy_helptext'),
+                    FieldPanel('personal_data_collected'),
+                    FieldPanel('biometric_data_collected'),
+                    FieldPanel('social_data_collected'),
                 ],
-                heading='How does it handle privacy',
+                heading='What data does it collect',
+                classname='collapsible',
+            ),
+        ]
+    )
+
+    panels = insert_panels_after(
+        panels,
+        'How does it use this data',
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('how_can_you_control_your_data'),
+                    FieldPanel('data_control_policy_is_bad'),
+                ],
+                heading='How can you control your data',
+                classname='collapsible',
+            ),
+            MultiFieldPanel(
+                [
+                    FieldPanel('company_track_record'),
+                    FieldPanel('track_record_is_bad'),
+                    FieldPanel('track_record_details'),
+                ],
+                heading='Company track record',
+                classname='collapsible'
+            ),
+            MultiFieldPanel(
+                [
+                    FieldPanel('offline_capable'),
+                    FieldPanel('offline_use_description'),
+                ],
+                heading='Offline use',
+                classname='collapsible'
+            ),
+        ],
+    )
+
+    panels = insert_panels_after(
+        panels,
+        'Security',
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('uses_ai'),
+                    FieldPanel('ai_uses_personal_data'),
+                    FieldPanel('ai_is_transparent'),
+                    FieldPanel('ai_helptext'),
+                ],
+                heading='Artificial Intelligence',
                 classname='collapsible'
             ),
         ],
@@ -115,7 +220,6 @@ class GeneralProduct(Product):
 
     def to_dict(self):
         model_dict = super().to_dict()
-        model_dict['delete_data'] = tri_to_quad(self.delete_data)
         model_dict['product_type'] = 'general'
         return model_dict
 

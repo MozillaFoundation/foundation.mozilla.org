@@ -3,7 +3,7 @@
 <div class="criterion no-border">
   <div class="row mb-3">
     <div class="col-12 col-md-6 mb-3 col-lg-3">
-      <strong class="d-block">{% trans "Phone Number" %}</strong>
+      <h4 class="pni-product-smaller-body-bold">{% trans "Phone Number" %}</h4>
       {% if product.phone_number %}
         {{ product.phone_number }}
       {% else %}
@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-12 col-md-6 mb-3 col-lg-3 text-truncate">
-      <strong class="d-block">{% trans "Live Chat" %}</strong>
+      <h4 class="pni-product-smaller-body-bold">{% trans "Live Chat" %}</h4>
       {% if product.live_chat %}
         <a id="product-live-chat" target="_blank" href="{{ product.live_chat }}">{{ product.live_chat }}</a>
       {% else %}
@@ -21,18 +21,18 @@
     </div>
 
     <div class="col-12 col-md-6 mb-3 col-lg-3 text-truncate">
-      <strong class="d-block">{% trans "Email" context "Label" %}</strong>
+      <h4 class="pni-product-smaller-body-bold">{% trans "Email" context "Label" %}</h4>
         {% if product.email %}
-          <a href="{% if '@' in product.email %}mailto:{% endif %}{{ product.email }}">{{ product.email }}</a>
+          <a id="product-email" href="{% if '@' in product.email %}mailto:{% endif %}{{ product.email }}">{{ product.email }}</a>
         {% else %}
           {% trans "No" %}
         {% endif %}
     </div>
 
     <div class="col-12 col-md-6 mb-3 col-lg-3 text-truncate">
-      <strong class="d-block">Twitter</strong>
+      <h4 class="pni-product-smaller-body-bold">Twitter</h4>
       {% if product.twitter %}
-        <a href="https://twitter.com/{{product.twitter}}">{{ product.twitter }}</a>
+        <a id="product-twitter" href="https://twitter.com/{{product.twitter}}">{{ product.twitter }}</a>
       {% else %}
         {% trans "No" %}
       {% endif %}
