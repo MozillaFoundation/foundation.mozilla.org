@@ -15,9 +15,9 @@
   <div class="col-12 col-lg-6">
     {% for post in page.spotlight_posts.all %}
       <div class="spotlight-post">
-        <h5 class="mb-2">
+        <h4 class="mb-2 h5-heading">
           <a href="{{post.blog.url}}">{{post.blog.title}}</a>
-        </h5>
+        </h4>
         {% include "./blog_authors.html" with blog_page=post.blog %}
       </div>
     {% endfor %}

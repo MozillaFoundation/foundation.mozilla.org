@@ -1,5 +1,6 @@
 import re
 
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.http import JsonResponse
 from django.template import loader
@@ -160,6 +161,19 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         start = page * page_size
         end = start + page_size
         entries = self.get_entries()
+
+        # Exclude model types if data-exclude="" has a value in the template
+        if 'exclude' in request.GET:
+            try:
+                # Try to get the content type. Then get the model_class.
+                # This allows us to say "exclude 'publicationpage'" and get the model
+                # by it's sting name without the AppName.
+                ct = ContentType.objects.get(model=request.GET.get("exclude").lower())
+                not_model = ct.model_class()
+                entries = entries.not_type(not_model)
+            except ContentType.DoesNotExist:
+                pass
+
         has_next = end < len(entries)
 
         hide_classifiers = False

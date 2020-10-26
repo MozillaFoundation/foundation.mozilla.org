@@ -70,9 +70,18 @@
           {% include "partials/primary_nav.html" with background="simple-background" %}
         {% endblock %}
       </div>
-      {% block hero_guts %}{% endblock %}
 
-      {% block content %}{% endblock %}
+      {% block header_wrapped %}
+        <header role="banner">
+          {% block hero_guts %}{% endblock %}
+        </header>
+      {% endblock header_wrapped %}
+
+      {% block content_wrapped %}
+        <main role="main">
+          {% block content %}{% endblock %}
+        </main>
+      {% endblock content_wrapped %}
 
       {% block prefooter %}{% endblock %}
 
