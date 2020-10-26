@@ -30,4 +30,22 @@ class Migration(migrations.Migration):
             name='show_ding_for_minimum_security_standards',
             field=models.BooleanField(default=False, verbose_name='Privacy ding'),
         ),
+
+        # soft-squash: 0005
+        migrations.AlterModelOptions(
+            name='buyersguideproductcategory',
+            options={'ordering': ['sort_order', 'name'], 'verbose_name': 'Buyers Guide Product Category', 'verbose_name_plural': 'Buyers Guide Product Categories'},
+        ),
+        migrations.AddField(
+            model_name='buyersguideproductcategory',
+            name='sort_order',
+            field=models.IntegerField(default=1, help_text='Sort ordering number - same-numbered items sort alphabetically'),
+        ),
+
+        # soft-squash: 0006
+        migrations.AlterField(
+            model_name='buyersguideproductcategory',
+            name='sort_order',
+            field=models.IntegerField(default=1, help_text='Sort ordering number. Same-numbered items sort alphabetically'),
+        ),
     ]
