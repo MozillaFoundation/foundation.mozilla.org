@@ -21,7 +21,8 @@ $category-nav-border-bottom-thickness: 4px;
     text-decoration: none;
     border-bottom: $category-nav-border-bottom-thickness solid $white;
 
-    &:hover {
+    &:hover,
+    &.active {
       color: $black;
     }
 
