@@ -16,7 +16,7 @@ def set_default_created_date(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buyersguide', '0006_auto_20201015_1607'),
+        ('buyersguide', '0004_auto_20201013_2034'),
     ]
 
     operations = [
