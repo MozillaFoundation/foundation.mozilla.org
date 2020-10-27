@@ -138,6 +138,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
     review_date = models.DateField(
         help_text='Review date of this product',
+        auto_now_add=True,
     )
     company = models.CharField(
         max_length=100,
@@ -226,6 +227,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
     meets_minimum_security_standards = models.BooleanField(
         null=True,
+        blank=True,
         help_text='Does this product meet our minimum security standards?',
     )
     uses_encryption = ExtendedYesNoField(
@@ -287,7 +289,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel('review_date'),
                 FieldPanel('privacy_ding'),
                 FieldPanel('adult_content'),
                 FieldPanel('company'),
