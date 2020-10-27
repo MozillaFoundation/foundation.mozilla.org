@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from cloudinary import uploader
 
@@ -11,6 +11,7 @@ from django.forms import model_to_dict
 from django.utils.text import slugify
 
 from networkapi.buyersguide.fields import ExtendedYesNoField
+from ..product_update import Update as ProductUpdate
 
 from modelcluster.models import ClusterableModel
 
@@ -20,10 +21,39 @@ from ..cloudinary_image_field import CloudinaryField
 from ..get_product_image_upload_path import get_product_image_upload_path
 from ..get_product_vote_information import get_product_vote_information
 
+# TODO: FIXME: Can we replace this with an ImageChooserPanel, to make the UI better?
+#              https://github.com/mozilla/foundation.mozilla.org/issues/5402
 if settings.USE_CLOUDINARY:
     image_field = FieldPanel('cloudinary_image')
 else:
     image_field = FieldPanel('image')
+
+
+class ProductUpdatesFieldPanel(FieldPanel):
+    """
+    This is a custom field panel for listing product updates in a regular
+    product's admin view - the list is populated by the result from
+    calling BaseProduct.get_product_updates, below.
+    """
+    def on_form_bound(self):
+        instance = self.model
+        self.form.fields['updates'].queryset = instance.get_product_updates(instance)
+        super().on_form_bound()
+
+
+class RelatedProductFieldPanel(FieldPanel):
+    """
+    This is a custom field panel for listing related products in a regular
+    product's admin view - rather than showing all entries, a large number
+    of products should be ignored for cross-linking purposes. See the
+    "def get_related_products(self):" function in the Product class, below,
+    for more details on the queryset it returns.
+    """
+    def on_form_bound(self):
+        instance = self.model
+        self.form.fields['related_products'].queryset = instance.get_related_products(instance)
+        super().on_form_bound()
+
 
 # Let's figure out whether we can refactor this to its own file.
 product_panels = [
@@ -31,54 +61,54 @@ product_panels = [
         [
             FieldPanel('draft'),
         ],
-        heading="Publication status",
-        classname="collapsible"
+        heading='Publication status',
+        classname='collapsible'
     ),
-
     # core information
     MultiFieldPanel(
         [
-            FieldPanel('adult_content'),
             FieldPanel('review_date'),
+            FieldPanel('privacy_ding'),
+            FieldPanel('adult_content'),
             FieldPanel('name'),
             FieldPanel('company'),
             FieldPanel('product_category'),
-            FieldPanel('blurb'),
             FieldPanel('url'),
             FieldPanel('price'),
+            FieldPanel('uses_wifi'),
+            FieldPanel('uses_bluetooth'),
+            FieldPanel('blurb'),
             image_field,
-            FieldPanel('meets_minimum_security_standards')
+            FieldPanel('worst_case'),
         ],
-        heading="General Product Details",
-        classname="collapsible"
+        heading='General Product Details',
+        classname='collapsible'
     ),
+    MultiFieldPanel(
+        [
+            FieldPanel('signup_requires_email'),
+            FieldPanel('signup_requires_phone'),
+            FieldPanel('signup_requires_third_party_account'),
+            FieldPanel('signup_requirement_explanation'),
+        ],
+        heading='What is required to sign up',
+        classname='collapsible'
+    ),
+    MultiFieldPanel(
+        [
 
-    # minimum security standard
-    MultiFieldPanel(
-        [
-            FieldPanel('uses_encryption'),
-            FieldPanel('uses_encryption_helptext'),
-            FieldPanel('security_updates'),
-            FieldPanel('security_updates_helptext'),
-            FieldPanel('strong_password'),
-            FieldPanel('strong_password_helptext'),
-            FieldPanel('manage_vulnerabilities'),
-            FieldPanel('manage_vulnerabilities_helptext'),
-            FieldPanel('privacy_policy'),
-            FieldPanel('privacy_policy_helptext'),  # NEED A "clear" MIGRATION
+            FieldPanel('how_does_it_use_data_collected'),
+            FieldPanel('data_collection_policy_is_bad'),
         ],
-        heading="Minimum Security Standards for general products",
-        classname="collapsible"
+        heading='How does it use this data',
+        classname='collapsible',
     ),
-    # Data sharing
     MultiFieldPanel(
         [
-            FieldPanel('share_data'),
-            FieldPanel('share_data_helptext'),
-            FieldPanel('how_does_it_share'),
+            FieldPanel('user_friendly_privacy_policy'),
         ],
-        heading="How does it handle data sharing",
-        classname="collapsible"
+        heading='Privacy policy',
+        classname='collapsible'
     ),
     MultiFieldPanel(
         [
@@ -89,15 +119,26 @@ product_panels = [
                 max_num=3,
             ),
         ],
-        heading="Privacy policy links",
-        classname="collapsible"
+        heading='Privacy policy links',
+        classname='collapsible'
     ),
     MultiFieldPanel(
         [
-            FieldPanel('worst_case'),
+            FieldPanel('show_ding_for_minimum_security_standards'),
+            FieldPanel('meets_minimum_security_standards'),
+            FieldPanel('uses_encryption'),
+            FieldPanel('uses_encryption_helptext'),
+            FieldPanel('security_updates'),
+            FieldPanel('security_updates_helptext'),
+            FieldPanel('strong_password'),
+            FieldPanel('strong_password_helptext'),
+            FieldPanel('manage_vulnerabilities'),
+            FieldPanel('manage_vulnerabilities_helptext'),
+            FieldPanel('privacy_policy'),
+            FieldPanel('privacy_policy_helptext'),
         ],
-        heading="What's the worst that could happen",
-        classname="collapsible"
+        heading='Security',
+        classname='collapsible'
     ),
     MultiFieldPanel(
         [
@@ -106,11 +147,11 @@ product_panels = [
             FieldPanel('email'),
             FieldPanel('twitter'),
         ],
-        heading="Ways to contact the company",
-        classname="collapsible"
+        heading='Ways to contact the company',
+        classname='collapsible'
     ),
-    FieldPanel('updates'),
-    FieldPanel('related_products'),
+    ProductUpdatesFieldPanel('updates'),
+    RelatedProductFieldPanel('related_products'),
 ]
 
 registered_product_types = list()
@@ -138,8 +179,23 @@ class Product(ClusterableModel):
         default=True,
     )
 
+    privacy_ding = models.BooleanField(
+        help_text='Tick this box if privacy is not included for this product',
+        default=False,
+    )
+
     adult_content = models.BooleanField(
         help_text='When checked, product thumbnail will appear blurred as well as have an 18+ badge on it',
+        default=False,
+    )
+
+    uses_wifi = models.BooleanField(
+        help_text='Does this product rely on WiFi connectivity?',
+        default=False,
+    )
+
+    uses_bluetooth = models.BooleanField(
+        help_text='Does this product rely on Bluetooth connectivity?',
         default=False,
     )
 
@@ -206,12 +262,62 @@ class Product(ClusterableModel):
         use_filename=True
     )
 
-    meets_minimum_security_standards = models.BooleanField(
-        null=True,
-        help_text='Does this product meet minimum security standards?',
+    worst_case = models.CharField(
+        max_length=5000,
+        help_text="What's the worst thing that could happen by using this product?",
+        blank=True,
     )
 
-    # Minimum security standards (stars)
+    # What is required to sign up?
+
+    signup_requires_email = ExtendedYesNoField(
+        help_text='Does this product requires providing an email address in order to sign up?'
+    )
+
+    signup_requires_phone = ExtendedYesNoField(
+        help_text='Does this product requires providing a phone number in order to sign up?'
+    )
+
+    signup_requires_third_party_account = ExtendedYesNoField(
+        help_text='Does this product require a third party account in order to sign up?'
+    )
+
+    signup_requirement_explanation = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Describe the particulars around sign-up requirements here.'
+    )
+
+    # How does it use this data?
+
+    how_does_it_use_data_collected = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='How does this product use the data collected?'
+    )
+
+    data_collection_policy_is_bad = models.BooleanField(
+        default=False,
+        verbose_name='Privacy ding'
+    )
+
+    # Privacy policy
+
+    user_friendly_privacy_policy = ExtendedYesNoField(
+        help_text='Does this product have a user-friendly privacy policy?'
+    )
+
+    # Minimum security standards
+
+    show_ding_for_minimum_security_standards = models.BooleanField(
+        default=False,
+        verbose_name="Privacy ding"
+    )
+
+    meets_minimum_security_standards = models.BooleanField(
+        null=True,
+        help_text='Does this product meet our minimum security standards?',
+    )
 
     uses_encryption = ExtendedYesNoField(
         help_text='Does the product use encryption?',
@@ -256,42 +362,9 @@ class Product(ClusterableModel):
         blank=True
     )
 
-    # How it handles privacy
-
-    share_data = models.BooleanField(  # TO BE REMOVED?
-        null=True,
-        help_text='Does the maker share data with other companies?',
-    )
-
-    share_data_helptext = models.TextField(  # TO BE REMOVED?
-        max_length=5000,
-        blank=True
-    )
-
-    how_does_it_share = models.CharField(
-        max_length=5000,
-        help_text='How does this product handle data?',
-        blank=True
-    )
-
-    user_friendly_privacy_policy = ExtendedYesNoField(
-        help_text='Does this product have a user-friendly privacy policy?'
-    )
-
-    user_friendly_privacy_policy_helptext = models.TextField(
-        max_length=5000,
-        blank=True
-    )
-
     """
-    privacy_policy_links =  one to many, defined in PrivacyPolicyLink
+    privacy_policy_links = one to many, defined in PrivacyPolicyLink
     """
-
-    worst_case = models.CharField(
-        max_length=5000,
-        help_text="What's the worst thing that could happen by using this product?",
-        blank=True,
-    )
 
     # How to contact the company
 
@@ -325,6 +398,15 @@ class Product(ClusterableModel):
         blank=True
     )
 
+    def get_product_updates(self):
+        """
+        This function is used by our custom ProductUpdatesFieldPanel, to make sure
+        updates are alphabetically listed. Eventually we want to replace this with
+        "that, but also nothing older than 2 years". We can't do that yet, though,
+        as product updates currently do not record their creation_date.
+        """
+        return ProductUpdate.objects.all().order_by('title')
+
     # comments are not a model field, but are "injected" on the product page instead
 
     related_products = models.ManyToManyField(
@@ -333,6 +415,15 @@ class Product(ClusterableModel):
         blank=True,
         symmetrical=False
     )
+
+    def get_related_products(self):
+        """
+        This function is used by our custom RelatedProductFieldPanel, to make sure
+        we don't list every single PNI product ever entered into the system, but only
+        products added in recent iterations of PNI. For PNI v4 this has been set to
+        "any product entered after 2019".
+        """
+        return Product.objects.filter(review_date__gte=date(2020, 1, 1)).order_by('name')
 
     # List of fields to show in admin to hide the image/cloudinary_image field. There's probably a better way to do
     # this using `_meta.get_fields()`. To be refactored in the future.

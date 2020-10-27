@@ -1,0 +1,28 @@
+// unoffiical text styles used only on PNI pages
+
+.pni-product-intro-large {
+  @include text-base-style($font-family-sans-serif, 400, $gray-60, $gray-60);
+  @include set-text-size(18px, 27px);
+}
+
+.pni-product-smaller-body {
+  @include text-base-style($font-family-sans-serif, 400, $black, $white);
+  @include set-text-size(16px, 24px);
+}
+
+.pni-product-smaller-body-bold {
+  @extend .pni-product-smaller-body;
+
+  font-weight: 700;
+
+  &h3 {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.pni-product-helptext {
+  @extend .pni-product-smaller-body;
+
+  font-style: italic;
+  font-weight: 300;
+}

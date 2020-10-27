@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
+
 from wagtail.snippets.models import register_snippet
 
 from .products.base import Product
@@ -35,6 +36,11 @@ class BuyersGuideProductCategory(models.Model):
         help_text='A URL-friendly version of the product name. This is an auto-generated field.'
     )
 
+    sort_order = models.IntegerField(
+        default=1,
+        help_text='Sort ordering number. Same-numbered items sort alphabetically'
+    )
+
     @property
     def published_product_count(self):
         return Product.objects.filter(product_category=self, draft=False).count()
@@ -49,3 +55,4 @@ class BuyersGuideProductCategory(models.Model):
     class Meta:
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
+        ordering = ['sort_order', 'name', ]

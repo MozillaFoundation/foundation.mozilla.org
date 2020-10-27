@@ -10,11 +10,16 @@ html {
 // Custom variables
 @import "../variables";
 
-//Site-wide
+// Site-wide
 
 @import "../glyphs";
 @import "../mixins";
 @import "./mixins"; // Buyer's Guide specific mixins
+
+// PNI specific
+
+@import "./colors.scss";
+@import "./type.scss";
 
 // includes
 @import "./includes/draft-product";
@@ -29,7 +34,6 @@ html {
 @import "../../js/buyers-guide/components/primary-nav/primary-nav";
 
 @import "../../js/buyers-guide/components/creepiness-chart/creepiness-chart";
-@import "../../js/buyers-guide/components/likelyhood-chart/likelyhood-chart";
 @import "../../js/components/share-button-group/share-button-group";
 @import "../../js/components/join/join";
 

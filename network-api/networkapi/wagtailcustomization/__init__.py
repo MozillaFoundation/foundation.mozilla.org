@@ -4,7 +4,7 @@ from django.utils.html import format_html
 from wagtail.core import hooks
 
 
-@hooks.register("insert_global_admin_css")
+@hooks.register("insert_global_admin_css", order=100)
 def global_admin_css():
-    link = static("css/admin.css")
-    return format_html(f'<link rel="stylesheet" href="{link}">')
+    """Add /static/css/admin.css to the admin."""
+    return format_html('<link rel="stylesheet" href="{}">', static("css/admin.css"))
