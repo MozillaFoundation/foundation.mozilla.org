@@ -8,7 +8,6 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buyersguide', '0006_auto_20201015_1607'),
         ('wagtailpages', '0013_productpage_types'),
     ]
 
@@ -21,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='productpage',
             name='review_date',
-            field=models.DateField(help_text='Review date of this product', null=True),
+            field=models.DateField(help_text='Review date of this product', auto_now_add=True),
         ),
         migrations.CreateModel(
             name='RelatedProducts',
@@ -72,7 +71,7 @@ class Migration(migrations.Migration):
                 ('product', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_categories', to='wagtailpages.ProductPage')),
             ],
             options={
-                'verbose_name': 'Product Page Category',
+                'verbose_name': 'Product Category',
             },
         ),
     ]

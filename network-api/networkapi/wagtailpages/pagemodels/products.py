@@ -45,7 +45,7 @@ class ProductPageCategory(Orderable):
         return self.category.name
 
     class Meta:
-        verbose_name = "Product Page Category"
+        verbose_name = "Product Category"
 
 
 class RelatedProducts(Orderable):
@@ -138,7 +138,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
     review_date = models.DateField(
         help_text='Review date of this product',
-        null=True,
     )
     company = models.CharField(
         max_length=100,
@@ -150,6 +149,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         help_text='Description of the product',
         blank=True
     )
+    # TODO: We'll need to update this URL in the template
     product_url = models.URLField(
         max_length=2048,
         help_text='Link to this product page',
@@ -180,6 +180,12 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
+
+    """
+    product_privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
+    Other "magic" relations that use InlinePanels will follow the same pattern of
+    using Wagtail Orderables.
+    """
 
     # What is required to sign up?
     signup_requires_email = ExtendedYesNoField(
