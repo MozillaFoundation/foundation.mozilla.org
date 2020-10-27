@@ -3,7 +3,9 @@ body.catalog {
   $breakpoint: $bp-md;
 
   --sticky-height: 125px;
+  --expanded-sticky-height: 175px;
   --icon-size: 1.2em;
+  --pni-checkbox-width: 17em;
 
   .page-header {
     background: url(../_images/buyers-guide/evergreen-header-light.jpg) center
@@ -38,14 +40,16 @@ body.catalog {
   }
 
   #product-filter-search {
-    --search-icon-width: 1.5em;
-    --initial-width: calc(100% - var(--search-icon-width) - 1px);
+    --search-icon-width: calc(var(--icon-size) + 0.3em);
+    --initial-width: calc(100% - calc(var(--icon-size) + var(--search-icon-width)));
     --expanded-width: var(--initial-width);
 
     position: relative;
     display: block;
     padding: 1em;
+    width: 100%;
     margin-top: 5px;
+    text-align: left;
     border: 1px solid $black;
     transition: border-color 0.2s;
 
@@ -55,12 +59,13 @@ body.catalog {
 
     @media (min-width: $bp-sm) {
       --initial-width: 0em;
-      --expanded-width: 700px;
+      --expanded-width: calc(100% - 0.5em - 2 * var(--icon-size));
 
       position: absolute;
       left: 0;
       border: 1px solid transparent;
       padding: 0.5em;
+      width: calc(100% - var(--pni-checkbox-width));
 
       &::placeholder {
         color: transparent;
@@ -116,12 +121,14 @@ body.catalog {
     position: absolute;
     left: 0;
     padding: 0.5em;
+    width: 100%;
 
     @media (min-width: $bp-sm) {
       left: unset;
       top: calc(var(--sticky-height) / 2 - 0.5em);
       right: 0;
       padding: 0;
+      width: var(--pni-checkbox-width);
     }
 
     input[type=checkbox] {
@@ -299,10 +306,17 @@ body.catalog {
     top: 16px;
     padding-top: 40px;
     padding-bottom: 9px;
-    height: var(--sticky-height);
+    height: var(--expanded-sticky-height);
 
     @media (min-width: $breakpoint) {
       top: 20px;
+      height: var(--sticky-height);
+    }
+
+    &.search-active .current-creepiness {
+      position: fixed;
+      right: 2em;
+      bottom: 2em;
     }
 
     .current-creepiness {
