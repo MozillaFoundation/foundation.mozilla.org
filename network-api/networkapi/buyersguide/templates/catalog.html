@@ -35,7 +35,7 @@
     <!-- temporary location for dev work -->
     <span id="product-filter-search" tabindex=0>
       <span class="search-icon">&nbsp;</span>
-      <input type="text" role="searchbox" required id="product-filter-search-input">
+      <input type="text" role="searchbox" required id="product-filter-search-input" placeholder="Search product name...">
       <label for="product-filter-search-input" class="clear-icon">&nbsp;</span>
     </span>
 
@@ -48,6 +48,7 @@
 
     <span id="product-filter-pni">
       <input type="checkbox" id="product-filter-pni-toggle">
+      <span class="pni-icon">&nbsp;</span>
       <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
     </span>
   </div>
@@ -96,6 +97,10 @@
         </figure>
         {% endif %}
       {% endfor %}
+    </div>
+
+    <div id="product-filter-no-results-notice" class="d-none">
+      NO RESULTS FOUND
     </div>
   </div>
 </div>

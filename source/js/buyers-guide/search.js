@@ -1,5 +1,5 @@
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
-
+const NO_RESULTS_NOTICE = document.getElementById(`product-filter-no-results-notice`);
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 
 const SearchFilter = {
@@ -12,13 +12,15 @@ const SearchFilter = {
       );
     }
 
-    const searchInput = searchBar.querySelector(`input`);
+    const searchInput = SearchFilter.searchInput = searchBar.querySelector(`input`);
 
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = evt.target.value.trim();
 
       if (searchText) {
         searchBar.classList.add(`has-content`);
+      } else {
+        searchBar.classList.remove(`has-content`);
       }
 
       SearchFilter.filter(searchText);
@@ -55,6 +57,30 @@ const SearchFilter = {
         product.classList.add(`d-none`);
       }
     });
+
+    SearchFilter.checkForEmptyNotice();
+  },
+
+  checkForEmptyNotice: () => {
+    let qs = `figure.product-box:not(.d-none)`
+
+    if (document.body.classList.contains(`show-ding-only`)) {
+      qs = `${qs}.privacy-ding`;
+    }
+
+    console.log(qs);
+
+    const results = document.querySelectorAll(qs);
+    console.log(results);
+
+    const count = results.length;
+    console.log(count);
+
+    if (count === 0) {
+      NO_RESULTS_NOTICE.classList.remove(`d-none`);
+    } else {
+      NO_RESULTS_NOTICE.classList.add(`d-none`);
+    }
   },
 
   test: (product, text) => {
@@ -91,6 +117,10 @@ const PNIToggle = {
         document.body.classList.add(`show-ding-only`);
       } else {
         document.body.classList.remove(`show-ding-only`);
+      }
+
+      if (SearchFilter.searchInput.value.trim()) {
+        SearchFilter.searchInput.focus();
       }
     });
   },

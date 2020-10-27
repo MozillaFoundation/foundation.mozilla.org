@@ -2,6 +2,9 @@ body.catalog {
   $hero-breakpoint: $bp-lg;
   $breakpoint: $bp-md;
 
+  --sticky-height: 125px;
+  --icon-size: 1.2em;
+
   .page-header {
     background: url(../_images/buyers-guide/evergreen-header-light.jpg) center
       center / cover no-repeat;
@@ -35,15 +38,35 @@ body.catalog {
   }
 
   #product-filter-search {
-    --initial-width: 0em;
-    --expanded-width: 10em;
+    --search-icon-width: 1.5em;
+    --initial-width: calc(100% - var(--search-icon-width) - 1px);
+    --expanded-width: var(--initial-width);
 
-    position: absolute;
-    left: 0;
-    padding: 0.5em;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    position: relative;
+    display: block;
+    padding: 1em;
+    margin-top: 5px;
+    border: 1px solid $black;
     transition: border-color 0.2s;
+
+    &::placeholder {
+      color: $gray-05
+    }
+
+    @media (min-width: $bp-sm) {
+      --initial-width: 0em;
+      --expanded-width: 700px;
+
+      position: absolute;
+      left: 0;
+      border: 1px solid transparent;
+      padding: 0.5em;
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
 
     &:focus-within,
     &.has-content {
@@ -52,11 +75,12 @@ body.catalog {
 
     .search-icon {
       display: inline-block;
-      height: 1.2em;
-      width: 1.2em;
+      height: var(--icon-size);
+      width: var(--icon-size);
       background: url(../_images/buyers-guide/search.svg);
       background-size: 100% 100%;
       vertical-align: middle;
+      cursor: pointer;
     }
 
     input {
@@ -90,7 +114,36 @@ body.catalog {
 
   #product-filter-pni {
     position: absolute;
-    right: 0;
+    left: 0;
+    padding: 0.5em;
+
+    @media (min-width: $bp-sm) {
+      left: unset;
+      top: calc(var(--sticky-height) / 2 - 0.5em);
+      right: 0;
+      padding: 0;
+    }
+
+    input[type=checkbox] {
+      display: inline-block;
+      width: var(--icon-size);
+      height: var(--icon-size);
+      vertical-align: middle;
+    }
+
+    .pni-icon {
+      display: inline-block;
+      height: var(--icon-size);
+      width: var(--icon-size);
+      background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg);
+      background-size: 100% 100%;
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: sub;
+      cursor: pointer;
+    }
   }
 
   .product-box-list-wrapper {
@@ -246,6 +299,7 @@ body.catalog {
     top: 16px;
     padding-top: 40px;
     padding-bottom: 9px;
+    height: var(--sticky-height);
 
     @media (min-width: $breakpoint) {
       top: 20px;
