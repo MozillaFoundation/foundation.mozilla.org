@@ -6,8 +6,8 @@
 
 {% block main_content_class %}{% endblock %}
 
-{% block hero %}
-<header class="container-fluid text-center page-header bg-gray" role="banner">
+{% block guts %}
+<div class="container-fluid text-center page-header bg-gray">
   <!-- home banner as css background -->
   <div class="container">
     <div class="row">
@@ -25,10 +25,8 @@
       </div>
     </div>
   </div>
-</header>
-{% endblock %}
+</div>
 
-{% block guts %}
 <div class="project-list-section">
   <div class="creepiness-slider bg-white text-center">
     <span class="current-creepiness">
@@ -47,13 +45,13 @@
 
         <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}" data-creepiness="{{ product.votes.creepiness.average }}">
           <div class="top-left-badge-container">
-              {% include "fragments/seal_of_approval.html" with product=product %}
-              {% if product.votes.confidence %}
-                  {% if product.votes.confidence.1 > product.votes.confidence.0 %}
-                      <div class="d-none recommendation positive"></div>
-                  {% else %}
-                      <div class="d-none recommendation negative"></div>
-                  {% endif %}
+              {% if product.privacy_ding %}
+              <img
+                src="{% static "_images/buyers-guide/icon-privacy-ding-mini.svg" %}"
+                title="{% trans "*privacy not included with this product" %}"
+                alt="{% trans "*privacy not included with this product" %}"
+                width="24"
+              >
               {% endif %}
           </div>
 
