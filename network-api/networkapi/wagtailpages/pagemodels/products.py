@@ -13,7 +13,7 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
 
 class ProductPage(FoundationMetadataPageMixin, Page):
     """
-    ProductPage is the similar page that SoftwareProductPage and
+    ProductPage is the superclass that SoftwareProductPage and
     GeneralProductPage inherit from. This should not be an abstract
     model as we need it to connect the two page types together.
     """
