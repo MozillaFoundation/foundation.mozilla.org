@@ -100,7 +100,9 @@
     </div>
 
     <div id="product-filter-no-results-notice" class="d-none">
-      NO RESULTS FOUND
+      {% block no_products_found %}
+        NO RESULTS FOUND
+      {% endblock %}
     </div>
   </div>
 </div>
