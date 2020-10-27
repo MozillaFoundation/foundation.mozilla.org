@@ -79,6 +79,12 @@ from .pagemodels.publications.article import (
     ArticlePage
 )
 
+from .pagemodels.products import (
+    GeneralProductPage,
+    ProductPage,
+    SoftwareProductPage
+)
+
 
 __all__ = [
     ArticlePage,
@@ -95,6 +101,7 @@ __all__ = [
     FocusArea,
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
+    GeneralProductPage,
     Homepage,
     HomepageNewsYouCanUse,
     HomepageSpotlightPosts,
@@ -111,9 +118,11 @@ __all__ = [
     PeoplePage,
     Petition,
     PrimaryPage,
+    ProductPage,
     PublicationPage,
     RedirectingPage,
     Signup,
+    SoftwareProductPage,
     Styleguide,
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
