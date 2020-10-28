@@ -1,6 +1,6 @@
 {% extends "partials/primary_nav.html" %}
 
-{% load primary_active_nav i18n %}
+{% load bg_nav_tags i18n %}
 
 {% block nav_logo %}
   <div class="d-flex align-items-center py-0 py-md-3 logo-section">
@@ -12,7 +12,8 @@
 {% endblock %}
 
 {% block narrow_screen_nav_links %}
-<div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Privacy Not Included" %}</a></div>
+{% url 'buyersguide-home' as home_url %}
+<div><a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">{% trans "Privacy Not Included" %}</a></div>
 {% include "./fragments/pni_nav_links.html" with pre="<div>" post="</div>" %}
 {% endblock %}
 

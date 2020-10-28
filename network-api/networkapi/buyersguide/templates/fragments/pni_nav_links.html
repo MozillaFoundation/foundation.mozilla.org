@@ -1,4 +1,4 @@
-{% load primary_active_nav i18n %}
+{% load bg_nav_tags i18n %}
 
 {% url 'about-why-view' as about_why_url %}
-{{ pre }}<a class="{{ class }}" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>{{ post }}
+{{ pre }}<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>{{ post }}
