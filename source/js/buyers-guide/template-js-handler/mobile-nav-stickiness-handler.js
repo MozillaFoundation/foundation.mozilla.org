@@ -16,16 +16,16 @@ export default () => {
 
   const classToDetect = "menu-open";
   const classToToggle = "sticky-top";
-  const prevClassState = menuBurger.classList.contains(classToDetect);
+  let prevMenuState = menuBurger.classList.contains(classToDetect);
   const mutationHandler = (mutations) => {
     mutations.forEach(function (mutation) {
       if (mutation.attributeName === "class") {
-        let currentClassState = mutation.target.classList.contains(
+        let currentMenuState = mutation.target.classList.contains(
           classToDetect
         );
-        if (prevClassState !== currentClassState) {
-          prevClassState = currentClassState;
-          if (currentClassState) {
+        if (prevMenuState !== currentMenuState) {
+          prevMenuState = currentMenuState;
+          if (currentMenuState) {
             primanyNavContainer.classList.add(classToToggle);
           } else {
             primanyNavContainer.classList.remove(classToToggle);
