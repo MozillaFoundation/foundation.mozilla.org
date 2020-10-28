@@ -4,7 +4,7 @@ const NO_RESULTS_NOTICE = document.getElementById(
   `product-filter-no-results-notice`
 );
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
-const SUBMIT_PRODUCT = document.querySelector('.recommend-product');
+const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
 
 const SearchFilter = {
   init: () => {
@@ -91,16 +91,16 @@ const SearchFilter = {
 
     const results = document.querySelectorAll(qs);
     const count = results.length;
-    const viewId = document.querySelector('body').id;
+    const viewId = document.querySelector("body").id;
     if (count === 0) {
       NO_RESULTS_NOTICE.classList.remove(`d-none`);
-      if(viewId !== 'view-home') {
-        SUBMIT_PRODUCT.classList.add('d-none');
+      if (viewId !== "view-home") {
+        SUBMIT_PRODUCT.classList.add("d-none");
       }
     } else {
       NO_RESULTS_NOTICE.classList.add(`d-none`);
-      if(viewId !== 'view-home') {
-        SUBMIT_PRODUCT.classList.remove('d-none');
+      if (viewId !== "view-home") {
+        SUBMIT_PRODUCT.classList.remove("d-none");
       }
     }
   },
