@@ -1,4 +1,5 @@
 $pni-primary-nav-breakpoint: $bp-sm;
+$pni-primary-nav-container-z-index: 30;
 
 .moz-logo {
   background-image: url("../_images/mozilla-m.svg");
@@ -14,9 +15,15 @@ $pni-primary-nav-breakpoint: $bp-sm;
 
 .primary-nav-container {
   .menu-container {
-    padding: 0;
     position: relative;
-    z-index: 30;
+    z-index: $pni-primary-nav-container-z-index;
+  }
+}
+
+#nav-newsletter-form-wrapper {
+  &.faded-in {
+    position: relative;
+    z-index: $pni-primary-nav-container-z-index;
   }
 }
 

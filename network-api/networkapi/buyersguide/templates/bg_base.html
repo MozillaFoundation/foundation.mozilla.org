@@ -73,7 +73,10 @@
 
 {% block body_wrapped %}
 
+  <div class="primary-nav-container-wrapper">
   {% include "./primary_nav.html" %}
+  </div>
+
   {% block hero %}{% endblock %}
   <nav class="category-nav text-center" title="{% trans "site navigation" context "Tooltip on menu items" %}">
     <div class="container">

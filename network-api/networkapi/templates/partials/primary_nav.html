@@ -14,8 +14,10 @@
               <div class="row">
                 <div class="col">
                   <div class="nav-links pt-3">
+                    {% block narrow_screen_nav_links %}
                     <div><a class="{% primary_active_nav request menu_root.full_url menu_root.full_url %}" href="{{ menu_root.url }}">{% trans "Home" %}</a></div>
                     {% include "fragments/nav_links.html" with pre="<div>" post="</div>" %}
+                    {% endblock %}
                     {% if page.signup == None %}<div class="mt-2"><button class="btn btn-secondary btn-newsletter">{% trans "Newsletter" %}</button></div>{% endif %}
                   </div>
                 </div>
@@ -33,12 +35,13 @@
               <div id="primary-nav-links">
                 <div class="d-flex align-items-center flex-wrap">
 
-                  {% block burger_and_logo %}
-                    <button class="burger {% if page.zen_nav is not True %} d-lg-none ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
-                      <div class="burger-bar burger-bar-top"></div>
-                      <div class="burger-bar burger-bar-middle"></div>
-                      <div class="burger-bar burger-bar-bottom"></div>
-                    </button>
+                  <button class="burger {% if page.zen_nav is not True %} d-lg-none ml-md-0 {% endif %}" aria-label="{% trans 'Open menu' %}">
+                    <div class="burger-bar burger-bar-top"></div>
+                    <div class="burger-bar burger-bar-middle"></div>
+                    <div class="burger-bar burger-bar-bottom"></div>
+                  </button>
+
+                  {% block nav_logo %}
                     <a class="logo text-hide" href="/" aria-label="{% trans "Mozilla Foundation Homepage" %}">{% trans "Mozilla Foundation" %}</a>
                   {% endblock %}
 
