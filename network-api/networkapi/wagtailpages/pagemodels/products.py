@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.translation import pgettext
 
 from modelcluster.fields import ParentalKey
 
@@ -15,6 +16,7 @@ from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
+from networkapi.buyersguide.pagemodels.product_category import BuyersGuideProductCategory
 from networkapi.buyersguide.pagemodels.product_update import Update
 
 if settings.USE_CLOUDINARY:
@@ -118,7 +120,11 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     ProductPage is the superclass that SoftwareProductPage and
     GeneralProductPage inherit from. This should not be an abstract
     model as we need it to connect the two page types together.
+
+    ProductPage is re-using the product_page.html template that PNI Products use.
     """
+
+    template = 'product_page.html'
 
     privacy_ding = models.BooleanField(
         help_text='Tick this box if privacy is not included for this product',
@@ -150,7 +156,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         help_text='Description of the product',
         blank=True
     )
-    # TODO: We'll need to update this URL in the template
     product_url = models.URLField(
         max_length=2048,
         help_text='Link to this product page',
@@ -389,6 +394,21 @@ class ProductPage(FoundationMetadataPageMixin, Page):
             heading='Related Products',
         ),
     ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        # In an effort to keep `product_page.html` changed as little as possible while there could be
+        # other work in other branches on that template, we're assigning ['product'] = self.
+        # TODO: At some point in the future, let's remove this and use `page.field_name` instead of
+        # using `product.field_name` in the template
+        context['product'] = self
+        context['categories'] = BuyersGuideProductCategory.objects.all()
+        context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
+        context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
+        context['pageTitle'] = pgettext(
+                'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+                '*privacy not included') + f' - {self.title}'
+        return context
 
     class Meta:
         verbose_name = "Product Page"

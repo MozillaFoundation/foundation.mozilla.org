@@ -4,7 +4,7 @@
 
   {% if links|length > 0 %}
   <ul class="list-unstyled mb-0">
-    {% for link in product.privacy_policy_links reversed %}
+    {% for link in links %}
       <li class="pni-product-helptext">
         {% if link.url != "" %}
         <a class="privacy-policy-link" href="{{ link.url }}">{{ link.label }}</a>
