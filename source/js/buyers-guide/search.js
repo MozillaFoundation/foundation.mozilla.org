@@ -84,13 +84,8 @@ const SearchFilter = {
       qs = `${qs}.privacy-ding`;
     }
 
-    console.log(qs);
-
     const results = document.querySelectorAll(qs);
-    console.log(results);
-
     const count = results.length;
-    console.log(count);
 
     if (count === 0) {
       NO_RESULTS_NOTICE.classList.remove(`d-none`);
