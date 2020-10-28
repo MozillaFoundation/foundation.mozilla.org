@@ -2,8 +2,12 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel
 
+from wagtail.snippets.models import register_snippet
+from wagtail.search import index
 
-class Update(models.Model):
+
+@register_snippet
+class Update(index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
@@ -39,6 +43,10 @@ class Update(models.Model):
         FieldPanel('author'),
         FieldPanel('featured'),
         FieldPanel('snippet'),
+    ]
+
+    search_fields = [
+        index.SearchField('title', partial_match=True),
     ]
 
     def __str__(self):
