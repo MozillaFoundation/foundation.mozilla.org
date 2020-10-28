@@ -1,5 +1,7 @@
 from django.db import models
 
+from wagtail.admin.edit_handlers import FieldPanel
+
 
 class Update(models.Model):
     source = models.URLField(
@@ -25,6 +27,19 @@ class Update(models.Model):
         max_length=5000,
         blank=True,
     )
+
+    created_date = models.DateField(
+        auto_now_add=True,
+        help_text='The date this product was created',
+    )
+
+    panels = [
+        FieldPanel('source'),
+        FieldPanel('title'),
+        FieldPanel('author'),
+        FieldPanel('featured'),
+        FieldPanel('snippet'),
+    ]
 
     def __str__(self):
         return self.title
