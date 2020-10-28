@@ -1,5 +1,5 @@
 $pni-primary-nav-breakpoint: $bp-sm;
-$pni-primary-nav-container-z-index: 30;
+$pni-primary-nav-container-z-index: $zindex-sticky;
 
 .moz-logo {
   background-image: url("../_images/mozilla-m.svg");
