@@ -1,40 +1,27 @@
 {% extends "partials/primary_nav.html" %}
 
-{% load i18n %}
+{% load bg_nav_tags i18n %}
 
-{% block narrow_screen_menu %}
-  {% comment %}
-    This block can actually be empty becasue PNI doesn't show nav newsletter form on mobile.
-    However, our current implementation of nav-newsletters.js requires the following DOM nodes
-    to exist in order for desktop nav newsletter form to kick off properly.
-    Clean-up ticket filed: https://github.com/mozilla/foundation.mozilla.org/issues/4686
-  {% endcomment %}
-  <div class="narrow-screen-menu-background">
-    <div class="narrow-screen-menu-container d-md-none">
-      <button class="btn btn-secondary btn-newsletter">{% trans "Newsletter" %}</button>
-    </div>
+{% block nav_logo %}
+  <div class="d-flex align-items-center logo-section">
+    <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
+    <p class="mb-0 h3-heading flex-wrap">
+      <a class="link-back" href="{% url 'buyersguide-home' %}">{% trans "*privacy not included" context 'Buyer’s guide name. This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}</a>
+    </p>
   </div>
 {% endblock %}
 
-{% block burger_and_logo %}
-  {# we do not want the burger and logo from the original nav here #}
+{% block narrow_screen_nav_links %}
+{% url 'buyersguide-home' as home_url %}
+<div><a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">{% trans "Privacy Not Included" %}</a></div>
+{% include "./fragments/pni_nav_links.html" with pre="<div>" post="</div>" %}
 {% endblock %}
 
-{% block wide_screen_menu %}
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="d-flex align-items-center py-0 py-md-3 logo-section">
-      <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
-      <p class="mb-0 h3-heading flex-wrap">
-        <a class="link-back" href="{% url 'buyersguide-home' %}">{% trans "*privacy not included" context 'Buyer’s guide name. This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}</a>
-      </p>
-    </div>
-  </div>
-{% endblock %}
+{% block wide_screen_menu %}{% endblock %}
 
 {% block donate_and_newsletter %}
 <div class="d-flex align-items-center">
-  {% url 'about-why-view' as about_why_url %}
-  <a class="primary-nav-special-link d-none d-md-block" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>
+  {% include "./fragments/pni_nav_links.html" with class="primary-nav-special-link d-none d-md-block" %}
   <a id="donate-header-btn" class="primary-nav-special-link heart-glyph" href="https://donate.mozilla.org/" target="_blank" rel="noopener noreferrer">{% trans "Donate" %}</a>
   {% if page.signup == None %}<button class="btn btn-secondary btn-newsletter d-none d-lg-block ml-md-3">{% trans "Newsletter" %}</button>{% endif %}
 </div>
