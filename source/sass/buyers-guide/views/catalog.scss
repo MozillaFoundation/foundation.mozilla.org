@@ -5,9 +5,18 @@ body.catalog {
   --sticky-height: 8em;
   --creep-o-height: 70px;
   --expanded-sticky-height: calc(11em + var(--creep-o-height));
-  --icon-size: 1.2em;
-  --pni-checkbox-container-width: 17em;
+
+  --search-icon-size-desktop: 24px;
+  --search-icon-size-mobile: 22px;
+  --search-box-height-desktop: 62px;
+  --search-box-height-mobile: 50px;
+  --clear-icon-size: 14px;
+
   --search-element-buffer: 10%;
+
+  --pni-checkbox-container-width: 17em;
+  --pni-checkbox-size: 22px;
+  --pni-icon-size: 1.2em;
 
   .page-header {
     background: url(../_images/buyers-guide/evergreen-header-light.jpg) center
@@ -42,32 +51,32 @@ body.catalog {
   }
 
   #product-filter-search {
-    --search-icon-width: calc(var(--icon-size) + 0.3em);
-    --initial-width: calc(100% - calc(var(--icon-size) + var(--search-icon-width)));
+    --initial-width: calc(100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop)));
     --expanded-width: var(--initial-width);
 
     position: relative;
-    display: block;
+    display: flex;
+    align-items:center;
     padding: 1em;
     width: calc(100% - 3em);
+    height: var(--search-box-height-mobile);
+    box-sizing: border-box;
     margin: 5px 1.5em 0;
     text-align: left;
     border: 1px solid $black;
     transition: border-color 0.2s;
 
-    &::placeholder {
-      color: $gray-05
-    }
-
     @media (min-width: $bp-sm) {
       --initial-width: 0em;
-      --expanded-width: calc(100% - 0.5em - 2 * var(--icon-size));
+      --expanded-width: calc(100% - 0.5em - 2 * var(--clear-icon-size));
 
       position: absolute;
       left: 0;
       border: 1px solid transparent;
       padding: 0.5em;
+      margin: 0;
       width: calc(100% - var(--search-element-buffer) - var(--pni-checkbox-container-width));
+      height: var(--search-box-height-desktop);
 
       &::placeholder {
         color: transparent;
@@ -80,14 +89,28 @@ body.catalog {
       border-color: $black;
     }
 
+    &:focus-within.has-content {
+      border-color: $light-blue;
+
+      .clear-icon {
+        background: url(../_images/buyers-guide/filter/clear-icon-blue.svg);
+      }
+    }
+
+
     .search-icon {
       display: inline-block;
-      height: var(--icon-size);
-      width: var(--icon-size);
-      background: url(../_images/buyers-guide/search.svg);
+      background: url(../_images/buyers-guide/filter/search.svg);
       background-size: 100% 100%;
-      vertical-align: middle;
       cursor: pointer;
+      height: var(--search-icon-size-mobile);
+      width: var(--search-icon-size-mobile);
+      margin: 0 0.5em;
+
+      @media (min-width: $bp-sm) {
+        height: var(--search-icon-size-desktop);
+        width: var(--search-icon-size-desktop);
+      }
     }
 
     input {
@@ -95,6 +118,15 @@ body.catalog {
       width: var(--initial-width);
       transition: width 0.2s;
       outline: 0;
+
+      &::placeholder, &::-webkit-input-placeholder {
+        color: $gray-20;
+      }
+
+      &:required:invalid {
+        /* counteracts Firefox's red outline: */
+        box-shadow: none;
+      }
 
       &:valid,
       &:focus {
@@ -106,11 +138,10 @@ body.catalog {
         cursor: pointer;
         outline: 0;
         margin-top: 0.2em;
-        height: 0.8em;
-        width: 0.8em;
-        background: url(../_images/buyers-guide/dismiss.svg);
+        height: var(--clear-icon-size);
+        width: var(--clear-icon-size);
+        background: url(../_images/buyers-guide/filter/clear-icon-black.svg);
         background-size: 100% 100%;
-        vertical-align: middle;
       }
 
       &:valid + .clear-icon {
@@ -136,17 +167,39 @@ body.catalog {
     }
 
     input[type=checkbox] {
+      position: relative;
       display: inline-block;
-      width: var(--icon-size);
-      height: var(--icon-size);
-      vertical-align: middle;
+      border: none;
+      width: var(--pni-checkbox-size);
+      height: 0;
       margin-right: 0.5em;
+
+      &:before {
+          display: inline-block;
+          position: absolute;
+          top: calc(0.25em - var(--pni-checkbox-size));
+          left: 0;
+          width: var(--pni-checkbox-size);
+          height: var(--pni-checkbox-size);
+          content: " ";
+          color: transparent;
+          cursor: pointer;
+          background: url(../_images/buyers-guide/filter/checkbox.svg);
+
+          @media (min-width: $bp-sm) {
+            top: calc(0.5em - var(--pni-checkbox-size));
+          }
+      }
+
+      &:checked:before {
+        background: url(../_images/buyers-guide/filter/checkbox-selected.svg);
+      }
     }
 
     .pni-icon {
       display: inline-block;
-      height: var(--icon-size);
-      width: var(--icon-size);
+      height: var(--pni-icon-size);
+      width: var(--pni-icon-size);
       background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg);
       background-size: 100% 100%;
       vertical-align: middle;
