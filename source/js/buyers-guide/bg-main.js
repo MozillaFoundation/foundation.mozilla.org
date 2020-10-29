@@ -8,7 +8,9 @@ import {
   injectCommonReactComponents,
 } from "../common";
 
-import { injectReactComponents } from "./index";
+import { injectReactComponents, bindEventHandlers } from "./index";
+
+import primaryNav from "../primary-nav.js";
 
 import HomepageSlider from "./homepage-c-slider.js";
 import AnalyticsEvents from "./analytics-events.js";
@@ -69,7 +71,7 @@ let main = {
 
       this.injectReactComponents();
       this.bindHandlers();
-      initializePrimaryNav(networkSiteURL, csrfToken);
+      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
@@ -98,6 +100,7 @@ let main = {
 
   bindHandlers() {
     bindCommonEventHandlers();
+    bindEventHandlers();
   },
 
   // Embed various React components based on the existence of containers within the current page
