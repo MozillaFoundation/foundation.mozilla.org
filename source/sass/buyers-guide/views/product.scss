@@ -360,6 +360,8 @@ $pni-product-breakpoint-larger: $bp-md;
 
   &.meets-minimum-security-standards {
     padding-bottom: $criterion-no-border-padding-y * 2;
+    margin-bottom: $criterion-no-border-padding-y * 2;
+    border-bottom: 1px solid $gray-20;
 
     h3 {
       padding-right: 40px;
@@ -367,6 +369,10 @@ $pni-product-breakpoint-larger: $bp-md;
       @media (min-width: $pni-product-breakpoint-larger) {
         padding-right: 0;
       }
+    }
+
+    &.show-ding::after {
+      top: 0;
     }
   }
 
