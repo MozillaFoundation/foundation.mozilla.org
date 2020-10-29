@@ -136,6 +136,7 @@ const PNIToggle = {
 
       if (SearchFilter.searchInput.value.trim()) {
         SearchFilter.searchInput.focus();
+        SearchFilter.checkForEmptyNotice();
       }
     });
   },
