@@ -51,12 +51,14 @@ body.catalog {
   }
 
   #product-filter-search {
-    --initial-width: calc(100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop)));
+    --initial-width: calc(
+      100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop))
+    );
     --expanded-width: var(--initial-width);
 
     position: relative;
     display: flex;
-    align-items:center;
+    align-items: center;
     padding: 1em;
     width: calc(100% - 3em);
     height: var(--search-box-height-mobile);
@@ -75,14 +77,16 @@ body.catalog {
       border: 1px solid transparent;
       padding: 0.5em;
       margin: 0;
-      width: calc(100% - var(--search-element-buffer) - var(--pni-checkbox-container-width));
+      width: calc(
+        100% - var(--search-element-buffer) -
+          var(--pni-checkbox-container-width)
+      );
       height: var(--search-box-height-desktop);
 
       &::placeholder {
         color: transparent;
       }
     }
-
 
     &:focus-within,
     &.has-content {
@@ -96,7 +100,6 @@ body.catalog {
         background: url(../_images/buyers-guide/filter/clear-icon-blue.svg);
       }
     }
-
 
     .search-icon {
       display: inline-block;
@@ -119,7 +122,8 @@ body.catalog {
       transition: width 0.2s;
       outline: 0;
 
-      &::placeholder, &::-webkit-input-placeholder {
+      &::placeholder,
+      &::-webkit-input-placeholder {
         color: $gray-20;
       }
 
@@ -166,7 +170,7 @@ body.catalog {
       font-size: 100%;
     }
 
-    input[type=checkbox] {
+    input[type="checkbox"] {
       position: relative;
       display: inline-block;
       border: none;
@@ -175,20 +179,20 @@ body.catalog {
       margin-right: 0.5em;
 
       &:before {
-          display: inline-block;
-          position: absolute;
-          top: calc(0.25em - var(--pni-checkbox-size));
-          left: 0;
-          width: var(--pni-checkbox-size);
-          height: var(--pni-checkbox-size);
-          content: " ";
-          color: transparent;
-          cursor: pointer;
-          background: url(../_images/buyers-guide/filter/checkbox.svg);
+        display: inline-block;
+        position: absolute;
+        top: calc(0.25em - var(--pni-checkbox-size));
+        left: 0;
+        width: var(--pni-checkbox-size);
+        height: var(--pni-checkbox-size);
+        content: " ";
+        color: transparent;
+        cursor: pointer;
+        background: url(../_images/buyers-guide/filter/checkbox.svg);
 
-          @media (min-width: $bp-sm) {
-            top: calc(0.5em - var(--pni-checkbox-size));
-          }
+        @media (min-width: $bp-sm) {
+          top: calc(0.5em - var(--pni-checkbox-size));
+        }
       }
 
       &:checked:before {

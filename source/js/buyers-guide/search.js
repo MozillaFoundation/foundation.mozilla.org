@@ -1,6 +1,8 @@
 const STICKY_BAR = document.getElementById(`sticky-bar`);
 const ALL_PRODUCTS = document.querySelectorAll(`figure.product-box`);
-const NO_RESULTS_NOTICE = document.getElementById(`product-filter-no-results-notice`);
+const NO_RESULTS_NOTICE = document.getElementById(
+  `product-filter-no-results-notice`
+);
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 
 const SearchFilter = {
@@ -13,7 +15,9 @@ const SearchFilter = {
       );
     }
 
-    const searchInput = SearchFilter.searchInput = searchBar.querySelector(`input`);
+    const searchInput = (SearchFilter.searchInput = searchBar.querySelector(
+      `input`
+    ));
 
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = searchInput.value.trim();
@@ -78,7 +82,7 @@ const SearchFilter = {
   },
 
   checkForEmptyNotice: () => {
-    let qs = `figure.product-box:not(.d-none)`
+    let qs = `figure.product-box:not(.d-none)`;
 
     if (document.body.classList.contains(`show-ding-only`)) {
       qs = `${qs}.privacy-ding`;
