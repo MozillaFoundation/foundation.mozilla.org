@@ -40,15 +40,3 @@ fieldset ul li div label {
   display: block;
   width: auto;
 }
-
-/*
-  Fix checkbox placement
-*/
-#wagtail .wrapper input[type="checkbox"] {
-  vertical-align: middle;
-}
-
-#wagtail .wrapper input[type="checkbox"]:before {
-  top: calc(50% - 10px);
-  left: calc(50% - 10px);
-}
