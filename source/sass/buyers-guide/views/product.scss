@@ -370,6 +370,10 @@ $pni-product-breakpoint-larger: $bp-md;
         padding-right: 0;
       }
     }
+
+    &.show-ding::after {
+      top: 0;
+    }
   }
 
   p.criterion-label {
