@@ -14,7 +14,7 @@ export default () => {
 
     // Get which page type or model to exclude, if any exist in the data-exclude
     // html attribute.
-    const exclude = loadMoreButton.dataset.exclude || '';
+    const exclude = loadMoreButton.dataset.exclude || "";
 
     // Start at page 1, as page 0 is the same sat as the initial page set.
     let page = 1;
