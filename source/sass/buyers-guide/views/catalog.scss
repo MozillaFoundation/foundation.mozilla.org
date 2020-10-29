@@ -54,6 +54,7 @@ body.catalog {
     --initial-width: calc(
       100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop))
     );
+
     --expanded-width: var(--initial-width);
 
     position: relative;
@@ -70,13 +71,14 @@ body.catalog {
 
     @media (min-width: $bp-sm) {
       --initial-width: 0em;
-      --expanded-width: calc(100% - 0.5em - 2 * var(--clear-icon-size));
+      --expanded-width: calc(100% - 0.5em - var(--search-icon-size-desktop) - var(--clear-icon-size) - 0.5em);
 
       position: absolute;
       left: 0;
       border: 1px solid transparent;
       padding: 0.5em;
       margin: 0;
+      margin-left: 2em;
       width: calc(
         100% - var(--search-element-buffer) -
           var(--pni-checkbox-container-width)
@@ -87,6 +89,11 @@ body.catalog {
         color: transparent;
       }
     }
+
+    @media (min-width: $bp-xl) {
+      margin-left: 0;
+    }
+
 
     &:focus-within,
     &.has-content {
@@ -102,6 +109,7 @@ body.catalog {
     }
 
     .search-icon {
+      flex: 0 0 auto;
       display: inline-block;
       background: url(../_images/buyers-guide/filter/search.svg);
       background-size: 100% 100%;
@@ -117,6 +125,7 @@ body.catalog {
     }
 
     input {
+      flex: 1 1 auto;
       border: none;
       width: var(--initial-width);
       transition: width 0.2s;
@@ -138,10 +147,13 @@ body.catalog {
       }
 
       & + .clear-icon {
+        flex: 0 0 auto;
         display: none;
         cursor: pointer;
         outline: 0;
-        margin-top: 0.2em;
+        padding: 0;
+        margin: 0;
+        margin-right: 10px;
         height: var(--clear-icon-size);
         width: var(--clear-icon-size);
         background: url(../_images/buyers-guide/filter/clear-icon-black.svg);
@@ -155,6 +167,7 @@ body.catalog {
   }
 
   #product-filter-pni {
+    user-select: none;
     position: absolute;
     left: 0;
     padding: 0.5em;
@@ -172,30 +185,24 @@ body.catalog {
 
     input[type="checkbox"] {
       position: relative;
-      display: inline-block;
-      border: none;
-      width: var(--pni-checkbox-size);
-      height: 0;
-      margin-right: 0.5em;
+      display: none;
 
-      &:before {
+      & + .pni-checkbox-facade {
         display: inline-block;
-        position: absolute;
-        top: calc(0.25em - var(--pni-checkbox-size));
+        vertical-align: calc(0.25em - var(--pni-checkbox-size));
         left: 0;
         width: var(--pni-checkbox-size);
         height: var(--pni-checkbox-size);
-        content: " ";
-        color: transparent;
+        margin-right: 0.5em;
         cursor: pointer;
         background: url(../_images/buyers-guide/filter/checkbox.svg);
 
         @media (min-width: $bp-sm) {
-          top: calc(0.5em - var(--pni-checkbox-size));
+          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2)
         }
       }
 
-      &:checked:before {
+      &:checked + .pni-checkbox-facade {
         background: url(../_images/buyers-guide/filter/checkbox-selected.svg);
       }
     }

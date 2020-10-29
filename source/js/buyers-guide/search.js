@@ -35,6 +35,9 @@ const SearchFilter = {
     searchBar.addEventListener(`focus`, (_evt) => {
       // We want focus to fall through to the input element instead
       searchInput.focus();
+    });
+
+    searchInput.addEventListener(`focus`, (_evt) => {
       // And to make CSS work easier, set a class on the parent container
       // for both search and the creep-o-meter component, so that it can
       // relocate so as not to interfere with the search bar.

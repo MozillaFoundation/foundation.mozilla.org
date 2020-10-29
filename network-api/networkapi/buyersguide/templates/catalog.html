@@ -36,7 +36,7 @@
     <span id="product-filter-search" tabindex="0">
       <span class="search-icon">&nbsp;</span>
       <input type="text" role="searchbox" required id="product-filter-search-input" placeholder="Search product name..." class="body-large">
-      <label for="product-filter-search-input" class="clear-icon">&nbsp;</span>
+      <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
     </span>
 
     <span class="current-creepiness">
@@ -48,6 +48,7 @@
 
     <span id="product-filter-pni">
       <input type="checkbox" id="product-filter-pni-toggle">
+      <label for="product-filter-pni-toggle" class="pni-checkbox-facade"></label>
       <span class="pni-icon">&nbsp;</span>
       <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
     </span>
@@ -90,10 +91,9 @@
               <div class="product-company body-small">{{product.company}}</div>
               <div class="product-name body">{{product.name}}</div>
             </a>
+            <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
+            <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
           </figcaption>
-
-          <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
-          <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
         </figure>
         {% endif %}
       {% endfor %}
