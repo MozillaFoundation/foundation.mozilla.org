@@ -54,7 +54,6 @@ body.catalog {
     --initial-width: calc(
       100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop))
     );
-
     --expanded-width: var(--initial-width);
 
     position: relative;
@@ -67,23 +66,22 @@ body.catalog {
     margin: 5px 1.5em 0;
     text-align: left;
     border: 1px solid $black;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, width 0.2s;
 
     @media (min-width: $bp-sm) {
-      --initial-width: 0em;
-      --expanded-width: calc(100% - 0.5em - var(--search-icon-size-desktop) - var(--clear-icon-size) - 0.5em);
+      --container-padding: 0.5em;
+      --initial-width: calc(2 * var(--container-padding) + var(--search-icon-size-desktop));
+      --expanded-width: calc(100% - var(--pni-checkbox-container-width) - 2em);
 
       position: absolute;
       left: 0;
       border: 1px solid transparent;
-      padding: 0.5em;
+      padding: var(--container-padding);
       margin: 0;
       margin-left: 2em;
-      width: calc(
-        100% - var(--search-element-buffer) -
-          var(--pni-checkbox-container-width)
-      );
+      width: var(--initial-width);
       height: var(--search-box-height-desktop);
+      overflow: hidden;
 
       &::placeholder {
         color: transparent;
@@ -94,10 +92,10 @@ body.catalog {
       margin-left: 0;
     }
 
-
     &:focus-within,
     &.has-content {
       border-color: $black;
+      width: var(--expanded-width);
     }
 
     &:focus-within.has-content {
@@ -127,23 +125,11 @@ body.catalog {
     input {
       flex: 1 1 auto;
       border: none;
-      width: var(--initial-width);
-      transition: width 0.2s;
       outline: 0;
 
       &::placeholder,
       &::-webkit-input-placeholder {
         color: $gray-40;
-      }
-
-      &:required:invalid {
-        /* counteracts Firefox's red outline: */
-        box-shadow: none;
-      }
-
-      &:valid,
-      &:focus {
-        width: var(--expanded-width);
       }
 
       & + .clear-icon {
@@ -159,10 +145,10 @@ body.catalog {
         background: url(../_images/buyers-guide/filter/clear-icon-black.svg);
         background-size: 100% 100%;
       }
+    }
 
-      &:valid + .clear-icon {
-        display: inline-block;
-      }
+    &.has-content .clear-icon {
+      display: inline-block;
     }
   }
 
@@ -171,7 +157,6 @@ body.catalog {
     position: absolute;
     left: 0;
     padding: 0.5em;
-    font-size: 150%;
     margin-left: 0.5em;
 
     @media (min-width: $bp-sm) {
@@ -189,8 +174,8 @@ body.catalog {
 
       & + .pni-checkbox-facade {
         display: inline-block;
-        vertical-align: calc(0.25em - var(--pni-checkbox-size));
-        left: 0;
+        vertical-align: calc(0.4em - var(--pni-checkbox-size));
+        margin-left: 0.5em;
         width: var(--pni-checkbox-size);
         height: var(--pni-checkbox-size);
         margin-right: 0.5em;
