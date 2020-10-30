@@ -1,4 +1,8 @@
 {% extends "./catalog.html" %}
+{% load static i18n %}
 
 {% block body_id %}{{ category.slug }}{% endblock %}
 
+{% block no_products_found %}
+  {% include "fragments/no_search_results.html" %}
+{% endblock %}
