@@ -9,7 +9,7 @@
 }
 
 #multipage-nav {
-  &:not(.vertical-nav) {
+  &:not(.vertical-nav):not(.pni-category-nav) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
