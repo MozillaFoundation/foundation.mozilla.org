@@ -39,11 +39,14 @@
       <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
     </span>
 
-    <span class="current-creepiness">
-      <span class="speech-bubble d-none">
-        <span class="text"></span>
-        <span class="hook"></span>
+    <span class="creep-o-meter-information">
+      <span class="speech-bubble-container">
+        <span class="speech-bubble">
+          <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
+          <span class="text">{% trans "Scroll to see how creepy<br>people find these products!" %}</span>
+        </span>
       </span>
+      <span class="current-creepiness"></span>
     </span>
 
     <span id="product-filter-pni">

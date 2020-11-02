@@ -355,6 +355,36 @@ body.catalog {
       bottom: 2em;
     }
 
+
+    .speech-bubble-container {
+      position: relative;
+      vertical-align: top;
+      margin-right: 1.5em;
+
+      .speech-bubble {
+        position: relative;
+        display: inline-block;
+        background: $pni-lilac;
+        border-radius: 1em;
+        line-height: 2em;
+        padding: 0.25em 1em;
+        color: $gray-80;
+
+        .text {
+          display: inline-block;
+          position: relative;
+        }
+
+        .hook {
+          position: absolute;
+          right: -8%;
+          top: 12%;
+          width: 20%;
+          height: 80%;
+        }
+      }
+    }
+
     .current-creepiness {
       $face-dimension-mobile: 46px;
       $face-dimension: 70px;
@@ -374,38 +404,6 @@ body.catalog {
         top: unset;
       }
 
-      .speech-bubble {
-        display: inline-block;
-        height: 2em;
-        position: absolute;
-        top: 1em;
-        right: 110%;
-        white-space: nowrap;
-
-        $sb-height: 2.5em;
-
-        .text {
-          display: inline-block;
-          height: $sb-height;
-          background: $gray-05;
-          border-radius: 1em 0 0 1em;
-          line-height: 2em;
-          padding: 0.25em 0 0.25em 1em;
-          color: $gray-80;
-        }
-
-        .hook {
-          display: inline-block;
-          width: 2em;
-          height: $sb-height;
-          background-image: url(../_images/buyers-guide/icon-bubble.svg);
-          background-size: auto $sb-height;
-          background-position: -100px 0;
-          background-repeat: no-repeat;
-          vertical-align: top;
-          margin-left: -5px;
-        }
-      }
     }
   }
 
