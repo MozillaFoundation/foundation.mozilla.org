@@ -70,7 +70,9 @@ body.catalog {
 
     @media (min-width: $bp-sm) {
       --container-padding: 0.5em;
-      --initial-width: calc(2 * var(--container-padding) + var(--search-icon-size-desktop));
+      --initial-width: calc(
+        2 * var(--container-padding) + var(--search-icon-size-desktop)
+      );
       --expanded-width: calc(100% - var(--pni-checkbox-container-width) - 2em);
 
       position: absolute;
@@ -183,7 +185,7 @@ body.catalog {
         background: url(../_images/buyers-guide/filter/checkbox.svg);
 
         @media (min-width: $bp-sm) {
-          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2)
+          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2);
         }
       }
 
@@ -338,7 +340,7 @@ body.catalog {
     z-index: 3;
     position: sticky;
     position: -webkit-sticky;
-    top: 16px;
+    top: 30px;
     padding-top: 40px;
     padding-bottom: 9px;
     height: var(--expanded-sticky-height);
