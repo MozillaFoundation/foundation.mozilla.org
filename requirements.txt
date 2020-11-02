@@ -5,8 +5,8 @@
 #    pip-compile
 #
 beautifulsoup4==4.8.2     # via -r requirements.in, wagtail
-boto3==1.15.12            # via -r requirements.in
-botocore==1.18.12         # via boto3, s3transfer
+boto3==1.16.9             # via -r requirements.in
+botocore==1.19.9          # via boto3, s3transfer
 certifi==2020.4.5.1       # via cloudinary, requests, sentry-sdk
 cffi==1.14.0              # via cryptography
 chardet==3.0.4            # via requests
@@ -25,7 +25,7 @@ django-redis==4.12.1      # via -r requirements.in
 django-storages==1.10.1   # via -r requirements.in
 django-taggit==1.2.0      # via wagtail
 django-treebeard==4.3.1   # via wagtail
-django==2.2.16            # via -r requirements.in, django-admin-sortable, django-cors-headers, django-csp, django-filter, django-modeltranslation, django-redis, django-storages, django-taggit, django-treebeard, djangorestframework, wagtail
+django==2.2.16            # via -r requirements.in, django-admin-sortable, django-cors-headers, django-csp, django-filter, django-modeltranslation, django-redis, django-storages, django-taggit, django-treebeard, djangorestframework, wagtail, wagtail-footnotes
 djangorestframework==3.12.1  # via -r requirements.in, wagtail
 draftjs-exporter==2.1.7   # via wagtail
 et-xmlfile==1.0.1         # via openpyxl
@@ -66,11 +66,11 @@ unidecode==1.1.1          # via wagtail
 urllib3==1.25.9           # via botocore, cloudinary, requests, sentry-sdk
 wagtail-experiments==0.2  # via -r requirements.in
 wagtail-factories==2.0.1  # via -r requirements.in
+wagtail-footnotes==0.3.1  # via -r requirements.in
 wagtail-inventory==1.1.1  # via -r requirements.in
 wagtail-metadata==3.3.0   # via -r requirements.in
 wagtail-modeltranslation==0.10.14  # via -r requirements.in
-wagtail==2.10.2           # via -r requirements.in, wagtail-factories, wagtail-inventory, wagtail-metadata, wagtail-modeltranslation
-wagtail-footnotes==0.3.1  # via -r requirements.in
+wagtail==2.10.2           # via -r requirements.in, wagtail-factories, wagtail-footnotes, wagtail-inventory, wagtail-metadata, wagtail-modeltranslation
 webencodings==0.5.1       # via html5lib
 whitenoise==5.2.0         # via -r requirements.in
 willow==1.4               # via wagtail
