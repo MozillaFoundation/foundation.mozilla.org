@@ -1,1 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="14.7" height="21.841"><path fill="#d3d5fc" d="M7.1 7.941c0 6.4 2.5 11.1 7.6 13.9-7-.5-11.9-1.8-14.7-3.9C2.62 11.791 3.952 8.21 6.842 0A19.16 19.16 0 017.1 3.141z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="7.607708"
+   height="13.9"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="icon-bubble-hook.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2277"
+     inkscape:window-height="955"
+     id="namedview6"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="9.8438718"
+     inkscape:cx="23.171415"
+     inkscape:cy="24.195154"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4" />
+  <path
+     fill="#d3d5fc"
+     d="m 0.0077082,0 c 0,6.4 2.5,11.1 7.6,13.9 C 4.7125892,13.693206 2.1766864,13.362266 0,12.881783 0.0239194,9.509505 0.0251812,8.467809 0.0077082,0 Z"
+     id="path2"
+     sodipodi:nodetypes="cccc" />
+</svg>
