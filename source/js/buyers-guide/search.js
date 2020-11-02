@@ -5,6 +5,7 @@ const NO_RESULTS_NOTICE = document.getElementById(
 );
 const FILTERS = [`company`, `name`, `blurb`, `worst-case`];
 const SUBMIT_PRODUCT = document.querySelector(".recommend-product");
+const CREEPINESS_FACE = document.querySelector(".current-creepiness");
 
 const SearchFilter = {
   init: () => {
@@ -82,6 +83,16 @@ const SearchFilter = {
       }
     });
 
+    // When searching, check to see how many products are still visible
+    // If there areno visible products, there are "no search results"
+    // And when there are no searchr results, do not show the creepo-meter-face
+    if (document.querySelectorAll(".product-box:not(.d-none)").length) {
+      // If there are search results, show the creepo-meter-face
+      CREEPINESS_FACE.classList.remove("d-none");
+    } else {
+      // If there are no search results, hide the creepo-meter-face
+      CREEPINESS_FACE.classList.add("d-none");
+    }
     SearchFilter.checkForEmptyNotice();
   },
 

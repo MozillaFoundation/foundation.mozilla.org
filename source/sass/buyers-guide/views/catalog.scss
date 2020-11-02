@@ -5,6 +5,8 @@ body.catalog {
   --sticky-height: 8em;
   --creep-o-height: 70px;
   --expanded-sticky-height: calc(11em + var(--creep-o-height));
+  --small-sticky-height: calc(var(--expanded-sticky-height) - 6em);
+  --medium-sticky-height: calc(var(--expanded-sticky-height) - 8em);
 
   --search-icon-size-desktop: 24px;
   --search-icon-size-mobile: 22px;
@@ -70,7 +72,9 @@ body.catalog {
 
     @media (min-width: $bp-sm) {
       --container-padding: 0.5em;
-      --initial-width: calc(2 * var(--container-padding) + var(--search-icon-size-desktop));
+      --initial-width: calc(
+        2 * var(--container-padding) + var(--search-icon-size-desktop)
+      );
       --expanded-width: calc(100% - var(--pni-checkbox-container-width) - 2em);
 
       position: absolute;
@@ -183,7 +187,7 @@ body.catalog {
         background: url(../_images/buyers-guide/filter/checkbox.svg);
 
         @media (min-width: $bp-sm) {
-          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2)
+          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2);
         }
       }
 
@@ -353,6 +357,19 @@ body.catalog {
       position: fixed;
       right: 2em;
       bottom: 2em;
+      top: initial;
+    }
+
+    @media (max-width: $bp-md) {
+      &.search-active {
+        height: var(--medium-sticky-height);
+      }
+    }
+
+    @media (max-width: $bp-sm) {
+      &.search-active {
+        height: var(--small-sticky-height);
+      }
     }
 
     .current-creepiness {

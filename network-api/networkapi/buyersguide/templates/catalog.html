@@ -38,7 +38,6 @@
       <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search product name…" %}" class="body-large">
       <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
     </span>
-
     <span class="current-creepiness">
       <span class="speech-bubble d-none">
         <span class="text"></span>
@@ -55,7 +54,7 @@
   </div>
 
   <div class="product-box-list-wrapper">
-    <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
+    <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap" id="product-list">
 
       {% for product in products %}
         {% if product.is_current %}
