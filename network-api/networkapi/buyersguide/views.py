@@ -98,6 +98,9 @@ def category_view(request, slug):
         'category': category,
         'products': products,
         'mediaUrl': MEDIA_URL,
+        'pageTitle': pgettext(
+            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+            '*privacy not included') + f' - {category}',
     })
 
 
@@ -160,6 +163,9 @@ def bg_about_page(template_name):
 
         return render(request, f"about/{template_name}.html", {
             'categories': categories,
+            'pageTitle': pgettext(
+                'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+                '*privacy not included') + ' - About',
         })
 
     return render_view
