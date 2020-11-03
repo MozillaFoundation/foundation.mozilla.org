@@ -349,21 +349,47 @@ body.catalog {
       height: var(--sticky-height);
     }
 
-    &.search-active .current-creepiness {
+    &.search-active .creep-o-meter-information {
       position: fixed;
       right: 2em;
       bottom: 2em;
+      top: initial;
+    }
+
+    @media (max-width: $bp-md) {
+      &.search-active {
+        height: var(--medium-sticky-height);
+      }
+    }
+
+    @media (max-width: $bp-sm) {
+      &.search-active {
+        height: var(--small-sticky-height);
+      }
     }
 
     .creep-o-meter-information {
       position: absolute;
-      right: calc(50% - 36px);
+      white-space: nowrap;
+      top: 9em;
+      right: 0;
+      left: 0;
+
+      @media (min-width: $bp-sm) {
+        top: unset;
+        right: calc(50% - 36px);
+        left: unset;
+      }
     }
 
     .speech-bubble-container {
       display: inline-block;
       margin: 0;
-      margin-right: 1.5em;
+
+
+        margin-right: 1.5em;
+
+
       vertical-align: middle;
       white-space: nowrap;
 
@@ -398,6 +424,14 @@ body.catalog {
       display: inline-block;
       width: $face-dimension;
       height: $face-dimension;
+      transform: scale(0.75);
+
+      @media (min-width: $bp-sm) {
+        width: $face-dimension;
+        height: $face-dimension;
+        transform: scale(1.0);
+      }
+
       background-image: url(../_images/buyers-guide/faces/sprite-resized-64-colors.png);
       background-position: 0 0;
       background-repeat: no-repeat;
