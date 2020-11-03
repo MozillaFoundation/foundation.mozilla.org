@@ -340,11 +340,11 @@ body.catalog {
 
   #sticky-bar.creepiness-slider {
     z-index: 3;
-    position: sticky;
-    position: -webkit-sticky;
+    position: relative;
     top: 16px;
     padding-top: 40px;
     padding-bottom: 9px;
+    margin-bottom: 3em;
     height: var(--expanded-sticky-height);
     text-align: center;
 
@@ -358,6 +358,7 @@ body.catalog {
       right: 2em;
       bottom: 2em;
       top: initial;
+      z-index: 10;
     }
 
     @media (max-width: $bp-md) {
@@ -423,6 +424,15 @@ body.catalog {
           margin-left: -5px;
         }
       }
+    }
+  }
+
+  @media(min-width: $bp-md) {
+    #sticky-bar.creepiness-slider {
+      position: sticky;
+      position: -webkit-sticky;
+      margin-bottom: 0em;
+      transition: margin-bottom 0.2s;
     }
   }
 
