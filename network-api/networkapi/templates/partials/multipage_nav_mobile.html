@@ -1,7 +1,7 @@
-{% if singleton_page == False or always_show_mobile_nav == True %}
+{% if singleton_page == False or always_show_mobile_nav == True or pni_category_nav == True %}
 <div class="d-md-none {{wrapper_classes}}" id="multipage-nav-mobile">
   <div class="container">
-    <div class="row px-3">
+    <div class="row px-3 {% if pni_category_nav == True %}px-sm-0{% endif %}">
       <div class="col-12"></div>
     </div>
   </div>
