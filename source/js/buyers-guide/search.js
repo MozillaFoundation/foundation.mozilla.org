@@ -66,12 +66,26 @@ const SearchFilter = {
       searchInput.value = ``;
       searchInput.focus();
       ALL_PRODUCTS.forEach((product) => product.classList.remove(`d-none`));
+      SearchFilter.moveCreepyFace()
     };
 
     clear.addEventListener(`click`, (evt) => {
       evt.preventDefault();
       clearText();
     });
+  },
+
+  moveCreepyFace: () => {
+    // When searching, check to see how many products are still visible
+    // If there are no visible products, there are "no search results"
+    // And when there are no search results, do not show the creepo-meter-face
+    if (document.querySelectorAll(".product-box:not(.d-none)").length) {
+      // If there are search results, show the creepo-meter-face
+      CREEPINESS_FACE.classList.remove("d-none");
+    } else {
+      // If there are no search results, hide the creepo-meter-face
+      CREEPINESS_FACE.classList.add("d-none");
+    }
   },
 
   filter: (text) => {
@@ -83,16 +97,7 @@ const SearchFilter = {
       }
     });
 
-    // When searching, check to see how many products are still visible
-    // If there areno visible products, there are "no search results"
-    // And when there are no searchr results, do not show the creepo-meter-face
-    if (document.querySelectorAll(".product-box:not(.d-none)").length) {
-      // If there are search results, show the creepo-meter-face
-      CREEPINESS_FACE.classList.remove("d-none");
-    } else {
-      // If there are no search results, hide the creepo-meter-face
-      CREEPINESS_FACE.classList.add("d-none");
-    }
+    SearchFilter.moveCreepyFace();
     SearchFilter.checkForEmptyNotice();
   },
 
