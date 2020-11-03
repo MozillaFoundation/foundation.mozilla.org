@@ -21,6 +21,9 @@ const MINIMUM_HAPPINESS_RATING = 25;
 // Note: this is a cosmetic value for scroll only.
 const MAXIMUM_CREEPINESS_RATING = 80;
 
+// Sticky search bar
+const STICKY_BAR = document.getElementById("sticky-bar");
+
 // Helper function to determine whether products are
 // in view, and so need to be considered for averaging.
 function isElementInViewport(element) {
@@ -108,6 +111,28 @@ export default {
         } else {
           bubbleText.textContent = `${CREEPINESS_LABELS[bin]}!`;
           bubble.classList.remove(`d-none`);
+        }
+      },
+      {
+        passive: true, // remember not to bog down the UI thread.
+      }
+    );
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (window.innerWidth < 768) {
+          const element = document.getElementById("product-list");
+          const position = element.getBoundingClientRect();
+          /**
+           * Check if the product grid area is partially visible in the viewport
+           */
+          if (position.top < window.innerHeight && position.bottom >= 0) {
+            STICKY_BAR.classList.add("search-active");
+          } else {
+            // Product area is no longer in the viewport at all.
+            STICKY_BAR.classList.remove("search-active");
+          }
         }
       },
       {
