@@ -9,6 +9,7 @@ import {
 } from "../common";
 
 import { injectReactComponents, bindEventHandlers } from "./index";
+import injectMultipageNav from "../foundation/inject-react/multipage-nav.js";
 
 import primaryNav from "../primary-nav.js";
 
@@ -108,6 +109,7 @@ let main = {
   injectReactComponents() {
     injectCommonReactComponents(apps, networkSiteURL, csrfToken);
     injectReactComponents(apps, networkSiteURL, csrfToken);
+    injectMultipageNav(apps);
   },
 
   initPageSpecificScript() {
