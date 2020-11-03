@@ -70,7 +70,9 @@ body.catalog {
 
     @media (min-width: $bp-sm) {
       --container-padding: 0.5em;
-      --initial-width: calc(2 * var(--container-padding) + var(--search-icon-size-desktop));
+      --initial-width: calc(
+        2 * var(--container-padding) + var(--search-icon-size-desktop)
+      );
       --expanded-width: calc(100% - var(--pni-checkbox-container-width) - 2em);
 
       position: absolute;
@@ -183,7 +185,7 @@ body.catalog {
         background: url(../_images/buyers-guide/filter/checkbox.svg);
 
         @media (min-width: $bp-sm) {
-          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2)
+          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2);
         }
       }
 
@@ -386,9 +388,7 @@ body.catalog {
       display: inline-block;
       margin: 0;
 
-
-        margin-right: 1.5em;
-
+      margin-right: 1.5em;
 
       vertical-align: middle;
       white-space: nowrap;
@@ -429,7 +429,7 @@ body.catalog {
       @media (min-width: $bp-sm) {
         width: $face-dimension;
         height: $face-dimension;
-        transform: scale(1.0);
+        transform: scale(1);
       }
 
       background-image: url(../_images/buyers-guide/faces/sprite-resized-64-colors.png);
@@ -442,7 +442,6 @@ body.catalog {
       @media (min-width: $breakpoint) {
         top: unset;
       }
-
     }
   }
 
