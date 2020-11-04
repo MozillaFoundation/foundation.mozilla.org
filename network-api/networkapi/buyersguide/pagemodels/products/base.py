@@ -433,7 +433,7 @@ class Product(ClusterableModel):
     def is_current(self):
         d = self.review_date
         review = datetime(d.year, d.month, d.day)
-        cutoff = datetime(2019, 6, 1)
+        cutoff = datetime(2020, 10, 29)
         return cutoff < review
 
     @property
