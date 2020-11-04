@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -7,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,800,900">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
-  <link rel="stylesheet" href="static/css/main.css">
-  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="static/images/apple-touch-icon-180x180@2x.png">
-  <link rel="icon" type="image/png" sizes="196x196" href="static/images/favicon-196x196@2x.png">
-  <link rel="shortcut icon" href="static/images/favicon.ico">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static 'images/apple-touch-icon-180x180@2x.png' %}">
+  <link rel="icon" type="image/png" sizes="196x196" href="{% static 'images/favicon-196x196@2x.png' %}">
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
   <title>Mozilla Foundation - Under Maintenance</title>
 </head>
 
@@ -116,7 +117,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
-            <a class="logo" href="https://mozilla.org"><img src="static/images/mozilla-block-white.svg" width="96"></a>
+            <a class="logo" href="https://mozilla.org"><img src="{% static 'images/mozilla-block-white.svg' %}" width="96"></a>
           </div>
           <div class="col-md-6 col-lg-5 offset-md-1 d-flex flex-column justify-content-between">
             <div class="row">
