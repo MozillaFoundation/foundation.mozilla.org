@@ -58,7 +58,7 @@ body.catalog {
 
   #product-filter-search {
     --initial-width: calc(
-      100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop) + 4px)
+      100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop))
     );
     --expanded-width: var(--initial-width);
 
