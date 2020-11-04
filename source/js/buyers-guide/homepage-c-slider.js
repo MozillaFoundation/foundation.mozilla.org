@@ -27,6 +27,9 @@ const STICKY_BAR = document.getElementById("sticky-bar");
 // Creepy-face container
 const CREEPY_FACE = document.querySelector(".creep-o-meter-information");
 
+// Category bar. Used for relocating the creepo-face on desktop.
+const CATEGORY_BAR = document.getElementById("multipage-nav")
+
 // Helper function to determine whether products are
 // in view, and so need to be considered for averaging.
 function isElementInViewport(element) {
@@ -134,7 +137,7 @@ export default {
 
         // If on desktop, don't delay moving creepo-face into the corner
         // If on mobile, make the creepy face move to the corner sooner
-        const offset = window.innerWidth > 768 ? 0 : 100;
+        const offset = window.innerWidth > 768 ? window.innerHeight - CATEGORY_BAR.offsetHeight : 100;
 
         /**
          * Check if the product grid area is partially visible in the viewport
