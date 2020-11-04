@@ -8,7 +8,7 @@ import {
   injectCommonReactComponents,
 } from "../common";
 
-import { bindEventHandlers, injectReactComponents } from "./index";
+import { injectReactComponents } from "./index";
 
 import HomepageSlider from "./homepage-c-slider.js";
 import AnalyticsEvents from "./analytics-events.js";
@@ -98,7 +98,6 @@ let main = {
 
   bindHandlers() {
     bindCommonEventHandlers();
-    bindEventHandlers();
   },
 
   // Embed various React components based on the existence of containers within the current page

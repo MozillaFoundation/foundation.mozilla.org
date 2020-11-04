@@ -83,7 +83,7 @@
         <div class="row">
           <div class="col">
             {% url 'buyersguide-home' as home_url %}
-            <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">{% trans "Home" %}</a>
+            <a class="{% bg_active_nav request.get_full_path home_url %}" href="{{ home_url }}">{% trans "All" %}</a>
             {% category_nav request.get_full_path category categories %}
             {% url 'why-view' as why_url %}
             <a class="{% bg_active_nav request.get_full_path why_url %}" href="{{ why_url }}">{% trans "About the Guide" %}</a>
@@ -92,9 +92,11 @@
       </div>
     </nav>
 
-    <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
-      {% block guts %}{% endblock %}
-    </main>
+    {% block content_wrapped %}
+      <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
+        {% block guts %}{% endblock %}
+      </main>
+    {% endblock content_wrapped %}
 
     {% include "partials/footer.html" %}
   </div>

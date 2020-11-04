@@ -12,6 +12,10 @@ export default () => {
     // have templated into its button as a data-page-size attribute.
     const pageSize = parseInt(loadMoreButton.dataset.pageSize) || 12;
 
+    // Get which page type or model to exclude, if any exist in the data-exclude
+    // html attribute.
+    const exclude = loadMoreButton.dataset.exclude || '';
+
     // Start at page 1, as page 0 is the same sat as the initial page set.
     let page = 1;
 
@@ -19,7 +23,7 @@ export default () => {
       loadMoreButton.disabled = true;
 
       // Construct our API call as a relative URL:
-      let url = `./entries/?page=${page++}&page_size=${pageSize}`;
+      let url = `./entries/?page=${page++}&page_size=${pageSize}&exclude=${exclude}`;
 
       // And then fetch the results and render them into the page.
       fetch(url)

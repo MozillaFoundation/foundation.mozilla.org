@@ -1,4 +1,4 @@
-#primary-nav-container {
+.primary-nav-container {
   $logo-height: 28px;
 
   $menu-container-padding: (
@@ -283,6 +283,7 @@
   &.expanded {
     opacity: 1;
     height: 300px;
+    z-index: 100;
   }
 
   &.faded-in {
