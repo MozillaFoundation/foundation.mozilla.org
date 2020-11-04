@@ -20,13 +20,14 @@ const SearchFilter = {
     const searchInput = (SearchFilter.searchInput = searchBar.querySelector(
       `input`
     ));
-
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = searchInput.value.trim();
 
       if (searchText) {
         searchBar.classList.add(`has-content`);
-        SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
+        if (window.innerWidth > 768) {
+          SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
+        }
       } else {
         searchBar.classList.remove(`has-content`);
       }
@@ -43,7 +44,9 @@ const SearchFilter = {
       // And to make CSS work easier, set a class on the parent container
       // for both search and the creep-o-meter component, so that it can
       // relocate so as not to interfere with the search bar.
-      SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
+        if (window.innerWidth > 768) {
+          SEARCH_BAR.classList.add(`search-active`, `creep-o-meter-moved`);
+        }
     });
 
     // Whenever focus is moved away from the search bar, check if we can
