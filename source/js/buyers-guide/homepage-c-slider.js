@@ -22,7 +22,7 @@ const MINIMUM_HAPPINESS_RATING = 25;
 const MAXIMUM_CREEPINESS_RATING = 80;
 
 // Sticky search bar
-const STICKY_BAR = document.getElementById("sticky-bar");
+const SEARCH_BAR = document.getElementById("sticky-bar");
 
 // Creepy-face container
 const CREEPY_FACE = document.querySelector(".creep-o-meter-information");
@@ -146,10 +146,7 @@ export default {
           position.top + offset < window.innerHeight &&
           position.bottom >= 0
         ) {
-          STICKY_BAR.classList.add("search-active");
-        } else {
-          // Product area is no longer in the viewport at all.
-          STICKY_BAR.classList.remove("search-active");
+          SEARCH_BAR.classList.add("search-active" ,"creep-o-meter-moved");
         }
 
         const recommendProduct = document.getElementById("recommend-product");
