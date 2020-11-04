@@ -24,6 +24,9 @@ const MAXIMUM_CREEPINESS_RATING = 80;
 // Sticky search bar
 const STICKY_BAR = document.getElementById("sticky-bar");
 
+// Creepy-face container
+const CREEPY_FACE = document.querySelector(".creep-o-meter-information");
+
 // Helper function to determine whether products are
 // in view, and so need to be considered for averaging.
 function isElementInViewport(element) {
@@ -118,21 +121,42 @@ export default {
       }
     );
 
+    /**
+     * querySelectors in this event listener are constantly polled on scroll
+     * to ensure when a browser width changes creepo-face still works as expected
+     * And getElementById is used in places to speed up DOM searching
+     */
     window.addEventListener(
       "scroll",
       () => {
-        if (window.innerWidth < 768) {
-          const element = document.getElementById("product-list");
-          const position = element.getBoundingClientRect();
-          /**
-           * Check if the product grid area is partially visible in the viewport
-           */
-          if (position.top < window.innerHeight && position.bottom >= 0) {
-            STICKY_BAR.classList.add("search-active");
-          } else {
-            // Product area is no longer in the viewport at all.
-            STICKY_BAR.classList.remove("search-active");
-          }
+        const element = document.getElementById("product-list");
+        const position = element.getBoundingClientRect();
+
+        // If on desktop, don't delay moving creepo-face into the corner
+        // If on mobile, make the creepy face move to the corner sooner
+        const offset = window.innerWidth > 768 ? 0 : 100;
+
+        /**
+         * Check if the product grid area is partially visible in the viewport
+         */
+        if (
+          position.top + offset < window.innerHeight &&
+          position.bottom >= 0
+        ) {
+          STICKY_BAR.classList.add("search-active");
+        } else {
+          // Product area is no longer in the viewport at all.
+          STICKY_BAR.classList.remove("search-active");
+        }
+
+        const recommendProduct = document.getElementById("recommend-product");
+        const heightFromTop = recommendProduct.getBoundingClientRect().top;
+        const diff = heightFromTop - window.innerHeight + 50;
+
+        if (diff > 0) {
+          CREEPY_FACE.classList.remove("fade-out");
+        } else {
+          CREEPY_FACE.classList.add("fade-out");
         }
       },
       {

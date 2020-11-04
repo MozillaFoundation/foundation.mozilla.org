@@ -8,7 +8,7 @@ body.catalog {
   --small-sticky-height: calc(var(--expanded-sticky-height) - 6em);
   --medium-sticky-height: calc(var(--expanded-sticky-height) - 8em);
 
-   /* the minimal value for this buffer is 2em */
+  /* the minimal value for this buffer is 2em */
   --mobile-creep-buffer: 2em;
   --mobile-creep-offset: calc(var(--mobile-creep-buffer) - 2em);
 
@@ -349,7 +349,9 @@ body.catalog {
     padding-top: 16px;
     top: initial;
     z-index: 10;
-    height: calc(var(--sticky-height) + var(--creep-o-height) + var(--mobile-creep-buffer));
+    height: calc(
+      var(--sticky-height) + var(--creep-o-height) + var(--mobile-creep-buffer)
+    );
 
     @media (min-width: $breakpoint) {
       display: flex;
@@ -364,6 +366,12 @@ body.catalog {
       top: calc(var(--sticky-height) + var(--mobile-creep-offset));
       right: 0;
       left: 0;
+      opacity: 1;
+      transition: opacity 0.2s ease;
+
+      &.fade-out {
+        opacity: 0;
+      }
 
       @media (min-width: $bp-sm) {
         top: calc(var(--mobile-creep-buffer) + var(--creep-o-height));
@@ -456,7 +464,7 @@ body.catalog {
     }
   }
 
-  @media(min-width: $bp-md) {
+  @media (min-width: $bp-md) {
     #sticky-bar.creepiness-slider {
       position: sticky;
       position: -webkit-sticky;

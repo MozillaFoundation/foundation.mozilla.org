@@ -66,7 +66,7 @@ const SearchFilter = {
       searchInput.value = ``;
       searchInput.focus();
       ALL_PRODUCTS.forEach((product) => product.classList.remove(`d-none`));
-      SearchFilter.moveCreepyFace()
+      SearchFilter.moveCreepyFace();
     };
 
     clear.addEventListener(`click`, (evt) => {
