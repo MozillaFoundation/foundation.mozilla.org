@@ -86,6 +86,7 @@ body.catalog {
       left: 0;
       border: 1px solid transparent;
       padding: var(--container-padding);
+      padding-right: 1em;
       margin: 0;
       margin-left: 2em;
       width: var(--initial-width);
@@ -133,6 +134,7 @@ body.catalog {
       @media (min-width: $bp-sm) {
         height: var(--search-icon-size-desktop);
         width: var(--search-icon-size-desktop);
+        margin-right: 1em;
       }
     }
 
