@@ -21,14 +21,6 @@ const MINIMUM_HAPPINESS_RATING = 25;
 // Note: this is a cosmetic value for scroll only.
 const MAXIMUM_CREEPINESS_RATING = 80;
 
-// Sticky search bar
-const SEARCH_BAR = document.getElementById("sticky-bar");
-
-// Creepy-face container
-const CREEPY_FACE = document.querySelector(".creep-o-meter-information");
-
-// Category bar. Used for relocating the creepo-face on desktop.
-const CATEGORY_BAR = document.getElementById("multipage-nav")
 
 // Helper function to determine whether products are
 // in view, and so need to be considered for averaging.
@@ -125,43 +117,59 @@ export default {
     );
 
     /**
+     * These const's are kept out of the global scope to prevent namespace spamming
+     * But are kept here instead of holding them inside the "scroll" event so
+     * the DOM api doesn't get spammed when the user scrolls down the page.
+     */
+    // Sticky search bar
+    const SEARCH_BAR = document.getElementById("sticky-bar");
+    // Creepy-face container
+    const CREEPY_FACE = document.querySelector(".creep-o-meter-information");
+    // Category bar. Used for relocating the creepo-face on desktop.
+    const CATEGORY_BAR = document.getElementById("multipage-nav")
+    // The containing element around the product list.
+    const PRODUCT_LIST = document.querySelector(".product-box-list");
+    // The recommend product area.
+    const RECOMMEND_PRODUCT = document.querySelector(".recommend-product");
+
+    /**
      * querySelectors in this event listener are constantly polled on scroll
      * to ensure when a browser width changes creepo-face still works as expected
      * And getElementById is used in places to speed up DOM searching
      */
-    window.addEventListener(
-      "scroll",
-      () => {
-        const element = document.getElementById("product-list");
-        const position = element.getBoundingClientRect();
+    if(SEARCH_BAR && CREEPY_FACE && CATEGORY_BAR && PRODUCT_LIST && RECOMMEND_PRODUCT) {
+      window.addEventListener(
+        "scroll",
+        () => {
+          const productListPosition = PRODUCT_LIST.getBoundingClientRect();
 
-        // If on desktop, don't delay moving creepo-face into the corner
-        // If on mobile, make the creepy face move to the corner sooner
-        const offset = window.innerWidth > 768 ? window.innerHeight - CATEGORY_BAR.offsetHeight : 100;
+          // If on desktop, don't delay moving creepo-face into the corner
+          // If on mobile, make the creepy face move to the corner sooner
+          const offset = window.innerWidth > 768 ? window.innerHeight - CATEGORY_BAR.offsetHeight : 100;
 
-        /**
-         * Check if the product grid area is partially visible in the viewport
-         */
-        if (
-          position.top + offset < window.innerHeight &&
-          position.bottom >= 0
-        ) {
-          SEARCH_BAR.classList.add("search-active" ,"creep-o-meter-moved");
+          /**
+           * Check if the product grid area is partially visible in the viewport
+           */
+          if (
+            productListPosition.top + offset < window.innerHeight &&
+            productListPosition.bottom >= 0
+          ) {
+            SEARCH_BAR.classList.add("search-active" ,"creep-o-meter-moved");
+          }
+
+          const heightFromTop = RECOMMEND_PRODUCT.getBoundingClientRect().top;
+          const diff = heightFromTop - window.innerHeight + 50;
+
+          if (diff > 0) {
+            CREEPY_FACE.classList.remove("fade-out");
+          } else {
+            CREEPY_FACE.classList.add("fade-out");
+          }
+        },
+        {
+          passive: true, // remember not to bog down the UI thread.
         }
-
-        const recommendProduct = document.getElementById("recommend-product");
-        const heightFromTop = recommendProduct.getBoundingClientRect().top;
-        const diff = heightFromTop - window.innerHeight + 50;
-
-        if (diff > 0) {
-          CREEPY_FACE.classList.remove("fade-out");
-        } else {
-          CREEPY_FACE.classList.add("fade-out");
-        }
-      },
-      {
-        passive: true, // remember not to bog down the UI thread.
-      }
-    );
+      );
+    }
   },
 };
