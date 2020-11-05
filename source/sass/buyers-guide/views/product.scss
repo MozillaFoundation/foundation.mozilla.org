@@ -1,5 +1,11 @@
 $pni-product-breakpoint-larger: $bp-md;
 
+#view-product-page {
+  #multipage-nav-mobile {
+    margin-bottom: 0;
+  }
+}
+
 .product-header {
   padding-bottom: 88px;
   position: relative;
