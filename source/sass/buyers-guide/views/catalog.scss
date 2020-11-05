@@ -1,0 +1,506 @@
+body.catalog {
+  $hero-breakpoint: $bp-lg;
+  $breakpoint: $bp-md;
+
+  --sticky-height: 128px;
+  --creep-o-height: 70px;
+  --expanded-sticky-height: calc(11em + var(--creep-o-height));
+  --small-sticky-height: calc(var(--expanded-sticky-height) - 6em);
+  --medium-sticky-height: calc(var(--expanded-sticky-height) - 8em);
+
+  /* the minimal value for this buffer is 2em */
+  --mobile-creep-buffer: 2em;
+  --mobile-creep-offset: calc(var(--mobile-creep-buffer) - 2em);
+
+  --search-icon-size-desktop: 24px;
+  --search-icon-size-mobile: 22px;
+  --search-box-height-desktop: 62px;
+  --search-box-height-mobile: 50px;
+  --clear-icon-size: 14px;
+
+  --search-element-buffer: 10%;
+
+  --pni-checkbox-container-width: 17em;
+  --pni-checkbox-size: 22px;
+  --pni-icon-size: 1.2em;
+
+  .page-header {
+    background: url(../_images/buyers-guide/evergreen-header-light.jpg) center
+      center / cover no-repeat;
+
+    .intro-text {
+      padding-top: 12px;
+      padding-bottom: 28px;
+
+      @media (min-width: $hero-breakpoint) {
+        padding-top: 90px;
+        padding-bottom: 90px;
+      }
+    }
+
+    .badge-container {
+      margin-top: 12px;
+
+      @media (min-width: $hero-breakpoint) {
+        margin-top: 32px;
+      }
+    }
+
+    .webby-award-badge {
+      width: 76px;
+      height: auto;
+
+      @media (min-width: $hero-breakpoint) {
+        width: 125px;
+      }
+    }
+  }
+
+  #product-filter-search {
+    --initial-width: calc(
+      100% - calc(var(--clear-icon-size) + var(--search-icon-size-desktop))
+    );
+    --expanded-width: var(--initial-width);
+
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    width: calc(100% - 3em);
+    height: var(--search-box-height-mobile);
+    box-sizing: border-box;
+    margin: 5px 1.5em 0;
+    text-align: left;
+    border: 1px solid $black;
+    transition: border-color 0.2s, width 0.2s;
+
+    @media (min-width: $bp-sm) {
+      --container-padding: 0.5em;
+      --initial-width: calc(
+        3 * var(--container-padding) + var(--search-icon-size-desktop)
+      );
+      --expanded-width: calc(100% - var(--pni-checkbox-container-width) - 2em);
+
+      position: absolute;
+      left: 0;
+      border: 1px solid transparent;
+      padding: var(--container-padding);
+      padding-right: 1em;
+      margin: 0;
+      margin-left: 2em;
+      width: var(--initial-width);
+      height: var(--search-box-height-desktop);
+      overflow: hidden;
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    @media (min-width: $bp-xl) {
+      margin-left: 0;
+    }
+
+    &:focus-within,
+    &.has-content {
+      border-color: $black;
+      width: var(--expanded-width);
+      cursor: default;
+      .search-icon {
+        cursor: default;
+      }
+    }
+
+    &:focus-within.has-content {
+      border-color: $light-blue;
+
+      .clear-icon {
+        background: url(../_images/buyers-guide/filter/clear-icon-blue.svg);
+      }
+    }
+
+    .search-icon {
+      flex: 0 0 auto;
+      display: inline-block;
+      background: url(../_images/buyers-guide/filter/search.svg);
+      background-size: 22px 22px;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      height: var(--search-icon-size-mobile);
+      width: var(--search-icon-size-mobile);
+      margin: 0 0.5em;
+
+      @media (min-width: $bp-sm) {
+        height: var(--search-icon-size-desktop);
+        width: var(--search-icon-size-desktop);
+        margin-right: 1em;
+      }
+    }
+
+    input {
+      flex: 1 1 auto;
+      border: none;
+      outline: 0;
+
+      &::placeholder,
+      &::-webkit-input-placeholder {
+        color: $gray-40;
+      }
+
+      & + .clear-icon {
+        flex: 0 0 auto;
+        display: none;
+        cursor: pointer;
+        outline: 0;
+        padding: 0;
+        margin: 0;
+        margin-right: 10px;
+        height: var(--clear-icon-size);
+        width: var(--clear-icon-size);
+        background: url(../_images/buyers-guide/filter/clear-icon-black.svg);
+        background-size: 100% 100%;
+      }
+    }
+
+    &.has-content .clear-icon {
+      display: inline-block;
+    }
+  }
+
+  #product-filter-pni {
+    user-select: none;
+    position: absolute;
+    left: 0;
+    padding: 0.5em;
+    margin-left: 0.5em;
+
+    @media (min-width: $bp-sm) {
+      left: unset;
+      right: 0;
+      padding: 0;
+      padding-top: 0.5em;
+      width: var(--pni-checkbox-container-width);
+      font-size: 100%;
+    }
+
+    input[type="checkbox"] {
+      position: relative;
+      display: none;
+
+      & + .pni-checkbox-facade {
+        display: inline-block;
+        vertical-align: calc(0.4em - var(--pni-checkbox-size));
+        margin-left: 0.5em;
+        width: var(--pni-checkbox-size);
+        height: var(--pni-checkbox-size);
+        margin-right: 0.5em;
+        cursor: pointer;
+        background: url(../_images/buyers-guide/filter/checkbox.svg);
+
+        @media (min-width: $bp-sm) {
+          vertical-align: calc(-5px - var(--pni-checkbox-size) / 2);
+        }
+      }
+
+      &:checked + .pni-checkbox-facade {
+        background: url(../_images/buyers-guide/filter/checkbox-selected.svg);
+      }
+    }
+
+    .pni-icon {
+      display: inline-block;
+      height: var(--pni-icon-size);
+      width: var(--pni-icon-size);
+      background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg);
+      background-size: 100% 100%;
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: sub;
+      cursor: pointer;
+    }
+  }
+
+  .product-box-list-wrapper {
+    @mixin product-box-size($box-margin: 1px, $items-per-row: 2) {
+      $num-of-gutter: $items-per-row;
+      $gutter-width: $box-margin * 2;
+      $row-total-gutter-width: $gutter-width * $num-of-gutter;
+
+      .product-box-list {
+        margin-right: -$box-margin;
+        margin-left: -$box-margin;
+      }
+
+      figure.product-box {
+        $padding-x: 12px;
+        $padding-y: 12px;
+        $seal-of-approval-width: 30px;
+        $seal-of-approval-height: 25px;
+        $recommendation-width: 17px;
+        $recommendation-height: 15.8px;
+
+        display: inline-block;
+        position: relative;
+        margin-left: $box-margin;
+        margin-right: $box-margin;
+        margin-bottom: $box-margin * 2;
+        padding: $padding-y $padding-x;
+        width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
+        background: $pni-product-list-background;
+
+        &.d-flex.d-none {
+          /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */
+          display: none !important;
+        }
+
+        .seal-of-approval {
+          @include seal-of-approval(
+            $padding-y,
+            $padding-x,
+            $seal-of-approval-width,
+            $seal-of-approval-height
+          );
+
+          position: static;
+        }
+
+        .adult-content-badge {
+          @include adult-content-badge($padding-y, $padding-x, 41px, 35px);
+        }
+
+        .top-left-badge-container {
+          $badge-spacing: 0.5rem;
+
+          position: absolute;
+          top: $padding-y;
+          left: $padding-x;
+          width: calc(
+            #{$seal-of-approval-width} + #{$recommendation-width} + #{$badge-spacing}
+          );
+          height: $seal-of-approval-height;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .product-image {
+          img {
+            margin: 0 auto;
+
+            @media (min-width: $breakpoint) {
+              max-width: 78%;
+            }
+          }
+        }
+
+        .product-links {
+          @include hover-focus-active {
+            text-decoration: none;
+          }
+
+          @media screen and (max-width: $breakpoint) {
+            .product-company {
+              color: $gray-80;
+              @include set-text-size(9px, 14px);
+            }
+
+            .product-name {
+              color: $black;
+              @include set-text-size(11px, 14px);
+            }
+          }
+        }
+
+        figcaption {
+          color: $gray-40;
+          position: relative;
+          bottom: -($padding-y/2); // to offset the extra bottom spacing from line-height
+
+          .body {
+            font-weight: initial;
+          }
+        }
+      }
+    }
+
+    overflow-x: hidden;
+
+    @include product-box-size(1px, 2);
+
+    @media (min-width: $bp-md) {
+      @include product-box-size(1px, 3);
+    }
+
+    @media (min-width: $bp-lg) {
+      @include product-box-size(1px, 4);
+    }
+  }
+
+  .project-list-section {
+    @media (min-width: $bp-xl) {
+      // on extra large screen we want project-list-section's width to match
+      // Bootstrap's .container's width
+      width: calc(
+        #{map-get($container-max-widths, xl)} - #{$grid-gutter-width}
+      );
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  #sticky-bar.creepiness-slider {
+    z-index: 3;
+    position: relative;
+    top: 42px;
+    padding-top: 16px;
+    top: initial;
+    z-index: 10;
+    height: calc(
+      var(--sticky-height) + var(--creep-o-height) + var(--mobile-creep-buffer)
+    );
+
+    @media (min-width: $breakpoint) {
+      display: flex;
+      align-items: center;
+      height: var(--sticky-height);
+      padding-top: initial;
+    }
+
+    .creep-o-meter-information {
+      position: absolute;
+      white-space: nowrap;
+      top: calc(var(--sticky-height) + var(--mobile-creep-offset));
+      right: 0;
+      left: 0;
+      opacity: 1;
+      transition: opacity 0.2s ease;
+
+      &.fade-out {
+        opacity: 0;
+      }
+
+      @media (min-width: $bp-sm) {
+        top: calc(var(--mobile-creep-buffer) + var(--creep-o-height));
+      }
+
+      @media (min-width: $bp-md) {
+        top: unset;
+        right: calc(50% - 36px);
+        left: unset;
+      }
+    }
+
+    .speech-bubble-container {
+      display: inline-block;
+      margin: 0;
+      margin-right: 16px;
+      vertical-align: middle;
+      white-space: nowrap;
+
+      .speech-bubble {
+        position: relative;
+        display: inline-block;
+        background: $pni-lilac;
+        border-radius: 1em;
+        padding: 0.5em 1em;
+        color: $gray-80;
+
+        .hook {
+          position: absolute;
+          right: -13px;
+          top: 20%;
+          width: 14px;
+          height: 60%;
+        }
+
+        .text {
+          display: inline-block;
+          position: relative;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .current-creepiness {
+      $face-dimension-mobile: 46px;
+      $face-dimension: 70px;
+      $scale-down-ratio: $face-dimension-mobile/$face-dimension;
+
+      display: inline-block;
+      width: $face-dimension;
+      height: $face-dimension;
+
+      @media (min-width: $bp-sm) {
+        width: $face-dimension;
+        height: $face-dimension;
+      }
+
+      background-image: url(../_images/buyers-guide/faces/sprite-resized-64-colors.png);
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      position: relative;
+      vertical-align: middle;
+
+      @media (min-width: $breakpoint) {
+        top: unset;
+      }
+    }
+
+    &.creep-o-meter-moved,
+    &.search-active {
+      .creep-o-meter-information {
+        position: fixed;
+        top: initial;
+        left: initial;
+        right: 2em;
+        bottom: 2em;
+      }
+    }
+
+    @media (max-width: $bp-md) {
+      &.search-active {
+        height: var(--medium-sticky-height);
+      }
+    }
+
+    @media (max-width: $bp-sm) {
+      &.search-active {
+        height: var(--small-sticky-height);
+      }
+    }
+  }
+
+  @media (min-width: $bp-md) {
+    #sticky-bar.creepiness-slider {
+      position: sticky;
+      position: -webkit-sticky;
+      margin-bottom: 0em;
+      transition: margin-bottom 0.2s;
+    }
+  }
+
+  /*
+    this is a special universal show/hide toggle for products without
+    the privacy ding when "show pni only" is on:
+  */
+  &.show-ding-only figure.product-box:not(.privacy-ding) {
+    display: none !important;
+  }
+
+  /*
+    Buyersguide "Oh-no" face when nothing was found in the search results
+  */
+  .oh-no-face {
+    width: 50px;
+    height: 50px;
+  }
+  @media (min-width: $breakpoint) {
+    .oh-no-face {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}

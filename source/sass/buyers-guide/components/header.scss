@@ -1,14 +1,23 @@
 $category-nav-border-bottom-thickness: 4px;
 
-.category-nav {
-  background: $white;
-  overflow-x: auto;
-  white-space: nowrap;
+@mixin set-category-border-bottom-style() {
   border-bottom: 1px solid $gray-20;
+}
+
+.pni-category-nav,
+#multipage-nav-mobile {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 10;
+  z-index: calc(#{$zindex-sticky} - 1);
+}
+
+.pni-category-nav {
+  background: $white;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  @include set-category-border-bottom-style();
 
   a {
     display: inline-block;
@@ -21,7 +30,8 @@ $category-nav-border-bottom-thickness: 4px;
     text-decoration: none;
     border-bottom: $category-nav-border-bottom-thickness solid $white;
 
-    &:hover {
+    &:hover,
+    &.active {
       color: $black;
     }
 
@@ -40,5 +50,15 @@ $category-nav-border-bottom-thickness: 4px;
         "../_images/buyers-guide/icon-video-app.svg"
       );
     }
+  }
+}
+
+#multipage-nav-mobile {
+  @include set-category-border-bottom-style();
+
+  background: $white;
+
+  .col-12 {
+    border: none;
   }
 }

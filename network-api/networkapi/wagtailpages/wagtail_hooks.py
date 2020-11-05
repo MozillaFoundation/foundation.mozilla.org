@@ -1,6 +1,9 @@
 # RichTextEditor customization:
 #   See https://docs.wagtail.io/en/v2.7/advanced_topics/customisation/extending_draftail.html
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
+from cloudinary import uploader
+
+from django.conf import settings
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
@@ -77,3 +80,17 @@ def order_pages_in_chooser(pages, request):
 
     # Don't change search results (shown in ./admin/pages/search)
     return pages
+
+
+@hooks.register('before_delete_page')
+def before_delete_page(request, page):
+    """
+    If ANY page is deleted that has the `cloudinary_image` field in it,
+    check if the app is a review app (don't delete from review apps).
+    Delete cloudinary_images from pages that have this field.
+    """
+    if hasattr(page, 'cloudinary_image'):
+        if settings.REVIEW_APP:
+            pass
+        else:
+            uploader.destroy(page.cloudinary_image.public_id, invalidate=True)

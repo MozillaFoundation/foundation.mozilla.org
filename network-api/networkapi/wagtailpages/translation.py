@@ -27,6 +27,11 @@ from .models import (
     Petition,
     Signup,
 
+    # Product Pages
+    GeneralProductPage,
+    ProductPage,
+    SoftwareProductPage,
+
     # DEPRECATED
     PeoplePage,
 )
@@ -249,3 +254,20 @@ class YoutubeRegretsReporterPageTR(TranslationOptions):
         'intro_text',
         'intro_images',
     }
+
+
+@register(ProductPage)
+class ProductPageTR(TranslationOptions):
+    fields = (
+        'price',
+    )
+
+
+@register(SoftwareProductPage)
+class SoftwareProductPageTR(TranslationOptions):
+    fields = ()
+
+
+@register(GeneralProductPage)
+class GeneralProductPageTR(TranslationOptions):
+    fields = ()
