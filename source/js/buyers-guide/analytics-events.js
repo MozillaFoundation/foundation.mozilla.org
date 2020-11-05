@@ -82,6 +82,11 @@ function getQuerySelectorEvents(pageTitle, productName) {
       // Custom properties (not sent to GA)
       conditionalQuery: `#view-product-page`,
     },
+    ".btn-recommend": {
+      category: `buyersguide`,
+      action: `submit a product button tap`,
+      label: `submit a product button tap on ${pageTitle}`,
+    },
   };
 }
 
@@ -89,24 +94,62 @@ function setupElementGA(element, eventData) {
   element.addEventListener("click", () => ReactGA.event(eventData), true);
 }
 
-function bindAccordionExpandGA(productName) {
-  const checkbox = document.querySelector(
-    "#view-product-page #mss-accordion-toggle"
-  );
+// tracks only when users tick off the checkbox (and not when they uncheck it)
+function bindCheckboxCheckedGA(selector, eventMeta) {
+  const checkbox = document.querySelector(selector);
 
-  if (!checkbox) return;
+  if (!checkbox) {
+    console.error(`cannot find ${selector}`);
+    return;
+  }
 
   checkbox.addEventListener(
     "change",
     () => {
       if (checkbox.checked) {
-        // we only care about if users are interested in learning more about content in the accordion
-        ReactGA.event({
-          category: `product`,
-          action: `security expand accordion tap`,
-          label: `detail view for MSS on for ${productName}`,
-        });
+        ReactGA.event(eventMeta);
       }
+    },
+    true
+  );
+}
+
+function bindInFocusGA(selector, eventMeta) {
+  const elem = document.querySelector(selector);
+
+  if (!elem) {
+    console.error(`cannot find ${selector}`);
+    return;
+  }
+
+  elem.addEventListener(
+    "focus",
+    () => {
+      ReactGA.event(eventMeta);
+    },
+    true
+  );
+}
+
+function trackGoBackToAllProductsLink() {
+  const link = document.querySelector("body.catalog .go-back-to-all-link");
+  const searchBox = document.querySelector(
+    "body.catalog input#product-filter-search-input"
+  );
+
+  if (!(link && searchBox)) {
+    console.error(`cannot find DOM nodes`);
+    return;
+  }
+
+  link.addEventListener(
+    "click",
+    () => {
+      ReactGA.event({
+        category: `buyersguide`,
+        action: `product not found All link tap`,
+        label: `All link tap for ${searchBox.value}`,
+      });
     },
     true
   );
@@ -122,9 +165,7 @@ const ProductGA = {
 
     let productBox = document.querySelector(`.product-detail .h1-heading`);
     let productName = productBox ? productBox.textContent : `unknown product`;
-    let pageTitle = document
-      .querySelector(`meta[property='og:title']`)
-      .getAttribute(`content`);
+    let pageTitle = document.title;
     let querySelectorEvents = getQuerySelectorEvents(pageTitle, productName);
 
     Object.keys(querySelectorEvents).forEach((querySelector) => {
@@ -166,7 +207,26 @@ const ProductGA = {
 
     // bind GA events that have special conditions
 
-    bindAccordionExpandGA(productName);
+    // tracks when MSS accordion on product page is expanded
+    bindCheckboxCheckedGA("#view-product-page #mss-accordion-toggle", {
+      category: `product`,
+      action: `security expand accordion tap`,
+      label: `detail view for MSS on for ${productName}`,
+    });
+
+    bindCheckboxCheckedGA("body.catalog #product-filter-pni-toggle", {
+      category: `buyersguide`,
+      action: `ding checkbox checked`,
+      label: `ding checkbox checked on ${pageTitle}`,
+    });
+
+    bindInFocusGA("body.catalog #product-filter-search-input", {
+      category: `buyersguide`,
+      action: `focus on search box`,
+      label: `search box used on ${pageTitle}`,
+    });
+
+    trackGoBackToAllProductsLink();
   },
 };
 
