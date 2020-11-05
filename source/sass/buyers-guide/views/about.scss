@@ -9,6 +9,8 @@
 }
 
 #view-about {
+  @include reset-active-nav-style();
+
   .short-content {
     min-height: 50vh;
   }

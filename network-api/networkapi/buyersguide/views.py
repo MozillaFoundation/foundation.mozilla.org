@@ -165,6 +165,7 @@ def bg_about_page(template_name):
         )
 
         return render(request, f"about/{template_name}.html", {
+            'pagetype': 'about',
             'categories': categories,
             'pageTitle': pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
