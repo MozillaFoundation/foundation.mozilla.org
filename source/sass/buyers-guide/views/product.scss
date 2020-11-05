@@ -1,5 +1,21 @@
 $pni-product-breakpoint-larger: $bp-md;
 
+#view-product-page {
+  #multipage-nav-mobile {
+    margin-bottom: 0;
+  }
+
+  .multipage-link.active {
+    color: $gray-60;
+    border-bottom: none;
+
+    &:hover {
+      color: $black;
+      border-bottom: 3px solid $black;
+    }
+  }
+}
+
 .product-header {
   padding-bottom: 88px;
   position: relative;
