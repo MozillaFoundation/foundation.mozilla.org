@@ -5,15 +5,7 @@ $pni-product-breakpoint-larger: $bp-md;
     margin-bottom: 0;
   }
 
-  .multipage-link.active {
-    color: $gray-60;
-    border-bottom: none;
-
-    &:hover {
-      color: $black;
-      border-bottom: 3px solid $black;
-    }
-  }
+  @include reset-active-nav-style();
 }
 
 .product-header {
