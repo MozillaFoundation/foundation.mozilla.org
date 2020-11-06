@@ -114,21 +114,38 @@ function bindCheckboxCheckedGA(selector, eventMeta) {
   );
 }
 
-function bindInFocusGA(selector, eventMeta) {
-  const elem = document.querySelector(selector);
+function trackSearchBoxUsage() {
+  const SESSION_KEY = `searchBoxUsed`;
+  const searchBox = document.querySelector(
+    "body.catalog #product-filter-search-input"
+  );
 
-  if (!elem) {
+  if (!searchBox) {
     console.error(`cannot find ${selector}`);
     return;
   }
 
-  elem.addEventListener(
-    "focus",
+  searchBox.addEventListener(
+    "keydown",
     () => {
-      ReactGA.event(eventMeta);
+      let searchBoxUsed = sessionStorage.getItem(SESSION_KEY);
+
+      if (!searchBoxUsed) {
+        ReactGA.event({
+          category: `buyersguide`,
+          action: `type in search box`,
+          label: `search box used`,
+        });
+      }
+
+      sessionStorage.setItem(SESSION_KEY, true);
     },
     true
   );
+
+  // window.addEventListener("beforeunload", (event) => {
+  //   console.log(`>>> beforeunload: ${window.location}`);
+  // });
 }
 
 function trackGoBackToAllProductsLink() {
@@ -220,12 +237,7 @@ const ProductGA = {
       label: `ding checkbox checked on ${pageTitle}`,
     });
 
-    bindInFocusGA("body.catalog #product-filter-search-input", {
-      category: `buyersguide`,
-      action: `focus on search box`,
-      label: `search box used on ${pageTitle}`,
-    });
-
+    trackSearchBoxUsage();
     trackGoBackToAllProductsLink();
   },
 };
