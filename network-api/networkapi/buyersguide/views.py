@@ -73,6 +73,7 @@ def buyersguide_home(request):
     products = filter_draft_products(request, products)
 
     return render(request, 'buyersguide_home.html', {
+        'pagetype': 'homepage',
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
         'mediaUrl': MEDIA_URL,
@@ -100,6 +101,7 @@ def category_view(request, slug):
     products = filter_draft_products(request, products)
 
     return render(request, 'category_page.html', {
+        'pagetype': 'category',
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
@@ -145,6 +147,7 @@ def product_view(request, slug):
     )
 
     return render(request, 'product_page.html', {
+        'pagetype': 'product',
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product_dict,
         'mediaUrl': MEDIA_URL,
@@ -168,6 +171,7 @@ def bg_about_page(template_name):
         )
 
         return render(request, f"about/{template_name}.html", {
+            'pagetype': 'about',
             'categories': categories,
             'pageTitle': pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
