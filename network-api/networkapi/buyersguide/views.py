@@ -51,6 +51,10 @@ def get_average_creepiness(product_dict):
     return 50
 
 
+def sort_on_creepiness(product_set):
+    return sorted(product_set, key=get_average_creepiness)
+
+
 def filter_draft_products(request, products):
     if request.user.is_authenticated:
         return products
@@ -62,7 +66,7 @@ def filter_draft_products(request, products):
 def buyersguide_home(request):
     products = cache.get_or_set(
         'sorted_product_dicts',
-        lambda: sorted([p.to_dict() for p in Product.objects.all()], key=get_average_creepiness),
+        lambda: sort_on_creepiness([p.to_dict() for p in Product.objects.all()]),
         86400
     )
 
@@ -87,7 +91,9 @@ def category_view(request, slug):
     key = f'products_category__{slug.replace(" ", "_")}'
     products = cache.get_or_set(
         key,
-        lambda: [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()],
+        lambda: sort_on_creepiness(
+            [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
+        ),
         86400
     )
 
