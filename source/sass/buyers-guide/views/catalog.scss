@@ -67,15 +67,14 @@ body.catalog {
     display: flex;
     align-items: center;
     padding: 1em;
-    width: calc(100% - 3em);
+    width: 100%;
     height: var(--search-box-height-mobile);
     box-sizing: border-box;
-    margin: 5px 1.5em 0;
     text-align: left;
     border: 1px solid $black;
     transition: border-color 0.2s, width 0.2s;
 
-    @media (min-width: $bp-sm) {
+    @media (min-width: $bp-md) {
       --container-padding: 0.5em;
       --initial-width: calc(
         3 * var(--container-padding) + var(--search-icon-size-desktop)
@@ -87,8 +86,6 @@ body.catalog {
       border: 1px solid transparent;
       padding: var(--container-padding);
       padding-right: 1em;
-      margin: 0;
-      margin-left: 2em;
       width: var(--initial-width);
       height: var(--search-box-height-desktop);
       overflow: hidden;
@@ -105,8 +102,12 @@ body.catalog {
     &:focus-within,
     &.has-content {
       border-color: $black;
-      width: var(--expanded-width);
       cursor: default;
+
+      @media (min-width: $bp-md) {
+        width: var(--expanded-width);
+      }
+
       .search-icon {
         cursor: default;
       }
@@ -172,14 +173,12 @@ body.catalog {
     user-select: none;
     position: absolute;
     left: 0;
-    padding: 0.5em;
-    margin-left: 0.5em;
+    padding-top: 0.5em;
 
-    @media (min-width: $bp-sm) {
+    @media (min-width: $bp-md) {
       left: unset;
       right: 0;
-      padding: 0;
-      padding-top: 0.5em;
+      margin-left: 0.5em;
       width: var(--pni-checkbox-container-width);
       font-size: 100%;
     }
@@ -191,7 +190,6 @@ body.catalog {
       & + .pni-checkbox-facade {
         display: inline-block;
         vertical-align: calc(0.4em - var(--pni-checkbox-size));
-        margin-left: 0.5em;
         width: var(--pni-checkbox-size);
         height: var(--pni-checkbox-size);
         margin-right: 0.5em;
@@ -379,10 +377,6 @@ body.catalog {
 
       &.fade-out {
         opacity: 0;
-      }
-
-      @media (min-width: $bp-sm) {
-        top: calc(var(--mobile-creep-buffer) + var(--creep-o-height));
       }
 
       @media (min-width: $bp-md) {
