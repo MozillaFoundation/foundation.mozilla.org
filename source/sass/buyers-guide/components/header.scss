@@ -4,6 +4,10 @@ $category-nav-border-bottom-thickness: 4px;
   border-bottom: 1px solid $gray-20;
 }
 
+body.pni #nav-newsletter-form-wrapper {
+  z-index: $zindex-sticky;
+}
+
 .pni-category-nav,
 #multipage-nav-mobile {
   position: sticky;

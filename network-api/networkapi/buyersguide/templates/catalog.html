@@ -119,7 +119,7 @@
  <div class="container text-center my-5">
   <h2 class="h3-heading">{% trans "Don’t see the product you’re looking for?" %}</h2>
   <p class="body">{% trans "Let us know what product you would like reviewed in the guide." %}</p>
-  <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">{% trans "Submit a product" %}</a>
+  {% include "./fragments/submit_a_product.html" %}
  </div>
 </div>
 {% endblock %}
