@@ -355,7 +355,10 @@ body.catalog {
     top: initial;
     z-index: 10;
 
-    height: var(--expanded-sticky-height);
+    height: calc(
+      var(--sticky-height) + var(--creep-o-height) +
+        var(--mobile-creep-buffer)
+    );
 
     &.creep-o-meter-moved {
       height: var(--small-sticky-height);
@@ -363,16 +366,9 @@ body.catalog {
 
     @media (min-width: $breakpoint) {
       display: flex;
-      height: calc(
-        var(--sticky-height) + var(--creep-o-height) +
-          var(--mobile-creep-buffer)
-      );
+      height: var(--small-sticky-height);
       align-items: center;
       padding-top: initial;
-
-      &.search-active {
-        height: var(--sticky-height);
-      }
     }
 
     .creep-o-meter-information {
