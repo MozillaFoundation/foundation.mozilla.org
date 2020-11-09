@@ -366,9 +366,13 @@ body.catalog {
 
     @media (min-width: $breakpoint) {
       display: flex;
-      height: var(--small-sticky-height);
+      height: var(--sticky-height);
       align-items: center;
       padding-top: initial;
+
+      &.creep-o-meter-moved {
+        height: var(--sticky-height);
+      }
     }
 
     .creep-o-meter-information {
