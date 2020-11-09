@@ -308,6 +308,7 @@
                 <p>{{product.name}}</p>
               </a>
 
+              {% include "fragments/privacy_ding.html" with product=product %}
               {% include "fragments/adult_content_badge.html" with product=product %}
             </div>
             {% endfor %}
