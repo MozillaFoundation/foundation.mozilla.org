@@ -30,31 +30,37 @@
 
 {% block guts %}
 <div class="project-list-section">
-  <div id="sticky-bar" class="creepiness-slider bg-white text-center">
+  <div class="container">
+    <div class="row px-3 px-sm-0">
+      <div class="col-12">
+        <div id="sticky-bar" class="creepiness-slider bg-white text-center">
 
-    <!-- temporary location for dev work -->
-    <span id="product-filter-search" tabindex="0">
-      <span class="search-icon">&nbsp;</span>
-      <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search product name…" %}" class="body-large" value="">
-      <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
-    </span>
+          <!-- temporary location for dev work -->
+          <span id="product-filter-search" tabindex="0">
+            <span class="search-icon">&nbsp;</span>
+            <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search product name…" %}" class="body-large" value="">
+            <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
+          </span>
 
-    <span class="creep-o-meter-information">
-      <p class="speech-bubble-container">
-        <span class="speech-bubble">
-          <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
-          <span class="text">{% trans "Scroll to see how creepy<br>people find these products!" %}</span>
-        </span>
-      </p>
-      <span class="current-creepiness"></span>
-    </span>
+          <span class="creep-o-meter-information">
+            <p class="speech-bubble-container">
+              <span class="speech-bubble">
+                <img class="hook" src="{% static "_images/buyers-guide/icon-bubble-hook.svg" %}">
+                <span class="text">{% trans "Scroll to see how creepy<br>people find these products!" %}</span>
+              </span>
+            </p>
+            <span class="current-creepiness"></span>
+          </span>
 
-    <span id="product-filter-pni">
-      <input type="checkbox" id="product-filter-pni-toggle">
-      <label for="product-filter-pni-toggle" class="pni-checkbox-facade"></label>
-      <span class="pni-icon">&nbsp;</span>
-      <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
-    </span>
+          <span id="product-filter-pni">
+            <input type="checkbox" id="product-filter-pni-toggle">
+            <label for="product-filter-pni-toggle" class="pni-checkbox-facade"></label>
+            <span class="pni-icon">&nbsp;</span>
+            <label for="product-filter-pni-toggle">{% trans "*privacy not included" %} </label>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="product-box-list-wrapper">
