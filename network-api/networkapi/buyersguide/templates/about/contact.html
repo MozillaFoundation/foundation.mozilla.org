@@ -23,6 +23,6 @@
 
     <div class="recommend-product">
       <p>{% trans "We don’t want to miss any products that might be important to you. Tell us what connected products you want reviewed in our holiday buyer’s guide and we’ll do our best to include them." %}</p>
-      <a href="https://forms.gle/UefDgjEU85Xwcf8C8" target="_blank" class="btn btn-secondary btn-recommend">{% trans "Submit a product" %}</a>
+      {% include "../fragments/submit_a_product.html" %}
     </div>
 {% endblock %}
