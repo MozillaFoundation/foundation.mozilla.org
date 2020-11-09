@@ -100,7 +100,7 @@ $pni-product-breakpoint-larger: $bp-md;
   }
 
   .seal-of-approval {
-    @include seal-of-approval(5px, 20px, 30px, 30px);
+    @include seal-of-approval(5px, 20px, 25px, 25px);
   }
 
   .adult-content-badge {
