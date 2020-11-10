@@ -74,7 +74,7 @@ class RelatedProducts(Orderable):
 class ProductPagePrivacyPolicyLink(Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
-        related_name='product_privacy_policy_links',
+        related_name='privacy_policy_links',
         on_delete=models.CASCADE
     )
 
@@ -122,11 +122,9 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     ProductPage is the superclass that SoftwareProductPage and
     GeneralProductPage inherit from. This should not be an abstract
     model as we need it to connect the two page types together.
-
-    ProductPage is re-using the product_page.html template that PNI Products use.
     """
 
-    template = 'product_page.html'
+    template = 'buyersguide/product_page.html'
 
     privacy_ding = models.BooleanField(
         help_text='Tick this box if privacy is not included for this product',
@@ -190,7 +188,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
 
     """
-    product_privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
+    privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
     Other "magic" relations that use InlinePanels will follow the same pattern of
     using Wagtail Orderables.
     """
@@ -346,7 +344,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 InlinePanel(
-                    'product_privacy_policy_links',
+                    'privacy_policy_links',
                     label='link',
                     min_num=1,
                     max_num=3,
@@ -404,12 +402,16 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         cutoff = datetime(2020, 10, 29)
         return cutoff < review
 
+    def product_type(self):
+        if isinstance(self, SoftwareProductPage):
+            return "software"
+        elif isinstance(self, GeneralProductPage):
+            return "general"
+        else:
+            return "standard"
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        # In an effort to keep `product_page.html` changed as little as possible while there could be
-        # other work in other branches on that template, we're assigning ['product'] = self.
-        # TODO: At some point in the future, let's remove this and use `page.field_name` instead of
-        # using `product.field_name` in the template
         context['product'] = self
         context['categories'] = BuyersGuideProductCategory.objects.all()
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
@@ -424,12 +426,14 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
 
 class SoftwareProductPage(ProductPage):
+    template = 'buyersguide/product_page.html'
 
     class Meta:
         verbose_name = "Software Product Page"
 
 
 class GeneralProductPage(ProductPage):
+    template = 'buyersguide/product_page.html'
 
     class Meta:
         verbose_name = "General Product Page"

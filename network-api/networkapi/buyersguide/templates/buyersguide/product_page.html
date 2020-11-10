@@ -1,9 +1,9 @@
-{% extends "./bg_base.html" %}
+{% extends "../bg_base.html" %}
 
-{% load bg_selector_tags env cloudinary l10n i18n static %}
+{% load bg_selector_tags env cloudinary l10n i18n static wagtailimages_tags %}
 
 {% block head_extra %}
-  <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.name }}{% endblocktrans %}" />
+  <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
 {% endblock %}
 
@@ -20,9 +20,10 @@
           {% if USE_CLOUDINARY %}
             src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
           {% else %}
-            src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+            {% image product.image width-250 as img %}
+            src="{{ img.url }}"
           {% endif %}
-          alt="{{product.name}}"
+          alt="{{product.title}}"
         >
       </div>
     </div>
@@ -40,9 +41,9 @@
 
     <div class="bg-white py-3 py-md-4 px-md-5 {{section_class}}">
       <div class="row intro mb-4">
-        <h1 class="h1-heading col-12">{{product.name}}</h1>
+        <h1 class="h1-heading col-12">{{product.title}}</h1>
         <div class="col-12 d-flex flex-column flex-md-row justify-content-between">
-          <a id="product-company-url" class="product-price pni-product-intro-large mb-2 mb-md-0" href="{{product.url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
+          <a id="product-company-url" class="product-price pni-product-intro-large mb-2 mb-md-0" href="{{product.product_url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
           {% if product.uses_wifi or product.uses_bluetooth %}
             <div>
               {% if product.uses_wifi %}
@@ -70,7 +71,7 @@
       <div id="product-research">
         <div class="row">
           <div class="col-12">
-            <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.name}}" data-product-type="{{product.product_type}}">
+            <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.title}}" data-product-type="{{product.product_type}}">
               {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value="{{ product.votes | safe }}">
@@ -179,9 +180,8 @@
 
 
           {% trans "Links to privacy information" as privacy_policy_links %}
-          {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links                  %}
+          {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
         </section>
-
 
         {% if product.product_type == 'software' %}
         <section class="criterion-group">
@@ -263,16 +263,16 @@
     <div class="container">
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
-          {% if product.updates|length > 0 or coralTalkServerUrl %}
+          {% if product.product_updates.count > 0 or coralTalkServerUrl %}
           <h3 class="h2-heading mb-4 mb-md-5">{% trans "Updates" %}</h3>
           {% endif %}
-          {% if product.updates|length > 0 %}
+          {% if product.product_updates.count > 0 %}
           <div class="mb-5">
-            {% for product in product.updates %}
+            {% for product in product.product_updates.all %}
               <div class="product-update mb-4">
-                <a class="product-update-link h5-heading title" href="{{product.source}}" target="_blank">{{product.title}}</a>
-                <div class="author">{{product.author}}</div>
-                <div class="snippet">{{product.snippet}}</div>
+                <a class="product-update-link h5-heading title" href="{{product.update.source}}" target="_blank">{{product.update.title}}</a>
+                <div class="author">{{product.update.author}}</div>
+                <div class="snippet">{{product.update.snippet}}</div>
               </div>
             {% endfor %}
           </div>
@@ -284,33 +284,36 @@
 
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
-            {% for product in product.related_products %}
+            {% for related_product_page in product.related_product_pages.all %}
+            {% with related_product=related_product_page.related_product %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
-              <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="{% url 'product-view' product.slug %}">
+              <a class="d-block{% if product.adult_content %} adult-content{% endif %}" href="{{ related_product.url }}">
                 <div class="img-container">
                   {% if USE_CLOUDINARY %}
                     <img
                       class="product-thumbnail thumb-border"
                       width="300"
-                      src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
-                      alt="{{product.name}}"
+                      src="{% cloudinary_url related_product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
+                      alt="{{related_product.title}}"
                     >
                   {% else %}
+                    {% image related_product.image width-600 as img %}
                     <img
                       class="product-thumbnail"
                       width="600"
-                      src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
-                      alt="{{product.name}}"
+                      src="{{img.url}}"
+                      alt="{{related_product.title}}"
                     >
                   {% endif %}
                 </div>
-                <p class="body-small mt-3 mb-1">{{product.company}}</p>
-                <p>{{product.name}}</p>
+                <p class="body-small mt-3 mb-1">{{related_product.company}}</p>
+                <p>{{related_product.title}}</p>
               </a>
 
               {% include "fragments/privacy_ding.html" with product=product %}
               {% include "fragments/adult_content_badge.html" with product=product %}
             </div>
+            {% endwith %}
             {% endfor %}
           </div>
         </div>
