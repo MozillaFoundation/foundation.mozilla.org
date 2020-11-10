@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.conf import settings
 from django.db import models
 
@@ -16,7 +15,6 @@ from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.buyersguide.pagemodels.products.base import Product
 from networkapi.buyersguide.pagemodels.product_category import BuyersGuideProductCategory
 from networkapi.buyersguide.pagemodels.product_update import Update
 
