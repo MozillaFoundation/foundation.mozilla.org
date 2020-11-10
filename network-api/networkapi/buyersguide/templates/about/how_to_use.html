@@ -323,9 +323,9 @@
   <section aria-labelledby="product-methodology">
     <p id="product-methodology"><strong>{% trans "Methodology" %}</strong></p>
     <p class="body">
-      {% blocktrans trimmed %}
+      {% blocktrans with url="https://foundation.mozilla.org/privacynotincluded/about/methodology" trimmed %}
       If you would like to read more about the research methodology we used to create this
-      guide, please check out our methodology section.
+      guide, please check out our <a href="{{url}}">methodology</a> section.
       {% endblocktrans %}
     </p>
   </section>
