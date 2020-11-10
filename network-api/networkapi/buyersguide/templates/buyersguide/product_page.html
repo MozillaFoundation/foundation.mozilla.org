@@ -268,12 +268,12 @@
           {% endif %}
           {% if product.updates.count > 0 %}
           <div class="mb-5">
-            {% for product in product.updates.all %}
-            {% with update=product.update %}
+            {% for item in product.updates.all %}
+            {% with update=item.update %}
               <div class="product-update mb-4">
-                <a class="product-update-link h5-heading title" href="{{product.update.source}}" target="_blank">{{product.update.title}}</a>
-                <div class="author">{{product.update.author}}</div>
-                <div class="snippet">{{product.update.snippet}}</div>
+                <a class="product-update-link h5-heading title" href="{{update.source}}" target="_blank">{{update.title}}</a>
+                <div class="author">{{update.author}}</div>
+                <div class="snippet">{{update.snippet}}</div>
               </div>
             {% endwith %}
             {% endfor %}
