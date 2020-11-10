@@ -69,9 +69,6 @@
 
 @mixin reset-active-nav-style() {
   .multipage-link.active {
-    color: $gray-60;
-    border-bottom: none;
-
     &:hover {
       color: $black;
       border-bottom: 3px solid $black;
