@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.conf import settings
 from django.db import models
 
@@ -15,6 +16,8 @@ from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
+from networkapi.buyersguide.pagemodels.products.base import Product
+from networkapi.buyersguide.pagemodels.product_category import BuyersGuideProductCategory
 from networkapi.buyersguide.pagemodels.product_update import Update
 
 if settings.USE_CLOUDINARY:
@@ -404,3 +407,45 @@ class GeneralProductPage(ProductPage):
 
     class Meta:
         verbose_name = "General Product Page"
+
+
+class BuyersGuidePage(FoundationMetadataPageMixin, Page):
+    max_count = 1
+    template = 'buyersguide/home.html'
+    subpage_types = [SoftwareProductPage, GeneralProductPage]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        if request.user.is_authenticated:
+            products = ProductPage.objects.all()
+        else:
+            products = ProductPage.objects.live()
+
+        # TODO:
+        # Sort the products by their creepiness level. Example code below taken
+        # from buyersguide/views.py
+        # def get_average_creepiness(product_dict):
+        #     try:
+        #         votes = product_dict['votes']
+        #         creepiness = votes['creepiness']
+        #         avg = creepiness['average']
+        #         return avg
+        #     except TypeError:
+        #         pass
+        #     except AttributeError:
+        #         pass
+
+        #     return 50
+        # products = cache.get_or_set(
+        #     'sorted_product_dicts',
+        #     lambda: sorted([p.to_dict() for p in Product.objects.all()], key=get_average_creepiness),
+        #     86400
+        # )
+
+        context['categories'] = BuyersGuideProductCategory.objects.all()
+        context['products'] = products
+        context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER,
+        return context
+
+    class Meta:
+        verbose_name = "Buyers Guide Page"
