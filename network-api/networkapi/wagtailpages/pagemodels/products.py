@@ -408,7 +408,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         elif isinstance(self, GeneralProductPage):
             return "general"
         else:
-            return "standard"
+            return "unknown"
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)

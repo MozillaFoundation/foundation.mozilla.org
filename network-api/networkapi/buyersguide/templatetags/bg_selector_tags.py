@@ -7,7 +7,7 @@ register = template.Library()
 @register.filter
 def yes_no(value):
     """Converts boolean to yes or no string"""
-    if value is None or value == '':
+    if not value:
         return gettext('Unknown')
     # Python doesn't have a ternary, so we rely on
     # type coercion to turn False into 0 and True
