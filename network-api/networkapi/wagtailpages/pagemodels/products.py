@@ -450,7 +450,7 @@ class BuyersGuidePage(FoundationMetadataPageMixin, Page):
 
         context['categories'] = BuyersGuideProductCategory.objects.all()
         context['products'] = products
-        context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER,
+        context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         return context
 
     class Meta:
