@@ -64,11 +64,16 @@ def convert_pni_file_to_product_page_image(pni_product: Product, new_product_pag
     # 1. Get the mimetype of the image.
     mime = MimeTypes()
     mime_type = mime.guess_type(pni_product.image.file.name)  # -> ('image/jpeg', None)
-    mime_type = mime_type[0].split('/')[1].upper()
+    if mime_type:
+        mime_type = mime_type[0].split('/')[1].upper()
+    else:
+        # Default to a JPEG mimetype.
+        mime_type = 'JPEG'
 
     # 2. Create an image out of the FileField.
     pil_image = PILImage.open(pni_product.image.file)
     pil_image.save(BytesIO() , mime_type)
+    f = BytesIO()
 
     new_image_name = ntpath.basename(pni_product.image.file.name)
     wagtail_image = WagtailImage.objects.create(
