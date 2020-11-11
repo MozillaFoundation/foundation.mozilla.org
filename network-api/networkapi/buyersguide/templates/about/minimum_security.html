@@ -1,4 +1,4 @@
-{% extends "../bg_about.html" %}
+{% extends "../bg_about_without_nav.html" %}
 
 {% load i18n %}
 
@@ -13,8 +13,7 @@
     <p class="body">
       {% blocktrans with npr="https://www.npr.org/sections/thetwo-way/2018/06/05/617196788/s-c-mom-says-baby-monitor-was-hacked-experts-say-many-devices-are-vulnerable" trimmed %}
       Despite growing concerns about the safety and security of internet-connected devices, many companies still build
-      and sell connected products that are insecure. Take the <a href="{{npr}}">FREDI wireless baby camera monitor</a>,
-      for instance, which has been repeatedly hacked. Further, many companies don’t provide clear information about the
+      and sell connected products that are insecure. Further, many companies don’t provide clear information about the
       data privacy of the devices they sell. Is your personal data being used in ways you may not have anticipated or
       expected?
       {% endblocktrans %}
@@ -43,7 +42,7 @@
     </h3>
 
     <section aria-labelledby="encryption">
-      <p id="encryption"><b>{% trans "Encryption" %}</b></p>
+      <p id="encryption"><strong>{% trans "Encryption" %}</strong></p>
       <p class="body">
         {% blocktrans trimmed %}
         The product must use encryption for all of its network communications functions and capabilities. This ensures
@@ -54,7 +53,7 @@
     </section>
 
     <section aria-labelledby="security-updates" aria-describedby="security-updates-footnote">
-      <p id="security-updates"><b>{% trans "Security updates [1]" %}</b></p>
+      <p id="security-updates"><strong>{% trans "Security updates [1]" %}</strong></p>
       <p class="body">
         {% blocktrans trimmed %}
         The product must support automatic updates for a reasonable period after sale, and be enabled by default. This
@@ -66,7 +65,7 @@
 
     <section aria-labelledby="strong-passwords"
     aria-describedby="strong-passwords-footnote">
-      <p id="strong-passwords"><b>{% trans "Strong passwords [2]" %}</b></p>
+      <p id="strong-passwords"><strong>{% trans "Strong passwords [2]" %}</strong></p>
       <p class="body">
         {% blocktrans trimmed %}
         If the product uses passwords for remote authentication, it must require that strong passwords are used,
@@ -78,7 +77,7 @@
     </section>
 
     <section aria-labelledby="vulnerability-management">
-      <p id="vulnerability-management"><b>{% trans "Vulnerability management" %}</b></p>
+      <p id="vulnerability-management"><strong>{% trans "Vulnerability management" %}</strong></p>
       <p class="body">
         {% blocktrans trimmed %}
         The vendor must have a system in place to manage vulnerabilities in the product. This must also include a point
@@ -89,7 +88,7 @@
     </section>
 
     <section aria-labelledby="privacy-practices" aria-describedby="privacy-practices-footnote">
-      <p id="privacy-practices"><b>{% trans "Privacy Practices [3]" %}</b></p>
+      <p id="privacy-practices"><strong>{% trans "Privacy Practices [3]" %}</strong></p>
       <p class="body">
         {% blocktrans trimmed %}
         The product must have privacy information that applies specifically to the device, not a generic privacy policy
@@ -103,7 +102,7 @@
     <p id="security-updates-footnote">
       <em>
         {% blocktrans trimmed %}
-        <b>[1]</b> Automatic updates are critical to creating a secure product ecosystem. Nonetheless, we have heard
+        <strong>[1]</strong> Automatic updates are critical to creating a secure product ecosystem. Nonetheless, we have heard
         concerns that automatic updates can also be used in ways that are adversarial towards users. These standards are
         not intended in any way to encourage or condone the use of update mechanisms to push software that would weaken
         the privacy properties of products or modify security or privacy settings in ways that are inconsistent with
@@ -115,7 +114,7 @@
     <p id="strong-passwords-footnote">
       <em>
         {% blocktrans trimmed %}
-        <b>[2]</b> These standards are also not intended to require that all devices have a password. It is intended for
+        <strong>[2]</strong> These standards are also not intended to require that all devices have a password. It is intended for
         devices that use passwords for remote authentication, rather than devices that are in hand. For instance, many
         connected devices use secure methods for Bluetooth authentication that does not involve passwords.
         {% endblocktrans %}
@@ -125,7 +124,7 @@
     <p id="privacy-practices-footnote">
       <em>
         {% blocktrans trimmed %}
-        <b>[3]</b> In the Mozilla *Privacy Not Included Buyer’s Guide, we evaluate additional privacy considerations
+        <strong>[3]</strong> In the Mozilla <em>*Privacy Not Included</em> Buyer’s Guide, we evaluate additional privacy considerations
         including how data is shared with third parties, whether data can be deleted, and the readability of the privacy
         information.
         {% endblocktrans %}

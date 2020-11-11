@@ -72,6 +72,12 @@
     color: $gray-60;
     border-bottom: none;
 
+    // Additional overwriting class for the /privacynotincluded/about/* pages
+    &.about-link {
+      color: $black;
+      border-bottom: 3px solid $black;
+    }
+
     &:hover {
       color: $black;
       border-bottom: 3px solid $black;

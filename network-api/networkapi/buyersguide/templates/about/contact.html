@@ -1,4 +1,4 @@
-{% extends "../bg_about.html" %}
+{% extends "../bg_about_without_nav.html" %}
 
 {% load i18n %}
 
@@ -11,18 +11,23 @@
 
     <p>
       {% blocktrans with name="Jen Caltrider" email="jen@mozillafoundation.org" trimmed %}
-        For any questions about the guide or to offer constructive feedback, please email {{name}} at <a href="mailto:{{email}}">{{email}}</a>.
+        For any questions about the guide or to offer constructive feedback, please email {{name}}
+        at <a href="mailto:{{email}}">{{email}}</a>.
       {% endblocktrans %}
     </p>
 
     <p>
       {% blocktrans with name="Kevin Zawacki" email="kevin@mozillafoundation.org" trimmed %}
-        For members of the press with questions about this guide, please email {{name}} at <a href="mailto:{{email}}">{{email}}</a>.
+        For members of the press with questions about this guide, please email {{name}} at
+        <a href="mailto:{{email}}">{{email}}</a>.
       {% endblocktrans %}
     </p>
 
     <div class="recommend-product">
-      <p>{% trans "We don’t want to miss any products that might be important to you. Tell us what connected products you want reviewed in our holiday buyer’s guide and we’ll do our best to include them." %}</p>
+      <p>{% blocktrans trimmed %}
+      We don’t want to miss any products that might be important to you. Tell us what connected
+      products you want reviewed in our holiday buyer’s guide and we’ll do our best to include them.
+      {% endblocktrans %}</p>
       {% include "../fragments/submit_a_product.html" %}
     </div>
 {% endblock %}
