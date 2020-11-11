@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.db import models
 
@@ -391,6 +393,13 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         ),
     ]
 
+    @property
+    def is_current(self):
+        d = self.review_date
+        review = datetime(d.year, d.month, d.day)
+        cutoff = datetime(2020, 10, 29)
+        return cutoff < review
+
     class Meta:
         verbose_name = "Product Page"
 
@@ -408,7 +417,6 @@ class GeneralProductPage(ProductPage):
 
 
 class BuyersGuidePage(FoundationMetadataPageMixin, Page):
-    max_count = 1
     template = 'buyersguide/home.html'
     subpage_types = [SoftwareProductPage, GeneralProductPage]
 
