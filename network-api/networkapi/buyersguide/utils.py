@@ -68,8 +68,7 @@ def convert_pni_file_to_product_page_image(pni_product: Product, new_product_pag
 
     # 2. Create an image out of the FileField.
     pil_image = PILImage.open(pni_product.image.file)
-    f = BytesIO()
-    pil_image.save(f, mime_type)
+    pil_image.save(BytesIO() , mime_type)
 
     new_image_name = ntpath.basename(pni_product.image.file.name)
     wagtail_image = WagtailImage.objects.create(
