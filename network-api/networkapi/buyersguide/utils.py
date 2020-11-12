@@ -82,8 +82,8 @@ def convert_pni_file_to_product_page_image(pni_product: Product, new_product_pag
 
     # 2. Create an image out of the FileField.
     pil_image = PILImage.open(pni_product.image.file)
+    pil_image.save(BytesIO() , mime_type)
     f = BytesIO()
-    pil_image.save(f, mime_type)
 
     new_image_name = ntpath.basename(pni_product.image.file.name)
     wagtail_image = WagtailImage.objects.create(
@@ -94,5 +94,10 @@ def convert_pni_file_to_product_page_image(pni_product: Product, new_product_pag
     # 3. Associate new_product_page.image with wagtail_image
     new_product_page.image = wagtail_image
 
-    # Don't save the page in case it's still being worked on. Simply return it.
-    return new_product_page
+    # 4. If the product is a draft, don't publish the page.
+    #    If the product is NOT a draft, publish the latest revision.
+    if not pni_product.draft:
+        new_product_page.save_revision().publish()
+    else:
+        new_product_page.save_revision()
+    new_product_page.save()
