@@ -30,8 +30,8 @@
 
 {% block stylesheets %}
   <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,400i">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i,400i">
 {% endblock %}
 
 
@@ -79,6 +79,7 @@
 
   {% block hero %}{% endblock %}
 
+  {% block catgory_nav %}
   {% include "partials/multipage_nav_mobile.html" with pni_category_nav=True wrapper_classes="mt-0" %}
   <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block" title="{% trans "site navigation" context "Tooltip on menu items" %}">
     <div class="container">
@@ -95,6 +96,7 @@
       </div>
     </div>
   </nav>
+  {% endblock catgory_nav %}
 
   <div class="underneath-screen-overlay">
     <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
