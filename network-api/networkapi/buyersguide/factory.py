@@ -166,7 +166,12 @@ class GeneralProductFactory(ProductFactory):
     how_can_you_control_your_data = Faker('sentence')
     data_control_policy_is_bad = Faker('boolean')
 
-    company_track_record = get_random_option(['Great', 'Average', 'Needs Improvement', 'Bad'])
+    company_track_record = LazyFunction(lambda: get_random_option([
+        'Great',
+        'Average',
+        'Needs Improvement',
+        'Bad',
+    ]))
     track_record_is_bad = Faker('boolean')
     track_record_details = Faker('sentence')
 
