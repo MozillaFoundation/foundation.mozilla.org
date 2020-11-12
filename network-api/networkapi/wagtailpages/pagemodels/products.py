@@ -533,9 +533,34 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         })
 
     def get_sitemap_urls(self, request):
-        # TODO add category URLs
-        urls = super().get_sitemap_urls(request)
-        return urls
+        """
+        Add categories and route views to the sitemap for better search indexing.
+        """
+        sitemap = super().get_sitemap_urls(request)
+        # Add all the available Buyers Guide categories to the sitemap
+        categories = BuyersGuideProductCategory.objects.filter(hidden=False)
+        for category in categories:
+            sitemap.append(
+                {
+                    "location": self.full_url + self.reverse_subpage("category-view", args=(category.slug,)),
+                    "lastmod": (self.last_published_at or self.latest_revision_created_at),
+                }
+            )
+
+        # Add all the available "subpages" (routes) to the sitemap, excluding categories and products.
+        # Categories are added above. Products will be their own Wagtail pages and get their own URLs because of that.
+        about_page_views = [
+            'how-to-use-view', 'about-why-view', 'press-view',
+            'contact-view', 'methodology-view', 'min-security-view'
+        ]
+        for about_page in about_page_views:
+            sitemap.append(
+                {
+                    "location": self.full_url + self.reverse_subpage(about_page),
+                    "lastmod": (self.last_published_at or self.latest_revision_created_at),
+                }
+            )
+        return sitemap
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
