@@ -28,6 +28,7 @@ from .models import (
     Signup,
 
     # Product Pages
+    BuyersGuidePage,
     GeneralProductPage,
     ProductPage,
     SoftwareProductPage,
@@ -270,4 +271,9 @@ class SoftwareProductPageTR(TranslationOptions):
 
 @register(GeneralProductPage)
 class GeneralProductPageTR(TranslationOptions):
+    fields = ()
+
+
+@register(BuyersGuidePage)
+class BuyersGuidePageTR(TranslationOptions):
     fields = ()
