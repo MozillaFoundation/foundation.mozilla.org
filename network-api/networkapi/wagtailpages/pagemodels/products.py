@@ -927,6 +927,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             products = ProductPage.objects.all()
         else:
             products = ProductPage.objects.live()
+
         products = sort_average(products)
         products = cache.get_or_set('sorted_product_dicts', products, 86400)
 
