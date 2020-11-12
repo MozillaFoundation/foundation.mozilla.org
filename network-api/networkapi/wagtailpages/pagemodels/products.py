@@ -413,7 +413,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['product'] = self
-        context['categories'] = BuyersGuideProductCategory.objects.all(hidden=False)
+        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
         context['pageTitle'] = f'''{pgettext(
