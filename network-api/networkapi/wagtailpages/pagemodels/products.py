@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.conf import settings
 from django.db import models
+from django.utils.translation import pgettext
 
 from modelcluster.fields import ParentalKey
 
@@ -73,7 +74,7 @@ class RelatedProducts(Orderable):
 class ProductPagePrivacyPolicyLink(Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
-        related_name='product_privacy_policy_links',
+        related_name='privacy_policy_links',
         on_delete=models.CASCADE
     )
 
@@ -100,7 +101,7 @@ class ProductPagePrivacyPolicyLink(Orderable):
 class ProductUpdates(Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
-        related_name='product_updates',
+        related_name='updates',
         on_delete=models.CASCADE,
     )
 
@@ -122,6 +123,8 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     GeneralProductPage inherit from. This should not be an abstract
     model as we need it to connect the two page types together.
     """
+
+    template = 'buyersguide/product_page.html'
 
     privacy_ding = models.BooleanField(
         help_text='Tick this box if privacy is not included for this product',
@@ -153,7 +156,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         help_text='Description of the product',
         blank=True
     )
-    # TODO: We'll need to update this URL in the template
     product_url = models.URLField(
         max_length=2048,
         help_text='Link to this product page',
@@ -186,7 +188,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
 
     """
-    product_privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
+    privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
     Other "magic" relations that use InlinePanels will follow the same pattern of
     using Wagtail Orderables.
     """
@@ -342,7 +344,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 InlinePanel(
-                    'product_privacy_policy_links',
+                    'privacy_policy_links',
                     label='link',
                     min_num=1,
                     max_num=3,
@@ -381,7 +383,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                InlinePanel('product_updates', label='Update')
+                InlinePanel('updates', label='Update')
             ],
             heading='Product Updates',
         ),
@@ -400,17 +402,39 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         cutoff = datetime(2020, 10, 29)
         return cutoff < review
 
+    def product_type(self):
+        if isinstance(self, SoftwareProductPage):
+            return "software"
+        elif isinstance(self, GeneralProductPage):
+            return "general"
+        else:
+            return "unknown"
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['product'] = self
+        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
+        context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
+        context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
+        context['pageTitle'] = f'''{pgettext(
+          'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+          '*privacy not included'
+        )} - {self.title}'''
+        return context
+
     class Meta:
         verbose_name = "Product Page"
 
 
 class SoftwareProductPage(ProductPage):
+    template = 'buyersguide/product_page.html'
 
     class Meta:
         verbose_name = "Software Product Page"
 
 
 class GeneralProductPage(ProductPage):
+    template = 'buyersguide/product_page.html'
 
     class Meta:
         verbose_name = "General Product Page"
