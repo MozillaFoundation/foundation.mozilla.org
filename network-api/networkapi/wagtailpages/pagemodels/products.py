@@ -2,11 +2,13 @@ from datetime import datetime
 
 from django.conf import settings
 from django.db import models
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import pgettext
 
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
@@ -23,8 +25,10 @@ from networkapi.buyersguide.pagemodels.product_update import Update
 
 if settings.USE_CLOUDINARY:
     image_field = FieldPanel('cloudinary_image')
+    MEDIA_URL = settings.CLOUDINARY_URL
 else:
     image_field = ImageChooserPanel('image')
+    MEDIA_URL = settings.MEDIA_URL
 
 
 class ProductPageCategory(Orderable):
@@ -440,9 +444,98 @@ class GeneralProductPage(ProductPage):
         verbose_name = "General Product Page"
 
 
-class BuyersGuidePage(FoundationMetadataPageMixin, Page):
+class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
+    """
+    Note: We'll likely be converting the "about" pages to Wagtail Pages.
+    When that happens, we should remove the RoutablePageMixin and @routes
+    """
+
     template = 'buyersguide/home.html'
     subpage_types = [SoftwareProductPage, GeneralProductPage]
+
+    @route(r'^about/$', name='how-to-use-view')
+    def about_page(self, request):
+        self.template = "about/how_to_use.html"
+        return self.serve(request)
+
+    @route(r'^about/why/$', name='about-why-view')
+    def about_why_page(self, request):
+        self.template = "about/why_we_made.html"
+        return self.serve(request)
+
+    @route(r'^about/press/$', name='press-view')
+    def about_press_page(self, request):
+        self.template = "about/press.html"
+        return self.serve(request)
+
+    @route(r'^about/contact/$', name='contact-view')
+    def about_contact_page(self, request):
+        self.template = "about/contact.html"
+        return self.serve(request)
+
+    @route(r'^about/methodology/$', name='methodology-view')
+    def about_methodology_page(self, request):
+        self.template = "about/methodology.html"
+        return self.serve(request)
+
+    @route(r'^about/meets-minimum-security-standards/$', name='min-security-view')
+    def about_mss_page(self, request):
+        self.template = "about/minimum_security.html"
+        return self.serve(request)
+
+    @route(r'^products/(?P<slug>[-\w\d]+)/$', name='product-view')
+    def product_view(self, request, slug):
+        # Find product by it's slug and redirect to the product page
+        # If no product is found, redirect to the BuyersGuide page
+        product = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
+        return redirect(product.url)
+
+    @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
+    def categories_page(self, request, slug):
+        # If getting by slug fails, also try to get it by name.
+        try:
+            category = BuyersGuideProductCategory.objects.get(slug=slug)
+        except BuyersGuideProductCategory.DoesNotExist:
+            category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
+
+        # TODO
+        # def sort_on_creepiness(product_set):
+        #     return sorted(product_set, key=get_average_creepiness)
+        #
+        # Must sort pages by their creepiness levels
+        # key = f'products_category__{slug.replace(" ", "_")}'
+        # products = cache.get_or_set(
+        #     key,
+        #     lambda: sort_on_creepiness(
+        #         [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
+        #     ),
+        #     86400
+        # )
+        products = []
+
+        # def filter_draft_products(request, products):
+        #     if request.user.is_authenticated:
+        #         return products
+
+        #     return filter(lambda p: p['draft'] is False, products)
+
+        # products = filter_draft_products(request, products)
+
+        return render(request, 'category_page.html', {
+            'pagetype': 'category',
+            'categories': BuyersGuideProductCategory.objects.all(),
+            'category': category,
+            'products': products,
+            'mediaUrl': MEDIA_URL,
+            'pageTitle': pgettext(
+                'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+                '*privacy not included') + f' - {category}',
+        })
+
+    def get_sitemap_urls(self, request):
+        # TODO add category URLs
+        urls = super().get_sitemap_urls(request)
+        return urls
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
