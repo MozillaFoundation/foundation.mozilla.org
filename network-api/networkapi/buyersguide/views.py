@@ -163,16 +163,8 @@ def product_view(request, slug):
 def bg_about_page(template_name):
     @redirect_to_default_cms_site
     def render_view(request):
-        key = 'categories'
-        categories = cache.get_or_set(
-            key,
-            lambda: BuyersGuideProductCategory.objects.all(),
-            86400
-        )
-
         return render(request, f"about/{template_name}.html", {
             'pagetype': 'about',
-            'categories': categories,
             'pageTitle': pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
                 '*privacy not included') + ' - About',
