@@ -416,9 +416,10 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         context['categories'] = BuyersGuideProductCategory.objects.all()
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
-        context['pageTitle'] = pgettext(
-                'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-                '*privacy not included') + f' - {self.title}'
+        context['pageTitle'] = f'{pgettext(
+          'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+          '*privacy not included'
+        )} - {self.title}'
         return context
 
     class Meta:
