@@ -448,7 +448,7 @@ class BuyersGuidePage(FoundationMetadataPageMixin, Page):
         #     86400
         # )
 
-        context['categories'] = BuyersGuideProductCategory.objects.all()
+        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         return context
