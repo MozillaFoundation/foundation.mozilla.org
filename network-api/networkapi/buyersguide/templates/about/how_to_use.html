@@ -186,14 +186,14 @@
   <section aria-labelledby="minimum-security">
     <p id="minimum-security"><strong>{% trans "Our Minimum Security Standards" %}</strong></p>
     <p class="body">
-      {% blocktrans trimmed %}
+      {% blocktrans with url="/privacynotincluded/about/meets-minimum-security-standards" trimmed %}
       We developed a set of minimum security standards we think all connected products should meet
       at the very least. Think of it as a “you must be this tall to ride” set of standards. These
       include five basic things: The product must use encryption, the company must provide
       automatic security updates, if a product uses a password, it must require a strong password,
       the company must have a way to manage security vulnerabilities found in their products,
       and the company must have an accessible privacy policy. If you would like to learn more
-      about our minimum security standards go here.
+      about our minimum security standards <a href="{{url}}">go here</a>.
       {% endblocktrans %}
     </p>
   </section>
