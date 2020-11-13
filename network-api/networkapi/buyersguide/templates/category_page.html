@@ -1,11 +1,11 @@
 {% extends "./catalog.html" %}
-{% load static i18n %}
+{% load static i18n env %}
 
 {% block body_id %}{{ category.slug }}{% endblock %}
 
 
 {% block og_image %}
-  <meta property="og:image" content="{% if category.og_image %}{{category.og_image}}{% else %}{% static "_images/buyers-guide/evergreen-social.png" %}{% endif %}">
+  <meta property="og:image" content="{% if category.og_image %}{{mediaUrl}}{{"AWS_LOCATION"|env}}{{category.og_image}}{% else %}{% static "_images/buyers-guide/evergreen-social.png" %}{% endif %}">
 {% endblock %}
 
 
