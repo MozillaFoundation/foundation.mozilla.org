@@ -5,7 +5,7 @@
 
 
 {% block og_image %}
-  <meta property="og:image" content="{% if category.og_image %}{{mediaUrl}}{{"AWS_LOCATION"|env}}{{category.og_image}}{% else %}{% static "_images/buyers-guide/evergreen-social.png" %}{% endif %}">
+  <meta property="og:image" content="{% if category.og_image %}{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{category.og_image}}{% else %}{% static "_images/buyers-guide/evergreen-social.png" %}{% endif %}">
 {% endblock %}
 
 
