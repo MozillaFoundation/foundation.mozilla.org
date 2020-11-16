@@ -728,6 +728,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
+        products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
         # TODO
         # def sort_on_creepiness(product_set):
         #     return sorted(product_set, key=get_average_creepiness)
@@ -741,7 +742,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         #     ),
         #     86400
         # )
-        products = []
 
         # def filter_draft_products(request, products):
         #     if request.user.is_authenticated:
@@ -789,6 +789,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 }
             )
         return sitemap
+
+    def sort_on_creepiness(self):
+        # TODO
+        pass
+
+    def get_average_creepiness(self):
+        # TODO
+        pass
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
