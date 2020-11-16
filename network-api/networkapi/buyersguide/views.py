@@ -33,7 +33,7 @@ def get_media_url(use_cloudinary):
     if use_cloudinary:
         return settings.CLOUDINARY_URL
     else:
-        return settings.MEDIA_URL
+        return f"{settings.MEDIA_URL}{settings.AWS_LOCATION}/" if settings.AWS_LOCATION else settings.MEDIA_URL
 
 
 def get_average_creepiness(product_dict):

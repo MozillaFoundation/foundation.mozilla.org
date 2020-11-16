@@ -470,7 +470,7 @@ if USE_S3:
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
-    AWS_LOCATION = env('AWS_LOCATION')
+#    AWS_LOCATION = env('AWS_LOCATION')
     MEDIA_URL = 'https://' + AWS_S3_CUSTOM_DOMAIN + '/'
     MEDIA_ROOT = ''
     # This is a workaround for https://github.com/wagtail/wagtail/issues/3206
@@ -485,6 +485,8 @@ else:
 
 # CORS
 CORS_ALLOW_CREDENTIALS = False
+
+AWS_LOCATION = env('AWS_LOCATION')
 
 if '*' in env('CORS_ALLOWED_ORIGINS'):
     CORS_ALLOW_ALL_ORIGINS = True

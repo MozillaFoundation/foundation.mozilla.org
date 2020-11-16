@@ -5,7 +5,7 @@
 
 
 {% block og_image %}
-  <meta property="og:image" content="{% if category.og_image %}{{mediaUrl}}{{"AWS_LOCATION"|env}}{{category.og_image}}{% else %}{% static "_images/buyers-guide/evergreen-social.png" %}{% endif %}">
+  <meta property="og:image" content="{% if category.og_image %}{{mediaUrl}}{{category.og_image}}{% else %}{% static "_images/buyers-guide/evergreen-social.png" %}{% endif %}">
 {% endblock %}
 
 
@@ -14,6 +14,10 @@
 {% endblock %}
 
 {% block hero %}
-<h1>{{mediaUrl}}{{"AWS_LOCATION"|env}}{{category.og_image}}</h1>
-<img src="{{mediaUrl}}{{"AWS_LOCATION"|env}}{{category.og_image}}">
+<h1>{{mediaUrl}}{{category.og_image}}</h1>
+<br>
+>>>{{"MEDIA_URL"|env}}<<<
+  <br>
+>>>{{"AWS_LOCATION"|env}}<<<
+<img src="{{mediaUrl}}{{category.og_image}}">
 {% endblock %}
