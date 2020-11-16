@@ -8,7 +8,7 @@ import News from "../../components/news/news.jsx";
  * @param {Object} env Object of environment variables
  */
 export default (apps, env) => {
-  if (document.querySelector(`#news`)) {
+  if (document.querySelector(`#view-news #news`)) {
     apps.push(
       new Promise((resolve) => {
         ReactDOM.render(
