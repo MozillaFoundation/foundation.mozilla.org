@@ -106,7 +106,7 @@ def category_view(request, slug):
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
-        # we don't want category view to use Cloudinary for media
+        # we don't want category view to use Cloudinary for assets
         'mediaUrl': get_media_url(False),
         'pageTitle': pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',

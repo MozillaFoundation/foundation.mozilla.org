@@ -1,5 +1,5 @@
 {% extends "./catalog.html" %}
-{% load static i18n env %}
+{% load static i18n %}
 
 {% block body_id %}{{ category.slug }}{% endblock %}
 
@@ -11,13 +11,4 @@
 
 {% block no_products_found %}
   {% include "fragments/no_search_results.html" %}
-{% endblock %}
-
-{% block hero %}
-<h1>{{mediaUrl}}{{category.og_image}}</h1>
-<br>
->>>{{"MEDIA_URL"|env}}<<<
-  <br>
->>>{{"AWS_LOCATION"|env}}<<<
-<img src="{{mediaUrl}}{{category.og_image}}">
 {% endblock %}
