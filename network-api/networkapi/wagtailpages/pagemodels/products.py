@@ -750,17 +750,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         #     return filter(lambda p: p['draft'] is False, products)
 
         # products = filter_draft_products(request, products)
-
-        return render(request, 'category_page.html', {
-            'pagetype': 'category',
-            'categories': BuyersGuideProductCategory.objects.all(),
-            'category': category,
-            'products': products,
-            'mediaUrl': MEDIA_URL,
-            'pageTitle': pgettext(
+        self.template = 'buyersguide/category_page.html'
+        context = self.get_context(request)
+        context['category'] = category.slug
+        context['products'] = products
+        context['pageTitle'] = pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-                '*privacy not included') + f' - {category}',
-        })
+                '*privacy not included') + f' - {category}'
+        return render(request, "buyersguide/category_page.html", context)
 
     def get_sitemap_urls(self, request):
         """

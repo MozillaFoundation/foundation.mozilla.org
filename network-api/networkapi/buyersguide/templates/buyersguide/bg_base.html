@@ -88,12 +88,12 @@
           {% if pagetype == "product" or pagetype == "about" %}
             <a class="multipage-link active" href="{{ page.url }}">{% trans "All" %}</a>
           {% else %}
-            <a class="multipage-link {% bg_active_nav request.get_full_path home_url %}" href="{{ page.url }}">{% trans "All" %}</a>
+            <a class="multipage-link {% if not category %} active{% endif %}" href="{{ page.url }}">{% trans "All" %}</a>
           {% endif %}
           {% for cat in categories %}
             {% if cat.published_product_count > 0 %}
               {% routablepageurl page 'category-view' cat.slug as cat_url %}
-              <a class="multipage-link {% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+              <a class="multipage-link {% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}{% if category == cat.slug %} active{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
             {% endif %}
           {% endfor %}
         </div>
