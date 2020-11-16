@@ -16,13 +16,12 @@ from rest_framework.response import Response
 
 from .models import (
     Product,
-    BooleanVote,
-    RangeVote,
     BuyersGuideProductCategory,
 )
 
 from .throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.utility.redirects import redirect_to_default_cms_site
+from networkapi.wagtailpages.pagemodels.products import ProductPage
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
@@ -181,9 +180,8 @@ def bg_about_page(template_name):
 def product_vote(request):
     # Grab the request payload data
     try:
-        attribute = request.data['attribute']
-        product_id = request.data['productID']
-        value = request.data['value']
+        product_id = request.data['productID']  # ie. 68
+        value = request.data['value']  # ie. 0 to 100
     except KeyError as ex:
         return Response(f'Missing attribute in payload: {ex}', status=400, content_type='text/plain')
 
@@ -192,32 +190,21 @@ def product_vote(request):
         return Response('Invalid payload - check data types', status=400, content_type='text/plain')
 
     try:
-        product = Product.objects.get(id=product_id)
+        product = ProductPage.objects.get(id=product_id)
 
-        if product.draft and not request.user.is_authenticated:
+        if not product.live and not request.user.is_authenticated:
             raise Http404("Product does not exist")
 
-        VoteClass = RangeVote
-
-        # Check if this vote is a boolean (yes/no) vote, and switch the model if it is
-        if isinstance(value, bool):
-            VoteClass = BooleanVote
-
-        # Build the model instance
-        vote = VoteClass(
-            attribute=attribute,
-            value=value,
-            product=product
-        )
-
-        # validate the values are in range (if this is a RangeVote)
-        vote.full_clean()
-
-        # persist the vote
-        vote.save()
+        # Save the new voting totals
+        # TODO: Confirm with @pomax this is the intended behaviour we desire.
+        product.current_total = product.current_total + 1
+        product.current_votecount = product.current_votecount + value
+        # Don't save this as a revision with .save_revision() as to not spam the Audit log
+        # And don't make this live with .publish()
+        product.save()
 
         return Response('Vote recorded', status=201, content_type='text/plain')
-    except ObjectDoesNotExist:
+    except (ProductPage.DoesNotExist, ObjectDoesNotExist):
         return Response('Invalid product', status=400, content_type='text/plain')
     except ValidationError as ex:
         return Response(f'Payload validation failed: {ex}', status=400, content_type='text/plain')

@@ -296,6 +296,18 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         blank=True,
     )
 
+    # Un-editable voting fields. Don't add these to the content_panels.
+    current_total = models.IntegerField(default=0)
+    current_votecount = models.IntegerField(default=0)
+
+    @property
+    def average_vote_count(self):
+        try:
+            total = self.current_total / self.current_votecount
+        except ZeroDivisionError:
+            total = 0
+        return total
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -729,28 +741,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
         products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
-        # TODO
-        # def sort_on_creepiness(product_set):
-        #     return sorted(product_set, key=get_average_creepiness)
-        #
-        # Must sort pages by their creepiness levels
-        # key = f'products_category__{slug.replace(" ", "_")}'
-        # products = cache.get_or_set(
-        #     key,
-        #     lambda: sort_on_creepiness(
-        #         [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
-        #     ),
-        #     86400
-        # )
+        products = sorted(products, key=lambda p: p.average_vote_count, reverse=True)
 
-        # def filter_draft_products(request, products):
-        #     if request.user.is_authenticated:
-        #         return products
-
-        #     return filter(lambda p: p['draft'] is False, products)
-
-        # products = filter_draft_products(request, products)
-        self.template = 'buyersguide/category_page.html'
         context = self.get_context(request)
         context['category'] = category.slug
         context['products'] = products
@@ -804,27 +796,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             products = ProductPage.objects.all()
         else:
             products = ProductPage.objects.live()
-
-        # TODO:
-        # Sort the products by their creepiness level. Example code below taken
-        # from buyersguide/views.py
-        # def get_average_creepiness(product_dict):
-        #     try:
-        #         votes = product_dict['votes']
-        #         creepiness = votes['creepiness']
-        #         avg = creepiness['average']
-        #         return avg
-        #     except TypeError:
-        #         pass
-        #     except AttributeError:
-        #         pass
-
-        #     return 50
-        # products = cache.get_or_set(
-        #     'sorted_product_dicts',
-        #     lambda: sorted([p.to_dict() for p in Product.objects.all()], key=get_average_creepiness),
-        #     86400
-        # )
+        products = sorted(products, key=lambda p: p.average_vote_count)
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
