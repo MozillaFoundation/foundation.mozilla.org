@@ -29,7 +29,7 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
 
 
-def get_media_url(use_cloudinary):
+def get_media_url(use_cloudinary = False):
     if use_cloudinary:
         return settings.CLOUDINARY_URL
     else:
@@ -108,7 +108,7 @@ def category_view(request, slug):
         'category': category,
         'products': products,
         # we don't want category view to use Cloudinary for assets
-        'mediaUrl': get_media_url(False),
+        'mediaUrl': get_media_url(),
         'pageTitle': pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included') + f' - {category}',
