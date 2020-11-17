@@ -348,7 +348,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     @property
     def creepiness(self):
         try:
-            average = self.current_tally / self.current_vote_count
+            average = self.current_vote_count / self.current_tally
         except ZeroDivisionError:
             average = 0
         return average
