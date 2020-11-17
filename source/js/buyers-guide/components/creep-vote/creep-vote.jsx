@@ -71,7 +71,7 @@ export default class CreepVote extends React.Component {
 
   sendVoteFor(payload) {
     let attribute = payload.attribute;
-    let url = window.location.href;
+    let url = document.getElementById("product-research").dataset['ispage'] ? '' : `/api/buyersguide/vote/`;
     let method = `POST`;
     let credentials = `same-origin`;
     let headers = {
