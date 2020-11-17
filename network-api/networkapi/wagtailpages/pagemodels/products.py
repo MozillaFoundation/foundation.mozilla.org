@@ -579,11 +579,12 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     def save(self, *args, **kwargs):
         # When a new ProductPage is created, ensure a vote bin always exists.
         # We can use save() or a post-save Wagtail hook.
-        # if not self.votes:
-        #     votes = ProductPageVotes()
-        #     votes.save()
-        #     self.votes = votes
-        return super().save(*args, **kwargs)
+        save = super().save(*args, **kwargs)
+        if not self.votes:
+            votes = ProductPageVotes()
+            votes.save()
+            self.votes = votes
+        return save
 
     class Meta:
         verbose_name = "Product Page"
