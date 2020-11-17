@@ -29,7 +29,7 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
 
 
-def get_media_url(use_cloudinary = False):
+def get_media_url(use_cloudinary=False):
     if use_cloudinary:
         return settings.CLOUDINARY_URL
     else:
