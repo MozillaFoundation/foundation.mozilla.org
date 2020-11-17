@@ -14,16 +14,16 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='productpage',
-            name='current_total',
+            name='current_vote_count',
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
             model_name='productpage',
-            name='current_votecount',
+            name='current_tally',
             field=models.IntegerField(default=0),
         ),
         migrations.CreateModel(
-            name='ProductPageVoteBin',
+            name='ProductPageVotes',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('bin_1', models.IntegerField(default=0, help_text='Total votes for 0%-20%')),
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='productpage',
-            name='vote_bin',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='vote_bin', to='wagtailpages.ProductPageVoteBin'),
+            name='votes',
+            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='votes', to='wagtailpages.ProductPageVotes'),
         ),
     ]

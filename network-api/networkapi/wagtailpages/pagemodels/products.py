@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 
 from django.conf import settings
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import Error, models
 from django.http import Http404, HttpResponse
@@ -40,7 +41,14 @@ else:
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
 
-class ProductPageVoteBin(models.Model):
+def sort_average(products):
+    """
+    `products` is a QuerySet of ProductPages.
+    """
+    return sorted(products, key=lambda p: p.creepiness)
+
+
+class ProductPageVotes(models.Model):
     bin_1 = models.IntegerField(default=0, help_text='Total votes for 0%-20%')
     bin_2 = models.IntegerField(default=0, help_text='Total votes for 21%-40%')
     bin_3 = models.IntegerField(default=0, help_text='Total votes for 41%-60%')
@@ -313,43 +321,43 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
 
     # Un-editable voting fields. Don't add these to the content_panels.
-    current_total = models.IntegerField(default=0)
-    current_votecount = models.IntegerField(default=0)
-    vote_bin = models.OneToOneField(
-        ProductPageVoteBin,
+    current_vote_count = models.IntegerField(default=0)
+    current_tally = models.IntegerField(default=0)
+    votes = models.OneToOneField(
+        ProductPageVotes,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='vote_bin',
+        related_name='votes',
     )
 
     @property
-    def average_vote_count(self):
+    def creepiness(self):
         try:
-            total = self.current_votecount / self.current_total
+            average = self.current_tally / self.current_vote_count
         except ZeroDivisionError:
-            total = 0
-        return total
+            average = 0
+        return average
 
     @property
     def get_voting_json(self):
         """
         Return a dictionary as a string with the relevant data needed for the frontend:
         """
-        json = {
+        data = {
             'creepiness': {
                 'vote_breakdown': {
-                    '4': self.vote_bin.bin_5,
-                    '1': self.vote_bin.bin_4,
-                    '2': self.vote_bin.bin_3,
-                    '3': self.vote_bin.bin_2,
-                    '0': self.vote_bin.bin_1,
+                    '4': self.votes.bin_5,
+                    '3': self.votes.bin_4,
+                    '2': self.votes.bin_3,
+                    '1': self.votes.bin_2,
+                    '0': self.votes.bin_1,
                 },
-                'average': self.average_vote_count
+                'average': self.creepiness
             },
-            'total': self.current_votecount
+            'total': self.current_tally
         }
-        return str(json)
+        return json.dumps(data)
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -487,9 +495,11 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         # Alternatively, this could be a routable view.
         if request.body and request.method == "POST":
             # If the request is POST. Parse the body.
+            print("111111111111")
             data = json.loads(request.body)
             # If the POST body has a productID and value, it's someone voting on the product
             if data['productID'] and data["value"]:
+                print("2222222")
                 # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
                 product_id = int(data['productID'])  # ie. 68
                 value = int(data["value"])  # ie. 0 to 100
@@ -506,30 +516,36 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
                     # Save the new voting totals
                     # TODO: Confirm with @pomax this is the intended behaviour we desire.
-                    product.current_total = product.current_total + value
-                    product.current_votecount = product.current_votecount + 1
+                    product.current_vote_count = product.current_vote_count + value
+                    product.current_tally = product.current_tally + 1
 
                     # Add the vote to the vote bin
-                    if not product.vote_bin:
+                    if not product.votes:
                         # If there is no vote bin attached to this product yet, create one now.
-                        vote_bin = ProductPageVoteBin()
-                        vote_bin.save()
-                        product.vote_bin = vote_bin
+                        votes = ProductPageVotes()
+                        votes.save()
+                        product.votes = votes
 
                     # Add the vote to the proper "vote bin"
                     if value <= 20:
-                        product.vote_bin.bin_1 = product.vote_bin.bin_1 + 1
+                        product.votes.bin_1 = product.votes.bin_1 + 1
                     elif value <= 40:
-                        product.vote_bin.bin_2 = product.vote_bin.bin_2 + 1
+                        product.votes.bin_2 = product.votes.bin_2 + 1
                     elif value <= 60:
-                        product.vote_bin.bin_3 = product.vote_bin.bin_3 + 1
+                        product.votes.bin_3 = product.votes.bin_3 + 1
                     elif value <= 80:
-                        product.vote_bin.bin_4 = product.vote_bin.bin_4 + 1
+                        print("LESS THA 80")
+                        product.votes.bin_4 = product.votes.bin_4 + 1
                     elif value <= 100:
-                        product.vote_bin.bin_5 = product.vote_bin.bin_5 + 1
-
+                        product.votes.bin_5 = product.votes.bin_5 + 1
+                    print("Vote is", value)
+                    print("Vote is", value)
+                    print("Vote is", value)
+                    print("Vote is", value)
+                    print("Vote is", value)
+                    print("Vote is", value)
                     # Save the product
-                    product.vote_bin.save()
+                    product.votes.save()
                     # Don't save this as a revision with .save_revision() as to not spam the Audit log
                     # And don't make this live with .publish(). The Page model will have the proper
                     # data stored on it already, and the revision history won't be spammed by votes.
@@ -542,13 +558,13 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 except Error as ex:
                     print(f'{ex.message} ({type(ex)})')
                     return HttpResponse('Internal Server Error', status=500, content_type='text/plain')
-        elif not self.vote_bin:
+        elif not self.votes:
             # Double check a voting bin exists. It should always exist.
-            # TODO: Test the Product-to-ProductPage migration to ensure vote_bin always exists.
+            # TODO: Test the Product-to-ProductPage migration to ensure `votes` always exists.
             # If all vote bins exist, we can safely remove this elif statement.
-            vote_bin = ProductPageVoteBin()
-            vote_bin.save()
-            self.vote_bin = vote_bin
+            votes = ProductPageVotes()
+            votes.save()
+            self.votes = votes
             self.save()
 
         return super().serve(request, *args, **kwargs)
@@ -556,10 +572,10 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     def save(self, *args, **kwargs):
         # When a new ProductPage is created, ensure a vote bin always exists.
         # We can use save() or a post-save Wagtail hook.
-        if not self.vote_bin:
-            vote_bin = ProductPageVoteBin()
-            vote_bin.save()
-            self.vote_bin = vote_bin
+        # if not self.votes:
+        #     votes = ProductPageVotes()
+        #     votes.save()
+        #     self.votes = votes
         return super().save(*args, **kwargs)
 
     class Meta:
@@ -864,7 +880,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
         products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
-        products = sorted(products, key=lambda p: p.average_vote_count, reverse=True)
+        products = sort_average(products)
+        products = cache.get_or_set('sorted_product_dicts', products, 86400)
 
         context = self.get_context(request)
         context['category'] = category.slug
@@ -911,7 +928,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             products = ProductPage.objects.all()
         else:
             products = ProductPage.objects.live()
-        products = sorted(products, key=lambda p: p.average_vote_count)
+        products = sort_average(products)
+        products = cache.get_or_set('sorted_product_dicts', products, 86400)
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
