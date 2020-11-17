@@ -7,7 +7,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import int_list_validator
 from django.db import Error, models
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import pgettext
 
@@ -508,18 +508,19 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     def serve(self, request, *args, **kwargs):
         # In Wagtail we use the serve() method to detect POST submissions.
         # Alternatively, this could be a routable view.
+        # For more on this, see the docs here:
+        # https://docs.wagtail.io/en/stable/reference/pages/model_recipes.html#overriding-the-serve-method
         if request.body and request.method == "POST":
             # If the request is POST. Parse the body.
             data = json.loads(request.body)
             # If the POST body has a productID and value, it's someone voting on the product
-            if data['productID'] and data["value"]:
+            if data.get('productID') and data.get("value"):
                 # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
                 product_id = int(data['productID'])  # ie. 68
                 value = int(data["value"])  # ie. 0 to 100
 
                 if value < 0 or value > 100:
-                    # Malicious voting attempt
-                    return HttpResponse('Cannot save vote', status=405, content_type='text/plain')
+                    return HttpResponseNotAllowed('Cannot save vote', content_type='text/plain')
 
                 try:
                     product = ProductPage.objects.get(id=product_id)
@@ -556,14 +557,14 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                     # And don't make this live with .publish(). The Page model will have the proper
                     # data stored on it already, and the revision history won't be spammed by votes.
                     product.save()
-                    return HttpResponse('Vote recorded', status=201, content_type='text/plain')
+                    return HttpResponse('Vote recorded', content_type='text/plain')
                 except ProductPage.DoesNotExist:
-                    return HttpResponse('Missing page', status=400, content_type='text/plain')
+                    return HttpResponse('Missing page', status=404, content_type='text/plain')
                 except ValidationError as ex:
-                    return HttpResponse(f'Payload validation failed: {ex}', status=400, content_type='text/plain')
+                    return HttpResponseNotAllowed(f'Payload validation failed: {ex}', content_type='text/plain')
                 except Error as ex:
                     print(f'{ex.message} ({type(ex)})')
-                    return HttpResponse('Internal Server Error', status=500, content_type='text/plain')
+                    return HttpResponseServerError('Internal Server Error', content_type='text/plain')
         elif not self.votes:
             # Double check a voting bin exists. It should always exist.
             # TODO: Test the Product-to-ProductPage migration to ensure `votes` always exists.
