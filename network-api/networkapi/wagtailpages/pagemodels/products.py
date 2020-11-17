@@ -1,7 +1,11 @@
+import json
+
 from datetime import datetime
 
 from django.conf import settings
-from django.db import models
+from django.core.exceptions import ValidationError
+from django.db import Error, models
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import pgettext
 
@@ -22,7 +26,9 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
 )
 from networkapi.buyersguide.pagemodels.product_category import BuyersGuideProductCategory
 from networkapi.buyersguide.pagemodels.product_update import Update
+from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.wagtailpages.utils import insert_panels_after
+
 
 if settings.USE_CLOUDINARY:
     image_field = FieldPanel('cloudinary_image')
@@ -30,6 +36,16 @@ if settings.USE_CLOUDINARY:
 else:
     image_field = ImageChooserPanel('image')
     MEDIA_URL = settings.MEDIA_URL
+
+vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
+
+
+class ProductPageVoteBin(models.Model):
+    bin_1 = models.IntegerField(default=0, help_text='Total votes for 0%-20%')
+    bin_2 = models.IntegerField(default=0, help_text='Total votes for 21%-40%')
+    bin_3 = models.IntegerField(default=0, help_text='Total votes for 41%-60%')
+    bin_4 = models.IntegerField(default=0, help_text='Total votes for 61%-80%')
+    bin_5 = models.IntegerField(default=0, help_text='Total votes for 81%-100%')
 
 
 class ProductPageCategory(Orderable):
@@ -299,14 +315,41 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     # Un-editable voting fields. Don't add these to the content_panels.
     current_total = models.IntegerField(default=0)
     current_votecount = models.IntegerField(default=0)
+    vote_bin = models.OneToOneField(
+        ProductPageVoteBin,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='vote_bin',
+    )
 
     @property
     def average_vote_count(self):
         try:
-            total = self.current_total / self.current_votecount
+            total = self.current_votecount / self.current_total
         except ZeroDivisionError:
             total = 0
         return total
+
+    @property
+    def get_voting_json(self):
+        """
+        Return a dictionary as a string with the relevant data needed for the frontend:
+        """
+        json = {
+            'creepiness': {
+                'vote_breakdown': {
+                    '4': self.vote_bin.bin_5,
+                    '1': self.vote_bin.bin_4,
+                    '2': self.vote_bin.bin_3,
+                    '3': self.vote_bin.bin_2,
+                    '0': self.vote_bin.bin_1,
+                },
+                'average': self.average_vote_count
+            },
+            'total': self.current_votecount
+        }
+        return str(json)
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -438,6 +481,86 @@ class ProductPage(FoundationMetadataPageMixin, Page):
           '*privacy not included'
         )} - {self.title}'''
         return context
+
+    def serve(self, request, *args, **kwargs):
+        # In Wagtail we use the serve() method to detect POST submissions.
+        # Alternatively, this could be a routable view.
+        if request.body and request.method == "POST":
+            # If the request is POST. Parse the body.
+            data = json.loads(request.body)
+            # If the POST body has a productID and value, it's someone voting on the product
+            if data['productID'] and data["value"]:
+                # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
+                product_id = int(data['productID'])  # ie. 68
+                value = int(data["value"])  # ie. 0 to 100
+
+                if value < 0 or value > 100:
+                    # Malicious voting attempt
+                    return HttpResponse('Cannot save vote', status=405, content_type='text/plain')
+
+                try:
+                    product = ProductPage.objects.get(id=product_id)
+                    # If the product exists but isn't live and the user isn't logged in..
+                    if not product.live and not request.user.is_authenticated:
+                        raise Http404("Product does not exist")
+
+                    # Save the new voting totals
+                    # TODO: Confirm with @pomax this is the intended behaviour we desire.
+                    product.current_total = product.current_total + value
+                    product.current_votecount = product.current_votecount + 1
+
+                    # Add the vote to the vote bin
+                    if not product.vote_bin:
+                        # If there is no vote bin attached to this product yet, create one now.
+                        vote_bin = ProductPageVoteBin()
+                        vote_bin.save()
+                        product.vote_bin = vote_bin
+
+                    # Add the vote to the proper "vote bin"
+                    if value <= 20:
+                        product.vote_bin.bin_1 = product.vote_bin.bin_1 + 1
+                    elif value <= 40:
+                        product.vote_bin.bin_2 = product.vote_bin.bin_2 + 1
+                    elif value <= 60:
+                        product.vote_bin.bin_3 = product.vote_bin.bin_3 + 1
+                    elif value <= 80:
+                        product.vote_bin.bin_4 = product.vote_bin.bin_4 + 1
+                    elif value <= 100:
+                        product.vote_bin.bin_5 = product.vote_bin.bin_5 + 1
+
+                    # Save the product
+                    product.vote_bin.save()
+                    # Don't save this as a revision with .save_revision() as to not spam the Audit log
+                    # And don't make this live with .publish(). The Page model will have the proper
+                    # data stored on it already, and the revision history won't be spammed by votes.
+                    product.save()
+                    return HttpResponse('Vote recorded', status=201, content_type='text/plain')
+                except ProductPage.DoesNotExist:
+                    return HttpResponse('Missing page', status=400, content_type='text/plain')
+                except ValidationError as ex:
+                    return HttpResponse(f'Payload validation failed: {ex}', status=400, content_type='text/plain')
+                except Error as ex:
+                    print(f'{ex.message} ({type(ex)})')
+                    return HttpResponse('Internal Server Error', status=500, content_type='text/plain')
+        elif not self.vote_bin:
+            # Double check a voting bin exists. It should always exist.
+            # TODO: Test the Product-to-ProductPage migration to ensure vote_bin always exists.
+            # If all vote bins exist, we can safely remove this elif statement.
+            vote_bin = ProductPageVoteBin()
+            vote_bin.save()
+            self.vote_bin = vote_bin
+            self.save()
+
+        return super().serve(request, *args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # When a new ProductPage is created, ensure a vote bin always exists.
+        # We can use save() or a post-save Wagtail hook.
+        if not self.vote_bin:
+            vote_bin = ProductPageVoteBin()
+            vote_bin.save()
+            self.vote_bin = vote_bin
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Product Page"
@@ -781,14 +904,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 }
             )
         return sitemap
-
-    def sort_on_creepiness(self):
-        # TODO
-        pass
-
-    def get_average_creepiness(self):
-        # TODO
-        pass
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
