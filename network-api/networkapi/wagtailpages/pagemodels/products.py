@@ -5,6 +5,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
+from django.core.validators import int_list_validator
 from django.db import Error, models
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -49,11 +50,21 @@ def sort_average(products):
 
 
 class ProductPageVotes(models.Model):
-    bin_1 = models.IntegerField(default=0, help_text='Total votes for 0%-20%')
-    bin_2 = models.IntegerField(default=0, help_text='Total votes for 21%-40%')
-    bin_3 = models.IntegerField(default=0, help_text='Total votes for 41%-60%')
-    bin_4 = models.IntegerField(default=0, help_text='Total votes for 61%-80%')
-    bin_5 = models.IntegerField(default=0, help_text='Total votes for 81%-100%')
+    vote_bin = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
+
+    def set_votes(self, bin_list):
+        """
+        There are 5 "bins" for votes: <20%, <40%, <60%, <80%, <100%.
+        When setting votes, ensure there are only 5 bins (max)
+        """
+        bin_list = [str(x) for x in bin_list]
+        self.vote_bin = ','.join(bin_list[0:5])
+        self.save()
+
+    def get_votes(self):
+        """Pull the votes out of the database and split them. Convert to ints."""
+        votes = [int(x) for x in self.vote_bin.split(",")]
+        return votes
 
 
 class ProductPageCategory(Orderable):
@@ -321,8 +332,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
 
     # Un-editable voting fields. Don't add these to the content_panels.
-    current_vote_count = models.IntegerField(default=0)
-    current_tally = models.IntegerField(default=0)
+    current_vote_count = models.IntegerField(default=0)  # The total points for creepiness
     votes = models.OneToOneField(
         ProductPageVotes,
         on_delete=models.SET_NULL,
@@ -330,6 +340,10 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         blank=True,
         related_name='votes',
     )
+
+    @property
+    def current_tally(self):
+        return sum(self.votes.get_votes())
 
     @property
     def creepiness(self):
@@ -344,14 +358,15 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         """
         Return a dictionary as a string with the relevant data needed for the frontend:
         """
+        votes = self.votes.get_votes()
         data = {
             'creepiness': {
                 'vote_breakdown': {
-                    '4': self.votes.bin_5,
-                    '3': self.votes.bin_4,
-                    '2': self.votes.bin_3,
-                    '1': self.votes.bin_2,
-                    '0': self.votes.bin_1,
+                    '4': votes[4],
+                    '3': votes[3],
+                    '2': votes[2],
+                    '1': votes[1],
+                    '0': votes[0],
                 },
                 'average': self.creepiness
             },
@@ -495,11 +510,9 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         # Alternatively, this could be a routable view.
         if request.body and request.method == "POST":
             # If the request is POST. Parse the body.
-            print("111111111111")
             data = json.loads(request.body)
             # If the POST body has a productID and value, it's someone voting on the product
             if data['productID'] and data["value"]:
-                print("2222222")
                 # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
                 product_id = int(data['productID'])  # ie. 68
                 value = int(data["value"])  # ie. 0 to 100
@@ -517,7 +530,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                     # Save the new voting totals
                     # TODO: Confirm with @pomax this is the intended behaviour we desire.
                     product.current_vote_count = product.current_vote_count + value
-                    product.current_tally = product.current_tally + 1
 
                     # Add the vote to the vote bin
                     if not product.votes:
@@ -527,25 +539,19 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                         product.votes = votes
 
                     # Add the vote to the proper "vote bin"
+                    votes = product.votes.get_votes()
                     if value <= 20:
-                        product.votes.bin_1 = product.votes.bin_1 + 1
+                        votes[0] = votes[0] + 1
                     elif value <= 40:
-                        product.votes.bin_2 = product.votes.bin_2 + 1
+                        votes[1] = votes[1] + 1
                     elif value <= 60:
-                        product.votes.bin_3 = product.votes.bin_3 + 1
+                        votes[2] = votes[2] + 1
                     elif value <= 80:
-                        print("LESS THA 80")
-                        product.votes.bin_4 = product.votes.bin_4 + 1
+                        votes[3] = votes[3] + 1
                     elif value <= 100:
-                        product.votes.bin_5 = product.votes.bin_5 + 1
-                    print("Vote is", value)
-                    print("Vote is", value)
-                    print("Vote is", value)
-                    print("Vote is", value)
-                    print("Vote is", value)
-                    print("Vote is", value)
-                    # Save the product
-                    product.votes.save()
+                        votes[4] = votes[4] + 1
+                    product.votes.set_votes(votes)
+
                     # Don't save this as a revision with .save_revision() as to not spam the Audit log
                     # And don't make this live with .publish(). The Page model will have the proper
                     # data stored on it already, and the revision history won't be spammed by votes.
