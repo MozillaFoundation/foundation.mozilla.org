@@ -514,7 +514,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 value = int(data["value"])  # ie. 0 to 100
 
                 if value < 0 or value > 100:
-                    return HttpResponseNotAllowed('Cannot save vote', content_type='text/plain')
+                    return HttpResponseNotAllowed('Cannot save vote')
 
                 try:
                     product = ProductPage.objects.get(id=product_id)
