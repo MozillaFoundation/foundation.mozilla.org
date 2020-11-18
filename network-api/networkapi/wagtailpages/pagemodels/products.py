@@ -361,13 +361,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         votes = self.votes.get_votes()
         data = {
             'creepiness': {
-                'vote_breakdown': {
-                    '4': votes[4],
-                    '3': votes[3],
-                    '2': votes[2],
-                    '1': votes[1],
-                    '0': votes[0],
-                },
+                'vote_breakdown':  {k:v for (k,v) in enumerate(votes)}
                 'average': self.creepiness
             },
             'total': self.current_tally
