@@ -81,7 +81,8 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
     subpage_types = [
         'PrimaryPage',
         'RedirectingPage',
-        'BanneredCampaignPage'
+        'BanneredCampaignPage',
+        'OpportunityPage',
     ]
 
     show_in_menus_default = True
