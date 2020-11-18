@@ -1,6 +1,6 @@
 {% extends "pages/base.html" %}
 
-{% load bg_nav_tags localization i18n static wagtailroutablepage_tags %}
+{% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags %}
 
 {% get_current_language as lang_code %}
 
@@ -19,12 +19,7 @@
 
 
 {% block wagtail_metadata %}
-  <meta property="og:description" content="{% trans "Smart home gadgets, fitness trackers, toys and more, rated for their privacy & security" %}">
-  <meta property="og:image" content="{% static "_images/buyers-guide/evergreen-social.jpg" %}">
-  <meta property="og:image:type" content="image/jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="628">
-  <meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.path}}">
+  {% meta_tags %}
 {% endblock %}
 
 
