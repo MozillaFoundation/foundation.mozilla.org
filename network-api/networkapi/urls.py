@@ -34,7 +34,6 @@ urlpatterns = list(filter(None, [
     url(r'^soc/', include('social_django.urls', namespace='social')),
 
     # network API routes:
-
     url(r'^api/campaign/', include('networkapi.campaign.urls')),
     url(r'^api/highlights/', include('networkapi.highlights.urls')),
     url(r'^api/news/', include('networkapi.news.urls')),
@@ -95,6 +94,19 @@ if settings.DEBUG:
     urlpatterns += (
         path('maintenance/', TemplateView.as_view(template_name="maintenance/maintenance.html")),
     )
+
+if settings.USE_DEBUG_TOOLBAR:
+    def use_toolbar(request):
+        return True
+
+    settings.DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": use_toolbar,
+        "RESULTS_CACHE_SIZE": 100,
+    }
+
+    import debug_toolbar
+    urlpatterns += [url(r'^__debug/', include(debug_toolbar.urls))]
+
 
 # Use a custom 404 handler so that we can serve distinct 404
 # pages for each "site" that wagtail services.

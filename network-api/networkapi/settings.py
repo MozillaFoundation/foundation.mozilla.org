@@ -75,6 +75,7 @@ env = environ.Env(
     STATIC_HOST=(str, ''),
     TARGET_DOMAINS=(list, []),
     USE_CLOUDINARY=(bool, False),
+    USE_DEBUG_TOOLBAR=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     WEB_MONETIZATION_POINTER=(str, ''),
@@ -121,6 +122,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+USE_DEBUG_TOOLBAR = env('USE_DEBUG_TOOLBAR')
 
 # whether or not to send the X-Robots-Tag header
 XROBOTSTAG_ENABLED = env('XROBOTSTAG_ENABLED')
@@ -177,6 +179,9 @@ INSTALLED_APPS = list(filter(None, [
     'django.contrib.staticfiles',
     'django.contrib.redirects',
     'django.contrib.sitemaps',
+
+    # Debug toolbar for non-prod
+    'debug_toolbar' if USE_DEBUG_TOOLBAR else None,
 
     'networkapi.wagtailcustomization',
 
@@ -255,6 +260,9 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.messages.middleware.MessageMiddleware',
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+    # debugging
+    'debug_toolbar.middleware.DebugToolbarMiddleware' if USE_DEBUG_TOOLBAR else None,
 ]))
 
 if SOCIAL_SIGNIN:
