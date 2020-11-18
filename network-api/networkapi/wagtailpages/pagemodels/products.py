@@ -557,7 +557,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 except ValidationError as ex:
                     return HttpResponseNotAllowed(f'Payload validation failed: {ex}', content_type='text/plain')
                 except Error as ex:
-                    print(f'{ex.message} ({type(ex)})')
+                    print(f'Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})')
                     return HttpResponseServerError('Internal Server Error', content_type='text/plain')
         elif not self.votes:
             # Double check a voting bin exists. It should always exist.
