@@ -71,7 +71,13 @@ export default class CreepVote extends React.Component {
 
   sendVoteFor(payload) {
     let attribute = payload.attribute;
-    let url = document.getElementById("product-research").dataset['ispage'] ? '' : `/api/buyersguide/vote/`;
+    // by default, we'll be posting to the PNI Django app posting route (see its views.py)
+    let url = `/api/buyersguide/vote/`;
+
+    // If we're running for the new wagtail version of PNI, voting is a post to the product's URL instead.
+    if (document.getElementById("product-research").dataset.isWagtailPage) {
+        url = ".";
+    }
     let method = `POST`;
     let credentials = `same-origin`;
     let headers = {
