@@ -566,7 +566,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                     return HttpResponseNotAllowed(f'Payload validation failed: {ex}')
                 except Error as ex:
                     print(f'Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})')
-                    return HttpResponseServerError('Internal Server Error', content_type='text/plain')
+                    return HttpResponseServerError()
 
         self.get_or_create_votes()
 
