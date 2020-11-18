@@ -523,8 +523,11 @@ class ProductPage(FoundationMetadataPageMixin, Page):
             # If the POST body has a productID and value, it's someone voting on the product
             if data.get('productID') and data.get("value"):
                 # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
-                product_id = int(data['productID'])  # ie. 68
-                value = int(data["value"])  # ie. 0 to 100
+                try:
+                    product_id = int(data['productID'])  # ie. 68
+                    value = int(data["value"])  # ie. 0 to 100
+                except ValueError:
+                    return HttpResponseNotAllowed('Product ID or value is invalid')
 
                 if value < 0 or value > 100:
                     return HttpResponseNotAllowed('Cannot save vote')
