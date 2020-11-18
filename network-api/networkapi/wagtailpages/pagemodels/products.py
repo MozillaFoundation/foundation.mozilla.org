@@ -561,7 +561,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                     product.save()
                     return HttpResponse('Vote recorded', content_type='text/plain')
                 except ProductPage.DoesNotExist:
-                    return HttpResponse('Missing page', status=404, content_type='text/plain')
+                    return HttpResponseNotFound('Missing page')
                 except ValidationError as ex:
                     return HttpResponseNotAllowed(f'Payload validation failed: {ex}', content_type='text/plain')
                 except Error as ex:
