@@ -563,7 +563,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 except ProductPage.DoesNotExist:
                     return HttpResponseNotFound('Missing page')
                 except ValidationError as ex:
-                    return HttpResponseNotAllowed(f'Payload validation failed: {ex}', content_type='text/plain')
+                    return HttpResponseNotAllowed(f'Payload validation failed: {ex}')
                 except Error as ex:
                     print(f'Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})')
                     return HttpResponseServerError('Internal Server Error', content_type='text/plain')
