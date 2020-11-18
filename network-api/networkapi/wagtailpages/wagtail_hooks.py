@@ -90,7 +90,7 @@ def before_delete_page(request, page):
     Delete cloudinary_images from pages that have this field.
     """
     if hasattr(page, 'cloudinary_image'):
-        if settings.REVIEW_APP:
+        if settings.REVIEW_APP or settings.DEBUG:
             pass
         else:
             uploader.destroy(page.cloudinary_image.public_id, invalidate=True)
