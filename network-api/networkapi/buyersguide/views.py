@@ -32,9 +32,9 @@ locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
 def get_media_url(use_cloudinary=False):
     if use_cloudinary:
         return settings.CLOUDINARY_URL
-    else:
-        aws_location_exists = hasattr(settings, "AWS_LOCATION") and settings.AWS_LOCATION
-        return f"{settings.MEDIA_URL}{settings.AWS_LOCATION}/" if aws_location_exists else settings.MEDIA_URL
+    elif settings.USE_S3 and settings.AWS_LOCATION:
+        return f"{settings.MEDIA_URL}{settings.AWS_LOCATION}/"
+    return settings.MEDIA_URL
 
 
 def get_average_creepiness(product_dict):
