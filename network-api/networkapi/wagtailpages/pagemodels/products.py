@@ -533,7 +533,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                     product = ProductPage.objects.get(id=product_id)
                     # If the product exists but isn't live and the user isn't logged in..
                     if not product.live and not request.user.is_authenticated:
-                        raise Http404("Product does not exist")
+                        return HttpResponseNotFound("Product does not exist")
 
                     # Save the new voting totals
                     # TODO: Confirm with @pomax this is the intended behaviour we desire.
