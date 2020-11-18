@@ -39,7 +39,7 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
     )
 
     intro = models.CharField(
-        max_length=250,
+        max_length=350,
         blank=True,
         help_text='Intro paragraph to show in hero cutout box'
     )
