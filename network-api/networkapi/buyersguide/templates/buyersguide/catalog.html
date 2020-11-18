@@ -1,6 +1,6 @@
 {% extends "../bg_base.html" %}
 
-{% load env cloudinary i18n static wagtailroutablepage_tags %}
+{% load env cloudinary i18n static wagtailroutablepage_tags wagtailimages_tags %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
@@ -87,9 +87,10 @@
               <img
                 class="product-thumbnail"
                 {% if USE_CLOUDINARY %}
-                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
+                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=200 %}"
                 {% else %}
-                  src="{{mediaUrl}}{{"AWS_LOCATION"|env}}/{{product.image }}"
+                  {% image product.image fill-200x200 as img %}
+                  src="{{ img.url }}"
                 {% endif %}
                 alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
               >
