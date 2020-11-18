@@ -548,16 +548,8 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
                     # Add the vote to the proper "vote bin"
                     votes = product.votes.get_votes()
-                    if value <= 20:
-                        votes[0] = votes[0] + 1
-                    elif value <= 40:
-                        votes[1] = votes[1] + 1
-                    elif value <= 60:
-                        votes[2] = votes[2] + 1
-                    elif value <= 80:
-                        votes[3] = votes[3] + 1
-                    elif value <= 100:
-                        votes[4] = votes[4] + 1
+                    index = int((value-1) / 20)    
+                    votes[index] += 1
                     product.votes.set_votes(votes)
 
                     # Don't save this as a revision with .save_revision() as to not spam the Audit log
