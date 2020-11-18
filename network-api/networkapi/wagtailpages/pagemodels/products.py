@@ -479,6 +479,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         cutoff = datetime(2020, 10, 29)
         return cutoff < review
 
+    @property
     def product_type(self):
         if isinstance(self, SoftwareProductPage):
             return "software"
@@ -486,6 +487,18 @@ class ProductPage(FoundationMetadataPageMixin, Page):
             return "general"
         else:
             return "unknown"
+
+    def get_or_create_votes(self):
+        """
+        If a page doesn't have a ProductPageVotes objects, create it.
+        Regardless of whether or not its created, return the parsed votes.
+        """
+        if not self.votes:
+            votes = ProductPageVotes()
+            votes.save()
+            self.votes = votes
+            self.save()
+        return self.votes.get_votes()
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -559,14 +572,8 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 except Error as ex:
                     print(f'Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})')
                     return HttpResponseServerError('Internal Server Error', content_type='text/plain')
-        elif not self.votes:
-            # Double check a voting bin exists. It should always exist.
-            # TODO: Test the Product-to-ProductPage migration to ensure `votes` always exists.
-            # If all vote bins exist, we can safely remove this elif statement.
-            votes = ProductPageVotes()
-            votes.save()
-            self.votes = votes
-            self.save()
+
+        self.get_or_create_votes()
 
         return super().serve(request, *args, **kwargs)
 
@@ -574,10 +581,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         # When a new ProductPage is created, ensure a vote bin always exists.
         # We can use save() or a post-save Wagtail hook.
         save = super().save(*args, **kwargs)
-        if not self.votes:
-            votes = ProductPageVotes()
-            votes.save()
-            self.votes = votes
+        self.get_or_create_votes()
         return save
 
     class Meta:
