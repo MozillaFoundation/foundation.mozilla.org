@@ -59,7 +59,7 @@ class Command(BaseCommand):
             # Check if ProductPage exists. If it does, continue on.
             # This check will allow us to run this script more than once if needed
             if ProductPage.objects.filter(slug=product.slug).exists():
-                self.debug_print("Product already exists... skipping..")
+                self.debug_print(f"Product '{product.slug}' already exists, skipping.")
                 continue
 
             if isinstance(product, SoftwareProduct):
