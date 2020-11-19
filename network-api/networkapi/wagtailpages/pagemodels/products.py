@@ -537,13 +537,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         Add categories and route views to the sitemap for better search indexing.
         """
         sitemap = super().get_sitemap_urls(request)
+        last_modified = self.last_published_at or self.latest_revision_created_at
         # Add all the available Buyers Guide categories to the sitemap
         categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
             sitemap.append(
                 {
                     "location": self.full_url + self.reverse_subpage("category-view", args=(category.slug,)),
-                    "lastmod": (self.last_published_at or self.latest_revision_created_at),
+                    "lastmod": last_modified,
                 }
             )
 
@@ -557,7 +558,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             sitemap.append(
                 {
                     "location": self.full_url + self.reverse_subpage(about_page),
-                    "lastmod": (self.last_published_at or self.latest_revision_created_at),
+                    "lastmod": last_modified,
                 }
             )
         return sitemap
