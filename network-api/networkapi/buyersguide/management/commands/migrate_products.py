@@ -64,8 +64,22 @@ class Command(BaseCommand):
 
             if isinstance(product, SoftwareProduct):
                 new_product_page = SoftwareProductPage()
+                specific_fields = [
+                    'medical_privacy_compliant', 'easy_to_learn_and_use', 'handles_recordings_how',
+                    'recording_alert', 'recording_alert_helptext', 'medical_privacy_compliant_helptext',
+                    'host_controls', 'easy_to_learn_and_use_helptext'
+                ]
             elif isinstance(product, GeneralProduct):
                 new_product_page = GeneralProductPage()
+                specific_fields = [
+                    'camera_device', 'camera_app', 'microphone_device', 'microphone_app',
+                    'location_device', 'location_app', 'personal_data_collected',
+                    'biometric_data_collected', 'social_data_collected',
+                    'how_can_you_control_your_data', 'data_control_policy_is_bad',
+                    'track_record_choices', 'company_track_record', 'track_record_is_bad',
+                    'track_record_details', 'offline_capable', 'offline_use_description',
+                    'uses_ai', 'ai_uses_personal_data', 'ai_is_transparent', 'ai_helptext'
+                ]
             self.debug_print(f"Treating '{product.slug}' as {new_product_page.__class__.__name__}")
 
             # Apply the fields that are different or may cause issues if copied directly from one model to another
@@ -77,7 +91,7 @@ class Command(BaseCommand):
             new_product_page.live = not product.draft  # If product is draft, it shall not be live.
 
             # These are the common fields between SoftwareProductPages and GeneralProductPages
-            common_fields = [
+            fields = specific_fields + [
                 'slug', 'privacy_ding', 'adult_content', 'uses_wifi', 'uses_bluetooth',
                 'review_date', 'company', 'blurb', 'price', 'worst_case',
                 'signup_requires_email', 'signup_requires_phone',
@@ -90,25 +104,6 @@ class Command(BaseCommand):
                 'manage_vulnerabilities_helptext', 'privacy_policy', 'privacy_policy_helptext',
                 'phone_number', 'live_chat', 'email', 'twitter'
             ]
-
-            # Add custom fields based on the product type
-            if isinstance(product, SoftwareProduct):
-                # Handle exceptions first. Then add fields to loop through.
-                fields = common_fields + [
-                    'medical_privacy_compliant', 'easy_to_learn_and_use', 'handles_recordings_how',
-                    'recording_alert', 'recording_alert_helptext', 'medical_privacy_compliant_helptext',
-                    'host_controls', 'easy_to_learn_and_use_helptext'
-                ]
-            elif isinstance(product, GeneralProduct):
-                fields = common_fields + [
-                    'camera_device', 'camera_app', 'microphone_device', 'microphone_app',
-                    'location_device', 'location_app', 'personal_data_collected',
-                    'biometric_data_collected', 'social_data_collected',
-                    'how_can_you_control_your_data', 'data_control_policy_is_bad',
-                    'track_record_choices', 'company_track_record', 'track_record_is_bad',
-                    'track_record_details', 'offline_capable', 'offline_use_description',
-                    'uses_ai', 'ai_uses_personal_data', 'ai_is_transparent', 'ai_helptext'
-                ]
 
             self.debug_print("\tSetting fields:")
             for field in fields:
