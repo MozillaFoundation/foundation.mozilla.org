@@ -1,0 +1,34 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags i18n %}
+
+{% block body_id %}dear-internet{% endblock %}
+
+
+{% block content_wrapped %}
+{# Placeholder. Template to be updated in follow-up PRs. #}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{page.title}}</h1>
+      <p>{{page.intro_text_1}}</p>
+      <p>{{page.intro_text_2}}</p>
+      <p>{{page.intro_text_3}}</p>
+      <p>{{page.intro_text_4}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="letters col-12">
+      {% for block in page.letters %}
+      <hr>
+      {% include_block block with index=forloop.counter %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block footer_block %}
+{% include "partials/footer.html" %}
+{% endblock %}

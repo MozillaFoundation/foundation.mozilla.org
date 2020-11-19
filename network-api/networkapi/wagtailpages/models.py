@@ -79,6 +79,10 @@ from .pagemodels.publications.article import (
     ArticlePage
 )
 
+from .pagemodels.dear_internet import (
+    DearInternetPage
+)
+
 from .pagemodels.products import (
     GeneralProductPage,
     ProductPage,
@@ -98,6 +102,7 @@ __all__ = [
     CTA,
     CampaignIndexPage,
     CampaignPage,
+    DearInternetPage,
     FocusArea,
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
