@@ -258,6 +258,7 @@ class BanneredCampaignPage(PrimaryPage):
         'BanneredCampaignPage',
         'RedirectingPage',
         'PublicationPage',
+        'OpportunityPage',  # "DefaultPage" is just the verbose name
     ]
 
     show_in_menus_default = True
