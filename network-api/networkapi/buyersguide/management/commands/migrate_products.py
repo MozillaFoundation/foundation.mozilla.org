@@ -63,11 +63,10 @@ class Command(BaseCommand):
                 continue
 
             if isinstance(product, SoftwareProduct):
-                self.debug_print("Using a SoftwareProductPage")
                 new_product_page = SoftwareProductPage()
             elif isinstance(product, GeneralProduct):
-                self.debug_print("Using a GeneralProductPage")
                 new_product_page = GeneralProductPage()
+            self.debug_print(f"Treating '{product.slug}' as {new_product_page.__class__.__name__}")
 
             # Apply the fields that are different or may cause issues if copied directly from one model to another
             new_product_page.slug_en = product.slug
