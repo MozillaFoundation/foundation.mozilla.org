@@ -1,33 +1,23 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import StreamFieldPanel, MultiFieldPanel, FieldPanel
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 
+from wagtail.core import blocks
 from . import customblocks
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import set_main_site_nav_information
 
 
 class DearInternetPage(FoundationMetadataPageMixin, Page):
-    intro_text_1 = models.CharField(
-        max_length=500,
-        help_text='Intro text 1',
-    )
-
-    intro_text_2 = models.CharField(
-        max_length=500,
-        help_text='Intro text 2',
-    )
-
-    intro_text_3 = models.CharField(
-        max_length=500,
-        help_text='Intro text 3',
-    )
-
-    intro_text_4 = models.CharField(
-        max_length=500,
-        help_text='Intro text 4',
+    intro_texts = StreamField([
+        ('paragraph', blocks.RichTextBlock(
+          features=[
+              'bold', 'italic', 'link',
+          ]
+        ))
+      ],
     )
 
     letters = StreamField([
@@ -45,11 +35,16 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     cta_button_link = models.URLField()
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro_text_1'),
-        FieldPanel('intro_text_2'),
-        FieldPanel('intro_text_3'),
-        FieldPanel('intro_text_4'),
+        StreamFieldPanel('intro_texts'),
         StreamFieldPanel('letters'),
+        MultiFieldPanel(
+            [
+                FieldPanel('cta'),
+                FieldPanel('cta_button_text'),
+                FieldPanel('cta_button_link'),
+            ],
+            heading='CTA',
+        ),
     ]
 
     zen_nav = True

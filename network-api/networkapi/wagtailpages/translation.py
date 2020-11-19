@@ -277,10 +277,7 @@ class GeneralProductPageTR(TranslationOptions):
 @register(DearInternetPage)
 class DearInternetPageTR(TranslationOptions):
     fields = {
-        'intro_text_1',
-        'intro_text_2',
-        'intro_text_3',
-        'intro_text_4',
+        'intro_texts',
         'letters',
         'cta',
         'cta_button_text',
