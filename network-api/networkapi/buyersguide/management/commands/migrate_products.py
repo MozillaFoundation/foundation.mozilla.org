@@ -32,7 +32,7 @@ class Command(BaseCommand):
         if not buyersguide_page:
             # Create the buyersguide page.
             buyersguide_page = BuyersGuidePage()
-            buyersguide_page.title = 'Privacy not included'
+            buyersguide_page.title = '*Privacy not included'
             buyersguide_page.slug = 'privacynotincluded'
             buyersguide_page.slug_en = 'privacynotincluded'
             homepage = Homepage.objects.first()
