@@ -535,7 +535,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 try:
                     product = ProductPage.objects.get(id=product_id)
                     # If the product exists but isn't live and the user isn't logged in..
-                    if not product.live and not request.user.is_authenticated:
+                    if (not product.live and not request.user.is_authenticated) or not product:
                         return HttpResponseNotFound("Product does not exist")
 
                     # Save the new voting totals
@@ -551,7 +551,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
                     # Add the vote to the proper "vote bin"
                     votes = product.votes.get_votes()
-                    index = int((value-1) / 20)    
+                    index = int((value-1) / 20)
                     votes[index] += 1
                     product.votes.set_votes(votes)
 
