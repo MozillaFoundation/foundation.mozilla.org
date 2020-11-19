@@ -87,7 +87,7 @@
               <img
                 class="product-thumbnail"
                 {% if USE_CLOUDINARY %}
-                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=200 %}"
+                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
                 {% else %}
                   {% image product.image fill-200x200 as img %}
                   src="{{ img.url }}"
