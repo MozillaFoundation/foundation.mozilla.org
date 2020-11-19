@@ -218,7 +218,7 @@ class Command(BaseCommand):
             # Loop through all the Product.related_products
             for related_product in product.related_products.all():
                 try:
-                    # Find the realted ProductPage based on the correct slug.
+                    # Find the related ProductPage based on the correct slug.
                     related_page = ProductPage.objects.get(slug=related_product.slug)
                 except ProductPage.DoesNotExist:
                     self.debug_print("Missing product page", product_page)
