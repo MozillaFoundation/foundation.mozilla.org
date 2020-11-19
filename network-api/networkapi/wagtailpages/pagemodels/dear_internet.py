@@ -34,6 +34,16 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
         ('letters', customblocks.DearInternetLetterBlock()),
     ])
 
+    cta = models.CharField(
+        max_length=500,
+    )
+
+    cta_button_text = models.CharField(
+        max_length=100,
+    )
+
+    cta_button_link = models.URLField()
+
     content_panels = Page.content_panels + [
         FieldPanel('intro_text_1'),
         FieldPanel('intro_text_2'),

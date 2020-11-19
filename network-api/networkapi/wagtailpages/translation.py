@@ -281,5 +281,8 @@ class DearInternetPageTR(TranslationOptions):
         'intro_text_2',
         'intro_text_3',
         'intro_text_4',
-        'letters'
+        'letters',
+        'cta',
+        'cta_button_text',
+        'cta_button_link'
     }

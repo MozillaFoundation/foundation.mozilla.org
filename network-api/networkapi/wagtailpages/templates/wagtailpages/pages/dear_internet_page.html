@@ -24,6 +24,16 @@
       {% endfor %}
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      {% if page.cta %}
+      <p>{{page.cta}}</p>
+      {% endif %}
+      {% if page.cta_button_text and page.cta_button_link %}
+      <a class="btn btn-secondary" href="{{cta_button_link}}">{{page.cta_button_text}}</a>
+      {% endif %}
+    </div>
+  </div>
 </div>
 
 
