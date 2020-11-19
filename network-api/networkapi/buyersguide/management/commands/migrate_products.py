@@ -122,25 +122,28 @@ class Command(BaseCommand):
             # seem to work. I tinkered with it but ultimately gave up
             # because this a temporary management command anyway and should ideally
             # be used once in production, and code deleted afterwards.
-            mime = MimeTypes()
-            mime_type = mime.guess_type(product.image.file.name)  # -> ('image/jpeg', None)
-            if mime_type:
-                mime_type = mime_type[0].split('/')[1].upper()
-            else:
-                # Default to a JPEG mimetype.
-                mime_type = 'JPEG'
-            # Create an image out of the FileField.
-            pil_image = PILImage.open(product.image.file)
-            f = BytesIO()
-            pil_image.save(f, mime_type)
-            # Store the image as a WagtailImage object
-            new_image_name = ntpath.basename(product.image.file.name)
-            wagtail_image = WagtailImage.objects.create(
-                title=new_image_name,
-                file=ImageFile(f, name=new_image_name)
-            )
-            # Associate new_product_page.image with wagtail_image
-            new_product_page.image = wagtail_image
+            if hasattr(product, 'image') and hasattr(product.image, 'file'):
+                # Check if there is an image file. If there isn't one, don't try to copy the
+                # FieldFile to a WagtailImage object.
+                mime = MimeTypes()
+                mime_type = mime.guess_type(product.image.file.name)  # -> ('image/jpeg', None)
+                if mime_type:
+                    mime_type = mime_type[0].split('/')[1].upper()
+                else:
+                    # Default to a JPEG mimetype.
+                    mime_type = 'JPEG'
+                # Create an image out of the FileField.
+                pil_image = PILImage.open(product.image.file)
+                f = BytesIO()
+                pil_image.save(f, mime_type)
+                # Store the image as a WagtailImage object
+                new_image_name = ntpath.basename(product.image.file.name)
+                wagtail_image = WagtailImage.objects.create(
+                    title=new_image_name,
+                    file=ImageFile(f, name=new_image_name)
+                )
+                # Associate new_product_page.image with wagtail_image
+                new_product_page.image = wagtail_image
 
             # Add the new page as a child to BuyersGuidePage. This will add a
             # `path` to the new_product_page and place it in the Wagtail Tree
