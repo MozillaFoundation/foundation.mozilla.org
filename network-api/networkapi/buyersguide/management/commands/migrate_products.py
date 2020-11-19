@@ -94,16 +94,10 @@ class Command(BaseCommand):
             # Add custom fields based on the product type
             if isinstance(product, SoftwareProduct):
                 # Handle exceptions first. Then add fields to loop through.
-                new_product_page.medical_privacy_compliant = (
-                    False if not product.medical_privacy_compliant else product.medical_privacy_compliant
-                )
-                new_product_page.easy_to_learn_and_use = (
-                    False if not product.easy_to_learn_and_use else product.easy_to_learn_and_use
-                )
-
                 fields = common_fields + [
-                    'handles_recordings_how', 'recording_alert', 'recording_alert_helptext',
-                    'medical_privacy_compliant_helptext', 'host_controls', 'easy_to_learn_and_use_helptext'
+                    'medical_privacy_compliant', 'easy_to_learn_and_use', 'handles_recordings_how',
+                    'recording_alert', 'recording_alert_helptext', 'medical_privacy_compliant_helptext',
+                    'host_controls', 'easy_to_learn_and_use_helptext'
                 ]
             elif isinstance(product, GeneralProduct):
                 fields = common_fields + [

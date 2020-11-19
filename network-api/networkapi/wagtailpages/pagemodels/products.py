@@ -449,8 +449,10 @@ class SoftwareProductPage(ProductPage):
         max_length=5000,
         blank=True
     )
-
-    medical_privacy_compliant = models.BooleanField(
+    # NullBooleanField is deprecated as of Django 3.1.
+    # We're using it here primarily for a data migration, but we should
+    # move to BooleanField as soon as it's safe to do so with the content we have
+    medical_privacy_compliant = models.NullBooleanField(
         null=True,
         help_text='Compliant with US medical privacy laws?'
     )
@@ -466,8 +468,10 @@ class SoftwareProductPage(ProductPage):
         max_length=5000,
         blank=True
     )
-
-    easy_to_learn_and_use = models.BooleanField(
+    # NullBooleanField is deprecated as of Django 3.1.
+    # We're using it here primarily for a data migration, but we should
+    # move to BooleanField as soon as it's safe to do so with the content we have
+    easy_to_learn_and_use = models.NullBooleanField(
         null=True,
         help_text='Is it easy to learn & use the features?',
     )
