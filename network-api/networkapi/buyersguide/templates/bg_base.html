@@ -19,12 +19,22 @@
 
 
 {% block wagtail_metadata %}
-  <meta property="og:description" content="{% trans "Smart home gadgets, fitness trackers, toys and more, rated for their privacy & security" %}">
-  <meta property="og:image" content="{% static "_images/buyers-guide/evergreen-social.jpg" %}">
-  <meta property="og:image:type" content="image/jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="628">
+{% trans "Smart home gadgets, fitness trackers, toys and more, rated for their privacy & security" as description %}
+{% static "_images/buyers-guide/evergreen-social.png" as image_url %}
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1146">
+  <meta property="og:image:height" content="600">
   <meta property="og:url" content="{{request.scheme}}://{{request.get_host}}{{request.path}}">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% trans "*Privacy Not Included: A Buyer’s Guide for Connected Products" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}">
+  <meta name="twitter:description" content="{{description}}">
+
+  {% block social_image %}
+  <meta property="og:image" content="{{image_url}}">
+  <meta name="twitter:image" content="{{image_url}}">
+  {% endblock %}
 {% endblock %}
 
 

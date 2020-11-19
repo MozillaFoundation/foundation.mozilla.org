@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.text import slugify
 
-
 from wagtail.snippets.models import register_snippet
 
 from .products.base import Product
+from ..utils import get_category_og_image_upload_path
 
 
 @register_snippet
@@ -39,6 +39,13 @@ class BuyersGuideProductCategory(models.Model):
     sort_order = models.IntegerField(
         default=1,
         help_text='Sort ordering number. Same-numbered items sort alphabetically'
+    )
+
+    og_image = models.FileField(
+        max_length=2048,
+        help_text='Image to use as OG image',
+        upload_to=get_category_og_image_upload_path,
+        blank=True,
     )
 
     @property

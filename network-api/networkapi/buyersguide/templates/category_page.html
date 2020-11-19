@@ -3,6 +3,19 @@
 
 {% block body_id %}{{ category.slug }}{% endblock %}
 
+
+{% block social_image %}
+  {% if category.og_image %}
+    <meta property="og:image" content="{{mediaUrl}}{{category.og_image}}">
+    <meta name="twitter:image" content="{{mediaUrl}}{{category.og_image}}">
+  {% else %}
+    {% static "_images/buyers-guide/evergreen-social.png" as default_image_url %}
+    <meta property="og:image" content="{{default_image_url}}">
+    <meta name="twitter:image" content="{{default_image_url}}">
+  {% endif %}
+{% endblock %}
+
+
 {% block no_products_found %}
   {% include "fragments/no_search_results.html" %}
 {% endblock %}

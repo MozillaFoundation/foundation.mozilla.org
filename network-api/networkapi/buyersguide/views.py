@@ -29,10 +29,12 @@ vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUser
 locale_regex = re.compile(r"^/[a-z]{2}(-[A-Z]{2})?/")
 
 
-if settings.USE_CLOUDINARY:
-    MEDIA_URL = settings.CLOUDINARY_URL
-else:
-    MEDIA_URL = settings.MEDIA_URL
+def get_media_url(use_cloudinary=False):
+    if use_cloudinary:
+        return settings.CLOUDINARY_URL
+    elif settings.USE_S3 and settings.AWS_LOCATION:
+        return f"{settings.MEDIA_URL}{settings.AWS_LOCATION}/"
+    return settings.MEDIA_URL
 
 
 def get_average_creepiness(product_dict):
@@ -76,7 +78,7 @@ def buyersguide_home(request):
         'pagetype': 'homepage',
         'categories': BuyersGuideProductCategory.objects.all(),
         'products': products,
-        'mediaUrl': MEDIA_URL,
+        'mediaUrl': get_media_url(settings.USE_CLOUDINARY),
         'web_monetization_pointer': settings.WEB_MONETIZATION_POINTER,
     })
 
@@ -105,7 +107,8 @@ def category_view(request, slug):
         'categories': BuyersGuideProductCategory.objects.all(),
         'category': category,
         'products': products,
-        'mediaUrl': MEDIA_URL,
+        # we don't want category view to use Cloudinary for assets
+        'mediaUrl': get_media_url(),
         'pageTitle': pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included') + f' - {category}',
@@ -150,7 +153,7 @@ def product_view(request, slug):
         'pagetype': 'product',
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product_dict,
-        'mediaUrl': MEDIA_URL,
+        'mediaUrl': get_media_url(settings.USE_CLOUDINARY),
         'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
         'pageTitle': pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',

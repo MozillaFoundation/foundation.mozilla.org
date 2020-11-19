@@ -1,4 +1,14 @@
 from django.db.migrations.operations.models import ModelOperation
+from networkapi.utility.images import get_image_upload_path
+
+
+def get_category_og_image_upload_path(instance, filename):
+    return get_image_upload_path(
+        app_name='buyersguide',
+        prop_name='name',
+        instance=instance,
+        current_filename=filename
+    )
 
 
 def tri_to_quad(input):
