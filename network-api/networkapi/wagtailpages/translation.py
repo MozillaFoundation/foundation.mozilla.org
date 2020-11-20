@@ -17,6 +17,7 @@ from .models import (
 
     BanneredCampaignPage,
     CampaignPage,
+    DearInternetPage,
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
@@ -277,3 +278,15 @@ class GeneralProductPageTR(TranslationOptions):
 @register(BuyersGuidePage)
 class BuyersGuidePageTR(TranslationOptions):
     fields = ()
+
+
+@register(DearInternetPage)
+class DearInternetPageTR(TranslationOptions):
+    fields = {
+        'intro_texts',
+        'letters',
+        'cta',
+        'cta_button_text',
+        'cta_button_link'
+    }
+
