@@ -11,6 +11,7 @@ class CampaignIndexPage(IndexPage):
     subpage_types = [
         'BanneredCampaignPage',
         'CampaignPage',
+        'DearInternetPage',
         'OpportunityPage',
         'YoutubeRegretsPage',
         'YoutubeRegretsReporterPage',
