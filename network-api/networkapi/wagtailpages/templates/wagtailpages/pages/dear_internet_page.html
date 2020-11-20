@@ -6,19 +6,23 @@
 
 {% block content_wrapped %}
 {# Placeholder. Template to be updated in follow-up PRs. #}
-<div class="container">
+<main class="container">
   <div class="row">
-    <div class="col-12">
-      <h1>{{page.title}}</h1>
+    <div class="col-12 text-center">
+      <h1 class="d-inline-block px-3 py-2 mb-3 mb-md-5">{{page.title}}</h1>
       {% for block in page.intro_texts %}
-        {% include_block block %}
+        <div class="intro-text">
+          {% include_block block %}
+        </div>
       {% endfor %}
     </div>
   </div>
   <div class="row">
+    <div class="col-12 text-center">
+      <h2>{{page.letters_section_heading}}</h2>
+    </div>
     <div class="letters col-12">
       {% for block in page.letters %}
-      <hr>
       {% include_block block with index=forloop.counter %}
       {% endfor %}
     </div>
@@ -33,7 +37,7 @@
       {% endif %}
     </div>
   </div>
-</div>
+</main>
 
 
 {% endblock %}

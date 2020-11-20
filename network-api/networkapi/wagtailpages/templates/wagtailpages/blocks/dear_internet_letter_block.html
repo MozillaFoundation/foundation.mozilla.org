@@ -4,22 +4,25 @@
 {# Placeholder. Template to be updated in follow-up PRs. #}
 <div class="dear-internet-letter">
   {% if value.image %}
-  {% image value.image original %}
+  {% image value.image original alt="" class="mb-4" %}
   {% endif %}
 
   {% if value.video_url %}
   <p>video url: {{ value.video_url }}</p>
   {% endif %}
 
-  <div>
+  <div class="letter-body">
     {{ value.letter }}
   </div>
 
   <div>
-    {{ value.author }}
+    <div class="d-flex align-items-center mb-4">
+      {% if value.author_photo %}
+      {# TODO:FIXME: responsive image #}
+      {% image value.author_photo fill-100x100 alt="" width="45" height="45" class="author-photo mr-3" %}
+      {% endif %}
+      <p class="author-name mb-0">{{ value.author_name }}</p>
+    </div>
+    <div class="author-description">{{ value.author }}</div>
   </div>
-
-  {% if value.author_photo %}
-  {% image value.author_photo original %}
-  {% endif %}
 </div>

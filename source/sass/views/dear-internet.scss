@@ -1,0 +1,132 @@
+#view-dear-internet {
+  $breakpoint: $bp-md;
+
+  background-image: linear-gradient(
+    180deg,
+    $dear-internet-lilac 0%,
+    $dear-internet-pink 100%
+  );
+
+  main {
+    padding: 5rem 0;
+  }
+
+  h1 {
+    background: $light-red;
+    // TODO: need to update font sizes and weight?
+  }
+
+  h1,
+  h2 {
+    color: $dark-blue;
+    font-style: italic;
+  }
+
+  h2 {
+    margin-bottom: 100px; // TODO: fix me
+  }
+
+  .intro-text {
+    p {
+      @extend .body-large;
+      @include set-text-size(18px, 27px, 24px, 34px);
+
+      color: $gray-80;
+    }
+    margin-bottom: 210px;
+
+    @media (min-width: $breakpoint) {
+      margin-bottom: 100px;
+    }
+  }
+
+  .dear-internet-letter {
+    $padding: 2rem;
+    $padding-desktop: 4rem;
+    $folded-corner-size: 32px;
+    $folded-corner-size-desktop: 40px;
+    $border-width: 2px;
+    $border-radius: 4px;
+
+    position: relative;
+    border: $border-width solid $blue;
+    border-top: 0;
+    border-radius: $border-radius;
+    padding: $padding;
+    margin-bottom: calc(60px + #{$padding});
+    background: $white;
+
+    @media (min-width: $breakpoint) {
+      margin-bottom: calc(60px + #{$padding-desktop});
+      padding: $padding-desktop;
+    }
+
+    // &:nth-child(even) {
+    //   &:after {
+    //     border-color: $dear-internet-lilac transparent;
+    //   }
+    // }
+
+    &:before {
+      $base-width: calc(100% + #{$border-width});
+
+      content: "";
+      position: absolute;
+      width: calc(#{$base-width} - #{$folded-corner-size});
+      height: calc(#{$folded-corner-size} + #{$border-width});
+      top: -$folded-corner-size;
+      left: -$border-width;
+      background: $white;
+      border: 2px solid $blue;
+      border-top-left-radius: $border-radius;
+      border-right: 0;
+      border-bottom: 0;
+
+      @media (min-width: $breakpoint) {
+        height: calc(#{$folded-corner-size-desktop} + #{$border-width});
+        top: -$folded-corner-size-desktop;
+        width: calc(#{$base-width} - #{$folded-corner-size-desktop});
+      }
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: -$folded-corner-size;
+      right: 0;
+      border-width: 0 $folded-corner-size $folded-corner-size 0;
+      border-style: solid;
+      border-color: $blue transparent;
+
+      @media (min-width: $breakpoint) {
+        top: -$folded-corner-size-desktop;
+        border-width: 0 $folded-corner-size-desktop $folded-corner-size-desktop
+          0;
+      }
+    }
+
+    .letter-body {
+      p {
+        @include heading("Zilla Slab", 300, 0, $black, $white);
+        @include set-text-size(18px, 27px, 20px, 30px);
+        font-style: italic;
+      }
+    }
+
+    .author-name {
+      color: $blue;
+    }
+
+    .author-photo {
+      border-radius: 50%;
+    }
+
+    .author-description {
+      p {
+        @include set-text-size(12px, 16px);
+
+        color: $gray-60;
+      }
+    }
+  }
+}

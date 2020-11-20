@@ -3,10 +3,13 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class DearInternetLetterBlock(blocks.StructBlock):
+    author_name = blocks.CharBlock()
+
     author = blocks.RichTextBlock(
         features=[
             'bold', 'italic', 'link',
         ],
+        help_text='Author description'
     )
 
     author_photo = ImageChooserBlock(
@@ -15,7 +18,7 @@ class DearInternetLetterBlock(blocks.StructBlock):
 
     letter = blocks.RichTextBlock(
         features=[
-            'bold', 'italic', 'link', 'ol', 'ul',
+            'bold', 'link', 'ol', 'ul',
         ],
         help_text='Main letter content'
     )

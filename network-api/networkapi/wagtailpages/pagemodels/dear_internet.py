@@ -20,6 +20,11 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
       ],
     )
 
+    letters_section_heading = models.CharField(
+        max_length=300,
+        default='Stories from around the world',
+    )
+
     letters = StreamField([
         ('letters', customblocks.DearInternetLetterBlock()),
     ])
