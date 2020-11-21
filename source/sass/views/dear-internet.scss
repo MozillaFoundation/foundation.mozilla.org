@@ -64,7 +64,11 @@
     border-radius: $border-radius;
     padding: $padding;
     margin-bottom: calc(60px + #{$padding});
-    background: $white;
+    background-image: url(../_images/dear-internet/Pixel-Heart.svg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 30px auto;
+    background-color: $white;
 
     @media (min-width: $breakpoint) {
       margin-bottom: calc(60px + #{$padding-desktop});
@@ -125,6 +129,8 @@
 
     .author-name {
       color: $blue;
+      font-family: "Caveat", cursive;
+      @include set-text-size(24px, 28px, 34px, 34px);
     }
 
     .author-photo {
