@@ -25,10 +25,6 @@
     font-style: italic;
   }
 
-  h2 {
-    margin-bottom: 100px; // TODO: fix me
-  }
-
   .love-letter-stamp {
     margin: 2.5rem 0;
 
@@ -43,10 +39,24 @@
 
       color: $gray-80;
     }
-    margin-bottom: 210px;
+    margin-bottom: 100px;
 
     @media (min-width: $breakpoint) {
-      margin-bottom: 100px;
+      margin-bottom: 210px;
+    }
+  }
+
+  .letters-section-heading {
+    padding: 3rem 0 6rem 0;
+    margin-bottom: 2rem;
+    background-image: url(../_images/dear-internet/Pixel-Heart-Large.svg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 130px auto;
+
+    @media (min-width: $breakpoint) {
+      padding: 3rem 0 10rem 0;
+      background-size: 244px auto;
     }
   }
 
