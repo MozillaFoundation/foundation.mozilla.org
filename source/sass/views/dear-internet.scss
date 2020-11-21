@@ -7,13 +7,16 @@
     $dear-internet-pink 100%
   );
 
-  main {
-    padding: 5rem 0;
+  @mixin dear-internet-body-large {
+    @extend .body-large;
+    @include set-text-size(18px, 27px, 24px, 34px);
   }
 
   h1 {
     background: $light-red;
     // TODO: need to update font sizes and weight?
+
+    @include set-text-size(36px, 40px, 112px, 112px);
   }
 
   h1,
@@ -26,10 +29,17 @@
     margin-bottom: 100px; // TODO: fix me
   }
 
+  .love-letter-stamp {
+    margin: 2.5rem 0;
+
+    @media (min-width: $breakpoint) {
+      margin: 5rem 0;
+    }
+  }
+
   .intro-text {
     p {
-      @extend .body-large;
-      @include set-text-size(18px, 27px, 24px, 34px);
+      @include dear-internet-body-large();
 
       color: $gray-80;
     }
@@ -126,6 +136,37 @@
         @include set-text-size(12px, 16px);
 
         color: $gray-60;
+      }
+    }
+  }
+
+  .cta {
+    $margin-y: 125px;
+    margin: $margin-y 0;
+
+    @media (min-width: $breakpoint) {
+      margin: $margin-y * 2 0;
+    }
+
+    p {
+      @include dear-internet-body-large();
+    }
+
+    a.btn.btn-secondary.heart-glyph {
+      border-color: $dark-blue;
+      color: $dark-blue;
+
+      @include hover-focus-active {
+        background-color: $dark-blue;
+        color: $white;
+
+        &:before {
+          filter: brightness(0) invert(100%);
+        }
+      }
+
+      &:before {
+        background-image: url(../_images/dear-internet/heart-dark-blue.svg);
       }
     }
   }

@@ -1,5 +1,5 @@
 {% extends "pages/base.html" %}
-{% load wagtailcore_tags i18n %}
+{% load wagtailcore_tags i18n static %}
 
 {% block body_id %}dear-internet{% endblock %}
 
@@ -9,6 +9,12 @@
 <main class="container">
   <div class="row">
     <div class="col-12 text-center">
+      <div class="love-letter-stamp d-flex align-items-center justify-content-center">
+        {# TODO:FIXME: source set #}
+        <img src="{% static "_images/dear-internet/Stamp-Wave-Left.svg" %}" alt="" width="128" class="mr-3">
+        <img src="{% static "_images/dear-internet/Stamp-Love-Letters.svg" %}" alt="{% trans "love letters to the internet" %}" width="128">
+        <img src="{% static "_images/dear-internet/Stamp-Wave-Right.svg" %}" alt="" width="128" class="ml-3">
+      </div>
       <h1 class="d-inline-block px-3 py-2 mb-3 mb-md-5">{{page.title}}</h1>
       {% for block in page.intro_texts %}
         <div class="intro-text">
@@ -27,13 +33,13 @@
       {% endfor %}
     </div>
   </div>
-  <div class="row">
+  <div class="row cta text-center">
     <div class="col-12">
       {% if page.cta %}
       <p>{{page.cta}}</p>
       {% endif %}
       {% if page.cta_button_text and page.cta_button_link %}
-      <a class="btn btn-secondary" href="{{page.cta_button_link}}">{{page.cta_button_text}}</a>
+      <a class="btn btn-secondary heart-glyph my-3" href="{{page.cta_button_link}}">{{page.cta_button_text}}</a>
       {% endif %}
     </div>
   </div>
