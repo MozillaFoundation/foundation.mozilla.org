@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth.models import User
+from django.core.management import call_command
 from django.http import Http404
 from django.urls import reverse
 from django.utils.text import slugify
@@ -17,7 +18,13 @@ from networkapi.buyersguide.models import (
     BuyersGuideProductCategory
 )
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
-from django.core.management import call_command
+
+from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
+from networkapi.wagtailpages.pagemodels.base import Homepage
+from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, ProductPage
+
+from wagtail.core.models import Page, Site
+from wagtail.tests.utils import WagtailPageTests
 
 VOTE_URL = reverse('product-vote')
 
@@ -455,3 +462,125 @@ class AboutViewTest(TestCase):
         url = '/fr/privacynotincluded/about/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
+
+
+@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
+class TestBuyersGuidePage(WagtailPageTests):
+
+    def get_or_create_buyers_guide(self):
+        """
+        Return the first BuyersGuidePage, or create a new one.
+        Will generate a Homepage if needed.
+        """
+        buyersguide = BuyersGuidePage.objects.first()
+        if not buyersguide:
+            homepage = Homepage.objects.first()
+            if not homepage:
+                site_root = Page.objects.first()
+                homepage = WagtailHomepageFactory.create(
+                    parent=site_root,
+                    title='Homepage',
+                    slug='homepage',
+                    hero_image__file__width=1080,
+                    hero_image__file__height=720
+                )
+            # Create the buyersguide page.
+            buyersguide = BuyersGuidePage()
+            buyersguide.title = 'Privacy not included'
+            buyersguide.slug = 'privacynotincluded-new'
+            buyersguide.slug_en = 'privacynotincluded-new'
+            homepage = Homepage.objects.first()
+            homepage.add_child(instance=buyersguide)
+            buyersguide.save_revision().publish()
+        self.homepage = Homepage.objects.first()
+        return buyersguide
+
+    def setUp(self):
+        # Ensure there's always a BuyersGuide Page
+        self.bg = self.get_or_create_buyers_guide()
+        self.product_page = self.get_or_create_product_page()
+
+        site = Site.objects.first()
+        site.root_page = self.homepage
+        site.port = 80
+        site.save()
+
+    def test_buyersguide_url(self):
+        self.assertEqual(self.bg.slug, 'privacynotincluded-new')
+
+    def test_buyersguide_about_routes(self):
+        url = self.bg.reverse_subpage('how-to-use-view')
+        self.assertEqual(url, 'about/')
+        response = self.client.get(self.bg.url + url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about/how_to_use.html')
+
+        url = self.bg.reverse_subpage('about-why-view')
+        self.assertEqual(url, 'about/why/')
+        response = self.client.get(self.bg.url + url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about/why_we_made.html')
+
+        url = self.bg.reverse_subpage('press-view')
+        self.assertEqual(url, 'about/press/')
+        response = self.client.get(self.bg.url + url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about/press.html')
+
+        url = self.bg.reverse_subpage('contact-view')
+        self.assertEqual(url, 'about/contact/')
+        response = self.client.get(self.bg.url + url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about/contact.html')
+
+        url = self.bg.reverse_subpage('methodology-view')
+        self.assertEqual(url, 'about/methodology/')
+        response = self.client.get(self.bg.url + url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about/methodology.html')
+
+        url = self.bg.reverse_subpage('min-security-view')
+        self.assertEqual(url, 'about/meets-minimum-security-standards/')
+        response = self.client.get(self.bg.url + url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about/minimum_security.html')
+
+    def get_or_create_product_page(self):
+        product_page = ProductPage.objects.first()
+        if not product_page:
+            product_page = ProductPage(
+                slug='product-page',
+                slug_en='product-page',
+                title='Product Page',
+                title_en='Product Page',
+                live=True,
+            )
+            self.bg.add_child(instance=product_page)
+            product_page.save_revision().publish()
+        return product_page
+
+    def test_buyersguide_category_route(self):
+        # Missing category
+        missing_category = 'missing-category-slug'
+        category_url = self.bg.reverse_subpage('category-view', args=(missing_category,))
+        self.assertEqual(category_url, f'categories/{missing_category}/')
+
+        full_url = self.bg.url + category_url
+        response = self.client.get(full_url)
+        self.assertEqual(response.status_code, 404)
+
+        category = BuyersGuideProductCategory.objects.first()
+        response = self.client.get(f'/en/{self.bg.slug}/categories/{category.slug}/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_buyersguide_product_redirect_route(self):
+        response = self.client.get(self.bg.url)
+        self.assertEqual(response.status_code, 200)
+
+        product = self.get_or_create_product_page()
+        response = self.client.get(product.url)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get(f'/en/{self.bg.slug}/products/{product.slug}/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.redirect_chain[0][0], product.url)
