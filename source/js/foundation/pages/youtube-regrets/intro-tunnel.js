@@ -246,7 +246,7 @@ class YouTubeRegretsTunnel {
       );
 
       elements.newsletterButtonMobile[0].addEventListener(`click`, (event) => {
-        if (navNewsletter.getShownState()) {
+        if (navNewsletter.isVisible()) {
           navNewsletter.closeMobileNewsletter(event);
         } else {
           navNewsletter.expandMobileNewsletter(event);
