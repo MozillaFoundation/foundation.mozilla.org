@@ -870,7 +870,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Find product by it's slug and redirect to the product page
         # If no product is found, redirect to the BuyersGuide page
         product = get_object_or_404(ProductPage, slug=slug)
-        return redirect(product.url)
+        return redirect(product.url, permanent=True)
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
