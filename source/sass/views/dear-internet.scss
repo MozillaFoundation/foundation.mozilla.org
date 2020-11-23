@@ -28,23 +28,121 @@
     position: relative;
   }
 
-  .plane-pathway-wrapper {
+  .wrapper {
+    overflow-x: hidden;
+  }
+
+  .full-size-absolute-wrapper {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+  }
+
+  .plane-pathway-wrapper {
     background-image: url(../_images/dear-internet/Plane+Path-2.svg);
     background-repeat: no-repeat;
     background-position: center 2rem;
     background-size: auto 100%;
   }
 
+  .cloud {
+    --width: 140px;
+    --position-scaler: 15px;
+
+    position: absolute;
+    width: var(--width);
+
+    @media (min-width: $breakpoint) {
+      --width: 200px;
+      --position-scaler: 20px;
+    }
+
+    &.flip {
+      transform: scaleX(-1);
+    }
+
+    &.blue path {
+      fill: $blue;
+    }
+
+    &.light-blue path {
+      fill: $light-blue;
+    }
+
+    &.white path {
+      fill: $white;
+    }
+
+    &.light-red path {
+      fill: $light-red;
+    }
+  }
+
+  .clouds-wrapper {
+    .cloud {
+      &:nth-of-type(1) {
+        top: calc(2.5 * var(--position-scaler));
+        left: 5%;
+        transform: scale(0.7);
+      }
+
+      &:nth-of-type(2) {
+        top: calc(20 * var(--position-scaler));
+        left: 55%;
+        transform: scale(2);
+      }
+
+      &:nth-of-type(3) {
+        top: calc(12 * var(--position-scaler));
+        left: -6%;
+        transform: scale(1.2);
+      }
+
+      &:nth-of-type(4) {
+        left: 90%;
+      }
+
+      &:nth-of-type(5) {
+        top: calc(29 * var(--position-scaler));
+        left: 75%;
+      }
+
+      &:nth-of-type(6) {
+        top: calc(35 * var(--position-scaler));
+        left: 3%;
+      }
+    }
+  }
+
   .love-letter-stamp {
+    --base-z-index: 1;
+
     margin: 2.5rem 0;
+    position: relative;
 
     @media (min-width: $breakpoint) {
       margin: 5rem 0;
+    }
+
+    img {
+      z-index: calc(var(--base-z-index) + 1);
+    }
+
+    .cloud {
+      z-index: var(--base-z-index);
+
+      &:nth-of-type(1) {
+        left: 13%;
+        top: calc(5 * var(--position-scaler));
+      }
+
+      &:nth-of-type(2) {
+        left: 77%;
+        top: calc(0.5 * var(--position-scaler));
+        transform: scale(1.3);
+      }
     }
   }
 
