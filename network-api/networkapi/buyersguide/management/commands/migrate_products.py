@@ -1,4 +1,5 @@
 import ntpath
+import time
 
 from django.conf import settings
 from django.core.files.images import ImageFile
@@ -207,6 +208,8 @@ class Command(BaseCommand):
             # Always good to fresh from db when using Django Treebeard.
             buyersguide_page.refresh_from_db()
 
+        time.sleep(1)
+
         # Once all the ProductPages are added, add related_products
         # By writing a secondary for loop we can avoid attaching a legacy_product
         # to each ProductPage because they'll have slugs in common.
@@ -215,7 +218,11 @@ class Command(BaseCommand):
         # Loop through every ProductPage we now have.
         for product_page in ProductPage.objects.all():
             # Fetch the PNI Product that this page was created from.
-            product = Product.objects.get(slug=product_page.slug)
+            try:
+                product = Product.objects.get(slug=product_page.slug)
+            except Product.DoesNotExist:
+                self.debug_print(f"Skipping {product_page} because a ProductPage.slug={product_page.slug} was not found")  # noqa
+                continue
             # Loop through all the Product.related_products
             for related_product in product.related_products.all():
                 try:
