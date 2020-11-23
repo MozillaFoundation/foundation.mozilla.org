@@ -8,17 +8,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
 {% endblock %}
 
-{% block content_wrapped %}
+{% block header_wrapped %}
+<div class="love-letter-stamp d-flex align-items-center justify-content-center">
+  {# TODO:FIXME: source set #}
+  <img src="{% static "_images/dear-internet/Stamp-Wave-Left.svg" %}" alt="" width="128" class="mr-3">
+  <img src="{% static "_images/dear-internet/Stamp-Love-Letters.svg" %}" alt="{% trans "love letters to the internet" %}" width="128">
+  <img src="{% static "_images/dear-internet/Stamp-Wave-Right.svg" %}" alt="" width="128" class="ml-3">
+</div>
+{% endblock %}
+
+{% block content %}
 {# Placeholder. Template to be updated in follow-up PRs. #}
-<main class="container">
+
+<div class="plane-pathway-wrapper"></div>
+
+<div class="container">
   <div class="row">
     <div class="col-12 text-center">
-      <div class="love-letter-stamp d-flex align-items-center justify-content-center">
-        {# TODO:FIXME: source set #}
-        <img src="{% static "_images/dear-internet/Stamp-Wave-Left.svg" %}" alt="" width="128" class="mr-3">
-        <img src="{% static "_images/dear-internet/Stamp-Love-Letters.svg" %}" alt="{% trans "love letters to the internet" %}" width="128">
-        <img src="{% static "_images/dear-internet/Stamp-Wave-Right.svg" %}" alt="" width="128" class="ml-3">
-      </div>
       <h1 class="d-inline-block px-3 py-2 mb-3 mb-md-5">{{page.title}}</h1>
       {% for block in page.intro_texts %}
         <div class="intro-text">
@@ -47,7 +53,7 @@
       {% endif %}
     </div>
   </div>
-</main>
+</div>
 
 
 {% endblock %}

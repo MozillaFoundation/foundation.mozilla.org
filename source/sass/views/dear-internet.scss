@@ -14,7 +14,6 @@
 
   h1 {
     background: $light-red;
-    // TODO: need to update font sizes and weight?
 
     @include set-text-size(36px, 40px, 112px, 112px);
   }
@@ -23,6 +22,23 @@
   h2 {
     color: $dark-blue;
     font-style: italic;
+  }
+
+  main {
+    position: relative;
+  }
+
+  .plane-pathway-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 100%;
+    background-image: url(../_images/dear-internet/Plane+Path-2.svg);
+    background-repeat: no-repeat;
+    background-position: center 2rem;
+    background-size: auto 100%;
   }
 
   .love-letter-stamp {
@@ -51,7 +67,7 @@
     margin-bottom: 2rem;
     background-image: url(../_images/dear-internet/Pixel-Heart-Large.svg);
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position: center top;
     background-size: 130px auto;
 
     @media (min-width: $breakpoint) {
@@ -60,108 +76,12 @@
     }
   }
 
-  .dear-internet-letter {
-    $padding: 2rem;
-    $padding-desktop: 4rem;
-    $folded-corner-size: 32px;
-    $folded-corner-size-desktop: 40px;
-    $border-width: 2px;
-    $border-radius: 4px;
-
-    position: relative;
-    border: $border-width solid $blue;
-    border-top: 0;
-    border-radius: $border-radius;
-    padding: $padding;
-    margin-bottom: calc(60px + #{$padding});
-    background-image: url(../_images/dear-internet/Pixel-Heart.svg);
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 30px auto;
-    background-color: $white;
-
-    @media (min-width: $breakpoint) {
-      margin-bottom: calc(60px + #{$padding-desktop});
-      padding: $padding-desktop;
-    }
-
-    // &:nth-child(even) {
-    //   &:after {
-    //     border-color: $dear-internet-lilac transparent;
-    //   }
-    // }
-
-    &:before {
-      $base-width: calc(100% + #{$border-width});
-
-      content: "";
-      position: absolute;
-      width: calc(#{$base-width} - #{$folded-corner-size});
-      height: calc(#{$folded-corner-size} + #{$border-width});
-      top: -$folded-corner-size;
-      left: -$border-width;
-      background: $white;
-      border: 2px solid $blue;
-      border-top-left-radius: $border-radius;
-      border-right: 0;
-      border-bottom: 0;
-
-      @media (min-width: $breakpoint) {
-        height: calc(#{$folded-corner-size-desktop} + #{$border-width});
-        top: -$folded-corner-size-desktop;
-        width: calc(#{$base-width} - #{$folded-corner-size-desktop});
-      }
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      top: -$folded-corner-size;
-      right: 0;
-      border-width: 0 $folded-corner-size $folded-corner-size 0;
-      border-style: solid;
-      border-color: $blue transparent;
-
-      @media (min-width: $breakpoint) {
-        top: -$folded-corner-size-desktop;
-        border-width: 0 $folded-corner-size-desktop $folded-corner-size-desktop
-          0;
-      }
-    }
-
-    .letter-body {
-      p {
-        @include heading("Zilla Slab", 300, 0, $black, $white);
-        @include set-text-size(18px, 27px, 20px, 30px);
-        font-style: italic;
-      }
-    }
-
-    .author-name {
-      color: $blue;
-      font-family: "Caveat", cursive;
-      @include set-text-size(24px, 28px, 34px, 34px);
-    }
-
-    .author-photo {
-      border-radius: 50%;
-    }
-
-    .author-description {
-      p {
-        @include set-text-size(12px, 16px);
-
-        color: $gray-60;
-      }
-    }
-  }
-
   .cta {
-    $margin-y: 125px;
-    margin: $margin-y 0;
+    $padding-y: 125px;
+    padding: $padding-y 0;
 
     @media (min-width: $breakpoint) {
-      margin: $margin-y * 2 0;
+      padding: $padding-y * 2 0;
     }
 
     p {

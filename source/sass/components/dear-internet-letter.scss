@@ -1,0 +1,113 @@
+.dear-internet-letter-wrapper {
+  $breakpoint: $bp-md;
+  $border-width: 2px;
+
+  position: relative;
+
+  .dotted-shadow {
+    $shadow-size: 15px;
+
+    position: absolute;
+    top: $border-width;
+    bottom: -$shadow-size;
+    left: $shadow-size;
+    right: -$shadow-size;
+    background-image: url(../_images/dear-internet/Pattern_Blue-Dots.svg);
+    background-repeat: repeat;
+    background-size: 10px 10px;
+    clip-path: polygon(
+      calc(100% - #{$shadow-size}) 0,
+      100% $shadow-size,
+      100% 100%,
+      0 100%,
+      0 0
+    );
+  }
+
+  &:nth-child(even) {
+    .dear-internet-letter:after {
+      background-image: url(../_images/dear-internet/Letter-Corner-Small-Lilac.svg);
+    }
+  }
+
+  .dear-internet-letter {
+    $padding: 2rem;
+    $padding-desktop: 4rem;
+    $folded-corner-size: 32px;
+    $border-radius: 4px;
+
+    position: relative;
+    border: $border-width solid $blue;
+    border-top: 0;
+    border-radius: 0 0 $border-radius $border-radius;
+    padding: $padding;
+    margin-bottom: calc(60px + #{$padding});
+    background-image: url(../_images/dear-internet/Pixel-Heart.svg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 30px auto;
+    background-color: $white;
+
+    @media (min-width: $breakpoint) {
+      margin-bottom: calc(60px + #{$padding-desktop});
+      padding: $padding-desktop;
+    }
+
+    &:before {
+      $base-width: calc(100% + #{$border-width * 1.5});
+
+      content: "";
+      position: absolute;
+      width: calc(#{$base-width} - #{$folded-corner-size});
+      height: calc(#{$folded-corner-size} + #{$border-width});
+      top: -$folded-corner-size;
+      left: -$border-width;
+      background: $white;
+      border: 2px solid $blue;
+      border-top-left-radius: $border-radius;
+      border-right: 0;
+      border-bottom: 0;
+    }
+
+    &:after {
+      $background-size: calc(#{$folded-corner-size} + #{$border-width / 2});
+
+      content: "";
+      position: absolute;
+      top: -$folded-corner-size;
+      right: -$border-width;
+      width: $background-size;
+      height: $background-size;
+      background-image: url(../_images/dear-internet/Letter-Corner-Small-Light-Red.svg);
+      background-repeat: no-repeat;
+      background-position: top right;
+      background-size: $background-size $background-size;
+    }
+
+    .letter-body {
+      p {
+        @include heading("Zilla Slab", 300, 0, $black, $white);
+        @include set-text-size(18px, 27px, 20px, 30px);
+        font-style: italic;
+      }
+    }
+
+    .author-name {
+      color: $blue;
+      font-family: "Caveat", cursive;
+      @include set-text-size(24px, 28px, 34px, 34px);
+    }
+
+    .author-photo {
+      border-radius: 50%;
+    }
+
+    .author-description {
+      p {
+        @include set-text-size(12px, 16px);
+
+        color: $gray-60;
+      }
+    }
+  }
+}
