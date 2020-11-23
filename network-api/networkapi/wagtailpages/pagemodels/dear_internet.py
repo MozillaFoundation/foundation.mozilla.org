@@ -41,6 +41,7 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('intro_texts'),
+        FieldPanel('letters_section_heading'),
         StreamFieldPanel('letters'),
         MultiFieldPanel(
             [
