@@ -115,7 +115,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='softwareproductpage',
             name='easy_to_learn_and_use',
-            field=models.BooleanField(help_text='Is it easy to learn & use the features?', null=True),
+            field=models.NullBooleanField(help_text='Is it easy to learn & use the features?', null=True),
         ),
         migrations.AddField(
             model_name='softwareproductpage',
@@ -135,7 +135,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='softwareproductpage',
             name='medical_privacy_compliant',
-            field=models.BooleanField(help_text='Compliant with US medical privacy laws?', null=True),
+            field=models.NullBooleanField(help_text='Compliant with US medical privacy laws?', null=True),
         ),
         migrations.AddField(
             model_name='softwareproductpage',
