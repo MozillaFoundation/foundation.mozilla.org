@@ -31,8 +31,7 @@
   }
 
   .dear-internet-letter {
-    $padding: 2rem;
-    $padding-desktop: 4rem;
+    --padding: 2rem;
     $folded-corner-size: 32px;
     $border-radius: 4px;
 
@@ -40,8 +39,8 @@
     border: $border-width solid $blue;
     border-top: 0;
     border-radius: 0 0 $border-radius $border-radius;
-    padding: $padding;
-    margin-bottom: calc(60px + #{$padding});
+    padding: var(--padding);
+    margin-bottom: calc(60px + var(--padding));
     background-image: url(../_images/dear-internet/Pixel-Heart.svg);
     background-repeat: no-repeat;
     background-position: top center;
@@ -49,8 +48,7 @@
     background-color: $white;
 
     @media (min-width: $breakpoint) {
-      margin-bottom: calc(60px + #{$padding-desktop});
-      padding: $padding-desktop;
+      --padding: 4rem;
     }
 
     &:before {

@@ -41,10 +41,13 @@
   }
 
   .plane-pathway-wrapper {
+    --approx-cta-height: 1200px;
+
     background-image: url(../_images/dear-internet/Plane+Path-2.svg);
     background-repeat: no-repeat;
     background-position: center 2rem;
     background-size: auto 100%;
+    height: calc(100% - var(--approx-cta-height));
   }
 
   .cloud {
@@ -174,11 +177,16 @@
   }
 
   .cta {
-    $padding-y: 125px;
-    padding: $padding-y 0;
+    --padding-y: 125px;
+    padding: var(--padding-y) 0;
+    background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 200vw auto;
 
     @media (min-width: $breakpoint) {
-      padding: $padding-y * 2 0;
+      --padding-y: 250px;
+      background-size: contain;
     }
 
     p {
@@ -200,6 +208,32 @@
 
       &:before {
         background-image: url(../_images/dear-internet/heart-dark-blue.svg);
+      }
+    }
+  }
+
+  .globe-wrapper {
+    --img-size: 180px;
+
+    position: relative;
+    overflow: hidden;
+    height: calc(var(--img-size) / 2);
+
+    @media (min-width: $breakpoint) {
+      --img-size: 725px;
+      margin-top: -120px;
+    }
+
+    img {
+      position: absolute;
+      width: var(--img-size);
+
+      &:nth-child(1) {
+        left: calc(var(--img-size) / 2 * -1);
+      }
+
+      &:nth-child(2) {
+        right: calc(var(--img-size) / 2 * -1);
       }
     }
   }
