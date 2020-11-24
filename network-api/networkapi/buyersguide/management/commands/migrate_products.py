@@ -193,17 +193,18 @@ class Command(BaseCommand):
                 new_product_page.get_or_create_votes()
                 # Use .to_dict() to pull out the old aggregated votes
                 product_dict = product.to_dict()
-                votes = product_dict['votes']['creepiness']['vote_breakdown']
-                values = [x for x in votes.values()]
-                new_product_page.set_votes(values)
-                new_product_page.current_vote_count = product_dict['votes']['total']
+                if hasattr(product_dict, 'votes'):
+                    votes = product_dict['votes']['creepiness']['vote_breakdown']
+                    values = [x for x in votes.values()]
+                    product_total = product_dict['votes']['total']
+                else:
+                    # Default vote "bin"
+                    values = [0, 0, 0, 0, 0]
+                    product_total = 0
 
-            # Save and/or publish the final page.
+            new_product_page.votes.set_votes(values)
+            new_product_page.current_vote_count = product_total
             new_product_page.save()
-            if not product.draft:
-                new_product_page.save_revision().publish()
-            else:
-                new_product_page.save_revision()
 
             # Always good to fresh from db when using Django Treebeard.
             buyersguide_page.refresh_from_db()
