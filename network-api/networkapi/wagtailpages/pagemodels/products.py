@@ -1,7 +1,13 @@
+import json
+
 from datetime import datetime
 
 from django.conf import settings
-from django.db import models
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.validators import int_list_validator
+from django.db import Error, models
+from django.http import Http404, HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import pgettext
 
@@ -22,7 +28,9 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
 )
 from networkapi.buyersguide.pagemodels.product_category import BuyersGuideProductCategory
 from networkapi.buyersguide.pagemodels.product_update import Update
+from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.wagtailpages.utils import insert_panels_after
+
 
 if settings.USE_CLOUDINARY:
     image_field = FieldPanel('cloudinary_image')
@@ -30,6 +38,33 @@ if settings.USE_CLOUDINARY:
 else:
     image_field = ImageChooserPanel('image')
     MEDIA_URL = settings.MEDIA_URL
+
+vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
+
+
+def sort_average(products):
+    """
+    `products` is a QuerySet of ProductPages.
+    """
+    return sorted(products, key=lambda p: p.creepiness)
+
+
+class ProductPageVotes(models.Model):
+    vote_bin = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
+
+    def set_votes(self, bin_list):
+        """
+        There are 5 "bins" for votes: <20%, <40%, <60%, <80%, <100%.
+        When setting votes, ensure there are only 5 bins (max)
+        """
+        bin_list = [str(x) for x in bin_list]
+        self.vote_bin = ','.join(bin_list[0:5])
+        self.save()
+
+    def get_votes(self):
+        """Pull the votes out of the database and split them. Convert to ints."""
+        votes = [int(x) for x in self.vote_bin.split(",")]
+        return votes
 
 
 class ProductPageCategory(Orderable):
@@ -296,6 +331,43 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         blank=True,
     )
 
+    # Un-editable voting fields. Don't add these to the content_panels.
+    current_vote_count = models.IntegerField(default=0)  # The total points for creepiness
+    votes = models.OneToOneField(
+        ProductPageVotes,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='votes',
+    )
+
+    @property
+    def current_tally(self):
+        return sum(self.votes.get_votes())
+
+    @property
+    def creepiness(self):
+        try:
+            average = self.current_vote_count / self.current_tally
+        except ZeroDivisionError:
+            average = 0
+        return average
+
+    @property
+    def get_voting_json(self):
+        """
+        Return a dictionary as a string with the relevant data needed for the frontend:
+        """
+        votes = self.votes.get_votes()
+        data = {
+            'creepiness': {
+                'vote_breakdown':  {k:v for (k,v) in enumerate(votes)},
+                'average': self.creepiness
+            },
+            'total': self.current_tally
+        }
+        return json.dumps(data)
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -407,6 +479,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         cutoff = datetime(2020, 10, 29)
         return cutoff < review
 
+    @property
     def product_type(self):
         if isinstance(self, SoftwareProductPage):
             return "software"
@@ -414,6 +487,18 @@ class ProductPage(FoundationMetadataPageMixin, Page):
             return "general"
         else:
             return "unknown"
+
+    def get_or_create_votes(self):
+        """
+        If a page doesn't have a ProductPageVotes objects, create it.
+        Regardless of whether or not its created, return the parsed votes.
+        """
+        if not self.votes:
+            votes = ProductPageVotes()
+            votes.save()
+            self.votes = votes
+            self.save()
+        return self.votes.get_votes()
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -426,6 +511,73 @@ class ProductPage(FoundationMetadataPageMixin, Page):
           '*privacy not included'
         )} - {self.title}'''
         return context
+
+    def serve(self, request, *args, **kwargs):
+        # In Wagtail we use the serve() method to detect POST submissions.
+        # Alternatively, this could be a routable view.
+        # For more on this, see the docs here:
+        # https://docs.wagtail.io/en/stable/reference/pages/model_recipes.html#overriding-the-serve-method
+        if request.body and request.method == "POST":
+            # If the request is POST. Parse the body.
+            data = json.loads(request.body)
+            # If the POST body has a productID and value, it's someone voting on the product
+            if data.get('productID') and data.get("value"):
+                # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
+                try:
+                    product_id = int(data['productID'])  # ie. 68
+                    value = int(data["value"])  # ie. 0 to 100
+                except ValueError:
+                    return HttpResponseNotAllowed('Product ID or value is invalid')
+
+                if value < 0 or value > 100:
+                    return HttpResponseNotAllowed('Cannot save vote')
+
+                try:
+                    product = ProductPage.objects.get(id=product_id)
+                    # If the product exists but isn't live and the user isn't logged in..
+                    if (not product.live and not request.user.is_authenticated) or not product:
+                        return HttpResponseNotFound("Product does not exist")
+
+                    # Save the new voting totals
+                    # TODO: Confirm with @pomax this is the intended behaviour we desire.
+                    product.current_vote_count = product.current_vote_count + value
+
+                    # Add the vote to the vote bin
+                    if not product.votes:
+                        # If there is no vote bin attached to this product yet, create one now.
+                        votes = ProductPageVotes()
+                        votes.save()
+                        product.votes = votes
+
+                    # Add the vote to the proper "vote bin"
+                    votes = product.votes.get_votes()
+                    index = int((value-1) / 20)
+                    votes[index] += 1
+                    product.votes.set_votes(votes)
+
+                    # Don't save this as a revision with .save_revision() as to not spam the Audit log
+                    # And don't make this live with .publish(). The Page model will have the proper
+                    # data stored on it already, and the revision history won't be spammed by votes.
+                    product.save()
+                    return HttpResponse('Vote recorded', content_type='text/plain')
+                except ProductPage.DoesNotExist:
+                    return HttpResponseNotFound('Missing page')
+                except ValidationError as ex:
+                    return HttpResponseNotAllowed(f'Payload validation failed: {ex}')
+                except Error as ex:
+                    print(f'Internal Server Error (500) for ProductPage: {ex.message} ({type(ex)})')
+                    return HttpResponseServerError()
+
+        self.get_or_create_votes()
+
+        return super().serve(request, *args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # When a new ProductPage is created, ensure a vote bin always exists.
+        # We can use save() or a post-save Wagtail hook.
+        save = super().save(*args, **kwargs)
+        self.get_or_create_votes()
+        return save
 
     class Meta:
         verbose_name = "Product Page"
@@ -728,39 +880,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
-        # TODO
-        # def sort_on_creepiness(product_set):
-        #     return sorted(product_set, key=get_average_creepiness)
-        #
-        # Must sort pages by their creepiness levels
-        # key = f'products_category__{slug.replace(" ", "_")}'
-        # products = cache.get_or_set(
-        #     key,
-        #     lambda: sort_on_creepiness(
-        #         [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
-        #     ),
-        #     86400
-        # )
-        products = []
+        products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
+        products = sort_average(products)
+        products = cache.get_or_set('sorted_product_dicts', products, 86400)
 
-        # def filter_draft_products(request, products):
-        #     if request.user.is_authenticated:
-        #         return products
-
-        #     return filter(lambda p: p['draft'] is False, products)
-
-        # products = filter_draft_products(request, products)
-
-        return render(request, 'category_page.html', {
-            'pagetype': 'category',
-            'categories': BuyersGuideProductCategory.objects.all(),
-            'category': category,
-            'products': products,
-            'mediaUrl': MEDIA_URL,
-            'pageTitle': pgettext(
+        context = self.get_context(request)
+        context['category'] = category.slug
+        context['products'] = products
+        context['pageTitle'] = pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-                '*privacy not included') + f' - {category}',
-        })
+                '*privacy not included') + f' - {category}'
+        return render(request, "buyersguide/category_page.html", context)
 
     def get_sitemap_urls(self, request):
         """
@@ -799,27 +929,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             products = ProductPage.objects.all()
         else:
             products = ProductPage.objects.live()
-
-        # TODO:
-        # Sort the products by their creepiness level. Example code below taken
-        # from buyersguide/views.py
-        # def get_average_creepiness(product_dict):
-        #     try:
-        #         votes = product_dict['votes']
-        #         creepiness = votes['creepiness']
-        #         avg = creepiness['average']
-        #         return avg
-        #     except TypeError:
-        #         pass
-        #     except AttributeError:
-        #         pass
-
-        #     return 50
-        # products = cache.get_or_set(
-        #     'sorted_product_dicts',
-        #     lambda: sorted([p.to_dict() for p in Product.objects.all()], key=get_average_creepiness),
-        #     86400
-        # )
+        products = sort_average(products)
+        products = cache.get_or_set('sorted_product_dicts', products, 86400)
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
