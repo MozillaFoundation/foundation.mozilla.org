@@ -458,23 +458,6 @@ class ProductTests(TestCase):
         self.assertEqual(p.slug, slugify(p.name))
 
 
-@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
-class CategoryViewTest(TestCase):
-    def test_localised_category(self):
-        c = BuyersGuideProductCategory.objects.create(name='testcategory')
-        url = f'/fr/privacynotincluded/categories/{c.name}/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
-
-
-@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
-class AboutViewTest(TestCase):
-    def test_localised_about(self):
-        url = '/fr/privacynotincluded/about/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200, 'No redirect when a valid locale is specified')
-
-
 class BuyersGuideTestMixin(WagtailPageTests):
 
     def setUp(self):
@@ -538,37 +521,42 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
 
-    def test_buyersguide_about_routes(self):
+    def test_buyersguide_about_how_to_use_view(self):
         url = self.bg.reverse_subpage('how-to-use-view')
         self.assertEqual(url, 'about/')
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'about/how_to_use.html')
 
+    def test_buyersguide_about_why_view(self):
         url = self.bg.reverse_subpage('about-why-view')
         self.assertEqual(url, 'about/why/')
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'about/why_we_made.html')
 
+    def test_buyersguide_about_press_view(self):
         url = self.bg.reverse_subpage('press-view')
         self.assertEqual(url, 'about/press/')
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'about/press.html')
 
+    def test_buyersguide_about_contact_view(self):
         url = self.bg.reverse_subpage('contact-view')
         self.assertEqual(url, 'about/contact/')
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'about/contact.html')
 
+    def test_buyersguide_about_methodology_view(self):
         url = self.bg.reverse_subpage('methodology-view')
         self.assertEqual(url, 'about/methodology/')
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'about/methodology.html')
 
+    def test_buyersguide_about_mss_view(self):
         url = self.bg.reverse_subpage('min-security-view')
         self.assertEqual(url, 'about/meets-minimum-security-standards/')
         response = self.client.get(self.bg.url + url)
@@ -617,14 +605,12 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         for category in categories:
             self.assertContains(response, f'categories/{category.slug}/')
 
-    def test_empty_endpoints(self):
-        """
-        Make sure the BuyersGuide /products/ and /categories/ urls 404 properly.
-        """
+    def test_empty_products_url(self):
         products_page = self.bg.url + 'products/'
         response = self.client.get(products_page)
         self.assertEqual(response.status_code, 404)
 
+    def test_empty_categories_url(self):
         categories_page = self.bg.url + 'categories/'
         response = self.client.get(categories_page)
         self.assertEqual(response.status_code, 404)
@@ -689,11 +675,15 @@ class TestMigrateProducts(BuyersGuideTestMixin):
         call_command('migrate_products')
 
     def after_migrate(self):
-        self.assertEqual(ProductPage.objects.count(), 101)
+        self.assertIn(ProductPage.objects.count(), [100, 101])
         self.assertEqual(GeneralProductPage.objects.count(), 50)
         self.assertEqual(SoftwareProductPage.objects.count(), 50)
         self.assertEqual(GeneralProduct.objects.count(), 50)
         self.assertEqual(SoftwareProduct.objects.count(), 50)
+
+    def check_buyersguide_exists(self):
+        self.assertTrue(BuyersGuidePage.objects.exists())
+        self.assertEqual(BuyersGuidePage.objects.count(), 1)
 
     def check_software_products_match(self):
         """
@@ -751,5 +741,6 @@ class TestMigrateProducts(BuyersGuideTestMixin):
         self.before_migrate()
         self.migrate()
         self.after_migrate()
+        self.check_buyersguide_exists()
         self.check_general_products_match()
         self.check_software_products_match()
