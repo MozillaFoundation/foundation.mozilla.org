@@ -600,6 +600,21 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.redirect_chain[0][0], product.url)
 
+    def test_sitemap_entries(self):
+        response = self.client.get('/sitemap.xml')
+        context = response.context
+
+        self.assertEqual(context.template_name, 'sitemap.xml')
+        self.assertContains(response, 'about/')
+        self.assertContains(response, 'about/why/')
+        self.assertContains(response, 'about/press/')
+        self.assertContains(response, 'about/contact/')
+        self.assertContains(response, 'about/methodology/')
+        self.assertContains(response, 'about/meets-minimum-security-standards/')
+
+        categories = BuyersGuideProductCategory.objects.filter(hidden=False)
+        for category in categories:
+            self.assertContains(response, f'categories/{category.slug}/')
 
 class TestMigrateProducts(BuyersGuideTestMixin):
 
