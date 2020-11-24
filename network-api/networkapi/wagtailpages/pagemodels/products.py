@@ -343,7 +343,10 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
     @property
     def current_tally(self):
-        return sum(self.votes.get_votes())
+        if self.votes:
+            return sum(self.votes.get_votes())
+        else:
+            return 0
 
     @property
     def creepiness(self):
