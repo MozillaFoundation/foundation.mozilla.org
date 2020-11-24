@@ -130,7 +130,14 @@
     }
 
     img {
+      --width: 80px;
+
+      width: var(--width);
       z-index: calc(var(--base-z-index) + 1);
+
+      @media (min-width: $breakpoint) {
+        --width: 128px;
+      }
     }
 
     .cloud {
