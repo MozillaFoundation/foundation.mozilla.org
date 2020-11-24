@@ -6,7 +6,7 @@
   <div class="dotted-shadow"></div>
   <div class="dear-internet-letter">
     {% if value.image %}
-    {% image value.image original alt="" class="mb-4 d-block mx-auto" %}
+    {% image value.image original alt="" loading="lazy" class="mb-4 d-block mx-auto" %}
     {% endif %}
 
     {% if value.video_url %}
@@ -20,8 +20,7 @@
     <div>
       <div class="d-flex align-items-center mb-4">
         {% if value.author_photo %}
-        {# TODO:FIXME: responsive image #}
-        {% image value.author_photo fill-100x100 alt="" width="45" height="45" class="author-photo mr-3" %}
+        {% image value.author_photo fill-90x90 alt="" loading="lazy" width="45" height="45" class="author-photo mr-3" %}
         {% endif %}
         <p class="author-name mb-0">{{ value.author_name }}</p>
       </div>
