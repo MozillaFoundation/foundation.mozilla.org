@@ -7,7 +7,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import int_list_validator
 from django.db import Error, models
-from django.http import Http404, HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import pgettext
 
@@ -364,7 +364,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         votes = self.votes.get_votes()
         data = {
             'creepiness': {
-                'vote_breakdown':  {k:v for (k,v) in enumerate(votes)},
+                'vote_breakdown':  {k: v for (k, v) in enumerate(votes)},
                 'average': self.creepiness
             },
             'total': self.current_tally
@@ -542,7 +542,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                         return HttpResponseNotFound("Product does not exist")
 
                     # Save the new voting totals
-                    # TODO: Confirm with @pomax this is the intended behaviour we desire.
                     product.current_vote_count = product.current_vote_count + value
 
                     # Add the vote to the vote bin
