@@ -638,17 +638,18 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(len(response.context['products']), 0)
 
         # Add BuyersGuideProductCategory
-        orderable = ProductPageCategory(
+        category_orderable = ProductPageCategory(
             product=self.product_page,
             category=category,
         )
-        orderable.save()
+        category_orderable.save()
+        self.product_page.product_categories.add(category_orderable)
+        self.product_page.save_revision().publish()
 
-        response = self.client.get(url)
-        self.assertEqual(len(response.context['products']), 1)
-
-
-        import pudb; pu.db()
+        # Need to set dummy cache
+        with self.settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}):
+            response = self.client.get(url)
+            self.assertEqual(len(response.context['products']), 1)
 
 
 class TestMigrateProducts(BuyersGuideTestMixin):
