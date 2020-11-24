@@ -1,0 +1,25 @@
+
+{% load wagtailcore_tags wagtailimages_tags i18n %}
+
+{# Placeholder. Template to be updated in follow-up PRs. #}
+<div class="dear-internet-letter">
+  {% if value.image %}
+  {% image value.image original %}
+  {% endif %}
+
+  {% if value.video_url %}
+  <p>video url: {{ value.video_url }}</p>
+  {% endif %}
+
+  <div>
+    {{ value.letter }}
+  </div>
+
+  <div>
+    {{ value.author }}
+  </div>
+
+  {% if value.author_photo %}
+  {% image value.author_photo original %}
+  {% endif %}
+</div>
