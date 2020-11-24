@@ -28,8 +28,9 @@ from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
-    ProductPage,
     GeneralProductPage,
+    ProductPage,
+    ProductPageCategory,
     SoftwareProductPage,
 )
 
@@ -615,6 +616,40 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
             self.assertContains(response, f'categories/{category.slug}/')
+
+    def test_empty_endpoints(self):
+        """
+        Make sure the BuyersGuide /products/ and /categories/ urls 404 properly.
+        """
+        products_page = self.bg.url + 'products/'
+        response = self.client.get(products_page)
+        self.assertEqual(response.status_code, 404)
+
+        categories_page = self.bg.url + 'categories/'
+        response = self.client.get(categories_page)
+        self.assertEqual(response.status_code, 404)
+
+    def test_category_filter_view(self):
+        category = BuyersGuideProductCategory.objects.first()
+        url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['products']), 0)
+
+        # Add BuyersGuideProductCategory
+        orderable = ProductPageCategory(
+            product=self.product_page,
+            category=category,
+        )
+        orderable.save()
+
+        response = self.client.get(url)
+        self.assertEqual(len(response.context['products']), 1)
+
+
+        import pudb; pu.db()
+
 
 class TestMigrateProducts(BuyersGuideTestMixin):
 
