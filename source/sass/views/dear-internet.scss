@@ -249,6 +249,15 @@
     );
   }
 
+  .letters {
+    @media (min-width: $breakpoint) {
+      background-image: url(../_images/dear-internet/Envelope-Left-Group-Extended.svg),
+        url(../_images/dear-internet/Envelope-Right-Group-Extended.svg);
+      background-repeat: no-repeat;
+      background-position: 5% top, 95% top;
+    }
+  }
+
   .letters-section-heading {
     padding: 3rem 0 6rem 0;
     margin-bottom: 2rem;
@@ -265,16 +274,26 @@
 
   .cta {
     --padding-y: 125px;
-    padding: var(--padding-y) 0;
-    margin-top: var(--padding-y);
-    background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
-    background-position: center;
+    --envelope-top-offset: calc(var(--padding-y) / 2.5);
+    --envelope-width: 75px;
+
+    padding: calc(var(--padding-y) * 2) 0 var(--padding-y) 0;
+    background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg),
+      url(../_images/dear-internet/Envelope-Blue1.svg),
+      url(../_images/dear-internet/Envelope-Blue2.svg),
+      url(../_images/dear-internet/Envelope-Red1.svg);
+    background-position: center center,
+      calc(var(--envelope-width) / -2.5) var(--envelope-top-offset),
+      center var(--envelope-top-offset),
+      calc(100% + var(--envelope-width) / 2.5) var(--envelope-top-offset);
     background-repeat: no-repeat;
-    background-size: 200vw auto;
+    background-size: 200vw auto, var(--envelope-width) auto,
+      var(--envelope-width) auto, var(--envelope-width) auto;
 
     @media (min-width: $breakpoint) {
       --padding-y: 250px;
       background-size: contain;
+      background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
     }
 
     p {
