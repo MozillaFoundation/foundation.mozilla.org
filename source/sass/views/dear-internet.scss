@@ -39,10 +39,10 @@
   .plane-pathway-wrapper {
     --approx-cta-height: 1200px;
 
-    background-image: url(../_images/dear-internet/Plane+Path-2.svg);
+    background-image: url(../_images/dear-internet/Plane+Path-Extended.svg);
     background-repeat: no-repeat;
-    background-position: center 2rem;
-    background-size: auto 100%;
+    background-position: center 13rem;
+    background-size: 88% auto;
     height: calc(100% - var(--approx-cta-height));
   }
 
@@ -276,7 +276,7 @@
     --envelope-top-offset: calc(var(--padding-y) / 2.5);
     --envelope-width: 75px;
 
-    padding: calc(var(--padding-y) * 2) 0 var(--padding-y) 0;
+    padding: calc(var(--padding-y) * 2) 0;
     background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg),
       url(../_images/dear-internet/Envelope-Blue1.svg),
       url(../_images/dear-internet/Envelope-Blue2.svg),
