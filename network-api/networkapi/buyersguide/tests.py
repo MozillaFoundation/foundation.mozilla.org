@@ -1,3 +1,4 @@
+import json
 import logging
 
 from django.contrib.auth.models import User
@@ -30,6 +31,7 @@ from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
     GeneralProductPage,
     ProductPage,
+    ProductPageVotes,
     ProductPageCategory,
     SoftwareProductPage,
 )
@@ -744,3 +746,169 @@ class TestMigrateProducts(BuyersGuideTestMixin):
         self.check_buyersguide_exists()
         self.check_general_products_match()
         self.check_software_products_match()
+
+
+class TestProductPage(BuyersGuideTestMixin):
+
+    def setUp(self):
+        super().setUp()
+        if not hasattr(self.product_page.votes, 'get_votes'):
+            votes = ProductPageVotes()
+            votes.save()
+            self.product_page.votes = votes
+            self.product_page.save()
+
+    def test_get_votes(self):
+        # Votes should be empty at this point.
+        votes = self.product_page.votes.get_votes()
+        self.assertEqual(votes, [0, 0, 0, 0, 0])
+        self.assertEqual(len(votes), 5)
+
+    def test_set_votes(self):
+        # Make sure votes are set and saved.
+        self.product_page.votes.set_votes([1, 2, 3, 4, 5])
+        votes = self.product_page.votes.get_votes()
+        self.assertEqual(votes, [1, 2, 3, 4, 5])
+
+        # Ensure there's always 5 value set.
+        self.product_page.votes.set_votes([1, 2, 3, 4, 5, 6, 7])
+        self.assertEqual(votes, [1, 2, 3, 4, 5])
+        self.assertEqual(len(votes), 5)
+
+    def test_current_tally(self):
+        self.product_page.votes.set_votes([5, 4, 3, 2, 1])
+        current_tally = self.product_page.current_tally
+        self.assertEqual(current_tally, 15)
+
+        self.product_page.votes.set_votes([5, 5, 5, 5, 5])
+        current_tally = self.product_page.current_tally
+        self.assertEqual(current_tally, 25)
+
+    def test_creepiness(self):
+        self.product_page.current_vote_count = 100
+        self.product_page.votes.set_votes([5, 5, 5, 5, 5])
+        creepiness = self.product_page.creepiness
+        self.assertEqual(creepiness, 4)
+
+        self.product_page.current_vote_count = 0
+        self.product_page.votes.set_votes([0, 0, 0, 0, 0])
+        creepiness = self.product_page.creepiness
+        self.assertEqual(creepiness, 0)
+
+    def test_get_voting_json(self):
+        self.product_page.current_vote_count = 60
+        self.product_page.votes.set_votes([1, 2, 3, 4, 5])
+        creepiness = self.product_page.creepiness
+        self.assertEqual(creepiness, 4)
+
+        current_tally = self.product_page.current_tally
+        self.assertEqual(current_tally, 15)
+
+        # votes = self.product_page.votes.get_votes()
+        data = json.loads(self.product_page.get_voting_json)
+        comparable_data = {
+            'creepiness': {
+                'vote_breakdown':  {
+                    '0': 1,
+                    '1': 2,
+                    '2': 3,
+                    '3': 4,
+                    '4': 5,
+                },
+                'average': 4.0,
+            },
+            'total': 15,
+        }
+        self.assertDictEqual(data, comparable_data)
+
+    def test_get_or_create_votes(self):
+        # Delete potential votes
+        self.product_page.votes.delete()
+        self.product_page.votes = None
+        self.product_page.save()
+        self.assertFalse(hasattr(self.product_page.votes, 'set_votes'))
+
+        votes = self.product_page.get_or_create_votes()
+        self.assertEqual(votes, [0, 0, 0, 0, 0])
+        self.assertTrue(hasattr(self.product_page.votes, 'set_votes'))
+
+
+class BuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
+
+    def test_successful_vote(self):
+        # Reset votes
+        votes = self.product_page.get_or_create_votes()
+        self.product_page.votes.set_votes([0, 0, 0, 0, 0])
+
+        response = self.client.post(self.product_page.url, {
+            'value': 25,
+            'productID': self.product_page.id
+        }, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        self.product_page.refresh_from_db()
+
+        votes = self.product_page.votes.get_votes()
+        self.assertListEqual(votes, [0, 1, 0, 0, 0])
+        self.assertEqual(self.product_page.current_tally, 1)
+
+        response = self.client.post(self.product_page.url, {
+            'value': 100,
+            'productID': self.product_page.id
+        }, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        self.product_page.refresh_from_db()
+
+        votes = self.product_page.votes.get_votes()
+        self.assertListEqual(votes, [0, 1, 0, 0, 1])
+        self.assertEqual(self.product_page.current_tally, 2)
+
+    def test_vote_values_as_strings(self):
+        # Reset votes
+        response = self.client.post(self.product_page.url, {
+            'value': 25,
+            'productID': "string as an id"
+        }, format='json')
+        self.assertEqual(response.status_code, 405)
+
+        response = self.client.post(self.product_page.url, {
+            'value': "twenty five",
+            'productID': self.product_page.id
+        }, format='json')
+        self.assertEqual(response.status_code, 405)
+
+    def test_bad_vote_value(self):
+        # vote = 500
+        response = self.client.post(self.product_page.url, {
+            'value': -1,
+            'productID': self.product_page.id
+        }, format='json')
+        self.assertEqual(response.status_code, 405)
+
+        response = self.client.post(self.product_page.url, {
+            'value': 101,
+            'productID': self.product_page.id
+        }, format='json')
+        self.assertEqual(response.status_code, 405)
+
+    def test_missing_product_vote(self):
+        response = self.client.post(self.product_page.url, {
+            'value': 25,
+            'productID': 9999
+        }, format='json')
+        self.assertEqual(response.status_code, 404)
+
+    def test_vote_on_draft_page(self):
+        self.product_page.live = False
+        self.product_page.save()
+
+        response = self.client.post(self.product_page.url, {
+            'value': 25,
+            'productID': self.product_page.id
+        }, format='json')
+        self.assertEqual(response.status_code, 404)
+
+        # Reset the page back to Live
+        self.product_page.live = True
+        self.product_page.save()
