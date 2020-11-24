@@ -15,12 +15,12 @@ const elements = {
 
 class NavNewsletter {
   constructor() {
-    this.isShown = false;
+    this.visible = false;
     this.form = null;
   }
 
-  getShownState() {
-    return this.isShown;
+  isVisible() {
+    return this.visible;
   }
 
   // Reset form
@@ -55,7 +55,7 @@ class NavNewsletter {
     document.removeEventListener("click", this.closeFormClickHandler);
     document.removeEventListener("scroll", this.closeFormClickHandler);
     this.resetForm();
-    this.isShown = false;
+    this.visible = false;
   }
 
   // For desktop+ version:
@@ -70,7 +70,7 @@ class NavNewsletter {
     document.addEventListener(`scroll`, this.closeFormClickHandler, {
       passive: true,
     });
-    this.isShown = true;
+    this.visible = true;
   }
 
   // For mobile version:
@@ -88,7 +88,7 @@ class NavNewsletter {
       wrapper.classList.add("d-none");
     }, 500);
     this.resetForm();
-    this.isShown = false;
+    this.visible = false;
   }
 
   // For mobile version:
@@ -98,7 +98,7 @@ class NavNewsletter {
     elements.narrowMenuContainer.classList.add(`d-none`);
     wrapper.classList.remove("d-none");
     wrapper.classList.add("faded-in");
-    this.isShown = true;
+    this.visible = true;
   }
 
   // For desktop+ version:
@@ -134,7 +134,7 @@ class NavNewsletter {
   }
 
   buttonDesktopClickHandler(event) {
-    if (!this.isShown) {
+    if (!this.visible) {
       event.stopPropagation();
       this.expandDesktopNewsletter();
     } else {
