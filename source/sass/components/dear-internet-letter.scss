@@ -30,6 +30,10 @@
     }
   }
 
+  &:last-child .dear-internet-letter {
+    margin-bottom: 0;
+  }
+
   .dear-internet-letter {
     --padding: 2rem;
     --folded-corner-size: 32px;

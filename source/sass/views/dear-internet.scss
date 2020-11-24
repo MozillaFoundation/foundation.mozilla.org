@@ -28,10 +28,6 @@
     position: relative;
   }
 
-  .wrapper {
-    overflow-x: hidden;
-  }
-
   .full-size-absolute-wrapper {
     position: absolute;
     top: 0;
@@ -125,6 +121,8 @@
   }
 
   .clouds-wrapper {
+    overflow-x: hidden; // to prevent clouds from going outside of viewport
+
     .cloud-container {
       &:nth-child(1) {
         top: calc(2.5 * var(--position-scaler));
@@ -173,6 +171,7 @@
   .love-letter-stamp {
     --base-z-index: 1;
 
+    overflow-x: hidden; // to prevent clouds from going outside of viewport
     margin: 2.5rem 0;
     position: relative;
 
@@ -223,6 +222,33 @@
     }
   }
 
+  .sticky-side {
+    position: sticky;
+    top: 140px;
+
+    .share-button-group {
+      transition: opacity 0.2s ease-in-out;
+      opacity: 1;
+
+      &.faded {
+        opacity: 0;
+      }
+    }
+  }
+
+  .sticky-side {
+    margin-top: -32px;
+
+    @include style-colored-share-buttons(
+      $dark-blue,
+      "../_images/dear-internet/facebook-share.svg",
+      "../_images/dear-internet/twitter-share.svg",
+      "../_images/dear-internet/email-share.svg",
+      "../_images/dear-internet/link-share.svg",
+      "../_images/dear-internet/link-share-copied.svg"
+    );
+  }
+
   .letters-section-heading {
     padding: 3rem 0 6rem 0;
     margin-bottom: 2rem;
@@ -240,6 +266,7 @@
   .cta {
     --padding-y: 125px;
     padding: var(--padding-y) 0;
+    margin-top: var(--padding-y);
     background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
     background-position: center;
     background-repeat: no-repeat;
