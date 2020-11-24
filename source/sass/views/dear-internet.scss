@@ -59,7 +59,7 @@
       --position-scaler: 20px;
     }
 
-    @for $i from 1 through 6 {
+    @for $i from 1 through 8 {
       &:nth-child(#{$i}) {
         animation-duration: #{random($animation-duration) + 15}s;
 
@@ -134,46 +134,64 @@
       }
 
       &:nth-child(2) {
-        top: calc(20 * var(--position-scaler));
-        left: 55%;
+        top: calc(2.2 * var(--position-scaler));
+        left: 80%;
+      }
+
+      &:nth-child(3) {
+        top: calc(12 * var(--position-scaler));
+        left: 10%;
+
+        svg.cloud {
+          transform: scale(1.2) rotateY(180deg);
+        }
+      }
+
+      &:nth-child(4) {
+        top: calc(25 * var(--position-scaler));
+        left: 65%;
 
         svg.cloud {
           transform: scale(2);
         }
       }
 
-      &:nth-child(3) {
-        top: calc(12 * var(--position-scaler));
-        left: -2%;
+      &:nth-child(5) {
+        top: calc(30 * var(--position-scaler));
+        left: 82%;
 
         svg.cloud {
-          transform: scale(1.2) scaleX(-1);
+          transform: scale(1.2) rotateY(180deg);
         }
       }
 
-      &:nth-child(4) {
-        left: 90%;
-      }
-
-      &:nth-child(5) {
-        top: calc(29 * var(--position-scaler));
-        left: 82%;
-        transform: scale(1.1) scaleX(-1);
-      }
-
       &:nth-child(6) {
-        top: calc(35 * var(--position-scaler));
+        top: calc(34 * var(--position-scaler));
+        left: -2%;
+
+        svg.cloud {
+          transform: scale(2);
+        }
+      }
+
+      &:nth-child(7) {
+        top: calc(40 * var(--position-scaler));
         left: 18%;
+
+        svg.cloud {
+          transform: scale(1.5) rotateY(180deg);
+        }
+      }
+
+      &:nth-child(8) {
+        top: calc(46 * var(--position-scaler));
+        left: 58%;
       }
     }
   }
 
   .love-letter-stamp {
-    --base-z-index: 1;
-
-    overflow-x: hidden; // to prevent clouds from going outside of viewport
     margin: 2.5rem 0;
-    position: relative;
 
     @media (min-width: $breakpoint) {
       margin: 5rem 0;
@@ -183,28 +201,9 @@
       --width: 80px;
 
       width: var(--width);
-      z-index: calc(var(--base-z-index) + 1);
 
       @media (min-width: $breakpoint) {
         --width: 128px;
-      }
-    }
-
-    .cloud-container {
-      z-index: var(--base-z-index);
-
-      &:nth-of-type(1) {
-        left: 13%;
-        top: calc(5 * var(--position-scaler));
-      }
-
-      &:nth-of-type(2) {
-        left: 77%;
-        top: calc(0.5 * var(--position-scaler));
-
-        svg.cloud {
-          transform: scale(1.4) scaleX(-1);
-        }
       }
     }
   }
