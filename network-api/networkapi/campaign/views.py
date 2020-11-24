@@ -114,6 +114,11 @@ def signup_submission(request, signup):
         "last_name": rq.get('surname', '')
     }
 
+    # add the campaign id to this payload, if there is one.
+    cid = signup.campaign_id
+    if cid is not None and cid is not '':
+        data['campaign_id'] = cid
+
     # pack up as a basket message
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
