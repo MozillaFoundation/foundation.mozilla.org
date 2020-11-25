@@ -197,8 +197,82 @@ class SoftwareProductFactory(ProductFactory):
     easy_to_learn_and_use_helptext = Faker('sentence')
 
 
+from wagtail_factories import PageFactory
+from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, GeneralProductPage, SoftwareProductPage
+from networkapi.wagtailpages.pagemodels.base import Homepage
+
+class BuyersGuidePageFactory(PageFactory):
+
+    class Meta:
+        model = BuyersGuidePage
+
+
+class GeneralProductPageFactory(PageFactory):
+
+    class Meta:
+        model = GeneralProductPage
+
+class GeneralProductFactory(ProductFactory):
+
+    class Meta:
+        model = GeneralProduct
+
+    camera_app = LazyFunction(get_extended_yes_no_value)
+    camera_device = LazyFunction(get_extended_yes_no_value)
+    microphone_app = LazyFunction(get_extended_yes_no_value)
+    microphone_device = LazyFunction(get_extended_yes_no_value)
+    location_app = LazyFunction(get_extended_yes_no_value)
+    location_device = LazyFunction(get_extended_yes_no_value)
+
+    personal_data_collected = Faker('sentence')
+    biometric_data_collected = Faker('sentence')
+    social_data_collected = Faker('sentence')
+
+    how_can_you_control_your_data = Faker('sentence')
+    data_control_policy_is_bad = Faker('boolean')
+
+    company_track_record = get_random_option(['Great', 'Average', 'Needs Improvement', 'Bad'])
+    track_record_is_bad = Faker('boolean')
+    track_record_details = Faker('sentence')
+
+    offline_capable = LazyFunction(get_extended_yes_no_value)
+    offline_use_description = Faker('sentence')
+
+    # @post_generation
+    # def set_privacy_policy_link(self, create, extracted, **kwargs):
+    #     ProductPrivacyPolicyLinkFactory.create(product=self)
+
+    uses_ai = LazyFunction(get_extended_yes_no_value)
+    ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
+    ai_is_transparent = LazyFunction(get_extended_yes_no_value)
+    ai_helptext = Faker('sentence')
+
+
 def generate(seed):
     reseed(seed)
+
+    print('Generating PNI Homepage')
+    pni_homepage = BuyersGuidePageFactory.create(
+        parent=Homepage.objects.first(),
+        title='* Privacy not included',
+        slug='privacynotincluded-new',
+    )
+
+    for i in range(50):
+        GeneralProductPageFactory.create(
+            parent=pni_homepage,
+            blurb=Faker('words', nb=3),
+            company=Faker('words', nb=3),
+            email=Faker('email'),
+            live_chat=Faker('url'),
+            title=Faker('words', nb=2),
+            slug=None,
+            phone_number=Faker('phone_number'),
+            price=350,
+            product_url=Faker('url'),
+            twitter=f'@TwitterHandle{i}',
+            worst_case=Faker('words', nb=7),
+        )
 
     print('Generating fixed Buyer\'s Guide GeneralProduct for visual regression testing')
     GeneralProductFactory.create(
