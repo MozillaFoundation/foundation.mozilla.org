@@ -15,7 +15,7 @@
   h1 {
     background: $light-red;
 
-    @include set-text-size(36px, 40px, 48px, 56px);
+    @include set-text-size(36px, 40px, 70px, 82px);
 
     @media (min-width: $bp-lg) {
       font-size: 112px;
