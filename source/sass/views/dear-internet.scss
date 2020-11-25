@@ -224,6 +224,7 @@
   .sticky-side {
     position: sticky;
     top: 140px;
+    margin-top: -32px;
 
     .share-button-group {
       transition: opacity 0.2s ease-in-out;
@@ -233,10 +234,6 @@
         opacity: 0;
       }
     }
-  }
-
-  .sticky-side {
-    margin-top: -32px;
 
     @include style-colored-share-buttons(
       $dark-blue,

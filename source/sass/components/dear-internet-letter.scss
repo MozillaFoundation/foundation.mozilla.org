@@ -47,7 +47,7 @@
     margin-bottom: calc(60px + var(--padding));
     background-image: url(../_images/dear-internet/Pixel-Heart.svg);
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position: center var(--border-width);
     background-size: 30px auto;
     background-color: $white;
 
