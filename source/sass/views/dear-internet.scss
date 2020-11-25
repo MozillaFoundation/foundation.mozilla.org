@@ -243,6 +243,10 @@
       "../_images/dear-internet/link-share.svg",
       "../_images/dear-internet/link-share-copied.svg"
     );
+
+    .btn.btn-share {
+      background: $dear-internet-lilac;
+    }
   }
 
   .letters {
@@ -255,15 +259,17 @@
   }
 
   .letters-section-heading {
-    padding: 3rem 0 6rem 0;
-    margin-bottom: 2rem;
+    --spacing-y: 3rem;
+
+    padding: var(--spacing-y) 0;
+    margin-bottom: var(--spacing-y);
     background-image: url(../_images/dear-internet/Pixel-Heart-Large.svg);
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: center center;
     background-size: 130px auto;
 
     @media (min-width: $breakpoint) {
-      padding: 3rem 0 10rem 0;
+      --spacing-y: 6rem;
       background-size: 244px auto;
     }
   }
@@ -283,11 +289,11 @@
       center var(--envelope-top-offset),
       calc(100% + var(--envelope-width) / 2.5) var(--envelope-top-offset);
     background-repeat: no-repeat;
-    background-size: 200vw auto, var(--envelope-width) auto,
+    background-size: 205vw auto, var(--envelope-width) auto,
       var(--envelope-width) auto, var(--envelope-width) auto;
 
     @media (min-width: $breakpoint) {
-      --padding-y: 250px;
+      --padding-y: 90px;
       background-size: contain;
       background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
     }
@@ -321,10 +327,10 @@
     position: relative;
     overflow: hidden;
     height: calc(var(--img-size) / 2);
+    margin-top: -120px;
 
     @media (min-width: $breakpoint) {
       --img-size: 725px;
-      margin-top: -120px;
     }
 
     img {

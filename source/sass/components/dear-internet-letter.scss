@@ -111,5 +111,9 @@
         color: $gray-60;
       }
     }
+
+    .body-small {
+      @include set-text-size(12px, 14px);
+    }
   }
 }
