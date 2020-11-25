@@ -65,7 +65,6 @@ export default {
         // Figure out which face to show while scrolling:
         let dingFilter = !!document.querySelector(`body.show-ding-only`);
         let visible = Array.from(products).filter((v) => isElementInViewport(v, dingFilter));
-        console.log(visible);
         let n = visible.length;
 
         // Shortcut this scroll update if there are no products
