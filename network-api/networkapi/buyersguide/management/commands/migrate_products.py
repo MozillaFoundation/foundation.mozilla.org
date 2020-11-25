@@ -50,6 +50,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         products = Product.objects.all()
         buyersguide_page = self.get_or_create_buyers_guide()
+
         for product in products:
             # 1. Create ProductPage out of this product
             product = product.specific  # Get the specific class
@@ -154,10 +155,7 @@ class Command(BaseCommand):
 
             # Save revision and/or publish so we can add Orderables to this page.
             new_product_page.save()
-            if not product.draft:
-                new_product_page.save_revision().publish()
-            else:
-                new_product_page.save_revision()
+            new_product_page.save_revision()
 
             self.debug_print("\tCreated", new_product_page)
 
@@ -205,6 +203,11 @@ class Command(BaseCommand):
             new_product_page.votes.set_votes(values)
             new_product_page.current_vote_count = product_total
             new_product_page.save()
+            if not product.draft:
+                new_product_page.live = True
+                new_product_page.save_revision().publish()
+            else:
+                new_product_page.save_revision()
 
             # Always good to fresh from db when using Django Treebeard.
             buyersguide_page.refresh_from_db()
