@@ -166,7 +166,7 @@ def product_view(request, slug):
 def bg_about_page(template_name):
     @redirect_to_default_cms_site
     def render_view(request):
-        return render(request, f"about/{template_name}.html", {
+        return render(request, f'about/{template_name}.html', {
             'pagetype': 'about',
             'pageTitle': pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
@@ -177,7 +177,7 @@ def bg_about_page(template_name):
 
 
 def contest_view(request):
-    return render(request, f"contest.html", {
+    return render(request, 'contest.html', {
         'pagetype': 'contest',
         'pageTitle': pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
