@@ -15,7 +15,12 @@
   h1 {
     background: $light-red;
 
-    @include set-text-size(36px, 40px, 112px, 112px);
+    @include set-text-size(36px, 40px, 48px, 56px);
+
+    @media (min-width: $bp-lg) {
+      font-size: 112px;
+      line-height: 112px;
+    }
   }
 
   h1,
@@ -41,9 +46,13 @@
 
     background-image: url(../_images/dear-internet/Plane+Path-Extended.svg);
     background-repeat: no-repeat;
-    background-position: center 13rem;
+    background-position: center 11rem;
     background-size: 88% auto;
     height: calc(100% - var(--approx-cta-height));
+
+    @media (min-width: $breakpoint) {
+      background-position-y: 20rem;
+    }
   }
 
   .cloud-container {
