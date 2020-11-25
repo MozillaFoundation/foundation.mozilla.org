@@ -833,7 +833,7 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertTrue(hasattr(self.product_page.votes, 'set_votes'))
 
 
-class BuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
+class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
     def test_successful_vote(self):
         # Reset votes
