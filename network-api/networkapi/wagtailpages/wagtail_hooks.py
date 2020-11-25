@@ -94,3 +94,7 @@ def before_delete_page(request, page):
             pass
         else:
             uploader.destroy(page.cloudinary_image.public_id, invalidate=True)
+
+    if hasattr(page, 'votes'):
+        # Delete the vote from ProductPages
+        page.votes.delete()
