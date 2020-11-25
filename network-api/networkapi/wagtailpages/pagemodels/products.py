@@ -333,7 +333,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
     # Un-editable voting fields. Don't add these to the content_panels.
     current_vote_count = models.IntegerField(default=0)  # The total points for creepiness
-    votes = models.OneToOneField(
+    votes = models.ForeignKey(
         ProductPageVotes,
         on_delete=models.SET_NULL,
         null=True,
@@ -343,7 +343,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
     @property
     def current_tally(self):
-        return sum(self.votes.get_votes())
+        return sum(self.votes.get_or_create_votes())
 
     @property
     def creepiness(self):
