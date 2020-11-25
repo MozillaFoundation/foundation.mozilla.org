@@ -234,8 +234,8 @@ body.catalog {
       figure.product-box {
         $padding-x: 12px;
         $padding-y: 12px;
-        $seal-of-approval-width: 30px;
-        $seal-of-approval-height: 25px;
+        $privacy-ding-width: 30px;
+        $privacy-ding-height: 25px;
         $recommendation-width: 17px;
         $recommendation-height: 15.8px;
 
@@ -253,12 +253,12 @@ body.catalog {
           display: none !important;
         }
 
-        .seal-of-approval {
-          @include seal-of-approval(
+        .privacy-ding {
+          @include privacy-ding(
             $padding-y,
             $padding-x,
-            $seal-of-approval-width,
-            $seal-of-approval-height
+            $privacy-ding-width,
+            $privacy-ding-height
           );
 
           position: static;
@@ -275,9 +275,9 @@ body.catalog {
           top: $padding-y;
           left: $padding-x;
           width: calc(
-            #{$seal-of-approval-width} + #{$recommendation-width} + #{$badge-spacing}
+            #{$privacy-ding-width} + #{$recommendation-width} + #{$badge-spacing}
           );
-          height: $seal-of-approval-height;
+          height: $privacy-ding-height;
           display: flex;
           justify-content: space-between;
         }
