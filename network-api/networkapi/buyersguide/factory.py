@@ -17,7 +17,9 @@ from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
     GeneralProductPage,
+    ProductPage,
     ProductPagePrivacyPolicyLink,
+    RelatedProducts,
     SoftwareProductPage,
 )
 from networkapi.utility.faker import ImageProvider, generate_fake_data
@@ -319,6 +321,22 @@ def generate(seed):
         )
         software_page.privacy_policy_links.add(fake_privacy_policy)
         software_page.save_revision().publish()
+
+    print('Adding related products to ProductPages')
+    product_pages = ProductPage.objects.all()
+    total_product_pages = product_pages.count()
+    for product_page in product_pages:
+        # Create a new orderable 3 times.
+        # Each page will be randomly selected from an existing factory page.
+        for i in range(3):
+            random_number = randint(1, total_product_pages) - 1
+            random_page = product_pages[random_number]
+            related_product = RelatedProducts(
+                page=product_page,
+                related_product=random_page,
+            )
+            related_product.save()
+            product_page.related_product_pages.add(related_product)
 
     print('Generating fixed Buyer\'s Guide GeneralProduct for visual regression testing')
     GeneralProductFactory.create(
