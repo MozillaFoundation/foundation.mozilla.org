@@ -220,7 +220,7 @@ def generate_dear_internet_intro_text_field():
 
 def generate_dear_internet_letter_field():
     author_name = fake.name()
-    author = ''.join(
+    author_description = ''.join(
         (
             '<p>',
             f'<a href="{fake.url(schemes=["https"])}" target="_blank">{author_name}</a>',
@@ -232,7 +232,7 @@ def generate_dear_internet_letter_field():
     letter = f'<p>{fake.paragraph(nb_sentences=10, variable_nb_sentences=True)}</p>'
 
     attributes = {
-        'author_name': author_name,
+        'author_description': author_description,
         'author': author,
         'letter': letter,
     }
