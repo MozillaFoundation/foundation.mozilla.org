@@ -522,47 +522,30 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
 
-    def test_buyersguide_about_how_to_use_view(self):
-        url = self.bg.reverse_subpage('how-to-use-view')
-        self.assertEqual(url, 'about/')
+    def about_url_test(self, view_name, target_url, template):
+        url = self.bg.reverse_subpage(view_name)
+        self.assertEqual(url, target_url)
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about/how_to_use.html')
+        self.assertTemplateUsed(response, f'about/{template}.html')
+
+    def test_buyersguide_about_how_to_use_view(self):
+        self.about_url_test('how-to-use-view', 'about/', 'how_to_use')
 
     def test_buyersguide_about_why_view(self):
-        url = self.bg.reverse_subpage('about-why-view')
-        self.assertEqual(url, 'about/why/')
-        response = self.client.get(self.bg.url + url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about/why_we_made.html')
+        self.about_url_test('about-why-view', 'about/why/', 'why_we_made')
 
     def test_buyersguide_about_press_view(self):
-        url = self.bg.reverse_subpage('press-view')
-        self.assertEqual(url, 'about/press/')
-        response = self.client.get(self.bg.url + url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about/press.html')
+        self.about_url_test('press-view', 'about/press/', 'press')
 
     def test_buyersguide_about_contact_view(self):
-        url = self.bg.reverse_subpage('contact-view')
-        self.assertEqual(url, 'about/contact/')
-        response = self.client.get(self.bg.url + url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about/contact.html')
+        self.about_url_test('contact-view', 'about/contact/', 'contact')
 
     def test_buyersguide_about_methodology_view(self):
-        url = self.bg.reverse_subpage('methodology-view')
-        self.assertEqual(url, 'about/methodology/')
-        response = self.client.get(self.bg.url + url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about/methodology.html')
+        self.about_url_test('methodology-view', 'about/methodology/', 'methodology')
 
     def test_buyersguide_about_mss_view(self):
-        url = self.bg.reverse_subpage('min-security-view')
-        self.assertEqual(url, 'about/meets-minimum-security-standards/')
-        response = self.client.get(self.bg.url + url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about/minimum_security.html')
+        self.about_url_test('min-security-view', 'about/meets-minimum-security-standards/', 'minimum_security')
 
     def test_buyersguide_category_route(self):
         # Missing category
