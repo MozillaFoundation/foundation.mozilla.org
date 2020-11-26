@@ -469,7 +469,6 @@ class BuyersGuideTestMixin(WagtailPageTests):
 
         site = Site.objects.first()
         site.root_page = self.homepage
-        site.port = 80
         site.save()
 
     def get_or_create_buyers_guide(self):
