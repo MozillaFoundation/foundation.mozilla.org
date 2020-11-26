@@ -807,8 +807,7 @@ class TestProductPage(BuyersGuideTestMixin):
         # Delete potential votes
         self.product_page.votes.delete()
         self.product_page.votes = None
-        self.product_page.save()
-        self.assertFalse(hasattr(self.product_page.votes, 'set_votes'))
+        self.assertEqual(self.product_page.votes, None)
 
         votes = self.product_page.get_or_create_votes()
         self.assertEqual(votes, [0, 0, 0, 0, 0])
