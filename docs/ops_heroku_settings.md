@@ -4,13 +4,19 @@
 
 Builds to staging are triggered by commits to `master`.
 
-The staging URL is [foundation.mofostaging.net](https://foundation.mofostaging.net)
+The staging URLs are:
+
+- [foundation.mofostaging.net](https://foundation.mofostaging.net) for the Foundation website
+- [mozillafestival.mofostaging.net](https://mozillafestival.mofostaging.net) for the Mozilla festival website
 
 ## Production
 
 Production deployments are done by promoting Staging in the Heroku pipeline.
 
-The production URL is [foundation.mozilla.org](https://foundation.mozilla.org)
+The production URLs are:
+
+- [foundation.mozilla.org](https://foundation.mozilla.org) for the Foundation website
+- [mozillafestival.org](https://www.mozillafestival.org/en/) for the Mozilla festival website
 
 ## Domain Redirect
 
