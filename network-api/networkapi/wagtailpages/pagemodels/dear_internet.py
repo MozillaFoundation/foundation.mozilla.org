@@ -12,7 +12,7 @@ from ..utils import set_main_site_nav_information
 
 class DearInternetPage(FoundationMetadataPageMixin, Page):
     intro_texts = StreamField([
-        ('paragraph', blocks.RichTextBlock(
+        ('intro_text', blocks.RichTextBlock(
           features=[
               'bold', 'italic', 'link',
           ]
@@ -26,7 +26,7 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     )
 
     letters = StreamField([
-        ('letters', customblocks.DearInternetLetterBlock()),
+        ('letter', customblocks.DearInternetLetterBlock()),
     ])
 
     cta = models.CharField(
