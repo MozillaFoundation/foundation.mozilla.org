@@ -278,6 +278,7 @@ class GeneralProductPageTR(TranslationOptions):
 class DearInternetPageTR(TranslationOptions):
     fields = {
         'intro_texts',
+        'letters_section_heading',
         'letters',
         'cta',
         'cta_button_text',
