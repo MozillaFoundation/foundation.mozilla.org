@@ -521,10 +521,9 @@ class ProductPage(FoundationMetadataPageMixin, Page):
             # If the request is POST. Parse the body.
             data = json.loads(request.body)
             # If the POST body has a productID and value, it's someone voting on the product
-            if data.get('productID') and data.get("value"):
+            if data.get("value"):
                 # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
                 try:
-                    product_id = int(data['productID'])  # ie. 68
                     value = int(data["value"])  # ie. 0 to 100
                 except ValueError:
                     return HttpResponseNotAllowed('Product ID or value is invalid')
@@ -533,7 +532,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                     return HttpResponseNotAllowed('Cannot save vote')
 
                 try:
-                    product = ProductPage.objects.get(id=product_id)
+                    product = ProductPage.objects.get(pk=self.id)
                     # If the product exists but isn't live and the user isn't logged in..
                     if (not product.live and not request.user.is_authenticated) or not product:
                         return HttpResponseNotFound("Product does not exist")
@@ -869,7 +868,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # Find product by it's slug and redirect to the product page
         # If no product is found, redirect to the BuyersGuide page
         product = get_object_or_404(ProductPage, slug=slug)
-        return redirect(product.url, permanent=True)
+        return redirect(product.url)
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):

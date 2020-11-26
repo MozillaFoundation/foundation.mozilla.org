@@ -823,7 +823,6 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
         response = self.client.post(self.product_page.url, {
             'value': 25,
-            'productID': self.product_page.id
         }, format='json')
         self.assertEqual(response.status_code, 200)
 
@@ -836,7 +835,6 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
         response = self.client.post(self.product_page.url, {
             'value': 100,
-            'productID': self.product_page.id
         }, format='json')
         self.assertEqual(response.status_code, 200)
 
@@ -847,40 +845,17 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
         self.assertEqual(self.product_page.current_tally, 2)
         self.assertEqual(self.product_page.creepiness_value, 125)
 
-    def test_vote_values_as_strings(self):
-        # Reset votes
-        response = self.client.post(self.product_page.url, {
-            'value': 25,
-            'productID': "string as an id"
-        }, format='json')
-        self.assertEqual(response.status_code, 405)
-
-        response = self.client.post(self.product_page.url, {
-            'value': "twenty five",
-            'productID': self.product_page.id
-        }, format='json')
-        self.assertEqual(response.status_code, 405)
-
     def test_bad_vote_value(self):
         # vote = 500
         response = self.client.post(self.product_page.url, {
             'value': -1,
-            'productID': self.product_page.id
         }, format='json')
         self.assertEqual(response.status_code, 405)
 
         response = self.client.post(self.product_page.url, {
             'value': 101,
-            'productID': self.product_page.id
         }, format='json')
         self.assertEqual(response.status_code, 405)
-
-    def test_missing_product_vote(self):
-        response = self.client.post(self.product_page.url, {
-            'value': 25,
-            'productID': 9999
-        }, format='json')
-        self.assertEqual(response.status_code, 404)
 
     def test_vote_on_draft_page(self):
         self.product_page.live = False
