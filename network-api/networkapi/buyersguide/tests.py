@@ -767,18 +767,18 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertEqual(current_tally, 25)
 
     def test_creepiness(self):
-        self.product_page.current_vote_count = 100
+        self.product_page.creepiness_value = 100
         self.product_page.votes.set_votes([5, 5, 5, 5, 5])
         creepiness = self.product_page.creepiness
         self.assertEqual(creepiness, 4)
 
-        self.product_page.current_vote_count = 0
+        self.product_page.creepiness_value = 0
         self.product_page.votes.set_votes([0, 0, 0, 0, 0])
         creepiness = self.product_page.creepiness
         self.assertEqual(creepiness, 0)
 
     def test_get_voting_json(self):
-        self.product_page.current_vote_count = 60
+        self.product_page.creepiness_value = 60
         self.product_page.votes.set_votes([1, 2, 3, 4, 5])
         creepiness = self.product_page.creepiness
         self.assertEqual(creepiness, 4)

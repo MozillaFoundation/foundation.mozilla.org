@@ -201,7 +201,7 @@ class Command(BaseCommand):
                     product_total = 0
 
             new_product_page.votes.set_votes(values)
-            new_product_page.current_vote_count = product_total
+            new_product_page.creepiness_value = product_total
             new_product_page.save()
             if not product.draft:
                 new_product_page.live = True

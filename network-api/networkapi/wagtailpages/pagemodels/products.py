@@ -332,7 +332,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
 
     # Un-editable voting fields. Don't add these to the content_panels.
-    current_vote_count = models.IntegerField(default=0)  # The total points for creepiness
+    creepiness_value = models.IntegerField(default=0)  # The total points for creepiness
     votes = models.ForeignKey(
         ProductPageVotes,
         on_delete=models.SET_NULL,
@@ -348,7 +348,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     @property
     def creepiness(self):
         try:
-            average = self.current_vote_count / self.current_tally
+            average = self.creepiness_value / self.current_tally
         except ZeroDivisionError:
             average = 0
         return average
@@ -539,7 +539,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                         return HttpResponseNotFound("Product does not exist")
 
                     # Save the new voting totals
-                    product.current_vote_count = product.current_vote_count + value
+                    product.creepiness_value = product.creepiness_value + value
 
                     # Add the vote to the vote bin
                     if not product.votes:
