@@ -238,7 +238,6 @@ class SoftwareProductPageFactory(PageFactory):
     easy_to_learn_and_use_helptext = Faker('sentence')
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
-    slug = None
 
 
 class GeneralProductPageFactory(PageFactory):
@@ -278,7 +277,6 @@ class GeneralProductPageFactory(PageFactory):
     worst_case = Faker('sentence')
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
-    slug = None
 
 
 class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
