@@ -621,21 +621,21 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         category = BuyersGuideProductCategory.objects.first()
         url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['products']), 0)
-
-        # Add BuyersGuideProductCategory
-        category_orderable = ProductPageCategory(
-            product=self.product_page,
-            category=category,
-        )
-        category_orderable.save()
-        self.product_page.product_categories.add(category_orderable)
-        self.product_page.save_revision().publish()
-
         # Need to set dummy cache
         with self.settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}):
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(response.context['products']), 0)
+
+            # Add BuyersGuideProductCategory
+            category_orderable = ProductPageCategory(
+                product=self.product_page,
+                category=category,
+            )
+            category_orderable.save()
+            self.product_page.product_categories.add(category_orderable)
+            self.product_page.save_revision().publish()
+
             response = self.client.get(url)
             self.assertEqual(len(response.context['products']), 1)
 
