@@ -305,6 +305,10 @@
       background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
     }
 
+    @media (min-width: 1650px) {
+      padding-top: calc(var(--padding-y) + 150px);
+    }
+
     p {
       @include dear-internet-body-large();
     }
