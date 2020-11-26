@@ -1,0 +1,360 @@
+#view-dear-internet {
+  $breakpoint: $bp-md;
+
+  background-image: linear-gradient(
+    180deg,
+    $dear-internet-lilac 0%,
+    $dear-internet-pink 100%
+  );
+
+  @mixin dear-internet-body-large {
+    @extend .body-large;
+    @include set-text-size(18px, 27px, 24px, 34px);
+  }
+
+  h1 {
+    background: $light-red;
+
+    @include set-text-size(36px, 40px, 70px, 82px);
+
+    @media (min-width: $bp-lg) {
+      font-size: 112px;
+      line-height: 112px;
+    }
+  }
+
+  h1,
+  h2 {
+    color: $dark-blue;
+    font-style: italic;
+  }
+
+  main {
+    position: relative;
+  }
+
+  .full-size-absolute-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .plane-pathway-wrapper {
+    --approx-cta-height: 1200px;
+
+    background-image: url(../_images/dear-internet/Plane+Path-Extended.svg);
+    background-repeat: no-repeat;
+    background-position: center 11rem;
+    background-size: 88% auto;
+    height: calc(100% - var(--approx-cta-height));
+
+    @media (min-width: $breakpoint) {
+      background-position-y: 20rem;
+    }
+  }
+
+  .cloud-container {
+    --position-scaler: 15px;
+    $animation-duration: 5;
+
+    animation-name: float-right;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    position: absolute;
+
+    @media (min-width: $breakpoint) {
+      --position-scaler: 20px;
+    }
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        animation-duration: #{random($animation-duration) + 15}s;
+
+        @if random() > 0.5 {
+          animation-name: float-left;
+        }
+      }
+    }
+
+    svg.cloud {
+      --width: 140px;
+
+      width: var(--width);
+
+      @media (min-width: $breakpoint) {
+        --width: 200px;
+      }
+
+      &.blue path {
+        fill: $blue;
+      }
+
+      &.light-blue path {
+        fill: $light-blue;
+      }
+
+      &.white path {
+        fill: $white;
+      }
+
+      &.light-red path {
+        fill: $light-red;
+      }
+    }
+  }
+
+  @keyframes float-left {
+    0% {
+      transform: translatey(0);
+    }
+    50% {
+      transform: translateY(20px) translateX(-25px);
+    }
+    100% {
+      transform: translatey(0);
+    }
+  }
+
+  @keyframes float-right {
+    0% {
+      transform: translatey(0);
+    }
+    50% {
+      transform: translateY(-35px) translateX(15px);
+    }
+    100% {
+      transform: translatey(0);
+    }
+  }
+
+  .clouds-wrapper {
+    overflow-x: hidden; // to prevent clouds from going outside of viewport
+
+    .cloud-container {
+      &:nth-child(1) {
+        top: calc(2.5 * var(--position-scaler));
+        left: 5%;
+
+        svg.cloud {
+          transform: scale(0.7) scaleX(-1);
+        }
+      }
+
+      &:nth-child(2) {
+        top: calc(2.2 * var(--position-scaler));
+        left: 80%;
+      }
+
+      &:nth-child(3) {
+        top: calc(12 * var(--position-scaler));
+        left: 10%;
+
+        svg.cloud {
+          transform: scale(1.2) rotateY(180deg);
+        }
+      }
+
+      &:nth-child(4) {
+        top: calc(25 * var(--position-scaler));
+        left: 65%;
+
+        svg.cloud {
+          transform: scale(2);
+        }
+      }
+
+      &:nth-child(5) {
+        top: calc(30 * var(--position-scaler));
+        left: 82%;
+
+        svg.cloud {
+          transform: scale(1.2) rotateY(180deg);
+        }
+      }
+
+      &:nth-child(6) {
+        top: calc(34 * var(--position-scaler));
+        left: -2%;
+
+        svg.cloud {
+          transform: scale(2);
+        }
+      }
+
+      &:nth-child(7) {
+        top: calc(40 * var(--position-scaler));
+        left: 18%;
+
+        svg.cloud {
+          transform: scale(1.5) rotateY(180deg);
+        }
+      }
+
+      &:nth-child(8) {
+        top: calc(46 * var(--position-scaler));
+        left: 58%;
+      }
+    }
+  }
+
+  .love-letter-stamp {
+    margin: 2.5rem 0;
+
+    @media (min-width: $breakpoint) {
+      margin: 5rem 0;
+    }
+
+    img {
+      width: 80px;
+
+      @media (min-width: $breakpoint) {
+        width: 128px;
+      }
+    }
+  }
+
+  .intro-text {
+    p {
+      @include dear-internet-body-large();
+
+      color: $gray-80;
+    }
+    margin-bottom: 100px;
+
+    @media (min-width: $breakpoint) {
+      margin-bottom: 210px;
+    }
+  }
+
+  .sticky-side {
+    position: sticky;
+    top: 140px;
+    margin-top: -32px;
+
+    .share-button-group {
+      transition: opacity 0.2s ease-in-out;
+      opacity: 1;
+
+      &.faded {
+        opacity: 0;
+      }
+    }
+
+    @include style-colored-share-buttons(
+      $dark-blue,
+      "../_images/dear-internet/facebook-share.svg",
+      "../_images/dear-internet/twitter-share.svg",
+      "../_images/dear-internet/email-share.svg",
+      "../_images/dear-internet/link-share.svg",
+      "../_images/dear-internet/link-share-copied.svg"
+    );
+
+    .btn.btn-share {
+      background: $dear-internet-lilac;
+    }
+  }
+
+  .letters {
+    @media (min-width: $breakpoint) {
+      background-image: url(../_images/dear-internet/Envelope-Left-Group-Extended.svg),
+        url(../_images/dear-internet/Envelope-Right-Group-Extended.svg);
+      background-repeat: no-repeat;
+      background-position: 5% top, 95% top;
+    }
+  }
+
+  .letters-section-heading {
+    --spacing-y: 3rem;
+
+    padding: var(--spacing-y) 0;
+    margin-bottom: var(--spacing-y);
+    background-image: url(../_images/dear-internet/Pixel-Heart-Large.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 130px auto;
+
+    @media (min-width: $breakpoint) {
+      --spacing-y: 6rem;
+      background-size: 244px auto;
+    }
+  }
+
+  .cta {
+    --padding-y: 125px;
+    --envelope-top-offset: calc(var(--padding-y) / 2.5);
+    --envelope-width: 75px;
+
+    padding: calc(var(--padding-y) * 2) 0;
+    background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg),
+      url(../_images/dear-internet/Envelope-Blue1.svg),
+      url(../_images/dear-internet/Envelope-Blue2.svg),
+      url(../_images/dear-internet/Envelope-Red1.svg);
+    background-position: center center,
+      calc(var(--envelope-width) / -2.5) var(--envelope-top-offset),
+      center var(--envelope-top-offset),
+      calc(100% + var(--envelope-width) / 2.5) var(--envelope-top-offset);
+    background-repeat: no-repeat;
+    background-size: 205vw auto, var(--envelope-width) auto,
+      var(--envelope-width) auto, var(--envelope-width) auto;
+
+    @media (min-width: $breakpoint) {
+      --padding-y: 90px;
+      background-size: contain;
+      background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
+    }
+
+    @media (min-width: 1650px) {
+      padding-top: calc(var(--padding-y) + 150px);
+    }
+
+    p {
+      @include dear-internet-body-large();
+    }
+
+    a.btn.btn-secondary.heart-glyph {
+      border-color: $dark-blue;
+      color: $dark-blue;
+
+      @include hover-focus-active {
+        background-color: $dark-blue;
+        color: $white;
+
+        &:before {
+          filter: brightness(0) invert(100%);
+        }
+      }
+
+      &:before {
+        background-image: url(../_images/dear-internet/heart-dark-blue.svg);
+      }
+    }
+  }
+
+  .globe-wrapper {
+    --img-size: 180px;
+
+    position: relative;
+    overflow: hidden;
+    height: calc(var(--img-size) / 2);
+    margin-top: -120px;
+
+    @media (min-width: $breakpoint) {
+      --img-size: 725px;
+    }
+
+    img {
+      position: absolute;
+      width: var(--img-size);
+
+      &:nth-child(1) {
+        left: calc(var(--img-size) / 2 * -1);
+      }
+
+      &:nth-child(2) {
+        right: calc(var(--img-size) / 2 * -1);
+      }
+    }
+  }
+}
