@@ -832,6 +832,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
         votes = self.product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 0])
         self.assertEqual(self.product_page.current_tally, 1)
+        self.assertEqual(self.product_page.creepiness_value, 25)
 
         response = self.client.post(self.product_page.url, {
             'value': 100,
@@ -844,6 +845,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
         votes = self.product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 1])
         self.assertEqual(self.product_page.current_tally, 2)
+        self.assertEqual(self.product_page.creepiness_value, 125)
 
     def test_vote_values_as_strings(self):
         # Reset votes
