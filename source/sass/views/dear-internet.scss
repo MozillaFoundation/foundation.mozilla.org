@@ -207,12 +207,10 @@
     }
 
     img {
-      --width: 80px;
-
-      width: var(--width);
+      width: 80px;
 
       @media (min-width: $breakpoint) {
-        --width: 128px;
+        width: 128px;
       }
     }
   }
