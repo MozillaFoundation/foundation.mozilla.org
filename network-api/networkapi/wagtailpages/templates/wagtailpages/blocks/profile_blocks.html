@@ -3,30 +3,7 @@
 <div class="profiles" data-program-type="{{ value.program_type }}" data-program-year="{{ value.program_year }}" data-profile-type="{{ value.profile_type }}">
   <div class="row">
     {% for profile in profiles %}
-      <div class="col-lg-6 col-12 mb-5">
-        <div class="person-card">
-          <div class="thumbnail-wrapper">
-            <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="d-block headshot-container">
-              <img
-                src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
-                class="headshot"
-                alt="Headshot">
-            </a>
-          </div>
-          <div class="short-meta-wrapper">
-            <a class="h5-heading meta-block-name mb-0 d-block" href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">{{ profile.name }}
-            </a>
-            {% if profile.location %}<p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>{% endif %}
-            <div class="social-icons">
-              {% if profile.twitter %}<a href="{{ profile.twitter }}" class="twitter twitter-glyph small"></a>{% endif %}
-              {% if profile.linkedin %}<a href="{{ profile.linkedin }}" class="linkedIn linkedIn-glyph small"></a>{% endif %}
-            </div>
-          </div>
-          <div class="bio-wrapper">
-            <p class="m-0">{{ profile.user_bio }}</p>
-          </div>
-        </div>
-      </div>
+    {% include "./profile-block.html" with profile=profile %}
     {% endfor %}
   </div>
 </div>
