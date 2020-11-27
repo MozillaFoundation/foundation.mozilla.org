@@ -16,8 +16,8 @@ $pni-product-breakpoint-larger: $bp-md;
     content: "This product is in draft and only visible to CMS-authorised users.";
   }
 
-  .seal-of-approval {
-    @include seal-of-approval(1rem, 0, 76px, 76px, 140px, 140px);
+  .privacy-ding {
+    @include privacy-ding(1rem, 0, 76px, 76px, 140px, 140px);
   }
 
   .product-header-content.show-privacy-ding {
@@ -99,8 +99,8 @@ $pni-product-breakpoint-larger: $bp-md;
     padding: 10px 0 0 10px;
   }
 
-  .seal-of-approval {
-    @include seal-of-approval(5px, 20px, 25px, 25px);
+  .privacy-ding {
+    @include privacy-ding(5px, 20px, 25px, 25px);
   }
 
   .adult-content-badge {
