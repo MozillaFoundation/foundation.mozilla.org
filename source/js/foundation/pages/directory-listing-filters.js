@@ -87,8 +87,8 @@
   /**
    * Load an array of profiles into the profile car container.
    * We first map the profiles array, turning profile objects
-   * into templated HTML using the same HTML as we have in
-   * profile_blocks.html
+   * into templated HTML. using the same HTML as we have in
+   * templates/wagtailepages/blocks/profile_block.html
    */
   function loadResults(year, bypassState) {
     const profiles = profileCache[year];
