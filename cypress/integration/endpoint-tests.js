@@ -180,7 +180,7 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
   });
 
   it(`Dear Internet page`, function () {
-    cy.visit(`/en/dearinternet/`);
+    cy.visit(`/en/campaigns/dearinternet/`);
     cy.wait(1000);
     cy.percySnapshot();
   });
