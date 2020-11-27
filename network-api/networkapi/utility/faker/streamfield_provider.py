@@ -232,8 +232,8 @@ def generate_dear_internet_letter_field():
     letter = f'<p>{fake.paragraph(nb_sentences=10, variable_nb_sentences=True)}</p>'
 
     attributes = {
+        'author_name': author_name,
         'author_description': author_description,
-        'author': author,
         'letter': letter,
     }
 
