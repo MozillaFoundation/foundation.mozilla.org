@@ -24,7 +24,11 @@ const MAXIMUM_CREEPINESS_RATING = 80;
 
 // Helper function to determine whether products are
 // in view, and so need to be considered for averaging.
-function isElementInViewport(element) {
+function isElementInViewport(element, dingFilter) {
+  if (element.classList.contains(`d-none`)) return false;
+
+  if (dingFilter && !element.classList.contains(`privacy-ding`)) return false
+
   let rect = element.getBoundingClientRect();
 
   return (
@@ -59,10 +63,8 @@ export default {
       `scroll`,
       () => {
         // Figure out which face to show while scrolling:
-        let visible = Array.from(products).filter((v) => {
-          return isElementInViewport(v) && !v.classList.contains(`d-none`);
-        });
-
+        let dingFilter = !!document.querySelector(`body.show-ding-only`);
+        let visible = Array.from(products).filter((v) => isElementInViewport(v, dingFilter));
         let n = visible.length;
 
         // Shortcut this scroll update if there are no products

@@ -4,6 +4,7 @@ from networkapi.buyersguide import views
 
 urlpatterns = [
     url(r'^$', views.buyersguide_home, name='buyersguide-home'),
+    url(r'^contest', views.contest_view, name='contest-view'),
     url(r'^about/press', views.bg_about_page("press"), name='press-view'),
     url(r'^about/contact', views.bg_about_page("contact"), name='contact-view'),
     url(r'^about/methodology', views.bg_about_page("methodology"), name='methodology-view'),
