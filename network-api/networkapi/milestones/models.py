@@ -1,5 +1,3 @@
-from django.db import models
-
 from networkapi.utility.images import get_image_upload_path
 
 
