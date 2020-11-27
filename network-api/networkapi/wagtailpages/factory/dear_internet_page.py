@@ -33,6 +33,7 @@ class DearInternetPageFactory(PageFactory):
 
 def generate(seed):
     home_page = get_homepage()
+
     reseed(seed)
 
     try:
