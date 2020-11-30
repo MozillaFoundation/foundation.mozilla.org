@@ -49,3 +49,58 @@
   margin-top: -$offset;
   padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
 }
+
+@mixin style-colored-share-buttons(
+  $color,
+  $facebook-icon,
+  $twitter-icon,
+  $email-icon,
+  $link-icon,
+  $link-copied-icon
+) {
+  .btn.btn-share {
+    border-color: $color;
+
+    @include hover-focus-active {
+      background-color: $color;
+
+      &::before {
+        filter: brightness(0) invert(100%);
+      }
+    }
+
+    &::before {
+      filter: brightness(1);
+    }
+
+    &.facebook-share {
+      &::before {
+        background-image: url($facebook-icon);
+      }
+    }
+
+    &.twitter-share {
+      &::before {
+        background-image: url($twitter-icon);
+      }
+    }
+
+    &.email-share {
+      &::before {
+        background-image: url($email-icon);
+      }
+    }
+
+    &.link-share {
+      &::before {
+        background-image: url($link-icon);
+      }
+
+      &.copied {
+        &::before {
+          background-image: url($link-copied-icon);
+        }
+      }
+    }
+  }
+}
