@@ -10,13 +10,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailpages', '0015_auto_20201110_1957'),
-        ('wagtailpages', '0016_merge_20201117_1917.py'),
+        ('wagtailpages', '0016_merge_20201117_1917'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='productpage',
-            name='current_vote_count',
+            name='creepiness_value',
             field=models.IntegerField(default=0),
         ),
         migrations.CreateModel(
@@ -33,6 +33,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='productpage',
             name='votes',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='votes', to='wagtailpages.ProductPageVotes'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='votes', to='wagtailpages.ProductPageVotes'),
         ),
     ]
