@@ -251,7 +251,6 @@
 .partner-section-text {
   @include text-base-style("Nunito Sans", 300, $black, $white);
   @include set-text-size(20px, 30px);
-  font-size: 20px;
   max-width: 450px;
 }
 
