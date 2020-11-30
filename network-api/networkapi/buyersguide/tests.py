@@ -814,6 +814,7 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertTrue(hasattr(self.product_page.votes, 'set_votes'))
 
 
+@override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
     def test_successful_vote(self):
