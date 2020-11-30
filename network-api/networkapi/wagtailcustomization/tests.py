@@ -7,7 +7,6 @@ from wagtail.contrib.redirects.models import Redirect
 class LocalizedRedirectTests(TestCase):
 
     def setUp(self):
-        self.factory = RequestFactory()
         site = Site.objects.get(is_default_site=True)
         redirect = Redirect.objects.create(
             old_path='/test',
