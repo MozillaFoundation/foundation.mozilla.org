@@ -1,6 +1,6 @@
 import json
 
-from random import randint, choice
+from random import randint, choice, random
 from django.conf import settings
 from faker import Faker
 from faker.providers import BaseProvider
@@ -212,6 +212,43 @@ def generate_full_width_image_field():
     })
 
 
+def generate_dear_internet_intro_text_field():
+    text = f'<p>{fake.paragraph(nb_sentences=3, variable_nb_sentences=True)}</p>'
+
+    return generate_field('intro_text', text)
+
+
+def generate_dear_internet_letter_field():
+    author_name = fake.name()
+    author_description = ''.join(
+        (
+            '<p>',
+            f'<a href="{fake.url(schemes=["https"])}" target="_blank">{author_name}</a>',
+            f' is {" ".join(fake.words(nb=15))}. {fake.sentence()}',
+            '</p>',
+        )
+    )
+
+    letter = f'<p>{fake.paragraph(nb_sentences=10, variable_nb_sentences=True)}</p>'
+
+    attributes = {
+        'author_name': author_name,
+        'author_description': author_description,
+        'letter': letter,
+    }
+
+    if random() > 0.5:
+        attributes['author_photo'] = choice(Image.objects.all()).id
+
+    if random() > 0.5:
+        attributes['image'] = choice(Image.objects.all()).id
+
+    if random() > 0.5:
+        attributes['video_url'] = fake.url(schemes=["https"])
+
+    return generate_field('letter', attributes)
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -245,6 +282,8 @@ class StreamfieldProvider(BaseProvider):
             'content': generate_content_field,
             'callout': generate_callout_field,
             'full_width_image': generate_full_width_image_field,
+            'intro_text': generate_dear_internet_intro_text_field,
+            'letter': generate_dear_internet_letter_field,
         }
 
         streamfield_data = []
