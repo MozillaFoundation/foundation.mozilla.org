@@ -7,7 +7,6 @@ from django.conf import settings
 
 # Factories
 import networkapi.highlights.factory as highlights_factory
-import networkapi.milestones.factory as milestones_factory
 import networkapi.news.factory as news_factory
 import networkapi.people.factory as people_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
@@ -28,7 +27,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='delete',
             help="""Delete previous highlights, homepage, landing page,
-                milestones, news, people, and products from the database""",
+                news, people, and products from the database""",
         )
 
         parser.add_argument(
@@ -67,7 +66,6 @@ class Command(BaseCommand):
         ]
 
         [app_factory.generate(seed) for app_factory in [
-            milestones_factory,
             news_factory,
             highlights_factory,
             people_factory,
