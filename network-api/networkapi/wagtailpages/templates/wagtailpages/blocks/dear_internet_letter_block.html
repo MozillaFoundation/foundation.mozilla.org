@@ -2,24 +2,29 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {# Placeholder. Template to be updated in follow-up PRs. #}
-<div class="dear-internet-letter">
-  {% if value.image %}
-  {% image value.image original %}
-  {% endif %}
+<div class="dear-internet-letter-wrapper">
+  <div class="dotted-shadow"></div>
+  <div class="dear-internet-letter">
+    {% if value.image %}
+    {% image value.image original alt="" loading="lazy" class="mb-4 d-block mx-auto" %}
+    {% endif %}
 
-  {% if value.video_url %}
-  <p>video url: {{ value.video_url }}</p>
-  {% endif %}
+    {% if value.video_url %}
+    <p class="body-small"><a href="{{ value.video_url }}" target="_blank">{{value.video_url}}</a></p>
+    {% endif %}
 
-  <div>
-    {{ value.letter }}
+    <div class="letter-body pt-3 pt-md-0">
+      {{ value.letter }}
+    </div>
+
+    <div>
+      <div class="d-flex align-items-center mb-4">
+        {% if value.author_photo %}
+        {% image value.author_photo fill-90x90 alt="" loading="lazy" width="45" height="45" class="author-photo mr-3" %}
+        {% endif %}
+        <p class="author-name mb-0">{{ value.author_name }}</p>
+      </div>
+      <div class="author-description">{{ value.author_description }}</div>
+    </div>
   </div>
-
-  <div>
-    {{ value.author }}
-  </div>
-
-  {% if value.author_photo %}
-  {% image value.author_photo original %}
-  {% endif %}
 </div>

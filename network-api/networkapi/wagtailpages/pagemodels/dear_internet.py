@@ -12,7 +12,7 @@ from ..utils import set_main_site_nav_information
 
 class DearInternetPage(FoundationMetadataPageMixin, Page):
     intro_texts = StreamField([
-        ('paragraph', blocks.RichTextBlock(
+        ('intro_text', blocks.RichTextBlock(
           features=[
               'bold', 'italic', 'link',
           ]
@@ -20,8 +20,13 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
       ],
     )
 
+    letters_section_heading = models.CharField(
+        max_length=300,
+        default='Stories from around the world',
+    )
+
     letters = StreamField([
-        ('letters', customblocks.DearInternetLetterBlock()),
+        ('letter', customblocks.DearInternetLetterBlock()),
     ])
 
     cta = models.CharField(
@@ -36,6 +41,7 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('intro_texts'),
+        FieldPanel('letters_section_heading'),
         StreamFieldPanel('letters'),
         MultiFieldPanel(
             [
