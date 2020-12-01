@@ -290,8 +290,3 @@ class DearInternetPageTR(TranslationOptions):
         'cta_button_text',
         'cta_button_link'
     }
-
-
-@register(BuyersGuidePage)
-class BuyersGuidePageTR(TranslationOptions):
-    fields = ()
