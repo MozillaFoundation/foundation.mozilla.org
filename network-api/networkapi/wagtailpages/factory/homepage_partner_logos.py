@@ -1,13 +1,8 @@
 from random import choice
 
-from factory import (
-    Faker,
-    SubFactory
-)
+from factory import Faker
 
 from wagtail.images.models import Image
-
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 from networkapi.wagtailpages.models import (
     PartnerLogos,
