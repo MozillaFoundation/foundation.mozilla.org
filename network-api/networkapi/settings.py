@@ -254,7 +254,8 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
+    'networkapi.wagtailcustomization.redirects.middleware.RedirectMiddleware'
 ]))
 
 if SOCIAL_SIGNIN:
