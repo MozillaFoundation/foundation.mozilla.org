@@ -16,10 +16,6 @@ def get_category_og_image_upload_path(instance, filename):
         current_filename=filename
     )
 
-from wagtail.images.models import Image as WagtailImage
-
-from networkapi.buyersguide.pagemodels.products.base import Product
-
 
 def tri_to_quad(input):
     if input is True:

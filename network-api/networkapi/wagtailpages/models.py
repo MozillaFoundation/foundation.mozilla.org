@@ -16,6 +16,7 @@ from .pagemodels.base import (
     HomepageSpotlightPosts,
     ParticipateHighlights,
     ParticipateHighlights2,
+    PartnerLogos,
 )
 
 from .pagemodels.campaigns import (
@@ -122,6 +123,7 @@ __all__ = [
     ParticipateHighlights,
     ParticipateHighlights2,
     ParticipatePage2,
+    PartnerLogos,
     PeoplePage,
     Petition,
     PrimaryPage,
