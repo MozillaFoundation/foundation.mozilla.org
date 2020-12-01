@@ -65,11 +65,7 @@ def generate(seed):
         print('Homepage already exists')
     except MozfestHomepage.DoesNotExist:
         print('Generating a Homepage')
-        # If this is a review app, make the root of the mozfest site a child of the main site
-        if is_review_app:
-            site_root = WagtailPage.objects.get(title='Homepage')
-        else:
-            site_root = WagtailPage.objects.get(id=1)
+        site_root = WagtailPage.objects.get(depth=1)
 
         home_page = MozfestHomepageFactory.create(
             parent=site_root,
