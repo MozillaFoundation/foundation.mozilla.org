@@ -1,4 +1,5 @@
 import ntpath
+import time
 
 from django.conf import settings
 from django.core.files.images import ImageFile
@@ -49,6 +50,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         products = Product.objects.all()
         buyersguide_page = self.get_or_create_buyers_guide()
+
         for product in products:
             # 1. Create ProductPage out of this product
             product = product.specific  # Get the specific class
@@ -153,10 +155,7 @@ class Command(BaseCommand):
 
             # Save revision and/or publish so we can add Orderables to this page.
             new_product_page.save()
-            if not product.draft:
-                new_product_page.save_revision().publish()
-            else:
-                new_product_page.save_revision()
+            new_product_page.save_revision()
 
             self.debug_print("\tCreated", new_product_page)
 
@@ -192,20 +191,28 @@ class Command(BaseCommand):
                 new_product_page.get_or_create_votes()
                 # Use .to_dict() to pull out the old aggregated votes
                 product_dict = product.to_dict()
-                votes = product_dict['votes']['creepiness']['vote_breakdown']
-                values = [x for x in votes.values()]
-                new_product_page.set_votes(values)
-                new_product_page.current_vote_count = product_dict['votes']['total']
+                if hasattr(product_dict, 'votes'):
+                    votes = product_dict['votes']['creepiness']['vote_breakdown']
+                    values = [x for x in votes.values()]
+                    product_total = product_dict['votes']['total']
+                else:
+                    # Default vote "bin"
+                    values = [0, 0, 0, 0, 0]
+                    product_total = 0
 
-            # Save and/or publish the final page.
+            new_product_page.votes.set_votes(values)
+            new_product_page.creepiness_value = product_total
             new_product_page.save()
             if not product.draft:
+                new_product_page.live = True
                 new_product_page.save_revision().publish()
             else:
                 new_product_page.save_revision()
 
             # Always good to fresh from db when using Django Treebeard.
             buyersguide_page.refresh_from_db()
+
+        time.sleep(1)
 
         # Once all the ProductPages are added, add related_products
         # By writing a secondary for loop we can avoid attaching a legacy_product
@@ -215,7 +222,11 @@ class Command(BaseCommand):
         # Loop through every ProductPage we now have.
         for product_page in ProductPage.objects.all():
             # Fetch the PNI Product that this page was created from.
-            product = Product.objects.get(slug=product_page.slug)
+            try:
+                product = Product.objects.get(slug=product_page.slug)
+            except Product.DoesNotExist:
+                self.debug_print(f"Skipping {product_page} because a ProductPage.slug={product_page.slug} was not found")  # noqa
+                continue
             # Loop through all the Product.related_products
             for related_product in product.related_products.all():
                 try:

@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='productpage',
-            name='current_vote_count',
+            name='creepiness_value',
             field=models.IntegerField(default=0),
         ),
         migrations.CreateModel(

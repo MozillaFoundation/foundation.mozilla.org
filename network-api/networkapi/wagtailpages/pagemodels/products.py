@@ -332,7 +332,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
 
     # Un-editable voting fields. Don't add these to the content_panels.
-    current_vote_count = models.IntegerField(default=0)  # The total points for creepiness
+    creepiness_value = models.IntegerField(default=0)  # The total points for creepiness
     votes = models.ForeignKey(
         ProductPageVotes,
         on_delete=models.SET_NULL,
@@ -348,7 +348,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     @property
     def creepiness(self):
         try:
-            average = self.current_vote_count / self.current_tally
+            average = self.creepiness_value / self.current_tally
         except ZeroDivisionError:
             average = 0
         return average
@@ -521,10 +521,9 @@ class ProductPage(FoundationMetadataPageMixin, Page):
             # If the request is POST. Parse the body.
             data = json.loads(request.body)
             # If the POST body has a productID and value, it's someone voting on the product
-            if data.get('productID') and data.get("value"):
+            if data.get("value"):
                 # Product ID and Value can both be zero. It's impossible to get a Page with ID of zero.
                 try:
-                    product_id = int(data['productID'])  # ie. 68
                     value = int(data["value"])  # ie. 0 to 100
                 except ValueError:
                     return HttpResponseNotAllowed('Product ID or value is invalid')
@@ -533,14 +532,13 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                     return HttpResponseNotAllowed('Cannot save vote')
 
                 try:
-                    product = ProductPage.objects.get(id=product_id)
+                    product = ProductPage.objects.get(pk=self.id)
                     # If the product exists but isn't live and the user isn't logged in..
                     if (not product.live and not request.user.is_authenticated) or not product:
                         return HttpResponseNotFound("Product does not exist")
 
                     # Save the new voting totals
-                    # TODO: Confirm with @pomax this is the intended behaviour we desire.
-                    product.current_vote_count = product.current_vote_count + value
+                    product.creepiness_value = product.creepiness_value + value
 
                     # Add the vote to the vote bin
                     if not product.votes:
