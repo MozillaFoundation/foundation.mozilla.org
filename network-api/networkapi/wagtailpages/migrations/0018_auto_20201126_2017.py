@@ -9,6 +9,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('wagtailpages', '0017_product_voting'),
         ('wagtailpages', '0017_signup_campaign_id'),
     ]
 
