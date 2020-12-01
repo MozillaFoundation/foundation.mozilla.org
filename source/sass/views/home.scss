@@ -185,7 +185,6 @@
         border-bottom: $border-thickness solid $black;
         position: relative;
         top: $border-thickness / 2;
-        z-index: 2;
       }
     }
   }
@@ -232,7 +231,6 @@
   background-position-y: top;
   background-position-x: right;
   position: relative;
-  z-index: 10;
   padding-top: 80px;
   padding-bottom: 80px;
 }
@@ -240,7 +238,6 @@
 .partner-section::before {
   content: "";
   position: absolute;
-  z-index: 0;
   top: 0;
   left: 0;
   width: 100%;
@@ -251,13 +248,11 @@
 .partner-section-text {
   @include text-base-style("Nunito Sans", 300, $black, $white);
   @include set-text-size(20px, 30px);
-  font-size: 20px;
   max-width: 450px;
 }
 
 .partner-section-logos {
   position: relative;
-  z-index: 1;
 }
 
 .partner-section-logo {
