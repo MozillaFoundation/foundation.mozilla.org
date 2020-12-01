@@ -8,9 +8,9 @@ _original_get_redirect = middleware._get_redirect
 def _new_get_redirect(request, path):
     if hasattr(request, 'LANGUAGE_CODE'):
         # If this path has an i18n_patterns locale prefix, remove it.
-        localePrefix = f'/{request.LANGUAGE_CODE}/'
-        if path.startswith(localePrefix):
-            path = path.replace(localePrefix, '/', 1)
+        locale_prefix = f'/{request.LANGUAGE_CODE}/'
+        if path.startswith(locale_prefix):
+            path = path.replace(locale_prefix, '/', 1)
 
     # Then hand off processing to the original redirect logic.
     return _original_get_redirect(request, path)
