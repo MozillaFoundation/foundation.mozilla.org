@@ -1,9 +1,3 @@
-import ntpath
-from io import BytesIO
-from mimetypes import MimeTypes
-from PIL import Image as PILImage
-
-from django.core.files.images import ImageFile
 from django.db.migrations.operations.models import ModelOperation
 from networkapi.utility.images import get_image_upload_path
 
