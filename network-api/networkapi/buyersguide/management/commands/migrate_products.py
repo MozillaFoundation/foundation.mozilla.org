@@ -115,10 +115,6 @@ class Command(BaseCommand):
                 setattr(new_product_page, field, getattr(product, field))
 
             # Get the image file field, and convert it into a WagtailImage object
-            # I don't know why but convert_pni_file_to_product_page_image() doesn't
-            # seem to work. I tinkered with it but ultimately gave up
-            # because this a temporary management command anyway and should ideally
-            # be used once in production, and code deleted afterwards.
             if product.image:
                 # Check if there is an image file. If there isn't one, don't try to copy the
                 # FieldFile to a WagtailImage object.

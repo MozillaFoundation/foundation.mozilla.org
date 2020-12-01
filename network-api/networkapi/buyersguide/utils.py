@@ -19,7 +19,6 @@ def get_category_og_image_upload_path(instance, filename):
 from wagtail.images.models import Image as WagtailImage
 
 from networkapi.buyersguide.pagemodels.products.base import Product
-from networkapi.wagtailpages.pagemodels.products import ProductPage
 
 
 def tri_to_quad(input):
@@ -62,42 +61,3 @@ class AlterModelBases(ModelOperation):
 
     def describe(self):
         return "Update %s bases to %s" % (self.name, self.bases)
-
-
-def convert_pni_file_to_product_page_image(pni_product: Product, new_product_page: ProductPage):
-    """
-    Take an existing product and convert it's FileField image to a WagtailImage object.
-
-    pni_product must be an instance of a Product
-    new_product_page must be an instance of a ProductPage
-    """
-    # 1. Get the mimetype of the image.
-    mime = MimeTypes()
-    mime_type = mime.guess_type(pni_product.image.file.name)  # -> ('image/jpeg', None)
-    if mime_type:
-        mime_type = mime_type[0].split('/')[1].upper()
-    else:
-        # Default to a JPEG mimetype.
-        mime_type = 'JPEG'
-
-    # 2. Create an image out of the FileField.
-    pil_image = PILImage.open(pni_product.image.file)
-    pil_image.save(BytesIO() , mime_type)
-    f = BytesIO()
-
-    new_image_name = ntpath.basename(pni_product.image.file.name)
-    wagtail_image = WagtailImage.objects.create(
-        title=new_image_name,
-        file=ImageFile(f, name=new_image_name)
-    )
-
-    # 3. Associate new_product_page.image with wagtail_image
-    new_product_page.image = wagtail_image
-
-    # 4. If the product is a draft, don't publish the page.
-    #    If the product is NOT a draft, publish the latest revision.
-    if not pni_product.draft:
-        new_product_page.save_revision().publish()
-    else:
-        new_product_page.save_revision()
-    new_product_page.save()
