@@ -225,17 +225,21 @@ const ProductGA = {
     // bind GA events that have special conditions
 
     // tracks when MSS accordion on product page is expanded
-    bindCheckboxCheckedGA("#view-product-page #mss-accordion-toggle", {
-      category: `product`,
-      action: `security expand accordion tap`,
-      label: `detail view for MSS on for ${productName}`,
-    });
+    if (document.querySelector(`#view-product-page`)) {
+      bindCheckboxCheckedGA("#view-product-page #mss-accordion-toggle", {
+        category: `product`,
+        action: `security expand accordion tap`,
+        label: `detail view for MSS on for ${productName}`,
+      });
+    }
 
-    bindCheckboxCheckedGA("body.catalog #product-filter-pni-toggle", {
-      category: `buyersguide`,
-      action: `ding checkbox checked`,
-      label: `ding checkbox checked on ${pageTitle}`,
-    });
+    if (document.querySelector(`body.catalog`)) {
+      bindCheckboxCheckedGA("body.catalog #product-filter-pni-toggle", {
+        category: `buyersguide`,
+        action: `ding checkbox checked`,
+        label: `ding checkbox checked on ${pageTitle}`,
+      });
+    }
 
     trackSearchBoxUsage();
     trackGoBackToAllProductsLink();

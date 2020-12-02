@@ -16,6 +16,7 @@ from .pagemodels.base import (
     HomepageSpotlightPosts,
     ParticipateHighlights,
     ParticipateHighlights2,
+    PartnerLogos,
 )
 
 from .pagemodels.campaigns import (
@@ -79,6 +80,10 @@ from .pagemodels.publications.article import (
     ArticlePage
 )
 
+from .pagemodels.dear_internet import (
+    DearInternetPage
+)
+
 from .pagemodels.products import (
     GeneralProductPage,
     ProductPage,
@@ -98,6 +103,7 @@ __all__ = [
     CTA,
     CampaignIndexPage,
     CampaignPage,
+    DearInternetPage,
     FocusArea,
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
@@ -115,6 +121,7 @@ __all__ = [
     ParticipateHighlights,
     ParticipateHighlights2,
     ParticipatePage2,
+    PartnerLogos,
     PeoplePage,
     Petition,
     PrimaryPage,

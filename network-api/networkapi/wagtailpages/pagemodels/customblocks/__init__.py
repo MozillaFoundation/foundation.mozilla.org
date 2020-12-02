@@ -17,6 +17,7 @@ from .quote_block import QuoteBlock
 from .video_block import VideoBlock
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock
+from .dear_internet_letter_block import DearInternetLetterBlock
 
 
 __all__ = [
@@ -26,6 +27,7 @@ __all__ = [
     ArticleFullWidthImageBlock,
     ArticleRichText,
     BootstrapSpacerBlock,
+    DearInternetLetterBlock,
     iFrameBlock,
     ImageBlock,
     ImageGrid,

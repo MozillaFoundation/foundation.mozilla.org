@@ -54,6 +54,12 @@ class CTA(models.Model):
 
 @register_snippet
 class Signup(CTA):
+    campaign_id = models.CharField(
+        max_length=20,
+        help_text='Which campaign identifier should this petition be tied to?',
+        null=True,
+        blank=True,
+    )
 
     ask_name = models.BooleanField(
         help_text='Check this box to show (optional) name fields',
@@ -258,6 +264,7 @@ class BanneredCampaignPage(PrimaryPage):
         'BanneredCampaignPage',
         'RedirectingPage',
         'PublicationPage',
+        'OpportunityPage',  # "DefaultPage" is just the verbose name
     ]
 
     show_in_menus_default = True

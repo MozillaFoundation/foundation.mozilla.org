@@ -51,47 +51,14 @@ body.has-regrets-intro {
       }
     }
 
-    .btn.btn-share {
-      @include hover-focus-active {
-        &::before {
-          filter: brightness(0) invert(100%);
-        }
-      }
-
-      &::before {
-        filter: brightness(1);
-      }
-
-      &.facebook-share {
-        &::before {
-          background-image: url(../_images/youtube-regrets/facebook-share.svg);
-        }
-      }
-
-      &.twitter-share {
-        &::before {
-          background-image: url(../_images/youtube-regrets/twitter-share.svg);
-        }
-      }
-
-      &.email-share {
-        &::before {
-          background-image: url(../_images/youtube-regrets/email-share.svg);
-        }
-      }
-
-      &.link-share {
-        &::before {
-          background-image: url(../_images/youtube-regrets/link-share.svg);
-        }
-
-        &.copied {
-          &::before {
-            background-image: url(../_images/youtube-regrets/link-share-copied.svg);
-          }
-        }
-      }
-    }
+    @include style-colored-share-buttons(
+      $youtube-regrets-red,
+      "../_images/youtube-regrets/facebook-share.svg",
+      "../_images/youtube-regrets/twitter-share.svg",
+      "../_images/youtube-regrets/email-share.svg",
+      "../_images/youtube-regrets/link-share.svg",
+      "../_images/youtube-regrets/link-share-copied.svg"
+    );
   }
 
   .faq {

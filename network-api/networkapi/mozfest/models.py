@@ -140,7 +140,8 @@ class MozfestHomepage(MozfestPrimaryPage):
     )
 
     subpage_types = [
-        'MozfestPrimaryPage'
+        'MozfestPrimaryPage',
+        'MozfestHomepage',
     ]
 
     # Put everything above the body
