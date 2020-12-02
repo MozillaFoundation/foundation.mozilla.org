@@ -9,8 +9,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0015_auto_20201110_1957'),
-        ('wagtailpages', '0016_merge_20201117_1917'),
+        ('wagtailpages', '0021_merge_20201117_1917'),
     ]
 
     operations = [

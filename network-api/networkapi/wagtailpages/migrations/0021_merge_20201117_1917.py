@@ -7,8 +7,7 @@ import networkapi.buyersguide.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0015_auto_20201110_1957'),
-        ('wagtailpages', '0015_buyersguidepage'),
+        ('wagtailpages', '0020_buyersguidepage'),
     ]
 
     operations = [
