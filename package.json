@@ -65,7 +65,7 @@
     "autoprefixer": "^9.8.6",
     "axe-core": "^4.0.2",
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.2.2",
     "bootstrap": "^4.5.3",
     "classnames": "2.2.6",
     "cssnano": "^4.1.10",
