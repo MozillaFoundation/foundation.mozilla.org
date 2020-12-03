@@ -217,7 +217,6 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi',
     'networkapi.campaign',
     'networkapi.news',
-    'networkapi.people',
     'networkapi.utility',
 
     # possibly still used?

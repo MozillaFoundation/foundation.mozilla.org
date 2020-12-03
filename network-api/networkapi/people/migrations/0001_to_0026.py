@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import networkapi.people.models
 
 
 class Migration(migrations.Migration):
@@ -13,44 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='InternetHealthIssue',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Person',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text="Person's Full Name", max_length=300)),
-                ('role', models.CharField(help_text='Role within the Mozilla Network', max_length=300)),
-                ('location', models.CharField(max_length=300)),
-                ('quote', models.TextField(blank=True, help_text='Quote about the awesomeness/impact of the network, internet health or one of the issues', max_length=1000, null=True)),
-                ('bio', models.TextField(blank=True, help_text="3 bullet-point biography of the person. Bullet-points should use a '-' and each point should be on a new line", max_length=5000, null=True)),
-                ('image', models.FileField(help_text='Profile image of the person', max_length=2048, upload_to=networkapi.people.models.get_people_image_upload_path)),
-                ('partnership_logo', models.FileField(blank=True, help_text="Affiliated Organization's logo", max_length=2048, null=True, upload_to=networkapi.people.models.get_people_partnership_logo_upload_path)),
-                ('twitter_url', models.URLField(blank=True, help_text='Link to twitter account', max_length=2048, null=True)),
-                ('linkedin_url', models.URLField(blank=True, help_text='Link to LinkedIn account', max_length=2048, null=True)),
-                ('interview_url', models.URLField(blank=True, help_text='Link to interview for featured people', max_length=2048, null=True)),
-                ('featured', models.BooleanField(default=False, help_text='Do you want to feature this person?')),
-                ('publish_after', models.DateTimeField(help_text="Make this person's profile visible only after this date and time (UTC)", null=True)),
-                ('expires', models.DateTimeField(blank=True, default=None, help_text="Hide this person's profile after this date and time (UTC)", null=True)),
-                ('order', models.PositiveIntegerField(db_index=True, default=0, editable=False)),
-                ('internet_health_issues', models.ManyToManyField(help_text='Which Internet Health Issues does the person most align with?', related_name='people', to='people.InternetHealthIssue')),
-            ],
-            options={
-                'verbose_name_plural': 'people',
-                'ordering': ('order',),
-            },
-        ),
-        migrations.CreateModel(
-            name='Affiliation',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text="Organization's name", max_length=300)),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='affiliations', to='people.Person')),
-            ],
-        ),
+        # THESE WERE MIGRATIONS FOR THE NETWORKAPI.PEOPLE APP, WHICH WAS DELETED
     ]
