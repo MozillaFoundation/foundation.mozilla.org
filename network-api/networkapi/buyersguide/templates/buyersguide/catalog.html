@@ -89,7 +89,7 @@
                 {% if USE_CLOUDINARY %}
                   src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
                 {% else %}
-                  {% image product.image fill-200x200 as img %}
+                  {% image product.specific.image fill-600x600 as img %}
                   src="{{ img.url }}"
                 {% endif %}
                 alt="{% blocktrans with product=product.name %}link to {{product}}{% endblocktrans %}"
