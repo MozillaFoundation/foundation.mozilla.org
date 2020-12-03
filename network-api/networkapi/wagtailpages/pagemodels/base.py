@@ -279,10 +279,6 @@ class ParticipatePage2(PrimaryPage):
     ]
 
 
-class PeoplePage(PrimaryPage):
-    pass
-
-
 class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
@@ -748,7 +744,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'NewsPage',
         'OpportunityPage',
         'ParticipatePage2',
-        'PeoplePage',
         'PrimaryPage',
         'PublicationPage',
         'RedirectingPage',

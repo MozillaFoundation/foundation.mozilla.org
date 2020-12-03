@@ -32,9 +32,6 @@ from .models import (
     GeneralProductPage,
     ProductPage,
     SoftwareProductPage,
-
-    # DEPRECATED
-    PeoplePage,
 )
 
 from .pagemodels.base import (
@@ -221,12 +218,6 @@ class PublicationPageTR(TranslationOptions):
 
 @register(ArticlePage)
 class ArticlePageTR(TranslationOptions):
-    fields = ()
-
-
-# The following bindings are obsolete and require cleanup
-@register(PeoplePage)
-class PeoplePageTR(TranslationOptions):
     fields = ()
 
 
