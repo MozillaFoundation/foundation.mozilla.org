@@ -481,12 +481,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
 
     @property
     def product_type(self):
-        if isinstance(self, SoftwareProductPage):
-            return "software"
-        elif isinstance(self, GeneralProductPage):
-            return "general"
-        else:
-            return "unknown"
+        return "unknown"
 
     def get_or_create_votes(self):
         """
@@ -659,6 +654,10 @@ class SoftwareProductPage(ProductPage):
         ],
     )
 
+    @property
+    def product_type(self):
+        return "software"
+
     class Meta:
         verbose_name = "Software Product Page"
 
@@ -819,6 +818,10 @@ class GeneralProductPage(ProductPage):
             ),
         ]
     )
+
+    @property
+    def product_type(self):
+        return "general"
 
     class Meta:
         verbose_name = "General Product Page"
