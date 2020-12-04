@@ -376,7 +376,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 FieldPanel('privacy_ding'),
                 FieldPanel('adult_content'),
                 FieldPanel('company'),
-                FieldPanel('company'),
                 FieldPanel('product_url'),
                 FieldPanel('price'),
                 FieldPanel('uses_wifi'),
