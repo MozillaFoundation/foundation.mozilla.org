@@ -9,6 +9,7 @@ from django.core.validators import int_list_validator
 from django.db import Error, models
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 from django.utils.translation import pgettext
 
 from modelcluster.fields import ParentalKey
@@ -184,7 +185,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
     review_date = models.DateField(
         help_text='Review date of this product',
-        auto_now_add=True,
+        default=timezone.now
     )
     company = models.CharField(
         max_length=100,
@@ -342,15 +343,15 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
 
     @property
-    def current_tally(self):
+    def total_vote_count(self):
         return sum(self.get_or_create_votes())
 
     @property
     def creepiness(self):
         try:
-            average = self.creepiness_value / self.current_tally
+            average = self.creepiness_value / self.total_vote_count
         except ZeroDivisionError:
-            average = 0
+            average = 50
         return average
 
     @property
@@ -364,15 +365,17 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 'vote_breakdown':  {k: v for (k, v) in enumerate(votes)},
                 'average': self.creepiness
             },
-            'total': self.current_tally
+            'total': self.total_vote_count
         }
         return json.dumps(data)
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel('review_date'),
                 FieldPanel('privacy_ding'),
                 FieldPanel('adult_content'),
+                FieldPanel('company'),
                 FieldPanel('company'),
                 FieldPanel('product_url'),
                 FieldPanel('price'),

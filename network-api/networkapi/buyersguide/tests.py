@@ -757,14 +757,14 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertEqual(votes, [1, 2, 3, 4, 5])
         self.assertEqual(len(votes), 5)
 
-    def test_current_tally(self):
+    def test_total_vote_count(self):
         self.product_page.votes.set_votes([5, 4, 3, 2, 1])
-        current_tally = self.product_page.current_tally
-        self.assertEqual(current_tally, 15)
+        total_vote_count = self.product_page.total_vote_count
+        self.assertEqual(total_vote_count, 15)
 
         self.product_page.votes.set_votes([5, 5, 5, 5, 5])
-        current_tally = self.product_page.current_tally
-        self.assertEqual(current_tally, 25)
+        total_vote_count = self.product_page.total_vote_count
+        self.assertEqual(total_vote_count, 25)
 
     def test_creepiness(self):
         self.product_page.creepiness_value = 100
@@ -775,7 +775,7 @@ class TestProductPage(BuyersGuideTestMixin):
         self.product_page.creepiness_value = 0
         self.product_page.votes.set_votes([0, 0, 0, 0, 0])
         creepiness = self.product_page.creepiness
-        self.assertEqual(creepiness, 0)
+        self.assertEqual(creepiness, 50)
 
     def test_get_voting_json(self):
         self.product_page.creepiness_value = 60
@@ -783,8 +783,8 @@ class TestProductPage(BuyersGuideTestMixin):
         creepiness = self.product_page.creepiness
         self.assertEqual(creepiness, 4)
 
-        current_tally = self.product_page.current_tally
-        self.assertEqual(current_tally, 15)
+        total_vote_count = self.product_page.total_vote_count
+        self.assertEqual(total_vote_count, 15)
 
         # votes = self.product_page.votes.get_votes()
         data = json.loads(self.product_page.get_voting_json)
@@ -831,7 +831,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
         votes = self.product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 0])
-        self.assertEqual(self.product_page.current_tally, 1)
+        self.assertEqual(self.product_page.total_vote_count, 1)
         self.assertEqual(self.product_page.creepiness_value, 25)
 
         response = self.client.post(self.product_page.url, {
@@ -843,7 +843,7 @@ class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
         votes = self.product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 1])
-        self.assertEqual(self.product_page.current_tally, 2)
+        self.assertEqual(self.product_page.total_vote_count, 2)
         self.assertEqual(self.product_page.creepiness_value, 125)
 
     def test_bad_vote_value(self):
