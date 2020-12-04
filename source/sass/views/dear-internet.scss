@@ -44,14 +44,18 @@
   .plane-pathway-wrapper {
     --approx-cta-height: 1200px;
 
-    background-image: url(../_images/dear-internet/Plane+Path-Extended.svg);
+    background-image: url(../_images/dear-internet/Plane+Path-Extra-Extended.svg);
     background-repeat: no-repeat;
-    background-position: center 11rem;
+    background-position: center 15rem;
     background-size: 88% auto;
     height: calc(100% - var(--approx-cta-height));
 
+    @media (min-width: $bp-sm) {
+      background-position-y: 11rem;
+    }
+
     @media (min-width: $breakpoint) {
-      background-position-y: 20rem;
+      background-position-y: 21rem;
     }
   }
 
