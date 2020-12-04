@@ -189,7 +189,7 @@ class Command(BaseCommand):
                 product_dict = product.to_dict()
                 votes = product_dict.get('votes', None)
                 if votes:
-                    print(votes)
+                    self.debug_print(votes)
                     votes = votes.get('creepiness').get('vote_breakdown')
                     values = [x for x in votes.values()]
                     product_total = sum([x * ((i+1)*20-10) for i, x in enumerate(values)])
