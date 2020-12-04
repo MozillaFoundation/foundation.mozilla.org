@@ -15,7 +15,7 @@
   h1 {
     background: $light-red;
 
-    @include set-text-size(36px, 40px, 70px, 82px);
+    @include set-text-size(40px, 46px, 70px, 82px);
 
     @media (min-width: $bp-lg) {
       font-size: 112px;
@@ -207,10 +207,20 @@
     }
 
     img {
-      width: 80px;
+      --spacing-x: 1rem;
+
+      width: calc((100% - var(--spacing-x) * 2) / 3);
+
+      @media (min-width: $bp-sm) {
+        width: 80px;
+      }
 
       @media (min-width: $breakpoint) {
         width: 128px;
+      }
+
+      &.stamp {
+        margin: 0 var(--spacing-x);
       }
     }
   }
@@ -228,32 +238,32 @@
     }
   }
 
+  .share-button-group {
+    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+
+    &.faded {
+      opacity: 0;
+    }
+  }
+
+  @include style-colored-share-buttons(
+    $dark-blue,
+    "../_images/dear-internet/facebook-share.svg",
+    "../_images/dear-internet/twitter-share.svg",
+    "../_images/dear-internet/email-share.svg",
+    "../_images/dear-internet/link-share.svg",
+    "../_images/dear-internet/link-share-copied.svg"
+  );
+
+  .btn.btn-share {
+    background: $dear-internet-lilac;
+  }
+
   .sticky-side {
     position: sticky;
     top: 140px;
     margin-top: -32px;
-
-    .share-button-group {
-      transition: opacity 0.2s ease-in-out;
-      opacity: 1;
-
-      &.faded {
-        opacity: 0;
-      }
-    }
-
-    @include style-colored-share-buttons(
-      $dark-blue,
-      "../_images/dear-internet/facebook-share.svg",
-      "../_images/dear-internet/twitter-share.svg",
-      "../_images/dear-internet/email-share.svg",
-      "../_images/dear-internet/link-share.svg",
-      "../_images/dear-internet/link-share-copied.svg"
-    );
-
-    .btn.btn-share {
-      background: $dear-internet-lilac;
-    }
   }
 
   .letters {
@@ -289,8 +299,8 @@
     padding: calc(var(--padding-y) * 2) 0;
     background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg),
       url(../_images/dear-internet/Envelope-Blue1.svg),
-      url(../_images/dear-internet/Envelope-Blue2.svg),
-      url(../_images/dear-internet/Envelope-Red1.svg);
+      url(../_images/dear-internet/Envelope-Red1.svg),
+      url(../_images/dear-internet/Envelope-Blue2.svg);
     background-position: center center,
       calc(var(--envelope-width) / -2.5) var(--envelope-top-offset),
       center var(--envelope-top-offset),
@@ -305,8 +315,12 @@
       background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg);
     }
 
-    @media (min-width: 1650px) {
-      padding-top: calc(var(--padding-y) + 150px);
+    @media (min-width: $bp-xl) {
+      margin-top: 50px;
+    }
+
+    @media (min-width: 1500px) {
+      margin-top: 100px;
     }
 
     p {
