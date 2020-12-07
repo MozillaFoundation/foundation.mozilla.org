@@ -34,4 +34,9 @@ class Migration(migrations.Migration):
             name='votes',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='votes', to='wagtailpages.ProductPageVotes'),
         ),
+        migrations.AlterField(
+            model_name='productpage',
+            name='review_date',
+            field=models.DateField(default=django.utils.timezone.now, help_text='Review date of this product'),
+        ),
     ]
