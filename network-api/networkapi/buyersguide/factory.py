@@ -90,14 +90,8 @@ class ProductFactory(DjangoModelFactory):
     adult_content = Faker('boolean')
     uses_wifi = Faker('boolean')
     uses_bluetooth = Faker('boolean')
-
-    review_date = Faker(
-        'date_time_between_dates',
-        datetime_start=date(year=2020, month=11, day=1),
-        datetime_end=None,
-        tzinfo=timezone.utc
-    )
-
+review_date = Faker('date_time_between_dates',
+                        datetime_start=date(year=2020, month=11, day=1), datetime_end=None, tzinfo=timezone.utc)
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
     company = Faker('company')
 
