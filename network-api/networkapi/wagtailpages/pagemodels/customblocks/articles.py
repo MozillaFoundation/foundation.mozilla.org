@@ -32,6 +32,13 @@ class ArticleDoubleImageBlock(blocks.StructBlock):
 class ArticleFullWidthImageBlock(blocks.StructBlock):
 
     image = ImageChooserBlock()
+    image_height = blocks.IntegerBlock(
+        default=410,
+        help_text='A custom height for this image. The image will be 1400px wide '
+                  'by this height. Note: This may cause images to look pixelated. '
+                  'If the browser is wider than 1400px the height will scale vertically '
+                  'while the width scales horizontally'
+    )
     caption = blocks.RichTextBlock(
         label="Image caption",
         required=False,
