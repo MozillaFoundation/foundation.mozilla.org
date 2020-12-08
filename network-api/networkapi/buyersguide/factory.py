@@ -1,5 +1,5 @@
-from random import randint, random, choice
-from datetime import date, timezone
+from random import randint, random, choice, randrange, shuffle
+from datetime import date, timezone, timedelta
 from django.conf import settings
 from django.core.management import call_command
 
@@ -18,6 +18,7 @@ from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
     GeneralProductPage,
     ProductPage,
+    ProductPageVotes,
     ProductPagePrivacyPolicyLink,
     RelatedProducts,
     SoftwareProductPage,
@@ -89,8 +90,14 @@ class ProductFactory(DjangoModelFactory):
     adult_content = Faker('boolean')
     uses_wifi = Faker('boolean')
     uses_bluetooth = Faker('boolean')
-    review_date = Faker('date_time_between_dates',
-                        datetime_start=date(year=2020, month=11, day=1), datetime_end=None, tzinfo=timezone.utc)
+
+    review_date = Faker(
+        'date_time_between_dates',
+        datetime_start=date(year=2020, month=11, day=1),
+        datetime_end=None,
+        tzinfo=timezone.utc
+    )
+
     name = LazyAttribute(lambda o: ' '.join(o.product_words))
     company = Faker('company')
 
@@ -219,38 +226,63 @@ class BuyersGuidePageFactory(PageFactory):
         model = BuyersGuidePage
 
 
-class SoftwareProductPageFactory(PageFactory):
+class ProductPageVotesFactory(DjangoModelFactory):
 
     class Meta:
-        model = SoftwareProductPage
+        model = ProductPageVotes
+
+
+    vote_bins = LazyFunction(lambda: ','.join([str(randint(1,50)) for x in range(0,5)]))
+
+
+
+class ProductPageFactory(PageFactory):
+
+    class Meta:
+        model = ProductPage
 
     title = Faker('sentence')
-    handles_recordings_how = Faker('sentence')
-    recording_alert = LazyFunction(get_extended_yes_no_value)
-    recording_alert_helptext = Faker('sentence')
-    medical_privacy_compliant = Faker('boolean')
-    medical_privacy_compliant_helptext = Faker('sentence')
-    host_controls = Faker('sentence')
-    easy_to_learn_and_use = Faker('boolean')
-    easy_to_learn_and_use_helptext = Faker('sentence')
-    handles_recordings_how = Faker('sentence')
-    recording_alert = LazyFunction(get_extended_yes_no_value)
-    recording_alert_helptext = Faker('sentence')
-    medical_privacy_compliant = Faker('boolean')
-    medical_privacy_compliant_helptext = Faker('sentence')
-    host_controls = Faker('sentence')
-    easy_to_learn_and_use = Faker('boolean')
-    easy_to_learn_and_use_helptext = Faker('sentence')
+
+    privacy_ding = Faker('boolean')
+    adult_content = Faker('boolean')
+    uses_wifi = Faker('boolean')
+    uses_bluetooth = Faker('boolean')
+    company = Faker('company')
+    blurb = Faker('sentence')
+    product_url = Faker('url')
+    price = LazyAttribute(lambda _: randint(49, 1500))
+    worst_case = Faker('sentence')
+
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
 
+    # TODO: add image binding
 
-class GeneralProductPageFactory(PageFactory):
+    @post_generation
+    def set_random_review_date(self, create, extracted, **kwargs):
+        start_date = date(2020, 10, 1)
+        end_date = date(2021, 1, 30)
+        time_between_dates = end_date - start_date
+        days_between_dates = time_between_dates.days
+        random_number_of_days = randrange(days_between_dates)
+        self.review_date = start_date + timedelta(days=random_number_of_days)
+
+    @post_generation
+    def set_random_creepiness(self, create, extracted, **kwargs):
+        self.get_or_create_votes()
+        single_vote = [0,0,0,0,1]
+        shuffle(single_vote)
+        self.votes.set_votes(single_vote)
+        self.creepiness_value = randint(0, 100)
+
+
+
+
+class GeneralProductPageFactory(ProductPageFactory):
 
     class Meta:
         model = GeneralProductPage
 
-    title = Faker('sentence')
     camera_app = LazyFunction(get_extended_yes_no_value)
     camera_device = LazyFunction(get_extended_yes_no_value)
     microphone_app = LazyFunction(get_extended_yes_no_value)
@@ -271,17 +303,35 @@ class GeneralProductPageFactory(PageFactory):
     ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
     ai_helptext = Faker('sentence')
-    blurb = Faker('sentence')
-    company = Faker('company')
     email = Faker('email')
     live_chat = Faker('url')
     phone_number = Faker('phone_number')
-    price = Faker('random_number', digits=3)
-    product_url = Faker('url')
     twitter = '@TwitterHandle'
-    worst_case = Faker('sentence')
-    first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
-    last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
+
+
+class SoftwareProductPageFactory(ProductPageFactory):
+
+    class Meta:
+        model = SoftwareProductPage
+
+    price = 0
+
+    handles_recordings_how = Faker('sentence')
+    recording_alert = LazyFunction(get_extended_yes_no_value)
+    recording_alert_helptext = Faker('sentence')
+    medical_privacy_compliant = Faker('boolean')
+    medical_privacy_compliant_helptext = Faker('sentence')
+    host_controls = Faker('sentence')
+    easy_to_learn_and_use = Faker('boolean')
+    easy_to_learn_and_use_helptext = Faker('sentence')
+    handles_recordings_how = Faker('sentence')
+    recording_alert = LazyFunction(get_extended_yes_no_value)
+    recording_alert_helptext = Faker('sentence')
+    medical_privacy_compliant = Faker('boolean')
+    medical_privacy_compliant_helptext = Faker('sentence')
+    host_controls = Faker('sentence')
+    easy_to_learn_and_use = Faker('boolean')
+    easy_to_learn_and_use_helptext = Faker('sentence')
 
 
 class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):

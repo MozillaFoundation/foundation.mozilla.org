@@ -51,7 +51,7 @@ def sort_average(products):
 
 
 class ProductPageVotes(models.Model):
-    vote_bin = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
+    vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
 
     def set_votes(self, bin_list):
         """
@@ -59,12 +59,12 @@ class ProductPageVotes(models.Model):
         When setting votes, ensure there are only 5 bins (max)
         """
         bin_list = [str(x) for x in bin_list]
-        self.vote_bin = ','.join(bin_list[0:5])
+        self.vote_bins = ','.join(bin_list[0:5])
         self.save()
 
     def get_votes(self):
         """Pull the votes out of the database and split them. Convert to ints."""
-        votes = [int(x) for x in self.vote_bin.split(",")]
+        votes = [int(x) for x in self.vote_bins.split(",")]
         return votes
 
 
@@ -185,7 +185,8 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     )
     review_date = models.DateField(
         help_text='Review date of this product',
-        default=timezone.now
+        default=timezone.now,
+        null=True,
     )
     company = models.CharField(
         max_length=100,

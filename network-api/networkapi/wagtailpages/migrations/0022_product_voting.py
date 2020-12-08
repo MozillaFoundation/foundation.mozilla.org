@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='productpagevotes',
-            name='vote_bin',
+            name='vote_bins',
             field=models.CharField(default='0,0,0,0,0', max_length=50, validators=[django.core.validators.int_list_validator]),
         ),
         migrations.AddField(
@@ -37,6 +37,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='productpage',
             name='review_date',
-            field=models.DateField(default=django.utils.timezone.now, help_text='Review date of this product'),
+            field=models.DateField(null=True, default=django.utils.timezone.now, help_text='Review date of this product'),
         ),
     ]
