@@ -11,7 +11,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.models import BlogAuthor
-from networkapi.wagtailpages.pagemodels.base import Homepage
+from networkapi.wagtailpages.utils import set_main_site_nav_information
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
@@ -124,8 +124,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         # menu_items is required for zen_nav in the templates
-        context['menu_items'] = Homepage.objects.first().get_children().live().in_menu()
-        return context
+        return set_main_site_nav_information(self, context, 'Homepage')
 
 if not settings.LOAD_PUBLICATION_MODELS:
     PublicationPage.parent_page_types = []
