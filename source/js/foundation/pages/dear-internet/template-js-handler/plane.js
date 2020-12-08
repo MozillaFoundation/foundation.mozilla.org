@@ -1,4 +1,5 @@
 const SVG_WRAPPER = document.querySelector("#plane-pathway-wrapper");
+const SVG = document.querySelector("#plane-pathway-wrapper svg");
 const PATH = document.querySelector("#plane-pathway-wrapper #path");
 const PLANE = document.querySelector("#plane-pathway-wrapper #plane");
 
@@ -17,23 +18,17 @@ class Plane {
     let scrollDist =
       document.documentElement.scrollTop + document.body.scrollTop;
 
-    // total scroll height from page top to end of the SVG
-    let scrollHeight = SVG_WRAPPER.offsetTop + SVG_WRAPPER.scrollHeight;
-
-    // what percentage down the page are we?
-    let scrollPercentage = scrollDist / scrollHeight;
+    // what percentage has the user scrolled?
+    let scrollPercentage = scrollDist / SVG.scrollHeight;
 
     // find path length
     let pathLen = PATH.getTotalLength();
-
-    // scrollPercentage *= pathLen / (scrollHeight + document.documentElement.clientWidth);
 
     // get the position of a point at <scrollPercentage> along the path.
     let point = PATH.getPointAtLength(scrollPercentage * pathLen);
 
     // get the position of a point slightly ahead so we can calculate the angle we want the plane to rotate
     let pointAhead = PATH.getPointAtLength(
-      // (scrollPercentage + 1 / document.documentElement.scrollHeight) * pathLen
       (scrollPercentage + 0.0001) * pathLen
     );
 
@@ -81,8 +76,8 @@ class Plane {
   }
 
   init() {
-    if (!SVG_WRAPPER || !PATH || !PLANE) {
-      console.error(`some DOM elements are missing`);
+    if (!SVG_WRAPPER || !SVG || !PATH || !PLANE) {
+      console.error(`Some DOM elements are missing`);
       return;
     }
 

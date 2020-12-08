@@ -43,7 +43,23 @@
 
   #plane-pathway-wrapper {
     overflow: hidden;
-    top: 15rem;
+    top: 14rem;
+
+    @media (min-width: $bp-sm) {
+      top: 10rem;
+    }
+
+    @media (min-width: $bp-md) {
+      top: 19rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      top: 20rem;
+    }
+
+    @media (min-width: $bp-xl) {
+      top: 17rem;
+    }
 
     svg {
       width: 90%;
@@ -66,22 +82,6 @@
           }
         }
       }
-    }
-
-    @media (min-width: $bp-sm) {
-      top: 12rem;
-    }
-
-    @media (min-width: $bp-md) {
-      top: 19rem;
-    }
-
-    @media (min-width: $bp-lg) {
-      top: 20rem;
-    }
-
-    @media (min-width: $bp-xl) {
-      top: 17rem;
     }
   }
 
