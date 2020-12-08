@@ -126,5 +126,6 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         # menu_items is required for zen_nav in the templates
         return set_main_site_nav_information(self, context, 'Homepage')
 
+
 if not settings.LOAD_PUBLICATION_MODELS:
     PublicationPage.parent_page_types = []
