@@ -41,21 +41,47 @@
     right: 0;
   }
 
-  .plane-pathway-wrapper {
-    --approx-cta-height: 1200px;
+  #plane-pathway-wrapper {
+    overflow: hidden;
+    top: 15rem;
 
-    background-image: url(../_images/dear-internet/Plane+Path-Extra-Extended.svg);
-    background-repeat: no-repeat;
-    background-position: center 15rem;
-    background-size: 88% auto;
-    height: calc(100% - var(--approx-cta-height));
+    svg {
+      width: 90%;
+      height: auto;
 
-    @media (min-width: $bp-sm) {
-      background-position-y: 11rem;
+      #path {
+        @media (min-width: $bp-xl) {
+          stroke-width: 3;
+        }
+
+        @media (min-width: 1700px) {
+          stroke-width: 2;
+        }
+      }
+
+      #plane {
+        @media (min-width: $breakpoint) {
+          path {
+            stroke-width: 3;
+          }
+        }
+      }
     }
 
-    @media (min-width: $breakpoint) {
-      background-position-y: 21rem;
+    @media (min-width: $bp-sm) {
+      top: 12rem;
+    }
+
+    @media (min-width: $bp-md) {
+      top: 19rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      top: 20rem;
+    }
+
+    @media (min-width: $bp-xl) {
+      top: 17rem;
     }
   }
 
