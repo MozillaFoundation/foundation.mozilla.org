@@ -36,9 +36,6 @@ def create_env_file(env_file):
     with open(env_file, "r") as f:
         env_vars = f.read()
 
-    # We need to strip the quotes because Docker-compose considers them as part of the env value.
-    env_vars = env_vars.replace('"', "")
-
     # We also need to make sure to use the correct db values based on our docker settings.
     username = dbname = "postgres"
     with open("docker-compose.yml", "r") as d:
