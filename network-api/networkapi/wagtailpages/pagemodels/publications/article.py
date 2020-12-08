@@ -9,6 +9,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.models import BlogAuthor, PublicationPage
 from networkapi.wagtailpages.utils import get_richtext_titles
+from networkapi.wagtailpages.pagemodels.base import Homepage
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..article_fields import article_fields
 
@@ -88,9 +89,15 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         """
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
 
+    @property
+    def zen_nav(self):
+        return True
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         # Add get_titles to the page context. This is in get_context() because
         # we need access to the `request` object
         context['get_titles'] = get_richtext_titles(request, self.body, "content")
+        # menu_items is required for zen_nav in the templates
+        context['menu_items'] = Homepage.objects.first().get_children().live().in_menu()
         return context
