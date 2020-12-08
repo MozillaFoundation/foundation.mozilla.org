@@ -4,8 +4,10 @@
     It will disappear for non-desktop views.
     This is somewhat of an HTML display "hack"
   {% endcomment %}
-  <div class="row d-lg-flex justify-content-center no-gutters d-none">
-    <div class="col-lg-9 bg-white mt-minus-50"></div>
+  <div class="row d-lg-flex d-none mt-minus-50">
+    <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+      <div class="article-summary height-50 mt-0 mb-0 p-0 bg-white">&nbsp;</div>
+    </div>
   </div>
   <div class="row">
     <div class="pt-lg-0 pt-5 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center col-12 bg-white">
