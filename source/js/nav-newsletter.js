@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import JoinUs from "./components/join/join.jsx";
+import { ReactGA } from "../js/common";
 
 const elements = {
   primaryNav: `.primary-nav-container`,
@@ -137,6 +138,12 @@ class NavNewsletter {
     if (!this.visible) {
       event.stopPropagation();
       this.expandDesktopNewsletter();
+
+      ReactGA.event({
+        category: `signup`,
+        action: `newsletter tap`,
+        label: `newsletter button from header`,
+      });
     } else {
       this.closeDesktopNewsletter();
     }
@@ -170,6 +177,12 @@ class NavNewsletter {
     // make 'buttonMobile' the trigger to show newsletter section
     elements.buttonMobile.addEventListener("click", () => {
       this.expandMobileNewsletter();
+
+      ReactGA.event({
+        category: `signup`,
+        action: `newsletter tap`,
+        label: `newsletter button from header`,
+      });
     });
   }
 }
