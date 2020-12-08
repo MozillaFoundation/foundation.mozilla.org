@@ -80,6 +80,10 @@
   a {
     text-decoration: underline;
     color: $gray-60;
+
+    &:hover {
+      color: $blue;
+    }
   }
 }
 
