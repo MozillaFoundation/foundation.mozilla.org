@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import copyToClipboard from "../../copy-to-clipboard";
+import { ReactGA } from "../../common";
 
 export default class ShareButtonGroup extends React.Component {
   constructor(props) {
@@ -15,6 +16,15 @@ export default class ShareButtonGroup extends React.Component {
     if (this.props.whenLoaded) {
       this.props.whenLoaded();
     }
+  }
+
+  bindGaEvent(type = ``) {
+    ReactGA.event({
+      category: `social`,
+      action: `${type} share tap`,
+      label: `${type} share`,
+      transport: `beacon`,
+    });
   }
 
   renderFacebookButton() {
@@ -33,6 +43,7 @@ export default class ShareButtonGroup extends React.Component {
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
           link
         )}`}
+        onClick={() => this.bindGaEvent(`facebook`)}
       >
         {label}
       </a>
@@ -55,6 +66,7 @@ export default class ShareButtonGroup extends React.Component {
       <a
         className="btn btn-secondary btn-share twitter-share"
         href={`https://twitter.com/intent/tweet?text=${shareText}${link}`}
+        onClick={() => this.bindGaEvent(`twitter`)}
       >
         {label}
       </a>
@@ -77,6 +89,7 @@ export default class ShareButtonGroup extends React.Component {
       <a
         className="btn btn-secondary btn-share email-share"
         href={`mailto:?&body=${shareText}${link}`}
+        onClick={() => this.bindGaEvent(`email`)}
       >
         {label}
       </a>
@@ -90,6 +103,8 @@ export default class ShareButtonGroup extends React.Component {
     this.setState({
       linkCopied: true,
     });
+
+    this.bindGaEvent(`link`);
   }
 
   renderLinkButton() {
