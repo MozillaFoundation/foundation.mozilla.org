@@ -58,20 +58,13 @@ class Plane {
 
   findDefaultPlaneRotation() {
     if (PLANE.getAttribute("transform")) {
-      // example of "transform" attribute value:
+      // Get the first rotation value out of the transforms.
+      // Example of "transform" attribute value:
       // "translate(num num num) rotate(num num num)"
-      let regex = /\brotate\b\([-.0-9]+\s[-.0-9]+\s[-.0-9]+\)/g;
-
-      if (PLANE.getAttribute("transform").match(regex)) {
-        this.defaultPlaneRotation = PLANE.getAttribute("transform")
-          .match(regex)[0]
-          .replace("rotate", "")
-          .replace("(", "")
-          .replace(")", "")
-          .split(" ")[0]
-          .trim();
+      const match = PLANE.getAttribute("transform").match(/rotate\((\S+)[ )]/);
+      if (match) {
+        this.defaultPlaneRotation = parseFloat(match[1]);
       }
-      this.defaultPlaneRotation = parseFloat(this.defaultPlaneRotation);
     }
   }
 
@@ -83,9 +76,7 @@ class Plane {
 
     this.findDefaultPlaneRotation();
 
-    window.addEventListener("scroll", () => {
-      this.movePlane();
-    });
+    window.addEventListener("scroll", () => this.movePlane(), { passive: true });
 
     // set dash gap of the PATH to be the totaly length of PATH so it appears "invisible" at start
     PATH.setAttribute("stroke-dasharray", PATH.getTotalLength());
