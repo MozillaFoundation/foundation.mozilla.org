@@ -187,10 +187,13 @@ class Command(BaseCommand):
                 new_product_page.get_or_create_votes()
                 # Use .to_dict() to pull out the old aggregated votes
                 product_dict = product.to_dict()
-                if hasattr(product_dict, 'votes'):
-                    votes = product_dict['votes']['creepiness']['vote_breakdown']
+                votes = product_dict.get('votes', None)
+                if votes:
+                    self.debug_print(votes)
+                    votes = votes.get('creepiness').get('vote_breakdown')
                     values = [x for x in votes.values()]
-                    product_total = product_dict['votes']['total']
+                    product_total = sum([x * ((i+1)*20-10) for i, x in enumerate(values)])
+                    self.debug_print(f'\tOriginal votes: {values} (total score: {product_total})')
                 else:
                     # Default vote "bin"
                     values = [0, 0, 0, 0, 0]
@@ -199,6 +202,8 @@ class Command(BaseCommand):
             new_product_page.votes.set_votes(values)
             new_product_page.creepiness_value = product_total
             new_product_page.save()
+            self.debug_print(f'\tNew product votes: {new_product_page.get_or_create_votes()}')
+
             if not product.draft:
                 new_product_page.live = True
                 new_product_page.save_revision().publish()

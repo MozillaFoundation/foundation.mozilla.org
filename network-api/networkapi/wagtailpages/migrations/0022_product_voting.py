@@ -26,12 +26,17 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='productpagevotes',
-            name='vote_bin',
+            name='vote_bins',
             field=models.CharField(default='0,0,0,0,0', max_length=50, validators=[django.core.validators.int_list_validator]),
         ),
         migrations.AddField(
             model_name='productpage',
             name='votes',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='votes', to='wagtailpages.ProductPageVotes'),
+        ),
+        migrations.AlterField(
+            model_name='productpage',
+            name='review_date',
+            field=models.DateField(null=True, default=django.utils.timezone.now, help_text='Review date of this product'),
         ),
     ]

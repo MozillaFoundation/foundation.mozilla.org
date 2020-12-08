@@ -67,9 +67,9 @@
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
 
       {% for product in products %}
-        {% if product.is_current %}
+        {% if product.specific.is_current %}
 
-        <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.votes.creepiness.average }}">
+        <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.specific.creepiness }}">
           <div class="top-left-badge-container">
               {% if product.privacy_ding %}
               <img
