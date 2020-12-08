@@ -76,7 +76,9 @@ class Plane {
 
     this.findDefaultPlaneRotation();
 
-    window.addEventListener("scroll", () => this.movePlane(), { passive: true });
+    window.addEventListener("scroll", () => this.movePlane(), {
+      passive: true,
+    });
 
     // set dash gap of the PATH to be the totaly length of PATH so it appears "invisible" at start
     PATH.setAttribute("stroke-dasharray", PATH.getTotalLength());
