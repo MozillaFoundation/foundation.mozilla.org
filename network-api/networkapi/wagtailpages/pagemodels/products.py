@@ -186,7 +186,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
     review_date = models.DateField(
         help_text='Review date of this product',
         default=timezone.now,
-        null=True,
     )
     company = models.CharField(
         max_length=100,
