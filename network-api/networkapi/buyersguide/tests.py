@@ -547,6 +547,9 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
     def test_buyersguide_about_mss_view(self):
         self.about_url_test('min-security-view', 'about/meets-minimum-security-standards/', 'minimum_security')
 
+    def test_contest_page(self):
+        self.about_url_test('contest', 'about/contest/', 'contest')
+
     def test_buyersguide_category_route(self):
         # Missing category
         missing_category = 'missing-category-slug'
