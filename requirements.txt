@@ -25,7 +25,7 @@ django-redis==4.12.1      # via -r requirements.in
 django-storages==1.10.1   # via -r requirements.in
 django-taggit==1.2.0      # via wagtail
 django-treebeard==4.3.1   # via wagtail
-django==2.2.16            # via -r requirements.in, django-admin-sortable, django-cors-headers, django-csp, django-filter, django-modeltranslation, django-redis, django-storages, django-taggit, django-treebeard, djangorestframework, wagtail, wagtail-footnotes
+django==2.2.17            # via -r requirements.in, django-admin-sortable, django-cors-headers, django-csp, django-filter, django-modeltranslation, django-redis, django-storages, django-taggit, django-treebeard, djangorestframework, wagtail, wagtail-footnotes
 djangorestframework==3.12.1  # via -r requirements.in, wagtail
 draftjs-exporter==2.1.7   # via wagtail
 et-xmlfile==1.0.1         # via openpyxl
