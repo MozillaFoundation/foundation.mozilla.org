@@ -893,7 +893,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pagetype'] = 'about'
         context['pageTitle'] = pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Why to Use This Guide'
+            '*privacy not included') + ' - How to Use This Guide'
         return render(request, "about/how_to_use.html", context)
 
     @route(r'^about/why/$', name='about-why-view')
@@ -929,7 +929,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pagetype'] = 'about'
         context['pageTitle'] = pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Methodolofy'
+            '*privacy not included') + ' - Methodology'
         return render(request, "about/methodology.html", context)
 
     @route(r'^about/meets-minimum-security-standards/$', name='min-security-view')
@@ -938,7 +938,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pagetype'] = 'about'
         context['pageTitle'] = pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Meets Minimum Security Standards'
+            '*privacy not included') + ' - Minimum Security Standards'
         return render(request, "about/minimum_security.html", context)
 
     @route(r'^contest/$', name='contest')
@@ -947,7 +947,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pagetype'] = 'contest'
         context['pageTitle'] = pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Contest Rules'
+            '*privacy not included') + ' - Contest Terms and Conditions'
         return render(request, "contest.html", context)
 
     @route(r'^products/(?P<slug>[-\w\d]+)/$', name='product-view')
