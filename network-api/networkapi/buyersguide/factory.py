@@ -225,9 +225,7 @@ class ProductPageVotesFactory(DjangoModelFactory):
     class Meta:
         model = ProductPageVotes
 
-
-    vote_bins = LazyFunction(lambda: ','.join([str(randint(1,50)) for x in range(0,5)]))
-
+    vote_bins = LazyFunction(lambda: ','.join([str(randint(1, 50)) for x in range(0, 5)]))
 
 
 class ProductPageFactory(PageFactory):
@@ -264,12 +262,10 @@ class ProductPageFactory(PageFactory):
     @post_generation
     def set_random_creepiness(self, create, extracted, **kwargs):
         self.get_or_create_votes()
-        single_vote = [0,0,0,0,1]
+        single_vote = [0, 0, 0, 0, 1]
         shuffle(single_vote)
         self.votes.set_votes(single_vote)
         self.creepiness_value = randint(0, 100)
-
-
 
 
 class GeneralProductPageFactory(ProductPageFactory):
