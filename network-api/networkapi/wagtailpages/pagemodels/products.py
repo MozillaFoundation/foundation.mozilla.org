@@ -631,7 +631,7 @@ class SoftwareProductPage(ProductPage):
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
-        'General Product Details',
+        'Product Categories',
         [
             MultiFieldPanel(
                 [
@@ -788,7 +788,7 @@ class GeneralProductPage(ProductPage):
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
-        'General Product Details',
+        'Product Categories',
         [
             MultiFieldPanel(
                 [
@@ -819,6 +819,55 @@ class GeneralProductPage(ProductPage):
                 classname='collapsible',
             ),
         ]
+    )
+
+    content_panels = insert_panels_after(
+        content_panels,
+        'How does it use this data',
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('how_can_you_control_your_data'),
+                    FieldPanel('data_control_policy_is_bad'),
+                ],
+                heading='How can you control your data',
+                classname='collapsible',
+            ),
+            MultiFieldPanel(
+                [
+                    FieldPanel('company_track_record'),
+                    FieldPanel('track_record_is_bad'),
+                    FieldPanel('track_record_details'),
+                ],
+                heading='Company track record',
+                classname='collapsible'
+            ),
+            MultiFieldPanel(
+                [
+                    FieldPanel('offline_capable'),
+                    FieldPanel('offline_use_description'),
+                ],
+                heading='Offline use',
+                classname='collapsible'
+            ),
+        ],
+    )
+
+    content_panels = insert_panels_after(
+        content_panels,
+        'Security',
+        [
+            MultiFieldPanel(
+                [
+                    FieldPanel('uses_ai'),
+                    FieldPanel('ai_uses_personal_data'),
+                    FieldPanel('ai_is_transparent'),
+                    FieldPanel('ai_helptext'),
+                ],
+                heading='Artificial Intelligence',
+                classname='collapsible'
+            ),
+        ],
     )
 
     @property
