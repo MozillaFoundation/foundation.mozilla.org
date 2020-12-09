@@ -917,6 +917,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         self.template = "about/minimum_security.html"
         return self.serve(request)
 
+    @route(r'^about/contest/$', name='contest')
+    def about_contest(self, request):
+        self.template = "about/contest.html"
+        return self.serve(request)
+
     @route(r'^products/(?P<slug>[-\w\d]+)/$', name='product-view')
     def product_view(self, request, slug):
         # Find product by it's slug and redirect to the product page
