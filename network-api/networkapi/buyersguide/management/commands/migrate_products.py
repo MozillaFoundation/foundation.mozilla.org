@@ -114,6 +114,10 @@ class Command(BaseCommand):
                 self.debug_print("\t\t", field, " as ", getattr(product, field))
                 setattr(new_product_page, field, getattr(product, field))
 
+
+            self.debug_print(f"Product has image? {bool(product.image)}")
+            self.debug_print(f"Product has cloudinary image? {bool(product.cloudinary_image)}")
+
             # Get the image file field, and convert it into a WagtailImage object
             if product.image:
                 # Check if there is an image file. If there isn't one, don't try to copy the
