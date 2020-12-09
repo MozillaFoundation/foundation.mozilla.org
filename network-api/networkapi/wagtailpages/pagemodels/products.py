@@ -917,7 +917,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         self.template = "about/minimum_security.html"
         return self.serve(request)
 
-    @route(r'^about/contest/$', name='contest')
+    @route(r'^contest/$', name='contest')
     def about_contest(self, request):
         self.template = "about/contest.html"
         return self.serve(request)
