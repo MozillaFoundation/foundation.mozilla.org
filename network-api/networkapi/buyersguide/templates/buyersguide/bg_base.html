@@ -1,0 +1,107 @@
+{% extends "pages/base.html" %}
+
+{% load bg_nav_tags localization i18n static wagtailroutablepage_tags wagtailmetadata_tags %}
+
+{% get_current_language as lang_code %}
+
+{% block page_title %}{% if pageTitle %}{{ pageTitle }}{% else %}Mozilla - {% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included{% endblocktrans %}{% endif %}{% endblock %}
+
+
+{# TODO: consider using a different ga_identifier? #}
+
+
+{% block social_metadata %}
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ lang_code|to_opengraph_locale }}">
+  <meta property="og:title" content="{% trans "*Privacy Not Included: A Buyer’s Guide for Connected Products" context "*Privacy Not Included can be localized. This is a reference to the “*batteries not included” mention on toys." %}">
+  <meta property="wagtail:language" content="{{ lang_code }}">
+{% endblock %}
+
+
+{% block wagtail_metadata %}
+  {% meta_tags %}
+{% endblock %}
+
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,400i">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i,400i">
+{% endblock %}
+
+
+{% block icons %}
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "_images/favicons/apple-touch-icon-180x180@2x.png" %}">
+  <link rel="icon" type="image/png" sizes="196x196" href="{% static "_images/favicons/favicon-196x196@2x.png" %}">
+  <link rel="shortcut icon" href="{% static "_images/favicons/favicon.ico" %}">
+{% endblock %}
+
+
+{% block additional_head_elements %}
+  {% if web_monetization_pointer %}
+    <meta name="monetization" content="{{ web_monetization_pointer }}">
+  {% endif %}
+  <!-- TODO: determine if we still need this -->
+  <script>
+    var modernBrowser = (
+      'fetch' in window &&
+      'assign' in Object
+    );
+
+    if ( !modernBrowser ) {
+      var scriptElement = document.createElement('script');
+      scriptElement.async = false;
+      scriptElement.src = '{% static "_js/polyfills.compiled.js" %}';
+      document.head.appendChild(scriptElement);
+    }
+  </script>
+{% endblock %}
+
+
+{% block bodyclass %}pni{% endblock %}
+
+
+{% block script_bundle %}
+  <script src="{% static "_js/bg-main.compiled.js" %}" async defer></script>
+{% endblock %}
+
+
+{% block body_wrapped %}
+
+  <div class="primary-nav-container-wrapper">
+  {% include "buyersguide/primary_nav.html" %}
+  </div>
+
+  {% block hero %}{% endblock %}
+
+  {% block catgory_nav %}
+  {% include "../partials/multipage_nav_mobile.html" with pni_category_nav=True wrapper_classes="mt-0" %}
+  <nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block" title="{% trans "site navigation" context "Tooltip on menu items" %}">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          {% if pagetype == "product" or pagetype == "about" %}
+            <a class="multipage-link active" href="{{ page.url }}">{% trans "All" %}</a>
+          {% else %}
+            <a class="multipage-link {% if not category %} active{% endif %}" href="{{ page.url }}">{% trans "All" %}</a>
+          {% endif %}
+          {% for cat in categories %}
+            {% if cat.published_product_count > 0 %}
+              {% routablepageurl page 'category-view' cat.slug as cat_url %}
+              <a class="multipage-link {% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}{% if category == cat.slug %} active{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </nav>
+  {% endblock catgory_nav %}
+
+  <div class="underneath-screen-overlay">
+    <main class="main-content {% block main_content_class %}pb-5{% endblock %}">
+      {% block guts %}{% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+  </div>
+{% endblock %}
