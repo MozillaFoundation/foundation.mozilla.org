@@ -552,7 +552,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(url, 'contest/')
         response = self.client.get(self.bg.url + url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, f'contest.html')
+        self.assertTemplateUsed(response, 'contest.html')
 
     def test_buyersguide_category_route(self):
         # Missing category
