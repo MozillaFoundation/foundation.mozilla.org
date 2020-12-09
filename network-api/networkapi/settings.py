@@ -223,11 +223,8 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.highlights',
     'networkapi.milestones',
 
-    # wagtail localisation app
-    'wagtail_modeltranslation',
-    'wagtail_modeltranslation.makemigrations',
-    'wagtail_modeltranslation.migrate',
-
+    'wagtail_localize',
+    'wagtail_localize.locales',
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
     'networkapi.mozfest',
