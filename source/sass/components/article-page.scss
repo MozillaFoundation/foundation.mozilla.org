@@ -79,9 +79,9 @@
 
   a {
     text-decoration: underline;
-    color: $gray-60;
+    color: inherit;
 
-    &:hover {
+    @include hover-focus-active {
       color: $blue;
     }
   }
