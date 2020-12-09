@@ -114,7 +114,6 @@ class Command(BaseCommand):
                 self.debug_print("\t\t", field, " as ", getattr(product, field))
                 setattr(new_product_page, field, getattr(product, field))
 
-
             self.debug_print(f"Product has image? {bool(product.image)}")
             self.debug_print(f"Product has cloudinary image? {bool(product.cloudinary_image)}")
 
