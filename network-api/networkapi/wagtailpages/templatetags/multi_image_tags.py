@@ -18,6 +18,4 @@ def custom_image_height(image, height=410):
     If a height is not set (False or None) default to a 410px height as per the
     original design.
     """
-    if not height:
-        height = 410
     return image.get_rendition(f'fill-1400x{height}')
