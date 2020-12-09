@@ -7,7 +7,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0022_product_voting'),
+        ('wagtailpages', '0019_pni_snippet_conversion'),
     ]
 
     operations = [
