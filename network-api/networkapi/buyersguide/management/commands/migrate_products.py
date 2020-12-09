@@ -192,9 +192,9 @@ class Command(BaseCommand):
                 product_dict = product.to_dict()
                 votes = product_dict.get('votes', None)
                 if votes:
-                    self.debug_print(votes)
                     votes = votes.get('creepiness').get('vote_breakdown')
-                    values = [x for x in votes.values()]
+                    self.debug_print(votes)
+                    values =  [x for (i, x) in sorted(votes.items())]
                     product_total = sum([x * ((i+1)*20-10) for i, x in enumerate(values)])
                     self.debug_print(f'\tOriginal votes: {values} (total score: {product_total})')
                 else:
