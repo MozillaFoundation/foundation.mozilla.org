@@ -398,18 +398,20 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
-
 LANGUAGE_CODE = 'en'
 LANGUAGES = (
-    ('en', gettext_lazy('English')),
-    ('de', gettext_lazy('German')),
-    ('pt', gettext_lazy('Portuguese')),
-    ('es', gettext_lazy('Spanish')),
-    ('fr', gettext_lazy('French')),
-    ('fy-NL', gettext_lazy('Frisian')),
-    ('nl', gettext_lazy('Dutch')),
-    ('pl', gettext_lazy('Polish')),
+    ('en', 'English'),
+    ('de', 'German'),
+    ('pt', 'Portuguese'),
+    ('es', 'Spanish'),
+    ('fr', 'French'),
+    ('fy-NL', 'Frisian'),
+    ('nl', 'Dutch'),
+    ('pl', 'Polish'),
 )
+
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
+WAGTAIL_I18N_ENABLED = True
 
 TIME_ZONE = 'UTC'
 USE_I18N = True

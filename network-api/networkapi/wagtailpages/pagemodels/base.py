@@ -8,6 +8,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
+from wagtail_localize.fields import SynchronizedField
 
 from modelcluster.fields import ParentalKey
 
@@ -756,6 +757,10 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'ProductPage',
         'BuyersGuidePage',
     ]
+
+    override_translatable_fields = [
+            SynchronizedField('slug'),
+        ]
 
     def get_context(self, request):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
