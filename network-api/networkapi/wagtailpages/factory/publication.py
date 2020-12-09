@@ -1,8 +1,6 @@
 from datetime import timezone
 from random import randint, shuffle
 
-from django.conf import settings
-
 from wagtail.core.models import Collection
 from wagtail_factories import PageFactory, ImageFactory
 from networkapi.wagtailpages.models import ArticlePage, BlogAuthor, PublicationPage
