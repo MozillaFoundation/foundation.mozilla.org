@@ -34,8 +34,8 @@ class Command(BaseCommand):
             # Create the buyersguide page.
             buyersguide_page = BuyersGuidePage()
             buyersguide_page.title = '*Privacy not included'
-            buyersguide_page.slug = 'privacynotincluded-new'
-            buyersguide_page.slug_en = 'privacynotincluded-new'
+            buyersguide_page.slug = 'privacynotincluded'
+            buyersguide_page.slug_en = 'privacynotincluded'
             homepage = Homepage.objects.first()
             homepage.add_child(instance=buyersguide_page)
             buyersguide_page.save_revision().publish()

@@ -344,7 +344,7 @@ def generate(seed):
     pni_homepage = BuyersGuidePageFactory.create(
         parent=Homepage.objects.first(),
         title='* Privacy not included',
-        slug='privacynotincluded-new',
+        slug='privacynotincluded',
     )
 
     print('Generating 100 ProductPages')
