@@ -10,6 +10,7 @@ from taggit.models import Tag
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail_localize.fields import SynchronizedField
 
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
@@ -58,6 +59,10 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         FieldPanel('intro'),
         FieldPanel('page_size'),
     ]
+
+    override_translatable_fields = [
+            SynchronizedField('slug'),
+        ]
 
     def get_context(self, request):
         # bootstrap the render context
