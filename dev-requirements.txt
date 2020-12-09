@@ -7,7 +7,7 @@
 certifi==2020.4.5.1       # via -c requirements.txt, requests
 chardet==3.0.4            # via -c requirements.txt, requests
 coverage==5.1             # via coveralls
-coveralls==2.0.0          # via -r dev-requirements.in
+coveralls==2.2.0          # via -r dev-requirements.in
 docopt==0.6.2             # via coveralls
 flake8==3.8.4             # via -r dev-requirements.in
 idna==2.9                 # via -c requirements.txt, requests
@@ -16,6 +16,6 @@ mccabe==0.6.1             # via flake8
 ptvsd==4.3.2              # via -r dev-requirements.in
 pycodestyle==2.6.0        # via flake8
 pyflakes==2.2.0           # via flake8
-requests==2.24.0          # via -c requirements.txt, coveralls
+requests==2.25.0          # via -c requirements.txt, coveralls
 urllib3==1.25.9           # via -c requirements.txt, requests
 zipp==3.1.0               # via importlib-metadata
