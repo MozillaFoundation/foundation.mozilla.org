@@ -919,8 +919,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     @route(r'^contest/$', name='contest')
     def about_contest(self, request):
-        self.template = "about/contest.html"
-        return self.serve(request)
+        context = self.get_context(request)
+        context['pagetype'] = 'contest'
+        context['pageTitle'] = pgettext(
+            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+            '*privacy not included') + ' - Contest Rules'
+        return render(request, "contest.html", context)
 
     @route(r'^products/(?P<slug>[-\w\d]+)/$', name='product-view')
     def product_view(self, request, slug):
