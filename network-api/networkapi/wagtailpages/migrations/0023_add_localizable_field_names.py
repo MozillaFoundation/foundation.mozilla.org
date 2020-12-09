@@ -11,38 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_de',
-        ),
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_en',
-        ),
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_es',
-        ),
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_fr',
-        ),
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_fy_NL',
-        ),
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_nl',
-        ),
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_pl',
-        ),
-        migrations.RemoveField(
-            model_name='productpage',
-            name='price_pt',
-        ),
         migrations.AddField(
             model_name='generalproductpage',
             name='ai_helptext_de',
