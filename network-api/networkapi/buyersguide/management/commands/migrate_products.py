@@ -194,7 +194,7 @@ class Command(BaseCommand):
                 if votes:
                     votes = votes.get('creepiness').get('vote_breakdown')
                     self.debug_print(votes)
-                    values =  [x for (i, x) in sorted(votes.items())]
+                    values = [x for (i, x) in sorted(votes.items())]
                     product_total = sum([x * ((i+1)*20-10) for i, x in enumerate(values)])
                     self.debug_print(f'\tOriginal votes: {values} (total score: {product_total})')
                 else:
