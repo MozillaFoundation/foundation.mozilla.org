@@ -131,6 +131,40 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  // Publication page and article page tests
+
+  it(`Publication Page with Child Article Pages`, function () {
+    cy.visit(`/en/publication-page-with-child-article-pages`);
+    cy.window().its(`main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  it(`Publication Page with Child Chapter Pages`, function () {
+    cy.visit(`/en/publication-page-with-chapter-pages`);
+    cy.window().its(`main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  it(`Publication Page as Chapter Page`, function () {
+    cy.visit(
+      `/en/publication-page-with-chapter-pages/fixed-title-chapter-page`
+    );
+    cy.window().its(`main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
+  it(`Article Page`, function () {
+    cy.visit(
+      `/en/publication-page-with-chapter-pages/fixed-title-chapter-page/fixed-title-article-page`
+    );
+    cy.window().its(`main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
+
   // Pages specific to the "Privacy Not Included" Buyers Guide
 
   it(`PNI homepage`, function () {
@@ -160,6 +194,8 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.wait(500);
     cy.percySnapshot();
   });
+
+  // Other pages
 
   it(`Styleguide page`, function () {
     cy.visit(`/en/style-guide/`);
