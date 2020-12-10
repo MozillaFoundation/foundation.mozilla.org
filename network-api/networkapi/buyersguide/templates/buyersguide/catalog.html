@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load env cloudinary i18n static wagtailroutablepage_tags wagtailimages_tags %}
+{% load env cloudinary i18n static wagtailimages_tags %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
@@ -83,7 +83,7 @@
 
           {% include "../fragments/adult_content_badge.html" with product=product %}
 
-          <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% routablepageurl page 'product-view' product.slug %}">
+          <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{{ product.url }}">
               <img
                 class="product-thumbnail"
                 {% if USE_CLOUDINARY %}
@@ -97,7 +97,7 @@
           </a>
 
           <figcaption class="d-block mt-md-2 text-left">
-            <a class="product-links" href="{% routablepageurl page 'product-view' product.slug %}">
+            <a class="product-links" href="{{ product.url }}">
               <div class="product-company body-small">{{product.company}}</div>
               <div class="product-name body">{{product.title}}</div>
             </a>
