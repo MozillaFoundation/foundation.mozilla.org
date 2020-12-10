@@ -10,6 +10,7 @@ from django.db import Error, models
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import pgettext
 
 from modelcluster.fields import ParentalKey
@@ -959,22 +960,32 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
+        context = self.get_context(request, bypass_products=True)
+        slug = slugify(slug)
+
         # If getting by slug fails, also try to get it by name.
         try:
             category = BuyersGuideProductCategory.objects.get(slug=slug)
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
-        products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
-        products = sort_average(products)
-        products = cache.get_or_set('sorted_product_dicts', products, 86400)
+        authenticated = request.user.is_authenticated
+        key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
+        products = cache.get(key)
 
-        context = self.get_context(request)
+        if products is None:
+            products = ProductPage.objects.filter(product_categories__category__in=[category])
+            if not authenticated:
+                products = products.live()
+            products = sort_average(products)
+            products = cache.get_or_set(key, products, 86400)
+
         context['category'] = category.slug
         context['products'] = products
         context['pageTitle'] = pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
                 '*privacy not included') + f' - {category}'
+
         return render(request, "buyersguide/category_page.html", context)
 
     def get_sitemap_urls(self, request):
@@ -1010,13 +1021,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        if request.user.is_authenticated:
-            products = ProductPage.objects.all()
-        else:
-            products = ProductPage.objects.live()
 
-        products = sort_average(products)
-        products = cache.get_or_set('sorted_product_dicts', products, 86400)
+        authenticated = request.user.is_authenticated
+        key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
+        products = cache.get(key)
+
+        if not kwargs.get('bypass_products', False) and products is None:
+            products = ProductPage.objects.all()
+            if not authenticated:
+                products = products.live()
+            products = sort_average(products)
+            products = cache.get_or_set(key, products, 86400)
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
