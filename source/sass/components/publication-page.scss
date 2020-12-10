@@ -87,6 +87,10 @@
   @include set-text-size(16px, 24px);
   margin-bottom: 96px;
   margin-top: 49px;
+
+  p {
+    font-weight: 300;
+  }
 }
 
 @media (max-width: $bp-sm) {
