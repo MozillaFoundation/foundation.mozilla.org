@@ -43,6 +43,9 @@ from .pagemodels.base import (
     PartnerLogos,
 )
 
+from networkapi.buyersguide.pagemodels.product_category import BuyersGuideProductCategory
+from networkapi.buyersguide.pagemodels.privacy import ProductPrivacyPolicyLink
+
 from .donation_modal import DonationModal
 
 from modeltranslation.translator import TranslationOptions
@@ -284,8 +287,10 @@ class GeneralProductPageTR(TranslationOptions):
     fields = (
         'personal_data_collected',
         'biometric_data_collected',
+        'social_data_collected',
         'how_can_you_control_your_data',
         'track_record_details',
+        'offline_use_description',
         'ai_helptext',
     )
 
@@ -305,3 +310,15 @@ class DearInternetPageTR(TranslationOptions):
         'cta_button_text',
         'cta_button_link'
     }
+
+
+@register(BuyersGuideProductCategory)
+class BuyersGuideProductCategoryTR(TranslationOptions):
+    fields = (
+        'name',
+    )
+
+
+@register(ProductPrivacyPolicyLink)
+class ProductPrivacyPolicyLinkTR(TranslationOptions):
+    fields = ('label',)
