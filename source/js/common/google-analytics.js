@@ -42,8 +42,11 @@ const init = () => {
   }
 
   if (!DO_NOT_TRACK) {
+    // Disable pageview event, but keep all the regular events for now
+    // SEE: https://github.com/mozilla/foundation.mozilla.org/issues/5849
     ReactGA.initialize(gaIdentifier);
-    ReactGA.pageview(window.location.pathname);
+
+    // ReactGA.pageview(window.location.pathname);
 
     (function (w, d, s, l, i) {
       w[l] = w[l] || [];
