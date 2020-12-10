@@ -10,6 +10,7 @@ from django.db import Error, models
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import pgettext
 
 from modelcluster.fields import ParentalKey
@@ -959,15 +960,20 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
+        slug = slugify(slug)
+
         # If getting by slug fails, also try to get it by name.
         try:
             category = BuyersGuideProductCategory.objects.get(slug=slug)
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
-        products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
-        products = sort_average(products)
-        products = cache.get_or_set('sorted_product_dicts', products, 86400)
+        key = f'cat_product_dicts_{slug}'
+        products = cache.get(key)
+        if products is None:
+            products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
+            products = sort_average(products)
+            products = cache.set(key, products, 86400)
 
         context = self.get_context(request)
         context['category'] = category.slug
@@ -1010,13 +1016,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        if request.user.is_authenticated:
-            products = ProductPage.objects.all()
-        else:
-            products = ProductPage.objects.live()
 
-        products = sort_average(products)
-        products = cache.get_or_set('sorted_product_dicts', products, 86400)
+        authenticated = request.user.is_authenticated
+        key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
+        products = cache.get(key)
+
+        if products is None:
+            products = ProductPage.objects.all() if authenticated else ProductPage.objects.live()
+            products = sort_average(products)
+            products = cache.set(key, products, 86400)
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
