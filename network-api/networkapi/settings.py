@@ -76,6 +76,8 @@ env = environ.Env(
     USE_CLOUDINARY=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
+    WAGTAILLOCALIZE_PONTOON_GIT_URL=(str, None),
+    WAGTAILLOCALIZE_PONTOON_GIT_CLONE_DIR=(str, None),
     WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
@@ -158,6 +160,11 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
 USE_S3 = env('USE_S3')
 USE_CLOUDINARY = env('USE_CLOUDINARY')
 
+   # Pontoon settings
+WAGTAILLOCALIZE_GIT_SYNC_MANAGER_CLASS = 'networkapi.pontoon.CustomSyncManager'
+WAGTAILLOCALIZE_GIT_URL = env('WAGTAILLOCALIZE_PONTOON_GIT_URL')
+WAGTAILLOCALIZE_GIT_CLONE_DIR = env('WAGTAILLOCALIZE_PONTOON_GIT_CLONE_DIR')
+
 # Detect if Django is running normally, or in test mode through "manage.py test"
 TESTING = 'test' in sys.argv
 
@@ -225,6 +232,7 @@ INSTALLED_APPS = list(filter(None, [
 
     'wagtail_localize',
     'wagtail_localize.locales',
+    'wagtail_localize_git',
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
     'networkapi.mozfest',
@@ -339,6 +347,20 @@ if env('REDIS_URL'):
             }
         }
     }
+
+    RQ_QUEUES = {
+        'default': {
+            'URL': env('REDIS_URL'),
+            'DEFAULT_TIMEOUT': 500
+        },
+        # Must be a separate queue as it's limited to one item at a time
+        'wagtail_localize_pontoon.sync': {
+            'URL': env('REDIS_URL'),
+            'DEFAULT_TIMEOUT': 500
+        }
+    }
+
+    REDIS_URL = env('REDIS_URL')
 else:
     CACHES = {
         'default': {

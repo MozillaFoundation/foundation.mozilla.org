@@ -30,6 +30,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/:delegated
 
+  redis:
+    image: redis
+    container_name: 'redisfomo'
+    ports:
+      - "6380:6379"
+
   backend:
     build:
       context: .
@@ -45,6 +51,7 @@ services:
       - dockerpythonvenv:/app/dockerpythonvenv/:delegated
     depends_on:
       - postgres
+      - redis
       - watch-static-files
 
 volumes:
