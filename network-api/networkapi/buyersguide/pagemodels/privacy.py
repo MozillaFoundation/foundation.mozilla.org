@@ -4,12 +4,13 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable
 from wagtail.snippets.models import register_snippet
+from wagtail.admin.edit_handlers import FieldPanel
 
 from .products.base import Product
 
 
 @register_snippet
-class ProductPrivacyPolicyLink(Orderable, models.Model):
+class ProductPrivacyPolicyLink(Orderable):
     product = ParentalKey(
         Product,
         related_name='privacy_policy_links',
@@ -26,6 +27,12 @@ class ProductPrivacyPolicyLink(Orderable, models.Model):
         help_text='Privacy policy URL',
         blank=True
     )
+
+    panels = [
+        FieldPanel("product"),
+        FieldPanel("label"),
+        FieldPanel("url"),
+    ]
 
     def __str__(self):
         return f'{self.product.name}: {self.label} ({self.url})'

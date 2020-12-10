@@ -414,10 +414,10 @@ class BuyersGuideViewTest(TestCase):
         Test that the category view returns a 200 for both slug and name URLs
         """
         response = self.client.get('/en/privacynotincluded/categories/Smart%20Home/')
-        self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by name')
+        self.assertEqual(response.status_code, 200, 'The category "Smart Home" should work by name')
 
         response = self.client.get('/en/privacynotincluded/categories/smart-home/')
-        self.assertEqual(response.status_code, 200, 'The category "Smarth Home" should work by slug')
+        self.assertEqual(response.status_code, 200, 'The category "Smart Home" should work by slug')
 
     def test_drive_by_clear_cache(self):
         """
@@ -451,13 +451,13 @@ class BuyersGuideViewTest(TestCase):
 class ProductTests(TestCase):
     def test_product_slug(self):
         p = GeneralProduct.objects.create(name='this name should get slugified', review_date=date.today())
-        self.assertEqual(p.slug, slugify(p.name))
+        self.assertEqual(p.slug, slugify(p.name_en))
 
     def name_change_changes_slug(self):
         p = GeneralProduct.objects.create(name='this will change', review_date=date.today())
         p.name = 'name changed'
         p.save()
-        self.assertEqual(p.slug, slugify(p.name))
+        self.assertEqual(p.slug, slugify(p.name_en))
 
 
 class BuyersGuideTestMixin(WagtailPageTests):
