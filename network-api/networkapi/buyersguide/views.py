@@ -8,6 +8,7 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import pgettext
+from django.utils.text import slugify
 
 from rest_framework.decorators import api_view, parser_classes, throttle_classes, permission_classes
 from rest_framework.parsers import JSONParser
@@ -85,6 +86,8 @@ def buyersguide_home(request):
 
 @redirect_to_default_cms_site
 def category_view(request, slug):
+    slug = slugify(slug)
+
     # If getting by slug fails, also try to get it by name.
     try:
         category = BuyersGuideProductCategory.objects.get(slug=slug)
