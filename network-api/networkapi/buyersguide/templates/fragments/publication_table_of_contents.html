@@ -17,9 +17,7 @@
           {% for child in page.get_children.live %}
             <div class="row publication-row pt-3 pb-sm-4 pb-0">
               <div class="col-auto">
-                <div class="publication-chapter-number">
-                  {{ forloop.counter }}
-                </div>
+                <div class="publication-chapter-number"></div>
               </div>
               <div class="col-8 ml-sm-3{% if not child.get_children_count %} d-flex align-items-center{% endif %}">
                 <h3 class="{% if child.get_children_count %}publication-chapter-title{% else %}m-0 {% endif %}">
