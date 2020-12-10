@@ -284,8 +284,10 @@ class GeneralProductPageTR(TranslationOptions):
     fields = (
         'personal_data_collected',
         'biometric_data_collected',
+        'social_data_collected',
         'how_can_you_control_your_data',
         'track_record_details',
+        'offline_use_description',
         'ai_helptext',
     )
 
