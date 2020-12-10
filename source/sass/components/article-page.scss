@@ -29,20 +29,24 @@
   top: 20px;
 }
 
-.article-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
 .article-summary-link {
+  --spacing: 10px;
+
   margin-top: 17px;
-  flex-basis: 50%;
+  flex-basis: calc(50% - var(--spacing));
   flex-grow: 0;
   flex-shrink: 0;
 
-  &:hover {
-    color: $gray-60;
+  &:nth-child(odd) {
+    margin-right: var(--spacing);
+  }
+
+  &:nth-child(even) {
+    margin-left: var(--spacing);
+  }
+
+  @include hover-focus-active {
+    color: inherit;
   }
 }
 
