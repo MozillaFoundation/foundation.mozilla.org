@@ -460,7 +460,7 @@ class Product(ClusterableModel):
         return model_dict
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name_en if self.name_en else self.name)
+        self.slug = slugify(self.name)
         models.Model.save(self, *args, **kwargs)
 
     def __str__(self):
