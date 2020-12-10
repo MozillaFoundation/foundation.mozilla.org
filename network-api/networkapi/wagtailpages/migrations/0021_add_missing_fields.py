@@ -90,4 +90,44 @@ class Migration(migrations.Migration):
             name='social_data_collected_pt',
             field=models.TextField(blank=True, help_text='What kind of social data does this product collect?', max_length=5000, null=True),
         ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_de',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_en',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_es',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_fr',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_fy_NL',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_nl',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_pl',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='label_pt',
+            field=models.CharField(help_text='Label for this link on the product page', max_length=500, null=True),
+        ),
     ]

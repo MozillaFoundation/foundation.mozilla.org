@@ -29,10 +29,13 @@ from .models import (
     Signup,
 
     # Product Pages
-    BuyersGuidePage,
-    GeneralProductPage,
     ProductPage,
     SoftwareProductPage,
+    GeneralProductPage,
+    BuyersGuidePage,
+
+    # Product Page related
+    ProductPagePrivacyPolicyLink,
 
     # DEPRECATED
     PeoplePage,
@@ -295,6 +298,13 @@ class GeneralProductPageTR(TranslationOptions):
 @register(BuyersGuidePage)
 class BuyersGuidePageTR(TranslationOptions):
     fields = ()
+
+
+@register(ProductPagePrivacyPolicyLink)
+class ProductPagePrivacyPolicyLinkTR(TranslationOptions):
+    fields = (
+        'label',
+    )
 
 
 @register(DearInternetPage)
