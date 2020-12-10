@@ -85,6 +85,7 @@ from .pagemodels.dear_internet import (
 )
 
 from .pagemodels.products import (
+    BuyersGuidePage,
     GeneralProductPage,
     ProductPage,
     SoftwareProductPage
@@ -100,6 +101,7 @@ __all__ = [
     BlogAuthor,
     BlogAuthors,
     BlogPageCategory,
+    BuyersGuidePage,
     CTA,
     CampaignIndexPage,
     CampaignPage,
