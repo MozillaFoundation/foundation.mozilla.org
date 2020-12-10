@@ -29,7 +29,7 @@
                 </h3>
                 {% for grandchild in child.get_children.live %}
                   <div class="row d-sm-flex d-none">
-                    <h4 class="col-12 child-pages-children-title body pl-5">
+                    <h4 class="col-11 offset-1 child-pages-children-title body">
                       <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
                         {{ grandchild.title }}
                       </a>
