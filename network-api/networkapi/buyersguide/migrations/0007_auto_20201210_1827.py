@@ -50,4 +50,9 @@ class Migration(migrations.Migration):
             name='name_pt',
             field=models.CharField(max_length=100, null=True),
         ),
+        migrations.AlterField(
+            model_name='buyersguideproductcategory',
+            name='slug',
+            field=models.SlugField(blank=True, help_text='A URL-friendly version of the category name. This is an auto-generated field.'),
+        ),
     ]
