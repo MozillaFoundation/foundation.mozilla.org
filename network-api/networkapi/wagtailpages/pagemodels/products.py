@@ -969,10 +969,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
-        key = f'cat_product_dicts_{slug}'
+        authenticated = request.user.is_authenticated
+        key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
         products = cache.get(key)
+
         if products is None:
-            products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
+            products = ProductPage.objects.filter(product_categories__category__in=[category])
+            if not authenticated:
+                products = products.live()
             products = sort_average(products)
             products = cache.get_or_set(key, products, 86400)
 
@@ -1023,7 +1027,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         products = cache.get(key)
 
         if not kwargs.get('bypass_products', False) and products is None:
-            products = ProductPage.objects.all() if authenticated else ProductPage.objects.live()
+            products = ProductPage.objects.all()
+            if not authenticated:
+                products = products.live()
             products = sort_average(products)
             products = cache.get_or_set(key, products, 86400)
 
