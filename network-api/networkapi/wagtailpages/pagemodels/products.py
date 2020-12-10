@@ -960,6 +960,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
+        context = self.get_context(request, bypass_products=True)
         slug = slugify(slug)
 
         # If getting by slug fails, also try to get it by name.
@@ -973,14 +974,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         if products is None:
             products = ProductPage.objects.filter(product_categories__category__in=[category]).live()
             products = sort_average(products)
-            products = cache.set(key, products, 86400)
+            products = cache.get_or_set(key, products, 86400)
 
-        context = self.get_context(request)
         context['category'] = category.slug
         context['products'] = products
         context['pageTitle'] = pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
                 '*privacy not included') + f' - {category}'
+
         return render(request, "buyersguide/category_page.html", context)
 
     def get_sitemap_urls(self, request):
@@ -1021,10 +1022,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
         products = cache.get(key)
 
-        if products is None:
+        if not kwargs.get('bypass_products', False) and products is None:
             products = ProductPage.objects.all() if authenticated else ProductPage.objects.live()
             products = sort_average(products)
-            products = cache.set(key, products, 86400)
+            products = cache.get_or_set(key, products, 86400)
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
