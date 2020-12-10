@@ -5,10 +5,6 @@
  * PublicationPage is the most parent PublicationPage
  */
 
-.publication-hero-subtitle {
-  font-family: $font-family-sans-serif !important;
-}
-
 .publication-hero-file-size {
   color: $gray-40;
   @include set-text-size(12px, 16px);
