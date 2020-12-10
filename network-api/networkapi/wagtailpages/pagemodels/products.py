@@ -1015,6 +1015,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         else:
             products = ProductPage.objects.live()
 
+        products = products.specific()  # Get child classes so the template doesn't have to
         products = sort_average(products)
         products = cache.get_or_set('sorted_product_dicts', products, 86400)
 
