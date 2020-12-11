@@ -65,11 +65,10 @@
 
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
-
       {% for product in products %}
-        {% if product.specific.is_current %}
+        {% if product.is_current %}
 
-        <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.specific.creepiness }}">
+        <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness }}">
           <div class="top-left-badge-container">
               {% if product.privacy_ding %}
               <img
@@ -89,7 +88,7 @@
                 {% if USE_CLOUDINARY %}
                   src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
                 {% else %}
-                  {% image product.specific.image fill-600x600 as img %}
+                  {% image product.image fill-600x600 as img %}
                   src="{{ img.url }}"
                 {% endif %}
                 alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
@@ -107,6 +106,7 @@
         </figure>
         {% endif %}
       {% endfor %}
+
     </div>
 
     <div id="product-filter-no-results-notice" class="d-none text-center my-5 py-5">

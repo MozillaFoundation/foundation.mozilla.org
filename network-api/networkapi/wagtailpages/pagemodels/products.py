@@ -977,6 +977,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             products = ProductPage.objects.filter(product_categories__category__in=[category])
             if not authenticated:
                 products = products.live()
+            products = products.specific()                
             products = sort_average(products)
             products = cache.get_or_set(key, products, 86400)
 
@@ -1030,6 +1031,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             products = ProductPage.objects.all()
             if not authenticated:
                 products = products.live()
+            products = products.specific()
             products = sort_average(products)
             products = cache.get_or_set(key, products, 86400)
 
