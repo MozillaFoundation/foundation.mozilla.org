@@ -43,6 +43,24 @@ else:
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
+# This is a hardcoded date that we update every time we release a new version of PNI
+public_cutoff_date = datetime(2020, 10, 29)
+
+
+def get_product_subset(authenticated, key, products):
+    """
+    filter a queryset based on our current cutoff date,
+    as well as based on whether a user is authenticated
+    to the system or not (authenticated users get too
+    see all products, including draft products)
+    """
+    products = products.filter(review_date__gte=public_cutoff_date)
+    if not authenticated:
+        products = products.live()
+    products = products.specific()
+    products = sort_average(products)
+    return cache.get_or_set(key, products, 86400)
+
 
 def sort_average(products):
     """
@@ -474,13 +492,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
             heading='Related Products',
         ),
     ]
-
-    @property
-    def is_current(self):
-        d = self.review_date
-        review = datetime(d.year, d.month, d.day)
-        cutoff = datetime(2020, 10, 29)
-        return cutoff < review
 
     @property
     def product_type(self):
@@ -974,12 +985,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         products = cache.get(key)
 
         if products is None:
-            products = ProductPage.objects.filter(product_categories__category__in=[category])
-            if not authenticated:
-                products = products.live()
-            products = products.specific()
-            products = sort_average(products)
-            products = cache.get_or_set(key, products, 86400)
+            products = get_product_subset(
+                authenticated,
+                key,
+                ProductPage.objects.filter(product_categories__category__in=[category])
+            )
 
         context['category'] = category.slug
         context['products'] = products
@@ -1028,12 +1038,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         products = cache.get(key)
 
         if not kwargs.get('bypass_products', False) and products is None:
-            products = ProductPage.objects.all()
-            if not authenticated:
-                products = products.live()
-            products = products.specific()
-            products = sort_average(products)
-            products = cache.get_or_set(key, products, 86400)
+            products = get_product_subset(
+                authenticated,
+                key,
+                ProductPage.objects.all()
+            )
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
