@@ -51,7 +51,7 @@ def get_product_subset(authenticated, key, products):
     """
     filter a queryset based on our current cutoff date,
     as well as based on whether a user is authenticated
-    to the system or not (authenticated users get too
+    to the system or not (authenticated users get to
     see all products, including draft products)
     """
     products = products.filter(review_date__gte=public_cutoff_date)
