@@ -29,10 +29,13 @@ from .models import (
     Signup,
 
     # Product Pages
-    BuyersGuidePage,
-    GeneralProductPage,
     ProductPage,
     SoftwareProductPage,
+    GeneralProductPage,
+    BuyersGuidePage,
+
+    # Product Page related
+    ProductPagePrivacyPolicyLink,
 
     # DEPRECATED
     PeoplePage,
@@ -284,8 +287,10 @@ class GeneralProductPageTR(TranslationOptions):
     fields = (
         'personal_data_collected',
         'biometric_data_collected',
+        'social_data_collected',
         'how_can_you_control_your_data',
         'track_record_details',
+        'offline_use_description',
         'ai_helptext',
     )
 
@@ -293,6 +298,13 @@ class GeneralProductPageTR(TranslationOptions):
 @register(BuyersGuidePage)
 class BuyersGuidePageTR(TranslationOptions):
     fields = ()
+
+
+@register(ProductPagePrivacyPolicyLink)
+class ProductPagePrivacyPolicyLinkTR(TranslationOptions):
+    fields = (
+        'label',
+    )
 
 
 @register(DearInternetPage)
