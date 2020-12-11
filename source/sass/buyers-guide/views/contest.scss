@@ -1,37 +1,39 @@
-ol.roman-list {
-  counter-reset: item-numbering;
-  padding: 0 2em 0 2em;
+#view-contest {
+  ol.roman-list {
+    counter-reset: item-numbering;
+    padding: 0 2em 0 2em;
 
-  li {
-    position: relative;
-    list-style: none;
-    text-indent: 0;
-    padding-left: 2em;
+    li {
+      position: relative;
+      list-style: none;
+      text-indent: 0;
+      padding-left: 2em;
 
-    &:before {
-      content: "(" counter(item-numbering, lower-roman) ") ";
-      counter-increment: item-numbering;
-      position: absolute;
-      left: 0;
+      &:before {
+        content: "(" counter(item-numbering, lower-roman) ") ";
+        counter-increment: item-numbering;
+        position: absolute;
+        left: 0;
+      }
     }
   }
-}
 
-ol,
-ul {
-  li + li {
+  ol,
+  ul {
+    li + li {
+      margin-top: 1em;
+    }
+  }
+
+  section {
+    & + section {
+      margin-top: 4em;
+    }
+  }
+
+  img.creep-o-meter {
+    display: block;
     margin-top: 1em;
+    width: 470px;
   }
-}
-
-section {
-  & + section {
-    margin-top: 4em;
-  }
-}
-
-img.creep-o-meter {
-  display: block;
-  margin-top: 1em;
-  width: 470px;
 }
