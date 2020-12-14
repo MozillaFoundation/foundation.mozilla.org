@@ -356,8 +356,7 @@ body.catalog {
     z-index: 10;
 
     height: calc(
-      var(--sticky-height) + var(--creep-o-height) +
-        var(--mobile-creep-buffer)
+      var(--sticky-height) + var(--creep-o-height) + var(--mobile-creep-buffer)
     );
 
     &.creep-o-meter-moved {

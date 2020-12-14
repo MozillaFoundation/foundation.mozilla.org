@@ -1,3 +1,5 @@
+from unittest import skip
+
 import json
 import logging
 
@@ -42,6 +44,7 @@ from wagtail.tests.utils import WagtailPageTests
 VOTE_URL = reverse('product-vote')
 
 
+@skip("TODO: TO BE REMOVED")
 class ManagementCommandTest(APITestCase):
 
     def test_votes_before_management_command_has_run(self):
@@ -124,6 +127,7 @@ class ManagementCommandTest(APITestCase):
         })
 
 
+@skip("TODO: TO BE REMOVED")
 class BuyersGuideVoteTest(APITestCase):
 
     def test_can_vote_range(self):
@@ -334,6 +338,7 @@ class BuyersGuideVoteTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
 
+@skip("TODO: TO BE REMOVED")
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class BuyersGuideViewTest(TestCase):
     def setUp(self):
@@ -447,6 +452,7 @@ class BuyersGuideViewTest(TestCase):
             self.client.logout()
 
 
+@skip("TODO: TO BE REMOVED")
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class ProductTests(TestCase):
     def test_product_slug(self):
@@ -460,6 +466,7 @@ class ProductTests(TestCase):
         self.assertEqual(p.slug, slugify(p.name))
 
 
+@skip("TODO: TO BE REMOVED")
 class BuyersGuideTestMixin(WagtailPageTests):
 
     def setUp(self):
@@ -491,8 +498,8 @@ class BuyersGuideTestMixin(WagtailPageTests):
             # Create the buyersguide page.
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
-            buyersguide.slug = 'privacynotincluded-new'
-            buyersguide.slug_en = 'privacynotincluded-new'
+            buyersguide.slug = 'privacynotincluded'
+            buyersguide.slug_en = 'privacynotincluded'
             homepage = Homepage.objects.first()
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
@@ -514,11 +521,12 @@ class BuyersGuideTestMixin(WagtailPageTests):
         return product_page
 
 
+@skip("TODO: TO BE REMOVED")
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class TestBuyersGuidePage(BuyersGuideTestMixin):
 
     def test_buyersguide_url(self):
-        self.assertEqual(self.bg.slug, 'privacynotincluded-new')
+        self.assertEqual(self.bg.slug, 'privacynotincluded')
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
 
@@ -629,6 +637,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
             self.assertEqual(len(response.context['products']), 1)
 
 
+@skip("TODO: TO BE REMOVED")
 class TestMigrateProducts(BuyersGuideTestMixin):
 
     def setUp(self):
@@ -737,6 +746,7 @@ class TestMigrateProducts(BuyersGuideTestMixin):
         self.check_software_products_match()
 
 
+@skip("TODO: TO BE REMOVED")
 class TestProductPage(BuyersGuideTestMixin):
 
     def setUp(self):
@@ -821,6 +831,7 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertTrue(hasattr(self.product_page.votes, 'set_votes'))
 
 
+@skip("TODO: TO BE REMOVED")
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 

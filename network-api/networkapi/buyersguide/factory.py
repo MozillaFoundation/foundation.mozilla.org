@@ -1,7 +1,7 @@
 from random import randint, random, choice, randrange, shuffle
 from datetime import date, timezone, timedelta
 from django.conf import settings
-from django.core.management import call_command
+# from django.core.management import call_command
 
 from factory import (
     DjangoModelFactory,
@@ -23,17 +23,20 @@ from networkapi.wagtailpages.pagemodels.products import (
     RelatedProducts,
     SoftwareProductPage,
 )
-from networkapi.utility.faker import ImageProvider, generate_fake_data
+from networkapi.utility.faker import (
+    ImageProvider,
+    # generate_fake_data
+)
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
-    Product,
+    # Product,
     Update,
     ProductPrivacyPolicyLink,
     GeneralProduct,
     SoftwareProduct,
     BuyersGuideProductCategory,
-    RangeVote,
-    BooleanVote,
+    # RangeVote,
+    # BooleanVote,
 )
 
 Faker.add_provider(ImageProvider)
@@ -340,7 +343,7 @@ def generate(seed):
     pni_homepage = BuyersGuidePageFactory.create(
         parent=Homepage.objects.first(),
         title='* Privacy not included',
-        slug='privacynotincluded-new',
+        slug='privacynotincluded',
     )
 
     print('Generating 100 ProductPages')
@@ -381,6 +384,10 @@ def generate(seed):
             related_product.save()
             product_page.related_product_pages.add(related_product)
 
+    """
+    The following code is no longer necessary, as we will not need to test against the old
+    PNI anymore. However, the percy data will have to be reinstated in immediate follow-up.
+
     print('Generating fixed Buyer\'s Guide GeneralProduct for visual regression testing')
     GeneralProductFactory.create(
         blurb='Visual Regression Testing',
@@ -416,12 +423,18 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Buyer\'s Guide product updates')
-    generate_fake_data(ProductUpdateFactory, 15)
+    (
+        generate_fake_data(ProductUpdateFactory
+        #  15)
+    )
 
     reseed(seed)
 
     print('Generating Buyer\'s Guide Products')
-    generate_fake_data(GeneralProductFactory, 70)
+    (
+        generate_fake_data(GeneralProductFactory
+        #  70)
+    )
 
     reseed(seed)
 
@@ -446,3 +459,4 @@ def generate(seed):
 
     print('Aggregating Buyer\'s Guide Product votes')
     call_command('aggregate_product_votes')
+    """

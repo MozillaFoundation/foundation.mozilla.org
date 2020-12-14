@@ -147,19 +147,23 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
-  it(`PNI general product page`, function () {
-    cy.visit(`/en/privacynotincluded/products/percy-cypress/`);
-    cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
-    cy.wait(500);
-    cy.percySnapshot();
-  });
+  /*
+    TODO: uncomment once Percy factory code is back in place
 
-  it(`PNI software product page`, function () {
-    cy.visit(`/en/privacynotincluded/products/percy-cypress-app/`);
-    cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
-    cy.wait(500);
-    cy.percySnapshot();
-  });
+    it(`PNI general product page`, function () {
+      cy.visit(`/en/privacynotincluded/products/percy-cypress/`);
+      cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
+      cy.wait(500);
+      cy.percySnapshot();
+    });
+
+    it(`PNI software product page`, function () {
+      cy.visit(`/en/privacynotincluded/products/percy-cypress-app/`);
+      cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
+      cy.wait(500);
+      cy.percySnapshot();
+    });
+  */
 
   it(`Styleguide page`, function () {
     cy.visit(`/en/style-guide/`);
