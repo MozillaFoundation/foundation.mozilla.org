@@ -3,35 +3,28 @@
 <div class="article-navbar d-lg-block d-none">
   <div class="container">
     <div class="row">
-      <div class="col px-lg-3 px-0">
-        <div class="d-flex flex-row justify-content-between">
-          <div class="article-navbar-title d-lg-flex d-none pl-0 {% if get_titles %}col-lg-8{% else %}col-lg-12{% endif %}">
-            {% if get_titles %}
-              {{ page.title|truncatechars:60 }}
-            {% else %}
-              {{ page.title|truncatechars:120 }}
-            {% endif %}
-          </div>
-
+      <div class="{% if get_titles %}col-lg-8{% else %}col-lg-12{% endif %}">
+        <div class="article-navbar-title">
           {% if get_titles %}
-            <div class="col-lg-4 col-12 px-lg-3 pl-0 pr-2">
-              <div class="pl-lg-5">
-                <div class="dropdown">
-                  <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block w-100 text-left" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {% trans "Summary" %}
-                  </button>
-
-                  <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
-                    {% for slug, header in get_titles %}
-                      <a class="dropdown-item text-wrap" href="#{{ slug }}">{{ header }}</a>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-            </div>
+            {{ page.title|truncatechars:60 }}
+          {% else %}
+            {{ page.title|truncatechars:120 }}
           {% endif %}
         </div>
       </div>
+      <div class="{% if get_titles %}col-lg-4{% else %}d-none{% endif %}">
+          <div class="dropdown">
+            <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block w-100 text-left" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {% trans "Summary" %}
+            </button>
+
+            <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
+              {% for slug, header in get_titles %}
+                <a class="dropdown-item text-wrap" href="#{{ slug }}">{{ header }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>
