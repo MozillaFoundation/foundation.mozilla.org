@@ -423,10 +423,7 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Buyer\'s Guide product updates')
-    (
-        generate_fake_data(ProductUpdateFactory
-        #  15)
-    )
+    generate_fake_data(ProductUpdateFactory, 15)
 
     reseed(seed)
 
