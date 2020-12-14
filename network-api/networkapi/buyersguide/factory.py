@@ -428,10 +428,7 @@ def generate(seed):
     reseed(seed)
 
     print('Generating Buyer\'s Guide Products')
-    (
-        generate_fake_data(GeneralProductFactory
-        #  70)
-    )
+    generate_fake_data(GeneralProductFactory, 70)
 
     reseed(seed)
 
