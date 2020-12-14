@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -124,7 +123,3 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         return set_main_site_nav_information(self, context, 'Homepage')
-
-
-if not settings.LOAD_PUBLICATION_MODELS:
-    PublicationPage.parent_page_types = []

@@ -54,7 +54,6 @@ env = environ.Env(
     HEROKU_BRANCH=(str, ''),
     HEROKU_PR_NUMBER=(str, ''),
     HEROKU_RELEASE_VERSION=(str, None),
-    LOAD_PUBLICATION_MODELS=(bool, False),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     NETWORK_SITE_URL=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
@@ -641,6 +640,3 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')
 
 # Web Monetization: https://webmonetization.org/
 WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
-
-# Disable publication models by default
-LOAD_PUBLICATION_MODELS = env('LOAD_PUBLICATION_MODELS', False)
