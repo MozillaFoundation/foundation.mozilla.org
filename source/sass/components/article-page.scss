@@ -71,12 +71,20 @@
   margin-right: 7px;
 }
 
-.footnote-row a.footnote-text * {
+.footnote-row .footnote-text .rich-text p {
   color: $gray-60;
   @include set-text-size(18px, 27px);
   font-family: $font-family-sans-serif;
   font-weight: normal;
-  text-decoration: underline;
+
+  a {
+    text-decoration: underline;
+    color: inherit;
+
+    @include hover-focus-active {
+      color: $blue;
+    }
+  }
 }
 
 .article-prev-next {

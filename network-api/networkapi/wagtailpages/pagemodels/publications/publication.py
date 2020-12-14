@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -115,7 +114,3 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Get all the parent PublicationPages and return a QuerySet
         """
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
-
-
-if not settings.LOAD_PUBLICATION_MODELS:
-    PublicationPage.parent_page_types = []
