@@ -3,6 +3,16 @@
  * Also see publication-page.scss and chapter-page.scss
  */
 
+#view-article {
+  .article-blocks {
+    p,
+    ul,
+    ol {
+      font-weight: 300;
+    }
+  }
+}
+
 .article-summary {
   /* stylelint-disable */
   background: rgb(231, 231, 252); // One-off colors; no variable exists for this
