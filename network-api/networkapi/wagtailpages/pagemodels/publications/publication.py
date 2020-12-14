@@ -123,7 +123,6 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        # menu_items is required for zen_nav in the templates
         return set_main_site_nav_information(self, context, 'Homepage')
 
 
