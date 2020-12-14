@@ -29,7 +29,7 @@ let primaryNav = {
         if(window.scrollY > total) {
           summaryBar.style.marginTop = "0px";
         } else{
-          summaryBar.style.marginTop = "-60px";
+          summaryBar.style.marginTop = "-100px";
         }
       });
     }
