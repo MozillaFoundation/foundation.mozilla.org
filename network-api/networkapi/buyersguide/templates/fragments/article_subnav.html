@@ -13,18 +13,18 @@
         </div>
       </div>
       <div class="{% if get_titles %}col-lg-4{% else %}d-none{% endif %}">
-          <div class="dropdown">
-            <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block w-100 text-left" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {% trans "Summary" %}
-            </button>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-link dropdown-toggle article-summary-toggle d-block w-100 text-left" type="button" role="button" id="summaryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% trans "Summary" %}
+          </button>
 
-            <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
-              {% for slug, header in get_titles %}
-                <a class="dropdown-item text-wrap" href="#{{ slug }}">{{ header }}</a>
-              {% endfor %}
-            </div>
+          <div class="dropdown-menu dropdown-menu-right w-100 article-summary-menu" aria-labelledby="summaryMenu">
+            {% for slug, header in get_titles %}
+              <a class="dropdown-item text-wrap" href="#{{ slug }}">{{ header }}</a>
+            {% endfor %}
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>

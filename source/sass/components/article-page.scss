@@ -403,6 +403,12 @@
   background: rgb(231, 231, 252); // One-off colors; no variable exists for this
   /* stylelint-enable */
   padding: 9px 0;
+  position: sticky;
+  margin-top: -60px;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  transition: margin-top 0.35s ease;
 }
 .article-navbar-title {
   color: $black;
