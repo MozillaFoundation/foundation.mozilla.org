@@ -109,76 +109,6 @@
   }
 }
 
-.article-prev-next {
-  background: $gray-05;
-  padding-top: 24px;
-  padding-bottom: 24px;
-}
-
-.article-prev {
-  border-right: 1px solid $gray-20;
-  padding-right: 110px;
-  min-height: 83px;
-}
-
-.article-next {
-  padding-left: 110px;
-  min-height: 83px;
-}
-
-.prev-next-text {
-  color: $gray-40;
-  @include set-text-size(12px, 16px);
-  font-weight: normal;
-  font-family: $font-family-sans-serif;
-  display: block;
-  margin-bottom: 6px;
-  text-decoration: none !important;
-
-  &:hover {
-    text-decoration: none !important;
-  }
-}
-
-.article-prev-next-link {
-  color: $black;
-  @include set-text-size(20px, 30px);
-  font-family: $font-family-sans-serif;
-  font-weight: 300;
-  text-decoration: underline;
-  display: inline-block;
-  width: 80%;
-}
-
-.article-nav-arrow,
-.article-nav-arrow--left {
-  position: relative;
-  text-decoration: none !important; // !important to overwrite hover/active/visited states
-
-  &::before {
-    content: "";
-    display: block;
-    width: 16px;
-    height: 24px;
-    position: absolute;
-    left: -16px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-image: url("../_images/left-chevron.svg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-}
-
-.article-nav-arrow--right {
-  &::before {
-    left: initial;
-    right: -16px;
-    background-image: url("../_images/glyphs/right-chevron.svg");
-  }
-}
-
 // Custom dropdown
 .article-summary-toggle {
   color: $gray-80 !important;
@@ -455,33 +385,121 @@
   }
 }
 
-@media (max-width: $bp-sm) {
-  .article-prev-next-link {
-    margin-bottom: 30px;
-  }
-
-  .article-prev {
-    border-bottom: 1px solid $gray-20;
-    border-right: 0;
-    padding-right: 15px;
-  }
-
-  .article-nav-arrow--left::before {
-    left: 15px;
-  }
-  .article-nav-arrow--right::before {
-    right: 15px;
-    transform: initial;
-  }
-
-  .article-next {
-    padding-left: 15px;
-    padding-top: 40px;
-  }
-}
-
 @media (max-width: $bp-lg) {
   .article-summary-menu {
     margin-top: 9px;
+  }
+}
+
+/**
+ * Below is the styling for the next/prev buttons on the Article pages (found at the bottom of the page)
+ */
+:root {
+  --light-grey: rgb(204, 204, 204);
+  --dark-grey: rgb(242, 242, 242);
+}
+
+.article-link {
+  background: var(--dark-grey);
+  padding-top: 24px;
+  padding-bottom: 56px;
+
+  .body-large {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    /* stylelint-disable */
+    // This is a one-off color.
+    background-color: #e8e8e8;
+    /* stylelint-enable */
+    text-decoration: none;
+
+    .body-large {
+      color: rgb(89, 92, 243);
+    }
+  }
+}
+.article-link {
+  &.article-link-left {
+    padding-right: 110px;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 24px;
+      bottom: 24px;
+      border-right: 1px solid var(--light-grey);
+    }
+  }
+  &.article-link-right {
+    padding-left: 110px;
+    padding-right: initial;
+  }
+}
+.article-link-container-right,
+.article-link-container-left {
+  max-width: 444px;
+  position: relative;
+  margin-left: auto;
+
+  .body-large {
+    margin-left: auto;
+    max-width: calc(100% - 30px);
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 24px;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    background-image: url("../_images/left-chevron.svg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+}
+.article-link-container-right {
+  margin-right: auto;
+  margin-left: initial;
+
+  .body-large {
+    margin-right: auto;
+    margin-left: initial;
+  }
+
+  &::before {
+    left: initial;
+    right: 16px;
+    background-image: url("../_images/glyphs/right-chevron.svg");
+  }
+}
+
+@media (max-width: $bp-md) {
+  .article-link {
+    &.article-link-left {
+      padding-right: 10px;
+      border-bottom: 1px solid var(--light-grey);
+
+      &::before {
+        display: none;
+      }
+    }
+    &.article-link-right {
+      padding-left: 10px;
+    }
+  }
+  .article-link-container-left,
+  .article-link-container-right {
+    max-width: 100%;
+  }
+
+  .article-link-container-left::before {
+    left: 0;
   }
 }
