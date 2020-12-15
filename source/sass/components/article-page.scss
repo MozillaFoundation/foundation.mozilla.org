@@ -74,6 +74,10 @@
   font-weight: bold;
 }
 
+.footnotes-list {
+  list-style-type: none;
+}
+
 .footnote-row .rich-text {
   display: inline-block;
 }
@@ -94,6 +98,10 @@
   a {
     text-decoration: underline;
     color: inherit;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 
     @include hover-focus-active {
       color: $blue;
