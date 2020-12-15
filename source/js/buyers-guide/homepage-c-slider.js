@@ -21,13 +21,12 @@ const MINIMUM_HAPPINESS_RATING = 25;
 // Note: this is a cosmetic value for scroll only.
 const MAXIMUM_CREEPINESS_RATING = 80;
 
-
 // Helper function to determine whether products are
 // in view, and so need to be considered for averaging.
 function isElementInViewport(element, dingFilter) {
   if (element.classList.contains(`d-none`)) return false;
 
-  if (dingFilter && !element.classList.contains(`privacy-ding`)) return false
+  if (dingFilter && !element.classList.contains(`privacy-ding`)) return false;
 
   let rect = element.getBoundingClientRect();
 
@@ -64,7 +63,9 @@ export default {
       () => {
         // Figure out which face to show while scrolling:
         let dingFilter = !!document.querySelector(`body.show-ding-only`);
-        let visible = Array.from(products).filter((v) => isElementInViewport(v, dingFilter));
+        let visible = Array.from(products).filter((v) =>
+          isElementInViewport(v, dingFilter)
+        );
         let n = visible.length;
 
         // Shortcut this scroll update if there are no products
@@ -128,7 +129,7 @@ export default {
     // Creepy-face container
     const CREEPY_FACE = document.querySelector(".creep-o-meter-information");
     // Category bar. Used for relocating the creepo-face on desktop.
-    const CATEGORY_BAR = document.getElementById("multipage-nav")
+    const CATEGORY_BAR = document.getElementById("multipage-nav");
     // The containing element around the product list.
     const PRODUCT_LIST = document.querySelector(".product-box-list");
     // The recommend product area.
@@ -139,7 +140,13 @@ export default {
      * to ensure when a browser width changes creepo-face still works as expected
      * And getElementById is used in places to speed up DOM searching
      */
-    if(SEARCH_BAR && CREEPY_FACE && CATEGORY_BAR && PRODUCT_LIST && RECOMMEND_PRODUCT) {
+    if (
+      SEARCH_BAR &&
+      CREEPY_FACE &&
+      CATEGORY_BAR &&
+      PRODUCT_LIST &&
+      RECOMMEND_PRODUCT
+    ) {
       window.addEventListener(
         "scroll",
         () => {
@@ -147,7 +154,10 @@ export default {
 
           // If on desktop, don't delay moving creepo-face into the corner
           // If on mobile, make the creepy face move to the corner sooner
-          const offset = window.innerWidth > 768 ? window.innerHeight - CATEGORY_BAR.offsetHeight : 100;
+          const offset =
+            window.innerWidth > 768
+              ? window.innerHeight - CATEGORY_BAR.offsetHeight
+              : 100;
 
           /**
            * Check if the product grid area is partially visible in the viewport
@@ -156,7 +166,7 @@ export default {
             productListPosition.top + offset < window.innerHeight &&
             productListPosition.bottom >= 0
           ) {
-            SEARCH_BAR.classList.add("search-active" ,"creep-o-meter-moved");
+            SEARCH_BAR.classList.add("search-active", "creep-o-meter-moved");
           }
 
           const heightFromTop = RECOMMEND_PRODUCT.getBoundingClientRect().top;

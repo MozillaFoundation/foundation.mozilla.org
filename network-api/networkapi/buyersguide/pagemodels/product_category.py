@@ -33,7 +33,7 @@ class BuyersGuideProductCategory(models.Model):
 
     slug = models.SlugField(
         blank=True,
-        help_text='A URL-friendly version of the product name. This is an auto-generated field.'
+        help_text='A URL-friendly version of the category name. This is an auto-generated field.'
     )
 
     sort_order = models.IntegerField(
@@ -56,7 +56,7 @@ class BuyersGuideProductCategory(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name_en if self.name_en else self.name)
         super(BuyersGuideProductCategory, self).save(*args, **kwargs)
 
     class Meta:
