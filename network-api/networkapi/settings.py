@@ -441,6 +441,8 @@ STATICFILES_DIRS = [app('frontend')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
+WAGTAILIMAGES_JPEG_QUALITY = 100
+WAGTAILIMAGES_WEBP_QUALITY = 100
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
