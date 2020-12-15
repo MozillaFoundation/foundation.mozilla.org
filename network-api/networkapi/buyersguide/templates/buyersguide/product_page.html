@@ -329,10 +329,11 @@
 
 {% block extra_scripts %}
   {% if coralTalkServerUrl %}
-    <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
-      Coral.Talk.render(document.getElementById('coral-talk-stream'), {
-        talk: '{{ coralTalkServerUrl }}'
-      });
-    "></script>
+  <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
+    Coral.Talk.render(document.getElementById('coral-talk-stream'), {
+      talk: '{{ coralTalkServerUrl }}'{% if lang_code == "en" %},
+      asset_url: '{{ product.get_parent.url }}products/{{ product.slug }}/'{% endif %}
+    });
+  "></script>
   {% endif %}
 {% endblock %}
