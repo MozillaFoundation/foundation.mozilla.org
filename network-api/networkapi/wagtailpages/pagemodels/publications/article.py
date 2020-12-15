@@ -68,18 +68,30 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
 
     @property
     def next_page(self):
-        # Try to get the next sibling page.
+        """
+        Try to get the next sibling page.
+        If there is no next sibling page, check if there is a parent sibling (ie. Chapter page).
+        If there is no next chapter page, return the parent page.
+        """
         next_page = self.get_siblings().filter(path__gt=self.path, live=True).first()
         if not next_page:
-            next_page = self.get_parent()
+            next_page = self.get_parent().get_next_sibling()
+            if not next_page:
+                return self.get_parent()
         return next_page
 
     @property
     def prev_page(self):
-        # Try to get the prev sibling page.
+        """
+        Try to get the previous sibling page.
+        If there is no previous sibling page, check if there is a parent sibling (ie. Chapter page).
+        If there is no previous chapter page, return the parent page.
+        """
         prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
         if not prev_page:
-            prev_page = self.get_parent()
+            prev_page = self.get_parent().get_prev_sibling()
+            if not prev_page:
+                return self.get_parent()
         return prev_page
 
     def breadcrumb_list(self):
