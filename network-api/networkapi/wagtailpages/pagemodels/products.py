@@ -20,6 +20,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
+from wagtail.core import hooks
 
 from networkapi.buyersguide.fields import ExtendedYesNoField
 from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
@@ -1051,3 +1052,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     class Meta:
         verbose_name = "Buyers Guide Page"
+
+
+@hooks.register('after_publish_page')
+@hooks.register('after_unpublish_page')
+@hooks.register('after_delete_page')
+def invalidate_cache(request, page):
+    """
+    When a product is created, or updated, or deleted, invalidate the product cache.
+    """
+    if isinstance(page, ProductPage):
+        print("clearing")
+        cache.clear()
