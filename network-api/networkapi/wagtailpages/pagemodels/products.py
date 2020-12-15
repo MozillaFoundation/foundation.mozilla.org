@@ -1062,5 +1062,4 @@ def invalidate_cache(request, page):
     When a product is created, or updated, or deleted, invalidate the product cache.
     """
     if isinstance(page, ProductPage):
-        print("clearing")
         cache.clear()
