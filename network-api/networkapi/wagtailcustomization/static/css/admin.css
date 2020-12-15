@@ -16,6 +16,12 @@ body.ready .help .icon-help-inverse {
   padding-left: 0 !important;
 }
 
+.field-content textarea {
+  /* need to use !important as there's script from jQuery
+  that's overriding the CSS resize property */
+  resize: vertical !important;
+}
+
 @media screen and (min-width: 50em) {
   body.ready .help {
     min-width: 14em;
