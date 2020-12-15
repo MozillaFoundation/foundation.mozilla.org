@@ -314,7 +314,7 @@ TEMPLATES = [
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
                 'localization': 'networkapi.wagtailpages.templatetags.localization',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
-                'multi_image_tags': 'networkapi.wagtailpages.templatetags.multi_image_tags',
+                'custom_image_tags': 'networkapi.wagtailpages.templatetags.custom_image_tags',
                 'nav_tags': 'networkapi.utility.templatetags.nav_tags',
                 'primary_page_tags': 'networkapi.wagtailpages.templatetags.primary_page_tags',
                 'settings_value': 'networkapi.utility.templatetags.settings_value',
