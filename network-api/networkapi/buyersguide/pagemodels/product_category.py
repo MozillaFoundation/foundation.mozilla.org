@@ -50,7 +50,14 @@ class BuyersGuideProductCategory(models.Model):
 
     @property
     def published_product_count(self):
+        # TODO: REMOVE: LEGACY FUNCTION
         return Product.objects.filter(product_category=self, draft=False).count()
+
+    @property
+    def published_product_page_count(self):
+        # late-import to prevent a circular dependency.
+        from networkapi.wagtailpages.models import ProductPage
+        return ProductPage.objects.filter(product_categories__category=self, live=True).count()
 
     def __str__(self):
         return self.name
