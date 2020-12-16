@@ -113,11 +113,17 @@ def generate(seed):
         parent=home_page, title='Publication Page with chapter pages'
     )
 
+    fixed_title_article_page = 'Fixed title article page'
+    fixed_title_chapter_page = 'Fixed title chapter page'
+
+    ArticlePageFactory.create(parent=pub_page_with_child_articles, title=fixed_title_article_page)
     ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
 
+    PublicationPageFactory.create(parent=pub_page_with_chapters, title=fixed_title_chapter_page)
     PublicationPageFactory.create_batch(parent=pub_page_with_chapters, size=3)
 
     for chapter in pub_page_with_chapters.get_children():
+        ArticlePageFactory.create(parent=chapter, title=fixed_title_article_page)
         ArticlePageFactory.create_batch(parent=chapter, size=8)
 
     article_pages = ArticlePage.objects.all()
