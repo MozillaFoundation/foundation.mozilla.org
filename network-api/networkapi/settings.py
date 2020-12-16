@@ -221,7 +221,6 @@ INSTALLED_APPS = list(filter(None, [
 
     # possibly still used?
     'networkapi.highlights',
-    'networkapi.milestones',
 
     # wagtail localisation app
     'wagtail_modeltranslation',
