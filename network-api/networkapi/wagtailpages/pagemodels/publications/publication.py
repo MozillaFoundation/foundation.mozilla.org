@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -134,7 +133,3 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
                 })
         context['child_pages'] = pages
         return context
-
-
-if not settings.LOAD_PUBLICATION_MODELS:
-    PublicationPage.parent_page_types = []

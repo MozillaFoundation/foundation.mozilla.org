@@ -18,9 +18,7 @@
             {% with child=child_page.child %}
             <div class="row publication-row pt-3 pb-sm-4 pb-0">
               <div class="col-auto">
-                <div class="publication-chapter-number">
-                  {{ forloop.counter }}
-                </div>
+                <div class="publication-chapter-number"></div>
               </div>
               <div class="col-8 ml-sm-3{% if not child.get_children_count %} d-flex align-items-center{% endif %}">
                 <h3 class="{% if child.get_children_count %}publication-chapter-title{% else %}m-0 {% endif %}">
@@ -30,16 +28,11 @@
                 </h3>
                 {% for grandchild in child_page.grandchildren %}
                   <div class="row d-sm-flex d-none">
-                    <div class="col-auto h6-heading pt-1">
-                      {{ forloop.parentloop.counter }}.{{ forloop.counter}}
-                    </div>
-                    <div class="col">
-                      <h4 class="col-12 child-pages-children-title body">
-                        <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
-                          {{ grandchild.title }} {% if grandchild.has_unpublished_changes %}🐣{% endif %}
-                        </a>
-                      </h4>
-                    </div>
+                    <h4 class="col-11 offset-1 child-pages-children-title body">
+                      <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
+                        {{ grandchild.title }}
+                      </a>
+                    </h4>
                   </div>
                 {% endfor %}
               </div>
