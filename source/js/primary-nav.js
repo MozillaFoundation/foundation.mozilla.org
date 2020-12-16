@@ -20,20 +20,6 @@ let primaryNav = {
       }
     }
 
-    const summaryBar = document.querySelector(".article-navbar");
-    if(summaryBar) {
-      const heroHeight = document.querySelector('.publication-hero-container').offsetHeight;
-      const navHeight = document.querySelector(".primary-nav-container").offsetHeight;
-      const total = heroHeight + navHeight - summaryBar.offsetHeight;
-      window.addEventListener("scroll", () => {
-        if(window.scrollY > total) {
-          summaryBar.style.marginTop = "0px";
-        } else{
-          summaryBar.style.marginTop = "-100px";
-        }
-      });
-    }
-
     function setNarrowMenuState(openMenu) {
       if (openMenu) {
         elNarrowMenu.classList.remove(`hidden`);

@@ -5,6 +5,7 @@ import homepageHandler from "./homepage";
 import internetHealthSeeMoreHandler from "./internet-health-see-more.js";
 import loadMoreEntriesHandler from "./load-more-entries.js";
 import participatePageDonateHandler from "./participate-page-donate.js";
+import publicationSummaryBar from "./publication-summary-bar.js";
 import pulseProfileCardHandler from "./pulse-profile-card.js";
 import pulseProfileListFilterHandler from "./pulse-profile-list-filter.js";
 
@@ -25,6 +26,7 @@ export const bindEventHandlers = () => {
   internetHealthSeeMoreHandler();
   loadMoreEntriesHandler();
   participatePageDonateHandler();
+  publicationSummaryBar();
   pulseProfileCardHandler();
   pulseProfileListFilterHandler();
 };
