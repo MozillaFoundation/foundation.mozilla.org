@@ -3,6 +3,16 @@
  * Also see publication-page.scss and chapter-page.scss
  */
 
+#view-article {
+  .article-blocks {
+    p,
+    ul,
+    ol {
+      font-weight: 300;
+    }
+  }
+}
+
 .article-summary {
   /* stylelint-disable */
   background: rgb(231, 231, 252); // One-off colors; no variable exists for this
@@ -29,20 +39,24 @@
   top: 20px;
 }
 
-.article-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
 .article-summary-link {
+  --spacing: 10px;
+
   margin-top: 17px;
-  flex-basis: 50%;
+  flex-basis: calc(50% - var(--spacing));
   flex-grow: 0;
   flex-shrink: 0;
 
-  &:hover {
-    color: $gray-60;
+  &:nth-child(odd) {
+    margin-right: var(--spacing);
+  }
+
+  &:nth-child(even) {
+    margin-left: var(--spacing);
+  }
+
+  @include hover-focus-active {
+    color: inherit;
   }
 }
 
@@ -58,6 +72,10 @@
   @include set-text-size(20px, 30px);
   font-family: $font-family-sans-serif;
   font-weight: bold;
+}
+
+.footnotes-list {
+  list-style-type: none;
 }
 
 .footnote-row .rich-text {
@@ -80,6 +98,10 @@
   a {
     text-decoration: underline;
     color: inherit;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 
     @include hover-focus-active {
       color: $blue;
@@ -217,19 +239,6 @@
    */
   a {
     text-decoration: underline;
-  }
-
-  // Used for offsetting footnote links so when the footnote at the bottom of the page
-  // is clicked, the page will jump to the footnote, minus 160px (the _very_ rough height
-  // of the navigation)
-  a[id^="footnote-source"]::before {
-    content: "";
-    display: inline-block;
-    height: 160px;
-    margin-top: -160px;
-    visibility: hidden;
-    pointer-events: none;
-    width: 1px;
   }
 
   p,

@@ -292,11 +292,11 @@ def get_language_from_request(request, check_path=False):
         return settings.LANGUAGE_CODE
 
 
-def get_richtext_titles(request, stream_data, stream_block_name):
+def get_plaintext_titles(request, stream_data, stream_block_name):
     """
     Accepts a StreamField and the name of a streamblock to look for,
-    parses the data for <h2> elements, and creates a dictionary
-    of slugs to headers.
+    parses the data for <h2> elements, strips all HTML tags,
+    and creates a dictionary of slugs to headers.
 
     :stream_data is the StreamField object (not the raw json that's stored)
     :stream_block_name is the name of the StreamField block associated with
@@ -329,7 +329,7 @@ def get_richtext_titles(request, stream_data, stream_block_name):
                     soup = BeautifulSoup(block['value'], 'html.parser')
                     _headers = soup.findAll('h2')
                     for _h in _headers:
-                        headers.append(_h.contents[0])
+                        headers.append(_h.get_text())
         else:
             # If the page is a preview, look for live streamfield data.
             # Previewed streamfield is stored differently than live streamfield data; as a tuple

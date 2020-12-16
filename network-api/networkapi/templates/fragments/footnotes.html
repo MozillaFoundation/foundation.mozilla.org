@@ -7,16 +7,18 @@
     </div>
     <div class="col-sm-8 offset-sm-2 mt-5">
       <h3 class="footnotes-title">{% trans "Footnotes" %}</h3>
+      <ol class="footnotes-list pl-0">
       {% for footnote in page.footnotes_list %}
-        <div class="footnote-row d-flex" id="footnote-{{ forloop.counter }}">
+        <li class="footnote-row d-flex" id="footnote-{{ forloop.counter }}">
           <a href="#footnote-source-{{ forloop.counter }}" class="footnote-number mr-3" aria-label="{% trans 'Back to content' %}">
             [{{ forloop.counter }}]
           </a>
           <div class="footnote-text">
             {{ footnote.text|richtext }}
           </div>
-        </div>
+        </li>
       {% endfor %}
+      </ol>
     </div>
   </div>
 </div>
