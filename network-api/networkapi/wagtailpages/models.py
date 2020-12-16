@@ -84,9 +84,12 @@ from .pagemodels.dear_internet import (
 )
 
 from .pagemodels.products import (
-    GeneralProductPage,
     ProductPage,
-    SoftwareProductPage
+    SoftwareProductPage,
+    GeneralProductPage,
+    BuyersGuidePage,
+    ProductPagePrivacyPolicyLink,
+    ProductPageCategory
 )
 
 
@@ -99,6 +102,7 @@ __all__ = [
     BlogAuthor,
     BlogAuthors,
     BlogPageCategory,
+    BuyersGuidePage,
     CTA,
     CampaignIndexPage,
     CampaignPage,
@@ -124,6 +128,8 @@ __all__ = [
     Petition,
     PrimaryPage,
     ProductPage,
+    ProductPageCategory,
+    ProductPagePrivacyPolicyLink,
     PublicationPage,
     RedirectingPage,
     Signup,

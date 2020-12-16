@@ -749,6 +749,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'RedirectingPage',
         'Styleguide',
         'ProductPage',
+        'BuyersGuidePage',
     ]
 
     def get_context(self, request):

@@ -9,6 +9,8 @@ import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
 
+from networkapi.wagtailpages.pagemodels.products import ProductPage
+
 
 # Extended rich text features for our site
 @hooks.register('register_rich_text_features')
@@ -90,7 +92,11 @@ def before_delete_page(request, page):
     Delete cloudinary_images from pages that have this field.
     """
     if hasattr(page, 'cloudinary_image'):
-        if settings.REVIEW_APP:
+        if settings.REVIEW_APP or settings.DEBUG:
             pass
         else:
             uploader.destroy(page.cloudinary_image.public_id, invalidate=True)
+
+    if isinstance(page, ProductPage) and page.votes:
+        # Delete the vote from ProductPages
+        page.votes.delete()

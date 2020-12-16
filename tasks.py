@@ -24,6 +24,7 @@ locale_abstraction_instructions = " ".join(
         "--ignore=network-api/networkapi/wagtail_l10n_customization/*",
         "--ignore=network-api/networkapi/settings.py",
         "--ignore=network-api/networkapi/wagtailpages/__init__.py",
+        "--ignore=network-api/networkapi/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
         "--ignore=network-api/networkapi/wagtailpages/templates/wagtailpages/pages/youtube_regrets_reporter_page.html",
         "--ignore=dockerpythonvenv/*",
     ]
@@ -34,9 +35,6 @@ def create_env_file(env_file):
     """Create or update an .env to work with a docker environment"""
     with open(env_file, "r") as f:
         env_vars = f.read()
-
-    # We need to strip the quotes because Docker-compose considers them as part of the env value.
-    env_vars = env_vars.replace('"', "")
 
     # We also need to make sure to use the correct db values based on our docker settings.
     username = dbname = "postgres"
