@@ -122,4 +122,19 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+        pages = []
+        for page in self.get_children():
+            if request.user.is_authenticated:
+                # User is logged in, and can preview a page. Get all pages, even drafts.
+                pages.append({
+                    'child': page,
+                    'grandchildren': page.get_children()
+                })
+            elif page.live:
+                # User is not logged in AND this page is live. Only fetch live grandchild pages.
+                pages.append({
+                    'child': page,
+                    'grandchildren': page.get_children().live()
+                })
+        context['child_pages'] = pages
         return set_main_site_nav_information(self, context, 'Homepage')
