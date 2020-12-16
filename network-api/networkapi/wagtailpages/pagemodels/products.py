@@ -20,6 +20,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
+from wagtail.core import hooks
 
 from networkapi.buyersguide.fields import ExtendedYesNoField
 from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
@@ -43,18 +44,15 @@ else:
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
-# This is a hardcoded date that we update every time we release a new version of PNI
-public_cutoff_date = datetime(2020, 10, 29)
 
-
-def get_product_subset(authenticated, key, products):
+def get_product_subset(cutoff_date, authenticated, key, products):
     """
     filter a queryset based on our current cutoff date,
     as well as based on whether a user is authenticated
     to the system or not (authenticated users get to
     see all products, including draft products)
     """
-    products = products.filter(review_date__gte=public_cutoff_date)
+    products = products.filter(review_date__gte=cutoff_date)
     if not authenticated:
         products = products.live()
     products = products.specific()
@@ -899,6 +897,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     template = 'buyersguide/home.html'
     subpage_types = [SoftwareProductPage, GeneralProductPage]
 
+    cutoff_date = models.DateField(
+        'Product listing cutoff date',
+        help_text='Only show products that were reviewed on, or after this date.',
+        default=datetime(2020, 10, 29),
+    )
+
+    content_panels = [
+        FieldPanel('title'),
+        FieldPanel('cutoff_date')
+    ]
+
     @route(r'^about/$', name='how-to-use-view')
     def about_page(self, request):
         context = self.get_context(request)
@@ -986,6 +995,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         if products is None:
             products = get_product_subset(
+                self.cutoff_date,
                 authenticated,
                 key,
                 ProductPage.objects.filter(product_categories__category__in=[category])
@@ -1039,6 +1049,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         if not kwargs.get('bypass_products', False) and products is None:
             products = get_product_subset(
+                self.cutoff_date,
                 authenticated,
                 key,
                 ProductPage.objects.all()
@@ -1051,3 +1062,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     class Meta:
         verbose_name = "Buyers Guide Page"
+
+
+@hooks.register('after_publish_page')
+@hooks.register('after_unpublish_page')
+@hooks.register('after_delete_page')
+def invalidate_cache(request, page):
+    """
+    When a product is created, or updated, or deleted, invalidate the product cache.
+    """
+    if isinstance(page, ProductPage):
+        cache.clear()

@@ -12,6 +12,7 @@ from factory import (
 )
 
 from wagtail_factories import PageFactory
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
@@ -48,9 +49,20 @@ def get_extended_yes_no_value():
 
 
 def get_lowest_content_category():
+    # TODO: REMOVE: LEGACY FUNCTION
     return sorted(
         [
             (cat.published_product_count, cat)
+            for cat in BuyersGuideProductCategory.objects.all()
+        ],
+        key=lambda t: t[0]
+    )[0][1]
+
+
+def get_lowest_content_page_category():
+    return sorted(
+        [
+            (cat.published_product_page_count, cat)
             for cat in BuyersGuideProductCategory.objects.all()
         ],
         key=lambda t: t[0]
@@ -248,7 +260,26 @@ class ProductPageFactory(PageFactory):
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
 
-    # TODO: add image binding
+    @post_generation
+    def set_image(self, create, extracted, **kwargs):
+        self.image = ImageFactory()
+
+    @post_generation
+    def assign_random_categories(self, create, extracted, **kwargs):
+        # late import to prevent circular dependency
+        from networkapi.wagtailpages.models import ProductPageCategory
+        ceiling = 1.0
+        while True:
+            odds = random()
+            if odds < ceiling:
+                category = get_lowest_content_page_category()
+                ProductPageCategory.objects.get_or_create(
+                    product=self,
+                    category=category
+                )
+                ceiling = ceiling / 5
+            else:
+                return
 
     @post_generation
     def set_random_review_date(self, create, extracted, **kwargs):
