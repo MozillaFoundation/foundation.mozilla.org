@@ -98,6 +98,5 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         # Add get_titles to the page context. This is in get_context() because
         # we need access to the `request` object
         # menu_items is required for zen_nav in the templates
-        return set_main_site_nav_information(self, context, 'Homepage')
         context['get_titles'] = get_plaintext_titles(request, self.body, "content")
-        return context
+        return set_main_site_nav_information(self, context, 'Homepage')
