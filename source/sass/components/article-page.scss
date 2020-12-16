@@ -241,19 +241,6 @@
     text-decoration: underline;
   }
 
-  // Used for offsetting footnote links so when the footnote at the bottom of the page
-  // is clicked, the page will jump to the footnote, minus 160px (the _very_ rough height
-  // of the navigation)
-  a[id^="footnote-source"]::before {
-    content: "";
-    display: inline-block;
-    height: 160px;
-    margin-top: -160px;
-    visibility: hidden;
-    pointer-events: none;
-    width: 1px;
-  }
-
   p,
   h2,
   h3,

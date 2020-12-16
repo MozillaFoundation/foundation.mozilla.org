@@ -1,6 +1,7 @@
 import stickyCtaHandler from "./window/sticky-cta";
 import stickyShareButtonGroupHandler from "./window/sticky-share-button-group";
 
+import articleFootLinkHandler from "./article-footnote-link.js";
 import homepageHandler from "./homepage";
 import internetHealthSeeMoreHandler from "./internet-health-see-more.js";
 import loadMoreEntriesHandler from "./load-more-entries.js";
@@ -22,6 +23,7 @@ export const bindWindowEventHandlers = () => {
  * Bind event handlers
  */
 export const bindEventHandlers = () => {
+  articleFootLinkHandler();
   homepageHandler();
   internetHealthSeeMoreHandler();
   loadMoreEntriesHandler();
