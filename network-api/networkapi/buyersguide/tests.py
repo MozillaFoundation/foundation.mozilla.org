@@ -487,8 +487,8 @@ class BuyersGuideTestMixin(WagtailPageTests):
             # Create the buyersguide page.
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
-            buyersguide.slug = 'privacynotincluded-new'
-            buyersguide.slug_en = 'privacynotincluded-new'
+            buyersguide.slug = 'privacynotincluded'
+            buyersguide.slug_en = 'privacynotincluded'
             homepage = Homepage.objects.first()
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
@@ -514,7 +514,7 @@ class BuyersGuideTestMixin(WagtailPageTests):
 class TestBuyersGuidePage(BuyersGuideTestMixin):
 
     def test_buyersguide_url(self):
-        self.assertEqual(self.bg.slug, 'privacynotincluded-new')
+        self.assertEqual(self.bg.slug, 'privacynotincluded')
         response = self.client.get(self.bg.url)
         self.assertEqual(response.status_code, 200)
 
