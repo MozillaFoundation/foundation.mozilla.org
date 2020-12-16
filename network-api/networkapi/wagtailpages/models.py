@@ -89,7 +89,8 @@ from .pagemodels.products import (
     SoftwareProductPage,
     GeneralProductPage,
     BuyersGuidePage,
-    ProductPagePrivacyPolicyLink
+    ProductPagePrivacyPolicyLink,
+    ProductPageCategory
 )
 
 
@@ -129,6 +130,7 @@ __all__ = [
     Petition,
     PrimaryPage,
     ProductPage,
+    ProductPageCategory,
     ProductPagePrivacyPolicyLink,
     PublicationPage,
     RedirectingPage,
