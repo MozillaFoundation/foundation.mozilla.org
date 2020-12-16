@@ -9,8 +9,9 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from networkapi.wagtailpages.models import BlogAuthor
+from networkapi.wagtailpages.utils import set_main_site_nav_information
+from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 
 class PublicationAuthors(Orderable):
@@ -109,8 +110,16 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         parent = self.get_parent().specific
         return parent.__class__ is PublicationPage
 
+    @property
+    def zen_nav(self):
+        return True
+
     def breadcrumb_list(self):
         """
         Get all the parent PublicationPages and return a QuerySet
         """
         return Page.objects.ancestor_of(self).type(PublicationPage).live()
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        return set_main_site_nav_information(self, context, 'Homepage')

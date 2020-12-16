@@ -12,16 +12,11 @@ from django.test import TestCase, RequestFactory
 from datetime import date
 from unittest import skip
 
-from networkapi.buyersguide.factory import (
-    ProductFactory,
-    GeneralProductFactory,
-    SoftwareProductFactory,
-)
+from networkapi.buyersguide.factory import ProductFactory
 from networkapi.buyersguide.models import (
     RangeVote,
     BooleanVote,
     GeneralProduct,
-    SoftwareProduct,
     BuyersGuideProductCategory
 )
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
@@ -30,11 +25,9 @@ from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
-    GeneralProductPage,
     ProductPage,
     ProductPageVotes,
     ProductPageCategory,
-    SoftwareProductPage,
 )
 
 from wagtail.core.models import Page, Site
@@ -630,114 +623,6 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
 
             response = self.client.get(url)
             self.assertEqual(len(response.context['products']), 1)
-
-
-class TestMigrateProducts(BuyersGuideTestMixin):
-
-    def setUp(self):
-        # Create products
-        super().setUp()
-        for i in range(50):
-            general_product = GeneralProductFactory()  # noqa
-            software_product = SoftwareProductFactory()  # noqa
-
-        self.general_product_fields = [
-            'slug', 'privacy_ding', 'adult_content', 'uses_wifi', 'uses_bluetooth',
-            'company', 'blurb', 'price', 'worst_case',
-            'signup_requires_email', 'signup_requires_phone',
-            'signup_requires_third_party_account', 'signup_requirement_explanation',
-            'how_does_it_use_data_collected', 'data_collection_policy_is_bad',
-            'user_friendly_privacy_policy', 'show_ding_for_minimum_security_standards',
-            'meets_minimum_security_standards', 'uses_encryption',
-            'uses_encryption_helptext', 'security_updates', 'security_updates_helptext',
-            'strong_password', 'strong_password_helptext', 'manage_vulnerabilities',
-            'manage_vulnerabilities_helptext', 'privacy_policy', 'privacy_policy_helptext',
-            'phone_number', 'live_chat', 'email', 'twitter'
-        ]
-
-    def before_migrate(self):
-        total_product_pages = ProductPage.objects.count()
-        self.assertEqual(total_product_pages, 1)
-
-        total_general_products = GeneralProduct.objects.count()
-        self.assertEqual(total_general_products, 50)
-
-        total_software_products = SoftwareProduct.objects.count()
-        self.assertEqual(total_software_products, 50)
-
-    def migrate(self):
-        call_command('migrate_products')
-
-    def after_migrate(self):
-        self.assertIn(ProductPage.objects.count(), [100, 101])
-        self.assertEqual(GeneralProductPage.objects.count(), 50)
-        self.assertEqual(SoftwareProductPage.objects.count(), 50)
-        self.assertEqual(GeneralProduct.objects.count(), 50)
-        self.assertEqual(SoftwareProduct.objects.count(), 50)
-
-    def check_buyersguide_exists(self):
-        self.assertTrue(BuyersGuidePage.objects.exists())
-        self.assertEqual(BuyersGuidePage.objects.count(), 1)
-
-    def check_software_products_match(self):
-        """
-        Compare all SoftwareProducts with all SoftwareProductPages and all their fields
-        """
-        software_products = SoftwareProduct.objects.all()
-
-        for product in software_products:
-            # Find the equiv ProductPage.
-            product_page = ProductPage.objects.get(slug=product.slug).specific
-            # Get all the General Product Page fields.
-            specific_fields = self.general_product_fields + [
-                'medical_privacy_compliant', 'easy_to_learn_and_use', 'handles_recordings_how',
-                'recording_alert', 'recording_alert_helptext', 'medical_privacy_compliant_helptext',
-                'host_controls', 'easy_to_learn_and_use_helptext'
-            ]
-            # For every field, compare it to the old field in the Product object
-            for field in specific_fields:
-                self.assertEqual(
-                    getattr(product, field),
-                    getattr(product_page, field),
-                    f"{field} did not match on product: {product} (id:{product.id})",
-                )
-
-    def check_general_products_match(self):
-        """
-        Compare all GeneralProducts with all GeneralProductPages and all their fields
-        """
-        general_products = GeneralProduct.objects.all()
-        for product in general_products:
-            # Find the equiv ProductPage.
-            product_page = ProductPage.objects.get(slug=product.slug).specific
-            # Get all the General Product Page fields.
-            specific_fields = self.general_product_fields + [
-                'camera_device', 'camera_app', 'microphone_device', 'microphone_app',
-                'location_device', 'location_app', 'personal_data_collected',
-                'biometric_data_collected', 'social_data_collected',
-                'how_can_you_control_your_data', 'data_control_policy_is_bad',
-                'track_record_choices', 'company_track_record', 'track_record_is_bad',
-                'track_record_details', 'offline_capable', 'offline_use_description',
-                'uses_ai', 'ai_uses_personal_data', 'ai_is_transparent', 'ai_helptext'
-            ]
-            # For every field, compare it to the old field in the Product object
-            for field in specific_fields:
-                self.assertEqual(
-                    getattr(product, field),
-                    getattr(product_page, field),
-                    f"{field} did not match on product: {product} (id:{product.id})",
-                )
-
-    def test_migration(self):
-        """
-        All tests go in here to ensure they are executed in the proper order
-        """
-        self.before_migrate()
-        self.migrate()
-        self.after_migrate()
-        self.check_buyersguide_exists()
-        self.check_general_products_match()
-        self.check_software_products_match()
 
 
 class TestProductPage(BuyersGuideTestMixin):
