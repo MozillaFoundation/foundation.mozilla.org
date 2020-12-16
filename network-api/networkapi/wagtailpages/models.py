@@ -11,7 +11,6 @@ from .pagemodels.base import (
     Styleguide,
     HomepageFocusAreas,
     Homepage,
-    PeoplePage,
     HomepageNewsYouCanUse,
     HomepageSpotlightPosts,
     ParticipateHighlights,
@@ -89,7 +88,8 @@ from .pagemodels.products import (
     SoftwareProductPage,
     GeneralProductPage,
     BuyersGuidePage,
-    ProductPagePrivacyPolicyLink
+    ProductPagePrivacyPolicyLink,
+    ProductPageCategory
 )
 
 
@@ -125,10 +125,10 @@ __all__ = [
     ParticipateHighlights2,
     ParticipatePage2,
     PartnerLogos,
-    PeoplePage,
     Petition,
     PrimaryPage,
     ProductPage,
+    ProductPageCategory,
     ProductPagePrivacyPolicyLink,
     PublicationPage,
     RedirectingPage,
