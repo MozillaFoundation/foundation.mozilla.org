@@ -12,6 +12,7 @@ from factory import (
 )
 
 from wagtail_factories import PageFactory
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
@@ -248,7 +249,9 @@ class ProductPageFactory(PageFactory):
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
 
-    # TODO: add image binding
+    @post_generation
+    def set_image(self, create, extracted, **kwargs):
+        self.image = ImageFactory()
 
     @post_generation
     def set_random_review_date(self, create, extracted, **kwargs):
