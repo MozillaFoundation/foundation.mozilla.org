@@ -37,7 +37,6 @@ urlpatterns = list(filter(None, [
     re_path(r'^api/campaign/', include('networkapi.campaign.urls')),
     re_path(r'^api/highlights/', include('networkapi.highlights.urls')),
     re_path(r'^api/news/', include('networkapi.news.urls')),
-    re_path(r'^api/milestones/', include('networkapi.milestones.urls')),
     re_path(r'^api/people/', include('networkapi.people.urls')),
     re_path(r'^api/experiments/complete/([^\/]+)/$', experiment_views.record_completion),
     re_path(r'^environment.json', EnvVariablesView.as_view()),
