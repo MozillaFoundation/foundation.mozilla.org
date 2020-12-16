@@ -899,7 +899,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     cutoff_date = models.DateField(
         'Product listing cutoff date',
         help_text='Only show products that were reviewed on, or after this date.',
-        default = datetime(2020, 10, 29),
+        default=datetime(2020, 10, 29),
     )
 
     content_panels = [
