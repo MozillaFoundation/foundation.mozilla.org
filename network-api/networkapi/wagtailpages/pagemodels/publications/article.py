@@ -75,9 +75,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         """
         next_page = self.get_siblings().filter(path__gt=self.path, live=True).first()
         if not next_page:
-            next_page = self.get_parent().get_next_sibling()
-            if not next_page:
-                return self.get_parent()
+            next_page = self.get_parent().specific
+            if next_page.is_chapter_page:
+                next_page = next_page.get_parent()
         return next_page
 
     @property
@@ -89,9 +89,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         """
         prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
         if not prev_page:
-            prev_page = self.get_parent().get_prev_sibling()
-            if not prev_page:
-                return self.get_parent()
+            prev_page = self.get_parent().specific
+            if prev_page.is_chapter_page:
+                prev_page = prev_page.get_parent()
         return prev_page
 
     def breadcrumb_list(self):
