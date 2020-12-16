@@ -1,5 +1,5 @@
 from random import randint, random, choice, randrange, shuffle
-from datetime import date, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from django.conf import settings
 from django.core.management import call_command
 
@@ -364,6 +364,76 @@ class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
     url = Faker('url')
 
 
+def create_general_product_visual_regression_product(seed, pni_homepage):
+    # There are no random fields here: *everything* is prespecified
+    GeneralProductPageFactory.create(
+        # page fields
+        title='General Percy Product',
+        first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        parent=pni_homepage,
+        # product fields
+        privacy_ding=True,
+        adult_content=True,
+        uses_wifi=True,
+        uses_bluetooth=True,
+        review_date==datetime(2025, 1, 1, tzinfo=timezone.utc),
+        company='Percy Corp',
+        blurb='This is a general product specifically created for visual regression testing',
+        product_url='http://example.com/general-percy',
+        price=999,
+        worst_case='Visual regression fails',
+        # general product fields
+        camera_app='Yes',
+        camera_device='No',
+        microphone_app='NA',
+        microphone_device='U',
+        location_app='Yes',
+        location_device='No',
+        personal_data_collected='Is personal data getting collected?',
+        biometric_data_collected='Is biometric data getting collected?',
+        social_data_collected='Is social data getting collected?',
+        how_can_you_control_your_data='So, how can you control your data?',
+        data_control_policy_is_bad=True,
+        company_track_record='Needs Improvement',
+        track_record_is_bad=True,
+        track_record_details='What kind of track record are we talking about?',
+        offline_capable='Yes',
+        offline_use_description='Although it is unclear how offline capabilities work',
+        uses_ai='NA',
+        ai_uses_personal_data='Yes',
+        ai_is_transparent='No',
+        ai_helptext='The AI is a black box and no one knows how it works',
+        email='test@example.org',
+        live_chat='http://example.org/chat',
+        phone_number='1-555-555-5555',
+        twitter='@TwitterHandle',
+    )
+
+
+def create_software_product_visual_regression_product(seed, pni_homepage):
+    reseed(seed)
+    SoftwareProductPageFactory.create(
+        # page fields
+        title='Software Percy Product',
+        first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        parent=pni_homepage,
+        # product fields
+        privacy_ding=True,
+        adult_content=True,
+        uses_wifi=True,
+        uses_bluetooth=True,
+        review_date==datetime(2025, 1, 1, tzinfo=timezone.utc),
+        company='Percy Corp',
+        blurb='This is a general product specifically created for visual regression testing',
+        product_url='http://example.com/general-percy',
+        price=999,
+        worst_case='Visual regression fails',
+        # software product fields
+    )
+
+
 def generate(seed):
     reseed(seed)
 
@@ -371,8 +441,12 @@ def generate(seed):
     pni_homepage = BuyersGuidePageFactory.create(
         parent=Homepage.objects.first(),
         title='* Privacy not included',
-        slug='privacynotincluded-new',
+        slug='privacynotincluded',
     )
+
+    print('Generating visual regression test products')
+    create_general_product_visual_regression_product(seed, pni_homepage)
+    create_software_product_visual_regression_product(seed, pni_homepage)
 
     print('Generating 100 ProductPages')
     for i in range(50):
