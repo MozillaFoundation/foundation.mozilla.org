@@ -43,18 +43,15 @@ else:
 
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
-# This is a hardcoded date that we update every time we release a new version of PNI
-public_cutoff_date = datetime(2020, 10, 29)
 
-
-def get_product_subset(authenticated, key, products):
+def get_product_subset(cutoff_date, authenticated, key, products):
     """
     filter a queryset based on our current cutoff date,
     as well as based on whether a user is authenticated
     to the system or not (authenticated users get to
     see all products, including draft products)
     """
-    products = products.filter(review_date__gte=public_cutoff_date)
+    products = products.filter(review_date__gte=cutoff_date)
     if not authenticated:
         products = products.live()
     products = products.specific()
@@ -899,6 +896,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     template = 'buyersguide/home.html'
     subpage_types = [SoftwareProductPage, GeneralProductPage]
 
+    cutoff_date = models.DateField(
+        'Product listing cutoff date',
+        help_text='Only show products that were reviewed on, or after this date.',
+        default=datetime(2020, 10, 29),
+    )
+
+    content_panels = [
+        FieldPanel('title'),
+        FieldPanel('cutoff_date')
+    ]
+
     @route(r'^about/$', name='how-to-use-view')
     def about_page(self, request):
         context = self.get_context(request)
@@ -986,6 +994,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         if products is None:
             products = get_product_subset(
+                self.cutoff_date,
                 authenticated,
                 key,
                 ProductPage.objects.filter(product_categories__category__in=[category])
@@ -1039,6 +1048,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         if not kwargs.get('bypass_products', False) and products is None:
             products = get_product_subset(
+                self.cutoff_date,
                 authenticated,
                 key,
                 ProductPage.objects.all()
