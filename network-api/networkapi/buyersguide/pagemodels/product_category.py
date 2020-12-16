@@ -33,7 +33,7 @@ class BuyersGuideProductCategory(models.Model):
 
     slug = models.SlugField(
         blank=True,
-        help_text='A URL-friendly version of the product name. This is an auto-generated field.'
+        help_text='A URL-friendly version of the category name. This is an auto-generated field.'
     )
 
     sort_order = models.IntegerField(
@@ -50,13 +50,20 @@ class BuyersGuideProductCategory(models.Model):
 
     @property
     def published_product_count(self):
+        # TODO: REMOVE: LEGACY FUNCTION
         return Product.objects.filter(product_category=self, draft=False).count()
+
+    @property
+    def published_product_page_count(self):
+        # late-import to prevent a circular dependency.
+        from networkapi.wagtailpages.models import ProductPage
+        return ProductPage.objects.filter(product_categories__category=self, live=True).count()
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.name_en if self.name_en else self.name)
         super(BuyersGuideProductCategory, self).save(*args, **kwargs)
 
     class Meta:
