@@ -22,6 +22,12 @@ from experiments import views as experiment_views
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [
+    # mozfest google verification
+    path(
+        'googlea9d2507950e2948b.html',
+        TemplateView.as_view(template_name='googlea9d2507950e2948b.html')
+    ),
+
     # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
         "User-Agent: *\nDisallow: /*artifacts/thimble",
