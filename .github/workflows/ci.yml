@@ -50,15 +50,11 @@ jobs:
       with:
         node-version: 14
     - name: Install Python Dependencies
-      run: |
-        pip install -r requirements.txt -r dev-requirements.txt
+      run: pip install -r requirements.txt -r dev-requirements.txt
     - name: Install Node Dependencies
-      run: |
-        set -x
-        npm ci
+      run: npm ci
     - name: Preroll
       run: |
-        psql -c 'create database network;' -U postgres
         npm run build
         python network-api/manage.py collectstatic --no-input --verbosity 0
         python network-api/manage.py migrate --no-input
