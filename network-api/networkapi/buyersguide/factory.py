@@ -421,7 +421,7 @@ def create_software_product_visual_regression_product(seed, pni_homepage):
         adult_content=True,
         uses_wifi=True,
         uses_bluetooth=True,
-        review_date=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        review_date=date(2025, 1, 1),
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
