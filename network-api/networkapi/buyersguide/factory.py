@@ -481,8 +481,11 @@ def generate(seed):
     print('Generating Buyer\'s Guide product updates')
     generate_fake_data(ProductUpdateFactory, 15)
 
+<<<<<<< HEAD
     # TODO: link updates into products
 
+=======
+>>>>>>> e820535e38da1d7831877f2d56d166ba1418cb5e
     """
     reseed(seed)
 
