@@ -21,6 +21,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
 
+from wagtail_localize.fields import SynchronizedField
+
 from networkapi.buyersguide.fields import ExtendedYesNoField
 from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
     CloudinaryField
@@ -360,6 +362,11 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         blank=True,
         related_name='votes',
     )
+
+    override_translatable_fields = [
+            SynchronizedField('votes'),
+            SynchronizedField('creepiness_value'),
+        ]
 
     @property
     def total_vote_count(self):

@@ -22,7 +22,7 @@ python-slugify
 git+git://github.com/glasslion/redlock.git@master#egg=redlock
 requests
 social-auth-app-django
-wagtail==2.11.2
+wagtail==2.11.3
 wagtail-factories
 wagtail-inventory
 wagtail-localize

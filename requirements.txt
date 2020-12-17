@@ -81,7 +81,7 @@ wagtail-inventory==1.2    # via -r requirements.in
 wagtail-localize-git==0.9.1  # via -r requirements.in
 wagtail-localize==0.9.4   # via -r requirements.in, wagtail-localize-git
 wagtail-metadata==3.3.0   # via -r requirements.in
-wagtail==2.11.2           # via -r requirements.in, wagtail-factories, wagtail-footnotes, wagtail-inventory, wagtail-localize, wagtail-localize-git, wagtail-metadata
+wagtail==2.11.3           # via -r requirements.in, wagtail-factories, wagtail-footnotes, wagtail-inventory, wagtail-localize, wagtail-localize-git, wagtail-metadata
 webencodings==0.5.1       # via html5lib
 whitenoise==5.2.0         # via -r requirements.in
 willow==1.4               # via wagtail
