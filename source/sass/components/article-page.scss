@@ -207,7 +207,7 @@
 }
 
 .article-summary-menu {
-  margin-top: 11px;
+  margin-top: 10px;
   border-radius: 0;
   border-top: 0;
   padding-top: 29px;
@@ -410,6 +410,8 @@
 }
 
 .article-navbar-container {
+  // Move the summary bar up 50px just to hide it.
+  // This then slides down to become visible
   --top-offset: -50px;
   position: relative;
   top: var(--top-offset);

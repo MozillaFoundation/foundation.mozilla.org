@@ -2,19 +2,32 @@
  * Summary bar on the publication page shows up when scrolled passed the hero.
  */
 export default () => {
-  const summaryBar = document.querySelector(".article-navbar-container");
-  const marginOffset = getComputedStyle(summaryBar).getPropertyValue('--top-offset');
+  const summaryBlock = document.querySelector(".article-navbar-container");
+  const marginOffset = getComputedStyle(summaryBlock).getPropertyValue('--top-offset');
   const dropDownMenu = document.querySelector(".article-summary-menu");
-  if(summaryBar) {
-    const heroHeight = document.querySelector('.publication-hero-container').offsetHeight;
-    const navHeight = document.querySelector(".primary-nav-container").offsetHeight;
-    const total = heroHeight + navHeight - summaryBar.offsetHeight;
-    window.addEventListener("scroll", () => {
-      if(window.scrollY > total) {
-        summaryBar.style.top = "0";
-      } else{
-        summaryBar.style.top = marginOffset;
-        dropDownMenu.classList.remove("d-block");
+  const hero = document.querySelector('.publication-hero-container');
+  const nav = document.querySelector(".primary-nav-container");
+  if (summaryBlock && hero && nav && dropDownMenu) {
+
+    const total =
+      hero.offsetHeight + nav.offsetHeight - summaryBlock.offsetHeight;
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if(window.scrollY > total) {
+          // Toggle summary block off
+          summaryBlock.style.top = "0";
+          summaryBlock.setAttribute("aria-hidden", true);
+        } else {
+          // Toggle summary block on
+          summaryBlock.style.top = marginOffset;
+          summaryBlock.setAttribute("aria-hidden", false);
+          dropDownMenu.classList.remove("d-block");
+        }
+      },
+      {
+        passive: true
       }
-    });
+    );
   }};
