@@ -27,7 +27,11 @@ class DearInternetLetterBlock(blocks.StructBlock):
     )
 
     video_url = blocks.URLBlock(
-        help_text="Video url to link out to. Video embed will show only if video url starts with https://www.youtube.com",
+        help_text="Video url to link out to. "
+                  "Note that video embed will show only when the url is a valid YouTube video embed url. "
+                  "Go to your YouTube video and click “Share,” "
+                  "then “Embed,” and then copy and paste the provided URL only. "
+                  "For example: https://www.youtube.com/embed/s7OD5BgFrVM",
         required=False
     )
 
