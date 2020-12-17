@@ -11,12 +11,21 @@ jobs:
     name: Wagtail CI
     runs-on: ubuntu-latest
     container: python3.8-nodejs14
-
+    services:
+      postgres:
+        image: postgres:9.6
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: network
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
-      DATABASE_URL: postgres://postgres@localhost:5432/network
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
       DEBUG: True
       DJANGO_SECRET_KEY: secret
       NETWORK_SITE_URL: https://foundation.mozilla.org
@@ -32,18 +41,6 @@ jobs:
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
       PIPENV_VERBOSITY: -1
-
-    services:
-      postgres:
-        image: postgres:9.6
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-        - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -52,16 +49,13 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: 14
-
     - name: Install Python Dependencies
       run: |
         pip install -r requirements.txt -r dev-requirements.txt
-
     - name: Install Node Dependencies
       run: |
         set -x
         npm ci
-
     - name: Preroll
       run: |
         psql -c 'create database network;' -U postgres
@@ -72,7 +66,6 @@ jobs:
         python network-api/manage.py sync_page_translation_fields
         python network-api/manage.py update_translation_fields
         python network-api/manage.py compilemessages
-
     - name: Run Tests
       run: |
         flake8 tasks.py network-api/
