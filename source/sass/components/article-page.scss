@@ -371,6 +371,7 @@
 
   td,
   th {
+    border-top: 0;
     /* stylelint-disable */
     border-bottom: 1px solid rgb(160, 162, 248); // One-off colors; no variable exists for this
     /* stylelint-enable */
@@ -380,6 +381,7 @@
     font-weight: normal;
   }
 
+  .blue,
   thead td,
   thead th {
     background: $blue;
