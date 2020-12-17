@@ -445,8 +445,8 @@ def generate(seed):
     create_general_product_visual_regression_product(seed, pni_homepage)
     create_software_product_visual_regression_product(seed, pni_homepage)
 
-    print('Generating 30 ProductPages')
-    for i in range(15):
+    print('Generating 52 ProductPages')
+    for i in range(26):
         # General products
         general_page = GeneralProductPageFactory.create(parent=pni_homepage,)
         fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(page=general_page)
@@ -480,6 +480,8 @@ def generate(seed):
 
     print('Generating Buyer\'s Guide product updates')
     generate_fake_data(ProductUpdateFactory, 15)
+
+    # TODO: link updates into products
 
     """
     reseed(seed)
