@@ -10,7 +10,6 @@ jobs:
   wagtail_ci:
     name: Wagtail CI
     runs-on: ubuntu-latest
-    container: python3.8-nodejs14
     services:
       postgres:
         image: postgres:9.6
