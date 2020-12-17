@@ -1,0 +1,27 @@
+name: Wagtail CI
+
+on:
+  push:
+    branches: [ 'master' ]
+  pull_request:
+    branches: [ 'master' ]
+
+jobs:
+  npm_test:
+    name: NPM test
+    runs-on: ubuntu-latest
+    env:
+      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NETWORK_SITE_URL: https://foundation.mozilla.org
+      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
+      PULSE_DOMAIN: https://www.mozillapulse.org
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
+    - name: Install Node Dependencies
+      run: npm ci
+    - name: Run Tests
+      run: npm test
