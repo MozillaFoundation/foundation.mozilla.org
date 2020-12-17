@@ -27,19 +27,20 @@ jobs:
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
       DEBUG: True
       DJANGO_SECRET_KEY: secret
+      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NETWORK_SITE_URL: https://foundation.mozilla.org
+      PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
-      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       TARGET_DOMAINS: foundation.mozilla.org
       USE_CLOUDINARY: false
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
-      PIPENV_VERBOSITY: -1
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
