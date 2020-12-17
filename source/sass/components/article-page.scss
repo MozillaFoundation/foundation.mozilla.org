@@ -409,18 +409,22 @@
   }
 }
 
+.article-navbar-container {
+  --top-offset: -50px;
+  position: relative;
+  top: var(--top-offset);
+  z-index: -1;
+  margin-bottom: var(--top-offset);
+  transition: top 0.35s ease;
+}
 .article-navbar {
-  --margin-top: -100px;
   /* stylelint-disable */
   background: rgb(231, 231, 252); // One-off colors; no variable exists for this
   /* stylelint-enable */
   padding: 9px 0;
   position: sticky;
-  margin-top: var(--margin-top);
   left: 0;
   right: 0;
-  z-index: -1;
-  transition: margin-top 0.35s ease;
 }
 .article-navbar-title {
   color: $black;
