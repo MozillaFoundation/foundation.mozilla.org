@@ -53,33 +53,33 @@ jobs:
         with:
           node-version: '14'
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        - uses: actions/setup-python@v2
+          with:
+            python-version: ${{ matrix.python-version }}
 
-    - name: Install Python Dependencies
-      run: |
-        pip install -r requirements.txt -r dev-requirements.txt
+      - name: Install Python Dependencies
+        run: |
+          pip install -r requirements.txt -r dev-requirements.txt
 
-    - name: Install Node Dependencies
-      run: |
-        set -x
-        npm ci
+      - name: Install Node Dependencies
+        run: |
+          set -x
+          npm ci
 
-    - name: Preroll
-      run: |
-        psql -c 'create database network;' -U postgres
-        npm run build
-        python network-api/manage.py collectstatic --no-input --verbosity 0
-        python network-api/manage.py migrate --no-input
-        python network-api/manage.py block_inventory
-        python network-api/manage.py sync_page_translation_fields
-        python network-api/manage.py update_translation_fields
-        python network-api/manage.py compilemessages
+      - name: Preroll
+        run: |
+          psql -c 'create database network;' -U postgres
+          npm run build
+          python network-api/manage.py collectstatic --no-input --verbosity 0
+          python network-api/manage.py migrate --no-input
+          python network-api/manage.py block_inventory
+          python network-api/manage.py sync_page_translation_fields
+          python network-api/manage.py update_translation_fields
+          python network-api/manage.py compilemessages
 
-    - name: Run Tests
-      run: |
-        flake8 tasks.py network-api/
-        coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
-        coveralls
+      - name: Run Tests
+        run: |
+          flake8 tasks.py network-api/
+          coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
+          coveralls
