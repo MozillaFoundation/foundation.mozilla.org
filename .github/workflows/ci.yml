@@ -47,7 +47,7 @@ jobs:
         USE_S3=False
         X_FRAME_OPTIONS=DENY
         XSS_PROTECTION=True
-        PIPENV_VERBOSITY=-1
+        PIPENV_VERBOSITY="-1"
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
