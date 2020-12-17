@@ -1,4 +1,4 @@
-name: Wagtail CI
+name: Node CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   npm_test:
-    name: NPM test
+    name: Node CI
     runs-on: ubuntu-latest
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
