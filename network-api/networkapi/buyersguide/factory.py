@@ -374,7 +374,7 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         adult_content=True,
         uses_wifi=True,
         uses_bluetooth=True,
-        review_date=date(2025, 1, 1),
+        review_date=date(year=2025, month=1, day=1),
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
@@ -421,7 +421,7 @@ def create_software_product_visual_regression_product(seed, pni_homepage):
         adult_content=True,
         uses_wifi=True,
         uses_bluetooth=True,
-        review_date=date(2025, 1, 1),
+        review_date=date(year=2025, month=1, day=1),
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
@@ -483,6 +483,7 @@ def generate(seed):
 
     # TODO: link updates into products
 
+    """
     reseed(seed)
 
     print('Generating Buyer\'s Guide Products')
