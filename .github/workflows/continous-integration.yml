@@ -112,6 +112,7 @@ jobs:
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NETWORK_SITE_URL: https://foundation.mozilla.org
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
