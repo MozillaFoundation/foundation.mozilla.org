@@ -84,14 +84,14 @@
 
 .footnote-number {
   color: $blue;
-  @include set-text-size(18px, 27px);
+  @include set-text-size(14px, 20px);
   font-family: $font-family-sans-serif;
   margin-right: 7px;
 }
 
 .footnote-row .footnote-text .rich-text p {
   color: $gray-60;
-  @include set-text-size(18px, 27px);
+  @include set-text-size(14px, 20px);
   font-family: $font-family-sans-serif;
   font-weight: normal;
 
@@ -169,19 +169,6 @@
    */
   a {
     text-decoration: underline;
-  }
-
-  // Used for offsetting footnote links so when the footnote at the bottom of the page
-  // is clicked, the page will jump to the footnote, minus 160px (the _very_ rough height
-  // of the navigation)
-  a[id^="footnote-source"]::before {
-    content: "";
-    display: inline-block;
-    height: 160px;
-    margin-top: -160px;
-    visibility: hidden;
-    pointer-events: none;
-    width: 1px;
   }
 
   p,
@@ -314,6 +301,7 @@
 
   td,
   th {
+    border-top: 0;
     /* stylelint-disable */
     border-bottom: 1px solid rgb(160, 162, 248); // One-off colors; no variable exists for this
     /* stylelint-enable */
@@ -323,6 +311,7 @@
     font-weight: normal;
   }
 
+  .blue,
   thead td,
   thead th {
     background: $blue;
