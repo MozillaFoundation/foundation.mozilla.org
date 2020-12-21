@@ -2,7 +2,6 @@
  * Summary bar on the publication page shows up when scrolled passed the hero.
  */
 export default () => {
-  console.log("555")
   const summaryBlock = document.querySelector(".article-navbar-container");
   const marginOffset = getComputedStyle(summaryBlock).getPropertyValue('--top-offset');
   const dropDownMenu = document.querySelector(".article-summary-menu");
