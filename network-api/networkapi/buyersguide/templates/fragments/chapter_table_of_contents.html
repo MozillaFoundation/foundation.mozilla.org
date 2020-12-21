@@ -11,23 +11,23 @@
     <div class="pt-4 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center publication-container">
       <div class="row mb-5">
         <div class="col-12">
-          {% for child in page.get_children.live %}
+          {% for child_page in child_pages %}
+            {% with child=child_page.child %}
             <div class="row publication-row pt-3 pb-3 d-flex align-items-center">
               <div class="col-sm-1 d-md-block d-none">&nbsp;</div>
               <div class="col-auto">
-                <div class="publication-chapter-number publication-chapter-number--small">
-                  {{ forloop.counter }}
-                </div>
+                <div class="publication-chapter-number publication-chapter-number--small"></div>
               </div>
               <div class="col-sm col-8 d-flex align-items-center">
                 <h3 class="publication-chapter-title publication-chapter-title--small my-0">
                   <a href="{{ child.url }}" class="d-block">
-                    {{ child.title }}
+                    {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                   </a>
                 </h3>
               </div>
               <div class="col-sm-1 d-md-block d-none">&nbsp;</div>
             </div>
+            {% endwith %}
             {% if not forloop.last %}
               <hr/>
             {% endif %}

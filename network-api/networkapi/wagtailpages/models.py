@@ -11,7 +11,6 @@ from .pagemodels.base import (
     Styleguide,
     HomepageFocusAreas,
     Homepage,
-    PeoplePage,
     HomepageNewsYouCanUse,
     HomepageSpotlightPosts,
     ParticipateHighlights,
@@ -85,9 +84,12 @@ from .pagemodels.dear_internet import (
 )
 
 from .pagemodels.products import (
-    GeneralProductPage,
     ProductPage,
-    SoftwareProductPage
+    SoftwareProductPage,
+    GeneralProductPage,
+    BuyersGuidePage,
+    ProductPagePrivacyPolicyLink,
+    ProductPageCategory
 )
 
 
@@ -100,6 +102,7 @@ __all__ = [
     BlogAuthor,
     BlogAuthors,
     BlogPageCategory,
+    BuyersGuidePage,
     CTA,
     CampaignIndexPage,
     CampaignPage,
@@ -122,10 +125,11 @@ __all__ = [
     ParticipateHighlights2,
     ParticipatePage2,
     PartnerLogos,
-    PeoplePage,
     Petition,
     PrimaryPage,
     ProductPage,
+    ProductPageCategory,
+    ProductPagePrivacyPolicyLink,
     PublicationPage,
     RedirectingPage,
     Signup,

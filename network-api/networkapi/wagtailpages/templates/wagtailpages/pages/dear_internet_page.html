@@ -16,54 +16,60 @@
   {% include "../fragments/dear_internet_cloud.html" with class="light-blue" %}
   {% include "../fragments/dear_internet_cloud.html" with class="light-blue" %}
   {% include "../fragments/dear_internet_cloud.html" with class="white" %}
-  {% include "../fragments/dear_internet_cloud.html" with class="light-red" %}
+  {% include "../fragments/dear_internet_cloud.html" with class="light-blue" %}
   {% include "../fragments/dear_internet_cloud.html" with class="white" %}
   {% include "../fragments/dear_internet_cloud.html" with class="light-red" %}
-  {% include "../fragments/dear_internet_cloud.html" with class="cloud light-blue" %}
+  {% include "../fragments/dear_internet_cloud.html" with class="white" %}
 </div>
 
-<div class="plane-pathway-wrapper full-size-absolute-wrapper"></div>
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="{{main_content_col}}">
-      <div class="love-letter-stamp d-flex align-items-center justify-content-center">
-        <img src="{% static "_images/dear-internet/Stamp-Wave-Left.svg" %}" alt="" class="mr-3">
-        <img src="{% static "_images/dear-internet/Stamp-Love-Letters.svg" %}" alt="{% trans "love letters to the internet" %}">
-        <img src="{% static "_images/dear-internet/Stamp-Wave-Right.svg" %}" alt="" class="ml-3">
-      </div>
-    </div>
+<div class="pre-cta-content position-relative">
+  <div id="plane-pathway-wrapper" class="full-size-absolute-wrapper text-center invisible">
+    {% include "../fragments/dear_internet_plane_path.html" %}
   </div>
-  <div class="row justify-content-center">
-    <div class="col-12 text-center">
-      <h1 class="d-inline-block px-3 px-lg-5 py-2 mb-3 mb-md-5">{{page.title}}</h1>
-    </div>
-    <div class="{{main_content_col}} text-center">
-      {% for block in page.intro_texts %}
-        <div class="intro-text">
-          {% include_block block %}
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-<div class="letters">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="{{main_content_col}} text-center letters-section-heading">
-        <h2 class="mb-0">{{page.letters_section_heading}}</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="offset-md-1 col-md-1 text-center d-print-none">
-        <div class="sticky-side d-none d-lg-flex justify-content-lg-end">
-          <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+      <div class="{{main_content_col}}">
+        <div class="love-letter-stamp d-flex align-items-center justify-content-center">
+          <img src="{% static "_images/dear-internet/Stamp-Wave-Left.svg" %}" alt="">
+          <img src="{% static "_images/dear-internet/Stamp-Love-Letters.svg" %}" alt="{% trans "love letters to the internet" %}" class="stamp">
+          <img src="{% static "_images/dear-internet/Stamp-Wave-Right.svg" %}" alt="">
         </div>
       </div>
-      <div class="{{main_content_col}}">
-        {% for block in page.letters %}
-        {% include_block block with index=forloop.counter %}
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <h1 class="d-inline-block px-3 px-lg-5 py-2 mb-3 mb-md-5">{{page.title}}</h1>
+      </div>
+      <div class="{{main_content_col}} text-center">
+        {% for block in page.intro_texts %}
+          <div class="intro-text">
+            {% include_block block %}
+          </div>
         {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="letters">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="{{main_content_col}} text-center letters-section-heading">
+          <h2 class="mb-0">{{page.letters_section_heading}}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-md-1 col-md-1 text-center d-print-none">
+          <div class="sticky-side d-none d-md-flex justify-content-lg-end">
+            <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+          </div>
+        </div>
+        <div class="{{main_content_col}}">
+          {% for block in page.letters %}
+          {% include_block block with index=forloop.counter %}
+          {% endfor %}
+        </div>
+        <div class="{{main_content_col}} d-block d-md-none d-print-none text-center">
+          <div class="share-button-group-wrapper my-5 d-inline-block" data-version="mini" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+        </div>
       </div>
     </div>
   </div>

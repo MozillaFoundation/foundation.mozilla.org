@@ -29,12 +29,13 @@ from .models import (
     Signup,
 
     # Product Pages
-    GeneralProductPage,
     ProductPage,
     SoftwareProductPage,
+    GeneralProductPage,
+    BuyersGuidePage,
 
-    # DEPRECATED
-    PeoplePage,
+    # Product Page related
+    ProductPagePrivacyPolicyLink,
 )
 
 from .pagemodels.base import (
@@ -224,12 +225,6 @@ class ArticlePageTR(TranslationOptions):
     fields = ()
 
 
-# The following bindings are obsolete and require cleanup
-@register(PeoplePage)
-class PeoplePageTR(TranslationOptions):
-    fields = ()
-
-
 @register(BlogPage)
 class BlogPageTR(TranslationOptions):
     fields = (
@@ -261,6 +256,15 @@ class YoutubeRegretsReporterPageTR(TranslationOptions):
 class ProductPageTR(TranslationOptions):
     fields = (
         'price',
+        'blurb',
+        'worst_case',
+        'signup_requirement_explanation',
+        'how_does_it_use_data_collected',
+        'uses_encryption_helptext',
+        'security_updates_helptext',
+        'strong_password_helptext',
+        'manage_vulnerabilities_helptext',
+        'privacy_policy_helptext',
     )
 
 
@@ -271,7 +275,27 @@ class SoftwareProductPageTR(TranslationOptions):
 
 @register(GeneralProductPage)
 class GeneralProductPageTR(TranslationOptions):
+    fields = (
+        'personal_data_collected',
+        'biometric_data_collected',
+        'social_data_collected',
+        'how_can_you_control_your_data',
+        'track_record_details',
+        'offline_use_description',
+        'ai_helptext',
+    )
+
+
+@register(BuyersGuidePage)
+class BuyersGuidePageTR(TranslationOptions):
     fields = ()
+
+
+@register(ProductPagePrivacyPolicyLink)
+class ProductPagePrivacyPolicyLinkTR(TranslationOptions):
+    fields = (
+        'label',
+    )
 
 
 @register(DearInternetPage)

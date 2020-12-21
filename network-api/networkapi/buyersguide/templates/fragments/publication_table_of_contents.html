@@ -16,39 +16,33 @@
           <h2>{{ page.contents_title }}</h2>
         </div>
         <div class="col-12">
-          {% for child in page.get_children.live %}
+          {% for child_page in child_pages %}
+            {% with child=child_page.child %}
             <div class="row publication-row pt-3 pb-sm-4 pb-0">
               <div class="col-auto">
-                <div class="publication-chapter-number">
-                  {{ forloop.counter }}
-                </div>
+                <div class="publication-chapter-number"></div>
               </div>
               <div class="col-8 ml-sm-3{% if not child.get_children_count %} d-flex align-items-center{% endif %}">
                 <h3 class="{% if child.get_children_count %}publication-chapter-title{% else %}m-0 {% endif %}">
                   <a href="{{ child.url }}" class="d-block {% if child.get_children_count %}mb-4{% endif %}">
-                    {{ child.title }}
+                    {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                   </a>
                 </h3>
-                {% for grandchild in child.get_children.live %}
+                {% for grandchild in child_page.grandchildren %}
                   <div class="row d-sm-flex d-none">
-                    <div class="col-auto h6-heading pt-1">
-                      {{ forloop.parentloop.counter }}.{{ forloop.counter}}
-                    </div>
-                    <div class="col">
-                      <h4 class="col-12 child-pages-children-title body">
-                        <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
-                          {{ grandchild.title }}
-                        </a>
-                      </h4>
-                    </div>
+                    <h4 class="col-11 offset-1 child-pages-children-title body">
+                      <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
+                        {{ grandchild.title }}
+                      </a>
+                    </h4>
                   </div>
                 {% endfor %}
               </div>
             </div>
-            {% if child.get_children_count %}
+            {% if child_page.grandchildren %}
               {# Child listings on mobile. #}
               <div class="pt-2 d-sm-none d-block">
-                {% for grandchild in child.get_children %}
+                {% for grandchild in child_page.grandchildren %}
                   <div class="row d-flex">
                     <div class="col-auto publication-chapter-list-number">
                       {{ forloop.parentloop.counter }}.{{ forloop.counter}}
@@ -56,7 +50,7 @@
                     <div class="col">
                       <h4 class="col-12 child-pages-children-title body">
                         <a href="{{ grandchild.url }}" class="d-block chapter-article-link">
-                          {{ grandchild.title }}
+                          {{ grandchild.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                         </a>
                       </h4>
                     </div>
@@ -64,6 +58,7 @@
                 {% endfor %}
               </div>
             {% endif %}
+            {% endwith %}
             {% if not forloop.last %}
               <hr/>
             {% endif %}
