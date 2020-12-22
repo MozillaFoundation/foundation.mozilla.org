@@ -247,7 +247,6 @@ class ProductPageFactory(PageFactory):
     product_url = Faker('url')
     price = LazyAttribute(lambda _: randint(49, 1500))
     worst_case = Faker('sentence')
-
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
 
@@ -274,12 +273,13 @@ class ProductPageFactory(PageFactory):
 
     @post_generation
     def set_random_review_date(self, create, extracted, **kwargs):
-        start_date = date(2020, 10, 1)
-        end_date = date(2021, 1, 30)
-        time_between_dates = end_date - start_date
-        days_between_dates = time_between_dates.days
-        random_number_of_days = randrange(days_between_dates)
-        self.review_date = start_date + timedelta(days=random_number_of_days)
+        if "Percy" not in self.title:
+            start_date = date(2020, 10, 1)
+            end_date = date(2021, 1, 30)
+            time_between_dates = end_date - start_date
+            days_between_dates = time_between_dates.days
+            random_number_of_days = randrange(days_between_dates)
+            self.review_date = start_date + timedelta(days=random_number_of_days)
 
     @post_generation
     def set_random_creepiness(self, create, extracted, **kwargs):
@@ -368,7 +368,7 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         adult_content=True,
         uses_wifi=True,
         uses_bluetooth=True,
-        review_date=date(year=2025, month=1, day=1),
+        review_date=date(2025, 1, 1),
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
@@ -415,7 +415,7 @@ def create_software_product_visual_regression_product(seed, pni_homepage):
         adult_content=True,
         uses_wifi=True,
         uses_bluetooth=True,
-        review_date=date(year=2025, month=1, day=1),
+        review_date=date(2025, 1, 1),
         company='Percy Corp',
         blurb='This is a general product specifically created for visual regression testing',
         product_url='http://example.com/general-percy',
