@@ -415,7 +415,6 @@
   --top-offset: -50px;
   position: relative;
   top: var(--top-offset);
-  z-index: -1;
   margin-bottom: var(--top-offset);
   transition: top 0.35s ease;
 }
