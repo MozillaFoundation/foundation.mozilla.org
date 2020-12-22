@@ -112,7 +112,6 @@ jobs:
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NETWORK_SITE_URL: https://foundation.mozilla.org
-      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       PULSE_DOMAIN: https://www.mozillapulse.org
@@ -151,5 +150,9 @@ jobs:
         python network-api/manage.py update_translation_fields
         python network-api/manage.py load_fake_data
         python network-api/manage.py compilemessages
-    - name: Run Tests
-      run: npm run percy
+    - name: Percy Test
+      uses: ./.github/actions/percy-exec
+      with:
+        command: "npm run cypress:ci"
+      env:
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
