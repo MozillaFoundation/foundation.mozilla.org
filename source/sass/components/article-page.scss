@@ -395,12 +395,12 @@
   &:hover {
     /* stylelint-disable */
     // This is a one-off color.
-    background-color: #e8e8e8;
+    background: rgb(231, 231, 252); // One-off colors; no variable exists for this
     /* stylelint-enable */
     text-decoration: none;
 
     .body-large {
-      color: $blue;
+      color: $dark-blue;
     }
   }
 }
