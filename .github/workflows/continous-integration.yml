@@ -11,7 +11,7 @@ jobs:
     name: Node CI
     runs-on: ubuntu-latest
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com  
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NETWORK_SITE_URL: https://foundation.mozilla.org
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
@@ -43,6 +43,7 @@ jobs:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
+      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
       DEBUG: True
       DJANGO_SECRET_KEY: secret
