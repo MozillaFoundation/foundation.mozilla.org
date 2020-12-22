@@ -153,6 +153,6 @@ jobs:
     - name: Percy Test
       uses: ./.github/actions/percy-exec
       with:
-        command: "npm run percy"
+        command: "npm run cypress:ci"
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
