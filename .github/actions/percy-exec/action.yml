@@ -27,5 +27,5 @@ inputs:
     description: 'Enable verbose logging'
     default: false
 runs:
-  using: 'node14'
+  using: 'node12'
   main: 'index.js'
