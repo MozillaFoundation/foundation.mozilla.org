@@ -416,6 +416,7 @@
   position: relative;
   top: var(--top-offset);
   margin-bottom: var(--top-offset);
+  z-index: -1;
   transition: top 0.35s ease;
 }
 .article-navbar {
