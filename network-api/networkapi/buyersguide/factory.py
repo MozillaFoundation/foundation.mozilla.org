@@ -1,7 +1,5 @@
 from random import randint, random, choice, randrange, shuffle
 from datetime import date, datetime, timezone, timedelta
-from django.conf import settings
-from django.core.management import call_command
 
 from factory import (
     DjangoModelFactory,
@@ -27,14 +25,8 @@ from networkapi.wagtailpages.pagemodels.products import (
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
-    Product,
     Update,
-    ProductPrivacyPolicyLink,
-    GeneralProduct,
-    SoftwareProduct,
     BuyersGuideProductCategory,
-    RangeVote,
-    BooleanVote,
 )
 
 Faker.add_provider(ImageProvider)
@@ -78,6 +70,7 @@ class ProductUpdateFactory(DjangoModelFactory):
     author = Faker('sentence')
     featured = Faker('boolean')
     snippet = Faker('sentence')
+
 
 """
 class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
@@ -222,6 +215,7 @@ class SoftwareProductFactory(ProductFactory):
     easy_to_learn_and_use = Faker('boolean')
     easy_to_learn_and_use_helptext = Faker('sentence')
 """
+
 
 class BuyersGuidePageFactory(PageFactory):
 
