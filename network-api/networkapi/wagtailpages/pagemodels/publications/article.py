@@ -69,18 +69,64 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
 
     @property
     def next_page(self):
-        # Try to get the next sibling page.
+        """
+        Get the next page for a publication. Details below:
+
+        Check the parent page type. If the parent page type is a "Chapter Page",
+        then look for siblings of `this` page. If no next sibling can be found
+        look for the parent page next sibling. And if that cannot be found,
+        return the Chapter Page's parent (Publication Page).
+        Otherwise if the parent page is a Publication page: look for the next sibling,
+        if there is no next sibling page, return this pages' parent.
+        """
+
+        parent = self.get_parent().specific
         next_page = self.get_siblings().filter(path__gt=self.path, live=True).first()
-        if not next_page:
-            next_page = self.get_parent()
+        if parent.is_chapter_page:
+            # if there is no next page look for the next chapter
+            if not next_page:
+                next_page = parent.get_siblings().filter(path__gt=self.path, live=True).first()
+                # if there is no next chapter return to the parent.get_parent()
+                if not next_page:
+                    next_page = parent.get_parent()
+        else:
+            # Parent is a PublicationPage, not a chapter page
+            # if there is no next page, return the parent
+            if not next_page:
+                next_page = parent
+
         return next_page
 
     @property
     def prev_page(self):
-        # Try to get the prev sibling page.
+        """
+        Get the previous page for a publication. Details below:
+
+        Check the parent page type. If the parent page type is a "Chapter Page",
+        then look for siblings of `this` page. If no previous sibling can be found
+        look for the parent page previous sibling. And if that cannot be found,
+        return the Chapter Page's parent (Publication Page).
+        Otherwise if the parent page is a Publication page: look for the previous sibling,
+        if there is no previous sibling page, return this pages' parent.
+        """
+
+        parent = self.get_parent().specific
         prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
-        if not prev_page:
-            prev_page = self.get_parent()
+        if parent.is_chapter_page:
+            # look for the previous page in this chapter
+            # if there is no previous page look for the previous chapter
+            if not prev_page:
+                prev_page = parent.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
+                # if there is no previous chapter return to the parent.get_parent()
+                if not prev_page:
+                    prev_page = parent.get_parent()
+        else:
+            # Parent is a PublicationPage, not a chapter page
+            # look for the previous page in this publication
+            # if there is no previous page, return the parent
+            if not prev_page:
+                prev_page = parent
+
         return prev_page
 
     def breadcrumb_list(self):
