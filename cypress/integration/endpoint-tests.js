@@ -167,37 +167,33 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
 
   // Pages specific to the "Privacy Not Included" Buyers Guide
 
-  /*
-    TODO: REENABLE: commented off just to pass Percy atm
+  it(`PNI homepage`, function () {
+    cy.visit(`/en/privacynotincluded/`);
+    cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
 
-    it(`PNI homepage`, function () {
-      cy.visit(`/en/privacynotincluded`);
-      cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
-      cy.wait(500);
-      cy.percySnapshot();
-    });
+  it(`PNI category page`, function () {
+    cy.visit(`/en/privacynotincluded/categories/toys-games/`);
+    cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
 
-    it(`PNI category page`, function () {
-      cy.visit(`/en/privacynotincluded/categories/toys-games/`);
-      cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
-      cy.wait(500);
-      cy.percySnapshot();
-    });
+  it(`PNI general product page`, function () {
+    cy.visit(`/en/privacynotincluded/general-percy-product/`);
+    cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
 
-    it(`PNI general product page`, function () {
-      cy.visit(`/en/privacynotincluded/products/percy-cypress/`);
-      cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
-      cy.wait(500);
-      cy.percySnapshot();
-    });
-
-    it(`PNI software product page`, function () {
-      cy.visit(`/en/privacynotincluded/products/percy-cypress-app/`);
-      cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
-      cy.wait(500);
-      cy.percySnapshot();
-    });
-  */
+  it(`PNI software product page`, function () {
+    cy.visit(`/en/privacynotincluded/software-percy-product/`);
+    cy.window().its(`bg-main-js:react:finished`).should(`equal`, true);
+    cy.wait(500);
+    cy.percySnapshot();
+  });
 
   // Other pages
 
