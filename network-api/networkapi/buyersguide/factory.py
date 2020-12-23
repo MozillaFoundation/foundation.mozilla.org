@@ -1,7 +1,5 @@
 from random import randint, random, choice, randrange, shuffle
-from datetime import date, timezone, timedelta
-from django.conf import settings
-from django.core.management import call_command
+from datetime import date, datetime, timezone, timedelta
 
 from factory import (
     DjangoModelFactory,
@@ -27,14 +25,8 @@ from networkapi.wagtailpages.pagemodels.products import (
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
-    Product,
     Update,
-    ProductPrivacyPolicyLink,
-    GeneralProduct,
-    SoftwareProduct,
     BuyersGuideProductCategory,
-    RangeVote,
-    BooleanVote,
 )
 
 Faker.add_provider(ImageProvider)
@@ -69,14 +61,6 @@ def get_lowest_content_page_category():
     )[0][1]
 
 
-class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
-    class Meta:
-        model = ProductPrivacyPolicyLink
-
-    label = Faker('sentence')
-    url = Faker('url')
-
-
 class ProductUpdateFactory(DjangoModelFactory):
     class Meta:
         model = Update
@@ -87,6 +71,14 @@ class ProductUpdateFactory(DjangoModelFactory):
     featured = Faker('boolean')
     snippet = Faker('sentence')
 
+
+"""
+class ProductPrivacyPolicyLinkFactory(DjangoModelFactory):
+    class Meta:
+        model = ProductPrivacyPolicyLink
+
+    label = Faker('sentence')
+    url = Faker('url')
 
 class ProductFactory(DjangoModelFactory):
     class Meta:
@@ -109,10 +101,8 @@ class ProductFactory(DjangoModelFactory):
 
     @post_generation
     def product_category(self, create, extracted, **kwargs):
-        """
-        After model generation, Relate this product to one or more product categories.
-        Do this in a way that will assign some products 2 or more categories.
-        """
+        # After model generation, Relate this product to one or more product categories.
+        # Do this in a way that will assign some products 2 or more categories.
         ceiling = 1.0
         while True:
             odds = random()
@@ -224,6 +214,7 @@ class SoftwareProductFactory(ProductFactory):
     host_controls = Faker('sentence')
     easy_to_learn_and_use = Faker('boolean')
     easy_to_learn_and_use_helptext = Faker('sentence')
+"""
 
 
 class BuyersGuidePageFactory(PageFactory):
@@ -256,7 +247,6 @@ class ProductPageFactory(PageFactory):
     product_url = Faker('url')
     price = LazyAttribute(lambda _: randint(49, 1500))
     worst_case = Faker('sentence')
-
     first_published_at = Faker('past_datetime', start_date='-2d', tzinfo=timezone.utc)
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
 
@@ -283,12 +273,13 @@ class ProductPageFactory(PageFactory):
 
     @post_generation
     def set_random_review_date(self, create, extracted, **kwargs):
-        start_date = date(2020, 10, 1)
-        end_date = date(2021, 1, 30)
-        time_between_dates = end_date - start_date
-        days_between_dates = time_between_dates.days
-        random_number_of_days = randrange(days_between_dates)
-        self.review_date = start_date + timedelta(days=random_number_of_days)
+        if "Percy" not in self.title:
+            start_date = date(2020, 10, 1)
+            end_date = date(2021, 1, 30)
+            time_between_dates = end_date - start_date
+            days_between_dates = time_between_dates.days
+            random_number_of_days = randrange(days_between_dates)
+            self.review_date = start_date + timedelta(days=random_number_of_days)
 
     @post_generation
     def set_random_creepiness(self, create, extracted, **kwargs):
@@ -364,6 +355,76 @@ class ProductPagePrivacyPolicyLinkFactory(DjangoModelFactory):
     url = Faker('url')
 
 
+def create_general_product_visual_regression_product(seed, pni_homepage):
+    # There are no random fields here: *everything* is prespecified
+    GeneralProductPageFactory.create(
+        # page fields
+        title='General Percy Product',
+        first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        parent=pni_homepage,
+        # product fields
+        privacy_ding=True,
+        adult_content=True,
+        uses_wifi=True,
+        uses_bluetooth=True,
+        review_date=date(2025, 1, 1),
+        company='Percy Corp',
+        blurb='This is a general product specifically created for visual regression testing',
+        product_url='http://example.com/general-percy',
+        price=999,
+        worst_case='Visual regression fails',
+        # general product fields
+        camera_app='Yes',
+        camera_device='No',
+        microphone_app='NA',
+        microphone_device='U',
+        location_app='Yes',
+        location_device='No',
+        personal_data_collected='Is personal data getting collected?',
+        biometric_data_collected='Is biometric data getting collected?',
+        social_data_collected='Is social data getting collected?',
+        how_can_you_control_your_data='So, how can you control your data?',
+        data_control_policy_is_bad=True,
+        company_track_record='Needs Improvement',
+        track_record_is_bad=True,
+        track_record_details='What kind of track record are we talking about?',
+        offline_capable='Yes',
+        offline_use_description='Although it is unclear how offline capabilities work',
+        uses_ai='NA',
+        ai_uses_personal_data='Yes',
+        ai_is_transparent='No',
+        ai_helptext='The AI is a black box and no one knows how it works',
+        email='test@example.org',
+        live_chat='http://example.org/chat',
+        phone_number='1-555-555-5555',
+        twitter='@TwitterHandle',
+    )
+
+
+def create_software_product_visual_regression_product(seed, pni_homepage):
+    reseed(seed)
+    SoftwareProductPageFactory.create(
+        # page fields
+        title='Software Percy Product',
+        first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+        parent=pni_homepage,
+        # product fields
+        privacy_ding=True,
+        adult_content=True,
+        uses_wifi=True,
+        uses_bluetooth=True,
+        review_date=date(2025, 1, 1),
+        company='Percy Corp',
+        blurb='This is a general product specifically created for visual regression testing',
+        product_url='http://example.com/general-percy',
+        price=999,
+        worst_case='Visual regression fails',
+        # software product fields
+    )
+
+
 def generate(seed):
     reseed(seed)
 
@@ -371,32 +432,29 @@ def generate(seed):
     pni_homepage = BuyersGuidePageFactory.create(
         parent=Homepage.objects.first(),
         title='* Privacy not included',
-        slug='privacynotincluded-new',
+        slug='privacynotincluded',
     )
 
-    print('Generating 100 ProductPages')
-    for i in range(50):
-        # Create 50 GeneralProductPages with Privacy Link Orderables
-        general_page = GeneralProductPageFactory.create(
-            parent=pni_homepage,
-        )
-        fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(
-            page=general_page
-        )
+    print('Generating visual regression test products')
+    create_general_product_visual_regression_product(seed, pni_homepage)
+    create_software_product_visual_regression_product(seed, pni_homepage)
+
+    print('Generating 52 ProductPages')
+    for i in range(26):
+        # General products
+        general_page = GeneralProductPageFactory.create(parent=pni_homepage,)
+        fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(page=general_page)
         general_page.privacy_policy_links.add(fake_privacy_policy)
         general_page.save_revision().publish()
-        # Create 50 SoftwareProductPages with Privacy Link Orderables
-        software_page = SoftwareProductPageFactory.create(
-            parent=pni_homepage,
-        )
+
+        # Software products
+        software_page = SoftwareProductPageFactory.create(parent=pni_homepage,)
         software_page.save_revision().publish()
-        fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(
-            page=software_page
-        )
+        fake_privacy_policy = ProductPagePrivacyPolicyLinkFactory(page=software_page)
         software_page.privacy_policy_links.add(fake_privacy_policy)
         software_page.save_revision().publish()
 
-    print('Adding related products to ProductPages')
+    print('Crosslinking related products')
     product_pages = ProductPage.objects.all()
     total_product_pages = product_pages.count()
     for product_page in product_pages:
@@ -412,43 +470,14 @@ def generate(seed):
             related_product.save()
             product_page.related_product_pages.add(related_product)
 
-    print('Generating fixed Buyer\'s Guide GeneralProduct for visual regression testing')
-    GeneralProductFactory.create(
-        blurb='Visual Regression Testing',
-        company='Percy',
-        draft=False,
-        email='percy@example.com',
-        live_chat='https://example.com/percy/chat',
-        name='percy cypress',
-        phone_number='1-555-555-5555',
-        price=350,
-        product_words=['Percy', 'Cypress'],
-        url='https://example.com/percy',
-        twitter='@TwitterHandle',
-        worst_case='Duplicate work that burns through screenshots'
-    )
-
-    print('Generating fixed Buyer\'s Guide SoftwareProduct for visual regression testing')
-    SoftwareProductFactory.create(
-        blurb='Visual Regression Testing',
-        company='Percy',
-        draft=False,
-        email='percy@example.com',
-        live_chat='https://example.com/percy/chat',
-        name='percy cypress app',
-        phone_number='1-555-555-5555',
-        price='| Free',
-        product_words=['Percy', 'Cypress'],
-        url='https://example.com/percy',
-        twitter='@TwitterHandle',
-        worst_case='Duplicate work that burns through screenshots'
-    )
-
     reseed(seed)
 
     print('Generating Buyer\'s Guide product updates')
     generate_fake_data(ProductUpdateFactory, 15)
 
+    # TODO: link updates into products
+
+    """
     reseed(seed)
 
     print('Generating Buyer\'s Guide Products')
@@ -477,3 +506,4 @@ def generate(seed):
 
     print('Aggregating Buyer\'s Guide Product votes')
     call_command('aggregate_product_votes')
+    """
