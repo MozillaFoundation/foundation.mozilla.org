@@ -26,5 +26,9 @@
     </div>
   {% endif %}
 
+  {% if page.is_chapter_page %}
+    {% include "fragments/article_prev_next.html" %}
+  {% endif %}
+
 {% endblock %}
 
