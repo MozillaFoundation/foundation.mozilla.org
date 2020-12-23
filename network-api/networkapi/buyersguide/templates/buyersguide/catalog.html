@@ -7,7 +7,7 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
-<header class="container-fluid text-center page-header bg-gray" role="banner">
+<header class="container-fluid text-center page-header bg-gray" role="banner" style="background: url({% image page.hero_image max-1920x1280 as img %}{{ img.url }}) center center / cover no-repeat">
   <!-- home banner as css background -->
   <div class="container">
     <div class="row">

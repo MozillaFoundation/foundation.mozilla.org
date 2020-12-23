@@ -903,9 +903,21 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         default=datetime(2020, 10, 29),
     )
 
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='pni_hero_image'
+    )
+
+    def get_banner(self):
+        return self.hero_image
+
     content_panels = [
         FieldPanel('title'),
-        FieldPanel('cutoff_date')
+        FieldPanel('cutoff_date'),
+        ImageChooserPanel('hero_image'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
