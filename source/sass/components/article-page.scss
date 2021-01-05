@@ -424,7 +424,7 @@
     padding-right: initial;
   }
 }
-@media (max-width: 1200px) and (min-width: 770px) {
+@media (max-width: $bp-xl) and (min-width: $bp-md) {
   .article-link {
     --article-padding: 70px;
     &.article-link-left {
