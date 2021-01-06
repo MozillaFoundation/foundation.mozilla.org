@@ -57,5 +57,5 @@
     </div>
   </div>
 
-  {% include "fragments/article_prev_next.html" %}
+  {% include "fragments/article_prev_next.html" with prev_page=page.prev_page next_page=page.next_page %}
 {% endblock %}
