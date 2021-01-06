@@ -59,7 +59,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.7",
     "@sentry/browser": "^5.28.0",
     "autoprefixer": "^9.8.6",
@@ -91,14 +91,14 @@
     "node": "14.4.*"
   },
   "devDependencies": {
-    "browserslist": "^4.15.0",
+    "browserslist": "^4.16.1",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
-    "eslint": "^7.15.0",
-    "eslint-config-prettier": "^6.15.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.2.0",
-    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react": "^7.22.0",
     "optipng-bin": "^7.0.0",
     "prettier": "^2.2.1",
     "stylelint": "^13.8.0",
