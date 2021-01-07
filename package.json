@@ -61,7 +61,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
-    "@sentry/browser": "^5.28.0",
+    "@sentry/browser": "^5.29.2",
     "autoprefixer": "^9.8.6",
     "axe-core": "^4.1.1",
     "babel-core": "^6.26.3",
