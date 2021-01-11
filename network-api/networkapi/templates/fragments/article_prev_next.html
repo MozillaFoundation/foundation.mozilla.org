@@ -1,24 +1,17 @@
 {% load i18n %}
-
-<div class="article-prev-next">
-  <div class="container">
-    <div class="row">
-      <a href="{{ page.prev_page.url }}" class="col-sm-6 text-right article-prev article-nav-arrow article-nav-arrow--left">
-        {% if page.prev_page %}
-          <p class="body-small gray-40 prev-next-text">{% trans "Previous" %}</p>
-          <div class="article-prev-next-link">
-            {{ page.prev_page.title }}
-          </div>
-        {% endif %}
-      </a>
-      <a href="{{ page.next_page.url }}" class="col-sm-6 article-next article-nav-arrow article-nav-arrow--right">
-        {% if page.next_page %}
-          <p class="body-small gray-40 prev-next-text">{% trans "Next" %}</p>
-          <div class="article-prev-next-link">
-            {{ page.next_page.title }}
-          </div>
-        {% endif %}
-      </a>
-    </div>
+<div class="container-fluid">
+  <div class="row">
+    <a href="{{ prev_page.url }}" class="col-md-6 article-link article-link-left">
+      <div class="article-link-container-left">
+        <div class="text-right body-small mb-2">{% trans "Previous" %}</div>
+        <div class="body-large text-right">{{ prev_page.title }}</div>
+      </div>
+    </a>
+    <a href="{{ next_page.url }}" class="col-md-6 article-link article-link-right">
+      <div class="article-link-container-right">
+        <div class="text-left body-small mb-2">{% trans "Next" %}</div>
+        <div class="body-large">{{ next_page.title }}</div>
+      </div>
+    </a>
   </div>
 </div>
