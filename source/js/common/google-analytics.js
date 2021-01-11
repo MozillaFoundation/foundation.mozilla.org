@@ -27,38 +27,50 @@ const checkDoNotTrack = () => {
 
 const DO_NOT_TRACK = checkDoNotTrack();
 
-/**
- * Initialize Google Analytics and tracking pageviews
- */
-const init = () => {
-  const gaMeta = document.querySelector(`meta[name="ga-identifier"]`);
+const getIdentifier = (type = "ga") => {
+  const meta = document.querySelector(`meta[name="${type}-identifier"]`);
 
-  if (!gaMeta) return;
+  if (!meta) return;
 
-  let gaIdentifier = gaMeta.getAttribute(`content`);
+  let identifier = meta.getAttribute(`content`);
 
-  if (!gaIdentifier) {
-    console.warn(`No GA identifier found: skipping bootstrap step`);
+  if (!identifier) {
+    console.warn(
+      `No ${type.toUpperCase()} identifier found: skipping bootstrap step`
+    );
   }
 
+  return identifier;
+};
+
+/**
+ * Initialize Google Analytics and Google Tag Manager
+ */
+const init = () => {
   if (!DO_NOT_TRACK) {
-    // Disable pageview event, but keep all the regular events for now
-    // SEE: https://github.com/mozilla/foundation.mozilla.org/issues/5849
-    ReactGA.initialize(gaIdentifier);
+    const GA_ID = getIdentifier(`ga`);
+    const GTM_ID = getIdentifier(`gtm`);
 
-    // ReactGA.pageview(window.location.pathname);
+    if (GA_ID) {
+      // Disable pageview event, but keep all the regular events for now
+      // SEE: https://github.com/mozilla/foundation.mozilla.org/issues/5849
+      ReactGA.initialize(GA_ID);
 
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-MD3XGZ4");
+      // ReactGA.pageview(window.location.pathname);
+    }
 
+    if (GTM_ID) {
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", GTM_ID);
+    }
   }
 };
 
