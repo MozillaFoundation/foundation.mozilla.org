@@ -86,7 +86,7 @@
     "react-ga": "3.3.0",
     "shx": "^0.3.3",
     "uuid": "^8.3.2",
-    "webpack": "^4.44.2",
+    "webpack": "^5.12.3",
     "webpack-cli": "^4.3.1",
     "whatwg-fetch": "^3.5.0"
   },
