@@ -17,7 +17,7 @@
     "cypress:a11y": "run-p --race cypress:docker cypress:test:a11y",
     "cypress:ci": "run-p --race server cypress:test",
     "cypress:docker": "docker-compose up",
-    "cypress:install": "npm install --no-save cypress@^3.7.0 @percy/cypress@^2.0.0 cypress-axe@^0.5.3 @testing-library/cypress@^5.0.2",
+    "cypress:install": "npm install --no-save cypress@5.6.0 @percy/cypress@v2.3.3 cypress-axe@0.12.0 @testing-library/cypress@7.0.3",
     "cypress:clean": "shx rm -rf ./cypress/screenshots",
     "cypress:test": "npm run cypress:clean && wait-on http://localhost:8000/cms && cypress run --spec ./cypress/integration/endpoint-tests.js",
     "cypress:test:a11y": "npm run cypress:clean && wait-on tcp:8000 && cypress run --spec ./cypress/integration/a11y-tests.js",
@@ -72,7 +72,7 @@
     "event-stream": "3.3.4",
     "js-cookie": "2.2.1",
     "moment": "^2.29.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.3",
     "postcss": "^8.2.4",
     "postcss-cli": "^7.1.2",
@@ -86,9 +86,6 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^4.3.1",
     "whatwg-fetch": "^3.5.0"
-  },
-  "engines": {
-    "node": "14.4.*"
   },
   "devDependencies": {
     "browserslist": "^4.16.1",
