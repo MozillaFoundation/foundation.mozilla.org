@@ -22,7 +22,7 @@
     "cypress:docker": "docker-compose up",
     "cypress:install": "npm install --no-save cypress@5.6.0 @percy/cypress@v2.3.3 cypress-axe@0.12.0 @testing-library/cypress@7.0.3",
     "cypress:clean": "shx rm -rf ./cypress/screenshots",
-    "cypress:test": "npm run cypress:clean && wait-on http://localhost:8000/cms && cypress run --spec ./cypress/integration/endpoint-tests.js && docker-compose down",
+    "cypress:test": "npm run cypress:clean && wait-on http://localhost:8000/cms && cypress run --spec ./cypress/integration/endpoint-tests.js",
     "cypress:test:a11y": "npm run cypress:clean && wait-on tcp:8000 && cypress run --spec ./cypress/integration/a11y-tests.js",
     "cypress:test:manual": "cypress open",
     "fix": "run-s fix:*",
