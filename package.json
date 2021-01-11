@@ -2,6 +2,9 @@
   "repository": "https://github.com/mozilla/foundation.mozilla.org",
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
+  "engines": {
+    "node" : ">=14.4.0"
+  },    
   "scripts": {
     "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && run-p build:images build:sass && npm run build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
