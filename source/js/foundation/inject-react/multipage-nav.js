@@ -12,7 +12,15 @@ export default (apps) => {
   );
 
   if (targetNode) {
-    let links = Array.from(document.querySelectorAll(`#multipage-nav a`)).map(
+    const multipageLinks = document.querySelectorAll(`#multipage-nav a`)
+
+    if(!multipageLinks.length) {
+      // If there are no links to use from `#multipage-nav a`, hide the dropdown container and return early
+      document.getElementById(`multipage-nav-mobile`).classList.add(`d-none`)
+      return false
+    }
+
+    let links = Array.from(multipageLinks).map(
       (link) => {
         return {
           label: link.textContent.trim(),
