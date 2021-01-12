@@ -13,7 +13,7 @@ let rules = [
     test: /\.js(x?)$/,
     exclude: /node_modules/,
     loader: `babel-loader`,
-    query: {
+    options: {
       presets: [
         [`@babel/preset-env`, { targets: `> 1%, last 2 versions` }],
         [`@babel/preset-react`],
