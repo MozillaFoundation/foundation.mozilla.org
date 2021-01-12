@@ -3,7 +3,6 @@ from django.utils.text import slugify
 
 from wagtail.snippets.models import register_snippet
 
-from .products.base import Product
 from ..utils import get_category_og_image_upload_path
 
 
