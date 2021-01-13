@@ -17,7 +17,7 @@ def bg_active_nav(current, target):
 
 
 # Instantiate a list of category page links based on the current page's relation to them
-@register.inclusion_tag('category_nav_links.html', takes_context=True)
+@register.inclusion_tag('buyersguide/fragments/category_nav_links.html', takes_context=True)
 def category_nav(context, current_url, current_category, all_categories):
     return {
         'current_url': current_url,
