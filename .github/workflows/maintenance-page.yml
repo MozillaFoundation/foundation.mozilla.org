@@ -1,0 +1,23 @@
+name: Maintenance Page Deployment
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - maintenance/**/*.*
+
+jobs:
+  deploy:
+    name: Deploy Maintenance page to S3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIAIDLSQZEZHN7MPGKA
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Deploy maintenance page to S3 bucket
+        run: aws s3 sync ./maintenance/ s3://foundation-mozilla-org-maintenance --delete
