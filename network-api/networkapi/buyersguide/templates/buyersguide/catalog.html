@@ -7,11 +7,11 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
-<header class="container-fluid text-center page-header bg-gray" role="banner" style="background: url({% if page.get_banner != None %}
-  {% image page.get_banner max-1920x1280 as img %}{{ img.url }}
-{% else %}
-  '/static/_images/buyers-guide/evergreen-header-light.jpg'
-{% endif %}) center center / cover no-repeat">
+<header
+  class="container-fluid text-center page-header bg-gray{% if page.get_banner == None %} default-background{% endif %}"
+  {% if page.get_banner != None %}style="background: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }}) center center / cover no-repeat"{% endif %}
+  role="banner"
+>
   <!-- home banner as css background -->
   <div class="container">
     <div class="row">
