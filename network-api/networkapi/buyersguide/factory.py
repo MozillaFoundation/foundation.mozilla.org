@@ -44,7 +44,7 @@ def get_lowest_content_category():
     # TODO: REMOVE: LEGACY FUNCTION
     return sorted(
         [
-            (cat.published_product_count, cat)
+            (cat.published_product_page_count, cat)
             for cat in BuyersGuideProductCategory.objects.all()
         ],
         key=lambda t: t[0]

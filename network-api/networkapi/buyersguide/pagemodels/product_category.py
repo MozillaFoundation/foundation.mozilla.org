@@ -48,15 +48,10 @@ class BuyersGuideProductCategory(models.Model):
     )
 
     @property
-    def published_product_count(self):
-        from networkapi.wagtailpages.models import ProductPage
-        return ProductPage.objects.filter(product_categories__category=self).live().count()
-
-    @property
     def published_product_page_count(self):
         # late-import to prevent a circular dependency.
         from networkapi.wagtailpages.models import ProductPage
-        return ProductPage.objects.filter(product_categories__category=self, live=True).count()
+        return ProductPage.objects.filter(product_categories__category=self).live().count()
 
     def __str__(self):
         return self.name

@@ -2,7 +2,7 @@
 
 {% for cat in sorted_categories %}
 {% if cat.hidden == False %}
-{% if cat.published_product_count > 0 %}
+{% if cat.published_product_page_count > 0 %}
 {% url 'category-view' cat.slug as cat_url %}
 <a class="multipage-link {% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
 {% endif %}
