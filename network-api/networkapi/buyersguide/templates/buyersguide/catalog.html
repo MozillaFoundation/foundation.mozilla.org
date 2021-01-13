@@ -7,18 +7,17 @@
 {% block main_content_class %}{% endblock %}
 
 {% block hero %}
-<header class="container-fluid text-center page-header bg-gray" role="banner" style="background: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }}) center center / cover no-repeat">
+<header class="container-fluid text-center page-header bg-gray" role="banner" style="background: url({% if page.get_banner != None %}
+  {% image page.get_banner max-1920x1280 as img %}{{ img.url }}
+{% else %}
+  '/static/_images/buyers-guide/evergreen-header-light.jpg'
+{% endif %}) center center / cover no-repeat">
   <!-- home banner as css background -->
   <div class="container">
     <div class="row">
       <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1">
-        <h1 class="h1-heading text-center mt-0">{% trans "Be Smart. Shop Safe." %}</h1>
-        <p class="body-large mb-0">
-          {% blocktrans trimmed %}
-          How creepy is that smart speaker, that fitness tracker, those wireless headphones?
-          We created this guide to help you shop for safe, secure connected products.
-          {% endblocktrans %}
-        </p>
+        <h1 class="h1-heading text-center mt-0">{{ page.header }}</h1>
+        <p class="body-large mb-0">{{ page.intro_text }}</p>
       </div>
       <div class="col-12 col-lg-2 badge-container text-right order-1 order-lg-2">
         <img class="webby-award-badge" src="{% static '_images/buyers-guide/webby-award-badge.svg' %}" alt="{% trans "2020 Webby Award Winner Badge" %}">

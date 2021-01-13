@@ -911,6 +911,18 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         related_name='pni_hero_image'
     )
 
+    header =  models.CharField(
+        max_length=120,
+        blank=True,
+        help_text='The header text for the PNI homepage',
+    )
+
+    intro_text =  models.TextField(
+        max_length=500,
+        blank=True,
+        help_text='A short blurb to show under the header',
+    )
+
     def get_banner(self):
         return self.hero_image
 
@@ -918,6 +930,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         FieldPanel('title'),
         FieldPanel('cutoff_date'),
         ImageChooserPanel('hero_image'),
+        FieldPanel('header'),
+        FieldPanel('intro_text'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
