@@ -7,19 +7,12 @@ import MultipageNavMobile from "../../components/multipage-nav-mobile/multipage-
  * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
  */
 export default (apps) => {
-  let targetNode = document.querySelector(
+  const targetNode = document.querySelector(
     `#multipage-nav-mobile .container .row .col-12`
   );
+  const multipageLinks = document.querySelectorAll(`#multipage-nav a`)
 
-  if (targetNode) {
-    const multipageLinks = document.querySelectorAll(`#multipage-nav a`)
-
-    if(!multipageLinks.length) {
-      // If there are no links to use from `#multipage-nav a`, hide the dropdown container and return early
-      document.getElementById(`multipage-nav-mobile`).classList.add(`d-none`)
-      return false
-    }
-
+  if (targetNode && multipageLinks.length) {
     let links = Array.from(multipageLinks).map(
       (link) => {
         return {
