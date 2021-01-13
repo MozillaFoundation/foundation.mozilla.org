@@ -3,6 +3,7 @@ from django.utils.text import slugify
 
 from wagtail.snippets.models import register_snippet
 
+from .products.base import Product
 from ..utils import get_category_og_image_upload_path
 
 
@@ -52,6 +53,11 @@ class BuyersGuideProductCategory(models.Model):
         # late-import to prevent a circular dependency.
         from networkapi.wagtailpages.models import ProductPage
         return ProductPage.objects.filter(product_categories__category=self).live().count()
+
+    @property
+    def published_product_count(self):
+        # TODO: REMOVE: LEGACY FUNCTION
+        return Product.objects.filter(product_category=self, draft=False).count()
 
     def __str__(self):
         return self.name
