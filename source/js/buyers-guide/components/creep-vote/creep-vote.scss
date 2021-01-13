@@ -14,23 +14,6 @@ $btn-shadow-width: 3px;
   }
 }
 
-// #creep-vote targets the <form>
-#creep-vote {
-  &:invalid {
-    button[type="submit"] {
-      @extend .btn.disabled; // we want it to have Bootstrap's .btn.disabled stylings
-
-      color: $gray-20;
-
-      &.btn-secondary:hover {
-        cursor: auto;
-        color: inherit;
-        background: inherit;
-      }
-    }
-  }
-}
-
 .creep-vote {
   .btn.btn-close-sign-up {
     color: inherit;
