@@ -8,7 +8,7 @@
 
 {% block hero %}
 <header
-  class="container-fluid text-center page-header bg-gray" {% if page.get_banner != None %}style="background: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }})"{% endif %} role="banner"
+  class="container-fluid text-center page-header bg-gray" {% if page.get_banner != None %}style="background-image: url({% image page.get_banner max-1920x1280 as img %}{{ img.url }})"{% endif %} role="banner"
 >
   <!-- home banner as css background -->
   <div class="container">
