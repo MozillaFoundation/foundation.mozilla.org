@@ -24,10 +24,7 @@ body.catalog {
   --pni-icon-size: 1.2em;
 
   .page-header {
-    &.default-background {
-      background: url(../_images/buyers-guide/evergreen-header-light.jpg) center
-        center / cover no-repeat;
-    }
+    background: url(../_images/buyers-guide/evergreen-header-light.jpg) center center / cover no-repeat;
 
     .intro-text {
       padding-top: 12px;
