@@ -16,7 +16,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: AKIAIDLSQZEZHN7MPGKA
+          aws-access-key-id: AKIASHBU2IYB3B7VQPAF
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy maintenance page to S3 bucket
