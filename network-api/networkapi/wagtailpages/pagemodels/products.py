@@ -911,13 +911,13 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         related_name='pni_hero_image'
     )
 
-    header =  models.CharField(
+    header = models.CharField(
         max_length=120,
         blank=True,
         help_text='The header text for the PNI homepage',
     )
 
-    intro_text =  models.TextField(
+    intro_text = models.TextField(
         max_length=500,
         blank=True,
         help_text='A short blurb to show under the header',
