@@ -3,7 +3,7 @@
     "rules": {
       "color-named": "never",
       "color-no-hex": true,
-      "declaration-property-value-blacklist": [
+      "declaration-property-value-disallowed-list": [
         {
           "/.*/": [
             /rgba{0,1}\(/i,
