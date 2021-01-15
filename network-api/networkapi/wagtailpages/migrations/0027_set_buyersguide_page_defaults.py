@@ -11,7 +11,7 @@ def set_pni_homepage_textfields(apps, schema_editor):
             'How creepy is that smart speaker, that fitness tracker'
             ', those wireless headphones? We created this guide to help you shop for safe'
             ', secure connected products.'
-        ),
+        )
         page.save()
 
 
