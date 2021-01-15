@@ -1,5 +1,9 @@
 {% load bg_nav_tags %}
 
+{% comment %}
+  This file is pending deletion when we delete the buyersguide app.
+{% endcomment %}
+
 {% for cat in sorted_categories %}
 {% if cat.hidden == False %}
 {% if cat.published_product_count > 0 %}
