@@ -3,8 +3,12 @@ name: Continuous Integration
 on:
   push:
     branches: [ 'master' ]
+    paths-ignore:
+      - maintenance/**/*.*
   pull_request:
     branches: [ 'master' ]
+    paths-ignore:
+      - maintenance/**/*.*
 
 jobs:
   test_node:
