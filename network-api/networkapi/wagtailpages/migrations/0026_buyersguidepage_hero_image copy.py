@@ -3,18 +3,6 @@
 from django.db import migrations, models
 
 
-def set_pni_homepage_textfields(apps, schema_editor):
-    BuyersGuidePage = apps.get_model("wagtailpages", "BuyersGuidePage")
-    for page in BuyersGuidePage.objects.filter(header=''):
-        page.header = 'Be Smart. Shop Safe.'
-        page.intro_text = (
-            'How creepy is that smart speaker, that fitness tracker'
-            ', those wireless headphones? We created this guide to help you shop for safe'
-            ', secure connected products.'
-        ),
-        page.save()
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -118,5 +106,4 @@ class Migration(migrations.Migration):
             name='intro_text_pt',
             field=models.TextField(blank=True, help_text='A short blurb to show under the header', max_length=500, null=True),
         ),
-        migrations.RunPython(set_pni_homepage_textfields),
     ]
