@@ -288,7 +288,10 @@ class GeneralProductPageTR(TranslationOptions):
 
 @register(BuyersGuidePage)
 class BuyersGuidePageTR(TranslationOptions):
-    fields = ()
+    fields = (
+        'header',
+        'intro_text',
+    )
 
 
 @register(ProductPagePrivacyPolicyLink)
