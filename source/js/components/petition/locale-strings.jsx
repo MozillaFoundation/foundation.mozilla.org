@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 
 /**
  * In order to move fast and not break things, we're doing petition localisation
@@ -34,7 +34,7 @@ export default {
     "Add my name": `Add my name`,
     "Sign up": `Sign up`,
     "confirm your email opt-in": (
-      <React.Fragment>
+      <Fragment>
         If you haven’t previously confirmed your opt-in to a Mozilla-related
         email subscription you may have to do so now.{" "}
         <strong>
@@ -42,17 +42,17 @@ export default {
           and confirm your subscription
         </strong>
         .
-      </React.Fragment>
+      </Fragment>
     ),
     "manage your subscriptions": (
-      <React.Fragment>
+      <Fragment>
         If you have already confirmed your opt-in to receive Mozilla-related
         emails, you can now{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
           manage your subscriptions
         </a>{" "}
         and update your email preferences.
-      </React.Fragment>
+      </Fragment>
     ),
   },
 
@@ -86,24 +86,24 @@ export default {
     "Add my name": `Meinen Namen hinzufügen`,
     "Sign up": `Abonnieren`,
     "confirm your email opt-in": (
-      <React.Fragment>
+      <Fragment>
         Wenn Sie Ihre Anmeldung für ein Mozilla-E-Mail-Abonnement noch nicht
         bestätigt haben, müssen Sie dies möglicherweise jetzt tun.{" "}
         <strong>
           Bitte sehen Sie in Ihrem Posteingang oder Spam-Filter nach einer
           E-Mail von uns und bestätigen Sie Ihr Abonnement per Mausklick.
         </strong>
-      </React.Fragment>
+      </Fragment>
     ),
     "manage your subscriptions": (
-      <React.Fragment>
+      <Fragment>
         Wenn Sie Ihre Anmeldung zum Empfang von Mozilla-bezogenen E-Mails
         bereits bestätigt haben, können Sie jetzt{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
           Ihre Abonnements verwalten
         </a>{" "}
         und Ihre E-Mail-Einstellungen aktualisieren.
-      </React.Fragment>
+      </Fragment>
     ),
   },
 
@@ -136,7 +136,7 @@ export default {
     "Add my name": `Añadir mi nombre`,
     "Sign up": `Suscribirme`,
     "confirm your email opt-in": (
-      <React.Fragment>
+      <Fragment>
         If you haven’t previously confirmed your opt-in to a Mozilla-related
         email subscription you may have to do so now.{" "}
         <strong>
@@ -144,17 +144,17 @@ export default {
           and confirm your subscription
         </strong>
         .
-      </React.Fragment>
+      </Fragment>
     ),
     "manage your subscriptions": (
-      <React.Fragment>
+      <Fragment>
         If you have already confirmed your opt-in to receive Mozilla-related
         emails, you can now{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
           manage your subscriptions
         </a>{" "}
         and update your email preferences.
-      </React.Fragment>
+      </Fragment>
     ),
   },
 
@@ -186,7 +186,7 @@ export default {
     "Add my name": `Ajouter mon nom`,
     "Sign up": `Je m’inscris`,
     "confirm your email opt-in": (
-      <React.Fragment>
+      <Fragment>
         Si vous n’avez pas précédemment confirmé votre abonnement aux courriels
         liés à Mozilla, vous devrez peut-être le faire maintenant.{" "}
         <strong>
@@ -194,17 +194,17 @@ export default {
           indésirables et recherchez un message de notre part pour confirmer
           votre abonnement.
         </strong>
-      </React.Fragment>
+      </Fragment>
     ),
     "manage your subscriptions": (
-      <React.Fragment>
+      <Fragment>
         Si vous avez déjà confirmé votre abonnement aux courriels liés à
         Mozilla, vous pouvez maintenant{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
           gérer vos abonnements
         </a>{" "}
         et modifier vos préférences de messagerie.
-      </React.Fragment>
+      </Fragment>
     ),
   },
 
@@ -236,24 +236,24 @@ export default {
     "Add my name": `Podpisz`,
     "Sign up": `Zapisz się`,
     "confirm your email opt-in": (
-      <React.Fragment>
+      <Fragment>
         Jeśli jeszcze nigdy nie potwierdzono zgody na subskrypcję wiadomości od
         Mozilli, to możesz musieć zrobić to teraz.{" "}
         <strong>
           Sprawdź, czy w skrzynce odbiorczej lub spamie jest wiadomość od nas,
           aby kliknąć i potwierdzić subskrypcję.
         </strong>
-      </React.Fragment>
+      </Fragment>
     ),
     "manage your subscriptions": (
-      <React.Fragment>
+      <Fragment>
         Jeśli już potwierdzono zgodę na otrzymywanie wiadomości od Mozilli, to
         można teraz{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
           zarządzać swoimi subskrypcjami
         </a>{" "}
         i zaktualizować preferencje.
-      </React.Fragment>
+      </Fragment>
     ),
   },
 
@@ -286,24 +286,24 @@ export default {
     "Add my name": `Adicionar meu nome`,
     "Sign up": `Inscreva-me`,
     "confirm your email opt-in": (
-      <React.Fragment>
+      <Fragment>
         Se você não confirmou anteriormente sua inscrição em uma assinatura de
         e-mail relacionada à Mozilla, pode ser necessário fazê-lo agora.{" "}
         <strong>
           Verifique se há um e-mail nosso, na caixa de entrada ou no filtro de
           spam, para clicar e confirmar sua assinatura.
         </strong>
-      </React.Fragment>
+      </Fragment>
     ),
     "manage your subscriptions": (
-      <React.Fragment>
+      <Fragment>
         Se você já confirmou sua inscrição para receber e-mails relacionados à
         Mozilla, agora pode{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
           gerenciar suas assinaturas
         </a>{" "}
         e atualizar suas preferências de e-mail.
-      </React.Fragment>
+      </Fragment>
     ),
   },
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import MultipageNavMobile from "../../components/multipage-nav-mobile/multipage-nav-mobile.jsx";
 

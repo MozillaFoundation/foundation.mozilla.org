@@ -16,7 +16,7 @@ let rules = [
     options: {
       presets: [
         [`@babel/preset-env`, { targets: `> 1%, last 2 versions` }],
-        [`@babel/preset-react`],
+        [`@babel/preset-react`, { runtime: "automatic" }],
       ],
     },
   },
