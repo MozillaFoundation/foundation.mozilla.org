@@ -25,6 +25,9 @@ root = app - 1
 # we rely on it being explicitly set (no default values) so that
 # we error out first.
 env = environ.Env(
+    AIRTABLE_API_KEY=(str, ''),
+    AIRTABLE_BASE_KEY=(str, ''),
+    AIRTABLE_BASE_URL=(str, 'https://airtable.com/tblB9izDR1A0IFnBc/viwvuug0IUprjTFAQ'),
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
@@ -226,6 +229,9 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail_modeltranslation',
     'wagtail_modeltranslation.makemigrations',
     'wagtail_modeltranslation.migrate',
+
+    # wagtail to airtable integration
+    'wagtail_airtable',
 
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
@@ -639,3 +645,18 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')
 
 # Web Monetization: https://webmonetization.org/
 WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
+
+
+AIRTABLE_API_KEY = env('AIRTABLE_API_KEY')
+WAGTAIL_AIRTABLE_ENABLED = True
+AIRTABLE_SETTINGS = {
+    'AIRTABLE_BASE_KEY': env('AIRTABLE_BASE_KEY'),
+    'AIRTABLE_TABLE_NAME': 'PNI Products',
+    'AIRTABLE_UNIQUE_IDENTIFIER': 'slug',
+    'AIRTABLE_IMPORT_ALLOWED': False,
+    'AIRTABLE_BASE_URL': env('AIRTABLE_BASE_URL'),
+}
+AIRTABLE_IMPORT_SETTINGS = {
+    'wagtailpages.GeneralProductPage': AIRTABLE_SETTINGS,
+    'wagtailpages.SoftwareProductPage': AIRTABLE_SETTINGS,
+}

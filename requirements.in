@@ -19,6 +19,7 @@ python-slugify
 requests
 social-auth-app-django
 wagtail==2.10.2
+wagtail-airtable
 wagtail-factories
 wagtail-inventory
 wagtail-metadata
