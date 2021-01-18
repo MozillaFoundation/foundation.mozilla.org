@@ -1,4 +1,7 @@
 from django import forms
+
+from wagtail.core import hooks
+from wagtail.admin.menu import MenuItem
 from wagtail.admin.forms import WagtailAdminModelForm
 
 from wagtail.contrib.modeladmin.options import (
@@ -7,91 +10,76 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register
 )
 
+from networkapi.wagtailpages.models import (
+    ProductPage,
+    BuyersGuidePage,
+    GeneralProductPage,
+    SoftwareProductPage,
+)
+
 from networkapi.buyersguide.models import (
     Update,
-    Product,
-    GeneralProduct,
-    SoftwareProduct,
     BuyersGuideProductCategory
 )
 
 
-# Effect custom ordering (in the admin only) for
-# the many-to-many fields in Products
-class ProductForm(WagtailAdminModelForm):
+class HomePageEditMenuItem(MenuItem):
     """
-    See https://stackoverflow.com/a/61525965/740553
+    See https://stackoverflow.com/a/57774659
     """
-
-    updates = forms.ModelMultipleChoiceField(
-        queryset=Update.objects.order_by('title'),
-        required=False
-    )
-
-    related_products = forms.ModelMultipleChoiceField(
-        queryset=Product.objects.order_by('name'),
-        required=False
-    )
+    def get_context(self, request):
+        context = super().get_context(request)
+        pni_homepage = BuyersGuidePage.objects.get(slug='privacynotincluded')
+        context['url'] = f"/cms/pages/{str(pni_homepage.id)}/edit/"
+        return context
 
 
-Product.base_form_class = ProductForm
+@hooks.register('register_admin_menu_item')
+def register_edit_pni_homepage_menu_item():
+    return HomePageEditMenuItem('Edit PNI homepage', 'edit_link', classnames='icon icon-folder-inverse', order=500)
 
 
 class WagtailBuyersGuideGeneralProductAdmin(ModelAdmin):
-    model = GeneralProduct
+    model = GeneralProductPage
     menu_label = 'Products: general'
-    menu_icon = 'pick'  # change as required
-    add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
-    exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
+    menu_icon = 'pick'
+    add_to_settings_menu = False
+    exclude_from_explorer = False
 
-    def get_published(self, obj):
-        return not obj.draft
-
-    get_published.short_description = 'Published'
-    get_published.boolean = True
-    get_published.admin_order_field = 'draft'
-
-    list_display = ('get_published', 'review_date', 'name', 'company', 'url')
-    search_fields = ('name', 'company')
+    list_display = ('live', 'review_date', 'title', 'company', 'url')
+    search_fields = ('title', 'company')
     index_template_name = 'admin/index_view.html'
 
 
 class WagtailBuyersGuideSoftwareProductAdmin(ModelAdmin):
-    model = SoftwareProduct
+    model = SoftwareProductPage
     menu_label = 'Products: software'
-    menu_icon = 'pick'  # change as required
-    add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
-    exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
+    menu_icon = 'pick'
+    add_to_settings_menu = False
+    exclude_from_explorer = False
 
-    def get_published(self, obj):
-        return not obj.draft
-
-    get_published.short_description = 'Published'
-    get_published.boolean = True
-    get_published.admin_order_field = 'draft'
-
-    list_display = ('get_published', 'review_date', 'name', 'company', 'url')
-    search_fields = ('name', 'company')
+    list_display = ('live', 'review_date', 'title', 'company', 'url')
+    search_fields = ('title', 'company')
     index_template_name = 'admin/index_view.html'
 
 
 class WagtailBuyersGuideCategoryAdmin(ModelAdmin):
     model = BuyersGuideProductCategory
     menu_label = 'Product Categories'
-    menu_icon = 'pick'  # change as required
-    add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
-    exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
+    menu_icon = 'pick'
+    add_to_settings_menu = False
+    exclude_from_explorer = False
 
-    list_display = ('featured', 'name', 'description')
-    search_fields = ('name')
+    list_display = ('featured', 'title', 'description')
+    search_fields = ('title')
 
 
 class WagtailBuyersGuideUpdateAdmin(ModelAdmin):
     model = Update
     menu_label = 'Updates'
-    menu_icon = 'pick'  # change as required
-    add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
-    exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
+    menu_icon = 'pick'
+    add_to_settings_menu = False
+    exclude_from_explorer = False
 
     list_display = ('featured', 'source', 'title')
     search_fields = ('source', 'title')
