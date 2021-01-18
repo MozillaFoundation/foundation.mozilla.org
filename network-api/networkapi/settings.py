@@ -28,6 +28,7 @@ env = environ.Env(
     AIRTABLE_API_KEY=(str, ''),
     AIRTABLE_BASE_KEY=(str, ''),
     AIRTABLE_BASE_URL=(str, 'https://airtable.com/tblB9izDR1A0IFnBc/viwvuug0IUprjTFAQ'),
+    AIRTABLE_ENABLED=(bool, False),
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
@@ -648,7 +649,7 @@ WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
 
 
 AIRTABLE_API_KEY = env('AIRTABLE_API_KEY')
-WAGTAIL_AIRTABLE_ENABLED = True
+WAGTAIL_AIRTABLE_ENABLED = env('AIRTABLE_ENABLED')
 AIRTABLE_SETTINGS = {
     'AIRTABLE_BASE_KEY': env('AIRTABLE_BASE_KEY'),
     'AIRTABLE_TABLE_NAME': 'PNI Products',
