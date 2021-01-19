@@ -241,7 +241,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         folder='foundationsite/buyersguide',
         use_filename=True
     )
-    worst_case = models.CharField(
+    worst_case = models.TextField(
         max_length=5000,
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,

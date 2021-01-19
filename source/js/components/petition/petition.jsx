@@ -1,4 +1,4 @@
-import React from "react";
+import { Component } from "react";
 import { ReactGA } from "../../common";
 import classNames from "classnames";
 import DonationModal from "./donation-modal.jsx";
@@ -10,7 +10,7 @@ import copyToClipboard from "../../copy-to-clipboard";
 const SALESFORCE_COMMENT_LIMIT = 500;
 const CHECKBOX_LABEL_CLASS = `body-small`;
 
-export default class Petition extends React.Component {
+export default class Petition extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
