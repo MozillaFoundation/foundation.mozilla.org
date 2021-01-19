@@ -1,9 +1,9 @@
-import React from "react";
+import { Component, Fragment } from "react";
 import classNames from "classnames";
 import copyToClipboard from "../../copy-to-clipboard";
 import { ReactGA } from "../../common";
 
-export default class ShareButtonGroup extends React.Component {
+export default class ShareButtonGroup extends Component {
   constructor(props) {
     super(props);
 
@@ -170,11 +170,11 @@ export default class ShareButtonGroup extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         {this.props.version === `mini`
           ? this.renderCircleButtons()
           : this.renderRectangleButtons()}
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

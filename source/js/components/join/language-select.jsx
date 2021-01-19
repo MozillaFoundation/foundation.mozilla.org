@@ -1,7 +1,7 @@
-import React from "react";
+import { Component } from "react";
 import classNames from "classnames";
 
-export default class LanguageSelect extends React.Component {
+export default class LanguageSelect extends Component {
   constructor(props) {
     super(props);
   }

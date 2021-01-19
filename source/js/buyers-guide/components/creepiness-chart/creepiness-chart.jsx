@@ -1,7 +1,7 @@
-import React from "react";
+import { Component, Fragment } from "react";
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 
-export default class CreepChart extends React.Component {
+export default class CreepChart extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -51,7 +51,7 @@ export default class CreepChart extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         <table id="creepiness-score" className="w-100">
           <tbody>
             {this.state.creepinessData.map((data, index) => {
@@ -78,7 +78,7 @@ export default class CreepChart extends React.Component {
           <div className="text-muted">Not creepy</div>
           <div className="text-muted">Super creepy</div>
         </div>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

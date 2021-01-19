@@ -1,6 +1,6 @@
-import React from "react";
+import { Component } from "react";
 
-export default class Creepometer extends React.Component {
+export default class Creepometer extends Component {
   constructor(props) {
     super(props);
 

@@ -1,6 +1,6 @@
-import React from "react";
+import { Component } from "react";
 
-export default class MemberNotice extends React.Component {
+export default class MemberNotice extends Component {
   constructor(props) {
     super(props);
 

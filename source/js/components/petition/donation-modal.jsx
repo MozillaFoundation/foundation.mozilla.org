@@ -1,4 +1,4 @@
-import React from "react";
+import { Component } from "react";
 import classNames from "classnames";
 
 /**
@@ -17,7 +17,7 @@ import classNames from "classnames";
  *   - donateText, the "donate" button label
  *   - shareText, the "no donate, just share" button label
  */
-class DonationModal extends React.Component {
+class DonationModal extends Component {
   componentDidMount() {
     // Thanks to Safari's poor support of the "sticky"
     // CSS position property, we need to relocate the DOM
