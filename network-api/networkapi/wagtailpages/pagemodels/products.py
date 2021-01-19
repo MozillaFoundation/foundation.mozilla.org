@@ -363,11 +363,6 @@ class ProductPage(FoundationMetadataPageMixin, Page):
         related_name='votes',
     )
 
-    override_translatable_fields = [
-            SynchronizedField('votes'),
-            SynchronizedField('creepiness_value'),
-        ]
-
     @property
     def total_vote_count(self):
         return sum(self.get_or_create_votes())
@@ -407,6 +402,7 @@ class ProductPage(FoundationMetadataPageMixin, Page):
                 FieldPanel('uses_wifi'),
                 FieldPanel('uses_bluetooth'),
                 FieldPanel('blurb'),
+                FieldPanel('votes'),
                 image_field,
                 FieldPanel('worst_case'),
             ],

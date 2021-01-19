@@ -188,6 +188,9 @@ INSTALLED_APPS = list(filter(None, [
 
     'wagtailmetadata',
 
+    'wagtail_localize',
+    'wagtail_localize.locales',
+
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -230,8 +233,6 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.highlights',
     'networkapi.milestones',
 
-    'wagtail_localize',
-    'wagtail_localize.locales',
     'wagtail_localize_git',
     # wagtail-specific app prefixed so that it can be localised
     'networkapi.wagtailpages',
