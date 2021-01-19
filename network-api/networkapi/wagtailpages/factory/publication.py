@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import randint, shuffle
+from random import randint, shuffle, random
 
 from django.conf import settings
 
@@ -63,6 +63,9 @@ class PublicationPageFactory(PageFactory):
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
 
+    if random() > 0.5:
+        toc_thumbnail_image = SubFactory(ImageFactory)
+
     class Meta:
         model = PublicationPage
 
@@ -77,6 +80,9 @@ class ArticlePageFactory(PageFactory):
                           else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
     search_description = (Faker('paragraph', nb_sentences=5, variable_nb_sentences=True))
     live = True
+
+    if random() > 0.5:
+        toc_thumbnail_image = SubFactory(ImageFactory)
 
 
 def add_authors(post):
