@@ -1,8 +1,8 @@
-import React from "react";
+import { Component } from "react";
 import classNames from "classnames";
 import SALESFORCE_COUNTRY_LIST from "./salesforce-country-list.js";
 
-export default class CountrySelect extends React.Component {
+export default class CountrySelect extends Component {
   constructor(props) {
     super(props);
   }

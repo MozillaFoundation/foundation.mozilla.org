@@ -1,7 +1,7 @@
-import React from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
-export default class PulseProjectList extends React.Component {
+export default class PulseProjectList extends Component {
   constructor(props) {
     super(props);
 
