@@ -8,6 +8,7 @@ from wagtail_factories import PageFactory, ImageFactory
 from networkapi.wagtailpages.models import ArticlePage, BlogAuthor, PublicationPage
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from factory import (
+    post_generation,
     Faker,
     SubFactory,
     django,
@@ -63,8 +64,10 @@ class PublicationPageFactory(PageFactory):
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
 
-    if random() > 0.5:
-        toc_thumbnail_image = SubFactory(ImageFactory)
+    @post_generation
+    def toc_thumbnail_image(self, create, extracted, **kwargs):
+        if random() < 0.5:
+            self.toc_thumbnail_image = ImageFactory()
 
     class Meta:
         model = PublicationPage
@@ -81,8 +84,10 @@ class ArticlePageFactory(PageFactory):
     search_description = (Faker('paragraph', nb_sentences=5, variable_nb_sentences=True))
     live = True
 
-    if random() > 0.5:
-        toc_thumbnail_image = SubFactory(ImageFactory)
+    @post_generation
+    def toc_thumbnail_image(self, create, extracted, **kwargs):
+        if random() < 0.5:
+            self.toc_thumbnail_image = ImageFactory()
 
 
 def add_authors(post):
