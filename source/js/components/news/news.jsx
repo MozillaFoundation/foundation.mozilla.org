@@ -1,8 +1,8 @@
-import React from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-export default class News extends React.Component {
+export default class News extends Component {
   constructor(props) {
     super(props);
 

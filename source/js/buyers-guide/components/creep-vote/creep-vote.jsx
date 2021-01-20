@@ -1,4 +1,4 @@
-import React from "react";
+import { Component, Fragment } from "react";
 import Creepometer from "../creepometer/creepometer.jsx";
 import CreepChart from "../creepiness-chart/creepiness-chart.jsx";
 import SocialShare from "../social-share/social-share.jsx";
@@ -7,7 +7,7 @@ import { getText } from "../../../components/petition/locales";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 
-export default class CreepVote extends React.Component {
+export default class CreepVote extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -134,7 +134,7 @@ export default class CreepVote extends React.Component {
    */
   renderVoteAsk() {
     return (
-      <React.Fragment>
+      <Fragment>
         <form
           method="post"
           id="creep-vote"
@@ -166,7 +166,7 @@ export default class CreepVote extends React.Component {
             </div>
           </div>
         </form>
-      </React.Fragment>
+      </Fragment>
     );
   }
 
@@ -177,7 +177,7 @@ export default class CreepVote extends React.Component {
 
   renderSignUp() {
     return (
-      <React.Fragment>
+      <Fragment>
         <button
           className="btn btn-close-sign-up text-uppercase d-flex justify-content-between align-items-center"
           onClick={() => this.handleSignUp(false)}
@@ -195,7 +195,7 @@ export default class CreepVote extends React.Component {
           apiUrl={this.props.joinUsApiUrl}
           handleSignUp={(successState) => this.handleSignUp(successState)}
         />
-      </React.Fragment>
+      </Fragment>
     );
   }
 

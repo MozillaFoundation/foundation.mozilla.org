@@ -69,7 +69,7 @@ wagtail-factories==2.0.1  # via -r requirements.in
 wagtail-footnotes==0.4.1  # via -r requirements.in
 wagtail-inventory==1.2    # via -r requirements.in
 wagtail-metadata==3.3.0   # via -r requirements.in
-wagtail-modeltranslation==0.10.15  # via -r requirements.in
+wagtail-modeltranslation==0.10.16  # via -r requirements.in
 wagtail==2.10.2           # via -r requirements.in, wagtail-factories, wagtail-footnotes, wagtail-inventory, wagtail-metadata, wagtail-modeltranslation
 webencodings==0.5.1       # via html5lib
 whitenoise==5.2.0         # via -r requirements.in

@@ -1,4 +1,4 @@
-import React from "react";
+import { Component, Fragment } from "react";
 import { ReactGA } from "../../common";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
@@ -8,7 +8,7 @@ import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import utility from "../../utility";
 
-export default class JoinUs extends React.Component {
+export default class JoinUs extends Component {
   constructor(props) {
     super(props);
     this.id = {
@@ -267,7 +267,7 @@ export default class JoinUs extends React.Component {
    */
   renderSnippetHeading() {
     return (
-      <React.Fragment>
+      <Fragment>
         <p className="h5-heading">
           {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
         </p>
@@ -278,12 +278,12 @@ export default class JoinUs extends React.Component {
             }}
           />
         ) : (
-          <React.Fragment>
+          <Fragment>
             <p>{getText(`confirm your email opt-in`)}</p>
             <p>{getText(`manage your subscriptions`)}</p>
-          </React.Fragment>
+          </Fragment>
         )}
-      </React.Fragment>
+      </Fragment>
     );
   }
 

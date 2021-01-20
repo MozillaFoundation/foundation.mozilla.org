@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import PulseProjectList from "../../components/pulse-project-list/pulse-project-list.jsx";
 
