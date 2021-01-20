@@ -1,7 +1,7 @@
-import React from "react";
+import { Component } from "react";
 import classNames from "classnames";
 
-export default class FloatingLabelInput extends React.Component {
+export default class FloatingLabelInput extends Component {
   render() {
     let className = classNames(`form-label-group`, this.props.className);
 
