@@ -82,42 +82,42 @@
           <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{{ product.url }}">
             <picture class="product-thumbnail">
               <source
-                media="(min-width: 1200px)"
+                media="(min-width: 992px)"
                 {% if USE_CLOUDINARY %}
-                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=300 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %} 2x"
+                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=260 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=520 %} 2x"
                 {% else %}
-                  {% image product.image fill-300x300 as img_1x %}
-                  {% image product.image fill-600x600 as img_2x %}
-                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
-                {% endif %}
-              >
-              <source
-                media="(min-width: 901px)"
-                {% if USE_CLOUDINARY %}
-                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=197 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=394 %} 2x"
-                {% else %}
-                  {% image product.image fill-197x197 as img_1x %}
-                  {% image product.image fill-394x394 as img_2x %}
+                  {% image product.image fill-260x260 as img_1x %}
+                  {% image product.image fill-520x520 as img_2x %}
                   srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
                 {% endif %}
               >
               <source
                 media="(min-width: 768px)"
                 {% if USE_CLOUDINARY %}
-                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=213 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=426 %} 2x"
+                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=305 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=610 %} 2x"
                 {% else %}
-                  {% image product.image fill-213x213 as img_1x %}
-                  {% image product.image fill-426x426 as img_2x %}
+                  {% image product.image fill-305x305 as img_1x %}
+                  {% image product.image fill-610x610 as img_2x %}
                   srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
                 {% endif %}
               >
               <source
-                media="(max-width: 768px)"
+                media="(min-width: 415px)"
                 {% if USE_CLOUDINARY %}
-                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=358 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=716 %} 2x"
+                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=360 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=720 %} 2x"
                 {% else %}
-                  {% image product.image fill-358x358 as img_1x %}
-                  {% image product.image fill-716x716 as img_2x %}
+                  {% image product.image fill-360x360 as img_1x %}
+                  {% image product.image fill-720x720 as img_2x %}
+                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
+                {% endif %}
+              >
+              <source
+                media="(max-width: 414px)"
+                {% if USE_CLOUDINARY %}
+                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=185 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=370 %} 2x"
+                {% else %}
+                  {% image product.image fill-185x185 as img_1x %}
+                  {% image product.image fill-370x370 as img_2x %}
                   srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
                 {% endif %}
               >
