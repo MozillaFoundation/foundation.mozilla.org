@@ -39,7 +39,7 @@ dj-database-url==0.5.0
     # via -r requirements.in
 django-admin-sortable==2.2.3
     # via -r requirements.in
-django-cors-headers==3.5.0
+django-cors-headers==3.6.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
