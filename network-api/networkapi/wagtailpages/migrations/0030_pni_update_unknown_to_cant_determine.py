@@ -6,7 +6,7 @@ def update_unknown_to_cantdetermine(apps, schema_editor):
     SoftwareProductPage = apps.get_model("wagtailpages", "SoftwareProductPage")
     GeneralProductPage = apps.get_model("wagtailpages", "GeneralProductPage")
 
-    extended_yes_no_fields = [
+    common_extended_yes_no_fields = [
         'signup_requires_email',
         'signup_requires_phone',
         'signup_requires_third_party_account',
@@ -35,25 +35,30 @@ def update_unknown_to_cantdetermine(apps, schema_editor):
         'ai_is_transparent',
     ]
 
-    for p in Products.objects.all():
-        for field in extended_yes_no_fields:
-            # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
-            if p[field] == 'U':
-                p[field] = 'CD'
-        p.save()
-
+    # Update SoftwareProductPage
     for p in SoftwareProductPage.objects.all():
+        for field in common_extended_yes_no_fields:
+            # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
+            if getattr(p, field) == 'U':
+                setattr(p, field, 'CD')
+
         for field in software_extended_yes_no_fields:
             # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
-            if p[field] == 'U':
-                p[field] = 'CD'
+            if getattr(p, field) == 'U':
+                setattr(p, field, 'CD')
         p.save()
 
+    # Update GeneralProductPage
     for p in GeneralProductPage.objects.all():
+        for field in common_extended_yes_no_fields:
+            # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
+            if getattr(p, field) == 'U':
+                setattr(p, field, 'CD')
+
         for field in general_extended_yes_no_fields:
             # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
-            if p[field] == 'U':
-                p[field] = 'CD'
+            if getattr(p, field) == 'U':
+                setattr(p, field, 'CD')
         p.save()
 
 
