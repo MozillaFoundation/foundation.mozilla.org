@@ -11,7 +11,7 @@ class ExtendedYesNoField(models.CharField):
         ('CD', 'Can\'t Determine'),
     ]
 
-    default_choice = 'U'
+    default_choice = 'CD'
 
     def __init__(self, *args, **kwargs):
         kwargs['choices'] = self.choice_list
