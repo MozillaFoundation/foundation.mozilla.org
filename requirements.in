@@ -18,13 +18,13 @@ gunicorn
 python-slugify
 requests
 social-auth-app-django
-wagtail==2.10.2
 wagtail-airtable
+wagtail==2.11
 wagtail-factories
 wagtail-inventory
 wagtail-metadata
 whitenoise
-wagtail-modeltranslation
+wagtail-modeltranslation==0.10.17
 psycopg2-binary
 cloudinary
 wagtail-experiments
