@@ -2,7 +2,6 @@ from django.db import migrations
 
 
 def update_unknown_to_cantdetermine(apps, schema_editor):
-    Products = apps.get_model("wagtailpages", "ProductPage")
     SoftwareProductPage = apps.get_model("wagtailpages", "SoftwareProductPage")
     GeneralProductPage = apps.get_model("wagtailpages", "GeneralProductPage")
 
