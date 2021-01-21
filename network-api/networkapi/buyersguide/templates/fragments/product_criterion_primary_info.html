@@ -4,11 +4,11 @@
   <h3 class="pni-product-smaller-body-bold">{{ label }}</h3>
 
   <p class="rating pni-product-smaller-body mb-0">
-    {% if value == "U" %}
+    {% if value == "CD" %}
       {% if show_value_as_symbol %}
       <img src="{% static "_images/buyers-guide/score/icon-unknown.svg" %}" alt="{% trans "Can’t determine" context "Unknown rating" %}">
       {% else %}
-      {% trans "Unknown" context "Unknown rating" %}
+      {% trans "Can't Determine" context "Unknown rating" %}
       {% endif %}
     {% elif value == "NA" %}
       {% trans "Not applicable" %}
