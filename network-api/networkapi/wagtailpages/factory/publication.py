@@ -105,11 +105,12 @@ def add_authors(post):
 
 def generate(seed):
     """
-    Makes a batch of 3 publication pages.
+    Makes a batch of publication pages and article pages.
     """
 
     reseed(seed)
     home_page = get_homepage()
+
     """
     Create a couple scenarios that will be best for testing:
     * A PublicationPage with several child ArticlePages
@@ -117,21 +118,25 @@ def generate(seed):
         * future: perhaps nested at random levels of depth?
     """
 
-    pub_page_with_child_articles = PublicationPageFactory.create(
-        parent=home_page, title='Publication Page with child Article Pages'
-    )
-    pub_page_with_chapters = PublicationPageFactory.create(
-        parent=home_page, title='Publication Page with chapter pages'
-    )
+    reseed(seed)
 
     fixed_title_article_page = 'Fixed title article page'
     fixed_title_chapter_page = 'Fixed title chapter page'
 
-    ArticlePageFactory.create(parent=pub_page_with_child_articles, title=fixed_title_article_page)
-    ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
+    pub_page_with_child_articles = PublicationPageFactory.create(
+        parent=home_page, title='Publication Page with child Article Pages'
+    )
 
+    pub_page_with_chapters = PublicationPageFactory.create(
+        parent=home_page, title='Publication Page with chapter pages'
+    )
     PublicationPageFactory.create(parent=pub_page_with_chapters, title=fixed_title_chapter_page)
     PublicationPageFactory.create_batch(parent=pub_page_with_chapters, size=3)
+
+    reseed(seed)
+
+    ArticlePageFactory.create(parent=pub_page_with_child_articles, title=fixed_title_article_page)
+    ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
 
     for chapter in pub_page_with_chapters.get_children():
         ArticlePageFactory.create(parent=chapter, title=fixed_title_article_page)
