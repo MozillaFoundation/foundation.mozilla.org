@@ -40,21 +40,21 @@ def update_unknown_to_cantdetermine(apps, schema_editor):
             # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
             if p[field] == 'U':
                 p[field] = 'CD'
-                p.save()
+        p.save()
 
     for p in SoftwareProductPage.objects.all():
         for field in software_extended_yes_no_fields:
             # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
             if p[field] == 'U':
                 p[field] = 'CD'
-                p.save()
+        p.save()
 
     for p in GeneralProductPage.objects.all():
         for field in general_extended_yes_no_fields:
             # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
             if p[field] == 'U':
                 p[field] = 'CD'
-                p.save()
+        p.save()
 
 
 class Migration(migrations.Migration):
