@@ -17,11 +17,11 @@ def update_unknown_to_cantdetermine(apps, schema_editor):
         'privacy_policy',
     ]
 
-    software_extended_yes_no_fields = [
+    software_extended_yes_no_fields = common_extended_yes_no_fields + [
         'recording_alert',
     ]
 
-    general_extended_yes_no_fields = [
+    general_extended_yes_no_fields = common_extended_yes_no_fields + [
         'camera_device',
         'camera_app',
         'microphone_device',
@@ -36,11 +36,6 @@ def update_unknown_to_cantdetermine(apps, schema_editor):
 
     # Update SoftwareProductPage
     for p in SoftwareProductPage.objects.all():
-        for field in common_extended_yes_no_fields:
-            # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
-            if getattr(p, field) == 'U':
-                setattr(p, field, 'CD')
-
         for field in software_extended_yes_no_fields:
             # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
             if getattr(p, field) == 'U':
@@ -49,11 +44,6 @@ def update_unknown_to_cantdetermine(apps, schema_editor):
 
     # Update GeneralProductPage
     for p in GeneralProductPage.objects.all():
-        for field in common_extended_yes_no_fields:
-            # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
-            if getattr(p, field) == 'U':
-                setattr(p, field, 'CD')
-
         for field in general_extended_yes_no_fields:
             # update 'U' (Unknown) to the new value 'CD' (Can't Determine)
             if getattr(p, field) == 'U':
