@@ -157,7 +157,7 @@ def product_view(request, slug):
         'categories': BuyersGuideProductCategory.objects.all(),
         'product': product_dict,
         'mediaUrl': get_media_url(settings.USE_CLOUDINARY),
-        'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
+        # 'coralTalkServerUrl': settings.CORAL_TALK_SERVER_URL,
         'pageTitle': pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included') + f' - {product.name}',
