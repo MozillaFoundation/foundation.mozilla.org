@@ -18,7 +18,8 @@ gunicorn
 python-slugify
 requests
 social-auth-app-django
-wagtail==2.11
+wagtail-airtable
+wagtail==2.11.3
 wagtail-factories
 wagtail-inventory
 wagtail-metadata
