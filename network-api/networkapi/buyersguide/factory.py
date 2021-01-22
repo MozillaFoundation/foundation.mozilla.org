@@ -37,7 +37,7 @@ def get_random_option(options=[]):
 
 
 def get_extended_yes_no_value():
-    return get_random_option(['Yes', 'No', 'NA', 'U'])
+    return get_random_option(['Yes', 'No', 'NA', 'CD'])
 
 
 def get_lowest_content_category():
