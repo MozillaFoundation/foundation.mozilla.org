@@ -198,7 +198,7 @@ wagtail-footnotes==0.4.1
     # via -r requirements.in
 wagtail-inventory==1.2
     # via -r requirements.in
-wagtail-metadata==3.3.0
+wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail-modeltranslation==0.10.17
     # via -r requirements.in
