@@ -151,7 +151,7 @@ requests==2.25.0
     #   wagtail
 s3transfer==0.3.3
     # via boto3
-sentry-sdk==0.19.4
+sentry-sdk==0.19.5
     # via -r requirements.in
 six==1.14.0
     # via
