@@ -1,8 +1,9 @@
-from django import forms
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.core import hooks
-from wagtail.admin.menu import MenuItem
-from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
+
 
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
@@ -11,7 +12,6 @@ from wagtail.contrib.modeladmin.options import (
 )
 
 from networkapi.wagtailpages.models import (
-    ProductPage,
     BuyersGuidePage,
     GeneralProductPage,
     SoftwareProductPage,
@@ -70,8 +70,8 @@ class WagtailBuyersGuideCategoryAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
 
-    list_display = ('featured', 'title', 'description')
-    search_fields = ('title')
+    list_display = ('featured', 'name', 'description')
+    search_fields = ('name',)
 
 
 class WagtailBuyersGuideUpdateAdmin(ModelAdmin):
@@ -98,3 +98,34 @@ class WagtailBuyersGuideAdminGroup(ModelAdminGroup):
 
 
 modeladmin_register(WagtailBuyersGuideAdminGroup)
+
+
+class MyMenu(Menu):
+
+    @property
+    def registered_menu_items(self):
+        pni_homepage = BuyersGuidePage.objects.get(slug='privacynotincluded')
+        pni_homepage_url = reverse('wagtailadmin_pages:edit', args=(pni_homepage.id,))
+        return [
+            MenuItem(
+                _('Edit PNI Homepage'),
+                pni_homepage_url,
+                classnames='icon icon-edit',
+                order=100,
+            ),
+            MenuItem(
+                _('Buyers Guide Categories'),
+                '/cms/buyersguide/buyersguideproductcategory/',
+                classnames='icon icon-pick',
+                order=200,
+            ),
+        ]
+
+
+@hooks.register('register_admin_menu_item')
+def register_settings_menu():
+    return SubmenuMenuItem(
+        _('Buyer\'s Guide'),
+        MyMenu(register_hook_name='create_pni_menu'),
+        icon_name='cogs',
+        order=10000)
