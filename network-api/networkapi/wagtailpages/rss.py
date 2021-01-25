@@ -19,7 +19,7 @@ class RSSFeed(Feed):
         # Pull this object specifically using the English page title, as an IndexPage
         # rather than a BlogIndexPage, to make sure we're not filtering out all the
         # "featured" posts (which we need to do for site content purposes))
-        index = IndexPage.objects.get(title_en__iexact='Blog')
+        index = IndexPage.objects.get(title__iexact='Blog')
 
         # If that doesn't yield the blog page, pull using the universal title
         if index is None:

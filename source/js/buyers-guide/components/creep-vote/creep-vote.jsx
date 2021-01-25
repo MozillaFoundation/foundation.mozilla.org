@@ -76,7 +76,7 @@ export default class CreepVote extends Component {
 
     // If we're running for the new wagtail version of PNI, voting is a post to the product's URL instead.
     if (document.getElementById("product-research").dataset.isWagtailPage) {
-        url = ".";
+      url = ".";
     }
     let method = `POST`;
     let credentials = `same-origin`;

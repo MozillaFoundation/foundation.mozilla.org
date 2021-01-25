@@ -408,7 +408,11 @@
   @include hover-focus-active {
     /* stylelint-disable */
     // This is a one-off color.
-    background: rgb(231, 231, 252); // One-off colors; no variable exists for this
+    background: rgb(
+      231,
+      231,
+      252
+    ); // One-off colors; no variable exists for this
     /* stylelint-enable */
     text-decoration: none;
 
