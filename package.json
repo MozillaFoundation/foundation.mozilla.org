@@ -30,7 +30,7 @@
     "fix:scss": "npm run test:scss -- --fix",
     "heroku-postbuild": "npm run build",
     "optimize:css": "postcss network-api/networkapi/frontend/_css/*.css --dir network-api/networkapi/frontend/_css",
-    "optimize:svg": "svgo --multipass --enable=removeTitle --folder ./source/images/ --recursive",
+    "optimize:svg": "svgo --multipass --folder ./source/images/ --recursive",
     "optimize:jpg": "find source/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "optimize": "run-p optimize:**",
