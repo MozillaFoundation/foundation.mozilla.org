@@ -27,7 +27,7 @@ cffi==1.14.0
     # via cryptography
 chardet==3.0.4
     # via requests
-cloudinary==1.22.0
+cloudinary==1.24.0
     # via -r requirements.in
 cryptography==3.2
     # via social-auth-core
