@@ -2,13 +2,13 @@ from django.db import models
 
 
 class ExtendedYesNoField(models.CharField):
-    description = "Yes, No, Not Applicable, or Can't Determine"
+    description = "Yes, No, Not Applicable, or Can’t Determine"
 
     choice_list = [
         ('Yes', 'Yes'),
         ('No', 'No'),
         ('NA', 'Not Applicable'),
-        ('CD', 'Can\'t Determine'),
+        ('CD', 'Can’t Determine'),
     ]
 
     default_choice = 'CD'
