@@ -86,7 +86,7 @@
     "sass": "^1.32.5",
     "shx": "^0.3.3",
     "uuid": "^8.3.2",
-    "webpack": "^5.16.0",
+    "webpack": "^5.17.0",
     "webpack-cli": "^4.3.1",
     "whatwg-fetch": "^3.5.0"
   },
