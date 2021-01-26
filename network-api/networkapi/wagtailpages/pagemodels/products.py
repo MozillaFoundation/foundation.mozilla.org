@@ -22,6 +22,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core import hooks
 
+from wagtail_localize.fields import SynchronizedField
+
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.buyersguide.fields import ExtendedYesNoField
@@ -360,6 +362,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True,
         related_name='votes',
     )
+
+    override_translatable_fields = [
+        SynchronizedField('votes'),
+        SynchronizedField('creepiness_value'),
+    ]
 
     def get_export_fields(self):
         """
