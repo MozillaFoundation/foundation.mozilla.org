@@ -1,3 +1,4 @@
+{% load wagtailimages_tags %}
 <div class="container">
   {% comment %}
     This first .row is the white "top" to the Table of Contents section.
@@ -18,7 +19,15 @@
             {% with child=child_page.child %}
             <div class="row publication-row pt-3 pb-sm-4 pb-0">
               <div class="col-auto">
-                <div class="publication-chapter-number"></div>
+                <div class="publication-chapter-number"
+                  {% with toc_image=child.specific.toc_thumbnail_image %}
+                  {% if toc_image %}
+                  {% image toc_image fill-160x160 as thumbnail %}
+                  style='background: url("{{ thumbnail.url }}")'
+                  {% endif %}
+                  {% endwith %}
+                >
+                </div>
               </div>
               <div class="col-8 ml-sm-3{% if not child.get_children_count %} d-flex align-items-center{% endif %}">
                 <h3 class="{% if child.get_children_count %}publication-chapter-title{% else %}m-0 {% endif %}">
