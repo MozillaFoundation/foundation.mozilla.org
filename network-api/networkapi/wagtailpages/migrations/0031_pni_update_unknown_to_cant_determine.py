@@ -54,7 +54,7 @@ def update_unknown_to_cantdetermine(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0029_productpage_airtable_record_id'),
+        ('wagtailpages', '0030_auto_20210125_2123'),
     ]
 
     operations = [
