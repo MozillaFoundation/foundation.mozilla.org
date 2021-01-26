@@ -3,7 +3,7 @@ from random import choice, randint, shuffle
 
 from django.conf import settings
 
-from factory import DjangoModelFactory
+from factory.django import DjangoModelFactory
 
 from wagtail.core.models import Page as WagtailPage
 

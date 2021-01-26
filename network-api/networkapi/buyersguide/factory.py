@@ -2,12 +2,14 @@ from random import randint, random, choice, randrange, shuffle
 from datetime import date, datetime, timezone, timedelta
 
 from factory import (
-    DjangoModelFactory,
     Faker,
     post_generation,
     LazyAttribute,
     LazyFunction,
 )
+
+from factory.django import DjangoModelFactory
+
 
 from wagtail_factories import PageFactory
 from networkapi.wagtailpages.factory.image_factory import ImageFactory

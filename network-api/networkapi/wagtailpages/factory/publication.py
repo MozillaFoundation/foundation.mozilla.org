@@ -10,9 +10,9 @@ from networkapi.utility.faker.helpers import get_homepage, reseed
 from factory import (
     Faker,
     SubFactory,
-    django,
-    DjangoModelFactory,
+    django
 )
+from factory.django import DjangoModelFactory
 
 from networkapi.wagtailpages.pagemodels.publications.article import ArticleAuthors
 
