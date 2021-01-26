@@ -117,7 +117,7 @@ oauthlib==3.1.0
     #   social-auth-core
 openpyxl==3.0.5
     # via tablib
-pillow==6.2.2
+pillow==7.1.0
     # via wagtail
 psycopg2-binary==2.8.6
     # via -r requirements.in
