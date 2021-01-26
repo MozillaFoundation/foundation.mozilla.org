@@ -45,6 +45,16 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
 
     subpage_types = ['ArticlePage', 'PublicationPage']
 
+    toc_thumbnail_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='toc_thumbnail_image',
+        verbose_name='Table of Content Thumbnail',
+        help_text='Thumbnail image to show on table of content. Use square image of 320×320 pixels or larger.',
+    )
+
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -89,6 +99,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
                 FieldPanel('subtitle'),
                 FieldPanel('secondary_subtitle'),
                 FieldPanel('publication_date'),
+                ImageChooserPanel('toc_thumbnail_image'),
                 ImageChooserPanel('hero_image'),
                 DocumentChooserPanel('publication_file'),
                 InlinePanel('authors', label='Author'),

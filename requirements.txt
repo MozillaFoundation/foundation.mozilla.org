@@ -12,9 +12,9 @@ beautifulsoup4==4.8.2
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.16.32
+boto3==1.16.59
     # via -r requirements.in
-botocore==1.19.32
+botocore==1.19.59
     # via
     #   boto3
     #   s3transfer
@@ -39,7 +39,7 @@ dj-database-url==0.5.0
     # via -r requirements.in
 django-admin-sortable==2.2.3
     # via -r requirements.in
-django-cors-headers==3.5.0
+django-cors-headers==3.7.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
@@ -55,7 +55,7 @@ django-modeltranslation==0.15
     # via wagtail-modeltranslation
 django-redis==4.12.1
     # via -r requirements.in
-django-storages==1.10.1
+django-storages==1.11.1
     # via -r requirements.in
 django-taggit==1.2.0
     # via wagtail
@@ -117,7 +117,7 @@ oauthlib==3.1.0
     #   social-auth-core
 openpyxl==3.0.5
     # via tablib
-pillow==6.2.2
+pillow==7.1.0
     # via wagtail
 psycopg2-binary==2.8.6
     # via -r requirements.in
@@ -198,7 +198,7 @@ wagtail-footnotes==0.4.1
     # via -r requirements.in
 wagtail-inventory==1.2
     # via -r requirements.in
-wagtail-metadata==3.3.0
+wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail-modeltranslation==0.10.17
     # via -r requirements.in
