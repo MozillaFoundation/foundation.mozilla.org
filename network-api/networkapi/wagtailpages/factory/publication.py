@@ -1,5 +1,5 @@
 from datetime import timezone
-from random import randint, shuffle
+from random import randint, shuffle, random
 
 from django.conf import settings
 
@@ -8,6 +8,7 @@ from wagtail_factories import PageFactory, ImageFactory
 from networkapi.wagtailpages.models import ArticlePage, BlogAuthor, PublicationPage
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from factory import (
+    post_generation,
     Faker,
     SubFactory,
     django
@@ -63,6 +64,11 @@ class PublicationPageFactory(PageFactory):
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
 
+    @post_generation
+    def toc_thumbnail_image(self, create, extracted, **kwargs):
+        if random() < 0.5:
+            self.toc_thumbnail_image = ImageFactory()
+
     class Meta:
         model = PublicationPage
 
@@ -77,6 +83,11 @@ class ArticlePageFactory(PageFactory):
                           else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
     search_description = (Faker('paragraph', nb_sentences=5, variable_nb_sentences=True))
     live = True
+
+    @post_generation
+    def toc_thumbnail_image(self, create, extracted, **kwargs):
+        if random() < 0.5:
+            self.toc_thumbnail_image = ImageFactory()
 
 
 def add_authors(post):
@@ -94,11 +105,12 @@ def add_authors(post):
 
 def generate(seed):
     """
-    Makes a batch of 3 publication pages.
+    Makes a batch of publication pages and article pages.
     """
 
     reseed(seed)
     home_page = get_homepage()
+
     """
     Create a couple scenarios that will be best for testing:
     * A PublicationPage with several child ArticlePages
@@ -106,21 +118,25 @@ def generate(seed):
         * future: perhaps nested at random levels of depth?
     """
 
-    pub_page_with_child_articles = PublicationPageFactory.create(
-        parent=home_page, title='Publication Page with child Article Pages'
-    )
-    pub_page_with_chapters = PublicationPageFactory.create(
-        parent=home_page, title='Publication Page with chapter pages'
-    )
+    reseed(seed)
 
     fixed_title_article_page = 'Fixed title article page'
     fixed_title_chapter_page = 'Fixed title chapter page'
 
-    ArticlePageFactory.create(parent=pub_page_with_child_articles, title=fixed_title_article_page)
-    ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
+    pub_page_with_child_articles = PublicationPageFactory.create(
+        parent=home_page, title='Publication Page with child Article Pages'
+    )
 
+    pub_page_with_chapters = PublicationPageFactory.create(
+        parent=home_page, title='Publication Page with chapter pages'
+    )
     PublicationPageFactory.create(parent=pub_page_with_chapters, title=fixed_title_chapter_page)
     PublicationPageFactory.create_batch(parent=pub_page_with_chapters, size=3)
+
+    reseed(seed)
+
+    ArticlePageFactory.create(parent=pub_page_with_child_articles, title=fixed_title_article_page)
+    ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
 
     for chapter in pub_page_with_chapters.get_children():
         ArticlePageFactory.create(parent=chapter, title=fixed_title_article_page)
