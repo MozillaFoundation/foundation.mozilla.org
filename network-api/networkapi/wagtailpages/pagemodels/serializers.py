@@ -10,7 +10,6 @@ class TrackRecordChoicesSerializer(serializers.RelatedField):
     def to_internal_value(self, data):
         value = data.lower().strip()
         for choice_key, choice_value in TRACK_RECORD_CHOICES:
-            print(f"{choice_key} vs {value}")
             if choice_key.lower() == value:
                 return str(choice_key)
         return data
@@ -111,3 +110,14 @@ class GeneralProductPageSerializer(ProductSerializer):
     ai_uses_personal_data = ExtendedYesNoSerializer(default='U')
     ai_is_transparent = ExtendedYesNoSerializer(default='U')
     ai_helptext = serializers.CharField(required=False, max_length=5000)
+
+
+class SoftwareProductPageSerializer(ProductSerializer):
+    handles_recordings_how = serializers.CharField(required=False, max_length=5000)
+    recording_alert = ExtendedYesNoField(default='U')
+    recording_alert_helptext = serializers.CharField(required=False, max_length=5000)
+    medical_privacy_compliant = serializers.BooleanField(default=False)
+    medical_privacy_compliant_helptext = serializers.CharField(required=False, max_length=5000)
+    host_controls = serializers.CharField(required=False, max_length=5000)
+    easy_to_learn_and_use = serializers.BooleanField(default=False)
+    easy_to_learn_and_use_helptext = serializers.CharField(required=False, max_length=5000)
