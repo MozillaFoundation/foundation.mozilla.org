@@ -750,7 +750,6 @@ class SoftwareProductPage(ProductPage):
         """
         generic_product_data = super().get_export_fields()
         software_product_data = {
-            "Product type": self.product_type,
             "How it handles recording": self.handles_recordings_how,
             "Recording alert": self.recording_alert,
             "Recording alert help text": self.recording_alert_helptext,
@@ -1276,3 +1275,10 @@ def invalidate_cache(request, page):
     """
     if isinstance(page, ProductPage):
         cache.clear()
+
+
+def get_pni_home_page():
+    """
+    Used in AIRTABLE settings for nesting child pages under a new parent page.
+    """
+    return BuyersGuidePage.objects.first().id
