@@ -407,7 +407,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Phone number": "phone_number",
             "Live chat": "live_chat",
             "Email address": "email",
-            "Twitter": "twitter", # TODO Needs a custom validator
+            "Twitter": "twitter",
         }
         return mappings
 
@@ -743,6 +743,22 @@ class SoftwareProductPage(ProductPage):
         blank=True
     )
 
+    @classmethod
+    def map_import_fields(cls):
+        generic_product_import_fields = super().map_import_fields()
+        software_product_mappings = {
+            "How it handles recording": "handles_recordings_how",
+            "Recording alert": "recording_alert",
+            "Recording alert help text": "recording_alert_helptext",
+            "Medical privacy compliant": "medical_privacy_compliant",
+            "Medical privacy compliant help text": "medical_privacy_compliant_helptext",
+            "Host controls": "host_controls",
+            "Easy to learn and use": "easy_to_learn_and_use",
+            "Easy to learn and use help text": "easy_to_learn_and_use_helptext",
+        }
+        # Return the merged fields
+        return {**generic_product_import_fields, **software_product_mappings}
+
     def get_export_fields(self):
         """
         This should be a dictionary of the fields to send to Airtable.
@@ -933,7 +949,6 @@ class GeneralProductPage(ProductPage):
             "Offline use": "offline_use_description",
             "Uses AI": "uses_ai",
             "AI uses personal data": "ai_uses_personal_data",
-            "AI is transparent": "ai_uses_personal_data",
             "AI help text": "ai_helptext",
             "AI is transparent": "ai_is_transparent",
         }
