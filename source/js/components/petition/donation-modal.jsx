@@ -129,7 +129,7 @@ class DonationModal extends Component {
   }
 
   userElectedCloseModal() {
-    this.props.close();
+    this.props.onClose();
   }
 
   userElectedToDonate() {
