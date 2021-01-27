@@ -15,7 +15,6 @@ import os
 import environ
 import logging.config
 import dj_database_url
-from django.utils.translation import gettext_lazy
 
 app = environ.Path(__file__) - 1
 root = app - 1
@@ -226,11 +225,6 @@ INSTALLED_APPS = list(filter(None, [
     # possibly still used?
     'networkapi.highlights',
 
-    # wagtail localisation app
-    'wagtail_modeltranslation',
-    'wagtail_modeltranslation.makemigrations',
-    'wagtail_modeltranslation.migrate',
-
     # wagtail to airtable integration
     'wagtail_airtable',
 
@@ -410,14 +404,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en'
 LANGUAGES = (
-    ('en', gettext_lazy('English')),
-    ('de', gettext_lazy('German')),
-    ('pt', gettext_lazy('Portuguese')),
-    ('es', gettext_lazy('Spanish')),
-    ('fr', gettext_lazy('French')),
-    ('fy-NL', gettext_lazy('Frisian')),
-    ('nl', gettext_lazy('Dutch')),
-    ('pl', gettext_lazy('Polish')),
+    ('en', 'English'),
+    ('de', 'German'),
+    ('pt', 'Portuguese'),
+    ('es', 'Spanish'),
+    ('fr', 'French'),
+    ('fy-NL', 'Frisian'),
+    ('nl', 'Dutch'),
+    ('pl', 'Polish'),
 )
 
 TIME_ZONE = 'UTC'
