@@ -285,6 +285,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text='Does this product have a user-friendly privacy policy?'
     )
 
+    user_friendly_privacy_policy_helptext = models.TextField(
+        max_length=5000,
+        blank=True
+    )
+
     # Minimum security standards
     show_ding_for_minimum_security_standards = models.BooleanField(
         default=False,
@@ -389,6 +394,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "How it collects data": self.how_does_it_use_data_collected,
             "Data collection privacy ding": self.data_collection_policy_is_bad,
             "User friendly privacy policy": self.user_friendly_privacy_policy,
+            "User friendly privacy policy help text": self.user_friendly_privacy_policy_helptext,
             "Meets MSS": self.meets_minimum_security_standards,
             "Meets MSS privacy policy ding": self.show_ding_for_minimum_security_standards,
             "Uses encryption": self.uses_encryption,
@@ -488,6 +494,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel('user_friendly_privacy_policy'),
+                FieldPanel('user_friendly_privacy_policy_helptext'),
             ],
             heading='Privacy policy',
             classname='collapsible'
