@@ -650,14 +650,19 @@ WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
 
 AIRTABLE_API_KEY = env('AIRTABLE_API_KEY')
 WAGTAIL_AIRTABLE_ENABLED = env('AIRTABLE_ENABLED')
-AIRTABLE_SETTINGS = {
+GENERAL_PNI_AIRTABLE_SETTINGS = {
     'AIRTABLE_BASE_KEY': env('AIRTABLE_BASE_KEY'),
-    'AIRTABLE_TABLE_NAME': 'PNI Products',
-    'AIRTABLE_UNIQUE_IDENTIFIER': 'slug',
-    'AIRTABLE_IMPORT_ALLOWED': False,
+    'AIRTABLE_TABLE_NAME': 'General PNI Products',
+    'AIRTABLE_UNIQUE_IDENTIFIER': {
+        'Wagtail Page ID': 'pk', # 'Wagtail Page ID' is the column name in Airtable, 'pk' field name in Wagtail.
+    },
+    'AIRTABLE_IMPORT_ALLOWED': True,
     'AIRTABLE_BASE_URL': env('AIRTABLE_BASE_URL'),
 }
+# Create duplicate airtable settings for another sheet in the same table.
+SOFTWARE_PNI_AIRTABLE_SETTINGS = GENERAL_PNI_AIRTABLE_SETTINGS
+SOFTWARE_PNI_AIRTABLE_SETTINGS['AIRTABLE_TABLE_NAME'] = 'Software PNI Products'
 AIRTABLE_IMPORT_SETTINGS = {
-    'wagtailpages.GeneralProductPage': AIRTABLE_SETTINGS,
-    'wagtailpages.SoftwareProductPage': AIRTABLE_SETTINGS,
+    'wagtailpages.GeneralProductPage': GENERAL_PNI_AIRTABLE_SETTINGS,
+    'wagtailpages.SoftwareProductPage': SOFTWARE_PNI_AIRTABLE_SETTINGS,
 }
