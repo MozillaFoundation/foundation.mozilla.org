@@ -9,6 +9,7 @@ django_csp
 django-environ
 django-filter
 django-redis
+django-rq
 django-storages
 factory_boy
 Faker
