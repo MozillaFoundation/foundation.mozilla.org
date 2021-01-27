@@ -31,6 +31,22 @@ class DonationModal extends Component {
     } else {
       body.insertBefore(n, c1);
     }
+
+    // For some reason appendChild and inserBefore cause event handler binding problems.
+    // We cannot use the typical <SomeReactNode onClick=...> to bind event handlers as
+    // it will just attach a noop function to it.
+    // We have to rely on DOM API instead.
+    this.closeButton.addEventListener(`click`, () => {
+      this.userElectedCloseModal();
+    });
+
+    this.userElectedToDonateLink.addEventListener(`click`, () => {
+      this.userElectedToDonate();
+    });
+
+    this.userElectedToShareLink.addEventListener(`click`, () => {
+      this.userElectedToShare();
+    });
   }
 
   componentWillUnmount() {
@@ -68,10 +84,10 @@ class DonationModal extends Component {
     return (
       <div className="modal-content" role="dialog">
         <button
+          ref={(e) => (this.closeButton = e)}
           className="close"
           data-dismiss="modal"
           aria-label="Close"
-          onClick={(e) => this.props.onClose(e)}
           tabIndex="0"
         >
           <span aria-hidden="true">&times;</span>
@@ -88,10 +104,10 @@ class DonationModal extends Component {
 
         <div className="text-center">
           <a
+            ref={(e) => (this.userElectedToDonateLink = e)}
             className="btn btn-primary"
             href={this.donateURL}
             target="_blank"
-            onClick={(e) => this.userElectedToDonate(e)}
             tabIndex="0"
           >
             {this.props.donateText}
@@ -100,9 +116,9 @@ class DonationModal extends Component {
 
         <div className="text-center">
           <button
+            ref={(e) => (this.userElectedToShareLink = e)}
             className="text dismiss"
             data-dismiss="modal"
-            onClick={(e) => this.userElectedToShare(e)}
             tabIndex="0"
           >
             {this.props.shareText}
@@ -110,6 +126,10 @@ class DonationModal extends Component {
         </div>
       </div>
     );
+  }
+
+  userElectedCloseModal() {
+    this.props.close();
   }
 
   userElectedToDonate() {
