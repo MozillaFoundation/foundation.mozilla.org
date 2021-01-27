@@ -25,7 +25,6 @@ wagtail-factories
 git+git://github.com/Pomax/wagtail-inventory.git@ea9a6533e69ff0a6faaf0f069efa115bc22ce697#egg=wagtail-inventory
 wagtail-metadata
 whitenoise
-wagtail-modeltranslation==0.10.17
 psycopg2-binary
 cloudinary
 wagtail-experiments
