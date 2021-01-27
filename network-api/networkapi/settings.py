@@ -661,7 +661,7 @@ GENERAL_PNI_AIRTABLE_SETTINGS = {
     'AIRTABLE_SERIALIZER': 'networkapi.wagtailpages.pagemodels.serializers.GeneralProductPageSerializer',
     # Can be a callable or location to a function or an int representing the parent page ID to nest child pages under.
     'PARENT_PAGE_ID': 'networkapi.wagtailpages.pagemodels.products.get_pni_home_page',
-    'AUTO_PUBLISH_NEW_PAGES': True,
+    'AUTO_PUBLISH_NEW_PAGES': False,
 }
 # Create duplicate airtable settings for another sheet in the same table.
 SOFTWARE_PNI_AIRTABLE_SETTINGS = GENERAL_PNI_AIRTABLE_SETTINGS.copy()
