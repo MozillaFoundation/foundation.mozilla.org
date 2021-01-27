@@ -267,7 +267,7 @@ class TestPNIAirtableConnections(TestCase):
             camera_app='Yes',
             camera_device='No',
             microphone_app='NA',
-            microphone_device='U',
+            microphone_device='CD',
             location_app='Yes',
             location_device='No',
             personal_data_collected='Is personal data getting collected?',
