@@ -37,7 +37,7 @@ def get_random_option(options=[]):
 
 
 def get_extended_yes_no_value():
-    return get_random_option(['Yes', 'No', 'NA', 'U'])
+    return get_random_option(['Yes', 'No', 'NA', 'CD'])
 
 
 def get_lowest_content_category():
@@ -378,7 +378,7 @@ def create_general_product_visual_regression_product(seed, pni_homepage):
         camera_app='Yes',
         camera_device='No',
         microphone_app='NA',
-        microphone_device='U',
+        microphone_device='CD',
         location_app='Yes',
         location_device='No',
         personal_data_collected='Is personal data getting collected?',

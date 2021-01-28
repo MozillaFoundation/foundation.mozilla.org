@@ -47,6 +47,16 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     subpage_types = []
     body = StreamField(article_fields)
 
+    toc_thumbnail_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Table of Content Thumbnail',
+        help_text='Thumbnail image to show on table of content. Use square image of 320×320 pixels or larger.',
+    )
+
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -60,6 +70,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel([
             InlinePanel("authors", label="Author", min_num=0)
         ], heading="Author(s)"),
+        MultiFieldPanel([
+            ImageChooserPanel("toc_thumbnail_image"),
+        ], heading="Table of Content Thumbnail"),
         MultiFieldPanel([
             ImageChooserPanel("hero_image"),
         ], heading="Hero"),
