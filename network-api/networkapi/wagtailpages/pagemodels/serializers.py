@@ -22,7 +22,7 @@ class ExtendedYesNoSerializer(serializers.RelatedField):
     """
     Custom serializer for importing ExtendedYesNoFields.
 
-    ie. Finds "U" in a list of ["U", "Yes", "No", "NA"].
+    ie. Finds "CD" in a list of ["CD", "Yes", "No", "NA"].
     """
 
     def to_internal_value(self, data):
@@ -44,8 +44,13 @@ class DateSerializer(serializers.DateTimeField):
 
 
 class ProductSerializer(AirtableSerializer):
+    """
+    The generic serializer for ProductPage's.
 
-    # Page.title from wagtailcore.page. Airtable can update this value.
+    GeneralProductPage and SoftwareProductPage serializers inherit from this class,
+    the exact same way the pages do.
+    """
+
     title = serializers.CharField(max_length=255, required=True)
     privacy_ding = serializers.BooleanField(default=False)
     adult_content = serializers.BooleanField(default=False)

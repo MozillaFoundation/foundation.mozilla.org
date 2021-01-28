@@ -939,8 +939,6 @@ class GeneralProductPage(ProductPage):
     def map_import_fields(cls):
         generic_product_import_fields = super().map_import_fields()
         general_product_mappings = {
-            # "Title" is the column name in Airtable. "title" (lowercase) is the field name on the model.
-            # General product page fields
             "Has camera device": "camera_device",
             "Has camera app": "camera_app",
             "Has microphone device": "microphone_device",
