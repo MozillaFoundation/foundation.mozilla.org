@@ -64,6 +64,7 @@ class ProductSerializer(AirtableSerializer):
     how_does_it_use_data_collected = serializers.CharField(required=False, max_length=5000)
     data_collection_policy_is_bad = serializers.BooleanField(default=False)
     user_friendly_privacy_policy = ExtendedYesNoSerializer(default='CD')
+    user_friendly_privacy_policy_helptext = serializers.CharField(required=False, max_length=5000)
     show_ding_for_minimum_security_standards = serializers.BooleanField(default=False)
     meets_minimum_security_standards = serializers.BooleanField(default=False)
     uses_encryption = ExtendedYesNoSerializer(default='CD')

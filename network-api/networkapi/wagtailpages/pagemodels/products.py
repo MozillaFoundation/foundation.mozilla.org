@@ -397,6 +397,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "How it collects data": "how_does_it_use_data_collected",
             "Data collection privacy ding": "data_collection_policy_is_bad",
             "User friendly privacy policy": "user_friendly_privacy_policy",
+            "User friendly privacy policy help text": "user_friendly_privacy_policy_helptext",
             "Meets MSS": "meets_minimum_security_standards",
             "Meets MSS privacy policy ding": "show_ding_for_minimum_security_standards",
             "Uses encryption": "uses_encryption",
