@@ -47,13 +47,13 @@ else:
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
 
-
 TRACK_RECORD_CHOICES = [
     ('Great', 'Great'),
     ('Average', 'Average'),
     ('Needs Improvement', 'Needs Improvement'),
     ('Bad', 'Bad')
 ]
+
 
 def get_product_subset(cutoff_date, authenticated, key, products):
     """
