@@ -175,7 +175,7 @@
 
           {% if product.product_type == 'general' %}
             {% trans "User friendly privacy information?" as user_friendly_privacy_policy %}
-            {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no  %}
+            {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no   help=product.user_friendly_privacy_policy_helptext  %}
           {% endif %}
 
 
