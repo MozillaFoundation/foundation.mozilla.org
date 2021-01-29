@@ -5,6 +5,8 @@ from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from wagtail_localize.fields import SynchronizedField
+
 from .base_fields import base_fields
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixin
@@ -76,6 +78,10 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
         ImageChooserPanel('banner'),
         FieldPanel('intro'),
         StreamFieldPanel('body'),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     subpage_types = [

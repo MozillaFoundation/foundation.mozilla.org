@@ -224,6 +224,10 @@ INSTALLED_APPS = list(filter(None, [
     # possibly still used?
     'networkapi.highlights',
 
+    # wagtail localization
+    'wagtail_localize',
+    'wagtail_localize.locales',
+
     # wagtail to airtable integration
     'wagtail_airtable',
 
@@ -412,6 +416,9 @@ LANGUAGES = (
     ('nl', 'Dutch'),
     ('pl', 'Polish'),
 )
+
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
+WAGTAIL_I18N_ENABLED = True
 
 TIME_ZONE = 'UTC'
 USE_I18N = True

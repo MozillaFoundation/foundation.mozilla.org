@@ -22,6 +22,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core import hooks
 
+from wagtail_localize.fields import SynchronizedField
+
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.buyersguide.fields import ExtendedYesNoField

@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable as WagtailOrderable
 from wagtail.core.fields import RichTextField
@@ -8,6 +7,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
+
+from wagtail_localize.fields import SynchronizedField
 
 from modelcluster.fields import ParentalKey
 
@@ -278,6 +279,12 @@ class ParticipatePage2(PrimaryPage):
         InlinePanel('cta4', label='CTA Group 4', max_num=3),
     ]
 
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+        SynchronizedField('ctaButtonURL'),
+        SynchronizedField('ctaButtonURL2'),
+    ]
+
 
 class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
@@ -378,6 +385,11 @@ class CTABase(WagtailOrderable, models.Model):
         FieldPanel('subhead'),
         FieldPanel('buttonTitle'),
         FieldPanel('buttonURL'),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+        SynchronizedField('buttonURL'),
     ]
 
     class Meta:
@@ -750,6 +762,10 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'Styleguide',
         'ProductPage',
         'BuyersGuidePage',
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     def get_context(self, request):
