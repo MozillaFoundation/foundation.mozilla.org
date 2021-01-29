@@ -51,3 +51,7 @@ class Update(index.Indexed, models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Update"
+        verbose_name_plural = "Buyers Guide Product Updates"

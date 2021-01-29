@@ -19,8 +19,8 @@ def yes_no(value):
 @register.filter
 def extended_yes_no(value):
     """Converts quad-state to human readable string"""
-    if value == 'U':
-        return gettext('Unknown')
+    if value == 'CD':
+        return gettext('Can’t Determine')
     if value == 'NA':
         return gettext('N/A')
     if value == 'Yes':
