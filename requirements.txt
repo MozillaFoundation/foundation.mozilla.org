@@ -199,6 +199,8 @@ git+git://github.com/Pomax/wagtail-inventory.git@ea9a6533e69ff0a6faaf0f069efa115
     # via -r requirements.in
 wagtail-localize==0.9.4
     # via -r requirements.in
+wagtail-localize==0.9.4
+    # via -r requirements.in
 wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail==2.11.3
