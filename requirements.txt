@@ -73,6 +73,7 @@ django==2.2.17
     #   djangorestframework
     #   wagtail
     #   wagtail-footnotes
+    #   wagtail-localize
 djangorestframework==3.12.2
     # via
     #   -r requirements.in
@@ -116,6 +117,8 @@ openpyxl==3.0.5
     # via tablib
 pillow==7.1.0
     # via wagtail
+polib==1.1.0
+    # via wagtail-localize
 psycopg2-binary==2.8.6
     # via -r requirements.in
 pycparser==2.20
@@ -194,6 +197,8 @@ wagtail-footnotes==0.4.1
     # via -r requirements.in
 git+git://github.com/Pomax/wagtail-inventory.git@ea9a6533e69ff0a6faaf0f069efa115bc22ce697#egg=wagtail-inventory
     # via -r requirements.in
+wagtail-localize==0.9.4
+    # via -r requirements.in
 wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail==2.11.3
@@ -203,6 +208,7 @@ wagtail==2.11.3
     #   wagtail-factories
     #   wagtail-footnotes
     #   wagtail-inventory
+    #   wagtail-localize
     #   wagtail-metadata
 webencodings==0.5.1
     # via html5lib
