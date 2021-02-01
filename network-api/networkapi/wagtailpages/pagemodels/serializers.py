@@ -90,10 +90,8 @@ class ProductSerializer(AirtableSerializer):
 
 class GeneralProductPageSerializer(ProductSerializer):
     """
-    YourModel serializer used when importing Airtable records.
-    This serializer will help validate data coming in from Airtable and help prevent
-    malicious intentions.
-    This model assumes there is a "name" mapping in YourModel.map_import_fields()
+    General Product Page Serializer is for ingesting data from Airtable and
+    validating it to match the import fields from the General Product page
     """
 
     camera_device = ExtendedYesNoSerializer(default='CD')
