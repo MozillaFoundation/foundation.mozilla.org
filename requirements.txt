@@ -194,7 +194,7 @@ wagtail-experiments==0.2
     # via -r requirements.in
 wagtail-factories==2.0.1
     # via -r requirements.in
-wagtail-footnotes==0.4.1
+wagtail-footnotes==0.5.0
     # via -r requirements.in
 wagtail-inventory==1.2
     # via -r requirements.in
