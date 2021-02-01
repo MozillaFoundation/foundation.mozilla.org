@@ -67,35 +67,6 @@ class Command(BaseCommand):
         )
 
     @staticmethod
-    def get_comment_counts():
-        query = '''
-            query getAllComments {
-                assets(query: { limit: 1000 }) {
-                    nodes {
-                        url,
-                        title,
-                        totalCommentCount
-                    }
-                }
-            }
-        '''
-        headers = {
-            'Authorization': f'Bearer {settings.CORAL_TALK_API_TOKEN}',
-            'Content-Type': 'application/json'
-        }
-        response = requests.post(
-            f'{settings.CORAL_TALK_SERVER_URL}api/v1/graph/ql',
-            json={'query': query},
-            headers=headers
-        )
-
-        if response.status_code != 200:
-            print(f'Request for comment data failed with a {response.status_code} status code')
-            response.raise_for_status()
-
-        return response.json()['data']['assets']['nodes']
-
-    @staticmethod
     def dedupe_comments(comments):
         cleaned_comments = dict()
         for comment in comments:
@@ -130,10 +101,6 @@ class Command(BaseCommand):
             print('You must set PNI_STATS_DB_URL to run this task')
             return
 
-        if not (settings.CORAL_TALK_SERVER_URL and settings.CORAL_TALK_API_TOKEN):
-            print('You must set CORAL_TALK_SERVER_URL and settings.CORAL_TALK_API_TOKEN')
-            return
-
         connection = None
 
         try:
@@ -149,10 +116,6 @@ class Command(BaseCommand):
                            'creepiness_votes = EXCLUDED.creepiness_votes,\n' \
                            'would_buy = EXCLUDED.would_buy,\n' \
                            'would_not_buy = EXCLUDED.would_not_buy'
-
-            print('Fetching Coral Comment Data')
-            comment_data = self.get_comment_counts()
-            comment_data = self.dedupe_comments(comment_data)
 
             print('Generating Upsert Query for comment data')
             sql_comments = 'INSERT INTO comment_counts\n' \

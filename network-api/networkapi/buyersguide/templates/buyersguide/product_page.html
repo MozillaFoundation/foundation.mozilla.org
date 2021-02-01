@@ -263,7 +263,7 @@
     <div class="container">
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
-          {% if product.updates.count > 0 or coralTalkServerUrl %}
+          {% if product.updates.count > 0 %}
           <h3 class="h2-heading mb-4 mb-md-5">{% trans "Updates" %}</h3>
           {% endif %}
           {% if product.updates.count > 0 %}
@@ -280,8 +280,8 @@
           </div>
           {% endif %}
 
-          {% if coralTalkServerUrl %}
-          <div id="coral-talk-stream"></div>
+          {% if use_commento %}
+          <div id="commento"></div>
           {% endif %}
 
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
@@ -328,12 +328,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
-  {% if coralTalkServerUrl %}
-    <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
-      Coral.Talk.render(document.getElementById('coral-talk-stream'), {
-        talk: '{{ coralTalkServerUrl }}'{% if lang_code == "en" %},
-        asset_url: '{{ product.get_parent.url }}products/{{ product.slug }}/'{% endif %}
-      });
-    "></script>
+  {% if use_commento %}
+    <script async defer src="https://cdn.commento.io/js/commento.js"></script>
   {% endif %}
 {% endblock %}
