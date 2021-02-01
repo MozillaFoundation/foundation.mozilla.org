@@ -5,6 +5,7 @@
 {% get_current_language as lang_code %}
 
 {% block page_title %}{% if pageTitle %}{{ pageTitle }}{% else %}Mozilla - {% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}*privacy not included{% endblocktrans %}{% endif %}{% endblock %}
+{% block page_description %}{{page.search_description}}{% endblock %}
 
 
 {# TODO: consider using a different ga_identifier? #}

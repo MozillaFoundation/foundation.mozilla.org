@@ -575,10 +575,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         # context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
-        context['pageTitle'] = f'''{pgettext(
-          'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-          '*privacy not included'
-        )} - {self.title}'''
+        context['pageTitle'] = f'{self.title} | ' + pgettext(
+                'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
+                'Privacy & Security Guide'
+            ) + f' | Mozilla Foundation'
         return context
 
     def serve(self, request, *args, **kwargs):
@@ -1052,54 +1052,54 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def about_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = 'How to use ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - How to Use This Guide'
+            '*privacy not included')
         return render(request, "about/how_to_use.html", context)
 
     @route(r'^about/why/$', name='about-why-view')
     def about_why_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = 'Why we made ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Why We Made This Guide'
+            '*privacy not included')
         return render(request, "about/why_we_made.html", context)
 
     @route(r'^about/press/$', name='press-view')
     def about_press_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = 'Press | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Press'
+            '*privacy not included')
         return render(request, "about/press.html", context)
 
     @route(r'^about/contact/$', name='contact-view')
     def about_contact_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = 'Contact us | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Contact'
+            '*privacy not included')
         return render(request, "about/contact.html", context)
 
     @route(r'^about/methodology/$', name='methodology-view')
     def about_methodology_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = 'Our Methodology | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Methodology'
+            '*privacy not included')
         return render(request, "about/methodology.html", context)
 
     @route(r'^about/meets-minimum-security-standards/$', name='min-security-view')
     def about_mss_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = 'Our minimum security standards | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Minimum Security Standards'
+            '*privacy not included')
         return render(request, "about/minimum_security.html", context)
 
     @route(r'^contest/$', name='contest')
@@ -1143,9 +1143,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         context['category'] = category.slug
         context['products'] = products
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = f'{category} | ' + pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-                '*privacy not included') + f' - {category}'
+                'Privacy & Security Guide'
+            ) + f' | Mozilla Foundation'
 
         return render(request, "buyersguide/category_page.html", context)
 
