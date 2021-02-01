@@ -23,7 +23,7 @@
                   {% with toc_image=child.specific.toc_thumbnail_image %}
                   {% if toc_image %}
                   {% image toc_image fill-160x160 as thumbnail %}
-                  style='background: url("{{ thumbnail.url }}")'
+                  style='background-image: url("{{ thumbnail.url }}")'
                   {% endif %}
                   {% endwith %}
                 >
