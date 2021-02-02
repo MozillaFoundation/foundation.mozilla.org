@@ -15,7 +15,7 @@ const EXCLUDE_CONSTANTS = [
 ];
 
 const EXCLUDE_PNI_CONSTANTS = EXCLUDE_CONSTANTS.concat([
-  // ["#coral-talk-stream", "iframe"], // Commenting
+  // ["#coral-talk-stream", "iframe"], // leaving this in for as long as is necessary to determine whether the commento element needs excluding
 ]);
 
 export {
