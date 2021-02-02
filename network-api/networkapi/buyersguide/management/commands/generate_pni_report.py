@@ -117,12 +117,6 @@ class Command(BaseCommand):
                            'would_buy = EXCLUDED.would_buy,\n' \
                            'would_not_buy = EXCLUDED.would_not_buy'
 
-            print('Generating Upsert Query for comment data')
-            sql_comments = 'INSERT INTO comment_counts\n' \
-                           f'VALUES { self.generate_insert_values(comment_data, self.form_comment_string) }\n' \
-                           'ON CONFLICT (url) DO UPDATE\n' \
-                           'SET total_comments = EXCLUDED.total_comments'
-
             print('Opening connection to DB')
             connection = self.setup_db_connection()
             connection.set_session(autocommit=True)
@@ -130,7 +124,6 @@ class Command(BaseCommand):
 
             print('Executing Upsert Queries')
             cursor.execute(sql_products)
-            cursor.execute(sql_comments)
             print('Done!')
 
         except (Exception, psycopg2.DatabaseError) as error:
