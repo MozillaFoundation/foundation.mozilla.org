@@ -20,7 +20,7 @@
                 <div class="publication-chapter-number publication-chapter-number--small"
                   {% with toc_image=child.specific.toc_thumbnail_image %}
                   {% if toc_image %}
-                  {% image toc_image fill-128x128 as thumbnail %}
+                  {% image toc_image fill-256x256 as thumbnail %}
                   style='background-image: url("{{ thumbnail.url }}")'
                   {% endif %}
                   {% endwith %}
