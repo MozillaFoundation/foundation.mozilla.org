@@ -5,6 +5,8 @@ from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information
@@ -170,6 +172,22 @@ class MozfestHomepage(MozfestPrimaryPage):
     # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
     # we should hide it and make sure we use the right template
     settings_panels = Page.settings_panels
+
+    translatable_fields = [
+        TranslatableField('title'),
+        TranslatableField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        SynchronizedField('signup'),
+        TranslatableField('body'),
+        SynchronizedField('use_wide_template'),
+        TranslatableField('cta_button_label'),
+        TranslatableField('cta_button_destination'),
+        TranslatableField('banner_heading'),
+        SynchronizedField('footnotes'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)
