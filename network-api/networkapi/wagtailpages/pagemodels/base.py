@@ -62,7 +62,7 @@ class InitiativeSection(models.Model):
         blank="True"
     )
 
-    sectionButtonURL2 = models.TextField(
+    sectionButtonURL2 = models.URLField(
         verbose_name='Button 2 URL',
         blank="True"
     )
@@ -75,6 +75,11 @@ class InitiativeSection(models.Model):
         FieldPanel('sectionButtonURL'),
         FieldPanel('sectionButtonTitle2'),
         FieldPanel('sectionButtonURL2'),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('sectionButtonURL'),
+        SynchronizedField('sectionButtonURL2'),
     ]
 
 
@@ -186,7 +191,7 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
-    ctaButtonURL2 = models.TextField(
+    ctaButtonURL2 = models.URLField(
         verbose_name='Button URL',
         blank=True,
     )
@@ -766,6 +771,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     override_translatable_fields = [
         SynchronizedField('slug'),
+        SynchronizedField('hero_button_url'),
     ]
 
     def get_context(self, request):

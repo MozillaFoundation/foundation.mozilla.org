@@ -6,6 +6,7 @@ from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail_localize.fields import SynchronizedField
 
 from networkapi.wagtailpages.models import BlogAuthor, PublicationPage
 from networkapi.wagtailpages.utils import get_plaintext_titles
@@ -78,6 +79,10 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         ], heading="Hero"),
         StreamFieldPanel('body'),
         InlinePanel("footnotes", label="Footnotes"),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     @property

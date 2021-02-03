@@ -82,6 +82,7 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
 
     override_translatable_fields = [
         SynchronizedField('slug'),
+        SynchronizedField('zen_nav'),
     ]
 
     subpage_types = [

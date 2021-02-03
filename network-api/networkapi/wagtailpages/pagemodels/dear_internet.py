@@ -3,8 +3,9 @@ from django.db import models
 from wagtail.admin.edit_handlers import StreamFieldPanel, MultiFieldPanel, FieldPanel
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
-
 from wagtail.core import blocks
+from wagtail_localize.fields import SynchronizedField
+
 from . import customblocks
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import set_main_site_nav_information
@@ -54,6 +55,11 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     ]
 
     zen_nav = True
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+        SynchronizedField('cta_button_text'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)

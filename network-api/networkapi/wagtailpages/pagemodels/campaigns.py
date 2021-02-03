@@ -11,6 +11,7 @@ from wagtail.snippets.models import register_snippet
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
+from wagtail_localize.fields import SynchronizedField
 
 from .modular import MiniSiteNameSpace
 from .primary import PrimaryPage
@@ -173,6 +174,10 @@ class Petition(CTA):
         default='Thank you for signing too!',
     )
 
+    override_translatable_fields = [
+        SynchronizedField('share_link'),
+    ]
+
     class Meta:
         verbose_name = 'petition snippet'
 
@@ -210,6 +215,10 @@ class CampaignPage(MiniSiteNameSpace):
         'CampaignPage',
         'RedirectingPage',
         'PublicationPage',
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
 
@@ -265,6 +274,10 @@ class BanneredCampaignPage(PrimaryPage):
         'RedirectingPage',
         'PublicationPage',
         'OpportunityPage',  # "DefaultPage" is just the verbose name
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     show_in_menus_default = True

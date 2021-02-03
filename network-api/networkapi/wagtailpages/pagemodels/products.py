@@ -164,6 +164,10 @@ class ProductPagePrivacyPolicyLink(Orderable):
         FieldPanel('url'),
     ]
 
+    override_translatable_fields = [
+        SynchronizedField('url'),
+    ]
+
     def __str__(self):
         return f'{self.page.title}: {self.label} ({self.url})'
 
@@ -231,6 +235,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text='Link to this product page',
         blank=True,
     )
+
     price = models.CharField(
         max_length=100,
         help_text='Price',
@@ -652,6 +657,13 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         ),
     ]
 
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+        SynchronizedField('product_url'),
+        SynchronizedField('creepiness_value'),
+        SynchronizedField('votes'),
+    ]
+
     @property
     def product_type(self):
         return "unknown"
@@ -878,6 +890,10 @@ class SoftwareProductPage(ProductPage):
             ),
         ],
     )
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
 
     @property
     def product_type(self):
@@ -1169,6 +1185,10 @@ class GeneralProductPage(ProductPage):
         ],
     )
 
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
+
     @property
     def product_type(self):
         return "general"
@@ -1221,6 +1241,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         ImageChooserPanel('hero_image'),
         FieldPanel('header'),
         FieldPanel('intro_text'),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
