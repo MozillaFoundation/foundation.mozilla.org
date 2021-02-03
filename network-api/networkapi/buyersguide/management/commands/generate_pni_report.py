@@ -1,6 +1,5 @@
 import psycopg2
 import re
-import requests
 
 from urllib.parse import urlparse
 from django.core.management.base import BaseCommand
