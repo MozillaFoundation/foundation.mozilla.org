@@ -52,7 +52,9 @@
 .publication-chapter-number {
   width: 160px;
   height: 160px;
-  background: $light-blue;
+  background-color: $light-blue;
+  background-position: center;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
