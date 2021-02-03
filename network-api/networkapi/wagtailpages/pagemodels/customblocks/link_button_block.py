@@ -6,7 +6,7 @@ class LinkButtonBlock(blocks.StructBlock):
 
     # We use a char block because UrlBlock does not
     # allow for relative linking.
-    URL = blocks.CharBlock()
+    URL = blocks.URLBlock()
 
     # Buttons can have different looks, so we
     # offer the choice to decide which styling
