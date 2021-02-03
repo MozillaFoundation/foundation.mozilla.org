@@ -188,7 +188,7 @@ urllib3==1.25.9
     #   cloudinary
     #   requests
     #   sentry-sdk
-wagtail-airtable==0.1.5
+wagtail-airtable==0.1.6
     # via -r requirements.in
 wagtail-experiments==0.2
     # via -r requirements.in
