@@ -22,7 +22,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core import hooks
 
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from wagtail_airtable.mixins import AirtableMixin
 
@@ -449,6 +449,52 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         }
         return json.dumps(data)
 
+    translatable_fields = [
+        TranslatableField('title'),
+        TranslatableField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        TranslatableField('airtable_record_id'),
+        SynchronizedField('privacy_ding'),
+        SynchronizedField('adult_content'),
+        SynchronizedField('uses_wifi'),
+        SynchronizedField('uses_bluetooth'),
+        SynchronizedField('review_date'),
+        TranslatableField('company'),
+        TranslatableField('blurb'),
+        SynchronizedField('product_url'),
+        TranslatableField('price'),
+        SynchronizedField('image'),
+        SynchronizedField('cloudinary_image'),
+        TranslatableField('worst_case'),
+        SynchronizedField('signup_requires_email'),
+        SynchronizedField('signup_requires_phone'),
+        SynchronizedField('signup_requires_third_party_account'),
+        TranslatableField('signup_requirement_explanation'),
+        TranslatableField('how_does_it_use_data_collected'),
+        SynchronizedField('data_collection_policy_is_bad'),
+        SynchronizedField('user_friendly_privacy_policy'),
+        TranslatableField('user_friendly_privacy_policy_helptext'),
+        SynchronizedField('show_ding_for_minimum_security_standards'),
+        SynchronizedField('meets_minimum_security_standards'),
+        SynchronizedField('uses_encryption'),
+        TranslatableField('uses_encryption_helptext'),
+        SynchronizedField('security_updates'),
+        TranslatableField('security_updates_helptext'),
+        SynchronizedField('strong_password'),
+        TranslatableField('strong_password_helptext'),
+        SynchronizedField('manage_vulnerabilities'),
+        TranslatableField('manage_vulnerabilities_helptext'),
+        SynchronizedField('privacy_policy'),
+        TranslatableField('privacy_policy_helptext'),
+        TranslatableField('phone_number'),
+        TranslatableField('live_chat'),
+        TranslatableField('email'),
+        TranslatableField('twitter'),
+    ]
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -723,6 +769,22 @@ class SoftwareProductPage(ProductPage):
         data = {**generic_product_data, **software_product_data}
         return data
 
+    translatable_fields = ProductPage.translatable_fields + [
+        TranslatableField('handles_recordings_how'),
+        SynchronizedField('recording_alert'),
+        TranslatableField('recording_alert_helptext'),
+        SynchronizedField('medical_privacy_compliant'),
+        TranslatableField('medical_privacy_compliant_helptext'),
+        TranslatableField('host_controls'),
+        SynchronizedField('easy_to_learn_and_use'),
+        TranslatableField('easy_to_learn_and_use_helptext'),
+        SynchronizedField('footnotes'),
+        SynchronizedField('product_categories'),
+        SynchronizedField('related_product_pages'),
+        SynchronizedField('privacy_policy_links'),
+        SynchronizedField('updates'),
+    ]
+
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
@@ -909,8 +971,35 @@ class GeneralProductPage(ProductPage):
         data = {**generic_product_data, **general_product_data}
         return data
 
-    # administrative panels
+    translatable_fields = ProductPage.translatable_fields + [
+        SynchronizedField('camera_device'),
+        SynchronizedField('camera_app'),
+        SynchronizedField('microphone_device'),
+        SynchronizedField('microphone_app'),
+        SynchronizedField('location_device'),
+        SynchronizedField('location_app'),
+        TranslatableField('personal_data_collected'),
+        TranslatableField('biometric_data_collected'),
+        TranslatableField('social_data_collected'),
+        TranslatableField('how_can_you_control_your_data'),
+        SynchronizedField('data_control_policy_is_bad'),
+        SynchronizedField('company_track_record'),
+        SynchronizedField('track_record_is_bad'),
+        TranslatableField('track_record_details'),
+        SynchronizedField('offline_capable'),
+        TranslatableField('offline_use_description'),
+        SynchronizedField('uses_ai'),
+        SynchronizedField('ai_uses_personal_data'),
+        SynchronizedField('ai_is_transparent'),
+        TranslatableField('ai_helptext'),
+        SynchronizedField('footnotes'),
+        SynchronizedField('product_categories'),
+        SynchronizedField('related_product_pages'),
+        SynchronizedField('privacy_policy_links'),
+        SynchronizedField('updates'),
+    ]
 
+    # administrative panels
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
