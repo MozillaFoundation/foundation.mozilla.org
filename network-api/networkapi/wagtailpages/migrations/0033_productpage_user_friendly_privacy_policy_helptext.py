@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0031_pni_update_unknown_to_cant_determine'),
+        ('wagtailpages', '0032_pni_update_unknown_to_cant_determine'),
     ]
 
     operations = [
