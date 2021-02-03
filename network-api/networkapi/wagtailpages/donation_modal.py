@@ -37,7 +37,7 @@ class DonationModal(models.Model):
     dismiss_text = models.CharField(
         max_length=150,
         help_text='Dismiss button label',
-        default="No, I'll share instead",
+        default="No thanks",
     )
 
     def to_simple_dict(self):
