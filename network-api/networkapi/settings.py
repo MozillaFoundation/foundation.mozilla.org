@@ -446,6 +446,8 @@ STATICFILES_DIRS = [app('frontend')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
+WAGTAILIMAGES_INDEX_PAGE_SIZE = 100
+WAGTAIL_USAGE_COUNT_ENABLED = True
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
