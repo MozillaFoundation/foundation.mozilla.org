@@ -625,7 +625,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['product'] = self
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
-        # context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
+        context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'''{pgettext(
           'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
           '*privacy not included'
