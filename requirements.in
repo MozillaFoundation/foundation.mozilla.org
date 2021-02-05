@@ -21,7 +21,8 @@ social-auth-app-django
 wagtail-airtable
 wagtail==2.11.3
 wagtail-factories
-wagtail-inventory
+# see https://github.com/mozilla/foundation.mozilla.org/issues/6162
+git+git://github.com/Pomax/wagtail-inventory.git@ea9a6533e69ff0a6faaf0f069efa115bc22ce697#egg=wagtail-inventory
 wagtail-metadata
 whitenoise
 wagtail-modeltranslation==0.10.17
