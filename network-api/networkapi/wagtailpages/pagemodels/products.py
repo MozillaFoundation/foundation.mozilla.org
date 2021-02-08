@@ -627,8 +627,8 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | {pgettext(
-                'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-                'Privacy & Security Guide'
+                "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
+                "Privacy & Security Guide"
             )} | Mozilla Foundation'
         return context
 
