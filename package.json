@@ -61,7 +61,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@sentry/browser": "^6.0.3",
