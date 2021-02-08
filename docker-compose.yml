@@ -19,7 +19,6 @@ services:
 
   redis:
     image: redis
-    container_name: 'redisfomo'
     ports:
       - "6380:6379"
 
