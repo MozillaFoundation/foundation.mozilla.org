@@ -6,7 +6,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import TranslatableMixin
 from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
-from wagtail_localize.fields import TranslatableField, SynchronizedField
+from wagtail_localize.fields import TranslatableField
 
 
 def get_highlights_image_upload_path(instance, filename):
