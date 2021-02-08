@@ -6,7 +6,7 @@ class ImageTextBlock(ImageBlock):
     text = blocks.RichTextBlock(
         features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'link']
     )
-    url = blocks.URLBlock(
+    url = blocks.CharBlock(
         required=False,
         help_text='Optional URL that this image should link out to.',
     )
