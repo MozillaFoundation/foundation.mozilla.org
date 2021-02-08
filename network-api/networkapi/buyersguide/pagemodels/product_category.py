@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
-from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
+from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
 from .products.base import Product
@@ -9,7 +9,7 @@ from ..utils import get_category_og_image_upload_path
 
 
 @register_snippet
-class BuyersGuideProductCategory(BootstrapTranslatableMixin, models.Model):
+class BuyersGuideProductCategory(TranslatableMixin, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and

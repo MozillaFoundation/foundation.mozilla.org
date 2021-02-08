@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Q
 
 from networkapi.utility.images import get_image_upload_path
+from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
 
@@ -28,10 +29,8 @@ class NewsQuerySet(models.query.QuerySet):
         )
 
 
-from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
-
 @register_snippet
-class News(BootstrapTranslatableMixin, models.Model):
+class News(TranslatableMixin, models.Model):
     """
     Medium blog posts, articles and other media
     """

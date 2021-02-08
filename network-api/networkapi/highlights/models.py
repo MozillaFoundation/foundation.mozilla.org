@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Q
 from adminsortable.models import SortableMixin
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import TranslatableMixin
 from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
 
@@ -27,10 +28,9 @@ class HighlightQuerySet(models.query.QuerySet):
             publish_after__lt=now,
         )
 
-from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
 
 @register_snippet
-class Highlight(BootstrapTranslatableMixin, SortableMixin):
+class Highlight(TranslatableMixin, SortableMixin):
     """
     An data type to highlight things like pulse
     projects, custom pages, etc

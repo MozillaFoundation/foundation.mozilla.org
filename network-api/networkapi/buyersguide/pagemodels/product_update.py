@@ -1,14 +1,14 @@
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
+from wagtail.core.models import TranslatableMixin
 
 from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
 
 @register_snippet
-class Update(BootstrapTranslatableMixin, index.Indexed, models.Model):
+class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import Page, Orderable as WagtailOrderable
+from wagtail.core.models import Page, Orderable as WagtailOrderable, TranslatableMixin
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -442,9 +442,9 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
         related_name='featured_highlights2',
     )
 
-from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
+
 @register_snippet
-class FocusArea(BootstrapTranslatableMixin, models.Model):
+class FocusArea(TranslatableMixin, models.Model):
     interest_icon = models.ForeignKey(
         'wagtailimages.Image',
         null=True,

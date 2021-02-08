@@ -5,7 +5,7 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
+from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
@@ -22,7 +22,7 @@ from ..utils import (
 )
 
 
-class CTA(BootstrapTranslatableMixin, models.Model):
+class CTA(TranslatableMixin, models.Model):
     name = models.CharField(
         default='',
         max_length=100,
