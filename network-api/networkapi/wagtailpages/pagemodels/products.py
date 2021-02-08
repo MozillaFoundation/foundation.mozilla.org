@@ -1120,6 +1120,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         help_text='A short blurb to show under the header',
     )
 
+    dark_theme = models.BooleanField(
+        default=False,
+        help_text='Does the intro need to be white text (for dark backgrounds)?'
+    )
+
     def get_banner(self):
         return self.hero_image
 
@@ -1129,6 +1134,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         ImageChooserPanel('hero_image'),
         FieldPanel('header'),
         FieldPanel('intro_text'),
+        FieldPanel('dark_theme'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
