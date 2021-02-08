@@ -52,7 +52,7 @@ class InitiativeSection(models.Model):
         max_length=250,
     )
 
-    sectionButtonURL = models.URLField(
+    sectionButtonURL = models.TextField(
         verbose_name='Button URL',
     )
 
@@ -62,7 +62,7 @@ class InitiativeSection(models.Model):
         blank="True"
     )
 
-    sectionButtonURL2 = models.URLField(
+    sectionButtonURL2 = models.TextField(
         verbose_name='Button 2 URL',
         blank="True"
     )
@@ -160,7 +160,7 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
-    ctaButtonURL = models.URLField(
+    ctaButtonURL = models.TextField(
         verbose_name='Button URL',
         blank=True,
     )
@@ -191,7 +191,7 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
     )
 
-    ctaButtonURL2 = models.URLField(
+    ctaButtonURL2 = models.TextField(
         verbose_name='Button URL',
         blank=True,
     )
@@ -379,7 +379,7 @@ class CTABase(WagtailOrderable, models.Model):
         blank=True,
     )
 
-    buttonURL = models.URLField(
+    buttonURL = models.TextField(
         verbose_name='Button URL',
         blank=True,
     )

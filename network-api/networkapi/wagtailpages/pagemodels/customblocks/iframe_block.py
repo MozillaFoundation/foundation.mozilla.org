@@ -8,7 +8,7 @@ class iFrameBlock(blocks.StructBlock):
     caption = blocks.CharBlock(
         required=False
     )
-    captionURL = blocks.URLBlock(
+    captionURL = blocks.CharBlock(
         required=False,
         help_text='Optional URL that this caption should link out to.'
     )
