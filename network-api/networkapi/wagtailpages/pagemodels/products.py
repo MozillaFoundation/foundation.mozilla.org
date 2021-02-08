@@ -626,10 +626,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
-        context['pageTitle'] = f'{self.title} | ' + pgettext(
+        context['pageTitle'] = f'{self.title} | {pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
                 'Privacy & Security Guide'
-            ) + f' | Mozilla Foundation'
+            )} | Mozilla Foundation'
         return context
 
     def serve(self, request, *args, **kwargs):
