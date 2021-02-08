@@ -475,8 +475,8 @@ WAGTAIL_USAGE_COUNT_ENABLED = True
 # Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        # TODO: this may be insufficient for wagtail-localize/pontoon integration
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated'
     ]
 }
 
