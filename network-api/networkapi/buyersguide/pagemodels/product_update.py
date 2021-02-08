@@ -2,6 +2,7 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from wagtail.snippets.models import register_snippet
 from wagtail.search import index
@@ -37,6 +38,13 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         auto_now_add=True,
         help_text='The date this product was created',
     )
+
+    translatable_fields = [
+        SynchronizedField('source'),
+        TranslatableField('title'),
+        TranslatableField('author'),
+        TranslatableField('snippet'),
+    ]
 
     panels = [
         FieldPanel('source'),

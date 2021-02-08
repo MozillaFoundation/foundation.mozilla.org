@@ -5,6 +5,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.models import Orderable
 from wagtail.snippets.models import register_snippet
 from wagtail.core.models import TranslatableMixin
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from .products.base import Product
 
@@ -27,6 +28,11 @@ class ProductPrivacyPolicyLink(TranslatableMixin, Orderable, models.Model):
         help_text='Privacy policy URL',
         blank=True
     )
+
+    translatable_fields = [
+        TranslatableField('label'),
+        SynchronizedField('url'),
+    ]
 
     def __str__(self):
         return f'{self.product.name}: {self.label} ({self.url})'

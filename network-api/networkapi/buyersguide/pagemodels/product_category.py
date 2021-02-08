@@ -3,6 +3,7 @@ from django.utils.text import slugify
 
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from .products.base import Product
 from ..utils import get_category_og_image_upload_path
@@ -48,6 +49,12 @@ class BuyersGuideProductCategory(TranslatableMixin, models.Model):
         upload_to=get_category_og_image_upload_path,
         blank=True,
     )
+
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('description'),
+        SynchronizedField('slug'),
+    ]
 
     @property
     def published_product_page_count(self):

@@ -8,6 +8,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
@@ -46,6 +47,13 @@ class CTA(TranslatableMixin, models.Model):
         default='mozilla-foundation'
     )
 
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('header'),
+        TranslatableField('description'),
+        TranslatableField('newsletter'),
+    ]
+
     def __str__(self):
         return self.name
 
@@ -67,6 +75,10 @@ class Signup(CTA):
         help_text='Check this box to show (optional) name fields',
         default=False,
     )
+
+    translatable_fields = CTA.translatable_fields + [
+        SynchronizedField('campaign_id'),
+    ]
 
     class Meta:
         verbose_name = 'signup snippet'
@@ -174,6 +186,19 @@ class Petition(CTA):
         help_text='Message to show after thanking people for signing',
         default='Thank you for signing too!',
     )
+
+    translatable_fields = CTA.translatable_fields + [
+        SynchronizedField('campaign_id'),
+        TranslatableField('comment_requirements'),
+        TranslatableField('checkbox_1'),
+        TranslatableField('checkbox_2'),
+        SynchronizedField('share_link'),
+        TranslatableField('share_link_text'),
+        TranslatableField('share_twitter'),
+        TranslatableField('share_facebook'),
+        TranslatableField('share_email'),
+        TranslatableField('thank_you'),
+    ]
 
     class Meta:
         verbose_name = 'petition snippet'

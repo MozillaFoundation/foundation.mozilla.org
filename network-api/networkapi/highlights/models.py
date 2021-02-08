@@ -6,6 +6,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import TranslatableMixin
 from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 
 def get_highlights_image_upload_path(instance, filename):
@@ -80,6 +81,13 @@ class Highlight(TranslatableMixin, SortableMixin):
         editable=False,
         db_index=True,
     )
+
+    translatable_fields = [
+        TranslatableField('title'),
+        TranslatableField('description'),
+        TranslatableField('link_label'),
+        TranslatableField('footer'),
+    ]
 
     objects = HighlightQuerySet.as_manager()
 

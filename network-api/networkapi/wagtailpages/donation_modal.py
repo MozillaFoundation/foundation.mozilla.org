@@ -4,6 +4,7 @@ from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 
 @register_snippet
@@ -40,6 +41,14 @@ class DonationModal(TranslatableMixin, models.Model):
         help_text='Dismiss button label',
         default="No thanks",
     )
+
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('header'),
+        TranslatableField('body'),
+        TranslatableField('donate_text'),
+        TranslatableField('dismiss_text'),
+    ]
 
     def to_simple_dict(self):
         keys = ['name', 'header', 'body', 'donate_text', 'dismiss_text']

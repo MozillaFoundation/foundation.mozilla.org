@@ -16,6 +16,7 @@ from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -71,6 +72,10 @@ class BlogAuthor(TranslatableMixin, models.Model):
     panels = [
         FieldPanel("name"),
         ImageChooserPanel("image"),
+    ]
+
+    translatable_fields = [
+        TranslatableField('name'),
     ]
 
     def __str__(self):
@@ -145,11 +150,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['use_commento'] = settings.USE_COMMENTO
 
         # Pull this object specifically using the English page title
-        blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
+        blog_page = BlogIndexPage.objects.get(title__iexact='Blog', locale_id=1)
 
         # If that doesn't yield the blog page, pull using the universal title
         if blog_page is None:
-            blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
+            blog_page = BlogIndexPage.objects.filter(title__iexact='Blog').first()
 
         if blog_page:
             context['blog_index'] = blog_page
