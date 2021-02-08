@@ -138,8 +138,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        context['coral_talk_server_url'] = settings.CORAL_TALK_SERVER_URL
-        context['coral_talk'] = context['coral_talk_server_url'] and self.feature_comments
+        context['use_commento'] = settings.USE_COMMENTO
 
         # Pull this object specifically using the English page title
         blog_page = BlogIndexPage.objects.get(title_en__iexact='Blog')

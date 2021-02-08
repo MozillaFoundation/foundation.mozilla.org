@@ -263,7 +263,7 @@
     <div class="container">
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
-          {% if product.updates|length > 0 or coralTalkServerUrl %}
+          {% if product.updates|length > 0 %}
           <h3 class="h2-heading mb-4 mb-md-5">{% trans "Updates" %}</h3>
           {% endif %}
           {% if product.updates|length > 0 %}
@@ -276,10 +276,6 @@
               </div>
             {% endfor %}
           </div>
-          {% endif %}
-
-          {% if coralTalkServerUrl %}
-          <div id="coral-talk-stream"></div>
           {% endif %}
 
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
@@ -322,12 +318,3 @@
 {% endwith %}
 {% endblock %}
 
-{% block extra_scripts %}
-  {% if coralTalkServerUrl %}
-    <script src="{{ coralTalkServerUrl }}static/embed.js" async onload="
-      Coral.Talk.render(document.getElementById('coral-talk-stream'), {
-        talk: '{{ coralTalkServerUrl }}'
-      });
-    "></script>
-  {% endif %}
-{% endblock %}

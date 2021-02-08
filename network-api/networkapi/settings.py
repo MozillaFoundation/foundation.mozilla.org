@@ -37,8 +37,6 @@ env = environ.Env(
     CLOUDINARY_API_SECRET=(str, ''),
     CLOUDINARY_CLOUD_NAME=(str, ''),
     CONTENT_TYPE_NO_SNIFF=bool,
-    CORAL_TALK_API_TOKEN=(str, None),
-    CORAL_TALK_SERVER_URL=(str, None),
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
     CORS_ALLOWED_ORIGINS=(tuple, ()),
     CRM_AWS_SQS_ACCESS_KEY_ID=(str, None),
@@ -78,6 +76,7 @@ env = environ.Env(
     STATIC_HOST=(str, ''),
     TARGET_DOMAINS=(list, []),
     USE_CLOUDINARY=(bool, False),
+    USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     WEB_MONETIZATION_POINTER=(str, ''),
@@ -447,6 +446,8 @@ STATICFILES_DIRS = [app('frontend')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
+WAGTAILIMAGES_INDEX_PAGE_SIZE = 100
+WAGTAIL_USAGE_COUNT_ENABLED = True
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
@@ -627,13 +628,11 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
 
-# Coral Talk Server URL
-
-CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
+# Commento.io flag
+USE_COMMENTO = env('USE_COMMENTO')
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
-CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
 
 # Use network_url to check if we're running prod or not
 NETWORK_SITE_URL = env('NETWORK_SITE_URL')
@@ -650,14 +649,27 @@ WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
 
 AIRTABLE_API_KEY = env('AIRTABLE_API_KEY')
 WAGTAIL_AIRTABLE_ENABLED = env('AIRTABLE_ENABLED')
-AIRTABLE_SETTINGS = {
+GENERAL_PNI_AIRTABLE_SETTINGS = {
     'AIRTABLE_BASE_KEY': env('AIRTABLE_BASE_KEY'),
-    'AIRTABLE_TABLE_NAME': 'PNI Products',
-    'AIRTABLE_UNIQUE_IDENTIFIER': 'slug',
-    'AIRTABLE_IMPORT_ALLOWED': False,
+    'AIRTABLE_TABLE_NAME': 'General PNI Products',
+    'AIRTABLE_UNIQUE_IDENTIFIER': {
+        # 'Wagtail Page ID' is the column name in Airtable, 'pk' field name in Wagtail.
+        'Wagtail Page ID': 'pk',
+    },
+    'AIRTABLE_IMPORT_ALLOWED': True,
     'AIRTABLE_BASE_URL': env('AIRTABLE_BASE_URL'),
+    'AIRTABLE_SERIALIZER': 'networkapi.wagtailpages.pagemodels.serializers.GeneralProductPageSerializer',
+    # Can be a callable or location to a function or an int representing the parent page ID to nest child pages under.
+    'PARENT_PAGE_ID': 'networkapi.wagtailpages.pagemodels.products.get_pni_home_page',
+    'AUTO_PUBLISH_NEW_PAGES': False,
 }
+# Create duplicate airtable settings for another sheet in the same table.
+SOFTWARE_PNI_AIRTABLE_SETTINGS = GENERAL_PNI_AIRTABLE_SETTINGS.copy()
+SOFTWARE_PNI_AIRTABLE_SETTINGS['AIRTABLE_TABLE_NAME'] = 'Software PNI Products'
+SOFTWARE_PNI_AIRTABLE_SETTINGS[
+    'AIRTABLE_SERIALIZER'
+] = 'networkapi.wagtailpages.pagemodels.serializers.SoftwareProductPageSerializer'
 AIRTABLE_IMPORT_SETTINGS = {
-    'wagtailpages.GeneralProductPage': AIRTABLE_SETTINGS,
-    'wagtailpages.SoftwareProductPage': AIRTABLE_SETTINGS,
+    'wagtailpages.GeneralProductPage': GENERAL_PNI_AIRTABLE_SETTINGS,
+    'wagtailpages.SoftwareProductPage': SOFTWARE_PNI_AIRTABLE_SETTINGS,
 }

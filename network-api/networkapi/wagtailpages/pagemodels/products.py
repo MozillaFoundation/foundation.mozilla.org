@@ -47,6 +47,14 @@ else:
 vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
 
+TRACK_RECORD_CHOICES = [
+    ('Great', 'Great'),
+    ('Average', 'Average'),
+    ('Needs Improvement', 'Needs Improvement'),
+    ('Bad', 'Bad')
+]
+
+
 def get_product_subset(cutoff_date, authenticated, key, products):
     """
     filter a queryset based on our current cutoff date,
@@ -366,6 +374,49 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         related_name='votes',
     )
 
+    @classmethod
+    def map_import_fields(cls):
+        mappings = {
+            "Title": "title",
+            "Wagtail Page ID": "pk",
+            "Slug": "slug",
+            "Show privacy ding": "privacy_ding",
+            "Has adult content": "adult_content",
+            "Uses wifi": "uses_wifi",
+            "Uses Bluetooth": "uses_bluetooth",
+            "Review date": "review_date",
+            "Company": "company",
+            "Blurb": "blurb",
+            "Product link": "product_url",
+            "Price": "price",
+            "Worst case": "worst_case",
+            "Signup requires email": "signup_requires_email",
+            "Signup requires phone number": "signup_requires_phone",
+            "Signup requires 3rd party account": "signup_requires_third_party_account",
+            "Signup explanation": "signup_requirement_explanation",
+            "How it collects data": "how_does_it_use_data_collected",
+            "Data collection privacy ding": "data_collection_policy_is_bad",
+            "User friendly privacy policy": "user_friendly_privacy_policy",
+            "User friendly privacy policy help text": "user_friendly_privacy_policy_helptext",
+            "Meets MSS": "meets_minimum_security_standards",
+            "Meets MSS privacy policy ding": "show_ding_for_minimum_security_standards",
+            "Uses encryption": "uses_encryption",
+            "Encryption help text": "uses_encryption_helptext",
+            "Has security updates": "security_updates",
+            "Security updates help text": "security_updates_helptext",
+            "Strong password": "strong_password",
+            "Strong password help text": "strong_password_helptext",
+            "Manages security vulnerabilities": "manage_vulnerabilities",
+            "Manages security help text": "manage_vulnerabilities_helptext",
+            "Has privacy policy": "privacy_policy",
+            "Privacy policy help text": "privacy_policy_helptext",
+            "Phone number": "phone_number",
+            "Live chat": "live_chat",
+            "Email address": "email",
+            "Twitter": "twitter",
+        }
+        return mappings
+
     def get_export_fields(self):
         """
         This should be a dictionary of the fields to send to Airtable.
@@ -410,7 +461,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Phone number": self.phone_number,
             "Live chat": self.live_chat,
             "Email address": self.email,
-            "Twitter": f"https://twitter.com/{self.twitter}" if self.twitter else ''
+            "Twitter": self.twitter if self.twitter else ''
         }
 
     def get_status_for_airtable(self):
@@ -574,7 +625,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['product'] = self
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
-        # context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
+        context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
                 'Privacy & Security Guide'
@@ -700,6 +751,22 @@ class SoftwareProductPage(ProductPage):
         blank=True
     )
 
+    @classmethod
+    def map_import_fields(cls):
+        generic_product_import_fields = super().map_import_fields()
+        software_product_mappings = {
+            "How it handles recording": "handles_recordings_how",
+            "Recording alert": "recording_alert",
+            "Recording alert help text": "recording_alert_helptext",
+            "Medical privacy compliant": "medical_privacy_compliant",
+            "Medical privacy compliant help text": "medical_privacy_compliant_helptext",
+            "Host controls": "host_controls",
+            "Easy to learn and use": "easy_to_learn_and_use",
+            "Easy to learn and use help text": "easy_to_learn_and_use_helptext",
+        }
+        # Return the merged fields
+        return {**generic_product_import_fields, **software_product_mappings}
+
     def get_export_fields(self):
         """
         This should be a dictionary of the fields to send to Airtable.
@@ -707,7 +774,6 @@ class SoftwareProductPage(ProductPage):
         """
         generic_product_data = super().get_export_fields()
         software_product_data = {
-            "Product type": self.product_type,
             "How it handles recording": self.handles_recordings_how,
             "Recording alert": self.recording_alert,
             "Recording alert help text": self.recording_alert_helptext,
@@ -819,15 +885,8 @@ class GeneralProductPage(ProductPage):
 
     # Company track record
 
-    track_record_choices = [
-        ('Great', 'Great'),
-        ('Average', 'Average'),
-        ('Needs Improvement', 'Needs Improvement'),
-        ('Bad', 'Bad')
-    ]
-
     company_track_record = models.CharField(
-        choices=track_record_choices,
+        choices=TRACK_RECORD_CHOICES,
         default='Average',
         help_text='This company has a ... track record',
         max_length=20
@@ -876,6 +935,32 @@ class GeneralProductPage(ProductPage):
         help_text='Helpful text around AI to show on the product page',
     )
 
+    @classmethod
+    def map_import_fields(cls):
+        generic_product_import_fields = super().map_import_fields()
+        general_product_mappings = {
+            "Has camera device": "camera_device",
+            "Has camera app": "camera_app",
+            "Has microphone device": "microphone_device",
+            "Has microphone app": "microphone_app",
+            "Has location device": "location_device",
+            "Has location app": "location_app",
+            "Personal data collected": "personal_data_collected",
+            "Biometric data collected": "biometric_data_collected",
+            "Social data collected": "social_data_collected",
+            "How you can control your data": "how_can_you_control_your_data",
+            "Company track record": "company_track_record",
+            "Show company track record privacy ding": "track_record_is_bad",
+            "Offline capable": "offline_capable",
+            "Offline use": "offline_use_description",
+            "Uses AI": "uses_ai",
+            "AI uses personal data": "ai_uses_personal_data",
+            "AI help text": "ai_helptext",
+            "AI is transparent": "ai_is_transparent",
+        }
+        # Return the merged fields
+        return {**generic_product_import_fields, **general_product_mappings}
+
     def get_export_fields(self):
         """
         This should be a dictionary of the fields to send to Airtable.
@@ -883,7 +968,6 @@ class GeneralProductPage(ProductPage):
         """
         generic_product_data = super().get_export_fields()
         general_product_data = {
-            "Product type": self.product_type,
             "Has camera device": self.camera_device,
             "Has camera app": self.camera_app,
             "Has microphone device": self.microphone_device,
@@ -908,7 +992,6 @@ class GeneralProductPage(ProductPage):
         return data
 
     # administrative panels
-
     content_panels = ProductPage.content_panels.copy()
     content_panels = insert_panels_after(
         content_panels,
@@ -1037,6 +1120,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         help_text='A short blurb to show under the header',
     )
 
+    dark_theme = models.BooleanField(
+        default=False,
+        help_text='Does the intro need to be white text (for dark backgrounds)?'
+    )
+
     def get_banner(self):
         return self.hero_image
 
@@ -1046,6 +1134,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         ImageChooserPanel('hero_image'),
         FieldPanel('header'),
         FieldPanel('intro_text'),
+        FieldPanel('dark_theme'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
@@ -1214,3 +1303,10 @@ def invalidate_cache(request, page):
     """
     if isinstance(page, ProductPage):
         cache.clear()
+
+
+def get_pni_home_page():
+    """
+    Used in AIRTABLE settings for nesting child pages under a new parent page.
+    """
+    return BuyersGuidePage.objects.first().id

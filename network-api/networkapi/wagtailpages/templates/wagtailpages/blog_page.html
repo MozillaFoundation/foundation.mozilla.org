@@ -2,7 +2,7 @@
 
 {% load wagtailcore_tags mini_site_tags i18n %}
 
-{% block coral_talk_meta %}
+{% block commento_meta %}
   <meta property="article:author" content="{{ page.author }}" />
   <meta property="article:published_time" content="{{ page.first_published_at|date:"DATE_FORMAT" }}">
   {% if page.last_published_at %}
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="py-4 py-md-5 col-lg-8">
-    <div class="cms {% if coral_talk %}mb-5{% endif %}">
+    <div class="cms {% if use_commento %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
       <div class="blog-body">
@@ -35,8 +35,8 @@
       </div>
     </div>
 
-    {% if coral_talk %}
-      <div id="coral-talk-stream"></div>
+    {% if use_commento %}
+      <div id="commento"></div>
     {% endif %}
 
     {% include "./fragments/post_tags.html" %}
@@ -48,11 +48,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
-  {% if coral_talk %}
-    <script src="{{ coral_talk_server_url }}static/embed.js" async onload="
-      Coral.Talk.render(document.getElementById('coral-talk-stream'), {
-        talk: '{{ coral_talk_server_url }}'
-      });
-    "></script>
+  {% if use_commento %}
+    <script async defer src="https://cdn.commento.io/js/commento.js"></script>
   {% endif %}
 {% endblock %}
