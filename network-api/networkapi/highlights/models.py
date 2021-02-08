@@ -27,9 +27,10 @@ class HighlightQuerySet(models.query.QuerySet):
             publish_after__lt=now,
         )
 
+from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
 
 @register_snippet
-class Highlight(SortableMixin):
+class Highlight(BootstrapTranslatableMixin, SortableMixin):
     """
     An data type to highlight things like pulse
     projects, custom pages, etc
@@ -85,6 +86,7 @@ class Highlight(SortableMixin):
     class Meta:
         verbose_name_plural = 'highlights'
         ordering = ('order',)
+        unique_together = ('translation_key', 'locale',)
 
     def __str__(self):
         return str(self.title)

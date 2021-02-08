@@ -4,12 +4,13 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable
 from wagtail.snippets.models import register_snippet
+from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
 
 from .products.base import Product
 
 
 @register_snippet
-class ProductPrivacyPolicyLink(Orderable, models.Model):
+class ProductPrivacyPolicyLink(BootstrapTranslatableMixin, Orderable, models.Model):
     product = ParentalKey(
         Product,
         related_name='privacy_policy_links',
@@ -34,3 +35,4 @@ class ProductPrivacyPolicyLink(Orderable, models.Model):
         verbose_name = "Buyers Guide Product Privacy Policy link"
         verbose_name_plural = "Buyers Guide Product Privacy Policy links"
         app_label = "buyersguide"
+        unique_together = ('translation_key', 'locale',)

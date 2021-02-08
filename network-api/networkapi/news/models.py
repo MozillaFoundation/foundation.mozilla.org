@@ -28,8 +28,10 @@ class NewsQuerySet(models.query.QuerySet):
         )
 
 
+from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
+
 @register_snippet
-class News(models.Model):
+class News(BootstrapTranslatableMixin, models.Model):
     """
     Medium blog posts, articles and other media
     """
@@ -94,6 +96,7 @@ class News(models.Model):
         verbose_name = 'news article'
         verbose_name_plural = 'news'
         ordering = ('-date',)
+        unique_together = ('translation_key', 'locale',)
 
     def __str__(self):
         return str(self.headline)

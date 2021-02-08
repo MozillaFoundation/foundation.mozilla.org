@@ -1,11 +1,12 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
 from wagtail.snippets.models import register_snippet
 
 
 @register_snippet
-class BlogPageCategory(models.Model):
+class BlogPageCategory(BootstrapTranslatableMixin, models.Model):
     name = models.CharField(
         max_length=50
     )
@@ -44,3 +45,4 @@ class BlogPageCategory(models.Model):
     class Meta:
         verbose_name = "Blog Page Category"
         verbose_name_plural = "Blog Page Categories"
+        unique_together = ('translation_key', 'locale',)

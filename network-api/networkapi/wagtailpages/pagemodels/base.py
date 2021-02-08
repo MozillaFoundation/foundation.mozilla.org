@@ -442,9 +442,9 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
         related_name='featured_highlights2',
     )
 
-
+from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
 @register_snippet
-class FocusArea(models.Model):
+class FocusArea(BootstrapTranslatableMixin, models.Model):
     interest_icon = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -483,6 +483,7 @@ class FocusArea(models.Model):
     class Meta:
         verbose_name = 'Area of focus'
         verbose_name_plural = 'Areas of focus'
+        unique_together = ('translation_key', 'locale',)
 
 
 class HomepageFocusAreas(WagtailOrderable):

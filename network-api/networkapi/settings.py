@@ -199,6 +199,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.styleguide' if DEBUG else None,
     'wagtail.contrib.table_block',
     'wagtail.contrib.modeladmin',
+    'wagtail.locales',
     'experiments',
     'wagtailinventory',
     'wagtail_footnotes',
@@ -226,7 +227,6 @@ INSTALLED_APPS = list(filter(None, [
 
     # wagtail localization
     'wagtail_localize',
-    'wagtail_localize.locales',
 
     # wagtail to airtable integration
     'wagtail_airtable',

@@ -11,6 +11,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core import blocks
 from wagtail.core.models import Orderable, Page
+from wagtail.core.models import TranslatableMixin, BootstrapTranslatableMixin
 from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -57,7 +58,7 @@ class BlogPageTag(TaggedItemBase):
 
 
 @register_snippet
-class BlogAuthor(models.Model):
+class BlogAuthor(BootstrapTranslatableMixin, models.Model):
 
     name = models.CharField(max_length=70, blank=False)
     image = models.ForeignKey(
@@ -74,6 +75,9 @@ class BlogAuthor(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        unique_together = ('translation_key', 'locale',)
 
 
 class BlogAuthors(Orderable):
