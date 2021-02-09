@@ -260,6 +260,7 @@ class ProductPageTR(TranslationOptions):
         'worst_case',
         'signup_requirement_explanation',
         'how_does_it_use_data_collected',
+        'user_friendly_privacy_policy_helptext',
         'uses_encryption_helptext',
         'security_updates_helptext',
         'strong_password_helptext',
