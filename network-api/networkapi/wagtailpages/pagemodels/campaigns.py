@@ -287,6 +287,12 @@ class BanneredCampaignPage(PrimaryPage):
         FieldPanel('tags'),
     ]
 
+    translatable_fields = PrimaryPage.translatable_fields + [
+        SynchronizedField('cta'),
+        SynchronizedField('signup'),
+        SynchronizedField('tags'),
+    ]
+
     subpage_types = [
         'BanneredCampaignPage',
         'RedirectingPage',
