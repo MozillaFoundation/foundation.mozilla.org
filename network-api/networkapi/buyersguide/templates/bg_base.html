@@ -20,7 +20,7 @@
 
 {% block wagtail_metadata %}
 {% trans "Smart home gadgets, fitness trackers, toys and more, rated for their privacy & security" as default_description %}
-{% static "_images/buyers-guide/evergreen-social.png" as image_url %}
+{% static "_images/buyers-guide/evergreen-social.png" as default_image_url %}
   <meta name="description" content="{% if page.search_description %}{{page.search_description}}{% else %}{{default_description}}{% endif %}">
 
   <meta property="og:description" content="{% if page.search_description %}{{page.search_description}}{% else %}{{default_description}}{% endif %}">
@@ -34,8 +34,8 @@
   <meta name="twitter:description" content="{% if page.search_description %}{{page.search_description}}{% else %}{{default_description}}{% endif %}">
 
   {% block social_image %}
-  <meta property="og:image" content="{{image_url}}">
-  <meta name="twitter:image" content="{{image_url}}">
+  <meta property="og:image" content="{{default_image_url}}">
+  <meta name="twitter:image" content="{{default_image_url}}">
   {% endblock %}
 {% endblock %}
 
