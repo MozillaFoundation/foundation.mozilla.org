@@ -1235,7 +1235,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = f'{category} | ' + pgettext(
                 'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
                 'Privacy & Security Guide'
-            ) + f' | Mozilla Foundation'
+            ) + ' | Mozilla Foundation'
 
         return render(request, "buyersguide/category_page.html", context)
 
