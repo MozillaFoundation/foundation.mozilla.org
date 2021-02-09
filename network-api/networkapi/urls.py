@@ -83,6 +83,9 @@ urlpatterns += i18n_patterns(
 
     # Buyer's Guide / Privacy Not Included
     re_path(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
+
+    # TODO:FIXME: totall unsure about this line
+    re_path(r'^pt/', RedirectView.as_view(url='/pt-BR/')),
 )
 
 if settings.USE_S3 is not True:
