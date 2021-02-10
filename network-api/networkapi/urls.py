@@ -65,6 +65,9 @@ urlpatterns = list(filter(None, [
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),
+
+    # redirect /pt to /pt-BR. See https://github.com/mozilla/foundation.mozilla.org/issues/5993
+    re_path(r'^pt/(?P<rest>.*)', RedirectView.as_view(url='/pt-BR/%(rest)s')),
 ]))
 
 # Anything that needs to respect the localised
@@ -83,9 +86,6 @@ urlpatterns += i18n_patterns(
 
     # Buyer's Guide / Privacy Not Included
     re_path(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
-
-    # TODO:FIXME: totall unsure about this line
-    re_path(r'^pt/', RedirectView.as_view(url='/pt-BR/')),
 )
 
 if settings.USE_S3 is not True:
