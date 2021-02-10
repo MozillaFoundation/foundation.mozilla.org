@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServer
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import pgettext
+from django.utils.translation import gettext, pgettext
 
 from modelcluster.fields import ParentalKey
 
@@ -626,10 +626,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
-        context['pageTitle'] = f'{self.title} | ' + pgettext(
-                "This can be localized. This is a reference to the “*batteries not included” mention on toys.",
-                "Privacy & Security Guide"
-            ) + ' | Mozilla Foundation'
+        context['pageTitle'] = f'{self.title} | {gettext("Privacy & Security Guide")} | Mozilla Foundation'
         return context
 
     def serve(self, request, *args, **kwargs):
@@ -1141,25 +1138,25 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def about_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = 'How to use ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
+        context['pageTitle'] = pgettext(
+            '*privacy not included can be localized.',
+            'How to use *privacy not included')
         return render(request, "about/how_to_use.html", context)
 
     @route(r'^about/why/$', name='about-why-view')
     def about_why_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = 'Why we made ' + pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included')
+        context['pageTitle'] = pgettext(
+            '*privacy not included can be localized.',
+            'Why we made *privacy not included')
         return render(request, "about/why_we_made.html", context)
 
     @route(r'^about/press/$', name='press-view')
     def about_press_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = 'Press | ' + pgettext(
+        context['pageTitle'] = gettext('Press') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
         return render(request, "about/press.html", context)
@@ -1168,7 +1165,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def about_contact_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = 'Contact us | ' + pgettext(
+        context['pageTitle'] = gettext('Contact us') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
         return render(request, "about/contact.html", context)
@@ -1177,7 +1174,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def about_methodology_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = 'Our Methodology | ' + pgettext(
+        context['pageTitle'] = gettext('Our Methodology') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
         return render(request, "about/methodology.html", context)
@@ -1186,7 +1183,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def about_mss_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = 'Our minimum security standards | ' + pgettext(
+        context['pageTitle'] = gettext('Our minimum security standards') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
         return render(request, "about/minimum_security.html", context)
@@ -1195,9 +1192,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def about_contest(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'contest'
-        context['pageTitle'] = pgettext(
+        context['pageTitle'] = gettext('Contest terms and conditions') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Contest Terms and Conditions'
+            '*privacy not included')
         return render(request, "contest.html", context)
 
     @route(r'^products/(?P<slug>[-\w\d]+)/$', name='product-view')
@@ -1232,10 +1229,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         context['category'] = category.slug
         context['products'] = products
-        context['pageTitle'] = f'{category} | ' + pgettext(
-                'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-                'Privacy & Security Guide'
-            ) + ' | Mozilla Foundation'
+        context['pageTitle'] = f'{category} | {gettext("Privacy & Security Guide")} | Mozilla Foundation'
 
         return render(request, "buyersguide/category_page.html", context)
 
