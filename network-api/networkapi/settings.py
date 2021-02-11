@@ -409,7 +409,7 @@ LANGUAGE_CODE = 'en'
 LANGUAGES = (
     ('en', 'English'),
     ('de', 'German'),
-    ('pt', 'Portuguese'),
+    ('pt', 'Portuguese (Brazil)'),
     ('es', 'Spanish'),
     ('fr', 'French'),
     ('fy-NL', 'Frisian'),
