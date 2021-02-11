@@ -1174,7 +1174,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def about_methodology_page(self, request):
         context = self.get_context(request)
         context['pagetype'] = 'about'
-        context['pageTitle'] = gettext('Our Methodology') + ' | ' + pgettext(
+        context['pageTitle'] = gettext('Our methodology') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
         return render(request, "about/methodology.html", context)
