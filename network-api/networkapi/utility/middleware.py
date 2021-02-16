@@ -1,5 +1,10 @@
+from django import http
 from django.http.response import HttpResponseRedirectBase
 from django.conf import settings
+
+from wagtail.contrib.redirects.middleware import RedirectMiddleware
+from wagtail.contrib.redirects.models import Redirect
+from wagtail.core.models import Page
 
 hostnames = settings.TARGET_DOMAINS
 referrer_value = 'same-origin'
@@ -31,6 +36,40 @@ class XRobotsTagMiddleware:
         # https://developers.google.com/search/reference/robots_meta_tag#xrobotstag
         response = self.get_response(request)
         response['X-Robots-Tag'] = 'noindex'
+        return response
+
+
+class LocalizeRedirectMiddleware(RedirectMiddleware):
+    """
+    Check for an existing Redirect object. If it exists, and the user a LANGUAGE_CODE setting in their
+    request, then attempt to redirect the user to their preferred locale and the same page using the same
+    slug.
+
+    If the language_code requirement isn't satisfied, or the redirect doesn't exist, or a localized
+    version of the target page doesn't exist, then default back to standard Wagtail redirect logic.
+    """
+    def process_response(self, request, response):
+        response = super().process_response(request, response)
+
+        if hasattr(request, 'LANGUAGE_CODE'):
+            path = Redirect.normalise_path(request.get_full_path())
+
+            try:
+                redirect = Redirect.objects.get(old_path=path, redirect_page__isnull=False)
+            except Redirect.DoesNotExist:
+                return response
+
+            try:
+                # Find the new localized page with the same slug
+                page = Page.objects.get(locale__language_code=request.LANGUAGE_CODE, slug=redirect.redirect_page.slug)
+            except Page.DoesNotExist:
+                return response
+
+            if redirect.is_permanent:
+                return http.HttpResponsePermanentRedirect(page.url)
+            else:
+                return http.HttpResponseRedirect(page.url)
+
         return response
 
 

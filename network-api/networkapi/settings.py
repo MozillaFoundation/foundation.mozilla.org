@@ -257,6 +257,7 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.messages.middleware.MessageMiddleware',
 
     # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
+    'networkapi.utility.middleware.LocalizeRedirectMiddleware',
     'networkapi.wagtailcustomization.redirects.middleware.RedirectMiddleware'
 ]))
 
