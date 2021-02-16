@@ -4,7 +4,7 @@ from django.conf import settings
 
 from wagtail.contrib.redirects.middleware import RedirectMiddleware
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Locale
 
 hostnames = settings.TARGET_DOMAINS
 referrer_value = 'same-origin'
@@ -60,8 +60,8 @@ class LocalizeRedirectMiddleware(RedirectMiddleware):
                 return response
 
             try:
-                # Find the new localized page with the same slug
-                page = Page.objects.get(locale__language_code=request.LANGUAGE_CODE, slug=redirect.redirect_page.slug)
+                redirect_page = redirect.redirect_page.specific
+                page = redirect_page.get_translation(Locale.objects.get(language_code=request.LANGUAGE_CODE))
             except Page.DoesNotExist:
                 return response
 
