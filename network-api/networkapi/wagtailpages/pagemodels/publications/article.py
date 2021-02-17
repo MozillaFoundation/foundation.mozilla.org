@@ -3,7 +3,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -67,6 +67,10 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         verbose_name='Publication Hero Image',
     )
 
+    subtitle = models.CharField(
+        blank=True,
+        max_length=250,
+    )
     article_file = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
@@ -84,6 +88,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         ], heading="Table of Content Thumbnail"),
         MultiFieldPanel([
             ImageChooserPanel("hero_image"),
+            FieldPanel('subtitle'),
             DocumentChooserPanel('article_file'),
         ], heading="Hero"),
         StreamFieldPanel('body'),

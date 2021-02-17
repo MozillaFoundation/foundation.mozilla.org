@@ -17,4 +17,9 @@ class Migration(migrations.Migration):
             name='article_file',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtaildocs.Document'),
         ),
+        migrations.AddField(
+            model_name='articlepage',
+            name='subtitle',
+            field=models.CharField(blank=True, max_length=250),
+        ),
     ]
