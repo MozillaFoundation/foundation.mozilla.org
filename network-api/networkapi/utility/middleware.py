@@ -62,7 +62,7 @@ class LocalizeRedirectMiddleware(RedirectMiddleware):
             try:
                 redirect_page = redirect.redirect_page.specific
                 page = redirect_page.get_translation(Locale.objects.get(language_code=request.LANGUAGE_CODE))
-            except Page.DoesNotExist:
+            except (Page.DoesNotExist, Locale.DoesNotExist):
                 return response
 
             if redirect.is_permanent:
