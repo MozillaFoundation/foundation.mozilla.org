@@ -1,3 +1,5 @@
+import * as React from "react";
+
 /**
  * In order for ESBuild to correctly resolve the React.createElement()
  * function that babel "auto injects" when it transfroms JSX, we need
@@ -6,4 +8,5 @@
  *
  * See https://esbuild.github.io/content-types/#auto-import-for-jsx
  */
-export * as React from 'react'
+
+export { React };

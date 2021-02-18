@@ -6,14 +6,15 @@
     "node": ">=14.4.0"
   },
   "scripts": {
-    "build": "run-s build:common build:js:prod",
-    "build:common": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js && run-p build:images build:sass && npm run build:contribute",
+    "build": "run-s build:clean build:js:prod build:common",
+    "build:clean": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js",
+    "build:common": "run-p build:images build:sass build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
-    "build:dev": "run-s build:common build:js:dev",
+    "build:dev": "run-p build:js:dev",
     "build:images": "shx rm -rf network-api/networkapi/frontend/_images && shx cp -r source/images network-api/networkapi/frontend/_images",
     "build:js:dev": "node esbuild.config.js -- --node-env development",
     "build:js:prod": "node esbuild.config.js -- --node-env production",
-    "build:sass": "shx mkdir -p network-api/networkapi/frontend/_css && sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && sass source/sass/buyers-guide/bg-main.scss network-api/networkapi/frontend/_css/buyers-guide.compiled.css && npm run optimize:css",
+    "build:sass": "echo sass && shx mkdir -p network-api/networkapi/frontend/_css && sass source/sass/main.scss network-api/networkapi/frontend/_css/main.compiled.css && sass source/sass/buyers-guide/bg-main.scss network-api/networkapi/frontend/_css/buyers-guide.compiled.css && npm run optimize:css",
     "cypress": "run-p --race cypress:docker cypress:test",
     "cypress:a11y": "run-p --race cypress:docker cypress:test:a11y",
     "cypress:ci": "run-p --race server cypress:test",
@@ -47,7 +48,7 @@
     "test:scss:styleguide:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:css": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --syntax scss",
     "test": "run-s test:** build",
-    "watch": "npm run build:dev && run-p watch:**",
+    "watch": "run-s build:clean build:dev build:common && run-p watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\""
   },
