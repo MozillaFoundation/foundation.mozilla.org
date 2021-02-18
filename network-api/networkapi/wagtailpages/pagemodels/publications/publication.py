@@ -127,6 +127,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Only applies to Chapter Publication (sub-Publication Pages).
         Returns a Page object or None.
         """
+        next_page = None
         if self.is_chapter_page:
             next_page = self.get_siblings().filter(path__gt=self.path, live=True).first()
             if not next_page:
@@ -140,6 +141,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Only applies to Chapter Publication (sub-Publication Pages).
         Returns a Page object or None.
         """
+        prev_page = None
         if self.is_chapter_page:
             prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
             if not prev_page:
