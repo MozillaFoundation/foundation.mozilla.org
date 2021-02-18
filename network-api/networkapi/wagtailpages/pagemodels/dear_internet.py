@@ -58,7 +58,7 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
 
     override_translatable_fields = [
         SynchronizedField('slug'),
-        SynchronizedField('cta_button_text'),
+        SynchronizedField('cta_button_link'),
     ]
 
     def get_context(self, request):

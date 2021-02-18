@@ -176,6 +176,10 @@ class Petition(CTA):
 
     override_translatable_fields = [
         SynchronizedField('share_link'),
+        SynchronizedField('share_email'),
+        SynchronizedField('share_facebook'),
+        SynchronizedField('share_twitter'),
+        SynchronizedField('campaign_id'),
     ]
 
     class Meta:

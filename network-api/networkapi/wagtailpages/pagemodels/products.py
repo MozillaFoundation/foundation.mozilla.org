@@ -661,7 +661,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('slug'),
         SynchronizedField('product_url'),
         SynchronizedField('creepiness_value'),
-        SynchronizedField('votes'),
     ]
 
     @property
