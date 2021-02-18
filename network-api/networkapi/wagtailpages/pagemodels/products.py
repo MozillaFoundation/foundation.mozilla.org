@@ -660,7 +660,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     override_translatable_fields = [
         SynchronizedField('slug'),
         SynchronizedField('product_url'),
-        SynchronizedField('creepiness_value'),
     ]
 
     @property
