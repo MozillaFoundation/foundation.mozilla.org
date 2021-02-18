@@ -11,7 +11,7 @@
 
 {% block content %}
 
-  {% include "./fragments/publication_hero.html" with size="small" %}
+  {% include "./fragments/publication_hero.html" with size="small" download_file=page.article_file %}
 
   <div class="container{% if not get_titles %} mt-5{% endif %}">
     <div class="row">
