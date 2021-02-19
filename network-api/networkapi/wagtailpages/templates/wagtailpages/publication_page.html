@@ -3,7 +3,7 @@
 
 {% block content%}
 
-  {% include "./fragments/publication_hero.html" %}
+  {% include "./fragments/publication_hero.html" with download_file=page.publication_file %}
 
   {% if page.is_chapter_page %}
     {# Chapter page #}
