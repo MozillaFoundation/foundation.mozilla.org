@@ -17,7 +17,7 @@ export default class LanguageSelect extends Component {
       es: `Español`,
       fr: `Français`,
       pl: `Polski`,
-      pt: `Português`,
+      "pt-BR": `Português`,
     };
 
     let lang_codes = Object.keys(languages);
