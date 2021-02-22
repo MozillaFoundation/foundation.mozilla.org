@@ -37,7 +37,7 @@ def generate(seed):
     participate_page = None
 
     try:
-        participate_page = ParticipatePage2.objects.get(title='participate')
+        participate_page = ParticipatePage2.objects.get(title='What you can do')
     except WagtailPage.DoesNotExist:
         print('Participate page must exist. Ensure that ' +
               'networkapi.wagtailpages.factory.participage_page is executing first')
