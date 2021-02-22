@@ -507,7 +507,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField('title'),
-        TranslatableField('slug'),
+        SynchronizedField('slug'),
         TranslatableField('seo_title'),
         SynchronizedField('show_in_menus'),
         TranslatableField('search_description'),
@@ -518,7 +518,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('uses_wifi'),
         SynchronizedField('uses_bluetooth'),
         SynchronizedField('review_date'),
-        TranslatableField('company'),
+        SynchronizedField('company'),
         TranslatableField('blurb'),
         SynchronizedField('product_url'),
         TranslatableField('price'),
@@ -545,10 +545,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('manage_vulnerabilities_helptext'),
         SynchronizedField('privacy_policy'),
         TranslatableField('privacy_policy_helptext'),
-        TranslatableField('phone_number'),
-        TranslatableField('live_chat'),
-        TranslatableField('email'),
-        TranslatableField('twitter'),
+        SynchronizedField('phone_number'),
+        SynchronizedField('live_chat'),
+        SynchronizedField('email'),
+        SynchronizedField('twitter'),
     ]
 
     content_panels = Page.content_panels + [
