@@ -30,7 +30,10 @@
     "fix:js": "npm run test:eslint:js -- --fix",
     "fix:scss": "npm run test:scss -- --fix",
     "heroku-postbuild": "npm run build",
-    "optimize:css": "postcss network-api/networkapi/frontend/_css/*.css --dir network-api/networkapi/frontend/_css",
+    "optimize:css": "run-s optimize:css:*",
+    "optimize:css:run": "postcss network-api/networkapi/frontend/_css/*.css --dir network-api/networkapi/frontend/_css/temp",
+    "optimize:css:copy": "shx mv network-api/networkapi/frontend/_css/temp/* network-api/networkapi/frontend/_css",
+    "optimize:css:clean": "shx rm -rf network-api/networkapi/frontend/_css/temp",
     "optimize:svg": "svgo --multipass --folder ./source/images/ --recursive",
     "optimize:jpg": "find source/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:png": "find source/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
@@ -84,6 +87,8 @@
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.17",
+    "@babel/core": "^7.12.10",
     "browserslist": "^4.16.1",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
