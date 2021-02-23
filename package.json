@@ -87,8 +87,6 @@
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.17",
-    "@babel/core": "^7.12.10",
     "browserslist": "^4.16.1",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
