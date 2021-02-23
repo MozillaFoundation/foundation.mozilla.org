@@ -3,10 +3,10 @@
  */
 export default () => {
   const summaryBlock = document.querySelector(".article-navbar-container");
-  if(summaryBlock) {
-    const marginOffset = window.getComputedStyle(summaryBlock).getPropertyValue(
-      "--top-offset"
-    );
+  if (summaryBlock) {
+    const marginOffset = window
+      .getComputedStyle(summaryBlock)
+      .getPropertyValue("--top-offset");
     const dropDownMenu = document.querySelector(".article-summary-menu");
     const articleSummaryToggle = document.querySelector(
       ".article-summary-toggle"
@@ -33,7 +33,7 @@ export default () => {
           }
         },
         {
-          passive: true
+          passive: true,
         }
       );
     }
