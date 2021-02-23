@@ -15,7 +15,7 @@
   <!-- home banner as css background -->
   <div class="container">
     <div class="row">
-      <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1">
+      <div class="col-12 col-lg-8 offset-lg-2 intro-text order-2 order-lg-1{% if page.dark_theme %} dark-theme{% endif %}">
         <h1 class="h1-heading text-center mt-0">{{ page.header }}</h1>
         <p class="body-large mb-0">{{ page.intro_text }}</p>
       </div>
@@ -152,6 +152,11 @@
         {% include "../fragments/no_search_results.html" %}
       {% endblock %}
     </div>
+  </div>
+</div>
+<div class="adult-content-notice">
+  <div class="container text-center body-small mt-5">
+    {% trans "In our *Privacy Not Included buyer’s guide we review connected sex toys. This content is targeted for readers 18+ and may contain sensitive or mature information." %}
   </div>
 </div>
 <div class="recommend-product">

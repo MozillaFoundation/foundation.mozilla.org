@@ -62,10 +62,10 @@
   "license": "MPL-2.0",
   "dependencies": {
     "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-env": "^7.13.0",
     "@babel/preset-react": "^7.12.10",
     "@sentry/browser": "^6.0.3",
-    "autoprefixer": "^10.2.3",
+    "autoprefixer": "^10.2.4",
     "axe-core": "^4.1.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
@@ -87,7 +87,7 @@
     "shx": "^0.3.3",
     "uuid": "^8.3.2",
     "webpack": "^5.19.0",
-    "webpack-cli": "^4.4.0",
+    "webpack-cli": "^4.5.0",
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
