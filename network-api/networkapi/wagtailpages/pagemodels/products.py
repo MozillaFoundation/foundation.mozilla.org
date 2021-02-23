@@ -627,6 +627,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | {gettext("Privacy & security guide")} | Mozilla Foundation'
+        context['about_page'] = BuyersGuidePage.objects.first()
         return context
 
     def serve(self, request, *args, **kwargs):
@@ -1282,6 +1283,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
+        context['about_page'] = BuyersGuidePage.objects.first()
         return context
 
     class Meta:
