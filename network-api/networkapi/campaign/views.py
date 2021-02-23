@@ -15,7 +15,9 @@ from networkapi.wagtailpages.models import Petition, Signup
 def process_lang_code(lang):
     # Salesforce expects "pt" instead of "pt-BR".
     # See https://github.com/mozilla/foundation.mozilla.org/issues/5993
-    return lang if lang != 'pt-BR' else 'pt',
+    if lang == 'pt-BR':
+        return 'pt'
+    return lang
 
 
 class SQSProxy:
