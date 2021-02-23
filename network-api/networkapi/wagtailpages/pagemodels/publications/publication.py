@@ -127,12 +127,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Only applies to Chapter Publication (sub-Publication Pages).
         Returns a Page object or None.
         """
-        next_page = None
+        next_page = self.get_parent()
         if self.is_chapter_page:
-            next_page = self.get_siblings().filter(path__gt=self.path, live=True).first()
-            if not next_page:
+            sibling = self.get_siblings().filter(path__gt=self.path, live=True).first()
+            if sibling:
                 # If there is no more chapters. Return the parent page.
-                next_page = self.get_parent()
+                next_page = sibling
         return next_page
 
     @property
@@ -141,12 +141,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Only applies to Chapter Publication (sub-Publication Pages).
         Returns a Page object or None.
         """
-        prev_page = None
+        prev_page = self.get_parent()
         if self.is_chapter_page:
-            prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
-            if not prev_page:
+            sibling = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
+            if sibling:
                 # If there is no more chapters. Return the parent page.
-                prev_page = self.get_parent()
+                prev_page = sibling
         return prev_page
 
     @property
