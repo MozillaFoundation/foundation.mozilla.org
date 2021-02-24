@@ -625,7 +625,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['product'] = self
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
-        # context['coralTalkServerUrl'] = settings.CORAL_TALK_SERVER_URL
+        context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'''{pgettext(
           'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
           '*privacy not included'
@@ -1120,6 +1120,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         help_text='A short blurb to show under the header',
     )
 
+    dark_theme = models.BooleanField(
+        default=False,
+        help_text='Does the intro need to be white text (for dark backgrounds)?'
+    )
+
     def get_banner(self):
         return self.hero_image
 
@@ -1129,6 +1134,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         ImageChooserPanel('hero_image'),
         FieldPanel('header'),
         FieldPanel('intro_text'),
+        FieldPanel('dark_theme'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')

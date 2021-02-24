@@ -1,17 +1,21 @@
-let commonPlugins = [
-  require('autoprefixer'),
-];
+let commonPlugins = [require("autoprefixer")];
 
 let prodPlugins = [
-  require('cssnano')({
-    preset: ['default', {
+  require("cssnano")({
+    preset: [
+      "default",
+      {
         discardComments: {
-            removeAll: true,
+          removeAll: true,
         },
-    }]
-  })
+      },
+    ],
+  }),
 ];
 
 module.exports = {
-  plugins: process.env.NODE_ENV === 'production' ? commonPlugins.concat(prodPlugins) : commonPlugins
+  plugins:
+    process.env.NODE_ENV === "production"
+      ? commonPlugins.concat(prodPlugins)
+      : commonPlugins,
 };

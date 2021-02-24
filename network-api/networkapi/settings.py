@@ -37,8 +37,6 @@ env = environ.Env(
     CLOUDINARY_API_SECRET=(str, ''),
     CLOUDINARY_CLOUD_NAME=(str, ''),
     CONTENT_TYPE_NO_SNIFF=bool,
-    CORAL_TALK_API_TOKEN=(str, None),
-    CORAL_TALK_SERVER_URL=(str, None),
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
     CORS_ALLOWED_ORIGINS=(tuple, ()),
     CRM_AWS_SQS_ACCESS_KEY_ID=(str, None),
@@ -78,6 +76,7 @@ env = environ.Env(
     STATIC_HOST=(str, ''),
     TARGET_DOMAINS=(list, []),
     USE_CLOUDINARY=(bool, False),
+    USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     WEB_MONETIZATION_POINTER=(str, ''),
@@ -447,6 +446,8 @@ STATICFILES_DIRS = [app('frontend')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
+WAGTAILIMAGES_INDEX_PAGE_SIZE = 100
+WAGTAIL_USAGE_COUNT_ENABLED = True
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
@@ -627,13 +628,11 @@ PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
 
-# Coral Talk Server URL
-
-CORAL_TALK_SERVER_URL = env('CORAL_TALK_SERVER_URL')
+# Commento.io flag
+USE_COMMENTO = env('USE_COMMENTO')
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
-CORAL_TALK_API_TOKEN = env('CORAL_TALK_API_TOKEN')
 
 # Use network_url to check if we're running prod or not
 NETWORK_SITE_URL = env('NETWORK_SITE_URL')
