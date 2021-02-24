@@ -7,7 +7,7 @@ class iFrameBlock(blocks.StructBlock):
     )
     height = blocks.IntegerBlock(
         required=False,
-        help_text='Optional integer value of the iFrame height (in pixels)'
+        help_text='Optional integer pixel value for custom iFrame height'
     )
     caption = blocks.CharBlock(
         required=False
