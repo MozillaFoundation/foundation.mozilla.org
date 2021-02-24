@@ -48,6 +48,19 @@ def copy_cloudinary_to_wagtail_image(apps, schema_editor):
                     revision.publish()
 
 
+def reverse_copy_cloudinary_to_wagtail_image(apps, schema_editor):
+    for product in ProductPage.objects.all():
+        if product.cloudinary_image:
+            first_image = WagtailImage.objects.first()
+            product.image = first_image
+
+            # Always generate a new revision.
+            revision = product.save_revision()
+            if product.live:
+                # Re-publish existing "live" pages from the latest revision
+                revision.publish()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -55,5 +68,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(copy_cloudinary_to_wagtail_image),
+        migrations.RunPython(copy_cloudinary_to_wagtail_image, reverse_copy_cloudinary_to_wagtail_image),
     ]
