@@ -64,7 +64,7 @@ def reverse_copy_cloudinary_to_wagtail_image(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0036_articlepage_article_file'),
+        ('wagtailpages', '0037_auto_20210224_0837'),
     ]
 
     operations = [
