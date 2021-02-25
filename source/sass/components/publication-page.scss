@@ -21,6 +21,10 @@
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75));
   /* stylelint-enable */
 
+  h2.body-large {
+    font-family: $font-family-sans-serif;
+  }
+
   &.small {
     padding-top: 105px;
     padding-bottom: 140px;
