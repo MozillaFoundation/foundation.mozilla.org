@@ -77,6 +77,11 @@ class InitiativeSection(models.Model):
         FieldPanel('sectionButtonURL2'),
     ]
 
+    override_translatable_fields = [
+        SynchronizedField('sectionButtonURL'),
+        SynchronizedField('sectionButtonURL2'),
+    ]
+
 
 class InitiativesPage(PrimaryPage):
     template = 'wagtailpages/static/initiatives_page.html'
@@ -766,6 +771,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     override_translatable_fields = [
         SynchronizedField('slug'),
+        SynchronizedField('hero_button_url'),
     ]
 
     def get_context(self, request):

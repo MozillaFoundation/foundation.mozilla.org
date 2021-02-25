@@ -8,6 +8,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail_localize.fields import SynchronizedField
 
 from networkapi.wagtailpages.models import BlogAuthor
 from networkapi.wagtailpages.utils import set_main_site_nav_information
@@ -109,6 +110,10 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         ),
         FieldPanel('contents_title'),
         FieldPanel('notes'),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     @property
