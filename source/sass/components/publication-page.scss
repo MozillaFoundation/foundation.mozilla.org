@@ -94,7 +94,8 @@
   margin-bottom: 96px;
   margin-top: 49px;
 
-  p {
+  *:not(strong):not(b) {
+    // `*` is used to overwrite CSS specificity because !important doesn't work here
     font-weight: 300;
   }
 }
