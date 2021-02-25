@@ -166,6 +166,7 @@ class ProductPagePrivacyPolicyLink(Orderable):
 
     override_translatable_fields = [
         SynchronizedField('url'),
+        TranslatableField('label'),
     ]
 
     def __str__(self):
