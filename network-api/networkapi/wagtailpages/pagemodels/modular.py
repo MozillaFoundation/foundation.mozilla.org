@@ -65,7 +65,6 @@ class ModularPage(FoundationMetadataPageMixin, Page):
         SynchronizedField('zen_nav'),
     ]
 
-
     def get_context(self, request):
         context = super().get_context(request)
         return set_main_site_nav_information(self, context, 'Homepage')
