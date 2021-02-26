@@ -84,7 +84,7 @@
     "sass": "^1.32.8",
     "shx": "^0.3.3",
     "uuid": "^8.3.2",
-    "whatwg-fetch": "^3.5.0"
+    "whatwg-fetch": "^3.6.1"
   },
   "devDependencies": {
     "browserslist": "^4.16.1",
