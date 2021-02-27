@@ -34,7 +34,8 @@
           </div>
         {% endif %}
 
-        <div class="{% if not get_titles %} mt-5{% endif %}">
+        {% if not get_titles %}<div class="mt-5"></div>{% endif %}
+
         {% for block in page.body %}
           {% comment %}
             `is_last` is used to determine if a streamfield should close
@@ -42,7 +43,6 @@
           {% endcomment %}
           {% include_block block with is_last=forloop.last %}
         {% endfor %}
-        </div>
       </div>
     </div>
   </div>
