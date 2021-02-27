@@ -86,7 +86,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     )
     notes = RichTextField(
         blank=True,
-        features=['link', 'bold', 'italic']
+        features=['link', 'bold', 'italic', 'h4', 'ol', 'ul']
     )
     contents_title = models.CharField(
         blank=True,
