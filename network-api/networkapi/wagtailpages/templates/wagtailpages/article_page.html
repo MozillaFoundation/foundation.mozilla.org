@@ -15,14 +15,13 @@
 
   <div class="container">
     <div class="row">
-      <div class="offset-lg-1 col-md-2 col-lg-1 d-md-block d-none">
-        <div class="mt-5">
-          {% if page.show_side_share_buttons %}
-          <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
-          {% endif %}
-        </div>
-      </div>
-      <div class="offset-lg-0 col-md-8 col-12 article-blocks {% if not get_titles %} mt-5{% endif %}">
+      <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+        {% if page.show_side_share_buttons %}
+          <div class="article-summary-share-links d-lg-block d-none">
+            <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+          </div>
+        {% endif %}
+
         {% if get_titles %}
           {# If there are h2s in the body of this page, show the article "table of contents" #}
           <div class="article-summary">
@@ -35,6 +34,7 @@
           </div>
         {% endif %}
 
+        <div class="{% if not get_titles %} mt-5{% endif %}">
         {% for block in page.body %}
           {% comment %}
             `is_last` is used to determine if a streamfield should close
@@ -42,6 +42,7 @@
           {% endcomment %}
           {% include_block block with is_last=forloop.last %}
         {% endfor %}
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +54,7 @@
   <div class="container my-5">
     <div class="row pt-5">
       <div class="col-sm-8 offset-sm-2 pt-5">
-        <div class="pb-4">
+        <div class="pb-4 share-button-group-wrapper">
           <div class="share-button-group-wrapper d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
         </div>
       </div>

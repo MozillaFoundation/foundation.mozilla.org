@@ -18,12 +18,12 @@
   background: rgb(231, 231, 252); // One-off colors; no variable exists for this
   /* stylelint-enable */
   padding: 32px 30px;
-  margin-top: -48px;
-  margin-bottom: 48px;
+  width: calc(80% + 60px);
+  margin: -48px auto 48px;
 
-  @media (min-width: $bp-sm) {
-    margin-left: -$grid-gutter-width;
-    margin-right: -$grid-gutter-width;
+  @media (max-width: $bp-md) {
+    max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -31,6 +31,12 @@
 .article-summary-link {
   color: $gray-60;
   font-family: $font-family-sans-serif;
+}
+
+.article-summary-share-links {
+  position: absolute;
+  left: 0;
+  top: 20px;
 }
 
 .article-summary-link {
@@ -172,7 +178,12 @@
   h5,
   ol,
   ul {
+    max-width: 80%;
     margin: 0 auto;
+
+    @media (max-width: $bp-md) {
+      max-width: 100%;
+    }
   }
 
   h2,
