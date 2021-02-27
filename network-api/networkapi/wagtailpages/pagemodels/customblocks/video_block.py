@@ -3,9 +3,11 @@ from wagtail.core import blocks
 
 class VideoBlock(blocks.StructBlock):
     url = blocks.CharBlock(
-        help_text='To make sure a video will embed properly, go to your YouTube video and click “Share,” '
+        help_text='For YouTube: go to your YouTube video and click “Share,” '
                   'then “Embed,” and then copy and paste the provided URL only. '
-                  'For example: https://www.youtube.com/embed/3FIVXBawyQw'
+                  'For example: https://www.youtube.com/embed/3FIVXBawyQw '
+                  'For Vimeo: follow similar steps to grab the embed URL. '
+                  'For example: https://player.vimeo.com/video/9004979'
     )
     caption = blocks.CharBlock(
         required=False,
