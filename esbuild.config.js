@@ -19,13 +19,13 @@ const inProduction = mode === `production`;
 const inDir = `./source/js/`;
 const outDir = `./network-api/networkapi/frontend/_js/`;
 
-const sources = [
-  `main.js`,
-  `foundation/pages/mozfest/index.js`,
-  `foundation/pages/directory-listing-filters.js`,
-  `buyers-guide/bg-main.js`,
-  `polyfills.js`,
-];
+const sources = {
+  main: `main.js`,
+  mozfest: `foundation/pages/mozfest/index.js`,
+  "directory-listing-filters": `foundation/pages/directory-listing-filters.js`,
+  "bg-main": `buyers-guide/bg-main.js`,
+  polyfills: `polyfills.js`,
+};
 
 const base = {
   bundle: true,
@@ -42,11 +42,9 @@ const base = {
   inject: [`esbuild.react.shim.js`],
 };
 
-sources.map((source) => {
+Object.entries(sources).map(([name, source]) => {
   const opts = Object.assign({}, base);
-  opts.entryPoints = [`${inDir}${source}`];
-  opts.outfile = `${outDir}${path
-    .basename(source)
-    .replace(`.js`, `.compiled.js`)}`;
+  opts.entryPoints = [path.join(inDir, source)];
+  opts.outfile = `${path.join(outDir, name)}.compiled.js`;
   return build(opts);
 });
