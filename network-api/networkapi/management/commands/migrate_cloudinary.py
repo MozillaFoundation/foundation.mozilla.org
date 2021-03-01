@@ -17,7 +17,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        for product in ProductPage.objects.all():
+        all_products = ProductPage.objects.all()
+        total_products = all_products.count()
+
+        for index, product in enumerate(all_products):
+            print(f"Processing product {index+1} of {total_products}")
             if product.cloudinary_image:
                 mime = MimeTypes()
                 mime_type = mime.guess_type(product.cloudinary_image.url)  # -> ('image/jpeg', None)
