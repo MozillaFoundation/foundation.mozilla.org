@@ -79,6 +79,11 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         related_name='+',
     )
 
+    show_side_share_buttons = models.BooleanField(
+        default=True,
+        help_text="Show social share buttons on the side"
+    )
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             InlinePanel("authors", label="Author", min_num=0)
@@ -91,6 +96,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
             FieldPanel('subtitle'),
             DocumentChooserPanel('article_file'),
         ], heading="Hero"),
+        FieldPanel('show_side_share_buttons'),
         StreamFieldPanel('body'),
         InlinePanel("footnotes", label="Footnotes"),
     ]
