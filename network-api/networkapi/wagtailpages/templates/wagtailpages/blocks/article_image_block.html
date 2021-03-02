@@ -1,8 +1,9 @@
 {% load wagtailimages_tags wagtailcore_tags remove_richtext_wrapping %}
 
-{% comment %}Thsi block doesn't need to "break" out of the Publications container{% endcomment %}
+{% comment %}This block doesn't need to "break" out of the Publications container{% endcomment %}
 <div class="article-image-block">
-  {% image self.image width-920 as img %}
+  {% comment %}Use a 2x resolution image{% endcomment %}
+  {% image self.image width-1840 as img %}
   <figure class="my-default">
     <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}" class="w-100" />
     {% if self.caption %}
