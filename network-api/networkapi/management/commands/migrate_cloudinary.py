@@ -9,6 +9,8 @@ from mimetypes import MimeTypes
 from PIL import Image as PILImage
 
 from wagtail.images.models import Image as WagtailImage
+from wagtail.core.models import Collection
+
 from networkapi.wagtailpages.pagemodels.products import ProductPage
 
 
@@ -19,6 +21,12 @@ class Command(BaseCommand):
 
         all_products = ProductPage.objects.all()
         total_products = all_products.count()
+
+        try:
+            pni_collection = Collection.objects.get(name="PNI Images")
+        except Collection.DoesNotExist:
+            root_collection = Collection.get_first_root_node()
+            pni_collection = root_collection.add_child(name="PNI Images")
 
         for index, product in enumerate(all_products):
             print(f"Processing product {index+1} of {total_products}")
@@ -44,6 +52,7 @@ class Command(BaseCommand):
                     wagtail_image = WagtailImage.objects.create(
                         title=new_image_name,
                         file=ImageFile(f, name=new_image_name),
+                        collection=pni_collection
                     )
                     # Associate product.image with wagtail_image
                     product.image = wagtail_image
