@@ -13,11 +13,11 @@
 
   {% include "./fragments/publication_hero.html" with size="small" download_file=page.article_file %}
 
-  <div class="container">
+  <div class="container {% if not get_titles %} mt-5{% endif %}">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
         {% if page.show_side_share_buttons %}
-          <div class="article-summary-share-links d-lg-block d-none">
+          <div class="article-summary-share-links d-lg-block d-none {% if get_titles %}with-top-offset{% endif %}">
             <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
           </div>
         {% endif %}
@@ -34,7 +34,6 @@
           </div>
         {% endif %}
 
-        {% if not get_titles %}<div class="mt-5"></div>{% endif %}
 
         {% for block in page.body %}
           {% comment %}
