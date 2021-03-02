@@ -13,16 +13,18 @@
 
   {% include "./fragments/publication_hero.html" with size="small" download_file=page.article_file %}
 
-  <div class="container{% if not get_titles %} mt-5{% endif %}">
+  <div class="container {% if not get_titles %} mt-5{% endif %}">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+        {% if page.show_side_share_buttons %}
+          <div class="article-summary-share-links d-lg-block d-none {% if get_titles %}with-top-offset{% endif %}">
+            <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+          </div>
+        {% endif %}
 
         {% if get_titles %}
           {# If there are h2s in the body of this page, show the article "table of contents" #}
           <div class="article-summary">
-            <div class="article-summary-share-links d-lg-block d-none">
-              <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
-            </div>
             <div class="article-summary-title">{% trans "SUMMARY" %}</div>
             <div class="article-links d-flex flex-wrap">
               {% for slug, header in get_titles %}
@@ -31,6 +33,7 @@
             </div>
           </div>
         {% endif %}
+
 
         {% for block in page.body %}
           {% comment %}
