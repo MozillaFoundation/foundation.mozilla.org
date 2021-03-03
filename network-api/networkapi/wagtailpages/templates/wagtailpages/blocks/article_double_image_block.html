@@ -9,9 +9,9 @@
         <figure class="my-default">
           <img src="{{ img1.url }}" alt="{{ img1.alt }}" class="w-100" />
           {% if self.image_1_caption %}
-            <figurecaption>
+            <figcaption>
               {{ self.image_1_caption|richtext|remove_wrapping|safe }}
-            </figurecaption>
+            </figcaption>
           {% endif %}
         </figure>
 
@@ -22,9 +22,9 @@
         <figure class="my-default">
           <img src="{{ img2.url }}" alt="{{ img2.alt }}" class="w-100" />
           {% if self.image_2_caption %}
-            <figurecaption>
+            <figcaption>
               {{ self.image_2_caption|richtext|remove_wrapping|safe }}
-            </figurecaption>
+            </figcaption>
           {% endif %}
         </figure>
 

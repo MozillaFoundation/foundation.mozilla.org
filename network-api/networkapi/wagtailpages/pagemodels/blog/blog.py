@@ -41,6 +41,7 @@ base_fields = [
             'link', 'hr',
         ]
     )),
+    ('iframe', customblocks.iFrameBlock()),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
@@ -138,7 +139,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
-        context['use_commento'] = settings.USE_COMMENTO
+        context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
 
         # Pull this object specifically using the English page title
         blog_page = BlogIndexPage.objects.get(title_en__iexact='Blog')
