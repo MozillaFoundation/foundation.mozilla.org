@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="py-4 py-md-5 col-lg-8">
-    <div class="cms {% if use_commento %}mb-5{% endif %}">
+    <div class="cms {% if show_comments %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
       <div class="blog-body">
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    {% if use_commento %}
+    {% if show_comments %}
       <div id="commento"></div>
     {% endif %}
 
@@ -48,7 +48,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
-  {% if use_commento %}
+  {% if show_comments %}
     <script async defer src="https://cdn.commento.io/js/commento.js"></script>
   {% endif %}
 {% endblock %}
