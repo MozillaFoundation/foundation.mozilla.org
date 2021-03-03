@@ -29,7 +29,7 @@ def remove_new_buyersguide_product_categories(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0041_articlepage_show_side_share_buttons'),
+        ('wagtailpages', '0042_auto_20210303_2013'),
     ]
 
     operations = [

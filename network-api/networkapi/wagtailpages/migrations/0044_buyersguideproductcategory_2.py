@@ -22,7 +22,7 @@ def find_and_copy_old_product_category_to_model(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0042_buyersguideproductcategory'),
+        ('wagtailpages', '0043_buyersguideproductcategory'),
     ]
 
     operations = [
