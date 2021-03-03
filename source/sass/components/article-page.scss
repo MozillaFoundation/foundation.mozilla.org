@@ -334,7 +334,7 @@
 
 .double-image-block,
 .full-width-image-block {
-  figurecaption p {
+  figcaption p {
     color: $gray-60;
     @include set-text-size(12px, 16px);
     font-family: $font-family-sans-serif;

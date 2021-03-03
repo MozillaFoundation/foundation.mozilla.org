@@ -41,6 +41,7 @@ base_fields = [
             'link', 'hr',
         ]
     )),
+    ('iframe', customblocks.iFrameBlock()),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
