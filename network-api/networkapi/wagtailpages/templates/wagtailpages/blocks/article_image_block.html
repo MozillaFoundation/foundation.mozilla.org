@@ -7,9 +7,9 @@
   <figure class="my-default">
     <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}" class="w-100" />
     {% if self.caption %}
-        <figurecaption>
+        <figcaption>
           {{ self.caption|richtext|remove_wrapping|safe }}
-        </figurecaption>
+        </figcaption>
     {% endif %}
   </figure>
 </div>
