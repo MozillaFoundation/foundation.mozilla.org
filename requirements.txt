@@ -12,19 +12,23 @@ beautifulsoup4==4.8.2
     # via
     #   -r requirements.in
     #   wagtail
-boto3==1.16.59
+boto3==1.16.63
     # via -r requirements.in
-botocore==1.19.59
+botocore==1.19.63
     # via
     #   boto3
     #   s3transfer
+cached-property==1.5.2
+    # via pygit2
 certifi==2020.4.5.1
     # via
     #   cloudinary
     #   requests
     #   sentry-sdk
 cffi==1.14.0
-    # via cryptography
+    # via
+    #   cryptography
+    #   pygit2
 chardet==3.0.4
     # via requests
 cloudinary==1.24.0
@@ -74,6 +78,7 @@ django==2.2.17
     #   wagtail
     #   wagtail-footnotes
     #   wagtail-localize
+    #   wagtail-localize-git
 djangorestframework==3.12.2
     # via
     #   -r requirements.in
@@ -95,6 +100,10 @@ filebrowser-safe==0.5.0
     # via -r requirements.in
 future==0.18.2
     # via -r requirements.in
+gitdb==4.0.5
+    # via gitpython
+gitpython==3.1.13
+    # via wagtail-localize-git
 gunicorn==20.0.4
     # via -r requirements.in
 html5lib==1.0.1
@@ -123,6 +132,8 @@ psycopg2-binary==2.8.6
     # via -r requirements.in
 pycparser==2.20
     # via cffi
+pygit2==1.5.0
+    # via wagtail-localize-git
 pyjwt==1.7.1
     # via social-auth-core
 python-dateutil==2.8.1
@@ -163,6 +174,8 @@ six==1.14.0
     #   python-dateutil
     #   social-auth-app-django
     #   social-auth-core
+smmap==3.0.5
+    # via gitdb
 social-auth-app-django==4.0.0
     # via -r requirements.in
 social-auth-core==3.3.3
@@ -177,6 +190,8 @@ text-unidecode==1.3
     # via
     #   faker
     #   python-slugify
+toml==0.10.2
+    # via wagtail-localize-git
 tqdm==4.15.0
     # via wagtail-inventory
 unidecode==1.1.1
@@ -197,8 +212,12 @@ wagtail-footnotes==0.4.1
     # via -r requirements.in
 git+git://github.com/Pomax/wagtail-inventory.git@ea9a6533e69ff0a6faaf0f069efa115bc22ce697#egg=wagtail-inventory
     # via -r requirements.in
-wagtail-localize==0.9.4
+wagtail-localize-git==0.9.2
     # via -r requirements.in
+wagtail-localize==0.9.4
+    # via
+    #   -r requirements.in
+    #   wagtail-localize-git
 wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail==2.11.3
@@ -209,6 +228,7 @@ wagtail==2.11.3
     #   wagtail-footnotes
     #   wagtail-inventory
     #   wagtail-localize
+    #   wagtail-localize-git
     #   wagtail-metadata
 webencodings==0.5.1
     # via html5lib

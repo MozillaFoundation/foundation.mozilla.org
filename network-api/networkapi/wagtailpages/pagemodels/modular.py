@@ -4,6 +4,8 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamField
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 
+from wagtail_localize.fields import SynchronizedField
+
 from .base_fields import base_fields
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import (
@@ -57,6 +59,11 @@ class ModularPage(FoundationMetadataPageMixin, Page):
     ]
 
     show_in_menus_default = True
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+        SynchronizedField('zen_nav'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)

@@ -21,6 +21,7 @@ from wagtail_localize.fields import TranslatableField
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
+from wagtail_localize.fields import SynchronizedField
 
 from .. import customblocks
 
@@ -142,6 +143,10 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         PublishingPanel(),
         FieldPanel('first_published_at'),
         PrivacyModalPanel(),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     def get_context(self, request):

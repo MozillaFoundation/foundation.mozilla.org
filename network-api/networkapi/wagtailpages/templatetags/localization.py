@@ -17,7 +17,7 @@ mappings = {
     'fy-NL': 'fy_NL',
     'nl': 'nl_NL',
     'pl': 'pl_PL',
-    'pt': 'pt_BR',  # our main focus is Brazilian Portuguese
+    'pt-BR': 'pt_BR',
 }
 
 

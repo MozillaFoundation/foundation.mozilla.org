@@ -78,6 +78,8 @@ env = environ.Env(
     USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
+    WAGTAILLOCALIZE_GIT_URL=(str, None),
+    WAGTAILLOCALIZE_GIT_CLONE_DIR=(str, None),
     WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
@@ -227,6 +229,7 @@ INSTALLED_APPS = list(filter(None, [
     # wagtail localization
     'wagtail_localize',
     'wagtail_localize.locales',
+    'wagtail_localize_git',
 
     # wagtail to airtable integration
     'wagtail_airtable',
@@ -409,7 +412,7 @@ LANGUAGE_CODE = 'en'
 LANGUAGES = (
     ('en', 'English'),
     ('de', 'German'),
-    ('pt', 'Portuguese'),
+    ('pt-BR', 'Portuguese (Brazil)'),
     ('es', 'Spanish'),
     ('fr', 'French'),
     ('fy-NL', 'Frisian'),
@@ -647,7 +650,6 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = env('DATA_UPLOAD_MAX_NUMBER_FIELDS')
 # Web Monetization: https://webmonetization.org/
 WEB_MONETIZATION_POINTER = env('WEB_MONETIZATION_POINTER')
 
-
 AIRTABLE_API_KEY = env('AIRTABLE_API_KEY')
 WAGTAIL_AIRTABLE_ENABLED = env('AIRTABLE_ENABLED')
 GENERAL_PNI_AIRTABLE_SETTINGS = {
@@ -664,13 +666,19 @@ GENERAL_PNI_AIRTABLE_SETTINGS = {
     'PARENT_PAGE_ID': 'networkapi.wagtailpages.pagemodels.products.get_pni_home_page',
     'AUTO_PUBLISH_NEW_PAGES': False,
 }
+
 # Create duplicate airtable settings for another sheet in the same table.
 SOFTWARE_PNI_AIRTABLE_SETTINGS = GENERAL_PNI_AIRTABLE_SETTINGS.copy()
 SOFTWARE_PNI_AIRTABLE_SETTINGS['AIRTABLE_TABLE_NAME'] = 'Software PNI Products'
 SOFTWARE_PNI_AIRTABLE_SETTINGS[
     'AIRTABLE_SERIALIZER'
 ] = 'networkapi.wagtailpages.pagemodels.serializers.SoftwareProductPageSerializer'
+
 AIRTABLE_IMPORT_SETTINGS = {
     'wagtailpages.GeneralProductPage': GENERAL_PNI_AIRTABLE_SETTINGS,
     'wagtailpages.SoftwareProductPage': SOFTWARE_PNI_AIRTABLE_SETTINGS,
 }
+
+# Git integration for Pontoon purposes
+WAGTAILLOCALIZE_GIT_URL = env('WAGTAILLOCALIZE_GIT_URL')
+WAGTAILLOCALIZE_GIT_CLONE_DIR = env('WAGTAILLOCALIZE_GIT_CLONE_DIR')

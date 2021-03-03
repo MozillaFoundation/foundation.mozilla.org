@@ -8,6 +8,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail_localize.fields import SynchronizedField
 
 from networkapi.wagtailpages.models import BlogAuthor
 from networkapi.wagtailpages.utils import set_main_site_nav_information
@@ -111,6 +112,10 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         FieldPanel('notes'),
     ]
 
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
+
     @property
     def is_chapter_page(self):
         """
@@ -127,11 +132,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Only applies to Chapter Publication (sub-Publication Pages).
         Returns a Page object or None.
         """
+        next_page = self.get_parent()
         if self.is_chapter_page:
-            next_page = self.get_siblings().filter(path__gt=self.path, live=True).first()
-            if not next_page:
+            sibling = self.get_siblings().filter(path__gt=self.path, live=True).first()
+            if sibling:
                 # If there is no more chapters. Return the parent page.
-                next_page = self.get_parent()
+                next_page = sibling
         return next_page
 
     @property
@@ -140,11 +146,12 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Only applies to Chapter Publication (sub-Publication Pages).
         Returns a Page object or None.
         """
+        prev_page = self.get_parent()
         if self.is_chapter_page:
-            prev_page = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
-            if not prev_page:
+            sibling = self.get_siblings().filter(path__lt=self.path, live=True).reverse().first()
+            if sibling:
                 # If there is no more chapters. Return the parent page.
-                prev_page = self.get_parent()
+                prev_page = sibling
         return prev_page
 
     @property

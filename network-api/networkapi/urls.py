@@ -26,8 +26,8 @@ urlpatterns = list(filter(None, [
     path('robots.txt', lambda x: HttpResponse(
         "User-Agent: *\nDisallow: /*artifacts/thimble",
         content_type="text/plain; charset=utf-8"),
-         name="robots_file"
-         ),
+        name="robots_file"
+    ),
 
     # social-sign-on routes so that Google auth works
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
@@ -65,6 +65,9 @@ urlpatterns = list(filter(None, [
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),
+
+    # redirect /pt to /pt-BR. See https://github.com/mozilla/foundation.mozilla.org/issues/5993
+    re_path(r'^pt/(?P<rest>.*)', RedirectView.as_view(url='/pt-BR/%(rest)s', query_string=True)),
 ]))
 
 # Anything that needs to respect the localised

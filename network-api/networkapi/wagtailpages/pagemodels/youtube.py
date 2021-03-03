@@ -4,6 +4,7 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
+from wagtail_localize.fields import SynchronizedField
 
 from . import customblocks
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -53,6 +54,10 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
 
     zen_nav = True
 
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
+
     def get_context(self, request):
         context = super().get_context(request)
         return set_main_site_nav_information(self, context, 'Homepage')
@@ -82,6 +87,10 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
     ]
 
     zen_nav = True
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)

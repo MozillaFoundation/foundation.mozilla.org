@@ -8,6 +8,7 @@ from wagtail.core.models import Orderable as WagtailOrderable
 
 from modelcluster.fields import ParentalKey
 from networkapi.wagtailpages.utils import titlecase
+from wagtail_localize.fields import SynchronizedField
 
 from ..index import IndexPage
 from .blog_category import BlogPageCategory
@@ -57,6 +58,10 @@ class BlogIndexPage(IndexPage):
     ]
 
     template = 'wagtailpages/blog_index_page.html'
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
 
     def get_all_entries(self):
         """

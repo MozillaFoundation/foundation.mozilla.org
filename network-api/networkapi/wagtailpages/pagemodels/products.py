@@ -164,6 +164,11 @@ class ProductPagePrivacyPolicyLink(Orderable):
         FieldPanel('url'),
     ]
 
+    override_translatable_fields = [
+        SynchronizedField('url'),
+        TranslatableField('label'),
+    ]
+
     def __str__(self):
         return f'{self.page.title}: {self.label} ({self.url})'
 
@@ -231,6 +236,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text='Link to this product page',
         blank=True,
     )
+
     price = models.CharField(
         max_length=100,
         help_text='Price',
@@ -502,7 +508,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         TranslatableField('title'),
-        TranslatableField('slug'),
+        SynchronizedField('slug'),
         TranslatableField('seo_title'),
         SynchronizedField('show_in_menus'),
         TranslatableField('search_description'),
@@ -513,7 +519,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('uses_wifi'),
         SynchronizedField('uses_bluetooth'),
         SynchronizedField('review_date'),
-        TranslatableField('company'),
+        SynchronizedField('company'),
         TranslatableField('blurb'),
         SynchronizedField('product_url'),
         TranslatableField('price'),
@@ -540,10 +546,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('manage_vulnerabilities_helptext'),
         SynchronizedField('privacy_policy'),
         TranslatableField('privacy_policy_helptext'),
-        TranslatableField('phone_number'),
-        TranslatableField('live_chat'),
-        TranslatableField('email'),
-        TranslatableField('twitter'),
+        SynchronizedField('phone_number'),
+        SynchronizedField('live_chat'),
+        SynchronizedField('email'),
+        SynchronizedField('twitter'),
     ]
 
     content_panels = Page.content_panels + [
@@ -650,6 +656,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             ],
             heading='Related Products',
         ),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+        SynchronizedField('product_url'),
     ]
 
     @property
@@ -878,6 +889,10 @@ class SoftwareProductPage(ProductPage):
             ),
         ],
     )
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
 
     @property
     def product_type(self):
@@ -1169,6 +1184,10 @@ class GeneralProductPage(ProductPage):
         ],
     )
 
+    override_translatable_fields = [
+        SynchronizedField('slug'),
+    ]
+
     @property
     def product_type(self):
         return "general"
@@ -1212,6 +1231,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         help_text='A short blurb to show under the header',
     )
 
+    dark_theme = models.BooleanField(
+        default=False,
+        help_text='Does the intro need to be white text (for dark backgrounds)?'
+    )
+
     def get_banner(self):
         return self.hero_image
 
@@ -1221,6 +1245,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         ImageChooserPanel('hero_image'),
         FieldPanel('header'),
         FieldPanel('intro_text'),
+        FieldPanel('dark_theme'),
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')

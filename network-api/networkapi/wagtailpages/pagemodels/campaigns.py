@@ -13,6 +13,7 @@ from wagtail_localize.fields import TranslatableField, SynchronizedField
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
+from wagtail_localize.fields import SynchronizedField
 
 from .modular import MiniSiteNameSpace
 from .primary import PrimaryPage
@@ -192,12 +193,13 @@ class Petition(CTA):
         TranslatableField('comment_requirements'),
         TranslatableField('checkbox_1'),
         TranslatableField('checkbox_2'),
-        SynchronizedField('share_link'),
         TranslatableField('share_link_text'),
-        TranslatableField('share_twitter'),
-        TranslatableField('share_facebook'),
-        TranslatableField('share_email'),
         TranslatableField('thank_you'),
+        SynchronizedField('share_link'),
+        SynchronizedField('share_email'),
+        SynchronizedField('share_facebook'),
+        SynchronizedField('share_twitter'),
+        SynchronizedField('campaign_id'),
     ]
 
     class Meta:
@@ -237,6 +239,10 @@ class CampaignPage(MiniSiteNameSpace):
         'CampaignPage',
         'RedirectingPage',
         'PublicationPage',
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
 
@@ -298,6 +304,10 @@ class BanneredCampaignPage(PrimaryPage):
         'RedirectingPage',
         'PublicationPage',
         'OpportunityPage',  # "DefaultPage" is just the verbose name
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField('slug'),
     ]
 
     show_in_menus_default = True
