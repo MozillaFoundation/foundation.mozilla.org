@@ -8,7 +8,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0036_auto_20210208_2114'),
+        ('wagtailpages', '0039_auto_20210208_2114'),
     ]
 
     operations = [
