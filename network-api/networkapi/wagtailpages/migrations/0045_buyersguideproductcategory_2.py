@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0043_buyersguideproductcategory'),
+        ('wagtailpages', '0044_buyersguideproductcategory'),
     ]
 
     operations = [

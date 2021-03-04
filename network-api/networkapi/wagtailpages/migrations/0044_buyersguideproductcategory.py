@@ -50,7 +50,7 @@ def reverse_find_and_copy_old_product_category_to_model(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0042_auto_20210303_2013'),
+        ('wagtailpages', '0043_add_single_image_block_to_articles'),
     ]
 
     operations = [
