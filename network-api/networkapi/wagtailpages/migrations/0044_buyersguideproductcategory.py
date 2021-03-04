@@ -4,7 +4,6 @@ import django
 from django.db import migrations, models
 import networkapi.buyersguide.utils
 
-from networkapi.wagtailpages.pagemodels.products import ProductPageCategory, BuyersGuideProductCategory
 
 
 def copy_buyersguide_product_categories(apps, schema_editor):
@@ -29,6 +28,8 @@ def remove_new_buyersguide_product_categories(apps, schema_editor):
 
 
 def find_and_copy_old_product_category_to_model(apps, schema_editor):
+    ProductPageCategory = apps.get_model("wagtailpages", "ProductPageCategory")
+    BuyersGuideProductCategory = apps.get_model("wagtailpages", "BuyersGuideProductCategory")
     for product_page_category in ProductPageCategory.objects.all():
         if hasattr(product_page_category, 'category'):
             category = product_page_category.category
