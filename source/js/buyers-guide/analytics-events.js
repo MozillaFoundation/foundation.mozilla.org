@@ -86,6 +86,8 @@ function getQuerySelectorEvents(pageTitle, productName) {
       category: `buyersguide`,
       action: `submit a product button tap`,
       label: `submit a product button tap on ${pageTitle}`,
+      // Custom properties (not sent to GA)
+      conditionalQuery: `.btn-recommend`,
     },
   };
 }
