@@ -48,3 +48,18 @@ class ArticleFullWidthImageBlock(blocks.StructBlock):
     class Meta:
         label = "Wide Image"
         template = "wagtailpages/blocks/article_full_width_image_block.html"
+
+
+class ArticleImageBlock(blocks.StructBlock):
+
+    image = ImageChooserBlock()
+    caption = blocks.RichTextBlock(
+        label="Image caption",
+        required=False,
+        features=['italic', 'bold', 'link'],
+    )
+    alt_text = blocks.CharBlock(required=False)
+
+    class Meta:
+        label = "Image"
+        template = "wagtailpages/blocks/article_image_block.html"
