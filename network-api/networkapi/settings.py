@@ -79,6 +79,7 @@ env = environ.Env(
     USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
+    WAGTAILIMAGES_INDEX_PAGE_SIZE=(int, 60),
     WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
@@ -446,7 +447,7 @@ STATICFILES_DIRS = [app('frontend')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
-WAGTAILIMAGES_INDEX_PAGE_SIZE = 100
+WAGTAILIMAGES_INDEX_PAGE_SIZE = env('WAGTAILIMAGES_INDEX_PAGE_SIZE')
 WAGTAIL_USAGE_COUNT_ENABLED = True
 
 # Rest Framework Settings

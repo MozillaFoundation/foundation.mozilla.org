@@ -16,7 +16,7 @@ from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .video_block import VideoBlock
 from .youtube_regret_block import YoutubeRegretBlock
-from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock
+from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
 
 
@@ -24,6 +24,7 @@ __all__ = [
     AnnotatedImageBlock,
     AirTableBlock,
     ArticleDoubleImageBlock,
+    ArticleImageBlock,
     ArticleFullWidthImageBlock,
     ArticleRichText,
     BootstrapSpacerBlock,
