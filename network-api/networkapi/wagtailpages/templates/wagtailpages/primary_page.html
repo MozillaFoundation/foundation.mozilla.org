@@ -23,7 +23,7 @@
           {% if block.block_type == 'heading' %}
             <h1>{{ block.value }}</h1>
           {% else %}
-            {% include_block block %}
+            {% include_block block with block_id=block.id %}
           {% endif %}
         {% endfor %}
       </div>
