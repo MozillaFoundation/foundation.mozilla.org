@@ -237,6 +237,10 @@ INSTALLED_APPS = list(filter(None, [
     'networkapi.wagtailpages',
     'networkapi.mozfest',
     'networkapi.buyersguide',
+
+    # wagtail_blocks
+    'wagtailfontawesome',
+    'wagtail_blocks',
 ]))
 
 MIDDLEWARE = list(filter(None, [

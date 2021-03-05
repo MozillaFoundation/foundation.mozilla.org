@@ -1,6 +1,9 @@
 from . import customblocks
 from wagtail.core import blocks
 
+from wagtail_blocks.blocks import HeaderBlock, ListBlock, ImageTextOverlayBlock, CroppedImagesWithTextBlock, \
+    ListWithImagesBlock, ThumbnailGalleryBlock, ChartBlock, MapBlock, ImageSliderBlock
+
 """
 We'll need to figure out which components are truly "base" and
 which are bits that should be used in subclassing template-based
@@ -32,4 +35,13 @@ base_fields = [
     ('recent_blog_entries', customblocks.RecentBlogEntries()),
     ('airtable', customblocks.AirTableBlock()),
     ('typeform', customblocks.TypeformBlock()),
+    ('header', HeaderBlock()),
+    ('list', ListBlock()),
+    ('image_text_overlay', ImageTextOverlayBlock()),
+    ('cropped_images_with_text', CroppedImagesWithTextBlock()),
+    ('list_with_images', ListWithImagesBlock()),
+    ('thumbnail_gallery', ThumbnailGalleryBlock()),
+    ('chart', ChartBlock()),
+    ('map', MapBlock()),
+    ('image_slider', ImageSliderBlock()),
 ]

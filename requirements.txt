@@ -226,3 +226,5 @@ xlwt==1.3.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
+
+wagtail-blocks==0.7.2
