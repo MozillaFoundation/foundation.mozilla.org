@@ -107,7 +107,7 @@ Translations of UI strings (from the Django and React apps) are stored in [the f
 The latest source strings are regularly exposed to Pontoon by a Localization PM using the following process:
 
 ### Initial setup:
-- Clone the `fomo-l10n` repository locally.
+- Clone the [`fomo-l10n`](https://github.com/mozilla-l10n/fomo-l10n) repository locally.
 - Set the `LOCAL_PATH_TO_L10N_REPO` variable in your `.env` file. Use the absolute path to your copy of the `fomo-l10n` repository and include the trailing slash. E.g. `LOCAL_PATH_TO_L10N_REPO=/Users/username/Documents/GitHub/fomo-l10n/`
 
 ### Exposing latest source strings:
