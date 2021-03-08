@@ -2,6 +2,8 @@ from datetime import date, datetime, timezone
 
 from io import StringIO
 
+import cloudinary
+
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.test import TestCase, RequestFactory
@@ -17,7 +19,7 @@ from django.utils.translation.trans_real import (
 from unittest.mock import MagicMock
 from unittest import skip
 
-from wagtail.core.models import Site
+from wagtail.core.models import Page, Site
 from wagtail_factories import SiteFactory
 
 from networkapi.buyersguide.factory import (
@@ -465,3 +467,136 @@ class TestPNIAirtableConnections(TestCase):
         self.assertIn("Host controls", export_fields)
         self.assertIn("Easy to learn and use", export_fields)
         self.assertIn("Easy to learn and use help text", export_fields)
+
+
+class TestCloudinaryMigration(TestCase):
+
+    def setUp(self):
+        pni_homepage = BuyersGuidePageFactory.create(
+            parent=Homepage.objects.first(),
+            title='* Privacy not included',
+            slug='privacynotincluded',
+            header='Be Smart. Shop Safe.',
+            intro_text=(
+                'How creepy is that smart speaker, that fitness tracker'
+                ', those wireless headphones? We created this guide to help you shop for safe'
+                ', secure connected products.'
+            ),
+        )
+        # Create a new cloudinary image. Requires cloudinary to be setup in your settings using local or staging vars.
+        # This will upload the "blog-author-placeholder.jpg" image to cloudinary as a test image.
+        cloudinary_image = cloudinary.uploader.upload_resource('../source/images/blog-author-placeholder.jpg')
+        self.general_product_page = GeneralProductPageFactory.create(
+            title='General Percy Product',
+            first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+            last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+            parent=pni_homepage,
+            # product fields
+            privacy_ding=True,
+            adult_content=True,
+            uses_wifi=True,
+            uses_bluetooth=True,
+            review_date=date(2025, 1, 1),
+            company='Percy Corp',
+            blurb='This is a general product specifically created for visual regression testing',
+            product_url='http://example.com/general-percy',
+            price=999,
+            worst_case='Visual regression fails',
+            cloudinary_image=cloudinary_image,
+            # general product fields
+            camera_app='Yes',
+            camera_device='No',
+            microphone_app='NA',
+            microphone_device='CD',
+            location_app='Yes',
+            location_device='No',
+            personal_data_collected='Is personal data getting collected?',
+            biometric_data_collected='Is biometric data getting collected?',
+            social_data_collected='Is social data getting collected?',
+            how_can_you_control_your_data='So, how can you control your data?',
+            data_control_policy_is_bad=True,
+            company_track_record='Needs Improvement',
+            track_record_is_bad=True,
+            track_record_details='What kind of track record are we talking about?',
+            offline_capable='Yes',
+            offline_use_description='Although it is unclear how offline capabilities work',
+            uses_ai='NA',
+            ai_uses_personal_data='Yes',
+            ai_is_transparent='No',
+            ai_helptext='The AI is a black box and no one knows how it works',
+            email='test@example.org',
+            live_chat='http://example.org/chat',
+            phone_number='1-555-555-5555',
+            twitter='@TwitterHandle',
+        )
+        self.software_product_page = SoftwareProductPageFactory.create(
+            # page fields
+            title='Software Percy Product',
+            first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+            last_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+            parent=pni_homepage,
+            cloudinary_image=cloudinary_image,
+            # product fields
+            privacy_ding=True,
+            adult_content=True,
+            uses_wifi=True,
+            uses_bluetooth=True,
+            review_date=date(2025, 1, 1),
+            company='Percy Corp',
+            blurb='This is a general product specifically created for visual regression testing',
+            product_url='http://example.com/general-percy',
+            price=999,
+            worst_case='Visual regression fails',
+            # software product fields
+            handles_recordings_how='Sample software recording description',
+            recording_alert='Yes',
+        )
+
+    def test_fields_remain_untouched_and_wagtail_image_is_changed(self):
+        # Test fields before the command is run
+        # Given a page has a cloudinary image,
+        # When converting cloudinary images to wagtail images,
+        # Then wagtail images should be the same image as the old cloudinary image
+        # Ensure they have cloudinary fields
+        software_product_page = Page.objects.get(pk=self.software_product_page.id).specific
+        general_product_page = Page.objects.get(pk=self.general_product_page.id).specific
+        # Assert there are cloudinary images that will be converted to Wagtail images.
+        self.assertTrue(hasattr(software_product_page, 'cloudinary_image'))
+        self.assertTrue(hasattr(general_product_page, 'cloudinary_image'))
+        # Assert General Product Page fields are what we expect when setting them in the setUp() method
+        self.assertEqual(general_product_page.offline_capable, 'Yes')
+        self.assertEqual(
+            general_product_page.offline_use_description,
+            'Although it is unclear how offline capabilities work'
+        )
+        # Assert Software Product Page fields are what we expect when setting them in the setUp() method
+        self.assertEqual(software_product_page.recording_alert, 'Yes')
+        self.assertEqual(software_product_page.handles_recordings_how, 'Sample software recording description')
+        # Assert the image field and cloudinary fields are not the same
+        self.assertNotEqual(
+            software_product_page.image.filename,
+            f'{software_product_page.cloudinary_image.public_id}.{software_product_page.cloudinary_image.format}',
+        )
+        self.assertNotEqual(
+            general_product_page.image.filename,
+            f'{general_product_page.cloudinary_image.public_id}.{general_product_page.cloudinary_image.format}',
+        )
+
+        # Run the management command which will convert Cloudinary images to Wagtail images.
+        call_command("migrate_cloudinary")
+
+        # Test fields after the management command is run
+        # Re-fetch the page data from the database.
+        software_product_page = Page.objects.get(pk=self.software_product_page.id).specific
+        general_product_page = Page.objects.get(pk=self.general_product_page.id).specific
+        self.assertTrue(hasattr(software_product_page, 'image'))
+        self.assertTrue(hasattr(general_product_page, 'image'))
+        # Assert General Product Page "specific" fields have not changed
+        self.assertEqual(general_product_page.offline_capable, 'Yes')
+        self.assertEqual(
+            general_product_page.offline_use_description,
+            'Although it is unclear how offline capabilities work'
+        )
+        # Assert Software Product Page "specific" fields have not changed
+        self.assertEqual(software_product_page.recording_alert, 'Yes')
+        self.assertEqual(software_product_page.handles_recordings_how, 'Sample software recording description')
