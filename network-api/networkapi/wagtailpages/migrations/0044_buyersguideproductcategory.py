@@ -5,12 +5,11 @@ from django.db import migrations, models
 import networkapi.buyersguide.utils
 
 
-
 def copy_buyersguide_product_categories(apps, schema_editor):
     OldBuyersGuideProductCategory = apps.get_model("buyersguide", "BuyersGuideProductCategory")
     NewBuyersGuideProductCategory = apps.get_model("wagtailpages", "BuyersGuideProductCategory")
 
-    for cat in OldBuyersGuideProductCategory.objects.all():
+    for cat in OldBuyersGuideProductCategory.objects.all().order_by('id'):
         NewBuyersGuideProductCategory.objects.create(
             name=cat.name,
             description=cat.description,
@@ -43,6 +42,7 @@ def find_and_copy_old_product_category_to_model(apps, schema_editor):
 
 
 def reverse_find_and_copy_old_product_category_to_model(apps, schema_editor):
+    ProductPageCategory = apps.get_model("wagtailpages", "ProductPageCategory")
     for product_page_category in ProductPageCategory.objects.all():
         product_page_category.category_new = None
         product_page_category.save()
