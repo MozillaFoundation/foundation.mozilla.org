@@ -626,7 +626,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
-        context['pageTitle'] = self.title + ' | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
+        context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         context['about_page'] = BuyersGuidePage.objects.first()
         return context
 
@@ -1230,7 +1230,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
         context['category'] = category.slug
         context['products'] = products
-        context['pageTitle'] = category + ' | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
+        context['pageTitle'] = f'{category} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
 
         return render(request, "buyersguide/category_page.html", context)
 
