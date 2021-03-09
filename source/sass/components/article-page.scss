@@ -312,6 +312,27 @@
     @include set-text-size(16px, 24px);
     font-family: $font-family-sans-serif;
     font-weight: normal;
+
+    .rich-text * {
+      color: $gray-80;
+      font-size: 16px;
+    }
+    .rich-text a {
+      color: $dark-blue;
+    }
+    .rich-text ol,
+    .rich-text ul,
+    .rich-text p {
+      margin-bottom: 12px;
+    }
+    .rich-text ol > li::marker {
+      font-weight: normal;
+      font-size: 16px;
+    }
+    .rich-text p:last-child,
+    .rich-text li {
+      margin-bottom: 0;
+    }
   }
 
   .blue,
@@ -322,6 +343,12 @@
     @include set-text-size(16px, 24px);
     font-family: $font-family-sans-serif;
     font-weight: 600;
+
+    .rich-text * {
+      color: #fff !important;
+      font-size: 16px !important;
+    }
+
   }
   caption {
     color: $gray-60;
