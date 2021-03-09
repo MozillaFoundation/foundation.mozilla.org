@@ -83,6 +83,7 @@ env = environ.Env(
     WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
+    SCOUT_KEY=(str, '')
 )
 
 # Read in the environment
