@@ -19,7 +19,7 @@ python-slugify
 requests
 social-auth-app-django
 wagtail-airtable
-wagtail==2.11.3
+wagtail==2.11.6
 wagtail-factories
 # see https://github.com/mozilla/foundation.mozilla.org/issues/6162
 git+git://github.com/Pomax/wagtail-inventory.git@ea9a6533e69ff0a6faaf0f069efa115bc22ce697#egg=wagtail-inventory
