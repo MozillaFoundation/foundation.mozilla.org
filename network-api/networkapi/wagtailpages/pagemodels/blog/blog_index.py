@@ -120,8 +120,7 @@ class BlogIndexPage(IndexPage):
             push_scope().set_extra('reason', 'entries.specific threw')
             capture_exception(e)
 
-        if len(in_category) > 0:
-            entries = in_category
+        entries = in_category
 
         # Original code is as follows:
         #
