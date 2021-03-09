@@ -4,6 +4,7 @@ from io import StringIO
 
 import cloudinary
 
+from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.test import TestCase, RequestFactory
@@ -553,6 +554,10 @@ class TestCloudinaryMigration(TestCase):
         )
 
     def test_fields_remain_untouched_and_wagtail_image_is_changed(self):
+        if not settings.USE_CLOUDINARY:
+            print("Skipping cloudinary migration test...")
+            return
+
         # Test fields before the command is run
         # Given a page has a cloudinary image,
         # When converting cloudinary images to wagtail images,
@@ -587,16 +592,53 @@ class TestCloudinaryMigration(TestCase):
 
         # Test fields after the management command is run
         # Re-fetch the page data from the database.
-        software_product_page = Page.objects.get(pk=self.software_product_page.id).specific
-        general_product_page = Page.objects.get(pk=self.general_product_page.id).specific
-        self.assertTrue(hasattr(software_product_page, 'image'))
-        self.assertTrue(hasattr(general_product_page, 'image'))
+        new_software_product_page = Page.objects.get(pk=self.software_product_page.id).specific
+        new_general_product_page = Page.objects.get(pk=self.general_product_page.id).specific
+        self.assertTrue(hasattr(new_software_product_page, 'image'))
+        self.assertTrue(hasattr(new_general_product_page, 'image'))
         # Assert General Product Page "specific" fields have not changed
-        self.assertEqual(general_product_page.offline_capable, 'Yes')
+        self.assertEqual(new_general_product_page.offline_capable, 'Yes')
         self.assertEqual(
-            general_product_page.offline_use_description,
+            new_general_product_page.offline_use_description,
             'Although it is unclear how offline capabilities work'
         )
         # Assert Software Product Page "specific" fields have not changed
-        self.assertEqual(software_product_page.recording_alert, 'Yes')
-        self.assertEqual(software_product_page.handles_recordings_how, 'Sample software recording description')
+        self.assertEqual(new_software_product_page.recording_alert, 'Yes')
+        self.assertEqual(new_software_product_page.handles_recordings_how, 'Sample software recording description')
+
+        # Normal product page fields across both product types, excluding the `image`
+        product_page_fields = ['privacy_ding', 'adult_content', 'uses_wifi', 'uses_bluetooth', 'review_date',
+                               'company', 'blurb', 'product_url', 'price', 'worst_case', 'signup_requires_email',
+                               'signup_requires_phone', 'signup_requires_third_party_account',
+                               'signup_requirement_explanation', 'how_does_it_use_data_collected',
+                               'data_collection_policy_is_bad', 'user_friendly_privacy_policy',
+                               'user_friendly_privacy_policy_helptext', 'show_ding_for_minimum_security_standards',
+                               'meets_minimum_security_standards', 'uses_encryption', 'uses_encryption_helptext',
+                               'security_updates', 'security_updates_helptext', 'strong_password',
+                               'strong_password_helptext', 'manage_vulnerabilities', 'manage_vulnerabilities_helptext',
+                               'privacy_policy', 'privacy_policy_helptext', 'phone_number', 'live_chat', 'email',
+                               'twitter', 'creepiness_value', 'votes']
+
+        # Loop through general product page fields and compare the before and after values (excluding the image)
+        general_product_fields = ['title', 'slug', 'camera_device', 'camera_app', 'microphone_device',
+                                  'microphone_app', 'location_device', 'location_app', 'personal_data_collected',
+                                  'biometric_data_collected', 'social_data_collected', 'how_can_you_control_your_data',
+                                  'data_control_policy_is_bad', 'company_track_record', 'track_record_is_bad',
+                                  'track_record_details', 'offline_capable', 'offline_use_description', 'uses_ai',
+                                  'ai_uses_personal_data', 'ai_is_transparent', 'ai_helptext']
+
+        for field in product_page_fields + general_product_fields:
+            old_field = getattr(general_product_page, field)
+            new_field = getattr(new_general_product_page, field)
+            self.assertEqual(old_field, new_field, f'{field} does not match')
+
+        # Loop through software product page fields and compare the before and after values (excluding the image)
+        software_product_fields = ['title', 'slug', 'handles_recordings_how', 'recording_alert',
+                                   'recording_alert_helptext', 'medical_privacy_compliant',
+                                   'medical_privacy_compliant_helptext', 'host_controls', 'easy_to_learn_and_use',
+                                   'easy_to_learn_and_use_helptext']
+
+        for field in product_page_fields + software_product_fields:
+            old_field = getattr(software_product_page, field)
+            new_field = getattr(new_software_product_page, field)
+            self.assertEqual(old_field, new_field, f'{field} does not match')
