@@ -166,6 +166,7 @@ USE_CLOUDINARY = env('USE_CLOUDINARY')
 TESTING = 'test' in sys.argv
 
 INSTALLED_APPS = list(filter(None, [
+    'scout_apm.django',
 
     'whitenoise.runserver_nostatic',
     'networkapi.filebrowser_s3' if USE_S3 else None,
@@ -674,3 +675,8 @@ AIRTABLE_IMPORT_SETTINGS = {
     'wagtailpages.GeneralProductPage': GENERAL_PNI_AIRTABLE_SETTINGS,
     'wagtailpages.SoftwareProductPage': SOFTWARE_PNI_AIRTABLE_SETTINGS,
 }
+
+if env("SCOUT_KEY"):
+    SCOUT_MONITOR = True
+    SCOUT_KEY = env("SCOUT_KEY")
+    SCOUT_NAME = env("SCOUT_NAME", default="foundation")
