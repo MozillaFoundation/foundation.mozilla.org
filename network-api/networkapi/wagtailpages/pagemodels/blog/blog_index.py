@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -113,12 +114,14 @@ class BlogIndexPage(IndexPage):
                         if category in entry_categories:
                             in_category.append(entry)
                     except Exception as e:
-                        push_scope().set_extra('reason', f'entry_categories has an iteration problem; {str(entry_categories)}')
-                        capture_exception(e)
+                        if settings.SENTRY_ENVIRONMENT is not None:
+                            push_scope().set_extra('reason', f'entry_categories has an iteration problem; {str(entry_categories)}')
+                            capture_exception(e)
 
         except Exception as e:
-            push_scope().set_extra('reason', 'entries.specific threw')
-            capture_exception(e)
+            if settings.SENTRY_ENVIRONMENT is not None:
+                push_scope().set_extra('reason', 'entries.specific threw')
+                capture_exception(e)
 
         entries = in_category
 
