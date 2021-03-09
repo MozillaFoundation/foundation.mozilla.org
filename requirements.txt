@@ -8,6 +8,8 @@ airtable-python-wrapper==0.13.0
     # via wagtail-airtable
 anyascii==0.1.7
     # via wagtail
+asgiref==3.3.1
+    # via scout-apm
 beautifulsoup4==4.8.2
     # via
     #   -r requirements.in
@@ -23,6 +25,7 @@ certifi==2020.4.5.1
     #   cloudinary
     #   requests
     #   sentry-sdk
+    #   urllib3
 cffi==1.14.0
     # via cryptography
 chardet==3.0.4
@@ -30,7 +33,10 @@ chardet==3.0.4
 cloudinary==1.24.0
     # via -r requirements.in
 cryptography==3.2
-    # via social-auth-core
+    # via
+    #   pyopenssl
+    #   social-auth-core
+    #   urllib3
 defusedxml==0.6.0
     # via
     #   python3-openid
@@ -102,7 +108,9 @@ gunicorn==20.0.4
 html5lib==1.0.1
     # via wagtail
 idna==2.9
-    # via requests
+    # via
+    #   requests
+    #   urllib3
 jdcal==1.4.1
     # via openpyxl
 jmespath==0.10.0
@@ -119,12 +127,16 @@ openpyxl==3.0.5
     # via tablib
 pillow==7.1.0
     # via wagtail
+psutil==5.8.0
+    # via scout-apm
 psycopg2-binary==2.8.6
     # via -r requirements.in
 pycparser==2.20
     # via cffi
 pyjwt==1.7.1
     # via social-auth-core
+pyopenssl==20.0.1
+    # via urllib3
 python-dateutil==2.8.1
     # via
     #   botocore
@@ -151,6 +163,8 @@ requests==2.25.1
     #   wagtail
 s3transfer==0.3.3
     # via boto3
+scout-apm==2.18.0
+    # via -r requirements.in
 sentry-sdk==0.19.5
     # via -r requirements.in
 six==1.14.0
@@ -161,6 +175,7 @@ six==1.14.0
     #   django-modeltranslation
     #   html5lib
     #   l18n
+    #   pyopenssl
     #   python-dateutil
     #   social-auth-app-django
     #   social-auth-core
@@ -182,11 +197,12 @@ tqdm==4.15.0
     # via wagtail-inventory
 unidecode==1.1.1
     # via wagtail
-urllib3==1.25.9
+urllib3[secure]==1.25.9
     # via
     #   botocore
     #   cloudinary
     #   requests
+    #   scout-apm
     #   sentry-sdk
 wagtail-airtable==0.1.6
     # via -r requirements.in
@@ -217,6 +233,8 @@ whitenoise==5.2.0
     # via -r requirements.in
 willow==1.4
     # via wagtail
+wrapt==1.12.1
+    # via scout-apm
 xlrd==1.2.0
     # via tablib
 xlsxwriter==1.2.9

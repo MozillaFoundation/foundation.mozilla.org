@@ -31,3 +31,4 @@ cloudinary
 wagtail-experiments
 sentry-sdk
 wagtail-footnotes
+scout-apm
