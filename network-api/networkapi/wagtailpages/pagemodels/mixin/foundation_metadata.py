@@ -49,9 +49,9 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
 
         # then find an image in the CMS that uses that tag:
         default_social_share_image = None
-        default_social_share_images = Image.objects.filter(tags=default_social_share_tag)
-        if default_social_share_images.count() > 0:
-            default_social_share_image = default_social_share_images.first()
+        find_default_social_share_image = Image.objects.filter(tags=default_social_share_tag).first()
+        if find_default_social_share_image:
+            default_social_share_image = find_default_social_share_image
 
     def get_meta_image(self):
         # If we have a local social share image, use that
