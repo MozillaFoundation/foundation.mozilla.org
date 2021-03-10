@@ -5,15 +5,20 @@ Every cell can have rich text, and a column width (colspan), along with centered
 We are using StreamBlocks instead of ListBlocks to account for wagtail-localize's lack of ListBlock support.
 """
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 from wagtail.core import blocks
 
 
 class Cell(blocks.StructBlock):
     centered_text = blocks.BooleanBlock(required=False)
     column_width = blocks.IntegerBlock(
-        default=0,
+        default=1,
         help_text='Enter the number of extra cell columns you want to merge together. '
-                  'Merging a cell column will expand a cell to the right.'
+                  'Merging a cell column will expand a cell to the right. To merge two '
+                  'cells together, set the column width to 2. For 3, set 3. Default is 1. '
+                  'Min 1. Max 20.',
+        validators=[MaxValueValidator(20), MinValueValidator(1)]
     )
     content = blocks.RichTextBlock(features=['bold', 'italic', 'link', 'ul', 'ol'])
 

@@ -313,25 +313,39 @@
     font-family: $font-family-sans-serif;
     font-weight: normal;
 
-    .rich-text * {
-      color: $gray-80;
-      font-size: 16px;
-    }
-    .rich-text a {
-      color: $dark-blue;
-    }
-    .rich-text ol,
-    .rich-text ul,
-    .rich-text p {
-      margin-bottom: 12px;
-    }
-    .rich-text ol > li::marker {
-      font-weight: normal;
-      font-size: 16px;
-    }
-    .rich-text p:last-child,
-    .rich-text li {
-      margin-bottom: 0;
+    .rich-text {
+      * {
+        color: $gray-80;
+        font-size: 16px;
+      }
+
+      p {
+        max-width: initial;
+      }
+
+      b {
+        font-weight: bold;
+      }
+
+      a {
+        color: $dark-blue;
+      }
+
+      ol,
+      ul,
+      p {
+        margin-bottom: 12px;
+      }
+
+      ol > li::marker {
+        font-weight: normal;
+        font-size: 16px;
+      }
+
+      p:last-child,
+      li {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -348,7 +362,6 @@
       color: #fff !important;
       font-size: 16px !important;
     }
-
   }
   caption {
     color: $gray-60;
