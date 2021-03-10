@@ -9,6 +9,7 @@ from factory import (
     LazyFunction,
 )
 
+from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
 from networkapi.wagtailpages.pagemodels.base import Homepage
@@ -22,7 +23,6 @@ from networkapi.wagtailpages.pagemodels.products import (
     RelatedProducts,
     SoftwareProductPage,
 )
-from networkapi.wagtailpages.utils import create_wagtail_image
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
@@ -255,13 +255,9 @@ class ProductPageFactory(PageFactory):
     def set_image(self, create, extracted, **kwargs):
         """Creates a new Wagtail Image for each PNI Product."""
 
-        product_images = ['babymonitor.jpg', 'drone.jpg', 'nest.jpg',
-                          'teddy.jpg', 'echo.jpg']
-        image = choice(product_images)
-        self.image = create_wagtail_image(
-            f'/app/network-api/media/images/placeholders/products/{image}',
-            collection_name='pni products'
-        )
+        pni_images = Image.objects.filter(collection__name='pni products')
+        image = choice(pni_images)
+        self.image = image
 
     @post_generation
     def assign_random_categories(self, create, extracted, **kwargs):

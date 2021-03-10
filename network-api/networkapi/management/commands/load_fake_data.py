@@ -15,6 +15,7 @@ import networkapi.buyersguide.factory as buyersguide_factory
 import networkapi.mozfest.factory as mozfest_factory
 
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.utils import create_wagtail_image
 from networkapi.utility.faker.helpers import reseed
 
 
@@ -67,6 +68,15 @@ class Command(BaseCommand):
         ]
         social_share_tag, created = Tag.objects.get_or_create(name='social share image')
         images[0].tags.add(social_share_tag)
+
+        # Create one PNI product for every image we have in our media folder
+        product_images = ['babymonitor.jpg', 'drone.jpg', 'nest.jpg',
+                          'teddy.jpg', 'echo.jpg']
+        for image in product_images:
+            create_wagtail_image(
+                f'/app/network-api/media/images/placeholders/products/{image}',
+                collection_name='pni products'
+            )
 
         [app_factory.generate(seed) for app_factory in [
             news_factory,
