@@ -58,22 +58,15 @@ class Command(BaseCommand):
         reseed(seed)
 
         print('Generating Images')
-        [
+        images = [
             ImageFactory.create(
                 file__width=1080,
                 file__height=720,
                 file__color=faker.safe_color_name()
             ) for i in range(20)
         ]
-
-        print('Generating Social Share Image')
-        social_share_image = ImageFactory.create(
-            file__width=400,
-            file__height=400,
-            file__color='black',
-        )
         social_share_tag, created = Tag.objects.get_or_create(name='social share image')
-        social_share_image.tags.add(social_share_tag)
+        images[0].tags.add(social_share_tag)
 
         [app_factory.generate(seed) for app_factory in [
             news_factory,
