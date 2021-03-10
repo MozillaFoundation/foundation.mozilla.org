@@ -5,6 +5,8 @@ from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.conf import settings
 
+from taggit.models import Tag
+
 # Factories
 import networkapi.highlights.factory as highlights_factory
 import networkapi.news.factory as news_factory
@@ -63,6 +65,15 @@ class Command(BaseCommand):
                 file__color=faker.safe_color_name()
             ) for i in range(20)
         ]
+
+        print('Generating Social Share Image')
+        social_share_image = ImageFactory.create(
+            file__width=400,
+            file__height=400,
+            file__color='black',
+        )
+        social_share_tag, created = Tag.objects.get_or_create(name='social share image')
+        social_share_image.tags.add(social_share_tag)
 
         [app_factory.generate(seed) for app_factory in [
             news_factory,
