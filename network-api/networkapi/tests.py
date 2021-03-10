@@ -475,7 +475,7 @@ class TestCloudinaryMigration(TestCase):
 
     def setUp(self):
         if not settings.USE_CLOUDINARY:
-            print("Skipping cloudinary migration test...")
+            print("Cloudinary is not used in the current environment, skipping data migration test")
             return
 
         pni_homepage = BuyersGuidePageFactory.create(
@@ -560,7 +560,7 @@ class TestCloudinaryMigration(TestCase):
 
     def test_fields_remain_untouched_and_wagtail_image_is_changed(self):
         if not settings.USE_CLOUDINARY:
-            print("Skipping cloudinary migration test...")
+            print("Cloudinary is not used in the current environment, skipping data migration test")
             return
 
         # Test fields before the command is run
