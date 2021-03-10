@@ -7,6 +7,7 @@ import cloudinary
 from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
+from django.forms.models import model_to_dict
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from django.utils import translation
@@ -473,6 +474,10 @@ class TestPNIAirtableConnections(TestCase):
 class TestCloudinaryMigration(TestCase):
 
     def setUp(self):
+        if not settings.USE_CLOUDINARY:
+            print("Skipping cloudinary migration test...")
+            return
+
         pni_homepage = BuyersGuidePageFactory.create(
             parent=Homepage.objects.first(),
             title='* Privacy not included',
@@ -606,39 +611,20 @@ class TestCloudinaryMigration(TestCase):
         self.assertEqual(new_software_product_page.recording_alert, 'Yes')
         self.assertEqual(new_software_product_page.handles_recordings_how, 'Sample software recording description')
 
-        # Normal product page fields across both product types, excluding the `image`
-        product_page_fields = ['privacy_ding', 'adult_content', 'uses_wifi', 'uses_bluetooth', 'review_date',
-                               'company', 'blurb', 'product_url', 'price', 'worst_case', 'signup_requires_email',
-                               'signup_requires_phone', 'signup_requires_third_party_account',
-                               'signup_requirement_explanation', 'how_does_it_use_data_collected',
-                               'data_collection_policy_is_bad', 'user_friendly_privacy_policy',
-                               'user_friendly_privacy_policy_helptext', 'show_ding_for_minimum_security_standards',
-                               'meets_minimum_security_standards', 'uses_encryption', 'uses_encryption_helptext',
-                               'security_updates', 'security_updates_helptext', 'strong_password',
-                               'strong_password_helptext', 'manage_vulnerabilities', 'manage_vulnerabilities_helptext',
-                               'privacy_policy', 'privacy_policy_helptext', 'phone_number', 'live_chat', 'email',
-                               'twitter', 'creepiness_value', 'votes']
+        # Make sure the two general product pages (before and after) are different somehow.
+        general_product_page_dict = model_to_dict(general_product_page)
+        new_general_product_page_dict = model_to_dict(new_general_product_page)
+        self.assertNotEqual(general_product_page_dict, new_general_product_page_dict)
+        # Make sure the two pages (before and after) are the same, minus the images as they are expected to change
+        del general_product_page_dict['image'], new_general_product_page_dict['image']
+        del general_product_page_dict['cloudinary_image'], new_general_product_page_dict['cloudinary_image']
+        self.assertDictEqual(general_product_page_dict, new_general_product_page_dict)
 
-        # Loop through general product page fields and compare the before and after values (excluding the image)
-        general_product_fields = ['title', 'slug', 'camera_device', 'camera_app', 'microphone_device',
-                                  'microphone_app', 'location_device', 'location_app', 'personal_data_collected',
-                                  'biometric_data_collected', 'social_data_collected', 'how_can_you_control_your_data',
-                                  'data_control_policy_is_bad', 'company_track_record', 'track_record_is_bad',
-                                  'track_record_details', 'offline_capable', 'offline_use_description', 'uses_ai',
-                                  'ai_uses_personal_data', 'ai_is_transparent', 'ai_helptext']
-
-        for field in product_page_fields + general_product_fields:
-            old_field = getattr(general_product_page, field)
-            new_field = getattr(new_general_product_page, field)
-            self.assertEqual(old_field, new_field, f'{field} does not match')
-
-        # Loop through software product page fields and compare the before and after values (excluding the image)
-        software_product_fields = ['title', 'slug', 'handles_recordings_how', 'recording_alert',
-                                   'recording_alert_helptext', 'medical_privacy_compliant',
-                                   'medical_privacy_compliant_helptext', 'host_controls', 'easy_to_learn_and_use',
-                                   'easy_to_learn_and_use_helptext']
-
-        for field in product_page_fields + software_product_fields:
-            old_field = getattr(software_product_page, field)
-            new_field = getattr(new_software_product_page, field)
-            self.assertEqual(old_field, new_field, f'{field} does not match')
+        # Make sure the two software product pages (before and after) are different somehow.
+        software_product_page_dict = model_to_dict(software_product_page)
+        new_software_product_page_dict = model_to_dict(new_software_product_page)
+        self.assertNotEqual(software_product_page_dict, new_software_product_page_dict)
+        # Make sure the two pages (before and after) are the same, minus the image
+        del software_product_page_dict['image'], new_software_product_page_dict['image']
+        del software_product_page_dict['cloudinary_image'], new_software_product_page_dict['cloudinary_image']
+        self.assertDictEqual(software_product_page_dict, new_software_product_page_dict)
