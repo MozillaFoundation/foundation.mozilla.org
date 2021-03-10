@@ -1,6 +1,7 @@
 from datetime import date, datetime, timezone
 
 from io import StringIO
+from os.path import join, abspath, dirname
 
 import cloudinary
 
@@ -491,7 +492,9 @@ class TestCloudinaryMigration(TestCase):
         )
         # Create a new cloudinary image. Requires cloudinary to be setup in your settings using local or staging vars.
         # This will upload the "blog-author-placeholder.jpg" image to cloudinary as a test image.
-        cloudinary_image = cloudinary.uploader.upload_resource('../source/images/blog-author-placeholder.jpg')
+        image_name = "blog-author-placeholder.jpg"
+        image_path = abspath(join(dirname(__file__), f'../../source/images/{image_name}'))
+        cloudinary_image = cloudinary.uploader.upload_resource(image_path)
         self.general_product_page = GeneralProductPageFactory.create(
             title='General Percy Product',
             first_published_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
