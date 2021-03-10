@@ -359,8 +359,8 @@
     font-weight: 600;
 
     .rich-text * {
-      color: #fff !important;
-      font-size: 16px !important;
+      color: $white !important;
+      @include set-text-size(16px, 24px);
     }
   }
   caption {
