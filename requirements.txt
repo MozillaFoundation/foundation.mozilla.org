@@ -220,7 +220,7 @@ wagtail-localize==0.9.4
     #   wagtail-localize-git
 wagtail-metadata==3.4.0
     # via -r requirements.in
-wagtail==2.11.3
+wagtail==2.11.6
     # via
     #   -r requirements.in
     #   wagtail-airtable
