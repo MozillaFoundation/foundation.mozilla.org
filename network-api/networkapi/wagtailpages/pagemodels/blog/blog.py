@@ -96,6 +96,13 @@ class BlogAuthors(Orderable):
 
 class BlogPage(FoundationMetadataPageMixin, Page):
 
+    blog_title = models.CharField(
+        max_length=80,
+        help_text='The actual blog post title you would like to use. '
+                  'Please keep it under 80 characters.',
+        blank=True,
+    )
+
     body = StreamField(base_fields)
 
     category = ParentalManyToManyField(
@@ -115,6 +122,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('blog_title'),
         MultiFieldPanel(
             [
                 InlinePanel("authors", label="Author", min_num=1)
@@ -136,6 +144,10 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         PrivacyModalPanel(),
     ]
 
+    @property
+    def get_title(self):
+        return self.blog_title if self.blog_title else self.title
+
     def get_context(self, request):
         context = super().get_context(request)
         context['related_posts'] = get_content_related_by_tag(self)
@@ -152,3 +164,8 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             context['blog_index'] = blog_page
 
         return set_main_site_nav_information(self, context, 'Homepage')
+
+
+# Overwrite the Page.title help text
+# so it doesn't say "The page title as you'd like it to be seen by the public"
+BlogPage._meta.get_field("title").help_text = "The title you will see in your Wagtail page explorer"
