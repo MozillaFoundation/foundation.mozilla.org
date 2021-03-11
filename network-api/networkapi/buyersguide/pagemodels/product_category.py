@@ -1,13 +1,10 @@
 from django.db import models
 from django.utils.text import slugify
 
-from wagtail.snippets.models import register_snippet
-
 from .products.base import Product
 from ..utils import get_category_og_image_upload_path
 
 
-@register_snippet
 class BuyersGuideProductCategory(models.Model):
     """
     A simple category class for use with Buyers Guide products,
