@@ -58,8 +58,7 @@ class BlogPageTag(TaggedItemBase):
 
 
 @register_snippet
-class BlogAuthor(models.Model):
-
+class ContentAuthor(models.Model):
     name = models.CharField(max_length=70, blank=False)
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -82,7 +81,7 @@ class BlogAuthors(Orderable):
 
     page = ParentalKey("wagtailpages.BlogPage", related_name="authors")
     author = models.ForeignKey(
-        BlogAuthor,
+        ContentAuthor,
         on_delete=models.CASCADE,
     )
 

@@ -16,7 +16,7 @@ from factory import (
 
 from networkapi.wagtailpages.models import (
     BlogAuthors,
-    BlogAuthor,
+    ContentAuthor,
     BlogPage,
     BlogPageCategory,
     BlogIndexPage
@@ -34,7 +34,7 @@ from .tagging import add_tags
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
-NUM_BLOG_AUTHORS = 10
+NUM_CONTENT_AUTHORS = 10
 blog_body_streamfield_fields = [
     'paragraph',
     'image',
@@ -54,7 +54,7 @@ def add_category(post):
 
 
 def add_authors(post):
-    authors = list(BlogAuthor.objects.all())
+    authors = list(ContentAuthor.objects.all())
     count = len(authors)
 
     shuffle(authors)
@@ -90,10 +90,10 @@ class BlogPageFactory(PageFactory):
     title_text = Faker('sentence', nb_words=3, variable_nb_words=False)
 
 
-class BlogAuthorFactory(DjangoModelFactory):
+class ContentAuthorFactory(DjangoModelFactory):
 
     class Meta:
-        model = BlogAuthor
+        model = ContentAuthor
 
     name = Faker('name')
 
@@ -115,8 +115,8 @@ def generate(seed):
             live=True
         )
 
-    print('Generating Blog Authors')
-    generate_fake_data(BlogAuthorFactory, NUM_BLOG_AUTHORS)
+    print('Generating Content Authors')
+    generate_fake_data(ContentAuthorFactory, NUM_CONTENT_AUTHORS)
 
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'

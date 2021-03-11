@@ -9,7 +9,7 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from networkapi.wagtailpages.models import BlogAuthor
+from networkapi.wagtailpages.models import ContentAuthor
 from networkapi.wagtailpages.utils import set_main_site_nav_information
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
@@ -18,8 +18,9 @@ class PublicationAuthors(Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.PublicationPage", related_name="authors")
+
     author = models.ForeignKey(
-        BlogAuthor, on_delete=models.SET_NULL, null=True, blank=False
+        ContentAuthor, on_delete=models.SET_NULL, null=True, blank=False
     )
 
     panels = [
