@@ -44,9 +44,12 @@ from .pagemodels.index import (
     IndexPage
 )
 
+from .pagemodels.content_author import (
+    ContentAuthor
+)
+
 from .pagemodels.blog.blog import (
     BlogPage,
-    ContentAuthor,
     BlogAuthors
 )
 
