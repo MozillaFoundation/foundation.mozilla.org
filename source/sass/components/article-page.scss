@@ -412,14 +412,13 @@
   padding-top: 24px;
   padding-bottom: 56px;
 
-    .body-small{
-    color:$gray-80;
+  .body-small {
+    color: $gray-80;
   }
 
   .body-large {
     text-decoration: underline;
   }
-
 
   @include hover-focus-active {
     /* stylelint-disable */
@@ -436,7 +435,6 @@
       color: $dark-blue;
     }
   }
-
 }
 .article-link {
   --article-padding: 100px;
