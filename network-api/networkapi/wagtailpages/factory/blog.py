@@ -16,10 +16,10 @@ from factory import (
 
 from networkapi.wagtailpages.models import (
     BlogAuthors,
-    ContentAuthor,
     BlogPage,
     BlogPageCategory,
-    BlogIndexPage
+    BlogIndexPage,
+    ContentAuthor
 )
 
 from networkapi.utility.faker import generate_fake_data
