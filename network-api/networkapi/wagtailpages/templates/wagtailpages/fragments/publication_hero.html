@@ -12,7 +12,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 dark-theme">
-        <div class="mb-2 body-small">
+        <div class="mb-2 body-small publication-breadcrumb">
           {% for parent_page in self.breadcrumb_list %}
             <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a> ›
           {% endfor %}
@@ -26,7 +26,7 @@
           </h2>
         {% endif %}
         {% if page.secondary_subtitle or page.publication_date %}
-          <div class="mt-2 mb-4 body-small">
+          <div class="mt-2 mb-4 body-small publication-secondary-subtitle">
             {% if page.secondary_subtitle %}
               {{ page.secondary_subtitle }}
             {% endif %}

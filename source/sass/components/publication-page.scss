@@ -29,6 +29,16 @@
     padding-top: 105px;
     padding-bottom: 140px;
   }
+  .publication-breadcrumb.body-small a {
+    @include set-text-size(16px, 16px);
+    /* stylelint-disable */
+    color: #e7e7fc;
+    /* stylelint-enable */
+  }
+
+  .publication-secondary-subtitle.body-small p{
+    color:$gray-20;
+  }
 }
 
 .download-button::before {
