@@ -1,5 +1,6 @@
 import factory
 import random
+from os.path import abspath, dirname, join
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
@@ -72,9 +73,11 @@ class Command(BaseCommand):
         # Create one PNI product for every image we have in our media folder
         product_images = ['babymonitor.jpg', 'drone.jpg', 'nest.jpg',
                           'teddy.jpg', 'echo.jpg']
+
         for image in product_images:
+            image_path = abspath(join(dirname(__file__), f'../../../media/images/placeholders/products/{image}'))
             create_wagtail_image(
-                f'/app/network-api/media/images/placeholders/products/{image}',
+                image_path,
                 collection_name='pni products'
             )
 
