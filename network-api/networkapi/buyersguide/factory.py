@@ -12,6 +12,7 @@ from factory import (
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
 
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
@@ -256,8 +257,13 @@ class ProductPageFactory(PageFactory):
         """Creates a new Wagtail Image for each PNI Product."""
 
         pni_images = Image.objects.filter(collection__name='pni products')
-        image = choice(pni_images)
-        self.image = image
+        if pni_images:
+            # If there are images to choose from, use them.
+            image = choice(pni_images)
+            self.image = image
+        else:
+            # If there are no PNI images to choose from use an ImageFactory image
+            self.image = ImageFactory()
 
     @post_generation
     def assign_random_categories(self, create, extracted, **kwargs):
