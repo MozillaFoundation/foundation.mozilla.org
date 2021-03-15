@@ -52,7 +52,6 @@ class CTA(TranslatableMixin, models.Model):
         TranslatableField('name'),
         TranslatableField('header'),
         TranslatableField('description'),
-        TranslatableField('newsletter'),
     ]
 
     def __str__(self):
