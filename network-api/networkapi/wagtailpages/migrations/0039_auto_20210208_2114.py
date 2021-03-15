@@ -16,5 +16,4 @@ class Migration(migrations.Migration):
         BootstrapTranslatableModel('wagtailpages.CTA'),
         BootstrapTranslatableModel('wagtailpages.DonationModal'),
         BootstrapTranslatableModel('wagtailpages.FocusArea'),
-        BootstrapTranslatableModel('wagtailpages.FocusArea'),
     ]
