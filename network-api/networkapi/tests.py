@@ -576,15 +576,6 @@ class TestCloudinaryMigration(TestCase):
         # Assert there are cloudinary images that will be converted to Wagtail images.
         self.assertTrue(hasattr(software_product_page, 'cloudinary_image'))
         self.assertTrue(hasattr(general_product_page, 'cloudinary_image'))
-        # Assert General Product Page fields are what we expect when setting them in the setUp() method
-        self.assertEqual(general_product_page.offline_capable, 'Yes')
-        self.assertEqual(
-            general_product_page.offline_use_description,
-            'Although it is unclear how offline capabilities work'
-        )
-        # Assert Software Product Page fields are what we expect when setting them in the setUp() method
-        self.assertEqual(software_product_page.recording_alert, 'Yes')
-        self.assertEqual(software_product_page.handles_recordings_how, 'Sample software recording description')
         # Assert the image field and cloudinary fields are not the same
         self.assertNotEqual(
             software_product_page.image.filename,
@@ -604,15 +595,6 @@ class TestCloudinaryMigration(TestCase):
         new_general_product_page = Page.objects.get(pk=self.general_product_page.id).specific
         self.assertTrue(hasattr(new_software_product_page, 'image'))
         self.assertTrue(hasattr(new_general_product_page, 'image'))
-        # Assert General Product Page "specific" fields have not changed
-        self.assertEqual(new_general_product_page.offline_capable, 'Yes')
-        self.assertEqual(
-            new_general_product_page.offline_use_description,
-            'Although it is unclear how offline capabilities work'
-        )
-        # Assert Software Product Page "specific" fields have not changed
-        self.assertEqual(new_software_product_page.recording_alert, 'Yes')
-        self.assertEqual(new_software_product_page.handles_recordings_how, 'Sample software recording description')
 
         # Make sure the two general product pages (before and after) are different somehow.
         general_product_page_dict = model_to_dict(general_product_page)
