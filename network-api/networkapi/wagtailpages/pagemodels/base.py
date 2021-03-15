@@ -1,14 +1,14 @@
 from django.conf import settings
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import Page, Orderable as WagtailOrderable
+from wagtail.core.models import Page, Orderable as WagtailOrderable, TranslatableMixin
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
 
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from modelcluster.fields import ParentalKey
 
@@ -449,7 +449,7 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
 
 
 @register_snippet
-class FocusArea(models.Model):
+class FocusArea(TranslatableMixin, models.Model):
     interest_icon = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -482,12 +482,18 @@ class FocusArea(models.Model):
         PageChooserPanel('page'),
     ]
 
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('description'),
+    ]
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name = 'Area of focus'
         verbose_name_plural = 'Areas of focus'
+        unique_together = ('translation_key', 'locale',)
 
 
 class HomepageFocusAreas(WagtailOrderable):

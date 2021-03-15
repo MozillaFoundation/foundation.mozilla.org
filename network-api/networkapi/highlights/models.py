@@ -3,8 +3,10 @@ from django.db import models
 from django.db.models import Q
 from adminsortable.models import SortableMixin
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import TranslatableMixin
 from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField
 
 
 def get_highlights_image_upload_path(instance, filename):
@@ -29,7 +31,7 @@ class HighlightQuerySet(models.query.QuerySet):
 
 
 @register_snippet
-class Highlight(SortableMixin):
+class Highlight(TranslatableMixin, SortableMixin):
     """
     An data type to highlight things like pulse
     projects, custom pages, etc
@@ -80,11 +82,19 @@ class Highlight(SortableMixin):
         db_index=True,
     )
 
+    translatable_fields = [
+        TranslatableField('title'),
+        TranslatableField('description'),
+        TranslatableField('link_label'),
+        TranslatableField('footer'),
+    ]
+
     objects = HighlightQuerySet.as_manager()
 
     class Meta:
         verbose_name_plural = 'highlights'
         ordering = ('order',)
+        unique_together = ('translation_key', 'locale',)
 
     def __str__(self):
         return str(self.title)

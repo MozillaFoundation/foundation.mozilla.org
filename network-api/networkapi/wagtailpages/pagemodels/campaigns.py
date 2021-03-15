@@ -5,8 +5,10 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
@@ -22,7 +24,7 @@ from ..utils import (
 )
 
 
-class CTA(models.Model):
+class CTA(TranslatableMixin, models.Model):
     name = models.CharField(
         default='',
         max_length=100,
@@ -46,11 +48,18 @@ class CTA(models.Model):
         default='mozilla-foundation'
     )
 
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('header'),
+        TranslatableField('description'),
+    ]
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = 'CTA'
+        unique_together = ('translation_key', 'locale',)
 
 
 @register_snippet
@@ -66,6 +75,10 @@ class Signup(CTA):
         help_text='Check this box to show (optional) name fields',
         default=False,
     )
+
+    translatable_fields = CTA.translatable_fields + [
+        SynchronizedField('campaign_id'),
+    ]
 
     class Meta:
         verbose_name = 'signup snippet'
@@ -174,8 +187,12 @@ class Petition(CTA):
         default='Thank you for signing too!',
     )
 
-    override_translatable_fields = [
-        SynchronizedField('share_link'),
+    translatable_fields = CTA.translatable_fields + [
+        SynchronizedField('campaign_id'),
+        TranslatableField('comment_requirements'),
+        TranslatableField('checkbox_1'),
+        TranslatableField('checkbox_2'),
+        TranslatableField('thank_you'),
         SynchronizedField('share_email'),
         SynchronizedField('share_facebook'),
         SynchronizedField('share_twitter'),
@@ -271,6 +288,12 @@ class BanneredCampaignPage(PrimaryPage):
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
+    ]
+
+    translatable_fields = PrimaryPage.translatable_fields + [
+        SynchronizedField('cta'),
+        SynchronizedField('signup'),
+        SynchronizedField('tags'),
     ]
 
     subpage_types = [

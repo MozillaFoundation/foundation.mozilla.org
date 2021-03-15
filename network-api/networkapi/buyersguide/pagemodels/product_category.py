@@ -1,14 +1,16 @@
 from django.db import models
 from django.utils.text import slugify
 
+from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from .products.base import Product
 from ..utils import get_category_og_image_upload_path
 
 
 @register_snippet
-class BuyersGuideProductCategory(models.Model):
+class BuyersGuideProductCategory(TranslatableMixin, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -48,6 +50,12 @@ class BuyersGuideProductCategory(models.Model):
         blank=True,
     )
 
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('description'),
+        SynchronizedField('slug'),
+    ]
+
     @property
     def published_product_page_count(self):
         # late-import to prevent a circular dependency.
@@ -70,3 +78,4 @@ class BuyersGuideProductCategory(models.Model):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
         ordering = ['sort_order', 'name', ]
+        unique_together = ('translation_key', 'locale',)

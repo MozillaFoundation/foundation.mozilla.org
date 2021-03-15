@@ -3,7 +3,9 @@ from django.db import models
 from django.db.models import Q
 
 from networkapi.utility.images import get_image_upload_path
+from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 
 def get_thumbnail_upload_path(instance, filename):
@@ -29,7 +31,7 @@ class NewsQuerySet(models.query.QuerySet):
 
 
 @register_snippet
-class News(models.Model):
+class News(TranslatableMixin, models.Model):
     """
     Medium blog posts, articles and other media
     """
@@ -86,6 +88,14 @@ class News(models.Model):
         blank=True,
     )
 
+    translatable_fields = [
+        TranslatableField('headline'),
+        TranslatableField('outlet'),
+        SynchronizedField('link'),
+        TranslatableField('excerpt'),
+        TranslatableField('author'),
+    ]
+
     objects = NewsQuerySet.as_manager()
 
     class Meta:
@@ -94,6 +104,7 @@ class News(models.Model):
         verbose_name = 'news article'
         verbose_name_plural = 'news'
         ordering = ('-date',)
+        unique_together = ('translation_key', 'locale',)
 
     def __str__(self):
         return str(self.headline)

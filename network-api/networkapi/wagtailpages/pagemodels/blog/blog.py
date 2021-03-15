@@ -11,10 +11,12 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core import blocks
 from wagtail.core.models import Orderable, Page
+from wagtail.core.models import TranslatableMixin
 from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import TranslatableField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -58,7 +60,7 @@ class BlogPageTag(TaggedItemBase):
 
 
 @register_snippet
-class BlogAuthor(models.Model):
+class BlogAuthor(TranslatableMixin, models.Model):
 
     name = models.CharField(max_length=70, blank=False)
     image = models.ForeignKey(
@@ -73,8 +75,15 @@ class BlogAuthor(models.Model):
         ImageChooserPanel("image"),
     ]
 
+    translatable_fields = [
+        TranslatableField('name'),
+    ]
+
     def __str__(self):
         return self.name
+
+    class Meta:
+        unique_together = ('translation_key', 'locale',)
 
 
 class BlogAuthors(Orderable):
@@ -146,11 +155,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['use_commento'] = settings.USE_COMMENTO
 
         # Pull this object specifically using the English page title
-        blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
+        blog_page = BlogIndexPage.objects.get(title__iexact='Blog', locale_id=1)
 
         # If that doesn't yield the blog page, pull using the universal title
         if blog_page is None:
-            blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
+            blog_page = BlogIndexPage.objects.filter(title__iexact='Blog').first()
 
         if blog_page:
             context['blog_index'] = blog_page

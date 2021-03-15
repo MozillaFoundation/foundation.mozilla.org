@@ -1,13 +1,15 @@
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.models import TranslatableMixin
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
 
 @register_snippet
-class Update(index.Indexed, models.Model):
+class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
@@ -37,6 +39,13 @@ class Update(index.Indexed, models.Model):
         help_text='The date this product was created',
     )
 
+    translatable_fields = [
+        SynchronizedField('source'),
+        TranslatableField('title'),
+        TranslatableField('author'),
+        TranslatableField('snippet'),
+    ]
+
     panels = [
         FieldPanel('source'),
         FieldPanel('title'),
@@ -55,3 +64,4 @@ class Update(index.Indexed, models.Model):
     class Meta:
         verbose_name = "Buyers Guide Product Update"
         verbose_name_plural = "Buyers Guide Product Updates"
+        unique_together = ('translation_key', 'locale',)
