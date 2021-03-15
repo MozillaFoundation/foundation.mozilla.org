@@ -17,10 +17,11 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core import hooks
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from wagtail_airtable.mixins import AirtableMixin
 
@@ -31,10 +32,13 @@ from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.buyersguide.pagemodels.product_category import BuyersGuideProductCategory
+from networkapi.buyersguide.pagemodels.products.base import Product
 from networkapi.buyersguide.pagemodels.product_update import Update
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.wagtailpages.utils import insert_panels_after
+
+# TODO: Move this util function
+from networkapi.buyersguide.utils import get_category_og_image_upload_path
 
 
 if settings.USE_CLOUDINARY:
@@ -77,6 +81,69 @@ def sort_average(products):
     return sorted(products, key=lambda p: p.creepiness)
 
 
+@register_snippet
+class BuyersGuideProductCategory(models.Model):
+    """
+    A simple category class for use with Buyers Guide products,
+    registered as snippet so that we can moderate them if and
+    when necessary.
+    """
+    name = models.CharField(max_length=100)
+    description = models.TextField(
+        max_length=300,
+        help_text='Description of the product category. Max. 300 characters.',
+        blank=True
+    )
+
+    featured = models.BooleanField(
+        default=False,
+        help_text='Featured category will appear first on Buyer\'s Guide site nav'
+    )
+
+    hidden = models.BooleanField(
+        default=False,
+        help_text='Hidden categories will not appear in the Buyer\'s Guide site nav at all'
+    )
+
+    slug = models.SlugField(
+        blank=True,
+        help_text='A URL-friendly version of the category name. This is an auto-generated field.'
+    )
+
+    sort_order = models.IntegerField(
+        default=1,
+        help_text='Sort ordering number. Same-numbered items sort alphabetically'
+    )
+
+    og_image = models.FileField(
+        max_length=2048,
+        help_text='Image to use as OG image',
+        upload_to=get_category_og_image_upload_path,
+        blank=True,
+    )
+
+    @property
+    def published_product_page_count(self):
+        return ProductPage.objects.filter(product_categories__category=self).live().count()
+
+    @property
+    def published_product_count(self):
+        # TODO: REMOVE: LEGACY FUNCTION
+        return Product.objects.filter(product_category=self, draft=False).count()
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name_en if self.name_en else self.name)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Category"
+        verbose_name_plural = "Buyers Guide Product Categories"
+        ordering = ['sort_order', 'name', ]
+
+
 class ProductPageVotes(models.Model):
     vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
 
@@ -102,15 +169,14 @@ class ProductPageCategory(Orderable):
         on_delete=models.CASCADE
     )
     category = models.ForeignKey(
-        'buyersguide.BuyersGuideProductCategory',
+        'wagtailpages.BuyersGuideProductCategory',
         related_name='+',
         blank=False,
         null=True,
         on_delete=models.SET_NULL,
     )
-
     panels = [
-        SnippetChooserPanel('category')
+        SnippetChooserPanel('category'),
     ]
 
     def __str__(self):

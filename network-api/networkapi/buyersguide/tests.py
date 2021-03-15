@@ -17,6 +17,7 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPage,
     ProductPageVotes,
     ProductPageCategory,
+    BuyersGuideProductCategory as NewBuyersGuideProductCategory,
 )
 
 from wagtail.core.models import Page, Site
@@ -265,7 +266,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 404)
 
     def test_category_filter_view(self):
-        category = BuyersGuideProductCategory.objects.first()
+        category = NewBuyersGuideProductCategory.objects.first()
         url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
 
         # Need to set dummy cache
