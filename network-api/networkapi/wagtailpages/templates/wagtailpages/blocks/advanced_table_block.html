@@ -27,7 +27,7 @@
         {# For every other row that's not a header... #}
         <tr>
           {% for cell in row.value %}
-            {# If the first cell is suposed to be blue; when "column" is checked #}
+            {# If the first cell is supposed to be blue; when "column" is checked #}
             {% if self.column %}
               <td
                 {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
