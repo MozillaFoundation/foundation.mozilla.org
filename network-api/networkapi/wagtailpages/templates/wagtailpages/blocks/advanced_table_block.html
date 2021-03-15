@@ -11,15 +11,17 @@
       {# If the "header" is checked, the first row will be a <thead> with a blue background #}
       {% if self.header and forloop.first %}
         <thead>
-          {% for cell in row.value %}
-            <th
-              scope="col"
-              {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
-              class="blue {% if cell.value.centered_text %}text-center{% endif %}"
-            >
-              {{ cell.value.content|richtext }}
-            </th>
-          {% endfor %}
+          <tr>
+            {% for cell in row.value %}
+              <th
+                scope="col"
+                {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
+                class="blue {% if cell.value.centered_text %}text-center{% endif %}"
+              >
+                {{ cell.value.content|richtext }}
+              </th>
+            {% endfor %}
+          </tr>
         </thead>
       {% else %}
         {# For every other row that's not a header... #}
