@@ -29,8 +29,7 @@
             {% if self.column %}
               <td
                 {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
-                class="{% if forloop.first and self.column and not cell.value.column_width %}blue{% endif %} {% if cell.value.centered_text %}text-center{% endif %}"
-                width="20%"
+                class="{% if forloop.first and self.column and not cell.value.column_width %}blue{% endif %} {% if cell.value.centered_text %}text-center{% endif %} column-width-20"
               >
                 {{ cell.value.content|richtext }}
               </td>

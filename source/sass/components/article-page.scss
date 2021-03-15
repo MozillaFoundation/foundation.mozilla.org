@@ -313,6 +313,10 @@
     font-family: $font-family-sans-serif;
     font-weight: normal;
 
+    &.column-width-20 {
+      width: 20%;
+    }
+
     .rich-text {
       * {
         color: $gray-80;
