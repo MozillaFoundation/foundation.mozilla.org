@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 
 class RecentBlogEntries(blocks.StructBlock):
     title = blocks.CharBlock(
-        required=True,
+        required=False,
     )
 
     tag_filter = blocks.CharBlock(
