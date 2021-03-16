@@ -681,3 +681,6 @@ if env("SCOUT_KEY"):
     SCOUT_MONITOR = True
     SCOUT_KEY = env("SCOUT_KEY")
     SCOUT_NAME = env("SCOUT_NAME", default="foundation")
+
+
+TAGGIT_CASE_INSENSITIVE = True
