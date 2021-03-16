@@ -19,7 +19,7 @@ from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable, Page, TranslatableMixin, BootstrapTranslatableModel
 from wagtail.core import hooks
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -140,8 +140,9 @@ class RelatedProducts(Orderable):
         PageChooserPanel('related_product')
     ]
 
-
-class ProductPagePrivacyPolicyLink(Orderable):
+from wagtail.core.models import BootstrapTranslatableMixin
+from wagtail.core.models import TranslatableMixin
+class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='privacy_policy_links',
@@ -169,8 +170,13 @@ class ProductPagePrivacyPolicyLink(Orderable):
         TranslatableField('label'),
     ]
 
+    # translatable_fields = []
+
     def __str__(self):
         return f'{self.page.title}: {self.label} ({self.url})'
+
+    class Meta:
+        unique_together = ('translation_key', 'locale',)
 
 
 class ProductUpdates(Orderable):
@@ -858,7 +864,7 @@ class SoftwareProductPage(ProductPage):
         SynchronizedField('footnotes'),
         SynchronizedField('product_categories'),
         SynchronizedField('related_product_pages'),
-        SynchronizedField('privacy_policy_links'),
+        TranslatableField('privacy_policy_links'),
         SynchronizedField('updates'),
     ]
 
@@ -1094,7 +1100,7 @@ class GeneralProductPage(ProductPage):
         SynchronizedField('footnotes'),
         SynchronizedField('product_categories'),
         SynchronizedField('related_product_pages'),
-        SynchronizedField('privacy_policy_links'),
+        TranslatableField('privacy_policy_links'),
         SynchronizedField('updates'),
     ]
 
