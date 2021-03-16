@@ -30,7 +30,7 @@
     padding-bottom: 140px;
   }
   .publication-breadcrumb.body-small a {
-    @include set-text-size(16px, 16px);
+    @include set-text-size(16px);
     /* stylelint-disable */
     color: #e7e7fc;
     /* stylelint-enable */
