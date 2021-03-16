@@ -1371,7 +1371,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.all()
+                ProductPage.objects.exclude(product_categories__in=self.excluded_categories.all().values_list('id'))
             )
 
         context['categories'] = BuyersGuideProductCategory.objects.exclude(
