@@ -1,3 +1,10 @@
 {% extends "buyersguide/catalog.html" %}
 
 {% block body_id %}home{% endblock %}
+
+{% block hero %}
+excluded categories: <br>
+{% for excluded_category in page.get_excluded_categories %}
+  {{excluded_category.name}},
+{% endfor %}
+{% endblock %}

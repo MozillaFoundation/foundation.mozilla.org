@@ -1149,6 +1149,23 @@ class GeneralProductPage(ProductPage):
         verbose_name = "General Product Page"
 
 
+class ExcludedCategories(Orderable):
+    """This allows us to select one or more blog authors from Snippets."""
+
+    page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
+    excluded_category = models.ForeignKey(
+        BuyersGuideProductCategory,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("excluded_category"),
+    ]
+
+    def __str__(self):
+        return self.excluded_category.name
+
+
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     """
     Note: We'll likely be converting the "about" pages to Wagtail Pages.
@@ -1192,6 +1209,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def get_banner(self):
         return self.hero_image
 
+    def get_excluded_categories(self):
+        return [
+            {"name": excluded_category.excluded_category.name} for excluded_category in self.excluded_categories.all()
+        ]
+
     content_panels = [
         FieldPanel('title'),
         FieldPanel('cutoff_date'),
@@ -1199,6 +1221,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         FieldPanel('header'),
         FieldPanel('intro_text'),
         FieldPanel('dark_theme'),
+        MultiFieldPanel(
+            [
+                InlinePanel("excluded_categories", label="Excluded Category", min_num=0)
+            ],
+            heading="Excluded Categories"
+        ),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
@@ -1346,7 +1374,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 ProductPage.objects.all()
             )
 
-        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
+        context['categories'] = BuyersGuideProductCategory.objects.exclude(
+            excludedcategories__in=self.excluded_categories.all())
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         context['about_page'] = BuyersGuidePage.objects.first()
