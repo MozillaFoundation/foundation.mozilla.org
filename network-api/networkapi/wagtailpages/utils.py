@@ -1,10 +1,18 @@
+import ntpath
 import re
+import requests
+
+from io import BytesIO
+from mimetypes import MimeTypes
+from PIL import Image as PILImage
+from typing import Union
 
 from bs4 import BeautifulSoup
 
 from itertools import chain
 from django.apps import apps
 from django.conf import settings
+from django.core.files.images import ImageFile
 from django.db.models import Count
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.text import slugify
@@ -14,6 +22,9 @@ from django.utils.translation.trans_real import (
     get_supported_language_variant, parse_accept_lang_header, language_code_re
 )
 from sentry_sdk import capture_exception
+
+from wagtail.images.models import Image
+from wagtail.core.models import Collection
 
 
 def titlecase(s):
@@ -344,3 +355,66 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
         slugify(header): header for header in headers
     }
     return tuple(data.items())
+
+
+def create_wagtail_image(img_src: str, image_name: str = None, collection_name: str = None) -> Union[None, Image]:
+    """
+    Create a Wagtail Image from a given source. It takes an optional file name
+    and collection name.
+
+    If the collection name is provided, but a collection is not found, a new collection
+    will be created.
+
+    Examples:
+        create_wagtail_image('/app/source/images/myimage.jpg')
+        create_wagtail_image('/app/source/images/myimage.jpg', image_name='Same Image.jpg')
+        create_wagtail_image('/app/source/images/myimage.jpg', collection_name='Dev test collection')
+    """
+
+    mime = MimeTypes()
+    mime_type = mime.guess_type(img_src)
+
+    if mime_type:
+        mime_type = mime_type[0].split('/')[1].upper()
+    else:
+        # Default to a JPEG mimetype.
+        mime_type = 'JPEG'
+
+    f = BytesIO()
+
+    # Copy the image to the local machine before converting it to a Wagtail image.
+    if img_src.startswith("http"):
+        # Download the image from a URL. Requires the requests package.
+        response = requests.get(img_src, stream=True)
+        if response.status_code == 200:
+            # Create an image out of the Cloudinary URL and write it to a PIL Image.
+            pil_image = PILImage.open(response.raw)
+            pil_image.save(f, mime_type)
+        else:
+            # Image URL didn't 200 for us. Nothing we can do about that. Return early.
+            print(f"Could not generate image from url {img_src}")
+            return
+    else:
+        # Save the image from a local source. The requests package is not needed.
+        pil_image = PILImage.open(img_src)
+        pil_image.save(f, mime_type)
+
+    # If the image is supposed to be part of a collection, look for the collection or create it.
+    collection = Collection.get_first_root_node()
+    if collection_name:
+        specific_collection = Collection.objects.filter(name=collection_name).first()
+        # Use the specific collection if it's found. Otherwise create a new collection
+        # based on the `collection_name` parameter.
+        collection = specific_collection if specific_collection else collection.add_child(name=collection_name)
+
+    # If an image name was not provided, create one from the img_src..
+    if not image_name:
+        image_name = ntpath.basename(img_src)
+
+    # Create the Wagtail Image and return it
+    wagtail_image = Image.objects.create(
+        title=image_name,
+        file=ImageFile(f, name=image_name),
+        collection=collection
+    )
+    return wagtail_image

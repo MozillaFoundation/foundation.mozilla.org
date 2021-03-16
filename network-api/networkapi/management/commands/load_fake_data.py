@@ -1,9 +1,12 @@
 import factory
 import random
+from os.path import abspath, dirname, join
 
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.conf import settings
+
+from taggit.models import Tag
 
 # Factories
 import networkapi.highlights.factory as highlights_factory
@@ -13,6 +16,7 @@ import networkapi.buyersguide.factory as buyersguide_factory
 import networkapi.mozfest.factory as mozfest_factory
 
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.utils import create_wagtail_image
 from networkapi.utility.faker.helpers import reseed
 
 
@@ -56,13 +60,26 @@ class Command(BaseCommand):
         reseed(seed)
 
         print('Generating Images')
-        [
+        images = [
             ImageFactory.create(
                 file__width=1080,
                 file__height=720,
                 file__color=faker.safe_color_name()
             ) for i in range(20)
         ]
+        social_share_tag, created = Tag.objects.get_or_create(name='social share image')
+        images[0].tags.add(social_share_tag)
+
+        # Create one PNI product for every image we have in our media folder
+        product_images = ['babymonitor.jpg', 'drone.jpg', 'nest.jpg',
+                          'teddy.jpg', 'echo.jpg']
+
+        for image in product_images:
+            image_path = abspath(join(dirname(__file__), f'../../../media/images/placeholders/products/{image}'))
+            create_wagtail_image(
+                image_path,
+                collection_name='pni products'
+            )
 
         [app_factory.generate(seed) for app_factory in [
             news_factory,
