@@ -35,8 +35,10 @@
     color: #e7e7fc;
     /* stylelint-enable */
   }
-
-  .publication-secondary-subtitle.body-small p {
+  .publication-breadcrumb.body-small span {
+    @include set-text-size(16px);
+  }
+  .publication-secondary-subtitle.body-small {
     color: $gray-20;
   }
 }

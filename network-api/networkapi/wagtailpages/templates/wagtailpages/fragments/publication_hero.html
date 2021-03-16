@@ -14,7 +14,8 @@
       <div class="col-lg-8 offset-lg-2 dark-theme">
         <div class="mb-2 body-small publication-breadcrumb">
           {% for parent_page in self.breadcrumb_list %}
-            <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a> ›
+            <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a>
+            <span class='body-small'> › </span>
           {% endfor %}
         </div>
         <h1 class="publication-hero-title">
@@ -57,10 +58,11 @@
             {% with authors_length=page.authors.count %}
               {% for orderable in page.authors.all %}
                 <span>
-                {% if authors_length > 1 and forloop.last %}
-                  {% trans "and" %}
-                {% endif %}
-                {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1%},{% endif %}</span>
+                  {% if authors_length > 1 and forloop.last %}
+                    {% trans "and" %}
+                  {% endif %}
+                  {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1%},{% endif %}
+                </span>
               {% endfor %}
               {% if page.additional_author_copy %}
                 {{ page.additional_author_copy }}
