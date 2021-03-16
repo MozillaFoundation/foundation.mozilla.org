@@ -115,7 +115,10 @@ class BlogIndexPage(IndexPage):
                             in_category.append(entry)
                     except Exception as e:
                         if settings.SENTRY_ENVIRONMENT is not None:
-                            push_scope().set_extra('reason', f'entry_categories has an iteration problem; {str(entry_categories)}')
+                            push_scope().set_extra(
+                                'reason',
+                                f'entry_categories has an iteration problem; {str(entry_categories)}'
+                            )
                             capture_exception(e)
 
         except Exception as e:
