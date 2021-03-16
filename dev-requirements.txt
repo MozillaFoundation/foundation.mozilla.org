@@ -8,6 +8,11 @@ certifi==2020.4.5.1
     # via
     #   -c requirements.txt
     #   requests
+    #   urllib3
+cffi==1.14.0
+    # via
+    #   -c requirements.txt
+    #   cryptography
 chardet==3.0.4
     # via
     #   -c requirements.txt
@@ -16,29 +21,48 @@ coverage==5.1
     # via coveralls
 coveralls==3.0.1
     # via -r dev-requirements.in
+cryptography==3.2
+    # via
+    #   -c requirements.txt
+    #   pyopenssl
+    #   urllib3
 docopt==0.6.2
     # via coveralls
-flake8==3.8.4
+flake8==3.9.0
     # via -r dev-requirements.in
 idna==2.9
     # via
     #   -c requirements.txt
     #   requests
+    #   urllib3
 importlib-metadata==1.6.0
     # via flake8
 mccabe==0.6.1
     # via flake8
 ptvsd==4.3.2
     # via -r dev-requirements.in
-pycodestyle==2.6.0
+pycodestyle==2.7.0
     # via flake8
-pyflakes==2.2.0
+pycparser==2.20
+    # via
+    #   -c requirements.txt
+    #   cffi
+pyflakes==2.3.0
     # via flake8
+pyopenssl==20.0.1
+    # via
+    #   -c requirements.txt
+    #   urllib3
 requests==2.25.1
     # via
     #   -c requirements.txt
     #   coveralls
-urllib3==1.25.9
+six==1.14.0
+    # via
+    #   -c requirements.txt
+    #   cryptography
+    #   pyopenssl
+urllib3[secure]==1.25.9
     # via
     #   -c requirements.txt
     #   requests
