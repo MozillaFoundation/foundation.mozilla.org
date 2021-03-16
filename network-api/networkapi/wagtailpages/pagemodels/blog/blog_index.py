@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -8,6 +9,8 @@ from wagtail.core.models import Orderable as WagtailOrderable
 
 from modelcluster.fields import ParentalKey
 from networkapi.wagtailpages.utils import titlecase
+
+from sentry_sdk import capture_exception, push_scope
 
 from ..index import IndexPage
 from .blog_category import BlogPageCategory
@@ -93,15 +96,49 @@ class BlogIndexPage(IndexPage):
 
         # and then the filtered content
         context['terms'] = [category.name, ]
-        entries = [
-            entry
-            for
-            entry in entries.specific()
-            if
-            hasattr(entry, 'category')
-            and
-            category in entry.category.all()
-        ]
+
+        # This code is not efficient, but its purpose is to get us logs
+        # that we can use to figure out what's going wrong more than
+        # being efficient.
+        #
+        # See https://github.com/mozilla/foundation.mozilla.org/issues/6255
+        #
+
+        in_category = []
+
+        try:
+            for entry in entries.specific():
+                if hasattr(entry, 'category'):
+                    entry_categories = entry.category.all()
+                    try:
+                        if category in entry_categories:
+                            in_category.append(entry)
+                    except Exception as e:
+                        if settings.SENTRY_ENVIRONMENT is not None:
+                            push_scope().set_extra(
+                                'reason',
+                                f'entry_categories has an iteration problem; {str(entry_categories)}'
+                            )
+                            capture_exception(e)
+
+        except Exception as e:
+            if settings.SENTRY_ENVIRONMENT is not None:
+                push_scope().set_extra('reason', 'entries.specific threw')
+                capture_exception(e)
+
+        entries = in_category
+
+        # Original code is as follows:
+        #
+        # entries = [
+        #     entry
+        #     for
+        #     entry in entries.specific()
+        #     if
+        #     hasattr(entry, 'category')
+        #     and
+        #     category in entry.category.all()
+        # ]
 
         return entries
 
