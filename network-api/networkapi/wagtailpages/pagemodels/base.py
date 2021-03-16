@@ -649,7 +649,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='parnter_internal_link',
+        related_name='partner_internal_link',
     )
     partner_background_image = models.ForeignKey(
         'wagtailimages.Image',

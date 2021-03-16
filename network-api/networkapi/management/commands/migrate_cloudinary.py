@@ -19,7 +19,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        all_products = ProductPage.objects.all()
+        all_products = ProductPage.objects.all().specific()
         total_products = all_products.count()
 
         try:
