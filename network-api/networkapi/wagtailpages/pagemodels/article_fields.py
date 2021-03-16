@@ -21,4 +21,5 @@ article_fields = [
         template="wagtailpages/blocks/article_table_block.html"
     )),
     ('video', customblocks.VideoBlock()),
+    ('advanced_table', customblocks.AdvancedTableBlock()),
 ]
