@@ -1,3 +1,4 @@
+from .advanced_table_block import AdvancedTableBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
@@ -21,6 +22,7 @@ from .dear_internet_letter_block import DearInternetLetterBlock
 
 
 __all__ = [
+    AdvancedTableBlock,
     AnnotatedImageBlock,
     AirTableBlock,
     ArticleDoubleImageBlock,
