@@ -1252,6 +1252,13 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('slug'),
     ]
 
+    def get_language_code(self, request):
+        """Accepts a request. Returns a language code (string) if there is one. Falls back to English."""
+        default_language_code = 'en'
+        if hasattr(request, 'LANGUAGE_CODE'):
+            default_language_code = request.LANGUAGE_CODE
+        return default_language_code
+
     @route(r'^about/$', name='how-to-use-view')
     def about_page(self, request):
         context = self.get_context(request)
@@ -1326,6 +1333,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
         slug = slugify(slug)
+        language_code = self.get_language_code(request)
 
         # If getting by slug fails, also try to get it by name.
         try:
@@ -1342,7 +1350,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.filter(product_categories__category__in=[category])
+                ProductPage.objects.filter(
+                    product_categories__category__in=[category],
+                    locale=Locale.objects.get(language_code=language_code)
+                )
             )
 
         context['category'] = category.slug
@@ -1386,9 +1397,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+        language_code = self.get_language_code(request)
 
         authenticated = request.user.is_authenticated
-        key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
+        key = (
+            f"home_product_dicts_authed_{language_code}"
+            if authenticated
+            else f"home_product_dicts_live_{language_code}"
+        )
+
         products = cache.get(key)
 
         if not kwargs.get('bypass_products', False) and products is None:
@@ -1396,16 +1413,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.all()
+                ProductPage.objects.filter(locale=Locale.objects.get(language_code=language_code))
             )
-
-        default_language_code = 'en'
-        if hasattr(request, 'LANGUAGE_CODE'):
-            default_language_code = request.LANGUAGE_CODE
 
         categories = BuyersGuideProductCategory.objects.filter(
             hidden=False,
-            locale=Locale.objects.get(language_code=default_language_code)
+            locale=Locale.objects.get(language_code=language_code)
         )
         context['categories'] = categories
         context['products'] = products
