@@ -5,7 +5,7 @@
 .color-block {
   border-bottom: 1px solid $gray-20;
 
-  @each $name, $value in $colors {
+  @each $name, $value in map-merge($colors, $pni-colors) {
     &.#{$name} {
       background: $value;
     }

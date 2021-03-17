@@ -11,3 +11,18 @@ $pni-warning-yellow: #fbd545;
 
 $pni-product-list-background: #f5f5f5; /* keep this #f5f5f5 as this is the background colour product images on Homepage have */
 $pni-product-image-background: #f4f4f4; /* keep this #f4f4f4 as this is the background colour product images on Product Page have */
+
+// Map of all our PNI rand colours defined above
+
+$pni-colors: (
+  "pni-lilac": $pni-lilac,
+  "pni-blue": $pni-blue,
+  "pni-blue-purple": $pni-blue-purple,
+  "pni-purple": $pni-purple,
+  "pni-purple-pink": $pni-purple-pink,
+  "pni-pink": $pni-pink,
+  "pni-gradient": $pni-gradient,
+  "pni-warning-yellow": $pni-warning-yellow,
+  "pni-product-list-background": $pni-product-list-background,
+  "pni-product-image-background": $pni-product-image-background,
+);
