@@ -1153,17 +1153,17 @@ class ExcludedCategories(Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
-    excluded_category = models.ForeignKey(
+    category = models.ForeignKey(
         BuyersGuideProductCategory,
         on_delete=models.CASCADE,
     )
 
     panels = [
-        SnippetChooserPanel("excluded_category"),
+        SnippetChooserPanel("category"),
     ]
 
     def __str__(self):
-        return self.excluded_category.name
+        return self.category.name
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
@@ -1211,7 +1211,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_excluded_categories(self):
         return [
-            {"name": excluded_category.excluded_category.name} for excluded_category in self.excluded_categories.all()
+            {"name": category.category.name} for category in self.excluded_categories.all()
         ]
 
     content_panels = [
@@ -1223,7 +1223,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         FieldPanel('dark_theme'),
         MultiFieldPanel(
             [
-                InlinePanel("excluded_categories", label="Excluded Category", min_num=0)
+                InlinePanel("excluded_categories", label="Category", min_num=0)
             ],
             heading="Excluded Categories"
         ),
@@ -1365,17 +1365,17 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         authenticated = request.user.is_authenticated
         key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
         products = cache.get(key)
+        exclude_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         if not kwargs.get('bypass_products', False) and products is None:
             products = get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.exclude(product_categories__in=self.excluded_categories.all().values_list('id'))
+                ProductPage.objects.exclude(product_categories__category__id__in=exclude_ids)
             )
 
-        context['categories'] = BuyersGuideProductCategory.objects.exclude(
-            excludedcategories__in=self.excluded_categories.all())
+        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         context['about_page'] = BuyersGuidePage.objects.first()
