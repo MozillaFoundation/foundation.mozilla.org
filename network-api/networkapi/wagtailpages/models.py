@@ -3,33 +3,33 @@ from .pagemodels.base_fields import (
 )
 
 from .pagemodels.base import (
-    FoundationMetadataPageMixin,
-    NewsPage,
     FocusArea,
-    InitiativesPage,
-    ParticipatePage2,
-    Styleguide,
-    HomepageFocusAreas,
+    FoundationMetadataPageMixin,
     Homepage,
+    HomepageFocusAreas,
     HomepageNewsYouCanUse,
     HomepageSpotlightPosts,
+    InitiativesPage,
+    NewsPage,
     ParticipateHighlights,
     ParticipateHighlights2,
+    ParticipatePage2,
     PartnerLogos,
+    Styleguide,
 )
 
 from .pagemodels.campaigns import (
-    Signup,
     BanneredCampaignPage,
     CampaignPage,
-    OpportunityPage,
     CTA,
+    OpportunityPage,
     Petition,
+    Signup,
 )
 
 from .pagemodels.modular import (
+    MiniSiteNameSpace,
     ModularPage,
-    MiniSiteNameSpace
 )
 
 from .pagemodels.mixin.foundation_banner_inheritance import (
@@ -44,10 +44,13 @@ from .pagemodels.index import (
     IndexPage
 )
 
+from .pagemodels.content_author import (
+    ContentAuthor
+)
+
 from .pagemodels.blog.blog import (
+    BlogAuthors,
     BlogPage,
-    BlogAuthor,
-    BlogAuthors
 )
 
 from .pagemodels.blog.blog_category import (
@@ -68,7 +71,7 @@ from .pagemodels.redirect import (
 
 from .pagemodels.youtube import (
     YoutubeRegretsPage,
-    YoutubeRegretsReporterPage
+    YoutubeRegretsReporterPage,
 )
 
 from .pagemodels.publications.publication import (
@@ -84,37 +87,37 @@ from .pagemodels.dear_internet import (
 )
 
 from .pagemodels.products import (
-    ProductPage,
-    SoftwareProductPage,
-    GeneralProductPage,
     BuyersGuidePage,
+    GeneralProductPage,
+    ProductPage,
+    ProductPageCategory,
     ProductPagePrivacyPolicyLink,
-    ProductPageCategory
+    SoftwareProductPage,
 )
 
 
 __all__ = [
     ArticlePage,
-    base_fields,
     BanneredCampaignPage,
+    base_fields,
+    BlogAuthors,
     BlogIndexPage,
     BlogPage,
-    BlogAuthor,
-    BlogAuthors,
     BlogPageCategory,
     BuyersGuidePage,
-    CTA,
     CampaignIndexPage,
     CampaignPage,
+    ContentAuthor,
+    CTA,
     DearInternetPage,
     FocusArea,
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
     GeneralProductPage,
     Homepage,
+    HomepageFocusAreas,
     HomepageNewsYouCanUse,
     HomepageSpotlightPosts,
-    HomepageFocusAreas,
     IndexPage,
     InitiativesPage,
     MiniSiteNameSpace,

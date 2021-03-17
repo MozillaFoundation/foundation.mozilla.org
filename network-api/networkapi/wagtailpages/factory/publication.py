@@ -5,7 +5,7 @@ from django.conf import settings
 
 from wagtail.core.models import Collection
 from wagtail_factories import PageFactory, ImageFactory
-from networkapi.wagtailpages.models import ArticlePage, BlogAuthor, PublicationPage
+from networkapi.wagtailpages.models import ArticlePage, ContentAuthor, PublicationPage
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from factory import (
     post_generation,
@@ -91,7 +91,7 @@ class ArticlePageFactory(PageFactory):
 
 
 def add_authors(post):
-    authors = list(BlogAuthor.objects.all())
+    authors = list(ContentAuthor.objects.all())
     count = len(authors)
 
     shuffle(authors)
