@@ -5,96 +5,10 @@
 .color-block {
   border-bottom: 1px solid $gray-20;
 
-  &.white {
-    background: $white;
-  }
-
-  &.gray-05 {
-    background: $gray-05;
-  }
-
-  &.gray-20 {
-    background: $gray-20;
-  }
-
-  &.gray-40 {
-    background: $gray-40;
-  }
-
-  &.gray-60 {
-    background: $gray-60;
-  }
-
-  &.gray-80 {
-    background: $gray-80;
-  }
-
-  &.black {
-    background: $black;
-  }
-
-  &.light-red {
-    background: $light-red;
-  }
-
-  &.red {
-    background: $red;
-  }
-
-  &.dark-red {
-    background: $dark-red;
-  }
-
-  &.light-blue {
-    background: $light-blue;
-  }
-
-  &.blue {
-    background: $blue;
-  }
-
-  &.dark-blue {
-    background: $dark-blue;
-  }
-
-  &.pni-lilac {
-    background: $pni-lilac;
-  }
-
-  &.pni-blue {
-    background: $pni-blue;
-  }
-
-  &.pni-blue-purple {
-    background: $pni-blue-purple;
-  }
-
-  &.pni-purple {
-    background: $pni-purple;
-  }
-
-  &.pni-purple-pink {
-    background: $pni-purple-pink;
-  }
-
-  &.pni-pink {
-    background: $pni-pink;
-  }
-
-  &.pni-gradient {
-    background: $pni-gradient;
-  }
-
-  &.festival-purple {
-    background: $festival-purple;
-  }
-
-  &.festival-dark-blue {
-    background: $festival-dark-blue;
-  }
-
-  &.festival-gradient {
-    background: $festival-gradient;
+  @each $name, $value in $colors {
+    &.#{$name} {
+      background: $value;
+    }
   }
 }
 
