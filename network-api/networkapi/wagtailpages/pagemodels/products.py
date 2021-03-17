@@ -69,7 +69,6 @@ def get_product_subset(cutoff_date, authenticated, key, products):
     products = products.filter(review_date__gte=cutoff_date)
     if not authenticated:
         products = products.live()
-    products = products.specific()
     products = sort_average(products)
     return cache.get_or_set(key, products, 86400)
 

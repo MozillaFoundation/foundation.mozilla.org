@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load env cloudinary i18n static wagtailimages_tags %}
+{% load env cloudinary i18n static wagtailimages_tags cache %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
@@ -64,6 +64,7 @@
 
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
+    {% cache 604800 pni_home_page %}
       {% for product in products %}
         <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness }}">
           <div class="top-left-badge-container">
@@ -144,7 +145,7 @@
           </figcaption>
         </figure>
       {% endfor %}
-
+    {% endcache %}
     </div>
 
     <div id="product-filter-no-results-notice" class="d-none text-center my-5 py-5">
