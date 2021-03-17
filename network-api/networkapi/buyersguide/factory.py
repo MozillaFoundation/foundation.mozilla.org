@@ -489,8 +489,6 @@ def generate(seed):
         else:
             product_page.image = ImageFactory()
         product_page.save()
-
-
     # TODO: link updates into products
 
     """
