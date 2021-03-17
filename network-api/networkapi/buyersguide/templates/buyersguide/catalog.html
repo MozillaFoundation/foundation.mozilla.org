@@ -64,7 +64,7 @@
 
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
-    {% cache 604800 pni_home_page %}
+    {% cache 604800 pni_home_page template_cache_key request.LANGUAGE_CODE %}
       {% for product in products %}
         <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness }}">
           <div class="top-left-badge-container">
