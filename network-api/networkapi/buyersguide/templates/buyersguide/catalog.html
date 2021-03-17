@@ -139,6 +139,9 @@
               <div class="product-company body-small">{{product.company}}</div>
               <div class="product-name body">{{product.title}}</div>
             </a>
+            {% comment %}
+            FOR PR TESTING PURPOSES. THE NEXT THREE LINES OF CODE BELOW ARE TO BE REMOVED.
+            {% endcomment %}
             {% for cat in product.product_categories.all %}
             {{ cat }} <br>
             {% endfor %}
