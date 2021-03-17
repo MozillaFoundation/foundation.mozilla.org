@@ -19,7 +19,7 @@ from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Locale, Orderable, Page
 from wagtail.core import hooks
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -1399,7 +1399,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 ProductPage.objects.all()
             )
 
-        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
+        default_language_code = 'en'
+        if hasattr(request, 'LANGUAGE_CODE'):
+            default_language_code = request.LANGUAGE_CODE
+
+        categories = BuyersGuideProductCategory.objects.filter(
+            hidden=False,
+            locale=Locale.objects.get(language_code=default_language_code)
+        )
+        context['categories'] = categories
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         return context
