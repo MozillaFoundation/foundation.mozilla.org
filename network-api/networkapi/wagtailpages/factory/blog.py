@@ -3,8 +3,6 @@ from random import choice, randint, shuffle
 
 from django.conf import settings
 
-from factory import DjangoModelFactory
-
 from wagtail.core.models import Page as WagtailPage
 
 from wagtail_factories import PageFactory
@@ -16,13 +14,12 @@ from factory import (
 
 from networkapi.wagtailpages.models import (
     BlogAuthors,
-    BlogAuthor,
     BlogPage,
     BlogPageCategory,
-    BlogIndexPage
+    BlogIndexPage,
+    ContentAuthor
 )
 
-from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import (
     get_homepage,
     reseed
@@ -34,7 +31,6 @@ from .tagging import add_tags
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
-NUM_BLOG_AUTHORS = 10
 blog_body_streamfield_fields = [
     'paragraph',
     'image',
@@ -54,7 +50,7 @@ def add_category(post):
 
 
 def add_authors(post):
-    authors = list(BlogAuthor.objects.all())
+    authors = list(ContentAuthor.objects.all())
     count = len(authors)
 
     shuffle(authors)
@@ -90,14 +86,6 @@ class BlogPageFactory(PageFactory):
     title_text = Faker('sentence', nb_words=3, variable_nb_words=False)
 
 
-class BlogAuthorFactory(DjangoModelFactory):
-
-    class Meta:
-        model = BlogAuthor
-
-    name = Faker('name')
-
-
 def generate(seed):
     reseed(seed)
     home_page = get_homepage()
@@ -114,9 +102,6 @@ def generate(seed):
             show_in_menus=True,
             live=True
         )
-
-    print('Generating Blog Authors')
-    generate_fake_data(BlogAuthorFactory, NUM_BLOG_AUTHORS)
 
     print('Generating blog posts under namespace')
     title = 'Initial test blog post with fixed title'

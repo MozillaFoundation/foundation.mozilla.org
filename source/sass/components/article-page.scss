@@ -27,10 +27,13 @@
   }
 }
 
-.article-summary,
-.article-summary-link {
+.article-summary {
   color: $gray-60;
   font-family: $font-family-sans-serif;
+}
+
+.article-summary-link {
+  color: $gray-80;
 }
 
 .article-summary-share-links {
@@ -231,10 +234,6 @@
     padding-left: 25px;
   }
 
-  ol > li::marker {
-    font-weight: bold;
-  }
-
   li {
     padding-left: 10px;
     margin-bottom: 14px;
@@ -312,9 +311,47 @@
     @include set-text-size(16px, 24px);
     font-family: $font-family-sans-serif;
     font-weight: normal;
+
+    &.column-width-20 {
+      width: 20%;
+    }
+
+    .rich-text {
+      * {
+        color: $gray-80;
+        font-size: 16px;
+      }
+
+      p {
+        max-width: initial;
+      }
+
+      b {
+        font-weight: bold;
+      }
+
+      a {
+        color: $dark-blue;
+      }
+
+      ol,
+      ul,
+      p {
+        margin-bottom: 12px;
+      }
+
+      ol > li::marker {
+        font-size: 16px;
+      }
+
+      p:last-child,
+      li {
+        margin-bottom: 0;
+      }
+    }
   }
 
-  .blue,
+  .highlighted,
   thead td,
   thead th {
     background: $blue;
@@ -322,6 +359,11 @@
     @include set-text-size(16px, 24px);
     font-family: $font-family-sans-serif;
     font-weight: 600;
+
+    .rich-text * {
+      color: $white !important;
+      @include set-text-size(16px, 24px);
+    }
   }
   caption {
     color: $gray-60;
@@ -408,6 +450,10 @@
   background: $gray-05;
   padding-top: 24px;
   padding-bottom: 56px;
+
+  .body-small {
+    color: $gray-80;
+  }
 
   .body-large {
     text-decoration: underline;

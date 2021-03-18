@@ -9,9 +9,10 @@ from factory import (
     LazyFunction,
 )
 
+from wagtail.images.models import Image
 from wagtail_factories import PageFactory
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
@@ -252,10 +253,6 @@ class ProductPageFactory(PageFactory):
     last_published_at = Faker('past_datetime', start_date='-1d', tzinfo=timezone.utc)
 
     @post_generation
-    def set_image(self, create, extracted, **kwargs):
-        self.image = ImageFactory()
-
-    @post_generation
     def assign_random_categories(self, create, extracted, **kwargs):
         # late import to prevent circular dependency
         from networkapi.wagtailpages.models import ProductPageCategory
@@ -482,6 +479,16 @@ def generate(seed):
     print('Generating Buyer\'s Guide product updates')
     generate_fake_data(ProductUpdateFactory, 15)
 
+    reseed(seed)
+
+    print('Generating predictable PNI images')
+    pni_images = Image.objects.filter(collection__name='pni products')
+    for product_page in ProductPage.objects.all():
+        if pni_images:
+            product_page.image = choice(pni_images)
+        else:
+            product_page.image = ImageFactory()
+        product_page.save()
     # TODO: link updates into products
 
     """
