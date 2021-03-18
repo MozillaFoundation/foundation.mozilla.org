@@ -86,9 +86,7 @@
                 {% if USE_CLOUDINARY %}
                   srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=260 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=520 %} 2x"
                 {% else %}
-                  {% image product.image fill-260x260 as img_1x %}
-                  {% image product.image fill-520x520 as img_2x %}
-                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
+                  srcset="{% image_url product.image 'fill-260x260' %} 1x, {% image_url product.image 'fill-520x520' %} 2x"
                 {% endif %}
               >
               <source
@@ -96,9 +94,7 @@
                 {% if USE_CLOUDINARY %}
                   srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=305 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=610 %} 2x"
                 {% else %}
-                  {% image product.image fill-305x305 as img_1x %}
-                  {% image product.image fill-610x610 as img_2x %}
-                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
+                  srcset="{% image_url product.image 'fill-305x305' %} 1x, {% image_url product.image 'fill-610x610' %} 2x"
                 {% endif %}
               >
               <source
@@ -106,9 +102,7 @@
                 {% if USE_CLOUDINARY %}
                   srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=360 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=720 %} 2x"
                 {% else %}
-                  {% image product.image fill-360x360 as img_1x %}
-                  {% image product.image fill-720x720 as img_2x %}
-                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
+                  srcset="{% image_url product.image 'fill-360x360' %} 1x, {% image_url product.image 'fill-720x720' %} 2x"
                 {% endif %}
               >
               <source
@@ -116,9 +110,7 @@
                 {% if USE_CLOUDINARY %}
                   srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=185 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=370 %} 2x"
                 {% else %}
-                  {% image product.image fill-185x185 as img_1x %}
-                  {% image product.image fill-370x370 as img_2x %}
-                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
+                  srcset="{% image_url product.image 'fill-185x185' %} 1x, {% image_url product.image 'fill-370x370' %} 2x"
                 {% endif %}
               >
               <img
@@ -126,8 +118,7 @@
                 {% if USE_CLOUDINARY %}
                   src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
                 {% else %}
-                  {% image product.image fill-600x600 as img %}
-                  src="{{ img.url }}"
+                  src="{% image_url product.image 'fill-600x600' %}"
                 {% endif %}
                 alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
               >
