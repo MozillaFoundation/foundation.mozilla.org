@@ -1209,11 +1209,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def get_banner(self):
         return self.hero_image
 
-    def get_excluded_categories(self):
-        return [
-            {"name": excats.category.name} for excats in self.excluded_categories.all()
-        ]
-
     content_panels = [
         FieldPanel('title'),
         FieldPanel('cutoff_date'),
