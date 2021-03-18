@@ -1211,7 +1211,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_excluded_categories(self):
         return [
-            {"name": category.category.name} for category in self.excluded_categories.all()
+            {"name": excats.category.name} for excats in self.excluded_categories.all()
         ]
 
     content_panels = [
