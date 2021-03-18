@@ -27,10 +27,13 @@
   }
 }
 
-.article-summary,
-.article-summary-link {
+.article-summary {
   color: $gray-60;
   font-family: $font-family-sans-serif;
+}
+
+.article-summary-link {
+  color: $gray-80;
 }
 
 .article-summary-share-links {
@@ -447,6 +450,10 @@
   background: $gray-05;
   padding-top: 24px;
   padding-bottom: 56px;
+
+  .body-small {
+    color: $gray-80;
+  }
 
   .body-large {
     text-decoration: underline;
