@@ -36,7 +36,7 @@
                   </a>
                 </h3>
                 {% for grandchild in child_page.grandchildren %}
-                  <h4 class="d-sm-block d-none child-pages-children-title body">
+                  <h4 class="d-sm-block d-none body">
                     <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
                       {{ grandchild.title }}
                     </a>
@@ -48,7 +48,7 @@
               {# Child listings on mobile. #}
               <div class="pt-2 d-sm-none d-block">
                 {% for grandchild in child_page.grandchildren %}
-                  <h4 class="child-pages-children-title body">
+                  <h4 class="body">
                     <a href="{{ grandchild.url }}" class="d-block chapter-article-link">
                       {{ grandchild.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                     </a>
