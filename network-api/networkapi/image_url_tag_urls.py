@@ -12,7 +12,7 @@ database queries plus rendition-creation time, which is unacceptably slow.
 
 Instead of performing all those queries up front, along with performing rendition
 creation upfront, we can use dynamic image URLs to generate an image URL and when
-that URL is requests, Wagtail will find the original image, create the rendition, and
+that URL is requested, Wagtail will find the original image, create the rendition, and
 serve the image. This off loads the heavy lifting in the upfront HTTP request and defers
 the rendition-creation to a different HTTP request. To take advantage of this, we use
 the custom URL in this file, along with a slightly different template tag and syntax.
