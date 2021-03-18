@@ -1,4 +1,5 @@
 import json
+from os.path import abspath, dirname, join
 
 from django.contrib.auth.models import User
 from django.http import Http404
@@ -19,6 +20,7 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPageCategory,
     BuyersGuideProductCategory as NewBuyersGuideProductCategory,
 )
+from networkapi.wagtailpages.utils import create_wagtail_image
 
 from wagtail.core.models import Page, Site
 from wagtail.tests.utils import WagtailPageTests
@@ -161,12 +163,18 @@ class BuyersGuideTestMixin(WagtailPageTests):
     def get_or_create_product_page(self):
         product_page = ProductPage.objects.first()
         if not product_page:
+            image_path = abspath(join(dirname(__file__), '../../media/images/placeholders/products/babymonitor.jpg'))
+            wagtail_image = create_wagtail_image(
+                image_path,
+                collection_name='pni products'
+            )
             product_page = ProductPage(
                 slug='product-page',
                 slug_en='product-page',
                 title='Product Page',
                 title_en='Product Page',
                 live=True,
+                image=wagtail_image
             )
             self.bg.add_child(instance=product_page)
             product_page.save_revision().publish()
