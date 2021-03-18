@@ -2,7 +2,7 @@
 Dynamic Wagtail Images.
 https://docs.wagtail.io/en/stable/advanced_topics/images/image_serve_view.html
 
-Typically with Wagtail we use use an {% image img.object fill-XXXxYYY %} template tag
+Typically with Wagtail we use an {% image img.object fill-XXXxYYY %} template tag
 to create an image rendition. These renditions are blocking processes, which is typically
 fine for a standard page with a normal amount of images. Every rendition costs one
 database query, and if the rendition doesn't exist, it needs to also create the image.
