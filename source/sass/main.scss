@@ -7,8 +7,11 @@
 @import "./buyers-guide/colors";
 
 // Site-wide
+@import "./resets";
 @import "./glyphs";
 @import "./mixins";
+@import "./type";
+@import "./buttons";
 
 // React Components
 
@@ -39,9 +42,6 @@
 
 // Misc
 
-@import "./resets";
-@import "./type";
-@import "./buttons";
 @import "./global";
 @import "./utilities";
 @import "./cms";
