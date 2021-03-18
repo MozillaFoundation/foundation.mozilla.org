@@ -62,9 +62,7 @@
   }
 }
 
-.article-summary-title {
-  @extend .body-small;
-
+.article-summary .article-summary-title {
   color: $black;
 }
 
