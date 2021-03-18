@@ -15,7 +15,7 @@ creation upfront, we can use dynamic image URLs to generate an image URL and whe
 that URL is requested, Wagtail will find the original image, create the rendition, and
 serve the image. This offloads the heavy lifting in the intiial HTTP request and defers
 the rendition-creation to a different HTTP request. To take advantage of this, we use
-the custom URL in this file, along with a slightly different template tag and syntax.
+the custom URL declared in this file, along with a slightly different template tag and syntax.
 
 Blocking image rendition example:       {% image product.image fill-250x250 %}
 Non-block image rendition example:      {% image_url product.image 'fill-250x250' %}
