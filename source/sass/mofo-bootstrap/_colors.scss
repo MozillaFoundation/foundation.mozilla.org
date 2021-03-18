@@ -44,3 +44,31 @@ $youtube-regrets-light-red: #ffdcdc;
 
 $dear-internet-lilac: #d3d5fc;
 $dear-internet-pink: #fff0f1;
+
+// Map of all our brand colours defined above
+
+$colors: (
+  "white": $white,
+  "gray-05": $gray-05,
+  "gray-20": $gray-20,
+  "gray-40": $gray-40,
+  "gray-60": $gray-60,
+  "gray-80": $gray-80,
+  "black": $black,
+  "light-red": $light-red,
+  "red": $red,
+  "dark-red": $dark-red,
+  "light-blue": $light-blue,
+  "blue": $blue,
+  "dark-blue": $dark-blue,
+  "festival-dark-blue": $festival-dark-blue,
+  "festival-purple": $festival-purple,
+  "festival-gradient": $festival-gradient,
+  "pulse-pink": $pulse-pink,
+  "pulse-purple": $pulse-purple,
+  "youtube-regrets-red": $youtube-regrets-red,
+  "youtube-regrets-lighter-red": $youtube-regrets-lighter-red,
+  "youtube-regrets-light-red": $youtube-regrets-light-red,
+  "dear-internet-lilac": $dear-internet-lilac,
+  "dear-internet-pink": $dear-internet-pink,
+);

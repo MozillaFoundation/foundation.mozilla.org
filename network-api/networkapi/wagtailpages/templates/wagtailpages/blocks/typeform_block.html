@@ -1,5 +1,7 @@
-<script src="https://embed.typeform.com/embed.js" ></script>
+<a
+  id="btn-typeform-popup"
+  class="btn {{ value.button_type }} my-3"
+  href="https://form.typeform.com/to/{{ value.embed_id }}"
+  target="_blank">{{ value.button_text }}</a>
 
-<meta name="typeform-formurl" content="{{ value.url }}">
-
-<button id="btn-typeform-popup" class="btn {{ value.button_type }}">{{ value.button_text }}</button>
+<script async defer src="https://embed.typeform.com/embed.js" ></script>
