@@ -59,7 +59,7 @@
   justify-content: center;
   color: $white;
   @include set-text-size(72px, 88px);
-  font-family: "Zilla Slab";
+  font-family: $font-family-slab-serif;
 
   &--small {
     width: 64px;
