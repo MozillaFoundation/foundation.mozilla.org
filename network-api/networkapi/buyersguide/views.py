@@ -15,7 +15,6 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage
 from .models import (
     Product,
     BooleanVote,
@@ -96,17 +95,10 @@ def category_view(request, slug):
         category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
     key = f'products_category__{slug.replace(" ", "_")}'
-    exclude_cat_ids = [
-        excats.category.id for excats in BuyersGuidePage.objects.filter(live=True)
-                                                                .first().excluded_categories.all()
-    ]
     products = cache.get_or_set(
         key,
         lambda: sort_on_creepiness(
-            [
-                p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()
-                                                    .exclude(product_categories__category__id__in=exclude_cat_ids)
-            ]
+            [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
         ),
         86400
     )
