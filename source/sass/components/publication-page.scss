@@ -46,18 +46,22 @@
   }
 }
 
-.download-button::before {
-  content: "";
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-  background-image: url(../_images/glyphs/download-file.svg);
-  transition: $button-icon-transition-speed;
-}
+.download-button {
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url(../_images/glyphs/download-file.svg);
+    transition: $button-icon-transition-speed;
+  }
 
-.download-button:hover:before {
-  filter: brightness(0);
+  @include hover-focus-active {
+    &::before {
+      filter: brightness(0);
+    }
+  }
 }
 
 @media (max-width: $bp-md) {
