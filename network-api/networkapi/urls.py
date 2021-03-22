@@ -13,7 +13,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail_footnotes import urls as footnotes_urls
 
-from networkapi.image_url_tag_urls import urlpatterns as image_url_tag_urls
+from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as image_url_tag_urls
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.buyersguide import views as buyersguide_views
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
