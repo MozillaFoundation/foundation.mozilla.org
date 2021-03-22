@@ -78,6 +78,11 @@ class ArticlePageFactory(PageFactory):
         model = ArticlePage
 
     title = Faker('text', max_nb_chars=60)
+    hero_image = SubFactory(ImageFactory)
+    subtitle = Faker('text', max_nb_chars=250)
+    secondary_subtitle = Faker('text', max_nb_chars=250)
+    publication_date = Faker('date_object')
+    article_file = DocumentFactory()
     body = Faker('streamfield', fields=article_body_streamfield_fields)
     first_published_at = (Faker('date_time', tzinfo=timezone.utc) if RANDOM_SEED and not TESTING
                           else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
