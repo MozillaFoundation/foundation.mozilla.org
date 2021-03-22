@@ -181,6 +181,8 @@ class BuyersGuideTestMixin(WagtailPageTests):
         return product_page
 
 
+# Use dummy caching for BuyersGuide URLs.
+@override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class TestBuyersGuidePage(BuyersGuideTestMixin):
 
