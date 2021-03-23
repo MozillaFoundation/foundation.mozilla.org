@@ -7,7 +7,6 @@ from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 from unittest import skip
 
-from networkapi.buyersguide.models import BuyersGuideProductCategory
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
@@ -223,7 +222,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         response = self.client.get(full_url)
         self.assertEqual(response.status_code, 404)
 
-        category = BuyersGuideProductCategory.objects.first()
+        category = NewBuyersGuideProductCategory.objects.first()
         response = self.client.get(f'/en/{self.bg.slug}/categories/{category.slug}/')
         self.assertEqual(response.status_code, 200)
 
@@ -251,7 +250,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertContains(response, 'about/methodology/')
         self.assertContains(response, 'about/meets-minimum-security-standards/')
 
-        categories = BuyersGuideProductCategory.objects.filter(hidden=False)
+        categories = NewBuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
             self.assertContains(response, f'categories/{category.slug}/')
 

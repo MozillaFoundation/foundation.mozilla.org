@@ -28,7 +28,6 @@ from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.buyersguide.models import (
     Update,
-    BuyersGuideProductCategory,
 )
 
 Faker.add_provider(ImageProvider)
@@ -47,7 +46,7 @@ def get_lowest_content_category():
     return sorted(
         [
             (cat.published_product_count, cat)
-            for cat in BuyersGuideProductCategory.objects.all()
+            for cat in NewBuyersGuideProductCategory.objects.all()
         ],
         key=lambda t: t[0]
     )[0][1]

@@ -34,10 +34,6 @@ from .pagemodels.privacy import (
     ProductPrivacyPolicyLink,
 )
 
-from .pagemodels.product_category import (
-    BuyersGuideProductCategory
-)
-
 from .pagemodels.product_update import (
     Update
 )
@@ -48,7 +44,6 @@ __all__ = [
     BooleanProductVote,
     BooleanVote,
     BooleanVoteBreakdown,
-    BuyersGuideProductCategory,
     CloudinaryImageField,
     GeneralProduct,
     Product,
