@@ -103,7 +103,6 @@ def before_delete_page(request, page):
         page.votes.delete()
 
 
-@hooks.register('after_edit_page')
 @hooks.register('after_delete_page')
 @hooks.register('after_publish_page')
 @hooks.register('after_unpublish_page')

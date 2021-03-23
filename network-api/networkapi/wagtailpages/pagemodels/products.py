@@ -1357,17 +1357,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         verbose_name = "Buyers Guide Page"
 
 
-@hooks.register('after_publish_page')
-@hooks.register('after_unpublish_page')
-@hooks.register('after_delete_page')
-def invalidate_cache(request, page):
-    """
-    When a product is created, or updated, or deleted, invalidate the product cache.
-    """
-    if isinstance(page, ProductPage):
-        cache.clear()
-
-
 def get_pni_home_page():
     """
     Used in AIRTABLE settings for nesting child pages under a new parent page.
