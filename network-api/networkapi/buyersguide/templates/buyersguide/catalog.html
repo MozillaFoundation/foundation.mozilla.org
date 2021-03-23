@@ -85,9 +85,7 @@
                 {% if USE_CLOUDINARY %}
                   srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=360 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=720 %} 2x"
                 {% else %}
-                  {% image product.image fill-360x360 as img_1x %}
-                  {% image product.image fill-720x720 as img_2x %}
-                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
+                  srcset="{% image_url product.image 'fill-360x360' %} 1x, {% image_url product.image 'fill-720x720' %} 2x"
                 {% endif %}
               >
               <img
@@ -95,8 +93,7 @@
                 {% if USE_CLOUDINARY %}
                   src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
                 {% else %}
-                  {% image product.image fill-600x600 as img %}
-                  src="{{ img.url }}"
+                  src="{% image_url product.image 'fill-600x600' %}"
                 {% endif %}
                 alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
               >
