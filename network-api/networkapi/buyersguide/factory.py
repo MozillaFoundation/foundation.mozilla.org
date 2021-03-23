@@ -17,7 +17,7 @@ from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
     BuyersGuidePage,
     GeneralProductPage,
-    BuyersGuideProductCategory as NewBuyersGuideProductCategory,
+    BuyersGuideProductCategory,
     ProductPage,
     ProductPageVotes,
     ProductPagePrivacyPolicyLink,
@@ -46,7 +46,7 @@ def get_lowest_content_category():
     return sorted(
         [
             (cat.published_product_count, cat)
-            for cat in NewBuyersGuideProductCategory.objects.all()
+            for cat in BuyersGuideProductCategory.objects.all()
         ],
         key=lambda t: t[0]
     )[0][1]
@@ -56,7 +56,7 @@ def get_lowest_content_page_category():
     return sorted(
         [
             (cat.published_product_page_count, cat)
-            for cat in NewBuyersGuideProductCategory.objects.all()
+            for cat in BuyersGuideProductCategory.objects.all()
         ],
         key=lambda t: t[0]
     )[0][1]

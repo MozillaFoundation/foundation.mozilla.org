@@ -16,7 +16,7 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPage,
     ProductPageVotes,
     ProductPageCategory,
-    BuyersGuideProductCategory as NewBuyersGuideProductCategory,
+    BuyersGuideProductCategory,
 )
 
 from wagtail.core.models import Page, Site
@@ -222,7 +222,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         response = self.client.get(full_url)
         self.assertEqual(response.status_code, 404)
 
-        category = NewBuyersGuideProductCategory.objects.first()
+        category = BuyersGuideProductCategory.objects.first()
         response = self.client.get(f'/en/{self.bg.slug}/categories/{category.slug}/')
         self.assertEqual(response.status_code, 200)
 
@@ -250,7 +250,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertContains(response, 'about/methodology/')
         self.assertContains(response, 'about/meets-minimum-security-standards/')
 
-        categories = NewBuyersGuideProductCategory.objects.filter(hidden=False)
+        categories = BuyersGuideProductCategory.objects.filter(hidden=False)
         for category in categories:
             self.assertContains(response, f'categories/{category.slug}/')
 
@@ -265,7 +265,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 404)
 
     def test_category_filter_view(self):
-        category = NewBuyersGuideProductCategory.objects.first()
+        category = BuyersGuideProductCategory.objects.first()
         url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
 
         # Need to set dummy cache
