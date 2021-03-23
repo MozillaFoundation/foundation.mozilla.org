@@ -68,7 +68,7 @@
 }
 
 @mixin body-text-style() {
-  @include text-base-style(null, 400, $black, $white);
+  @include text-base-style($font-family-sans-serif, 400, $black, $white);
   @include set-text-size(18px, 27px);
 }
 

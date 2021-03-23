@@ -8,7 +8,6 @@
 .publication-hero-file-size {
   color: $gray-40;
   @include set-text-size(12px, 16px);
-  font-family: $font-family-sans-serif;
   top: 10px;
 }
 
@@ -21,10 +20,6 @@
     transparentize($black, 0.4),
     transparentize($black, 0.25)
   );
-
-  h2.body-large {
-    font-family: $font-family-sans-serif;
-  }
 
   &.small {
     padding-top: 105px;
@@ -92,7 +87,7 @@
   justify-content: center;
   color: $white;
   @include set-text-size(72px, 88px);
-  font-family: "Zilla Slab";
+  font-family: $font-family-slab-serif;
 
   &--small {
     width: 64px;

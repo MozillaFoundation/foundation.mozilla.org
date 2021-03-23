@@ -12,5 +12,7 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px. Extra large devices (la
 
 $nav-full-logo-breakpoint: $bp-sm;
 
+$font-family-slab-serif: "Zilla Slab", serif;
+
 // Transition Speed (for on hover effects for buttons, etc.)
 $button-icon-transition-speed: filter 0.2s ease-in-out;
