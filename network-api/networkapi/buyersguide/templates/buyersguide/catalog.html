@@ -66,7 +66,7 @@
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
     {% if request.user.is_anonymous %}
       {# User is not logged in. Return cached results. 24 hour caching applied. #}
-      {% cache 86400 pni_home_page template_cache_key request.LANGUAGE_CODE %}
+      {% cache 86400 pni_home_page template_cache_key_fragment %}
         {% for product in products %}
           {% include "../fragments/buyersguide_item.html" with product=product %}
         {% endfor %}

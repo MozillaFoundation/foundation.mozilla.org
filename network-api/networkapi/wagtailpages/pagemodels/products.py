@@ -1296,7 +1296,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['category'] = category.slug
         context['products'] = products
         context['pageTitle'] = f'{category} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
-        context['template_cache_key'] = category.slug
+        context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
         return render(request, "buyersguide/category_page.html", context)
 
@@ -1350,7 +1350,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         context['about_page'] = BuyersGuidePage.objects.first()
-        context['template_cache_key'] = 'pni_home'
+        context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
 
     class Meta:
