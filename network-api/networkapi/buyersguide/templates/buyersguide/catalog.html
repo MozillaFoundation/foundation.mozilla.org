@@ -64,7 +64,7 @@
 
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
-    {% if requst.user.is_anonymous %}
+    {% if request.user.is_anonymous %}
       {# User is not logged in. Return cached results. 24 hour caching applied. #}
       {% cache 86400 pni_home_page template_cache_key request.LANGUAGE_CODE %}
         {% for product in products %}
