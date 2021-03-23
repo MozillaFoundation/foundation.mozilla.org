@@ -4,6 +4,7 @@
 from cloudinary import uploader
 
 from django.conf import settings
+from django.core.cache import cache
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
@@ -100,3 +101,15 @@ def before_delete_page(request, page):
     if isinstance(page, ProductPage) and page.votes:
         # Delete the vote from ProductPages
         page.votes.delete()
+
+
+@hooks.register('after_edit_page')
+@hooks.register('after_delete_page')
+@hooks.register('after_publish_page')
+@hooks.register('after_unpublish_page')
+def manage_pni_cache(request, page):
+    if isinstance(page, ProductPage):
+        # Clear all of our Django-based cache.
+        # This is easier than looping through every Category x Language Code available
+        # To specifically clear PNI-based cache.
+        cache.clear()
