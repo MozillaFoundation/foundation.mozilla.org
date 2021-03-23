@@ -1,7 +1,7 @@
 import { ReactGA } from "../../common";
 
 /**
- * Bind click handler to "#see-more-modular-page" (the "see more" link in ih_cta.html)
+ * Bind click handler for call to action links
  */
 export default () => {
   const DOC_TITLE = document.title;

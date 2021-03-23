@@ -1,9 +1,7 @@
 import stickyCtaHandler from "./window/sticky-cta";
 import stickyShareButtonGroupHandler from "./window/sticky-share-button-group";
-
 import articleFootLinkHandler from "./article-footnote-link.js";
 import homepageHandler from "./homepage";
-import internetHealthSeeMoreHandler from "./internet-health-see-more.js";
 import loadMoreEntriesHandler from "./load-more-entries.js";
 import participatePageDonateHandler from "./participate-page-donate.js";
 import publicationSummaryBar from "./publication-summary-bar.js";
@@ -25,7 +23,6 @@ export const bindWindowEventHandlers = () => {
 export const bindEventHandlers = () => {
   articleFootLinkHandler();
   homepageHandler();
-  internetHealthSeeMoreHandler();
   loadMoreEntriesHandler();
   participatePageDonateHandler();
   publicationSummaryBar();
