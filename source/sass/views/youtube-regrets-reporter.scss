@@ -134,6 +134,8 @@
         background: transparent;
         color: $youtube-regrets-red;
         border: 2px solid $youtube-regrets-red;
+        // have to use !important to override the Bootstrap's
+        // .w-100 { width: 100% !important; } rule to accommodate this one-off design
         width: auto !important;
         margin: 0 auto;
         display: block;
