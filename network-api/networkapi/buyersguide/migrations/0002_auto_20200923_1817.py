@@ -26,9 +26,9 @@ def move_signup_requirements(apps, schema_editor):
 def restore_signup_requirements(apps, schema_editor):
     SoftwareProduct = apps.get_model("buyersguide", "SoftwareProduct")
     for p in SoftwareProduct.objects.all():
-        p.signup_with_email = True if p.signup_requires_email is 'Yes' else False
-        p.signup_with_phone = True if p.signup_requires_phone is 'Yes' else False
-        p.signup_with_third_party = True if p.signup_requires_third_party_account is 'Yes' else False
+        p.signup_with_email = True if p.signup_requires_email == 'Yes' else False
+        p.signup_with_phone = True if p.signup_requires_phone == 'Yes' else False
+        p.signup_with_third_party = True if p.signup_requires_third_party_account == 'Yes' else False
         p.signup_methods_helptext = p.signup_requirement_explanation
         p.save()
 
