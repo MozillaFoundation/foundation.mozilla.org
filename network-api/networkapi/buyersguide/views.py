@@ -19,9 +19,9 @@ from .models import (
     Product,
     BooleanVote,
     RangeVote,
-    BuyersGuideProductCategory,
 )
 
+from networkapi.wagtailpages.pagemodels.products import BuyersGuideProductCategory
 from .throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.utility.redirects import redirect_to_default_cms_site
 

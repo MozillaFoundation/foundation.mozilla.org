@@ -17,6 +17,7 @@ def set_default_created_date(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('buyersguide', '0001_to_0049'),
         ('wagtailpages', '0013_productpage_types'),
     ]
 
