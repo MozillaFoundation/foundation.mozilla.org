@@ -14,9 +14,7 @@
 }
 
 .article-summary {
-  /* stylelint-disable */
-  background: rgb(231, 231, 252); // One-off colors; no variable exists for this
-  /* stylelint-enable */
+  background: $lightest-blue;
   padding: 32px 30px;
   width: calc(80% + 60px);
   margin: -48px auto 48px;
@@ -147,9 +145,7 @@
     padding: 5px 40px 5px 30px;
 
     &:hover {
-      /* stylelint-disable */
-      background: rgb(242, 242, 242);
-      /* stylelint-enable */
+      background: $gray-05;
       color: $black;
     }
   }
@@ -294,9 +290,7 @@
   td,
   th {
     border-top: 0;
-    /* stylelint-disable */
-    border-bottom: 1px solid rgb(160, 162, 248); // One-off colors; no variable exists for this
-    /* stylelint-enable */
+    border-bottom: 1px solid $light-blue;
     color: $gray-80;
     @include set-text-size(16px, 24px);
     font-family: $font-family-sans-serif;
@@ -386,9 +380,7 @@
   transition: top 0.35s ease;
 }
 .article-navbar {
-  /* stylelint-disable */
-  background: rgb(231, 231, 252); // One-off colors; no variable exists for this
-  /* stylelint-enable */
+  background: $lightest-blue;
   padding: 9px 0;
   position: sticky;
   left: 0;
@@ -444,14 +436,7 @@
   }
 
   @include hover-focus-active {
-    /* stylelint-disable */
-    // This is a one-off color.
-    background: rgb(
-      231,
-      231,
-      252
-    ); // One-off colors; no variable exists for this
-    /* stylelint-enable */
+    background: $lightest-blue;
     text-decoration: none;
 
     .body-large {
