@@ -18,7 +18,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Orderable, Page
-from wagtail.core import hooks
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -69,7 +68,6 @@ def get_product_subset(cutoff_date, authenticated, key, products):
     products = products.filter(review_date__gte=cutoff_date)
     if not authenticated:
         products = products.live()
-    products = products.specific()
     products = sort_average(products)
     return cache.get_or_set(key, products, 86400)
 
@@ -1297,6 +1295,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['category'] = category.slug
         context['products'] = products
         context['pageTitle'] = f'{category} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
+        context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
         return render(request, "buyersguide/category_page.html", context)
 
@@ -1350,21 +1349,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         context['about_page'] = BuyersGuidePage.objects.first()
+        context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
 
     class Meta:
         verbose_name = "Buyers Guide Page"
-
-
-@hooks.register('after_publish_page')
-@hooks.register('after_unpublish_page')
-@hooks.register('after_delete_page')
-def invalidate_cache(request, page):
-    """
-    When a product is created, or updated, or deleted, invalidate the product cache.
-    """
-    if isinstance(page, ProductPage):
-        cache.clear()
 
 
 def get_pni_home_page():
