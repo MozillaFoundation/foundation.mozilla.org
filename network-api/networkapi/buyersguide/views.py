@@ -190,7 +190,6 @@ def contest_view(request):
 def product_vote(request):
     # Grab the request payload data
     try:
-        attribute = request.data['attribute']
         product_id = request.data['productID']
         value = request.data['value']
     except KeyError as ex:
