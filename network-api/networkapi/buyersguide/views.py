@@ -15,13 +15,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from .models import (
-    Product,
-    BooleanVote,
-    RangeVote,
-)
-
-from networkapi.wagtailpages.pagemodels.products import BuyersGuideProductCategory
+from networkapi.wagtailpages.pagemodels.products import BuyersGuideProductCategory, ProductPage
 from .throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.utility.redirects import redirect_to_default_cms_site
 
@@ -69,7 +63,7 @@ def filter_draft_products(request, products):
 def buyersguide_home(request):
     products = cache.get_or_set(
         'sorted_product_dicts',
-        lambda: sort_on_creepiness([p.to_dict() for p in Product.objects.all()]),
+        lambda: sort_on_creepiness([p.to_dict() for p in ProductPage.objects.all()]),
         86400
     )
 
@@ -98,7 +92,7 @@ def category_view(request, slug):
     products = cache.get_or_set(
         key,
         lambda: sort_on_creepiness(
-            [p.to_dict() for p in Product.objects.filter(product_category__in=[category]).distinct()]
+            [p.to_dict() for p in ProductPage.objects.filter(product_category__in=[category]).distinct()]
         ),
         86400
     )
@@ -120,7 +114,7 @@ def category_view(request, slug):
 
 @redirect_to_default_cms_site
 def product_view(request, slug):
-    product = get_object_or_404(Product, slug=slug).specific
+    product = get_object_or_404(ProductPage, slug=slug).specific
 
     if product.draft and not request.user.is_authenticated:
         raise Http404("Product does not exist")
@@ -196,7 +190,6 @@ def contest_view(request):
 def product_vote(request):
     # Grab the request payload data
     try:
-        attribute = request.data['attribute']
         product_id = request.data['productID']
         value = request.data['value']
     except KeyError as ex:
@@ -207,29 +200,10 @@ def product_vote(request):
         return Response('Invalid payload - check data types', status=400, content_type='text/plain')
 
     try:
-        product = Product.objects.get(id=product_id)
+        product = ProductPage.objects.get(id=product_id)
 
         if product.draft and not request.user.is_authenticated:
             raise Http404("Product does not exist")
-
-        VoteClass = RangeVote
-
-        # Check if this vote is a boolean (yes/no) vote, and switch the model if it is
-        if isinstance(value, bool):
-            VoteClass = BooleanVote
-
-        # Build the model instance
-        vote = VoteClass(
-            attribute=attribute,
-            value=value,
-            product=product
-        )
-
-        # validate the values are in range (if this is a RangeVote)
-        vote.full_clean()
-
-        # persist the vote
-        vote.save()
 
         return Response('Vote recorded', status=201, content_type='text/plain')
     except ObjectDoesNotExist:
