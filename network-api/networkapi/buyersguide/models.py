@@ -6,10 +6,6 @@ from .pagemodels.cloudinary_image_field import (
     CloudinaryImageField
 )
 
-from .pagemodels.privacy import (
-    ProductPrivacyPolicyLink,
-)
-
 from .pagemodels.product_update import (
     Update
 )
@@ -18,6 +14,5 @@ from .pagemodels.product_update import (
 __all__ = [
     get_product_image_upload_path,
     CloudinaryImageField,
-    ProductPrivacyPolicyLink,
     Update,
 ]
