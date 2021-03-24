@@ -1,4 +1,5 @@
 import json
+from os.path import abspath, dirname, join
 
 from django.contrib.auth.models import User
 from django.http import Http404
@@ -7,7 +8,6 @@ from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 from unittest import skip
 
-from networkapi.buyersguide.models import BuyersGuideProductCategory
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
@@ -17,8 +17,9 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPage,
     ProductPageVotes,
     ProductPageCategory,
-    BuyersGuideProductCategory as NewBuyersGuideProductCategory,
+    BuyersGuideProductCategory,
 )
+from networkapi.wagtailpages.utils import create_wagtail_image
 
 from wagtail.core.models import Page, Site
 from wagtail.tests.utils import WagtailPageTests
@@ -161,18 +162,26 @@ class BuyersGuideTestMixin(WagtailPageTests):
     def get_or_create_product_page(self):
         product_page = ProductPage.objects.first()
         if not product_page:
+            image_path = abspath(join(dirname(__file__), '../../media/images/placeholders/products/babymonitor.jpg'))
+            wagtail_image = create_wagtail_image(
+                image_path,
+                collection_name='pni products'
+            )
             product_page = ProductPage(
                 slug='product-page',
                 slug_en='product-page',
                 title='Product Page',
                 title_en='Product Page',
                 live=True,
+                image=wagtail_image
             )
             self.bg.add_child(instance=product_page)
             product_page.save_revision().publish()
         return product_page
 
 
+# Use dummy caching for BuyersGuide URLs.
+@override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
 @override_settings(STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage")
 class TestBuyersGuidePage(BuyersGuideTestMixin):
 
@@ -266,7 +275,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 404)
 
     def test_category_filter_view(self):
-        category = NewBuyersGuideProductCategory.objects.first()
+        category = BuyersGuideProductCategory.objects.first()
         url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
 
         # Need to set dummy cache

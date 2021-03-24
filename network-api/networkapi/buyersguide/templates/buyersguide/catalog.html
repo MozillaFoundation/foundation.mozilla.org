@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load env cloudinary i18n static wagtailimages_tags %}
+{% load env i18n static wagtailimages_tags cache %}
 
 {% block bodyclass %}pni catalog{% endblock %}
 
@@ -64,56 +64,19 @@
 
   <div class="product-box-list-wrapper">
     <div class="product-box-list d-flex justify-content-center align-items-stretch flex-wrap">
+    {% if request.user.is_anonymous %}
+      {# User is not logged in. Return cached results. 24 hour caching applied. #}
+      {% cache 86400 pni_home_page template_cache_key_fragment %}
+        {% for product in products %}
+          {% include "../fragments/buyersguide_item.html" with product=product %}
+        {% endfor %}
+      {% endcache %}
+    {% else %}
+      {# User is logged in. Don't cache their results so they can see live and draft products here. #}
       {% for product in products %}
-        <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness }}">
-          <div class="top-left-badge-container">
-              {% if product.privacy_ding %}
-              <img
-                src="{% static "_images/buyers-guide/icon-privacy-ding-mini.svg" %}"
-                title="{% trans "*privacy not included with this product" %}"
-                alt="{% trans "*privacy not included with this product" %}"
-                width="24"
-              >
-              {% endif %}
-          </div>
-
-          {% include "../fragments/adult_content_badge.html" with product=product %}
-
-          <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{{ product.url }}">
-            <picture class="product-thumbnail">
-              <source
-                {% if USE_CLOUDINARY %}
-                  srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=360 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=720 %} 2x"
-                {% else %}
-                  {% image product.image fill-360x360 as img_1x %}
-                  {% image product.image fill-720x720 as img_2x %}
-                  srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
-                {% endif %}
-              >
-              <img
-                class="product-thumbnail"
-                {% if USE_CLOUDINARY %}
-                  src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-                {% else %}
-                  {% image product.image fill-600x600 as img %}
-                  src="{{ img.url }}"
-                {% endif %}
-                alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
-              >
-            </picture>
-          </a>
-
-          <figcaption class="d-block mt-md-2 text-left">
-            <a class="product-links" href="{{ product.url }}">
-              <div class="product-company body-small">{{product.company}}</div>
-              <div class="product-name body">{{product.title}}</div>
-            </a>
-            <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
-            <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
-          </figcaption>
-        </figure>
+        {% include "../fragments/buyersguide_item.html" with product=product %}
       {% endfor %}
-
+    {% endif %}
     </div>
 
     <div id="product-filter-no-results-notice" class="d-none text-center my-5 py-5">
