@@ -683,4 +683,4 @@ if env("SCOUT_KEY"):
     SCOUT_NAME = env("SCOUT_NAME", default="foundation")
 
 
-TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_CASE_INSENSITIVE = False
