@@ -8,7 +8,6 @@
 .publication-hero-file-size {
   color: $gray-40;
   @include set-text-size(12px, 16px);
-  font-family: $font-family-sans-serif;
   top: 10px;
 }
 
@@ -17,42 +16,51 @@
   padding-bottom: 184px;
   background-size: cover !important;
   background-position: center center;
-  /* stylelint-disable */
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75));
-  /* stylelint-enable */
-
-  h2.body-large {
-    font-family: $font-family-sans-serif;
-  }
+  background: linear-gradient(
+    transparentize($black, 0.4),
+    transparentize($black, 0.25)
+  );
 
   &.small {
     padding-top: 105px;
     padding-bottom: 140px;
   }
+
   .publication-breadcrumb.body-small a {
     @include set-text-size(16px);
-    /* stylelint-disable */
-    color: #e7e7fc;
-    /* stylelint-enable */
+
+    color: $lightest-blue;
   }
+
   .publication-breadcrumb.body-small span {
     @include set-text-size(16px);
   }
+
   .publication-secondary-subtitle.body-small {
     color: $gray-20;
   }
+
   .publication-hero-file-size {
     color: $gray-20;
   }
 }
 
-.download-button::before {
-  content: "";
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-  background-image: url(../_images/glyphs/download-file.svg);
+.download-button {
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url(../_images/glyphs/download-file.svg);
+    transition: $button-icon-transition-speed;
+  }
+
+  @include hover-focus-active {
+    &::before {
+      filter: brightness(0);
+    }
+  }
 }
 
 @media (max-width: $bp-md) {
@@ -79,7 +87,7 @@
   justify-content: center;
   color: $white;
   @include set-text-size(72px, 88px);
-  font-family: "Zilla Slab";
+  font-family: $font-family-slab-serif;
 
   &--small {
     width: 64px;
