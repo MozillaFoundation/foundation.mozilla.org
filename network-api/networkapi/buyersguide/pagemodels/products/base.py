@@ -223,12 +223,6 @@ class Product(ClusterableModel):
         blank=True,
     )
 
-    product_category = models.ManyToManyField(
-        'buyersguide.BuyersGuideProductCategory',
-        related_name='pniproduct',
-        blank=True
-    )
-
     blurb = models.TextField(
         max_length=5000,
         help_text='Description of the product',
