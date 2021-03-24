@@ -32,7 +32,6 @@ from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.buyersguide.pagemodels.products.base import Product
 from networkapi.buyersguide.pagemodels.product_update import Update
 from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.wagtailpages.utils import insert_panels_after
@@ -129,7 +128,7 @@ class BuyersGuideProductCategory(models.Model):
     @property
     def published_product_count(self):
         # TODO: REMOVE: LEGACY FUNCTION
-        return Product.objects.filter(product_category=self, draft=False).count()
+        return ProductPage.objects.filter(product_category=self, draft=False).count()
 
     def __str__(self):
         return self.name

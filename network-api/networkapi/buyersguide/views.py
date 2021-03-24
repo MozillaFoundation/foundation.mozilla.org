@@ -15,13 +15,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from .models import (
-    Product,
-    BooleanVote,
-    RangeVote,
-)
-
-from networkapi.wagtailpages.pagemodels.products import BuyersGuideProductCategory
+from networkapi.wagtailpages.pagemodels.products import BuyersGuideProductCategory, ProductPage
 from .throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.utility.redirects import redirect_to_default_cms_site
 
@@ -69,7 +63,7 @@ def filter_draft_products(request, products):
 def buyersguide_home(request):
     products = cache.get_or_set(
         'sorted_product_dicts',
-        lambda: sort_on_creepiness([p.to_dict() for p in Product.objects.all()]),
+        lambda: sort_on_creepiness([p.to_dict() for p in ProductPage.objects.all()]),
         86400
     )
 
