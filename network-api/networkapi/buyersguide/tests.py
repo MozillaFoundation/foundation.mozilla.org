@@ -8,7 +8,6 @@ from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 from unittest import skip
 
-from networkapi.buyersguide.models import BuyersGuideProductCategory
 from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
 
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
@@ -18,7 +17,7 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPage,
     ProductPageVotes,
     ProductPageCategory,
-    BuyersGuideProductCategory as NewBuyersGuideProductCategory,
+    BuyersGuideProductCategory,
 )
 from networkapi.wagtailpages.utils import create_wagtail_image
 
@@ -276,7 +275,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.status_code, 404)
 
     def test_category_filter_view(self):
-        category = NewBuyersGuideProductCategory.objects.first()
+        category = BuyersGuideProductCategory.objects.first()
         url = self.bg.url + self.bg.reverse_subpage('category-view', args=(category.slug,))
 
         # Need to set dummy cache
