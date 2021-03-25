@@ -1,8 +1,8 @@
+# TODO: Move tests to the wagtailpages app
 import json
 from os.path import abspath, dirname, join
 
 from django.contrib.auth.models import User
-from django.http import Http404
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
