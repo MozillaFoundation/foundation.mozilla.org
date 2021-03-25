@@ -5,7 +5,6 @@ from factory import (
     Faker,
     Trait,
     LazyAttribute,
-    post_generation,
 )
 
 from networkapi.utility.faker import ImageProvider, generate_fake_data
@@ -65,13 +64,15 @@ class HighlightFactory(DjangoModelFactory):
     link_label_words = Faker('words', nb=3)
     footer_sentence = Faker('sentence', nb_words=5)
 
-    @post_generation
-    def image_name(self, create, extracted, **kwargs):
-        self.image.name = Faker('generic_image').generate({})
-
 
 def generate(seed):
     reseed(seed)
 
     print('Generating Highlights')
     generate_fake_data(HighlightFactory, 10)
+
+    reseed(seed)
+
+    for highlight in Highlight.objects.all():
+        highlight.image.name = Faker('generic_image').generate({})
+        highlight.save()

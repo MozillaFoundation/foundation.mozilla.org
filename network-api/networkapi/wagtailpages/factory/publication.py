@@ -8,7 +8,6 @@ from wagtail_factories import PageFactory, ImageFactory
 from networkapi.wagtailpages.models import ArticlePage, ContentAuthor, PublicationPage
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from factory import (
-    post_generation,
     Faker,
     SubFactory,
     django,
@@ -64,11 +63,6 @@ class PublicationPageFactory(PageFactory):
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
 
-    @post_generation
-    def toc_thumbnail_image(self, create, extracted, **kwargs):
-        if random() < 0.5:
-            self.toc_thumbnail_image = ImageFactory()
-
     class Meta:
         model = PublicationPage
 
@@ -88,11 +82,6 @@ class ArticlePageFactory(PageFactory):
                           else Faker('past_datetime', start_date='-30d', tzinfo=timezone.utc))
     search_description = (Faker('paragraph', nb_sentences=5, variable_nb_sentences=True))
     live = True
-
-    @post_generation
-    def toc_thumbnail_image(self, create, extracted, **kwargs):
-        if random() < 0.5:
-            self.toc_thumbnail_image = ImageFactory()
 
 
 def add_authors(post):
@@ -140,6 +129,12 @@ def generate(seed):
 
     reseed(seed)
 
+    for page in PublicationPage.objects.all():
+        if random() < 0.5:
+            page.toc_thumbnail_image = ImageFactory()
+
+    reseed(seed)
+
     ArticlePageFactory.create(parent=pub_page_with_child_articles, title=fixed_title_article_page)
     ArticlePageFactory.create_batch(parent=pub_page_with_child_articles, size=8)
 
@@ -147,6 +142,9 @@ def generate(seed):
         ArticlePageFactory.create(parent=chapter, title=fixed_title_article_page)
         ArticlePageFactory.create_batch(parent=chapter, size=8)
 
-    article_pages = ArticlePage.objects.all()
-    for post in article_pages:
+    reseed(seed)
+
+    for post in ArticlePage.objects.all():
         add_authors(post)
+        if random() < 0.5:
+            post.toc_thumbnail_image = ImageFactory()

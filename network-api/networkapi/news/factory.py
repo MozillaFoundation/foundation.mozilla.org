@@ -3,7 +3,6 @@ from datetime import timezone
 from factory import (
     DjangoModelFactory,
     Faker,
-    post_generation,
     Trait,
     LazyAttribute,
 )
@@ -57,13 +56,14 @@ class NewsFactory(DjangoModelFactory):
     # LazyAttribute helper value
     headline_sentence = Faker('sentence', nb_words=4)
 
-    @post_generation
-    def set_thumbnail(self, create, extracted, **kwargs):
-        self.thumbnail.name = Faker('generic_image').generate({})
-
 
 def generate(seed):
     reseed(seed)
 
     print('Generating Fake News')
     generate_fake_data(NewsFactory, 10)
+
+    reseed(seed)
+
+    for news in News.objects.all():
+        news.thumbnail.name = Faker('generic_image').generate({})
