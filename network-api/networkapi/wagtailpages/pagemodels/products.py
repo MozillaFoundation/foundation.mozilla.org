@@ -32,7 +32,6 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
 from networkapi.buyersguide.pagemodels.product_update import Update
-from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
@@ -45,8 +44,6 @@ if settings.USE_CLOUDINARY:
 else:
     image_field = ImageChooserPanel('image')
     MEDIA_URL = settings.MEDIA_URL
-
-vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
 
 TRACK_RECORD_CHOICES = [

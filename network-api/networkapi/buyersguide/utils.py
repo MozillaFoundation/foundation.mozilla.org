@@ -13,6 +13,7 @@ def get_category_og_image_upload_path(instance, filename):
 
 class AlterModelBases(ModelOperation):
     """
+    # TODO: This isn't being used anywhere else. Determine if we still need this class.
     See https://stackoverflow.com/a/61723620/740553
     """
 
