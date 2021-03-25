@@ -14,9 +14,8 @@
 .publication-hero-container {
   padding-top: 137px;
   padding-bottom: 184px;
-  background-size: cover !important;
-  background-position: center center;
-  background: linear-gradient(
+  background-size: cover;
+  background-image: linear-gradient(
     transparentize($black, 0.4),
     transparentize($black, 0.25)
   );
