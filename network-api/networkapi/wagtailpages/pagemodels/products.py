@@ -687,7 +687,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
-        context['about_page'] = BuyersGuidePage.objects.first()
+        pni_home_page = BuyersGuidePage.objects.first()
+        context['about_page'] = pni_home_page
+        context['home_page'] = pni_home_page
         return context
 
     def serve(self, request, *args, **kwargs):
@@ -1344,7 +1346,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
-        context['about_page'] = BuyersGuidePage.objects.first()
+        pni_home_page = BuyersGuidePage.objects.first()
+        context['about_page'] = pni_home_page
+        context['home_page'] = pni_home_page
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
 

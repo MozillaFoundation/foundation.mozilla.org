@@ -90,7 +90,7 @@
           {% endif %}
           {% for cat in categories %}
             {% if cat.published_product_page_count > 0 %}
-              {% routablepageurl about_page 'category-view' cat.slug as cat_url %}
+              {% routablepageurl home_page 'category-view' cat.slug as cat_url %}
               <a class="multipage-link {% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}{% if category == cat.slug %} active{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
             {% endif %}
           {% endfor %}
