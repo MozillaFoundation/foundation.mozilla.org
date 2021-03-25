@@ -173,15 +173,6 @@ def bg_about_page(template_name):
     return render_view
 
 
-def contest_view(request):
-    return render(request, 'contest.html', {
-        'pagetype': 'contest',
-        'pageTitle': pgettext(
-            'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
-            '*privacy not included') + ' - Contest Rules',
-    })
-
-
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 @parser_classes((JSONParser,))
