@@ -1145,6 +1145,23 @@ class GeneralProductPage(ProductPage):
         verbose_name = "General Product Page"
 
 
+class ExcludedCategories(Orderable):
+    """This allows us to select one or more blog authors from Snippets."""
+
+    page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
+    category = models.ForeignKey(
+        BuyersGuideProductCategory,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("category"),
+    ]
+
+    def __str__(self):
+        return self.category.name
+
+
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     """
     Note: We'll likely be converting the "about" pages to Wagtail Pages.
@@ -1195,6 +1212,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         FieldPanel('header'),
         FieldPanel('intro_text'),
         FieldPanel('dark_theme'),
+        MultiFieldPanel(
+            [
+                InlinePanel("excluded_categories", label="Category", min_num=0)
+            ],
+            heading="Excluded Categories"
+        ),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
@@ -1281,6 +1304,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         authenticated = request.user.is_authenticated
         key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
         products = cache.get(key)
+        exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         if products is None:
             products = get_product_subset(
@@ -1288,6 +1312,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 authenticated,
                 key,
                 ProductPage.objects.filter(product_categories__category__in=[category])
+                                   .exclude(product_categories__category__id__in=exclude_cat_ids)
             )
 
         context['category'] = category.slug
@@ -1334,13 +1359,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         authenticated = request.user.is_authenticated
         key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
         products = cache.get(key)
+        exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         if not kwargs.get('bypass_products', False) and products is None:
             products = get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.all()
+                ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids)
             )
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
