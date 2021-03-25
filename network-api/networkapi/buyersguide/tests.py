@@ -8,8 +8,6 @@ from rest_framework.test import APITestCase
 from django.test import TestCase, RequestFactory
 from unittest import skip
 
-from networkapi.buyersguide.views import product_view, category_view, buyersguide_home
-
 from networkapi.wagtailpages.factory.homepage import WagtailHomepageFactory
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.pagemodels.products import (
@@ -34,15 +32,32 @@ class BuyersGuideViewTest(TestCase):
             email='testuser@example.com',
             password='testuser password'
         )
+        buyersguide = BuyersGuidePage.objects.first()
+        if not buyersguide:
+            homepage = Homepage.objects.first()
+            if not homepage:
+                site_root = Page.objects.first()
+                homepage = WagtailHomepageFactory.create(
+                    parent=site_root,
+                    title='Homepage',
+                    slug='homepage',
+                    hero_image__file__width=1080,
+                    hero_image__file__height=720
+                )
+            # Create the buyersguide page.
+            buyersguide = BuyersGuidePage()
+            buyersguide.title = 'Privacy not included'
+            buyersguide.slug = 'privacynotincluded'
+            buyersguide.slug_en = 'privacynotincluded'
+            homepage.add_child(instance=buyersguide)
+            buyersguide.save_revision().publish()
 
     def test_homepage(self):
         """
         Test that the homepage works.
         """
-        request = self.factory.get('/en/privacynotincluded/')
-        request.user = self.user
-        response = buyersguide_home(request)
-        self.assertEqual(response.status_code, 200, 'homepage yields a working page')
+        response = self.client.get('/privacynotincluded/')
+        self.assertEqual(response.status_code, 302, 'Homepage should be forwarded to /en/ by default')
 
     @skip("TODO: REENABLE: THIS HAS BEEN TESTED MANUALLY BUT FAILS IN THIS CODE FORM ATM")
     def test_localised_homepage(self):
@@ -72,52 +87,26 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the product view raises an Http404 if the product name doesn't exist
         """
-        request = self.factory.get('/en/privacynotincluded/products/this is not a product')
-        self.assertRaises(Http404, product_view, request, 'this is not a product')
+        response = self.client.get('/en/privacynotincluded/products/this is not a product')
+        self.assertEqual(response.status_code, 404, 'this is not a product')
 
     def test_category_view_404(self):
         """
         Test that the category view raises an Http404 if the category name doesn't exist
         """
-        request = self.factory.get('/en/privacynotincluded/categories/this is not a category')
-        self.assertRaises(Http404, category_view, request, 'this is not a category')
+        response = self.client.get('/en/privacynotincluded/categories/this is not a category')
+        self.assertEqual(response.status_code, 404, 'this is not a category')
 
     def test_category_view(self):
         """
-        Test that the category view returns a 200 for both slug and name URLs
+        Test that the category view returns a 302 for /privacynotincluded/ to /en/privacynotinclded/
+        and return a 404 for a slug that doesn't exist
         """
         response = self.client.get('/privacynotincluded/categories/Smart%20Home/')
-        self.assertEqual(response.status_code, 302, 'The category "Smart Home" should work by name')
+        self.assertEqual(response.status_code, 404, 'Smart%20Home is an invalid slug and should return a 404.')
 
         response = self.client.get('/privacynotincluded/categories/smart-home/')
         self.assertEqual(response.status_code, 302, 'The category "Smart Home" should work by slug')
-
-    def test_drive_by_clear_cache(self):
-        """
-        regular users should not be able to trigger clear_cache
-        """
-        authenticated = self.user.is_authenticated
-
-        self.client.logout()
-        response = self.client.post('/api/buyersguide/clear-cache/')
-        self.assertEqual(response.status_code, 403, 'standard user is not permitted to clear BG cache')
-
-        if authenticated is True:
-            self.client.force_login(self.user)
-
-    def test_authenticated_clear_cache(self):
-        """
-        authenticated users can trigger clear_cache
-        """
-        authenticated = self.user.is_authenticated
-
-        self.client.force_login(self.user)
-        response = self.client.post('/api/buyersguide/clear-cache/')
-        self.assertEqual(response.status_code, 302, 'authenticated user is permitted to clear BG cache')
-        self.assertEqual(response.url, '/cms/', 'clearing sends users to product page')
-
-        if authenticated is False:
-            self.client.logout()
 
 
 class BuyersGuideTestMixin(WagtailPageTests):
@@ -153,7 +142,6 @@ class BuyersGuideTestMixin(WagtailPageTests):
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
             buyersguide.slug_en = 'privacynotincluded'
-            homepage = Homepage.objects.first()
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
         self.homepage = Homepage.objects.first()
