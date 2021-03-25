@@ -24,7 +24,7 @@ from wagtail.snippets.models import register_snippet
 
 from wagtail_airtable.mixins import AirtableMixin
 
-from networkapi.buyersguide.fields import ExtendedYesNoField
+from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
     CloudinaryField
 )
