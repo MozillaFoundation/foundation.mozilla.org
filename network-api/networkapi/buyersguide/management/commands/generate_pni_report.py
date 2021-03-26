@@ -11,6 +11,8 @@ LOCALE_REGEX = '/([a-z]{2}(?:-[A-Z]{2})?/)'
 
 
 class Command(BaseCommand):
+    # TODO: Look into whether or not this management command is still needed.
+    # TODO: Create a follow up ticket for this.
     help = 'Generate statistical data about privacynotincluded activity, for internal' \
            ' dashboards and update a DB connected to data studio'
 
