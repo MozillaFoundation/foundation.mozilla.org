@@ -163,7 +163,6 @@ export default class JoinUs extends Component {
       xhr.open(`POST`, this.props.apiUrl, true);
       xhr.setRequestHeader(`Content-Type`, `application/json`);
       xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
-      xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
       xhr.timeout = 5000;
       xhr.ontimeout = () => reject(new Error(`xhr timed out`));
 
