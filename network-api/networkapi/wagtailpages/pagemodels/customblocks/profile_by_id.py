@@ -36,7 +36,8 @@ class ProfileById(blocks.StructBlock):
             for profile in data:
                 as_dict[str(profile['profile_id'])] = profile
 
-            profiles = [as_dict[id] for id in as_dict.keys()]
+            profiles = [as_dict[id] for id in ids.split(',') if id in as_dict]
+
 
         except (IOError, ValueError) as exception:
             print(str(exception))
