@@ -11,12 +11,6 @@
   top: 10px;
 }
 
-.publication-intro {
-  padding-top: 0;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
 .publication-hero-container {
   padding-top: 137px;
   padding-bottom: 184px;
@@ -65,14 +59,6 @@
     &::before {
       filter: brightness(0);
     }
-  }
-}
-
-@media (max-width: $bp-lg) {
-  .publication-intro {
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 48px;
   }
 }
 

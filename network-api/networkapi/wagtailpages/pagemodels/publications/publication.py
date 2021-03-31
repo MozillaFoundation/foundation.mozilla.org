@@ -112,7 +112,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
             ],
             heading='Hero',
         ),
-        FieldPanel('intro'),
+        FieldPanel('intro_notes'),
         FieldPanel('contents_title'),
         FieldPanel('notes'),
     ]
