@@ -85,6 +85,10 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         max_length=100,
         blank=True,
     )
+    intro = RichTextField(
+        blank=True,
+        features=['link', 'bold', 'italic']
+    )
     notes = RichTextField(
         blank=True,
         features=['link', 'bold', 'italic', 'h4', 'ol', 'ul']
@@ -108,6 +112,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
             ],
             heading='Hero',
         ),
+        FieldPanel('intro'),
         FieldPanel('contents_title'),
         FieldPanel('notes'),
     ]

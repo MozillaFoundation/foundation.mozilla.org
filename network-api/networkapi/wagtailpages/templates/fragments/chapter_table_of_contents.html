@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailcore_tags %}
 <div class="container">
   {% comment %}
     This first .row is the white "top" to the Table of Contents section.
@@ -9,6 +9,13 @@
     <div class="col-lg-8 bg-white mt-minus-50"></div>
   </div>
   <div class="row">
+    {% if page.intro %}
+      <div class="col-lg-8 offset-lg-2">
+        <div class="publication-intro">
+          {{ page.intro|richtext }}
+        </div>
+      </div>
+    {% endif %}
     <div class="pt-4 {% if not page.notes %}pb-4 pb-md-5{% endif %} col-lg-8 offset-lg-2 justify-content-center publication-container">
       <div class="row mb-5">
         <div class="col-12">
