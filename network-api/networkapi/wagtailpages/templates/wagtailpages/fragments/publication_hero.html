@@ -4,7 +4,7 @@
   {% image page.hero_image fill-1400x675 as bg_img %}
   <div
     class="d-flex align-items-center publication-hero-container{% if size %} small{% endif %}"
-    style='background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{{ bg_img.url }}")'>
+    style='background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{{ bg_img.url }}")'>
 {% else %}
   <div
     class="d-flex align-items-center publication-hero-container{% if size %} small{% endif %}">
@@ -12,9 +12,10 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 dark-theme">
-        <div class="mb-2 body-small">
+        <div class="mb-2 body-small publication-breadcrumb">
           {% for parent_page in self.breadcrumb_list %}
-            <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a> ›
+            <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a>
+            <span class='body-small'> › </span>
           {% endfor %}
         </div>
         <h1 class="publication-hero-title">
@@ -26,7 +27,7 @@
           </h2>
         {% endif %}
         {% if page.secondary_subtitle or page.publication_date %}
-          <div class="mt-2 mb-4 body-small">
+          <div class="mt-2 mb-4 body-small publication-secondary-subtitle">
             {% if page.secondary_subtitle %}
               {{ page.secondary_subtitle }}
             {% endif %}
@@ -57,10 +58,11 @@
             {% with authors_length=page.authors.count %}
               {% for orderable in page.authors.all %}
                 <span>
-                {% if authors_length > 1 and forloop.last %}
-                  {% trans "and" %}
-                {% endif %}
-                {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1%},{% endif %}</span>
+                  {% if authors_length > 1 and forloop.last %}
+                    {% trans "and" %}
+                  {% endif %}
+                  {{ orderable.author.name }}{% if not forloop.last and forloop.counter != authors_length|add:-1%},{% endif %}
+                </span>
               {% endfor %}
               {% if page.additional_author_copy %}
                 {{ page.additional_author_copy }}

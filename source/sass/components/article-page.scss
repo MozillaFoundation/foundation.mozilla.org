@@ -14,9 +14,7 @@
 }
 
 .article-summary {
-  /* stylelint-disable */
-  background: rgb(231, 231, 252); // One-off colors; no variable exists for this
-  /* stylelint-enable */
+  background: $lightest-blue;
   padding: 32px 30px;
   width: calc(80% + 60px);
   margin: -48px auto 48px;
@@ -27,10 +25,12 @@
   }
 }
 
-.article-summary,
-.article-summary-link {
+.article-summary {
   color: $gray-60;
-  font-family: $font-family-sans-serif;
+}
+
+.article-summary-link {
+  color: $gray-80;
 }
 
 .article-summary-share-links {
@@ -63,15 +63,11 @@
   }
 }
 
-.article-summary-title {
+.article-summary .article-summary-title {
   color: $black;
-  @include set-text-size(12px, 16px);
-  font-family: $font-family-sans-serif;
-  font-weight: normal;
 }
 
 .footnotes-title {
-  color: $black;
   @include set-text-size(20px, 30px);
   font-family: $font-family-sans-serif;
   font-weight: bold;
@@ -95,8 +91,6 @@
 .footnote-row .footnote-text .rich-text p {
   color: $gray-60;
   @include set-text-size(14px, 20px);
-  font-family: $font-family-sans-serif;
-  font-weight: normal;
 
   a {
     text-decoration: underline;
@@ -113,12 +107,10 @@
 }
 
 // Custom dropdown
-.article-summary-toggle {
-  color: $gray-80 !important;
+.btn-link.article-summary-toggle {
+  color: $gray-80;
   @include set-text-size(12px, 16px);
-  font-size: 12px !important;
-  font-family: $font-family-sans-serif;
-  font-weight: normal !important;
+  font-weight: normal;
   text-transform: uppercase;
   padding-top: 0.5rem;
 
@@ -150,13 +142,10 @@
   .dropdown-item {
     color: $gray-60;
     @include set-text-size(18px, 27px);
-    font-family: $font-family-sans-serif;
     padding: 5px 40px 5px 30px;
 
     &:hover {
-      /* stylelint-disable */
-      background: rgb(242, 242, 242);
-      /* stylelint-enable */
+      background: $gray-05;
       color: $black;
     }
   }
@@ -215,8 +204,8 @@
     margin-top: 47px;
   }
 
-  hr ~ img {
-    margin-top: 0 !important;
+  hr ~ img.full-width {
+    margin-top: 0;
   }
 
   p,
@@ -301,9 +290,7 @@
   td,
   th {
     border-top: 0;
-    /* stylelint-disable */
-    border-bottom: 1px solid rgb(160, 162, 248); // One-off colors; no variable exists for this
-    /* stylelint-enable */
+    border-bottom: 1px solid $light-blue;
     color: $gray-80;
     @include set-text-size(16px, 24px);
     font-family: $font-family-sans-serif;
@@ -358,7 +345,7 @@
     font-weight: 600;
 
     .rich-text * {
-      color: $white !important;
+      color: $white;
       @include set-text-size(16px, 24px);
     }
   }
@@ -393,19 +380,11 @@
   transition: top 0.35s ease;
 }
 .article-navbar {
-  /* stylelint-disable */
-  background: rgb(231, 231, 252); // One-off colors; no variable exists for this
-  /* stylelint-enable */
+  background: $lightest-blue;
   padding: 9px 0;
   position: sticky;
   left: 0;
   right: 0;
-}
-.article-navbar-title {
-  color: $black;
-  @include set-text-size(20px, 30px);
-  font-family: $font-family-sans-serif;
-  font-weight: 300;
 }
 
 @media (max-width: $bp-md) {
@@ -448,19 +427,16 @@
   padding-top: 24px;
   padding-bottom: 56px;
 
+  .body-small {
+    color: $gray-80;
+  }
+
   .body-large {
     text-decoration: underline;
   }
 
   @include hover-focus-active {
-    /* stylelint-disable */
-    // This is a one-off color.
-    background: rgb(
-      231,
-      231,
-      252
-    ); // One-off colors; no variable exists for this
-    /* stylelint-enable */
+    background: $lightest-blue;
     text-decoration: none;
 
     .body-large {

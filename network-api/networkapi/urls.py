@@ -13,13 +13,13 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail_footnotes import urls as footnotes_urls
 
+from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as image_url_tag_urls
 from networkapi.views import EnvVariablesView, review_app_help_view
-from networkapi.buyersguide import views as buyersguide_views
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
 from networkapi.redirects import foundation_redirects
 from experiments import views as experiment_views
-
 admin.autodiscover()
+
 
 urlpatterns = list(filter(None, [
     # Add robots.txt to exclude the thimble artifact page
@@ -48,9 +48,7 @@ urlpatterns = list(filter(None, [
         RedirectView.as_view(url='/docs/how-do-i-wagtail/'),
         name='how-do-i-wagtail'
     ),
-
-    re_path(r'^api/buyersguide/vote/', buyersguide_views.product_vote, name='product-vote'),
-    re_path(r'^api/buyersguide/clear-cache/', buyersguide_views.clear_cache, name='clear-cache'),
+    path('', include(image_url_tag_urls)),
 
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^en/cms/', RedirectView.as_view(url='/cms/')),
@@ -80,9 +78,6 @@ urlpatterns += i18n_patterns(
 
     # wagtail-managed data
     re_path(r'', include(wagtail_urls)),
-
-    # Buyer's Guide / Privacy Not Included
-    re_path(r'^privacynotincluded/', include('networkapi.buyersguide.urls')),
 )
 
 if settings.USE_S3 is not True:

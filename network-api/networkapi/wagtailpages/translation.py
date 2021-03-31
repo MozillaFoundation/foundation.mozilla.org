@@ -42,6 +42,9 @@ from .pagemodels.base import (
     HomepageTakeActionCards,
     PartnerLogos,
 )
+from networkapi.wagtailpages.pagemodels.products import (
+    BuyersGuideProductCategory,
+)
 
 from .donation_modal import DonationModal
 
@@ -312,3 +315,10 @@ class DearInternetPageTR(TranslationOptions):
         'cta_button_text',
         'cta_button_link'
     }
+
+
+@register(BuyersGuideProductCategory)
+class BuyersGuideProductCategoryTR(TranslationOptions):
+    fields = (
+        'name', 'description',
+    )
