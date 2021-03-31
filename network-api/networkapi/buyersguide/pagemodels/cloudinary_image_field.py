@@ -2,7 +2,7 @@ from cloudinary.models import CloudinaryField
 
 
 # Override the default 'public_id' to upload all images to the buyers guide directory on Cloudinary
-# TODO: this is not needed anymore and needs to be removed.
+# TODO: this is not needed anymore and needs to be removed when we remove the rest of Cloudinary
 class CloudinaryImageField(CloudinaryField):
     def upload_options(self, model_instance):
         return {

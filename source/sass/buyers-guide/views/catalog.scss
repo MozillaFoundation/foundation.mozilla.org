@@ -248,11 +248,6 @@ body.catalog {
         width: calc((100% - #{$row-total-gutter-width}) / #{$items-per-row});
         background: $pni-product-list-background;
 
-        &.d-flex.d-none {
-          /* Bootstrap's .d-none's rule alone doesn't work when .d-flex is present on the same element */
-          display: none !important;
-        }
-
         .privacy-ding {
           @include privacy-ding(
             $padding-y,
@@ -477,6 +472,8 @@ body.catalog {
     the privacy ding when "show pni only" is on:
   */
   &.show-ding-only figure.product-box:not(.privacy-ding) {
+    // we have to use !important here because .product-box uses Bootstrap's .d-flex
+    // and we need to override .d-flex's CSS rule "display: flex !important;"
     display: none !important;
   }
 

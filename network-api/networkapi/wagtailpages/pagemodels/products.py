@@ -24,7 +24,7 @@ from wagtail.snippets.models import register_snippet
 
 from wagtail_airtable.mixins import AirtableMixin
 
-from networkapi.buyersguide.fields import ExtendedYesNoField
+from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
     CloudinaryField
 )
@@ -32,7 +32,6 @@ from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
 from networkapi.buyersguide.pagemodels.product_update import Update
-from networkapi.buyersguide.throttle import UserVoteRateThrottle, TestUserVoteRateThrottle
 from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
@@ -45,8 +44,6 @@ if settings.USE_CLOUDINARY:
 else:
     image_field = ImageChooserPanel('image')
     MEDIA_URL = settings.MEDIA_URL
-
-vote_throttle_class = UserVoteRateThrottle if not settings.TESTING else TestUserVoteRateThrottle
 
 
 TRACK_RECORD_CHOICES = [
@@ -690,7 +687,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
-        context['about_page'] = BuyersGuidePage.objects.first()
+        pni_home_page = BuyersGuidePage.objects.first()
+        context['about_page'] = pni_home_page
+        context['home_page'] = pni_home_page
         return context
 
     def serve(self, request, *args, **kwargs):
@@ -1146,6 +1145,23 @@ class GeneralProductPage(ProductPage):
         verbose_name = "General Product Page"
 
 
+class ExcludedCategories(Orderable):
+    """This allows us to select one or more blog authors from Snippets."""
+
+    page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
+    category = models.ForeignKey(
+        BuyersGuideProductCategory,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("category"),
+    ]
+
+    def __str__(self):
+        return self.category.name
+
+
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     """
     Note: We'll likely be converting the "about" pages to Wagtail Pages.
@@ -1196,6 +1212,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         FieldPanel('header'),
         FieldPanel('intro_text'),
         FieldPanel('dark_theme'),
+        MultiFieldPanel(
+            [
+                InlinePanel("excluded_categories", label="Category", min_num=0)
+            ],
+            heading="Excluded Categories"
+        ),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
@@ -1259,7 +1281,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['pageTitle'] = gettext('Contest terms and conditions') + ' | ' + pgettext(
             'This can be localized. This is a reference to the “*batteries not included” mention on toys.',
             '*privacy not included')
-        return render(request, "contest.html", context)
+        return render(request, "buyersguide/contest.html", context)
 
     @route(r'^products/(?P<slug>[-\w\d]+)/$', name='product-view')
     def product_view(self, request, slug):
@@ -1282,6 +1304,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         authenticated = request.user.is_authenticated
         key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
         products = cache.get(key)
+        exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         if products is None:
             products = get_product_subset(
@@ -1289,6 +1312,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 authenticated,
                 key,
                 ProductPage.objects.filter(product_categories__category__in=[category])
+                                   .exclude(product_categories__category__id__in=exclude_cat_ids)
             )
 
         context['category'] = category.slug
@@ -1335,19 +1359,22 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         authenticated = request.user.is_authenticated
         key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
         products = cache.get(key)
+        exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         if not kwargs.get('bypass_products', False) and products is None:
             products = get_product_subset(
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.all()
+                ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids)
             )
 
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
-        context['about_page'] = BuyersGuidePage.objects.first()
+        pni_home_page = BuyersGuidePage.objects.first()
+        context['about_page'] = pni_home_page
+        context['home_page'] = pni_home_page
         context['template_cache_key_fragment'] = f'pni_home_{request.LANGUAGE_CODE}'
         return context
 

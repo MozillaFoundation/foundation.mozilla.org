@@ -315,7 +315,7 @@ TEMPLATES = [
                 'networkapi.context_processor.canonical_site_url',
             ])),
             'libraries': {
-                'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
+                'bg_nav_tags': 'networkapi.wagtailpages.templatetags.bg_nav_tags',
                 'blog_tags': 'networkapi.wagtailpages.templatetags.blog_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
