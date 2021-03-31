@@ -85,9 +85,9 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         max_length=100,
         blank=True,
     )
-    intro = RichTextField(
+    intro_notes = RichTextField(
         blank=True,
-        features=['link', 'bold', 'italic']
+        features=['link', 'bold', 'italic', 'h4']
     )
     notes = RichTextField(
         blank=True,

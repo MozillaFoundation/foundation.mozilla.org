@@ -9,10 +9,10 @@
     <div class="col-lg-8 bg-white mt-minus-50"></div>
   </div>
   <div class="row">
-    {% if page.intro %}
+    {% if page.intro_notes %}
       <div class="col-lg-8 offset-lg-2">
         <div class="publication-intro">
-          {{ page.intro|richtext }}
+          {{ page.intro_notes|richtext }}
         </div>
       </div>
     {% endif %}
