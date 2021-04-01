@@ -23,6 +23,19 @@
     max-width: 100%;
     width: 100%;
   }
+
+  .article-links {
+    display: flex;
+    flex-direction: column;
+    &__two-col {
+      @media (min-width: $bp-md) {
+        display: grid;
+        grid-template-rows: auto auto auto auto;
+        grid-auto-flow: column;
+        grid-gap: 10px;
+      }
+    }
+  }
 }
 
 .article-summary {
@@ -49,14 +62,6 @@
   flex-basis: calc(50% - var(--spacing));
   flex-grow: 0;
   flex-shrink: 0;
-
-  &:nth-child(odd) {
-    margin-right: var(--spacing);
-  }
-
-  &:nth-child(even) {
-    margin-left: var(--spacing);
-  }
 
   @include hover-focus-active {
     color: inherit;

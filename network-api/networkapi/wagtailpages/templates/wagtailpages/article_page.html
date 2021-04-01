@@ -26,7 +26,7 @@
           {# If there are h2s in the body of this page, show the article "table of contents" #}
           <div class="article-summary">
             <div class="article-summary-title body-small">{% trans "SUMMARY" %}</div>
-            <div class="article-links d-flex flex-wrap">
+            <div class="article-links">
               {% for slug, header in get_titles %}
                 <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
               {% endfor %}
