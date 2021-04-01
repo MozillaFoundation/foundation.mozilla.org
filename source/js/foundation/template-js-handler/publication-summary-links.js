@@ -4,8 +4,7 @@
  */
 export default () => {
   const summaryArticleSection = document.querySelector(".article-links");
-  const countOfArticleLinks = document.querySelectorAll(".article-summary-link")
-    .length;
+  const countOfArticleLinks = document.querySelectorAll(".article-summary-link").length;
 
   if (countOfArticleLinks > 5) {
     summaryArticleSection.classList.add("article-links__two-col");
