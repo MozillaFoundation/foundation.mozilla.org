@@ -17,7 +17,7 @@ class CustomCsrfViewMiddleware(CsrfViewMiddleware):
         if callback == serve and request.method == "POST":
             # We are visiting a wagtail page. Check if this is a ProductPage
             # and if so, do not perform any CSRF validation
-            path = callback_args[0].rstrip('/').split('/').pop()   # ie general-percy-product
+            path = request.path.rstrip('/').split('/').pop()   # ie general-percy-product
 
             # Find the page
             try:
