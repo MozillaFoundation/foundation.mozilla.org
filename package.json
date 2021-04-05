@@ -72,7 +72,7 @@
     "bootstrap": "^4.6.0",
     "classnames": "2.2.6",
     "cssnano": "^4.1.10",
-    "esbuild": "^0.8.57",
+    "esbuild": "^0.11.5",
     "event-stream": "3.3.4",
     "js-cookie": "2.2.1",
     "moment": "^2.29.1",
