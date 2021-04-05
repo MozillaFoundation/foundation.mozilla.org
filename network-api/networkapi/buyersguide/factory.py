@@ -28,9 +28,8 @@ from networkapi.wagtailpages.pagemodels.products import (
 )
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
-from networkapi.buyersguide.models import (
-    Update,
-)
+from networkapi.wagtailpages.pagemodels.products import Update
+
 
 Faker.add_provider(ImageProvider)
 

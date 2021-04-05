@@ -32,7 +32,6 @@ from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.buyersguide.pagemodels.product_update import Update as OldUpdate
 from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
@@ -286,8 +285,6 @@ class ProductUpdates(Orderable):
         on_delete=models.CASCADE,
     )
 
-
-    # This is the new update FK to wagtailpages.Update
     update = models.ForeignKey(
         Update,
         on_delete=models.SET_NULL,
