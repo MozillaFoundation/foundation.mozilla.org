@@ -6,6 +6,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
 
+@register_snippet
 class Update(index.Indexed, models.Model):
     # TODO: Delete this model.
     source = models.URLField(
