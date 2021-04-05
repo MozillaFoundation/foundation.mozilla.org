@@ -286,15 +286,9 @@ class ProductUpdates(Orderable):
         on_delete=models.CASCADE,
     )
 
-    # This is the old update FK to buyersguide.Update
-    update = models.ForeignKey(
-        OldUpdate,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        null=True,
-    )
+
     # This is the new update FK to wagtailpages.Update
-    update_new = models.ForeignKey(
+    update = models.ForeignKey(
         Update,
         on_delete=models.SET_NULL,
         related_name='+',
