@@ -226,7 +226,6 @@ class ProductPagePrivacyPolicyLink(Orderable):
         return f'{self.page.title}: {self.label} ({self.url})'
 
 
-
 @register_snippet
 class Update(index.Indexed, models.Model):
     source = models.URLField(
