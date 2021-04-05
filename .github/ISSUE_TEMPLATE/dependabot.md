@@ -1,7 +1,7 @@
 ---
 name: Dependabot / Dependency Upgrades
 about: Issue template to account for effort spent on dependency upgrades in a sprint
-title: ''
+title: '[Dependabot]'
 labels: engineering, dependabot
 assignees: ''
 
