@@ -272,7 +272,7 @@ class Update(index.Indexed, models.Model):
     ]
 
     def __str__(self):
-        return f'New Update: {self.title}'
+        return self.title
 
     class Meta:
         verbose_name = "Buyers Guide Product Update"
@@ -302,7 +302,7 @@ class ProductUpdates(Orderable):
     )
 
     panels = [
-        SnippetChooserPanel('update')
+        SnippetChooserPanel('update'),
     ]
 
 
