@@ -27,7 +27,6 @@ export const bindEventHandlers = () => {
   loadMoreEntriesHandler();
   participatePageDonateHandler();
   publicationSummaryBar();
-  publicationSummaryLinks();
   pulseProfileCardHandler();
   pulseProfileListFilterHandler();
 };
