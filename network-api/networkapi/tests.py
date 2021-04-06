@@ -22,7 +22,9 @@ from django.utils.translation.trans_real import (
 from unittest.mock import MagicMock
 from unittest import skip
 
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Collection, Page, Site
+from wagtail.images.models import Image
+
 from wagtail_factories import SiteFactory
 
 from networkapi.buyersguide.factory import (
@@ -34,6 +36,7 @@ from networkapi.utility.redirects import redirect_to_default_cms_site
 from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware
 from networkapi.wagtailpages import language_code_to_iso_3166, parse_accept_lang_header, to_language
 from networkapi.wagtailpages.pagemodels.base import Homepage
+from networkapi.wagtailpages.utils import create_wagtail_image
 
 
 class ReferrerMiddlewareTests(TestCase):
@@ -613,3 +616,52 @@ class TestCloudinaryMigration(TestCase):
         del software_product_page_dict['image'], new_software_product_page_dict['image']
         del software_product_page_dict['cloudinary_image'], new_software_product_page_dict['cloudinary_image']
         self.assertDictEqual(software_product_page_dict, new_software_product_page_dict)
+
+
+class TestCreateWagtailImageUtility(TestCase):
+
+    def setUp(self):
+        self.image_path = abspath(join(dirname(__file__), '../media/images/placeholders/products/teddy.jpg'))
+
+    def create_new_image(self):
+        """A generic test to ensure the image is created properly."""
+        new_image = create_wagtail_image(
+            self.image_path,
+            image_name='fake teddy.jpg',
+            collection_name='pni products'
+        )
+        # Image was created
+        self.assertTrue(bool(new_image))
+        # Image has a collection and is in the proper collection
+        self.assertTrue(new_image.collection_id)
+        self.assertEqual(new_image.collection.name, 'pni products')
+
+    def test_empty_image_name_and_no_collection(self):
+        new_image = create_wagtail_image(
+            self.image_path,
+        )
+        self.assertEqual(new_image.title, 'teddy.jpg')
+        self.assertEqual(new_image.collection.name, 'Root')
+
+    def test_new_collection(self):
+        new_image = create_wagtail_image(
+            self.image_path,
+            image_name='fake teddy.jpg',
+            collection_name='brand new collection'
+        )
+        self.assertEqual(new_image.collection.name, 'brand new collection')
+
+    def test_existing_collection(self):
+        NEW_COLLECTION_NAME = 'first collection'
+
+        root_collection = Collection.get_first_root_node()
+        new_collection = root_collection.add_child(name=NEW_COLLECTION_NAME)
+        total_images_in_new_collection = Image.objects.filter(collection=new_collection).count()
+        self.assertEqual(total_images_in_new_collection, 0)
+
+        new_image = create_wagtail_image(
+            self.image_path,
+            image_name='fake teddy.jpg',
+            collection_name=NEW_COLLECTION_NAME
+        )
+        self.assertEqual(new_image.collection.name, NEW_COLLECTION_NAME)
