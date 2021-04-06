@@ -7,8 +7,11 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('buyersguide', '0008_auto_20210126_1943'),
-        ('wagtailpages', '0001_squashed_0055_auto_20210325_1757'),
     ]
+
+    # We need the wagtailpages dependency here to ensure that the wagtailpages.BuyersGuideProductCategory
+    # code kicks in, creating all the defaults, before any PNI factory code runs (as it depends on the
+    # wagtailpages.BuyersGuideProductCategory model both existing, and having instances)
 
     operations = [
         migrations.RemoveField(
