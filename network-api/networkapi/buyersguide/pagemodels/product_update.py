@@ -8,6 +8,8 @@ from wagtail.search import index
 
 @register_snippet
 class Update(index.Indexed, models.Model):
+    # TODO: We need to migrate this to the wagtailpages app.
+    # TODO: There needs to be a data migration included.
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',

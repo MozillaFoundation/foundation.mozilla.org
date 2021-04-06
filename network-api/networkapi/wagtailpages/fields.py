@@ -2,8 +2,6 @@ from django.db import models
 
 
 class ExtendedYesNoField(models.CharField):
-    # This has been replaced with networkapi.wagtailpages.fields.ExtendedYesNoField
-    # TODO: Remove this class when migrations are squashed next.
     description = "Yes, No, Not Applicable, or Can’t Determine"
 
     choice_list = [

@@ -1,3 +1,4 @@
+# TODO: Remove this validator when migrations are squashed.
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 
