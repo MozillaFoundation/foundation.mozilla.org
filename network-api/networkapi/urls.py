@@ -9,7 +9,10 @@ from django.views.generic.base import RedirectView
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
-from wagtail.core import urls as wagtail_urls
+
+# from wagtail.core import urls as wagtail_urls
+from .utility import watail_core_url_override as wagtail_urls
+
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail_footnotes import urls as footnotes_urls
 
