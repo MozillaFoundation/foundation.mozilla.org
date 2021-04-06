@@ -68,10 +68,6 @@ def create_default_buyersguide_categories(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-    replaces = [
-        ('wagtailpages', '0001_squashed_0055_auto_20210325_1757'),
-    ]
-
     initial = True
 
     dependencies = [
