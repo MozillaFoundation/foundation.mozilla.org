@@ -9,10 +9,6 @@ class Migration(migrations.Migration):
         ('buyersguide', '0008_auto_20210126_1943'),
     ]
 
-    # We need the wagtailpages dependency here to ensure that the wagtailpages.BuyersGuideProductCategory
-    # code kicks in, creating all the defaults, before any PNI factory code runs (as it depends on the
-    # wagtailpages.BuyersGuideProductCategory model both existing, and having instances)
-
     operations = [
         migrations.RemoveField(
             model_name='product',
