@@ -653,16 +653,16 @@ class TestCreateWagtailImageUtility(TestCase):
         self.assertEqual(new_image.collection.name, collection_name)
 
     def test_existing_collection(self):
-        NEW_COLLECTION_NAME = 'first collection'
+        new_collection_name = 'first collection'
 
         root_collection = Collection.get_first_root_node()
-        new_collection = root_collection.add_child(name=NEW_COLLECTION_NAME)
+        new_collection = root_collection.add_child(name=new_collection_name)
         total_images_in_new_collection = Image.objects.filter(collection=new_collection).count()
         self.assertEqual(total_images_in_new_collection, 0)
 
         new_image = create_wagtail_image(
             self.image_path,
             image_name='fake teddy.jpg',
-            collection_name=NEW_COLLECTION_NAME
+            collection_name=new_collection_name
         )
-        self.assertEqual(new_image.collection.name, NEW_COLLECTION_NAME)
+        self.assertEqual(new_image.collection.name, new_collection_name)
