@@ -33,7 +33,7 @@ if (
 }
 
 // To be populated via XHR and querySelector
-let env, networkSiteURL, csrfToken;
+let env, networkSiteURL;
 
 // Track all ReactDOM.render calls so we can use a Promise.all()
 // all the way at the end to make sure we don't report "we are done"
@@ -59,9 +59,6 @@ let main = {
         );
       }
 
-      csrfToken = document.querySelector(`meta[name="csrf-token"]`);
-      csrfToken = csrfToken ? csrfToken.getAttribute(`content`) : false;
-
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
         networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
@@ -69,7 +66,7 @@ let main = {
 
       this.injectReactComponents();
       this.bindHandlers();
-      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+      initializePrimaryNav(networkSiteURL, primaryNav);
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
@@ -102,7 +99,7 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    injectCommonReactComponents(apps, networkSiteURL, csrfToken);
+    injectCommonReactComponents(apps, networkSiteURL);
     injectReactComponents(apps, networkSiteURL, env);
   },
 
