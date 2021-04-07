@@ -32,9 +32,9 @@ We use [wagtail-modeltranslations](https://github.com/infoportugal/wagtail-model
 
 We use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) for CMS-based A/B testing. Please see its documentation for more information.
 
-### S3 and Cloudinary
+### S3
 
-Most assets are stored on S3. Buyers Guide images are hosted on Cloudinary.
+All assets are stored on S3.
 
 ### File Structure
 
