@@ -12,7 +12,6 @@ from django.template.defaultfilters import slugify
 import modelcluster.fields
 
 import networkapi.buyersguide.fields
-import networkapi.buyersguide.pagemodels.cloudinary_image_field
 import networkapi.buyersguide.pagemodels.get_product_image_upload_path
 import networkapi.buyersguide.utils
 import networkapi.buyersguide.validators

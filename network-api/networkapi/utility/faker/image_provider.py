@@ -12,10 +12,7 @@ class ImageProvider(BaseProvider):
     >>> Faker.add_provider(ImageProvider)
     """
 
-    if settings.USE_CLOUDINARY:
-        base_path = 'foundationsite/images/placeholders/'
-    else:
-        base_path = 'images/placeholders/'
+    base_path = 'images/placeholders/'
 
     generic_images = (
         'generic/tigerparrot.jpg',

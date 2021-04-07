@@ -22,7 +22,6 @@ botocore==1.19.63
     #   s3transfer
 certifi==2020.4.5.1
     # via
-    #   cloudinary
     #   requests
     #   sentry-sdk
     #   urllib3
@@ -30,7 +29,6 @@ cffi==1.14.0
     # via cryptography
 chardet==3.0.4
     # via requests
-cloudinary==1.24.0
     # via -r requirements.in
 cryptography==3.2
     # via
@@ -170,7 +168,6 @@ sentry-sdk==0.19.5
 six==1.14.0
     # via
     #   airtable-python-wrapper
-    #   cloudinary
     #   cryptography
     #   django-modeltranslation
     #   html5lib
@@ -200,7 +197,6 @@ unidecode==1.1.1
 urllib3[secure]==1.25.9
     # via
     #   botocore
-    #   cloudinary
     #   requests
     #   scout-apm
     #   sentry-sdk
