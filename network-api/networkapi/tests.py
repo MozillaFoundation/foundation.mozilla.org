@@ -631,7 +631,7 @@ class TestCreateWagtailImageUtility(TestCase):
             collection_name='pni products'
         )
         # Image was created
-        self.assertTrue(bool(new_image))
+        self.assertIsNotNone(new_image)
         # Image has a collection and is in the proper collection
         self.assertTrue(new_image.collection_id)
         self.assertEqual(new_image.collection.name, 'pni products')
