@@ -1,9 +1,0 @@
-{% load bg_nav_tags i18n wagtailroutablepage_tags %}
-
-{% if about_page %}
-  {% routablepageurl about_page 'about-why-view' as about_why_url %}
-{% else %}
-  {# TODO: Remove the below URLs when cleaning up old PNI code #}
-  {% url 'about-why-view' as about_why_url %}
-{% endif %}
-{{ pre }}<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>{{ post }}

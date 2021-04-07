@@ -257,12 +257,13 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
     # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
-    'networkapi.wagtailcustomization.redirects.middleware.RedirectMiddleware'
+    'networkapi.wagtailcustomization.redirects.middleware.RedirectMiddleware',
+    # instead of 'django.middleware.csrf.CsrfViewMiddleware':
+    'networkapi.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware',
 ]))
 
 if SOCIAL_SIGNIN:
@@ -315,7 +316,7 @@ TEMPLATES = [
                 'networkapi.context_processor.canonical_site_url',
             ])),
             'libraries': {
-                'bg_nav_tags': 'networkapi.buyersguide.templatetags.bg_nav_tags',
+                'bg_nav_tags': 'networkapi.wagtailpages.templatetags.bg_nav_tags',
                 'blog_tags': 'networkapi.wagtailpages.templatetags.blog_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
