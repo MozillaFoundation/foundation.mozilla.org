@@ -25,15 +25,3 @@ Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLEWARE_ENABLED` to `Tr
 ## Special purposes Environment Variables
 
 - `USE_COMMENTO`: If Commento.io commenting is to be enabled, set this to `True`. Don't forget to add the js domain to your CSP directives for script-src and child-src
-
-## Cloudinary for Review Apps and Staging (BuyersGuide only)
-
-We use [Cloudinary's upload-mapping](https://cloudinary.com/documentation/django_image_and_video_upload#django_forms_and_models) feature to copy images from the production to the staging Cloudinary account.
-
-Current directories available on Cloudinary staging:
-
-Folder | URL prefix
---- | ---
-`foundationsite/buyersguide` | `https://res.cloudinary.com/mozilla-foundation/image/upload/foundationsite/buyersguide/`
-
-To add more folders, follow [Cloudinary's instructions](https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_resources).
