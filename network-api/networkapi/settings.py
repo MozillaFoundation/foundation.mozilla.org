@@ -211,6 +211,7 @@ INSTALLED_APPS = list(filter(None, [
     'corsheaders',
     'storages',
     'adminsortable',
+    'cloudinary',
 
     # the network site
     'networkapi',

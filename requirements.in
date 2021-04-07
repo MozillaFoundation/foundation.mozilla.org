@@ -27,6 +27,7 @@ wagtail-metadata
 whitenoise
 wagtail-modeltranslation==0.10.17
 psycopg2-binary
+cloudinary
 wagtail-experiments
 sentry-sdk
 wagtail-footnotes
