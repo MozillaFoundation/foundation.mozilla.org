@@ -42,7 +42,6 @@ jobs:
       SET_HSTS: False
       SSL_REDIRECT: False
       TARGET_DOMAINS: foundation.mozilla.org
-      USE_CLOUDINARY: false
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True

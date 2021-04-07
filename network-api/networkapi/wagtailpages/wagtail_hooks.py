@@ -1,7 +1,6 @@
 # RichTextEditor customization:
 #   See https://docs.wagtail.io/en/v2.7/advanced_topics/customisation/extending_draftail.html
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
-from cloudinary import uploader
 
 from django.conf import settings
 from django.core.cache import cache
@@ -87,17 +86,7 @@ def order_pages_in_chooser(pages, request):
 
 @hooks.register('before_delete_page')
 def before_delete_page(request, page):
-    """
-    If ANY page is deleted that has the `cloudinary_image` field in it,
-    check if the app is a review app (don't delete from review apps).
-    Delete cloudinary_images from pages that have this field.
-    """
-    if hasattr(page, 'cloudinary_image'):
-        if settings.REVIEW_APP or settings.DEBUG:
-            pass
-        else:
-            uploader.destroy(page.cloudinary_image.public_id, invalidate=True)
-
+    """Delete PNI votes when a product is deleted."""
     if isinstance(page, ProductPage) and page.votes:
         # Delete the vote from ProductPages
         page.votes.delete()

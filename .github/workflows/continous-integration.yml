@@ -15,7 +15,7 @@ jobs:
     name: Node CI
     runs-on: ubuntu-latest
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com  
+      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NETWORK_SITE_URL: https://foundation.mozilla.org
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
@@ -61,7 +61,7 @@ jobs:
       SET_HSTS: False
       SSL_REDIRECT: False
       TARGET_DOMAINS: foundation.mozilla.org
-      USE_CLOUDINARY: false
+      USE_: false
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
@@ -124,7 +124,6 @@ jobs:
       SET_HSTS: False
       SSL_REDIRECT: False
       TARGET_DOMAINS: foundation.mozilla.org
-      USE_CLOUDINARY: false
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
