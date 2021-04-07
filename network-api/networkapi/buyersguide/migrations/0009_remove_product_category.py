@@ -7,7 +7,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('buyersguide', '0008_auto_20210126_1943'),
-        ('wagtailpages', '0001_squashed_0055_auto_20210325_1757'),
     ]
 
     operations = [
