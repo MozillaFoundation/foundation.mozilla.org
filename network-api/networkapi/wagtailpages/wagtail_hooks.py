@@ -2,7 +2,6 @@
 #   See https://docs.wagtail.io/en/v2.7/advanced_topics/customisation/extending_draftail.html
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
 
-from django.conf import settings
 from django.core.cache import cache
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
