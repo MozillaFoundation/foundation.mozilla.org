@@ -1,7 +1,7 @@
 from datetime import date, datetime, timezone
 
 from io import StringIO
-
+from os.path import join, abspath, dirname
 
 from django.contrib.auth.models import User, Group
 from django.core.management import call_command
@@ -18,8 +18,10 @@ from django.utils.translation.trans_real import (
 from unittest.mock import MagicMock
 from unittest import skip
 
-from wagtail.core.models import Collection, Page, Site
+from wagtail.core.models import Collection, Site
 from wagtail.images.models import Image
+
+from wagtail_factories import SiteFactory
 
 from networkapi.buyersguide.factory import (
     BuyersGuidePageFactory,
