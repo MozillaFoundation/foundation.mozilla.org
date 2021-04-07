@@ -63,6 +63,8 @@ class PublicationPageFactory(PageFactory):
     publication_date = Faker('date_object')
     hero_image = SubFactory(ImageFactory)
     publication_file = DocumentFactory()
+    intro_notes = Faker('sentence')
+    notes = Faker('sentence')
 
     @post_generation
     def toc_thumbnail_image(self, create, extracted, **kwargs):
