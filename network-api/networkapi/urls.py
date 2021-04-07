@@ -11,7 +11,16 @@ from django.views.i18n import set_language
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
-from wagtail.core import urls as wagtail_urls
+
+# The following line is commented off in favour of the utility import,
+# to allow better URL matching by wagtail (which, by default only
+# matches on slug-compliant URLs).
+#
+# See https://github.com/mozilla/foundation.mozilla.org/issues/6464
+
+# from wagtail.core import urls as wagtail_urls
+from .utility import watail_core_url_override as wagtail_urls
+
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail_footnotes import urls as footnotes_urls
 from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as image_url_tag_urls
