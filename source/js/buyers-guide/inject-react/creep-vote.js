@@ -6,11 +6,9 @@ import CreepVote from "../components/creep-vote/creep-vote.jsx";
  * Inject creep vote section
  * @param {Array} apps The existing array we are using to to track all ReactDOM.render calls
  * @param {String} siteUrl Foundation site base URL
- * @param {String} csrfToken CSRF Token
  */
-export default (apps, siteUrl, csrfToken) => {
+export default (apps, siteUrl) => {
   document.querySelectorAll(`.creep-vote-target`).forEach((element) => {
-    let csrf = element.querySelector(`input[name=csrfmiddlewaretoken]`);
     let productType = element.dataset.productType;
     let productName = element.dataset.productName;
     let productID = element.querySelector(`input[name=productID]`).value;
@@ -37,13 +35,11 @@ export default (apps, siteUrl, csrfToken) => {
       new Promise((resolve) => {
         ReactDOM.render(
           <CreepVote
-            csrf={csrf.value}
             productType={productType}
             productName={productName}
             productID={parseInt(productID, 10)}
             votes={votes}
             whenLoaded={() => resolve()}
-            joinUsCSRF={csrfToken}
             joinUsApiUrl={`${siteUrl}/api/campaign/signups/0/`}
           />,
           element
