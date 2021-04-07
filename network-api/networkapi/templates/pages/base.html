@@ -9,7 +9,6 @@
     <title>{% block page_title %}{% trans "Mozilla Foundation" %} - {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token }}">
 
     {% block social_metadata %}
       <meta property='og:type' content='website'>

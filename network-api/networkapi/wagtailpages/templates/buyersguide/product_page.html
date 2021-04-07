@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load bg_selector_tags env cloudinary l10n i18n static wagtailimages_tags %}
+{% load bg_selector_tags env l10n i18n static wagtailimages_tags %}
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
@@ -29,12 +29,8 @@
         <img
           class="thumb-border"
           width="250"
-          {% if USE_CLOUDINARY %}
-            src="{% cloudinary_url product.cloudinary_image quality=70 fetch_format="auto" crop="fit" width=736 %}"
-          {% else %}
-            {% image product.image width-250 as img %}
-            src="{{ img.url }}"
-          {% endif %}
+          {% image product.image width-250 as img %}
+          src="{{ img.url }}"
           alt="{{product.title}}"
         >
       </div>
@@ -84,7 +80,6 @@
         <div class="row">
           <div class="col-12">
             <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.title}}" data-product-type="{{product.product_type}}">
-              {% csrf_token %}
               <input type="hidden" name="productID" value="{{ product.id }}">
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
             </div>
@@ -304,22 +299,13 @@
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
               <a class="d-block{% if related_product.adult_content %} adult-content{% endif %}" href="{{ related_product.url }}">
                 <div class="img-container">
-                  {% if USE_CLOUDINARY %}
-                    <img
-                      class="product-thumbnail thumb-border"
-                      width="300"
-                      src="{% cloudinary_url related_product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=736 %}"
-                      alt="{{related_product.title}}"
-                    >
-                  {% else %}
-                    {% image related_product.image width-600 as img %}
-                    <img
-                      class="product-thumbnail"
-                      width="600"
-                      src="{{img.url}}"
-                      alt="{{related_product.title}}"
-                    >
-                  {% endif %}
+                  {% image related_product.image width-600 as img %}
+                  <img
+                    class="product-thumbnail"
+                    width="600"
+                    src="{{img.url}}"
+                    alt="{{related_product.title}}"
+                  >
                 </div>
                 <p class="body-small mt-3 mb-1">{{related_product.company}}</p>
                 <p>{{related_product.title}}</p>
