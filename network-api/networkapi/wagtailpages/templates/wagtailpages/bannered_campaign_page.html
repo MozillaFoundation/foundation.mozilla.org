@@ -63,7 +63,6 @@ An extra check has been added so as to not show the fixed "Take action" button o
           {% if page.signup %}
             <div
               class="join-us mb-5"
-              data-csrf-token="{{ csrf_token }}"
               data-signup-id="{{ page.signup.id }}"
               data-cta-header="{{ page.signup.header | escape }}"
               data-cta-description="{{ page.signup.description | escape }}"
