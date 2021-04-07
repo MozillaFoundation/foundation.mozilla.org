@@ -29,7 +29,6 @@ env:
     - SSL_REDIRECT=False
     - DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=False
     - TARGET_DOMAINS=foundation.mozilla.org
-    - USE_CLOUDINARY=false
     - USE_S3=False
     - X_FRAME_OPTIONS=DENY
     - XSS_PROTECTION=True

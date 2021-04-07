@@ -33,9 +33,6 @@ env = environ.Env(
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
-    CLOUDINARY_API_KEY=(str, ''),
-    CLOUDINARY_API_SECRET=(str, ''),
-    CLOUDINARY_CLOUD_NAME=(str, ''),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
     CORS_ALLOWED_ORIGINS=(tuple, ()),
@@ -75,7 +72,6 @@ env = environ.Env(
     SSL_REDIRECT=bool,
     STATIC_HOST=(str, ''),
     TARGET_DOMAINS=(list, []),
-    USE_CLOUDINARY=(bool, False),
     USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
@@ -161,7 +157,6 @@ SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and \
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
 
 USE_S3 = env('USE_S3')
-USE_CLOUDINARY = env('USE_CLOUDINARY')
 
 # Detect if Django is running normally, or in test mode through "manage.py test"
 TESTING = 'test' in sys.argv
@@ -311,7 +306,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'networkapi.context_processor.review_app',
-                'networkapi.context_processor.cloudinary',
                 'networkapi.context_processor.canonical_path',
                 'networkapi.context_processor.canonical_site_url',
             ])),
@@ -430,7 +424,7 @@ USE_TZ = True
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
-    os.path.join(BASE_DIR, 'networkapi/buyersguide/templates/about/locale'),
+    os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/about/locale'),
 )
 
 
@@ -465,13 +459,6 @@ CRM_AWS_SQS_ACCESS_KEY_ID = env('CRM_AWS_SQS_ACCESS_KEY_ID')
 CRM_AWS_SQS_SECRET_ACCESS_KEY = env('CRM_AWS_SQS_SECRET_ACCESS_KEY')
 CRM_AWS_SQS_REGION = env('CRM_AWS_SQS_REGION')
 CRM_PETITION_SQS_QUEUE_URL = env('CRM_PETITION_SQS_QUEUE_URL')
-
-if USE_CLOUDINARY:
-    CLOUDINARY_CLOUD_NAME = env('CLOUDINARY_CLOUD_NAME')
-    CLOUDINARY_API_KEY = env('CLOUDINARY_API_KEY')
-    CLOUDINARY_API_SECRET = env('CLOUDINARY_API_SECRET')
-
-    CLOUDINARY_URL = 'https://res.cloudinary.com/' + CLOUDINARY_CLOUD_NAME + '/image/upload/'
 
 # Storage for user generated files
 if USE_S3:
