@@ -387,7 +387,7 @@ def create_wagtail_image(img_src: str, image_name: str = None, collection_name: 
         # Download the image from a URL. Requires the requests package.
         response = requests.get(img_src, stream=True)
         if response.status_code == 200:
-            # Create an image out of the Cloudinary URL and write it to a PIL Image.
+            # Create an image out of a web resource URL and write it to a PIL Image.
             pil_image = PILImage.open(response.raw)
             pil_image.save(f, mime_type)
         else:
