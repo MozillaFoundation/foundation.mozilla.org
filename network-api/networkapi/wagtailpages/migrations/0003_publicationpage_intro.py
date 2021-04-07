@@ -7,7 +7,7 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0001_initial'),
+        ('wagtailpages', '0002_remove_productpage_cloudinary_image'),
     ]
 
     operations = [
