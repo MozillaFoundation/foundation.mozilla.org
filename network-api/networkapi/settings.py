@@ -257,12 +257,13 @@ MIDDLEWARE = list(filter(None, [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # should be after SessionMiddleware and before CommonMiddleware
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
     # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
-    'networkapi.wagtailcustomization.redirects.middleware.RedirectMiddleware'
+    'networkapi.wagtailcustomization.redirects.middleware.RedirectMiddleware',
+    # instead of 'django.middleware.csrf.CsrfViewMiddleware':
+    'networkapi.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware',
 ]))
 
 if SOCIAL_SIGNIN:
