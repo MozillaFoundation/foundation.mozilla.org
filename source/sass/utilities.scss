@@ -26,10 +26,6 @@
   margin-top: -50px;
 }
 
-.hidden {
-  display: none;
-}
-
 @include full-bleed-bp("xs");
 @include full-bleed-bp("sm");
 @include full-bleed-bp("md");
