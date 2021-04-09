@@ -20,10 +20,13 @@
 
   .project-image {
     width: 100%;
-    max-height: none;
   }
 
   .placeholder {
     background: linear-gradient(to right, $pulse-pink 0%, $pulse-purple 100%);
+  }
+
+  a.pulse-project {
+    color: $black;
   }
 }
