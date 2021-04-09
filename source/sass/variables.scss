@@ -11,16 +11,16 @@ $bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px. Large devices (desktop)
 $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px. Extra large devices (large desktops)
 
 // Border style
-
 $border-shadow-color: transparentize($black, 0.85);
 
 // Nav breakpoint
-
 $nav-full-logo-breakpoint: $bp-sm;
 
 // Font
-
 $font-family-slab-serif: "Zilla Slab", serif;
 
 // Transition Speed (for on hover effects for buttons, etc.)
 $button-icon-transition-speed: filter 0.2s ease-in-out;
+
+// Path to glyphs
+$default-glyph-path: "../_images/glyphs";

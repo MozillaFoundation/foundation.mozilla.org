@@ -1,6 +1,3 @@
-$default-glyph-path: "../_images/glyphs";
-$bg-glyph-path: "../_images/buyers-guide";
-
 @mixin glyph(
   $id,
   $path-to-directory: $default-glyph-path,
