@@ -7,10 +7,6 @@
   flex: 1;
 }
 
-.position-relative {
-  position: relative;
-}
-
 .key-item {
   border-bottom: 4px solid $gray-20;
   margin-top: -1.5em;
@@ -26,8 +22,12 @@
   margin-top: -50px;
 }
 
-.bg-white {
-  background: $white;
+.bg-black {
+  background: $black;
+}
+
+.bg-gray {
+  background: $gray-05;
 }
 
 @include full-bleed-bp("xs");
