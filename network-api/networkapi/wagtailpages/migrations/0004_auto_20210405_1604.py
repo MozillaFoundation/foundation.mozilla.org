@@ -8,7 +8,7 @@ import wagtail.search.index
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0001_squashed_0055_auto_20210325_1757'),
+        ('wagtailpages', '0003_publicationpage_intro'),
     ]
 
     operations = [
