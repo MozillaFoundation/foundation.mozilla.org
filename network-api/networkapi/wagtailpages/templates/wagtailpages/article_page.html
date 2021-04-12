@@ -28,7 +28,7 @@
             <div class="article-summary-title body-small">{% trans "SUMMARY" %}</div>
             <div class="article-links {% if get_titles|length > 5 %}article-links__two-col{% endif %}">
               {% for slug, header in get_titles %}
-                <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
+                <a href="#{{ slug }}" class="article-summary-link {% if get_titles|length > 5 %}article-summary-link__two-col{% endif %}">{{ header }}</a>
               {% endfor %}
             </div>
           </div>
