@@ -32,7 +32,7 @@ if (
 // until all the React stuff is _actually_ done.
 const apps = [];
 
-let env, networkSiteURL, csrfToken;
+let env, networkSiteURL;
 
 let main = {
   init() {
@@ -50,9 +50,6 @@ let main = {
           env.SENTRY_ENVIRONMENT
         );
       }
-
-      csrfToken = document.querySelector('meta[name="csrf-token"]');
-      csrfToken = csrfToken ? csrfToken.getAttribute("content") : false;
 
       // Checking newsletter subscription status
       const sessionStorage = Storage.sessionStorage;
@@ -72,7 +69,7 @@ let main = {
 
       this.injectReactComponents();
       this.bindHandlers();
-      initializePrimaryNav(networkSiteURL, csrfToken, primaryNav);
+      initializePrimaryNav(networkSiteURL, primaryNav);
 
       // Record that we're done, when we're really done.
       Promise.all(apps).then(() => {
@@ -106,8 +103,8 @@ let main = {
 
   // Embed various React components based on the existence of containers within the current page
   injectReactComponents() {
-    injectCommonReactComponents(apps, networkSiteURL, csrfToken);
-    injectReactComponents(apps, networkSiteURL, csrfToken);
+    injectCommonReactComponents(apps, networkSiteURL);
+    injectReactComponents(apps, networkSiteURL);
     injectMultipageNav(apps);
   },
 

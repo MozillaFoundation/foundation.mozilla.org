@@ -148,7 +148,7 @@ class NavNewsletter {
     }
   }
 
-  init(foundationSiteURL, csrfToken) {
+  init(foundationSiteURL) {
     // some DOM nodes do not exist, return
     if (!this.checkDomNodes()) return;
 
@@ -156,7 +156,6 @@ class NavNewsletter {
     props.apiUrl = `${foundationSiteURL}/api/campaign/signups/${
       props.signupId || 0
     }/`;
-    props.csrfToken = props.csrfToken || csrfToken;
     props.isHidden = false;
     this.form = ReactDOM.render(<JoinUs {...props} />, elements.joinUs);
 
