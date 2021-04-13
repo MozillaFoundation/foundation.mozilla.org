@@ -26,24 +26,14 @@ from wagtail.snippets.models import register_snippet
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.wagtailpages.fields import ExtendedYesNoField
-from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
-    CloudinaryField
-)
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
+from networkapi.buyersguide.pagemodels.product_update import Update as OldUpdate
 from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
 from networkapi.buyersguide.utils import get_category_og_image_upload_path
-
-
-if settings.USE_CLOUDINARY:
-    image_field = FieldPanel('cloudinary_image')
-    MEDIA_URL = settings.CLOUDINARY_URL
-else:
-    image_field = ImageChooserPanel('image')
-    MEDIA_URL = settings.MEDIA_URL
 
 
 TRACK_RECORD_CHOICES = [
@@ -284,7 +274,15 @@ class ProductUpdates(Orderable):
         on_delete=models.CASCADE,
     )
 
+    # This is the old update FK to buyersguide.Update
     update = models.ForeignKey(
+        OldUpdate,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        null=True
+    )
+    # This is the new update FK to wagtailpages.Update
+    update_new = models.ForeignKey(
         Update,
         on_delete=models.SET_NULL,
         related_name='+',
@@ -352,13 +350,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+',
         help_text='Image representing this product',
-    )
-    cloudinary_image = CloudinaryField(
-        help_text='Image representing this product - hosted on Cloudinary',
-        blank=True,
-        verbose_name='image',
-        folder='foundationsite/buyersguide',
-        use_filename=True
     )
     worst_case = models.TextField(
         max_length=5000,
@@ -621,7 +612,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('uses_wifi'),
                 FieldPanel('uses_bluetooth'),
                 FieldPanel('blurb'),
-                image_field,
+                ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
             ],
             heading='General Product Details',
@@ -735,7 +726,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context['product'] = self
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
-        context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
+        context['mediaUrl'] = settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         pni_home_page = BuyersGuidePage.objects.first()

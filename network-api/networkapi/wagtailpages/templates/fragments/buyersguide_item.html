@@ -1,4 +1,4 @@
-{% load static i18n cloudinary wagtailimages_tags %}
+{% load static i18n wagtailimages_tags %}
 
 
 <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness }}">
@@ -18,22 +18,14 @@
   <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{{ product.url }}">
     <picture class="product-thumbnail">
       <source
-        {% if USE_CLOUDINARY %}
-          srcset="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=360 %} 1x, {% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=720 %} 2x"
-        {% else %}
-          {% image product.image fill-360x360 as img_1x %}
-          {% image product.image fill-720x720 as img_2x %}
-          srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
-        {% endif %}
+        {% image product.image fill-360x360 as img_1x %}
+        {% image product.image fill-720x720 as img_2x %}
+        srcset="{{ img_1x.url }} 1x, {{ img_2x.url}} 2x"
       >
       <img
         class="product-thumbnail"
-        {% if USE_CLOUDINARY %}
-          src="{% cloudinary_url product.cloudinary_image quality=50 fetch_format="auto" crop="fit" width=600 %}"
-        {% else %}
-          {% image product.image fill-600x600 as img %}
-          src="{{ img.url }}"
-        {% endif %}
+        {% image product.image fill-600x600 as img %}
+        src="{{ img.url }}"
         alt="{% blocktrans with product=product.title %}link to {{product}}{% endblocktrans %}"
       >
     </picture>

@@ -8,7 +8,8 @@ html {
 @import "../mofo-bootstrap/mofo-bootstrap";
 
 // Custom variables
-@import "../variables";
+@import "../variables"; // Foundation site shared variables
+@import "./variables"; // Buyer's Guide specific variables
 
 // Site-wide
 
@@ -60,16 +61,8 @@ html {
 
 // Utilities
 
-.bg-gray {
-  background: $gray-05;
-}
-
 .bg-product-image {
   background: $pni-product-image-background;
-}
-
-.bg-white {
-  background: $white;
 }
 
 img.thumb-border {

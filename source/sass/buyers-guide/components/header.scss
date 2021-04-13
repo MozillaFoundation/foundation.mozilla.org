@@ -1,5 +1,3 @@
-$category-nav-border-bottom-thickness: 4px;
-
 @mixin set-category-border-bottom-style() {
   border-bottom: 1px solid $gray-20;
 }
@@ -32,7 +30,7 @@ body.pni #nav-newsletter-form-wrapper {
     margin-right: 20px;
     padding: 10px 0 6px;
     text-decoration: none;
-    border-bottom: $category-nav-border-bottom-thickness solid $white;
+    border-bottom: 4px solid $white;
 
     &:hover,
     &.active {
