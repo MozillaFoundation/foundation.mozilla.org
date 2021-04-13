@@ -1,10 +1,11 @@
+// overrides for default Bootstrap variables
+// https://github.com/twbs/bootstrap/blob/v4.6.0/scss/_variables.scss
+
 $font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
 
-$enable-flex: true; // Turn on Flexbox support
 $enable-transitions: true;
 
-$font-size-base: 1rem;
 $body-color: $black;
 $danger: $dark-red;
 $dark-theme-danger: $red;
@@ -23,7 +24,6 @@ $btn-border-radius: 0;
 $btn-border-radius-sm: 0;
 $btn-border-radius-lg: 0;
 $btn-font-weight: 700;
-$border-shadow-color: transparentize($black, 0.85);
 
 $form-check-input-margin-y: 0;
 
