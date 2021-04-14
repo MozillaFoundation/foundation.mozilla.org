@@ -2,13 +2,12 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel
 
-from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
 
-@register_snippet
 class Update(index.Indexed, models.Model):
-    # TODO: Delete this model.
+    # TODO: Delete this model. We'll need to do some migration surgery for this because `buyersguide.Update`
+    # is being used in the 0001_initial.py migration.
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
