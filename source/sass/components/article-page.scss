@@ -23,14 +23,12 @@
     max-width: 100%;
     width: 100%;
   }
+}
 
-  .article-links {
-    &__two-col {
-      @media (min-width: $bp-md) {
-        column-count: 2;
-        column-width: auto;
-      }
-    }
+.article-links-two-column {
+  @media (min-width: $bp-md) {
+    column-count: 2;
+    column-width: auto;
   }
 }
 
@@ -62,10 +60,10 @@
   @include hover-focus-active {
     color: inherit;
   }
+}
 
-  &__two-col {
-    display: inline-block;
-  }
+.article-summary-link-two-column {
+  display: inline-block;
 }
 
 .article-summary .article-summary-title {
