@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.cache import cache
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 
@@ -16,18 +17,27 @@ class RSSFeed(Feed):
     description = 'The Mozilla Foundation Blog'
 
     def items(self):
-        # Pull this object specifically using the English page title, as an IndexPage
-        # rather than a BlogIndexPage, to make sure we're not filtering out all the
-        # "featured" posts (which we need to do for site content purposes))
-        index = IndexPage.objects.get(title_en__iexact='Blog')
+        # Try to get the RSS items from cache first
+        feed_set = cache.get('rss_feed_set')
 
-        # If that doesn't yield the blog page, pull using the universal title
-        if index is None:
-            index = IndexPage.objects.get(title__iexact='Blog')
+        if feed_set is None:
+            # If we don't have an active cache, we build one: pull the index page
+            # specifically using the English page title, as an IndexPage rather than
+            # as a BlogIndexPage, to make sure we're not filtering out all the
+            # "featured" posts (which we need to do for site content purposes).
+            index = IndexPage.objects.get(title_en__iexact='Blog')
 
-        blog_pages = index.get_all_entries().order_by('-first_published_at')
+            # If that doesn't yield the blog page, pull using the universal title
+            if index is None:
+                index = IndexPage.objects.get(title__iexact='Blog')
 
-        return blog_pages[:settings.FEED_LIMIT]
+            # Then sort the collection and only yield the top FEED_LIMIT posts
+            blog_pages = index.get_all_entries().order_by('-first_published_at')
+            feed_set = blog_pages[:settings.FEED_LIMIT]
+
+            cache.set('rss_feed_set', feed_set, settings.FEED_CACHE_TIMEOUT)
+
+        return feed_set
 
     def item_title(self, item):
         return item.title
