@@ -1,3 +1,4 @@
+// Mixin for setting active state style
 @mixin active() {
   &:active,
   &.active {
@@ -5,6 +6,7 @@
   }
 }
 
+// Mixin for setting disabled state style
 @mixin disabled() {
   &.disabled,
   &:disabled,
@@ -13,7 +15,7 @@
   }
 }
 
-// Break the constraints of parent container(s) to span the entire viewport width
+// Mixin for breaking the constraints of parent container(s) to span the entire viewport width
 @mixin full-bleed {
   $offset: $grid-gutter-width / 2;
   width: calc(100% + #{2 * $offset});
@@ -22,7 +24,7 @@
   margin-left: -#{$offset};
 }
 
-// Mixin to create ".full-bleed-breakpoint" utility classes
+// Mixin for creating ".full-bleed-breakpoint" utility classes
 @mixin full-bleed-bp($breakpoint) {
   @include media-breakpoint-only($breakpoint) {
     .full-bleed-#{$breakpoint} {
@@ -31,6 +33,8 @@
   }
 }
 
+// Mixin for setting vertical margin for mobile and tablet+
+// TODO:FIXME: we should rename this mixin
 @mixin intro-and-content-spacing($adjust-spacing-for-md: null) {
   margin-top: 24px;
   margin-bottom: 24px;
@@ -43,6 +47,7 @@
   }
 }
 
+// Mixin for setting #cta-anchor position
 @mixin cta-anchor-position($extra-vertical-spacing: 0px) {
   $offset: 80px;
 
@@ -50,6 +55,7 @@
   padding-top: calc(#{$offset} + #{$extra-vertical-spacing});
 }
 
+// Mixin for setting special one-off share button style
 @mixin style-colored-share-buttons(
   $color,
   $facebook-icon,
