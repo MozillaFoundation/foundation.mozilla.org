@@ -1,3 +1,4 @@
+// Mixin for including glyph on the left side of the applied element
 @mixin glyph(
   $id,
   $path-to-directory: $default-glyph-path,
@@ -16,6 +17,7 @@
   }
 }
 
+// Mixin for setting glyph for hover/focus state
 @mixin hoverGlyph($id, $path-to-directory: $default-glyph-path) {
   &:hover::before,
   &:focus::before {
@@ -23,6 +25,7 @@
   }
 }
 
+// Mixin for setting up various sizes of the glyph
 @mixin compositeGlyph($id, $path-to-directory: $default-glyph-path) {
   &::before {
     @include glyph($id, $path-to-directory);
@@ -42,6 +45,11 @@
     }
   }
 
+  // TODO:FIXME:
+  // This ruleset is too specific to be included in this mixin
+  // Let's move the rules to the .heart-glyph block below (around line 75)
+  // , after the @include hoverGlyph("heart-hover"); rule
+  // Note: remember to verify styling still looks the same
   &.heart-glyph {
     &::before {
       width: 19px;
@@ -52,6 +60,11 @@
     }
   }
 
+  // TODO:FIXME:
+  // This ruleset is too specific to be included in this mixin
+  // Let's move the rules to the .form-error-glyph block below (around line 94)
+  // , after the @include hoverGlyph("form-error-glyph"); rule
+  // Note: remember to verify styling still looks the same
   &.form-error-glyph {
     &::before {
       width: 13px;
