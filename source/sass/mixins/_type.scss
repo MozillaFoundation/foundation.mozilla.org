@@ -1,3 +1,4 @@
+// Mixin for setting heading style
 @mixin heading(
   $font-family,
   $font-weight,
@@ -30,6 +31,7 @@
   }
 }
 
+// Mixin for setting base style for text
 @mixin text-base-style($font-family, $font-weight, $color, $dark-theme-color) {
   font-family: $font-family;
   font-weight: $font-weight;
@@ -44,6 +46,7 @@
   }
 }
 
+// Mixin for setting mobile and tablet+ font sizes
 @mixin set-text-size(
   $base-font-size,
   $base-line-height: null,
@@ -67,11 +70,13 @@
   }
 }
 
+// Mixin for setting body style text
 @mixin body-text-style() {
   @include text-base-style($font-family-sans-serif, 400, $black, $white);
   @include set-text-size(18px, 27px);
 }
 
+// Mixin for setting style for dark theme inline anchors
 @mixin dark-theme-inline-anchor($color: inherit) {
   color: $color;
   font-weight: inherit;
