@@ -124,7 +124,7 @@ def signup_submission(request, signup):
     if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD.lower() == 'basket':
         response = basket.subscribe(data['email'], data['newsletters'], lang=data['lang'])
         if response['status'] == 'ok':
-            return Response(data, status=status.HTTP_200_OK)
+            return Response(data, status=status.HTTP_201_CREATED)
 
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
