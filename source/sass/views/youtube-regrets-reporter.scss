@@ -195,6 +195,7 @@
         display: flex;
         transition: transform 0.5s ease-in-out;
 
+        // Mixin for setting timeline width on RegretsReporter Page
         @mixin set-timeline-width($items-per-viewport) {
           $item-width: calc(
             (100% - #{$padding-left} - #{$padding-left}) /

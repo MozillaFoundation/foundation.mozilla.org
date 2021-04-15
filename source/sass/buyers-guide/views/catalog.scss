@@ -221,6 +221,7 @@ body.catalog {
   }
 
   .product-box-list-wrapper {
+    // Mixin for setting product box styling in product box list
     @mixin product-box-size($box-margin: 1px, $items-per-row: 2) {
       $num-of-gutter: $items-per-row;
       $gutter-width: $box-margin * 2;
