@@ -121,7 +121,7 @@ def signup_submission(request, signup):
         data['campaign_id'] = cid
 
     # If we want to subscribe them through basket, do so, if not, subscribe them using SQS.
-    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD.lower() == 'basket':
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET':
         response = basket.subscribe(data['email'], data['newsletters'], lang=data['lang'])
         if response['status'] == 'ok':
             return Response(data, status=status.HTTP_201_CREATED)
@@ -203,7 +203,7 @@ def petition_submission(request, petition):
         }
     })
 
-    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD.lower() == 'basket':
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET':
         if request.data['newsletterSignup'] is True:
             # Use basket-clients subscribe method, then send the petition information to SQS
             # with "newsletterSignup" set to false, to avoid subscribing them twice.
