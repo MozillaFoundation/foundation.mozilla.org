@@ -25,11 +25,18 @@ class RSSFeed(Feed):
             # specifically using the English page title, as an IndexPage rather than
             # as a BlogIndexPage, to make sure we're not filtering out all the
             # "featured" posts (which we need to do for site content purposes).
-            index = IndexPage.objects.get(title_en__iexact='Blog')
+            try:
+                index = IndexPage.objects.get(title_en__iexact='Blog')
 
-            # If that doesn't yield the blog page, pull using the universal title
-            if index is None:
-                index = IndexPage.objects.get(title__iexact='Blog')
+            except IndexPage.DoesNotExist:
+                # If that doesn't yield the blog page, pull using the universal title
+                try:
+                    index = IndexPage.objects.get(title__iexact='Blog')
+
+                except IndexPage.DoesNotExist:
+                    # At this point there's not much we can do other than to pretend
+                    # there are no posts to serialize to RSS/Atom format.
+                    return []
 
             # Then sort the collection and only yield the top FEED_LIMIT posts
             blog_pages = index.get_all_entries().order_by('-first_published_at')
