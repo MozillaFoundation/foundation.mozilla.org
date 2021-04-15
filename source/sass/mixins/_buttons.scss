@@ -1,9 +1,11 @@
+// Mixin for setting base colors for button
 @mixin button-base-colors($styles) {
   color: map-get($styles, "color");
   background-color: map-get($styles, "background-color");
   border-color: map-get($styles, "border-color");
 }
 
+// Mixin for setting colors for various button states
 @mixin button-colors-by-mode($mode-colors) {
   $default-colors: map-get($mode-colors, "default");
   $hover-colors: map-get($mode-colors, "hover-focus");
@@ -30,6 +32,7 @@
   }
 }
 
+// Mixin for setting button style
 @mixin button-basic-style($regular-mode, $dark-mode) {
   @include disabled {
     cursor: not-allowed;
@@ -46,6 +49,7 @@
   }
 }
 
+// Mixin for setting .btn-secondary style
 @mixin btn-secondary-style() {
   border-width: 2px;
   border-style: solid;

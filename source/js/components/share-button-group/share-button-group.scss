@@ -1,6 +1,7 @@
 .share-button-group {
   $margin: 16px;
 
+  // Mixin for styling stacked rectangle style share buttons
   @mixin stacked-rectangle() {
     flex-direction: column;
 
