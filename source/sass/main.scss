@@ -34,9 +34,6 @@
 @import "./components/image-text-mini"; // stream block. TODO:FIXME: relocae file?
 @import "./components/select-dropdown"; // TODO:FIXME: consider relocate code to a new file scss/form.scss
 @import "./components/blog-authors";
-@import "./components/publication-page"; // TODO:FIXME: relocate file to scss/views/
-@import "./components/chapter-page"; // TODO:FIXME: relocate file to scss/views/
-@import "./components/article-page"; // TODO:FIXME: relocate file to scss/views/
 @import "./components/dear-internet-letter"; // stream block. TODO:FIXME: relocate file?
 
 // Misc
@@ -61,6 +58,9 @@
 @import "./views/youtube-regrets";
 @import "./views/youtube-regrets-reporter";
 @import "./views/dear-internet";
+@import "./views/publication";
+@import "./views/chapter";
+@import "./views/article";
 
 // MozFest
 
