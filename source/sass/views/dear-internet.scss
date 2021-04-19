@@ -7,6 +7,7 @@
     $dear-internet-pink 100%
   );
 
+  // Mixin for setting body large style for #DearInternet
   @mixin dear-internet-body-large {
     @extend .body-large;
     @include set-text-size(18px, 27px, 24px, 34px);

@@ -63,6 +63,13 @@ class Highlight(SortableMixin):
         blank=False,
         null=True,
     )
+    # New image field. Will be converted later.
+    image_new = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.SET_NULL,
+        blank=False,
+        null=True,
+    )
     footer = RichTextField(
         "footer",
         help_text="Content to appear after description (view more projects "

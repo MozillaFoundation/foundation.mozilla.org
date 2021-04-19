@@ -19,6 +19,7 @@ from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
@@ -28,7 +29,7 @@ from networkapi.wagtailpages.fields import ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.buyersguide.pagemodels.product_update import Update
+from networkapi.buyersguide.pagemodels.product_update import Update as OldUpdate
 from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
@@ -215,6 +216,57 @@ class ProductPagePrivacyPolicyLink(Orderable):
         return f'{self.page.title}: {self.label} ({self.url})'
 
 
+@register_snippet
+class Update(index.Indexed, models.Model):
+    source = models.URLField(
+        max_length=2048,
+        help_text='Link to source',
+    )
+
+    title = models.CharField(
+        max_length=256,
+    )
+
+    author = models.CharField(
+        max_length=256,
+        blank=True,
+    )
+
+    featured = models.BooleanField(
+        default=False,
+        help_text='feature this update at the top of the list?'
+    )
+
+    snippet = models.TextField(
+        max_length=5000,
+        blank=True,
+    )
+
+    created_date = models.DateField(
+        auto_now_add=True,
+        help_text='The date this product was created',
+    )
+
+    panels = [
+        FieldPanel('source'),
+        FieldPanel('title'),
+        FieldPanel('author'),
+        FieldPanel('featured'),
+        FieldPanel('snippet'),
+    ]
+
+    search_fields = [
+        index.SearchField('title', partial_match=True),
+    ]
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Update"
+        verbose_name_plural = "Buyers Guide Product Updates"
+
+
 class ProductUpdates(Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
@@ -222,15 +274,23 @@ class ProductUpdates(Orderable):
         on_delete=models.CASCADE,
     )
 
+    # This is the old update FK to buyersguide.Update
     update = models.ForeignKey(
-        Update,
+        OldUpdate,
         on_delete=models.SET_NULL,
         related_name='+',
         null=True,
     )
+    # This is the new update FK to wagtailpages.Update
+    update_new = models.ForeignKey(
+        Update,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        null=True
+    )
 
     panels = [
-        SnippetChooserPanel('update')
+        SnippetChooserPanel('update'),
     ]
 
 

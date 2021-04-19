@@ -1,3 +1,5 @@
+// Primary Nav (Site Nav)
+
 .primary-nav-container {
   $logo-height: 28px;
 
@@ -45,6 +47,7 @@
   }
 
   #primary-nav-links {
+    // Mixin for setting vertical padding on primary #primary-nav-links
     @mixin link-padding($v-padding: xs) {
       padding-top: $v-padding;
       padding-bottom: $v-padding;
@@ -71,6 +74,7 @@
       margin-right: 18px;
       transition: border-color 0.25s ease;
 
+      // Mixin for setting bottom padding on primary nav link
       @mixin padding-bottom($bp: sm) {
         padding-bottom: calc(
           #{map-get($menu-container-padding, $bp)} + #{map-get(
