@@ -9,11 +9,9 @@ from factory import (
 )
 from wagtail_factories import ImageFactory
 
-from networkapi.utility.faker import ImageProvider, generate_fake_data
+from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.highlights.models import Highlight
-
-Faker.add_provider(ImageProvider)
 
 
 class HighlightFactory(DjangoModelFactory):

@@ -81,7 +81,7 @@
       {% for entry in page.featured_highlights.all %}
       {% with highlight=entry.highlight %}
       <div class="col-md-6 col-lg-4">
-        {% card highlight.image.url highlight.title highlight.description highlight.link_url highlight.link_label %}
+        {% card highlight.image highlight.title highlight.description highlight.link_url highlight.link_label %}
       </div>
       {% endwith %}
       {% endfor %}
