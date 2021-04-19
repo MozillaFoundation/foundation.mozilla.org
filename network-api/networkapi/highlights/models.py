@@ -69,6 +69,7 @@ class Highlight(SortableMixin):
         on_delete=models.SET_NULL,
         blank=False,
         null=True,
+        related_name='+',
     )
     footer = RichTextField(
         "footer",
