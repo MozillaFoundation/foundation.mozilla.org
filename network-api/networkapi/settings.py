@@ -33,7 +33,6 @@ env = environ.Env(
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
     BASKET_URL=(str, ''),
-    BASKET_API_KEY=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
@@ -121,7 +120,8 @@ BASE_DIR = root()
 
 # Basket client configuration
 BASKET_URL = env('BASKET_URL')
-BASKET_API_KEY = env('BASKET_API_KEY')
+
+# Newsletter Configuration
 MOFO_NEWSLETTER_SUBSCRIBE_METHOD = env('MOFO_NEWSLETTER_SUBSCRIBE_METHOD')
 
 

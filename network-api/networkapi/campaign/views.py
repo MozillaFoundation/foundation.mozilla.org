@@ -203,12 +203,12 @@ def petition_submission(request, petition):
         }
     })
 
-    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET':
-        if request.data['newsletterSignup'] is True:
-            # Use basket-clients subscribe method, then send the petition information to SQS
-            # with "newsletterSignup" set to false, to avoid subscribing them twice.
-            basket.subscribe(data['email'], 'mozilla-foundation', lang=data['lang'])
-            data['newsletterSignup'] = False
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
+    and request.data['newsletterSignup'] is True:
+        # Use basket-clients subscribe method, then send the petition information to SQS
+        # with "newsletterSignup" set to false, to avoid subscribing them twice.
+        basket.subscribe(data['email'], 'mozilla-foundation', lang=data['lang'])
+        data['newsletterSignup'] = False
 
     return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='petition')
 
