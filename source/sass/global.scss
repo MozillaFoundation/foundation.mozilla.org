@@ -29,6 +29,13 @@ hr {
   }
 }
 
+.hr-emphasis {
+  height: 4px;
+  background: $black;
+  border: 0;
+  margin: 30px 0;
+}
+
 #hero {
   $bg-pattern-height: 144px;
 
