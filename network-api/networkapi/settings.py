@@ -45,6 +45,7 @@ env = environ.Env(
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
+    FEED_CACHE_TIMEOUT=(int, 60*60*24),
     DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
     FEED_LIMIT=(int, 10),
     FILEBROWSER_DEBUG=(bool, False),
@@ -640,6 +641,7 @@ PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
 NETWORK_SITE_URL = env('NETWORK_SITE_URL')
 
 # RSS / ATOM settings
+FEED_CACHE_TIMEOUT = env('FEED_CACHE_TIMEOUT')
 FEED_LIMIT = env('FEED_LIMIT')
 
 # Support pages with a large number of fields
