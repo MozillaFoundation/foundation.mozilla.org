@@ -56,15 +56,7 @@ class Highlight(SortableMixin):
         max_length=2048,
         help_text='Link to this higlight\'s details page',
     )
-    # New image field. Will be converted later.
     image = models.ForeignKey(
-        'wagtailimages.Image',
-        on_delete=models.SET_NULL,
-        blank=False,
-        null=True,
-    )
-    # New image field. Will be converted later.
-    image_new = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
         blank=False,
