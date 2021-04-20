@@ -230,7 +230,6 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
         }, 201)
 
     try:
-
         response = sqs.send_message(
             QueueUrl=queue_url,
             MessageBody=message
