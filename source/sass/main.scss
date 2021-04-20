@@ -25,20 +25,19 @@
 
 // Non-React Components
 
-@import "./components/hr-emphasis";
-@import "./components/feature-quote";
+@import "./components/feature-quote"; // stream block. TODO:FIXME: relocate file?
 @import "./components/nav";
 @import "./components/primary-nav";
 @import "./components/multipage-nav";
 @import "./components/card";
-@import "./components/airtable-block";
-@import "./components/image-text-mini";
-@import "./components/select-dropdown";
+@import "./components/airtable-block"; // stream block. TODO:FIXME: relocate file?
+@import "./components/image-text-mini"; // stream block. TODO:FIXME: relocae file?
+@import "./components/select-dropdown"; // TODO:FIXME: consider relocate code to a new file scss/form.scss
 @import "./components/blog-authors";
-@import "./components/publication-page";
-@import "./components/chapter-page";
-@import "./components/article-page";
-@import "./components/dear-internet-letter";
+@import "./components/publication-page"; // TODO:FIXME: relocate file to scss/views/
+@import "./components/chapter-page"; // TODO:FIXME: relocate file to scss/views/
+@import "./components/article-page"; // TODO:FIXME: relocate file to scss/views/
+@import "./components/dear-internet-letter"; // stream block. TODO:FIXME: relocate file?
 
 // Misc
 
@@ -54,10 +53,6 @@
 // View specific
 
 @import "./views/home";
-@import "./views/about";
-@import "./views/contact";
-@import "./views/projects";
-@import "./views/initiatives";
 @import "./views/participate";
 @import "./views/indexpage";
 @import "./views/blog";

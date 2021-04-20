@@ -24,9 +24,10 @@
     </figure>
   </div>
 
-{% if not is_last %}
-  {% comment %} Restart the Article Block bootstrap grid {% endcomment %}
-  <div class="container">
-    <div class="row">
-      <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
-{% endif %}
+  {% comment %} Restart the Article Block bootstrap grid. If it is the last item, hide the empty container to keep from pushing footer down a couple px{% endcomment %}
+  <div class="container {% if is_last %}d-none{% endif %}"> <!-- Re-opening container -->
+    <div class="row"> <!-- Re-opening row -->
+      <div class="offset-sm-1 col-sm-10 col-12 article-blocks"> <!-- Re-opening col-sm-10 from main container -->
+
+
+

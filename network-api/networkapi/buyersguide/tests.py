@@ -87,23 +87,29 @@ class BuyersGuideViewTest(TestCase):
         """
         Test that the product view raises an Http404 if the product name doesn't exist
         """
-        response = self.client.get('/en/privacynotincluded/products/this is not a product')
+        response = self.client.get('/en/privacynotincluded/products/this is not a product', follow=True)
+        self.assertEqual(response.status_code, 404, 'this is not a product')
+
+        response = self.client.get('/en/privacynotincluded/products/this is not a product/')
         self.assertEqual(response.status_code, 404, 'this is not a product')
 
     def test_category_view_404(self):
         """
         Test that the category view raises an Http404 if the category name doesn't exist
         """
-        response = self.client.get('/en/privacynotincluded/categories/this is not a category')
+        response = self.client.get('/en/privacynotincluded/categories/this is not a category', follow=True)
+        self.assertEqual(response.status_code, 404, 'this is not a category')
+
+        response = self.client.get('/en/privacynotincluded/categories/this is not a category/')
         self.assertEqual(response.status_code, 404, 'this is not a category')
 
     def test_category_view(self):
         """
-        Test that the category view returns a 302 for /privacynotincluded/ to /en/privacynotinclded/
-        and return a 404 for a slug that doesn't exist
+        Test that the category view returns a 302 for /privacynotincluded/ to /en/privacynotincluded/
+        for both slug-based and name-based categories.
         """
         response = self.client.get('/privacynotincluded/categories/Smart%20Home/')
-        self.assertEqual(response.status_code, 404, 'Smart%20Home is an invalid slug and should return a 404.')
+        self.assertEqual(response.status_code, 302, 'The category "Smart Home" should work by name')
 
         response = self.client.get('/privacynotincluded/categories/smart-home/')
         self.assertEqual(response.status_code, 302, 'The category "Smart Home" should work by slug')

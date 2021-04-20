@@ -19,31 +19,21 @@ from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.wagtailpages.fields import ExtendedYesNoField
-from networkapi.buyersguide.pagemodels.cloudinary_image_field import (
-    CloudinaryField
-)
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.buyersguide.pagemodels.product_update import Update
+from networkapi.buyersguide.pagemodels.product_update import Update as OldUpdate
 from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
 from networkapi.buyersguide.utils import get_category_og_image_upload_path
-
-
-if settings.USE_CLOUDINARY:
-    image_field = FieldPanel('cloudinary_image')
-    MEDIA_URL = settings.CLOUDINARY_URL
-else:
-    image_field = ImageChooserPanel('image')
-    MEDIA_URL = settings.MEDIA_URL
 
 
 TRACK_RECORD_CHOICES = [
@@ -226,6 +216,57 @@ class ProductPagePrivacyPolicyLink(Orderable):
         return f'{self.page.title}: {self.label} ({self.url})'
 
 
+@register_snippet
+class Update(index.Indexed, models.Model):
+    source = models.URLField(
+        max_length=2048,
+        help_text='Link to source',
+    )
+
+    title = models.CharField(
+        max_length=256,
+    )
+
+    author = models.CharField(
+        max_length=256,
+        blank=True,
+    )
+
+    featured = models.BooleanField(
+        default=False,
+        help_text='feature this update at the top of the list?'
+    )
+
+    snippet = models.TextField(
+        max_length=5000,
+        blank=True,
+    )
+
+    created_date = models.DateField(
+        auto_now_add=True,
+        help_text='The date this product was created',
+    )
+
+    panels = [
+        FieldPanel('source'),
+        FieldPanel('title'),
+        FieldPanel('author'),
+        FieldPanel('featured'),
+        FieldPanel('snippet'),
+    ]
+
+    search_fields = [
+        index.SearchField('title', partial_match=True),
+    ]
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Buyers Guide Product Update"
+        verbose_name_plural = "Buyers Guide Product Updates"
+
+
 class ProductUpdates(Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
@@ -233,15 +274,23 @@ class ProductUpdates(Orderable):
         on_delete=models.CASCADE,
     )
 
+    # This is the old update FK to buyersguide.Update
     update = models.ForeignKey(
-        Update,
+        OldUpdate,
         on_delete=models.SET_NULL,
         related_name='+',
         null=True,
     )
+    # This is the new update FK to wagtailpages.Update
+    update_new = models.ForeignKey(
+        Update,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        null=True
+    )
 
     panels = [
-        SnippetChooserPanel('update')
+        SnippetChooserPanel('update'),
     ]
 
 
@@ -301,13 +350,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+',
         help_text='Image representing this product',
-    )
-    cloudinary_image = CloudinaryField(
-        help_text='Image representing this product - hosted on Cloudinary',
-        blank=True,
-        verbose_name='image',
-        folder='foundationsite/buyersguide',
-        use_filename=True
     )
     worst_case = models.TextField(
         max_length=5000,
@@ -570,7 +612,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('uses_wifi'),
                 FieldPanel('uses_bluetooth'),
                 FieldPanel('blurb'),
-                image_field,
+                ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
             ],
             heading='General Product Details',
@@ -684,7 +726,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context['product'] = self
         context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
-        context['mediaUrl'] = settings.CLOUDINARY_URL if settings.USE_CLOUDINARY else settings.MEDIA_URL
+        context['mediaUrl'] = settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         pni_home_page = BuyersGuidePage.objects.first()
