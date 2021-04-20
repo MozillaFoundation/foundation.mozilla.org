@@ -1,7 +1,11 @@
 {% load wagtailimages_tags wagtailcore_tags remove_richtext_wrapping %}
 
-{% comment %}This block doesn't need to "break" out of the Publications container{% endcomment %}
-<div class="article-image-block">
+{% comment %} We need to break out of the main container and re-open the container at the end {% endcomment %}
+{% if self.wide_image %}
+  </div>
+{% endif %}
+
+<div class="article-image-block {% if self.wide_image %}container{% endif %}">
   {% comment %}Use a 2x resolution image{% endcomment %}
   {% image self.image width-1840 as img %}
   <figure class="my-default">
@@ -13,3 +17,7 @@
     {% endif %}
   </figure>
 </div>
+
+{% if self.wide_image %}
+  <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+{% endif %}
