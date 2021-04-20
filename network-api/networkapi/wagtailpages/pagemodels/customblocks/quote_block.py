@@ -9,7 +9,7 @@ class QuoteBlock(blocks.StructBlock):
 
     quotes = blocks.ListBlock(blocks.StructBlock([
         ('quote', blocks.CharBlock()),
-        ('attribution', blocks.CharBlock())
+        ('attribution', blocks.CharBlock(required=False))
     ]))
 
     class Meta:
