@@ -11,7 +11,7 @@
   <figure class="my-default">
     <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}" class="w-100" />
     {% if self.caption %}
-        <figcaption>
+        <figcaption class="body-small">
           {{ self.caption|richtext|remove_wrapping|safe }}
         </figcaption>
     {% endif %}
@@ -19,5 +19,5 @@
 </div>
 
 {% if self.wide_image %}
-  <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+  <div class="py-4 py-md-5 offset-sm-1 col-sm-10 col-12 article-blocks">
 {% endif %}
