@@ -32,6 +32,7 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     ASSET_DOMAIN=(str, ''),
     AWS_LOCATION=(str, ''),
+    BASKET_URL=(str, ''),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, '200/hour'),
     CONTENT_TYPE_NO_SNIFF=bool,
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
@@ -44,6 +45,7 @@ env = environ.Env(
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
     DJANGO_LOG_LEVEL=(str, 'INFO'),
+    FEED_CACHE_TIMEOUT=(int, 60*60*24),
     DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
     FEED_LIMIT=(int, 10),
     FILEBROWSER_DEBUG=(bool, False),
@@ -53,6 +55,9 @@ env = environ.Env(
     HEROKU_BRANCH=(str, ''),
     HEROKU_PR_NUMBER=(str, ''),
     HEROKU_RELEASE_VERSION=(str, None),
+    # MOFO_NEWSLETTER_SUBSCRIBE_METHOD should be 'BASKET' or 'SQS'.
+    # We're using SQS by default until we move to sending newsletter data directly to Basket.
+    MOFO_NEWSLETTER_SUBSCRIBE_METHOD=(str, 'BASKET'),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     NETWORK_SITE_URL=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
@@ -113,6 +118,13 @@ REVIEW_APP = env('REVIEW_APP', default=False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
+
+# Basket client configuration
+BASKET_URL = env('BASKET_URL')
+
+# Newsletter Configuration
+MOFO_NEWSLETTER_SUBSCRIBE_METHOD = env('MOFO_NEWSLETTER_SUBSCRIBE_METHOD')
+
 
 APP_DIR = app()
 
@@ -629,6 +641,7 @@ PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
 NETWORK_SITE_URL = env('NETWORK_SITE_URL')
 
 # RSS / ATOM settings
+FEED_CACHE_TIMEOUT = env('FEED_CACHE_TIMEOUT')
 FEED_LIMIT = env('FEED_LIMIT')
 
 # Support pages with a large number of fields
