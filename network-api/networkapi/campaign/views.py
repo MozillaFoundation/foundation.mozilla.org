@@ -5,6 +5,7 @@ from rest_framework import status, permissions
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from datetime import datetime
+import basket
 import boto3
 import logging
 import json
@@ -119,18 +120,26 @@ def signup_submission(request, signup):
     if cid is not None and cid != '':
         data['campaign_id'] = cid
 
-    # pack up as a basket message
-    message = json.dumps({
-        'app': settings.HEROKU_APP_NAME,
-        'timestamp': datetime.now().isoformat(),
-        'data': {
-            'json': True,
-            'form': data,
-            'event_type': 'newsletter_signup_data'
-        }
-    })
+    # If we want to subscribe them through basket, do so, if not, subscribe them using SQS.
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET':
+        response = basket.subscribe(data['email'], data['newsletters'], lang=data['lang'])
+        if response['status'] == 'ok':
+            return Response(data, status=status.HTTP_201_CREATED)
 
-    return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
+    else:
+        # pack up as a basket message
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': {
+                'json': True,
+                'form': data,
+                'event_type': 'newsletter_signup_data'
+            }
+        })
+        return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
 
 
 # handle Salesforce petition data
@@ -193,6 +202,13 @@ def petition_submission(request, petition):
             'event_type': 'crm_petition_data'
         }
     })
+
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
+            and request.data['newsletterSignup'] is True:
+        # Use basket-clients subscribe method, then send the petition information to SQS
+        # with "newsletterSignup" set to false, to avoid subscribing them twice.
+        basket.subscribe(data['email'], 'mozilla-foundation', lang=data['lang'])
+        data['newsletterSignup'] = False
 
     return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='petition')
 
