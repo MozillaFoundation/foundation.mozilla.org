@@ -40,7 +40,7 @@
             `is_last` is used to determine if a streamfield should close
             after breaking out of its parent container
           {% endcomment %}
-          {% include_block block with is_last=forloop.last %}
+          {% include_block block with is_last=forloop.last page_type="article" %}
         {% endfor %}
       </div>
     </div>

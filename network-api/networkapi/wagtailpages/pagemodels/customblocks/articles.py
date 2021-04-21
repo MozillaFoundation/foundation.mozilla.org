@@ -59,6 +59,12 @@ class ArticleImageBlock(blocks.StructBlock):
         features=['italic', 'bold', 'link'],
     )
     alt_text = blocks.CharBlock(required=False)
+    wide_image = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text='Checking this will use a wider version of this image, but not full width. '
+                  'For an edge-to-edge image, use the "Wide Image" block.'
+    )
 
     class Meta:
         label = "Image"

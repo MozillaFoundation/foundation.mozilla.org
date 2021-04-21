@@ -10,6 +10,11 @@ class AnnotatedImageBlock(ImageBlock):
         required=False,
         help_text='Optional URL that this caption should link out to.'
     )
+    wide_image = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text='Would you like to use a wider image on desktop?'
+    )
 
     class Meta:
         icon = 'image'
