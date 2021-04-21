@@ -3,13 +3,14 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework import status, permissions
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from datetime import datetime
 import basket
 import boto3
 import logging
 import json
-
 from networkapi.wagtailpages.models import Petition, Signup
 
 
@@ -53,9 +54,15 @@ logger = logging.getLogger(__name__)
 
 
 @api_view(['POST'])
+@csrf_exempt
 @parser_classes((JSONParser,))
 @permission_classes((permissions.AllowAny,))
 def signup_submission_view(request, pk):
+    # We need to re-write the data that's coming in from the XMLHttpRequest.
+    # XMLHttpRequest's send data through the request.body, not request.POST despite it being a POST method
+    new_body = request.body.decode("utf-8")
+    request.data = json.loads(new_body)
+    # TODO: Test this view
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -68,10 +75,14 @@ def signup_submission_view(request, pk):
     return signup_submission(request, signup)
 
 
-@api_view(['POST'])
-@parser_classes((JSONParser,))
-@permission_classes((permissions.AllowAny,))
+@csrf_exempt
+@require_http_methods(['POST'])
 def petition_submission_view(request, pk):
+    # We need to re-write the data that's coming in from the XMLHttpRequest.
+    # XMLHttpRequest's send data through the request.body, not request.POST despite it being a POST method
+    new_body = request.body.decode("utf-8")
+    request.data = json.loads(new_body)
+    # TODO: Test this with working sqs env vars from staging or RA apps
     try:
         petition = Petition.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -145,7 +156,6 @@ def signup_submission(request, signup):
 # handle Salesforce petition data
 def petition_submission(request, petition):
     cid = petition.campaign_id
-
     if cid is None or cid == '':
         return Response(
             {'error': 'Server is missing campaign for petition'},
