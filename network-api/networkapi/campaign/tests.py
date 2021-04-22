@@ -36,7 +36,7 @@ class PostRouteTests(TestCase):
         response_dict = json.loads(response.content)
         self.assertEqual(response.status_code, 500)
         self.assertTrue('error' in response_dict)
-        self.assertEqual(response_dict['error'], 'Server is missing campaign for petition')
+        self.assertEqual(response_dict['error'], 'Server is missing campaign id for petition')
         print('(intentional 500 error)')
 
         petition.campaign_id = 123
