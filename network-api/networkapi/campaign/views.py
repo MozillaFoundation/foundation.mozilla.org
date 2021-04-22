@@ -55,11 +55,16 @@ logger = logging.getLogger(__name__)
 @csrf_exempt
 @require_http_methods(['POST'])
 def signup_submission_view(request, pk):
-    # We need to re-write the data that's coming in from the XMLHttpRequest.
-    # XMLHttpRequest's send data through the request.body, not request.POST despite it being a POST method
+    # We need to re-write the data that's coming in from the network request.
+    # Network request's send data through the request.body, not request.POST despite it being a POST method
     # request.POST is supported for unit tests
     new_body = request.body.decode("utf-8")
-    request.data = json.loads(new_body)
+    try:
+        request.data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse({
+            'error': 'Could not validate incoming data',
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
         signup = Signup.objects.get(id=pk)
@@ -76,14 +81,17 @@ def signup_submission_view(request, pk):
 @csrf_exempt
 @require_http_methods(['POST'])
 def petition_submission_view(request, pk):
-    # We need to re-write the data that's coming in from the XMLHttpRequest.
-    # XMLHttpRequest's send data through the request.body, not request.POST despite it being a POST method
+    # We need to re-write the data that's coming in from the network request.
+    # Network request's send data through the request.body, not request.POST despite it being a POST method
     # request.POST is supported for unit tests
-    if request.POST:
-        request.data = request.POST
-    else:
-        new_body = request.body.decode("utf-8")
+    new_body = request.body.decode("utf-8")
+    try:
         request.data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse({
+            'error': 'Could not validate incoming data',
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     try:
         petition = Petition.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -159,7 +167,7 @@ def petition_submission(request, petition):
     cid = petition.campaign_id
     if cid is None or cid == '':
         return JsonResponse(
-            {'error': 'Server is missing campaign for petition'},
+            {'error': 'Server is missing campaign id for petition'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
