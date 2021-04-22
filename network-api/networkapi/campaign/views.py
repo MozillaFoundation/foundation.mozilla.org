@@ -1,12 +1,12 @@
-from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
-from rest_framework import status, permissions
+from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from datetime import datetime
+from django.http import JsonResponse
+
 import basket
 import boto3
 import logging
@@ -53,10 +53,8 @@ crm_queue_url = settings.CRM_PETITION_SQS_QUEUE_URL
 logger = logging.getLogger(__name__)
 
 
-@api_view(['POST'])
 @csrf_exempt
-@parser_classes((JSONParser,))
-@permission_classes((permissions.AllowAny,))
+@require_http_methods(['POST'])
 def signup_submission_view(request, pk):
     # We need to re-write the data that's coming in from the XMLHttpRequest.
     # XMLHttpRequest's send data through the request.body, not request.POST despite it being a POST method
@@ -135,9 +133,9 @@ def signup_submission(request, signup):
     if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET':
         response = basket.subscribe(data['email'], data['newsletters'], lang=data['lang'])
         if response['status'] == 'ok':
-            return Response(data, status=status.HTTP_201_CREATED)
+            return JsonResponse(data, status=status.HTTP_201_CREATED)
 
-        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
 
     else:
         # pack up as a basket message
@@ -215,6 +213,7 @@ def petition_submission(request, petition):
 
     if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
             and request.data['newsletterSignup'] is True:
+
         # Use basket-clients subscribe method, then send the petition information to SQS
         # with "newsletterSignup" set to false, to avoid subscribing them twice.
         basket.subscribe(data['email'], 'mozilla-foundation', lang=data['lang'])
@@ -226,7 +225,6 @@ def petition_submission(request, petition):
 def send_to_sqs(sqs, queue_url, message, type='petition'):
     if settings.DEBUG is True:
         logger.info(f'Sending {type} message: {message}')
-
         if not sqs:
             # TODO: can this still kick in now that we have an SQS proxy object?
             logger.info('Faking a success message (debug=true, sqs=nonexistent).')
@@ -234,10 +232,10 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
 
     if queue_url is None:
         logger.warning(f'{type} was not submitted: No {type} SQS url was specified')
-        return Response({
+        return JsonResponse({
             'message': 'success',
             'details': 'nq'
-        }, 201)
+        }, status=201)
 
     try:
         response = sqs.send_message(
@@ -246,18 +244,18 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
         )
     except Exception as error:
         logger.error(f'Failed to send {type} with: {error}')
-        return Response(
+        return JsonResponse(
             {'error': f'Failed to queue up {type}'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
     if 'MessageId' in response and response['MessageId']:
-        return Response({
+        return JsonResponse({
             'message': 'success',
             'details': response['MessageId']
-        }, 201)
+        }, status=201)
     else:
-        return Response(
+        return JsonResponse(
             {'error': f'Something went wrong with {type}'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
