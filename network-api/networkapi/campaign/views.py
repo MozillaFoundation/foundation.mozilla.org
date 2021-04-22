@@ -1,4 +1,3 @@
-from rest_framework.response import Response
 from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
@@ -58,9 +57,10 @@ logger = logging.getLogger(__name__)
 def signup_submission_view(request, pk):
     # We need to re-write the data that's coming in from the XMLHttpRequest.
     # XMLHttpRequest's send data through the request.body, not request.POST despite it being a POST method
+    # request.POST is supported for unit tests
     new_body = request.body.decode("utf-8")
     request.data = json.loads(new_body)
-    # TODO: Test this view
+
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -78,13 +78,16 @@ def signup_submission_view(request, pk):
 def petition_submission_view(request, pk):
     # We need to re-write the data that's coming in from the XMLHttpRequest.
     # XMLHttpRequest's send data through the request.body, not request.POST despite it being a POST method
-    new_body = request.body.decode("utf-8")
-    request.data = json.loads(new_body)
-    # TODO: Test this with working sqs env vars from staging or RA apps
+    # request.POST is supported for unit tests
+    if request.POST:
+        request.data = request.POST
+    else:
+        new_body = request.body.decode("utf-8")
+        request.data = json.loads(new_body)
     try:
         petition = Petition.objects.get(id=pk)
     except ObjectDoesNotExist:
-        return Response(
+        return JsonResponse(
             {'error': 'Invalid petition id'},
             status=status.HTTP_400_BAD_REQUEST,
         )
@@ -99,14 +102,14 @@ def signup_submission(request, signup):
     # payload validation
     email = rq.get('email')
     if email is None:
-        return Response(
+        return JsonResponse(
             {'error': 'Signup requires an email address'},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
     source = rq.get('source')
     if source is None:
-        return Response(
+        return JsonResponse(
             {'error': 'Unknown source'},
             status=status.HTTP_400_BAD_REQUEST,
         )
@@ -155,7 +158,7 @@ def signup_submission(request, signup):
 def petition_submission(request, petition):
     cid = petition.campaign_id
     if cid is None or cid == '':
-        return Response(
+        return JsonResponse(
             {'error': 'Server is missing campaign for petition'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
@@ -174,7 +177,7 @@ def petition_submission(request, petition):
         if 'country' in request.data:
             data["country"] = request.data['country']
         elif petition.requires_country_code:
-            return Response(
+            return JsonResponse(
                 {'error': 'Required field "country" is missing'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -183,7 +186,7 @@ def petition_submission(request, petition):
         if 'postalCode' in request.data:
             data["postal_code"] = request.data['postalCode']
         else:
-            return Response(
+            return JsonResponse(
                 {'error': 'Required field "postalCode" is missing'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -196,7 +199,7 @@ def petition_submission(request, petition):
             if 'comment' in request.data:
                 data["comments"] = request.data['comment']
             else:
-                return Response(
+                return JsonResponse(
                     {'error': 'Required field "comment" is missing'},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
@@ -228,7 +231,7 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
         if not sqs:
             # TODO: can this still kick in now that we have an SQS proxy object?
             logger.info('Faking a success message (debug=true, sqs=nonexistent).')
-            return Response({'message': 'success (faked)'}, 201)
+            return JsonResponse({'message': 'success (faked)'}, 201)
 
     if queue_url is None:
         logger.warning(f'{type} was not submitted: No {type} SQS url was specified')
