@@ -1,7 +1,5 @@
-/**
- * ArticlePage-specific styling.
- * Also see publication-page.scss and chapter-page.scss
- */
+// ArticlePage-specific styling.
+// Also see publication-page.scss and chapter-page.scss
 
 #view-article {
   .article-blocks {
@@ -368,7 +366,7 @@
     color: $gray-60;
     @include set-text-size(12px, 16px);
     font-family: $font-family-sans-serif;
-    margin-top: 18px;
+    margin-top: 8px;
   }
 }
 

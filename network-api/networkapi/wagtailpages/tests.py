@@ -1,4 +1,3 @@
-# TODO: Move tests to the wagtailpages app
 import json
 from os.path import abspath, dirname, join
 

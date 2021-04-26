@@ -30,7 +30,9 @@
       <h1 class="h1-heading">{{ page.title }}</h1>
       {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
       <div class="blog-body">
-        {{ page.body }}
+        {% for stream_block in page.body %}
+          {% include_block stream_block with page_type="blog" %}
+        {% endfor %}
         <div class="share-button-group-wrapper mt-5 d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>
     </div>
