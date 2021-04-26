@@ -1,6 +1,10 @@
 import { Component } from "react";
 
-export default class Creepometer extends Component {
+/**
+ * PNI creep-o-meter.
+ * Displays a slider for voting.
+ */
+class Creepometer extends Component {
   constructor(props) {
     super(props);
 
@@ -182,3 +186,5 @@ export default class Creepometer extends Component {
     );
   }
 }
+
+export default Creepometer;
