@@ -47,7 +47,10 @@ html {
 @import "../components/nav";
 @import "../components/multipage-nav";
 @import "../components/select-dropdown";
-@import "../components/feature-quote";
+
+// Wagtail Stream Blocks
+
+@import "../wagtail/blocks/feature-quote";
 
 // Misc
 
