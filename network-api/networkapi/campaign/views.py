@@ -172,6 +172,7 @@ def petition_submission(request, petition):
         )
 
     data = {
+        "json": True,
         "campaign_id": cid,
         "first_name": request.data['givenNames'],
         "last_name": request.data['surname'],
@@ -179,6 +180,8 @@ def petition_submission(request, petition):
         "email_subscription": request.data['newsletterSignup'],
         "source_url": request.data['source'],
         "lang": request.data['lang'],
+        "event_type": 'crm_petition_data'
+
     }
 
     if petition:
@@ -215,11 +218,7 @@ def petition_submission(request, petition):
     message = json.dumps({
         'app': settings.HEROKU_APP_NAME,
         'timestamp': datetime.now().isoformat(),
-        'data': {
-            'json': True,
-            'form': data,
-            'event_type': 'crm_petition_data'
-        }
+        'data': data
     })
 
     if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
