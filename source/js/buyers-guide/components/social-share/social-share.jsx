@@ -76,7 +76,10 @@ const SocialShareLink = (props) => {
   );
 };
 
-const SocialShare = (props) => {
+/**
+ * Renders PNI social share buttons for sharing on Facebook, Twitter, e-mail, and link.
+ */
+const PNISocialShare = (props) => {
   return (
     <div className="row">
       <div className="col-lg-10 m-auto">
@@ -95,4 +98,4 @@ const SocialShare = (props) => {
   );
 };
 
-export default SocialShare;
+export default PNISocialShare;

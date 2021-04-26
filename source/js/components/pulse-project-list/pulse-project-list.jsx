@@ -1,7 +1,11 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 
-export default class PulseProjectList extends Component {
+/**
+ * Pulls Pulse projects from Pulse API and
+ * renders it as a list.
+ */
+class PulseProjectList extends Component {
   constructor(props) {
     super(props);
 
@@ -127,3 +131,5 @@ PulseProjectList.propTypes = {
   query: PropTypes.string.isRequired,
   reverseChronological: PropTypes.bool,
 };
+
+export default PulseProjectList;
