@@ -2,7 +2,11 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-export default class News extends Component {
+/**
+ * Pulls news items from API and
+ * renders them into a list categorized by year.
+ */
+class News extends Component {
   constructor(props) {
     super(props);
 
@@ -105,3 +109,5 @@ News.propTypes = {
 News.defaultProps = {
   data: [],
 };
+
+export default News;

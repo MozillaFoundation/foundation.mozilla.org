@@ -7,7 +7,11 @@ import { getText } from "../../../components/petition/locales";
 
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 
-export default class CreepVote extends Component {
+/**
+ * PNI creep vote component.
+ * Submits user's creepiness vote for a product and shows aggregated result after.
+ */
+class CreepVote extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -248,3 +252,5 @@ export default class CreepVote extends Component {
     return <div className="creep-vote">{content}</div>;
   }
 }
+
+export default CreepVote;

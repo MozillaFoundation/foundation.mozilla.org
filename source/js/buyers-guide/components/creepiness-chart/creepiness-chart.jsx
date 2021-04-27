@@ -1,7 +1,11 @@
 import { Component, Fragment } from "react";
 import CREEPINESS_LABELS from "../creepiness-labels.js";
 
-export default class CreepChart extends Component {
+/**
+ * PNI creepiness chart.
+ * Shows aggregated voting result for a product's creepiness score.
+ */
+class CreepChart extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -82,3 +86,5 @@ export default class CreepChart extends Component {
     );
   }
 }
+
+export default CreepChart;

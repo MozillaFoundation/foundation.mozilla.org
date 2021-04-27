@@ -25,19 +25,19 @@
 
 // Non-React Components
 
-@import "./components/feature-quote"; // stream block. TODO:FIXME: relocate file?
 @import "./components/nav";
 @import "./components/primary-nav";
 @import "./components/multipage-nav";
 @import "./components/card";
-@import "./components/airtable-block"; // stream block. TODO:FIXME: relocate file?
-@import "./components/image-text-mini"; // stream block. TODO:FIXME: relocae file?
 @import "./components/select-dropdown"; // TODO:FIXME: consider relocate code to a new file scss/form.scss
 @import "./components/blog-authors";
-@import "./components/publication-page"; // TODO:FIXME: relocate file to scss/views/
-@import "./components/chapter-page"; // TODO:FIXME: relocate file to scss/views/
-@import "./components/article-page"; // TODO:FIXME: relocate file to scss/views/
-@import "./components/dear-internet-letter"; // stream block. TODO:FIXME: relocate file?
+
+// Wagtail Stream Blocks
+
+@import "./wagtail/blocks/airtable";
+@import "./wagtail/blocks/dear-internet-letter";
+@import "./wagtail/blocks/feature-quote";
+@import "./wagtail/blocks/image-text-mini";
 
 // Misc
 
@@ -61,6 +61,9 @@
 @import "./views/youtube-regrets";
 @import "./views/youtube-regrets-reporter";
 @import "./views/dear-internet";
+@import "./views/publication";
+@import "./views/chapter";
+@import "./views/article";
 
 // MozFest
 
