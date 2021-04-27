@@ -1,7 +1,10 @@
 import { Component } from "react";
 import classNames from "classnames";
 
-export default class LanguageSelect extends Component {
+/**
+ * Displays a language list dropdown for newsletter sign-up form.
+ */
+class JoinUsLanguageSelect extends Component {
   constructor(props) {
     super(props);
   }
@@ -49,3 +52,5 @@ export default class LanguageSelect extends Component {
     );
   }
 }
+
+export default JoinUsLanguageSelect;

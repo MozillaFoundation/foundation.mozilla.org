@@ -1,6 +1,9 @@
 import { Component } from "react";
 
-export default class MultipageNavMobile extends Component {
+/**
+ * Renders mobile version of multipage navs (secondary navs)
+ */
+class MultipageNavMobile extends Component {
   constructor(props) {
     super(props);
 
@@ -67,3 +70,5 @@ export default class MultipageNavMobile extends Component {
     );
   }
 }
+
+export default MultipageNavMobile;
