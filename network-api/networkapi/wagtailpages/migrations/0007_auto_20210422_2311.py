@@ -11,7 +11,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0005_auto_20210330_2042'),
+        ('wagtailpages', '0006_swap_field_names'),
     ]
 
     operations = [
