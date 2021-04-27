@@ -93,8 +93,6 @@ const SearchFilter = {
   },
 
   filter: (text) => {
-    console.log(`filtering for ${text}`, ALL_PRODUCTS);
-
     ALL_PRODUCTS.forEach((product) => {
       if (SearchFilter.test(product, text)) {
         product.classList.remove(`d-none`);
