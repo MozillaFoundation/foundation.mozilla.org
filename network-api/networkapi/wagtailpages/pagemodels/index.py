@@ -73,17 +73,23 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         context['entries'] = entries[0:self.page_size]
         return context
 
+    @property
+    def cache_key(self):
+        return f'index_items_{self.slug}'
+
+    def clear_index_page_cache(self):
+        cache.clear(self.cache_key)
+
     def get_all_entries(self):
         """
         Get all (live) child entries, ordered "newest first",
         ideally from cache, or "anew" if the cache expired.
         """
-        cache_key = f'index_items_{self.slug}'
-        child_set = cache.get(cache_key)
+        child_set = cache.get(self.cache_key)
 
         if child_set is None:
             child_set = self.get_children().live().public().order_by('-first_published_at', 'title')
-            cache.set(cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
+            cache.set(self.cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
 
         return child_set
 
