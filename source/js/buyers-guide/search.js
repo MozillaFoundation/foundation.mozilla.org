@@ -20,6 +20,7 @@ const SearchFilter = {
     const searchInput = (SearchFilter.searchInput = searchBar.querySelector(
       `input`
     ));
+
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = searchInput.value.trim();
 
@@ -95,8 +96,10 @@ const SearchFilter = {
     ALL_PRODUCTS.forEach((product) => {
       if (SearchFilter.test(product, text)) {
         product.classList.remove(`d-none`);
+        product.classList.add(`d-flex`);
       } else {
         product.classList.add(`d-none`);
+        product.classList.remove(`d-flex`);
       }
     });
 
