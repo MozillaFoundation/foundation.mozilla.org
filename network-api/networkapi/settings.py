@@ -55,6 +55,7 @@ env = environ.Env(
     HEROKU_BRANCH=(str, ''),
     HEROKU_PR_NUMBER=(str, ''),
     HEROKU_RELEASE_VERSION=(str, None),
+    INDEX_PAGE_CACHE_TIMEOUT=(int, 60*60*24),
     # MOFO_NEWSLETTER_SUBSCRIBE_METHOD should be 'BASKET' or 'SQS'.
     # We're using SQS by default until we move to sending newsletter data directly to Basket.
     MOFO_NEWSLETTER_SUBSCRIBE_METHOD=(str, 'BASKET'),
@@ -639,6 +640,9 @@ PNI_STATS_DB_URL = env('PNI_STATS_DB_URL')
 
 # Use network_url to check if we're running prod or not
 NETWORK_SITE_URL = env('NETWORK_SITE_URL')
+
+# Blog/Campaign index cache setting
+INDEX_PAGE_CACHE_TIMEOUT = env('INDEX_PAGE_CACHE_TIMEOUT')
 
 # RSS / ATOM settings
 FEED_CACHE_TIMEOUT = env('FEED_CACHE_TIMEOUT')
