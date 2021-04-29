@@ -3,7 +3,10 @@ import classNames from "classnames";
 import copyToClipboard from "../../copy-to-clipboard";
 import { ReactGA } from "../../common";
 
-export default class ShareButtonGroup extends Component {
+/**
+ * Social share buttons for sharing on Facebook, Twitter, e-mail, and link.
+ */
+class ShareButtonGroup extends Component {
   constructor(props) {
     super(props);
 
@@ -178,3 +181,5 @@ export default class ShareButtonGroup extends Component {
     );
   }
 }
+
+export default ShareButtonGroup;
