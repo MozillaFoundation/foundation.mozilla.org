@@ -439,6 +439,7 @@ USE_TZ = True
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/about/locale'),
+    os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/buyersguide/locale'),
 )
 
 
