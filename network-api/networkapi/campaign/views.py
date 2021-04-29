@@ -171,18 +171,36 @@ def petition_submission(request, petition):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
-    data = {
-        "json": True,
-        "campaign_id": cid,
-        "first_name": request.data['givenNames'],
-        "last_name": request.data['surname'],
-        "email": request.data['email'],
-        "email_subscription": request.data['newsletterSignup'],
-        "source_url": request.data['source'],
-        "lang": request.data['lang'],
-        "event_type": 'crm_petition_data'
 
-    }
+    if settings.PETITION_DATA_SUBMISSION_METHOD == 'CINCHY': 
+        # Rewrite payload for SQS/Cinchy
+        data = {
+            "json": True,
+            "campaign_id": cid,
+            "first_name": request.data['givenNames'],
+            "last_name": request.data['surname'],
+            "email": request.data['email'],
+            "email_subscription": request.data['newsletterSignup'],
+            "source_url": request.data['source'],
+            "lang": request.data['lang'],
+            "event_type": 'crm_petition_data'
+        }
+    else:
+        # Rewrite payload for Basket
+        data = {
+            "json": True,
+            "form": {
+                "campaign_id": cid,
+                "first_name": request.data['givenNames'],
+                "last_name": request.data['surname'],
+                "email": request.data['email'],
+                "email_subscription": request.data['newsletterSignup'],
+                "source_url": request.data['source'],
+                "lang": request.data['lang']
+                },
+            "event_type": 'crm_petition_data'
+        }
+
 
     if petition:
         if 'country' in request.data:
