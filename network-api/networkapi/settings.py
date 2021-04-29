@@ -630,7 +630,7 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 # Used by load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
 
-# Choosing whether we want petition data to go to Basket or SQS 
+# Choosing whether we want petition data to go to Basket or SQS
 PETITION_DATA_SUBMISSION_METHOD = env('PETITION_DATA_SUBMISSION_METHOD')
 
 # Buyers Guide Rate Limit Setting

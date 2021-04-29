@@ -171,36 +171,15 @@ def petition_submission(request, petition):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
-
-    if settings.PETITION_DATA_SUBMISSION_METHOD == 'CINCHY': 
-        # Rewrite payload for SQS/Cinchy
-        data = {
-            "json": True,
-            "campaign_id": cid,
-            "first_name": request.data['givenNames'],
-            "last_name": request.data['surname'],
-            "email": request.data['email'],
-            "email_subscription": request.data['newsletterSignup'],
-            "source_url": request.data['source'],
-            "lang": request.data['lang'],
-            "event_type": 'crm_petition_data'
-        }
-    else:
-        # Rewrite payload for Basket
-        data = {
-            "json": True,
-            "form": {
-                "campaign_id": cid,
-                "first_name": request.data['givenNames'],
-                "last_name": request.data['surname'],
-                "email": request.data['email'],
-                "email_subscription": request.data['newsletterSignup'],
-                "source_url": request.data['source'],
-                "lang": request.data['lang']
-                },
-            "event_type": 'crm_petition_data'
-        }
-
+    data = {
+        "campaign_id": cid,
+        "first_name": request.data['givenNames'],
+        "last_name": request.data['surname'],
+        "email": request.data['email'],
+        "email_subscription": request.data['newsletterSignup'],
+        "source_url": request.data['source'],
+        "lang": request.data['lang'],
+    }
 
     if petition:
         if 'country' in request.data:
@@ -233,11 +212,26 @@ def petition_submission(request, petition):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-    message = json.dumps({
-        'app': settings.HEROKU_APP_NAME,
-        'timestamp': datetime.now().isoformat(),
-        'data': data
-    })
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'CINCHY':
+        # Rewriting payload for Cinchy
+        data['json'] = True
+        data['event_type'] = 'crm_petition_data'
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': data
+            })
+    else:
+        # Formatting the payload the original way for Basket
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': {
+                'json': True,
+                'form': data,
+                'event_type': 'crm_petition_data'
+            }
+        })
 
     if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
             and request.data['newsletterSignup'] is True:
