@@ -78,7 +78,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         return f'index_items_{self.slug}'
 
     def clear_index_page_cache(self):
-        cache.clear(self.cache_key)
+        cache.delete(self.cache_key)
 
     def get_all_entries(self):
         """
