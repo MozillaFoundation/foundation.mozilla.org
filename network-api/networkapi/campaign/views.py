@@ -212,15 +212,26 @@ def petition_submission(request, petition):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-    message = json.dumps({
-        'app': settings.HEROKU_APP_NAME,
-        'timestamp': datetime.now().isoformat(),
-        'data': {
-            'json': True,
-            'form': data,
-            'event_type': 'crm_petition_data'
-        }
-    })
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'CINCHY':
+        # Rewriting payload for Cinchy
+        data['json'] = True
+        data['event_type'] = 'crm_petition_data'
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': data
+            })
+    else:
+        # Formatting the payload the original way for Basket
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': {
+                'json': True,
+                'form': data,
+                'event_type': 'crm_petition_data'
+            }
+        })
 
     if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
             and request.data['newsletterSignup'] is True:
