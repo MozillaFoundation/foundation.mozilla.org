@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load i18n wagtailimages_tags %}
 
 
 <div class="section-take-action section-padding">
@@ -30,8 +30,8 @@
           <div
             class="join-us"
             data-form-position="body"
-            data-cta-header="Protect the internet as a global public resource"
-            data-cta-description="<p class='mb-3'>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>"
+            data-cta-header="{% trans "Protect the internet as a global public resource" %}"
+            data-cta-description="<p class='mb-3'>{% trans "Join our <b>Mozilla News</b> email list to take action and stay updated!" %}</p>"
             data-newsletter="{{ cta.newsletter }}">
           </div>
         </div>

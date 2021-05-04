@@ -61,6 +61,7 @@ env = environ.Env(
     MOFO_NEWSLETTER_SUBSCRIBE_METHOD=(str, 'BASKET'),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     NETWORK_SITE_URL=(str, ''),
+    PETITION_DATA_SUBMISSION_METHOD=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
@@ -630,6 +631,9 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # Used by load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
+
+# Choosing whether we want petition data to go to Basket or SQS
+PETITION_DATA_SUBMISSION_METHOD = env('PETITION_DATA_SUBMISSION_METHOD')
 
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')
