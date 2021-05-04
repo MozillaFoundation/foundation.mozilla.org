@@ -23,15 +23,14 @@ from networkapi.wagtailpages.pagemodels.products import (
     ProductPage,
     ProductPageVotes,
     ProductPagePrivacyPolicyLink,
+    ProductUpdates,
     RelatedProducts,
     SoftwareProductPage,
 )
 from networkapi.utility.faker import ImageProvider, generate_fake_data
 from networkapi.utility.faker.helpers import reseed
-from networkapi.buyersguide.models import (
-    Update,
-)
 
+from networkapi.wagtailpages.pagemodels.products import Update
 Faker.add_provider(ImageProvider)
 
 
@@ -318,6 +317,21 @@ def generate(seed):
             )
             related_product.save()
             product_page.related_product_pages.add(related_product)
+
+            # Create new ProductUpdates orderable for each PNI product
+            product_update = ProductUpdates(
+                page=product_page,
+                update=ProductUpdateFactory()
+            )
+            product_update.save()
+            product_page.updates.add(product_update)
+
+            # Create three new privacy policy links for each PNI product
+            privacy_orderable = ProductPagePrivacyPolicyLinkFactory(
+                page=product_page,
+            )
+            privacy_orderable.save()
+            product_page.privacy_policy_links.add(privacy_orderable)
 
     reseed(seed)
 

@@ -2,7 +2,10 @@ import { Component } from "react";
 import classNames from "classnames";
 import SALESFORCE_COUNTRY_LIST from "./salesforce-country-list.js";
 
-export default class CountrySelect extends Component {
+/**
+ * Displays a country list dropdown for newsletter sign-up form and petition form.
+ */
+class CountrySelect extends Component {
   constructor(props) {
     super(props);
   }
@@ -38,3 +41,5 @@ export default class CountrySelect extends Component {
     );
   }
 }
+
+export default CountrySelect;

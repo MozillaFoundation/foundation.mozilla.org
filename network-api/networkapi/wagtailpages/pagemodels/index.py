@@ -1,6 +1,8 @@
 import re
 
 from django.contrib.contenttypes.models import ContentType
+from django.conf import settings
+from django.core.cache import cache
 from django.db import models
 from django.http import JsonResponse
 from django.template import loader
@@ -71,11 +73,25 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         context['entries'] = entries[0:self.page_size]
         return context
 
+    @property
+    def cache_key(self):
+        return f'index_items_{self.slug}'
+
+    def clear_index_page_cache(self):
+        cache.delete(self.cache_key)
+
     def get_all_entries(self):
         """
-        Get all (live) child entries, ordered "newest first"
+        Get all (live) child entries, ordered "newest first",
+        ideally from cache, or "anew" if the cache expired.
         """
-        return self.get_children().live().public().order_by('-first_published_at', 'title')
+        child_set = cache.get(self.cache_key)
+
+        if child_set is None:
+            child_set = self.get_children().live().public().order_by('-first_published_at', 'title')
+            cache.set(self.cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
+
+        return child_set
 
     def get_entries(self, context=dict()):
         """
