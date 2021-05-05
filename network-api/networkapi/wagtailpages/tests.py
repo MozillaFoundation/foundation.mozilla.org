@@ -114,6 +114,7 @@ class BuyersGuideViewTest(TestCase):
         self.assertEqual(response.status_code, 302, 'The category "Smart Home" should work by slug')
 
 
+@override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
 class BuyersGuideTestMixin(WagtailPageTests):
 
     def setUp(self):
@@ -134,9 +135,9 @@ class BuyersGuideTestMixin(WagtailPageTests):
         if not buyersguide:
             homepage = Homepage.objects.first()
             if not homepage:
-                site_root = Page.objects.first()
+                page_tree_root = Page.objects.get(depth=1)
                 homepage = WagtailHomepageFactory.create(
-                    parent=site_root,
+                    parent=page_tree_root,
                     title='Homepage',
                     slug='homepage',
                     hero_image__file__width=1080,
