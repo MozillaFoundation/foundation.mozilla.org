@@ -39,6 +39,7 @@ case $command in
     cp -r "${L10N_REPO}foundation/translations/locale/" "network-api/locale/"
     cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/buyersguide/locale/" "network-api/networkapi/wagtailpages/templates/buyersguide/locale/"
     cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/about/locale/" "network-api/networkapi/wagtailpages/templates/about/locale/"
+    cp -r "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/locale/" "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/locale/"
     cp -r "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/" "network-api/networkapi/mozfest/locale/"
 esac
 
@@ -48,5 +49,6 @@ case $command in
     cp -r "network-api/locale/" "${L10N_REPO}foundation/translations/locale/"
     cp -r "network-api/networkapi/wagtailpages/templates/buyersguide/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/buyersguide/locale/"
     cp -r "network-api/networkapi/wagtailpages/templates/about/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/about/locale/"
+    cp -r "network-api/networkapi/wagtailpages/templates/wagtailpages/pages/locale/" "${L10N_REPO}foundation/translations/networkapi/wagtailpages/templates/wagtailpages/pages/locale/"
     cp -r "network-api/networkapi/mozfest/locale/" "${L10N_REPO}foundation/translations/networkapi/mozfest/locale/"
 esac

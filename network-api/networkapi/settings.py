@@ -50,6 +50,8 @@ env = environ.Env(
     FEED_LIMIT=(int, 10),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ''),
+    FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ''),
     GITHUB_TOKEN=(str, ''),
     HEROKU_APP_NAME=(str, ''),
     HEROKU_BRANCH=(str, ''),
@@ -212,6 +214,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.styleguide' if DEBUG else None,
     'wagtail.contrib.table_block',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.frontend_cache',
     'experiments',
     'wagtailinventory',
     'wagtail_footnotes',
@@ -440,6 +443,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/about/locale'),
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/buyersguide/locale'),
+    os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/wagtailpages/pages/locale'),
 )
 
 
@@ -461,6 +465,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 WAGTAILIMAGES_INDEX_PAGE_SIZE = env('WAGTAILIMAGES_INDEX_PAGE_SIZE')
 WAGTAIL_USAGE_COUNT_ENABLED = True
+
+# Wagtail Frontend Cache Invalidator Settings
+
+if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
+    WAGTAILFRONTENDCACHE = {
+        'cloudflare': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+            'BEARER_TOKEN': env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"),
+            'ZONEID': env("FRONTEND_CACHE_CLOUDFLARE_ZONEID")
+        }
+    }
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
