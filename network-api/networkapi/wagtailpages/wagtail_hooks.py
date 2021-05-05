@@ -100,3 +100,17 @@ def manage_pni_cache(request, page):
         # This is easier than looping through every Category x Language Code available
         # To specifically clear PNI-based cache.
         cache.clear()
+
+
+@hooks.register('after_delete_page')
+@hooks.register('after_publish_page')
+@hooks.register('after_unpublish_page')
+def manage_index_pages_cache(request, page):
+    """
+      TODO: remove this check and associated caching when we switch over to
+            proper "related posts" in the CMS for blog pages and campaigns.
+    """
+    parent = page.get_parent().specific
+
+    if hasattr(parent, 'clear_index_page_cache'):
+        parent.clear_index_page_cache()
