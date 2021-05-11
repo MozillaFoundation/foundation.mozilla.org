@@ -13,6 +13,7 @@ services:
       - SHELL=/bin/sh
       # Force polling because inotify doesn't work on Docker Windows
       - CHOKIDAR_USEPOLLING=1
+      - CHOKIDAR_INTERVAL=2000
     command: npm run watch
     volumes:
       - .:/app:delegated
