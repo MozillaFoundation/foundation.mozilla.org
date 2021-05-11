@@ -8,7 +8,10 @@ import { getCurrentLanguage } from "../petition/locales";
 import LanguageSelect from "./language-select.jsx";
 import utility from "../../utility";
 
-export default class JoinUs extends Component {
+/**
+ * Newsletter sign-up form
+ */
+class JoinUs extends Component {
   constructor(props) {
     super(props);
     this.id = {
@@ -535,3 +538,5 @@ JoinUs.defaultProps = {
   newsletter: `mozilla-foundation`,
   askName: false,
 };
+
+export default JoinUs;

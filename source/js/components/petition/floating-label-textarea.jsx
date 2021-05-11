@@ -1,7 +1,10 @@
 import { Component } from "react";
 import classNames from "classnames";
 
-export default class FloatingLabelInput extends Component {
+/**
+ * Renders a special style textarea box for petition form.
+ */
+class FloatingLabelTextarea extends Component {
   render() {
     let className = classNames(`form-label-group`, this.props.className);
 
@@ -23,3 +26,5 @@ export default class FloatingLabelInput extends Component {
     );
   }
 }
+
+export default FloatingLabelTextarea;

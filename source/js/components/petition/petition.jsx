@@ -10,7 +10,10 @@ import copyToClipboard from "../../copy-to-clipboard";
 const SALESFORCE_COMMENT_LIMIT = 500;
 const CHECKBOX_LABEL_CLASS = `body-small`;
 
-export default class Petition extends Component {
+/**
+ * Petition sign-up form
+ */
+class Petition extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -742,3 +745,5 @@ Petition.defaultProps = {
   ctaHeader: ``,
   newsletter: `mozilla-foundation`,
 };
+
+export default Petition;
