@@ -103,7 +103,7 @@ class JoinUs extends Component {
     if (!input) {
       return {
         valid: false,
-        errorMessage: `This is a required section.`,
+        errorMessage: getText(`This is a required section.`),
       };
     }
 
@@ -112,7 +112,7 @@ class JoinUs extends Component {
     if (!valid) {
       return {
         valid: false,
-        errorMessage: `Please enter a valid email address.`,
+        errorMessage: getText(`Please enter a valid email address.`),
       };
     }
 
@@ -271,7 +271,9 @@ class JoinUs extends Component {
     return (
       <Fragment>
         <p className="h5-heading">
-          {!this.state.apiSuccess ? `${this.props.ctaHeader}` : `Thanks!`}
+          {!this.state.apiSuccess
+            ? `${this.props.ctaHeader}`
+            : getText(`Thanks!`)}
         </p>
         {!this.state.apiSuccess ? (
           <div
@@ -463,7 +465,7 @@ class JoinUs extends Component {
         </div>
         {this.state.userTriedSubmitting && !this.privacy.checked && (
           <p className="body-small form-control-feedback mt-0 mb-3">
-            Please check this box if you want to proceed.
+            {getText(`Please check this box if you want to proceed.`)}
           </p>
         )}
       </div>
@@ -533,8 +535,8 @@ class JoinUs extends Component {
 }
 
 JoinUs.defaultProps = {
-  ctaHeader: `Protect the internet as a global public resource`,
-  ctaDescription: `<p>Join our <b>Mozilla News</b> email list to take action and stay updated!</p>`,
+  ctaHeader: getText(`Protect the internet as a global public resource`),
+  ctaDescription: getText(`Join our list`),
   newsletter: `mozilla-foundation`,
   askName: false,
 };
