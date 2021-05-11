@@ -45,7 +45,6 @@ services:
       - dockerpythonvenv:/app/dockerpythonvenv/:delegated
     depends_on:
       - postgres
-      - watch-static-files
 
 volumes:
   postgres_data:
