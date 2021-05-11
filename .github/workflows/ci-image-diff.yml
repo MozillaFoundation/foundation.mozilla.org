@@ -81,4 +81,4 @@ jobs:
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
         python compare.py -l ../test/urls.txt -u -g master
-        python compare.py -l ../test/urls.txt -c somebranch
+        python compare.py -l ../test/urls.txt -g master -c somebranch
