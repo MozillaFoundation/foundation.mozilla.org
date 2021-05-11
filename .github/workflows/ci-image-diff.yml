@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Visual Regression Testing
 
 on:
   push:
@@ -11,9 +11,8 @@ on:
       - maintenance/**/*.*
 
 jobs:
-
-  test_server:
-    name: URL testing with prod settings
+  ci_image_diff:
+    name: CI Image Diff
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -30,7 +29,7 @@ jobs:
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
-      DEBUG: False
+      DEBUG: True
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -59,9 +58,7 @@ jobs:
       run: npm ci
     - name: Install additional tooling
       run: |
-        sudo apt-get install -y gettext libgconf-2-4
-    - name: Install Cypress
-      run: npm run cypress:install
+        sudo apt-get install -y gettext libgconf-2-4 git
     - name: Preroll
       run: |
         npm run build
@@ -71,6 +68,12 @@ jobs:
         python network-api/manage.py sync_page_translation_fields
         python network-api/manage.py update_translation_fields
         python network-api/manage.py load_fake_data
-    - name: Run URL tests
+        python network-api/manage.py compilemessages
+    - name: Fetching ci-image-diff
+      run: git clone https://github.com/MozillaFoundation/ci-image-diff.git
+    - name: Testing
       run: |
-        npm run cypress:ci:prod
+        npm run server &
+        npx wait-on http://localhost:8000/cms
+        cd ci-image-diff
+        python compare.py -l test/urls.txt -u
