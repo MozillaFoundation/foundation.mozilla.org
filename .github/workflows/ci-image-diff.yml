@@ -70,11 +70,12 @@ jobs:
         python network-api/manage.py load_fake_data
         python network-api/manage.py compilemessages
     - name: Fetching ci-image-diff
-      run: git clone https://github.com/MozillaFoundation/ci-image-diff.git
+      run: |
+        git clone https://github.com/MozillaFoundation/ci-image-diff.git
+        cd ci-image-diff
+        pip install -r requirements.txt
+        cd ..
     - name: Testing
       run: |
         npm run server &
-        npx wait-on http://localhost:8000/cms
-        cd ci-image-diff
-        pip install -r requirements.txt
-        python compare.py -l ../test/urls.txt -u
+        npx wait-on http://localhost:8000/cms && cd ci-image-diff && python compare.py -l ../test/urls.txt -u
