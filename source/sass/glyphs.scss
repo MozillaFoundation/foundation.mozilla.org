@@ -18,7 +18,7 @@
 }
 
 // Mixin for setting glyph for hover/focus state
-@mixin hoverGlyph($id, $path-to-directory: $default-glyph-path) {
+@mixin hover-glyph($id, $path-to-directory: $default-glyph-path) {
   &:hover::before,
   &:focus::before {
     background: url(#{$path-to-directory}/#{$id}.svg) no-repeat 0 0 / contain;
@@ -26,7 +26,7 @@
 }
 
 // Mixin for setting up various sizes of the glyph
-@mixin compositeGlyph($id, $path-to-directory: $default-glyph-path) {
+@mixin composite-glyph($id, $path-to-directory: $default-glyph-path) {
   &::before {
     @include glyph($id, $path-to-directory);
   }
@@ -48,7 +48,7 @@
   // TODO:FIXME:
   // This ruleset is too specific to be included in this mixin
   // Let's move the rules to the .heart-glyph block below (around line 75)
-  // , after the @include hoverGlyph("heart-hover"); rule
+  // , after the @include hover-glyph("heart-hover"); rule
   // Note: remember to verify styling still looks the same
   &.heart-glyph {
     &::before {
@@ -63,7 +63,7 @@
   // TODO:FIXME:
   // This ruleset is too specific to be included in this mixin
   // Let's move the rules to the .form-error-glyph block below (around line 94)
-  // , after the @include hoverGlyph("form-error-glyph"); rule
+  // , after the @include hover-glyph("form-error-glyph"); rule
   // Note: remember to verify styling still looks the same
   &.form-error-glyph {
     &::before {
@@ -75,65 +75,65 @@
 }
 
 .heart-glyph {
-  @include compositeGlyph("heart");
-  @include hoverGlyph("heart-hover");
+  @include composite-glyph("heart");
+  @include hover-glyph("heart-hover");
 }
 
 .donate {
-  @include compositeGlyph("donate");
+  @include composite-glyph("donate");
 }
 
 .twitter-glyph {
-  @include compositeGlyph("twitter");
-  @include hoverGlyph("twitter-hover");
+  @include composite-glyph("twitter");
+  @include hover-glyph("twitter-hover");
 }
 
 .linkedIn-glyph {
-  @include compositeGlyph("linkedin");
-  @include hoverGlyph("linkedin-hover");
+  @include composite-glyph("linkedin");
+  @include hover-glyph("linkedin-hover");
 }
 
 .form-error-glyph {
-  @include compositeGlyph("form-error");
+  @include composite-glyph("form-error");
 }
 
 .dark-theme {
   .twitter-glyph {
-    @include compositeGlyph("twitter-dark-theme");
-    @include hoverGlyph("twitter-dark-theme-hover");
+    @include composite-glyph("twitter-dark-theme");
+    @include hover-glyph("twitter-dark-theme-hover");
   }
 
   .instagram-glyph {
-    @include compositeGlyph("instagram-dark-theme");
-    @include hoverGlyph("instagram-dark-theme-hover");
+    @include composite-glyph("instagram-dark-theme");
+    @include hover-glyph("instagram-dark-theme-hover");
   }
 
   .medium-glyph {
-    @include compositeGlyph("medium-dark-theme");
-    @include hoverGlyph("medium-dark-theme-hover");
+    @include composite-glyph("medium-dark-theme");
+    @include hover-glyph("medium-dark-theme-hover");
   }
 
   .youtube-glyph {
-    @include compositeGlyph("youtube-dark-theme");
-    @include hoverGlyph("youtube-dark-theme-hover");
+    @include composite-glyph("youtube-dark-theme");
+    @include hover-glyph("youtube-dark-theme-hover");
   }
 
   .email-glyph {
-    @include compositeGlyph("email-dark-theme");
-    @include hoverGlyph("email-dark-theme-hover");
+    @include composite-glyph("email-dark-theme");
+    @include hover-glyph("email-dark-theme-hover");
   }
 
   .github-glyph {
-    @include compositeGlyph("github-dark-theme");
-    @include hoverGlyph("github-dark-theme-hover");
+    @include composite-glyph("github-dark-theme");
+    @include hover-glyph("github-dark-theme-hover");
   }
 
   .form-error-glyph {
-    @include compositeGlyph("form-error-dark-theme");
+    @include composite-glyph("form-error-dark-theme");
   }
 
   .globe-glyph {
-    @include compositeGlyph("globe-dark-theme");
+    @include composite-glyph("globe-dark-theme");
 
     &::before {
       margin-right: 10px;
