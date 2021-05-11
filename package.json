@@ -55,7 +55,7 @@
     "test:scss:styleguide:color": "stylelint \"source/sass/**/*.scss\" \"source/js/**/*.scss\" \"!source/sass/**/_colors.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:css": "stylelint \"network-api/networkapi/{,!(frontend)/**/}*.css\" --syntax scss",
     "test": "run-s test:** build",
-    "watch": "run-s build:clean && run-p build:js:dev build:common watch:**",
+    "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:js:dev build:common watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
     "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\""
   },
