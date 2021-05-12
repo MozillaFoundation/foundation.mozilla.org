@@ -1,10 +1,6 @@
 name: Visual Regression Testing
 
 on:
-  push:
-    branches: [ 'master' ]
-    paths-ignore:
-      - maintenance/**/*.*
   pull_request:
     branches: [ 'master' ]
     paths-ignore:
@@ -75,6 +71,8 @@ jobs:
         cd ci-image-diff
         pip install -r requirements.txt
         cd ..
+    - name: Installing playwright browsers
+      run: playwright install        
     - name: Testing
       run: |
         npm run server &
@@ -82,3 +80,10 @@ jobs:
         cd ci-image-diff
         python compare.py -l ../test/urls.txt -u -g master
         python compare.py -l ../test/urls.txt -g master -c somebranch
+    - name: Upload diff result as artifact
+      uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: diff-test
+        path: results
+        retention-days: 1
