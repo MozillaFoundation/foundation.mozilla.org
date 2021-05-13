@@ -97,11 +97,10 @@ jobs:
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 1000
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 800
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 500
-    - name: Uploading diffs to AWS S3
-      if: ${{ failure() }}
-      run: aws s3 sync ./results/ s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+        deactivate
+        aws s3 sync ./results/ s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
     - uses: actions/github-script@v3
-      if: ${{ always() }}
+      if: ${{ failure() }}
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
