@@ -2,7 +2,7 @@
 name: Feature request
 about: Request new or improved functionality
 title: ''
-labels: engineering, Request
+labels: engineering, feature request
 assignees: ''
 
 ---
