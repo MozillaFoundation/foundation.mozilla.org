@@ -83,6 +83,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
         aws-region: us-west-2
     - name: Establishing visual diff baseline
+      uses: actions/upload-artifact@v2
+      with:
+        name: baseline-image-set
+        path: diffs/main/
+        retention-days: 1
       run: |
         npm run server:silent &
         npx wait-on http://localhost:8000/cms
@@ -93,4 +98,10 @@ jobs:
         python compare.py --update -l ../test/urls.txt -g main -w 800
         python compare.py --update -l ../test/urls.txt -g main -w 500
         deactivate
+    - name: Upload image set to AWS S3
+      uses: actions/download-artifact@v2
+      with:
+        name: baseline-image-set
+        path: diffs/main/
+      run:
         aws s3 sync ./diffs/main s3://ci-image-diff/foundation.mozlla.org/baseline --acl public-read --delete
