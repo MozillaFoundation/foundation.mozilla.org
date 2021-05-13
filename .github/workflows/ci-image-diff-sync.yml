@@ -84,7 +84,7 @@ jobs:
         aws-region: us-west-2
     - name: Establishing visual diff baseline
       run: |
-        npm run server &
+        npm run server:silent &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
         source venv/bin/activate
