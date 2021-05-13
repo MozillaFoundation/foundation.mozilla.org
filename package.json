@@ -44,6 +44,7 @@
     "percy": "percy exec -t 800 -- npm run cypress:ci",
     "precommit": "prettier  \"source/js/**/*.js\" \"source/js/**/*.jsx\" *.config.js --write",
     "server": "python network-api/manage.py runserver 0.0.0.0:8000",
+    "server:silent": "python network-api/manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
     "start": "docker-compose up",
     "test:procfile": "node test/test-procfile.js",
     "test:eslint:js:pre": "prettier \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js --write",
