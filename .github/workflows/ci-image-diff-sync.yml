@@ -1,13 +1,13 @@
-name: Visual Regression Testing
+name: Visual Diff sync
 
 on:
-  pull_request:
+  push:
     branches: [ 'master' ]
     paths-ignore:
       - maintenance/**/*.*
 
 jobs:
-  ci_image_diff:
+  update-baseline:
     name: CI Image Diff
     runs-on: ubuntu-latest
     services:
@@ -55,7 +55,14 @@ jobs:
     - name: Install additional tooling
       run: |
         sudo apt-get install -y gettext libgconf-2-4 git
-    - name: Preroll
+    - name: Fetching and installing ci-image-diff
+      run: |
+        git clone https://github.com/MozillaFoundation/ci-image-diff
+        cd ci-image-diff
+        pip install -r requirements.txt
+        playwright install
+        cd ..
+    - name: Setting up Wagtail
       run: |
         npm run build
         python network-api/manage.py collectstatic --no-input --verbosity 0
@@ -65,25 +72,20 @@ jobs:
         python network-api/manage.py update_translation_fields
         python network-api/manage.py load_fake_data
         python network-api/manage.py compilemessages
-    - name: Fetching ci-image-diff
-      run: |
-        git clone https://github.com/MozillaFoundation/ci-image-diff.git
-        cd ci-image-diff
-        pip install -r requirements.txt
-        cd ..
-    - name: Installing playwright browsers
-      run: playwright install        
-    - name: Testing
+    - name: Configure AWS Credentials for visual diffing
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_VISUAL_CI }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
+        aws-region: us-west-2
+    - name: Establishing visual diff baseline
       run: |
         npm run server &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
-        python compare.py -l ../test/urls.txt -u -g master
-        python compare.py -l ../test/urls.txt -g master -c somebranch
-    - name: Upload diff result as artifact
-      uses: actions/upload-artifact@v2
-      if: always()
-      with:
-        name: diff-test
-        path: results
-        retention-days: 1
+        python compare.py --update test/urls.txt -g main -w 1400
+        python compare.py --update test/urls.txt -g main -w 1000
+        python compare.py --update test/urls.txt -g main -w 800
+        python compare.py --update test/urls.txt -g main -w 500
+    - name: Upload baseline images to AWS S3
+      run: aws s3 sync ./diffs/main s3://ci-image-diff/foundation.mozlla.org/baseline --acl public-read --delete
