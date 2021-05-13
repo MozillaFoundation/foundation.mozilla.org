@@ -1,4 +1,4 @@
-name: Visual Diff sync
+name: Visual Diff Baseline Update
 
 on:
   push:
