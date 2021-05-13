@@ -49,7 +49,9 @@ jobs:
       with:
         node-version: 14
     - name: Install Python Dependencies
-      run: pip install -r requirements.txt -r dev-requirements.txt
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt -r dev-requirements.txt
     - name: Install Node Dependencies
       run: npm ci
     - name: Install additional tooling
