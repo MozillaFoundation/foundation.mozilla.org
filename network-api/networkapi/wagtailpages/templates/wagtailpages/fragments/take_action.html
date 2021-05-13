@@ -11,9 +11,8 @@
           {% for item in page.take_action_cards.all %}
             <div class="col-md-6 d-flex">
               <div class="card flex-grow-1 mb-4">
-                {% image item.image fill-350x130 as img %}
                   <a href="{{ item.internal_link.url }}">
-                    <img src="{{ img.url }}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ item.text }}">
+                    <img src="{% image_url item.image "fill-350x130" %}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ item.text }}">
                   </a>
                   <div class="card-body">
                     <a href="{{ item.internal_link.url }}" class="h5-heading d-inline-block my-2">

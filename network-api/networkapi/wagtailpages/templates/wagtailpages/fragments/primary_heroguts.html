@@ -2,33 +2,25 @@
 
 <div id="hero">
   <div class="banner bg-black">
-    {% with banner=page.specific.get_banner %}
+    {% with banner=page.hero_image %}
       {% if banner %}
         {% if homepage %}
         <picture>
-          {% image banner fill-4032x480 as image_xl %}
-          {% image banner fill-2400x480 as image_lg %}
-          {% image banner fill-1984x480 as image_md %}
-          {% image banner fill-1536x390 as image_sm %}
-          <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}">
-          <source media="(min-width: 992px)" srcset="{{ image_lg.url }}">
-          <source media="(min-width: 768px)" srcset="{{ image_md.url }}">
-          <source media="(min-width: 576px)" srcset="{{ image_sm.url }}">
+          <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x480" %}">
+          <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x480" %}">
+          <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x480" %}">
+          <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x390" %}">
           {# Fallback Image #}
-          <img src="{{ image_sm.url }}" alt="">
+          <img src="{% image_url banner "fill-1536x390" %}" alt="">
         </picture>
         {% else %}
         <picture>
-          {% image banner fill-4032x1152 as image_xl %}
-          {% image banner fill-2400x686 as image_lg %}
-          {% image banner fill-1984x567 as image_md %}
-          {% image banner fill-1536x439 as image_sm %}
-          <source media="(min-width: 1200px)" srcset="{{ image_xl.url }}">
-          <source media="(min-width: 992px)" srcset="{{ image_lg.url }}">
-          <source media="(min-width: 768px)" srcset="{{ image_md.url }}">
-          <source media="(min-width: 576px)" srcset="{{ image_sm.url }}">
+          <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x1152" %}">
+          <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x686" %}">
+          <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x567" %}">
+          <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x439" %}">
           {# Fallback Image #}
-          {% image banner fill-1008x288 alt="" %}
+          <img src="{% image_url banner "fill-1536x439" %}" alt="">
         </picture>
         {% endif %}
       {% else %}
