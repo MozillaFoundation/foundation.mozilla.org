@@ -88,9 +88,6 @@ jobs:
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
         source venv/bin/activate
-        python compare.py --update -l ../test/urls.txt -g main -w 1400
-        python compare.py --update -l ../test/urls.txt -g main -w 1000
-        python compare.py --update -l ../test/urls.txt -g main -w 800
-        python compare.py --update -l ../test/urls.txt -g main -w 500
+        python compare.py --update -l ../test/urls.txt -g main -w 500,800,1000,1400
         deactivate
         aws s3 sync ./diffs/main s3://ci-image-diff/foundation.mozilla.org/baseline --acl public-read --delete
