@@ -59,8 +59,11 @@ jobs:
       run: |
         git clone https://github.com/MozillaFoundation/ci-image-diff
         cd ci-image-diff
+        python -m venv venv
+        ./venv/bin/activate
         pip install -r requirements.txt
         playwright install
+        ./venv/bin/deactivate
         cd ..
     - name: Setting up Wagtail
       run: |
@@ -83,9 +86,10 @@ jobs:
         npm run server &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
-        python compare.py --update test/urls.txt -g main -w 1400
-        python compare.py --update test/urls.txt -g main -w 1000
-        python compare.py --update test/urls.txt -g main -w 800
-        python compare.py --update test/urls.txt -g main -w 500
+        ./venv/bin/activate
+        python compare.py --update -l ../test/urls.txt -g main -w 1400
+        python compare.py --update -l ../test/urls.txt -g main -w 1000
+        python compare.py --update -l ../test/urls.txt -g main -w 800
+        python compare.py --update -l ../test/urls.txt -g main -w 500
     - name: Upload baseline images to AWS S3
       run: aws s3 sync ./diffs/main s3://ci-image-diff/foundation.mozlla.org/baseline --acl public-read --delete
