@@ -1,0 +1,5 @@
+http://localhost:8000/
+http://localhost:8000/en/blog
+http://localhost:8000/en/campaigns/multi-page/
+http://localhost:8000/en/style-guide/
+http://mozfest.localhost:8000/spaces
