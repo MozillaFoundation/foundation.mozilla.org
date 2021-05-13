@@ -91,7 +91,7 @@ jobs:
         npm run server:silent &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
-        aws s3 sync s3://ci-image-diff/foundation.mozlla.org/baseline ./diffs/main
+        aws s3 sync s3://ci-image-diff/foundation.mozilla.org/baseline ./diffs/main
         source venv/bin/activate
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 1400
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 1000
