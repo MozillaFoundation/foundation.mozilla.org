@@ -86,7 +86,7 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_VISUAL_CI }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
         aws-region: us-west-2
-    - name: Establishing visual diff baseline
+    - name: Performing visual diffing
       run: |
         npm run server:silent &
         npx wait-on http://localhost:8000/cms
@@ -97,7 +97,6 @@ jobs:
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 1000
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 800
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 500
-        deactivate
     - name: Uploading diffs to AWS S3
       if: ${{ failure() }}
       run: aws s3 sync ./results/ s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
@@ -110,8 +109,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: 'Click [here](https://ci-image-diff.s3-us-west-2.amazonaws.com/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to view '
+            body: 'This PR introduces visual differences. Click [here](https://ci-image-diff.s3-us-west-2.amazonaws.com/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
           })
-    - name: What is the diff viewer URL for this PR?
-      if: ${{ always() }}
-      run: echo "view your diffs by visiting https://ci-image-diff.s3-us-west-2.amazonaws.com/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare"
