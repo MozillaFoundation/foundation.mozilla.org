@@ -93,10 +93,7 @@ jobs:
         cd ci-image-diff
         aws s3 sync s3://ci-image-diff/foundation.mozilla.org/baseline ./diffs/main
         source venv/bin/activate
-        python compare.py -o -l ../test/urls.txt -g main -c compare -w 1400
-        python compare.py -o -l ../test/urls.txt -g main -c compare -w 1000
-        python compare.py -o -l ../test/urls.txt -g main -c compare -w 800
-        python compare.py -o -l ../test/urls.txt -g main -c compare -w 500
+        python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,800,1000,1400
         deactivate
         aws s3 sync ./results/ s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
     - uses: actions/github-script@v3
