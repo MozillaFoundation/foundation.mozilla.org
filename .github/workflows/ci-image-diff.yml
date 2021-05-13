@@ -99,8 +99,19 @@ jobs:
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 500
         deactivate
     - name: Uploading diffs to AWS S3
-      if: always()
+      if: ${{ failure() }}
       run: aws s3 sync ./results/ s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+    - uses: actions/github-script@v3
+      if: ${{ always() }}
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: 'Click [here](https://ci-image-diff.s3-us-west-2.amazonaws.com/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to view '
+          })
     - name: What is the diff viewer URL for this PR?
-      if: always()
-      run: echo "https://ci-image-diff.s3-your-aws-s3-region-indicator.amazonaws.com/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare"
+      if: ${{ always() }}
+      run: echo "view your diffs by visiting https://ci-image-diff.s3-us-west-2.amazonaws.com/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare"
