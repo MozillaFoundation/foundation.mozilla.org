@@ -64,7 +64,7 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
         playwright install
-        source venv/bin/deactivate
+        deactivate
         cd ..
     - name: Setting up Wagtail
       run: |
