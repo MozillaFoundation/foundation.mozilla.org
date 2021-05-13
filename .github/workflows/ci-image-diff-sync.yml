@@ -60,10 +60,10 @@ jobs:
         git clone https://github.com/MozillaFoundation/ci-image-diff
         cd ci-image-diff
         python -m venv venv
-        ./venv/bin/activate
+        source venv/bin/activate
         pip install -r requirements.txt
         playwright install
-        ./venv/bin/deactivate
+        source venv/bin/deactivate
         cd ..
     - name: Setting up Wagtail
       run: |
@@ -86,7 +86,7 @@ jobs:
         npm run server &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
-        ./venv/bin/activate
+        source venv/bin/activate
         python compare.py --update -l ../test/urls.txt -g main -w 1400
         python compare.py --update -l ../test/urls.txt -g main -w 1000
         python compare.py --update -l ../test/urls.txt -g main -w 800
