@@ -12,6 +12,7 @@ jobs:
   update-baseline:
     name: CI Image Diff
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:13.2
@@ -22,6 +23,7 @@ jobs:
         ports:
         - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       CONTENT_TYPE_NO_SNIFF: True
@@ -42,25 +44,40 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
+
     steps:
-    - uses: actions/checkout@v2
+
     - name: Extract branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/})"
       id: extract_branch
+
+    - uses: actions/checkout@v2
+
     - uses: actions/setup-python@v2
       with:
         python-version: 3.7.7
+
     - uses: actions/setup-node@v2
       with:
         node-version: 14
+
+    - name: Configure AWS Credentials for visual diffing
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_VISUAL_CI }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
+        aws-region: us-west-2
+
     - name: Install Python Dependencies
       run: pip install -r requirements.txt -r dev-requirements.txt
+
     - name: Install Node Dependencies
       run: npm ci
+
     - name: Install additional tooling
-      run: |
-        sudo apt-get install -y gettext libgconf-2-4 git
+      run: sudo apt-get install -y gettext libgconf-2-4 git
+
     - name: Fetching and installing ci-image-diff
       run: |
         git clone https://github.com/MozillaFoundation/ci-image-diff
@@ -71,7 +88,7 @@ jobs:
         pip install -r requirements.txt
         playwright install
         deactivate
-        cd ..
+
     - name: Setting up Wagtail
       run: |
         npm run build
@@ -82,24 +99,27 @@ jobs:
         python network-api/manage.py update_translation_fields
         python network-api/manage.py load_fake_data
         python network-api/manage.py compilemessages
-    - name: Configure AWS Credentials for visual diffing
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_VISUAL_CI }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
-        aws-region: us-west-2
+
+    - name: Retrieving visual baseline
+      run: |
+        cd ci-image-diff
+        aws s3 sync s3://ci-image-diff/foundation.mozilla.org/baseline ./diffs/main
+
     - name: Performing visual diffing
       run: |
         npm run server:silent &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
-        aws s3 sync s3://ci-image-diff/foundation.mozilla.org/baseline ./diffs/main
         source venv/bin/activate        
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,800,1000,1400
         deactivate
+
     - name: Sending diff up to AWS S3
       if: ${{ failure() }}
-      run: aws s3 sync results s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+      run: |
+        cd ci-image-diff
+        aws s3 sync results s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+
     - uses: actions/github-script@v3
       if: ${{ failure() }}
       with:
