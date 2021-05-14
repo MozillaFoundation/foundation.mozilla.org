@@ -93,4 +93,7 @@ jobs:
         source venv/bin/activate
         python compare.py --update -l ../test/urls.txt -g main -w 500,800,1000,1400
         deactivate
+    - name: Uploading baseline
+      run: |
+        cd ci-image-diff
         aws s3 sync ./diffs/main s3://ci-image-diff/foundation.mozilla.org/baseline --acl public-read --delete
