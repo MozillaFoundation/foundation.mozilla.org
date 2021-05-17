@@ -4,9 +4,11 @@ on:
   pull_request:
     branches: [ 'master' ]
     paths-ignore:
-      - cypress/**/*.*
-      - docs/**/*.*
-      - maintenance/**/*.*
+      - '.github/**/*.*'
+      - '!.github/workflows/ci-image-diff.yml'
+      - 'cypress/**/*.*'
+      - 'docs/**/*.*'
+      - 'maintenance/**/*.*'
 
 jobs:
   update-baseline:
@@ -87,7 +89,6 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
         playwright install
-        deactivate
 
     - name: Setting up Wagtail
       run: |
@@ -103,7 +104,7 @@ jobs:
     - name: Retrieving visual baseline
       run: |
         cd ci-image-diff
-        aws s3 sync s3://ci-image-diff/foundation.mozilla.org/baseline ./diffs/main
+        aws s3 sync s3://foundation-mozilla-org-visual-ci/baseline ./diffs/main
 
     - name: Performing visual diffing
       run: |
@@ -112,13 +113,12 @@ jobs:
         cd ci-image-diff
         source venv/bin/activate        
         python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,800,1000,1400
-        deactivate
 
     - name: Sending diff up to AWS S3
       if: ${{ failure() }}
       run: |
         cd ci-image-diff
-        aws s3 sync results s3://ci-image-diff/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+        aws s3 sync results s3://foundation-mozilla-org-visual-ci/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
 
     - uses: actions/github-script@v3
       if: ${{ failure() }}
@@ -129,5 +129,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: 'This PR introduces visual differences. Click [here](https://ci-image-diff.s3-us-west-2.amazonaws.com/foundation.mozilla.org/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
+            body: 'This PR introduces visual differences. Click [here](https://foundation-mozilla-org-visual-ci.s3-us-west-2.amazonaws.com/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
           })
