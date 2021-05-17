@@ -4,14 +4,13 @@ on:
   push:
     branches: [ 'master' ]
     paths-ignore:
-      - .github/**/*.*
-      - cypress/**/*.*
-      - docs/**/*.*
-      - maintenance/**/*.*
+      - '.github/**/*.*'
+      - '!.github/workflows/ci-image-diff-sync.yml'
+      - 'cypress/**/*.*'
+      - 'docs/**/*.*'
+      - 'maintenance/**/*.*'
 
-  # The following line lets us trigger this job manually
   workflow_dispatch:
-
 
 jobs:
   update-baseline:
@@ -75,7 +74,6 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
         playwright install
-        deactivate
 
     - name: Setting up Wagtail
       run: |
@@ -107,4 +105,4 @@ jobs:
     - name: Uploading baseline
       run: |
         cd ci-image-diff
-        aws s3 sync ./diffs/main s3://ci-image-diff/foundation.mozilla.org/baseline --acl public-read --delete
+        aws s3 sync ./diffs/main s3://ci-image-diff/baseline --acl public-read --delete
