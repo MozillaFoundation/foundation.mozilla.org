@@ -9,10 +9,6 @@ on:
       - docs/**/*.*
       - maintenance/**/*.*
 
-  # The following line lets us trigger this job manually
-  workflow_dispatch:
-
-
 jobs:
   update-baseline:
     name: CI Image Diff
