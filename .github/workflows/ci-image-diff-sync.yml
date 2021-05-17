@@ -4,10 +4,13 @@ on:
   push:
     branches: [ 'master' ]
     paths-ignore:
-      - .github/**/*.*
-      - cypress/**/*.*
-      - docs/**/*.*
-      - maintenance/**/*.*
+      - '.github/**/*.*'
+      - '!.github/workflows/ci-image-diff-sync.yml'
+      - 'cypress/**/*.*'
+      - 'docs/**/*.*'
+      - 'maintenance/**/*.*'
+
+  workflow_dispatch:
 
 jobs:
   update-baseline:
