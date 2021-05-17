@@ -105,4 +105,4 @@ jobs:
     - name: Uploading baseline
       run: |
         cd ci-image-diff
-        aws s3 sync ./diffs/main s3://foundation-mozilla-org-visual-ci/baseline --acl public-read --delete
+        aws s3 sync ./diffs/main s3://ci-image-diff/baseline --acl public-read --delete
