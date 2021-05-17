@@ -104,7 +104,7 @@ jobs:
     - name: Retrieving visual baseline
       run: |
         cd ci-image-diff
-        aws s3 sync s3://foundation-mozilla-org-visual-ci/baseline ./diffs/main
+        aws s3 sync s3://ci-image-diff/baseline ./diffs/main
 
     - name: Performing visual diffing
       run: |
@@ -118,7 +118,15 @@ jobs:
       if: ${{ failure() }}
       run: |
         cd ci-image-diff
-        aws s3 sync results s3://foundation-mozilla-org-visual-ci/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+        aws s3 sync results s3://ci-image-diff/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+
+    - name: Forming PR artifact for diff results
+      uses: actions/upload-artifact@v2
+      if: ${{ failure() }}
+      with:
+        name: code-coverage-report
+        path: ci-image-diff/results
+        retention-days: 1
 
     - uses: actions/github-script@v3
       if: ${{ failure() }}
@@ -129,5 +137,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: 'This PR introduces visual differences. Click [here](https://foundation-mozilla-org-visual-ci.s3-us-west-2.amazonaws.com/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
+            body: 'This PR introduces visual differences. Click [here](https://ci-image-diff.s3-us-west-2.amazonaws.com/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
           })
