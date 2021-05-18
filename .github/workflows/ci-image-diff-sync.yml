@@ -1,20 +1,22 @@
-name: Continuous Integration
+name: Visual Diff Baseline Update
 
 on:
   push:
     branches: [ 'master' ]
     paths-ignore:
-      - maintenance/**/*.*
-  pull_request:
-    branches: [ 'master' ]
-    paths-ignore:
-      - maintenance/**/*.*
+      - '.github/**/*.*'
+      - '!.github/workflows/ci-image-diff-sync.yml'
+      - 'cypress/**/*.*'
+      - 'docs/**/*.*'
+      - 'maintenance/**/*.*'
+
+  workflow_dispatch:
 
 jobs:
-
-  test_server:
-    name: URL testing with prod settings
+  update-baseline:
+    name: CI Image Diff
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:13.2
@@ -25,12 +27,13 @@ jobs:
         ports:
         - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
-      DEBUG: False
+      DEBUG: True
       DJANGO_SECRET_KEY: secret
       DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,24 +48,34 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.7.7
     - uses: actions/setup-node@v2
       with:
         node-version: 14
+
     - name: Install Python Dependencies
       run: pip install -r requirements.txt -r dev-requirements.txt
     - name: Install Node Dependencies
       run: npm ci
     - name: Install additional tooling
+      run: sudo apt-get install -y gettext libgconf-2-4 git
+
+    - name: Fetching and installing ci-image-diff
       run: |
-        sudo apt-get install -y gettext libgconf-2-4
-    - name: Install Cypress
-      run: npm run cypress:install
-    - name: Preroll
+        git clone https://github.com/MozillaFoundation/ci-image-diff
+        cd ci-image-diff
+        python -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        playwright install
+
+    - name: Setting up Wagtail
       run: |
         npm run build
         python network-api/manage.py collectstatic --no-input --verbosity 0
@@ -71,6 +84,25 @@ jobs:
         python network-api/manage.py sync_page_translation_fields
         python network-api/manage.py update_translation_fields
         python network-api/manage.py load_fake_data
-    - name: Run URL tests
+        python network-api/manage.py compilemessages
+
+    - name: Configure AWS Credentials for visual diffing
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_VISUAL_CI }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
+        aws-region: us-east-1
+
+    - name: Establishing visual diff baseline
       run: |
-        npm run cypress:ci:prod
+        npm run server:silent &
+        npx wait-on http://localhost:8000/cms
+        cd ci-image-diff
+        source venv/bin/activate
+        python compare.py --update -l ../test/urls.txt -g main -w 500,800,1000,1400
+        deactivate
+
+    - name: Uploading baseline
+      run: |
+        cd ci-image-diff
+        aws s3 sync ./diffs/main s3://foundation-mozilla-org-visual-ci/baseline --acl public-read --delete

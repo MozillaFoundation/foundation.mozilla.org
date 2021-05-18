@@ -68,8 +68,8 @@ def l10n_block_inventory(ctx):
     manage(ctx, "block_inventory")
 
 
-@task
-def create_super_user(ctx):
+@task(aliases=["create-super-user"])
+def createsuperuser(ctx):
     preamble = "from django.contrib.auth.models import User;"
     create = "User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
     manage(ctx, f'shell -c "{preamble} {create}"')
@@ -90,7 +90,7 @@ def new_db(ctx):
     print("* Creating fake data")
     manage(ctx, "load_fake_data")
     l10n_block_inventory(ctx)
-    create_super_user(ctx)
+    createsuperuser(ctx)
     print("Stop postgres service")
     ctx.run("docker-compose down")
 
@@ -156,7 +156,7 @@ def setup(ctx):
         manage(ctx, "load_fake_data")
         print("* Updating block information.")
         l10n_block_inventory(ctx)
-        create_super_user(ctx)
+        createsuperuser(ctx)
 
         print("\n* Start your dev server with:\n docker-compose up")
 
