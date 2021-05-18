@@ -325,7 +325,8 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
         ('second-title-here', 'Second Title Here')
     )
     """
-    body = stream_data.__dict__['stream_data']
+
+    body = stream_data.__dict__['_raw_data']
     data = {}
     headers = []
     for block in body:
