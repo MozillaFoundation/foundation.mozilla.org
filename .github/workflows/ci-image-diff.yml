@@ -1,16 +1,14 @@
-name: Visual Diff Baseline Update
+name: Visual Regression Testing
 
 on:
-  push:
+  pull_request:
     branches: [ 'master' ]
     paths-ignore:
       - '.github/**/*.*'
-      - '!.github/workflows/ci-image-diff-sync.yml'
+      - '!.github/workflows/ci-image-diff.yml'
       - 'cypress/**/*.*'
       - 'docs/**/*.*'
       - 'maintenance/**/*.*'
-
-  workflow_dispatch:
 
 jobs:
   update-baseline:
@@ -50,18 +48,35 @@ jobs:
       XSS_PROTECTION: True
 
     steps:
+
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/})"
+      id: extract_branch
+
     - uses: actions/checkout@v2
+
     - uses: actions/setup-python@v2
       with:
         python-version: 3.7.7
+
     - uses: actions/setup-node@v2
       with:
         node-version: 14
 
+    - name: Configure AWS Credentials for visual diffing
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_VISUAL_CI }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
+        aws-region: us-west-2
+
     - name: Install Python Dependencies
       run: pip install -r requirements.txt -r dev-requirements.txt
+
     - name: Install Node Dependencies
       run: npm ci
+
     - name: Install additional tooling
       run: sudo apt-get install -y gettext libgconf-2-4 git
 
@@ -86,23 +101,41 @@ jobs:
         python network-api/manage.py load_fake_data
         python network-api/manage.py compilemessages
 
-    - name: Configure AWS Credentials for visual diffing
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_VISUAL_CI }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_VISUAL_CI }}
-        aws-region: us-east-1
+    - name: Retrieving visual baseline
+      run: |
+        cd ci-image-diff
+        aws s3 sync s3://foundation-mozilla-org-visual-ci/baseline ./diffs/main
 
-    - name: Establishing visual diff baseline
+    - name: Performing visual diffing
       run: |
         npm run server:silent &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
-        source venv/bin/activate
-        python compare.py --update -l ../test/urls.txt -g main -w 500,800,1000,1400
-        deactivate
+        source venv/bin/activate        
+        python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,800,1000,1400
 
-    - name: Uploading baseline
+    - name: Sending diff up to AWS S3
+      if: ${{ failure() }}
       run: |
         cd ci-image-diff
-        aws s3 sync ./diffs/main s3://foundation-mozilla-org-visual-ci/baseline --acl public-read --delete
+        aws s3 sync results s3://foundation-mozilla-org-visual-ci/${{ steps.extract_branch.outputs.branch }} --acl public-read --delete
+
+    - name: Forming PR artifact for diff results
+      uses: actions/upload-artifact@v2
+      if: ${{ failure() }}
+      with:
+        name: code-coverage-report
+        path: ci-image-diff/results
+        retention-days: 1
+
+    - uses: actions/github-script@v3
+      if: ${{ failure() }}
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: 'This PR introduces visual differences. Click [here](https://foundation-mozilla-org-visual-ci.s3.us-east-1.amazonaws.com/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
+          })
