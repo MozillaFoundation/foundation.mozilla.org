@@ -1,5 +1,6 @@
 from django import template
 from bs4 import BeautifulSoup
+from wagtail.images.models import Image
 
 register = template.Library()
 
@@ -8,8 +9,14 @@ register = template.Library()
 def card(image, title, description, link_url, link_label):
     parsedDescription = BeautifulSoup(description, 'html.parser')
 
+    image_url = image
+    if isinstance(image, Image):
+        # Check to see if the incoming image is a Wagtail image. We use this
+        # for legacy {% card .. %} template tag support
+        image_url = image.get_rendition('fill-350x197').url
+
     return {
-        'image': image,
+        'image': image_url,
         'title': title,
         'description': description,
         'description_is_rich_text': len(parsedDescription.find_all(True)) > 0,
@@ -30,6 +37,7 @@ def cardCTA(
     email_subject=None,
     email_body=None
 ):
+
     return {
         'image': image,
         'title': title,

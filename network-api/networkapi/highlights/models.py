@@ -1,10 +1,14 @@
 from django.utils import timezone
 from django.db import models
 from django.db.models import Q
+
 from adminsortable.models import SortableMixin
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import RichTextField
-from networkapi.utility.images import get_image_upload_path
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+
+from networkapi.utility.images import get_image_upload_path
 
 
 def get_highlights_image_upload_path(instance, filename):
@@ -52,17 +56,12 @@ class Highlight(SortableMixin):
         max_length=2048,
         help_text='Link to this higlight\'s details page',
     )
-    image = models.FileField(
-        max_length=2048,
-        help_text='Image representing this highlight',
-        upload_to=get_highlights_image_upload_path,
-    )
-    # New image field. Will be converted later.
-    image_new = models.ForeignKey(
+    image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
         blank=False,
         null=True,
+        related_name='+',
     )
     footer = RichTextField(
         "footer",
@@ -86,6 +85,17 @@ class Highlight(SortableMixin):
         editable=False,
         db_index=True,
     )
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel("description"),
+        FieldPanel("link_label"),
+        FieldPanel("link_url"),
+        ImageChooserPanel("image"),
+        FieldPanel("footer"),
+        FieldPanel("publish_after"),
+        FieldPanel("expires"),
+    ]
 
     objects = HighlightQuerySet.as_manager()
 
