@@ -31,7 +31,7 @@
       {% for entry in page.featured_highlights.all %}
       {% with highlight=entry.highlight %}
       <div class="col-md-6 col-lg-4 {% if forloop.counter == 3 %}d-md-none d-lg-block{% endif %}">
-        {% card highlight.image.url highlight.title highlight.description highlight.link_url highlight.link_label %}
+        {% card highlight.image highlight.title highlight.description highlight.link_url highlight.link_label %}
       </div>
       {% endwith %}
       {% endfor %}
@@ -45,7 +45,7 @@
       {% for entry in page.featured_highlights2.all %}
       {% with highlight=entry.highlight %}
       <div class="col-md-6 col-lg-4">
-        {% card highlight.image.url highlight.title highlight.description highlight.link_url highlight.link_label %}
+        {% card highlight.image highlight.title highlight.description highlight.link_url highlight.link_label %}
       </div>
       {% endwith %}
       {% endfor %}
