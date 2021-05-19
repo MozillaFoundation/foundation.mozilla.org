@@ -69,7 +69,7 @@ django-taggit==1.2.0
     # via wagtail
 django-treebeard==4.3.1
     # via wagtail
-django==2.2.17
+django==2.2.18
     # via
     #   -r requirements.in
     #   django-admin-sortable
