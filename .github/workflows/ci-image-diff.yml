@@ -111,8 +111,8 @@ jobs:
         npm run server:silent &
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
-        source venv/bin/activate        
-        python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,800,1000,1400
+        source venv/bin/activate
+        python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,800,1000,1400 -v -i 250
 
     - name: Sending diff up to AWS S3
       if: ${{ failure() }}
@@ -137,5 +137,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: 'This PR introduces visual differences. Click [here](https://foundation-mozilla-org-visual-ci.s3-us-east-1.amazonaws.com/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
+            body: 'This PR introduces visual differences. Click [here](https://foundation-mozilla-org-visual-ci.s3.us-east-1.amazonaws.com/${{ steps.extract_branch.outputs.branch }}/index.html?reference=main&compare=compare) to inspect the diffs.'
           })
