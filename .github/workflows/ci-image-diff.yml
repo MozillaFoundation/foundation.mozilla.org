@@ -112,7 +112,7 @@ jobs:
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
         source venv/bin/activate
-        python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,800,1000,1400 -v -i 250
+        python compare.py -o -l ../test/urls.txt -g main -c compare -w 500,1200 -v -q 5
 
     - name: Sending diff up to AWS S3
       if: ${{ failure() }}

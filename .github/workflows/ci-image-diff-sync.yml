@@ -99,7 +99,7 @@ jobs:
         npx wait-on http://localhost:8000/cms
         cd ci-image-diff
         source venv/bin/activate
-        python compare.py -u -l ../test/urls.txt -g main -w 500,800,1000,1400 -i 250 -v
+        python compare.py -u -l ../test/urls.txt -g main -w 500,1200 -v -q 5
         deactivate
 
     - name: Uploading baseline
