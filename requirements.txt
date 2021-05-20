@@ -9,7 +9,9 @@ airtable-python-wrapper==0.13.0
 anyascii==0.1.7
     # via wagtail
 asgiref==3.3.1
-    # via scout-apm
+    # via
+    #   django
+    #   scout-apm
 basket-client==1.0.0
     # via -r requirements.in
 beautifulsoup4==4.8.2
@@ -69,7 +71,7 @@ django-taggit==1.2.0
     # via wagtail
 django-treebeard==4.3.1
     # via wagtail
-django==2.2.17
+django==3.0.14
     # via
     #   -r requirements.in
     #   django-admin-sortable
@@ -203,8 +205,6 @@ tqdm==4.15.0
     # via wagtail-inventory
 typing-extensions==3.7.4.3
     # via importlib-metadata
-unidecode==1.1.1
-    # via wagtail
 urllib3[secure]==1.25.9
     # via
     #   botocore
@@ -213,8 +213,6 @@ urllib3[secure]==1.25.9
     #   scout-apm
     #   sentry-sdk
 wagtail-airtable==0.1.6
-    # via -r requirements.in
-wagtail-experiments==0.2
     # via -r requirements.in
 wagtail-factories==2.0.1
     # via -r requirements.in
@@ -226,7 +224,7 @@ wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail-modeltranslation==0.10.17
     # via -r requirements.in
-wagtail==2.11.7
+wagtail==2.12.4
     # via
     #   -r requirements.in
     #   wagtail-airtable

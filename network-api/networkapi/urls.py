@@ -27,7 +27,6 @@ from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as im
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
 from networkapi.redirects import foundation_redirects
-from experiments import views as experiment_views
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [
@@ -47,7 +46,6 @@ urlpatterns = list(filter(None, [
     re_path(r'^api/highlights/', include('networkapi.highlights.urls')),
     re_path(r'^api/news/', include('networkapi.news.urls')),
     re_path(r'^api/people/', include('networkapi.people.urls')),
-    re_path(r'^api/experiments/complete/([^\/]+)/$', experiment_views.record_completion),
     re_path(r'^environment.json', EnvVariablesView.as_view()),
     re_path(r'^help/', review_app_help_view, name='Review app help'),
 
