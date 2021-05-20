@@ -30,7 +30,7 @@ We use [wagtail-modeltranslations](https://github.com/infoportugal/wagtail-model
 
 #### A/B testing
 
-We use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) for CMS-based A/B testing. Please see its documentation for more information.
+We currently don't have any A/B testing going on. We used to use [wagtail-experiments](https://github.com/torchbox/wagtail-experiments) but we're going to switch over to [wagtail-ab-testing](https://github.com/torchbox/wagtail-ab-testing)
 
 ### S3
 

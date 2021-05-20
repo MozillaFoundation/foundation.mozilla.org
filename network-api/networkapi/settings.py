@@ -215,7 +215,6 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.table_block',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.frontend_cache',
-    'experiments',
     'wagtailinventory',
     'wagtail_footnotes',
 
