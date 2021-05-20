@@ -8,7 +8,8 @@ html {
 @import "../mofo-bootstrap/mofo-bootstrap";
 
 // Custom variables
-@import "../variables";
+@import "../variables"; // Foundation site shared variables
+@import "./variables"; // Buyer's Guide specific variables
 
 // Site-wide
 
@@ -43,11 +44,13 @@ html {
 
 // Non-React Components
 
-@import "./components/future-non-react-component";
 @import "../components/nav";
 @import "../components/multipage-nav";
 @import "../components/select-dropdown";
-@import "../components/feature-quote";
+
+// Wagtail Stream Blocks
+
+@import "../wagtail/blocks/feature-quote";
 
 // Misc
 

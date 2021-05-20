@@ -1,14 +1,15 @@
-from rest_framework.decorators import api_view, parser_classes, permission_classes
-from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
-from rest_framework import status, permissions
+from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from datetime import datetime
+from django.http import JsonResponse
+
+import basket
 import boto3
 import logging
 import json
-
 from networkapi.wagtailpages.models import Petition, Signup
 
 
@@ -51,10 +52,20 @@ crm_queue_url = settings.CRM_PETITION_SQS_QUEUE_URL
 logger = logging.getLogger(__name__)
 
 
-@api_view(['POST'])
-@parser_classes((JSONParser,))
-@permission_classes((permissions.AllowAny,))
+@csrf_exempt
+@require_http_methods(['POST'])
 def signup_submission_view(request, pk):
+    # We need to re-write the data that's coming in from the network request.
+    # Network request's send data through the request.body, not request.POST despite it being a POST method
+    # request.POST is supported for unit tests
+    new_body = request.body.decode("utf-8")
+    try:
+        request.data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse({
+            'error': 'Could not validate incoming data',
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     try:
         signup = Signup.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -67,14 +78,24 @@ def signup_submission_view(request, pk):
     return signup_submission(request, signup)
 
 
-@api_view(['POST'])
-@parser_classes((JSONParser,))
-@permission_classes((permissions.AllowAny,))
+@csrf_exempt
+@require_http_methods(['POST'])
 def petition_submission_view(request, pk):
+    # We need to re-write the data that's coming in from the network request.
+    # Network request's send data through the request.body, not request.POST despite it being a POST method
+    # request.POST is supported for unit tests
+    new_body = request.body.decode("utf-8")
+    try:
+        request.data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse({
+            'error': 'Could not validate incoming data',
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     try:
         petition = Petition.objects.get(id=pk)
     except ObjectDoesNotExist:
-        return Response(
+        return JsonResponse(
             {'error': 'Invalid petition id'},
             status=status.HTTP_400_BAD_REQUEST,
         )
@@ -89,14 +110,14 @@ def signup_submission(request, signup):
     # payload validation
     email = rq.get('email')
     if email is None:
-        return Response(
+        return JsonResponse(
             {'error': 'Signup requires an email address'},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
     source = rq.get('source')
     if source is None:
-        return Response(
+        return JsonResponse(
             {'error': 'Unknown source'},
             status=status.HTTP_400_BAD_REQUEST,
         )
@@ -119,27 +140,34 @@ def signup_submission(request, signup):
     if cid is not None and cid != '':
         data['campaign_id'] = cid
 
-    # pack up as a basket message
-    message = json.dumps({
-        'app': settings.HEROKU_APP_NAME,
-        'timestamp': datetime.now().isoformat(),
-        'data': {
-            'json': True,
-            'form': data,
-            'event_type': 'newsletter_signup_data'
-        }
-    })
+    # If we want to subscribe them through basket, do so, if not, subscribe them using SQS.
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET':
+        response = basket.subscribe(data['email'], data['newsletters'], lang=data['lang'])
+        if response['status'] == 'ok':
+            return JsonResponse(data, status=status.HTTP_201_CREATED)
 
-    return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
+        return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+
+    else:
+        # pack up as a basket message
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': {
+                'json': True,
+                'form': data,
+                'event_type': 'newsletter_signup_data'
+            }
+        })
+        return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='signup')
 
 
 # handle Salesforce petition data
 def petition_submission(request, petition):
     cid = petition.campaign_id
-
     if cid is None or cid == '':
-        return Response(
-            {'error': 'Server is missing campaign for petition'},
+        return JsonResponse(
+            {'error': 'Server is missing campaign id for petition'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
@@ -157,7 +185,7 @@ def petition_submission(request, petition):
         if 'country' in request.data:
             data["country"] = request.data['country']
         elif petition.requires_country_code:
-            return Response(
+            return JsonResponse(
                 {'error': 'Required field "country" is missing'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -166,7 +194,7 @@ def petition_submission(request, petition):
         if 'postalCode' in request.data:
             data["postal_code"] = request.data['postalCode']
         else:
-            return Response(
+            return JsonResponse(
                 {'error': 'Required field "postalCode" is missing'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -179,20 +207,39 @@ def petition_submission(request, petition):
             if 'comment' in request.data:
                 data["comments"] = request.data['comment']
             else:
-                return Response(
+                return JsonResponse(
                     {'error': 'Required field "comment" is missing'},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-    message = json.dumps({
-        'app': settings.HEROKU_APP_NAME,
-        'timestamp': datetime.now().isoformat(),
-        'data': {
-            'json': True,
-            'form': data,
-            'event_type': 'crm_petition_data'
-        }
-    })
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'CINCHY':
+        # Rewriting payload for Cinchy
+        data['json'] = True
+        data['event_type'] = 'crm_petition_data'
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': data
+            })
+    else:
+        # Formatting the payload the original way for Basket
+        message = json.dumps({
+            'app': settings.HEROKU_APP_NAME,
+            'timestamp': datetime.now().isoformat(),
+            'data': {
+                'json': True,
+                'form': data,
+                'event_type': 'crm_petition_data'
+            }
+        })
+
+    if settings.MOFO_NEWSLETTER_SUBSCRIBE_METHOD == 'BASKET' \
+            and request.data['newsletterSignup'] is True:
+
+        # Use basket-clients subscribe method, then send the petition information to SQS
+        # with "newsletterSignup" set to false, to avoid subscribing them twice.
+        basket.subscribe(data['email'], 'mozilla-foundation', lang=data['lang'])
+        data['newsletterSignup'] = False
 
     return send_to_sqs(crm_sqs['client'], crm_queue_url, message, type='petition')
 
@@ -200,18 +247,17 @@ def petition_submission(request, petition):
 def send_to_sqs(sqs, queue_url, message, type='petition'):
     if settings.DEBUG is True:
         logger.info(f'Sending {type} message: {message}')
-
         if not sqs:
             # TODO: can this still kick in now that we have an SQS proxy object?
             logger.info('Faking a success message (debug=true, sqs=nonexistent).')
-            return Response({'message': 'success (faked)'}, 201)
+            return JsonResponse({'message': 'success (faked)'}, 201)
 
     if queue_url is None:
         logger.warning(f'{type} was not submitted: No {type} SQS url was specified')
-        return Response({
+        return JsonResponse({
             'message': 'success',
             'details': 'nq'
-        }, 201)
+        }, status=201)
 
     try:
         response = sqs.send_message(
@@ -220,18 +266,18 @@ def send_to_sqs(sqs, queue_url, message, type='petition'):
         )
     except Exception as error:
         logger.error(f'Failed to send {type} with: {error}')
-        return Response(
+        return JsonResponse(
             {'error': f'Failed to queue up {type}'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
     if 'MessageId' in response and response['MessageId']:
-        return Response({
+        return JsonResponse({
             'message': 'success',
             'details': response['MessageId']
-        }, 201)
+        }, status=201)
     else:
-        return Response(
+        return JsonResponse(
             {'error': f'Something went wrong with {type}'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )

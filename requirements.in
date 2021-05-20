@@ -1,6 +1,7 @@
+basket-client
 beautifulsoup4
 boto3
-Django==2.2.17
+Django==3.0.14
 dj-database-url
 djangorestframework
 django-admin-sortable==2.2.3
@@ -19,16 +20,14 @@ python-slugify
 requests
 social-auth-app-django
 wagtail-airtable
-wagtail==2.11.6
+wagtail==2.12.4
 wagtail-factories
-# see https://github.com/mozilla/foundation.mozilla.org/issues/6162
-git+git://github.com/Pomax/wagtail-inventory.git@ea9a6533e69ff0a6faaf0f069efa115bc22ce697#egg=wagtail-inventory
+wagtail-inventory==1.3
 wagtail-metadata
 whitenoise
 wagtail-modeltranslation==0.10.17
 psycopg2-binary
 cloudinary
-wagtail-experiments
 sentry-sdk
 wagtail-footnotes
 scout-apm

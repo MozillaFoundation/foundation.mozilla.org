@@ -7,8 +7,7 @@
   {% for author in authors %}
     <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}" aria-label="{{ author.name }}">
     {% if author.image %}
-      {% image author.image fill-100x100 as img %}
-      <img src="{{ img.url }}" alt="{{ author.name }}" title="{{ author.name }}" />
+      <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}" />
     {% endif %}
     </div>
   {% endfor %}

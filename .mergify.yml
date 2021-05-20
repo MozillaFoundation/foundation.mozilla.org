@@ -4,7 +4,8 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - author~=^dependabot(|-preview)\[bot\]$
       - "status-success=percy/foundation.mozilla.org"
-      - "status-success=continuous-integration/travis-ci/pr"
+      - "status-success=Continuous Integration / Node CI (pull_request)"
+      - "status-success=Continuous Integration / Wagtail CI (pull_request)"
     actions:
       merge:
         method: squash
@@ -14,7 +15,8 @@ pull_request_rules:
     conditions:
       - "#approved-reviews-by>=1"
       - "status-success=percy/foundation.mozilla.org"
-      - "status-success=continuous-integration/travis-ci/pr"
+      - "status-success=Continuous Integration / Node CI (pull_request)"
+      - "status-success=Continuous Integration / Wagtail CI (pull_request)"
       - "label=ready-to-merge"
     actions:
       merge:

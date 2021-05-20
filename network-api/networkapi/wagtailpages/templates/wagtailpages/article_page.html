@@ -26,9 +26,9 @@
           {# If there are h2s in the body of this page, show the article "table of contents" #}
           <div class="article-summary">
             <div class="article-summary-title body-small">{% trans "SUMMARY" %}</div>
-            <div class="article-links {% if get_titles|length > 5 %}article-links__two-col{% endif %}">
+            <div class="article-links {% if get_titles|length > 5 %}article-links-two-column{% endif %}">
               {% for slug, header in get_titles %}
-                <a href="#{{ slug }}" class="article-summary-link">{{ header }}</a>
+                <a href="#{{ slug }}" class="article-summary-link {% if get_titles|length > 5 %}article-summary-link-two-column{% endif %}">{{ header }}</a>
               {% endfor %}
             </div>
           </div>
@@ -40,7 +40,7 @@
             `is_last` is used to determine if a streamfield should close
             after breaking out of its parent container
           {% endcomment %}
-          {% include_block block with is_last=forloop.last %}
+          {% include_block block with is_last=forloop.last page_type="article" %}
         {% endfor %}
       </div>
     </div>

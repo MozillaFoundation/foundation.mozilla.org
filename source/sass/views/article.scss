@@ -1,7 +1,5 @@
-/**
- * ArticlePage-specific styling.
- * Also see publication-page.scss and chapter-page.scss
- */
+// ArticlePage-specific styling.
+// Also see publication-page.scss and chapter-page.scss
 
 #view-article {
   .article-blocks {
@@ -23,18 +21,12 @@
     max-width: 100%;
     width: 100%;
   }
+}
 
-  .article-links {
-    display: flex;
-    flex-direction: column;
-    &__two-col {
-      @media (min-width: $bp-md) {
-        display: grid;
-        grid-template-rows: auto auto auto auto;
-        grid-auto-flow: column;
-        grid-gap: 10px;
-      }
-    }
+.article-links-two-column {
+  @media (min-width: $bp-md) {
+    column-count: 2;
+    column-width: auto;
   }
 }
 
@@ -56,16 +48,20 @@
 }
 
 .article-summary-link {
+  display: block;
   --spacing: 10px;
-
+  width: 100%;
   margin-top: 17px;
   flex-basis: calc(50% - var(--spacing));
   flex-grow: 0;
   flex-shrink: 0;
-
   @include hover-focus-active {
     color: inherit;
   }
+}
+
+.article-summary-link-two-column {
+  display: inline-block;
 }
 
 .article-summary .article-summary-title {
@@ -370,7 +366,7 @@
     color: $gray-60;
     @include set-text-size(12px, 16px);
     font-family: $font-family-sans-serif;
-    margin-top: 18px;
+    margin-top: 8px;
   }
 }
 
