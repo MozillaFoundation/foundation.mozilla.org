@@ -11,7 +11,9 @@ on:
       - 'maintenance/**/*.*'
 
 jobs:
-  update-baseline:
+
+  perform-visual-ci:
+    if: "!contains(github.event.pull_request.labels.*.name, 'no-visual-ci')"
     name: CI Image Diff
     runs-on: ubuntu-latest
 
