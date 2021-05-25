@@ -239,11 +239,6 @@ INSTALLED_APPS = list(filter(None, [
     # possibly still used?
     'networkapi.highlights',
 
-    # wagtail localisation app
-    'wagtail_modeltranslation',
-    'wagtail_modeltranslation.makemigrations',
-    'wagtail_modeltranslation.migrate',
-
     # wagtail to airtable integration
     'wagtail_airtable',
 
