@@ -26,9 +26,6 @@ To get a list of invoke commands available, run `invoke -l`:
 ```
   catch-up (catchup, docker-catchup)           Rebuild images, install dependencies, and apply migrations
   compilemessages (docker-compilemessages)     Compile the latest translations
-  l10n-sync (docker-l10n-sync)                 Sync localizable fields in the database
-  l10n-update (docker-l10n-update)             Update localizable field data (copies from original unlocalized to
-                                               default localized field)
   makemessages (docker-makemessages)           Extract all template messages in .po files for localization
   makemigrations (docker-makemigrations)       Creates new migration(s) for apps
   manage (docker-manage)                       Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
