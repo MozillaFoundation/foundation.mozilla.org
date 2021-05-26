@@ -9,8 +9,7 @@ python ./manage.py migrate --no-input
 python ./manage.py block_inventory
 
 # Wagtail translations
-python ./manage.py sync_page_translation_fields
-python ./manage.py update_translation_fields
+# TODO: May need to add in auto syncing using wagtail-localize in the future.
 
 # Clear cache for BuyersGuide
 python ./manage.py clear_cache

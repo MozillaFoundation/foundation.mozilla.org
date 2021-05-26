@@ -89,7 +89,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         context['menu_items'] = self.get_children().live().in_menu()
 
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
-        mozfest_footer = Signup.objects.filter(name_en__iexact='mozfest').first()
+        mozfest_footer = Signup.objects.filter(name__iexact='mozfest').first()
         context['mozfest_footer'] = mozfest_footer
 
         if not bypass_menu_buildstep:
