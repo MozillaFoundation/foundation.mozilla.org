@@ -26,7 +26,7 @@ class RSSFeed(Feed):
             # as a BlogIndexPage, to make sure we're not filtering out all the
             # "featured" posts (which we need to do for site content purposes).
             try:
-                index = IndexPage.objects.get(title_en__iexact='Blog')
+                index = IndexPage.objects.get(title__iexact='Blog')
 
             except IndexPage.DoesNotExist:
                 # If that doesn't yield the blog page, pull using the universal title

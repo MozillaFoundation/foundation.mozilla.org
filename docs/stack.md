@@ -26,7 +26,7 @@ If you are defining a new page class for the site, make sure it inherits both th
 
 #### localization
 
-We use [wagtail-modeltranslations](https://github.com/infoportugal/wagtail-modeltranslation) for CMS content localization. Please see its documentation for more information.
+We use [wagtail-localize](https://wagtail-localize.org/) for CMS content localization. Please see its documentation for more information.
 
 #### A/B testing
 
