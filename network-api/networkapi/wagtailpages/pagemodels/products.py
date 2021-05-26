@@ -118,7 +118,7 @@ class BuyersGuideProductCategory(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name_en if self.name_en else self.name)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     class Meta:

@@ -47,7 +47,6 @@ class BuyersGuideViewTest(TestCase):
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
-            buyersguide.slug_en = 'privacynotincluded'
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
 
@@ -147,7 +146,6 @@ class BuyersGuideTestMixin(WagtailPageTests):
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
-            buyersguide.slug_en = 'privacynotincluded'
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
         self.homepage = Homepage.objects.first()
