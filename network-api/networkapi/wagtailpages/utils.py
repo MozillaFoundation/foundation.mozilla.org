@@ -325,30 +325,14 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
         ('second-title-here', 'Second Title Here')
     )
     """
-    # Data is stored differently for live pages with streamfield data vs. preview streamfield data.
-    if not request.is_preview:
-        body = stream_data.__dict__['_raw_data']
-    else:
-        body = stream_data.__dict__['_bound_blocks']
     data = {}
     headers = []
-    for block in body:
-        if not request.is_preview:
-            # Check for live versions of the page first because these will be served
-            # much more frequently than preview pages.
-            # In live pages (not previews) we have a block `type` and block `value`.
-            if block['type'] == stream_block_name:
-                soup = BeautifulSoup(block['value'], 'html.parser')
-                _headers = soup.findAll('h2')
-                for _h in _headers:
-                    headers.append(_h.get_text())
-        else:
-            # If the page is a preview, look for preview streamfield data.
-            if block.block_type == stream_block_name:
-                soup = BeautifulSoup(str(block.value), 'html.parser')
-                _headers = soup.findAll('h2')
-                for _h in _headers:
-                    headers.append(_h.get_text())
+    for block in stream_data:
+        if block.block_type == stream_block_name:
+            soup = BeautifulSoup(str(block.value), 'html.parser')
+            _headers = soup.findAll('h2')
+            for _h in _headers:
+                headers.append(_h.get_text())
     data = {
         slugify(header): header for header in headers
     }
