@@ -336,20 +336,14 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
         if not request.is_preview:
             # Check for live versions of the page first because these will be served
             # much more frequently than preview pages.
-            # In live pages (not previewed) we have a block `type` and block `value`.
-            # In preview pages, we have a tuple where the first value is the block['type']
-            # and the second value is the block['value']
-            for block in body:
-                if block['type'] == stream_block_name:
-                    soup = BeautifulSoup(block['value'], 'html.parser')
-                    _headers = soup.findAll('h2')
-                    for _h in _headers:
-                        headers.append(_h.get_text())
+            # In live pages (not previews) we have a block `type` and block `value`.
+            if block['type'] == stream_block_name:
+                soup = BeautifulSoup(block['value'], 'html.parser')
+                _headers = soup.findAll('h2')
+                for _h in _headers:
+                    headers.append(_h.get_text())
         else:
-            # If the page is a preview, look for live streamfield data.
-            # Previewed streamfield is stored differently than live streamfield data; as a tuple
-            # And thus we check if the first value is the block name, and the second value in
-            # the tuple is going to be the actual block data.
+            # If the page is a preview, look for preview streamfield data.
             if block.block_type == stream_block_name:
                 soup = BeautifulSoup(str(block.value), 'html.parser')
                 _headers = soup.findAll('h2')
