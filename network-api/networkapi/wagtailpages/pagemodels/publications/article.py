@@ -118,7 +118,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
 
     translatable_fields = [
         # Ignore slug
-        SynchronizedField('tox_thumbnail_image'),
+        SynchronizedField('toc_thumbnail_image'),
         SynchronizedField('hero_image'),
         TranslatableField('subtitle'),
         SynchronizedField('article_file'),
