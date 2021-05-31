@@ -1,12 +1,12 @@
 from django.db import models
 
+from wagtail.core.models import BootstrapTranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
 
-
 @register_snippet
-class DonationModal(models.Model):
+class DonationModal(BootstrapTranslatableMixin, models.Model):
     name = models.CharField(
         default='',
         max_length=100,
@@ -48,7 +48,7 @@ class DonationModal(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(BootstrapTranslatableMixin.Meta):
         verbose_name_plural = 'Donation CTA'
 
 

@@ -3,7 +3,7 @@ import json
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
-from wagtail.core.models import Page
+from wagtail.core.models import BootstrapTranslatableMixin, Page
 from wagtail.core.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -21,7 +21,7 @@ from ..utils import (
 )
 
 
-class CTA(models.Model):
+class CTA(BootstrapTranslatableMixin, models.Model):
     name = models.CharField(
         default='',
         max_length=100,
@@ -48,7 +48,7 @@ class CTA(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(BootstrapTranslatableMixin.Meta):
         verbose_name_plural = 'CTA'
 
 
