@@ -5,7 +5,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const maxLengthFields = document.querySelectorAll(".max-length-warning");
-  console.log(maxLengthFields)
 
   if(maxLengthFields.length) {
     maxLengthFields.forEach((node) => {
