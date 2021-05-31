@@ -17,7 +17,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import BootstrapTranslatableMixin, Orderable, Page
+from wagtail.core.models import TranslatableMixin, Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -65,7 +65,7 @@ def sort_average(products):
 
 
 @register_snippet
-class BuyersGuideProductCategory(BootstrapTranslatableMixin, models.Model):
+class BuyersGuideProductCategory(TranslatableMixin, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -121,7 +121,7 @@ class BuyersGuideProductCategory(BootstrapTranslatableMixin, models.Model):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-    class Meta(BootstrapTranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
         ordering = ['sort_order', 'name', ]
@@ -216,7 +216,7 @@ class ProductPagePrivacyPolicyLink(Orderable):
 
 
 @register_snippet
-class Update(BootstrapTranslatableMixin, index.Indexed, models.Model):
+class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
@@ -261,7 +261,7 @@ class Update(BootstrapTranslatableMixin, index.Indexed, models.Model):
     def __str__(self):
         return self.title
 
-    class Meta(BootstrapTranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Update"
         verbose_name_plural = "Buyers Guide Product Updates"
 

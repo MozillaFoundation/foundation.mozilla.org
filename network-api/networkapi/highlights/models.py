@@ -5,7 +5,7 @@ from django.db.models import Q
 from adminsortable.models import SortableMixin
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import BootstrapTranslatableMixin
+from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
@@ -34,7 +34,7 @@ class HighlightQuerySet(models.query.QuerySet):
 
 
 @register_snippet
-class Highlight(BootstrapTranslatableMixin, SortableMixin):
+class Highlight(TranslatableMixin, SortableMixin):
     """
     An data type to highlight things like pulse
     projects, custom pages, etc
@@ -100,7 +100,7 @@ class Highlight(BootstrapTranslatableMixin, SortableMixin):
 
     objects = HighlightQuerySet.as_manager()
 
-    class Meta(BootstrapTranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta):
         verbose_name_plural = 'highlights'
         ordering = ('order',)
 
