@@ -10,12 +10,15 @@ from typing import Union
 from bs4 import BeautifulSoup
 
 from itertools import chain
+from django import forms
 from django.apps import apps
 from django.conf import settings
+
 from django.core.files.images import ImageFile
 from django.db.models import Count
 from django.urls import LocalePrefixPattern, URLResolver
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 from django.utils.translation.trans_real import (
     check_for_language, get_languages, get_language_from_path,
@@ -400,3 +403,13 @@ def create_wagtail_image(img_src: str, image_name: str = None, collection_name: 
         collection=collection
     )
     return wagtail_image
+
+
+class TitleWidget(forms.TextInput):
+
+    def render(self, name, value, attrs=None, renderer=None):
+        html = super().render(name, value, attrs)
+        inline_code = mark_safe(
+            "<h3 class='max-length-countdown'></h3>"
+        )
+        return html + inline_code

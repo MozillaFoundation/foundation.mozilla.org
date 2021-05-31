@@ -2,12 +2,12 @@
 #   See https://docs.wagtail.io/en/v2.7/advanced_topics/customisation/extending_draftail.html
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
 
+from django.templatetags.static import static
 from django.core.cache import cache
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
-
 from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, ProductPage
 
 
@@ -114,3 +114,16 @@ def manage_index_pages_cache(request, page):
 
     if hasattr(parent, 'clear_index_page_cache'):
         parent.clear_index_page_cache()
+
+
+@hooks.register("insert_global_admin_js", order=100)
+def global_admin_js():
+    """Add /static/css/custom.js to the admin."""
+    max_length_js = static("wagtailadmin/js/max-length-field.js")
+    return f'<script src="{max_length_js}"></script>'
+
+
+@hooks.register('insert_global_admin_css')
+def global_admin_css():
+    max_length_css = static('wagtailadmin/css/max-length-field.css')
+    return f'<link rel="stylesheet" href="{max_length_css}">'
