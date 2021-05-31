@@ -8,6 +8,9 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField
+
 from networkapi.wagtailpages.models import ContentAuthor, PublicationPage
 from networkapi.wagtailpages.utils import get_plaintext_titles
 from networkapi.wagtailpages.utils import set_main_site_nav_information
@@ -111,6 +114,16 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         FieldPanel('show_side_share_buttons'),
         StreamFieldPanel('body'),
         InlinePanel("footnotes", label="Footnotes"),
+    ]
+
+    translatable_fields = [
+        # Ignore slug
+        SynchronizedField('tox_thumbnail_image'),
+        SynchronizedField('hero_image'),
+        TranslatableField('subtitle'),
+        SynchronizedField('article_file'),
+        TranslatableField('body'),
+        # TODO: Footnotes?
     ]
 
     @property

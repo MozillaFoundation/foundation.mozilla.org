@@ -23,6 +23,9 @@ from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
+from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField
+
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.wagtailpages.fields import ExtendedYesNoField
@@ -211,6 +214,11 @@ class ProductPagePrivacyPolicyLink(Orderable):
         FieldPanel('url'),
     ]
 
+    translatable_fields = [
+        TranslatableField('label'),
+        SynchronizedField('url'),
+    ]
+
     def __str__(self):
         return f'{self.page.title}: {self.label} ({self.url})'
 
@@ -280,6 +288,9 @@ class ProductUpdates(Orderable):
         related_name='+',
         null=True
     )
+
+    # Ignore all
+    translatable_fields = []
 
     panels = [
         SnippetChooserPanel('update'),
@@ -696,6 +707,52 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             ],
             heading='Related Products',
         ),
+    ]
+
+    translatable_fields = [
+        # Ignore slug, airtable_record_id
+        TranslatableField('title'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        TranslatableField('search_description'),
+        SynchronizedField('privacy_ding'),
+        SynchronizedField('adult_content'),
+        SynchronizedField('uses_wifi'),
+        SynchronizedField('uses_bluetooth'),
+        SynchronizedField('review_date'),
+        SynchronizedField('company'),
+        TranslatableField('blurb'),
+        SynchronizedField('product_url'),
+        TranslatableField('price'),
+        SynchronizedField('image'),
+        TranslatableField('worst_case'),
+        SynchronizedField('signup_requires_email'),
+        SynchronizedField('signup_requires_phone'),
+        SynchronizedField('signup_requires_third_party_account'),
+        TranslatableField('signup_requirements_explanation'),
+        SynchronizedField('signup_requires_third_party_account'),
+        TranslatableField('how_does_it_use_data_collected'),
+        SynchronizedField('data_collection_policy_is_bad'),
+        SynchronizedField('user_friendly_privacy_policy'),
+        TranslatableField('user_friendly_privacy_policy_helptext'),
+        SynchronizedField('show_ding_for_minimum_security_standards'),
+        SynchronizedField('meets_minimum_security_standards'),
+        SynchronizedField('uses_encryption'),
+        TranslatableField('uses_encryption_helptext'),
+        SynchronizedField('security_updates'),
+        TranslatableField('security_updates_helptext'),
+        SynchronizedField('strong_password'),
+        TranslatableField('strong_password_helptext'),
+        SynchronizedField('manage_vulnerabilities'),
+        TranslatableField('manage_vulnerabilities_helptext'),
+        SynchronizedField('privacy_policy'),
+        TranslatableField('privacy_policy_helptext'),
+        SynchronizedField('phone_number'),
+        SynchronizedField('live_chat'),
+        SynchronizedField('email'),
+        SynchronizedField('twitter'),
     ]
 
     @property

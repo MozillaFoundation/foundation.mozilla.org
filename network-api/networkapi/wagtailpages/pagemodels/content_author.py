@@ -5,6 +5,7 @@ from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
+
 @register_snippet
 class ContentAuthor(TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)

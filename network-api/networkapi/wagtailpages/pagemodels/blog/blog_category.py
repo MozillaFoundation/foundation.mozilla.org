@@ -4,6 +4,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
+
 @register_snippet
 class BlogPageCategory(TranslatableMixin, models.Model):
     name = models.CharField(

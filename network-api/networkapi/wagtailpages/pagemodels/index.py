@@ -13,6 +13,9 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
+from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField
+
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 from networkapi.wagtailpages.utils import (
@@ -59,6 +62,23 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         FieldPanel('header'),
         FieldPanel('intro'),
         FieldPanel('page_size'),
+    ]
+
+    translatable_fields = [
+        # Ignore slug and show_in_menus
+        TranslatableField('cta_button_label'),
+        SynchronizedField('cta_button_destination'),
+        TranslatableField('banner_heading'),
+        TranslatableField('banner_guide_text'),
+        SynchronizedField('banner_video_url'),
+        TranslatableField('title'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # TODO: Signup snippet chooser
+        TranslatableField('body'),
+        # TODO: use_wide_template seems unused.
+        # TODO: Test out footnotes
+        TranslatableField('footnotes'),
     ]
 
     def get_context(self, request):

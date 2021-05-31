@@ -5,6 +5,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
 
+
 @register_snippet
 class DonationModal(TranslatableMixin, models.Model):
     name = models.CharField(

@@ -8,6 +8,9 @@ from wagtail.core.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
+from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField
+
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -258,6 +261,12 @@ class BanneredCampaignPage(PrimaryPage):
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
+    ]
+
+    translatable_fields = [
+        SynchronizedField("banner"),
+        TranslatableField("cta"),
+        TranslatableField("signup"),
     ]
 
     subpage_types = [

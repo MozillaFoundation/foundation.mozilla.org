@@ -9,6 +9,9 @@ from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
 
+from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField
+
 from modelcluster.fields import ParentalKey
 
 from .primary import PrimaryPage
@@ -76,6 +79,16 @@ class InitiativeSection(models.Model):
         FieldPanel('sectionButtonURL2'),
     ]
 
+    translatable_fields = [
+        SynchronizedField('sectionImage'),
+        TranslatableField('sectionHeader'),
+        TranslatableField('sectionCopy'),
+        TranslatableField('sectionButtonTitle'),
+        SynchronizedField('sectionButtonURL'),
+        TranslatableField('sectionButtonTitle2'),
+        SynchronizedField('sectionButtonURL2'),
+    ]
+
 
 class InitiativesPage(PrimaryPage):
     template = 'wagtailpages/static/initiatives_page.html'
@@ -122,6 +135,14 @@ class InitiativesPage(PrimaryPage):
         FieldPanel('sub_h3'),
         InlinePanel('initiative_sections', label="Initiatives"),
         InlinePanel('featured_highlights', label='Highlights', max_num=9),
+    ]
+
+    translatable_fields = [
+        SynchronizedField('primaryHero'),
+        TranslatableField('header'),
+        TranslatableField('subheader'),
+        TranslatableField('h3'),
+        TranslatableField('sub_h3'),
     ]
 
 
@@ -511,6 +532,12 @@ class HomepageTakeActionCards(WagtailOrderable):
         PageChooserPanel('internal_link'),
     ]
 
+    translatable_fields = [
+        SynchronizedField('image'),
+        TranslatableField('text'),
+        SynchronizedField('internal_link'),
+    ]
+
     def __str__(self):
         return self.name
 
@@ -546,6 +573,13 @@ class PartnerLogos(WagtailOrderable):
         FieldPanel('name'),
         FieldPanel('link'),
         FieldPanel('width'),
+    ]
+
+    translatable_fields = [
+        SynchronizedField('logo'),
+        TranslatableField('name'),
+        SynchronizedField('link'),
+        SynchronizedField('width'),
     ]
 
     @property
@@ -733,6 +767,28 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='Partner',
           classname='collapsible collapsed'
         ),
+    ]
+
+    translatable_fields = [
+        TranslatableField('hero_headline'),
+        SynchronizedField('hero_image'),
+        TranslatableField('hero_button_text'),
+        SynchronizedField('hero_button_url'),
+        SynchronizedField('spotlight_image'),
+        TranslatableField('spotlight_headline'),
+        TranslatableField('cause_statement'),
+        TranslatableField('cause_statement_link_text'),
+        SynchronizedField('cause_statement_link_page'),
+        SynchronizedField('quote_image'),
+        TranslatableField('quote_text'),
+        TranslatableField('quote_source_name'),
+        TranslatableField('quote_source_job_title'),
+        TranslatableField('partner_heading'),
+        TranslatableField('partner_intro_text'),
+        TranslatableField('partner_page_text'),
+        SynchronizedField('partner_page'),
+        SynchronizedField('partner_background_image'),
+        TranslatableField('take_action_title'),
     ]
 
     subpage_types = [

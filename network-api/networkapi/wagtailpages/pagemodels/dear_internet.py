@@ -4,6 +4,9 @@ from wagtail.admin.edit_handlers import StreamFieldPanel, MultiFieldPanel, Field
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 
+from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField
+
 from wagtail.core import blocks
 from . import customblocks
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -51,6 +54,15 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
             ],
             heading='CTA',
         ),
+    ]
+
+    translatable_fields = [
+        TranslatableField("intro_texts"),
+        TranslatableField("letters_section_heading"),
+        TranslatableField("letters"),
+        TranslatableField("cta"),
+        TranslatableField("cta_button_text"),
+        SynchronizedField("cta_button_link"),
     ]
 
     zen_nav = True

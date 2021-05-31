@@ -14,6 +14,8 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from wagtail_localize.fields import TranslatableField
+
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -113,6 +115,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         PublishingPanel(),
         FieldPanel('first_published_at'),
         PrivacyModalPanel(),
+    ]
+
+    translatable_fields = [
+        # Ignore category, featured_comments and slug
+        TranslatableField('body'),
     ]
 
     subpage_types = []
