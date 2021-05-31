@@ -4,7 +4,6 @@
 {% get_local_language_names as languages %}
 
 <form action="{% url 'set_language' %}" method="post">
-  {% csrf_token %}
   <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}" />
   <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center mb-md-0">
     <label class="h5-heading mb-0 d-flex align-items-center globe-glyph medium" for="language-switcher">{% trans "Language" %}</label>
