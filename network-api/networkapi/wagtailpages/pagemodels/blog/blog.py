@@ -115,7 +115,9 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         PrivacyModalPanel(),
     ]
 
-    subpage_types = []
+    subpage_types = [
+        'ArticlePage'
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)
