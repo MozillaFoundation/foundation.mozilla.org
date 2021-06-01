@@ -13,8 +13,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
-from wagtail_localize.fields import TranslatableField
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
