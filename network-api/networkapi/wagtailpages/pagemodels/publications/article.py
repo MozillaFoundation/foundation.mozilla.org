@@ -8,8 +8,7 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from wagtail_localize.fields import TranslatableField
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.models import ContentAuthor, PublicationPage
 from networkapi.wagtailpages.utils import get_plaintext_titles
