@@ -50,7 +50,7 @@
 .article-summary-link {
   display: block;
   --spacing: 10px;
-
+  width: 100%;
   margin-top: 17px;
   flex-basis: calc(50% - var(--spacing));
   flex-grow: 0;

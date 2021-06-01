@@ -7,12 +7,11 @@ from factory import (
     LazyAttribute,
     post_generation,
 )
+from wagtail_factories import ImageFactory
 
-from networkapi.utility.faker import ImageProvider, generate_fake_data
+from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import reseed
 from networkapi.highlights.models import Highlight
-
-Faker.add_provider(ImageProvider)
 
 
 class HighlightFactory(DjangoModelFactory):
@@ -67,7 +66,7 @@ class HighlightFactory(DjangoModelFactory):
 
     @post_generation
     def image_name(self, create, extracted, **kwargs):
-        self.image.name = Faker('generic_image').generate({})
+        self.image = ImageFactory()
 
 
 def generate(seed):

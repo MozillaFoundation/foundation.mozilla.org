@@ -50,6 +50,8 @@ env = environ.Env(
     FEED_LIMIT=(int, 10),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ''),
+    FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ''),
     GITHUB_TOKEN=(str, ''),
     HEROKU_APP_NAME=(str, ''),
     HEROKU_BRANCH=(str, ''),
@@ -61,6 +63,7 @@ env = environ.Env(
     MOFO_NEWSLETTER_SUBSCRIBE_METHOD=(str, 'BASKET'),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     NETWORK_SITE_URL=(str, ''),
+    PETITION_DATA_SUBMISSION_METHOD=(str, ''),
     PETITION_TEST_CAMPAIGN_ID=(str, ''),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ''),
@@ -211,7 +214,7 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.styleguide' if DEBUG else None,
     'wagtail.contrib.table_block',
     'wagtail.contrib.modeladmin',
-    'experiments',
+    'wagtail.contrib.frontend_cache',
     'wagtailinventory',
     'wagtail_footnotes',
 
@@ -439,6 +442,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/about/locale'),
     os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/buyersguide/locale'),
+    os.path.join(BASE_DIR, 'networkapi/wagtailpages/templates/wagtailpages/pages/locale'),
 )
 
 
@@ -460,6 +464,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 WAGTAILIMAGES_INDEX_PAGE_SIZE = env('WAGTAILIMAGES_INDEX_PAGE_SIZE')
 WAGTAIL_USAGE_COUNT_ENABLED = True
+
+# Wagtail Frontend Cache Invalidator Settings
+
+if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
+    WAGTAILFRONTENDCACHE = {
+        'cloudflare': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+            'BEARER_TOKEN': env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"),
+            'ZONEID': env("FRONTEND_CACHE_CLOUDFLARE_ZONEID")
+        }
+    }
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
@@ -629,6 +644,9 @@ SLACK_WEBHOOK_RA = env('SLACK_WEBHOOK_RA')
 
 # Used by load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env('PETITION_TEST_CAMPAIGN_ID')
+
+# Choosing whether we want petition data to go to Basket or SQS
+PETITION_DATA_SUBMISSION_METHOD = env('PETITION_DATA_SUBMISSION_METHOD')
 
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env('BUYERS_GUIDE_VOTE_RATE_LIMIT')

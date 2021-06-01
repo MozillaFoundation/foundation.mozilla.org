@@ -16,6 +16,10 @@ class iFrameBlock(blocks.StructBlock):
         required=False,
         help_text='Optional URL that this caption should link out to.'
     )
+    wide_iframe = blocks.BooleanBlock(
+        required=False,
+        help_text='Check this box for a wider iframe',
+    )
 
     class Meta:
         template = 'wagtailpages/blocks/iframe_block.html'

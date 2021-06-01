@@ -36,7 +36,7 @@ Deploy each PR separately and in ascending order.
 
 Opening a PR activates different services:
 - [Review app](#review-apps): temporary apps with fake data running on Heroku,
-- [Continuous Integration testing](#continuous-integration-testing): Travis,
+- [Continuous Integration testing](#continuous-integration-testing): Github Actions,
 - [Visual regression testing](#visual-regression-testing): Percy.
 
 ### Review Apps
@@ -68,9 +68,7 @@ Non-secret envs can be added to the `app.json` file. Secrets must be set on Hero
 
 ### Continuous Integration testing
 
-Opening a PR will trigger [Travis](https://travis-ci.org) continuous integration, which should pass before a PR is deemed good to merge.
-
-It's possible to skip CI builds by adding `[skip ci]` or `[ci skip]` in the commit message title. If you only want to skip Travis, use `[skip travis]` or `[travis skip]`. Note: since Travis is a required check on GitHub, your last commit needs to run the CI.
+Opening a PR will trigger [Github Action](https://github.com/mozilla/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
 
 #### Mergify
 
@@ -78,7 +76,7 @@ Mergify is a bot that automatically merges PRs under certain conditions defined 
 
 ### Visual regression testing
 
-The Travis continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
+The continuous integration run will also trigger a visual regression testing using [Percy.io](https://percy.io) (based on Cypress output). These tests do not need to pass for a PR to be merged in, but any discrepancies that are flagged by Percy should be reviewed and signed off on during the course of normal PR review.
 
 Note that any changes to model fields, field ordering, or factories, will likely result in charges to our testing data, which will result in Percy flagging changes: the test data is based on Python's pseudo-random number generator, which we seed at various points during test data generation, but between those seed points is based on the exact order in which fields are assigned testing data. If the order of assignments changes, or old fields are added/new fields are removed, then the PRNG sequence will be different, and Percy will likely show that there are visual diffs that require sign-off.
 
