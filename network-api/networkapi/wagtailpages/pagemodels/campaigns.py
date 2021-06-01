@@ -208,6 +208,9 @@ class CampaignPage(MiniSiteNameSpace):
         StreamFieldPanel('body'),
     ]
 
+    # No translatable fields
+    translatable_fields = []
+
     subpage_types = [
         'CampaignPage',
         'RedirectingPage',

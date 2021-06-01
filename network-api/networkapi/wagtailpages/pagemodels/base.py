@@ -777,7 +777,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField('spotlight_headline'),
         TranslatableField('cause_statement'),
         TranslatableField('cause_statement_link_text'),
-        SynchronizedField('cause_statement_link_page'),
+        TranslatableField('cause_statement_link_page'),
         SynchronizedField('quote_image'),
         TranslatableField('quote_text'),
         TranslatableField('quote_source_name'),

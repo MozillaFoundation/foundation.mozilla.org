@@ -730,7 +730,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('signup_requires_email'),
         SynchronizedField('signup_requires_phone'),
         SynchronizedField('signup_requires_third_party_account'),
-        TranslatableField('signup_requirements_explanation'),
+        TranslatableField('signup_requirement_explanation'),
         SynchronizedField('signup_requires_third_party_account'),
         TranslatableField('how_does_it_use_data_collected'),
         SynchronizedField('data_collection_policy_is_bad'),
