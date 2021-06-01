@@ -4,8 +4,7 @@ from wagtail.admin.edit_handlers import StreamFieldPanel, MultiFieldPanel, Field
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 
-from wagtail_localize.fields import TranslatableField
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from wagtail.core import blocks
 from . import customblocks
