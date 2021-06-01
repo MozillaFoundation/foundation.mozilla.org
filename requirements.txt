@@ -95,7 +95,7 @@ draftjs-exporter==2.1.7
     # via wagtail
 et-xmlfile==1.0.1
     # via openpyxl
-factory-boy==2.12.0
+factory-boy==3.2.0
     # via
     #   -r requirements.in
     #   wagtail-factories
