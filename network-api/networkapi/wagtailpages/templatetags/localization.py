@@ -43,3 +43,9 @@ def get_local_language_names():
     for lang in settings.LANGUAGES:
         languages.append([lang[0], get_language_info(lang[0])['name_local']])
     return sorted(languages, key=lambda x: locale.strxfrm(unicodedata.normalize('NFD', x[1])).casefold())
+
+
+# Get the url for a page, but with the locale code removed.
+@register.simple_tag()
+def get_unlocalized_url(page, locale):
+    return page.get_url().replace(f'/{locale}/', '/', 1)
