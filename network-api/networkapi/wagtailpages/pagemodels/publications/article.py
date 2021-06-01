@@ -116,7 +116,6 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         parent = self.get_parent().specific
         return parent.__class__ is PublicationPage
 
-
     @property
     def next_page(self):
         """
