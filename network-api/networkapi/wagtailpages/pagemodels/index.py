@@ -76,8 +76,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         # TODO: Signup snippet chooser
         TranslatableField('body'),
         # TODO: use_wide_template seems unused.
-        # TODO: Test out footnotes
-        TranslatableField('footnotes'),
     ]
 
     def get_context(self, request):
