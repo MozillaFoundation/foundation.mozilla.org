@@ -1,5 +1,5 @@
 /**
- * Even listeners to let editors know when they reached the recommended maximum length of a title.
+ * Event listeners to let editors know when they reached the recommended maximum length of a title.
  * This is paired with max-length-fields.css and wagtailpages/wagtail_hooks.py
  */
 
