@@ -70,6 +70,7 @@ class MiniSiteNameSpace(ModularPage):
         'BanneredCampaignPage',
         'OpportunityPage',
         'YoutubeRegretsPage',
+        'ArticlePage'
     ]
 
     """
