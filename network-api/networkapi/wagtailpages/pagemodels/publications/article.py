@@ -113,8 +113,9 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
 
     @property
     def is_publication_article(self):
-        parent = self.get_parent().specific
-        if "Publication" in parent.title:
+        parents = self.get_ancestors()
+        parent_publication_pages = parents.filter(title__icontains="Publication")
+        if parent_publication_pages:
             return True
         else:
             return False

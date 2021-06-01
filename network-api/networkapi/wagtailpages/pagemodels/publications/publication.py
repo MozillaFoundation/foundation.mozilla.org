@@ -123,7 +123,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         Returning true to let publication_hero.html to show breadcrumbs
         """
         return True
-        
+
     @property
     def is_chapter_page(self):
         """
