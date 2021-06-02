@@ -288,8 +288,9 @@ class ProductUpdates(Orderable):
         null=True
     )
 
-    # Ignore all
-    translatable_fields = []
+    translatable_fields = [
+        TranslatableField("update"),
+    ]
 
     panels = [
         SnippetChooserPanel('update'),
@@ -709,12 +710,14 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
-        # Ignore slug, airtable_record_id
-        TranslatableField('title'),
+        # Promote tab fields
+        SynchronizedField('slug'),
         TranslatableField('seo_title'),
         SynchronizedField('show_in_menus'),
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
         TranslatableField('search_description'),
         SynchronizedField('privacy_ding'),
         SynchronizedField('adult_content'),

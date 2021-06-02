@@ -5,7 +5,7 @@ from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 
-from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from . import customblocks
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -54,7 +54,14 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
-        # Ignore slug
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
         TranslatableField('headline'),
         TranslatableField('intro_text'),
         TranslatableField('intro_images'),
@@ -92,7 +99,14 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
-        # Ignore slug
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
         TranslatableField('headline'),
         TranslatableField('intro_text'),
         TranslatableField('intro_images'),

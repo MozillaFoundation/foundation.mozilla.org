@@ -174,6 +174,14 @@ class MozfestHomepage(MozfestPrimaryPage):
     settings_panels = Page.settings_panels
 
     translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
         TranslatableField('cta_button_label'),
         SynchronizedField('cta_button_destination'),
         TranslatableField('banner_heading'),

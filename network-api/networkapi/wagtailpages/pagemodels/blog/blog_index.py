@@ -60,7 +60,7 @@ class BlogIndexPage(IndexPage):
     ]
 
     # Empty translatable fields
-    translatable_fields = []
+    translatable_fields = IndexPage.translatable_fields
 
     template = 'wagtailpages/blog_index_page.html'
 

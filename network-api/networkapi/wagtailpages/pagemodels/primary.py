@@ -81,6 +81,14 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
     ]
 
     translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField("title"),
         TranslatableField("header"),
         SynchronizedField("banner"),
         TranslatableField("intro"),

@@ -137,6 +137,14 @@ class InitiativesPage(PrimaryPage):
     ]
 
     translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
         SynchronizedField('primaryHero'),
         TranslatableField('header'),
         TranslatableField('subheader'),
@@ -254,6 +262,37 @@ class ParticipatePage2(PrimaryPage):
         blank=True,
         verbose_name='H2 Subheader',
     )
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        SynchronizedField('title'),
+        SynchronizedField('ctaHero'),
+        TranslatableField('ctaHeroHeader'),
+        TranslatableField('ctaHeroSubhead'),
+        TranslatableField('ctaButtonTitle'),
+        TranslatableField('ctaButtonURL'),
+        SynchronizedField('ctaHero2'),
+        TranslatableField('ctaHeroHeader2'),
+        TranslatableField('ctaHeroSubhead2'),
+        TranslatableField('ctaButtonTitle2'),
+        TranslatableField('ctaButtonURL2'),
+        SynchronizedField('ctaHero3'),
+        TranslatableField('ctaHeroHeader3'),
+        TranslatableField('ctaHeroSubhead3'),
+        TranslatableField('ctaFacebook3'),
+        TranslatableField('ctaTwitter3'),
+        TranslatableField('ctaEmailShareBody3'),
+        TranslatableField('ctaEmailShareSubject3'),
+        TranslatableField('h2'),
+        TranslatableField('h2Subheader'),
+    ]
+
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -768,7 +807,16 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
     ]
 
+
     translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
         TranslatableField('hero_headline'),
         SynchronizedField('hero_image'),
         TranslatableField('hero_button_text'),
@@ -788,6 +836,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField('partner_page'),
         SynchronizedField('partner_background_image'),
         TranslatableField('take_action_title'),
+        SynchronizedField('focus_areas'),
     ]
 
     subpage_types = [

@@ -120,11 +120,19 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
-        # Ignore slug and publication_date
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField("title"),
         TranslatableField("subtitle"),
         TranslatableField('secondary_subtitle'),
         SynchronizedField('toc_thumbnail_image'),
         SynchronizedField('hero_image'),
+        SynchronizedField('publication_date'),
         SynchronizedField('publication_file'),
         TranslatableField('additional_author_copy'),
         TranslatableField('intro_notes'),

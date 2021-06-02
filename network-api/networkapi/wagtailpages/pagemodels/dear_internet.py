@@ -56,6 +56,14 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField("title"),
         TranslatableField("intro_texts"),
         TranslatableField("letters_section_heading"),
         TranslatableField("letters"),

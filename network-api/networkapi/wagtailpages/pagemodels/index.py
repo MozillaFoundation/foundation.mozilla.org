@@ -64,18 +64,20 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
     ]
 
     translatable_fields = [
-        # Ignore slug and show_in_menus
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
         TranslatableField('cta_button_label'),
         SynchronizedField('cta_button_destination'),
         TranslatableField('banner_heading'),
         TranslatableField('banner_guide_text'),
         SynchronizedField('banner_video_url'),
-        TranslatableField('title'),
-        TranslatableField('search_description'),
-        SynchronizedField('search_image'),
-        # TODO: Signup snippet chooser
         TranslatableField('body'),
-        # TODO: use_wide_template seems unused.
     ]
 
     def get_context(self, request):

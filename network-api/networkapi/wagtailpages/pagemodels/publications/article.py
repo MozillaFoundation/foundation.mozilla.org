@@ -116,7 +116,14 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
-        # Ignore slug
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        SynchronizedField('title'),
         SynchronizedField('toc_thumbnail_image'),
         SynchronizedField('hero_image'),
         TranslatableField('subtitle'),

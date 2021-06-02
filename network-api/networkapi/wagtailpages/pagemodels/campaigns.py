@@ -208,8 +208,18 @@ class CampaignPage(MiniSiteNameSpace):
         StreamFieldPanel('body'),
     ]
 
-    # Translatable fields come in from parent classes
     translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
         TranslatableField('header'),
         SynchronizedField('narrowed_page_content'),
         SynchronizedField('zen_nav'),
@@ -271,6 +281,14 @@ class BanneredCampaignPage(PrimaryPage):
     ]
 
     translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField("title"),
         SynchronizedField("banner"),
         TranslatableField("cta"),
         TranslatableField("signup"),

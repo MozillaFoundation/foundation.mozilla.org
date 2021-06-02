@@ -14,7 +14,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -118,8 +118,15 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     ]
 
     translatable_fields = [
-        # Ignore category, featured_comments and slug
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
         TranslatableField('body'),
+        TranslatableField('title'),
     ]
 
     subpage_types = []
