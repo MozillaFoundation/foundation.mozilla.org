@@ -9,8 +9,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from networkapi.wagtailpages.models import ContentAuthor, PublicationPage
-from networkapi.wagtailpages.utils import get_plaintext_titles
-from networkapi.wagtailpages.utils import set_main_site_nav_information
+from networkapi.wagtailpages.utils import get_plaintext_titles, set_main_site_nav_information, TitleWidget
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..article_fields import article_fields
@@ -92,7 +91,12 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         help_text="Show social share buttons on the side"
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        FieldPanel(
+            "title",
+            classname="full title",
+            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
+        ),
         MultiFieldPanel([
             InlinePanel("authors", label="Author", min_num=0)
         ], heading="Author(s)"),
