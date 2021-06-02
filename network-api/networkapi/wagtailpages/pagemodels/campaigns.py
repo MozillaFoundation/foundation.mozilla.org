@@ -208,8 +208,13 @@ class CampaignPage(MiniSiteNameSpace):
         StreamFieldPanel('body'),
     ]
 
-    # No translatable fields
-    translatable_fields = []
+    # Translatable fields come in from parent classes
+    translatable_fields = [
+        TranslatableField('header'),
+        SynchronizedField('narrowed_page_content'),
+        SynchronizedField('zen_nav'),
+        TranslatableField('body'),
+    ]
 
     subpage_types = [
         'CampaignPage',
