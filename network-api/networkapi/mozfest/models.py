@@ -184,8 +184,8 @@ class MozfestHomepage(MozfestPrimaryPage):
         TranslatableField('search_image'),
         TranslatableField('signup'),
         TranslatableField('body'),
-        # TODO: Test out footnotes
-        TranslatableField('footnotes'),
+        # TODO: Add in footnote support when wagtail-footnotes and wagtail-localize can work together.
+        # TranslatableField('footnotes'),
     ]
 
     def get_context(self, request):

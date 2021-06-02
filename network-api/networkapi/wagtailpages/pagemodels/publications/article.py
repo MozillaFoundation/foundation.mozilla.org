@@ -122,7 +122,8 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         TranslatableField('subtitle'),
         SynchronizedField('article_file'),
         TranslatableField('body'),
-        # TODO: Footnotes?
+        # TODO: Add in footnote support when wagtail-footnotes and wagtail-localize can work together.
+        # TranslatableField('footnotes'),
     ]
 
     @property
