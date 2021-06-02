@@ -39,13 +39,11 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
 
     """
 
-    Article belong to PublicationPages
-    An Article can only belong to one Chapter/Publication Page
+    Articles can belong to any page in the Wagtail Tree.
     An ArticlePage can have no children
-
-    ? If these only belong to PublicationPages, should be extra explicit and call it PublicationArticlePage?
+    If not a child of a Publication Page, page nav at bottom of page
+    and breadcrumbs will not render.
     """
-    parent_page_types = ['PublicationPage']
     subpage_types = []
     body = StreamField(article_fields)
 
@@ -116,6 +114,11 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         StreamFieldPanel('body'),
         InlinePanel("footnotes", label="Footnotes"),
     ]
+
+    @property
+    def is_publication_article(self):
+        parent = self.get_parent().specific
+        return parent.__class__ is PublicationPage
 
     @property
     def next_page(self):

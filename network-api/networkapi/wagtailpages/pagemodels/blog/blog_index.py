@@ -47,6 +47,8 @@ class BlogIndexPage(IndexPage):
 
     subpage_types = [
         'BlogPage',
+        'ArticlePage'
+
     ]
 
     content_panels = IndexPage.content_panels + [
