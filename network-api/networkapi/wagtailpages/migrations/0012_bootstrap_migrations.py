@@ -14,7 +14,6 @@ class Migration(migrations.Migration):
     operations = [
         BootstrapTranslatableModel('wagtailpages.DonationModal'),
         BootstrapTranslatableModel('wagtailpages.FocusArea'),
-        BootstrapTranslatableModel('wagtailpages.FocusArea'),
         BootstrapTranslatableModel('wagtailpages.Petition'),
         BootstrapTranslatableModel('wagtailpages.Signup'),
         BootstrapTranslatableModel('wagtailpages.ContentAuthor'),
