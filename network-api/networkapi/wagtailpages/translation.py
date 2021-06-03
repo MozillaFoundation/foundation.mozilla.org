@@ -220,12 +220,23 @@ class RedirectingPageTR(TranslationOptions):
 
 @register(PublicationPage)
 class PublicationPageTR(TranslationOptions):
-    fields = ()
+    fields = (
+        'subtitle',
+        'secondary_subtitle',
+        'additional_author_copy',
+        'intro_notes',
+        'notes',
+        'contents_title',
+    )
 
 
 @register(ArticlePage)
 class ArticlePageTR(TranslationOptions):
-    fields = ()
+    fields = (
+        'body',
+        'subtitle',
+        'secondary_subtitle',
+    )
 
 
 @register(BlogPage)
