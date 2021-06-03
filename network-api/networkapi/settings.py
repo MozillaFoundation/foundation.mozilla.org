@@ -220,8 +220,13 @@ INSTALLED_APPS = list(filter(None, [
 
     'modelcluster',
     'taggit',
+
+    # Base wagtail localization
     'wagtail_localize',
     'wagtail_localize.locales',
+
+    # git integration for localization
+    'wagtail_localize_git',
 
     'rest_framework',
     'django_filters',
