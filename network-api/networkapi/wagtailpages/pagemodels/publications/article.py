@@ -130,6 +130,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         SynchronizedField('article_file'),
         TranslatableField('body'),
         # TODO: Add in footnote support when wagtail-footnotes and wagtail-localize can work together.
+        # Issue can be found at https://github.com/mozilla/foundation.mozilla.org/issues/6790
         # TranslatableField('footnotes'),
     ]
 
