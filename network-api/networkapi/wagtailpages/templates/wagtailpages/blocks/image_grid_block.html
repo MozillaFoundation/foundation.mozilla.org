@@ -1,9 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-
-<div class="row my-default">
-{% for block in self.grid_items %}
-	{% with value=block count=self.grid_items|length %}
-	{% include "./figure_block.html" %}
-	{% endwith %}
-{% endfor %}
+<div class="container {{block.block_type}}-block">
+	<div class="row my-default justify-content-center">
+	{% for block in self.grid_items %}
+		{% with value=block count=self.grid_items|length %}
+		{% include "./figure_block.html" %}
+		{% endwith %}
+	{% endfor %}
+	</div>
 </div>
