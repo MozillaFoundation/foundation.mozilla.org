@@ -103,6 +103,7 @@ class InitiativesPage(PrimaryPage):
         'BlogPage',
         'CampaignPage',
         'YoutubeRegretsPage',
+        'ArticlePage'
     ]
 
     primaryHero = models.ForeignKey(
@@ -857,6 +858,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         'Styleguide',
         'ProductPage',
         'BuyersGuidePage',
+        'ArticlePage'
     ]
 
     def get_context(self, request):

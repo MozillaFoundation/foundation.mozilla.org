@@ -220,8 +220,13 @@ INSTALLED_APPS = list(filter(None, [
 
     'modelcluster',
     'taggit',
+
+    # Base wagtail localization
     'wagtail_localize',
     'wagtail_localize.locales',
+
+    # git integration for localization
+    'wagtail_localize_git',
 
     'rest_framework',
     'django_filters',
@@ -477,7 +482,7 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
 # Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAdminUser',
     ]
 }
 

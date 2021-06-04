@@ -18,6 +18,7 @@ class CampaignIndexPage(IndexPage):
         'YoutubeRegretsPage',
         'YoutubeRegretsReporterPage',
         'PublicationPage',
+        'ArticlePage'
     ]
 
     translatable_fields = [

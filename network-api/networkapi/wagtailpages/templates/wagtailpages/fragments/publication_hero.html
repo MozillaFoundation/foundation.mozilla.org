@@ -12,12 +12,14 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 dark-theme">
-        <div class="mb-2 body-small publication-breadcrumb">
-          {% for parent_page in self.breadcrumb_list %}
-            <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a>
-            <span class='body-small'> › </span>
-          {% endfor %}
-        </div>
+        {% if is_publication_article or is_publication_page %}
+          <div class="mb-2 body-small publication-breadcrumb">
+            {% for parent_page in self.breadcrumb_list %}
+              <a href="{{ parent_page.url }}" class="body-small">{{ parent_page.title }}</a>
+              <span class='body-small'> › </span>
+            {% endfor %}
+          </div>
+        {% endif %}
         <h1 class="publication-hero-title">
           {{ page.title }}
         </h1>

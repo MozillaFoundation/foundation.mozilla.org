@@ -141,6 +141,13 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
     ]
 
     @property
+    def is_publication_page(self):
+        """
+        Returning true to let publication_hero.html to show breadcrumbs
+        """
+        return True
+
+    @property
     def is_chapter_page(self):
         """
         A PublicationPage nested under a PublicationPage is considered to be a

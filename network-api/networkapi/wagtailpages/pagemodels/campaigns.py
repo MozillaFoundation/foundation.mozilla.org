@@ -83,6 +83,8 @@ class OpportunityPage(MiniSiteNameSpace):
         'OpportunityPage',
         'RedirectingPage',
         'PublicationPage',
+        'ArticlePage'
+
     ]
 
     class Meta:
@@ -229,6 +231,8 @@ class CampaignPage(MiniSiteNameSpace):
         'CampaignPage',
         'RedirectingPage',
         'PublicationPage',
+        'ArticlePage'
+
     ]
 
 
@@ -297,7 +301,8 @@ class BanneredCampaignPage(PrimaryPage):
         'BanneredCampaignPage',
         'RedirectingPage',
         'PublicationPage',
-        'OpportunityPage',  # "DefaultPage" is just the verbose name
+        'OpportunityPage',
+        'ArticlePage'
     ]
 
     show_in_menus_default = True

@@ -1,15 +1,16 @@
-{% load i18n localization %}
+{% load i18n localization wagtailcore_tags %}
+
+{% get_current_language as current_language %}
+{% get_local_language_names as languages %}
 
 <form action="{% url 'set_language' %}" method="post">
-  <input name="next" type="hidden" value="{{ request.path }}">
+  <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}" />
   <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center mb-md-0">
     <label class="h5-heading mb-0 d-flex align-items-center globe-glyph medium" for="language-switcher">{% trans "Language" %}</label>
     <select name="language" id="language-switcher" class="mt-3 mt-md-0 ml-md-3 w-100 form-control" onchange="this.form.submit()">
-      {% get_current_language as LANGUAGE_CODE %}
-      {% get_local_language_names as LANGUAGES %}
-      {% for CODE, NAME in LANGUAGES %}
-        <option value="{{ CODE }}"{% if CODE == LANGUAGE_CODE %} selected{% endif %}>
-          {{ NAME | capfirst }}
+      {% for language_code, language_name in languages %}
+        <option value="{{ language_code }}"{% if language_code == current_language %} selected{% endif %}>
+          {{ language_name | capfirst }}
         </option>
       {% endfor %}
     </select>
