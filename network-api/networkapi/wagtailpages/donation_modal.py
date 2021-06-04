@@ -52,7 +52,6 @@ class DonationModal(TranslatableMixin, models.Model):
     class Meta(TranslatableMixin.Meta):
         verbose_name_plural = 'Donation CTA'
 
-from wagtail.core.models import TranslatableMixin
 
 class DonationModals(TranslatableMixin, models.Model):
     page = ParentalKey(

@@ -293,7 +293,6 @@ class ParticipatePage2(PrimaryPage):
         TranslatableField('h2Subheader'),
     ]
 
-
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
