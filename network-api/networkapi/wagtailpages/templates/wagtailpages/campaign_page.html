@@ -43,9 +43,6 @@
         </div>
       {% endblock %}
         {% block html_content %}
-
-
-
             {% for block in page.body %}
               {% if block.block_type == 'paragraph'%}
                 <div class="container {{block.block_type}}-block">
@@ -60,10 +57,9 @@
                   </div>
                 </div>
               {% else %}
-                {% include_block block with parent_page=page%}
+                {% include_block block with parent_page=page %}
               {% endif %}
             {% endfor %}
-
         {% endblock %}
       </div>
 
