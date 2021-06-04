@@ -10,3 +10,9 @@
     @extend .mw-100;
   }
 }
+
+.linkbutton-block {
+  .row {
+    @extend .mx-0;
+  }
+}
