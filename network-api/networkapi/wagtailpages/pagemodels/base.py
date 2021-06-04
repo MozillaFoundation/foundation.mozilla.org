@@ -810,7 +810,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
     ]
 
-
     translatable_fields = [
         # Promote tab fields
         SynchronizedField('slug'),

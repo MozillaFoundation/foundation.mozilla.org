@@ -52,8 +52,9 @@ class DonationModal(TranslatableMixin, models.Model):
     class Meta(TranslatableMixin.Meta):
         verbose_name_plural = 'Donation CTA'
 
+from wagtail.core.models import TranslatableMixin
 
-class DonationModals(models.Model):
+class DonationModals(TranslatableMixin, models.Model):
     page = ParentalKey(
         'wagtailpages.CampaignPage',
         related_name='donation_modals',
@@ -76,6 +77,6 @@ class DonationModals(models.Model):
         SnippetChooserPanel('donation_modal'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'Donation Modals'
         verbose_name_plural = 'Donation Modals'

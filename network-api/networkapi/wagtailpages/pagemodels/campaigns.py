@@ -216,14 +216,13 @@ class CampaignPage(MiniSiteNameSpace):
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
+        TranslatableField('cta'),
         TranslatableField('title'),
-        SynchronizedField('show_in_menus'),
-        TranslatableField('search_description'),
-        SynchronizedField('search_image'),
         TranslatableField('header'),
         SynchronizedField('narrowed_page_content'),
         SynchronizedField('zen_nav'),
         TranslatableField('body'),
+        TranslatableField('donation_modals'),
     ]
 
     subpage_types = [

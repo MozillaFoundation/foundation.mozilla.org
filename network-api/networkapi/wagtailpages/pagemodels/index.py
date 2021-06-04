@@ -72,6 +72,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         SynchronizedField('search_image'),
         # Content tab fields
         TranslatableField('title'),
+        TranslatableField('intro'),
         TranslatableField('header'),
         SynchronizedField('page_size'),
     ]
