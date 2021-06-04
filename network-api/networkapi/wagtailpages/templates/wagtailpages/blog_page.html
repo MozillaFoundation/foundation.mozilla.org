@@ -20,22 +20,44 @@
 {% block body_id %}blog{% endblock %}
 
 {% block subcontent %}
+<div class="container">
+  <div class="row">
   <div class="offset-lg-1 col-lg-1 py-4 py-md-5 text-center d-print-none">
     <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end">
       <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
     </div>
   </div>
+
   <div class="py-4 py-md-5 col-lg-8">
     <div class="cms {% if show_comments %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
-      <div class="blog-body">
-        {% for stream_block in page.body %}
-          {% include_block stream_block with page_type="blog" %}
-        {% endfor %}
-        <div class="share-button-group-wrapper mt-5 d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="blog-body">
+    {% for block in page.body %}
+    {% if block.block_type == 'paragraph'%}
+    <div class="container {{block.block_type}}-block">
+      <div class="row justify-content-center">
+        <div class="streamfield-content">
+          {% if block.block_type == 'heading' %}
+            <h1>{{ block.value }}</h1>
+          {% else %}
+            {% include_block block with parent_page=page page_type="blog"%}
+          {% endif %}
+        </div>
       </div>
     </div>
+  {% else %}
+    {% include_block block with parent_page=page page_type="blog" %}
+  {% endif %}    
+  {% endfor %}
+  </div>
+  <div class="py-4 py-md-5 col-lg-8 m-auto">
+    <div class="share-button-group-wrapper mt-5 d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
 
     {% if show_comments %}
       <h2 class="h4-heading">{% trans "Comments" %}</h2>

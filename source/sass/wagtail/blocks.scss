@@ -25,3 +25,9 @@
     }
   }
 }
+
+.blog-body {
+  .streamfield-content {
+    @extend .col-8;
+  }
+}
