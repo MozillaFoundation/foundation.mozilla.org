@@ -88,11 +88,13 @@ class PrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin,
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
-        TranslatableField("title"),
-        TranslatableField("header"),
-        SynchronizedField("banner"),
-        TranslatableField("intro"),
-        TranslatableField("body"),
+        TranslatableField('title'),
+        TranslatableField('header'),
+        SynchronizedField('banner'),
+        TranslatableField('intro'),
+        TranslatableField('body'),
+        SynchronizedField('narrowed_page_content'),
+        SynchronizedField('zen_nav'),
     ]
 
     subpage_types = [

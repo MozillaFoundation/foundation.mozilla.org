@@ -3,6 +3,7 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from .base_fields import base_fields
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -54,6 +55,19 @@ class ModularPage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel('header'),
         StreamFieldPanel('body'),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('header'),
+        SynchronizedField('narrowed_page_content'),
+        SynchronizedField('zen_nav'),
     ]
 
     show_in_menus_default = True

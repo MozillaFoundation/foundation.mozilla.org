@@ -17,7 +17,8 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import TranslatableMixin, Orderable, Page
+from wagtail.core.models import Orderable, Page, TranslatableMixin
+
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -130,6 +131,9 @@ class BuyersGuideProductCategory(TranslatableMixin, models.Model):
 
 
 class ProductPageVotes(models.Model):
+    """
+    PNI product voting bins. This does not need translating.
+    """
     vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
 
     def set_votes(self, bin_list):
@@ -147,7 +151,7 @@ class ProductPageVotes(models.Model):
         return votes
 
 
-class ProductPageCategory(Orderable):
+class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='product_categories',
@@ -167,11 +171,11 @@ class ProductPageCategory(Orderable):
     def __str__(self):
         return self.category.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Product Category"
 
 
-class RelatedProducts(Orderable):
+class RelatedProducts(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='related_product_pages',
@@ -189,8 +193,11 @@ class RelatedProducts(Orderable):
         PageChooserPanel('related_product')
     ]
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Related Product'
 
-class ProductPagePrivacyPolicyLink(Orderable):
+
+class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='privacy_policy_links',
@@ -220,6 +227,9 @@ class ProductPagePrivacyPolicyLink(Orderable):
 
     def __str__(self):
         return f'{self.page.title}: {self.label} ({self.url})'
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Privacy Link'
 
 
 @register_snippet
@@ -273,7 +283,7 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
         verbose_name_plural = "Buyers Guide Product Updates"
 
 
-class ProductUpdates(Orderable):
+class ProductUpdates(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='updates',
@@ -295,6 +305,9 @@ class ProductUpdates(Orderable):
     panels = [
         SnippetChooserPanel('update'),
     ]
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Product Update'
 
 
 class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
@@ -972,6 +985,7 @@ class SoftwareProductPage(ProductPage):
     def product_type(self):
         return "software"
 
+    # TODO: Needs translatable_fields
     class Meta:
         verbose_name = "Software Product Page"
 
@@ -1230,6 +1244,8 @@ class GeneralProductPage(ProductPage):
         ],
     )
 
+    # TODO: Needs translatable_fields
+
     @property
     def product_type(self):
         return "general"
@@ -1238,7 +1254,7 @@ class GeneralProductPage(ProductPage):
         verbose_name = "General Product Page"
 
 
-class ExcludedCategories(Orderable):
+class ExcludedCategories(TranslatableMixin, Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
@@ -1253,6 +1269,9 @@ class ExcludedCategories(Orderable):
 
     def __str__(self):
         return self.category.name
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Excluded Category'
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):

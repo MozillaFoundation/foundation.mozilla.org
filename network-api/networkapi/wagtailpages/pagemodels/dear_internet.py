@@ -63,13 +63,13 @@ class DearInternetPage(FoundationMetadataPageMixin, Page):
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
-        TranslatableField("title"),
-        TranslatableField("intro_texts"),
-        TranslatableField("letters_section_heading"),
-        TranslatableField("letters"),
-        TranslatableField("cta"),
-        TranslatableField("cta_button_text"),
-        SynchronizedField("cta_button_link"),
+        TranslatableField('title'),
+        TranslatableField('intro_texts'),
+        TranslatableField('letters_section_heading'),
+        TranslatableField('letters'),
+        TranslatableField('cta'),
+        TranslatableField('cta_button_text'),
+        SynchronizedField('cta_button_link'),
     ]
 
     zen_nav = True
