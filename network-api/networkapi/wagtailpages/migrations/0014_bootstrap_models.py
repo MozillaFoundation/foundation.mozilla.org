@@ -46,4 +46,80 @@ class Migration(migrations.Migration):
             name='translation_key',
             field=models.UUIDField(editable=False, null=True),
         ),
+        migrations.AddField(
+            model_name='donationmodals',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='donationmodals',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AlterModelOptions(
+            name='excludedcategories',
+            options={'verbose_name': 'Excluded Category'},
+        ),
+        migrations.AlterModelOptions(
+            name='productpageprivacypolicylink',
+            options={'verbose_name': 'Privacy Link'},
+        ),
+        migrations.AlterModelOptions(
+            name='productupdates',
+            options={'verbose_name': 'Product Update'},
+        ),
+        migrations.AlterModelOptions(
+            name='relatedproducts',
+            options={'verbose_name': 'Related Product'},
+        ),
+        migrations.AddField(
+            model_name='excludedcategories',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='excludedcategories',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpagecategory',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='productpagecategory',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='productpageprivacypolicylink',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='productupdates',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='productupdates',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='relatedproducts',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='relatedproducts',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
     ]

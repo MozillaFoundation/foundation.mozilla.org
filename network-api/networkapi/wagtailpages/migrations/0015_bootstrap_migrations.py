@@ -13,4 +13,10 @@ class Migration(migrations.Migration):
         BootstrapTranslatableModel('wagtailpages.PartnerLogos'),
         BootstrapTranslatableModel('wagtailpages.HomepageTakeActionCards'),
         BootstrapTranslatableModel('wagtailpages.HomepageFocusAreas'),
+        BootstrapTranslatableModel('wagtailpages.DonationModals'),
+        BootstrapTranslatableModel('wagtailpages.ProductPageCategory'),
+        BootstrapTranslatableModel('wagtailpages.RelatedProducts'),
+        BootstrapTranslatableModel('wagtailpages.ProductPagePrivacyPolicyLink'),
+        BootstrapTranslatableModel('wagtailpages.ProductUpdates'),
+        BootstrapTranslatableModel('wagtailpages.ExcludedCategories'),
     ]

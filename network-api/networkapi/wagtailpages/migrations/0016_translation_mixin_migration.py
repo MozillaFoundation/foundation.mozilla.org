@@ -58,4 +58,94 @@ class Migration(migrations.Migration):
             name='partnerlogos',
             unique_together={('translation_key', 'locale')},
         ),
+        migrations.AlterField(
+            model_name='donationmodals',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='donationmodals',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterUniqueTogether(
+            name='donationmodals',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterField(
+            model_name='excludedcategories',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='excludedcategories',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='productpagecategory',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='productpagecategory',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='productpageprivacypolicylink',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='productpageprivacypolicylink',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='productupdates',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='productupdates',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='relatedproducts',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='relatedproducts',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterUniqueTogether(
+            name='excludedcategories',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='productpagecategory',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='productpageprivacypolicylink',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='productupdates',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='relatedproducts',
+            unique_together={('translation_key', 'locale')},
+        ),
     ]
