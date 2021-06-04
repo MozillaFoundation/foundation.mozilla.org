@@ -1,7 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="container {{block.block_type}}-block {% if value.wide_image %} wide {% else %} col-8 {% endif %}">
+<div class="container {{block.block_type}}-block">
   <div class="row justify-content-center">
-    <div class="{% if value.wide_image %} wide {% else %} col-8 {% endif %}">
       <div class="row my-4">
         {% if value.small %}
           <div class="col-12 d-flex flex-nowrap">
@@ -29,7 +28,6 @@
         </div>
         {% endif %}
       </div>
-    </div>
   </div>
 </div>
 
