@@ -1,3 +1,12 @@
 .cms {
   @import "./profiles";
 }
+
+.image-block {
+  .wide {
+    @extend .no-gutters;
+    @extend .px-0;
+    @extend .w-100;
+    @extend .mw-100;
+  }
+}
