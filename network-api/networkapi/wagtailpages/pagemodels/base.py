@@ -532,7 +532,7 @@ class FocusArea(TranslatableMixin, models.Model):
         verbose_name_plural = 'Areas of focus'
 
 
-class HomepageFocusAreas(WagtailOrderable):
+class HomepageFocusAreas(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='focus_areas',
@@ -544,8 +544,11 @@ class HomepageFocusAreas(WagtailOrderable):
         SnippetChooserPanel('area'),
     ]
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Homepage Focus Area'
 
-class HomepageTakeActionCards(WagtailOrderable):
+
+class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='take_action_cards',
@@ -570,21 +573,21 @@ class HomepageTakeActionCards(WagtailOrderable):
         PageChooserPanel('internal_link'),
     ]
 
-    translatable_fields = [
-        SynchronizedField('image'),
-        TranslatableField('text'),
-        SynchronizedField('internal_link'),
-    ]
+    # translatable_fields = [
+    #     SynchronizedField('image'),
+    #     TranslatableField('text'),
+    #     SynchronizedField('internal_link'),
+    # ]
 
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Take Action Card"
         ordering = ['sort_order']  # not automatically inherited!
 
 
-class PartnerLogos(WagtailOrderable):
+class PartnerLogos(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='partner_logos',
@@ -625,7 +628,7 @@ class PartnerLogos(WagtailOrderable):
         width = self.width * 2
         return self.logo.get_rendition(f'width-{width}')
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'Partner Logo'
         ordering = ['sort_order']  # not automatically inherited!
 
@@ -836,7 +839,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField('partner_page'),
         SynchronizedField('partner_background_image'),
         TranslatableField('take_action_title'),
-        SynchronizedField('focus_areas'),
+        TranslatableField('focus_areas'),
+        TranslatableField('take_action_cards'),
+        TranslatableField('partner_logos'),
     ]
 
     subpage_types = [

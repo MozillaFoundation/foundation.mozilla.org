@@ -72,12 +72,8 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         SynchronizedField('search_image'),
         # Content tab fields
         TranslatableField('title'),
-        TranslatableField('cta_button_label'),
-        SynchronizedField('cta_button_destination'),
-        TranslatableField('banner_heading'),
-        TranslatableField('banner_guide_text'),
-        SynchronizedField('banner_video_url'),
-        TranslatableField('body'),
+        TranslatableField('header'),
+        SynchronizedField('page_size'),
     ]
 
     def get_context(self, request):
