@@ -28,7 +28,7 @@ cryptography==3.2
     #   urllib3
 docopt==0.6.2
     # via coveralls
-flake8==3.8.4
+flake8==3.9.2
     # via -r dev-requirements.in
 idna==2.9
     # via
@@ -43,13 +43,13 @@ mccabe==0.6.1
     # via flake8
 ptvsd==4.3.2
     # via -r dev-requirements.in
-pycodestyle==2.6.0
+pycodestyle==2.7.0
     # via flake8
 pycparser==2.20
     # via
     #   -c requirements.txt
     #   cffi
-pyflakes==2.2.0
+pyflakes==2.3.1
     # via flake8
 pyopenssl==20.0.1
     # via
