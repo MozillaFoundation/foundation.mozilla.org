@@ -8,10 +8,80 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0062_comment_models_and_pagesubscription'),
-        ('wagtailpages', '0013_localize_migration'),
+        ('wagtailpages', '0011_auto_20210525_1716'),
     ]
 
     operations = [
+        migrations.AddField(
+            model_name='blogpagecategory',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='blogpagecategory',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='buyersguideproductcategory',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='buyersguideproductcategory',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='contentauthor',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='contentauthor',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='cta',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='cta',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='donationmodal',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='donationmodal',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='focusarea',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='focusarea',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='update',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='update',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
         migrations.AlterModelOptions(
             name='homepagefocusareas',
             options={'verbose_name': 'Homepage Focus Area'},

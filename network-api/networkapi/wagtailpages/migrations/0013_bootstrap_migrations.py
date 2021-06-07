@@ -6,7 +6,7 @@ from wagtail.core.models import BootstrapTranslatableModel
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0014_bootstrap_models'),
+        ('wagtailpages', '0012_bootstrap_models'),
     ]
 
     operations = [
@@ -19,4 +19,12 @@ class Migration(migrations.Migration):
         BootstrapTranslatableModel('wagtailpages.ProductPagePrivacyPolicyLink'),
         BootstrapTranslatableModel('wagtailpages.ProductUpdates'),
         BootstrapTranslatableModel('wagtailpages.ExcludedCategories'),
+        BootstrapTranslatableModel('wagtailpages.FocusArea'),
+        BootstrapTranslatableModel('wagtailpages.Petition'),
+        BootstrapTranslatableModel('wagtailpages.Signup'),
+        BootstrapTranslatableModel('wagtailpages.ContentAuthor'),
+        BootstrapTranslatableModel('wagtailpages.BuyersGuideProductCategory'),
+        BootstrapTranslatableModel('wagtailpages.Update'),
+        BootstrapTranslatableModel('wagtailpages.BlogPageCategory'),
+        # TODO Add highlight bootstrap migration
     ]

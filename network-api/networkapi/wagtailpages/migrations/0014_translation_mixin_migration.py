@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0062_comment_models_and_pagesubscription'),
-        ('wagtailpages', '0015_bootstrap_migrations'),
+        ('wagtailpages', '0013_bootstrap_migrations'),
     ]
 
     operations = [
@@ -146,6 +146,111 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='relatedproducts',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterField(
+            model_name='blogpagecategory',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='blogpagecategory',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='buyersguideproductcategory',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='buyersguideproductcategory',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='donationmodal',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='donationmodal',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='focusarea',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='focusarea',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='update',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='update',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterUniqueTogether(
+            name='blogpagecategory',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='buyersguideproductcategory',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='donationmodal',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='focusarea',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='update',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterField(
+            model_name='contentauthor',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='contentauthor',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='cta',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='cta',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterUniqueTogether(
+            name='contentauthor',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='cta',
             unique_together={('translation_key', 'locale')},
         ),
     ]
