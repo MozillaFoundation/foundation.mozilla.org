@@ -497,7 +497,7 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
 # Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ]
 }
 
