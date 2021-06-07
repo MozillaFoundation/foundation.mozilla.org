@@ -102,7 +102,6 @@ if settings.DEBUG:
 # pages for each "site" that wagtail services.
 handler404 = 'networkapi.wagtailpages.views.custom404_view'
 
-
 # Use a custom 500 handler if and only if Django refuses to give any stack
 # traces for server error 500... And even then, do not use this on prod.
 if settings.FORCE_500_STACK_TRACES == True:
