@@ -50,6 +50,7 @@ env = environ.Env(
     FEED_LIMIT=(int, 10),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ''),
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ''),
     GITHUB_TOKEN=(str, ''),
@@ -140,6 +141,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+
+# SECURITY WARNING: same as above!
+FORCE_500_STACK_TRACES = env('FORCE_500_STACK_TRACES')
 
 # whether or not to send the X-Robots-Tag header
 XROBOTSTAG_ENABLED = env('XROBOTSTAG_ENABLED')
