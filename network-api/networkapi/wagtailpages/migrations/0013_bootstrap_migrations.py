@@ -26,4 +26,12 @@ class Migration(migrations.Migration):
         BootstrapTranslatableModel('wagtailpages.BuyersGuideProductCategory'),
         BootstrapTranslatableModel('wagtailpages.Update'),
         BootstrapTranslatableModel('wagtailpages.BlogPageCategory'),
+        BootstrapTranslatableModel('wagtailpages.InitiativeSection'),
+        BootstrapTranslatableModel('wagtailpages.HomepageSpotlightPosts'),
+        BootstrapTranslatableModel('wagtailpages.HomepageNewsYouCanUse'),
+        BootstrapTranslatableModel('wagtailpages.InitiativesHighlights'),
+        BootstrapTranslatableModel('wagtailpages.CTA4'),
+        BootstrapTranslatableModel('wagtailpages.ParticipateHighlights'),
+        BootstrapTranslatableModel('wagtailpages.ParticipateHighlights2'),
+
     ]

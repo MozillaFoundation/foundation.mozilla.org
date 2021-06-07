@@ -192,4 +192,75 @@ class Migration(migrations.Migration):
             name='translation_key',
             field=models.UUIDField(editable=False, null=True),
         ),
+        migrations.AddField(
+            model_name='cta4',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='cta4',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='homepagenewsyoucanuse',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='homepagenewsyoucanuse',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='homepagespotlightposts',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='homepagespotlightposts',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='initiativesection',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='initiativesection',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='initiativeshighlights',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='initiativeshighlights',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='participatehighlights',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='participatehighlights',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+        migrations.AddField(
+            model_name='participatehighlights2',
+            name='locale',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+        ),
+        migrations.AddField(
+            model_name='participatehighlights2',
+            name='translation_key',
+            field=models.UUIDField(editable=False, null=True),
+        ),
+
     ]

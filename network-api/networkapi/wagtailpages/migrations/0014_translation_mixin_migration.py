@@ -253,4 +253,109 @@ class Migration(migrations.Migration):
             name='cta',
             unique_together={('translation_key', 'locale')},
         ),
+        migrations.AlterField(
+            model_name='cta4',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='cta4',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='homepagenewsyoucanuse',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='homepagenewsyoucanuse',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='homepagespotlightposts',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='homepagespotlightposts',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='initiativesection',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='initiativesection',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='initiativeshighlights',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='initiativeshighlights',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='participatehighlights',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='participatehighlights',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterField(
+            model_name='participatehighlights2',
+            name='locale',
+            field=models.ForeignKey(default=1, editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='participatehighlights2',
+            name='translation_key',
+            field=models.UUIDField(default=uuid.uuid4, editable=False),
+        ),
+        migrations.AlterUniqueTogether(
+            name='cta4',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='homepagenewsyoucanuse',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='homepagespotlightposts',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='initiativesection',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='initiativeshighlights',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='participatehighlights',
+            unique_together={('translation_key', 'locale')},
+        ),
+        migrations.AlterUniqueTogether(
+            name='participatehighlights2',
+            unique_together={('translation_key', 'locale')},
+        ),
     ]

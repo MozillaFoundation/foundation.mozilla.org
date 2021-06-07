@@ -3,6 +3,7 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import TranslatableMixin, Page, Orderable as WagtailOrderable
+
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -24,7 +25,7 @@ class NewsPage(PrimaryPage):
     template = 'wagtailpages/static/news_page.html'
 
 
-class InitiativeSection(models.Model):
+class InitiativeSection(TranslatableMixin, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
         related_name='initiative_sections',
@@ -151,6 +152,8 @@ class InitiativesPage(PrimaryPage):
         TranslatableField('subheader'),
         TranslatableField('h3'),
         TranslatableField('sub_h3'),
+        TranslatableField('featured_highlights'),
+        TranslatableField('initiative_sections'),
     ]
 
 
@@ -292,6 +295,9 @@ class ParticipatePage2(PrimaryPage):
         TranslatableField('ctaEmailShareSubject3'),
         TranslatableField('h2'),
         TranslatableField('h2Subheader'),
+        TranslatableField('featured_highlights'),
+        TranslatableField('featured_highlights2'),
+        TranslatableField('cta4'),
     ]
 
     content_panels = Page.content_panels + [
@@ -341,8 +347,7 @@ class ParticipatePage2(PrimaryPage):
 class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
-
-class HomepageSpotlightPosts(WagtailOrderable):
+class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='spotlight_posts',
@@ -352,7 +357,7 @@ class HomepageSpotlightPosts(WagtailOrderable):
         PageChooserPanel('blog'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
         ordering = ['sort_order']  # not automatically inherited!
@@ -361,7 +366,7 @@ class HomepageSpotlightPosts(WagtailOrderable):
         return self.page.title + '->' + self.blog.title
 
 
-class HomepageNewsYouCanUse(WagtailOrderable):
+class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='news_you_can_use',
@@ -371,7 +376,7 @@ class HomepageNewsYouCanUse(WagtailOrderable):
         PageChooserPanel('blog'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
         ordering = ['sort_order']  # not automatically inherited!
@@ -380,7 +385,7 @@ class HomepageNewsYouCanUse(WagtailOrderable):
         return self.page.title + '->' + self.blog.title
 
 
-class InitiativesHighlights(WagtailOrderable, models.Model):
+class InitiativesHighlights(TranslatableMixin, WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
         related_name='featured_highlights',
@@ -390,7 +395,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
         SnippetChooserPanel('highlight'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'highlight'
         verbose_name_plural = 'highlights'
         ordering = ['sort_order']  # not automatically inherited!
@@ -439,7 +444,7 @@ class CTABase(WagtailOrderable, models.Model):
         FieldPanel('buttonURL'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         abstract = True
         verbose_name = 'cta'
         verbose_name_plural = 'ctas'
@@ -448,15 +453,18 @@ class CTABase(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
-
-class CTA4(CTABase):
+# from wagtail.core.models import BootstrapTranslatableModel
+class CTA4(TranslatableMixin, CTABase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='cta4',
     )
 
+    class Meta(TranslatableMixin.Meta):
+        pass
 
-class ParticipateHighlightsBase(WagtailOrderable, models.Model):
+
+class ParticipateHighlightsBase(TranslatableMixin, WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights',
@@ -482,12 +490,15 @@ class ParticipateHighlights(ParticipateHighlightsBase):
         related_name='featured_highlights',
     )
 
-
+    class Meta(TranslatableMixin.Meta):
+        pass
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights2',
     )
+    class Meta(TranslatableMixin.Meta):
+        pass
 
 
 @register_snippet
@@ -841,6 +852,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField('focus_areas'),
         TranslatableField('take_action_cards'),
         TranslatableField('partner_logos'),
+        TranslatableField('spotlight_posts'),
+        TranslatableField('news_you_can_use'),
     ]
 
     subpage_types = [
