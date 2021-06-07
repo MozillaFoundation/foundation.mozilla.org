@@ -26,5 +26,4 @@ class Migration(migrations.Migration):
         BootstrapTranslatableModel('wagtailpages.BuyersGuideProductCategory'),
         BootstrapTranslatableModel('wagtailpages.Update'),
         BootstrapTranslatableModel('wagtailpages.BlogPageCategory'),
-        # TODO Add highlight bootstrap migration
     ]
