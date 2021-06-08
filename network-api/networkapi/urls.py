@@ -104,5 +104,5 @@ handler404 = 'networkapi.wagtailpages.views.custom404_view'
 
 # Use a custom 500 handler if and only if Django refuses to give any stack
 # traces for server error 500... And even then, do not use this on prod.
-if settings.FORCE_500_STACK_TRACES == True:
+if settings.FORCE_500_STACK_TRACES is True:
     handler500 = 'networkapi.utility.custom_url_handlers.server_error_500_handler'

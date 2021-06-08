@@ -1,5 +1,7 @@
-import sys, traceback
+import sys
+import traceback
 from django.http import HttpResponse
+
 
 def server_error_500_handler(request):
     type, value, tb = sys.exc_info()

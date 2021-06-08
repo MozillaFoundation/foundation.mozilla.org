@@ -125,7 +125,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
 
         # Pull this object specifically using the English page title
-        default_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE);
+        default_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
         blog_page = BlogIndexPage.objects.get(title__iexact='Blog', locale=default_locale)
 
         if blog_page:
