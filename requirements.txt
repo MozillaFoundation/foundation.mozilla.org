@@ -131,7 +131,7 @@ oauthlib==3.1.0
     #   social-auth-core
 openpyxl==3.0.5
     # via tablib
-pillow==7.1.0
+pillow==8.2.0
     # via wagtail
 psutil==5.8.0
     # via scout-apm
