@@ -1,4 +1,5 @@
 from taggit.models import Tag
+
 from wagtailmetadata.models import MetadataPageMixin
 from wagtail.images.models import Image
 
@@ -68,6 +69,12 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         # We still haven't found a social share image, so, last resort: return
         # whatever is the default social share image. Which could be `None`!
         return default_social_share_image
+
+    def get_admin_display_title(self):
+        title = self.draft_title or self.title
+        if self.locale:
+            return f"({self.locale.language_code}) {title}"
+        return title
 
     class Meta:
         abstract = True
