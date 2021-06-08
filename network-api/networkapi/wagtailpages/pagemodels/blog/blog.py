@@ -11,7 +11,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.core import blocks
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable, Locale, Page
 from wagtail.core.fields import StreamField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -151,11 +151,8 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
 
         # Pull this object specifically using the English page title
-        blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
-
-        # If that doesn't yield the blog page, pull using the universal title
-        if blog_page is None:
-            blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
+        default_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+        blog_page = BlogIndexPage.objects.get(title__iexact='Blog', locale=default_locale)
 
         if blog_page:
             context['blog_index'] = blog_page
