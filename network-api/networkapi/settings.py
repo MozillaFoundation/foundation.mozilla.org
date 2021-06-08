@@ -50,6 +50,7 @@ env = environ.Env(
     FEED_LIMIT=(int, 10),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ''),
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ''),
     GITHUB_TOKEN=(str, ''),
@@ -85,6 +86,9 @@ env = environ.Env(
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     WAGTAILIMAGES_INDEX_PAGE_SIZE=(int, 60),
+    WAGTAILLOCALIZE_GIT_URL=(str, ''),
+    WAGTAILLOCALIZE_GIT_CLONE_DIR=(str, ''),
+    WAGTAIL_LOCALIZE_PRIVATE_KEY=(str, ''),
     WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
@@ -137,6 +141,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+
+# SECURITY WARNING: same as above!
+FORCE_500_STACK_TRACES = env('FORCE_500_STACK_TRACES')
 
 # whether or not to send the X-Robots-Tag header
 XROBOTSTAG_ENABLED = env('XROBOTSTAG_ENABLED')
@@ -435,6 +442,10 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
     ('pl', gettext_lazy('Polish')),
 )
 
+WAGTAILLOCALIZE_GIT_URL = env('WAGTAILLOCALIZE_GIT_URL')
+WAGTAILLOCALIZE_GIT_CLONE_DIR = env('WAGTAILLOCALIZE_GIT_CLONE_DIR')
+WAGTAIL_LOCALIZE_PRIVATE_KEY = env('WAGTAIL_LOCALIZE_PRIVATE_KEY')
+
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -482,7 +493,7 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
 # Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ]
 }
 

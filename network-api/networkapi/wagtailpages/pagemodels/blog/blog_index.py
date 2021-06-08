@@ -56,7 +56,7 @@ class BlogIndexPage(IndexPage):
             'featured_pages',
             label='Featured',
             help_text='Choose two blog pages to feature',
-            min_num=2,
+            min_num=0,
             max_num=2,
         )
     ]
