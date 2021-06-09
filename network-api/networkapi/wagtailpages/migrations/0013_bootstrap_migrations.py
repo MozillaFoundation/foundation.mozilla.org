@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         BootstrapTranslatableModel('wagtailpages.HomepageTakeActionCards'),
         BootstrapTranslatableModel('wagtailpages.HomepageFocusAreas'),
         BootstrapTranslatableModel('wagtailpages.DonationModals'),
+        BootstrapTranslatableModel('wagtailpages.DonationModal'),
         BootstrapTranslatableModel('wagtailpages.ProductPageCategory'),
         BootstrapTranslatableModel('wagtailpages.RelatedProducts'),
         BootstrapTranslatableModel('wagtailpages.ProductPagePrivacyPolicyLink'),

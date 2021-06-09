@@ -181,6 +181,10 @@ class Migration(migrations.Migration):
             name='translation_key',
             field=models.UUIDField(default=uuid.uuid4, editable=False),
         ),
+        migrations.AlterUniqueTogether(
+            name='donationmodal',
+            unique_together={('translation_key', 'locale')},
+        ),
         migrations.AlterField(
             model_name='focusarea',
             name='locale',
@@ -209,10 +213,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='buyersguideproductcategory',
-            unique_together={('translation_key', 'locale')},
-        ),
-        migrations.AlterUniqueTogether(
-            name='donationmodal',
             unique_together={('translation_key', 'locale')},
         ),
         migrations.AlterUniqueTogether(
