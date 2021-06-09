@@ -1,5 +1,7 @@
 from taggit.models import Tag
 
+from wagtail.core.models import Page
+
 from wagtailmetadata.models import MetadataPageMixin
 from wagtail.images.models import Image
 
@@ -75,6 +77,18 @@ class FoundationMetadataPageMixin(MetadataPageMixin):
         if self.locale:
             return f"({self.locale.language_code}) {title}"
         return title
+
+    def get_sitemap_urls(self, request=None):
+        sitemap = super().get_sitemap_urls(request)
+        language_pages = Page.objects.filter(alias_of=self)
+        for page in language_pages:
+            sitemap.append(
+                {
+                    'location': page.get_full_url(),
+                    'lastmod': (page.last_published_at or page.latest_revision_created_at),
+                }
+            )
+        return sitemap
 
     class Meta:
         abstract = True
