@@ -358,4 +358,17 @@ class Migration(migrations.Migration):
             name='participatehighlights2',
             unique_together={('translation_key', 'locale')},
         ),
+        # Meta classes from TranslatableMixin's
+        migrations.AlterModelOptions(
+            name='cta4',
+            options={},
+        ),
+        migrations.AlterModelOptions(
+            name='participatehighlights',
+            options={},
+        ),
+        migrations.AlterModelOptions(
+            name='participatehighlights2',
+            options={},
+        ),
     ]
