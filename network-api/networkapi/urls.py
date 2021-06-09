@@ -4,6 +4,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
@@ -60,7 +61,7 @@ urlpatterns = list(filter(None, [
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     re_path(r'^documents/', include(wagtaildocs_urls)),
-    re_path(r'^sitemap.xml$', sitemap),
+    re_path(r'^sitemap.xml$', cache_page(86400)(sitemap)),
 
     # Sentry test url
     path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
