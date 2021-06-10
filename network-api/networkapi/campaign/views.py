@@ -12,6 +12,13 @@ import logging
 import json
 from networkapi.wagtailpages.models import Petition, Signup
 
+def process_lang_code(lang):
+    # Salesforce expects "pt" instead of "pt-BR".
+    # See https://github.com/mozilla/foundation.mozilla.org/issues/5993
+    if lang == 'pt-BR':
+        return 'pt'
+    return lang
+
 
 class SQSProxy:
     """
@@ -128,7 +135,7 @@ def signup_submission(request, signup):
         "format": "html",
         "source_url": source,
         "newsletters": signup.newsletter,
-        "lang": rq.get('lang', 'en'),
+        "lang": process_lang_code(rq.get('lang', 'en')),
         "country": rq.get('country', ''),
         # Empty string instead of None due to Basket issues
         "first_name": rq.get('givenNames', ''),
@@ -178,7 +185,7 @@ def petition_submission(request, petition):
         "email": request.data['email'],
         "email_subscription": request.data['newsletterSignup'],
         "source_url": request.data['source'],
-        "lang": request.data['lang'],
+        "lang": process_lang_code(request.data['lang']),
     }
 
     if petition:
