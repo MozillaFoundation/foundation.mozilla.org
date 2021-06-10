@@ -80,6 +80,9 @@ urlpatterns = list(filter(None, [
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),
+
+    # redirect /pt to /pt-BR. See https://github.com/mozilla/foundation.mozilla.org/issues/5993
+    re_path(r'^pt/(?P<rest>.*)', RedirectView.as_view(url='/pt-BR/%(rest)s', query_string=True)),
 ]))
 
 # Anything that needs to respect the localised
