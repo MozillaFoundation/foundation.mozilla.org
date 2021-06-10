@@ -17,11 +17,14 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable, Page, TranslatableMixin
+
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from wagtail_airtable.mixins import AirtableMixin
 
@@ -65,7 +68,7 @@ def sort_average(products):
 
 
 @register_snippet
-class BuyersGuideProductCategory(models.Model):
+class BuyersGuideProductCategory(TranslatableMixin, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -121,13 +124,16 @@ class BuyersGuideProductCategory(models.Model):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
         ordering = ['sort_order', 'name', ]
 
 
 class ProductPageVotes(models.Model):
+    """
+    PNI product voting bins. This does not need translating.
+    """
     vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
 
     def set_votes(self, bin_list):
@@ -145,7 +151,7 @@ class ProductPageVotes(models.Model):
         return votes
 
 
-class ProductPageCategory(Orderable):
+class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='product_categories',
@@ -165,11 +171,11 @@ class ProductPageCategory(Orderable):
     def __str__(self):
         return self.category.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Product Category"
 
 
-class RelatedProducts(Orderable):
+class RelatedProducts(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='related_product_pages',
@@ -187,8 +193,11 @@ class RelatedProducts(Orderable):
         PageChooserPanel('related_product')
     ]
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Related Product'
 
-class ProductPagePrivacyPolicyLink(Orderable):
+
+class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='privacy_policy_links',
@@ -211,12 +220,20 @@ class ProductPagePrivacyPolicyLink(Orderable):
         FieldPanel('url'),
     ]
 
+    translatable_fields = [
+        TranslatableField('label'),
+        SynchronizedField('url'),
+    ]
+
     def __str__(self):
         return f'{self.page.title}: {self.label} ({self.url})'
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Privacy Link'
+
 
 @register_snippet
-class Update(index.Indexed, models.Model):
+class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
@@ -261,12 +278,12 @@ class Update(index.Indexed, models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Update"
         verbose_name_plural = "Buyers Guide Product Updates"
 
 
-class ProductUpdates(Orderable):
+class ProductUpdates(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='updates',
@@ -281,9 +298,16 @@ class ProductUpdates(Orderable):
         null=True
     )
 
+    translatable_fields = [
+        TranslatableField("update"),
+    ]
+
     panels = [
         SnippetChooserPanel('update'),
     ]
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Product Update'
 
 
 class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
@@ -698,6 +722,54 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         ),
     ]
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('search_description'),
+        SynchronizedField('privacy_ding'),
+        SynchronizedField('adult_content'),
+        SynchronizedField('uses_wifi'),
+        SynchronizedField('uses_bluetooth'),
+        SynchronizedField('review_date'),
+        SynchronizedField('company'),
+        TranslatableField('blurb'),
+        SynchronizedField('product_url'),
+        TranslatableField('price'),
+        SynchronizedField('image'),
+        TranslatableField('worst_case'),
+        SynchronizedField('signup_requires_email'),
+        SynchronizedField('signup_requires_phone'),
+        SynchronizedField('signup_requires_third_party_account'),
+        TranslatableField('signup_requirement_explanation'),
+        SynchronizedField('signup_requires_third_party_account'),
+        TranslatableField('how_does_it_use_data_collected'),
+        SynchronizedField('data_collection_policy_is_bad'),
+        SynchronizedField('user_friendly_privacy_policy'),
+        TranslatableField('user_friendly_privacy_policy_helptext'),
+        SynchronizedField('show_ding_for_minimum_security_standards'),
+        SynchronizedField('meets_minimum_security_standards'),
+        SynchronizedField('uses_encryption'),
+        TranslatableField('uses_encryption_helptext'),
+        SynchronizedField('security_updates'),
+        TranslatableField('security_updates_helptext'),
+        SynchronizedField('strong_password'),
+        TranslatableField('strong_password_helptext'),
+        SynchronizedField('manage_vulnerabilities'),
+        TranslatableField('manage_vulnerabilities_helptext'),
+        SynchronizedField('privacy_policy'),
+        TranslatableField('privacy_policy_helptext'),
+        SynchronizedField('phone_number'),
+        SynchronizedField('live_chat'),
+        SynchronizedField('email'),
+        SynchronizedField('twitter'),
+    ]
+
     @property
     def product_type(self):
         return "unknown"
@@ -913,6 +985,7 @@ class SoftwareProductPage(ProductPage):
     def product_type(self):
         return "software"
 
+    # TODO: Needs translatable_fields
     class Meta:
         verbose_name = "Software Product Page"
 
@@ -1171,6 +1244,8 @@ class GeneralProductPage(ProductPage):
         ],
     )
 
+    # TODO: Needs translatable_fields
+
     @property
     def product_type(self):
         return "general"
@@ -1179,7 +1254,7 @@ class GeneralProductPage(ProductPage):
         verbose_name = "General Product Page"
 
 
-class ExcludedCategories(Orderable):
+class ExcludedCategories(TranslatableMixin, Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
     page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
@@ -1194,6 +1269,9 @@ class ExcludedCategories(Orderable):
 
     def __str__(self):
         return self.category.name
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Excluded Category'
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):

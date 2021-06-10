@@ -8,6 +8,8 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
 from networkapi.wagtailpages.models import ContentAuthor, PublicationPage
 from networkapi.wagtailpages.utils import get_plaintext_titles, set_main_site_nav_information, TitleWidget
 
@@ -113,6 +115,25 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         FieldPanel('show_side_share_buttons'),
         StreamFieldPanel('body'),
         InlinePanel("footnotes", label="Footnotes"),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        SynchronizedField('title'),
+        SynchronizedField('toc_thumbnail_image'),
+        SynchronizedField('hero_image'),
+        TranslatableField('subtitle'),
+        SynchronizedField('article_file'),
+        TranslatableField('body'),
+        # TODO: Add in footnote support when wagtail-footnotes and wagtail-localize can work together.
+        # Issue can be found at https://github.com/mozilla/foundation.mozilla.org/issues/6790
+        # TranslatableField('footnotes'),
     ]
 
     @property
