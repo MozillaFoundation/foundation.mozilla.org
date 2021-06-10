@@ -1,3 +1,25 @@
 .cms {
   @import "./profiles";
 }
+
+.wide {
+  @extend .no-gutters;
+  @extend .px-0;
+  @extend .mx-0;
+  @extend .w-100;
+  @extend .mw-100;
+}
+
+.primary-page-content {
+  &.wide {
+    .streamfield-content {
+      @extend .col-12;
+    }
+  }
+
+  &.narrow {
+    .streamfield-content {
+      @extend .col-8;
+    }
+  }
+}

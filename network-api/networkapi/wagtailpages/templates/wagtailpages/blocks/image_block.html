@@ -1,4 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% image value.image original as img %}
-<img src="{{ img.url }}" alt="{{ img.alt }}" class="{{ value.size }} my-default">
+
+
+<div class="container {{block.block_type}}-block">
+    <div class="row justify-content-center">
+        <div class="streamfield-content">
+            <img src="{{ img.url }}" alt="{{ img.alt }}" class="{{ value.size }} my-default">
+        </div>
+    </div>
+</div>

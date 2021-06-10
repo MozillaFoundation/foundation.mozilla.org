@@ -1,15 +1,22 @@
 {% load wagtailcore_tags %}
 
-<div class="row my-default">
-  <div class="col">
-    {% for quote in value.quotes %}
-    {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
-    {% if forloop.counter is 1 %}
-    <div class="feature-quote">
-      <h3>{{quote.quote}}</h3>
-      <p class="h6-heading">{{quote.attribution}}</p>
+
+<div class="container {{block.block_type}}-block">
+  <div class="row justify-content-center">
+    <div class="streamfield-content">
+      <div class="row my-default">
+        <div class="col">
+          {% for quote in value.quotes %}
+          {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
+          {% if forloop.counter is 1 %}
+          <div class="feature-quote">
+            <h3>{{quote.quote}}</h3>
+            <p class="h6-heading">{{quote.attribution}}</p>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
     </div>
-    {% endif %}
-    {% endfor %}
   </div>
 </div>

@@ -1,20 +1,27 @@
 {% load wagtailcore_tags %}
 
-<div class="my-default">
-  <div class="embed-responsive embed-responsive-16by9 d-print-none">
-    <iframe
-      src="{{ value.url }}"
-      frameborder="0"
-      class="embed-responsive-item"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
+
+<div class="container {{block.block_type}}-block">
+  <div class="row justify-content-center">
+    <div class="streamfield-content">
+      <div class="my-default">
+        <div class="embed-responsive embed-responsive-16by9 d-print-none">
+          <iframe
+            src="{{ value.url }}"
+            frameborder="0"
+            class="embed-responsive-item"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
+        </div>
+        {% if value.caption %}
+        <p class="caption-wrapper body-small mt-2">
+          {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+          {{ value.caption }}
+          {% if value.captionURL %}</a>{% endif %}
+        </p>
+        {% endif %}
+      </div>
+    </div>
   </div>
-  {% if value.caption %}
-  <p class="caption-wrapper body-small mt-2">
-    {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-    {{ value.caption }}
-    {% if value.captionURL %}</a>{% endif %}
-  </p>
-  {% endif %}
 </div>

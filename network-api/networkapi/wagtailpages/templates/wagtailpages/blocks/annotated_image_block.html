@@ -2,29 +2,23 @@
 
 {% image value.image original as img %}
 
-{% if value.wide_image %}
-    </div> <!-- End .blog-body -->
-  </div> <!-- End .cms -->
-</div> <!-- End .col-lg-8 -->
+<div class="container {{block.block_type}}-block {% if value.wide_image %} wide w-100 mw-100 px-0 mx-0{% endif %}">
+  <div class="row justify-content-center no-gutters">
+    <div class="{% if value.wide_image %} wide {% else %} streamfield-content {% endif %} ">
+      <figure class="my-default">
+        <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
+        {% if value.caption %}
+        <figcaption class="body-small d-block mt-2">
+          {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+          {{ value.caption }}
+          {% if value.captionURL %}</a>{% endif %}
+        </figcaption>
+        {% endif %}
+      </figure>
+      </div>
+  </div>
+</div> 
 
-<div class="col-lg-12">
-{% endif %}
 
-  <figure class="my-default">
-    <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
-    {% if value.caption %}
-    <figcaption class="body-small d-block mt-2">
-      {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-      {{ value.caption }}
-      {% if value.captionURL %}</a>{% endif %}
-    </figcaption>
-    {% endif %}
-  </figure>
 
-{% if value.wide_image %}
-</div>
 
-<div class="py-4 py-md-5 col-lg-8 offset-lg-2">
-  <div class="cms">
-    <div class="blog-body">
-{% endif %}

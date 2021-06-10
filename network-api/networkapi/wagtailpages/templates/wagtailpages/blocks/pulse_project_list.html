@@ -1,9 +1,16 @@
-<div
-  class="pulse-project-list my-default"
-  data-featured="{{ value.only_featured_entries}}"
-  data-help="{{ value.help }}"
-  data-issues="{{ value.issues }}"
-  data-max="{{ value.size }}"
-  data-query="{{ value.search_terms }}"
-  data-reversed="{{ value.newest_first }}"
-  data-direct-link="{{ value.direct_link }}"></div>
+<div class="container {{block.block_type}}-block">
+  <div class="row justify-content-center">
+    <div class="streamfield-content">
+      <div
+        class="pulse-project-list my-default"
+        data-featured="{{ value.only_featured_entries}}"
+        data-help="{{ value.help }}"
+        data-issues="{{ value.issues }}"
+        data-max="{{ value.size }}"
+        data-query="{{ value.search_terms }}"
+        data-reversed="{{ value.newest_first }}"
+        data-direct-link="{{ value.direct_link }}">
+      </div>
+    </div>
+  </div>
+</div>

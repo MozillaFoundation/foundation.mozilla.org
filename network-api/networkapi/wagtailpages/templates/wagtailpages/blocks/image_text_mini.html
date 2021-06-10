@@ -1,12 +1,20 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="my-5">
-  <div class="p-2 p-md-3 col-12 d-flex align-items-center image-text-mini-container">
-    <div class="image-text-mini-img-container mr-2 mr-md-3">
-      {% image value.image fill-100x100-c100 format-jpeg class="w-100" %}
-    </div>
-    <div class="image-text-mini-text">
-      {{ value.text|richtext }}
+<div class="container {{block.block_type}}-block">
+  <div class="row justify-content-center">
+    <div class="streamfield-content">
+      <div class="my-5">
+        <div class="p-2 p-md-3 col-12 d-flex align-items-center image-text-mini-container">
+          <div class="image-text-mini-img-container mr-2 mr-md-3">
+            {% image value.image fill-100x100-c100 format-jpeg class="w-100" %}
+          </div>
+          <div class="image-text-mini-text">
+            {{ value.text|richtext }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+
