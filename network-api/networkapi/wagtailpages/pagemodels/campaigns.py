@@ -3,7 +3,7 @@ import json
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
-from wagtail.core.models import TranslatableMixin, Page
+from wagtail.core.models import TranslatableMixin, TranslatableMixin, Page
 from wagtail.core.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -23,7 +23,7 @@ from ..utils import (
 )
 
 
-class CTA(TranslatableMixin, models.Model):
+class CTA(models.Model):
     name = models.CharField(
         default='',
         max_length=100,
@@ -50,12 +50,12 @@ class CTA(TranslatableMixin, models.Model):
     def __str__(self):
         return self.name
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta:
         verbose_name_plural = 'CTA'
 
 
 @register_snippet
-class Signup(CTA):
+class Signup(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,
         help_text='Which campaign identifier should this petition be tied to?',
@@ -68,7 +68,7 @@ class Signup(CTA):
         default=False,
     )
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'signup snippet'
 
 
@@ -93,7 +93,7 @@ class OpportunityPage(MiniSiteNameSpace):
 
 
 @register_snippet
-class Petition(CTA):
+class Petition(TranslatableMixin, CTA):
     campaign_id = models.CharField(
         max_length=20,
         help_text='Which campaign identifier should this petition be tied to?',
@@ -177,7 +177,7 @@ class Petition(CTA):
         default='Thank you for signing too!',
     )
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'petition snippet'
 
 
