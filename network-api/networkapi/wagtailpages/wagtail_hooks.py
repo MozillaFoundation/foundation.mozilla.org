@@ -10,6 +10,13 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleE
 from wagtail.core import hooks
 from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, ProductPage
 
+# The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
+# so that locale creation creates the locale entry but does not try to sync 1300+ pages as
+# part of the same web request.
+from django.db.models.signals import post_save
+from wagtail_localize.models import LocaleSynchronization, sync_trees_on_locale_sync_save
+post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
+
 
 # Extended rich text features for our site
 @hooks.register('register_rich_text_features')
