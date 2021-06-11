@@ -23,3 +23,9 @@
     }
   }
 }
+
+.article-page-content {
+  .streamfield-content {
+    @extend .col-10;
+  }
+}

@@ -1,33 +1,27 @@
 {% load wagtailimages_tags wagtailcore_tags custom_image_tags remove_richtext_wrapping %}
 
-    {% comment %} End the Article Block bootstrap grid {% endcomment %}
-    </div> <!-- End .col-sm-10 from main container -->
-  </div> <!-- End .row -->
-</div> <!-- End .container -->
 
-  <div class="full-width-image-block">
-    {% custom_image_height self.image self.image_height as img %}
-    <figure class="my-default">
-      <img src="{{ img.url }}" alt="{{ img.alt }}" class="w-100" />
-      {% if self.caption %}
-        <div class="container">
-          <div class="row">
-            <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+<div class="container {{block.block_type}}-block  wide w-100 mw-100 px-0 mx-0">
+  <div class="row justify-content-center no-gutters">
+    <div class="wide">
+      <div class="full-width-image-block">
+        {% custom_image_height self.image self.image_height as img %}
+        <figure class="my-default">
+          <img src="{{ img.url }}" alt="{{ img.alt }}" class="w-100" />
+          {% if self.caption %}
+            <div class="container">
+              <div class="row">
+                <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
 
-              <figcaption>
-                {{ self.caption|richtext|remove_wrapping|safe }}
-              </figcaption>
+                  <figcaption>
+                    {{ self.caption|richtext|remove_wrapping|safe }}
+                  </figcaption>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      {% endif %}
-    </figure>
+          {% endif %}
+        </figure>
+      </div>
+    </div>
   </div>
-
-  {% comment %} Restart the Article Block bootstrap grid. If it is the last item, hide the empty container to keep from pushing footer down a couple px{% endcomment %}
-  <div class="container {% if is_last %}d-none{% endif %}"> <!-- Re-opening container -->
-    <div class="row"> <!-- Re-opening row -->
-      <div class="offset-sm-1 col-sm-10 col-12 article-blocks"> <!-- Re-opening col-sm-10 from main container -->
-
-
-
+</div>

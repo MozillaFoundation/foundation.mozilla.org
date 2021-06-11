@@ -1,37 +1,38 @@
 {% load wagtailcore_tags wagtailimages_tags remove_richtext_wrapping %}
 
-</div> <!-- End .col-sm-10 from main container -->
-  <div class="col-sm-10 offset-sm-1 double-image-block">
-    <div class="row">
-      <div class="col-sm-6">
+<div class="container {{block.block_type}}-block">
+  <div class="row justify-content-center">
+    <div class="streamfield-content">
+      <div class="offset-sm-1 double-image-block">
+        <div class="row">
+          <div class="col-sm-6">
 
-        {% image self.image_1 fill-445x324 as img1 %}
-        <figure class="my-default">
-          <img src="{{ img1.url }}" alt="{{ img1.alt }}" class="w-100" />
-          {% if self.image_1_caption %}
-            <figcaption>
-              {{ self.image_1_caption|richtext|remove_wrapping|safe }}
-            </figcaption>
-          {% endif %}
-        </figure>
+            {% image self.image_1 fill-445x324 as img1 %}
+            <figure class="my-default">
+              <img src="{{ img1.url }}" alt="{{ img1.alt }}" class="w-100" />
+              {% if self.image_1_caption %}
+                <figcaption>
+                  {{ self.image_1_caption|richtext|remove_wrapping|safe }}
+                </figcaption>
+              {% endif %}
+            </figure>
 
-      </div>
-      <div class="col-sm-6">
+          </div>
+          <div class="col-sm-6">
 
-        {% image self.image_2 fill-445x324 as img2 %}
-        <figure class="my-default">
-          <img src="{{ img2.url }}" alt="{{ img2.alt }}" class="w-100" />
-          {% if self.image_2_caption %}
-            <figcaption>
-              {{ self.image_2_caption|richtext|remove_wrapping|safe }}
-            </figcaption>
-          {% endif %}
-        </figure>
+            {% image self.image_2 fill-445x324 as img2 %}
+            <figure class="my-default">
+              <img src="{{ img2.url }}" alt="{{ img2.alt }}" class="w-100" />
+              {% if self.image_2_caption %}
+                <figcaption>
+                  {{ self.image_2_caption|richtext|remove_wrapping|safe }}
+                </figcaption>
+              {% endif %}
+            </figure>
 
+          </div>
+        </div>
       </div>
     </div>
   </div>
-{% if not is_last %}
-  {# Re-start the same containing row thats on the main article_page.html file #}
-  <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
-{% endif %}
+</div>

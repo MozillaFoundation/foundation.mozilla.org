@@ -33,17 +33,29 @@
             </div>
           </div>
         {% endif %}
-
-
-        {% for block in page.body %}
-          {% comment %}
-            `is_last` is used to determine if a streamfield should close
-            after breaking out of its parent container
-          {% endcomment %}
-          {% include_block block with is_last=forloop.last page_type="article" %}
-        {% endfor %}
       </div>
     </div>
+  </div>
+
+  <div class="cms article-page-content mt-5">
+    {% for block in page.body %}
+    <h1> {{block.block_type}}</h1>
+      {% if block.block_type == 'content'%}
+        <div class="container {{block.block_type}}-block">
+          <div class="row justify-content-center">
+            <div class="streamfield-content">
+              {% if block.block_type == 'heading' %}
+                <h1>{{ block.value }}</h1>
+              {% else %}
+                {% include_block block with page_type="article" %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        {% include_block block with parent_page=page page_type="article" %}
+      {% endif %}
+    {% endfor %}
   </div>
 
   {% if page.footnotes_list %}
