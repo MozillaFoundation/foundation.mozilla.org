@@ -2,12 +2,15 @@ from django.conf import settings
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import Page, Orderable as WagtailOrderable
+from wagtail.core.models import TranslatableMixin, Page, Orderable as WagtailOrderable
+
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import PageChooserPanel
+
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from modelcluster.fields import ParentalKey
 
@@ -22,7 +25,7 @@ class NewsPage(PrimaryPage):
     template = 'wagtailpages/static/news_page.html'
 
 
-class InitiativeSection(models.Model):
+class InitiativeSection(TranslatableMixin, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
         related_name='initiative_sections',
@@ -76,6 +79,16 @@ class InitiativeSection(models.Model):
         FieldPanel('sectionButtonURL2'),
     ]
 
+    translatable_fields = [
+        SynchronizedField('sectionImage'),
+        TranslatableField('sectionHeader'),
+        TranslatableField('sectionCopy'),
+        TranslatableField('sectionButtonTitle'),
+        SynchronizedField('sectionButtonURL'),
+        TranslatableField('sectionButtonTitle2'),
+        SynchronizedField('sectionButtonURL2'),
+    ]
+
 
 class InitiativesPage(PrimaryPage):
     template = 'wagtailpages/static/initiatives_page.html'
@@ -123,6 +136,24 @@ class InitiativesPage(PrimaryPage):
         FieldPanel('sub_h3'),
         InlinePanel('initiative_sections', label="Initiatives"),
         InlinePanel('featured_highlights', label='Highlights', max_num=9),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        SynchronizedField('primaryHero'),
+        TranslatableField('header'),
+        TranslatableField('subheader'),
+        TranslatableField('h3'),
+        TranslatableField('sub_h3'),
+        TranslatableField('featured_highlights'),
+        TranslatableField('initiative_sections'),
     ]
 
 
@@ -236,6 +267,39 @@ class ParticipatePage2(PrimaryPage):
         verbose_name='H2 Subheader',
     )
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        SynchronizedField('title'),
+        SynchronizedField('ctaHero'),
+        TranslatableField('ctaHeroHeader'),
+        TranslatableField('ctaHeroSubhead'),
+        TranslatableField('ctaButtonTitle'),
+        TranslatableField('ctaButtonURL'),
+        SynchronizedField('ctaHero2'),
+        TranslatableField('ctaHeroHeader2'),
+        TranslatableField('ctaHeroSubhead2'),
+        TranslatableField('ctaButtonTitle2'),
+        TranslatableField('ctaButtonURL2'),
+        SynchronizedField('ctaHero3'),
+        TranslatableField('ctaHeroHeader3'),
+        TranslatableField('ctaHeroSubhead3'),
+        TranslatableField('ctaFacebook3'),
+        TranslatableField('ctaTwitter3'),
+        TranslatableField('ctaEmailShareBody3'),
+        TranslatableField('ctaEmailShareSubject3'),
+        TranslatableField('h2'),
+        TranslatableField('h2Subheader'),
+        TranslatableField('featured_highlights'),
+        TranslatableField('featured_highlights2'),
+        TranslatableField('cta4'),
+    ]
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
@@ -283,8 +347,7 @@ class ParticipatePage2(PrimaryPage):
 class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
-
-class HomepageSpotlightPosts(WagtailOrderable):
+class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='spotlight_posts',
@@ -294,7 +357,7 @@ class HomepageSpotlightPosts(WagtailOrderable):
         PageChooserPanel('blog'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
         ordering = ['sort_order']  # not automatically inherited!
@@ -303,7 +366,7 @@ class HomepageSpotlightPosts(WagtailOrderable):
         return self.page.title + '->' + self.blog.title
 
 
-class HomepageNewsYouCanUse(WagtailOrderable):
+class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='news_you_can_use',
@@ -313,7 +376,7 @@ class HomepageNewsYouCanUse(WagtailOrderable):
         PageChooserPanel('blog'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
         ordering = ['sort_order']  # not automatically inherited!
@@ -322,7 +385,7 @@ class HomepageNewsYouCanUse(WagtailOrderable):
         return self.page.title + '->' + self.blog.title
 
 
-class InitiativesHighlights(WagtailOrderable, models.Model):
+class InitiativesHighlights(TranslatableMixin, WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.InitiativesPage',
         related_name='featured_highlights',
@@ -332,7 +395,7 @@ class InitiativesHighlights(WagtailOrderable, models.Model):
         SnippetChooserPanel('highlight'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'highlight'
         verbose_name_plural = 'highlights'
         ordering = ['sort_order']  # not automatically inherited!
@@ -381,7 +444,7 @@ class CTABase(WagtailOrderable, models.Model):
         FieldPanel('buttonURL'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         abstract = True
         verbose_name = 'cta'
         verbose_name_plural = 'ctas'
@@ -390,15 +453,18 @@ class CTABase(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
-
-class CTA4(CTABase):
+# from wagtail.core.models import BootstrapTranslatableModel
+class CTA4(TranslatableMixin, CTABase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='cta4',
     )
 
+    class Meta(TranslatableMixin.Meta):
+        pass
 
-class ParticipateHighlightsBase(WagtailOrderable, models.Model):
+
+class ParticipateHighlightsBase(TranslatableMixin, WagtailOrderable, models.Model):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights',
@@ -424,16 +490,19 @@ class ParticipateHighlights(ParticipateHighlightsBase):
         related_name='featured_highlights',
     )
 
-
+    class Meta(TranslatableMixin.Meta):
+        pass
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights2',
     )
+    class Meta(TranslatableMixin.Meta):
+        pass
 
 
 @register_snippet
-class FocusArea(models.Model):
+class FocusArea(TranslatableMixin, models.Model):
     interest_icon = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -469,12 +538,12 @@ class FocusArea(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'Area of focus'
         verbose_name_plural = 'Areas of focus'
 
 
-class HomepageFocusAreas(WagtailOrderable):
+class HomepageFocusAreas(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='focus_areas',
@@ -486,8 +555,11 @@ class HomepageFocusAreas(WagtailOrderable):
         SnippetChooserPanel('area'),
     ]
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Homepage Focus Area'
 
-class HomepageTakeActionCards(WagtailOrderable):
+
+class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='take_action_cards',
@@ -512,15 +584,21 @@ class HomepageTakeActionCards(WagtailOrderable):
         PageChooserPanel('internal_link'),
     ]
 
+    # translatable_fields = [
+    #     SynchronizedField('image'),
+    #     TranslatableField('text'),
+    #     SynchronizedField('internal_link'),
+    # ]
+
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Take Action Card"
         ordering = ['sort_order']  # not automatically inherited!
 
 
-class PartnerLogos(WagtailOrderable):
+class PartnerLogos(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
         related_name='partner_logos',
@@ -549,12 +627,19 @@ class PartnerLogos(WagtailOrderable):
         FieldPanel('width'),
     ]
 
+    translatable_fields = [
+        SynchronizedField('logo'),
+        TranslatableField('name'),
+        SynchronizedField('link'),
+        SynchronizedField('width'),
+    ]
+
     @property
     def image_rendition(self):
         width = self.width * 2
         return self.logo.get_rendition(f'width-{width}')
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'Partner Logo'
         ordering = ['sort_order']  # not automatically inherited!
 
@@ -734,6 +819,41 @@ class Homepage(FoundationMetadataPageMixin, Page):
           heading='Partner',
           classname='collapsible collapsed'
         ),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('hero_headline'),
+        SynchronizedField('hero_image'),
+        TranslatableField('hero_button_text'),
+        SynchronizedField('hero_button_url'),
+        SynchronizedField('spotlight_image'),
+        TranslatableField('spotlight_headline'),
+        TranslatableField('cause_statement'),
+        TranslatableField('cause_statement_link_text'),
+        TranslatableField('cause_statement_link_page'),
+        SynchronizedField('quote_image'),
+        TranslatableField('quote_text'),
+        TranslatableField('quote_source_name'),
+        TranslatableField('quote_source_job_title'),
+        TranslatableField('partner_heading'),
+        TranslatableField('partner_intro_text'),
+        TranslatableField('partner_page_text'),
+        SynchronizedField('partner_page'),
+        SynchronizedField('partner_background_image'),
+        TranslatableField('take_action_title'),
+        TranslatableField('focus_areas'),
+        TranslatableField('take_action_cards'),
+        TranslatableField('partner_logos'),
+        TranslatableField('spotlight_posts'),
+        TranslatableField('news_you_can_use'),
     ]
 
     subpage_types = [

@@ -5,6 +5,8 @@ from wagtail.core import blocks
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 
+from wagtail_localize.fields import TranslatableField, SynchronizedField
+
 from . import customblocks
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from ..utils import set_main_site_nav_information
@@ -51,6 +53,21 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         StreamFieldPanel('regret_stories'),
     ]
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('headline'),
+        TranslatableField('intro_text'),
+        TranslatableField('intro_images'),
+        TranslatableField('faq'),
+    ]
+
     zen_nav = True
 
     def get_context(self, request):
@@ -79,6 +96,20 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
         FieldPanel('headline'),
         StreamFieldPanel('intro_text'),
         StreamFieldPanel('intro_images'),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('headline'),
+        TranslatableField('intro_text'),
+        TranslatableField('intro_images'),
     ]
 
     zen_nav = True

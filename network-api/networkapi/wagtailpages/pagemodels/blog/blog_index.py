@@ -46,9 +46,7 @@ class BlogIndexPage(IndexPage):
     """
 
     subpage_types = [
-        'BlogPage',
-        'ArticlePage'
-
+        'BlogPage'
     ]
 
     content_panels = IndexPage.content_panels + [
@@ -60,6 +58,9 @@ class BlogIndexPage(IndexPage):
             max_num=2,
         )
     ]
+
+    # Empty translatable fields
+    translatable_fields = IndexPage.translatable_fields
 
     template = 'wagtailpages/blog_index_page.html'
 
