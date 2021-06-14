@@ -6,7 +6,7 @@ export default () => {
     `#view-blog .blog-sticky-side .share-button-group`
   );
   let blogPageFullButtons = document.querySelector(
-    `#view-blog .blog-body .share-button-group`
+    `.bottom-share-button-container .share-button-group`
   );
 
   if (blogPageStickyButtons && blogPageFullButtons) {

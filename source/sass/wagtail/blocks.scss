@@ -26,6 +26,20 @@
 
 .article-page-content {
   .streamfield-content {
-    @extend .col-10;
+    @extend .col-8;
+  }
+}
+
+.blog-body {
+  // margin-top: 80px;
+  .streamfield-content {
+    @extend .col-lg-8;
+  }
+}
+
+.oppurtunity-page-content {
+  // margin-top: 80px;
+  .streamfield-content {
+    @extend .col-lg-12;
   }
 }

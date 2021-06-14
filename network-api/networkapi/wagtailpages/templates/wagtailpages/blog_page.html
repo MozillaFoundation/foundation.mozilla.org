@@ -3,55 +3,77 @@
 {% load wagtailcore_tags mini_site_tags i18n %}
 
 {% block commento_meta %}
-  <meta property="article:author" content="{{ page.author }}" />
-  <meta property="article:published_time" content="{{ page.first_published_at|date:"DATE_FORMAT" }}">
-  {% if page.last_published_at %}
-    <meta property="article:modified" content="{{ page.last_published_at|date:"DATE_FORMAT" }}"/>
-  {% endif %}
-  {% with category=page.specific.category.first %}
-    {% if category %}
-      <meta property="article:section" content="{{ category }}" />
-    {% endif %}
-  {% endwith %}
-  <link rel="canonical" href="{{ page.full_url }}" />
+<meta property="article:author" content="{{ page.author }}" />
+<meta property="article:published_time" content="{{ page.first_published_at|date:" DATE_FORMAT" }}">
+{% if page.last_published_at %}
+<meta property="article:modified" content="{{ page.last_published_at|date:" DATE_FORMAT" }}" />
+{% endif %}
+{% with category=page.specific.category.first %}
+{% if category %}
+<meta property="article:section" content="{{ category }}" />
+{% endif %}
+{% endwith %}
+<link rel="canonical" href="{{ page.full_url }}" />
 {% endblock %}
 
 
 {% block body_id %}blog{% endblock %}
 
 {% block subcontent %}
-  <div class="offset-lg-1 col-lg-1 py-4 py-md-5 text-center d-print-none">
-    <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end">
-      <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
-    </div>
-  </div>
-  <div class="py-4 py-md-5 col-lg-8">
-    <div class="cms {% if show_comments %}mb-5{% endif %}">
-      <h1 class="h1-heading">{{ page.title }}</h1>
-      {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
-      <div class="blog-body">
-        {% for stream_block in page.body %}
-          {% include_block stream_block with page_type="blog" %}
-        {% endfor %}
-        <div class="share-button-group-wrapper mt-5 d-print-none" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+    <div class="blog-sticky-side-container offset-lg-1 col-lg-1 py-4 py-md-5 text-center d-print-none">
+      <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end">
+        <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked"
+          data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}"
+          data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
       </div>
     </div>
-
-    {% if show_comments %}
-      <h2 class="h4-heading">{% trans "Comments" %}</h2>
-      <div id="commento"></div>
-    {% endif %}
-
-    {% include "./fragments/post_tags.html" %}
+  
+    <div class="pt-4 pt-md-5 col-lg-8">
+      <div class="cms {% if show_comments %}mb-5{% endif %}">
+        <h1 class="h1-heading">{{ page.title }}</h1>
+        {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
+  
+      </div>
+    </div>
+<div class="cms blog-body">
+  {% for block in page.body %}
+  {% if block.block_type == 'paragraph'%}
+  <div class="container {{block.block_type}}-block">
+    <div class="row justify-content-center">
+      <div class="streamfield-content">
+        {% if block.block_type == 'heading' %}
+        <h1>{{ block.value }}</h1>
+        {% else %}
+        {% include_block block with parent_page=page page_type="blog"%}
+        {% endif %}
+      </div>
+    </div>
   </div>
+  {% else %}
+  {% include_block block with parent_page=page page_type="blog" %}
+  {% endif %}
+  {% endfor %}
+</div>
+<div class="py-4 py-md-5 col-lg-8 m-auto bottom-share-button-container">
+  <div class="share-button-group-wrapper mt-5 d-print-none"
+    data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}"
+    data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
+
+  {% if show_comments %}
+  <h2 class="h4-heading">{% trans "Comments" %}</h2>
+  <div id="commento"></div>
+  {% endif %}
+
+  {% include "./fragments/post_tags.html" %}
+</div>
 {% endblock %}
 
 {% block prefooter %}
-  {% include "./fragments/related_posts.html" %}
+{% include "./fragments/related_posts.html" %}
 {% endblock %}
 
 {% block extra_scripts %}
-  {% if show_comments %}
-    <script async defer src="https://cdn.commento.io/js/commento.js"></script>
-  {% endif %}
+{% if show_comments %}
+<script async defer src="https://cdn.commento.io/js/commento.js"></script>
+{% endif %}
 {% endblock %}

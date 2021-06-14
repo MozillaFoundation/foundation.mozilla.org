@@ -25,12 +25,31 @@
         {{ page.title }}
       {% endif %}
     </h1>
-    <div class="cms">
+    <!-- <div class="cms">
       {% for block in page.body %}
         {% if block.block_type == 'heading' %}
           <h1>{{ block.value }}</h1>
         {% else %}
           {% include_block block %}
+        {% endif %}
+      {% endfor %}
+    </div> -->
+    <div class="cms oppurtunity-page-content">
+      {% for block in page.body %}
+        {% if block.block_type == 'paragraph'%}
+          <div class="container {{block.block_type}}-block">
+            <div class="row justify-content-center">
+              <div class="streamfield-content">
+                {% if block.block_type == 'heading' %}
+                  <h1>{{ block.value }}</h1>
+                {% else %}
+                  {% include_block block%}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% else %}
+          {% include_block block with parent_page=page %}
         {% endif %}
       {% endfor %}
     </div>

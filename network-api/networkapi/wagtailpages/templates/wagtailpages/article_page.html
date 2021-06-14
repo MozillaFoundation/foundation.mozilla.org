@@ -15,7 +15,7 @@
 
   <div class="container {% if not get_titles %} mt-5{% endif %}">
     <div class="row">
-      <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+      <div class="offset-sm-1 col-sm-10 col-12">
         {% if page.show_side_share_buttons %}
           <div class="article-summary-share-links d-lg-block d-none {% if get_titles %}with-top-offset{% endif %}">
             <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
@@ -37,9 +37,9 @@
     </div>
   </div>
 
-  <div class="cms article-page-content mt-5">
+  <div class="cms article-page-content">
     {% for block in page.body %}
-    <h1> {{block.block_type}}</h1>
+    <!-- <h1> {{block.block_type}}</h1> -->
       {% if block.block_type == 'content'%}
         <div class="container {{block.block_type}}-block">
           <div class="row justify-content-center">

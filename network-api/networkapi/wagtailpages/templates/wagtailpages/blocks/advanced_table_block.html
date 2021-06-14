@@ -1,52 +1,59 @@
 {% load wagtailcore_tags %}
 
-<div class="article-table-block table-responsive">
-  <table class="table">
-    {% if self.caption %}
-      <caption>{{ self.caption }}</caption>
-    {% endif %}
 
-    {# Loop through every row #}
-    {% for row in self.table %}
-      {# If the "header" is checked, the first row will be a <thead> with a highlighted background #}
-      {% if self.header and forloop.first %}
-        <thead>
-          <tr>
-            {% for cell in row.value %}
-              <th
-                scope="col"
-                {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
-                class="highlighted {% if cell.value.centered_text %}text-center{% endif %}"
-              >
-                {{ cell.value.content|richtext }}
-              </th>
-            {% endfor %}
-          </tr>
-        </thead>
-      {% else %}
-        {# For every other row that's not a header... #}
-        <tr>
-          {% for cell in row.value %}
-            {# If the first cell is supposed to be highlighted; when "column" is checked #}
-            {% if self.column %}
-              <td
-                {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
-                class="{% if forloop.first and self.column and not cell.value.column_width %}highlighted{% endif %} {% if cell.value.centered_text %}text-center{% endif %} column-width-20"
-              >
-                {{ cell.value.content|richtext }}
-              </td>
+<div class="container {{block.block_type}}-block">
+  <div class="row justify-content-center">
+    <div class="streamfield-content">
+      <div class="article-table-block table-responsive">
+        <table class="table">
+          {% if self.caption %}
+            <caption>{{ self.caption }}</caption>
+          {% endif %}
+
+          {# Loop through every row #}
+          {% for row in self.table %}
+            {# If the "header" is checked, the first row will be a <thead> with a highlighted background #}
+            {% if self.header and forloop.first %}
+              <thead>
+                <tr>
+                  {% for cell in row.value %}
+                    <th
+                      scope="col"
+                      {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
+                      class="highlighted {% if cell.value.centered_text %}text-center{% endif %}"
+                    >
+                      {{ cell.value.content|richtext }}
+                    </th>
+                  {% endfor %}
+                </tr>
+              </thead>
             {% else %}
-              {# For every other cell; when "column" is not checked #}
-              <td
-                {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
-                class="{% if forloop.first and self.column %}highlighted{% endif %} {% if cell.value.centered_text %}text-center{% endif %}"
-              >
-                {{ cell.value.content|richtext }}
-              </td>
+              {# For every other row that's not a header... #}
+              <tr>
+                {% for cell in row.value %}
+                  {# If the first cell is supposed to be highlighted; when "column" is checked #}
+                  {% if self.column %}
+                    <td
+                      {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
+                      class="{% if forloop.first and self.column and not cell.value.column_width %}highlighted{% endif %} {% if cell.value.centered_text %}text-center{% endif %} column-width-20"
+                    >
+                      {{ cell.value.content|richtext }}
+                    </td>
+                  {% else %}
+                    {# For every other cell; when "column" is not checked #}
+                    <td
+                      {% if cell.value.column_width %}colspan="{{ cell.value.column_width }}"{% endif %}
+                      class="{% if forloop.first and self.column %}highlighted{% endif %} {% if cell.value.centered_text %}text-center{% endif %}"
+                    >
+                      {{ cell.value.content|richtext }}
+                    </td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
             {% endif %}
           {% endfor %}
-        </tr>
-      {% endif %}
-    {% endfor %}
-  </table>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
