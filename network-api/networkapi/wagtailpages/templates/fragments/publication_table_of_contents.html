@@ -42,7 +42,7 @@
                 </h3>
                 {% for grandchild in child_page.grandchildren %}
                   <h4 class="d-sm-block d-none body">
-                    <a href="{{ grandchild.url }}" class="d-block w-75 chapter-article-link">
+                    <a href="{{ grandchild.url }}" class="d-block w-75 publication-chapter-article-link">
                       {{ grandchild.title }}
                     </a>
                   </h4>
@@ -54,7 +54,7 @@
               <div class="pt-2 d-sm-none d-block">
                 {% for grandchild in child_page.grandchildren %}
                   <h4 class="body">
-                    <a href="{{ grandchild.url }}" class="d-block chapter-article-link">
+                    <a href="{{ grandchild.url }}" class="d-block publication-chapter-article-link">
                       {{ grandchild.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                     </a>
                   </h4>
