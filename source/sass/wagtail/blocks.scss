@@ -81,6 +81,9 @@
 .mozfest-content {
   &.two-col {
     @extend .col-lg-7;
+    .streamfield-content {
+      @extend .col-lg-12;
+    }
   }
   .streamfield-content {
     @extend .col-lg-8;
