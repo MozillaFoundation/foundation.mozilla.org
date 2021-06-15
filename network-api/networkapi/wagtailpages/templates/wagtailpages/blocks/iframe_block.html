@@ -12,7 +12,7 @@ use a 12 column grid.
   class="container {{block.block_type}}-block {% if self.wide_iframe %}wide{% endif %}">
   <div class="row justify-content-center no-gutters">
     <div class="streamfield-content">
-        <div class="my-default">
+        <div>
           <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"
             {% endif %}>
             <iframe src="{{ value.url }}" class="embed-responsive-item"></iframe>

@@ -5,7 +5,7 @@
 <div class="container {{block.block_type}}-block {% if value.wide_image %} wide w-100 mw-100 px-0 mx-0{% endif %}">
   <div class="row justify-content-center no-gutters">
     <div class="{% if value.wide_image %} wide {% else %} streamfield-content {% endif %} ">
-      <figure class="my-default">
+      <figure>
         <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
         {% if value.caption %}
         <figcaption class="body-small d-block mt-2">

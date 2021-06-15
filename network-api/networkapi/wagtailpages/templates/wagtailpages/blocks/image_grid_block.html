@@ -3,7 +3,7 @@
 <div class="container {{block.block_type}}-block">
 	<div class="row justify-content-center">
 		<div class="streamfield-content">
-			<div class="row my-default">
+			<div class="row">
 			{% for block in self.grid_items %}
 				{% with value=block count=self.grid_items|length %}
 				{% include "./figure_block.html" %}

@@ -26,7 +26,7 @@
 
 .article-page-content {
   .streamfield-content {
-    @extend .col-8;
+    @extend .col-10;
     &.wide {
       @extend .col-12;
     }
