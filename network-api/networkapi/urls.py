@@ -21,8 +21,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 # from wagtail.core import urls as wagtail_urls
 from .utility import watail_core_url_override as wagtail_urls
+from .sitemaps import sitemap
 
-from wagtail.contrib.sitemaps.views import sitemap
 from wagtail_footnotes import urls as footnotes_urls
 from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as image_url_tag_urls
 from networkapi.views import EnvVariablesView, review_app_help_view
@@ -69,7 +69,6 @@ urlpatterns = list(filter(None, [
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     re_path(r'^documents/', include(wagtaildocs_urls)),
-    re_path(r'^sitemap.xml$', sitemap),
 
     # Sentry test url
     path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
@@ -98,6 +97,8 @@ urlpatterns += i18n_patterns(
 
     # wagtail-managed data
     re_path(r'', include(wagtail_urls)),
+
+    path('sitemap.xml', cache_page(86400)(sitemap)),
 )
 
 if settings.USE_S3 is not True:
