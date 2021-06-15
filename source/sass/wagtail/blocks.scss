@@ -42,10 +42,14 @@
 .oppurtunity-page-content {
   .streamfield-content {
     @extend .col-lg-12;
+    @extend .px-0;
   }
 }
 
 .campaign-page-content {
+  .streamfield-content {
+    @extend .px-0;
+  }
   &.wide {
     .streamfield-content {
       @extend .col-12;
