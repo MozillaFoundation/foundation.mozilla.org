@@ -43,13 +43,25 @@
         </div>
       {% endblock %}
         {% block html_content %}
+        <div class="cms campaign-page-content wide">
           {% for block in page.body %}
-            {% if block.block_type == 'heading' %}
-                <h1>{{ block.value }}</h1>
+            {% if block.block_type == 'paragraph'%}
+              <div class="container {{block.block_type}}-block">
+                <div class="row justify-content-center">
+                  <div class="streamfield-content">
+                    {% if block.block_type == 'heading' %}
+                      <h1>{{ block.value }}</h1>
+                    {% else %}
+                      {% include_block block%}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
             {% else %}
-                {% include_block block %}
+              {% include_block block with parent_page=page %}
             {% endif %}
           {% endfor %}
+        </div>
         {% endblock %}
       </div>
 

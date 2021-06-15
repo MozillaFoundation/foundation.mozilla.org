@@ -1,52 +1,30 @@
 {% load wagtailcore_tags %}
 {% comment %}
-  The iframe_block.html is used on Article pages and Blog pages.
-  Blog pages need to break out of the current grid system and open a 12 column block
-  for it to align with other content.
-  The Article page doesn't require as much "breaking out" of the parent grid because there's
-  less nesting in the article pages. But we still need to break out of the grid, and
-  use a 12 column grid.
+The iframe_block.html is used on Article pages and Blog pages.
+Blog pages need to break out of the current grid system and open a 12 column block
+for it to align with other content.
+The Article page doesn't require as much "breaking out" of the parent grid because there's
+less nesting in the article pages. But we still need to break out of the grid, and
+use a 12 column grid.
 {% endcomment %}
 
-{% if page_type == "blog" %}
-  {# Break out of the blog_page.html containment grid #}
-      </div> <!-- End .blog-body -->
-    </div> <!-- End .cms -->
-  </div> <!-- End .col-lg-8 -->
-{% elif page_type == "article" %}
-  {# Break out of the article_page.html containment grid #}
-  </div> <!-- end .offset-sm-1.col-sm-10.col-12.article-blocks -->
-{% else %}
-  {# Mozfest page. Break out of the containment grid #}
+<div
+  class="container {{block.block_type}}-block {% if self.wide_iframe %}wide{% endif %}">
+  <div class="row justify-content-center no-gutters">
+    <div class="streamfield-content">
+        <div class="my-default">
+          <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"
+            {% endif %}>
+            <iframe src="{{ value.url }}" class="embed-responsive-item"></iframe>
+          </div>
+          {% if value.caption %}
+          <p class="body-small mt-2">
+            {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+              {{ value.caption }}
+              {% if value.captionURL %}</a>{% endif %}
+          </p>
+          {% endif %}
+        </div>
     </div>
   </div>
-{% endif %}
-
-  <div class="{% if self.wide_iframe %}col-lg-12{% else %}col-lg-8 offset-lg-2{% endif %} {% if page_type != 'blog' and page_type != 'article' %}p-0{% endif %}">
-    <div class="my-default">
-      <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"{% endif %}>
-        <iframe src="{{ value.url }}" class="embed-responsive-item"></iframe>
-      </div>
-      {% if value.caption %}
-      <p class="body-small mt-2">
-        {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-        {{ value.caption }}
-        {% if value.captionURL %}</a>{% endif %}
-      </p>
-      {% endif %}
-    </div>
-  </div> <!-- end .col-lg-12 -->
-
-{% if page_type == "blog" %}
-  {# Re-open the original grid even if it's immediately closed afterwards. #}
-  <div class="py-2 py-md-3 col-lg-8 offset-lg-2">
-    <div class="cms">
-      <div class="blog-body">
-{% elif page_type == "article" %}
-  {# Re-open the original article_page.html grid #}
-  <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
-{% else %}
-  {# Re-open the Mozfest containment grid #}
-    <div class="row">
-  <div class="cms col-lg-8 offset-lg-2">
-{% endif %}
+</div>

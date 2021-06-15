@@ -27,19 +27,45 @@
 .article-page-content {
   .streamfield-content {
     @extend .col-8;
+    &.wide {
+      @extend .col-12;
+    }
   }
 }
 
 .blog-body {
-  // margin-top: 80px;
   .streamfield-content {
     @extend .col-lg-8;
   }
 }
 
 .oppurtunity-page-content {
-  // margin-top: 80px;
   .streamfield-content {
     @extend .col-lg-12;
+  }
+}
+
+.campaign-page-content {
+  &.wide {
+    .streamfield-content {
+      @extend .col-12;
+    }
+  }
+
+  &.narrow {
+    .streamfield-content {
+      @extend .col-7;
+    }
+  }
+}
+
+.image-block {
+  @extend .px-0;
+}
+
+.iframe-block {
+  @extend .px-0;
+  .wide {
+    @extend .col-12;
   }
 }

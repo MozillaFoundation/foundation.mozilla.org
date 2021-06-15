@@ -25,15 +25,6 @@
         {{ page.title }}
       {% endif %}
     </h1>
-    <!-- <div class="cms">
-      {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-          <h1>{{ block.value }}</h1>
-        {% else %}
-          {% include_block block %}
-        {% endif %}
-      {% endfor %}
-    </div> -->
     <div class="cms oppurtunity-page-content">
       {% for block in page.body %}
         {% if block.block_type == 'paragraph'%}
