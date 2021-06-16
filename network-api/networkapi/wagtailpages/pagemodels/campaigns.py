@@ -3,7 +3,7 @@ import json
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
-from wagtail.core.models import TranslatableMixin, TranslatableMixin, Page
+from wagtail.core.models import TranslatableMixin, Page
 from wagtail.core.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
