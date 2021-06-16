@@ -21,10 +21,8 @@
 
 {% block subcontent %}
 
-
 <div class="cms blog-body">
-
-  <div class="container">
+  <div class="container share-button-blog-title-container">
     <div class="row">
       <div class="blog-sticky-side-container offset-lg-1 col-lg-1 pt-4 pt-md-5 text-center d-print-none">
         <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end">
@@ -33,6 +31,7 @@
             data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
         </div>
       </div>
+
       <div class="pt-4 pt-md-5 col-lg-8">
         <div class="cms {% if show_comments %}mb-5{% endif %}">
           <h1 class="h1-heading">{{ page.title }}</h1>
