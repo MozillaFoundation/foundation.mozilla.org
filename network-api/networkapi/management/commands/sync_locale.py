@@ -14,7 +14,7 @@ class Command(BaseCommand):
             if language_code != 'en':
                 print(f"{language_code} ({name})")
 
-        language_code = input("Language code: ").lower()
+        language_code = input("Language code: ")
 
         # Confirm the language code is in the WAGTAIL_CONTENT_LANGUAGES
         language_codes_dict = dict(settings.WAGTAIL_CONTENT_LANGUAGES)
