@@ -347,6 +347,7 @@ class ParticipatePage2(PrimaryPage):
 class Styleguide(PrimaryPage):
     template = 'wagtailpages/static/styleguide.html'
 
+
 class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         'wagtailpages.Homepage',
@@ -453,7 +454,7 @@ class CTABase(WagtailOrderable, models.Model):
     def __str__(self):
         return self.page.title + '->' + self.highlight.title
 
-# from wagtail.core.models import BootstrapTranslatableModel
+
 class CTA4(TranslatableMixin, CTABase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
@@ -492,11 +493,14 @@ class ParticipateHighlights(ParticipateHighlightsBase):
 
     class Meta(TranslatableMixin.Meta):
         pass
+
+
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
         related_name='featured_highlights2',
     )
+
     class Meta(TranslatableMixin.Meta):
         pass
 
