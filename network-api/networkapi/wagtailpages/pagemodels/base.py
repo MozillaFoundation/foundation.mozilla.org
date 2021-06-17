@@ -494,6 +494,7 @@ class ParticipateHighlights(ParticipateHighlightsBase):
     class Meta(TranslatableMixin.Meta):
         pass
 
+
 class ParticipateHighlights2(ParticipateHighlightsBase):
     page = ParentalKey(
         'wagtailpages.ParticipatePage2',
