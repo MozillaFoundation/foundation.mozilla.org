@@ -291,8 +291,13 @@ class BanneredCampaignPage(PrimaryPage):
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
+        TranslatableField('header'),
+        TranslatableField('intro'),
+        TranslatableField('body'),
         TranslatableField("title"),
         SynchronizedField("banner"),
+        SynchronizedField("narrowed_page_content"),
+        SynchronizedField("zen_nav"),
         TranslatableField("cta"),
         TranslatableField("signup"),
     ]
