@@ -224,7 +224,7 @@ wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail-modeltranslation==0.10.17
     # via -r requirements.in
-wagtail==2.12.4
+wagtail==2.12.5
     # via
     #   -r requirements.in
     #   wagtail-airtable
