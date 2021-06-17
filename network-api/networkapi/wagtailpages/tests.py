@@ -239,7 +239,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.redirect_chain[0][0], product.url)
 
     def test_sitemap_entries(self):
-        response = self.client.get('/sitemap.xml')
+        response = self.client.get('/en/sitemap.xml')
         context = response.context
 
         self.assertEqual(context.template_name, 'sitemap.xml')
