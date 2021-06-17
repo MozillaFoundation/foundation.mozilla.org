@@ -535,6 +535,12 @@ class FocusArea(TranslatableMixin, models.Model):
         PageChooserPanel('page'),
     ]
 
+    translatable_fields = [
+        SynchronizedField('interest_icon'),
+        TranslatableField('name'),
+        TranslatableField('description'),
+    ]
+
     def __str__(self):
         return self.name
 

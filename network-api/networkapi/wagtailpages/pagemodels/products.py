@@ -108,6 +108,12 @@ class BuyersGuideProductCategory(TranslatableMixin, models.Model):
         blank=True,
     )
 
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('description'),
+        SynchronizedField('slug'),
+    ]
+
     @property
     def published_product_page_count(self):
         return ProductPage.objects.filter(product_categories__category=self).live().count()
@@ -273,6 +279,13 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     search_fields = [
         index.SearchField('title', partial_match=True),
+    ]
+
+    translatable_fields = [
+        SynchronizedField('source'),
+        SynchronizedField('title'),
+        SynchronizedField('author'),
+        SynchronizedField('snippet'),
     ]
 
     def __str__(self):
