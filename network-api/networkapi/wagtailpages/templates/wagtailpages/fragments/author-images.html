@@ -1,0 +1,11 @@
+{% load i18n wagtailimages_tags %}
+
+<div class="author-images d-flex flex-wrap">
+    {% for author in authors %}
+        <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}" aria-label="{{ author.name }}">
+            {% if author.image %}
+            <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}" />
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
