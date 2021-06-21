@@ -190,6 +190,9 @@ class Petition(TranslatableMixin, CTA):
         TranslatableField('comment_requirements'),
         TranslatableField('checkbox_1'),
         TranslatableField('checkbox_2'),
+        SynchronizedField('share_twitter'),
+        SynchronizedField('share_facebook'),
+        SynchronizedField('share_email'),
         TranslatableField('thank_you'),
         # Fields from the CTA model
         TranslatableField('header'),
