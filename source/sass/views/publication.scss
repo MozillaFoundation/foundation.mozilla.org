@@ -1,5 +1,5 @@
 // PublicationPage-specific styling.
-// Also see chapter-page.scss and article-page.scss
+// Also see article-page.scss
 // "ChapterPage" is a child PublicationPage.
 // PublicationPage is the most parent PublicationPage
 
@@ -133,5 +133,9 @@
 
   .publication-chapter-title {
     margin-top: 29px;
+  }
+
+  .publication-chapter-article-link {
+    line-height: 24px;
   }
 }
