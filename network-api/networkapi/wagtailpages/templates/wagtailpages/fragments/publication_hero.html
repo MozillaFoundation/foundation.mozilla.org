@@ -42,16 +42,7 @@
           </div>
         {% endif %}
         <div class="blog-authors d-flex flex-wrap align-items-center">
-          <div class="author-images d-flex flex-wrap">
-            {% for author in page.authors.all %}
-              <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}">
-              {% if author.author.image %}
-                {% image author.author.image fill-100x100 as img %}
-                <img src="{{ img.url }}" alt="{{ author.author.name }}" title="{{ author.author.name }}" />
-              {% endif %}
-              </div>
-            {% endfor %}
-          </div>
+          {% include "./author-images.html" with authors=page.authors.all %}
         </div>
         {% if page.authors.count %}
           <div class="mt-2 dark-theme">
