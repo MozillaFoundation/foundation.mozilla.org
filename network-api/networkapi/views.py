@@ -19,3 +19,7 @@ def review_app_help_view(request):
         return render(request, 'reviewapp-help.html')
     else:
         return HttpResponse(status=404)
+
+
+def YoutubeRegrets2021View(request):
+   return render(request, 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_2021.html')

@@ -1,0 +1,40 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_id %}youtube-regrets-reporter{% endblock %}
+{% block bodyclass %}has-regrets-intro{% endblock %}
+
+{% block extended_head %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
+{% endblock %}
+
+{# Empty header; Do not add <header role="banner"> to the page #}
+{% block header_wrapped %}
+  <header class="">
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-6">
+          <h2>Youtube Regrets</h2>
+          <p>Mozilla and 37,380 YouTube users conducted a study to better understand regrettable YouTube recommendations.
+            This is what we learned.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block wagtail_metadata %}
+{% endblock %}
+
+{% block content_wrapped %}
+  <main role="main">
+    {% block main %}
+    {% endblock %}
+  </main>
+{% endblock %}
+
+
+{% block footer_block %}
+  {% include "partials/footer.html" %}
+{% endblock %}
