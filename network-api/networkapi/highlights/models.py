@@ -9,6 +9,8 @@ from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
+from wagtail_localize.fields import TranslatableField
+
 from networkapi.utility.images import get_image_upload_path
 
 
@@ -96,6 +98,13 @@ class Highlight(TranslatableMixin, SortableMixin):
         FieldPanel("footer"),
         FieldPanel("publish_after"),
         FieldPanel("expires"),
+    ]
+
+    translatable_fields = [
+        TranslatableField('title'),
+        TranslatableField('description'),
+        TranslatableField('link_label'),
+        TranslatableField('footer'),
     ]
 
     objects = HighlightQuerySet.as_manager()
