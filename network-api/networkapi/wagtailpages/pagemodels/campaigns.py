@@ -68,6 +68,12 @@ class Signup(TranslatableMixin, CTA):
         default=False,
     )
 
+    translatable_fields = [
+        # Fields from the CTA model
+        TranslatableField('header'),
+        TranslatableField('description'),
+    ]
+
     class Meta(TranslatableMixin.Meta):
         verbose_name = 'signup snippet'
 
@@ -176,6 +182,22 @@ class Petition(TranslatableMixin, CTA):
         help_text='Message to show after thanking people for signing',
         default='Thank you for signing too!',
     )
+
+    translatable_fields = [
+        # This models fields
+        SynchronizedField('requires_country_code'),
+        SynchronizedField('requires_postal_code'),
+        TranslatableField('comment_requirements'),
+        TranslatableField('checkbox_1'),
+        TranslatableField('checkbox_2'),
+        SynchronizedField('share_twitter'),
+        SynchronizedField('share_facebook'),
+        SynchronizedField('share_email'),
+        TranslatableField('thank_you'),
+        # Fields from the CTA model
+        TranslatableField('header'),
+        TranslatableField('description'),
+    ]
 
     class Meta(TranslatableMixin.Meta):
         verbose_name = 'petition snippet'
