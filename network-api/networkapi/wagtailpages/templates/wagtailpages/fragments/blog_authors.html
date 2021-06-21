@@ -3,15 +3,7 @@
 {% get_blog_page_authors blog_page as authors %}
 
 <div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
-  <div class="author-images d-flex flex-wrap">
-  {% for author in authors %}
-    <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}" aria-label="{{ author.name }}">
-    {% if author.image %}
-      <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}" />
-    {% endif %}
-    </div>
-  {% endfor %}
-  </div>
+  {% include "./author-images.html" with authors=authors %}
 
   <p class="body-small my-2">
     {% with authors_length=authors|length %}
