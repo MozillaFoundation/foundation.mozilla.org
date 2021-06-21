@@ -30,5 +30,5 @@ whitenoise
 psycopg2-binary
 cloudinary
 sentry-sdk
-wagtail-footnotes
+git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
 scout-apm
