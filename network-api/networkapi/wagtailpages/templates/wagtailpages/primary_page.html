@@ -22,11 +22,7 @@
         <div class="container {{block.block_type}}-block">
           <div class="row justify-content-center">
             <div class="streamfield-content">
-              {% if block.block_type == 'heading' %}
-                <h1>{{ block.value }}</h1>
-              {% else %}
                 {% include_block block%}
-              {% endif %}
             </div>
           </div>
         </div>
