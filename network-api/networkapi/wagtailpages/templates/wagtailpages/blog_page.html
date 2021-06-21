@@ -16,16 +16,23 @@
   <link rel="canonical" href="{{ page.full_url }}" />
 {% endblock %}
 
+  {% block hero_guts %}
+  {% if page.hero_image != None %}
+    {% include "./fragments/video_heroguts.html" with root=root page=page homepage=True banner_video_type="hardcoded" %}
+  {% endif %}
 
+  {% endblock %}
 {% block body_id %}blog{% endblock %}
 
+
 {% block subcontent %}
-  <div class="offset-lg-1 col-lg-1 py-4 py-md-5 text-center d-print-none">
+
+  <div class="offset-lg-1 col-lg-1 my-md-3 text-center d-print-none">
     <div class="blog-sticky-side d-none d-lg-flex justify-content-lg-end">
       <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked" data-share-text="{% blocktrans with title=page.title %}{{ title }} by @mozilla{% endblocktrans %}" data-link="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"></div>
     </div>
   </div>
-  <div class="py-4 py-md-5 col-lg-8">
+  <div class="col-lg-8 mb-5">
     <div class="cms {% if show_comments %}mb-5{% endif %}">
       <h1 class="h1-heading">{{ page.title }}</h1>
       {% include "./fragments/blog_authors.html" with blog_page=page show_full_info=True %}
