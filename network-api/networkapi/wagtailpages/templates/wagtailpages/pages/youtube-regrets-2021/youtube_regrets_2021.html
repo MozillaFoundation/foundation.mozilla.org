@@ -1,8 +1,8 @@
 {% extends "pages/base.html" %}
 {% load wagtailcore_tags %}
 
-{% block body_id %}youtube-regrets-reporter{% endblock %}
-{% block bodyclass %}has-regrets-intro{% endblock %}
+{% block body_id %}youtube-regrets-2021{% endblock %}
+{% block bodyclass %}youtube-regrets-2021{% endblock %}
 
 {% block extended_head %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
@@ -30,6 +30,9 @@
 {% block content_wrapped %}
   <main role="main">
     {% block main %}
+      <div class="accordion-block">
+          {% include 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_accordion.html' %}
+      </div>
     {% endblock %}
   </main>
 {% endblock %}

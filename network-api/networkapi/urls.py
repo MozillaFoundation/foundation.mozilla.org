@@ -74,7 +74,8 @@ urlpatterns = list(filter(None, [
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),
 
-    path("yt-2021", YoutubeRegrets2021View)
+    path("yt-2021/", YoutubeRegrets2021View)
+
 ]))
 
 # Anything that needs to respect the localised
