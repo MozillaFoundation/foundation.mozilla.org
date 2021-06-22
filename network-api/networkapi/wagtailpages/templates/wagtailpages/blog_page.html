@@ -16,8 +16,14 @@
 <link rel="canonical" href="{{ page.full_url }}" />
 {% endblock %}
 
+  {% block hero_guts %}
+  {% if page.hero_image != None %}
+    {% include "./fragments/video_heroguts.html" with root=root page=page homepage=True banner_video_type="hardcoded" %}
+  {% endif %}
 
+  {% endblock %}
 {% block body_id %}blog{% endblock %}
+
 
 {% block subcontent %}
 
