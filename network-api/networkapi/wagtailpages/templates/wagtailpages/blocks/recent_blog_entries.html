@@ -1,25 +1,22 @@
-{% load i18n %}
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags i18n %}
 
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
-      {% if entries|length != 0 %}
-      <div class="recent-blog-entries index-entries row mx-0 d-flex flex-column {{ divider_styles }}">
-        <div class="mb-4">
-          <h3>{{ value.title }}</h3>
-        </div>
-        <div class="row">
-          {% include "../fragments/entry_cards.html" %}
-        </div>
-        {% if more_entries %}
-        <div class="col-12 text-center mb-5">
-          <a class="btn btn-secondary text" href="{{ more_entries_link }}">
-            {% trans "More from our blog" %}
-          </a>
-        </div>
-        {% endif %}
-      </div>
-      {% endif %}
+{% block block_content  %}
+  {% if entries|length != 0 %}
+  <div class="recent-blog-entries index-entries row my-default mx-0 d-flex flex-column {{ divider_styles }}">
+    <div class="mb-4">
+      <h3>{{ value.title }}</h3>
     </div>
+    <div class="row">
+      {% include "../fragments/entry_cards.html" %}
+    </div>
+    {% if more_entries %}
+    <div class="col-12 text-center mb-5">
+      <a class="btn btn-secondary text" href="{{ more_entries_link }}">
+        {% trans "More from our blog" %}
+      </a>
+    </div>
+    {% endif %}
   </div>
-</div>
+  {% endif %}
+{% endblock %}

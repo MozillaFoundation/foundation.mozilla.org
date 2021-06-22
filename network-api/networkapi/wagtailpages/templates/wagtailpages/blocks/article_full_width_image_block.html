@@ -1,27 +1,31 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailimages_tags wagtailcore_tags custom_image_tags remove_richtext_wrapping %}
 
+{% block block_row_classes%}
+no-gutters
+{% endblock %}
 
-<div class="container {{block.block_type}}-block  wide w-100 mw-100 px-0 mx-0">
-  <div class="row justify-content-center no-gutters">
-    <div class="wide">
-      <div class="full-width-image-block">
-        {% custom_image_height self.image self.image_height as img %}
-        <figure>
-          <img src="{{ img.url }}" alt="{{ img.alt }}" class="w-100" />
-          {% if self.caption %}
-            <div class="container">
-              <div class="row">
-                <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+{% block main_block_class %}
+wide
+{% endblock %}
 
-                  <figcaption>
-                    {{ self.caption|richtext|remove_wrapping|safe }}
-                  </figcaption>
-                </div>
+{% block block_content %}
+    <div class="full-width-image-block">
+      {% custom_image_height self.image self.image_height as img %}
+      <figure class="my-default">
+        <img src="{{ img.url }}" alt="{{ img.alt }}" class="w-100" />
+        {% if self.caption %}
+          <div class="container">
+            <div class="row">
+              <div class="offset-sm-1 col-sm-10 col-12 article-blocks">
+
+                <figcaption>
+                  {{ self.caption|richtext|remove_wrapping|safe }}
+                </figcaption>
               </div>
             </div>
-          {% endif %}
-        </figure>
-      </div>
+          </div>
+        {% endif %}
+      </figure>
     </div>
-  </div>
-</div>
+{% endblock %}

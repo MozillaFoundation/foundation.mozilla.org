@@ -1,10 +1,8 @@
-<div class="container {{block.block_type}}-block">
-    <div class="row justify-content-center no-gutters">
-        <div class="streamfield-content">
-            <script async defer src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script><iframe
-                class="airtable-embed mb-4 airtable-dynamic-height" src="{{ value.url }}" frameborder="0"
-                onmousewheel="" width="100%" height="{{ value.height }}"
-                style="background: transparent; border: 1px solid #ccc;"></iframe>
-        </div>
-    </div>
-</div>
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+    <script async defer src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script><iframe
+        class="airtable-embed mb-4 airtable-dynamic-height" src="{{ value.url }}" frameborder="0" width="100%"
+        height="{{ value.height }}"></iframe>
+{% endblock %}

@@ -3,9 +3,8 @@
 <div class="container {{block.block_type}}-block {% if value.wide_image %} wide w-100 mw-100 px-0 mx-0{% endif %}">
   <div class="row justify-content-center no-gutters">
     <div class="article-image-block {% if value.wide_image %} wide {% else %} streamfield-content {% endif %} ">
-      {% comment %}Use a 2x resolution image{% endcomment %}
       {% image self.image width-1840 as img %}
-      <figure>
+      <figure class="my-default">
         <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
           class="w-100" />
         {% if self.caption %}

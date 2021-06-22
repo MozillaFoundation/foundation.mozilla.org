@@ -1,11 +1,8 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags %}
 
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
-      <div>
-        <a class="btn {{ value.styling }}" href="{{ value.URL }}">{{ value.label }}</a>
-      </div>
-    </div>
-  </div>
+{% block block_content  %}
+<div class="my-default">
+  <a class="btn {{ value.styling }} link-button" href="{{ value.URL }}">{{ value.label }}</a>
 </div>
+{% endblock %}

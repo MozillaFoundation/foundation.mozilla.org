@@ -1,14 +1,13 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
 
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
-      <a
-        id="btn-typeform-popup"
-        class="btn {{ value.button_type }} my-3"
-        href="https://form.typeform.com/to/{{ value.embed_id }}"
-        target="_blank">{{ value.button_text }}</a>
+{% block block_content  %}
+  <a
+    id="btn-typeform-popup"
+    class="btn {{ value.button_type }} my-3"
+    href="https://form.typeform.com/to/{{ value.embed_id }}"
+    target="_blank">{{ value.button_text }}</a>
 
-      <script async defer src="https://embed.typeform.com/embed.js" ></script>
-    </div>
-  </div>
-</div>
+  <script async defer src="https://embed.typeform.com/embed.js" ></script>
+
+{% endblock %}

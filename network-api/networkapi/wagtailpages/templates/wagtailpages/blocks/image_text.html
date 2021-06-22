@@ -1,37 +1,32 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-
-
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
-      <div class="row">
-        {% if value.small %}
-          <div class="col-12 d-flex flex-nowrap">
-            <div class="mr-3" style="width:50px; flex-shrink:0;">
-              {% if value.url %}<a href="{{ value.url }}">{% endif %}
-                {% image value.image fill-100x100-c100 format-jpeg class="w-100" %}
-              {% if value.url %}</a>{% endif %}
-            </div>
-            <div>
-              {{ value.text|richtext }}
-            </div>
-          </div>
-        {% else %}
-        <div class="col-12 image-text-img">
-            <div class="col-12 px-0 d-md-flex align-items-md-center {{ divider_styles }}">
-              <div class="col-12 col-md-3 mb-3 mb-md-0 pl-0">
-              {% if value.url %}<a href="{{ value.url }}">{% endif %}
-                {% image value.image fill-760x760-c100 format-jpeg %}
-              {% if value.url %}</a>{% endif %}
-              </div>
-              <div class="col-12 col-md-9 pl-0">
-                  {{ value.text|richtext }}
-              </div>
-            </div>
+{% block block_content  %}
+  <div class="row my-4">
+    {% if value.small %}
+      <div class="col-12 d-flex flex-nowrap">
+        <div class="mr-3" style="width:50px; flex-shrink:0;">
+          {% if value.url %}<a href="{{ value.url }}">{% endif %}
+            {% image value.image fill-100x100-c100 format-jpeg class="w-100" %}
+          {% if value.url %}</a>{% endif %}
         </div>
-        {% endif %}
+        <div>
+          {{ value.text|richtext }}
+        </div>
       </div>
+    {% else %}
+    <div class="col-12 image-text-img">
+        <div class="col-12 px-0 d-md-flex align-items-md-center {{ divider_styles }}">
+          <div class="col-12 col-md-3 mb-3 mb-md-0 pl-0">
+          {% if value.url %}<a href="{{ value.url }}">{% endif %}
+            {% image value.image fill-760x760-c100 format-jpeg %}
+          {% if value.url %}</a>{% endif %}
+          </div>
+          <div class="col-12 col-md-9 pl-0">
+              {{ value.text|richtext }}
+          </div>
+        </div>
     </div>
+    {% endif %}
   </div>
-</div>
+{% endblock %}

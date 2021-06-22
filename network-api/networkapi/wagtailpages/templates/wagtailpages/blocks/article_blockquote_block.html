@@ -1,10 +1,9 @@
 
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
-      <div class="article-blockquote-block mx-auto my-4 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
-        {{ self }}
-      </div>
-    </div>
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block block_content  %}
+  <div class="article-blockquote-block mx-auto my-4 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
+    {{ self }}
   </div>
-</div>
+{% endblock %}

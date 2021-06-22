@@ -1,16 +1,15 @@
-{% load static %}
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
 
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
-      <div class="profiles" data-program-type="{{ value.program_type }}" data-program-year="{{ value.program_year }}"
+{% block block_content %}
+<div class="profiles"
+        data-program-type="{{ value.program_type }}"
+        data-program-year="{{ value.program_year }}"
         data-profile-type="{{ value.profile_type }}">
-        <div class="row">
-          {% for profile in profiles %}
-          {% include "./profile_block.html" with profile=profile %}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+  <div class="row">
+    {% for profile in profiles %}
+    {% include "./profile_block.html" with profile=profile %}
+    {% endfor %}
   </div>
 </div>
+{% endblock %}

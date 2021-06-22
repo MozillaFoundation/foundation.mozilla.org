@@ -8,23 +8,30 @@ less nesting in the article pages. But we still need to break out of the grid, a
 use a 12 column grid.
 {% endcomment %}
 
-<div
-  class="container {{block.block_type}}-block {% if self.wide_iframe %}wide{% endif %}">
-  <div class="row justify-content-center no-gutters">
-    <div class="streamfield-content">
-        <div>
-          <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"
-            {% endif %}>
-            <iframe src="{{ value.url }}" class="embed-responsive-item"></iframe>
-          </div>
-          {% if value.caption %}
-          <p class="body-small mt-2">
-            {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-              {{ value.caption }}
-              {% if value.captionURL %}</a>{% endif %}
-          </p>
-          {% endif %}
-        </div>
-    </div>
+
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block block_row_classes%}
+no-gutters
+{% endblock %}
+
+{% block main_block_class %}
+{% if value.wide_iframe %} wide {% else %} streamfield-content {% endif %}
+{% endblock %}
+
+{% block block_content %}
+<div class="my-default">
+  <div class="embed-responsive embed-responsive-16by9" {% if value.height %}style="height: {{value.height}}px;"
+    {% endif %}>
+    <iframe src="{{ value.url }}" class="embed-responsive-item"></iframe>
   </div>
+  {% if value.caption %}
+  <p class="body-small mt-2">
+    {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+      {{ value.caption }}
+      {% if value.captionURL %}</a>{% endif %}
+  </p>
+  {% endif %}
 </div>
+{% endblock %}

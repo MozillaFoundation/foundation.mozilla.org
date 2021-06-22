@@ -1,9 +1,7 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags %}
 
-
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
+{% block block_content %}
       <div class="article-table-block table-responsive">
         <table class="table">
           {% if self.caption %}
@@ -57,3 +55,4 @@
     </div>
   </div>
 </div>
+{% endblock %}

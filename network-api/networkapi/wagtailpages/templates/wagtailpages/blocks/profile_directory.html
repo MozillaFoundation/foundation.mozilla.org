@@ -1,24 +1,21 @@
-{% load static %}
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags static %}
 
-<div class="container {{block.block_type}}-block">
-  <div class="row justify-content-center">
-    <div class="streamfield-content">
-      <div class="fellowships-directory-filter px-2 mb-5">
-        {% for label in filters %}
-        <div class="filter-option">
-          <button {% if forloop.first %}class="active" {% endif %}>{{ label }}</button>
-        </div>
-        {% endfor %}
-      </div>
+{% block block_content  %}
+  <div class="fellowships-directory-filter px-2 mb-5">
+    {% for label in filters %}
+    <div class="filter-option">
+      <button {% if forloop.first %}class="active" {% endif %}>{{ label }}</button>
     </div>
-    <div class="profile-directory">
-
-      {% include "./profile_blocks.html" %}
-
-      {% if filters|length > 0 %}
-      <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
-      <script src="{% static '_js/directory-listing-filters.compiled.js' %}" async defer></script>
-      {% endif %}
-    </div>
+    {% endfor %}
   </div>
-</div>
+  </div>
+  <div class="profile-directory">
+
+  {% include "./profile_blocks.html" %}
+
+  {% if filters|length > 0 %}
+  <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
+  <script src="{% static '_js/directory-listing-filters.compiled.js' %}" async defer></script>
+  {% endif %}
+{% endblock %}
