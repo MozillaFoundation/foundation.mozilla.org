@@ -90,7 +90,16 @@ class OpportunityPage(MiniSiteNameSpace):
         'RedirectingPage',
         'PublicationPage',
         'ArticlePage'
+    ]
 
+    translatable_fields = [
+        # Promote tab fields
+        TranslatableField('seo_title'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('header'),
+        TranslatableField('body'),
     ]
 
     class Meta:
