@@ -78,7 +78,7 @@ django-modelcluster==5.1
     # via wagtail
 django-modeltranslation==0.15
     # via wagtail-modeltranslation
-django-redis==4.12.1
+django-redis==5.0.0
     # via -r requirements.in
 django-storages==1.11.1
     # via -r requirements.in
