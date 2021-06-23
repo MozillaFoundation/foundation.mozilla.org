@@ -16,7 +16,7 @@ wide
 {% block block_content %}
     <div class="full-width-image-block">
       {% custom_image_height self.image self.image_height as img %}
-      <figure class="my-2">
+      <figure class="my-default">
         <img src="{{ img.url }}" alt="{{ img.alt }}" class="w-100" />
         {% if self.caption %}
           <div class="container">
