@@ -16,7 +16,7 @@
 
   {% primary_page_menu page %}
 
-  <div class="cms primary-page-content mb-5 {% if page.specific.narrowed_page_content %} narrow {% else %} wide {% endif %}">
+  <div class="cms primary-page-content mb-5 pb-3 {% if page.specific.narrowed_page_content %} narrow {% else %} wide {% endif %}">
     {% for block in page.body %}
       {% if block.block_type == 'paragraph'%}
         <div class="container {{block.block_type}}-block">
