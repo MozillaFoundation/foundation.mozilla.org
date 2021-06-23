@@ -90,3 +90,7 @@
 .share-button-blog-title-container {
   margin-bottom: -2em;
 }
+
+.full-width-image-block {
+  @extend .wide;
+}

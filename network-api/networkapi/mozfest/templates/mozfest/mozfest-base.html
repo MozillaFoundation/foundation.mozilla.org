@@ -38,7 +38,7 @@
         {# Use a two-column layout #}
         <div class="container">
           <div class="row">
-            <div class="cms mozfest-content two-col">
+            <div class="cms mozfest-content two-col mb-5">
               {% include "partials/streamfield.html" with twocolumn=True %}
             </div>
             {% block cta %}{% include "partials/signup.html" %}{% endblock %}
@@ -47,7 +47,7 @@
       {% else %}
 
         {# Single column layout #}
-        <div class="cms mozfest-content">
+        <div class="cms mozfest-content mb-3">
           {% include "partials/streamfield.html" %}
         </div>
 
