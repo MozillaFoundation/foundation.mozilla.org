@@ -45,38 +45,18 @@
     }
   }
 
-  // TODO:FIXME:
-  // This ruleset is too specific to be included in this mixin
-  // Let's move the rules to the .heart-glyph block below (around line 75)
-  // , after the @include hover-glyph("heart-hover"); rule
-  // Note: remember to verify styling still looks the same
-  &.heart-glyph {
-    &::before {
-      width: 19px;
-      height: 16px;
-      margin-right: 6px;
-      position: relative;
-      top: 2px;
-    }
-  }
-
-  // TODO:FIXME:
-  // This ruleset is too specific to be included in this mixin
-  // Let's move the rules to the .form-error-glyph block below (around line 94)
-  // , after the @include hover-glyph("form-error-glyph"); rule
-  // Note: remember to verify styling still looks the same
-  &.form-error-glyph {
-    &::before {
-      width: 13px;
-      height: 13px;
-      margin-right: 10px;
-    }
-  }
 }
 
 .heart-glyph {
   @include composite-glyph("heart");
   @include hover-glyph("heart-hover");
+  &::before {
+    width: 19px;
+    height: 16px;
+    margin-right: 6px;
+    position: relative;
+    top: 2px;
+  }
 }
 
 .donate {
@@ -95,6 +75,11 @@
 
 .form-error-glyph {
   @include composite-glyph("form-error");
+  &::before {
+    width: 13px;
+    height: 13px;
+    margin-right: 10px;
+  }
 }
 
 .dark-theme {
