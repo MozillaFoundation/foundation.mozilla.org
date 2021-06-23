@@ -69,28 +69,3 @@
     }
   }
 }
-
-// Mixin for resetting active nav link style
-@mixin reset-active-nav-style() {
-  .multipage-link.active {
-    color: $gray-60;
-    border-bottom: none;
-
-    // Additional overwriting class for the /privacynotincluded/about/* pages
-    // TODO:FIXME:
-    // This rulset is too specific to be included in this mixin
-    // Let's replace the @include reset-active-nav-style(); line in
-    // in the #view-about { } block in source/sass/buyers-guide/views/about.scss
-    // with these rules.
-    // Note: remember to verify styling still looks the same
-    &.about-link {
-      color: $black;
-      border-bottom: 3px solid $black;
-    }
-
-    &:hover {
-      color: $black;
-      border-bottom: 3px solid $black;
-    }
-  }
-}
