@@ -2,7 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block block_content  %}
-	<div class="row my-default">
+	<div class="row my-2">
 		{% for block in self.grid_items %}
 			{% with value=block count=self.grid_items|length %}
 			{% include "./figure_block.html" %}

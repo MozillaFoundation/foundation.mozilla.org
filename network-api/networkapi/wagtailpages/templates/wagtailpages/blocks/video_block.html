@@ -2,6 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block block_content  %}
+<div class="my-2">
     <div class="embed-responsive embed-responsive-16by9 d-print-none">
       <iframe
         src="{{ value.url }}"
@@ -18,4 +19,5 @@
       {% if value.captionURL %}</a>{% endif %}
     </p>
     {% endif %}
+</div>
 {% endblock %}

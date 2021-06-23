@@ -1,8 +1,8 @@
 {% extends "./base_streamfield_block.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags static %}
 
 {% block block_content %}
-<div class="profiles"
+<div class="profiles my-2"
         data-program-type="{{ value.program_type }}"
         data-program-year="{{ value.program_year }}"
         data-profile-type="{{ value.profile_type }}">
