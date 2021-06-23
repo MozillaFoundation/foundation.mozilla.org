@@ -125,7 +125,7 @@ class ArticlePage(FoundationMetadataPageMixin, Page):
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
-        SynchronizedField('title'),
+        TranslatableField('title'),
         SynchronizedField('toc_thumbnail_image'),
         SynchronizedField('hero_image'),
         TranslatableField('subtitle'),
