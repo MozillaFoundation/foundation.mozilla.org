@@ -170,7 +170,7 @@ requests-oauthlib==1.3.0
     # via social-auth-core
 s3transfer==0.3.3
     # via boto3
-scout-apm==2.18.0
+scout-apm==2.19.0
     # via -r requirements.in
 sentry-sdk==0.19.5
     # via -r requirements.in
