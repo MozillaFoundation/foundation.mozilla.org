@@ -3,14 +3,14 @@
 
 {% block block_content  %}
   <div class="my-2">
-      {% for quote in value.quotes %}
-      {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
-      {% if forloop.counter is 1 %}
-      <div class="feature-quote">
-        <h3>{{quote.quote}}</h3>
-        <p class="h6-heading">{{quote.attribution}}</p>
-      </div>
-      {% endif %}
-      {% endfor %}
+    {% for quote in value.quotes %}
+    {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
+    {% if forloop.counter is 1 %}
+    <div class="feature-quote">
+      <h3>{{quote.quote}}</h3>
+      <p class="h6-heading">{{quote.attribution}}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
   </div>
 {% endblock %}

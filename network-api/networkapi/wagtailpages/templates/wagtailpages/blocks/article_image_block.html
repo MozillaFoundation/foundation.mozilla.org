@@ -1,11 +1,11 @@
 {% extends "./base_streamfield_block.html" %}
-{% load wagtailimages_tags wagtailcore_tags  remove_richtext_wrapping %}
+{% load wagtailimages_tags wagtailcore_tags remove_richtext_wrapping %}
 
-{% block block_container_classes%}
+{% block block_container_classes %}
 {% if value.wide_image %} wide w-100 mw-100 px-0 mx-0{% endif %}
 {% endblock %}
 
-{% block block_row_classes%}
+{% block block_row_classes %}
 no-gutters
 {% endblock %}
 

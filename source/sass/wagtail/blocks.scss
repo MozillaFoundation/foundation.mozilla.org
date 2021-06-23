@@ -19,14 +19,14 @@
 
   &.narrow {
     .streamfield-content {
-      @extend .col-8;
+      @extend .col-md-8;
     }
   }
 }
 
 .article-page-content {
   .streamfield-content {
-    @extend .col-10;
+    @extend .col-md-10;
     &.wide {
       @extend .col-12;
     }
@@ -58,7 +58,7 @@
 
   &.narrow {
     .streamfield-content {
-      @extend .col-7;
+      @extend .col-md-7;
     }
   }
 }

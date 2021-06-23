@@ -5,10 +5,9 @@
   <div class="fellowships-directory-filter px-2 mb-5">
     {% for label in filters %}
     <div class="filter-option">
-      <button {% if forloop.first %}class="active" {% endif %}>{{ label }}</button>
+      <button {% if forloop.first %}class="active"{% endif %}>{{ label }}</button>
     </div>
     {% endfor %}
-  </div>
   </div>
   <div class="profile-directory">
 

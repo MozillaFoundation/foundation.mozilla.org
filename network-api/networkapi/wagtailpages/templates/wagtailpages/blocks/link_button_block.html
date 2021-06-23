@@ -2,7 +2,5 @@
 {% load wagtailcore_tags %}
 
 {% block block_content  %}
-<div class="my-2">
-  <a class="btn {{ value.styling }} link-button" href="{{ value.URL }}">{{ value.label }}</a>
-</div>
+  <a class="btn {{ value.styling }} link-button my-2" href="{{ value.URL }}">{{ value.label }}</a>
 {% endblock %}
