@@ -25,7 +25,7 @@ hr {
   border-color: $gray-20;
 
   &.intro-and-content-divider {
-    @include intro-and-content-spacing(true);
+    @include vertical-spacing(true);
   }
 }
 
