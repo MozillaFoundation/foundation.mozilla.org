@@ -275,7 +275,7 @@ class ParticipatePage2(PrimaryPage):
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
-        SynchronizedField('title'),
+        TranslatableField('title'),
         SynchronizedField('ctaHero'),
         TranslatableField('ctaHeroHeader'),
         TranslatableField('ctaHeroSubhead'),
