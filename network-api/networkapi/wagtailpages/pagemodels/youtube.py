@@ -66,6 +66,7 @@ class YoutubeRegretsPage(FoundationMetadataPageMixin, Page):
         TranslatableField('intro_text'),
         TranslatableField('intro_images'),
         TranslatableField('faq'),
+        TranslatableField('regret_stories'),
     ]
 
     zen_nav = True
