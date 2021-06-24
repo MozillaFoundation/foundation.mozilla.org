@@ -11,13 +11,9 @@
     @include set-text-size(26px, 35px, 52px, 48px);
   }
 
-  .accordion-block {
-    position: relative;
-    overflow: hidden;
-    height: 100vh;
-  }
-
   .yt-regrets-accordion {
+
+    position: relative;
 
     &__item {
       position: absolute;
@@ -33,11 +29,13 @@
       border-bottom: 2px solid $black;
       border-radius: 0 0 30px 30px;
       background: $white;
+      width: 100%;
+      height: 100%;
+      position: relative;
 
       @media (min-width: $bp-md) {
         padding: 2.5rem;
       }
-
     }
 
     &__button {
@@ -51,6 +49,12 @@
         @include set-text-size(30px, 32px, 38px, 39px);
         font-weight: 600;
       }
+    }
+
+    &__close-button {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
     }
 
     &__number {

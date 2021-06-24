@@ -1,7 +1,8 @@
-<div id="yt-regrets-accordion">
+{% load static i18n %}
+<div id="yt-regrets-accordion" class="yt-regrets-accordion">
   <div class="yt-regrets-accordion__item" data-accordion-drawer>
     <div class="yt-regrets-accordion__mask" data-expand-mask>
-      <div id="yt-accordion-content-01" class="yt-regrets-accordion__content" data-accordion-content>
+      <div id="yt-accordion-content-01" class="yt-regrets-accordion__content invisible" data-accordion-content>
         <div class="container">
           <div class="row justify-content-center">
             <div class="col col-md-10">
@@ -29,18 +30,19 @@
           </div>
         </div>
       </button>
+
+      <button class="yt-regrets-accordion__close-button btn d-none p-0" aria-label="{% trans "Close Tab" %}" data-accordion-close-button>
+        <img src="{% static "_images/youtube-regrets/close.svg" %}" alt="">
+      </button>
     </div>
   </div>
 
   <div class="yt-regrets-accordion__item" data-accordion-drawer>
     <div class="yt-regrets-accordion__mask" data-expand-mask>
-      <div id="yt-accordion-content-01" class="yt-regrets-accordion__content" data-accordion-content>
+      <div id="yt-accordion-content-01" class="yt-regrets-accordion__content invisible" data-accordion-content>
         <div class="container">
           <div class="row justify-content-center">
             <div class="col col-md-10">
-              <p>71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. </p>
-              <p>71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. </p>
-              <p>71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. </p>
               <p>71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. </p>
               <p>71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. </p>
             </div>
@@ -62,8 +64,45 @@
           </div>
         </div>
       </button>
+
+      <button class="yt-regrets-accordion__close-button btn d-none p-0" aria-label="{% trans "Close Tab" %}" data-accordion-close-button>
+        <img src="{% static "_images/youtube-regrets/close.svg" %}" alt="">
+      </button>
+    </div>
+  </div>
+
+  <div class="yt-regrets-accordion__item" data-accordion-drawer>
+    <div class="yt-regrets-accordion__mask" data-expand-mask>
+      <div id="yt-accordion-content-01" class="yt-regrets-accordion__content invisible" data-accordion-content>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col col-md-10">
+              <p>71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. </p>
+              <p>71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="yt-regrets-accordion__button w-100" data-accordion-button aria-expanded="false" aria-controls="yt-accordion-content-01">
+        <div class="container">
+          <div class="row justify-content-center d-flex flex-row">
+            <div class="col-lg-8" data-button-container>
+              <div class="row">
+                <div class="col-12 col-md-1 yt-regrets-accordion__number">03</div>
+                <div class="col-12 col-md-11">
+                  <h2 class="h2-heading">Most videos people regret watching come from recommendations.</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <button class="yt-regrets-accordion__close-button btn d-none p-0" aria-label="{% trans "Close Tab" %}" data-accordion-close-button>
+        <img src="{% static "_images/youtube-regrets/close.svg" %}" alt="">
+      </button>
     </div>
   </div>
 
 </div>
-
