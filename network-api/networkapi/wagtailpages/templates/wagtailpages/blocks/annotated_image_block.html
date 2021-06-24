@@ -2,7 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 
-{% block block_row_classes%}
+{% block block_row_classes %}
 no-gutters
 {% endblock %}
 
@@ -11,7 +11,6 @@ no-gutters
 {% endblock %}
 
 {% block block_content %}
-
 {% image value.image original as img %}
 
 <figure class="my-1">
@@ -25,6 +24,5 @@ no-gutters
   {% endif %}
 </figure>
 {% endblock %}
-
 
 

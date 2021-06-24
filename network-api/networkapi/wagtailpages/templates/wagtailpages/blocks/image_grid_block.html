@@ -1,7 +1,7 @@
 {% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block block_content  %}
+{% block block_content %}
 	<div class="row my-2">
 		{% for block in self.grid_items %}
 			{% with value=block count=self.grid_items|length %}
