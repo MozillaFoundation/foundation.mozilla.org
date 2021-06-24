@@ -2,14 +2,9 @@
 
 <div class="row my-default">
   <div class="col">
-    {% for quote in value.quotes %}
-    {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
-    {% if forloop.counter is 1 %}
     <div class="feature-quote">
-      <h3>{{quote.quote}}</h3>
-      <p class="h6-heading">{{quote.attribution}}</p>
+      <h3>{{self.quote}}</h3>
+      <p class="h6-heading">{{self.attribution}}</p>
     </div>
-    {% endif %}
-    {% endfor %}
   </div>
 </div>
