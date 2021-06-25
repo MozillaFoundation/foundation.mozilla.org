@@ -9,7 +9,16 @@
 }
 
 #view-about {
-  @include reset-active-nav-style();
+
+  .multipage-link.active.about-link {
+    color: $black;
+    border-bottom: 3px solid $black;
+  }
+
+  .multipage-link.active:hover {
+    color: $black;
+    border-bottom: 3px solid $black;
+  }
 
   .short-content {
     min-height: 50vh;

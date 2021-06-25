@@ -357,7 +357,10 @@ if env('REDIS_URL'):
                 # Enable compression
                 'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
                 # Ignore exceptions, redis only used for caching (i.e. if redis fails, will use database)
-                'IGNORE_EXCEPTIONS': True
+                'IGNORE_EXCEPTIONS': True,
+                'CONNECTION_POOL_KWARGS': {
+                    "ssl_cert_reqs": None
+                }
             }
         }
     }

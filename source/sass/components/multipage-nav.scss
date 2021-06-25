@@ -2,7 +2,7 @@
 // Example usage: https://foundation.mozilla.org/en/who-we-are/
 
 #multipage-horizontal-nav-wrapper {
-  @include intro-and-content-spacing(true);
+  @include vertical-spacing(true);
 
   &.full-width {
     @media (min-width: $bp-md) {
