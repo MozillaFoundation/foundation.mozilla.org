@@ -34,8 +34,7 @@
 }
 
 // Mixin for setting vertical margin for mobile and tablet+
-// TODO:FIXME: we should rename this mixin
-@mixin intro-and-content-spacing($adjust-spacing-for-md: null) {
+@mixin vertical-spacing($adjust-spacing-for-md: null) {
   margin-top: 24px;
   margin-bottom: 24px;
 
