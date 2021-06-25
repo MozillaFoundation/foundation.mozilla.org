@@ -5,7 +5,7 @@
 <div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
   {% include "./author-images.html" with authors=authors %}
 
-  <p class="body-small mt-2">
+  <p class="body-small my-2">
     {% with authors_length=authors|length %}
     {% spaceless %}
     {% if show_full_info %}{% trans "By" %} {% endif %}
