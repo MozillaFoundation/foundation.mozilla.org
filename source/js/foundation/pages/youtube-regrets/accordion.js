@@ -141,7 +141,7 @@ class ExpandableCard {
     const y = tabsAboveHeight + this.tabOffset;
     this.content.classList.remove("invisible");
 
-    if (this.closeButton) {
+    if (this.closeButton)
       this.closeButton.classList.remove("d-none");
     }
 

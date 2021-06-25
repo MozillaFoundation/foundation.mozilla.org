@@ -15,12 +15,14 @@
 
     position: relative;
 
+    &__content {
+      overflow: hidden;
+      max-height: 0;
+    }
+
     &__item {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      will-change: transform;
+      transition: all 0.3s;
+      position: relative;
     }
 
     &__mask {
@@ -33,6 +35,7 @@
       height: 100%;
       position: relative;
       padding: 1.125rem;
+      transition: all 0.3s;
 
       @media (min-width: $bp-md) {
         padding: 3.5rem 2.5rem 2.5rem;
