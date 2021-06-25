@@ -7,21 +7,18 @@ class YoutubeRegretsAccordion {
   constructor(node) {
     this.accordion = node;
     this.openedCard = null;
-    this.tabHeight = 174;
-    this.cards = [
+    this.drawerElements = [
       ...this.accordion.querySelectorAll("[data-accordion-drawer]"),
     ];
-    this.expandableCards = this.cards.map(
+    this.drawers = this.drawerElements.map(
       (card, index) =>
-        new ExpandableCard(card, index, this.cards.length, this.tabHeight)
+        new ExpandableCard(card, index, this.drawerElements.length, this.tabHeight)
     );
-    this.totalTabHeight = `${this.expandableCards.length * this.tabHeight}`;
-    this.lastCardIndex = this.expandableCards.length - 1;
+    this.tabHeights = 0;
+    this.lastCardIndex = this.drawers.length - 1;
 
-    // Set height on load
-    this.setAccordionHeight();
-
-    this.expandableCards.forEach((card, index) => {
+    this.drawers.forEach((card, index) => {
+      this.tabHeights += card.tabHeight;
       card.button.addEventListener("click", () => {
         if (!card.isOpen) {
           this.openCard(card, 0.3);
@@ -29,23 +26,46 @@ class YoutubeRegretsAccordion {
       });
 
       card.closeButton.addEventListener("click", () => {
-        this.expandableCards.forEach((card) => {
+        this.drawers.forEach((card) => {
           card.openIndex = -1;
           card.close(0.2);
           this.setAccordionHeight();
         });
       });
     });
+
+    // Set height on load
+    this.setAccordionHeight();
+
+    window.addEventListener('resize', () => {
+      if (!this.throttled) {
+        this.onResize();
+
+        this.throttled = true;
+        setTimeout(() => {
+          this.throttled = false;
+        }, 300);
+      }
+    });
+  }
+
+  onResize() {
+    this.drawers.forEach((card, index) => {
+      if (card.isOpen) {
+         this.setAccordionHeight(card);
+        } else {
+        this.setAccordionHeight()
+      }
+    });
   }
 
   openCard(cardInstance = null, speed = 1, scroll = true) {
-    this.expandableCards.forEach((card, index) => {
+    this.drawers.forEach((card, index) => {
       this.openedCard = cardInstance;
       card.openIndex = cardInstance.index;
       card.openHeight = cardInstance.card.clientHeight;
       if (card === cardInstance) {
         card.open(speed);
-        this.setAccordionHeight(card);
         if (scroll) {
           gsap.to(window, speed, {
             scrollTo: {
@@ -63,44 +83,24 @@ class YoutubeRegretsAccordion {
         card.close(0.3);
       }
     });
-  }
-
-  closeCards() {
-    this.expandableCards.forEach((card, index) => {
-      const y = -card.card.clientHeight + card.tabOffset;
-      gsap.to(card.card, 0.3, {y: y,})
-      gsap.set(card.card, {
-        marginTop: 0,
-        onComplete: () => {
-          card.content.style.visibility = "hidden";
-          card.card.classList.remove("open");
-          if (card.closeButton) {
-            card.closeButton.classList.add("d-none");
-          }
-        },
-      });
-      gsap.to(card.button, 0.3, {
-        autoAlpha: 1,
-      });
-      this.setAccordionHeight();
-    });
+    this.setAccordionHeight(cardInstance);
   }
 
   setAccordionHeight(card) {
     if (card) {
       const tabsTotalHeight =
-        (this.expandableCards.length - 1) * this.tabHeight;
+        (this.drawers.length - 1) * card.tabHeight;
       let height = card.openHeight + tabsTotalHeight;
       const heightAmount = `${height}px`;
       gsap.to(this.accordion, 0.2, {height: heightAmount});
     } else {
-      gsap.to(this.accordion, 0.2, {height: this.totalTabHeight + 'px'});
+      gsap.to(this.accordion, 0.2, {height: this.tabHeights + 'px'});
     }
   }
 }
 
 class ExpandableCard {
-  constructor(node, index, length, tabHeight) {
+  constructor(node, index, length) {
     this.card = node;
     this.index = index;
     this.openIndex = -1;
@@ -110,7 +110,7 @@ class ExpandableCard {
     this.content = this.card.querySelector("[data-accordion-content]");
     this.maskEl = this.card.querySelector("[data-expand-mask]");
     this.card.style.zIndex = length - index;
-    this.tabHeight = tabHeight;
+    this.tabHeight = this.button.offsetHeight + 80;
     this.isOpen = false;
     this.initEventListeners();
     this.tabOffset = (this.index + 1) * this.tabHeight;
