@@ -3,7 +3,7 @@
  * This is paired with max-length-fields.css and wagtailpages/wagtail_hooks.py
  */
 
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const maxLengthFields = document.querySelectorAll(".max-length-warning");
 
   if(maxLengthFields.length) {
