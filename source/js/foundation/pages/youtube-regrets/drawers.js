@@ -29,12 +29,10 @@ class Drawers {
         }
         drawer.classList.add('is-open')
         closeButton.classList.remove('d-none')
-
-        gsap.to(content, 0.2, {maxHeight: "100%"});
+        gsap.to(content, 0.2, {height: "auto"});
         gsap.to(button, 0.2, {opacity: 0});
         gsap.to(button, 0.2, {display: "none"});
         gsap.to(window, 0.2, {
-          delay: 0.4,
           ease: "Power0.easeNone",
           scrollTo: {
             y: window.pageYOffset + mask.getBoundingClientRect().top - 80,
@@ -45,7 +43,6 @@ class Drawers {
       closeButton.addEventListener("click", () => {
         this.closeDrawers();
         gsap.to(window, 0.2, {
-          delay: 0.4,
           ease: "Power0.easeNone",
           scrollTo: {
             y: window.pageYOffset + button.getBoundingClientRect().top - 80,
@@ -69,11 +66,10 @@ class Drawers {
         const button = drawer.querySelector("[data-accordion-button]");
         const closeButton = drawer.querySelector("[data-accordion-close-button]");
         closeButton.classList.add('d-none')
-
-        gsap.to(content, 0.2, {maxHeight: "0px"});
+        gsap.to(content, 0.2, {height: "0px"});
         drawer.classList.remove('is-open')
-        gsap.to(button, 0.2, {opacity: 1});
-        gsap.to(button, 0.2, {display: "block"});
+        gsap.to(button, 0.2, {opacity: 1, delay: 0.2});
+        gsap.to(button, 0.2, {display: "block", delay: 0.2});
       }
     })
   }
