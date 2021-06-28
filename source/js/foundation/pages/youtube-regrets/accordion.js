@@ -78,7 +78,7 @@ class Accordion {
         // Animate height down and show original button
         gsap.to(content, speed, {height: "0px"});
         gsap.to(button, speed, {opacity: 1, delay: 0.2});
-        gsap.to(button, speed, {display: "block", delay: 0.2});
+        gsap.to(button, speed, {display: "block"});
       }
     });
   }
