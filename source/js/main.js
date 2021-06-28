@@ -18,8 +18,7 @@ import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
 import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
-// import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets/accordion";
-import { initYoutubeRegretsDrawers } from "./foundation/pages/youtube-regrets/drawers";
+import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets/accordion";
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
@@ -119,8 +118,7 @@ let main = {
     }
 
     if (document.querySelector("#view-youtube-regrets-2021")) {
-      // initYoutubeRegretsAccordions();
-      initYoutubeRegretsDrawers();
+      initYoutubeRegretsAccordions();
     }
 
     // Dear Internet page
