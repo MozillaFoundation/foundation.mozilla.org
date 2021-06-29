@@ -1,5 +1,5 @@
-import {gsap} from "gsap";
-import {ScrollToPlugin} from "gsap/all";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/all";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -25,40 +25,29 @@ class Accordion {
       drawer.style.zIndex = this.accordionElements.length - index;
 
       button.addEventListener("click", (e) => {
-        if (!drawer.classList.contains('is-open')) {
+        if (!drawer.classList.contains("is-open")) {
           this.closeDrawers();
         }
-        drawer.classList.add('is-open');
+        drawer.classList.add("is-open");
         closeButton.classList.remove("d-none");
         button.setAttribute("aria-expanded", true);
 
         // Animate height, hide original button and scroll to the top of the content area
-        gsap.to(content, this.animateSpeed, {height: "auto"});
-        gsap.to(button, this.animateSpeed, {opacity: 0});
-        gsap.to(button, this.animateSpeed, {display: "none"});
-        gsap.to(window, this.animateSpeed, {
-          ease: "Power0.easeNone",
-          scrollTo: {
-            y: window.pageYOffset + mask.getBoundingClientRect().top - 80,
-          },
-        });
+        let timeline = gsap.timeline({ onComplete: this.scrollToY, onCompleteParams: [drawer, 80, 0.1]});
+        timeline
+          .to(button, { duration: this.animateSpeed, opacity: 0 })
+          .set(content, { height: "auto" });
       });
 
       closeButton.addEventListener("click", () => {
-        this.closeDrawers(this.animateSpeed);
-        gsap.to(window, this.animateSpeed, {
-          ease: "Power0.easeNone",
-          scrollTo: {
-            y: window.pageYOffset + button.getBoundingClientRect().top - 80,
-          },
-        });
+        this.scrollToY(drawer, this.closeDrawers(this.animateSpeed));
       });
 
-      drawer.addEventListener("mouseenter", (e) => {
-        gsap.to(mask, this.animateSpeed, {y: 10});
+      drawer.addEventListener("mouseenter", () => {
+        gsap.to(mask, { duration: this.animateSpeed, y: 10 });
       });
-      drawer.addEventListener("mouseleave", (e) => {
-        gsap.to(mask, this.animateSpeed, {y: 0});
+      drawer.addEventListener("mouseleave", () => {
+        gsap.to(mask, { duration: this.animateSpeed, y: 0 });
       });
     });
   }
@@ -76,10 +65,20 @@ class Accordion {
         button.setAttribute("aria-expanded", false);
 
         // Animate height down and show original button
-        gsap.to(content, speed, {height: "0px"});
-        gsap.to(button, speed, {opacity: 1, delay: 0.2});
-        gsap.to(button, speed, {display: "block"});
+        let timeline = gsap.timeline();
+        timeline
+          .to(button, { duration: speed, opacity: 1 })
+          .set(content, { height: "0px" });
       }
+    });
+  }
+
+  scrollToY(element, offset, speed= 0.2, callback) {
+    const distance = window.scrollY + element.getBoundingClientRect().top;
+    gsap.to(window, {
+      duration: speed,
+      scrollTo: {y: distance - offset},
+      onComplete: callback,
     });
   }
 }
