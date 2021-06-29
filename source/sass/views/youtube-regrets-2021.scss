@@ -74,6 +74,22 @@
       padding: 2rem 1.125rem;
       transition: all 0.3s;
 
+      &::before,
+      &::after {
+        content: '';
+        width: 2px;
+        background-color: $black;
+        position: absolute;
+        left: -2px;
+        top: -40px;
+        height: 40px;
+      }
+
+      &::after {
+        left: auto;
+        right: -2px;
+      }
+
       @media (min-width: $bp-md) {
         padding: 3.5rem 2.5rem 2.5rem;
       }
