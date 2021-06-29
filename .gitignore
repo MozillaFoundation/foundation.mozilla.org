@@ -126,8 +126,6 @@ cypress/screenshots
 translations.tar
 translations_github_commit_*
 
-# VSCode  project config
-.vscode/settings.json
 
 # Localization testing SSH keys
 wagtail-localize-key*
