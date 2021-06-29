@@ -2,6 +2,14 @@
     $font-changa: "Changa", sans-serif;
     $font-nunito: "Nunito", sans-serif;
 
+    .fw-bold {
+      font-weight: 700;
+    }
+
+    p {
+      font-weight: 300;
+    }
+
     .hero-heading {
       @include set-text-size(38px, 38px, 62px, 62px);
       font-family: $font-changa;
