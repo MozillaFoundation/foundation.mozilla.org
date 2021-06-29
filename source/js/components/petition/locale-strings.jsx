@@ -203,7 +203,7 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla.`,
     "Add my name": `Ajouter mon nom`,
     "Sign up": `Je m’inscris`,
-    "Help shape the future of the web for the public good": `Aidez à façonner l’avenir du Web pour le bien commun.`,
+    "Help shape the future of the web for the public good": `Aidez à façonner l’avenir du Web pour le bien commun.`,
     "Join our list": `<p>Abonnez-vous à notre lettre d’information <b>Actualités de Mozilla</b> pour recevoir des conseils pour Internet et des alertes pour passer à l’action.</p>`,
     "This is a required section.": `Ce champ est obligatoire.`,
     "Please enter a valid email address.": `Veuillez indiquer une adresse électronique valide.`,
