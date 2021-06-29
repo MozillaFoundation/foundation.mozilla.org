@@ -1,18 +1,55 @@
 .youtube-regrets-2021 {
   $font-changa: "Changa", sans-serif;
+  $font-nunito: "Nunito", sans-serif;
 
-  h2, h3 {
+  .hero-heading {
+    @include set-text-size(38px, 38px, 62px, 62px);
     font-family: $font-changa;
-    letter-spacing: -2px;
+    font-weight: 700;
+  }
+
+  h1,
+  .heading-1 {
+    @include set-text-size(42px, 48px, 52px, 48px);
+    font-family: $font-changa;
+    font-weight: 700;
+  }
+
+  h2,
+  .heading-2 {
+    @include set-text-size(30px, 26px, 38px, 34px);
+    font-family: $font-changa;
     font-weight: 600;
   }
 
-  .h2-heading {
-    @include set-text-size(26px, 35px, 52px, 48px);
+  h3,
+  .heading-3 {
+    @include set-text-size(36px, 36px);
+    font-weight: 300;
+  }
+
+  h4,
+  .heading-4 {
+    @include set-text-size(22px, 22px);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  h5,
+  .heading-5 {
+    @include set-text-size(20px, 20px);
+    font-family: $font-changa;
+  }
+
+  .body {
+    @include set-text-size(18px, 27px);
+  }
+
+  .body-large {
+    @include set-text-size(26px, 28px, 26px, 30px);
   }
 
   .yt-regrets-accordion {
-
     position: relative;
 
     &__content {
