@@ -33,14 +33,18 @@ class Accordion {
         button.setAttribute("aria-expanded", true);
 
         // Animate height, hide original button and scroll to the top of the content area
-        let timeline = gsap.timeline({ onComplete: this.scrollToY, onCompleteParams: [drawer, 80, 0.1]});
+        let timeline = gsap.timeline({
+          onComplete: this.scrollToY,
+          onCompleteParams: [drawer, 0.2, 80],
+        });
         timeline
           .to(button, { duration: this.animateSpeed, opacity: 0 })
-          .set(content, { height: "auto" });
+          .to(content, { duration: this.animateSpeed, height: "auto" });
       });
 
       closeButton.addEventListener("click", () => {
-        this.scrollToY(drawer, this.closeDrawers(this.animateSpeed));
+        this.scrollToY(drawer, 0.2, 80);
+        this.closeDrawers(this.animateSpeed);
       });
 
       drawer.addEventListener("mouseenter", () => {
@@ -68,17 +72,17 @@ class Accordion {
         let timeline = gsap.timeline();
         timeline
           .to(button, { duration: speed, opacity: 1 })
-          .set(content, { height: "0px" });
+          .to(content, { duration: speed, height: "0px" });
       }
     });
   }
 
-  scrollToY(element, offset, speed= 0.2, callback) {
+  scrollToY(element, speed = 0.2, offset, callback) {
     const distance = window.scrollY + element.getBoundingClientRect().top;
+    const extraOffset = offset ? offset : 0;
     gsap.to(window, {
       duration: speed,
-      scrollTo: {y: distance - offset},
-      onComplete: callback,
+      scrollTo: { y: distance - extraOffset },
     });
   }
 }
