@@ -28,24 +28,8 @@
         </div>
       </div>
 
-      <button class="yt-regrets-accordion__button w-100" data-accordion-button aria-expanded="false" aria-controls="yt-accordion-content-01">
-        <div class="container">
-          <div class="row justify-content-center d-flex flex-row">
-            <div class="col-lg-8">
-              <div class="row">
-                <div class="col-12 col-md-1 yt-regrets-accordion__number">01</div>
-                <div class="col-12 col-md-11">
-                  <h2 class="h2-heading">Most videos people regret watching come from recommendations.</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </button>
-
-      <button class="yt-regrets-accordion__close-button btn d-none p-0" aria-label="{% trans "Close Tab" %}" data-accordion-close-button>
-        <img src="{% static "_images/youtube-regrets/close.svg" %}" alt="">
-      </button>
+      {% include "./fragments/accordion_heading_button.html" with number="01" heading_text="Most videos people regret watching come from recommendations." %}
+      {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>
 
@@ -59,7 +43,7 @@
               <div class="row">
                 <div class="yt-regrets-accordion__number col-md-1">02</div>
                 <div class="col-12 col-md-11">
-                  <h2 class="h2-heading">The non-English speaking world is hit the hardest.</h2>
+                  <h2 class="h2-heading">YouTube recommends videos that violate their own policies.</h2>
                 </div>
               </div>
               <div class="row justify-content-center">
@@ -78,24 +62,8 @@
         </div>
       </div>
 
-      <button class="yt-regrets-accordion__button w-100" data-accordion-button aria-expanded="false" aria-controls="yt-accordion-content-02">
-        <div class="container">
-          <div class="row justify-content-center d-flex flex-row">
-            <div class="col-lg-8" data-button-container>
-              <div class="row">
-                <div class="col-12 col-md-1 yt-regrets-accordion__number">02</div>
-                <div class="col-12 col-md-11">
-                  <h2 class="h2-heading">The non-English speaking world is hit the hardest.</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </button>
-
-      <button class="yt-regrets-accordion__close-button btn d-none p-0" aria-label="{% trans "Close Tab" %}" data-accordion-close-button>
-        <img src="{% static "_images/youtube-regrets/close.svg" %}" alt="">
-      </button>
+      {% include "./fragments/accordion_heading_button.html" with number="02" heading_text="YouTube recommends videos that violate their own policies." %}
+      {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>
 
@@ -128,24 +96,8 @@
         </div>
       </div>
 
-      <button class="yt-regrets-accordion__button w-100" data-accordion-button aria-expanded="false" aria-controls="yt-accordion-content-03">
-        <div class="container">
-          <div class="row justify-content-center d-flex flex-row">
-            <div class="col-lg-8" data-button-container>
-              <div class="row">
-                <div class="col-12 col-md-1 yt-regrets-accordion__number">03</div>
-                <div class="col-12 col-md-11">
-                  <h2 class="h2-heading">The non-English speaking world is hit the hardest.</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </button>
-
-      <button class="yt-regrets-accordion__close-button btn d-none p-0" aria-label="{% trans "Close Tab" %}" data-accordion-close-button>
-        <img src="{% static "_images/youtube-regrets/close.svg" %}" alt="">
-      </button>
+      {% include "./fragments/accordion_heading_button.html" with number="03" heading_text="The non-English speaking world is hit the hardest." %}
+      {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>
 
@@ -178,25 +130,8 @@
         </div>
       </div>
 
-      <button class="yt-regrets-accordion__button w-100" data-accordion-button aria-expanded="false" aria-controls="yt-accordion-content-04">
-        <div class="container">
-          <div class="row justify-content-center d-flex flex-row">
-            <div class="col-lg-8" data-button-container>
-              <div class="row">
-                <div class="col-12 col-md-1 yt-regrets-accordion__number">04</div>
-                <div class="col-12 col-md-11">
-                  <h2 class="h2-heading">YouTube Regrets can alter people’s lives forever.</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </button>
-
-      <button class="yt-regrets-accordion__close-button btn d-none p-0" aria-label="{% trans "Close Tab" %}" data-accordion-close-button>
-        <img src="{% static "_images/youtube-regrets/close.svg" %}" alt="">
-      </button>
+      {% include "./fragments/accordion_heading_button.html" with number="04" heading_text="YouTube Regrets can alter people’s lives forever." %}
+      {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>
-
 </div>
