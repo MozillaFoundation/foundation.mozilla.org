@@ -535,7 +535,7 @@ class JoinUs extends Component {
 }
 
 JoinUs.defaultProps = {
-  ctaHeader: getText(`Protect the internet as a global public resource`),
+  ctaHeader: getText(`Help shape the future of the web for the public good`),
   ctaDescription: getText(`Join our list`),
   newsletter: `mozilla-foundation`,
   askName: false,
