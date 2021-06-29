@@ -92,21 +92,6 @@
       }
     }
 
-    &__close-button {
-      position: absolute;
-      right: 20px;
-      bottom: 20px;
-      width: 50px;
-      height: 50px;
-
-      @media (min-width: $bp-md) {
-        width: 70px;
-        height: 70px;
-        right: 40px;
-        bottom: 40px;
-      }
-    }
-
     &__number {
       @include set-text-size(36px, 49px, 36px, 49px);
       font-weight: 300;

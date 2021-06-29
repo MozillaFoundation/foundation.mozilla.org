@@ -30,6 +30,7 @@ class Accordion {
         }
         drawer.classList.add("is-open");
         closeButton.classList.remove("d-none");
+        closeButton.classList.add("d-flex");
         button.setAttribute("aria-expanded", true);
 
         // Animate height, hide original button and scroll to the top of the content area
@@ -65,6 +66,7 @@ class Accordion {
           "[data-accordion-close-button]"
         );
         closeButton.classList.add("d-none");
+        closeButton.classList.remove("d-flex");
         drawer.classList.remove("is-open");
         button.setAttribute("aria-expanded", false);
 
