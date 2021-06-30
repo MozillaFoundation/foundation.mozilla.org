@@ -8,6 +8,10 @@
 
     p {
       font-weight: 300;
+
+      a {
+        font-weight: 700;
+      }
     }
 
     .hero-heading {
@@ -141,6 +145,44 @@
           width: 50%;
           top: 40%;
           transform: translateY(-50%)
+        }
+      }
+    }
+
+    .what-is {
+      margin-bottom: 6rem;
+
+      @media (min-width: $bp-md) {
+        margin-bottom: 8rem;
+      }
+
+      &__image {
+        &--desktop {
+          display: none;
+
+          @media (min-width: $bp-md) {
+            display: block;
+            position: absolute;
+            right: -15%;
+          }
+        }
+
+        &--mobile {
+          @media (min-width: $bp-md) {
+            display: none;
+          }
+        }
+      }
+
+      &__guts {
+        @media (min-width: $bp-md) {
+          margin-top: 7rem;
+        }
+      }
+
+      &__text {
+        @media (min-width: $bp-md) {
+          padding-right: 2rem;
         }
       }
     }
