@@ -62,7 +62,6 @@ urlpatterns = list(filter(None, [
         RedirectView.as_view(url='/docs/how-do-i-wagtail/'),
         name='how-do-i-wagtail'
     ),
-
     path('', include(image_url_tag_urls)),
     path('', include('webmaster_verification.urls')),
 
