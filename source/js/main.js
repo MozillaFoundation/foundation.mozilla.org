@@ -21,6 +21,8 @@ import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunne
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
+import "./foundation/pages/youtube-regrets/categories-bar-chart";
+
 
 // Initializing component a11y browser console logging
 if (

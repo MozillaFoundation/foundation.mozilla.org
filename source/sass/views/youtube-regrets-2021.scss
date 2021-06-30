@@ -212,6 +212,17 @@
       }
     }
 
+    .categories {
+      &__chart-heading,
+      &__chart {
+        display: none !important; // override inline styles
+
+        @media (min-width: $bp-md) {
+          display: block !important;
+        }
+      }
+    }
+
     .yt-regrets-accordion {
       position: relative;
 
