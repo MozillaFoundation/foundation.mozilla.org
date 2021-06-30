@@ -39,7 +39,7 @@ urlpatterns = list(filter(None, [
 
     # Google verification
     path('googled2a9d510ca850787.html', lambda x: HttpResponse(
-        'google-site-verification: googled2a9d510ca850787.html'
+        'google-site-verification: googled2a9d510ca850787.html',
         content_type='text/html; charset=utf-8'),
         name='googled2a9d510ca850787.html'
         ),
