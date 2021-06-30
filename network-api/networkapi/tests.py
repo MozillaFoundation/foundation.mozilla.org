@@ -23,14 +23,14 @@ from wagtail.images.models import Image
 
 from wagtail_factories import SiteFactory
 
-from networkapi.buyersguide.factory import (
+from networkapi.utility.redirects import redirect_to_default_cms_site
+from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware
+from networkapi.wagtailpages import language_code_to_iso_3166, parse_accept_lang_header, to_language
+from networkapi.wagtailpages.factory.buyersguide import (
     BuyersGuidePageFactory,
     GeneralProductPageFactory,
     SoftwareProductPageFactory,
 )
-from networkapi.utility.redirects import redirect_to_default_cms_site
-from networkapi.utility.middleware import ReferrerMiddleware, XRobotsTagMiddleware
-from networkapi.wagtailpages import language_code_to_iso_3166, parse_accept_lang_header, to_language
 from networkapi.wagtailpages.pagemodels.base import Homepage
 from networkapi.wagtailpages.utils import create_wagtail_image
 
