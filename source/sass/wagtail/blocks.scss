@@ -92,7 +92,8 @@
   @extend .mx-0;
   @extend .w-100;
   @extend .mw-100;
-  .body-small {
+  // Padding for full-width-image's captions
+  figcaption {
     @extend .pl-3;
   }
 }
