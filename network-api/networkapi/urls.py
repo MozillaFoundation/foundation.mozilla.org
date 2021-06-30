@@ -63,7 +63,6 @@ urlpatterns = list(filter(None, [
         name='how-do-i-wagtail'
     ),
     path('', include(image_url_tag_urls)),
-    path('', include('webmaster_verification.urls')),
 
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^en/cms/', RedirectView.as_view(url='/cms/')),
