@@ -1,6 +1,6 @@
 .youtube-regrets-2021 {
     $font-changa: "Changa", sans-serif;
-    $font-nunito: "Nunito", sans-serif;
+    $font-nunito: "Nunito Sans", sans-serif;
 
     .fw-bold {
       font-weight: 700;
@@ -184,6 +184,31 @@
         @media (min-width: $bp-md) {
           padding-right: 2rem;
         }
+      }
+    }
+
+    .quote {
+      margin-bottom: 6rem;
+
+      @media (min-width: $bp-md) {
+        margin-bottom: 8rem;
+      }
+
+      &__text {
+        @include set-text-size(30px, 28px, 38px, 38.5px);
+        font-family: $font-changa;
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      &__highlight {
+        color: $youtube-regrets-dark-red;
+      }
+
+      &__cite {
+        @include set-text-size(18px, 29px);
+        font-family: $font-nunito;
+        font-style: normal;
       }
     }
 
