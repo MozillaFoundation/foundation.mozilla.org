@@ -47,6 +47,10 @@
     &.wide {
       @extend .col-12;
     }
+    &.full-width {
+      @extend .col-12;
+      @extend .full-width;
+    }
   }
 }
 
