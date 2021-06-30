@@ -71,7 +71,6 @@ urlpatterns = list(filter(None, [
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(r'^sitemap.xml$', sitemap),
 
-
     # Sentry test url
     path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
 
