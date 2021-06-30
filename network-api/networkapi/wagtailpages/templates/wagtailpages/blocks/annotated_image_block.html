@@ -1,13 +1,19 @@
 {% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% block block_container_classes %}
+  {% if value.full_width_image %} full-width {% endif %}
+{% endblock %}
 
 {% block block_row_classes %}
 no-gutters
 {% endblock %}
 
 {% block main_block_class %}
-{% if value.wide_image %} wide {% else %} streamfield-content {% endif %}
+  {% if value.full_width_image %} full-width
+  {% elif value.wide_image %} wide
+  {% else %} streamfield-content 
+{% endif %}
 {% endblock %}
 
 {% block block_content %}

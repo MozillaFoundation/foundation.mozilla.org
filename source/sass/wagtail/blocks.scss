@@ -2,12 +2,20 @@
   @import "./profiles";
 }
 
-.wide {
+.full-width {
   @extend .no-gutters;
   @extend .px-0;
   @extend .mx-0;
   @extend .w-100;
   @extend .mw-100;
+  // Padding for full-width-image's captions
+  figcaption {
+    @extend .pl-3;
+  }
+}
+
+.full-width-image-block {
+  @extend .full-width;
 }
 
 .primary-page-content {
@@ -36,6 +44,9 @@
 .blog-body {
   .streamfield-content {
     @extend .col-lg-8;
+    &.wide {
+      @extend .col-12;
+    }
   }
 }
 
@@ -89,8 +100,4 @@
 
 .share-button-blog-title-container {
   margin-bottom: -2em;
-}
-
-.full-width-image-block {
-  @extend .wide;
 }
