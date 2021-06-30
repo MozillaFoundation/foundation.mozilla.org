@@ -3,7 +3,10 @@
     margin-bottom: 0;
   }
 
-  @include reset-active-nav-style();
+  .multipage-link.active {
+    color: $gray-60;
+    border-bottom: none;
+  }
 }
 
 .product-header {

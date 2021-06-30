@@ -344,6 +344,11 @@ TEMPLATES = [
 ]
 
 if env('REDIS_URL'):
+    connection_pool_kwargs = {}
+
+    if env('REDIS_URL').startswith("rediss"):
+        connection_pool_kwargs["ssl_cert_reqs"] = None
+
     CACHES = {
         'default': {
             'BACKEND': 'django_redis.cache.RedisCache',
@@ -357,7 +362,8 @@ if env('REDIS_URL'):
                 # Enable compression
                 'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
                 # Ignore exceptions, redis only used for caching (i.e. if redis fails, will use database)
-                'IGNORE_EXCEPTIONS': True
+                'IGNORE_EXCEPTIONS': True,
+                'CONNECTION_POOL_KWARGS': connection_pool_kwargs
             }
         }
     }
