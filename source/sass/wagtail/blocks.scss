@@ -2,14 +2,6 @@
   @import "./profiles";
 }
 
-.wide {
-  @extend .no-gutters;
-  @extend .px-0;
-  @extend .mx-0;
-  @extend .w-100;
-  @extend .mw-100;
-}
-
 .primary-page-content {
   &.wide {
     .streamfield-content {
@@ -36,6 +28,9 @@
 .blog-body {
   .streamfield-content {
     @extend .col-lg-8;
+    &.wide {
+      @extend .col-12;
+    }
   }
 }
 
@@ -91,6 +86,17 @@
   margin-bottom: -2em;
 }
 
+.full-width {
+  @extend .no-gutters;
+  @extend .px-0;
+  @extend .mx-0;
+  @extend .w-100;
+  @extend .mw-100;
+  .body-small {
+    @extend .pl-3;
+  }
+}
+
 .full-width-image-block {
-  @extend .wide;
+  @extend .full-width;
 }
