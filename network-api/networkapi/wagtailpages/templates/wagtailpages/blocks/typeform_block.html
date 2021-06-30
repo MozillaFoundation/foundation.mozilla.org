@@ -1,7 +1,13 @@
-<a
-  id="btn-typeform-popup"
-  class="btn {{ value.button_type }} my-3"
-  href="https://form.typeform.com/to/{{ value.embed_id }}"
-  target="_blank">{{ value.button_text }}</a>
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
 
-<script async defer src="https://embed.typeform.com/embed.js" ></script>
+{% block block_content %}
+  <a
+    id="btn-typeform-popup"
+    class="btn {{ value.button_type }} my-3"
+    href="https://form.typeform.com/to/{{ value.embed_id }}"
+    target="_blank">{{ value.button_text }}</a>
+
+  <script async defer src="https://embed.typeform.com/embed.js" ></script>
+
+{% endblock %}

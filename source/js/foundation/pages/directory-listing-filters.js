@@ -3,7 +3,7 @@
 
   const profileCache = {};
   const labels = document.querySelectorAll(
-    `.profile-directory .fellowships-directory-filter .filter-option button`
+    `.fellowships-directory-filter .filter-option button`
   );
   const profileContainer = document.querySelector(`.profiles .row`);
   const { profileType, programType } = document.querySelector(
