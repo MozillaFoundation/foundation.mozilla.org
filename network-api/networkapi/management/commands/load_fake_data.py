@@ -12,7 +12,6 @@ from taggit.models import Tag
 import networkapi.highlights.factory as highlights_factory
 import networkapi.news.factory as news_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
-import networkapi.buyersguide.factory as buyersguide_factory
 import networkapi.mozfest.factory as mozfest_factory
 
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
@@ -85,7 +84,6 @@ class Command(BaseCommand):
             news_factory,
             highlights_factory,
             wagtailpages_factory,
-            buyersguide_factory,
             mozfest_factory
         ]]
 

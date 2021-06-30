@@ -1,6 +1,7 @@
 from . import (
     bannered_campaign_page,
     blog,
+    buyersguide,
     campaign_page,
     content_author,
     dear_internet_page,
@@ -27,6 +28,7 @@ def generate(seed):
     participate_page.generate(seed)
     content_author.generate(seed)
     blog.generate(seed)
+    buyersguide.generate(seed)
     bannered_campaign_page.generate(seed)
     campaign_page.generate(seed)
     dear_internet_page.generate(seed)
