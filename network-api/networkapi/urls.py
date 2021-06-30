@@ -32,10 +32,17 @@ admin.autodiscover()
 urlpatterns = list(filter(None, [
     # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
-        "User-Agent: *\nDisallow: /*artifacts/thimble",
-        content_type="text/plain; charset=utf-8"),
-         name="robots_file"
-         ),
+        'User-Agent: *\nDisallow: /*artifacts/thimble',
+        content_type='text/plain; charset=utf-8'),
+        name='robots_file'
+        ),
+
+    # Google verification
+    path('googled2a9d510ca850787.html', lambda x: HttpResponse(
+        'google-site-verification: googled2a9d510ca850787.html'
+        content_type='text/html; charset=utf-8'),
+        name='googled2a9d510ca850787.html'
+        ),
 
     # social-sign-on routes so that Google auth works
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
@@ -55,12 +62,15 @@ urlpatterns = list(filter(None, [
         RedirectView.as_view(url='/docs/how-do-i-wagtail/'),
         name='how-do-i-wagtail'
     ),
+
     path('', include(image_url_tag_urls)),
+    path('', include('webmaster_verification.urls')),
 
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(r'^sitemap.xml$', sitemap),
+
 
     # Sentry test url
     path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
