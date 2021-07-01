@@ -26,7 +26,7 @@ a.category {
   font-family: $font-family-slab-serif;
 }
 
-#video-hero {
+#page-hero {
   $breakpoint: $bp-md;
   $banner-height-mobile: 300px;
   $banner-height-desktop: 580px;
@@ -118,17 +118,8 @@ a.category {
     width: 100%;
     height: 100%;
 
-    // .overlay {
-    //   position: absolute;
-    //   width: 100%;
-    //   height: 100%;
-    //   background: $festival-gradient;
-    //   opacity: 0.8;
-    //   z-index: $banner-background-z-index + 1;
-    // }
-
     video,
-    picture {
+    img {
       width: 100%;
       height: 100%;
       display: flex;
@@ -138,16 +129,6 @@ a.category {
       left: 0;
       object-fit: cover;
       object-position: center center;
-    }
-
-    picture {
-      img {
-        position: static;
-        top: 0;
-        left: 0;
-        object-fit: cover;
-        object-position: center center;
-      }
     }
   }
 }

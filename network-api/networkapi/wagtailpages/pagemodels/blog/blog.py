@@ -98,6 +98,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         verbose_name='Hero Image',
         help_text='Image for the blog page hero section.',
     )
+    hero_video = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text='URL to video for blog page hero section. (Will take priority over hero image if both entered)',
+
+    )
 
     feature_comments = models.BooleanField(
         default=False,
@@ -112,6 +118,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             heading="Author(s)"
         ),
         FieldPanel('category'),
+        FieldPanel('hero_video'),
         ImageChooserPanel('hero_image'),
         StreamFieldPanel('body'),
         FieldPanel('feature_comments'),
