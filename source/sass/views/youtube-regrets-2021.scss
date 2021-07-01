@@ -215,13 +215,19 @@
     }
 
     .categories {
-      &__chart-heading,
-      &__chart {
-        display: none !important; // override inline styles
+      &__chart-wrap {
+        width: 600px;
+        overflow-x: scroll;
 
         @media (min-width: $bp-md) {
-          display: block !important;
+          padding: 0;
+          width: 100%;
+          overflow-x: auto;
         }
+      }
+
+      &__chart {
+        margin: 0 auto;
       }
     }
 

@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }]
       },
     options: {
+      responsive: false,
       indexAxis: 'y',
       plugins: {
         legend: {
