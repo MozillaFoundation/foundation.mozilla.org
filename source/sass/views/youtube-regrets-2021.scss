@@ -108,8 +108,10 @@
       }
     }
 
-    .wrapper {
+    .transition-bg {
       background: linear-gradient(180deg, $youtube-regrets-dark-gray 9.33%, $black 43.89%, $black 100%), linear-gradient(0deg, $black, $black);
+      border-radius: 0 0 30px 30px;
+      overflow: hidden;
 
       @media (min-width: $bp-md) {
         background: linear-gradient(180deg, $youtube-regrets-purple 26.46%, $black 57.83%, $black 100%), linear-gradient(0deg, $black, $black);

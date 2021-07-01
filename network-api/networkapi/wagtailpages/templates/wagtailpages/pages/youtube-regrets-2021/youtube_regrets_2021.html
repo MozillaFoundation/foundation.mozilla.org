@@ -19,27 +19,29 @@
 
 {% block content_wrapped %}
   <main role="main">
-    {% block main %}
-      {# Hero #}
-      {% include "./fragments/hero.html" %}
+    <div class="transition-bg">
+      {% block main %}
+        {# Hero #}
+        {% include "./fragments/hero.html" %}
 
-      {# Intro #}
-      {% include "./fragments/intro.html" %}
+        {# Intro #}
+        {% include "./fragments/intro.html" %}
 
-      {# What is #}
-      {% include "./fragments/what-is.html" %}
+        {# What is #}
+        {% include "./fragments/what-is.html" %}
 
-      {# Sometimes YouTube regrets are #}
+        {# Sometimes YouTube regrets are #}
 
-      {# Quote #}
-      {% include "./fragments/quote.html" %}
+        {# Quote #}
+        {% include "./fragments/quote.html" %}
 
-      {# Categories #}
-      {% include "./fragments/categories.html" %}
+        {# Categories #}
+        {% include "./fragments/categories.html" %}
 
-      {# Accordion #}
-      {# {% include 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_accordion.html' %} #}
-    {% endblock %}
+        {# Accordion #}
+        {# {% include 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_accordion.html' %} #}
+      {% endblock %}
+    </div>
   </main>
 {% endblock %}
 
