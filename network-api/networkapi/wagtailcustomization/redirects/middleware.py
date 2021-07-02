@@ -11,7 +11,9 @@ def _new_get_redirect(request, path):
         locale_prefix = f'/{request.LANGUAGE_CODE}/'
         if path.startswith(locale_prefix):
             path = path.replace(locale_prefix, '/', 1)
-
+    if 'QUERY_STRING' in request.META:
+        query_string = request.META['QUERY_STRING']
+        path = path + f'/{query_string}'
     # Then hand off processing to the original redirect logic.
     return _original_get_redirect(request, path)
 
