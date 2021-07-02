@@ -22,7 +22,7 @@ import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
 import { initYouTubeRegretsCategoriesBarChart } from "./foundation/pages/youtube-regrets/categories-bar-chart";
-
+import { initYoutubeRegretsReadMoreCategories } from "./foundation/pages/youtube-regrets/read-more-categories";
 
 // Initializing component a11y browser console logging
 if (
@@ -111,16 +111,17 @@ let main = {
       new YouTubeRegretsTunnel();
     }
 
+    // YouTube Regrets 2021 page
+    if (document.querySelector("#view-youtube-regrets-2021")) {
+      initYouTubeRegretsCategoriesBarChart();
+      initYoutubeRegretsReadMoreCategories();
+    }
+
     // YouTube Regrets Reporter page
     if (document.querySelector("#view-youtube-regrets-reporter")) {
       new YouTubeRegretsTunnel();
       new RegretsReporterTimeline();
       bindRegretsReporterEventHandlers();
-    }
-
-    // YouTube Regrets 2021 page
-    if (document.querySelector("#view-youtube-regrets-2021")) {
-      initYouTubeRegretsCategoriesBarChart();
     }
 
     // Dear Internet page

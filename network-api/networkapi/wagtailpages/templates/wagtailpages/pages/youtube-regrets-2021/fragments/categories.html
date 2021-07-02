@@ -1,17 +1,28 @@
 {% load static i18n %}
-<div class="container dark-theme mb-5 pb-5 categories">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8 mb-5 pb-3">
-      <h2 class="heading-1">{% trans "The most common reported category was misinformation, especially covid-19 related." %}</h2>
-      {% blocktrans %}
-        <p>While our research considers the broad spectrum of YouTube Regrets, it is important to note that some videos are worse than others. YouTube has Community Guidelines that set the rules for what is allowed on YouTube and what isn’t. Together with a team of research assistants from the University of Exeter, we evaluated the videos reported to us against these Community Guidelines and determined which ones should either not be on YouTube or not be recommended by YouTube. Of those videos, the most common category applicable was misinformation (especially COVID-19 related). The other largest categories were violent or graphic content, hate speech, and spam/scams. Other notable categories include child safety, harassment & cyberbullying, and animal abuse.</p>
-      {% endblocktrans %}
-    </div>
-    <div class="col-12 col-md-8 categories__chart-heading">
-      <h2 class="heading-5 mb-2">{% trans "Types of Regretted Content" %}</h2>
-    </div>
-    <div class="col-12 categories__chart-wrap">
-      <canvas class="categories__chart" width="930" height="450" id="categories-bar-chart"></canvas>
+
+<div class="categories dark-theme pb-4" data-yt-categories>
+  <div class="categories__reveal" data-yt-categories-reveal>
+    <div class="container dark-theme mb-5 pb-5 categories">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 mb-5 pb-3">
+          <h2 class="heading-1">{% trans "The most common reported category was misinformation, especially covid-19 related." %}</h2>
+          {% blocktrans %}
+            <p>While our research considers the broad spectrum of YouTube Regrets, it is important to note that some videos are worse than others. YouTube has Community Guidelines that set the rules for what is allowed on YouTube and what isn’t. Together with a team of research assistants from the University of Exeter, we evaluated the videos reported to us against these Community Guidelines and determined which ones should either not be on YouTube or not be recommended by YouTube. Of those videos, the most common category applicable was misinformation (especially COVID-19 related). The other largest categories were violent or graphic content, hate speech, and spam/scams. Other notable categories include child safety, harassment & cyberbullying, and animal abuse.</p>
+          {% endblocktrans %}
+        </div>
+        <div class="col-12 col-md-8 categories__chart-heading">
+          <h2 class="heading-5 mb-2">{% trans "Types of Regretted Content" %}</h2>
+        </div>
+        <div class="col-12 categories__chart-wrap">
+          <canvas class="categories__chart" width="930" height="450" id="categories-bar-chart"></canvas>
+        </div>
+      </div>
     </div>
   </div>
+  <button class="btn d-flex justify-content-center align-items-center mx-auto p-0 categories__toggle-button" data-yt-categories-toggle>
+    <span class="heading-5" data-yt-categories-toggle-more>{% trans "Read more" %}</span>
+    <span class="heading-5 d-none" data-yt-categories-toggle-less>{% trans "Read less" %}</span>
+    <img class="ml-2 flex-shrink-0" src="{% static "_images/youtube-regrets/plus-circle.svg" %}" alt="" data-yt-categories-plus-icon>
+    <img class="ml-2 flex-shrink-0 d-none" src="{% static "_images/youtube-regrets/minus-circle.svg" %}" alt="" data-yt-categories-minus-icon>
+  </button>
 </div>

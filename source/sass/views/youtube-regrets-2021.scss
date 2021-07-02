@@ -229,6 +229,15 @@
       &__chart {
         margin: 0 auto;
       }
+
+      &__reveal {
+        height: 0;
+        overflow: hidden;
+      }
+
+      &__toggle-button {
+        color: $white;
+      }
     }
 
     .yt-regrets-accordion {
