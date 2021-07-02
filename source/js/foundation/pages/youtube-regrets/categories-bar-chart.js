@@ -1,6 +1,6 @@
 import { Chart, registerables } from 'chart.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export const initYouTubeRegretsCategoriesBarChart = () => {
   Chart.register(...registerables);
 
   const labels = [
@@ -109,4 +109,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-});
+}
