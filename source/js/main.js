@@ -23,6 +23,7 @@ import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundat
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
 import { initYouTubeRegretsCategoriesBarChart } from "./foundation/pages/youtube-regrets/categories-bar-chart";
 import { initYoutubeRegretsReadMoreCategories } from "./foundation/pages/youtube-regrets/read-more-categories";
+import { initYoutubeRegretsResearchCountUp } from "./foundation/pages/youtube-regrets/research-count-up";
 
 // Initializing component a11y browser console logging
 if (
@@ -115,6 +116,7 @@ let main = {
     if (document.querySelector("#view-youtube-regrets-2021")) {
       initYouTubeRegretsCategoriesBarChart();
       initYoutubeRegretsReadMoreCategories();
+      initYoutubeRegretsResearchCountUp();
     }
 
     // YouTube Regrets Reporter page

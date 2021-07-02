@@ -19,8 +19,8 @@
 
 {% block content_wrapped %}
   <main role="main">
-    <div class="transition-bg">
-      {% block main %}
+    {% block main %}
+      <div class="transition-bg">
         {# Hero #}
         {% include "./fragments/hero.html" %}
 
@@ -37,11 +37,14 @@
 
         {# Categories #}
         {% include "./fragments/categories.html" %}
+      </div>
 
-        {# Accordion #}
-        {# {% include 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_accordion.html' %} #}
-      {% endblock %}
-    </div>
+      {# Accordion #}
+      {# {% include 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_accordion.html' %} #}
+
+      {# Our research #}
+      {% include "./fragments/our-research.html" %}
+    {% endblock %}
   </main>
 {% endblock %}
 
