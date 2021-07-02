@@ -328,4 +328,37 @@
       font-weight: 300;
     }
   }
+
+  .standout-stat {
+    &__heading {
+      @include set-text-size(20px, 48px);
+      font-family: $font-changa;
+    }
+
+    &__number {
+      @include set-text-size(50px, 48px, 60px, 48px);
+      font-family: $font-changa;
+      color: $white;
+    }
+
+    &__label {
+      color: $white;
+    }
+
+    &__wrap {
+      background-color: $black;
+      position: relative;
+      margin-bottom: 10px;
+
+      &::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        border: 1px solid $black;
+        left: 10px;
+        top: 10px;
+        position: absolute;
+      }
+    }
+  }
 }
