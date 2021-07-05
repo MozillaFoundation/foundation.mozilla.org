@@ -6,7 +6,7 @@
   {% endif %}
 
   <div class="standout-stat__wrap text-center p-4">
-    <p class="standout-stat__number mb-2" {% if id %}id="{{ id }}"{% endif %}>{{ number }}</p>
+    <p class="standout-stat__number mb-2 {% if smaller %}standout-stat__number--smaller{% endif %}" {% if id %}id="{{ id }}"{% endif %}>{{ number }}</p>
     <p class="standout-stat__label mb-0">{% trans label %}</p>
   </div>
 </div>
