@@ -1,0 +1,21 @@
+{% load i18n %}
+
+  <p class="mb-5 pb-3">{% trans "YouTube Regrets are primarily a result of the recommendation algorithm, meaning videos that YouTube chooses to amplify, rather than videos that people sought out." %}</p>
+  <p class="heading-2 mb-5">{% trans "71% of all regret reports came from videos recommended to our users and recommended videos were 1.4 times more likely to be regretted than videos searched for. " %}</p>
+  <div class="col-12 col-lg-8 mx-auto">
+    <canvas class="" width="410" height="410" id="recommendations-pie-chart"></canvas>
+  </div>
+  {% blocktrans %}
+    <p class="mt-5 mb-lg-5 pb-lg-5">The regrets our volunteers flagged had tons of views, but it's impossible to tell how many of those views came from YouTube’s recommendation algorithm, because <span class="fw-bold">YouTube won’t release this information</span>.</p>
+  {% endblocktrans %}
+
+  <div class="row flex-column-reverse flex-lg-row">
+    <div class="col-12 col-lg-5">
+      {% include "./standout-stat.html" with heading="Reported Videos" number="~5,794" label="views per day" classes="mb-5" %}
+      {% include "./standout-stat.html" with heading="Other Videos" number="~3,312" label="views per day" %}
+    </div>
+    <div class="col-12 col-lg-6 offset-lg-1 mt-3 mt-lg-3">
+      <h2 class="heading-2 mb-4">{% trans "What we do know is that reported videos seemed to accumulate views faster than those that were not." %}</h2>
+      <p>{% trans "At the time they were reported, YouTube Regrets had a median of 5,794 views per day they were on the platform, while other videos our volunteers watched had only 3,312 views per day." %}</p>
+    </div>
+  </div>
