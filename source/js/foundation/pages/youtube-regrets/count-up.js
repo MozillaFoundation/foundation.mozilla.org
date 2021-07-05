@@ -12,6 +12,7 @@ export const initYoutubeRegretsResearchCountUp = () => {
       (entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            //todo: count ups inside the accordion need further work to reliably run when the accordion is open and the stat is visible - currently working in chrome but not reliably cross-browser
             viewsCountUp.start();
             viewsPerVideoCountUp.start();
             reportCountUp.start();
