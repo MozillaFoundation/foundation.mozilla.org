@@ -1,30 +1,28 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+
+{% block block_row_classes %}
+no-gutters
+{% endblock %}
+
+{% block main_block_class %}
+{% if value.wide_image %} wide {% else %} streamfield-content {% endif %}
+{% endblock %}
+
+{% block block_content %}
 {% image value.image original as img %}
 
-{% if value.wide_image %}
-    </div> <!-- End .blog-body -->
-  </div> <!-- End .cms -->
-</div> <!-- End .col-lg-8 -->
+<figure class="my-1">
+  <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
+  {% if value.caption %}
+  <figcaption class="body-small d-block mt-2">
+    {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+    {{ value.caption }}
+    {% if value.captionURL %}</a>{% endif %}
+  </figcaption>
+  {% endif %}
+</figure>
+{% endblock %}
 
-<div class="col-lg-12">
-{% endif %}
 
-  <figure class="my-default">
-    <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
-    {% if value.caption %}
-    <figcaption class="body-small d-block mt-2">
-      {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-      {{ value.caption }}
-      {% if value.captionURL %}</a>{% endif %}
-    </figcaption>
-    {% endif %}
-  </figure>
-
-{% if value.wide_image %}
-</div>
-
-<div class="py-4 py-md-5 col-lg-8 offset-lg-2">
-  <div class="cms">
-    <div class="blog-body">
-{% endif %}

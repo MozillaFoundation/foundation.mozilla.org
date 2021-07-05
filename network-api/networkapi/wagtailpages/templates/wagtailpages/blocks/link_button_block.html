@@ -1,5 +1,6 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags %}
 
-<div class="my-default">
-  <a class="btn {{ value.styling }}" href="{{ value.URL }}">{{ value.label }}</a>
-</div>
+{% block block_content %}
+  <a class="btn {{ value.styling }} link-button my-default" href="{{ value.URL }}">{{ value.label }}</a>
+{% endblock %}
