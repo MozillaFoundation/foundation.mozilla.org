@@ -62,6 +62,7 @@
 
 
 {% block script_bundle %}
+  <script src="{% url "javascript-catalog" %}"></script>
   {# This uses the mofo main.js for now, to make sure "things work" until we (maybe never?) create a separate bundle #}
   <script src="{% static "_js/main.compiled.js" %}"></script>
   <script src="{% static "_js/mozfest.compiled.js" %}"></script>
