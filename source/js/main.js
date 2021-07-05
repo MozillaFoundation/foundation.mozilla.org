@@ -25,6 +25,7 @@ import { initYouTubeRegretsCategoriesBarChart } from "./foundation/pages/youtube
 import { initYoutubeRegretsReadMoreCategories } from "./foundation/pages/youtube-regrets/read-more-categories";
 import { initYoutubeRegretsResearchCountUp } from "./foundation/pages/youtube-regrets/research-count-up";
 import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets/accordion";
+import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/youtube-regrets/recommendations-pie-chart";
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 
 // Initializing component a11y browser console logging
@@ -120,6 +121,7 @@ let main = {
       initYoutubeRegretsReadMoreCategories();
       initYoutubeRegretsResearchCountUp();
       initYoutubeRegretsAccordions();
+      initYouTubeRegretsRecommendationsPieChart();
       initYoutubeRegretsCarousel();
     }
 
