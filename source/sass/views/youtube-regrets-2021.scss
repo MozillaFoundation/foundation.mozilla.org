@@ -272,10 +272,6 @@
       height: 0;
     }
 
-    &__heading {
-      @include set-text-size(52px, 52px);
-    }
-
     &__item {
       transition: all 0.3s;
       position: relative;
