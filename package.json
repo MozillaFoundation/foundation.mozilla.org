@@ -74,7 +74,7 @@
     "classnames": "2.3.1",
     "cssnano": "^4.1.10",
     "cypress-axe": "^0.12.2",
-    "esbuild": "^0.8.57",
+    "esbuild": "^0.12.14",
     "event-stream": "3.3.4",
     "js-cookie": "2.2.1",
     "moment": "^2.29.1",
