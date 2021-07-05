@@ -12,7 +12,6 @@ export const initYoutubeRegretsResearchCountUp = () => {
       (entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            console.log(entry);
             viewsCountUp.start();
             viewsPerVideoCountUp.start();
             reportCountUp.start();
