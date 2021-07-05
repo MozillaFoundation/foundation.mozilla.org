@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n l10n %}
 
 <div class="our-research pt-5">
   <img class="d-none d-md-block mx-auto mb-5 pb-5" src="{% static "_images/youtube-regrets/regrets-reporter/our-research-desktop.png" %}" alt="">
@@ -6,9 +6,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-md-8 text-center">
-        <h2 class="heading-1 ">{% trans "Our research is powered by real Youtube users." %}</h2>
+        <h2 class="heading-1 ">{% trans "Our research is powered by real YouTube users." %}</h2>
         <p class="mb-5">
-          {% blocktrans %}
+          {% blocktrans trimmed %}
             Specifically: <span class="fw-bold">37,380 volunteers</span> across <span class="fw-bold">190 countries</span> installed Mozilla’s RegretsReporter browser extensions for Firefox and Chrome.
           {% endblocktrans %}
         </p>
@@ -16,27 +16,35 @@
       </div>
     </div>
 
+    {% with reports_count=5234 volunteers_count=1662 countries_count=91 %}
     <div class="row align-items-center mb-5">
       <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="reports-count-up">5,234</p>
+        <p class="stat__number" id="reports-count-up">{{ reports_count|localize }}</p>
         <p class="stat__label">{% trans "Reports" %}</p>
       </div>
       <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="volunteers-count-up">1,662</p>
+        <p class="stat__number" id="volunteers-count-up">{{ volunteers_count|localize }}</p>
         <p class="stat__label">{% trans "Volunteers" %}</p>
       </div>
       <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="countries-count-up">91</p>
+        <p class="stat__number" id="countries-count-up">{{ countries_count|localize }}</p>
         <p class="stat__label">{% trans "Countries" %}</p>
       </div>
     </div>
+    {% endwith %}
 
     <div class="row justify-content-center mb-5">
       <div class="col-12 col-md-8 text-center">
-        {% blocktrans %}
-          <p>Reports were submitted between <span class="fw-bold">July 2020 - May 2021</span>. Volunteers who downloaded the extension but did <span class="fw-bold">not</span> file a report were an important part of our study. Their passive data — for example, how often they use YouTube — was essential to our understanding of how frequent regrettable experiences are on YouTube and how this varies between countries.</p>
-          <p class="mb-5 pb-5">After delving into the data with a team of research assistants from the University of Exeter, Mozilla came away with three major criticisms of YouTube recommendations: from a problematic algorithm to poor corporate oversight to geographic discrimination. —And our <a href="#">past research</a> shows that these problems can inflict lasting harm on people.</p>
-        {% endblocktrans %}
+          <p>
+            {% blocktrans trimmed %}
+            Reports were submitted between <span class="fw-bold">July 2020 - May 2021</span>. Volunteers who downloaded the extension but did <span class="fw-bold">not</span> file a report were an important part of our study. Their passive data — for example, how often they use YouTube — was essential to our understanding of how frequent regrettable experiences are on YouTube and how this varies between countries.
+            {% endblocktrans %}
+          </p>
+          <p class="mb-5 pb-5">
+            {% blocktrans with research_link="#" trimmed %}
+            After delving into the data with a team of research assistants from the University of Exeter, Mozilla came away with three major criticisms of YouTube recommendations: from a problematic algorithm to poor corporate oversight to geographic discrimination. —And our <a href="{{research_link}}">past research</a> shows that these problems can inflict lasting harm on people.
+            {% endblocktrans %}
+          </p>
 
         <h2 class="mb-1">{% trans "Here’s what we found" %}</h2>
         <p class="our-research__teaser mb-1 text-uppercase fst-italic">{% trans "(Click to read more)" %}</p>

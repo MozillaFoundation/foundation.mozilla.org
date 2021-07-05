@@ -1,17 +1,22 @@
 {% load i18n %}
-<p class="mb-5 pb-3">{% trans "Our data shows that YouTube's algorithm recommended several videos that were later removed from the platform for violating YouTube's own Community Guidelines." %}</p>
+<p class="mb-5 pb-3">{% trans "Our data shows that YouTube’s algorithm recommended several videos that were later removed from the platform for violating YouTube’s own Community Guidelines." %}</p>
 
 <p class="heading-2 mb-5">{% trans "In 40% of cases where recommended YouTube Regrets were taken down from YouTube, YouTube did not provide data about the reason why these videos were removed." %}</p>
 
-{% blocktrans %}
-  <p class="mt-5 mb-lg-5 pb-lg-5">What we do know is at the time they were reported they had racked up a collective 160 million views, an average of 760 thousand views per video, accrued over 160 average days that the videos had been up at the time they were reported. It is impossible to tell how many of these views were a result of recommendations, because <span class="fw-bold">YouTube won’t release this information</span>.</p>
-{% endblocktrans %}
+  <p class="mt-5 mb-lg-5 pb-lg-5">
+    {% blocktrans trimmed %}
+    What we do know is at the time they were reported they had racked up a collective 160 million views, an average of 760 thousand views per video, accrued over 160 average days that the videos had been up at the time they were reported. It is impossible to tell how many of these views were a result of recommendations, because <span class="fw-bold">YouTube won’t release this information</span>.
+    {% endblocktrans %}
+  </p>
+
 
 <div class="row flex-xl-row">
   <div class="col-12 col-xl-7">
-    {% include "./standout-stat.html" with number="160000000" label="views over ~160 days" classes="mb-5" id="views-160days-count-up" smaller=True %}
+    {% trans "views over ~160 days" as views_over_160_days %}
+    {% include "./standout-stat.html" with number=160000000 label=views_over_160_days classes="mb-5" id="views-160days-count-up" smaller=True %}
   </div>
   <div class="col-12 col-xl-5 mt-3 mt-xl-0 ml-xl-10">
-    {% include "./standout-stat.html" with number="760" label="views per video" classes="mb-5" id="views-per-video-count-up" %}
+    {% trans "views per video" as views_per_video %}
+    {% include "./standout-stat.html" with number=760 label=views_per_video classes="mb-5" id="views-per-video-count-up" %}
   </div>
 </div>

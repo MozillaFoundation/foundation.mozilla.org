@@ -4,22 +4,22 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
   Chart.register(...registerables);
 
   const labels = [
-    'MISINFORMATION',
-    'VIOLENT OR GRAPHIC CONTENT',
-    'COVID-19 MISINFORMATION',
-    'HATE SPEECH',
-    'SPAM',
-    'NUDITY & SEXUAL CONTENT',
-    'CHILD SAFETY',
-    'HARASSMENT & CYBERBULLYING',
-    'HARMFUL OR DANGEROUS',
-    'OTHER',
-    'FIREARMS',
-    'IMPERSONATION',
-    'ANIMAL ABUSE',
-    'AGE-RESTRICTED CONTENT',
-    'VIOLENT CRIMINAL ORGS',
-    'FAKE ENGAGEMENT'
+    gettext('MISINFORMATION'),
+    gettext('VIOLENT OR GRAPHIC CONTENT'),
+    gettext('COVID-19 MISINFORMATION'),
+    gettext('HATE SPEECH'),
+    gettext('SPAM'),
+    gettext('NUDITY & SEXUAL CONTENT'),
+    gettext('CHILD SAFETY'),
+    gettext('HARASSMENT & CYBERBULLYING'),
+    gettext('HARMFUL OR DANGEROUS'),
+    gettext('OTHER'),
+    gettext('FIREARMS'),
+    gettext('IMPERSONATION'),
+    gettext('ANIMAL ABUSE'),
+    gettext('AGE-RESTRICTED CONTENT'),
+    gettext('VIOLENT CRIMINAL ORGS'),
+    gettext('FAKE ENGAGEMENT')
   ]
 
   const data = [
@@ -43,6 +43,7 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
 
   const categoriesChart = document.getElementById('categories-bar-chart');
   const ctx = categoriesChart.getContext('2d');
+  const labelFormat = gettext("%s%");
 
   const chart = new Chart(ctx, {
     type: 'bar',
@@ -90,7 +91,7 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
               family: "Nunito Sans",
             },
             callback: function(value) {
-              return `${value}%`;
+              return interpolate(labelFormat, [value]);
             },
           }
         },
