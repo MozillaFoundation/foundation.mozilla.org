@@ -92,7 +92,7 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
 
 class YoutubeRegrets2021Page(FoundationMetadataPageMixin, Page):
 
-    template = 'wagtailpages/pages/youtube_regrets_reporter_page_2021.html'
+    template = 'wagtailpages/pages/youtube_regrets_page_2021.html'
     max_count = 1
     zen_nav = True
 
