@@ -1,6 +1,7 @@
 .youtube-regrets-2021 {
   $font-changa: "Changa", sans-serif;
   $font-nunito: "Nunito Sans", sans-serif;
+  $font-zilla: "Zilla Slab", sans-serif;
 
   .fw-bold {
     font-weight: 700;
@@ -327,4 +328,7 @@
       font-weight: 300;
     }
   }
+
+  @import "./youtube-regrets-2021-utils";
+  @import "./youtube-regrets-2021-carousel";
 }

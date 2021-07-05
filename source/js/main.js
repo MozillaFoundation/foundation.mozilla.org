@@ -25,6 +25,7 @@ import { initYouTubeRegretsCategoriesBarChart } from "./foundation/pages/youtube
 import { initYoutubeRegretsReadMoreCategories } from "./foundation/pages/youtube-regrets/read-more-categories";
 import { initYoutubeRegretsResearchCountUp } from "./foundation/pages/youtube-regrets/research-count-up";
 import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets/accordion";
+import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 
 // Initializing component a11y browser console logging
 if (
@@ -119,6 +120,7 @@ let main = {
       initYoutubeRegretsReadMoreCategories();
       initYoutubeRegretsResearchCountUp();
       initYoutubeRegretsAccordions();
+      initYoutubeRegretsCarousel();
     }
 
     // YouTube Regrets Reporter page
