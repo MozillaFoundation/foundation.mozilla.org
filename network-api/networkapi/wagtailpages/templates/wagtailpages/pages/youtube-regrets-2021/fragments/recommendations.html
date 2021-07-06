@@ -1,13 +1,13 @@
 {% load i18n static %}
 <div class="recommendations">
   <div class="container">
+    <picture class="d-block mb-5">
+      <source class="w-100" srcset="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" media="(min-width: 768px)">
+      <source class="w-100" srcset="{% static '_images/youtube-regrets/recommendations/recommendations-mobile.png' %}">
+      <img class="w-100" src="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" alt="">
+    </picture>
     <div class="row d-flex flex-row justify-content-center">
       <div class="col-lg-8">
-        <picture>
-          <source srcset="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" media="(min-width: 768px)">
-          <source srcset="{% static '_images/youtube-regrets/recommendations/recommendations-mobile.png' %}">
-          <img src="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" alt="">
-        </picture>
         <h2 class="text-white">{% trans "Our recommendation: Urgent action must be taken to rein in YouTube's algorithm." %}</h2>
         <p class="text-white">
           {% blocktrans trimmed %}
