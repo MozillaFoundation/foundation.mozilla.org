@@ -3,13 +3,13 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-8">
       <p>
-        {% blocktrans with stories_link='class="fw-bold" href="https://foundation.mozilla.org/blog/youtube-regrets/"' trimmed %}
+        {% blocktrans with stories_link='class="fw-bold" href="https://foundation.mozilla.org/campaigns/youtube-regrets/"' trimmed %}
         In 2019, Mozilla collected <a {{stories_link}}>countless stories</a> from people whose lives were impacted by YouTube’s recommendation algorithm. People had been exposed to misinformation, developed unhealthy body images, and become trapped in bizarre rabbit holes. The more stories we read, the more we realized how central YouTube has become to the lives of so many people — and just how much YouTube recommendations can impact their wellbeing.
         {% endblocktrans %}
       </p>
       <p class="mb-5 pb-4">
-        {% blocktrans trimmed %}
-        Yet when confronted about its recommendation algorithm, <span class="fw-bold">YouTube’s routine response is to deny and deflect</span>.
+        {% blocktrans with routine_response_url="https://foundation.mozilla.org/blog/congratulations-youtube-now-show-your-work/" trimmed %}
+        Yet when confronted about its recommendation algorithm, <span class="fw-bold">YouTube’s <a href="{{routine_response_url}}">routine response</a> is to deny and deflect</span>.
         {% endblocktrans %}
       </p>
       <p>
