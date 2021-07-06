@@ -4,10 +4,11 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
-from django.views.i18n import set_language
+from django.views.i18n import set_language, JavaScriptCatalog
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -69,6 +70,7 @@ urlpatterns = list(filter(None, [
 
     # set up set language redirect view
     path('i18n/setlang/', csrf_exempt(set_language), name='set_language'),
+    path('jsi18n/', cache_page(3600)(JavaScriptCatalog.as_view()), name='javascript-catalog'),
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),

@@ -17,7 +17,7 @@
   {% endif %}"
 >
   <div class="row">
-      <div class="cms
+      <div class="cms pb-3
         {% if page.cta and page.specific.narrowed_page_content == False %}
           col-lg-7
         {% elif page.signup and page.specific.narrowed_page_content == False %}
@@ -43,19 +43,27 @@
         </div>
       {% endblock %}
         {% block html_content %}
+        <div class="cms campaign-page-content wide">
           {% for block in page.body %}
-            {% if block.block_type == 'heading' %}
-                <h1>{{ block.value }}</h1>
+            {% if block.block_type == 'paragraph'%}
+              <div class="container {{block.block_type}}-block">
+                <div class="row justify-content-center">
+                  <div class="streamfield-content">
+                      {% include_block block%}
+                  </div>
+                </div>
+              </div>
             {% else %}
-                {% include_block block %}
+              {% include_block block with parent_page=page %}
             {% endif %}
           {% endfor %}
+        </div>
         {% endblock %}
       </div>
 
       {% block cta %}
       {% if page.cta != None %}
-      <div class="cta
+      <div class="cta pb-2
         {% if page.specific.narrowed_page_content == False %}
           col-lg-4 offset-lg-1
         {% else %}

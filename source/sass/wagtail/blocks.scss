@@ -1,3 +1,96 @@
 .cms {
   @import "./profiles";
 }
+
+.wide {
+  @extend .no-gutters;
+  @extend .px-0;
+  @extend .mx-0;
+  @extend .w-100;
+  @extend .mw-100;
+}
+
+.primary-page-content {
+  &.wide {
+    .streamfield-content {
+      @extend .col-12;
+    }
+  }
+
+  &.narrow {
+    .streamfield-content {
+      @extend .col-md-8;
+    }
+  }
+}
+
+.article-page-content {
+  .streamfield-content {
+    @extend .col-md-10;
+    &.wide {
+      @extend .col-12;
+    }
+  }
+}
+
+.blog-body {
+  .streamfield-content {
+    @extend .col-lg-8;
+  }
+}
+
+.opportunity-page-content {
+  .streamfield-content {
+    @extend .col-lg-12;
+    @extend .px-0;
+  }
+}
+
+.campaign-page-content {
+  .streamfield-content {
+    @extend .px-0;
+  }
+  &.wide {
+    .streamfield-content {
+      @extend .col-12;
+    }
+  }
+
+  &.narrow {
+    .streamfield-content {
+      @extend .col-md-7;
+    }
+  }
+}
+
+.image-block {
+  @extend .px-0;
+}
+
+.iframe-block {
+  @extend .px-0;
+  .wide {
+    @extend .col-12;
+  }
+}
+
+.mozfest-content {
+  &.two-col {
+    @extend .p-0;
+    @extend .col-lg-7;
+    .streamfield-content {
+      @extend .col-lg-12;
+    }
+  }
+  .streamfield-content {
+    @extend .col-lg-8;
+  }
+}
+
+.share-button-blog-title-container {
+  margin-bottom: -2em;
+}
+
+.full-width-image-block {
+  @extend .wide;
+}
