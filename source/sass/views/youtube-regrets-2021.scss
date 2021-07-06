@@ -281,6 +281,44 @@
     @include set-text-size(14px, 14px);
   }
 
+  .regrets-chart-meta {
+    display: flex;
+    justify-content: space-between;
+
+    &__legend-items {
+      display: flex;
+    }
+
+    &__legend-item {
+      @include set-text-size(18px, 18px);
+      font-family: $font-nunito;
+      position: relative;
+      padding-left: 30px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 18px;
+        height: 18px;
+      }
+
+      &--light {
+        &::before {
+          background-color: #FBD5D7;
+        }
+      }
+
+      &--dark {
+        margin-right: 40px;
+
+        &::before {
+          background-color: #FC4147;
+        }
+      }
+    }
+  }
+
   .yt-regrets-accordion {
     position: relative;
 
