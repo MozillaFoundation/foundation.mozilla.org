@@ -397,6 +397,31 @@
     }
   }
 
+  .recommendations {
+    background-color: $black;
+    padding-top: 85px;
+
+    &__recommendation {
+      @include set-text-size(24px, 30px, 28px, 30px);
+      font-family: $font-family-slab-serif;
+      color: $white;
+      margin: 34px 0;
+
+      @media (min-width: $bp-md) {
+        margin: 72px 0;
+      }
+    }
+
+    &__accent {
+      font-weight: 600;
+    }
+
+    &__divider {
+      width: 118px;
+    }
+
+  }
+
   @import "./youtube-regrets-2021-utils";
   @import "./youtube-regrets-2021-carousel";
 }
