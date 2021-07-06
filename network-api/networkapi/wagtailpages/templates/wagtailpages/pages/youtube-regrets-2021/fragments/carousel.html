@@ -5,10 +5,10 @@
     <div class="carousel__controls-inner">
       <div class="d-flex align-items-center justify-content-end" data-glide-el="controls">
         <button class="carousel__button carousel__button--prev button mr-3" aria-label="Previous slide" data-glide-dir="<">
-          <svg width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 12.903l-7.666 7.666 7.667 7.667M28.147 20.57H12.814" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 12.903l-7.666 7.666 7.667 7.667M28.147 20.57H12.814" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <button class="carousel__button carousel__button--next button" aria-label="Next slide" data-glide-dir=">">
-          <svg width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 28.236l7.667-7.667-7.666-7.666M12.814 20.57h15.333" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 28.236l7.667-7.667-7.666-7.666M12.814 20.57h15.333" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
     </div>
@@ -21,12 +21,14 @@
         </div>
         <div class="carousel__item-content">
           <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.svg" %}" alt="">
+          {% blocktrans %}
           <p class="carousel__item-text">
-            &ldquo;{% trans "In coming out to myself and close friends as transgender, <span>my biggest regret was turning to YouTube to hear the stories of other trans and queer people.</span> Simply typing in the word 'transgender' brought up countless videos that were essentially describing my struggle as a mental illness and as something that shouldn't exist. YouTube reminded me why I hid in the closet for so many years." %}
+            &ldquo;In coming out to myself and close friends as transgender, <span>my biggest regret was turning to YouTube to hear the stories of other trans and queer people.</span> Simply typing in the word 'transgender' brought up countless videos that were essentially describing my struggle as a mental illness and as something that shouldn't exist. YouTube reminded me why I hid in the closet for so many years.
           </p>
           <p class="carousel__item-text">
-            {% trans "Every now and then YouTube will continue to recommend me a video that tells me that my gender identity is wrong — and it reminds me of how much hate is squarely directed at me and people like me. I'm somewhat older, I've been dealing with these issues internally for a long time and I have therapy to work out these issues, but I can't imagine what it's like for those without access to help. <span>YouTube is a part of my pain in coming out</span> and is a reminder of how terrible this world can be to those who are different. I have to be proud in spite of places like YouTube." %}&rdquo;
+            Every now and then YouTube will continue to recommend me a video that tells me that my gender identity is wrong — and it reminds me of how much hate is squarely directed at me and people like me. I'm somewhat older, I've been dealing with these issues internally for a long time and I have therapy to work out these issues, but I can't imagine what it's like for those without access to help. <span>YouTube is a part of my pain in coming out</span> and is a reminder of how terrible this world can be to those who are different. I have to be proud in spite of places like YouTube.&rdquo;
           </p>
+          {% endblocktrans %}
         </div>
       </li>
       <li class="carousel__item glide__slide">
@@ -36,7 +38,9 @@
         <div class="carousel__item-content">
           <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.svg" %}" alt="">
           <p class="carousel__item-text">
-            &ldquo;{% trans "When my son was preschool age, he liked to watch 'Thomas the Tank Engine' videos on YouTube. One time when I checked on him, he was watching a video compilation that <span>contained graphic depictions of train wrecks.</span>" %}&rdquo;
+            {% blocktrans %}
+            &ldquo;When my son was preschool age, he liked to watch 'Thomas the Tank Engine' videos on YouTube. One time when I checked on him, he was watching a video compilation that <span>contained graphic depictions of train wrecks.</span>&rdquo;
+            {% endblocktrans %}
           </p>
         </div>
       </li>
@@ -46,12 +50,14 @@
         </div>
         <div class="carousel__item-content">
           <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.svg" %}" alt="">
+          {% blocktrans %}
           <p class="carousel__item-text">
-            &ldquo;{% trans "My eight-year-old granddaughter was using our tablet to watch children's videos; unknowingly as grandparents we thought she was safe. The next day we watched as our granddaughter sat at the dinner table <span>speaking candidly to her parents about her fear of cancer.</span>" %}
+            &ldquo;My eight-year-old granddaughter was using our tablet to watch children's videos; unknowingly as grandparents we thought she was safe. The next day we watched as our granddaughter sat at the dinner table <span>speaking candidly to her parents about her fear of cancer.</span>
           </p>
           <p class="carousel__item-text">
-            {% trans "As it turned out, in the middle of watching how children with medical challenges can do great, inspirational things, the video turned dark and <span>began showing horrifying, raw footage of rotting skins and disfiguration.</span> Now we are working with her to understand cancer and to not fear eating food or drinking water." %}&rdquo;
+            As it turned out, in the middle of watching how children with medical challenges can do great, inspirational things, the video turned dark and <span>began showing horrifying, raw footage of rotting skins and disfiguration.</span> Now we are working with her to understand cancer and to not fear eating food or drinking water.&rdquo;
           </p>
+          {% endblocktrans %}
         </div>
       </li>
       <li class="carousel__item glide__slide">
@@ -61,7 +67,9 @@
         <div class="carousel__item-content">
           <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.svg" %}" alt="">
           <p class="carousel__item-text">
-            &ldquo;{% trans "My 10-year-old sweet daughter innocently searched for 'tap dance videos' and now is in this spiral of recommended videos of <span>extreme 'dance' and contortionist videos</span> that give her horrible unsafe body-harming and body-image-damaging advice... She is now restricting her eating and drinking. I don’t know <span>how I can undo the damage that’s been done</span> to her impressionable mind." %}&rdquo;
+            {% blocktrans %}
+            &ldquo;My 10-year-old sweet daughter innocently searched for 'tap dance videos' and now is in this spiral of recommended videos of <span>extreme 'dance' and contortionist videos</span> that give her horrible unsafe body-harming and body-image-damaging advice... She is now restricting her eating and drinking. I don’t know <span>how I can undo the damage that’s been done</span> to her impressionable mind.&rdquo;
+            {% endblocktrans %}
           </p>
         </div>
       </li>
@@ -71,12 +79,14 @@
         </div>
         <div class="carousel__item-content">
           <img class="carousel__speech-bubble-desktop mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.svg" %}" alt="">
+          {% blocktrans %}
           <p class="carousel__item-text">
-            &ldquo;{% trans "My ex-wife, who has mental health problems, started watching conspiracy videos three years ago and believed every single one. YouTube just kept feeding her paranoia, fear and anxiety one video after another. I kept begging her to stop, but she didn't — she couldn't. <span>At one point she believed a helicopter near the house was the government coming to take her and my daughter away</span> (they were really checking the power lines) and called in a blind panic. Now she's convinced the world is going to end any day now and is an extreme religious fundamentalist." %}
+            &ldquo;My ex-wife, who has mental health problems, started watching conspiracy videos three years ago and believed every single one. YouTube just kept feeding her paranoia, fear and anxiety one video after another. I kept begging her to stop, but she didn't — she couldn't. <span>At one point she believed a helicopter near the house was the government coming to take her and my daughter away</span> (they were really checking the power lines) and called in a blind panic. Now she's convinced the world is going to end any day now and is an extreme religious fundamentalist.
           </p>
           <p class="carousel__item-text">
-            {% trans "She refuses to even consider professional help because she no longer trusts anyone — especially doctors, the police and any government-run organisation. <span>And YouTube just keeps feeding her more and more of the fear videos.</span> My marriage is now over. Her extraordinary fear has totally consumed her and our life together." %}&rdquo;
+            She refuses to even consider professional help because she no longer trusts anyone — especially doctors, the police and any government-run organisation. <span>And YouTube just keeps feeding her more and more of the fear videos.</span> My marriage is now over. Her extraordinary fear has totally consumed her and our life together.&rdquo;
           </p>
+          {% endblocktrans %}
         </div>
       </li>
     </ul>
