@@ -35,7 +35,7 @@
 
   h2,
   .heading-2 {
-    @include set-text-size(30px, 26px, 38px, 34px);
+    @include set-text-size(30px, 34px, 38px, 34px);
     font-family: $font-changa;
     font-weight: 600;
   }
@@ -98,19 +98,35 @@
     }
 
     &.btn-firefox-download {
+      background: $white;
+      color: $youtube-regrets-dark-red;
+
       &:before {
         background-image: url(../_images/youtube-regrets/regrets-reporter/firefox-logo-red.svg);
+        filter: none;
+      }
+
+      @include hover-focus-active {
+        color: $youtube-regrets-dark-red;
       }
     }
 
     &.btn-chrome-download {
+      background: $white;
+      color: $youtube-regrets-dark-red;
+
       &:before {
         background-image: url(../_images/youtube-regrets/regrets-reporter/chrome-logo-red.svg);
+        filter: none;
+      }
+
+      @include hover-focus-active {
+        color: $youtube-regrets-dark-red;
       }
     }
 
     @include hover-focus-active {
-      // todo - state styles
+      // todo - state styles (also update chrome download and firefox download above)
       color: $white;
     }
   }
@@ -276,6 +292,10 @@
     &__item {
       transition: all 0.3s;
       position: relative;
+
+      &:last-child {
+        background-color: $black;
+      }
     }
 
     &__mask {
@@ -365,6 +385,15 @@
         top: 10px;
         position: absolute;
       }
+    }
+  }
+
+  .downloads-section {
+    background-color: $black;
+    padding: 150px 0 100px;
+
+    @media (min-width: $bp-md) {
+      padding: 300px 0 200px;
     }
   }
 
