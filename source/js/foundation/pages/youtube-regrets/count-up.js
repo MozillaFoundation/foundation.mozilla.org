@@ -26,7 +26,7 @@ export const initYoutubeRegretsResearchCountUp = () => {
       160000000,
       { separator: localeSeparator }
     );
-    const viewsPerVideoCountUp = new CountUp("views-per-video-count-up", 170, {
+    const viewsPerVideoCountUp = new CountUp("views-per-video-count-up", 760, {
       prefix: "~",
       suffix: localizedSuffix,
     });
