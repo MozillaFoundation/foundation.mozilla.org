@@ -1,0 +1,94 @@
+{% load static i18n %}
+
+<div class="container dark-theme full-width-container full-width-container--pushed">
+  <div class="full-width-container__inner">
+    <div class="carousel-hero" data-carousel-hero data-slidetotal="3" id="yt-hero-carousel">
+      <svg class="mb-3" aria-hidden="true" width="47" height="38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.273.014h46.492V29.07h-26.99l-11.48 8.88 1.472-8.88H.273V.014z" fill="#fff"/><path d="M25.984 9.07h2.898v2.94h-2.898V9.07zm-7.37 0h2.918v2.94h-2.919V9.07zm-4.096 9.072c1.54-1.035 3.108-1.777 4.704-2.226a18.247 18.247 0 014.914-.671c1.68 0 3.318.224 4.914.671 1.596.448 3.164 1.19 4.704 2.226l-.714 1.785c-1.61-.657-3.115-1.133-4.515-1.427a21.112 21.112 0 00-4.389-.442c-1.526 0-2.989.148-4.389.442-1.4.294-2.905.77-4.515 1.427l-.714-1.785z" fill="#000"/></svg>
+      <div class="carousel-hero__controls mb-4">
+        <p class="heading-4 text-white">{% trans "Sometimes YouTube Regrets are" %}</p>
+        <div class="carousel-hero__controls-inner">
+          <div class="d-flex align-items-center justify-content-between justify-content-sm-end" data-glide-el="controls">
+            <div class="carousel-hero__count">
+              <div class="carousel-hero__count-inner d-flex align-items-baseline justify-content-end" data-liveregion>
+                <span class="carousel-hero__count-first">1 </span><span class="carousel-hero__count-second"> / 3</span>
+              </div>
+            </div>
+            <button class="carousel-hero__button carousel-hero__button--prev button mr-3" aria-label="Previous slide" data-glide-dir="<">
+              <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="circle" d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 12.903l-7.666 7.666 7.667 7.667M28.147 20.57H12.814" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="carousel-hero__button carousel-hero__button--next button" aria-label="Next slide" data-glide-dir=">">
+              <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="circle" d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 28.236l7.667-7.667-7.666-7.666M12.814 20.57h15.333" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div data-glide-el="track" class="carousel-hero__container glide__track">
+        <ul class="carousel-hero__slides glide__slides" aria-live="polite">
+
+          {# Slide 1 #}
+          <li class="carousel-hero__item glide__slide">
+            <div class="carousel-hero__video">
+              <video playsinline autoplay muted loop>
+                <source src="{% static "_images/youtube-regrets/hero-carousel/misleading.mp4" %}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <p class="heading-5 text-white mt-2">{% trans "Global Warming: Fact or Fiction? Featuring Physicists Willie Soon and Elliott D. Bloom" %}</p>
+            </div>
+            <div class="carousel-hero__item-content">
+              <p class="heading-1 text-white">{% trans "Misleading" %}</p>
+              <p class="carousel-hero__item-text">
+                {% blocktrans trimmed %}
+                A volunteer reported that they were surprised to see a video denying climate change suggested after they watched a Mozilla video!
+                {% endblocktrans %}
+              </p>
+            </div>
+          </li>
+
+          {# Slide 2 #}
+          <li class="carousel-hero__item glide__slide">
+            <div class="carousel-hero__video">
+              <video playsinline autoplay muted loop>
+                <source src="{% static "_images/youtube-regrets/hero-carousel/untrue.mp4" %}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <p class="heading-5 text-white mt-2">
+                {% blocktrans trimmed %}
+                Omar Connected Harvester SEEN Exchanging $200 for General Election Ballot. “We don’t care illegal.”
+                {% endblocktrans %}
+              </p>
+            </div>
+            <div class="carousel-hero__item-content">
+              <p class="heading-1 text-white">{% trans "Untrue" %}</p>
+              <p class="carousel-hero__item-text">
+                {% blocktrans trimmed %}
+                A volunteer reported that despite mainly watching wilderness survival videos and no right-wing politics, they were recommended a video spreading an unfounded claim about U.S. Representative Ilhan Omar and voter fraud in the 2020 U.S. elections.
+                {% endblocktrans %}
+              </p>
+            </div>
+          </li>
+
+          {# Slide 3 #}
+          <li class="carousel-hero__item glide__slide">
+            <div class="carousel-hero__video">
+              <video playsinline autoplay muted loop>
+                <source src="{% static "_images/youtube-regrets/hero-carousel/offensive.mp4" %}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <p class="heading-5 text-white mt-2">
+                {% trans "Man hum1liates f3m1n1st in v1ral video" %}
+              </p>
+            </div>
+            <div class="carousel-hero__item-content">
+              <p class="heading-1 text-white">{% trans "Offensive" %}</p>
+              <p class="carousel-hero__item-text">
+                {% blocktrans trimmed %}
+                A volunteer reported a video where the narrator claims to “completely shut down and embarass three women that have opinions about how society should be in first world feminist countries” that was recommended after watching videos about the U.S. military.
+                {% endblocktrans %}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
