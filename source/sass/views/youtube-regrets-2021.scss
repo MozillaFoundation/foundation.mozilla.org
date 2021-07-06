@@ -313,7 +313,9 @@
         margin-right: 40px;
 
         &::before {
+          /* stylelint-disable */
           background-color: #FC4147;
+          /* stylelint-enable */
         }
       }
     }
