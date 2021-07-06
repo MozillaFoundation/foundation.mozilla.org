@@ -10,6 +10,13 @@
     margin: 60px 0;
   }
 
+  &--hero {
+    @media (min-width: $bp-lg) {
+      transform: none;
+      margin: 60px 0;
+    }
+  }
+
   // Slides wrapper
   &__slides {
     list-style: none;
@@ -31,6 +38,12 @@
       grid-row-gap: 0;
       grid-column-gap: 30px;
     }
+
+    &--hero {
+      @media (min-width: $bp-lg) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   }
 
   &__item-content {
@@ -40,6 +53,13 @@
 
     @media (min-width: $bp-xl) {
       padding-right: 0;
+    }
+
+    &--reverse-order {
+      @media (min-width: $bp-lg) {
+        grid-row: 1;
+        grid-column: 1;
+      }
     }
   }
 
@@ -52,6 +72,10 @@
       /* stylelint-disable */
       color: #d63126;
       /* stylelint-enable */
+    }
+
+    &--white {
+      color: $white;
     }
   }
 
@@ -67,6 +91,12 @@
       @media (min-width: $bp-lg) {
         max-height: 300px;
         object-fit: cover;
+      }
+    }
+
+    &--reverse-order {
+      @media (min-width: $bp-lg) {
+        grid-column: 2;
       }
     }
   }
@@ -88,6 +118,12 @@
 
     @media (min-width: $bp-lg) {
       padding: 0;
+    }
+
+    &--hero {
+      @media (min-width: $bp-lg) {
+        transform: none;
+      }
     }
   }
 
@@ -144,17 +180,31 @@
       grid-template-columns: 450px 1fr;
       top: calc(300px + 70px);
     }
+
+    &--hero {
+      position: initial;
+      color: $white;
+    }
   }
 
   &__count-first {
     @include set-text-size(36px, 50px);
     font-weight: 300;
     margin-right: 10px;
+
+    &--hero {
+      @include set-text-size(20px, 19px);
+      margin-right: 0;
+    }
   }
 
   &__count-second {
     @include set-text-size(18px, 24px);
     font-weight: 300;
+
+    &--hero {
+      @include set-text-size(20px, 19px);
+    }
   }
 
   // Sadface icons
