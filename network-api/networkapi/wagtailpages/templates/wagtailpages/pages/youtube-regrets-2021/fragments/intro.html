@@ -1,0 +1,27 @@
+{% load i18n %}
+<div class="container dark-theme mb-3">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+      <p>
+        {% blocktrans with stories_link='class="fw-bold" href="#TODO"' trimmed %}
+        In 2019, Mozilla collected <a {{stories_link}}>countless stories</a> from people whose lives were impacted by YouTube’s recommendation algorithm. People had been exposed to misinformation, developed unhealthy body images, and become trapped in bizarre rabbit holes. The more stories we read, the more we realized how central YouTube has become to the lives of so many people — and just how much YouTube recommendations can impact their wellbeing.
+        {% endblocktrans %}
+      </p>
+      <p class="mb-5 pb-4">
+        {% blocktrans trimmed %}
+        Yet when confronted about its recommendation algorithm, <span class="fw-bold">YouTube’s routine response is to deny and deflect</span>.
+        {% endblocktrans %}
+      </p>
+      <p>
+        {% blocktrans with reporter_link='class="fw-bold" href="#TODO"' trimmed %}
+        Faced with this continuous refusal, Mozilla built a browser extension, <a {{reporter_link}}>RegretsReporter</a>, that allows people to donate data about the YouTube videos they regret watching on YouTube. Through one of the biggest crowdsourced investigations into YouTube, we’ve uncovered new information that warrants urgent attention and action from lawmakers and the public.
+        {% endblocktrans %}
+      </p>
+      <p class="fw-bold">
+        {% blocktrans trimmed %}
+        We now know that YouTube is recommending videos that violate their very own policies and harm users around the world — and that needs to stop.
+        {% endblocktrans %}
+      </p>
+    </div>
+  </div>
+</div>
