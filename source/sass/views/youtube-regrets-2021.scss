@@ -339,6 +339,11 @@
       @include set-text-size(50px, 48px, 60px, 48px);
       font-family: $font-changa;
       color: $white;
+
+      &--smaller {
+        @include set-text-size(40px, 48px, 60px, 48px);
+      }
+
     }
 
     &__label {
