@@ -305,7 +305,9 @@
 
       &--light {
         &::before {
+          /* stylelint-disable */
           background-color: #FBD5D7;
+          /* stylelint-enable */
         }
       }
 
