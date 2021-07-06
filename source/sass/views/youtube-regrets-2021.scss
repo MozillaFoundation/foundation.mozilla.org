@@ -132,12 +132,24 @@
   }
 
   .transition-bg {
-    background: linear-gradient(180deg, $youtube-regrets-dark-gray 9.33%, $black 43.89%, $black 100%), linear-gradient(0deg, $black, $black);
+    background: linear-gradient(
+        180deg,
+        $youtube-regrets-dark-gray 9.33%,
+        $black 43.89%,
+        $black 100%
+      ),
+      linear-gradient(0deg, $black, $black);
     border-radius: 0 0 30px 30px;
     overflow: hidden;
 
     @media (min-width: $bp-md) {
-      background: linear-gradient(180deg, $youtube-regrets-purple 26.46%, $black 57.83%, $black 100%), linear-gradient(0deg, $black, $black);
+      background: linear-gradient(
+          180deg,
+          $youtube-regrets-purple 26.46%,
+          $black 57.83%,
+          $black 100%
+        ),
+        linear-gradient(0deg, $black, $black);
     }
   }
 
@@ -169,7 +181,7 @@
         right: 0;
         width: 50%;
         top: 40%;
-        transform: translateY(-50%)
+        transform: translateY(-50%);
       }
     }
   }
@@ -296,7 +308,7 @@
       padding-left: 30px;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         width: 18px;
@@ -306,7 +318,7 @@
       &--light {
         &::before {
           /* stylelint-disable */
-          background-color: #FBD5D7;
+          background-color: #fbd5d7;
           /* stylelint-enable */
         }
       }
@@ -316,7 +328,7 @@
 
         &::before {
           /* stylelint-disable */
-          background-color: #FC4147;
+          background-color: #fc4147;
           /* stylelint-enable */
         }
       }
@@ -354,7 +366,7 @@
 
       &::before,
       &::after {
-        content: '';
+        content: "";
         width: 2px;
         background-color: $black;
         position: absolute;
@@ -406,7 +418,6 @@
       &--smaller {
         @include set-text-size(40px, 48px, 60px, 48px);
       }
-
     }
 
     &__label {
@@ -419,7 +430,7 @@
       margin-bottom: 10px;
 
       &::after {
-        content: '';
+        content: "";
         width: 100%;
         height: 100%;
         border: 1px solid $black;
@@ -461,7 +472,6 @@
     &__divider {
       width: 118px;
     }
-
   }
 
   @import "./youtube-regrets-2021-utils";

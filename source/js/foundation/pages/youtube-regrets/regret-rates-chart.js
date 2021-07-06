@@ -1,38 +1,38 @@
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables } from "chart.js";
 
 export const initYouTubeRegretsRegretRatesChart = () => {
   Chart.register(...registerables);
 
   const labels = [
-    'Brazil',
-    'Germany',
-    'France',
-    'Japan',
-    'Poland',
-    'India',
-    'Spain',
-    'Mexico',
-    'United States',
-    'Turkey',
-    'Finland',
-    'Sweden',
-    'Netherlands',
-    'Norway',
-    'New Zealand',
-    'United Kingdom',
-    'Ireland',
-    'South Africa',
-    'Italy',
-    'Portugal',
-    'Indonesia',
-    'Australia',
-    'Switzerland',
-    'Bangladesh',
-    'Czechia',
-    'Canada',
-    'Austria',
-    'Denmark',
-  ]
+    "Brazil",
+    "Germany",
+    "France",
+    "Japan",
+    "Poland",
+    "India",
+    "Spain",
+    "Mexico",
+    "United States",
+    "Turkey",
+    "Finland",
+    "Sweden",
+    "Netherlands",
+    "Norway",
+    "New Zealand",
+    "United Kingdom",
+    "Ireland",
+    "South Africa",
+    "Italy",
+    "Portugal",
+    "Indonesia",
+    "Australia",
+    "Switzerland",
+    "Bangladesh",
+    "Czechia",
+    "Canada",
+    "Austria",
+    "Denmark",
+  ];
 
   const data = [
     21.89752274,
@@ -63,52 +63,54 @@ export const initYouTubeRegretsRegretRatesChart = () => {
     7.01534607,
     5.290538753,
     4.871869824,
-  ]
+  ];
 
-  const categoriesChart = document.getElementById('regret-rates-chart');
-  const ctx = categoriesChart.getContext('2d');
+  const categoriesChart = document.getElementById("regret-rates-chart");
+  const ctx = categoriesChart.getContext("2d");
 
   const chart = new Chart(ctx, {
-    type: 'bar',
+    type: "bar",
     data: {
       labels,
-      datasets: [{
-        data,
-        backgroundColor: [
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FC4147',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FC4147',
-          '#FC4147',
-          '#FBD5D7',
-          '#FC4147',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FC4147',
-          '#FC4147',
-          '#FBD5D7',
-          '#FBD5D7',
-          '#FC4147',
-          '#FBD5D7',
-          '#FBD5D7',
-        ],
-      }]
+      datasets: [
+        {
+          data,
+          backgroundColor: [
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FC4147",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FC4147",
+            "#FC4147",
+            "#FBD5D7",
+            "#FC4147",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FC4147",
+            "#FC4147",
+            "#FBD5D7",
+            "#FBD5D7",
+            "#FC4147",
+            "#FBD5D7",
+            "#FBD5D7",
+          ],
+        },
+      ],
     },
     options: {
-      indexAxis: 'y',
+      indexAxis: "y",
       plugins: {
         legend: {
           display: false,
@@ -118,19 +120,19 @@ export const initYouTubeRegretsRegretRatesChart = () => {
         x: {
           title: {
             display: true,
-            text: 'Regrets Per 10000 Videos',
+            text: "Regrets Per 10000 Videos",
             padding: {
               top: 20,
             },
             font: {
               size: 18,
               family: "Nunito Sans",
-              weight: '400',
-              color: '#263238',
+              weight: "400",
+              color: "#263238",
             },
           },
           grid: {
-            color: '#e5e5e5'
+            color: "#e5e5e5",
           },
           ticks: {
             stepSize: 5,
@@ -139,11 +141,11 @@ export const initYouTubeRegretsRegretRatesChart = () => {
               size: 12,
               family: "Nunito Sans",
             },
-          }
+          },
         },
         y: {
           grid: {
-            color: 'transparent',
+            color: "transparent",
           },
           ticks: {
             display: true,
@@ -151,14 +153,14 @@ export const initYouTubeRegretsRegretRatesChart = () => {
             font: {
               size: 12,
               family: "Nunito Sans",
-              weight: '700',
+              weight: "700",
             },
           },
           pointLabels: {
             fontStyle: "bold",
-         },
-        }
+          },
+        },
       },
-    }
+    },
   });
-}
+};
