@@ -8,10 +8,10 @@
     </picture>
     <div class="row d-flex flex-row justify-content-center">
       <div class="col-lg-8">
-        <h2 class="text-white">{% trans "Our recommendation: Urgent action must be taken to rein in YouTube's algorithm." %}</h2>
+        <h2 class="text-white">{% trans "Our recommendation: Urgent action must be taken to rein in YouTube’s algorithm." %}</h2>
         <p class="text-white">
-          {% blocktrans trimmed %}
-          YouTube's algorithm drives 700 million hours of watch time on the platform every day. The consequences from YouTube’s algorithmic negligence are simply too great to trust them to fix this on their own. Below, find a summary of Mozilla's recommendations to YouTube, lawmakers, and users. Details on these recommendations can be found in the <a href="https://addons.mozilla.org/addon/regretsreporter/" target="_blank">full report</a>.
+          {% blocktrans with report_link=' href="https://addons.mozilla.org/addon/regretsreporter/" target="_blank"' trimmed %}
+          YouTube’s algorithm drives 700 million hours of watch time on the platform every day. The consequences from YouTube’s algorithmic negligence are simply too great to trust them to fix this on their own. Below, find a summary of Mozilla's recommendations to YouTube, lawmakers, and users. Details on these recommendations can be found in the <a{{report_link}}>full report</a>.
           {% endblocktrans %}
         </p>
         <p class="recommendations__recommendation">
@@ -27,11 +27,11 @@
         </p>
         <hr class="recommendations__divider" />
         <p class="recommendations__recommendation">
-          {% blocktrans trimmed %}
-          <span class="recommendations__accent">People who use YouTube</span> should <a href="https://www.youtube.com/watch?v=pt9YCVX7VOk">get informed</a> about how YouTube recommendations work and <a href="https://foundation.mozilla.org/campaigns/regrets-reporter/">download RegretsReporter</a> to contribute data to future crowdsourced research.
+          {% blocktrans with download_link="https://foundation.mozilla.org/campaigns/regrets-reporter/" trimmed %}
+          <span class="recommendations__accent">People who use YouTube</span> should <a href="https://www.youtube.com/watch?v=pt9YCVX7VOk">get informed</a> about how YouTube recommendations work and <a href="{{download_link}}">download RegretsReporter</a> to contribute data to future crowdsourced research.
           {% endblocktrans %}
         </p>
-        <p class="text-white">{% trans "Mozilla will continue to operate RegretsReporter as an independent tool for scrutinising YouTube's recommendation algorithm. We plan to update the extension to give people an easier way to access YouTube's user controls to block unwanted recommendations, and will continue to publish our analysis and future recommendations." %}</p>
+        <p class="text-white">{% trans "Mozilla will continue to operate RegretsReporter as an independent tool for scrutinising YouTube’s recommendation algorithm. We plan to update the extension to give people an easier way to access YouTube’s user controls to block unwanted recommendations, and will continue to publish our analysis and future recommendations." %}</p>
       </div>
     </div>
   </div>
