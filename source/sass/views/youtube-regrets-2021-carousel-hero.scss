@@ -1,31 +1,12 @@
 @import '../../../node_modules/@glidejs/glide/src/assets/sass/glide.core';
 
-.carousel {
+.carousel-hero {
   $root: &;
   position: relative;
-  margin: 20px 0;
-
-  @media (min-width: $bp-lg) {
-    transform: translateY(-70px);
-    margin: 60px 0;
-  }
-
-  &--hero {
-    @media (min-width: $bp-lg) {
-      transform: none;
-      margin: 60px 0;
-    }
-  }
 
   // Slides wrapper
   &__slides {
     list-style: none;
-    margin-bottom: 0;
-    margin-top: 70px;
-
-    @media (min-width: $bp-lg) {
-      margin-top: 0;
-    }
   }
 
   // Slide
@@ -34,15 +15,9 @@
     grid-row-gap: 20px;
 
     @media (min-width: $bp-lg) {
-      grid-template-columns: 450px 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-row-gap: 0;
       grid-column-gap: 30px;
-    }
-
-    &--hero {
-      @media (min-width: $bp-lg) {
-        grid-template-columns: 1fr 1fr;
-      }
     }
   }
 
@@ -51,66 +26,40 @@
       padding-right: 40px;
     }
 
-    @media (min-width: $bp-xl) {
-      padding-right: 0;
+    @media (min-width: $bp-lg) {
+      grid-row: 1;
+      grid-column: 1;
     }
 
-    &--reverse-order {
-      @media (min-width: $bp-lg) {
-        grid-row: 1;
-        grid-column: 1;
-      }
+    @media (min-width: $bp-xl) {
+      padding-right: 0;
     }
   }
 
   &__item-text {
     @include set-text-size(28px, 30px);
     font-family: $font-zilla;
-    font-weight: 500;
-
-    span {
-      /* stylelint-disable */
-      color: #d63126;
-      /* stylelint-enable */
-    }
-
-    &--white {
-      color: $white;
-    }
+    font-weight: 400;
+    color: $white;
   }
 
-  &__image {
-    @media (min-width: $bp-lg) {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    img {
+  &__video {
+    video {
       width: 100%;
 
       @media (min-width: $bp-lg) {
+        grid-column: 2;
         max-height: 300px;
         object-fit: cover;
-      }
-    }
-
-    &--reverse-order {
-      @media (min-width: $bp-lg) {
-        grid-column: 2;
       }
     }
   }
 
   // Next/prev
   &__controls {
-    display: none;
-
     @media (min-width: $bp-lg) {
       display: grid;
-      grid-template-columns: 450px 1fr;
-      grid-column-gap: 30px;
-      height: 70px;
-      transform: translateY(70px);
+      grid-template-columns: 1fr 1fr;
       position: relative;
       z-index: 1;
       padding: 0 41px;
@@ -118,12 +67,6 @@
 
     @media (min-width: $bp-lg) {
       padding: 0;
-    }
-
-    &--hero {
-      @media (min-width: $bp-lg) {
-        transform: none;
-      }
     }
   }
 
@@ -146,65 +89,48 @@
     background: transparent;
 
     svg {
-      fill: $white;
       transition: fill 0.3s;
+      stroke: $white;
 
-      .arrow {
+      .arrow,
+      .circle {
+        stroke: $white;
         transition: stroke 0.3s;
       }
     }
 
     &:hover {
-      svg {
-        fill: $black;
+      .circle {
+        fill: $white;
       }
 
       .arrow {
-        stroke: $white;
+        stroke: $black;
       }
     }
   }
 
   // Slide counter
   &__count {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 30px;
-    margin-top: 10px;
+    display: none;
 
-    @media (min-width: $bp-lg) {
+    @media (min-width: $bp-sm) {
       grid-template-columns: 450px 1fr;
-      top: calc(300px + 70px);
-    }
-
-    &--hero {
-      position: initial;
       color: $white;
+      display: grid;
+      grid-column-gap: 30px;
+      margin-top: 10px;
     }
+  }
+
+  &__count-first,
+  &__count-second {
+    @include set-text-size(20px, 19px);
+    font-weight: 300;
   }
 
   &__count-first {
-    @include set-text-size(36px, 50px);
-    font-weight: 300;
-    margin-right: 10px;
-
-    &--hero {
-      @include set-text-size(20px, 19px);
-      margin-right: 0;
-    }
-  }
-
-  &__count-second {
-    @include set-text-size(18px, 24px);
-    font-weight: 300;
-
-    &--hero {
-      @include set-text-size(20px, 19px);
-    }
+    margin-right: 6px;
   }
 
   // Sadface icons

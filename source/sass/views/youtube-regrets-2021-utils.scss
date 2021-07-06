@@ -9,4 +9,12 @@
       margin: 0 auto;
     }
   }
+
+  &--pushed {
+    margin: 150px auto 60px;
+
+    @media (min-width: $bp-lg) {
+      margin: 300px auto 130px;
+    }
+  }
 }
