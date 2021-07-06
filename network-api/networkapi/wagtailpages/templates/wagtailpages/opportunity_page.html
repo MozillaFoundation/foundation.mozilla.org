@@ -4,7 +4,7 @@
 {% block subcontent %}
   {% mini_site_sidebar page %}
 
-  <div class="py-4 py-md-5
+  <div class="py-4 py-md-5 mb-3
     {% if page.specific.narrowed_page_content and uses_menu %}
       col-md-7
     {% elif page.specific.narrowed_page_content %}
@@ -25,12 +25,18 @@
         {{ page.title }}
       {% endif %}
     </h1>
-    <div class="cms">
+    <div class="cms opportunity-page-content">
       {% for block in page.body %}
-        {% if block.block_type == 'heading' %}
-          <h1>{{ block.value }}</h1>
+        {% if block.block_type == 'paragraph' %}
+          <div class="container {{block.block_type}}-block">
+            <div class="row justify-content-center">
+              <div class="streamfield-content">
+                  {% include_block block%}
+              </div>
+            </div>
+          </div>
         {% else %}
-          {% include_block block %}
+          {% include_block block with parent_page=page %}
         {% endif %}
       {% endfor %}
     </div>

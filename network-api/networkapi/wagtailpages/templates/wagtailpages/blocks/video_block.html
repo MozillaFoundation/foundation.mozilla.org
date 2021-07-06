@@ -1,20 +1,23 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags %}
 
-<div class="my-default">
-  <div class="embed-responsive embed-responsive-16by9 d-print-none">
-    <iframe
-      src="{{ value.url }}"
-      frameborder="0"
-      class="embed-responsive-item"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
+{% block block_content %}
+<div class="my-2">
+    <div class="embed-responsive embed-responsive-16by9 d-print-none">
+      <iframe
+        src="{{ value.url }}"
+        frameborder="0"
+        class="embed-responsive-item"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    </div>
+    {% if value.caption %}
+    <p class="caption-wrapper body-small mt-2">
+      {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
+      {{ value.caption }}
+      {% if value.captionURL %}</a>{% endif %}
+    </p>
+    {% endif %}
   </div>
-  {% if value.caption %}
-  <p class="caption-wrapper body-small mt-2">
-    {% if value.captionURL %}<a href="{{ value.captionURL }}">{% endif %}
-    {{ value.caption }}
-    {% if value.captionURL %}</a>{% endif %}
-  </p>
-  {% endif %}
-</div>
+{% endblock %}

@@ -1,3 +1,8 @@
-<div class="article-blockquote-block mx-auto my-4 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
-  {{ self }}
-</div>
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+  <div class="article-blockquote-block mx-auto my-4 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
+    {{ self }}
+  </div>
+{% endblock %}

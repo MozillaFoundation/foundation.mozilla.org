@@ -1,7 +1,8 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags %}
 
-<div class="row my-default">
-  <div class="col">
+{% block block_content %}
+  <div class="my-2">
     {% for quote in value.quotes %}
     {% comment %} Next task for this component is to handle multiple quotes. For now, let's use just the first {% endcomment %}
     {% if forloop.counter is 1 %}
@@ -12,4 +13,4 @@
     {% endif %}
     {% endfor %}
   </div>
-</div>
+{% endblock %}

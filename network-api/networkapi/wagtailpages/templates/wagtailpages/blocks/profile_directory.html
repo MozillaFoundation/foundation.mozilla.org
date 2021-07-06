@@ -1,6 +1,7 @@
-{% load static %}
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags static %}
 
-<div class="profile-directory">
+{% block block_content %}
   <div class="fellowships-directory-filter px-2 mb-5">
     {% for label in filters %}
     <div class="filter-option">
@@ -8,6 +9,7 @@
     </div>
     {% endfor %}
   </div>
+  <div class="profile-directory">
 
   {% include "./profile_blocks.html" %}
 
@@ -15,4 +17,4 @@
   <input type="hidden" data-api-endpoint="{{ api_endpoint }}">
   <script src="{% static '_js/directory-listing-filters.compiled.js' %}" async defer></script>
   {% endif %}
-</div>
+{% endblock %}

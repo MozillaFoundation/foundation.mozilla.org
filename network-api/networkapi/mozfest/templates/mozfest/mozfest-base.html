@@ -32,26 +32,27 @@
 
 {% block content %}
   {% block secondary_nav %}{% endblock %}
-  <div class="container">
-    <div class="row">
+
       {% if page.signup != None %}
 
-        {# Use a two-colum layout #}
-        <div class="cms pb-5 col-lg-7">
-          {% include "partials/streamfield.html" with twocolumn=True %}
+        {# Use a two-column layout #}
+        <div class="container">
+          <div class="row">
+            <div class="cms mozfest-content two-col mb-5">
+              {% include "partials/streamfield.html" with twocolumn=True %}
+            </div>
+            {% block cta %}{% include "partials/signup.html" %}{% endblock %}
+          </div>
         </div>
-        {% block cta %}{% include "partials/signup.html" %}{% endblock %}
-
       {% else %}
 
         {# Single column layout #}
-        <div class="cms {% block bootstrap_width %}col-lg-8 offset-lg-2{% endblock %}">
+        <div class="cms mozfest-content mb-3">
           {% include "partials/streamfield.html" %}
         </div>
 
       {% endif %}
-    </div>
-  </div>
+
 {% endblock %}
 
 
@@ -61,6 +62,7 @@
 
 
 {% block script_bundle %}
+  <script src="{% url "javascript-catalog" %}"></script>
   {# This uses the mofo main.js for now, to make sure "things work" until we (maybe never?) create a separate bundle #}
   <script src="{% static "_js/main.compiled.js" %}"></script>
   <script src="{% static "_js/mozfest.compiled.js" %}"></script>

@@ -1,23 +1,26 @@
+{% extends "./base_streamfield_block.html" %}
 {% load wagtailimages_tags wagtailcore_tags remove_richtext_wrapping %}
 
-{% comment %} We need to break out of the main container and re-open the container at the end {% endcomment %}
-{% if self.wide_image %}
-  </div>
-{% endif %}
+{% block block_container_classes %}
+{% if value.wide_image %} wide w-100 mw-100 px-0 mx-0{% endif %}
+{% endblock %}
 
-<div class="article-image-block {% if self.wide_image %}container{% endif %}">
-  {% comment %}Use a 2x resolution image{% endcomment %}
-  {% image self.image width-1840 as img %}
-  <figure class="my-default">
-    <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}" class="w-100" />
+{% block block_row_classes %}
+no-gutters
+{% endblock %}
+
+{% block main_block_class %}
+{% if value.wide_image %} wide {% else %} streamfield-content {% endif %} 
+{% endblock %}
+
+{% image self.image width-1840 as img %}
+  <figure class="my-2">
+    <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
+      class="w-100" />
     {% if self.caption %}
-        <figcaption class="body-small">
-          {{ self.caption|richtext|remove_wrapping|safe }}
-        </figcaption>
+    <figcaption class="body-small">
+      {{ self.caption|richtext|remove_wrapping|safe }}
+    </figcaption>
     {% endif %}
   </figure>
-</div>
-
-{% if self.wide_image %}
-  <div class="py-4 py-md-5 offset-sm-1 col-sm-10 col-12 article-blocks">
-{% endif %}
+{% endblock %}
