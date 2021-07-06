@@ -4,7 +4,7 @@ export const initYoutubeRegretsResearchCountUp = () => {
   if ("IntersectionObserver" in window) {
     const localeSeparator = get_format("THOUSAND_SEPARATOR");
     const localizedSuffix = gettext("K");
-    const reportCountUp = new CountUp("reports-count-up", 5234, {
+    const reportCountUp = new CountUp("reports-count-up", 3362, {
       separator: localeSeparator,
     });
     const volunteersCountUp = new CountUp("volunteers-count-up", 1662, {
