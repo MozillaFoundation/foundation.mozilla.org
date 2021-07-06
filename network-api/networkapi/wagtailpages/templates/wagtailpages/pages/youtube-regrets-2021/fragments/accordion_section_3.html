@@ -8,7 +8,11 @@
 
 <h2 class="heading-2 mb-5">{% trans "We found that the rate of regrets is 60% higher in countries where English is not the primary language." %}</h2>
 
-<p class="mt-5 pb-lg-5">{% trans "This correlates with statements made by YouTube that suggest they have focused these policy changes on English-speaking countries first." %}</p>
+<p class="mt-5 pb-lg-5">
+  {% blocktrans with statement_link="https://blog.youtube/inside-youtube/the-four-rs-of-responsibility-raise-and-reduce/" %}
+  This correlates with <a href="{{statement_link}}">statements</a> made by YouTube that suggest they have focused these policy changes on English-speaking countries first.
+  {% endblocktrans %}
+</p>
 
 <div class="regrets-chart-meta">
   <p class="heading-5">{% trans "Regrets Rate by Country" %}</p>
