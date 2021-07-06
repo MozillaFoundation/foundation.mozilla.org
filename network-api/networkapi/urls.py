@@ -28,6 +28,8 @@ from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as im
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
 from networkapi.redirects import foundation_redirects
+from .views import YoutubeRegrets2021View
+
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [
@@ -72,6 +74,8 @@ urlpatterns = list(filter(None, [
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),
+
+    path("youtube-regrets-2021/", YoutubeRegrets2021View)
 ]))
 
 # Anything that needs to respect the localised

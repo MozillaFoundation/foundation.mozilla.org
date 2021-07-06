@@ -1,0 +1,21 @@
+{% load static i18n %}
+<div class="container dark-theme mb-3">
+  <div class="hero">
+    <div class="row">
+      <div class="col-12">
+        <img class="hero__image hero__image--mobile" src="{% static "_images/youtube-regrets/regrets-reporter/report-findings-hero-mobile.png" %}" alt="">
+        <img class="hero__image hero__image--desktop" src="{% static "_images/youtube-regrets/regrets-reporter/report-findings-hero-desktop.png" %}" alt="">
+        <div class="hero__guts">
+          <h1 class="mb-3 hero-heading">{% trans "YouTube Regrets" %}</h1>
+          <p class="body-large">
+            {% blocktrans trimmed %}
+            Mozilla and 37,380 YouTube users conducted a study to better understand harmful YouTube recommendations. <span class="fst-italic">This is what we learned</span>.
+            {% endblocktrans %}
+          </p>
+          {# TODO - add in PDF URL #}
+          <a href="#" class="btn btn-download" download>{% trans "Download Full Report" %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
