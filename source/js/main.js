@@ -22,6 +22,7 @@ import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
 import { initYouTubeRegretsCategoriesBarChart } from "./foundation/pages/youtube-regrets/categories-bar-chart";
+import { initYouTubeRegretsRegretRatesChart } from "./foundation/pages/youtube-regrets/regret-rates-chart";
 import { initYoutubeRegretsReadMoreCategories } from "./foundation/pages/youtube-regrets/read-more-categories";
 import { initYoutubeRegretsResearchCountUp } from "./foundation/pages/youtube-regrets/research-count-up";
 import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets/accordion";
@@ -117,6 +118,7 @@ let main = {
     // YouTube Regrets 2021 page
     if (document.querySelector("#view-youtube-regrets-2021")) {
       initYouTubeRegretsCategoriesBarChart();
+      initYouTubeRegretsRegretRatesChart();
       initYoutubeRegretsReadMoreCategories();
       initYoutubeRegretsResearchCountUp();
       initYoutubeRegretsAccordions();
