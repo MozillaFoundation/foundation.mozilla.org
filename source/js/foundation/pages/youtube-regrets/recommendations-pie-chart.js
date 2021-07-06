@@ -5,14 +5,15 @@ export const initYouTubeRegretsRecommendationsPieChart = () => {
 
   const categoriesChart = document.getElementById('recommendations-pie-chart');
   const ctx = categoriesChart.getContext('2d');
+  const labelFormat = gettext("%s%");
 
   const chart = new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: [
-        'Recommendation',
-        'Search',
-        'Other'
+        gettext('Recommendation'),
+        gettext('Search'),
+        gettext('Other')
       ],
       datasets: [{
         data: [71.1, 21.5, 7.47],
@@ -36,7 +37,7 @@ export const initYouTubeRegretsRecommendationsPieChart = () => {
         },
         tooltip: {
           callbacks: {
-            label: (context) => `${context.parsed}%`,
+            label: (context) => interpolate(labelFormat, [context.parsed]),
           },
         },
       },

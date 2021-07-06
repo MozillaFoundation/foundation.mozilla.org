@@ -25,7 +25,8 @@
         </div>
       </div>
 
-      {% include "./fragments/accordion_heading_button.html" with number="01" heading_text="Most videos people regret watching come from recommendations." %}
+      {% trans "Most videos people regret watching come from recommendations." as heading_section_1 %}
+      {% include "./fragments/accordion_heading_button.html" with number="01" heading_text=heading_section_1 %}
       {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>
@@ -53,7 +54,8 @@
         </div>
       </div>
 
-      {% include "./fragments/accordion_heading_button.html" with number="02" heading_text="YouTube recommends videos that violate their own policies." %}
+      {% trans "YouTube recommends videos that violate their own policies." as heading_section_2 %}
+      {% include "./fragments/accordion_heading_button.html" with number="02" heading_text=heading_section_2 %}
       {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>
@@ -87,7 +89,8 @@
         </div>
       </div>
 
-      {% include "./fragments/accordion_heading_button.html" with number="03" heading_text="The non-English speaking world is hit the hardest." %}
+      {% trans "The non-English speaking world is hit the hardest." as heading_section_3 %}
+      {% include "./fragments/accordion_heading_button.html" with number="03" heading_text=heading_section_3 %}
       {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>
@@ -123,7 +126,8 @@
         </div>
       </div>
 
-      {% include "./fragments/accordion_heading_button.html" with number="04" heading_text="YouTube Regrets can alter people’s lives forever." %}
+      {% trans "YouTube Regrets can alter people’s lives forever." as heading_section_4 %}
+      {% include "./fragments/accordion_heading_button.html" with number="04" heading_text=heading_section_4 %}
       {% include "./fragments/accordion_close_button.html" %}
     </div>
   </div>

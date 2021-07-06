@@ -6,11 +6,21 @@
         <div class="what-is__guts col-12 offset-md-2 col-md-7">
             <h2 class="heading-1">{% trans "What is a YouTube Regret?" %}</h2>
             <div class="what-is__text">
-                {% blocktrans %}
-                    <p>The concept of a “YouTube Regret” was born out of a <a href="#">crowdsourced campaign</a> that Mozilla developed in 2019 to collect stories about YouTube’s recommendation algorithm leading people down bizarre and sometimes dangerous pathways. We have intentionally steered away from strictly defining what “counts” as a YouTube Regret to allow people to define the full spectrum of regrettable experiences that they have on YouTube.</p>
-                    <p>What a YouTube Regret looks like for one person may not be the same for another, and sometimes YouTube Regrets only emerge after months or weeks of being recommended videos—an experience which is better conveyed through <a href="#">stories</a> than video datasets.</p>
-                    <p>This approach intentionally centers the lived experiences of people to add to what is often a highly legalistic and theoretical discussion. It does not yield clear distinctions about what type of videos should or should not be on YouTube or algorithmically promoted by YouTube. </p>
-                {% endblocktrans %}
+                <p>
+                  {% blocktrans with campaign_link="#TODO" trimmed %}
+                  The concept of a “YouTube Regret” was born out of a <a href="{{campaign_link}}">crowdsourced campaign</a> that Mozilla developed in 2019 to collect stories about YouTube’s recommendation algorithm leading people down bizarre and sometimes dangerous pathways. We have intentionally steered away from strictly defining what “counts” as a YouTube Regret to allow people to define the full spectrum of regrettable experiences that they have on YouTube.
+                  {% endblocktrans %}
+                </p>
+                <p>
+                  {% blocktrans with stories_link="#TODO" trimmed %}
+                  What a YouTube Regret looks like for one person may not be the same for another, and sometimes YouTube Regrets only emerge after months or weeks of being recommended videos—an experience which is better conveyed through <a href="{{stories_link}}">stories</a> than video datasets.
+                  {% endblocktrans %}
+                </p>
+                <p>
+                  {% blocktrans trimmed %}
+                  This approach intentionally centers the lived experiences of people to add to what is often a highly legalistic and theoretical discussion. It does not yield clear distinctions about what type of videos should or should not be on YouTube or algorithmically promoted by YouTube.
+                  {% endblocktrans %}
+                </p>
             </div>
         </div>
     </div>

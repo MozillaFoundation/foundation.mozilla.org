@@ -4,14 +4,13 @@
     <div class="col-12 col-md-8">
       <img class="mb-3" src="{% static "_images/youtube-regrets/regrets-reporter/quotation-mark.svg" %}" alt="">
       <blockquote class="quote">
-        {% blocktrans %}
-          <p class="quote__text fw-bold mb-3">
+        <p class="quote__text fw-bold mb-3">
+          {% blocktrans trimmed %}
             We set <span class="quote__highlight">a high bar</span> for what videos we display prominently in our recommendations on the YouTube homepage or through the 'Up next' panel.
-          </p>
-        {% endblocktrans %}
+          {% endblocktrans %}
+        </p>
         <cite class="quote__cite text-uppercase">{% trans "Youtube’s blog" %}</cite>
       </blockquote>
     </div>
   </div>
 </div>
-
