@@ -1,0 +1,128 @@
+{% load static i18n %}
+<div id="yt-regrets-accordion" class="yt-regrets-accordion">
+
+  {# Section 1 #}
+  <div class="yt-regrets-accordion__item" data-accordion-item>
+    <div class="yt-regrets-accordion__mask" data-expand-mask>
+      <div id="yt-accordion-content-01" class="yt-regrets-accordion__content" data-accordion-content>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col col-md-12 offset-md-2">
+              <div class="row">
+                <div class="yt-regrets-accordion__number col-md-1">01</div>
+                <div class="col-12 col-md-10">
+                  <h2 class="heading-1">{% trans "Most of the videos people regret watching come from recommendations." %}</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 offset-md-1">
+                  {# Section 1 content #}
+                  {% include "./fragments/accordion_section_1.html" %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% trans "Most of the videos people regret watching come from recommendations." as heading_section_1 %}
+      {% include "./fragments/accordion_heading_button.html" with number="01" heading_text=heading_section_1 %}
+      {% include "./fragments/accordion_close_button.html" %}
+    </div>
+  </div>
+
+  {# Section 2 #}
+  <div class="yt-regrets-accordion__item" data-accordion-item>
+    <div class="yt-regrets-accordion__mask" data-expand-mask>
+      <div id="yt-accordion-content-02" class="yt-regrets-accordion__content" data-accordion-content>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col col-md-12 offset-md-2">
+              <div class="row">
+                <div class="yt-regrets-accordion__number col-md-1">02</div>
+                <div class="col-12 col-md-10">
+                  <h2 class="heading-1">{% trans "YouTube recommends videos that violate their own policies." %}</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 offset-md-1">
+                  {% include "./fragments/accordion_section_2.html" %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% trans "YouTube recommends videos that violate their own policies." as heading_section_2 %}
+      {% include "./fragments/accordion_heading_button.html" with number="02" heading_text=heading_section_2 %}
+      {% include "./fragments/accordion_close_button.html" %}
+    </div>
+  </div>
+
+  {# Section 3 #}
+  <div class="yt-regrets-accordion__item" data-accordion-item>
+    <div class="yt-regrets-accordion__mask" data-expand-mask>
+      <div id="yt-accordion-content-03" class="yt-regrets-accordion__content" data-accordion-content>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col col-md-12 offset-md-2">
+              <div class="row">
+                <div class="yt-regrets-accordion__number col-md-1">03</div>
+                <div class="col-12 col-md-10">
+                  <h2 class="heading-1">{% trans "The non-English speaking world is hit the hardest." %}</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 offset-md-1">
+                  {% include "./fragments/accordion_section_3.html" %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% trans "The non-English speaking world is hit the hardest." as heading_section_3 %}
+      {% include "./fragments/accordion_heading_button.html" with number="03" heading_text=heading_section_3 %}
+      {% include "./fragments/accordion_close_button.html" %}
+    </div>
+  </div>
+
+  {# Section 4 #}
+  <div class="yt-regrets-accordion__item" data-accordion-item>
+    <div class="yt-regrets-accordion__mask" data-expand-mask>
+      <div id="yt-accordion-content-04" class="yt-regrets-accordion__content" data-accordion-content>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col col-md-12 offset-md-2">
+              <div class="row">
+                <div class="yt-regrets-accordion__number col-md-1">04</div>
+                <div class="col-12 col-md-10">
+                  <h2 class="heading-1">{% trans "YouTube Regrets can alter people’s lives forever." %}</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 offset-md-1">
+                  <p>Our past work has shown that these video recommendations can have significant impacts on people’s lives.</p>
+
+                  {# Carousel #}
+                  <div class="full-width-container">
+                    <div class="full-width-container__inner">
+                      {% include "../youtube-regrets-2021/fragments/carousel.html" %}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% trans "YouTube Regrets can alter people’s lives forever." as heading_section_4 %}
+      {% include "./fragments/accordion_heading_button.html" with number="04" heading_text=heading_section_4 %}
+      {% include "./fragments/accordion_close_button.html" %}
+    </div>
+  </div>
+</div>

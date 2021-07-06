@@ -1,0 +1,175 @@
+@import '../../../node_modules/@glidejs/glide/src/assets/sass/glide.core';
+
+.carousel-hero {
+  $root: &;
+  position: relative;
+
+  // Slides wrapper
+  &__slides {
+    list-style: none;
+  }
+
+  // Slide
+  &__item {
+    display: grid;
+    grid-row-gap: 20px;
+
+    @media (min-width: $bp-lg) {
+      grid-template-columns: 1fr 1fr;
+      grid-row-gap: 0;
+      grid-column-gap: 30px;
+    }
+  }
+
+  &__item-content {
+    @media (min-width: $bp-sm) {
+      padding-right: 40px;
+    }
+
+    @media (min-width: $bp-lg) {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    @media (min-width: $bp-xl) {
+      padding-right: 0;
+    }
+  }
+
+  &__item-text {
+    @include set-text-size(28px, 30px);
+    font-family: $font-zilla;
+    font-weight: 400;
+    color: $white;
+  }
+
+  &__video {
+    video {
+      width: 100%;
+
+      @media (min-width: $bp-lg) {
+        grid-column: 2;
+        max-height: 300px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  // Next/prev
+  &__controls {
+    @media (min-width: $bp-lg) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      z-index: 1;
+      padding: 0 41px;
+    }
+
+    @media (min-width: $bp-lg) {
+      padding: 0;
+    }
+  }
+
+  &__controls-inner {
+    display: grid;
+    grid-column: 2;
+
+    @media (min-width: $bp-lg) {
+      padding-right: 41px;
+    }
+
+    @media (min-width: $bp-xl) {
+      padding-right: 0;
+    }
+  }
+
+  &__button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+
+    svg {
+      transition: fill 0.3s;
+      stroke: $white;
+
+      .arrow,
+      .circle {
+        stroke: $white;
+        transition: stroke 0.3s;
+      }
+    }
+
+    &:hover {
+      .circle {
+        fill: $white;
+      }
+
+      .arrow {
+        stroke: $black;
+      }
+    }
+  }
+
+  // Slide counter
+  &__count {
+    display: none;
+
+    @media (min-width: $bp-sm) {
+      grid-template-columns: 450px 1fr;
+      color: $white;
+      display: grid;
+      grid-column-gap: 30px;
+      margin-top: 10px;
+    }
+  }
+
+  &__count-first,
+  &__count-second {
+    @include set-text-size(20px, 19px);
+    font-weight: 300;
+  }
+
+  &__count-first {
+    margin-right: 6px;
+  }
+
+  // Sadface icons
+  &__speech-bubble-mobile {
+    width: 58px;
+    height: 49px;
+
+    @media (min-width: $bp-lg) {
+      display: none;
+    }
+  }
+
+  &__speech-bubble-desktop {
+    display: none;
+
+    @media (min-width: $bp-lg) {
+      display: block;
+    }
+  }
+}
+
+// Override to force fade transition on desktop
+// Added this way for now while we test/decide
+// https://github.com/glidejs/glide/issues/279#issuecomment-556933381
+@media (min-width: $bp-lg) {
+  .glide__slides {
+    transform:none !important;
+    width:auto !important;
+    display: grid;
+    grid-template-areas: 'slide';  //create a 1x1 grid where the single cell is called slide
+  }
+  .glide__slide {
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    grid-area: slide;  //assign all child slides to the cell
+  }
+  .glide__slide--active {
+    z-index:1;
+    opacity:1;
+  }
+}

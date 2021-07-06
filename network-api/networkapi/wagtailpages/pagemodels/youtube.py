@@ -88,3 +88,20 @@ class YoutubeRegretsReporterPage(FoundationMetadataPageMixin, Page):
         return set_main_site_nav_information(self, context, 'Homepage')
 
     template = 'wagtailpages/pages/youtube_regrets_reporter_page.html'
+
+
+class YoutubeRegrets2021Page(FoundationMetadataPageMixin, Page):
+
+    template = 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_2021.html'
+    max_count = 1
+    zen_nav = True
+
+    content_panels = Page.content_panels  # Needed for wagtail-modeltranslation to work
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return set_main_site_nav_information(self, context, 'Homepage')
+
+    class Meta:
+        verbose_name = "YouTube Regrets 2021 Page"
+        verbose_name_plural = "YouTube Regrets 2021 Pages"
