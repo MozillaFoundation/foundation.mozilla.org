@@ -8,11 +8,11 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
     gettext("VIOLENT OR GRAPHIC CONTENT"),
     gettext("COVID-19 MISINFORMATION"),
     gettext("HATE SPEECH"),
-    gettext("SPAM"),
+    gettext("SPAM, DECEPTIVE PRACTICES"),
     gettext("NUDITY & SEXUAL CONTENT"),
     gettext("CHILD SAFETY"),
     gettext("HARASSMENT & CYBERBULLYING"),
-    gettext("HARMFUL OR DANGEROUS"),
+    gettext("HARMFUL OR DANGEROUS CONTENT"),
     gettext("OTHER"),
     gettext("FIREARMS"),
     gettext("IMPERSONATION"),
@@ -40,23 +40,26 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
             "#BF0000",
             "#FF0000",
             "#FC666C",
-            "#F9CBD7",
-            "#FFF1F5",
+            "#F99AB3",
+            "#FFCFDB",
+            "#DFDFDF",
             "#BFBFBF",
             "#808080",
             "#404040",
             "#2D2E7A",
             "#4345B6",
             "#595CF3",
-            "#A0A2F8",
-            "#E7E7FC",
-            "#FFFFFF",
+            "#8F8BF0",
+            "#ABADFC",
+            "#E3E3FC",
           ],
         },
       ],
     },
     options: {
-      responsive: false,
+      responsive: true,
+      scaleShowLabels: true,
+      maintainAspectRatio: false,
       indexAxis: "y",
       plugins: {
         legend: {
@@ -86,9 +89,14 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
           },
           ticks: {
             color: "white",
-            font: {
-              size: 12,
-              family: "Nunito Sans",
+            font: function (context) {
+              var width = context.chart.width;
+              const size = width >= 410 ? 12 : 8;
+
+              return {
+                family: "Nunito Sans",
+                size: size,
+              };
             },
           },
         },
