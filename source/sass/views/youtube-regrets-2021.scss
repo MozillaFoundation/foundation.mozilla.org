@@ -201,10 +201,13 @@
           display: block;
           position: absolute;
           right: -15%;
+          max-width: 495px;
         }
       }
 
       &--mobile {
+        max-width: 375px;
+
         @media (min-width: $bp-md) {
           display: none;
         }
