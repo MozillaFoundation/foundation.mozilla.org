@@ -150,11 +150,4 @@ export const initYouTubeRegretsRegretRatesChart = () => {
       },
     },
   });
-
-  // not sure if this redraw of the chart is necessary
-  document.addEventListener('openDrawer', () => {
-    console.log('opened accordion');
-    chart.update();
-    console.log('rerender chart');
-  }, false);
 };

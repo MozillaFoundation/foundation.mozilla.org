@@ -44,7 +44,6 @@ class Accordion {
               duration: this.animateSpeed,
               height: "auto",
               onComplete: () => {
-                console.log('test complete');
                 const event = document.createEvent('Event');
                 event.initEvent('openDrawer', true, true);
                 document.dispatchEvent(event);
