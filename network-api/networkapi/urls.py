@@ -28,6 +28,7 @@ from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as im
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
 from networkapi.redirects import foundation_redirects
+
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [

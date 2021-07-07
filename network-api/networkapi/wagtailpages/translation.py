@@ -21,6 +21,7 @@ from .models import (
     OpportunityPage,
     BlogPage,
     YoutubeRegretsPage,
+    YoutubeRegrets2021Page,
     YoutubeRegretsReporterPage,
     ArticlePage,
     PublicationPage,
@@ -255,6 +256,11 @@ class YoutubeRegretsPageTR(TranslationOptions):
         'faq',
         'regret_stories',
     }
+
+
+@register(YoutubeRegrets2021Page)
+class YoutubeRegretsPage2021TR(TranslationOptions):
+    fields = {}
 
 
 @register(YoutubeRegretsReporterPage)
