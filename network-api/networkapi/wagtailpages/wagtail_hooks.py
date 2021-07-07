@@ -110,6 +110,17 @@ def manage_pni_cache(request, page):
         cache.clear()
 
 
+@hooks.register('after_publish_page')
+def sync_localized_slugs(request, page):
+    for alias in page.aliases.all():
+        alias.slug = find_available_slug(
+            alias.get_parent(),
+            page.slug,
+            ignore_page_id=alias.id
+        )
+        alias.save_revision().publish()
+
+
 @hooks.register('after_delete_page')
 @hooks.register('after_publish_page')
 @hooks.register('after_unpublish_page')
@@ -135,17 +146,3 @@ def global_admin_js():
 def global_admin_css():
     max_length_css = static('wagtailadmin/css/max-length-field.css')
     return f'<link rel="stylesheet" href="{max_length_css}">'
-
-
-@hooks.register('on_page_publish')
-def on_page_publish():
-    """
-    Force-sync slugs for any localized page aliasses.
-    """
-    for alias in page.aliases.all():
-        alias.slug = find_available_slug(
-            alias.get_parent(),
-            page.slug,
-            ignore_page_id=alias.id
-        )
-        alias.save_revision().publish()
