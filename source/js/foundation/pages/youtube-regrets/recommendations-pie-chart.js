@@ -13,7 +13,7 @@ export const initYouTubeRegretsRecommendationsPieChart = () => {
       labels: [gettext("Recommendation"), gettext("Search"), gettext("Other")],
       datasets: [
         {
-          data: [71.1, 21.5, 7.47],
+          data: [70.9, 7.67, 21.4],
           backgroundColor: ["#FC4147", "#080708", "#FBD5D7"],
         },
       ],

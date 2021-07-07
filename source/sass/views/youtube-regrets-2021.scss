@@ -201,10 +201,13 @@
           display: block;
           position: absolute;
           right: -15%;
+          max-width: 495px;
         }
       }
 
       &--mobile {
+        max-width: 375px;
+
         @media (min-width: $bp-md) {
           display: none;
         }
@@ -333,6 +336,15 @@
         }
       }
     }
+  }
+
+  .regrets-chart-responsive {
+    display: block;
+    position: relative;
+    margin: auto;
+    height: 730px;
+    width: 100%;
+    max-width: 800px;
   }
 
   .yt-regrets-accordion {
