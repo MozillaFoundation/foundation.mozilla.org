@@ -1,5 +1,5 @@
 {% load i18n static %}
-<div class="recommendations">
+<div class="recommendations dark-theme">
   <div class="container">
     <picture class="d-block mb-5">
       <source class="w-100" srcset="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" media="(min-width: 768px)">
@@ -8,7 +8,7 @@
     </picture>
     <div class="row d-flex flex-row justify-content-center">
       <div class="col-lg-8">
-        <h2 class="text-white">{% trans "Our recommendation: Urgent action must be taken to rein in YouTube’s algorithm." %}</h2>
+        <h2 class="text-white recommendations__title">{% trans "Our recommendation: Urgent action must be taken to rein in YouTube’s algorithm." %}</h2>
         <p class="text-white">
           {% blocktrans with report_link=' href="https://assets.mofoprod.net/network/documents/Mozilla_YouTube_Regrets_Report.pdf" target="_blank"' trimmed %}
           YouTube’s algorithm drives 700 million hours of watch time on the platform every day. The consequences of this are simply too great to trust them to fix this on their own. Below, find a summary of Mozilla’s recommendations to YouTube, policymakers, and people who use YouTube. Details on these recommendations can be found in the <a{{report_link}}>full report</a>.
