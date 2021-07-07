@@ -88,15 +88,15 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
           },
           ticks: {
             color: "white",
-            font: function(context) {
+            font: function (context) {
               var width = context.chart.width;
               const size = width >= 410 ? 12 : 8;
 
               return {
                 family: "Nunito Sans",
-                size: size
+                size: size,
               };
-            }
+            },
           },
         },
       },

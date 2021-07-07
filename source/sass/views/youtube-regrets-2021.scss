@@ -253,8 +253,7 @@
   }
 
   .categories {
-
-    @media(max-width: 480px) {
+    @media (max-width: 480px) {
       canvas {
         /* stylelint-disable */
         // Very important we overwrite what Chart.js is producing in the [style] attribute on mobile
