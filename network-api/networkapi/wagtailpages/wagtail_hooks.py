@@ -112,13 +112,23 @@ def manage_pni_cache(request, page):
 
 @hooks.register('after_publish_page')
 def sync_localized_slugs(request, page):
-    for alias in page.aliases.all():
-        alias.slug = find_available_slug(
-            alias.get_parent(),
+    for translation in page.get_translations():
+        translation.slug = find_available_slug(
+            translation.get_parent(),
             page.slug,
-            ignore_page_id=alias.id
+            ignore_page_id=translation.id
         )
-        alias.save_revision().publish()
+
+        if translation.alias_of_id is not None:
+            # This is still an alias rather than a published
+            # localized page, so we can only save it as we
+            # would any plain Django model:
+            translation.save()
+
+        else:
+            # If it's a real page, it needs to go through
+            # the revision/publication process.
+            translation.save_revision().publish()
 
 
 @hooks.register('after_delete_page')
