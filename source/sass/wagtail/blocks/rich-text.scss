@@ -1,0 +1,20 @@
+.cms {
+  
+    p:empty {
+      height: 1em;
+    }
+  
+    * + p {
+      /*
+        A paragraph following some other content
+        should have a top margin instead of "glueing"
+        itself onto the preceding content.
+  
+        This rule prevents the bootstrap-reboot.css
+        rule for "top:0, bottom: 1rem" from kicking
+        in for every single paragraph irrespective
+        or preceding content.
+      */
+      margin-top: 1rem;
+    }
+}  
