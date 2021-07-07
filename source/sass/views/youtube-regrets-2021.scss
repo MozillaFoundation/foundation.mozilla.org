@@ -253,14 +253,14 @@
   }
 
   .categories {
-    &__chart-wrap {
-      width: 600px;
-      overflow-x: scroll;
 
-      @media (min-width: $bp-md) {
-        padding: 0;
-        width: 100%;
-        overflow-x: auto;
+    @media(max-width: 480px) {
+      canvas {
+        /* stylelint-disable */
+        // Very important we overwrite what Chart.js is producing in the [style] attribute on mobile
+        // specifically for, and exactly at, 480px
+        height: 430px !important;
+        /* stylelint-enable */
       }
     }
 

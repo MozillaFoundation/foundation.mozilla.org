@@ -56,7 +56,9 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
       ],
     },
     options: {
-      responsive: false,
+      responsive: true,
+      scaleShowLabels: true,
+      maintainAspectRatio: false,
       indexAxis: "y",
       plugins: {
         legend: {
@@ -86,10 +88,15 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
           },
           ticks: {
             color: "white",
-            font: {
-              size: 12,
-              family: "Nunito Sans",
-            },
+            font: function(context) {
+              var width = context.chart.width;
+              const size = width >= 410 ? 12 : 8;
+
+              return {
+                family: "Nunito Sans",
+                size: size
+              };
+            }
           },
         },
       },
