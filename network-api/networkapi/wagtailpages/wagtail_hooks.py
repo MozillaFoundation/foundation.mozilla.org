@@ -5,9 +5,10 @@
 from django.templatetags.static import static
 from django.core.cache import cache
 
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
+from wagtail.core.utils import find_available_slug
 from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, ProductPage
 
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
@@ -134,3 +135,17 @@ def global_admin_js():
 def global_admin_css():
     max_length_css = static('wagtailadmin/css/max-length-field.css')
     return f'<link rel="stylesheet" href="{max_length_css}">'
+
+
+@hooks.register('on_page_publish')
+def on_page_publish():
+    """
+    Force-sync slugs for any localized page aliasses.
+    """
+    for alias in page.aliases.all():
+        alias.slug = find_available_slug(
+            alias.get_parent(),
+            page.slug,
+            ignore_page_id=alias.id
+        )
+        alias.save_revision().publish()
