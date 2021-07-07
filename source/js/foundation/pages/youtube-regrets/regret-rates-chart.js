@@ -4,34 +4,34 @@ export const initYouTubeRegretsRegretRatesChart = () => {
   Chart.register(...registerables);
 
   const labels = [
-    gettext('Brazil'),
-    gettext('Germany'),
-    gettext('France'),
-    gettext('Japan'),
-    gettext('Poland'),
-    gettext('India'),
-    gettext('Spain'),
-    gettext('Mexico'),
-    gettext('United States'),
-    gettext('Turkey'),
-    gettext('Finland'),
-    gettext('Sweden'),
-    gettext('Netherlands'),
-    gettext('Norway'),
-    gettext('New Zealand'),
-    gettext('United Kingdom'),
-    gettext('Ireland'),
-    gettext('South Africa'),
-    gettext('Italy'),
-    gettext('Portugal'),
-    gettext('Indonesia'),
-    gettext('Australia'),
-    gettext('Switzerland'),
-    gettext('Bangladesh'),
-    gettext('Czechia'),
-    gettext('Canada'),
-    gettext('Austria'),
-    gettext('Denmark'),
+    gettext("Brazil"),
+    gettext("Germany"),
+    gettext("France"),
+    gettext("Japan"),
+    gettext("Poland"),
+    gettext("India"),
+    gettext("Spain"),
+    gettext("Mexico"),
+    gettext("United States"),
+    gettext("Turkey"),
+    gettext("Finland"),
+    gettext("Sweden"),
+    gettext("Netherlands"),
+    gettext("Norway"),
+    gettext("New Zealand"),
+    gettext("United Kingdom"),
+    gettext("Ireland"),
+    gettext("South Africa"),
+    gettext("Italy"),
+    gettext("Portugal"),
+    gettext("Indonesia"),
+    gettext("Australia"),
+    gettext("Switzerland"),
+    gettext("Bangladesh"),
+    gettext("Czechia"),
+    gettext("Canada"),
+    gettext("Austria"),
+    gettext("Denmark"),
   ];
 
   const data = [
@@ -65,47 +65,33 @@ export const initYouTubeRegretsRegretRatesChart = () => {
     4.871869824,
   ];
 
+  const primaryEnglish = [
+    gettext("United States"),
+    gettext("New Zealand"),
+    gettext("United Kingdom"),
+    gettext("Ireland"),
+    gettext("Australia"),
+    gettext("Canada"),
+  ];
+
+  const bgColors = {
+    dark: "#FC4147",
+    light: "#FBD5D7",
+  };
+
   const categoriesChart = document.getElementById("regret-rates-chart");
   const ctx = categoriesChart.getContext("2d");
 
-  const chart = new Chart(ctx, {
+  new Chart(ctx, {
     type: "bar",
     data: {
       labels,
       datasets: [
         {
           data,
-          backgroundColor: [
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FC4147",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FC4147",
-            "#FC4147",
-            "#FBD5D7",
-            "#FC4147",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FC4147",
-            "#FC4147",
-            "#FBD5D7",
-            "#FBD5D7",
-            "#FC4147",
-            "#FBD5D7",
-            "#FBD5D7",
-          ],
+          backgroundColor: labels.map((label) =>
+            primaryEnglish.includes(label) ? bgColors.dark : bgColors.light
+          ),
         },
       ],
     },
@@ -120,7 +106,7 @@ export const initYouTubeRegretsRegretRatesChart = () => {
         x: {
           title: {
             display: true,
-            text: gettext('Regrets Per 10000 Videos'),
+            text: gettext("Regrets Per 10000 Videos"),
             padding: {
               top: 20,
             },
