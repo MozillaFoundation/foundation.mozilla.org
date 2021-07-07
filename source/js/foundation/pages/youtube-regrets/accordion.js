@@ -40,7 +40,16 @@ class Accordion {
         });
         timeline
           .to(button, { duration: this.animateSpeed, opacity: 0 })
-          .to(content, { duration: this.animateSpeed, height: "auto" });
+          .to(content, {
+              duration: this.animateSpeed,
+              height: "auto",
+              onComplete: () => {
+                console.log('test complete');
+                const event = document.createEvent('Event');
+                event.initEvent('openDrawer', true, true);
+                document.dispatchEvent(event);
+              }
+          });
       });
 
       closeButton.addEventListener("click", () => {

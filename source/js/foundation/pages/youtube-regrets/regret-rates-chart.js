@@ -82,7 +82,7 @@ export const initYouTubeRegretsRegretRatesChart = () => {
   const categoriesChart = document.getElementById("regret-rates-chart");
   const ctx = categoriesChart.getContext("2d");
 
-  new Chart(ctx, {
+  const chart = new Chart(ctx, {
     type: "bar",
     data: {
       labels,
@@ -96,6 +96,7 @@ export const initYouTubeRegretsRegretRatesChart = () => {
       ],
     },
     options: {
+      maintainAspectRatio: false,
       indexAxis: "y",
       plugins: {
         legend: {
@@ -149,4 +150,11 @@ export const initYouTubeRegretsRegretRatesChart = () => {
       },
     },
   });
+
+  // not sure if this redraw of the chart is necessary
+  document.addEventListener('openDrawer', () => {
+    console.log('opened accordion');
+    chart.update();
+    console.log('rerender chart');
+  }, false);
 };

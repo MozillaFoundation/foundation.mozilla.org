@@ -335,6 +335,15 @@
     }
   }
 
+  .regrets-chart-responsive {
+    display: block;
+    position: relative;
+    margin: auto;
+    height: 730px;
+    width: 100%;
+    max-width: 800px;
+  }
+
   .yt-regrets-accordion {
     position: relative;
 
