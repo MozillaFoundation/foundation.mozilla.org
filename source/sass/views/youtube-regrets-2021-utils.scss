@@ -1,0 +1,20 @@
+.full-width-container {
+  @media (min-width: $bp-lg) {
+    margin: 0 calc(50% - 50vw);
+  }
+
+  &__inner {
+    @media (min-width: $bp-lg) {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  }
+
+  &--pushed {
+    margin: 150px auto 60px;
+
+    @media (min-width: $bp-lg) {
+      margin: 300px auto 130px;
+    }
+  }
+}
