@@ -22,7 +22,7 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
     gettext("FAKE ENGAGEMENT"),
   ];
 
-  const data = [26, 19, 16, 16, 13, 9, 8, 5, 4, 3, 3, 2, 2, 2, 1, 1];
+  const data = [20, 14.6, 12.3, 12.3, 10.0, 6.9, 6.2, 3.8, 3.1, 2.3, 2.3, 1.5, 1.5, 1.5, 0.8, 0.8];
 
   const categoriesChart = document.getElementById("categories-bar-chart");
   const ctx = categoriesChart.getContext("2d");
