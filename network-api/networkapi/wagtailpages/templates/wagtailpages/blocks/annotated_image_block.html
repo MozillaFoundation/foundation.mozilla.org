@@ -11,15 +11,15 @@ no-gutters
 
 {% block main_block_class %}
 streamfield-content 
-  {% if value.full_width_image %} full-width
-  {% elif value.wide_image %} wide
+{% if value.full_width_image %} full-width
+{% elif value.wide_image %} wide
 {% endif %}
 {% endblock %}
 
 {% block block_content %}
 {% image value.image original as img %}
 
-<figure class="my-1">
+<figure class="my-1 annotated-image">
   <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
   {% if value.caption %}
   <figcaption class="body-small d-block mt-2">

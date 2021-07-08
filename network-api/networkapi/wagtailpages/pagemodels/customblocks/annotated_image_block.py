@@ -20,7 +20,7 @@ class AnnotatedImageBlock(ImageBlock):
     full_width_image = blocks.BooleanBlock(
         required=False,
         default=False,
-        help_text='Would you like to use a full width image?',
+        help_text='Would you like to use a full width image? (Please use 16:9 image for best results)',
     )
 
     class Meta:
@@ -31,7 +31,7 @@ class AnnotatedImageBlock(ImageBlock):
     def clean(self, value):
         errors = {}
 
-        if value.get("wide_image") and value.get("full_width_image") is True:
+        if value.get("wide_image") and value.get("full_width_image"):
             errors["wide_image"] = ErrorList(["Please select only one width option."])
             errors["full_width_image"] = ErrorList(
                 ["Please select only one width option."]
