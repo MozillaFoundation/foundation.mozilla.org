@@ -152,113 +152,6 @@
   }
 }
 
-// StreamBlocks
-.article-page-content .rich-text {
-  /**
-   * .rich-text styling needs to be specified in CSS rather than Bootstrap classes
-   * because we don't have access to the individual elements.
-   * This will result in duplicated styling from the Bootstrap framework but there
-   * is no feasible way around this.
-   */
-  a {
-    text-decoration: underline;
-  }
-
-  p,
-  h2,
-  h3,
-  h4,
-  h5,
-  ol,
-  ul {
-    max-width: 80%;
-    margin: 0 auto;
-
-    @media (max-width: $bp-md) {
-      max-width: 100%;
-    }
-  }
-
-  h2,
-  h3,
-  h4,
-  h5 {
-    margin-bottom: 12px;
-    position: relative;
-
-    // Used for offsetting anchor tags in the .rich-text area on Article Pages
-    a.fragment-id {
-      position: absolute;
-      top: -160px;
-    }
-  }
-
-  h3 {
-    font-weight: 600;
-  }
-
-  hr {
-    width: 100%;
-    height: 1px;
-    border-top: 1px solid $gray-20;
-    margin-bottom: 48px;
-    margin-top: 47px;
-  }
-
-  hr ~ img.full-width {
-    margin-top: 0;
-  }
-
-  p,
-  ul,
-  ol,
-  li {
-    margin-bottom: 24px;
-  }
-
-  ol,
-  ul {
-    padding-left: 25px;
-  }
-
-  li {
-    padding-left: 10px;
-    margin-bottom: 14px;
-  }
-
-  p:empty {
-    display: none;
-  }
-
-  @media (min-width: $bp-sm) {
-    p ~ .richtext-image:not(.full-width) {
-      margin-top: 0px;
-      margin-bottom: 0px;
-    }
-  }
-
-  .richtext-image {
-    max-width: 350px;
-  }
-
-  .left {
-    float: left;
-    margin: 24px 30px 24px 0;
-  }
-
-  .right {
-    float: right;
-    margin: 24px 0 24px 30px;
-  }
-
-  .full-width {
-    margin: 24px 0;
-    width: 100%;
-    max-width: 100%;
-    position: relative;
-  }
-}
-
 .article-blockquote-block {
   color: $black;
   @include set-text-size(20px, 30px);
@@ -421,8 +314,8 @@
 }
 
 /**
- * Below is the styling for the next/prev buttons on the Article pages (found at the bottom of the page)
- */
+   * Below is the styling for the next/prev buttons on the Article pages (found at the bottom of the page)
+   */
 .article-link {
   background: $gray-05;
   padding-top: 24px;
