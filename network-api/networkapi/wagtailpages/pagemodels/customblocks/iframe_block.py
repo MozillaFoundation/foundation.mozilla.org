@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 from wagtail.core import blocks
 
 
@@ -20,6 +22,25 @@ class iFrameBlock(blocks.StructBlock):
         required=False,
         help_text='Check this box for a wider iframe',
     )
+    full_width_iframe = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text='Would you like to use a full width iframe?',
+    )
 
     class Meta:
         template = 'wagtailpages/blocks/iframe_block.html'
+
+    def clean(self, value):
+        errors = {}
+
+        if value.get("wide_iframe") and value.get("full_width_iframe"):
+            errors["wide_iframe"] = ErrorList(["Please select only one width option."])
+            errors["full_width_iframe"] = ErrorList(
+                ["Please select only one width option."]
+            )
+
+        if errors:
+            raise ValidationError("Validation error in StructBlock", params=errors)
+
+        return super().clean(value)
