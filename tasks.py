@@ -29,6 +29,17 @@ locale_abstraction_instructions = " ".join(
     ]
 )
 
+locale_abstraction_instructions_js = " ".join(
+    [
+        "makemessages",
+        "-d djangojs",
+        "--keep-pot",
+        "--no-wrap",
+        "--ignore=node_modules",
+        "--ignore=dockerpythonvenv/*",
+    ]
+)
+
 
 def create_env_file(env_file):
     """Create or update an .env to work with a docker environment"""
@@ -246,6 +257,7 @@ def makemessages(ctx):
     """Extract all template messages in .po files for localization"""
     ctx.run("./translation-management.sh import")
     manage(ctx, locale_abstraction_instructions)
+    manage(ctx, locale_abstraction_instructions_js)
     ctx.run("./translation-management.sh export")
 
 

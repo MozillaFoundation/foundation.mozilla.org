@@ -1,0 +1,58 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_id %}youtube-regrets-2021{% endblock %}
+{% block bodyclass %}youtube-regrets-2021{% endblock %}
+
+{% block extended_head %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{# Empty header; Do not add <header role="banner"> to the page #}
+{% block header_wrapped %}{% endblock %}
+
+
+{% block content_wrapped %}
+  <main role="main">
+    {% block main %}
+      <div class="transition-bg">
+        {# Hero #}
+        {% include "./fragments/hero.html" %}
+
+        {# Intro #}
+        {% include "./fragments/intro.html" %}
+
+        {# What is #}
+        {% include "./fragments/what-is.html" %}
+
+        {# Sometimes YouTube regrets are #}
+        {% include "./fragments/hero_carousel.html" %}
+
+        {# Quote #}
+        {% include "./fragments/quote.html" %}
+
+        {# Categories #}
+        {% include "./fragments/categories.html" %}
+      </div>
+
+      {# Our research #}
+      {% include "./fragments/our-research.html" %}
+
+      {# Accordion #}
+      {% include 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_accordion.html' %}
+
+      {# Recommendations section #}
+      {% include './fragments/recommendations.html' %}
+
+      {# Download pdf #}
+      {% include './fragments/downloads.html' %}
+    {% endblock %}
+  </main>
+{% endblock %}
+
+
+{% block footer_block %}
+  {% include "partials/footer.html" %}
+{% endblock %}
