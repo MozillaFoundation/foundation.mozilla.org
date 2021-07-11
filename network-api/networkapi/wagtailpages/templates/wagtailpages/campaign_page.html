@@ -8,91 +8,95 @@
 {% endcomment %}
 
 {% block subcontent %}
-<div class="
-  {% block content_wrapper_class %}py-4 py-md-5{% endblock %}
-  {% if page.specific.narrowed_page_content %}
-    col-lg-8 offset-lg-2
-  {% else %}
-    col-12
-  {% endif %}"
->
+<div class="container">
   <div class="row">
-      <div class="cms pb-3
-        {% if page.cta and page.specific.narrowed_page_content == False %}
-          col-lg-7
-        {% elif page.signup and page.specific.narrowed_page_content == False %}
-          col-lg-7
-        {% else %}
-          col-12
-        {% endif %}"
-      >
-      {% block campaign_page_header %}
-        <h1 class="h1-heading {% if uses_menu %}d-none d-md-block{% endif %}">
-          {% if uses_menu %}
-            {{ mini_site_title }}
-          {% elif page.header %}
-            {{ page.header }}
-          {% else %}
-            {{ page.title }}
-          {% endif %}
-        </h1>
-      {% endblock %}
-      {% block campaign_page_menu %}
-        <div class="mb-4 d-none d-md-block">
-        {% mini_site_horizontal_nav page %}
-        </div>
-      {% endblock %}
-        {% block html_content %}
-        <div class="cms campaign-page-content wide">
-          {% for block in page.body %}
-            {% if block.block_type == 'paragraph'%}
-              <div class="container {{block.block_type}}-block">
-                <div class="row justify-content-center">
-                  <div class="streamfield-content">
-                      {% include_block block%}
+    <div class="
+      {% block content_wrapper_class %}py-4 py-md-5{% endblock %}
+      {% if page.specific.narrowed_page_content %}
+        col-lg-8 offset-lg-2
+      {% else %}
+        col-12
+      {% endif %}"
+    >
+      <div class="row">
+          <div class="cms pb-3
+            {% if page.cta and page.specific.narrowed_page_content == False %}
+              col-lg-7
+            {% elif page.signup and page.specific.narrowed_page_content == False %}
+              col-lg-7
+            {% else %}
+              col-12
+            {% endif %}"
+          >
+          {% block campaign_page_header %}
+            <h1 class="h1-heading {% if uses_menu %}d-none d-md-block{% endif %}">
+              {% if uses_menu %}
+                {{ mini_site_title }}
+              {% elif page.header %}
+                {{ page.header }}
+              {% else %}
+                {{ page.title }}
+              {% endif %}
+            </h1>
+          {% endblock %}
+          {% block campaign_page_menu %}
+            <div class="mb-4 d-none d-md-block">
+            {% mini_site_horizontal_nav page %}
+            </div>
+          {% endblock %}
+          {% block html_content %}
+          <div class="cms campaign-page-content wide">
+            {% for block in page.body %}
+              {% if block.block_type == 'paragraph'%}
+                <div class="container {{block.block_type}}-block">
+                  <div class="row justify-content-center">
+                    <div class="streamfield-content">
+                        {% include_block block%}
+                    </div>
                   </div>
                 </div>
-              </div>
-            {% else %}
-              {% include_block block with parent_page=page %}
-            {% endif %}
-          {% endfor %}
-        </div>
-        {% endblock %}
-      </div>
-
-      {% block cta %}
-      {% if page.cta != None %}
-      <div class="cta pb-2
-        {% if page.specific.narrowed_page_content == False %}
-          col-lg-4 offset-lg-1
-        {% else %}
-          col-lg-12
-        {% endif %}"
-      >
-        <div class="narrow-sticky-button-container hidden">
-          <a href="#cta-anchor" class="btn btn-primary d-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
-        </div>
-        <div class="sticky-cta">
-          <div id="cta-anchor">
-            {% cta page %}
+              {% else %}
+                {% include_block block with parent_page=page %}
+              {% endif %}
+            {% endfor %}
           </div>
-        </div>
-        <script src="https://c.shpg.org/352/sp.js"></script>
-      </div>
-      {% endif %}
-      {% endblock %}
+          {% endblock %}
+          </div>
 
-      <div class="
-        {% if page.cta and page.specific.narrowed_page_content == False %}
-          col-lg-7
-        {% elif page.signup and page.specific.narrowed_page_content == False %}
-          col-lg-7
-        {% else %}
-          col-12
-        {% endif %}"
-      >
+          {% block cta %}
+          {% if page.cta != None %}
+          <div class="cta pb-2
+            {% if page.specific.narrowed_page_content == False %}
+              col-lg-4 offset-lg-1
+            {% else %}
+              col-lg-12
+            {% endif %}"
+          >
+            <div class="narrow-sticky-button-container hidden">
+              <a href="#cta-anchor" class="btn btn-primary d-block">{% trans "TAKE ACTION" context "Sticky button in mobile view on campaign pages" %}</a>
+            </div>
+            <div class="sticky-cta">
+              <div id="cta-anchor">
+                {% cta page %}
+              </div>
+            </div>
+            <script src="https://c.shpg.org/352/sp.js"></script>
+          </div>
+          {% endif %}
+          {% endblock %}
+
+          <div class="
+            {% if page.cta and page.specific.narrowed_page_content == False %}
+              col-lg-7
+            {% elif page.signup and page.specific.narrowed_page_content == False %}
+              col-lg-7
+            {% else %}
+              col-12
+            {% endif %}"
+          >
+          </div>
       </div>
+    </div>
   </div>
 </div>
 {% endblock %}
