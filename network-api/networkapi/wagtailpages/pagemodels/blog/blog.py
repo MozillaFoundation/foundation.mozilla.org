@@ -133,7 +133,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         InlinePanel(
             'related_posts',
             label='Related Blog Posts',
-            min_num=related_post_count,
+            min_num=0,
             max_num=related_post_count
         ),
     ]
@@ -155,6 +155,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
+        context['related_posts'] = [post.related_post for post in self.related_posts.all()]
 
         # Pull this object specifically using the English page title
         blog_page = BlogIndexPage.objects.get(title_en__iexact='Blog')
@@ -171,10 +172,20 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def save(self, *args, **kwargs):
         """
         if a blog page gets saved with fewer than 3 related posts, find
-        the most related posts and drop those in to fill out the related
+        the most-related posts and drop those in to fill out the related
         posts to three, before actually saving.
         """
-        print("related count:", self.related_post.all())
-        if self.related_post.all().count() < related_post_count:
-            print("padding related posts")
-        super().save(*args, *kwargs)
+        post_count = self.related_posts.all().count()
+        missing_count = self.related_post_count - post_count
+        if missing_count > 0:
+            related_posts = get_content_related_by_tag(self)
+            if len(related_posts) >= missing_count:
+                related_posts = related_posts[0:missing_count]
+            for post in related_posts:
+                self.related_posts.add(
+                    RelatedBlogPosts(
+                        page=self,
+                        related_post=post
+                    )
+                )
+        return super().save(*args, *kwargs)
