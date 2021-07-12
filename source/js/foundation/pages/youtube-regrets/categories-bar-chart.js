@@ -8,11 +8,11 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
     gettext("VIOLENT OR GRAPHIC CONTENT"),
     gettext("COVID-19 MISINFORMATION"),
     gettext("HATE SPEECH"),
-    gettext("SPAM"),
+    gettext("SPAM, DECEPTIVE PRACTICES"),
     gettext("NUDITY & SEXUAL CONTENT"),
     gettext("CHILD SAFETY"),
     gettext("HARASSMENT & CYBERBULLYING"),
-    gettext("HARMFUL OR DANGEROUS"),
+    gettext("HARMFUL OR DANGEROUS CONTENT"),
     gettext("OTHER"),
     gettext("FIREARMS"),
     gettext("IMPERSONATION"),
@@ -22,7 +22,7 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
     gettext("FAKE ENGAGEMENT"),
   ];
 
-  const data = [26, 19, 16, 16, 13, 9, 8, 5, 4, 3, 3, 2, 2, 2, 1, 1];
+  const data = [20, 14.6, 12.3, 12.3, 10.0, 6.9, 6.2, 3.8, 3.1, 2.3, 2.3, 1.5, 1.5, 1.5, 0.8, 0.8];
 
   const categoriesChart = document.getElementById("categories-bar-chart");
   const ctx = categoriesChart.getContext("2d");
@@ -40,23 +40,26 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
             "#BF0000",
             "#FF0000",
             "#FC666C",
-            "#F9CBD7",
-            "#FFF1F5",
+            "#F99AB3",
+            "#FFCFDB",
+            "#DFDFDF",
             "#BFBFBF",
             "#808080",
             "#404040",
             "#2D2E7A",
             "#4345B6",
             "#595CF3",
-            "#A0A2F8",
-            "#E7E7FC",
-            "#FFFFFF",
+            "#8F8BF0",
+            "#ABADFC",
+            "#E3E3FC",
           ],
         },
       ],
     },
     options: {
-      responsive: false,
+      responsive: true,
+      scaleShowLabels: true,
+      maintainAspectRatio: false,
       indexAxis: "y",
       plugins: {
         legend: {
@@ -86,9 +89,14 @@ export const initYouTubeRegretsCategoriesBarChart = () => {
           },
           ticks: {
             color: "white",
-            font: {
-              size: 12,
-              family: "Nunito Sans",
+            font: function (context) {
+              var width = context.chart.width;
+              const size = width >= 410 ? 12 : 8;
+
+              return {
+                family: "Nunito Sans",
+                size: size,
+              };
             },
           },
         },
