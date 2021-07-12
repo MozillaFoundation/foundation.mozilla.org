@@ -12,6 +12,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core import blocks
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import InlinePanel, PageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from taggit.models import TaggedItemBase
@@ -73,8 +74,32 @@ class BlogAuthors(Orderable):
         return self.author.name
 
 
-class BlogPage(FoundationMetadataPageMixin, Page):
+class RelatedBlogPosts(Orderable):
+    page = ParentalKey(
+        'wagtailpages.BlogPage',
+        related_name='related_posts',
+    )
 
+    related_post = models.ForeignKey(
+        'wagtailpages.BlogPage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    panels = [
+        PageChooserPanel('related_post'),
+    ]
+
+    def __str__(self):
+        return self.related_post.title
+
+    class Meta:
+        verbose_name = "Related blog posts"
+        verbose_name_plural = "Related blog posts"
+
+
+class BlogPage(FoundationMetadataPageMixin, Page):
     body = StreamField(base_fields)
 
     category = ParentalManyToManyField(
@@ -93,6 +118,8 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         help_text='Check this box to add a comment section for this blog post.',
     )
 
+    related_post_count = 3
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -103,6 +130,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         FieldPanel('category'),
         StreamFieldPanel('body'),
         FieldPanel('feature_comments'),
+        InlinePanel(
+            'related_posts',
+            label='Related Blog Posts',
+            min_num=related_post_count,
+            max_num=related_post_count
+        ),
     ]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
@@ -121,7 +154,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['related_posts'] = get_content_related_by_tag(self)
         context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
 
         # Pull this object specifically using the English page title
@@ -135,3 +167,14 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             context['blog_index'] = blog_page
 
         return set_main_site_nav_information(self, context, 'Homepage')
+
+    def save(self, *args, **kwargs):
+        """
+        if a blog page gets saved with fewer than 3 related posts, find
+        the most related posts and drop those in to fill out the related
+        posts to three, before actually saving.
+        """
+        print("related count:", self.related_post.all())
+        if self.related_post.all().count() < related_post_count:
+            print("padding related posts")
+        super().save(*args, *kwargs)
