@@ -78,6 +78,11 @@
       @extend .col-lg-12;
     }
   }
+  &.wide {
+    .streamfield-content {
+      @extend .col-12;
+    }
+  }
   .streamfield-content {
     @extend .col-lg-8;
   }
