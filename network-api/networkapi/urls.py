@@ -34,10 +34,17 @@ admin.autodiscover()
 urlpatterns = list(filter(None, [
     # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
-        "User-Agent: *\nDisallow: /*artifacts/thimble",
-        content_type="text/plain; charset=utf-8"),
-         name="robots_file"
-         ),
+        'User-Agent: *\nDisallow: /*artifacts/thimble',
+        content_type='text/plain; charset=utf-8'),
+        name='robots_file'
+        ),
+
+    # Google verification
+    path('googled2a9d510ca850787.html', lambda x: HttpResponse(
+        'google-site-verification: googled2a9d510ca850787.html',
+        content_type='text/html; charset=utf-8'),
+        name='googled2a9d510ca850787.html'
+        ),
 
     # social-sign-on routes so that Google auth works
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
