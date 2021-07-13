@@ -45,6 +45,7 @@
     }
   ],
   "scripts": {
-    "postdeploy": "python network-api/manage.py load_fake_data && python network-api/manage.py review_app_admin"
+    "postdeploy": "python network-api/manage.py load_fake_data && python network-api/manage.py review_app_setup create && python network-api/manage.py review_app_admin",
+    "pr-predestroy": "python network-api/manage.py review_app_setup teardown"
   }
 }
