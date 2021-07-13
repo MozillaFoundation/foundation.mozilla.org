@@ -11,13 +11,19 @@
     font-style: italic;
   }
 
-  p {
+  & main p {
     font-weight: 300;
 
     a {
       font-weight: 700;
       color: $blue;
     }
+  }
+
+  .dark-theme p a {
+    /* stylelint-disable */
+    color: #b7b9fa;
+    /* stylelint-enable */
   }
 
   .hero-heading {
@@ -134,23 +140,13 @@
   .transition-bg {
     background: linear-gradient(
         180deg,
-        $youtube-regrets-dark-gray 9.33%,
-        $black 43.89%,
+        $youtube-regrets-purple 26.46%,
+        $black 57.83%,
         $black 100%
       ),
       linear-gradient(0deg, $black, $black);
     border-radius: 0 0 30px 30px;
     overflow: hidden;
-
-    @media (min-width: $bp-md) {
-      background: linear-gradient(
-          180deg,
-          $youtube-regrets-purple 26.46%,
-          $black 57.83%,
-          $black 100%
-        ),
-        linear-gradient(0deg, $black, $black);
-    }
   }
 
   .hero {
@@ -457,13 +453,17 @@
     padding: 150px 0 100px;
 
     @media (min-width: $bp-md) {
-      padding: 300px 0 200px;
+      padding: 230px 0 200px;
     }
   }
 
   .recommendations {
     background-color: $black;
     padding-top: 85px;
+
+    &__title {
+      @include set-text-size(30px, 34px, 52px, 60px);
+    }
 
     &__recommendation {
       @include set-text-size(24px, 30px, 28px, 30px);
