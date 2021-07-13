@@ -23,7 +23,7 @@ def _new_get_redirect(request, path):
     # with the query arguments restored.
     if redirect and request.GET:
         target = redirect.link
-        if request.GET and "?" not in target:
+        if "?" not in target:
             redirect = Redirect(
                 old_path=redirect.old_path,
                 site=redirect.site,
