@@ -988,6 +988,17 @@ class SoftwareProductPage(ProductPage):
         ],
     )
 
+    translatable_fields = ProductPage.translatable_fields + [
+        TranslatableField('handles_recordings_how'),
+        SynchronizedField('recording_alert'),
+        TranslatableField('recording_alert_helptext'),
+        SynchronizedField('medical_privacy_compliant'),
+        TranslatableField('medical_privacy_compliant_helptext'),
+        SynchronizedField('host_controls'),
+        SynchronizedField('easy_to_learn_and_use'),
+        TranslatableField('easy_to_learn_and_use_helptext'),
+    ]
+
     @property
     def product_type(self):
         return "software"
@@ -1251,7 +1262,19 @@ class GeneralProductPage(ProductPage):
         ],
     )
 
-    # TODO: Needs translatable_fields
+    translatable_fields = ProductPage.translatable_fields + [
+        TranslatableField('how_can_you_control_your_data'),
+        SynchronizedField('data_control_policy_is_bad'),
+        SynchronizedField('company_track_record'),
+        SynchronizedField('track_record_is_bad'),
+        TranslatableField('track_record_details'),
+        SynchronizedField('offline_capable'),
+        TranslatableField('offline_use_description'),
+        SynchronizedField('uses_ai'),
+        SynchronizedField('ai_uses_personal_data'),
+        SynchronizedField('ai_is_transparent'),
+        TranslatableField('ai_helptext'),
+    ]
 
     @property
     def product_type(self):
