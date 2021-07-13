@@ -21,6 +21,8 @@ def _new_get_redirect(request, path):
     # any URL with stripped query arguments we make a new, on-the-fly
     # redirect with the same path/site bindings, but an updated link
     # with the query arguments restored.
+    #
+    # See https://github.com/wagtail/wagtail/issues/7339 for more details.
     if redirect and request.GET and "?" not in redirect.link:
         redirect = Redirect(
             old_path=redirect.old_path,
