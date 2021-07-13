@@ -3,6 +3,7 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
+from ..utils import get_content_related_by_tag
 
 
 class Migration(migrations.Migration):

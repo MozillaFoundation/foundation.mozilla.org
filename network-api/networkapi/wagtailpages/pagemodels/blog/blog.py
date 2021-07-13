@@ -60,14 +60,14 @@ class BlogPageTag(TaggedItemBase):
 class BlogAuthors(Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
-    page = ParentalKey("wagtailpages.BlogPage", related_name="authors")
+    page = ParentalKey('wagtailpages.BlogPage', related_name='authors')
     author = models.ForeignKey(
         ContentAuthor,
         on_delete=models.CASCADE,
     )
 
     panels = [
-        SnippetChooserPanel("author"),
+        SnippetChooserPanel('author'),
     ]
 
     def __str__(self):
@@ -95,8 +95,8 @@ class RelatedBlogPosts(Orderable):
         return self.related_post.title
 
     class Meta:
-        verbose_name = "Related blog posts"
-        verbose_name_plural = "Related blog posts"
+        verbose_name = 'Related blog posts'
+        verbose_name_plural = 'Related blog posts'
 
 
 class BlogPage(FoundationMetadataPageMixin, Page):
@@ -106,7 +106,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         BlogPageCategory,
         help_text='Which blog categories is this blog page associated with?',
         blank=True,
-        verbose_name="Categories",
+        verbose_name='Categories',
     )
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
@@ -123,9 +123,9 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                InlinePanel("authors", label="Author", min_num=1)
+                InlinePanel('authors', label='Author', min_num=1)
             ],
-            heading="Author(s)"
+            heading='Author(s)'
         ),
         FieldPanel('category'),
         StreamFieldPanel('body'),
@@ -133,6 +133,9 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         InlinePanel(
             'related_posts',
             label='Related Blog Posts',
+            help_text='Pick three other posts that are related to this post. '
+                'If you pick fewer than three (or none), saving will '
+                'automatically bind some related posts based on tag matching.',
             min_num=0,
             max_num=related_post_count
         ),
@@ -169,7 +172,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
         return set_main_site_nav_information(self, context, 'Homepage')
 
-    def save(self, *args, **kwargs):
+    def ensure_related_posts(self):
         """
         if a blog page gets saved with fewer than 3 related posts, find
         the most-related posts and drop those in to fill out the related
@@ -188,4 +191,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                         related_post=post
                     )
                 )
+
+    def save(self, *args, **kwargs):
+        self.ensure_related_posts()
         return super().save(*args, *kwargs)

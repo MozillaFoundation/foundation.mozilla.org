@@ -10,5 +10,3 @@ def add_tags(post):
 
     for tag in tags[0:3]:
         post.tags.add(tag)
-
-    post.save()
