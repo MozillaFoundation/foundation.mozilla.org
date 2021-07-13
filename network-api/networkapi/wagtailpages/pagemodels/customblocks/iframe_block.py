@@ -1,6 +1,13 @@
-from django.core.exceptions import ValidationError
-from django.forms.utils import ErrorList
+from django import forms
 from wagtail.core import blocks
+
+
+class RadioSelectBlock(blocks.ChoiceBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.field.widget = forms.RadioSelect(
+            choices=self.field.widget.choices
+        )
 
 
 class iFrameBlock(blocks.StructBlock):
@@ -18,29 +25,15 @@ class iFrameBlock(blocks.StructBlock):
         required=False,
         help_text='Optional URL that this caption should link out to.'
     )
-    wide_iframe = blocks.BooleanBlock(
-        required=False,
-        help_text='Check this box for a wider iframe',
-    )
-    full_width_iframe = blocks.BooleanBlock(
-        required=False,
-        default=False,
-        help_text='Would you like to use a full width iframe?',
+    iframe_width = RadioSelectBlock(
+        choices=(
+            ("normal", "Normal"),
+            ("wide", "Wide"),
+            ("full_width", "Full Width"),
+        ),
+        default='normal',
+        help_text='Wide iframes are col-12, Full-Width iframes reach both ends of the screen'
     )
 
     class Meta:
         template = 'wagtailpages/blocks/iframe_block.html'
-
-    def clean(self, value):
-        errors = {}
-
-        if value.get("wide_iframe") and value.get("full_width_iframe"):
-            errors["wide_iframe"] = ErrorList(["Please select only one width option."])
-            errors["full_width_iframe"] = ErrorList(
-                ["Please select only one width option."]
-            )
-
-        if errors:
-            raise ValidationError("Validation error in StructBlock", params=errors)
-
-        return super().clean(value)

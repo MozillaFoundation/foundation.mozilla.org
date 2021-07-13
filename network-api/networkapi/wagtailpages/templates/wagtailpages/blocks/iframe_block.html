@@ -6,7 +6,7 @@ The iframe_block.html is used on Article pages and Blog pages.
 {% endcomment %}
 
 {% block block_container_classes %}
-  {% if value.full_width_iframe %} full-width {% endif %}
+   {% if value.iframe_width == "full_width" %} full-width {% endif %}
 {% endblock %}
 
 {% block block_row_classes %}
@@ -15,8 +15,8 @@ no-gutters
 
 {% block main_block_class %}
 streamfield-content 
-{% if value.full_width_iframe %} full-width
-{% elif value.wide_iframe %} wide
+{% if value.iframe_width == "full_width" %} full-width
+{% elif value.iframe_width == "wide" %} wide
 {% endif %}
 {% endblock %}
 
