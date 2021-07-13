@@ -233,7 +233,11 @@
       </li>
       <li class="segment">
         <h4>{% trans "July 2021" %}</h4>
-        <p>{% trans "Using data contributed by 37,380 RegretsReporter users, Mozilla releases first findings into YouTube's recommendations." %}</p>
+        <p>
+          {% blocktrans with link="/campaigns/regrets-reporter/findings" trimmed %}
+          Using data contributed by 37,380 RegretsReporter users, Mozilla releases first <a href="{{link}}" target="_blank">findings</a> into YouTube's recommendations.
+          {% endblocktrans %}
+        </p>
       </li>
     </ol>
     <div class="control-next">
