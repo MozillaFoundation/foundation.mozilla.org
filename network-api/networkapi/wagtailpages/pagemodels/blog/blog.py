@@ -182,15 +182,18 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         missing_count = self.related_post_count - post_count
         if missing_count > 0:
             related_posts = get_content_related_by_tag(self)
+
             if len(related_posts) >= missing_count:
                 related_posts = related_posts[0:missing_count]
-            for post in related_posts:
-                self.related_posts.add(
-                    RelatedBlogPosts(
-                        page=self,
-                        related_post=post
+
+            if len(related_posts) > 0:
+                for post in related_posts:
+                    self.related_posts.add(
+                        RelatedBlogPosts(
+                            page=self,
+                            related_post=post
+                        )
                     )
-                )
 
     def save(self, *args, **kwargs):
         self.ensure_related_posts()

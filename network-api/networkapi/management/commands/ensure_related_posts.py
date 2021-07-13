@@ -14,9 +14,12 @@ class Command(BaseCommand):
         all_posts = BlogPage.objects.all()
         total_posts = all_posts.count()
 
-        print('Total number of posts  update:', total_posts)
+        print('Total number of posts to update:', total_posts)
 
         for i, post in enumerate(all_posts):
-            print(f"Processing posts {i+1} out of {total_posts}")
-            post.ensure_related_posts()
+            print(f"Processing post {i+1} out of {total_posts}, {post.related_posts.all().count()} preexisting related posts")
+
+            found_related_posts = post.ensure_related_posts()
             post.save_revision().publish()
+
+            print(f'-  post {i+1} updated to {post.related_posts.all().count()} related posts')
