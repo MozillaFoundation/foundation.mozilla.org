@@ -23,7 +23,7 @@
 
   {% endcomment %}
 
-      {% with first=items.first.blog %}
+      {% with first=items.first.blog.localized %}
       <div class="d-none d-xl-block col-xl-12 feature mb-md-5">
         <div class="position-relative h-100 d-flex justify-content-end">
           <div class="feature-image">
@@ -56,22 +56,24 @@
 
       {% with item_1_class="d-xl-none mb-5 mb-xl-0" item_2_class="mb-5 mb-xl-0" item_3_class="mb-5 mb-md-0"  %}
       {% for item in items %}
+      {% with localized=item.blog.localized %}
       <div class="col-12 col-md-6 col-xl-4 d-flex {% if forloop.counter == 1 %} {{item_1_class}}{% endif %} {% if forloop.counter == 2 %} {{item_2_class}}{% endif %} {% if forloop.counter == 3 %} {{item_3_class}}{% endif %}">
         <div class="bg-white">
-          <img src="{% image_url item.blog.get_meta_image "fill-700x394" %}" alt="" class="embed-responsive-item">
+          <img src="{% image_url localized.get_meta_image "fill-700x394" %}" alt="" class="embed-responsive-item">
           <div class="p-4">
-            {% if item.blog.category.count %}
-              {% with category=item.blog.category.first %}
+            {% if localized.category.count %}
+              {% with category=localized.category.first %}
                 <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
               {% endwith %}
             {% else %}
                 <div class="h6-heading d-md-block d-none mb-1">&nbsp;</div>
             {% endif %}
-            <h3 class="h4-heading"><a href="{{item.blog.url}}">{{ item.blog.title }}</a></h3>
+            <h3 class="h4-heading"><a href="{{localized.url}}">{{ localized.title }}</a></h3>
             {% include "./blog_authors.html" with blog_page=item.blog %}
           </div>
         </div>
       </div>
+      {% endwith %}
       {% endfor %}
       {% endwith %}
 
