@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block block_container_classes %}
-  {% if value.full_width_video %} full-width {% endif %}
+{% if value.video_width == "full_width" %} full-width {% endif %}
 {% endblock %}
 
 {% block block_row_classes %}
@@ -11,8 +11,8 @@ no-gutters
 
 {% block main_block_class %}
 streamfield-content 
-{% if value.full_width_video %} full-width
-{% elif value.wide_video %} wide
+{% if value.video_width == "full_width" %} full-width
+{% elif value.video_width == "wide" %} wide
 {% endif %}
 {% endblock %}
 

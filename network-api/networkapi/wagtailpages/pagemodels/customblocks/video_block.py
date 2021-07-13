@@ -1,7 +1,13 @@
-from django.core.exceptions import ValidationError
-from django.forms.utils import ErrorList
+from django import forms
 from wagtail.core import blocks
 
+
+class RadioSelectBlock(blocks.ChoiceBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.field.widget = forms.RadioSelect(
+            choices=self.field.widget.choices
+        )
 
 class VideoBlock(blocks.StructBlock):
     url = blocks.CharBlock(
@@ -18,15 +24,14 @@ class VideoBlock(blocks.StructBlock):
         required=False,
         help_text='Optional URL for caption to link to.'
     )
-    wide_video = blocks.BooleanBlock(
-        required=False,
-        default=False,
-        help_text='Would you like to use a wider video on desktop?'
-    )
-    full_width_video = blocks.BooleanBlock(
-        required=False,
-        default=False,
-        help_text='Would you like to use a full width video?',
+    video_width = RadioSelectBlock(
+        choices=(
+            ("normal", "Normal"),
+            ("wide", "Wide"),
+            ("full_width", "Full Width"),
+        ),
+        default='normal',
+        help_text='Wide videos are col-12, Full-Width videos reach both ends of the screen.'
     )
 
     class Meta:
