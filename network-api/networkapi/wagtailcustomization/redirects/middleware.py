@@ -21,14 +21,12 @@ def _new_get_redirect(request, path):
     # any URL with stripped query arguments we make a new, on-the-fly
     # redirect with the same path/site bindings, but an updated link
     # with the query arguments restored.
-    if redirect and request.GET:
-        target = redirect.link
-        if "?" not in target:
-            redirect = Redirect(
-                old_path=redirect.old_path,
-                site=redirect.site,
-                redirect_link=f'{redirect.link}?{urlencode(request.GET)}'
-            )
+    if redirect and request.GET and "?" not in redirect.link:
+        redirect = Redirect(
+            old_path=redirect.old_path,
+            site=redirect.site,
+            redirect_link=f'{redirect.link}?{urlencode(request.GET)}'
+        )
 
     return redirect
 
