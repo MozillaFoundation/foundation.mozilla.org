@@ -36,18 +36,3 @@ class VideoBlock(blocks.StructBlock):
 
     class Meta:
         template = 'wagtailpages/blocks/video_block.html'
-
-
-    def clean(self, value):
-        errors = {}
-
-        if value.get("wide_video") and value.get("full_width_video"):
-            errors["wide_video"] = ErrorList(["Please select only one width option."])
-            errors["full_width_video"] = ErrorList(
-                ["Please select only one width option."]
-            )
-
-        if errors:
-            raise ValidationError("Validation error in StructBlock", params=errors)
-
-        return super().clean(value)
