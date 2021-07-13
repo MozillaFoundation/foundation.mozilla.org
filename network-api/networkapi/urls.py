@@ -4,10 +4,11 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
-from django.views.i18n import set_language
+from django.views.i18n import set_language, JavaScriptCatalog
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -27,15 +28,23 @@ from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as im
 from networkapi.views import EnvVariablesView, review_app_help_view
 from networkapi.wagtailpages.rss import RSSFeed, AtomFeed
 from networkapi.redirects import foundation_redirects
+
 admin.autodiscover()
 
 urlpatterns = list(filter(None, [
     # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
-        "User-Agent: *\nDisallow: /*artifacts/thimble",
-        content_type="text/plain; charset=utf-8"),
-         name="robots_file"
-         ),
+        'User-Agent: *\nDisallow: /*artifacts/thimble',
+        content_type='text/plain; charset=utf-8'),
+        name='robots_file'
+        ),
+
+    # Google verification
+    path('googled2a9d510ca850787.html', lambda x: HttpResponse(
+        'google-site-verification: googled2a9d510ca850787.html',
+        content_type='text/html; charset=utf-8'),
+        name='googled2a9d510ca850787.html'
+        ),
 
     # social-sign-on routes so that Google auth works
     re_path(r'^soc/', include('social_django.urls', namespace='social')),
@@ -67,6 +76,7 @@ urlpatterns = list(filter(None, [
 
     # set up set language redirect view
     path('i18n/setlang/', csrf_exempt(set_language), name='set_language'),
+    path('jsi18n/', cache_page(3600)(JavaScriptCatalog.as_view()), name='javascript-catalog'),
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),

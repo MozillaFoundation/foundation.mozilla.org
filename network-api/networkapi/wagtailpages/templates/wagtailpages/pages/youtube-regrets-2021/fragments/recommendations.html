@@ -1,0 +1,38 @@
+{% load i18n static %}
+<div class="recommendations dark-theme" id="recommendations">
+  <div class="container">
+    <picture class="d-block mb-5">
+      <source class="w-100" srcset="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" media="(min-width: 768px)">
+      <source class="w-100" srcset="{% static '_images/youtube-regrets/recommendations/recommendations-mobile.png' %}">
+      <img class="w-100" src="{% static '_images/youtube-regrets/recommendations/recommendations-desktop.png' %}" alt="">
+    </picture>
+    <div class="row d-flex flex-row justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="text-white recommendations__title">{% trans "Our recommendation: Urgent action must be taken to rein in YouTube’s algorithm." %}</h2>
+        <p class="text-white">
+          {% blocktrans with report_link=' href="https://assets.mofoprod.net/network/documents/Mozilla_YouTube_Regrets_Report.pdf" target="_blank"' trimmed %}
+          YouTube’s algorithm drives 700 million hours of watch time on the platform every day. The consequences of this are simply too great to trust them to fix this on their own. Below, find a summary of Mozilla’s recommendations to YouTube, policymakers, and people who use YouTube. Details on these recommendations can be found in the <a{{report_link}}>full report</a>.
+          {% endblocktrans %}
+        </p>
+        <p class="recommendations__recommendation">
+          {% blocktrans trimmed %}
+          <span class="recommendations__accent">Policymakers</span> must require YouTube to release adequate public data about their algorithm and create research tools and legal protections that allow for real, independent scrutiny of the platform.
+          {% endblocktrans %}
+        </p>
+        <hr class="recommendations__divider" />
+        <p class="recommendations__recommendation">
+          {% blocktrans trimmed %}
+          <span class="recommendations__accent">YouTube and other companies</span> must publish audits of their algorithm and give people meaningful control over how their data is used for recommendations, including allowing people to opt-out of personalized recommendations.
+          {% endblocktrans %}
+        </p>
+        <hr class="recommendations__divider" />
+        <p class="recommendations__recommendation">
+          {% blocktrans with download_link="https://foundation.mozilla.org/campaigns/regrets-reporter/" trimmed %}
+          <span class="recommendations__accent">People who use YouTube</span> should <a href="https://www.youtube.com/watch?v=pt9YCVX7VOk">get informed</a> about how YouTube recommendations work and <a href="{{download_link}}">download RegretsReporter</a> to contribute data to future crowdsourced research.
+          {% endblocktrans %}
+        </p>
+        <p class="text-white">{% trans "Mozilla will continue to operate RegretsReporter as an independent tool for scrutinising YouTube’s recommendation algorithm. We plan to update the extension to give people an easier way to access YouTube’s user controls to block unwanted recommendations, and will continue to publish our analysis and future recommendations." %}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -40,6 +40,10 @@
 @import "./wagtail/blocks/image-text-mini";
 @import "./wagtail/blocks/iframe-block";
 @import "./wagtail/blocks/link-button.scss";
+@import "./wagtail/blocks/rich-text";
+@import "./wagtail/blocks/profiles";
+@import "./wagtail/blocks/article-blocks";
+@import "./wagtail/blocks";
 
 // Misc
 
@@ -62,6 +66,7 @@
 @import "./views/youtube-regrets-intro";
 @import "./views/youtube-regrets";
 @import "./views/youtube-regrets-reporter";
+@import "./views/youtube-regrets-2021";
 @import "./views/dear-internet";
 @import "./views/publication";
 @import "./views/article";

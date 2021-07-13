@@ -21,6 +21,14 @@ import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunne
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
 import { bindEventHandlers as bindRegretsReporterEventHandlers } from "./foundation/pages/youtube-regrets/regrets-reporter";
 import { bindEventHandlers as bindDearInternetEventHandlers } from "./foundation/pages/dear-internet";
+import { initYouTubeRegretsCategoriesBarChart } from "./foundation/pages/youtube-regrets/categories-bar-chart";
+import { initYouTubeRegretsRegretRatesChart } from "./foundation/pages/youtube-regrets/regret-rates-chart";
+import { initYoutubeRegretsReadMoreCategories } from "./foundation/pages/youtube-regrets/read-more-categories";
+import { initYoutubeRegretsResearchCountUp } from "./foundation/pages/youtube-regrets/count-up";
+import { initYoutubeRegretsAccordions } from "./foundation/pages/youtube-regrets/accordion";
+import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/youtube-regrets/recommendations-pie-chart";
+import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
+import { initYoutubeRegretsHeroCarousel } from "./foundation/pages/youtube-regrets/hero-carousel";
 
 // Initializing component a11y browser console logging
 if (
@@ -107,6 +115,18 @@ let main = {
     // YouTube Regrets page
     if (document.querySelector("#view-youtube-regrets")) {
       new YouTubeRegretsTunnel();
+    }
+
+    // YouTube Regrets 2021 page
+    if (document.querySelector("#view-youtube-regrets-2021")) {
+      initYouTubeRegretsCategoriesBarChart();
+      initYouTubeRegretsRegretRatesChart();
+      initYoutubeRegretsReadMoreCategories();
+      initYoutubeRegretsResearchCountUp();
+      initYoutubeRegretsAccordions();
+      initYouTubeRegretsRecommendationsPieChart();
+      initYoutubeRegretsCarousel();
+      initYoutubeRegretsHeroCarousel();
     }
 
     // YouTube Regrets Reporter page
