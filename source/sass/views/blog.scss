@@ -25,3 +25,138 @@ a.category {
 #view-blog-index .result-info {
   font-family: $font-family-slab-serif;
 }
+
+#page-hero {
+  $breakpoint: $bp-md;
+  $banner-height-mobile: 300px;
+  $banner-height-desktop: 580px;
+  $banner-background-z-index: 1;
+  $banner-video-control-z-index: 4;
+  $cutoff-offset: 65px;
+  margin-bottom: -60px;
+
+  .video-control-wrapper {
+    z-index: $banner-video-control-z-index;
+    position: absolute;
+    width: 100%;
+    bottom: 1rem;
+
+    @media screen and (min-width: $breakpoint) {
+      // bottom: calc(#{$cutoff-offset} + 1rem);
+    }
+
+    .btn.btn-video-control {
+      $icon-size: 30px;
+
+      border: none;
+      height: $icon-size;
+      background: center left/$icon-size $icon-size no-repeat transparent;
+      // padding-left: calc(#{$icon-size} + 0.5rem);
+      // due to a Safari bug, we have to remove transition for these buttons
+      // so background SVGs don't get resized on hover
+      transition: none;
+
+      &:hover {
+        color: $white;
+        text-decoration: underline;
+      }
+
+      &.btn-pause {
+        background-image: url("../_images/video_pause_button.svg");
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      &.btn-play {
+        background-image: url("../_images/video_play_button.svg");
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .banner {
+    height: $banner-height-mobile;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media screen and (min-width: $breakpoint) {
+      height: $banner-height-desktop;
+    }
+  }
+
+  .homepage-banner-content.container {
+    z-index: $banner-background-z-index + 3;
+
+    @media screen and (min-width: $breakpoint) {
+      padding-bottom: $cutoff-offset;
+    }
+  }
+
+  .cutout {
+    z-index: $banner-background-z-index + 2;
+    margin-bottom: 0;
+    background-color: white;
+    @media screen and (min-width: $breakpoint) {
+      margin-top: -$cutoff-offset;
+    }
+
+    @media (max-width: $bp-lg) {
+      opacity: 0;
+    }
+  }
+
+  .background-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    video,
+    img {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: absolute;
+      z-index: $banner-background-z-index;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+}
+
+.video-control-wrapper {
+  .row {
+    justify-content: right;
+  }
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center center;
+  object-position: center center;
+}
+
+.blog-body {
+  z-index: 3;
+  position: relative;
+}

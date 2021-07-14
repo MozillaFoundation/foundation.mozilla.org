@@ -13,6 +13,7 @@ from wagtail.core import blocks
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -88,6 +89,22 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     zen_nav = True
 
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='hero_banner_image',
+        verbose_name='Hero Image',
+        help_text='Image for the blog page hero section.',
+    )
+    hero_video = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text='URL to video for blog page hero section. (Will take priority over hero image if both entered)',
+
+    )
+
     feature_comments = models.BooleanField(
         default=False,
         help_text='Check this box to add a comment section for this blog post.',
@@ -101,6 +118,8 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             heading="Author(s)"
         ),
         FieldPanel('category'),
+        FieldPanel('hero_video'),
+        ImageChooserPanel('hero_image'),
         StreamFieldPanel('body'),
         FieldPanel('feature_comments'),
     ]
