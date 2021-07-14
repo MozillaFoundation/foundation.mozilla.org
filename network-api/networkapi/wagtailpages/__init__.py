@@ -1,8 +1,6 @@
 import django
 import functools
 
-from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.utils.translation.trans_real import accept_language_re
 
 

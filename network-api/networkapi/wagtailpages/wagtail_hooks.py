@@ -5,7 +5,6 @@
 from django.templatetags.static import static
 from django.core.cache import cache
 from django.urls import reverse
-from django.utils.html import format_html
 
 from wagtail.admin.menu import MenuItem
 from django.utils.translation import ugettext_lazy as _
@@ -144,8 +143,3 @@ def register_howto_menu_item():
         _('How Do I Wagtail'), reverse('how-do-i-wagtail'),
         name='howdoIwagtail', classnames='icon icon-help', order=900
     )
-
-@hooks.register("insert_global_admin_css", order=100)
-def global_admin_css():
-    """Add /static/css/admin.css to the admin."""
-    return format_html('<link rel="stylesheet" href="{}">', static("css/admin.css"))
