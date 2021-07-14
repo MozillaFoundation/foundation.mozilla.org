@@ -74,19 +74,17 @@
   @extend .px-0;
 }
 
-.iframe-block {
-  @extend .px-0;
-  .wide {
-    @extend .col-12;
-  }
-}
-
 .mozfest-content {
   &.two-col {
     @extend .p-0;
     @extend .col-lg-7;
     .streamfield-content {
       @extend .col-lg-12;
+    }
+  }
+  &.wide {
+    .streamfield-content {
+      @extend .col-12;
     }
   }
   .streamfield-content {
