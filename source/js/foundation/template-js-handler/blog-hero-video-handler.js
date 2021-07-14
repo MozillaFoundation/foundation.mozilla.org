@@ -1,15 +1,13 @@
-const backgroundVideoHandler = () => {
-  let homepageBanner = document.querySelector("#page-hero .banner");
+const blogHeroVideoHandler = () => {
+  let blogPageHero = document.querySelector("#page-hero .banner");
 
-  if (!homepageBanner) {
+  if (!blogPageHero) {
     return;
   }
 
-  let video = homepageBanner.querySelector("video.banner-video");
-  let pauseButton = homepageBanner.querySelector(
-    ".btn-video-control.btn-pause"
-  );
-  let playButton = homepageBanner.querySelector(".btn-video-control.btn-play");
+  let video = blogPageHero.querySelector("video.banner-video");
+  let pauseButton = blogPageHero.querySelector(".btn-video-control.btn-pause");
+  let playButton = blogPageHero.querySelector(".btn-video-control.btn-play");
 
   if (video && pauseButton && playButton) {
     const HIDE = `d-none`;
@@ -48,5 +46,5 @@ const backgroundVideoHandler = () => {
  * Bind handlers to blog video banner
  */
 export default () => {
-  backgroundVideoHandler();
+  blogHeroVideoHandler();
 };
