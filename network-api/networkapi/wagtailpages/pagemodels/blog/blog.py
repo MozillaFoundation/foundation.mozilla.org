@@ -5,6 +5,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
+    PageChooserPanel,
     PrivacyModalPanel,
     PublishingPanel,
     StreamFieldPanel,
@@ -12,7 +13,6 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core import blocks
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import InlinePanel, PageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from taggit.models import TaggedItemBase
@@ -134,8 +134,8 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             'related_posts',
             label='Related Blog Posts',
             help_text='Pick three other posts that are related to this post. '
-                'If you pick fewer than three (or none), saving will '
-                'automatically bind some related posts based on tag matching.',
+                      'If you pick fewer than three (or none), saving will '
+                      'automatically bind some related posts based on tag matching.',
             min_num=0,
             max_num=related_post_count
         ),
@@ -158,7 +158,14 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
-        context['related_posts'] = [post.related_post for post in self.related_posts.all()]
+
+        related_posts = [post.related_post for post in self.related_posts.all()]
+        if request.is_preview:
+            # While we automatically pad out the related posts during save, we want to
+            # see that same padded list during preview, but *without* actually updating
+            # the model, so we control this property at render context retrieval time:
+            related_posts = related_posts + self.get_missing_related_posts()
+        context['related_posts'] = related_posts
 
         # Pull this object specifically using the English page title
         blog_page = BlogIndexPage.objects.get(title_en__iexact='Blog')
@@ -172,29 +179,56 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
         return set_main_site_nav_information(self, context, 'Homepage')
 
-    def ensure_related_posts(self):
+    def get_missing_related_posts(self):
         """
-        if a blog page gets saved with fewer than 3 related posts, find
-        the most-related posts and drop those in to fill out the related
-        posts to three, before actually saving.
+        Check how many related posts are missing, and generate a list of
+        posts that can be added in to fill that list up. We do this in its
+        own function so that both publishing a page and previewing a page
+        can present the full list of related posts, while making sure that
+        previewing does not save the amended list into the model, as previews
+        shouldn't change the model in any way.
         """
+        additional_posts = list()
         post_count = self.related_posts.all().count()
         missing_count = self.related_post_count - post_count
-        if missing_count > 0:
-            related_posts = get_content_related_by_tag(self)
 
-            if len(related_posts) >= missing_count:
-                related_posts = related_posts[0:missing_count]
+        if missing_count == 0:
+            return additional_posts
 
-            if len(related_posts) > 0:
-                for post in related_posts:
-                    self.related_posts.add(
-                        RelatedBlogPosts(
-                            page=self,
-                            related_post=post
-                        )
-                    )
+        related_posts = get_content_related_by_tag(self)
+
+        if len(related_posts) > 0:
+            # Add as many posts as there are missing, or until
+            # we run out of related posts, whichever comes first.
+            for post in related_posts:
+                if missing_count == 0:
+                    break
+                if self.related_posts.filter(related_post=post).count() > 0:
+                    # Make sure to skip over duplicates
+                    continue
+                additional_posts.append(post)
+                missing_count = missing_count - 1
+
+        return additional_posts
+
+    def ensure_related_posts(self):
+        """
+        If a blog page gets saved with fewer than 3 related posts, we
+        want to find the most-related posts and drop those in to fill
+        out the related posts to three, before actually saving.
+        """
+        for post in self.get_missing_related_posts():
+            self.related_posts.add(
+                RelatedBlogPosts(
+                    page=self,
+                    related_post=post
+                )
+            )
 
     def save(self, *args, **kwargs):
+        """
+        Ensure that we've tried to fill in three related posts
+        for this blog post if fewer than three were set by staff
+        """
         self.ensure_related_posts()
         return super().save(*args, *kwargs)
