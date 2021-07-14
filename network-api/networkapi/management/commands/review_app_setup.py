@@ -1,7 +1,3 @@
-"""
-Management command called during the Heroku Review App post-deployment phase.
-Creates an admin user and prints the password to the build logs.
-"""
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 import os
@@ -10,32 +6,46 @@ import heroku3
 
 from wagtail.core.models import Site
 
-REVIEW_APP_ROUTE_53_ZONE = settings.REVIEW_APP_ROUTE_53_ZONE
-REVIEW_APP_HEROKU_API_KEY = settings.REVIEW_APP_HEROKU_API_KEY
+ROUTE_53_ZONE = settings.REVIEW_APP_ROUTE_53_ZONE
+HEROKU_API_KEY = settings.REVIEW_APP_HEROKU_API_KEY
+AWS_ACCESS_KEY_ID = settings.REVIEW_APP_AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = settings.REVIEW_APP_AWS_SECRET_ACCESS_KEY
 
 
 class Command(BaseCommand):
     help = "Create a superuser for use on Heroku review apps"
 
+    def get_route53_client(self):
+        if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
+            raise CommandError(
+                "REVIEW_APP_AWS_ACCESS_KEY_ID and REVIEW_APP_SECRET_ACCESS_KEY must be set"
+            )
+
+        return boto3.client(
+            "route53",
+            aws_access_key=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        )
+
     def get_domain_site_mapping(self):
         """ Return a mapping of Site object names to the hostname that should be created for them """
         app_name = os.environ.get("HEROKU_APP_NAME")
         return {
-            "Mozilla Festival": f"{app_name}.{REVIEW_APP_ROUTE_53_ZONE}",
-            "Foundation Home Page": f"mozfest-{app_name}.{REVIEW_APP_ROUTE_53_ZONE}",
+            "Mozilla Festival": f"{app_name}.{ROUTE_53_ZONE}",
+            "Foundation Home Page": f"mozfest-{app_name}.{ROUTE_53_ZONE}",
         }
 
     def get_hosted_zone_id(self):
         """ Get the Route 53 hosted zone from AWS based on the name given in REVIEW_APP_ROUTE_53_ZONE """
-        client = boto3.client("route53")
-        zones = client.list_hosted_zones_by_name(DNSName=REVIEW_APP_ROUTE_53_ZONE)
+        client = self.get_route53_client()
+        zones = client.list_hosted_zones_by_name(DNSName=ROUTE_53_ZONE)
 
         if not zones or not zones["HostedZones"]:
             raise CommandError(
                 "Failed to retrieve Route 53 zone. Make sure REVIEW_APP_ROUTE_53_ZONE is set correctly."
             )
 
-        if zones["HostedZones"][0]["Name"] != REVIEW_APP_ROUTE_53_ZONE + ".":
+        if zones["HostedZones"][0]["Name"] != ROUTE_53_ZONE + ".":
             raise CommandError("AWS API returned mismatched domain for review app")
 
         return zones["HostedZones"][0]["Id"]
@@ -45,7 +55,7 @@ class Command(BaseCommand):
         follow the given action to make these changes in Route 53
         """
         zone_id = self.get_hosted_zone_id()
-        client = boto3.client("route53")
+        client = self.get_route53_client()
         changes = [
             {
                 "Action": action,
@@ -64,7 +74,7 @@ class Command(BaseCommand):
 
     def add_dns_records(self):
         """ Prepare records to be added for each review app Site required """
-        heroku = heroku3.from_key(REVIEW_APP_HEROKU_API_KEY)
+        heroku = heroku3.from_key(HEROKU_API_KEY)
         app_name = os.environ.get("HEROKU_APP_NAME")
         app = heroku.apps()[app_name]
 
@@ -85,7 +95,7 @@ class Command(BaseCommand):
     def remove_dns_records(self):
         """ Prepare records to be removed for each review app Site """
         app_name = os.environ.get("HEROKU_APP_NAME")
-        heroku = heroku3.from_key(REVIEW_APP_HEROKU_API_KEY)
+        heroku = heroku3.from_key(HEROKU_API_KEY)
         app = heroku.apps()[app_name]
         heroku_domains = app.domains()
 
@@ -109,7 +119,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         action = options["action"]
 
-        if not REVIEW_APP_HEROKU_API_KEY or not REVIEW_APP_ROUTE_53_ZONE:
+        if not HEROKU_API_KEY or not ROUTE_53_ZONE:
             raise CommandError(
                 "Please set REVIEW_APP_HEROKU_API_KEY and REVIEW_APP_ROUTE_53_ZONE"
             )
