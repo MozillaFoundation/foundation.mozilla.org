@@ -3,19 +3,21 @@
 
 {% comment %}
 The iframe_block.html is used on Article pages and Blog pages.
-Blog pages need to break out of the current grid system and open a 12 column block
-for it to align with other content.
-The Article page doesn't require as much "breaking out" of the parent grid because there's
-less nesting in the article pages. But we still need to break out of the grid, and
-use a 12 column grid.
 {% endcomment %}
+
+{% block block_container_classes %}
+   {% if value.iframe_width == "full_width" %} full-width {% endif %}
+{% endblock %}
 
 {% block block_row_classes %}
 no-gutters
 {% endblock %}
 
 {% block main_block_class %}
-{% if value.wide_iframe %} wide {% else %} streamfield-content {% endif %}
+streamfield-content 
+{% if value.iframe_width == "full_width" %} full-width
+{% elif value.iframe_width == "wide" %} wide
+{% endif %}
 {% endblock %}
 
 {% block block_content %}
