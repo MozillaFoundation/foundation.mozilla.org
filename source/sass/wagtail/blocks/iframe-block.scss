@@ -1,0 +1,12 @@
+.iframe-block {
+  @extend .px-0;
+  .wide {
+    @extend .col-12;
+  }
+
+  .full-width {
+    p {
+      @extend .pl-3;
+    }
+  }
+}

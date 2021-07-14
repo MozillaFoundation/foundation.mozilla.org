@@ -1,4 +1,13 @@
+from django import forms
 from wagtail.core import blocks
+
+
+class RadioSelectBlock(blocks.ChoiceBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.field.widget = forms.RadioSelect(
+            choices=self.field.widget.choices
+        )
 
 
 class iFrameBlock(blocks.StructBlock):
@@ -16,9 +25,14 @@ class iFrameBlock(blocks.StructBlock):
         required=False,
         help_text='Optional URL that this caption should link out to.'
     )
-    wide_iframe = blocks.BooleanBlock(
-        required=False,
-        help_text='Check this box for a wider iframe',
+    iframe_width = RadioSelectBlock(
+        choices=(
+            ("normal", "Normal"),
+            ("wide", "Wide"),
+            ("full_width", "Full Width"),
+        ),
+        default='normal',
+        help_text='Wide iframes are col-12, Full-Width iframes reach both ends of the screen'
     )
 
     class Meta:
