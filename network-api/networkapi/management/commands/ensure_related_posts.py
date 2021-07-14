@@ -21,5 +21,10 @@ class Command(BaseCommand):
                 f"Processing post {i+1} out of {total_posts}, "
                 "{post.related_posts.all().count()} preexisting related posts"
             )
-            post.save_revision().publish()
+
+            post.save_revision()
+
             print(f'-  post {i+1} updated to {post.related_posts.all().count()} related posts')
+
+            if post.live:
+                post.publish()
