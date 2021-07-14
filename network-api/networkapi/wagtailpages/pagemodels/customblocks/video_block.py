@@ -9,6 +9,7 @@ class RadioSelectBlock(blocks.ChoiceBlock):
             choices=self.field.widget.choices
         )
 
+
 class VideoBlock(blocks.StructBlock):
     url = blocks.CharBlock(
         help_text='For YouTube: go to your YouTube video and click “Share,” '
