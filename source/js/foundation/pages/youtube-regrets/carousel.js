@@ -2,13 +2,14 @@ import Swiper from 'swiper/bundle';
 
 class Carousel {
   static selector() {
-    return "[data-carousel-swiper]";
+    return "[data-carousel]";
   }
 
   constructor(node) {
     this.node = node;
     this.createSlideshow();
     this.bindEvents();
+    console.log(this);
   }
 
   bindEvents() {

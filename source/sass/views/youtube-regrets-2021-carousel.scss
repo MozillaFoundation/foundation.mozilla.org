@@ -194,6 +194,18 @@
     }
   }
 
+  &__count-inner {
+    &--hero {
+      @include set-text-size(20px);
+    }
+    .swiper-pagination-current {
+      margin-right: 5px;
+    }
+    .swiper-pagination-total {
+      margin-left: 5px;
+    }
+  }
+
   &__count-first,
   .swiper-pagination-current {
     @include set-text-size(36px, 50px);
@@ -238,9 +250,12 @@
 
 
 .swiper-button-disabled {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0.2;
   pointer-events: none;
+
+  &:focus {
+    background: transparent;
+  }
 }
 
 // Override to force fade transition on desktop
