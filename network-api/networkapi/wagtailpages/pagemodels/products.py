@@ -1263,6 +1263,9 @@ class GeneralProductPage(ProductPage):
     )
 
     translatable_fields = ProductPage.translatable_fields + [
+        TranslatableField('personal_data_collected'),
+        TranslatableField('biometric_data_collected'),
+        TranslatableField('social_data_collected'),
         TranslatableField('how_can_you_control_your_data'),
         SynchronizedField('data_control_policy_is_bad'),
         SynchronizedField('company_track_record'),
