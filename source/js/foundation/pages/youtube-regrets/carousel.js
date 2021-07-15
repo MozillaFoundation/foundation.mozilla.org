@@ -13,6 +13,7 @@ class Carousel {
     this.slideshow.mount({ ArrowDisabler });
     this.bindEvents();
     this.setLiveRegion();
+    this.throttled = false;
   }
 
   bindEvents() {
@@ -22,7 +23,23 @@ class Carousel {
     this.slideshow.on("run.after", () => {
       this.updateAriaRoles();
       this.updateLiveRegion();
+      // this.resizeSlider();
     });
+
+    // this.slideshow.on("build.after", () => {
+    //   this.resizeSlider();
+    // });
+
+    // window.addEventListener("resize", () => {
+    //   if (!this.throttled) {
+    //     this.resizeSlider();
+    //
+    //     this.throttled = true;
+    //     setTimeout(() => {
+    //       this.throttled = false;
+    //     }, 300);
+    //   }
+    // });
   }
 
   createSlideshow() {
@@ -71,6 +88,18 @@ class Carousel {
     inner.setAttribute("data-liveregion", true);
     liveRegion.appendChild(inner);
   }
+
+  // resizeSlider() {
+  //   const activeSlide = this.node.querySelector(".glide__slide--active");
+  //   const activeSlideHeight = activeSlide ? activeSlide.offsetHeight : 0;
+  //
+  //   const glideTrack = document.querySelector(".glide__track");
+  //   const glideTrackHeight = glideTrack ? glideTrack.offsetHeight : 0;
+  //
+  //   if (activeSlideHeight !== glideTrackHeight) {
+  //     glideTrack.style.height = `${activeSlideHeight}px`;
+  //   }
+  // }
 
   // Update the live region that announces the next slide.
   updateLiveRegion() {

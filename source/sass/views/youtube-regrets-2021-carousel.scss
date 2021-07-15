@@ -64,7 +64,7 @@
   }
 
   &__item-text {
-    @include set-text-size(28px, 30px);
+    @include set-text-size(24px, 30px);
     font-family: $font-zilla;
     font-weight: 500;
 
