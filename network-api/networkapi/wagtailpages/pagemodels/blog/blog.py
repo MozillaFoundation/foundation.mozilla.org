@@ -111,7 +111,6 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         help_text='Check this box to add a comment section for this blog post.',
     )
 
-
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -162,11 +161,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
         return set_main_site_nav_information(self, context, 'Homepage')
 
-
     def clean(self):
         if self.hero_image and self.hero_video:
-          raise ValidationError({
+            raise ValidationError({
                 'hero_image': ValidationError("Please select a video OR an image for the hero section."),
-                'hero_video': ValidationError("Please select a video OR an image for the hero section.")})
+                'hero_video': ValidationError("Please select a video OR an image for the hero section.")
+                })
 
         return super().clean()
