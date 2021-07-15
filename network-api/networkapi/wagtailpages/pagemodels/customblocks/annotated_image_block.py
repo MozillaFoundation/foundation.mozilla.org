@@ -10,6 +10,7 @@ class RadioSelectBlock(blocks.ChoiceBlock):
             choices=self.field.widget.choices
         )
 
+
 class AnnotatedImageBlock(ImageBlock):
     caption = blocks.CharBlock(
         required=False
@@ -25,11 +26,11 @@ class AnnotatedImageBlock(ImageBlock):
             ("full_width", "Full Width"),
         ),
         default='normal',
-        help_text='Wide images are col-12, Full-Width Images reach both ends of the screen (16:6 images recommended for full width)'
+        help_text='Wide images are col-12, Full-Width Images reach both ends of the screen '
+                  '(16:6 images recommended for full width)'
     )
 
     class Meta:
         icon = 'image'
         template = 'wagtailpages/blocks/annotated_image_block.html'
         help_text = 'Design Guideline: Please crop images to a 16:6 aspect ratio when possible.'
-
