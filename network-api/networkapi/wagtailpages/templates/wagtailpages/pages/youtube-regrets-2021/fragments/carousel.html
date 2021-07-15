@@ -1,18 +1,7 @@
 {% load static i18n %}
 
 <div class="carousel" data-carousel data-slidetotal="5" id="yt-regrets-carousel">
-  <div class="carousel__controls">
-    <div class="carousel__controls-inner">
-      <div class="d-flex align-items-center justify-content-end" data-glide-el="controls">
-        <button class="carousel__button carousel__button--prev button mr-3" aria-label="{% trans "Previous slide" %}" data-glide-dir="<">
-          <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 12.903l-7.666 7.666 7.667 7.667M28.147 20.57H12.814" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="carousel__button carousel__button--next button" aria-label="{% trans "Next slide" %}" data-glide-dir=">">
-          <svg aria-hidden="true" width="41" height="41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.48 39.736c10.586 0 19.167-8.581 19.167-19.167 0-10.585-8.58-19.166-19.166-19.166S1.314 9.983 1.314 20.569s8.581 19.167 19.167 19.167z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/><path class="arrow" d="M20.48 28.236l7.667-7.667-7.666-7.666M12.814 20.57h15.333" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
+  {% include './carousel_controls.html' %}
   <div data-glide-el="track" class="carousel__container glide__track">
     <ul class="carousel__slides glide__slides" aria-live="polite">
       <li class="carousel__item glide__slide">
@@ -67,7 +56,7 @@
         </div>
       </li>
       <li class="carousel__item glide__slide">
-        <div class="carousel__image">
+        <div class="carousel__image">1
           <img src="{% static "_images/youtube-regrets/carousel/quote-4.png" %}" alt="">
         </div>
         <div class="carousel__item-content">
@@ -100,6 +89,9 @@
       </li>
     </ul>
   </div>
+  {# Mobile controls #}
+  {% include './carousel_controls.html' with mobile=True %}
+
   <div class="carousel__count">
     <img class="carousel__speech-bubble-mobile mb-4" src="{% static "_images/youtube-regrets/speech-bubble-sad.png" %}" alt="">
     <div class="carousel__count-inner d-flex align-items-baseline justify-content-end" data-liveregion>

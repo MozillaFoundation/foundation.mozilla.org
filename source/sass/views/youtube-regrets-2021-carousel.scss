@@ -125,6 +125,14 @@
         transform: none;
       }
     }
+
+    &--mobile {
+      display: grid;
+
+      @media (min-width: $bp-lg) {
+        display: none;
+      }
+    }
   }
 
   &__controls-inner {
@@ -235,13 +243,13 @@
     transform: none !important;
     width: auto !important;
     display: grid;
-    grid-template-areas: "slide"; //create a 1x1 grid where the single cell is called slide
+    //grid-template-areas: "slide"; //create a 1x1 grid where the single cell is called slide
   }
   .glide__slide {
     position: relative;
     opacity: 0;
     transition: opacity 0.5s ease;
-    grid-area: slide; //assign all child slides to the cell
+    //grid-area: slide; //assign all child slides to the cell
   }
   .glide__slide--active {
     z-index: 1;
