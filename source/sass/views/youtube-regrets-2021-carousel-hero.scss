@@ -1,5 +1,3 @@
-@import "../../../node_modules/@glidejs/glide/src/assets/sass/glide.core";
-
 .carousel-hero {
   $root: &;
   position: relative;
@@ -22,6 +20,8 @@
   }
 
   &__item-content {
+    order: 1;
+
     @media (min-width: $bp-sm) {
       padding-right: 40px;
     }
@@ -29,6 +29,7 @@
     @media (min-width: $bp-lg) {
       grid-row: 1;
       grid-column: 1;
+      order: 2;
     }
 
     @media (min-width: $bp-xl) {
@@ -44,6 +45,8 @@
   }
 
   &__video {
+    order: 2;
+
     video {
       width: 100%;
 
@@ -51,6 +54,7 @@
         grid-column: 2;
         max-height: 300px;
         object-fit: cover;
+        order: 1;
       }
     }
   }
@@ -80,6 +84,22 @@
 
     @media (min-width: $bp-xl) {
       padding-right: 0;
+    }
+
+    &--desktop {
+      display: none;
+
+      @media (min-width: $bp-xl) {
+        display: grid;
+      }
+    }
+
+    &--mobile {
+      display: grid;
+
+      @media (min-width: $bp-xl) {
+        display: none;
+      }
     }
   }
 
@@ -155,21 +175,21 @@
 // Override to force fade transition on desktop
 // Added this way for now while we test/decide
 // https://github.com/glidejs/glide/issues/279#issuecomment-556933381
-@media (min-width: $bp-lg) {
-  .glide__slides {
-    transform: none !important;
-    width: auto !important;
-    display: grid;
-    //grid-template-areas: "slide"; //create a 1x1 grid where the single cell is called slide
-  }
-  .glide__slide {
-    position: relative;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    //grid-area: slide; //assign all child slides to the cell
-  }
-  .glide__slide--active {
-    z-index: 1;
-    opacity: 1;
-  }
-}
+//@media (min-width: $bp-lg) {
+//  .glide__slides {
+//    transform: none !important;
+//    width: auto !important;
+//    display: grid;
+//    //grid-template-areas: "slide"; //create a 1x1 grid where the single cell is called slide
+//  }
+//  .glide__slide {
+//    position: relative;
+//    opacity: 0;
+//    transition: opacity 0.5s ease;
+//    //grid-area: slide; //assign all child slides to the cell
+//  }
+//  .glide__slide--active {
+//    z-index: 1;
+//    opacity: 1;
+//  }
+//}
