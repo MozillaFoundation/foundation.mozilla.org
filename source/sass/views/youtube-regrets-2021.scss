@@ -114,6 +114,7 @@
 
       @include hover-focus-active {
         color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
       }
     }
 
@@ -128,12 +129,14 @@
 
       @include hover-focus-active {
         color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
       }
     }
 
     @include hover-focus-active {
       // todo - state styles (also update chrome download and firefox download above)
       color: $white;
+      background: $youtube-regrets-darker-red;
     }
   }
 
@@ -143,8 +146,8 @@
         $youtube-regrets-purple 26.46%,
         $black 57.83%,
         $black 100%
-      ),
-      linear-gradient(0deg, $black, $black);
+    ),
+    linear-gradient(0deg, $black, $black);
     border-radius: 0 0 30px 30px;
     overflow: hidden;
   }

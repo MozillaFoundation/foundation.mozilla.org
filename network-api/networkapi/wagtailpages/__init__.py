@@ -1,25 +1,7 @@
 import django
 import functools
 
-from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.utils.translation.trans_real import accept_language_re
-
-from wagtail.admin.menu import MenuItem
-from wagtail.core import hooks
-
-
-class HowToWagtailMenuItem(MenuItem):
-    def is_shown(self, request):
-        return True
-
-
-@hooks.register('register_admin_menu_item')
-def register_howto_menu_item():
-    return HowToWagtailMenuItem(
-        _('How Do I Wagtail'), reverse('how-do-i-wagtail'),
-        name='howdoIwagtail', classnames='icon icon-help', order=900
-    )
 
 
 # WARNING: this is not necessarily a good idea, but is the only way to override

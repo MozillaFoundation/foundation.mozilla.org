@@ -2,7 +2,7 @@
 
 <div id="hero">
   <div class="banner bg-black">
-    {% with banner=page.hero_image %}
+    {% with banner=page.specific.get_banner %}
       {% if banner %}
         {% if homepage %}
         <picture>
