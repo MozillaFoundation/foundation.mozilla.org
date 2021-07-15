@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -101,7 +102,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
     hero_video = models.CharField(
         blank=True,
         max_length=500,
-        help_text='URL to video for blog page hero section. (Will take priority over hero image if both entered)',
+        help_text='URL to video for blog page hero section.',
 
     )
 
@@ -109,6 +110,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         default=False,
         help_text='Check this box to add a comment section for this blog post.',
     )
+
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -118,8 +120,13 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             heading="Author(s)"
         ),
         FieldPanel('category'),
-        FieldPanel('hero_video'),
-        ImageChooserPanel('hero_image'),
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_video"),
+                ImageChooserPanel('hero_image'),
+            ],
+            heading="Hero Video/Image"
+        ),
         StreamFieldPanel('body'),
         FieldPanel('feature_comments'),
     ]
@@ -154,3 +161,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             context['blog_index'] = blog_page
 
         return set_main_site_nav_information(self, context, 'Homepage')
+
+
+    def clean(self):
+        if self.hero_image and self.hero_video:
+          raise ValidationError({
+                'hero_image': ValidationError("Please select a video OR an image for the hero section."),
+                'hero_video': ValidationError("Please select a video OR an image for the hero section.")})
+
+        return super().clean()
