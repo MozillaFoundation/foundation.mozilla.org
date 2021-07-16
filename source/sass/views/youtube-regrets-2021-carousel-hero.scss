@@ -132,14 +132,15 @@
 
   // Slide counter
   &__count {
-    display: none;
+    padding-right: 20px;
 
-    @media (min-width: $bp-sm) {
+    @media (min-width: $bp-lg) {
       grid-template-columns: 450px 1fr;
       color: $white;
       display: grid;
       grid-column-gap: 30px;
       margin-top: 10px;
+      padding-right: 0;
     }
   }
 

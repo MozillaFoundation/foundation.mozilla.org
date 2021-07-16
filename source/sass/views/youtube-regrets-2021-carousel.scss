@@ -97,8 +97,6 @@
 
   // Next/prev
   &__controls {
-    display: none;
-
     @media (min-width: $bp-lg) {
       display: grid;
       grid-template-columns: 450px 1fr;
