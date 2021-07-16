@@ -41,8 +41,6 @@ class Carousel {
 }
 
 export const initYoutubeRegretsCarousel = () => {
-  // const carousels = [...document.querySelectorAll("[data-carousel]")];
-  // carousels.map((carousel) => new Carousel(carousel));
   new Carousel();
 };
 
