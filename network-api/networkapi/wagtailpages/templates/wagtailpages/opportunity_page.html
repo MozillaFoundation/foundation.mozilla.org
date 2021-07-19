@@ -2,43 +2,47 @@
 {% load wagtailcore_tags mini_site_tags %}
 
 {% block subcontent %}
+<div class="container">
+  <div class="row">
   {% mini_site_sidebar page %}
 
-  <div class="py-4 py-md-5 mb-3
-    {% if page.specific.narrowed_page_content and uses_menu %}
-      col-md-7
-    {% elif page.specific.narrowed_page_content %}
-      col-lg-8 offset-lg-2
-    {% elif uses_menu %}
-      col-md-9
-    {% else %}
-      col-12
-    {% endif %}"
-  >
-    {% if uses_menu %}
-    <p class="h5-heading d-none d-md-block">{{ mini_site_title }}</p>
-    {% endif %}
-    <h1 class="h1-heading {% if uses_menu %}d-none d-md-block{% endif %}">
-      {% if page.header %}
-        {{ page.header }}
+    <div class="py-4 py-md-5 mb-3
+      {% if page.specific.narrowed_page_content and uses_menu %}
+        col-md-7
+      {% elif page.specific.narrowed_page_content %}
+        col-lg-8 offset-lg-2
+      {% elif uses_menu %}
+        col-md-9
       {% else %}
-        {{ page.title }}
+        col-12
+      {% endif %}"
+    >
+      {% if uses_menu %}
+      <p class="h5-heading d-none d-md-block">{{ mini_site_title }}</p>
       {% endif %}
-    </h1>
-    <div class="cms opportunity-page-content">
-      {% for block in page.body %}
-        {% if block.block_type == 'paragraph' %}
-          <div class="container {{block.block_type}}-block">
-            <div class="row justify-content-center">
-              <div class="streamfield-content">
-                  {% include_block block%}
+      <h1 class="h1-heading {% if uses_menu %}d-none d-md-block{% endif %}">
+        {% if page.header %}
+          {{ page.header }}
+        {% else %}
+          {{ page.title }}
+        {% endif %}
+      </h1>
+      <div class="cms opportunity-page-content">
+        {% for block in page.body %}
+          {% if block.block_type == 'paragraph' %}
+            <div class="container {{block.block_type}}-block">
+              <div class="row justify-content-center">
+                <div class="streamfield-content">
+                    {% include_block block%}
+                </div>
               </div>
             </div>
-          </div>
-        {% else %}
-          {% include_block block with parent_page=page %}
-        {% endif %}
-      {% endfor %}
+          {% else %}
+            {% include_block block with parent_page=page %}
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
+</div>
 {% endblock %}
