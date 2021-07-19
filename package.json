@@ -67,7 +67,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@sentry/browser": "^6.2.1",
+    "@sentry/browser": "^6.9.0",
     "autoprefixer": "^10.2.5",
     "axe-core": "^4.1.4",
     "bootstrap": "^4.6.0",
