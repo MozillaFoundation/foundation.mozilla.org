@@ -1,9 +1,13 @@
-.wide {
+.full-width {
   @extend .no-gutters;
   @extend .px-0;
   @extend .mx-0;
   @extend .w-100;
   @extend .mw-100;
+}
+
+.full-width-image-block {
+  @extend .full-width;
 }
 
 .primary-page-content {
@@ -32,6 +36,13 @@
 .blog-body {
   .streamfield-content {
     @extend .col-lg-8;
+    &.wide {
+      @extend .col-12;
+    }
+    &.full-width {
+      @extend .col-12;
+      @extend .full-width;
+    }
   }
 }
 
@@ -61,13 +72,6 @@
 
 .image-block {
   @extend .px-0;
-}
-
-.iframe-block {
-  @extend .px-0;
-  .wide {
-    @extend .col-12;
-  }
 }
 
 .mozfest-content {

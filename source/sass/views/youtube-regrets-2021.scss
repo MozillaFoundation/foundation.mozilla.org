@@ -114,6 +114,7 @@
 
       @include hover-focus-active {
         color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
       }
     }
 
@@ -128,12 +129,14 @@
 
       @include hover-focus-active {
         color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
       }
     }
 
     @include hover-focus-active {
       // todo - state styles (also update chrome download and firefox download above)
       color: $white;
+      background: $youtube-regrets-darker-red;
     }
   }
 
