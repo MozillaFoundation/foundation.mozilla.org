@@ -46,10 +46,10 @@ base_fields = [
     ('image_text_mini', customblocks.ImageTextMini()),
     ('video', customblocks.VideoBlock()),
     ('linkbutton', customblocks.LinkButtonBlock()),
+    ('looping_video', customblocks.LoopingVideoBlock()),
     ('pulse_listing', customblocks.PulseProjectList()),
     ('quote', customblocks.QuoteBlock()),
     ('spacer', customblocks.BootstrapSpacerBlock()),
-    ('looping_video', customblocks.LoopingVideoBlock()),
 ]
 
 
