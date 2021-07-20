@@ -7,7 +7,6 @@ from django.core.cache import cache
 from django.urls import reverse
 
 from wagtail.admin.menu import MenuItem
-from django.utils.translation import ugettext_lazy as _
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
@@ -140,6 +139,6 @@ class HowToWagtailMenuItem(MenuItem):
 @hooks.register('register_admin_menu_item')
 def register_howto_menu_item():
     return HowToWagtailMenuItem(
-        _('How Do I Wagtail'), reverse('how-do-i-wagtail'),
+        'How Do I Wagtail', reverse('how-do-i-wagtail'),
         name='howdoIwagtail', classnames='icon icon-help', order=900
     )
