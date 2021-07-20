@@ -143,7 +143,7 @@
   .transition-bg {
     background: linear-gradient(
         180deg,
-        $youtube-regrets-purple 26.46%,
+        $youtube-regrets-dark-blue 26.46%,
         $black 57.83%,
         $black 100%
     ),
@@ -507,6 +507,7 @@
   }
 
   @import "./youtube-regrets-2021-utils";
+  @import "../../../node_modules/swiper/swiper-bundle";
   @import "./youtube-regrets-2021-carousel";
   @import "./youtube-regrets-2021-carousel-hero";
 }
