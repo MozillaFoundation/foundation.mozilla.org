@@ -1,13 +1,11 @@
-// Hero Video or Images
+// Looping Background Videos
 
-#page-hero {
+#looping-video {
   $breakpoint: $bp-md;
   $banner-height-mobile: 300px;
   $banner-height-desktop: 480px;
   $banner-background-z-index: 1;
   $banner-video-control-z-index: 4;
-  $cutoff-offset: 65px;
-  margin-bottom: -60px;
 
   .video-control-wrapper {
     z-index: $banner-video-control-z-index;
@@ -61,19 +59,6 @@
 
     @media screen and (min-width: $breakpoint) {
       height: $banner-height-desktop;
-    }
-  }
-
-  .cutout {
-    z-index: $banner-background-z-index + 2;
-    margin-bottom: 0;
-    background-color: $white;
-    @media screen and (min-width: $breakpoint) {
-      margin-top: -$cutoff-offset;
-    }
-
-    @media (max-width: $bp-lg) {
-      opacity: 0;
     }
   }
 

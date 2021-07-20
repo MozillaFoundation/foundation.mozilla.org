@@ -16,11 +16,6 @@
 <link rel="canonical" href="{{ page.full_url }}" />
 {% endblock %}
 
-{% block hero_guts %}
-{% if page.hero_image != None or page.hero_video != "" %}
-  {% include "./fragments/blog_page_heroguts.html" with page=page %}
-{% endif %}
-{% endblock %}
 
 {% block body_id %}blog{% endblock %}
 
