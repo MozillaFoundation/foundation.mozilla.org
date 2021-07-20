@@ -20,6 +20,9 @@
 {% block main %}
 <div class="container">
   <div class="row section-how-it-works py-3 py-md-5">
+    <div class="offset-md-2 col-md-8 text-center">
+      <a class="btn btn-findings" href="/campaigns/regrets-reporter/findings" target="_blank">{% trans "Read Our Findings" %}</a>
+    </div>
     <div class="offset-md-2 col-md-8 dark-theme text-center">
       <h2 class="font-changa">{% trans "How it Works" %}</h2>
       <p>{% trans "When you send a YouTube Regret, the video and recommendations that led you to it are submitted to Mozilla researchers privately." %}</p>
@@ -227,6 +230,14 @@
       <li class="segment">
         <h4>{% trans "September 2020" %}</h4>
         <p>{% trans "Mozilla launches the RegretsReporter browser extension to research YouTube’s recommendation problem." %}</p>
+      </li>
+      <li class="segment">
+        <h4>{% trans "July 2021" %}</h4>
+        <p>
+          {% blocktrans with link="/campaigns/regrets-reporter/findings" trimmed %}
+          Using data contributed by 37,380 RegretsReporter users, Mozilla releases first <a href="{{link}}" target="_blank">findings</a> into YouTube's recommendations.
+          {% endblocktrans %}
+        </p>
       </li>
     </ol>
     <div class="control-next">
