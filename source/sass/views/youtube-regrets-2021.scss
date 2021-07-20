@@ -294,6 +294,15 @@
     @include set-text-size(14px, 14px);
   }
 
+  .our-research {
+    border-right: 2px solid $black;
+    border-left: 2px solid $black;
+    border-bottom: 2px solid $black;
+    border-radius: 0 0 30px 30px;
+    padding-top: 4.875rem;
+    margin-top: -30px;
+  }
+
   .regrets-chart-meta {
     display: flex;
     justify-content: space-between;
