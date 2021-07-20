@@ -368,6 +368,15 @@
 
       &:last-child {
         background-color: $black;
+        margin-top: -30px;
+
+        .yt-regrets-accordion__mask {
+          padding-top: 3.875rem;
+
+          @media (min-width: $bp-md) {
+            padding-top: 5.375rem;
+          }
+        }
       }
     }
 
