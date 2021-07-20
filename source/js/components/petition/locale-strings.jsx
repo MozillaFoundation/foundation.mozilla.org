@@ -147,31 +147,33 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Sí, quiero recibir actualizaciones sobre las campañas de Mozilla.`,
     "Add my name": `Añadir mi nombre`,
     "Sign up": `Suscribirme`,
-    "Help shape the future of the web for the public good": `Protege Internet como recurso público mundial`,
-    "Join our list": `<p>Únete a nuestra lista de email <b>Mozilla News</b> para mantenerte al día y participar en las acciones.</p>`,
+    "Help shape the future of the web for the public good": `Ayuda a dar forma al futuro de la web para el bien público.`,
+    "Join our list": `<p>Únete a nuestra lista de correo electrónico de <b>Noticias de Mozilla</b> para recibir alertas de acción y consejos sobre Internet directamente en tu bandeja de entrada.</p>`,
     "This is a required section.": `Esta sección es obligatoria.`,
     "Please enter a valid email address.": `Escribe una dirección válida de correo electrónico.`,
     "Please check this box if you want to proceed.": `Marca esta casilla si quieres continuar.`,
     "Thanks!": `¡Gracias!`,
     "confirm your email opt-in": (
       <Fragment>
-        If you haven’t previously confirmed your opt-in to a Mozilla-related
-        email subscription you may have to do so now.{" "}
+        Si no has confirmado previamente tu aceptación a una suscripción de
+        correo electrónico relacionada con Mozilla, es posible que debas hacerlo
+        ahora.{" "}
         <strong>
-          Please check your inbox or spam filter for an email from us to click
-          and confirm your subscription
+          Revisa tu bandeja de entrada o filtro de correo no deseado para
+          encontrar un correo electrónico nuestro para que hagas clic y
+          confirmes tu suscripción.
         </strong>
         .
       </Fragment>
     ),
     "manage your subscriptions": (
       <Fragment>
-        If you have already confirmed your opt-in to receive Mozilla-related
-        emails, you can now{" "}
+        Si ya has confirmado tu aceptación para recibir correos electrónicos
+        relacionados con Mozilla, ahora puedes{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
-          manage your subscriptions
+          administrar tus suscripciones
         </a>{" "}
-        and update your email preferences.
+        y actualizar tus preferencias de correo electrónico.
       </Fragment>
     ),
   },
@@ -259,8 +261,8 @@ export default {
     "Yes, I want to receive email updates about Mozilla's campaigns.": `Tak, chcę otrzymywać wiadomości o kampaniach Mozilli.`,
     "Add my name": `Podpisz`,
     "Sign up": `Zapisz się`,
-    "Help shape the future of the web for the public good": `Chroń Internet jako globalny zasób publiczny`,
-    "Join our list": `<p>Dołącz do naszej listy <b>Aktualności Mozilli</b>, aby podjąć działania i być na bieżąco!</p>`,
+    "Help shape the future of the web for the public good": `Pomóż kształtować przyszłość Internetu dla wspólnego dobra.`,
+    "Join our list": `<p>Dołącz do naszej listy <b>Aktualności Mozilli</b>, aby otrzymywać powiadomienia o możliwościach działania i wskazówki o Internecie prosto do swojej skrzynki.</p>`,
     "This is a required section.": `To jest wymagana sekcja.`,
     "Please enter a valid email address.": `Wpisz prawidłowy adres e-mail.`,
     "Please check this box if you want to proceed.": `Zaznacz to pole, aby kontynuować.`,
