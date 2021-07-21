@@ -114,6 +114,7 @@
 
       @include hover-focus-active {
         color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
       }
     }
 
@@ -128,23 +129,25 @@
 
       @include hover-focus-active {
         color: $youtube-regrets-dark-red;
+        background: $youtube-regrets-offwhite;
       }
     }
 
     @include hover-focus-active {
       // todo - state styles (also update chrome download and firefox download above)
       color: $white;
+      background: $youtube-regrets-darker-red;
     }
   }
 
   .transition-bg {
     background: linear-gradient(
         180deg,
-        $youtube-regrets-purple 26.46%,
+        $youtube-regrets-dark-blue 26.46%,
         $black 57.83%,
         $black 100%
-      ),
-      linear-gradient(0deg, $black, $black);
+    ),
+    linear-gradient(0deg, $black, $black);
     border-radius: 0 0 30px 30px;
     overflow: hidden;
   }
@@ -289,6 +292,15 @@
 
   .our-research-teaser {
     @include set-text-size(14px, 14px);
+  }
+
+  .our-research {
+    border-right: 2px solid $black;
+    border-left: 2px solid $black;
+    border-bottom: 2px solid $black;
+    border-radius: 0 0 30px 30px;
+    padding-top: 4.875rem;
+    margin-top: -30px;
   }
 
   .regrets-chart-meta {
@@ -486,6 +498,7 @@
   }
 
   @import "./youtube-regrets-2021-utils";
+  @import "../../../node_modules/swiper/swiper-bundle";
   @import "./youtube-regrets-2021-carousel";
   @import "./youtube-regrets-2021-carousel-hero";
 }

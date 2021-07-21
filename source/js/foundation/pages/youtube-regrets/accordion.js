@@ -59,6 +59,7 @@ class Accordion {
       drawer.addEventListener("mouseenter", () => {
         gsap.to(mask, { duration: this.animateSpeed, y: 10 });
       });
+
       drawer.addEventListener("mouseleave", () => {
         gsap.to(mask, { duration: this.animateSpeed, y: 0 });
       });
