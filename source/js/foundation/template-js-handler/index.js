@@ -7,6 +7,7 @@ import participatePageDonateHandler from "./participate-page-donate.js";
 import publicationSummaryBar from "./publication-summary-bar.js";
 import pulseProfileCardHandler from "./pulse-profile-card.js";
 import pulseProfileListFilterHandler from "./pulse-profile-list-filter.js";
+import blogHeroVideoHandler from "./blog-hero-video-handler.js";
 
 /**
  * Bind global event handlers
@@ -28,4 +29,5 @@ export const bindEventHandlers = () => {
   publicationSummaryBar();
   pulseProfileCardHandler();
   pulseProfileListFilterHandler();
+  blogHeroVideoHandler();
 };

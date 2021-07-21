@@ -1,0 +1,36 @@
+{% load wagtailimages_tags %}
+{% image page.hero_image original as img %}
+
+
+<div id="page-hero">
+  <div class="banner">
+    <div class="background-wrapper">
+      {% if page.hero_video %}
+      <video class="banner-video" playsinline muted loop preload>
+        <source
+          src="{{ page.hero_video }}"
+          type="video/mp4">
+      </video>
+  
+      <div class="video-control-wrapper dark-theme">
+          <div class="row  mr-3">
+              <button class="btn btn-video-control btn-pause btn-secondary d-none ml-auto">
+              </button>
+              <button class="btn btn-video-control btn-play btn-secondary d-none ml-auto">
+              </button>
+          </div>
+      </div>
+      {% else %}
+      <img src="{{ img.url }}" alt="{{ img.alt }}" class="banner-image">
+      {% endif %}      
+      </div>
+  </div>
+
+  <div class="container">
+    <div class="row cutout-wrapper-row justify-content-center">
+      <div class="cutout col-10 pt-4">
+      </div>
+    </div>
+  </div>
+
+</div>
