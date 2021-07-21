@@ -1,4 +1,13 @@
+from django import forms
 from wagtail.core import blocks
+
+
+class RadioSelectBlock(blocks.ChoiceBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.field.widget = forms.RadioSelect(
+            choices=self.field.widget.choices
+        )
 
 
 class VideoBlock(blocks.StructBlock):
@@ -15,6 +24,15 @@ class VideoBlock(blocks.StructBlock):
     captionURL = blocks.CharBlock(
         required=False,
         help_text='Optional URL for caption to link to.'
+    )
+    video_width = RadioSelectBlock(
+        choices=(
+            ("normal", "Normal"),
+            ("wide", "Wide"),
+            ("full_width", "Full Width"),
+        ),
+        default='normal',
+        help_text='Wide videos are col-12, Full-Width videos reach both ends of the screen.'
     )
 
     class Meta:
