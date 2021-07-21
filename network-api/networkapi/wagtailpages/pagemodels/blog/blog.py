@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -13,6 +14,7 @@ from wagtail.core import blocks
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import StreamField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -89,6 +91,22 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     zen_nav = True
 
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='hero_banner_image',
+        verbose_name='Hero Image',
+        help_text='Image for the blog page hero section.',
+    )
+    hero_video = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text='URL to video for blog page hero section.',
+
+    )
+
     feature_comments = models.BooleanField(
         default=False,
         help_text='Check this box to add a comment section for this blog post.',
@@ -102,6 +120,13 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             heading="Author(s)"
         ),
         FieldPanel('category'),
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_video"),
+                ImageChooserPanel('hero_image'),
+            ],
+            heading="Hero Video/Image"
+        ),
         StreamFieldPanel('body'),
         FieldPanel('feature_comments'),
     ]
@@ -136,3 +161,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             context['blog_index'] = blog_page
 
         return set_main_site_nav_information(self, context, 'Homepage')
+
+    def clean(self):
+        if self.hero_image and self.hero_video:
+            raise ValidationError({
+                'hero_image': ValidationError("Please select a video OR an image for the hero section."),
+                'hero_video': ValidationError("Please select a video OR an image for the hero section.")
+                })
+
+        return super().clean()
