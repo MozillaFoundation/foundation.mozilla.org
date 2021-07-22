@@ -997,7 +997,7 @@ class SoftwareProductPage(ProductPage):
         TranslatableField('recording_alert_helptext'),
         SynchronizedField('medical_privacy_compliant'),
         TranslatableField('medical_privacy_compliant_helptext'),
-        SynchronizedField('host_controls'),
+        TranslatableField('host_controls'),
         SynchronizedField('easy_to_learn_and_use'),
         TranslatableField('easy_to_learn_and_use_helptext'),
     ]
