@@ -1,0 +1,11 @@
+.video-block {
+  @extend .px-0;
+  .full-width {
+    .embed-responsive {
+      max-height: 650px;
+    }
+    p {
+      @extend .pl-3;
+    }
+  }
+}
