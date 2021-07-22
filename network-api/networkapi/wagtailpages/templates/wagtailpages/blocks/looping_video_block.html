@@ -1,0 +1,43 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags i18n static%}
+{% image page.hero_image original as img %}
+
+{% comment %}
+The looping_video_block.html is used on Blog pages to house looping, muted, fullwidth videos.
+{% endcomment %}
+
+{% block block_container_classes %}
+full-width
+{% endblock %}
+
+{% block block_row_classes %}
+no-gutters
+{% endblock %}
+
+{% block main_block_class %}
+streamfield-content 
+full-width
+{% endblock %}
+
+{% block block_content %}
+<div id="looping-video">
+    <div class="banner my-default">
+      <div class="background-wrapper">
+        <video class="banner-video" playsinline muted loop preload>
+          <source
+            src="{{ value.video_url  }}"
+            type="video/mp4">
+        </video>
+    
+        <div class="video-control-wrapper dark-theme">
+            <div class="row mr-3">
+                <button class="btn btn-video-control btn-pause btn-secondary d-none ml-auto">
+                </button>
+                <button class="btn btn-video-control btn-play btn-secondary d-none ml-auto">
+                </button>
+            </div>
+        </div>  
+        </div>
+    </div>  
+  </div>
+{% endblock %}
