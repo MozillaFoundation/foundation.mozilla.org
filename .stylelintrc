@@ -1,12 +1,6 @@
 {
   "plugins": ["stylelint-prettier"],
   "rules": {
-    "prettier/prettier": true,
-    "at-rule-no-unknown": [ true, {
-      "ignoreAtRules": [
-        "extends",
-        "tailwind"
-      ]
-    }],
+    "prettier/prettier": true
   }
 }
