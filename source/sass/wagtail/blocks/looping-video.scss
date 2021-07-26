@@ -1,0 +1,83 @@
+// Looping Background Videos
+
+#looping-video {
+  $breakpoint: $bp-md;
+  $banner-height-mobile: 300px;
+  $banner-height-desktop: 480px;
+  $banner-background-z-index: 1;
+  $banner-video-control-z-index: 4;
+
+  .video-control-wrapper {
+    z-index: $banner-video-control-z-index;
+    position: absolute;
+    width: 100%;
+    bottom: 1rem;
+
+    .row {
+      justify-content: right;
+    }
+
+    .btn.btn-video-control {
+      $icon-size: 30px;
+
+      border: none;
+      height: $icon-size;
+      background: center left/$icon-size $icon-size no-repeat transparent;
+      transition: none;
+
+      &:hover {
+        color: $white;
+        text-decoration: underline;
+      }
+
+      &.btn-pause {
+        background-image: url("../_images/video_pause_button.svg");
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      &.btn-play {
+        background-image: url("../_images/video_play_button.svg");
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .banner {
+    height: $banner-height-mobile;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media screen and (min-width: $breakpoint) {
+      height: $banner-height-desktop;
+    }
+  }
+
+  .background-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    video,
+    img {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: absolute;
+      z-index: $banner-background-z-index;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+}
