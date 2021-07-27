@@ -4,6 +4,8 @@ from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
 
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
@@ -167,9 +169,33 @@ class MozfestHomepage(MozfestPrimaryPage):
     else:
         content_panels = all_panels
 
-    # Because we inherit from PrimaryPage, but the "use_wide_templatae" property does nothing
+    # Because we inherit from PrimaryPage, but the "use_wide_template" property does nothing
     # we should hide it and make sure we use the right template
     settings_panels = Page.settings_panels
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('cta_button_label'),
+        SynchronizedField('cta_button_destination'),
+        TranslatableField('banner_heading'),
+        TranslatableField('banner_guide_text'),
+        SynchronizedField('banner_video_url'),
+        TranslatableField('title'),
+        TranslatableField('search_description'),
+        TranslatableField('search_image'),
+        TranslatableField('signup'),
+        TranslatableField('body'),
+        # TODO: Add in footnote support when wagtail-footnotes and wagtail-localize can work together.
+        # Issue can be found at https://github.com/mozilla/foundation.mozilla.org/issues/6790
+        # TranslatableField('footnotes'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)

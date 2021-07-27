@@ -3,10 +3,12 @@ import json
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
-from wagtail.core.models import Page
+from wagtail.core.models import TranslatableMixin, Page
 from wagtail.core.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
@@ -21,7 +23,7 @@ from ..utils import (
 )
 
 
-class CTA(models.Model):
+class CTA(TranslatableMixin, models.Model):
     name = models.CharField(
         default='',
         max_length=100,
@@ -48,7 +50,7 @@ class CTA(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name_plural = 'CTA'
 
 
@@ -208,6 +210,23 @@ class CampaignPage(MiniSiteNameSpace):
         StreamFieldPanel('body'),
     ]
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('cta'),
+        TranslatableField('title'),
+        TranslatableField('header'),
+        SynchronizedField('narrowed_page_content'),
+        SynchronizedField('zen_nav'),
+        TranslatableField('body'),
+        TranslatableField('donation_modals'),
+    ]
+
     subpage_types = [
         'CampaignPage',
         'RedirectingPage',
@@ -262,6 +281,20 @@ class BanneredCampaignPage(PrimaryPage):
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel('tags'),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField("title"),
+        SynchronizedField("banner"),
+        TranslatableField("cta"),
+        TranslatableField("signup"),
     ]
 
     subpage_types = [

@@ -16,6 +16,8 @@ from wagtail.core.fields import StreamField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from wagtail_localize.fields import TranslatableField, SynchronizedField
+
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -139,6 +141,18 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         PublishingPanel(),
         FieldPanel('first_published_at'),
         PrivacyModalPanel(),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('body'),
+        TranslatableField('title'),
     ]
 
     subpage_types = [
