@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozfest', '0011_auto_20210519_1654'),
+        ('mozfest', '0013_auto_20210721_1921'),
     ]
 
     operations = [

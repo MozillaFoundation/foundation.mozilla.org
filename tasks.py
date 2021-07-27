@@ -18,10 +18,10 @@ else:
 locale_abstraction_instructions = " ".join(
     [
         "makemessages",
+        "--all",
         "--keep-pot",
         "--no-wrap",
         "--ignore=network-api/networkapi/wagtailcustomization/*",
-        "--ignore=network-api/networkapi/wagtail_l10n_customization/*",
         "--ignore=network-api/networkapi/settings.py",
         "--ignore=network-api/networkapi/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
         "--ignore=dockerpythonvenv/*",
