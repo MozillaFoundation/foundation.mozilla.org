@@ -40,7 +40,7 @@ class RecentBlogEntries(blocks.StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         BlogIndexPage = apps.get_model('wagtailpages.BlogIndexPage')
-        blogpage = BlogIndexPage.objects.get(title_en__iexact="blog")
+        blogpage = BlogIndexPage.objects.get(title__iexact="blog")
 
         tag = value.get("tag_filter", False)
         category = value.get("category_filter", False)

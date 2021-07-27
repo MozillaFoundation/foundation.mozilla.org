@@ -118,7 +118,7 @@ class BuyersGuideProductCategory(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name_en if self.name_en else self.name)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     class Meta:
@@ -816,7 +816,7 @@ class SoftwareProductPage(ProductPage):
     # NullBooleanField is deprecated as of Django 3.1.
     # We're using it here primarily for a data migration, but we should
     # move to BooleanField as soon as it's safe to do so with the content we have
-    medical_privacy_compliant = models.NullBooleanField(
+    medical_privacy_compliant = models.BooleanField(
         null=True,
         help_text='Compliant with US medical privacy laws?'
     )
@@ -835,7 +835,7 @@ class SoftwareProductPage(ProductPage):
     # NullBooleanField is deprecated as of Django 3.1.
     # We're using it here primarily for a data migration, but we should
     # move to BooleanField as soon as it's safe to do so with the content we have
-    easy_to_learn_and_use = models.NullBooleanField(
+    easy_to_learn_and_use = models.BooleanField(
         null=True,
         help_text='Is it easy to learn & use the features?',
     )

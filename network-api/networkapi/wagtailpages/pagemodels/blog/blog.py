@@ -151,7 +151,7 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
 
         # Pull this object specifically using the English page title
-        blog_page = BlogIndexPage.objects.get(title_en__iexact='Blog')
+        blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
 
         # If that doesn't yield the blog page, pull using the universal title
         if blog_page is None:
