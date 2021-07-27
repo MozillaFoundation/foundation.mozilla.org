@@ -220,6 +220,8 @@ INSTALLED_APPS = list(filter(None, [
 
     'modelcluster',
     'taggit',
+    'wagtail_localize',
+    'wagtail_localize.locales',
 
     'rest_framework',
     'django_filters',
@@ -423,7 +425,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en'
-LANGUAGES = (
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
     ('en', gettext_lazy('English')),
     ('de', gettext_lazy('German')),
     ('pt', gettext_lazy('Portuguese')),
@@ -467,6 +469,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 WAGTAILIMAGES_INDEX_PAGE_SIZE = env('WAGTAILIMAGES_INDEX_PAGE_SIZE')
 WAGTAIL_USAGE_COUNT_ENABLED = True
+WAGTAIL_I18N_ENABLED = True
 
 # Wagtail Frontend Cache Invalidator Settings
 

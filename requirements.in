@@ -30,3 +30,4 @@ cloudinary
 sentry-sdk
 wagtail-footnotes
 scout-apm
+wagtail-localize==0.9.5
