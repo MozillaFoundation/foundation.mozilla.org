@@ -1,11 +1,10 @@
 .cms {
-  
-    p:empty {
-      height: 1em;
-    }
-  
-    * + p {
-      /*
+  p:empty {
+    height: 1em;
+  }
+
+  * + p {
+    /*
         A paragraph following some other content
         should have a top margin instead of "glueing"
         itself onto the preceding content.
@@ -15,6 +14,6 @@
         in for every single paragraph irrespective
         or preceding content.
       */
-      margin-top: 1rem;
-    }
-}  
+    margin-top: 1rem;
+  }
+}
