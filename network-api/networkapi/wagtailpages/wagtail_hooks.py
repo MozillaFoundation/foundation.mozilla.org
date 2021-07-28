@@ -6,6 +6,7 @@ from django.templatetags.static import static
 from django.core.cache import cache
 from django.urls import reverse
 
+from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
