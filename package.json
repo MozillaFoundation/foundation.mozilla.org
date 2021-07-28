@@ -110,13 +110,11 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "optipng-bin": "^7.0.0",
-    "postcss-import": "^14.0.2",
     "prettier": "^2.2.1",
     "stylelint": "^13.11.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.2.0",
     "svgo": "^2.2.2",
-    "tailwindcss": "^2.2.4",
     "wait-on": "^5.2.1"
   }
 }
