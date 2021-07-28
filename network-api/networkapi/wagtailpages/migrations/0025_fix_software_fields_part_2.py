@@ -7,7 +7,7 @@ import networkapi.wagtailpages.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0019_fix_software_fields_part_1'),
+        ('wagtailpages', '0024_fix_software_fields_part_1'),
     ]
 
     operations = [

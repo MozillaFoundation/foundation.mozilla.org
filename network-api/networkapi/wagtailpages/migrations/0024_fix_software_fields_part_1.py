@@ -35,7 +35,7 @@ def update_software_product_fields(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0018_translation_mixin_migration_for_cta_models'),
+        ('wagtailpages', '0023_translation_mixin_migration_for_cta_models'),
     ]
 
     operations = [

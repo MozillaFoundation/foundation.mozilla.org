@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0009_auto_20210603_1034'),
+        ('wagtailpages', '0014_auto_20210722_2145'),
     ]
 
     operations = [
