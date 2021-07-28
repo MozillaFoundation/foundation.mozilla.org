@@ -15,11 +15,16 @@
 
 
 {% block content_wrapped %}
+{% with en_report="https://assets.mofoprod.net/network/documents/Mozilla_YouTube_Regrets_Report.pdf" de_report="https://assets.mofoprod.net/network/documents/Mozilla_YouTube_Regrets_Report_German.pdf" %}
   <main role="main">
     {% block main %}
       <div class="transition-bg">
         {# Hero #}
-        {% include "./fragments/hero.html" %}
+        {% if request.LANGUAGE_CODE == "de" %}
+          {% include "./fragments/hero.html" with report=de_report %}
+        {% else %}
+          {% include "./fragments/hero.html" with report=en_report %}
+        {% endif %}
 
         {# Intro #}
         {% include "./fragments/intro.html" %}
@@ -44,12 +49,21 @@
       {% include 'wagtailpages/pages/youtube-regrets-2021/youtube_regrets_accordion.html' %}
 
       {# Recommendations section #}
-      {% include './fragments/recommendations.html' %}
+      {% if request.LANGUAGE_CODE == "de" %}
+        {% include './fragments/recommendations.html' with report=de_report %}
+      {% else %}
+        {% include './fragments/recommendations.html' with report=en_report %}
+      {% endif %}
 
       {# Download pdf #}
-      {% include './fragments/downloads.html' %}
+      {% if request.LANGUAGE_CODE == "de" %}
+        {% include './fragments/downloads.html' with report=de_report %}
+      {% else %}
+        {% include './fragments/downloads.html' with report=en_report %}
+      {% endif %}
     {% endblock %}
   </main>
+{% endwith %}
 {% endblock %}
 
 
