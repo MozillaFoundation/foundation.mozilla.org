@@ -24,6 +24,7 @@ http://localhost:8000/en/privacynotincluded/software-percy-product/
 http://localhost:8000/en/style-guide/
 http://localhost:8000/en/campaigns/youtube-regrets/
 http://localhost:8000/en/campaigns/regrets-reporter/
+http://localhost:8000/en/campaigns/regrets-reporter/findings/
 http://localhost:8000/en/campaigns/dearinternet/
 http://mozfest.localhost:8000
 http://mozfest.localhost:8000/spaces
