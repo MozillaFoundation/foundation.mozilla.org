@@ -1368,6 +1368,18 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         ),
     ]
 
+    translatable_fields = [
+        TranslatableField('title'),
+        SynchronizedField('hero_image'),
+        TranslatableField('header'),
+        TranslatableField('intro_text'),
+        SynchronizedField('dark_theme'),
+        # Promote tab fields
+        TranslatableField('seo_title'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+    ]
+
     def get_language_code(self, request):
         """Accepts a request. Returns a language code (string) if there is one. Falls back to English."""
         default_language_code = settings.LANGUAGE_CODE
