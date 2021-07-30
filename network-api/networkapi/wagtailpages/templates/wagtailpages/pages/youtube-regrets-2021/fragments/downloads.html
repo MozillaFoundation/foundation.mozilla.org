@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n youtube_tags %}
 <div class="downloads-section">
   <div class="container">
     <div class="row d-flex flex-lg-row text-center justify-content-center">
@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-12 col-lg-4">
             <h2 class="text-white h2-heading">{% trans "Download the full report" %}</h2>
-            <a class="btn btn-primary btn-download mt-2 mx-2" href="https://assets.mofoprod.net/network/documents/Mozilla_YouTube_Regrets_Report.pdf" download>{% trans "Download PDF" %}</a>
+            <a class="btn btn-primary btn-download mt-2 mx-2" href="{% yt2021report %}" download>{% trans "Download PDF" %}</a>
           </div>
 
           <div class="col-12 col-lg-6 offset-lg-2 mt-5 mt-lg-0">
