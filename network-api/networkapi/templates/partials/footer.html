@@ -1,78 +1,78 @@
 {% load settings_value i18n static %}
 
-{% with wrapper_class="py-5" %}
+{% with wrapper_class="tw-py-12" %}
 
 <footer role="contentinfo">
   {% if skip_donate != True %}
-  {% block footer_donate %}
-  <div class="donate-banner dark-theme d-print-none {{wrapper_class}}">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <p class="h3-heading mb-0">{% trans "We all love the Web. Join Mozilla in defending it." %}</p>
-          <p class="h3-heading mb-4">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
-          <div>
-            <a href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=footer" target="_blank" rel="noopener noreferrer" class="btn btn-secondary dark-theme" id="donate-banner-cta">{% trans "Donate now" %}</a>
+    {% block footer_donate %}
+      <div class="tw-bg-blue dark-theme print:tw-hidden {{wrapper_class}}">
+        <div class="tw-container tw-mt-6">
+          <div class="tw-row">
+            <div class="tw-w-full tw-px-4">
+              <p class="h3-heading tw-mb-0">{% trans "We all love the Web. Join Mozilla in defending it." %}</p>
+              <p class="h3-heading tw-mb-6">{% trans "Let’s protect the world’s largest resource for future generations." %}</p>
+              <div>
+                <a href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=footer" target="_blank" rel="noopener noreferrer" class="btn btn-secondary dark-theme" id="donate-banner-cta">{% trans "Donate now" %}</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  {% endblock %}
+    {% endblock %}
   {% endif %}
 
-  <div class="site-footer dark-theme {{wrapper_class}} d-print-none">
-    <div class="container">
-      <div class="row">
+  <div class="site-footer tw-bg-black dark-theme {{wrapper_class}} print:tw-hidden">
+    <div class="tw-container tw-mt-6">
+      <div class="tw-row">
 
         {% block left_footer_column %}
-        <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
+        <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-4 tw-flex tw-flex-col tw-justify-between">
           <div class="join-us" data-form-position="footer" data-button-position="side"></div>
-          <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
+          <a class="logo tw-block tw-my-12 medium:tw-my-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
         </div>
         {% endblock %}
 
         {% block right_footer_column %}
-        <div class="col-md-6 col-lg-5 offset-md-1 d-flex flex-column justify-content-between">
-          <div class="row">
-            <div class="col-lg-6 col-xl-5">
+        <div class="medium:tw-w-5/12 large:tw-w-6/12 tw-px-4 tw-flex tw-flex-col tw-justify-between">
+          <div class="tw-row">
+            <div class="xlarge:tw-w-5/12 large:tw-w-6/12 tw-px-4">
               <p class="h5-heading">{% trans "More about us" %}</p>
-              <ul class="d-flex list-unstyled">
+              <ul class="tw-flex tw-list-none">
                 {% block social_links %}
-                <li class="mr-2"><a class="twitter-glyph small d-inline-block" href="https://twitter.com/mozilla"><span class="sr-only">{% trans "Twitter" %}</span></a></li>
-                <li class="mr-2"><a class="instagram-glyph small d-inline-block" href="https://www.instagram.com/mozilla/"><span class="sr-only">{% trans "Instagram" %}</span></a></li>
-                <li class="mr-2"><a class="github-glyph small d-inline-block" href="https://www.github.com/mozilla/foundation.mozilla.org/"><span class="sr-only">{% trans "GitHub" %}</span></a></li>
+                <li class="tw-mr-2"><a class="twitter-glyph small tw-inline-block" href="https://twitter.com/mozilla"><span class="sr-only">{% trans "Twitter" %}</span></a></li>
+                <li class="tw-mr-2"><a class="instagram-glyph small tw-inline-block" href="https://www.instagram.com/mozilla/"><span class="sr-only">{% trans "Instagram" %}</span></a></li>
+                <li class="tw-mr-2"><a class="github-glyph small tw-inline-block" href="https://www.github.com/mozilla/foundation.mozilla.org/"><span class="sr-only">{% trans "GitHub" %}</span></a></li>
                 {% endblock %}
               </ul>
             </div>
-            <div class="col-lg-6 col-xl-7">
-              <ul class="link-list list-unstyled mb-0">
+            <div class="large:tw-w-6/12 xlarge:tw-w-7/12 tw-px-4">
+              <ul class="tw-list-none tw-mb-0 link-list large:tw-col-count-2">
                 {% block general_links %}
-                <li><a id="donate-footer-btn" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=footer" target="_blank" rel="noopener noreferrer" class="dark-theme">{% trans "Donate" %}</a></li>
+                <li class="tw-mb-2"><a id="donate-footer-btn" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&utm_medium=referral&utm_campaign=fmonav&utm_content=footer" target="_blank" rel="noopener noreferrer" class="dark-theme tw-text-white hover:tw-text-blue-light hover:tw-underline">{% trans "Donate" %}</a></li>
                 <!-- the rest of the links should be listed alphabetically -->
-                <li><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="dark-theme">{% trans "Careers" %}</a></li>
-                <li><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme">{% trans "Cookies" %}</a></li>
-                <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme">{% trans "Legal" %}</a></li>
-                <li><a href="https://www.mozilla.org/about/governance/policies/participation/" class="dark-theme">{% trans "Participation Guidelines" %}</a></li>
-                <li><a href="https://foundation.mozilla.org/en/press-center/" class="dark-theme">{% trans "Press Center" %}</a></li>
-                <li><a href="https://mozilla.org/privacy/websites/" class="dark-theme">{% trans "Privacy" %}</a></li>
+                <li class="tw-mb-2"><a href="https://careers.mozilla.org/listings/?team=Mozilla%20Foundation" class="dark-theme tw-text-white hover:tw-text-blue-light hover:tw-underline">{% trans "Careers" %}</a></li>
+                <li class="tw-mb-2"><a href="https://www.mozilla.org/privacy/websites/#cookies" class="dark-theme tw-text-white hover:tw-text-blue-light hover:tw-underline">{% trans "Cookies" %}</a></li>
+                <li class="tw-mb-2"><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="dark-theme tw-text-white hover:tw-text-blue-light hover:tw-underline">{% trans "Legal" %}</a></li>
+                <li class="tw-mb-2"><a href="https://www.mozilla.org/about/governance/policies/participation/" class="dark-theme tw-text-white hover:tw-text-blue-light hover:tw-underline">{% trans "Participation Guidelines" %}</a></li>
+                <li class="tw-mb-2"><a href="https://foundation.mozilla.org/en/press-center/" class="dark-theme tw-text-white hover:tw-text-blue-light hover:tw-underline">{% trans "Press Center" %}</a></li>
+                <li class=""><a href="https://mozilla.org/privacy/websites/" class="dark-theme tw-text-white hover:tw-text-blue-light hover:tw-underline">{% trans "Privacy" %}</a></li>
                 {% endblock %}
               </ul>
             </div>
           </div>
           {% if exclude_language_switcher != True %}
           {% block language_switcher %}
-          <div class="row mt-5">
-            <div class="col-12">
+          <div class="tw-row tw-mt-12">
+            <div class="tw-w-full tw-px-4">
               {% include "../fragments/language_switcher.html" %}
             </div>
           </div>
           {% endblock %}
           {% endif %}
-          <div class="row">
-            <div class="col-12">
-              <hr class="mt-5 mb-3" />
-              <p class="dark-theme body-small mb-0">
+          <div class="tw-row">
+            <div class="tw-w-full tw-px-4">
+              <hr class="tw-mt-12 tw-mb-4" />
+              <p class="dark-theme body-small tw-mb-0">
                 {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{foundation_website_url}}">{{foundation_website}}</a>. Most content available under a <a href="{{cc_website_url}}">Creative Commons license</a>.{% endblocktrans %}
               </p>
             </div>
