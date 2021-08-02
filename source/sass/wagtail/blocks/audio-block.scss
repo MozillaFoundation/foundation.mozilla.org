@@ -1,0 +1,113 @@
+#audio-player {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 2em;
+  justify-content: center;
+  display: flex;
+}
+
+.audio-player-controls {
+  width: 100%;
+  .btn.btn-audio-control {
+    $icon-size: 30px;
+    border: none;
+    height: $icon-size;
+    background: center left/$icon-size $icon-size no-repeat transparent;
+    transition: none;
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+
+    &.btn-pause {
+      background-image: url("../_images/audio_pause_button.svg");
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &.btn-play {
+      background-image: url("../_images/audio_play_button.svg");
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .time-info-container {
+    text-align: center;
+    white-space: nowrap;
+    .time {
+      vertical-align: middle;
+      font-size: 12px;
+    }
+  }
+
+  .seek-slider-container {
+    width: 100%;
+    left: 0;
+    right: 0;
+
+    #seek-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      position: relative;
+
+      // Vendor Prefixes for uniform appearance across browsers.
+      &::before {
+        position: absolute;
+        content: "";
+        left: 0;
+        width: var(--seek-before-width);
+        height: 3px;
+        background-color: $black;
+        cursor: pointer;
+      }
+
+      &::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        background: $gray-20;
+      }
+
+      &::-webkit-slider-thumb {
+        position: relative;
+        -webkit-appearance: none;
+        height: 15px;
+        width: 15px;
+        cursor: pointer;
+        margin: -7px 0 0 0;
+        opacity: 0;
+      }
+
+      &::-moz-range-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        background: #ccc;
+      }
+
+      &::-moz-range-progress {
+        background-color: $black;
+      }
+
+      &::-moz-range-thumb {
+        position: relative;
+        -moz-appearance: none;
+        height: 15px;
+        width: 15px;
+        cursor: pointer;
+        margin: -7px 0 0 0;
+        opacity: 0;
+      }
+    }
+  }
+}

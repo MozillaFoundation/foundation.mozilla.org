@@ -23,6 +23,7 @@ wagtail-airtable
 wagtail==2.12.5
 wagtail-factories
 wagtail-inventory==1.3
+wagtailmedia
 wagtail-metadata
 whitenoise
 wagtail-modeltranslation==0.10.17
