@@ -102,6 +102,7 @@ module.exports = {
       inherit: "inherit",
       black: colors.black,
       white: colors.white,
+      table: "#dee2e6",
       gray: {
         "05": "#f2f2f2",
         20: "#cccccc",
