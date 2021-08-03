@@ -8,8 +8,7 @@
             {% image value.image fill-350x197 as img %}
             <div class="col-sm-12 {% if count > 2 %} col-lg-4 col-md-6 {% else %} col-md-6 {% endif %} mb-4">
               <div class="card-regular h-100 d-flex flex-column ">
-                <h1> {{img.alt }}</h1>
-                <img src={{ img.url }} />
+                <img src={{ img.url }} alt={{ img.alt_text }} />
             
                 <div class="d-flex flex-1">
                   <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
