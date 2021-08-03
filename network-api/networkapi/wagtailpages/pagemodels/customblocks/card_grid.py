@@ -29,7 +29,7 @@ class CardGrid(blocks.StructBlock):
 
 
 class CardGridBlock(blocks.StructBlock):
-    grid_items = blocks.ListBlock(CardGrid(), help_text="Please use a minimum of 2 cards.")
+    cards = blocks.ListBlock(CardGrid(), help_text="Please use a minimum of 2 cards.")
     
 
 
