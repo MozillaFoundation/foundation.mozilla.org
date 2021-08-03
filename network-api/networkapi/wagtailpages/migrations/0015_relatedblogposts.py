@@ -9,7 +9,7 @@ from ..utils import get_content_related_by_tag
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0011_auto_20210714_0048'),
+        ('wagtailpages', '0014_auto_20210722_2145'),
     ]
 
     operations = [
