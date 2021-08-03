@@ -68,3 +68,6 @@ def generate(seed):
             post = BanneredCampaignPageFactory.create(parent=campaign_index_page, title=title)
 
         add_tags(post)
+
+    for post in BanneredCampaignPage.objects.all():
+        post.save()
