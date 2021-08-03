@@ -4,6 +4,11 @@ from wagtail.images.blocks import ImageChooserBlock
 
 class CardGrid(blocks.StructBlock):
     image = ImageChooserBlock()
+    
+    alt_text = blocks.CharBlock(
+        required=False,
+        help_text='Alt text for card\'s image.'
+    )
 
     title = blocks.CharBlock(
         help_text='Heading for the card.'
