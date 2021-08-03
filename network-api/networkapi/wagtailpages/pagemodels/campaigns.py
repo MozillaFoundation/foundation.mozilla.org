@@ -98,6 +98,7 @@ class OpportunityPage(MiniSiteNameSpace):
         TranslatableField('search_description'),
         SynchronizedField('search_image'),
         # Content tab fields
+        TranslatableField('title'),
         TranslatableField('header'),
         TranslatableField('body'),
     ]
