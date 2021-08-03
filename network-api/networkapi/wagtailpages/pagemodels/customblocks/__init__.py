@@ -2,6 +2,7 @@ from .advanced_table_block import AdvancedTableBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
+from .card_grid import CardGrid, CardGridBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
 from .image_grid import ImageGrid, ImageGridBlock
@@ -31,6 +32,8 @@ __all__ = [
     ArticleFullWidthImageBlock,
     ArticleRichText,
     BootstrapSpacerBlock,
+    CardGrid,
+    CardGridBlock,
     DearInternetLetterBlock,
     iFrameBlock,
     ImageBlock,
