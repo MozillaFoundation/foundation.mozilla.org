@@ -267,4 +267,3 @@ class BlogPage(FoundationMetadataPageMixin, Page):
                 })
 
         return super().clean()
-
