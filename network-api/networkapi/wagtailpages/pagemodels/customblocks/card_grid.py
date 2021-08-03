@@ -1,10 +1,11 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
-
+from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 
 class CardGrid(blocks.StructBlock):
     image = ImageChooserBlock()
-    
+
     alt_text = blocks.CharBlock(
         required=False,
         help_text='Alt text for card\'s image.'
@@ -28,9 +29,13 @@ class CardGrid(blocks.StructBlock):
 
 
 class CardGridBlock(blocks.StructBlock):
-    grid_items = blocks.ListBlock(CardGrid())
+    grid_items = blocks.ListBlock(CardGrid(), help_text="Please use a minimum of 2 cards.")
+    
+
 
     class Meta:
 
         icon = 'placeholder'
         template = 'wagtailpages/blocks/card_grid_block.html'
+
+        
