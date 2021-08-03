@@ -24,7 +24,8 @@ class Command(BaseCommand):
 
             post.save_revision()
 
-            print(f'-  post {i+1} updated to {post.related_posts.all().count()} related posts')
+            related_post_count = post.related_posts.all().count()
+            print(f'-  post {i+1} updated to {related_post_count} related posts')
 
             if post.live:
                 post.save_revision().publish()
