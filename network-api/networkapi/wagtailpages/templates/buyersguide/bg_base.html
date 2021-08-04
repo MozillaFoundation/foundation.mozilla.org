@@ -85,9 +85,9 @@
       <div class="row">
         <div class="col">
           {% if pagetype == "product" or pagetype == "about" %}
-            <a class="multipage-link active" href="{{ page.url }}">{% trans "All" %}</a>
+            <a class="multipage-link active" href="{{ home_page.url }}">{% trans "All" %}</a>
           {% else %}
-            <a class="multipage-link {% if not category %} active{% endif %}" href="{{ page.url }}">{% trans "All" %}</a>
+            <a class="multipage-link {% if not category %} active{% endif %}" href="{{ home_page.url }}">{% trans "All" %}</a>
           {% endif %}
           {% for cat in categories %}
             {% if cat.published_product_page_count > 0 %}
