@@ -2,6 +2,10 @@ from django.http.response import HttpResponseRedirectBase
 from django.conf import settings
 
 hostnames = settings.TARGET_DOMAINS
+
+if len(hostnames) == 0:
+    print('Error: no TARGET_DOMAINS set, please ensure your environment variables are in order.')
+
 referrer_value = 'same-origin'
 
 if settings.REFERRER_HEADER_VALUE:
