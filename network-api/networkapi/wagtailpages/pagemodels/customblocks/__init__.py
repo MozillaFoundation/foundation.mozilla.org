@@ -1,6 +1,7 @@
 from .advanced_table_block import AdvancedTableBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
+from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
@@ -31,6 +32,7 @@ __all__ = [
     ArticleImageBlock,
     ArticleFullWidthImageBlock,
     ArticleRichText,
+    BlogSetBlock,
     BootstrapSpacerBlock,
     DearInternetLetterBlock,
     iFrameBlock,
