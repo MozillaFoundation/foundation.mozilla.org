@@ -1,0 +1,11 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+  <div class="my-2">
+    <div class="feature-quote">
+      <h3>{{value.quote}}</h3>
+      <p class="h6-heading">{{value.attribution}}</p>
+    </div>
+  </div>
+{% endblock %}
