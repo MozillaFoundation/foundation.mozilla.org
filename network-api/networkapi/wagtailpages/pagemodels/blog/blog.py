@@ -5,6 +5,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
+    PageChooserPanel,
     PrivacyModalPanel,
     PublishingPanel,
     StreamFieldPanel,
@@ -61,29 +62,53 @@ class BlogPageTag(TaggedItemBase):
 class BlogAuthors(Orderable):
     """This allows us to select one or more blog authors from Snippets."""
 
-    page = ParentalKey("wagtailpages.BlogPage", related_name="authors")
+    page = ParentalKey('wagtailpages.BlogPage', related_name='authors')
     author = models.ForeignKey(
         ContentAuthor,
         on_delete=models.CASCADE,
     )
 
     panels = [
-        SnippetChooserPanel("author"),
+        SnippetChooserPanel('author'),
     ]
 
     def __str__(self):
         return self.author.name
 
 
-class BlogPage(FoundationMetadataPageMixin, Page):
+class RelatedBlogPosts(Orderable):
+    page = ParentalKey(
+        'wagtailpages.BlogPage',
+        related_name='related_posts',
+    )
 
+    related_post = models.ForeignKey(
+        'wagtailpages.BlogPage',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    panels = [
+        PageChooserPanel('related_post'),
+    ]
+
+    def __str__(self):
+        return self.related_post.title
+
+    class Meta:
+        verbose_name = 'Related blog posts'
+        verbose_name_plural = 'Related blog posts'
+
+
+class BlogPage(FoundationMetadataPageMixin, Page):
     body = StreamField(base_fields)
 
     category = ParentalManyToManyField(
         BlogPageCategory,
         help_text='Which blog categories is this blog page associated with?',
         blank=True,
-        verbose_name="Categories",
+        verbose_name='Categories',
     )
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
@@ -111,12 +136,14 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         help_text='Check this box to add a comment section for this blog post.',
     )
 
+    related_post_count = 3
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                InlinePanel("authors", label="Author", min_num=1)
+                InlinePanel('authors', label='Author', min_num=1)
             ],
-            heading="Author(s)"
+            heading='Author(s)'
         ),
         FieldPanel('category'),
         MultiFieldPanel(
@@ -128,6 +155,15 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         ),
         StreamFieldPanel('body'),
         FieldPanel('feature_comments'),
+        InlinePanel(
+            'related_posts',
+            label='Related Blog Posts',
+            help_text='Pick three other posts that are related to this post. '
+                      'If you pick fewer than three (or none), saving will '
+                      'automatically bind some related posts based on tag matching.',
+            min_num=0,
+            max_num=related_post_count
+        ),
     ]
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
@@ -146,8 +182,15 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['related_posts'] = get_content_related_by_tag(self)
         context['show_comments'] = settings.USE_COMMENTO and self.feature_comments
+
+        related_posts = [post.related_post for post in self.related_posts.all()]
+        if request.is_preview:
+            # While we automatically pad out the related posts during save, we want to
+            # see that same padded list during preview, but *without* actually updating
+            # the model, so we control this property at render context retrieval time:
+            related_posts = related_posts + self.get_missing_related_posts()
+        context['related_posts'] = related_posts
 
         # Pull this object specifically using the English page title
         blog_page = BlogIndexPage.objects.get(title_en__iexact='Blog')
@@ -160,6 +203,60 @@ class BlogPage(FoundationMetadataPageMixin, Page):
             context['blog_index'] = blog_page
 
         return set_main_site_nav_information(self, context, 'Homepage')
+
+    def get_missing_related_posts(self):
+        """
+        Check how many related posts are missing, and generate a list of
+        posts that can be added in to fill that list up. We do this in its
+        own function so that both publishing a page and previewing a page
+        can present the full list of related posts, while making sure that
+        previewing does not save the amended list into the model, as previews
+        shouldn't change the model in any way.
+        """
+        additional_posts = list()
+        post_count = self.related_posts.all().count()
+        missing_count = self.related_post_count - post_count
+
+        if missing_count == 0:
+            return additional_posts
+
+        related_posts = get_content_related_by_tag(self)
+
+        if len(related_posts) > 0:
+            # Add as many posts as there are missing, or until
+            # we run out of related posts, whichever comes first.
+            for post in related_posts:
+                if missing_count == 0:
+                    break
+                if self.related_posts.filter(related_post=post).count() > 0:
+                    # Make sure to skip over duplicates
+                    continue
+                additional_posts.append(post)
+                missing_count = missing_count - 1
+
+        return additional_posts
+
+    def ensure_related_posts(self):
+        """
+        If a blog page gets saved with fewer than 3 related posts, we
+        want to find the most-related posts and drop those in to fill
+        out the related posts to three, before actually saving.
+        """
+        for post in self.get_missing_related_posts():
+            self.related_posts.add(
+                RelatedBlogPosts(
+                    page=self,
+                    related_post=post
+                )
+            )
+
+    def save(self, *args, **kwargs):
+        """
+        Ensure that we've tried to fill in three related posts
+        for this blog post if fewer than three were set by staff
+        """
+        self.ensure_related_posts()
+        return super().save(*args, *kwargs)
 
     def clean(self):
         if self.hero_image and self.hero_video:
