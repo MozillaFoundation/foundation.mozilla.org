@@ -35,10 +35,8 @@
                 </div>
               </div>
               <div class="col-8 ml-sm-3{% if not child.get_children_count %} d-flex align-items-center{% endif %}">
-                <h3 class="{% if child.get_children_count %}publication-chapter-title{% else %}m-0 {% endif %}">
-                  <a href="{{ child.url }}" class="d-block {% if child.get_children_count %}mb-4{% endif %}">
+                <h3 class="{% if child.get_children_count %}publication-chapter-title mb-4 {{% else %}m-0 {% endif %}">
                     {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
-                  </a>
                 </h3>
                 {% for grandchild in child_page.grandchildren %}
                   <h4 class="d-sm-block d-none body">
