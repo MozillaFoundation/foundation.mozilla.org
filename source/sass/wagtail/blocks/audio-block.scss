@@ -52,13 +52,12 @@
 
   .seek-slider-container {
     width: 100%;
-    left: 0;
-    right: 0;
 
     #seek-slider {
       -webkit-appearance: none;
       width: 100%;
       position: relative;
+      vertical-align: middle;
 
       // Vendor Prefixes for uniform appearance across browsers.
       &::before {
