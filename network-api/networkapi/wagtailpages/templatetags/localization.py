@@ -4,10 +4,9 @@ import unicodedata
 from django import template
 from django.conf import settings
 from django.utils.translation import get_language_info
+from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
 
 register = template.Library()
-
-DEFAULT_LOCALE = 'en_US'
 
 mappings = {
     'en': 'en_US',
@@ -19,6 +18,9 @@ mappings = {
     'pl': 'pl_PL',
     'pt-BR': 'pt_BR',
 }
+
+DEFAULT_LOCALE_CODE = settings.LANGUAGE_CODE
+DEFAULT_LOCALE = mappings.get(DEFAULT_LOCALE_CODE)
 
 
 # This filter turns Wagtail language codes into OpenGraph locale strings
@@ -49,3 +51,12 @@ def get_local_language_names():
 @register.simple_tag()
 def get_unlocalized_url(page, locale):
     return page.get_url().replace(f'/{locale}/', '/', 1)
+
+
+# Overcome a limitation of the routablepageurl tag
+@register.simple_tag(takes_context=True)
+def localizedroutablepageurl(context, page, url_name, locale_code, *args, **kwargs):
+    url = routablepageurl(context, page, url_name, *args, **kwargs)
+    if locale_code != DEFAULT_LOCALE_CODE:
+        url = url.replace(f'/{DEFAULT_LOCALE_CODE}/', f'/{locale_code}/')
+    return url

@@ -55,7 +55,7 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     """
     products = products.filter(
         review_date__gte=cutoff_date,
-        locale=Locale.objects.get(language_code=language_code)
+        # locale=Locale.objects.get(language_code=language_code)
     )
     if not authenticated:
         products = products.live()
@@ -118,13 +118,12 @@ class BuyersGuideProductCategory(TranslatableMixin, models.Model):
     ]
 
     @property
-    def published_product_page_count(self):
-        return ProductPage.objects.filter(product_categories__category=self).live().count()
+    def alias_of(self):
+        return BuyersGuideProductCategory.objects.filter(translation_key=self.translation_key).order_by('locale_id').first()
 
     @property
-    def published_product_count(self):
-        # TODO: REMOVE: LEGACY FUNCTION
-        return ProductPage.objects.filter(product_category=self, draft=False).count()
+    def published_product_page_count(self):
+        return ProductPage.objects.filter(product_categories__category=self).live().count()
 
     def __str__(self):
         return self.name
@@ -1291,7 +1290,9 @@ class GeneralProductPage(ProductPage):
 
 
 class ExcludedCategories(TranslatableMixin, Orderable):
-    """This allows us to select one or more blog authors from Snippets."""
+    """
+    This allows us to filter categories from showing up on the PNI site
+    """
 
     page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
     category = models.ForeignKey(
@@ -1457,10 +1458,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         except BuyersGuideProductCategory.DoesNotExist:
             category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
+        original_category = category.alias_of
+        original_slug = slugify(original_category.slug)
+
+        print(original_category)
+
         authenticated = request.user.is_authenticated
         key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
         key = f'{language_code}_{key}'
-        products = cache.get(key)
+        products = None # cache.get(key)
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         if products is None:
@@ -1468,12 +1474,14 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.filter(product_categories__category__in=[category])
+                ProductPage.objects.filter(product_categories__category__in=[original_category])
                                    .exclude(product_categories__category__id__in=exclude_cat_ids),
                 language_code=language_code
             )
 
-        context['category'] = category.slug
+        print(products)
+
+        context['category'] = slug
         context['products'] = products
         context['pageTitle'] = f'{category} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'

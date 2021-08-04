@@ -339,6 +339,7 @@ TEMPLATES = [
                 'blog_tags': 'networkapi.wagtailpages.templatetags.blog_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
+                'debug_tags': 'networkapi.wagtailpages.templatetags.debug_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
                 'localization': 'networkapi.wagtailpages.templatetags.localization',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
