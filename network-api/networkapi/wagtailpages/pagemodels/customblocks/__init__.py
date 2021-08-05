@@ -4,6 +4,7 @@ from .airtable_block import AirTableBlock
 from .audio_block import AudioBlock
 from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
+from .card_grid import CardGrid, CardGridBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
 from .image_grid import ImageGrid, ImageGridBlock
@@ -36,6 +37,8 @@ __all__ = [
     AudioBlock,
     BlogSetBlock,
     BootstrapSpacerBlock,
+    CardGrid,
+    CardGridBlock,
     DearInternetLetterBlock,
     iFrameBlock,
     ImageBlock,

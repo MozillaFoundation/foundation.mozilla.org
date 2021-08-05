@@ -41,6 +41,7 @@ base_fields = [
             'link', 'hr',
         ]
     )),
+    ('card_grid', customblocks.CardGridBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('image', customblocks.AnnotatedImageBlock()),
     ('audio', customblocks.AudioBlock()),

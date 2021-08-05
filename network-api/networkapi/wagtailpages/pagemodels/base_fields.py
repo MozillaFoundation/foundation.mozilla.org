@@ -16,6 +16,7 @@ base_fields = [
             'link', 'hr',
         ]
     )),
+    ('card_grid', customblocks.CardGridBlock()),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
