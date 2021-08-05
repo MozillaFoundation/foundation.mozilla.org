@@ -45,6 +45,8 @@ TRACK_RECORD_CHOICES = [
     ('Bad', 'Bad')
 ]
 
+DEFAULT_LOCALE_ID = Locale.objects.get(language_code=settings.LANGUAGE_CODE).id
+
 
 def get_product_subset(cutoff_date, authenticated, key, products, language_code='en'):
     """
@@ -1450,18 +1452,27 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
         language_code = self.get_language_code(request)
+        locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
 
-        # If getting by slug fails, also try to get it by name.
+        # because we may be working with localized content, and the slug
+        # will always be our english slug, we need to find the english
+        # category first, and then find its corresponding localized version
         try:
-            category = BuyersGuideProductCategory.objects.get(slug=slug)
+            original_category = BuyersGuideProductCategory.objects.get(slug=slug, locale_id=DEFAULT_LOCALE_ID)
         except BuyersGuideProductCategory.DoesNotExist:
-            category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
+            original_category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
 
-        original_category = category.alias_of
-        original_slug = slugify(original_category.slug)
-
-        print(original_category)
+        if locale_id != DEFAULT_LOCALE_ID:
+            try:
+                category = BuyersGuideProductCategory.objects.get(
+                    translation_key=original_category.translation_key,
+                    locale_id=DEFAULT_LOCALE_ID,
+                )
+            except BuyersGuideProductCategory.DoesNotExist:
+                category = original_category
+        else:
+            category = original_category
 
         authenticated = request.user.is_authenticated
         key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
@@ -1479,9 +1490,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 language_code=language_code
             )
 
-        print(products)
-
         context['category'] = slug
+        context['current_category'] = category
         context['products'] = products
         context['pageTitle'] = f'{category} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'

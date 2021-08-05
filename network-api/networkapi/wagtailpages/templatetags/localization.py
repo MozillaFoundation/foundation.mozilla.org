@@ -52,11 +52,19 @@ def get_local_language_names():
 def get_unlocalized_url(page, locale):
     return page.get_url().replace(f'/{locale}/', '/', 1)
 
+# Gorce-relocalize a URL
+@register.simple_tag()
+def relocalized_url(url, locale_code):
+    if locale_code == DEFAULT_LOCALE_CODE:
+        return url
+    return url.replace(f'/{DEFAULT_LOCALE_CODE}/', f'/{locale_code}/')
+
 
 # Overcome a limitation of the routablepageurl tag
 @register.simple_tag(takes_context=True)
 def localizedroutablepageurl(context, page, url_name, locale_code, *args, **kwargs):
-    url = routablepageurl(context, page, url_name, *args, **kwargs)
-    if locale_code != DEFAULT_LOCALE_CODE:
-        url = url.replace(f'/{DEFAULT_LOCALE_CODE}/', f'/{locale_code}/')
+    url = relocalized_url(
+        routablepageurl(context, page, url_name, *args, **kwargs),
+        locale_code,
+    )
     return url
