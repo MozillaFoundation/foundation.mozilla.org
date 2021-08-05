@@ -53,3 +53,8 @@ fieldset ul li div label {
 #wagtail .wrapper input[type="checkbox"] {
   vertical-align: middle;
 }
+
+/* Displaying red asterisk for required fields. */
+.required .field > label::after {
+  display: inline-block !important;
+}

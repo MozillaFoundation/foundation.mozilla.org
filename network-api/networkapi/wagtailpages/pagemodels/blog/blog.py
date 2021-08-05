@@ -43,6 +43,7 @@ base_fields = [
             'link', 'hr',
         ]
     )),
+    ('card_grid', customblocks.CardGridBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('image', customblocks.AnnotatedImageBlock()),
     ('image_text', customblocks.ImageTextBlock()),
