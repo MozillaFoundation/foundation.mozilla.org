@@ -1,536 +1,536 @@
 {% extends "../primary_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags card_tags %}
 
-{% block body_id %}style-guide{% endblock%}
+{% block body_id %}style-guide{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-12 pb-5">
+<div class="tw-container tw-mt-6">
+  <div class="tw-row">
+    <div class="tw-w-full tw-px-4 tw-pb-12">
       <h2 class="h1-heading">Colors</h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading mt-5">Side-wide Palette</h3>
+      <h3 class="h2-heading tw-mt-12">Site-wide Palette</h3>
       <hr />
 
-      <div class="row">
-        {% include "../fragments/styleguide_color_block.html" with classname="white" name="White ($white)" hex="#ffffff" %}
+      <div class="tw-row">
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-white" name="White ($white)" hex="#ffffff" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="gray-05" name="Gray 05 ($gray-05)" hex="#f2f2f2" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-05" name="Gray 05 ($gray-05)" hex="#f2f2f2" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="gray-20" name="Gray 20 ($gray-20)" hex="#cccccc" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-20" name="Gray 20 ($gray-20)" hex="#cccccc" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="gray-40" name="Gray 40 ($gray-40)" hex="#999999" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-40" name="Gray 40 ($gray-40)" hex="#999999" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="gray-60" name="Gray 60 ($gray-60)" hex="#666666" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-60" name="Gray 60 ($gray-60)" hex="#666666" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="gray-80" name="Gray 80 ($gray-80)" hex="#333333" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gray-80" name="Gray 80 ($gray-80)" hex="#333333" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="black" name="Black ($black)" hex="#000000" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-black" name="Black ($black)" hex="#000000" %}
       </div>
 
-      <div class="row">
-          {% include "../fragments/styleguide_color_block.html" with classname="light-red" name="Light Red ($light-red)" hex="#ffe6e8" %}
+      <div class="tw-row">
+          {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-light" name="Light Red ($light-red)" hex="#ffe6e8" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="red" name="Red ($red)" hex="#ff4f5e" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red" name="Red ($red)" hex="#ff4f5e" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="dark-red" name="Dark Red ($dark-red)" hex="#cc0011" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-red-dark" name="Dark Red ($dark-red)" hex="#cc0011" %}
       </div>
 
-      <div class="row">
-        {% include "../fragments/styleguide_color_block.html" with classname="lightest-blue" name="Lightest Blue ($lightest-blue)" hex="#e7e7fc" %}
+      <div class="tw-row">
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-lightest" name="Lightest Blue ($lightest-blue)" hex="#e7e7fc" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="light-blue" name="Light Blue ($light-blue)" hex="#b7b9fa" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-light" name="Light Blue ($light-blue)" hex="#b7b9fa" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="blue" name="Blue ($blue)" hex="#595cf3" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue" name="Blue ($blue)" hex="#595cf3" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="dark-blue" name="Dark Blue ($dark-blue)" hex="#0d10bf" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-dark" name="Dark Blue ($dark-blue)" hex="#0d10bf" %}
       </div>
 
-      <h3 class="h2-heading mt-5">Privacy Not Included Palette</h3>
+      <h3 class="h2-heading tw-mt-12">Privacy Not Included Palette</h3>
       <hr />
 
-      <div class="row">
-        {% include "../fragments/styleguide_color_block.html" with classname="pni-lilac" name="PNI Lilac ($pni-lilac)" hex="#d3d5fc" %}
+      <div class="tw-row">
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-lilac" name="PNI Lilac ($pni-lilac)" hex="#d3d5fc" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="pni-blue" name="PNI Blue ($pni-blue)" hex="#1808f2" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue" name="PNI Blue ($pni-blue)" hex="#1808f2" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="pni-blue-purple" name="PNI Blue Purple ($pni-blue-purple)" hex="#4a17d4" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue-purple" name="PNI Blue Purple ($pni-blue-purple)" hex="#4a17d4" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="pni-purple" name="PNI Purple ($pni-purple)" hex="#7f28b7" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple" name="PNI Purple ($pni-purple)" hex="#7f28b7" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="pni-purple-pink" name="PNI Purple Pink ($pni-purple-pink)" hex="#b0379b" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple-pink" name="PNI Purple Pink ($pni-purple-pink)" hex="#b0379b" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="pni-pink" name="PNI Pink ($pni-pink)" hex="#e4487d" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-pni-pink" name="PNI Pink ($pni-pink)" hex="#e4487d" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="pni-gradient" name="PNI Gradient($pni-gradient)" hex="linear-gradient(to right, #1808f2 0%, #e4487d 100%)" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-pni-blue tw-to-pni-pink" name="PNI Gradient ($pni-gradient)" hex="linear-gradient(to right, #1808f2 0%, #e4487d 100%)" %}
       </div>
 
-      <h3 class="h2-heading mt-5">Festival Palette</h3>
+      <h3 class="h2-heading tw-mt-12">Festival Palette</h3>
       <hr />
 
-      <div class="row">
-        {% include "../fragments/styleguide_color_block.html" with classname="festival-dark-blue" name="Festival Dark Blue ($festival-dark-blue)" hex="#0e11bf" %}
+      <div class="tw-row">
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-festival-blue" name="Festival Dark Blue ($festival-dark-blue)" hex="#0e11bf" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="festival-purple" name="Festival Purple ($festival-purple)" hex="#8f14fb" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-festival-purple" name="Festival Purple ($festival-purple)" hex="#8f14fb" %}
 
-        {% include "../fragments/styleguide_color_block.html" with classname="festival-gradient" name="Festival Gradient($festival-gradient)" hex="linear-gradient(120deg, #0e11bf 0%, #8f14fb 100%)" %}
+        {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-festival-blue tw-to-festival-purple" name="Festival Gradient ($festival-gradient)" hex="linear-gradient(120deg, #0e11bf 0%, #8f14fb 100%)" %}
       </div>
 
 
-      <h2 class="h1-heading mt-5">Grid</h2>
+      <h2 class="h1-heading tw-mt-12">Grid</h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading mt-5">Breakpoints</h3>
+      <h3 class="h2-heading tw-mt-12">Breakpoints</h3>
       <hr />
-      <div class="row">
-        <div class="col-12">
-          <table class="table table-bordered table-striped w-100">
+      <div class="tw-row">
+        <div class="tw-w-full tw-px-4">
+          <table class="tw-table tw-w-full tw-border tw-border-table tw-overflow-x-auto">
             <thead>
               <tr>
-                <th></th>
-                <th class="">Extra small</th>
-                <th class="">Small</th>
-                <th class="">Medium</th>
-                <th class="">Large</th>
-                <th class="">Extra large</th>
+                <th class="tw-p-3 tw-border tw-border-table"></th>
+                <th class="tw-p-3 tw-border tw-border-table">Extra small</th>
+                <th class="tw-p-3 tw-border tw-border-table">Small</th>
+                <th class="tw-p-3 tw-border tw-border-table">Medium</th>
+                <th class="tw-p-3 tw-border tw-border-table">Large</th>
+                <th class="tw-p-3 tw-border tw-border-table">Extra large</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th class="text-nowrap" scope="row">Breakpoint</th>
-                <td>None</td>
-                <td>576px</td>
-                <td>768px</td>
-                <td>992px</td>
-                <td>1200px</td>
+              <tr class="tw-bg-black tw-bg-opacity-5">
+                <th class="tw-whitespace-nowrap tw-p-3 tw-border tw-border-table" scope="row">Breakpoint</th>
+                <td class="tw-p-3 tw-border tw-border-table">None</td>
+                <td class="tw-p-3 tw-border tw-border-table">576px</td>
+                <td class="tw-p-3 tw-border tw-border-table">768px</td>
+                <td class="tw-p-3 tw-border tw-border-table">992px</td>
+                <td class="tw-p-3 tw-border tw-border-table">1200px</td>
               </tr>
               <tr>
-                <th class="text-nowrap" scope="row">Max container width</th>
-                <td>None (auto)</td>
-                <td>540px</td>
-                <td>720px</td>
-                <td>960px</td>
-                <td>1140px</td>
+                <th class="tw-whitespace-nowrap tw-p-3 tw-border tw-border-table" scope="row">Max container width</th>
+                <td class="tw-p-3 tw-border tw-border-table">None (auto)</td>
+                <td class="tw-p-3 tw-border tw-border-table">540px</td>
+                <td class="tw-p-3 tw-border tw-border-table">720px</td>
+                <td class="tw-p-3 tw-border tw-border-table">960px</td>
+                <td class="tw-p-3 tw-border tw-border-table">1140px</td>
               </tr>
-              <tr>
-                <th class="text-nowrap" scope="row">Design alias</th>
-                <td><code>phone</code></td>
-                <td><code>phone</code></td>
-                <td><code>tablet</code></td>
-                <td><code>desktop</code></td>
-                <td><code>wide desktop</code></td>
+              <tr class="tw-bg-black tw-bg-opacity-5">
+                <th class="tw-whitespace-nowrap tw-p-3 tw-border tw-border-table" scope="row">Design alias</th>
+                <td class="tw-p-3 tw-border tw-border-table"><code>mobile (potrait)</code></td>
+                <td class="tw-p-3 tw-border tw-border-table"><code>mobile (landscape)</code></td>
+                <td class="tw-p-3 tw-border tw-border-table"><code>tablet</code></td>
+                <td class="tw-p-3 tw-border tw-border-table"><code>desktop</code></td>
+                <td class="tw-p-3 tw-border tw-border-table"><code>wide desktop</code></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <h3 class="h2-heading mt-5">Columns</h3>
+      <h3 class="h2-heading tw-mt-12">Columns</h3>
       <hr />
 
-      <div class="row dark-theme">
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-w-1/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-2"><p class="body-large bg-black text-center mb-2">2</p></div>
-        <div class="col-2"><p class="body-large bg-black text-center mb-2">2</p></div>
-        <div class="col-2"><p class="body-large bg-black text-center mb-2">2</p></div>
-        <div class="col-2"><p class="body-large bg-black text-center mb-2">2</p></div>
-        <div class="col-2"><p class="body-large bg-black text-center mb-2">2</p></div>
-        <div class="col-2"><p class="body-large bg-black text-center mb-2">2</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-w-2/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">2</p></div>
+        <div class="tw-w-2/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">2</p></div>
+        <div class="tw-w-2/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">2</p></div>
+        <div class="tw-w-2/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">2</p></div>
+        <div class="tw-w-2/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">2</p></div>
+        <div class="tw-w-2/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">2</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-3"><p class="body-large bg-black text-center mb-2">3</p></div>
-        <div class="col-3"><p class="body-large bg-black text-center mb-2">3</p></div>
-        <div class="col-3"><p class="body-large bg-black text-center mb-2">3</p></div>
-        <div class="col-3"><p class="body-large bg-black text-center mb-2">3</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-w-3/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">3</p></div>
+        <div class="tw-w-3/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">3</p></div>
+        <div class="tw-w-3/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">3</p></div>
+        <div class="tw-w-3/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">3</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-4"><p class="body-large bg-black text-center mb-2">4</p></div>
-        <div class="col-4"><p class="body-large bg-black text-center mb-2">4</p></div>
-        <div class="col-4"><p class="body-large bg-black text-center mb-2">4</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-w-4/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">4</p></div>
+        <div class="tw-w-4/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">4</p></div>
+        <div class="tw-w-4/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">4</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-6"><p class="body-large bg-black text-center mb-2">6</p></div>
-        <div class="col-6"><p class="body-large bg-black text-center mb-2">6</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-w-6/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">6</p></div>
+        <div class="tw-w-6/12 tw-px-4"><p class="body-large tw-bg-black tw-text-center tw-mb-2">6</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-5"><p class="body-large bg-black text-center mb-2">5</p></div>
-        <div class="col-7"><p class="body-large bg-black text-center mb-2">7</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-px-4 tw-w-5/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">5</p></div>
+        <div class="tw-px-4 tw-w-7/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">7</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-4"><p class="body-large bg-black text-center mb-2">4</p></div>
-        <div class="col-8"><p class="body-large bg-black text-center mb-2">8</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-px-4 tw-w-4/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">4</p></div>
+        <div class="tw-px-4 tw-w-8/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">8</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-3"><p class="body-large bg-black text-center mb-2">3</p></div>
-        <div class="col-9"><p class="body-large bg-black text-center mb-2">9</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-px-4 tw-w-3/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">3</p></div>
+        <div class="tw-px-4 tw-w-9/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">9</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-2"><p class="body-large bg-black text-center mb-2">2</p></div>
-        <div class="col-10"><p class="body-large bg-black text-center mb-2">10</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-px-4 tw-w-2/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">2</p></div>
+        <div class="tw-px-4 tw-w-10/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">10</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-1"><p class="body-large bg-black text-center mb-2">1</p></div>
-        <div class="col-11"><p class="body-large bg-black text-center mb-2">11</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-px-4 tw-w-1/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">1</p></div>
+        <div class="tw-px-4 tw-w-11/12"><p class="body-large tw-bg-black tw-text-center tw-mb-2">11</p></div>
       </div>
 
-      <div class="row dark-theme">
-        <div class="col-12"><p class="body-large bg-black text-center m-0">12</p></div>
+      <div class="tw-row dark-theme">
+        <div class="tw-px-4 tw-w-full"><p class="body-large tw-bg-black tw-text-center tw-m-0">12</p></div>
       </div>
 
       <hr />
 
 
-      <h2 class="h1-heading mt-5">Typography</h2>
+      <h2 class="h1-heading tw-mt-12">Typography</h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading mt-5">Headers</h3>
+      <h3 class="h2-heading tw-mt-12">Headers</h3>
       <hr />
-      <div class="py-2">
+      <div class="tw-py-2">
         <h1 class="h1-heading">.h1-heading</h1>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h2 class="h2-heading">.h2-heading</h2>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h3 class="h3-heading">.h3-heading</h3>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h4 class="h4-heading">.h4-heading</h4>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h5 class="h5-heading">.h5-heading</h5>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h6 class="h6-heading">.h6-heading</h6>
       </div>
 
-      <h3 class="h2-heading mt-5">Headers with links</h3>
+      <h3 class="h2-heading tw-mt-12">Headers with links</h3>
       <hr />
-      <div class="py-2">
+      <div class="tw-py-2">
         <h1 class="h1-heading">.h1-heading with <a href="">link</a></h1>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h2 class="h2-heading">.h2-heading with <a href="">link</a></h2>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h3 class="h3-heading">.h3-heading with <a href="">link</a></h3>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h4 class="h4-heading">.h4-heading with <a href="">link</a></h4>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h5 class="h5-heading">.h5-heading with <a href="">link</a></h5>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h6 class="h6-heading">.h6-heading with <a href="">link</a></h6>
       </div>
 
-      <h3 class="h2-heading mt-5">Paragraphs</h3>
+      <h3 class="h2-heading tw-mt-12">Paragraphs</h3>
       <hr />
-      <div class="py-2">
+      <div class="tw-py-2">
         <p class="body-large">.body-large with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <p class="body">.body with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <p class="body-small">.body-small with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <p class="quote">.quote</p>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <h2 class="type-accent">.type-accent</h2>
       </div>
 
-      <h3 class="h2-heading mt-5">Paragraphs with links</h3>
+      <h3 class="h2-heading tw-mt-12">Paragraphs with links</h3>
       <hr />
-      <div class="py-2">
+      <div class="tw-py-2">
         <p class="body-large">.body-large with <a href="">link</a></p>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <p class="body">.body with <a href="">link</a></p>
       </div>
-      <div class="py-2">
+      <div class="tw-py-2">
         <p class="body-small">.body-small with <a href="">link</a></p>
       </div>
 
-      <h3 class="h2-heading mt-5">Lists</h3>
+      <h3 class="h2-heading tw-mt-12">Lists</h3>
       <hr />
-      <div class="py-2">
-        <h4>Default <xmp class="d-inline"><ol></xmp> style</h4>
+      <div class="tw-py-2">
+        <h4>Default <xmp class="tw-inline"><ol></xmp> style</h4>
         <ol>
-          <li>I'm a list item <xmp class="d-inline"><li></xmp> style </li>
-          <li>I'm a list item <xmp class="d-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
+          <li>I'm a list item <xmp class="tw-inline"><li></xmp> style </li>
+          <li>I'm a list item <xmp class="tw-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
         </ol>
       </div>
-      <div class="py-2">
-        <h4>Default <xmp class="d-inline"><ul></xmp> style</h4>
+      <div class="tw-py-2">
+        <h4>Default <xmp class="tw-inline"><ul></xmp> style</h4>
         <ul>
-          <li>I'm a list item <xmp class="d-inline"><li></xmp> style </li>
-          <li>I'm a list item <xmp class="d-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
+          <li>I'm a list item <xmp class="tw-inline"><li></xmp> style </li>
+          <li>I'm a list item <xmp class="tw-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
         </ul>
       </div>
 
-      <h3 class="h2-heading mt-5">Anchors</h3>
+      <h3 class="h2-heading tw-mt-12">Anchors</h3>
       <hr />
-      <div class="py-2"><a class="cta-link" href="https://example.com">.cta-link</a></div>
+      <div class="tw-py-2"><a class="cta-link" href="https://example.com">.cta-link</a></div>
 
-      <h3 class="h2-heading mt-5">Dark Theme Headers</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme Headers</h3>
       <hr />
-      <div class="dark-theme bg-black">
-        <div class="py-2">
+      <div class="dark-theme tw-bg-black">
+        <div class="tw-py-2">
           <h1 class="h1-heading">.h1-heading</h1>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h2 class="h2-heading">.h2-heading</h2>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h3 class="h3-heading">.h3-heading</h3>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h4 class="h4-heading">.h4-heading</h4>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h5 class="h5-heading">.h5-heading</h5>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h6 class="h6-heading">.h6-heading</h6>
         </div>
       </div>
-      <h3 class="h2-heading mt-5">Dark Theme Headers with links</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme Headers with links</h3>
       <hr />
-      <div class="dark-theme bg-black">
-        <div class="py-2">
+      <div class="dark-theme tw-bg-black">
+        <div class="tw-py-2">
           <h1 class="h1-heading">.h1-heading with <a href="">link</a></h1>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h2 class="h2-heading">.h2-heading with <a href="">link</a></h2>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h3 class="h3-heading">.h3-heading with <a href="">link</a></h3>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h4 class="h4-heading">.h4-heading with <a href="">link</a></h4>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h5 class="h5-heading">.h5-heading with <a href="">link</a></h5>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h6 class="h6-heading">.h6-heading with <a href="">link</a></h6>
         </div>
       </div>
 
-      <h3 class="h2-heading mt-5">Dark Theme Paragraphs</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme Paragraphs</h3>
       <hr />
-      <div class="dark-theme bg-black">
-        <div class="py-2">
+      <div class="dark-theme tw-bg-black">
+        <div class="tw-py-2">
           <p class="body-large">.body-large with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <p class="body">.body with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <p class="body-small">.body-small with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <p class="quote">.quote</p>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <h2 class="type-accent">.type-accent</h2>
         </div>
 
       </div>
 
-      <h3 class="h2-heading mt-5">Dark Theme Paragraphs with links</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme Paragraphs with links</h3>
       <hr />
-      <div class="dark-theme bg-black">
-        <div class="py-2">
+      <div class="dark-theme tw-bg-black">
+        <div class="tw-py-2">
           <p class="body">.body with <a href="">link</a></p>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <p class="body-large">.body-large with <a href="">link</a></p>
         </div>
-        <div class="py-2">
+        <div class="tw-py-2">
           <p class="body-small">.body-small with <a href="">link</a></p>
         </div>
       </div>
 
-      <h3 class="h2-heading mt-5">Dark Theme Lists</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme Lists</h3>
       <hr />
-      <div class="dark-theme bg-black">
-        <div class="py-2">
-          <h4>Default <xmp class="d-inline"><ol></xmp> style</h4>
+      <div class="dark-theme tw-bg-black">
+        <div class="tw-py-2">
+          <h4>Default <xmp class="tw-inline"><ol></xmp> style</h4>
           <ol>
-            <li>I'm a list item <xmp class="d-inline"><li></xmp> style </li>
-            <li>I'm a list item <xmp class="d-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
+            <li>I'm a list item <xmp class="tw-inline"><li></xmp> style </li>
+            <li>I'm a list item <xmp class="tw-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
           </ol>
         </div>
-        <div class="py-2">
-          <h4>Default <xmp class="d-inline"><ul></xmp> style</h4>
+        <div class="tw-py-2">
+          <h4>Default <xmp class="tw-inline"><ul></xmp> style</h4>
           <ul>
-            <li>I'm a list item <xmp class="d-inline"><li></xmp> style </li>
-            <li>I'm a list item <xmp class="d-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
+            <li>I'm a list item <xmp class="tw-inline"><li></xmp> style </li>
+            <li>I'm a list item <xmp class="tw-inline"><li></xmp> style with a <a href="https://example.com">link</a></li>
           </ul>
         </div>
       </div>
 
-      <h3 class="h2-heading mt-5">Dark Theme Anchors</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme Anchors</h3>
       <hr />
-      <div class="dark-theme bg-black">
+      <div class="dark-theme tw-bg-black">
         <a class="cta-link" href="">.cta-link</a>
       </div>
-      <div class="dark-theme bg-black">
+      <div class="dark-theme tw-bg-black">
         <a href="">link</a>
       </div>
 
-      <h2 class="h1-heading mt-5">Buttons</h2>
+      <h2 class="h1-heading tw-mt-12">Buttons</h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading mt-5">Default</h3>
+      <h3 class="h2-heading tw-mt-12">Default</h3>
       <hr />
 
-      <div class="mb-5">
-        <div class="my-2">
-          <button class="btn btn-primary">.btn-primary on <xmp class="d-inline"><button></xmp></button>
-          <button class="btn btn-primary" disabled>disabled .btn-primary on <xmp class="d-inline"><button></xmp></button>
+      <div class="tw-mb-12">
+        <div class="tw-my-2">
+          <button class="btn btn-primary">.btn-primary on <xmp class="tw-inline"><button></xmp></button>
+          <button class="btn btn-primary" disabled>disabled .btn-primary on <xmp class="tw-inline"><button></xmp></button>
         </div>
-        <div class="my-2">
-          <a class="btn btn-primary" href="">.btn-primary on <xmp class="d-inline"><a></xmp></a>
-          <a class="btn btn-primary" disabled href="">disabled .btn-primary on <xmp class="d-inline"><a></xmp></a>
+        <div class="tw-my-2">
+          <a class="btn btn-primary" href="">.btn-primary on <xmp class="tw-inline"><a></xmp></a>
+          <a class="btn btn-primary" disabled href="">disabled .btn-primary on <xmp class="tw-inline"><a></xmp></a>
         </div>
       </div>
 
-      <div class="mb-5">
-        <div class="my-2">
-          <button class="btn btn-secondary">.btn-secondary on <xmp class="d-inline"><button></xmp></button>
-          <button class="btn btn-secondary" disabled>disabled .btn-secondary on <xmp class="d-inline"><button></xmp></button>
+      <div class="tw-mb-12">
+        <div class="tw-my-2">
+          <button class="btn btn-secondary">.btn-secondary on <xmp class="tw-inline"><button></xmp></button>
+          <button class="btn btn-secondary" disabled>disabled .btn-secondary on <xmp class="tw-inline"><button></xmp></button>
         </div>
-        <div class="my-2">
-          <a class="btn btn-secondary" href="">.btn-secondary on <xmp class="d-inline"><a></xmp></a>
-          <a class="btn btn-secondary" disabled href="">disabled .btn-secondary on <xmp class="d-inline"><a></xmp></a>
+        <div class="tw-my-2">
+          <a class="btn btn-secondary" href="">.btn-secondary on <xmp class="tw-inline"><a></xmp></a>
+          <a class="btn btn-secondary" disabled href="">disabled .btn-secondary on <xmp class="tw-inline"><a></xmp></a>
         </div>
-        <div class="my-2">
-          <a class="btn btn-secondary" href="https://example.com">.btn-secondary on <xmp class="d-inline my-0 mx-1"><a></xmp> with external link</a>
-          <a class="btn btn-secondary" disabled href="https://example.com">disabled .btn-secondary on <xmp class="d-inline my-0 mx-1"><a></xmp> with external link</a>
+        <div class="tw-my-2">
+          <a class="btn btn-secondary" href="https://example.com">.btn-secondary on <xmp class="tw-inline tw-my-0 tw-mx-1"><a></xmp> with external link</a>
+          <a class="btn btn-secondary" disabled href="https://example.com">disabled .btn-secondary on <xmp class="tw-inline tw-my-0 tw-mx-1"><a></xmp> with external link</a>
         </div>
       </div>
 
       <div>
-        <div class="my-2">
-          <button class="btn btn-pop">.btn-pop on <xmp class="d-inline"><button></xmp></button>
-          <button class="btn btn-pop" disabled>disabled .btn-pop on <xmp class="d-inline"><button></xmp></button>
+        <div class="tw-my-2">
+          <button class="btn btn-pop">.btn-pop on <xmp class="tw-inline"><button></xmp></button>
+          <button class="btn btn-pop" disabled>disabled .btn-pop on <xmp class="tw-inline"><button></xmp></button>
         </div>
-        <div class="my-2">
-          <a class="btn btn-pop" href="">.btn-pop on <xmp class="d-inline"><a></xmp></a>
-          <a class="btn btn-pop" href="" disabled>disabled .btn-pop on <xmp class="d-inline"><a></xmp></a>
+        <div class="tw-my-2">
+          <a class="btn btn-pop" href="">.btn-pop on <xmp class="tw-inline"><a></xmp></a>
+          <a class="btn btn-pop" href="" disabled>disabled .btn-pop on <xmp class="tw-inline"><a></xmp></a>
         </div>
       </div>
 
-      <h3 class="h2-heading mt-5">Dark Theme</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme</h3>
       <hr />
 
-      <div class="p-3 dark-theme bg-black">
-        <div class="mb-5">
-          <div class="my-2">
-            <button class="btn btn-primary">.btn-primary on <xmp class="d-inline"><button></xmp></button>
-            <button class="btn btn-primary" disabled>disabled .btn-primary on <xmp class="d-inline"><button></xmp></button>
+      <div class="tw-p-4 dark-theme tw-bg-black">
+        <div class="tw-mb-12">
+          <div class="tw-my-2">
+            <button class="btn btn-primary">.btn-primary on <xmp class="tw-inline"><button></xmp></button>
+            <button class="btn btn-primary" disabled>disabled .btn-primary on <xmp class="tw-inline"><button></xmp></button>
           </div>
-          <div class="my-2">
-            <a class="btn btn-primary" href="">.btn-primary on <xmp class="d-inline"><a></xmp></a>
-            <a class="btn btn-primary" href="" disabled>disabled .btn-primary on <xmp class="d-inline"><a></xmp></a>
+          <div class="tw-my-2">
+            <a class="btn btn-primary" href="">.btn-primary on <xmp class="tw-inline"><a></xmp></a>
+            <a class="btn btn-primary" href="" disabled>disabled .btn-primary on <xmp class="tw-inline"><a></xmp></a>
           </div>
         </div>
 
-        <div class="mb-5">
-          <div class="my-2">
-            <button class="btn btn-secondary">.btn-secondary on <xmp class="d-inline"><button></xmp></button>
-            <button class="btn btn-secondary" disabled>disabled .btn-secondary on <xmp class="d-inline"><button></xmp></button>
+        <div class="tw-mb-12">
+          <div class="tw-my-2">
+            <button class="btn btn-secondary">.btn-secondary on <xmp class="tw-inline"><button></xmp></button>
+            <button class="btn btn-secondary" disabled>disabled .btn-secondary on <xmp class="tw-inline"><button></xmp></button>
           </div>
-          <div class="my-2">
-            <a class="btn btn-secondary" href="">.btn-secondary on <xmp class="d-inline"><a></xmp></a>
-            <a class="btn btn-secondary" disabled href="">disabled .btn-secondary on <xmp class="d-inline"><a></xmp></a>
+          <div class="tw-my-2">
+            <a class="btn btn-secondary" href="">.btn-secondary on <xmp class="tw-inline"><a></xmp></a>
+            <a class="btn btn-secondary" disabled href="">disabled .btn-secondary on <xmp class="tw-inline"><a></xmp></a>
           </div>
-          <div class="my-2">
-            <a class="btn btn-secondary" href="https://example.com">.btn-secondary on <xmp class="d-inline my-0 mx-1"><a></xmp> with external link</a>
-            <a class="btn btn-secondary" disabled href="https://example.com">disabled .btn-secondary on <xmp class="d-inline my-0 mx-1"><a></xmp> with external link</a>
+          <div class="tw-my-2">
+            <a class="btn btn-secondary" href="https://example.com">.btn-secondary on <xmp class="tw-inline tw-my-0 tw-mx-1"><a></xmp> with external link</a>
+            <a class="btn btn-secondary" disabled href="https://example.com">disabled .btn-secondary on <xmp class="tw-inline tw-my-0 tw-mx-1"><a></xmp> with external link</a>
           </div>
         </div>
 
         <div>
-          <div class="my-2">
-            <button class="btn btn-pop">.btn-pop on <xmp class="d-inline"><button></xmp></button>
-            <button class="btn btn-pop" disabled>disabled .btn-pop on <xmp class="d-inline"><button></xmp></button>
+          <div class="tw-my-2">
+            <button class="btn btn-pop">.btn-pop on <xmp class="tw-inline"><button></xmp></button>
+            <button class="btn btn-pop" disabled>disabled .btn-pop on <xmp class="tw-inline"><button></xmp></button>
           </div>
-          <div class="my-2">
-            <a class="btn btn-pop" href="">.btn-pop on <xmp class="d-inline"><a></xmp></a>
-            <a class="btn btn-pop" href="" disabled>disabled .btn-pop on <xmp class="d-inline"><a></xmp></a>
+          <div class="tw-my-2">
+            <a class="btn btn-pop" href="">.btn-pop on <xmp class="tw-inline"><a></xmp></a>
+            <a class="btn btn-pop" href="" disabled>disabled .btn-pop on <xmp class="tw-inline"><a></xmp></a>
           </div>
         </div>
       </div>
 
-      <h2 class="h1-heading mt-5">Share Button Group</h2>
+      <h2 class="h1-heading tw-mt-12">Share Button Group</h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading mt-5">Full version</h3>
+      <h3 class="h2-heading tw-mt-12">Full version</h3>
       <hr>
 
-      <div class="mb-5">
+      <div class="tw-mb-12">
         <div class="share-button-group-wrapper"></div>
       </div>
 
-      <h3 class="h2-heading mt-5">Full Version & Stacked</h3>
+      <h3 class="h2-heading tw-mt-12">Full Version & Stacked</h3>
       <hr>
 
-      <div class="mb-5">
+      <div class="tw-mb-12">
         <div class="share-button-group-wrapper" data-layout="stacked"></div>
       </div>
 
 
-      <h3 class="h2-heading mt-5">Mini Version</h3>
+      <h3 class="h2-heading tw-mt-12">Mini Version</h3>
       <hr>
 
-      <div class="mb-5">
+      <div class="tw-mb-12">
         <div class="share-button-group-wrapper" data-version="mini"></div>
       </div>
 
-      <h3 class="h2-heading mt-5">Mini Version & Stacked</h3>
+      <h3 class="h2-heading tw-mt-12">Mini Version & Stacked</h3>
       <hr>
 
-      <div class="mb-5">
+      <div class="tw-mb-12">
         <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked"></div>
       </div>
 
-      <h2 class="h1-heading mt-5">Dropdown Field</h2>
+      <h2 class="h1-heading tw-mt-12">Dropdown Field</h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading mt-5">Default</h3>
+      <h3 class="h2-heading tw-mt-12">Default</h3>
       <hr>
 
-      <div class="mb-4">
+      <div class="tw-mb-12">
         <h4>Regular</h4>
         <select class="form-control">
           <option value="">Option 1</option>
@@ -540,7 +540,7 @@
         </select>
       </div>
 
-      <div class="mb-5">
+      <div class="tw-mb-12">
         <h4>Large</h4>
         <select class="form-control form-control-lg">
           <option value="">Option 1</option>
@@ -550,11 +550,11 @@
         </select>
       </div>
 
-      <h3 class="h2-heading mt-5">Dark Theme</h3>
+      <h3 class="h2-heading tw-mt-12">Dark Theme</h3>
       <hr>
 
-      <div class="p-3 dark-theme bg-black">
-        <div class="mb-4">
+      <div class="tw-p-4 dark-theme tw-bg-black">
+        <div class="tw-mb-12">
           <h4>Regular</h4>
           <select class="form-control">
             <option value="">Option 1</option>
