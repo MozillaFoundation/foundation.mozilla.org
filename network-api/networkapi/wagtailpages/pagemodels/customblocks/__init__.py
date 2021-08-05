@@ -1,6 +1,7 @@
 from .advanced_table_block import AdvancedTableBlock
 from .annotated_image_block import AnnotatedImageBlock
 from .airtable_block import AirTableBlock
+from .audio_block import AudioBlock
 from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .card_grid import CardGrid, CardGridBlock
@@ -33,6 +34,7 @@ __all__ = [
     ArticleImageBlock,
     ArticleFullWidthImageBlock,
     ArticleRichText,
+    AudioBlock,
     BlogSetBlock,
     BootstrapSpacerBlock,
     CardGrid,

@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
-
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -20,7 +19,6 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-
 from .. import customblocks
 
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -46,6 +44,7 @@ base_fields = [
     ('card_grid', customblocks.CardGridBlock()),
     ('iframe', customblocks.iFrameBlock()),
     ('image', customblocks.AnnotatedImageBlock()),
+    ('audio', customblocks.AudioBlock()),
     ('image_text', customblocks.ImageTextBlock()),
     ('image_text_mini', customblocks.ImageTextMini()),
     ('video', customblocks.VideoBlock()),
