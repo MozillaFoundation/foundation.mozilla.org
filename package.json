@@ -46,6 +46,7 @@
     "server": "python network-api/manage.py runserver 0.0.0.0:8000",
     "server:silent": "python network-api/manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
     "start": "docker-compose up",
+    "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 2000 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\" ",
     "test:procfile": "node test/test-procfile.js",
     "test:eslint:js:pre": "prettier \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js --write",
     "test:eslint:js": "eslint --config ./.eslintrc.json \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js",
@@ -58,7 +59,9 @@
     "test": "run-s test:** build",
     "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:js:dev build:common watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
-    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\""
+    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\"",
+    "watch:html": "chokidar \"network-api/networkapi/**/*.html\" -c \"npm run build:sass\"",
+    "watch:tailwind": "chokidar \"tailwind.config.js\" -c \"npm run build:sass\""
   },
   "browserslist": [
     "> 1%",
@@ -67,6 +70,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
+    "@glidejs/glide": "^3.4.1",
     "@sentry/browser": "^6.2.1",
     "autoprefixer": "^10.2.5",
     "axe-core": "^4.1.4",
@@ -84,6 +88,7 @@
     "npm-run-all": "^4.1.3",
     "postcss": "^8.2.6",
     "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-axe": "^3.5.4",
@@ -92,6 +97,7 @@
     "sass": "^1.32.8",
     "shx": "^0.3.3",
     "swiper": "^6.7.5",
+    "tailwindcss": "^2.2.4",
     "uuid": "^8.3.2",
     "whatwg-fetch": "^3.6.2"
   },
