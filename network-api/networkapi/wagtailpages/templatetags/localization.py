@@ -52,7 +52,7 @@ def get_local_language_names():
 def get_unlocalized_url(page, locale):
     return page.get_url().replace(f'/{locale}/', '/', 1)
 
-# Gorce-relocalize a URL
+# Force-relocalize a URL
 @register.simple_tag()
 def relocalized_url(url, locale_code):
     if locale_code == DEFAULT_LOCALE_CODE:
