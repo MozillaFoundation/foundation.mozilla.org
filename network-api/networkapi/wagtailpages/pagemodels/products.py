@@ -54,10 +54,7 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     to the system or not (authenticated users get to
     see all products, including draft products)
     """
-    products = products.filter(
-        review_date__gte=cutoff_date,
-        # locale=Locale.objects.get(language_code=language_code)
-    )
+    products = products.filter(review_date__gte=cutoff_date)
     if not authenticated:
         products = products.live()
     products = sort_average(products)
@@ -1484,7 +1481,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         authenticated = request.user.is_authenticated
         key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
         key = f'{language_code}_{key}'
-        products = None # cache.get(key)
+        products = cache.get(key)
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
         if products is None:
@@ -1555,10 +1552,12 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 language_code=language_code
             )
 
+        # We need to test this to see whether it's actually hiding EN categories in other locales:
         categories = BuyersGuideProductCategory.objects.filter(
             hidden=False,
             locale=Locale.objects.get(language_code=language_code)
         )
+
         context['categories'] = categories
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
