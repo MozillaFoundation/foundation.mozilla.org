@@ -47,6 +47,29 @@ TRACK_RECORD_CHOICES = [
 DEFAULT_LOCALE_ID = Locale.objects.get(language_code=settings.LANGUAGE_CODE).id
 
 
+def get_language_code_from_request(request):
+    """
+    Accepts a request. Returns a language code (string) if there is one. Falls back to English.
+    """
+    default_language_code = settings.LANGUAGE_CODE
+    if hasattr(request, 'LANGUAGE_CODE'):
+        default_language_code = request.LANGUAGE_CODE
+    return default_language_code
+
+def get_categories_for_locale(language_code):
+    """
+    Make sure that we check both the "whatever the current locale" category
+    for whether or not it's hidden, but also the original English version.
+    """
+    return [
+            cat
+            for cat in BuyersGuideProductCategory.objects.filter(
+                hidden=False,
+                locale=Locale.objects.get(language_code=language_code)
+            )
+            if not cat.original.hidden
+        ]
+
 def get_product_subset(cutoff_date, authenticated, key, products, language_code='en'):
     """
     filter a queryset based on our current cutoff date,
@@ -798,7 +821,8 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['product'] = self
-        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
+        language_code = get_language_code_from_request(request)
+        context['categories'] = get_categories_for_locale(language_code)
         context['mediaUrl'] = settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
@@ -1375,13 +1399,6 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('search_image'),
     ]
 
-    def get_language_code(self, request):
-        """Accepts a request. Returns a language code (string) if there is one. Falls back to English."""
-        default_language_code = settings.LANGUAGE_CODE
-        if hasattr(request, 'LANGUAGE_CODE'):
-            default_language_code = request.LANGUAGE_CODE
-        return default_language_code
-
     @route(r'^about/$', name='how-to-use-view')
     def about_page(self, request):
         context = self.get_context(request)
@@ -1455,7 +1472,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
-        language_code = self.get_language_code(request)
+        language_code = get_language_code_from_request(request)
         locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
 
@@ -1481,6 +1498,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         authenticated = request.user.is_authenticated
         key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
         key = f'{language_code}_{key}'
+        cache.clear()
         products = cache.get(key)
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
@@ -1535,7 +1553,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        language_code = self.get_language_code(request)
+        language_code = get_language_code_from_request(request)
 
         authenticated = request.user.is_authenticated
         key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
@@ -1552,13 +1570,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 language_code=language_code
             )
 
-        # We need to test this to see whether it's actually hiding EN categories in other locales:
-        categories = BuyersGuideProductCategory.objects.filter(
-            hidden=False,
-            locale=Locale.objects.get(language_code=language_code)
-        )
-
-        context['categories'] = categories
+        context['categories'] = get_categories_for_locale(language_code)
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         pni_home_page = BuyersGuidePage.objects.first()
