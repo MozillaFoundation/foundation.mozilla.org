@@ -139,7 +139,7 @@ psycopg2-binary==2.8.6
     # via -r requirements.in
 pycparser==2.20
     # via cffi
-pyjwt==1.7.1
+pyjwt==2.1.0
     # via social-auth-core
 pyopenssl==20.0.1
     # via urllib3
@@ -185,11 +185,9 @@ six==1.14.0
     #   l18n
     #   pyopenssl
     #   python-dateutil
-    #   social-auth-app-django
-    #   social-auth-core
-social-auth-app-django==4.0.0
+social-auth-app-django==5.0.0
     # via -r requirements.in
-social-auth-core==3.3.3
+social-auth-core==4.1.0
     # via social-auth-app-django
 soupsieve==2.0.1
     # via beautifulsoup4
@@ -221,6 +219,7 @@ wagtail==2.12.5
     #   wagtail-inventory
     #   wagtail-metadata
     #   wagtail-modeltranslation
+    #   wagtailmedia
 wagtail-airtable==0.1.6
     # via -r requirements.in
 wagtail-factories==2.0.1
@@ -229,11 +228,11 @@ wagtail-footnotes==0.5.0
     # via -r requirements.in
 wagtail-inventory==1.3
     # via -r requirements.in
-wagtailmedia==0.7.1
-    # via -r requirements.in
 wagtail-metadata==3.4.0
     # via -r requirements.in
 wagtail-modeltranslation==0.10.17
+    # via -r requirements.in
+wagtailmedia==0.7.1
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
