@@ -91,7 +91,7 @@
           {% endif %}
 
           {% for cat in categories %}
-            {% with original=cat.alias_of %}
+            {% with original=cat.original %}
             {% if original.published_product_page_count > 0 %}
               {% localizedroutablepageurl home_page 'category-view' lang_code original.slug as cat_url %}
               <a class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>

@@ -25,7 +25,6 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-
 from wagtail_airtable.mixins import AirtableMixin
 
 from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
@@ -36,7 +35,7 @@ from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
 from networkapi.buyersguide.utils import get_category_og_image_upload_path
-
+from .mixin.snippets import LocalizedSnippet
 
 TRACK_RECORD_CHOICES = [
     ('Great', 'Great'),
@@ -73,7 +72,7 @@ def sort_average(products):
 
 
 @register_snippet
-class BuyersGuideProductCategory(TranslatableMixin, models.Model):
+class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -118,10 +117,6 @@ class BuyersGuideProductCategory(TranslatableMixin, models.Model):
         TranslatableField('description'),
         SynchronizedField('slug'),
     ]
-
-    @property
-    def alias_of(self):
-        return BuyersGuideProductCategory.objects.filter(translation_key=self.translation_key).order_by('locale_id').first()
 
     @property
     def published_product_page_count(self):

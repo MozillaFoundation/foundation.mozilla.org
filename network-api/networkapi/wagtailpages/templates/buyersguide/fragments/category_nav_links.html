@@ -5,7 +5,7 @@
 {% endcomment %}
 
 {% for cat in sorted_categories %}
-  {% with original=cat.alias_of %}
+  {% with original=cat.original %}
   {% if cat.hidden == False and cat.published_product_page_count > 0 %}
     {% localizedroutablepageurl home_page 'category-view' lang_code original.slug as cat_url %}
     <a
