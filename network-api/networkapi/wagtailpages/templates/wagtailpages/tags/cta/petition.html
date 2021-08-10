@@ -14,11 +14,11 @@
 	{% endif %}
 
 	{% if cta.share_email %}
-	<div id="share-progress-em" class='{{cta.share_email}} sp_em_small d-none'></div>
+	<div id="share-progress-em" class='{{cta.share_email}} sp_em_small tw-hidden'></div>
 	{% endif %}
 
 	<div
-		class="sign-petition full-width mb-5"
+		class="sign-petition tw-w-full tw-mb-12"
         data-petition-id="{{ cta.id }}"
         data-cta-slug="{{ page.slug }}"
         data-cta-name="{{ cta.name }}"
