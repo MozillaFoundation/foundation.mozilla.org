@@ -11,6 +11,7 @@ streamfield_fields = ['header', 'paragraph', 'image', 'spacer', 'image_text', 'q
 sentence_faker: Faker = Faker('sentence', nb_words=3, variable_nb_words=False)
 header_faker: Faker = Faker('sentence', nb_words=6, variable_nb_words=True)
 description_faker: Faker = Faker('paragraphs', nb=2)
+name_and_header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
 
 Faker.add_provider(StreamfieldProvider)
 
@@ -23,8 +24,8 @@ class CTAFactory(DjangoModelFactory):
             'description_text',
         )
 
-    name = Faker('text', max_nb_chars=35)
-    header = LazyAttribute(lambda o: o.header_text.rstrip('.'))
+    name = name_and_header
+    header = name_and_header
     description = LazyAttribute(lambda o: ''.join([f'<p>{p}</p>' for p in o.description_text]))
     newsletter = Faker('word')
 
