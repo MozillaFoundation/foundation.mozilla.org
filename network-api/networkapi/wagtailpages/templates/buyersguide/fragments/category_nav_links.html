@@ -11,7 +11,7 @@
     <a
       class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}"
       href="{{ cat_url }}"
-      data-name="{{ cat.name }}">
+      data-name="{{ original.name }}">
       {{ cat.name }}
     </a>
   {% endif %}
