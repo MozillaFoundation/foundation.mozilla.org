@@ -60,8 +60,9 @@ def get_language_code_from_request(request):
 
 def get_categories_for_locale(language_code):
     """
-    Make sure that we check both the "whatever the current locale" category
-    for whether or not it's hidden, but also the original English version.
+    Start with the English list of categories, and replace any of them
+    with their localized counterpart, where possible, so that we don't
+    end up with an incomplete category list due to missing locale records.
     """
     default_locale_list = BuyersGuideProductCategory.objects.filter(
         hidden=False,
