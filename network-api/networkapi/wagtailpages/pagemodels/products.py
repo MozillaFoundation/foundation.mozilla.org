@@ -69,7 +69,7 @@ def get_categories_for_locale(language_code):
         locale=DEFAULT_LOCALE,
     )
 
-    if language_code === DEFAULT_LANGUAGE_CODE:
+    if language_code == DEFAULT_LANGUAGE_CODE:
         return default_locale_list
 
     actual_locale = Locale.objects.get(language_code=language_code)
