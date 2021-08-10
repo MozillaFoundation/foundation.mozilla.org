@@ -9,8 +9,8 @@ register = template.Library()
 def check_active_category(current_category, target_category):
     # because we're working with potentially localized data,
     # make sure to compare the linguistic originals.
-    current_category = getattr(current_category, 'alias_of', current_category)
-    target_category = getattr(target_category, 'alias_of', target_category)
+    current_category = getattr(current_category, 'original', current_category)
+    target_category = getattr(target_category, 'original', target_category)
     return 'active' if current_category == target_category else ''
 
 
