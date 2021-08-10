@@ -19,7 +19,7 @@ def update_annotated_image_blocks(qs):
     # Loop through all pages
     for page in qs:
         print("\t", page)
-        # If this page doesn't have a QuoteBlock, don't save it.
+        # If this page doesn't have a Image that needs update, don't save it.
         # This will speed up how fast this task can run
         needs_saving = False
         # Only loop through streamfield data if there's a `body` field on the page
