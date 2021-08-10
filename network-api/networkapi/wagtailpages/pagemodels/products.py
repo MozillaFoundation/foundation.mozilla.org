@@ -43,32 +43,42 @@ TRACK_RECORD_CHOICES = [
     ('Needs Improvement', 'Needs Improvement'),
     ('Bad', 'Bad')
 ]
-
-DEFAULT_LOCALE_ID = Locale.objects.get(language_code=settings.LANGUAGE_CODE).id
+DEFAULT_LANGUAGE_CODE = settings.LANGUAGE_CODE
+DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
+DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
 
 
 def get_language_code_from_request(request):
     """
     Accepts a request. Returns a language code (string) if there is one. Falls back to English.
     """
-    default_language_code = settings.LANGUAGE_CODE
+    language_code = DEFAULT_LANGUAGE_CODE
     if hasattr(request, 'LANGUAGE_CODE'):
-        default_language_code = request.LANGUAGE_CODE
-    return default_language_code
+        language_code = request.LANGUAGE_CODE
+    return language_code
+
 
 def get_categories_for_locale(language_code):
     """
     Make sure that we check both the "whatever the current locale" category
     for whether or not it's hidden, but also the original English version.
     """
+    default_locale_list = BuyersGuideProductCategory.objects.filter(
+        hidden=False,
+        locale=DEFAULT_LOCALE,
+    )
+
+    if language_code === DEFAULT_LANGUAGE_CODE:
+        return default_locale_list
+
+    actual_locale = Locale.objects.get(language_code=language_code)
     return [
-            cat
-            for cat in BuyersGuideProductCategory.objects.filter(
-                hidden=False,
-                locale=Locale.objects.get(language_code=language_code)
-            )
-            if not cat.original.hidden
-        ]
+        BuyersGuideProductCategory.objects.filter(
+            translation_key=cat.translation_key,
+            locale=actual_locale,
+        ).first() or cat for cat in default_locale_list
+    ]
+
 
 def get_product_subset(cutoff_date, authenticated, key, products, language_code='en'):
     """
