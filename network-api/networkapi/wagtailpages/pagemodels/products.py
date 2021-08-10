@@ -77,7 +77,10 @@ def get_product_subset(cutoff_date, authenticated, key, products, language_code=
     to the system or not (authenticated users get to
     see all products, including draft products)
     """
-    products = products.filter(review_date__gte=cutoff_date)
+    products = products.filter(
+        review_date__gte=cutoff_date,
+        locale=Locale.objects.get(language_code=language_code)
+    )
     if not authenticated:
         products = products.live()
     products = sort_average(products)
