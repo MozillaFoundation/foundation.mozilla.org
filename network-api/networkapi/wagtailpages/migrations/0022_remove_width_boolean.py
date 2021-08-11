@@ -12,7 +12,7 @@ import wagtailmedia.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0022_update_wide_images')    ]
+        ('wagtailpages', '0021_update_wide_images')    ]
 
     operations = [
         migrations.AlterField(

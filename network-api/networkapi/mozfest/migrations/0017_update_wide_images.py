@@ -26,7 +26,6 @@ def update_annotated_image_blocks(qs):
                 # If there is a type in the blocks, and the block type is a image,
                 # check if the image has the wide setting on
                 if 'type' in block and block['type'] == "image":
-                    print(block)
                     # If so, set the new image_width value to wide
                     if 'wide_image' in block['value'] and block['value']['wide_image'] == True:
                         print("Found a wide image, updating.")
@@ -45,14 +44,14 @@ def update_annotated_image_blocks(qs):
 
 def loop_through_pages_with_image_blocks(apps, schema):
     # Only look through pages that ACTUALLY USE the Annotated Image Block streamfield.
-
     pages_with_image_blocks = [
         MozfestPrimaryPage.objects.all(),
     ]
 
     for page_qs in pages_with_image_blocks:
         print("Pages:", page_qs.count())
-        update_annotated_image_blocks(page_qs)
+        if page_qs.count() != 0:
+            update_annotated_image_blocks(page_qs)
 
 class Migration(migrations.Migration):
 
