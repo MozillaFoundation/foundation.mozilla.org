@@ -7,7 +7,7 @@ from wagtail.core.models import BootstrapTranslatableModel
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0021_add_localization_to_subclasses'),
+        ('wagtailpages', '0026_add_localization_to_subclasses'),
     ]
 
     operations = [

@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0062_comment_models_and_pagesubscription'),
-        ('wagtailpages', '0020_remove_localization_from_cta_model'),
+        ('wagtailpages', '0025_remove_localization_from_cta_model'),
     ]
 
     operations = [
