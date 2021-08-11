@@ -17,9 +17,9 @@ charset-normalizer==2.0.4
     # via
     #   -c requirements.txt
     #   requests
-coverage==5.1
+coverage==5.5
     # via coveralls
-coveralls==3.0.1
+coveralls==3.2.0
     # via -r dev-requirements.in
 cryptography==3.4.7
     # via
@@ -28,7 +28,7 @@ cryptography==3.4.7
     #   urllib3
 docopt==0.6.2
     # via coveralls
-flake8==3.8.4
+flake8==3.9.2
     # via -r dev-requirements.in
 idna==3.2
     # via
@@ -43,13 +43,13 @@ mccabe==0.6.1
     # via flake8
 ptvsd==4.3.2
     # via -r dev-requirements.in
-pycodestyle==2.6.0
+pycodestyle==2.7.0
     # via flake8
 pycparser==2.20
     # via
     #   -c requirements.txt
     #   cffi
-pyflakes==2.2.0
+pyflakes==2.3.1
     # via flake8
 pyopenssl==20.0.1
     # via

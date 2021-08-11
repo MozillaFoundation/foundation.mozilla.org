@@ -11,10 +11,12 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.core import blocks
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable, Locale, Page
 from wagtail.core.fields import StreamField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from wagtail_localize.fields import TranslatableField, SynchronizedField
 
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -177,6 +179,18 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         PrivacyModalPanel(),
     ]
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('body'),
+        TranslatableField('title'),
+    ]
+
     subpage_types = [
         'ArticlePage'
     ]
@@ -194,11 +208,8 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         context['related_posts'] = related_posts
 
         # Pull this object specifically using the English page title
-        blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
-
-        # If that doesn't yield the blog page, pull using the universal title
-        if blog_page is None:
-            blog_page = BlogIndexPage.objects.get(title__iexact='Blog')
+        default_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+        blog_page = BlogIndexPage.objects.get(title__iexact='Blog', locale=default_locale)
 
         if blog_page:
             context['blog_index'] = blog_page

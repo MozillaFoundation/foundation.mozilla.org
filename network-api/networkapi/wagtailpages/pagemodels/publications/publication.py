@@ -9,6 +9,8 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
 from networkapi.wagtailpages.models import ContentAuthor
 from networkapi.wagtailpages.utils import set_main_site_nav_information
 from ..mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -115,6 +117,27 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         FieldPanel('intro_notes'),
         FieldPanel('contents_title'),
         FieldPanel('notes'),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField("title"),
+        TranslatableField("subtitle"),
+        TranslatableField('secondary_subtitle'),
+        SynchronizedField('toc_thumbnail_image'),
+        SynchronizedField('hero_image'),
+        SynchronizedField('publication_date'),
+        SynchronizedField('publication_file'),
+        TranslatableField('additional_author_copy'),
+        TranslatableField('intro_notes'),
+        TranslatableField('contents_title'),
+        TranslatableField('notes'),
     ]
 
     @property

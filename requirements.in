@@ -20,8 +20,10 @@ python-slugify
 requests
 social-auth-app-django
 wagtail-airtable
-wagtail==2.13
+wagtail==2.13.1
 wagtail-factories
+wagtail-localize==1.0rc3
+wagtail-localize-git==0.9.3
 wagtail-inventory==1.3
 wagtailmedia
 wagtail-metadata
@@ -29,5 +31,5 @@ whitenoise
 psycopg2-binary
 cloudinary
 sentry-sdk
-wagtail-footnotes
+git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
 scout-apm
