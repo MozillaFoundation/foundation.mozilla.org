@@ -13,9 +13,7 @@ class LocalizedSnippet():
 
     @property
     def original(self):
-        DEFAULT_LOCALE = Locale.objects.get(language_code=self.DEFAULT_LOCALE)
-
         try:
-            return self.get_translation(DEFAULT_LOCALE)
+            return self.get_translation(self.DEFAULT_LOCALE)
         except AttributeError:
             return self
