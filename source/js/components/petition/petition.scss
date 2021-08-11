@@ -77,3 +77,29 @@
     }
   }
 }
+
+.petition-form {
+  .form-check {
+    .form-control-feedback {
+      margin-left: -$form-check-input-gutter;
+    }
+  }
+
+  .has-danger {
+    .form-control-feedback {
+      color: $danger;
+
+      @at-root .dark-theme & {
+        color: $dark-theme-danger;
+      }
+    }
+
+    .form-control {
+      border: 1px solid $danger;
+
+      @at-root .dark-theme & {
+        border-color: $dark-theme-danger;
+      }
+    }
+  }
+}

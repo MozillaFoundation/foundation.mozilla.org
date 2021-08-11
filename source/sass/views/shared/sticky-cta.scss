@@ -1,19 +1,8 @@
-#cta-anchor {
-  @include cta-anchor-position();
-}
-
 .cta {
   // we need a z-index that's slightly lower than our sticky priamry nav's z-index
   // so the sticky nav can always stay on top of everything
   // see https://v4-alpha.getbootstrap.com/layout/overview/#z-index
   $sticky-cta-z-index: calc(#{$zindex-sticky} - 1);
-
-  .sticky-cta {
-    position: sticky;
-    top: 5rem;
-    overflow: hidden;
-    z-index: calc(#{$sticky-cta-z-index} - 1);
-  }
 
   .narrow-sticky-button-container {
     background: $white;

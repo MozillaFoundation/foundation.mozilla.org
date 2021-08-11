@@ -1,3 +1,17 @@
+// tailwindCSS
+
+// @import "../../node_modules/tailwindcss/base";
+// @import "../../node_modules/tailwindcss/components";
+// @import "../../node_modules/tailwindcss/utilities";
+
+// @import "tailwindcss/base";
+// @import "tailwindcss/components";
+// @import "tailwindcss/utilities";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // mofo-bootstrap
 
 @import "./mofo-bootstrap/mofo-bootstrap";
@@ -31,16 +45,21 @@
 @import "./components/card";
 @import "./components/select-dropdown"; // TODO:FIXME: consider relocate code to a new file scss/form.scss
 @import "./components/blog-authors";
+@import "./components/blog-hero-video";
 
 // Wagtail Stream Blocks
 
 @import "./wagtail/blocks/airtable";
+@import "./wagtail/blocks/audio-block";
 @import "./wagtail/blocks/dear-internet-letter";
 @import "./wagtail/blocks/feature-quote";
 @import "./wagtail/blocks/image-text-mini";
+@import "./wagtail/blocks/iframe-block";
 @import "./wagtail/blocks/link-button.scss";
+@import "./wagtail/blocks/looping-video.scss";
 @import "./wagtail/blocks/rich-text";
 @import "./wagtail/blocks/profiles";
+@import "./wagtail/blocks/video-block";
 @import "./wagtail/blocks/article-blocks";
 @import "./wagtail/blocks";
 

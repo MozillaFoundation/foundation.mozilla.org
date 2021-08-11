@@ -10,6 +10,7 @@ article_fields = [
     ('callout', blocks.BlockQuoteBlock(
         template="wagtailpages/blocks/article_blockquote_block.html"
     )),
+    ('card_grid', customblocks.CardGridBlock()),
     ('content', customblocks.ArticleRichText(
         features=['bold', 'italic', 'h2', 'h3', 'h4', 'h5', 'link', 'large', 'ol', 'ul', 'image', 'hr', 'footnotes'],
     )),
@@ -17,6 +18,7 @@ article_fields = [
     ('double_image', customblocks.ArticleDoubleImageBlock()),
     ('full_width_image', customblocks.ArticleFullWidthImageBlock()),
     ('iframe', customblocks.iFrameBlock()),
+    ('single_quote', customblocks.SingleQuoteBlock()),
     ('table', TableBlock(
         template="wagtailpages/blocks/article_table_block.html"
     )),
