@@ -21,8 +21,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 # from wagtail.core import urls as wagtail_urls
 from .utility import watail_core_url_override as wagtail_urls
+from .sitemaps import sitemap
 
-from wagtail.contrib.sitemaps.views import sitemap
 from wagtail_footnotes import urls as footnotes_urls
 from networkapi.wagtailcustomization.image_url_tag_urls import urlpatterns as image_url_tag_urls
 from networkapi.views import EnvVariablesView, review_app_help_view
@@ -69,7 +69,6 @@ urlpatterns = list(filter(None, [
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^en/cms/', RedirectView.as_view(url='/cms/')),
     re_path(r'^documents/', include(wagtaildocs_urls)),
-    re_path(r'^sitemap.xml$', sitemap),
 
     # Sentry test url
     path('sentry-debug', lambda r:  1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
@@ -80,6 +79,9 @@ urlpatterns = list(filter(None, [
 
     # Wagtail Footnotes package
     path("footnotes/", include(footnotes_urls)),
+
+    # redirect /pt to /pt-BR. See https://github.com/mozilla/foundation.mozilla.org/issues/5993
+    re_path(r'^pt/(?P<rest>.*)', RedirectView.as_view(url='/pt-BR/%(rest)s', query_string=True, permanent=True)),
 ]))
 
 # Anything that needs to respect the localised
@@ -95,6 +97,8 @@ urlpatterns += i18n_patterns(
 
     # wagtail-managed data
     re_path(r'', include(wagtail_urls)),
+
+    path('sitemap.xml', cache_page(86400)(sitemap)),
 )
 
 if settings.USE_S3 is not True:
@@ -111,3 +115,8 @@ if settings.DEBUG:
 # Use a custom 404 handler so that we can serve distinct 404
 # pages for each "site" that wagtail services.
 handler404 = 'networkapi.wagtailpages.views.custom404_view'
+
+# Use a custom 500 handler if and only if Django refuses to give any stack
+# traces for server error 500... And even then, do not use this on prod.
+if settings.FORCE_500_STACK_TRACES is True:
+    handler500 = 'networkapi.utility.custom_url_handlers.server_error_500_handler'

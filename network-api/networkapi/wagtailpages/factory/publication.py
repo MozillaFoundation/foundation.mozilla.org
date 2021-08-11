@@ -12,8 +12,8 @@ from factory import (
     Faker,
     SubFactory,
     django,
-    DjangoModelFactory,
 )
+from factory.django import DjangoModelFactory
 
 from networkapi.wagtailpages.pagemodels.publications.article import ArticleAuthors
 

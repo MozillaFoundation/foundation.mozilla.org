@@ -21,7 +21,7 @@
         </div>
         <div class="col-12">
           {% for child_page in child_pages %}
-            {% with child=child_page.child %}
+            {% with child=child_page.child.localized %}
             <div class="row publication-row pt-3 pb-sm-4 pb-0">
               <div class="col-auto">
                 <div class="publication-chapter-number"
@@ -44,24 +44,28 @@
                     {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                   {% endif %}
                 </h3>
-                {% for grandchild in child_page.grandchildren %}
+                {% for ancestor in child_page.grandchildren %}
+                {% with grandchild=ancestor.localized %}
                   <h4 class="d-sm-block d-none body">
                     <a href="{{ grandchild.url }}" class="d-block w-75 publication-chapter-article-link">
                       {{ grandchild.title }}
                     </a>
                   </h4>
+                {% endwith %}
                 {% endfor %}
               </div>
             </div>
             {% if child_page.grandchildren %}
               {# Child listings on mobile. #}
               <div class="pt-2 d-sm-none d-block">
-                {% for grandchild in child_page.grandchildren %}
+                {% for ancestor in child_page.grandchildren %}
+                {% with grandchild=ancestor.localized %}
                   <h4 class="body">
                     <a href="{{ grandchild.url }}" class="d-block publication-chapter-article-link">
                       {{ grandchild.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                     </a>
                   </h4>
+                {% endwith %}
                 {% endfor %}
               </div>
             {% endif %}

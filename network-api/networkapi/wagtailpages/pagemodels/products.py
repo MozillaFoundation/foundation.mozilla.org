@@ -17,15 +17,17 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
+
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
 
-from networkapi.wagtailpages.fields import ExtendedYesNoField
+from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
@@ -33,7 +35,7 @@ from networkapi.wagtailpages.utils import insert_panels_after
 
 # TODO: Move this util function
 from networkapi.buyersguide.utils import get_category_og_image_upload_path
-
+from .mixin.snippets import LocalizedSnippet
 
 TRACK_RECORD_CHOICES = [
     ('Great', 'Great'),
@@ -43,16 +45,63 @@ TRACK_RECORD_CHOICES = [
 ]
 
 
-def get_product_subset(cutoff_date, authenticated, key, products):
+def get_language_code_from_request(request):
+    """
+    Accepts a request. Returns a language code (string) if there is one. Falls back to English.
+    """
+    language_code = settings.LANGUAGE_CODE
+    if hasattr(request, 'LANGUAGE_CODE'):
+        language_code = request.LANGUAGE_CODE
+    return language_code
+
+
+def get_categories_for_locale(language_code):
+    """
+    Start with the English list of categories, and replace any of them
+    with their localized counterpart, where possible, so that we don't
+    end up with an incomplete category list due to missing locale records.
+    """
+    DEFAULT_LANGUAGE_CODE = settings.LANGUAGE_CODE
+    DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
+
+    default_locale_list = BuyersGuideProductCategory.objects.filter(
+        hidden=False,
+        locale=DEFAULT_LOCALE,
+    )
+
+    if language_code == DEFAULT_LANGUAGE_CODE:
+        return default_locale_list
+
+    try:
+        actual_locale = Locale.objects.get(language_code=language_code)
+    except Locale.DoesNotExist:
+        actual_locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+
+    return [
+        BuyersGuideProductCategory.objects.filter(
+            translation_key=cat.translation_key,
+            locale=actual_locale,
+        ).first() or cat for cat in default_locale_list
+    ]
+
+
+def get_product_subset(cutoff_date, authenticated, key, products, language_code='en'):
     """
     filter a queryset based on our current cutoff date,
     as well as based on whether a user is authenticated
     to the system or not (authenticated users get to
     see all products, including draft products)
     """
-    products = products.filter(review_date__gte=cutoff_date)
+    try:
+        locale = Locale.objects.get(language_code=language_code)
+    except Locale.DoesNotExist:
+        locale = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+
+    products = products.filter(review_date__gte=cutoff_date, locale=locale)
+
     if not authenticated:
         products = products.live()
+
     products = sort_average(products)
     return cache.get_or_set(key, products, 86400)
 
@@ -65,7 +114,7 @@ def sort_average(products):
 
 
 @register_snippet
-class BuyersGuideProductCategory(models.Model):
+class BuyersGuideProductCategory(TranslatableMixin, LocalizedSnippet, models.Model):
     """
     A simple category class for use with Buyers Guide products,
     registered as snippet so that we can moderate them if and
@@ -105,29 +154,33 @@ class BuyersGuideProductCategory(models.Model):
         blank=True,
     )
 
+    translatable_fields = [
+        TranslatableField('name'),
+        TranslatableField('description'),
+        SynchronizedField('slug'),
+    ]
+
     @property
     def published_product_page_count(self):
         return ProductPage.objects.filter(product_categories__category=self).live().count()
-
-    @property
-    def published_product_count(self):
-        # TODO: REMOVE: LEGACY FUNCTION
-        return ProductPage.objects.filter(product_category=self, draft=False).count()
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name_en if self.name_en else self.name)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Category"
         verbose_name_plural = "Buyers Guide Product Categories"
         ordering = ['sort_order', 'name', ]
 
 
 class ProductPageVotes(models.Model):
+    """
+    PNI product voting bins. This does not need translating.
+    """
     vote_bins = models.CharField(default="0,0,0,0,0", max_length=50, validators=[int_list_validator])
 
     def set_votes(self, bin_list):
@@ -145,7 +198,7 @@ class ProductPageVotes(models.Model):
         return votes
 
 
-class ProductPageCategory(Orderable):
+class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='product_categories',
@@ -165,11 +218,11 @@ class ProductPageCategory(Orderable):
     def __str__(self):
         return self.category.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Product Category"
 
 
-class RelatedProducts(Orderable):
+class RelatedProducts(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='related_product_pages',
@@ -187,8 +240,11 @@ class RelatedProducts(Orderable):
         PageChooserPanel('related_product')
     ]
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Related Product'
 
-class ProductPagePrivacyPolicyLink(Orderable):
+
+class ProductPagePrivacyPolicyLink(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='privacy_policy_links',
@@ -211,12 +267,20 @@ class ProductPagePrivacyPolicyLink(Orderable):
         FieldPanel('url'),
     ]
 
+    translatable_fields = [
+        TranslatableField('label'),
+        SynchronizedField('url'),
+    ]
+
     def __str__(self):
         return f'{self.page.title}: {self.label} ({self.url})'
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Privacy Link'
+
 
 @register_snippet
-class Update(index.Indexed, models.Model):
+class Update(TranslatableMixin, index.Indexed, models.Model):
     source = models.URLField(
         max_length=2048,
         help_text='Link to source',
@@ -258,15 +322,22 @@ class Update(index.Indexed, models.Model):
         index.SearchField('title', partial_match=True),
     ]
 
+    translatable_fields = [
+        SynchronizedField('source'),
+        SynchronizedField('title'),
+        SynchronizedField('author'),
+        SynchronizedField('snippet'),
+    ]
+
     def __str__(self):
         return self.title
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Buyers Guide Product Update"
         verbose_name_plural = "Buyers Guide Product Updates"
 
 
-class ProductUpdates(Orderable):
+class ProductUpdates(TranslatableMixin, Orderable):
     page = ParentalKey(
         'wagtailpages.ProductPage',
         related_name='updates',
@@ -281,9 +352,16 @@ class ProductUpdates(Orderable):
         null=True
     )
 
+    translatable_fields = [
+        TranslatableField("update"),
+    ]
+
     panels = [
         SnippetChooserPanel('update'),
     ]
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Product Update'
 
 
 class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
@@ -698,6 +776,54 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         ),
     ]
 
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('search_description'),
+        SynchronizedField('privacy_ding'),
+        SynchronizedField('adult_content'),
+        SynchronizedField('uses_wifi'),
+        SynchronizedField('uses_bluetooth'),
+        SynchronizedField('review_date'),
+        SynchronizedField('company'),
+        TranslatableField('blurb'),
+        SynchronizedField('product_url'),
+        TranslatableField('price'),
+        SynchronizedField('image'),
+        TranslatableField('worst_case'),
+        SynchronizedField('signup_requires_email'),
+        SynchronizedField('signup_requires_phone'),
+        SynchronizedField('signup_requires_third_party_account'),
+        TranslatableField('signup_requirement_explanation'),
+        SynchronizedField('signup_requires_third_party_account'),
+        TranslatableField('how_does_it_use_data_collected'),
+        SynchronizedField('data_collection_policy_is_bad'),
+        SynchronizedField('user_friendly_privacy_policy'),
+        TranslatableField('user_friendly_privacy_policy_helptext'),
+        SynchronizedField('show_ding_for_minimum_security_standards'),
+        SynchronizedField('meets_minimum_security_standards'),
+        SynchronizedField('uses_encryption'),
+        TranslatableField('uses_encryption_helptext'),
+        SynchronizedField('security_updates'),
+        TranslatableField('security_updates_helptext'),
+        SynchronizedField('strong_password'),
+        TranslatableField('strong_password_helptext'),
+        SynchronizedField('manage_vulnerabilities'),
+        TranslatableField('manage_vulnerabilities_helptext'),
+        SynchronizedField('privacy_policy'),
+        TranslatableField('privacy_policy_helptext'),
+        SynchronizedField('phone_number'),
+        SynchronizedField('live_chat'),
+        SynchronizedField('email'),
+        SynchronizedField('twitter'),
+    ]
+
     @property
     def product_type(self):
         return "unknown"
@@ -717,7 +843,8 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['product'] = self
-        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
+        language_code = get_language_code_from_request(request)
+        context['categories'] = get_categories_for_locale(language_code)
         context['mediaUrl'] = settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
         context['pageTitle'] = f'{self.title} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
@@ -813,11 +940,8 @@ class SoftwareProductPage(ProductPage):
         max_length=5000,
         blank=True
     )
-    # NullBooleanField is deprecated as of Django 3.1.
-    # We're using it here primarily for a data migration, but we should
-    # move to BooleanField as soon as it's safe to do so with the content we have
-    medical_privacy_compliant = models.NullBooleanField(
-        null=True,
+
+    medical_privacy_compliant = ExtendedBoolean(
         help_text='Compliant with US medical privacy laws?'
     )
 
@@ -832,11 +956,8 @@ class SoftwareProductPage(ProductPage):
         max_length=5000,
         blank=True
     )
-    # NullBooleanField is deprecated as of Django 3.1.
-    # We're using it here primarily for a data migration, but we should
-    # move to BooleanField as soon as it's safe to do so with the content we have
-    easy_to_learn_and_use = models.NullBooleanField(
-        null=True,
+
+    easy_to_learn_and_use = ExtendedBoolean(
         help_text='Is it easy to learn & use the features?',
     )
 
@@ -909,10 +1030,22 @@ class SoftwareProductPage(ProductPage):
         ],
     )
 
+    translatable_fields = ProductPage.translatable_fields + [
+        TranslatableField('handles_recordings_how'),
+        SynchronizedField('recording_alert'),
+        TranslatableField('recording_alert_helptext'),
+        SynchronizedField('medical_privacy_compliant'),
+        TranslatableField('medical_privacy_compliant_helptext'),
+        TranslatableField('host_controls'),
+        SynchronizedField('easy_to_learn_and_use'),
+        TranslatableField('easy_to_learn_and_use_helptext'),
+    ]
+
     @property
     def product_type(self):
         return "software"
 
+    # TODO: Needs translatable_fields
     class Meta:
         verbose_name = "Software Product Page"
 
@@ -1171,6 +1304,23 @@ class GeneralProductPage(ProductPage):
         ],
     )
 
+    translatable_fields = ProductPage.translatable_fields + [
+        TranslatableField('personal_data_collected'),
+        TranslatableField('biometric_data_collected'),
+        TranslatableField('social_data_collected'),
+        TranslatableField('how_can_you_control_your_data'),
+        SynchronizedField('data_control_policy_is_bad'),
+        SynchronizedField('company_track_record'),
+        SynchronizedField('track_record_is_bad'),
+        TranslatableField('track_record_details'),
+        SynchronizedField('offline_capable'),
+        TranslatableField('offline_use_description'),
+        SynchronizedField('uses_ai'),
+        SynchronizedField('ai_uses_personal_data'),
+        SynchronizedField('ai_is_transparent'),
+        TranslatableField('ai_helptext'),
+    ]
+
     @property
     def product_type(self):
         return "general"
@@ -1179,8 +1329,10 @@ class GeneralProductPage(ProductPage):
         verbose_name = "General Product Page"
 
 
-class ExcludedCategories(Orderable):
-    """This allows us to select one or more blog authors from Snippets."""
+class ExcludedCategories(TranslatableMixin, Orderable):
+    """
+    This allows us to filter categories from showing up on the PNI site
+    """
 
     page = ParentalKey("wagtailpages.BuyersGuidePage", related_name="excluded_categories")
     category = models.ForeignKey(
@@ -1194,6 +1346,9 @@ class ExcludedCategories(Orderable):
 
     def __str__(self):
         return self.category.name
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'Excluded Category'
 
 
 class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
@@ -1252,6 +1407,18 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
             ],
             heading="Excluded Categories"
         ),
+    ]
+
+    translatable_fields = [
+        TranslatableField('title'),
+        SynchronizedField('hero_image'),
+        TranslatableField('header'),
+        TranslatableField('intro_text'),
+        SynchronizedField('dark_theme'),
+        # Promote tab fields
+        TranslatableField('seo_title'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
     ]
 
     @route(r'^about/$', name='how-to-use-view')
@@ -1327,16 +1494,35 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
+        language_code = get_language_code_from_request(request)
+        locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
 
-        # If getting by slug fails, also try to get it by name.
+        DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+        DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
+
+        # because we may be working with localized content, and the slug
+        # will always be our english slug, we need to find the english
+        # category first, and then find its corresponding localized version
         try:
-            category = BuyersGuideProductCategory.objects.get(slug=slug)
+            original_category = BuyersGuideProductCategory.objects.get(slug=slug, locale_id=DEFAULT_LOCALE_ID)
         except BuyersGuideProductCategory.DoesNotExist:
-            category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
+            original_category = get_object_or_404(BuyersGuideProductCategory, name__iexact=slug)
+
+        if locale_id != DEFAULT_LOCALE_ID:
+            try:
+                category = BuyersGuideProductCategory.objects.get(
+                    translation_key=original_category.translation_key,
+                    locale_id=DEFAULT_LOCALE_ID,
+                )
+            except BuyersGuideProductCategory.DoesNotExist:
+                category = original_category
+        else:
+            category = original_category
 
         authenticated = request.user.is_authenticated
         key = f'cat_product_dicts_{slug}_auth' if authenticated else f'cat_product_dicts_{slug}_live'
+        key = f'{language_code}_{key}'
         products = cache.get(key)
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
@@ -1345,11 +1531,13 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.filter(product_categories__category__in=[category])
-                                   .exclude(product_categories__category__id__in=exclude_cat_ids)
+                ProductPage.objects.filter(product_categories__category__in=[original_category])
+                                   .exclude(product_categories__category__id__in=exclude_cat_ids),
+                language_code=language_code
             )
 
-        context['category'] = category.slug
+        context['category'] = slug
+        context['current_category'] = category
         context['products'] = products
         context['pageTitle'] = f'{category} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
@@ -1389,9 +1577,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+        language_code = get_language_code_from_request(request)
 
         authenticated = request.user.is_authenticated
         key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'
+        key = f'{key}_{language_code}'
         products = cache.get(key)
         exclude_cat_ids = [excats.category.id for excats in self.excluded_categories.all()]
 
@@ -1400,10 +1590,11 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
                 self.cutoff_date,
                 authenticated,
                 key,
-                ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids)
+                ProductPage.objects.exclude(product_categories__category__id__in=exclude_cat_ids),
+                language_code=language_code
             )
 
-        context['categories'] = BuyersGuideProductCategory.objects.filter(hidden=False)
+        context['categories'] = get_categories_for_locale(language_code)
         context['products'] = products
         context['web_monetization_pointer'] = settings.WEB_MONETIZATION_POINTER
         pni_home_page = BuyersGuidePage.objects.first()
