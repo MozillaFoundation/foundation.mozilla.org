@@ -43,16 +43,13 @@ TRACK_RECORD_CHOICES = [
     ('Needs Improvement', 'Needs Improvement'),
     ('Bad', 'Bad')
 ]
-DEFAULT_LANGUAGE_CODE = settings.LANGUAGE_CODE
-DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
-DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
 
 
 def get_language_code_from_request(request):
     """
     Accepts a request. Returns a language code (string) if there is one. Falls back to English.
     """
-    language_code = DEFAULT_LANGUAGE_CODE
+    language_code = settings.LANGUAGE_CODE
     if hasattr(request, 'LANGUAGE_CODE'):
         language_code = request.LANGUAGE_CODE
     return language_code
@@ -64,6 +61,9 @@ def get_categories_for_locale(language_code):
     with their localized counterpart, where possible, so that we don't
     end up with an incomplete category list due to missing locale records.
     """
+    DEFAULT_LANGUAGE_CODE = settings.LANGUAGE_CODE
+    DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
+
     default_locale_list = BuyersGuideProductCategory.objects.filter(
         hidden=False,
         locale=DEFAULT_LOCALE,
@@ -1489,6 +1489,9 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         language_code = get_language_code_from_request(request)
         locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
+
+        DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+        DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
 
         # because we may be working with localized content, and the slug
         # will always be our english slug, we need to find the english
