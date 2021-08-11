@@ -109,6 +109,8 @@ future==0.18.2
     # via -r requirements.in
 gunicorn==20.0.4
     # via -r requirements.in
+heroku3==4.2.3
+    # via -r requirements.in
 html5lib==1.0.1
     # via wagtail
 idna==2.9
