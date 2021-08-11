@@ -1,3 +1,5 @@
+# TODO: REmove this and other translation.py files.
+# They aren't needed but keep coming back when we merge master into our localization branch
 from .models import (
     ModularPage,
     MiniSiteNameSpace,

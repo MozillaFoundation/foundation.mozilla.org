@@ -290,7 +290,7 @@ export default {
   },
 
   // Portuguese
-  pt: {
+  "pt-BR": {
     "First name": `Nome`,
     "Please enter your given name(s)": `Insira seu nome`,
     "Last name": `Sobrenome`,

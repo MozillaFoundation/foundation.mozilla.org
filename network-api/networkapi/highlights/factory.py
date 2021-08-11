@@ -1,12 +1,12 @@
 from datetime import timezone
 
 from factory import (
-    DjangoModelFactory,
     Faker,
     Trait,
     LazyAttribute,
     post_generation,
 )
+from factory.django import DjangoModelFactory
 from wagtail_factories import ImageFactory
 
 from networkapi.utility.faker import generate_fake_data

@@ -10,7 +10,7 @@ def generate(seed):
 
     reseed(seed)
 
-    home_page.cause_statement_link_text = Faker('text', max_nb_chars=80).generate()
+    home_page.cause_statement_link_text = Faker('text', max_nb_chars=80)
 
     all_children = list(home_page.get_descendants())
 

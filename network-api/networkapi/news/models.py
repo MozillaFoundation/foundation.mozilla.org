@@ -4,6 +4,7 @@ from django.db.models import Q
 
 from networkapi.utility.images import get_image_upload_path
 from wagtail.snippets.models import register_snippet
+from wagtail.core.models import TranslatableMixin
 
 
 def get_thumbnail_upload_path(instance, filename):
@@ -29,7 +30,7 @@ class NewsQuerySet(models.query.QuerySet):
 
 
 @register_snippet
-class News(models.Model):
+class News(TranslatableMixin, models.Model):
     """
     Medium blog posts, articles and other media
     """
@@ -88,7 +89,7 @@ class News(models.Model):
 
     objects = NewsQuerySet.as_manager()
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         """Meta settings for news model"""
 
         verbose_name = 'news article'
