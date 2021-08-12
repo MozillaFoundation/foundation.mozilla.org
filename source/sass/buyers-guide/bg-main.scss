@@ -3,6 +3,10 @@ html {
   overflow-x: hidden;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // mofo-bootstrap
 
 @import "../mofo-bootstrap/mofo-bootstrap";

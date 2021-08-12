@@ -325,6 +325,7 @@ TEMPLATES = [
                 'networkapi.context_processor.review_app',
                 'networkapi.context_processor.canonical_path',
                 'networkapi.context_processor.canonical_site_url',
+                'networkapi.context_processor.env_debug',
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.wagtailpages.templatetags.bg_nav_tags',
@@ -717,3 +718,8 @@ if env("SCOUT_KEY"):
 
 
 TAGGIT_CASE_INSENSITIVE = False
+
+REVIEW_APP_HEROKU_API_KEY = env("REVIEW_APP_HEROKU_API_KEY", default=None)
+REVIEW_APP_ROUTE_53_ZONE = env("REVIEW_APP_ROUTE_53_ZONE", default=None)
+REVIEW_APP_AWS_ACCESS_KEY_ID = env("REVIEW_APP_AWS_ACCESS_KEY_ID", default=None)
+REVIEW_APP_AWS_SECRET_ACCESS_KEY = env("REVIEW_APP_AWS_SECRET_ACCESS_KEY", default=None)
