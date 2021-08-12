@@ -325,6 +325,7 @@ TEMPLATES = [
                 'networkapi.context_processor.review_app',
                 'networkapi.context_processor.canonical_path',
                 'networkapi.context_processor.canonical_site_url',
+                'networkapi.context_processor.env_debug',
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.wagtailpages.templatetags.bg_nav_tags',

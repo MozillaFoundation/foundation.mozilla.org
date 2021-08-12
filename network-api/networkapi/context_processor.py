@@ -16,3 +16,8 @@ def canonical_path(request):
 
 def canonical_site_url(request):
     return {'CANONICAL_SITE_URL': request.scheme + '://' + request.get_host()}
+
+
+def env_debug(request):
+    debug_flag = settings.DEBUG
+    return{"debug_flag": debug_flag}

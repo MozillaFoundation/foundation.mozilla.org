@@ -1,5 +1,7 @@
+/* eslint-disable prettier/prettier */
 const colors = require("tailwindcss/colors");
 const plugin = require("tailwindcss/plugin");
+const componentPlugins = require("./tailwind.components");
 
 module.exports = {
   purge: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
@@ -8,7 +10,7 @@ module.exports = {
   important: true,
   corePlugins: {
     // overriding TW default container
-    container: false,
+    container: false
   },
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -26,55 +28,7 @@ module.exports = {
       };
       addUtilities(newUtilities);
     }),
-    plugin(function ({ addComponents }) {
-      addComponents([
-        {
-          "@media (min-width: 576px)": {
-            ".container": {
-              maxWidth: "540px",
-            },
-          },
-        },
-        {
-          "@media (min-width: 768px)": {
-            ".container": {
-              maxWidth: "720px",
-            },
-          },
-        },
-        {
-          "@media (min-width: 992px)": {
-            ".container": {
-              maxWidth: "960px",
-            },
-          },
-        },
-        {
-          "@media (min-width: 1200px)": {
-            ".container": {
-              maxWidth: "1140px",
-            },
-          },
-        },
-        {
-          ".container": {
-            width: "100%",
-            paddingRight: "1rem",
-            paddingLeft: "1rem",
-            marginRight: "auto",
-            marginLeft: "auto",
-          },
-        },
-        {
-          ".row": {
-            display: "flex",
-            flexWrap: "wrap",
-            marginRight: "-1rem",
-            marginLeft: "-1rem",
-          },
-        },
-      ]);
-    }),
+    ...componentPlugins,
   ],
   theme: {
     extend: {
@@ -84,6 +38,18 @@ module.exports = {
       screens: {
         print: { raw: "print" },
       },
+    },
+    // Overriding default spacing
+    spacing: {
+      0: "0",
+      px: "1px",
+      1: "0.25rem",
+      2: "0.5rem",
+      3: "0.75rem",
+      4: "1rem",
+      5: "1.5rem",
+      6: "2rem",
+      7: "3rem",
     },
     // Renaming breakpoints temporary until we remove bootstrap usage
     screens: {

@@ -46,7 +46,9 @@
     "server": "python network-api/manage.py runserver 0.0.0.0:8000",
     "server:silent": "python network-api/manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
     "start": "docker-compose up",
-    "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 2000 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\" ",
+    "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 50 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\"",
+    "tailwind": "run-p tailwind:watch sync",
+    "tailwind:watch": "tailwindcss -i source/postcss/tailwind.css -o network-api/networkapi/frontend/_css/tailwind.compiled.css -w",
     "test:procfile": "node test/test-procfile.js",
     "test:eslint:js:pre": "prettier \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js --write",
     "test:eslint:js": "eslint --config ./.eslintrc.json \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js",
@@ -59,9 +61,7 @@
     "test": "run-s test:** build",
     "watch": "wait-on http://backend:8000/cms && run-s build:clean && run-p build:js:dev build:common watch:**",
     "watch:images": "chokidar \"source/images/**/*\" -c \"npm run build:images\"",
-    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\"",
-    "watch:html": "chokidar \"network-api/networkapi/**/*.html\" -c \"npm run build:sass\"",
-    "watch:tailwind": "chokidar \"tailwind.config.js\" -c \"npm run build:sass\""
+    "watch:sass": "chokidar \"source/**/*.scss\" -c \"npm run build:sass\""
   },
   "browserslist": [
     "> 1%",
