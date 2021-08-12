@@ -11,47 +11,31 @@ import wagtailmedia.blocks
 from networkapi.mozfest.models import MozfestPrimaryPage
 
 
+def loop_through_pages_with_image_blocks(apps, schema):
 
-def update_annotated_image_blocks(qs):
-    # Loop through all pages
-    for page in qs:
-        print("\t", page)
+    for page in MozfestPrimaryPage.objects.all():
         # If this page doesn't have a Image that needs update, don't save it.
-        # This will speed up how fast this task can run.
+        # This will speed up how fast this task can run
         needs_saving = False
         # Only loop through streamfield data if there's a `body` field on the page
         if page.body:
-            # Looping through raw_data is a List of blocks.
-            for block in page.body.raw_data:
-                # If there is a type in the blocks, and the block type is a image,
-                # check if the image has the wide setting on
-                if 'type' in block and block['type'] == "image":
-                    # If so, set the new image_width value to wide
-                    if 'wide_image' in block['value'] and block['value']['wide_image'] == True:
-                        print("Found a wide image, updating.")
-                        block['value']['image_width'] = "wide"
-                        needs_saving = True
+            # Checking if page.body has raw_data, and looping through it.
+            if hasattr(page.body, 'raw_data'):
+                for block in page.body.raw_data:
+                    # If the block type is an image,
+                    # check if the image has the wide setting on.
+                    if 'type' in block and block['type'] == "image":
+                        # If so, set the new image_width value to wide.
+                        if 'wide_image' in block['value'] and block['value']['wide_image'] == True:
+                            block['value']['image_width'] = "wide"
+                            needs_saving = True
 
+            # If page is published already, continue to publish it.
+            # Otherwise just save a revision for draft history.
             if needs_saving:
-                # If page is published already, continue to publish it.
-                # Otherwise just save a revision for draft history.
+                revision = page.save_revision()
                 if page.live:
-                    print("\t\tPage is live. Publish it")
-                    page.save_revision().publish()
-                else:
-                    print("\t\tPage is draft.")
-                    page.save_revision()
-
-def loop_through_pages_with_image_blocks(apps, schema):
-    # Only look through pages that ACTUALLY USE the Annotated Image Block streamfield.
-    pages_with_image_blocks = [
-        MozfestPrimaryPage.objects.all(),
-    ]
-
-    for page_qs in pages_with_image_blocks:
-        print("Pages:", page_qs.count())
-        if page_qs.count() != 0:
-            update_annotated_image_blocks(page_qs)
+                    revision.publish()
 
 class Migration(migrations.Migration):
 
@@ -60,5 +44,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-                 migrations.RunPython(loop_through_pages_with_image_blocks)
+        migrations.RunPython(loop_through_pages_with_image_blocks)
     ]
