@@ -37,7 +37,6 @@ cffi==1.14.6
     #   cryptography
     #   pygit2
 charset-normalizer==2.0.4
-    # via requests
 cloudinary==1.26.0
     # via -r requirements.in
 cryptography==3.4.7
@@ -189,6 +188,7 @@ six==1.16.0
     #   airtable-python-wrapper
     #   basket-client
     #   cloudinary
+    #   cryptography
     #   html5lib
     #   l18n
     #   pyopenssl
@@ -204,6 +204,8 @@ soupsieve==2.2.1
 sqlparse==0.4.1
     # via django
 tablib[xls,xlsx]==3.0.0
+    # via wagtail
+telepath==0.2
     # via wagtail
 telepath==0.2
     # via wagtail
