@@ -7,10 +7,16 @@
 <div class="tw-container tw-mt-7">
   <div class="tw-row">
     <div class="tw-w-full tw-px-4 tw-pb-7">
-      <h2 class="h1-heading">Colors</h2>
+      <h2 class="h1-heading tw-group" id="colors">
+        <span>Colors</span>
+        <a href="#colors" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading tw-mt-7">Site-wide Palette</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="site-palette">
+        <span>Site-wide Palette</span>
+        <a href="#site-palette" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
 
       <div class="tw-row">
@@ -47,7 +53,10 @@
         {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-blue-dark" name="Dark Blue ($dark-blue)" hex="#0d10bf" %}
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Privacy Not Included Palette</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="pni-palette">
+        <span>Privacy Not Included Palette</span>
+        <a href="#pni-palette" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
 
       <div class="tw-row">
@@ -66,7 +75,10 @@
         {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-pni-blue tw-to-pni-pink" name="PNI Gradient ($pni-gradient)" hex="linear-gradient(to right, #1808f2 0%, #e4487d 100%)" %}
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Festival Palette</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="festival-palette">
+        <span>Festival Palette</span>
+        <a href="#festival-palette" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
 
       <div class="tw-row">
@@ -77,11 +89,83 @@
         {% include "../fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-festival-blue tw-to-festival-purple" name="Festival Gradient ($festival-gradient)" hex="linear-gradient(120deg, #0e11bf 0%, #8f14fb 100%)" %}
       </div>
 
-
-      <h2 class="h1-heading tw-mt-7">Grid</h2>
+      <h2 class="h1-heading tw-mt-7 tw-group" id="spacing">
+        <span>Spacing</span>
+        <a href="#spacing" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading tw-mt-7">Breakpoints</h3>
+      <div class="tw-row">
+        <div class="tw-w-full tw-px-4">
+          <table class="tw-table tw-w-full tw-border tw-border-table tw-overflow-x-auto tw-table-fixed">
+            <thead>
+              <tr>
+                <th class="tw-p-3 tw-border tw-border-table ">Name</th>
+                <th class="tw-p-3 tw-border tw-border-table ">Units</th>
+                <th class="tw-p-3 tw-border tw-border-table tw-w-2/5">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tw-bg-black tw-bg-opacity-5">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">0</td>
+                <td class="tw-p-3 tw-border tw-border-table">0px</td>
+                <td class="tw-p-3 tw-border tw-border-table"></td>
+              </tr>
+              <tr class="">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">px</td>
+                <td class="tw-p-3 tw-border tw-border-table">1px</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-px tw-h-px"></div></td>
+              </tr>
+              <tr class="tw-bg-black tw-bg-opacity-5">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">1</td>
+                <td class="tw-p-3 tw-border tw-border-table">4px (0.25rem)</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-1 tw-h-1"></div></td>
+              </tr>
+              <tr class="">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">2</td>
+                <td class="tw-p-3 tw-border tw-border-table">8px (0.5rem)</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-2 tw-h-2"></div></td>
+              </tr>
+              <tr class="tw-bg-black tw-bg-opacity-5">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">3</td>
+                <td class="tw-p-3 tw-border tw-border-table">12px (0.75rem)</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-3 tw-h-3"></div></td>
+              </tr>
+              <tr class="">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">4</td>
+                <td class="tw-p-3 tw-border tw-border-table">16px (1rem)</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-4 tw-h-4"></div></td>
+              </tr>
+              <tr class="tw-bg-black tw-bg-opacity-5">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">5</td>
+                <td class="tw-p-3 tw-border tw-border-table">24px (1.5rem)</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-5 tw-h-5"></div></td>
+              </tr>
+              <tr class="">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">6</td>
+                <td class="tw-p-3 tw-border tw-border-table">32px (2rem)</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-6 tw-h-6"></div></td>
+              </tr>
+              <tr class="tw-bg-black tw-bg-opacity-5">
+                <td class="tw-p-3 tw-border tw-border-table tw-font-bold">7</td>
+                <td class="tw-p-3 tw-border tw-border-table">48px (3rem)</td>
+                <td class="tw-p-3 tw-border tw-border-table"><div class="tw-bg-red tw-w-7 tw-h-7"></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2 class="h1-heading tw-mt-7 tw-group" id="grid">
+        <span>Grid</span>
+        <a href="#grid" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
+      <hr class="hr-emphasis">
+
+      <h3 class="h2-heading tw-mt-7 tw-group" id="breakpoints">
+        <span>Breakpoints</span>
+        <a href="#breakpoints" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="tw-row">
         <div class="tw-w-full tw-px-4">
@@ -126,7 +210,10 @@
         </div>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Columns</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="columns">
+        <span>Columns</span>
+        <a href="#columns" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
 
       <div class="tw-row dark-theme">
@@ -203,10 +290,16 @@
       <hr />
 
 
-      <h2 class="h1-heading tw-mt-7">Typography</h2>
+      <h2 class="h1-heading tw-mt-7 tw-group" id="typography">
+        <span>Typography</span>
+        <a href="#typography" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading tw-mt-7">Headers</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="headers">
+        <span>Headers</span>
+        <a href="#headers" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="tw-py-2">
         <h1 class="h1-heading">.h1-heading</h1>
@@ -227,7 +320,10 @@
         <h6 class="h6-heading">.h6-heading</h6>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Headers with links</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="headers-links">
+        <span>Headers with links</span>
+        <a href="#headers-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="tw-py-2">
         <h1 class="h1-heading">.h1-heading with <a href="">link</a></h1>
@@ -248,7 +344,10 @@
         <h6 class="h6-heading">.h6-heading with <a href="">link</a></h6>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Paragraphs</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="paragraphs">
+        <span>Paragraphs</span>
+        <a href="#paragraphs" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="tw-py-2">
         <p class="body-large">.body-large with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
@@ -266,7 +365,10 @@
         <h2 class="type-accent">.type-accent</h2>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Paragraphs with links</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="paragraphs-links">
+        <span>Paragraphs with links</span>
+        <a href="#paragraphs-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="tw-py-2">
         <p class="body-large">.body-large with <a href="">link</a></p>
@@ -278,7 +380,11 @@
         <p class="body-small">.body-small with <a href="">link</a></p>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Lists</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="lists">
+        <span>Lists</span>
+        <a href="#lists" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
+
       <hr />
       <div class="tw-py-2">
         <h4>Default <xmp class="tw-inline"><ol></xmp> style</h4>
@@ -295,11 +401,17 @@
         </ul>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Anchors</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="anchors">
+        <span>Anchors</span>
+        <a href="#anchors" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="tw-py-2"><a class="cta-link" href="https://example.com">.cta-link</a></div>
 
-      <h3 class="h2-heading tw-mt-7">Dark Theme Headers</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dark-headers">
+        <span>Dark Theme Headers</span>
+        <a href="#dark-headers" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="dark-theme tw-bg-black">
         <div class="tw-py-2">
@@ -321,7 +433,10 @@
           <h6 class="h6-heading">.h6-heading</h6>
         </div>
       </div>
-      <h3 class="h2-heading tw-mt-7">Dark Theme Headers with links</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dark-headers-links">
+        <span>Dark Theme Headers with links</span>
+        <a href="#dark-headers-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="dark-theme tw-bg-black">
         <div class="tw-py-2">
@@ -344,7 +459,10 @@
         </div>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Dark Theme Paragraphs</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dark-para">
+        <span>Dark Theme Paragraphs</span>
+        <a href="#dark-para" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="dark-theme tw-bg-black">
         <div class="tw-py-2">
@@ -365,7 +483,10 @@
 
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Dark Theme Paragraphs with links</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dark-para-links">
+        <span>Dark Theme Paragraphs with links</span>
+        <a href="#dark-para-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="dark-theme tw-bg-black">
         <div class="tw-py-2">
@@ -379,7 +500,10 @@
         </div>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Dark Theme Lists</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dark-lists">
+        <span>Dark Theme Lists</span>
+        <a href="#dark-lists" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="dark-theme tw-bg-black">
         <div class="tw-py-2">
@@ -398,7 +522,10 @@
         </div>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Dark Theme Anchors</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dark-anchors">
+        <span>Dark Theme Anchors</span>
+        <a href="#dark-anchors" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
       <div class="dark-theme tw-bg-black">
         <a class="cta-link" href="">.cta-link</a>
@@ -407,10 +534,16 @@
         <a href="">link</a>
       </div>
 
-      <h2 class="h1-heading tw-mt-7">Buttons</h2>
+      <h2 class="h1-heading tw-mt-7 tw-group" id="buttons">
+        <span>Buttons</span>
+        <a href="#buttons" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading tw-mt-7">Default</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="button-defaults">
+        <span>Default</span>
+        <a href="#button-defaults" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
 
       <div class="tw-mb-7">
@@ -450,7 +583,10 @@
         </div>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Dark Theme</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="button-dark">
+        <span>Dark Theme</span>
+        <a href="#button-dark" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr />
 
       <div class="tw-p-4 dark-theme tw-bg-black">
@@ -492,17 +628,26 @@
         </div>
       </div>
 
-      <h2 class="h1-heading tw-mt-7">Share Button Group</h2>
+      <h2 class="h1-heading tw-mt-7 tw-group" id="button-share">
+        <span>Share Button Group</span>
+        <a href="#button-share" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading tw-mt-7">Full version</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="button-full">
+        <span>Full version</span>
+        <a href="#button-full" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr>
 
       <div class="tw-mb-7">
         <div class="share-button-group-wrapper"></div>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Full Version & Stacked</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="full-stacked">
+        <span>Full Version & Stacked</span>
+        <a href="#full-stacked" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr>
 
       <div class="tw-mb-7">
@@ -510,24 +655,36 @@
       </div>
 
 
-      <h3 class="h2-heading tw-mt-7">Mini Version</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="button-mini">
+        <span>Full Version & Stacked</span>
+        <a href="#button-mini" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr>
 
       <div class="tw-mb-7">
         <div class="share-button-group-wrapper" data-version="mini"></div>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Mini Version & Stacked</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="mini-stacked">
+        <span>Mini Version & Stacked</span>
+        <a href="#mini-stacked" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr>
 
       <div class="tw-mb-7">
         <div class="share-button-group-wrapper" data-version="mini" data-layout="stacked"></div>
       </div>
 
-      <h2 class="h1-heading tw-mt-7">Dropdown Field</h2>
+      <h2 class="h1-heading tw-mt-7 tw-group" id="dropdown">
+        <span>Dropdown Field</span>
+        <a href="#dropdown" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
       <hr class="hr-emphasis">
 
-      <h3 class="h2-heading tw-mt-7">Default</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dropdown-default">
+        <span>Default</span>
+        <a href="#dropdown-default" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr>
 
       <div class="tw-mb-7">
@@ -550,7 +707,10 @@
         </select>
       </div>
 
-      <h3 class="h2-heading tw-mt-7">Dark Theme</h3>
+      <h3 class="h2-heading tw-mt-7 tw-group" id="dropdown-dark">
+        <span>Dark Theme</span>
+        <a href="#dropdown-dark" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h3>
       <hr>
 
       <div class="tw-p-4 dark-theme tw-bg-black">
@@ -574,6 +734,12 @@
           </select>
         </div>
       </div>
+
+      <h2 class="h1-heading tw-mt-7 tw-group" id="streamblock">
+        <span>Streamblocks</span>
+        <a href="#streamblock" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
+      <hr class="hr-emphasis">
 
     </div>
   </div>
