@@ -25,6 +25,9 @@ module.exports = {
         ".col-count-3": {
           columnCount: 3,
         },
+        ".hash": {
+          content: "\"#\"",
+        }
       };
       addUtilities(newUtilities);
     }),
