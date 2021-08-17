@@ -1,5 +1,7 @@
 from .index import IndexPage
 
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
 from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
 
 
@@ -17,6 +19,20 @@ class CampaignIndexPage(IndexPage):
         'YoutubeRegretsReporterPage',
         'PublicationPage',
         'ArticlePage'
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields from IndexPage
+        TranslatableField('title'),
+        TranslatableField('intro'),
+        TranslatableField('header'),
+        SynchronizedField('page_size'),
     ]
 
     template = 'wagtailpages/index_page.html'

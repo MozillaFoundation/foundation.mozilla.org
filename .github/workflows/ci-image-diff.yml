@@ -98,10 +98,7 @@ jobs:
         python network-api/manage.py collectstatic --no-input --verbosity 0
         python network-api/manage.py migrate --no-input
         python network-api/manage.py block_inventory
-        python network-api/manage.py sync_page_translation_fields
-        python network-api/manage.py update_translation_fields
         python network-api/manage.py load_fake_data
-        python network-api/manage.py compilemessages
 
     - name: Retrieving visual baseline
       run: |

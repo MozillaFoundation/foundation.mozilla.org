@@ -1,12 +1,15 @@
 from django.db import models
 
+from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
 
+from wagtail_localize.fields import TranslatableField
+
 
 @register_snippet
-class DonationModal(models.Model):
+class DonationModal(TranslatableMixin, models.Model):
     name = models.CharField(
         default='',
         max_length=100,
@@ -40,6 +43,13 @@ class DonationModal(models.Model):
         default="No thanks",
     )
 
+    translatable_fields = [
+        TranslatableField('header'),
+        TranslatableField('body'),
+        TranslatableField('donate_text'),
+        TranslatableField('dismiss_text'),
+    ]
+
     def to_simple_dict(self):
         keys = ['name', 'header', 'body', 'donate_text', 'dismiss_text']
         values = map(lambda k: getattr(self, k), keys)
@@ -48,11 +58,11 @@ class DonationModal(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name_plural = 'Donation CTA'
 
 
-class DonationModals(models.Model):
+class DonationModals(TranslatableMixin, models.Model):
     page = ParentalKey(
         'wagtailpages.CampaignPage',
         related_name='donation_modals',
@@ -75,6 +85,6 @@ class DonationModals(models.Model):
         SnippetChooserPanel('donation_modal'),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'Donation Modals'
         verbose_name_plural = 'Donation Modals'

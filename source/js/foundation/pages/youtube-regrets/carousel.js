@@ -1,9 +1,9 @@
-import Swiper from 'swiper/bundle';
+import Swiper from "swiper/bundle";
 
 class Carousel {
   // Note: ensure your parent element has a unique id and data-carousel attr
   constructor() {
-    this.slideshows = document.querySelectorAll('[data-carousel]');
+    this.slideshows = document.querySelectorAll("[data-carousel]");
     this.createSlideshows();
   }
 
@@ -13,7 +13,7 @@ class Carousel {
       let slideshowId = slideshow.id;
       swipers[index] = new Swiper(`#${slideshowId}`, {
         effect: "fade",
-        fadeEffect: {crossFade: true},
+        fadeEffect: { crossFade: true },
         autoHeight: true,
         centeredSlides: true,
         initialSlide: 0,
