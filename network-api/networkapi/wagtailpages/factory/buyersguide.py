@@ -4,12 +4,13 @@ from random import randint, random, choice, randrange, shuffle
 from datetime import date, datetime, timezone, timedelta
 
 from factory import (
-    DjangoModelFactory,
     Faker,
     post_generation,
     LazyAttribute,
     LazyFunction,
 )
+from factory.django import DjangoModelFactory
+
 
 from wagtail.images.models import Image
 from wagtail_factories import PageFactory
@@ -36,6 +37,10 @@ Faker.add_provider(ImageProvider)
 
 def get_random_option(options=[]):
     return choice(options)
+
+
+def get_extended_boolean_value():
+    return get_random_option(['Yes', 'No', 'U'])
 
 
 def get_extended_yes_no_value():
@@ -173,18 +178,10 @@ class SoftwareProductPageFactory(ProductPageFactory):
     handles_recordings_how = Faker('sentence')
     recording_alert = LazyFunction(get_extended_yes_no_value)
     recording_alert_helptext = Faker('sentence')
-    medical_privacy_compliant = Faker('boolean')
+    medical_privacy_compliant = LazyFunction(get_extended_boolean_value)
     medical_privacy_compliant_helptext = Faker('sentence')
     host_controls = Faker('sentence')
-    easy_to_learn_and_use = Faker('boolean')
-    easy_to_learn_and_use_helptext = Faker('sentence')
-    handles_recordings_how = Faker('sentence')
-    recording_alert = LazyFunction(get_extended_yes_no_value)
-    recording_alert_helptext = Faker('sentence')
-    medical_privacy_compliant = Faker('boolean')
-    medical_privacy_compliant_helptext = Faker('sentence')
-    host_controls = Faker('sentence')
-    easy_to_learn_and_use = Faker('boolean')
+    easy_to_learn_and_use = LazyFunction(get_extended_boolean_value)
     easy_to_learn_and_use_helptext = Faker('sentence')
 
 

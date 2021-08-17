@@ -9,18 +9,20 @@
       <div class="col-lg-8 col-md-12">
         <div class="row">
           {% for item in page.take_action_cards.all %}
+            {% with target=item.internal_link.localized %}
             <div class="col-md-6 d-flex">
               <div class="card flex-grow-1 mb-4">
-                  <a href="{{ item.internal_link.url }}">
+                  <a href="{{ target.url }}">
                     <img src="{% image_url item.image "fill-350x130" %}" class="card-img-top" alt="{{ img.alt }}" aria-label="{{ item.text }}">
                   </a>
                   <div class="card-body">
-                    <a href="{{ item.internal_link.url }}" class="h5-heading d-inline-block my-2">
+                    <a href="{{ target.url }}" class="h5-heading d-inline-block my-2">
                       {{ item.text }}
                     </a>
                   </div>
               </div>
             </div>
+            {% endwith %}
           {% endfor %}
         </div>
       </div>
