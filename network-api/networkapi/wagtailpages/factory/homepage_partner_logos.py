@@ -27,8 +27,8 @@ def generate(seed):
         partner_logo_orderable = PartnerLogos.objects.create(
             page=home_page,
             logo=choice(all_images),
-            link=Faker('url').generate(),
-            name=Faker('text', max_nb_chars=30).generate(),
+            link=Faker('url'),
+            name=Faker('text', max_nb_chars=30),
         )
         home_page.partner_logos.add(partner_logo_orderable)
 
