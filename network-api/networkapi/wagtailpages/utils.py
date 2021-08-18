@@ -27,7 +27,7 @@ from django.utils.translation.trans_real import (
 from sentry_sdk import capture_exception
 
 from wagtail.images.models import Image
-from wagtail.core.models import Collection
+from wagtail.core.models import Collection, Locale
 
 
 def titlecase(s):
@@ -262,6 +262,15 @@ def language_code_to_iso_3166(language):
     if country:
         return language + '-' + country.upper()
     return language
+
+
+def get_locale_from_request(request, check_path=False):
+    language_code = get_language_from_request(request, check_path);
+
+    try:
+        return Locale.objects.get(language_code=language_code)
+    except Locale.DoesNotExist:
+        return Locale.objects.get(language_code=settings.language_code)
 
 
 def get_language_from_request(request, check_path=False):
