@@ -14,6 +14,9 @@ from networkapi.mozfest.models import MozfestPrimaryPage
 def loop_through_pages_with_image_blocks(apps, schema):
 
     for page in MozfestPrimaryPage.objects.all():
+        if hasattr(page, 'alias_of') and page.alias_of != None:
+            # This is a page alias, rather than a real page
+            continue
         # If this page doesn't have a Image that needs update, don't save it.
         # This will speed up how fast this task can run
         needs_saving = False

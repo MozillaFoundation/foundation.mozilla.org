@@ -16,6 +16,9 @@ from networkapi.wagtailpages.pagemodels.primary import PrimaryPage
 def update_annotated_image_blocks(qs):
     # Loop through all pages
     for page in qs:
+        if hasattr(page, 'alias_of') and page.alias_of != None:
+            # This is a page alias, rather than a real page
+            continue
         # If this page doesn't have a Image that needs update, don't save it.
         # This will speed up how fast this task can run
         needs_saving = False
