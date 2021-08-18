@@ -58,7 +58,7 @@ def get_unlocalized_url(page, locale):
 @register.simple_tag(takes_context=True)
 def relocalized_url(context, url):
     request = context['request']
-    locale_code = get_language_from_request(request);
+    locale_code = get_language_from_request(request, True)
     if locale_code == DEFAULT_LOCALE_CODE:
         return url
     return url.replace(f'/{DEFAULT_LOCALE_CODE}/', f'/{locale_code}/')
