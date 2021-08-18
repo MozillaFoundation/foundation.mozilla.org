@@ -215,6 +215,12 @@ describe(`Visual regression testing for foundation.mozilla.org`, () => {
     cy.percySnapshot();
   });
 
+  it(`YouTube RegretsReporter findings page`, function () {
+    cy.visit(`/en/campaigns/regrets-reporter/findings/`);
+    cy.wait(1000);
+    cy.percySnapshot();
+  });
+
   it(`Dear Internet page`, function () {
     cy.visit(`/en/campaigns/dearinternet/`);
     cy.wait(1000);
