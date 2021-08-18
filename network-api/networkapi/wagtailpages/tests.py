@@ -47,7 +47,6 @@ class BuyersGuideViewTest(TestCase):
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
-            buyersguide.slug_en = 'privacynotincluded'
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
 
@@ -147,7 +146,6 @@ class BuyersGuideTestMixin(WagtailPageTests):
             buyersguide = BuyersGuidePage()
             buyersguide.title = 'Privacy not included'
             buyersguide.slug = 'privacynotincluded'
-            buyersguide.slug_en = 'privacynotincluded'
             homepage.add_child(instance=buyersguide)
             buyersguide.save_revision().publish()
         self.homepage = Homepage.objects.first()
@@ -163,9 +161,7 @@ class BuyersGuideTestMixin(WagtailPageTests):
             )
             product_page = ProductPage(
                 slug='product-page',
-                slug_en='product-page',
                 title='Product Page',
-                title_en='Product Page',
                 live=True,
                 image=wagtail_image
             )
@@ -243,7 +239,7 @@ class TestBuyersGuidePage(BuyersGuideTestMixin):
         self.assertEqual(response.redirect_chain[0][0], product.url)
 
     def test_sitemap_entries(self):
-        response = self.client.get('/sitemap.xml')
+        response = self.client.get('/en/sitemap.xml')
         context = response.context
 
         self.assertEqual(context.template_name, 'sitemap.xml')

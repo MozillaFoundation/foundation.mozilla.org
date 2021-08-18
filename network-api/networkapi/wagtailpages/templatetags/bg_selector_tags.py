@@ -9,11 +9,20 @@ def yes_no(value):
     """Converts nullish boolean to yes or no string"""
     if value is False:
         return gettext('No')
-
     if value is True:
         return gettext('Yes')
-
     return gettext('Unknown')
+
+
+@register.filter
+def extended_boolean(value):
+    if value == 'Yes':
+        return gettext('Yes')
+    if value == 'No':
+        return gettext('No')
+    if value == 'U':
+        return gettext('Unknown')
+    return value
 
 
 @register.filter

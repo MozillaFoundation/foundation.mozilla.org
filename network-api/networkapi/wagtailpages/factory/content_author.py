@@ -1,5 +1,5 @@
-from factory import DjangoModelFactory
 from factory import Faker
+from factory.django import DjangoModelFactory
 
 from networkapi.wagtailpages.models import ContentAuthor
 from networkapi.utility.faker import generate_fake_data

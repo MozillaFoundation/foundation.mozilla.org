@@ -8,5 +8,5 @@
   {% include "./product_criterion.html"  with  label=handles_recordings_how       value=product.handles_recordings_how     %}
 {% endif %}
 
-{% include "./product_criterion.html"  with  label=recording_alert              value=product.recording_alert|extended_yes_no      help=product.recording_alert_helptext               %}
-{% include "./product_criterion.html"  with  label=medical_privacy_compliant    value=product.medical_privacy_compliant|yes_no     help=product.medical_privacy_compliant_helptext     %}
+{% include "./product_criterion.html"  with  label=recording_alert              value=product.recording_alert|extended_yes_no               help=product.recording_alert_helptext               %}
+{% include "./product_criterion.html"  with  label=medical_privacy_compliant    value=product.medical_privacy_compliant|extended_boolean    help=product.medical_privacy_compliant_helptext     %}

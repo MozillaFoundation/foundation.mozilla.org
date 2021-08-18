@@ -258,7 +258,7 @@
           display: inline-block;
           margin: 10px 0;
           padding-bottom: 0;
-          border-width: 3px;
+          border-width: 0px 0px 3px 0px;
           color: $white;
 
           @include hover-focus-active {

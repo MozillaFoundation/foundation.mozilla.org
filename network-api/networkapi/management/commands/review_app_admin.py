@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 digits=True,
                 upper_case=True,
                 lower_case=True
-            ).generate({})
+            )
             User.objects.create_superuser('admin', 'admin@example.com', password)
 
             reviewapp_name = settings.HEROKU_APP_NAME

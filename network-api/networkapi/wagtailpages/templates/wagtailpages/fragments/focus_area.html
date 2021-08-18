@@ -8,7 +8,7 @@
         <p>{{ area.description }}</p>
 
         {% if area.page %}<div class="mb-4 learn-more-link">
-            <a href="{{ area.page.url }}" aria-label="{% blocktrans with name=area.name %}Learn more about: {{ name }}{% endblocktrans %}">{% trans "Learn more →" %}</a>
+            <a href="{{ area.page.localized.url }}" aria-label="{% blocktrans with name=area.name %}Learn more about: {{ name }}{% endblocktrans %}">{% trans "Learn more →" %}</a>
         </div>{% endif %}
     </div>
 </div>
