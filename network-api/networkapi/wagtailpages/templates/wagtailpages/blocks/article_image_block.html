@@ -10,10 +10,11 @@ no-gutters
 {% endblock %}
 
 {% block main_block_class %}
-{% if value.wide_image %} wide {% else %} streamfield-content {% endif %} 
+{% if value.wide_image %} wide {% else %} streamfield-content {% endif %}
 {% endblock %}
 
-{% image self.image width-1840 as img %}
+{% block block_content %}
+  {% image self.image width-1840 as img %}
   <figure class="my-2">
     <img src="{{ img.url }}" alt="{% if self.alt_text %}{{ self.alt_text }}{% else %}{{ img.alt }}{% endif %}"
       class="w-100" />

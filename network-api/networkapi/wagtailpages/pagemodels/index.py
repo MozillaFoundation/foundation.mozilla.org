@@ -13,6 +13,8 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 from networkapi.wagtailpages.utils import (
@@ -59,6 +61,20 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         FieldPanel('header'),
         FieldPanel('intro'),
         FieldPanel('page_size'),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+        TranslatableField('intro'),
+        TranslatableField('header'),
+        SynchronizedField('page_size'),
     ]
 
     def get_context(self, request):

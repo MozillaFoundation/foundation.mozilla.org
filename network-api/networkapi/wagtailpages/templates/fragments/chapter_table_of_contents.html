@@ -23,7 +23,7 @@
         </div>
         <div class="col-12">
           {% for child_page in child_pages %}
-            {% with child=child_page.child %}
+            {% with child=child_page.child.localized %}
             <div class="row publication-row pt-3 pb-3 d-flex align-items-center">
               <div class="col-sm-1 d-md-block d-none">&nbsp;</div>
               <div class="col-auto">

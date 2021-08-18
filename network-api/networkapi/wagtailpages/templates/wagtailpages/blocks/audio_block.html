@@ -1,0 +1,28 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+
+<div class="player-and-caption my-default">
+    <div id="audio-player">
+        <audio class="embedded-audio">
+            <source src="{{self.audio.url}}" type="audio/mp3" preload="metadata" loop>
+        </audio>
+        <div class="audio-player-controls my-default d-inline-flex">
+            <div class='px-3 play-btn-container'>            
+                <button class="btn btn-audio-control btn-pause d-none" id="pause-icon"></button>
+                <button class="btn btn-audio-control btn-play d-none" id="play-icon"></button>
+            </div>
+            <div class='seek-slider-container'>            
+                <input  type="range" id="seek-slider" max="100" value="0">
+            </div>
+            <div class='px-3 time-info-container'>            
+                <span id="current-time" class="time">0:00</span>
+                <span class="time">/</span>
+                <span id="duration" class="time">0:00</span>
+            </div>
+        </div>
+    </div>
+    <p class="body-small mt-2">{{self.caption}} </p>
+</div>
+{% endblock %}

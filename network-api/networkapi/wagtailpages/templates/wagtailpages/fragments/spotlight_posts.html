@@ -13,12 +13,14 @@
 
   <div class="col-12 col-lg-6">
     {% for post in page.spotlight_posts.all %}
+    {% with localized=post.blog.localized %}
       <div class="spotlight-post">
         <h4 class="mb-2 h5-heading">
-          <a href="{{post.blog.url}}">{{post.blog.title}}</a>
+          <a href="{{localized.url}}">{{localized.title}}</a>
         </h4>
-        {% include "./blog_authors.html" with blog_page=post.blog %}
+        {% include "./blog_authors.html" with blog_page=localized %}
       </div>
+    {% endwith %}
     {% endfor %}
   </div>
 

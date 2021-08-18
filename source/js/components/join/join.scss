@@ -13,9 +13,19 @@
     .form-control {
       padding-right: map-get($glyph-container, "margin-x") * 2 +
         map-get($glyph-container, "width");
+      border: 1px solid $danger;
 
       @at-root .dark-theme & {
         border-width: 2px;
+        border-color: $dark-theme-danger;
+      }
+    }
+
+    .form-control-feedback {
+      color: $danger;
+
+      @at-root .dark-theme & {
+        color: $dark-theme-danger;
       }
     }
 

@@ -1,4 +1,8 @@
-let commonPlugins = [require("autoprefixer")];
+let commonPlugins = [
+  require("postcss-import"),
+  require("tailwindcss"),
+  require("autoprefixer"),
+];
 
 let prodPlugins = [
   require("cssnano")({

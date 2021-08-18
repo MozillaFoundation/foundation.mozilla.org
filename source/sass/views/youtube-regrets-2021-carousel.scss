@@ -166,9 +166,7 @@
         stroke: $white;
       }
     }
-
   }
-
 
   // Slide counter
   &__count {
@@ -246,7 +244,6 @@
   }
 }
 
-
 .swiper-button-disabled {
   opacity: 0.2;
   pointer-events: none;
@@ -255,4 +252,3 @@
     background: transparent;
   }
 }
-

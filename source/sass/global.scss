@@ -30,10 +30,7 @@ hr {
 }
 
 .hr-emphasis {
-  height: 4px;
-  background: $black;
-  border: 0;
-  margin: 30px 0;
+  @apply tw-bg-black tw-border-0 tw-h-1 tw-mx-0 tw-my-6;
 }
 
 #hero {
@@ -121,38 +118,4 @@ hr {
 .ih-cta {
   border-bottom: 1px solid $black;
   border-top: 1px solid $black;
-}
-
-.donate-banner {
-  background: $blue;
-}
-
-.site-footer {
-  background: $black;
-
-  &.dark-theme {
-    // special override to make sure footer list links appear white (vs default dark theme anchor color $light-blue)
-    .link-list a {
-      @include dark-theme-inline-anchor($white);
-    }
-  }
-
-  .link-list {
-    li {
-      &:not(:last-child) {
-        margin-bottom: 0.5rem;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    @media (min-width: $bp-lg) {
-      column-count: 2;
-      li {
-        break-inside: avoid;
-      }
-    }
-  }
 }

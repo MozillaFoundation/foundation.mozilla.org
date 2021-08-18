@@ -1,6 +1,8 @@
 from faker.providers import BaseProvider
 
 
+# FIXME: this code doesn't work at all, probably due to major version updates,
+#        and this ImageProvider is basically dead code by now.
 class ImageProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy

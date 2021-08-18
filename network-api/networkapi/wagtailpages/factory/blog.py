@@ -128,3 +128,7 @@ def generate(seed):
         add_tags(post)
         add_category(post)
         add_authors(post)
+
+    for post in BlogPage.objects.all():
+        post.ensure_related_posts()
+        post.save()

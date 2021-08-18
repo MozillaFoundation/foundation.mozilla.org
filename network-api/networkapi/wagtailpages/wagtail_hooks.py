@@ -7,10 +7,18 @@ from django.core.cache import cache
 from django.urls import reverse
 
 from wagtail.admin.menu import MenuItem
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
+from wagtail.core.utils import find_available_slug
 from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, ProductPage
+
+# The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
+# so that locale creation creates the locale entry but does not try to sync 1300+ pages as
+# part of the same web request.
+from django.db.models.signals import post_save
+from wagtail_localize.models import LocaleSynchronization, sync_trees_on_locale_sync_save
+post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
 
 
 # Extended rich text features for our site
@@ -102,6 +110,27 @@ def manage_pni_cache(request, page):
         # This is easier than looping through every Category x Language Code available
         # To specifically clear PNI-based cache.
         cache.clear()
+
+
+@hooks.register('after_publish_page')
+def sync_localized_slugs(request, page):
+    for translation in page.get_translations():
+        translation.slug = find_available_slug(
+            translation.get_parent(),
+            page.slug,
+            ignore_page_id=translation.id
+        )
+
+        if translation.alias_of_id is not None:
+            # This is still an alias rather than a published
+            # localized page, so we can only save it as we
+            # would any plain Django model:
+            translation.save()
+
+        else:
+            # If it's a real page, it needs to go through
+            # the revision/publication process.
+            translation.save_revision().publish()
 
 
 @hooks.register('after_delete_page')

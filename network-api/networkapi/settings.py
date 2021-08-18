@@ -50,6 +50,7 @@ env = environ.Env(
     FEED_LIMIT=(int, 10),
     FILEBROWSER_DEBUG=(bool, False),
     FILEBROWSER_DIRECTORY=(str, ''),
+    FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ''),
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ''),
     GITHUB_TOKEN=(str, ''),
@@ -85,6 +86,9 @@ env = environ.Env(
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     WAGTAILIMAGES_INDEX_PAGE_SIZE=(int, 60),
+    WAGTAILLOCALIZE_GIT_URL=(str, ''),
+    WAGTAILLOCALIZE_GIT_CLONE_DIR=(str, ''),
+    WAGTAIL_LOCALIZE_PRIVATE_KEY=(str, ''),
     WEB_MONETIZATION_POINTER=(str, ''),
     XROBOTSTAG_ENABLED=(bool, False),
     XSS_PROTECTION=bool,
@@ -137,6 +141,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FILEBROWSER_DEBUG = env('DEBUG')
+
+# SECURITY WARNING: same as above!
+FORCE_500_STACK_TRACES = env('FORCE_500_STACK_TRACES')
 
 # whether or not to send the X-Robots-Tag header
 XROBOTSTAG_ENABLED = env('XROBOTSTAG_ENABLED')
@@ -215,11 +222,19 @@ INSTALLED_APPS = list(filter(None, [
     'wagtail.contrib.table_block',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.frontend_cache',
+    'wagtailmedia',
     'wagtailinventory',
     'wagtail_footnotes',
 
     'modelcluster',
     'taggit',
+
+    # Base wagtail localization
+    'wagtail_localize',
+    'wagtail_localize.locales',
+
+    # git integration for localization
+    'wagtail_localize_git',
 
     'rest_framework',
     'django_filters',
@@ -238,11 +253,6 @@ INSTALLED_APPS = list(filter(None, [
 
     # possibly still used?
     'networkapi.highlights',
-
-    # wagtail localisation app
-    'wagtail_modeltranslation',
-    'wagtail_modeltranslation.makemigrations',
-    'wagtail_modeltranslation.migrate',
 
     # wagtail to airtable integration
     'wagtail_airtable',
@@ -324,12 +334,14 @@ TEMPLATES = [
                 'networkapi.context_processor.review_app',
                 'networkapi.context_processor.canonical_path',
                 'networkapi.context_processor.canonical_site_url',
+                'networkapi.context_processor.env_debug',
             ])),
             'libraries': {
                 'bg_nav_tags': 'networkapi.wagtailpages.templatetags.bg_nav_tags',
                 'blog_tags': 'networkapi.wagtailpages.templatetags.blog_tags',
                 'card_tags': 'networkapi.wagtailpages.templatetags.card_tags',
                 'class_tags': 'networkapi.wagtailpages.templatetags.class_tags',
+                'debug_tags': 'networkapi.wagtailpages.templatetags.debug_tags',
                 'homepage_tags': 'networkapi.wagtailpages.templatetags.homepage_tags',
                 'localization': 'networkapi.wagtailpages.templatetags.localization',
                 'mini_site_tags': 'networkapi.wagtailpages.templatetags.mini_site_tags',
@@ -428,16 +440,20 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en'
-LANGUAGES = (
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
     ('en', gettext_lazy('English')),
     ('de', gettext_lazy('German')),
-    ('pt', gettext_lazy('Portuguese')),
+    ('pt-BR', gettext_lazy('Portuguese (Brazil)')),
     ('es', gettext_lazy('Spanish')),
     ('fr', gettext_lazy('French')),
     ('fy-NL', gettext_lazy('Frisian')),
     ('nl', gettext_lazy('Dutch')),
     ('pl', gettext_lazy('Polish')),
 )
+
+WAGTAILLOCALIZE_GIT_URL = env('WAGTAILLOCALIZE_GIT_URL')
+WAGTAILLOCALIZE_GIT_CLONE_DIR = env('WAGTAILLOCALIZE_GIT_CLONE_DIR')
+WAGTAIL_LOCALIZE_PRIVATE_KEY = env('WAGTAIL_LOCALIZE_PRIVATE_KEY')
 
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -472,6 +488,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WAGTAIL_SITE_NAME = 'Mozilla Foundation'
 WAGTAILIMAGES_INDEX_PAGE_SIZE = env('WAGTAILIMAGES_INDEX_PAGE_SIZE')
 WAGTAIL_USAGE_COUNT_ENABLED = True
+WAGTAIL_I18N_ENABLED = True
 
 # Wagtail Frontend Cache Invalidator Settings
 
@@ -487,7 +504,7 @@ if env("FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN"):
 # Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ]
 }
 
@@ -716,3 +733,8 @@ if env("SCOUT_KEY"):
 
 
 TAGGIT_CASE_INSENSITIVE = False
+
+REVIEW_APP_HEROKU_API_KEY = env("REVIEW_APP_HEROKU_API_KEY", default=None)
+REVIEW_APP_ROUTE_53_ZONE = env("REVIEW_APP_ROUTE_53_ZONE", default=None)
+REVIEW_APP_AWS_ACCESS_KEY_ID = env("REVIEW_APP_AWS_ACCESS_KEY_ID", default=None)
+REVIEW_APP_AWS_SECRET_ACCESS_KEY = env("REVIEW_APP_AWS_SECRET_ACCESS_KEY", default=None)
