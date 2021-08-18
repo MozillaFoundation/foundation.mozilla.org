@@ -1,9 +1,7 @@
 from django.apps import apps
-from django.conf import settings
 from django.template.defaultfilters import slugify
 
 from wagtail.core import blocks
-from wagtail.core.models import Locale
 
 from ..blog.blog_category import BlogPageCategory
 from networkapi.wagtailpages.utils import get_locale_from_request

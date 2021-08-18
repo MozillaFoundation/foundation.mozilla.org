@@ -265,7 +265,7 @@ def language_code_to_iso_3166(language):
 
 
 def get_locale_from_request(request, check_path=False):
-    language_code = get_language_from_request(request, check_path);
+    language_code = get_language_from_request(request, check_path)
 
     try:
         return Locale.objects.get(language_code=language_code)
