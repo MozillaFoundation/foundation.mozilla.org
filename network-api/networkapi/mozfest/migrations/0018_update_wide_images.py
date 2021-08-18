@@ -8,14 +8,12 @@ import wagtail.images.blocks
 import wagtailmedia.blocks
 
 
-from networkapi.wagtailpages.pagemodels.blog.blog import BlogPage
-from networkapi.wagtailpages.pagemodels.modular import ModularPage
-from networkapi.wagtailpages.pagemodels.primary import PrimaryPage
+from networkapi.mozfest.models import MozfestPrimaryPage
 
 
-def update_annotated_image_blocks(qs):
-    # Loop through all pages
-    for page in qs:
+def loop_through_pages_with_image_blocks(apps, schema):
+
+    for page in MozfestPrimaryPage.objects.all():
         # If this page doesn't have a Image that needs update, don't save it.
         # This will speed up how fast this task can run
         needs_saving = False
@@ -39,23 +37,10 @@ def update_annotated_image_blocks(qs):
                 if page.live:
                     revision.publish()
 
-def loop_through_pages_with_image_blocks(apps, schema):
-    # Only look through pages that use the Annotated Image Block streamfield.
-
-    pages_with_image_blocks = [
-        BlogPage.objects.all(),
-        PrimaryPage.objects.all(),
-        ModularPage.objects.all(),
-    ]
-
-    for page_qs in pages_with_image_blocks:
-        if page_qs.count() != 0:
-            update_annotated_image_blocks(page_qs)
-
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailpages', '0020_add_image_width_select_field'),
+        ('mozfest', '0017_auto_20210818_0231'),
     ]
 
     operations = [
