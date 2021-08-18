@@ -1,6 +1,6 @@
 {% extends "./generic_card.html" %}
 
-{% load wagtailcore_tags wagtailroutablepage_tags class_tags blog_tags i18n %}
+{% load wagtailcore_tags wagtailroutablepage_tags class_tags blog_tags i18n localization %}
 
 {% block card_type %}blog-card{% endblock %}
 
@@ -13,23 +13,13 @@ each blog page's dominant tag)
 
 {% block tags %}
   {% if hide_classifiers != True %}
-    {% if filtered and root %}
-      <ul class="list-unstyled mt-3 mb-0">
-      {% for tag in page.specific.tags.all %}
-        <li class="d-inline-block text-capitalize">
-          <a href="{% routablepageurl root.specific "entries_by_tag" tag.slug %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
-        </li>
-      {% endfor %}
-      </ul>
-    {% else %}
-      {% with category=page.specific.category.first %}
-      {% if category %}
-        {% get_root_or_page as parent_page %}
-          {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-          <a class="h6-heading d-block mt-3 mb-0" href="{% routablepageurl parent_page "entries_by_category" category.slug %}">{{ category }}</a>
-        {% endif %}
-      {% endwith %}
-    {% endif %}
+    {% with category=page.specific.category.first %}
+    {% if category %}
+      {% get_root_or_page as parent_page %}
+        {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
+        <a class="h6-heading d-block mt-3 mb-0" href="{% routablepageurl parent_page "entries_by_category" category.slug %}">{{ category }}</a>
+      {% endif %}
+    {% endwith %}
   {% endif %}
 {% endblock %}
 

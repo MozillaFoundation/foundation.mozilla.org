@@ -5,6 +5,7 @@ from django import template
 from django.conf import settings
 from django.utils.translation import get_language_info
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
+from networkapi.wagtailpages.utils import get_language_from_request
 
 register = template.Library()
 
@@ -54,8 +55,10 @@ def get_unlocalized_url(page, locale):
 
 
 # Force-relocalize a URL
-@register.simple_tag()
-def relocalized_url(url, locale_code):
+@register.simple_tag(takes_context=True)
+def relocalized_url(context, url):
+    request = context['request']
+    locale_code = get_language_from_request(request);
     if locale_code == DEFAULT_LOCALE_CODE:
         return url
     return url.replace(f'/{DEFAULT_LOCALE_CODE}/', f'/{locale_code}/')
@@ -63,9 +66,9 @@ def relocalized_url(url, locale_code):
 
 # Overcome a limitation of the routablepageurl tag
 @register.simple_tag(takes_context=True)
-def localizedroutablepageurl(context, page, url_name, locale_code, *args, **kwargs):
+def localizedroutablepageurl(context, page, url_name, *args, **kwargs):
     url = relocalized_url(
-        routablepageurl(context, page, url_name, *args, **kwargs),
-        locale_code,
+        context,
+        routablepageurl(context, page, url_name, *args, **kwargs)
     )
     return url
