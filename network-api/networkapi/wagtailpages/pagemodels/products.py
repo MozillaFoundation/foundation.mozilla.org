@@ -31,6 +31,7 @@ from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
+from networkapi.wagtailpages.templatetags.localization import relocalized_url
 from networkapi.wagtailpages.utils import insert_panels_after, get_locale_from_request
 
 # TODO: Move this util function
@@ -1481,7 +1482,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         # If no product is found, redirect to the BuyersGuide page
         locale = get_locale_from_request(request)
         product = get_object_or_404(ProductPage, slug=slug, locale=locale)
-        return redirect(product.url)
+        url = relocalized_url(product.url, locale.language_code)
+        return redirect(url)
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
