@@ -9,7 +9,7 @@ class Accordion {
     this.accordionElements = [
       ...this.accordion.querySelectorAll("[data-accordion-item]"),
     ];
-    this.animateSpeed = 0.2;
+    this.animateSpeed = 0.1;
 
     this.bindEvents();
   }
@@ -36,7 +36,7 @@ class Accordion {
         // Animate height, hide original button and scroll to the top of the content area
         let timeline = gsap.timeline({
           onComplete: this.scrollToY,
-          onCompleteParams: [drawer, 0.2, 80],
+          onCompleteParams: [drawer, 0.1, 80],
         });
         timeline
           .to(button, { duration: this.animateSpeed, opacity: 0 })
@@ -52,21 +52,21 @@ class Accordion {
       });
 
       closeButton.addEventListener("click", () => {
-        this.scrollToY(drawer, 0.2, 80);
+        this.scrollToY(drawer, 0.1, 80);
         this.closeDrawers(this.animateSpeed);
       });
 
       drawer.addEventListener("mouseenter", () => {
-        gsap.to(mask, { duration: this.animateSpeed, y: 10 });
+        gsap.to(mask, { duration: this.animateSpeed, ease: "none", y: 10 });
       });
 
       drawer.addEventListener("mouseleave", () => {
-        gsap.to(mask, { duration: this.animateSpeed, y: 0 });
+        gsap.to(mask, { duration: this.animateSpeed, ease: "none", y: 0 });
       });
     });
   }
 
-  closeDrawers(speed = 0.2) {
+  closeDrawers(speed = 0.1) {
     this.accordionElements.forEach((drawer) => {
       if (drawer.classList.contains("is-open")) {
         const content = drawer.querySelector("[data-accordion-content]");
@@ -88,7 +88,7 @@ class Accordion {
     });
   }
 
-  scrollToY(element, speed = 0.2, offset, callback) {
+  scrollToY(element, speed = 0.1, offset, callback) {
     const distance = window.scrollY + element.getBoundingClientRect().top;
     const extraOffset = offset ? offset : 0;
     gsap.to(window, {
