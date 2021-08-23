@@ -94,7 +94,7 @@
     "react-axe": "^3.5.4",
     "react-dom": "^17.0.1",
     "react-ga": "3.3.0",
-    "sass": "^1.32.8",
+    "sass": "^1.38.0",
     "shx": "^0.3.3",
     "swiper": "^6.7.5",
     "tailwindcss": "^2.2.4",
