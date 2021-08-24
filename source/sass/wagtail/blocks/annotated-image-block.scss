@@ -1,0 +1,23 @@
+.full-width {
+  .annotated-image {
+    img {
+      object-fit: cover;
+      object-position: center center;
+      max-height: 650px;
+
+      // Breakpoints to keep images that are out of 16:6 ratio
+      // from taking up too much space
+      @media (min-width: $bp-xs) and (max-width: $bp-lg) {
+        max-height: 400px;
+      }
+      @media (min-width: $bp-lg) and (max-width: $bp-xl) {
+        max-height: 550px;
+      }
+    }
+  }
+
+  // Padding for full-width-image's captions
+  figcaption {
+    @extend .pl-3;
+  }
+}

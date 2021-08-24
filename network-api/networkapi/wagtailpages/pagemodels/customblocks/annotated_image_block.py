@@ -1,5 +1,14 @@
 from wagtail.core import blocks
+from django import forms
 from .image_block import ImageBlock
+
+
+class RadioSelectBlock(blocks.ChoiceBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.field.widget = forms.RadioSelect(
+            choices=self.field.widget.choices
+        )
 
 
 class AnnotatedImageBlock(ImageBlock):
@@ -10,10 +19,15 @@ class AnnotatedImageBlock(ImageBlock):
         required=False,
         help_text='Optional URL that this caption should link out to.'
     )
-    wide_image = blocks.BooleanBlock(
-        required=False,
-        default=False,
-        help_text='Would you like to use a wider image on desktop?'
+    image_width = RadioSelectBlock(
+        choices=(
+            ("normal", "Normal"),
+            ("wide", "Wide"),
+            ("full_width", "Full Width"),
+        ),
+        default='normal',
+        help_text='Wide images are col-12, Full-Width Images reach both ends of the screen '
+                  '(16:6 images recommended for full width)'
     )
 
     class Meta:

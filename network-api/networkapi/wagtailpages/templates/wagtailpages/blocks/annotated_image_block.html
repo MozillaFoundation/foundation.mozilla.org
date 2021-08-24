@@ -1,19 +1,25 @@
 {% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% block block_container_classes %}
+  {% if value.image_width == "full_width" %} full-width {% endif %}
+{% endblock %}
 
 {% block block_row_classes %}
 no-gutters
 {% endblock %}
 
 {% block main_block_class %}
-{% if value.wide_image %} wide {% else %} streamfield-content {% endif %}
+streamfield-content 
+{% if value.image_width == "full_width" %} full-width
+{% elif value.image_width == "wide" %} wide
+{% endif %}
 {% endblock %}
 
 {% block block_content %}
 {% image value.image original as img %}
 
-<figure class="my-1">
+<figure class="my-1 annotated-image">
   <img src="{{ img.url }}" alt="{{ value.altText }}" class="w-100" />
   {% if value.caption %}
   <figcaption class="body-small d-block mt-2">
