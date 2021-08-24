@@ -31,11 +31,13 @@ from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.wagtailpages.utils import insert_panels_after
+from networkapi.wagtailpages.templatetags.localization import relocalized_url
+from networkapi.wagtailpages.utils import insert_panels_after, get_locale_from_request
 
 # TODO: Move this util function
 from networkapi.buyersguide.utils import get_category_og_image_upload_path
 from .mixin.snippets import LocalizedSnippet
+from networkapi.wagtailpages.utils import get_language_from_request
 
 TRACK_RECORD_CHOICES = [
     ('Great', 'Great'),
@@ -43,16 +45,6 @@ TRACK_RECORD_CHOICES = [
     ('Needs Improvement', 'Needs Improvement'),
     ('Bad', 'Bad')
 ]
-
-
-def get_language_code_from_request(request):
-    """
-    Accepts a request. Returns a language code (string) if there is one. Falls back to English.
-    """
-    language_code = settings.LANGUAGE_CODE
-    if hasattr(request, 'LANGUAGE_CODE'):
-        language_code = request.LANGUAGE_CODE
-    return language_code
 
 
 def get_categories_for_locale(language_code):
@@ -843,7 +835,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['product'] = self
-        language_code = get_language_code_from_request(request)
+        language_code = get_language_from_request(request)
         context['categories'] = get_categories_for_locale(language_code)
         context['mediaUrl'] = settings.MEDIA_URL
         context['use_commento'] = settings.USE_COMMENTO
@@ -1488,13 +1480,15 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def product_view(self, request, slug):
         # Find product by it's slug and redirect to the product page
         # If no product is found, redirect to the BuyersGuide page
-        product = get_object_or_404(ProductPage, slug=slug)
-        return redirect(product.url)
+        locale = get_locale_from_request(request)
+        product = get_object_or_404(ProductPage, slug=slug, locale=locale)
+        url = relocalized_url(product.url, locale.language_code)
+        return redirect(url)
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
         context = self.get_context(request, bypass_products=True)
-        language_code = get_language_code_from_request(request)
+        language_code = get_language_from_request(request)
         locale_id = Locale.objects.get(language_code=language_code).id
         slug = slugify(slug)
 
@@ -1577,7 +1571,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        language_code = get_language_code_from_request(request)
+        language_code = get_language_from_request(request)
 
         authenticated = request.user.is_authenticated
         key = 'home_product_dicts_authed' if authenticated else 'home_product_dicts_live'

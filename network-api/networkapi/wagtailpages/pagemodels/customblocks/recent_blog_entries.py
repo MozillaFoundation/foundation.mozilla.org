@@ -1,8 +1,10 @@
 from django.apps import apps
+from django.template.defaultfilters import slugify
+
 from wagtail.core import blocks
 
 from ..blog.blog_category import BlogPageCategory
-from django.template.defaultfilters import slugify
+from networkapi.wagtailpages.utils import get_locale_from_request
 
 
 class RecentBlogEntries(blocks.StructBlock):
@@ -39,8 +41,10 @@ class RecentBlogEntries(blocks.StructBlock):
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
+
         BlogIndexPage = apps.get_model('wagtailpages.BlogIndexPage')
-        blogpage = BlogIndexPage.objects.get(title__iexact="blog")
+        locale = get_locale_from_request(context['request'])
+        blog_page = BlogIndexPage.objects.get(title__iexact="blog", locale=locale)
 
         tag = value.get("tag_filter", False)
         category = value.get("category_filter", False)
@@ -54,8 +58,8 @@ class RecentBlogEntries(blocks.StructBlock):
         if tag and not category:
             tag = slugify(tag)
             query = tag
-            blogpage.extract_tag_information(tag)
-            entries = blogpage.get_entries(context)
+            blog_page.extract_tag_information(tag)
+            entries = blog_page.get_entries(context)
 
         '''
         If category_filter is chosen at all, we want to load entries by category and
@@ -69,16 +73,16 @@ class RecentBlogEntries(blocks.StructBlock):
             try:
                 # verify this category exists, and set up a filter for it
                 category_object = BlogPageCategory.objects.get(name=category)
-                blogpage.extract_category_information(category_object.slug)
+                blog_page.extract_category_information(category_object.slug)
             except BlogPageCategory.DoesNotExist:
                 # do nothing
                 pass
 
         # get the entries based on prefiltering
-        entries = blogpage.get_entries(context)
+        entries = blog_page.get_entries(context)
 
         # Updates the href for the 'More from our blog' button
-        url = f"/{blogpage.slug}/{type}/{query}"
+        url = f"/{blog_page.slug}/{type}/{query}"
         context['more_entries_link'] = url
 
         # We only want to grab no more than the first 6 entries
