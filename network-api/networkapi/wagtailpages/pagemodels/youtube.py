@@ -128,7 +128,16 @@ class YoutubeRegrets2021Page(FoundationMetadataPageMixin, Page):
     max_count = 1
     zen_nav = True
 
-    content_panels = Page.content_panels  # Needed for wagtail-modeltranslation to work
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField('slug'),
+        TranslatableField('seo_title'),
+        SynchronizedField('show_in_menus'),
+        TranslatableField('search_description'),
+        SynchronizedField('search_image'),
+        # Content tab fields
+        TranslatableField('title'),
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)
