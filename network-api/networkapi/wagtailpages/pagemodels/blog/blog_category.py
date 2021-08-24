@@ -1,6 +1,8 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from wagtail.core.fields import RichTextField
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
@@ -17,6 +19,27 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         ],
         blank=True,
     )
+    share_description = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text='Optional description that will apear when category page is shared. If not set, will default to "intro" text.'
+    )
+    share_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name='Share Image',
+        help_text='Optional image that will apear when category page is shared.',
+    )
+
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("intro"),
+        FieldPanel("share_description"),
+        ImageChooserPanel("share_image"),
+    ]
 
     def get_categories():
         """
