@@ -31,7 +31,8 @@ from networkapi.wagtailpages.fields import ExtendedBoolean, ExtendedYesNoField
 from networkapi.wagtailpages.pagemodels.mixin.foundation_metadata import (
     FoundationMetadataPageMixin
 )
-from networkapi.wagtailpages.utils import insert_panels_after
+from networkapi.wagtailpages.templatetags.localization import relocalized_url
+from networkapi.wagtailpages.utils import insert_panels_after, get_locale_from_request
 
 # TODO: Move this util function
 from networkapi.buyersguide.utils import get_category_og_image_upload_path
@@ -1479,8 +1480,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     def product_view(self, request, slug):
         # Find product by it's slug and redirect to the product page
         # If no product is found, redirect to the BuyersGuide page
-        product = get_object_or_404(ProductPage, slug=slug)
-        return redirect(product.url)
+        locale = get_locale_from_request(request)
+        product = get_object_or_404(ProductPage, slug=slug, locale=locale)
+        url = relocalized_url(product.url, locale.language_code)
+        return redirect(url)
 
     @route(r'^categories/(?P<slug>[\w\W]+)/', name='category-view')
     def categories_page(self, request, slug):
