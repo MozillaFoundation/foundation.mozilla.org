@@ -1,16 +1,16 @@
-// tailwindCSS
-
-// @import "../../node_modules/tailwindcss/base";
-// @import "../../node_modules/tailwindcss/components";
-// @import "../../node_modules/tailwindcss/utilities";
-
-// @import "tailwindcss/base";
-// @import "tailwindcss/components";
-// @import "tailwindcss/utilities";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    ol {
+        @apply tw-m-[revert] tw-list-decimal tw-p-[revert];
+    }
+
+    ul {
+        @apply tw-m-[revert] tw-list-disc tw-p-[revert];
+    }
+}
 
 // mofo-bootstrap
 
