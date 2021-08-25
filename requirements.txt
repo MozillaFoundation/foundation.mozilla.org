@@ -116,6 +116,8 @@ gitpython==3.1.18
     # via wagtail-localize-git
 gunicorn==20.1.0
     # via -r requirements.in
+heroku3==4.2.3
+    # via -r requirements.in
 html5lib==1.1
     # via wagtail
 idna==3.2
