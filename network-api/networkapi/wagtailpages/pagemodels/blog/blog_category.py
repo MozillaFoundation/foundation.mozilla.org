@@ -22,7 +22,8 @@ class BlogPageCategory(TranslatableMixin, models.Model):
     share_description = models.CharField(
         max_length=50,
         blank=True,
-        help_text='Optional description that will apear when category page is shared. If not set, will default to "intro" text.'
+        help_text='Optional description that will apear when category page is shared. '
+                  'If not set, will default to "intro" text.'
     )
     share_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -32,7 +33,6 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         verbose_name='Share Image',
         help_text='Optional image that will apear when category page is shared.',
     )
-
 
     panels = [
         FieldPanel("name"),
