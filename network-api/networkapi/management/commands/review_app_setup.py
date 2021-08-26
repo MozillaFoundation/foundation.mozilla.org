@@ -13,7 +13,7 @@ AWS_SECRET_ACCESS_KEY = settings.REVIEW_APP_AWS_SECRET_ACCESS_KEY
 
 
 class Command(BaseCommand):
-    help = "Create a superuser for use on Heroku review apps"
+    help = "Create DNS records for review apps in Route 53"
 
     def get_route53_client(self):
         if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
         return boto3.client(
             "route53",
-            aws_access_key=AWS_ACCESS_KEY_ID,
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
             aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
         )
 
@@ -80,7 +80,7 @@ class Command(BaseCommand):
 
         mapping = {}
 
-        for domain in self.get_domain_site_mapping.values():
+        for domain in self.get_domain_site_mapping().values():
             heroku_domains = app.domains()
 
             # If the domain already exists in Heroku, delete it first
@@ -109,8 +109,9 @@ class Command(BaseCommand):
         """ Find the relevant sites in Wagtail and update their hostnames to the new domains """
         domain_site_mapping = self.get_domain_site_mapping()
         for site_name, domain in domain_site_mapping.items():
-            site = Site.objects.get(site_name)
+            site = Site.objects.get(site_name=site_name)
             site.hostname = domain
+            site.port = 80
             site.save()
 
     def add_arguments(self, parser):

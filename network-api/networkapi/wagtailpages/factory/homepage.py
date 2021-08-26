@@ -72,6 +72,7 @@ def generate(seed):
             port = 8000
         default_site.hostname = hostname
         default_site.port = port
+        default_site.site_name = "Foundation Home Page"
         default_site.save()
         print('Updated the default Site')
     except WagtailSite.DoesNotExist:
