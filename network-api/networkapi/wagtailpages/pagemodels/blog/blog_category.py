@@ -19,8 +19,7 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         ],
         blank=True,
     )
-    share_description = models.CharField(
-        max_length=50,
+    share_description = models.TextField(
         blank=True,
         help_text='Optional description that will apear when category page is shared. '
                   'If not set, will default to "intro" text.'
