@@ -1,0 +1,13 @@
+{% extends "./base_streamfield_block.html" %}
+
+{% load wagtailcore_tags %}
+
+{% comment %}
+This block is used for rich-text streamfields, such as the 'paragraph'
+and 'content' blocks found on Article, Blog, Campaign, Oppurtunity, and Primary pages. 
+{% endcomment %}
+
+
+{% block block_content %}
+    {{ value|richtext }}
+{% endblock %}

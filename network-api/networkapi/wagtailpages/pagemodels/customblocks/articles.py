@@ -7,6 +7,7 @@ class ArticleRichText(RichTextBlockWithFootnotes):
 
     class Meta:
         label = "Content"
+        template = 'wagtailpages/blocks/rich_text_block.html'
 
 
 class ArticleDoubleImageBlock(blocks.StructBlock):
