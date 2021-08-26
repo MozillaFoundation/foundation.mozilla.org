@@ -47,17 +47,7 @@
           {% block html_content %}
           <div class="cms campaign-page-content wide">
             {% for block in page.body %}
-              {% if block.block_type == 'paragraph'%}
-                <div class="tw-container {{block.block_type}}-block">
-                  <div class="tw-row tw-justify-center">
-                    <div class="streamfield-content">
-                        {% include_block block%}
-                    </div>
-                  </div>
-                </div>
-              {% else %}
                 {% include_block block with parent_page=page %}
-              {% endif %}
             {% endfor %}
           </div>
           {% endblock %}

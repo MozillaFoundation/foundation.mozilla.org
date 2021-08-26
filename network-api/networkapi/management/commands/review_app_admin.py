@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 upper_case=True,
                 lower_case=True
             )
-            User.objects.create_superuser('admin', 'admin@example.com', password)
+            User.objects.create_superuser('admin', 'admin@example.com', str(password))
 
             reviewapp_name = settings.HEROKU_APP_NAME
             pr_number = settings.HEROKU_PR_NUMBER
@@ -73,7 +73,7 @@ class Command(BaseCommand):
                             'text': f'{pre_title} {message_title}'
                                     'This new review app will be ready in a minute!\n'
                                     '*Login:* admin\n'
-                                    f'*Password:* {password}\n'
+                                    f'*Password:* {str(password)}\n'
                         }
                     },
                     {

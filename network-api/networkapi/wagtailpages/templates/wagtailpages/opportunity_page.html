@@ -29,17 +29,7 @@
       </h1>
       <div class="cms opportunity-page-content">
         {% for block in page.body %}
-          {% if block.block_type == 'paragraph' %}
-            <div class="container {{block.block_type}}-block">
-              <div class="row justify-content-center">
-                <div class="streamfield-content">
-                    {% include_block block%}
-                </div>
-              </div>
-            </div>
-          {% else %}
             {% include_block block with parent_page=page %}
-          {% endif %}
         {% endfor %}
       </div>
     </div>
