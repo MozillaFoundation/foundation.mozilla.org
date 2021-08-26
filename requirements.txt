@@ -117,6 +117,7 @@ gitpython==3.1.18
 gunicorn==20.1.0
     # via -r requirements.in
 heroku3==4.2.3
+    # via -r requirements.in
 html5lib==1.1
     # via wagtail
 idna==3.2
@@ -183,7 +184,7 @@ requests-oauthlib==1.3.0
     # via social-auth-core
 s3transfer==0.5.0
     # via boto3
-scout-apm==2.21.1
+scout-apm==2.22.1
     # via -r requirements.in
 sentry-sdk==1.3.1
     # via -r requirements.in
