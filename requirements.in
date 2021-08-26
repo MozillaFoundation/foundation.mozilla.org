@@ -16,6 +16,7 @@ Faker
 filebrowser-safe
 future
 gunicorn
+heroku3
 python-slugify
 requests
 social-auth-app-django
