@@ -88,9 +88,9 @@ class BlogIndexPage(IndexPage):
         category = self.filtered.get('category')
 
         # The following "if" statements update page share metadata when filtered by category.
-        #         
+        #
         # Update page search/share metadata to be the category's description.
-        # If not set, default to categories "intro" text.         
+        # If not set, default to categories "intro" text.
         if category.share_description:
             setattr(self, 'search_description', category.share_description)
         else:
