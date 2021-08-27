@@ -4,7 +4,7 @@ Creates an admin user and prints the password to the build logs.
 """
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
-from factory import Faker
+from faker import Faker
 from django.contrib.auth.models import User
 from django.conf import settings
 
@@ -19,15 +19,9 @@ class Command(BaseCommand):
             User.objects.get(username='admin')
             print('super user already exists')
         except ObjectDoesNotExist:
-            password = Faker(
-                'password',
-                length=16,
-                special_chars=True,
-                digits=True,
-                upper_case=True,
-                lower_case=True
-            )
-            User.objects.create_superuser('admin', 'admin@example.com', str(password))
+            fake = Faker()
+            password = fake.password(length=16, special_chars=True, digits=True, upper_case=True, lower_case=True)
+            User.objects.create_superuser('admin', 'admin@example.com', password)
 
             reviewapp_name = settings.HEROKU_APP_NAME
             pr_number = settings.HEROKU_PR_NUMBER
@@ -73,7 +67,7 @@ class Command(BaseCommand):
                             'text': f'{pre_title} {message_title}'
                                     'This new review app will be ready in a minute!\n'
                                     '*Login:* admin\n'
-                                    f'*Password:* {str(password)}\n'
+                                    f'*Password:* {password}\n'
                         }
                     },
                     {
