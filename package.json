@@ -79,7 +79,7 @@
     "classnames": "2.3.1",
     "countup.js": "^2.0.7",
     "cssnano": "^4.1.10",
-    "cypress-axe": "^0.12.2",
+    "cypress-axe": "^0.13.0",
     "esbuild": "^0.8.57",
     "event-stream": "3.3.4",
     "gsap": "^3.7.0",
