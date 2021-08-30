@@ -87,6 +87,19 @@ class BlogIndexPage(IndexPage):
     def filter_entries_for_category(self, entries, context):
         category = self.filtered.get('category')
 
+        # The following "if" statements update page share metadata when filtered by category.
+        #
+        # Update page search/share metadata to be the category's description.
+        # If not set, default to category's "intro" text.
+        if category.share_description:
+            setattr(self, 'search_description', category.share_description)
+        else:
+            setattr(self, 'search_description', category.intro)
+
+        # If the category has a search image set, update page metadata.
+        if category.share_image:
+            setattr(self, 'search_image_id', category.share_image_id)
+
         # make sure we bypass "x results for Y"
         context['no_filter_ui'] = True
 
