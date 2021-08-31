@@ -41,7 +41,8 @@ base_fields = [
             'h2', 'h3', 'h4', 'h5',
             'ol', 'ul',
             'link', 'hr',
-        ]
+        ],
+        template='wagtailpages/blocks/rich_text_block.html',
     )),
     ('card_grid', customblocks.CardGridBlock()),
     ('iframe', customblocks.iFrameBlock()),

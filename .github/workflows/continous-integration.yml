@@ -91,7 +91,9 @@ jobs:
       run: |
         flake8 tasks.py network-api/
         coverage run --source './network-api/networkapi' network-api/manage.py test networkapi
-        coveralls
+    - name: Coveralls
+      run: coveralls
+      continue-on-error: true
 
   test_cypress:
     name: Cypress/Percy CI
