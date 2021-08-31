@@ -4,7 +4,7 @@ boto3
 Django==3.1.11
 dj-database-url
 djangorestframework
-django-admin-sortable==2.2.3
+django-admin-sortable==2.2.4
 django-cors-headers
 django_csp
 django-environ
