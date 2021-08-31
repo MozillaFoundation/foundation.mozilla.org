@@ -14,7 +14,9 @@
                   <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
                     <h3 class="h3-heading mb-2">{{ card.title }}</h3>
                     <p>{{ card.body }}</p>
-                    <a class="cta-link mb-2" href="{{ value.link_url }}">{{ card.link_label }}</a>
+                    {% if card.link_label and card.link_url %}
+                      <a class="cta-link mb-2" href="{{ card.link_url }}">{{ card.link_label }}</a>
+                    {% endif %}
                   </div>
                 </div>
               </div>
