@@ -91,9 +91,10 @@ class BlogIndexPage(IndexPage):
         #
         # Update page search/share metadata to be the category's description.
         # If not set, default to category's "intro" text.
+        # If "intro" is not set, use the foundation's default meta description.
         if category.share_description:
             setattr(self, 'search_description', category.share_description)
-        else:
+        elif not category.share_description and category.intro:
             setattr(self, 'search_description', category.intro)
 
         # If the category has a search image set, update page metadata.
