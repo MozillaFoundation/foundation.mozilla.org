@@ -1,7 +1,7 @@
 basket-client
 beautifulsoup4
 boto3
-Django==3.1.11
+Django==3.1.12
 dj-database-url
 djangorestframework
 django-admin-sortable==2.2.3
