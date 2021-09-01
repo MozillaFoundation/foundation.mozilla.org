@@ -2,6 +2,8 @@ from django.conf import settings
 from django.core.cache import cache
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
+from networkapi.wagtailpages.utils import get_locale_from_request
+
 
 from .models import IndexPage
 
@@ -16,7 +18,16 @@ class RSSFeed(Feed):
     feed_url = 'https://foundation.mozilla.org/blog/rss/'
     description = 'The Mozilla Foundation Blog'
 
+    def __call__(self, request, *args, **kwargs):
+        # get locale from request header, or fall back to the default EN locale.
+        request_locale = get_locale_from_request(request)
+        setattr(self, 'request_locale', request_locale)
+        return super().__call__(request, *args, **kwargs)
+
     def items(self):
+        # Get locale from request in __call__ above, defaults to EN.
+        request_locale = getattr(self, 'request_locale')
+
         # Try to get the RSS items from cache first
         feed_set = cache.get('rss_feed_set')
 
@@ -26,12 +37,12 @@ class RSSFeed(Feed):
             # as a BlogIndexPage, to make sure we're not filtering out all the
             # "featured" posts (which we need to do for site content purposes).
             try:
-                index = IndexPage.objects.get(title__iexact='Blog')
+                index = IndexPage.objects.get(title__iexact='Blog', locale=request_locale)
 
             except IndexPage.DoesNotExist:
                 # If that doesn't yield the blog page, pull using the universal title
                 try:
-                    index = IndexPage.objects.get(title__iexact='Blog')
+                    index = IndexPage.objects.get(title__iexact='Blog', locale=request_locale)
 
                 except IndexPage.DoesNotExist:
                     # At this point there's not much we can do other than to pretend
