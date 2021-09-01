@@ -231,7 +231,7 @@ urllib3[secure]==1.26.6
     #   requests
     #   scout-apm
     #   sentry-sdk
-wagtail==2.13.1
+wagtail==2.13.2
     # via
     #   -r requirements.in
     #   wagtail-airtable
