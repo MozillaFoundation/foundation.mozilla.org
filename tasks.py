@@ -32,10 +32,13 @@ locale_abstraction_instructions_js = " ".join(
     [
         "makemessages",
         "-d djangojs",
+        "--all",
         "--keep-pot",
         "--no-wrap",
         "--ignore=node_modules",
         "--ignore=dockerpythonvenv/*",
+        "--ignore=network-api",
+        "--ignore=cypress",
     ]
 )
 
