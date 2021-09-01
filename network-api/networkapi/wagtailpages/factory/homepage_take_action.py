@@ -9,6 +9,7 @@ from faker import Faker  # note: NOT from factory, but from faker. Different Fak
 
 faker = Faker()
 
+
 def generate(seed):
     print('Generating Homepage Take Actions')
 

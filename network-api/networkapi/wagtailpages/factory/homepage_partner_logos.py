@@ -14,6 +14,7 @@ from networkapi.utility.faker.helpers import (
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
 faker = Faker()
 
+
 def generate(seed):
     print('Generating Partner Logos')
 
