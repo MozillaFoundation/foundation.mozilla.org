@@ -28,7 +28,6 @@ class CardGrid(blocks.StructBlock):
         required=False,
         help_text='Optional Label for the URL link above. '
                   '(Note: If left blank, link will not render.) ',
-
     )
 
 
