@@ -82,7 +82,7 @@
     "cypress-axe": "^0.12.2",
     "esbuild": "^0.12.24",
     "event-stream": "3.3.4",
-    "gsap": "^3.7.0",
+    "gsap": "^3.7.1",
     "js-cookie": "2.2.1",
     "moment": "^2.29.1",
     "npm-run-all": "^4.1.3",
