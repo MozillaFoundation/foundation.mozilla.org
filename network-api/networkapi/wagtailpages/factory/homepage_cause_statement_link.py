@@ -1,6 +1,9 @@
 from random import choice
-from factory import Faker
 from networkapi.utility.faker.helpers import reseed, get_homepage
+
+from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
+
+faker = Faker()
 
 
 def generate(seed):
@@ -10,7 +13,7 @@ def generate(seed):
 
     reseed(seed)
 
-    home_page.cause_statement_link_text = Faker('text', max_nb_chars=80)
+    home_page.cause_statement_link_text = faker.text(max_nb_chars=80)
 
     all_children = list(home_page.get_descendants())
 
