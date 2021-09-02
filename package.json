@@ -114,6 +114,6 @@
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.2.0",
     "svgo": "^2.5.0",
-    "wait-on": "^5.2.1"
+    "wait-on": "^6.0.0"
   }
 }
