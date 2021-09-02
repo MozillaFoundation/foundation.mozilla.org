@@ -2,9 +2,10 @@
 
 <div class="author-images d-flex flex-wrap">
     {% for author in authors %}
-        <div class="author-image d-flex align-items-center justify-content-center {% if author.image is None %}no-avatar{% endif %}" aria-label="{{ author.name }}">
-            {% if author.image %}
-            <img src="{% image_url author.image "fill-100x100" %}" alt="{{ author.name }}" title="{{ author.name }}" />
+        <div class="author-image d-flex align-items-center justify-content-center {% if author.author.image is None %}no-avatar{% endif %}" aria-label="{{ author.author.name }}">
+            {% if author.author.image %}
+            {% image author.author.image fill-100x100 as img %}
+                <img src="{{ img.url }}" alt="{{ author.author.name }}" title="{{ author.author.name }}" />
             {% endif %}
         </div>
     {% endfor %}
