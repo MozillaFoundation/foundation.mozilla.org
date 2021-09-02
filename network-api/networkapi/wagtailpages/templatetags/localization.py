@@ -62,10 +62,9 @@ def relocalize_url(url, locale_code):
 
 # Force-relocalize a URL
 @register.simple_tag(takes_context=True)
-def relocalized_url(context, url, locale_code=None):
-    if locale_code is None:
-        request = context['request']
-        locale_code = get_language_from_request(request, True)
+def relocalized_url(context, url):
+    request = context['request']
+    locale_code = get_language_from_request(request, True)
     return relocalize_url(url, locale_code)
 
 
