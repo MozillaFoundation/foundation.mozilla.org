@@ -19,11 +19,15 @@ class CardGrid(blocks.StructBlock):
     )
 
     link_url = blocks.CharBlock(
-        help_text='URL that this card should link out to.',
+        required=False,
+        help_text='Optional URL that this card should link out to. '
+                  '(Note: If left blank, link will not render.) ',
     )
 
     link_label = blocks.CharBlock(
-        help_text='Label for the URL link above.',
+        required=False,
+        help_text='Optional Label for the URL link above. '
+                  '(Note: If left blank, link will not render.) ',
     )
 
 
