@@ -34,7 +34,7 @@ admin.autodiscover()
 urlpatterns = list(filter(None, [
     # Add robots.txt to exclude the thimble artifact page
     path('robots.txt', lambda x: HttpResponse(
-        'User-Agent: *\nDisallow: /*artifacts/thimble',
+        'User-Agent: *\nDisallow: /*/artifacts/thimble\nDisallow: /artifacts/thimble',
         content_type='text/plain; charset=utf-8'),
         name='robots_file'
         ),
