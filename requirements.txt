@@ -73,7 +73,7 @@ django-cors-headers==3.8.0
     # via -r requirements.in
 django-csp==3.7
     # via -r requirements.in
-django-environ==0.4.5
+django-environ==0.6.0
     # via -r requirements.in
 django-filter==2.4.0
     # via
