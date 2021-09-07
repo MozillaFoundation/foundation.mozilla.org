@@ -1,4 +1,4 @@
-{% load wagtailimages_tags i18n %}
+{% load wagtailimages_tags i18n localization %}
 
 {% comment %}
   This template is similar to the featured_blogs.html code *and* the card.html
@@ -15,11 +15,11 @@
 <div class="d-flex flex-column flex-1 key-item mx-2 mx-md-4 p-3">
   <p class="h6-heading mb-2">
     {% for category in blog.specific.category.all %}
-    <a href="/blog/category/{{category.slug}}">{{ category }}</a>{% if not forloop.last %}, {% endif %}
+    <a href="/blog/category/{{category.slug}}">{{ category.localized }}</a>{% if not forloop.last %}, {% endif %}
     {% endfor %}
   </p>
   <h5 class="mb-2 h3-heading">
-    <a href="{{blog.url}}">{{blog.title}}</a>
+    <a href="{% relocalized_url blog.localized.url %}">{{blog.localized.title}}</a>
   </h5>
   <p class="body-small mb-2">
     {% if blog.author %}

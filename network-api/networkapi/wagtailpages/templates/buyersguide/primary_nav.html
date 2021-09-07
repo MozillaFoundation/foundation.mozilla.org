@@ -2,20 +2,19 @@
 
 {% load bg_nav_tags i18n localization %}
 
-{% get_current_language as lang_code %}
 
 {% block nav_logo %}
   <div class="d-flex align-items-center logo-section">
     <a href="/" class="moz-logo mb-0 mr-3"><span class="sr-only">Mozilla</span></a>
     <p class="mb-0 h3-heading flex-wrap">
-      <a class="link-back" href="{% relocalized_url home_page.url lang_code %}">{% trans "*privacy not included" context 'Buyer’s guide name. This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}</a>
+      <a class="link-back" href="{% relocalized_url home_page.url %}">{% trans "*privacy not included" context 'Buyer’s guide name. This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}</a>
     </p>
   </div>
 {% endblock %}
 
 {% block narrow_screen_nav_links %}
 {% url 'buyersguide-home' as home_url %}
-<div><a class="{% bg_active_nav request.get_full_path home_url %}" href="{% relocalized_url home_url lang_code %}">{% trans "Privacy Not Included" %}</a></div>
+<div><a class="{% bg_active_nav request.get_full_path home_url %}" href="{% relocalized_url home_url %}">{% trans "Privacy Not Included" %}</a></div>
 {% include "buyersguide/fragments/pni_nav_links.html" with pre="<div>" post="</div>" %}
 {% endblock %}
 

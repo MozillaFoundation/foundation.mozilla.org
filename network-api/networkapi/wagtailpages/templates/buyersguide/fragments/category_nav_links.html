@@ -7,7 +7,7 @@
 {% for cat in sorted_categories %}
   {% with original=cat.original %}
   {% if cat.hidden == False and cat.published_product_page_count > 0 %}
-    {% localizedroutablepageurl home_page 'category-view' lang_code original.slug as cat_url %}
+    {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
     <a
       class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}"
       href="{{ cat_url }}"

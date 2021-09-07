@@ -2,8 +2,6 @@
 
 {% load bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
 
-{% get_current_language as lang_code %}
-
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
   <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" />
@@ -299,7 +297,7 @@
             {% for related_product_page in product.related_product_pages.all %}
             {% with related_product=related_product_page.related_product.localized %}
             <div class="related-product col-6 col-md-3 mb-3 mb-md-0">
-              <a class="d-block{% if related_product.adult_content %} adult-content{% endif %}" href="{% relocalized_url related_product.url lang_code %}">
+              <a class="d-block{% if related_product.adult_content %} adult-content{% endif %}" href="{% relocalized_url related_product.url %}">
                 <div class="img-container">
                   {% image related_product.image width-600 as img %}
                   <img
