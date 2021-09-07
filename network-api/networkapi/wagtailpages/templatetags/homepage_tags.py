@@ -34,7 +34,7 @@ def homepage_image_with_class(context, path, classname):
 @register.simple_tag
 def get_page_authors(parent_page):
     """
-    Gets all authors of a BlogPage
+    Gets all authors of a BlogPage or PublicationPage.
     and returns a list of dicts with the author.
 
     Graphically, this looks like:
