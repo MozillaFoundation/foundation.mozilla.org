@@ -101,7 +101,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
-    "browserslist": "^4.16.5",
+    "browserslist": "^4.17.0",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.32.0",
