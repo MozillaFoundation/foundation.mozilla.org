@@ -6,7 +6,7 @@
     "node": ">=14.4.0"
   },
   "scripts": {
-    "build": "run-s build:clean && run-p build:js:prod build:common",
+    "build": "run-s build:clean && run-p build:js:prod build:common tailwind:build",
     "build:clean": "shx rm -rf network-api/networkapi/frontend && shx mkdir -p network-api/networkapi/frontend/_js",
     "build:common": "run-p build:images build:sass build:contribute",
     "build:contribute": "shx cp contribute.json network-api/networkapi/frontend/",
@@ -49,6 +49,7 @@
     "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 50 --files \"./network-api/networkapi/**/*.html\" \"./network-api/networkapi/frontend/_css/*.css\"",
     "tailwind": "run-p tailwind:watch sync",
     "tailwind:watch": "tailwindcss -i source/postcss/tailwind.css -o network-api/networkapi/frontend/_css/tailwind.compiled.css -w",
+    "tailwind:build": "tailwindcss -i source/postcss/tailwind.css -o network-api/networkapi/frontend/_css/tailwind.compiled.css --minify",
     "test:procfile": "node test/test-procfile.js",
     "test:eslint:js:pre": "prettier \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js --write",
     "test:eslint:js": "eslint --config ./.eslintrc.json \"cypress/integration/*.js\" \"source/js/**/*.js\" \"source/js/**/*.jsx\" \"network-api/networkapi/wagtailcustomization/**/*.js\" ./*.js",
