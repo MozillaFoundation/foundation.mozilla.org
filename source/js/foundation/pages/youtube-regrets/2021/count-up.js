@@ -1,4 +1,4 @@
-import { CountUp } from "countup.js";
+const { CountUp } = countUp;
 
 export const initYoutubeRegretsResearchCountUp = () => {
   if ("IntersectionObserver" in window) {

@@ -1,7 +1,4 @@
-import { Chart, registerables } from "chart.js";
-
 export const initYouTubeRegretsRecommendationsPieChart = () => {
-  Chart.register(...registerables);
 
   const categoriesChart = document.getElementById("recommendations-pie-chart");
   const ctx = categoriesChart.getContext("2d");

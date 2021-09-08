@@ -1,8 +1,3 @@
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/all";
-
-gsap.registerPlugin(ScrollToPlugin);
-
 class Accordion {
   constructor(node) {
     this.accordion = node;

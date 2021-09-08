@@ -1,7 +1,4 @@
-import { Chart, registerables } from "chart.js";
-
 export const initYouTubeRegretsCategoriesBarChart = () => {
-  Chart.register(...registerables);
 
   const labels = [
     gettext("MISINFORMATION"),

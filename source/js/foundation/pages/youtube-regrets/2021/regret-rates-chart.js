@@ -1,7 +1,4 @@
-import { Chart, registerables } from "chart.js";
-
 export const initYouTubeRegretsRegretRatesChart = () => {
-  Chart.register(...registerables);
 
   const labels = [
     gettext("Brazil"),

@@ -1,5 +1,3 @@
-import Swiper from "swiper/bundle";
-
 class Carousel {
   // Note: ensure your parent element has a unique id and data-carousel attr
   constructor() {
