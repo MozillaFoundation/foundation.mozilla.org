@@ -40,8 +40,8 @@ def get_page_authors(page):
     Graphically, this looks like:
     Blog Orderable -> Author (with .name and .image)
     """
-    if parent_page is None:
+    if page is None:
         return []
     else:
-        all_authors = parent_page.authors.all()
+        all_authors = page.authors.all()
         return [{"image": author.author.image, "name": author.author.name} for author in all_authors]
