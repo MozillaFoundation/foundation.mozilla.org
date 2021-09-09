@@ -443,12 +443,13 @@ LANGUAGE_CODE = 'en'
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
     ('en', gettext_lazy('English')),
     ('de', gettext_lazy('German')),
-    ('pt-BR', gettext_lazy('Portuguese (Brazil)')),
     ('es', gettext_lazy('Spanish')),
     ('fr', gettext_lazy('French')),
     ('fy-NL', gettext_lazy('Frisian')),
     ('nl', gettext_lazy('Dutch')),
     ('pl', gettext_lazy('Polish')),
+    ('pt-BR', gettext_lazy('Portuguese (Brazil)')),
+    ('sw', gettext_lazy('Swahili')),
 )
 
 WAGTAILLOCALIZE_GIT_URL = env('WAGTAILLOCALIZE_GIT_URL')

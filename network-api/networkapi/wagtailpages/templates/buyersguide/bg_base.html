@@ -85,15 +85,15 @@
       <div class="row">
         <div class="col">
           {% if pagetype == "product" or pagetype == "about" %}
-            <a class="multipage-link active" href="{% relocalized_url home_page.localized.url lang_code %}">{% trans "All" %}</a>
+            <a class="multipage-link active" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
           {% else %}
-            <a class="multipage-link {% if not category %} active{% endif %}" href="{% relocalized_url home_page.localized.url lang_code %}">{% trans "All" %}</a>
+            <a class="multipage-link {% if not category %} active{% endif %}" href="{% relocalized_url home_page.localized.url %}">{% trans "All" %}</a>
           {% endif %}
 
           {% for cat in categories %}
             {% with original=cat.original %}
             {% if original.published_product_page_count > 0 %}
-              {% localizedroutablepageurl home_page 'category-view' lang_code original.slug as cat_url %}
+              {% localizedroutablepageurl home_page 'category-view' original.slug as cat_url %}
               <a class="multipage-link {% check_active_category current_category cat %}{% if original.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ original.name }}">{{ cat.name }}</a>
             {% endif %}
             {% endwith %}

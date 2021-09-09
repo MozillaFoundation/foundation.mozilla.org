@@ -1,13 +1,13 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags localization %}
 
 <div class="entry-card {% block card_type %}{% endblock %} col-6 col-md-4 mb-5">
   <div class="card-image">
-    <a href="{{ page.url }}">
+    <a href="{% relocalized_url page.localized.url %}">
       {% image page.specific.get_meta_image fill-400x225 %}
     </a>
   </div>
   {% block tags %}{% endblock %}
-  <a class="h4-heading d-inline-block my-2" href={{ page.url }}>{{ page.title }}</a>
+  <a class="h4-heading d-inline-block my-2" href="{% relocalized_url page.localized.url %}">{{ page.title }}</a>
   <p class="body-small my-0">
     {% block byline %}{% endblock %}
   </p>

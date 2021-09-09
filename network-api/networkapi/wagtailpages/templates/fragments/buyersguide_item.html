@@ -1,7 +1,5 @@
 {% load static i18n wagtailimages_tags localization %}
 
-{% get_current_language as lang_code %}
-
 <figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness }}">
   <div class="top-left-badge-container">
       {% if product.privacy_ding %}
@@ -16,7 +14,7 @@
 
   {% include "fragments/adult_content_badge.html" with product=product %}
 
-  <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% relocalized_url product.url lang_code %}">
+  <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% relocalized_url product.url %}">
     <picture class="product-thumbnail">
       <source
         {% image product.image fill-360x360 as img_1x %}
@@ -33,7 +31,7 @@
   </a>
 
   <figcaption class="d-block mt-md-2 text-left">
-    <a class="product-links" href="{% relocalized_url product.url lang_code %}">
+    <a class="product-links" href="{% relocalized_url product.url %}">
       <div class="product-company body-small">{{product.company}}</div>
       <div class="product-name body">{{product.title}}</div>
     </a>
