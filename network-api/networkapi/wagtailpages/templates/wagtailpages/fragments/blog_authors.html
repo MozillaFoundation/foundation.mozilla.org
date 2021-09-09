@@ -1,6 +1,6 @@
 {% load wagtailimages_tags i18n homepage_tags %}
 
-{% get_blog_page_authors blog_page as authors %}
+{% get_page_authors blog_page as authors %}
 
 <div class="blog-authors d-flex flex-wrap {% if show_full_info %}flex-column mb-4{% else %}align-items-center{% endif %}">
   {% include "./author-images.html" with authors=authors %}
