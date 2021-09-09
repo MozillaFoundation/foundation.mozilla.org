@@ -25,7 +25,7 @@ __original__html__ = RichText.__html__
 # 1. "everything after the h" for the opening tag
 # 2. the heading number
 # 3. the tag's text content
-heading_re = r"<h((\d)[^>]*)>(.+?)</h\2>"
+heading_re = r"<h((\d)[^>]*)>(.+?)<\/h\2>"
 
 
 def add_id_attribute(match):
