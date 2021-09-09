@@ -18,6 +18,7 @@ mappings = {
     'nl': 'nl_NL',
     'pl': 'pl_PL',
     'pt-BR': 'pt_BR',
+    'sw': 'sw_KE',
 }
 
 DEFAULT_LOCALE_CODE = settings.LANGUAGE_CODE
