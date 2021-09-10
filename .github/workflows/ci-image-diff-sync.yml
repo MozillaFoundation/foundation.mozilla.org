@@ -2,7 +2,7 @@ name: Visual Diff Baseline Update
 
 on:
   push:
-    branches: [ 'master' ]
+    branches: [ 'main' ]
     paths-ignore:
       - '.github/**/*.*'
       - '!.github/workflows/ci-image-diff-sync.yml'
