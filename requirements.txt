@@ -205,7 +205,7 @@ social-auth-core==4.1.0
     # via social-auth-app-django
 soupsieve==2.2.1
     # via beautifulsoup4
-sqlparse==0.4.1
+sqlparse==0.4.2
     # via django
 tablib[xls,xlsx]==3.0.0
     # via wagtail
