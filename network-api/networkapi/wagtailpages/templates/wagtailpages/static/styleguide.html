@@ -1,5 +1,6 @@
 {% extends "../primary_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags card_tags %}
+{% load i18n static %}
 
 {% block body_id %}style-guide{% endblock %}
 
@@ -735,11 +736,61 @@
         </div>
       </div>
 
-      <h2 class="h1-heading tw-mt-7 tw-group" id="streamblock">
-        <span>Streamblocks</span>
-        <a href="#streamblock" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      <h2 class="h1-heading tw-mt-7 tw-group" id="icons">
+        <span>Icons</span>
+        <a href="#icons" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
       </h2>
       <hr class="hr-emphasis">
+
+      <div class="tw-row">
+        <div class="tw-w-full tw-px-4 tw-flex tw-space-x-6 tw-space-y-4 tw-flex-wrap">
+          <img src="{% static "_images/mozilla-block-white.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
+          <img src="{% static "_images/mozilla-m.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/mozilla.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
+          <img src="{% static "_images/mozlogo.jpg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/og.jpg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/x.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
+          <img src="{% static "_images/mozilla-on-black.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/video_play_button.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/video_pause_button.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/proportional-spacer.png" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
+          <img src="{% static "_images/left-chevron.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/leadership-training.jpg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/ihp.png" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/icon-IH.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/hero-image-crop@2x.jpg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/hamburger.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/fellowship-partners.png" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/double-quote-glyph.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/chevron.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/burst2.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/burst1.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/blog-author-placeholder.jpg" %}" class="tw-w-1/12 tw-h-auto">
+          <img src="{% static "_images/banner-black-white-marble.jpg" %}" class="tw-w-1/12 tw-h-auto">
+          <img src="{% static "_images/audio_play_button.svg" %}" class="tw-w-1/12 tw-h-auto">
+          <img src="{% static "_images/audio_pause_button.svg" %}" class="tw-w-1/12 tw-h-auto">
+          <img src="{% static "_images/404.svg" %}" class="tw-w-1/12 tw-h-auto">
+        </div>
+      </div>
+
+      {% if page.body|length != 0 %}
+        <h2 class="h1-heading tw-mt-7 tw-group" id="streamblock">
+          <span>Streamblocks</span>
+          <a href="#streamblock" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+        </h2>
+        <hr class="hr-emphasis">
+      {% endif %}
+
+      {% for block in page.body %}
+        <h2 class="h2-heading tw-mt-7 tw-group" id="{{ block.block_type }}">
+          <span class="tw-capitalize">{{ block.block_type }}</span>
+          <a href="#{{ block.block_type }}" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+        </h2>
+        <hr>
+        
+        {% include_block block with parent_page=page %}
+      {% endfor %}
+
 
     </div>
   </div>
