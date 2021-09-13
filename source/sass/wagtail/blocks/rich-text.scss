@@ -16,4 +16,11 @@
       */
     margin-top: 1rem;
   }
+  // Making sure that long links do not run off the page.
+  .content-block,
+  .rich-text-block {
+    a {
+      word-wrap: break-word;
+    }
+  }
 }
