@@ -30,12 +30,14 @@ styleguide_streamfield_fields = [
     'recent_blog_entries'
 ]
 
+
 class StyleguideFactory(PageFactory):
     class Meta:
         model = Styleguide
 
     title = 'Style-guide'
     body = Faker('streamfield', fields=styleguide_streamfield_fields)
+
 
 def generate(seed):
     home_page = get_homepage()
@@ -50,4 +52,3 @@ def generate(seed):
             parent=home_page,
             show_in_menus=True
         )
-    

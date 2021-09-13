@@ -227,8 +227,6 @@ def generate_image_grid_field():
             }
         )
 
-    
-
     return generate_field('image_grid', {
         'grid_items': imgs
     })
@@ -246,7 +244,6 @@ def generate_card_grid_field():
                 'link_url': fake.url(schemes=['https'])
             }
         )
-
 
     return generate_field('card_grid', {
         'cards': cards
@@ -266,7 +263,9 @@ def generate_pulse_listing_field():
 
 
 def generate_profile_listing_field():
-    return generate_field('profile_listing', {'max_number_of_results':6})
+    return generate_field('profile_listing', {
+        'max_number_of_results': 6
+    })
 
 
 def generate_recent_blog_entries_field():
