@@ -1,4 +1,4 @@
-{% load i18n l10n %}
+{% load i18n l10n humanize %}
 
 <div class="standout-stat stat {% if classes %}{{ classes }}{% endif %}">
   {% if heading %}
@@ -6,7 +6,7 @@
   {% endif %}
 
   <div class="standout-stat__wrap text-center p-4">
-    <p class="standout-stat__number mb-2 {% if smaller %}standout-stat__number--smaller{% endif %}" {% if id %}id="{{ id }}"{% endif %}>{{ number|localize }}</p>
+    <p class="standout-stat__number mb-2 {% if smaller %}standout-stat__number--smaller{% endif %}" {% if id %}id="{{ id }}"{% endif %}>{{ number|intcomma }}</p>
     <p class="standout-stat__label mb-0 text-uppercase">{{ label }}</p>
   </div>
 </div>
