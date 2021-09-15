@@ -1,1 +1,0 @@
-This directory is a drop-target for Django's `collectstatic` management command, which unfortunately does not create the dir automatically if it doesn't already exist. Also, as git ignores empty directories, this file is necessary to ensure that this dir exists, even if it gets recreated later during a deploy build step.
