@@ -27,7 +27,7 @@
 
 ### Installing Invoke
 
-We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/).
+We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/), but any Python package manager should work (pip, poetry, etc).
 
 ### Check your environment
 
