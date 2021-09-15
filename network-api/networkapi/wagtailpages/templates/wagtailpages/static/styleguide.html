@@ -781,6 +781,19 @@
         <hr class="hr-emphasis">
       {% endif %}
 
+      <h2 class="h2-heading tw-mt-7 tw-group" id="callout">
+        <span class="tw-capitalize">Callout Block</span>
+        <a href="#callout" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+      </h2>
+
+      <div class="tw-mb-7">
+        <div class="article-blockquote-block mx-auto my-4 article-blockquote-block--small">
+          <span> 
+            This is a callout block, used on Article pages. 
+          </span>        
+        </div>
+      </div>
+
       {% for block in page.body %}
         <h2 class="h2-heading tw-mt-7 tw-group" id="{{ block.block_type }}">
           <span class="tw-capitalize">{{ block.block_type }}</span>
