@@ -23,7 +23,6 @@ styleguide_streamfield_fields = [
     'double_image',
     'text',
     'full_width_image',
-    'basic_image',
     'card_grid',
     'pulse_listing',
     'profile_listing',
