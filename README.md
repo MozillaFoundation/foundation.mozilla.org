@@ -23,11 +23,11 @@
 
 ## How to Setup your Dev Environment with Docker
 
-**Requirements**: [Docker Desktop](https://www.docker.com/products/docker-desktop) (macOS and Windows) or [Docker CE](https://docs.docker.com/install/#supported-platforms) and [Docker Compose](https://docs.docker.com/compose/install/) (Linux), [invoke](https://www.pyinvoke.org/installing.html), and [git](https://git-scm.com/).
+**Requirements**: Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop) for macOS and Windows or [Docker Compose](https://docs.docker.com/compose/install/) for Linux), [Python 3](https://www.python.org/downloads/) with the [invoke](https://www.pyinvoke.org/installing.html) package installed globally, and [git](https://git-scm.com/).
 
 ### Installing Invoke
 
-We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/).
+We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/), but any Python package manager should work (pip, poetry, etc).
 
 ### Check your environment
 

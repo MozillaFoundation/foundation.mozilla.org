@@ -26,6 +26,7 @@
     color: $black;
     line-height: 1.333333;
     font-style: italic;
+    font-weight: 500;
 
     @media screen and (min-width: $breakpoint) {
       font-size: 30px;
