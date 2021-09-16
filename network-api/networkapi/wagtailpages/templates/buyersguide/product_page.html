@@ -49,6 +49,16 @@
 
     <div class="bg-white py-3 py-md-4 px-md-5 {{section_class}}">
       <div class="row intro mb-4">
+        <div class="tw-flex tw-space-x-2 tw-flex-wrap tw-px-4">
+          {% for cat in product.product_categories.all %}
+            {% with category=cat.category %}
+              {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
+              <a href="{{cat_url}}" class="tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
+                {{category.name}}
+              </a>
+            {% endwith %}
+          {% endfor %}
+        </div>
         <h1 class="h1-heading col-12">{{product.title}}</h1>
         <div class="col-12 d-flex flex-column flex-md-row justify-content-between">
           <a id="product-company-url" class="company-external-link pni-product-intro-large mb-2 mb-md-0" href="{{product.product_url}}" target="_blank">{{product.company}}</a>
