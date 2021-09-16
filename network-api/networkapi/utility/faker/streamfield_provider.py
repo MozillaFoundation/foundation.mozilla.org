@@ -162,6 +162,7 @@ def generate_video_field():
         'url': 'https://www.youtube.com/embed/83fk3RT8318',
         'caption': caption,
         'captionURL': captionURL,
+        'video_width':'full_width'
     })
 
 
