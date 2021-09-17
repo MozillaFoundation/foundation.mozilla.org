@@ -26,7 +26,10 @@ styleguide_streamfield_fields = [
     'card_grid',
     'pulse_listing',
     'profile_listing',
-    'recent_blog_entries'
+    'recent_blog_entries',
+    'blog_set',
+    'airtable',
+    'typeform'
 ]
 
 
