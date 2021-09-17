@@ -162,10 +162,6 @@ class GeneralProductPageFactory(ProductPageFactory):
     ai_uses_personal_data = LazyFunction(get_extended_yes_no_value)
     ai_is_transparent = LazyFunction(get_extended_yes_no_value)
     ai_helptext = Faker('sentence')
-    email = Faker('email')
-    live_chat = Faker('url')
-    phone_number = Faker('phone_number')
-    twitter = '@TwitterHandle'
 
 
 class SoftwareProductPageFactory(ProductPageFactory):
