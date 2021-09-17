@@ -506,28 +506,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         blank=True
     )
 
-    # How to contact the company
-    phone_number = models.CharField(
-        max_length=100,
-        help_text='Phone Number',
-        blank=True,
-    )
-    live_chat = models.CharField(
-        max_length=100,
-        help_text='Live Chat',
-        blank=True,
-    )
-    email = models.CharField(
-        max_length=100,
-        help_text='Email',
-        blank=True,
-    )
-    twitter = models.CharField(
-        max_length=100,
-        help_text='Twitter username',
-        blank=True,
-    )
-
     # Un-editable voting fields. Don't add these to the content_panels.
     creepiness_value = models.IntegerField(default=0)  # The total points for creepiness
     votes = models.ForeignKey(
@@ -574,10 +552,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Manages security help text": "manage_vulnerabilities_helptext",
             "Has privacy policy": "privacy_policy",
             "Privacy policy help text": "privacy_policy_helptext",
-            "Phone number": "phone_number",
-            "Live chat": "live_chat",
-            "Email address": "email",
-            "Twitter": "twitter",
         }
         return mappings
 
@@ -622,10 +596,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Manages security help text": self.manage_vulnerabilities_helptext,
             "Has privacy policy": self.privacy_policy,
             "Privacy policy help text": self.privacy_policy_helptext,
-            "Phone number": self.phone_number,
-            "Live chat": self.live_chat,
-            "Email address": self.email,
-            "Twitter": self.twitter if self.twitter else ''
         }
 
     def get_status_for_airtable(self):
@@ -746,16 +716,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel('phone_number'),
-                FieldPanel('live_chat'),
-                FieldPanel('email'),
-                FieldPanel('twitter'),
-            ],
-            heading='Ways to contact the company',
-            classname='collapsible'
-        ),
-        MultiFieldPanel(
-            [
                 InlinePanel('updates', label='Update')
             ],
             heading='Product Updates',
@@ -810,10 +770,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('manage_vulnerabilities_helptext'),
         SynchronizedField('privacy_policy'),
         TranslatableField('privacy_policy_helptext'),
-        SynchronizedField('phone_number'),
-        SynchronizedField('live_chat'),
-        SynchronizedField('email'),
-        SynchronizedField('twitter'),
     ]
 
     @property
