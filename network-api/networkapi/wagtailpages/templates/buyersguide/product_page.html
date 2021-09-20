@@ -51,7 +51,7 @@
       <div class="row intro mb-4">
         <h1 class="h1-heading col-12">{{product.title}}</h1>
         <div class="col-12 d-flex flex-column flex-md-row justify-content-between">
-          <a id="product-company-url" class="product-price pni-product-intro-large mb-2 mb-md-0" href="{{product.product_url}}" target="_blank">{{product.company}} {% if product.product_type == "general" %}${% endif %}{{product.price}}</a>
+          <a id="product-company-url" class="company-external-link pni-product-intro-large mb-2 mb-md-0" href="{{product.product_url}}" target="_blank">{{product.company}}</a>
           {% if product.uses_wifi or product.uses_bluetooth %}
             <div>
               {% if product.uses_wifi %}
