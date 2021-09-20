@@ -134,6 +134,19 @@
     }
   }
 
+  .company-external-link {
+    display: inline-flex;
+    align-items: center;
+
+    &::after {
+      content: " ";
+      width: 1em;
+      height: 1em;
+      background: url(../_images/buyers-guide/external-link.svg) no-repeat;
+      margin-left: 0.5em;
+    }
+  }
+
   .connectivity-requirement {
     display: inline-flex;
     align-items: center;
