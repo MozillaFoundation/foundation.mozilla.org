@@ -49,7 +49,7 @@
 
     <div class="bg-white py-3 py-md-4 px-md-5 {{section_class}}">
       <div class="row intro mb-4">
-        <div class="tw-flex tw-space-x-2 tw-flex-wrap tw-px-4">
+        <div class="tw-flex tw-space-x-2 tw-flex-wrap tw-px-4 tw-mb-4">
           {% for cat in product.product_categories.all %}
             {% with category=cat.category %}
               {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
