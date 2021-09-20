@@ -3,7 +3,7 @@
 
 
 {% block ga_identifier %}
-  <meta name="google-site-verification" content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk" />
+  <meta name="google-site-verification" content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk"/>
   <meta name="ga-identifier" content="UA-87658599-15">
   <meta name="gtm-identifier" content="GTM-5TFTDCX">
 {% endblock %}
@@ -13,7 +13,7 @@
 
 
 {% block page_title %}
-    {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
+  {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
 
@@ -21,7 +21,7 @@
 
 
 {% block primary_nav %}
-    {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
+  {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
 {% endblock %}
 
 
@@ -33,25 +33,26 @@
 {% block content %}
   {% block secondary_nav %}{% endblock %}
 
-      {% if page.signup != None %}
+  {% if page.signup != None %}
 
-        {# Use a two-column layout #}
-        <div class="container">
-          <div class="row">
-            <div class="cms mozfest-content two-col mb-5">
-              {% include "partials/streamfield.html" with twocolumn=True %}
-            </div>
-            {% block cta %}{% include "partials/signup.html" %}{% endblock %}
-          </div>
+    {# Use a two-column layout #}
+    <div class="container">
+      <div class="row">
+        <div class="cms mozfest-content two-col mb-5">
+          {% include "partials/streamfield.html" with twocolumn=True %}
         </div>
-      {% else %}
+        {% block cta %}{% include "partials/signup.html" %}{% endblock %}
+      </div>
+    </div>
+  {% else %}
 
-        {# Single column layout #}
-        <div class="cms mozfest-content mb-3 {% if page.use_wide_template %} wide {% endif %}">
-          {% include "partials/streamfield.html" %}
-        </div>
+    {# Single column layout #}
+    <div class="cms mozfest-content mb-3 {% if page.use_wide_template %} wide {% endif %}">
+      {% include "partials/streamfield.html" %}
+      {% block spaces %}{% include "partials/spaces_cards.html" %}{% endblock %}
+    </div>
 
-      {% endif %}
+  {% endif %}
 
 {% endblock %}
 
