@@ -1350,7 +1350,10 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
     """
 
     template = 'buyersguide/home.html'
-    subpage_types = [SoftwareProductPage, GeneralProductPage]
+    subpage_types = [
+        # SoftwareProductPage,
+        GeneralProductPage,
+    ]
 
     cutoff_date = models.DateField(
         'Product listing cutoff date',
