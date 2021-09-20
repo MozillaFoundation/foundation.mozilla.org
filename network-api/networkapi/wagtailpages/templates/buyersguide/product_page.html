@@ -64,7 +64,7 @@
           {% endif %}
         </div>
         <div class="col-12 mt-3">
-          <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review date: {{ date }}{% endblocktrans %}</p>
+          <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
         </div>
         <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
       </div>
