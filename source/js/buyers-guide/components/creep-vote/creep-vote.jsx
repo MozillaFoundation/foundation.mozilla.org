@@ -46,6 +46,7 @@ class CreepVote extends Component {
     return {
       totalVotes,
       creepiness: 50,
+      hasMoved: false,
       didVote: false,
       majority: {
         creepiness: creepinessId,
@@ -153,6 +154,7 @@ class CreepVote extends Component {
               </div>
               <Creepometer
                 initialValue={this.state.creepiness}
+                toggleMoved={() => this.setState({ hasMoved: true })}
                 onChange={(value) => this.setCreepiness(value)}
               />
             </div>
@@ -163,6 +165,7 @@ class CreepVote extends Component {
                 id="creep-vote-btn"
                 type="submit"
                 className="btn btn-pop mb-2"
+                disabled={!this.state.hasMoved}
               >
                 Vote & see results
               </button>
