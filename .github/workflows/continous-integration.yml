@@ -2,11 +2,11 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: [ 'main', 'pni-q3-2020' ]
     paths-ignore:
       - maintenance/**/*.*
   pull_request:
-    branches: [ 'main' ]
+    branches: [ 'main', 'pni-q3-2020' ]
     paths-ignore:
       - maintenance/**/*.*
 
