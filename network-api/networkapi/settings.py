@@ -200,6 +200,7 @@ INSTALLED_APPS = list(filter(None, [
     'django.contrib.staticfiles',
     'django.contrib.redirects',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
 
     'networkapi.wagtailcustomization',
 
@@ -460,7 +461,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-USE_THOUSAND_SEPARATOR = True
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
