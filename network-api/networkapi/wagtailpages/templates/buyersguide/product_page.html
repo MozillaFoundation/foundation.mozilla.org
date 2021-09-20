@@ -74,7 +74,7 @@
           {% endif %}
         </div>
         <div class="col-12 mt-3">
-          <p class="body-small">{% blocktrans with date=product.review_date|date:"SHORT_DATE_FORMAT" context "Short date format (e.g. 2003/12/31)" %}Review date: {{ date }}{% endblocktrans %}</p>
+          <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
         </div>
         <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
       </div>
@@ -281,7 +281,7 @@
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
           {% if product.updates.count > 0 %}
-          <h3 class="h2-heading mb-4 mb-md-5">{% trans "Updates" %}</h3>
+          <h3 class="h2-heading mb-4 mb-md-5">{% trans "News" %}</h3>
           {% endif %}
           {% if product.updates.count > 0 %}
           <div class="mb-5">
@@ -295,11 +295,6 @@
             {% endwith %}
             {% endfor %}
           </div>
-          {% endif %}
-
-          {% if use_commento %}
-          <h3 class="h2-heading mb-4">{% trans "Comments" %}</h3>
-          <div id="commento"></div>
           {% endif %}
 
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
@@ -327,6 +322,12 @@
             {% endwith %}
             {% endfor %}
           </div>
+
+          {% if use_commento %}
+          <h3 class="h2-heading mb-4">{% trans "Comments" %}</h3>
+          <div id="commento"></div>
+          {% endif %}
+
         </div>
       </div>
     </div>
