@@ -72,13 +72,13 @@
   "dependencies": {
     "@glidejs/glide": "^3.4.1",
     "@sentry/browser": "^6.2.1",
-    "autoprefixer": "^10.3.3",
+    "autoprefixer": "^10.3.4",
     "axe-core": "^4.1.4",
     "bootstrap": "^4.6.0",
     "chart.js": "3.5.1",
     "classnames": "2.3.1",
     "countup.js": "^2.0.7",
-    "cssnano": "^5.0.2",
+    "cssnano": "^5.0.8",
     "cypress-axe": "^0.12.2",
     "esbuild": "^0.12.24",
     "event-stream": "3.3.4",
@@ -101,7 +101,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
-    "browserslist": "^4.16.5",
+    "browserslist": "^4.17.0",
     "chokidar-cli": "^2.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.32.0",

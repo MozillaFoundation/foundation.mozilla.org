@@ -72,7 +72,7 @@ Opening a PR will trigger [Github Action](https://github.com/mozilla/foundation.
 
 #### Mergify
 
-Mergify is a bot that automatically merges PRs under certain conditions defined in `.mergify.yml`. If you want your PR to be automatically merged, add the `ready-to-merge` label to your PR. Once it's reviewed and the tests are green, Mergify takes care of rebasing to the latest `master` and merges it for you.
+Mergify is a bot that automatically merges PRs under certain conditions defined in `.mergify.yml`. If you want your PR to be automatically merged, add the `ready-to-merge` label to your PR. Once it's reviewed and the tests are green, Mergify takes care of rebasing to the latest `main` and merges it for you.
 
 ### Visual regression testing
 

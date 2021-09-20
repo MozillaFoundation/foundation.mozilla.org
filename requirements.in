@@ -23,7 +23,7 @@ social-auth-app-django
 wagtail-airtable
 wagtail==2.13.1
 wagtail-factories
-wagtail-localize==1.0rc3
+wagtail-localize==1.0rc4
 wagtail-localize-git==0.9.3
 wagtail-inventory==1.3
 wagtailmedia

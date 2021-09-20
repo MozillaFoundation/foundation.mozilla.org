@@ -12,7 +12,7 @@ class RadioSelectBlock(blocks.ChoiceBlock):
 
 class iFrameBlock(blocks.StructBlock):
     url = blocks.CharBlock(
-        help_text='Please note that only URLs from white-listed domains will work.'
+        help_text='Please note that only URLs from allow-listed domains will work.'
     )
     height = blocks.IntegerBlock(
         required=False,

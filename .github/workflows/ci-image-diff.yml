@@ -2,7 +2,7 @@ name: Visual Regression Testing
 
 on:
   pull_request:
-    branches: [ 'master' ]
+    branches: [ 'main' ]
     paths-ignore:
       - '.github/**/*.*'
       - '!.github/workflows/ci-image-diff.yml'

@@ -2,7 +2,7 @@
 
 ## Staging
 
-Builds to staging are triggered by commits to `master`.
+Builds to staging are triggered by commits to `main`.
 
 The staging URLs are:
 

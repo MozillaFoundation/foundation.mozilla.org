@@ -1,4 +1,7 @@
-{% load i18n wagtailimages_tags %}
+{% load i18n wagtailimages_tags homepage_tags%}
+
+{% get_page_authors page as authors %}
+
 
 {% if page.hero_image %}
   {% image page.hero_image fill-1400x675 as bg_img %}
@@ -44,7 +47,7 @@
           </div>
         {% endif %}
         <div class="blog-authors d-flex flex-wrap align-items-center">
-          {% include "./author-images.html" with authors=page.authors.all %}
+          {% include "./author-images.html" with authors=authors %}
         </div>
         {% if page.authors.count %}
           <div class="mt-2 dark-theme">

@@ -3,7 +3,7 @@
 [![Dependency Status](https://david-dm.org/mozilla/network.svg)](https://david-dm.org/mozilla/network)
 [![Dev Dependency Status](https://david-dm.org/mozilla/network/dev-status.svg)](https://david-dm.org/mozilla/network/?type=dev)
 [![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards)
-[![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=master)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
+[![Code Coverage](https://coveralls.io/repos/github/mozilla/foundation.mozilla.org/badge.svg?branch=main)](https://coveralls.io/github/mozilla/foundation.mozilla.org)
 
 ## Table of contents
 
@@ -23,11 +23,11 @@
 
 ## How to Setup your Dev Environment with Docker
 
-**Requirements**: [Docker Desktop](https://www.docker.com/products/docker-desktop) (macOS and Windows) or [Docker CE](https://docs.docker.com/install/#supported-platforms) and [Docker Compose](https://docs.docker.com/compose/install/) (Linux), [invoke](https://www.pyinvoke.org/installing.html), and [git](https://git-scm.com/).
+**Requirements**: Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop) for macOS and Windows or [Docker Compose](https://docs.docker.com/compose/install/) for Linux), [Python 3](https://www.python.org/downloads/) with the [invoke](https://www.pyinvoke.org/installing.html) package installed globally, and [git](https://git-scm.com/).
 
 ### Installing Invoke
 
-We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/).
+We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/), but any Python package manager should work (pip, poetry, etc).
 
 ### Check your environment
 
@@ -110,7 +110,7 @@ The latest source strings are regularly exposed to Pontoon by a Localization PM 
 - Set the `LOCAL_PATH_TO_L10N_REPO` variable in your `.env` file. Use the absolute path to your copy of the `fomo-l10n` repository and include the trailing slash. E.g. `LOCAL_PATH_TO_L10N_REPO=/Users/username/Documents/GitHub/fomo-l10n/`
 
 ### Exposing latest source strings:
-- Make sure your local repositories of `fomo-l10n` and `foundation.mozilla.org` are matching the latest revision from master.
+- Make sure your local repositories of `fomo-l10n` and `foundation.mozilla.org` are matching the latest revision from main.
 - Run `inv docker-makemessages` from your `foundation.mozilla.org` repository.
 - Files should have been updated in your `fomo-l10n` repository. You can now create a pull-request.
 
