@@ -113,7 +113,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.2.0",
-    "svgo": "^2.5.0",
+    "svgo": "^2.6.1",
     "wait-on": "^5.2.1"
   }
 }
