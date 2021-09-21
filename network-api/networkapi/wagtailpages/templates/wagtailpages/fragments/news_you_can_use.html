@@ -1,4 +1,4 @@
-{% load wagtailimages_tags i18n class_tags blog_tags wagtailroutablepage_tags %}
+{% load wagtailimages_tags i18n localization class_tags blog_tags wagtailroutablepage_tags %}
 
 <div class="row section-news-you-can-use section-padding">
   <div class="col-12 d-flex flex-row justify-content-between">
@@ -32,7 +32,8 @@
           <div class="feature-content align-self-center">
             {% if first.category.count %}
               {% with category=first.category.first %}
-                <a class="h6-heading d-block mb-2" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+                {% localized_version category as localized_category %}
+                <a class="h6-heading d-block mb-2" href="/blog/category/{{ category.slug }}">{{ localized_category }}</a>
               {% endwith %}
             {% else %}
                 <div class="h6-heading d-md-block d-none mb-2">&nbsp;</div>
@@ -63,7 +64,8 @@
           <div class="p-4">
             {% if localized.category.count %}
               {% with category=localized.category.first %}
-                <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+                {% localized_version category as localized_category %}
+                <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ localized_category }}</a>
               {% endwith %}
             {% else %}
                 <div class="h6-heading d-md-block d-none mb-1">&nbsp;</div>
