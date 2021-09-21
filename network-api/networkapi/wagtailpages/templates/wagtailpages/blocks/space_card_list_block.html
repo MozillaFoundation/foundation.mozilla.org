@@ -1,0 +1,29 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+  <div class="row">
+    {% for block in self.space_cards %}
+      {% with space_card=block count=self.space_cards|length %}
+        {% image space_card.image fill-350x197 as img %}
+        <div class="col-sm-12 {% if count > 2 %} col-lg-4 col-md-6 {% else %} col-md-6 {% endif %} mb-4">
+          <div class="card-regular h-100 d-flex flex-column ">
+            <img src="{{ img.url }}" />
+            <div class="d-flex flex-1">
+              <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
+                <h3 class="h3-heading mb-2">{{ space_card.title }}</h3>
+                <p>{{ space_card.body }}</p>
+                {% if space_card.link_page %}
+                <p>Link Page: {{ space_card.link_page.url }}</p>
+                {% endif %}
+                {% if space_card.link_url %}
+                <p>Link URL: {{ space_card.link_url }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endwith %}
+    {% endfor %}
+  </div>
+{% endblock %}
