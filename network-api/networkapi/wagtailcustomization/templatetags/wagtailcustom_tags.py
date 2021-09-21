@@ -1,4 +1,5 @@
 import re
+import html
 from django import template
 from django.utils.text import slugify
 from django.utils.html import strip_tags
@@ -56,7 +57,7 @@ def add_id_attribute(match):
     anchor = ''
 
     if int(n) < 4:
-        id = slugify(strip_tags(text_content))
+        id = slugify(strip_tags(html.unescape(text_content)))
         anchor = f'<a class="fragment-id" id="{id}"></a>'
 
     return f'<h{hsuffix}>{anchor}{text_content}</h{n}>'
