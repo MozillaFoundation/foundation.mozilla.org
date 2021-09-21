@@ -10,7 +10,7 @@ module.exports = {
   important: true,
   corePlugins: {
     // overriding TW default container
-    container: false
+    container: false,
   },
   plugins: [
     plugin(function ({ addUtilities }) {
