@@ -312,6 +312,7 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     search_fields = [
         index.SearchField('title', partial_match=True),
+        index.FilterField('locale_id'),
     ]
 
     translatable_fields = [
