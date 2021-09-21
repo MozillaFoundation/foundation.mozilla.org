@@ -35,4 +35,5 @@ base_fields = [
     ('blog_set', customblocks.BlogSetBlock()),
     ('airtable', customblocks.AirTableBlock()),
     ('typeform', customblocks.TypeformBlock()),
+    ('space_card_list', customblocks.SpaceCardListBlock()),
 ]
