@@ -746,18 +746,18 @@
         <div class="tw-w-full tw-px-4 tw-flex tw-space-x-6 tw-space-y-4 tw-flex-wrap">
           <img src="{% static "_images/mozilla-block-white.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
           <img src="{% static "_images/mozilla-m.svg" %}" class="tw-w-1/12 tw-h-auto ">
-          <img src="{% static "_images/mozilla.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
+          <img src="{% static "_images/mozilla.svg" %}" class="tw-w-3/12 tw-h-auto tw-bg-black">
           <img src="{% static "_images/mozlogo.jpg" %}" class="tw-w-1/12 tw-h-auto ">
           <img src="{% static "_images/x.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
           <img src="{% static "_images/mozilla-on-black.svg" %}" class="tw-w-1/12 tw-h-auto ">
           <img src="{% static "_images/video_play_button.svg" %}" class="tw-w-1/12 tw-h-auto ">
           <img src="{% static "_images/video_pause_button.svg" %}" class="tw-w-1/12 tw-h-auto ">
-          <img src="{% static "_images/left-chevron.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/left-chevron.svg" %}" class="tw-w-2/12 tw-h-auto ">
           <img src="{% static "_images/icon-IH.svg" %}" class="tw-w-1/12 tw-h-auto ">
-          <img src="{% static "_images/double-quote-glyph.svg" %}" class="tw-w-1/12 tw-h-auto ">
-          <img src="{% static "_images/chevron.svg" %}" class="tw-w-1/12 tw-h-auto ">
-          <img src="{% static "_images/burst2.svg" %}" class="tw-w-1/12 tw-h-auto ">
-          <img src="{% static "_images/burst1.svg" %}" class="tw-w-1/12 tw-h-auto ">
+          <img src="{% static "_images/double-quote-glyph.svg" %}" class="tw-w-2/12 tw-h-auto ">
+          <img src="{% static "_images/chevron.svg" %}" class="tw-w-3/12 tw-h-auto ">
+          <img src="{% static "_images/burst2.svg" %}" class="tw-w-auto tw-h-auto ">
+          <img src="{% static "_images/burst1.svg" %}" class="tw-w-auto tw-h-auto ">
           <img src="{% static "_images/audio_play_button.svg" %}" class="tw-w-1/12 tw-h-auto">
           <img src="{% static "_images/audio_pause_button.svg" %}" class="tw-w-1/12 tw-h-auto">
           <img src="{% static "_images/404.svg" %}" class="tw-w-1/12 tw-h-auto">
@@ -784,19 +784,23 @@
           </span>        
         </div>
       </div>
-
+      
       {% for block in page.body %}
         <h2 class="h2-heading tw-mt-7 tw-group" id="{{ block.block_type }}">
           <span class="tw-capitalize">{{ block.block_type }}</span>
           <a href="#{{ block.block_type }}" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
         </h2>
         <hr>
-        <div class="cms">
-          {% include_block block with parent_page=page %}
-        </div>
-        
+        {% if block.block_type == 'video' or block.block_type == 'image_text_mini' or block.block_type == 'image_text' or block.block_type == 'image' %}
+          <div class="cms blog-body">
+            {% include_block block with parent_page=page %}
+          </div>
+        {% else %}
+          <div class="cms">
+            {% include_block block with parent_page=page %}
+          </div>
+        {% endif %}
       {% endfor %}
-
 
     </div>
   </div>
