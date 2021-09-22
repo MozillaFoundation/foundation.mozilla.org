@@ -80,7 +80,7 @@
           <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>          
 >>>>>>> e4b64977... Update product_page.html
           <span class="body-small subheading-divider"> | </span>
-          <p class="body-small mozilla-says {% if product.mozilla_says %} thumb-up {% elif product.mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla Says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
+          <p class="body-small mozilla-says {% if product.mozilla_says %} thumb-up {% elif product.mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
         </div>
         <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
       </div>
