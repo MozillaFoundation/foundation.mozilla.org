@@ -86,8 +86,11 @@ def localized_version(context, thing):
     if not hasattr(thing, 'get_translation'):
         return thing
 
-    request = context['request']
-    locale = get_locale_from_request(request)
+    if 'request' not in context:
+        return thing
+
+    locale = get_locale_from_request(context['request'])
+
     try:
         return thing.get_translation(locale)
     except ObjectDoesNotExist:

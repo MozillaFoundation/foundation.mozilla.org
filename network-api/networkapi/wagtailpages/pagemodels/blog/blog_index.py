@@ -8,7 +8,7 @@ from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable
 
 from modelcluster.fields import ParentalKey
-from networkapi.wagtailpages.utils import titlecase
+from networkapi.wagtailpages.utils import titlecase, get_locale_from_request
 
 from sentry_sdk import capture_exception, push_scope
 
@@ -64,16 +64,20 @@ class BlogIndexPage(IndexPage):
 
     template = 'wagtailpages/blog_index_page.html'
 
-    def get_all_entries(self):
+    # superclass override
+    def get_all_entries(self, locale):
         """
         Do we need to filter the featured blog entries
         out, so they don't show up twice?
         """
         if hasattr(self, 'filtered'):
-            return super().get_all_entries()
+            return super().get_all_entries(locale)
 
-        featured = [entry.blog.pk for entry in self.featured_pages.all()]
-        return super().get_all_entries().exclude(pk__in=featured)
+        featured = [
+            entry.blog.get_translation(locale).pk for entry in self.featured_pages.all()
+        ]
+
+        return super().get_all_entries(locale).exclude(pk__in=featured)
 
     def filter_entries(self, entries, context):
         entries = super().filter_entries(entries, context)
@@ -107,9 +111,12 @@ class BlogIndexPage(IndexPage):
         # and that we don't show the primary tag/category
         context['hide_classifiers'] = True
 
-        # explicitly set the index page title and intro
-        context['index_title'] = titlecase(f'{category.name} {self.title}')
-        context['index_intro'] = category.intro
+        # explicitly set the index page title and intro, making sure to
+        # use the localized category for those fields:
+        locale = get_locale_from_request(context['request'])
+        localized_category = category.get_translation(locale)
+        context['index_title'] = titlecase(f'{localized_category.name} {self.title}')
+        context['index_intro'] = localized_category.intro
 
         # and then the filtered content
         context['terms'] = [category.name, ]
