@@ -90,7 +90,6 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         context['entries'] = entries[0:self.page_size]
         return context
 
-
     def get_cache_key(self, locale):
         return f'index_items_{self.slug}_{locale}'
 
