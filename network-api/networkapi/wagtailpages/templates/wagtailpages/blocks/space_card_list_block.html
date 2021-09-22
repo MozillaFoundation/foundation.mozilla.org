@@ -3,6 +3,11 @@
 
 {% block block_content %}
   <div class="row">
+    <div class="mb-4">
+      <h3>{{ value.title }}</h3>
+    </div>
+  </div>
+  <div class="row">
     {% for block in self.space_cards %}
       {% with space_card=block count=self.space_cards|length %}
         {% image space_card.image fill-350x197 as img %}
