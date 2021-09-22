@@ -172,6 +172,7 @@ def register_howto_menu_item():
         name='howdoIwagtail', classnames='icon icon-help', order=900
     )
 
+
 @hooks.register('construct_main_menu')
 @hooks.register('construct_settings_menu')
 def construct_settings_menu(request, menu_items):
