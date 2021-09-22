@@ -58,6 +58,8 @@ class SpaceCardBlock(blocks.StructBlock):
 
 
 class SpaceCardListBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+
     space_cards = blocks.ListBlock(SpaceCardBlock())
 
     class Meta:
