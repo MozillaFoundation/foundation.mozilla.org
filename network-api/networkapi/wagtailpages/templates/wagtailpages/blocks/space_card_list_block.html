@@ -13,12 +13,7 @@
               <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
                 <h3 class="h3-heading mb-2">{{ space_card.title }}</h3>
                 <p>{{ space_card.body }}</p>
-                {% if space_card.link_page %}
-                <p>Link Page: {{ space_card.link_page.url }}</p>
-                {% endif %}
-                {% if space_card.link_url %}
-                <p>Link URL: {{ space_card.link_url }}</p>
-                {% endif %}
+                <p>Link: {{ space_card.link }}</p>
               </div>
             </div>
           </div>
