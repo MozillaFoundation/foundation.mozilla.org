@@ -1,8 +1,8 @@
 {% load static %}
-<div class="event-carousel mb-4">
+<div class="container event-carousel mb-4">
 
   {# Slider main container #}
-  <div class="swiper" data-carousel>
+  <div class="swiper overflow-hidden" data-carousel>
 
     {# navigation buttons #}
     <div class="swiper-navigation">
@@ -33,9 +33,15 @@
 
     {# Additional required wrapper #}
     <div class="swiper-wrapper">
-        {# Slides #}
+      {# Slides #}
       <div class="swiper-slide">
-          {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.'%}
+        {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.' %}
+      </div>
+      <div class="swiper-slide">
+        {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.' %}
+      </div>
+      <div class="swiper-slide">
+        {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.' %}
       </div>
     </div>
     {# Pagination #}
