@@ -91,20 +91,9 @@ class BlogIndexPage(IndexPage):
     def filter_entries_for_category(self, entries, context):
         category = self.filtered.get('category')
 
-        # The following "if" statements update page share metadata when filtered by category.
+        # The following code first updates page share metadata when filtered by category.
+        # First, updating metadata that is not localized
         #
-        # Update page search/share metadata to be the category's description.
-        # If not set, default to category's "intro" text.
-        # If "intro" is not set, use the foundation's default meta description.
-        if category.share_description:
-            setattr(self, 'search_description', category.share_description)
-        elif category.intro:
-            setattr(self, 'search_description', category.intro)
-
-        # If the category has a search image set, update page metadata.
-        if category.share_image:
-            setattr(self, 'search_image_id', category.share_image_id)
-
         # make sure we bypass "x results for Y"
         context['no_filter_ui'] = True
 
@@ -114,7 +103,7 @@ class BlogIndexPage(IndexPage):
         # store the base category name
         context['terms'] = [category.name, ]
 
-        # then explicitly set the index page title and intro, making
+        # then explicitly set all the metadata that can be localized, making
         # sure to use the localized category for those fields:
         locale = get_locale_from_request(context['request'])
         try:
@@ -122,8 +111,25 @@ class BlogIndexPage(IndexPage):
         except ObjectDoesNotExist:
             localized_category = category
 
-        context['index_title'] = titlecase(f'{localized_category.name} {self.title}')
+        context['index_title'] = localized_category.title
         context['index_intro'] = localized_category.intro
+
+        if localized_category.title:
+            setattr(self, 'seo_title', localized_category.title)
+        elif localized_category.name:
+            setattr(self, 'seo_title', localized_category.name)
+
+        # If description not set, default to category's "intro" text.
+        # If "intro" is not set, use the foundation's default meta description.
+        if localized_category.share_description:
+            setattr(self, 'search_description', localized_category.share_description)
+        elif localized_category.intro:
+            setattr(self, 'search_description', localized_category.intro)
+
+        # If the category has a search image set, update page metadata.
+        if localized_category.share_image:
+            setattr(self, 'search_image_id', localized_category.share_image_id)
+
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
