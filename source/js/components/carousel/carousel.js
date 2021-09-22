@@ -1,4 +1,4 @@
-import Swiper, {A11y, Autoplay, Pagination, Navigation} from '../../node_modules/swiper/swiper-bundle.min.js';
+import Swiper, {A11y, Autoplay, Pagination, Navigation} from 'swiper';
 
 Swiper.use([A11y, Autoplay, Pagination, Navigation]);
 
@@ -38,6 +38,7 @@ class Carousel {
       },
     });
     this.slideTotal = this.node.dataset.slidetotal;
+      console.log(this.swiper);
   }
 }
 
