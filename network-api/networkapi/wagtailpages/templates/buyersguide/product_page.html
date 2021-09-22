@@ -260,17 +260,8 @@
           </section>
         {% endif %}
 
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid position-relative">
-  <div class="row dotted-section d-block d-sm-flex mx-0">
-    <div class="container">
-      <div class="row">
-        <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
-          {% if product.updates.count > 0 %}
+        {% if product.updates.count > 0 %}
+        <hr class="pni-section-divider"/>
           <h3 class="h2-heading mb-4 mb-md-5">{% trans "News" %}</h3>
           {% endif %}
           {% if product.updates.count > 0 %}
@@ -285,8 +276,9 @@
             {% endwith %}
             {% endfor %}
           </div>
-          {% endif %}
-
+        {% endif %}
+        
+          <hr class="pni-section-divider"/>
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
             {% for related_product_page in product.related_product_pages.all %}
