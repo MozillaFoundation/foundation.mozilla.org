@@ -1493,7 +1493,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['category'] = slug
         context['current_category'] = category
         context['products'] = products
-        context['pageTitle'] = f'{category} | ' + gettext("Privacy & security guide") + ' | Mozilla Foundation'
+        context['pageTitle'] = f'{gettext(category.name)} | {gettext("Privacy & security guide")} | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
         return render(request, "buyersguide/category_page.html", context)
