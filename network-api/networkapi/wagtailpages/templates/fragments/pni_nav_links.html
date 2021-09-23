@@ -1,5 +1,5 @@
-{% load bg_nav_tags i18n wagtailroutablepage_tags %}
+{% load bg_nav_tags i18n localization %}
 
 
-{% routablepageurl home_page 'about-why-view' as about_why_url %}
+{% localizedroutablepageurl home_page 'about-why-view' as about_why_url %}
 {{ pre }}<a class="{{ class }} {% bg_active_nav request.get_full_path about_why_url %}" href="{{ about_why_url }}">{% trans "About the Guide" %}</a>{{ post }}
