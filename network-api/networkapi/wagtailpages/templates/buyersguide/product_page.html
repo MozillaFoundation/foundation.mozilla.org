@@ -73,8 +73,10 @@
             </div>
           {% endif %}
         </div>
-        <div class="col-12 mt-3">
+        <div class="col-12 mt-3 d-flex flex-column flex-md-row">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
+          <span class="body-small subheading-divider"> | </span>
+          <p class="body-small mozilla-says {% if product.mozilla_says %} thumb-up {% elif product.mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> Mozilla Says </p>  
         </div>
         <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
       </div>
