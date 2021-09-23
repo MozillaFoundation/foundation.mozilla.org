@@ -260,17 +260,7 @@
           </section>
         {% endif %}
 
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid position-relative">
-  <div class="row dotted-section d-block d-sm-flex mx-0">
-    <div class="container">
-      <div class="row">
-        <div class="{{section_class}} mt-5 pt-3 bg-white product-section-padding-x">
-          {% if product.updates.count > 0 %}
+                  {% if product.updates.count > 0 %}
           <h3 class="h2-heading mb-4 mb-md-5">{% trans "News" %}</h3>
           {% endif %}
           {% if product.updates.count > 0 %}
@@ -313,16 +303,27 @@
             {% endfor %}
           </div>
 
-          {% if use_commento %}
-          <h3 class="h2-heading mb-4">{% trans "Comments" %}</h3>
-          <div id="commento"></div>
-          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 
+{% if use_commento %}
+
+<div class="container-fluid position-relative comment-section">
+  <div class="row dotted-section d-block d-sm-flex mx-0">
+    <div class="container">
+      <div class="row">
+        <div class="{{section_class}} mt-5 pt-3 bg-white comment-section-padding-x">
+
+        <h3 class="h2-heading mb-4">{% trans "Comments" %}</h3>
+        <div id="commento"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
+{% endif %}
 
 {% endwith %}
 {% endblock %}
