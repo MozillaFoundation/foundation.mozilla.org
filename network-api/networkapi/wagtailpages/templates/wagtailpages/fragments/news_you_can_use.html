@@ -1,10 +1,12 @@
-{% load wagtailimages_tags i18n class_tags blog_tags wagtailroutablepage_tags %}
+{% load wagtailimages_tags i18n localization class_tags blog_tags wagtailroutablepage_tags %}
+
+{% get_current_language as lang_code %}
 
 <div class="row section-news-you-can-use section-padding">
   <div class="col-12 d-flex flex-row justify-content-between">
     <h2 class="h4-heading mb-4">{% trans "News you can use" %}</h2>
     {# this should not be a hardcoded route... #}
-    <a href="/blog" class="cta-link d-none d-md-inline-block" id="news-you-can-use-cta">{% trans "Read more news" %}</a>
+    <a href="/{{ lang_code }}/blog" class="cta-link d-none d-md-inline-block" id="news-you-can-use-cta">{% trans "Read more news" %}</a>
   </div>
 
   <div class="col-12">
@@ -32,7 +34,8 @@
           <div class="feature-content align-self-center">
             {% if first.category.count %}
               {% with category=first.category.first %}
-                <a class="h6-heading d-block mb-2" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+                {% localized_version category as localized_category %}
+                <a class="h6-heading d-block mb-2" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
               {% endwith %}
             {% else %}
                 <div class="h6-heading d-md-block d-none mb-2">&nbsp;</div>
@@ -63,7 +66,8 @@
           <div class="p-4">
             {% if localized.category.count %}
               {% with category=localized.category.first %}
-                <a class="h6-heading d-block mb-1" href="/blog/category/{{ category.slug }}">{{ category }}</a>
+                {% localized_version category as localized_category %}
+                <a class="h6-heading d-block mb-1" href="/{{ lang_code }}/blog/category/{{ category.slug }}">{{ localized_category }}</a>
               {% endwith %}
             {% else %}
                 <div class="h6-heading d-md-block d-none mb-1">&nbsp;</div>
@@ -79,7 +83,7 @@
 
     {% endwith %}
     </div>
-    <a href="/blog" class="cta-link d-block d-md-none text-right">{% trans "Read more news" %}</a>
+    <a href="/{{ lang_code }}/blog" class="cta-link d-block d-md-none text-right">{% trans "Read more news" %}</a>
   </div>
 
 </div>
