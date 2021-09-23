@@ -425,6 +425,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text='Whether or not Mozilla would recommend this product. '
                   'Will appear as a thumbs up/down/middle.',
     )
+    time_researched = models.IntegerField(
+        help_text="How many hours were spent researching this product?",
+        default=0
+    )
 
     """
     privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
@@ -560,6 +564,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Has privacy policy": "privacy_policy",
             "Privacy policy help text": "privacy_policy_helptext",
             "Mozilla Says": "mozilla_says",
+            "Time Researched ": "time_researched",
         }
         return mappings
 
@@ -604,7 +609,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Manages security help text": self.manage_vulnerabilities_helptext,
             "Has privacy policy": self.privacy_policy,
             "Privacy policy help text": self.privacy_policy_helptext,
-            "Mozilla Says": self.mozilla_says
+            "Mozilla Says": self.mozilla_says,
+            "Time Researched ": "time_researched",
+
         }
 
     def get_status_for_airtable(self):
@@ -655,7 +662,9 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('blurb'),
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
-                FieldPanel('mozilla_says')
+                FieldPanel('mozilla_says'),
+                FieldPanel('time_researched')
+
             ],
             heading='General Product Details',
             classname='collapsible'
@@ -781,6 +790,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('privacy_policy'),
         TranslatableField('privacy_policy_helptext'),
         SynchronizedField('mozilla_says'),
+        SynchronizedField('time_researched'),
     ]
 
     @property
