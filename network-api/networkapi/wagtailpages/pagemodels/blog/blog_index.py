@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route
-from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.core.models import Orderable as WagtailOrderable, Locale
 
 from modelcluster.fields import ParentalKey
 from networkapi.wagtailpages.utils import titlecase, get_locale_from_request
@@ -111,15 +111,19 @@ class BlogIndexPage(IndexPage):
         # and that we don't show the primary tag/category
         context['hide_classifiers'] = True
 
-        # explicitly set the index page title and intro, making sure to
-        # use the localized category for those fields:
+        # store the base category name
+        context['terms'] = [category.name, ]
+
+        # then explicitly set the index page title and intro, making
+        # sure to use the localized category for those fields:
         locale = get_locale_from_request(context['request'])
-        localized_category = category.get_translation(locale)
+        try:
+            localized_category = category.get_translation(locale)
+        except ObjectDoesNotExist:
+            localized_category = category
+
         context['index_title'] = titlecase(f'{localized_category.name} {self.title}')
         context['index_intro'] = localized_category.intro
-
-        # and then the filtered content
-        context['terms'] = [category.name, ]
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
@@ -168,9 +172,15 @@ class BlogIndexPage(IndexPage):
 
     # helper function to resolve category slugs to actual objects
     def get_category_object_for_slug(self, category_slug):
+        DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+        DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
+        english_categories = BlogPageCategory.objects.filter(
+            locale_id=DEFAULT_LOCALE_ID
+        )
+
         # We can't use .filter for @property fields,
         # so we have to run through all categories =(
-        for bpc in BlogPageCategory.objects.all():
+        for bpc in english_categories:
             if bpc.slug == category_slug:
                 category_object = bpc
                 break
