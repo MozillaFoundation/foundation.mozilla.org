@@ -1,5 +1,4 @@
 import ntpath
-import re
 import requests
 
 from io import BytesIO
@@ -28,7 +27,6 @@ from sentry_sdk import capture_exception
 
 from wagtail.images.models import Image
 from wagtail.core.models import Collection, Locale
-
 
 
 def set_main_site_nav_information(page, context, homepage_class_name):
