@@ -11,7 +11,9 @@ from wagtail.admin.rich_text.editors.draftail import features as draftail_featur
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
 from wagtail.core import hooks
 from wagtail.core.utils import find_available_slug
+
 from networkapi.wagtailpages.pagemodels.products import BuyersGuidePage, ProductPage
+from networkapi.wagtailpages.utils import get_locale_from_request
 
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
@@ -142,9 +144,10 @@ def manage_index_pages_cache(request, page):
             proper "related posts" in the CMS for blog pages and campaigns.
     """
     parent = page.get_parent().specific
+    locale = get_locale_from_request(request)
 
     if hasattr(parent, 'clear_index_page_cache'):
-        parent.clear_index_page_cache()
+        parent.clear_index_page_cache(locale)
 
 
 @hooks.register("insert_global_admin_js", order=100)
