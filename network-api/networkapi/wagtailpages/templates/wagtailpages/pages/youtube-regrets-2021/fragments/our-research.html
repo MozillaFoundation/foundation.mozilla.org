@@ -1,4 +1,4 @@
-{% load static i18n l10n %}
+{% load static i18n l10n humanize %}
 
 <div class="our-research" id="what-we-found">
   <img class="d-none d-md-block mx-auto mb-5 pb-5" src="{% static "_images/youtube-regrets/regrets-reporter/our-research-desktop.png" %}" alt="">
@@ -19,15 +19,15 @@
     {% with reports_count=3362 volunteers_count=1662 countries_count=91 %}
     <div class="row align-items-center mb-5">
       <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="reports-count-up">{{ reports_count|localize }}</p>
+        <p class="stat__number" id="reports-count-up">{{ reports_count|intcomma }}</p>
         <p class="stat__label">{% trans "Reports" %}</p>
       </div>
       <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="volunteers-count-up">{{ volunteers_count|localize }}</p>
+        <p class="stat__number" id="volunteers-count-up">{{ volunteers_count|intcomma }}</p>
         <p class="stat__label">{% trans "Volunteers" %}</p>
       </div>
       <div class="col-md-4 col-xs-12 stat">
-        <p class="stat__number" id="countries-count-up">{{ countries_count|localize }}</p>
+        <p class="stat__number" id="countries-count-up">{{ countries_count|intcomma }}</p>
         <p class="stat__label">{% trans "Countries" %}</p>
       </div>
     </div>

@@ -34,16 +34,16 @@ def create_default_blog_categories(apps, schema_editor):
 def create_default_focus_areas(apps, schema_editor):
     FocusArea = apps.get_model("wagtailpages", "FocusArea")
     FocusArea.objects.get_or_create(
-        name='Empower Action',
-        description='Issues like privacy, trustworthy AI, and digital rights impact all of us. Mozilla helps empower meaningful',
+        name='Rally Citizens',
+        description='Issues like privacy, trustworthy AI, and digital rights impact all of us who use the internet. Mozilla helps translate them and empower meaningful change.',
     )
     FocusArea.objects.get_or_create(
         name='Connect Leaders',
         description='We support activists and thought leaders shaping the future of our online lives.',
     )
     FocusArea.objects.get_or_create(
-        name='Investigate & Research',
-        description='We publish open source research and host global convenings to make ideas like trustworthy AI mainstream.',
+        name='Shape the Agenda',
+        description='We publish open-source research and host global convenings to make ideas like trustworthy AI mainstream.',
     )
 
 

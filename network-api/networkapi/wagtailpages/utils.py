@@ -264,7 +264,7 @@ def language_code_to_iso_3166(language):
     return language
 
 
-def get_locale_from_request(request, check_path=False):
+def get_locale_from_request(request, check_path=True):
     language_code = get_language_from_request(request, check_path)
 
     try:
@@ -273,7 +273,7 @@ def get_locale_from_request(request, check_path=False):
         return Locale.objects.get(language_code=settings.language_code)
 
 
-def get_language_from_request(request, check_path=False):
+def get_language_from_request(request, check_path=True):
     """
     Replacement for django.utils.translation.get_language_from_request.
     The portion of code that is modified is identified below with a comment.
