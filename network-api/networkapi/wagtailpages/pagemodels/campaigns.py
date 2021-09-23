@@ -23,6 +23,7 @@ from ..utils import (
 )
 
 
+@register_snippet
 class CTA(models.Model):
     name = models.CharField(
         default='',
@@ -52,6 +53,44 @@ class CTA(models.Model):
 
     class Meta:
         verbose_name_plural = 'CTA'
+
+
+@register_snippet
+class Callpower(TranslatableMixin, CTA):
+    campaign_id = models.CharField(
+        max_length=20,
+        help_text='Which Callpower campaign identifier should this CTA be tied to?',
+    )
+
+    call_button_label = models.CharField(
+        max_length=20,
+        default='Make the call',
+        help_text='The call button label (defaults to "Make the call")',
+    )
+
+    success_heading = models.CharField(
+        max_length=50,
+        default='Thank you for calling',
+        help_text='The heading users will see after clicking the call button(defaults to "Thank you for calling")',
+    )
+
+    success_text = RichTextField(
+        help_text='The text users will see after clicking the call button',
+        blank=True
+    )
+
+    translatable_fields = [
+        # Fields from the CTA model
+        TranslatableField('header'),
+        TranslatableField('description'),
+        # Callpower fields
+        TranslatableField('call_button_label'),
+        TranslatableField('success_heading'),
+        TranslatableField('success_text'),
+    ]
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = 'callpower snippet'
 
 
 @register_snippet
@@ -218,12 +257,12 @@ class CampaignPage(MiniSiteNameSpace):
     these pages come with sign-a-petition CTAs
     """
     cta = models.ForeignKey(
-        'Petition',
-        related_name='page',
+        'CTA',
+        related_name='campaign_page_for_cta',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text='Choose existing or create new sign-up form'
+        help_text='Choose one of our call-to-action snippets, or create a new one.'
     )
 
     def get_donation_modal_json(self):
@@ -284,12 +323,12 @@ class BanneredCampaignPage(PrimaryPage):
     # Note that this is a different related_name, as the `page`
     # name is already taken as back-referenced to CampaignPage.
     cta = models.ForeignKey(
-        'Petition',
-        related_name='bcpage',
+        'CTA',
+        related_name='banner_page_for_cta',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        help_text='Choose an existing, or create a new, pettition form'
+        help_text='Choose one of our call-to-action snippets, or create a new one.'
     )
 
     signup = models.ForeignKey(
