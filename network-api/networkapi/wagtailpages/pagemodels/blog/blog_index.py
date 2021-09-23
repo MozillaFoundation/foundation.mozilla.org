@@ -8,7 +8,7 @@ from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable, Locale
 
 from modelcluster.fields import ParentalKey
-from networkapi.wagtailpages.utils import get_locale_from_request
+from networkapi.wagtailpages.utils import titlecase, get_locale_from_request
 
 from sentry_sdk import capture_exception, push_scope
 
@@ -111,8 +111,11 @@ class BlogIndexPage(IndexPage):
         except ObjectDoesNotExist:
             localized_category = category
 
-        context['index_title'] = localized_category.title
         context['index_intro'] = localized_category.intro
+        context['index_title'] = titlecase(f'{localized_category.name} {self.title}')
+
+        if localized_category.title:
+            context['index_title'] = localized_category.title
 
         if localized_category.title:
             setattr(self, 'seo_title', localized_category.title)
