@@ -30,18 +30,6 @@ from wagtail.images.models import Image
 from wagtail.core.models import Collection, Locale
 
 
-def titlecase(s):
-    '''
-    See https://docs.python.org/3.7/library/stdtypes.html#str.title
-    for why this definition exists (basically: apostrophes)
-    '''
-    return re.sub(
-        r"[A-Za-z]+('[A-Za-z]+)?",
-        lambda mo: mo.group(0)[0].upper() +
-        mo.group(0)[1:].lower(),
-        s
-    )
-
 
 def set_main_site_nav_information(page, context, homepage_class_name):
     '''

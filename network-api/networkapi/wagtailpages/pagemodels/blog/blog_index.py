@@ -8,7 +8,7 @@ from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable, Locale
 
 from modelcluster.fields import ParentalKey
-from networkapi.wagtailpages.utils import titlecase, get_locale_from_request
+from networkapi.wagtailpages.utils import get_locale_from_request
 
 from sentry_sdk import capture_exception, push_scope
 
@@ -129,7 +129,6 @@ class BlogIndexPage(IndexPage):
         # If the category has a search image set, update page metadata.
         if localized_category.share_image:
             setattr(self, 'search_image_id', localized_category.share_image_id)
-
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
