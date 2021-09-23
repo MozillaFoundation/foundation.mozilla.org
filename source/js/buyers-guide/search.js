@@ -17,9 +17,8 @@ const SearchFilter = {
       );
     }
 
-    const searchInput = (SearchFilter.searchInput = searchBar.querySelector(
-      `input`
-    ));
+    const searchInput = (SearchFilter.searchInput =
+      searchBar.querySelector(`input`));
 
     searchInput.addEventListener(`input`, (evt) => {
       const searchText = searchInput.value.trim();
