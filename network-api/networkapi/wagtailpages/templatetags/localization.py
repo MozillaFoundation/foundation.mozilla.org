@@ -3,9 +3,10 @@ import unicodedata
 
 from django import template
 from django.conf import settings
+from django.db.models.base import ObjectDoesNotExist
 from django.utils.translation import get_language_info
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
-from networkapi.wagtailpages.utils import get_language_from_request
+from networkapi.wagtailpages.utils import get_language_from_request, get_locale_from_request
 
 register = template.Library()
 
@@ -77,3 +78,20 @@ def localizedroutablepageurl(context, page, url_name, *args, **kwargs):
         routablepageurl(context, page, url_name, *args, **kwargs)
     )
     return url
+
+
+# Get the "current locale" version of some content object from Wagtail
+@register.simple_tag(takes_context=True)
+def localized_version(context, thing):
+    if not hasattr(thing, 'get_translation'):
+        return thing
+
+    if 'request' not in context:
+        return thing
+
+    locale = get_locale_from_request(context['request'])
+
+    try:
+        return thing.get_translation(locale)
+    except ObjectDoesNotExist:
+        return thing

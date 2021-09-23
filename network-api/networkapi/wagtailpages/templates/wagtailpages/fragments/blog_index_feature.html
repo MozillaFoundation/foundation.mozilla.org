@@ -14,8 +14,9 @@
 
 <div class="d-flex flex-column flex-1 key-item mx-2 mx-md-4 p-3">
   <p class="h6-heading mb-2">
-    {% for category in blog.specific.category.all %}
-    <a href="/blog/category/{{category.slug}}">{{ category.localized }}</a>{% if not forloop.last %}, {% endif %}
+    {% for category in blog.localized.category.all %}
+      {% localized_version category as localized_category %}
+      <a href="/blog/category/{{category.slug}}">{{ localized_category }}</a>{% if not forloop.last %}, {% endif %}
     {% endfor %}
   </p>
   <h5 class="mb-2 h3-heading">

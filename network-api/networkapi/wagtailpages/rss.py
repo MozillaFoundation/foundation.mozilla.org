@@ -50,7 +50,7 @@ class RSSFeed(Feed):
                     return []
 
             # Then sort the collection and only yield the top FEED_LIMIT posts
-            blog_pages = index.get_all_entries().order_by('-first_published_at')
+            blog_pages = index.get_all_entries(request_locale).order_by('-first_published_at')
             feed_set = blog_pages[:settings.FEED_LIMIT]
 
             cache.set('rss_feed_set', feed_set, settings.FEED_CACHE_TIMEOUT)
