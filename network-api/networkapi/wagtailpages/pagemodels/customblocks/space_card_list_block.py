@@ -1,8 +1,5 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.core.blocks.struct_block import StructBlockValidationError
-
-from django.forms.utils import ErrorList
 
 
 class SpaceCardBlockStructValue(blocks.StructValue):
