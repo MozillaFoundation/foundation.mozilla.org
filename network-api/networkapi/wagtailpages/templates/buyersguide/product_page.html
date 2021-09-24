@@ -1,6 +1,6 @@
 {% extends "buyersguide/bg_base.html" %}
 
-{% load bg_selector_tags env l10n i18n localization static wagtailimages_tags %}
+{% load bg_selector_tags env l10n i18n localization static wagtailimages_tags wagtailcore_tags %}
 
 {% block head_extra %}
   <meta property="og:title" content="{% blocktrans context "This can be localized. This is a reference to the “*batteries not included” mention on toys." %}privacy not included - {{ product.title }}{% endblocktrans %}" />
@@ -83,6 +83,13 @@
         <div class="col-12 worst-case">
           <h2 class="h3-heading">{% trans "What could happen if something goes wrong" %}</h2>
           <p class="mb-0">{{product.worst_case}}</p>
+        </div>
+      </div>
+
+      <div class="row mb-4 tips-to-protect-yourself">
+        <div class="col-12 tips-to-protect py-3">
+          <h2 class="h3-heading">{% trans "Tips to protect yourself" %}</h2>
+          {{ product.tips_to_protect_yourself | richtext}}
         </div>
       </div>
 

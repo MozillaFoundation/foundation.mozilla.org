@@ -201,6 +201,28 @@
       }
     }
   }
+
+  .tips-to-protect {
+    h2 {
+      display: inline-block;
+
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 29px;
+        height: 27px;
+        background: url(../_images/buyers-guide/protect-tip-icon.svg) center /
+          contain no-repeat;
+        position: relative;
+        top: 4px;
+        margin-right: 0.5rem;
+
+        @media (min-width: $pni-product-breakpoint-larger) {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
 }
 
 .spy {
@@ -474,4 +496,8 @@
   min-height: 380px;
   min-width: 290px;
   background: $pni-product-image-background;
+}
+
+.tips-to-protect-yourself {
+  border: 1px solid $gray-20;
 }

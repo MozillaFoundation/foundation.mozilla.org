@@ -23,6 +23,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.core.fields import RichTextField
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
@@ -419,6 +420,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
+    tips_to_protect_yourself = RichTextField(features=['ul', 'bold', 'italic', 'link'], blank=True)
 
     """
     privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
@@ -647,6 +649,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('blurb'),
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
+                FieldPanel('tips_to_protect_yourself'),
             ],
             heading='General Product Details',
             classname='collapsible'
