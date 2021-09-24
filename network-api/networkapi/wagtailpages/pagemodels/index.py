@@ -119,7 +119,7 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
 
         if 'request' in context:
-            locale = get_locale_from_request(context.get('request'))
+            locale = get_locale_from_request(context['request'])
         else:
             locale = DEFAULT_LOCALE
 
