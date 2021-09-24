@@ -419,6 +419,12 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
+    mozilla_says = models.BooleanField(
+        null=True,
+        blank=True,
+        help_text='Whether or not Mozilla would recommend this product. '
+                  'Will appear as a thumbs up/down/middle.',
+    )
 
     """
     privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
@@ -553,6 +559,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Manages security help text": "manage_vulnerabilities_helptext",
             "Has privacy policy": "privacy_policy",
             "Privacy policy help text": "privacy_policy_helptext",
+            "Mozilla Says": "mozilla_says",
         }
         return mappings
 
@@ -597,6 +604,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Manages security help text": self.manage_vulnerabilities_helptext,
             "Has privacy policy": self.privacy_policy,
             "Privacy policy help text": self.privacy_policy_helptext,
+            "Mozilla Says": self.mozilla_says
         }
 
     def get_status_for_airtable(self):
@@ -647,6 +655,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('blurb'),
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
+                FieldPanel('mozilla_says')
             ],
             heading='General Product Details',
             classname='collapsible'
@@ -771,6 +780,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('manage_vulnerabilities_helptext'),
         SynchronizedField('privacy_policy'),
         TranslatableField('privacy_policy_helptext'),
+        SynchronizedField('mozilla_says'),
     ]
 
     @property
