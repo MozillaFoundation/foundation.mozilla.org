@@ -85,7 +85,7 @@ class CreepVote extends Component {
     let method = `POST`;
     let credentials = `same-origin`;
     let headers = {
-      "X-CSRFToken": this.props.csrf,
+      "X-CSRFToken": this.props.csrfToken,
       "Content-Type": `application/json`,
     };
 

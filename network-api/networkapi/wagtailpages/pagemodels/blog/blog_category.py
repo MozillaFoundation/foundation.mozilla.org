@@ -13,6 +13,12 @@ class BlogPageCategory(TranslatableMixin, models.Model):
         max_length=50
     )
 
+    title = models.TextField(
+        blank=True,
+        help_text='Optional title that will apear on the page and when category page is shared. '
+                  'If not set, will default to "name" text.'
+    )
+
     intro = RichTextField(
         features=[
             'bold', 'italic', 'link',
@@ -35,6 +41,7 @@ class BlogPageCategory(TranslatableMixin, models.Model):
 
     panels = [
         FieldPanel("name"),
+        FieldPanel("title"),
         FieldPanel("intro"),
         FieldPanel("share_description"),
         ImageChooserPanel("share_image"),

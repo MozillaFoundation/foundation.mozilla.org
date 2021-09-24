@@ -31,8 +31,8 @@ class Command(BaseCommand):
         """ Return a mapping of Site object names to the hostname that should be created for them """
         app_name = os.environ.get("HEROKU_APP_NAME")
         return {
-            "Mozilla Festival": f"{app_name}.{ROUTE_53_ZONE}",
-            "Foundation Home Page": f"mozfest-{app_name}.{ROUTE_53_ZONE}",
+            "Foundation Home Page": f"{app_name}.{ROUTE_53_ZONE}",
+            "Mozilla Festival": f"mozfest-{app_name}.{ROUTE_53_ZONE}",
         }
 
     def get_hosted_zone_id(self):
@@ -89,6 +89,12 @@ class Command(BaseCommand):
 
             heroku_domain = app.add_domain(domain)
             mapping[domain] = heroku_domain.cname
+
+        has_acm = any(domain.acm_status for domain in app.domains().values())
+        if not has_acm:
+            app._h._http_resource(
+                method="POST", resource=("apps", app.id, "acm")
+            ).raise_for_status()
 
         self.do_dns_changes(mapping)
 
