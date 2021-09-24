@@ -96,6 +96,8 @@
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
               {% csrf_token %}
             </div>
+
+            <div class="product-tabs-target"></div>
           </div>
         </div>
 
