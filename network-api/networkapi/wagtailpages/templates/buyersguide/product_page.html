@@ -97,7 +97,8 @@
               {% csrf_token %}
             </div>
 
-            <div class="product-tabs-target"></div>
+            <div class="product-tabs-target" 
+                 data-product-info='{{ product.get_tabs_json | safe }}'></div>
           </div>
         </div>
 

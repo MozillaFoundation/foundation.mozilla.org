@@ -9,6 +9,7 @@ import ProductTabs from "../components/product-tabs/product-tabs.jsx";
  */
 export default (apps, siteUrl) => {
   document.querySelectorAll(`.product-tabs-target`).forEach((element) => {
+    console.log(element.dataset.productInfo);
     apps.push(
       new Promise((resolve) => {
         ReactDOM.render(<ProductTabs />, element);

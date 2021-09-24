@@ -643,6 +643,63 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         }
         return json.dumps(data)
 
+    @property
+    def get_tabs_json(self):
+        """
+        Return a dictionary as a string with the relevant data needed for the frontend:
+        """
+        data = {
+            'privacy': {
+                'privacy_ding': self.privacy_ding,
+                'camera_device': self.camera_device,
+                'camera_app': self.camera_app,
+                'microphone_device': self.microphone_device,
+                'microphone_app': self.microphone_app,
+                'location_device': self.location_device,
+                'location_app': self.location_app,
+                'signup_requires_email': self.signup_requires_email,
+                'signup_requires_phone': self.signup_requires_phone,
+                'signup_requires_third_party_account': self.signup_requires_third_party_account,
+                'signup_requirement_explanation': self.signup_requirement_explanation,
+                'personal_data_collected': self.personal_data_collected,
+                'biometric_data_collected': self.biometric_data_collected,
+                'social_data_collected': self.social_data_collected,
+                'how_does_it_use_data_collected': self.how_does_it_use_data_collected,
+                'how_can_you_control_your_data': self.how_can_you_control_your_data,
+                'data_control_policy_is_bad': self.data_control_policy_is_bad,
+                'company_track_record': self.company_track_record,
+                'track_record_is_bad': self.track_record_is_bad,
+                'track_record_details': self.track_record_details,
+                'offline_capable': self.offline_capable,
+                'offline_use_description': self.offline_use_description,
+                'user_friendly_privacy_policy': self.user_friendly_privacy_policy,
+                'user_friendly_privacy_policy_helptext': self.user_friendly_privacy_policy_helptext,
+            },
+            'security': {
+                'show_ding_for_minimum_security_standards': self.show_ding_for_minimum_security_standards,
+                'meets_minimum_security_standards': self.meets_minimum_security_standards,
+                'uses_encryption': self.uses_encryption,
+                'uses_encryption_helptext': self.uses_encryption_helptext,
+                'strong_password': self.strong_password,
+                'strong_password_helptext': self.strong_password_helptext,
+                'security_updates': self.security_updates,
+                'security_updates': self.security_updates_helptext,
+                'manage_vulnerabilities': self.manage_vulnerabilities,
+                'manage_vulnerabilities_helptext': self.manage_vulnerabilities_helptext,
+                'privacy_policy': self.privacy_policy,
+                'privacy_policy_helptext': self.privacy_policy_helptext,
+            },
+            'ai': {
+                'uses_ai': self.uses_ai,
+                'ai_helptext': self.ai_helptext,
+                'ai_is_untrustworthy': self.ai_is_untrustworthy,
+                'ai_what_can_it_do': self.ai_what_can_it_do,
+                'ai_is_transparent': self.ai_is_transparent,
+
+            },
+        }
+        return json.dumps(data)
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -1188,10 +1245,10 @@ class GeneralProductPage(ProductPage):
             "Offline use": self.offline_use_description,
             "Uses AI": self.uses_ai,
             "AI uses personal data": self.ai_uses_personal_data,
-            "AI is transparent": self.ai_uses_personal_data,
             "AI help text": self.ai_helptext,
             "AI is untrustworthy": self.ai_is_untrustworthy,
             "AI is untrustworthy ding": self.ai_is_untrustworthy_ding,
+            "AI is transparent": self.ai_is_transparent,
             "AI What can it do": self.ai_what_can_it_do,
         }
         # Merge the two dicts together.
@@ -1274,12 +1331,12 @@ class GeneralProductPage(ProductPage):
             MultiFieldPanel(
                 [
                     FieldPanel('uses_ai'),
-                    FieldPanel('ai_uses_personal_data'),
-                    FieldPanel('ai_is_transparent'),
                     FieldPanel('ai_helptext'),
+                    FieldPanel('ai_uses_personal_data'),
                     FieldPanel('ai_is_untrustworthy'),
                     FieldPanel('ai_is_untrustworthy_ding'),
                     FieldPanel('ai_what_can_it_do'),
+                    FieldPanel('ai_is_transparent'),
                 ],
                 heading='Artificial Intelligence',
                 classname='collapsible'
