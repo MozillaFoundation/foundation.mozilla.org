@@ -95,7 +95,7 @@
     "react-ga": "3.3.0",
     "sass": "^1.38.2",
     "shx": "^0.3.3",
-    "swiper": "^6.7.5",
+    "swiper": "^7.0.6",
     "tailwindcss": "^2.2.9",
     "uuid": "^8.3.2",
     "whatwg-fetch": "^3.6.2"
