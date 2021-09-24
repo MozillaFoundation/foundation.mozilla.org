@@ -202,7 +202,9 @@
     }
   }
 
-  .tips-to-protect {
+  .tips-to-protect-yourself {
+    border: 1px solid $gray-20;
+
     h2 {
       display: inline-block;
 
@@ -220,6 +222,12 @@
         @media (min-width: $pni-product-breakpoint-larger) {
           margin-right: 1rem;
         }
+      }
+    }
+    p {
+      margin-bottom: 0.5rem;
+      a {
+        text-decoration: none;
       }
     }
   }
@@ -496,8 +504,4 @@
   min-height: 380px;
   min-width: 290px;
   background: $pni-product-image-background;
-}
-
-.tips-to-protect-yourself {
-  border: 1px solid $gray-20;
 }

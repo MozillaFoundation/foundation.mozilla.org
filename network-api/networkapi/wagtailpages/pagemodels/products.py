@@ -15,9 +15,11 @@ from django.utils.translation import gettext, pgettext
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.core.fields import StreamField
+from wagtail.core import blocks
 
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
@@ -420,7 +422,11 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
-    tips_to_protect_yourself = RichTextField(features=['ul', 'bold', 'italic', 'link'], blank=True)
+    tips_to_protect_yourself = StreamField(
+        [('tip', blocks.RichTextBlock(features=['bold', 'italic','link']
+        ))], 
+        blank=True
+        )
 
     """
     privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
@@ -579,6 +585,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Product link": self.product_url if self.product_url else '',
             "Price": self.price,
             "Worst case": self.worst_case,
+            "Tips to protect yourself": self.tips_to_protect_yourself,
             "Signup requires email": self.signup_requires_email,
             "Signup requires phone number": self.signup_requires_phone,
             "Signup requires 3rd party account": self.signup_requires_third_party_account,
@@ -649,7 +656,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 FieldPanel('blurb'),
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
-                FieldPanel('tips_to_protect_yourself'),
+                StreamFieldPanel('tips_to_protect_yourself'),
             ],
             heading='General Product Details',
             classname='collapsible'
@@ -753,6 +760,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('price'),
         SynchronizedField('image'),
         TranslatableField('worst_case'),
+        TranslatableField('tips_to_protect_yourself'),
         SynchronizedField('signup_requires_email'),
         SynchronizedField('signup_requires_phone'),
         SynchronizedField('signup_requires_third_party_account'),
