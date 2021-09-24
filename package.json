@@ -96,7 +96,7 @@
     "sass": "^1.38.2",
     "shx": "^0.3.3",
     "swiper": "^6.7.5",
-    "tailwindcss": "^2.2.9",
+    "tailwindcss": "^2.2.15",
     "uuid": "^8.3.2",
     "whatwg-fetch": "^3.6.2"
   },
