@@ -117,9 +117,14 @@ class IndexPage(FoundationMetadataPageMixin, RoutablePageMixin, Page):
         """
         DEFAULT_LANGUAGE_CODE = settings.LANGUAGE_CODE
         DEFAULT_LOCALE = Locale.objects.get(language_code=DEFAULT_LANGUAGE_CODE)
-        locale = get_locale_from_request(context.get('request', DEFAULT_LOCALE))
+
+        if 'request' in context:
+            locale = get_locale_from_request(context.get('request'))
+        else:
+            locale = DEFAULT_LOCALE
 
         entries = self.get_all_entries(locale)
+
         if hasattr(self, 'filtered'):
             entries = self.filter_entries(entries, context)
 
