@@ -425,6 +425,12 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         [('tip', blocks.RichTextBlock(features=['bold', 'italic', 'link']))],
         blank=True
     )
+    mozilla_says = models.BooleanField(
+        null=True,
+        blank=True,
+        help_text='Whether or not Mozilla would recommend this product. '
+                  'Will appear as a thumbs up/down/middle.',
+    )
 
     """
     privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
@@ -539,6 +545,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Product link": "product_url",
             "Price": "price",
             "Worst case": "worst_case",
+            "Tips to protect yourself": "tips_to_protect_yourself",
             "Signup requires email": "signup_requires_email",
             "Signup requires phone number": "signup_requires_phone",
             "Signup requires 3rd party account": "signup_requires_third_party_account",
@@ -559,6 +566,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Manages security help text": "manage_vulnerabilities_helptext",
             "Has privacy policy": "privacy_policy",
             "Privacy policy help text": "privacy_policy_helptext",
+            "Mozilla Says": "mozilla_says",
         }
         return mappings
 
@@ -604,6 +612,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
             "Manages security help text": self.manage_vulnerabilities_helptext,
             "Has privacy policy": self.privacy_policy,
             "Privacy policy help text": self.privacy_policy_helptext,
+            "Mozilla Says": self.mozilla_says
         }
 
     def get_status_for_airtable(self):
@@ -655,6 +664,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
                 StreamFieldPanel('tips_to_protect_yourself'),
+                FieldPanel('mozilla_says')
             ],
             heading='General Product Details',
             classname='collapsible'
@@ -780,6 +790,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('manage_vulnerabilities_helptext'),
         SynchronizedField('privacy_policy'),
         TranslatableField('privacy_policy_helptext'),
+        SynchronizedField('mozilla_says'),
     ]
 
     @property

@@ -231,6 +231,36 @@
       }
     }
   }
+  .subheading-divider {
+    padding: 0em 0.5em 0em 0.5em;
+    @media (max-width: $bp-md) {
+      display: none;
+    }
+  }
+
+  .mozilla-says {
+    &::after {
+      content: " ";
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      margin-left: 4px;
+      position: relative;
+      vertical-align: middle;
+    }
+  }
+
+  .thumb-down::after {
+    background: url(../_images/buyers-guide/mozilla-says/thumb-down.svg)
+      no-repeat;
+  }
+  .thumb-up::after {
+    background: url(../_images/buyers-guide/mozilla-says/thumb-up.svg) no-repeat;
+  }
+  .thumb-side::after {
+    background: url(../_images/buyers-guide/mozilla-says/thumb-side.svg)
+      no-repeat;
+  }
 }
 
 .spy {
