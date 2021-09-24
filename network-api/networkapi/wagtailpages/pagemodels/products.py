@@ -425,7 +425,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text='Whether or not Mozilla would recommend this product. '
                   'Will appear as a thumbs up/down/middle.',
     )
-    time_researched = models.IntegerField(
+    time_researched = models.PositiveIntegerField(
         help_text="How many hours were spent researching this product?",
         default=0
     )
