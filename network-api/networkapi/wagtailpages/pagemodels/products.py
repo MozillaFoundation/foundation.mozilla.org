@@ -13,13 +13,15 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext, pgettext
 
+
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Locale, Orderable, Page, TranslatableMixin
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core import blocks
+
 
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
@@ -1130,6 +1132,19 @@ class GeneralProductPage(ProductPage):
         blank=True,
         help_text='Helpful text around AI to show on the product page',
     )
+    ai_is_untrustworthy = models.BooleanField(
+        null=True,
+        blank=True,
+        help_text='Is the AI untrustworthy?',
+    )
+    ai_is_untrustworthy_ding = models.BooleanField(
+        help_text='Tick this box if the AI invades privacy or behaves unethically.',
+        default=False,
+    )
+    ai_what_can_it_do = RichTextField(
+        blank=True,
+        help_text='What kind of decisions does this AI make about you or for you?'
+    )
 
     @classmethod
     def map_import_fields(cls):
@@ -1153,6 +1168,9 @@ class GeneralProductPage(ProductPage):
             "AI uses personal data": "ai_uses_personal_data",
             "AI help text": "ai_helptext",
             "AI is transparent": "ai_is_transparent",
+            "AI is untrustworthy": "ai_is_untrustworthy",
+            "AI is untrustworthy ding": "ai_is_untrustworthy_ding",
+            "AI What can it do": "ai_what_can_it_do",
         }
         # Return the merged fields
         return {**generic_product_import_fields, **general_product_mappings}
@@ -1182,6 +1200,9 @@ class GeneralProductPage(ProductPage):
             "AI uses personal data": self.ai_uses_personal_data,
             "AI is transparent": self.ai_uses_personal_data,
             "AI help text": self.ai_helptext,
+            "AI is untrustworthy": self.ai_is_untrustworthy,
+            "AI is untrustworthy ding": self.ai_is_untrustworthy_ding,
+            "AI What can it do": self.ai_what_can_it_do,
         }
         # Merge the two dicts together.
         data = {**generic_product_data, **general_product_data}
@@ -1266,6 +1287,9 @@ class GeneralProductPage(ProductPage):
                     FieldPanel('ai_uses_personal_data'),
                     FieldPanel('ai_is_transparent'),
                     FieldPanel('ai_helptext'),
+                    FieldPanel('ai_is_untrustworthy'),
+                    FieldPanel('ai_is_untrustworthy_ding'),
+                    FieldPanel('ai_what_can_it_do'),
                 ],
                 heading='Artificial Intelligence',
                 classname='collapsible'
@@ -1288,6 +1312,9 @@ class GeneralProductPage(ProductPage):
         SynchronizedField('ai_uses_personal_data'),
         SynchronizedField('ai_is_transparent'),
         TranslatableField('ai_helptext'),
+        SynchronizedField('ai_is_untrustworthy'),
+        SynchronizedField('ai_is_untrustworthy_ding'),
+        TranslatableField('ai_what_can_it_do'),
     ]
 
     @property
@@ -1513,7 +1540,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['category'] = slug
         context['current_category'] = category
         context['products'] = products
-        context['pageTitle'] = f'{gettext(category.name)} | {gettext("Privacy & security guide")} | Mozilla Foundation'
+        context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
+                               f' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
         return render(request, "buyersguide/category_page.html", context)
