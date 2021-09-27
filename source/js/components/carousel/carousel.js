@@ -20,10 +20,8 @@ class Carousel {
         enabled: true,
       },
       pagination: {
-        el: '[data-carousel-pagination]',
+        el: ".swiper-navigation",
         clickable: true,
-        bulletActiveClass: 'carousel__bullet--active',
-        bulletClass: 'carousel__bullet',
       },
       navigation: {
         nextEl: ".swiper-button-next",
@@ -31,14 +29,13 @@ class Carousel {
       },
       // Responsive breakpoints
       breakpoints: {
-        640: {
+        768: {
           slidesPerView: 2,
           spaceBetween: 25,
         },
       },
     });
     this.slideTotal = this.node.dataset.slidetotal;
-      console.log(this.swiper);
   }
 }
 
