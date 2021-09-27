@@ -73,10 +73,33 @@
             </div>
           {% endif %}
         </div>
-        <div class="col-12 mt-3 d-flex flex-column flex-md-row">
+        <div class="col-12 mt-3 d-flex flex-column flex-md-row justify-content-between">
           <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
-          <span class="body-small subheading-divider"> | </span>
+          <a class="body-small" href="/privacynotincluded/about/methodology"> {% trans "Mozilla researched" context "This string is followed by a numerical value, to show the hours spent researching the product." %} </a>  <span class="body-small pl-1"> {{ product.time_researched }} {% trans "hours" %}</span>
           <p class="body-small mozilla-says {% if product.mozilla_says %} thumb-up {% elif product.mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
+          <a class="body-small" href="/privacynotincluded/about/methodology"> {% trans "People voted" context "This string is followed by the creepiness that most people voted, as well as the percentage of people that voted for that ranking" %} </a>  <span class="body-small pl-1"> {{ product.time_researched }}  % {% trans "super creepy" %}</span>
+
+          <!-- <div class="">
+            <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
+          </div> -->
+          <!-- <div class="d-flex">
+            <span class="body-small"> | </span>
+          </div> -->
+          <!-- <div class="mozilla-researched d-flex">
+            <a class="body-small" href="/privacynotincluded/about/methodology"> {% trans "Mozilla researched" context "This string is followed by a numerical value, to show the hours spent researching the product." %} </a>  <span class="body-small pl-1"> {{ product.time_researched }} {% trans "hours" %}</span>
+          </div> -->
+          <!-- <div class="d-flex">
+            <span class="body-small"> | </span>
+          </div> -->
+          <!-- <div class=" d-flex">
+            <p class="body-small mozilla-says {% if product.mozilla_says %} thumb-up {% elif product.mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
+          </div> -->
+          <!-- <div class="d-flex">
+            <span class="body-small"> | </span>
+          </div> -->
+          <!-- <div class=" d-flex mozilla-researched">
+            <a class="body-small" href="/privacynotincluded/about/methodology"> {% trans "People voted" context "This string is followed by the creepiness that most people voted, as well as the percentage of people that voted for that ranking" %} </a>  <span class="body-small pl-1"> {{ product.time_researched }}  % {% trans "super creepy" %}</span>
+          </div> -->
         </div>
         <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
       </div>
