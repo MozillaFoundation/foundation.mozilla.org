@@ -1,4 +1,4 @@
-{% load wagtailimages_tags i18n homepage_tags %}
+{% load wagtailimages_tags i18n localization homepage_tags %}
 
 {% get_page_authors blog_page as authors %}
 
@@ -17,7 +17,8 @@
         {% else %}not published yet{% endif %}
       {% with category=page.specific.category.first %}
       {% if category and blog_index %}
-        | <a class="category" href="{{blog_index.url}}category/{{category.slug}}">{{ category }}</a>
+        {% localized_version category as localized_category %}
+        | <a class="category" href="{{blog_index.localized.url}}category/{{category.slug}}">{{ localized_category }}</a>
       {% endif %}
       {% endwith %}
     {% endif %}

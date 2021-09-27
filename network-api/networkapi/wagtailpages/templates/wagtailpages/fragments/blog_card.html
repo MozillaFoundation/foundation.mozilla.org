@@ -15,9 +15,10 @@ each blog page's dominant tag)
   {% if hide_classifiers != True %}
     {% with category=page.specific.category.first %}
     {% if category %}
+      {% localized_version category as localized_category %}
       {% get_root_or_page as parent_page %}
         {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
-        <a class="h6-heading d-block mt-3 mb-0" href="{% routablepageurl parent_page "entries_by_category" category.slug %}">{{ category }}</a>
+        <a class="h6-heading d-block mt-3 mb-0" href="{% localizedroutablepageurl parent_page "entries_by_category" category.slug %}">{{ localized_category }}</a>
       {% endif %}
     {% endwith %}
   {% endif %}

@@ -5,10 +5,10 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route
-from wagtail.core.models import Orderable as WagtailOrderable
+from wagtail.core.models import Orderable as WagtailOrderable, Locale
 
 from modelcluster.fields import ParentalKey
-from networkapi.wagtailpages.utils import titlecase
+from networkapi.wagtailpages.utils import titlecase, get_locale_from_request
 
 from sentry_sdk import capture_exception, push_scope
 
@@ -64,16 +64,20 @@ class BlogIndexPage(IndexPage):
 
     template = 'wagtailpages/blog_index_page.html'
 
-    def get_all_entries(self):
+    # superclass override
+    def get_all_entries(self, locale):
         """
         Do we need to filter the featured blog entries
         out, so they don't show up twice?
         """
         if hasattr(self, 'filtered'):
-            return super().get_all_entries()
+            return super().get_all_entries(locale)
 
-        featured = [entry.blog.pk for entry in self.featured_pages.all()]
-        return super().get_all_entries().exclude(pk__in=featured)
+        featured = [
+            entry.blog.get_translation(locale).pk for entry in self.featured_pages.all()
+        ]
+
+        return super().get_all_entries(locale).exclude(pk__in=featured)
 
     def filter_entries(self, entries, context):
         entries = super().filter_entries(entries, context)
@@ -87,32 +91,47 @@ class BlogIndexPage(IndexPage):
     def filter_entries_for_category(self, entries, context):
         category = self.filtered.get('category')
 
-        # The following "if" statements update page share metadata when filtered by category.
+        # The following code first updates page share metadata when filtered by category.
+        # First, updating metadata that is not localized
         #
-        # Update page search/share metadata to be the category's description.
-        # If not set, default to category's "intro" text.
-        # If "intro" is not set, use the foundation's default meta description.
-        if category.share_description:
-            setattr(self, 'search_description', category.share_description)
-        elif category.intro:
-            setattr(self, 'search_description', category.intro)
-
-        # If the category has a search image set, update page metadata.
-        if category.share_image:
-            setattr(self, 'search_image_id', category.share_image_id)
-
         # make sure we bypass "x results for Y"
         context['no_filter_ui'] = True
 
         # and that we don't show the primary tag/category
         context['hide_classifiers'] = True
 
-        # explicitly set the index page title and intro
-        context['index_title'] = titlecase(f'{category.name} {self.title}')
-        context['index_intro'] = category.intro
-
-        # and then the filtered content
+        # store the base category name
         context['terms'] = [category.name, ]
+
+        # then explicitly set all the metadata that can be localized, making
+        # sure to use the localized category for those fields:
+        locale = get_locale_from_request(context['request'])
+        try:
+            localized_category = category.get_translation(locale)
+        except ObjectDoesNotExist:
+            localized_category = category
+
+        context['index_intro'] = localized_category.intro
+        context['index_title'] = titlecase(f'{localized_category.name} {self.title}')
+
+        if localized_category.title:
+            context['index_title'] = localized_category.title
+
+        if localized_category.title:
+            setattr(self, 'seo_title', localized_category.title)
+        elif localized_category.name:
+            setattr(self, 'seo_title', localized_category.name)
+
+        # If description not set, default to category's "intro" text.
+        # If "intro" is not set, use the foundation's default meta description.
+        if localized_category.share_description:
+            setattr(self, 'search_description', localized_category.share_description)
+        elif localized_category.intro:
+            setattr(self, 'search_description', localized_category.intro)
+
+        # If the category has a search image set, update page metadata.
+        if localized_category.share_image:
+            setattr(self, 'search_image_id', localized_category.share_image_id)
 
         # This code is not efficient, but its purpose is to get us logs
         # that we can use to figure out what's going wrong more than
@@ -161,9 +180,15 @@ class BlogIndexPage(IndexPage):
 
     # helper function to resolve category slugs to actual objects
     def get_category_object_for_slug(self, category_slug):
+        DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+        DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
+        english_categories = BlogPageCategory.objects.filter(
+            locale_id=DEFAULT_LOCALE_ID
+        )
+
         # We can't use .filter for @property fields,
         # so we have to run through all categories =(
-        for bpc in BlogPageCategory.objects.all():
+        for bpc in english_categories:
             if bpc.slug == category_slug:
                 category_object = bpc
                 break

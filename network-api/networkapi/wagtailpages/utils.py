@@ -270,7 +270,7 @@ def get_locale_from_request(request, check_path=True):
     try:
         return Locale.objects.get(language_code=language_code)
     except Locale.DoesNotExist:
-        return Locale.objects.get(language_code=settings.language_code)
+        return Locale.objects.get(language_code=settings.LANGUAGE_CODE)
 
 
 def get_language_from_request(request, check_path=True):

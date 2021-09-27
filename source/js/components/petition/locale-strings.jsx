@@ -184,8 +184,8 @@ export default {
     "Please enter your given name(s)": `Veuillez saisir votre prénom`,
     "Last name": `Nom`,
     "Please enter your surname": `Veuillez saisir votre nom de famille`,
-    "Email address": `Adresse électronique`,
-    "Please enter your email": `Saisissez votre adresse électronique`,
+    "Email address": `Adresse e-mail`,
+    "Please enter your email": `Saisissez votre adresse e-mail`,
     "Your country": `Votre pays`,
     "Please enter your country": `Veuillez sélectionner votre pays`,
     "Postal code": `Code postal`,
@@ -202,18 +202,18 @@ export default {
       </span>
     ),
     "Please check this box if you want to proceed": `Veuillez cocher cette case si vous désirez poursuivre`,
-    "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par courriel au sujet des campagnes de Mozilla.`,
+    "Yes, I want to receive email updates about Mozilla's campaigns.": `J’accepte de recevoir des informations par e-mail au sujet des campagnes de Mozilla.`,
     "Add my name": `Ajouter mon nom`,
     "Sign up": `Je m’inscris`,
     "Help shape the future of the web for the public good": `Aidez à façonner l’avenir du Web pour le bien commun.`,
-    "Join our list": `<p>Abonnez-vous à notre lettre d’information <b>Actualités de Mozilla</b> pour recevoir des conseils pour Internet et des alertes pour passer à l’action.</p>`,
+    "Join our list": `<p>Abonnez-vous à notre newsletter <b>Actualités de Mozilla</b> pour recevoir des conseils pour Internet et des alertes pour passer à l’action.</p>`,
     "This is a required section.": `Ce champ est obligatoire.`,
-    "Please enter a valid email address.": `Veuillez indiquer une adresse électronique valide.`,
+    "Please enter a valid email address.": `Veuillez indiquer une adresse e-mail valide.`,
     "Please check this box if you want to proceed.": `Cochez cette case si vous souhaitez continuer.`,
     "Thanks!": `Merci !`,
     "confirm your email opt-in": (
       <Fragment>
-        Si vous n’avez pas précédemment confirmé votre abonnement aux courriels
+        Si vous n’avez pas précédemment confirmé votre abonnement aux e-mails
         liés à Mozilla, vous devrez peut-être le faire maintenant.{" "}
         <strong>
           Veuillez vérifier votre boîte de réception ou vos courriers
@@ -224,7 +224,7 @@ export default {
     ),
     "manage your subscriptions": (
       <Fragment>
-        Si vous avez déjà confirmé votre abonnement aux courriels liés à
+        Si vous avez déjà confirmé votre abonnement aux e-mails liés à
         Mozilla, vous pouvez maintenant{" "}
         <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
           gérer vos abonnements

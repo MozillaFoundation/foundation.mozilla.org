@@ -5,6 +5,8 @@ from django.conf import settings
 from faker import Faker
 from faker.providers import BaseProvider
 from wagtail.images.models import Image
+from networkapi.wagtailpages.models import BlogPage
+
 
 seed = randint(0, 5000000)
 if settings.RANDOM_SEED is not None:
@@ -162,6 +164,7 @@ def generate_video_field():
         'url': 'https://www.youtube.com/embed/83fk3RT8318',
         'caption': caption,
         'captionURL': captionURL,
+        'video_width': 'full_width'
     })
 
 
@@ -179,7 +182,6 @@ def generate_linkbutton_field():
 
 def generate_text_field():
     value = fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
-
     return generate_field('text', value)
 
 
@@ -216,6 +218,81 @@ def generate_dear_internet_intro_text_field():
     text = f'<p>{fake.paragraph(nb_sentences=3, variable_nb_sentences=True)}</p>'
 
     return generate_field('intro_text', text)
+
+
+def generate_image_grid_field():
+    imgs = []
+
+    for n in range(4):
+        imgs.append({
+                'image': choice(Image.objects.all()).id,
+                'caption': fake.paragraph(nb_sentences=1, variable_nb_sentences=False)
+            }
+        )
+
+    return generate_field('image_grid', {
+        'grid_items': imgs
+    })
+
+
+def generate_card_grid_field():
+    cards = []
+
+    for n in range(6):
+        cards.append({
+                'image': choice(Image.objects.all()).id,
+                'title': fake.paragraph(nb_sentences=1, variable_nb_sentences=False),
+                'body': fake.paragraph(nb_sentences=10, variable_nb_sentences=True),
+                'link_label': ' '.join(fake.words(nb=3)),
+                'link_url': fake.url(schemes=['https'])
+            }
+        )
+
+    return generate_field('card_grid', {
+        'cards': cards
+    })
+
+
+def generate_pulse_listing_field():
+    return generate_field('pulse_listing', {
+        'only_featured_entries': True,
+        'help': 'all',
+        'issues': 'all',
+        'size': 6,
+        'search_terms': '',
+        'newest_first': True,
+        'direct_link': False
+    })
+
+
+def generate_profile_listing_field():
+    return generate_field('profile_listing', {
+        'max_number_of_results': 6
+    })
+
+
+def generate_recent_blog_entries_field():
+    return generate_field('recent_blog_entries', {})
+
+
+def generate_blog_set_field():
+    return generate_field('blog_set', {
+        'title': ' Test Blog Set',
+        'blog_pages': [blog.id for blog in BlogPage.objects.all()[:5]]
+    })
+
+
+def generate_airtable_field():
+    return generate_field('airtable', {
+        'url': 'https://airtable.com/embed/shrWlw8ElgBb17nrM?backgroundColor=blue'
+    })
+
+
+def generate_typeform_field():
+    return generate_field('typeform', {
+        'embed_id': 'ZdwBxz8E',
+        'button_text': 'Test'
+    })
 
 
 def generate_dear_internet_letter_field():
@@ -284,6 +361,14 @@ class StreamfieldProvider(BaseProvider):
             'full_width_image': generate_full_width_image_field,
             'intro_text': generate_dear_internet_intro_text_field,
             'letter': generate_dear_internet_letter_field,
+            'card_grid': generate_card_grid_field,
+            'image_grid': generate_image_grid_field,
+            'pulse_listing': generate_pulse_listing_field,
+            'profile_listing': generate_profile_listing_field,
+            'recent_blog_entries': generate_recent_blog_entries_field,
+            'blog_set': generate_blog_set_field,
+            'airtable': generate_airtable_field,
+            'typeform': generate_typeform_field
         }
 
         streamfield_data = []
