@@ -1,0 +1,27 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="container tw-py-4 medium:tw-py-7">
+  <h2 class="h3-heading tw-font-semibold tw-mb-4">{{ value.title }}</h2>
+  <div class="tw-grid tw-grid-cols-1 large:tw-grid-cols-2 tw-gap-6 large:tw-gap-10">
+    {% for space in self.space_cards %}
+      <a class="tw-group tw-no-underline tw-p-5 tw-border tw-border-gray-60/20 tw-text-[22px] tw-flex medium:tw-flex-row tw-flex-col medium:tw-space-x-4"
+         href="{% if space_card.link_page %}{{ space_card.link_page.url }}{% elif space_card.link_url %}{{ space_card.link_url }}{% endif %}">
+
+        <div class="tw-order-2 medium:tw-order-1">
+          <span class="tw-text-blue tw-underline tw-mb-4 medium:mb-4 tw-underline group-hover:tw-text-blue-dark tw-font-zilla tw-font-semibold">{{ space.title }}</span>
+          <p>{{ space.body }}</p>
+        </div>
+
+        <div class="tw-order-1 medium:tw-order-2 tw-flex-shrink-0 tw-mb-4 medium:tw-mb-0">
+          {% image space.image fill-158x158 as img_desktop %}
+          {% image space.image fill-290x125 as img_mobile %}
+          <picture>
+            <source media="(min-width:768px)" srcset="https://via.placeholder.com/158x158">
+            <img class="tw-w-full tw-h-auto" src="https://via.placeholder.com/291x125" alt="">
+          </picture>
+        </div>
+
+      </a>
+    {% endfor %}
+  </div>
+</div>
