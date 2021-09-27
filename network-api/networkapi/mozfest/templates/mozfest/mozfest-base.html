@@ -3,7 +3,7 @@
 
 
 {% block ga_identifier %}
-  <meta name="google-site-verification" content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk" />
+  <meta name="google-site-verification" content="xuTYNuCtTC9SLIkAUtmUY9Wce5RDJofc4z4fMprPYUk"/>
   <meta name="ga-identifier" content="UA-87658599-15">
   <meta name="gtm-identifier" content="GTM-5TFTDCX">
 {% endblock %}
@@ -13,7 +13,7 @@
 
 
 {% block page_title %}
-    {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
+  {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
 
@@ -21,40 +21,71 @@
 
 
 {% block primary_nav %}
-    {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
+  {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
 {% endblock %}
 
 
-{% block hero_guts %}
-  {% include "partials/primary_heroguts.html" with root=root page=page %}
+
+{% block header_wrapped %}
+  <header role="banner">
+    <div class="tw-relative tw-py-6 tw-pt-[120px] tw-flex tw-flex-col tw-justify-end" data-mozfest-hero-carousel>
+      {# Background images slider #}
+      <div class="tw-absolute tw-w-full tw-h-full tw-top-0 tw-left-0">
+        <div class="tw-h-full tw-overflow-hidden" data-background-images-carousel>
+          <div class="swiper-wrapper">
+            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat" style="background-image: url('https://source.unsplash.com/random/1600x900/?nature,water');"></div>
+            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat" style="background-image: url('https://source.unsplash.com/random/1600x900/?fun,people');"></div>
+            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat" style="background-image: url('https://source.unsplash.com/random/1600x900/?event,speaking');"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="tw-bg-gradient-to-t tw-from-festival-blue tw-to-festival-purple tw-w-full tw-h-full tw-absolute tw-inset-0 tw-z-10 tw-opacity-75"></div>
+
+      <div class="tw-container tw-relative tw-z-20 tw-text-white">
+        <h1 class="tw-text-white tw-font-bol">Testing the banner now</h1>
+        <button class="btn btn-primary tw-bg-white tw-text-black">Watch last years recap video</button>
+        {# Progress bar here #}
+        <hr>
+        {# End progress bar #}
+        <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">Immersive sessions</span>
+        <p class="tw-text-white">We’ve gathered some of the best speakers in the business to share their experiences.</p>
+      </div>
+
+    </div>
+  </header>
 {% endblock %}
+{#{% block hero_guts %}#}
+{#  {% include "partials/primary_heroguts.html" with root=root page=page %}#}
+{#{% endblock %}#}
 
 
 {% block content %}
   {% block secondary_nav %}{% endblock %}
 
 
-{#      {% include './event_carousel.html' %}#}
-      {% include './session_carousel.html' %}
-      {% if page.signup != None %}
+  {#      {% include './event_carousel.html' %}#}
+  {% include './session_carousel.html' %}
+  {% if page.signup != None %}
 
-        {# Use a two-column layout #}
-        <div class="container">
-          <div class="row">
-            <div class="cms mozfest-content two-col mb-5">
-              {% include "partials/streamfield.html" with twocolumn=True %}
-            </div>
-            {% block cta %}{% include "partials/signup.html" %}{% endblock %}
-          </div>
+    {# Use a two-column layout #}
+    <div class="container">
+      <div class="row">
+        <div class="cms mozfest-content two-col mb-5">
+          {% include "partials/streamfield.html" with twocolumn=True %}
         </div>
-      {% else %}
+        {% block cta %}{% include "partials/signup.html" %}{% endblock %}
+      </div>
+    </div>
+  {% else %}
 
-        {# Single column layout #}
-        <div class="cms mozfest-content mb-3 {% if page.use_wide_template %} wide {% endif %}">
-          {% include "partials/streamfield.html" %}
-        </div>
+    {# Single column layout #}
+    <div class="cms mozfest-content mb-3 {% if page.use_wide_template %} wide {% endif %}">
+      {% include "partials/streamfield.html" %}
+    </div>
 
-      {% endif %}
+  {% endif %}
 
 {% endblock %}
 

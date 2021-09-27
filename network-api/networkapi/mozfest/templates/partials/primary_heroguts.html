@@ -3,8 +3,9 @@
 <div id="hero">
   <div class="banner">
     {% if homepage %}
-      {% include "../fragments/hero/large.html" with page=page banner_video_type=banner_video_type %}
-      {% include "./homepage_banner.html" with page=page banner_video_type=banner_video_type %}
+        {% include "./homepage_carousel_banner.html" with page=page banner_video_type=banner_video_typeq %}
+{#      {% include "../fragments/hero/large.html" with page=page banner_video_type=banner_video_type %}#}
+{#      {% include "./homepage_banner.html" with page=page banner_video_type=banner_video_type %}#}
     {% else %}
       {% include "../fragments/hero/normal.html" with page=page %}
     {% endif %}
