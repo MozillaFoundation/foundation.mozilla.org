@@ -27,6 +27,7 @@
 
 
 {% block stylesheets %}
+  {% if debug_flag %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
   <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i,400i">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,600,700,300i,400i,600i">

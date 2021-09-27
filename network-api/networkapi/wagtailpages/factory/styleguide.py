@@ -6,12 +6,39 @@ from networkapi.utility.faker.helpers import (
     get_homepage
 )
 
+from factory import (
+    Faker
+)
+
+styleguide_streamfield_fields = [
+    'paragraph',
+    'image',
+    'image_text',
+    'image_text_mini',
+    'image_grid',
+    'video',
+    'linkbutton',
+    'spacer',
+    'quote',
+    'double_image',
+    'text',
+    'full_width_image',
+    'card_grid',
+    'pulse_listing',
+    'profile_listing',
+    'recent_blog_entries',
+    'blog_set',
+    'airtable',
+    'typeform'
+]
+
 
 class StyleguideFactory(PageFactory):
     class Meta:
         model = Styleguide
 
     title = 'Style-guide'
+    body = Faker('streamfield', fields=styleguide_streamfield_fields)
 
 
 def generate(seed):
