@@ -31,6 +31,8 @@ To get a list of invoke commands available, run `invoke -l`:
   manage (docker-manage)                       Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
   migrate (docker-migrate)                     Updates database schema
   new-db (docker-new-db)                       Delete your database and create a new one with fake data
+  copy-stage-db                                Overwrite your local docker postgres DB with a copy of the staging database
+  copy-prod-db                                 Overwrite your local docker postgres DB with a copy of the production database
   new-env (docker-new-env)                     Get a new dev environment and a new database with fake data
   npm (docker-npm)                             Shorthand to npm. inv docker-npm "[COMMAND] [ARG]"
   npm-install (docker-npm-install)             Install Node dependencies
@@ -114,17 +116,18 @@ Requirements:
 - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 - Heroku Account with membership on the Mozilla team (ask in #mofo-engineering on Slack)
 
-Some development work requires testing changes against "whatever the current production database looks like", which requires having postgresql installed locally (`brew install postgresql` on mac; download and run the official installer for windows; if you use linux/unix, you know how to install things for your favourite flavour, so just do that for postgresql). We backport prod data to staging every week, scrubbing PII, so we'll be creating a copy of that for local testing, too.
+You can copy the staging database using `inv copy-stage-db`, or the production database using `inv copy-prod-db`.
 
-**Note**: your postgres version must be compatible with the version that is used on heroku in order for the `pg_dump` command to work. In general, this means that the result of `psql --version` must be **greater or equal to** the version found when running `heroku pg:info -a foundation-mofostaging-net` (look for "PG Version")
+For more control, you can also manually invoke `node copy-db.js`, which has the following behavior:
 
-The steps involved in cloning the database for local use are as follows:
+```
+  node copy-db.js             Copy the staging database.
+  node copy-db.js --prod      Copy the production database.
+```
 
-1. Run `docker-compose up postgres` to start the `postgres` service without starting the rest of the server setup (note that if you want to detach stdout, add the `-d` flag to the command)
-2. Drop the existing `wagtail` database in the PostgreSQL server inside your docker environment with `dropdb --if-exists -h localhost -p 5678 -U foundation wagtail`
-3. Use the Heroku CLI to pull the remote database into your local docker PostgreSQL server with `heroku pg:pull -a foundation-mofostaging-net DATABASE_URL postgresql://foundation@localhost:5678/wagtail`
+In addition, you can add a `--keep` runtime flag when invoking the script, in which case the database dump file will not be deleted after completion.
 
-If you need to reset this database, running through these steps again will get you back into sync with staging.
+If the copy script is invoked when the correct database dump file already exists, it will not redownload it and simply reuse the file on disk.
 
 ---
 
