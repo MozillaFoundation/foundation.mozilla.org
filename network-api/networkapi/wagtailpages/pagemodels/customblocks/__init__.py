@@ -5,6 +5,7 @@ from .audio_block import AudioBlock
 from .blog_set_block import BlogSetBlock
 from .bootstrap_spacer_block import BootstrapSpacerBlock
 from .card_grid import CardGrid, CardGridBlock
+from .current_events_slider_list_block import CurrentEventsSliderListBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
 from .image_grid import ImageGrid, ImageGridBlock
@@ -39,6 +40,7 @@ __all__ = [
     BootstrapSpacerBlock,
     CardGrid,
     CardGridBlock,
+    CurrentEventsSliderListBlock,
     DearInternetLetterBlock,
     iFrameBlock,
     ImageBlock,

@@ -1,0 +1,34 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+  <div class="row">
+    <div class="mb-4">
+      <h3>{{ value.title }}</h3>
+    </div>
+  </div>
+  <div class="row">
+    {% for block in self.current_events %}
+      {% with current_event=block count=self.current_events|length %}
+        {% image current_event.image fill-350x197 as img %}
+        <div class="col-sm-12 {% if count > 2 %} col-lg-4 col-md-6 {% else %} col-md-6 {% endif %} mb-4">
+          <div class="card-regular h-100 d-flex flex-column ">
+            <img src="{{ img.url }}" />
+            <div class="d-flex flex-1">
+              <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
+                <h3 class="h3-heading mb-2">{{ current_event.title }}</h3>
+                <p>Link Label: {{ current_event.link_label }}</p>
+                <p>Link URL: {{ current_event.link_url }}</p>
+                <p>{{ current_event.body }}</p>
+                {% for button in current_event.buttons %}
+                  <p>Button {{ forloop.counter }} Label: {{ button.label }}</p>
+                  <p>Button {{ forloop.counter }} Link: {{ button.link_url }}</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endwith %}
+    {% endfor %}
+  </div>
+{% endblock %}
