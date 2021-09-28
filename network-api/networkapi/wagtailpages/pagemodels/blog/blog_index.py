@@ -60,7 +60,6 @@ class BlogIndexPage(IndexPage):
         )
     ]
 
-    # Empty translatable fields
     translatable_fields = IndexPage.translatable_fields + [
         SynchronizedField('featured_pages'),
     ]
