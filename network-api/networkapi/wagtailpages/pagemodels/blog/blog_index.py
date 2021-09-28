@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route
 from wagtail.core.models import Orderable as WagtailOrderable, Locale
+from wagtail_localize.fields import SynchronizedField
 
 from modelcluster.fields import ParentalKey
 from networkapi.wagtailpages.utils import titlecase, get_locale_from_request
@@ -60,7 +61,9 @@ class BlogIndexPage(IndexPage):
     ]
 
     # Empty translatable fields
-    translatable_fields = IndexPage.translatable_fields
+    translatable_fields = IndexPage.translatable_fields + [
+        SynchronizedField('featured_pages'),
+    ]
 
     template = 'wagtailpages/blog_index_page.html'
 
