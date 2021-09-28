@@ -90,7 +90,7 @@ class Command(BaseCommand):
             heroku_domain = app.add_domain(domain)
             mapping[domain] = heroku_domain.cname
 
-        has_acm = any(domain.acm_status for domain in app.domains().values())
+        has_acm = any(domain.acm_status for domain in app.domains())
         if not has_acm:
             app._h._http_resource(
                 method="POST", resource=("apps", app.id, "acm")
