@@ -790,6 +790,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('price'),
         SynchronizedField('image'),
         TranslatableField('worst_case'),
+        SynchronizedField('product_categories'),
         SynchronizedField('signup_requires_email'),
         SynchronizedField('signup_requires_phone'),
         SynchronizedField('signup_requires_third_party_account'),
@@ -799,6 +800,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('data_collection_policy_is_bad'),
         SynchronizedField('user_friendly_privacy_policy'),
         TranslatableField('user_friendly_privacy_policy_helptext'),
+        SynchronizedField('privacy_policy_links'),
         SynchronizedField('show_ding_for_minimum_security_standards'),
         SynchronizedField('meets_minimum_security_standards'),
         SynchronizedField('uses_encryption'),
@@ -815,6 +817,8 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('live_chat'),
         SynchronizedField('email'),
         SynchronizedField('twitter'),
+        SynchronizedField('updates'),
+        SynchronizedField('related_product_pages'),
     ]
 
     @property
@@ -1408,6 +1412,7 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         TranslatableField('header'),
         TranslatableField('intro_text'),
         SynchronizedField('dark_theme'),
+        SynchronizedField('excluded_categories'),
         # Promote tab fields
         TranslatableField('seo_title'),
         TranslatableField('search_description'),
