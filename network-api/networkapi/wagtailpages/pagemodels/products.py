@@ -1108,19 +1108,6 @@ class GeneralProductPage(ProductPage):
     uses_ai = ExtendedYesNoField(
         help_text='Does the product use AI?'
     )
-
-    ai_uses_personal_data = ExtendedYesNoField(
-        help_text='Does the AI use your personal data to make decisions about you?'
-    )
-
-    ai_is_transparent = ExtendedYesNoField(
-        help_text='Does the company allow users to see how the AI works?'
-    )
-    ai_is_transparent_helptext = models.TextField(
-        max_length=5000,
-        blank=True,
-        help_text='Helptext that will appear in the AI is transparent section.',
-    )
     ai_helptext = models.TextField(
         max_length=5000,
         blank=True,
@@ -1142,6 +1129,14 @@ class GeneralProductPage(ProductPage):
         blank=True,
         help_text='What kind of decisions does this AI make about you or for you?'
     )
+    ai_is_transparent = ExtendedYesNoField(
+        help_text='Does the company allow users to see how the AI works?'
+    )
+    ai_is_transparent_helptext = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Helptext that will appear in the AI is transparent section.',
+    )
     ai_can_user_control = ExtendedYesNoField(
         help_text='Does the user have control over the AI features?'
     )
@@ -1149,6 +1144,9 @@ class GeneralProductPage(ProductPage):
         max_length=5000,
         blank=True,
         help_text='Helptext that will appear in the can user control section.',
+    )
+    ai_uses_personal_data = ExtendedYesNoField(
+        help_text='Does the AI use your personal data to make decisions about you?'
     )
 
     @classmethod
@@ -1298,15 +1296,16 @@ class GeneralProductPage(ProductPage):
                 [
                     FieldPanel('uses_ai'),
                     FieldPanel('ai_helptext'),
-                    FieldPanel('ai_uses_personal_data'),
-                    FieldPanel('ai_is_transparent'),
-                    FieldPanel('ai_is_transparent_helptext'),
                     FieldPanel('ai_is_untrustworthy'),
                     FieldPanel('ai_is_untrustworthy_helptext'),
                     FieldPanel('ai_is_untrustworthy_ding'),
                     FieldPanel('ai_what_can_it_do'),
+                    FieldPanel('ai_is_transparent'),
+                    FieldPanel('ai_is_transparent_helptext'),
                     FieldPanel('ai_can_user_control'),
                     FieldPanel('ai_can_user_control_helptext'),
+                    FieldPanel('ai_uses_personal_data'),
+
                 ],
                 heading='Artificial Intelligence',
                 classname='collapsible'
