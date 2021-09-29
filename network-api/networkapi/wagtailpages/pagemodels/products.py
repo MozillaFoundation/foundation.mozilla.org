@@ -355,8 +355,9 @@ class ProductUpdates(TranslatableMixin, Orderable):
         SnippetChooserPanel('update'),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = 'Product Update'
+        ordering = ['sort_order']
 
 
 class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
