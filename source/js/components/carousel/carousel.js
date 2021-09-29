@@ -20,7 +20,7 @@ class Carousel {
         enabled: true,
       },
       pagination: {
-        el: ".swiper-navigation",
+        el: ".swiper-pagination",
         clickable: true,
       },
       navigation: {

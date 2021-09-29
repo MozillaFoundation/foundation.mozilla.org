@@ -1,6 +1,6 @@
-import Swiper, {A11y, Autoplay, Pagination, Navigation} from 'swiper';
+import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard} from 'swiper';
 
-Swiper.use([A11y, Autoplay, Pagination, Navigation]);
+Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard]);
 
 class MozfestHeroCarousel {
   static selector() {
@@ -9,46 +9,38 @@ class MozfestHeroCarousel {
 
   constructor(node) {
     this.node = node;
-    this.backgroundImages = this.node.querySelector(
-      "[data-background-images-carousel]"
-    );
+    this.delay = 10000;
 
     // This slideshow autoplays in the background and cannot be manipulated
-    this.backGroundImagesSwiper = new Swiper(this.backgroundImages, {
-      // allowTouchMove: false,
-      disableOnInteraction: false,
+    this.backGroundImagesSwiper = new Swiper(".swiper-hero-carousel", {
       loop: true,
+      watchSlidesProgress: true,
       autoplay: {
-        delay: 5000,
+        delay: this.delay,
+      },
+      paginationClickable: true,
+      keyboard: {
+        enabled: true,
+      },
+      pagination: {
+        el: ".swiper-hero-pagination",
+        clickable: true,
       },
     });
 
-    // this.swiper = new Swiper(this.node, {
-    //   spaceBetween: 20,
-    //   watchOverflow: true,
-    //   // autoHeight: true,
-    //   centeredSlides: false,
-    //   simulateTouch: true,
-    //   slidesPerView: 1,
-    //   keyboard: {
-    //     enabled: true,
-    //   },
-    //   pagination: {
-    //     el: ".swiper-navigation",
-    //     clickable: true,
-    //   },
-    //   navigation: {
-    //     nextEl: ".swiper-button-next",
-    //     prevEl: ".swiper-button-prev",
-    //   },
-    //   // Responsive breakpoints
-    //   breakpoints: {
-    //     768: {
-    //       slidesPerView: 2,
-    //       spaceBetween: 25,
-    //     },
-    //   },
-    // });
+    this.heroTextMobile = new Swiper(".swiper-hero-mobile", {
+      allowTouchMove: false,
+      loop: true,
+      keyboard: {
+        enabled: true,
+      },
+      autoplay: {
+        delay: this.delay,
+      },
+      slidesPerView: 1,
+      centeredSlides: true,
+      spaceBetween: 30,
+    });
 
     this.slideTotal = this.node.dataset.slidetotal;
   }
