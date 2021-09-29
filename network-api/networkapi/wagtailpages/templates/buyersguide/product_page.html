@@ -262,10 +262,9 @@
           </section>
         {% endif %}
 
-                  {% if product.updates.count > 0 %}
-          <h3 class="h2-heading mb-4 mb-md-5">{% trans "News" %}</h3>
-          {% endif %}
-          {% if product.updates.count > 0 %}
+        {% if product.updates.count > 0 %}
+          <hr class="pni-section-divider"/>
+          <h3 class="h2-heading mb-3">{% trans "News" %}</h3>
           <div class="mb-5">
             {% for item in product.updates.all %}
             {% with update=item.update %}
@@ -277,8 +276,9 @@
             {% endwith %}
             {% endfor %}
           </div>
-          {% endif %}
-
+        {% endif %}
+        
+          <hr class="pni-section-divider"/>
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
             {% for related_product_page in product.related_product_pages.all %}
