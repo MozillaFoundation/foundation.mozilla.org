@@ -41,7 +41,11 @@
                     {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
                   </a>
                   {% else %}
-                    {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
+                    {% with grandchild=child_page.grandchildren.first %}
+                      <a href="{% if child.specific.intro_notes or child.specific.notes or child.specific.contents_title %}{{ child.url }}{% else %}{{grandchild.url}}{% endif %}" class="d-block mb-4">
+                        {{ child.title }} {% if child.has_unpublished_changes %}🐣{% endif %}
+                      </a>
+                    {% endwith %}
                   {% endif %}
                 </h3>
                 {% for ancestor in child_page.grandchildren %}
