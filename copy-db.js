@@ -71,10 +71,11 @@ run(
     `docker exec foundation_backend_1`,
     `./dockerpythonvenv/bin/python network-api/manage.py shell -c`,
     `"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')"`,
-  ].join(` `)
-),
+  ].join(` `),
   true,
-  silent;
+  silent
+);
+
 
 console.log(`Stopping docker images...`);
 run(`docker-compose down`, true, silent);
