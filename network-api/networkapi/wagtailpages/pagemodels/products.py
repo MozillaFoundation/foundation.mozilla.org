@@ -778,7 +778,6 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         SynchronizedField('search_image'),
         # Content tab fields
         TranslatableField('title'),
-        TranslatableField('search_description'),
         SynchronizedField('privacy_ding'),
         SynchronizedField('adult_content'),
         SynchronizedField('uses_wifi'),
