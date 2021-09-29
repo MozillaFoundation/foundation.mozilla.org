@@ -113,10 +113,12 @@ Use `invoke npm update`.
 
 Requirements:
 
-- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 - Heroku Account with membership on the Mozilla team (ask in #mofo-engineering on Slack)
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) - remember to run `heroku login` after installation finishes.
 
 You can copy the staging database using `inv copy-stage-db`, or the production database using `inv copy-prod-db`.
+
+**Note** that this script requires that docker is not already ready running, as this script requires exclusive database access. You can ensure that this is the case by running `docker-compose down` twice in the repo's root directory. The first time should show all running containers getting shut down, the second should confirm that there is nothing to take down anymore.
 
 For more control, you can also manually invoke `node copy-db.js`, which has the following behavior:
 
