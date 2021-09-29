@@ -134,6 +134,7 @@ class PublicationPage(FoundationMetadataPageMixin, Page):
         SynchronizedField('hero_image'),
         SynchronizedField('publication_date'),
         SynchronizedField('publication_file'),
+        SynchronizedField('authors'),
         TranslatableField('additional_author_copy'),
         TranslatableField('intro_notes'),
         TranslatableField('contents_title'),

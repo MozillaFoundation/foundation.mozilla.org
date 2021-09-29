@@ -190,6 +190,11 @@ class BlogPage(FoundationMetadataPageMixin, Page):
         # Content tab fields
         TranslatableField('body'),
         TranslatableField('title'),
+        SynchronizedField('authors'),
+        SynchronizedField('hero_video'),
+        SynchronizedField('hero_image'),
+        SynchronizedField('related_posts'),
+        SynchronizedField('first_published_at'),
     ]
 
     subpage_types = [
