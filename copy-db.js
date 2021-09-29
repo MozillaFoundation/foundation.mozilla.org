@@ -76,7 +76,6 @@ run(
   silent
 );
 
-
 console.log(`Stopping docker images...`);
 run(`docker-compose down`, true, silent);
 
