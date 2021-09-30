@@ -41,6 +41,10 @@ function docker(cmd, ignoreThrows = false) {
   return run(cmd, ignoreThrows);
 }
 
+console.log(`Making sure no docker containers are running...`);
+run(`docker-compose down`, true, silent);
+run(`docker-compose down`, true, silent);
+
 console.log(`Starting postgres docker image...`);
 run(`docker-compose up -d postgres`, true, silent);
 
