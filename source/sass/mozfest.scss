@@ -1,6 +1,12 @@
 // MozFest-specific styling
 // https://www.mozillafestival.org
 
+// Mozfest Carousel Modules
+@import "../../node_modules/swiper/swiper-vars.scss";
+@import "../../node_modules/swiper/swiper.scss";
+@import "../../node_modules/swiper/components/pagination/pagination.scss";
+@import "../../node_modules/swiper/components/effect-fade/effect-fade.scss";
+
 body.mozfest {
   .primary-nav-container {
     // The following overrides are to make sure

@@ -36,8 +36,7 @@
   margin-right: 20px;
 }
 
-
-@keyframes slide-progress {
+@keyframes slide-progress-bar {
   0% {
     transform: translateX(-100%);
   }
@@ -54,14 +53,9 @@
       height: 4px;
 
       &::before {
+        @apply tw-block tw-inset-0 tw-absolute;
         background: rgba(255, 255, 255, 1);
         content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
       }
     }
 
@@ -69,7 +63,7 @@
       background: rgba(255, 255, 255, 0.2);
 
       &::before {
-        animation: slide-progress 10s ease-in-out forwards;
+        animation: slide-progress-bar 10s ease-in-out forwards;
       }
     }
   }
@@ -80,21 +74,16 @@
     background: rgba(255, 255, 255, 0.5);
 
     &::before {
+      @apply tw-block tw-inset-0 tw-absolute;
       background: rgba(255, 255, 255, 1);
       content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
     }
   }
 
   .swiper-slide-active {
     .swiper-mobile-progress-bar {
       &::before {
-        animation: slide-progress 10s ease-in-out forwards;
+        animation: slide-progress-bar 10s ease-in-out forwards;
       }
     }
   }

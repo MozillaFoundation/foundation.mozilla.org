@@ -1,6 +1,6 @@
-import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard} from 'swiper';
+import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard, EffectFade} from 'swiper';
 
-Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard]);
+Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard, EffectFade]);
 
 class MozfestHeroCarousel {
   static selector() {
@@ -11,8 +11,12 @@ class MozfestHeroCarousel {
     this.node = node;
     this.delay = 10000;
 
+    // Initialize Carousels
     this.initBackgroundImageCarousel()
     this.initMobileTexCarousel()
+
+    // Link transitions
+    this.linkSlideChanges()
   }
 
   initBackgroundImageCarousel() {
@@ -39,7 +43,7 @@ class MozfestHeroCarousel {
 
   initMobileTexCarousel() {
     this.heroTextMobile = new Swiper(".swiper-hero-mobile", {
-      allowTouchMove: false,
+      allowTouchMove: true,
       loop: true,
       keyboard: {
         enabled: true,
@@ -51,6 +55,18 @@ class MozfestHeroCarousel {
       centeredSlides: true,
       spaceBetween: 30,
     });
+  }
+
+  // Ensure that the background image slider stays in sync with the mobile one
+  linkSlideChanges() {
+    this.heroTextMobile.on('slideChange', (event) => {
+      if (event.swipeDirection === "next") {
+        this.backGroundImagesSwiper.slideNext()
+      }
+      if (event.swipeDirection === "prev") {
+        this.backGroundImagesSwiper.slidePrev()
+      }
+    })
   }
 }
 

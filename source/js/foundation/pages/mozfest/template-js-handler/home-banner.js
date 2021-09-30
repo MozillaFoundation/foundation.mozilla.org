@@ -8,7 +8,7 @@ const watchYoutubeVideoHandler = () => {
 
   if (watchVideoButton) {
     watchVideoButton.addEventListener(`click`, () => {
-      // trackWatchVideoClicks()
+      trackWatchVideoClicks()
 
       const videoUrl = watchVideoButton.dataset.videoUrl;
 
@@ -16,6 +16,7 @@ const watchYoutubeVideoHandler = () => {
         // Add Src to video to play it
         video.setAttribute('src', videoUrl)
 
+        // Fade out overlay
         watchVideoButton.classList.add('tw-opacity-0');
 
         // After fading out remove from DOM Flow
@@ -29,13 +30,13 @@ const watchYoutubeVideoHandler = () => {
 };
 
 // Track video watches in google analytics
-// const trackWatchVideoClicks = () => {
-//   ReactGA.event({
-//     category: `CTA`,
-//     action: `watch video tap`,
-//     label: `watch video button tap`,
-//   });
-// }
+const trackWatchVideoClicks = () => {
+  ReactGA.event({
+    category: `CTA`,
+    action: `watch video tap`,
+    label: `watch video button tap`,
+  });
+}
 
 
 /**
