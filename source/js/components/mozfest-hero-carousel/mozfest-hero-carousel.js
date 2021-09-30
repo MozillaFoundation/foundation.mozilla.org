@@ -11,23 +11,33 @@ class MozfestHeroCarousel {
     this.node = node;
     this.delay = 10000;
 
-    // This slideshow autoplays in the background and cannot be manipulated
+    this.initBackgroundImageCarousel()
+    this.initMobileTexCarousel()
+  }
+
+  initBackgroundImageCarousel() {
     this.backGroundImagesSwiper = new Swiper(".swiper-hero-carousel", {
       loop: true,
       watchSlidesProgress: true,
       autoplay: {
         delay: this.delay,
       },
-      paginationClickable: true,
+      paginationClickable: false,
       keyboard: {
         enabled: true,
       },
       pagination: {
         el: ".swiper-hero-pagination",
-        clickable: true,
+        clickable: false,
+      },
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: false
       },
     });
+  }
 
+  initMobileTexCarousel() {
     this.heroTextMobile = new Swiper(".swiper-hero-mobile", {
       allowTouchMove: false,
       loop: true,
@@ -41,8 +51,6 @@ class MozfestHeroCarousel {
       centeredSlides: true,
       spaceBetween: 30,
     });
-
-    this.slideTotal = this.node.dataset.slidetotal;
   }
 }
 

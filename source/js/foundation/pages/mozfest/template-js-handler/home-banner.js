@@ -1,73 +1,46 @@
-import { ReactGA } from "../../../../common";
+import {ReactGA} from "../../../../common";
 
-const watchVideoButtonHandler = () => {
-  let homeWatchVideoButton = document.querySelector(
-    `#mozfest-home-watch-video-button`
+const watchYoutubeVideoHandler = () => {
+  const watchVideoButton = document.querySelector(
+      `#mozfest-home-watch-video-button`
   );
+  const video = document.querySelector('#mozfest-hero-video-iframe');
 
-  if (homeWatchVideoButton) {
-    homeWatchVideoButton.addEventListener(`click`, () => {
-      ReactGA.event({
-        category: `CTA`,
-        action: `watch video tap`,
-        label: `watch video button tap`,
-      });
+  if (watchVideoButton) {
+    watchVideoButton.addEventListener(`click`, () => {
+      // trackWatchVideoClicks()
+
+      const videoUrl = watchVideoButton.dataset.videoUrl;
+
+      if (videoUrl) {
+        // Add Src to video to play it
+        video.setAttribute('src', videoUrl)
+
+        watchVideoButton.classList.add('tw-opacity-0');
+
+        // After fading out remove from DOM Flow
+        setTimeout(() => {
+          watchVideoButton.classList.add('tw-hidden')
+        }, 500)
+      }
+
     });
   }
 };
 
-const backgroundVideoHandler = () => {
-  let homepageBanner = document.querySelector(
-    "#view-mozfest-home #hero .banner"
-  );
+// Track video watches in google analytics
+// const trackWatchVideoClicks = () => {
+//   ReactGA.event({
+//     category: `CTA`,
+//     action: `watch video tap`,
+//     label: `watch video button tap`,
+//   });
+// }
 
-  if (!homepageBanner) {
-    return;
-  }
-
-  let video = homepageBanner.querySelector("video.banner-video");
-  let pauseButton = homepageBanner.querySelector(
-    ".btn-video-control.btn-pause"
-  );
-  let playButton = homepageBanner.querySelector(".btn-video-control.btn-play");
-
-  if (video && pauseButton && playButton) {
-    const HIDE = `d-none`;
-
-    const showPauseButton = () => {
-      playButton.classList.add(HIDE);
-      pauseButton.classList.remove(HIDE);
-    };
-
-    const showPlayButton = () => {
-      pauseButton.classList.add(HIDE);
-      playButton.classList.remove(HIDE);
-    };
-
-    pauseButton.addEventListener(`click`, () => {
-      video.pause();
-    });
-
-    playButton.addEventListener(`click`, () => {
-      video.play();
-    });
-
-    video.addEventListener(`pause`, () => {
-      showPlayButton();
-    });
-
-    video.addEventListener(`playing`, () => {
-      showPauseButton();
-    });
-
-    video.play();
-  }
-};
 
 /**
  * Bind handlers to MozFest homepage banner
  */
 export default () => {
-  watchVideoButtonHandler();
-  backgroundVideoHandler();
+  watchYoutubeVideoHandler();
 };

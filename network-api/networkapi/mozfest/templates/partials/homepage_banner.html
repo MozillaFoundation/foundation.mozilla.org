@@ -1,41 +1,63 @@
-{% load i18n wagtailimages_tags %}
+{% load i18n %}
+<div data-mozfest-hero-carousel>
+    <div class="tw-relative tw-pt-[120px] tw-flex tw-flex-col tw-justify-end{% if not page.banner_video_url %} tw-pb-6 medium:tw-pb-[120px]{% endif %}">
 
-<div class="homepage-banner-content container">
-  <div class="row">
-    <div class="col-10 col-lg-8 dark-theme">
-      <h1 class="h1-heading">{{ page.banner_heading }}</h1>
-      {% if banner_video_type == "featured" %}
-        {% if page.banner_video %}
-        {# TODO Scroll to banner_video #}
-        <button class="btn btn-primary" id="mozfest-home-watch-video-button">{% trans "Watch last year’s recap video" %}</button>
-        {% endif %}
-        {% if page.banner_carousel %}
-        <ul>
-        {% for slide_block in page.specific.banner_carousel %}
-          {% with slide=slide_block.value %}
-          <li>
-            {% comment %}
-            {# Prints an image as <img src={url} width={original_width} height={original_height}> alt={alt_text} #}
-            {% image slide.image original %}
-            {% endcomment %}
+      {# Background images slider #}
+      <div class="tw-absolute tw-inset-0">
+        <div class="tw-absolute tw-inset-0 tw-bg-black tw-z-20 tw-opacity-40"></div>
+        <div class="tw-bg-gradient-to-t tw-from-festival-blue-100 tw-via-festival-blue-100 tw-to-festival-purple-100 tw-w-full tw-h-full tw-absolute tw-inset-0 tw-z-10 tw-opacity-75"></div>
+      </div>
 
-            {# Gets info for an image resized to 200 x 100 #}
-            {% image slide.image fill-200x100 as img %}
-            <img src={{ img.url }} width={{ img.width }} height={{ img.height }} alt={{ img.alt }}>
+      {# Background Images slider #}
+      <div class="tw-absolute tw-w-full tw-h-full tw-top-0 tw-left-0">
+        <div class="swiper-hero-carousel tw-h-full tw-overflow-hidden">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url('https://source.unsplash.com/random/1600x900/?nature,water');"></div>
+            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url('https://source.unsplash.com/random/1600x900/?fun,people');"></div>
+            <div class="swiper-slide tw-bg-cover tw-bg-center tw-bg-no-repeat tw-filter tw-grayscale" style="background-image: url('https://source.unsplash.com/random/1600x900/?event,speaking');"></div>
+          </div>
+        </div>
+      </div>
 
-            <h2>Heading: {{ slide.heading }}</h2>
-            <p>Description: {{ slide.description }}</p>
-          </li>
-          {% endwith %}
-        {% endfor %}
-        </ul>
-        {% endif %}
-      {% elif banner_video_type != "hardcoded" %}
-        <p class="body-large">{{ page.banner_guide_text }}</p>
-        {% if page.banner_video_url %}
-        <a class="btn btn-primary" href="{{ page.banner_video_url }}" target="_blank" id="mozfest-home-watch-video-button">{% trans "Watch Video" %}</a>
-        {% endif %}
+      {# Text slider #}
+      <div class="tw-container tw-relative tw-z-20 tw-text-white">
+        <div>
+          <h1 class="tw-text-white tw-font-bold tw-mb-5">{{ page.banner_heading }}</h1>
+          {# TODO: Add BE varaiables for this button #}
+          <a href="#" class="btn btn-primary tw-bg-white tw-text-black hover:tw-bg-gray-05">Watch last years recap video</a>
+        </div>
+
+        <div class="tw-relative tw-pt-[60px] medium:tw-pt-[100px]  tw-hidden medium:tw-block">
+
+          {# pagination progress bars on desktop #}
+          <div class="swiper-hero-pagination tw-bottom-3 tw-relative tw-z-40 tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4"></div>
+
+          {# Text #}
+          <div class="tw-grid tw-grid-cols-3 tw-gap-3 medium:tw-gap-4">
+            <div>
+              <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">Immersive sessions</span>
+              <p class="tw-text-white">We’ve gathered some of the best speakers in the business to share their experiences.</p>
+            </div>
+            <div>
+              <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">Immersive sessions</span>
+              <p class="tw-text-white">We’ve gathered some of the best speakers in the business to share their experiences.</p>
+            </div>
+            <div>
+              <span class="tw-font-zilla tw-font-bold tw-inline-block h4-heading tw-text-white">Immersive sessions</span>
+              <p class="tw-text-white">We’ve gathered some of the best speakers in the business to share their experiences.</p>
+            </div>
+          </div>
+        </div>
+
+        {# mobile slider #}
+        {% include 'fragments/hero/hero_mobile_slider.html' with items=page.hero_slides %}
+      </div>
+
+      {# Video block #}
+      {% if page.banner_video_url %}
+        {% include 'fragments/hero/hero_video.html' with video=page.banner_video_url video_thumbnail=page.video_thumbnail %}
       {% endif %}
+
     </div>
+
   </div>
-</div>

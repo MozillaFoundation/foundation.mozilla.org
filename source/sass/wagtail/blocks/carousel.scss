@@ -36,6 +36,7 @@
   margin-right: 20px;
 }
 
+
 @keyframes slide-progress {
   0% {
     transform: translateX(-100%);
@@ -46,10 +47,37 @@
   }
 }
 
-.swiper-hero-pagination {
-  .swiper-pagination-bullet {
-    @apply tw-block tw-w-full tw-rounded-full tw-overflow-hidden tw-relative tw-bg-white;
+#view-mozfest-home {
+  .swiper-hero-pagination {
+    .swiper-pagination-bullet {
+      @apply tw-block tw-w-full tw-rounded-full tw-overflow-hidden tw-relative tw-bg-white;
+      height: 4px;
+
+      &::before {
+        background: rgba(255, 255, 255, 1);
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .swiper-pagination-bullet-active {
+      background: rgba(255, 255, 255, 0.2);
+
+      &::before {
+        animation: slide-progress 10s ease-in-out forwards;
+      }
+    }
+  }
+
+  .swiper-mobile-progress-bar {
+    @apply tw-rounded-full tw-relative tw-overflow-hidden tw-w-full;
     height: 4px;
+    background: rgba(255, 255, 255, 0.5);
 
     &::before {
       background: rgba(255, 255, 255, 1);
@@ -63,36 +91,12 @@
     }
   }
 
-  .swiper-pagination-bullet-active {
-    background: rgba(255, 255, 255, 0.2);
-
-    &::before {
-      animation: slide-progress 10s ease-in-out forwards;
+  .swiper-slide-active {
+    .swiper-mobile-progress-bar {
+      &::before {
+        animation: slide-progress 10s ease-in-out forwards;
+      }
     }
   }
 }
 
-.swiper-mobile-progress-bar {
-  @apply tw-rounded-full tw-relative tw-overflow-hidden tw-w-full;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.5);
-
-  &::before {
-    background: rgba(255, 255, 255, 1);
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-}
-
-.swiper-slide-active {
-  .swiper-mobile-progress-bar {
-    &::before {
-      animation: slide-progress 10s ease-in-out forwards;
-    }
-  }
-}
