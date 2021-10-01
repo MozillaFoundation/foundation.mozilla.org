@@ -637,6 +637,14 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         return average
 
     @property
+    def most_voted_rating(self):
+        votes = self.votes.get_votes()
+        vote_breakdown = {k: v for (k, v) in enumerate(votes)}
+        most_voted_key = max(vote_breakdown, key=vote_breakdown.get)
+
+        return most_voted_key
+
+    @property
     def get_voting_json(self):
         """
         Return a dictionary as a string with the relevant data needed for the frontend:

@@ -1,0 +1,19 @@
+{% load i18n localization %}
+
+{% comment %}
+
+{% endcomment %}
+
+    <a class="body-small" href="#creepiness-vote"> {% trans "People voted" context "This string is followed by the creepiness that most people voted, as well as the percentage of people that voted for that ranking" %} </a>  
+    <span class="body-small pl-1"> {{ people_voted|floatformat:"0" }}%</span>
+    {% if most_voted_rating == 4 %}
+        <span class="body-small pl-1 people-voted super-creepy"> {% trans "super creepy" %}</span>
+    {% elif most_voted_rating == 3 %}
+        <span class="body-small pl-1 people-voted very-creepy"> {% trans "very creepy" %}</span>
+    {% elif most_voted_rating == 2 %}
+        <span class="body-small pl-1 people-voted somewhat-creepy"> {% trans "somewhat creepy" %}</span>
+    {% elif most_voted_rating == 1 %}
+        <span class="body-small pl-1 people-voted a-little-creepy"> {% trans "a little creepy" %}</span>
+    {% elif most_voted_rating == 0 %}
+        <span class="body-small pl-1 people-voted not-creepy"> {% trans "not creepy" %}</span>        
+    {% endif %}

@@ -19,5 +19,9 @@
     <div class="d-flex xsmall:tw-pr-2 large:tw-px-2">
       <p class="body-small mozilla-says {% if mozilla_says %} thumb-up {% elif mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
     </div>
+    <span class="body-small xsmall:tw-hidden medium:tw-inline"> | </span>
+    <div class="d-flex medium:tw-pl-2 pr-0 ">
+    {% include "fragments/most_voted_rating.html" with most_voted_rating=product.most_voted_rating people_voted=product.creepiness%}
+    </div>
   </div>
 </div>

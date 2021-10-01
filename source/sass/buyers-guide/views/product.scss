@@ -209,20 +209,9 @@
     }
   }
 
-  .mozilla-researched {
-    &::after {
-      content: " ";
-      display: inline-block;
-      width: 1.5em;
-      height: 1.5em;
-      margin-left: 4px;
-      position: relative;
-      vertical-align: middle;
-      background: url(../_images/buyers-guide/info-circle.svg) no-repeat;
-    }
-  }
-
-  .mozilla-says {
+  .mozilla-researched,
+  .mozilla-says,
+  .people-voted {
     &::after {
       content: " ";
       display: inline-block;
@@ -234,6 +223,9 @@
     }
   }
 
+  .mozilla-researched::after {
+    background: url(../_images/buyers-guide/info-circle.svg) no-repeat;
+  }
   .thumb-down::after {
     background: url(../_images/buyers-guide/mozilla-says/thumb-down.svg)
       no-repeat;
@@ -243,6 +235,25 @@
   }
   .thumb-side::after {
     background: url(../_images/buyers-guide/mozilla-says/thumb-side.svg)
+      no-repeat;
+  }
+  .not-creepy::after {
+    background: url(../_images/buyers-guide/faces/not-creepy-face.svg) no-repeat;
+  }
+  .a-little-creepy::after {
+    background: url(../_images/buyers-guide/faces/a-little-creepy-face.svg)
+      no-repeat;
+  }
+  .somewhat-creepy::after {
+    background: url(../_images/buyers-guide/faces/somewhat-creepy-face.svg)
+      no-repeat;
+  }
+  .very-creepy::after {
+    background: url(../_images/buyers-guide/faces/very-creepy-face.svg)
+      no-repeat;
+  }
+  .super-creepy::after {
+    background: url(../_images/buyers-guide/faces/super-creepy-face.svg)
       no-repeat;
   }
 }
