@@ -355,8 +355,9 @@ class ProductUpdates(TranslatableMixin, Orderable):
         SnippetChooserPanel('update'),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = 'Product Update'
+        ordering = ['sort_order']
 
 
 class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
@@ -1118,24 +1119,18 @@ class GeneralProductPage(ProductPage):
     uses_ai = ExtendedYesNoField(
         help_text='Does the product use AI?'
     )
-
-    ai_uses_personal_data = ExtendedYesNoField(
-        help_text='Does the AI use your personal data to make decisions about you?'
-    )
-
-    ai_is_transparent = ExtendedYesNoField(
-        help_text='Does the company allow users to see how the AI works?'
-    )
-
     ai_helptext = models.TextField(
         max_length=5000,
         blank=True,
         help_text='Helpful text around AI to show on the product page',
     )
-    ai_is_untrustworthy = models.BooleanField(
-        null=True,
+    ai_is_untrustworthy = ExtendedYesNoField(
+        help_text='Is the AI untrustworthy?'
+    )
+    ai_is_untrustworthy_helptext = models.TextField(
+        max_length=5000,
         blank=True,
-        help_text='Is the AI untrustworthy?',
+        help_text='Helptext that will appear in the AI is untrustworthy section.',
     )
     ai_is_untrustworthy_ding = models.BooleanField(
         help_text='Tick this box if the AI invades privacy or behaves unethically.',
@@ -1144,6 +1139,25 @@ class GeneralProductPage(ProductPage):
     ai_what_can_it_do = RichTextField(
         blank=True,
         help_text='What kind of decisions does this AI make about you or for you?'
+    )
+    ai_is_transparent = ExtendedYesNoField(
+        help_text='Does the company allow users to see how the AI works?'
+    )
+    ai_is_transparent_helptext = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Helptext that will appear in the AI is transparent section.',
+    )
+    ai_can_user_control = ExtendedYesNoField(
+        help_text='Does the user have control over the AI features?'
+    )
+    ai_can_user_control_helptext = models.TextField(
+        max_length=5000,
+        blank=True,
+        help_text='Helptext that will appear in the can user control section.',
+    )
+    ai_uses_personal_data = ExtendedYesNoField(
+        help_text='Does the AI use your personal data to make decisions about you?'
     )
 
     @classmethod
@@ -1168,9 +1182,13 @@ class GeneralProductPage(ProductPage):
             "AI uses personal data": "ai_uses_personal_data",
             "AI help text": "ai_helptext",
             "AI is transparent": "ai_is_transparent",
+            "AI is transparent help text": "ai_is_transparent_helptext",
             "AI is untrustworthy": "ai_is_untrustworthy",
+            "AI is untrustworthy help text": "ai_is_untrustworthy_helptext",
             "AI is untrustworthy ding": "ai_is_untrustworthy_ding",
             "AI What can it do": "ai_what_can_it_do",
+            "AI can user control": "ai_can_user_control",
+            "AI can user control help text": "ai_can_user_control_helptext",
         }
         # Return the merged fields
         return {**generic_product_import_fields, **general_product_mappings}
@@ -1198,11 +1216,15 @@ class GeneralProductPage(ProductPage):
             "Offline use": self.offline_use_description,
             "Uses AI": self.uses_ai,
             "AI uses personal data": self.ai_uses_personal_data,
-            "AI is transparent": self.ai_uses_personal_data,
+            "AI is transparent": self.ai_is_transparent,
+            "AI is transparent help text": self.ai_is_transparent_helptext,
             "AI help text": self.ai_helptext,
             "AI is untrustworthy": self.ai_is_untrustworthy,
+            "AI is untrustworthy help text": self.ai_is_untrustworthy_helptext,
             "AI is untrustworthy ding": self.ai_is_untrustworthy_ding,
             "AI What can it do": self.ai_what_can_it_do,
+            "AI can user control": self.ai_can_user_control,
+            "AI can user control help text": self.ai_can_user_control_helptext,
         }
         # Merge the two dicts together.
         data = {**generic_product_data, **general_product_data}
@@ -1284,12 +1306,17 @@ class GeneralProductPage(ProductPage):
             MultiFieldPanel(
                 [
                     FieldPanel('uses_ai'),
-                    FieldPanel('ai_uses_personal_data'),
-                    FieldPanel('ai_is_transparent'),
                     FieldPanel('ai_helptext'),
                     FieldPanel('ai_is_untrustworthy'),
+                    FieldPanel('ai_is_untrustworthy_helptext'),
                     FieldPanel('ai_is_untrustworthy_ding'),
                     FieldPanel('ai_what_can_it_do'),
+                    FieldPanel('ai_is_transparent'),
+                    FieldPanel('ai_is_transparent_helptext'),
+                    FieldPanel('ai_can_user_control'),
+                    FieldPanel('ai_can_user_control_helptext'),
+                    FieldPanel('ai_uses_personal_data'),
+
                 ],
                 heading='Artificial Intelligence',
                 classname='collapsible'
@@ -1311,10 +1338,14 @@ class GeneralProductPage(ProductPage):
         SynchronizedField('uses_ai'),
         SynchronizedField('ai_uses_personal_data'),
         SynchronizedField('ai_is_transparent'),
+        TranslatableField('ai_is_transparent_helptext'),
         TranslatableField('ai_helptext'),
         SynchronizedField('ai_is_untrustworthy'),
+        TranslatableField('ai_is_untrustworthy_helptext'),
         SynchronizedField('ai_is_untrustworthy_ding'),
         TranslatableField('ai_what_can_it_do'),
+        SynchronizedField('ai_can_user_control'),
+        TranslatableField('ai_can_user_control_helptext'),
     ]
 
     @property
@@ -1540,7 +1571,8 @@ class BuyersGuidePage(RoutablePageMixin, FoundationMetadataPageMixin, Page):
         context['category'] = slug
         context['current_category'] = category
         context['products'] = products
-        context['pageTitle'] = f'{gettext(category.name)} | {gettext("Privacy & security guide")} | Mozilla Foundation'
+        context['pageTitle'] = f'{category.localized.name} | {gettext("Privacy & security guide")}'\
+                               f' | Mozilla Foundation'
         context['template_cache_key_fragment'] = f'{category.slug}_{request.LANGUAGE_CODE}'
 
         return render(request, "buyersguide/category_page.html", context)
