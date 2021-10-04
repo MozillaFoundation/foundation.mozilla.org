@@ -186,6 +186,18 @@ def npm_install(ctx):
         ctx.run("docker-compose run --rm watch-static-files npm install")
 
 
+@task(aliases=["copy-stage-db"])
+def copy_staging_database(ctx):
+    with ctx.cd(ROOT):
+        ctx.run("node copy-db.js")
+
+
+@task(aliases=["copy-prod-db"])
+def copy_production_database(ctx):
+    with ctx.cd(ROOT):
+        ctx.run("node copy-db.js --prod")
+
+
 # Django shorthands
 @task(aliases=["docker-manage"])
 def manage(ctx, command):
