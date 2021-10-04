@@ -11,11 +11,13 @@
     </div>
     <span class="body-small xsmall:tw-hidden medium:tw-inline"> | </span>
     <div class="mozilla-researched d-flex pb-2 tw-flex-2 medium:tw-px-2 ">
-      {% blocktrans count count=time_researched with link_attrs='class="body-small time-researched" href="/privacynotincluded/about/methodology"' span_attrs='class="body-small pl-1"' trimmed %}
-        <a {{ link_attrs }}>Mozilla researched</a> <span {{ span_attrs }}>{{ time_researched }} hour</span>
-      {% plural %}
-        <a {{ link_attrs }}>Mozilla researched</a> <span {{ span_attrs }}>{{ time_researched }} hours</span>
-      {% endblocktrans %}
+      <span class="body-small">
+        {% blocktrans count count=time_researched with link_attrs='class="body-small time-researched" href="/privacynotincluded/about/methodology"' trimmed %}
+          <a {{ link_attrs }}>Mozilla researched</a> {{ time_researched }} hour
+        {% plural %}
+          <a {{ link_attrs }}>Mozilla researched</a> {{ time_researched }} hours
+        {% endblocktrans %}
+      </span>
     </div>
   </div>
   <span class="body-small xsmall:tw-hidden large:tw-inline"> | </span>
