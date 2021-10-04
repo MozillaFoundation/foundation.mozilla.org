@@ -37,7 +37,7 @@ function run(cmd, ignoreThrows = false, opts = {}) {
  * ...
  */
 function docker(cmd, ignoreThrows = false) {
-  cmd = `docker exec foundation_postgres_1 ${cmd}`;
+  cmd = `docker exec foundationmozillaorg_postgres_1 ${cmd}`;
   return run(cmd, ignoreThrows);
 }
 
@@ -72,7 +72,7 @@ docker(`pg_restore ${DB_FLAGS} -dwagtail ${DUMP_FILE}`);
 console.log(`Creating admin:admin superuser account...`);
 run(
   [
-    `docker exec foundation_backend_1`,
+    `docker exec foundationmozillaorg_backend_1`,
     `./dockerpythonvenv/bin/python network-api/manage.py shell -c`,
     `"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')"`,
   ].join(` `),
