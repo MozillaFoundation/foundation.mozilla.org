@@ -1,6 +1,6 @@
-import Swiper, {A11y, Autoplay, Pagination, Navigation} from 'swiper';
+import Swiper, {A11y, Autoplay, Pagination, Navigation, Keyboard} from 'swiper';
 
-Swiper.use([A11y, Autoplay, Pagination, Navigation]);
+Swiper.use([A11y, Autoplay, Pagination, Navigation, Keyboard]);
 
 class Carousel {
   static selector() {
@@ -12,7 +12,6 @@ class Carousel {
     this.swiper = new Swiper(this.node, {
       spaceBetween: 20,
       watchOverflow: true,
-      // autoHeight: true,
       centeredSlides: false,
       simulateTouch: true,
       slidesPerView: 1,
@@ -31,14 +30,13 @@ class Carousel {
       },
       // Responsive breakpoints
       breakpoints: {
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 25,
+        768: {
+          slidesPerView: 1.75,
+          spaceBetween: 30,
         },
       },
     });
     this.slideTotal = this.node.dataset.slidetotal;
-      console.log(this.swiper);
   }
 }
 

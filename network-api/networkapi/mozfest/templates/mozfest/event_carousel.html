@@ -1,15 +1,15 @@
 {% load static %}
-<div class="container event-carousel mb-4">
+<div class="tw-mb-4 {% if not page.use_wide_template %} tw-px-4 medium:tw-pl-0 medium:tw-mr-[calc(50%-50vw-33.32%)]{% endif %}">
 
   {# Slider main container #}
   <div class="swiper overflow-hidden" data-carousel>
 
     {# navigation buttons #}
-    <div class="swiper-navigation">
+    <div class="swiper-navigation tw-relative tw-z-10 tw-container tw-flex tw-flex-col tw-items-start tw-justify-start tw-mb-5 tw-ml-0 tw-pl-0 medium:tw-flex-row medium:tw-justify-between medium:items-center">
       <h3 class="font-weight-bold">{{ title }}</h3>
-      <div class="swiper-navigation__buttons">
+      <div class="tw-flex tw-flex-row tw-justify-between tw-items-center">
         <div class="swiper-button-prev">
-          <svg class="swiper-button-prev__icon" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="swiper-button-prev__icon" viewBox="0 0 21 21" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M20.75 10.5c0-.70761-.5099-1.28125-1.1389-1.28125H1.38889C.759899 9.21875.25 9.79239.25 10.5c0 .7076.509899 1.2812 1.13889 1.2812H19.6111c.629 0 1.1389-.5736 1.1389-1.2812Z"
                   fill="currentColor"/>
@@ -19,7 +19,7 @@
           </svg>
         </div>
         <div class="swiper-button-next">
-          <svg class="swiper-button-next__icon" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="swiper-button-next__icon" viewBox="0 0 21 21" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M.25 10.5c0-.70761.509898-1.28125 1.13889-1.28125H19.6111c.629 0 1.1389.57364 1.1389 1.28125 0 .7076-.5099 1.2812-1.1389 1.2812H1.38889C.759898 11.7812.25 11.2076.25 10.5Z"
                   fill="currentColor"/>
@@ -33,17 +33,16 @@
 
     {# Additional required wrapper #}
     <div class="swiper-wrapper">
+
       {# Slides #}
-      <div class="swiper-slide">
-        {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.' %}
-      </div>
-      <div class="swiper-slide">
-        {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.' %}
-      </div>
-      <div class="swiper-slide">
-        {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.' %}
-      </div>
+      {# TODO: Replace with BE variables #}
+      {% for i in "1234"|make_list %}
+        <div class="swiper-slide">
+          {% include 'fragments/event_card.html' with title='The Narrative Future of AI' category_url='#' category_title='Working Groups' cta_text='Add to Calendar' cta_url='#' image='https://via.placeholder.com/600x250' text='Lorem Khaled Ipsum is a major key to success. Surround yourself with angels, positive energy, beautiful people, beautiful souls, clean heart, angel.' %}
+        </div>
+      {% endfor %}
     </div>
+
     {# Pagination #}
     <div class="swiper-pagination"></div>
 
