@@ -1,7 +1,7 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
-from .link_blocks import LabelledExternalLinkBlock, LabelledInternalLinkBlock
+from .common.link_blocks import LabelledExternalLinkBlock, LabelledInternalLinkBlock
 
 
 class CurrentEventBlock(blocks.StructBlock):
