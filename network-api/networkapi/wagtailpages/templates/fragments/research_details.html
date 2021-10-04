@@ -11,7 +11,13 @@
     </div>
     <span class="body-small xsmall:tw-hidden medium:tw-inline"> | </span>
     <div class="mozilla-researched d-flex pb-2 tw-flex-2 medium:tw-px-2 ">
-      <a class="body-small time-researched" href="/privacynotincluded/about/methodology"> {% trans "Mozilla researched" context "This string is followed by a numerical value, to show the hours spent researching the product." %} </a>  <span class="body-small pl-1"> {{ time_researched }} {% trans "hours" %}</span>
+      <span class="body-small">
+        {% blocktrans count count=time_researched with link_attrs='class="body-small time-researched" href="/privacynotincluded/about/methodology"' trimmed %}
+          <a {{ link_attrs }}>Mozilla researched</a> {{ time_researched }} hour
+        {% plural %}
+          <a {{ link_attrs }}>Mozilla researched</a> {{ time_researched }} hours
+        {% endblocktrans %}
+      </span>
     </div>
   </div>
   <span class="body-small xsmall:tw-hidden large:tw-inline"> | </span>
