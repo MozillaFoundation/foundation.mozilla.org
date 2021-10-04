@@ -643,7 +643,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     @property
     def original_product(self):
-        return self.alias_of or get_original_by_slug(ProductPage, self.slug)
+        return get_original_by_slug(ProductPage, self.slug)
 
     def get_or_create_votes(self):
         """
@@ -659,12 +659,16 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     @property
     def total_vote_count(self):
-        return sum(self.get_or_create_votes())
+        # Voting only happens on the original product, not "self"
+        product = self.original_product
+        return sum(product.get_or_create_votes())
 
     @property
     def creepiness(self):
+        # Creepiness is tied to the votes on the original product, not "self"
+        product = self.original_product
         try:
-            average = self.creepiness_value / self.total_vote_count
+            average = product.creepiness_value / product.total_vote_count
         except ZeroDivisionError:
             average = 50
         return average
@@ -674,13 +678,14 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         """
         Return a dictionary as a string with the relevant data needed for the frontend:
         """
-        votes = self.votes.get_votes()
+        product = self.original_product
+        votes = product.votes.get_votes()
         data = {
             'creepiness': {
                 'vote_breakdown':  {k: v for (k, v) in enumerate(votes)},
-                'average': self.creepiness
+                'average': product.creepiness
             },
-            'total': self.total_vote_count
+            'total': product.total_vote_count
         }
         return json.dumps(data)
 

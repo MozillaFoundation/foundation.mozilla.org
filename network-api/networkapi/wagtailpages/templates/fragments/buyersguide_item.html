@@ -1,6 +1,7 @@
-{% load static i18n wagtailimages_tags localization %}
+{% load static i18n wagtailimages_tags l10n localization %}
 
-<figure class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness }}">
+<figure
+  class="product-box d-flex flex-column justify-content-between{% if product.draft %} draft-product{% endif %}{% if product.adult_content %} adult-content{% endif %}{% if product.privacy_ding %} privacy-ding{% endif%}" data-creepiness="{{ product.creepiness|unlocalize }}">
   <div class="top-left-badge-container">
       {% if product.privacy_ding %}
       <img
