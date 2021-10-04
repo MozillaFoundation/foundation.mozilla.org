@@ -19,10 +19,8 @@ class Carousel {
         enabled: true,
       },
       pagination: {
-        el: '[data-carousel-pagination]',
+        el: '.swiper-pagination',
         clickable: true,
-        bulletActiveClass: 'carousel__bullet--active',
-        bulletClass: 'carousel__bullet',
       },
       navigation: {
         nextEl: ".swiper-button-next",

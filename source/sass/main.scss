@@ -51,7 +51,6 @@
 
 @import "./wagtail/blocks/airtable";
 @import "./wagtail/blocks/audio-block";
-@import "./wagtail/blocks/carousel";
 @import "./wagtail/blocks/dear-internet-letter";
 @import "./wagtail/blocks/feature-quote";
 @import "./wagtail/blocks/image-text-mini";
@@ -95,9 +94,6 @@
 
 @import "./mozfest";
 
-// Third Party
-@import "../../node_modules/swiper/swiper-vars.scss";
-@import "../../node_modules/swiper/swiper.scss";
 
 // Print Style
 @import "./print";
