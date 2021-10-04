@@ -375,33 +375,35 @@ class TestProductPage(BuyersGuideTestMixin):
 class WagtailBuyersGuideVoteTest(APITestCase, BuyersGuideTestMixin):
 
     def test_successful_vote(self):
-        # Reset votes
-        votes = self.product_page.get_or_create_votes()
-        self.product_page.votes.set_votes([0, 0, 0, 0, 0])
+        product_page = self.product_page
 
-        response = self.client.post(self.product_page.url, {
+        # Reset votes
+        product_page.get_or_create_votes()
+        product_page.votes.set_votes([0, 0, 0, 0, 0])
+
+        response = self.client.post(product_page.url, {
             'value': 25,
         }, format='json')
         self.assertEqual(response.status_code, 200)
 
-        self.product_page.refresh_from_db()
+        product_page.refresh_from_db()
 
-        votes = self.product_page.votes.get_votes()
+        votes = product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 0])
-        self.assertEqual(self.product_page.total_vote_count, 1)
-        self.assertEqual(self.product_page.creepiness_value, 25)
+        self.assertEqual(product_page.total_vote_count, 1)
+        self.assertEqual(product_page.creepiness_value, 25)
 
-        response = self.client.post(self.product_page.url, {
+        response = self.client.post(product_page.url, {
             'value': 100,
         }, format='json')
         self.assertEqual(response.status_code, 200)
 
-        self.product_page.refresh_from_db()
+        product_page.refresh_from_db()
 
-        votes = self.product_page.votes.get_votes()
+        votes = product_page.votes.get_votes()
         self.assertListEqual(votes, [0, 1, 0, 0, 1])
-        self.assertEqual(self.product_page.total_vote_count, 2)
-        self.assertEqual(self.product_page.creepiness_value, 125)
+        self.assertEqual(product_page.total_vote_count, 2)
+        self.assertEqual(product_page.creepiness_value, 125)
 
     def test_bad_vote_value(self):
         # vote = 500
