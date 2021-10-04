@@ -66,7 +66,7 @@ console.log(`Building user roles...`);
 );
 
 console.log(`Importing snapshot...`);
-run(`docker cp ${DUMP_FILE} foundation_postgres_1:/`);
+run(`docker cp ${DUMP_FILE} foundationmozillaorg_postgres_1:/`);
 docker(`pg_restore ${DB_FLAGS} -dwagtail ${DUMP_FILE}`);
 
 console.log(`Creating admin:admin superuser account...`);
