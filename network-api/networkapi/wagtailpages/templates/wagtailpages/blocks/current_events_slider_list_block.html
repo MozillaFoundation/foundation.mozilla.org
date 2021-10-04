@@ -17,12 +17,12 @@
             <div class="d-flex flex-1">
               <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
                 <h3 class="h3-heading mb-2">{{ current_event.title }}</h3>
-                <p>Link Label: {{ current_event.link_label }}</p>
-                <p>Link URL: {{ current_event.link_url }}</p>
-                <p>{{ current_event.body }}</p>
+                <p>Subheading Link Label: {{ current_event.subheading_link.0.value.label }}</p>
+                <p>Subheading Link URL: {{ current_event.subheading_link.0.value.link_url }}</p>
+                <p>Body: {{ current_event.body }}</p>
                 {% for button in current_event.buttons %}
-                  <p>Button {{ forloop.counter }} Label: {{ button.label }}</p>
-                  <p>Button {{ forloop.counter }} Link: {{ button.link_url }}</p>
+                  <p>Button {{ forloop.counter }} Label: {{ button.value.label }}</p>
+                  <p>Button {{ forloop.counter }} Link: {{ button.value.link_url }}</p>
                 {% endfor %}
               </div>
             </div>
