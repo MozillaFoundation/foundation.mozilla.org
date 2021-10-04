@@ -53,7 +53,6 @@ module.exports = {
     },
     // Renaming breakpoints temporary until we remove bootstrap usage
     screens: {
-      xsmall: "380px",
       small: "576px",
       medium: "768px",
       large: "992px",

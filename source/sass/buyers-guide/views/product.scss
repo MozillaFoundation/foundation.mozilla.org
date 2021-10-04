@@ -209,7 +209,7 @@
     }
   }
 
-  .mozilla-researched {
+  .mozilla-researched-icon {
     &::after {
       content: " ";
       display: inline-block;
@@ -244,6 +244,10 @@
   .thumb-side::after {
     background: url(../_images/buyers-guide/mozilla-says/thumb-side.svg)
       no-repeat;
+  }
+
+  .research-detail-divider {
+    color: $gray-20 !important;
   }
 }
 
