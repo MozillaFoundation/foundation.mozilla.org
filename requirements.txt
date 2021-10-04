@@ -231,7 +231,7 @@ urllib3[secure]==1.26.6
     #   requests
     #   scout-apm
     #   sentry-sdk
-wagtail==2.13.1
+wagtail==2.14.1
     # via
     #   -r requirements.in
     #   wagtail-airtable
@@ -254,7 +254,7 @@ wagtail-localize==1.0rc4
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-wagtail-localize-git==0.9.3
+wagtail-localize-git==0.10.0
     # via -r requirements.in
 wagtail-metadata==3.4.0
     # via -r requirements.in
