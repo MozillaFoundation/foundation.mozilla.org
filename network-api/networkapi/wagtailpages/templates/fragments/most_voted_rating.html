@@ -1,23 +1,22 @@
 {% load i18n %}
 
 {% if most_voted_rating == 4 %}
-    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small pl-1"' rating_attrs=' class="body-small pl-1 people-voted super-creepy"' trimmed %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small"' rating_attrs=' class="body-small people-voted super-creepy"' trimmed %}
         <a {{ link_attrs }}>People voted</a> <span {{ vote_attrs }}>{{ vote_percent }}%</span> <span {{ rating_attrs }}>super creepy</span>
     {% endblocktrans %}
 {% elif most_voted_rating == 3 %}
-    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small pl-1"' rating_attrs=' class="body-small pl-1 people-voted very-creepy"' trimmed %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small"' rating_attrs=' class="body-small people-voted very-creepy"' trimmed %}
         <a {{ link_attrs }}>People voted</a> <span {{ vote_attrs }}>{{ vote_percent }}%</span> <span {{ rating_attrs }}>very creepy</span>
     {% endblocktrans %}
 {% elif most_voted_rating == 2 %}
-    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small pl-1"' rating_attrs=' class="body-small pl-1 people-voted somewhat-creepy"' trimmed %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small"' rating_attrs=' class="body-small people-voted somewhat-creepy"' trimmed %}
         <a {{ link_attrs }}>People voted</a> <span {{ vote_attrs }}>{{ vote_percent }}%</span> <span {{ rating_attrs }}>somewhat creepy</span>
     {% endblocktrans %}
 {% elif most_voted_rating == 1 %}
-    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small pl-1"' rating_attrs=' class="body-small pl-1 people-voted a-little-creepy"' trimmed %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small"' rating_attrs=' class="body-small people-voted a-little-creepy"' trimmed %}
         <a {{ link_attrs }}>People voted</a> <span {{ vote_attrs }}>{{ vote_percent }}%</span> <span {{ rating_attrs }}>a little creepy</span>
     {% endblocktrans %}
 {% elif most_voted_rating == 0 %}
-    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small pl-1"' rating_attrs=' class="body-small pl-1 people-voted not-creepy"' trimmed %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" vote_attrs=' class="body-small"' rating_attrs=' class="body-small people-voted not-creepy"' trimmed %}
         <a {{ link_attrs }}>People voted</a> <span {{ vote_attrs }}>{{ vote_percent }}%</span> <span {{ rating_attrs }}>not creepy</span>
     {% endblocktrans %}
-{% endif %}
