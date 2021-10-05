@@ -33,7 +33,8 @@ class CurrentEventBlock(blocks.StructBlock):
     )
 
     class Meta:
-        icon = 'placeholder'
+        icon = 'form'
+        label = 'Current Event Item'
 
 
 class CurrentEventsSliderListBlock(blocks.StructBlock):
