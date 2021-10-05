@@ -1,5 +1,4 @@
-from django.conf import settings
-from wagtail.core.models import Locale
+from networkapi.wagtailpages.utils import get_default_locale
 
 
 class LocalizedSnippet():
@@ -9,7 +8,8 @@ class LocalizedSnippet():
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.DEFAULT_LOCALE is None:
-            self.DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
+            (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+            self.DEFAULT_LOCALE = DEFAULT_LOCALE
 
     @property
     def original(self):
