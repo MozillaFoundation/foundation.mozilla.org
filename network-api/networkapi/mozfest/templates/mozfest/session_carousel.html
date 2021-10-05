@@ -12,10 +12,11 @@
 
       {# Slides #}
       {% for item in self.session_items %}
-      {% image item.image fill-250x140 as img %}
-      <div class="swiper-slide">
-        {% include 'fragments/session_card.html' with title=item.title url=item.video.url image=img.url text=item.body animated_thumbnail=item.animated_thumbnail %}
-      </div>
+        {% image item.image fill-250x140 as img %}
+        <div class="swiper-slide">
+          {% include 'fragments/session_card.html' with title=item.title url=item.video.url image=img.url text=item.body animated_thumbnail=item.animated_thumbnail %}
+        </div>
+      {% endfor %}
 
     </div>
 
