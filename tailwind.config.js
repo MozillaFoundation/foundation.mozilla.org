@@ -13,7 +13,7 @@ module.exports = {
     container: false
   },
   plugins: [
-    plugin(function ({ addUtilities }) {
+    plugin(function ({addUtilities}) {
       // Adding Column Count to Tailwind CSS
       const newUtilities = {
         ".col-count-1": {
@@ -39,7 +39,7 @@ module.exports = {
         inherit: "inherit",
       },
       screens: {
-        print: { raw: "print" },
+        print: {raw: "print"},
       },
     },
     // Overriding default spacing
@@ -104,7 +104,10 @@ module.exports = {
         purple: "#a66efd",
       },
       festival: {
-        blue: "#0e11bf",
+        blue: {
+          DEFAULT: "#0e11bf",
+          100: '#4C56EC'
+        },
         purple: "#8f14fb",
       },
       "dear-internet": {

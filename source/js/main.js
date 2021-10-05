@@ -16,6 +16,7 @@ import {
 import primaryNav from "./primary-nav.js";
 import EmbedTypeform from "./embed-typeform.js";
 import Dropdowns from "./dropdowns.js";
+import { initCarousel } from "./components/carousel/carousel.js";
 import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
 import RegretsReporterTimeline from "./foundation/pages/youtube-regrets/regrets-reporter/timeline";
@@ -52,6 +53,7 @@ let main = {
     GoogleAnalytics.init();
     EmbedTypeform.init();
     Dropdowns.init();
+    initCarousel();
 
     this.fetchEnv((envData) => {
       env = envData;
