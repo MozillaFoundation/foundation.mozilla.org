@@ -19,6 +19,7 @@ from .mixin.foundation_metadata import FoundationMetadataPageMixin
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
+from ..utils import TitleWidget
 
 
 class NewsPage(PrimaryPage):
@@ -759,7 +760,10 @@ class Homepage(FoundationMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
           [
-            FieldPanel('hero_headline'),
+            FieldPanel(
+                'hero_headline',
+                widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
+                ),
             FieldPanel('hero_button_text'),
             FieldPanel('hero_button_url'),
             ImageChooserPanel('hero_image'),
