@@ -9,5 +9,7 @@
     <img class="tw-w-full tw-h-auto" src="{{ image }}" alt="{{ image_alt }}">
   {% endif %}
   <p class="tw-my-5">{{ text }}</p>
-  <a class="btn btn-primary" href="{{ cta_link }}">{{ cta_text }}</a>
+  {% for button in buttons %}
+    <a class="btn btn-primary tw-mr-3 last:tw-mr-0" href="{{ button.value.link_url }}">{{ button.value.label }}</a>
+  {% endfor %}
 </div>

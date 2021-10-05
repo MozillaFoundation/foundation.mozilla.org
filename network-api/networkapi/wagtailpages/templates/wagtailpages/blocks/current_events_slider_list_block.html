@@ -1,34 +1,31 @@
-{% extends "./base_streamfield_block.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block block_content %}
-  <div class="row">
-    <div class="mb-4">
-      <h3>{{ value.title }}</h3>
-    </div>
-  </div>
-  <div class="row">
-    {% for block in self.current_events %}
-      {% with current_event=block count=self.current_events|length %}
-        {% image current_event.image fill-350x197 as img %}
-        <div class="col-sm-12 {% if count > 2 %} col-lg-4 col-md-6 {% else %} col-md-6 {% endif %} mb-4">
-          <div class="card-regular h-100 d-flex flex-column ">
-            <img src="{{ img.url }}" />
-            <div class="d-flex flex-1">
-              <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
-                <h3 class="h3-heading mb-2">{{ current_event.title }}</h3>
-                <p>Subheading Link Label: {{ current_event.subheading_link.0.value.label }}</p>
-                <p>Subheading Link URL: {{ current_event.subheading_link.0.value.link_url }}</p>
-                <p>Body: {{ current_event.body }}</p>
-                {% for button in current_event.buttons %}
-                  <p>Button {{ forloop.counter }} Label: {{ button.value.label }}</p>
-                  <p>Button {{ forloop.counter }} Link: {{ button.value.link_url }}</p>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
+
+{% load static %}
+<div class="tw-mb-6 last:tw-mt-6 tw-relative {% if not page.use_wide_template and page.signup %} tw-px-4 medium:tw-pl-0 medium:tw-mr-[calc(50%-50vw-33.3%)]{% else %} tw-container {% endif %}">
+
+  {# Slider main container #}
+  <div class="swiper tw-overflow-hidden" data-carousel>
+
+    {# navigation buttons #}
+    {% include 'fragments/carousel/carousel_navigation.html' with title=value.title %}
+
+    {# Additional required wrapper #}
+    <div class="swiper-wrapper">
+
+      {# Slides #}
+      {% for current_event in self.current_events %}
+        {% image current_event.image fill-600x250 as img %}
+        <div class="swiper-slide">
+          {% include 'fragments/event_card.html' with title=current_event.title category_url=current_event.subheading_link.0.value.link_url category_title=current_event.subheading_link.0.value.label buttons=current_event.buttons image=img.url text=current_event.body %}
         </div>
-      {% endwith %}
-    {% endfor %}
+      {% endfor %}
+    </div>
+
+    {# Pagination #}
+    <div class="swiper-pagination tw--bottom-7 medium:tw-hidden"></div>
+
   </div>
-{% endblock %}
+</div>
+
+
