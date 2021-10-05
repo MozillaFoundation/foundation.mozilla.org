@@ -1,5 +1,14 @@
 {% load i18n %}
 
+{% comment %}
+ This is where we render the "creepiness face" icon on a product's page. We use the following keys:
+ 0 = Not creepy
+ 1 = A little creepy
+ 2 = Somewhat creepy
+ 3 = Very creepy
+ 4 = Super creepy
+{% endcomment %}
+
 <span class="body-small">
 {% if most_voted_rating == 4 %}
     {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" rating_attrs=' class="people-voted super-creepy"' trimmed %}

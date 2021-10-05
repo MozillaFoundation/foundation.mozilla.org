@@ -638,6 +638,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
 
     @property
     def most_voted_rating(self):
+        """
+        Returns the key of the most voted "creepiness" rating, 
+        so we know which face icon to render on the frontend.
+        """
         votes = self.votes.get_votes()
         vote_breakdown = {k: v for (k, v) in enumerate(votes)}
         most_voted_key = max(vote_breakdown, key=vote_breakdown.get)
