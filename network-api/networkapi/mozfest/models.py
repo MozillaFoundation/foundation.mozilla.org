@@ -19,6 +19,8 @@ from networkapi.wagtailpages.models import (
     Signup
 )
 
+from networkapi.wagtailpages.pagemodels import customblocks
+
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
     header = models.CharField(
@@ -50,7 +52,11 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         help_text='Choose an existing, or create a new, sign-up form'
     )
 
-    body = StreamField(base_fields)
+    body = StreamField(
+        base_fields + [
+            ('session_slider_list_block', customblocks.SessionSliderListBlock()),
+        ]
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('header'),
