@@ -209,7 +209,7 @@
     }
   }
 
-  .mozilla-researched,
+  .mozilla-researched-icon,
   .mozilla-says,
   .people-voted {
     &::after {
@@ -223,9 +223,11 @@
     }
   }
 
-  .mozilla-researched::after {
+  .mozilla-researched-icon::after {
     background: url(../_images/buyers-guide/info-circle.svg) no-repeat;
   }
+
+  // Thumb Icons
   .thumb-down::after {
     background: url(../_images/buyers-guide/mozilla-says/thumb-down.svg)
       no-repeat;
@@ -237,6 +239,7 @@
     background: url(../_images/buyers-guide/mozilla-says/thumb-side.svg)
       no-repeat;
   }
+  // "People Voted" Face Icons
   .not-creepy::after {
     background: url(../_images/buyers-guide/faces/not-creepy-face.svg) no-repeat;
   }
@@ -255,6 +258,9 @@
   .super-creepy::after {
     background: url(../_images/buyers-guide/faces/super-creepy-face.svg)
       no-repeat;
+  }
+  .research-detail-divider {
+    color: $gray-20;
   }
 }
 
