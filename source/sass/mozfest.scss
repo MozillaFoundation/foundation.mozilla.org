@@ -189,7 +189,7 @@ body.mozfest {
       @apply tw-border-gray-20;
     }
 
-    &:after {
+    &::after {
       content: "";
     }
 
