@@ -16,6 +16,13 @@
     {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}
 {% endblock %}
 
+{% block org_schema %}
+  {% if page.structured_data %}
+    <script type="application/ld+json">
+      {{ page.structured_data|safe }}
+    </script>
+  {% endif %}
+{% endblock %}
 
 {% block body_id %}mozfest-{% block mozfest_body_id %}home{% endblock %}{% endblock %}
 
