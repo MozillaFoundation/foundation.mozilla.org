@@ -1,19 +1,25 @@
-{% load i18n localization %}
+{% load i18n %}
 
-{% comment %}
-
-{% endcomment %}
-
-    <a class="body-small" href="#creepiness-vote"> {% trans "People voted" context "This string is followed by the creepiness that most people voted, as well as the percentage of people that voted for that ranking" %} </a>  
-    <span class="body-small pl-1"> {{ people_voted|floatformat:"0" }}%</span>
-    {% if most_voted_rating == 4 %}
-        <span class="body-small pl-1 people-voted super-creepy"> {% trans "super creepy" %}</span>
-    {% elif most_voted_rating == 3 %}
-        <span class="body-small pl-1 people-voted very-creepy"> {% trans "very creepy" %}</span>
-    {% elif most_voted_rating == 2 %}
-        <span class="body-small pl-1 people-voted somewhat-creepy"> {% trans "somewhat creepy" %}</span>
-    {% elif most_voted_rating == 1 %}
-        <span class="body-small pl-1 people-voted a-little-creepy"> {% trans "a little creepy" %}</span>
-    {% elif most_voted_rating == 0 %}
-        <span class="body-small pl-1 people-voted not-creepy"> {% trans "not creepy" %}</span>        
-    {% endif %}
+<span class="body-small">
+{% if most_voted_rating == 4 %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" rating_attrs=' class="people-voted super-creepy"' trimmed %}
+        <a {{ link_attrs }}>People voted</a> {{ vote_percent }}% <span {{ rating_attrs }}>super creepy</span>
+    {% endblocktrans %}
+{% elif most_voted_rating == 3 %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" rating_attrs=' class="people-voted very-creepy"' trimmed %}
+        <a {{ link_attrs }}>People voted</a> {{ vote_percent }}% <span {{ rating_attrs }}>very creepy</span>
+    {% endblocktrans %}
+{% elif most_voted_rating == 2 %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" rating_attrs=' class="people-voted somewhat-creepy"' trimmed %}
+        <a {{ link_attrs }}>People voted</a> {{ vote_percent }}% <span {{ rating_attrs }}>somewhat creepy</span>
+    {% endblocktrans %}
+{% elif most_voted_rating == 1 %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" rating_attrs=' class="people-voted a-little-creepy"' trimmed %}
+        <a {{ link_attrs }}>People voted</a> {{ vote_percent }}% <span {{ rating_attrs }}>a little creepy</span>
+    {% endblocktrans %}
+{% elif most_voted_rating == 0 %}
+    {% blocktrans with link_attrs=' class="body-small" href="#creepiness-vote"' vote_percent=people_voted|floatformat:"0" rating_attrs=' class="people-voted not-creepy"' trimmed %}
+        <a {{ link_attrs }}>People voted</a> {{ vote_percent }}% <span {{ rating_attrs }}>not creepy</span>
+    {% endblocktrans %}
+{% endif %}
+</span>
