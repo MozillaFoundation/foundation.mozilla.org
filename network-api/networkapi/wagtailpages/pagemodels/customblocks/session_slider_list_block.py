@@ -33,6 +33,10 @@ class SessionItemBlock(blocks.StructBlock):
         max_num=1,
     )
 
+    class Meta:
+        icon = 'form'
+        label = 'Session Item'
+
 
 class SessionSliderListBlock(blocks.StructBlock):
     title = blocks.CharBlock(help_text='Heading for the slider.')
