@@ -1,0 +1,37 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block block_content %}
+  <div class="row">
+    <div class="mb-4">
+      <h3>{{ value.title }}</h3>
+    </div>
+  </div>
+  <div class="row">
+    {% for block in self.session_items %}
+      {% with session_item=block count=self.session_items|length %}
+        {% image session_item.image fill-350x197 as img %}
+        <div class="col-sm-12 {% if count > 2 %} col-lg-4 col-md-6 {% else %} col-md-6 {% endif %} mb-4">
+          <div class="card-regular h-100 d-flex flex-column ">
+            <img src="{{ img.url }}" />
+            <div class="d-flex flex-1">
+              <div class="key-item mx-2 mx-md-3 p-3 w-100 d-flex flex-column">
+                <h3 class="h3-heading mb-2">{{ session_item.title }}</h3>
+                <p>Author Subheading: {{ session_item.author_subheading }}</p>
+                <p>Body: {{ session_item.body }}</p>
+                <p>Video URL: {{ session_item.video.url }}</p>
+                <p>Link: {{ session_item.link.0.value.link_url }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endwith %}
+    {% endfor %}
+  </div>
+  <div class="row">
+    <div class="mb-4">
+      <p>Button Label: {{ value.button.0.value.label }}</p>
+      <p>Button Link URL: {{ value.button.0.value.link_url }}</p>
+    </div>
+  </div>
+{% endblock %}

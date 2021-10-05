@@ -21,6 +21,7 @@ from .recent_blog_entries import RecentBlogEntries
 from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .single_quote_block import SingleQuoteBlock
+from .session_slider_list_block import SessionSliderListBlock
 from .video_block import VideoBlock
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
@@ -57,6 +58,7 @@ __all__ = [
     QuoteBlock,
     SingleQuoteBlock,
     RecentBlogEntries,
+    SessionSliderListBlock,
     TypeformBlock,
     VideoBlock,
     YoutubeRegretBlock,
