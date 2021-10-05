@@ -324,27 +324,43 @@ class TestProductPage(BuyersGuideTestMixin):
         self.assertEqual(total_vote_count, 25)
 
     def test_creepiness(self):
-        self.product_page.creepiness_value = 100
-        self.product_page.votes.set_votes([5, 5, 5, 5, 5])
-        creepiness = self.product_page.creepiness
+        product_page = self.product_page
+
+        product_page.creepiness_value = 100
+        product_page.save()
+        self.assertEqual(product_page.creepiness_value, 100)
+
+        product_page.votes.set_votes([5, 5, 5, 5, 5])
+        product_page.save()
+        self.assertEqual(product_page.total_vote_count, 25)
+
+        creepiness = product_page.creepiness
         self.assertEqual(creepiness, 4)
 
-        self.product_page.creepiness_value = 0
-        self.product_page.votes.set_votes([0, 0, 0, 0, 0])
-        creepiness = self.product_page.creepiness
+        product_page.creepiness_value = 0
+        product_page.votes.set_votes([0, 0, 0, 0, 0])
+        creepiness = product_page.creepiness
         self.assertEqual(creepiness, 50)
 
     def test_get_voting_json(self):
-        self.product_page.creepiness_value = 60
-        self.product_page.votes.set_votes([1, 2, 3, 4, 5])
-        creepiness = self.product_page.creepiness
+        product_page = self.product_page
+
+        product_page.creepiness_value = 60
+        product_page.save()
+        self.assertEqual(product_page.creepiness_value, 60)
+
+        product_page.votes.set_votes([1, 2, 3, 4, 5])
+        product_page.save()
+        self.assertEqual(product_page.total_vote_count, 15)
+
+        creepiness = product_page.creepiness
         self.assertEqual(creepiness, 4)
 
-        total_vote_count = self.product_page.total_vote_count
+        total_vote_count = product_page.total_vote_count
         self.assertEqual(total_vote_count, 15)
 
-        # votes = self.product_page.votes.get_votes()
-        data = json.loads(self.product_page.get_voting_json)
+        # votes = product_page.votes.get_votes()
+        data = json.loads(product_page.get_voting_json)
         comparable_data = {
             'creepiness': {
                 'vote_breakdown':  {
