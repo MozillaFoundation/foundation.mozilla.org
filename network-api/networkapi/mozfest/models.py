@@ -6,7 +6,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-
+from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.utils import (
     set_main_site_nav_information,
     get_page_tree_information
@@ -142,6 +142,34 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='The video to play when users click "watch video"'
     )
 
+    # For banner_video_type == 'featured'
+    banner_carousel = StreamField(
+        [
+            ('slide', customblocks.BannerCarouselSlideBlock()),
+        ],
+        max_num=3,
+        min_num=3,
+        null=True,
+    )
+
+    # For banner_video_type == 'featured'
+    banner_video = StreamField(
+        [
+            ('CMS_video', customblocks.WagtailVideoChooserBlock()),
+            ('video_url', customblocks.EmbeddedVideoBlock(
+                help_text='For YouTube: go to your YouTube video and click “Share,” '
+                          'then “Embed,” and then copy and paste the provided URL only. '
+                          'For example: https://www.youtube.com/embed/3FIVXBawyQw<br/>'
+                          'For Vimeo: follow similar steps to grab the embed URL. '
+                          'For example: https://player.vimeo.com/video/9004979'
+            )),
+        ],
+        blank=True,
+        help_text='The video to play when users click "watch video"',
+        max_num=1,
+        null=True,
+    )
+
     subpage_types = [
         'MozfestPrimaryPage',
         'MozfestHomepage',
@@ -156,16 +184,20 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel('cta_button_label'),
         FieldPanel('cta_button_destination'),
         FieldPanel('banner_heading'),
+        StreamFieldPanel('banner_carousel'),
         FieldPanel('banner_guide_text'),
         FieldPanel('banner_video_url'),
+        StreamFieldPanel('banner_video'),
     ] + parent_panels[n:]
 
     if banner_video_type == "hardcoded":
         # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
         content_panels = [
             field for field in all_panels
-            if field.field_name not in
-            ['banner', 'header', 'intro', 'banner_guide_text', 'banner_video_url']
+            if field.field_name not in [
+                'banner', 'header', 'intro', 'banner_carousel', 'banner_guide_text',
+                'banner_video', 'banner_video_url',
+            ]
         ]
     elif banner_video_type == "featured":
         # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
