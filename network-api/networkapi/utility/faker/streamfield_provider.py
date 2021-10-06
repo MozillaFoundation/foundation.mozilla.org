@@ -334,6 +334,10 @@ def generate_banner_carousel_field():
     })
 
 
+def generate_banner_video_field():
+    return generate_field('video_url', 'https://www.youtube.com/embed/3FIVXBawyQw')
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -378,6 +382,7 @@ class StreamfieldProvider(BaseProvider):
             'airtable': generate_airtable_field,
             'typeform': generate_typeform_field,
             'banner_carousel': generate_banner_carousel_field,
+            'banner_video': generate_banner_video_field,
         }
 
         streamfield_data = []
