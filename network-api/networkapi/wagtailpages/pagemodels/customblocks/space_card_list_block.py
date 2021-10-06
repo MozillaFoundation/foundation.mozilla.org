@@ -1,18 +1,7 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
-
-class SpaceCardBlockStructValue(blocks.StructValue):
-    @property
-    def link_url(self):
-        block = self.get('link')[0]
-
-        if block.block_type == 'internal':
-            return block.value.url
-        elif block.block_type == 'external':
-            return block.value
-
-        return ''
+from .common.link_blocks import InternalLinkBlock, ExternalLinkBlock
 
 
 class SpaceCardBlock(blocks.StructBlock):
@@ -28,20 +17,22 @@ class SpaceCardBlock(blocks.StructBlock):
 
     link = blocks.StreamBlock(
         [
-            ('internal', blocks.PageChooserBlock(help_text='Page that this card should link out to.')),
-            ('external', blocks.URLBlock(help_text='URL that this card should link out to.')),
+            ('internal', InternalLinkBlock()),
+            ('external', ExternalLinkBlock()),
         ],
+        help_text='Page or external URL this card will link out to.',
         max_num=1,
     )
 
     class Meta:
-        value_class = SpaceCardBlockStructValue
+        icon = 'form'
+        label = 'Space Card'
 
 
 class SpaceCardListBlock(blocks.StructBlock):
     title = blocks.CharBlock()
 
-    space_cards = blocks.ListBlock(SpaceCardBlock())
+    space_cards = blocks.ListBlock(SpaceCardBlock(), help_text='A list of Space Cards.')
 
     class Meta:
         icon = 'placeholder'
