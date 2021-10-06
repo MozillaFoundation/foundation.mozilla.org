@@ -25,7 +25,6 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
-from wagtail.core.fields import RichTextField
 
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_airtable.mixins import AirtableMixin
