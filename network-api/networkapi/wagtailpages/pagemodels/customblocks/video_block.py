@@ -10,6 +10,11 @@ class RadioSelectBlock(blocks.ChoiceBlock):
         )
 
 
+class EmbeddedVideoBlock(blocks.URLBlock):
+    class Meta:
+        template = 'wagtailpages/blocks/embedded_video_block.html'
+
+
 class VideoBlock(blocks.StructBlock):
     url = blocks.CharBlock(
         help_text='For YouTube: go to your YouTube video and click “Share,” '

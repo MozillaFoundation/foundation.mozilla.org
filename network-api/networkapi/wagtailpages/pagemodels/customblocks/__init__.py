@@ -20,7 +20,7 @@ from .recent_blog_entries import RecentBlogEntries
 from .typeform_block import TypeformBlock
 from .quote_block import QuoteBlock
 from .single_quote_block import SingleQuoteBlock
-from .video_block import VideoBlock
+from .video_block import EmbeddedVideoBlock, VideoBlock
 from .youtube_regret_block import YoutubeRegretBlock
 from .articles import ArticleRichText, ArticleDoubleImageBlock, ArticleFullWidthImageBlock, ArticleImageBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
@@ -40,6 +40,7 @@ __all__ = [
     CardGrid,
     CardGridBlock,
     DearInternetLetterBlock,
+    EmbeddedVideoBlock,
     iFrameBlock,
     ImageBlock,
     ImageGrid,
