@@ -25,6 +25,13 @@ module.exports = {
         ".col-count-3": {
           columnCount: 3,
         },
+        ".no-scrollbar::-webkit-scrollbar": {
+          display: "none",
+        },
+        ".no-scrollbar": {
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+        },
       };
       addUtilities(newUtilities);
     }),
