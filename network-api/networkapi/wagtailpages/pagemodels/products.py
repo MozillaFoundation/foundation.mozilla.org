@@ -420,7 +420,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
-    tips_to_protect_yourself = RichTextField(features=['ul', 'bold', 'italic', 'link'], blank=True)
+    tips_to_protect_yourself = RichTextField(features=['bold', 'italic', 'link'], blank=True)
 
     """
     privacy_policy_links = Orderable, defined in ProductPagePrivacyPolicyLink
