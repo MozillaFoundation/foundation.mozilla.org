@@ -54,7 +54,7 @@
             {% with category=cat.category %}
               {% localizedroutablepageurl home_page 'category-view' category.slug as cat_url %}
               <a href="{{cat_url}}" class="tw-no-underline tw-text-gray-60 border tw-border-gray-20 tw-px-2 tw-py-1 tw-font-sans tw-rounded-3xl tw-font-normal tw-text-[12px] tw-leading-[1.3]">
-                {{category.name}}
+                {{category.localized.name}}
               </a>
             {% endwith %}
           {% endfor %}
