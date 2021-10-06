@@ -108,7 +108,7 @@ class MozfestHomepage(MozfestPrimaryPage):
     """
 
     #  this tells the templates to load a hardcoded, pre-defined video in the banner background
-    banner_video_type = "hardcoded"
+    banner_video_type = "featured"
 
     cta_button_label = models.CharField(
         max_length=250,
@@ -135,6 +135,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         help_text='A banner paragraph specific to the homepage'
     )
 
+    # For banner_video_type == 'hardcoded'
     banner_video_url = models.URLField(
         max_length=2048,
         blank=True,
@@ -165,6 +166,15 @@ class MozfestHomepage(MozfestPrimaryPage):
             field for field in all_panels
             if field.field_name not in
             ['banner', 'header', 'intro', 'banner_guide_text', 'banner_video_url']
+        ]
+    elif banner_video_type == "featured":
+        # Hide all the panels that aren't relevant for the video banner version of the MozFest Homepage
+        content_panels = [
+            field for field in all_panels
+            if field.field_name not in [
+                'banner', 'banner_guide_text', 'banner_video_url', 'cta_button_destination',
+                'cta_button_label', 'header', 'hero_image', 'intro',
+            ]
         ]
     else:
         content_panels = all_panels
