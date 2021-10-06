@@ -1,6 +1,8 @@
 from django import forms
 from wagtail.core import blocks
 
+from wagtailmedia import blocks as wagtailmedia_blocks
+
 
 class RadioSelectBlock(blocks.ChoiceBlock):
     def __init__(self, *args, **kwargs):
@@ -42,3 +44,9 @@ class VideoBlock(blocks.StructBlock):
 
     class Meta:
         template = 'wagtailpages/blocks/video_block.html'
+
+
+class WagtailVideoChooserBlock(wagtailmedia_blocks.VideoChooserBlock):
+    class Meta:
+        icon = "media"
+        template = 'wagtailpages/blocks/wagtail_video_block.html'
