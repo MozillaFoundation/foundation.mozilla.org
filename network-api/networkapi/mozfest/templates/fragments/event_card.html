@@ -1,15 +1,17 @@
-<div class="tw-border tw-border-gray-60/20 tw-p-4 medium:tw-p-6">
-  <h3 class="tw-mb-2">{{ title }}</h3>
-  {% if category_url %}
-    <div class="tw-mt-3 tw-mb-4">
-      <a class="tw-underline tw-text-festival-blue-100" href="{{ category_url }}">{{ category_title }}</a>
-    </div>
-  {% endif %}
+<div class="tw-border tw-border-gray-60/20 tw-p-4 medium:tw-p-6 tw-h-full tw-flex tw-flex-col tw-items-start">
+  <div class="tw-mb-4">
+    <h3>{{ title }}</h3>
+    {% if category_url %}
+      <div class="tw-mt-3">
+        <a class="tw-underline tw-text-festival-blue-100" href="{{ category_url }}">{{ category_title }}</a>
+      </div>
+    {% endif %}
+  </div>
   {% if image %}
     <img class="tw-w-full tw-h-auto" src="{{ image }}" alt="{{ image_alt }}">
   {% endif %}
   <p class="tw-my-5">{{ text }}</p>
   {% for button in buttons %}
-    <a class="btn btn-primary tw-mr-3 last:tw-mr-0" href="{{ button.value.link_url }}">{{ button.value.label }}</a>
+    <a class="btn btn-primary tw-mr-3 last:tw-mr-0 tw-mt-auto" href="{{ button.value.link_url }}">{{ button.value.label }}</a>
   {% endfor %}
 </div>

@@ -2,7 +2,7 @@
 
 
 {% load static %}
-<div class="tw-mb-6 last:tw-mt-6 tw-relative {% if not page.use_wide_template or page.signup != None %}tw-px-4 medium:tw-pl-0 medium:tw-mr-[calc(50%-50vw-33.3%)]{% else %} tw-container {% endif %}">
+<div class="tw-mb-6 last:tw-mt-6 tw-relative {% if page.signup != None %}tw-px-4 medium:tw-pl-0 medium:tw-mr-[calc(50%-50vw-33.3%)]{% else %} tw-container {% endif %}">
 
   {# Slider main container #}
   <div class="swiper tw-overflow-hidden" data-carousel>
@@ -16,7 +16,7 @@
       {# Slides #}
       {% for current_event in self.current_events %}
         {% image current_event.image fill-600x250 as img %}
-        <div class="swiper-slide">
+        <div class="swiper-slide tw-h-auto">
           {% include 'fragments/event_card.html' with title=current_event.title category_url=current_event.subheading_link.0.value.link_url category_title=current_event.subheading_link.0.value.label buttons=current_event.buttons image=img.url text=current_event.body %}
         </div>
       {% endfor %}
@@ -24,7 +24,6 @@
 
     {# Pagination #}
     <div class="swiper-pagination tw--bottom-7 medium:tw-hidden"></div>
-
   </div>
 </div>
 
