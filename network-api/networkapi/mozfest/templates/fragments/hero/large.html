@@ -25,6 +25,18 @@
       </div>
 
     </div>
+  {% elif banner_video_type == "featured" %}
+    <ul>
+    {% for slide_block in page.specific.banner_carousel %}
+      {% with slide=slide_block.value %}
+      <li>
+        {% image slide.image original %}
+        <h2>{{ slide.heading }}</h2>
+        <p>{{ slide.description }}</p>
+      </li>
+      {% endwith %}
+    {% endfor %}
+    </ul>
   {% else %}
     {% with banner=page.specific.get_banner %}
     {% if banner %}

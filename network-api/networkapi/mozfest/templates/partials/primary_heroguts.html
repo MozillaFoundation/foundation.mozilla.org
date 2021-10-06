@@ -14,7 +14,13 @@
   <div class="container">
     <div class="row cutout-wrapper-row">
       <div class="cutout col-12 pt-4">
-        {% if banner_video_type != "hardcoded" %}
+        {% if banner_video_type == "featured" %}
+          {% if page.banner_video %}
+          {# See embedded_video_block.html and wagtail_video_block.html #}
+          {% include_block page.banner_video %}
+          {% endif %}
+          <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
+        {% elif banner_video_type != "hardcoded" %}
           <h1 class="h2-heading mb-0">{% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}</h1>
           {% if page.intro %}
           <div class="body-large mt-3 mb-0">{{ page.intro | richtext }}</div>
