@@ -656,7 +656,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         except ZeroDivisionError:
             average = 50
         return average
-        
+
     @property
     def get_voting_json(self):
         """
