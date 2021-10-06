@@ -512,3 +512,8 @@
   border-color: $black;
   padding-bottom: 1em;
 }
+
+#product-tab-content {
+  --x-offset: 0;
+  transform: translateX(var(--x-offset));
+}
