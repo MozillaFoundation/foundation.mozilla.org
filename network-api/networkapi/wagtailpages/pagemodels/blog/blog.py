@@ -27,7 +27,8 @@ from ..mixin.foundation_metadata import FoundationMetadataPageMixin
 
 from ...utils import (
     set_main_site_nav_information,
-    get_content_related_by_tag
+    get_content_related_by_tag,
+    TitleWidget
 )
 
 from .blog_category import BlogPageCategory
@@ -142,7 +143,12 @@ class BlogPage(FoundationMetadataPageMixin, Page):
 
     related_post_count = 3
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        FieldPanel(
+            'title',
+            classname='full title',
+            widget=TitleWidget(attrs={"class": "max-length-warning", "data-max-length": 60})
+        ),
         MultiFieldPanel(
             [
                 InlinePanel('authors', label='Author', min_num=1)
