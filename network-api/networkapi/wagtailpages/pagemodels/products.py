@@ -191,6 +191,27 @@ class ProductPageVotes(models.Model):
         votes = [int(x) for x in self.vote_bins.split(",")]
         return votes
 
+    def get_most_voted(self):   
+        votes = self.get_votes()
+        vote_breakdown = {k: v for (k, v) in enumerate(votes)}
+        highest = max(vote_breakdown, key=vote_breakdown.get)
+        label = self.get_vote_labels()[highest]
+
+        return {
+            "bin": highest,
+            "value": votes[highest],
+            "label": label[0],
+            "localized": label[1],
+            }
+
+    def get_vote_labels(self):
+        return [
+            ("Not creepy", gettext("Not creepy")),
+            ("A little creepy", gettext("A little creepy")),
+            ("Somewhat creepy", gettext("Somewhat creepy")),
+            ("Very creepy", gettext("Very creepy")),
+            ("Super creepy", gettext("Super creepy")),
+            ]
 
 class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(
@@ -635,19 +656,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         except ZeroDivisionError:
             average = 50
         return average
-
-    @property
-    def most_voted_rating(self):
-        """
-        Returns the key of the most voted "creepiness" rating, 
-        so we know which face icon to render on the frontend.
-        """
-        votes = self.votes.get_votes()
-        vote_breakdown = {k: v for (k, v) in enumerate(votes)}
-        most_voted_key = max(vote_breakdown, key=vote_breakdown.get)
-
-        return most_voted_key
-
+        
     @property
     def get_voting_json(self):
         """
