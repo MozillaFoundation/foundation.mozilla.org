@@ -5,11 +5,15 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel
 from wagtail.contrib.routable_page.models import route
-from wagtail.core.models import Orderable as WagtailOrderable, Locale
+from wagtail.core.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField
 
 from modelcluster.fields import ParentalKey
-from networkapi.wagtailpages.utils import titlecase, get_locale_from_request
+from networkapi.wagtailpages.utils import (
+    titlecase,
+    get_locale_from_request,
+    get_default_locale,
+)
 
 from sentry_sdk import capture_exception, push_scope
 
@@ -182,8 +186,8 @@ class BlogIndexPage(IndexPage):
 
     # helper function to resolve category slugs to actual objects
     def get_category_object_for_slug(self, category_slug):
-        DEFAULT_LOCALE = Locale.objects.get(language_code=settings.LANGUAGE_CODE)
-        DEFAULT_LOCALE_ID = DEFAULT_LOCALE.id
+        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+
         english_categories = BlogPageCategory.objects.filter(
             locale_id=DEFAULT_LOCALE_ID
         )
