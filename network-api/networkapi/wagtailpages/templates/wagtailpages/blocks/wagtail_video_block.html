@@ -14,7 +14,7 @@ streamfield-content
   {% for source in value.sources %}
   <source
     {% for attr_key, attr_value in source.items %}
-    {{ attr_key }}="{{ attr_value}}"
+    {{ attr_key }}="{{ attr_value }}"
     {% endfor %}
   >
   {% endfor %}
