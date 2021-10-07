@@ -49,6 +49,10 @@ export default () => {
 
   // First tab is active by default
   currentTab = setHighlight(allTabs[0]);
+  content.style.setProperty(
+    `height`,
+    `${document.querySelector(`div[data-product-label="0"`).clientHeight}px`
+  );
 
   allTabs.forEach((tab, position) => {
     tab.addEventListener("click", () => {
