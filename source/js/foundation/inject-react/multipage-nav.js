@@ -14,7 +14,9 @@ export default (apps) => {
   if (targetNode && multipageLinks.length) {
     let links = Array.from(multipageLinks).map((link) => {
       return {
-        label: link.textContent.trim(),
+        label: link.dataset.mobile
+          ? link.dataset.mobile.trim()
+          : link.textContent.trim(),
         href: link.getAttribute(`href`),
         isActive: !!link.getAttribute(`class`).match(/active/),
       };
