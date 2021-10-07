@@ -93,7 +93,6 @@
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
               {% csrf_token %}
             </div>
-
         </div>
       </div>
         {% with tab_class="tw-bg-white tw-text-black tw-font-zilla tw-capitalize tw-text-3xl tw-py-2 tw-px-5 tw-flex tw-justify-center tw-items-center medium:tw-flex-1 tw-flex-shrink-0 tw-text-center tw-relative tw-cursor-pointer tw-ease-in tw-transform tw-duration-150 medium:tw-w-auto" %}
@@ -262,7 +261,6 @@
             
           </div>
         {% endwith %}
-
 
         {% if product.updates.count > 0 %}
         <hr class="pni-section-divider"/>
