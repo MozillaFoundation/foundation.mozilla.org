@@ -422,7 +422,10 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
         help_text="What's the worst thing that could happen by using this product?",
         blank=True,
     )
-    tips_to_protect_yourself = RichTextField(features=['bold', 'italic', 'link'], blank=True)
+    tips_to_protect_yourself = RichTextField(
+        features=['bold', 'italic', 'link'], 
+        blank=True
+    )
     mozilla_says = models.BooleanField(
         null=True,
         blank=True,
@@ -667,7 +670,7 @@ class ProductPage(AirtableMixin, FoundationMetadataPageMixin, Page):
                 ImageChooserPanel('image'),
                 FieldPanel('worst_case'),
                 FieldPanel('tips_to_protect_yourself'),
-                FieldPanel('mozilla_says')
+                FieldPanel('mozilla_says'),
                 FieldPanel('time_researched')
             ],
             heading='General Product Details',
