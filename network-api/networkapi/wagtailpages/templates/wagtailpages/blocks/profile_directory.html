@@ -3,34 +3,27 @@
 
 {% block block_content %}
 
-  {# TODO Hook this up with backend and directory-listing-filters.js #}
-  <nav aria-label="Profile Filters" class="tw-flex-row tw-mb-6 tw-w-full tw-hidden medium:tw-flex" data-profile-type-filters>
+  {# TODO Hook this up with backend filters  #}
+  <nav aria-label="Profile Filters" class="tw-flex-row tw-mb-6 tw-w-full tw-hidden medium:tw-flex tw-container" data-profile-type-filters>
     <div class="tw-w-full" id="multipage-nav">
+      {# Insert filter's (profile_type) here #}
       {% for type in "1234"|make_list %}
         <button class="multipage-link" href="./">Fellow</button>
       {% endfor %}
     </div>
   </nav>
-
-    <div class="fellowships-directory-filter px-2 mb-5">
-    {% for label in filters %}
-    <div class="filter-option">
-      <button {% if forloop.first %}class="active"{% endif %}>{{ label }}</button>
-    </div>
-    {% endfor %}
-  </div>
-
-  <div class="tw-border-2 tw-border-gray-20 tw-px-2">
-    <button class="expander">
-      <div class="tw-my-4"></div>
-      <div class="tw-inline-block tw-items-center control"></div>
-    </button>
-    <div class="tw-flex tw-flex-col tw-justify-start tw-items-start">
-      {% for type in "1234"|make_list %}
-        <a class="multipage-link tw-my-1" href="./">Filter Nav Item</a>
-      {% endfor %}
-    </div>
-  </div>
+  {##}
+  {#  <div class="tw-border-2 tw-border-gray-20 tw-px-2">#}
+  {#    <button class="expander">#}
+  {#      <div class="tw-my-4"></div>#}
+  {#      <div class="tw-inline-block tw-items-center control"></div>#}
+  {#    </button>#}
+  {#    <div class="tw-flex tw-flex-col tw-justify-start tw-items-start">#}
+  {#      {% for type in "1234"|make_list %}#}
+  {#        <a class="multipage-link tw-my-1" href="./">Filter Nav Item</a>#}
+  {#      {% endfor %}#}
+  {#    </div>#}
+  {#  </div>#}
 
   <div class="profile-directory">
 

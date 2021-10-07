@@ -3,10 +3,10 @@
 
   const profileCache = {};
   const labels = document.querySelectorAll(
-    `.fellowships-directory-filter .filter-option button`
+    `[data-profile-type-filters] button`
   );
   const profileContainer = document.querySelector(`.profiles .row`);
-  const { profileType, programType } = document.querySelector(
+  const { programYear, programType } = document.querySelector(
     `.profiles`
   ).dataset;
   const API_ENDPOINT = document.querySelector(`[data-api-endpoint]`).dataset
@@ -57,7 +57,7 @@
    * After initial page load, the filter buttons are responsible for
    * fetching results "per filter entry".
    */
-  function getData(programYear) {
+  function getData(profileType) {
     // set up a url for performing an API call:
     let url = API_ENDPOINT;
 
@@ -90,13 +90,12 @@
    * into templated HTML. using the same HTML as we have in
    * templates/wagtailepages/blocks/profile_block.html
    */
-  function loadResults(year, bypassState) {
-    const profiles = profileCache[year];
+  function loadResults(type, bypassState) {
+    const profiles = profileCache[type];
 
     if (!bypassState) {
-      history.pushState({ year: year }, document.title);
+      history.pushState({ type: type }, document.title);
     }
-
     let cards = profiles.map((profile) => {
       return `
       <div class="col-lg-6 col-12 mb-5">
@@ -117,7 +116,7 @@
           </div>
 
           <div class="short-meta-wrapper">
-            <a class="h5-heading meta-block-name mb-0 d-block"
+            <a class="h5-heading meta-block-name tw-mb-1 tw-block tw-font-sans tw-font-normal"
                 href="https://www.mozillapulse.org/profile/${
                   profile.profile_id
                 }">
@@ -142,8 +141,17 @@
           </div>
 
           <div class="bio-wrapper">
-            <p class="m-0">${profile.user_bio}</p>
+            <p class="m-0 tw-text-gray-60">${profile.user_bio}</p>
           </div>
+          ${
+            profile.issues &&
+            `<div class="issues-list tw-flex tw-flex-wrap tw-space-x-2 tw-mt-auto">
+              ${profile.issues.map(
+                (issue) =>
+                  `<span class="tw-text-blue tw-text-sm tw-font-bold">${issue}</span>`
+              )}
+          </div>`
+          }
         </div>
       </div>
       `;
@@ -168,17 +176,18 @@
     `;
   }
 
-  function loadForYear(year, bypassState) {
+  function loadForType(type, bypassState) {
     // if we have a cache, use it, but if we don't:
-    if (!profileCache[year]) {
+    if (!profileCache[type]) {
       // initiate an API call to fetch all data
       // associated with a particular year:
       showLoadSpinner();
-      getData(year)
+      getData(type)
         .then((data) => {
           // catch that data, and then load the results.
-          profileCache[year] = preprocessProfiles(data);
-          loadResults(year, bypassState);
+          console.log(data)
+          profileCache[type] = preprocessProfiles(data);
+          loadResults(type, bypassState);
         })
         .catch((error) => {
           // TODO: what do we want to do in this case?
@@ -186,7 +195,7 @@
         });
     } else {
       // if we already had the data cached, load immediately:
-      loadResults(year, bypassState);
+      loadResults(type, bypassState);
     }
   }
 
@@ -207,20 +216,20 @@
   function bindEventsToLabels() {
     labels.forEach((label) => {
       label.addEventListener("click", (evt) => {
-        let year = label.textContent;
+        let type = label.textContent;
         selectLabel(label);
-        loadForYear(year);
+        loadForType(type);
       });
     });
   }
 
   // make sure that "back" does the right thing.
   window.addEventListener("popstate", (evt) => {
-    const state = evt.state || { year: labels[0].textContent };
-    const year = state.year;
-    const label = Array.from(labels).find((l) => l.textContent == year);
+    const state = evt.state || { type: labels[0].textContent };
+    const type = state.type;
+    const label = Array.from(labels).find((l) => l.textContent == type);
     selectLabel(label);
-    loadForYear(year, true);
+    loadForType(type, true);
   });
 
   // and finally, kick everything off by

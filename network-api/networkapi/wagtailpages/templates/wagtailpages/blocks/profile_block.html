@@ -7,13 +7,13 @@
     <div class="thumbnail-wrapper">
       <a href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}" class="d-block headshot-container">
         <img
-          src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
-          class="headshot"
-          alt="Headshot">
+                src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
+                class="headshot"
+                alt="Headshot">
       </a>
     </div>
     <div class="short-meta-wrapper">
-      <a class="h5-heading meta-block-name mb-0 d-block" href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">{{ profile.name }}
+      <a class="h5-heading meta-block-name tw-mb-1 tw-block tw-font-sans tw-font-normal" href="https://www.mozillapulse.org/profile/{{ profile.profile_id }}">{{ profile.name }}
       </a>
       {% if profile.location %}<p class="d-flex align-items-center meta-block-location body-small my-2">{{ profile.location }}</p>{% endif %}
       <div class="social-icons">
@@ -22,7 +22,14 @@
       </div>
     </div>
     <div class="bio-wrapper">
-      <p class="m-0">{{ profile.user_bio }}</p>
+      <p class="m-0 tw-text-gray-60">{{ profile.user_bio }}</p>
     </div>
+    {% if profile.issues %}
+      <div class="issues-list tw-flex tw-flex-wrap tw-space-x-2 tw-mt-auto">
+        {% for issue in profile.issues %}
+          <span class="tw-text-blue tw-text-sm tw-font-bold">{{ issue }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </div>
