@@ -203,7 +203,6 @@
   }
   .tips-to-protect-yourself {
     border: 1px solid $gray-20;
-
     .tips {
       h2 {
         display: inline-block;
@@ -234,9 +233,11 @@
         }
       }
     }
+    // Removing padding from container so div can sit slightly outwards from rest of content.
     @media (min-width: $pni-product-breakpoint-larger) {
-      margin-right: -30px;
-      margin-left: -30px;
+      margin-right: -2em;
+      margin-left: -2em;
+      padding-left: 1em;
     }
   }
 
