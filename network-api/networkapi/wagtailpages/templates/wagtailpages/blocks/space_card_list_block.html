@@ -3,7 +3,7 @@
 <div class="container tw-py-6 medium:tw-py-7 first:tw-pt-0">
   <h2 class="h3-heading tw-font-semibold tw-mb-4">{{ value.title }}</h2>
   <tempalte></tempalte>
-  <div class="tw-grid tw-grid-cols-1 {% if not page.use_wide_template or page.signup != None %}large:tw-grid-cols-1 {% else %}large:tw-grid-cols-2 {% endif %}tw-gap-6 large:tw-gap-10">
+  <div class="tw-grid tw-grid-cols-1 {% if page.signup == None %}large:tw-grid-cols-2 {% endif %}tw-gap-6 large:tw-gap-10">
     {% for space in self.space_cards %}
       {# Space Card #}
       <a class="tw-group tw-no-underline tw-p-5 tw-border tw-border-gray-60/20 tw-flex medium:tw-flex-row tw-flex-col medium:tw-space-x-4"
