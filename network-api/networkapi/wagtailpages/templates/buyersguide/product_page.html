@@ -73,17 +73,13 @@
             </div>
           {% endif %}
         </div>
-        <div class="col-12 mt-3 d-flex flex-column flex-md-row">
-          <p class="body-small">{% blocktrans with date=product.review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
-          <span class="body-small subheading-divider"> | </span>
-          <p class="body-small mozilla-says {% if product.mozilla_says %} thumb-up {% elif product.mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
-        </div>
+        {% include "fragments/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says  %}
         <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
       </div>
 
       <div class="row mb-4">
         <div class="col-12 worst-case">
-          <h2 class="h3-heading">{% trans "What could happen if something goes wrong" %}</h2>
+          <h2 class="h3-heading">{% trans "What could happen if something goes wrong?" %}</h2>
           <p class="mb-0">{{product.worst_case}}</p>
         </div>
       </div>
@@ -96,175 +92,182 @@
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
               {% csrf_token %}
             </div>
-          </div>
+
         </div>
+        {% with tab_class="tw-bg-white tw-text-black tw-font-zilla tw-capitalize tw-text-3xl tw-py-2 tw-px-5 tw-flex tw-justify-center tw-items-center medium:tw-flex-1 tw-flex-shrink-0 tw-text-center tw-relative tw-cursor-pointer tw-ease-in tw-transform tw-duration-150 medium:tw-w-auto" %}
+          <!-- Should probably be refactored into a wagtail template afterwards -->
+          <div id="product-tab" class="tw-w-full tw-mx-4 tw-mb-4">
+            <div id="product-tab-group" class="tw-bg-white tw-px-6 tw-flex tw-border-b-4 tw-justify-center tw-mb-7 tw-no-scrollbar tw-overflow-auto tw-sticky medium:tw-static tw-top-[52px] tw-z-[1000]">
+              <!-- Need this span for x-scrolling on smaller devices so the first tab doesn't get cut off -->
+              <span class="tw-py-2 tw-px-7 medium:tw-flex-1 tw-flex-shrink-0 tw-relative medium:tw-w-auto  tw-w-[100px] tw-opacity-0 small:tw-hidden">mobile</span>
+              <span
+                data-product-label="0"
+                class="{{tab_class}} "
+              >
+                {% trans "Privacy" %}
+                {% if product.data_collection_policy_is_bad or product.data_control_policy_is_bad or product.track_record_is_bad %}
+                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="warning">
+                {% endif %}
+              </span>
+              <span
+                data-product-label="1"
+                class="{{tab_class}} "
+              >
+                {% trans "Security" %}
+                {% if product.show_ding_for_minimum_security_standards %}
+                  <img class="tw-h-6 tw-w-6 tw-ml-3" src="{% static "_images/buyers-guide/warning-ding.svg" %}" alt="warning">
+                {% endif %}
+              </span>
+              <span
+                data-product-label="2"
+                class="{{tab_class}}"
+              >
+                {% trans "A.I." %}
+              </span>
+            </div>
+            <div class="tw-overflow-hidden">
+              <div id="product-tab-content" class="tw-w-full tw-flex tw-transition-transform tw-ease-in-out tw-duration-300 tw-items-start">
+                <div class="tw-w-full tw-flex-shrink-0" data-product-label="0">
+                  {% if product.product_type == 'general' %}
+                    <section class="criterion">
+                      <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "Can it snoop on me?" %}</h3>
+                      <div class="row">
+                        {% trans "Camera"          as camera %}
+                        {% trans "Microphone"      as microphone %}
+                        {% trans "Tracks Location" as tracks_location %}
 
+                        <div class="col-12 col-md-4">
+                          {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
+                        </div>
+                        <div class="col-12 col-md-4">
+                          {% include "fragments/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app  %}
+                        </div>
+                        <div class="col-12 col-md-4">
+                          {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
+                        </div>
+                      </div>
+                    </section>
+                  {% endif %}
 
-        <section class="privacy criterion-group">
-          <h2 class="h3-heading">{% trans "Privacy" %}</h2>
+                  <section class="criterion">
+                    <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What can be used to sign up?" %}</h3>
 
-          {% if product.product_type == 'general' %}
-          <section class="criterion">
-            <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "Can it snoop on me?" %}</h3>
-            <div class="row">
-              {% trans "Camera"          as camera %}
-              {% trans "Microphone"      as microphone %}
-              {% trans "Tracks Location" as tracks_location %}
+                    <div class="row">
+                      {% trans "Email"               as email %}
+                      {% trans "Phone"               as phone %}
+                      {% trans "Third party account" as third_party_account %}
 
-              <div class="col-12 col-md-4">
-                {% include "fragments/it_uses.html" with title=camera          device=product.camera_device     app=product.camera_app      %}
-              </div>
-              <div class="col-12 col-md-4">
-                {% include "fragments/it_uses.html" with title=microphone      device=product.microphone_device app=product.microphone_app  %}
-              </div>
-              <div class="col-12 col-md-4">
-                {% include "fragments/it_uses.html" with title=tracks_location device=product.location_device   app=product.location_app    %}
+                      <div class="col-12 col-md-4">
+                        {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
+                      </div>
+                      <div class="col-12 col-md-4">
+                        {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
+                      </div>
+                      <div class="col-12 col-md-4">
+                        {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
+                      </div>
+                    </div>
+
+                    {% if product.signup_requirement_explanation %}
+                    <p class="pni-product-helptext mb-0 mt-3">{{product.signup_requirement_explanation}}</p>
+                    {% endif %}
+                  </section>
+
+                  <section class="criterion">
+                    <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What data does the company collect?" %}</h3>
+
+                    <div class="row">
+                      {% trans "Personal"      as personal_data_collected %}
+                      {% trans "Biometric"     as biometric_data_collected %}
+                      {% trans "Social"        as social_data_collected %}
+
+                      <div class="col-12 col-md-4">
+                        {% include "fragments/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected    %}
+                      </div>
+                      <div class="col-12 col-md-4">
+                        {% include "fragments/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected   %}
+                      </div>
+                      <div class="col-12 col-md-4">
+                        {% include "fragments/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected      %}
+                      </div>
+                    </div>
+                  </section>
+
+                  {% trans "How does the company use this data?" as how_does_it_use_data_collected %}
+                  {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding=product.data_collection_policy_is_bad %}
+
+                  {% if product.product_type == 'general' %}
+
+                    {% trans "How can you control your data?" as how_can_you_control_your_data %}
+                    {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad   %}
+
+                    {% trans "What is the company’s known track record of protecting users’ data?" as company_track_record_label %}
+                    {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad %}
+
+                    {% trans "Can this product be used offline?" as offline_capable %}
+                    {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description %}
+                    
+                  {% endif %}
+
+                  {% if product.product_type == 'general' %}
+                    {% trans "User friendly privacy information?" as user_friendly_privacy_policy %}
+                    {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no   help=product.user_friendly_privacy_policy_helptext  %}
+                  {% endif %}
+                </div>
+
+                <div class="tw-w-full tw-flex-shrink-0" data-product-label="1">
+                  {% localizedroutablepageurl home_page 'min-security-view' as min_sec_url %}
+                  {% blocktrans with url=min_sec_url asvar minimum_security_standards trimmed %}
+                    Does this product meet our <a id="mss-link" href="{{ url }}">Minimum Security Standards</a>?
+                  {% endblocktrans %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False   value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards  %}
+
+                  {% trans "Encryption"              as encryption %}
+                  {% trans "Security updates"        as security_updates %}
+                  {% trans "Strong password"         as strong_password %}
+                  {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
+                  {% trans "Privacy policy"          as privacy_policy %}
+
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
+                </div>
+
+                <div class="tw-w-full tw-flex-shrink-0" data-product-label="2">
+                  {% if product.product_type == 'general' %}
+                    <section class="criterion-group">
+                      {% with product.uses_ai|extended_yes_no as uses_ai %}
+                      {% trans "Does the product use AI?" as uses_ai_label %}
+                      {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai   %}
+
+                      {% if uses_ai != "No" %}
+                        {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
+
+                        {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
+                        {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
+
+                        <p class="pni-product-smaller-body mb-0">{{product.ai_helptext}}</p>
+                      {% endif %}
+                      {% endwith %}
+                    </section>
+                  {% endif %}
+                </div>
               </div>
             </div>
-          </section>
-          {% endif %}
-
-
-          <section class="criterion">
-            <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What is required to sign up?" %}</h3>
-
-            <div class="row">
-              {% trans "Email"               as email %}
-              {% trans "Phone"               as phone %}
-              {% trans "Third party account" as third_party_account %}
-
-              <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=email                 value=product.signup_requires_email          %}
-              </div>
-              <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=phone                 value=product.signup_requires_phone          %}
-              </div>
-              <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=third_party_account   value=product.signup_requires_third_party_account    %}
-              </div>
-            </div>
-
-            {% if product.signup_requirement_explanation %}
-            <p class="pni-product-helptext mb-0 mt-3">{{product.signup_requirement_explanation}}</p>
-            {% endif %}
-          </section>
-
-
-          <section class="criterion">
-            <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "What data does it collect?" %}</h3>
-
-            <div class="row">
-              {% trans "Personal"      as personal_data_collected %}
-              {% trans "Biometric"     as biometric_data_collected %}
-              {% trans "Social"        as social_data_collected %}
-
-              <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=personal_data_collected   value=product.personal_data_collected    %}
-              </div>
-              <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=biometric_data_collected  value=product.biometric_data_collected   %}
-              </div>
-              <div class="col-12 col-md-4">
-                {% include "fragments/signup_requirement.html" with title=social_data_collected     value=product.social_data_collected      %}
-              </div>
-            </div>
-          </section>
-
-
-          {% trans "How does it use this data?" as how_does_it_use_data_collected %}
-          {% include "fragments/product_criterion.html"  with  label=how_does_it_use_data_collected  value=product.how_does_it_use_data_collected  ding=product.data_collection_policy_is_bad %}
-
-
-          {% if product.product_type == 'general' %}
-
-            {% trans "How can you control your data?" as how_can_you_control_your_data %}
-            {% include "fragments/product_criterion.html"  with  label=how_can_you_control_your_data  value=product.how_can_you_control_your_data    ding=product.data_control_policy_is_bad   %}
-
-            {% trans "What is the company’s known track record for protecting users’ data?" as company_track_record_label %}
-            {% include "fragments/product_criterion.html"  with  label=company_track_record_label  value=product.company_track_record|track_record   help=product.track_record_details  ding=product.track_record_is_bad %}
-
-            {% trans "Can this product be used offline?" as offline_capable %}
-            {% include "fragments/product_criterion.html"  with  label=offline_capable  value=product.offline_capable   help=product.offline_use_description %}
-          {% endif %}
-
-
-          {% if product.product_type == 'software' %}
-            {% include "fragments/software_product_privacy.html"    with  product=product %}
-          {% endif %}
-
-
-          {% if product.product_type == 'general' %}
-            {% trans "User friendly privacy information?" as user_friendly_privacy_policy %}
-            {% include "fragments/product_criterion.html"  with  label=user_friendly_privacy_policy  value=product.user_friendly_privacy_policy|extended_yes_no   help=product.user_friendly_privacy_policy_helptext  %}
-          {% endif %}
-
-
-          {% trans "Links to privacy information" as privacy_policy_links %}
-          {% include "fragments/product_privacy.html"    with  label=privacy_policy_links          value=""         links=product.privacy_policy_links.all                  %}
-        </section>
-
-        {% if product.product_type == 'software' %}
-        <section class="criterion-group">
-          <h2 class="h3-heading">{% trans "Can I control it?" %}</h2>
-
-          {% if product.host_controls %}
-            {% trans "Host controls" as host_controls %}
-            {% include "fragments/product_criterion.html"  with  label=host_controls            value=product.host_controls     %}
-          {% endif %}
-
-          {% trans "Is it easy to learn and use the features?" as easy_to_learn_and_use %}
-          {% include "fragments/product_criterion.html"  with  label=easy_to_learn_and_use    value=product.easy_to_learn_and_use|yes_no    help=product.easy_to_learn_and_use_helptext     %}
-        </section>
-        {% endif %}
-
-
-        <section class="minimum-security criterion-group">
-          <h2 class="h3-heading">{% trans "Security" %}</h2>
-          {% localizedroutablepageurl home_page 'min-security-view' as min_sec_url %}
-          {% blocktrans with url=min_sec_url asvar minimum_security_standards trimmed %}
-            Does this product meet our <a id="mss-link" href="{{ url }}">Minimum Security Standards</a>?
-          {% endblocktrans %}
-          {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False   value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards   class="meets-minimum-security-standards" %}
-          <input type="checkbox" id="mss-accordion-toggle">
-          <label for="mss-accordion-toggle"><span class="sr-only">{% trans "Toggle expandable section" context "Accessibility label for an accordion toggle" %}</span></label>
-          <div id="mss-expandable">
-            {% trans "Encryption"              as encryption %}
-            {% trans "Security updates"        as security_updates %}
-            {% trans "Strong password"         as strong_password %}
-            {% trans "Manages vulnerabilities" as manages_vulnerabilities %}
-            {% trans "Privacy policy"          as privacy_policy %}
-
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.uses_encryption                          help=product.uses_encryption_helptext         label=encryption               %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.strong_password                          help=product.strong_password_helptext         label=strong_password          %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.security_updates                         help=product.security_updates_helptext        label=security_updates         %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.manage_vulnerabilities                   help=product.manage_vulnerabilities_helptext  label=manages_vulnerabilities  %}
-            {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False  value=product.privacy_policy                           help=product.privacy_policy_helptext          label=privacy_policy           %}
+            
           </div>
-        </section>
+        {% endwith %}
 
-        {% if product.product_type == 'general' %}
-          <section class="criterion-group">
-            <h2 class="h3-heading">{% trans "Artificial Intelligence" %}</h2>
-            {% with product.uses_ai|extended_yes_no as uses_ai %}
-            {% trans "Does the product use AI?" as uses_ai_label %}
-            {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai   %}
+        <hr class="pni-section-divider"/>
 
-            {% if uses_ai != "No" %}
-              {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
-              {% include "fragments/product_criterion.html"  with  label=ai_uses_personal_data  value=product.ai_uses_personal_data|extended_yes_no   %}
-
-              {% trans "Does the company allow users to see how the AI works?" as ai_is_transparent %}
-              {% include "fragments/product_criterion.html"  with  label=ai_is_transparent  value=product.ai_is_transparent|extended_yes_no           %}
-
-              <p class="pni-product-smaller-body mb-0">{{product.ai_helptext}}</p>
-            {% endif %}
-            {% endwith %}
-          </section>
-        {% endif %}
-
-        {% if product.updates.count > 0 %}
-          <hr class="pni-section-divider"/>
-          <h3 class="h2-heading mb-3">{% trans "News" %}</h3>
+        <div class="col-12">
+          {% if product.updates.count > 0 %}
+          <h3 class="h2-heading mb-4 mb-md-5">{% trans "News" %}</h3>
+          {% endif %}
+          {% if product.updates.count > 0 %}
           <div class="mb-5">
             {% for item in product.updates.all %}
             {% with update=item.update %}
@@ -276,9 +279,12 @@
             {% endwith %}
             {% endfor %}
           </div>
-        {% endif %}
-        
-          <hr class="pni-section-divider"/>
+          {% endif %}
+        </div>
+
+        <hr class="pni-section-divider"/>
+
+        <div class="col-12">
           <h3 class="h2-heading mb-4">{% trans "Related products" %}</h3>
           <div class="row">
             {% for related_product_page in product.related_product_pages.all %}
@@ -304,6 +310,10 @@
             {% endwith %}
             {% endfor %}
           </div>
+        </div>
+          
+
+          
 
       </div>
     </div>
@@ -318,7 +328,8 @@
       <div class="row">
         <div class="{{section_class}} mt-5 pt-3 bg-white comment-section-padding-x">
 
-        <h3 class="h2-heading mb-4">{% trans "Comments" %}</h3>
+        <h3 class="h2-heading">{% trans "Comments" %}</h3>
+        <p class="mb-4">{% trans "Got a comment? Let us hear it." %}</p>
         <div id="commento"></div>
         </div>
       </div>
