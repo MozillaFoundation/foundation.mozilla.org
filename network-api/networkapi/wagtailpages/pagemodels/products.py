@@ -191,7 +191,7 @@ class ProductPageVotes(models.Model):
         votes = [int(x) for x in self.vote_bins.split(",")]
         return votes
 
-    def get_most_voted(self):   
+    def get_most_voted(self):
         votes = self.get_votes()
         vote_breakdown = {k: v for (k, v) in enumerate(votes)}
         highest = max(vote_breakdown, key=vote_breakdown.get)
@@ -212,6 +212,7 @@ class ProductPageVotes(models.Model):
             ("Very creepy", gettext("Very creepy")),
             ("Super creepy", gettext("Super creepy")),
             ]
+
 
 class ProductPageCategory(TranslatableMixin, Orderable):
     product = ParentalKey(

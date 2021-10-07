@@ -9,7 +9,7 @@
     <div class="pr-2 pl-0 tw-flex-2">
       <p class="body-small date-reviewed">{% blocktrans with date=review_date|date:"DATE_FORMAT" context "Date format (e.g. Nov. 19, 2020)" %}Review date: {{ date }}{% endblocktrans %}</p>
     </div>
-    <span class="research-detail-divider body-small tw-hidden medium:tw-inline"> | </span>
+    <span class="tw-text-gray-20 body-small tw-hidden medium:tw-inline"> | </span>
     <div class="d-flex pb-3 tw-flex-2 medium:tw-px-2">
       <span class="body-small">
         {% blocktrans count count=time_researched with link_attrs='class="body-small time-researched" href="/privacynotincluded/about/methodology"' trimmed %}
@@ -21,12 +21,12 @@
       </span>
     </div>
   </div>
-  <span class="research-detail-divider body-small tw-hidden large:tw-inline"> | </span>
+  <span class="tw-text-gray-20 body-small tw-hidden large:tw-inline"> | </span>
   <div class="tw-flex tw-flex-col medium:tw-flex-2 medium:tw-flex-row">
     <div class="d-flex tw-pr-2 large:tw-px-2">
       <p class="body-small mozilla-says {% if mozilla_says %} thumb-up {% elif mozilla_says == False %} thumb-down {% else %} thumb-side {% endif %}"> {% trans "Mozilla says" context "This string is followed by a thumb up, thumb down, or thumb on the side icon to summarize Mozilla’s review of the product" %} </p>  
     </div>
-    <span class="research-detail-divider body-small tw-hidden medium:tw-inline"> | </span>
+    <span class="tw-text-gray-20 body-small tw-hidden medium:tw-inline"> | </span>
     <div class="d-flex medium:tw-pl-2 pr-0 ">
     {% include "fragments/most_voted_rating.html"%}
     </div>

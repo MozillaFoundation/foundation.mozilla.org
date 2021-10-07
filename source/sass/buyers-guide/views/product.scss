@@ -259,9 +259,6 @@
     background: url(../_images/buyers-guide/faces/super-creepy-face.svg)
       no-repeat;
   }
-  .research-detail-divider {
-    color: $gray-20;
-  }
 }
 
 .spy {
@@ -541,4 +538,9 @@
   border-width: 4px;
   border-color: $black;
   padding-bottom: 1em;
+}
+
+#product-tab-content {
+  --x-offset: 0;
+  transform: translateX(var(--x-offset));
 }
