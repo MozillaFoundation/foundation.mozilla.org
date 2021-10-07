@@ -209,6 +209,19 @@
     }
   }
 
+  .mozilla-researched-icon {
+    &::after {
+      content: " ";
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      margin-left: 4px;
+      position: relative;
+      vertical-align: middle;
+      background: url(../_images/buyers-guide/info-circle.svg) no-repeat;
+    }
+  }
+
   .mozilla-says {
     &::after {
       content: " ";
