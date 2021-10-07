@@ -73,7 +73,7 @@
             </div>
           {% endif %}
         </div>
-        {% include "fragments/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says  %}
+        {% include "fragments/research_details.html" with review_date=product.review_date time_researched=product.time_researched mozilla_says=product.mozilla_says %}
         <div class="col-12"><p class="body mb-0">{{product.blurb}}</p></div>
       </div>
 
@@ -95,6 +95,7 @@
 
 
       <div id="product-research" data-is-wagtail-page="true">
+      <div id="creepiness-vote">
         <div class="row">
           <div class="col-12">
             <div class="creep-vote-target mb-5 mt-3 mt-md-4 p-5" data-product-name="{{product.title}}" data-product-type="{{product.product_type}}">
@@ -102,8 +103,8 @@
               <input type="hidden" name="votes" value='{{ product.get_voting_json | safe }}'>
               {% csrf_token %}
             </div>
-
         </div>
+      </div>
         {% with tab_class="tw-bg-white tw-text-black tw-font-zilla tw-capitalize tw-text-3xl tw-py-2 tw-px-5 tw-flex tw-justify-center tw-items-center medium:tw-flex-1 tw-flex-shrink-0 tw-text-center tw-relative tw-cursor-pointer tw-ease-in tw-transform tw-duration-150 medium:tw-w-auto" %}
           <!-- Should probably be refactored into a wagtail template afterwards -->
           <div id="product-tab" class="tw-w-full tw-mx-4 tw-mb-4">
@@ -271,13 +272,9 @@
           </div>
         {% endwith %}
 
+        {% if product.updates.count > 0 %}
         <hr class="pni-section-divider"/>
-
-        <div class="col-12">
-          {% if product.updates.count > 0 %}
-          <h3 class="h2-heading mb-4 mb-md-5">{% trans "News" %}</h3>
-          {% endif %}
-          {% if product.updates.count > 0 %}
+        <h3 id="news" class="h2-heading mb-3">{% trans "News" %}</h3>
           <div class="mb-5">
             {% for item in product.updates.all %}
             {% with update=item.update %}
