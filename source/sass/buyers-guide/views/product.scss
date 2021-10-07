@@ -243,6 +243,19 @@
     }
   }
 
+  .mozilla-researched-icon {
+    &::after {
+      content: " ";
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      margin-left: 4px;
+      position: relative;
+      vertical-align: middle;
+      background: url(../_images/buyers-guide/info-circle.svg) no-repeat;
+    }
+  }
+
   .mozilla-says {
     &::after {
       content: " ";
@@ -545,4 +558,9 @@
   border-width: 4px;
   border-color: $black;
   padding-bottom: 1em;
+}
+
+#product-tab-content {
+  --x-offset: 0;
+  transform: translateX(var(--x-offset));
 }
