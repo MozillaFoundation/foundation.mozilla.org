@@ -131,7 +131,12 @@
                 <div class="tw-w-full tw-flex-shrink-0" data-product-label="0">
                   {% if product.product_type == 'general' %}
                     <section class="criterion">
-                      <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7">{% trans "Can it snoop on me?" %}</h3>
+                      <h3 class="tw-mb-4 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center">
+                        {% trans "Can it snoop on me?" %}
+                        <a href="/privacynotincluded/about/methodology">
+                          <img src="{% static "_images/buyers-guide/icon-info-circle.svg" %}" alt="information" class="tw-h-4 tw-w-4 tw-ml-2 tw-mb-1">
+                        </a>
+                      </h3>
                       <div class="row">
                         {% trans "Camera"          as camera %}
                         {% trans "Microphone"      as microphone %}
@@ -219,9 +224,9 @@
                 <div class="tw-w-full tw-flex-shrink-0" data-product-label="1">
                   {% localizedroutablepageurl home_page 'min-security-view' as min_sec_url %}
                   {% blocktrans with url=min_sec_url asvar minimum_security_standards trimmed %}
-                    Does this product meet our <a id="mss-link" href="{{ url }}">Minimum Security Standards</a>?
+                    Does this product meet our <a id="mss-link" class="tw-ml-1" href="{{ url }}">Minimum Security Standards</a>?
                   {% endblocktrans %}
-                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False   value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards  %}
+                  {% include "fragments/product_criterion.html"  with  show_value_as_symbol=False   value=product.meets_minimum_security_standards|yes_no   help=""   label=minimum_security_standards|safe   ding=product.show_ding_for_minimum_security_standards info=min_sec_url  %}
 
                   {% trans "Encryption"              as encryption %}
                   {% trans "Security updates"        as security_updates %}
@@ -241,7 +246,7 @@
                     <section class="criterion-group">
                       {% with product.uses_ai|extended_yes_no as uses_ai %}
                       {% trans "Does the product use AI?" as uses_ai_label %}
-                      {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai   %}
+                      {% include "fragments/product_criterion.html"  with  label=uses_ai_label  value=uses_ai info="/privacynotincluded/about/methodology"   %}
 
                       {% if uses_ai != "No" %}
                         {% trans "Does the AI use your personal data to make decisions about you?" as ai_uses_personal_data %}
